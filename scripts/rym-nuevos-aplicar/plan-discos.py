@@ -41,6 +41,7 @@ NUEVOS = R.OUTDIR_NUEVOS
 PAGES = os.path.join(NUEVOS, "pages")
 ALTAS = os.path.join(ROOT, "reports/etapa4-altas-2026-10-03")
 OUT = os.path.join(ROOT, "reports/rym-nuevos-aplicacion-2026-10-05")
+DECISIONES = os.path.join(ROOT, "docs/decisions/2026-10-09-rym-remanente.json")
 BASE = "https://rateyourmusic.com"
 
 NO_PROPIOS = {"Appears On", "V/A Compilation", "Music video", "Video"}
@@ -155,7 +156,42 @@ def cargar_catalogo():
         albumes[int(r[1])].append({"id": int(r[0]), "title": r[2], "c": clave_titulo(r[2]), "type": r[4],
                                    "year": int(r[3]) if r[3] else None, "cover": r[5] == "t",
                                    "tracks": r[6] == "t", "genre": r[7] == "t"})
+    por_id = {a["id"]: a for lista in albumes.values() for a in lista}
+    for a in por_id.values():
+        a["claves"] = {a["c"]}
+    for aid, alias in sql("SELECT album_id, alias FROM ingest.album_aliases WHERE confidence IN ('medium','high')"):
+        if int(aid) in por_id:
+            por_id[int(aid)]["claves"].add(clave_titulo(alias))
     return artistas, redir, por_nombre, albumes
+
+
+def cargar_decisiones():
+    if not os.path.exists(DECISIONES):
+        return {"artistas": {}, "discos": {}}
+    with open(DECISIONES, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def elegir_album(lista, claves, tipo, anio, usadas):
+    """Títulos y alias exactos, siempre dentro del dueño; nunca por prefijo.
+
+    Ante varios destinos, el tipo y año deben desambiguar. No el orden de BD.
+    Una asociación explícita de RYM, documentada en decisiones, manda antes.
+    """
+    iguales = [a for a in lista if a.get("claves", {a["c"]}) & claves]
+    if not iguales:
+        return None
+    if len(iguales) == 1:
+        return iguales[0]
+    del_tipo = [a for a in iguales if a["type"] == tipo]
+    if del_tipo:
+        iguales = del_tipo
+    del_anio = [a for a in iguales if anio is not None and a["year"] == anio]
+    if del_anio:
+        iguales = del_anio
+    if len(iguales) != 1:
+        raise ValueError("varios discos coinciden por título/alias; requiere destino explícito")
+    return iguales[0]
 
 
 def seguir(redir, i):
@@ -169,6 +205,9 @@ def seguir(redir, i):
 def mapa_artistas(artistas, redir, por_nombre):
     """href RYM del artista → ('artist', id, vía) | ('person', id, vía) | ('descartado'|'sin_ficha', None, vía)."""
     creadas, revision = {}, {}
+    decisiones = cargar_decisiones().get("artistas", {})
+    redir_personas = {int(a): int(b) for a, b in sql(
+        "SELECT from_id, to_id FROM ingest.entity_redirects WHERE entity_kind='person'")}
     for f in sorted(glob.glob(os.path.join(ALTAS, "altas-apply-*.json"))):
         d = json.load(open(f, encoding="utf-8"))
         for x in d.get("creadas") or []:
@@ -180,6 +219,16 @@ def mapa_artistas(artistas, redir, por_nombre):
                for l in open(os.path.join(ALTAS, "dossier-nuevos.jsonl"), encoding="utf-8") if l.strip()}
 
     def resolver(href, nombre):
+        explicita = decisiones.get(R.norm_href(href), {})
+        if explicita.get("accion") == "excluir":
+            return ("descartado", None, explicita["motivo"])
+        if explicita.get("aplicar_solo_destinos_explicitos"):
+            return ("descartado", None, explicita["motivo"])
+        if explicita.get("artist_id"):
+            i = seguir(redir, int(explicita["artist_id"]))
+            if i not in artistas:
+                raise ValueError(f"destino de artista inexistente: {href} → {i}")
+            return ("artist", i, "resolución remanente RYM")
         slug = R.slugify(href)
         d = dossier.get(href, {})
         dec = d.get("decision") or ""
@@ -207,7 +256,7 @@ def mapa_artistas(artistas, redir, por_nombre):
         p = creadas.get(f"rym-nuevos:person:{slug}") or d.get("cat_person_id")
         m = re.search(r"alias creado sobre persona (\d+)", dec)
         if p or m:
-            return ("person", int(p or m.group(1)), "solo persona")
+            return ("person", seguir(redir_personas, int(p or m.group(1))), "solo persona")
         return ("sin_ficha", None, dec[:60] or "sin alta")
 
     return resolver
@@ -219,6 +268,9 @@ def main():
     t0 = time.time()
     os.makedirs(OUT, exist_ok=True)
     artistas, redir, por_nombre, albumes = cargar_catalogo()
+    decisiones = cargar_decisiones().get("discos", {})
+    por_album_id = {a["id"]: a for lista in albumes.values() for a in lista}
+    artista_del_album = {a["id"]: cid for cid, lista in albumes.items() for a in lista}
     resolver = mapa_artistas(artistas, redir, por_nombre)
     cola = R.cargar_cola(os.path.join(NUEVOS, "cola-nuevos.jsonl"))
     estado, _ = R.cargar_estado(os.path.join(NUEVOS, "estado.json"))
@@ -244,9 +296,13 @@ def main():
         return resueltos[h]
 
     plan, cont, motivos = [], collections.Counter(), collections.Counter()
-    pistas_out, anios_out, portadas_out, generos_out, casos = [], [], [], [], []
+    pistas_out, anios_out, portadas_out, generos_out, casos, ambiguos = [], [], [], [], [], []
     usadas = set()
     for rel, fs in filas.items():
+        explicita = decisiones.get(rel, {})
+        if explicita.get("accion") == "excluir":
+            motivos["excluido: " + explicita["motivo"]] += 1
+            continue
         e = estado.get(rel) or {}
         base = {"rym_href": rel, "url": BASE + rel}
         if not R.es_ok_release(e):
@@ -264,6 +320,11 @@ def main():
         propias.sort(key=orden)
         candidatos = [(f, dueno(f[0], f[1])) for f in propias]
         con_ficha = [(f, d) for f, d in candidatos if d[0] == "artist"]
+        if explicita.get("album_id"):
+            destino = int(explicita["album_id"])
+            if destino not in artista_del_album:
+                raise ValueError(f"destino de disco inexistente: {rel}")
+            con_ficha = [(propias[0], ("artist", artista_del_album[destino], "destino explícito de disco"))]
         if not con_ficha:
             motivos["dueño " + candidatos[0][1][0]] += 1
             continue
@@ -289,15 +350,23 @@ def main():
         # ¿ya existe? bajo el dueño o bajo cualquier coautor con ficha. Solo título IGUAL (el de la página o
         # el de la lista de discografía): el cruce por prefijo casaba remixes, demos, volúmenes y partes con
         # otro disco (corregido el 2026-10-06, ver revertir-prefijos.mts).
-        # Con dos fichas del mismo título (EP y sencillo «The Journey»), una libre y del mismo tipo.
+        # Dos fichas del mismo título (EP y sencillo «The Journey») se distinguen por tipo y año.
         claves = {c for c in (clave_titulo(titulo), clave_titulo(fila[3])) if c}
         hit = None
-        for _, (_, cid, _) in con_ficha:
-            iguales = [a for a in albumes.get(cid, []) if a["c"] in claves]
-            iguales.sort(key=lambda a: (a["id"] in usadas, a["type"] != MAPA_TIPO.get(fila[2])))
-            hit = iguales[0] if iguales else None
-            if hit:
-                break
+        if explicita.get("album_id"):
+            hit = por_album_id.get(int(explicita["album_id"]))
+            if hit is None:
+                raise ValueError(f"destino de disco inexistente: {rel}")
+        else:
+            try:
+                for _, (_, cid, _) in con_ficha:
+                    hit = elegir_album(albumes.get(cid, []), claves, MAPA_TIPO.get(fila[2]), anio, usadas)
+                    if hit:
+                        break
+            except ValueError:
+                ambiguos.append({**base, "artista_id": aid, "titulo": titulo, "anio": anio, "tipo": tipo, "candidatos": [a for _, (_, cid, _) in con_ficha for a in albumes.get(cid, []) if a.get("claves", {a["c"]}) & claves]})
+                motivos["identidad de disco ambigua (sin alta)"] += 1
+                continue
         item = {**base, "titulo": titulo, "titulo_lista": fila[3], "artista_id": aid, "artista": artistas[aid], "via": via,
                 "tipo_rym": tipo, "anio": anio, "n_pistas": len(pistas or []), "pistas_motivo": pistas_motivo,
                 "generos": generos, "portada": og, "colab": colab}
@@ -338,6 +407,10 @@ def main():
             for f in filas_:
                 fh.write(json.dumps(f, ensure_ascii=False) + "\n")
 
+    # Las claves normalizadas son sets de uso interno: el informe debe ser JSON.
+    for caso in ambiguos:
+        caso["candidatos"] = [{k: v for k, v in a.items() if k != "claves"} for a in caso["candidatos"]]
+    escribir("identidades-ambiguas.jsonl", ambiguos)
     escribir("plan-discos.jsonl", plan)
     escribir("completar-pistas.jsonl", pistas_out)
     escribir("completar-anios.jsonl", anios_out)

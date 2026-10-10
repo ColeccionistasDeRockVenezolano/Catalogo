@@ -6,7 +6,7 @@
 // tarjeta pone la imagen actual al lado de las candidatas: «Usar esta» la
 // cambia en la ficha (un run, con «Deshacer» en la barra de abajo) y «Dejar la
 // actual» solo descarta las candidatas. Nada cambia sin una decisión.
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowSquareOut, Check, Warning, X } from "@phosphor-icons/react";
 import { ApiError, imageCandidatesApi, type ImageCandidate, type ImageCandidateGroup, type ImageCandidateKind } from "../lib/api";
@@ -27,6 +27,7 @@ const SOURCE_LABEL: Readonly<Record<string, string>> = {
 };
 
 export function CurationImagesPage() {
+  const paginationStartRef = useRef<HTMLDivElement>(null);
   const { notify } = useToast();
   const [params, setParams] = useSearchParams();
   const tab = TABS.find((entry) => entry.param === params.get("tipo")) ?? TABS[0]!;
@@ -59,6 +60,26 @@ export function CurationImagesPage() {
     }
   }
 
+  async function keepAllCurrent(groups: ImageCandidateGroup[]) {
+    if (groups.length === 0) return;
+    setBusy("*");
+    try {
+      const result = await imageCandidatesApi.keepCurrent(tab.kind, groups.map((group) => group.entityId));
+      setDecided((previous) => {
+        const next = new Set(previous);
+        for (const group of groups) next.add(`${group.kind}:${group.entityId}`);
+        return next;
+      });
+      notify("success", `${formatCount(result.entities)} ${result.entities === 1 ? "ficha se queda" : "fichas se quedan"} con su ${tab.kind === "album" ? "portada" : "foto"} actual.`);
+      counts.reload();
+    } catch (err) {
+      notify("error", err instanceof ApiError ? err.message : "No se pudo guardar la decisión.");
+      if (err instanceof ApiError && err.status === 409) reload();
+    } finally {
+      setBusy(null);
+    }
+  }
+
   const visible = data?.data.filter((group) => !decided.has(`${group.kind}:${group.entityId}`)) ?? [];
   const pending = data ? Math.max(0, data.pagination.total - decided.size) : undefined;
 
@@ -82,10 +103,18 @@ export function CurationImagesPage() {
             </button>
           ))}
         </div>
+        {visible.length > 0 ? (
+          <button type="button" className="btn btn--outline btn--sm" disabled={busy !== null} onClick={() => void keepAllCurrent(visible)}>
+            <X size={14} weight="bold" aria-hidden="true" />
+            Dejar las actuales en esta página ({formatCount(visible.length)})
+          </button>
+        ) : null}
         {pending !== undefined && !loading ? (
           <p className="dup-count" aria-live="polite">{formatCount(pending)} {pending === 1 ? "ficha pendiente" : "fichas pendientes"}</p>
         ) : null}
       </div>
+
+      <div ref={paginationStartRef} className="pagination-start" />
 
       {loading && !data ? <RowsSkeleton rows={3} height={260} label="Cargando las imágenes candidatas…" /> : error ? <ErrorState message={error} onRetry={reload} /> : visible.length === 0 ? (
         data && data.pagination.total > decided.size ? (
@@ -105,12 +134,12 @@ export function CurationImagesPage() {
               const key = `${group.kind}:${group.entityId}`;
               return (
                 <li key={key}>
-                  <ImageGroupCard group={group} busy={busy === key} disabled={busy !== null} onDecide={(candidate) => void decide(group, candidate)} />
+                  <ImageGroupCard group={group} busy={busy === key || busy === "*"} disabled={busy !== null} onDecide={(candidate) => void decide(group, candidate)} />
                 </li>
               );
             })}
           </ol>
-          <Pagination limit={LIMIT} offset={offset} total={data?.pagination.total ?? 0} onOffsetChange={setOffset} />
+          <Pagination scrollTargetRef={paginationStartRef} limit={LIMIT} offset={offset} total={data?.pagination.total ?? 0} onOffsetChange={setOffset} />
         </>
       )}
     </>

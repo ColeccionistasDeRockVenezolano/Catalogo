@@ -1,7 +1,7 @@
 // CRV · Historial de cambios de una ficha (GET /audit): quién cambió qué,
 // cuándo y con qué motivo. Es la lectura del rastro que deja toda escritura
 // (merge_audit vía merge engine u operador); no hay lógica propia aquí.
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { auditApi, changesApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useOperator } from "../lib/OperatorContext";
@@ -54,13 +54,14 @@ export function EntityHistory({ entity, id }: { entity: HistoryEntity; id: numbe
 
 /** Los cambios (runs) que tocaron la ficha, cada uno con su «Deshacer» o «Rehacer». */
 function EntityChanges({ entity, id }: { entity: ChangeEntityKind; id: number }) {
+  const paginationStartRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
   const { data, loading, error } = useAsync(
     () => changesApi.list({ entity, id, limit: CHANGE_LIMIT, offset }),
     [entity, id, offset],
   );
   return (
-    <div className="section">
+    <div ref={paginationStartRef} className="section pagination-start">
       <h2>Cambios de esta ficha</h2>
       {loading && !data ? (
         <p style={{ color: "var(--text-faint)", fontSize: 13.5 }}>Cargando cambios…</p>
@@ -72,7 +73,7 @@ function EntityChanges({ entity, id }: { entity: ChangeEntityKind; id: number })
         <>
           <ChangeList rows={data.data} />
           {data.pagination.total > CHANGE_LIMIT ? (
-            <Pagination limit={CHANGE_LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={setOffset} />
+            <Pagination scrollTargetRef={paginationStartRef} limit={CHANGE_LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={setOffset} />
           ) : null}
         </>
       )}
@@ -81,6 +82,7 @@ function EntityChanges({ entity, id }: { entity: ChangeEntityKind; id: number })
 }
 
 function EntityHistoryContent({ entity, id }: { entity: HistoryEntity; id: number }) {
+  const paginationStartRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
   const [undoing, setUndoing] = useState<number>();
   const { data, loading, error } = useAsync(
@@ -89,7 +91,7 @@ function EntityHistoryContent({ entity, id }: { entity: HistoryEntity; id: numbe
   );
 
   return (
-    <div className="section">
+    <div ref={paginationStartRef} className="section pagination-start">
       <h2>Historial de campos</h2>
       {loading && !data ? (
         <p style={{ color: "var(--text-faint)", fontSize: 13.5 }}>Cargando historial…</p>
@@ -127,7 +129,7 @@ function EntityHistoryContent({ entity, id }: { entity: HistoryEntity; id: numbe
             </table>
           </div>
           {data.pagination.total > LIMIT ? (
-            <Pagination limit={LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={setOffset} />
+            <Pagination scrollTargetRef={paginationStartRef} limit={LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={setOffset} />
           ) : null}
           {undoing !== undefined ? <AuditUndoDialog auditId={undoing} onClose={() => setUndoing(undefined)} /> : null}
         </>

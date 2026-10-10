@@ -17,6 +17,7 @@ import type { ResolutionDecision, ResolutionInput, ScoreFeature } from "../er/ty
 import { ENTITY_SPECS, claimTargetId, resolvableSpec, type EntitySpec, type ResolvableClaimKind } from "./specs.js";
 import { isRelationKind, mergeRelationClaim, type RelationClaimKind } from "./relations.js";
 import { MEDIA_LINK_KIND, mergeMediaLinkClaim } from "./media-links.js";
+import { isImageField, proposeImageCandidate } from "./image-candidates.js";
 
 export interface MergeOutcome {
   action: "applied" | "unchanged" | "candidate" | "conflict" | "unsupported";
@@ -269,9 +270,24 @@ async function insertAlias(
   const alias = normalizeDisplayName(aliasInput);
   if (!alias) return "exists";
   const normalized = normalizeEntityName(alias).primaryKey;
+  // Un título no es una identidad global: artistas distintos pueden publicar
+  // álbumes homónimos y cada posición del disco identifica su propia pista.
+  // Conservamos la guarda para personas y para discos del mismo artista cuya
+  // fecha/tipo todavía no permite distinguirlos.
+  const scope = spec.kind === "album" ? `
+       AND EXISTS (SELECT 1 FROM public.albums other JOIN public.albums target ON target.id=$2
+                    WHERE other.id=${spec.aliasTable}.${spec.aliasTargetColumn}
+                      AND other.artist_id=target.artist_id
+                      AND (other.release_year IS NULL OR target.release_year IS NULL OR other.release_year=target.release_year)
+                      AND other.album_type=target.album_type)`
+    : spec.kind === "track" ? `
+       AND EXISTS (SELECT 1 FROM public.tracks other JOIN public.tracks target ON target.id=$2
+                    WHERE other.id=${spec.aliasTable}.${spec.aliasTargetColumn}
+                      AND other.album_id=target.album_id
+                      AND other.disc_number=target.disc_number AND other.track_number=target.track_number)` : "";
   const collision = await client.query<{ target_id: string }>(`
     SELECT ${spec.aliasTargetColumn}::text AS target_id FROM ${spec.aliasTable}
-     WHERE normalized_alias=$1 AND ${spec.aliasTargetColumn}<>$2 LIMIT 1`, [normalized, targetId]);
+     WHERE normalized_alias=$1 AND ${spec.aliasTargetColumn}<>$2 ${scope} LIMIT 1`, [normalized, targetId]);
   if (collision.rows[0]) {
     await client.query(`
       INSERT INTO ingest.review_queue(kind,claim_a_id,priority,payload,notes)
@@ -690,6 +706,25 @@ async function mergeEntityClaim(
     const aliasResult = await insertAlias(client, claim, persisted.id, spec, targetId, proposed, false);
     await attachClaim(client, persisted.id, spec, targetId, aliasResult === "ambiguous" ? "candidate" : "accepted");
     return { action: aliasResult === "ambiguous" ? "candidate" : "applied", ...targetResult(spec, targetId, { resolutionDecisionId: decisionId }), detail: "variante conservada como alias; canonical name no se reemplazo" };
+  }
+  // Portada o foto de artista distinta de la que la ficha ya tiene: la actual se
+  // queda y la nueva se propone en Curaduría · Portadas y fotos (regla del
+  // catálogo, 2026-10-04). La persona decide allí; su escritura (human) pasa
+  // por el camino normal.
+  if (isImageField(spec.kind, claim.field) && claim.createdBy !== "human" && typeof current === "string" && typeof proposed === "string") {
+    const proposal = await proposeImageCandidate(client, {
+      kind: spec.kind, targetId, currentUrl: current, candidateUrl: proposed, claimId: persisted.id,
+      sourceId: claim.sourceId, origin: "ingesta", runId: claim.runId ?? null,
+    });
+    if (proposal === "known") {
+      await attachClaim(client, persisted.id, spec, targetId, "accepted");
+      return { action: "unchanged", ...targetResult(spec, targetId, { resolutionDecisionId: decisionId }), detail: "imagen ya conocida para la ficha; la actual se queda" };
+    }
+    await attachClaim(client, persisted.id, spec, targetId, "candidate");
+    return {
+      action: "candidate", ...targetResult(spec, targetId, { resolutionDecisionId: decisionId }),
+      detail: proposal === "proposed" ? "imagen distinta propuesta en Curaduría · Portadas y fotos; la actual se queda" : "imagen ya propuesta antes en Curaduría · Portadas y fotos; la actual se queda",
+    };
   }
   if (await hasOpenFieldConflict(client, spec.kind, targetId, claim.field)) {
     const conflict = await createFieldConflict(client, { claimId: persisted.id, kind: spec.kind, targetId, field: claim.field, currentValue: current, proposedValue: proposed });

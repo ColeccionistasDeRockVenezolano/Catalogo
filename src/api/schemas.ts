@@ -54,6 +54,15 @@ export const genreStatusSchema = z.enum(["confirmed", "pending", "unclassified"]
 export const genreSlugQuerySchema = z.string().trim().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/u)
   .describe("Slug de género o familia; una familia incluye sus géneros hijos.");
 const queryFlagSchema = z.enum(["true", "false"]).transform((value) => value === "true");
+/** Año de lanzamiento (discos) o de formación/inicio (artistas). */
+export const decadeListFilterSchema = {
+  decade: z.coerce.number().int().min(1900).max(2100).multipleOf(10).optional(),
+  withoutYear: queryFlagSchema.optional(),
+};
+export const decadeFacetsSchema = {
+  withoutYear: z.number().int().nonnegative(),
+  decades: z.array(z.object({ decade: z.number().int(), count: z.number().int().nonnegative() })),
+};
 /** Filtros por género compartidos por las listas de discos y artistas. */
 export const genreListFilterSchema = {
   genre: genreSlugQuerySchema.optional(),

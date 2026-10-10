@@ -29,7 +29,7 @@ import {
   EyeSlash, Gavel, GitMerge, Keyboard, Lightbulb, NotEquals, Scales, Sparkle, Trash, Wrench,
 } from "@phosphor-icons/react";
 import {
-  albumWrites, artistWrites, ApiError, curationApi, organizationWrites, personWrites, trackWrites,
+  albumWrites, artistWrites, ApiError, curationApi, organizationWrites, personWrites, reviewApi, trackWrites,
   type CurationFindingGroupFilter, type CurationFindingQuery, CATALOG_CHANGE_EVENT, type CatalogChangeEvent } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useToast } from "../lib/ToastContext";
@@ -47,12 +47,14 @@ import { FindingEvidence } from "../components/FindingEvidence";
 import { FixBatchDialog } from "../components/FixBatchDialog";
 import { Modal } from "../components/Modal";
 import { MergeEntityModal } from "../components/MergeEntityModal";
+import { PersonPairWebResearch } from "../components/PersonPairWebResearch";
+import { IDENTITY_RECOMMENDATION, personIdentityAssessment } from "../lib/personIdentityAssessment";
 import { ReviewDecisionDialog } from "../components/ReviewDecisionDialog";
 import { ConflictResolveDialog } from "../components/ConflictResolveDialog";
 import { useCurationSummary } from "./CurationLayout";
 import type {
   CurationActionSummary, CurationCategorySummary, CurationFinding, CurationFindingStatus, CurationIgnoreReason, CurationPairKind,
-  CurationSeverity, CurationSignatureSummary, FixBatch, MergeableKind,
+  CurationSeverity, CurationSignatureSummary, FixBatch, MergeableKind, PersonWebVerification,
 } from "../lib/types";
 
 /** Detectores de «valores en disputa» que E7 cablea en la tarjeta (PLAN_CURADURIA). */
@@ -98,6 +100,7 @@ interface FixTarget {
 }
 
 export function CurationFindingsPage() {
+  const paginationStartRef = useRef<HTMLDivElement>(null);
   const { key } = useParams();
   const { summary, summaryError, refreshSummary } = useCurationSummary();
   const { notify } = useToast();
@@ -471,6 +474,8 @@ export function CurationFindingsPage() {
         ) : null}
       </div>
 
+      <div ref={paginationStartRef} className="pagination-start" />
+
       {loading && !data ? <RowsSkeleton rows={6} height={64} label="Cargando hallazgos…" /> : error ? <ErrorState message={error} onRetry={reload} /> : !data || rows.length === 0 ? (
         <EmptyState
           title={status === "open" ? "No hay hallazgos abiertos aquí" : "No hay hallazgos con estos filtros"}
@@ -494,7 +499,7 @@ export function CurationFindingsPage() {
               </li>
             ))}
           </ol>
-          <Pagination limit={LIMIT} offset={offset} total={total} onOffsetChange={(next) => update({ offset: String(next) })} />
+          <Pagination scrollTargetRef={paginationStartRef} limit={LIMIT} offset={offset} total={total} onOffsetChange={(next) => update({ offset: String(next) })} />
         </>
       )}
 
@@ -1063,6 +1068,43 @@ interface FindingCardProps extends Omit<FindingActionsProps, "layout" | "onAny">
   onOpenSheet: () => void;
 }
 
+function MixedPersonWebResearch({ personId }: { personId: number }) {
+  const [result, setResult] = useState<PersonWebVerification | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [note, setNote] = useState("");
+  useEffect(() => {
+    let active = true;
+    reviewApi.mixedVerification(personId).then((value) => { if (active) setResult(value); })
+      .catch((cause: unknown) => { if (active) setError(cause instanceof Error ? cause.message : String(cause)); });
+    return () => { active = false; };
+  }, [personId]);
+  const run = async (action: () => Promise<PersonWebVerification>) => {
+    setBusy(true); setError(null);
+    try { setResult(await action()); } catch (cause) { setError(cause instanceof Error ? cause.message : String(cause)); }
+    finally { setBusy(false); }
+  };
+  const assessment = result ? personIdentityAssessment(null, result) : null;
+  return <div className="cfind__note" style={{ display: "block", marginTop: 12 }}>
+    <button type="button" className="btn btn--sm btn--outline" disabled={busy} onClick={() => run(() => reviewApi.investigateMixed(personId))}>
+      {busy ? "Investigando…" : result ? "Actualizar investigación web" : "Investigar ficha mezclada en internet"}
+    </button>
+    {error ? <p role="alert">{error}</p> : null}
+    {result ? <div style={{ marginTop: 12 }}>
+      <strong>{result.verdict === "mixed" ? "Posible mezcla de personas" : "Sin conclusión comprobada"}</strong>
+      {assessment ? <p><strong>Recomendación: {IDENTITY_RECOMMENDATION[assessment.recommendation]}.</strong> {assessment.explanation}</p> : null}
+      <p>{result.rationale}</p>
+      {result.evidence.length ? <ul>{result.evidence.map((item, index) => <li key={`${item.url}-${index}`}>
+        «{item.quote}» <a href={item.url} target="_blank" rel="noopener noreferrer">Fuente</a>
+      </li>)}</ul> : null}
+      {result.status === "proposed" ? <div style={{ display: "flex", gap: 8 }}>
+        <input aria-label={`Nota para investigación de persona ${personId}`} value={note} onChange={(event) => setNote(event.target.value)} placeholder="Conclusión de la revisión" />
+        <button type="button" className="btn btn--sm btn--outline" disabled={busy || !note.trim()} onClick={() => run(() => reviewApi.markMixedReviewed(personId, note.trim()))}>Marcar como leída</button>
+      </div> : <p>Revisada por {result.reviewedBy}: {result.reviewNote}</p>}
+    </div> : null}
+  </div>;
+}
+
 function FindingCard(props: FindingCardProps) {
   const { finding, categoryLabel, selected, selectionLocked, onToggleSelected, focusedByKeyboard, compact, onOpenSheet, busy } = props;
   const change = lastChangeText(finding);
@@ -1170,6 +1212,13 @@ function FindingCard(props: FindingCardProps) {
           {finding.ignoreNote ? `: ${finding.ignoreNote}` : ""}
         </p>
       ) : null}
+
+      {finding.detector === "trayectoria_imposible" && finding.entity.kind === "person" && finding.entity.id !== null && finding.status === "open"
+        ? <MixedPersonWebResearch personId={finding.entity.id} /> : null}
+
+      {finding.status === 'open' && finding.entity.id !== null && ['artist','person','album','organization','track'].includes(finding.entity.kind) ? <div className="cfind__ai"><Link className="btn btn--sm" to={`/curaduria/ia?kind=${finding.entity.kind}&id=${finding.entity.id}&instruction=${encodeURIComponent(`Revisa este hallazgo: ${finding.title}. ${finding.suggestion ?? ''} ${findingPair(finding) ? `Fichas del par: ${findingPair(finding)!.join(' y ')}.` : ''} Consulta las fuentes y prepara solo cambios documentados para revisión humana.`)}`}>Preparar corrección con IA</Link><span>Revisa y edita la propuesta antes de implementarla.</span></div> : null}
+      {finding.category === "fichas_repetidas" && finding.entity.kind === "person" && finding.status === "open" && findingPair(finding)
+        ? <PersonPairWebResearch aId={findingPair(finding)![0]} bId={findingPair(finding)![1]} autoLoad={false} /> : null}
 
       <div className="cfind__foot">
         <details className="cfind__evidence">

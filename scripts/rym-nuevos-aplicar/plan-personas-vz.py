@@ -40,6 +40,8 @@ def main():
     artistas, redir, por_nombre, albumes = P.cargar_catalogo()
     resolver = P.mapa_artistas(artistas, redir, por_nombre)
     vz = {int(r[0]): r[1] for r in P.sql("SELECT id, coalesce(is_venezuelan::text,'') FROM public.persons")}
+    redir_personas = {int(a): int(b) for a, b in P.sql(
+        "SELECT from_id, to_id FROM ingest.entity_redirects WHERE entity_kind='person'")}
     estado, _ = R.cargar_estado(os.path.join(P.NUEVOS, "estado.json"))
     cola = R.cargar_cola(os.path.join(P.NUEVOS, "cola-nuevos.jsonl"))
 
@@ -79,7 +81,7 @@ def main():
         if any(d[0] == "artist" for _, d in cands) or cands[0][1][0] != "person":
             continue
         h, tipo = cands[0][0]
-        pid = cands[0][1][1]
+        pid = P.seguir(redir_personas, cands[0][1][1])
         if h not in personas:
             loc = lugar(h)
             señal = "Venezuela" in loc or vz.get(pid) == "true"

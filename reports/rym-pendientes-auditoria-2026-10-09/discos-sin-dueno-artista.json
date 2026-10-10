@@ -1,0 +1,2612 @@
+[
+  {
+    "owner_href": "/artist/billo-frometa",
+    "kind": "person",
+    "release_href": "/release/album/billo-frometa/concierto-venezolano",
+    "title": "Concierto Venezolano"
+  },
+  {
+    "owner_href": "/artist/billo-frometa",
+    "kind": "person",
+    "release_href": "/release/album/billo-frometa-candita-vazquez/billo-presenta-candita-vazquez-con-su-orquesta",
+    "title": "Billo presenta Candita Vázquez con su orquesta"
+  },
+  {
+    "owner_href": "/artist/billo-frometa",
+    "kind": "person",
+    "release_href": "/release/album/billo-miltino/doctores-en-ritmo",
+    "title": "Doctores en ritmo"
+  },
+  {
+    "owner_href": "/artist/billo-frometa",
+    "kind": "person",
+    "release_href": "/release/album/billo-frometa-damiron-negrito-chapuseaux/tres-viejos-amigos",
+    "title": "Tres viejos amigos"
+  },
+  {
+    "owner_href": "/artist/billo-frometa",
+    "kind": "person",
+    "release_href": "/release/album/felipe-pirela-con-billo-frometa-y-su-orquesta/canciones-de-ayer-y-hoy",
+    "title": "Canciones de ayer y hoy"
+  },
+  {
+    "owner_href": "/artist/billo-frometa",
+    "kind": "person",
+    "release_href": "/release/album/billo-frometa/historia-de-mi-orquesta-1937-1962-vol-1-1",
+    "title": "Historia de mi orquesta 1937-1962: Vol. 1"
+  },
+  {
+    "owner_href": "/artist/billo-frometa",
+    "kind": "person",
+    "release_href": "/release/album/billo-frometa/historia-de-mi-orquesta-1937-1962-vol-2-1",
+    "title": "Historia de mi orquesta 1937-1962: Vol. 2"
+  },
+  {
+    "owner_href": "/artist/billo-frometa",
+    "kind": "person",
+    "release_href": "/release/album/orquesta-de-concierto-de-billo-frometa/canto-a-caracas",
+    "title": "Canto a Caracas"
+  },
+  {
+    "owner_href": "/artist/billo-frometa",
+    "kind": "person",
+    "release_href": "/release/comp/billo-frometa/historia-de-mi-orquesta-1937-1962",
+    "title": "Historia de mi orquesta 1937-1962"
+  },
+  {
+    "owner_href": "/artist/billo-frometa",
+    "kind": "person",
+    "release_href": "/release/comp/felipe-pirela-con-billo/lo-mejor-de-felipe-pirela-con-billo",
+    "title": "Lo Mejor de Felipe Pirela con Billo"
+  },
+  {
+    "owner_href": "/artist/porfi-jimenez",
+    "kind": "person",
+    "release_href": "/release/album/porfi-jimenez/tiene-de-toto-porfie-76",
+    "title": "Tiene de Toto Porfie 76"
+  },
+  {
+    "owner_href": "/artist/porfi-jimenez",
+    "kind": "person",
+    "release_href": "/release/album/porfi-jimenez/la-salsa-brava-de-porfi-jimenez",
+    "title": "La salsa brava de Porfi Jiménez"
+  },
+  {
+    "owner_href": "/artist/porfi-jimenez",
+    "kind": "person",
+    "release_href": "/release/album/porfi-jimenez/culu-cucu",
+    "title": "Culú cucú"
+  },
+  {
+    "owner_href": "/artist/porfi-jimenez",
+    "kind": "person",
+    "release_href": "/release/album/porfi-jimenez/ella-me-vacila",
+    "title": "Ella me vacila"
+  },
+  {
+    "owner_href": "/artist/porfi-jimenez",
+    "kind": "person",
+    "release_href": "/release/album/porfi-jimenez/la-bailadora",
+    "title": "La bailadora"
+  },
+  {
+    "owner_href": "/artist/porfi-jimenez",
+    "kind": "person",
+    "release_href": "/release/single/porfi-jimenez/miami",
+    "title": "Miami"
+  },
+  {
+    "owner_href": "/artist/johnny-sedes",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/johnny-sedes-and-his-orchestra/mama-calunga",
+    "title": "Mamá calunga"
+  },
+  {
+    "owner_href": "/artist/johnny-sedes",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/johnny-sedes/descarga-no-2-mani-mama-calunga",
+    "title": "Descarga No 2-Mani- / Mama Calunga"
+  },
+  {
+    "owner_href": "/artist/carlos-ibanez",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/carlos-ibanez/dark-side",
+    "title": "Dark Side"
+  },
+  {
+    "owner_href": "/artist/carlos-ibanez",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/carlos-ibanez/dreams",
+    "title": "Dreams"
+  },
+  {
+    "owner_href": "/artist/william-sarquiz",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/william-sarquiz/pecho-esguazao",
+    "title": "Pecho esguazao"
+  },
+  {
+    "owner_href": "/artist/william-sarquiz",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/william-sarquiz/pecho-rajao",
+    "title": "Pecho rajao"
+  },
+  {
+    "owner_href": "/artist/william-sarquiz",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/william-sarquiz/plomo-en-el-pecho",
+    "title": "Plomo en el pecho"
+  },
+  {
+    "owner_href": "/artist/vitico-castillo",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/vitico-castillo/el-hijo-del-taita",
+    "title": "El hijo del taita"
+  },
+  {
+    "owner_href": "/artist/vitico-castillo",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/vitico-castillo/corazon-de-concreto",
+    "title": "Corazón de concreto"
+  },
+  {
+    "owner_href": "/artist/edmundo-gonzalez",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/edmundo-gonzalez-urrutia/edmundo-pa-todo-el-mundo",
+    "title": "Edmundo pa' todo el mundo"
+  },
+  {
+    "owner_href": "/artist/edmundo-gonzalez",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/edmundo-gonzalez/todo-el-mundo-con-edmundo",
+    "title": "Todo el mundo con Edmundo"
+  },
+  {
+    "owner_href": "/artist/los-jets",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/los-jets/vuelven",
+    "title": "Vuelven"
+  },
+  {
+    "owner_href": "/artist/living_death_f1",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/living_death_f1/muerto_en_vida",
+    "title": "Muerto En Vida"
+  },
+  {
+    "owner_href": "/artist/decibeles",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/decibeles/espejo",
+    "title": "Espejo"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/carlos-otero/international",
+    "title": "International"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/carlos-otero/maria-magdalena",
+    "title": "Maria Magdalena"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/carlos-otero-vicente-alvarez-and-his-tropical-orchestra/nuits-a-la-havane",
+    "title": "Nuits a La Havane"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/rosita-serrano-carlos-otero/castagnetten-en-gitaren",
+    "title": "Castagnetten en gitaren"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/braune-tamara-venezuela",
+    "title": "Braune Tamara / Venezuela"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/so-eine-nacht-unter-palmen-isola-bella",
+    "title": "So eine Nacht unter Palmen / Isola Bella"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/bambina-bambina-serenata-veneziana",
+    "title": "Bambina, Bambina / Serenata Veneziana"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/bye-bye-romantica-das-lied-der-sierra",
+    "title": "Bye Bye Romantica / Das Lied der Sierra"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/dunkle-augen-in-der-nacht-in-den-straben-von-neapel",
+    "title": "Dunkle Augen in der Nacht / In den Straßen von Neapel"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/ein-heiber-kub-und-tausend-kuhle-tranen-das-hafenlied-von-barcelona",
+    "title": "Ein heißer Kuß und tausend kühle Tränen / Das Hafenlied von Barcelona"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/weine-keine-trane-um-mich-bella-maria-die-roten-segel-im-hafen-von-napoli",
+    "title": "Weine keine Träne um mich Bella Maria / Die roten Segel im Hafen von Napoli"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/bald-bluhen-die-rosen-sprich-zu-mir-von-liebe-mariu",
+    "title": "Bald blühen die Rosen / Sprich zu mir von Liebe, Mariu"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/bella-rosita-es-fing-mit-einer-roten-rose-an",
+    "title": "Bella Rosita / Es fing mit einer roten Rose an"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/du-allein-bist-schuld-daran-fiesta-in-rio",
+    "title": "Du allein bist schuld daran / Fiesta in Rio"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/cara-mia-allein-mit-dir",
+    "title": "Cara mia / Allein mit dir"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/la-bella-lucia-nimm-meine-hande",
+    "title": "La bella Lucia / Nimm meine Hände"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/ich-hab-fernweh-sunday-and-me-o-mia-bella-napoli",
+    "title": "Ich hab' Fernweh (Sunday And Me) / O mia bella Napoli"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/es-war-nur-ein-traum-nanita-nana",
+    "title": "Es war nur ein Traum / Nanita Nana"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/innamorato-weine-nicht",
+    "title": "Innamorato / Weine nicht"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/die-liebe-kommt-die-liebe-geht-sing",
+    "title": "Die Liebe kommt, die Liebe geht / Sing"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/schirokko-kein-wiedersehn",
+    "title": "Schirokko / Kein Wiederseh'n"
+  },
+  {
+    "owner_href": "/artist/carlos-otero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carlos-otero/sommernacht-in-madrid-mein-zug-heibt-sehnsucht",
+    "title": "Sommernacht in Madrid / Mein Zug heißt Sehnsucht"
+  },
+  {
+    "owner_href": "/artist/lorenzo_gonzalez",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/lorenzo_gonzalez/chansons_despagne",
+    "title": "Chansons d'Espagne"
+  },
+  {
+    "owner_href": "/artist/lorenzo_gonzalez",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/lorenzo_gonzalez/luna_mallorquina",
+    "title": "Luna Mallorquina"
+  },
+  {
+    "owner_href": "/artist/lorenzo_gonzalez",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/lorenzo_gonzalez/chiquita_bonita",
+    "title": "Chiquita bonita"
+  },
+  {
+    "owner_href": "/artist/lorenzo_gonzalez",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/lorenzo_gonzalez/historia_de_un_amor",
+    "title": "Historia de un amor"
+  },
+  {
+    "owner_href": "/artist/lorenzo_gonzalez",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/lorenzo-gonzalez/vintage-cuba-n_12-eps-collectors-boleros-forever",
+    "title": "Vintage Cuba Nº12 - EPs Collectors \"Boleros Forever\""
+  },
+  {
+    "owner_href": "/artist/lorenzo_gonzalez",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/lorenzo-gonzalez/vintage-cuba-n_13-eps-collectors-boleros-forever",
+    "title": "Vintage Cuba Nº13 - EPs Collectors \"Boleros Forever\""
+  },
+  {
+    "owner_href": "/artist/alejandro-molinari",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/alejandro-molinari/gargantua",
+    "title": "Gargantua"
+  },
+  {
+    "owner_href": "/artist/carlitos-flores",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/carlitos-flores/carlitos-flores",
+    "title": "Carlitos Flores"
+  },
+  {
+    "owner_href": "/artist/agustin_irusta",
+    "kind": "person",
+    "release_href": "/release/album/agustin-irusta-cuarteto-guardia-vieja/agustin-irusta-con-el-acompanamiento-del-cuarteto-guardia-vieja",
+    "title": "Agustín Irusta con el acompañamiento del Cuarteto Guardia Vieja"
+  },
+  {
+    "owner_href": "/artist/agustin_irusta",
+    "kind": "person",
+    "release_href": "/release/album/agustin-irusta/polvo-de-los-caminos",
+    "title": "Polvo de los caminos"
+  },
+  {
+    "owner_href": "/artist/agustin_irusta",
+    "kind": "person",
+    "release_href": "/release/album/agustin_irusta/de_nuevo_agustin_irusta",
+    "title": "De Nuevo Agustin Irusta"
+  },
+  {
+    "owner_href": "/artist/agustin_irusta",
+    "kind": "person",
+    "release_href": "/release/album/agustin-irusta/tangos",
+    "title": "Tangos"
+  },
+  {
+    "owner_href": "/artist/caterinetta_lescano",
+    "kind": "person",
+    "release_href": "/release/single/caterinetta_lescano/ti_diro",
+    "title": "Ti dirò"
+  },
+  {
+    "owner_href": "/artist/caterinetta_lescano",
+    "kind": "person",
+    "release_href": "/release/single/caterinetta_lescano/nebbia",
+    "title": "Nebbia"
+  },
+  {
+    "owner_href": "/artist/caterinetta_lescano",
+    "kind": "person",
+    "release_href": "/release/single/caterinetta_lescano/la_barca_dei_sogni",
+    "title": "La barca dei sogni"
+  },
+  {
+    "owner_href": "/artist/caterinetta_lescano",
+    "kind": "person",
+    "release_href": "/release/single/caterinetta_lescano/nel_mio_cuor_ce_una_casetta",
+    "title": "Nel mio cuor c'è una casetta"
+  },
+  {
+    "owner_href": "/artist/arabella-1",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/arabella/arabella",
+    "title": "Arabella"
+  },
+  {
+    "owner_href": "/artist/arabella-1",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/arabella/sabor-y-raza",
+    "title": "Sabor y raza"
+  },
+  {
+    "owner_href": "/artist/arabella-1",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/arabella/arabella-1",
+    "title": "Arabella"
+  },
+  {
+    "owner_href": "/artist/arabella-1",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/arabella/mi-son-es-un-misterio",
+    "title": "Mi son es un misterio"
+  },
+  {
+    "owner_href": "/artist/sebastian-rivero",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/calussa-sebastian-rivero/san-juan",
+    "title": "San Juan"
+  },
+  {
+    "owner_href": "/artist/knotchej",
+    "kind": "person",
+    "release_href": "/release/ep/knotchej/decir-adios",
+    "title": "Decir adiós"
+  },
+  {
+    "owner_href": "/artist/lela-1",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/lela/maquina-del-tiempo",
+    "title": "Maquina Del Tiempo"
+  },
+  {
+    "owner_href": "/artist/lela-1",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/lela/como-un-delfin",
+    "title": "Como un Delfin"
+  },
+  {
+    "owner_href": "/artist/luis-g-tovar",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/luis-g-tovar/isla-verde",
+    "title": "Isla verde"
+  },
+  {
+    "owner_href": "/artist/luis-g-tovar",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/luis-gerardo-tovar/santo-domingo",
+    "title": "Santo Domingo"
+  },
+  {
+    "owner_href": "/artist/luis-g-tovar",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/luis-g-tovar/tu-amor",
+    "title": "Tu amor"
+  },
+  {
+    "owner_href": "/artist/luis-g-tovar",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/luis-g-tovar/historia-do",
+    "title": "Historia d'O"
+  },
+  {
+    "owner_href": "/artist/luis-g-tovar",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/luis-gerardo-tovar/te-amare",
+    "title": "Te amaré"
+  },
+  {
+    "owner_href": "/artist/luis-g-tovar",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/luis-gerardo-tovar/que-se-puede-hacer-con-el-amor",
+    "title": "Que se puede hacer con el amor"
+  },
+  {
+    "owner_href": "/artist/luis-g-tovar",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/luis-gerardo-tovar-and-punto-sur/poemas-de-amor-de-jose-angel-buesa",
+    "title": "Poemas de amor de José Angel Buesa"
+  },
+  {
+    "owner_href": "/artist/luis-g-tovar",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/luis-g-tovar/santo-domingo-cielieto-lindo",
+    "title": "Santo Domingo / Cielieto lindo"
+  },
+  {
+    "owner_href": "/artist/luis-g-tovar",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/los-communicativos-con-luis-tovar/rosas-del-ayer-extranas-cartas-de-amor",
+    "title": "Rosas del Ayer / Extranas cartas de amor"
+  },
+  {
+    "owner_href": "/artist/ane-diaz",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/ane-diaz/despechada",
+    "title": "Despechada"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/johannes-nastesjo-luiz-rocha-el-pricto/infatuous-chambers",
+    "title": "Infatuous Chambers"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/miquel-jorda-christer-bothen-el-pricto-pedro-gonzalez-vasco-trilla/heatwave",
+    "title": "Heatwave"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/el-pricto-diego-caicedo-javier-garrabella-vasco-trilla/demonology",
+    "title": "Demonology"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/el-pricto-alex-reviriego/caverna",
+    "title": "Caverna"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/el-pricto-electric-guitar-quintet/spontaneous-live-series-007",
+    "title": "Spontaneous Live Series 007"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/el-pricto/moonburnt",
+    "title": "Moonburnt"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/el-pricto-don-malfon-vasco-trilla/behenii-part-i",
+    "title": "Behenii - Part I"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/ingel-rild/extreme-entity-workout",
+    "title": "Extreme Entity Workout"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/andrea-bazzicalupo-el-pricto/mammalian-interactive-digressions",
+    "title": "Mammalian Interactive Digressions"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/el-pricto-and-degenerative-spontaneous-orchestra/spontaneous-live-series-008",
+    "title": "Spontaneous Live Series 008"
+  },
+  {
+    "owner_href": "/artist/el-pricto",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/el-pricto-discordian-community-ensemble/the-unreal-book-at-lem-festival",
+    "title": "The Unreal Book at LEM Festival"
+  },
+  {
+    "owner_href": "/artist/adriana-2",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/adriana/im-here",
+    "title": "I'm Here"
+  },
+  {
+    "owner_href": "/artist/elik-alvarez",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/elik-alvarez-yoncarlos-medina/the-exorcism-of-god",
+    "title": "The Exorcism of God"
+  },
+  {
+    "owner_href": "/artist/juan-r-berbin",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/jordi-matas-martin-leiton-juan-r-berbin/undr",
+    "title": "UNDr"
+  },
+  {
+    "owner_href": "/artist/jose_ignacio_cabrujas",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/juan-carlos-nunez-jose-ignacio-cabrujas/juan-carlos-nunez-and-jose-ignacio-cabrujas",
+    "title": "Juan Carlos Núñez & José Ignacio Cabrujas"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/album/recordatorio/logica-resbalosa",
+    "title": "Lógica resbalosa"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/album/recordatorio/tomas-verdes",
+    "title": "Tomas verdes"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/ep/recordatorio/tv-en-vivo-y-directo",
+    "title": "TV En vivo y directo"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/single/recordatorio/hormiga",
+    "title": "Hormiga"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/single/armando-y-alejandro/sencillo-2018",
+    "title": "Sencillo 2018"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/single/recordatorio/al-otro-lado-del-charco",
+    "title": "Al otro lado del charco"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/single/recordatorio/abandonar-el-pais",
+    "title": "Abandonar el país"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/single/recordatorio/apariciones",
+    "title": "Apariciones"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/single/armando-y-alejandro/cala",
+    "title": "Cala"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/single/recordatorio/ya-manana",
+    "title": "Ya mañana"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/single/recordatorio/dia-negro",
+    "title": "Día negro"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/single/recordatorio/la-cancion-del-momento",
+    "title": "La canción del momento"
+  },
+  {
+    "owner_href": "/artist/recordatorio",
+    "kind": "person",
+    "release_href": "/release/single/recordatorio-sunsplash/besos-infinitos",
+    "title": "Besos Infinitos"
+  },
+  {
+    "owner_href": "/artist/alejandro-molinari",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/alejandro-molinari/survival-game",
+    "title": "Survival Game"
+  },
+  {
+    "owner_href": "/artist/alejandro-molinari",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/alejandro-molinari/noche-de-berlin",
+    "title": "Noche de Berlin"
+  },
+  {
+    "owner_href": "/artist/alejandro-molinari",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/juno-francis-alejandro-molinari/sunday-morning",
+    "title": "Sunday Morning"
+  },
+  {
+    "owner_href": "/artist/alejandro-molinari",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/juno-francis-alejandro-molinari/symmetry",
+    "title": "Symmetry"
+  },
+  {
+    "owner_href": "/artist/alejandro-molinari",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/alejandro-molinari/caracas-de-noche",
+    "title": "Caracas De Noche"
+  },
+  {
+    "owner_href": "/artist/alejandro-molinari",
+    "kind": "sin_ficha",
+    "release_href": "/release/djmix/alejandro-molinari/mixmag-adria-exclusive-mix",
+    "title": "Mixmag Adria Exclusive Mix"
+  },
+  {
+    "owner_href": "/artist/carolina-marconi",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carolina-marconi/move-to-the-fiesta",
+    "title": "Move to the fiesta"
+  },
+  {
+    "owner_href": "/artist/carolina-marconi",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/carolina-marconi/patatina",
+    "title": "Patatina"
+  },
+  {
+    "owner_href": "/artist/augusto-bracho",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/augusto-bracho-y-moises-de-martin/pajarera-vertical",
+    "title": "Pajarera vertical"
+  },
+  {
+    "owner_href": "/artist/augusto-bracho",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/augusto-bracho/el-mercado-de-los-corotos",
+    "title": "El mercado de los corotos"
+  },
+  {
+    "owner_href": "/artist/augusto-bracho",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/augusto-bracho/musica-moderna",
+    "title": "Música moderna"
+  },
+  {
+    "owner_href": "/artist/augusto-bracho",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/augusto-bracho/primer-acercamiento-al-mito",
+    "title": "Primer acercamiento al mito"
+  },
+  {
+    "owner_href": "/artist/joshua-dos-santos",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/multiple/contrecoup",
+    "title": "Contrecoup"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/la-cruz/hawaira",
+    "title": "Hawaira"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/la-cruz/el-nene-vol-1",
+    "title": "El nene, vol. 1"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/ep/la-cruz/el-nene-vol-2",
+    "title": "El nene, vol 2"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/alfonso-la-cruz-and-sabela-ramil/echame-la-culpa-operacion-triunfo-2018",
+    "title": "Échame la culpa (Operación Triunfo 2018)"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/alfonso-la-cruz/all-of-me-operacion-triunfo-2018",
+    "title": "All of Me (Operación Triunfo 2018)"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/alfonso-la-cruz/nadie-te-va-a-querer",
+    "title": "Nadie te va a querer"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/alfonso-la-cruz/que-se-yo",
+    "title": "Qué sé yo"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/alfonso-la-cruz/a-la-orilla-del-rio",
+    "title": "A la orilla del río"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/alfonso-la-cruz/efecto",
+    "title": "Efecto"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/fotos",
+    "title": "Fotos"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/la-ducati",
+    "title": "La Ducati"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/desnudx",
+    "title": "Desnudx"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/desnudx-diskoverstories-acustico",
+    "title": "Desnudx - #DiskoverStories (Acústico)"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/quitate-la-ropa",
+    "title": "Quítate la ropa"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/easy-boy",
+    "title": "Easy Boy"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/sahara",
+    "title": "Sahara"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/luisa-sonza-la-cruz/rough",
+    "title": "Rough"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/fancy",
+    "title": "Fancy"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/arequipe",
+    "title": "Arequipe"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/fuerte",
+    "title": "Fuerte"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/gata-negra",
+    "title": "Gata negra"
+  },
+  {
+    "owner_href": "/artist/la-cruz-3",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/la-cruz/only",
+    "title": "Only"
+  },
+  {
+    "owner_href": "/artist/andrea-ferrero",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/andrea-ferrero/mr-charles",
+    "title": "Mr. Charles"
+  },
+  {
+    "owner_href": "/artist/elik-alvarez",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/elik-alvarez/the-dance",
+    "title": "The Dance"
+  },
+  {
+    "owner_href": "/artist/lunar_f1",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/lunar_f1/nd_remixed",
+    "title": "ND Remixed"
+  },
+  {
+    "owner_href": "/artist/juan-arteta",
+    "kind": "person",
+    "release_href": "/release/single/juan-arteta-y-su-orquesta/bajo-mi-cielo-andaluz-ojos-verdes",
+    "title": "Bajo mi cielo Andaluz / Ojos verdes"
+  },
+  {
+    "owner_href": "/artist/juan-arteta",
+    "kind": "person",
+    "release_href": "/release/single/juan-arteta-y-su-orquesta/la-bien-paga-la-del-manojo-de-rosas",
+    "title": "La bien paga / La del manojo de rosas"
+  },
+  {
+    "owner_href": "/artist/miguel-farias",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/patricio-sabate-kathya-galleguillos-pablo-salinas-miguel-farias/la-compuerta-nro-12",
+    "title": "La compuerta nro. 12"
+  },
+  {
+    "owner_href": "/artist/omar-acedo",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/omar-acedo/volvi-por-ti",
+    "title": "Volví por ti"
+  },
+  {
+    "owner_href": "/artist/omar-acedo",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/omar-acedo/mis-gaitas-favoritas",
+    "title": "Mis gaitas favoritas"
+  },
+  {
+    "owner_href": "/artist/omar-acedo",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/omar-acedo/canto-para-el-esequibo",
+    "title": "Canto Para El Esequibo"
+  },
+  {
+    "owner_href": "/artist/omar-acedo",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/omar-acedo-buena-fe/amigos-tour",
+    "title": "Amigos Tour"
+  },
+  {
+    "owner_href": "/artist/omar-acedo",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/omar-acedo/la-fiesta-de-la-paz",
+    "title": "La Fiesta de la Paz"
+  },
+  {
+    "owner_href": "/artist/juancho-rois",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/diomedes-diaz-y-juancho-rois/la-locura",
+    "title": "La locura"
+  },
+  {
+    "owner_href": "/artist/juancho-rois",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/jorge-onate-juancho-rois/13-aniversario-1981-1983",
+    "title": "13° aniversario 1981-1983"
+  },
+  {
+    "owner_href": "/artist/juancho-rois",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/diomedes-diaz-juancho-rois/gano-el-folclor",
+    "title": "Ganó el folclor"
+  },
+  {
+    "owner_href": "/artist/juancho-rois",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/diomedes-diaz-juancho-rois/el-condor-herido",
+    "title": "El cóndor herido"
+  },
+  {
+    "owner_href": "/artist/juancho-rois",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/diomedes-diaz-y-juancho-rois/canta-conmigo",
+    "title": "Canta conmigo"
+  },
+  {
+    "owner_href": "/artist/juancho-rois",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/diomedes-diaz-juancho-rois/mi-vida-musical",
+    "title": "Mi vida musical"
+  },
+  {
+    "owner_href": "/artist/juancho-rois",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/diomedes-diaz-juancho-rois/el-regreso-del-condor",
+    "title": "El regreso del cóndor"
+  },
+  {
+    "owner_href": "/artist/juancho-rois",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/diomedes-diaz-juancho-rois/titulo-de-amor",
+    "title": "Título de amor"
+  },
+  {
+    "owner_href": "/artist/juancho-rois",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/diomedes-diaz-juancho-rois/26-de-mayo",
+    "title": "26 de Mayo"
+  },
+  {
+    "owner_href": "/artist/manuel-rocca",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/mhammed-el-alami-manuel-rocca/land-of-grace",
+    "title": "Land of Grace"
+  },
+  {
+    "owner_href": "/artist/osmer-hernandez",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/osmer-hernandez/uverito",
+    "title": "Uverito"
+  },
+  {
+    "owner_href": "/artist/raquel-gonzalez-1",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/raquel-gonzalez/asi-cantaba",
+    "title": "Así cantaba"
+  },
+  {
+    "owner_href": "/artist/martin_dowser",
+    "kind": "person",
+    "release_href": "/release/single/martin_dowser/my_love_irene___concised_confession",
+    "title": "My Love Irene / Concised Confession"
+  },
+  {
+    "owner_href": "/artist/guillermo-marchena",
+    "kind": "person",
+    "release_href": "/release/single/guillermo-marchena/my-love-is-a-tango",
+    "title": "My Love Is a Tango"
+  },
+  {
+    "owner_href": "/artist/boy-dap",
+    "kind": "person",
+    "release_href": "/release/album/boy-dap/ayera-y-awe",
+    "title": "Ayera y Awe"
+  },
+  {
+    "owner_href": "/artist/boy-dap",
+    "kind": "person",
+    "release_href": "/release/album/boy-dap/boy-dap-y-su-explosion-latina",
+    "title": "Boy Dap y su Explosion Latina"
+  },
+  {
+    "owner_href": "/artist/boy-dap",
+    "kind": "person",
+    "release_href": "/release/album/boy-dap/hopi-swerte",
+    "title": "Hopi Swerte"
+  },
+  {
+    "owner_href": "/artist/boy-dap",
+    "kind": "person",
+    "release_href": "/release/album/boy-dap/mi-tei",
+    "title": "Mi T'ei"
+  },
+  {
+    "owner_href": "/artist/peter-prommel",
+    "kind": "person",
+    "release_href": "/release/album/netherlands-radio-philharmonic-london-sinfonietta-peter-eotvos-george-benjamin-peter-prommel-penelope-walmsley-clark/madonna-of-winter-and-spring-percussion-concerto-song-offerings",
+    "title": "Madonna of Winter and Spring; Percussion Concerto; Song Offerings"
+  },
+  {
+    "owner_href": "/artist/peter-prommel",
+    "kind": "person",
+    "release_href": "/release/album/euterpe-wind-quintet-osiris-trio-john-addison-eddy-janning-arnold-marinissen-peter-prommel-richard-jensen/bella-figura",
+    "title": "Bella figura"
+  },
+  {
+    "owner_href": "/artist/peter-prommel",
+    "kind": "person",
+    "release_href": "/release/album/koor-van-de-brt-bruxelles-groot-omroepkoor-radio-symfonie-orkest-hilversum-reinbert-de-leeuw-loriod-muruzabal-van-der-loo-de-boer-prommel-stotyn-de-vlieger-van-gijsegem-holthaus/la-transfiguration-de-notre-seigneur-jesus-christ",
+    "title": "La transfiguration de notre seigneur Jésus-Christ"
+  },
+  {
+    "owner_href": "/artist/mc-pester",
+    "kind": "person",
+    "release_href": "/release/mixtape/moortje-and-pester/bandje-64-2",
+    "title": "Bandje 64 - 2"
+  },
+  {
+    "owner_href": "/artist/mc-pester",
+    "kind": "person",
+    "release_href": "/release/mixtape/dj-moortje-mc-pester/bandje-64",
+    "title": "Bandje 64"
+  },
+  {
+    "owner_href": "/artist/martin_verdonk",
+    "kind": "person",
+    "release_href": "/release/album/martin_verdonk/old_school_new_sound",
+    "title": "Old School New Sound"
+  },
+  {
+    "owner_href": "/artist/martin_verdonk",
+    "kind": "person",
+    "release_href": "/release/album/martin-verdonk/tribal-fusion",
+    "title": "Tribal Fusion"
+  },
+  {
+    "owner_href": "/artist/julien-coco",
+    "kind": "person",
+    "release_href": "/release/ep/cobi-schreijer-julien-coco/goeden-avond-speelman",
+    "title": "Goeden avond speelman"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/album/tony-sherman/sing-with-me",
+    "title": "Sing With Me"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/single/tony-sherman/tonight-slippin-into-darkness",
+    "title": "Tonight / Slippin' Into Darkness"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/single/tony-sherman/i-wrote-you-a-letter-ill-be-there",
+    "title": "I Wrote You a Letter / I'll Be There"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/single/tony-sherman/sing-with-me-thank-you-baby",
+    "title": "Sing With Me / Thank You Baby"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/single/tony-sherman-the-sherman-brothers/smile-baby-smile",
+    "title": "Smile Baby Smile"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/single/tony-sherman-the-sherman-brothers/i-wrote-you-a-letter-tonight",
+    "title": "I Wrote You a Letter / Tonight"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/single/tony-sherman/city-nights",
+    "title": "City Nights"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/single/tony-sherman-and-julia-loko/too-big-for-words-fantasy",
+    "title": "Too Big for Words / Fantasy"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/single/tony-sherman/ellovee-ee",
+    "title": "Ellovee-ee"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/single/tony-sherman/dancing-in-the-dark-another-fool-another-love",
+    "title": "Dancing in the Dark / Another Fool, Another Love"
+  },
+  {
+    "owner_href": "/artist/tony-sherman",
+    "kind": "person",
+    "release_href": "/release/single/drivin-force-tony-sherman/whos-the-one-for-me",
+    "title": "Who's the One for Me"
+  },
+  {
+    "owner_href": "/artist/mildred_douglas",
+    "kind": "person",
+    "release_href": "/release/single/mildred_douglas/one_more_night___my_loves_a_genius",
+    "title": "One More Night / My Love's a Genius"
+  },
+  {
+    "owner_href": "/artist/rudy-plaate",
+    "kind": "person",
+    "release_href": "/release/album/rudy-plaate/rudy-plaate",
+    "title": "Rudy Plaate"
+  },
+  {
+    "owner_href": "/artist/rudy-plaate",
+    "kind": "person",
+    "release_href": "/release/album/rudy-plaate/recordar-es-vivir",
+    "title": "Recordar es vivir"
+  },
+  {
+    "owner_href": "/artist/rudy-plaate",
+    "kind": "person",
+    "release_href": "/release/album/rudy-plaate/tabo-ta-korsou-i-tipico-boneriano",
+    "title": "T'abo.. ta Kòrsou! I tipico Boneriano"
+  },
+  {
+    "owner_href": "/artist/rudy-plaate",
+    "kind": "person",
+    "release_href": "/release/ep/rudy-plaate/masha-pabien",
+    "title": "Masha Pabien"
+  },
+  {
+    "owner_href": "/artist/rudy-plaate",
+    "kind": "person",
+    "release_href": "/release/ep/perlitas-o_l_v-rudy-plaate/perlitas",
+    "title": "Perlitas"
+  },
+  {
+    "owner_href": "/artist/edgar-palm",
+    "kind": "person",
+    "release_href": "/release/album/edgar-palm/music-of-the-netherlands-antilles",
+    "title": "Music of the Netherlands Antilles"
+  },
+  {
+    "owner_href": "/artist/dickery-dock",
+    "kind": "person",
+    "release_href": "/release/single/dickery-dock/a-song-for-all-mr-boo-boo-of-7th-avenue",
+    "title": "A Song for All / Mr. Boo-Boo of 7th Avenue"
+  },
+  {
+    "owner_href": "/artist/dickery-dock",
+    "kind": "person",
+    "release_href": "/release/single/gregory/big-star",
+    "title": "Big Star"
+  },
+  {
+    "owner_href": "/artist/jasmine-sendar",
+    "kind": "person",
+    "release_href": "/release/single/jasmine-sendar-walter-jakobsen/vrij-zijn",
+    "title": "Vrij zijn"
+  },
+  {
+    "owner_href": "/artist/jasmine-sendar",
+    "kind": "person",
+    "release_href": "/release/single/jasmine-sendar-ft-jorgen-raymann/x-mas-every-day",
+    "title": "X-Mas Every Day"
+  },
+  {
+    "owner_href": "/artist/luti-samson",
+    "kind": "person",
+    "release_href": "/release/single/luti-samson-and-estrella-antillana/si-nan-los-baas-mi-ta",
+    "title": "Si nan los / Baas mi ta"
+  },
+  {
+    "owner_href": "/artist/luti-samson",
+    "kind": "person",
+    "release_href": "/release/single/luti-samson-and-combo-c/paramdero-mes-un-boca",
+    "title": "Paramdero / Mes un boca"
+  },
+  {
+    "owner_href": "/artist/bobby-farrell",
+    "kind": "person",
+    "release_href": "/release/ep/bobby-farrell/the-bump",
+    "title": "The Bump"
+  },
+  {
+    "owner_href": "/artist/bobby-farrell",
+    "kind": "person",
+    "release_href": "/release/single/gilla-and-bobby/gentlemen-callers-not-allowed-say-yes",
+    "title": "Gentlemen Callers Not Allowed / Say Yes"
+  },
+  {
+    "owner_href": "/artist/bobby-farrell",
+    "kind": "person",
+    "release_href": "/release/single/bobby-farrell/polizei-a-fool-in-love",
+    "title": "Polizei / A Fool in Love"
+  },
+  {
+    "owner_href": "/artist/bobby-farrell",
+    "kind": "person",
+    "release_href": "/release/single/bobby-farrell/king-of-dancin",
+    "title": "King of Dancin'"
+  },
+  {
+    "owner_href": "/artist/bobby-farrell",
+    "kind": "person",
+    "release_href": "/release/single/bobby-farrell/happy-song",
+    "title": "Happy Song"
+  },
+  {
+    "owner_href": "/artist/bobby-farrell",
+    "kind": "person",
+    "release_href": "/release/single/bobby-farrell/hoppa-hoppa",
+    "title": "Hoppa Hoppa"
+  },
+  {
+    "owner_href": "/artist/bobby-farrell",
+    "kind": "person",
+    "release_href": "/release/single/bobby-farrell/a-tribute-to-josephine-baker-shame-and-scandal",
+    "title": "A Tribute to Josephine Baker / Shame and Scandal"
+  },
+  {
+    "owner_href": "/artist/bobby-farrell",
+    "kind": "person",
+    "release_href": "/release/comp/bobby-farrell/boney-m-remix-2005-featuring-sandy-chambers",
+    "title": "Boney M. Remix 2005 [featuring Sandy Chambers]"
+  },
+  {
+    "owner_href": "/artist/christiaan-hulsebos",
+    "kind": "person",
+    "release_href": "/release/single/christiaan-hulsebos/ik-sta-weer-vrij-in-het-leven",
+    "title": "Ik sta weer vrij in het leven"
+  },
+  {
+    "owner_href": "/artist/christiaan-hulsebos",
+    "kind": "person",
+    "release_href": "/release/single/kaylee-and-christiaan-hulsebos/samen-sta-je-sterk",
+    "title": "Samen sta je sterk"
+  },
+  {
+    "owner_href": "/artist/julio_wilson",
+    "kind": "person",
+    "release_href": "/release/single/julio-gun/hey-hey-baby-did-you-dig-it",
+    "title": "Hey Hey Baby / Did You Dig It"
+  },
+  {
+    "owner_href": "/artist/julio_wilson",
+    "kind": "person",
+    "release_href": "/release/single/wilson-and-henny/always-together-diana-gould",
+    "title": "Always Together / Diana Gould"
+  },
+  {
+    "owner_href": "/artist/julio_wilson",
+    "kind": "person",
+    "release_href": "/release/single/julio_wilson/the_chant_of_jimmy_blacksmith___the_chant_of_jimmy_blacksmith__part_2_",
+    "title": "The Chant of Jimmy Blacksmith / The Chant of Jimmy Blacksmith (part 2)"
+  },
+  {
+    "owner_href": "/artist/sola",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/sola/sola",
+    "title": "Sola"
+  },
+  {
+    "owner_href": "/artist/sola",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/sola/cuatro-vidas",
+    "title": "Cuatro vidas"
+  },
+  {
+    "owner_href": "/artist/sola",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/sola/amiga-tristeza",
+    "title": "Amiga tristeza"
+  },
+  {
+    "owner_href": "/artist/sola",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/sola/tabu-tabu-un-muneco-de-madera",
+    "title": "Tabú-tabú / Un muñeco de madera"
+  },
+  {
+    "owner_href": "/artist/dave_benton",
+    "kind": "person",
+    "release_href": "/release/album/dave_benton/from_monday_to_sunday",
+    "title": "From Monday to Sunday"
+  },
+  {
+    "owner_href": "/artist/dave_benton",
+    "kind": "person",
+    "release_href": "/release/album/dave_benton/humanity_through_harmony",
+    "title": "Humanity Through Harmony"
+  },
+  {
+    "owner_href": "/artist/dave_benton",
+    "kind": "person",
+    "release_href": "/release/album/dave_benton/generations",
+    "title": "Generations"
+  },
+  {
+    "owner_href": "/artist/dave_benton",
+    "kind": "person",
+    "release_href": "/release/album/dave_benton/history_i__dave_benton_sings_nat_king_cole",
+    "title": "History I: Dave Benton Sings Nat King Cole"
+  },
+  {
+    "owner_href": "/artist/dave_benton",
+    "kind": "person",
+    "release_href": "/release/album/dave-benton/generations-vol-2",
+    "title": "Generations: Vol. 2"
+  },
+  {
+    "owner_href": "/artist/dave_benton",
+    "kind": "person",
+    "release_href": "/release/album/dave_benton/aastaid_oodatud_joulud",
+    "title": "Aastaid oodatud jõulud"
+  },
+  {
+    "owner_href": "/artist/dave_benton",
+    "kind": "person",
+    "release_href": "/release/album/dave_benton/christmas_with_love",
+    "title": "Christmas With Love"
+  },
+  {
+    "owner_href": "/artist/dave_benton",
+    "kind": "person",
+    "release_href": "/release/single/tanel-padar-dave-benton/everybody",
+    "title": "Everybody"
+  },
+  {
+    "owner_href": "/artist/john-w-moore",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/john-w-moore/recession-aruba",
+    "title": "Recession / Aruba"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/album/euson/both_sides_now",
+    "title": "Both Sides Now"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/album/euson/euson",
+    "title": "Euson"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/album/euson/favourites_of_the_fifties",
+    "title": "Favourites of the Fifties"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/album/euson/life_is_on_my_side",
+    "title": "Life Is On My Side"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/album/euson/better_days",
+    "title": "Better Days"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/album/euson/sweet_surrender",
+    "title": "Sweet Surrender"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/album/euson/midnight-blue",
+    "title": "Midnight Blue"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/album/euson-and-stax/j_b-euson-live-at-club-67",
+    "title": "J.B. Euson Live at Club 67"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/julio-b-euson/my-plea-baby-wont-you-come-on-back",
+    "title": "My Plea / Baby Won't You Come on Back"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/j_b-euson/amen-where-can-my-lover-be",
+    "title": "Amen / Where Can My Lover Be"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/j_b-euson/true-love-hold-on-baby",
+    "title": "True Love / Hold on Baby"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson-stax/i-want-you-around-me-shadow-of-love",
+    "title": "I Want You Around Me / Shadow of Love"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/j_b-euson/my-purpose-in-life-when-love-is-gone",
+    "title": "My Purpose in Life / When Love Is Gone"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson/born-on-the-bayou-consider-me",
+    "title": "Born on the Bayou / Consider Me"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson/i_need_you_to_turn_to___carry_that_load",
+    "title": "I Need You to Turn To / Carry That Load"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson/both-sides-now-dont-let-it-happen-again",
+    "title": "Both Sides Now / Don't Let It Happen Again"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson-and-stax/a-fool-for-you-better-times-coming",
+    "title": "A Fool for You / Better Time's Coming"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson/crimson_eyes___dreamin",
+    "title": "Crimson Eyes / Dreamin'"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson/julie___always_be_mine",
+    "title": "Julie / Always Be Mine"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson/put_your_trust_in_the_lord___angelina",
+    "title": "Put Your Trust in the Lord / Angelina"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson/leon___and_i_love_you_so",
+    "title": "Leon / And I Love You So"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson/dirty_lady___i_can_see_clearly_now",
+    "title": "Dirty Lady / I Can See Clearly Now"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson/soap___mary_jane",
+    "title": "Soap / Mary-Jane"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/single/euson/sweet_surrender___alone_again",
+    "title": "Sweet Surrender / Alone Again"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/comp/euson/best_of",
+    "title": "Best Of"
+  },
+  {
+    "owner_href": "/artist/euson",
+    "kind": "person",
+    "release_href": "/release/comp/euson/the_best_of_euson",
+    "title": "The Best of Euson"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/album/pete-philly/open-loops",
+    "title": "Open Loops"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/album/pete-philly/one",
+    "title": "One"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/ep/pete-philly/lift",
+    "title": "Lift"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/encore_une_fois",
+    "title": "Encore une fois"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/free",
+    "title": "Free"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/changing",
+    "title": "Changing"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/non_a_dem",
+    "title": "Non a Dem"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/remember_you",
+    "title": "Remember You"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/movin_on",
+    "title": "Movin' On"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/us",
+    "title": "Us"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/mirror",
+    "title": "Mirror"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/r_hood",
+    "title": "R Hood"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/truth_be_told",
+    "title": "Truth Be Told"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete_philly/honesty",
+    "title": "Honesty"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete-philly/one",
+    "title": "One"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete-philly/until",
+    "title": "Until"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete-philly/come-together",
+    "title": "Come Together"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete-philly/favorite-song",
+    "title": "Favorite Song"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete-philly/dear",
+    "title": "Dear"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete-philly/breathe",
+    "title": "Breathe"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete-philly/ftp",
+    "title": "FTP"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete-philly/all-day",
+    "title": "All Day"
+  },
+  {
+    "owner_href": "/artist/pete_philly",
+    "kind": "person",
+    "release_href": "/release/single/pete-philly/still",
+    "title": "Still"
+  },
+  {
+    "owner_href": "/artist/leslie_vaughn",
+    "kind": "person",
+    "release_href": "/release/single/leslie_vaughn/somebody_loves_you___love_is_on_your_side",
+    "title": "Somebody Loves You / Love is on Your Side"
+  },
+  {
+    "owner_href": "/artist/leslie_vaughn",
+    "kind": "person",
+    "release_href": "/release/single/leslie_vaughn/slow_dancin_eyes___shalala_come_near",
+    "title": "Slow Dancin' Eyes / Shalala Come Near"
+  },
+  {
+    "owner_href": "/artist/nando",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/nando/eight_days_a_week___time__time__time",
+    "title": "Eight Days a Week / Time, Time, Time"
+  },
+  {
+    "owner_href": "/artist/d_rock",
+    "kind": "person",
+    "release_href": "/release/single/d-rock/i-cant-believe-its-over",
+    "title": "I Can't Believe It's Over"
+  },
+  {
+    "owner_href": "/artist/d_rock",
+    "kind": "person",
+    "release_href": "/release/comp/2-brothers-on-the-4th-floor-feat-desray-and-d-rock/the-very-best-of-25th-anniversary-edition",
+    "title": "The Very Best Of (25th Anniversary Edition)"
+  },
+  {
+    "owner_href": "/artist/spooky_f4",
+    "kind": "person",
+    "release_href": "/release/single/spooky_f4/music___spookys_express",
+    "title": "Music / Spooky's Express"
+  },
+  {
+    "owner_href": "/artist/spartacus_r",
+    "kind": "person",
+    "release_href": "/release/album/spartacus_r/third_world_war",
+    "title": "Third World War"
+  },
+  {
+    "owner_href": "/artist/spartacus_r",
+    "kind": "person",
+    "release_href": "/release/single/spartacus-r/2-4-1",
+    "title": "2 - 4 - 1"
+  },
+  {
+    "owner_href": "/artist/marva-hodge",
+    "kind": "person",
+    "release_href": "/release/single/marva-hodge/youre-the-one-for-me-think-about-the-good-times",
+    "title": "You're the One for Me / Think About the Good Times"
+  },
+  {
+    "owner_href": "/artist/marva-hodge",
+    "kind": "person",
+    "release_href": "/release/single/marva-hodge/the-ghetto-sometimes",
+    "title": "The Ghetto / Sometimes"
+  },
+  {
+    "owner_href": "/artist/fellow_f1",
+    "kind": "person",
+    "release_href": "/release/ep/fellow_f1/run_de_dance",
+    "title": "Run de Dance"
+  },
+  {
+    "owner_href": "/artist/wally-warning",
+    "kind": "person",
+    "release_href": "/release/album/wally-warning/promises",
+    "title": "Promises"
+  },
+  {
+    "owner_href": "/artist/wally-warning",
+    "kind": "person",
+    "release_href": "/release/album/wally-warning/love-can-save-us",
+    "title": "Love Can Save Us"
+  },
+  {
+    "owner_href": "/artist/wally-warning",
+    "kind": "person",
+    "release_href": "/release/album/wally-warning/no-monkey",
+    "title": "No Monkey"
+  },
+  {
+    "owner_href": "/artist/wally-warning",
+    "kind": "person",
+    "release_href": "/release/album/wally-warning/chillout-world-music",
+    "title": "Chillout World Music"
+  },
+  {
+    "owner_href": "/artist/wally-warning",
+    "kind": "person",
+    "release_href": "/release/album/wally-warning/ritmo-tropical",
+    "title": "Ritmo tropical"
+  },
+  {
+    "owner_href": "/artist/wally-warning",
+    "kind": "person",
+    "release_href": "/release/single/wally-warning/no-monkey",
+    "title": "No Monkey"
+  },
+  {
+    "owner_href": "/artist/willy_latino",
+    "kind": "person",
+    "release_href": "/release/single/willy_latino/carnaval_in_brasil___shes_a_liar",
+    "title": "Carnaval in Brasil / She's a Liar"
+  },
+  {
+    "owner_href": "/artist/willy_latino",
+    "kind": "person",
+    "release_href": "/release/single/willy_latino/summer_is_back__in_town_",
+    "title": "Summer Is Back (in Town)"
+  },
+  {
+    "owner_href": "/artist/aggression-4",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/aggression/aggression",
+    "title": "Aggression"
+  },
+  {
+    "owner_href": "/artist/marrom-fernandez",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/rxnde-akozta-marrom-fernandez/una-isla-en-los-andes",
+    "title": "Una isla en los Andes"
+  },
+  {
+    "owner_href": "/artist/blaxx-1",
+    "kind": "person",
+    "release_href": "/release/single/blaxx/huntin",
+    "title": "Huntin"
+  },
+  {
+    "owner_href": "/artist/blaxx-1",
+    "kind": "person",
+    "release_href": "/release/single/blaxx/zombie",
+    "title": "Zombie"
+  },
+  {
+    "owner_href": "/artist/blaxx-1",
+    "kind": "person",
+    "release_href": "/release/single/andrew-hitz-phillip-blaxx/we-not-going-home-homeless",
+    "title": "We Not Going Home (Homeless)"
+  },
+  {
+    "owner_href": "/artist/blaxx-1",
+    "kind": "person",
+    "release_href": "/release/single/blaxx/place-in-life",
+    "title": "Place in Life"
+  },
+  {
+    "owner_href": "/artist/blaxx-1",
+    "kind": "person",
+    "release_href": "/release/single/andrew-hitz-phillip-blaxx/maddest-crew",
+    "title": "Maddest Crew"
+  },
+  {
+    "owner_href": "/artist/blaxx-1",
+    "kind": "person",
+    "release_href": "/release/single/blaxx/whining-practice",
+    "title": "Whining Practice"
+  },
+  {
+    "owner_href": "/artist/blaxx-1",
+    "kind": "person",
+    "release_href": "/release/single/blaxx/persuasion",
+    "title": "Persuasion"
+  },
+  {
+    "owner_href": "/artist/the-tiger",
+    "kind": "person",
+    "release_href": "/release/album/growling-tiger/knockdown-calypsos",
+    "title": "Knockdown Calypsos"
+  },
+  {
+    "owner_href": "/artist/the-tiger",
+    "kind": "person",
+    "release_href": "/release/single/neville-marcano-egbert-moore/money-is-king-captain-cipriani",
+    "title": "Money is King / Captain Cipriani"
+  },
+  {
+    "owner_href": "/artist/the-tiger",
+    "kind": "person",
+    "release_href": "/release/single/the-tiger-king-radio-and-lion-and-tiger/the-gold-in-africa-dont-break-it-i-say",
+    "title": "The Gold in Africa / Don't Break It, I Say"
+  },
+  {
+    "owner_href": "/artist/the-tiger",
+    "kind": "person",
+    "release_href": "/release/single/the-tiger-king-radio/workers-appeal-neighbour",
+    "title": "Workers' Appeal / Neighbour"
+  },
+  {
+    "owner_href": "/artist/the-tiger",
+    "kind": "person",
+    "release_href": "/release/single/the-tiger-king-radio/miss-maries-advice-john-ocarr",
+    "title": "Miss Marie's Advice / John O'Carr"
+  },
+  {
+    "owner_href": "/artist/the-tiger",
+    "kind": "person",
+    "release_href": "/release/single/neville-marcano-tiger/the-new-constitution-woman-police",
+    "title": "The New Constitution / Woman Police"
+  },
+  {
+    "owner_href": "/artist/the-tiger",
+    "kind": "person",
+    "release_href": "/release/single/neville-marcano-tiger/the-train-blow-naked-you-come-naked-you-go",
+    "title": "The Train Blow / Naked You Come, Naked You Go"
+  },
+  {
+    "owner_href": "/artist/the-tiger",
+    "kind": "person",
+    "release_href": "/release/comp/neville-marcano/the-growling-tiger-of-calypso-the-alan-lomax-portrait-series",
+    "title": "The Growling Tiger of Calypso - The Alan Lomax Portrait Series"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/billy-ocean-2",
+    "title": "Billy Ocean"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/city-limit",
+    "title": "City Limit"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/nights-feel-like-getting-down",
+    "title": "Nights (Feel Like Getting Down)"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/inner-feelings",
+    "title": "Inner Feelings"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/suddenly",
+    "title": "Suddenly"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/love-zone",
+    "title": "Love Zone"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/tear-down-these-walls",
+    "title": "Tear Down These Walls"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/time-to-move-on",
+    "title": "Time to Move On"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/because-i-love-you",
+    "title": "Because I Love You"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/here-you-are-the-best-of",
+    "title": "Here You Are + The Best Of"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/here-you-are-the-music-of-my-life",
+    "title": "Here You Are: The Music of My Life"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/album/billy-ocean/one-world",
+    "title": "One World"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/l_o_d-love-on-delivery-mr-business-man-2",
+    "title": "L.O.D. (Love on Delivery) / Mr. Business Man"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/love-really-hurts-without-you-youre-running-outa-fools",
+    "title": "Love Really Hurts Without You / You're Running Outa Fools"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/stop-me-if-youve-heard-it-all-before-lets-put-our-emotions-in-motions",
+    "title": "Stop Me (If You've Heard It All Before) / Let's Put Our Emotions in Motions"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/red-light-sweet-memories",
+    "title": "Red Light / Sweet Memories"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/american-hearts-my-love",
+    "title": "American Hearts / My Love"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/are-you-ready-maybe-tonight",
+    "title": "Are You Ready? / Maybe Tonight"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/stay-the-night-what-you-doing-to-me",
+    "title": "Stay the Night / What You Doing to Me"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/nights-feel-like-getting-down-everlasting-love",
+    "title": "Nights (Feel Like Getting Down) / Everlasting Love"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/stay-the-night-night-feel-like-getting-down",
+    "title": "Stay the Night / Night (Feel Like Getting Down)"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/calypso-funkin-city-limit",
+    "title": "Calypso Funkin' / City Limit"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/inner-feelings-tryin-to-get-through-to-you",
+    "title": "Inner Feelings / Tryin' to Get Through to You"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/european-queen-no-more-love-on-the-run",
+    "title": "European Queen (No More Love on the Run)"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/mystery-lady-african-queen-no-more-love-on-the-run",
+    "title": "Mystery Lady / African Queen (No More Love on the Run)"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/caribbean-queen-no-more-love-on-the-run",
+    "title": "Caribbean Queen (No More Love on the Run)"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/loverboy",
+    "title": "Loverboy"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/suddenly-lucky-man-2",
+    "title": "Suddenly / Lucky Man"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/the-long-and-winding-road",
+    "title": "The Long and Winding Road"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/when-the-going-gets-tough-the-tough-get-going-4",
+    "title": "When the Going Gets Tough, the Tough Get Going"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/bittersweet",
+    "title": "Bittersweet"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/love-zone",
+    "title": "Love Zone"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/therell-be-sad-songs-to-make-you-cry-if-i-should-lose-you-1",
+    "title": "There'll Be Sad Songs (To Make You Cry) / If I Should Lose You"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/love-is-forever-dancefloor",
+    "title": "Love Is Forever / Dancefloor"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/calypso-crazy",
+    "title": "Calypso Crazy"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/tear-down-these-walls-without-you",
+    "title": "Tear Down These Walls / Without You"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/the-colour-of-love-its-never-too-late-to-try",
+    "title": "The Colour of Love / It's Never Too Late to Try"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/get-outta-my-dreams-get-into-my-car-showdown-1",
+    "title": "Get Outta My Dreams, Get Into My Car / Showdown"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/stand-and-deliver-pleasure",
+    "title": "Stand and Deliver / Pleasure"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/i-sleep-much-better-in-someone-elses-bed",
+    "title": "I Sleep Much Better (In Someone Else's Bed)"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/licence-to-chill-pleasure",
+    "title": "Licence to Chill / Pleasure"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/single/billy-ocean/pressure",
+    "title": "Pressure"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/comp/billy-ocean/billy-ocean-greatest-hits",
+    "title": "Billy Ocean: Greatest Hits"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/comp/billy-ocean/the-collection-1976-1991",
+    "title": "The Collection 1976-1991"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/comp/billy-ocean/the-collection",
+    "title": "The Collection"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/comp/billy-ocean/l_i_f_e-love-is-for-ever",
+    "title": "L.I.F.E. (Love Is for Ever)"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/comp/billy-ocean/the-billy-ocean-collection",
+    "title": "The Billy Ocean Collection"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/comp/billy-ocean/the-ultimate-collection",
+    "title": "The Ultimate Collection"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/comp/billy-ocean/the-very-best-of-billy-ocean",
+    "title": "The Very Best of Billy Ocean"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/comp/billy-ocean/s_o_u_l",
+    "title": "S.O.U.L."
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/comp/billy-ocean/remixes-and-rarities",
+    "title": "Remixes and Rarities"
+  },
+  {
+    "owner_href": "/artist/billy-ocean",
+    "kind": "person",
+    "release_href": "/release/comp/billy-ocean/love-really-hurts-without-you",
+    "title": "Love Really Hurts Without You"
+  },
+  {
+    "owner_href": "/artist/lord-shorty",
+    "kind": "person",
+    "release_href": "/release/album/lord-shorty/gone-gone-gone",
+    "title": "Gone Gone Gone"
+  },
+  {
+    "owner_href": "/artist/lord-shorty",
+    "kind": "person",
+    "release_href": "/release/album/lord-shorty/the-love-man",
+    "title": "The Love Man"
+  },
+  {
+    "owner_href": "/artist/lord-shorty",
+    "kind": "person",
+    "release_href": "/release/album/lord-shorty/endless-vibrations",
+    "title": "Endless Vibrations"
+  },
+  {
+    "owner_href": "/artist/lord-shorty",
+    "kind": "person",
+    "release_href": "/release/album/lord-shorty/sweet-music",
+    "title": "Sweet Music"
+  },
+  {
+    "owner_href": "/artist/lord-shorty",
+    "kind": "person",
+    "release_href": "/release/album/lord-shorty/soca-explosion",
+    "title": "Soca Explosion"
+  },
+  {
+    "owner_href": "/artist/lord-shorty",
+    "kind": "person",
+    "release_href": "/release/single/garfield-blackman/cloak-and-dagger-fish-is-fish",
+    "title": "Cloak and Dagger / Fish Is Fish"
+  },
+  {
+    "owner_href": "/artist/lord-shorty",
+    "kind": "person",
+    "release_href": "/release/single/lord-shorty/indrani-calypso-is-ours",
+    "title": "Indrani / Calypso is Ours"
+  },
+  {
+    "owner_href": "/artist/lord-shorty",
+    "kind": "person",
+    "release_href": "/release/single/lord-shorty/sweet-music-e-pee-tee",
+    "title": "Sweet Music / E-Pee-Tee"
+  },
+  {
+    "owner_href": "/artist/lord-shorty",
+    "kind": "person",
+    "release_href": "/release/comp/lord-shorty/greatest-hits",
+    "title": "Greatest Hits"
+  },
+  {
+    "owner_href": "/artist/manuel-alvarado",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/manuel-alvarado/cumbia-pa-goza",
+    "title": "Cumbia P'a Goza"
+  },
+  {
+    "owner_href": "/artist/zzeta",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/zzeta/hundido",
+    "title": "Hundido"
+  },
+  {
+    "owner_href": "/artist/zzeta",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/zzeta/olvidar",
+    "title": "Olvidar"
+  },
+  {
+    "owner_href": "/artist/zzeta",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/zzeta/atrapado-mental",
+    "title": "Atrapado Mental"
+  },
+  {
+    "owner_href": "/artist/zzeta",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/zzeta/no-me-presto",
+    "title": "No me presto"
+  },
+  {
+    "owner_href": "/artist/zzeta",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/zzeta/aguacero",
+    "title": "Aguacero"
+  },
+  {
+    "owner_href": "/artist/zzeta",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/zzeta/rapero",
+    "title": "Rapero"
+  },
+  {
+    "owner_href": "/artist/zzeta",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/zzeta/subconsciente",
+    "title": "Subconsciente"
+  },
+  {
+    "owner_href": "/artist/zzeta",
+    "kind": "sin_ficha",
+    "release_href": "/release/single/zzeta/un-vaso-de-ron",
+    "title": "Un vaso de ron"
+  },
+  {
+    "owner_href": "/artist/spell-1",
+    "kind": "person",
+    "release_href": "/release/album/spell/spell",
+    "title": "Spell"
+  },
+  {
+    "owner_href": "/artist/diego-caicedo",
+    "kind": "person",
+    "release_href": "/release/album/diego-caicedo/diego-caicedo",
+    "title": "Diego Caicedo"
+  },
+  {
+    "owner_href": "/artist/diego-caicedo",
+    "kind": "person",
+    "release_href": "/release/album/diego-caicedo/sevenmonks",
+    "title": "SevenMonks"
+  },
+  {
+    "owner_href": "/artist/diego-caicedo",
+    "kind": "person",
+    "release_href": "/release/album/diego-caicedo/violencia-1962",
+    "title": "Violencia (1962)"
+  },
+  {
+    "owner_href": "/artist/diego-caicedo",
+    "kind": "person",
+    "release_href": "/release/album/luiz-rocha-diego-caicedo/adeptus-exemptus",
+    "title": "Adeptus Exemptus"
+  },
+  {
+    "owner_href": "/artist/diego-caicedo",
+    "kind": "person",
+    "release_href": "/release/album/diego-caicedo-goncalo-almeida-vasco-trilla/low-vertigo",
+    "title": "Low Vertigo"
+  },
+  {
+    "owner_href": "/artist/diego-caicedo",
+    "kind": "person",
+    "release_href": "/release/album/diego-caicedo/seis-amorfismos",
+    "title": "Seis Amorfismos"
+  },
+  {
+    "owner_href": "/artist/diego-caicedo",
+    "kind": "person",
+    "release_href": "/release/album/diego-caicedo/eidos-daemonium",
+    "title": "Eidos daemonium"
+  },
+  {
+    "owner_href": "/artist/diego-caicedo",
+    "kind": "person",
+    "release_href": "/release/album/pablo-schvarzman-francois-carrier-michel-lambert-diego-caicedo/glow",
+    "title": "Glow"
+  },
+  {
+    "owner_href": "/artist/diego-caicedo",
+    "kind": "person",
+    "release_href": "/release/album/nuno-rebelo-pablo-schvarzman-diego-caicedo/perceptual-motion",
+    "title": "Perceptual Motion"
+  },
+  {
+    "owner_href": "/artist/laura-roman",
+    "kind": "person",
+    "release_href": "/release/single/laura-roman/recuerda",
+    "title": "Recuerda"
+  },
+  {
+    "owner_href": "/artist/lyda_zamora",
+    "kind": "person",
+    "release_href": "/release/album/lyda-zamora/la-chica-ye-ye-de-colombia",
+    "title": "La chica ye ye de Colombia"
+  },
+  {
+    "owner_href": "/artist/lyda_zamora",
+    "kind": "person",
+    "release_href": "/release/ep/lida-zamora/la-chica-yea-yea-en-estudo-15",
+    "title": "La chica yea yea en Estudo 15"
+  },
+  {
+    "owner_href": "/artist/lyda_zamora",
+    "kind": "person",
+    "release_href": "/release/single/lyda_zamora/volver__volver___quererte_como_te_quiero",
+    "title": "Volver, volver / Quererte como te quiero"
+  },
+  {
+    "owner_href": "/artist/lyda_zamora",
+    "kind": "person",
+    "release_href": "/release/single/lyda_zamora/rio_magdalena___good_times",
+    "title": "Rio Magdalena / Good Times"
+  },
+  {
+    "owner_href": "/artist/maria-cristina-plata",
+    "kind": "person",
+    "release_href": "/release/album/maria-cristina-plata/despues-de-todo-compilado-latinoamericano",
+    "title": "Después de todo / Compilado latinoamericano"
+  },
+  {
+    "owner_href": "/artist/edson_velandia",
+    "kind": "person",
+    "release_href": "/release/album/edson_velandia_and_jardin_infantil_la_ronda/socrates",
+    "title": "Sócrates"
+  },
+  {
+    "owner_href": "/artist/edson_velandia",
+    "kind": "person",
+    "release_href": "/release/album/edson-velandia/el-karateka",
+    "title": "El karateka"
+  },
+  {
+    "owner_href": "/artist/edson_velandia",
+    "kind": "person",
+    "release_href": "/release/album/edson-velandia/pariente",
+    "title": "Pariente"
+  },
+  {
+    "owner_href": "/artist/edson_velandia",
+    "kind": "person",
+    "release_href": "/release/album/edson-velandia/montanero",
+    "title": "Montañero"
+  },
+  {
+    "owner_href": "/artist/adriana-lizcano",
+    "kind": "person",
+    "release_href": "/release/album/adriana-lizcano-edson-velandia/panfletos",
+    "title": "Panfletos"
+  },
+  {
+    "owner_href": "/artist/edson_velandia",
+    "kind": "person",
+    "release_href": "/release/single/edson-velandia-sofia-viola/amor-sideral",
+    "title": "Amor sideral"
+  },
+  {
+    "owner_href": "/artist/edson_velandia",
+    "kind": "person",
+    "release_href": "/release/single/gato-e-monte-edson-velandia/papa-sabanera",
+    "title": "Papa sabanera"
+  },
+  {
+    "owner_href": "/artist/maria-cristina-plata",
+    "kind": "person",
+    "release_href": "/release/album/maria-cristina-plata/todas-las-flores",
+    "title": "Todas las flores"
+  },
+  {
+    "owner_href": "/artist/maria-cristina-plata",
+    "kind": "person",
+    "release_href": "/release/album/maria-cristina-plata/como-el-mar",
+    "title": "Como el mar"
+  },
+  {
+    "owner_href": "/artist/maria-cristina-plata",
+    "kind": "person",
+    "release_href": "/release/album/maria-cristina-plata/casi-te-creo",
+    "title": "Casi te creo"
+  },
+  {
+    "owner_href": "/artist/alfonso-guerrero",
+    "kind": "person",
+    "release_href": "/release/album/la-orquesta-alfonso-guerrero/agitando",
+    "title": "Agitando"
+  },
+  {
+    "owner_href": "/artist/sierra811",
+    "kind": "person",
+    "release_href": "/release/album/sierra811/libel",
+    "title": "Libel"
+  },
+  {
+    "owner_href": "/artist/sierra811",
+    "kind": "person",
+    "release_href": "/release/ep/sierra811/frontway-gardens",
+    "title": "Frontway Gardens"
+  },
+  {
+    "owner_href": "/artist/sierra811",
+    "kind": "person",
+    "release_href": "/release/ep/009-dreamscape/click-here-to-purchase-the-full-version",
+    "title": "click here to purchase the full version"
+  },
+  {
+    "owner_href": "/artist/sierra811",
+    "kind": "person",
+    "release_href": "/release/ep/sierra-sounds/demiurge",
+    "title": "Demiurge"
+  },
+  {
+    "owner_href": "/artist/pablus-gallinazo",
+    "kind": "person",
+    "release_href": "/release/album/el-comandante-pablus-gallinazo/protesta",
+    "title": "Protesta"
+  },
+  {
+    "owner_href": "/artist/pablus-gallinazo",
+    "kind": "person",
+    "release_href": "/release/album/pablus-gallinazo/los-dos-el-nino-nuestro-y-la-guitarra",
+    "title": "Los dos, el niño nuestro y la guitarra"
+  },
+  {
+    "owner_href": "/artist/pablus-gallinazo",
+    "kind": "person",
+    "release_href": "/release/album/pablus-gallinazo/una-flor-para-mascar-vol-2",
+    "title": "Una flor para mascar Vol. 2"
+  },
+  {
+    "owner_href": "/artist/pablus-gallinazo",
+    "kind": "person",
+    "release_href": "/release/album/pablus-gallinazo/el-comandante",
+    "title": "El Comandante"
+  },
+  {
+    "owner_href": "/artist/pablus-gallinazo",
+    "kind": "person",
+    "release_href": "/release/album/pablus-gallinazo/toma-el-mando-vol-6",
+    "title": "Toma el mando vol 6"
+  },
+  {
+    "owner_href": "/artist/rebelion",
+    "kind": "sin_ficha",
+    "release_href": "/release/album/black-angel-rebelion/alianza-infernal",
+    "title": "Alianza Infernal"
+  },
+  {
+    "owner_href": "/artist/ruben-dario-salcedo",
+    "kind": "person",
+    "release_href": "/release/album/ruben-dario-salcedo/espejismo",
+    "title": "Espejismo"
+  },
+  {
+    "owner_href": "/artist/teto-ocampo",
+    "kind": "person",
+    "release_href": "/release/album/teto-ocampo/teto",
+    "title": "Teto"
+  },
+  {
+    "owner_href": "/artist/benjamin-fox-casey",
+    "kind": "person",
+    "release_href": "/release/album/benjamin-fox-casey/pure-music",
+    "title": "Pure Music"
+  },
+  {
+    "owner_href": "/artist/benjamin-fox-casey",
+    "kind": "person",
+    "release_href": "/release/ep/benjamin-fox-casey/kelly-rohrbach-ep",
+    "title": "Kelly Rohrbach EP"
+  },
+  {
+    "owner_href": "/artist/benjamin-fox-casey",
+    "kind": "person",
+    "release_href": "/release/ep/benjamin-fox-casey/fricking-evil-man",
+    "title": "Fricking Evil Man"
+  },
+  {
+    "owner_href": "/artist/benjamin-fox-casey",
+    "kind": "person",
+    "release_href": "/release/ep/benjamin-fox-casey/plato",
+    "title": "Plato"
+  },
+  {
+    "owner_href": "/artist/benjamin-fox-casey",
+    "kind": "person",
+    "release_href": "/release/ep/benjamin-fox-casey/steak-and-pomegranate-juice",
+    "title": "Steak and Pomegranate Juice"
+  }
+]

@@ -13,7 +13,7 @@ import { buildApp } from "../../src/api/app.js";
 import { applyTaxonomyOperations, planTaxonomyFile } from "../../src/genres/admin.js";
 
 interface Facet { slug: string; name: string; count: number; relatedCount: number }
-interface Facets { total: number; withoutGenre: number; families: Array<Facet & { genres: Facet[] }> }
+interface Facets { total: number; withoutGenre: number; families: Array<Facet & { genres: Array<Facet & { subgenres?: Facet[] }> }> }
 interface ListPage { data: Array<{ id: number; hasOwnGenre?: boolean; primaryGenre: { slug: string } | null }>; pagination: { total: number } }
 
 describe("API: filtros por género y subgénero en discos y artistas", () => {
@@ -130,4 +130,69 @@ describe("API: filtros por género y subgénero en discos y artistas", () => {
       expect((await app.inject({ method: "GET", url })).statusCode, url).toBe(400);
     }
   });
+
+  it("entrega los estilos del tercer nivel y permite filtrar por ellos", async () => {
+    const artistId = await one("INSERT INTO public.artists(name) VALUES('Artista de Pasaje') RETURNING id");
+    const albumId = await one("INSERT INTO public.albums(artist_id, title) VALUES($1, 'Disco de Pasaje') RETURNING id", [artistId]);
+    await assign("album", albumId, "pasaje", "primary");
+    // Las facetas tienen caché de un minuto; este caso usa un servidor nuevo tras cambiar la base.
+    await app.close();
+    app = await buildApp();
+    for (const kind of ["album", "artist"] as const) {
+      const facets = await get<Facets>(`/genres/facets?kind=${kind}`);
+      const joropo = facets.families.find(family => family.slug === "musica-venezolana")?.genres.find(genre => genre.slug === "joropo");
+      expect(joropo?.subgenres).toEqual(expect.arrayContaining([
+        expect.objectContaining({ slug: "pasaje", name: "Pasaje", count: 1, relatedCount: 0 }),
+      ]));
+    }
+    expect(listIds(await get<ListPage>("/albums?genre=pasaje"))).toEqual([albumId]);
+    expect(listIds(await get<ListPage>("/artists?genre=pasaje"))).toEqual([artistId]);
+  });
+
+  it("filtra artistas por tipo combinado con género, búsqueda y paginación", async () => {
+    await getPool().query("UPDATE public.artists SET artist_type = 'solo_artist' WHERE id = $1", [ids["rockBand"]]);
+    try {
+      const solo = await get<ListPage>("/artists?artistType=solo_artist&genre=rock&q=Banda&limit=1");
+      expect(listIds(solo)).toEqual([ids["rockBand"]]);
+      expect(solo.pagination.total).toBe(1);
+      const empty = await get<ListPage>("/artists?artistType=band&genre=rock");
+      expect(empty.data).toEqual([]);
+      expect(empty.pagination.total).toBe(0);
+      const second = await get<ListPage>("/artists?artistType=solo_artist&limit=1&offset=1");
+      expect(second.data).toEqual([]);
+      expect(second.pagination.total).toBe(1);
+      expect((await app.inject("/artists?artistType=invalid")).statusCode).toBe(400);
+    } finally {
+      await getPool().query("UPDATE public.artists SET artist_type = 'band' WHERE id = $1", [ids["rockBand"]]);
+    }
+  });
+
+  it("filtra tipos de discos y conserva la ampliación por artista", async () => {
+    await getPool().query("UPDATE public.albums SET album_type = 'ep' WHERE id = ANY($1::bigint[])",
+      [[ids["thrashAlbum"], ids["bareMetalAlbum"]]]);
+    try {
+      const own = await get<ListPage>("/albums?albumType=ep&genre=thrash-metal");
+      expect(listIds(own)).toEqual([ids["thrashAlbum"]]);
+      const related = await get<ListPage>("/albums?albumType=ep&genre=thrash-metal&relatedGenre=true&limit=1");
+      expect(related.data).toHaveLength(1);
+      expect(related.pagination.total).toBe(2);
+      const second = await get<ListPage>("/albums?albumType=ep&genre=thrash-metal&relatedGenre=true&limit=1&offset=1");
+      expect(second.data[0]?.id).not.toBe(related.data[0]?.id);
+      expect(listIds(await get<ListPage>("/albums?albumType=ep&withoutGenre=true&q=sin"))).toEqual([ids["bareMetalAlbum"]]);
+      const facets = await get<{ total: number; types: Array<{ value: string; count: number }> }>("/albums/facets");
+      expect(facets.types).toContainEqual({ value: "ep", count: 2 });
+      expect(facets.types.reduce((sum, type) => sum + type.count, 0)).toBe(facets.total);
+    } finally {
+      await getPool().query("UPDATE public.albums SET album_type = 'other' WHERE id = ANY($1::bigint[])",
+        [[ids["thrashAlbum"], ids["bareMetalAlbum"]]]);
+    }
+  });
+
+  it("los conteos por tipo de artista incluyen todo el catálogo", async () => {
+    const facets = await get<{ total: number; types: Array<{ value: string; count: number }> }>("/artists/facets");
+    const all = await get<ListPage>("/artists?limit=1");
+    expect(facets.total).toBe(all.pagination.total);
+    expect(facets.types).toContainEqual({ value: "band", count: facets.total });
+  });
+
 });

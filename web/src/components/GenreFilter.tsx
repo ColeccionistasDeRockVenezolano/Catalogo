@@ -1,8 +1,13 @@
-import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { Check, MagnifyingGlass, Question, X } from "@phosphor-icons/react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import { MagnifyingGlass, Question, X } from "@phosphor-icons/react";
 import type { GenreFacet, GenreFacets, GenreFamilyFacet, GenreGenreFacet } from "../lib/types";
 import { WITHOUT_GENRE, type GenreSelection } from "../lib/useGenreFilter";
 import { useMediaQuery } from "../lib/useMediaQuery";
+import { FilterChip, formatCount } from "./ListFilters";
+import { SearchExampleHint } from "./SearchExampleHint";
+import { RotatingSearchExample, useRotatingSearchExample } from "./RotatingSearchExample";
+import { genreSearchExamples } from "../lib/catalogSearchExamples";
+export { ListSummary, formatCount } from "./ListFilters";
 
 export type GenreListKind = "album" | "artist";
 
@@ -35,7 +40,6 @@ const COPY: Record<GenreListKind, {
 /** Subgéneros visibles antes de «Ver más»: los más poblados primero. */
 const SUB_PREVIEW = 8;
 
-export const formatCount = (value: number) => value.toLocaleString("es-VE");
 
 const normalize = (value: string) => value.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().trim();
 
@@ -132,13 +136,13 @@ export function GenreFilter({ kind, facets, facetsError, onRetryFacets, selectio
       </div>
 
       <div className="gfilter__rail" ref={railRef} role="group" aria-label="Géneros">
-        <GenreChip label="Todos" count={facets.total} pressed={selection.family === null} onClick={() => { if (selection.family !== null) onFamily(null); }} />
+        <FilterChip label="Todos" count={facets.total} pressed={selection.family === null} onClick={() => { if (selection.family !== null) onFamily(null); }} />
         {families.map((entry) => (
-          <GenreChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.family === entry.slug}
+          <FilterChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.family === entry.slug}
             onClick={() => onFamily(entry.slug)} />
         ))}
         <span className="gfilter__divider" aria-hidden="true" />
-        <GenreChip label="Sin género" count={facets.withoutGenre} pressed={isWithout} variant="none"
+        <FilterChip label="Sin género" count={facets.withoutGenre} pressed={isWithout} variant="none"
           icon={<Question aria-hidden="true" weight="bold" />} onClick={() => onFamily(WITHOUT_GENRE)} />
       </div>
 
@@ -146,10 +150,10 @@ export function GenreFilter({ kind, facets, facetsError, onRetryFacets, selectio
         <div className="gfilter__subs">
           <p className="gfilter__sublabel">Subgéneros de <strong>{family.name}</strong></p>
           <div className="gfilter__subchips" ref={subRailRef} role="group" aria-label={`Subgéneros de ${family.name}`}>
-            <GenreChip label={`Todo ${family.name}`} count={effective(family)} pressed={selection.sub === null} small
+            <FilterChip label={`Todo ${family.name}`} count={effective(family)} pressed={selection.sub === null} small
               onClick={() => { if (selection.sub !== null) onSub(family.slug, null); }} />
             {visibleSubs.map((entry, index) => (
-              <GenreChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.sub === entry.slug} small
+              <FilterChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.sub === entry.slug} small
                 revealed={expanded && index >= SUB_PREVIEW}
                 onClick={() => onSub(family.slug, selection.sub === entry.slug ? null : entry.slug)} />
             ))}
@@ -166,10 +170,10 @@ export function GenreFilter({ kind, facets, facetsError, onRetryFacets, selectio
         <div className="gfilter__subs">
           <p className="gfilter__sublabel">Estilos de <strong>{selectedSub.name}</strong></p>
           <div className="gfilter__subchips" ref={styleRailRef} role="group" aria-label={`Estilos de ${selectedSub.name}`}>
-            <GenreChip label={`Todo ${selectedSub.name}`} count={effective(selectedSub)} pressed={selection.style === null} small
+            <FilterChip label={`Todo ${selectedSub.name}`} count={effective(selectedSub)} pressed={selection.style === null} small
               onClick={() => { if (selection.style !== null) onStyle(family.slug, selectedSub.slug, null); }} />
             {styles.map((entry) => (
-              <GenreChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.style === entry.slug} small
+              <FilterChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.style === entry.slug} small
                 onClick={() => onStyle(family.slug, selectedSub.slug, selection.style === entry.slug ? null : entry.slug)} />
             ))}
           </div>
@@ -194,7 +198,7 @@ export function GenreFilter({ kind, facets, facetsError, onRetryFacets, selectio
               <p className="gfilter__sublabel">{copy.withoutBreakdown}</p>
               <div className="gfilter__subchips" role="group" aria-label={copy.withoutBreakdown}>
                 {withoutBreakdown.map((entry) => (
-                  <GenreChip key={entry.slug} label={entry.name} count={entry.relatedCount} pressed={false} small
+                  <FilterChip key={entry.slug} label={entry.name} count={entry.relatedCount} pressed={false} small
                     onClick={() => onFamilyRelated(entry.slug)} />
                 ))}
               </div>
@@ -203,30 +207,6 @@ export function GenreFilter({ kind, facets, facetsError, onRetryFacets, selectio
         </div>
       ) : null}
     </section>
-  );
-}
-
-interface GenreChipProps {
-  label: string;
-  count: number;
-  pressed: boolean;
-  onClick: () => void;
-  small?: boolean;
-  revealed?: boolean;
-  variant?: "none";
-  icon?: React.ReactNode;
-}
-
-function GenreChip({ label, count, pressed, onClick, small, revealed, variant, icon }: GenreChipProps) {
-  const className = ["gchip", small ? "gchip--sub" : "", variant === "none" ? "gchip--none" : "", revealed ? "is-revealed" : ""]
-    .filter(Boolean).join(" ");
-  return (
-    <button type="button" className={className} aria-pressed={pressed} onClick={onClick}
-      aria-label={`${label}: ${formatCount(count)}`}>
-      {pressed ? <Check className="gchip__check" aria-hidden="true" weight="bold" /> : icon ?? null}
-      <span className="gchip__text">{label}</span>
-      <span className="gchip__count" aria-hidden="true">{formatCount(count)}</span>
-    </button>
   );
 }
 
@@ -255,6 +235,10 @@ function GenreFinder({ facets, related, onFamily, onSub, onStyle }: {
   const inputRef = useRef<HTMLInputElement>(null);
   const inputId = useId();
   const listboxId = `${inputId}-listbox`;
+  const [examples, setExamples] = useState(() => genreSearchExamples(facets, related));
+  const refreshExamples = useCallback(() => setExamples(genreSearchExamples(facets, related)), [facets, related]);
+  useEffect(refreshExamples, [refreshExamples]);
+  const example = useRotatingSearchExample(examples, query, next => { setQuery(next); setOpen(true); inputRef.current?.focus(); }, refreshExamples);
 
   const options = useMemo<FinderOption[]>(() => {
     const all: FinderOption[] = [];
@@ -304,6 +288,8 @@ function GenreFinder({ facets, related, onFamily, onSub, onStyle }: {
   }
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    example.acceptOnTab(event);
+    if (event.defaultPrevented) return;
     if (event.key === "ArrowDown") {
       event.preventDefault();
       setOpen(true);
@@ -322,6 +308,7 @@ function GenreFinder({ facets, related, onFamily, onSub, onStyle }: {
 
   return (
     <div className="gfinder" ref={containerRef}>
+      <div className="gfinder__control">
       <MagnifyingGlass className="gfinder__icon" aria-hidden="true" />
       <input
         ref={inputRef}
@@ -329,7 +316,7 @@ function GenreFinder({ facets, related, onFamily, onSub, onStyle }: {
         className="gfinder__input"
         type="search"
         role="combobox"
-        aria-label="Buscar un género o subgénero"
+        aria-label="Buscar un género, subgénero o estilo"
         aria-autocomplete="list"
         aria-expanded={showList}
         aria-controls={listboxId}
@@ -337,16 +324,20 @@ function GenreFinder({ facets, related, onFamily, onSub, onStyle }: {
         autoComplete="off"
         enterKeyHint="search"
         value={query}
-        placeholder="Buscar estilo: thrash, ska, trova…"
-        onFocus={() => setOpen(true)}
+        placeholder={example.current ? "" : "Buscar género, subgénero o estilo…"}
+        aria-describedby={example.current ? `${inputId}-example-hint` : undefined}
+        onFocus={() => { example.resetOnFocus(); setOpen(true); }}
         onChange={(event) => { setQuery(event.target.value); setOpen(true); }}
         onKeyDown={handleKeyDown}
       />
+      <RotatingSearchExample {...example} />
       {query ? (
         <button type="button" className="gfinder__clear" aria-label="Borrar búsqueda de estilo" onClick={() => { setQuery(""); inputRef.current?.focus(); }}>
           <X aria-hidden="true" weight="bold" />
         </button>
       ) : null}
+      </div>
+      <SearchExampleHint id={`${inputId}-example-hint`} available={Boolean(example.current)} />
       {showList ? (
         <div id={listboxId} role="listbox" aria-label="Estilos encontrados" className="gfinder__list">
           {results.length ? results.map((option, index) => (
@@ -368,46 +359,6 @@ function GenreFinder({ facets, related, onFamily, onSub, onStyle }: {
             </button>
           )) : <p className="gfinder__empty">Ningún estilo coincide con «{query.trim()}».</p>}
         </div>
-      ) : null}
-    </div>
-  );
-}
-
-/**
- * Línea de resultado bajo los filtros: cuántas fichas se ven y qué filtros
- * están activos, cada uno con su «quitar» y un «Quitar filtros» general.
- */
-export function ListSummary({ total, noun, query, genreLabel, onClearQuery, onClearGenre, loading }: {
-  total: number | undefined;
-  noun: { one: string; many: string };
-  query: string;
-  genreLabel: string | null;
-  onClearQuery: () => void;
-  onClearGenre: () => void;
-  loading: boolean;
-}) {
-  const filtered = Boolean(query.trim()) || genreLabel !== null;
-  return (
-    <div className="list-summary" aria-live="polite" aria-busy={loading}>
-      <p className="list-summary__count">
-        {total === undefined ? " " : <><strong>{formatCount(total)}</strong> {total === 1 ? noun.one : noun.many}</>}
-      </p>
-      {filtered ? (
-        <ul className="list-summary__filters" aria-label="Filtros activos">
-          {query.trim() ? (
-            <li><button type="button" className="fpill" onClick={onClearQuery} aria-label={`Quitar búsqueda «${query.trim()}»`}>
-              <span className="fpill__text">«{query.trim()}»</span><X aria-hidden="true" weight="bold" />
-            </button></li>
-          ) : null}
-          {genreLabel ? (
-            <li><button type="button" className="fpill" onClick={onClearGenre} aria-label={`Quitar filtro ${genreLabel}`}>
-              <span className="fpill__text">{genreLabel}</span><X aria-hidden="true" weight="bold" />
-            </button></li>
-          ) : null}
-          {query.trim() && genreLabel ? (
-            <li><button type="button" className="btn btn--ghost btn--sm list-summary__clear" onClick={() => { onClearQuery(); onClearGenre(); }}>Quitar filtros</button></li>
-          ) : null}
-        </ul>
       ) : null}
     </div>
   );

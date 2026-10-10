@@ -8,6 +8,7 @@
 // Los datos del core se cambian únicamente por updateEntity()/withOperatorRun:
 // cada sustitución deja su claim humano y su fila de auditoría.
 //
+// `--only-candidates` limita descargas y asociaciones a ese archivo (requiere --candidates).
 // Con `--candidates <jsonl>`: una candidata cuya ficha YA tiene imagen no se pisa
 // ni se descarta en silencio — se propone en `ingest.image_candidates` y se decide
 // en Curaduría · Imágenes (/curaduria/imagenes). Regla del catálogo (Brian, 2026-10-04).
@@ -151,7 +152,8 @@ async function listTargets(pool: pg.Pool, limit: number | undefined): Promise<{ 
     )
     SELECT DISTINCT ON (kind,id,media_link_id) kind,id,source_url,media_link_id FROM candidates
     ORDER BY kind,id,media_link_id NULLS FIRST,priority,source_url`);
-  const targets = rows.map((row) => ({
+  if (process.argv.includes('--only-candidates') && !arg('--candidates')) throw new Error('--only-candidates requiere --candidates');
+  const targets = (process.argv.includes('--only-candidates') ? [] : rows).map((row) => ({
     kind: row.kind, id: Number(row.id), sourceUrl: row.source_url,
     ...(row.media_link_id === null ? {} : { mediaLinkId: Number(row.media_link_id) }),
   }));

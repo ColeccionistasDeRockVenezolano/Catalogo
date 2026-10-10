@@ -1,0 +1,577 @@
+[
+  {
+    "href": "/artist/agustin_irusta",
+    "id": null,
+    "values": {
+      "name": "Agustín Irusta",
+      "artist_type": "solo_artist",
+      "origin_country": "Argentina",
+      "notes": "Argentino radicado en Caracas hasta su muerte; vínculo musical venezolano. Fuentes: https://www.todotango.com/creadores/biografia/154/Agustin-Irusta/"
+    },
+    "person_id": 25462,
+    "convert_person_id": null,
+    "source": "https://www.todotango.com/creadores/biografia/154/Agustin-Irusta/",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/caterinetta_lescano",
+    "id": null,
+    "values": {
+      "name": "Caterinetta Lescano",
+      "artist_type": "solo_artist",
+      "origin_country": "Netherlands",
+      "notes": "Cantante neerlandesa radicada en Caracas desde 1955; no se afirma nacionalidad venezolana. Fuentes: https://it.wikipedia.org/wiki/Trio_Lescano"
+    },
+    "person_id": 40125,
+    "convert_person_id": null,
+    "source": "https://it.wikipedia.org/wiki/Trio_Lescano",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/juan-arteta",
+    "id": null,
+    "values": {
+      "name": "Juan Arteta y Su Orquesta",
+      "artist_type": "group",
+      "origin_country": "Venezuela",
+      "notes": "Trompetista español radicado en Venezuela desde 1952; orquesta venezolana. Fuentes: https://de.wikipedia.org/wiki/Juanito_Arteta"
+    },
+    "person_id": 39776,
+    "convert_person_id": null,
+    "source": "https://de.wikipedia.org/wiki/Juanito_Arteta",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/porfi-jimenez",
+    "id": 4595,
+    "values": {
+      "name": "Porfi Jiménez",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Dominicano radicado en Venezuela desde 1954; discografía de su orquesta. Fuentes: https://orquestaporfijimenez.blogspot.com/p/blog-page.html"
+    },
+    "person_id": 27980,
+    "convert_person_id": null,
+    "source": "https://orquestaporfijimenez.blogspot.com/p/blog-page.html",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/billo-frometa",
+    "id": 3764,
+    "values": {
+      "name": "Billo Frómeta",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Billo y sus orquestas venezolanas; destino por disco cuando cambia el conjunto. Fuentes: https://www.venciclopedia.org/index.php/Billo"
+    },
+    "person_id": 7779,
+    "convert_person_id": null,
+    "source": "https://www.venciclopedia.org/index.php/Billo",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/knotchej",
+    "id": null,
+    "values": {
+      "name": "Knotchej",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Productor originario de Venezuela; nombre artístico de Renier Moreno. Fuentes: https://traktrain.com/knotchej"
+    },
+    "person_id": 40126,
+    "convert_person_id": null,
+    "source": "https://traktrain.com/knotchej",
+    "rawGenres": [
+      "Plugg"
+    ]
+  },
+  {
+    "href": "/artist/recordatorio",
+    "id": null,
+    "values": {
+      "name": "Recordatorio",
+      "artist_type": "project",
+      "origin_country": "Venezuela",
+      "notes": "Proyecto de Armando Añez, Caracas; no es una segunda persona. Fuentes: https://recordatorio91.bandcamp.com/album/l-gica-resbalosa"
+    },
+    "person_id": 971,
+    "convert_person_id": 39906,
+    "source": "https://recordatorio91.bandcamp.com/album/l-gica-resbalosa",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/adriana-2",
+    "id": null,
+    "values": {
+      "name": "Adriana",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/adriana-2"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/adriana-2",
+    "rawGenres": [
+      "Latin Pop"
+    ]
+  },
+  {
+    "href": "/artist/alejandro-molinari",
+    "id": null,
+    "values": {
+      "name": "Alejandro Molinari",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/alejandro-molinari"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/alejandro-molinari",
+    "rawGenres": [
+      "Electronic"
+    ]
+  },
+  {
+    "href": "/artist/andrea-ferrero",
+    "id": null,
+    "values": {
+      "name": "Andrea Ferrero",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/andrea-ferrero"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/andrea-ferrero",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/ane-diaz",
+    "id": null,
+    "values": {
+      "name": "Ane Díaz",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/ane-diaz"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/ane-diaz",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/augusto-bracho",
+    "id": null,
+    "values": {
+      "name": "Augusto Bracho",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/augusto-bracho"
+    },
+    "person_id": 2858,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/augusto-bracho",
+    "rawGenres": [
+      "Joropo",
+      "Hispanic American Folk Music",
+      "Singer-Songwriter",
+      "Bolero"
+    ]
+  },
+  {
+    "href": "/artist/carlos-ibanez",
+    "id": null,
+    "values": {
+      "name": "Carlos Ibañez",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/carlos-ibanez"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/carlos-ibanez",
+    "rawGenres": [
+      "Indie Rock"
+    ]
+  },
+  {
+    "href": "/artist/carlos-otero",
+    "id": null,
+    "values": {
+      "name": "Carlos Otero",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/carlos-otero"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/carlos-otero",
+    "rawGenres": [
+      "Singer-Songwriter"
+    ]
+  },
+  {
+    "href": "/artist/carolina-marconi",
+    "id": null,
+    "values": {
+      "name": "Carolina Marconi",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/carolina-marconi"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/carolina-marconi",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/decibeles",
+    "id": null,
+    "values": {
+      "name": "Decibeles",
+      "artist_type": "band",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/decibeles",
+      "formed_year": 2021
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/decibeles",
+    "rawGenres": [
+      "Alternative Rock",
+      "Latin Alternative"
+    ]
+  },
+  {
+    "href": "/artist/el-pricto",
+    "id": null,
+    "values": {
+      "name": "El Pricto",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/el-pricto"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/el-pricto",
+    "rawGenres": [
+      "Jazz"
+    ]
+  },
+  {
+    "href": "/artist/elik-alvarez",
+    "id": null,
+    "values": {
+      "name": "Elik Álvarez",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/elik-alvarez"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/elik-alvarez",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/johnny-sedes",
+    "id": null,
+    "values": {
+      "name": "Johnny Sedes",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/johnny-sedes"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/johnny-sedes",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/jose_ignacio_cabrujas",
+    "id": 3976,
+    "values": {
+      "name": "José Ignacio Cabrujas",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Texto y voz de Cabrujas, música de Juan Carlos Núñez: crédito de persona, no discografía ficticia de solista. Fuentes: https://cervantes.link/podcast/520-venezuela-de-juan-carlos-nunez-y-jose-ignacio-cabrujas-musica-experimental/"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://cervantes.link/podcast/520-venezuela-de-juan-carlos-nunez-y-jose-ignacio-cabrujas-musica-experimental/",
+    "rawGenres": [
+      "Opera"
+    ]
+  },
+  {
+    "href": "/artist/juan-r-berbin",
+    "id": null,
+    "values": {
+      "name": "Juan R. Berbín",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/juan-r-berbin"
+    },
+    "person_id": 33734,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/juan-r-berbin",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/la-cruz-3",
+    "id": null,
+    "values": {
+      "name": "La Cruz",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/la-cruz-3"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/la-cruz-3",
+    "rawGenres": [
+      "Reggaetón",
+      "Latin Pop"
+    ]
+  },
+  {
+    "href": "/artist/living_death_f1",
+    "id": null,
+    "values": {
+      "name": "Living Death",
+      "artist_type": "band",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/living_death_f1",
+      "formed_year": 2008
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/living_death_f1",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/lorenzo_gonzalez",
+    "id": null,
+    "values": {
+      "name": "Lorenzo González",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/lorenzo_gonzalez"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/lorenzo_gonzalez",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/los-jets",
+    "id": null,
+    "values": {
+      "name": "Los Jets",
+      "artist_type": "group",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/los-jets"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/los-jets",
+    "rawGenres": [
+      "Salsa"
+    ]
+  },
+  {
+    "href": "/artist/luis-g-tovar",
+    "id": null,
+    "values": {
+      "name": "Luis G. Tovar",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/luis-g-tovar"
+    },
+    "person_id": 3926,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/luis-g-tovar",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/lunar_f1",
+    "id": null,
+    "values": {
+      "name": "Lunar",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/lunar_f1"
+    },
+    "person_id": 40114,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/lunar_f1",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/miguel-farias",
+    "id": null,
+    "values": {
+      "name": "Miguel Farías",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/miguel-farias"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/miguel-farias",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/omar-acedo",
+    "id": null,
+    "values": {
+      "name": "Omar Acedo",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/omar-acedo"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/omar-acedo",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/osmer-hernandez",
+    "id": null,
+    "values": {
+      "name": "Osmer Hernández",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/osmer-hernandez"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/osmer-hernandez",
+    "rawGenres": [
+      "Ambient",
+      "Dark Ambient",
+      "MIDI Music"
+    ]
+  },
+  {
+    "href": "/artist/raquel-gonzalez-1",
+    "id": null,
+    "values": {
+      "name": "Raquel González",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/raquel-gonzalez-1"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/raquel-gonzalez-1",
+    "rawGenres": [
+      "Joropo"
+    ]
+  },
+  {
+    "href": "/artist/vitico-castillo",
+    "id": null,
+    "values": {
+      "name": "Vitico Castillo",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/vitico-castillo"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/vitico-castillo",
+    "rawGenres": [
+      "Joropo"
+    ]
+  },
+  {
+    "href": "/artist/william-sarquiz",
+    "id": null,
+    "values": {
+      "name": "William Sarquiz",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier. Fuentes: https://rateyourmusic.com/artist/william-sarquiz"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://rateyourmusic.com/artist/william-sarquiz",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/arabella-1",
+    "id": null,
+    "values": {
+      "name": "Arabella",
+      "artist_type": "solo_artist",
+      "origin_country": "Colombia",
+      "notes": "Cantante colombiana con carrera discográfica en Caracas. Fuentes: https://sabrositadigital.com.mx/arabella-historia-cantante-colombiana-que-triunfo-en-la-salsa/"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://sabrositadigital.com.mx/arabella-historia-cantante-colombiana-que-triunfo-en-la-salsa/",
+    "rawGenres": [
+      "Salsa"
+    ]
+  },
+  {
+    "href": "/artist/lela-1",
+    "id": null,
+    "values": {
+      "name": "Lela",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Gabriela Brito, rapera venezolana emigrada a Bogotá; mismas canciones verificadas en Apple Music. Fuentes: https://www.noticiascaracol.com/los-informantes/lela-mc-la-rapera-venezolana-que-con-solo-12-anos-va-rumbo-al-estrellato-pr30"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://www.noticiascaracol.com/los-informantes/lela-mc-la-rapera-venezolana-que-con-solo-12-anos-va-rumbo-al-estrellato-pr30",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/manuel-rocca",
+    "id": null,
+    "values": {
+      "name": "Manuel Rocca",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Productor venezolano según su sello discográfico; no confundir con homónimo italiano. Fuentes: https://www.abora-recordings.com/manuel-rocca"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://www.abora-recordings.com/manuel-rocca",
+    "rawGenres": [
+      "Trance"
+    ]
+  },
+  {
+    "href": "/artist/marrom-fernandez",
+    "id": null,
+    "values": {
+      "name": "Marrom Fernández",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Productor venezolano; Una isla en los Andes es colaboración con Rxnde Akozta. Fuentes: https://distritoapache.contrabanda.org/2014/11/"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://distritoapache.contrabanda.org/2014/11/",
+    "rawGenres": []
+  },
+  {
+    "href": "/artist/sebastian-rivero",
+    "id": null,
+    "values": {
+      "name": "Sebastian Rivero",
+      "artist_type": "solo_artist",
+      "origin_country": "Venezuela",
+      "notes": "Productor de Caracas según perfil profesional. Fuentes: https://www.beatport.com/artist/sebastian-rivero/653275"
+    },
+    "person_id": null,
+    "convert_person_id": null,
+    "source": "https://www.beatport.com/artist/sebastian-rivero/653275",
+    "rawGenres": [
+      "Afro House"
+    ]
+  }
+]

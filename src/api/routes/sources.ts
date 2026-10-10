@@ -3,9 +3,10 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { idParamSchema } from "../schemas.js";
 import { getSourceDetail, listSourcesRead } from "../repositories/sources.js";
-import { listClaimsForEntity, type ClaimEntityFilter } from "../repositories/claims.js";
+import { listClaimsForEntity, listCreditSources, type ClaimEntityFilter } from "../repositories/claims.js";
 import { paginationQuerySchema, toPage } from "../pagination.js";
 import { notFound, badRequest } from "../http-errors.js";
+import { OPERATOR_SECURITY } from "../auth.js";
 
 const sourceSchema = z.object({
   id: z.number().int(),
@@ -38,10 +39,15 @@ const claimSchema = z.object({
   status: z.string(),
   sourceId: z.number().int(),
   sourceName: z.string(),
+  sourceUrl: z.string().nullable(),
+  pageUrl: z.string().nullable(),
+  evidence: z.array(z.object({ url: z.string().nullable(), excerpt: z.string().nullable() })),
+  seedRowNumber: z.number().int().nullable(),
+  createdBy: z.string(),
   createdAt: z.string(),
 });
 
-const CLAIM_ENTITIES = ["artist", "person", "organization", "album", "track"] as const;
+const CLAIM_ENTITIES = ["artist", "person", "organization", "album", "track", "album_credit", "track_credit"] as const;
 
 const claimsQuerySchema = paginationQuerySchema.extend({
   entity: z.enum(CLAIM_ENTITIES),
@@ -51,12 +57,21 @@ const claimsQuerySchema = paginationQuerySchema.extend({
 export async function registerSourceRoutes(app: FastifyInstance): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();
 
+  server.get("/credit-sources", {
+    schema: {
+      tags: ["sources"], security: OPERATOR_SECURITY,
+      summary: "Fuentes de cada crédito de un disco o pista. Solo administradores.",
+      querystring: z.object({ entity: z.enum(["album", "track"]), id: z.coerce.number().int().positive() }),
+      response: { 200: z.array(z.object({ entityKind: z.enum(["album_credit", "track_credit"]), entityId: z.number().int(), claims: z.array(claimSchema) })) },
+    },
+  }, async (request) => listCreditSources(request.query.entity, request.query.id));
+
   server.get("/sources", {
-    schema: { tags: ["sources"], response: { 200: z.array(sourceSchema) } },
+    schema: { tags: ["sources"], security: OPERATOR_SECURITY, summary: "Fuentes del catálogo. Solo administradores.", response: { 200: z.array(sourceSchema) } },
   }, async () => listSourcesRead());
 
   server.get("/sources/:id", {
-    schema: { tags: ["sources"], params: idParamSchema, response: { 200: sourceDetailSchema } },
+    schema: { tags: ["sources"], security: OPERATOR_SECURITY, summary: "Detalle de una fuente. Solo administradores.", params: idParamSchema, response: { 200: sourceDetailSchema } },
   }, async (request) => {
     const detail = await getSourceDetail(request.params.id);
     if (!detail) throw notFound("source", request.params.id);
@@ -66,7 +81,8 @@ export async function registerSourceRoutes(app: FastifyInstance): Promise<void> 
   server.get("/claims", {
     schema: {
       tags: ["claims"],
-      summary: "Claims de una entidad (siempre filtrado: entity+id obligatorios).",
+      security: OPERATOR_SECURITY,
+      summary: "Origen y evidencia de los datos de una entidad. Solo administradores; entity+id obligatorios.",
       querystring: claimsQuerySchema,
       response: { 200: z.object({
         data: z.array(claimSchema),

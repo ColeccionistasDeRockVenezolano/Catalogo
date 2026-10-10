@@ -1,0 +1,825 @@
+{
+  "mode": "aplicado",
+  "phase": "discos",
+  "runs": [
+    18592,
+    18593,
+    18594,
+    18595,
+    18596,
+    18597,
+    18598,
+    18599,
+    18600,
+    18601,
+    18602,
+    18603,
+    18604,
+    18605,
+    18606,
+    18607
+  ],
+  "ok": [
+    {
+      "href": "/release/album/agustin-irusta-cuarteto-guardia-vieja/agustin-irusta-con-el-acompanamiento-del-cuarteto-guardia-vieja",
+      "id": 27521,
+      "tracks": 12
+    },
+    {
+      "href": "/release/album/agustin-irusta/polvo-de-los-caminos",
+      "id": 27522,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/agustin_irusta/de_nuevo_agustin_irusta",
+      "id": 27523,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/agustin-irusta/tangos",
+      "id": 27524,
+      "tracks": 12
+    },
+    {
+      "href": "/release/single/caterinetta_lescano/ti_diro",
+      "id": 27525,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/caterinetta_lescano/nebbia",
+      "id": 27526,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/caterinetta_lescano/la_barca_dei_sogni",
+      "id": 27527,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/caterinetta_lescano/nel_mio_cuor_ce_una_casetta",
+      "id": 27528,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/juan-arteta-y-su-orquesta/bajo-mi-cielo-andaluz-ojos-verdes",
+      "id": 27529,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/juan-arteta-y-su-orquesta/la-bien-paga-la-del-manojo-de-rosas",
+      "id": 27530,
+      "tracks": 2
+    },
+    {
+      "href": "/release/album/porfi-jimenez/tiene-de-toto-porfie-76",
+      "id": 27531,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/porfi-jimenez/la-salsa-brava-de-porfi-jimenez",
+      "id": 27532,
+      "tracks": 10
+    },
+    {
+      "href": "/release/album/porfi-jimenez/culu-cucu",
+      "id": 27533,
+      "tracks": 10
+    },
+    {
+      "href": "/release/album/porfi-jimenez/ella-me-vacila",
+      "id": 27534,
+      "tracks": 10
+    },
+    {
+      "href": "/release/album/porfi-jimenez/la-bailadora",
+      "id": 27535,
+      "tracks": 9
+    },
+    {
+      "href": "/release/single/porfi-jimenez/miami",
+      "id": 27536,
+      "tracks": 2
+    },
+    {
+      "href": "/release/album/billo-frometa/concierto-venezolano",
+      "id": 27537,
+      "tracks": 9
+    },
+    {
+      "href": "/release/album/billo-frometa-candita-vazquez/billo-presenta-candita-vazquez-con-su-orquesta",
+      "id": 7924,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/billo-miltino/doctores-en-ritmo",
+      "id": 7997,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/billo-frometa-damiron-negrito-chapuseaux/tres-viejos-amigos",
+      "id": 7920,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/felipe-pirela-con-billo-frometa-y-su-orquesta/canciones-de-ayer-y-hoy",
+      "id": 7932,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/billo-frometa/historia-de-mi-orquesta-1937-1962-vol-1-1",
+      "id": 7935,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/billo-frometa/historia-de-mi-orquesta-1937-1962-vol-2-1",
+      "id": 7936,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/orquesta-de-concierto-de-billo-frometa/canto-a-caracas",
+      "id": 8032,
+      "tracks": 0
+    },
+    {
+      "href": "/release/comp/billo-frometa/historia-de-mi-orquesta-1937-1962",
+      "id": 7934,
+      "tracks": 0
+    },
+    {
+      "href": "/release/comp/felipe-pirela-con-billo/lo-mejor-de-felipe-pirela-con-billo",
+      "id": 27538,
+      "tracks": 10
+    },
+    {
+      "href": "/release/ep/knotchej/decir-adios",
+      "id": 27539,
+      "tracks": 6
+    },
+    {
+      "href": "/release/album/recordatorio/logica-resbalosa",
+      "id": 27540,
+      "tracks": 10
+    },
+    {
+      "href": "/release/album/recordatorio/tomas-verdes",
+      "id": 27541,
+      "tracks": 10
+    },
+    {
+      "href": "/release/ep/recordatorio/tv-en-vivo-y-directo",
+      "id": 27542,
+      "tracks": 5
+    },
+    {
+      "href": "/release/single/recordatorio/hormiga",
+      "id": 27543,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/armando-y-alejandro/sencillo-2018",
+      "id": 27544,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/recordatorio/al-otro-lado-del-charco",
+      "id": 27545,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/recordatorio/abandonar-el-pais",
+      "id": 27546,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/recordatorio/apariciones",
+      "id": 27547,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/armando-y-alejandro/cala",
+      "id": 27548,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/recordatorio/ya-manana",
+      "id": 27549,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/recordatorio/dia-negro",
+      "id": 27550,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/recordatorio/la-cancion-del-momento",
+      "id": 27551,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/recordatorio-sunsplash/besos-infinitos",
+      "id": 12829,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/adriana/im-here",
+      "id": 27552,
+      "tracks": 0
+    },
+    {
+      "href": "/release/ep/alejandro-molinari/gargantua",
+      "id": 27553,
+      "tracks": 4
+    },
+    {
+      "href": "/release/ep/alejandro-molinari/survival-game",
+      "id": 27554,
+      "tracks": 5
+    },
+    {
+      "href": "/release/ep/alejandro-molinari/noche-de-berlin",
+      "id": 27555,
+      "tracks": 6
+    },
+    {
+      "href": "/release/single/juno-francis-alejandro-molinari/sunday-morning",
+      "id": 27556,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/juno-francis-alejandro-molinari/symmetry",
+      "id": 27557,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/alejandro-molinari/caracas-de-noche",
+      "id": 27558,
+      "tracks": 3
+    },
+    {
+      "href": "/release/djmix/alejandro-molinari/mixmag-adria-exclusive-mix",
+      "id": 27559,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/andrea-ferrero/mr-charles",
+      "id": 27560,
+      "tracks": 1
+    },
+    {
+      "href": "/release/album/ane-diaz/despechada",
+      "id": 27561,
+      "tracks": 10
+    },
+    {
+      "href": "/release/album/augusto-bracho-y-moises-de-martin/pajarera-vertical",
+      "id": 27562,
+      "tracks": 13
+    },
+    {
+      "href": "/release/album/augusto-bracho/el-mercado-de-los-corotos",
+      "id": 27563,
+      "tracks": 12
+    },
+    {
+      "href": "/release/album/augusto-bracho/musica-moderna",
+      "id": 27564,
+      "tracks": 9
+    },
+    {
+      "href": "/release/ep/augusto-bracho/primer-acercamiento-al-mito",
+      "id": 27565,
+      "tracks": 4
+    },
+    {
+      "href": "/release/album/carlos-ibanez/dark-side",
+      "id": 27566,
+      "tracks": 12
+    },
+    {
+      "href": "/release/album/carlos-ibanez/dreams",
+      "id": 27567,
+      "tracks": 12
+    },
+    {
+      "href": "/release/album/carlos-otero/international",
+      "id": 27568,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/carlos-otero/maria-magdalena",
+      "id": 27569,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/carlos-otero-vicente-alvarez-and-his-tropical-orchestra/nuits-a-la-havane",
+      "id": 27570,
+      "tracks": 14
+    },
+    {
+      "href": "/release/ep/rosita-serrano-carlos-otero/castagnetten-en-gitaren",
+      "id": 27571,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/carlos-otero/braune-tamara-venezuela",
+      "id": 27572,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/so-eine-nacht-unter-palmen-isola-bella",
+      "id": 27573,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/bambina-bambina-serenata-veneziana",
+      "id": 27574,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/carlos-otero/bye-bye-romantica-das-lied-der-sierra",
+      "id": 27575,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/dunkle-augen-in-der-nacht-in-den-straben-von-neapel",
+      "id": 27576,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/ein-heiber-kub-und-tausend-kuhle-tranen-das-hafenlied-von-barcelona",
+      "id": 27577,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/weine-keine-trane-um-mich-bella-maria-die-roten-segel-im-hafen-von-napoli",
+      "id": 27578,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/bald-bluhen-die-rosen-sprich-zu-mir-von-liebe-mariu",
+      "id": 27579,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/bella-rosita-es-fing-mit-einer-roten-rose-an",
+      "id": 27580,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/du-allein-bist-schuld-daran-fiesta-in-rio",
+      "id": 27581,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/cara-mia-allein-mit-dir",
+      "id": 27582,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/la-bella-lucia-nimm-meine-hande",
+      "id": 27583,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/ich-hab-fernweh-sunday-and-me-o-mia-bella-napoli",
+      "id": 27584,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/carlos-otero/es-war-nur-ein-traum-nanita-nana",
+      "id": 27585,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/innamorato-weine-nicht",
+      "id": 27586,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carlos-otero/die-liebe-kommt-die-liebe-geht-sing",
+      "id": 27587,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/carlos-otero/schirokko-kein-wiedersehn",
+      "id": 27588,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/carlos-otero/sommernacht-in-madrid-mein-zug-heibt-sehnsucht",
+      "id": 27589,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/carolina-marconi/move-to-the-fiesta",
+      "id": 27590,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/carolina-marconi/patatina",
+      "id": 27591,
+      "tracks": 1
+    },
+    {
+      "href": "/release/ep/decibeles/espejo",
+      "id": 27592,
+      "tracks": 6
+    },
+    {
+      "href": "/release/album/johannes-nastesjo-luiz-rocha-el-pricto/infatuous-chambers",
+      "id": 27593,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/miquel-jorda-christer-bothen-el-pricto-pedro-gonzalez-vasco-trilla/heatwave",
+      "id": 27594,
+      "tracks": 8
+    },
+    {
+      "href": "/release/album/el-pricto-diego-caicedo-javier-garrabella-vasco-trilla/demonology",
+      "id": 27595,
+      "tracks": 5
+    },
+    {
+      "href": "/release/album/el-pricto-alex-reviriego/caverna",
+      "id": 27596,
+      "tracks": 3
+    },
+    {
+      "href": "/release/album/el-pricto-electric-guitar-quintet/spontaneous-live-series-007",
+      "id": 27597,
+      "tracks": 4
+    },
+    {
+      "href": "/release/album/el-pricto/moonburnt",
+      "id": 27598,
+      "tracks": 10
+    },
+    {
+      "href": "/release/album/el-pricto-don-malfon-vasco-trilla/behenii-part-i",
+      "id": 27599,
+      "tracks": 8
+    },
+    {
+      "href": "/release/album/ingel-rild/extreme-entity-workout",
+      "id": 27600,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/andrea-bazzicalupo-el-pricto/mammalian-interactive-digressions",
+      "id": 27601,
+      "tracks": 3
+    },
+    {
+      "href": "/release/album/el-pricto-and-degenerative-spontaneous-orchestra/spontaneous-live-series-008",
+      "id": 27602,
+      "tracks": 4
+    },
+    {
+      "href": "/release/album/el-pricto-discordian-community-ensemble/the-unreal-book-at-lem-festival",
+      "id": 27603,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/elik-alvarez-yoncarlos-medina/the-exorcism-of-god",
+      "id": 27604,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/elik-alvarez/the-dance",
+      "id": 27605,
+      "tracks": 14
+    },
+    {
+      "href": "/release/album/johnny-sedes-and-his-orchestra/mama-calunga",
+      "id": 27606,
+      "tracks": 8
+    },
+    {
+      "href": "/release/single/johnny-sedes/descarga-no-2-mani-mama-calunga",
+      "id": 27607,
+      "tracks": 2
+    },
+    {
+      "href": "/release/album/juan-carlos-nunez-jose-ignacio-cabrujas/juan-carlos-nunez-and-jose-ignacio-cabrujas",
+      "id": 27608,
+      "tracks": 11
+    },
+    {
+      "href": "/release/album/jordi-matas-martin-leiton-juan-r-berbin/undr",
+      "id": 27609,
+      "tracks": 10
+    },
+    {
+      "href": "/release/album/la-cruz/hawaira",
+      "id": 27610,
+      "tracks": 8
+    },
+    {
+      "href": "/release/ep/la-cruz/el-nene-vol-1",
+      "id": 27611,
+      "tracks": 6
+    },
+    {
+      "href": "/release/ep/la-cruz/el-nene-vol-2",
+      "id": 27612,
+      "tracks": 8
+    },
+    {
+      "href": "/release/single/alfonso-la-cruz-and-sabela-ramil/echame-la-culpa-operacion-triunfo-2018",
+      "id": 27613,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/alfonso-la-cruz/all-of-me-operacion-triunfo-2018",
+      "id": 27614,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/alfonso-la-cruz/nadie-te-va-a-querer",
+      "id": 27615,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/alfonso-la-cruz/que-se-yo",
+      "id": 27616,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/alfonso-la-cruz/a-la-orilla-del-rio",
+      "id": 27617,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/alfonso-la-cruz/efecto",
+      "id": 27618,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/fotos",
+      "id": 27619,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/la-ducati",
+      "id": 27620,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/desnudx",
+      "id": 27621,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/desnudx-diskoverstories-acustico",
+      "id": 27622,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/quitate-la-ropa",
+      "id": 27623,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/easy-boy",
+      "id": 27624,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/sahara",
+      "id": 27625,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/luisa-sonza-la-cruz/rough",
+      "id": 27626,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/fancy",
+      "id": 27627,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/la-cruz/arequipe",
+      "id": 27628,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/fuerte",
+      "id": 27629,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/gata-negra",
+      "id": 27630,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/la-cruz/only",
+      "id": 27631,
+      "tracks": 1
+    },
+    {
+      "href": "/release/ep/living_death_f1/muerto_en_vida",
+      "id": 27632,
+      "tracks": 3
+    },
+    {
+      "href": "/release/ep/lorenzo_gonzalez/chansons_despagne",
+      "id": 27633,
+      "tracks": 4
+    },
+    {
+      "href": "/release/ep/lorenzo_gonzalez/luna_mallorquina",
+      "id": 27634,
+      "tracks": 4
+    },
+    {
+      "href": "/release/ep/lorenzo_gonzalez/chiquita_bonita",
+      "id": 27635,
+      "tracks": 4
+    },
+    {
+      "href": "/release/ep/lorenzo_gonzalez/historia_de_un_amor",
+      "id": 27636,
+      "tracks": 0
+    },
+    {
+      "href": "/release/ep/lorenzo-gonzalez/vintage-cuba-n_12-eps-collectors-boleros-forever",
+      "id": 27637,
+      "tracks": 4
+    },
+    {
+      "href": "/release/ep/lorenzo-gonzalez/vintage-cuba-n_13-eps-collectors-boleros-forever",
+      "id": 27638,
+      "tracks": 4
+    },
+    {
+      "href": "/release/album/los-jets/vuelven",
+      "id": 27639,
+      "tracks": 10
+    },
+    {
+      "href": "/release/album/luis-g-tovar/isla-verde",
+      "id": 27640,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/luis-gerardo-tovar/santo-domingo",
+      "id": 27641,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/luis-g-tovar/tu-amor",
+      "id": 27642,
+      "tracks": 10
+    },
+    {
+      "href": "/release/album/luis-g-tovar/historia-do",
+      "id": 27643,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/luis-gerardo-tovar/te-amare",
+      "id": 27644,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/luis-gerardo-tovar/que-se-puede-hacer-con-el-amor",
+      "id": 27645,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/luis-gerardo-tovar-and-punto-sur/poemas-de-amor-de-jose-angel-buesa",
+      "id": 27646,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/luis-g-tovar/santo-domingo-cielieto-lindo",
+      "id": 27647,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/los-communicativos-con-luis-tovar/rosas-del-ayer-extranas-cartas-de-amor",
+      "id": 27648,
+      "tracks": 2
+    },
+    {
+      "href": "/release/single/lunar_f1/nd_remixed",
+      "id": 27649,
+      "tracks": 6
+    },
+    {
+      "href": "/release/album/patricio-sabate-kathya-galleguillos-pablo-salinas-miguel-farias/la-compuerta-nro-12",
+      "id": 27650,
+      "tracks": 2
+    },
+    {
+      "href": "/release/album/omar-acedo/volvi-por-ti",
+      "id": 27651,
+      "tracks": 12
+    },
+    {
+      "href": "/release/album/omar-acedo/mis-gaitas-favoritas",
+      "id": 27652,
+      "tracks": 17
+    },
+    {
+      "href": "/release/album/omar-acedo/canto-para-el-esequibo",
+      "id": 27653,
+      "tracks": 9
+    },
+    {
+      "href": "/release/album/omar-acedo-buena-fe/amigos-tour",
+      "id": 27654,
+      "tracks": 25
+    },
+    {
+      "href": "/release/single/omar-acedo/la-fiesta-de-la-paz",
+      "id": 27655,
+      "tracks": 1
+    },
+    {
+      "href": "/release/album/osmer-hernandez/uverito",
+      "id": 27656,
+      "tracks": 6
+    },
+    {
+      "href": "/release/album/raquel-gonzalez/asi-cantaba",
+      "id": 27657,
+      "tracks": 12
+    },
+    {
+      "href": "/release/album/vitico-castillo/el-hijo-del-taita",
+      "id": 27658,
+      "tracks": 13
+    },
+    {
+      "href": "/release/album/vitico-castillo/corazon-de-concreto",
+      "id": 27659,
+      "tracks": 16
+    },
+    {
+      "href": "/release/album/william-sarquiz/pecho-esguazao",
+      "id": 27660,
+      "tracks": 11
+    },
+    {
+      "href": "/release/album/william-sarquiz/pecho-rajao",
+      "id": 27661,
+      "tracks": 11
+    },
+    {
+      "href": "/release/single/william-sarquiz/plomo-en-el-pecho",
+      "id": 27662,
+      "tracks": 1
+    },
+    {
+      "href": "/release/album/arabella/arabella",
+      "id": 27663,
+      "tracks": 10
+    },
+    {
+      "href": "/release/album/arabella/sabor-y-raza",
+      "id": 27664,
+      "tracks": 8
+    },
+    {
+      "href": "/release/album/arabella/arabella-1",
+      "id": 27665,
+      "tracks": 8
+    },
+    {
+      "href": "/release/album/arabella/mi-son-es-un-misterio",
+      "id": 27666,
+      "tracks": 8
+    },
+    {
+      "href": "/release/single/lela/maquina-del-tiempo",
+      "id": 27667,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/lela/como-un-delfin",
+      "id": 27668,
+      "tracks": 1
+    },
+    {
+      "href": "/release/single/mhammed-el-alami-manuel-rocca/land-of-grace",
+      "id": 27669,
+      "tracks": 2
+    },
+    {
+      "href": "/release/album/rxnde-akozta-marrom-fernandez/una-isla-en-los-andes",
+      "id": 27670,
+      "tracks": 7
+    },
+    {
+      "href": "/release/ep/calussa-sebastian-rivero/san-juan",
+      "id": 27671,
+      "tracks": 3
+    }
+  ],
+  "errors": []
+}

@@ -10,6 +10,7 @@ import { EntityPicker } from "./EntityPicker";
 import { Modal } from "./Modal";
 import type { Credit, ScopedCredit } from "../lib/types";
 import { DeceasedMark } from "./DeceasedMark";
+import { CreditProvenance, type CreditProvenanceState } from "./CreditProvenance";
 
 type CreditTarget = { kind: "album"; albumId: number } | { kind: "track"; trackId: number };
 
@@ -20,6 +21,7 @@ interface CreditManagerProps {
   scoped?: ScopedCredit[];
   onChanged: () => void;
   compact?: boolean;
+  provenance?: CreditProvenanceState;
 }
 
 function tracksLabel(tracks: ScopedCredit["tracks"]): string {
@@ -55,7 +57,7 @@ function creditedId(credit: Credit, kind: CreditedKind): number | null {
   return credit.personId;
 }
 
-export function CreditManager({ target, credits, scoped = [], onChanged, compact }: CreditManagerProps) {
+export function CreditManager({ target, credits, scoped = [], onChanged, compact, provenance }: CreditManagerProps) {
   const { isAdmin } = useOperator();
   const { notify } = useToast();
   const [adding, setAdding] = useState(false);
@@ -81,10 +83,11 @@ export function CreditManager({ target, credits, scoped = [], onChanged, compact
             const href = creditedHref(credit);
             return (
               <li key={credit.id} className="credit-row">
-                <span>
+                <div className="credit-row__identity">
                   <span className="who">{href ? <Link to={href}>{creditedName(credit)}</Link> : creditedName(credit)}<DeceasedMark deceased={credit.personIsDeceased} /></span>
                   {!compact ? <span style={{ color: "var(--text-faint)", fontSize: 11, marginLeft: 8 }}>{creditTypeLabel(credit.creditType)}</span> : null}
-                </span>
+                  {isAdmin && provenance ? <CreditProvenance kind={target.kind === "album" ? "album_credit" : "track_credit"} ids={[credit.id]} state={provenance} /> : null}
+                </div>
                 <span className="role" style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
                   {credit.role}
                   {isAdmin ? (
@@ -115,10 +118,11 @@ export function CreditManager({ target, credits, scoped = [], onChanged, compact
             const href = creditedHref(credit);
             return (
               <li key={`scoped-${credit.creditType}-${credit.id}`} className="credit-row">
-                <span>
+                <div className="credit-row__identity">
                   <span className="who">{href ? <Link to={href}>{creditedName(credit)}</Link> : creditedName(credit)}<DeceasedMark deceased={credit.personIsDeceased} /></span>
                   {!compact ? <span style={{ color: "var(--text-faint)", fontSize: 11, marginLeft: 8 }}>{creditTypeLabel(credit.creditType)}</span> : null}
-                </span>
+                  {isAdmin && provenance ? <CreditProvenance kind="track_credit" ids={credit.creditIds ?? [credit.id]} state={provenance} /> : null}
+                </div>
                 <span className="role" title="Crédito de pista: se corrige en la pista">
                   {credit.role}
                   <span style={{ color: "var(--text-faint)", marginLeft: 6 }}>· {tracksLabel(credit.tracks)}</span>

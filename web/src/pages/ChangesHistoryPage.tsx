@@ -2,7 +2,7 @@
 // alta, retiro, fusión, división, conversión, corrección de Curaduría o
 // proceso de la CLI, del más reciente al más antiguo, con su «Deshacer» o
 // «Rehacer». Solo cuentas administradoras.
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { changesApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useOperator } from "../lib/OperatorContext";
@@ -21,6 +21,7 @@ export function ChangesHistoryPage() {
 }
 
 function ChangesHistoryContent() {
+  const paginationStartRef = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
   const [journaled, setJournaled] = useState(false);
   const { data, loading, error, reload } = useAsync(
@@ -48,13 +49,15 @@ function ChangesHistoryContent() {
         </label>
       </div>
 
+      <div ref={paginationStartRef} className="pagination-start" />
+
       {loading && !data ? <RowsSkeleton rows={8} height={72} label="Cargando historial…" /> : error ? <ErrorState message={error} onRetry={reload} /> : !data || data.data.length === 0 ? (
         <EmptyState title="Sin cambios registrados" />
       ) : (
         <div className={loading ? "is-refreshing" : ""}>
           <ChangeList rows={data.data} />
           {data.pagination.total > LIMIT ? (
-            <Pagination limit={LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={setOffset} />
+            <Pagination scrollTargetRef={paginationStartRef} limit={LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={setOffset} />
           ) : null}
         </div>
       )}

@@ -1,0 +1,847 @@
+{
+  "mode": "dry-run",
+  "runId": 18619,
+  "candidates": 83,
+  "accepted": [
+    {
+      "caseId": "rym-remanente:album:13749",
+      "title": "Double Cup",
+      "source": "rateyourmusic",
+      "raw": [
+        "Trap"
+      ],
+      "primary": "trap",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:13836",
+      "title": "Sotorious",
+      "source": "rateyourmusic",
+      "raw": [
+        "Trap",
+        "Pop Rap"
+      ],
+      "primary": "trap",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:14680",
+      "title": "El disco de oro",
+      "source": "rateyourmusic",
+      "raw": [
+        "Joropo"
+      ],
+      "primary": "joropo",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:14446",
+      "title": "Berlin Chronicles",
+      "source": "rateyourmusic",
+      "raw": [
+        "Tech House"
+      ],
+      "primary": "tech-house",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:14436",
+      "title": "Katarsis",
+      "source": "rateyourmusic",
+      "raw": [
+        "Tech House",
+        "Deep House",
+        "Progressive House"
+      ],
+      "primary": "tech-house",
+      "secondaries": [
+        "house"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:14457",
+      "title": "Interstellar",
+      "source": "rateyourmusic",
+      "raw": [
+        "Tech House"
+      ],
+      "primary": "tech-house",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:14451",
+      "title": "Time Traveler",
+      "source": "rateyourmusic",
+      "raw": [
+        "Melodic Techno"
+      ],
+      "primary": "techno",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:12741",
+      "title": "Ritual",
+      "source": "rateyourmusic",
+      "raw": [
+        "Deconstructed Club",
+        "Wonky",
+        "Glitch Hop",
+        "IDM",
+        "Experimental Hip Hop",
+        "Glitch"
+      ],
+      "primary": "idm",
+      "secondaries": [
+        "rap-experimental",
+        "glitch"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27521",
+      "title": "Agustín Irusta con el acompañamiento del Cuarteto Guardia Vieja",
+      "source": "rateyourmusic",
+      "raw": [
+        "Tango"
+      ],
+      "primary": "tango",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27538",
+      "title": "Lo Mejor de Felipe Pirela con Billo",
+      "source": "rateyourmusic",
+      "raw": [
+        "Bolero"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27539",
+      "title": "Decir adiós",
+      "source": "rateyourmusic",
+      "raw": [
+        "Ambient"
+      ],
+      "primary": "ambient",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27540",
+      "title": "Lógica resbalosa",
+      "source": "rateyourmusic",
+      "raw": [
+        "Indie Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27541",
+      "title": "Tomas verdes",
+      "source": "rateyourmusic",
+      "raw": [
+        "Singer-Songwriter",
+        "Indie Folk",
+        "Chamber Folk",
+        "Psychedelic Folk"
+      ],
+      "primary": "cantautor",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27544",
+      "title": "Sencillo 2018",
+      "source": "rateyourmusic",
+      "raw": [
+        "Indie Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27546",
+      "title": "Abandonar el país",
+      "source": "rateyourmusic",
+      "raw": [
+        "Singer-Songwriter"
+      ],
+      "primary": "cantautor",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27548",
+      "title": "Cala",
+      "source": "rateyourmusic",
+      "raw": [
+        "Folk Pop"
+      ],
+      "primary": "folk",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27552",
+      "title": "I'm Here",
+      "source": "rateyourmusic",
+      "raw": [
+        "Pop Rock",
+        "Latin Pop"
+      ],
+      "primary": "pop-rock",
+      "secondaries": [
+        "pop-latino"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27556",
+      "title": "Sunday Morning",
+      "source": "rateyourmusic",
+      "raw": [
+        "Synthpop"
+      ],
+      "primary": "synth-pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27557",
+      "title": "Symmetry",
+      "source": "rateyourmusic",
+      "raw": [
+        "Synthpop"
+      ],
+      "primary": "synth-pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27561",
+      "title": "Despechada",
+      "source": "rateyourmusic",
+      "raw": [
+        "Singer-Songwriter",
+        "Hispanic American Folk Music"
+      ],
+      "primary": "cantautor",
+      "secondaries": [
+        "musica-tradicional"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27562",
+      "title": "Pajarera vertical",
+      "source": "rateyourmusic",
+      "raw": [
+        "Progressive Folk",
+        "Joropo",
+        "Art Rock"
+      ],
+      "primary": "folk-metal",
+      "secondaries": [
+        "joropo",
+        "art-rock"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27563",
+      "title": "El mercado de los corotos",
+      "source": "rateyourmusic",
+      "raw": [
+        "Joropo",
+        "Hispanic American Folk Music",
+        "Son cubano",
+        "Singer-Songwriter",
+        "Música llanera"
+      ],
+      "primary": "joropo",
+      "secondaries": [
+        "musica-tradicional",
+        "son",
+        "cantautor"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27564",
+      "title": "Música moderna",
+      "source": "rateyourmusic",
+      "raw": [
+        "Singer-Songwriter",
+        "Bolero",
+        "Contemporary Folk"
+      ],
+      "primary": "cantautor",
+      "secondaries": [
+        "bolero"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27565",
+      "title": "Primer acercamiento al mito",
+      "source": "rateyourmusic",
+      "raw": [
+        "Progressive Folk",
+        "Joropo",
+        "Singer-Songwriter"
+      ],
+      "primary": "folk-metal",
+      "secondaries": [
+        "joropo",
+        "cantautor"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27573",
+      "title": "So eine Nacht unter Palmen / Isola Bella",
+      "source": "rateyourmusic",
+      "raw": [
+        "Schlager"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27577",
+      "title": "Ein heißer Kuß und tausend kühle Tränen / Das Hafenlied von Barcelona",
+      "source": "rateyourmusic",
+      "raw": [
+        "Schlager"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27578",
+      "title": "Weine keine Träne um mich Bella Maria / Die roten Segel im Hafen von Napoli",
+      "source": "rateyourmusic",
+      "raw": [
+        "Schlager"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27582",
+      "title": "Cara mia / Allein mit dir",
+      "source": "rateyourmusic",
+      "raw": [
+        "Schlager"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27590",
+      "title": "Move to the fiesta",
+      "source": "rateyourmusic",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27591",
+      "title": "Patatina",
+      "source": "rateyourmusic",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27592",
+      "title": "Espejo",
+      "source": "rateyourmusic",
+      "raw": [
+        "Alternative Rock",
+        "Latin Alternative",
+        "Hard Rock",
+        "Funk Rock"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": [
+        "rock-latino",
+        "hard-rock"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27593",
+      "title": "Infatuous Chambers",
+      "source": "rateyourmusic",
+      "raw": [
+        "Avant-Garde Jazz",
+        "Free Improvisation"
+      ],
+      "primary": "jazz",
+      "secondaries": [
+        "avant-garde"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27595",
+      "title": "Demonology",
+      "source": "rateyourmusic",
+      "raw": [
+        "Free Jazz",
+        "Free Improvisation"
+      ],
+      "primary": "jazz",
+      "secondaries": [
+        "avant-garde"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27599",
+      "title": "Behenii - Part I",
+      "source": "rateyourmusic",
+      "raw": [
+        "Electroacoustic",
+        "European Free Jazz"
+      ],
+      "primary": "electroacustica",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27601",
+      "title": "Mammalian Interactive Digressions",
+      "source": "rateyourmusic",
+      "raw": [
+        "Avant-Garde Jazz",
+        "Experimental"
+      ],
+      "primary": "jazz",
+      "secondaries": [
+        "experimental"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27608",
+      "title": "Juan Carlos Núñez & José Ignacio Cabrujas",
+      "source": "rateyourmusic",
+      "raw": [
+        "Modern Classical",
+        "Spoken Word"
+      ],
+      "primary": "musica-clasica",
+      "secondaries": [
+        "spoken-word"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27610",
+      "title": "Hawaira",
+      "source": "rateyourmusic",
+      "raw": [
+        "Latin Pop",
+        "Reggaetón"
+      ],
+      "primary": "pop-latino",
+      "secondaries": [
+        "reggaeton"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27611",
+      "title": "El nene, vol. 1",
+      "source": "rateyourmusic",
+      "raw": [
+        "Reggaetón",
+        "Neoperreo"
+      ],
+      "primary": "reggaeton",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27612",
+      "title": "El nene, vol 2",
+      "source": "rateyourmusic",
+      "raw": [
+        "Reggaetón",
+        "Latin Pop"
+      ],
+      "primary": "reggaeton",
+      "secondaries": [
+        "pop-latino"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27615",
+      "title": "Nadie te va a querer",
+      "source": "rateyourmusic",
+      "raw": [
+        "Latin Pop",
+        "Latin Rap",
+        "Funk melody",
+        "Salsa"
+      ],
+      "primary": "pop-latino",
+      "secondaries": [
+        "hip-hop",
+        "salsa"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27616",
+      "title": "Qué sé yo",
+      "source": "rateyourmusic",
+      "raw": [
+        "Dance-Pop",
+        "Latin Pop"
+      ],
+      "primary": "dance-pop",
+      "secondaries": [
+        "pop-latino"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27623",
+      "title": "Quítate la ropa",
+      "source": "rateyourmusic",
+      "raw": [
+        "Reggaetón",
+        "Neoperreo"
+      ],
+      "primary": "reggaeton",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27626",
+      "title": "Rough",
+      "source": "rateyourmusic",
+      "raw": [
+        "Pop Rap",
+        "Funk mandelão",
+        "Neoperreo",
+        "Funk 150 bpm",
+        "Funk de BH",
+        "Jersey Club"
+      ],
+      "primary": "hip-hop",
+      "secondaries": [
+        "reggaeton",
+        "electronica"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27629",
+      "title": "Fuerte",
+      "source": "rateyourmusic",
+      "raw": [
+        "Reggaetón"
+      ],
+      "primary": "reggaeton",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27633",
+      "title": "Chansons d'Espagne",
+      "source": "rateyourmusic",
+      "raw": [
+        "Bolero"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27634",
+      "title": "Luna Mallorquina",
+      "source": "rateyourmusic",
+      "raw": [
+        "Bolero"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27635",
+      "title": "Chiquita bonita",
+      "source": "rateyourmusic",
+      "raw": [
+        "Bolero"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27636",
+      "title": "Historia de un amor",
+      "source": "rateyourmusic",
+      "raw": [
+        "Bolero"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27650",
+      "title": "La compuerta nro. 12",
+      "source": "rateyourmusic",
+      "raw": [
+        "Modern Classical",
+        "Monodrama"
+      ],
+      "primary": "musica-clasica",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27656",
+      "title": "Uverito",
+      "source": "rateyourmusic",
+      "raw": [
+        "Ambient",
+        "Dark Ambient",
+        "MIDI Music",
+        "Minimalism"
+      ],
+      "primary": "ambient",
+      "secondaries": [
+        "dark-ambient",
+        "musica-clasica"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:album:27660",
+      "title": "Pecho esguazao",
+      "source": "rateyourmusic",
+      "raw": [
+        "Música llanera"
+      ],
+      "primary": "joropo",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27661",
+      "title": "Pecho rajao",
+      "source": "rateyourmusic",
+      "raw": [
+        "Música llanera"
+      ],
+      "primary": "joropo",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27662",
+      "title": "Plomo en el pecho",
+      "source": "rateyourmusic",
+      "raw": [
+        "Música llanera",
+        "Animal Sounds"
+      ],
+      "primary": "joropo",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27670",
+      "title": "Una isla en los Andes",
+      "source": "rateyourmusic",
+      "raw": [
+        "Hip Hop"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:album:27671",
+      "title": "San Juan",
+      "source": "rateyourmusic",
+      "raw": [
+        "Afro House"
+      ],
+      "primary": "house",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6880",
+      "title": "Knotchej",
+      "source": "rateyourmusic",
+      "raw": [
+        "Plugg"
+      ],
+      "primary": "trap",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6882",
+      "title": "Adriana",
+      "source": "rateyourmusic",
+      "raw": [
+        "Latin Pop"
+      ],
+      "primary": "pop-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6883",
+      "title": "Alejandro Molinari",
+      "source": "rateyourmusic",
+      "raw": [
+        "Electronic"
+      ],
+      "primary": "electronica",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6886",
+      "title": "Augusto Bracho",
+      "source": "rateyourmusic",
+      "raw": [
+        "Joropo",
+        "Hispanic American Folk Music",
+        "Singer-Songwriter",
+        "Bolero"
+      ],
+      "primary": "joropo",
+      "secondaries": [
+        "musica-tradicional",
+        "cantautor",
+        "bolero"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:artist:6887",
+      "title": "Carlos Ibañez",
+      "source": "rateyourmusic",
+      "raw": [
+        "Indie Rock"
+      ],
+      "primary": "indie-rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6888",
+      "title": "Carlos Otero",
+      "source": "rateyourmusic",
+      "raw": [
+        "Singer-Songwriter"
+      ],
+      "primary": "cantautor",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6890",
+      "title": "Decibeles",
+      "source": "rateyourmusic",
+      "raw": [
+        "Alternative Rock",
+        "Latin Alternative"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": [
+        "rock-latino"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:artist:6891",
+      "title": "El Pricto",
+      "source": "rateyourmusic",
+      "raw": [
+        "Jazz"
+      ],
+      "primary": "jazz",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6895",
+      "title": "La Cruz",
+      "source": "rateyourmusic",
+      "raw": [
+        "Reggaetón",
+        "Latin Pop"
+      ],
+      "primary": "reggaeton",
+      "secondaries": [
+        "pop-latino"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:artist:6898",
+      "title": "Los Jets",
+      "source": "rateyourmusic",
+      "raw": [
+        "Salsa"
+      ],
+      "primary": "salsa",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6903",
+      "title": "Osmer Hernández",
+      "source": "rateyourmusic",
+      "raw": [
+        "Ambient",
+        "Dark Ambient",
+        "MIDI Music"
+      ],
+      "primary": "ambient",
+      "secondaries": [
+        "dark-ambient"
+      ]
+    },
+    {
+      "caseId": "rym-remanente:artist:6904",
+      "title": "Raquel González",
+      "source": "rateyourmusic",
+      "raw": [
+        "Joropo"
+      ],
+      "primary": "joropo",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6905",
+      "title": "Vitico Castillo",
+      "source": "rateyourmusic",
+      "raw": [
+        "Joropo"
+      ],
+      "primary": "joropo",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6907",
+      "title": "Arabella",
+      "source": "rateyourmusic",
+      "raw": [
+        "Salsa"
+      ],
+      "primary": "salsa",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6909",
+      "title": "Manuel Rocca",
+      "source": "rateyourmusic",
+      "raw": [
+        "Trance"
+      ],
+      "primary": "trance",
+      "secondaries": []
+    },
+    {
+      "caseId": "rym-remanente:artist:6911",
+      "title": "Sebastian Rivero",
+      "source": "rateyourmusic",
+      "raw": [
+        "Afro House"
+      ],
+      "primary": "house",
+      "secondaries": []
+    }
+  ],
+  "alreadyClassified": [
+    "rym-remanente:album:2932",
+    "rym-remanente:album:8227",
+    "rym-remanente:album:8416",
+    "rym-remanente:album:8297",
+    "rym-remanente:album:6607",
+    "rym-remanente:album:7308",
+    "rym-remanente:album:7997",
+    "rym-remanente:album:7932",
+    "rym-remanente:album:27248",
+    "rym-remanente:album:27251",
+    "rym-remanente:album:26960",
+    "rym-remanente:album:26959"
+  ],
+  "unresolved": [],
+  "errors": [],
+  "moreSpecificExists": []
+}

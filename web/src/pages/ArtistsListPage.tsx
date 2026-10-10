@@ -1,4 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { DecadeFilter } from "../components/DecadeFilter";
+import { useDecadeFilter, decadeLabel } from "../lib/useDecadeFilter";
+import { CatalogFilters } from "../components/CatalogFilters";
+import { TypeFilter } from "../components/TypeFilter";
 import { artistsApi, artistWrites, genresApi } from "../lib/api";
 import { useEntityList } from "../lib/useEntityList";
 import { useAsync } from "../lib/useAsync";
@@ -12,17 +17,42 @@ import { EntityCard, initialOf } from "../components/EntityCard";
 import { Pagination } from "../components/Pagination";
 import { EntityFormModal } from "../components/EntityFormModal";
 import { ARTIST_FIELDS } from "../lib/entityFields";
-import { artistTypeLabel } from "../lib/labels";
+import { ARTIST_TYPES, artistTypeLabel } from "../lib/labels";
+import { CatalogSearchInput } from "../components/CatalogSearchInput";
 
 export function ArtistsListPage() {
+  const paginationStartRef = useRef<HTMLDivElement>(null);
   const { isAdmin, user } = useOperator();
+  const [params, setParams] = useSearchParams();
+  const typeParam = params.get("tipo");
+  const selectedType = typeParam && ARTIST_TYPES.includes(typeParam) ? typeParam : null;
+  const decade = useDecadeFilter();
+  const typeFacets = useAsync(artistsApi.facets, []);
   const genre = useGenreFilter({ allowRelated: false });
   const facets = useAsync(() => genresApi.facets("artist"), []);
-  const { data, loading, error, reload, q, offset, limit, setQuery, setOffset } = useEntityList(artistsApi.list, [user?.name], genre.apiParams);
+  const { data, loading, error, reload, q, offset, limit, setQuery, setOffset } = useEntityList(artistsApi.list, [user?.name], { ...genre.apiParams, ...decade.apiParams, ...(selectedType ? { artistType: selectedType } : {}) });
   const genreLabel = genreSelectionLabel(facets.data, genre.selection);
-  const filtered = Boolean(q.trim()) || genreLabel !== null;
+  const filtered = Boolean(q.trim()) || genreLabel !== null || selectedType !== null || decade.selection !== null;
   const { notify } = useToast();
   const [creating, setCreating] = useState(false);
+
+  function selectType(value: string | null) {
+    setParams((current) => {
+      const next = new URLSearchParams(current);
+      if (value) next.set("tipo", value); else next.delete("tipo");
+      next.delete("offset");
+      return next;
+    });
+  }
+
+  function clearFilters() {
+    setQuery("");
+    setParams((current) => {
+      const next = new URLSearchParams(current);
+      for (const key of ["q", "tipo", "genero", "subgenero", "estilo", "ampliar", "decada", "offset"]) next.delete(key);
+      return next;
+    });
+  }
 
   return (
     <>
@@ -34,22 +64,39 @@ export function ArtistsListPage() {
         {isAdmin ? <button type="button" className="btn btn--primary" onClick={() => setCreating(true)}>+ Nuevo artista</button> : null}
       </div>
 
-      <div className="list-toolbar">
-        <input className="filter-input" type="search" value={q} onChange={(event) => setQuery(event.target.value)}
-          placeholder="Filtrar por nombre…" aria-label="Filtrar artistas por nombre" />
-      </div>
-
-      <GenreFilter kind="artist" facets={facets.data} facetsError={facets.error} onRetryFacets={facets.reload}
-        selection={genre.selection} onFamily={genre.selectFamily} onSub={genre.selectSub} onStyle={genre.selectStyle} onRelated={genre.setRelated}
-        onFamilyRelated={genre.selectFamilyRelated} />
+      <CatalogFilters typeLabel="Tipo de artista"
+        decadeActive={decade.selection !== null}
+        decadeFilter={<DecadeFilter facets={typeFacets.data} error={typeFacets.error} onRetry={typeFacets.reload}
+          selection={decade.selection} onSelect={decade.select} basis="formation" />}
+        typeActive={selectedType !== null} genreActive={genre.selection.family !== null}
+        search={
+          <CatalogSearchInput scope="artist" value={q} onChange={setQuery}
+            placeholder="Filtrar por nombre…" label="Filtrar artistas por nombre" />
+        }
+        typeFilter={
+          <TypeFilter kind="artist" typeLabel={artistTypeLabel} facets={typeFacets.data}
+            error={typeFacets.error} onRetry={typeFacets.reload} selectedType={selectedType} onSelect={selectType} />
+        }
+        genreFilter={
+          <GenreFilter kind="artist" facets={facets.data} facetsError={facets.error} onRetryFacets={facets.reload}
+            selection={genre.selection} onFamily={genre.selectFamily} onSub={genre.selectSub} onStyle={genre.selectStyle} onRelated={genre.setRelated}
+            onFamilyRelated={genre.selectFamilyRelated} />
+        } />
 
       <ListSummary total={data?.pagination.total} noun={{ one: "artista", many: "artistas" }} loading={loading}
-        query={q} genreLabel={genreLabel} onClearQuery={() => setQuery("")} onClearGenre={genre.clear} />
+        query={q} onClearQuery={() => setQuery("")} onClearAll={clearFilters}
+        filters={[
+          ...(decade.selection !== null ? [{ key: "decade", label: decadeLabel(decade.selection), onClear: () => decade.select(null) }] : []),
+          ...(selectedType ? [{ key: "type", label: artistTypeLabel(selectedType), onClear: () => selectType(null) }] : []),
+          ...(genreLabel ? [{ key: "genre", label: genreLabel, onClear: genre.clear }] : []),
+        ]} />
+
+      <div ref={paginationStartRef} className="pagination-start" />
 
       {loading && !data ? <CardGridSkeleton count={12} label="Cargando artistas…" /> : error ? <ErrorState message={error} onRetry={reload} /> : !data || data.data.length === 0 ? (
         <EmptyState title={filtered ? "Ningún artista coincide con estos filtros" : "No hay artistas para mostrar"}
-          hint={filtered ? "Prueba con otro género o quita alguno de los filtros." : undefined}
-          action={filtered ? <button type="button" className="btn btn--sm" onClick={() => { setQuery(""); genre.clear(); }}>Quitar filtros</button> : null} />
+          hint={filtered ? "Prueba con otro nombre, década, género o tipo, o quita alguno de los filtros." : undefined}
+          action={filtered ? <button type="button" className="btn btn--sm" onClick={clearFilters}>Quitar filtros</button> : null} />
       ) : (
         <>
           <div className={`grid-cards${loading ? " is-refreshing" : ""}`}>
@@ -68,7 +115,7 @@ export function ArtistsListPage() {
               />
             ))}
           </div>
-          <Pagination limit={limit} offset={offset} total={data.pagination.total} onOffsetChange={setOffset} />
+          <Pagination scrollTargetRef={paginationStartRef} limit={limit} offset={offset} total={data.pagination.total} onOffsetChange={setOffset} />
         </>
       )}
 
@@ -78,7 +125,7 @@ export function ArtistsListPage() {
           fields={ARTIST_FIELDS}
           initialValues={{ artistType: "band", originCountry: "Venezuela" }}
           onSubmit={(values, note) => artistWrites.create({ ...values, note })}
-          onSuccess={() => { setCreating(false); reload(); notify("success", "Artista creado."); }}
+          onSuccess={() => { setCreating(false); reload(); typeFacets.reload(); notify("success", "Artista creado."); }}
           onClose={() => setCreating(false)}
         />
       ) : null}

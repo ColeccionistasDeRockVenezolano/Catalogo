@@ -1,0 +1,18 @@
+{
+  "mode": "ensayo revertido",
+  "phase": "ajustes-extra",
+  "runs": [],
+  "ok": [
+    {
+      "href": "/release/single/nacho/bailame",
+      "id": 27115,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/nacho-yandel-and-bad-bunny/bailame-remix",
+      "id": 27116,
+      "tracks": 0
+    }
+  ],
+  "errors": []
+}

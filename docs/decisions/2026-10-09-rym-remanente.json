@@ -1,0 +1,2299 @@
+{
+  "fecha": "2026-10-09",
+  "criterio": "Discografía venezolana y artistas con vínculo documentado con la escena venezolana; créditos extranjeros no implican importar su discografía completa. Nacionalidad desconocida no se convierte en falsa.",
+  "artistas": {
+    "/artist/adriana-lizcano": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/adriana-lizcano"
+      ],
+      "nombre": "Adriana Lizcano",
+      "discos": 1
+    },
+    "/artist/agustin_irusta": {
+      "accion": "incluir",
+      "nombre": "Agustín Irusta",
+      "artist_id": 6877,
+      "motivo": "Argentino radicado en Caracas hasta su muerte; vínculo musical venezolano.",
+      "fuentes": [
+        "https://www.todotango.com/creadores/biografia/154/Agustin-Irusta/"
+      ]
+    },
+    "/artist/alfonso-guerrero": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/alfonso-guerrero"
+      ],
+      "nombre": "Alfonso Guerrero",
+      "discos": 1
+    },
+    "/artist/billy-ocean": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/billy-ocean"
+      ],
+      "nombre": "Billy Ocean",
+      "discos": 52
+    },
+    "/artist/blaxx-1": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/blaxx-1"
+      ],
+      "nombre": "Blaxx",
+      "discos": 7
+    },
+    "/artist/bobby-farrell": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/bobby-farrell"
+      ],
+      "nombre": "Bobby Farrell",
+      "discos": 8
+    },
+    "/artist/boy-dap": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/boy-dap"
+      ],
+      "nombre": "Boy Dap",
+      "discos": 4
+    },
+    "/artist/caterinetta_lescano": {
+      "accion": "incluir",
+      "nombre": "Caterinetta Lescano",
+      "artist_id": 6878,
+      "motivo": "Cantante neerlandesa radicada en Caracas desde 1955; no se afirma nacionalidad venezolana.",
+      "fuentes": [
+        "https://it.wikipedia.org/wiki/Trio_Lescano"
+      ]
+    },
+    "/artist/christiaan-hulsebos": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/christiaan-hulsebos"
+      ],
+      "nombre": "Christiaan Hulsebos",
+      "discos": 2
+    },
+    "/artist/d_rock": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/d_rock"
+      ],
+      "nombre": "D-Rock",
+      "discos": 2
+    },
+    "/artist/dave_benton": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/dave_benton"
+      ],
+      "nombre": "Dave Benton",
+      "discos": 8
+    },
+    "/artist/dickery-dock": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/dickery-dock"
+      ],
+      "nombre": "Dickery Dock",
+      "discos": 2
+    },
+    "/artist/diego-caicedo": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/diego-caicedo"
+      ],
+      "nombre": "Diego Caicedo",
+      "discos": 9
+    },
+    "/artist/edgar-palm": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/edgar-palm"
+      ],
+      "nombre": "Edgar Palm",
+      "discos": 1
+    },
+    "/artist/edson_velandia": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/edson_velandia"
+      ],
+      "nombre": "Edson Velandia",
+      "discos": 6
+    },
+    "/artist/euson": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/euson"
+      ],
+      "nombre": "Euson",
+      "discos": 26
+    },
+    "/artist/fellow_f1": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/fellow_f1"
+      ],
+      "nombre": "Fellow",
+      "discos": 1
+    },
+    "/artist/guillermo-marchena": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/guillermo-marchena"
+      ],
+      "nombre": "Guillermo Marchena",
+      "discos": 1
+    },
+    "/artist/jasmine-sendar": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/jasmine-sendar"
+      ],
+      "nombre": "Jasmine Sendar",
+      "discos": 2
+    },
+    "/artist/juan-arteta": {
+      "accion": "incluir",
+      "nombre": "Juan Arteta",
+      "artist_id": 6879,
+      "motivo": "Trompetista español radicado en Venezuela desde 1952; orquesta venezolana.",
+      "fuentes": [
+        "https://de.wikipedia.org/wiki/Juanito_Arteta"
+      ]
+    },
+    "/artist/julien-coco": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/julien-coco"
+      ],
+      "nombre": "Julien Coco",
+      "discos": 1
+    },
+    "/artist/julio_wilson": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/julio_wilson"
+      ],
+      "nombre": "Julio Wilson",
+      "discos": 3
+    },
+    "/artist/laura-roman": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/laura-roman"
+      ],
+      "nombre": "Laura Román",
+      "discos": 1
+    },
+    "/artist/leslie_vaughn": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/leslie_vaughn"
+      ],
+      "nombre": "Leslie Vaughn",
+      "discos": 2
+    },
+    "/artist/lord-shorty": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/lord-shorty"
+      ],
+      "nombre": "Lord Shorty",
+      "discos": 9
+    },
+    "/artist/luti-samson": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/luti-samson"
+      ],
+      "nombre": "Luti Samson",
+      "discos": 2
+    },
+    "/artist/lyda_zamora": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/lyda_zamora"
+      ],
+      "nombre": "Lyda Zamora",
+      "discos": 4
+    },
+    "/artist/mc-pester": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/mc-pester"
+      ],
+      "nombre": "MC Pester",
+      "discos": 2
+    },
+    "/artist/martin_dowser": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/martin_dowser"
+      ],
+      "nombre": "Martin Dowser",
+      "discos": 1
+    },
+    "/artist/martin_verdonk": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/martin_verdonk"
+      ],
+      "nombre": "Martin Verdonk",
+      "discos": 2
+    },
+    "/artist/marva-hodge": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/marva-hodge"
+      ],
+      "nombre": "Marva Hodge",
+      "discos": 2
+    },
+    "/artist/maria-cristina-plata": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/maria-cristina-plata"
+      ],
+      "nombre": "María Cristina Plata",
+      "discos": 4
+    },
+    "/artist/mildred_douglas": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/mildred_douglas"
+      ],
+      "nombre": "Mildred Douglas",
+      "discos": 1
+    },
+    "/artist/pablus-gallinazo": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/pablus-gallinazo"
+      ],
+      "nombre": "Pablus Gallinazo",
+      "discos": 5
+    },
+    "/artist/pete_philly": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/pete_philly"
+      ],
+      "nombre": "Pete Philly",
+      "discos": 23
+    },
+    "/artist/peter-prommel": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/peter-prommel"
+      ],
+      "nombre": "Peter Prommel",
+      "discos": 3
+    },
+    "/artist/porfi-jimenez": {
+      "accion": "incluir",
+      "nombre": "Porfi Jiménez",
+      "artist_id": 4595,
+      "motivo": "Dominicano radicado en Venezuela desde 1954; discografía de su orquesta.",
+      "fuentes": [
+        "https://orquestaporfijimenez.blogspot.com/p/blog-page.html"
+      ]
+    },
+    "/artist/ruben-dario-salcedo": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/ruben-dario-salcedo"
+      ],
+      "nombre": "Rubén Darío Salcedo",
+      "discos": 1
+    },
+    "/artist/rudy-plaate": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/rudy-plaate"
+      ],
+      "nombre": "Rudy Plaate",
+      "discos": 5
+    },
+    "/artist/sierra811": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/sierra811"
+      ],
+      "nombre": "Sierra811",
+      "discos": 4
+    },
+    "/artist/spartacus_r": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/spartacus_r"
+      ],
+      "nombre": "Spartacus R",
+      "discos": 2
+    },
+    "/artist/spooky_f4": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/spooky_f4"
+      ],
+      "nombre": "Spooky",
+      "discos": 1
+    },
+    "/artist/teto-ocampo": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/teto-ocampo"
+      ],
+      "nombre": "Teto Ocampo",
+      "discos": 1
+    },
+    "/artist/the-tiger": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/the-tiger"
+      ],
+      "nombre": "The Tiger",
+      "discos": 8
+    },
+    "/artist/tony-sherman": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/tony-sherman"
+      ],
+      "nombre": "Tony Sherman",
+      "discos": 11
+    },
+    "/artist/wally-warning": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/wally-warning"
+      ],
+      "nombre": "Wally Warning",
+      "discos": 6
+    },
+    "/artist/willy_latino": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/willy_latino"
+      ],
+      "nombre": "Willy Latino",
+      "discos": 2
+    },
+    "/artist/billo-frometa": {
+      "accion": "incluir",
+      "nombre": "Billo Frómeta",
+      "artist_id": 3764,
+      "motivo": "Billo y sus orquestas venezolanas; destino por disco cuando cambia el conjunto.",
+      "fuentes": [
+        "https://www.venciclopedia.org/index.php/Billo"
+      ]
+    },
+    "/artist/benjamin-fox-casey": {
+      "accion": "excluir",
+      "motivo": "Excluido de esta importación: vínculo venezolano sin verificar tras búsqueda web; Brian confirmó que no tiene referencias (2026-10-09). Conservar captura para reconsiderar con evidencia.",
+      "estado": "excluido_sin_vinculo_verificable",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/benjamin-fox-casey"
+      ],
+      "nombre": "Benjamin Fox Casey",
+      "discos": 5
+    },
+    "/artist/knotchej": {
+      "accion": "incluir",
+      "nombre": "Knotchej",
+      "artist_id": 6880,
+      "motivo": "Productor originario de Venezuela; nombre artístico de Renier Moreno.",
+      "fuentes": [
+        "https://traktrain.com/knotchej"
+      ]
+    },
+    "/artist/recordatorio": {
+      "accion": "incluir",
+      "nombre": "Recordatorio",
+      "artist_id": 6881,
+      "motivo": "Proyecto de Armando Añez, Caracas; no es una segunda persona.",
+      "fuentes": [
+        "https://recordatorio91.bandcamp.com/album/l-gica-resbalosa"
+      ]
+    },
+    "/artist/spell-1": {
+      "accion": "excluir",
+      "motivo": "Proyecto colombiano de Josué Quintero en Pamplona, según Bandcamp; sin vínculo venezolano acreditado.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://spell36.bandcamp.com/"
+      ],
+      "nombre": "Spell",
+      "discos": 1
+    },
+    "/artist/aggression-4": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/aggression-4"
+      ],
+      "nombre": "Aggression",
+      "discos": 1
+    },
+    "/artist/john-w-moore": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/john-w-moore"
+      ],
+      "nombre": "John W. Moore",
+      "discos": 1
+    },
+    "/artist/juancho-rois": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/juancho-rois"
+      ],
+      "nombre": "Juancho Rois",
+      "discos": 9
+    },
+    "/artist/manuel-alvarado": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/manuel-alvarado"
+      ],
+      "nombre": "Manuel Alvarado",
+      "discos": 1
+    },
+    "/artist/nando": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/nando"
+      ],
+      "nombre": "Nando",
+      "discos": 1
+    },
+    "/artist/rebelion": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/rebelion"
+      ],
+      "nombre": "Rebelión",
+      "discos": 1
+    },
+    "/artist/sola": {
+      "accion": "excluir",
+      "motivo": "Discografía de titular con origen fuera de Venezuela; figura como crédito de apoyo, sin vínculo venezolano documentado que justifique importar su catálogo completo.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/sola"
+      ],
+      "nombre": "Sola",
+      "discos": 4
+    },
+    "/artist/adriana-2": {
+      "accion": "incluir",
+      "nombre": "Adriana",
+      "artist_id": 6882,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/adriana-2"
+      ]
+    },
+    "/artist/alejandro-molinari": {
+      "accion": "incluir",
+      "nombre": "Alejandro Molinari",
+      "artist_id": 6883,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/alejandro-molinari"
+      ]
+    },
+    "/artist/andrea-ferrero": {
+      "accion": "incluir",
+      "nombre": "Andrea Ferrero",
+      "artist_id": 6884,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/andrea-ferrero"
+      ]
+    },
+    "/artist/ane-diaz": {
+      "accion": "incluir",
+      "nombre": "Ane Díaz",
+      "artist_id": 6885,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/ane-diaz"
+      ]
+    },
+    "/artist/augusto-bracho": {
+      "accion": "incluir",
+      "nombre": "Augusto Bracho",
+      "artist_id": 6886,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/augusto-bracho"
+      ]
+    },
+    "/artist/carlos-ibanez": {
+      "accion": "incluir",
+      "nombre": "Carlos Ibañez",
+      "artist_id": 6887,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/carlos-ibanez"
+      ]
+    },
+    "/artist/carlos-otero": {
+      "accion": "incluir",
+      "nombre": "Carlos Otero",
+      "artist_id": 6888,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/carlos-otero"
+      ]
+    },
+    "/artist/carolina-marconi": {
+      "accion": "incluir",
+      "nombre": "Carolina Marconi",
+      "artist_id": 6889,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/carolina-marconi"
+      ]
+    },
+    "/artist/decibeles": {
+      "accion": "incluir",
+      "nombre": "Decibeles",
+      "artist_id": 6890,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/decibeles"
+      ]
+    },
+    "/artist/edmundo-gonzalez": {
+      "accion": "excluir",
+      "motivo": "Canciones de campaña atribuidas al candidato como sujeto; no prueban intérprete musical. No crear músico ficticio.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/edmundo-gonzalez"
+      ],
+      "nombre": "Edmundo González",
+      "discos": 2
+    },
+    "/artist/el-pricto": {
+      "accion": "incluir",
+      "nombre": "El Pricto",
+      "artist_id": 6891,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/el-pricto"
+      ]
+    },
+    "/artist/elik-alvarez": {
+      "accion": "incluir",
+      "nombre": "Elik Álvarez",
+      "artist_id": 6892,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/elik-alvarez"
+      ]
+    },
+    "/artist/johnny-sedes": {
+      "accion": "incluir",
+      "nombre": "Johnny Sedes",
+      "artist_id": 6893,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/johnny-sedes"
+      ]
+    },
+    "/artist/joshua-dos-santos": {
+      "accion": "excluir",
+      "motivo": "Contrecoup es monografía de Benjamin de la Fuente; Joshua es director, no titular del disco.",
+      "estado": "fuera_de_alcance",
+      "fuentes": [
+        "https://www.radiofrance.com/les-editions/disque/contrecoup-benjamin-de-la-fuente"
+      ],
+      "nombre": "Joshua Dos Santos",
+      "discos": 1
+    },
+    "/artist/jose_ignacio_cabrujas": {
+      "accion": "incluir",
+      "nombre": "José Ignacio Cabrujas",
+      "artist_id": 3976,
+      "motivo": "Texto y voz de Cabrujas, música de Juan Carlos Núñez: crédito de persona, no discografía ficticia de solista.",
+      "fuentes": [
+        "https://cervantes.link/podcast/520-venezuela-de-juan-carlos-nunez-y-jose-ignacio-cabrujas-musica-experimental/"
+      ],
+      "aplicar_solo_destinos_explicitos": true,
+      "representacion": "persona_acreditada",
+      "person_id": 40391
+    },
+    "/artist/juan-r-berbin": {
+      "accion": "incluir",
+      "nombre": "Juan R. Berbín",
+      "artist_id": 6894,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/juan-r-berbin"
+      ]
+    },
+    "/artist/la-cruz-3": {
+      "accion": "incluir",
+      "nombre": "La Cruz",
+      "artist_id": 6895,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/la-cruz-3"
+      ]
+    },
+    "/artist/living_death_f1": {
+      "accion": "incluir",
+      "nombre": "Living Death",
+      "artist_id": 6896,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/living_death_f1"
+      ]
+    },
+    "/artist/lorenzo_gonzalez": {
+      "accion": "incluir",
+      "nombre": "Lorenzo González",
+      "artist_id": 6897,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/lorenzo_gonzalez"
+      ]
+    },
+    "/artist/los-jets": {
+      "accion": "incluir",
+      "nombre": "Los Jets",
+      "artist_id": 6898,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/los-jets"
+      ]
+    },
+    "/artist/luis-g-tovar": {
+      "accion": "incluir",
+      "nombre": "Luis G. Tovar",
+      "artist_id": 6899,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/luis-g-tovar"
+      ]
+    },
+    "/artist/lunar_f1": {
+      "accion": "incluir",
+      "nombre": "Lunar",
+      "artist_id": 6900,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/lunar_f1"
+      ]
+    },
+    "/artist/miguel-farias": {
+      "accion": "incluir",
+      "nombre": "Miguel Farías",
+      "artist_id": 6901,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/miguel-farias"
+      ]
+    },
+    "/artist/omar-acedo": {
+      "accion": "incluir",
+      "nombre": "Omar Acedo",
+      "artist_id": 6902,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/omar-acedo"
+      ]
+    },
+    "/artist/osmer-hernandez": {
+      "accion": "incluir",
+      "nombre": "Osmer Hernández",
+      "artist_id": 6903,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/osmer-hernandez"
+      ]
+    },
+    "/artist/raquel-gonzalez-1": {
+      "accion": "incluir",
+      "nombre": "Raquel González",
+      "artist_id": 6904,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/raquel-gonzalez-1"
+      ]
+    },
+    "/artist/vitico-castillo": {
+      "accion": "incluir",
+      "nombre": "Vitico Castillo",
+      "artist_id": 6905,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/vitico-castillo"
+      ]
+    },
+    "/artist/william-sarquiz": {
+      "accion": "incluir",
+      "nombre": "William Sarquiz",
+      "artist_id": 6906,
+      "motivo": "Origen venezolano registrado en la captura RYM; alta distinta de los homónimos descartados en el dossier.",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/william-sarquiz"
+      ]
+    },
+    "/artist/carlitos-flores": {
+      "accion": "excluir",
+      "motivo": "Excluido de esta importación: vínculo venezolano sin verificar tras búsqueda web; Brian confirmó que no tiene referencias (2026-10-09). Conservar captura para reconsiderar con evidencia.",
+      "estado": "excluido_sin_vinculo_verificable",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/carlitos-flores"
+      ],
+      "nombre": "Carlitos Flores",
+      "discos": 1
+    },
+    "/artist/zzeta": {
+      "accion": "excluir",
+      "motivo": "Excluido de esta importación: vínculo venezolano sin verificar tras búsqueda web; Brian confirmó que no tiene referencias (2026-10-09). Conservar captura para reconsiderar con evidencia.",
+      "estado": "excluido_sin_vinculo_verificable",
+      "fuentes": [
+        "https://rateyourmusic.com/artist/zzeta"
+      ],
+      "nombre": "Zzeta",
+      "discos": 8
+    },
+    "/artist/arabella-1": {
+      "accion": "incluir",
+      "nombre": "Arabella",
+      "artist_id": 6907,
+      "motivo": "Cantante colombiana con carrera discográfica en Caracas.",
+      "fuentes": [
+        "https://sabrositadigital.com.mx/arabella-historia-cantante-colombiana-que-triunfo-en-la-salsa/"
+      ]
+    },
+    "/artist/lela-1": {
+      "accion": "incluir",
+      "nombre": "Lela",
+      "artist_id": 6908,
+      "motivo": "Gabriela Brito, rapera venezolana emigrada a Bogotá; mismas canciones verificadas en Apple Music.",
+      "fuentes": [
+        "https://www.noticiascaracol.com/los-informantes/lela-mc-la-rapera-venezolana-que-con-solo-12-anos-va-rumbo-al-estrellato-pr30"
+      ]
+    },
+    "/artist/manuel-rocca": {
+      "accion": "incluir",
+      "nombre": "Manuel Rocca",
+      "artist_id": 6909,
+      "motivo": "Productor venezolano según su sello discográfico; no confundir con homónimo italiano.",
+      "fuentes": [
+        "https://www.abora-recordings.com/manuel-rocca"
+      ]
+    },
+    "/artist/marrom-fernandez": {
+      "accion": "incluir",
+      "nombre": "Marrom Fernández",
+      "artist_id": 6910,
+      "motivo": "Productor venezolano; Una isla en los Andes es colaboración con Rxnde Akozta.",
+      "fuentes": [
+        "https://distritoapache.contrabanda.org/2014/11/"
+      ]
+    },
+    "/artist/sebastian-rivero": {
+      "accion": "incluir",
+      "nombre": "Sebastian Rivero",
+      "artist_id": 6911,
+      "motivo": "Productor de Caracas según perfil profesional.",
+      "fuentes": [
+        "https://www.beatport.com/artist/sebastian-rivero/653275"
+      ]
+    }
+  },
+  "discos": {
+    "/release/album/rada/impressiones-etnosonicas": {
+      "album_id": 2932,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/rada/impressiones-etnosonicas"
+      ]
+    },
+    "/release/album/los-dementes/ialerta-mundo-llegan-the-crazy-men": {
+      "album_id": 8227,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/los-dementes/ialerta-mundo-llegan-the-crazy-men"
+      ]
+    },
+    "/release/single/akapellah/double-cup": {
+      "album_id": 13749,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/akapellah/double-cup"
+      ]
+    },
+    "/release/album/big-soto/sotorious": {
+      "album_id": 13836,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/big-soto/sotorious"
+      ]
+    },
+    "/release/comp/angel-custodio-loyola/el-disco-de-oro": {
+      "album_id": 14680,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/comp/angel-custodio-loyola/el-disco-de-oro"
+      ]
+    },
+    "/release/album/soledad-bravo/volumen-4": {
+      "album_id": 8416,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/soledad-bravo/volumen-4"
+      ]
+    },
+    "/release/album/los-melodicos/german-niro-chucho-y-emilita-con-los-melodicos": {
+      "album_id": 8264,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/los-melodicos/german-niro-chucho-y-emilita-con-los-melodicos"
+      ]
+    },
+    "/release/album/orquesta-los-melodicos/12-hits": {
+      "album_id": 8270,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/orquesta-los-melodicos/12-hits"
+      ]
+    },
+    "/release/album/los-melodicos/lucerito-y-los-melodicos": {
+      "album_id": 8293,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/los-melodicos/lucerito-y-los-melodicos"
+      ]
+    },
+    "/release/album/los-melodicos/album-homenaje-a-los-30-anos-de-victor-pinero": {
+      "album_id": 8309,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/los-melodicos/album-homenaje-a-los-30-anos-de-victor-pinero"
+      ]
+    },
+    "/release/album/los-melodicos/el-sonido": {
+      "album_id": 8337,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/los-melodicos/el-sonido"
+      ]
+    },
+    "/release/comp/los-melodicos/orquesta-de-los-exitos": {
+      "album_id": 8297,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/comp/los-melodicos/orquesta-de-los-exitos"
+      ]
+    },
+    "/release/single/mau-y-ricky-eladio-carrion/no-puede-ser": {
+      "album_id": 13331,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/mau-y-ricky-eladio-carrion/no-puede-ser"
+      ]
+    },
+    "/release/ep/fur_coat/berlin_chronicles": {
+      "album_id": 14446,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/fur_coat/berlin_chronicles"
+      ]
+    },
+    "/release/ep/fur_coat/katarsis": {
+      "album_id": 14436,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/fur_coat/katarsis"
+      ]
+    },
+    "/release/ep/fur-coat/interstellar": {
+      "album_id": 14457,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/fur-coat/interstellar"
+      ]
+    },
+    "/release/ep/fur-coat/numbers": {
+      "album_id": 14438,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/fur-coat/numbers"
+      ]
+    },
+    "/release/ep/fur-coat/immersion": {
+      "album_id": 14445,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/fur-coat/immersion"
+      ]
+    },
+    "/release/ep/fur-coat/repeat": {
+      "album_id": 14442,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/fur-coat/repeat"
+      ]
+    },
+    "/release/ep/fur-coat/time-traveler": {
+      "album_id": 14451,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/fur-coat/time-traveler"
+      ]
+    },
+    "/release/ep/fur-coat-avidus/in-our-town": {
+      "album_id": 14455,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/fur-coat-avidus/in-our-town"
+      ]
+    },
+    "/release/single/arca/ritual": {
+      "album_id": 12741,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/arca/ritual"
+      ]
+    },
+    "/release/album/schola-cantorum-de-venezuela/aguinaldos-venezolanos": {
+      "album_id": 5941,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/schola-cantorum-de-venezuela/aguinaldos-venezolanos"
+      ]
+    },
+    "/release/album/schola-cantorum-de-venezuela/antologia-del-madrigal-venezolano": {
+      "album_id": 5950,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/schola-cantorum-de-venezuela/antologia-del-madrigal-venezolano"
+      ]
+    },
+    "/release/album/venezuela-un-solo-pueblo/la-musica-de-venezuela-un-solo-pueblo": {
+      "album_id": 9086,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/venezuela-un-solo-pueblo/la-musica-de-venezuela-un-solo-pueblo"
+      ]
+    },
+    "/release/album/lilia-vera/lilia-vera-y-su-nuevo-canto": {
+      "album_id": 9282,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/lilia-vera/lilia-vera-y-su-nuevo-canto"
+      ]
+    },
+    "/release/album/benito-gonzalez-gerry-gibbs-essiet-okon-essiet/passion-reverence-transcendence-the-music-of-mccoy-tyner": {
+      "album_id": 6607,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/benito-gonzalez-gerry-gibbs-essiet-okon-essiet/passion-reverence-transcendence-the-music-of-mccoy-tyner"
+      ]
+    },
+    "/release/album/los-blanco/dando-en-el-blanco-con-los-blanco": {
+      "album_id": 7308,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/los-blanco/dando-en-el-blanco-con-los-blanco"
+      ]
+    },
+    "/release/album/los-blanco/la-fiesta-caliente": {
+      "album_id": 7315,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/los-blanco/la-fiesta-caliente"
+      ]
+    },
+    "/release/album/rincon-morales/gaiteros-de-la-nueva-ola": {
+      "album_id": 15026,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/rincon-morales/gaiteros-de-la-nueva-ola"
+      ]
+    },
+    "/release/album/edward-simon-magos-herrera/femininas": {
+      "album_id": 6195,
+      "motivo": "Mismo disco verificado por alias o revisión histórica; no crear duplicado.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/edward-simon-magos-herrera/femininas"
+      ]
+    },
+    "/release/album/billo-frometa-candita-vazquez/billo-presenta-candita-vazquez-con-su-orquesta": {
+      "album_id": 7924,
+      "motivo": "Billo: cotejo de títulos y listado de pistas; reedición no implica segunda obra. Se conserva año del catálogo si la edición difiere.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/billo-frometa-candita-vazquez/billo-presenta-candita-vazquez-con-su-orquesta"
+      ]
+    },
+    "/release/album/billo-miltino/doctores-en-ritmo": {
+      "album_id": 7997,
+      "motivo": "Billo: cotejo de títulos y listado de pistas; reedición no implica segunda obra. Se conserva año del catálogo si la edición difiere.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/billo-miltino/doctores-en-ritmo"
+      ]
+    },
+    "/release/album/billo-frometa-damiron-negrito-chapuseaux/tres-viejos-amigos": {
+      "album_id": 7920,
+      "motivo": "Billo: cotejo de títulos y listado de pistas; reedición no implica segunda obra. Se conserva año del catálogo si la edición difiere.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/billo-frometa-damiron-negrito-chapuseaux/tres-viejos-amigos"
+      ]
+    },
+    "/release/album/felipe-pirela-con-billo-frometa-y-su-orquesta/canciones-de-ayer-y-hoy": {
+      "album_id": 7932,
+      "motivo": "Billo: cotejo de títulos y listado de pistas; reedición no implica segunda obra. Se conserva año del catálogo si la edición difiere.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/felipe-pirela-con-billo-frometa-y-su-orquesta/canciones-de-ayer-y-hoy"
+      ]
+    },
+    "/release/album/billo-frometa/historia-de-mi-orquesta-1937-1962-vol-1-1": {
+      "album_id": 7935,
+      "motivo": "Billo: cotejo de títulos y listado de pistas; reedición no implica segunda obra. Se conserva año del catálogo si la edición difiere.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/billo-frometa/historia-de-mi-orquesta-1937-1962-vol-1-1"
+      ]
+    },
+    "/release/album/billo-frometa/historia-de-mi-orquesta-1937-1962-vol-2-1": {
+      "album_id": 7936,
+      "motivo": "Billo: cotejo de títulos y listado de pistas; reedición no implica segunda obra. Se conserva año del catálogo si la edición difiere.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/billo-frometa/historia-de-mi-orquesta-1937-1962-vol-2-1"
+      ]
+    },
+    "/release/album/orquesta-de-concierto-de-billo-frometa/canto-a-caracas": {
+      "album_id": 8032,
+      "motivo": "Billo: cotejo de títulos y listado de pistas; reedición no implica segunda obra. Se conserva año del catálogo si la edición difiere.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/orquesta-de-concierto-de-billo-frometa/canto-a-caracas"
+      ]
+    },
+    "/release/comp/billo-frometa/historia-de-mi-orquesta-1937-1962": {
+      "album_id": 7934,
+      "motivo": "Billo: cotejo de títulos y listado de pistas; reedición no implica segunda obra. Se conserva año del catálogo si la edición difiere.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/comp/billo-frometa/historia-de-mi-orquesta-1937-1962"
+      ]
+    },
+    "/release/album/agustin-irusta-cuarteto-guardia-vieja/agustin-irusta-con-el-acompanamiento-del-cuarteto-guardia-vieja": {
+      "album_id": 27521,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/agustin-irusta-cuarteto-guardia-vieja/agustin-irusta-con-el-acompanamiento-del-cuarteto-guardia-vieja"
+      ]
+    },
+    "/release/album/agustin-irusta/polvo-de-los-caminos": {
+      "album_id": 27522,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/agustin-irusta/polvo-de-los-caminos"
+      ]
+    },
+    "/release/album/agustin_irusta/de_nuevo_agustin_irusta": {
+      "album_id": 27523,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/agustin_irusta/de_nuevo_agustin_irusta"
+      ]
+    },
+    "/release/album/agustin-irusta/tangos": {
+      "album_id": 27524,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/agustin-irusta/tangos"
+      ]
+    },
+    "/release/single/caterinetta_lescano/ti_diro": {
+      "album_id": 27525,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/caterinetta_lescano/ti_diro"
+      ]
+    },
+    "/release/single/caterinetta_lescano/nebbia": {
+      "album_id": 27526,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/caterinetta_lescano/nebbia"
+      ]
+    },
+    "/release/single/caterinetta_lescano/la_barca_dei_sogni": {
+      "album_id": 27527,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/caterinetta_lescano/la_barca_dei_sogni"
+      ]
+    },
+    "/release/single/caterinetta_lescano/nel_mio_cuor_ce_una_casetta": {
+      "album_id": 27528,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/caterinetta_lescano/nel_mio_cuor_ce_una_casetta"
+      ]
+    },
+    "/release/single/juan-arteta-y-su-orquesta/bajo-mi-cielo-andaluz-ojos-verdes": {
+      "album_id": 27529,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/juan-arteta-y-su-orquesta/bajo-mi-cielo-andaluz-ojos-verdes"
+      ]
+    },
+    "/release/single/juan-arteta-y-su-orquesta/la-bien-paga-la-del-manojo-de-rosas": {
+      "album_id": 27530,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/juan-arteta-y-su-orquesta/la-bien-paga-la-del-manojo-de-rosas"
+      ]
+    },
+    "/release/album/porfi-jimenez/tiene-de-toto-porfie-76": {
+      "album_id": 27531,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/porfi-jimenez/tiene-de-toto-porfie-76"
+      ]
+    },
+    "/release/album/porfi-jimenez/la-salsa-brava-de-porfi-jimenez": {
+      "album_id": 27532,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/porfi-jimenez/la-salsa-brava-de-porfi-jimenez"
+      ]
+    },
+    "/release/album/porfi-jimenez/culu-cucu": {
+      "album_id": 27533,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/porfi-jimenez/culu-cucu"
+      ]
+    },
+    "/release/album/porfi-jimenez/ella-me-vacila": {
+      "album_id": 27534,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/porfi-jimenez/ella-me-vacila"
+      ]
+    },
+    "/release/album/porfi-jimenez/la-bailadora": {
+      "album_id": 27535,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/porfi-jimenez/la-bailadora"
+      ]
+    },
+    "/release/single/porfi-jimenez/miami": {
+      "album_id": 27536,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/porfi-jimenez/miami"
+      ]
+    },
+    "/release/album/billo-frometa/concierto-venezolano": {
+      "album_id": 27537,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/billo-frometa/concierto-venezolano"
+      ]
+    },
+    "/release/comp/felipe-pirela-con-billo/lo-mejor-de-felipe-pirela-con-billo": {
+      "album_id": 27538,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/comp/felipe-pirela-con-billo/lo-mejor-de-felipe-pirela-con-billo"
+      ]
+    },
+    "/release/ep/knotchej/decir-adios": {
+      "album_id": 27539,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/knotchej/decir-adios"
+      ]
+    },
+    "/release/album/recordatorio/logica-resbalosa": {
+      "album_id": 27540,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/recordatorio/logica-resbalosa"
+      ]
+    },
+    "/release/album/recordatorio/tomas-verdes": {
+      "album_id": 27541,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/recordatorio/tomas-verdes"
+      ]
+    },
+    "/release/ep/recordatorio/tv-en-vivo-y-directo": {
+      "album_id": 27542,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/recordatorio/tv-en-vivo-y-directo"
+      ]
+    },
+    "/release/single/recordatorio/hormiga": {
+      "album_id": 27543,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/recordatorio/hormiga"
+      ]
+    },
+    "/release/single/armando-y-alejandro/sencillo-2018": {
+      "album_id": 27544,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/armando-y-alejandro/sencillo-2018"
+      ]
+    },
+    "/release/single/recordatorio/al-otro-lado-del-charco": {
+      "album_id": 27545,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/recordatorio/al-otro-lado-del-charco"
+      ]
+    },
+    "/release/single/recordatorio/abandonar-el-pais": {
+      "album_id": 27546,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/recordatorio/abandonar-el-pais"
+      ]
+    },
+    "/release/single/recordatorio/apariciones": {
+      "album_id": 27547,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/recordatorio/apariciones"
+      ]
+    },
+    "/release/single/armando-y-alejandro/cala": {
+      "album_id": 27548,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/armando-y-alejandro/cala"
+      ]
+    },
+    "/release/single/recordatorio/ya-manana": {
+      "album_id": 27549,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/recordatorio/ya-manana"
+      ]
+    },
+    "/release/single/recordatorio/dia-negro": {
+      "album_id": 27550,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/recordatorio/dia-negro"
+      ]
+    },
+    "/release/single/recordatorio/la-cancion-del-momento": {
+      "album_id": 27551,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/recordatorio/la-cancion-del-momento"
+      ]
+    },
+    "/release/single/recordatorio-sunsplash/besos-infinitos": {
+      "album_id": 12829,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/recordatorio-sunsplash/besos-infinitos"
+      ]
+    },
+    "/release/album/adriana/im-here": {
+      "album_id": 27552,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/adriana/im-here"
+      ]
+    },
+    "/release/ep/alejandro-molinari/gargantua": {
+      "album_id": 27553,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/alejandro-molinari/gargantua"
+      ]
+    },
+    "/release/ep/alejandro-molinari/survival-game": {
+      "album_id": 27554,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/alejandro-molinari/survival-game"
+      ]
+    },
+    "/release/ep/alejandro-molinari/noche-de-berlin": {
+      "album_id": 27555,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/alejandro-molinari/noche-de-berlin"
+      ]
+    },
+    "/release/single/juno-francis-alejandro-molinari/sunday-morning": {
+      "album_id": 27556,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/juno-francis-alejandro-molinari/sunday-morning"
+      ]
+    },
+    "/release/single/juno-francis-alejandro-molinari/symmetry": {
+      "album_id": 27557,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/juno-francis-alejandro-molinari/symmetry"
+      ]
+    },
+    "/release/single/alejandro-molinari/caracas-de-noche": {
+      "album_id": 27558,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/alejandro-molinari/caracas-de-noche"
+      ]
+    },
+    "/release/djmix/alejandro-molinari/mixmag-adria-exclusive-mix": {
+      "album_id": 27559,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/djmix/alejandro-molinari/mixmag-adria-exclusive-mix"
+      ]
+    },
+    "/release/single/andrea-ferrero/mr-charles": {
+      "album_id": 27560,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/andrea-ferrero/mr-charles"
+      ]
+    },
+    "/release/album/ane-diaz/despechada": {
+      "album_id": 27561,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/ane-diaz/despechada"
+      ]
+    },
+    "/release/album/augusto-bracho-y-moises-de-martin/pajarera-vertical": {
+      "album_id": 27562,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/augusto-bracho-y-moises-de-martin/pajarera-vertical"
+      ]
+    },
+    "/release/album/augusto-bracho/el-mercado-de-los-corotos": {
+      "album_id": 27563,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/augusto-bracho/el-mercado-de-los-corotos"
+      ]
+    },
+    "/release/album/augusto-bracho/musica-moderna": {
+      "album_id": 27564,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/augusto-bracho/musica-moderna"
+      ]
+    },
+    "/release/ep/augusto-bracho/primer-acercamiento-al-mito": {
+      "album_id": 27565,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/augusto-bracho/primer-acercamiento-al-mito"
+      ]
+    },
+    "/release/album/carlos-ibanez/dark-side": {
+      "album_id": 27566,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/carlos-ibanez/dark-side"
+      ]
+    },
+    "/release/album/carlos-ibanez/dreams": {
+      "album_id": 27567,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/carlos-ibanez/dreams"
+      ]
+    },
+    "/release/album/carlos-otero/international": {
+      "album_id": 27568,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/carlos-otero/international"
+      ]
+    },
+    "/release/album/carlos-otero/maria-magdalena": {
+      "album_id": 27569,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/carlos-otero/maria-magdalena"
+      ]
+    },
+    "/release/album/carlos-otero-vicente-alvarez-and-his-tropical-orchestra/nuits-a-la-havane": {
+      "album_id": 27570,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/carlos-otero-vicente-alvarez-and-his-tropical-orchestra/nuits-a-la-havane"
+      ]
+    },
+    "/release/ep/rosita-serrano-carlos-otero/castagnetten-en-gitaren": {
+      "album_id": 27571,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/rosita-serrano-carlos-otero/castagnetten-en-gitaren"
+      ]
+    },
+    "/release/single/carlos-otero/braune-tamara-venezuela": {
+      "album_id": 27572,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/braune-tamara-venezuela"
+      ]
+    },
+    "/release/single/carlos-otero/so-eine-nacht-unter-palmen-isola-bella": {
+      "album_id": 27573,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/so-eine-nacht-unter-palmen-isola-bella"
+      ]
+    },
+    "/release/single/carlos-otero/bambina-bambina-serenata-veneziana": {
+      "album_id": 27574,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/bambina-bambina-serenata-veneziana"
+      ]
+    },
+    "/release/single/carlos-otero/bye-bye-romantica-das-lied-der-sierra": {
+      "album_id": 27575,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/bye-bye-romantica-das-lied-der-sierra"
+      ]
+    },
+    "/release/single/carlos-otero/dunkle-augen-in-der-nacht-in-den-straben-von-neapel": {
+      "album_id": 27576,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/dunkle-augen-in-der-nacht-in-den-straben-von-neapel"
+      ]
+    },
+    "/release/single/carlos-otero/ein-heiber-kub-und-tausend-kuhle-tranen-das-hafenlied-von-barcelona": {
+      "album_id": 27577,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/ein-heiber-kub-und-tausend-kuhle-tranen-das-hafenlied-von-barcelona"
+      ]
+    },
+    "/release/single/carlos-otero/weine-keine-trane-um-mich-bella-maria-die-roten-segel-im-hafen-von-napoli": {
+      "album_id": 27578,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/weine-keine-trane-um-mich-bella-maria-die-roten-segel-im-hafen-von-napoli"
+      ]
+    },
+    "/release/single/carlos-otero/bald-bluhen-die-rosen-sprich-zu-mir-von-liebe-mariu": {
+      "album_id": 27579,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/bald-bluhen-die-rosen-sprich-zu-mir-von-liebe-mariu"
+      ]
+    },
+    "/release/single/carlos-otero/bella-rosita-es-fing-mit-einer-roten-rose-an": {
+      "album_id": 27580,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/bella-rosita-es-fing-mit-einer-roten-rose-an"
+      ]
+    },
+    "/release/single/carlos-otero/du-allein-bist-schuld-daran-fiesta-in-rio": {
+      "album_id": 27581,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/du-allein-bist-schuld-daran-fiesta-in-rio"
+      ]
+    },
+    "/release/single/carlos-otero/cara-mia-allein-mit-dir": {
+      "album_id": 27582,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/cara-mia-allein-mit-dir"
+      ]
+    },
+    "/release/single/carlos-otero/la-bella-lucia-nimm-meine-hande": {
+      "album_id": 27583,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/la-bella-lucia-nimm-meine-hande"
+      ]
+    },
+    "/release/single/carlos-otero/ich-hab-fernweh-sunday-and-me-o-mia-bella-napoli": {
+      "album_id": 27584,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/ich-hab-fernweh-sunday-and-me-o-mia-bella-napoli"
+      ]
+    },
+    "/release/single/carlos-otero/es-war-nur-ein-traum-nanita-nana": {
+      "album_id": 27585,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/es-war-nur-ein-traum-nanita-nana"
+      ]
+    },
+    "/release/single/carlos-otero/innamorato-weine-nicht": {
+      "album_id": 27586,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/innamorato-weine-nicht"
+      ]
+    },
+    "/release/single/carlos-otero/die-liebe-kommt-die-liebe-geht-sing": {
+      "album_id": 27587,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/die-liebe-kommt-die-liebe-geht-sing"
+      ]
+    },
+    "/release/single/carlos-otero/schirokko-kein-wiedersehn": {
+      "album_id": 27588,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/schirokko-kein-wiedersehn"
+      ]
+    },
+    "/release/single/carlos-otero/sommernacht-in-madrid-mein-zug-heibt-sehnsucht": {
+      "album_id": 27589,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carlos-otero/sommernacht-in-madrid-mein-zug-heibt-sehnsucht"
+      ]
+    },
+    "/release/single/carolina-marconi/move-to-the-fiesta": {
+      "album_id": 27590,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carolina-marconi/move-to-the-fiesta"
+      ]
+    },
+    "/release/single/carolina-marconi/patatina": {
+      "album_id": 27591,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/carolina-marconi/patatina"
+      ]
+    },
+    "/release/ep/decibeles/espejo": {
+      "album_id": 27592,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/decibeles/espejo"
+      ]
+    },
+    "/release/album/johannes-nastesjo-luiz-rocha-el-pricto/infatuous-chambers": {
+      "album_id": 27593,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/johannes-nastesjo-luiz-rocha-el-pricto/infatuous-chambers"
+      ]
+    },
+    "/release/album/miquel-jorda-christer-bothen-el-pricto-pedro-gonzalez-vasco-trilla/heatwave": {
+      "album_id": 27594,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/miquel-jorda-christer-bothen-el-pricto-pedro-gonzalez-vasco-trilla/heatwave"
+      ]
+    },
+    "/release/album/el-pricto-diego-caicedo-javier-garrabella-vasco-trilla/demonology": {
+      "album_id": 27595,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/el-pricto-diego-caicedo-javier-garrabella-vasco-trilla/demonology"
+      ]
+    },
+    "/release/album/el-pricto-alex-reviriego/caverna": {
+      "album_id": 27596,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/el-pricto-alex-reviriego/caverna"
+      ]
+    },
+    "/release/album/el-pricto-electric-guitar-quintet/spontaneous-live-series-007": {
+      "album_id": 27597,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/el-pricto-electric-guitar-quintet/spontaneous-live-series-007"
+      ]
+    },
+    "/release/album/el-pricto/moonburnt": {
+      "album_id": 27598,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/el-pricto/moonburnt"
+      ]
+    },
+    "/release/album/el-pricto-don-malfon-vasco-trilla/behenii-part-i": {
+      "album_id": 27599,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/el-pricto-don-malfon-vasco-trilla/behenii-part-i"
+      ]
+    },
+    "/release/album/ingel-rild/extreme-entity-workout": {
+      "album_id": 27600,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/ingel-rild/extreme-entity-workout"
+      ]
+    },
+    "/release/album/andrea-bazzicalupo-el-pricto/mammalian-interactive-digressions": {
+      "album_id": 27601,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/andrea-bazzicalupo-el-pricto/mammalian-interactive-digressions"
+      ]
+    },
+    "/release/album/el-pricto-and-degenerative-spontaneous-orchestra/spontaneous-live-series-008": {
+      "album_id": 27602,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/el-pricto-and-degenerative-spontaneous-orchestra/spontaneous-live-series-008"
+      ]
+    },
+    "/release/album/el-pricto-discordian-community-ensemble/the-unreal-book-at-lem-festival": {
+      "album_id": 27603,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/el-pricto-discordian-community-ensemble/the-unreal-book-at-lem-festival"
+      ]
+    },
+    "/release/album/elik-alvarez-yoncarlos-medina/the-exorcism-of-god": {
+      "album_id": 27604,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/elik-alvarez-yoncarlos-medina/the-exorcism-of-god"
+      ]
+    },
+    "/release/album/elik-alvarez/the-dance": {
+      "album_id": 27605,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/elik-alvarez/the-dance"
+      ]
+    },
+    "/release/album/johnny-sedes-and-his-orchestra/mama-calunga": {
+      "album_id": 27606,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/johnny-sedes-and-his-orchestra/mama-calunga"
+      ]
+    },
+    "/release/single/johnny-sedes/descarga-no-2-mani-mama-calunga": {
+      "album_id": 27607,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/johnny-sedes/descarga-no-2-mani-mama-calunga"
+      ]
+    },
+    "/release/album/juan-carlos-nunez-jose-ignacio-cabrujas/juan-carlos-nunez-and-jose-ignacio-cabrujas": {
+      "album_id": 27608,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/juan-carlos-nunez-jose-ignacio-cabrujas/juan-carlos-nunez-and-jose-ignacio-cabrujas"
+      ]
+    },
+    "/release/album/jordi-matas-martin-leiton-juan-r-berbin/undr": {
+      "album_id": 27609,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/jordi-matas-martin-leiton-juan-r-berbin/undr"
+      ]
+    },
+    "/release/album/la-cruz/hawaira": {
+      "album_id": 27610,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/la-cruz/hawaira"
+      ]
+    },
+    "/release/ep/la-cruz/el-nene-vol-1": {
+      "album_id": 27611,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/la-cruz/el-nene-vol-1"
+      ]
+    },
+    "/release/ep/la-cruz/el-nene-vol-2": {
+      "album_id": 27612,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/la-cruz/el-nene-vol-2"
+      ]
+    },
+    "/release/single/alfonso-la-cruz-and-sabela-ramil/echame-la-culpa-operacion-triunfo-2018": {
+      "album_id": 27613,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/alfonso-la-cruz-and-sabela-ramil/echame-la-culpa-operacion-triunfo-2018"
+      ]
+    },
+    "/release/single/alfonso-la-cruz/all-of-me-operacion-triunfo-2018": {
+      "album_id": 27614,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/alfonso-la-cruz/all-of-me-operacion-triunfo-2018"
+      ]
+    },
+    "/release/single/alfonso-la-cruz/nadie-te-va-a-querer": {
+      "album_id": 27615,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/alfonso-la-cruz/nadie-te-va-a-querer"
+      ]
+    },
+    "/release/single/alfonso-la-cruz/que-se-yo": {
+      "album_id": 27616,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/alfonso-la-cruz/que-se-yo"
+      ]
+    },
+    "/release/single/alfonso-la-cruz/a-la-orilla-del-rio": {
+      "album_id": 27617,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/alfonso-la-cruz/a-la-orilla-del-rio"
+      ]
+    },
+    "/release/single/alfonso-la-cruz/efecto": {
+      "album_id": 27618,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/alfonso-la-cruz/efecto"
+      ]
+    },
+    "/release/single/la-cruz/fotos": {
+      "album_id": 27619,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/fotos"
+      ]
+    },
+    "/release/single/la-cruz/la-ducati": {
+      "album_id": 27620,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/la-ducati"
+      ]
+    },
+    "/release/single/la-cruz/desnudx": {
+      "album_id": 27621,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/desnudx"
+      ]
+    },
+    "/release/single/la-cruz/desnudx-diskoverstories-acustico": {
+      "album_id": 27622,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/desnudx-diskoverstories-acustico"
+      ]
+    },
+    "/release/single/la-cruz/quitate-la-ropa": {
+      "album_id": 27623,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/quitate-la-ropa"
+      ]
+    },
+    "/release/single/la-cruz/easy-boy": {
+      "album_id": 27624,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/easy-boy"
+      ]
+    },
+    "/release/single/la-cruz/sahara": {
+      "album_id": 27625,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/sahara"
+      ]
+    },
+    "/release/single/luisa-sonza-la-cruz/rough": {
+      "album_id": 27626,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/luisa-sonza-la-cruz/rough"
+      ]
+    },
+    "/release/single/la-cruz/fancy": {
+      "album_id": 27627,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/fancy"
+      ]
+    },
+    "/release/single/la-cruz/arequipe": {
+      "album_id": 27628,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/arequipe"
+      ]
+    },
+    "/release/single/la-cruz/fuerte": {
+      "album_id": 27629,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/fuerte"
+      ]
+    },
+    "/release/single/la-cruz/gata-negra": {
+      "album_id": 27630,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/gata-negra"
+      ]
+    },
+    "/release/single/la-cruz/only": {
+      "album_id": 27631,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/la-cruz/only"
+      ]
+    },
+    "/release/ep/living_death_f1/muerto_en_vida": {
+      "album_id": 27632,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/living_death_f1/muerto_en_vida"
+      ]
+    },
+    "/release/ep/lorenzo_gonzalez/chansons_despagne": {
+      "album_id": 27633,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/lorenzo_gonzalez/chansons_despagne"
+      ]
+    },
+    "/release/ep/lorenzo_gonzalez/luna_mallorquina": {
+      "album_id": 27634,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/lorenzo_gonzalez/luna_mallorquina"
+      ]
+    },
+    "/release/ep/lorenzo_gonzalez/chiquita_bonita": {
+      "album_id": 27635,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/lorenzo_gonzalez/chiquita_bonita"
+      ]
+    },
+    "/release/ep/lorenzo_gonzalez/historia_de_un_amor": {
+      "album_id": 27636,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/lorenzo_gonzalez/historia_de_un_amor"
+      ]
+    },
+    "/release/ep/lorenzo-gonzalez/vintage-cuba-n_12-eps-collectors-boleros-forever": {
+      "album_id": 27637,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/lorenzo-gonzalez/vintage-cuba-n_12-eps-collectors-boleros-forever"
+      ]
+    },
+    "/release/ep/lorenzo-gonzalez/vintage-cuba-n_13-eps-collectors-boleros-forever": {
+      "album_id": 27638,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/lorenzo-gonzalez/vintage-cuba-n_13-eps-collectors-boleros-forever"
+      ]
+    },
+    "/release/album/los-jets/vuelven": {
+      "album_id": 27639,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/los-jets/vuelven"
+      ]
+    },
+    "/release/album/luis-g-tovar/isla-verde": {
+      "album_id": 27640,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/luis-g-tovar/isla-verde"
+      ]
+    },
+    "/release/album/luis-gerardo-tovar/santo-domingo": {
+      "album_id": 27641,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/luis-gerardo-tovar/santo-domingo"
+      ]
+    },
+    "/release/album/luis-g-tovar/tu-amor": {
+      "album_id": 27642,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/luis-g-tovar/tu-amor"
+      ]
+    },
+    "/release/album/luis-g-tovar/historia-do": {
+      "album_id": 27643,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/luis-g-tovar/historia-do"
+      ]
+    },
+    "/release/album/luis-gerardo-tovar/te-amare": {
+      "album_id": 27644,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/luis-gerardo-tovar/te-amare"
+      ]
+    },
+    "/release/album/luis-gerardo-tovar/que-se-puede-hacer-con-el-amor": {
+      "album_id": 27645,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/luis-gerardo-tovar/que-se-puede-hacer-con-el-amor"
+      ]
+    },
+    "/release/album/luis-gerardo-tovar-and-punto-sur/poemas-de-amor-de-jose-angel-buesa": {
+      "album_id": 27646,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/luis-gerardo-tovar-and-punto-sur/poemas-de-amor-de-jose-angel-buesa"
+      ]
+    },
+    "/release/single/luis-g-tovar/santo-domingo-cielieto-lindo": {
+      "album_id": 27647,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/luis-g-tovar/santo-domingo-cielieto-lindo"
+      ]
+    },
+    "/release/single/los-communicativos-con-luis-tovar/rosas-del-ayer-extranas-cartas-de-amor": {
+      "album_id": 27648,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/los-communicativos-con-luis-tovar/rosas-del-ayer-extranas-cartas-de-amor"
+      ]
+    },
+    "/release/single/lunar_f1/nd_remixed": {
+      "album_id": 27649,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/lunar_f1/nd_remixed"
+      ]
+    },
+    "/release/album/patricio-sabate-kathya-galleguillos-pablo-salinas-miguel-farias/la-compuerta-nro-12": {
+      "album_id": 27650,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/patricio-sabate-kathya-galleguillos-pablo-salinas-miguel-farias/la-compuerta-nro-12"
+      ]
+    },
+    "/release/album/omar-acedo/volvi-por-ti": {
+      "album_id": 27651,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/omar-acedo/volvi-por-ti"
+      ]
+    },
+    "/release/album/omar-acedo/mis-gaitas-favoritas": {
+      "album_id": 27652,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/omar-acedo/mis-gaitas-favoritas"
+      ]
+    },
+    "/release/album/omar-acedo/canto-para-el-esequibo": {
+      "album_id": 27653,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/omar-acedo/canto-para-el-esequibo"
+      ]
+    },
+    "/release/album/omar-acedo-buena-fe/amigos-tour": {
+      "album_id": 27654,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/omar-acedo-buena-fe/amigos-tour"
+      ]
+    },
+    "/release/single/omar-acedo/la-fiesta-de-la-paz": {
+      "album_id": 27655,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/omar-acedo/la-fiesta-de-la-paz"
+      ]
+    },
+    "/release/album/osmer-hernandez/uverito": {
+      "album_id": 27656,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/osmer-hernandez/uverito"
+      ]
+    },
+    "/release/album/raquel-gonzalez/asi-cantaba": {
+      "album_id": 27657,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/raquel-gonzalez/asi-cantaba"
+      ]
+    },
+    "/release/album/vitico-castillo/el-hijo-del-taita": {
+      "album_id": 27658,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/vitico-castillo/el-hijo-del-taita"
+      ]
+    },
+    "/release/album/vitico-castillo/corazon-de-concreto": {
+      "album_id": 27659,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/vitico-castillo/corazon-de-concreto"
+      ]
+    },
+    "/release/album/william-sarquiz/pecho-esguazao": {
+      "album_id": 27660,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/william-sarquiz/pecho-esguazao"
+      ]
+    },
+    "/release/album/william-sarquiz/pecho-rajao": {
+      "album_id": 27661,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/william-sarquiz/pecho-rajao"
+      ]
+    },
+    "/release/single/william-sarquiz/plomo-en-el-pecho": {
+      "album_id": 27662,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/william-sarquiz/plomo-en-el-pecho"
+      ]
+    },
+    "/release/album/arabella/arabella": {
+      "album_id": 27663,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/arabella/arabella"
+      ]
+    },
+    "/release/album/arabella/sabor-y-raza": {
+      "album_id": 27664,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/arabella/sabor-y-raza"
+      ]
+    },
+    "/release/album/arabella/arabella-1": {
+      "album_id": 27665,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/arabella/arabella-1"
+      ]
+    },
+    "/release/album/arabella/mi-son-es-un-misterio": {
+      "album_id": 27666,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/arabella/mi-son-es-un-misterio"
+      ]
+    },
+    "/release/single/lela/maquina-del-tiempo": {
+      "album_id": 27667,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/lela/maquina-del-tiempo"
+      ]
+    },
+    "/release/single/lela/como-un-delfin": {
+      "album_id": 27668,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/lela/como-un-delfin"
+      ]
+    },
+    "/release/single/mhammed-el-alami-manuel-rocca/land-of-grace": {
+      "album_id": 27669,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/mhammed-el-alami-manuel-rocca/land-of-grace"
+      ]
+    },
+    "/release/album/rxnde-akozta-marrom-fernandez/una-isla-en-los-andes": {
+      "album_id": 27670,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/rxnde-akozta-marrom-fernandez/una-isla-en-los-andes"
+      ]
+    },
+    "/release/ep/calussa-sebastian-rivero/san-juan": {
+      "album_id": 27671,
+      "motivo": "Identidad cotejada: catálogo y alias del titular; alta distinta si no existe.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/ep/calussa-sebastian-rivero/san-juan"
+      ]
+    },
+    "/release/djmix/arca/_-1": {
+      "album_id": 27248,
+      "motivo": "Cotejo de listado de pistas: Arca DJ mix y bootleg son distintos; Anakena álbum de siete pistas de 2022 y sencillo de 2020 son distintos; Sonero corresponde a Vol.2 de 1978.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/djmix/arca/_-1"
+      ]
+    },
+    "/release/unauth/arca/_-2": {
+      "album_id": 27251,
+      "motivo": "Cotejo de listado de pistas: Arca DJ mix y bootleg son distintos; Anakena álbum de siete pistas de 2022 y sencillo de 2020 son distintos; Sonero corresponde a Vol.2 de 1978.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/unauth/arca/_-2"
+      ]
+    },
+    "/release/album/anakena/carita-triste": {
+      "album_id": 26960,
+      "motivo": "Cotejo de listado de pistas: Arca DJ mix y bootleg son distintos; Anakena álbum de siete pistas de 2022 y sencillo de 2020 son distintos; Sonero corresponde a Vol.2 de 1978.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/anakena/carita-triste"
+      ]
+    },
+    "/release/single/anakena/carita-triste": {
+      "album_id": 26959,
+      "motivo": "Cotejo de listado de pistas: Arca DJ mix y bootleg son distintos; Anakena álbum de siete pistas de 2022 y sencillo de 2020 son distintos; Sonero corresponde a Vol.2 de 1978.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/anakena/carita-triste"
+      ]
+    },
+    "/release/album/sonero-clasico-del-caribe/sonero-clasico-del-caribe": {
+      "album_id": 7836,
+      "motivo": "Cotejo de listado de pistas: Arca DJ mix y bootleg son distintos; Anakena álbum de siete pistas de 2022 y sencillo de 2020 son distintos; Sonero corresponde a Vol.2 de 1978.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/album/sonero-clasico-del-caribe/sonero-clasico-del-caribe"
+      ]
+    },
+    "/release/single/nacho/bailame": {
+      "album_id": 27115,
+      "motivo": "El original y el remix de Báilame son grabaciones distintas; se identifica el remix por coautores Yandel y Bad Bunny y título de la URL, aunque RYM muestra Báilame para ambos.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/nacho/bailame"
+      ]
+    },
+    "/release/single/nacho-yandel-and-bad-bunny/bailame-remix": {
+      "album_id": 27116,
+      "motivo": "El original y el remix de Báilame son grabaciones distintas; se identifica el remix por coautores Yandel y Bad Bunny y título de la URL, aunque RYM muestra Báilame para ambos.",
+      "fuentes": [
+        "https://rateyourmusic.com/release/single/nacho-yandel-and-bad-bunny/bailame-remix"
+      ]
+    }
+  }
+}

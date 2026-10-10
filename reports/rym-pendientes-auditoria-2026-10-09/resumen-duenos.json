@@ -1,0 +1,46 @@
+{
+  "person": {
+    "duenos": 52,
+    "discos": 285,
+    "clasificacion": {
+      "origen_fuera_venezuela": {
+        "duenos": 47,
+        "discos": 255
+      },
+      "persona_marcada_venezolana": {
+        "duenos": 1,
+        "discos": 10
+      },
+      "sin_evidencia_origen": {
+        "duenos": 4,
+        "discos": 20
+      }
+    },
+    "personas_con_titular": 0,
+    "personas_inexistentes": 0
+  },
+  "sin_ficha": {
+    "duenos": 42,
+    "discos": 150,
+    "clasificacion": {
+      "origen_fuera_venezuela": {
+        "duenos": 7,
+        "discos": 18
+      },
+      "origen_venezuela": {
+        "duenos": 28,
+        "discos": 114
+      },
+      "sin_evidencia_origen": {
+        "duenos": 2,
+        "discos": 9
+      },
+      "solo_residencia_venezuela": {
+        "duenos": 5,
+        "discos": 9
+      }
+    },
+    "personas_con_titular": 0,
+    "personas_inexistentes": null
+  }
+}

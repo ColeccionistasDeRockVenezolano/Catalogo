@@ -1,0 +1,728 @@
+[
+  {
+    "artista": "Rada",
+    "artista_id": 1738,
+    "titulo_rym": "Impressiones Etnosonicas",
+    "url": "https://rateyourmusic.com/release/album/rada/impressiones-etnosonicas",
+    "album_id": 2932,
+    "titulo_catalogo": "Impresiones Etnosónicas",
+    "via": "alias existente",
+    "anio_rym": 1988,
+    "anio_catalogo": 1988,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "studio_album",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 8,
+    "pistas_catalogo": 8,
+    "revisiones": [
+      {
+        "id": 1836043,
+        "estado": "approved",
+        "nota": "[mesa 17412] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (título igual salvo mayúsculas/tildes/artículo, mismo año); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Los Dementes",
+    "artista_id": 3792,
+    "titulo_rym": "iAlerta mundo! llegan: The Crazy Men",
+    "url": "https://rateyourmusic.com/release/album/los-dementes/ialerta-mundo-llegan-the-crazy-men",
+    "album_id": 8227,
+    "titulo_catalogo": "Alerta Mundo Llegan... \"The Crazy Men\"",
+    "via": "alias existente",
+    "anio_rym": 1966,
+    "anio_catalogo": 1966,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 11,
+    "pistas_catalogo": 11,
+    "revisiones": [
+      {
+        "id": 1836044,
+        "estado": "approved",
+        "nota": "[mesa 17413] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (título igual salvo mayúsculas/tildes/artículo, mismo año); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Akapellah",
+    "artista_id": 4255,
+    "titulo_rym": "Double Cup",
+    "url": "https://rateyourmusic.com/release/single/akapellah/double-cup",
+    "album_id": 13749,
+    "titulo_catalogo": "Double Cup (feat. Trainer & Big Soto)",
+    "via": "alias existente",
+    "anio_rym": 2017,
+    "anio_catalogo": 2017,
+    "tipo_rym": "Single",
+    "tipo_catalogo": "single",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 1,
+    "pistas_catalogo": 1,
+    "revisiones": [
+      {
+        "id": 1848418,
+        "estado": "approved",
+        "nota": "[mesa 17837] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Big Soto",
+    "artista_id": 4257,
+    "titulo_rym": "Sotorious",
+    "url": "https://rateyourmusic.com/release/album/big-soto/sotorious",
+    "album_id": 13836,
+    "titulo_catalogo": "SOTORIUS",
+    "via": "alias existente",
+    "anio_rym": 2024,
+    "anio_catalogo": 2024,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 23,
+    "pistas_catalogo": 23,
+    "revisiones": [
+      {
+        "id": 1836051,
+        "estado": "approved",
+        "nota": "[mesa 17418] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (título igual salvo mayúsculas/tildes/artículo, mismo año); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Ángel Custodio Loyola",
+    "artista_id": 4287,
+    "titulo_rym": "El disco de oro",
+    "url": "https://rateyourmusic.com/release/comp/angel-custodio-loyola/el-disco-de-oro",
+    "album_id": 14680,
+    "titulo_catalogo": "El disco de oro de Ángel C. Loyola",
+    "via": "alias existente",
+    "anio_rym": 1976,
+    "anio_catalogo": 1976,
+    "tipo_rym": "Compilation",
+    "tipo_catalogo": "compilation",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 12,
+    "pistas_catalogo": 12,
+    "revisiones": [
+      {
+        "id": 1848422,
+        "estado": "approved",
+        "nota": "[mesa 17841] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Soledad Bravo",
+    "artista_id": 3749,
+    "titulo_rym": "Volumen 4",
+    "url": "https://rateyourmusic.com/release/album/soledad-bravo/volumen-4",
+    "album_id": 8416,
+    "titulo_catalogo": "Vol. 4",
+    "via": "alias existente",
+    "anio_rym": 1972,
+    "anio_catalogo": 1972,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "studio_album",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 0,
+    "pistas_catalogo": 11,
+    "revisiones": []
+  },
+  {
+    "artista": "Los Melódicos",
+    "artista_id": 3794,
+    "titulo_rym": "German, Niro, Chucho y Emilita con Los Melódicos",
+    "url": "https://rateyourmusic.com/release/album/los-melodicos/german-niro-chucho-y-emilita-con-los-melodicos",
+    "album_id": 8264,
+    "titulo_catalogo": "Germán, Niro, Chucho y Emilita",
+    "via": "alias existente",
+    "anio_rym": 1960,
+    "anio_catalogo": 1960,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 12,
+    "pistas_catalogo": 12,
+    "revisiones": [
+      {
+        "id": 1848429,
+        "estado": "approved",
+        "nota": "[mesa 17847] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Los Melódicos",
+    "artista_id": 3794,
+    "titulo_rym": "12 Hits",
+    "url": "https://rateyourmusic.com/release/album/orquesta-los-melodicos/12-hits",
+    "album_id": 8270,
+    "titulo_catalogo": "12 Hits Con Los Melódicos",
+    "via": "alias existente",
+    "anio_rym": 1962,
+    "anio_catalogo": 1962,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "compilation",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 12,
+    "pistas_catalogo": 12,
+    "revisiones": []
+  },
+  {
+    "artista": "Los Melódicos",
+    "artista_id": 3794,
+    "titulo_rym": "Lucerito y Los Melódicos",
+    "url": "https://rateyourmusic.com/release/album/los-melodicos/lucerito-y-los-melodicos",
+    "album_id": 8293,
+    "titulo_catalogo": "Lucerito",
+    "via": "alias existente",
+    "anio_rym": 1968,
+    "anio_catalogo": 1968,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 11,
+    "pistas_catalogo": 11,
+    "revisiones": [
+      {
+        "id": 1848430,
+        "estado": "approved",
+        "nota": "[mesa 17848] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Los Melódicos",
+    "artista_id": 3794,
+    "titulo_rym": "Album homenaje a los 30 años de Víctor Piñero",
+    "url": "https://rateyourmusic.com/release/album/los-melodicos/album-homenaje-a-los-30-anos-de-victor-pinero",
+    "album_id": 8309,
+    "titulo_catalogo": "Album Homenaje a Los 30 Años de Victor Piñero Los Melódicos",
+    "via": "alias existente",
+    "anio_rym": 1974,
+    "anio_catalogo": 1974,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "studio_album",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 12,
+    "pistas_catalogo": 12,
+    "revisiones": [
+      {
+        "id": 1848431,
+        "estado": "approved",
+        "nota": "[mesa 17849] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Los Melódicos",
+    "artista_id": 3794,
+    "titulo_rym": "El sonido",
+    "url": "https://rateyourmusic.com/release/album/los-melodicos/el-sonido",
+    "album_id": 8337,
+    "titulo_catalogo": "El Sonido St.",
+    "via": "alias existente",
+    "anio_rym": 1988,
+    "anio_catalogo": 1988,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 0,
+    "pistas_catalogo": 10,
+    "revisiones": [
+      {
+        "id": 1848432,
+        "estado": "approved",
+        "nota": "[mesa 17850] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Los Melódicos",
+    "artista_id": 3794,
+    "titulo_rym": "Orquesta de los exitos",
+    "url": "https://rateyourmusic.com/release/comp/los-melodicos/orquesta-de-los-exitos",
+    "album_id": 8297,
+    "titulo_catalogo": "La Orquesta De Los Exitos",
+    "via": "alias existente",
+    "anio_rym": 1969,
+    "anio_catalogo": 1969,
+    "tipo_rym": "Compilation",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 12,
+    "pistas_catalogo": 11,
+    "revisiones": [
+      {
+        "id": 1836216,
+        "estado": "approved",
+        "nota": "[mesa 17510] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (título igual salvo mayúsculas/tildes/artículo, mismo año); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Mau y Ricky",
+    "artista_id": 4248,
+    "titulo_rym": "No puede ser",
+    "url": "https://rateyourmusic.com/release/single/mau-y-ricky-eladio-carrion/no-puede-ser",
+    "album_id": 13331,
+    "titulo_catalogo": "No Puede Ser (con Eladio Carrion)",
+    "via": "alias existente",
+    "anio_rym": 2022,
+    "anio_catalogo": 2022,
+    "tipo_rym": "Single",
+    "tipo_catalogo": "single",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 1,
+    "pistas_catalogo": 1,
+    "revisiones": [
+      {
+        "id": 1848439,
+        "estado": "approved",
+        "nota": "[mesa 17857] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Fur Coat",
+    "artista_id": 4282,
+    "titulo_rym": "Berlin Chronicles",
+    "url": "https://rateyourmusic.com/release/ep/fur_coat/berlin_chronicles",
+    "album_id": 14446,
+    "titulo_catalogo": "Berlin Chronicles EP",
+    "via": "alias existente",
+    "anio_rym": 2015,
+    "anio_catalogo": 2015,
+    "tipo_rym": "EP",
+    "tipo_catalogo": "ep",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 3,
+    "pistas_catalogo": 3,
+    "revisiones": [
+      {
+        "id": 1848440,
+        "estado": "approved",
+        "nota": "[mesa 17858] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Fur Coat",
+    "artista_id": 4282,
+    "titulo_rym": "Katarsis",
+    "url": "https://rateyourmusic.com/release/ep/fur_coat/katarsis",
+    "album_id": 14436,
+    "titulo_catalogo": "Katarsis EP",
+    "via": "alias existente",
+    "anio_rym": 2015,
+    "anio_catalogo": 2015,
+    "tipo_rym": "EP",
+    "tipo_catalogo": "ep",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 4,
+    "pistas_catalogo": 4,
+    "revisiones": [
+      {
+        "id": 1848441,
+        "estado": "approved",
+        "nota": "[mesa 17859] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Fur Coat",
+    "artista_id": 4282,
+    "titulo_rym": "Interstellar",
+    "url": "https://rateyourmusic.com/release/ep/fur-coat/interstellar",
+    "album_id": 14457,
+    "titulo_catalogo": "Interstellar EP",
+    "via": "alias existente",
+    "anio_rym": 2016,
+    "anio_catalogo": 2016,
+    "tipo_rym": "EP",
+    "tipo_catalogo": "ep",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 3,
+    "pistas_catalogo": 3,
+    "revisiones": [
+      {
+        "id": 1848442,
+        "estado": "approved",
+        "nota": "[mesa 17860] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Fur Coat",
+    "artista_id": 4282,
+    "titulo_rym": "Numbers",
+    "url": "https://rateyourmusic.com/release/ep/fur-coat/numbers",
+    "album_id": 14438,
+    "titulo_catalogo": "Number's EP",
+    "via": "alias existente",
+    "anio_rym": 2016,
+    "anio_catalogo": 2016,
+    "tipo_rym": "EP",
+    "tipo_catalogo": "ep",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 3,
+    "pistas_catalogo": 3,
+    "revisiones": [
+      {
+        "id": 1848443,
+        "estado": "approved",
+        "nota": "[mesa 17861] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Fur Coat",
+    "artista_id": 4282,
+    "titulo_rym": "Immersion",
+    "url": "https://rateyourmusic.com/release/ep/fur-coat/immersion",
+    "album_id": 14445,
+    "titulo_catalogo": "Immersion EP",
+    "via": "alias existente",
+    "anio_rym": 2018,
+    "anio_catalogo": 2018,
+    "tipo_rym": "EP",
+    "tipo_catalogo": "ep",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 2,
+    "pistas_catalogo": 2,
+    "revisiones": [
+      {
+        "id": 1848444,
+        "estado": "approved",
+        "nota": "[mesa 17862] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Fur Coat",
+    "artista_id": 4282,
+    "titulo_rym": "Repeat",
+    "url": "https://rateyourmusic.com/release/ep/fur-coat/repeat",
+    "album_id": 14442,
+    "titulo_catalogo": "Repeat EP",
+    "via": "resolucion documentada sin alias",
+    "anio_rym": 2018,
+    "anio_catalogo": 2018,
+    "tipo_rym": "EP",
+    "tipo_catalogo": "ep",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 4,
+    "pistas_catalogo": 4,
+    "revisiones": [
+      {
+        "id": 1848445,
+        "estado": "dismissed",
+        "nota": "RYM «nuevos» 2026-10-06: mismo disco que la ficha existente (el título solo añade «EP»/«Vol. I»); el merge no fija la variante, se cierra sin crear"
+      }
+    ]
+  },
+  {
+    "artista": "Fur Coat",
+    "artista_id": 4282,
+    "titulo_rym": "Time Traveler",
+    "url": "https://rateyourmusic.com/release/ep/fur-coat/time-traveler",
+    "album_id": 14451,
+    "titulo_catalogo": "Time Traveler EP",
+    "via": "resolucion documentada sin alias",
+    "anio_rym": 2021,
+    "anio_catalogo": 2021,
+    "tipo_rym": "EP",
+    "tipo_catalogo": "ep",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 4,
+    "pistas_catalogo": 4,
+    "revisiones": [
+      {
+        "id": 1848446,
+        "estado": "dismissed",
+        "nota": "RYM «nuevos» 2026-10-06: mismo disco que la ficha existente (el título solo añade «EP»/«Vol. I»); el merge no fija la variante, se cierra sin crear"
+      }
+    ]
+  },
+  {
+    "artista": "Fur Coat",
+    "artista_id": 4282,
+    "titulo_rym": "In Our Town",
+    "url": "https://rateyourmusic.com/release/ep/fur-coat-avidus/in-our-town",
+    "album_id": 14455,
+    "titulo_catalogo": "In Our Town - EP",
+    "via": "alias existente",
+    "anio_rym": 2022,
+    "anio_catalogo": 2022,
+    "tipo_rym": "EP",
+    "tipo_catalogo": "ep",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 4,
+    "pistas_catalogo": 4,
+    "revisiones": [
+      {
+        "id": 1848447,
+        "estado": "approved",
+        "nota": "[mesa 17865] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Arca",
+    "artista_id": 4235,
+    "titulo_rym": "Ritual",
+    "url": "https://rateyourmusic.com/release/single/arca/ritual",
+    "album_id": 12741,
+    "titulo_catalogo": "Яitual",
+    "via": "alias existente",
+    "anio_rym": 2023,
+    "anio_catalogo": 2023,
+    "tipo_rym": "Single",
+    "tipo_catalogo": "single",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 1,
+    "pistas_catalogo": 1,
+    "revisiones": []
+  },
+  {
+    "artista": "Schola Cantorum de Caracas",
+    "artista_id": 3420,
+    "titulo_rym": "Aguinaldos Venezolanos",
+    "url": "https://rateyourmusic.com/release/album/schola-cantorum-de-venezuela/aguinaldos-venezolanos",
+    "album_id": 5941,
+    "titulo_catalogo": "Aguinaldos Venezolanos Vol. I",
+    "via": "resolucion documentada sin alias",
+    "anio_rym": 1969,
+    "anio_catalogo": 1969,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 12,
+    "pistas_catalogo": 0,
+    "revisiones": [
+      {
+        "id": 1848453,
+        "estado": "dismissed",
+        "nota": "RYM «nuevos» 2026-10-06: mismo disco que la ficha existente (el título solo añade «EP»/«Vol. I»); el merge no fija la variante, se cierra sin crear"
+      }
+    ]
+  },
+  {
+    "artista": "Schola Cantorum de Caracas",
+    "artista_id": 3420,
+    "titulo_rym": "Antología del madrigal Venezolano",
+    "url": "https://rateyourmusic.com/release/album/schola-cantorum-de-venezuela/antologia-del-madrigal-venezolano",
+    "album_id": 5950,
+    "titulo_catalogo": "Antología del Madrigal Venezolano Vol. I y Vol. II",
+    "via": "alias existente",
+    "anio_rym": 1975,
+    "anio_catalogo": 1975,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "compilation",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 25,
+    "pistas_catalogo": 0,
+    "revisiones": [
+      {
+        "id": 1848454,
+        "estado": "approved",
+        "nota": "[mesa 17867] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Un Solo Pueblo",
+    "artista_id": 3857,
+    "titulo_rym": "La música de Venezuela Un Solo Pueblo",
+    "url": "https://rateyourmusic.com/release/album/venezuela-un-solo-pueblo/la-musica-de-venezuela-un-solo-pueblo",
+    "album_id": 9086,
+    "titulo_catalogo": "La Música de Venezuela",
+    "via": "alias existente",
+    "anio_rym": 1990,
+    "anio_catalogo": 1990,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "studio_album",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": false,
+    "pistas_rym": 9,
+    "pistas_catalogo": 9,
+    "revisiones": [
+      {
+        "id": 1848456,
+        "estado": "approved",
+        "nota": "[mesa 17869] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Lilia Vera",
+    "artista_id": 3831,
+    "titulo_rym": "Lilia Vera y Su Nuevo Canto",
+    "url": "https://rateyourmusic.com/release/album/lilia-vera/lilia-vera-y-su-nuevo-canto",
+    "album_id": 9282,
+    "titulo_catalogo": "Y Su Nuevo Canto",
+    "via": "alias existente",
+    "anio_rym": 1979,
+    "anio_catalogo": 1979,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 10,
+    "pistas_catalogo": 10,
+    "revisiones": [
+      {
+        "id": 1848458,
+        "estado": "approved",
+        "nota": "[mesa 17871] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Benito González",
+    "artista_id": 3452,
+    "titulo_rym": "Passion Reverence Transcendence: The Music of McCoy Tyner",
+    "url": "https://rateyourmusic.com/release/album/benito-gonzalez-gerry-gibbs-essiet-okon-essiet/passion-reverence-transcendence-the-music-of-mccoy-tyner",
+    "album_id": 6607,
+    "titulo_catalogo": "Passion Reverence Transcendence: The Music of McCoy",
+    "via": "alias existente",
+    "anio_rym": 2018,
+    "anio_catalogo": 2018,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 13,
+    "pistas_catalogo": 13,
+    "revisiones": [
+      {
+        "id": 1848466,
+        "estado": "approved",
+        "nota": "[mesa 17879] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Los Blanco",
+    "artista_id": 3791,
+    "titulo_rym": "Dando en el blanco con Los Blanco",
+    "url": "https://rateyourmusic.com/release/album/los-blanco/dando-en-el-blanco-con-los-blanco",
+    "album_id": 7308,
+    "titulo_catalogo": "Dando En El Blanco",
+    "via": "alias existente",
+    "anio_rym": 1976,
+    "anio_catalogo": 1976,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 0,
+    "pistas_catalogo": 12,
+    "revisiones": [
+      {
+        "id": 1848468,
+        "estado": "approved",
+        "nota": "[mesa 17881] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (mismo año y tipo; el título solo cambia en mayúsculas/tildes/artículo, «EP», «feat.», el artista o viene truncado); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Los Blanco",
+    "artista_id": 3791,
+    "titulo_rym": "La fiesta caliente",
+    "url": "https://rateyourmusic.com/release/album/los-blanco/la-fiesta-caliente",
+    "album_id": 7315,
+    "titulo_catalogo": "Fiesta Caliente",
+    "via": "alias existente",
+    "anio_rym": 1980,
+    "anio_catalogo": 1980,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": false,
+    "discrepancia_tipo": true,
+    "pistas_rym": 0,
+    "pistas_catalogo": 10,
+    "revisiones": [
+      {
+        "id": 1836484,
+        "estado": "approved",
+        "nota": "[mesa 17647] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (título igual salvo mayúsculas/tildes/artículo, mismo año); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Rincón Morales",
+    "artista_id": 4312,
+    "titulo_rym": "Gaiteros de la nueva ola",
+    "url": "https://rateyourmusic.com/release/album/rincon-morales/gaiteros-de-la-nueva-ola",
+    "album_id": 15026,
+    "titulo_catalogo": "Gaiteros de nueva ola",
+    "via": "alias existente",
+    "anio_rym": 1963,
+    "anio_catalogo": 1962,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "studio_album",
+    "discrepancia_anio": true,
+    "discrepancia_tipo": false,
+    "pistas_rym": 0,
+    "pistas_catalogo": 6,
+    "revisiones": [
+      {
+        "id": 1836502,
+        "estado": "approved",
+        "nota": "[mesa 17660] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (título igual salvo mayúsculas/tildes/artículo, mismo año); se funde en la ficha existente"
+      }
+    ]
+  },
+  {
+    "artista": "Edward Simon",
+    "artista_id": 3480,
+    "titulo_rym": "Femininas",
+    "url": "https://rateyourmusic.com/release/album/edward-simon-magos-herrera/femininas",
+    "album_id": 6195,
+    "titulo_catalogo": "Femeninas",
+    "via": "alias existente",
+    "anio_rym": 2024,
+    "anio_catalogo": 2023,
+    "tipo_rym": "Album",
+    "tipo_catalogo": "other",
+    "discrepancia_anio": true,
+    "discrepancia_tipo": true,
+    "pistas_rym": 11,
+    "pistas_catalogo": 11,
+    "revisiones": [
+      {
+        "id": 1836522,
+        "estado": "approved",
+        "nota": "[mesa 17666] [claude-code (delegado por Brian)] RYM «nuevos» 2026-10-06: mismo disco (título igual salvo mayúsculas/tildes/artículo, mismo año); se funde en la ficha existente"
+      }
+    ]
+  }
+]

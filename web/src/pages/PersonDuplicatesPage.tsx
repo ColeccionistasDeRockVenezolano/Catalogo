@@ -19,86 +19,18 @@ import { RowsSkeleton } from "../components/Skeletons";
 import { Pagination } from "../components/Pagination";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { MergeEntityModal } from "../components/MergeEntityModal";
-import type { PersonDuplicateCandidate } from "../lib/types";
+import { PersonPairWebResearch } from "../components/PersonPairWebResearch";
+import { PersonComparisonDetails } from "../components/PersonComparisonDetails";
+import { IDENTITY_RECOMMENDATION, personIdentityAssessment, formatIdentityPoints, type PersonComparison } from "../lib/personIdentityAssessment";
+import { PersonIdentitySignals } from "../components/PersonIdentitySignals";
+import type { PersonPairResearch, PersonDuplicateCandidate } from "../lib/types";
 
 const LIMIT = 30;
 /** Umbrales del detector (PERSON_CANDIDATE_MIN_SCORE / _STRONG_SCORE), en puntos. */
-const MIN_POINTS = 45;
-const STRONG_POINTS = 60;
-
-type Feature = PersonDuplicateCandidate["features"][number];
-
-interface SignalInfo {
-  label: string;
-  /** Peso en puntos tal como lo aplica el detector. */
-  weight: string;
-  sign: 1 | -1;
-  explain: string;
-  detail?: (evidence: string) => string | null;
-}
-
-/**
- * Traducción de cada feature del detector a lenguaje de curaduría. Los pesos
- * son los de `scorePersonPair`; si allí cambian, hay que cambiarlos aquí.
- */
-const SIGNALS: Readonly<Record<string, SignalInfo>> = {
-  nickname_equal: {
-    label: "Mismo nombre sin el apodo", weight: "+45", sign: 1,
-    explain: "Al quitar el apodo (entre comillas o paréntesis), los dos nombres son idénticos.",
-    detail: (evidence) => after(evidence, "coinciden:"),
-  },
-  alias_cross: {
-    label: "Registrado como alias", weight: "+45", sign: 1,
-    explain: "El nombre de una ficha ya figura como alias declarado de la otra.",
-    detail: () => "Uno figura como alias del otro",
-  },
-  first_last_equal: {
-    label: "Mismo primer nombre y apellido", weight: "+25", sign: 1,
-    explain: "Coinciden el primer nombre y el último apellido, aunque cambie lo del medio.",
-    detail: (evidence) => after(evidence, "token:"),
-  },
-  jaro_winkler: {
-    label: "Se escriben casi igual", weight: "hasta +15", sign: 1,
-    explain: "Similitud de escritura del nombre sin apodo; solo cuenta desde el 92 %.",
-    detail: (evidence) => {
-      const match = /=([\d.]+)/u.exec(evidence);
-      return match ? `Similitud de escritura del ${Math.round(Number(match[1]) * 100)} %` : null;
-    },
-  },
-  shared_band: {
-    label: "Tocan en la misma banda", weight: "+20", sign: 1,
-    explain: "Las dos fichas figuran como miembros de al menos una misma banda.",
-  },
-  shared_album: {
-    label: "Acreditados en el mismo disco", weight: "+15", sign: 1,
-    explain: "Las dos fichas tienen créditos en al menos un mismo disco.",
-    detail: (evidence) => {
-      const count = Number(after(evidence, ":"));
-      return Number.isFinite(count) && count > 0 ? `${plural(count, "disco", "discos")} en común` : null;
-    },
-  },
-  middle_name_clash: {
-    label: "Segundo nombre distinto", weight: "−10", sign: -1,
-    explain: "Los nombres intermedios no coinciden: resta, pero no descarta (hay quien firma sin él).",
-    detail: (evidence) => {
-      const names = after(evidence, "distintos:");
-      return names ? `Intermedios distintos: ${names}` : null;
-    },
-  },
-};
-
-function after(text: string, marker: string): string | null {
-  const index = text.indexOf(marker);
-  return index === -1 ? null : text.slice(index + marker.length).trim() || null;
-}
-
-/** Puntos con signo; el detector guarda la resta de `middle_name_clash` en positivo. */
-function featurePoints(feature: Feature): number {
-  return Math.round(feature.value * 100) * (SIGNALS[feature.key]?.sign ?? 1);
-}
+const STRONG_POINTS = 70;
 
 function levelOf(points: number): { label: string; tone: "high" | "medium" } {
-  return points >= STRONG_POINTS ? { label: "Coincidencia alta", tone: "high" } : { label: "Coincidencia media", tone: "medium" };
+  return points >= STRONG_POINTS ? { label: "Coincidencia alta", tone: "high" } : { label: "Conexión documentada", tone: "medium" };
 }
 
 function plural(count: number, singular: string, pluralForm: string): string {
@@ -106,12 +38,19 @@ function plural(count: number, singular: string, pluralForm: string): string {
 }
 
 interface CandidatePair {
+  comparison: PersonComparison | null;
+  advice?: string;
   reviewId: number;
   a: PersonDuplicateCandidate["a"];
   b: PersonDuplicateCandidate["b"];
+  score: number | null;
+  scoreBlocked: string | null;
+  webVerdict: PersonDuplicateCandidate["webVerdict"];
+  webEvidence: PersonDuplicateCandidate["webEvidence"];
 }
 
 export function PersonDuplicatesPage() {
+  const paginationStartRef = useRef<HTMLDivElement>(null);
   const { notify } = useToast();
   const [params] = useSearchParams();
   const [offset, setOffset] = useState(0);
@@ -163,9 +102,9 @@ export function PersonDuplicatesPage() {
 
   return (
     <>
+      <header className="page-header"><div><h2>Posibles duplicados</h2><p>Revisa cada par y decide si debe conservarse una sola ficha.</p></div></header>
       <p className="curation-lead">
-        Pares de fichas de persona que podrían ser la misma. Revisa por qué se proponen y decide si se
-        fusionan o son personas distintas. Nada cambia sin tu decisión.
+        Compara los nombres y la trayectoria. Consulta las evidencias cuando tengas dudas; al fusionar podrás elegir los datos que se conservan.
       </p>
 
       <ScoreGuide />
@@ -173,10 +112,10 @@ export function PersonDuplicatesPage() {
       <div className="list-toolbar">
         <div className="segmented" role="group" aria-label="Filtrar por coincidencia">
           <button type="button" className="segmented__option" aria-pressed={!onlyStrong} onClick={() => setFilter(false)}>
-            Todos <span className="segmented__range">{MIN_POINTS}–100 pts</span>
+            Todos
           </button>
           <button type="button" className="segmented__option" aria-pressed={onlyStrong} onClick={() => setFilter(true)}>
-            Solo alta <span className="segmented__range">{STRONG_POINTS}–100 pts</span>
+            Coincidencia alta <span className="segmented__range">{STRONG_POINTS}–100 pts</span>
           </button>
         </div>
         {data && !loading ? (
@@ -186,30 +125,35 @@ export function PersonDuplicatesPage() {
         ) : null}
       </div>
 
+      <div ref={paginationStartRef} className="pagination-start" />
+
       {loading && !data ? <RowsSkeleton rows={3} height={180} label="Cargando los pares pendientes…" /> : error ? <ErrorState message={error} onRetry={reload} /> : !data || data.data.length === 0 ? (
         <EmptyState
           title={onlyStrong ? "No hay pares con coincidencia alta" : "No hay posibles duplicados pendientes"}
-          hint={onlyStrong ? "Prueba con «Todos» para ver los de coincidencia media." : "El detector no tiene pares nuevos por revisar."}
+          hint={onlyStrong ? "Prueba con «Todos» para ver los pares con evidencia parcial." : "El detector no tiene pares nuevos por revisar."}
         />
       ) : (
         <>
           <ol className={`dup-list${loading ? " is-refreshing" : ""}`}>
             {data.data.map((candidate) => {
-              const pair = { reviewId: candidate.reviewId, a: candidate.a, b: candidate.b };
+              const pair = { reviewId: candidate.reviewId, a: candidate.a, b: candidate.b,
+                score: candidate.score, scoreBlocked: candidate.scoreBlocked, comparison: candidate.comparison ?? null,
+                webVerdict: candidate.webVerdict, webEvidence: candidate.webEvidence };
               const highlighted = isHighlighted(candidate.a.id, candidate.b.id);
               return (
                 <li key={candidate.reviewId} ref={highlighted ? highlightedRef : undefined}
                   style={highlighted ? { outline: "2px solid var(--accent, #6d5bd0)", outlineOffset: 4, borderRadius: 12 } : undefined}>
                   <CandidateCard
-                    candidate={candidate} onMerge={() => setMerging(pair)} onDismiss={() => setDismissing(pair)}
+                    candidate={candidate} onMerge={(advice) => setMerging({ ...pair, advice })} onDismiss={() => setDismissing(pair)}
                     priorityBusy={busyPriority === candidate.reviewId}
                     onPriorityChange={(next) => void changePriority(candidate.reviewId, next)}
+                    onResearch={reload}
                   />
                 </li>
               );
             })}
           </ol>
-          <Pagination limit={LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={setOffset} />
+          <Pagination scrollTargetRef={paginationStartRef} limit={LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={setOffset} />
         </>
       )}
 
@@ -220,6 +164,11 @@ export function PersonDuplicatesPage() {
           entityName={merging.a.name}
           otherId={merging.b.id}
           otherName={merging.b.name}
+          identityAdvice={(() => {
+            const assessment = personIdentityAssessment(merging.score, merging.webVerdict
+              ? { verdict: merging.webVerdict, evidence: merging.webEvidence, comparison: merging.comparison } : null, merging.scoreBlocked, merging.comparison);
+            return merging.advice ?? `${IDENTITY_RECOMMENDATION[assessment.recommendation]}. ${assessment.explanation}`;
+          })()}
           onMerged={() => { setMerging(null); reload(); }}
           onClose={() => setMerging(null)}
         />
@@ -249,34 +198,20 @@ function ScoreGuide() {
     <details className="score-guide">
       <summary>
         <Info size={18} weight="bold" aria-hidden="true" />
-        <span>¿Cómo se calcula la puntuación de coincidencia?</span>
+        <span>¿Cómo se calcula el puntaje de coincidencia?</span>
         <CaretDown className="score-guide__caret" size={16} weight="bold" aria-hidden="true" />
       </summary>
       <div className="score-guide__body">
-        <p>
-          Cada par recibe <strong>puntos de 0 a 100</strong> que resultan de <strong>sumar las señales</strong> que el
-          detector encuentra entre las dos fichas. <strong>No es un porcentaje de certeza</strong>: 100 significa que
-          coinciden varias señales fuertes (la suma se corta en 100), no que sea seguro que se trata de la misma persona.
-        </p>
+        <p>El puntaje de coincidencia suma el respaldo comprobado de ambas fichas, de 0 a 100. No es un porcentaje de certeza.</p>
         <ul className="score-guide__levels">
-          <li><span className="score-dot score-dot--high" aria-hidden="true" /><strong>Alta:</strong> de {STRONG_POINTS} a 100 puntos</li>
-          <li><span className="score-dot score-dot--medium" aria-hidden="true" /><strong>Media:</strong> de {MIN_POINTS} a {STRONG_POINTS - 1} puntos</li>
-          <li className="score-guide__muted">Con menos de {MIN_POINTS} puntos el par no se propone.</li>
+          <li><strong>Nombres y alias:</strong> hasta 20 puntos, evaluados una sola vez.</li>
+          <li><strong>Catálogo:</strong> hasta 20 puntos por solapamiento de bandas, discos y fechas conocidas.</li>
+          <li><strong>Evidencia web:</strong> hasta 60 puntos por respaldo de cada trayectoria y una prueba que conecte ambas.</li>
         </ul>
-        <div className="table-wrap">
-          <table>
-            <thead><tr><th>Señal</th><th>Qué significa</th><th className="num">Puntos</th></tr></thead>
-            <tbody>
-              {Object.entries(SIGNALS).map(([key, signal]) => (
-                <tr key={key}>
-                  <td className="score-guide__signal">{signal.label}</td>
-                  <td>{signal.explain}</td>
-                  <td className={`num ${signal.sign < 0 ? "is-negative" : "is-positive"}`}>{signal.weight}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <p>Los puntos son proporcionales a los datos comprobados. Proyecto, disco, año y función se verifican por separado.
+          Un dato faltante aporta 0; un resumen del buscador aporta menos que una página leída. Las citas repetidas no añaden puntos.</p>
+        <p>«Coincidencia alta» requiere al menos {STRONG_POINTS} puntos y una conexión documental comprobada entre ambas fichas.
+          Sin esa conexión, la conclusión queda pendiente. Las contradicciones documentadas impiden recomendar la fusión.</p>
         <p className="score-guide__muted">
           Nunca se proponen pares con fechas de nacimiento o muerte distintas, ni nombres que parecen un estudio, sello o productora.
         </p>
@@ -285,13 +220,22 @@ function ScoreGuide() {
   );
 }
 
-function CandidateCard({ candidate, onMerge, onDismiss, priorityBusy, onPriorityChange }: {
-  candidate: PersonDuplicateCandidate; onMerge: () => void; onDismiss: () => void;
-  priorityBusy: boolean; onPriorityChange: (next: number) => void;
+function CandidateCard({ candidate, onMerge, onDismiss, priorityBusy, onPriorityChange, onResearch }: {
+  candidate: PersonDuplicateCandidate; onMerge: (advice: string) => void; onDismiss: () => void;
+  priorityBusy: boolean; onPriorityChange: (next: number) => void; onResearch: () => void;
 }) {
-  const points = candidate.score === null ? null : Math.round(candidate.score * 100);
-  const rawSum = candidate.features.reduce((sum, feature) => sum + featurePoints(feature), 0);
-  const level = points === null ? null : levelOf(points);
+  const [research, setResearch] = useState<PersonPairResearch | null>(null);
+  // Al refrescar el catálogo, sus datos actuales sustituyen la copia local de la investigación.
+  useEffect(() => { setResearch(null); }, [candidate]);
+  const catalogScore = research?.baseScore !== undefined ? research.baseScore : candidate.score;
+  const comparison = research?.comparison ?? candidate.comparison ?? null;
+  const assessment = personIdentityAssessment(catalogScore, research ?? (candidate.webVerdict
+    ? { verdict: candidate.webVerdict, evidence: candidate.webEvidence, comparison } : null),
+    research?.scoreBlocked !== undefined ? research.scoreBlocked : candidate.scoreBlocked, comparison);
+  const points = assessment.score === null ? null : Math.round(assessment.score * 1000) / 10;
+  const level = points !== null && assessment.recommendation === "consider_merge" ? levelOf(points) : null;
+  const scoreLabel = level?.label ?? (assessment.recommendation === "do_not_merge" ? "Personas distintas"
+    : assessment.recommendation === "review_split" ? "Ficha mezclada" : "Evidencia parcial");
   const titleId = `dup-${candidate.reviewId}`;
 
   return (
@@ -305,18 +249,18 @@ function CandidateCard({ candidate, onMerge, onDismiss, priorityBusy, onPriority
       </div>
 
       <div className={`dup-score${level ? ` dup-score--${level.tone}` : ""}`}>
-        {points === null || !level ? (
-          <span className="dup-score__label">Sin puntuación</span>
+        {points === null ? (
+          <span className="dup-score__label">Sin puntaje</span>
         ) : (
           <>
-            <span className="dup-score__label">{level.label}</span>
+            <span className="dup-score__label">{scoreLabel}</span>
             <span className="dup-score__value">
-              <strong className="mono">{points}</strong>
+              <strong className="mono">{points === null ? "" : formatIdentityPoints(points)}</strong>
               <span>/ 100 pts</span>
             </span>
             <span
               className="dup-score__bar" role="meter" aria-valuemin={0} aria-valuemax={100} aria-valuenow={points}
-              aria-label={`${level.label}: ${points} de 100 puntos`}
+              aria-label={`${scoreLabel}: ${points} de 100 puntos`}
             >
               <span className="dup-score__fill" style={{ width: `${points}%` }} />
             </span>
@@ -324,35 +268,28 @@ function CandidateCard({ candidate, onMerge, onDismiss, priorityBusy, onPriority
         )}
       </div>
 
+      <p className="dup-card__assessment">
+        <strong>{IDENTITY_RECOMMENDATION[assessment.recommendation]}</strong>. {assessment.explanation}
+        {comparison?.rationale || research?.rationale || candidate.webRationale ? <span className="dup-card__assessment-reason">Por qué: {comparison?.rationale ?? research?.rationale ?? candidate.webRationale}</span> : null}
+      </p>
+
       <div className="dup-card__signals">
-        <h3>Por qué se propone</h3>
-        {candidate.features.length === 0 ? <p className="score-guide__muted">El detector no registró señales para este par.</p> : (
-          <ul className="signal-list">
-            {candidate.features.map((feature) => {
-              const info = SIGNALS[feature.key];
-              const pts = featurePoints(feature);
-              const detail = info?.detail?.(feature.evidence) ?? info?.explain ?? feature.evidence;
-              return (
-                <li key={feature.key} className={pts < 0 ? "is-negative" : undefined}>
-                  <span className="signal-list__points mono">{pts < 0 ? `−${Math.abs(pts)}` : `+${pts}`}</span>
-                  <span className="signal-list__text">
-                    <strong>{info?.label ?? feature.key}</strong>
-                    <span>{detail}</span>
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-        {points !== null && rawSum > points ? (
-          <p className="signal-cap">Las señales suman {rawSum} puntos; la puntuación se corta en 100.</p>
-        ) : null}
+        <details className="dup-evidence-details"><summary>Ver señales y evidencias de este par</summary>
+        <h3>Señales que componen el puntaje</h3>
+        <PersonIdentitySignals signals={assessment.signals} score={assessment.score} />
+        {comparison ? <PersonComparisonDetails comparison={comparison} score={assessment.score} /> : null}
+        </details>
+        <PersonPairWebResearch aId={candidate.a.id} bId={candidate.b.id} reviewId={candidate.reviewId}
+          catalogScore={catalogScore} onResearch={onResearch} onResult={setResearch}
+          className="dup-card__research" autoLoad={false} showTotalScore={false} />
       </div>
 
+      <p className="dup-decision-hint">La propuesta con IA y la revisión de fusión permiten revisar los cambios antes de aplicarlos.</p>
       <div className="dup-card__actions">
-        <button type="button" className="btn btn--primary" onClick={onMerge}>
+        <Link className="btn" to={`/curaduria/ia?kind=person&id=${candidate.a.id}&instruction=${encodeURIComponent(`Revisa si las fichas de persona #${candidate.a.id} (${candidate.a.name}) y #${candidate.b.id} (${candidate.b.name}) corresponden a la misma identidad. Consulta ambas fichas y su evidencia. Si está documentado, propone una fusión indicando qué ficha se conserva y los campos que se combinan. Conserva las dudas como pendientes.`)}`}>Preparar propuesta con IA</Link>
+        <button type="button" className="btn btn--primary" onClick={() => onMerge(`${IDENTITY_RECOMMENDATION[assessment.recommendation]}. ${assessment.explanation}`)}>
           <GitMerge size={16} weight="bold" aria-hidden="true" />
-          Comparar y fusionar
+          Revisar fusión
         </button>
         <button type="button" className="btn btn--outline" onClick={onDismiss}>
           <X size={16} weight="bold" aria-hidden="true" />

@@ -1,0 +1,35 @@
+{
+  "mode": "aplicado",
+  "phase": "ajustes",
+  "runs": [
+    18609
+  ],
+  "ok": [
+    {
+      "href": "/release/djmix/arca/_-1",
+      "id": 27248,
+      "tracks": 0
+    },
+    {
+      "href": "/release/unauth/arca/_-2",
+      "id": 27251,
+      "tracks": 0
+    },
+    {
+      "href": "/release/album/anakena/carita-triste",
+      "id": 26960,
+      "tracks": 0
+    },
+    {
+      "href": "/release/single/anakena/carita-triste",
+      "id": 26959,
+      "tracks": 1
+    },
+    {
+      "href": "/release/album/sonero-clasico-del-caribe/sonero-clasico-del-caribe",
+      "id": 7836,
+      "tracks": 0
+    }
+  ],
+  "errors": []
+}

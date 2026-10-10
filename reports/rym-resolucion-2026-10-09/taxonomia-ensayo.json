@@ -1,0 +1,18 @@
+{
+  "mode": "dry-run",
+  "runId": 18613,
+  "operations": [
+    {
+      "op": "set_alias",
+      "alias": "Schlager",
+      "target": "pop",
+      "notes": "Término RYM conservado como alias al padre Pop, siguiendo el criterio de la campaña. Clasificación: https://musicbrainz.org/genre/7edde935-8094-409e-ba33-34779b4668f8; contraste: https://www.gema.de/de/w/zehn-jahre-radiokulturpreis"
+    }
+  ],
+  "affected": {
+    "artist": 0,
+    "album": 0
+  },
+  "humanNotices": 0,
+  "changes": []
+}

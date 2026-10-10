@@ -9,7 +9,7 @@
 //
 // Las vistas previas que nadie aplicó no salen: no escribieron nada y cada
 // diálogo abierto y cerrado deja una (la API las omite salvo que se pidan).
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { BackLink } from "../components/BackLink";
 import { ArrowCounterClockwise, ClockCounterClockwise } from "@phosphor-icons/react";
@@ -66,6 +66,7 @@ export function CurationFixesPage() {
 }
 
 function FixBatchList() {
+  const paginationStartRef = useRef<HTMLDivElement>(null);
   const [params, setParams] = useSearchParams();
   const offset = Number(params.get("offset") ?? "0") || 0;
   const mode = params.get("mode") ?? "";
@@ -105,6 +106,8 @@ function FixBatchList() {
         </div>
       </div>
 
+      <div ref={paginationStartRef} className="pagination-start" />
+
       {loading && !data ? <RowsSkeleton rows={6} height={54} label="Cargando el historial…" />
         : error ? <ErrorState message={error} onRetry={reload} />
           : !data || data.data.length === 0 ? (
@@ -114,7 +117,7 @@ function FixBatchList() {
               <ul className="cfix-list">
                 {data.data.map((batch) => <li key={batch.id}><FixBatchRow batch={batch} /></li>)}
               </ul>
-              <Pagination limit={LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={(next) => update({ offset: String(next) })} />
+              <Pagination scrollTargetRef={paginationStartRef} limit={LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={(next) => update({ offset: String(next) })} />
             </>
           )}
     </>
@@ -143,6 +146,7 @@ function FixBatchRow({ batch }: { batch: FixBatchSummary }) {
 }
 
 function FixBatchDetail({ batchId }: { batchId: number }) {
+  const paginationStartRef = useRef<HTMLDivElement>(null);
   const { notify } = useToast();
   const [params, setParams] = useSearchParams();
   const offset = Number(params.get("offset") ?? "0") || 0;
@@ -175,7 +179,7 @@ function FixBatchDetail({ batchId }: { batchId: number }) {
       <BatchProgress batch={data} />
       <VerificationNote batch={data} />
 
-      <div className="table-wrap">
+      <div ref={paginationStartRef} className="table-wrap pagination-start">
         <table>
           <caption className="visually-hidden">Ítems del lote #{data.id}</caption>
           <thead>
@@ -207,7 +211,7 @@ function FixBatchDetail({ batchId }: { batchId: number }) {
           </tbody>
         </table>
       </div>
-      <Pagination limit={ITEM_LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={(next) => {
+      <Pagination scrollTargetRef={paginationStartRef} limit={ITEM_LIMIT} offset={offset} total={data.pagination.total} onOffsetChange={(next) => {
         const query = new URLSearchParams(params);
         query.set("offset", String(next));
         setParams(query);
