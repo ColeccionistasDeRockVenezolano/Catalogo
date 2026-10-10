@@ -1,0 +1,13 @@
+[Unit]
+Description=CRV «nuevos»: tablero vivo (único escritor de rym-nuevos-tablero.html)
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+ExecStart=/bin/bash "/home/brian/apps/Coleccionistas De Rock Venezolano/ops/rym-nuevos/tablero.sh"
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=default.target

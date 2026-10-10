@@ -1,0 +1,249 @@
+{
+  "phase": "credits",
+  "runs": [
+    13376
+  ],
+  "memberships": 29,
+  "alreadyMember": 5,
+  "personsCreated": 0,
+  "reused": {
+    "credited": 34
+  },
+  "artistTypes": 0,
+  "possibleDuplicates": [],
+  "errors": [],
+  "applied": [
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26657,
+      "name": "Alberto Beltrán",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26663,
+      "name": "Negrito Chapuseaux",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26750,
+      "name": "Joe Urdaneta",
+      "role": "Singer, Vocals, Singers",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26990,
+      "name": "Ely Méndez",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 27070,
+      "name": "Oswaldo Delgado",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 27064,
+      "name": "Gustavo Farrera",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 21676,
+      "name": "Manolo Monterrey",
+      "role": "Singers, Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26760,
+      "name": "Alci Sánchez",
+      "role": "Singers, Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26958,
+      "name": "Felipe",
+      "role": "Singers, Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 1112,
+      "name": "José \"Cheo\" Rodríguez",
+      "role": "Singers, Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26634,
+      "name": "Víctor Pérez",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26638,
+      "name": "Luisín Landáez",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 21392,
+      "name": "Rafa Galindo",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26636,
+      "name": "Rafa",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26648,
+      "name": "Miguel Briceño",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 6513,
+      "name": "José Luis",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26850,
+      "name": "Memo",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 11264,
+      "name": "Humberto Zarraga",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26905,
+      "name": "Nelson",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26991,
+      "name": "Ely",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 27065,
+      "name": "Gustavo",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 27071,
+      "name": "Oswaldo",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 27131,
+      "name": "Raúl Mora",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 27159,
+      "name": "Ender Carruyo",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 27220,
+      "name": "Renzo",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 399,
+      "name": "Milton",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 26926,
+      "name": "Humberto",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 24911,
+      "name": "Rafael",
+      "role": "Vocals",
+      "how": "credited"
+    },
+    {
+      "artistId": 3764,
+      "artist": "Billo's Caracas Boys",
+      "personId": 27172,
+      "name": "Ender",
+      "role": "Vocals",
+      "how": "credited"
+    }
+  ]
+}

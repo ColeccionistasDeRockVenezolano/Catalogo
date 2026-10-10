@@ -1,0 +1,4547 @@
+[
+ {
+  "a": 3056,
+  "b": 4148,
+  "ta": "Tributo A Lo Desconocido [2012 studio_album 17]",
+  "tb": "Tributo A Los Desconocidos [2011 studio_album 17]",
+  "artist": 1951,
+  "rule": "",
+  "doubt": "contenido 17/17 pero ediciones de años distintos"
+ },
+ {
+  "a": 3845,
+  "b": 3846,
+  "ta": "Flor De Fuego (CD/DVD) [2006 studio_album 26]",
+  "tb": "Flor De Fuego (CD) [2007 studio_album 10]",
+  "artist": 58,
+  "rule": "",
+  "doubt": "contenido 10/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 140,
+  "b": 3846,
+  "ta": "Flor De Fuego [2006 studio_album 16]",
+  "tb": "Flor De Fuego (CD) [2007 studio_album 10]",
+  "artist": 58,
+  "rule": "",
+  "doubt": "contenido 10/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 517,
+  "b": 14022,
+  "ta": "2 Lados B [2011 studio_album 8]",
+  "tb": "Caramelos de Cianuro Promoción Wendy's [2012 studio_album 10]",
+  "artist": 58,
+  "rule": "",
+  "doubt": "contenido 7/8 pero ediciones de años distintos"
+ },
+ {
+  "a": 139,
+  "b": 14027,
+  "ta": "En Vivo [2009 live_album 18]",
+  "tb": "En Vivo 2008 [2008 live_album 17]",
+  "artist": 58,
+  "rule": "",
+  "doubt": "contenido 15/17 pero ediciones de años distintos"
+ },
+ {
+  "a": 57,
+  "b": 138,
+  "ta": "Las Paticas De La Abuela [1992 ep 4]",
+  "tb": "Cuentos Para Adultos [1993 studio_album 10]",
+  "artist": 58,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 137,
+  "b": 14025,
+  "ta": "Caramelos De Cianuro [2010 studio_album 11]",
+  "tb": "Pepsi [? other 17]",
+  "artist": 58,
+  "rule": "",
+  "doubt": "contenido 11/11 pero título = nombre del artista"
+ },
+ {
+  "a": 140,
+  "b": 3845,
+  "ta": "Flor De Fuego [2006 studio_album 16]",
+  "tb": "Flor De Fuego (CD/DVD) [2006 studio_album 26]",
+  "artist": 58,
+  "rule": "",
+  "doubt": "contenido 16/16 con títulos distintos"
+ },
+ {
+  "a": 7101,
+  "b": 8119,
+  "ta": "Guaco 75 [1975 other 12]",
+  "tb": "Guaco [1975 other 12]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "contenido 12/12 pero volúmenes distintos"
+ },
+ {
+  "a": 7101,
+  "b": 13049,
+  "ta": "Guaco 75 [1975 other 12]",
+  "tb": "Guaco 1975 [1975 other 12]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "contenido 11/12 pero volúmenes distintos"
+ },
+ {
+  "a": 7112,
+  "b": 8120,
+  "ta": "Guaco Es Guaco 84 [1984 other 0]",
+  "tb": "Guaco Es Guaco [1984 other 9]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7139,
+  "b": 8122,
+  "ta": "Guaco Mix Vol. 2 [1996 other 0]",
+  "tb": "Guaco Mix Vol.2 18 Exitos Mezclados [1996 other 18]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7139,
+  "b": 13032,
+  "ta": "Guaco Mix Vol. 2 [1996 other 0]",
+  "tb": "Guaco Mix [1996 remix 16]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7136,
+  "b": 13028,
+  "ta": "Guaco Es Guaco Exitos [1994 other 14]",
+  "tb": "32 grandes éxitos [? compilation 32]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "contenido 13/14 pero volúmenes distintos"
+ },
+ {
+  "a": 7110,
+  "b": 13039,
+  "ta": "Guaco 83 [1983 other 8]",
+  "tb": "Guaco 4 [1983 studio_album 8]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "contenido 8/8 pero volúmenes distintos"
+ },
+ {
+  "a": 7117,
+  "b": 7118,
+  "ta": "Betania [1989 other 8]",
+  "tb": "Atracción Fatal [1990 other 8]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "contenido 7/8 pero ediciones de años distintos"
+ },
+ {
+  "a": 7138,
+  "b": 13032,
+  "ta": "Guaco Mix Vol. 1 [1996 other 16]",
+  "tb": "Guaco Mix [1996 remix 16]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "contenido 15/16 pero volúmenes distintos"
+ },
+ {
+  "a": 8119,
+  "b": 13049,
+  "ta": "Guaco [1975 other 12]",
+  "tb": "Guaco 1975 [1975 other 12]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "contenido 11/12 pero volúmenes distintos"
+ },
+ {
+  "a": 7142,
+  "b": 13028,
+  "ta": "Exitos [1999 other 12]",
+  "tb": "32 grandes éxitos [? compilation 32]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "contenido 12/12 pero volúmenes distintos"
+ },
+ {
+  "a": 7120,
+  "b": 15397,
+  "ta": "Guaco 91 [1991 other 10]",
+  "tb": "Guaco [1991 other 10]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 7123,
+  "b": 13028,
+  "ta": "Triceratops [1993 other 12]",
+  "tb": "32 grandes éxitos [? compilation 32]",
+  "artist": 3709,
+  "rule": "",
+  "doubt": "contenido 10/12 pero volúmenes distintos"
+ },
+ {
+  "a": 7647,
+  "b": 7648,
+  "ta": "Grandes Exitos [2005 other 15]",
+  "tb": "Solo Lo Mejor [2006 other 15]",
+  "artist": 3732,
+  "rule": "",
+  "doubt": "contenido 15/15 pero ediciones de años distintos"
+ },
+ {
+  "a": 7641,
+  "b": 14346,
+  "ta": "Remix [1991 other 0]",
+  "tb": "Remix 2 [1992 other 6]",
+  "artist": 3732,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7907,
+  "b": 14338,
+  "ta": "Re-Mix [1992 other 6]",
+  "tb": "Las super bailables de... Natusha [1993 compilation 10]",
+  "artist": 3732,
+  "rule": "",
+  "doubt": "contenido 6/6 pero ediciones de años distintos"
+ },
+ {
+  "a": 14339,
+  "b": 14345,
+  "ta": "Él la engañó [2016 studio_album 9]",
+  "tb": "Con Sabor a Luna [2016 other 10]",
+  "artist": 3732,
+  "rule": "",
+  "doubt": "contenido 8/9 con títulos distintos"
+ },
+ {
+  "a": 1306,
+  "b": 1309,
+  "ta": "Resistencia a la Imposicion, 96-99 Vol. 1 [2000 compilation 18]",
+  "tb": "Hazlo tú Mizmo [1999 other 4]",
+  "artist": 574,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 9044,
+  "b": 9176,
+  "ta": "La Historia (30 Años de Exitos) [2003 other 0]",
+  "tb": "La Historia [2003 other 14]",
+  "artist": 221,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 9022,
+  "b": 9023,
+  "ta": "Cantemos Con Los Niños Vol. III [1987 other 12]",
+  "tb": "Cantemos Con Los Niños Vol.1, 2 y 3 [1988 other 35]",
+  "artist": 221,
+  "rule": "",
+  "doubt": "contenido 12/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 9030,
+  "b": 9159,
+  "ta": "La Navidad Es Un Canto [1995 other 16]",
+  "tb": "La Navidad Es Un Canto Special Edition for [1994 other 16]",
+  "artist": 221,
+  "rule": "",
+  "doubt": "contenido 16/16 pero ediciones de años distintos"
+ },
+ {
+  "a": 328,
+  "b": 9171,
+  "ta": "Vol. 1: Música Popular y Folklórica Venezolana [1972 studio_album 12]",
+  "tb": "Música Popular y Folklorica de Venezuela [1972 other 12]",
+  "artist": 221,
+  "rule": "",
+  "doubt": "contenido 12/12 pero volúmenes distintos"
+ },
+ {
+  "a": 9008,
+  "b": 9178,
+  "ta": "Serenata Guayanesa Vol. 1 [1972 other 0]",
+  "tb": "Serenata Guayanesa [1971 other 0]",
+  "artist": 221,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 9017,
+  "b": 9018,
+  "ta": "Bolívar En Un Canto I [1983 other 0]",
+  "tb": "Bolívar En Un Canto II [1983 other 0]",
+  "artist": 221,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 9051,
+  "b": 14960,
+  "ta": "40 Años 40 Exitos Vol. 2 [2011 other 40]",
+  "tb": "40 Años 40 Exitos de Serenata Guayanesa [2011 other 40]",
+  "artist": 221,
+  "rule": "",
+  "doubt": "contenido 37/40 pero volúmenes distintos"
+ },
+ {
+  "a": 571,
+  "b": 14961,
+  "ta": "Vol. 2: Música Popular y Folklórica Venezolana [1973 studio_album 12]",
+  "tb": "Música Folklórica y Popular de Venezuela [1972 other 12]",
+  "artist": 221,
+  "rule": "",
+  "doubt": "contenido 11/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 1238,
+  "b": 4369,
+  "ta": "De Colección Vol. 1 [2012 compilation 17]",
+  "tb": "De Colección [2012 compilation 17]",
+  "artist": 141,
+  "rule": "",
+  "doubt": "contenido 14/17 pero volúmenes distintos"
+ },
+ {
+  "a": 5540,
+  "b": 9154,
+  "ta": "Pajarillo verde [1974 other 12]",
+  "tb": "La Embarazada Del Viento [1974 other 12]",
+  "artist": 2679,
+  "rule": "",
+  "doubt": "contenido 12/12 con títulos distintos"
+ },
+ {
+  "a": 5539,
+  "b": 8563,
+  "ta": "Nina, ni ná [1977 other 10]",
+  "tb": "Ni Na, Ni Na / Vol.2 [1977 other 0]",
+  "artist": 2679,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 5538,
+  "b": 14814,
+  "ta": "El novio pollero [1982 other 10]",
+  "tb": "Cecilia Todd [1982 other 10]",
+  "artist": 2679,
+  "rule": "",
+  "doubt": "contenido 9/10 pero título = nombre del artista"
+ },
+ {
+  "a": 108,
+  "b": 4624,
+  "ta": "En Concierto En Este País [1993 live_album 18]",
+  "tb": "Ni En Concierto [? studio_album 17]",
+  "artist": 36,
+  "rule": "",
+  "doubt": "contenido 15/17 pero tipos distintos"
+ },
+ {
+  "a": 3640,
+  "b": 4624,
+  "ta": "Sólo Exitos [2001 compilation 11]",
+  "tb": "Ni En Concierto [? studio_album 17]",
+  "artist": 36,
+  "rule": "",
+  "doubt": "contenido 9/11 pero tipos distintos"
+ },
+ {
+  "a": 3637,
+  "b": 4624,
+  "ta": "Lo Mejor y Lo Peor... [1988 studio_album 11]",
+  "tb": "Ni En Concierto [? studio_album 17]",
+  "artist": 36,
+  "rule": "",
+  "doubt": "contenido 9/11 pero en vivo/remix frente a estudio"
+ },
+ {
+  "a": 4619,
+  "b": 4624,
+  "ta": "25 Aniversario [2000 compilation 38]",
+  "tb": "Ni En Concierto [? studio_album 17]",
+  "artist": 36,
+  "rule": "",
+  "doubt": "contenido 15/17 pero tipos distintos"
+ },
+ {
+  "a": 3640,
+  "b": 3642,
+  "ta": "Sólo Exitos [2001 compilation 11]",
+  "tb": "Lo Mejor de Aditus (Milenio) [2000 compilation 20]",
+  "artist": 36,
+  "rule": "",
+  "doubt": "contenido 11/11 pero ediciones de años distintos"
+ },
+ {
+  "a": 108,
+  "b": 2212,
+  "ta": "En Concierto En Este País [1993 live_album 18]",
+  "tb": "En este país [1993 other 0]",
+  "artist": 36,
+  "rule": "",
+  "doubt": "uno vacío pero en vivo/remix frente a estudio"
+ },
+ {
+  "a": 3640,
+  "b": 4619,
+  "ta": "Sólo Exitos [2001 compilation 11]",
+  "tb": "25 Aniversario [2000 compilation 38]",
+  "artist": 36,
+  "rule": "",
+  "doubt": "contenido 11/11 pero ediciones de años distintos"
+ },
+ {
+  "a": 249,
+  "b": 5603,
+  "ta": "Superpop Venezuela [2006 compilation 19]",
+  "tb": "Superpop Venezuela Remixes [2007 other 5]",
+  "artist": 152,
+  "rule": "",
+  "doubt": "contenido 4/5 pero ediciones de años distintos"
+ },
+ {
+  "a": 248,
+  "b": 2035,
+  "ta": "En Una Noche Tan Linda Como Esta [2008 live_album 29]",
+  "tb": "En Vivo En una noche tan linda como esta (CD I) [2008 live_album 18]",
+  "artist": 152,
+  "rule": "",
+  "doubt": "contenido 18/18 pero volúmenes distintos"
+ },
+ {
+  "a": 248,
+  "b": 2040,
+  "ta": "En Una Noche Tan Linda Como Esta [2008 live_album 29]",
+  "tb": "En Vivo En una noche tan linda como esta (CD II) [2008 live_album 15]",
+  "artist": 152,
+  "rule": "",
+  "doubt": "contenido 13/15 pero volúmenes distintos"
+ },
+ {
+  "a": 3796,
+  "b": 4635,
+  "ta": "Grandes Exitos de LAI…The Beginnings [2000 compilation 13]",
+  "tb": "Grandes Exitos de Los Amigos Invisibles… [2000 compilation 13]",
+  "artist": 152,
+  "rule": "",
+  "doubt": "contenido 13/13 con títulos distintos"
+ },
+ {
+  "a": 15309,
+  "b": 15310,
+  "ta": "Matices [2004 other 12]",
+  "tb": "Anhelos [2005 other 12]",
+  "artist": 4337,
+  "rule": "",
+  "doubt": "contenido 12/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 5587,
+  "b": 13996,
+  "ta": "SM en vivo NYC [1990 live_album 0]",
+  "tb": "SM en vivo NYC 1990 (Live) [? other 9]",
+  "artist": 220,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 325,
+  "b": 326,
+  "ta": "Fin Del Cuento 1981-1993 [1993 compilation 12]",
+  "tb": "II Festival Nuevas Bandas [1992 live_album 5]",
+  "artist": 220,
+  "rule": "",
+  "doubt": "contenido 4/5 pero tipos distintos"
+ },
+ {
+  "a": 321,
+  "b": 13997,
+  "ta": "Aunque Usted No Lo Quiera [1995 compilation 27]",
+  "tb": "Aunque Usted No Lo Quiera, Vol. 2 [? other 14]",
+  "artist": 220,
+  "rule": "",
+  "doubt": "contenido 14/14 pero volúmenes distintos"
+ },
+ {
+  "a": 321,
+  "b": 13998,
+  "ta": "Aunque Usted No Lo Quiera [1995 compilation 27]",
+  "tb": "Aunque Usted No Lo Quiera, Vol. 1 [? other 13]",
+  "artist": 220,
+  "rule": "",
+  "doubt": "contenido 13/13 pero volúmenes distintos"
+ },
+ {
+  "a": 4080,
+  "b": 13466,
+  "ta": "Serie 32 [2000 compilation 32]",
+  "tb": "20 éxitos [? compilation 20]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 18/20 pero volúmenes distintos"
+ },
+ {
+  "a": 4080,
+  "b": 13467,
+  "ta": "Serie 32 [2000 compilation 32]",
+  "tb": "Éxitos serie 32 II [? compilation 16]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 16/16 pero volúmenes distintos"
+ },
+ {
+  "a": 4080,
+  "b": 13472,
+  "ta": "Serie 32 [2000 compilation 32]",
+  "tb": "32 grandes éxitos [2000 compilation 32]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 31/32 con títulos distintos"
+ },
+ {
+  "a": 4080,
+  "b": 13486,
+  "ta": "Serie 32 [2000 compilation 32]",
+  "tb": "20th Anniversary [1999 other 15]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 12/15 pero ediciones de años distintos"
+ },
+ {
+  "a": 4077,
+  "b": 4080,
+  "ta": "Sus Mejores Exitos [2000 compilation 15]",
+  "tb": "Serie 32 [2000 compilation 32]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 12/15 pero volúmenes distintos"
+ },
+ {
+  "a": 4080,
+  "b": 4090,
+  "ta": "Serie 32 [2000 compilation 32]",
+  "tb": "Serie Millennium 21 [2000 compilation 21]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 18/21 pero volúmenes distintos"
+ },
+ {
+  "a": 4080,
+  "b": 13481,
+  "ta": "Serie 32 [2000 compilation 32]",
+  "tb": "Colección suprema [? compilation 10]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 3405,
+  "b": 4080,
+  "ta": "Gold [2001 compilation 15]",
+  "tb": "Serie 32 [2000 compilation 32]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 15/15 pero ediciones de años distintos"
+ },
+ {
+  "a": 13466,
+  "b": 13472,
+  "ta": "20 éxitos [? compilation 20]",
+  "tb": "32 grandes éxitos [2000 compilation 32]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 18/20 pero volúmenes distintos"
+ },
+ {
+  "a": 4098,
+  "b": 13466,
+  "ta": "18 Exitos de Franco De Vita (Lo Máximo) [2003 compilation 18]",
+  "tb": "20 éxitos [? compilation 20]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 15/18 pero volúmenes distintos"
+ },
+ {
+  "a": 506,
+  "b": 13466,
+  "ta": "Al Norte Del Sur [1988 studio_album 11]",
+  "tb": "20 éxitos [? compilation 20]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 9/11 pero tipos distintos"
+ },
+ {
+  "a": 4094,
+  "b": 13466,
+  "ta": "Hits [2006 compilation 19]",
+  "tb": "20 éxitos [? compilation 20]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 16/19 pero volúmenes distintos"
+ },
+ {
+  "a": 13467,
+  "b": 13469,
+  "ta": "Éxitos serie 32 II [? compilation 16]",
+  "tb": "Colección de oro [2003 compilation 30]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 13/16 pero volúmenes distintos"
+ },
+ {
+  "a": 13467,
+  "b": 13472,
+  "ta": "Éxitos serie 32 II [? compilation 16]",
+  "tb": "32 grandes éxitos [2000 compilation 32]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 16/16 pero volúmenes distintos"
+ },
+ {
+  "a": 4089,
+  "b": 13468,
+  "ta": "14 Super Exitos [1991 compilation 14]",
+  "tb": "Un Buen Perdedor [1990 studio_album 10]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 8/10 pero tipos distintos"
+ },
+ {
+  "a": 13469,
+  "b": 13481,
+  "ta": "Colección de oro [2003 compilation 30]",
+  "tb": "Colección suprema [? compilation 10]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 9/10 con títulos distintos"
+ },
+ {
+  "a": 4081,
+  "b": 13471,
+  "ta": "Grandes Exitos [1995 compilation 12]",
+  "tb": "Grandes éxitos, volumen 1 [1995 compilation 13]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 12/12 pero volúmenes distintos"
+ },
+ {
+  "a": 4078,
+  "b": 13470,
+  "ta": "Mil y Una Historias En Vivo [2006 live_album 25]",
+  "tb": "Mil y una historias de amor [? live_album 14]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 12/14 pero en vivo/remix frente a estudio"
+ },
+ {
+  "a": 13472,
+  "b": 13486,
+  "ta": "32 grandes éxitos [2000 compilation 32]",
+  "tb": "20th Anniversary [1999 other 15]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 12/15 pero ediciones de años distintos"
+ },
+ {
+  "a": 4077,
+  "b": 13472,
+  "ta": "Sus Mejores Exitos [2000 compilation 15]",
+  "tb": "32 grandes éxitos [2000 compilation 32]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 12/15 pero volúmenes distintos"
+ },
+ {
+  "a": 4090,
+  "b": 13472,
+  "ta": "Serie Millennium 21 [2000 compilation 21]",
+  "tb": "32 grandes éxitos [2000 compilation 32]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 18/21 pero volúmenes distintos"
+ },
+ {
+  "a": 13472,
+  "b": 13481,
+  "ta": "32 grandes éxitos [2000 compilation 32]",
+  "tb": "Colección suprema [? compilation 10]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 3405,
+  "b": 13472,
+  "ta": "Gold [2001 compilation 15]",
+  "tb": "32 grandes éxitos [2000 compilation 32]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 15/15 pero ediciones de años distintos"
+ },
+ {
+  "a": 4077,
+  "b": 13486,
+  "ta": "Sus Mejores Exitos [2000 compilation 15]",
+  "tb": "20th Anniversary [1999 other 15]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 15/15 pero ediciones de años distintos"
+ },
+ {
+  "a": 4095,
+  "b": 13481,
+  "ta": "Solo Exitos (Serie Premium) [2014 compilation 18]",
+  "tb": "Colección suprema [? compilation 10]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 8/10 con títulos distintos"
+ },
+ {
+  "a": 4091,
+  "b": 4101,
+  "ta": "Mis 30 Mejores Canciones [2001 compilation 30]",
+  "tb": "22 Ultimate Hits [2002 compilation 22]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 18/22 pero ediciones de años distintos"
+ },
+ {
+  "a": 4098,
+  "b": 13481,
+  "ta": "18 Exitos de Franco De Vita (Lo Máximo) [2003 compilation 18]",
+  "tb": "Colección suprema [? compilation 10]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 9/10 pero volúmenes distintos"
+ },
+ {
+  "a": 3405,
+  "b": 13481,
+  "ta": "Gold [2001 compilation 15]",
+  "tb": "Colección suprema [? compilation 10]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 8/10 con títulos distintos"
+ },
+ {
+  "a": 4094,
+  "b": 13481,
+  "ta": "Hits [2006 compilation 19]",
+  "tb": "Colección suprema [? compilation 10]",
+  "artist": 99,
+  "rule": "",
+  "doubt": "contenido 10/10 con títulos distintos"
+ },
+ {
+  "a": 636,
+  "b": 3220,
+  "ta": "En Vivo Plaza Alfredo Sadel [2010 live_album 11]",
+  "tb": "Plaza Alfredo Sadel, Caracas [2010 other 11]",
+  "artist": 139,
+  "rule": "",
+  "doubt": "contenido 10/11 pero en vivo/remix frente a estudio"
+ },
+ {
+  "a": 228,
+  "b": 636,
+  "ta": "Nuestra [2010 studio_album 12]",
+  "tb": "En Vivo Plaza Alfredo Sadel [2010 live_album 11]",
+  "artist": 139,
+  "rule": "",
+  "doubt": "contenido 11/11 pero tipos distintos"
+ },
+ {
+  "a": 228,
+  "b": 3220,
+  "ta": "Nuestra [2010 studio_album 12]",
+  "tb": "Plaza Alfredo Sadel, Caracas [2010 other 11]",
+  "artist": 139,
+  "rule": "",
+  "doubt": "contenido 10/11 con títulos distintos"
+ },
+ {
+  "a": 4367,
+  "b": 5578,
+  "ta": "Caribe Caribe [2023 studio_album 13]",
+  "tb": "TITULARES [2022 other 4]",
+  "artist": 139,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 5556,
+  "b": 13120,
+  "ta": "Serie Lo Máximo 18 Éxitos [2005 compilation 18]",
+  "tb": "Maria Rivas' 18 Greatest Hits (18 Grandes Éxitos) [2005 other 18]",
+  "artist": 2861,
+  "rule": "",
+  "doubt": "contenido 17/18 con títulos distintos"
+ },
+ {
+  "a": 1039,
+  "b": 1046,
+  "ta": "En-Say-O (Edición Perdida) [2005 studio_album 10]",
+  "tb": "En-Say-O (Versión Perdida) [2005 studio_album 6]",
+  "artist": 576,
+  "rule": "",
+  "doubt": "contenido 6/6 con títulos distintos"
+ },
+ {
+  "a": 3303,
+  "b": 3814,
+  "ta": "Recopilatorio [1994 compilation 17]",
+  "tb": "Arkangel (CD Reissue LP 1 & 3) [1994 studio_album 17]",
+  "artist": 46,
+  "rule": "",
+  "doubt": "contenido 17/17 pero tipos distintos"
+ },
+ {
+  "a": 1977,
+  "b": 13972,
+  "ta": "18 años de Ska (2003) dvd [? live_album 23]",
+  "tb": "DP18 [2004 live_album 31]",
+  "artist": 78,
+  "rule": "",
+  "doubt": "contenido 20/23 pero volúmenes distintos"
+ },
+ {
+  "a": 2060,
+  "b": 13973,
+  "ta": "En Vivo Vive Latino [2007 live_album 9]",
+  "tb": "Vive Latino 2007 [2007 studio_album 9]",
+  "artist": 78,
+  "rule": "",
+  "doubt": "contenido 8/9 pero tipos distintos"
+ },
+ {
+  "a": 170,
+  "b": 13977,
+  "ta": "Estrellas Del Caos [2006 studio_album 17]",
+  "tb": "Estrellas del Caos (Ska Sound From Venezuela) [2007 other 17]",
+  "artist": 78,
+  "rule": "",
+  "doubt": "contenido 16/17 pero ediciones de años distintos"
+ },
+ {
+  "a": 2257,
+  "b": 3977,
+  "ta": "Guarachando En Navidad Volumen [? other 0]",
+  "tb": "Guarachando En Navidad [2014 other 0]",
+  "artist": 78,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 3977,
+  "b": 4692,
+  "ta": "Guarachando En Navidad [2014 other 0]",
+  "tb": "Guarachando en Navidad Vol. 1 [2014 studio_album 8]",
+  "artist": 78,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 2256,
+  "b": 3975,
+  "ta": "Orgánico [? other 11]",
+  "tb": "Orgánico - Rarezas Acústicas Vol.1 [2013 other 11]",
+  "artist": 78,
+  "rule": "",
+  "doubt": "contenido 11/11 pero volúmenes distintos"
+ },
+ {
+  "a": 13972,
+  "b": 13978,
+  "ta": "DP18 [2004 live_album 31]",
+  "tb": "En Vivo en el Teatro Teresa Carreño, Vol. 1 [2003 other 17]",
+  "artist": 78,
+  "rule": "",
+  "doubt": "contenido 17/17 pero ediciones de años distintos"
+ },
+ {
+  "a": 169,
+  "b": 13972,
+  "ta": "En Vivo En El Teresa Carreño [2004 live_album 34]",
+  "tb": "DP18 [2004 live_album 31]",
+  "artist": 78,
+  "rule": "",
+  "doubt": "contenido 28/31 pero en vivo/remix frente a estudio"
+ },
+ {
+  "a": 4838,
+  "b": 14119,
+  "ta": "Vytas Brenner [2014 compilation 16]",
+  "tb": "Inolvidables de Oro [? other 16]",
+  "artist": 261,
+  "rule": "",
+  "doubt": "contenido 16/16 pero título = nombre del artista"
+ },
+ {
+  "a": 8340,
+  "b": 8343,
+  "ta": "La Orquesta Que Impone El Ritmo En America [1991 other 9]",
+  "tb": "Los Melódicos [1992 other 9]",
+  "artist": 3794,
+  "rule": "",
+  "doubt": "contenido 9/9 pero ediciones de años distintos"
+ },
+ {
+  "a": 8350,
+  "b": 13200,
+  "ta": "40 Exitos [2001 other 40]",
+  "tb": "Sus éxitos y sus cantantes [? compilation 16]",
+  "artist": 3794,
+  "rule": "",
+  "doubt": "contenido 15/16 pero volúmenes distintos"
+ },
+ {
+  "a": 13200,
+  "b": 13203,
+  "ta": "Sus éxitos y sus cantantes [? compilation 16]",
+  "tb": "Papachongo Re-mix [2016 ep 5]",
+  "artist": 3794,
+  "rule": "",
+  "doubt": "contenido 5/5 pero tipos distintos"
+ },
+ {
+  "a": 13200,
+  "b": 13202,
+  "ta": "Sus éxitos y sus cantantes [? compilation 16]",
+  "tb": "40 Años, 40 Exitos [2001 compilation 40]",
+  "artist": 3794,
+  "rule": "",
+  "doubt": "contenido 16/16 pero volúmenes distintos"
+ },
+ {
+  "a": 2705,
+  "b": 3101,
+  "ta": "Todo Muerto [2010 ep 5]",
+  "tb": "Locura Ordinaria [2011 studio_album 8]",
+  "artist": 597,
+  "rule": "",
+  "doubt": "contenido 5/5 pero ediciones de años distintos"
+ },
+ {
+  "a": 348,
+  "b": 3371,
+  "ta": "Waking The Nightmares [2010 studio_album 11]",
+  "tb": "Waking The Nightmare [2009 single 11]",
+  "artist": 243,
+  "rule": "",
+  "doubt": "contenido 10/11 pero tipos distintos"
+ },
+ {
+  "a": 411,
+  "b": 2015,
+  "ta": "Bésame y Suicídate [1991 studio_album 11]",
+  "tb": "Gira Besame y Suicidate [? live_album 0]",
+  "artist": 266,
+  "rule": "",
+  "doubt": "uno vacío pero tipos distintos"
+ },
+ {
+  "a": 2287,
+  "b": 4613,
+  "ta": "18 Éxitos De Zapato 3 [? compilation 17]",
+  "tb": "CD Colección [1997 compilation 20]",
+  "artist": 266,
+  "rule": "",
+  "doubt": "contenido 16/17 pero volúmenes distintos"
+ },
+ {
+  "a": 411,
+  "b": 416,
+  "ta": "Bésame y Suicídate [1991 studio_album 11]",
+  "tb": "Showcase: Bésame y Suicídate [1991 live_album 12]",
+  "artist": 266,
+  "rule": "",
+  "doubt": "contenido 9/11 pero tipos distintos"
+ },
+ {
+  "a": 4616,
+  "b": 14000,
+  "ta": "Solo Exitos (Serie Premium) [2014 compilation 19]",
+  "tb": "Lo mejor de... [? compilation 15]",
+  "artist": 266,
+  "rule": "",
+  "doubt": "contenido 14/15 con títulos distintos"
+ },
+ {
+  "a": 411,
+  "b": 2287,
+  "ta": "Bésame y Suicídate [1991 studio_album 11]",
+  "tb": "18 Éxitos De Zapato 3 [? compilation 17]",
+  "artist": 266,
+  "rule": "",
+  "doubt": "contenido 10/11 pero tipos distintos"
+ },
+ {
+  "a": 2286,
+  "b": 14000,
+  "ta": "Lo Mejor De Zapato 3 \"La Colección Del Milenium\" [? compilation 0]",
+  "tb": "Lo mejor de... [? compilation 15]",
+  "artist": 266,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 4614,
+  "b": 14000,
+  "ta": "Lo Mejor de Zapato 3 [2000 compilation 15]",
+  "tb": "Lo mejor de... [? compilation 15]",
+  "artist": 266,
+  "rule": "",
+  "doubt": "contenido 15/15 pero volúmenes distintos"
+ },
+ {
+  "a": 3698,
+  "b": 4811,
+  "ta": "El Vals Del Padrino [1972 other 10]",
+  "tb": "El Vals del Padrino Vol. 2 [1972 other 18]",
+  "artist": 2004,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 3697,
+  "b": 4809,
+  "ta": "Mi Razón [1973 studio_album 10]",
+  "tb": "Rudy Márquez [1973 studio_album 10]",
+  "artist": 2004,
+  "rule": "",
+  "doubt": "contenido 10/10 pero título = nombre del artista"
+ },
+ {
+  "a": 691,
+  "b": 749,
+  "ta": "Prozak [2012 studio_album 11]",
+  "tb": "En Llamas [2011 ep 4]",
+  "artist": 312,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 163,
+  "b": 549,
+  "ta": "La Violó La Mató y La Picó [1995 studio_album 11]",
+  "tb": "IV Festival Nuevas Bandas [1994 live_album 11]",
+  "artist": 76,
+  "rule": "",
+  "doubt": "contenido 9/11 pero tipos distintos"
+ },
+ {
+  "a": 549,
+  "b": 2427,
+  "ta": "IV Festival Nuevas Bandas [1994 live_album 11]",
+  "tb": "La Mató, La Violó Y La Picó [1995 other 10]",
+  "artist": 76,
+  "rule": "",
+  "doubt": "contenido 9/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 4011,
+  "b": 4013,
+  "ta": "Azúcar Cacao y Leche Vol. 2 [1972 other 0]",
+  "tb": "Azúcar Cacao y Leche [1971 studio_album 0]",
+  "artist": 1923,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 304,
+  "b": 2203,
+  "ta": "Pixel [2001 studio_album 14]",
+  "tb": "Los Pixel [2001 other 0]",
+  "artist": 197,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 962,
+  "b": 2640,
+  "ta": "32232332 Demo 2007 [2007 demo 7]",
+  "tb": "32232332 [2007 ep 5]",
+  "artist": 507,
+  "rule": "",
+  "doubt": "contenido 5/5 pero tipos distintos"
+ },
+ {
+  "a": 827,
+  "b": 2597,
+  "ta": "Destino [2009 ep 8]",
+  "tb": "Destino EP [2010 ep 4]",
+  "artist": 404,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 4154,
+  "b": 15675,
+  "ta": "Gina y Agny 3 [1984 other 0]",
+  "tb": "Gina y Agny [1984 other 10]",
+  "artist": 1955,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 5633,
+  "b": 5715,
+  "ta": "Intimo [2023 other 8]",
+  "tb": "lntimo [2023 other 8]",
+  "artist": 1738,
+  "rule": "",
+  "doubt": "contenido 8/8 con títulos distintos"
+ },
+ {
+  "a": 5629,
+  "b": 14600,
+  "ta": "Rada & Eliah - Aeroblues In Concert [2019 other 11]",
+  "tb": "Aeroblues [2019 other 10]",
+  "artist": 1738,
+  "rule": "",
+  "doubt": "contenido 8/10 pero en vivo/remix frente a estudio"
+ },
+ {
+  "a": 5630,
+  "b": 14599,
+  "ta": "Tropical Cosmic Sounds From Space [2020 other 15]",
+  "tb": "Tropical Cosmic Sounds from Space (Compiled by El Palmas) [2020 other 22]",
+  "artist": 1738,
+  "rule": "",
+  "doubt": "contenido 15/15 con títulos distintos"
+ },
+ {
+  "a": 14611,
+  "b": 14625,
+  "ta": "Tonadas, vol. 2 [1976 studio_album 12]",
+  "tb": "Tonadas 2 [? other 12]",
+  "artist": 4285,
+  "rule": "",
+  "doubt": "contenido 12/12 pero volúmenes distintos"
+ },
+ {
+  "a": 3494,
+  "b": 3935,
+  "ta": "Culto Oculto [1995 ep 6]",
+  "tb": "Culto Oculto (Cassette) [1995 ep 6]",
+  "artist": 70,
+  "rule": "",
+  "doubt": "contenido 6/6 pero título = nombre del artista"
+ },
+ {
+  "a": 2080,
+  "b": 3288,
+  "ta": "Creado para la paz [2000 ep 5]",
+  "tb": "de siempre [2000 other 28]",
+  "artist": 1079,
+  "rule": "",
+  "doubt": "contenido 4/5 con títulos distintos"
+ },
+ {
+  "a": 530,
+  "b": 2356,
+  "ta": "Desenchufado [2007 live_album 12]",
+  "tb": "Domingos Desenchufados [2006 other 10]",
+  "artist": 112,
+  "rule": "",
+  "doubt": "contenido 8/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 8364,
+  "b": 8365,
+  "ta": "La Ventana Iluminada [1970 other 12]",
+  "tb": "Mirla Ganadora 1er Festival Mundial De Onda Nueva [1971 other 12]",
+  "artist": 3796,
+  "rule": "",
+  "doubt": "contenido 11/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 8369,
+  "b": 14552,
+  "ta": "Mirla En Vivo - 20 Años [1980 other 14]",
+  "tb": "Mirla En Vivo [1980 live_album 15]",
+  "artist": 3796,
+  "rule": "",
+  "doubt": "contenido 14/14 pero volúmenes distintos"
+ },
+ {
+  "a": 8362,
+  "b": 8363,
+  "ta": "Ya Sin Mi [1969 other 10]",
+  "tb": "Ese Día Llegara [1969 other 12]",
+  "artist": 3796,
+  "rule": "",
+  "doubt": "contenido 10/10 con títulos distintos"
+ },
+ {
+  "a": 8370,
+  "b": 14545,
+  "ta": "Mirla Castellanos [1981 other 10]",
+  "tb": "Maldito amor [1981 other 10]",
+  "artist": 3796,
+  "rule": "",
+  "doubt": "contenido 9/10 pero título = nombre del artista"
+ },
+ {
+  "a": 5284,
+  "b": 5285,
+  "ta": "Elementos de poder [2011 ep 6]",
+  "tb": "Regreso a la batalla [2012 compilation 8]",
+  "artist": 3117,
+  "rule": "",
+  "doubt": "contenido 5/6 pero tipos distintos"
+ },
+ {
+  "a": 7537,
+  "b": 7905,
+  "ta": "Mayra Martí (Ni Más, Ni Menos) [1983 other 0]",
+  "tb": "Mayra Martí [1984 other 10]",
+  "artist": 3728,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 7537,
+  "b": 15396,
+  "ta": "Mayra Martí (Ni Más, Ni Menos) [1983 other 0]",
+  "tb": "Mayra Martí [1983 other 10]",
+  "artist": 3728,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 7538,
+  "b": 7905,
+  "ta": "Mayra Martí (Amor Salvaje) [1984 other 0]",
+  "tb": "Mayra Martí [1984 other 10]",
+  "artist": 3728,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 7538,
+  "b": 15396,
+  "ta": "Mayra Martí (Amor Salvaje) [1984 other 0]",
+  "tb": "Mayra Martí [1983 other 10]",
+  "artist": 3728,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 7585,
+  "b": 7586,
+  "ta": "Cariños De Mirtha [1968 other 10]",
+  "tb": "Mirtha En Viña Del Mar [1969 other 12]",
+  "artist": 3730,
+  "rule": "",
+  "doubt": "contenido 10/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 7675,
+  "b": 12868,
+  "ta": "De Venezuela Para El Mundo [1987 other 8]",
+  "tb": "La salsa soy yo [1987 studio_album 8]",
+  "artist": 3739,
+  "rule": "",
+  "doubt": "contenido 7/8 con títulos distintos"
+ },
+ {
+  "a": 7676,
+  "b": 12859,
+  "ta": "Que Se Sienta [1988 other 8]",
+  "tb": "De aquí pa'lla [1988 studio_album 8]",
+  "artist": 3739,
+  "rule": "",
+  "doubt": "contenido 8/8 con títulos distintos"
+ },
+ {
+  "a": 7692,
+  "b": 12885,
+  "ta": "Big Band Classics / Clasicos De Big Band [2014 other 17]",
+  "tb": "Clásicos de Big Band [2014 studio_album 10]",
+  "artist": 3739,
+  "rule": "",
+  "doubt": "contenido 10/10 con títulos distintos"
+ },
+ {
+  "a": 12890,
+  "b": 12905,
+  "ta": "Clasicas musicales [? compilation 15]",
+  "tb": "Joyas Musicales, Vol. 1 [2020 other 10]",
+  "artist": 3739,
+  "rule": "",
+  "doubt": "contenido 9/10 pero volúmenes distintos"
+ },
+ {
+  "a": 7760,
+  "b": 8389,
+  "ta": "Constelación De Exitos [1997 other 15]",
+  "tb": "Noches De Fantasía 34 Grandes Exitos Serie 32 [1998 other 34]",
+  "artist": 3745,
+  "rule": "",
+  "doubt": "contenido 14/15 pero ediciones de años distintos"
+ },
+ {
+  "a": 7762,
+  "b": 8389,
+  "ta": "Bailando Con Roberto Antonio (CD Manía) [1999 other 10]",
+  "tb": "Noches De Fantasía 34 Grandes Exitos Serie 32 [1998 other 34]",
+  "artist": 3745,
+  "rule": "",
+  "doubt": "contenido 8/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 13122,
+  "b": 13128,
+  "ta": "El Rey del Tecnomerengue [2021 studio_album 12]",
+  "tb": "Salsa [2020 studio_album 13]",
+  "artist": 3745,
+  "rule": "",
+  "doubt": "contenido 10/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 7746,
+  "b": 7747,
+  "ta": "Los Melódicos con RobertoAntonio e... [1989 other 0]",
+  "tb": "Roberto Antonio [1988 other 10]",
+  "artist": 3745,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 7748,
+  "b": 7749,
+  "ta": "Roberto Antonio II [1989 other 10]",
+  "tb": "Roberto Antonio Mix [1990 other 13]",
+  "artist": 3745,
+  "rule": "",
+  "doubt": "contenido 8/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 7848,
+  "b": 15390,
+  "ta": "Sonero Clásico Del Caribe CD [1997 other 0]",
+  "tb": "Sonero Clasico Del Caribe [1997 other 15]",
+  "artist": 3751,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 7849,
+  "b": 15390,
+  "ta": "Sonero Clásico Del Caribe Vol.2 CD [1997 other 0]",
+  "tb": "Sonero Clasico Del Caribe [1997 other 15]",
+  "artist": 3751,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 13555,
+  "b": 13559,
+  "ta": "32 grandes éxitos [? compilation 32]",
+  "tb": "El Tren de los Regresos (Parada Especial) [2017 other 12]",
+  "artist": 264,
+  "rule": "",
+  "doubt": "contenido 11/12 pero volúmenes distintos"
+ },
+ {
+  "a": 13555,
+  "b": 13560,
+  "ta": "32 grandes éxitos [? compilation 32]",
+  "tb": "Sólo Exitos [2014 other 20]",
+  "artist": 264,
+  "rule": "",
+  "doubt": "contenido 19/20 pero volúmenes distintos"
+ },
+ {
+  "a": 13553,
+  "b": 13555,
+  "ta": "La Historia [2016 studio_album 12]",
+  "tb": "32 grandes éxitos [? compilation 32]",
+  "artist": 264,
+  "rule": "",
+  "doubt": "contenido 10/12 pero tipos distintos"
+ },
+ {
+  "a": 13555,
+  "b": 13556,
+  "ta": "32 grandes éxitos [? compilation 32]",
+  "tb": "De colección, volumen 2 [1994 compilation 12]",
+  "artist": 264,
+  "rule": "",
+  "doubt": "contenido 10/12 pero volúmenes distintos"
+ },
+ {
+  "a": 499,
+  "b": 13555,
+  "ta": "Yordano [1984 studio_album 10]",
+  "tb": "32 grandes éxitos [? compilation 32]",
+  "artist": 264,
+  "rule": "",
+  "doubt": "contenido 10/10 pero tipos distintos"
+ },
+ {
+  "a": 4597,
+  "b": 13555,
+  "ta": "Jugando Conmigo [1986 studio_album 10]",
+  "tb": "32 grandes éxitos [? compilation 32]",
+  "artist": 264,
+  "rule": "",
+  "doubt": "contenido 8/10 pero tipos distintos"
+ },
+ {
+  "a": 4602,
+  "b": 13555,
+  "ta": "De Colección [1988 compilation 19]",
+  "tb": "32 grandes éxitos [? compilation 32]",
+  "artist": 264,
+  "rule": "",
+  "doubt": "contenido 17/19 pero volúmenes distintos"
+ },
+ {
+  "a": 4606,
+  "b": 13555,
+  "ta": "Hits [2006 compilation 20]",
+  "tb": "32 grandes éxitos [? compilation 32]",
+  "artist": 264,
+  "rule": "",
+  "doubt": "contenido 20/20 pero volúmenes distintos"
+ },
+ {
+  "a": 4612,
+  "b": 13555,
+  "ta": "19 Exitos de Yordano (Lo Máximo) [2003 compilation 19]",
+  "tb": "32 grandes éxitos [? compilation 32]",
+  "artist": 264,
+  "rule": "",
+  "doubt": "contenido 19/19 pero volúmenes distintos"
+ },
+ {
+  "a": 8715,
+  "b": 9191,
+  "ta": "Antología Vol. 10 (Reissue) [1996 other 0]",
+  "tb": "Antología Vol. 1 [1996 other 11]",
+  "artist": 3827,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 8720,
+  "b": 8721,
+  "ta": "Quinteto Contrapunto [1962 other 0]",
+  "tb": "Quinteto Contrapunto, Vol 2 [1963 other 0]",
+  "artist": 3827,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 8771,
+  "b": 9257,
+  "ta": "18 Grandes Exitos [1996 other 18]",
+  "tb": "Alma Llanera [? other 12]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 10/12 pero volúmenes distintos"
+ },
+ {
+  "a": 8774,
+  "b": 9267,
+  "ta": "40 Años 40 Exitos [2001 other 40]",
+  "tb": "Doce Bellas Melodias En Las Manos de ... [? other 12]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 10/12 pero volúmenes distintos"
+ },
+ {
+  "a": 9247,
+  "b": 9272,
+  "ta": "Méjico [? other 12]",
+  "tb": "México [1997 other 12]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 12/12 con títulos distintos"
+ },
+ {
+  "a": 9241,
+  "b": 9271,
+  "ta": "Al Son De Juan Vicente [? other 12]",
+  "tb": "Al Son De Juan Vicente Torrealba Vol. 1 [1997 other 12]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 12/12 pero volúmenes distintos"
+ },
+ {
+  "a": 9254,
+  "b": 9259,
+  "ta": "25 Años Con Venezuela [? other 22]",
+  "tb": "Lo Mejor De [? other 22]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 22/22 pero volúmenes distintos"
+ },
+ {
+  "a": 9254,
+  "b": 14645,
+  "ta": "25 Años Con Venezuela [? other 22]",
+  "tb": "Lo Mejor De Juan Vicente (Vol. 2) [1979 other 10]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 8/10 pero volúmenes distintos"
+ },
+ {
+  "a": 9254,
+  "b": 14634,
+  "ta": "25 Años Con Venezuela [? other 22]",
+  "tb": "Lo Mejor De Juan Vicente [? other 12]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 10/12 pero volúmenes distintos"
+ },
+ {
+  "a": 8766,
+  "b": 9253,
+  "ta": "Llanero Soy Vol.1 (CD Reissue) [1999 other 16]",
+  "tb": "Llanero Soy [? other 11]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 11/11 pero volúmenes distintos"
+ },
+ {
+  "a": 9253,
+  "b": 9273,
+  "ta": "Llanero Soy [? other 11]",
+  "tb": "Llanero Soy Vol.1 [1999 other 16]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 11/11 pero volúmenes distintos"
+ },
+ {
+  "a": 9259,
+  "b": 14645,
+  "ta": "Lo Mejor De [? other 22]",
+  "tb": "Lo Mejor De Juan Vicente (Vol. 2) [1979 other 10]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 8/10 pero volúmenes distintos"
+ },
+ {
+  "a": 9259,
+  "b": 14634,
+  "ta": "Lo Mejor De [? other 22]",
+  "tb": "Lo Mejor De Juan Vicente [? other 12]",
+  "artist": 3829,
+  "rule": "",
+  "doubt": "contenido 10/12 con títulos distintos"
+ },
+ {
+  "a": 13695,
+  "b": 13708,
+  "ta": "Resurrección [2015 compilation 40]",
+  "tb": "Can Vive [2015 compilation 17]",
+  "artist": 57,
+  "rule": "",
+  "doubt": "contenido 16/17 con títulos distintos"
+ },
+ {
+  "a": 7797,
+  "b": 7798,
+  "ta": "Soledad [1969 other 10]",
+  "tb": "Soledad Bravo Vol. 3 [1970 other 0]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7806,
+  "b": 14818,
+  "ta": "Cantos De Venezuela 2 / Flor del Cacao [1979 other 0]",
+  "tb": "Flor del cacao [1979 studio_album 11]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7813,
+  "b": 8404,
+  "ta": "En Vivo [1989 other 19]",
+  "tb": "En Concierto [1990 other 16]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 16/16 pero ediciones de años distintos"
+ },
+ {
+  "a": 7826,
+  "b": 14821,
+  "ta": "23 Temas Folkloricos [1990 other 21]",
+  "tb": "Temas folklóricos [? studio_album 22]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 20/21 pero volúmenes distintos"
+ },
+ {
+  "a": 7820,
+  "b": 14821,
+  "ta": "Cantos de Venezuela Vol. I [2001 other 13]",
+  "tb": "Temas folklóricos [? studio_album 22]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 12/13 pero volúmenes distintos"
+ },
+ {
+  "a": 7829,
+  "b": 14823,
+  "ta": "Pa’ Bailar [1998 other 14]",
+  "tb": "Lo mejor : The Best of Soledad Bravo [1998 compilation 35]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 14/14 con títulos distintos"
+ },
+ {
+  "a": 7829,
+  "b": 8392,
+  "ta": "Pa’ Bailar [1998 other 14]",
+  "tb": "Lo Mejor [1998 other 35]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 14/14 con títulos distintos"
+ },
+ {
+  "a": 7830,
+  "b": 14823,
+  "ta": "Pa’ Cantar [1998 other 21]",
+  "tb": "Lo mejor : The Best of Soledad Bravo [1998 compilation 35]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 21/21 con títulos distintos"
+ },
+ {
+  "a": 7830,
+  "b": 8392,
+  "ta": "Pa’ Cantar [1998 other 21]",
+  "tb": "Lo Mejor [1998 other 35]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 21/21 con títulos distintos"
+ },
+ {
+  "a": 14820,
+  "b": 14821,
+  "ta": "Chants du Vénézuela [1992 compilation 21]",
+  "tb": "Temas folklóricos [? studio_album 22]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 20/21 pero tipos distintos"
+ },
+ {
+  "a": 14821,
+  "b": 14828,
+  "ta": "Temas folklóricos [? studio_album 22]",
+  "tb": "La Historia Musical y Algo Más... [2016 other 12]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 10/12 con títulos distintos"
+ },
+ {
+  "a": 14821,
+  "b": 14832,
+  "ta": "Temas folklóricos [? studio_album 22]",
+  "tb": "Arvolicos d'Almendra [1976 other 10]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 9/10 con títulos distintos"
+ },
+ {
+  "a": 7802,
+  "b": 14821,
+  "ta": "Cantos de Venezuela [1974 other 10]",
+  "tb": "Temas folklóricos [? studio_album 22]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 10/10 con títulos distintos"
+ },
+ {
+  "a": 7811,
+  "b": 14817,
+  "ta": "Soledad Bravo [1985 other 8]",
+  "tb": "Volando Voy [? studio_album 8]",
+  "artist": 3749,
+  "rule": "",
+  "doubt": "contenido 8/8 pero volúmenes distintos"
+ },
+ {
+  "a": 9134,
+  "b": 14860,
+  "ta": "Ahora Interpreta A Manzanero [1976 other 10]",
+  "tb": "Ahora María Teresa Interpreta a Armando Manzanero [1977 other 10]",
+  "artist": 3797,
+  "rule": "",
+  "doubt": "contenido 10/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 9137,
+  "b": 14859,
+  "ta": "Canta a Latinoamérica [1999 other 12]",
+  "tb": "Canta a México, Brasil, Argentina, Uruguay, Paraguay, Colombia, Cuba, Chile, Perú, Venezuela [1999 other 12]",
+  "artist": 3797,
+  "rule": "",
+  "doubt": "contenido 12/12 con títulos distintos"
+ },
+ {
+  "a": 8435,
+  "b": 14855,
+  "ta": "En Azul, Amarillo y Rojo [1980 other 8]",
+  "tb": "Maria Teresa En Azul, Amarillo Y Rojo [1980 studio_album 14]",
+  "artist": 3797,
+  "rule": "",
+  "doubt": "contenido 7/8 con títulos distintos"
+ },
+ {
+  "a": 5777,
+  "b": 5967,
+  "ta": "The Classic Spanish Guitar (2 LPs) [1977 other 0]",
+  "tb": "The Classic Spanish Guitar [1977 other 27]",
+  "artist": 3381,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 5761,
+  "b": 5762,
+  "ta": "Recital De Guitarra [1957 other 13]",
+  "tb": "Guitarra De Venezuela [1957 other 13]",
+  "artist": 3381,
+  "rule": "",
+  "doubt": "contenido 13/13 con títulos distintos"
+ },
+ {
+  "a": 970,
+  "b": 1251,
+  "ta": "Promo 2014 EP [2014 ep 4]",
+  "tb": "¡Rock ´N´ Roll! [2015 other 8]",
+  "artist": 454,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 5838,
+  "b": 5998,
+  "ta": "Tañido Vibrante [1998 other 0]",
+  "tb": "Tañido Vibrante 100 Years of Venezuelan Guitar Music [1998 other 20]",
+  "artist": 3398,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6676,
+  "b": 7914,
+  "ta": "La Historia [2003 other 0]",
+  "tb": "La Historia - 15 Exitos [2003 other 15]",
+  "artist": 3676,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 13086,
+  "b": 13093,
+  "ta": "Alfredo Sadel Canta a los Panchos [? other 10]",
+  "tb": "Homenaje A Los Panchos [1979 other 10]",
+  "artist": 3676,
+  "rule": "",
+  "doubt": "contenido 8/10 con títulos distintos"
+ },
+ {
+  "a": 13069,
+  "b": 13072,
+  "ta": "El Inolvidable [? other 16]",
+  "tb": "El Inolvidable - 16 Grandes Exitos [? other 16]",
+  "artist": 3676,
+  "rule": "",
+  "doubt": "contenido 15/16 pero volúmenes distintos"
+ },
+ {
+  "a": 9945,
+  "b": 13569,
+  "ta": "Tesoros De La Música Venezolana: ANDES [2009 other 10]",
+  "tb": "Tesoros de la música venezolana, Volumen 5: Andes [2009 studio_album 10]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 9951,
+  "b": 13565,
+  "ta": "Tesoros De La Música Venezolana: COSTAS [2009 other 11]",
+  "tb": "Tesoros de la música venezolana, Volumen 2: Costas [2009 studio_album 11]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 10/11 pero volúmenes distintos"
+ },
+ {
+  "a": 4251,
+  "b": 13567,
+  "ta": "Tesoros de La Música Vzlana: LARA [2009 studio_album 11]",
+  "tb": "Tesoros de la música venezolana, Volumen 4: Lara [2009 studio_album 11]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 10/11 pero volúmenes distintos"
+ },
+ {
+  "a": 4245,
+  "b": 4253,
+  "ta": "Ilan Chester de Colección Vol. 2 [? compilation 0]",
+  "tb": "Ilan Chester de Colección [? compilation 0]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 9941,
+  "b": 13561,
+  "ta": "Tesoros De La Música Venezolana: LLANOS [2009 other 10]",
+  "tb": "Tesoros de la música venezolana, Volumen 3: Llanos [2009 studio_album 10]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 8/10 pero volúmenes distintos"
+ },
+ {
+  "a": 4243,
+  "b": 13561,
+  "ta": "Tesoros de La Música Vzlana: LLANOS [2009 other 10]",
+  "tb": "Tesoros de la música venezolana, Volumen 3: Llanos [2009 studio_album 10]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 8/10 pero volúmenes distintos"
+ },
+ {
+  "a": 13564,
+  "b": 13578,
+  "ta": "CD Manía El Nacional [2000 studio_album 24]",
+  "tb": "Ilan Chester – En Vivo! Gira Nacional Del Amor Venezolano [2000 other 26]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 24/24 pero en vivo/remix frente a estudio"
+ },
+ {
+  "a": 4259,
+  "b": 13564,
+  "ta": "Ilan C. En Vivo (Gira Nac. Amor Vzlano) [2000 live_album 24]",
+  "tb": "CD Manía El Nacional [2000 studio_album 24]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 22/24 pero tipos distintos"
+ },
+ {
+  "a": 4250,
+  "b": 13568,
+  "ta": "Cancionero Del Amor Venezolano III [2007 studio_album 11]",
+  "tb": "Cancionero del amor venezolano, volumen 3 [2007 studio_album 11]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 11/11 pero volúmenes distintos"
+ },
+ {
+  "a": 13570,
+  "b": 13572,
+  "ta": "Cancionero II [? studio_album 11]",
+  "tb": "Cancionero del amor venezolano, volumen 2 [2000 studio_album 11]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 10/11 pero volúmenes distintos"
+ },
+ {
+  "a": 4240,
+  "b": 13570,
+  "ta": "Cancionero Del Amor Venezolano II [2000 other 11]",
+  "tb": "Cancionero II [? studio_album 11]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 10/11 con títulos distintos"
+ },
+ {
+  "a": 4240,
+  "b": 13572,
+  "ta": "Cancionero Del Amor Venezolano II [2000 other 11]",
+  "tb": "Cancionero del amor venezolano, volumen 2 [2000 studio_album 11]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 11/11 pero volúmenes distintos"
+ },
+ {
+  "a": 4259,
+  "b": 13578,
+  "ta": "Ilan C. En Vivo (Gira Nac. Amor Vzlano) [2000 live_album 24]",
+  "tb": "Ilan Chester – En Vivo! Gira Nacional Del Amor Venezolano [2000 other 26]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 24/24 con títulos distintos"
+ },
+ {
+  "a": 9926,
+  "b": 13567,
+  "ta": "Tesoros De La Música Venezolana: LARA [2009 other 11]",
+  "tb": "Tesoros de la música venezolana, Volumen 4: Lara [2009 studio_album 11]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 10/11 pero volúmenes distintos"
+ },
+ {
+  "a": 4252,
+  "b": 13569,
+  "ta": "Tesoros de La Música Vzlana: ANDES [2009 other 10]",
+  "tb": "Tesoros de la música venezolana, Volumen 5: Andes [2009 studio_album 10]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 4254,
+  "b": 4256,
+  "ta": "CD Colección (2 CDs) [1998 compilation 24]",
+  "tb": "32 Grandes Exitos (Serie 32) [1999 compilation 32]",
+  "artist": 116,
+  "rule": "",
+  "doubt": "contenido 22/24 pero ediciones de años distintos"
+ },
+ {
+  "a": 4199,
+  "b": 4212,
+  "ta": "Gold [2001 compilation 20]",
+  "tb": "Solo Exitos [2002 compilation 16]",
+  "artist": 1960,
+  "rule": "",
+  "doubt": "contenido 14/16 pero ediciones de años distintos"
+ },
+ {
+  "a": 4193,
+  "b": 14479,
+  "ta": "Guillermo Dávila 5 [1988 studio_album 10]",
+  "tb": "Guillermo Davila V [1988 studio_album 10]",
+  "artist": 1960,
+  "rule": "",
+  "doubt": "contenido 9/10 pero título = nombre del artista"
+ },
+ {
+  "a": 4197,
+  "b": 14478,
+  "ta": "Serie 32 Grandes Exitos [1997 compilation 32]",
+  "tb": "80 canciones de los 80 [? compilation 16]",
+  "artist": 1960,
+  "rule": "",
+  "doubt": "contenido 16/16 pero volúmenes distintos"
+ },
+ {
+  "a": 4196,
+  "b": 4197,
+  "ta": "Exitos [1996 compilation 20]",
+  "tb": "Serie 32 Grandes Exitos [1997 compilation 32]",
+  "artist": 1960,
+  "rule": "",
+  "doubt": "contenido 16/20 pero ediciones de años distintos"
+ },
+ {
+  "a": 4192,
+  "b": 14488,
+  "ta": "Un Poco De Amor [1983 studio_album 10]",
+  "tb": "Cuando Cambiaré [1983 other 10]",
+  "artist": 1960,
+  "rule": "",
+  "doubt": "contenido 10/10 con títulos distintos"
+ },
+ {
+  "a": 4426,
+  "b": 9950,
+  "ta": "Montaner & London Metropolitan Orch. 2 [2004 studio_album 10]",
+  "tb": "London Metropolitan Orchestra Vol. 2 [2004 other 10]",
+  "artist": 1830,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 4423,
+  "b": 9935,
+  "ta": "Montaner & London Metropolitan Orch. [1999 studio_album 11]",
+  "tb": "London Metropolitan Orchestra [1999 other 11]",
+  "artist": 1830,
+  "rule": "",
+  "doubt": "contenido 11/11 con títulos distintos"
+ },
+ {
+  "a": 4426,
+  "b": 13536,
+  "ta": "Montaner & London Metropolitan Orch. 2 [2004 studio_album 10]",
+  "tb": "Con la Metropolitan Orchestra - Vol. II [2004 other 10]",
+  "artist": 1830,
+  "rule": "",
+  "doubt": "contenido 9/10 pero volúmenes distintos"
+ },
+ {
+  "a": 4428,
+  "b": 4434,
+  "ta": "Exitos y...Algo Más [1996 compilation 14]",
+  "tb": "Exitos y...Algo Más (Serie 32) [1997 compilation 0]",
+  "artist": 1830,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 13528,
+  "b": 13538,
+  "ta": "Tango [2022 studio_album 11]",
+  "tb": "Tango (Live Session) [2022 ep 6]",
+  "artist": 1830,
+  "rule": "",
+  "doubt": "contenido 6/6 pero en vivo/remix frente a estudio"
+ },
+ {
+  "a": 13530,
+  "b": 13531,
+  "ta": "Viajero frecuente [2012 studio_album 13]",
+  "tb": "Viajero Frecuente - Destino México [2013 other 14]",
+  "artist": 1830,
+  "rule": "",
+  "doubt": "contenido 13/13 pero ediciones de años distintos"
+ },
+ {
+  "a": 13508,
+  "b": 13534,
+  "ta": "Las N° 1 [? compilation 15]",
+  "tb": "Las #1 De Ricardo Montaner [2006 other 12]",
+  "artist": 1830,
+  "rule": "",
+  "doubt": "contenido 12/12 con títulos distintos"
+ },
+ {
+  "a": 2936,
+  "b": 4670,
+  "ta": "The Morning Star [2003 other 11]",
+  "tb": "Morning Star [2003 studio_album 15]",
+  "artist": 344,
+  "rule": "",
+  "doubt": "contenido 9/11 con títulos distintos"
+ },
+ {
+  "a": 9442,
+  "b": 13104,
+  "ta": "Los Diablos [1960 other 12]",
+  "tb": "Arriba el Joropo [? other 12]",
+  "artist": 3897,
+  "rule": "",
+  "doubt": "contenido 11/12 con títulos distintos"
+ },
+ {
+  "a": 9434,
+  "b": 13111,
+  "ta": "Dinner In Caracas [1955 other 12]",
+  "tb": "And His Onda Nueva [? other 12]",
+  "artist": 3897,
+  "rule": "",
+  "doubt": "contenido 10/12 con títulos distintos"
+ },
+ {
+  "a": 9473,
+  "b": 13094,
+  "ta": "Lo Mejor De Lo Mejor [1999 other 24]",
+  "tb": "Lo mejor de lo mejor 2 [? compilation 12]",
+  "artist": 3897,
+  "rule": "",
+  "doubt": "contenido 11/12 pero volúmenes distintos"
+ },
+ {
+  "a": 9812,
+  "b": 13103,
+  "ta": "La Mejor Música De Los Andes Venezolanos [1961 other 10]",
+  "tb": "Cantares de Mi Tierra [? other 10]",
+  "artist": 3897,
+  "rule": "",
+  "doubt": "contenido 9/10 con títulos distintos"
+ },
+ {
+  "a": 9815,
+  "b": 13100,
+  "ta": "La Onda Brava Onda Nueva Vol. 006 [1972 other 9]",
+  "tb": "La Onda Brava y Su Nueva Onda [? other 9]",
+  "artist": 3897,
+  "rule": "",
+  "doubt": "contenido 9/9 pero volúmenes distintos"
+ },
+ {
+  "a": 9473,
+  "b": 13107,
+  "ta": "Lo Mejor De Lo Mejor [1999 other 24]",
+  "tb": "Dinner In Caracas, Vol 2. (Cena en Caracas) [1999 other 12]",
+  "artist": 3897,
+  "rule": "",
+  "doubt": "contenido 10/12 pero volúmenes distintos"
+ },
+ {
+  "a": 9473,
+  "b": 13111,
+  "ta": "Lo Mejor De Lo Mejor [1999 other 24]",
+  "tb": "And His Onda Nueva [? other 12]",
+  "artist": 3897,
+  "rule": "",
+  "doubt": "contenido 11/12 con títulos distintos"
+ },
+ {
+  "a": 9817,
+  "b": 13105,
+  "ta": "Serie Lo Máximo 16 Exitos de Aldemaro Romero [2004 other 16]",
+  "tb": "Onda Nueva: 16 Éxitos de Aldemaro Romero [2004 other 16]",
+  "artist": 3897,
+  "rule": "",
+  "doubt": "contenido 15/16 con títulos distintos"
+ },
+ {
+  "a": 13096,
+  "b": 13104,
+  "ta": "Aldemaro Romero [2017 compilation 12]",
+  "tb": "Arriba el Joropo [? other 12]",
+  "artist": 3897,
+  "rule": "",
+  "doubt": "contenido 10/12 pero título = nombre del artista"
+ },
+ {
+  "a": 9445,
+  "b": 13111,
+  "ta": "Caracas De Noche [1967 other 12]",
+  "tb": "And His Onda Nueva [? other 12]",
+  "artist": 3897,
+  "rule": "",
+  "doubt": "contenido 10/12 con títulos distintos"
+ },
+ {
+  "a": 6694,
+  "b": 8408,
+  "ta": "La Patria Buena [1989 other 10]",
+  "tb": "Mi Colección [? other 42]",
+  "artist": 3677,
+  "rule": "",
+  "doubt": "contenido 8/10 con títulos distintos"
+ },
+ {
+  "a": 6680,
+  "b": 14801,
+  "ta": "Alí Primera Volumen 2 [1974 other 12]",
+  "tb": "118 Temas 1/7 [? compilation 23]",
+  "artist": 3677,
+  "rule": "",
+  "doubt": "contenido 10/12 pero volúmenes distintos"
+ },
+ {
+  "a": 6683,
+  "b": 14805,
+  "ta": "La Patria Es El Hombre [1977 other 10]",
+  "tb": "118 Temas 3/7 [? compilation 15]",
+  "artist": 3677,
+  "rule": "",
+  "doubt": "contenido 9/10 pero volúmenes distintos"
+ },
+ {
+  "a": 6684,
+  "b": 14804,
+  "ta": "Canción Mansa Para Un Pueblo Bravo [1978 other 11]",
+  "tb": "118 Temas 4/7 [? compilation 17]",
+  "artist": 3677,
+  "rule": "",
+  "doubt": "contenido 9/11 pero volúmenes distintos"
+ },
+ {
+  "a": 6679,
+  "b": 14801,
+  "ta": "Lo Primero de Alí Primera [1973 other 12]",
+  "tb": "118 Temas 1/7 [? compilation 23]",
+  "artist": 3677,
+  "rule": "",
+  "doubt": "contenido 11/12 pero volúmenes distintos"
+ },
+ {
+  "a": 6686,
+  "b": 14802,
+  "ta": "Abrebrecha [1980 other 10]",
+  "tb": "118 Temas 5/7 [? compilation 18]",
+  "artist": 3677,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 14806,
+  "b": 14809,
+  "ta": "Viva La Revolución [2025 studio_album 16]",
+  "tb": "Te Canta Los 40 [? other 16]",
+  "artist": 3677,
+  "rule": "",
+  "doubt": "contenido 16/16 pero volúmenes distintos"
+ },
+ {
+  "a": 6681,
+  "b": 14807,
+  "ta": "Adiós En Dolor Mayor [1975 other 10]",
+  "tb": "118 Temas 2/7 [? compilation 17]",
+  "artist": 3677,
+  "rule": "",
+  "doubt": "contenido 8/10 pero volúmenes distintos"
+ },
+ {
+  "a": 5882,
+  "b": 5883,
+  "ta": "Nostalgias [2006 other 0]",
+  "tb": "Nostalgias 2 [2007 other 0]",
+  "artist": 3407,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 5882,
+  "b": 5884,
+  "ta": "Nostalgias [2006 other 0]",
+  "tb": "Nostalgias 3 [2007 other 0]",
+  "artist": 3407,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 5882,
+  "b": 6011,
+  "ta": "Nostalgias [2006 other 0]",
+  "tb": "Nostalgias 2 Piano Latinoamericano [2007 other 14]",
+  "artist": 3407,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 5882,
+  "b": 6012,
+  "ta": "Nostalgias [2006 other 0]",
+  "tb": "Nostalgias 3 Piano Latinoamericano [2007 other 14]",
+  "artist": 3407,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 484,
+  "b": 2193,
+  "ta": "Lo Que Escribo Sobre Ti [2007 studio_album 15]",
+  "tb": "Demos [? demo 5]",
+  "artist": 237,
+  "rule": "",
+  "doubt": "contenido 4/5 pero tipos distintos"
+ },
+ {
+  "a": 538,
+  "b": 3025,
+  "ta": "Futuro: Lado A / Lado B [2013 ep 10]",
+  "tb": "Lado A [2013 other 5]",
+  "artist": 211,
+  "rule": "",
+  "doubt": "contenido 4/5 con títulos distintos"
+ },
+ {
+  "a": 8597,
+  "b": 14842,
+  "ta": "Gualberto Ibarreto [1975 other 11]",
+  "tb": "Gualberto Ibarreto Vol. 1 [1975 studio_album 11]",
+  "artist": 3821,
+  "rule": "",
+  "doubt": "contenido 10/11 pero volúmenes distintos"
+ },
+ {
+  "a": 14848,
+  "b": 14849,
+  "ta": "Mi Vida [2016 other 10]",
+  "tb": "El Ladrón de Tu Amor [2016 other 12]",
+  "artist": 3821,
+  "rule": "",
+  "doubt": "contenido 9/10 con títulos distintos"
+ },
+ {
+  "a": 1724,
+  "b": 2774,
+  "ta": "cmyk ver 10.10.10 [2010 studio_album 11]",
+  "tb": "CMYK [2010 studio_album 11]",
+  "artist": 534,
+  "rule": "",
+  "doubt": "contenido 11/11 pero volúmenes distintos"
+ },
+ {
+  "a": 6804,
+  "b": 8005,
+  "ta": "Billo 79 ½ [1979 other 0]",
+  "tb": "Billo 79 [1978 other 11]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 8034,
+  "b": 8044,
+  "ta": "Lo Mejor De Cheo García [? other 12]",
+  "tb": "Gold [2003 other 34]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 11/12 con títulos distintos"
+ },
+ {
+  "a": 8045,
+  "b": 15099,
+  "ta": "Colección Los Número 1 [2004 other 16]",
+  "tb": "40 años con Billo [? compilation 121]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 13/16 pero volúmenes distintos"
+ },
+ {
+  "a": 6733,
+  "b": 7934,
+  "ta": "Historia De Mi Orquesta 1937-1962 Vol1 [1962 other 0]",
+  "tb": "Historia De Mi Orquesta 1937-1962 [1962 other 23]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6734,
+  "b": 7934,
+  "ta": "Historia De Mi Orquesta 1937-1962 Vol2 [1962 other 0]",
+  "tb": "Historia De Mi Orquesta 1937-1962 [1962 other 23]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6763,
+  "b": 15201,
+  "ta": "Voces De Billo Vol. III - Cheo García [1967 other 0]",
+  "tb": "Voces De Billo Vol. II [1966 other 12]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6768,
+  "b": 15093,
+  "ta": "Cumbiando Con Cheo - Voces Billo V [1968 other 0]",
+  "tb": "Billo [1969 studio_album 11]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6773,
+  "b": 15093,
+  "ta": "Mosaicos a La Billo 19-24 [1969 other 0]",
+  "tb": "Billo [1969 studio_album 11]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6784,
+  "b": 6786,
+  "ta": "Billo vs. Sonora [1972 other 0]",
+  "tb": "Billo vs. Sonora Vol. 2 [1972 other 0]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6784,
+  "b": 6788,
+  "ta": "Billo vs. Sonora [1972 other 0]",
+  "tb": "Billo vs. Sonora Vol. 3 [1973 other 0]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6810,
+  "b": 8012,
+  "ta": "81 y Para Todo El Año [1980 other 0]",
+  "tb": "1981 y Para Todo El Año [1980 other 11]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7916,
+  "b": 15164,
+  "ta": "Carnaval Con Billo [? other 12]",
+  "tb": "Al Son del Ritmo [2016 other 12]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 11/12 con títulos distintos"
+ },
+ {
+  "a": 7934,
+  "b": 7935,
+  "ta": "Historia De Mi Orquesta 1937-1962 [1962 other 23]",
+  "tb": "Historia De Mi Orquesta 1937-1962 Vol.1 [1962 other 12]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 12/12 pero volúmenes distintos"
+ },
+ {
+  "a": 7934,
+  "b": 7936,
+  "ta": "Historia De Mi Orquesta 1937-1962 [1962 other 23]",
+  "tb": "Historia De Mi Orquesta 1937-1962 Vol.2 [1962 other 11]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 11/11 pero volúmenes distintos"
+ },
+ {
+  "a": 7980,
+  "b": 15099,
+  "ta": "Billo Canta Sus Canciones [1970 other 12]",
+  "tb": "40 años con Billo [? compilation 121]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 11/12 pero volúmenes distintos"
+ },
+ {
+  "a": 7999,
+  "b": 15197,
+  "ta": "Billo 76 ½ [1976 other 11]",
+  "tb": "Gitana [1976 other 11]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 10/11 pero volúmenes distintos"
+ },
+ {
+  "a": 8033,
+  "b": 15191,
+  "ta": "3 Colosos Billo - José Luis - Pirela [? other 12]",
+  "tb": "3 Colosos [2024 other 8]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 8/8 con títulos distintos"
+ },
+ {
+  "a": 8041,
+  "b": 15099,
+  "ta": "Serie 32 Grandes Exitos La Orquesta Más Popular De Venezuela [2001 other 32]",
+  "tb": "40 años con Billo [? compilation 121]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 27/32 pero volúmenes distintos"
+ },
+ {
+  "a": 8046,
+  "b": 15099,
+  "ta": "Dos Grandes De La Billo's Cheo y Memo Colección De Hierro [2004 other 16]",
+  "tb": "40 años con Billo [? compilation 121]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 15/16 pero volúmenes distintos"
+ },
+ {
+  "a": 8047,
+  "b": 15180,
+  "ta": "Serie Lo Máximo 16 Exitos de Billo's [2004 other 16]",
+  "tb": "16 Exitos de Billos Caracas Boys [2004 other 16]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 15/16 con títulos distintos"
+ },
+ {
+  "a": 15080,
+  "b": 15099,
+  "ta": "Tanto trabajar [2020 studio_album 10]",
+  "tb": "40 años con Billo [? compilation 121]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 9/10 pero tipos distintos"
+ },
+ {
+  "a": 15096,
+  "b": 15099,
+  "ta": "Exitos De Billo's Caracas Boys [2007 compilation 10]",
+  "tb": "40 años con Billo [? compilation 121]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 8/10 pero volúmenes distintos"
+ },
+ {
+  "a": 7992,
+  "b": 15099,
+  "ta": "Billo 74 [1973 other 11]",
+  "tb": "40 años con Billo [? compilation 121]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 11/11 pero volúmenes distintos"
+ },
+ {
+  "a": 15098,
+  "b": 15193,
+  "ta": "4 Colosos de Billo I [1995 studio_album 18]",
+  "tb": "4 Colosos de Billo's, Vol. I [1996 other 18]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 17/18 pero ediciones de años distintos"
+ },
+ {
+  "a": 7959,
+  "b": 15202,
+  "ta": "Desde 1937 a 1966 Bailando Con Billo [1966 other 11]",
+  "tb": "Chocolate [1966 other 11]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 9/11 pero volúmenes distintos"
+ },
+ {
+  "a": 15087,
+  "b": 15192,
+  "ta": "4 Colosos de Billo II [1995 studio_album 18]",
+  "tb": "4 Colosos de Billo's, Vol. 2 [1996 other 18]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 17/18 pero ediciones de años distintos"
+ },
+ {
+  "a": 15162,
+  "b": 15163,
+  "ta": "Billo Frometa [2016 other 12]",
+  "tb": "El Legado [2016 other 12]",
+  "artist": 3764,
+  "rule": "",
+  "doubt": "contenido 12/12 con títulos distintos"
+ },
+ {
+  "a": 315,
+  "b": 3237,
+  "ta": "Hecho En Venezuela [1981 studio_album 7]",
+  "tb": "Tierra Prometida [1981 other 7]",
+  "artist": 210,
+  "rule": "",
+  "doubt": "contenido 7/7 con títulos distintos"
+ },
+ {
+  "a": 5946,
+  "b": 5947,
+  "ta": "Aguinaldos Venezolanos / Villancicos Vol. I [1974 other 0]",
+  "tb": "Aguinaldos Venezolanos / Villancicos Vol. II [1974 other 0]",
+  "artist": 3420,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6,
+  "b": 3547,
+  "ta": "Melisa II [1984 other 11]",
+  "tb": "Melissa II [1984 studio_album 11]",
+  "artist": 6,
+  "rule": "",
+  "doubt": "contenido 10/11 con títulos distintos"
+ },
+ {
+  "a": 42,
+  "b": 3548,
+  "ta": "Melissa [1983 other 10]",
+  "tb": "Melisa [1983 studio_album 10]",
+  "artist": 6,
+  "rule": "",
+  "doubt": "contenido 10/10 pero título = nombre del artista"
+ },
+ {
+  "a": 3553,
+  "b": 9930,
+  "ta": "Constelación De Exitos [1997 compilation 15]",
+  "tb": "32 Grandes Exitos [1998 other 32]",
+  "artist": 6,
+  "rule": "",
+  "doubt": "contenido 12/15 pero ediciones de años distintos"
+ },
+ {
+  "a": 8627,
+  "b": 9170,
+  "ta": "Canta a Nuestros Poetas [1988 other 0]",
+  "tb": "Canta a Nuestros Poetas Vol.1 [1988 other 13]",
+  "artist": 3822,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 8661,
+  "b": 8662,
+  "ta": "Bolívar En Un Canto I [1983 other 0]",
+  "tb": "Bolívar En Un Canto II [1983 other 0]",
+  "artist": 3822,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 154,
+  "b": 546,
+  "ta": "En Vivo CorpBanca [2001 live_album 13]",
+  "tb": "Supereterodino [2001 studio_album 12]",
+  "artist": 67,
+  "rule": "",
+  "doubt": "contenido 10/12 pero tipos distintos"
+ },
+ {
+  "a": 546,
+  "b": 2429,
+  "ta": "Supereterodino [2001 studio_album 12]",
+  "tb": "En Vivo [2001 live_album 13]",
+  "artist": 67,
+  "rule": "",
+  "doubt": "contenido 10/12 pero tipos distintos"
+ },
+ {
+  "a": 5397,
+  "b": 5398,
+  "ta": "Demo en vivo [2020 demo 7]",
+  "tb": "Pánico [2021 ep 9]",
+  "artist": 3175,
+  "rule": "",
+  "doubt": "contenido 6/7 pero tipos distintos"
+ },
+ {
+  "a": 1341,
+  "b": 2677,
+  "ta": "Nuevo Norte [2012 studio_album 12]",
+  "tb": "EP [2012 ep 5]",
+  "artist": 744,
+  "rule": "",
+  "doubt": "contenido 5/5 con títulos distintos"
+ },
+ {
+  "a": 1385,
+  "b": 3007,
+  "ta": "Espiritu del Orgasmo [1992 demo 8]",
+  "tb": "En vivo San Antonio de los Altos [1992 live_album 10]",
+  "artist": 369,
+  "rule": "",
+  "doubt": "contenido 7/8 pero tipos distintos"
+ },
+ {
+  "a": 320,
+  "b": 739,
+  "ta": "Sentencia [1995 studio_album 13]",
+  "tb": "Okta (Maracay 1996) [1996 live_album 9]",
+  "artist": 219,
+  "rule": "",
+  "doubt": "contenido 9/9 pero tipos distintos"
+ },
+ {
+  "a": 1338,
+  "b": 2065,
+  "ta": "Silence [1993 demo 5]",
+  "tb": "Silence Demo [1992 demo 5]",
+  "artist": 219,
+  "rule": "",
+  "doubt": "contenido 5/5 pero ediciones de años distintos"
+ },
+ {
+  "a": 4678,
+  "b": 4679,
+  "ta": "Sólo Exitos [2019 compilation 12]",
+  "tb": "Serie Premium [? compilation 16]",
+  "artist": 69,
+  "rule": "",
+  "doubt": "contenido 11/12 con títulos distintos"
+ },
+ {
+  "a": 3469,
+  "b": 4679,
+  "ta": "Lo Mejor de Colina [2001 compilation 16]",
+  "tb": "Serie Premium [? compilation 16]",
+  "artist": 69,
+  "rule": "",
+  "doubt": "contenido 14/16 con títulos distintos"
+ },
+ {
+  "a": 1277,
+  "b": 3627,
+  "ta": "12 Mantras para el Fin [2013 other 6]",
+  "tb": "Cruzada De Odio [2013 studio_album 9]",
+  "artist": 720,
+  "rule": "",
+  "doubt": "contenido 6/6 pero volúmenes distintos"
+ },
+ {
+  "a": 2121,
+  "b": 2817,
+  "ta": "Demo [? demo 11]",
+  "tb": "No Despertar [2004 other 8]",
+  "artist": 435,
+  "rule": "",
+  "doubt": "contenido 7/8 con títulos distintos"
+ },
+ {
+  "a": 15522,
+  "b": 15691,
+  "ta": "Danko Sur-Real Acto I [2019 studio_album 0]",
+  "tb": "Danko Sur-Real, Acto II [2020 other 0]",
+  "artist": 698,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 1489,
+  "b": 1881,
+  "ta": "1988 – 1996 [? compilation 6]",
+  "tb": "Anarkia en L.A. [1993 demo 6]",
+  "artist": 1287,
+  "rule": "",
+  "doubt": "contenido 6/6 pero tipos distintos"
+ },
+ {
+  "a": 8775,
+  "b": 8776,
+  "ta": "La Sardina De Naiguatá [1983 other 8]",
+  "tb": "La Sardina De Naiguatá Edicion Especial [1984 other 0]",
+  "artist": 3830,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 8775,
+  "b": 9277,
+  "ta": "La Sardina De Naiguatá [1983 other 8]",
+  "tb": "La Sardina De Naiguatá (Edición Especial) Carnaval 84 [1984 other 10]",
+  "artist": 3830,
+  "rule": "",
+  "doubt": "contenido 8/8 pero ediciones de años distintos"
+ },
+ {
+  "a": 8776,
+  "b": 9277,
+  "ta": "La Sardina De Naiguatá Edicion Especial [1984 other 0]",
+  "tb": "La Sardina De Naiguatá (Edición Especial) Carnaval 84 [1984 other 10]",
+  "artist": 3830,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 9280,
+  "b": 14834,
+  "ta": "Volumen 3 [1976 other 10]",
+  "tb": "Lilia Vera, vol. 3 [1976 studio_album 10]",
+  "artist": 3831,
+  "rule": "",
+  "doubt": "contenido 10/10 con títulos distintos"
+ },
+ {
+  "a": 8795,
+  "b": 9284,
+  "ta": "De Colección Vol. 2 [1999 other 16]",
+  "tb": "32 Grandes Exitos [1998 other 32]",
+  "artist": 3831,
+  "rule": "",
+  "doubt": "contenido 14/16 pero ediciones de años distintos"
+ },
+ {
+  "a": 9284,
+  "b": 14833,
+  "ta": "32 Grandes Exitos [1998 other 32]",
+  "tb": "Serie 32: Lilia Vera [1998 compilation 32]",
+  "artist": 3831,
+  "rule": "",
+  "doubt": "contenido 29/32 con títulos distintos"
+ },
+ {
+  "a": 8795,
+  "b": 14833,
+  "ta": "De Colección Vol. 2 [1999 other 16]",
+  "tb": "Serie 32: Lilia Vera [1998 compilation 32]",
+  "artist": 3831,
+  "rule": "",
+  "doubt": "contenido 16/16 pero ediciones de años distintos"
+ },
+ {
+  "a": 14401,
+  "b": 14421,
+  "ta": "Superstars [2023 studio_album 12]",
+  "tb": "Death By The Bassline [2023 ep 4]",
+  "artist": 795,
+  "rule": "",
+  "doubt": "contenido 4/4 con títulos distintos"
+ },
+ {
+  "a": 2835,
+  "b": 14420,
+  "ta": "Vulgar Display Of Bass [2012 studio_album 12]",
+  "tb": "Far Beyond Bass: The Vulgar Remixes [2013 remix 12]",
+  "artist": 795,
+  "rule": "",
+  "doubt": "contenido 12/12 pero tipos distintos"
+ },
+ {
+  "a": 8835,
+  "b": 14707,
+  "ta": "18 Grandes Exitos Serie Lo Máximo [2004 other 0]",
+  "tb": "Éxitos [? studio_album 17]",
+  "artist": 3833,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 8839,
+  "b": 14707,
+  "ta": "Solo Exitos Vol.1 [2008 other 0]",
+  "tb": "Éxitos [? studio_album 17]",
+  "artist": 3833,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 8840,
+  "b": 14707,
+  "ta": "Solo Exitos Vol.2 [2008 other 0]",
+  "tb": "Éxitos [? studio_album 17]",
+  "artist": 3833,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 8841,
+  "b": 14708,
+  "ta": "Solo Exitos Serie Premium [2015 other 18]",
+  "tb": "Luis Silva – Sólo Éxitos [? compilation 18]",
+  "artist": 3833,
+  "rule": "",
+  "doubt": "contenido 18/18 con títulos distintos"
+ },
+ {
+  "a": 6904,
+  "b": 6905,
+  "ta": "Culebra [1981 other 0]",
+  "tb": "Culebra Vol. 2 y Sigue Picando [1981 other 0]",
+  "artist": 3692,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6904,
+  "b": 6906,
+  "ta": "Culebra [1981 other 0]",
+  "tb": "Mi Sentir / Culebra Vol. 3 [1982 other 0]",
+  "artist": 3692,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 5497,
+  "b": 5498,
+  "ta": "A un paso del fin [2003 demo 4]",
+  "tb": "El comienzo [2004 demo 8]",
+  "artist": 3214,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 6034,
+  "b": 6585,
+  "ta": "Oblación [1994 other 0]",
+  "tb": "& Latin Jazz 8 Oblación [1994 other 12]",
+  "artist": 3438,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6046,
+  "b": 6049,
+  "ta": "Los Kenya [1968 other 0]",
+  "tb": "Los Kenya Vol. II [1969 other 0]",
+  "artist": 3438,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 2464,
+  "b": 2465,
+  "ta": "Música Normal [2009 single 5]",
+  "tb": "Presente Remixes [2009 remix 5]",
+  "artist": 1019,
+  "rule": "",
+  "doubt": "contenido 5/5 pero tipos distintos"
+ },
+ {
+  "a": 260,
+  "b": 2516,
+  "ta": "¡Estos Son Los Impala! [1968 studio_album 12]",
+  "tb": "Los Impala en Europa [1967 studio_album 12]",
+  "artist": 158,
+  "rule": "",
+  "doubt": "contenido 11/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 260,
+  "b": 15669,
+  "ta": "¡Estos Son Los Impala! [1968 studio_album 12]",
+  "tb": "Los Impala [1968 other 12]",
+  "artist": 158,
+  "rule": "",
+  "doubt": "contenido 11/12 pero título = nombre del artista"
+ },
+ {
+  "a": 2516,
+  "b": 15669,
+  "ta": "Los Impala en Europa [1967 studio_album 12]",
+  "tb": "Los Impala [1968 other 12]",
+  "artist": 158,
+  "rule": "",
+  "doubt": "contenido 10/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 8852,
+  "b": 8853,
+  "ta": "Festividades I [1999 other 0]",
+  "tb": "Festividades II [1999 other 0]",
+  "artist": 3840,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 790,
+  "b": 2712,
+  "ta": "Alexis [1997 studio_album 11]",
+  "tb": "Alexis Peña [1997 studio_album 11]",
+  "artist": 379,
+  "rule": "",
+  "doubt": "contenido 11/11 pero título = nombre del artista"
+ },
+ {
+  "a": 2854,
+  "b": 4322,
+  "ta": "Junior Squad Vol. III [1968 studio_album 12]",
+  "tb": "Baila Muchacha [1968 studio_album 12]",
+  "artist": 1583,
+  "rule": "",
+  "doubt": "contenido 11/12 pero volúmenes distintos"
+ },
+ {
+  "a": 9000,
+  "b": 9002,
+  "ta": "Solo Exitos [2001 other 20]",
+  "tb": "Gold [2002 other 19]",
+  "artist": 3848,
+  "rule": "",
+  "doubt": "contenido 16/19 pero ediciones de años distintos"
+ },
+ {
+  "a": 3521,
+  "b": 3522,
+  "ta": "Grandes Exitos [1986 compilation 10]",
+  "tb": "Lo Mejor de María Conchita LP [1986 compilation 10]",
+  "artist": 1816,
+  "rule": "",
+  "doubt": "contenido 10/10 con títulos distintos"
+ },
+ {
+  "a": 3525,
+  "b": 3527,
+  "ta": "La Más Completa Colección [2005 compilation 33]",
+  "tb": "Grandes Exitos - Greatest Hits [2006 compilation 15]",
+  "artist": 1816,
+  "rule": "",
+  "doubt": "contenido 15/15 pero ediciones de años distintos"
+ },
+ {
+  "a": 6920,
+  "b": 6921,
+  "ta": "Lo Máximo 16 Grandes Exitos [2004 other 16]",
+  "tb": "Hits [2005 other 18]",
+  "artist": 3693,
+  "rule": "",
+  "doubt": "contenido 16/16 pero ediciones de años distintos"
+ },
+ {
+  "a": 9071,
+  "b": 14940,
+  "ta": "La Música de Un Solo Pueblo Vol. 1 [1977 other 11]",
+  "tb": "La Música de un Solo Pueblo [1977 other 12]",
+  "artist": 3857,
+  "rule": "",
+  "doubt": "contenido 11/11 pero volúmenes distintos"
+ },
+ {
+  "a": 1010,
+  "b": 1733,
+  "ta": "Existencia en Decadencia EP [2015 ep 5]",
+  "tb": "Colision Grindcore [2015 studio_album 10]",
+  "artist": 549,
+  "rule": "",
+  "doubt": "contenido 5/5 con títulos distintos"
+ },
+ {
+  "a": 115,
+  "b": 418,
+  "ta": "Concierto En La Sala [2012 live_album 8]",
+  "tb": "Sigo [2011 studio_album 11]",
+  "artist": 41,
+  "rule": "",
+  "doubt": "contenido 7/8 pero tipos distintos"
+ },
+ {
+  "a": 560,
+  "b": 14069,
+  "ta": "EP [2010 ep 5]",
+  "tb": "Los Mesoneros [2010 ep 5]",
+  "artist": 159,
+  "rule": "",
+  "doubt": "contenido 4/5 pero título = nombre del artista"
+ },
+ {
+  "a": 3397,
+  "b": 3398,
+  "ta": "Pangea [2019 studio_album 8]",
+  "tb": "Live Desde Pangea [2020 live_album 8]",
+  "artist": 159,
+  "rule": "",
+  "doubt": "contenido 8/8 pero tipos distintos"
+ },
+ {
+  "a": 8897,
+  "b": 9317,
+  "ta": "Clásicos Venezolanos / 100% Criollo [1990 other 0]",
+  "tb": "Clásicos Venezolanos [1990 other 14]",
+  "artist": 3870,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 9317,
+  "b": 14705,
+  "ta": "Clásicos Venezolanos [1990 other 14]",
+  "tb": "100 X 100 Criollo [1990 other 14]",
+  "artist": 3870,
+  "rule": "",
+  "doubt": "contenido 13/14 pero volúmenes distintos"
+ },
+ {
+  "a": 6172,
+  "b": 6616,
+  "ta": "In The Zone (Live Album) [2002 other 0]",
+  "tb": "In The Zone [2002 other 6]",
+  "artist": 3477,
+  "rule": "",
+  "doubt": "uno vacío pero en vivo/remix frente a estudio"
+ },
+ {
+  "a": 7030,
+  "b": 8091,
+  "ta": "Boleros A Mi Estilo [1964 other 0]",
+  "tb": "Boleros A Mi Estilo 40 Boleros De Siempre [1964 other 10]",
+  "artist": 3785,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7052,
+  "b": 8113,
+  "ta": "15 Exitos Edición Aniversaria [1987 other 0]",
+  "tb": "15 Exitos Edición Aniversaria 1972-1987 [1987 other 15]",
+  "artist": 3785,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7059,
+  "b": 7060,
+  "ta": "Historia De Mi Orquesta 1937-1962 [1962 other 0]",
+  "tb": "Historia De Mi Orquesta 1937-1962 Vol1 [1962 other 0]",
+  "artist": 3785,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7059,
+  "b": 7061,
+  "ta": "Historia De Mi Orquesta 1937-1962 [1962 other 0]",
+  "tb": "Historia De Mi Orquesta 1937-1962 Vol2 [1962 other 0]",
+  "artist": 3785,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 8098,
+  "b": 8099,
+  "ta": "Lo Siento Por Ti [1966 other 12]",
+  "tb": "Injusto Despecho [1966 other 12]",
+  "artist": 3785,
+  "rule": "",
+  "doubt": "contenido 12/12 con títulos distintos"
+ },
+ {
+  "a": 67,
+  "b": 1913,
+  "ta": "Entre Versos Lo Adverso [2010 ep 7]",
+  "tb": "EP [2010 ep 4]",
+  "artist": 97,
+  "rule": "",
+  "doubt": "contenido 4/4 con títulos distintos"
+ },
+ {
+  "a": 1909,
+  "b": 3322,
+  "ta": "Demo [2009 demo 8]",
+  "tb": "Destruye Pony's [2009 demo 8]",
+  "artist": 992,
+  "rule": "",
+  "doubt": "contenido 8/8 pero título = nombre del artista"
+ },
+ {
+  "a": 9658,
+  "b": 14907,
+  "ta": "Maroa [1993 other 12]",
+  "tb": "Santa Fe Chamber Music Festival [? studio_album 12]",
+  "artist": 3950,
+  "rule": "",
+  "doubt": "contenido 11/12 con títulos distintos"
+ },
+ {
+  "a": 14908,
+  "b": 14914,
+  "ta": "Ensamble y Serenata [? studio_album 15]",
+  "tb": "Serenata Guayanesa Con Ensamble Gurrufío [2001 other 15]",
+  "artist": 3950,
+  "rule": "",
+  "doubt": "contenido 13/15 con títulos distintos"
+ },
+ {
+  "a": 9654,
+  "b": 14929,
+  "ta": "Solo Exitos (Serie Premium) [2013 other 18]",
+  "tb": "20 éxitos [? compilation 20]",
+  "artist": 3944,
+  "rule": "",
+  "doubt": "contenido 15/18 pero volúmenes distintos"
+ },
+ {
+  "a": 9644,
+  "b": 14928,
+  "ta": "El Cuarteto (Lo Mejor) [1991 other 14]",
+  "tb": "La colección [? studio_album 14]",
+  "artist": 3944,
+  "rule": "",
+  "doubt": "contenido 12/14 con títulos distintos"
+ },
+ {
+  "a": 9644,
+  "b": 14929,
+  "ta": "El Cuarteto (Lo Mejor) [1991 other 14]",
+  "tb": "20 éxitos [? compilation 20]",
+  "artist": 3944,
+  "rule": "",
+  "doubt": "contenido 13/14 pero volúmenes distintos"
+ },
+ {
+  "a": 9642,
+  "b": 14929,
+  "ta": "El Diablo Suelto [1986 other 12]",
+  "tb": "20 éxitos [? compilation 20]",
+  "artist": 3944,
+  "rule": "",
+  "doubt": "contenido 10/12 pero volúmenes distintos"
+ },
+ {
+  "a": 9858,
+  "b": 14929,
+  "ta": "Vol. IV [1989 other 10]",
+  "tb": "20 éxitos [? compilation 20]",
+  "artist": 3944,
+  "rule": "",
+  "doubt": "contenido 9/10 pero volúmenes distintos"
+ },
+ {
+  "a": 9859,
+  "b": 14926,
+  "ta": "Vol. V [1996 other 12]",
+  "tb": "Volumen 5 [? studio_album 12]",
+  "artist": 3944,
+  "rule": "",
+  "doubt": "contenido 11/12 con títulos distintos"
+ },
+ {
+  "a": 9643,
+  "b": 14929,
+  "ta": "El Cuarteto Vol. IV [1989 other 10]",
+  "tb": "20 éxitos [? compilation 20]",
+  "artist": 3944,
+  "rule": "",
+  "doubt": "contenido 9/10 pero volúmenes distintos"
+ },
+ {
+  "a": 9861,
+  "b": 14928,
+  "ta": "Serie Lo Máximo 20 Exitos de El Cuarteto [2003 other 20]",
+  "tb": "La colección [? studio_album 14]",
+  "artist": 3944,
+  "rule": "",
+  "doubt": "contenido 12/14 pero volúmenes distintos"
+ },
+ {
+  "a": 1993,
+  "b": 2818,
+  "ta": "En vivo [2000 live_album 6]",
+  "tb": "Grabación en vivo [1999 live_album 5]",
+  "artist": 1068,
+  "rule": "",
+  "doubt": "contenido 5/5 pero ediciones de años distintos"
+ },
+ {
+  "a": 457,
+  "b": 1960,
+  "ta": "45 [2008 studio_album 17]",
+  "tb": "En Vivo En Discovery Bar [2009 live_album 20]",
+  "artist": 132,
+  "rule": "",
+  "doubt": "contenido 16/17 pero tipos distintos"
+ },
+ {
+  "a": 9362,
+  "b": 9363,
+  "ta": "Grandes Exitos de Reynaldo Armas Vol.II [1984 other 12]",
+  "tb": "Los 40 Super Exitos [1985 other 40]",
+  "artist": 3889,
+  "rule": "",
+  "doubt": "contenido 12/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 9375,
+  "b": 9376,
+  "ta": "Lo Máximo 18 Grandes Exitos [2004 other 18]",
+  "tb": "Hits [2005 other 18]",
+  "artist": 3889,
+  "rule": "",
+  "doubt": "contenido 18/18 pero ediciones de años distintos"
+ },
+ {
+  "a": 9367,
+  "b": 14653,
+  "ta": "18 Excepcionales Exitos [1991 other 18]",
+  "tb": "21 excepcionales éxitos [? compilation 21]",
+  "artist": 3889,
+  "rule": "",
+  "doubt": "contenido 16/18 pero volúmenes distintos"
+ },
+ {
+  "a": 1949,
+  "b": 3226,
+  "ta": "EP [? ep 5]",
+  "tb": "Neuma [2003 ep 5]",
+  "artist": 1032,
+  "rule": "",
+  "doubt": "contenido 5/5 pero título = nombre del artista"
+ },
+ {
+  "a": 3686,
+  "b": 3687,
+  "ta": "The Arabian Mystery [2004 studio_album 27]",
+  "tb": "En Concierto Valencia 2005 [2005 live_album 11]",
+  "artist": 1384,
+  "rule": "",
+  "doubt": "contenido 11/11 pero tipos distintos"
+ },
+ {
+  "a": 3686,
+  "b": 3691,
+  "ta": "The Arabian Mystery [2004 studio_album 27]",
+  "tb": "Arabian Mystery [2003 studio_album 13]",
+  "artist": 1384,
+  "rule": "",
+  "doubt": "contenido 13/13 pero ediciones de años distintos"
+ },
+ {
+  "a": 2013,
+  "b": 2899,
+  "ta": "Demo 2008 [? demo 0]",
+  "tb": "Demo [2008 demo 2]",
+  "artist": 1084,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 62,
+  "b": 3960,
+  "ta": "Acción Es Carácter [2012 ep 6]",
+  "tb": "En Vivo En El Centro Cultural Chacao [2013 live_album 5]",
+  "artist": 75,
+  "rule": "",
+  "doubt": "contenido 4/5 pero tipos distintos"
+ },
+ {
+  "a": 6933,
+  "b": 6934,
+  "ta": "El Clan de Víctor y Dimensión Latina [1972 other 0]",
+  "tb": "Dimensión Latina [1972 other 12]",
+  "artist": 270,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 6939,
+  "b": 12939,
+  "ta": "Dimensión Latina 76 1/2 en Nueva York [1976 other 10]",
+  "tb": "Dimensión Latina en Nueva York [1976 studio_album 10]",
+  "artist": 270,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 6938,
+  "b": 15707,
+  "ta": "Dimensión Latina 76 Salsa Brava [1976 other 10]",
+  "tb": "Salsa Brava [1975 other 0]",
+  "artist": 270,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6972,
+  "b": 12947,
+  "ta": "Billo's & Dimensión Colección 2020 [2001 other 0]",
+  "tb": "Colección 20-20 [? compilation 20]",
+  "artist": 270,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6942,
+  "b": 8077,
+  "ta": "780 Kilos De Salsa [1977 other 0]",
+  "tb": "Dimensión Latina 78 780 Kilos De Salsa [1977 other 9]",
+  "artist": 270,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 6971,
+  "b": 12933,
+  "ta": "20 Exitos De / Colección 20/20 Vol. II [2000 other 20]",
+  "tb": "20 Exitos de la Dimensión Latina, Volume 2 [? compilation 20]",
+  "artist": 270,
+  "rule": "",
+  "doubt": "contenido 18/20 con títulos distintos"
+ },
+ {
+  "a": 12965,
+  "b": 15381,
+  "ta": "Mi China [1987 other 8]",
+  "tb": "Dimensión Latina [1987 other 8]",
+  "artist": 270,
+  "rule": "",
+  "doubt": "contenido 8/8 pero título = nombre del artista"
+ },
+ {
+  "a": 12967,
+  "b": 15380,
+  "ta": "El Son del Bohío [1979 other 10]",
+  "tb": "Dimensión Latina [1980 other 10]",
+  "artist": 270,
+  "rule": "",
+  "doubt": "contenido 9/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 6940,
+  "b": 15481,
+  "ta": "Dimensión Latina 77 Internacional [1976 other 10]",
+  "tb": "Internacional [1976 studio_album 0]",
+  "artist": 270,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 84,
+  "b": 2947,
+  "ta": "Reiniciando Transmisión [2011 ep 9]",
+  "tb": "Iniciando Transmisión [2011 ep 6]",
+  "artist": 185,
+  "rule": "",
+  "doubt": "contenido 6/6 con títulos distintos"
+ },
+ {
+  "a": 111,
+  "b": 3392,
+  "ta": "Sur [2000 studio_album 12]",
+  "tb": "Silent Smile [1999 ep 5]",
+  "artist": 37,
+  "rule": "",
+  "doubt": "contenido 4/5 pero ediciones de años distintos"
+ },
+ {
+  "a": 9427,
+  "b": 9428,
+  "ta": "Música Popular y Folclórica de Venezuela Volumen 2 [1963 other 12]",
+  "tb": "Música Popular y Folclórica de Venezuela Volumenes 1 y 2 [1964 other 24]",
+  "artist": 3843,
+  "rule": "",
+  "doubt": "contenido 12/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 8865,
+  "b": 9427,
+  "ta": "Quinteto Contrapunto [1962 other 12]",
+  "tb": "Música Popular y Folclórica de Venezuela Volumen 2 [1963 other 12]",
+  "artist": 3843,
+  "rule": "",
+  "doubt": "contenido 11/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 9432,
+  "b": 14915,
+  "ta": "Quinteto Contrapunto CD Coleccion Vol. 1 & 4 [1998 other 24]",
+  "tb": "De Coleccion Quinteto [1998 other 24]",
+  "artist": 3843,
+  "rule": "",
+  "doubt": "contenido 22/24 pero volúmenes distintos"
+ },
+ {
+  "a": 8870,
+  "b": 9430,
+  "ta": "Quinteto Contrapunto, Vol 5 [1970 other 11]",
+  "tb": "Música Popular y Folclórica de Venezuela Volumen 5 [1970 other 11]",
+  "artist": 3843,
+  "rule": "",
+  "doubt": "contenido 11/11 con títulos distintos"
+ },
+ {
+  "a": 8865,
+  "b": 8866,
+  "ta": "Quinteto Contrapunto [1962 other 12]",
+  "tb": "Quinteto Contrapunto, Vol 2 [1963 other 0]",
+  "artist": 3843,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7002,
+  "b": 14314,
+  "ta": "Durísimo - Vol. 4 [1967 other 10]",
+  "tb": "Durísimo [1967 studio_album 10]",
+  "artist": 3700,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 3853,
+  "b": 4653,
+  "ta": "Historias Desconocidas Vol.1 [2021 studio_album 20]",
+  "tb": "Historias Desconocidas [? studio_album 20]",
+  "artist": 1801,
+  "rule": "",
+  "doubt": "contenido 20/20 pero volúmenes distintos"
+ },
+ {
+  "a": 7079,
+  "b": 8115,
+  "ta": "Colección Lo Mejor [1999 other 0]",
+  "tb": "Colección Lo Mejor Hecho en Vzla # 21 [1999 other 16]",
+  "artist": 3703,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7077,
+  "b": 8115,
+  "ta": "En Vivo [1998 other 16]",
+  "tb": "Colección Lo Mejor Hecho en Vzla # 21 [1999 other 16]",
+  "artist": 3703,
+  "rule": "",
+  "doubt": "contenido 16/16 pero ediciones de años distintos"
+ },
+ {
+  "a": 173,
+  "b": 2042,
+  "ta": "Plástico [2002 studio_album 15]",
+  "tb": "En Vivo en Corp Banca [2002 live_album 14]",
+  "artist": 79,
+  "rule": "",
+  "doubt": "contenido 13/14 pero tipos distintos"
+ },
+ {
+  "a": 2723,
+  "b": 2724,
+  "ta": "Montecarlo [2004 studio_album 18]",
+  "tb": "Five Time Loco [2003 other 18]",
+  "artist": 1535,
+  "rule": "",
+  "doubt": "contenido 18/18 pero ediciones de años distintos"
+ },
+ {
+  "a": 7089,
+  "b": 7904,
+  "ta": "Mango 75 [1975 other 0]",
+  "tb": "Mango [1976 other 10]",
+  "artist": 3708,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7089,
+  "b": 15392,
+  "ta": "Mango 75 [1975 other 0]",
+  "tb": "Mango [1975 other 10]",
+  "artist": 3708,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7090,
+  "b": 7904,
+  "ta": "Mango 76 [1976 other 0]",
+  "tb": "Mango [1976 other 10]",
+  "artist": 3708,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7090,
+  "b": 15392,
+  "ta": "Mango 76 [1976 other 0]",
+  "tb": "Mango [1975 other 10]",
+  "artist": 3708,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7091,
+  "b": 15393,
+  "ta": "Mango 79 [1979 other 0]",
+  "tb": "Mango [1979 other 7]",
+  "artist": 3708,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7092,
+  "b": 15394,
+  "ta": "Mango 81 [1981 other 0]",
+  "tb": "Mango [1981 other 8]",
+  "artist": 3708,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 7093,
+  "b": 15395,
+  "ta": "Mango 83 [1983 other 0]",
+  "tb": "Mango [1983 other 10]",
+  "artist": 3708,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 4068,
+  "b": 4783,
+  "ta": "Ficción III: Sobre La Ira De Dios [2013 studio_album 10]",
+  "tb": "Sobre la Ira de Dios [2013 studio_album 10]",
+  "artist": 1342,
+  "rule": "",
+  "doubt": "contenido 8/10 pero volúmenes distintos"
+ },
+ {
+  "a": 4120,
+  "b": 9937,
+  "ta": "La Historia [2005 compilation 11]",
+  "tb": "Serie Lo Máximo Frank Quintero 16 Grandes Exitos [2006 other 16]",
+  "artist": 1722,
+  "rule": "",
+  "doubt": "contenido 11/11 pero ediciones de años distintos"
+ },
+ {
+  "a": 3170,
+  "b": 4104,
+  "ta": "Hablando de tus Sueños [1987 studio_album 9]",
+  "tb": "Hablando a Tu Sueño [1987 studio_album 9]",
+  "artist": 1722,
+  "rule": "",
+  "doubt": "contenido 9/9 con títulos distintos"
+ },
+ {
+  "a": 4115,
+  "b": 9937,
+  "ta": "16 Grandes Exitos (Lo Máximo) [2007 compilation 16]",
+  "tb": "Serie Lo Máximo Frank Quintero 16 Grandes Exitos [2006 other 16]",
+  "artist": 1722,
+  "rule": "",
+  "doubt": "contenido 16/16 pero ediciones de años distintos"
+ },
+ {
+  "a": 7194,
+  "b": 8129,
+  "ta": "La Historia [2003 other 0]",
+  "tb": "La Historia - 16 Exitos [2003 other 16]",
+  "artist": 3710,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 8126,
+  "b": 14784,
+  "ta": "En Percusión [1961 other 11]",
+  "tb": "La Harpa Indienne [? compilation 16]",
+  "artist": 3710,
+  "rule": "",
+  "doubt": "contenido 9/11 con títulos distintos"
+ },
+ {
+  "a": 7163,
+  "b": 14780,
+  "ta": "Bailables Nº 5 [1967 studio_album 11]",
+  "tb": "Mister Boogaloo [1968 ep 4]",
+  "artist": 3710,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 14779,
+  "b": 14786,
+  "ta": "Moliendo café [2016 studio_album 12]",
+  "tb": "Hugo Blanco y su Arpa Viajera [? compilation 10]",
+  "artist": 3710,
+  "rule": "",
+  "doubt": "contenido 10/10 pero tipos distintos"
+ },
+ {
+  "a": 14784,
+  "b": 14795,
+  "ta": "La Harpa Indienne [? compilation 16]",
+  "tb": "El Botellero (Remastered) [? ep 4]",
+  "artist": 3710,
+  "rule": "",
+  "doubt": "contenido 4/4 pero tipos distintos"
+ },
+ {
+  "a": 14791,
+  "b": 14794,
+  "ta": "Infinito (Remastered) [? ep 12]",
+  "tb": "Abril (Remastered) [? ep 4]",
+  "artist": 3710,
+  "rule": "",
+  "doubt": "contenido 4/4 con títulos distintos"
+ },
+ {
+  "a": 14791,
+  "b": 14796,
+  "ta": "Infinito (Remastered) [? ep 12]",
+  "tb": "El Cigarrón (Remastered) [? ep 4]",
+  "artist": 3710,
+  "rule": "",
+  "doubt": "contenido 4/4 con títulos distintos"
+ },
+ {
+  "a": 9780,
+  "b": 9848,
+  "ta": "Recovecos [2013 other 0]",
+  "tb": "Alexis Cardenas & Recoveco - Recovecos [2013 other 14]",
+  "artist": 3998,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 2148,
+  "b": 2580,
+  "ta": "1nfinit0 [2008 other 12]",
+  "tb": "Infinito [2008 studio_album 12]",
+  "artist": 1198,
+  "rule": "",
+  "doubt": "contenido 11/12 con títulos distintos"
+ },
+ {
+  "a": 8143,
+  "b": 8144,
+  "ta": "Atrevete [1980 other 9]",
+  "tb": "El Idolo [1980 other 9]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 9/9 con títulos distintos"
+ },
+ {
+  "a": 8152,
+  "b": 14496,
+  "ta": "Señora Bonita [1989 other 11]",
+  "tb": "José Luis Rodríguez con el Mariachi Vargas de Tecalitlán [1989 collaboration_album 11]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 10/11 con títulos distintos"
+ },
+ {
+  "a": 8156,
+  "b": 14499,
+  "ta": "con Los Panchos Inolvidable II [1999 other 12]",
+  "tb": "Inolvidable II: Enamorado de ti [1999 collaboration_album 12]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 12/12 con títulos distintos"
+ },
+ {
+  "a": 8157,
+  "b": 14493,
+  "ta": "con Los Panchos Inolvidable III [2001 other 12]",
+  "tb": "Mis 30 mejores canciones con Los Panchos [2002 compilation 30]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 10/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 8157,
+  "b": 14491,
+  "ta": "con Los Panchos Inolvidable III [2001 other 12]",
+  "tb": "Inolvidable III: Algo contigo [2001 collaboration_album 12]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 12/12 con títulos distintos"
+ },
+ {
+  "a": 14495,
+  "b": 14520,
+  "ta": "The Best Of Jose Luis Rodriguez [2004 compilation 20]",
+  "tb": "The Best Of - Ultimate Collection [2004 other 20]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 18/20 con títulos distintos"
+ },
+ {
+  "a": 14491,
+  "b": 14493,
+  "ta": "Inolvidable III: Algo contigo [2001 collaboration_album 12]",
+  "tb": "Mis 30 mejores canciones con Los Panchos [2002 compilation 30]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 10/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 8176,
+  "b": 14494,
+  "ta": "20 Exitos Colección 20/20 [1999 other 20]",
+  "tb": "20 éxitos de José Luis Rodríguez [1999 compilation 20]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 20/20 con títulos distintos"
+ },
+ {
+  "a": 8159,
+  "b": 14497,
+  "ta": "Distancia [2005 other 10]",
+  "tb": "Sabor a México [2005 studio_album 10]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 9/10 con títulos distintos"
+ },
+ {
+  "a": 14502,
+  "b": 14516,
+  "ta": "Sera Que Estoy Enamorado [2016 other 10]",
+  "tb": "Jose Luis: Mis Telenovelas [2016 other 18]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 9/10 con títulos distintos"
+ },
+ {
+  "a": 8132,
+  "b": 8133,
+  "ta": "Ayúdame [1967 other 10]",
+  "tb": "Lo Romántico de José Luis [1968 other 10]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 10/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 8175,
+  "b": 8177,
+  "ta": "Mis Primeros Boleros con Billo's Caracas Boys Serie 32 [1999 other 30]",
+  "tb": "Serie Millennium 21 Boleros con Billo's [2000 other 21]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 21/21 pero ediciones de años distintos"
+ },
+ {
+  "a": 14511,
+  "b": 14512,
+  "ta": "La Bikina [2016 other 8]",
+  "tb": "Alma Llanera [2016 other 10]",
+  "artist": 3756,
+  "rule": "",
+  "doubt": "contenido 8/8 con títulos distintos"
+ },
+ {
+  "a": 3418,
+  "b": 4333,
+  "ta": "Solo Exitos [2001 compilation 20]",
+  "tb": "Platino [2001 compilation 8]",
+  "artist": 1980,
+  "rule": "",
+  "doubt": "contenido 7/8 con títulos distintos"
+ },
+ {
+  "a": 4320,
+  "b": 4332,
+  "ta": "Siempre Karina [2005 studio_album 14]",
+  "tb": "14 Exitos - Serie Lo Máximo [2006 compilation 14]",
+  "artist": 1980,
+  "rule": "",
+  "doubt": "contenido 14/14 pero tipos distintos"
+ },
+ {
+  "a": 3418,
+  "b": 9928,
+  "ta": "Solo Exitos [2001 compilation 20]",
+  "tb": "Serie Platino [2001 other 8]",
+  "artist": 1980,
+  "rule": "",
+  "doubt": "contenido 7/8 con títulos distintos"
+ },
+ {
+  "a": 4324,
+  "b": 4328,
+  "ta": "32 Grandes Exitos [1998 compilation 32]",
+  "tb": "Constelación De Exitos [1997 compilation 16]",
+  "artist": 1980,
+  "rule": "",
+  "doubt": "contenido 14/16 pero ediciones de años distintos"
+ },
+ {
+  "a": 4337,
+  "b": 4344,
+  "ta": "Platino [1994 studio_album 8]",
+  "tb": "Exitos [1994 compilation 18]",
+  "artist": 1981,
+  "rule": "",
+  "doubt": "contenido 7/8 pero tipos distintos"
+ },
+ {
+  "a": 4345,
+  "b": 4347,
+  "ta": "Exitos (Universal Masters Collection) [2000 compilation 18]",
+  "tb": "Solo Exitos [2001 compilation 18]",
+  "artist": 1981,
+  "rule": "",
+  "doubt": "contenido 18/18 pero ediciones de años distintos"
+ },
+ {
+  "a": 278,
+  "b": 3537,
+  "ta": "Ritmo Revolución [1997 studio_album 10]",
+  "tb": "Ritmo Revolution [1997 studio_album 10]",
+  "artist": 169,
+  "rule": "",
+  "doubt": "contenido 10/10 con títulos distintos"
+ },
+ {
+  "a": 3040,
+  "b": 4389,
+  "ta": "Los Chevynovas [2003 ep 6]",
+  "tb": "Los Chevynovas A80 [2003 studio_album 6]",
+  "artist": 287,
+  "rule": "",
+  "doubt": "contenido 6/6 pero título = nombre del artista"
+ },
+ {
+  "a": 645,
+  "b": 4390,
+  "ta": "Música en Vara [2005 studio_album 19]",
+  "tb": "DEMO [2004 demo 4]",
+  "artist": 287,
+  "rule": "",
+  "doubt": "contenido 4/4 pero tipos distintos"
+ },
+ {
+  "a": 345,
+  "b": 15590,
+  "ta": "Tarot [1984 studio_album 10]",
+  "tb": "Grupo Tarot [1984 studio_album 0]",
+  "artist": 239,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 351,
+  "b": 4538,
+  "ta": "Los Six [1968 studio_album 10]",
+  "tb": "Six [1968 studio_album 5]",
+  "artist": 246,
+  "rule": "",
+  "doubt": "contenido 4/5 con títulos distintos"
+ },
+ {
+  "a": 4554,
+  "b": 4557,
+  "ta": "Trino Mora [1968 studio_album 12]",
+  "tb": "Trino Mora A Color [1969 other 0]",
+  "artist": 2031,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 7514,
+  "b": 7515,
+  "ta": "Antología De Los Terricolas [1997 other 40]",
+  "tb": "16 Exitos Originales de Los Terrícolas [1998 other 16]",
+  "artist": 3725,
+  "rule": "",
+  "doubt": "contenido 14/16 pero ediciones de años distintos"
+ },
+ {
+  "a": 2635,
+  "b": 5113,
+  "ta": "El Último Beso [1966 studio_album 12]",
+  "tb": "Los 007 [1966 ep 4]",
+  "artist": 1479,
+  "rule": "",
+  "doubt": "contenido 4/4 pero volúmenes distintos"
+ },
+ {
+  "a": 13136,
+  "b": 13145,
+  "ta": "Dame Que Te Doy [? studio_album 8]",
+  "tb": "40 años, 40 éxitos [2001 compilation 40]",
+  "artist": 4244,
+  "rule": "",
+  "doubt": "contenido 8/8 pero tipos distintos"
+ },
+ {
+  "a": 13137,
+  "b": 13142,
+  "ta": "La Historia Musical [2016 compilation 14]",
+  "tb": "Que Rico Papachongo [2016 studio_album 10]",
+  "artist": 4244,
+  "rule": "",
+  "doubt": "contenido 8/10 pero tipos distintos"
+ },
+ {
+  "a": 13137,
+  "b": 13143,
+  "ta": "La Historia Musical [2016 compilation 14]",
+  "tb": "Me Falta Todo [2016 studio_album 10]",
+  "artist": 4244,
+  "rule": "",
+  "doubt": "contenido 9/10 pero tipos distintos"
+ },
+ {
+  "a": 13138,
+  "b": 13145,
+  "ta": "Exitos Exitos Exitos [? compilation 14]",
+  "tb": "40 años, 40 éxitos [2001 compilation 40]",
+  "artist": 4244,
+  "rule": "",
+  "doubt": "contenido 14/14 pero volúmenes distintos"
+ },
+ {
+  "a": 3884,
+  "b": 4668,
+  "ta": "El Amor Amor Es Como Una Canción [1982 other 10]",
+  "tb": "El Amor Es Como Una [? studio_album 5]",
+  "artist": 1890,
+  "rule": "",
+  "doubt": "contenido 5/5 con títulos distintos"
+ },
+ {
+  "a": 1261,
+  "b": 2956,
+  "ta": "Redención EP [2012 ep 4]",
+  "tb": "Redención [2011 ep 4]",
+  "artist": 438,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 2967,
+  "b": 3122,
+  "ta": "Cinemateca Nacional de Barquisimeto [2010 live_album 8]",
+  "tb": "Vienes / Vas [2011 ep 6]",
+  "artist": 1635,
+  "rule": "",
+  "doubt": "contenido 5/6 pero tipos distintos"
+ },
+ {
+  "a": 3901,
+  "b": 5082,
+  "ta": "Cherry... Pero Su Voz Quedó! [1967 compilation 0]",
+  "tb": "Cherry [1966 studio_album 12]",
+  "artist": 1896,
+  "rule": "",
+  "doubt": "uno vacío pero tipos distintos"
+ },
+ {
+  "a": 3902,
+  "b": 5082,
+  "ta": "Lo Mejor de Cherry [1967 compilation 0]",
+  "tb": "Cherry [1966 studio_album 12]",
+  "artist": 1896,
+  "rule": "",
+  "doubt": "uno vacío pero tipos distintos"
+ },
+ {
+  "a": 4897,
+  "b": 4902,
+  "ta": "La Leyenda Continúa...!: Discografía 1966/2011 [? compilation 0]",
+  "tb": "La Leyenda Continúa...! [2014 compilation 0]",
+  "artist": 1910,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 2083,
+  "b": 3035,
+  "ta": "Doppler [2003 other 9]",
+  "tb": "Demo [2002 demo 9]",
+  "artist": 1155,
+  "rule": "",
+  "doubt": "contenido 9/9 pero ediciones de años distintos"
+ },
+ {
+  "a": 2869,
+  "b": 5006,
+  "ta": "Volumen 3 [1967 studio_album 11]",
+  "tb": "Los Claners Vol. 3 [1967 studio_album 12]",
+  "artist": 1593,
+  "rule": "",
+  "doubt": "contenido 9/11 con títulos distintos"
+ },
+ {
+  "a": 263,
+  "b": 3141,
+  "ta": "Los Oceánicos [2005 studio_album 10]",
+  "tb": "Demo [2005 demo 10]",
+  "artist": 160,
+  "rule": "",
+  "doubt": "contenido 10/10 pero tipos distintos"
+ },
+ {
+  "a": 14577,
+  "b": 14578,
+  "ta": "De Tanta Piel [? other 10]",
+  "tb": "Amores de Luna Llena [? other 10]",
+  "artist": 3740,
+  "rule": "",
+  "doubt": "contenido 8/10 con títulos distintos"
+ },
+ {
+  "a": 14577,
+  "b": 14579,
+  "ta": "De Tanta Piel [? other 10]",
+  "tb": "Cuando Seas Mía [? other 19]",
+  "artist": 3740,
+  "rule": "",
+  "doubt": "contenido 10/10 con títulos distintos"
+ },
+ {
+  "a": 14578,
+  "b": 14579,
+  "ta": "Amores de Luna Llena [? other 10]",
+  "tb": "Cuando Seas Mía [? other 19]",
+  "artist": 3740,
+  "rule": "",
+  "doubt": "contenido 8/10 con títulos distintos"
+ },
+ {
+  "a": 2131,
+  "b": 3336,
+  "ta": "Epoca de Recluta [1996 other 7]",
+  "tb": "Evolucionando Bajo Suelo [1996 other 7]",
+  "artist": 1184,
+  "rule": "",
+  "doubt": "contenido 7/7 pero título = nombre del artista"
+ },
+ {
+  "a": 1690,
+  "b": 3981,
+  "ta": "Días de Septiembre [2011 studio_album 9]",
+  "tb": "Días De Septiembre (Reissue) [2012 other 8]",
+  "artist": 916,
+  "rule": "",
+  "doubt": "contenido 7/8 pero ediciones de años distintos"
+ },
+ {
+  "a": 7726,
+  "b": 7727,
+  "ta": "Punto Sur...Y Punto [1979 other 0]",
+  "tb": "Punto Sur [1980 other 10]",
+  "artist": 3742,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 4015,
+  "b": 4660,
+  "ta": "Bolumen 4 / Al Día Siguiente [1984 studio_album 8]",
+  "tb": "Bolumen 4 [1984 studio_album 4]",
+  "artist": 1926,
+  "rule": "",
+  "doubt": "contenido 4/4 con títulos distintos"
+ },
+ {
+  "a": 4020,
+  "b": 4659,
+  "ta": "Las Diez Peores CanSiones de Latino.. [1979 other 10]",
+  "tb": "Las Diez Peores CanSiones De Latinoamerica [1979 studio_album 6]",
+  "artist": 1926,
+  "rule": "",
+  "doubt": "contenido 6/6 con títulos distintos"
+ },
+ {
+  "a": 7791,
+  "b": 8391,
+  "ta": "Sexteto Juventud CD [1999 other 0]",
+  "tb": "Sexteto Juventud [1999 other 15]",
+  "artist": 3747,
+  "rule": "",
+  "doubt": "uno vacío pero título = nombre del artista"
+ },
+ {
+  "a": 13279,
+  "b": 13288,
+  "ta": "For Babies [2015 compilation 12]",
+  "tb": "Chino & Nacho Live (En Vivo Desde El Anfiteatro El Hatillo, Caracas-Venezuela/2014) [2014 other 10]",
+  "artist": 4247,
+  "rule": "",
+  "doubt": "contenido 8/10 pero ediciones de años distintos"
+ },
+ {
+  "a": 13280,
+  "b": 13288,
+  "ta": "Live: Desde el anfiteatro El Hatillo | Caracas, Venezuela [2014 live_album 10]",
+  "tb": "Chino & Nacho Live (En Vivo Desde El Anfiteatro El Hatillo, Caracas-Venezuela/2014) [2014 other 10]",
+  "artist": 4247,
+  "rule": "",
+  "doubt": "contenido 10/10 pero volúmenes distintos"
+ },
+ {
+  "a": 13279,
+  "b": 13280,
+  "ta": "For Babies [2015 compilation 12]",
+  "tb": "Live: Desde el anfiteatro El Hatillo | Caracas, Venezuela [2014 live_album 10]",
+  "artist": 4247,
+  "rule": "",
+  "doubt": "contenido 8/10 pero tipos distintos"
+ },
+ {
+  "a": 1556,
+  "b": 1668,
+  "ta": "Fleshless and Deathless [2015 ep 4]",
+  "tb": "Deathless and Fleshless [2016 studio_album 10]",
+  "artist": 16,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 3962,
+  "b": 4914,
+  "ta": "Y... Un Poquito Más [1980 studio_album 4]",
+  "tb": "Un Poquito Más [1980 studio_album 8]",
+  "artist": 1855,
+  "rule": "",
+  "doubt": "contenido 4/4 con títulos distintos"
+ },
+ {
+  "a": 229,
+  "b": 1808,
+  "ta": "Conspirando En El Bar [2015 studio_album 12]",
+  "tb": "Directo En Tu Cara [2015 live_album 12]",
+  "artist": 140,
+  "rule": "",
+  "doubt": "contenido 12/12 pero tipos distintos"
+ },
+ {
+  "a": 4451,
+  "b": 4452,
+  "ta": "Serie Millennium 21 [2000 compilation 21]",
+  "tb": "Serie 32 [2001 compilation 32]",
+  "artist": 2003,
+  "rule": "",
+  "doubt": "contenido 17/21 pero ediciones de años distintos"
+ },
+ {
+  "a": 1427,
+  "b": 1598,
+  "ta": "Rules [2003 studio_album 14]",
+  "tb": "Rules: Antologia 1985-2004 [2004 compilation 14]",
+  "artist": 700,
+  "rule": "",
+  "doubt": "contenido 13/14 pero tipos distintos"
+ },
+ {
+  "a": 4066,
+  "b": 4067,
+  "ta": "De Una [1991 studio_album 16]",
+  "tb": "Como Abriendo El Sol [1990 studio_album 11]",
+  "artist": 1943,
+  "rule": "",
+  "doubt": "contenido 10/11 pero ediciones de años distintos"
+ },
+ {
+  "a": 13671,
+  "b": 13672,
+  "ta": "los mejores años - EP [2023 ep 5]",
+  "tb": "los mejores años (notas de diario) [2023 studio_album 14]",
+  "artist": 4253,
+  "rule": "",
+  "doubt": "contenido 5/5 con títulos distintos"
+ },
+ {
+  "a": 13675,
+  "b": 13678,
+  "ta": "al romper la burbuja 2 [2026 studio_album 19]",
+  "tb": "al romper la burbuja [2025 studio_album 14]",
+  "artist": 4253,
+  "rule": "",
+  "doubt": "contenido 13/14 pero ediciones de años distintos"
+ },
+ {
+  "a": 452,
+  "b": 5055,
+  "ta": "Henrique Lazo [1969 studio_album 10]",
+  "tb": "Este es...! Henrique Lazo [1969 other 10]",
+  "artist": 111,
+  "rule": "",
+  "doubt": "contenido 10/10 pero título = nombre del artista"
+ },
+ {
+  "a": 971,
+  "b": 2767,
+  "ta": "EP [2013 ep 4]",
+  "tb": "Final [2012 ep 4]",
+  "artist": 515,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 4221,
+  "b": 4228,
+  "ta": "Indianápolis [1964 ep 4]",
+  "tb": "Los Holiday's [1964 studio_album 12]",
+  "artist": 1963,
+  "rule": "",
+  "doubt": "contenido 4/4 pero título = nombre del artista"
+ },
+ {
+  "a": 707,
+  "b": 708,
+  "ta": "La Llave Del Reino [2007 ep 6]",
+  "tb": "Ángeles del Metal [2006 ep 4]",
+  "artist": 322,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 9567,
+  "b": 9843,
+  "ta": "Séptimo Amigo [2006 other 0]",
+  "tb": "Séptimo Amigo Grupo Raíces de Vzla Vol. I y II [2006 other 20]",
+  "artist": 3906,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 1318,
+  "b": 1494,
+  "ta": "Aborto De Alien [2008 single 4]",
+  "tb": "Aberrante Aleación [2009 collaboration_album 8]",
+  "artist": 673,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 15633,
+  "b": 15717,
+  "ta": "Gorilla Business [2024 single 0]",
+  "tb": "Gorilla Business (En vivo, desde Recoveco Records) [2024 other 0]",
+  "artist": 1715,
+  "rule": "",
+  "doubt": "uno vacío pero en vivo/remix frente a estudio"
+ },
+ {
+  "a": 15622,
+  "b": 15701,
+  "ta": "Nada que perder [2024 studio_album 0]",
+  "tb": "Nada que perder 2 [2025 other 0]",
+  "artist": 1715,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 14218,
+  "b": 14221,
+  "ta": "Mamá Flor [2023 studio_album 10]",
+  "tb": "Flor de Mayo [2024 ep 5]",
+  "artist": 4274,
+  "rule": "",
+  "doubt": "contenido 4/5 pero ediciones de años distintos"
+ },
+ {
+  "a": 1665,
+  "b": 2982,
+  "ta": "StormThrash EP [2012 ep 6]",
+  "tb": "EP [2012 ep 6]",
+  "artist": 910,
+  "rule": "",
+  "doubt": "contenido 6/6 con títulos distintos"
+ },
+ {
+  "a": 14327,
+  "b": 14335,
+  "ta": "Con las canciones que crecí [2022 studio_album 15]",
+  "tb": "Con Las Canciones Que Crecí Vol. 1 [2022 other 15]",
+  "artist": 4277,
+  "rule": "",
+  "doubt": "contenido 15/15 pero volúmenes distintos"
+ },
+ {
+  "a": 1093,
+  "b": 2777,
+  "ta": "Demo 2000 [2000 demo 8]",
+  "tb": "Metempsicosis [2000 demo 8]",
+  "artist": 610,
+  "rule": "",
+  "doubt": "contenido 7/8 pero volúmenes distintos"
+ },
+ {
+  "a": 14366,
+  "b": 14367,
+  "ta": "Clásicos [2021 studio_album 12]",
+  "tb": "PRIMAVOLTA [2020 ep 5]",
+  "artist": 4280,
+  "rule": "",
+  "doubt": "contenido 5/5 pero ediciones de años distintos"
+ },
+ {
+  "a": 1908,
+  "b": 2824,
+  "ta": "Demo Sh [2009 demo 4]",
+  "tb": "Sh [2009 studio_album 4]",
+  "artist": 996,
+  "rule": "",
+  "doubt": "contenido 4/4 pero tipos distintos"
+ },
+ {
+  "a": 1998,
+  "b": 2831,
+  "ta": "Klan-Foot [2004 other 18]",
+  "tb": "Punk Rock [2004 other 17]",
+  "artist": 1073,
+  "rule": "",
+  "doubt": "contenido 17/17 pero título = nombre del artista"
+ },
+ {
+  "a": 2024,
+  "b": 2463,
+  "ta": "Demo [2008 demo 5]",
+  "tb": "Apariencía Critica [2008 demo 5]",
+  "artist": 1091,
+  "rule": "",
+  "doubt": "contenido 5/5 pero título = nombre del artista"
+ },
+ {
+  "a": 1461,
+  "b": 2446,
+  "ta": "Como no sentir Odio [2006 studio_album 9]",
+  "tb": "Como Sentir Odio [2005 other 9]",
+  "artist": 638,
+  "rule": "",
+  "doubt": "contenido 9/9 pero ediciones de años distintos"
+ },
+ {
+  "a": 2301,
+  "b": 2303,
+  "ta": "Shattered Reflections [2011 ep 4]",
+  "tb": "Against The Universe [2010 ep 6]",
+  "artist": 1761,
+  "rule": "",
+  "doubt": "contenido 4/4 pero ediciones de años distintos"
+ },
+ {
+  "a": 2488,
+  "b": 3194,
+  "ta": "Solidaridad - A Beneficio del Comité de Victimas Contra La Impunidad [2008 other 20]",
+  "tb": "Demo [2007 demo 11]",
+  "artist": 1405,
+  "rule": "",
+  "doubt": "contenido 9/11 pero ediciones de años distintos"
+ },
+ {
+  "a": 2539,
+  "b": 2649,
+  "ta": "La Mapajota [2011 single 5]",
+  "tb": "Arepitas [2010 ep 5]",
+  "artist": 1424,
+  "rule": "",
+  "doubt": "contenido 5/5 pero tipos distintos"
+ },
+ {
+  "a": 2552,
+  "b": 2557,
+  "ta": "Sol [2002 single 4]",
+  "tb": "En Vivo Plaza de Los Museos [2002 live_album 4]",
+  "artist": 1434,
+  "rule": "",
+  "doubt": "contenido 4/4 pero tipos distintos"
+ },
+ {
+  "a": 2624,
+  "b": 3944,
+  "ta": "Para La Juventud [1965 studio_album 6]",
+  "tb": "Para La Juventud... El Ritmo De Los Dangers [1965 studio_album 12]",
+  "artist": 1474,
+  "rule": "",
+  "doubt": "contenido 6/6 con títulos distintos"
+ },
+ {
+  "a": 2763,
+  "b": 2764,
+  "ta": "Parte De Una Historia [2012 other 11]",
+  "tb": "Infinito [2012 other 4]",
+  "artist": 1685,
+  "rule": "",
+  "doubt": "contenido 4/4 con títulos distintos"
+ },
+ {
+  "a": 2911,
+  "b": 2913,
+  "ta": "Estación Transatlantic [2011 other 12]",
+  "tb": "Reflejos [2012 other 12]",
+  "artist": 1611,
+  "rule": "",
+  "doubt": "contenido 12/12 pero ediciones de años distintos"
+ },
+ {
+  "a": 15429,
+  "b": 15710,
+  "ta": "Territorio Apache [2023 studio_album 0]",
+  "tb": "Territorio: Apache Vol.2 - Champion Sound [2024 other 0]",
+  "artist": 1681,
+  "rule": "",
+  "doubt": "uno vacío pero volúmenes distintos"
+ },
+ {
+  "a": 3070,
+  "b": 3071,
+  "ta": "Let Me Now [2012 ep 4]",
+  "tb": "You Is You [2012 other 13]",
+  "artist": 1673,
+  "rule": "",
+  "doubt": "contenido 4/4 con títulos distintos"
+ },
+ {
+  "a": 3228,
+  "b": 3229,
+  "ta": "Anger [2005 single 5]",
+  "tb": "Hate me [2004 ep 5]",
+  "artist": 1759,
+  "rule": "",
+  "doubt": "contenido 5/5 pero tipos distintos"
+ },
+ {
+  "a": 3775,
+  "b": 4631,
+  "ta": "Melodías Inmortales Para La Juventud [1968 other 10]",
+  "tb": "Melodías Inmortales [? other 5]",
+  "artist": 1861,
+  "rule": "",
+  "doubt": "contenido 5/5 con títulos distintos"
+ },
+ {
+  "a": 1518,
+  "b": 1751,
+  "ta": "Imperium [2009 ep 5]",
+  "tb": "Nihil [2010 studio_album 7]",
+  "artist": 747,
+  "rule": "",
+  "doubt": "contenido 5/5 pero ediciones de años distintos"
+ },
+ {
+  "a": 14996,
+  "b": 15004,
+  "ta": "28 Años de Gaitas [2016 other 20]",
+  "tb": "Todos Sus Exitos [2016 other 20]",
+  "artist": 4309,
+  "rule": "",
+  "doubt": "contenido 20/20 pero volúmenes distintos"
+ },
+ {
+  "a": 4436,
+  "b": 4438,
+  "ta": "Recuerdos [1983 studio_album 8]",
+  "tb": "Dulce Sentimiento [1983 ep 5]",
+  "artist": 1838,
+  "rule": "",
+  "doubt": "contenido 4/5 con títulos distintos"
+ },
+ {
+  "a": 4512,
+  "b": 4513,
+  "ta": "War Death Terror [2011 demo 5]",
+  "tb": "Stormthrash [2012 ep 6]",
+  "artist": 1826,
+  "rule": "",
+  "doubt": "contenido 4/5 pero tipos distintos"
+ },
+ {
+  "a": 12727,
+  "b": 12749,
+  "ta": "KiCk: ThE cOmPlEtE cYcLe [2022 compilation 59]",
+  "tb": "KICK ii [2021 studio_album 12]",
+  "artist": 4235,
+  "rule": "",
+  "doubt": "contenido 12/12 pero tipos distintos"
+ },
+ {
+  "a": 12719,
+  "b": 12727,
+  "ta": "Kick [2022 compilation 26]",
+  "tb": "KiCk: ThE cOmPlEtE cYcLe [2022 compilation 59]",
+  "artist": 4235,
+  "rule": "",
+  "doubt": "contenido 21/26 con títulos distintos"
+ },
+ {
+  "a": 12727,
+  "b": 12756,
+  "ta": "KiCk: ThE cOmPlEtE cYcLe [2022 compilation 59]",
+  "tb": "kick iiii [2021 studio_album 11]",
+  "artist": 4235,
+  "rule": "",
+  "doubt": "contenido 11/11 pero tipos distintos"
+ },
+ {
+  "a": 12727,
+  "b": 12765,
+  "ta": "KiCk: ThE cOmPlEtE cYcLe [2022 compilation 59]",
+  "tb": "KicK iii [2021 studio_album 12]",
+  "artist": 4235,
+  "rule": "",
+  "doubt": "contenido 12/12 pero tipos distintos"
+ },
+ {
+  "a": 12727,
+  "b": 12772,
+  "ta": "KiCk: ThE cOmPlEtE cYcLe [2022 compilation 59]",
+  "tb": "kiCK iiiii [2021 studio_album 12]",
+  "artist": 4235,
+  "rule": "",
+  "doubt": "contenido 12/12 pero tipos distintos"
+ },
+ {
+  "a": 12973,
+  "b": 12976,
+  "ta": "Persona ideal [1997 studio_album 7]",
+  "tb": "Super éxitos [? compilation 17]",
+  "artist": 4239,
+  "rule": "",
+  "doubt": "contenido 7/7 pero tipos distintos"
+ },
+ {
+  "a": 12976,
+  "b": 12979,
+  "ta": "Super éxitos [? compilation 17]",
+  "tb": "Grandes éxitos [2000 compilation 11]",
+  "artist": 4239,
+  "rule": "",
+  "doubt": "contenido 9/11 con títulos distintos"
+ }
+]

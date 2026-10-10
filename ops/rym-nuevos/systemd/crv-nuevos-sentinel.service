@@ -1,0 +1,6 @@
+[Unit]
+Description=CRV centinela de la campaña «nuevos» (no-LLM)
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash "/home/brian/apps/Coleccionistas De Rock Venezolano/ops/rym-nuevos/centinela.sh"

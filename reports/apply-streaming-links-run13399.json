@@ -1,0 +1,17 @@
+{
+  "runId": 13399,
+  "dir": "reports/streaming-links-2026-10-04/piloto-100",
+  "filas": 245,
+  "aplicados": 245,
+  "porPlataforma": {
+    "deezer": 153,
+    "apple_music": 54,
+    "bandcamp": 4,
+    "spotify": 14,
+    "soundcloud": 6,
+    "tidal": 5,
+    "youtube": 6,
+    "amazon_music": 3
+  },
+  "fuzzy": 29
+}

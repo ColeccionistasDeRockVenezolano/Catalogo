@@ -1,0 +1,15 @@
+[Unit]
+Description=CRV: lanzador de la fase bios al cerrar «nuevos»
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+ExecStart=/bin/bash "/home/brian/apps/Coleccionistas De Rock Venezolano/ops/rym-nuevos/bios-lanzador.sh"
+Restart=on-failure
+RestartSec=30
+TimeoutStopSec=30
+
+
+[Install]
+WantedBy=default.target

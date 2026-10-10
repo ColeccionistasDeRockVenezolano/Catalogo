@@ -1,0 +1,16 @@
+[Unit]
+Description=CRV: cliquer de enlaces RYM en el Firefox del dueño
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+ExecStart=/bin/bash "/home/brian/apps/Coleccionistas De Rock Venezolano/ops/rym-nuevos/wall-clicker.sh"
+Restart=always
+RestartSec=60
+TimeoutStopSec=30
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/brian/.Xauthority
+
+[Install]
+WantedBy=default.target

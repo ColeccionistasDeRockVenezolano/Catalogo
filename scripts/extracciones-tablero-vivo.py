@@ -14,10 +14,16 @@ Escribe:
 Pensado para correr en bucle (unit crv-extracciones-tablero, cada 15 s). Nunca lanza.
 """
 import json
+import os
+import re
+import sys
 import subprocess
 import time
 from html import escape as esc
 from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from rym_reglas import escribir_atomico, slugify  # noqa: E402
 
 REPO = "/home/brian/apps/Coleccionistas De Rock Venezolano"
 CAMP = Path(REPO) / "reports/streaming-links-2026-10-04/campana"
@@ -26,10 +32,16 @@ OUT_MAIN = "/tmp/crv-recon/crv-extracciones-tablero.html"
 OUT_FRAG_ENL = "/tmp/crv-recon/crv-extracciones-fragmento-enlaces.html"
 OUT_FRAG_BIO = "/tmp/crv-recon/crv-extracciones-fragmento-bios.html"
 OUT_COPIA = Path(REPO) / "reports/streaming-links-2026-10-04/tablero.html"
-CACHE = Path("/tmp/crv-recon/extracciones-cache.json")
-HIST = Path("/tmp/crv-recon/extracciones-hist.jsonl")
+# Estado propio en disco persistente (/tmp es tmpfs y se vacía al reiniciar); las salidas
+# HTML siguen en /tmp/crv-recon porque son solo vistas que se regeneran cada 15 s.
+MARCAS = Path(REPO) / "reports/crv-marcas"
+CACHE = MARCAS / "extracciones-cache.json"
+HIST = MARCAS / "extracciones-hist.jsonl"
 MARK_SPOTIFY = Path("/tmp/crv-recon/spotify-pase-ok.txt")
-TOTAL_ART = 4483
+MARK_SPOTIFY_DUR = MARCAS / "spotify-pase-ok.txt"
+# Total de la campaña = artistas vivos en la BD (antes 4483 fijo: los artistas creados
+# después del arranque no contaban y el tablero marcaba 100 % con 60 sin recorrer).
+TOTAL_ART_RESPALDO = 4483
 REDES = {"twitter", "facebook", "instagram", "tiktok"}
 
 
@@ -92,7 +104,7 @@ def agregado(n_camp):
             redes += 1
     c = {"ts": int(ahora), "n": n_camp, "plat": plat, "redes": redes, "leidos": leidos}
     try:
-        CACHE.write_text(json.dumps(c), encoding="utf-8")
+        escribir_atomico(str(CACHE), json.dumps(c))
     except Exception:
         pass
     return c
@@ -107,7 +119,7 @@ def ritmo(n):
     rows = [r for r in rows if ahora - r.get("t", 0) <= 5400][-400:]
     rows.append({"t": int(ahora), "n": n})
     try:
-        HIST.write_text("\n".join(json.dumps(r) for r in rows) + "\n", encoding="utf-8")
+        escribir_atomico(str(HIST), "\n".join(json.dumps(r) for r in rows) + "\n")
     except Exception:
         pass
     ref = next((r for r in rows if ahora - r["t"] <= 2700), None)
@@ -116,8 +128,28 @@ def ritmo(n):
     return None
 
 
+def _num(v):
+    """Celda numérica; los ceros van atenuados para que destaque lo que sí hay."""
+    return f'<td class="n{" z" if not v else ""}">{v}</td>'
+
+
+def total_y_hechos():
+    """(artistas vivos en la BD, cuántos de ellos tienen su links-<id>.json). Sin BD: el respaldo fijo."""
+    filas = psql("SELECT id FROM public.artists")
+    vivos = {int(r[0]) for r in filas if r and r[0].isdigit()}
+    ids = set()
+    if CAMP.exists():
+        for p in CAMP.glob("links-*.json"):
+            m = re.match(r"links-(\d+)\.json$", p.name)
+            if m:
+                ids.add(int(m.group(1)))
+    if not vivos:
+        return TOTAL_ART_RESPALDO, len(ids)
+    return len(vivos), len(ids & vivos)
+
+
 def main():
-    n_camp = sum(1 for _ in CAMP.glob("links-*.json")) if CAMP.exists() else 0
+    TOTAL_ART, n_camp = total_y_hechos()
     rate = ritmo(n_camp)
     eta = None
     if rate and n_camp < TOTAL_ART:
@@ -143,9 +175,20 @@ def main():
         n_cola = sum(1 for l in (BIOS / "cola-bios.jsonl").read_text(encoding="utf-8").splitlines() if l.strip())
     except Exception:
         pass
+    # Misma regla que scrapling-bios.py: un artista de la cola está hecho si existe su
+    # pages/bio-<slug>.json (antes: total = cola + capturadas, que se inflaba al capturar).
     bios_cap = 0
     try:
-        bios_cap = sum(1 for _ in (BIOS / "pages").glob("*.json"))
+        hechos = {p.name for p in (BIOS / "pages").glob("bio-*.json")}
+        cola_b = [json.loads(l) for l in (BIOS / "cola-bios.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+        bios_cap = sum(1 for r in cola_b if "bio-" + slugify(r.get("rymHref")) + ".json" in hechos)
+    except Exception:
+        pass
+    # Con texto: los JSON con n>0 (los sin_bio también cuentan como hechos: RYM no la tiene).
+    bios_txt = 0
+    try:
+        bios_txt = sum(1 for p in (BIOS / "pages").glob("bio-*.json")
+                       if json.loads(p.read_text(encoding="utf-8")).get("n", 0) > 0)
     except Exception:
         pass
     svc_camp = svc("crv-streaming-campana")
@@ -154,23 +197,32 @@ def main():
     svc_nuevas = svc("crv-scrapling-nuevos")
     svc_redes = svc("crv-redes-pase")
 
-    if MARK_SPOTIFY.exists():
-        sp_txt, sp_sub = "✅ pase hecho (piloto)", MARK_SPOTIFY.read_text(encoding="utf-8").strip()[:60]
+    if MARK_SPOTIFY.exists() and not MARK_SPOTIFY_DUR.exists():
+        escribir_atomico(str(MARK_SPOTIFY_DUR), MARK_SPOTIFY.read_text(encoding="utf-8"))
+    if MARK_SPOTIFY_DUR.exists():
+        sp_txt, sp_sub = "✅ pase hecho (piloto)", MARK_SPOTIFY_DUR.read_text(encoding="utf-8").strip()[:60]
     elif svc_watch == "active":
         sp_txt, sp_sub = "🟡 en espera del castigo", "sonda cada 20 min; al primer OK completa el piloto solo"
     else:
         sp_txt, sp_sub = "—", "vigilante no activo"
 
-    if svc_bios == "active":
+    if n_cola and bios_cap >= n_cola:
+        bios_estado = f"✅ hecha · {bios_txt} con bio · {bios_cap - bios_txt} sin bio en RYM"
+    elif svc_bios == "active":
         bios_estado = "capturando"
     elif svc_nuevas == "active":
         bios_estado = "en espera — una sola sesión RYM (corre «nuevos»)"
     else:
         bios_estado = "lista para lanzar"
-    if bios_cap:
-        bios_estado = "capturando"
 
     pct_enl = int(n_camp * 100 / TOTAL_ART) if TOTAL_ART else 0
+    try:
+        escribir_atomico(str(MARCAS / "extracciones-resumen.json"), json.dumps({
+            "ts": int(time.time()),
+            "enlaces": {"hechos": n_camp, "total": TOTAL_ART, "ritmo": rate, "eta": eta, "svc": svc_camp},
+            "bios": {"hechos": bios_cap, "total": n_cola, "estado": bios_estado, "svc": svc_bios}}))
+    except Exception:
+        pass
     pct_bio = int(con_bio * 100 / tot_art) if tot_art else 0
 
     filas_plat = []
@@ -179,9 +231,8 @@ def main():
         a = agg.get(p) or {}
         b = bd_por_plat.get(p) or ["", "0"]
         filas_plat.append(
-            f'<tr><td>{esc(p)}</td><td class="n">{a.get("art", 0)}</td><td class="n">{a.get("alb", 0)}</td>'
-            f'<td class="n">{int(b[1]) if len(b) > 1 and b[1] else 0}</td>'
-            f'<td class="n">{a.get("fuzzy", 0)}</td></tr>')
+            f'<tr><td>{esc(p)}</td>{_num(a.get("art", 0))}{_num(a.get("alb", 0))}'
+            f'{_num(int(b[1]) if len(b) > 1 and b[1] else 0)}{_num(a.get("fuzzy", 0))}</tr>')
 
     servicios = [("crv-streaming-campana", svc_camp), ("crv-spotify-watch", svc_watch),
                  ("crv-redes-pase", svc_redes), ("crv-rym-bios", svc_bios),
@@ -205,12 +256,15 @@ def main():
 .ex-wrap table{border-collapse:collapse;width:100%;margin-top:6px;background:#12161d}
 .ex-wrap th,.ex-wrap td{border:1px solid #232833;padding:3px 8px;font-size:12px;text-align:left}
 .ex-wrap th{background:#1a1e27;color:#aab6c4}
-.ex-wrap td.n{text-align:right}
+.ex-wrap td.n{text-align:right;font-variant-numeric:tabular-nums}
+.ex-wrap td.n.z{color:#4b5563}
+.ex-wrap table{max-width:760px;border-radius:8px}
+.ex-mid{font-size:16px;font-weight:650;line-height:1.3}
 .ex-ok{color:#6fe39a}.ex-warn{color:#ffcf6f}.ex-dim{color:#8b98a9}
 </style>"""
 
     frag_enl = f"""{css}
-<div class="secsep"><span class="n">2</span><h2>Enlaces — redes sociales y plataformas de streaming</h2>
+<div class="secsep" id="sec-enlaces"><span class="n">2</span><h2>Enlaces — redes sociales y plataformas de streaming</h2>
 <span class="d">por perfil de artista y por álbum</span></div>
 <div class="ex-wrap">
 <div class="ex-grid">
@@ -222,7 +276,7 @@ def main():
     <div class="ex-sub">artistas cosechados {n_camp} · en la tabla con fuzzy {tot_fuzzy} · verificados {tot_ver}</div></div>
   <div class="ex-card"><h3>Redes sociales (perfil)</h3><div class="ex-big">{agregado(n_camp).get("redes", 0)} artistas</div>
     <div class="ex-sub">twitter/x · facebook · instagram · tiktok (vía MusicBrainz) · pase de previos: <span class="ex-dim">{esc(svc_redes)}</span></div></div>
-  <div class="ex-card"><h3>Spotify</h3><div class="ex-big">{sp_txt}</div>
+  <div class="ex-card"><h3>Spotify</h3><div class="ex-mid">{sp_txt}</div>
     <div class="ex-sub">{esc(sp_sub)}</div></div>
 </div>
 <table>
@@ -232,16 +286,16 @@ def main():
 </div>"""
 
     frag_bio = f"""{css}
-<div class="secsep"><span class="n">3</span><h2>Bios — biografía de RYM</h2>
+<div class="secsep" id="sec-bios"><span class="n">3</span><h2>Bios — biografía de RYM</h2>
 <span class="d">cola de artistas sin bio con slug RYM</span></div>
 <div class="ex-wrap">
 <div class="ex-grid">
-  <div class="ex-card"><h3>Cola de bios</h3><div class="ex-big">{bios_cap} / {n_cola + bios_cap}</div>
-    <div class="ex-sub">pendientes {n_cola} · {esc(bios_estado)} · solo artistas sin bio con slug RYM</div>
-    <div class="ex-bar"><i style="width:{int(bios_cap * 100 / max(n_cola + bios_cap, 1))}%"></i></div></div>
+  <div class="ex-card"><h3>Cola de bios</h3><div class="ex-big">{bios_cap} / {n_cola}</div>
+    <div class="ex-sub">pendientes {n_cola - bios_cap} · {esc(bios_estado)} · otras fuentes 2026-10-05: +637 bios aplicadas</div>
+    <div class="ex-bar"><i style="width:{int(bios_cap * 100 / max(n_cola, 1))}%"></i></div></div>
   <div class="ex-card"><h3>Catálogo (artistas con bio)</h3><div class="ex-big">{con_bio} / {tot_art}</div>
     <div class="ex-sub">sin bio {tot_art - con_bio} · {pct_bio} %</div></div>
-  <div class="ex-card"><h3>Capturador de bios</h3><div class="ex-big">{esc(bios_estado)}</div>
+  <div class="ex-card"><h3>Capturador de bios</h3><div class="ex-mid">{esc(bios_estado)}</div>
     <div class="ex-sub">se lanza al cerrar «nuevos» (una sola sesión RYM a la vez) · <span class="ex-dim">{esc(svc_bios)}</span></div></div>
 </div>
 <div class="ex-sub">Salud: {salud} · actualizado {time.strftime('%H:%M:%S')}</div>
@@ -254,8 +308,7 @@ def main():
 
     for p, txt in ((OUT_MAIN, doc), (OUT_FRAG_ENL, frag_enl), (OUT_FRAG_BIO, frag_bio), (str(OUT_COPIA), doc)):
         try:
-            Path(p).parent.mkdir(parents=True, exist_ok=True)
-            Path(p).write_text(txt, encoding="utf-8")
+            escribir_atomico(str(p), txt)  # el tablero «nuevos» nunca embebe un fragmento a medias
         except Exception as e:  # noqa: BLE001
             print(f"aviso {p}: {e}", flush=True)
 

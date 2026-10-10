@@ -1,0 +1,14 @@
+{
+  "runId": 13377,
+  "merged": [
+    {
+      "artist": "Billo's Caracas Boys",
+      "keep": 6513,
+      "drop": 7180,
+      "keepName": "José Luis",
+      "dropName": "José Luis Rodríguez",
+      "why": "nombre corto/largo"
+    }
+  ],
+  "failed": []
+}

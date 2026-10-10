@@ -20,11 +20,14 @@ import argparse, json, os, random, re, shutil, sqlite3, subprocess, tempfile, ti
 
 from scrapling.fetchers import StealthySession
 
+import rym_reglas as reglas
+from rym_reglas import (EXTRACTOR_V, es_hecho_artista, es_hecho_release, es_ok_artista,  # noqa: F401
+                        es_ok_release, es_vacio_release, norm_href, slugify)
+
 REPO = "/home/brian/apps/Coleccionistas De Rock Venezolano"
 AVISOS = f"{REPO}/scripts/rym-etapa3-avisos.sh"
 UA = "Mozilla/5.0 (X11; Linux x86_64; rv:153.0) Gecko/20100101 Firefox/153.0"
 COOKIE_SOURCES = ["/tmp/rym-prof", os.path.expanduser("~/.mozilla/firefox/d4qtp99b.default-esr")]
-EXTRACTOR_V = 3
 
 
 def log(*a):
@@ -87,22 +90,6 @@ def load_cookies():
         out.append({"name": name, "value": value, "domain": host, "path": path or "/",
                     "secure": bool(sec), "httpOnly": bool(http)})
     return out, best[1], best[0]
-
-
-def norm_href(h):
-    from urllib.parse import unquote
-    if not h:
-        return ""
-    h = unquote(h)
-    if h.startswith("https://rateyourmusic.com"):
-        h = h[len("https://rateyourmusic.com"):]
-    return h.split("?")[0].split("#")[0].rstrip("/")
-
-
-def slugify(href):
-    s = norm_href(href).replace("/artist/", "").replace("/", "_")
-    s = re.sub(r"[^A-Za-z0-9_\-\.]", "", s)
-    return s[:90] or "sin-slug"
 
 
 def body_text(page, limit=8000):
@@ -196,6 +183,16 @@ def ext_release(page):
         if par:
             rowa = re.sub(r"\s+", " ", " ".join(par[0].xpath(".//text()").getall())).strip()[:240]
         tracks.append({"t": (tx or "").strip()[:140], "row": rowa})
+    if not tracks:
+        # Listados sin enlaces /song/ (clásica, discos viejos): las pistas están en li.track
+        # con su título en .tracklist_title — antes quedaban como «pistas 0».
+        for li in page.css("#tracks li.track, ul.tracks li.track")[:120]:
+            num = re.sub(r"\s+", " ", " ".join(li.css(".tracklist_num ::text").getall())).strip()
+            tit = re.sub(r"\s+", " ", " ".join(li.css(".tracklist_title .rendered_text ::text").getall()
+                                               or li.css(".tracklist_title ::text").getall())).strip()
+            dur = re.sub(r"\s+", " ", " ".join(li.css(".tracklist_duration ::text").getall())).strip()
+            if tit:
+                tracks.append({"t": tit[:140], "row": " ".join(x for x in (num, tit, dur) if x)[:240]})
     rec["tracks"] = tracks
     credits = []
     for a in page.css('a[href^="/artist/"], a[href^="/person/"]')[:300]:
@@ -220,489 +217,24 @@ def recortar(rec):
             "nGen": len(rec.get("genres") or []), "photo": foto,
             "formed": rec.get("formed"), "og": rec.get("og"), "wall": bool(rec.get("wall")),
             "nTracks": len(rec.get("tracks") or []), "nCredits": len(rec.get("creditLinks") or []),
-            "at": time.strftime("%H:%M:%S"), "v": rec.get("v"), "src": "scrapling",
+            "at": time.strftime("%H:%M:%S"), "ts": int(time.time()), "v": rec.get("v"), "src": "scrapling",
             "sinDiscografia": bool(rec.get("sinDiscografia")),
             "sinDatos": bool(rec.get("sinDatos"))}
 
 
-def es_ok_artista(e):
-    return bool(e.get("v") == EXTRACTOR_V and e.get("name") and not e.get("wall"))
-
-
-def es_ok_release(e):
-    return bool(e.get("v") == EXTRACTOR_V and (e.get("name") or e.get("og")) and (e.get("og") or e.get("nTracks", 0) or e.get("nGen", 0)))
-
-
-def _tab_epoch(hms):
-    """Epoch de un 'HH:MM:SS' de hoy; si cae en el futuro (>30 s), es de ayer."""
-    try:
-        h, m, s = (int(x) for x in hms.split(":"))
-        t = time.localtime()
-        e = int(time.mktime((t.tm_year, t.tm_mon, t.tm_mday, h, m, s, 0, 0, -1)))
-        return e - 86400 if e > time.time() + 30 else e
-    except Exception:
-        return 0
-
-
-def _tab_hace(ts):
-    if not ts:
-        return "—"
-    d = int(max(0, time.time() - ts))
-    if d < 60:
-        return f"hace {d} s"
-    if d < 3600:
-        return f"hace {d // 60} min"
-    return f"hace {d // 3600} h {(d % 3600) // 60} min"
-
-
-def _tab_mm(ts):
-    try:
-        return time.strftime("%H:%M", time.localtime(ts))
-    except Exception:
-        return "—"
-
-
-def _tab_tail(path, nbytes=300000):
-    """Últimos nbytes de un archivo en texto (sin explotar si no existe)."""
-    try:
-        with open(path, "rb") as f:
-            f.seek(0, 2)
-            size = f.tell()
-            f.seek(max(0, size - nbytes))
-            data = f.read().decode("utf-8", "ignore")
-        if size > nbytes:
-            data = data.split("\n", 1)[-1]
-        return data
-    except Exception:
-        return ""
-
-
-def _tab_datos():
-    """Datos del log, supervisor y avisos para el tablero — nunca lanza."""
-    now = time.time()
-    d = {"bloq15": 0, "bloq_ult": None, "ev": None, "ult_ts": 0, "run_start": 0,
-         "cookies": None, "cookies_live": None, "caps_ts": [], "clicker": None,
-         "sup_arranque": None, "sup_relanzos": 0,
-         "sup_ult": None, "latido_ts": 0, "telegram": [],
-         "fase1_mark": os.path.exists("/tmp/crv-scrapling-fase1mark")}
-    try:
-        for ln in _tab_tail(os.path.join(REPO, "reports", "scrapling-nuevos.log"), 1500000).splitlines():
-            m = re.match(r"\[(\d{2}:\d{2}:\d{2})\]\s+\+ \[(artist|release)\] (.+) \((\d+)/(\d+)\)\s*$", ln)
-            if m:
-                nm = m.group(3).split(" -> ", 1)[-1].split(" | ", 1)[0]
-                d["ev"] = {"t": m.group(1), "kind": m.group(2), "name": nm,
-                           "n": int(m.group(4)), "tot": int(m.group(5))}
-                d["ult_ts"] = _tab_epoch(m.group(1))
-                d["caps_ts"].append(d["ult_ts"])
-            m = re.match(r"\[(\d{2}:\d{2}:\d{2})\] \[bloqueo\] \((\d+)\) ([^-—]+)", ln)
-            if m:
-                be = _tab_epoch(m.group(1))
-                if 0 < now - be <= 900:
-                    d["bloq15"] += 1
-                d["bloq_ult"] = {"ts": be, "status": int(m.group(2)), "title": m.group(3).strip()[:60]}
-            m = re.search(r"cookies: (\d+) \(fuente (\S+), mtime (\d{2}:\d{2})\)", ln)
-            if m:
-                d["cookies"] = {"n": m.group(1), "src": m.group(2), "mt": m.group(3)}
-            m = re.match(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\] wrapper: arrancando", ln)
-            if m:
-                try:
-                    d["run_start"] = int(time.mktime(time.strptime(m.group(1), "%Y-%m-%d %H:%M:%S")))
-                except Exception:
-                    pass
-    except Exception:
-        pass
-    try:
-        best = None
-        for cand in ("/home/brian/.mozilla/firefox/d4qtp99b.default-esr", "/tmp/rym-prof"):
-            p = os.path.join(cand, "cookies.sqlite")
-            try:
-                mt = os.path.getmtime(p)
-            except Exception:
-                continue
-            if best is None or mt > best[1]:
-                best = (cand, mt)
-        if best:
-            d["cookies_live"] = {"src": os.path.basename(best[0]), "mt": _tab_mm(best[1])}
-    except Exception:
-        pass
-    try:
-        with open(os.path.join(REPO, "reports", "crv-marcas", "clicker-ep"), encoding="utf-8") as f:
-            d["clicker"] = int(json.loads(f.read()).get("clics", 0))
-    except Exception:
-        pass
-    try:
-        for ln in _tab_tail(os.path.join(REPO, "reports", "scrapling-nuevos-supervisor.log"), 120000).splitlines():
-            m = re.match(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\] supervisor", ln)
-            if m:
-                d["sup_arranque"] = m.group(1)[11:16]
-            if "relanzo" in ln:
-                d["sup_relanzos"] += 1
-            if ln.strip():
-                d["sup_ult"] = ln.strip()[:200]
-    except Exception:
-        pass
-    try:
-        d["latido_ts"] = int(os.path.getmtime(os.path.join(REPO, "reports", "crv-super-nuevos.latido")))
-    except Exception:
-        pass
-    try:
-        tg = [l for l in _tab_tail(os.path.join(REPO, "reports", "telegram-avisos-nuevos.log"), 30000).splitlines() if l.strip()]
-        d["telegram"] = tg[-5:][::-1]
-    except Exception:
-        pass
-    return d
-
-
-OUTDIR_NUEVOS = "/home/brian/apps/Coleccionistas De Rock Venezolano/data/raw/fuentes-web-2026-10-01/rym-nuevos"
-
-
-def _cola_discos(estado):
-    """Cola REAL de discos: dedupe de las releases listadas en las páginas de
-    artistas capturadas, contra el estado (la misma cuenta que usa el
-    capturador). Caché de 10 min en /tmp para no leer 1.591 páginas por render."""
-    cache = "/tmp/crv-recon/cola-discos-cache.json"
-    try:
-        c = json.load(open(cache, encoding="utf-8"))
-        if time.time() - c.get("ts", 0) < 600:
-            return c
-    except Exception:
-        pass
-    from urllib.parse import unquote
-
-    def ok(e):
-        return bool(e) and (e.get("name") or e.get("og")) and (e.get("og") or e.get("nTracks", 0) or e.get("nGen", 0))
-
-    pages = os.path.join(OUTDIR_NUEVOS, "pages")
-    todas = set()
-    try:
-        nombres = os.listdir(pages)
-    except Exception:
-        nombres = []
-    for nombre in nombres:
-        if not nombre.endswith(".json") or nombre.startswith("rel_"):
-            continue
-        try:
-            d = json.load(open(os.path.join(pages, nombre), encoding="utf-8"))
-        except Exception:
-            continue
-        for r in ((d.get("rec") or {}).get("rows") or []):
-            h = unquote(r.get("h") or "")
-            if h.startswith("https://rateyourmusic.com"):
-                h = h[len("https://rateyourmusic.com"):]
-            h = h.split("?")[0].split("#")[0].rstrip("/")
-            if h:
-                todas.add(h)
-    okn = sum(1 for h in todas if ok(estado.get(h)))
-    pend = len(todas) - okn
-    sin_entry = sum(1 for h in todas if h not in estado)
-    c = {"ts": int(time.time()), "todas": len(todas), "ok": okn, "pend": pend,
-         "sin_entry": sin_entry, "con_entry": pend - sin_entry}
-    try:
-        json.dump(c, open(cache, "w", encoding="utf-8"))
-    except Exception:
-        pass
-    return c
-
-
-def tablero_html(estado, cola, nota):
-    """Tablero v2: métricas globales, salud (supervisor/sesión/muros) y avisos."""
-    from html import escape as esc
-    now = time.time()
-    tot = len(cola)
-    art_ok = sum(1 for r in cola if es_ok_artista(estado.get(norm_href(r["rymHref"])) or {}))
-    d = _tab_datos()
-    ev = d.get("ev") or {}
-    pct = (art_ok * 100 // tot) if tot else 0
-    faltan = max(0, tot - art_ok)
-    edad = int(now - d["ult_ts"]) if d.get("ult_ts") else None
-
-    rate = None
-    ct = (d.get("caps_ts") or [])[-150:]
-    if len(ct) >= 30 and ct[-1] - ct[0] >= 120:
-        rate = (len(ct) - 1) / max((ct[-1] - ct[0]) / 60.0, 0.3)
-    if rate is None and d.get("run_start") and ev.get("n") and now > d["run_start"] + 30:
-        rate = ev["n"] / max((now - d["run_start"]) / 60.0, 0.3)
-    rem = (ev.get("tot", 0) - ev.get("n", 0)) if ev else None
-    eta = None
-    eta_txt = None
-    if rate and rem and rem > 0:
-        eta = now + (rem / max(rate, 0.1)) * 60
-        seg = eta - now
-        eta_txt = (_tab_mm(eta) if seg <= 43200
-                   else f"~{seg / 3600:.0f} h ({time.strftime('%a', time.localtime(eta))})")
-
-    if "COLA TERMINADA" in nota:
-        pcls, ptxt = "done", "✅ COLA TERMINADA"
-    elif edad is not None and edad > 900:
-        pcls, ptxt = "warn", "⚠️ sin capturas " + _tab_hace(d["ult_ts"])
-    elif "fase 1 terminada" in nota and ev.get("kind") != "release":
-        pcls, ptxt = "run", "🟡 fase 1 terminada — preparando la cola de discos"
-    elif ev:
-        pcls, ptxt = "run", ("🟢 fase 2 en marcha" if ev.get("kind") == "release" else "🟢 fase 1 en marcha")
-    else:
-        pcls, ptxt = "run", "🟢 " + esc(nota)
-
-    bq = d.get("bloq_ult") or {}
-    bq_rec = bool(bq) and (now - bq.get("ts", 0)) <= 3600
-    bq_cf = bq_rec and (bq.get("status") in (403, 503) or
-                        bool(re.search(r"Un momento|Just a moment|Attention Required|Security check",
-                                       bq.get("title", ""), re.I)))
-    hace_ult = (f'<span class="ago" data-t="{d["ult_ts"]}">{_tab_hace(d["ult_ts"])}</span>'
-                if d.get("ult_ts") else "—")
-    banner = ""
-    if "COLA TERMINADA" not in nota and (edad is None or edad > 360):
-        if bq_cf:
-            ctxt = (f' Cliquer: {d["clicker"]} clics en tu Firefox.' if d.get("clicker")
-                    else ' El cliquer hará clics en tu Firefox para renovar la sesión.')
-            banner = (f'<div class="banner cf"><b>🟠 Muro de Cloudflare.</b> '
-                      f'Sin capturas {hace_ult}.{ctxt} Sin acción tuya — si cede, lo verás aquí.</div>')
-        elif bq_rec:
-            banner = (f'<div class="banner soft"><b>🟡 Muro suave de RYM.</b> Auto-recupera con enfriamiento '
-                      f'y reintentos; sin acción tuya. Sin capturas {hace_ult}.</div>')
-        else:
-            banner = (f'<div class="banner wait"><b>⏳ Sin capturas {hace_ult}.</b> Reintentando/enfriando; '
-                      f'el supervisor avisa por Telegram si se alarga.</div>')
-
-    def card(titulo, cuerpo, sub="", barra=None, cls=""):
-        b = f'<div class="bar"><i style="width:{barra}%"></i></div>' if barra is not None else ""
-        return (f'<div class="card {cls}"><h3>{titulo}</h3><div class="big">{cuerpo}</div>{b}'
-                f'<div class="sub">{sub}</div></div>')
-
-    c_art = card("Artistas (fase 1)", f"{art_ok} / {tot}", f"faltan {faltan} · {pct} %", barra=pct)
-    cola_d = _cola_discos(estado)
-    if cola_d.get("todas"):
-        bp2 = int(cola_d["ok"] * 100 / cola_d["todas"])
-        c_dis = card("Discos (fase 2)", f"{cola_d['ok']} / {cola_d['todas']}",
-                     f"{bp2} % de la cola real · pendientes {cola_d['pend']} "
-                     f"(sin visitar {cola_d['sin_entry']} · reintento {cola_d['con_entry']})", barra=bp2)
-    else:
-        c_dis = card("Discos (fase 2)", "—", f"arranca al cerrar la fase 1 · faltan {faltan} artistas")
-    c_rit = card("Ritmo", (f"~{rate:.1f}/min" if rate else "—"),
-                 ((f"{ev.get('n')}/{ev.get('tot')} esta corrida" +
-                   (f" · desde {_tab_mm(d['run_start'])}" if d.get("run_start") else "")) if ev else "sin datos todavía"))
-    c_eta = card("ETA fase en curso", (eta_txt or "—"), (f"faltan ≈{rem} ítems de la fase" if rem else "—"))
-    if ev:
-        c_ult = card("Última captura", esc(ev["name"][:26]),
-                     f'<span class="ago" data-t="{d["ult_ts"]}">{_tab_hace(d["ult_ts"])}</span> · {ev["kind"]}')
-    else:
-        c_ult = card("Última captura", "—", "sin capturas en el log")
-    if "COLA TERMINADA" not in nota and edad is not None and edad > 360 and bq_cf:
-        mur_big = "🔴 CF activo"
-    elif "COLA TERMINADA" not in nota and edad is not None and edad > 360 and bq_rec:
-        mur_big = "🟡 suave (auto)"
-    else:
-        mur_big = "sin muro"
-    mur_sub = (f"{d['bloq15']} en 15 min" +
-               (f" · último {_tab_hace(d['bloq_ult']['ts'])}" if d.get("bloq_ult") else ""))
-    if d.get("clicker") is not None:
-        mur_sub += f" · 🛠️ cliquer: {d['clicker']} clics"
-    c_mur = card("Muro", mur_big, mur_sub, cls=("warn" if mur_big.startswith("🔴") else ""))
-    ck = d.get("cookies")
-    ckl = d.get("cookies_live")
-    if ck:
-        src = os.path.basename(ck["src"].rstrip("/")) or ck["src"]
-        extra = f" · archivo al {esc(ckl['mt'])}" if ckl else ""
-        c_ses = card("Sesión (cookies)", "OK",
-                     f"{esc(src)} · {ck['n']} cookies · cargada {esc(ck['mt'])}{extra}")
-    elif ckl:
-        c_ses = card("Sesión (cookies)", "OK", f"archivo más fresco: {esc(ckl['src'])} · {esc(ckl['mt'])}")
-    else:
-        c_ses = card("Sesión (cookies)", "—", "sin dato")
-    lat = d.get("latido_ts") or 0
-    if lat and now - lat < 420:
-        sup_big, sup_sub = "🟢 activo", f'latido <span class="ago" data-t="{lat}">{_tab_hace(lat)}</span>'
-    elif lat:
-        sup_big, sup_sub = "⚠️ sin latido reciente", f'último latido <span class="ago" data-t="{lat}">{_tab_hace(lat)}</span>'
-    else:
-        sup_big, sup_sub = "— sin latido", "supervisor v2 sin instalar o caído"
-    sup_sub += (f" · arrancó {esc(d['sup_arranque'] or '—')} · relanzos {d['sup_relanzos']}" +
-                (" · fase 1 ✓" if d.get("fase1_mark") else "") +
-                f'<div class="mono">{esc(d.get("sup_ult") or "—")}</div>')
-    c_sup = card("Supervisor", sup_big, sup_sub, cls=("warn" if (not lat or now - lat >= 420) else ""))
-    tg_html = ("".join(f'<div class="tg">{esc(l[:150])}</div>' for l in d["telegram"]) or
-               '<div class="tg dim">(sin avisos del supervisor todavía)</div>')
-    c_tg = (f'<div class="card wide"><h3>Avisos Telegram (supervisor)</h3>{tg_html}'
-            '<div class="sub">Hitos fase 1 (25/50/75 %) · resumen cada 2 h · atascos · relanzos · cierre.</div></div>')
-
-    ufilas = []
-    recientes_ev = sorted((kv for kv in estado.items() if kv[1].get("at")),
-                          key=lambda kv: _tab_epoch(kv[1]["at"]), reverse=True)[:9]
-    for href, e in recientes_ev:
-        t = e.get("at") or ""
-        et = _tab_epoch(t) if t else 0
-        kind = "disco" if e.get("kind") == "release" else "artista"
-        ufilas.append(f'<tr><td>{esc(str(e.get("name") or href))}</td><td>{kind}</td>'
-                      f'<td><span class="ago" data-t="{et}">{esc(t)}</span></td></tr>')
-
-    filas = []
-    for r in cola:
-        href = norm_href(r["rymHref"])
-        e = estado.get(href) or {}
-        ok = es_ok_artista(e)
-        nm = r["name"] or href
-        link = f'<a href="https://rateyourmusic.com{href}" target="_blank">{esc(nm)}</a>'
-        if ok:
-            marca = f'<span class="oktag">✓</span> rel {e.get("nRows", 0)} · gen {e.get("nGen", 0)}'
-            hora = e.get("at") or ""
-        else:
-            marca, hora = '<span class="pendtag">pendiente</span>', ""
-        filas.append(f'<tr class="{"completa" if ok else "parcial"}" data-n="{esc(str(nm).lower(), quote=True)}">'
-                     f'<td>{link}</td><td>{marca}</td><td class="h">{hora}</td></tr>')
-
-    css = ("*{box-sizing:border-box}"
-           "body{font:13.5px/1.45 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:#0e1116;color:#e6e9ee;margin:0;padding:18px 20px 40px}"
-           "a{color:#6cb6ff;text-decoration:none}a:hover{text-decoration:underline}"
-           ".hdr{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}"
-           ".hdr h1{font-size:17px;margin:0;font-weight:700}"
-           ".pill{padding:3px 11px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}"
-           ".pill.run{background:#0f2f1c;color:#4ade80;border:1px solid #1f6f3f}"
-           ".pill.warn{background:#3a2b10;color:#fbbf24;border:1px solid #7a5b1a}"
-           ".pill.done{background:#0f2b3a;color:#67b7ff;border:1px solid #1f4f7a}"
-           ".banner{margin:0 0 12px;padding:9px 13px;border-radius:9px;border:1px solid;font-size:13px;line-height:1.45}"
-           ".banner.cf{background:#3a1414;border-color:#8f2b2b;color:#ffc2c2}"
-           ".banner.soft{background:#33280d;border-color:#8a6a1a;color:#fbd98a}"
-           ".banner.wait{background:#1b222c;border-color:#2c3644;color:#c8d1dc}"
-           ".banner b{font-weight:700}"
-           ".upd{margin-left:auto;color:#8b98a9;font-size:12px}"
-           ".grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:10px;margin-bottom:2px}"
-           ".card{background:#151a21;border:1px solid #232b36;border-radius:10px;padding:11px 13px}"
-           ".card.warn{border-color:#7a5b1a}"
-           ".card.wide{grid-column:1/-1}"
-           ".card h3{margin:0 0 6px;font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:#8b98a9;font-weight:600}"
-           ".big{font-size:21px;font-weight:700}"
-           ".sub{color:#8b98a9;font-size:11.5px;margin-top:5px}.sub .ago{color:#c8d1dc}"
-           ".bar{height:6px;background:#232b36;border-radius:4px;overflow:hidden;margin-top:8px}"
-           ".bar i{display:block;height:100%;background:linear-gradient(90deg,#2f81f7,#3fb950);border-radius:4px}"
-           ".mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:#9aa7b6;margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}"
-           ".tg{font-family:ui-monospace,monospace;font-size:11.5px;color:#c8d1dc;padding:2px 0;border-bottom:1px dashed #232b36}"
-           ".tg:last-of-type{border-bottom:0}"
-           ".dim{color:#8b98a9}"
-           "table{width:100%;border-collapse:collapse}.card table th{text-align:left;color:#aab6c4;font-weight:600}"
-           "#tbl{font-size:12.5px}"
-           "#tbl th{position:sticky;top:0;background:#1b222c;color:#aab6c4;font-weight:600;text-align:left;z-index:1}"
-           "#tbl th,#tbl td{border:1px solid #232b36;padding:3px 8px}"
-           "#tbl tr:hover td{background:#1a2029}"
-           "#tbl tr.completa td{background:#0f1a13}"
-           "#tbl tr.completa:hover td{background:#15251b}"
-           "#tbl tr.parcial td{background:#191713}"
-           "#tbl tr.parcial:hover td{background:#211e18}"
-           ".oktag{color:#4ade80;font-weight:700}.pendtag{color:#fbbf24}"
-           ".h{color:#8b98a9;font-size:11px;white-space:nowrap}"
-           ".fbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:14px 0 8px}"
-           ".fbtn{background:#1b222c;color:#c8d1dc;border:1px solid #2c3644;border-radius:7px;padding:4px 11px;font-size:12px;cursor:pointer}"
-           ".fbtn.on{background:#22304a;border-color:#3b5b8f;color:#dfe9ff}"
-           ".fbtn:hover{border-color:#3b5b8f}"
-           "#q{background:#12171e;border:1px solid #2c3644;border-radius:7px;color:#e6e9ee;padding:5px 10px;font-size:12.5px;min-width:200px}"
-           "h2{font-size:13px;margin:18px 0 8px;color:#aab6c4;font-weight:600}"
-           ".secsep{margin:30px 0 12px;padding:10px 14px;background:linear-gradient(90deg,#1a2436,#12161d);border:1px solid #2c3644;border-left:4px solid #3f7fd9;border-radius:11px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}"
-           ".secsep .n{font-size:13px;font-weight:800;color:#9cc4ff;background:#1c2c47;border:1px solid #33507c;border-radius:8px;padding:2px 10px;flex:none}"
-           ".secsep h2{margin:0;font-size:15.5px;color:#eef2f8}"
-           ".secsep .d{color:#8b98a9;font-size:11.5px;margin-left:auto;text-align:right}"
-           "#wrap{max-height:72vh;overflow:auto;border:1px solid #232b36;border-radius:10px}")
-    js = ("(function(){"
-          "function hace(el){var t=+el.getAttribute('data-t');if(!t){el.textContent='—';return;}"
-          "var d=Math.floor(Date.now()/1000)-t;var s;"
-          "if(d<2){s='ahora';}else if(d<60){s='hace '+d+' s';}"
-          "else if(d<3600){s='hace '+Math.floor(d/60)+' min';}"
-          "else{s='hace '+Math.floor(d/3600)+' h '+Math.floor((d%3600)/60)+' min';}el.textContent=s;}"
-          "function tick(){var els=document.querySelectorAll('.ago[data-t]');for(var i=0;i<els.length;i++){hace(els[i]);}}"
-          "tick();setInterval(tick,1000);"
-          "var rows=Array.prototype.slice.call(document.querySelectorAll('#tbl tbody tr'));"
-          "var inp=document.getElementById('q'),cnt=document.getElementById('cnt'),filt='all';"
-          "var btns=Array.prototype.slice.call(document.querySelectorAll('.fbtn'));"
-          "function apply(){var q=(inp&&inp.value?inp.value:'').toLowerCase();var n=0;"
-          "for(var i=0;i<rows.length;i++){var r=rows[i];var ok=r.className.indexOf('completa')>=0;"
-          "var vis=(filt==='all')||(filt==='ok'&&ok)||(filt==='pend'&&!ok);"
-          "if(vis&&q){var nm=(r.getAttribute('data-n')||'');vis=nm.indexOf(q)>=0;}"
-          "r.style.display=vis?'':'none';if(vis)n++;}"
-          "if(cnt)cnt.textContent=n+' de '+rows.length;}"
-          "for(var i=0;i<btns.length;i++){(function(b){b.addEventListener('click',function(){"
-          "filt=b.getAttribute('data-f');for(var j=0;j<btns.length;j++){btns[j].className=(btns[j]===b)?'fbtn on':'fbtn';}apply();});})(btns[i]);}"
-          "if(inp)inp.addEventListener('input',apply);apply();})();")
-
-    return ("<!doctype html><html lang=\"es\"><head><meta charset=\"utf-8\">"
-            "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
-            "<meta http-equiv=\"refresh\" content=\"10\">"
-            "<title>CRV · «nuevos» — captura RYM</title>"
-            f"<style>{css}</style></head><body>"
-            f'<div class="hdr"><h1>CRV · «nuevos» — captura RYM</h1><span class="pill {pcls}">{ptxt}</span>'
-            f'<span class="upd">Actualizado <span class="ago" data-t="{int(now)}">{time.strftime("%H:%M:%S")}</span> · auto-refresco 10 s</span></div>'
-            + banner
-            + _sep_nuevos(art_ok, tot)
-            + '<div class="grid">' + c_art + c_dis + c_rit + c_eta + c_ult + c_mur + c_ses + c_sup + c_tg + '</div>'
-            + '<h2>Últimas capturas</h2><div class="card"><table><tr><th>Nombre</th><th>Tipo</th><th>Hace</th></tr>'
-            + "".join(ufilas) + '</table></div>'
-            + f'<h2>Cola completa — artistas ({tot})</h2>'
-            + f'<div class="fbar"><button class="fbtn on" data-f="all">Todas ({tot})</button>'
-            + f'<button class="fbtn" data-f="ok">Capturadas ({art_ok})</button>'
-            + f'<button class="fbtn" data-f="pend">Pendientes ({faltan})</button>'
-            + '<input id="q" placeholder="filtrar por nombre…" ><span id="cnt" class="dim"></span></div>'
-            + '<div id="wrap"><table id="tbl"><thead><tr><th>Artista</th><th>Estado</th><th>Hora</th></tr></thead><tbody>'
-            + "".join(filas) + '</tbody></table></div>'
-            + _fragmento_extracciones()
-            + f"<script>{js}</script></body></html>")
-
-
-def _fragmento_extracciones():
-    """Secciones embebidas de enlaces y bios (tablero de extracciones), si existen."""
-    partes = []
-    for p in ("/tmp/crv-recon/crv-extracciones-fragmento-enlaces.html",
-              "/tmp/crv-recon/crv-extracciones-fragmento-bios.html"):
-        try:
-            with open(p, encoding="utf-8") as f:
-                partes.append(f.read())
-        except Exception:
-            pass
-    return "".join(partes)
-
-
-def _sep_nuevos(art_ok, tot):
-    return ('<div class="secsep"><span class="n">1</span><h2>Captura «nuevos» — artistas y discos</h2>'
-            f'<span class="d">fase 1: {art_ok}/{tot} artistas · fase 2: discos en curso</span></div>')
-
-
-def escribir_tablero(outdir, estado, cola, nota="en marcha"):
-    html = tablero_html(estado, cola, nota)
-    for p in (os.path.join(outdir, "tablero.html"), "/tmp/crv-recon/rym-nuevos-tablero.html"):
-        try:
-            os.makedirs(os.path.dirname(p), exist_ok=True)
-            tmp = p + ".tmp"
-            with open(tmp, "w", encoding="utf-8") as f:
-                f.write(html)
-            os.replace(tmp, p)
-        except Exception as exc:
-            log("aviso tablero:", str(exc)[:80])
-
-
 def guardar_pagina(pages_dir, kind, href, rec, html):
-    slug = ("rel_" + slugify(href.replace("/release/", ""))) if kind == "release" else slugify(href)
-    with open(os.path.join(pages_dir, slug + ".json"), "w", encoding="utf-8") as f:
-        json.dump({"href": href, "rec": rec, "capturedAt": time.strftime("%Y-%m-%d %H:%M:%S")}, f, ensure_ascii=False, indent=1)
+    slug = reglas.slug_release(href) if kind == "release" else slugify(href)
     if isinstance(html, str) and len(html) > 3000:
-        with open(os.path.join(pages_dir, slug + ".html"), "w", encoding="utf-8") as f:
-            f.write(html)
+        reglas.escribir_atomico(os.path.join(pages_dir, slug + ".html"), html)
+    reglas.guardar_json(os.path.join(pages_dir, slug + ".json"),
+                        {"href": href, "rec": rec, "capturedAt": time.strftime("%Y-%m-%d %H:%M:%S")}, indent=1)
     return slug
 
 
 def construir_releases(cola, pages_dir, estado):
-    releases, vistos = [], set()
-    for row in cola:
-        href = norm_href(row["rymHref"])
-        f = os.path.join(pages_dir, slugify(href) + ".json")
-        if not os.path.exists(f):
-            continue
-        try:
-            capt = json.load(open(f, encoding="utf-8"))
-        except Exception:
-            continue
-        for r in capt.get("rec", {}).get("rows") or []:
-            rel = norm_href(r.get("h"))
-            if not rel or rel in vistos:
-                continue
-            vistos.add(rel)
-            if not es_ok_release(estado.get(rel) or {}):
-                releases.append(("release", rel, {"name": f"{row['name']} - {r.get('t') or ''}", "parent": href}))
-    return releases
+    return [("release", rel, {"name": f"{nombre} - {titulo}", "parent": parent})
+            for rel, nombre, parent, titulo in reglas.discos_de_artistas(cola, pages_dir)
+            if not es_hecho_release(estado.get(rel))]
 
 
 def main():
@@ -717,20 +249,21 @@ def main():
     ap.add_argument("--base-max", type=float, default=12.0)
     args = ap.parse_args()
 
-    global OUTDIR_NUEVOS
     outdir = args.outdir
-    OUTDIR_NUEVOS = outdir
     pages_dir = os.path.join(outdir, "pages")
     os.makedirs(pages_dir, exist_ok=True)
     os.makedirs("/tmp/crv-recon", exist_ok=True)
     state_path = os.path.join(outdir, "estado.json")
-    estado = {}
-    if os.path.exists(state_path):
-        estado = json.load(open(state_path, encoding="utf-8"))
+    estado, fuente = reglas.cargar_estado(state_path)
+    if fuente and fuente.endswith(".bak"):
+        log(f"[estado] estado.json ilegible: retomo desde el respaldo {fuente}")
+        avisar("⚠️ CRV · «nuevos»: estado.json estaba ilegible; retomé desde el respaldo (se recapturan solo las últimas fichas).")
     cola = [json.loads(l) for l in open(args.cola, encoding="utf-8") if l.strip()]
 
-    cookies, src, mt = load_cookies()
-    log(f"cookies: {len(cookies)} (fuente {src}, mtime {time.strftime('%H:%M', time.localtime(mt))})")
+    n_ts = reglas.rellenar_ts(estado, pages_dir)
+    if n_ts:
+        log(f"[estado] {n_ts} fichas sin fecha completa: rellenadas desde capturedAt")
+        reglas.guardar_json(state_path, estado, respaldo=True)
 
     session = {"s": None}
 
@@ -740,7 +273,10 @@ def main():
                 session["s"].close()
             except Exception:
                 pass
-        cs, _, _ = load_cookies()
+        cs, src_c, mt_c = load_cookies()
+        # cada recarga queda en el log: el tablero muestra cuándo y de dónde se tomó la sesión
+        log(f"cookies: {len(cs)} (fuente {src_c}, mtime {time.strftime('%H:%M', time.localtime(mt_c))})"
+            f" · cf_clearance {'sí' if any(c['name'] == 'cf_clearance' for c in cs) else 'NO'}")
         session["s"] = StealthySession(headless=not args.headful, cookies=cs, useragent=UA,
                                        timeout=120000, retries=1, solve_cloudflare=False)
         session["s"].start()
@@ -833,6 +369,14 @@ def main():
                 if page is None:
                     continue
             fallos_seguidos = 0
+            if getattr(page, "status", 200) == 404:
+                estado[href] = {"name": None, "kind": kind, "v": EXTRACTOR_V, "status": 404,
+                                "at": time.strftime("%H:%M:%S"), "ts": int(time.time()), "src": "scrapling"}
+                reglas.guardar_json(state_path, estado)
+                hechos += 1
+                log(f"+ [{kind}] {href} -> (404: ya no existe en RYM) ({hechos}/{total_fase})")
+                time.sleep(random.uniform(args.base_min, args.base_max))
+                continue
             try:
                 rec = ext_artist(page) if kind == "artist" else ext_release(page)
                 html = page.html_content or ""
@@ -853,11 +397,11 @@ def main():
                     continue
             guardar_pagina(pages_dir, kind, href, rec, html)
             estado[href] = recortar(rec)
-            json.dump(estado, open(state_path, "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+            # atómico; cada 25 capturas deja además una foto en estado.json.bak
+            reglas.guardar_json(state_path, estado, respaldo=(hechos % 25 == 24))
             e = estado[href]
             hechos += 1
             log(f"+ [{kind}] {href} -> {e['name']} | rel {e['nRows']} | gen {e['nGen']} | og {bool(e.get('og'))} | pistas {e.get('nTracks',0)} | cred {e.get('nCredits',0)} ({hechos}/{total_fase})")
-            escribir_tablero(outdir, estado, cola)
             p = random.uniform(args.base_min, args.base_max)
             if random.random() < 0.06:
                 p += random.uniform(15, 40)
@@ -867,19 +411,23 @@ def main():
             time.sleep(p)
         return hechos
 
-    escribir_tablero(outdir, estado, cola, "arrancando")
     nueva_sesion()
     log(f"scrapling-rym listo: cola {len(cola)} | fase {args.phase}")
 
     if args.phase in ("artists", "both"):
         pendientes = [("artist", norm_href(r["rymHref"]), r) for r in cola
-                      if norm_href(r["rymHref"]) and not es_ok_artista(estado.get(norm_href(r["rymHref"])) or {})]
+                      if norm_href(r["rymHref"]) and not es_hecho_artista(estado.get(norm_href(r["rymHref"])))]
         random.shuffle(pendientes)
         log(f"fase 1 (fichas): {len(pendientes)} artistas por capturar")
         procesar(pendientes, 1, len(pendientes))
         log("FASE 1 TERMINADA (fichas)")
-        escribir_tablero(outdir, estado, cola, "fase 1 terminada")
-        avisar("ℹ️ CRV · Scrapling-RYM: FASE 1 terminada (fichas de artista capturadas).")
+        marca_f1 = os.path.join(outdir, reglas.MARCA_FASE1)
+        quedan_f1 = sum(1 for r in cola if not es_hecho_artista(estado.get(norm_href(r["rymHref"]))))
+        if quedan_f1:
+            log(f"fase 1: quedan {quedan_f1} artistas saltados por muro (se reintentan en la próxima corrida)")
+        elif not os.path.exists(marca_f1):
+            reglas.escribir_atomico(marca_f1, time.strftime("%Y-%m-%d %H:%M:%S\n"))
+            avisar("ℹ️ CRV · Scrapling-RYM: FASE 1 terminada (fichas de artista capturadas).")
         if args.limit:
             log("--limit usado: no se encadenan los discos")
             return
@@ -915,9 +463,16 @@ def main():
             random.shuffle(releases)
         log(f"fase 2 (discos): {len(releases)} fichas por capturar")
         procesar(releases, 2, len(releases))
+        pend = construir_releases(cola, pages_dir, estado)
+        if pend:
+            # quedaron ítems saltados por muro: no se declara terminada; el supervisor relanza
+            log(f"fase 2: pasada completa con {len(pend)} pendientes (saltados por muro) — salgo para reintentar")
+            raise SystemExit(3)
         log("COLA TERMINADA")
-        escribir_tablero(outdir, estado, cola, "COLA TERMINADA")
-        avisar("✅ CRV · Scrapling-RYM: COLA TERMINADA — artistas y discos capturados.")
+        marca = os.path.join(outdir, reglas.MARCA_COLA)
+        if not os.path.exists(marca):
+            reglas.escribir_atomico(marca, time.strftime("%Y-%m-%d %H:%M:%S\n"))
+            avisar("✅ CRV · Scrapling-RYM: COLA TERMINADA — artistas y discos capturados.")
 
 
 if __name__ == "__main__":

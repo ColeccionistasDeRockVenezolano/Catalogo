@@ -1,0 +1,1062 @@
+{
+ "dryRun": false,
+ "counts": {
+  "new:otra-pista": 15,
+  "new:posicion-libre": 10,
+  "same:mismo-titulo": 15,
+  "new:otra-version": 4,
+  "same:misma-posicion-mismo-titulo-base": 5,
+  "new:otro-numero": 3,
+  "same:misma-posicion-titulo-basura": 3
+ },
+ "plan": [
+  {
+   "identity": "Aldemaro Romero::40 Años 40 Exitos::A La Orilla De La Carretera",
+   "identityKey": "aldemaro romero 40 años 40 exitos a la orilla de la carretera",
+   "rawPageId": 3709,
+   "url": "https://sincopa.com/ethnic/cdinfo1/aldro_40years40exitos.htm",
+   "title": "A La Orilla De La Carretera",
+   "num": 2,
+   "albumIds": [
+    9478
+   ],
+   "artist": "Aldemaro Romero",
+   "albumId": 9478,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Aldemaro Romero::Dinner In Caracas::Besos En Mis Sueños",
+   "identityKey": "aldemaro romero dinner in caracas besos en mis sueños",
+   "rawPageId": 3662,
+   "url": "https://sincopa.com/ethnic/cdinfo1/aldro_dinnerccs_lp.htm",
+   "title": "Besos En Mis Sueños",
+   "num": 11,
+   "albumIds": [
+    9434
+   ],
+   "artist": "Aldemaro Romero",
+   "albumId": 9434,
+   "verdict": {
+    "kind": "new",
+    "position": 11,
+    "rule": "posicion-libre",
+    "why": "su número está libre"
+   }
+  },
+  {
+   "identity": "Aldemaro Romero::Onda Nueva Vocal::El Negro José",
+   "identityKey": "aldemaro romero onda nueva vocal el negro josé",
+   "rawPageId": 3691,
+   "url": "https://sincopa.com/ethnic/cdinfo1/aldro_ans_ondavoc.htm",
+   "title": "El Negro José",
+   "num": 12,
+   "albumIds": [
+    9464
+   ],
+   "artist": "Aldemaro Romero",
+   "albumId": 9464,
+   "verdict": {
+    "kind": "new",
+    "position": 8,
+    "rule": "posicion-libre",
+    "why": "su número está libre"
+   }
+  },
+  {
+   "identity": "Aldemaro Romero::Onda Nueva Vocal::El Negro José",
+   "identityKey": "aldemaro romero onda nueva vocal el negro josé",
+   "rawPageId": 3697,
+   "url": "https://sincopa.com/ethnic/cdinfo1/aldro_onda_vocal1.htm",
+   "title": "El Negro José",
+   "num": 8,
+   "albumIds": [
+    9464
+   ],
+   "artist": "Aldemaro Romero",
+   "albumId": 9464,
+   "verdict": {
+    "kind": "new",
+    "position": 8,
+    "rule": "posicion-libre",
+    "why": "su número está libre"
+   }
+  },
+  {
+   "identity": "Aldemaro Romero::Onda Nueva Vocal::Fiesta en Elorza",
+   "identityKey": "aldemaro romero onda nueva vocal fiesta en elorza",
+   "rawPageId": 3691,
+   "url": "https://sincopa.com/ethnic/cdinfo1/aldro_ans_ondavoc.htm",
+   "title": "Fiesta en Elorza",
+   "num": 9,
+   "albumIds": [
+    9464
+   ],
+   "artist": "Aldemaro Romero",
+   "albumId": 9464,
+   "verdict": {
+    "kind": "new",
+    "position": 1,
+    "rule": "posicion-libre",
+    "why": "su número está libre"
+   }
+  },
+  {
+   "identity": "Aldemaro Romero::Onda Nueva Vocal::Fiesta en Elorza",
+   "identityKey": "aldemaro romero onda nueva vocal fiesta en elorza",
+   "rawPageId": 3697,
+   "url": "https://sincopa.com/ethnic/cdinfo1/aldro_onda_vocal1.htm",
+   "title": "Fiesta en Elorza",
+   "num": 1,
+   "albumIds": [
+    9464
+   ],
+   "artist": "Aldemaro Romero",
+   "albumId": 9464,
+   "verdict": {
+    "kind": "new",
+    "position": 1,
+    "rule": "posicion-libre",
+    "why": "su número está libre"
+   }
+  },
+  {
+   "identity": "Aldemaro Romero::Onda Nueva Vocal::La Guachafita",
+   "identityKey": "aldemaro romero onda nueva vocal la guachafita",
+   "rawPageId": 3691,
+   "url": "https://sincopa.com/ethnic/cdinfo1/aldro_ans_ondavoc.htm",
+   "title": "La Guachafita",
+   "num": 4,
+   "albumIds": [
+    9464
+   ],
+   "artist": "Aldemaro Romero",
+   "albumId": 9464,
+   "verdict": {
+    "kind": "new",
+    "position": 3,
+    "rule": "posicion-libre",
+    "why": "su número está libre"
+   }
+  },
+  {
+   "identity": "Aldemaro Romero::Onda Nueva Vocal::La Guachafita",
+   "identityKey": "aldemaro romero onda nueva vocal la guachafita",
+   "rawPageId": 3697,
+   "url": "https://sincopa.com/ethnic/cdinfo1/aldro_onda_vocal1.htm",
+   "title": "La Guachafita",
+   "num": 3,
+   "albumIds": [
+    9464
+   ],
+   "artist": "Aldemaro Romero",
+   "albumId": 9464,
+   "verdict": {
+    "kind": "new",
+    "position": 3,
+    "rule": "posicion-libre",
+    "why": "su número está libre"
+   }
+  },
+  {
+   "identity": "Anselmo López::El Rey De La Bandola Guacamaya Records &::Pajarillo Nº 3",
+   "identityKey": "anselmo lópez el rey de la bandola guacamaya records y pajarillo no 3",
+   "rawPageId": 6160,
+   "url": "https://sincopa.com/traditional/cdinfo2/anselmo_lopez/anselmolpez_reydlabandola.htm",
+   "title": "Pajarillo Nº 3",
+   "num": 7,
+   "albumIds": [
+    9152
+   ],
+   "artist": "Anselmo López",
+   "albumId": 9152,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Billo's Caracas Boys::Gold::Mosaico Nº 2",
+   "identityKey": "billos caracas boys gold mosaico no 2",
+   "rawPageId": 5035,
+   "url": "https://sincopa.com/latin_pop/cdinfo_latin/billos/billos_gold.htm",
+   "title": "Mosaico Nº 2",
+   "num": 17,
+   "albumIds": [
+    8044
+   ],
+   "artist": "Billo's Caracas Boys",
+   "albumId": 8044,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Billo's Caracas Boys::Serie 32 Super Exitos de Billo's::Mosaico a La Billo's Nº 1",
+   "identityKey": "billos caracas boys serie 32 super exitos de billos mosaico a la billos no 1",
+   "rawPageId": 5029,
+   "url": "https://sincopa.com/latin_pop/cdinfo_latin/billos/billos_serie32_superexitos.htm",
+   "title": "Mosaico a La Billo's Nº 1",
+   "num": 16,
+   "albumIds": [
+    8038
+   ],
+   "artist": "Billo's Caracas Boys",
+   "albumId": 8038,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Allá Cayó",
+   "identityKey": "desorden público desorden público en vivo allá cayó",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Allá Cayó",
+   "num": 12,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32642,
+    "rule": "mismo-titulo",
+    "why": "«Allá Cayó» #29"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Black Market Man",
+   "identityKey": "desorden público desorden público en vivo black market man",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Black Market Man",
+   "num": 5,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32603,
+    "rule": "mismo-titulo",
+    "why": "«Black Market Man» #22"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Canto Popular/D.P.",
+   "identityKey": "desorden público desorden público en vivo canto popular d p",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Canto Popular/D.P.",
+   "num": 1,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32580,
+    "rule": "mismo-titulo",
+    "why": "«Canto Popular/D.P.» #18"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Como Sabroso/Bemba Colorá",
+   "identityKey": "desorden público desorden público en vivo como sabroso bemba colorá",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Como Sabroso/Bemba Colorá",
+   "num": 3,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32592,
+    "rule": "mismo-titulo",
+    "why": "«Como Sabroso/Bemba Colorá» #20"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::El Clon",
+   "identityKey": "desorden público desorden público en vivo el clon",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "El Clon",
+   "num": 8,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32620,
+    "rule": "mismo-titulo",
+    "why": "«El Clon» #25"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::El Racismo",
+   "identityKey": "desorden público desorden público en vivo el racismo",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "El Racismo",
+   "num": 7,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32614,
+    "rule": "mismo-titulo",
+    "why": "«El Racismo» #24"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::La Danza De Los Esqueletos",
+   "identityKey": "desorden público desorden público en vivo la danza de los esqueletos",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "La Danza De Los Esqueletos",
+   "num": 6,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32608,
+    "rule": "mismo-titulo",
+    "why": "«La Danza De Los Esqueletos» #23"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Lo Bueno",
+   "identityKey": "desorden público desorden público en vivo lo bueno",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Lo Bueno",
+   "num": 15,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32657,
+    "rule": "mismo-titulo",
+    "why": "«Lo Bueno» #32"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Mal Aliento/Valle De Balas",
+   "identityKey": "desorden público desorden público en vivo mal aliento valle de balas",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Mal Aliento/Valle De Balas",
+   "num": 10,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32630,
+    "rule": "mismo-titulo",
+    "why": "«Mal Aliento/Valle De Balas» #27"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Mirándonos",
+   "identityKey": "desorden público desorden público en vivo mirándonos",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Mirándonos",
+   "num": 13,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32648,
+    "rule": "mismo-titulo",
+    "why": "«Mirándonos» #30"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Políticos Paralíticos",
+   "identityKey": "desorden público desorden público en vivo políticos paralíticos",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Políticos Paralíticos",
+   "num": 11,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32636,
+    "rule": "mismo-titulo",
+    "why": "«Políticos Paralíticos» #28"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Rosas Azules",
+   "identityKey": "desorden público desorden público en vivo rosas azules",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Rosas Azules",
+   "num": 14,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32653,
+    "rule": "mismo-titulo",
+    "why": "«Rosas Azules» #31"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Simón Guacamayo",
+   "identityKey": "desorden público desorden público en vivo simón guacamayo",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Simón Guacamayo",
+   "num": 4,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32598,
+    "rule": "mismo-titulo",
+    "why": "«Simón Guacamayo» #21"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Tokyo Loco",
+   "identityKey": "desorden público desorden público en vivo tokyo loco",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Tokyo Loco",
+   "num": 2,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32586,
+    "rule": "mismo-titulo",
+    "why": "«Tokyo Loco» #19"
+   }
+  },
+  {
+   "identity": "Desorden Público::Desorden Público En Vivo::Zapatos Resbalosos",
+   "identityKey": "desorden público desorden público en vivo zapatos resbalosos",
+   "rawPageId": 1794,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+   "title": "Zapatos Resbalosos",
+   "num": 9,
+   "albumIds": [
+    3979
+   ],
+   "artist": "Desorden Público",
+   "albumId": 3979,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32625,
+    "rule": "mismo-titulo",
+    "why": "«Zapatos Resbalosos» #26"
+   }
+  },
+  {
+   "identity": "Ed Calle::Mamblue::Arroz y Frijoles (Rice & Beans) (Extended Version)",
+   "identityKey": "ed calle mamblue arroz y frijoles rice y beans extended version",
+   "rawPageId": 4495,
+   "url": "https://sincopa.com/jazz/cdinfo/edca_manblue.htm",
+   "title": "Arroz y Frijoles (Rice & Beans) (Extended Version)",
+   "num": 11,
+   "albumIds": [
+    6617
+   ],
+   "artist": "Ed Calle",
+   "albumId": 6617,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-version",
+    "why": "versión que el disco no tiene"
+   }
+  },
+  {
+   "identity": "Ed Calle::Mamblue::Arroz y Frijoles (Rice & Beans) (Radio version)",
+   "identityKey": "ed calle mamblue arroz y frijoles rice y beans radio version",
+   "rawPageId": 4495,
+   "url": "https://sincopa.com/jazz/cdinfo/edca_manblue.htm",
+   "title": "Arroz y Frijoles (Rice & Beans) (Radio version)",
+   "num": 10,
+   "albumIds": [
+    6617
+   ],
+   "artist": "Ed Calle",
+   "albumId": 6617,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-version",
+    "why": "versión que el disco no tiene"
+   }
+  },
+  {
+   "identity": "Ed Calle::Mamblue::San Sebastián (Radio Version)",
+   "identityKey": "ed calle mamblue san sebastián radio version",
+   "rawPageId": 4495,
+   "url": "https://sincopa.com/jazz/cdinfo/edca_manblue.htm",
+   "title": "San Sebastián (Radio Version)",
+   "num": 9,
+   "albumIds": [
+    6617
+   ],
+   "artist": "Ed Calle",
+   "albumId": 6617,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-version",
+    "why": "versión que el disco no tiene"
+   }
+  },
+  {
+   "identity": "Franco de Vita::Fuera De Este Mundo::Tocando el Cielo (Unplugged)",
+   "identityKey": "franco de vita fuera de este mundo tocando el cielo unplugged",
+   "rawPageId": 2882,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/francodvita_7fuera.htm",
+   "title": "Tocando el Cielo (Unplugged)",
+   "num": 11,
+   "albumIds": [
+    445
+   ],
+   "artist": "Franco De Vita",
+   "albumId": 445,
+   "verdict": {
+    "kind": "same",
+    "trackId": 5274,
+    "rule": "misma-posicion-mismo-titulo-base",
+    "why": "#11 «Tocando El Cielo (Acoustic)»"
+   }
+  },
+  {
+   "identity": "Franco de Vita::Voces A Mi Alrededor::Calido y Frio (Unplugged Version)",
+   "identityKey": "franco de vita voces a mi alrededor calido y frio unplugged version",
+   "rawPageId": 2884,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/francodvita_6voces.htm",
+   "title": "Calido y Frio (Unplugged Version)",
+   "num": 4,
+   "albumIds": [
+    448
+   ],
+   "artist": "Franco De Vita",
+   "albumId": 448,
+   "verdict": {
+    "kind": "same",
+    "trackId": 2174,
+    "rule": "misma-posicion-mismo-titulo-base",
+    "why": "#4 «Cálido y Frío (Acoustic)»"
+   }
+  },
+  {
+   "identity": "G::25 Años::El Anticristo",
+   "identityKey": "g 25 años el anticristo",
+   "rawPageId": 2922,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/paulgillman_10_25years.htm",
+   "title": "El Anticristo",
+   "num": 1,
+   "albumIds": [
+    2133
+   ],
+   "artist": "Paul Gillman",
+   "albumId": 2133,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Gaélica::Paz: Una Navidad Celta En Venezuela::Reels II:",
+   "identityKey": "gaélica paz una navidad celta en venezuela reels ii",
+   "rawPageId": 3782,
+   "url": "https://sincopa.com/ethnic/cdinfo1/gaelica_3paz.htm",
+   "title": "Reels II:",
+   "num": 8,
+   "albumIds": [
+    15724
+   ],
+   "artist": "Gaêlica",
+   "albumId": 15724,
+   "verdict": {
+    "kind": "new",
+    "position": 8,
+    "rule": "otro-numero",
+    "why": "otro número que «Reels:»"
+   }
+  },
+  {
+   "identity": "Gerarld \"Chipi\" Chacón::Melodies For The Soul::Quintessence",
+   "identityKey": "gerarld chipi chacón melodies for the soul quintessence",
+   "rawPageId": 3854,
+   "url": "https://sincopa.com/jazz/cdinfo/gchipichacon_2melodiesforsoul.htm",
+   "title": "Quintessence",
+   "num": 0,
+   "albumIds": [
+    6503
+   ],
+   "artist": "Gerarld \"Chipi\" Chacón",
+   "albumId": 6503,
+   "verdict": {
+    "kind": "new",
+    "position": 1,
+    "rule": "posicion-libre",
+    "why": "su número está libre"
+   }
+  },
+  {
+   "identity": "Gillman::Más Vivo & En Vivo::Asesino",
+   "identityKey": "gillman más vivo y en vivo asesino",
+   "rawPageId": 2011,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/paulgillman_18masvivoenvivo.htm",
+   "title": "Asesino",
+   "num": 14,
+   "albumIds": [
+    4153
+   ],
+   "artist": "Paul Gillman",
+   "albumId": 4153,
+   "verdict": {
+    "kind": "new",
+    "position": 14,
+    "rule": "posicion-libre",
+    "why": "su número está libre"
+   }
+  },
+  {
+   "identity": "Guaco::Super Guaco Serie 32::Regalame Tu Amor",
+   "identityKey": "guaco super guaco serie 32 regalame tu amor",
+   "rawPageId": 5284,
+   "url": "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_superguaco_serie32.htm",
+   "title": "Regalame Tu Amor",
+   "num": 10,
+   "albumIds": [
+    7143
+   ],
+   "artist": "Guaco",
+   "albumId": 7143,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Juan Francisco::Calle Furia::Calle Furia (Acoustic Version)",
+   "identityKey": "juan francisco calle furia calle furia acoustic version",
+   "rawPageId": 1915,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/juanfrancisco_5calle.htm",
+   "title": "Calle Furia (Acoustic Version)",
+   "num": 8,
+   "albumIds": [
+    4307
+   ],
+   "artist": "Juan Francisco",
+   "albumId": 4307,
+   "verdict": {
+    "kind": "same",
+    "trackId": 32619,
+    "retitle": true,
+    "rule": "misma-posicion-titulo-basura",
+    "why": "#8 «Santos Palazzi (tracks 01, 02, 03, 07)» → «Calle Furia (Acoustic Version)»"
+   }
+  },
+  {
+   "identity": "Kiara::Como Un Huracán::Azúcar (Extended Version)",
+   "identityKey": "kiara como un huracán azúcar extended version",
+   "rawPageId": 2805,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/kiara_3comohuracan.htm",
+   "title": "Azúcar (Extended Version)",
+   "num": 12,
+   "albumIds": [
+    4335
+   ],
+   "artist": "Kiara",
+   "albumId": 4335,
+   "verdict": {
+    "kind": "same",
+    "trackId": 40847,
+    "retitle": true,
+    "rule": "misma-posicion-titulo-basura",
+    "why": "#12 «Kiara» → «Azúcar (Extended Version)»"
+   }
+  },
+  {
+   "identity": "Los Mentas::Hasta Que Los Bares Nos Separen::El Peo (End)",
+   "identityKey": "los mentas hasta que los bares nos separen el peo end",
+   "rawPageId": 2837,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/mentas_2hastaq.htm",
+   "title": "El Peo (End)",
+   "num": 10,
+   "albumIds": [
+    595
+   ],
+   "artist": "Los Mentas",
+   "albumId": 595,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-version",
+    "why": "versión que el disco no tiene"
+   }
+  },
+  {
+   "identity": "Los Telecaster::Los Telecaster::Dandy Boy (Radio Version)",
+   "identityKey": "los telecaster los telecaster dandy boy radio version",
+   "rawPageId": 2976,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/los_telecaster_1.htm",
+   "title": "Dandy Boy (Radio Version)",
+   "num": 10,
+   "albumIds": [
+    1075
+   ],
+   "artist": "Los Telecaster",
+   "albumId": 1075,
+   "verdict": {
+    "kind": "same",
+    "trackId": 16506,
+    "rule": "misma-posicion-mismo-titulo-base",
+    "why": "#10 «Dandy Boy (Version mono)»"
+   }
+  },
+  {
+   "identity": "Okills::La Ultima Mudanza::Si Tú y Yo Fuéramos Novios",
+   "identityKey": "okills la ultima mudanza si tú y yo fuéramos novios",
+   "rawPageId": 6049,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/okills_6laultimamudanza.htm",
+   "title": "Si Tú y Yo Fuéramos Novios",
+   "num": 8,
+   "albumIds": [
+    3665
+   ],
+   "artist": "Okills",
+   "albumId": 3665,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Quinteto Contrapunto::Música Popular y Folklórica de Venezuela 32 Grandes Exitos::La Bella",
+   "identityKey": "quinteto contrapunto música popular y folklórica de venezuela 32 grandes exitos la bella",
+   "rawPageId": 6352,
+   "url": "https://sincopa.com/traditional/cdinfo2/quint_contrapunto_serie32.htm",
+   "title": "La Bella",
+   "num": 1,
+   "albumIds": [
+    9431
+   ],
+   "artist": "Quinteto Contrapunto",
+   "albumId": 9431,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Reynaldo Armas::Luis Silva Serie Platinum::Es Que Te Quiero",
+   "identityKey": "reynaldo armas luis silva serie platinum es que te quiero",
+   "rawPageId": 6503,
+   "url": "https://sincopa.com/traditional/cdinfo2/reynaldo_armas/reynaldoarmas_luissilva_serieplatinum.htm",
+   "title": "Es Que Te Quiero",
+   "num": 14,
+   "albumIds": [
+    9288
+   ],
+   "artist": "Reynaldo Armas",
+   "albumId": 9288,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Ricardo Montaner::Prohibido Olvidar::No Me Puedo Aguantar (Dance)",
+   "identityKey": "ricardo montaner prohibido olvidar no me puedo aguantar dance",
+   "rawPageId": 2068,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/montaner_13prohibido.htm",
+   "title": "No Me Puedo Aguantar (Dance)",
+   "num": 11,
+   "albumIds": [
+    4420
+   ],
+   "artist": "Ricardo Montaner",
+   "albumId": 4420,
+   "verdict": {
+    "kind": "same",
+    "trackId": 33446,
+    "retitle": true,
+    "rule": "misma-posicion-titulo-basura",
+    "why": "#11 «Kike Santander & Bernardo Ossa» → «No Me Puedo Aguantar (Dance)»"
+   }
+  },
+  {
+   "identity": "Serenata Guayanesa::40 Años 40 Exitos Vol. 2::Calypso de El Callao Nº 2",
+   "identityKey": "serenata guayanesa 40 años 40 exitos vol 2 calypso de el callao no 2",
+   "rawPageId": 6297,
+   "url": "https://sincopa.com/traditional/cdinfo2/serenata/sg_40years40exitos2.htm",
+   "title": "Calypso de El Callao Nº 2",
+   "num": 4,
+   "albumIds": [
+    9051
+   ],
+   "artist": "Serenata Guayanesa",
+   "albumId": 9051,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otro-numero",
+    "why": "otro número que «Calypso de El Callao»"
+   }
+  },
+  {
+   "identity": "Serenata Guayanesa::40 Años 40 Exitos Vol. 2::La Paloma",
+   "identityKey": "serenata guayanesa 40 años 40 exitos vol 2 la paloma",
+   "rawPageId": 6297,
+   "url": "https://sincopa.com/traditional/cdinfo2/serenata/sg_40years40exitos2.htm",
+   "title": "La Paloma",
+   "num": 17,
+   "albumIds": [
+    9051
+   ],
+   "artist": "Serenata Guayanesa",
+   "albumId": 9051,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Serenata Guayanesa::40 Años 40 Exitos Vol. 2::La Zapoara",
+   "identityKey": "serenata guayanesa 40 años 40 exitos vol 2 la zapoara",
+   "rawPageId": 6297,
+   "url": "https://sincopa.com/traditional/cdinfo2/serenata/sg_40years40exitos2.htm",
+   "title": "La Zapoara",
+   "num": 10,
+   "albumIds": [
+    9051
+   ],
+   "artist": "Serenata Guayanesa",
+   "albumId": 9051,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Serenata Guayanesa::Una Amistad de 25 Años::MIX No.3",
+   "identityKey": "serenata guayanesa una amistad de 25 años mix no 3",
+   "rawPageId": 3838,
+   "url": "https://sincopa.com/traditional/cdinfo2/serenata/sg_amistad_25.htm",
+   "title": "MIX No.3",
+   "num": 9,
+   "albumIds": [
+    9032
+   ],
+   "artist": "Serenata Guayanesa",
+   "albumId": 9032,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Sexteto Juventud::40 Años 40 Exitos::Guasanco No. 3",
+   "identityKey": "sexteto juventud 40 años 40 exitos guasanco no 3",
+   "rawPageId": 5874,
+   "url": "https://sincopa.com/latin_pop/cdinfo_latin/sexteto_juventud/6ttojuventud_40years40gh.htm",
+   "title": "Guasanco No. 3",
+   "num": 14,
+   "albumIds": [
+    7794
+   ],
+   "artist": "Sexteto Juventud",
+   "albumId": 7794,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otro-numero",
+    "why": "otro número que «Guasanco»"
+   }
+  },
+  {
+   "identity": "Simón Díaz::Tonadas Favoritas::Caballo Viejo",
+   "identityKey": "simón díaz tonadas favoritas caballo viejo",
+   "rawPageId": 7512,
+   "url": "https://sincopa.com/traditional/cdinfo2/simondiaz_tonadasfavoritas.htm",
+   "title": "Caballo Viejo",
+   "num": 10,
+   "albumIds": [
+    14610
+   ],
+   "artist": "Simón Díaz",
+   "albumId": 14610,
+   "verdict": {
+    "kind": "new",
+    "position": 10,
+    "rule": "posicion-libre",
+    "why": "su número está libre"
+   }
+  },
+  {
+   "identity": "Solares::Cruel (Instinto de Morder)::Atardecer (Remixed by Jaime Verdaguer)",
+   "identityKey": "solares cruel instinto de morder atardecer remixed by jaime verdaguer",
+   "rawPageId": 1431,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/solares_2cruel.htm",
+   "title": "Atardecer (Remixed by Jaime Verdaguer)",
+   "num": 10,
+   "albumIds": [
+    334
+   ],
+   "artist": "Solares",
+   "albumId": 334,
+   "verdict": {
+    "kind": "same",
+    "trackId": 2939,
+    "rule": "misma-posicion-mismo-titulo-base",
+    "why": "#10 «Atardecer (Remix)»"
+   }
+  },
+  {
+   "identity": "Spias::Tres Cruces::El Ratón (Versión Radio)",
+   "identityKey": "spias tres cruces el ratón versión radio",
+   "rawPageId": 4824,
+   "url": "https://sincopa.com/rock_pop/cdinfo_rock/spias_3cruces.htm",
+   "title": "El Ratón (Versión Radio)",
+   "num": 13,
+   "albumIds": [
+    336
+   ],
+   "artist": "Spias",
+   "albumId": 336,
+   "verdict": {
+    "kind": "same",
+    "trackId": 6364,
+    "rule": "misma-posicion-mismo-titulo-base",
+    "why": "#13 «El Ratón (Radio Cut)»"
+   }
+  },
+  {
+   "identity": "Trina Medina::En Vivo!::Medley 3",
+   "identityKey": "trina medina en vivo medley 3",
+   "rawPageId": 5066,
+   "url": "https://sincopa.com/latin_pop/cdinfo_latin/trina_medina/trinamedina_03envivo.htm",
+   "title": "Medley 3",
+   "num": 2,
+   "albumIds": [
+    7872
+   ],
+   "artist": "Trina Medina",
+   "albumId": 7872,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Trina Medina::En Vivo!::Medley 4",
+   "identityKey": "trina medina en vivo medley 4",
+   "rawPageId": 5066,
+   "url": "https://sincopa.com/latin_pop/cdinfo_latin/trina_medina/trinamedina_03envivo.htm",
+   "title": "Medley 4",
+   "num": 3,
+   "albumIds": [
+    7872
+   ],
+   "artist": "Trina Medina",
+   "albumId": 7872,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  },
+  {
+   "identity": "Various Artists::Jazz Desde Aldemaro::Carretera",
+   "identityKey": "various artists jazz desde aldemaro carretera",
+   "rawPageId": 338,
+   "url": "https://sincopa.com/jazz/cdinfo/var_jazaldemaro.htm",
+   "title": "Carretera",
+   "num": 15,
+   "albumIds": [
+    372
+   ],
+   "artist": "Various Artists",
+   "albumId": 372,
+   "verdict": {
+    "kind": "new",
+    "position": "end",
+    "rule": "otra-pista",
+    "why": "sin pareja en el disco"
+   }
+  }
+ ]
+}

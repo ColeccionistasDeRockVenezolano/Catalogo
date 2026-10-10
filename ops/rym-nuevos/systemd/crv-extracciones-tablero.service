@@ -1,0 +1,15 @@
+[Unit]
+Description=CRV: tablero vivo de extracciones (enlaces + bios)
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+ExecStart=/bin/bash "/home/brian/apps/Coleccionistas De Rock Venezolano/ops/rym-nuevos/extracciones-tablero.sh"
+Restart=always
+RestartSec=30
+TimeoutStopSec=30
+
+
+[Install]
+WantedBy=default.target

@@ -1,1 +1,257 @@
-[]
+[
+  {
+    "artistId": 3764,
+    "artistName": "Billo's Caracas Boys",
+    "members": [
+      {
+        "name": "Billo Frómeta",
+        "personId": 7779,
+        "role": "fundador y director",
+        "fromYear": 1940,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Su fundador, el músico dominicano Billo Frómeta, la dirigió desde sus inicios»"
+      },
+      {
+        "name": "Felipe Pirela",
+        "personId": 24366,
+        "role": "cantante",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Por la agrupación pasaron cantantes como Felipe Pirela, Cheo García, Memo Morales y José Luis Rodríguez»"
+      },
+      {
+        "name": "Cheo García",
+        "personId": 26725,
+        "role": "cantante",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Por la agrupación pasaron cantantes como Felipe Pirela, Cheo García, Memo Morales y José Luis Rodríguez»"
+      },
+      {
+        "name": "Memo Morales",
+        "personId": 22525,
+        "role": "cantante",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Por la agrupación pasaron cantantes como Felipe Pirela, Cheo García, Memo Morales y José Luis Rodríguez»"
+      },
+      {
+        "name": "José Luis Rodríguez",
+        "personId": 7180,
+        "role": "cantante",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Por la agrupación pasaron cantantes como Felipe Pirela, Cheo García, Memo Morales y José Luis Rodríguez»"
+      }
+    ]
+  },
+  {
+    "artistId": 4275,
+    "artistName": "Salserín",
+    "members": [
+      {
+        "name": "Manuel Guerra",
+        "personId": null,
+        "role": "integrante",
+        "fromYear": 1993,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Orquesta juvenil venezolana de pop latino y salsa romántica fundada en Caracas en 1993 por Manuel Guerra.»"
+      }
+    ]
+  },
+  {
+    "artistId": 4298,
+    "artistName": "Betsayda Machado y La Parranda El Clavo",
+    "members": [
+      {
+        "name": "Betsayda Machado",
+        "personId": null,
+        "role": "voz",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "https://www.musicavenezuela.com/artistas/la-parranda-el-clavo: «asociado a la voz de Betsayda Machado»"
+      }
+    ]
+  },
+  {
+    "artistId": 4309,
+    "artistName": "Gran Coquivacoa",
+    "members": [
+      {
+        "name": "Jesús \"Bocachico\" Petit",
+        "personId": null,
+        "role": "integrante",
+        "fromYear": 1968,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «fundada en 1968 en Cabimas, estado Zulia, por Jesús \"Bocachico\" Petit»"
+      },
+      {
+        "name": "Nelson Suárez",
+        "personId": null,
+        "role": "integrante",
+        "fromYear": 1968,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «fundada en 1968 en Cabimas, estado Zulia, por Jesús \"Bocachico\" Petit, Nelson Suárez, Rody Tigrera, Pedro Arteaga y Manolo Salazar»"
+      },
+      {
+        "name": "Rody Tigrera",
+        "personId": null,
+        "role": "integrante",
+        "fromYear": 1968,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «fundada en 1968 en Cabimas, estado Zulia, por Jesús \"Bocachico\" Petit, Nelson Suárez, Rody Tigrera, Pedro Arteaga y Manolo Salazar»"
+      },
+      {
+        "name": "Pedro Arteaga",
+        "personId": null,
+        "role": "integrante",
+        "fromYear": 1968,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «fundada en 1968 en Cabimas, estado Zulia, por Jesús \"Bocachico\" Petit, Nelson Suárez, Rody Tigrera, Pedro Arteaga y Manolo Salazar»"
+      },
+      {
+        "name": "Manolo Salazar",
+        "personId": null,
+        "role": "integrante",
+        "fromYear": 1968,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «fundada en 1968 en Cabimas, estado Zulia, por Jesús \"Bocachico\" Petit, Nelson Suárez, Rody Tigrera, Pedro Arteaga y Manolo Salazar»"
+      }
+    ]
+  },
+  {
+    "artistId": 4318,
+    "artistName": "Los Antaños del Stadium",
+    "members": [
+      {
+        "name": "Jacobo Espinoza",
+        "personId": null,
+        "role": "integrante",
+        "fromYear": 1946,
+        "toYear": null,
+        "current": false,
+        "evidence": "biografía: «Agrupación musical venezolana fundada en Caracas en 1946 por Jacobo Espinoza bajo el nombre Los Cañoneros del Estadium.»"
+      },
+      {
+        "name": "Enrique Espinoza",
+        "personId": null,
+        "role": "integrante",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Tras la muerte de Jacobo Espinoza, la agrupación quedó a cargo de sus hijos Enrique y Nikol Espinoza, su hermano Miguel Espinoza y varios miembros de la formación original»"
+      },
+      {
+        "name": "Nikol Espinoza",
+        "personId": null,
+        "role": "integrante",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Tras la muerte de Jacobo Espinoza, la agrupación quedó a cargo de sus hijos Enrique y Nikol Espinoza, su hermano Miguel Espinoza y varios miembros de la formación original»"
+      },
+      {
+        "name": "Miguel Espinoza",
+        "personId": null,
+        "role": "integrante",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Tras la muerte de Jacobo Espinoza, la agrupación quedó a cargo de sus hijos Enrique y Nikol Espinoza, su hermano Miguel Espinoza y varios miembros de la formación original»"
+      },
+      {
+        "name": "Aníbal Escobar",
+        "personId": null,
+        "role": "director",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «varios miembros de la formación original, entre ellos el director Aníbal Escobar»"
+      }
+    ]
+  },
+  {
+    "artistId": 4319,
+    "artistName": "Los Tucusitos",
+    "members": [
+      {
+        "name": "Moisés Peña",
+        "personId": null,
+        "role": "director",
+        "fromYear": 1959,
+        "toYear": null,
+        "current": null,
+        "evidence": "https://es.wikipedia.org/wiki/Los_Tucusitos: «Coro infantil fundado en Caracas en 1959 bajo la dirección de Moisés Peña.»"
+      }
+    ]
+  },
+  {
+    "artistId": 4321,
+    "artistName": "Payasitas Nifu Nifa",
+    "members": [
+      {
+        "name": "Gianna Lodi",
+        "personId": null,
+        "role": "parte artística",
+        "fromYear": 1984,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «fundada en Caracas el 27 de septiembre de 1984 por Gianna Lodi, licenciada en Psicopedagogía, y su esposo Roberto Gutiérrez Brito»"
+      },
+      {
+        "name": "Roberto Gutiérrez Brito",
+        "personId": null,
+        "role": "producción",
+        "fromYear": 1984,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «fundada en Caracas el 27 de septiembre de 1984 por Gianna Lodi, licenciada en Psicopedagogía, y su esposo Roberto Gutiérrez Brito»"
+      },
+      {
+        "name": "Cristina Gutiérrez",
+        "personId": null,
+        "role": "coreografías",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Gianna Lodi se ocupaba de la parte artística, Roberto Gutiérrez Brito de la producción, Cristina Gutiérrez de las coreografías y Carmen Brito de Gutiérrez del vestuario»"
+      },
+      {
+        "name": "Carmen Brito de Gutiérrez",
+        "personId": null,
+        "role": "vestuario",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "biografía: «Gianna Lodi se ocupaba de la parte artística, Roberto Gutiérrez Brito de la producción, Cristina Gutiérrez de las coreografías y Carmen Brito de Gutiérrez del vestuario»"
+      }
+    ]
+  },
+  {
+    "artistId": 4322,
+    "artistName": "La Rondallita",
+    "members": [
+      {
+        "name": "Ricardo Cuenci",
+        "personId": null,
+        "role": "voz solista",
+        "fromYear": null,
+        "toYear": null,
+        "current": null,
+        "evidence": "https://bbc.com.im/mundo/articles/clyx9eg0nm3o: «Su versión de El Burrito Sabanero, grabada en 1975 con Ricardo Cuenci como voz solista»"
+      }
+    ]
+  }
+]
