@@ -9,17 +9,16 @@
 // — se copia aquí, no se re-deriva.
 import { createHash } from "node:crypto";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import ExcelJS from "exceljs";
 import { eq, sql } from "drizzle-orm";
 import { getDb } from "../db/client.js";
 import { sources, scrapeRuns } from "../db/schema/ingest.js";
 import { moduleLogger } from "../logger/index.js";
+import { projectRoot } from "../config/project-root.js";
 
 const log = moduleLogger("ingest:sources");
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, "..", "..");
+const ROOT = projectRoot(import.meta.url);
 export const LINKS_XLSX_PATH = path.join(ROOT, "Links for Data Scrapping.xlsx");
 export const YT_MASTER_XLSX_PATH = path.join(ROOT, "YT Master Spreadsheet.xlsx");
 

@@ -45,10 +45,13 @@ import { getPool } from "../db/client.js";
 import { finishRun } from "../ingest/runs.js";
 import { normalizeEntityName } from "../normalization/entity-name.js";
 import { invalidateSearchIndex } from "../api/search-index.js";
+import { transferDiscoveryDecisions } from "../discovery/merge.js";
 import { transferGenreAssignments } from "../genres/merge.js";
+import { transferExternalIdentities } from "../genres/external-lifecycle.js";
 import { projectAlbumGenre } from "../merge/genre-projection.js";
 import { deriveVenezuelanFor } from "../merge/venezuelan.js";
 import { consolidateMemberships } from "../merge/equivalent-relations.js";
+import { assertEraCompatible } from "../merge/era-guard.js";
 import { isPreserveKind, openRewrites, preserveDiscarded, type PreserveOptions, type PreserveOutcome } from "../merge/preserve.js";
 
 export type DuplicateKind = "artist" | "album";
@@ -412,9 +415,12 @@ export interface MergeOutcome {
 
 export async function mergeInto(
   client: PoolClient, kind: MergeKind, keepId: number, dropId: number, note: string, runId: number,
-  options: { alias?: boolean; preserve?: PreserveOptions } = {},
+  options: { alias?: boolean; preserve?: PreserveOptions; allowEraConflict?: boolean } = {},
 ): Promise<MergeOutcome> {
   if (keepId === dropId) throw new Error(`${kind} ${keepId}: no se puede fusionar consigo mismo`);
+  // Veto temporal (caso Víctor Valerio): dos personas de épocas imposibles
+  // juntas solo se fusionan si una persona lo confirma.
+  if (kind === "person" && options.allowEraConflict !== true) await assertEraCompatible(client, keepId, dropId);
   const table = TABLE[kind];
   const identity = IDENTITY[kind];
   const aliasTable = ALIAS_TABLE[kind];
@@ -453,7 +459,13 @@ export async function mergeInto(
   const detachedReviews = await detachSelfPairs(client, kind, keepId, dropId, runId);
   // Los géneros viajan con sus reglas de choque antes del reapunte genérico,
   // que así ya no encuentra filas de género que mover ni descartar.
+  if (kind === "artist") await transferDiscoveryDecisions(client, keepId, dropId);
   const genreRows = kind === "album" || kind === "artist" ? await transferGenreAssignments(client, kind, keepId, dropId) : undefined;
+  const externalIdentities = kind === "album" || kind === "artist" ? await transferExternalIdentities(client, kind, keepId, dropId) : undefined;
+  const redirectedRows = REDIRECT_KINDS.has(kind)
+    ? (await client.query<{ row: Record<string, unknown> }>(
+      "SELECT to_jsonb(r) AS row FROM ingest.entity_redirects r WHERE entity_kind=$1 AND to_id=$2 FOR UPDATE", [kind, dropId])).rows.map(({ row }) => row)
+    : [];
 
   // Evidencia de ambas filas: sus claims y los enlazados a sus auditorías. Los
   // créditos acotados por número ("tracks 01, 03") solo la tienen por auditoría.
@@ -502,6 +514,7 @@ export async function mergeInto(
   [runId, kind, keepId, JSON.stringify(drop),
     JSON.stringify({ keptId: keepId, filled, moved, discarded: discardedRows.length, tracksMerged,
       movedRefs, discardedRows, detachedReviews, primaryAliases, ...(genreRows ? { genreRows } : {}),
+      ...(externalIdentities ? { externalIdentities } : {}), redirectedRows,
       ...(preserved.changes.length ? { preserved: preserved.changes } : {}),
       ...(preserved.closedRewrites.length ? { closedRewrites: preserved.closedRewrites } : {}), version: 2 }), note]);
   const auditId = Number(auditRow.rows[0]!.id);

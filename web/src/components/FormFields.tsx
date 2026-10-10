@@ -42,8 +42,9 @@ export function FormFields({ fields, values, onChange, errors }: FormFieldsProps
             {field.type === "textarea" ? (
               <textarea id={`f-${field.key}`} value={(value as string) ?? ""} onChange={(event) => onChange(field.key, event.target.value)} />
             ) : field.type === "select" ? (
-              <select id={`f-${field.key}`} value={(value as string) ?? ""} onChange={(event) => onChange(field.key, event.target.value || null)}>
+              <select id={`f-${field.key}`} required={field.required} value={(value as string) ?? ""} onChange={(event) => onChange(field.key, event.target.value || null)}>
                 {field.allowEmpty || !field.required ? <option value="">—</option> : null}
+                {typeof value === "string" && value && !field.options.some((option) => option.value === value) ? <option value={value}>{value}</option> : null}
                 {field.options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             ) : field.type === "tristate" ? (
@@ -55,12 +56,12 @@ export function FormFields({ fields, values, onChange, errors }: FormFieldsProps
               </select>
             ) : field.type === "number" ? (
               <input
-                id={`f-${field.key}`} type="number" value={value === null || value === undefined ? "" : String(value)}
+                id={`f-${field.key}`} type="number" required={field.required} value={value === null || value === undefined ? "" : String(value)}
                 onChange={(event) => onChange(field.key, event.target.value === "" ? null : Number(event.target.value))}
               />
             ) : (
               <input
-                id={`f-${field.key}`} type={field.type === "url" ? "url" : field.type === "date" ? "date" : "text"}
+                id={`f-${field.key}`} required={field.required} type={field.type === "url" ? "url" : field.type === "date" ? "date" : "text"}
                 inputMode={field.type === "mediaUrl" ? "url" : undefined}
                 value={(value as string) ?? ""} onChange={(event) => onChange(field.key, event.target.value)}
               />

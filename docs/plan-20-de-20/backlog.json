@@ -1,0 +1,611 @@
+{
+  "version": 2,
+  "date": "2026-10-10",
+  "scope": "Planning only; no task implemented by this document",
+  "dayHours": 6,
+  "estimates": "Planning ranges, not observed throughput; include functional checks, exclude reserve and elapsed observation",
+  "tasks": [
+    {
+      "id": "E1-01",
+      "stage": 1,
+      "title": "Congelar versión, preservar workspace y preparar corpus",
+      "ownerRole": "B/O",
+      "reviewerRole": "Q/C",
+      "dependencies": [],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Inventario de versión y capacidades, copia restaurable, corpus v1 y guion de uso basal",
+      "acceptance": "G01,G02,G25,G29",
+      "verification": "Comparar bundle/API/migraciones; etiquetar corpus; comprobar copia en entorno aislado",
+      "codeAreas": [
+        "src/db",
+        "scripts/db-backup.sh",
+        "scripts/db-restore-check.sh",
+        "docs/ui-qa"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E1-02",
+      "stage": 1,
+      "title": "Resolver regresiones y hacer CI bloqueante",
+      "ownerRole": "B/F",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E1-01"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 4
+      },
+      "deliverable": "Suite aprobada, decisiones de política de búsqueda/taxonomía y CI con web/navegador",
+      "acceptance": "G03,G24",
+      "verification": "Ejecutar tipos, lint, unitarias backend/web, contratos, builds y smoke del mismo commit",
+      "codeAreas": [
+        ".github/workflows/ci.yml",
+        "test/unit",
+        "test/contract",
+        "web/tests"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E1-03",
+      "stage": 1,
+      "title": "Reconciliar procedencia, referencias e índices",
+      "ownerRole": "B",
+      "reviewerRole": "Q/C",
+      "dependencies": [
+        "E1-01",
+        "E1-02"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 4
+      },
+      "deliverable": "Migración de índices, reconciliación reproducible y limitaciones históricas identificadas",
+      "acceptance": "G26",
+      "verification": "doctor y consultas antes/después; reintento idempotente; reversiones y redirecciones",
+      "codeAreas": [
+        "src/merge",
+        "src/db",
+        "migrations",
+        "src/api/repositories"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E1-04",
+      "stage": 1,
+      "title": "Migrar precisión temporal y datos de edición",
+      "ownerRole": "B",
+      "reviewerRole": "Q/C",
+      "dependencies": [
+        "E1-01",
+        "E1-02"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Modelo compatible persona/artista, fechas parciales y obra/edición/soporte",
+      "acceptance": "G01,G04,G05,G06",
+      "verification": "Migrar, revertir y reaplicar conservando valores; comprobar CD/DVD y fechas de año",
+      "codeAreas": [
+        "src/api/routes/catalog-writes.ts",
+        "src/api/schemas.ts",
+        "migrations",
+        "src/merge"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E1-05",
+      "stage": 1,
+      "title": "Definir hechos/evidencias y política de operaciones",
+      "ownerRole": "B/C",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E1-02",
+        "E1-04"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 4
+      },
+      "deliverable": "Contrato de hecho/cita/estado y acciones editoriales coherentes",
+      "acceptance": "G11,G14,G15",
+      "verification": "Negativos de formación, huecos, huérfanas, año cambiado y vínculos sin identidad",
+      "codeAreas": [
+        "src/verification/types.ts",
+        "src/curation/ai/types.ts",
+        "src/curation/actions/structural.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E2-01",
+      "stage": 2,
+      "title": "Implementar lotes persistentes y contexto recuperable",
+      "ownerRole": "B",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E1-05"
+      ],
+      "effortPersonDays": {
+        "min": 4,
+        "max": 6
+      },
+      "deliverable": "Tareas con dependencias, contexto por hallazgo, checkpoints e idempotencia",
+      "acceptance": "G09,G10,G22",
+      "verification": "Jeremías general y tres peticiones concretas; ninguna cita perdida; cortar/reanudar",
+      "codeAreas": [
+        "src/curation/ai/context.ts",
+        "src/verification/research-state.ts",
+        "src/verification/store.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E2-02",
+      "stage": 2,
+      "title": "Adquirir y registrar fuentes HTML, renderizadas, PDF y OCR",
+      "ownerRole": "B",
+      "reviewerRole": "Q/C",
+      "dependencies": [
+        "E1-05",
+        "E2-01"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Lectores escalonados, capturas/versiones y registro de cobertura por fuente",
+      "acceptance": "G07",
+      "verification": "120 documentos etiquetados; error HTTP, parcial, copia archivada y timestamp original",
+      "codeAreas": [
+        "src/ambiguity/web-search.ts",
+        "src/verification/research.ts",
+        "src/verification/excerpt.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E2-03",
+      "stage": 2,
+      "title": "Resolver identidad y agrupar hechos sin perder evidencia",
+      "ownerRole": "B/C",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E2-01",
+        "E2-02",
+        "E1-04"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Hechos normalizados con entidad, edición, período y múltiples citas",
+      "acceptance": "G04,G08,G09",
+      "verification": "Homónimos, proyectos, alias y contradicciones; recuperación y precisión en corpus reservado",
+      "codeAreas": [
+        "src/verification/source-identity.ts",
+        "src/verification/proof.ts",
+        "src/verification/evaluate.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E2-04",
+      "stage": 2,
+      "title": "Extraer todos los campos y reutilizar narrativa/relaciones",
+      "ownerRole": "B/C",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E2-03"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Datos, álbumes/pistas/créditos, sellos, redes, géneros, AKA y medios con destino",
+      "acceptance": "G06,G07,G08,G09",
+      "verification": "Todos los ámbitos del corpus, incluido nacimiento desde biografía y sellos investigables",
+      "codeAreas": [
+        "src/verification/snapshot.ts",
+        "src/verification/research.ts",
+        "src/verification/curation.ts",
+        "src/api/routes/entity-verification.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E2-05",
+      "stage": 2,
+      "title": "Versionar/reprocesar informes y controlar recursos",
+      "ownerRole": "B/F",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E2-04"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 3
+      },
+      "deliverable": "Reprocesamiento preservado, progreso real, pausa/cancelación y presupuesto visible",
+      "acceptance": "G08,G22,G27",
+      "verification": "Informe antiguo; fallo proveedor/cuota; presupuesto agotado; reinicio y reanudación",
+      "codeAreas": [
+        "src/verification/store.ts",
+        "src/verification/comparison-store.ts",
+        "src/curation/ai/store.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E3-01",
+      "stage": 3,
+      "title": "Exigir evidencia por campo y relación",
+      "ownerRole": "B/C",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E1-05",
+        "E2-04"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Validador documental y estado explícito de revisión editorial",
+      "acceptance": "G11",
+      "verification": "Negativos sintéticos de título con año/pista inventados y biografía con premios ficticios",
+      "codeAreas": [
+        "src/curation/ai/evidence.ts",
+        "src/curation/ai/executor.ts",
+        "src/verification/proof.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E3-02",
+      "stage": 3,
+      "title": "Generar operaciones dependientes y resultados coherentes",
+      "ownerRole": "B",
+      "reviewerRole": "Q/C",
+      "dependencies": [
+        "E2-05",
+        "E3-01"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Planes por lotes con entidades/referencias, duplicados y vacíos explicados",
+      "acceptance": "G02,G10",
+      "verification": "Caramelos integrante; crear sello/persona/álbum y luego créditos; resumen igual a operaciones",
+      "codeAreas": [
+        "src/curation/ai/planner.ts",
+        "src/curation/ai/schema.ts",
+        "src/curation/ai/store.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E3-03",
+      "stage": 3,
+      "title": "Clasificar y medir calidad de medios reales",
+      "ownerRole": "B/C",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E2-04",
+        "E1-04"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Clasificación por uso, dimensión natural, descarga, calidad y variantes agrupadas",
+      "acceptance": "G12,G13",
+      "verification": "100 imágenes etiquetadas; portada en retratos; versiones/recortes; baja resolución y descarga rota",
+      "codeAreas": [
+        "src/verification/image-curation.ts",
+        "src/merge/image-candidates.ts",
+        "scripts/localize-images.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E3-04",
+      "stage": 3,
+      "title": "Integrar curaduría de imágenes y operaciones auditadas",
+      "ownerRole": "B/F",
+      "reviewerRole": "Q/C",
+      "dependencies": [
+        "E3-02",
+        "E3-03"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 4
+      },
+      "deliverable": "Cola por ficha, alternativas útiles, recurso estable y aceptación transaccional",
+      "acceptance": "G12,G13,G16",
+      "verification": "Varias imágenes correctas; fallo parcial/URL rota; aceptar/verificar/deshacer; repetir solicitud",
+      "codeAreas": [
+        "src/api/routes/image-candidates.ts",
+        "web/src/pages/CurationImagesPage.tsx",
+        "src/merge/operator.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E3-05",
+      "stage": 3,
+      "title": "Verificar el ciclo completo y conservación",
+      "ownerRole": "B/F",
+      "reviewerRole": "Q/C",
+      "dependencies": [
+        "E3-04",
+        "E1-03"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 4
+      },
+      "deliverable": "Recorridos integrados y registro de efectos posteriores/deshacer",
+      "acceptance": "G02,G04,G05,G06,G14,G15,G16",
+      "verification": "Cuatro artistas; escribir y deshacer en staging; conflicto posterior y dos decisiones simultáneas",
+      "codeAreas": [
+        "src/curation/ai/executor.ts",
+        "src/curation/ai/store.ts",
+        "src/merge/journal-undo.ts",
+        "test/contract"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E4-01",
+      "stage": 4,
+      "title": "Validar jerarquía, tareas y primera ronda de UX",
+      "ownerRole": "F/C",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E3-05",
+        "E1-01"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 3
+      },
+      "deliverable": "Guion fijo, flujo probado y problemas de la primera ronda priorizados",
+      "acceptance": "G18",
+      "verification": "8 participantes basales; comparar acciones de navegación; registrar intervenciones",
+      "codeAreas": [
+        "web/src/pages/AiCurationPage.tsx",
+        "web/src/components/VerificationCurationQueue.tsx",
+        "docs/ui-qa"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E4-02",
+      "stage": 4,
+      "title": "Implementar Investigar y completar y revisión agrupada",
+      "ownerRole": "F/B",
+      "reviewerRole": "Q/C",
+      "dependencies": [
+        "E4-01"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Datos/Discografía/Imágenes/Dudas con antes/después, citas y continuidad",
+      "acceptance": "G09,G10,G17,G18",
+      "verification": "Revisar sin cambiar de módulo; pendientes/versiones; navegación atrás y progreso conservado",
+      "codeAreas": [
+        "web/src/pages/AiCurationPage.tsx",
+        "web/src/components/CatalogProposalCard.tsx",
+        "web/src/components/EntityVerification.tsx"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E4-03",
+      "stage": 4,
+      "title": "Completar navegación y acceso a operaciones existentes",
+      "ownerRole": "F/B",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E4-02"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 4
+      },
+      "deliverable": "Fichas, búsqueda completa, pista a álbum y herramientas avanzadas accesibles",
+      "acceptance": "G02,G03,G04,G05,G06,G16,G17",
+      "verification": "Todas las capacidades del inventario; álbum con muchos créditos; resultados paginados",
+      "codeAreas": [
+        "web/src/App.tsx",
+        "web/src/pages",
+        "web/src/components",
+        "web/src/lib/routes.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E4-04",
+      "stage": 4,
+      "title": "Corregir móvil, accesibilidad y estados de error",
+      "ownerRole": "F",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E4-03"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 4
+      },
+      "deliverable": "Recorrido central accesible, sin overflow y con recuperación comprobada",
+      "acceptance": "G19,G20,G22",
+      "verification": "320/390/768/1440px; zoom/teclado/lector; texto largo; carga, error y reintento",
+      "codeAreas": [
+        "web/src/styles/global.css",
+        "web/src/components/Modal.tsx",
+        "web/src/components/StateViews.tsx",
+        "web/tests/visual"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E4-05",
+      "stage": 4,
+      "title": "Validar con participantes nuevos y cerrar UX",
+      "ownerRole": "F/C",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E4-04"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 4
+      },
+      "deliverable": "Informe de 8 participantes nuevos, 48 tareas y correcciones verificadas",
+      "acceptance": "G18,G19,G20",
+      "verification": "44/48 tareas sin ayuda y22/24 por cohorte; acciones críticas 8/8; revalidar defectos",
+      "codeAreas": [
+        "docs/ui-qa",
+        "web/tests/visual",
+        "web/src/pages"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E5-01",
+      "stage": 5,
+      "title": "Automatizar restauración y publicación reversible",
+      "ownerRole": "O/B",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E3-05",
+        "E1-01"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Respaldo completo, release atómico, rollback de aplicación y guía de datos",
+      "acceptance": "G25,G29",
+      "verification": "Restaurar en entorno vacío; hashes/medios/enlaces; rollback sin borrar escrituras posteriores",
+      "codeAreas": [
+        "scripts/db-backup.sh",
+        "scripts/db-restore.sh",
+        "scripts/deploy.sh",
+        "docs/OPERATIONS.md"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E5-02",
+      "stage": 5,
+      "title": "Asegurar sesiones y trabajos ante concurrencia/fallos",
+      "ownerRole": "B/O",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E2-05",
+        "E3-05"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Sesiones persistentes, propietarios/leases y recuperación idempotente",
+      "acceptance": "G22,G23",
+      "verification": "Dos procesos; reinicio; lease vencido; CSRF; permisos; base/red/proveedor caídos",
+      "codeAreas": [
+        "src/api/auth.ts",
+        "src/api/app.ts",
+        "src/verification/store.ts",
+        "src/curation/ai/store.ts"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E5-03",
+      "stage": 5,
+      "title": "Medir rendimiento, costos y métricas operativas",
+      "ownerRole": "B/O",
+      "reviewerRole": "Q",
+      "dependencies": [
+        "E5-01",
+        "E5-02"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 4
+      },
+      "deliverable": "Benchmark reproducible, alertas, presupuesto medido y descubrimiento validado",
+      "acceptance": "G21,G27,G28",
+      "verification": "15min carga; dataset actual/2x; alertas reales de ensayo; captura/retención on/off",
+      "codeAreas": [
+        "src/discovery",
+        "src/config/env.ts",
+        "src/api",
+        "scripts",
+        "ops/discovery"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E5-04",
+      "stage": 5,
+      "title": "Aceptar release con API, auth, fuentes y modelo reales",
+      "ownerRole": "Q/C",
+      "reviewerRole": "B/F/O",
+      "dependencies": [
+        "E4-05",
+        "E5-03"
+      ],
+      "effortPersonDays": {
+        "min": 3,
+        "max": 5
+      },
+      "deliverable": "Expediente final, matriz de 29 dimensiones y defectos importantes pendientes = 0",
+      "acceptance": "G01-G29",
+      "verification": "Corpus reservado 3 veces; 4 artistas; fuentes reales; sesiones reales; pruebas del mismo release",
+      "codeAreas": [
+        "test",
+        "web/tests",
+        "docs/ui-qa",
+        "reports/plan-20-de-20"
+      ],
+      "status": "planned"
+    },
+    {
+      "id": "E5-05",
+      "stage": 5,
+      "title": "Observar uso, corregir incidentes y cerrar evaluación",
+      "ownerRole": "O/Q",
+      "reviewerRole": "C",
+      "dependencies": [
+        "E5-04"
+      ],
+      "effortPersonDays": {
+        "min": 2,
+        "max": 4
+      },
+      "deliverable": "Informe de 30 días y actividad mínima, incidentes resueltos y evidencia de cierre",
+      "acceptance": "G01-G29",
+      "verification": "Mínimo 30 investigaciones, 100 decisiones y 10 deshacer; sin incidentes de integridad",
+      "codeAreas": [
+        "reports/plan-20-de-20",
+        "docs",
+        "observabilidad de API/jobs"
+      ],
+      "status": "planned"
+    }
+  ]
+}

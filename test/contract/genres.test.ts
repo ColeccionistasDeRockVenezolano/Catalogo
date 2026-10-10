@@ -2,7 +2,8 @@
 // backfill reproducible, proyección `albums.genre`, prioridad humana,
 // fusión y reversión de discos, cambios de alias acotados, interruptor
 // GENRES_PROJECTION_ENABLED y migración reversible.
-import { readFile } from "node:fs/promises";
+import { readdir, copyFile, mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { PoolClient } from "pg";
@@ -14,7 +15,7 @@ import { migrateDownAll, migrateUp } from "../../src/db/migrate.js";
 import { normalizeRecord } from "../../src/normalization/claims.js";
 import { persistClaim, type ClaimToPersist } from "../../src/claims/persistence.js";
 import { mergeClaim } from "../../src/merge/engine.js";
-import { applyTaxonomyOperations, planTaxonomyFile } from "../../src/genres/admin.js";
+import { applyTaxonomyOperations, planTaxonomyFile, readTaxonomyFile } from "../../src/genres/admin.js";
 import { runGenreBackfill } from "../../src/genres/backfill.js";
 import { confirmGenre } from "../../src/genres/human.js";
 import { lockGenres } from "../../src/genres/store.js";
@@ -123,13 +124,16 @@ describe("géneros: taxonomía, backfill, proyección y fusiones (PLAN_GENEROS e
     await container?.stop();
   }, 60_000);
 
-  it("la taxonomía queda en dos niveles con slugs estables y es idempotente", async () => {
+  it("la taxonomía conserva sus tres niveles, slugs y padres aprobados y es idempotente", async () => {
     const [counts] = await rows<{ families: string; genres: string; orphans: string }>(`
       SELECT count(*) FILTER (WHERE level='family')::text AS families,
              count(*) FILTER (WHERE level='genre')::text AS genres,
              count(*) FILTER (WHERE level='genre' AND parent_genre_id IS NULL)::text AS orphans
         FROM ingest.genres`);
-    expect(Number(counts!.families)).toBe(16);
+    const desired = await readTaxonomyFile();
+    expect(Number(counts!.families)).toBe(desired.genres.filter(g => g.level === "family").length);
+    const actual = await rows<{ slug: string; name: string; level: string; parent: string | null }>("SELECT g.slug,g.name,g.level,p.slug AS parent FROM ingest.genres g LEFT JOIN ingest.genres p ON p.id=g.parent_genre_id ORDER BY g.slug");
+    expect(actual).toEqual(desired.genres.map(g => ({ slug: g.slug, name: g.name, level: g.level, parent: g.parentSlug })).sort((a,b) => a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0));
     expect(Number(counts!.genres)).toBeGreaterThan(80);
     expect(Number(counts!.orphans)).toBe(0);
     expect(await planTaxonomyFile()).toEqual([]);
@@ -312,20 +316,39 @@ describe("géneros: taxonomía, backfill, proyección y fusiones (PLAN_GENEROS e
     expect(await rows("SELECT to_regclass('ingest.album_genres')::text AS t")).toEqual([{ t: "ingest.album_genres" }]);
     setProjection(false);
 
-    const albumsBefore = await rows("SELECT id, genre FROM public.albums ORDER BY id");
-    const down = await readFile(path.resolve("migrations", "0027_genre_taxonomy.down.sql"), "utf8");
-    await pool().query("DELETE FROM ingest.schema_migrations WHERE version = '0027_genre_taxonomy'");
-    await pool().query(down);
-    expect(await rows("SELECT to_regclass('ingest.album_genres') AS t")).toEqual([{ t: null }]);
-    expect(await rows("SELECT 1 FROM ingest.review_queue WHERE payload->>'origin' LIKE 'genres%'")).toEqual([]);
-    // El core no se toca: `albums.genre` conserva el último texto proyectado.
-    expect(await rows("SELECT id, genre FROM public.albums ORDER BY id")).toEqual(albumsBefore);
-
-    await migrateUp();
-    expect(await rows("SELECT to_regclass('ingest.album_genres')::text AS t")).toEqual([{ t: "ingest.album_genres" }]);
-    const report = await applyTaxonomyOperations(await planTaxonomyFile(), { actor: "prueba", reason: "recarga" }, { confirm: true });
-    expect(report.operations.length).toBeGreaterThan(0);
-    const backfill = await runGenreBackfill({ confirm: true, actor: "prueba" });
-    expect(backfill.after.albums.withConfirmedPrimary).toBeGreaterThan(0);
+    // 0027 must be tested at its historical horizon: 0037 adds a dependent
+    // lineage view and later migrations add assignment triggers. Dropping an
+    // old migration beneath live dependents is not a supported rollback.
+    const directory = await mkdtemp(path.join(tmpdir(), "crv-taxonomy-horizon-"));
+    let historical: PgContainer | undefined;
+    await closeDb();
+    try {
+      for (const file of await readdir("migrations")) {
+        if (/^\d{4}_.*\.(up|down)\.sql$/u.test(file) && file.slice(0, 4) <= "0027") {
+          await copyFile(path.join("migrations", file), path.join(directory, file));
+        }
+      }
+      historical = await startPgContainer();
+      process.env["DATABASE_URL"] = historical.databaseUrl;
+      resetEnvCache();
+      await applyCore(historical.name);
+      await migrateUp(directory);
+      const historicalArtist = await one("INSERT INTO public.artists(name) VALUES('Artista reversión QA') RETURNING id");
+      await pool().query("INSERT INTO public.albums(artist_id,title,genre) VALUES($1,'Disco preservado','Rock')", [historicalArtist]);
+      const albumsBefore = await rows("SELECT id,genre FROM public.albums ORDER BY id");
+      await migrateDownAll(directory);
+      expect(await rows("SELECT to_regclass('ingest.album_genres') AS t")).toEqual([{ t: null }]);
+      expect(await rows("SELECT id,genre FROM public.albums ORDER BY id")).toEqual(albumsBefore);
+      await migrateUp(directory);
+      expect(await rows("SELECT to_regclass('ingest.album_genres')::text AS t")).toEqual([{ t: "ingest.album_genres" }]);
+      expect(await rows("SELECT id,genre FROM public.albums ORDER BY id")).toEqual(albumsBefore);
+      expect((await migrateUp(directory)).applied).toEqual([]);
+    } finally {
+      await closeDb();
+      await historical?.stop();
+      await rm(directory, { recursive: true, force: true });
+      process.env["DATABASE_URL"] = container.databaseUrl;
+      resetEnvCache();
+    }
   }, 120_000);
 });

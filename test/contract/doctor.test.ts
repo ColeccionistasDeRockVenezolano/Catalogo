@@ -41,6 +41,20 @@ describe("doctor — integridad operativa (contrato)", () => {
     expect(report.warnings).toBe(1);
   });
 
+  it("detecta una FK sin índice y rechaza un índice parcial que no cubre sus referencias", async () => {
+    const pool = getPool();
+    await pool.query("DROP INDEX ingest.ai_curation_plans_run_idx");
+    try {
+      expect(check(await runDoctor(), "integrity.fk_indexes").status).toBe("fail");
+      await pool.query("CREATE INDEX ai_curation_plans_run_idx ON ingest.ai_curation_plans(run_id) WHERE false");
+      expect(check(await runDoctor(), "integrity.fk_indexes").status).toBe("fail");
+    } finally {
+      await pool.query("DROP INDEX IF EXISTS ingest.ai_curation_plans_run_idx");
+      await pool.query("CREATE INDEX ai_curation_plans_run_idx ON ingest.ai_curation_plans(run_id)");
+    }
+    expect(check(await runDoctor(), "integrity.fk_indexes").status).toBe("ok");
+  });
+
   it("una fila canónica sin auditoría se detecta (merge_audit.coverage)", async () => {
     const { rows } = await getPool().query<{ id: string }>(
       "INSERT INTO public.persons(name) VALUES('Persona Sin Auditoría QA') RETURNING id");

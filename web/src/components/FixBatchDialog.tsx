@@ -151,7 +151,7 @@ function ActionPicker({ item, value, onChange }: { item: FixItem; value: string 
           onClick={() => {
             setLoading(true);
             curationApi.findingsActions(findingId)
-              .then((result) => setOptions(result.actions.filter((action) => action.available)))
+              .then((result) => setOptions(result.actions.filter((action) => action.available || action.editorialInputs?.length)))
               .catch(() => setOptions([]))
               .finally(() => setLoading(false));
           }}
@@ -202,6 +202,7 @@ export function FixBatchDialog({
   const [batch, setBatch] = useState<FixBatch | null>(null);
   const [excluded, setExcluded] = useState<Set<number>>(new Set());
   const [rowActions, setRowActions] = useState<Record<number, string>>({});
+  const [rowParams, setRowParams] = useState<Record<number, Record<string, unknown>>>({});
   const [value, setValue] = useState(valueEditor?.initial ?? "");
   const [note, setNote] = useState("");
   // Motivo aparte para deshacer: reutilizar el de aplicar dejaba la reversa
@@ -211,13 +212,18 @@ export function FixBatchDialog({
   const [applying, setApplying] = useState(false);
   const [undoing, setUndoing] = useState(false);
   const [stale, setStale] = useState(false);
+  const [editorialDirty, setEditorialDirty] = useState(false);
   const [error, setError] = useState<string>();
   const [applied, setApplied] = useState(false);
   const [undoBatch, setUndoBatch] = useState<FixBatch | null>(null);
   const [recommended, setRecommended] = useState<string | null>(null);
 
   const body = useCallback((overrideActions: Record<number, string>): CurationFixesPreviewRequest => {
-    const byFinding = Object.fromEntries(Object.entries(overrideActions).map(([id, key]) => [id, { actionKey: key }]));
+    const ids = new Set([...Object.keys(overrideActions), ...Object.keys(rowParams)]);
+    const byFinding = Object.fromEntries([...ids].map((id) => [id, {
+      ...(overrideActions[Number(id)] ? { actionKey: overrideActions[Number(id)] } : {}),
+      ...(rowParams[Number(id)] ? { params: rowParams[Number(id)] } : {}),
+    }]));
     // En individual con editor, el valor escrito corrige el texto del campo:
     // esa es la acción. En lotes, el motor decide la recomendada por hallazgo.
     const explicit = actionKey ?? (valueEditor && mode === "individual" ? "limpiar_texto" : undefined);
@@ -233,7 +239,7 @@ export function FixBatchDialog({
       ...(explicit ? { actionKey: explicit } : {}),
       ...(Object.keys(overrides).length ? { overrides } : {}),
     };
-  }, [mode, findingIds, filter, actionKey, valueEditor, value]);
+  }, [mode, findingIds, filter, actionKey, valueEditor, value, rowParams]);
 
   const loadPreview = useCallback(async (overrideActions: Record<number, string> = {}) => {
     setLoading(true);
@@ -243,6 +249,7 @@ export function FixBatchDialog({
     setExcluded(new Set());
     try {
       setBatch(await curationApi.fixesPreview(body(overrideActions)));
+      setEditorialDirty(false);
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "No se pudo calcular la vista previa.");
     } finally {
@@ -372,6 +379,7 @@ export function FixBatchDialog({
         </p>
       ) : null}
       {error ? <p className="form-error-banner" role="alert">{error}</p> : null}
+      {editorialDirty ? <p className="hint" role="status">Actualiza la vista previa para revisar el cambio con el motivo que escribiste.</p> : null}
 
       {loading ? <p className="hint" role="status">Calculando la vista previa…</p> : null}
 
@@ -437,6 +445,24 @@ export function FixBatchDialog({
                           ? <>{item.actionLabel ?? item.actionKey ?? "—"}{item.level !== null ? <span className="hint"> · nivel {item.level}</span> : null}</>
                           : <ActionPicker item={item} value={item.findingId === null ? null : rowActions[item.findingId] ?? null}
                             onChange={(key) => item.findingId !== null && changeRowAction(item.findingId, key)} />}
+                        {!applied && item.findingId !== null && item.editorialInputs?.map((input) => {
+                          const fieldId = `fixitem-editorial-${item.id}-${input.key}`;
+                          const current = rowParams[item.findingId!]?.[input.key] ?? item.params[input.key] ?? "";
+                          return (
+                            <div className="field" key={input.key}>
+                              <label htmlFor={fieldId}>{input.label} *</label>
+                              <input id={fieldId} type={input.type} value={String(current)} required
+                                min={input.type === "number" ? 1 : undefined} step={input.type === "number" ? 1 : undefined}
+                                aria-describedby={`${fieldId}-help`} disabled={loading || applying}
+                                onChange={(event) => {
+                                  const value = input.type === "number" ? (event.target.value === "" ? null : Number(event.target.value)) : event.target.value;
+                                  setRowParams((rows) => ({ ...rows, [item.findingId!]: { ...rows[item.findingId!], [input.key]: value } }));
+                                  setEditorialDirty(true);
+                                }} />
+                              <span className="hint" id={`${fieldId}-help`}>{input.explanation}</span>
+                            </div>
+                          );
+                        })}
                       </td>
                       <td><ItemChange item={item} /></td>
                       {applied ? (
@@ -463,7 +489,7 @@ export function FixBatchDialog({
               <div className="form-actions">
                 <button type="button" className="btn" onClick={onClose} disabled={applying}>Cancelar</button>
                 <button type="button" className="btn" onClick={() => void loadPreview(rowActions)} disabled={applying || loading}>Actualizar vista previa</button>
-                <button type="button" className="btn btn--primary" onClick={apply} disabled={applying || pendingCount === 0 || !note.trim()}>
+                <button type="button" className="btn btn--primary" onClick={apply} disabled={applying || loading || stale || editorialDirty || pendingCount === 0 || !note.trim()}>
                   {applying ? "Aplicando…" : `Aplicar ${plural(pendingCount, "corrección", "correcciones")}`}
                 </button>
               </div>

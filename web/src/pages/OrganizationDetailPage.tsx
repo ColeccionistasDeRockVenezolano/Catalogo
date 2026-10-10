@@ -14,11 +14,12 @@ import { EntityFormModal } from "../components/EntityFormModal";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { MergeEntityModal } from "../components/MergeEntityModal";
 import { PersonOrgManager } from "../components/PersonOrgManager";
+import { EntityProvenance } from "../components/EntityProvenance";
 import { EntityHistory } from "../components/EntityHistory";
 import { EntityLoadError } from "../components/RemovedEntityState";
 import { initialOf } from "../components/EntityCard";
 import { DeceasedMark } from "../components/DeceasedMark";
-import { ORGANIZATION_FIELDS } from "../lib/entityFields";
+import { entityFormValues, ORGANIZATION_FIELDS } from "../lib/entityFields";
 import { EntityInfo, type InfoItem } from "../components/EntityInfo";
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
@@ -36,7 +37,7 @@ export function OrganizationDetailPage() {
   const [deleting, setDeleting] = useState(false);
   const [merging, setMerging] = useState(false);
 
-  if (loading) return <DetailSkeleton />;
+  if (loading && (!org || org.id !== orgId)) return <DetailSkeleton />;
   if (error || !org) return <EntityLoadError message={error ?? "Organización no encontrada."} errorValue={errorValue} onRetry={reload} />;
 
   const info: InfoItem[] = [
@@ -107,7 +108,10 @@ export function OrganizationDetailPage() {
         </div>
       ),
     },
-    { key: "historial", label: "Historial", content: <EntityHistory entity="organization" id={org.id} /> },
+    ...(isAdmin ? [
+      { key: "fuentes", label: "Origen de los datos", content: <EntityProvenance entity="organization" id={org.id} revision={org} /> },
+      { key: "historial", label: "Historial", content: <EntityHistory entity="organization" id={org.id} /> },
+    ] : []),
   ];
   const defaultKey = tabs.find((tab) => (tab.count ?? 0) > 0)?.key ?? "discografia";
 
@@ -143,14 +147,11 @@ export function OrganizationDetailPage() {
 
       <EntityTabs tabs={tabs} defaultKey={defaultKey} />
 
-      {editing ? (
+      {isAdmin && editing ? (
         <EntityFormModal
           title={`Editar «${org.name}»`}
           fields={ORGANIZATION_FIELDS}
-          initialValues={{
-            name: org.name, organizationType: org.organizationType, country: org.country, websiteUrl: org.websiteUrl,
-            pictureUrl: org.pictureUrl, biography: org.biography, notes: org.notes,
-          }}
+          initialValues={entityFormValues(ORGANIZATION_FIELDS, org)}
           onSubmit={(values, note) => organizationWrites.update(org.id, { ...values, note })}
           onSuccess={() => { setEditing(false); reload(); notify("success", "Organización actualizada."); }}
           onClose={() => setEditing(false)}

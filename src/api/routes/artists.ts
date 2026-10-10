@@ -1,9 +1,11 @@
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
+import { artistTypeEnum } from "../../db/schema/core.js";
+import { getTypeFacets } from "../repositories/type-facets.js";
 import { paginationQuerySchema, toPage } from "../pagination.js";
 import {
-  idParamSchema, aliasSchema, genreListFilterSchema, genreStatusSchema, paginatedResponseSchema, publicGenreSchema,
+  idParamSchema, aliasSchema, decadeListFilterSchema, decadeFacetsSchema, genreListFilterSchema, genreStatusSchema, paginatedResponseSchema, publicGenreSchema,
 } from "../schemas.js";
 import { getArtistDetail, listArtists } from "../repositories/artists.js";
 import { RELATED_RULES, SIMILAR_RULES } from "../repositories/artist-neighbors.js";
@@ -33,9 +35,12 @@ const artistListItemSchema = artistBaseSchema.extend({
 const artistDetailSchema = artistBaseSchema.extend({
   biography: z.string().nullable(),
   logoUrl: z.string().nullable(),
+  status: z.string().nullable(),
+  themes: z.string().nullable(),
+  yearsActive: z.string().nullable(),
   notes: z.string().nullable(),
   members: z.array(z.object({
-    id: z.number().int(), personId: z.number().int(), personName: z.string(), personIsDeceased: z.boolean(), role: z.string(),
+    id: z.number().int(), personId: z.number().int(), personName: z.string(), personRealName: z.string().nullable(), personIsDeceased: z.boolean(), role: z.string(),
     // Fechas de la persona: la ficha de un proyecto solista las muestra como suyas.
     personBirthDate: z.string().nullable(), personDeathDate: z.string().nullable(),
     fromYear: z.number().int().nullable(), toYear: z.number().int().nullable(), isCurrent: z.boolean(),
@@ -78,13 +83,26 @@ const artistDetailSchema = artistBaseSchema.extend({
 });
 
 const listQuerySchema = paginationQuerySchema.extend({
+  artistType: z.enum(artistTypeEnum.enumValues).optional(),
   q: z.string().trim().min(1).optional(),
   ...genreListFilterSchema,
+  ...decadeListFilterSchema,
   genre: genreListFilterSchema.genre.describe("Género del artista: el propio y los que recibe de sus discos (0036)."),
 });
 
 export async function registerArtistRoutes(app: FastifyInstance): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();
+
+  server.get("/artists/facets", {
+    schema: {
+      tags: ["artists"],
+      response: { 200: z.object({
+        ...decadeFacetsSchema,
+        total: z.number().int().nonnegative(),
+        types: z.array(z.object({ value: z.string(), count: z.number().int().nonnegative() })),
+      }) },
+    },
+  }, async () => getTypeFacets("artist"));
 
   server.get("/artists", {
     schema: {

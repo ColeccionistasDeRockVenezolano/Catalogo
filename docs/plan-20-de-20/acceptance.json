@@ -1,0 +1,399 @@
+{
+  "version": 2,
+  "date": "2026-10-10",
+  "scope": "Requirements, not measured results",
+  "passRule": "All29 gates pass on same release; no P0/P1/P2 known open within scope. Three reserved-corpus repetitions, real sessions/provider, UX and observation required.",
+  "metrics": [
+    {
+      "id": "M01",
+      "name": "Conservación de evidencia",
+      "definitionAndThreshold": "Citas pertinentes preservadas / citas pertinentes de entrada =100 %. Comparar IDs/contenido antes/después de contexto y reanudación.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M02",
+      "name": "Hechos con destino",
+      "definitionAndThreshold": "Hechos pertinentes extraídos con fuente/estado/destino / total pertinente extraído =100 %. Es trazabilidad, no recall.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M03",
+      "name": "Recuperación documental",
+      "definitionAndThreshold": "Hechos positivos recuperados correctamente / positivos etiquetados ≥95 %, en cada repetición; hechos críticos 100 %. Publicar resultados por ámbito y formato.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M04",
+      "name": "Precisión factual",
+      "definitionAndThreshold": "Hechos emitidos correctamente atribuidos y respaldados / total emitido como documentado ≥98 %. Cero error crítico de identidad/edición/cronología, cero hecho sin respaldo presentado como comprobado.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M05",
+      "name": "Negativos de evidencia",
+      "definitionAndThreshold": "Cero aplicaciones automáticas/documentadas de los 100 casos negativos. Una decisión editorial explícita se registra aparte y nunca convierte el hecho en comprobado.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M06",
+      "name": "Imágenes",
+      "definitionAndThreshold": "Entidad/edición correcta 100 % de las propuestas verificadas; clasificación de uso ≥95 % del corpus; variantes óptimas disponibles 100 % de sus grupos; cero recurso fallido seleccionable como verificado.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M07",
+      "name": "Plan coherente",
+      "definitionAndThreshold": "100 % de planes: resumen compatible con operaciones/dudas; vacíos explicados; operaciones viables o bloqueo explícito.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M08",
+      "name": "Aplicar y deshacer",
+      "definitionAndThreshold": "100 % de escenarios obligatorios conserva/restaura campos, relaciones, claims y medios previstos; cambios posteriores protegidos; repetición no duplica.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M09",
+      "name": "Tareas sin ayuda",
+      "definitionAndThreshold": "Éxitos sin intervención / tareas intentadas. Segunda ronda: ≥44/48 global y ≥22/24 en cada cohorte; acciones críticas correctas 8/8.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M10",
+      "name": "Navegación",
+      "definitionAndThreshold": "Mediana de cambios de módulo en guion fijo reducido≥50 % respecto a línea base; registrar antes/después, sin confundir menos pantallas con menos decisiones editoriales.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M11",
+      "name": "Rendimiento",
+      "definitionAndThreshold": "Búsqueda/lectura ordinaria p95 <1 s y p99 <2,5 s en API; errores inesperados<0,1 %. Análisis dirigido <1 s y completo <15 s en catálogo vigente.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M12",
+      "name": "Recuperación",
+      "definitionAndThreshold": "Cero hechos/citas/decisiones perdidos en interrupciones probadas; un único resultado editorial por operación; jobs de otro proceso no invalidados.",
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "M13",
+      "name": "Integridad",
+      "definitionAndThreshold": "Cero referencias invalidas nuevas; cero mutación editorial nueva sin run y procedencia; incidencias heredadas reconciliadas o limitaciones verificables explícitas.",
+      "status": "pending",
+      "observedResult": null
+    }
+  ],
+  "gates": [
+    {
+      "id": "G01",
+      "dimension": "Modelo",
+      "requiredEvidence": "Fechas parciales y CD/DVD/ediciones preservados; migrar/revertir/reaplicar",
+      "packageAndReviewer": "E1-04 · Q/C",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G02",
+      "dimension": "CRUD",
+      "requiredEvidence": "Todos los tipos, edición compatible, retiro con dependencias y alta desde investigación; M08",
+      "packageAndReviewer": "E3-05/E4-03 · Q",
+      "metrics": [
+        "M08"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G03",
+      "dimension": "Búsqueda",
+      "requiredEvidence": "Cuatro casos, alias/acentos, filtros, resultados completos y pista a álbum; M11",
+      "packageAndReviewer": "E1-02/E4-03 · Q",
+      "metrics": [
+        "M11"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G04",
+      "dimension": "Relaciones/créditos",
+      "requiredEvidence": "Sujeto/período correctos y conservación de vínculos; negativos de atribución",
+      "packageAndReviewer": "E2-03/E3-05 · Q/C",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G05",
+      "dimension": "Fusiones/divisiones/conversiones",
+      "requiredEvidence": "Identidad/edición respaldada, preview vigente, aliases/referencias preservados; M08",
+      "packageAndReviewer": "E1-04/E3-05 · Q/C",
+      "metrics": [
+        "M08"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G06",
+      "dimension": "Géneros",
+      "requiredEvidence": "Artista/obra/edición diferenciados, taxonomía y roles explícitos, fuente conservada",
+      "packageAndReviewer": "E2-04/E3-05 · Q/C",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G07",
+      "dimension": "Lectura de fuentes",
+      "requiredEvidence": "Cobertura real, timestamps originales, 4 formatos; M01/M03/M04",
+      "packageAndReviewer": "E2-02/E2-04 · Q/C",
+      "metrics": [
+        "M01",
+        "M03",
+        "M04"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G08",
+      "dimension": "Verificación/comparación",
+      "requiredEvidence": "Artista/persona/álbum/sello; puntaje/cobertura/dudas separados, versiones claras",
+      "packageAndReviewer": "E2-03/E2-05 · Q/C",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G09",
+      "dimension": "Información adicional",
+      "requiredEvidence": "Cruce y destino de todos los hechos pertinentes; M01/M02/M03",
+      "packageAndReviewer": "E2-04/E4-02 · Q/C",
+      "metrics": [
+        "M01",
+        "M02",
+        "M03"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G10",
+      "dimension": "Propuestas IA",
+      "requiredEvidence": "Jeremías y Caramelos resueltos; dependencias y planes coherentes; M07/M08",
+      "packageAndReviewer": "E3-02 · Q/C",
+      "metrics": [
+        "M07",
+        "M08"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G11",
+      "dimension": "Validación documental",
+      "requiredEvidence": "Evidencia por campo/relación, negativos y editorialidad visible; M04/M05",
+      "packageAndReviewer": "E3-01 · Q/C",
+      "metrics": [
+        "M04",
+        "M05"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G12",
+      "dimension": "Extracción de imágenes",
+      "requiredEvidence": "Varias alternativas útiles por ficha, fuentes y acceso a curaduría; M02/M06",
+      "packageAndReviewer": "E3-03/E3-04 · Q/C",
+      "metrics": [
+        "M02",
+        "M06"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G13",
+      "dimension": "Calidad/clasificación",
+      "requiredEvidence": "Resolución natural, uso/identidad y mejores variantes; fallidas controladas; M06",
+      "packageAndReviewer": "E3-03/E3-04 · Q/C",
+      "metrics": [
+        "M06"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G14",
+      "dimension": "Detectores/categorías",
+      "requiredEvidence": "Corpus vigente revisado, positivos conservados, precisión≥95 % por detector con muestra ysin atribución crítica errónea",
+      "packageAndReviewer": "E1-05/E3-05 · Q/C",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G15",
+      "dimension": "Autocorrección",
+      "requiredEvidence": "Lista blanca demostrable, límites, fallo/reversión y ninguna inferencia histórica automática",
+      "packageAndReviewer": "E1-05/E3-05 · Q/C",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G16",
+      "dimension": "Historial/deshacer",
+      "requiredEvidence": "Antes/después y fuente accesibles, límites históricos explícitos; M08/M13",
+      "packageAndReviewer": "E3-05/E4-03 · Q/C",
+      "metrics": [
+        "M08",
+        "M13"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G17",
+      "dimension": "Interfaz pública",
+      "requiredEvidence": "Listados/fichas/enlaces/medios funcionales, legibles y con cargas/ausencias claras",
+      "packageAndReviewer": "E4-03/E4-04 · Q",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G18",
+      "dimension": "UX/carga cognitiva",
+      "requiredEvidence": "Resultados por cohorte, tareas y navegación; M09/M10",
+      "packageAndReviewer": "E4-05 · Q/participantes",
+      "metrics": [
+        "M09",
+        "M10"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G19",
+      "dimension": "Móvil",
+      "requiredEvidence": "320/390/768/1440 px, contenido largo, zoom y sin overflow del documento",
+      "packageAndReviewer": "E4-04/E4-05 · Q",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G20",
+      "dimension": "Accesibilidad",
+      "requiredEvidence": "Recorrido de teclado/lector/foco, contraste y reflow; criterios AA aplicables sin fallos conocidos",
+      "packageAndReviewer": "E4-04/E4-05 · Q",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G21",
+      "dimension": "Rendimiento",
+      "requiredEvidence": "Benchmark del tamaño actual, escenarios 2× y concurrencia; M11",
+      "packageAndReviewer": "E5-03 · Q/O",
+      "metrics": [
+        "M11"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G22",
+      "dimension": "Errores/recuperación",
+      "requiredEvidence": "Escenarios de fallo, progreso parcial, reanudación y resultados idempotentes; M12",
+      "packageAndReviewer": "E5-02 · Q/O",
+      "metrics": [
+        "M12"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G23",
+      "dimension": "Permisos/autenticación",
+      "requiredEvidence": "Sesiones reales, reader/admin, CSRF, expiración/reinicio, límites de login y entradas, URLs/redirects seguros y restricción de escrituras",
+      "packageAndReviewer": "E5-02 · Q",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G24",
+      "dimension": "Pruebas/regresiones",
+      "requiredEvidence": "CI de release aprobada, negativos y navegador reales, ninguna prueba omitida para cerrar",
+      "packageAndReviewer": "E1-02/E5-04 · Q",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G25",
+      "dimension": "Despliegue/respaldo",
+      "requiredEvidence": "Restauración de base/raw/medios y publicación/reversión sin pérdida",
+      "packageAndReviewer": "E5-01 · Q/O",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G26",
+      "dimension": "Procedencia/integridad",
+      "requiredEvidence": "doctor y reconciliación verificables; M13",
+      "packageAndReviewer": "E1-03/E5-04 · Q/C",
+      "metrics": [
+        "M13"
+      ],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G27",
+      "dimension": "Observabilidad",
+      "requiredEvidence": "Métricas de extracción/reutilización/presupuesto y alertas ensayadas; no denominadores vacíos",
+      "packageAndReviewer": "E2-05/E5-03 · Q/O",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G28",
+      "dimension": "Descubrimiento",
+      "requiredEvidence": "Sugerencias/editorialidad correctas; métrica on/off, retención y prototipo identificado",
+      "packageAndReviewer": "E5-03 · Q/C",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    },
+    {
+      "id": "G29",
+      "dimension": "Documentación/operación",
+      "requiredEvidence": "Runbook ejecutado por revisor, versiones y capacidades declaradas, expediente completo",
+      "packageAndReviewer": "E5-01/E5-05 · Q/O",
+      "metrics": [],
+      "status": "pending",
+      "observedResult": null
+    }
+  ]
+}

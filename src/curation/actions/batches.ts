@@ -46,6 +46,7 @@ import {
   CurationError, getFindingForUpdate, getFindingsByIds, listGroupFindings, type FindingGroupFilter, type FindingRow,
 } from "../repository.js";
 import { CURATION_UNDO_RUN_PREFIX } from "../resolution.js";
+import { permitsAutofix } from "../editorial-policy.js";
 import { runCurationScan, trackCurationWork, type ResolvedRef } from "../scan.js";
 import { notifyCatalogWrite } from "../watcher.js";
 import type { EntityRef } from "../types.js";
@@ -131,6 +132,7 @@ export interface FixItemView {
   level: number | null;
   params: Record<string, unknown>;
   status: ItemStatus;
+  editorialInputs: NonNullable<AnyFixAction["editorialInputs"]>;
   before: Record<string, unknown> | null;
   after: Record<string, unknown> | null;
   touched: EntityKey[];
@@ -317,7 +319,7 @@ async function resolveCandidate(request: FixPreviewRequest, finding: FindingRow,
   const parsed = action.paramsSchema.safeParse({ ...(defaults ?? {}), ...(explicitParams ?? {}) });
   if (!parsed.success) {
     const detail = parsed.error.issues.map((issue) => `${issue.path.join(".") || "params"}: ${issue.message}`).join("; ");
-    return { ...withAction, blocked: blockedBy("invalid", `parámetros inválidos para «${action.label}»: ${detail}`) };
+    return { ...withAction, params: { ...(defaults ?? {}), ...(explicitParams ?? {}) }, blocked: blockedBy("invalid", `parámetros inválidos para «${action.label}»: ${detail}`) };
   }
   const params = parsed.data;
   if (!declared && !(action.acceptsExplicit?.(finding, params) ?? false)) {
@@ -326,7 +328,7 @@ async function resolveCandidate(request: FixPreviewRequest, finding: FindingRow,
   const level = action.levelFor(finding, params);
   const chain = action.chain?.(finding, params) ?? null;
   const max = MAX_LEVEL[request.mode];
-  if (level > max) {
+  if (level > max || (request.mode === "auto" && !permitsAutofix(action.key))) {
     return {
       ...withAction, params, level, chain,
       blocked: blockedBy("level", `nivel ${level}: ${MODE_NOUN[request.mode]} solo aplica acciones de nivel ${max} o menos`),
@@ -560,6 +562,7 @@ function itemView(row: ItemWithFinding): FixItemView {
     actionLabel: row.action_key ? getFixAction(row.action_key)?.label ?? null : null,
     level: row.level,
     params: row.params ?? {},
+    editorialInputs: row.action_key ? getFixAction(row.action_key)?.editorialInputs ?? [] : [],
     status: row.status,
     before: row.before,
     after: row.after,
@@ -676,6 +679,7 @@ export interface FindingActionView {
   preconditions: Precondition[];
   /** Se puede previsualizar y aplicar ya (abierto, con parámetros y precondiciones cumplidas). */
   available: boolean;
+  editorialInputs: NonNullable<AnyFixAction["editorialInputs"]>;
 }
 
 /** `GET /curation/findings/:id/actions`: las acciones que se ofrecen, con parámetros por defecto, nivel y precondiciones. */
@@ -693,6 +697,7 @@ export async function describeFindingActions(findingId: number): Promise<{ findi
         level: action.levelFor(finding, params), inverse: action.inverse ?? null, recommended: index === 0,
         params: params ? plain(params) : null, preconditions,
         available: finding.status === "open" && params !== null && preconditions.every((check) => check.ok),
+        editorialInputs: action.editorialInputs ?? [],
       });
     }
     return { findingId, status: finding.status, actions: out };
@@ -810,6 +815,9 @@ async function applyItem(batch: BatchRow, item: ItemRow, finding: FindingRow | u
   if (!parsed.success) return markItem(item.id, "failed", "invalid", "los parámetros guardados ya no son válidos para la acción");
   const params = parsed.data;
   const mode = batch.mode as FixMode;
+  if (action.levelFor(finding, params) > MAX_LEVEL[mode] || (mode === "auto" && !permitsAutofix(action.key))) {
+    return markItem(item.id, "skipped_stale", "level", "la política editorial vigente no permite aplicar esta acción en ese modo");
+  }
   const keys = lockKeys(item.preview.touched ?? []);
   if (item.preview.noop) return applyCovered(batch, item, action, finding, params, keys);
 

@@ -1,0 +1,70 @@
+{
+  "focused": [
+    {
+      "key": "suggested.0",
+      "error": "El contexto excede el presupuesto. Selecciona un disco o una tarea más concreta."
+    },
+    {
+      "key": "suggested.215",
+      "error": "El contexto excede el presupuesto. Selecciona un disco o una tarea más concreta."
+    },
+    {
+      "key": "tracks.27694.empty",
+      "error": "El contexto excede el presupuesto. Selecciona un disco o una tarea más concreta."
+    }
+  ],
+  "data": {
+    "person": [
+      {
+        "id": "15368",
+        "name": "Carlos Eduardo López Ávila",
+        "biography": "Carlos Eduardo López Ávila (Londres, Inglaterra, 19 de septiembre de 1973), conocido por su nombre artístico Jeremías, es un cantautor venezolano. Durante su infancia, emigró a Venezuela, donde se naturalizó e inició su carrera artística de manera profesional en Caracas. Sus canciones abarcan el pop latino, la balada y los ritmos tropicales, con letras que narran los sentimientos de las personas, la cultura latina y el amor.​​",
+        "picture_url": "/crv/media/person/15368.jpg",
+        "nationality": null,
+        "is_venezuelan": true,
+        "birth_date": null,
+        "death_date": null,
+        "notes": null,
+        "created_at": "2026-10-01T19:06:38.359Z",
+        "updated_at": "2026-10-10T04:15:04.625Z",
+        "is_deceased": null,
+        "real_name": "Carlos Eduardo López Ávila",
+        "birth_city": null,
+        "death_cause": null,
+        "trivia": null,
+        "gender": null
+      }
+    ],
+    "banana": [
+      {
+        "id": "211",
+        "title": "La Banana Voladora",
+        "description": "La Banana Voladora es el álbum debut de estudio de la banda homónima, publicado en 1994; incluye una versión del tema \"Techos De Cartón\" de Alí Primera junto con adaptaciones instrumentales de \"Super Agente 86\" y \"Peter Gunn\".\n\nFue producido por Nelson Sardá, con la coproducción de Enrique Figueredo y Leonardo Picó y la producción ejecutiva de Juan Carlos Pérez Ozaeta, y grabado y mezclado por Darío Peñaloza y Sardá en Le Garage Studio, Caracas. Contó con la participación como invitado del actor y comediante Emilio Lovera en caracterizaciones vocales.",
+        "notes": "Fuera del canal de YouTube; fuente: https://sincopa.com/rock_pop/artist_rock/banana_voladora.htm\n\nNotas de «La Banana Voladora»: Fuera del canal de YouTube; fuente: https://sincopa.com/rock_pop/cdinfo_rock/banana_voladora2.htm\nAl fusionar «La Banana Voladora» (#3413, 2026-10-04) quedó fuera — Portada: «/crv/media/album/3413.jpg».\n\nNotas de «La Banda de la Banana Voladora»: Fuera del canal de YouTube; fuente: https://rockzuela.blogspot.com/2008/06/la-banda-de-la-banana-voladora-1994.html\nAl fusionar «La Banda de la Banana Voladora» (#2160, 2026-10-04) quedó fuera — Portada: «/crv/media/album/2160.jpg».",
+        "cover_url": "/crv/media/album/3826.jpg"
+      },
+      {
+        "id": "212",
+        "title": "Tan Sólo Una Sonrisa",
+        "description": "Tan Sólo Una Sonrisa es el segundo álbum de estudio de La Banana Voladora, publicado en 1997, con un tema final de Don Pío Alvarado y el instrumental \"Joropín (A Vytas)\".\n\nFue producido por Nelson Sardá y B.B.V., con producción ejecutiva de Juan Carlos Pérez Ozaeta, y grabado y mezclado por Sardá —junto con José Antonio Bermúdez en la mezcla— en Estudios Sardá, Caracas; la masterización estuvo a cargo de Jesús Jiménez en Sonic Solutions, Caracas.",
+        "notes": "Fuera del canal de YouTube; fuente: https://rockzuela.blogspot.com/2008/06/la-banda-de-la-banana-voladora-tan-solo.html\nAl fusionar «Tan Solo una Sonrisa» (#2170, 2026-10-10) quedó fuera — Portada: «/crv/media/album/2170.jpg».",
+        "cover_url": "/crv/media/album/212.jpg"
+      }
+    ],
+    "autofix": [],
+    "organizations": [
+      {
+        "id": "3",
+        "name": "Polydor"
+      },
+      {
+        "id": "4",
+        "name": "Sono-Rodven"
+      }
+    ]
+  },
+  "liveFlags": {
+    "autoscan": "default",
+    "autofix": "default"
+  }
+}

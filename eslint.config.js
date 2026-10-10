@@ -41,7 +41,7 @@ export default tseslint.config(
           // Configuración de herramientas que ningún tsconfig incluye.
           // El tope sube a 32 porque los tests unit/visual crecieron por encima
           // del valor por defecto (8) y todos deben parsear con el proyecto por defecto.
-          allowDefaultProject: ["vitest.config.ts", "web/vite.config.ts", "web/tests/visual/*.ts", "web/tests/unit/*.ts"],
+          allowDefaultProject: ["vitest.config.ts", "web/vite.config.ts", "web/tests/visual/*.ts", "web/tests/visual/*.tsx", "web/tests/unit/*.ts"],
           maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING: 32,
         },
         tsconfigRootDir: import.meta.dirname,

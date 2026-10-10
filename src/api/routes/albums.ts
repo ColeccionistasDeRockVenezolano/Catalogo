@@ -1,9 +1,10 @@
 import type { FastifyInstance, FastifyReply } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
+import { getTypeFacets } from "../repositories/type-facets.js";
 import { paginationQuerySchema, toPage } from "../pagination.js";
 import {
-  idParamSchema, aliasSchema, genreListFilterSchema, relatedGenreQuerySchema, genreStatusSchema, paginatedResponseSchema, publicGenreSchema, writeErrorResponses,
+  idParamSchema, aliasSchema, decadeListFilterSchema, decadeFacetsSchema, genreListFilterSchema, relatedGenreQuerySchema, genreStatusSchema, paginatedResponseSchema, publicGenreSchema, writeErrorResponses,
 } from "../schemas.js";
 import { getAlbumDetail, listAlbums } from "../repositories/albums.js";
 import { notFoundEntity } from "../repositories/redirects.js";
@@ -43,6 +44,7 @@ const creditSchema = z.object({
 });
 
 const trackSchema = z.object({
+  notes: z.string().nullable(),
   id: z.number().int(),
   discNumber: z.number().int(),
   trackNumber: z.number().int(),
@@ -53,6 +55,9 @@ const trackSchema = z.object({
 });
 
 const albumDetailSchema = z.object({
+  releaseDateText: z.string().nullable(),
+  catalogId: z.string().nullable(),
+  mediaFormat: z.string().nullable(),
   id: z.number().int(),
   title: z.string(),
   releaseYear: z.number().int().nullable(),
@@ -78,6 +83,7 @@ const albumDetailSchema = z.object({
   credits: z.array(creditSchema),
   creditsByType: z.record(z.string(), z.array(creditSchema)),
   scopedCreditsByType: z.record(z.string(), z.array(creditSchema.extend({
+    creditIds: z.array(z.number().int()),
     tracks: z.array(z.object({ discNumber: z.number().int(), trackNumber: z.number().int() })),
   }))),
   formats: z.array(z.object({
@@ -96,8 +102,8 @@ const listQuerySchema = paginationQuerySchema.extend({
   q: z.string().trim().min(1).optional(),
   artistId: z.coerce.number().int().positive().optional(),
   ...genreListFilterSchema,
+  ...decadeListFilterSchema,
   relatedGenre: relatedGenreQuerySchema,
-  decade: z.coerce.number().int().min(1900).max(2100).multipleOf(10).optional(),
   albumType: z.string().trim().min(1).max(40).optional(),
 });
 
@@ -183,6 +189,17 @@ export function varyOnCookie(reply: FastifyReply): void {
 
 export async function registerAlbumRoutes(app: FastifyInstance): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();
+
+  server.get("/albums/facets", {
+    schema: {
+      tags: ["albums"],
+      response: { 200: z.object({
+        ...decadeFacetsSchema,
+        total: z.number().int().nonnegative(),
+        types: z.array(z.object({ value: z.string(), count: z.number().int().nonnegative() })),
+      }) },
+    },
+  }, async () => getTypeFacets("album"));
 
   server.get("/albums", {
     schema: {

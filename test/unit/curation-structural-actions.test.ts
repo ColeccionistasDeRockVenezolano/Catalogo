@@ -105,7 +105,7 @@ describe("acciones estructurales (E6) — registro y esquemas", () => {
       evidence: { field: "release_year", year: 2099 },
     });
     expect(vaciarAnioAction.appliesTo(f)).toBe(true);
-    expect(vaciarAnioAction.levelFor(f, null)).toBe(0);
+    expect(vaciarAnioAction.levelFor(f, null)).toBe(1);
     const params = await vaciarAnioAction.defaultParams(f, {} as never);
     expect(params).toEqual({ kind: "album", id: 42, field: "release_year" });
     expect(vaciarAnioAction.paramsSchema.parse(params)).toEqual(params);
@@ -282,10 +282,11 @@ describe("acciones estructurales (E6) — registro y esquemas", () => {
       entity: { kind: "person", id: 901, label: "Persona Sola" },
     });
     expect(retirarHuerfanaAction.appliesTo(fOrphan)).toBe(true);
-    expect(retirarHuerfanaAction.levelFor(fOrphan, null)).toBe(0);
+    expect(retirarHuerfanaAction.levelFor(fOrphan, null)).toBe(2);
     expect(await retirarHuerfanaAction.defaultParams(fOrphan, {} as never)).toEqual({
       kind: "person",
       id: 901,
+      editorialBasis: "",
     });
   });
 

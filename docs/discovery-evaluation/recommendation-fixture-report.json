@@ -1,0 +1,269 @@
+{
+  "name": "Conjunto fixture revisado por autor de implementación",
+  "reviewedAt": "2026-10-10T00:00:00Z",
+  "evaluatedAt": "2026-10-10T13:30:49.058Z",
+  "summary": {
+    "cases": 2,
+    "delivered": 3,
+    "pertinence": 1,
+    "coverage": 1,
+    "diversity": 1,
+    "abstentions": 1,
+    "correctAbstentionDecisions": 2,
+    "disabled": 0
+  },
+  "cases": [
+    {
+      "key": "serene",
+      "reviewer": "Codex (revisión técnica de fixtures)",
+      "rationale": "Tres artistas aprobados con evidencia",
+      "status": "ok",
+      "delivered": 3,
+      "pertinent": 3,
+      "pertinence": 1,
+      "coverage": 1,
+      "fulfillment": 1,
+      "diversity": 1,
+      "abstained": false,
+      "correctAbstention": true,
+      "duplicates": 0,
+      "excludedReturned": [],
+      "response": {
+        "requestId": null,
+        "version": "crv-recommendations-v1",
+        "status": "ok",
+        "message": "Selección basada en decisiones revisadas del catálogo.",
+        "interpretation": {
+          "intent": {
+            "requiredLabels": [
+              "serene"
+            ],
+            "excludedLabels": [],
+            "artistIds": [],
+            "excludeArtistIds": [],
+            "excludeTrackIds": [],
+            "albumIds": [],
+            "yearFrom": null,
+            "yearUntil": null,
+            "seedArtistId": null
+          },
+          "status": "interpreted",
+          "model": null,
+          "version": "crv-recommendations-v1"
+        },
+        "effectiveIntent": {
+          "requiredLabels": [
+            "serene"
+          ],
+          "excludedLabels": [],
+          "artistIds": [],
+          "excludeArtistIds": [],
+          "excludeTrackIds": [],
+          "albumIds": [],
+          "yearFrom": null,
+          "yearUntil": null,
+          "seedArtistId": null
+        },
+        "feedbackExclusions": [],
+        "requested": 3,
+        "maxPerArtist": 2,
+        "candidateCount": 4,
+        "results": [
+          {
+            "id": 1,
+            "title": "Mismo título",
+            "albumId": 1,
+            "discNumber": 1,
+            "trackNumber": 1,
+            "albumTitle": "Edición 0",
+            "artistId": 1,
+            "artistName": "Artista fixture 0",
+            "versionGroup": null,
+            "reasons": [
+              {
+                "id": 30,
+                "slug": "serene",
+                "kind": "mood",
+                "name": "Sereno",
+                "definition": "Carácter musical percibido de serenidad.",
+                "criterion": "Documentar estabilidad y calma en la pista concreta; abstenerse ante evidencia insuficiente.",
+                "ontologyVersion": "crv-contexts-v1",
+                "confidence": "medium",
+                "reviewer": "QA",
+                "reason": "Serenidad documentada de esta edición",
+                "reviewedAt": "2026-10-10T13:30:48.979Z",
+                "validFrom": "2020-01-01T00:00:00.000Z",
+                "validUntil": null,
+                "methodVersion": "context-editorial-v1",
+                "methodData": {},
+                "evidenceId": 1,
+                "url": "https://fixture.invalid/review",
+                "excerpt": "Descripción revisada de esta edición",
+                "capturedAt": "2026-10-10T13:30:46.138Z",
+                "claimId": 1,
+                "sourceId": 1,
+                "proposalOrigin": null,
+                "modelName": null,
+                "modelVersion": null,
+                "generatedAt": null
+              }
+            ],
+            "excludedLabelEvidence": [],
+            "genreReferences": [],
+            "relation": null
+          },
+          {
+            "id": 3,
+            "title": "Mismo título",
+            "albumId": 3,
+            "discNumber": 1,
+            "trackNumber": 1,
+            "albumTitle": "Edición 2",
+            "artistId": 2,
+            "artistName": "Artista fixture 1",
+            "versionGroup": null,
+            "reasons": [
+              {
+                "id": 32,
+                "slug": "serene",
+                "kind": "mood",
+                "name": "Sereno",
+                "definition": "Carácter musical percibido de serenidad.",
+                "criterion": "Documentar estabilidad y calma en la pista concreta; abstenerse ante evidencia insuficiente.",
+                "ontologyVersion": "crv-contexts-v1",
+                "confidence": "medium",
+                "reviewer": "QA",
+                "reason": "Serenidad documentada de esta edición",
+                "reviewedAt": "2026-10-10T13:30:48.979Z",
+                "validFrom": "2020-01-01T00:00:00.000Z",
+                "validUntil": null,
+                "methodVersion": "context-editorial-v1",
+                "methodData": {},
+                "evidenceId": 3,
+                "url": "https://fixture.invalid/review",
+                "excerpt": "Descripción revisada de esta edición",
+                "capturedAt": "2026-10-10T13:30:46.147Z",
+                "claimId": 3,
+                "sourceId": 1,
+                "proposalOrigin": null,
+                "modelName": null,
+                "modelVersion": null,
+                "generatedAt": null
+              }
+            ],
+            "excludedLabelEvidence": [],
+            "genreReferences": [],
+            "relation": null
+          },
+          {
+            "id": 4,
+            "title": "Mismo título",
+            "albumId": 4,
+            "discNumber": 1,
+            "trackNumber": 1,
+            "albumTitle": "Edición 3",
+            "artistId": 3,
+            "artistName": "Artista fixture 2",
+            "versionGroup": null,
+            "reasons": [
+              {
+                "id": 33,
+                "slug": "serene",
+                "kind": "mood",
+                "name": "Sereno",
+                "definition": "Carácter musical percibido de serenidad.",
+                "criterion": "Documentar estabilidad y calma en la pista concreta; abstenerse ante evidencia insuficiente.",
+                "ontologyVersion": "crv-contexts-v1",
+                "confidence": "medium",
+                "reviewer": "QA",
+                "reason": "Serenidad documentada de esta edición",
+                "reviewedAt": "2026-10-10T13:30:48.979Z",
+                "validFrom": "2020-01-01T00:00:00.000Z",
+                "validUntil": null,
+                "methodVersion": "context-editorial-v1",
+                "methodData": {},
+                "evidenceId": 4,
+                "url": "https://fixture.invalid/review",
+                "excerpt": "Descripción revisada de esta edición",
+                "capturedAt": "2026-10-10T13:30:46.152Z",
+                "claimId": 4,
+                "sourceId": 1,
+                "proposalOrigin": null,
+                "modelName": null,
+                "modelVersion": null,
+                "generatedAt": null
+              }
+            ],
+            "excludedLabelEvidence": [],
+            "genreReferences": [],
+            "relation": null
+          }
+        ],
+        "diversity": 1,
+        "versionPolicy": "Solo equivalencias revisadas; títulos iguales no demuestran identidad.",
+        "measuredAt": "2026-10-10T13:30:49.042Z"
+      }
+    },
+    {
+      "key": "unknown",
+      "reviewer": "Codex (revisión técnica de fixtures)",
+      "rationale": "Ninguna pista con alegría aprobada",
+      "status": "insufficient_coverage",
+      "delivered": 0,
+      "pertinent": 0,
+      "pertinence": null,
+      "coverage": null,
+      "fulfillment": 0,
+      "diversity": null,
+      "abstained": true,
+      "correctAbstention": true,
+      "duplicates": 0,
+      "excludedReturned": [],
+      "response": {
+        "requestId": null,
+        "version": "crv-recommendations-v1",
+        "status": "insufficient_coverage",
+        "message": "No hay pistas verificadas que cumplan todas las restricciones.",
+        "interpretation": {
+          "intent": {
+            "requiredLabels": [
+              "joyful"
+            ],
+            "excludedLabels": [],
+            "artistIds": [],
+            "excludeArtistIds": [],
+            "excludeTrackIds": [],
+            "albumIds": [],
+            "yearFrom": null,
+            "yearUntil": null,
+            "seedArtistId": null
+          },
+          "status": "interpreted",
+          "model": null,
+          "version": "crv-recommendations-v1"
+        },
+        "effectiveIntent": {
+          "requiredLabels": [
+            "joyful"
+          ],
+          "excludedLabels": [],
+          "artistIds": [],
+          "excludeArtistIds": [],
+          "excludeTrackIds": [],
+          "albumIds": [],
+          "yearFrom": null,
+          "yearUntil": null,
+          "seedArtistId": null
+        },
+        "feedbackExclusions": [],
+        "requested": 3,
+        "maxPerArtist": 2,
+        "candidateCount": 0,
+        "results": [],
+        "diversity": null,
+        "versionPolicy": "Solo equivalencias revisadas; títulos iguales no demuestran identidad.",
+        "measuredAt": "2026-10-10T13:30:49.057Z"
+      }
+    }
+  ]
+}

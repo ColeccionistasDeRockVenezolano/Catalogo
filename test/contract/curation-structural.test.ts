@@ -73,7 +73,7 @@ describe("acciones estructurales (PLAN_CURADURIA E6)", () => {
     const t6 = await one("INSERT INTO public.tracks(album_id, disc_number, track_number, title) VALUES ($1, 1, 6, 'Dos') RETURNING id", [albumId]);
 
     await withOperatorRun({ name: "test:renumber", operator: OPERATOR, note: "renumerar prueba" }, async (context) => {
-      await renumerarConsecutivoAction.apply(context, {} as never, { albumId, discNumber: 1 }, {} as never);
+      await renumerarConsecutivoAction.apply(context, {} as never, { albumId, discNumber: 1, editorialBasis: "Revisión editorial de la numeración de esta fixture" }, {} as never);
     });
 
     const { rows } = await pool.query<{ id: number; track_number: number }>(
@@ -329,7 +329,7 @@ describe("acciones estructurales (PLAN_CURADURIA E6)", () => {
     const personId = await one("INSERT INTO public.persons(name) VALUES ('Persona Sin Vínculos QA') RETURNING id");
 
     const { runId } = await withOperatorRun({ name: "test:retirar-huerfana", operator: OPERATOR, note: "retirar huérfana" }, async (context) => {
-      await retirarHuerfanaAction.apply(context, {} as never, { kind: "person", id: personId }, {} as never);
+      await retirarHuerfanaAction.apply(context, {} as never, { kind: "person", id: personId, editorialBasis: "Ficha sintética creada por error durante esta prueba" }, {} as never);
     });
 
     const pool = getPool();

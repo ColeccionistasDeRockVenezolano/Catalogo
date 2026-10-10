@@ -17,10 +17,11 @@ interface EntityPickerProps {
   valueLabel: string | null;
   onSelect: (id: number, label: string) => void;
   placeholder?: string;
+  onClear?: () => void;
 }
 
 /** Buscar-y-elegir contra la API (sin cargar el catálogo entero en el navegador). */
-export function EntityPicker({ kind, label, value, valueLabel, onSelect, placeholder }: EntityPickerProps) {
+export function EntityPicker({ kind, label, value, valueLabel, onSelect, placeholder, onClear }: EntityPickerProps) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const [results, setResults] = useState<Array<{ id: number; label: string; sub?: string | null }>>([]);
@@ -88,6 +89,7 @@ export function EntityPicker({ kind, label, value, valueLabel, onSelect, placeho
         onKeyDown={handleKeyDown}
         placeholder={placeholder ?? "Escribe para buscar…"}
       />
+      {onClear && value !== null ? <button type="button" className="btn btn--sm" style={{ marginTop: 6 }} onClick={() => { onClear(); setOpen(false); setQuery(""); }}>Quitar selección</button> : null}
       {open && results.length > 0 ? (
         <div id={listboxId} role="listbox" aria-label={`Resultados para ${label}`} style={{
           position: "absolute", top: "100%", left: 0, right: 0, marginTop: 4, zIndex: 20,

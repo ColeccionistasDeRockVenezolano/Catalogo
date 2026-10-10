@@ -19,6 +19,9 @@ import { getEnv } from "../config/env.js";
 import { toApiError } from "./http-errors.js";
 import { registerOperatorAuth } from "./auth.js";
 import { registerHealthRoutes } from "./routes/health.js";
+import { registerDiscoveryRoutes } from "./routes/discovery.js";
+import { registerTrackContextRoutes } from "./routes/track-contexts.js";
+import { registerRecommendationRoutes } from "./routes/recommendations.js";
 import { registerSearchRoutes } from "./routes/search.js";
 import { registerArtistRoutes } from "./routes/artists.js";
 import { registerAlbumRoutes } from "./routes/albums.js";
@@ -30,6 +33,7 @@ import { registerSourceRoutes } from "./routes/sources.js";
 import { registerReviewRoutes } from "./routes/review-queue.js";
 import { registerYouTubeRoutes } from "./routes/youtube.js";
 import { registerCatalogWriteRoutes } from "./routes/catalog-writes.js";
+import { registerPlatformLinkRoutes } from "./routes/platform-links.js";
 import { registerRelationWriteRoutes } from "./routes/relation-writes.js";
 import { registerEntityMergeRoutes } from "./routes/entity-merge.js";
 import { registerPersonCandidateRoutes } from "./routes/person-candidates.js";
@@ -41,7 +45,10 @@ import { registerCurationRoutes } from "./routes/curation.js";
 import { registerCurationActionRoutes } from "./routes/curation-actions.js";
 import { registerCurationAutofixRoutes } from "./routes/curation-autofix.js";
 import { registerImageCandidateRoutes } from "./routes/image-candidates.js";
+import { registerEntityComparisonRoutes } from "./routes/entity-comparison.js";
+import { registerEntityVerificationRoutes } from "./routes/entity-verification.js";
 import { installAutofix } from "../curation/autofix.js";
+import { registerAiCurationRoutes } from "./routes/ai-curation.js";
 
 const log = moduleLogger("api");
 
@@ -133,6 +140,9 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerOperatorAuth(app);
   await registerHealthRoutes(app);
   await registerSearchRoutes(app);
+  await registerDiscoveryRoutes(app);
+  await registerTrackContextRoutes(app);
+  await registerRecommendationRoutes(app);
   await registerArtistRoutes(app);
   await registerAlbumRoutes(app);
   await registerGenreRoutes(app);
@@ -144,6 +154,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerYouTubeRoutes(app);
   await registerCatalogWriteRoutes(app);
   await registerRelationWriteRoutes(app);
+  await registerPlatformLinkRoutes(app);
   await registerEntityMergeRoutes(app);
   await registerPersonCandidateRoutes(app);
   await registerMergeRunRoutes(app);
@@ -154,6 +165,9 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerCurationActionRoutes(app);
   await registerCurationAutofixRoutes(app);
   await registerImageCandidateRoutes(app);
+  await registerEntityVerificationRoutes(app);
+  await registerEntityComparisonRoutes(app);
+  await registerAiCurationRoutes(app);
   // La autocorrección se engancha al final de cada análisis completo. Sigue
   // apagada mientras CRV_CURATION_AUTOFIX sea false y no haya reglas encendidas.
   installAutofix();

@@ -18,6 +18,7 @@ import type { PoolClient } from "pg";
 import { ENTITY_SPECS, type ResolvableClaimKind } from "./specs.js";
 import { RELATION_SPECS, type RelationClaimKind } from "./relations.js";
 import { detachGenreAssignments } from "../genres/merge.js";
+import { detachExternalIdentities } from "../genres/external-lifecycle.js";
 
 export interface Dependent {
   table: string;
@@ -72,9 +73,12 @@ export interface RemovalResult {
   snapshot: Record<string, unknown>;
   aliases: Array<Record<string, unknown>>;
   history: Array<Record<string, unknown>>;
+  historyClaims?: Array<Record<string, unknown>>;
+  claimSnapshots?: Array<Record<string, unknown>>;
   claimsRejected: number[];
   /** Géneros asignados a la ficha (artista o álbum), con su copia entera. */
   genres: Array<Record<string, unknown>>;
+  externalIdentities: Array<Record<string, unknown>>;
   /** Fila de merge_audit en la ficha padre que guarda la historia, si la hay. */
   parentAuditId?: number;
 }
@@ -128,10 +132,15 @@ async function retire(
     ? (await client.query<Record<string, unknown>>(`SELECT * FROM ${input.aliasTable} WHERE ${input.column}=$1 ORDER BY id`, [input.id])).rows
     : [];
   const history = (await client.query<Record<string, unknown>>(`SELECT * FROM ingest.merge_audit WHERE ${input.column}=$1 ORDER BY id`, [input.id])).rows;
+  const historyClaims = (await client.query<Record<string, unknown>>(`
+    SELECT mac.* FROM ingest.merge_audit_claims mac JOIN ingest.merge_audit ma ON ma.id=mac.merge_audit_id
+     WHERE ma.${input.column}=$1 ORDER BY mac.merge_audit_id,mac.claim_id`, [input.id])).rows;
+  const claimSnapshots = (await client.query<Record<string, unknown>>(`SELECT * FROM ingest.claims WHERE ${input.column}=$1 ORDER BY id FOR UPDATE`, [input.id])).rows;
   const linked = await evidenceClaims(client, input.column, input.id);
   const reason = `retirado por una persona (run ${input.runId}): ${input.note}`;
   // Sus géneros no se pierden en silencio: salen de la tabla y quedan en la historia.
   const genres = input.kind === "album" || input.kind === "artist" ? await detachGenreAssignments(client, input.kind, input.id, { reason, runId: input.runId }) : [];
+  const externalIdentities = input.kind === "album" || input.kind === "artist" ? await detachExternalIdentities(client, input.kind, input.id) : [];
   const rejected = await client.query<{ id: string }>(`
     UPDATE ingest.claims SET ${input.column}=NULL,status='rejected',updated_at=now(),notes=concat_ws(' · ',notes,$2::text)
      WHERE ${input.column}=$1 RETURNING id::text`, [input.id, reason]);
@@ -142,7 +151,7 @@ async function retire(
     const saved = await client.query<{ id: string }>(`
       INSERT INTO ingest.merge_audit(run_id,entity_kind,${input.parent.kind}_id,field,old_value,new_value,reason,confidence,performed_by)
       VALUES($1,$2::ingest.claim_entity_kind,$3,$4,$5::jsonb,NULL,$6,'high','human') RETURNING id::text`,
-    [input.runId, input.parent.kind, Number(parentId), `removed_${input.kind}`, JSON.stringify({ row: snapshot, aliases, audits: history, ...(genres.length ? { genres } : {}) }), reason]);
+    [input.runId, input.parent.kind, Number(parentId), `removed_${input.kind}`, JSON.stringify({ row: snapshot, aliases, audits: history, ...(genres.length ? { genres } : {}), externalIdentities }), reason]);
     parentAuditId = Number(saved.rows[0]!.id);
     // Sin recorte: la auditoría enlazaba solo los primeros 50 claims (P4).
     await client.query(
@@ -151,7 +160,7 @@ async function retire(
   }
   await client.query(`DELETE FROM ${input.table} WHERE id=$1`, [input.id]);
   return {
-    kind: input.kind, id: input.id, snapshot, aliases, history, genres,
+    kind: input.kind, id: input.id, snapshot, aliases, history, historyClaims, claimSnapshots, genres, externalIdentities,
     claimsRejected: rejected.rows.map((row) => Number(row.id)),
     ...(parentAuditId === undefined ? {} : { parentAuditId }),
   };

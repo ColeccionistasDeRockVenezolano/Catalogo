@@ -126,17 +126,46 @@ export async function undoEntityRemoval(context: OperatorContext, runId: number)
       const aVals = Object.values(alias);
       const aPlaceholders = aCols.map((_, i) => `$${i + 1}`).join(", ");
       const aColList = aCols.map((c) => `"${c}"`).join(", ");
-      await client.query(`INSERT INTO ${spec.aliasTable} (${aColList}) ${aliasOverriding}VALUES (${aPlaceholders}) ON CONFLICT DO NOTHING`, aVals);
+      await client.query(`INSERT INTO ${spec.aliasTable} (${aColList}) ${aliasOverriding}VALUES (${aPlaceholders})`, aVals);
     }
   }
 
   // Restaurar claims rechazados
   let claimsRestored = 0;
-  if (Array.isArray(removal.claimsRejected) && removal.claimsRejected.length > 0) {
+  if (removal.claimSnapshots) {
+    for (const claim of removal.claimSnapshots) {
+      const updated = await client.query(
+        `UPDATE ingest.claims SET status=$3, ${spec.targetColumn}=$1, notes=$4, updated_at=now()
+          WHERE id=$2 AND ${spec.targetColumn} IS NULL AND status='rejected'
+            AND notes LIKE $5`,
+        [removal.id, claim["id"], claim["status"], claim["notes"], `%retirado por una persona (run ${runId}):%`]);
+      if (updated.rowCount !== 1) throw new OperatorError("not_open", "un claim de la entidad retirada cambió después del retiro", { runId, claimId: claim["id"] });
+      claimsRestored += 1;
+    }
+  } else if (Array.isArray(removal.claimsRejected) && removal.claimsRejected.length > 0) {
     const updated = await client.query(
       `UPDATE ingest.claims SET status='applied', ${spec.targetColumn}=$1, updated_at=now() WHERE id=ANY($2::bigint[])`,
       [removal.id, removal.claimsRejected]);
     claimsRestored = updated.rowCount ?? 0;
+  }
+
+  // The retirement snapshot includes the complete editorial state, not only aliases.
+  for (const audit of removal.history ?? []) {
+    await client.query("INSERT INTO ingest.merge_audit OVERRIDING SYSTEM VALUE SELECT * FROM jsonb_populate_record(NULL::ingest.merge_audit,$1::jsonb)", [JSON.stringify(audit)]);
+  }
+  for (const link of removal.historyClaims ?? []) {
+    await client.query("INSERT INTO ingest.merge_audit_claims SELECT * FROM jsonb_populate_record(NULL::ingest.merge_audit_claims,$1::jsonb)", [JSON.stringify(link)]);
+  }
+  if ((kind === "artist" || kind === "album") && removal.genres?.length) {
+    const table = `ingest.${kind}_genres`;
+    await client.query("SET LOCAL crv.genres_restore = 'on'");
+    for (const genre of removal.genres) {
+      await client.query(`INSERT INTO ${table} OVERRIDING SYSTEM VALUE SELECT * FROM jsonb_populate_record(NULL::${table},$1::jsonb)`, [JSON.stringify(genre)]);
+    }
+    await client.query("SET LOCAL crv.genres_restore = 'off'");
+  }
+  for (const identity of removal.externalIdentities ?? []) {
+    await client.query("INSERT INTO ingest.genre_external_identities OVERRIDING SYSTEM VALUE SELECT * FROM jsonb_populate_record(NULL::ingest.genre_external_identities,$1::jsonb)", [JSON.stringify(identity)]);
   }
 
   // Si había auditoría en el padre, limpiarla

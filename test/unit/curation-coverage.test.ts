@@ -15,13 +15,15 @@ import {
 import { loadCatalogFixture } from "../support/curation-catalog-fixture.js";
 
 /**
- * Piso de regresión, no objetivo: la foto da 84,7 % / 87,0 % (2026-09-20) y aquí
- * se exige bastante menos para no bloquear trabajo legítimo —un detector nuevo
- * que emita mucho antes de tener su acción baja el porcentaje sin ser un
- * defecto—. Por debajo de esto ya no es calibración, es una acción que se
- * dejó de ofrecer.
+ * Piso de regresión, no objetivo. La foto se recalibró el 2026-10-10 con la
+ * política editorial de E1-06: las operaciones que el propio hallazgo no puede
+ * demostrar pasan a nivel ≥1 con motivo y vista previa —retirar una ficha sin
+ * vínculos (nivel 2; ~665 hallazgos: 84,7 % → 72,4 % en ≤N1), vaciar un año
+ * imposible (nivel 1), fijar formación o renumerar sin hueco documentado—.
+ * Medición vigente: 72,4 % / 87,0 %. El piso queda justo debajo para notar una
+ * acción que deje de ofrecerse, sin bajar el listón del plan (≥30 %/≥70 %).
  */
-const REGRESSION_FLOOR = { level1OrLess: 0.8, level2OrLess: 0.84 } as const;
+const REGRESSION_FLOOR = { level1OrLess: 0.7, level2OrLess: 0.84 } as const;
 
 let coverage: ActionCoverage;
 

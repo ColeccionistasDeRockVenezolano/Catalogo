@@ -1,0 +1,1 @@
+DROP TABLE ingest.person_artist_resolution_jobs;

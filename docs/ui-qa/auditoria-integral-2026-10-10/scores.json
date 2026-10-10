@@ -1,0 +1,128 @@
+{
+  "scale": [
+    1,
+    20
+  ],
+  "globalRounded": 12,
+  "mean": 11.931034482758621,
+  "enrichmentWorkflow": 8,
+  "method": "Expert scores; global rounded unweighted mean of29 dimensions. Not a measured probability.",
+  "dimensions": [
+    {
+      "name": "Modelo de catálogo",
+      "score": 16
+    },
+    {
+      "name": "Crear y editar",
+      "score": 16
+    },
+    {
+      "name": "Búsqueda",
+      "score": 17
+    },
+    {
+      "name": "Relaciones",
+      "score": 15
+    },
+    {
+      "name": "Fusiones y divisiones",
+      "score": 16
+    },
+    {
+      "name": "Géneros",
+      "score": 14
+    },
+    {
+      "name": "Investigación",
+      "score": 11
+    },
+    {
+      "name": "Verificación",
+      "score": 10
+    },
+    {
+      "name": "Reutilizar información",
+      "score": 6
+    },
+    {
+      "name": "Propuestas con IA",
+      "score": 7
+    },
+    {
+      "name": "Validación documental",
+      "score": 8
+    },
+    {
+      "name": "Extracción de imágenes",
+      "score": 11
+    },
+    {
+      "name": "Calidad de imágenes",
+      "score": 8
+    },
+    {
+      "name": "Detectores",
+      "score": 12
+    },
+    {
+      "name": "Autocorrección",
+      "score": 9
+    },
+    {
+      "name": "Historial",
+      "score": 14
+    },
+    {
+      "name": "Interfaz pública",
+      "score": 16
+    },
+    {
+      "name": "UX administrativa",
+      "score": 9
+    },
+    {
+      "name": "Móvil",
+      "score": 12
+    },
+    {
+      "name": "Accesibilidad",
+      "score": 11
+    },
+    {
+      "name": "Rendimiento",
+      "score": 15
+    },
+    {
+      "name": "Recuperación",
+      "score": 11
+    },
+    {
+      "name": "Permisos",
+      "score": 15
+    },
+    {
+      "name": "Pruebas",
+      "score": 10
+    },
+    {
+      "name": "Operación",
+      "score": 12
+    },
+    {
+      "name": "Procedencia",
+      "score": 10
+    },
+    {
+      "name": "Observabilidad",
+      "score": 11
+    },
+    {
+      "name": "Descubrimiento",
+      "score": 12
+    },
+    {
+      "name": "Documentación",
+      "score": 12
+    }
+  ]
+}

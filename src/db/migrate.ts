@@ -11,18 +11,18 @@
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import type { Pool } from "pg";
+import type { Pool, PoolClient } from "pg";
 import { moduleLogger } from "../logger/index.js";
 import { getPool, closeDb } from "./client.js";
 import { assertSupportedNode } from "../config/runtime.js";
 import { getEnv } from "../config/env.js";
+import { projectRoot } from "../config/project-root.js";
 
 const log = moduleLogger("db:migrate");
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const DEFAULT_MIGRATIONS_DIR = path.resolve(__dirname, "..", "..", "migrations");
+export const DEFAULT_MIGRATIONS_DIR = path.join(projectRoot(import.meta.url), "migrations");
 
-async function ensureHarness(pool: Pool): Promise<void> {
+async function ensureHarness(pool: Pool | PoolClient): Promise<void> {
   await pool.query("CREATE SCHEMA IF NOT EXISTS ingest;");
   await pool.query(`
     CREATE TABLE IF NOT EXISTS ingest.schema_migrations (
@@ -32,11 +32,40 @@ async function ensureHarness(pool: Pool): Promise<void> {
   `);
 }
 
-async function appliedVersions(pool: Pool): Promise<Set<string>> {
+async function appliedVersions(pool: Pool | PoolClient): Promise<Set<string>> {
   const { rows } = await pool.query<{ version: string }>(
     "SELECT version FROM ingest.schema_migrations",
   );
   return new Set(rows.map((r) => r.version));
+}
+
+/** SQL files remain usable with psql; the runner owns their outer transaction. */
+function migrationBody(sql: string): string {
+  return sql.replace(/^BEGIN;\s*$/mu, "").replace(/^COMMIT;\s*$/mu, "");
+}
+
+async function locked<T>(work: (client: PoolClient) => Promise<T>): Promise<T> {
+  const client = await getPool().connect();
+  try {
+    await client.query("SELECT pg_advisory_lock(hashtext('crv:schema_migrations'))");
+    await ensureHarness(client);
+    return await work(client);
+  } finally {
+    try { await client.query("SELECT pg_advisory_unlock(hashtext('crv:schema_migrations'))"); }
+    finally { client.release(); }
+  }
+}
+
+async function applyMigration(client: PoolClient, sql: string, bookkeeping: () => Promise<unknown>): Promise<void> {
+  await client.query("BEGIN");
+  try {
+    await bookkeeping();
+    await client.query(migrationBody(sql));
+    await client.query("COMMIT");
+  } catch (error) {
+    await client.query("ROLLBACK");
+    throw error;
+  }
 }
 
 async function listMigrationFiles(dir: string, suffix: ".up.sql" | ".down.sql"): Promise<string[]> {
@@ -48,9 +77,8 @@ async function listMigrationFiles(dir: string, suffix: ".up.sql" | ".down.sql"):
 
 /** Aplica todas las migraciones *.up.sql pendientes, en orden, e idempotente. */
 export async function migrateUp(migrationsDir = DEFAULT_MIGRATIONS_DIR): Promise<{ applied: string[] }> {
-  const pool = getPool();
-  await ensureHarness(pool);
-  const already = await appliedVersions(pool);
+  return locked(async client => {
+  const already = await appliedVersions(client);
 
   const files = await listMigrationFiles(migrationsDir, ".up.sql");
   const applied: string[] = [];
@@ -65,8 +93,7 @@ export async function migrateUp(migrationsDir = DEFAULT_MIGRATIONS_DIR): Promise
     log.info({ version }, "aplicando");
     // Una sola query de texto plano: protocolo simple (igual que `psql -f`),
     // soporta múltiples sentencias y bloques DO $$...$$ tal cual el archivo.
-    await pool.query(sql);
-    await pool.query("INSERT INTO ingest.schema_migrations(version) VALUES ($1)", [version]);
+    await applyMigration(client, sql, () => client.query("INSERT INTO ingest.schema_migrations(version) VALUES ($1)", [version]));
     applied.push(version);
   }
 
@@ -74,6 +101,7 @@ export async function migrateUp(migrationsDir = DEFAULT_MIGRATIONS_DIR): Promise
     log.info("sin migraciones pendientes");
   }
   return { applied };
+  });
 }
 
 /**
@@ -83,9 +111,6 @@ export async function migrateUp(migrationsDir = DEFAULT_MIGRATIONS_DIR): Promise
  * (p. ej. 0004 aborta si hay filas usando sus valores).
  */
 export async function migrateDownAll(migrationsDir = DEFAULT_MIGRATIONS_DIR): Promise<{ reverted: string[] }> {
-  const pool = getPool();
-  await ensureHarness(pool);
-
   const files = (await listMigrationFiles(migrationsDir, ".down.sql")).reverse();
   const reverted: string[] = [];
   // PLAN_GENEROS §4: quitar las asignaciones con la proyección encendida
@@ -93,20 +118,22 @@ export async function migrateDownAll(migrationsDir = DEFAULT_MIGRATIONS_DIR): Pr
   if (getEnv().GENRES_PROJECTION_ENABLED && files.some((file) => file.startsWith("0027_genre_taxonomy"))) {
     throw new Error("GENRES_PROJECTION_ENABLED está encendido: apágalo antes de revertir 0027_genre_taxonomy");
   }
-
+  return locked(async client => {
+  const already = await appliedVersions(client);
   for (const file of files) {
     const version = file.replace(/\.down\.sql$/, "");
+    if (!already.has(version)) continue;
     const sql = await readFile(path.join(migrationsDir, file), "utf8");
     log.info({ version }, "revirtiendo");
     // El registro de control se borra ANTES de ejecutar el down: el down de
     // 0001 elimina la propia tabla ingest.schema_migrations (bookkeeping del
     // harness, no del dominio — ver migrations/0001_ingest_core.down.sql),
     // así que intentar el DELETE después fallaría con "relation does not exist".
-    await pool.query("DELETE FROM ingest.schema_migrations WHERE version = $1", [version]);
-    await pool.query(sql);
+    await applyMigration(client, sql, () => client.query("DELETE FROM ingest.schema_migrations WHERE version = $1", [version]));
     reverted.push(version);
   }
   return { reverted };
+  });
 }
 
 // Permite `tsx src/db/migrate.ts` / `npm run db:migrate` como CLI directo.

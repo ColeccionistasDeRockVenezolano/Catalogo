@@ -144,7 +144,7 @@ function creditsPlan(dossier: MemberDossier, artistNames: Set<string>): { member
     const years = person.years.filter((year) => year > 0);
     const named = fold(person.name).length >= 4 && text.includes(fold(person.name));
     const isArtist = artistNames.has(fold(person.name)) && fold(person.name) !== fold(dossier.name);
-    let why: string | null = null;
+    let why: string;
     if (named) why = "nombrado en los textos";
     else if (isArtist) { review.push({ name: person.name, personId: person.personId, roles: person.roles, years, why: "es artista por su cuenta" }); continue; }
     else if (new Set(years).size >= 2) why = `en discos de ${new Set(years).size} años`;

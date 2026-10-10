@@ -1,3 +1,4 @@
+import { EntityVerification } from "../components/EntityVerification";
 import { useId, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
@@ -7,25 +8,31 @@ import { artistsApi, artistMemberWrites, artistWrites } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useMovedToRedirect } from "../lib/useMovedTo";
 import { useOperator } from "../lib/OperatorContext";
+import { useDiscoveryVisitMetric } from "../lib/discoveryMetrics";
 import { useToast } from "../lib/ToastContext";
 import { DetailSkeleton } from "../components/Skeletons";
 import { EntityCard, initialOf } from "../components/EntityCard";
+import { ArtistDiscography } from "../components/ArtistDiscography";
 import { DeceasedMark } from "../components/DeceasedMark";
 import { AliasEditor } from "../components/AliasEditor";
 import { ArtistLogoButton } from "../components/ArtistLogoButton";
+import { MembershipEditor } from "../components/MembershipEditor";
+import { GenreEditor } from "../components/GenreEditor";
+import { PlatformLinkEditor } from "../components/PlatformLinkEditor";
 import { EntityFormModal } from "../components/EntityFormModal";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { MergeEntityModal } from "../components/MergeEntityModal";
+import { EntityProvenance } from "../components/EntityProvenance";
 import { EntityHistory } from "../components/EntityHistory";
 import { EntityLoadError } from "../components/RemovedEntityState";
 import { EntityPicker } from "../components/EntityPicker";
 import { Modal } from "../components/Modal";
-import { ARTIST_FIELDS } from "../lib/entityFields";
+import { entityFormValues, ARTIST_FIELDS } from "../lib/entityFields";
 import { EntityInfo, type InfoGroup, type InfoItem } from "../components/EntityInfo";
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
 import { PlatformLinks } from "../components/PlatformLinks";
-import { albumTypeLabel, artistTypeLabel } from "../lib/labels";
+import { artistTypeLabel } from "../lib/labels";
 import { ageText, formatDate } from "../lib/format";
 import { TITULAR_ROLE, type ArtistMember, type ArtistRelation, type RelatedArtist, type RelatedRule, type SimilarArtist, type SimilarRule } from "../lib/types";
 
@@ -130,7 +137,7 @@ export function ArtistDetailPage() {
   const { id } = useParams();
   const artistId = Number(id);
   const navigate = useNavigate();
-  const { isAdmin } = useOperator();
+  const { isAdmin, isChecking } = useOperator();
   const { notify } = useToast();
   const { data: artist, loading, error, errorValue, reload } = useAsync(() => artistsApi.get(artistId), [artistId]);
   useMovedToRedirect(errorValue);
@@ -140,8 +147,9 @@ export function ArtistDetailPage() {
   const [editingMember, setEditingMember] = useState<ArtistMember | null>(null);
   const [merging, setMerging] = useState(false);
   const [viewingImage, setViewingImage] = useState<"photo" | "logo" | null>(null);
+  useDiscoveryVisitMetric(artistId, Boolean(artist) && !loading && !error, !isAdmin && !isChecking);
 
-  if (loading) return <DetailSkeleton />;
+  if (loading && (!artist || artist.id !== artistId)) return <DetailSkeleton />;
   if (error || !artist) return <EntityLoadError message={error ?? "Artista no encontrado."} errorValue={errorValue} onRetry={reload} />;
 
   const hasCurrentMember = artist.members.some((member) => member.isCurrent);
@@ -156,10 +164,10 @@ export function ArtistDetailPage() {
   // (Brian, 2026-10-01, caso Canserbero: «todo en uno, sin perder nada»).
   const titular = artist.members.find((member) => member.role === TITULAR_ROLE) ?? null;
   const titularDead = titular?.personIsDeceased === true;
-  const status = artist.disbandedYear ? "Disuelto" : hasCurrentMember ? "Activo" : null;
-  const activeYears = artist.formedYear
+  const status = artist.status ? ({ active: "Activo", split_up: "Disuelto", on_hold: "En pausa", changed_name: "Cambió de nombre", unknown: "Desconocido" } as Record<string, string>)[artist.status] ?? artist.status : artist.disbandedYear ? "Disuelto" : hasCurrentMember ? "Activo" : null;
+  const activeYears = artist.yearsActive ?? (artist.formedYear
     ? `${artist.formedYear}–${artist.disbandedYear ?? (status === "Activo" ? "presente" : "?")}`
-    : null;
+    : null);
   const originInfo: InfoItem[] = [
     { label: "País de origen", value: artist.originCountry },
     { label: "Ubicación", value: artist.originCity },
@@ -168,7 +176,7 @@ export function ArtistDetailPage() {
     { label: "Años activos", value: activeYears },
   ];
   const identityInfo: InfoItem[] = [
-    { label: "Nombre real", value: titular ? <Link to={`/personas/${titular.personId}`}>{titular.personName}</Link> : null },
+    { label: "Nombre real", value: titular ? <Link to={`/personas/${titular.personId}`}>{titular.personRealName ?? titular.personName}</Link> : null },
     // En un proyecto solista «formado en» es la carrera, y el nacimiento y el
     // fallecimiento son los de su titular: solo salen si hay quien los tenga.
     ...(titular ? [
@@ -181,6 +189,7 @@ export function ArtistDetailPage() {
     { label: "Género", value: artist.genres?.length ? (
       <span className="entity-info__tags">{artist.genres.map((genre) => <span className="badge" key={genre.id}>{genre.name}</span>)}</span>
     ) : null, fallback: "Sin clasificar" },
+    { label: "Temas de las letras", value: artist.themes },
     { label: "Tipo", value: artistTypeLabel(artist.artistType) },
     { label: "Último sello", value: artist.lastLabel ? <Link to={`/organizaciones/${artist.lastLabel.id}`}>{artist.lastLabel.name}</Link> : null, fallback: "Independiente / sin dato" },
   ];
@@ -203,13 +212,7 @@ export function ArtistDetailPage() {
     {
       key: "discografia", label: "Discografía", count: artist.discography.length,
       content: artist.discography.length === 0 ? <TabEmpty>Sin discos registrados.</TabEmpty> : (
-        <div className="grid-cards">
-          {artist.discography.map((album) => (
-            <EntityCard key={album.albumId} to={`/discos/${album.albumId}`} title={album.title}
-              subtitle={[albumTypeLabel(album.albumType), album.releaseYear].filter(Boolean).join(" · ") || undefined}
-              imageUrl={album.coverUrl} placeholder={initialOf(album.title)} />
-          ))}
-        </div>
+        <ArtistDiscography albums={artist.discography} artistName={artist.name} />
       ),
     },
     {
@@ -303,7 +306,10 @@ export function ArtistDetailPage() {
         </div>
       ),
     },
-    { key: "historial", label: "Historial", content: <EntityHistory entity="artist" id={artist.id} /> },
+    ...(isAdmin ? [
+      { key: "fuentes", label: "Origen de los datos", content: <EntityProvenance entity="artist" id={artist.id} revision={artist} /> },
+      { key: "historial", label: "Historial", content: <EntityHistory entity="artist" id={artist.id} /> },
+    ] : []),
   ];
 
   return (
@@ -362,17 +368,22 @@ export function ArtistDetailPage() {
         </div>
       ) : null}
 
+      {isAdmin ? <EntityVerification kind="artist" id={artist.id} revision={artist} /> : null}
+
       <EntityTabs tabs={tabs} defaultKey="discografia" />
 
-      {editing ? (
+      {isAdmin && editing ? (
         <EntityFormModal
           title={`Editar «${artist.name}»`}
           fields={ARTIST_FIELDS}
-          initialValues={{
-            name: artist.name, artistType: artist.artistType, originCountry: artist.originCountry, originCity: artist.originCity,
-            formedYear: artist.formedYear, disbandedYear: artist.disbandedYear, pictureUrl: artist.pictureUrl,
-            biography: artist.biography, notes: artist.notes,
-          }}
+          wide
+          panels={[
+            { key: "genres", label: "Géneros", content: <GenreEditor kind="artist" id={artist.id} genres={artist.genres ?? []} primaryGenre={artist.primaryGenre ?? null} onChanged={reload} /> },
+            { key: "members", label: "Identidad e integrantes", content: <MembershipEditor fixedKind="artist" fixedId={artist.id} rows={artist.members.map((member) => ({ ...member, otherId: member.personId, otherName: member.personName }))} onChanged={reload} /> },
+            { key: "socials", label: "Redes sociales", content: <PlatformLinkEditor kind="artist" id={artist.id} category="social" onChanged={reload} /> },
+            { key: "streaming", label: "Escuchar en", content: <PlatformLinkEditor kind="artist" id={artist.id} category="streaming" onChanged={reload} /> },
+          ]}
+          initialValues={entityFormValues(ARTIST_FIELDS, artist)}
           onSubmit={(values, note) => artistWrites.update(artist.id, { ...values, note })}
           onSuccess={() => { setEditing(false); reload(); notify("success", "Artista actualizado."); }}
           onClose={() => setEditing(false)}

@@ -97,3 +97,19 @@ Nota de PostgreSQL para `0004.up`: desde PG 12 `ALTER TYPE ... ADD VALUE` puede
 ir dentro de una transacción, pero el valor añadido **no puede usarse hasta el
 COMMIT**. Por eso 0004 va en un archivo propio y no contiene ningún `INSERT`
 que utilice los valores nuevos.
+
+`0052_discovery.up/down.sql`: tres tablas editoriales en `ingest` para etiquetas N:M y sugerencias de artistas con evidencia existente, estados y programación. Registradas como `strict` en el diario; fusiones conservan todas las decisiones. Activación, importación por ID y rollback específico: [DISCOVERY_PHASE_1.md](../docs/DISCOVERY_PHASE_1.md). La desactivación funcional usa `CRV_DISCOVERY_ENABLED=false`.
+
+## Métricas de descubrimiento
+
+`0053_discovery_metrics` incorpora eventos, cohortes de identidad, agregados diarios y jobs en `ingest`. No modifica `public` ni la curaduría de `0052`. SQL `up/down` repetible y rollback específico verificados en PostgreSQL desechable. Operación y retención: [DISCOVERY_PHASE_2.md](../docs/DISCOVERY_PHASE_2.md). Las métricas quedan apagadas por defecto; ejecutar lote horario incluso tras desactivar captura para conservar retención limitada.
+
+`0054_track_contexts` incorpora ontología limitada, propuestas separadas de decisiones revisadas y evaluación de pertinencia por pista de edición en `ingest`. Conserva evidencia del sistema de claims, aplica metodología explícita para energía y registra decisiones en el diario. No modifica `public`, no copia géneros de álbum/artista como hechos de pista y no procesa audio. Operación, API, cobertura y rollback específico: [DISCOVERY_PHASE_3.md](../docs/DISCOVERY_PHASE_3.md).
+
+`0056_discovery_recommendations` incorpora snapshots históricos, feedback explícito y equivalencias de pistas revisadas en `ingest`, con diario `full/strict`. La recomendación SQL exige los contextos aprobados de `0054`; no escribe el catálogo ni infiere equivalencias por título. Laya/Jev interpretan opciones cerradas y el backend devuelve identidades/evidencias. Activación, evaluación y rollback propio: [DISCOVERY_PHASE_4.md](../docs/DISCOVERY_PHASE_4.md). La bandera queda apagada por defecto.
+
+## Integridad y reconciliación (etapa 1 del plan de cinco etapas)
+
+`0055_integrity_fk_indexes`: índices para las FK auxiliares de `ingest` creadas en 0041–0049 (`ai_curation_plans.run_id`, `entity_comparison_jobs.report_id`, `entity_verification_jobs.report_id`, `person_identity_research_jobs` ×3 y `person_web_verifications.person_id`). El doctor exige índices completos —los parciales solo cubren registros recientes/activos— para que el borrado del padre y la reconciliación de informes no escaneen tablas enteras. Solo índices en `ingest`; no toca `public` ni datos. El down los elimina.
+
+`0057_integrity_reconciliation` crea `ingest.integrity_reconciliations`: el registro **auditable** del mantenimiento de integridad. Cada fila guarda la clasificación (`audit_without_claim`, `audit_without_run`, `identity_redirect`, `identity_orphan`, `journal_without_run`), la clave del objeto, su estado antes/después y una **limitación textual explícita**: una instantánea no afirma ni sustituye la fuente, el autor o la ejecución originales. La puebla `scripts/reconcile-integrity.ts [--confirm]` (sin `--confirm` corre en rollback; con él, dentro de un run trazable) y el doctor la lee para distinguir deuda histórica registrada de corrupción vigente (`merge_audit.coverage` pasa a aviso con los límites listados, y las identidades externas sobre fichas fusionadas/inexistentes se re-apuntan o archivan conservando `before_state`). Fusiones y deshacer no se ven afectados; el down retira la tabla.

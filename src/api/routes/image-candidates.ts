@@ -107,7 +107,7 @@ export async function registerImageCandidateRoutes(app: FastifyInstance): Promis
              ${sql.current} AS current_url, min(c.current_url) AS proposed_url,
              jsonb_agg(jsonb_build_object('id', c.id, 'url', c.candidate_url, 'source', c.source, 'pageUrl', c.page_url,
                                           'width', c.width, 'height', c.height, 'score', c.score)
-                       ORDER BY c.score DESC NULLS LAST, c.id) AS candidates,
+                       ORDER BY c.score DESC NULLS LAST, (c.width::bigint*c.height::bigint) DESC NULLS LAST, c.id) AS candidates,
              count(*) OVER ()::text AS total
         FROM ingest.image_candidates c
         ${sql.join}
@@ -180,5 +180,39 @@ export async function registerImageCandidateRoutes(app: FastifyInstance): Promis
       return { chosenUrl };
     });
     return { runId, kind, entityId: id, chosenUrl: result.chosenUrl };
+  });
+
+  // «Dejar las actuales en esta página» (Brian, 2026-10-04): descarta de una vez
+  // las candidatas de varias fichas; la imagen de cada ficha no cambia. Un run.
+  server.post("/curation/images/:kind/keep-current", {
+    schema: {
+      tags: ["curation"],
+      summary: "Deja la imagen actual en varias fichas y descarta sus candidatas; un run que se puede deshacer",
+      security: OPERATOR_SECURITY,
+      params: z.object({ kind: z.enum(KINDS) }),
+      body: z.object({ entityIds: z.array(z.number().int().positive()).min(1).max(100), note: noteSchema.optional() }).strict(),
+      response: {
+        200: z.object({ runId: z.number().int(), kind: z.enum(KINDS), entities: z.number().int(), candidates: z.number().int() }),
+        ...writeErrorResponses,
+      },
+    },
+  }, async (request) => {
+    const { kind } = request.params;
+    const entityIds = [...new Set(request.body.entityIds)];
+    const label = kind === "album" ? "portada" : "foto de artista";
+    const note = request.body.note ?? `Curaduría: se deja la ${label} actual en ${entityIds.length} fichas y se descartan sus candidatas`;
+    const { runId, result } = await withOperatorRun({
+      name: "image_choice_bulk", operator: request.operator, note, params: { kind, entityIds },
+    }, async (context) => {
+      const column = ID_COLUMN[kind];
+      const closed = await context.client.query<{ entity_id: string }>(`
+        UPDATE ingest.image_candidates
+           SET status = 'rejected', decided_by = $3, decided_at = now(), decision_run_id = $4
+         WHERE entity_kind = $1 AND ${column} = ANY($2::bigint[]) AND status = 'open'
+        RETURNING ${column}::text AS entity_id`, [kind, entityIds, context.operator, context.runId]);
+      if (closed.rows.length === 0) throw new OperatorError("not_open", "Estas fichas ya no tienen imágenes candidatas pendientes.", { kind });
+      return { entities: new Set(closed.rows.map((row) => row.entity_id)).size, candidates: closed.rows.length };
+    });
+    return { runId, kind, ...result };
   });
 }

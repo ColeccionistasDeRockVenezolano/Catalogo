@@ -3,7 +3,8 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { paginationQuerySchema, toPage } from "../pagination.js";
 import { idParamSchema, aliasSchema, paginatedResponseSchema, writeErrorResponses } from "../schemas.js";
-import { getPersonDetail, listPersons } from "../repositories/persons.js";
+import { getPersonDetail, listPersons, getPersonFacets } from "../repositories/persons.js";
+import { creditTypeEnum } from "../../db/schema/core.js";
 import { notFoundEntity } from "../repositories/redirects.js";
 import { OPERATOR_SECURITY } from "../auth.js";
 import { noteSchema } from "./catalog-writes.js";
@@ -26,6 +27,11 @@ const personListItemSchema = z.object({
 });
 
 const personDetailSchema = personListItemSchema.extend({
+  realName: z.string().nullable(),
+  birthCity: z.string().nullable(),
+  deathCause: z.string().nullable(),
+  trivia: z.string().nullable(),
+  gender: z.string().nullable(),
   biography: z.string().nullable(),
   isDeceasedFlag: z.boolean().nullable().describe("Columna `is_deceased` tal cual (null = sin dato)."),
   birthDate: z.string().nullable(),
@@ -54,6 +60,8 @@ const listQuerySchema = paginationQuerySchema.extend({
   q: z.string().trim().min(1).optional().describe("Busca también sin tildes ni mayúsculas (índice en memoria, E11.9)."),
   hasCredits: z.enum(["true", "false"]).transform((value) => value === "true").optional()
     .describe("false: solo fichas sin crédito ni membresía."),
+  role: z.enum(["band_member", ...creditTypeEnum.enumValues]).optional()
+    .describe("Participación registrada: membresía de banda o tipo de crédito de disco/pista."),
   suspect: z.enum(["organization_like", "duration", "fragment", "multiple_people"]).optional()
     .describe("Filtra nombres sospechosos (E11.7)."),
   sort: z.enum(["name", "credits"]).default("name").describe("credits: créditos + membresías, descendente."),
@@ -88,6 +96,17 @@ const splitResultSchema = z.object({
 
 export async function registerPersonRoutes(app: FastifyInstance): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();
+
+  server.get("/persons/facets", {
+    schema: {
+      tags: ["persons"],
+      response: { 200: z.object({
+        total: z.number().int().nonnegative(),
+        withoutCredits: z.number().int().nonnegative(),
+        roles: z.array(z.object({ role: z.string(), count: z.number().int().nonnegative() })),
+      }) },
+    },
+  }, async () => getPersonFacets());
 
   server.get("/persons", {
     schema: {

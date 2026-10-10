@@ -7,6 +7,15 @@ import { config as loadDotenv } from "dotenv";
 loadDotenv();
 
 const envSchema = z.object({
+  CRV_RECOMMENDATIONS_ENABLED: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
+  CRV_RECOMMENDATION_PROVIDER: z.enum(["disabled", "laya", "jev"]).default("disabled"),
+  CRV_RECOMMENDATION_BASE_URL: z.string().url().default("http://127.0.0.1:8000/"),
+  CRV_RECOMMENDATION_MODEL: z.string().min(1).default("multilingual"),
+  CRV_RECOMMENDATION_API_KEY: z.string().min(1).optional(),
+  CRV_RECOMMENDATION_THRESHOLD: z.coerce.number().min(0.5).max(1).default(0.8),
+  CRV_RECOMMENDATION_TIMEOUT_MS: z.coerce.number().int().min(100).max(60000).default(10000),
+  CRV_DISCOVERY_METRICS_ENABLED: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
+  CRV_DISCOVERY_METRICS_SECRET: z.string().min(32).optional(),
   DATABASE_URL: z
     .string()
     .min(1, "DATABASE_URL es obligatorio (postgresql://usuario:pass@host:puerto/db)"),
@@ -84,6 +93,11 @@ const envSchema = z.object({
   // nunca en la URL (la caché guarda la URL de cada respuesta).
   DISCOGS_TOKEN: z.string().optional(),
 
+  CRV_DISCOVERY_ENABLED: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
+  CRV_DISCOVERY_INTERVAL_MS: z.coerce.number().int().min(3000).max(60000).default(5000),
+  // Orden de turnos; repetir un grupo le da más turnos, sin omitir los otros.
+  CRV_DISCOVERY_GROUP_POLICY: z.string().default("historicos,alternativo,contemporaneos,experimental"),
+
   DATA_DIR: z.string().default("./data"),
 
   CRAWL_USER_AGENT: z.string().default("CRV-bot/0.1"),
@@ -104,6 +118,15 @@ const envSchema = z.object({
   DEEPSEEK_MODEL_VISION: z.string().min(1).default("deepseek-v4-flash-vision-exp"),
   DEEPSEEK_MAX_TOKENS_PER_RUN: z.coerce.number().int().positive().default(4000),
   DEEPSEEK_TIMEOUT_MS: z.coerce.number().int().positive().default(30_000),
+  // V4.1 Flash se invoca como deepseek-flash en la API oficial. Sin fallback.
+  CRV_AI_CURATION_MODEL: z.string().min(1).default("deepseek-flash"),
+  CRV_AI_CURATION_MAX_TOKENS: z.coerce.number().int().min(1000).max(12000).default(6000),
+  CRV_AI_CURATION_MAX_CALLS: z.coerce.number().int().min(1).max(3).default(2),
+  CRV_AI_CURATION_CONTEXT_CHARS: z.coerce.number().int().min(8000).max(80000).default(40000),
+  // Buscador privado para verificar identidades; vacío = solo fuentes ya conocidas.
+  CRV_SEARXNG_URL: z.preprocess((value) => value === "" ? undefined : value, z.string().url().optional()),
+  CRV_WEB_SEARCH_CACHE_DAYS: z.coerce.number().int().positive().default(30),
+  CRV_WEB_PAGE_CACHE_DAYS: z.coerce.number().int().positive().default(30),
 
   ER_AUTO_MATCH_THRESHOLD: z.coerce.number().min(0).max(1).default(0.9),
   ER_POSSIBLE_MATCH_THRESHOLD: z.coerce.number().min(0).max(1).default(0.72),
@@ -123,6 +146,9 @@ const envSchema = z.object({
     .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])
     .default("info"),
 }).superRefine((value, ctx) => {
+  if (value.CRV_DISCOVERY_METRICS_ENABLED && !value.CRV_DISCOVERY_METRICS_SECRET) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["CRV_DISCOVERY_METRICS_SECRET"], message: "Las métricas requieren un secreto independiente de al menos 32 caracteres" });
+  }
   if (!(value.ER_AUTO_MATCH_THRESHOLD > value.ER_POSSIBLE_MATCH_THRESHOLD
     && value.ER_POSSIBLE_MATCH_THRESHOLD > value.ER_REVIEW_THRESHOLD
     && value.ER_REVIEW_THRESHOLD > value.ER_NO_MATCH_THRESHOLD)) {

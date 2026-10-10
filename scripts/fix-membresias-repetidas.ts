@@ -13,6 +13,9 @@
 //   --phase=misma-ficha los pares que la misma ficha nombra en varias secciones.
 //   --phase=separar     «O'Brien» (6213) y Ezequiel Serrano (883) eran varias personas.
 //   --phase=consolidar  una fila por persona y etapa en cada banda
+//   --phase=credito-no-periodo  tras las fusiones del run 13285 (Fichas repetidas):
+//                       fila de biografía + fila del año de un crédito → una;
+//                       Cthonica 2905 terminó en 2023 y deja de ser actual.
 //                       (consolidateMemberships): rol unido, años completados,
 //                       los textos de rol que desaparecen quedan en las notas.
 //
@@ -22,7 +25,7 @@
 //   tsx scripts/fix-membresias-repetidas.ts --phase=sincopa|consolidar|periodos|misma-ficha|separar [--confirm]
 import { readFileSync, writeFileSync } from "node:fs";
 import { SincopaAdapter } from "../src/adapters/sincopa.js";
-import { closeDb, getPool } from "../src/db/client.js";
+import { closeDb } from "../src/db/client.js";
 import { consolidateMemberships } from "../src/merge/equivalent-relations.js";
 import { combineRoles } from "../src/merge/membership-roles.js";
 import { createRelation, updateEntity, updateRelation, withOperatorRun, type OperatorContext } from "../src/merge/operator.js";
@@ -31,7 +34,7 @@ import { mergeInto } from "../src/review/duplicates.js";
 const DATE = "2026-10-04";
 const phase = process.argv.find((arg) => arg.startsWith("--phase="))?.slice("--phase=".length);
 const confirm = process.argv.includes("--confirm");
-if (phase !== "sincopa" && phase !== "consolidar" && phase !== "periodos" && phase !== "misma-ficha" && phase !== "separar") throw new Error("uso: --phase=sincopa|consolidar|periodos|misma-ficha|separar [--confirm]");
+if (phase !== "sincopa" && phase !== "consolidar" && phase !== "periodos" && phase !== "misma-ficha" && phase !== "separar" && phase !== "credito-no-periodo") throw new Error("uso: --phase=sincopa|consolidar|periodos|misma-ficha|separar|credito-no-periodo [--confirm]");
 
 class DryRun extends Error {
   constructor(readonly result: unknown) { super("ensayo: se revierte"); }
@@ -293,6 +296,23 @@ async function samePage(context: OperatorContext) {
   return { merged: done.length, done, stages };
 }
 
+// Tras el run 13285 (Fichas repetidas, 2026-10-04): la fila de la biografía
+// trae la etapa; la otra es solo el año de un crédito en sus discos («Músico
+// acreditado…»), que no es un período (regla del run 12643, caso Submarino).
+const CREDIT_YEAR: Union[] = [
+  { review: 1833518, ids: [4841, 9239], from: 2000, to: null, why: "Billy Se Fue: Nilz desde 2000 según la biografía; 2006 es el año de un crédito" },
+  { review: 1833519, ids: [4843, 9240], from: 2001, to: null, why: "Billy Se Fue: Jarzen Arcia desde 2001 según la biografía; 2006 es el año de un crédito" },
+  { review: 1833517, ids: [5207, 9301], from: 1975, to: null, why: "Sietecuero: Giordano Di Marzo lo fundó en 1975; 1978 es el año de un crédito" },
+];
+
+async function creditYear(context: OperatorContext) {
+  const done = [];
+  for (const item of CREDIT_YEAR) done.push(await unite(context, item));
+  // Cthonica: dos etapas de Metal Archives unidas (2016–2023) en el run 12643; con año de fin no es actual.
+  await updateRelation(context, "artist_membership", 2905, { is_current: false });
+  return { merged: done.length, done, notCurrent: [2905] };
+}
+
 // ── Personas mezcladas ──────────────────────────────────────────────────
 // «O'Brien» (6213): Sincopa partió «Kenny / O'Brien» y dejó el apellido como
 // persona; los hermanos ya existen. Membresías según la ficha de la banda;
@@ -434,11 +454,13 @@ async function main(): Promise<void> {
       ? "Membresías repetidas (Brian, 2026-10-04): períodos contradictorios unidos; manda Metal Archives > Sincopa > biografías"
       : phase === "misma-ficha"
         ? "Membresías repetidas (Brian, 2026-10-04): la misma ficha nombra a la persona en varias secciones; unidas, Seguridad Nacional en dos etapas"
+        : phase === "credito-no-periodo"
+          ? "Membresías tras Fichas repetidas: el año de un crédito no es un período (Brian, 2026-10-04)"
         : phase === "separar"
           ? "Membresías repetidas (Brian, 2026-10-04): personas mezcladas separadas — «O'Brien» repartido entre los hermanos; Ezequiel Serrano padre (Calderón) e hijo (Valencia)"
       : "Membresías repetidas (Brian, 2026-10-04): una fila por persona y etapa en cada banda; roles unidos, textos originales en notas";
   const work = (context: OperatorContext) => (phase === "sincopa" ? sincopa(context) : phase === "periodos" ? periods(context)
-    : phase === "misma-ficha" ? samePage(context) : phase === "separar" ? separate(context) : consolidate(context));
+    : phase === "misma-ficha" ? samePage(context) : phase === "separar" ? separate(context) : phase === "credito-no-periodo" ? creditYear(context) : consolidate(context));
   let runId: number | null = null;
   let result: unknown;
   try {

@@ -46,7 +46,7 @@ for (const h of holds) {
     const contains = fc.includes(ft) || ft.includes(fc);
     const shorter = fc.length < ft.length ? fc : ft;
     const strong = contains && (shorter.split(" ").length >= 2 || shorter.length / Math.max(fc.length, ft.length) >= 0.6);
-    const medley = /[\/;,]|^(mosaico|guacomania|popurri|potpourri|suite)|\b(parte a|i\.|a\.)/iu.test(t.title) && !/[\/]/u.test(title) && fc !== ft && fc.includes(ft);
+    const medley = /[/;,]|^(mosaico|guacomania|popurri|potpourri|suite)|\b(parte a|i\.|a\.)/iu.test(t.title) && !/[/]/u.test(title) && fc !== ft && fc.includes(ft);
     return { t, fc, contains, strong, medley };
   });
   const medley = scored.filter((x) => x.medley);

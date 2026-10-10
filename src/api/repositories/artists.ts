@@ -29,17 +29,23 @@ export interface ArtistListRow {
 export async function listArtists(
   query: PaginationQuery & {
     q?: string | undefined;
+    artistType?: string | undefined;
+    decade?: number | undefined;
+    withoutYear?: boolean | undefined;
     genre?: string | undefined;
     /** Solo artistas sin ningún género confirmado (ni propio ni de sus discos). */
     withoutGenre?: boolean | undefined;
   },
 ): Promise<{ rows: ArtistListRow[]; total: number }> {
   const pattern = query.q ? `%${query.q}%` : null;
-  // $1 nombre · $2 género (propio o de sus discos, 0036) · $3 solo sin género
+  // $1 nombre · $2 género (propio o de sus discos, 0036) · $3 solo sin género · $4 tipo de artista
   const filters = `($1::text IS NULL OR name ILIKE $1)
           AND ($2::text IS NULL OR ${genreFilterSql("artist", "public.artists.id", "$2")})
-          AND (NOT $3::boolean OR ${genreMissingSql("artist", "public.artists.id")})`;
-  const params = [pattern, query.genre ?? null, query.withoutGenre ?? false];
+          AND (NOT $3::boolean OR ${genreMissingSql("artist", "public.artists.id")})
+          AND ($4::text IS NULL OR artist_type::text = $4)
+          AND ($5::int IS NULL OR (formed_year >= $5 AND formed_year < $5 + 10))
+          AND (NOT $6::boolean OR formed_year IS NULL)`;
+  const params = [pattern, query.genre ?? null, query.withoutGenre ?? false, query.artistType ?? null, query.decade ?? null, query.withoutYear ?? false];
   const [rows, count] = await Promise.all([
     getPool().query<{
       id: string; name: string; artist_type: string; origin_city: string | null;
@@ -51,7 +57,7 @@ export async function listArtists(
          FROM public.artists
         WHERE ${filters}
         ORDER BY name
-        LIMIT $4 OFFSET $5`,
+        LIMIT $7 OFFSET $8`,
       [...params, query.limit, query.offset],
     ),
     getPool().query<{ count: string }>(
@@ -86,6 +92,9 @@ export interface ArtistDetail {
   pictureUrl: string | null;
   /** Logo de la banda (Metal Archives); null si no hay. */
   logoUrl: string | null;
+  status: string | null;
+  themes: string | null;
+  yearsActive: string | null;
   originCity: string | null;
   originCountry: string;
   formedYear: number | null;
@@ -93,7 +102,7 @@ export interface ArtistDetail {
   notes: string | null;
   /** Su proyecto es de una persona fallecida (titular o único integrante). */
   isDeceased: boolean;
-  members: Array<{ id: number; personId: number; personName: string; personIsDeceased: boolean; role: string; personBirthDate: string | null; personDeathDate: string | null; fromYear: number | null; toYear: number | null; isCurrent: boolean }>;
+  members: Array<{ id: number; personId: number; personName: string; personRealName: string | null; personIsDeceased: boolean; role: string; personBirthDate: string | null; personDeathDate: string | null; fromYear: number | null; toYear: number | null; isCurrent: boolean }>;
   discography: Array<{ albumId: number; title: string; releaseYear: number | null; albumType: string; coverUrl: string | null }>;
   aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>;
   /** Géneros confirmados del ARTISTA; los discos tienen los suyos. */
@@ -123,11 +132,11 @@ export interface ArtistDetail {
 export async function getArtistDetail(id: number): Promise<ArtistDetail | null> {
   const { rows } = await getPool().query<Record<string, unknown>>(
     `SELECT a.id, a.name, a.artist_type, a.biography, a.picture_url, a.logo_url, a.origin_city,
-            a.origin_country, a.formed_year, a.disbanded_year, a.notes,
+            a.origin_country, a.formed_year, a.disbanded_year, a.notes, a.status, a.themes, a.years_active,
             ${artistDeceasedSql("a.id")} AS is_deceased,
        COALESCE((
          SELECT jsonb_agg(jsonb_build_object(
-           'id', am.id, 'personId', p.id, 'personName', p.name, 'personIsDeceased', ${personDeceasedSql("p")}, 'role', am.role,
+           'id', am.id, 'personId', p.id, 'personName', p.name, 'personRealName', p.real_name, 'personIsDeceased', ${personDeceasedSql("p")}, 'role', am.role,
            'personBirthDate', p.birth_date, 'personDeathDate', p.death_date,
            'fromYear', am.from_year, 'toYear', am.to_year, 'isCurrent', am.is_current
          ) ORDER BY am.from_year NULLS LAST, p.name)
@@ -185,6 +194,9 @@ export async function getArtistDetail(id: number): Promise<ArtistDetail | null> 
     biography: row["biography"] as string | null,
     pictureUrl: row["picture_url"] as string | null,
     logoUrl: row["logo_url"] as string | null,
+    status: row["status"] as string | null,
+    themes: row["themes"] as string | null,
+    yearsActive: row["years_active"] as string | null,
     originCity: row["origin_city"] as string | null,
     originCountry: row["origin_country"] as string,
     formedYear: row["formed_year"] as number | null,

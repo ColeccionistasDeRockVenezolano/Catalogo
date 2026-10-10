@@ -11,10 +11,10 @@
 // deshace al final: el reporte antes/después es el real, no una estimación.
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import type { PoolClient } from "pg";
 import { z } from "zod";
 import { getPool } from "../db/client.js";
+import { projectRoot } from "../config/project-root.js";
 import { normalizeGenreText } from "./normalize.js";
 import type { GenreEntityKind } from "./rules.js";
 import {
@@ -23,8 +23,7 @@ import {
 } from "./store.js";
 import { candidateAliasKeys, resolveGenreValue, type GenreLevel } from "./taxonomy.js";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const DEFAULT_TAXONOMY_FILE = path.resolve(__dirname, "..", "..", "data", "genres", "taxonomy.json");
+export const DEFAULT_TAXONOMY_FILE = path.join(projectRoot(import.meta.url), "data", "genres", "taxonomy.json");
 
 // --- Archivo de taxonomía -------------------------------------------------
 

@@ -3,3 +3,7 @@ export * from "./core.js";
 export * from "./ingest-enums.js";
 export * from "./ingest.js";
 export * from "./media.js";
+export * from "./discovery.js";
+export * from "./discovery-metrics.js";
+export * from "./track-contexts.js";
+export * from "./recommendations.js";

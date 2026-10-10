@@ -33,6 +33,7 @@ import { applyFixBatch, previewFixBatch, undoFixBatch, type FixBatchView } from 
 import { applicableActions, getFixAction } from "./actions/registry.js";
 import { CurationError, listAutofixCandidates } from "./repository.js";
 import { setAfterFullScan, type ScanSummary } from "./scan.js";
+import { permitsAutofix } from "./editorial-policy.js";
 
 const log = moduleLogger("curation:autofix");
 
@@ -126,7 +127,7 @@ function assertRule(detector: string, signature: string | null, actionKey: strin
   if (!definition) throw new CurationError("invalid", `detector desconocido: ${detector}`);
   const action = getFixAction(actionKey);
   if (!action) throw new CurationError("invalid", `acción desconocida: ${actionKey}`);
-  if (action.level !== 0) {
+  if (action.level !== 0 || !permitsAutofix(actionKey)) {
     throw new CurationError("invalid", `«${action.label}» es de nivel ${action.level}: la autocorrección solo aplica acciones de nivel 0`);
   }
   const declared = definition.actions ?? {};
@@ -161,7 +162,7 @@ export function autofixCatalog(): AutofixOption[] {
     Object.entries(detector.actions ?? {}).flatMap(([signature, keys]) =>
       [...keys].flatMap((key) => {
         const action = getFixAction(key);
-        if (!action || action.level !== 0) return [];
+        if (!action || action.level !== 0 || !permitsAutofix(key)) return [];
         return [{
           detector: detector.key, detectorLabel: detector.label,
           signature: signature === "*" ? null : signature,

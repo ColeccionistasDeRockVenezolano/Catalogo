@@ -2,12 +2,13 @@
 // nunca con PostgreSQL (CONTRACT #20) — cada función de aquí es una llamada
 // HTTP directa, sin lógica de negocio propia.
 import { getSessionCsrf, setSessionCsrf, type OperatorUser } from "./operator";
+import type { CatalogDraft,CatalogKind,CatalogPlan,CatalogVocabulary } from "../../../src/curation/ai/types";
 import type {
-  Alias, AliasWriteResult, AlbumDetail, AlbumListItem, ArtistDetail, ArtistListItem, AuditRow, Claim, EntityWriteResult,
-  MergeableKind, OrganizationDetail, OrganizationListItem, Page, PersonDetail, PersonListItem, RelationUpdateResult, RelationWriteResult,
+  Alias, AliasWriteResult, AlbumDetail, AlbumListItem, ArtistDetail, ArtistListItem, AuditRow, Claim, CreditSource, EntityWriteResult,
+  MergeableKind, OrganizationDetail, OrganizationFacets, OrganizationListItem, Page, PersonDetail, PersonFacets, PersonListItem, RelationUpdateResult, RelationWriteResult,
   PersonConversionResult, PersonDuplicateCandidate, PersonMergePreview, PersonMergeResult, RemovalResult, ReviewActionResult,
-  ReviewDetail, ReviewListItem, SearchResults, Source, UnmergeResult, VideoDetail, VideoListItem,
-  TrackDetail, TrackListItem,
+  ReviewDetail, ReviewListItem, PersonWebVerification, PersonPairResearch, PersonResearchJob, PersonPairResearchSummary, SearchResults, Source, UnmergeResult, VideoDetail, VideoListItem,
+  TrackDetail, TrackListItem, TypeFacets,
   CurationFinding, CurationFindingStatus, CurationIgnoreReason, CurationPairKind, CurationScan, CurationScanResult,
   CurationSeverity, CurationSummary,
   CurationAutofixRule, CurationAutofixRun, CurationAutofixState,
@@ -52,6 +53,19 @@ export class ApiError extends Error {
 }
 
 type Query = Record<string, string | number | boolean | undefined>;
+
+export const aiCurationApi = {
+  resolveArtist:(personId:number)=>request<import("../../../src/curation/ai/person-artist-types").PersonArtistJob>(`/curation/ai/persons/${personId}/resolve-artist`,{method:"POST",authenticated:true}),
+  artistResolution:(personId:number)=>request<import("../../../src/curation/ai/person-artist-types").PersonArtistJob|null>(`/curation/ai/persons/${personId}/resolve-artist`),
+  vocabulary:()=>request<CatalogVocabulary>("/curation/ai/vocabulary"),
+  list:(kind?:CatalogKind,entityId?:number)=>request<CatalogPlan[]>("/curation/ai/plans",{query:{kind,entityId}}),
+  get:(id:number)=>request<CatalogPlan>(`/curation/ai/plans/${id}`),
+  start:(kind:CatalogKind,entityId:number,instruction:string)=>request<CatalogPlan>("/curation/ai/plans",{method:"POST",authenticated:true,body:{kind,entityId,instruction}}),
+  save:(plan:CatalogPlan,draft:CatalogDraft,reviewedKeys:string[])=>request<CatalogPlan>(`/curation/ai/plans/${plan.id}`,{method:"PATCH",authenticated:true,body:{revision:plan.revision,draft,reviewedKeys}}),
+  decide:(plan:CatalogPlan,key:string,decision:"accepted"|"rejected")=>request<CatalogPlan>(`/curation/ai/plans/${plan.id}/decisions`,{method:"POST",authenticated:true,body:{revision:plan.revision,key,decision}}),
+  refresh:(plan:CatalogPlan)=>request<CatalogPlan>(`/curation/ai/plans/${plan.id}/refresh`,{method:"POST",authenticated:true,body:{revision:plan.revision}}),
+  implement:(plan:CatalogPlan,confirmSensitive:boolean)=>request<CatalogPlan>(`/curation/ai/plans/${plan.id}/implement`,{method:"POST",authenticated:true,body:{revision:plan.revision,previewHash:plan.preview?.hash,confirmSensitive}}),
+};
 
 function buildUrl(path: string, query?: Query): string {
   // La API puede vivir en el origen (desarrollo) o bajo un prefijo detrás de
@@ -160,22 +174,28 @@ export const searchApi = {
 export type GenreListParams = { genre?: string; withoutGenre?: boolean; relatedGenre?: boolean };
 
 export const genresApi = {
-  facets: (kind: "album" | "artist") => request<GenreFacets>("/genres/facets", { query: { kind } }),
+  vocabulary: () => request<Array<{ slug: string; name: string; level: string }>>("/genres/vocabulary"),
+  decide: (kind: "artist" | "album", id: number, action: "confirm_primary" | "add_secondary" | "reject", genreSlug: string, note: string) =>
+    request<{ runId: number }>(`/genres/${kind}/${id}/decision`, { method: "POST", authenticated: true, body: { action, genreSlug, note } }),
+  facets: (kind: "album" | "artist", signal?: AbortSignal) => request<GenreFacets>("/genres/facets", { query: { kind }, ...(signal ? { signal } : {}) }),
 };
 
 export const artistsApi = {
-  list: (params: Paged & Omit<GenreListParams, "relatedGenre"> & { q?: string } = {}) => request<Page<ArtistListItem>>("/artists", { query: params }),
+  facets: () => request<TypeFacets>("/artists/facets"),
+  list: (params: Paged & Omit<GenreListParams, "relatedGenre"> & { q?: string; artistType?: string; decade?: number; withoutYear?: boolean } = {}, signal?: AbortSignal) => request<Page<ArtistListItem>>("/artists", { query: params, ...(signal ? { signal } : {}) }),
   get: (id: number) => request<ArtistDetail>(`/artists/${id}`),
 };
 
 export const albumsApi = {
-  list: (params: Paged & GenreListParams & { q?: string; artistId?: number } = {}) => request<Page<AlbumListItem>>("/albums", { query: params }),
+  facets: () => request<TypeFacets>("/albums/facets"),
+  list: (params: Paged & GenreListParams & { q?: string; artistId?: number; albumType?: string; decade?: number; withoutYear?: boolean } = {}, signal?: AbortSignal) => request<Page<AlbumListItem>>("/albums", { query: params, ...(signal ? { signal } : {}) }),
   get: (id: number) => request<AlbumDetail>(`/albums/${id}`),
 };
 
 export const personsApi = {
-  list: (params: Paged & { q?: string; hasCredits?: boolean; suspect?: string; sort?: "name" | "credits" } = {}) =>
-    request<Page<PersonListItem>>("/persons", { query: params }),
+  list: (params: Paged & { q?: string; hasCredits?: boolean; role?: string; suspect?: string; sort?: "name" | "credits" } = {}, signal?: AbortSignal) =>
+    request<Page<PersonListItem>>("/persons", { query: params, ...(signal ? { signal } : {}) }),
+  facets: (signal?: AbortSignal) => request<PersonFacets>("/persons/facets", { ...(signal ? { signal } : {}) }),
   get: (id: number) => request<PersonDetail>(`/persons/${id}`),
 };
 
@@ -190,6 +210,8 @@ export interface PersonMergeRequest {
   /** Los campos combinados quedan marcados para que la IA los reescriba después. */
   rewriteLater?: boolean;
   keepDropNameAsAlias: boolean;
+  /** Personas: confirmo que son la misma pese al `eraConflict` de la previsualización. */
+  allowEraConflict?: boolean;
   note: string;
 }
 
@@ -250,7 +272,8 @@ export const personSplitApi = {
 };
 
 export const organizationsApi = {
-  list: (params: Paged & { q?: string } = {}) => request<Page<OrganizationListItem>>("/organizations", { query: params }),
+  list: (params: Paged & { q?: string; organizationType?: string } = {}, signal?: AbortSignal) => request<Page<OrganizationListItem>>("/organizations", { query: params, ...(signal ? { signal } : {}) }),
+  facets: () => request<OrganizationFacets>("/organizations/facets"),
   get: (id: number) => request<OrganizationDetail>(`/organizations/${id}`),
 };
 
@@ -266,8 +289,9 @@ export const sourcesApi = {
 };
 
 export const claimsApi = {
-  forEntity: (entity: "artist" | "person" | "organization" | "album" | "track", id: number, params: Paged = {}) =>
+  forEntity: (entity: "artist" | "person" | "organization" | "album" | "track" | "album_credit" | "track_credit", id: number, params: Paged = {}) =>
     request<Page<Claim>>("/claims", { query: { entity, id, ...params } }),
+  creditSources: (entity: "album" | "track", id: number) => request<CreditSource[]>("/credit-sources", { query: { entity, id } }),
 };
 
 export const auditApi = {
@@ -288,6 +312,10 @@ export const changesApi = {
 };
 
 export const youtubeApi = {
+  saveAlbumVideo: (albumId: number, videoId: string, kind: string, isPrimaryLink: boolean, note: string) =>
+    request<{ runId: number }>(`/albums/${albumId}/videos/${videoId}`, { method: "PATCH", authenticated: true, body: { kind, isPrimaryLink, note } }),
+  removeAlbumVideo: (albumId: number, videoId: string, note: string) =>
+    request<{ runId: number }>(`/albums/${albumId}/videos/${videoId}`, { method: "DELETE", authenticated: true, query: { note } }),
   list: (params: Paged & { q?: string } = {}) => request<Page<VideoListItem>>("/youtube/videos", { query: params }),
   get: (id: number) => request<VideoDetail>(`/youtube/videos/${id}`),
 };
@@ -295,6 +323,24 @@ export const youtubeApi = {
 export const reviewApi = {
   list: (params: Paged & { status?: string; kind?: string } = {}) => request<Page<ReviewListItem>>("/review-queue", { query: params }),
   get: (id: number) => request<ReviewDetail>(`/review-queue/${id}`),
+  webVerification: (id: number) => request<PersonWebVerification | null>(`/review-queue/${id}/web-verification`),
+  investigateWeb: (id: number) => request<PersonWebVerification>(`/review-queue/${id}/web-verification`, { method: "POST", authenticated: true }),
+  investigatePersonPair: (aId: number, bId: number) => request<PersonPairResearch>("/persons/identity-research", {
+    method: "POST", authenticated: true, body: { aId, bId },
+  }),
+  personPairResearch: (aId: number, bId: number) => request<PersonPairResearch | null>("/persons/identity-research", { query: { aId, bId } }),
+  personResearchList: (personId: number) => request<PersonPairResearchSummary[]>(`/persons/${personId}/identity-research`),
+  startPersonPairResearch: (aId: number, bId: number) => request<PersonResearchJob>("/persons/identity-research/jobs", {
+    method: "POST", authenticated: true, body: { aId, bId },
+  }),
+  activePersonPairJob: (aId: number, bId: number) => request<PersonResearchJob | null>("/persons/identity-research/active-job", { query: { aId, bId } }),
+  personResearchJob: (id: number) => request<PersonResearchJob>(`/persons/identity-research/jobs/${id}`),
+  declarePersonsDistinct: (aId: number, bId: number, note: string) => request<{ runId: number; closedReviews: number }>(
+    "/persons/identity-research/distinct", { method: "POST", authenticated: true, body: { aId, bId, note } }),
+  markWebReviewed: (id: number, note: string) => request<PersonWebVerification>(`/review-queue/${id}/web-verification/review`, { method: "POST", authenticated: true, body: { note } }),
+  mixedVerification: (personId: number) => request<PersonWebVerification | null>(`/review-queue/person/${personId}/web-verification`),
+  investigateMixed: (personId: number) => request<PersonWebVerification>(`/review-queue/person/${personId}/web-verification`, { method: "POST", authenticated: true }),
+  markMixedReviewed: (personId: number, note: string) => request<PersonWebVerification>(`/review-queue/person/${personId}/web-verification/review`, { method: "POST", authenticated: true, body: { note } }),
   accept: (id: number, note: string, targetId?: number) =>
     request<ReviewActionResult>(`/review-queue/${id}/accept`, { method: "POST", authenticated: true, body: { note, ...(targetId === undefined ? {} : { targetId }) } }),
   reject: (id: number, note: string) =>
@@ -508,4 +554,49 @@ export const imageCandidatesApi = {
   decide: (kind: ImageCandidateKind, entityId: number, candidateId: number | null) =>
     request<{ runId: number; kind: ImageCandidateKind; entityId: number; chosenUrl: string | null }>(
       `/curation/images/${kind}/${entityId}/decide`, { method: "POST", authenticated: true, body: { candidateId } }),
+  /** Deja la imagen actual en varias fichas a la vez (un run). */
+  keepCurrent: (kind: ImageCandidateKind, entityIds: number[]) =>
+    request<{ runId: number; kind: ImageCandidateKind; entities: number; candidates: number }>(
+      `/curation/images/${kind}/keep-current`, { method: "POST", authenticated: true, body: { entityIds } }),
+};
+
+// Informes de fiabilidad: la API exige rol de administrador, también en lectura.
+export const entityVerificationApi = {
+  latest: (kind: import("../../../src/verification/types").VerificationKind, id: number) =>
+    request<import("../../../src/verification/types").VerificationJob | null>(`/entity-verification/${kind}/${id}/latest-job`),
+  get: (kind: import("../../../src/verification/types").VerificationKind, id: number) =>
+    request<import("../../../src/verification/types").VerificationReport>(`/entity-verification/${kind}/${id}`),
+  active: (kind: import("../../../src/verification/types").VerificationKind, id: number) =>
+    request<import("../../../src/verification/types").VerificationJob | null>(`/entity-verification/${kind}/${id}/active-job`),
+  start: (kind: import("../../../src/verification/types").VerificationKind, id: number) =>
+    request<import("../../../src/verification/types").VerificationJob>(`/entity-verification/${kind}/${id}/jobs`, { method: "POST", authenticated: true }),
+  job: (id: number) => request<import("../../../src/verification/types").VerificationJob>(`/entity-verification/jobs/${id}`),
+};
+
+function comparisonQuery(left:import("../../../src/verification/comparison-types").EntityRef,right:import("../../../src/verification/comparison-types").EntityRef) {
+ return {leftKind:left.kind,leftId:left.id,rightKind:right.kind,rightId:right.id};
+}
+export const entityComparisonApi = {
+ get:(left:import("../../../src/verification/comparison-types").EntityRef,right:import("../../../src/verification/comparison-types").EntityRef)=>request<import("../../../src/verification/comparison-types").ComparisonReport>("/entity-verification/compare",{query:comparisonQuery(left,right)}),
+ active:(left:import("../../../src/verification/comparison-types").EntityRef,right:import("../../../src/verification/comparison-types").EntityRef)=>request<import("../../../src/verification/comparison-types").ComparisonJob|null>("/entity-verification/compare/active-job",{query:comparisonQuery(left,right)}),
+ start:(left:import("../../../src/verification/comparison-types").EntityRef,right:import("../../../src/verification/comparison-types").EntityRef)=>request<import("../../../src/verification/comparison-types").ComparisonJob>("/entity-verification/compare/jobs",{method:"POST",authenticated:true,body:{left,right}}),
+ job:(id:number)=>request<import("../../../src/verification/comparison-types").ComparisonJob>(`/entity-verification/compare/jobs/${id}`),
+ history:(ref:import("../../../src/verification/comparison-types").EntityRef)=>request<import("../../../src/verification/comparison-store").ComparisonHistoryItem[]>(`/entity-verification/compare/history/${ref.kind}/${ref.id}`),
+};
+
+export const discoveryApi = {
+  event: (body: { id: string; client: string; kind: "impression" | "acceptance" | "search" | "visit"; token: string; visibleMs?: number }) =>
+    request<{ status: string; receipt?: string }>("/discovery/metrics/events", { method: "POST", body }),
+  suggestions: (signal: AbortSignal) => request<import("./discovery").DiscoveryResponse>("/discovery/search-suggestions", { signal }),
+};
+
+// Enlaces editables: incluye perfiles pendientes; solo los administradores los consultan.
+export interface EditablePlatformLink { platform: string; url: string; handle: string | null; verified: boolean; }
+export const catalogLinksApi = {
+  list: (kind: "artist" | "album", id: number, category: "social" | "streaming") =>
+    request<EditablePlatformLink[]>(`/catalog-links/${kind}/${id}/${category}`),
+  save: (kind: "artist" | "album", id: number, category: "social" | "streaming", link: EditablePlatformLink, note: string) =>
+    request<{ runId: number }>(`/catalog-links/${kind}/${id}/${category}/${link.platform}`, { method: "PATCH", authenticated: true, body: { url: link.url, handle: link.handle, verified: link.verified, note } }),
+  remove: (kind: "artist" | "album", id: number, category: "social" | "streaming", platform: string, note: string) =>
+    request<{ runId: number }>(`/catalog-links/${kind}/${id}/${category}/${platform}`, { method: "DELETE", authenticated: true, query: { note } }),
 };

@@ -18,6 +18,10 @@
     "api": "./scripts/with-node22.sh tsx src/api/server.ts",
     "auth:hash-password": "./scripts/with-node22.sh node scripts/hash-collaborator-password.mjs",
     "auth:set-collaborator": "./scripts/with-node22.sh node scripts/set-collaborator.mjs",
+    "discovery:import": "./scripts/with-node22.sh tsx scripts/discovery-import.ts",
+    "discovery:metrics": "./scripts/with-node22.sh tsx scripts/discovery-metrics.ts",
+    "discovery:contexts": "./scripts/with-node22.sh tsx scripts/track-contexts.ts",
+    "discovery:recommendations": "./scripts/with-node22.sh tsx scripts/discovery-recommendations.ts",
     "doctor": "./scripts/with-node22.sh tsx src/cli/index.ts doctor",
     "db:up": "docker compose up -d --wait crv-postgres",
     "db:down": "docker compose down -v",
@@ -33,6 +37,7 @@
     "genres:laya:export": "./scripts/with-node22.sh tsx scripts/export-genre-laya-pilot.ts",
     "genres:laya:pilot": "bash scripts/run-genre-laya-pilot.sh",
     "test:genres:laya": "python3 -m unittest discover -s test/python -p test_genre_laya_pilot.py",
+    "test:rym-nuevos": "~/.venvs/scrapling/bin/python -m unittest discover -s test/python -p test_rym_nuevos.py",
     "test": "./scripts/with-node22.sh vitest run",
     "test:watch": "./scripts/with-node22.sh vitest",
     "test:unit": "./scripts/with-node22.sh vitest run test/unit",
@@ -58,7 +63,11 @@
     "media:recover-source-claims": "./scripts/with-node22.sh tsx scripts/recover-missing-media-from-source-claims.ts",
     "radio:genres": "./scripts/with-node22.sh tsx scripts/annotate-radio-genres.ts",
     "deploy": "./scripts/deploy.sh",
-    "deploy:api": "./scripts/deploy.sh --api"
+    "deploy:api": "./scripts/deploy.sh --api",
+    "test:web": "./scripts/with-node22.sh vitest run web/tests/unit",
+    "test:browser": "./scripts/with-node22.sh tsx web/tests/visual/ci-smoke.mjs",
+    "quality:evidence": "./scripts/with-node22.sh node scripts/quality-evidence.mjs",
+    "stage1:baseline": "./scripts/with-node22.sh tsx scripts/stage1-baseline.ts"
   },
   "dependencies": {
     "@fastify/cors": "^11.3.0",

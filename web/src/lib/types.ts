@@ -1,3 +1,4 @@
+import type { PersonComparison } from "../../../src/review/person-comparison.js";
 // CRV · Tipos que reflejan las respuestas de la API (src/api/routes/*.ts,
 // src/api/schemas.ts). Un solo lugar para no repetir las formas en cada página.
 
@@ -51,7 +52,7 @@ export interface ArtistListItem {
 export const TITULAR_ROLE = "Titular del proyecto";
 
 export interface ArtistMember {
-  id: number; personId: number; personName: string; personIsDeceased?: boolean; role: string;
+  id: number; personId: number; personName: string; personRealName?: string | null; personIsDeceased?: boolean; role: string;
   /** Fechas de la persona: la ficha del proyecto solista las muestra como suyas. */
   personBirthDate?: string | null; personDeathDate?: string | null;
   fromYear: number | null; toYear: number | null; isCurrent: boolean;
@@ -67,6 +68,9 @@ export interface PublicGenre { id: number; slug: string; name: string; family: s
 export type GenreStatus = "confirmed" | "pending" | "unclassified";
 
 export interface ArtistDetail extends ArtistListItem {
+  status?: string | null;
+  themes?: string | null;
+  yearsActive?: string | null;
   /** Géneros propios del artista; no se heredan a sus discos. */
   genres?: PublicGenre[];
   primaryGenre?: PublicGenre | null;
@@ -168,6 +172,7 @@ export interface GenreFacets {
 }
 
 export interface ScopedCredit extends Credit {
+  creditIds: number[];
   tracks: Array<{ discNumber: number; trackNumber: number }>;
 }
 
@@ -181,6 +186,7 @@ export interface Credit {
 }
 
 export interface Track {
+  notes?: string | null;
   id: number;
   discNumber: number;
   trackNumber: number;
@@ -216,6 +222,9 @@ export interface AlbumFormat { id: number; format: string; quality: string | nul
 export interface YoutubeLink { videoId: string; title: string | null; kind: string; isPrimaryLink: boolean; }
 
 export interface AlbumDetail {
+  releaseDateText?: string | null;
+  catalogId?: string | null;
+  mediaFormat?: string | null;
   id: number;
   title: string;
   releaseYear: number | null;
@@ -251,6 +260,12 @@ export interface AlbumDetail {
 }
 
 // ---------- persons ----------
+export interface PersonFacets {
+  total: number;
+  withoutCredits: number;
+  roles: Array<{ role: string; count: number }>;
+}
+
 export interface PersonListItem {
   id: number;
   name: string;
@@ -281,6 +296,11 @@ export interface PersonTrackCredit { id: number; trackId: number; trackTitle: st
 export interface PersonOrganization { id: number; organizationId: number; organizationName: string; role: string; fromYear: number | null; toYear: number | null; }
 
 export interface PersonDetail extends PersonListItem {
+  realName?: string | null;
+  birthCity?: string | null;
+  deathCause?: string | null;
+  trivia?: string | null;
+  gender?: string | null;
   biography: string | null;
   /** Columna `is_deceased` tal cual (null = sin dato); alimenta el formulario. */
   isDeceasedFlag?: boolean | null;
@@ -326,6 +346,8 @@ export interface PersonMergePreview {
   aliasesToAdd: string[];
   reviewsBetween: number[];
   warnings: string[];
+  /** Personas: por qué las trayectorias son imposibles juntas; fusionar exige confirmarlo. */
+  eraConflict?: string | null;
   /** Textos largos en conflicto que admiten «combinar» (la API antigua no los manda). */
   combinableFields?: string[];
   /** Campos en conflicto que se unen solos (notas, curiosidades…). */
@@ -352,11 +374,17 @@ export interface PersonMergeResult {
 }
 
 export interface PersonDuplicateCandidate {
+  comparison?: PersonComparison | null;
   reviewId: number;
   a: { id: number; name: string; creditCount: number };
   b: { id: number; name: string; creditCount: number };
   priority: number;
   score: number | null;
+  effectiveScore: number | null;
+  scoreBlocked: string | null;
+  webVerdict: "same" | "different" | "mixed" | "unknown" | null;
+  webRationale: string | null;
+  webEvidence: Array<{ supports: "same" | "different" | "mixed" }>;
   features: Array<{ key: string; value: number; evidence: string }>;
   notes: string | null;
   createdAt: string;
@@ -381,11 +409,17 @@ export interface UnmergeResult {
 }
 
 // ---------- organizations ----------
+export interface OrganizationFacets {
+  total: number;
+  types: Array<{ organizationType: string; count: number }>;
+}
+
 export interface OrganizationListItem {
   id: number;
   name: string;
   organizationType: string;
   country: string | null;
+  pictureUrl: string | null;
 }
 
 export interface LabelAlbum { albumId: number; title: string; releaseYear: number | null; artistId: number; artistName: string; }
@@ -431,6 +465,39 @@ export interface ReviewActionResult {
   reviewId: number; kind: string; action: "accepted" | "rejected" | "resolved"; runId: number; status: string; detail: string;
 }
 
+export interface PersonWebVerification {
+  comparison?: PersonComparison | null;
+  id: number; reviewId: number | null; personId: number | null; dossierHash: string; status: string;
+  verdict: "same" | "different" | "mixed" | "unknown"; rationale: string;
+  evidence: Array<{ url: string; title: string; quote: string; supports: "same" | "different" | "mixed" }>;
+  sources: Array<{ url: string; title: string; contentHash: string }>;
+  createdAt: string; reviewedBy: string | null; reviewNote: string | null;
+}
+
+/** Investigación puntual de dos personas sin una revisión de cola asociada. */
+export type PersonPairResearch = Pick<PersonWebVerification, "verdict" | "rationale" | "evidence" | "sources"> & {
+  id?: number;
+  status?: string;
+  createdAt?: string;
+  /** Incluido cuando se investiga un par desde una ficha individual. */
+  comparison?: PersonComparison | null;
+  baseScore?: number | null;
+  scoreBlocked?: string | null;
+  declaredDistinct?: boolean;
+  baseFeatures?: Array<{ key: string; value: number; evidence: string }>;
+};
+
+export interface PersonResearchJob {
+  id: number; aId: number; bId: number; status: "queued" | "running" | "done" | "failed";
+  error: string | null; verificationId: number | null; requestedAt: string; finishedAt: string | null;
+}
+
+export interface PersonPairResearchSummary {
+  otherId: number; otherName: string; verificationId: number;
+  verdict: PersonPairResearch["verdict"]; rationale: string; status: string; createdAt: string;
+  declaredDistinct: boolean;
+}
+
 // ---------- valores en disputa sin revisión viva (E7.1) ----------
 /** Evidencia de un lado del conflicto en `evidence.sourceA`/`sourceB` de un hallazgo `conflictos_abiertos`. */
 export interface CurationConflictSource {
@@ -459,6 +526,13 @@ export interface Source {
 export interface Claim {
   id: number; entityKind: string; field: string; rawValue: unknown; normalizedValue: unknown;
   confidence: string; status: string; sourceId: number; sourceName: string; createdAt: string;
+  sourceUrl: string | null; pageUrl: string | null;
+  evidence: Array<{ url: string | null; excerpt: string | null }>;
+  seedRowNumber: number | null; createdBy: string;
+}
+
+export interface CreditSource {
+  entityKind: "album_credit" | "track_credit"; entityId: number; claims: Claim[];
 }
 
 export interface AuditRow {
@@ -784,6 +858,7 @@ export type FixBatchStatus = "previewed" | "running" | "done" | "partial" | "fai
 export type FixItemStatus = "pending" | "blocked" | "excluded" | "applied" | "skipped_stale" | "failed" | "undone" | "not_undoable";
 
 export interface FixItem {
+  editorialInputs?: Array<{ key: string; label: string; type: "text" | "number"; explanation: string }>;
   id: number;
   position: number;
   findingId: number | null;
@@ -834,6 +909,7 @@ export interface FixBatch {
 }
 
 export interface FindingAction {
+  editorialInputs?: Array<{ key: string; label: string; type: "text" | "number"; explanation: string }>;
   key: string; label: string; description: string; level: number; inverse: string | null;
   recommended: boolean; params: Record<string, unknown> | null;
   preconditions: Array<{ key: string; ok: boolean; code?: string; message?: string }>;
@@ -945,4 +1021,16 @@ export interface ChangeUndoResult {
   undoneRunId: number;
   method: "journal" | "legacy";
   result: unknown;
+}
+
+/** Conteos por tipo del catálogo completo. */
+export interface DecadeFacets {
+  total: number;
+  withoutYear: number;
+  decades: Array<{ decade: number; count: number }>;
+}
+
+export interface TypeFacets extends DecadeFacets {
+  total: number;
+  types: Array<{ value: string; count: number }>;
 }

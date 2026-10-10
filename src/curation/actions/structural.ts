@@ -13,6 +13,7 @@ import { mergeInto } from "../../review/duplicates.js";
 import { convertPerson, splitPerson } from "../../review/person-corrections.js";
 import { classifyPersonName } from "../../review/person-junk.js";
 import { nameKey } from "../lexicon.js";
+import { requireEditorialBasis } from "../editorial-policy.js";
 import type { ActionFinding, ActionPreview, FixActionDefinition } from "./types.js";
 
 function blockedPreview(
@@ -125,15 +126,15 @@ export type VaciarAnioParams = z.infer<typeof vaciarAnioParamsSchema>;
 export const vaciarAnioAction: FixActionDefinition<VaciarAnioParams> = {
   key: "vaciar_anio",
   label: "Vaciar año imposible",
-  description: "Elimina un año imposible (en el futuro o anterior a la música grabada) dejando el campo en blanco.",
-  level: 0,
+  description: "Vacía un año después de revisar su procedencia; una fecha futura puede ser un lanzamiento anunciado.",
+  level: 1,
   inverse: "field_restore",
   paramsSchema: vaciarAnioParamsSchema,
   appliesTo(finding) {
     return finding.detector === "anios_imposibles" && finding.entity.id !== null;
   },
   levelFor() {
-    return 0;
+    return 1;
   },
   async defaultParams(finding) {
     if (finding.entity.id === null) return null;
@@ -179,18 +180,23 @@ export const vaciarAnioAction: FixActionDefinition<VaciarAnioParams> = {
 // 1.3 Fijar año de formación desde el disco más antiguo
 const fijarAnioFormacionParamsSchema = z.object({
   artistId: z.number().int().positive(),
-  formedYear: z.number().int().positive(),
+  formedYear: z.number().int().positive().nullable(),
+  editorialBasis: z.string().trim().min(12),
 }).strict();
 
 export type FijarAnioFormacionParams = z.infer<typeof fijarAnioFormacionParamsSchema>;
 
 export const fijarAnioFormacionAction: FixActionDefinition<FijarAnioFormacionParams> = {
   key: "fijar_anio_formacion",
-  label: "Fijar año de formación desde disco más antiguo",
-  description: "Actualiza el año de formación de la banda al año de publicación de su disco más antiguo.",
+  label: "Fijar año de formación documentado",
+  description: "Actualiza la formación con respaldo o un motivo editorial explícito. El primer disco no demuestra esa fecha.",
   level: 1,
   inverse: "field_restore",
   paramsSchema: fijarAnioFormacionParamsSchema,
+  editorialInputs: [
+    { key: "formedYear", label: "Año de formación", type: "number", explanation: "Indica el año respaldado. El año del primer disco no demuestra formación." },
+    { key: "editorialBasis", label: "Respaldo o motivo editorial", type: "text", explanation: "Cita la fuente o explica la decisión editorial (al menos 12 caracteres)." },
+  ],
   appliesTo(finding) {
     return finding.detector === "disco_antes_de_formacion" && finding.entity.kind === "album" && finding.entity.id !== null;
   },
@@ -198,19 +204,11 @@ export const fijarAnioFormacionAction: FixActionDefinition<FijarAnioFormacionPar
     return 1;
   },
   async defaultParams(finding, ctx) {
-    if (finding.entity.id === null) return null;
-    const album = (await ctx.client.query<{ artist_id: number; release_year: number | null }>(
-      "SELECT artist_id, release_year FROM public.albums WHERE id=$1", [finding.entity.id],
-    )).rows[0];
-    if (!album) return null;
-    const oldest = (await ctx.client.query<{ min_year: number | null }>(
-      "SELECT min(release_year) AS min_year FROM public.albums WHERE artist_id=$1 AND release_year IS NOT NULL",
-      [album.artist_id],
-    )).rows[0]?.min_year;
-    if (!oldest) return null;
-    return { artistId: album.artist_id, formedYear: oldest };
+    const album = (await ctx.client.query<{ artist_id: string }>("SELECT artist_id::text FROM public.albums WHERE id=$1", [finding.entity.id])).rows[0];
+    return album ? { artistId: Number(album.artist_id), formedYear: null, editorialBasis: "" } : null;
   },
   async preconditions(finding, params, ctx) {
+    if (params.formedYear === null || params.editorialBasis.trim().length < 12) return [{ key: "editorial", ok: false, code: "invalid", message: "indica año y respaldo o motivo editorial antes de previsualizar" }];
     const artist = (await ctx.client.query<{ formed_year: number | null }>(
       "SELECT formed_year FROM public.artists WHERE id=$1", [params.artistId],
     )).rows[0];
@@ -234,6 +232,8 @@ export const fijarAnioFormacionAction: FixActionDefinition<FijarAnioFormacionPar
     };
   },
   async apply(context, finding, params) {
+    requireEditorialBasis(params.editorialBasis);
+    if (params.formedYear === null) throw new Error("hace falta indicar el año de formación documentado");
     await withFieldJournal(context, { kind: "artist", id: params.artistId, fields: ["formed_year"] }, async () => {
       await updateEntity(context, "artist", params.artistId, { formed_year: params.formedYear });
     });
@@ -270,6 +270,7 @@ export const vaciarDuracionAction: FixActionDefinition<VaciarDuracionParams> = {
     )).rows[0];
     if (!track) return [{ key: "exists", ok: false, code: "not_found", message: `pista ${params.trackId} inexistente` }];
     if (track.duration_seconds === null) return [{ key: "changed", ok: false, code: "noop", message: "la duración ya es NULL" }];
+    if (track.duration_seconds !== 0) return [{ key: "zero", ok: false, code: "stale", message: "la duración actual ya no es cero" }];
     return [{ key: "exists", ok: true }, { key: "changed", ok: true }];
   },
   async preview(finding, params, ctx) {
@@ -288,6 +289,8 @@ export const vaciarDuracionAction: FixActionDefinition<VaciarDuracionParams> = {
     };
   },
   async apply(context, finding, params) {
+    const current = await context.client.query<{ duration_seconds: number | null }>("SELECT duration_seconds FROM public.tracks WHERE id=$1 FOR UPDATE", [params.trackId]);
+    if (current.rows[0]?.duration_seconds !== 0) throw new Error("la duración actual ya no es cero");
     await withFieldJournal(context, { kind: "track", id: params.trackId, fields: ["duration_seconds"] }, async () => {
       await updateEntity(context, "track", params.trackId, { duration_seconds: null });
     });
@@ -361,6 +364,7 @@ export const corregirUnidadesAction: FixActionDefinition<CorregirUnidadesParams>
 const renumerarParamsSchema = z.object({
   albumId: z.number().int().positive(),
   discNumber: z.number().int().positive(),
+  editorialBasis: z.string().trim().min(12),
 }).strict();
 
 export type RenumerarParams = z.infer<typeof renumerarParamsSchema>;
@@ -368,10 +372,11 @@ export type RenumerarParams = z.infer<typeof renumerarParamsSchema>;
 export const renumerarConsecutivoAction: FixActionDefinition<RenumerarParams> = {
   key: "renumerar_consecutivo",
   label: "Renumerar pistas consecutivamente",
-  description: "Renumera las pistas de la cara/disco de 1 a N en dos fases (+1000 y asignación final) respetando tracks_position_uk.",
+  description: "Renumera el soporte de 1 a N con motivo editorial explícito; un hueco puede representar una pista ausente.",
   level: 1,
   inverse: "field_restore",
   paramsSchema: renumerarParamsSchema,
+  editorialInputs: [{ key: "editorialBasis", label: "Respaldo o motivo editorial", type: "text", explanation: "Explica por qué esta edición debe usar posiciones consecutivas y por qué el hueco no es una pista ausente." }],
   appliesTo(finding) {
     return finding.detector === "numeracion_con_huecos" && finding.entity.kind === "album" && finding.entity.id !== null;
   },
@@ -379,11 +384,10 @@ export const renumerarConsecutivoAction: FixActionDefinition<RenumerarParams> = 
     return 1;
   },
   async defaultParams(finding) {
-    if (finding.entity.id === null) return null;
-    const discNumber = typeof finding.evidence["disc"] === "number" ? finding.evidence["disc"] : 1;
-    return { albumId: finding.entity.id, discNumber };
+    return finding.entity.id === null ? null : { albumId: finding.entity.id, discNumber: typeof finding.evidence["disc"] === "number" ? finding.evidence["disc"] : 1, editorialBasis: "" };
   },
   async preconditions(finding, params, ctx) {
+    if (params.editorialBasis.trim().length < 12) return [{ key: "editorial", ok: false, code: "invalid", message: "un hueco no demuestra numeración incorrecta; indica respaldo o motivo editorial" }];
     const { rows } = await ctx.client.query<{ id: number; track_number: number }>(
       "SELECT id, track_number FROM public.tracks WHERE album_id=$1 AND disc_number=$2 ORDER BY track_number",
       [params.albumId, params.discNumber],
@@ -413,22 +417,17 @@ export const renumerarConsecutivoAction: FixActionDefinition<RenumerarParams> = 
     };
   },
   async apply(context, finding, params) {
+    requireEditorialBasis(params.editorialBasis);
     const client = context.client;
-    // Fase 1: Desplazamiento temporal +1000 (evita colisiones con tracks_position_uk y respeta track_number > 0)
-    await client.query(
-      "UPDATE public.tracks SET track_number = track_number + 1000 WHERE album_id=$1 AND disc_number=$2",
-      [params.albumId, params.discNumber],
-    );
-    // Fase 2: Asignación final ordenada por el número previo
-    const { rows } = await client.query<{ id: number; track_number: number }>(
-      "SELECT id, track_number FROM public.tracks WHERE album_id=$1 AND disc_number=$2 ORDER BY track_number",
-      [params.albumId, params.discNumber],
-    );
-    for (let i = 0; i < rows.length; i += 1) {
-      await client.query(
-        "UPDATE public.tracks SET track_number = $1 WHERE id = $2",
-        [i + 1, rows[i]!.id],
-      );
+    const { rows } = await client.query<{ id: string; track_number: number }>(
+      "SELECT id::text, track_number FROM public.tracks WHERE album_id=$1 AND disc_number=$2 ORDER BY track_number FOR UPDATE",
+      [params.albumId, params.discNumber]);
+    const offset = Math.max(0, ...rows.map((row) => row.track_number)) + rows.length;
+    if (offset * 2 > 2_147_483_647) throw new Error("numeración demasiado grande para reservar posiciones temporales");
+    await client.query("UPDATE public.tracks SET track_number=track_number+$3 WHERE album_id=$1 AND disc_number=$2", [params.albumId, params.discNumber, offset]);
+    for (const [index, row] of rows.entries()) {
+      await withFieldJournal(context, { kind: "track", id: Number(row.id), fields: ["track_number"] },
+        () => updateEntity(context, "track", Number(row.id), { track_number: index + 1 }));
     }
     return { after: { renumberedCount: rows.length } };
   },
@@ -1273,6 +1272,7 @@ export const retirarConCreditosAction: FixActionDefinition<RetirarConCreditosPar
 const retirarHuerfanaParamsSchema = z.object({
   kind: z.enum(["person", "organization", "artist"]),
   id: z.number().int().positive(),
+  editorialBasis: z.string().trim().min(12),
 }).strict();
 
 export type RetirarHuerfanaParams = z.infer<typeof retirarHuerfanaParamsSchema>;
@@ -1280,22 +1280,22 @@ export type RetirarHuerfanaParams = z.infer<typeof retirarHuerfanaParamsSchema>;
 export const retirarHuerfanaAction: FixActionDefinition<RetirarHuerfanaParams> = {
   key: "retirar_huerfana",
   label: "Retirar ficha huérfana",
-  description: "Comprueba que la ficha tenga efectivamente cero vínculos en el catálogo y la elimina de forma auditada.",
-  level: 0,
+  description: "Retira una ficha sin dependientes con motivo editorial explícito. Carecer de vínculos no demuestra identidad inválida.",
+  level: 2,
   inverse: "entity_restore",
   paramsSchema: retirarHuerfanaParamsSchema,
+  editorialInputs: [{ key: "editorialBasis", label: "Motivo del retiro", type: "text", explanation: "Explica por qué debe retirarse esta identidad. Carecer de vínculos no basta." }],
   appliesTo(finding) {
     return finding.detector === "fichas_sin_vinculos" && (finding.entity.kind === "person" || finding.entity.kind === "organization" || finding.entity.kind === "artist") && finding.entity.id !== null;
   },
   levelFor() {
-    return 0;
+    return 2;
   },
   async defaultParams(finding) {
-    if (finding.entity.id === null) return null;
-    const kind = finding.entity.kind as "person" | "organization" | "artist";
-    return { kind, id: finding.entity.id };
+    return finding.entity.id === null ? null : { kind: finding.entity.kind as RetirarHuerfanaParams["kind"], id: finding.entity.id, editorialBasis: "" };
   },
   async preconditions(finding, params, ctx) {
+    if (params.editorialBasis.trim().length < 12) return [{ key: "editorial", ok: false, code: "invalid", message: "la falta de vínculos no demuestra identidad inválida; indica un motivo editorial" }];
     const table = ENTITY_SPECS[params.kind].table;
     const exists = (await ctx.client.query(`SELECT 1 FROM ${table} WHERE id=$1`, [params.id])).rowCount;
     if (!exists) return [{ key: "exists", ok: false, code: "not_found", message: `${params.kind} ${params.id} inexistente` }];
@@ -1347,6 +1347,7 @@ export const retirarHuerfanaAction: FixActionDefinition<RetirarHuerfanaParams> =
     };
   },
   async apply(context, finding, params) {
+    requireEditorialBasis(params.editorialBasis);
     const removal = await deleteEntity(context, params.kind, params.id);
     return { after: { retiredId: removal.id } };
   },

@@ -1,0 +1,56 @@
+{
+  "cases": [
+    {
+      "id": 6912,
+      "name": "Jeremías",
+      "error": "El contexto excede el presupuesto. Selecciona un disco o una tarea más concreta.",
+      "ms": 137
+    },
+    {
+      "id": 1681,
+      "name": "Apache",
+      "ms": 38,
+      "chars": 36969,
+      "evidence": 6,
+      "reportPending": 31,
+      "withEvidence": 5,
+      "withoutEvidence": 26,
+      "contextReduced": true,
+      "reportCreated": "2026-10-10T01:52:42.846Z"
+    },
+    {
+      "id": 1212,
+      "name": "La Banana Voladora",
+      "ms": 44,
+      "chars": 37770,
+      "evidence": 1,
+      "reportPending": 27,
+      "withEvidence": 1,
+      "withoutEvidence": 26,
+      "contextReduced": true,
+      "reportCreated": "2026-10-10T03:05:28.835Z"
+    },
+    {
+      "id": 58,
+      "name": "Caramelos de Cianuro",
+      "ms": 82,
+      "chars": 33894,
+      "evidence": 1,
+      "reportPending": 55,
+      "withEvidence": 1,
+      "withoutEvidence": 54,
+      "contextReduced": true,
+      "reportCreated": "2026-10-08T03:01:04.259Z"
+    }
+  ],
+  "evidenceGate": [
+    {
+      "case": "Album title documented but invented year, cover and track",
+      "passesRelevance": true
+    },
+    {
+      "case": "Biography with one documented token but invented historical claims",
+      "passesRelevance": true
+    }
+  ]
+}

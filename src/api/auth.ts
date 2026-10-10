@@ -45,6 +45,15 @@ const READ_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
  * rastro del operador (merge_audit y sus runs), que solo ve la administración.
  */
 const ADMIN_READS = [
+  /^\/catalog-links(\/|$)/u,
+  /^\/discovery\/metrics(\/|$)/u,
+  /^\/discovery\/contexts(\/|$)/u,
+  /^\/discovery\/recommendations(\/|$)/u,
+  /^\/sources(\/|$)/u,
+  /^\/claims(\/|$)/u,
+  /^\/credit-sources(\/|$)/u,
+  /^\/persons\/(?:\d+\/)?identity-research(\/|$)/u,
+  /^\/entity-verification(\/|$)/u,
   /^\/review-queue(\/|$)/u,
   /^\/persons\/duplicate-candidates$/u,
   /^\/curation(\/|$)/u,
@@ -316,11 +325,13 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
     return undefined;
   };
 
-  app.addHook("onRequest", async (request) => {
+  app.addHook("onRequest", async (request, reply) => {
     const path = request.url.split("?", 1)[0]!;
     const isRead = READ_METHODS.has(request.method);
-    if (path === "/auth/login" || (isRead && !ADMIN_READS.some((pattern) => pattern.test(path)))) {
-      if (isRead && path !== "/auth/login") {
+    const isMetricEvent = request.method === "POST" && path === "/discovery/metrics/events";
+    if (isMetricEvent) assertTrustedOrigin(request);
+    if (isMetricEvent || path === "/auth/login" || (isRead && !ADMIN_READS.some((pattern) => pattern.test(path)))) {
+      if ((isRead || isMetricEvent) && path !== "/auth/login") {
         // Lectura pública: nunca falla por la sesión. Si herra no responde,
         // se lee como visitante.
         try {
@@ -332,6 +343,8 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
       }
       return;
     }
+    // Las respuestas privadas tampoco deben quedar en cachés compartidas.
+    reply.header("cache-control", "no-store");
     if (!isRead) assertTrustedOrigin(request);
 
     const session = activeSession(request)?.value;

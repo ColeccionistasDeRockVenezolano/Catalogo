@@ -1,0 +1,15 @@
+{
+  "capturedAt": "2026-10-10T13:12:59.393760+00:00",
+  "base": "http://127.0.0.1:3120/crv/",
+  "htmlSha256": "d1abb80dbe5fa5e3b32245c9680e0943c4c232a553f5f3b4baeae3f8f37f2b43",
+  "assets": {
+    "/crv/assets/index-DMxVaf6k.js": {
+      "sha256": "47347805407951c137e7200dfea0afe60d60c58640067780a0989f90a21cc214",
+      "bytes": 283722
+    },
+    "/crv/assets/index-BRrO8HDA.css": {
+      "sha256": "d64b820ec7f51562fc9f40ee444d84dc9eef134a1bd603407a5d00d2566175cd",
+      "bytes": 114504
+    }
+  }
+}

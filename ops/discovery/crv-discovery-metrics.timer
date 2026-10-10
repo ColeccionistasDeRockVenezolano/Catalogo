@@ -1,0 +1,11 @@
+[Unit]
+Description=CRV - actualización horaria de métricas
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+RandomizedDelaySec=60
+Unit=crv-discovery-metrics.service
+
+[Install]
+WantedBy=timers.target

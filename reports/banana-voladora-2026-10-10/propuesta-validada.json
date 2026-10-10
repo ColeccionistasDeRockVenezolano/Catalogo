@@ -1,0 +1,1687 @@
+{
+  "id": 5,
+  "entityKind": "artist",
+  "entityId": 1212,
+  "instruction": "Revisa los datos incoherentes, faltantes o con respaldo parcial. Propón solo cambios documentados; conserva como pendientes las dudas.",
+  "status": "ready",
+  "phase": "ready",
+  "revision": 5,
+  "draft": {
+    "summary": "Fusionar los duplicados de los discos de 1994 y 1997, conservando pistas, créditos, portadas y enlaces. Limpiar los roles repetidos de Enrique Figueredo y Humberto Meza conservando todos sus instrumentos documentados en las fuentes de ambos discos.",
+    "operations": [
+      {
+        "op": "merge_entities",
+        "key": "merge_211_3826",
+        "drop": {
+          "id": 3826,
+          "kind": "album"
+        },
+        "keep": {
+          "id": 211,
+          "kind": "album"
+        },
+        "label": "Fusionar ediciones 1994",
+        "reason": "Ambas fichas describen el debut de 1994 con formato CD, sello Cygnus/AVR y las mismas pistas; la 3826 conserva portada y notas de la 3413 ya fusionada. Cotejo editorial: las parejas coinciden en artista, año y repertorio de Sincopa (https://sincopa.com/rock_pop/cdinfo_rock/banana_voladora1.htm). Se conservan las pistas adicionales de la ficha principal y los créditos de ambas.",
+        "enabled": true,
+        "evidenceIds": [
+          "E1"
+        ],
+        "fieldChoices": {
+          "genre": "keep",
+          "notes": "drop",
+          "title": "keep",
+          "coverUrl": "drop",
+          "albumType": "keep",
+          "youtubeUrl": "keep",
+          "description": "keep",
+          "releaseYear": "keep",
+          "youtubeStatus": "keep"
+        }
+      },
+      {
+        "op": "merge_entities",
+        "key": "merge_212_2170",
+        "drop": {
+          "id": 2170,
+          "kind": "album"
+        },
+        "keep": {
+          "id": 212,
+          "kind": "album"
+        },
+        "label": "Fusionar ediciones 1997",
+        "reason": "Ambas fichas describen el segundo disco de 1997; la 2170 documenta sello LPM/AVR y créditos de formación. Cotejo editorial: las parejas coinciden en artista, año y repertorio de Sincopa (https://sincopa.com/rock_pop/cdinfo_rock/banana_voladora2.htm). Se conservan las pistas adicionales de la ficha principal y los créditos de ambas.",
+        "enabled": true,
+        "evidenceIds": [
+          "E1"
+        ],
+        "fieldChoices": {
+          "genre": "keep",
+          "notes": "drop",
+          "title": "keep",
+          "labelId": "drop",
+          "coverUrl": "keep",
+          "albumType": "keep",
+          "youtubeUrl": "keep",
+          "description": "keep",
+          "releaseYear": "keep",
+          "youtubeStatus": "keep"
+        }
+      },
+      {
+        "id": 424,
+        "op": "replace_relation",
+        "key": "member_424",
+        "kind": "artist_membership",
+        "label": "Corregir rol de Figueredo",
+        "reason": "Se eliminan repeticiones conservando voz, teclados y guitarra acústica documentados en 1994 y voz y teclados en 1997. Fuentes: https://sincopa.com/rock_pop/cdinfo_rock/banana_voladora1.htm y https://sincopa.com/rock_pop/cdinfo_rock/banana_voladora2.htm",
+        "values": {
+          "role": "Lead Vocals, Keyboards & Acoustic Guitar"
+        },
+        "enabled": true,
+        "evidenceIds": [
+          "E1"
+        ]
+      },
+      {
+        "id": 432,
+        "op": "replace_relation",
+        "key": "member_432",
+        "kind": "artist_membership",
+        "label": "Corregir rol de Meza",
+        "reason": "Se eliminan repeticiones conservando saxofón alto, teclados y coros documentados en 1994 y teclados en 1997. Fuentes: https://sincopa.com/rock_pop/cdinfo_rock/banana_voladora1.htm y https://sincopa.com/rock_pop/cdinfo_rock/banana_voladora2.htm",
+        "values": {
+          "role": "Alto Sax, Keyboards & Background Vocals"
+        },
+        "enabled": true,
+        "evidenceIds": [
+          "E1"
+        ]
+      }
+    ],
+    "unresolved": [
+      "Períodos (fromYear/toYear) de las membresías 426, 427, 429, 430: sin respaldo documental específico",
+      "Géneros secundarios de 1212 registrados con regla de_sus_discos sin fuente externa: ska (228) y reggae/ska documentado por vzlarockea solo como primario",
+      "Discos duplicados detectados previamente (3413 y 2160) ya fusionados; confirmar que no queden restos en otras fichas",
+      "Sello de 211/3826: Cygnus/AVR vs. Cygnus Records: discrepancia entre fuentes",
+      "Sincopa documenta 14 pistas en 1997; la ficha 212 contiene una pista adicional. La fusión conserva esa pista y deja su procedencia pendiente de revisión."
+    ]
+  },
+  "evidence": [
+    {
+      "id": "E1",
+      "url": "crv-fusion://artist/1212#1",
+      "label": "biography",
+      "quote": "[La Banda de la Banana Voladora] La Banda de la Banana Voladora es una agrupación formada en Caracas, Venezuela, en 1989. Su estilo fusiona ska con rock, jazz, reggae, blues y elementos del folklore venezolano. Surgió como una reunión de amigos que comenzó a tocar en pequeños locales caraqueños por diversión y, a partir de 1992, su concepto maduró y empezó a presentarse en la sala Cadafe y en televisión. Ese mismo año participó en el Festival Nuevas Bandas, actuación que les permitió ser solicitados en numer",
+      "origin": "ingest_claim",
+      "fetchedAt": "",
+      "contentHash": ""
+    },
+    {
+      "id": "E2",
+      "url": "https://sincopa.com/rock_pop/cdinfo_rock/banana_voladora2.htm",
+      "label": "name",
+      "quote": "La Banda de La Banana Voladora",
+      "origin": "ingest_claim",
+      "fetchedAt": "",
+      "contentHash": ""
+    },
+    {
+      "id": "E3",
+      "url": "https://rateyourmusic.com/artist/la-banda-de-la-banana-voladora",
+      "label": "name",
+      "quote": "Lista RYM: «La Banda de la Banana Voladora» aparece en 6 listas de ciudad (https://rateyourmusic.com/artist/la-banda-de-la-banana-voladora)",
+      "origin": "ingest_claim",
+      "fetchedAt": "",
+      "contentHash": ""
+    },
+    {
+      "id": "E4",
+      "url": "crv-catalogo://artist:1798",
+      "label": "biography",
+      "quote": "datos del catálogo CRV",
+      "origin": "ingest_claim",
+      "fetchedAt": "",
+      "contentHash": ""
+    },
+    {
+      "id": "E5",
+      "url": "crv-catalogo://artist:127",
+      "label": "biography",
+      "quote": "datos del catálogo CRV",
+      "origin": "ingest_claim",
+      "fetchedAt": "",
+      "contentHash": ""
+    },
+    {
+      "id": "E6",
+      "url": "crv-catalogo://artist:1212",
+      "label": "biography",
+      "quote": "datos del catálogo CRV",
+      "origin": "ingest_claim",
+      "fetchedAt": "",
+      "contentHash": ""
+    }
+  ],
+  "reviewedKeys": [
+    "merge_211_3826",
+    "merge_212_2170",
+    "member_424",
+    "member_432"
+  ],
+  "preview": {
+    "hash": "874ddb01226cb3b03a3dee42e96514c28cd5da742d3653182380ae24c80cc305",
+    "items": [
+      {
+        "op": "merge_entities",
+        "key": "merge_211_3826",
+        "after": {
+          "runId": 18941,
+          "dropId": 3826,
+          "keepId": 211,
+          "auditId": 853889,
+          "tracksMoved": 0,
+          "tracksMerged": 18,
+          "creditsMerged": 16,
+          "formatsMerged": 0,
+          "fieldsCorrected": []
+        },
+        "error": null,
+        "label": "Fusionar ediciones 1994",
+        "before": {
+          "drop": {
+            "id": 3826,
+            "title": "La Banana Voladora",
+            "counts": {
+              "claims": 29,
+              "tracks": 18,
+              "formats": 0,
+              "mediaLinks": 0,
+              "albumCredits": 28
+            },
+            "fields": {
+              "genre": "Rock",
+              "notes": "Fuera del canal de YouTube; fuente: https://sincopa.com/rock_pop/artist_rock/banana_voladora.htm\n\nNotas de «La Banana Voladora»: Fuera del canal de YouTube; fuente: https://sincopa.com/rock_pop/cdinfo_rock/banana_voladora2.htm\nAl fusionar «La Banana Voladora» (#3413, 2026-10-04) quedó fuera — Portada: «/crv/media/album/3413.jpg».\n\nNotas de «La Banda de la Banana Voladora»: Fuera del canal de YouTube; fuente: https://rockzuela.blogspot.com/2008/06/la-banda-de-la-banana-voladora-1994.html\nAl fusionar «La Banda de la Banana Voladora» (#2160, 2026-10-04) quedó fuera — Portada: «/crv/media/album/2160.jpg».",
+              "label_id": null,
+              "cover_url": "/crv/media/album/3826.jpg",
+              "album_type": "studio_album",
+              "description": "Álbum de estudio de la banda venezolana La Banda de la Banana Voladora (también conocida como La Banana Voladora), publicado en 1994 por el sello Cygnus/AVR (otras fuentes dicen Cygnus Records) en formato CD. Es su primer álbum y único álbum del grupo, y en él confluyen el rock y el ska, con arreglos de metales y percusión; según otra versión, la música del grupo combina ska, reggae, rock, jazz y blues con elementos del folclore venezolano. Reúne dieciséis temas propios más dos pistas adicionales; entre las canciones figuran «El Circo», «Golpe de Estado», «Bailando Ska» («Bailando ska»), «Techos de cartón» («Techos de Cartón») y «Clan Venerea», y según otra versión también «El Anormal», entre otros.\n\nLa producción estuvo a cargo de Nelson Sardá y Enrique Figueredo, con Darío Peñaloza en la grabación y la ingeniería de sonido; la grabación y la mezcla se realizaron en Le Garage Studio, en Caracas. El diseño gráfico es de Enrique Figueredo y Leonardo Picó, con ilustraciones de Alejandro Lucena y fotografías de Carlos Sánchez.\n\nLa formación contó con Enrique Figueredo en voz, teclados y guitarra acústica; Aquiles Cortina en guitarra, cuatro y coros; José Antonio Bermúdez en bajo; Pablo Vencid (también citado como Pablo Bencid) en batería; Leonardo Picó en percusión y coros; Humberto Meza en saxofón alto, teclados y coros; Enzo Villaparedes en trompeta, y Guillermo Mora en saxofón tenor, además de músicos invitados.\n\nContaron además con la colaboración de Nelson Sardá, Vladimir Rivero, José León, Pedro Castillo, Guillermo Carrasco, Maribel Vila y Robzayda Marcos, entre otros invitados, junto a un grupo de coristas e instrumentistas de viento.",
+              "youtube_url": null,
+              "release_year": 1994,
+              "instagram_url": null,
+              "wordpress_url": null,
+              "youtube_status": "unknown",
+              "instagram_status": "unknown",
+              "wordpress_status": "unknown"
+            },
+            "tracks": [
+              {
+                "id": 32875,
+                "title": "Intro",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 1,
+                "durationSeconds": 34
+              },
+              {
+                "id": 32879,
+                "title": "El Circo",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 2,
+                "durationSeconds": 114
+              },
+              {
+                "id": 32883,
+                "title": "Techos De Cartón",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 3,
+                "durationSeconds": 325
+              },
+              {
+                "id": 32889,
+                "title": "El Anormal",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 4,
+                "durationSeconds": 144
+              },
+              {
+                "id": 32893,
+                "title": "Arrebátate",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 5,
+                "durationSeconds": 293
+              },
+              {
+                "id": 32897,
+                "title": "Golpe De Estado",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 6,
+                "durationSeconds": 132
+              },
+              {
+                "id": 32903,
+                "title": "El Hombre De La Carcajada Mágica",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 7,
+                "durationSeconds": 313
+              },
+              {
+                "id": 32907,
+                "title": "Tomate",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 8,
+                "durationSeconds": 208
+              },
+              {
+                "id": 32912,
+                "title": "No Puedo Dar",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 9,
+                "durationSeconds": 259
+              },
+              {
+                "id": 32918,
+                "title": "Larry's Ska",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 10,
+                "durationSeconds": 213
+              },
+              {
+                "id": 32923,
+                "title": "Beto",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 11,
+                "durationSeconds": 247
+              },
+              {
+                "id": 32928,
+                "title": "La Pereztorta",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 12,
+                "durationSeconds": 325
+              },
+              {
+                "id": 32933,
+                "title": "Las Hormiguitas",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 13,
+                "durationSeconds": 194
+              },
+              {
+                "id": 32938,
+                "title": "Bailando Ska",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 14,
+                "durationSeconds": 226
+              },
+              {
+                "id": 32942,
+                "title": "Clan Venerea",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 15,
+                "durationSeconds": 209
+              },
+              {
+                "id": 32948,
+                "title": "La Torre",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 16,
+                "durationSeconds": 274
+              },
+              {
+                "id": 32953,
+                "title": "Bonus Track",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 17,
+                "durationSeconds": 61
+              },
+              {
+                "id": 32958,
+                "title": "Bonus Track",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 18,
+                "durationSeconds": 133
+              }
+            ],
+            "aliases": [
+              "La Banda de la Banana Voladora"
+            ],
+            "labelId": null,
+            "artistId": 1212,
+            "labelName": null,
+            "artistName": "La Banda de la Banana Voladora"
+          },
+          "keep": {
+            "id": 211,
+            "title": "La Banana Voladora",
+            "counts": {
+              "claims": 16,
+              "tracks": 18,
+              "formats": 0,
+              "mediaLinks": 1,
+              "albumCredits": 27
+            },
+            "fields": {
+              "genre": "Ska",
+              "notes": null,
+              "label_id": null,
+              "cover_url": null,
+              "album_type": "studio_album",
+              "description": "La Banana Voladora es el álbum debut de estudio de la banda homónima, publicado en 1994; incluye una versión del tema \"Techos De Cartón\" de Alí Primera junto con adaptaciones instrumentales de \"Super Agente 86\" y \"Peter Gunn\".\n\nFue producido por Nelson Sardá, con la coproducción de Enrique Figueredo y Leonardo Picó y la producción ejecutiva de Juan Carlos Pérez Ozaeta, y grabado y mezclado por Darío Peñaloza y Sardá en Le Garage Studio, Caracas. Contó con la participación como invitado del actor y comediante Emilio Lovera en caracterizaciones vocales.",
+              "youtube_url": "https://www.youtube.com/watch?v=haCaGYvBMyQ",
+              "release_year": 1994,
+              "instagram_url": null,
+              "wordpress_url": null,
+              "youtube_status": "published",
+              "instagram_status": "unknown",
+              "wordpress_status": "unknown"
+            },
+            "tracks": [
+              {
+                "id": 4794,
+                "title": "Intro",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 1,
+                "durationSeconds": 34
+              },
+              {
+                "id": 4801,
+                "title": "El Circo",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 2,
+                "durationSeconds": 115
+              },
+              {
+                "id": 4807,
+                "title": "Techos De Cartón",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 3,
+                "durationSeconds": 325
+              },
+              {
+                "id": 4813,
+                "title": "El Anormal",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 4,
+                "durationSeconds": 145
+              },
+              {
+                "id": 4819,
+                "title": "Arrebátate",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 5,
+                "durationSeconds": 293
+              },
+              {
+                "id": 4824,
+                "title": "Golpe De Estado",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 6,
+                "durationSeconds": 132
+              },
+              {
+                "id": 4830,
+                "title": "El Hombre De La Carcajada Mágica",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 7,
+                "durationSeconds": 314
+              },
+              {
+                "id": 4835,
+                "title": "Tomate",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 8,
+                "durationSeconds": 208
+              },
+              {
+                "id": 4842,
+                "title": "No Puedo Dar",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 9,
+                "durationSeconds": 259
+              },
+              {
+                "id": 4846,
+                "title": "Larry's Ska",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 10,
+                "durationSeconds": 214
+              },
+              {
+                "id": 4852,
+                "title": "Beto",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 11,
+                "durationSeconds": 248
+              },
+              {
+                "id": 4858,
+                "title": "La Pereztorta",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 12,
+                "durationSeconds": 325
+              },
+              {
+                "id": 4864,
+                "title": "Las Hormiguitas",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 13,
+                "durationSeconds": 195
+              },
+              {
+                "id": 4871,
+                "title": "Bailando Ska",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 14,
+                "durationSeconds": 227
+              },
+              {
+                "id": 4876,
+                "title": "Clan Venerea",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 15,
+                "durationSeconds": 209
+              },
+              {
+                "id": 4882,
+                "title": "La Torre",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 16,
+                "durationSeconds": 274
+              },
+              {
+                "id": 6822,
+                "title": "Bonus Track",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 17,
+                "durationSeconds": 61
+              },
+              {
+                "id": 4888,
+                "title": "Bonus Track",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 18,
+                "durationSeconds": 135
+              }
+            ],
+            "aliases": [
+              "La Banana Voladora"
+            ],
+            "labelId": null,
+            "artistId": 1212,
+            "labelName": null,
+            "artistName": "La Banda de la Banana Voladora"
+          },
+          "warnings": [],
+          "previewHash": "1181669f456032e3801f522ed3a537be70e98c50f4f4e94ebfe02f2afa222fcf",
+          "formatsToAdd": [],
+          "matchedTracks": [
+            {
+              "dropTitle": "Intro",
+              "keepTitle": "Intro",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32875,
+              "keepTrackId": 4794,
+              "dropTrackNumber": 1,
+              "keepTrackNumber": 1
+            },
+            {
+              "dropTitle": "El Circo",
+              "keepTitle": "El Circo",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32879,
+              "keepTrackId": 4801,
+              "dropTrackNumber": 2,
+              "keepTrackNumber": 2
+            },
+            {
+              "dropTitle": "Techos De Cartón",
+              "keepTitle": "Techos De Cartón",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32883,
+              "keepTrackId": 4807,
+              "dropTrackNumber": 3,
+              "keepTrackNumber": 3
+            },
+            {
+              "dropTitle": "El Anormal",
+              "keepTitle": "El Anormal",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32889,
+              "keepTrackId": 4813,
+              "dropTrackNumber": 4,
+              "keepTrackNumber": 4
+            },
+            {
+              "dropTitle": "Arrebátate",
+              "keepTitle": "Arrebátate",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32893,
+              "keepTrackId": 4819,
+              "dropTrackNumber": 5,
+              "keepTrackNumber": 5
+            },
+            {
+              "dropTitle": "Golpe De Estado",
+              "keepTitle": "Golpe De Estado",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32897,
+              "keepTrackId": 4824,
+              "dropTrackNumber": 6,
+              "keepTrackNumber": 6
+            },
+            {
+              "dropTitle": "El Hombre De La Carcajada Mágica",
+              "keepTitle": "El Hombre De La Carcajada Mágica",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32903,
+              "keepTrackId": 4830,
+              "dropTrackNumber": 7,
+              "keepTrackNumber": 7
+            },
+            {
+              "dropTitle": "Tomate",
+              "keepTitle": "Tomate",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32907,
+              "keepTrackId": 4835,
+              "dropTrackNumber": 8,
+              "keepTrackNumber": 8
+            },
+            {
+              "dropTitle": "No Puedo Dar",
+              "keepTitle": "No Puedo Dar",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32912,
+              "keepTrackId": 4842,
+              "dropTrackNumber": 9,
+              "keepTrackNumber": 9
+            },
+            {
+              "dropTitle": "Larry's Ska",
+              "keepTitle": "Larry's Ska",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32918,
+              "keepTrackId": 4846,
+              "dropTrackNumber": 10,
+              "keepTrackNumber": 10
+            },
+            {
+              "dropTitle": "Beto",
+              "keepTitle": "Beto",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32923,
+              "keepTrackId": 4852,
+              "dropTrackNumber": 11,
+              "keepTrackNumber": 11
+            },
+            {
+              "dropTitle": "La Pereztorta",
+              "keepTitle": "La Pereztorta",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32928,
+              "keepTrackId": 4858,
+              "dropTrackNumber": 12,
+              "keepTrackNumber": 12
+            },
+            {
+              "dropTitle": "Las Hormiguitas",
+              "keepTitle": "Las Hormiguitas",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32933,
+              "keepTrackId": 4864,
+              "dropTrackNumber": 13,
+              "keepTrackNumber": 13
+            },
+            {
+              "dropTitle": "Bailando Ska",
+              "keepTitle": "Bailando Ska",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32938,
+              "keepTrackId": 4871,
+              "dropTrackNumber": 14,
+              "keepTrackNumber": 14
+            },
+            {
+              "dropTitle": "Clan Venerea",
+              "keepTitle": "Clan Venerea",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32942,
+              "keepTrackId": 4876,
+              "dropTrackNumber": 15,
+              "keepTrackNumber": 15
+            },
+            {
+              "dropTitle": "La Torre",
+              "keepTitle": "La Torre",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32948,
+              "keepTrackId": 4882,
+              "dropTrackNumber": 16,
+              "keepTrackNumber": 16
+            },
+            {
+              "dropTitle": "Bonus Track",
+              "keepTitle": "Bonus Track",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32953,
+              "keepTrackId": 6822,
+              "dropTrackNumber": 17,
+              "keepTrackNumber": 17
+            },
+            {
+              "dropTitle": "Bonus Track",
+              "keepTitle": "Bonus Track",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 32958,
+              "keepTrackId": 4888,
+              "dropTrackNumber": 18,
+              "keepTrackNumber": 18
+            }
+          ],
+          "sharedCredits": [
+            {
+              "id": 14797,
+              "role": "Alto Sax, Keyboards & Background Vocals",
+              "creditType": "musician",
+              "targetName": "Humberto Meza"
+            },
+            {
+              "id": 17273,
+              "role": "Background Vocals",
+              "creditType": "musician",
+              "targetName": "Guillermo Carrasco"
+            },
+            {
+              "id": 8023,
+              "role": "Background Vocals",
+              "creditType": "musician",
+              "targetName": "Robzayda Marcos"
+            },
+            {
+              "id": 17272,
+              "role": "Background Vocals",
+              "creditType": "musician",
+              "targetName": "Maribel Vila"
+            },
+            {
+              "id": 17271,
+              "role": "Background Vocals",
+              "creditType": "musician",
+              "targetName": "Pedro Castillo"
+            },
+            {
+              "id": 14796,
+              "role": "Bass",
+              "creditType": "musician",
+              "targetName": "José Antonio Bermúdez"
+            },
+            {
+              "id": 14801,
+              "role": "Bongos",
+              "creditType": "musician",
+              "targetName": "Vladimir Rivero"
+            },
+            {
+              "id": 14802,
+              "role": "Drums",
+              "creditType": "musician",
+              "targetName": "Pablo Vencid"
+            },
+            {
+              "id": 14795,
+              "role": "Guitar, Cuatro & Background Vocals",
+              "creditType": "musician",
+              "targetName": "Aquiles Cortina"
+            },
+            {
+              "id": 14799,
+              "role": "Percussion & Background Vocals",
+              "creditType": "musician",
+              "targetName": "Leonardo Picó"
+            },
+            {
+              "id": 8123,
+              "role": "Tenor Sax",
+              "creditType": "musician",
+              "targetName": "Guillermo Mora"
+            },
+            {
+              "id": 14804,
+              "role": "Trombone",
+              "creditType": "musician",
+              "targetName": "José León"
+            },
+            {
+              "id": 14798,
+              "role": "Trumpet",
+              "creditType": "musician",
+              "targetName": "Enzo Villaparedes"
+            },
+            {
+              "id": 8032,
+              "role": "Vocal characterizations",
+              "creditType": "musician",
+              "targetName": "Emilio Lovera"
+            },
+            {
+              "id": 14794,
+              "role": "Vocals, Keyboards & Acoustic Guitar",
+              "creditType": "musician",
+              "targetName": "Enrique Figueredo"
+            },
+            {
+              "id": 8052,
+              "role": "Co-Produced by",
+              "creditType": "producer",
+              "targetName": "Enrique Figueredo"
+            },
+            {
+              "id": 8054,
+              "role": "Co-Produced by",
+              "creditType": "producer",
+              "targetName": "Leonardo Picó"
+            },
+            {
+              "id": 8055,
+              "role": "Executive Production",
+              "creditType": "producer",
+              "targetName": "Juan Carlos Pérez Ozaeta"
+            },
+            {
+              "id": 8040,
+              "role": "Produced by",
+              "creditType": "producer",
+              "targetName": "Nelson Sardá"
+            },
+            {
+              "id": 8056,
+              "role": "Recorded by",
+              "creditType": "recording",
+              "targetName": "Darío Peñaloza"
+            },
+            {
+              "id": 8058,
+              "role": "Mixed by",
+              "creditType": "mixing",
+              "targetName": "Darío Peñaloza"
+            },
+            {
+              "id": 8057,
+              "role": "Mixed by",
+              "creditType": "mixing",
+              "targetName": "Nelson Sardá"
+            },
+            {
+              "id": 8064,
+              "role": "Recorded & Mixed at",
+              "creditType": "mixing",
+              "targetName": "Le Garage Studio"
+            },
+            {
+              "id": 8071,
+              "role": "Photos",
+              "creditType": "photography",
+              "targetName": "Carlos Sánchez"
+            },
+            {
+              "id": 8068,
+              "role": "Graphic Design",
+              "creditType": "artwork",
+              "targetName": "Leonardo Picó"
+            },
+            {
+              "id": 8066,
+              "role": "Graphic Design",
+              "creditType": "artwork",
+              "targetName": "Enrique Figueredo"
+            },
+            {
+              "id": 8074,
+              "role": "Illustrations",
+              "creditType": "artwork",
+              "targetName": "Alejandro Lucena"
+            },
+            {
+              "id": 14800,
+              "role": "(De Todo un Poco)",
+              "creditType": "other",
+              "targetName": "Nelson Sardá"
+            }
+          ],
+          "fieldConflicts": [
+            {
+              "field": "description",
+              "dropValue": "Álbum de estudio de la banda venezolana La Banda de la Banana Voladora (también conocida como La Banana Voladora), publicado en 1994 por el sello Cygnus/AVR (otras fuentes dicen Cygnus Records) en formato CD. Es su primer álbum y único álbum del grupo, y en él confluyen el rock y el ska, con arreglos de metales y percusión; según otra versión, la música del grupo combina ska, reggae, rock, jazz y blues con elementos del folclore venezolano. Reúne dieciséis temas propios más dos pistas adicionales; entre las canciones figuran «El Circo», «Golpe de Estado», «Bailando Ska» («Bailando ska»), «Techos de cartón» («Techos de Cartón») y «Clan Venerea», y según otra versión también «El Anormal», entre otros.\n\nLa producción estuvo a cargo de Nelson Sardá y Enrique Figueredo, con Darío Peñaloza en la grabación y la ingeniería de sonido; la grabación y la mezcla se realizaron en Le Garage Studio, en Caracas. El diseño gráfico es de Enrique Figueredo y Leonardo Picó, con ilustraciones de Alejandro Lucena y fotografías de Carlos Sánchez.\n\nLa formación contó con Enrique Figueredo en voz, teclados y guitarra acústica; Aquiles Cortina en guitarra, cuatro y coros; José Antonio Bermúdez en bajo; Pablo Vencid (también citado como Pablo Bencid) en batería; Leonardo Picó en percusión y coros; Humberto Meza en saxofón alto, teclados y coros; Enzo Villaparedes en trompeta, y Guillermo Mora en saxofón tenor, además de músicos invitados.\n\nContaron además con la colaboración de Nelson Sardá, Vladimir Rivero, José León, Pedro Castillo, Guillermo Carrasco, Maribel Vila y Robzayda Marcos, entre otros invitados, junto a un grupo de coristas e instrumentistas de viento.",
+              "keepValue": "La Banana Voladora es el álbum debut de estudio de la banda homónima, publicado en 1994; incluye una versión del tema \"Techos De Cartón\" de Alí Primera junto con adaptaciones instrumentales de \"Super Agente 86\" y \"Peter Gunn\".\n\nFue producido por Nelson Sardá, con la coproducción de Enrique Figueredo y Leonardo Picó y la producción ejecutiva de Juan Carlos Pérez Ozaeta, y grabado y mezclado por Darío Peñaloza y Sardá en Le Garage Studio, Caracas. Contó con la participación como invitado del actor y comediante Emilio Lovera en caracterizaciones vocales."
+            },
+            {
+              "field": "youtube_status",
+              "dropValue": "unknown",
+              "keepValue": "published"
+            }
+          ],
+          "recommendedKeepId": 211,
+          "unmatchedDropTracks": [],
+          "fieldsFilledFromDrop": [
+            "cover_url",
+            "notes"
+          ]
+        },
+        "warnings": []
+      },
+      {
+        "op": "merge_entities",
+        "key": "merge_212_2170",
+        "after": {
+          "runId": 18941,
+          "dropId": 2170,
+          "keepId": 212,
+          "auditId": 853920,
+          "tracksMoved": 0,
+          "tracksMerged": 14,
+          "creditsMerged": 20,
+          "formatsMerged": 0,
+          "fieldsCorrected": []
+        },
+        "error": null,
+        "label": "Fusionar ediciones 1997",
+        "before": {
+          "drop": {
+            "id": 2170,
+            "title": "Tan Solo una Sonrisa",
+            "counts": {
+              "claims": 31,
+              "tracks": 14,
+              "formats": 0,
+              "mediaLinks": 0,
+              "albumCredits": 26
+            },
+            "fields": {
+              "genre": "Rock",
+              "notes": "Fuera del canal de YouTube; fuente: https://rockzuela.blogspot.com/2008/06/la-banda-de-la-banana-voladora-tan-solo.html",
+              "label_id": 2381,
+              "cover_url": "/crv/media/album/2170.jpg",
+              "album_type": "studio_album",
+              "description": "Tan Solo una Sonrisa es el segundo y último disco de estudio de La Banda de la Banana Voladora, publicado en 1997 por el sello LPM / AVR. Es un álbum de rock y ska que reúne catorce temas, entre ellos «Banana Blues», «Soul Shakedown Party» (versión de Bob Marley) y la canción que da título al disco, «Tan Solo una Sonrisa».\n\nLa banda, formada en Caracas en 1989, grabó el disco con una formación integrada por Enrique Figueredo en voz y teclados, Francisco Villanueva en guitarra y coros, José Antonio Bermúdez en bajo y voz, Javier Del Castillo en batería, Alejandro Carrizales en percusión, Daniel Rouleau en saxofón alto y flauta, Leonardo Picó y Frederich Gómez en trompeta, Guillermo Mora en saxofón tenor y Humberto Meza en teclados, con Julieta Carbonell en coros. Contaron además con la participación de músicos invitados como Rubén Pino, Diana Meza, Juan Francisco Manrique, Leo Alvarez, Jesús Pieters, Gilberto Simoza, Jorge Montenegro y Nelson Sardá.\n\nEl álbum fue producido por Nelson Sardá y la propia banda, con producción ejecutiva de Juan Carlos Pérez Ozaeta y coordinación de Leonardo Picó. Se grabó y mezcló en los Estudios Sardá de Caracas, bajo la ingeniería de Nelson Sardá, con mezcla adicional de José Antonio Bermúdez, y fue masterizado por Jesús Jiménez en Sonic Solutions, también en Caracas.",
+              "youtube_url": null,
+              "release_year": 1997,
+              "instagram_url": null,
+              "wordpress_url": null,
+              "youtube_status": "unknown",
+              "instagram_status": "unknown",
+              "wordpress_status": "unknown"
+            },
+            "tracks": [
+              {
+                "id": 16342,
+                "title": "Banana Blues",
+                "discNumber": 1,
+                "creditCount": 2,
+                "trackNumber": 1,
+                "durationSeconds": 296
+              },
+              {
+                "id": 16345,
+                "title": "El Rancho",
+                "discNumber": 1,
+                "creditCount": 2,
+                "trackNumber": 2,
+                "durationSeconds": 228
+              },
+              {
+                "id": 16346,
+                "title": "Salir A Volar",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 3,
+                "durationSeconds": 163
+              },
+              {
+                "id": 16341,
+                "title": "Sin Vanidad",
+                "discNumber": 1,
+                "creditCount": 2,
+                "trackNumber": 4,
+                "durationSeconds": 248
+              },
+              {
+                "id": 16343,
+                "title": "Soul Shakedown Party",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 5,
+                "durationSeconds": 206
+              },
+              {
+                "id": 16348,
+                "title": "Tan Solo Una Sonrisa",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 6,
+                "durationSeconds": 313
+              },
+              {
+                "id": 16347,
+                "title": "Vivir En Jamaica",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 7,
+                "durationSeconds": 288
+              },
+              {
+                "id": 16340,
+                "title": "La Temperatura Del Planeta",
+                "discNumber": 1,
+                "creditCount": 2,
+                "trackNumber": 8,
+                "durationSeconds": 156
+              },
+              {
+                "id": 16352,
+                "title": "Go Go Banana",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 9,
+                "durationSeconds": 190
+              },
+              {
+                "id": 16349,
+                "title": "Ya No Aguanto Más (Mayó-Guayó)",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 10,
+                "durationSeconds": 187
+              },
+              {
+                "id": 16354,
+                "title": "Habló La Luna",
+                "discNumber": 1,
+                "creditCount": 3,
+                "trackNumber": 11,
+                "durationSeconds": 167
+              },
+              {
+                "id": 16350,
+                "title": "No Me Alcanzara La Vida",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 12,
+                "durationSeconds": 234
+              },
+              {
+                "id": 16351,
+                "title": "Los Niños Perdidos",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 13,
+                "durationSeconds": 280
+              },
+              {
+                "id": 16353,
+                "title": "Joropín (A Vytas)",
+                "discNumber": 1,
+                "creditCount": 5,
+                "trackNumber": 14,
+                "durationSeconds": 430
+              }
+            ],
+            "aliases": [
+              "Tan Solo Una Sonrisa",
+              "Tan Solo una Sonrisa"
+            ],
+            "labelId": 2381,
+            "artistId": 1212,
+            "labelName": "LPM / AVR",
+            "artistName": "La Banda de la Banana Voladora"
+          },
+          "keep": {
+            "id": 212,
+            "title": "Tan Sólo Una Sonrisa",
+            "counts": {
+              "claims": 17,
+              "tracks": 15,
+              "formats": 0,
+              "mediaLinks": 1,
+              "albumCredits": 26
+            },
+            "fields": {
+              "genre": "Reggae",
+              "notes": null,
+              "label_id": null,
+              "cover_url": "/crv/media/album/212.jpg",
+              "album_type": "studio_album",
+              "description": "Tan Sólo Una Sonrisa es el segundo álbum de estudio de La Banana Voladora, publicado en 1997, con un tema final de Don Pío Alvarado y el instrumental \"Joropín (A Vytas)\".\n\nFue producido por Nelson Sardá y B.B.V., con producción ejecutiva de Juan Carlos Pérez Ozaeta, y grabado y mezclado por Sardá —junto con José Antonio Bermúdez en la mezcla— en Estudios Sardá, Caracas; la masterización estuvo a cargo de Jesús Jiménez en Sonic Solutions, Caracas.",
+              "youtube_url": "https://www.youtube.com/watch?v=voafYNy3inA",
+              "release_year": 1997,
+              "instagram_url": null,
+              "wordpress_url": null,
+              "youtube_status": "published",
+              "instagram_status": "unknown",
+              "wordpress_status": "unknown"
+            },
+            "tracks": [
+              {
+                "id": 6138,
+                "title": "Banana Blues",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 1,
+                "durationSeconds": 296
+              },
+              {
+                "id": 6143,
+                "title": "El Rancho",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 2,
+                "durationSeconds": 229
+              },
+              {
+                "id": 6148,
+                "title": "Salir A Volar",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 3,
+                "durationSeconds": 163
+              },
+              {
+                "id": 6155,
+                "title": "Sin Vanidad",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 4,
+                "durationSeconds": 249
+              },
+              {
+                "id": 6161,
+                "title": "Soul Shakedown Party",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 5,
+                "durationSeconds": 206
+              },
+              {
+                "id": 6167,
+                "title": "Tan Sólo Una Sonrisa",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 6,
+                "durationSeconds": 313
+              },
+              {
+                "id": 6175,
+                "title": "Vivir En Jamaica",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 7,
+                "durationSeconds": 289
+              },
+              {
+                "id": 6180,
+                "title": "La Temperatura Del Planeta",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 8,
+                "durationSeconds": 156
+              },
+              {
+                "id": 6185,
+                "title": "Go Go Banana",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 9,
+                "durationSeconds": 191
+              },
+              {
+                "id": 6193,
+                "title": "Ya No Aguanto Más (Mayó-Guayó)",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 10,
+                "durationSeconds": 187
+              },
+              {
+                "id": 6199,
+                "title": "Habló La Luna",
+                "discNumber": 1,
+                "creditCount": 2,
+                "trackNumber": 11,
+                "durationSeconds": 167
+              },
+              {
+                "id": 6202,
+                "title": "No Me Alcanzará La Vida",
+                "discNumber": 1,
+                "creditCount": 1,
+                "trackNumber": 12,
+                "durationSeconds": 235
+              },
+              {
+                "id": 6208,
+                "title": "Los Niños Perdidos",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 13,
+                "durationSeconds": 280
+              },
+              {
+                "id": 6213,
+                "title": "Joropín (A Vytas)",
+                "discNumber": 1,
+                "creditCount": 3,
+                "trackNumber": 14,
+                "durationSeconds": 240
+              },
+              {
+                "id": 6219,
+                "title": "Los Deseos De Un Borracho",
+                "discNumber": 1,
+                "creditCount": 0,
+                "trackNumber": 15,
+                "durationSeconds": 192
+              }
+            ],
+            "aliases": [
+              "Tan Sólo Una Sonrisa"
+            ],
+            "labelId": null,
+            "artistId": 1212,
+            "labelName": null,
+            "artistName": "La Banda de la Banana Voladora"
+          },
+          "warnings": [
+            "Distinto número de pistas: 15 en el disco que queda, 14 en el que desaparece."
+          ],
+          "previewHash": "65c01a5ca5a5574fa3a17147fa84603a5d698a882012f79d507b732e2b7d5b2e",
+          "formatsToAdd": [],
+          "matchedTracks": [
+            {
+              "dropTitle": "Banana Blues",
+              "keepTitle": "Banana Blues",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16342,
+              "keepTrackId": 6138,
+              "dropTrackNumber": 1,
+              "keepTrackNumber": 1
+            },
+            {
+              "dropTitle": "El Rancho",
+              "keepTitle": "El Rancho",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16345,
+              "keepTrackId": 6143,
+              "dropTrackNumber": 2,
+              "keepTrackNumber": 2
+            },
+            {
+              "dropTitle": "Salir A Volar",
+              "keepTitle": "Salir A Volar",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16346,
+              "keepTrackId": 6148,
+              "dropTrackNumber": 3,
+              "keepTrackNumber": 3
+            },
+            {
+              "dropTitle": "Sin Vanidad",
+              "keepTitle": "Sin Vanidad",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16341,
+              "keepTrackId": 6155,
+              "dropTrackNumber": 4,
+              "keepTrackNumber": 4
+            },
+            {
+              "dropTitle": "Soul Shakedown Party",
+              "keepTitle": "Soul Shakedown Party",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16343,
+              "keepTrackId": 6161,
+              "dropTrackNumber": 5,
+              "keepTrackNumber": 5
+            },
+            {
+              "dropTitle": "Tan Solo Una Sonrisa",
+              "keepTitle": "Tan Sólo Una Sonrisa",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16348,
+              "keepTrackId": 6167,
+              "dropTrackNumber": 6,
+              "keepTrackNumber": 6
+            },
+            {
+              "dropTitle": "Vivir En Jamaica",
+              "keepTitle": "Vivir En Jamaica",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16347,
+              "keepTrackId": 6175,
+              "dropTrackNumber": 7,
+              "keepTrackNumber": 7
+            },
+            {
+              "dropTitle": "La Temperatura Del Planeta",
+              "keepTitle": "La Temperatura Del Planeta",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16340,
+              "keepTrackId": 6180,
+              "dropTrackNumber": 8,
+              "keepTrackNumber": 8
+            },
+            {
+              "dropTitle": "Go Go Banana",
+              "keepTitle": "Go Go Banana",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16352,
+              "keepTrackId": 6185,
+              "dropTrackNumber": 9,
+              "keepTrackNumber": 9
+            },
+            {
+              "dropTitle": "Ya No Aguanto Más (Mayó-Guayó)",
+              "keepTitle": "Ya No Aguanto Más (Mayó-Guayó)",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16349,
+              "keepTrackId": 6193,
+              "dropTrackNumber": 10,
+              "keepTrackNumber": 10
+            },
+            {
+              "dropTitle": "Habló La Luna",
+              "keepTitle": "Habló La Luna",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16354,
+              "keepTrackId": 6199,
+              "dropTrackNumber": 11,
+              "keepTrackNumber": 11
+            },
+            {
+              "dropTitle": "No Me Alcanzara La Vida",
+              "keepTitle": "No Me Alcanzará La Vida",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16350,
+              "keepTrackId": 6202,
+              "dropTrackNumber": 12,
+              "keepTrackNumber": 12
+            },
+            {
+              "dropTitle": "Los Niños Perdidos",
+              "keepTitle": "Los Niños Perdidos",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16351,
+              "keepTrackId": 6208,
+              "dropTrackNumber": 13,
+              "keepTrackNumber": 13
+            },
+            {
+              "dropTitle": "Joropín (A Vytas)",
+              "keepTitle": "Joropín (A Vytas)",
+              "matchType": "position_and_title",
+              "discNumber": 1,
+              "dropTrackId": 16353,
+              "keepTrackId": 6213,
+              "dropTrackNumber": 14,
+              "keepTrackNumber": 14
+            }
+          ],
+          "sharedCredits": [
+            {
+              "id": 63202,
+              "role": "Alto Sax & Flute",
+              "creditType": "musician",
+              "targetName": "Daniel Rouleau"
+            },
+            {
+              "id": 63207,
+              "role": "Background Vocals",
+              "creditType": "musician",
+              "targetName": "Julieta Carbonell"
+            },
+            {
+              "id": 63199,
+              "role": "Bass & Vocals",
+              "creditType": "musician",
+              "targetName": "José Antonio Bermúdez"
+            },
+            {
+              "id": 63200,
+              "role": "Drums",
+              "creditType": "musician",
+              "targetName": "Javier Del Castillo"
+            },
+            {
+              "id": 63198,
+              "role": "Guitar & Background Vocals",
+              "creditType": "musician",
+              "targetName": "Francisco Villanueva"
+            },
+            {
+              "id": 63206,
+              "role": "Keyboards",
+              "creditType": "musician",
+              "targetName": "Humberto Meza"
+            },
+            {
+              "id": 63201,
+              "role": "Percussion",
+              "creditType": "musician",
+              "targetName": "Alejandro Carrizales"
+            },
+            {
+              "id": 63205,
+              "role": "Tenor Sax",
+              "creditType": "musician",
+              "targetName": "Guillermo Mora"
+            },
+            {
+              "id": 63203,
+              "role": "Trumpet",
+              "creditType": "musician",
+              "targetName": "Leonardo Picó"
+            },
+            {
+              "id": 63204,
+              "role": "Trumpet",
+              "creditType": "musician",
+              "targetName": "Frederich Gómez"
+            },
+            {
+              "id": 63197,
+              "role": "Vocals & Keyboards",
+              "creditType": "musician",
+              "targetName": "Enrique Figueredo"
+            },
+            {
+              "id": 63211,
+              "role": "Executive Production",
+              "creditType": "producer",
+              "targetName": "Juan Carlos Pérez Ozaeta"
+            },
+            {
+              "id": 63209,
+              "role": "Produced by",
+              "creditType": "producer",
+              "targetName": "Nelson Sardá"
+            },
+            {
+              "id": 63210,
+              "role": "Produced by",
+              "creditType": "producer",
+              "targetName": "B.B.V"
+            },
+            {
+              "id": 63212,
+              "role": "Production Coordinator",
+              "creditType": "producer",
+              "targetName": "Leonardo Picó"
+            },
+            {
+              "id": 63215,
+              "role": "Assistant Engineer",
+              "creditType": "recording",
+              "targetName": "David Pérez"
+            },
+            {
+              "id": 63214,
+              "role": "Recorded by",
+              "creditType": "recording",
+              "targetName": "Nelson Sardá"
+            },
+            {
+              "id": 63216,
+              "role": "Mixed by",
+              "creditType": "mixing",
+              "targetName": "Nelson Sardá"
+            },
+            {
+              "id": 63217,
+              "role": "Mixed by",
+              "creditType": "mixing",
+              "targetName": "José Antonio Bermúdez"
+            },
+            {
+              "id": 70283,
+              "role": "Recorded & Mixed at",
+              "creditType": "mixing",
+              "targetName": "Estudios Sardá"
+            },
+            {
+              "id": 63218,
+              "role": "Mastered at",
+              "creditType": "mastering",
+              "targetName": "Sonic Solutions"
+            },
+            {
+              "id": 63219,
+              "role": "Mastered at",
+              "creditType": "mastering",
+              "targetName": "Jesús Jiménez"
+            },
+            {
+              "id": 63220,
+              "role": "Graphic Design",
+              "creditType": "artwork",
+              "targetName": "Irving Blanco"
+            },
+            {
+              "id": 63221,
+              "role": "Graphic Design",
+              "creditType": "artwork",
+              "targetName": "Enrique Figueredo"
+            },
+            {
+              "id": 63208,
+              "role": "Additional Snares",
+              "creditType": "other",
+              "targetName": "Nelson Sardá"
+            },
+            {
+              "id": 63213,
+              "role": "Assistant",
+              "creditType": "other",
+              "targetName": "María Virginia Salinas"
+            }
+          ],
+          "fieldConflicts": [
+            {
+              "field": "cover_url",
+              "dropValue": "/crv/media/album/2170.jpg",
+              "keepValue": "/crv/media/album/212.jpg"
+            },
+            {
+              "field": "description",
+              "dropValue": "Tan Solo una Sonrisa es el segundo y último disco de estudio de La Banda de la Banana Voladora, publicado en 1997 por el sello LPM / AVR. Es un álbum de rock y ska que reúne catorce temas, entre ellos «Banana Blues», «Soul Shakedown Party» (versión de Bob Marley) y la canción que da título al disco, «Tan Solo una Sonrisa».\n\nLa banda, formada en Caracas en 1989, grabó el disco con una formación integrada por Enrique Figueredo en voz y teclados, Francisco Villanueva en guitarra y coros, José Antonio Bermúdez en bajo y voz, Javier Del Castillo en batería, Alejandro Carrizales en percusión, Daniel Rouleau en saxofón alto y flauta, Leonardo Picó y Frederich Gómez en trompeta, Guillermo Mora en saxofón tenor y Humberto Meza en teclados, con Julieta Carbonell en coros. Contaron además con la participación de músicos invitados como Rubén Pino, Diana Meza, Juan Francisco Manrique, Leo Alvarez, Jesús Pieters, Gilberto Simoza, Jorge Montenegro y Nelson Sardá.\n\nEl álbum fue producido por Nelson Sardá y la propia banda, con producción ejecutiva de Juan Carlos Pérez Ozaeta y coordinación de Leonardo Picó. Se grabó y mezcló en los Estudios Sardá de Caracas, bajo la ingeniería de Nelson Sardá, con mezcla adicional de José Antonio Bermúdez, y fue masterizado por Jesús Jiménez en Sonic Solutions, también en Caracas.",
+              "keepValue": "Tan Sólo Una Sonrisa es el segundo álbum de estudio de La Banana Voladora, publicado en 1997, con un tema final de Don Pío Alvarado y el instrumental \"Joropín (A Vytas)\".\n\nFue producido por Nelson Sardá y B.B.V., con producción ejecutiva de Juan Carlos Pérez Ozaeta, y grabado y mezclado por Sardá —junto con José Antonio Bermúdez en la mezcla— en Estudios Sardá, Caracas; la masterización estuvo a cargo de Jesús Jiménez en Sonic Solutions, Caracas."
+            },
+            {
+              "field": "youtube_status",
+              "dropValue": "unknown",
+              "keepValue": "published"
+            }
+          ],
+          "recommendedKeepId": 212,
+          "unmatchedDropTracks": [],
+          "fieldsFilledFromDrop": [
+            "label_id",
+            "notes"
+          ]
+        },
+        "warnings": []
+      },
+      {
+        "op": "replace_relation",
+        "key": "member_424",
+        "after": {
+          "id": "424",
+          "role": "Lead Vocals, Keyboards & Acoustic Guitar",
+          "notes": "Músico acreditado en sus discos propios (1994, 1997; en discos de 2 años); regla de Brian 2026-10-01\nRoles según las fuentes antes de unir (run 18933): «Vocals & Keyboards» (fila 424), «Lead Vocals & Keyboards, Lead Vocals, Keyboards & Acoustic Guitar» (fila 9266)",
+          "to_year": 1997,
+          "artist_id": "1212",
+          "from_year": 1994,
+          "person_id": "2111",
+          "is_current": false
+        },
+        "error": null,
+        "label": "Corregir rol de Figueredo",
+        "before": {
+          "id": "424",
+          "role": "Lead Vocals & Keyboards, Lead Vocals, Keyboards & Acoustic Guitar",
+          "notes": "Músico acreditado en sus discos propios (1994, 1997; en discos de 2 años); regla de Brian 2026-10-01\nRoles según las fuentes antes de unir (run 18933): «Vocals & Keyboards» (fila 424), «Lead Vocals & Keyboards, Lead Vocals, Keyboards & Acoustic Guitar» (fila 9266)",
+          "to_year": 1997,
+          "artist_id": "1212",
+          "from_year": 1994,
+          "person_id": "2111",
+          "is_current": false
+        },
+        "warnings": []
+      },
+      {
+        "op": "replace_relation",
+        "key": "member_432",
+        "after": {
+          "id": "432",
+          "role": "Alto Sax, Keyboards & Background Vocals",
+          "notes": "Músico acreditado en sus discos propios (1994, 1997; en discos de 2 años); regla de Brian 2026-10-01\nRoles según las fuentes antes de unir (run 18933): «Keyboards» (fila 432), «Keyboards, Alto Sax, Keyboards & Background Vocals» (fila 9268)",
+          "to_year": 1997,
+          "artist_id": "1212",
+          "from_year": 1994,
+          "person_id": "2818",
+          "is_current": false
+        },
+        "error": null,
+        "label": "Corregir rol de Meza",
+        "before": {
+          "id": "432",
+          "role": "Keyboards, Alto Sax, Keyboards & Background Vocals",
+          "notes": "Músico acreditado en sus discos propios (1994, 1997; en discos de 2 años); regla de Brian 2026-10-01\nRoles según las fuentes antes de unir (run 18933): «Keyboards» (fila 432), «Keyboards, Alto Sax, Keyboards & Background Vocals» (fila 9268)",
+          "to_year": 1997,
+          "artist_id": "1212",
+          "from_year": 1994,
+          "person_id": "2818",
+          "is_current": false
+        },
+        "warnings": []
+      }
+    ],
+    "ready": true,
+    "affected": [
+      {
+        "id": 211,
+        "kind": "album",
+        "label": "La Banana Voladora"
+      },
+      {
+        "id": 212,
+        "kind": "album",
+        "label": "Tan Sólo Una Sonrisa"
+      },
+      {
+        "id": 2170,
+        "kind": "album",
+        "label": "Tan Solo una Sonrisa"
+      },
+      {
+        "id": 3826,
+        "kind": "album",
+        "label": "La Banana Voladora"
+      },
+      {
+        "id": 1212,
+        "kind": "artist",
+        "label": "La Banda de la Banana Voladora"
+      },
+      {
+        "id": 2111,
+        "kind": "person",
+        "label": "Enrique Figueredo"
+      },
+      {
+        "id": 2818,
+        "kind": "person",
+        "label": "Humberto Meza"
+      }
+    ],
+    "sensitive": true
+  },
+  "result": null,
+  "usage": {
+    "calls": 1,
+    "model": "deepseek-flash",
+    "tokensIn": 13000,
+    "tokensOut": 869,
+    "cachedCalls": 0
+  },
+  "requestedBy": "Brian García Cesín",
+  "editedBy": "Codex · revisión solicitada por Brian",
+  "appliedBy": null,
+  "error": null,
+  "runId": null,
+  "createdAt": "2026-10-10 03:24:43.992143+00",
+  "updatedAt": "2026-10-10 03:40:28.883145+00"
+}

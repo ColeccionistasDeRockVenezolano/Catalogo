@@ -102,7 +102,7 @@ describe("contrato del core + migraciones (Drizzle/TS)", () => {
     (globalThis as { __crvBeforeSnapshot?: string }).__crvBeforeSnapshot = snapshot;
   });
 
-  it("aplica 0001-0039 vía el runner TS (2 pasadas, la 2ª es no-op)", async () => {
+  it("aplica 0001-0057 vía el runner TS (2 pasadas, la 2ª es no-op)", async () => {
     const first = await migrateUp();
     expect(first.applied).toEqual([
       "0001_ingest_core", "0002_media", "0003_ingest_claims_identity", "0004_review_kinds",
@@ -113,6 +113,12 @@ describe("contrato del core + migraciones (Drizzle/TS)", () => {
       "0017_curation_findings", "0018_curation_finding_fixes", "0019_curation_scan_resolution", "0020_curation_durable_decisions",
       "0021_curation_fix_batches", "0022_er_decisions_retention", "0023_curation_incremental", "0024_curation_autofix",
       "0025_seed_upload_order_optional", "0026_claims_identity_idx", "0027_genre_taxonomy", "0028_change_journal", "0029_persons_venezuelan_tristate", "0030_merge_traces", "0031_genre_external_sources", "0032_persons_deceased", "0033_core_ma_fields", "0034_text_rewrites", "0035_artist_relations", "0036_artist_genres_from_albums", "0037_genre_subgenres", "0038_image_candidates", "0039_streaming_links", "0040_social_links",
+      "0041_person_web_verification", "0042_person_web_mixed", "0043_person_pair_research",
+      "0044_person_comparison", "0045_entity_verification", "0046_entity_comparison",
+      "0047_verification_progress", "0048_verification_research_state", "0049_ai_curation_plans",
+      "0050_ai_curation_decisions", "0051_person_artist_resolution", "0052_discovery",
+      "0053_discovery_metrics", "0054_track_contexts", "0055_integrity_fk_indexes",
+      "0056_discovery_recommendations", "0057_integrity_reconciliation",
     ]);
     const second = await migrateUp();
     expect(second.applied).toEqual([]);
@@ -134,8 +140,14 @@ describe("contrato del core + migraciones (Drizzle/TS)", () => {
        WHERE c.contype = 'f' AND n.nspname IN ('ingest', 'media')
          AND NOT EXISTS (
            SELECT 1 FROM pg_index i
-            WHERE i.indrelid = c.conrelid
-              AND (i.indkey::int2[])[0:array_length(c.conkey, 1) - 1] = c.conkey)
+            WHERE i.indrelid = c.conrelid AND i.indisvalid
+            AND (i.indpred IS NULL OR pg_get_expr(i.indpred, i.indrelid) =
+              (SELECT '(' || quote_ident(a.attname) || ' IS NOT NULL)'
+                 FROM pg_attribute a WHERE a.attrelid=c.conrelid AND a.attnum=c.conkey[1]))
+              -- Rebuild with the same array lower bound as conkey (1).
+              -- pg_index.indkey starts at 0; comparing slices also compares bounds.
+              AND ARRAY(SELECT u.attnum FROM unnest(i.indkey::int2[]) WITH ORDINALITY u(attnum,n)
+                WHERE u.n<=array_length(c.conkey,1) ORDER BY u.n) = c.conkey)
        ORDER BY 1`);
     expect(rows.map((row) => row.fk)).toEqual([]);
   });
@@ -245,6 +257,13 @@ describe("contrato del core + migraciones (Drizzle/TS)", () => {
 
     const result = await migrateDownAll();
     expect(result.reverted).toEqual([
+      "0057_integrity_reconciliation", "0056_discovery_recommendations",
+      "0055_integrity_fk_indexes",
+      "0054_track_contexts", "0053_discovery_metrics",
+      "0052_discovery", "0051_person_artist_resolution", "0050_ai_curation_decisions",
+      "0049_ai_curation_plans", "0048_verification_research_state", "0047_verification_progress",
+      "0046_entity_comparison", "0045_entity_verification", "0044_person_comparison",
+      "0043_person_pair_research", "0042_person_web_mixed", "0041_person_web_verification",
       "0040_social_links", "0039_streaming_links", "0038_image_candidates", "0037_genre_subgenres", "0036_artist_genres_from_albums", "0035_artist_relations", "0034_text_rewrites", "0033_core_ma_fields", "0032_persons_deceased", "0031_genre_external_sources", "0030_merge_traces", "0029_persons_venezuelan_tristate", "0028_change_journal", "0027_genre_taxonomy", "0026_claims_identity_idx", "0025_seed_upload_order_optional",
       "0024_curation_autofix", "0023_curation_incremental", "0022_er_decisions_retention", "0021_curation_fix_batches", "0020_curation_durable_decisions", "0019_curation_scan_resolution", "0018_curation_finding_fixes", "0017_curation_findings", "0016_person_duplicate_pair_uk", "0015_review_kind_person_duplicate",
       "0014_entity_redirects", "0013_fk_indexes", "0012_ambiguity_resolutions", "0011_album_classifications", "0010_review_decisions", "0009_media_link_constraints", "0008_media_link_claims",

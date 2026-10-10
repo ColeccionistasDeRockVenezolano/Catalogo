@@ -1,0 +1,25 @@
+{
+  "activatedAt": "2026-10-10T11:12:16.354Z",
+  "url": "http://127.0.0.1:3120/crv/",
+  "enabled": true,
+  "count": 15,
+  "checks": [
+    {
+      "device": "desktop",
+      "initial": "Artista: Témpano",
+      "visible": true,
+      "accept": true,
+      "noOverflow": true,
+      "rotation": true,
+      "pause": true
+    },
+    {
+      "device": "mobile",
+      "initial": "Artista: Desorden Público",
+      "visible": true,
+      "accept": true,
+      "noOverflow": true
+    }
+  ],
+  "errors": []
+}

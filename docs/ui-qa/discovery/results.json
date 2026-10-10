@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "device": "desktop",
+      "rotation": true,
+      "pause": true,
+      "keyboard": true,
+      "pointer": true,
+      "reducedMotion": true,
+      "visibility": true,
+      "withdrawal": true,
+      "rename": true,
+      "error": true,
+      "flag": true,
+      "noListSampling": true,
+      "noOverflow": true,
+      "expiry": true
+    },
+    {
+      "device": "mobile",
+      "rotation": true,
+      "pause": true,
+      "keyboard": true,
+      "pointer": true,
+      "reducedMotion": true,
+      "visibility": true,
+      "withdrawal": true,
+      "rename": true,
+      "error": true,
+      "flag": true,
+      "noListSampling": true,
+      "noOverflow": true,
+      "expiry": true
+    }
+  ],
+  "errors": []
+}

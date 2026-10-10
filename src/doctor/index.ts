@@ -7,7 +7,6 @@
 // fuentes y (7) coherencia de los géneros asignados. No modifica nada.
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import type { Pool } from "pg";
 import { getPool } from "../db/client.js";
@@ -15,9 +14,9 @@ import { getEnv } from "../config/env.js";
 import { MIN_NODE_MAJOR, isSupportedNode } from "../config/runtime.js";
 import { CORE_CATALOG, readCoreCatalog, diffCoreCatalog } from "./core-catalog.js";
 import { derivedDrift } from "../genres/derived.js";
+import { projectRoot } from "../config/project-root.js";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.resolve(__dirname, "..", "..");
+const ROOT = projectRoot(import.meta.url);
 
 // Inventario esperado del core, verificado por auditoría manual de
 // crv_simple_v1.sql (CONTRACT §2.1) — cambia solo si el core cambia, lo
@@ -166,7 +165,9 @@ async function checkMigrations(pool: Pool): Promise<DoctorCheck> {
  */
 async function checkMergeAudit(pool: Pool): Promise<DoctorCheck> {
   try {
-    const { rows } = await pool.query<{ unaudited: string; orphan_audits: string; runless: string; runless_recent: string }>(`
+    const available = (await pool.query<{ present: boolean }>("SELECT to_regclass('ingest.integrity_reconciliations') IS NOT NULL AS present")).rows[0]?.present;
+    const acknowledged = available ? "AND NOT EXISTS (SELECT 1 FROM ingest.integrity_reconciliations r WHERE r.classification='audit_without_claim' AND r.object_key=ma.id::text)" : "";
+    const { rows } = await pool.query<{ unaudited: string; orphan_audits: string; historical: string; runless: string; runless_recent: string }>(`
       WITH unaudited AS (
         SELECT a.id FROM public.artists a
          WHERE NOT EXISTS (SELECT 1 FROM ingest.merge_audit ma WHERE ma.artist_id=a.id)
@@ -196,7 +197,8 @@ async function checkMergeAudit(pool: Pool): Promise<DoctorCheck> {
         (SELECT count(*) FROM ingest.merge_audit ma
           WHERE NOT EXISTS (
             SELECT 1 FROM ingest.merge_audit_claims mac WHERE mac.merge_audit_id=ma.id
-          ))::text AS orphan_audits,
+          ) ${acknowledged})::text AS orphan_audits,
+        ${available ? "(SELECT count(*) FROM ingest.integrity_reconciliations WHERE classification='audit_without_claim')" : "0"}::text AS historical,
         -- Sin run: la corrección quedó auditada pero sin enlace a la ejecución
         -- que la hizo (pasó masivamente el 2026-09-13/14, cierre F2–F5). El
         -- histórico se tolera; una fila NUEVA sin run es una regresión.
@@ -209,7 +211,9 @@ async function checkMergeAudit(pool: Pool): Promise<DoctorCheck> {
     const runlessRecent = Number(rows[0]?.runless_recent ?? 0);
     const ok = unaudited === 0 && orphanAudits === 0;
     if (!ok) return check("merge_audit.coverage", "fail", `${unaudited} filas canónicas sin auditoría; ${orphanAudits} auditorías sin claim`);
-    const base = "todas las filas canónicas tienen auditoría y toda auditoría enlaza claims";
+    const historical = Number(rows[0]?.historical ?? 0);
+    const base = historical ? `todas las filas canónicas tienen auditoría; ${historical} límites históricos de claims registrados explícitamente` : "todas las filas canónicas tienen auditoría y toda auditoría enlaza claims";
+    if (historical > 0) return check("merge_audit.coverage", "warn", `${base}; las instantáneas de mantenimiento no reconstruyen la fuente original (${runless} auditorías sin run original)`);
     if (runlessRecent > 0) {
       return check("merge_audit.coverage", "warn", `${base}; ${runlessRecent} auditorías de los últimos 3 días sin run — ¿escritura fuera de withOperatorRun?`);
     }
@@ -378,6 +382,25 @@ async function checkExternalGenres(pool: Pool): Promise<DoctorCheck> {
 }
 
 /** Ejecuta todos los chequeos. No requiere que la DB tenga las migraciones aplicadas. */
+async function checkForeignKeyIndexes(pool: Pool): Promise<DoctorCheck> {
+  const { rows } = await pool.query<{ fk: string }>(`
+    SELECT n.nspname || '.' || t.relname || '.' || c.conname AS fk
+      FROM pg_constraint c
+      JOIN pg_class t ON t.oid = c.conrelid
+      JOIN pg_namespace n ON n.oid = t.relnamespace
+     WHERE c.contype = 'f' AND n.nspname IN ('ingest', 'media')
+       AND NOT EXISTS (
+         SELECT 1 FROM pg_index i
+          WHERE i.indrelid = c.conrelid AND i.indisvalid
+            AND (i.indpred IS NULL OR pg_get_expr(i.indpred, i.indrelid) =
+              (SELECT '(' || quote_ident(a.attname) || ' IS NOT NULL)'
+                 FROM pg_attribute a WHERE a.attrelid=c.conrelid AND a.attnum=c.conkey[1]))
+            AND (i.indkey::int2[])[0:array_length(c.conkey, 1) - 1] = c.conkey)
+     ORDER BY 1`);
+  return check("integrity.fk_indexes", rows.length ? "fail" : "ok",
+    rows.length ? `FK sin índice completo: ${rows.map(row => row.fk).join(", ")}` : "todas las FK auxiliares tienen índices válidos y completos");
+}
+
 export async function runDoctor(): Promise<DoctorReport> {
   const pool = getPool();
   const checks: DoctorCheck[] = [checkRuntime(), await checkCoreHash()];
@@ -399,6 +422,7 @@ export async function runDoctor(): Promise<DoctorReport> {
   checks.push(await checkCoreCatalog(pool));
   checks.push(await checkAuxSchemas(pool));
   checks.push(await checkMigrations(pool));
+  checks.push(await checkForeignKeyIndexes(pool));
   checks.push(await checkMergeAudit(pool));
   checks.push(await checkSources(pool));
   checks.push(await checkGenres(pool));

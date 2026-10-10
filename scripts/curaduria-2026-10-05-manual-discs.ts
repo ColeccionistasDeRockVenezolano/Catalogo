@@ -10,7 +10,7 @@
 //
 //   ./scripts/with-node22.sh npx tsx scripts/curaduria-2026-10-05-manual-discs.ts [--confirm]
 import type { PoolClient } from "pg";
-import { closeDb, getPool } from "../src/db/client.js";
+import { closeDb } from "../src/db/client.js";
 import { withOperatorRun } from "../src/merge/operator.js";
 import { mergeInto } from "../src/review/duplicates.js";
 

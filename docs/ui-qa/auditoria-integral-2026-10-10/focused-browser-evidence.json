@@ -1,0 +1,37 @@
+{
+  "method": "Production frontend with read-only current injected API. One controlled500 fixture; retry uses real GET. No writes.",
+  "results": [
+    {
+      "task": "Existing organization Polydor",
+      "text": "← Volver\nP\nPolydor\nTIPO\nSello discográfico\nPAÍS\nSin dato\nDISCOS COMO SELLO\n48\nALIAS\nPolydor\nVariante de nombre\n+ Añadir alias\n\nPolydor es un sello discográfico. Publicó discos de Various Artists, Cherry Navarro, Syma y A'mbar, entre 1966 y 1979.\n\nEditar\nFusionar con…\nRetirar\nDiscografía asociada\n48\nArtistas acreditados\n0\nPersonas relacionadas\n0\nOrigen de los datos\nHistorial\nDISCO\tARTISTA\tAÑO\nMúsica Popular y Folclórica de Venezuela\tQuinteto Contrapunto\t1962\nQuinteto Contrapunto\tQuinteto Contrapunto\t1962\nMúsica Popular y Folclórica de Venezuela Volumen 2\tQuinteto Contrapunto\t1963\nMúsica Popular y Folclórica de Venezuela Volumenes 1 y 2\tQuinteto Contrapunto\t1964\nQuinteto Contrapunto, Vol 1 & 2 (Stereo)\tJesús Sevillano\t1964\nQuinteto Contrapunto, Vol 1 & 2 (Stereo)\tQuinteto Contrapunto\t1964\nQuinteto Contrapunto Volumen 3 / Aguinaldos\tQuinteto Contrapunto\t1965\nQuinteto Contrapunto, Vol 4\tQuinteto Contrapunto\t1966\nUna Auténtica Carrera de Exitos: Hits '66 Vol. 1\tVarious Artists\t1966\nAleluya\tCherry Navarro\t1967\nCanciones Venezolanas\tJesús Sevillano\t1969\nLos Memphis\tLos Memphis\t1969\nCanciones De Venezuela Vol. 2\tJesús Sevillano\t1970\nCanciones De Venezuela Vol. 3\tJesús Sevillano\t1971\nVol. 4 Canciones de Venezuela y América\tJesús Sevillano\t1972\nCanciones De La Nueva Trova Cubana\tSoledad Bravo\t1973\nNo hay luz / Tarde o temprano\tSyma\t1973\nWoman\tRudy La Scala\t1973\nCanciones Corales De Venezuela\tJesús Sevillano\t1974\nCantos de Venezuela\tSoledad Bravo\t1974\nCanto La Poesía de Mis Compañeros\tSoledad Bravo\t1975\nVol. 5 Canciones de Venezuela y América\tJesús Sevillano\t1975\nAdelante Con Lo Nuestro\tHernán Marín\t1976\nMi Alma Es Tropical\tRudy La Scala\t1977\nVol. 6 Canciones de Venezuela\tJesús Sevillano\t1977\nVol.1\tQuinteto Cantaclaro\t1977\nVol. 7 Canciones De Luis Laguna\tJesús Sevillano\t1978\nVol.2\tQuinteto Cantaclaro\t1978\nChacao\tChacao\t1979\nIt's Time To Dance\tRudy La Scala\t1979\nLove Maniac\tA'mbar\t1979\nLuis Mariano Rivera y Enrique Hidalgo- Dos Generaciones\tEnrique Hidalgo y su Grupo Cuerda Brava\t1979\nVol. 8 Con Venezuela 4\tJesús Sevillano\t1979\nUn Día de Otoño\tPablo Manavello\t1980\nVol.3\tQuinteto Cantaclaro\t1980\nCalifornia Shade\tA'mbar\t1981\nEl Grupo\tMetrópolis\t1981\nFuera de la Ley\tAditus\t1981\nGuillermo Carrasco\tGuillermo Carrasco\t1981\nI Belong\tVytas Brenner & Paulette Dozier\t1981\nI Belong\tVytas Brenner\t1981\nMi Fantasía\tPablo Manavello\t1981\nDangerous Rhythm\tMaría Conchita Alonso\t1982\nUna Mirada Hacia Adentro\tPablo Manavello\t1982\nTe Amo\tMaría Conchita Alonso\t1984\nYordano\tYordano\t1984\nSampler\tColina\t1986\nLa Harpa Indienne\tHugo Blanco\t—"
+    },
+    {
+      "task": "Injected500 recoverability",
+      "text": "No se pudo cargar\n\nFallo controlado de auditoría\n\nReintentar"
+    },
+    {
+      "task": "Injected500 retry",
+      "text": "← Volver\nJ\nJeremías\nORIGEN Y TRAYECTORIA\nPAÍS DE ORIGEN\nVenezuela\nESTADO\nDesconocido\nFORMADO EN\nSin dato\nIDENTIDAD MUSICAL\nGÉNERO\nBALADA\nPOP LATINO\nTIPO\nSolista\nÚLTIMO SELLO\nIndependiente / sin dato\nALIAS\nJeremías\nVariante\n+ Añadir alias\nBIOGRAFÍA\n\nJeremías, nombre artístico de Carlos Eduardo López Ávila, nació el 19 de septiembre de 1973 en Londres, Inglaterra, ciudad donde sus padres venezolanos finalizaban estudios superiores; llegó con su familia a Venezuela a los dos años de edad. Es cantau"
+    },
+    {
+      "task": "Apple asset in artist-photo queue",
+      "text": "music.apple.com\n592×592 px\nVer en la fuente\nUsar esta",
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/28/e8/e4/28e8e421-5dd6-9354-3028-cd84133d4a5c/00602517398016.rgb.jpg/592x592bf.webp"
+    },
+    {
+      "task": "Broken image choice",
+      "text": "No carga\nwww.alborde.com\n—\nVer en la fuente\nUsar esta",
+      "useEnabled": true
+    },
+    {
+      "task": "Current prototype GET",
+      "result": {
+        "status": 200,
+        "body": "{\"title\":\"Tendencia en CRV\",\"internal\":true,\"published\":false,\"source\":\"CRV: sugerencias del buscador principal\",\"methodology\":\"crv-acceptance-rate-beta1-v1\",\"thresholds\":{\"days\":7,\"impressionsPerWindow\":100,\"acceptancesPerWindow\":20},\"limitations\":\"Sesiones efímeras, no personas únicas. Comparación descriptiva exploratoria, sesgo residual de exposición; no popularidad ni reconocimiento editorial.\",\"status\":\"not_migrated\",\"updatedAt\":null,\"period\":null,\"results\":[]}",
+        "headers": {
+          "content-type": "application/json; charset=utf-8"
+        }
+      }
+    }
+  ]
+}

@@ -34,7 +34,22 @@ function dimensions(bytes, filename) {
   throw new Error(`No se pudo leer el tamaño de ${filename}`);
 }
 
-const filenames = (await readdir(logosDir)).filter((name) => /-logo\.(?:png|jpe?g|gif)$/i.test(name)).sort();
+let filenames;
+try {
+  filenames = (await readdir(logosDir)).filter((name) => /-logo\.(?:png|jpe?g|gif)$/i.test(name)).sort();
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+  // Downloaded media is backed up separately and deliberately absent from
+  // git. A clean checkout builds from the versioned dimensions manifest.
+  const existing = JSON.parse(await readFile(outputFile, "utf8"));
+  if (!existing || Array.isArray(existing) || typeof existing !== "object" ||
+      !Object.entries(existing).every(([name, size]) => /-logo\.(?:png|jpe?g|gif)$/i.test(name) &&
+        Array.isArray(size) && size.length === 2 && size.every(value => Number.isInteger(value) && value > 0))) {
+    throw new Error("El manifiesto de dimensiones versionado es inválido", { cause: error });
+  }
+  console.log(`Medios externos ausentes: se conserva el manifiesto versionado (${Object.keys(existing).length} logos).`);
+  process.exit(0);
+}
 const result = {};
 for (const filename of filenames) {
   const size = dimensions(await readFile(path.join(logosDir, filename)), filename);

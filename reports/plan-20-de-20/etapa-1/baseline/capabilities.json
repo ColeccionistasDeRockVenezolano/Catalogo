@@ -1,0 +1,2415 @@
+{
+  "source": "published-openapi.json",
+  "count": 175,
+  "capabilities": [
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "summary": null,
+      "tags": [
+        "auth"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/auth/me",
+      "summary": null,
+      "tags": [
+        "auth"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "summary": null,
+      "tags": [
+        "auth"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/health",
+      "summary": null,
+      "tags": [
+        "health"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/search",
+      "summary": "Búsqueda global (artista, persona, disco, pista, organización); los alias participan.",
+      "tags": [
+        "search"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/discovery/search-suggestions",
+      "summary": "Ejemplos editoriales aprobados del catálogo local",
+      "tags": [
+        "search"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/artists/facets",
+      "summary": null,
+      "tags": [
+        "artists"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/artists",
+      "summary": null,
+      "tags": [
+        "artists"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/artists",
+      "summary": "Crea artista a través del merge engine (claims human/high)",
+      "tags": [
+        "artists:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/artists/{id}",
+      "summary": null,
+      "tags": [
+        "artists"
+      ],
+      "security": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/artists/{id}",
+      "summary": "Corrige campos de artista; un valor ya afirmado se sustituye con auditoría y cierra sus conflictos",
+      "tags": [
+        "artists:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/artists/{id}",
+      "summary": "Retira artista sin dependientes; su historia se conserva en el run y en la ficha padre",
+      "tags": [
+        "artists:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/albums/facets",
+      "summary": null,
+      "tags": [
+        "albums"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/albums",
+      "summary": null,
+      "tags": [
+        "albums"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/albums",
+      "summary": "Crea álbum a través del merge engine (claims human/high)",
+      "tags": [
+        "albums:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/albums/{id}",
+      "summary": "Ficha agregada del disco: tracklist, créditos y enlaces de YouTube.",
+      "tags": [
+        "albums"
+      ],
+      "security": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/albums/{id}",
+      "summary": "Corrige campos de álbum; un valor ya afirmado se sustituye con auditoría y cierra sus conflictos",
+      "tags": [
+        "albums:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/albums/{id}",
+      "summary": "Retira álbum sin dependientes; su historia se conserva en el run y en la ficha padre",
+      "tags": [
+        "albums:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/albums/{id}/merge-preview",
+      "summary": "Previsualiza la fusión de dos discos: pistas emparejadas, formatos, créditos y conflictos.",
+      "tags": [
+        "albums:merge"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/albums/{id}/merge",
+      "summary": "Fusiona el disco indicado en :id (keep) con el duplicado (drop); unifica pistas, formatos y créditos.",
+      "tags": [
+        "albums:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/genres/facets",
+      "summary": null,
+      "tags": [
+        "genres"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/tracks",
+      "summary": "Listado paginado de pistas: filtro por disco o por texto (título y alias).",
+      "tags": [
+        "tracks"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/tracks",
+      "summary": "Crea pista a través del merge engine (claims human/high)",
+      "tags": [
+        "tracks:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/tracks/{id}",
+      "summary": "Ficha de una pista: contexto de disco y artista, alias propios y créditos.",
+      "tags": [
+        "tracks"
+      ],
+      "security": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/tracks/{id}",
+      "summary": "Corrige campos de pista; un valor ya afirmado se sustituye con auditoría y cierra sus conflictos",
+      "tags": [
+        "tracks:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/tracks/{id}",
+      "summary": "Retira pista sin dependientes; su historia se conserva en el run y en la ficha padre",
+      "tags": [
+        "tracks:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/persons/facets",
+      "summary": null,
+      "tags": [
+        "persons"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/persons",
+      "summary": null,
+      "tags": [
+        "persons"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/persons",
+      "summary": "Crea persona a través del merge engine (claims human/high)",
+      "tags": [
+        "persons:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/persons/{id}",
+      "summary": null,
+      "tags": [
+        "persons"
+      ],
+      "security": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/persons/{id}",
+      "summary": "Corrige campos de persona; un valor ya afirmado se sustituye con auditoría y cierra sus conflictos",
+      "tags": [
+        "persons:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/persons/{id}",
+      "summary": "Retira persona sin dependientes; su historia se conserva en el run y en la ficha padre",
+      "tags": [
+        "persons:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/persons/{id}/split-preview",
+      "summary": "Previsualiza la división de una persona en varias: destinos y créditos a repartir.",
+      "tags": [
+        "persons:merge"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/persons/{id}/split",
+      "summary": "Divide una persona combinada en varias: reparte trayectoria y créditos y retira la fila original.",
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/facets",
+      "summary": null,
+      "tags": [
+        "organizations"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/organizations",
+      "summary": null,
+      "tags": [
+        "organizations"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/organizations",
+      "summary": "Crea organización a través del merge engine (claims human/high)",
+      "tags": [
+        "organizations:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{id}",
+      "summary": null,
+      "tags": [
+        "organizations"
+      ],
+      "security": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/organizations/{id}",
+      "summary": "Corrige campos de organización; un valor ya afirmado se sustituye con auditoría y cierra sus conflictos",
+      "tags": [
+        "organizations:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{id}",
+      "summary": "Retira organización sin dependientes; su historia se conserva en el run y en la ficha padre",
+      "tags": [
+        "organizations:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/credit-sources",
+      "summary": "Fuentes de cada crédito de un disco o pista. Solo administradores.",
+      "tags": [
+        "sources"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/sources",
+      "summary": "Fuentes del catálogo. Solo administradores.",
+      "tags": [
+        "sources"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/sources/{id}",
+      "summary": "Detalle de una fuente. Solo administradores.",
+      "tags": [
+        "sources"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/claims",
+      "summary": "Origen y evidencia de los datos de una entidad. Solo administradores; entity+id obligatorios.",
+      "tags": [
+        "claims"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review-queue/{id}/web-verification",
+      "summary": null,
+      "tags": [
+        "review-queue"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/review-queue/{id}/web-verification",
+      "summary": null,
+      "tags": [
+        "review-queue:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review-queue/{id}/web-verification/review",
+      "summary": null,
+      "tags": [
+        "review-queue:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review-queue/person/{id}/web-verification",
+      "summary": null,
+      "tags": [
+        "review-queue"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/review-queue/person/{id}/web-verification",
+      "summary": null,
+      "tags": [
+        "review-queue:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review-queue/person/{id}/web-verification/review",
+      "summary": null,
+      "tags": [
+        "review-queue:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/review-queue",
+      "summary": "Cola de revisión, paginada y filtrable por estado y tipo.",
+      "tags": [
+        "review-queue"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/review-queue/{id}",
+      "summary": null,
+      "tags": [
+        "review-queue"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/review-queue/{id}/accept",
+      "summary": "Acepta el candidato: confirma la identidad propuesta o promueve los claims candidatos.",
+      "tags": [
+        "review-queue:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review-queue/{id}/reject",
+      "summary": "Rechaza el candidato: separa la identidad o descarta los claims candidatos sin tocar el core.",
+      "tags": [
+        "review-queue:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/review-queue/{id}/resolve-conflict",
+      "summary": "Resuelve un field_conflict eligiendo un lado o afirmando el valor correcto; conserva el historial.",
+      "tags": [
+        "review-queue:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/review-queue/{id}/priority",
+      "summary": "Cambia el orden de una revisión en la cola (1-10, mayor = más urgente).",
+      "tags": [
+        "review-queue:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/youtube/videos",
+      "summary": null,
+      "tags": [
+        "youtube"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/youtube/videos/{id}",
+      "summary": "Video con sus enlaces a artista/disco/pistas.",
+      "tags": [
+        "youtube"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/artist-members",
+      "summary": "Registra miembro de artista (extremos por id, a través del puente de relaciones)",
+      "tags": [
+        "artist-members:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/artist-members/{id}",
+      "summary": "Corrige miembro de artista; el valor anterior queda en merge_audit",
+      "tags": [
+        "artist-members:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/artist-members/{id}",
+      "summary": "Retira miembro de artista; su historia pasa a la ficha de la que colgaba",
+      "tags": [
+        "artist-members:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/person-organizations",
+      "summary": "Registra persona en organización (extremos por id, a través del puente de relaciones)",
+      "tags": [
+        "person-organizations:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/person-organizations/{id}",
+      "summary": "Corrige persona en organización; el valor anterior queda en merge_audit",
+      "tags": [
+        "person-organizations:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/person-organizations/{id}",
+      "summary": "Retira persona en organización; su historia pasa a la ficha de la que colgaba",
+      "tags": [
+        "person-organizations:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/album-credits",
+      "summary": "Registra crédito de álbum (extremos por id, a través del puente de relaciones)",
+      "tags": [
+        "album-credits:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/album-credits/{id}",
+      "summary": "Corrige crédito de álbum; el valor anterior queda en merge_audit",
+      "tags": [
+        "album-credits:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/album-credits/{id}",
+      "summary": "Retira crédito de álbum; su historia pasa a la ficha de la que colgaba",
+      "tags": [
+        "album-credits:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/track-credits",
+      "summary": "Registra crédito de pista (extremos por id, a través del puente de relaciones)",
+      "tags": [
+        "track-credits:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/track-credits/{id}",
+      "summary": "Corrige crédito de pista; el valor anterior queda en merge_audit",
+      "tags": [
+        "track-credits:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/track-credits/{id}",
+      "summary": "Retira crédito de pista; su historia pasa a la ficha de la que colgaba",
+      "tags": [
+        "track-credits:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/album-formats",
+      "summary": "Registra formato de álbum (extremos por id, a través del puente de relaciones)",
+      "tags": [
+        "album-formats:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/album-formats/{id}",
+      "summary": "Corrige formato de álbum; el valor anterior queda en merge_audit",
+      "tags": [
+        "album-formats:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/album-formats/{id}",
+      "summary": "Retira formato de álbum; su historia pasa a la ficha de la que colgaba",
+      "tags": [
+        "album-formats:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/albums/{id}/text-rewrites",
+      "summary": "Textos de la ficha que una fusión unió y esperan reescritura con IA.",
+      "tags": [
+        "albums:merge"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/albums/{id}/text-rewrites/run",
+      "summary": "Reescribe ya con IA (DeepSeek flash) los textos marcados de la ficha, en un run propio que se puede deshacer.",
+      "tags": [
+        "albums:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/persons/{id}/text-rewrites",
+      "summary": "Textos de la ficha que una fusión unió y esperan reescritura con IA.",
+      "tags": [
+        "persons:merge"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/persons/{id}/text-rewrites/run",
+      "summary": "Reescribe ya con IA (DeepSeek flash) los textos marcados de la ficha, en un run propio que se puede deshacer.",
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/persons/{id}/merge-preview",
+      "summary": "Previsualiza la fusión de dos personas: conflictos, campos que se completan, discos compartidos y avisos. No escribe nada.",
+      "tags": [
+        "persons:merge"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/persons/{id}/merge",
+      "summary": "Fusiona la persona indicada en `:id` (la ficha que queda); cierra revisiones, redirige el id perdido y unifica relaciones equivalentes.",
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/persons/{id}/merge-rewrite",
+      "summary": "Propone con IA (DeepSeek flash) un texto que une el de las dos fichas. No escribe nada.",
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{id}/text-rewrites",
+      "summary": "Textos de la ficha que una fusión unió y esperan reescritura con IA.",
+      "tags": [
+        "organizations:merge"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/organizations/{id}/text-rewrites/run",
+      "summary": "Reescribe ya con IA (DeepSeek flash) los textos marcados de la ficha, en un run propio que se puede deshacer.",
+      "tags": [
+        "organizations:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{id}/merge-preview",
+      "summary": "Previsualiza la fusión de dos organizaciones: conflictos, campos que se completan, discos compartidos y avisos. No escribe nada.",
+      "tags": [
+        "organizations:merge"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/organizations/{id}/merge",
+      "summary": "Fusiona la organización indicada en `:id` (la ficha que queda); cierra revisiones, redirige el id perdido y unifica relaciones equivalentes.",
+      "tags": [
+        "organizations:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/organizations/{id}/merge-rewrite",
+      "summary": "Propone con IA (DeepSeek flash) un texto que une el de las dos fichas. No escribe nada.",
+      "tags": [
+        "organizations:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/artists/{id}/text-rewrites",
+      "summary": "Textos de la ficha que una fusión unió y esperan reescritura con IA.",
+      "tags": [
+        "artists:merge"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/artists/{id}/text-rewrites/run",
+      "summary": "Reescribe ya con IA (DeepSeek flash) los textos marcados de la ficha, en un run propio que se puede deshacer.",
+      "tags": [
+        "artists:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/artists/{id}/merge-preview",
+      "summary": "Previsualiza la fusión de dos artistas: conflictos, campos que se completan, discos compartidos y avisos. No escribe nada.",
+      "tags": [
+        "artists:merge"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/artists/{id}/merge",
+      "summary": "Fusiona el artista indicada en `:id` (la ficha que queda); cierra revisiones, redirige el id perdido y unifica relaciones equivalentes.",
+      "tags": [
+        "artists:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/artists/{id}/merge-rewrite",
+      "summary": "Propone con IA (DeepSeek flash) un texto que une el de las dos fichas. No escribe nada.",
+      "tags": [
+        "artists:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/persons/{id}/convert",
+      "summary": "Convierte la ficha en organización o artista (existente con targetId, o nueva con create); sus créditos pasan al destino y su enlace pasa a responder movedTo.",
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/persons/identity-research",
+      "summary": null,
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/persons/identity-research",
+      "summary": null,
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/persons/{id}/identity-research",
+      "summary": null,
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/persons/identity-research/jobs",
+      "summary": null,
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/persons/identity-research/active-job",
+      "summary": null,
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/persons/identity-research/jobs/{id}",
+      "summary": null,
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/persons/identity-research/distinct",
+      "summary": null,
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/persons/duplicate-candidates",
+      "summary": "Pares de personas que el detector propone revisar, con score y features. Solo lectura.",
+      "tags": [
+        "persons:merge"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/merge-runs/{runId}/undo",
+      "summary": "Deshace un run de fusión: reinserta lo borrado, repunta lo movido y anula la redirección. 409 si algo posterior lo impide.",
+      "tags": [
+        "persons:merge"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/artists/{id}/aliases",
+      "summary": "Añade un alias a artista",
+      "tags": [
+        "artists:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/artists/{id}/aliases/{aliasId}",
+      "summary": "Corrige un alias de artista",
+      "tags": [
+        "artists:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/artists/{id}/aliases/{aliasId}",
+      "summary": "Retira un alias de artista",
+      "tags": [
+        "artists:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/persons/{id}/aliases",
+      "summary": "Añade un alias a persona",
+      "tags": [
+        "persons:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/persons/{id}/aliases/{aliasId}",
+      "summary": "Corrige un alias de persona",
+      "tags": [
+        "persons:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/persons/{id}/aliases/{aliasId}",
+      "summary": "Retira un alias de persona",
+      "tags": [
+        "persons:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/organizations/{id}/aliases",
+      "summary": "Añade un alias a organización",
+      "tags": [
+        "organizations:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/organizations/{id}/aliases/{aliasId}",
+      "summary": "Corrige un alias de organización",
+      "tags": [
+        "organizations:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/organizations/{id}/aliases/{aliasId}",
+      "summary": "Retira un alias de organización",
+      "tags": [
+        "organizations:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/albums/{id}/aliases",
+      "summary": "Añade un alias a álbum",
+      "tags": [
+        "albums:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/albums/{id}/aliases/{aliasId}",
+      "summary": "Corrige un alias de álbum",
+      "tags": [
+        "albums:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/albums/{id}/aliases/{aliasId}",
+      "summary": "Retira un alias de álbum",
+      "tags": [
+        "albums:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/tracks/{id}/aliases",
+      "summary": "Añade un alias a pista",
+      "tags": [
+        "tracks:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/tracks/{id}/aliases/{aliasId}",
+      "summary": "Corrige un alias de pista",
+      "tags": [
+        "tracks:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/tracks/{id}/aliases/{aliasId}",
+      "summary": "Retira un alias de pista",
+      "tags": [
+        "tracks:write"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/audit/{auditId}/undo",
+      "summary": "Qué pasaría al deshacer esa fusión o conversión del historial (no escribe nada). Solo cuentas administradoras.",
+      "tags": [
+        "audit"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/audit/{auditId}/undo",
+      "summary": "Deshace una fusión o una conversión del historial: la ficha vuelve con sus relaciones. 409 si algo cambió después.",
+      "tags": [
+        "audit"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/audit",
+      "summary": "Historial de cambios (merge_audit) de una entidad o fila puente, del más reciente al más antiguo. Solo cuentas administradoras.",
+      "tags": [
+        "audit"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/runs/{id}",
+      "summary": "Run de ingesta, merge o edición del operador (quién, qué, por qué; el retiro guarda la fila borrada). Solo cuentas administradoras.",
+      "tags": [
+        "audit"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/changes",
+      "summary": "Historial de cambios del catálogo: cada run con lo que tocó, quién, por qué y si está deshecho. Solo cuentas administradoras.",
+      "tags": [
+        "changes"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/changes/{runId}",
+      "summary": "Un cambio y lo que haría deshacerlo (qué vuelve, qué se retira, qué lo impide). No escribe nada.",
+      "tags": [
+        "changes"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/changes/{runId}/undo",
+      "summary": "Deshace un cambio: devuelve cada fila que tocó a como estaba. 409 si algo del catálogo cambió después (dice qué y qué cambio lo hizo).",
+      "tags": [
+        "changes"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation/summary",
+      "summary": "Categorías del detector de conflictos con sus conteos, el último análisis y la última verificación tras una corrección.",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/curation/findings",
+      "summary": "Hallazgos del detector, filtrables por categoría, detector, subgrupo, gravedad, tipo de ficha, estado, texto, análisis o encadenamiento.",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/curation/scans",
+      "summary": "Últimos análisis del catálogo, con qué los disparó y qué encontraron.",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/curation/scan",
+      "summary": "Analiza el catálogo ahora y devuelve lo nuevo, lo resuelto y lo que apareció tras una corrección.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/findings/{id}/ignore",
+      "summary": "Marca un hallazgo como «no es un problema» con su motivo (falso positivo, correcto a propósito o fuera de alcance). Dura mientras el detector lo siga viendo; si el problema desaparece, se resuelve.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/findings/{id}/reopen",
+      "summary": "Vuelve a abrir un hallazgo ignorado.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/findings/{id}/acknowledge-chain",
+      "summary": "Da por revisado un hallazgo «surgido tras corregir»: la marca pasa a evidence.triggeredHistory con quién y cuándo, y sale de la lista de encadenados. El hallazgo sigue abierto.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/findings/acknowledge-chain-group",
+      "summary": "Da por revisados exactamente los hallazgos encadenados que cumplen el filtro visible. No cierra ninguno ni cambia el catálogo.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/findings/{id}/resolve-conflict",
+      "summary": "Resuelve el conflicto de un hallazgo «conflictos_abiertos»: un lado, ambos, descartarlo, o afirmar un valor distinto.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/findings/resolve-conflicts-group",
+      "summary": "«Aplicar la fuente de mayor confianza»: resuelve cada conflicto abierto que cumple el filtro visible por el lado de mayor trust_level; los empates quedan fuera.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/findings/ignore-group",
+      "summary": "Ignora exactamente los hallazgos abiertos que cumplen el filtro visible (categoría, detector, subgrupo, gravedad, tipo de ficha, texto, análisis, encadenados). Motivo y nota obligatorios.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation/distinct-pairs",
+      "summary": "Pares de fichas declarados distintos: el detector de duplicados no los vuelve a proponer.",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/curation/distinct-pairs",
+      "summary": "Declara distintas dos fichas del mismo tipo. No cambia el catálogo: el hallazgo del par se resuelve como «declaradas distintas» en el siguiente análisis, que se pide enseguida.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/curation/distinct-pairs/{id}",
+      "summary": "Retira la declaración de un par: el detector puede volver a proponerlo.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/findings/{id}/fix",
+      "summary": "OBSOLETA (usar /curation/fixes/preview y /apply): corrige la ficha del hallazgo con su limpieza de texto (o un valor escrito a mano) como un lote individual.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/findings/fix-selected",
+      "summary": "OBSOLETA (usar /curation/fixes/preview con mode=selected): corrige varios hallazgos elegidos, cada uno con su limpieza de texto, como un lote de selección. Reporta cuáles no se corrigieron y por qué.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/findings/fix-group",
+      "summary": "OBSOLETA (usar /curation/fixes/preview con mode=group): corrige con su limpieza de texto exactamente los hallazgos abiertos que cumplen el filtro visible, como un lote de grupo. Hasta CRV_CURATION_FIX_BATCH_MAX por llamada.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation/findings/{id}",
+      "summary": "Un hallazgo con su evidencia completa.",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/curation/findings/{id}/actions",
+      "summary": "Acciones de corrección que se ofrecen para un hallazgo, con sus parámetros por defecto, nivel (0 seguro … 3 manual), cómo se deshacen y si sus precondiciones se cumplen ahora. La primera es la recomendada.",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/curation/fixes/preview",
+      "summary": "Previsualiza un lote de correcciones sin escribir nada: por hallazgo, la acción, sus parámetros, el antes → después, las fichas que toca, colisiones y bloqueos. individual/selected se piden con `findingIds`; group, con el filtro exacto del listado. Devuelve el lote `previewed` con su `previewHash` y la primera página de ítems.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/fixes/{batchId}/apply",
+      "summary": "Aplica un lote previsualizado. 409 `stale_preview` sin escribir nada si `previewHash` no es el de su vista previa o si, recalculada ahora, la vista previa de lo pendiente ya no da lo mismo (`details.changedItemIds`: volver a previsualizar o excluirlos). Un run por ítem; un ítem cuya ficha cambia en medio del lote queda `skipped_stale` y el resto sigue. Hasta CRV_CURATION_FIX_BATCH_MAX ítems por llamada: si quedan pendientes, el lote sigue `running` y otra llamada igual continúa. Después verifica las fichas tocadas en segundo plano (`verification`).",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation/fixes",
+      "summary": "Historial de lotes de correcciones, del más reciente al más antiguo: quién lo pidió, con qué filtro, cómo acabó y si ya se deshizo. Sin `status` se omiten los `previewed` (vistas previas que nadie aplicó y no escribieron nada).",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/curation/fixes/{batchId}",
+      "summary": "Progreso y resultado de un lote de correcciones (o de su deshacer): recuentos, verificación dirigida y los ítems paginados, filtrables por estado.",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/curation/fixes/{batchId}/undo",
+      "summary": "Deshace lo aplicado de un lote en orden inverso, como un lote nuevo (`mode: undo`). Solo se restaura lo que sigue como lo dejó la corrección (CAS inverso); lo demás queda `not_undoable` con el motivo. Devuelve el lote de deshacer.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation/autofix",
+      "summary": "Estado de la autocorrección: si el entorno la permite, la lista blanca de reglas, lo corregido hoy con su deshacer, las reglas que el interruptor de emergencia apagó y la auditoría de cambios.",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/curation/autofix/rules",
+      "summary": "Autoriza una corrección automática: detector, subgrupo (vacío = todos) y acción, que debe ser de nivel 0 y estar entre las que ese detector propone. Nace apagada salvo que se pida lo contrario.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/curation/autofix/rules/{id}",
+      "summary": "Enciende, apaga o ajusta una regla. Encenderla borra el motivo por el que estuvo apagada: es una decisión nueva y queda auditada.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/curation/autofix/rules/{id}",
+      "summary": "Quita una regla de la lista blanca. Lo ya corregido sigue en el historial de lotes con su deshacer.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/autofix/run",
+      "summary": "Corre ahora la autocorrección con las reglas encendidas, sin esperar al próximo análisis. Aplica lo mismo y con las mismas salvaguardas: nivel 0, topes por análisis y por día, verificación dirigida y deshacer automático si la corrección desencadena hallazgos nuevos.",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation/images/summary",
+      "summary": "Fichas con imágenes candidatas pendientes de elegir, por tipo",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "GET",
+      "path": "/curation/images",
+      "summary": "Imágenes candidatas pendientes agrupadas por ficha (mejor parecido primero)",
+      "tags": [
+        "curation"
+      ],
+      "security": []
+    },
+    {
+      "method": "POST",
+      "path": "/curation/images/{kind}/{id}/decide",
+      "summary": "Usa una imagen candidata (o deja la actual) y cierra las candidatas de la ficha; un run que se puede deshacer",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/images/{kind}/keep-current",
+      "summary": "Deja la imagen actual en varias fichas y descarta sus candidatas; un run que se puede deshacer",
+      "tags": [
+        "curation"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entity-verification/{kind}/{id}",
+      "summary": null,
+      "tags": [
+        "verification"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entity-verification/{kind}/{id}/active-job",
+      "summary": null,
+      "tags": [
+        "verification"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entity-verification/{kind}/{id}/latest-job",
+      "summary": null,
+      "tags": [
+        "verification"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/entity-verification/{kind}/{id}/jobs",
+      "summary": null,
+      "tags": [
+        "verification"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entity-verification/jobs/{jobId}",
+      "summary": null,
+      "tags": [
+        "verification"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entity-verification/compare/history/{kind}/{id}",
+      "summary": null,
+      "tags": [
+        "verification"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entity-verification/compare",
+      "summary": null,
+      "tags": [
+        "verification"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entity-verification/compare/active-job",
+      "summary": null,
+      "tags": [
+        "verification"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/entity-verification/compare/jobs",
+      "summary": null,
+      "tags": [
+        "verification"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/entity-verification/compare/jobs/{id}",
+      "summary": null,
+      "tags": [
+        "verification"
+      ],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation/ai/persons/{id}/resolve-artist",
+      "summary": null,
+      "tags": [],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/ai/persons/{id}/resolve-artist",
+      "summary": null,
+      "tags": [],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation/ai/vocabulary",
+      "summary": null,
+      "tags": [],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation/ai/plans",
+      "summary": null,
+      "tags": [],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/ai/plans",
+      "summary": null,
+      "tags": [],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/curation/ai/plans/{id}",
+      "summary": null,
+      "tags": [],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/curation/ai/plans/{id}",
+      "summary": null,
+      "tags": [],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/ai/plans/{id}/decisions",
+      "summary": null,
+      "tags": [],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/ai/plans/{id}/refresh",
+      "summary": null,
+      "tags": [],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/curation/ai/plans/{id}/implement",
+      "summary": null,
+      "tags": [],
+      "security": [
+        {
+          "collaboratorSession": []
+        },
+        {
+          "operatorToken": []
+        }
+      ]
+    }
+  ]
+}

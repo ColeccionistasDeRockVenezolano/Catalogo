@@ -7,7 +7,10 @@ import { entityHref } from "../lib/routes";
 import { searchTypeLabel } from "../lib/labels";
 import { ErrorState, EmptyState } from "../components/StateViews";
 import { RowsSkeleton } from "../components/Skeletons";
+import { CatalogSearchInput } from "../components/CatalogSearchInput";
 import type { SearchEntityType } from "../lib/types";
+import { useOperator } from "../lib/OperatorContext";
+import { useDiscoverySearchMetric } from "../lib/discoveryMetrics";
 
 const GROUP_ORDER: SearchEntityType[] = ["artist", "album", "person", "organization", "track"];
 const MIN_QUERY_LENGTH = 3;
@@ -26,10 +29,14 @@ export function SearchPage() {
   const needsMoreCharacters = inputQuery.length > 0 && inputQuery.length < MIN_QUERY_LENGTH;
   const isSearchPending = inputQuery.length >= MIN_QUERY_LENGTH && inputQuery !== q;
 
-  const { data, loading, error, reload } = useAsync(
-    (signal) => (hasMinimumQuery ? searchApi.search(q, undefined, 20, signal) : Promise.resolve(null)),
+  const { data: response, loading, error, reload } = useAsync(
+    (signal) => (hasMinimumQuery ? searchApi.search(q, undefined, 20, signal).then(results => ({ query: q, results })) : Promise.resolve(null)),
     [q, hasMinimumQuery],
   );
+  const data = response?.query === q ? response.results : null;
+  const awaitingCurrentResults = hasMinimumQuery && response?.query !== q && !error;
+  const { isAdmin, isChecking } = useOperator();
+  useDiscoverySearchMetric(inputQuery, Boolean(data) && inputQuery === q && !loading && !error, !isAdmin && !isChecking);
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -41,23 +48,24 @@ export function SearchPage() {
   return (
     <div className="search-shell">
       <h1>Coleccionistas De Rock Venezolano</h1>
-      <p>Busca una banda, un disco, una persona o una organización del catálogo.</p>
+      <p>Busca una banda, un disco, una persona, un género o una organización del catálogo.</p>
       <form className="search-input-wrap" onSubmit={handleSubmit}>
-        <label className="visually-hidden" htmlFor="catalog-search">Buscar en el catálogo</label>
-        <input
+        <CatalogSearchInput
+          scope="catalog"
           id="catalog-search"
           className="search-input"
-          type="search"
+          label="Buscar en el catálogo"
           value={input}
-          onChange={(event) => setInput(event.target.value)}
-          placeholder="Caramelos De Cianuro, Las Paticas De La Abuela, Asier Cazalis…"
+          onChange={setInput}
+          results={data} resultsQuery={q} resultsLoading={loading || isSearchPending || awaitingCurrentResults} resultsError={error} onRetryResults={reload}
+          placeholder="Busca artistas, bandas, álbumes o canciones"
           autoFocus
         />
       </form>
 
       {needsMoreCharacters ? (
         <p className="search-status" role="status">Escribe al menos {MIN_QUERY_LENGTH} caracteres para buscar.</p>
-      ) : !inputQuery ? null : isSearchPending || !hasMinimumQuery || loading ? (
+      ) : !inputQuery ? null : isSearchPending || !hasMinimumQuery || loading || awaitingCurrentResults ? (
         <RowsSkeleton rows={6} label="Buscando…" />
       ) : error ? (
         <ErrorState message={error} onRetry={reload} />

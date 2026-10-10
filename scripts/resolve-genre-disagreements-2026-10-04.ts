@@ -15,7 +15,7 @@ const ACTOR = "brian";
 const NOTE = "Revisión de ingesta 2026-10-04: principal = género más específico; empate → Descargas Metal; ambos entran";
 const fold = (s: string): string => s.normalize("NFD").replace(/[̀-ͯ]/gu, "").toLowerCase().replace(/[^a-z0-9]+/gu, " ").trim();
 
-interface Review { id: number; payload: Record<string, any> }
+interface Review { id: number; payload: Record<string, unknown> }
 interface Plan { reviewId: number; kind: "album" | "artist"; entityId: number; primary: string; secondary: string | null; why: string }
 
 async function main(): Promise<void> {
@@ -31,10 +31,10 @@ async function main(): Promise<void> {
     aliases.set(fold(a.a), Number(a.g));
   }
   const firstOf = (raw: string): number | undefined => {
-    const piece = raw.split(/[\/|,]| - /u).map((s) => s.trim()).find(Boolean) ?? raw;
+    const piece = raw.split(/[/|,]| - /u).map((s) => s.trim()).find(Boolean) ?? raw;
     return aliases.get(fold(piece)) ?? aliases.get(fold(piece.replace(/-/gu, " ")));
   };
-  const reviews = (await pool.query<{ id: string; payload: Record<string, any> }>(
+  const reviews = (await pool.query<{ id: string; payload: Record<string, unknown> }>(
     "SELECT id::text, payload FROM ingest.review_queue WHERE status IN ('open','in_progress') AND kind='genre_unknown' ORDER BY id")).rows
     .map((r): Review => ({ id: Number(r.id), payload: r.payload }));
 
@@ -46,7 +46,7 @@ async function main(): Promise<void> {
     const entityId = Number(p["entityId"]);
     let primary: number | undefined;
     let secondary: number | undefined;
-    let why = "";
+    let why: string;
     if (p["origin"] === "genres-merge") {
       primary = Number(p["keptPrimaryGenreId"]); secondary = Number(p["demotedGenreId"]); why = "fusión: se conserva el principal";
     } else if (p["genreCase"] === "human_contradiction") {

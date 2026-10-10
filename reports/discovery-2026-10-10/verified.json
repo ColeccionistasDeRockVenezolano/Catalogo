@@ -1,0 +1,147 @@
+{
+  "statusCode": 200,
+  "latencyMs": 80.49301100000048,
+  "cacheControl": "no-store",
+  "response": {
+    "enabled": true,
+    "intervalMs": 5000,
+    "refreshMs": 15000,
+    "fallback": "Busca artistas, bandas, álbumes o canciones",
+    "groupPolicy": [
+      "historicos",
+      "alternativo",
+      "contemporaneos",
+      "experimental"
+    ],
+    "suggestions": [
+      {
+        "id": 36,
+        "name": "Aditus",
+        "group": "historicos",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 46,
+        "name": "Arkangel",
+        "group": "historicos",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 58,
+        "name": "Caramelos De Cianuro",
+        "group": "alternativo",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 76,
+        "name": "Dermis Tatú",
+        "group": "alternativo",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 78,
+        "name": "Desorden Público",
+        "group": "historicos",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 139,
+        "name": "La Vida Bohème",
+        "group": "alternativo",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 152,
+        "name": "Los Amigos Invisibles",
+        "group": "alternativo",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 159,
+        "name": "Los Mesoneros",
+        "group": "alternativo",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 206,
+        "name": "Rawayana",
+        "group": "contemporaneos",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 218,
+        "name": "Seguridad Nacional",
+        "group": "historicos",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 220,
+        "name": "Sentimiento Muerto",
+        "group": "historicos",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 249,
+        "name": "Tomates Fritos",
+        "group": "alternativo",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 254,
+        "name": "Témpano",
+        "group": "historicos",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 259,
+        "name": "Viniloversus",
+        "group": "alternativo",
+        "priority": 1,
+        "validUntil": null
+      },
+      {
+        "id": 266,
+        "name": "Zapato 3",
+        "group": "historicos",
+        "priority": 1,
+        "validUntil": null
+      }
+    ]
+  },
+  "idempotent": true,
+  "repeatedImportRunId": 18967,
+  "migrations": [
+    {
+      "version": "0052_discovery"
+    },
+    {
+      "version": "0051_person_artist_resolution"
+    },
+    {
+      "version": "0050_ai_curation_decisions"
+    }
+  ],
+  "counts": [
+    {
+      "state": "proposed",
+      "count": 8
+    },
+    {
+      "state": "approved",
+      "count": 15
+    }
+  ]
+}

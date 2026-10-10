@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import { Modal } from "./Modal";
 import { FormFields, type FieldConfig, type FieldValue } from "./FormFields";
 import { ApiError } from "../lib/api";
@@ -9,6 +9,7 @@ interface EntityFormModalProps {
   fields: readonly FieldConfig[];
   initialValues: Record<string, FieldValue>;
   extraFields?: React.ReactNode;
+  panels?: ReadonlyArray<{ key: string; label: string; content: React.ReactNode }>;
   submitLabel?: string;
   onSubmit: (values: Record<string, FieldValue>, note: string) => Promise<EntityWriteResult>;
   onSuccess: (result: EntityWriteResult) => void;
@@ -17,9 +18,11 @@ interface EntityFormModalProps {
 }
 
 export function EntityFormModal({
-  title, fields, initialValues, extraFields, submitLabel = "Guardar", onSubmit, onSuccess, onClose, wide,
+  title, fields, initialValues, extraFields, panels, submitLabel = "Guardar", onSubmit, onSuccess, onClose, wide,
 }: EntityFormModalProps) {
   const [values, setValues] = useState<Record<string, FieldValue>>(initialValues);
+  const [activePanel, setActivePanel] = useState("data");
+  const panelId = useId();
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string>();
@@ -37,7 +40,7 @@ export function EntityFormModal({
       const normalized = { ...values };
       for (const field of fields) {
         const value = normalized[field.key];
-        if ((field.type === "url" || field.type === "mediaUrl" || field.type === "text" || field.type === "textarea")
+        if ((field.type === "url" || field.type === "mediaUrl" || field.type === "date" || field.type === "text" || field.type === "textarea")
           && !field.required && typeof value === "string" && !value.trim()) {
           normalized[field.key] = null;
         }
@@ -45,14 +48,20 @@ export function EntityFormModal({
       const result = await onSubmit(normalized, note.trim());
       onSuccess(result);
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "No se pudo guardar.");
+      setError(err instanceof ApiError || err instanceof Error ? err.message : "No se pudo guardar.");
       setBusy(false);
     }
   }
 
   return (
     <Modal title={title} onClose={onClose} {...(wide === undefined ? {} : { wide })}>
-      <form onSubmit={handleSubmit}>
+      {panels?.length ? <div className="entity-edit-nav" aria-label="Secciones de edición">
+        {[{ key: "data", label: "Datos de la ficha" }, ...panels].map((panel) => (
+          <button type="button" key={panel.key} className={`btn btn--sm${activePanel === panel.key ? " btn--primary" : ""}`}
+            aria-pressed={activePanel === panel.key} aria-controls={`${panelId}-${panel.key}`} onClick={() => setActivePanel(panel.key)}>{panel.label}</button>
+        ))}
+      </div> : null}
+      <form id={`${panelId}-data`} hidden={activePanel !== "data"} onSubmit={handleSubmit}>
         {error ? <p className="form-error-banner">{error}</p> : null}
         {extraFields}
         <FormFields fields={fields} values={values} onChange={handleChange} />
@@ -66,6 +75,7 @@ export function EntityFormModal({
           <button type="submit" className="btn btn--primary" disabled={busy}>{busy ? "Guardando…" : submitLabel}</button>
         </div>
       </form>
+      {panels?.map((panel) => <div key={panel.key} hidden={activePanel !== panel.key} id={`${panelId}-${panel.key}`}>{panel.content}</div>)}
     </Modal>
   );
 }

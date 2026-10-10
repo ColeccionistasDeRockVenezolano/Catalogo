@@ -143,8 +143,37 @@ export const APPROVED_CORE_ADDITIONS: ReadonlySet<string> = new Set([
   "INDEX social_links_pkey CREATE UNIQUE INDEX social_links_pkey ON public.social_links USING btree (id)",
 ]);
 
+/**
+ * pg_dump volca los CHECK desde su texto deparseado y pg_restore los recrea
+ * desde ese texto: una restauración fiel puede mostrar la MISMA restricción
+ * con otra grafía equivalente (un `IN` de lista se depara como `ANY(ARRAY[…])`,
+ * y al recrearlo los casts se reparten por elemento:
+ *   `((ARRAY['a'::character varying, …])::text[])`  ← en la base viva
+ *   `(ARRAY[('a'::character varying)::text, …])`    ← en la copia restaurada
+ * — comprobado el 2026-10-10 con postgres:16 (dump custom + restore).
+ * Se normalizan ambas grafías en los DOS lados de la comparación para que una
+ * restauración fiel no figure como drift. La lista de valores, el operador y
+ * el resto de la entrada siguen comparándose literalmente: un cambio real
+ * (valor añadido, operador distinto) se sigue delatando.
+ */
+function canonicalConstraintSpelling(entry: string): string {
+  return entry
+    .replace(/\(('(?:[^']|'')*'::character varying)\)::text/g, "$1")
+    .replace(/\(ARRAY\[([^\]]*)\]\)::text\[\]/g, "ARRAY[$1]");
+}
+
 export function diffCoreCatalog(actual: string[], expected: string[] = CORE_CATALOG.entries): CatalogDiff {
-  actual = actual.filter((entry) => !APPROVED_CORE_ADDITIONS.has(entry)).map((entry) => APPROVED_CORE_CHANGES[entry] ?? entry);
+  // La membresía en las listas aprobadas se prueba ya normalizada: una copia
+  // restaurada con otra grafía equivalente no debe escapar del filtro.
+  const approvedAdditions = new Set([...APPROVED_CORE_ADDITIONS].map(canonicalConstraintSpelling));
+  const approvedChanges = new Map(
+    Object.entries(APPROVED_CORE_CHANGES).map(([from, to]) => [canonicalConstraintSpelling(from), canonicalConstraintSpelling(to)]),
+  );
+  actual = actual
+    .map(canonicalConstraintSpelling)
+    .filter((entry) => !approvedAdditions.has(entry))
+    .map((entry) => approvedChanges.get(entry) ?? entry);
+  expected = expected.map(canonicalConstraintSpelling);
   const actualSet = new Set(actual);
   const expectedSet = new Set(expected);
   return {

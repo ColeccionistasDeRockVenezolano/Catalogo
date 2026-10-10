@@ -31,6 +31,7 @@ export interface AlbumListQuery extends PaginationQuery {
   /** Con `genre`: suma los discos sin género propio cuyo artista tiene ese género. */
   relatedGenre?: boolean | undefined;
   decade?: number | undefined;
+  withoutYear?: boolean | undefined;
   albumType?: string | undefined;
 }
 
@@ -44,9 +45,10 @@ export async function listAlbums(query: AlbumListQuery): Promise<{ rows: AlbumLi
                OR ($7::boolean AND ${genreMissingSql("album", "al.id")} AND ${relatedGenreFilterSql("al.id", "$3")}))
           AND ($4::int IS NULL OR (al.release_year >= $4 AND al.release_year < $4 + 10))
           AND ($5::text IS NULL OR al.album_type::text = $5)
-          AND (NOT $6::boolean OR ${genreMissingSql("album", "al.id")})`;
+          AND (NOT $6::boolean OR ${genreMissingSql("album", "al.id")})
+          AND (NOT $8::boolean OR al.release_year IS NULL)`;
   const params = [pattern, query.artistId ?? null, query.genre ?? null, query.decade ?? null, query.albumType ?? null,
-    query.withoutGenre ?? false, query.relatedGenre ?? false];
+    query.withoutGenre ?? false, query.relatedGenre ?? false, query.withoutYear ?? false];
   const [rows, count] = await Promise.all([
     getPool().query<{
       id: string; title: string; release_year: number | null; album_type: string;
@@ -57,7 +59,7 @@ export async function listAlbums(query: AlbumListQuery): Promise<{ rows: AlbumLi
          JOIN public.artists ar ON ar.id = al.artist_id
         WHERE ${filters}
         ORDER BY al.title
-        LIMIT $8 OFFSET $9`,
+        LIMIT $9 OFFSET $10`,
       [...params, query.limit, query.offset],
     ),
     getPool().query<{ count: string }>(
@@ -94,10 +96,12 @@ export interface AlbumCreditRow {
 
 /** Un mismo crédito repetido en varias pistas del disco, visto desde el disco. */
 export interface ScopedCreditRow extends AlbumCreditRow {
+  creditIds: number[];
   tracks: Array<{ discNumber: number; trackNumber: number }>;
 }
 
 export interface AlbumTrackRow {
+  notes: string | null;
   id: number;
   discNumber: number;
   trackNumber: number;
@@ -108,6 +112,9 @@ export interface AlbumTrackRow {
 }
 
 export interface AlbumDetail {
+  releaseDateText: string | null;
+  catalogId: string | null;
+  mediaFormat: string | null;
   id: number;
   title: string;
   releaseYear: number | null;
@@ -165,7 +172,8 @@ export function scopedCreditsByType(tracklist: AlbumTrackRow[], albumCredits: Al
     for (const credit of track.credits) {
       const key = creditKey(credit);
       if (albumWide.has(key)) continue;
-      const entry = grouped.get(key) ?? { ...credit, tracks: [] };
+      const entry = grouped.get(key) ?? { ...credit, creditIds: [], tracks: [] };
+      entry.creditIds.push(credit.id);
       entry.tracks.push({ discNumber: track.discNumber, trackNumber: track.trackNumber });
       grouped.set(key, entry);
     }
@@ -178,7 +186,7 @@ export function scopedCreditsByType(tracklist: AlbumTrackRow[], albumCredits: Al
 export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
   const { rows } = await getPool().query<Record<string, unknown>>(
     `SELECT al.id, al.title, al.release_year, al.album_type, al.genre, al.cover_url,
-            al.description, al.notes, al.youtube_url, al.youtube_status,
+            al.description, al.notes, al.release_date_text, al.catalog_id, al.media_format, al.youtube_url, al.youtube_status,
             al.instagram_url, al.instagram_status, al.wordpress_url, al.wordpress_status,
             ar.id AS artist_id, ar.name AS artist_name,
             lbl.id AS label_id, lbl.name AS label_name,
@@ -188,7 +196,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
          SELECT jsonb_agg(jsonb_build_object(
            'id', t.id, 'discNumber', t.disc_number, 'trackNumber', t.track_number,
            'title', t.title, 'durationSeconds', t.duration_seconds,
-           'youtubeStartSeconds', t.youtube_start_seconds,
+           'youtubeStartSeconds', t.youtube_start_seconds, 'notes', t.notes,
            'credits', COALESCE((
              SELECT jsonb_agg(${CREDIT_FIELDS})
              FROM (
@@ -256,6 +264,9 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
     id: Number(row["id"]),
     title: row["title"] as string,
     releaseYear: row["release_year"] as number | null,
+    releaseDateText: row["release_date_text"] as string | null,
+    catalogId: row["catalog_id"] as string | null,
+    mediaFormat: row["media_format"] as string | null,
     albumType: row["album_type"] as string,
     genre: row["genre"] as string | null,
     genreStatus: genreStatusOf(row["genre_confirmed"] === true, row["genre"] as string | null),

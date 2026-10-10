@@ -34,6 +34,20 @@ describe("sesiones de colaboradores", () => {
     app.get("/persons/:id/merge-preview", async () => ({ ok: true }));
     app.get("/artists", async () => ({ public: true }));
     app.get("/albums", async (request) => ({ viewer: request.viewer }));
+    app.get("/catalog-links/artist/:id/social", async () => ({ private: true }));
+    app.patch("/catalog-links/artist/:id/social/instagram", async () => ({ ok: true }));
+    app.post("/genres/artist/:id/decision", async () => ({ ok: true }));
+    app.get("/sources", async () => ({ private: true }));
+    app.get("/sources/:id", async () => ({ private: true }));
+    app.get("/claims", async () => ({ private: true }));
+    app.get("/discovery/contexts/coverage", async () => ({ private: true }));
+    app.get("/discovery/contexts/ontology", async () => ({ private: true }));
+    app.get("/discovery/contexts/tracks/:id/review", async () => ({ private: true }));
+    app.get("/credit-sources", async () => ({ private: true }));
+    app.get("/persons/identity-research", async () => ({ private: true }));
+    app.get("/persons/:id/identity-research", async () => ({ private: true }));
+    app.get("/persons/identity-research/active-job", async () => ({ private: true }));
+    app.get("/persons/identity-research/jobs/:id", async () => ({ private: true }));
   });
 
   afterEach(async () => {
@@ -102,6 +116,24 @@ describe("sesiones de colaboradores", () => {
     expect((await app.inject({ method: "GET", url: "/persons/3/merge-preview?with=4", headers: { cookie: admin.cookie } })).statusCode).toBe(200);
   });
 
+  it("protege fuentes y evidencia frente a visitantes y lectores, también HEAD y consultas directas", async () => {
+    const loginAs = async (username: string) => {
+      const res = await app.inject({ method: "POST", url: "/auth/login", payload: { username, password: PASSWORD } });
+      return (res.headers["set-cookie"] as string).split(";", 1)[0]!;
+    };
+    const reader = await loginAs("lucia.lee");
+    const admin = await loginAs("ana.crv");
+    for (const url of ["/discovery/contexts/coverage", "/discovery/contexts/ontology", "/discovery/contexts/tracks/1/review", "/sources", "/sources/1", "/claims?entity=album&id=1", "/claims?entity=person&id=1", "/claims?entity=organization&id=1", "/claims?entity=artist&id=1", "/credit-sources?entity=album&id=1", "/credit-sources?entity=track&id=1", "/claims?entity=album_credit&id=1", "/claims?entity=track_credit&id=1", "/persons/identity-research?aId=1&bId=2", "/persons/1/identity-research", "/persons/identity-research/active-job?aId=1&bId=2", "/persons/identity-research/jobs/1"]) {
+      for (const method of ["GET", "HEAD"] as const) {
+        expect((await app.inject({ method, url })).statusCode).toBe(401);
+        expect((await app.inject({ method, url, headers: { cookie: reader } })).statusCode).toBe(403);
+        const response = await app.inject({ method, url, headers: { cookie: admin } });
+        expect(response.statusCode).toBe(200);
+        expect(response.headers["cache-control"]).toBe("no-store");
+      }
+    }
+  });
+
   it("no enumera usuarios, rechaza orígenes externos y permite revocar la sesión", async () => {
     for (const username of ["nadie", "ana.crv"]) {
       const rejected = await app.inject({ method: "POST", url: "/auth/login", payload: { username, password: "incorrecta" } });
@@ -161,6 +193,20 @@ describe("sesiones de colaboradores", () => {
     // así que a lo sumo 5 evaluaron la contraseña de verdad.
     expect(limited).toBeGreaterThanOrEqual(3);
     expect(burst.filter((response) => response.statusCode === 401).length).toBe(8 - limited);
+  });
+
+  it("reserva los perfiles editables y las nuevas escrituras a administradores", async () => {
+    const url = "/catalog-links/artist/1/social";
+    expect((await app.inject({ method: "GET", url })).statusCode).toBe(401);
+    const login = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "lucia.lee", password: PASSWORD } });
+    const headers = { cookie: (login.headers["set-cookie"] as string).split(";", 1)[0]!, "x-crv-csrf": login.json().csrf };
+    expect((await app.inject({ method: "GET", url, headers })).statusCode).toBe(403);
+    expect((await app.inject({ method: "PATCH", url: `${url}/instagram`, headers })).statusCode).toBe(403);
+    expect((await app.inject({ method: "POST", url: "/genres/artist/1/decision", headers })).statusCode).toBe(403);
+    const admin = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "ana.crv", password: PASSWORD } });
+    const adminHeaders = { cookie: (admin.headers["set-cookie"] as string).split(";", 1)[0]!, "x-crv-csrf": admin.json().csrf };
+    expect((await app.inject({ method: "GET", url, headers: adminHeaders })).statusCode).toBe(200);
+    expect((await app.inject({ method: "PATCH", url: `${url}/instagram`, headers: adminHeaders })).statusCode).toBe(200);
   });
 
   it("la lectura pública reconoce a quien tiene sesión, sin exigirla (etiqueta de Laya)", async () => {

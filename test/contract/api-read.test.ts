@@ -16,7 +16,7 @@ import { buildApp } from "../../src/api/app.js";
 import {
   albumCredits, albums, artists, organizations, persons, trackCredits, tracks,
 } from "../../src/db/schema/core.js";
-import { artistAliases, trackAliases, sources, claims, reviewQueue } from "../../src/db/schema/ingest.js";
+import { artistAliases, trackAliases, sources, claims, claimEvidence, rawPages, reviewQueue } from "../../src/db/schema/ingest.js";
 import { videoAlbums, videoArtists, videoTracks, youtubeVideos } from "../../src/db/schema/media.js";
 
 const ADMIN_TOKEN = "token-de-prueba-lectura-admin-0123456789";
@@ -43,7 +43,7 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
     const db = getDb();
 
     const [source] = await db.insert(sources).values({
-      slug: "fixture-api", name: "Fixture API", siteType: "website", trustLevel: "high", enabled: true,
+      slug: "fixture-api", name: "Fixture API", url: "https://example.org/", siteType: "website", trustLevel: "high", enabled: true,
     }).returning({ id: sources.id });
     sourceId = source!.id;
 
@@ -114,10 +114,20 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
       videoId: video!.id, trackId, startSeconds: starts[index]!,
     })));
 
+    const [page] = await db.insert(rawPages).values({
+      sourceId, url: "https://example.org/artist", canonicalUrl: "https://example.org/artist/canonical",
+      storedPath: "fixtures/artist.html",
+      sha256: createHash("sha256").update("fixture-page").digest("hex"),
+    }).returning({ id: rawPages.id });
     const [originClaim] = await db.insert(claims).values({
       sourceId, entityKind: "artist", artistId, field: "origin_city",
+      rawPageId: page!.id,
       rawValue: "Caracas", rawHash: createHash("sha256").update("fixture-hash-1").digest("hex"), confidence: "high", status: "accepted",
     }).returning({ id: claims.id });
+    await db.insert(claimEvidence).values([
+      { claimId: originClaim!.id, url: "https://example.org/artist/evidence", excerpt: "Banda de Caracas", evidenceHash: createHash("sha256").update("evidence-1").digest("hex") },
+      { claimId: originClaim!.id, rawPageId: page!.id, excerpt: "Otra referencia", evidenceHash: createHash("sha256").update("evidence-2").digest("hex") },
+    ]);
 
     await db.insert(reviewQueue).values({
       kind: "possible_duplicate", status: "open", priority: 7, albumId, claimAId: originClaim!.id, notes: "fixture de revisión",
@@ -143,7 +153,7 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
     expect(res.statusCode).toBe(200);
     const body = res.json();
     expect(body.artist).toEqual([{ type: "artist", id: artistId, label: "Caramelos De Cianuro", context: "Caracas", albumId: null }]);
-    expect(body.album).toEqual([]);
+    expect(body.album).toEqual([{ type: "album", id: albumId, label: "Las Paticas De La Abuela", context: "Caramelos De Cianuro", albumId: null }]);
 
     const byTitle = await app.inject({ method: "GET", url: "/search?q=Paticas" });
     expect(byTitle.json().album[0]).toMatchObject({ type: "album", id: albumId, label: "Las Paticas De La Abuela", context: "Caramelos De Cianuro" });
@@ -345,20 +355,73 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
   });
 
   it("GET /claims exige entity+id y lista los claims de la entidad", async () => {
-    const missing = await app.inject({ method: "GET", url: "/claims" });
+    expect((await app.inject({ method: "GET", url: `/claims?entity=artist&id=${artistId}` })).statusCode).toBe(401);
+    const missing = await app.inject({ method: "GET", url: "/claims", headers: admin });
     expect(missing.statusCode).toBe(400);
-    const res = await app.inject({ method: "GET", url: `/claims?entity=artist&id=${artistId}` });
+    const res = await app.inject({ method: "GET", url: `/claims?entity=artist&id=${artistId}`, headers: admin });
     expect(res.statusCode).toBe(200);
     const body = res.json();
     expect(body.data).toEqual([
-      expect.objectContaining({ field: "origin_city", status: "accepted", sourceId, sourceName: "Fixture API" }),
+      expect.objectContaining({ field: "origin_city", status: "accepted", sourceId, sourceName: "Fixture API",
+        sourceUrl: "https://example.org/", pageUrl: "https://example.org/artist/canonical", seedRowNumber: null, createdBy: "system",
+        evidence: [
+          { url: "https://example.org/artist/evidence", excerpt: "Banda de Caracas" },
+          { url: "https://example.org/artist/canonical", excerpt: "Otra referencia" },
+        ],
+      }),
     ]);
   });
 
+  it("GET /credit-sources incluye créditos de disco y pistas, evidencia auditada, vacíos y aislamiento por obra", async () => {
+    const db = getDb();
+    const [record] = await db.insert(albums).values({ artistId, title: "Fixture origen de créditos", albumType: "ep" }).returning({ id: albums.id });
+    const parentId = record!.id;
+    const albumRows = await db.insert(albumCredits).values([
+      { albumId: parentId, personId: boriMilanId, creditType: "musician", role: "Guitar" },
+      { albumId: parentId, personId: boriMilanId, creditType: "producer", role: "Producer" },
+    ]).returning({ id: albumCredits.id });
+    const trackRows = await db.insert(tracks).values([
+      { albumId: parentId, trackNumber: 1, title: "Uno" }, { albumId: parentId, trackNumber: 2, title: "Dos" },
+    ]).returning({ id: tracks.id });
+    const trackCreditRows = await db.insert(trackCredits).values(trackRows.map((track) => ({ trackId: track.id, personId: boriMilanId, creditType: "musician" as const, role: "Guitar" }))).returning({ id: trackCredits.id });
+    const evidenceUrl = "https://example.org/credits/exact";
+    const insertedClaims = await db.insert(claims).values([
+      { sourceId, entityKind: "album_credit", albumCreditId: albumRows[0]!.id, field: "credit_role", rawValue: "Guitar", normalizedValue: "Guitar", rawHash: createHash("sha256").update("album-credit-evidence").digest("hex"), status: "accepted" },
+      { sourceId, entityKind: "track_credit", trackCreditId: trackCreditRows[0]!.id, field: "credit_role", rawValue: "Guitar", normalizedValue: "Guitar", rawHash: createHash("sha256").update("track-credit-evidence").digest("hex"), status: "accepted" },
+    ]).returning({ id: claims.id });
+    await db.insert(claimEvidence).values(insertedClaims.map((claim) => ({ claimId: claim.id, url: evidenceUrl, excerpt: "Guitar — músico documentado", evidenceHash: createHash("sha256").update(`evidence-credit-${claim.id}`).digest("hex") })));
+    const audit = await getPool().query<{ id: string }>(`INSERT INTO ingest.merge_audit(entity_kind,track_credit_id,field,new_value,reason,confidence,performed_by)
+      VALUES('track_credit',$1,'track_credits','{"role":"Guitar"}'::jsonb,'Mismo aporte aplicado a otra pista','high','system') RETURNING id`, [trackCreditRows[1]!.id]);
+    await getPool().query("INSERT INTO ingest.merge_audit_claims(merge_audit_id,claim_id) VALUES($1,$2)", [audit.rows[0]!.id, insertedClaims[1]!.id]);
+    expect((await app.inject({ method: "GET", url: `/credit-sources?entity=album&id=${parentId}` })).statusCode).toBe(401);
+    const response = await app.inject({ method: "GET", url: `/credit-sources?entity=album&id=${parentId}`, headers: admin });
+    expect(response.statusCode).toBe(200);
+    expect(response.headers["cache-control"]).toBe("no-store");
+    const data = response.json();
+    expect(data).toHaveLength(4);
+    expect(data.find((row: { entityKind: string; entityId: number }) => row.entityKind === "album_credit" && row.entityId === albumRows[0]!.id).claims)
+      .toEqual([expect.objectContaining({ id: insertedClaims[0]!.id, evidence: [{ url: evidenceUrl, excerpt: "Guitar — músico documentado" }] })]);
+    expect(data.find((row: { entityKind: string; entityId: number }) => row.entityKind === "album_credit" && row.entityId === albumRows[1]!.id).claims).toEqual([]);
+    expect(data.find((row: { entityKind: string; entityId: number }) => row.entityKind === "track_credit" && row.entityId === trackCreditRows[1]!.id).claims)
+      .toEqual([expect.objectContaining({ id: insertedClaims[1]!.id })]);
+    const scoped = await app.inject({ method: "GET", url: `/credit-sources?entity=track&id=${trackRows[1]!.id}`, headers: admin });
+    expect(scoped.json()).toHaveLength(1);
+    expect(scoped.json()[0]).toMatchObject({ entityKind: "track_credit", entityId: trackCreditRows[1]!.id });
+    expect((await app.inject({ method: "GET", url: `/credit-sources?entity=album&id=${albumId}`, headers: admin })).json()
+      .every((row: { claims: Array<{ id: number }> }) => row.claims.every((claim) => !insertedClaims.some((own) => own.id === claim.id)))).toBe(true);
+    const detail = await app.inject({ method: "GET", url: `/albums/${parentId}` });
+    expect(detail.json().scopedCreditsByType).toEqual({}); // La misma atribución existe para el disco entero.
+    const direct = await app.inject({ method: "GET", url: `/claims?entity=album_credit&id=${albumRows[0]!.id}`, headers: admin });
+    expect(direct.statusCode).toBe(200);
+    expect(direct.json().pagination.total).toBe(1);
+  });
+
   it("GET /sources y /sources/:id exponen la fuente sembrada", async () => {
-    const list = await app.inject({ method: "GET", url: "/sources" });
+    expect((await app.inject({ method: "GET", url: "/sources" })).statusCode).toBe(401);
+    expect((await app.inject({ method: "GET", url: `/sources/${sourceId}` })).statusCode).toBe(401);
+    const list = await app.inject({ method: "GET", url: "/sources", headers: admin });
     expect(list.json()).toEqual([expect.objectContaining({ slug: "fixture-api", name: "Fixture API" })]);
-    const res = await app.inject({ method: "GET", url: `/sources/${sourceId}` });
+    const res = await app.inject({ method: "GET", url: `/sources/${sourceId}`, headers: admin });
     expect(res.json()).toMatchObject({ slug: "fixture-api", lastRun: null });
   });
 

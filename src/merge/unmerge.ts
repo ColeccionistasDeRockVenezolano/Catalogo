@@ -16,6 +16,7 @@ import { OperatorError, type OperatorContext } from "./operator.js";
 import { MERGE_TABLES, type DiscardedRow, type MergeKind, type MovedRef } from "../review/duplicates.js";
 import { loadVerifiedTrace, traceReason } from "./legacy-trace.js";
 import { restoreGenreAssignments, type GenreMergeSnapshot } from "../genres/merge.js";
+import { restoreExternalIdentities, type ExternalIdentitySnapshot } from "../genres/external-lifecycle.js";
 import { projectAlbumGenre } from "./genre-projection.js";
 import { isPreserveKind, revertPreserved, type PreservedChange } from "./preserve.js";
 
@@ -33,6 +34,8 @@ export interface MergeAuditData {
   primaryAliases?: number[];
   /** Géneros de ambas fichas antes de la fusión (desde la migración 0027). */
   genreRows?: GenreMergeSnapshot;
+  externalIdentities?: ExternalIdentitySnapshot;
+  redirectedRows?: Array<Record<string, unknown>>;
   /** Lo que la fusión unió o anotó en la ficha que queda (desde la 0034; preserve.ts). */
   preserved?: PreservedChange[];
   /** Marcas de reescritura del duplicado que la fusión cerró. */
@@ -244,6 +247,17 @@ async function undoOneMerge(context: OperatorContext, audit: MergeAuditRow): Pro
     }
   }
   // 7. La redirección del id desaparecido.
+  if (data.externalIdentities) {
+    await restoreExternalIdentities(client, data.externalIdentities).catch((error: Error) => {
+      throw new OperatorError("not_open", error.message, { keepId });
+    });
+  }
+  for (const row of data.redirectedRows ?? []) {
+    const restored = await client.query(
+      "UPDATE ingest.entity_redirects SET to_id=$3 WHERE entity_kind=$1 AND from_id=$2 AND to_id=$4 AND merge_audit_id IS NOT DISTINCT FROM $5",
+      [kind, row["from_id"], row["to_id"], keepId, row["merge_audit_id"]]);
+    if (restored.rowCount !== 1) throw new OperatorError("not_open", "una redirección comprimida cambió después de la fusión", { keepId });
+  }
   await client.query(
     "DELETE FROM ingest.entity_redirects WHERE entity_kind=$1 AND from_id=$2 AND to_id=$3", [kind, dropId, keepId]);
   // 8. El rastro de la reversión, con los mismos claims que probaban la fusión.

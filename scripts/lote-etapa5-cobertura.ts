@@ -152,4 +152,4 @@ async function main(): Promise<void> {
   console.log(JSON.stringify(totals, null, 2));
 }
 
-main().finally(() => closeDb());
+main().finally(() => closeDb()).catch((error: unknown) => { console.error(error); process.exitCode = 1; });

@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "device": "desktop",
+      "visibleDwell": true,
+      "hiddenExcluded": true,
+      "offscreenExcluded": true,
+      "downloadExcluded": true,
+      "refreshDeduped": true,
+      "orderedFunnel": true,
+      "noKeystrokeEvents": true,
+      "adminExcluded": true,
+      "flag": true,
+      "failureDoesNotBlockSearch": true,
+      "privacy": true,
+      "keyboardOrTouch": true,
+      "noOverflow": true
+    },
+    {
+      "device": "mobile",
+      "visibleDwell": true,
+      "hiddenExcluded": true,
+      "offscreenExcluded": true,
+      "downloadExcluded": true,
+      "refreshDeduped": true,
+      "orderedFunnel": true,
+      "noKeystrokeEvents": true,
+      "adminExcluded": true,
+      "flag": true,
+      "failureDoesNotBlockSearch": true,
+      "privacy": true,
+      "keyboardOrTouch": true,
+      "noOverflow": true
+    }
+  ],
+  "errors": []
+}

@@ -60,4 +60,4 @@ async function main(): Promise<void> {
   console.log(`${CONFIRM ? "confirm" : "dry-run (todo se deshizo)"} · run ${runId} · ${JSON.stringify(counts)}`);
 }
 
-main().finally(() => closeDb());
+main().finally(() => closeDb()).catch((error: unknown) => { console.error(error); process.exitCode = 1; });

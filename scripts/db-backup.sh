@@ -75,8 +75,18 @@ while IFS= read -r rel; do
   [[ -n "$rel" ]] || continue
   [[ -f "$DATA_DIR_/$rel" ]] || raw_missing=$((raw_missing + 1))
 done < <(psql_q -c "SELECT stored_path FROM ingest.raw_pages")
-raw_files="$(find "$DATA_DIR_/raw" -type f | wc -l | tr -d ' ')"
-tar -C "$DATA_DIR_" -czf "$OUT/raw.tar.gz" raw
+(
+  cd "$DATA_DIR_"
+  find raw -type f -print0 > "$OUT/raw-files.list"
+)
+raw_files="$(tr -cd '\0' < "$OUT/raw-files.list" | wc -c | tr -d ' ')"
+# Freeze the file inventory before archiving. Crawlers may create additional
+# captures while this read-only backup runs; directory mtime changes must not
+# invalidate an archive of the existing immutable captures. A listed file that
+# changes or disappears still makes tar fail, and restore-check validates the
+# referenced contents against the database dump.
+tar -C "$DATA_DIR_" --null --no-recursion -T "$OUT/raw-files.list" -czf "$OUT/raw.tar.gz"
+rm "$OUT/raw-files.list"
 echo "   $raw_files archivos; $raw_pages raw_pages; $raw_missing sin archivo en disco"
 if (( raw_missing > 0 )); then
   echo "   AVISO: hay raw_pages cuyo archivo no está en $DATA_DIR_ (queda registrado en el manifest)"

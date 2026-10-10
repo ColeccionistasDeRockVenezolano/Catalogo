@@ -1,0 +1,41 @@
+[
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/home/brian/apps/Coleccionistas De Rock Venezolano/web/src/styles/global.css",
+    "line": 1145,
+    "snippet": "border-left: 3px solid var(--border)",
+    "importedBy": [
+      "main.tsx"
+    ]
+  },
+  {
+    "antipattern": "overused-font",
+    "name": "Overused font",
+    "description": "Inter, Roboto, Fraunces, Geist, Plus Jakarta Sans, and Space Grotesk are used on so many sites they no longer feel distinctive. Each new wave of AI-generated UIs converges on the same handful of faces. Choose a face that gives your interface personality.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/home/brian/apps/Coleccionistas De Rock Venezolano/web/src/styles/global.css",
+    "line": 26,
+    "snippet": "font-family: \"Inter",
+    "importedBy": [
+      "main.tsx"
+    ]
+  },
+  {
+    "antipattern": "side-tab",
+    "name": "Side-tab accent border",
+    "description": "Thick colored border on one side of a card — the most recognizable tell of AI-generated UIs. Use a subtler accent or remove it entirely.",
+    "severity": "warning",
+    "category": "slop",
+    "file": "/home/brian/apps/Coleccionistas De Rock Venezolano/web/src/styles/global.css",
+    "line": 712,
+    "snippet": ".cside__link.is-active::before — absolute 3px pseudo-element stripe (left: 0)",
+    "importedBy": [
+      "main.tsx"
+    ]
+  }
+]

@@ -162,6 +162,79 @@ describe("API de escritura (E7B)", () => {
     expect(albumDetail).toMatchObject({ title: "Las Paticas De La Abuela", releaseYear: 1992, albumType: "ep", genre: "Rock", artist: { id: artistId } });
   });
 
+  it("devuelve en la ficha los campos ampliados y las notas de pista", async () => {
+    const artistFields = { status: "on_hold", themes: "Historia", yearsActive: "1989–1998, 2002–presente", logoUrl: "/crv/media/logo-prueba.png" };
+    expect((await write("PATCH", `/artists/${artistId}`, { ...artistFields, note: "completar artista" })).statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: `/artists/${artistId}` })).json()).toMatchObject(artistFields);
+    const personFields = { realName: "Nombre Real", birthCity: "Caracas", deathCause: "Dato de prueba", trivia: "También compositor", gender: "male" };
+    const person = await write("POST", "/persons", { name: "Persona de campos completos", ...personFields, note: "completar persona" });
+    expect(person.statusCode).toBe(201);
+    expect((await app.inject({ method: "GET", url: `/persons/${person.json().id}` })).json()).toMatchObject(personFields);
+    const titular = await write("POST", "/artist-members", { artistId, personId: person.json().id, role: "Titular del proyecto", note: "vincular persona real" });
+    expect(titular.statusCode).toBe(201);
+    expect((await app.inject({ method: "GET", url: `/artists/${artistId}` })).json().members).toEqual(expect.arrayContaining([expect.objectContaining({ personRealName: personFields.realName })]));
+    expect((await write("DELETE", `/artist-members/${titular.json().id}`)).statusCode).toBe(200);
+    const albumFields = { releaseDateText: "Octubre de 1992", catalogId: "CRV-001", mediaFormat: "CD" };
+    expect((await write("PATCH", `/albums/${albumId}`, { ...albumFields, note: "completar disco" })).statusCode).toBe(200);
+    const track = await write("POST", "/tracks", { albumId, title: "Pista con nota", trackNumber: 90, notes: "Nota que debe precargarse" });
+    expect(track.statusCode).toBe(201);
+    const detail = (await app.inject({ method: "GET", url: `/albums/${albumId}` })).json();
+    expect(detail).toMatchObject(albumFields);
+    expect(detail.tracklist).toEqual(expect.arrayContaining([expect.objectContaining({ id: track.json().id, notes: "Nota que debe precargarse" })]));
+    expect((await write("DELETE", `/tracks/${track.json().id}`)).statusCode).toBe(200);
+  });
+
+  it("gestiona redes y escucha con historial reversible y lectura privada", async () => {
+    const url = `/catalog-links/artist/${artistId}/social/instagram`;
+    const link = { url: "https://instagram.com/crv_prueba", handle: "@crv_prueba", verified: true, note: "perfil confirmado por la administración" };
+    expect((await app.inject({ method: "PATCH", url, payload: link })).statusCode).toBe(401);
+    const saved = await write("PATCH", url, link);
+    expect(saved.statusCode).toBe(200);
+    const runId = saved.json().runId;
+    expect((await app.inject({ method: "GET", url: `/catalog-links/artist/${artistId}/social` })).statusCode).toBe(401);
+    expect((await authedGet(`/catalog-links/artist/${artistId}/social`)).json()).toEqual([{ platform: "instagram", url: link.url, handle: "crv_prueba", verified: true }]);
+    expect((await app.inject({ method: "GET", url: `/artists/${artistId}` })).json().socials).toContainEqual({ platform: "instagram", url: link.url, handle: "crv_prueba" });
+    expect((await authedGet(`/changes/${runId}`)).statusCode).toBe(200);
+    const unconfirmed = await write("PATCH", url, { ...link, verified: false });
+    expect(unconfirmed.statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: `/artists/${artistId}` })).json().socials).toEqual([]);
+    const removed = await write("DELETE", `${url}?note=retirar%20perfil`);
+    expect(removed.statusCode).toBe(200);
+    expect((await write("POST", `/changes/${removed.json().runId}/undo`, { note: "restaurar perfil" })).statusCode).toBe(200);
+    expect((await authedGet(`/catalog-links/artist/${artistId}/social`)).json()).toHaveLength(1);
+    expect((await write("PATCH", `/catalog-links/album/${albumId}/streaming/spotify`, { url: "https://open.spotify.com/album/prueba", verified: true, note: "confirmar disco" })).statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: `/albums/${albumId}` })).json().platforms).toContainEqual({ platform: "spotify", url: "https://open.spotify.com/album/prueba" });
+    expect((await write("PATCH", `/catalog-links/album/${albumId}/social/instagram`, link)).statusCode).toBe(422);
+    expect((await write("PATCH", `/catalog-links/artist/${artistId}/social/spotify`, link)).statusCode).toBe(422);
+    expect((await write("PATCH", url, { ...link, url: "javascript:alert(1)" })).statusCode).toBe(400);
+  });
+
+  it("edita los videos relacionados y mantiene un solo principal con deshacer", async () => {
+    const first = `/albums/${albumId}/videos/abcdefghijk`;
+    const second = `/albums/${albumId}/videos/zyxwvutsrqp`;
+    const body = { kind: "full_album", isPrimaryLink: true, note: "vincular disco completo" };
+    expect((await write("PATCH", first, body)).statusCode).toBe(200);
+    expect((await write("PATCH", second, body)).statusCode).toBe(200);
+    const detail = (await app.inject({ method: "GET", url: `/albums/${albumId}` })).json();
+    expect(detail.youtubeLinks.filter((link: { isPrimaryLink: boolean }) => link.isPrimaryLink)).toEqual([expect.objectContaining({ videoId: "zyxwvutsrqp" })]);
+    const removed = await write("DELETE", `${second}?note=quitar%20video`);
+    expect(removed.statusCode).toBe(200);
+    expect((await write("POST", `/changes/${removed.json().runId}/undo`, { note: "restaurar video" })).statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: `/albums/${albumId}` })).json().youtubeLinks).toHaveLength(2);
+  });
+
+  it("permite administrar géneros confirmados de artista y disco por separado", async () => {
+    await pool().query("INSERT INTO ingest.genres(slug,name,level) VALUES('rock','Rock','family')");
+    const vocabulary = await app.inject({ method: "GET", url: "/genres/vocabulary" });
+    expect(vocabulary.statusCode).toBe(200);
+    expect(vocabulary.json()).toEqual(expect.arrayContaining([expect.objectContaining({ slug: "rock" })]));
+    const decision = { action: "confirm_primary", genreSlug: "rock", note: "clasificación confirmada" };
+    expect((await write("POST", `/genres/artist/${artistId}/decision`, decision)).statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: `/artists/${artistId}` })).json().primaryGenre).toMatchObject({ slug: "rock" });
+    expect((await write("POST", `/genres/artist/${artistId}/decision`, { ...decision, action: "reject" })).statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: `/artists/${artistId}` })).json().genres).toEqual([]);
+  });
+
   it("corregir un valor ya afirmado lo sustituye con auditoría y deja el anterior como superseded", async () => {
     const corrected = await write("PATCH", `/artists/${artistId}`, { formedYear: 1990, note: "el primer ensayo fue en 1990" });
     expect(corrected.statusCode).toBe(200);
@@ -409,7 +482,7 @@ describe("API de escritura (E7B)", () => {
     expect(conflict.resolution_note).toContain("la contraportada dice 1997");
 
     // Nada se perdió: los dos rivales siguen ahí como superseded, con su fuente.
-    const claims = (await app.inject({ method: "GET", url: `/claims?entity=album&id=${fixture.albumId}` })).json().data
+    const claims = (await authedGet(`/claims?entity=album&id=${fixture.albumId}`)).json().data
       .filter((row: { field: string }) => row.field === "release_year")
       .map((row: { sourceName: string; status: string; normalizedValue: unknown }) => [row.sourceName, row.normalizedValue, row.status]);
     expect(claims).toEqual(expect.arrayContaining([

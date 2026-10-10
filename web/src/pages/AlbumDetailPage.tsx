@@ -1,29 +1,36 @@
-import { Fragment, useState } from "react";
+import { EntityVerification } from "../components/EntityVerification";
+import { Fragment, useCallback, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
 import { BackLink } from "../components/BackLink";
-import { GitMerge, PencilSimple, Trash } from "@phosphor-icons/react";
-import { albumFormatWrites, albumWrites, albumsApi, trackWrites, ApiError } from "../lib/api";
+import { GitMerge, PencilSimple, Play, Trash } from "@phosphor-icons/react";
+import { albumFormatWrites, albumWrites, albumsApi, claimsApi, trackWrites, ApiError } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useMovedToRedirect } from "../lib/useMovedTo";
 import { useOperator } from "../lib/OperatorContext";
 import { useToast } from "../lib/ToastContext";
 import { DetailSkeleton } from "../components/Skeletons";
 import { AliasEditor } from "../components/AliasEditor";
+import { AlbumVideoEditor } from "../components/AlbumVideoEditor";
+import { GenreEditor } from "../components/GenreEditor";
+import { PlatformLinkEditor } from "../components/PlatformLinkEditor";
 import { EntityFormModal } from "../components/EntityFormModal";
 import { TrackAliasesSection } from "../components/TrackAliasesSection";
 import { EntityPicker } from "../components/EntityPicker";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { CreditManager } from "../components/CreditManager";
 import { AlbumMergeModal } from "../components/AlbumMergeModal";
+import { EntityProvenance } from "../components/EntityProvenance";
 import { EntityHistory } from "../components/EntityHistory";
 import { EntityLoadError } from "../components/RemovedEntityState";
 import { Modal } from "../components/Modal";
 import { initialOf } from "../components/EntityCard";
-import { ALBUM_FIELDS, TRACK_FIELDS } from "../lib/entityFields";
+import { entityFormValues, ALBUM_FIELDS, TRACK_FIELDS } from "../lib/entityFields";
 import { albumTypeLabel, formatDuration } from "../lib/labels";
 import type { AlbumFormat, Track } from "../lib/types";
 import { PlatformLinks } from "../components/PlatformLinks";
+import { AlbumYoutubePlayer, type AlbumYoutubePlayerHandle } from "../components/AlbumYoutubePlayer";
+import { albumYoutubeVideoId, trackAtYoutubeTime, type YoutubePlayback } from "../lib/youtube";
 
 const CREDIT_SECTIONS: ReadonlyArray<{ title: string; types: readonly string[] }> = [
   { title: "Músicos", types: ["musician"] },
@@ -41,6 +48,9 @@ export function AlbumDetailPage() {
   const { isAdmin, user } = useOperator();
   const { notify } = useToast();
   const { data: album, loading, error, errorValue, reload } = useAsync(() => albumsApi.get(albumId), [albumId, user?.name]);
+  const creditProvenance = useAsync(
+    () => isAdmin && album ? claimsApi.creditSources("album", albumId) : Promise.resolve([]), [albumId, isAdmin, album],
+  );
   useMovedToRedirect(errorValue);
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -57,9 +67,19 @@ export function AlbumDetailPage() {
   const [artistLabel, setArtistLabel] = useState<string | null>(null);
   const [labelId, setLabelId] = useState<number | null>(null);
   const [labelLabel, setLabelLabel] = useState<string | null>(null);
+  const youtubePlayer = useRef<AlbumYoutubePlayerHandle>(null);
+  const [playback, setPlayback] = useState<(YoutubePlayback & { albumId: number }) | null>(null);
+  const onPlaybackChange = useCallback((value: YoutubePlayback | null) => {
+    setPlayback(value ? { ...value, albumId } : null);
+  }, [albumId]);
 
-  if (loading) return <DetailSkeleton />;
+  if (loading && (!album || album.id !== albumId)) return <DetailSkeleton />;
   if (error || !album) return <EntityLoadError message={error ?? "Disco no encontrado."} errorValue={errorValue} onRetry={reload} />;
+  const youtubeVideoId = albumYoutubeVideoId(album);
+  const currentPlayback = playback?.albumId === album.id ? playback : null;
+  const currentTrack = youtubeVideoId && currentPlayback && [1, 2, 3].includes(currentPlayback.state)
+    ? trackAtYoutubeTime(album.tracklist, currentPlayback.seconds) : null;
+  const playbackLabel = currentPlayback?.state === 1 ? "Reproduciendo" : currentPlayback?.state === 2 ? "En pausa" : "Cargando…";
 
   const meta = [
     album.releaseYear ? String(album.releaseYear) : null,
@@ -87,6 +107,11 @@ export function AlbumDetailPage() {
             {album.genreByLaya ? <span className="badge badge--amber" title="Género principal elegido por Laya (último recurso). Solo visible con sesión iniciada.">Género por Laya</span> : null}
             {album.label ? <Link to={`/organizaciones/${album.label.id}`} className="badge badge--violet">{album.label.name}</Link> : null}
           </div>
+          {album.releaseDateText || album.catalogId || album.mediaFormat ? <dl className="album-edition-details">
+            {album.releaseDateText ? <div><dt>Fecha de publicación</dt><dd>{album.releaseDateText}</dd></div> : null}
+            {album.catalogId ? <div><dt>Número de catálogo</dt><dd>{album.catalogId}</dd></div> : null}
+            {album.mediaFormat ? <div><dt>Formato de la edición</dt><dd>{album.mediaFormat}</dd></div> : null}
+          </dl> : null}
           <PlatformLinks links={album.platforms ?? []} subject={`«${album.title}»`} />
           {album.description ? <p className="entity-hero__desc">{album.description}</p> : null}
           <RewritePendingMark kind="album" id={album.id} onDone={reload} />
@@ -110,10 +135,30 @@ export function AlbumDetailPage() {
         </div>
       ) : null}
 
+      {isAdmin ? <EntityVerification kind="album" id={album.id} revision={album} /> : null}
+
       <div className="section">
         <h2>Alias</h2>
         <AliasEditor path="albums" entityId={album.id} aliases={album.aliases} onChanged={reload} />
       </div>
+
+      {youtubeVideoId ? (
+        <div className="section">
+          <h2>
+            Escuchar disco
+            <a className="album-youtube-link" href={`https://youtu.be/${youtubeVideoId}`} target="_blank" rel="noreferrer">Abrir en YouTube</a>
+          </h2>
+          <AlbumYoutubePlayer key={`${album.id}:${youtubeVideoId}`} ref={youtubePlayer} videoId={youtubeVideoId} title={album.title} onPlaybackChange={onPlaybackChange} />
+          <p className="album-youtube-current" role="status">
+            {currentTrack ? <>{playbackLabel}: <strong>{currentTrack.title}</strong></>
+              : currentPlayback?.state === 1 ? "Reproduciendo el disco."
+                : currentPlayback?.state === 2 ? "Reproducción en pausa."
+                  : currentPlayback?.state === 3 ? "Cargando el video…"
+                    : currentPlayback?.state === 0 ? "Reproducción finalizada."
+                : "Elige una pista para escucharla desde su inicio."}
+          </p>
+        </div>
+      ) : null}
 
       <div className="section">
         <h2>
@@ -121,26 +166,43 @@ export function AlbumDetailPage() {
           {isAdmin ? <button type="button" className="btn btn--sm btn--ghost" onClick={() => setAddingTrack(true)}>+ Añadir pista</button> : null}
         </h2>
         {album.tracklist.length === 0 ? <p style={{ color: "var(--text-faint)", fontSize: 13.5 }}>Sin pistas registradas.</p> : (
-          <div className="table-wrap table-wrap--scroll">
-            <table>
-              <thead><tr><th className="num">#</th><th>Título</th><th className="num">Duración</th><th className="num">Inicio en YouTube</th><th></th></tr></thead>
-              <tbody>
-                {album.tracklist.map((track) => (
+          <div className="table-wrap table-wrap--scroll album-tracklist">
+            <table role="table" aria-label="Lista de pistas">
+              <thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col" className="num">#</th><th role="columnheader" scope="col">Título</th><th role="columnheader" scope="col" className="num">Duración</th><th role="columnheader" scope="col" className="num">Inicio en YouTube</th><th role="columnheader" scope="col"><span className="visually-hidden">Acciones</span></th></tr></thead>
+              <tbody role="rowgroup">
+                {album.tracklist.map((track) => {
+                  const isCurrent = currentTrack?.id === track.id;
+                  return (
                   <Fragment key={track.id}>
-                    <tr>
-                      <td className="num">{track.discNumber > 1 ? `${track.discNumber}.` : ""}{track.trackNumber}</td>
-                      <td>
-                        {track.title}
+                    <tr role="row" className={`album-track-row${isCurrent ? " is-current" : ""}`} aria-current={isCurrent ? "true" : undefined}>
+                      <td role="cell" className="num album-track-number">{track.discNumber > 1 ? `${track.discNumber}.` : ""}{track.trackNumber}</td>
+                      <td role="cell" className="album-track-title">
+                        <span className="album-track-name">{track.title}</span>
+                        {isCurrent ? <span className="track-playback-label">{playbackLabel}</span> : null}
                         {track.credits.length > 0 ? (
-                          <button type="button" className="btn btn--sm btn--ghost" style={{ marginLeft: 8 }}
+                          <button type="button" className="btn btn--sm btn--ghost track-credits-toggle"
                             onClick={() => setExpandedTrack(expandedTrack === track.id ? null : track.id)}>
                             {expandedTrack === track.id ? "ocultar créditos" : `créditos (${track.credits.length})`}
                           </button>
                         ) : null}
                       </td>
-                      <td className="num">{formatDuration(track.durationSeconds)}</td>
-                      <td className="num">{track.youtubeStartSeconds !== null ? formatDuration(track.youtubeStartSeconds) : "—"}</td>
-                      <td className="row-actions">
+                      <td role="cell" className="num album-track-duration"><span className="album-track-duration-label">Duración </span>{formatDuration(track.durationSeconds)}</td>
+                      <td role="cell" className="num album-track-start">
+                        <span className="track-youtube-start">
+                          <span className="track-youtube-time">{track.youtubeStartSeconds !== null ? formatDuration(track.youtubeStartSeconds) : "—"}</span>
+                          {youtubeVideoId && track.youtubeStartSeconds !== null && track.youtubeStartSeconds >= 0 ? (
+                            <button type="button" className="btn btn--sm track-youtube-play"
+                              aria-label={`Reproducir «${track.title}» desde ${formatDuration(track.youtubeStartSeconds)}`}
+                              title={`Reproducir desde ${formatDuration(track.youtubeStartSeconds)}`}
+                              onClick={() => {
+                                if (track.youtubeStartSeconds !== null) youtubePlayer.current?.playFrom(track.youtubeStartSeconds);
+                              }}>
+                              <Play size={16} weight="fill" aria-hidden="true" />
+                            </button>
+                          ) : null}
+                        </span>
+                      </td>
+                      <td role="cell" className="row-actions album-track-actions">
                         {isAdmin ? (
                           <>
                             <button type="button" className="btn btn--sm" onClick={() => {
@@ -156,14 +218,15 @@ export function AlbumDetailPage() {
                       </td>
                     </tr>
                     {expandedTrack === track.id ? (
-                      <tr>
-                        <td colSpan={5} style={{ background: "var(--surface-2)" }}>
-                          <CreditManager target={{ kind: "track", trackId: track.id }} credits={track.credits} onChanged={reload} compact />
+                      <tr role="row" className="album-track-credits">
+                        <td role="cell" colSpan={5} style={{ background: "var(--surface-2)" }}>
+                          <CreditManager target={{ kind: "track", trackId: track.id }} credits={track.credits} onChanged={reload} compact provenance={creditProvenance} />
                         </td>
                       </tr>
                     ) : null}
                   </Fragment>
-                ))}
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -179,7 +242,7 @@ export function AlbumDetailPage() {
             return (
               <div className="credit-group" key={section.title}>
                 <h3>{section.title}</h3>
-                <CreditManager target={{ kind: "album", albumId: album.id }} credits={items} scoped={scoped} onChanged={reload} />
+                <CreditManager target={{ kind: "album", albumId: album.id }} credits={items} scoped={scoped} onChanged={reload} provenance={creditProvenance} />
               </div>
             );
           })}
@@ -226,25 +289,26 @@ export function AlbumDetailPage() {
         )}
       </div>
 
+      <EntityProvenance entity="album" id={album.id} revision={album} />
       <EntityHistory entity="album" id={album.id} />
 
-      {editing ? (
+      {isAdmin && editing ? (
         <EntityFormModal
           title={`Editar «${album.title}»`}
           fields={ALBUM_FIELDS}
+          panels={[
+            { key: "videos", label: "Videos de YouTube", content: <AlbumVideoEditor albumId={album.id} links={album.youtubeLinks} onChanged={reload} /> },
+            { key: "genres", label: "Géneros", content: <GenreEditor kind="album" id={album.id} genres={album.genres ?? []} primaryGenre={album.primaryGenre ?? null} onChanged={reload} /> },
+            { key: "streaming", label: "Escuchar en", content: <PlatformLinkEditor kind="album" id={album.id} category="streaming" onChanged={reload} /> },
+          ]}
           wide
-          initialValues={{
-            title: album.title, albumType: album.albumType, releaseYear: album.releaseYear, genre: album.genre,
-            coverUrl: album.coverUrl, youtubeUrl: album.youtubeUrl, youtubeStatus: album.youtubeStatus,
-            instagramUrl: album.instagramUrl, instagramStatus: album.instagramStatus,
-            wordpressUrl: album.wordpressUrl, wordpressStatus: album.wordpressStatus,
-            description: album.description, notes: album.notes,
-          }}
+          initialValues={entityFormValues(ALBUM_FIELDS, album)}
           extraFields={
             <>
               <EntityPicker kind="artist" label="Artista (atribución del disco)" value={artistId} valueLabel={artistLabel}
                 onSelect={(pickedId, label) => { setArtistId(pickedId); setArtistLabel(label); }} />
               <EntityPicker kind="organization" label="Sello discográfico" value={labelId} valueLabel={labelLabel}
+                onClear={() => { setLabelId(null); setLabelLabel(null); }}
                 onSelect={(pickedId, label) => { setLabelId(pickedId); setLabelLabel(label); }} />
             </>
           }
@@ -288,15 +352,12 @@ export function AlbumDetailPage() {
         <EntityFormModal
           title={`Editar «${editingTrack.title}»`}
           fields={TRACK_FIELDS}
-          initialValues={{
-            title: editingTrack.title, discNumber: editingTrack.discNumber, trackNumber: editingTrack.trackNumber,
-            durationSeconds: editingTrack.durationSeconds, youtubeStartSeconds: editingTrack.youtubeStartSeconds,
-          }}
+          panels={[{ key: "aliases", label: "Alias", content: <TrackAliasesSection trackId={editingTrack.id} onChanged={reload} /> }]}
+          initialValues={entityFormValues(TRACK_FIELDS, editingTrack)}
           extraFields={
             <>
               <EntityPicker kind="album" label="Disco al que pertenece" value={trackAlbumId} valueLabel={trackAlbumLabel}
                 onSelect={(pickedId, label) => { setTrackAlbumId(pickedId); setTrackAlbumLabel(label); }} />
-              <TrackAliasesSection trackId={editingTrack.id} onChanged={reload} />
             </>
           }
           onSubmit={(values, note) => trackWrites.update(editingTrack.id, {

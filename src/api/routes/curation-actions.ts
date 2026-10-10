@@ -27,8 +27,10 @@ const blockedSchema = z.object({ code: z.string(), message: z.string() });
 const preconditionSchema = z.object({ key: z.string(), ok: z.boolean(), code: z.string().optional(), message: z.string().optional() });
 const collisionSchema = z.object({ kind: z.string(), id: z.number().int(), label: z.string(), exact: z.boolean() });
 const proposalSchema = z.object({ actionKey: z.string(), params: z.record(z.unknown()), reason: z.string() });
+const editorialInputSchema = z.object({ key: z.string(), label: z.string(), type: z.enum(["text", "number"]), explanation: z.string() });
 
 export const fixItemSchema = z.object({
+  editorialInputs: z.array(editorialInputSchema),
   id: z.number().int(),
   position: z.number().int(),
   findingId: z.number().int().nullable(),
@@ -104,6 +106,7 @@ const findingActionsSchema = z.object({
   findingId: z.number().int(),
   status: z.string(),
   actions: z.array(z.object({
+    editorialInputs: z.array(editorialInputSchema),
     key: z.string(), label: z.string(), description: z.string(), level: z.number().int(), inverse: z.string().nullable(),
     recommended: z.boolean(), params: z.record(z.unknown()).nullable(), preconditions: z.array(preconditionSchema), available: z.boolean(),
   })),

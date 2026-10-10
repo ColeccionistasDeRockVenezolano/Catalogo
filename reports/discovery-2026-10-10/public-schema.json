@@ -1,0 +1,4 @@
+{
+  "unchanged": true,
+  "comparison": "pg_dump --schema=public --schema-only --no-owner --no-privileges; se excluyen \u00fanicamente restrict/unrestrict aleatorios"
+}

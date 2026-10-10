@@ -4,6 +4,9 @@ import type { PaginationQuery } from "../pagination.js";
 import { searchIds } from "../search-index.js";
 import { classifyPersonName, type PersonNameClass } from "../../review/person-junk.js";
 import { personDeceasedSql } from "./deceased.js";
+import { loadPersonFacts, scorePersonPair } from "../../review/person-candidates.js";
+import { compareCatalog, type PersonComparison } from "../../review/person-comparison.js";
+import { personIdentityAssessment } from "../../review/person-identity-assessment.js";
 
 export interface PersonListRow {
   id: number;
@@ -28,6 +31,8 @@ export type PersonSuspectClass = Exclude<PersonNameClass, "ok">;
 export interface PersonListQuery extends PaginationQuery {
   q?: string | undefined;
   hasCredits?: boolean | undefined;
+  /** Tipo de crédito registrado, o membresía de banda. */
+  role?: string | undefined;
   suspect?: PersonSuspectClass | undefined;
   sort?: "name" | "credits" | undefined;
 }
@@ -73,13 +78,27 @@ export async function listPersons(query: PersonListQuery): Promise<{ rows: Perso
     conditions.push(`p.id = ANY($1::bigint[])`);
   }
   if (query.hasCredits !== undefined) conditions.push(query.hasCredits ? HAS_ANY_RELATION : `NOT ${HAS_ANY_RELATION}`);
+  if (query.role === "band_member") {
+    conditions.push("EXISTS (SELECT 1 FROM public.artist_members WHERE person_id=p.id)");
+  } else if (query.role) {
+    params.push(query.role);
+    const roleParam = `$${params.length}::text`;
+    conditions.push(`(
+      EXISTS (SELECT 1 FROM public.album_credits WHERE person_id=p.id AND credit_type::text=${roleParam})
+      OR EXISTS (SELECT 1 FROM public.track_credits WHERE person_id=p.id AND credit_type::text=${roleParam}))`);
+  }
   const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
   const base = `SELECT ${PERSON_COLUMNS} FROM public.persons p ${where}`;
+
+  // Solo la búsqueda añade el array de relevancia; un rol añade un parámetro de texto.
+  const order = query.q?.trim()
+    ? "ORDER BY array_position($1::bigint[], x.id::bigint)"
+    : query.sort === "credits" ? "ORDER BY (x.credit_count + x.band_count) DESC, x.name, x.id" : "ORDER BY x.name, x.id";
 
   if (query.suspect) {
     // El filtro de basura es de texto (TypeScript, regla 0.1.11): se cargan
     // los nombres que cumplen el resto de filtros y se clasifican aquí.
-    const all = await getPool().query<PersonRowShape>(`${base} ORDER BY p.name`, params);
+    const all = await getPool().query<PersonRowShape>(`SELECT * FROM (${base}) x ${order}`, params);
     const matched = all.rows.filter((row) => classifyPersonName(row.name).kind === query.suspect);
     return {
       rows: matched.slice(query.offset, query.offset + query.limit).map(toPersonRow),
@@ -90,10 +109,6 @@ export async function listPersons(query: PersonListQuery): Promise<{ rows: Perso
   // El orden va en una consulta externa: PostgreSQL no admite expresiones
   // sobre los alias de salida (`ORDER BY credit_count + band_count` falla),
   // y con `q` el orden lo manda el índice (primero los que empiezan).
-  const order = params.length
-    ? "ORDER BY array_position($1::bigint[], x.id::bigint)"
-    : query.sort === "credits" ? "ORDER BY (x.credit_count + x.band_count) DESC, x.name, x.id" : "ORDER BY x.name, x.id";
-
   const [rows, count] = await Promise.all([
     getPool().query<PersonRowShape>(
       `SELECT * FROM (${base}) x ${order} LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
@@ -101,6 +116,37 @@ export async function listPersons(query: PersonListQuery): Promise<{ rows: Perso
     getPool().query<{ count: string }>(`SELECT count(*)::text AS count FROM public.persons p ${where}`, params),
   ]);
   return { rows: rows.rows.map(toPersonRow), total: Number(count.rows[0]?.count ?? 0) };
+}
+
+/** Personas únicas por participación: varios créditos del mismo tipo cuentan una vez. */
+export async function getPersonFacets(): Promise<{
+  total: number;
+  withoutCredits: number;
+  roles: Array<{ role: string; count: number }>;
+}> {
+  const [counts, participation] = await Promise.all([
+    getPool().query<{ total: string; without_credits: string }>(
+      `SELECT count(*)::text AS total,
+              count(*) FILTER (WHERE NOT ${HAS_ANY_RELATION})::text AS without_credits
+         FROM public.persons p`,
+    ),
+    getPool().query<{ role: string; count: string }>(
+      `WITH participation AS (
+         SELECT person_id, credit_type::text AS role FROM public.album_credits WHERE person_id IS NOT NULL
+         UNION
+         SELECT person_id, credit_type::text AS role FROM public.track_credits WHERE person_id IS NOT NULL
+         UNION
+         SELECT person_id, 'band_member' AS role FROM public.artist_members
+       )
+       SELECT role, count(*)::text AS count FROM participation
+        GROUP BY role ORDER BY count(*) DESC, role`,
+    ),
+  ]);
+  return {
+    total: Number(counts.rows[0]?.total ?? 0),
+    withoutCredits: Number(counts.rows[0]?.without_credits ?? 0),
+    roles: participation.rows.map((row) => ({ role: row.role, count: Number(row.count) })),
+  };
 }
 
 export interface PersonDetail {
@@ -114,6 +160,11 @@ export interface PersonDetail {
   isDeceased: boolean;
   /** Lo que dice la columna `is_deceased` (NULL = sin dato), para el formulario. */
   isDeceasedFlag: boolean | null;
+  realName: string | null;
+  birthCity: string | null;
+  deathCause: string | null;
+  trivia: string | null;
+  gender: string | null;
   birthDate: string | null;
   deathDate: string | null;
   notes: string | null;
@@ -132,11 +183,17 @@ export interface PersonDetail {
 }
 
 export interface PersonDuplicateCandidateRow {
+  comparison: PersonComparison | null;
   reviewId: number;
   a: { id: number; name: string; creditCount: number };
   b: { id: number; name: string; creditCount: number };
   priority: number;
   score: number | null;
+  effectiveScore: number | null;
+  scoreBlocked: string | null;
+  webVerdict: "same" | "different" | "mixed" | "unknown" | null;
+  webRationale: string | null;
+  webEvidence: Array<{ supports: "same" | "different" | "mixed" }>;
   features: Array<{ key: string; value: number; evidence: string }>;
   notes: string | null;
   createdAt: string;
@@ -155,43 +212,66 @@ const CREDIT_COUNT = (column: string) => `(
 export async function listPersonDuplicateCandidates(
   query: PaginationQuery & { minScore?: number | undefined },
 ): Promise<{ rows: PersonDuplicateCandidateRow[]; total: number }> {
-  const minScore = query.minScore ?? null;
-  const [rows, count] = await Promise.all([
-    getPool().query<Record<string, unknown>>(`
+  const rows = await getPool().query<Record<string, unknown>>(`
       WITH candidate AS (
         SELECT q.id, q.priority, q.payload, q.notes, q.created_at::text AS created_at, q.person_a_id, q.person_b_id
           FROM ingest.review_queue q
          WHERE q.kind::text='person_duplicate' AND q.status IN ('open','in_progress')
-           AND ($1::float8 IS NULL OR (q.payload->>'score')::float8 >= $1)
-         ORDER BY q.priority, q.id
-         LIMIT $2 OFFSET $3
       )
       SELECT c.id::text AS review_id, c.priority, (c.payload->>'score')::float8 AS score,
              COALESCE(c.payload->'features', '[]'::jsonb) AS features, c.notes, c.created_at,
+             v.comparison, v.verdict AS web_verdict, v.rationale AS web_rationale, COALESCE(v.evidence, '[]'::jsonb) AS web_evidence,
              c.person_a_id::text AS a_id, pa.name AS a_name, ${CREDIT_COUNT("person_a_id")} AS a_credits,
              c.person_b_id::text AS b_id, pb.name AS b_name, ${CREDIT_COUNT("person_b_id")} AS b_credits
         FROM candidate c
         JOIN public.persons pa ON pa.id=c.person_a_id
         JOIN public.persons pb ON pb.id=c.person_b_id
-       ORDER BY c.priority, c.id`, [minScore, query.limit, query.offset]),
-    getPool().query<{ count: string }>(`
-      SELECT count(*)::text AS count FROM ingest.review_queue q
-       WHERE q.kind::text='person_duplicate' AND q.status IN ('open','in_progress')
-         AND ($1::float8 IS NULL OR (q.payload->>'score')::float8 >= $1)`, [minScore]),
-  ]);
-  return {
-    rows: rows.rows.map((row) => ({
+        LEFT JOIN LATERAL (
+          SELECT verdict, rationale, evidence, comparison FROM ingest.person_web_verifications
+           WHERE review_id=c.id OR (person_a_id=LEAST(c.person_a_id,c.person_b_id)
+             AND person_b_id=GREATEST(c.person_a_id,c.person_b_id))
+           ORDER BY created_at DESC,id DESC LIMIT 1
+        ) v ON TRUE
+       ORDER BY c.priority DESC, c.id`);
+  // El catálogo cambia después de abrir una revisión. Recalcular evita usar
+  // señales antiguas (y cubre también las revisiones creadas a mano).
+  const facts = new Map((await loadPersonFacts(getPool())).map((person) => [person.id, person]));
+  const candidates = rows.rows.map((row) => {
+      const left = facts.get(Number(row["a_id"]));
+      const right = facts.get(Number(row["b_id"]));
+      const current = left && right ? scorePersonPair(left, right) : null;
+      const discoveryScore = current?.score ?? (row["score"] === null ? null : Number(row["score"]));
+      const scoreBlocked = current?.blocked ?? null;
+      const webVerdict = (row["web_verdict"] ?? null) as PersonDuplicateCandidateRow["webVerdict"];
+      const webEvidence = (row["web_evidence"] ?? []) as PersonDuplicateCandidateRow["webEvidence"];
+      const comparison = left && right ? compareCatalog(left, right, (row["comparison"] ?? null) as PersonComparison | null) : null;
+      const score = comparison ? comparison.rows.reduce((sum, signal) => sum + signal.points, 0) / 100 : discoveryScore;
+      const assessment = personIdentityAssessment(score, webVerdict ? { verdict: webVerdict, evidence: webEvidence, comparison } : null, scoreBlocked, comparison);
+      const effectiveScore = assessment.score;
+      return ({
+      comparison,
       reviewId: Number(row["review_id"]),
       a: { id: Number(row["a_id"]), name: String(row["a_name"]), creditCount: Number(row["a_credits"]) },
       b: { id: Number(row["b_id"]), name: String(row["b_name"]), creditCount: Number(row["b_credits"]) },
       priority: Number(row["priority"]),
-      score: row["score"] === null ? null : Number(row["score"]),
-      features: (row["features"] ?? []) as PersonDuplicateCandidateRow["features"],
+      score,
+      effectiveScore,
+      scoreBlocked,
+      webVerdict,
+      webRationale: (row["web_rationale"] ?? null) as string | null,
+      webEvidence,
+      features: current?.features ?? (row["features"] ?? []) as PersonDuplicateCandidateRow["features"],
       notes: (row["notes"] ?? null) as string | null,
       createdAt: String(row["created_at"]),
-    })),
-    total: Number(count.rows[0]?.count ?? 0),
-  };
+    });
+    });
+  const filtered = query.minScore === undefined ? candidates : candidates.filter((candidate) =>
+    candidate.effectiveScore !== null && candidate.effectiveScore >= query.minScore!
+    && (query.minScore! < 0.7 || personIdentityAssessment(candidate.score, candidate.webVerdict
+      ? { verdict: candidate.webVerdict, evidence: candidate.webEvidence, comparison: candidate.comparison } : null,
+      candidate.scoreBlocked, candidate.comparison).recommendation === "consider_merge"));
+  filtered.sort((a, b) => b.priority - a.priority || (b.effectiveScore ?? -1) - (a.effectiveScore ?? -1) || a.reviewId - b.reviewId);
+  return { rows: filtered.slice(query.offset, query.offset + query.limit), total: filtered.length };
 }
 
 export async function getPersonDetail(id: number): Promise<PersonDetail | null> {
@@ -199,6 +279,7 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
     `SELECT p.id, p.name, p.biography, p.picture_url, p.nationality, p.is_venezuelan,
             ${personDeceasedSql("p")} AS is_deceased, p.is_deceased AS is_deceased_flag,
             p.birth_date::text AS birth_date, p.death_date::text AS death_date, p.notes,
+            p.real_name, p.birth_city, p.death_cause, p.trivia, p.gender,
             ((SELECT count(*) FROM public.album_credits WHERE person_id=p.id)
              + (SELECT count(*) FROM public.track_credits WHERE person_id=p.id))::int AS credit_count,
             (SELECT count(*) FROM public.artist_members WHERE person_id=p.id)::int AS band_count,
@@ -260,6 +341,11 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
     isVenezuelan: row["is_venezuelan"] as boolean | null,
     isDeceased: row["is_deceased"] as boolean,
     isDeceasedFlag: row["is_deceased_flag"] as boolean | null,
+    realName: row["real_name"] as string | null,
+    birthCity: row["birth_city"] as string | null,
+    deathCause: row["death_cause"] as string | null,
+    trivia: row["trivia"] as string | null,
+    gender: row["gender"] as string | null,
     birthDate: row["birth_date"] as string | null,
     deathDate: row["death_date"] as string | null,
     notes: row["notes"] as string | null,
