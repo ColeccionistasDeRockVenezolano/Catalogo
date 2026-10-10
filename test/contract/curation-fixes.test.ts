@@ -102,7 +102,7 @@ describe("marco de acciones de corrección de Curaduría (E4)", () => {
       findingId, status: "open",
       actions: [{
         key: "limpiar_texto", label: expect.any(String), description: expect.any(String), level: 0, inverse: "field_restore",
-        recommended: true, params: { field: "name", cleanup: "invisibles" }, available: true,
+        editorialInputs: [], recommended: true, params: { field: "name", cleanup: "invisibles" }, available: true,
         preconditions: expect.arrayContaining([{ key: "valor_detectado", ok: true }]),
       }],
     });

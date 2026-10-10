@@ -21,6 +21,13 @@ Antes de migrar: base quieta (último cambio 11:53Z) y respaldo verificado
 falló solo el doctor final, que es exactamente la deuda que esta etapa
 reconcilia).
 
+**Cierre (verificación dorada):** tras migrar y reconciliar se tomó el respaldo
+`crv-20261010T170148Z` y su `db:restore-check` terminó **RESTORE VERIFICADO**
+(97 tablas / 20.834.774 filas idénticas al origen · 7.679 `raw_pages`, 0 sin
+archivo, 0 con hash distinto · doctor contra la copia: **VERDE CON 1 AVISO**,
+con `core.catalog` en huella exacta —el falso drift del restore ya no aparece—).
+Registro: [restore-check-crv-20261010T170148Z.log](restore-check-crv-20261010T170148Z.log).
+
 ## 2. Reconciliación ejecutada — run 18977 (`maintenance:integrity-reconciliation`)
 
 `tsx scripts/reconcile-integrity.ts` corre primero en rollback; con `--confirm`
@@ -68,7 +75,25 @@ figure como drift sin que un cambio real (valor añadido, otro operador) deje de
 delatarse. Pruebas: `test/unit/core-catalog-drift.test.ts` (grafía restaurada,
 cambio real, operador distinto) y `test/contract/core-catalog.test.ts`.
 
-## 5. Verificaciones
+## 5. Conservación del core y de los cuatro artistas (criterio de salida)
+
+`scripts/stage1-baseline.ts` captura huellas completas de las 12 tablas
+canónicas de `public` (conteo + md5 del multiset de filas JSONB, en una
+transacción REPEATABLE READ de solo lectura) y la identidad de los cuatro
+artistas del corpus (`docs/plan-20-de-20/stage1-cases.json`).
+
+- Línea base (pre-migración): [baseline/catalog.json](baseline/catalog.json) —
+  última migración `0052_discovery`.
+- Post-migración + reconciliación:
+  [after-migracion/catalog.json](after-migracion/catalog.json) — última
+  `0057_integrity_reconciliation`.
+
+Comparación medida: **12/12 tablas con conteo y hash idénticos (0
+diferencias)** y los cuatro artistas (Jeremías · Apache · La Banana Voladora ·
+Caramelos de Cianuro) con el mismo id y nombre. Las migraciones 0053–0057 solo
+tocan `ingest`; el core no cambió.
+
+## 6. Verificaciones
 
 - `npm run typecheck` ✓ · `npm run lint` ✓ (sin errores).
 - Contratos dirigidos a los módulos tocados: **33/33 pruebas** en
