@@ -1,7 +1,7 @@
 {
   "name": "Conjunto fixture revisado por autor de implementación",
   "reviewedAt": "2026-10-10T00:00:00Z",
-  "evaluatedAt": "2026-10-10T13:30:49.058Z",
+  "evaluatedAt": "2026-10-10T17:56:56.945Z",
   "summary": {
     "cases": 2,
     "delivered": 3,
@@ -81,7 +81,7 @@
             "versionGroup": null,
             "reasons": [
               {
-                "id": 30,
+                "id": 36,
                 "slug": "serene",
                 "kind": "mood",
                 "name": "Sereno",
@@ -91,7 +91,7 @@
                 "confidence": "medium",
                 "reviewer": "QA",
                 "reason": "Serenidad documentada de esta edición",
-                "reviewedAt": "2026-10-10T13:30:48.979Z",
+                "reviewedAt": "2026-10-10T17:56:56.863Z",
                 "validFrom": "2020-01-01T00:00:00.000Z",
                 "validUntil": null,
                 "methodVersion": "context-editorial-v1",
@@ -99,7 +99,7 @@
                 "evidenceId": 1,
                 "url": "https://fixture.invalid/review",
                 "excerpt": "Descripción revisada de esta edición",
-                "capturedAt": "2026-10-10T13:30:46.138Z",
+                "capturedAt": "2026-10-10T17:56:52.874Z",
                 "claimId": 1,
                 "sourceId": 1,
                 "proposalOrigin": null,
@@ -124,7 +124,7 @@
             "versionGroup": null,
             "reasons": [
               {
-                "id": 32,
+                "id": 38,
                 "slug": "serene",
                 "kind": "mood",
                 "name": "Sereno",
@@ -134,7 +134,7 @@
                 "confidence": "medium",
                 "reviewer": "QA",
                 "reason": "Serenidad documentada de esta edición",
-                "reviewedAt": "2026-10-10T13:30:48.979Z",
+                "reviewedAt": "2026-10-10T17:56:56.863Z",
                 "validFrom": "2020-01-01T00:00:00.000Z",
                 "validUntil": null,
                 "methodVersion": "context-editorial-v1",
@@ -142,7 +142,7 @@
                 "evidenceId": 3,
                 "url": "https://fixture.invalid/review",
                 "excerpt": "Descripción revisada de esta edición",
-                "capturedAt": "2026-10-10T13:30:46.147Z",
+                "capturedAt": "2026-10-10T17:56:52.884Z",
                 "claimId": 3,
                 "sourceId": 1,
                 "proposalOrigin": null,
@@ -167,7 +167,7 @@
             "versionGroup": null,
             "reasons": [
               {
-                "id": 33,
+                "id": 39,
                 "slug": "serene",
                 "kind": "mood",
                 "name": "Sereno",
@@ -177,7 +177,7 @@
                 "confidence": "medium",
                 "reviewer": "QA",
                 "reason": "Serenidad documentada de esta edición",
-                "reviewedAt": "2026-10-10T13:30:48.979Z",
+                "reviewedAt": "2026-10-10T17:56:56.863Z",
                 "validFrom": "2020-01-01T00:00:00.000Z",
                 "validUntil": null,
                 "methodVersion": "context-editorial-v1",
@@ -185,7 +185,7 @@
                 "evidenceId": 4,
                 "url": "https://fixture.invalid/review",
                 "excerpt": "Descripción revisada de esta edición",
-                "capturedAt": "2026-10-10T13:30:46.152Z",
+                "capturedAt": "2026-10-10T17:56:52.887Z",
                 "claimId": 4,
                 "sourceId": 1,
                 "proposalOrigin": null,
@@ -201,7 +201,7 @@
         ],
         "diversity": 1,
         "versionPolicy": "Solo equivalencias revisadas; títulos iguales no demuestran identidad.",
-        "measuredAt": "2026-10-10T13:30:49.042Z"
+        "measuredAt": "2026-10-10T17:56:56.927Z"
       }
     },
     {
@@ -262,7 +262,7 @@
         "results": [],
         "diversity": null,
         "versionPolicy": "Solo equivalencias revisadas; títulos iguales no demuestran identidad.",
-        "measuredAt": "2026-10-10T13:30:49.057Z"
+        "measuredAt": "2026-10-10T17:56:56.945Z"
       }
     }
   ]
