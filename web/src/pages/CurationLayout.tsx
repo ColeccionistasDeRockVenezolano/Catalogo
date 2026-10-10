@@ -11,7 +11,7 @@
 // (src/api/auth.ts, ADMIN_READS); aquí se explica por qué en vez de mostrar
 // «No se pudo cargar».
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { NavLink, Outlet, useLocation, useOutletContext } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useOutletContext } from "react-router-dom";
 import { CaretDown, ClockCounterClockwise, Copy, Images, LockSimple, Pulse, Robot, SignIn, type Icon } from "@phosphor-icons/react";
 import { useOperator } from "../lib/OperatorContext";
 import { ApiError, curationApi, entityMergeApi, imageCandidatesApi } from "../lib/api";
@@ -144,12 +144,7 @@ export function CurationLayout() {
 
   return (
     <>
-      <div className="page-header">
-        <div>
-          <p className="page-kicker">Solo administradores</p>
-          <h1>Curaduría</h1>
-        </div>
-      </div>
+      <div className="curation-breadcrumb"><Link to="/curaduria">Curaduría</Link></div>
 
       {isChecking ? <LoadingState label="Comprobando acceso…" /> : !isAdmin ? (
         <div className="state-block access-block">
@@ -231,6 +226,7 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
     title: category.description,
   })) ?? [];
   const tools: NavEntry[] = [
+    { to: "/curaduria/ia", label: "Propuestas con IA", icon: Robot },
     {
       to: "/curaduria/duplicados", label: "Posibles duplicados", icon: Copy,
       ...(duplicateCount !== undefined ? { count: duplicateCount } : {}),
@@ -270,6 +266,7 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
         <nav id="cside-nav" className="cside__nav" aria-label="Herramientas de curaduría">
           <div className="cside__sheet">
             <NavGroup id="cside-overview" label="Panorama" entries={[overview]} />
+            <NavGroup id="cside-tools" label="Revisar y corregir" entries={tools} />
             {summary ? (
               <NavGroup id="cside-categories" label="Categorías" entries={categories} />
             ) : (
@@ -278,7 +275,6 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
                 {[0, 1, 2, 3].map((index) => <span key={index} className="skeleton cside__skeleton" aria-hidden="true" />)}
               </div>
             )}
-            <NavGroup id="cside-tools" label="Herramientas" entries={tools} />
           </div>
         </nav>
       </div>

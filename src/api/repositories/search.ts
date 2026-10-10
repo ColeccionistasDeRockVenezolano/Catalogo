@@ -4,8 +4,8 @@
 //
 // Personas, artistas y organizaciones buscan con el índice en memoria
 // (E11.9): la base es SQL_ASCII y `ILIKE '%jose%'` no encuentra «José».
-// Álbumes y pistas siguen con ILIKE a propósito: el índice es de nombres de
-// entidad, y su normalización (tildes, artículos, apodos) no aplica a títulos.
+// Los álbumes incluyen títulos, alias y nombre del artista sin distinguir tildes.
+// Las pistas mantienen su búsqueda SQL.
 import { getPool } from "../../db/client.js";
 import { ALL_SEARCH_TYPES, type SearchEntityType } from "../schemas.js";
 import { searchIds, type IndexedKind } from "../search-index.js";
@@ -45,20 +45,9 @@ async function searchPersons(q: string, limit: number): Promise<SearchHit[]> {
 }
 
 async function searchAlbums(q: string, limit: number): Promise<SearchHit[]> {
-  // Disco y pista siguen con ILIKE (es el índice de nombres de entidad): aquí
-  // los comodines los pone la propia consulta, no quien la llama.
-  const pattern = `%${q}%`;
-  const { rows } = await getPool().query<{ id: string; title: string; artist_name: string }>(
-    `SELECT al.id, al.title, ar.name AS artist_name
-       FROM public.albums al
-       JOIN public.artists ar ON ar.id = al.artist_id
-      WHERE al.title ILIKE $1
-         OR EXISTS (SELECT 1 FROM ingest.album_aliases x WHERE x.album_id = al.id AND x.alias ILIKE $1)
-      ORDER BY al.title
-      LIMIT $2`,
-    [pattern, limit],
-  );
-  return rows.map((row) => ({ type: "album", id: Number(row.id), label: row.title, context: row.artist_name, albumId: null }));
+  return searchIndexed<{id:string;name:string;artist_name:string}>("album",q,limit,"album",
+    `SELECT al.id::text,al.title AS name,a.name AS artist_name FROM public.albums al JOIN public.artists a ON a.id=al.artist_id
+     WHERE al.id=ANY($1::bigint[]) ORDER BY array_position($1::bigint[],al.id)`,row=>row.artist_name);
 }
 
 async function searchTracks(q: string, limit: number): Promise<SearchHit[]> {

@@ -14,6 +14,7 @@
 import { createHash } from "node:crypto";
 import type { PoolClient } from "pg";
 import { mergeInto, MERGE_EMPTY_VALUES, MERGE_TABLES } from "../review/duplicates.js";
+import { EraConflictError, eraConflictBetween } from "./era-guard.js";
 import { looksLikeOrganization, nameWithoutNickname, surnameToken } from "../review/person-names.js";
 import { mergeEquivalentCredits } from "./equivalent-relations.js";
 import { OperatorError, updateEntity, type OperatorContext } from "./operator.js";
@@ -73,6 +74,8 @@ export interface EntityMergePreview {
   /** Revisiones de review_queue que carean las dos fichas. */
   reviewsBetween: number[];
   warnings: string[];
+  /** Personas: motivo por el que las trayectorias son imposibles juntas (era-guard), o null. */
+  eraConflict: string | null;
   /** Textos largos en conflicto que admiten «combinar» (y reescribir con IA). */
   combinableFields: EntityMergeField[];
   /** Campos en conflicto que se unen solos (notas, curiosidades…): no hay que elegir. */
@@ -99,6 +102,12 @@ export interface EntityMergeRequest {
   /** Los campos combinados quedan marcados para que la IA los reescriba después. */
   rewriteLater?: boolean | undefined;
   keepDropNameAsAlias: boolean;
+  /**
+   * Personas: una persona confirma que son la misma pese a `eraConflict`
+   * (créditos antes de nacer o después de morir, o épocas separadas ≥20 años
+   * sin proyecto común). Sin esto, la fusión se rechaza (era-guard).
+   */
+  allowEraConflict?: boolean | undefined;
 }
 
 export interface EntityMergeResult {
@@ -257,6 +266,8 @@ export async function previewEntityMerge(
       warnings.push("Parece una organización: considera convertirla en lugar de fusionar.");
     }
   }
+  const eraConflict = kind === "person" ? await eraConflictBetween(queryable, keepId, dropId) : null;
+  if (eraConflict !== null) warnings.push(`Épocas incompatibles: ${eraConflict}. Probablemente son dos personas; fusionar exige confirmarlo.`);
   if (referenceCount(drop.counts) > referenceCount(keep.counts)) warnings.push("La ficha que desaparece es la más completa.");
 
   const keepKeys = new Set([nameWithoutNickname(keep.name), ...keep.aliases.map((alias) => nameWithoutNickname(alias))]);
@@ -284,7 +295,7 @@ export async function previewEntityMerge(
     combinableFields, joinedFields,
     recommendedKeepId: referenceCount(keep.counts) >= referenceCount(drop.counts) ? keep.id : drop.id,
     fieldConflicts, fieldsFilledFromDrop, sharedBands: bands, sharedAlbums: albums,
-    aliasesToAdd, reviewsBetween, warnings, previewHash,
+    aliasesToAdd, reviewsBetween, warnings, eraConflict, previewHash,
   };
 }
 
@@ -309,10 +320,12 @@ export interface MergeEntityRowsResult {
  */
 export async function mergeEntityRows(
   client: PoolClient, kind: MergeableKind, keepId: number, dropId: number, note: string, runId: number, alias: boolean,
-  preserve?: PreserveOptions,
+  preserve?: PreserveOptions, options: { allowEraConflict?: boolean } = {},
 ): Promise<MergeEntityRowsResult> {
   const spec = ENTITY_SPECS[kind];
-  const outcome = await mergeInto(client, kind, keepId, dropId, note, runId, { alias, ...(preserve ? { preserve } : {}) });
+  const outcome = await mergeInto(client, kind, keepId, dropId, note, runId, {
+    alias, ...(preserve ? { preserve } : {}), ...(options.allowEraConflict ? { allowEraConflict: true } : {}),
+  });
   // `MergeableKind` solo tiene fichas navegables: la columna destino es una de estas tres.
   const creditsMerged = await mergeEquivalentCredits(
     client, { column: spec.targetColumn as "person_id" | "artist_id" | "organization_id", id: keepId }, note, runId);
@@ -339,6 +352,9 @@ export async function mergeEntities(context: OperatorContext, request: EntityMer
       entity: kind, keepId, dropId, previewHash: preview.previewHash,
     });
   }
+  // Antes de escribir nada: el veto temporal también vive en mergeInto, pero
+  // así una fusión rechazada no deja ni las correcciones de campo a medias.
+  if (preview.eraConflict !== null && request.allowEraConflict !== true) throw new EraConflictError(keepId, dropId, preview.eraConflict);
   const preserveSpec = PRESERVE_SPECS[kind];
   const fieldsCorrected: EntityMergeField[] = [];
   const resolved: string[] = [];
@@ -382,7 +398,7 @@ export async function mergeEntities(context: OperatorContext, request: EntityMer
     }
   }
   const merged = await mergeEntityRows(context.client, kind, keepId, dropId, context.note, context.runId, request.keepDropNameAsAlias,
-    { resolved, replaced, rewrites });
+    { resolved, replaced, rewrites }, { allowEraConflict: request.allowEraConflict === true });
   return {
     kind, keepId, dropId, auditId: merged.auditId, moved: merged.moved, discarded: merged.discarded,
     filled: merged.filled, fieldsCorrected, preserved: merged.preserved, rewritePending: merged.rewritesOpened > 0,

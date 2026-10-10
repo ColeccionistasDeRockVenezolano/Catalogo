@@ -20,6 +20,7 @@ describe("búsqueda sin tildes y filtros de personas (E11.9)", () => {
   let josefinaId: number;
   let studioId: number;
   let emptyId: number;
+  let memberOnlyId: number;
 
   beforeAll(async () => {
     container = await startPgContainer();
@@ -36,6 +37,7 @@ describe("búsqueda sin tildes y filtros de personas (E11.9)", () => {
     josefinaId = await one("INSERT INTO public.persons(name) VALUES('Josefina Requena') RETURNING id");
     studioId = await one("INSERT INTO public.persons(name) VALUES('Estudio Sin Nombre Records') RETURNING id");
     emptyId = await one("INSERT INTO public.persons(name) VALUES('Ana Sin Créditos') RETURNING id");
+    memberOnlyId = await one("INSERT INTO public.persons(name) VALUES('Pedro Integrante') RETURNING id");
     // Contiene «jose» pero no empieza por él: va después de los dos anteriores.
     await one("INSERT INTO public.persons(name) VALUES('María Josefa Pérez') RETURNING id");
 
@@ -44,8 +46,10 @@ describe("búsqueda sin tildes y filtros de personas (E11.9)", () => {
     const album = await one("INSERT INTO public.albums(artist_id,title) VALUES($1,'Disco Filtros QA') RETURNING id", [band]);
     await getPool().query("INSERT INTO public.album_credits(album_id,person_id,credit_type,role) VALUES($1,$2,'musician','Guitarra'),($1,$2,'producer','Producción')", [album, joseId]);
     await getPool().query("INSERT INTO public.artist_members(artist_id,person_id,role) VALUES($1,$2,'Batería')", [band, joseId]);
+    await getPool().query("INSERT INTO public.artist_members(artist_id,person_id,role) VALUES($1,$2,'Guitarra')", [band, memberOnlyId]);
     const track = await one("INSERT INTO public.tracks(album_id,track_number,title) VALUES($1,1,'Pista Filtros QA') RETURNING id", [album]);
     await getPool().query("INSERT INTO public.track_credits(track_id,person_id,credit_type,role) VALUES($1,$2,'musician','Bajo')", [track, josefinaId]);
+    await getPool().query("INSERT INTO public.track_credits(track_id,person_id,credit_type,role) VALUES($1,$2,'musician','Guitarra')", [track, joseId]);
 
     // Un alta por el camino del operador invalida el índice (E11.9): el
     // siguiente listado ya ve la ficha nueva.
@@ -88,7 +92,7 @@ describe("búsqueda sin tildes y filtros de personas (E11.9)", () => {
     expect(res.json().data.map((row: { id: number }) => row.id)).toContain(emptyId);
     // El listado trae los contadores por fila.
     const withCredits = await app.inject({ method: "GET", url: `/persons?q=Zapata` });
-    expect(withCredits.json().data[0]).toMatchObject({ creditCount: 2, bandCount: 1 });
+    expect(withCredits.json().data[0]).toMatchObject({ creditCount: 3, bandCount: 1 });
   });
 
   it("sort=credits ordena por créditos + membresías, descendente", async () => {
@@ -96,7 +100,51 @@ describe("búsqueda sin tildes y filtros de personas (E11.9)", () => {
     const rows = res.json().data as Array<{ name: string; creditCount: number; bandCount: number }>;
     const totals = rows.map((row) => row.creditCount + row.bandCount);
     expect(totals).toEqual([...totals].sort((left, right) => right - left));
-    expect(rows[0]!.name).toBe("José Zapata"); // 2 créditos + 1 membresía
+    expect(rows[0]!.name).toBe("José Zapata"); // 3 créditos + 1 membresía
+  });
+
+  it("los conteos de participación cuentan personas, sin duplicar créditos de disco y pista", async () => {
+    const res = await app.inject("/persons/facets");
+    expect(res.statusCode).toBe(200);
+    expect(res.json()).toEqual({ total: 7, withoutCredits: 4, roles: [
+      { role: "band_member", count: 2 }, { role: "musician", count: 2 }, { role: "producer", count: 1 },
+    ] });
+  });
+
+  it("filtra créditos de disco y pista y pagina personas únicas", async () => {
+    const all = (await app.inject("/persons?role=musician")).json();
+    expect(all.pagination.total).toBe(2);
+    expect(all.data.map((row: { id: number }) => row.id).sort()).toEqual([joseId, josefinaId].sort());
+    const first = (await app.inject("/persons?role=musician&limit=1&sort=credits")).json();
+    const second = (await app.inject("/persons?role=musician&limit=1&offset=1&sort=credits")).json();
+    expect(first.pagination.total).toBe(2);
+    expect(second.pagination.total).toBe(2);
+    expect(first.data[0].id).toBe(joseId);
+    expect(second.data[0].id).toBe(josefinaId);
+  });
+
+  it("incluye integrantes con membresías y sin créditos de disco o pista", async () => {
+    const members = (await app.inject("/persons?role=band_member")).json();
+    expect(members.pagination.total).toBe(2);
+    expect(members.data.map((row: { id: number }) => row.id)).toContain(memberOnlyId);
+    const without = (await app.inject("/persons?hasCredits=false")).json();
+    expect(without.data.map((row: { id: number }) => row.id)).not.toContain(memberOnlyId);
+  });
+
+  it("combina participación, nombre sin tildes y revisión de nombres", async () => {
+    const producer = await app.inject("/persons?q=jose&role=producer");
+    expect(producer.statusCode).toBe(200);
+    expect(producer.json().data.map((row: { id: number }) => row.id)).toEqual([joseId]);
+    const suspect = await app.inject("/persons?role=producer&suspect=organization_like&sort=credits");
+    expect(suspect.statusCode).toBe(200);
+    expect(suspect.json()).toMatchObject({ data: [], pagination: { total: 0 } });
+    const empty = await app.inject("/persons?role=mastering");
+    expect(empty.json()).toMatchObject({ data: [], pagination: { total: 0 } });
+  });
+
+  it("valida el rol solicitado", async () => {
+    const invalid = await app.inject("/persons?role=record_label");
+    expect(invalid.statusCode).toBe(400);
   });
 
   it("suspect=organization_like filtra por el clasificador (E11.7) y la ficha dice su clase", async () => {

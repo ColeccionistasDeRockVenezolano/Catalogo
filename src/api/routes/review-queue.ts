@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
+import { personComparisonSchema } from "../person-comparison-schema.js";
 import { z } from "zod";
 import { paginationQuerySchema, toPage } from "../pagination.js";
 import { idParamSchema, paginatedResponseSchema, writeErrorResponses } from "../schemas.js";
@@ -7,6 +8,7 @@ import { getReviewQueueDetail, listReviewQueue } from "../repositories/review-qu
 import { notFound } from "../http-errors.js";
 import { OPERATOR_SECURITY } from "../auth.js";
 import { acceptReview, rejectReview, resolveReviewConflict, setReviewPriority } from "../../review/operator-review.js";
+import { getMixedPersonVerification, getPersonVerification, investigateMixedPerson, investigatePersonReview, reviewMixedPersonVerification, reviewPersonVerification } from "../../ambiguity/person-web-verification.js";
 
 const reviewListItemSchema = z.object({
   id: z.number().int(),
@@ -86,6 +88,43 @@ const priorityResultSchema = z.object({
 
 export async function registerReviewRoutes(app: FastifyInstance): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();
+
+  const verificationSchema = z.object({
+    id: z.number().int(), reviewId: z.number().int().nullable(), personId: z.number().int().nullable(), dossierHash: z.string(), status: z.string(),
+    comparison: personComparisonSchema.nullable().optional(),
+    verdict: z.enum(["same", "different", "mixed", "unknown"]), rationale: z.string(),
+    evidence: z.array(z.object({ url: z.string(), title: z.string(), quote: z.string(), supports: z.enum(["same", "different", "mixed"]) })),
+    sources: z.array(z.object({ url: z.string(), title: z.string(), contentHash: z.string() })),
+    createdAt: z.string(), reviewedBy: z.string().nullable(), reviewNote: z.string().nullable(),
+  });
+
+  server.get("/review-queue/:id/web-verification", {
+    schema: { tags: ["review-queue"], params: idParamSchema, response: { 200: verificationSchema.nullable() } },
+  }, async (request) => getPersonVerification(request.params.id));
+
+  server.post("/review-queue/:id/web-verification", {
+    schema: { tags: ["review-queue:write"], security: OPERATOR_SECURITY, params: idParamSchema,
+      response: { 200: verificationSchema, ...writeErrorResponses } },
+  }, async (request) => investigatePersonReview(request.params.id));
+
+  server.post("/review-queue/:id/web-verification/review", {
+    schema: { tags: ["review-queue:write"], security: OPERATOR_SECURITY, params: idParamSchema,
+      body: z.object({ note: reviewNote }).strict(), response: { 200: verificationSchema, ...writeErrorResponses } },
+  }, async (request) => reviewPersonVerification(request.params.id, request.operator, request.body.note));
+
+  server.get("/review-queue/person/:id/web-verification", {
+    schema: { tags: ["review-queue"], params: idParamSchema, response: { 200: verificationSchema.nullable() } },
+  }, async (request) => getMixedPersonVerification(request.params.id));
+
+  server.post("/review-queue/person/:id/web-verification", {
+    schema: { tags: ["review-queue:write"], security: OPERATOR_SECURITY, params: idParamSchema,
+      response: { 200: verificationSchema, ...writeErrorResponses } },
+  }, async (request) => investigateMixedPerson(request.params.id));
+
+  server.post("/review-queue/person/:id/web-verification/review", {
+    schema: { tags: ["review-queue:write"], security: OPERATOR_SECURITY, params: idParamSchema,
+      body: z.object({ note: reviewNote }).strict(), response: { 200: verificationSchema, ...writeErrorResponses } },
+  }, async (request) => reviewMixedPersonVerification(request.params.id, request.operator, request.body.note));
 
   server.get("/review-queue", {
     schema: {

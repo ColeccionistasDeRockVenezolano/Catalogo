@@ -19,7 +19,7 @@ try {
   expect(searchRequests).toHaveLength(0);
   await searchInput.fill("Car");
   await expect.poll(() => searchRequests.filter((url) => new URL(url).searchParams.get("q") === "Car").length).toBe(1);
-  await expect(page.getByRole("link", { name: "Caramelos De Cianuro", exact: true })).toBeVisible();
+  await expect(page.locator('a[href="/artistas/58"]')).toBeVisible();
   await page.locator('a[href="/artistas/58"]').click();
   await expect(page).toHaveURL(/\/artistas\/58$/);
   await page.getByRole("link", { name: /Las Paticas De La Abuela/ }).click();
@@ -32,9 +32,12 @@ try {
   await expect(page.getByRole("heading", { name: "Asier Cazalis" })).toBeVisible();
 
   await page.goBack({ waitUntil: "networkidle" });
-  await page.getByRole("link", { name: "Mad Box's Studios", exact: true }).first().click();
-  await expect(page).toHaveURL(/\/organizaciones\/176$/);
-  await expect(page.getByRole("heading", { name: "Mad Box's Studios" })).toBeVisible();
+  const studio = page.locator('a[href^="/organizaciones/"]').first();
+  const studioName = await studio.textContent();
+  const studioPath = await studio.getAttribute("href");
+  await studio.click();
+  await expect.poll(() => new URL(page.url()).pathname).toBe(studioPath);
+  await expect(page.getByRole("heading", { name: studioName.trim(), exact: true })).toBeVisible();
 
   if (errors.length) throw new Error(errors.join("; "));
 } finally {

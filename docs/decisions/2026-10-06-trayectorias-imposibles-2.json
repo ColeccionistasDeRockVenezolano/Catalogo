@@ -1,0 +1,246 @@
+{
+  "note": "Trayectorias imposibles 2026-10-06, segunda tanda (Brian): menores de 12 años, verificados en internet",
+  "splits": [
+    {
+      "from": 1460,
+      "expectName": "Antonio Casas",
+      "why": "Antonio «Toño» Casas, percusionista y fundador de Wahala (1997), es el padre de Antonio «Tony» Casas, bajista de Rawayana nacido en 1989",
+      "keep": {
+        "evidence": [
+          "https://plus.cusica.com/2021/03/29/10-anos-de-licencia-para-ser-libre-el-primer-disco-de-rawayana/"
+        ]
+      },
+      "parts": [
+        {
+          "key": "tono",
+          "name": "Antonio Casas",
+          "aliases": [
+            "Toño Casas"
+          ],
+          "moveAliasIds": [
+            813
+          ],
+          "fields": {
+            "biography": "Antonio «Toño» Casas es percusionista. Fundó Wahala en Caracas a mediados de 1997 junto a su hermano Gustavo Casas y tocó percusión en sus discos; también tocó percusión en «Licencia Para Ser Libre» (2011), el primer disco de Rawayana, banda de su hijo Tony Casas."
+          },
+          "memberships": [
+            5308
+          ],
+          "albumCredits": [
+            3434,
+            4241,
+            7615,
+            4881,
+            5248,
+            3578,
+            2698,
+            497
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "https://plus.cusica.com/2021/03/29/10-anos-de-licencia-para-ser-libre-el-primer-disco-de-rawayana/",
+            "https://www.last.fm/music/Wahala/+wiki"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 4382,
+      "expectName": "Rafael Rodríguez",
+      "why": "el Rafael Rodríguez guitarrista de Gallery of Souls, nacido en 1980 según Metal Archives, no es el bajista de ACME y músico de sesión desde 1987",
+      "keep": {
+        "fields": {
+          "birth_date": null,
+          "nationality": null
+        },
+        "evidence": [
+          "https://sincopa.com (ACME, «Escorpión Seducción», 1990)"
+        ]
+      },
+      "parts": [
+        {
+          "key": "metal",
+          "name": "Rafael Rodríguez",
+          "fields": {
+            "birth_date": "1980-12-01",
+            "nationality": "Venezuela",
+            "gender": "male",
+            "biography": "Rafael Rodríguez es guitarrista de Gallery of Souls, con la que grabó «King Of The Wasteland» (2004)."
+          },
+          "memberships": [
+            4094
+          ],
+          "albumCredits": [
+            20091
+          ],
+          "claims": [
+            665333,
+            665334,
+            665335,
+            665336,
+            665337,
+            665338
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "Metal Archives, ficha del guitarrista de Gallery of Souls (claims 665336–665338)"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 3207,
+      "expectName": "Enrique García",
+      "why": "el Enrique García vocalista y guitarrista de Neo Noir (Los Teques, 2013), nacido en 1996, no es el saxofonista de Mata Rica (1997–1999)",
+      "keep": {
+        "fields": {
+          "birth_date": null,
+          "birth_city": null,
+          "nationality": null
+        },
+        "evidence": [
+          "https://sincopa.com/rock_pop/artist_rock/mata_rica.htm"
+        ]
+      },
+      "parts": [
+        {
+          "key": "neonoir",
+          "name": "Enrique García",
+          "fields": {
+            "birth_date": "1996-08-25",
+            "birth_city": "Los Teques",
+            "nationality": "Venezuela",
+            "gender": "male",
+            "biography": "Enrique García es vocalista y guitarrista de Neo Noir, banda de black metal atmosférico de Los Teques (Miranda) formada en 2013."
+          },
+          "memberships": [
+            2708
+          ],
+          "claims": [
+            664917,
+            664918,
+            664919,
+            664920,
+            664921,
+            664922,
+            664923,
+            664924
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "https://www.metal-archives.com/bands/Neo_Noir/3540380530"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 1179,
+      "expectName": "Armando Álvarez",
+      "why": "el Armando Álvarez de Gaêlica nació en 1975; el guitarrista de «Vol. 6 Canciones de Venezuela» (1977) de Jesús Sevillano es otro",
+      "keep": {
+        "evidence": [
+          "https://www.sincopa.com/traditional/cdinfo2/je_sevillano_77cancionvzla6.htm"
+        ]
+      },
+      "parts": [
+        {
+          "key": "sevillano",
+          "name": "Armando Álvarez",
+          "fields": {
+            "biography": "Tocó la guitarra en «Vol. 6 Canciones de Venezuela» (1977) de Jesús Sevillano."
+          },
+          "albumCredits": [
+            44955
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "https://www.sincopa.com/traditional/cdinfo2/je_sevillano_77cancionvzla6.htm"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 2657,
+      "expectName": "Juan Miguel",
+      "why": "la fecha 16-07-1982 (Araure) es de Juan Miguel Dell'Orco, cantautor; esta ficha es el ingeniero de «Témpano» (1987)",
+      "keep": {
+        "fields": {
+          "birth_date": null,
+          "birth_city": null
+        },
+        "evidence": [
+          "https://www.buenamusica.com/juan-miguel/biografia",
+          "https://www.discogs.com/release/3704822"
+        ]
+      },
+      "parts": []
+    },
+    {
+      "from": 3244,
+      "expectName": "Victor Mestas",
+      "why": "Victor Mestas nació el 19-06-1963 en Caracas según su ficha de Sincopa; Lobotoradio decía 1973 (run 10743)",
+      "keep": {
+        "fields": {
+          "birth_date": "1963-06-19",
+          "birth_city": "Caracas"
+        },
+        "evidence": [
+          "https://sincopa.com (ficha de Victor Mestas: «Born: June 19, 1963 in Caracas»)"
+        ]
+      },
+      "parts": []
+    },
+    {
+      "from": 3622,
+      "expectName": "Nelson Arrieta",
+      "why": "Nelson Arrieta (n. 1966) entró a Guaco en 1987; no canta en el «Guaco» de 1975",
+      "keep": {
+        "removeCredits": [
+          {
+            "kind": "track_credit",
+            "id": 31785,
+            "why": "créditos del «Guaco» de 1991 (Sincopa guaco_1991.htm) enganchados por error al «Guaco» de 1975 (disco 8119); el disco de 1991 (15397) ya tiene los suyos"
+          },
+          {
+            "kind": "track_credit",
+            "id": 31786,
+            "why": "créditos del «Guaco» de 1991 (Sincopa guaco_1991.htm) enganchados por error al «Guaco» de 1975 (disco 8119); el disco de 1991 (15397) ya tiene los suyos"
+          },
+          {
+            "kind": "track_credit",
+            "id": 31787,
+            "why": "créditos del «Guaco» de 1991 (Sincopa guaco_1991.htm) enganchados por error al «Guaco» de 1975 (disco 8119); el disco de 1991 (15397) ya tiene los suyos"
+          }
+        ],
+        "evidence": [
+          "https://www.nelsonarrieta.com/bio",
+          "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1975.htm"
+        ]
+      },
+      "parts": []
+    },
+    {
+      "from": 9341,
+      "expectName": "Sundin Galué",
+      "why": "mismo enganche: los créditos de Sundin Galué del «Guaco» de 1991 estaban también en el de 1975",
+      "keep": {
+        "removeCredits": [
+          {
+            "kind": "track_credit",
+            "id": 31788,
+            "why": "créditos del «Guaco» de 1991 (Sincopa guaco_1991.htm) enganchados por error al «Guaco» de 1975 (disco 8119); el disco de 1991 (15397) ya tiene los suyos"
+          },
+          {
+            "kind": "track_credit",
+            "id": 31789,
+            "why": "créditos del «Guaco» de 1991 (Sincopa guaco_1991.htm) enganchados por error al «Guaco» de 1975 (disco 8119); el disco de 1991 (15397) ya tiene los suyos"
+          }
+        ],
+        "evidence": [
+          "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1975.htm"
+        ]
+      },
+      "parts": []
+    }
+  ]
+}

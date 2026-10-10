@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { BackLink } from "../components/BackLink";
 import { reviewApi } from "../lib/api";
@@ -8,6 +9,9 @@ import { HeaderSkeleton, RowsSkeleton } from "../components/Skeletons";
 import { entityHref } from "../lib/routes";
 import { reviewKindLabel, reviewStatusLabel } from "../lib/labels";
 import { ReviewDecisionActions, ReviewEvidenceList, ReviewValueComparison } from "../components/ReviewDecision";
+import type { PersonWebVerification } from "../lib/types";
+import { PersonComparisonDetails } from "../components/PersonComparisonDetails";
+import { IDENTITY_RECOMMENDATION, personIdentityAssessment } from "../lib/personIdentityAssessment";
 
 const ENTITY_LINKS: ReadonlyArray<{ key: keyof ReturnType<typeof entityRefs>; type: "artist" | "person" | "organization" | "album" | "track"; label: string }> = [
   { key: "artistAId", type: "artist", label: "Artista A" },
@@ -33,6 +37,54 @@ function useReviewDetail(id: number) {
 
 function displayValue(value: unknown): string {
   return JSON.stringify(value, null, 2) ?? "Sin valor";
+}
+
+const WEB_VERDICT_LABEL: Record<PersonWebVerification["verdict"], string> = {
+  same: "Podrían ser la misma persona", different: "Podrían ser personas distintas",
+  mixed: "Alguna ficha podría estar mezclada", unknown: "Sin conclusión",
+};
+
+function WebVerification({ reviewId, personAId, personBId, isAdmin }: { reviewId: number; personAId: number; personBId: number; isAdmin: boolean }) {
+  const [result, setResult] = useState<PersonWebVerification | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [note, setNote] = useState("");
+  useEffect(() => {
+    let active = true;
+    reviewApi.webVerification(reviewId).then((value) => { if (active) setResult(value); })
+      .catch((cause: unknown) => { if (active) setError(cause instanceof Error ? cause.message : String(cause)); });
+    return () => { active = false; };
+  }, [reviewId]);
+  const run = async (action: () => Promise<PersonWebVerification>) => {
+    setBusy(true); setError(null);
+    try { setResult(await action()); } catch (cause) { setError(cause instanceof Error ? cause.message : String(cause)); }
+    finally { setBusy(false); }
+  };
+  const assessment = result ? personIdentityAssessment(null, result) : null;
+  return <section className="section" aria-label="Verificación web de identidad">
+    <h2>Verificación web</h2>
+    <p>La investigación propone una interpretación de las fuentes. La decisión sobre las fichas sigue siendo tuya.</p>
+    {error ? <p role="alert">{error}</p> : null}
+    {isAdmin ? <button type="button" className="btn btn--outline" disabled={busy} onClick={() => run(() => reviewApi.investigateWeb(reviewId))}>
+      {busy ? "Investigando…" : result ? "Actualizar investigación" : "Investigar en internet"}
+    </button> : null}
+    {result ? <div className="evidence-card" style={{ marginTop: 16 }}>
+      <div className="evidence-card__header"><strong>{WEB_VERDICT_LABEL[result.comparison?.conclusion ?? result.verdict]}</strong><span className="badge">{result.status === "reviewed" ? "Leída" : "Pendiente"}</span></div>
+      {assessment ? <p><strong>Recomendación: {IDENTITY_RECOMMENDATION[assessment.recommendation]}.</strong> {assessment.explanation}</p> : null}
+      <p>{result.comparison?.rationale ?? result.rationale}</p>
+      {result.comparison ? <PersonComparisonDetails comparison={result.comparison} score={assessment?.score ?? null} /> : null}
+      {result.evidence.length ? <ul>{result.evidence.map((item, index) => <li key={`${item.url}-${index}`}>
+        <blockquote>«{item.quote}»</blockquote>
+        <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title || new URL(item.url).hostname}</a>
+      </li>)}</ul> : <p>No se encontraron citas verificables.</p>}
+      {result.status === "proposed" && isAdmin ? <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+        <input aria-label="Nota de revisión" value={note} onChange={(event) => setNote(event.target.value)} placeholder="Qué concluyes de estas pruebas" />
+        <button type="button" className="btn btn--primary" disabled={busy || !note.trim()} onClick={() => run(() => reviewApi.markWebReviewed(reviewId, note.trim()))}>Marcar como leída</button>
+      </div> : null}
+      {result.reviewNote ? <p>Revisada por {result.reviewedBy}: {result.reviewNote}</p> : null}
+      <p><Link to={`/curaduria/duplicados?a=${personAId}&b=${personBId}`}>Comparar las fichas y decidir en Posibles duplicados</Link></p>
+    </div> : null}
+  </section>;
 }
 
 export function ReviewQueueDetailPage() {
@@ -88,6 +140,9 @@ export function ReviewQueueDetailPage() {
         <h3 className="payload-title">Payload completo</h3>
         <div className="evidence-block">{displayValue(review.payload)}</div>
       </div>
+
+      {review.personAId && review.personBId && ["person_duplicate", "possible_duplicate", "person_match"].includes(review.kind)
+        ? <WebVerification reviewId={review.id} personAId={review.personAId} personBId={review.personBId} isAdmin={isAdmin} /> : null}
 
       {review.resolvedAt ? (
         <div className="section">

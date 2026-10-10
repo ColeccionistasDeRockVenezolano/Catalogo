@@ -12,7 +12,7 @@ const NOTE = "Curaduría 2026-10-05: Betsayda Machado es una sola persona (canta
 const { runId } = await withOperatorRun({ name: "curation:merge-betsayda", operator: "claude-code", note: NOTE }, async (context) => {
   const preview = await previewEntityMerge(context.client, "person", 22609, 40220);
   console.log(preview.warnings, preview.fieldConflicts);
-  console.log(await mergeEntities(context, { kind: "person", keepId: 22609, dropId: 40220, previewHash: preview.previewHash }));
+  console.log(await mergeEntities(context, { kind: "person", keepId: 22609, dropId: 40220, previewHash: preview.previewHash, keepDropNameAsAlias: true }));
 });
 console.log(`run ${runId}`);
 const open = await getPool().query("SELECT id FROM ingest.review_queue WHERE id=1833538 AND status='open'");

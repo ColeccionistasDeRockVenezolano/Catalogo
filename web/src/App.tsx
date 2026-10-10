@@ -26,6 +26,7 @@ const CurationFixesPage = lazy(() => import("./pages/CurationFixesPage").then((m
 const ChangesHistoryPage = lazy(() => import("./pages/ChangesHistoryPage").then((module) => ({ default: module.ChangesHistoryPage })));
 const CurationImagesPage = lazy(() => import("./pages/CurationImagesPage").then((module) => ({ default: module.CurationImagesPage })));
 const CurationAutofixPage = lazy(() => import("./pages/CurationAutofixPage").then((module) => ({ default: module.CurationAutofixPage })));
+const AiCurationPage = lazy(() => import("./pages/AiCurationPage").then((module) => ({ default: module.AiCurationPage })));
 
 /** Enlaces viejos (/revision/:id) siguen llevando a la revisión. */
 function LegacyReviewRedirect() {
@@ -64,6 +65,7 @@ export function App() {
             <Route path="correcciones/:batchId" element={<CurationFixesPage />} />
             {/* Lista blanca de la autocorrección, solo admin (PLAN_CURADURIA E10). */}
             <Route path="autocorreccion" element={<CurationAutofixPage />} />
+            <Route path="ia" element={<AiCurationPage />} />
           </Route>
           <Route path="/historial" element={<ChangesHistoryPage />} />
           <Route path="/revision" element={<Navigate to="/curaduria" replace />} />

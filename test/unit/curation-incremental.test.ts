@@ -58,6 +58,7 @@ describe("detectores locales y globales (E9.1)", () => {
       "redireccion_en_cadena",
       "rol_contra_tipo_de_credito",
       "sello_que_es_artista",
+      "trayectoria_imposible",
     ]);
     expect(LOCAL_DETECTORS.length + GLOBAL_DETECTORS.length).toBe(DETECTORS.length);
     expect(isLocalDetector("anomalia_del_catalogo")).toBe(false);

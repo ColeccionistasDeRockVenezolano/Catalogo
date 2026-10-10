@@ -1,0 +1,440 @@
+{
+  "note": "Trayectorias imposibles 2026-10-06 (Brian): créditos antes de nacer o después de morir, verificados en internet",
+  "splits": [
+    {
+      "from": 376,
+      "expectName": "Alfredo Gil",
+      "why": "Alfredo «Pollo» Gil, trompetista de salsa (1976–2005), no es el Alfredo Gil vocalista de Dying for Redemption (Valera, 2007), nacido en 1989 según Metal Archives",
+      "keep": {
+        "fields": {
+          "birth_date": null,
+          "birth_city": null,
+          "nationality": "Venezuela",
+          "gender": "male"
+        },
+        "evidence": [
+          "https://en.wikipedia.org/wiki/El_Trabuco_Venezolano_Vol._II"
+        ]
+      },
+      "parts": [
+        {
+          "key": "dying",
+          "name": "Alfredo Gil",
+          "fields": {
+            "birth_date": "1989-02-13",
+            "birth_city": "Valera, Trujillo",
+            "nationality": "Venezuela",
+            "gender": "male",
+            "biography": "Alfredo Gil es el vocalista de Dying for Redemption, banda de metalcore progresivo de Valera (Trujillo) formada en 2007."
+          },
+          "memberships": [
+            2426
+          ],
+          "claims": [
+            664091,
+            664092,
+            664093,
+            664094,
+            664095,
+            664096,
+            664097,
+            664098
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "https://www.metal-archives.com/bands/Dying_for_Redemption/3540334525"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 13298,
+      "expectName": "Jorge Medina",
+      "why": "el Jorge Medina guitarrista de Evil Reborn (Maturín, 2012–2017), nacido en 1994, no es el Jorge Medina fundador de Grupo Vera (La Victoria, Aragua, 1978)",
+      "keep": {
+        "evidence": [
+          "https://www.metal-archives.com/bands/Evil_Reborn/3540389414"
+        ]
+      },
+      "parts": [
+        {
+          "key": "vera",
+          "name": "Jorge Medina",
+          "fields": {
+            "biography": "Jorge Medina fue uno de los fundadores de Grupo Vera, conjunto formado en 1978 en La Victoria (Aragua); figura en sus discos de 1983 a 1987."
+          },
+          "albumCredits": [
+            44392,
+            44417,
+            44436,
+            44450,
+            69745
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "https://sincopa.com/traditional/artists2/grupo_vera.htm"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 6215,
+      "expectName": "Kenny",
+      "why": "Kenny O'Brien, guitarrista y cantante de Las Cuatro Monedas desde 1968, no es el Kenny vocalista de Coprophagist Satisfaction (Maracay, 2008), nacido en 1988",
+      "keep": {
+        "fields": {
+          "birth_date": null,
+          "birth_city": null,
+          "nationality": null
+        },
+        "evidence": [
+          "https://es.wikipedia.org/wiki/Las_Cuatro_Monedas"
+        ]
+      },
+      "parts": [
+        {
+          "key": "coprophagist",
+          "name": "Kenny",
+          "fields": {
+            "birth_date": "1988-06-03",
+            "birth_city": "Maracay",
+            "nationality": "Venezuela",
+            "gender": "male",
+            "biography": "Kenny es el vocalista de Coprophagist Satisfaction, banda de slam y death metal brutal de Maracay (Aragua), desde 2008; cantó en «Sexual Anexitis» (2011) y «Malandronic Street Coitus» (2013)."
+          },
+          "memberships": [
+            2385
+          ],
+          "claims": [
+            666557,
+            666558,
+            666559,
+            666560,
+            666561,
+            666562,
+            666563,
+            666564
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "https://www.metal-archives.com/artists/Kenny/296939"
+          ]
+        },
+        {
+          "key": "serenata",
+          "name": "Kenny",
+          "fields": {
+            "biography": "Tocó caja, guaracha y acordeón en «Caribe Abajo» (Volumen 12, 1986) de Serenata Guayanesa, en el vallenato «Mis Peroles»."
+          },
+          "albumCredits": [
+            42300
+          ],
+          "reviewWith": {
+            "key": "original",
+            "why": "Kenny, acordeonista en «Caribe Abajo» (Serenata Guayanesa, 1986): no consta que sea Kenny O'Brien de Las Cuatro Monedas"
+          },
+          "evidence": [
+            "https://www.discogs.com/es/release/8877193-Serenata-Guayanesa-Caribe-Abajo-Volumen-12"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 4409,
+      "expectName": "Jesús Hernández",
+      "why": "Jesús Alberto Hernández Rondón, músico de metal de Maturín nacido en 1989 (Mertcurich, Chaima, Sistema Diez), no es el violinista de 1997–2009 (Cecilia Todd, Abraham Gustin)",
+      "keep": {
+        "fields": {
+          "real_name": null,
+          "birth_date": null,
+          "birth_city": null,
+          "nationality": null
+        },
+        "evidence": [
+          "https://sincopa.com/traditional/cdinfo2/cecitodd_henrymart.htm"
+        ]
+      },
+      "parts": [
+        {
+          "key": "metal",
+          "name": "Jesús Hernández",
+          "fields": {
+            "real_name": "Jesús Alberto Hernández Rondón",
+            "birth_date": "1989-02-03",
+            "birth_city": "Maturín, Monagas",
+            "nationality": "Venezuela",
+            "gender": "male",
+            "biography": "Jesús Alberto Hernández Rondón es un músico de metal de Maturín (Monagas): guitarrista de Mertcurich y de Chaima, y bajista y cantante de Sistema Diez."
+          },
+          "memberships": [
+            2412,
+            3006,
+            2688
+          ],
+          "claims": [
+            665367,
+            665368,
+            665369,
+            665370,
+            665371,
+            665372,
+            665373,
+            665374,
+            665375,
+            665376,
+            665377,
+            665378
+          ],
+          "moveAliasIds": [
+            22342
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "https://www.metal-archives.com/bands/Sistema_Diez/3540379094",
+            "https://rockhechovenezuela.com/c/chaima/"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 1112,
+      "expectName": "José \"Cheo\" Rodríguez",
+      "why": "la run 13285 (Fichas repetidas) juntó en José «Cheo» Rodríguez, trompetista, a otros cuatro «Cheo»: Navarro (timbales, Grupo Mango y Bailatino), García (cantante de Billo's), Valenzuela (Dimensión Latina) y Morillo (Klasse); la fecha de 1972 era de José Luis «Cheo» Pardo",
+      "keep": {
+        "fields": {
+          "birth_date": null,
+          "birth_city": null,
+          "notes": null,
+          "biography": "José \"Cheo\" Rodríguez es un trompetista, también conocido como Maestro \"Cheo\" Rodríguez. Es trompetista de Desorden Público desde 2004, banda con la que grabó numerosos discos, entre ellos «Plomo Revienta», «Orgánico» y «¿Dónde Está El Futuro?», y para la que también hizo arreglos de metales y coros. Tocó la trompeta como invitado en varios temas del disco «De Alcabala A Peligro», de Aditus, y colaboró con Mulato y con Claroscuro. Participó en la grabación del tema «Atropa Belladona», incluido en el disco «No Estás Solo» de Rodrigo Solo."
+        },
+        "removeMemberships": [
+          {
+            "id": 10736,
+            "why": "membresía en Billo's derivada de los créditos de Cheo García (run 13376); Cheo García ya es integrante"
+          }
+        ],
+        "evidence": [
+          "https://rockhechovenezuela.com/d/desorden-publico/"
+        ]
+      },
+      "parts": [
+        {
+          "key": "navarro",
+          "name": "Cheo Navarro",
+          "into": 21473,
+          "albumCredits": [
+            23445,
+            23480,
+            26344,
+            26435,
+            33414,
+            33795,
+            33823,
+            33843,
+            33853,
+            35961,
+            35968,
+            35974,
+            69719,
+            69726,
+            70073,
+            70079
+          ],
+          "trackCredits": [
+            8594,
+            8597,
+            28695,
+            28712,
+            28713,
+            28714,
+            28717,
+            28718,
+            28722,
+            28736,
+            28737,
+            28738,
+            35975,
+            57159,
+            57161,
+            57163,
+            57165,
+            57166,
+            67833
+          ],
+          "memberships": [
+            9827,
+            9732
+          ],
+          "moveAliasIds": [
+            9269
+          ],
+          "evidence": [
+            "https://sincopa.com/latin_pop/artists_lat/mango.htm",
+            "https://cesarmiguelrondon.com/musica/micros-de-la-salsa/grupgrupo-mango-parte-1/"
+          ]
+        },
+        {
+          "key": "garcia",
+          "name": "Cheo García",
+          "into": 26725,
+          "albumCredits": [
+            34317
+          ],
+          "trackCredits": [
+            29078,
+            29107,
+            29181,
+            29219,
+            29236,
+            29264,
+            29285,
+            29303,
+            29313,
+            29317,
+            29318,
+            29336,
+            29337,
+            29361,
+            29372,
+            29467,
+            29507,
+            29520,
+            29535,
+            29550,
+            29567,
+            29581,
+            29638,
+            29653,
+            29667,
+            29701,
+            29730,
+            29757,
+            29758,
+            29787,
+            29992,
+            29993,
+            70116,
+            70117,
+            70118
+          ],
+          "evidence": [
+            "https://ultimasnoticias.com.ve/chevere/los-100-anos-del-guarachero-cheo-garcia/",
+            "https://recuerdosdeminfancia1.blogspot.com/2017/01/voces-de-billos.html"
+          ]
+        },
+        {
+          "key": "valenzuela",
+          "name": "José \"Cheo\" Valenzuela",
+          "into": 24879,
+          "fields": {
+            "notes": "Alta 2026-10-01 como integrante de Dimension Latina. Lista de miembros de discogs: https://www.discogs.com/artist/2029304-Dimension-Latina\n\nAlta 2026-10-01 como integrante de Dimension Latina. Lista de miembros de lobotoradio: https://www.lobotoradio.com/bandas/dimension-latina"
+          },
+          "albumCredits": [
+            29954,
+            35500,
+            35522,
+            35603
+          ],
+          "trackCredits": [
+            26208,
+            26209,
+            31065,
+            31066,
+            31081,
+            31082,
+            31083,
+            31084
+          ],
+          "memberships": [
+            9161
+          ],
+          "moveAliasIds": [
+            21750,
+            49768
+          ],
+          "evidence": [
+            "http://asocosalsa74.blogspot.com/2007/06/jos-cheo-valenzuelacantante-y-sonero.html"
+          ]
+        },
+        {
+          "key": "morillo",
+          "name": "José \"Cheo\" Morillo",
+          "fields": {
+            "biography": "Percusionista y corista de Klasse, con la que grabó en 1987 y 1990, y de Kraptor."
+          },
+          "albumCredits": [
+            61259,
+            61506
+          ],
+          "memberships": [
+            1003,
+            1011
+          ],
+          "moveAliasIds": [
+            6894
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "https://sincopa.com (Klasse y Kraptor acreditan a José «Cheo» Morillo)"
+          ]
+        },
+        {
+          "key": "cheo",
+          "name": "Cheo",
+          "fields": {
+            "biography": "Músico acreditado solo como «Cheo»: trombón en «Nana», del disco «01» (1999) de Pacífica, y coros en un disco de Beatriz López (2002)."
+          },
+          "albumCredits": [
+            41560
+          ],
+          "trackCredits": [
+            1900,
+            67398
+          ],
+          "moveAliasIds": [
+            22416
+          ],
+          "reviewWith": {
+            "key": "original",
+            "why": "«Cheo», trombón en Pacífica (1999) y coros con Beatriz López (2002): sin nombre completo, no consta que sea el trompetista José «Cheo» Rodríguez"
+          },
+          "evidence": [
+            "https://www.youtube.com/watch?v=flFEwH3pARA"
+          ]
+        },
+        {
+          "key": "pardo",
+          "name": "José Luis Pardo",
+          "into": 386,
+          "claims": [
+            726497,
+            726498,
+            726499,
+            726500
+          ],
+          "evidence": [
+            "https://rateyourmusic.com/artist/jose-luis-pardo"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 645,
+      "expectName": "Cayayo Troconis",
+      "why": "Cayayo Troconis (m. 17-11-1999) tocó la guitarra como invitado en dos temas de «Debut» (2001) de Sur Carabela, grabados antes de morir; la membresía se derivó de esos créditos (run 11012)",
+      "keep": {
+        "removeMemberships": [
+          {
+            "id": 9319,
+            "why": "Cayayo Troconis fue invitado en dos temas de «Debut» (Sur Carabela, 2001), no integrante; murió el 17-11-1999"
+          }
+        ],
+        "evidence": [
+          "https://sincopa.com/rock_pop/cdinfo_rock/surcarabela_debut.htm",
+          "https://es.wikipedia.org/wiki/Cayayo_Troconis"
+        ]
+      },
+      "parts": []
+    }
+  ]
+}

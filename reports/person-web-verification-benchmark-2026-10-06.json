@@ -1,0 +1,140 @@
+{
+  "date": "2026-10-06T15:28:24.897Z",
+  "cases": [
+    {
+      "name": "Valerio: músico / ingeniero",
+      "expected": "different",
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 3,
+      "sources": 3,
+      "rationale": "Las fichas comparten el nombre 'Víctor Valerio', pero las páginas solo lo acreditan como ingeniero de grabación y mezcla en producciones de Los Melódicos, Federico y Su Orquesta, Almendra y Carlos Moreno (1978-1979), mientras que la ficha A lo vincula a 'Niuno Niotro' en 2010 con roles de letrista, vocalista, bajista y compositor. No hay en las páginas ninguna mención de 'Niuno Niotro' ni declaración explícita de que se trate de la misma persona o de homónimos distintos.",
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_18elmaestro.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/melodicos/melodicos_lm14_20aniversario.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/melodicos/melodicos_lm15_camaraccion.htm"
+      ]
+    },
+    {
+      "name": "James Brown: cantante / ingeniero",
+      "expected": "different",
+      "verdict": "different",
+      "correct": true,
+      "citations": 3,
+      "sources": 3,
+      "rationale": "Las dos fichas corresponden a personas distintas: la ficha A se refiere al músico estadounidense James Brown (1933-2006), mencionado como intérprete de 'I feel good' versionada por Los Impala; la ficha B se refiere a un ingeniero de mezcla venezolano contemporáneo que trabajó en 'Caramelos De Cianuro' (2010), sin relación con el primero. La página 2 indica explícitamente que Los Impala versionaron a James Brown, y la página 0 acredita 'Tracks 01, 02 Mixed by James Brown' en un disco de Caramelos de Cianuro, lo que apunta a un homónimo distinto.",
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/caramelos_9caramelos2010.htm",
+        "https://elestimulo.com/espectaculos/2016-08-22/fotos-el-festival-sunset-roll-fue-una-rareza-bien-lograda/",
+        "https://lanacionweb.com/farandula-y-espectaculos/retro-rock-1959-los-impala-cronica-de-la-primera-banda-de-rock-de-venezuela/"
+      ]
+    },
+    {
+      "name": "Alfredo Gil: salsa / metal",
+      "expected": "different",
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 2,
+      "sources": 5,
+      "rationale": "Las citas no prueban ambas identidades y una incompatibilidad verificable. Las dos fichas se refieren a personas diferentes: la ficha A (id 376) es un músico venezolano de trompeta y arreglos activo entre 1968 y 1990, mientras que la ficha B (id 40375) es un vocalista de metal con fecha de nacimiento 1989 y una única participación sin año. Ninguna página numerada vincula explícitamente a ambos ni indica que una ficha mezcle créditos de dos individuos.",
+      "sourceUrls": [
+        "https://sincopa.com/classic/cdinfo_class/leobetan_intimo.htm",
+        "https://sincopa.com/jazz/cdinfo/albna_trabuco1.htm",
+        "https://sincopa.com/jazz/cdinfo/albna_trabuco2.htm",
+        "https://www.facebook.com/LaNocheInformativasacatepequez/posts/ilustre-compositor-antigue%C3%B1o-alberto-vel%C3%A1squez-collado1894-1954biograf%C3%ADauno-de-l/1286985573433317/",
+        "https://farolearentredunas.es.tl/COLUMNA-EN-TODO-DIARIO-MEDANO.htm"
+      ]
+    },
+    {
+      "name": "Kenny: Las Cuatro Monedas / metal",
+      "expected": "different",
+      "verdict": "different",
+      "correct": true,
+      "citations": 3,
+      "sources": 6,
+      "rationale": "Las fichas corresponden a dos músicos distintos: Kenny O'Brien, guitarrista y vocalista de Las Cuatro Monedas (Venezuela, activo desde 1960s, hijo del pianista Pat O'Brien), y un Kenny diferente, vocalista del grupo Coprophagist Satisfaction (nicho de rapcore venezolano contemporáneo). Las páginas documentan explícitamente que 'Las Cuatro Monedas' estaba formado por 'Los Hermanos O´Brien hijos del pianista Pat O’Brien' y que el guitarrista se llamaba 'Kenny O'Brien', mientras que la otra escena es de los años 2010. No hay ningún vínculo entre el 'Kenny' de Las Cuatro Monedas y el 'Kenny' vocalista de Coprophagist Satisfaction; se trata de homónimos sin relación documentada.",
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/las_4monedas.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/4monedas_1agogo.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/4monedas_2.htm",
+        "https://es.wikipedia.org/wiki/Las_Cuatro_Monedas",
+        "https://undertonmusic.com/es/vision-real-rapcore-band/",
+        "https://undertonmusic.com/en/vision-real-rapcore-band-3/"
+      ]
+    },
+    {
+      "name": "Antonio Casas: hijo / padre",
+      "expected": "different",
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 3,
+      "sources": 6,
+      "rationale": "Las citas no prueban ambas identidades y una incompatibilidad verificable. Las páginas describen a dos individuos distintos llamados Antonio Casas: uno es bajista y corista de Rawayana desde 2011 (ficha a), mientras que el otro es percusionista de Wahala desde 1997 y percusionista invitado en Americania en 2012 (ficha b). No hay fuente que los identifique como la misma persona, y la coexistencia de ambos en el mismo año (2011) en proyectos distintos apunta a homónimos distintos.",
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/rawayana.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/americania_2conciertoenlasala.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/rawayana_2rawayanaland.htm",
+        "https://www.instagram.com/reel/DeCOozltnGQ/",
+        "https://www.musicavenezuela.com/artistas/wahala",
+        "https://esquirecolombia.com/rawayana-quienes-son/"
+      ]
+    },
+    {
+      "name": "Francisco González: Oblivion / Sacrilegio",
+      "expected": "unknown",
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 0,
+      "sources": 1,
+      "rationale": "La única página disponible no contiene ninguna mención a 'Francisco González' ni a los proyectos 'Oblivion of Hybrids' o 'Sacrilegio', por lo que no hay evidencia para determinar si las dos fichas corresponden a la misma persona, a personas distintas o si una mezcla créditos de dos individuos.",
+      "sourceUrls": [
+        "https://issuu.com/la_hora/docs/ambato12diciembre2014/26"
+      ]
+    },
+    {
+      "name": "Giordano Di Marzo / Yordano Di Marzo (run 13285)",
+      "expected": "same",
+      "verdict": "same",
+      "correct": true,
+      "citations": 3,
+      "sources": 7,
+      "rationale": "Las fuentes indican explícitamente que 'Giordano Di Marzo' es el nombre real de 'Yordano', y que en el grupo Sietecuero Yordano participó como vocalista y guitarrista, por lo que ambas fichas corresponden a la misma persona.",
+      "sourceUrls": [
+        "https://www.facebook.com/marco.v.cespedes/posts/giordano-di-marzo-migani-conocido-por-su-seud%C3%B3nimo-art%C3%ADstico-yordano-naci%C3%B3-en-ro/820273000621157/",
+        "https://guatacaradio.com/yordano-di-marzo-es-hecho-de-madera-fina-venezolana/",
+        "https://sincopa.com/rock_pop/artist_rock/yordano.htm",
+        "https://www.instagram.com/reel/DQVDjNakQza/?hl=es",
+        "https://www.venciclopedia.org/index.php?title=Yordano_Di_Marzo",
+        "https://www.asieravenezuela.com/2014/10/yordano-el-cantante-mas-exitoso-de.html",
+        "https://richmansite.wordpress.com/2016/02/27/yordano-di-marzo-derrochando-un-manantial-de-corazon/"
+      ]
+    },
+    {
+      "name": "Luis María «Billo» Frómeta / Billo Frometa (run 13285)",
+      "expected": "same",
+      "verdict": "same",
+      "correct": true,
+      "citations": 3,
+      "sources": 6,
+      "rationale": "Las páginas identifican explícitamente a la misma persona con las variantes de nombre 'Luis María “Billo” Frómeta' y 'Billo Frómeta', y le atribuyen la dirección de la orquesta Billo's Caracas Boys en 1965.",
+      "sourceUrls": [
+        "https://www.instagram.com/reel/DRIZZAuEZM_/?hl=es",
+        "https://www.mincultura.gob.ve/eventos/15-de-noviembre-de-1915-nace-luis-maria-billo-frometa/",
+        "https://blogbanplus.com/banplus/biografia-de-luis-maria-billo-frometa-venezolanos-insignes-de-la-modernidad-2019/",
+        "https://www.instagram.com/reel/DX-b_FStvQp/",
+        "https://www.ciudadccs.info/publicacion/12938-hijos-de-billo-frometa-recuperan-legalmente-el-nombre-de-la-orquesta",
+        "https://www.micuatro.com/acordes/tag/luis-maria-billo-frometa/"
+      ]
+    }
+  ],
+  "counts": {
+    "total": 8,
+    "correct": 5,
+    "knownSameCases": 2,
+    "abstained": 4,
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "errors": 0
+  },
+  "readyForAutomaticDecisions": false
+}

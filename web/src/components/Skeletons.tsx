@@ -46,8 +46,8 @@ export function CardGridSkeleton({ count = 12, label }: { count?: number; label?
   return (
     <div className="grid-cards" {...(label === undefined || label === null ? { "aria-hidden": true } : { role: "status", "aria-label": label })}>
       {Array.from({ length: count }, (_, index) => (
-        <div className="card sk-card" key={index}>
-          <SkeletonBlock width={52} height={52} radius="var(--radius-sm)" />
+        <div className="sk-card" key={index}>
+          <SkeletonBlock className="sk-card__art" height="auto" radius={2} />
           <div className="sk-card__body">
             <SkeletonBlock width="78%" />
             <SkeletonBlock width="52%" height={12} />

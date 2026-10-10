@@ -1,0 +1,3042 @@
+{
+ "fichas": 344,
+ "secundarios": 344,
+ "principales": 75,
+ "saltadas_sin_rym": 36,
+ "detalle": [
+  {
+   "kind": "album",
+   "id": 25734,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 25768,
+   "secundarios": [],
+   "principal": "house",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 13719,
+   "secundarios": [
+    "gangsta-rap"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21775,
+   "secundarios": [],
+   "principal": "trap",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21791,
+   "secundarios": [],
+   "principal": "trap",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21799,
+   "secundarios": [],
+   "principal": "trap",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21807,
+   "secundarios": [
+    "drill"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21815,
+   "secundarios": [
+    "industrial"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21816,
+   "secundarios": [
+    "industrial"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21817,
+   "secundarios": [
+    "industrial",
+    "folk"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21819,
+   "secundarios": [
+    "ebm",
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21821,
+   "secundarios": [
+    "neo-psicodelia",
+    "folk",
+    "musica-clasica"
+   ],
+   "principal": "pop-psicodelico",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21822,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21824,
+   "secundarios": [],
+   "principal": "pop-psicodelico",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21825,
+   "secundarios": [
+    "neo-psicodelia",
+    "art-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21826,
+   "secundarios": [
+    "pop-psicodelico",
+    "neo-psicodelia",
+    "ambient"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21827,
+   "secundarios": [
+    "pop-psicodelico"
+   ],
+   "principal": "neo-psicodelia",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21828,
+   "secundarios": [
+    "pop-psicodelico"
+   ],
+   "principal": "neo-psicodelia",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21832,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21833,
+   "secundarios": [
+    "industrial"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21834,
+   "secundarios": [
+    "industrial"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21836,
+   "secundarios": [
+    "folk"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21839,
+   "secundarios": [
+    "noise"
+   ],
+   "principal": "electroacustica",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21840,
+   "secundarios": [
+    "industrial"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21855,
+   "secundarios": [
+    "musica-tradicional"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21864,
+   "secundarios": [
+    "bolero"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21877,
+   "secundarios": [
+    "musica-sacra"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21879,
+   "secundarios": [
+    "indie-rock"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 25876,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 25877,
+   "secundarios": [
+    "drill"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 25889,
+   "secundarios": [
+    "musica-tradicional"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21917,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21920,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21921,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21941,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21942,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21943,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21944,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21945,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21946,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26858,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21947,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21948,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21949,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21950,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26859,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21951,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26860,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21963,
+   "secundarios": [
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 21966,
+   "secundarios": [
+    "neo-psicodelia",
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 25956,
+   "secundarios": [
+    "musica-tropical"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 25957,
+   "secundarios": [
+    "musica-tropical"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26865,
+   "secundarios": [
+    "drum-and-bass"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22014,
+   "secundarios": [
+    "world-ethnic",
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22036,
+   "secundarios": [
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22040,
+   "secundarios": [],
+   "principal": "dream-pop",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22046,
+   "secundarios": [
+    "musica-tradicional"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26013,
+   "secundarios": [
+    "musica-tradicional",
+    "soul"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 13714,
+   "secundarios": [
+    "banda-sonora",
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22146,
+   "secundarios": [
+    "indie-rock"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22147,
+   "secundarios": [
+    "surf-rock"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22148,
+   "secundarios": [
+    "emo"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22154,
+   "secundarios": [
+    "emo"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22156,
+   "secundarios": [
+    "ebm"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22160,
+   "secundarios": [
+    "urbano-latino"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26031,
+   "secundarios": [
+    "musica-tropical"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26879,
+   "secundarios": [
+    "electroacustica",
+    "dance"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22238,
+   "secundarios": [
+    "folk"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22244,
+   "secundarios": [
+    "folk"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22247,
+   "secundarios": [],
+   "principal": "folk",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22260,
+   "secundarios": [],
+   "principal": "neo-psicodelia",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22267,
+   "secundarios": [
+    "musica-clasica"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26037,
+   "secundarios": [
+    "drum-and-bass"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26043,
+   "secundarios": [
+    "drum-and-bass"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22283,
+   "secundarios": [
+    "banda-sonora"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22284,
+   "secundarios": [
+    "banda-sonora"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22285,
+   "secundarios": [
+    "musica-tradicional",
+    "banda-sonora"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26096,
+   "secundarios": [
+    "musica-tropical"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26104,
+   "secundarios": [
+    "musica-tradicional"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22339,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22342,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22344,
+   "secundarios": [
+    "ska"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26890,
+   "secundarios": [
+    "ska"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22348,
+   "secundarios": [],
+   "principal": "ska",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26891,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22350,
+   "secundarios": [
+    "post-punk"
+   ],
+   "principal": "ska",
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22352,
+   "secundarios": [
+    "dance"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22353,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22354,
+   "secundarios": [
+    "post-punk",
+    "surf-rock",
+    "art-pop"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22355,
+   "secundarios": [
+    "ska",
+    "post-punk"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 22356,
+   "secundarios": [
+    "post-punk"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26892,
+   "secundarios": [
+    "ska"
+   ],
+   "principal": null,
+   "runId": 17921
+  },
+  {
+   "kind": "album",
+   "id": 26893,
+   "secundarios": [
+    "ska"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22357,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22358,
+   "secundarios": [
+    "surf-rock"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22360,
+   "secundarios": [
+    "dance"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22362,
+   "secundarios": [
+    "dance-pop",
+    "flamenco"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22363,
+   "secundarios": [
+    "post-punk",
+    "garage-rock"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22364,
+   "secundarios": [
+    "reggae"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22367,
+   "secundarios": [
+    "post-punk"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22340,
+   "secundarios": [
+    "ska"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22371,
+   "secundarios": [
+    "ska"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26897,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22373,
+   "secundarios": [
+    "ska"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22376,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22379,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22380,
+   "secundarios": [
+    "ska"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26898,
+   "secundarios": [
+    "ska"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22385,
+   "secundarios": [],
+   "principal": "dream-pop",
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22405,
+   "secundarios": [
+    "drum-and-bass"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22406,
+   "secundarios": [
+    "trance"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 12752,
+   "secundarios": [
+    "electroacustica",
+    "urbano-latino",
+    "cumbia"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22453,
+   "secundarios": [
+    "trance"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26908,
+   "secundarios": [
+    "trance"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26909,
+   "secundarios": [
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22459,
+   "secundarios": [],
+   "principal": "trance",
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22477,
+   "secundarios": [
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22495,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 27226,
+   "secundarios": [
+    "cantautor"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 13856,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22606,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22622,
+   "secundarios": [
+    "ebm"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22623,
+   "secundarios": [
+    "post-punk"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22638,
+   "secundarios": [
+    "hardcore-punk"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26138,
+   "secundarios": [
+    "electronica",
+    "indie-rock"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26139,
+   "secundarios": [
+    "indie-rock"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26140,
+   "secundarios": [
+    "dream-pop",
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26145,
+   "secundarios": [
+    "dream-pop",
+    "emo",
+    "indie-rock",
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26148,
+   "secundarios": [
+    "indie-rock",
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26150,
+   "secundarios": [
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26151,
+   "secundarios": [],
+   "principal": "folk",
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22646,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22647,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22649,
+   "secundarios": [
+    "grindcore",
+    "sludge-metal"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22650,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26917,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22651,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22652,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22653,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22655,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22656,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22657,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22658,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22660,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22661,
+   "secundarios": [
+    "grindcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22673,
+   "secundarios": [
+    "metalcore"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 27158,
+   "secundarios": [
+    "drum-and-bass"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 27159,
+   "secundarios": [
+    "house"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26161,
+   "secundarios": [
+    "drum-and-bass",
+    "techno"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26166,
+   "secundarios": [],
+   "principal": "house",
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 27166,
+   "secundarios": [],
+   "principal": "house",
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26193,
+   "secundarios": [
+    "techno"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26194,
+   "secundarios": [
+    "techno"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26197,
+   "secundarios": [
+    "drum-and-bass"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 13266,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 13352,
+   "secundarios": [
+    "dance-pop",
+    "house"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22774,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 13350,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22783,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22797,
+   "secundarios": [
+    "electronica",
+    "drill"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26940,
+   "secundarios": [
+    "house"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 13420,
+   "secundarios": [
+    "r-and-b",
+    "soul"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 26944,
+   "secundarios": [
+    "musica-tropical"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22860,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22886,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22889,
+   "secundarios": [
+    "easy-listening"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 13314,
+   "secundarios": [],
+   "principal": "dance-pop",
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22936,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22943,
+   "secundarios": [],
+   "principal": "dance-pop",
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22947,
+   "secundarios": [
+    "flamenco"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 12749,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 12756,
+   "secundarios": [],
+   "principal": "dream-pop",
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 12768,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 12743,
+   "secundarios": [
+    "hip-hop"
+   ],
+   "principal": null,
+   "runId": 17922
+  },
+  {
+   "kind": "album",
+   "id": 22948,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12747,
+   "secundarios": [
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12737,
+   "secundarios": [
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12777,
+   "secundarios": [
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 22949,
+   "secundarios": [
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 22951,
+   "secundarios": [
+    "electroacustica",
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12726,
+   "secundarios": [
+    "trance",
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12767,
+   "secundarios": [
+    "drum-and-bass"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12770,
+   "secundarios": [
+    "musica-coral"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12745,
+   "secundarios": [
+    "house"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12732,
+   "secundarios": [
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12723,
+   "secundarios": [
+    "dream-pop",
+    "darkwave"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12735,
+   "secundarios": [
+    "musica-tradicional"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 22953,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12724,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12754,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 27248,
+   "secundarios": [
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 22955,
+   "secundarios": [
+    "house"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 22957,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12727,
+   "secundarios": [
+    "electroacustica",
+    "dream-pop",
+    "musica-clasica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 12719,
+   "secundarios": [
+    "dream-pop",
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 27250,
+   "secundarios": [
+    "electroacustica",
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 22960,
+   "secundarios": [
+    "musica-sacra"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 22961,
+   "secundarios": [
+    "musica-sacra"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23000,
+   "secundarios": [
+    "house"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23003,
+   "secundarios": [],
+   "principal": "house",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23013,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23042,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23046,
+   "secundarios": [
+    "hip-hop",
+    "electroacustica"
+   ],
+   "principal": "trance",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23057,
+   "secundarios": [],
+   "principal": "electronica",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23058,
+   "secundarios": [
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23059,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23061,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23062,
+   "secundarios": [
+    "ebm"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23063,
+   "secundarios": [],
+   "principal": "electronica",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23064,
+   "secundarios": [],
+   "principal": "electronica",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23073,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": "electroacustica",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26303,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23089,
+   "secundarios": [
+    "musica-sacra"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23102,
+   "secundarios": [
+    "folk"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23140,
+   "secundarios": [
+    "funk",
+    "hip-hop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23154,
+   "secundarios": [],
+   "principal": "emo",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23155,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23168,
+   "secundarios": [],
+   "principal": "house",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23178,
+   "secundarios": [
+    "post-punk"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23185,
+   "secundarios": [
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23271,
+   "secundarios": [],
+   "principal": "pop",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26347,
+   "secundarios": [
+    "jazz"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26348,
+   "secundarios": [
+    "trap"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26349,
+   "secundarios": [],
+   "principal": "drill",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 27004,
+   "secundarios": [
+    "turntablism",
+    "industrial"
+   ],
+   "principal": "neo-psicodelia",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23282,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23283,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23284,
+   "secundarios": [
+    "hip-hop",
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23285,
+   "secundarios": [
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23286,
+   "secundarios": [],
+   "principal": "neo-psicodelia",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23289,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23290,
+   "secundarios": [
+    "cumbia",
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23291,
+   "secundarios": [
+    "hip-hop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23292,
+   "secundarios": [
+    "electroacustica",
+    "neo-psicodelia",
+    "cumbia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26367,
+   "secundarios": [
+    "country"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26369,
+   "secundarios": [
+    "country"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26417,
+   "secundarios": [
+    "soul"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26418,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26419,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26424,
+   "secundarios": [
+    "soul"
+   ],
+   "principal": "neo-psicodelia",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26430,
+   "secundarios": [
+    "soul"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26435,
+   "secundarios": [
+    "jazz"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23348,
+   "secundarios": [
+    "pop-latino"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23373,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23379,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23387,
+   "secundarios": [],
+   "principal": "cumbia",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23388,
+   "secundarios": [
+    "musica-tradicional"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23392,
+   "secundarios": [
+    "house"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26477,
+   "secundarios": [
+    "musica-clasica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23403,
+   "secundarios": [],
+   "principal": "opera",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23430,
+   "secundarios": [
+    "musica-clasica"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23434,
+   "secundarios": [
+    "indie-rock"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26501,
+   "secundarios": [],
+   "principal": "folk",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23449,
+   "secundarios": [
+    "post-punk"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23451,
+   "secundarios": [],
+   "principal": "post-punk",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23452,
+   "secundarios": [
+    "post-punk"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23465,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23479,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26507,
+   "secundarios": [
+    "electronica",
+    "disco",
+    "ambient",
+    "easy-listening"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23508,
+   "secundarios": [
+    "electroacustica",
+    "noise",
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23509,
+   "secundarios": [
+    "noise"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23510,
+   "secundarios": [
+    "neo-psicodelia",
+    "noise"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23533,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23587,
+   "secundarios": [
+    "dance-pop",
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23643,
+   "secundarios": [
+    "musica-navidena"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26548,
+   "secundarios": [
+    "soul"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26553,
+   "secundarios": [
+    "son",
+    "musica-tropical"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 26554,
+   "secundarios": [
+    "musica-tropical"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 25741,
+   "secundarios": [],
+   "principal": "urbano-latino",
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 25747,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 27118,
+   "secundarios": [
+    "house"
+   ],
+   "principal": null,
+   "runId": 17923
+  },
+  {
+   "kind": "album",
+   "id": 23714,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 14190,
+   "secundarios": [
+    "cumbia"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26593,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26594,
+   "secundarios": [
+    "dance-pop",
+    "hip-hop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26595,
+   "secundarios": [
+    "bolero"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26596,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26597,
+   "secundarios": [
+    "dance-pop",
+    "house"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26599,
+   "secundarios": [
+    "dance-pop",
+    "house"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26600,
+   "secundarios": [
+    "pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26601,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26610,
+   "secundarios": [],
+   "principal": "neo-psicodelia",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26611,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26612,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 23823,
+   "secundarios": [
+    "banda-sonora"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 23839,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 23877,
+   "secundarios": [],
+   "principal": "opera",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26638,
+   "secundarios": [],
+   "principal": "trap",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 23902,
+   "secundarios": [
+    "pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26651,
+   "secundarios": [],
+   "principal": "drum-and-bass",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26656,
+   "secundarios": [
+    "hip-hop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 23910,
+   "secundarios": [
+    "surf-rock",
+    "post-punk"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 23917,
+   "secundarios": [
+    "pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 23920,
+   "secundarios": [
+    "drum-and-bass"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 23933,
+   "secundarios": [
+    "trance"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26562,
+   "secundarios": [
+    "hip-hop",
+    "ebm"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 13146,
+   "secundarios": [],
+   "principal": "dance-pop",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26671,
+   "secundarios": [],
+   "principal": "banda-sonora",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26683,
+   "secundarios": [
+    "cumbia"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24018,
+   "secundarios": [
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24030,
+   "secundarios": [],
+   "principal": "ebm",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24032,
+   "secundarios": [
+    "trance"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24033,
+   "secundarios": [
+    "trance"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24046,
+   "secundarios": [
+    "dream-pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24050,
+   "secundarios": [
+    "indie-rock",
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24076,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24078,
+   "secundarios": [
+    "neo-psicodelia"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24079,
+   "secundarios": [],
+   "principal": "bolero-beat",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24107,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24108,
+   "secundarios": [
+    "electroacustica",
+    "dream-pop",
+    "cumbia"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26697,
+   "secundarios": [],
+   "principal": "dream-pop",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26699,
+   "secundarios": [
+    "electroacustica"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26707,
+   "secundarios": [
+    "folk"
+   ],
+   "principal": "electroacustica",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24145,
+   "secundarios": [
+    "soul"
+   ],
+   "principal": "dance-pop",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 27080,
+   "secundarios": [
+    "techno"
+   ],
+   "principal": "dance-pop",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24154,
+   "secundarios": [
+    "banda-sonora"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24181,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24183,
+   "secundarios": [
+    "musica-cristiana"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24222,
+   "secundarios": [
+    "house"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24228,
+   "secundarios": [
+    "dance-pop",
+    "house"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24279,
+   "secundarios": [
+    "rock-alternativo"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 13690,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24291,
+   "secundarios": [],
+   "principal": "dance-pop",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24299,
+   "secundarios": [],
+   "principal": "neo-psicodelia",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24302,
+   "secundarios": [
+    "blues"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24306,
+   "secundarios": [
+    "dream-pop",
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24420,
+   "secundarios": [
+    "trance"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24438,
+   "secundarios": [],
+   "principal": "dance-pop",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24450,
+   "secundarios": [],
+   "principal": "musica-tradicional",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24457,
+   "secundarios": [
+    "musica-tradicional"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24470,
+   "secundarios": [
+    "power-metal"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24479,
+   "secundarios": [],
+   "principal": "post-punk",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24524,
+   "secundarios": [
+    "punk-rock"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24527,
+   "secundarios": [
+    "post-punk"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24544,
+   "secundarios": [],
+   "principal": "latin-electronic-fusion",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24579,
+   "secundarios": [
+    "boom-bap"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 26732,
+   "secundarios": [
+    "country"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 27212,
+   "secundarios": [],
+   "principal": "dance-pop",
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24617,
+   "secundarios": [
+    "surf-rock"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "album",
+   "id": 24648,
+   "secundarios": [
+    "musica-tradicional"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "artist",
+   "id": 6777,
+   "secundarios": [
+    "electronica"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "artist",
+   "id": 6800,
+   "secundarios": [
+    "dance-pop"
+   ],
+   "principal": null,
+   "runId": 17924
+  },
+  {
+   "kind": "artist",
+   "id": 6174,
+   "secundarios": [],
+   "principal": "slamming-brutal-death-metal",
+   "runId": 17924
+  },
+  {
+   "kind": "artist",
+   "id": 6801,
+   "secundarios": [],
+   "principal": "neo-psicodelia",
+   "runId": 17924
+  }
+ ],
+ "errores": []
+}

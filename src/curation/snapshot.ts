@@ -43,7 +43,8 @@ export async function loadCatalogSnapshot(db: SnapshotClient): Promise<CatalogSn
 async function readCatalog(db: SnapshotClient) {
   const artists = await db.query<{ id: string; name: string; origin_city: string | null; formed_year: number | null; disbanded_year: number | null }>(
     "SELECT id::text, name, origin_city, formed_year, disbanded_year FROM public.artists ORDER BY id");
-  const persons = await db.query<{ id: string; name: string }>("SELECT id::text, name FROM public.persons ORDER BY id");
+  const persons = await db.query<{ id: string; name: string; birth_year: number | null; death_year: number | null }>(
+    "SELECT id::text, name, extract(year FROM birth_date)::int AS birth_year, extract(year FROM death_date)::int AS death_year FROM public.persons ORDER BY id");
   const organizations = await db.query<{ id: string; name: string; organization_type: string }>(
     "SELECT id::text, name, organization_type::text FROM public.organizations ORDER BY id");
   const albums = await db.query<{ id: string; artist_id: string; title: string; release_year: number | null; album_type: string; label_id: string | null }>(
@@ -195,7 +196,7 @@ function buildSnapshot({
   return {
     takenAt: new Date(),
     artists: artists.rows.map((row) => ({ id: Number(row.id), name: row.name, originCity: row.origin_city, formedYear: row.formed_year, disbandedYear: row.disbanded_year })),
-    persons: persons.rows.map((row) => ({ id: Number(row.id), name: row.name })),
+    persons: persons.rows.map((row) => ({ id: Number(row.id), name: row.name, birthYear: row.birth_year, deathYear: row.death_year })),
     organizations: organizations.rows.map((row) => ({ id: Number(row.id), name: row.name, type: row.organization_type })),
     albums: albums.rows.map((row) => ({ id: Number(row.id), artistId: Number(row.artist_id), title: row.title, releaseYear: row.release_year, albumType: row.album_type, labelId: num(row.label_id) })),
     tracks: tracks.rows.map((row) => ({ id: Number(row.id), albumId: Number(row.album_id), disc: row.disc_number, number: row.track_number, title: row.title, durationSeconds: row.duration_seconds })),

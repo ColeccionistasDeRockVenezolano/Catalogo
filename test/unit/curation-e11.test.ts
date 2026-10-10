@@ -12,7 +12,7 @@ function snapshot(): CatalogSnapshot {
       { id: 2, name: "Sello Falso", originCity: null, formedYear: 2000, disbandedYear: null },
     ],
     persons: [
-      { id: 20, name: "Ana Música" },
+      { id: 20, name: "Ana Música", birthYear: 2015 },
       { id: 50, name: "Persona Antigua" },
       { id: 51, name: "Persona Intermedia" },
       { id: 52, name: "Persona Final" },
@@ -66,6 +66,7 @@ describe("PLAN_CURADURIA E11", () => {
       "creditos_duplicados",
       "rol_contra_tipo_de_credito",
       "periodo_de_membresia_imposible",
+      "trayectoria_imposible",
       "organizacion_sin_clasificar",
       "sello_que_es_artista",
       "disco_sin_pistas",

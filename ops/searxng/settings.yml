@@ -1,0 +1,27 @@
+use_default_settings: true
+search:
+  safe_search: 0
+  formats:
+    - html
+    - json
+server:
+  public_instance: false
+  limiter: false
+outgoing:
+  request_timeout: 6.0
+# DuckDuckGo, Brave y Google CSE suspenden por CAPTCHA o 429 en cuanto hay ráfagas
+# (prueba del 2026-10-06); Bing, Yahoo y Yandex respondieron. Se suman, no reemplazan.
+engines:
+  - name: bing
+    disabled: false
+  - name: yahoo
+    disabled: false
+  - name: yandex
+    disabled: false
+  # Suspendidos casi siempre: solo sumaban 6 s de espera por consulta.
+  - name: duckduckgo
+    disabled: true
+  - name: brave
+    disabled: true
+  - name: google cse
+    disabled: true

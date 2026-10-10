@@ -12,6 +12,7 @@ import type {
   EntityRef, Finding, SnapshotAlias, SnapshotCredit, SnapshotMediaLink, SnapshotRedirect,
 } from "../types.js";
 import { quote, type AnalysisContext, type Detector } from "./shared.js";
+import { lifeIssues, type PersonTimeline } from "../person-timeline.js";
 
 const COHERENCE = "datos_incoherentes";
 const DUPLICATES = "fichas_repetidas";
@@ -147,6 +148,89 @@ export const impossibleMembershipPeriod: Detector = {
         related: [entity(context, "artist", membership.artistId)],
         evidence: { membershipId: membership.id, role: membership.role, fromYear: membership.fromYear, toYear: membership.toYear, isCurrent: membership.isCurrent, reasons },
       });
+    }
+    return out;
+  },
+};
+
+const TIMELINE_LABELS: Record<string, string> = {
+  antes_de_nacer: "Créditos antes de nacer",
+  despues_de_morir: "Activo después de morir",
+  menor_de_edad: "Activo con menos de 12 años",
+};
+
+/**
+ * Caso Víctor Valerio (Brian, 2026-10-06): una ficha con créditos que su vida
+ * hace imposibles suele juntar a dos homónimos. A veces el error es otro (la
+ * fecha de nacimiento o de muerte es de un homónimo): por eso es un hallazgo
+ * para una persona, no una separación automática.
+ *
+ * Las dos épocas separadas ≥20 años sin vínculo NO van aquí: en la foto de
+ * pruebas también marcan a veteranos reales (Iván Loscher, Tulio Cremisini) y
+ * no llegan al 90 % de precisión que exige Curaduría. Esas fusiones las frena
+ * el veto (src/merge/era-guard.ts) y las existentes se listan con
+ * scripts/report-epocas-sin-vinculo.ts para verificarlas en fuentes.
+ */
+export const impossibleTimeline: Detector = {
+  key: "trayectoria_imposible",
+  category: COHERENCE,
+  label: "Trayectoria imposible",
+  description: "Una persona tiene créditos antes de nacer, créditos técnicos (producción, grabación, mezcla) o membresías después de morir, o figura activa con menos de 12 años: probables homónimos fusionados o una fecha de otra persona.",
+  run(context) {
+    const out: Finding[] = [];
+    const timelines = new Map<number, PersonTimeline>();
+    const timelineOf = (personId: number): PersonTimeline => {
+      let timeline = timelines.get(personId);
+      if (!timeline) {
+        const person = context.persons.get(personId);
+        timeline = { personId, birthYear: person?.birthYear ?? null, deathYear: person?.deathYear ?? null, events: [], ownArtists: new Set<number>() };
+        timelines.set(personId, timeline);
+      }
+      return timeline;
+    };
+    for (const credit of context.snapshot.credits ?? []) {
+      if (credit.personId === null) continue;
+      const albumId = credit.parentKind === "album" ? credit.parentId : context.tracks.get(credit.parentId)?.albumId;
+      const album = albumId === undefined ? undefined : context.albums.get(albumId);
+      if (!album) continue;
+      if (album.releaseYear === null) continue;
+      timelineOf(credit.personId).events.push({
+        year: album.releaseYear, source: credit.parentKind, refId: credit.id, creditType: credit.creditType, role: credit.role,
+        artistId: album.artistId, albumId: album.id, albumType: album.albumType,
+      });
+    }
+    for (const membership of context.snapshot.memberships ?? []) {
+      const timeline = timelineOf(membership.personId);
+      (timeline.ownArtists as Set<number>).add(membership.artistId);
+      for (const year of new Set([membership.fromYear, membership.toYear])) {
+        if (year === null) continue;
+        timeline.events.push({ year, source: "member", refId: membership.id, creditType: "member", role: membership.role, artistId: membership.artistId, albumId: null, albumType: null });
+      }
+    }
+    const artistRefs = (ids: Iterable<number>) => [...new Set(ids)].slice(0, 8).map((id) => entity(context, "artist", id));
+    for (const timeline of timelines.values()) {
+      const person = context.persons.get(timeline.personId);
+      if (!person) continue;
+      const found: Array<{ signature: string; severity: Finding["severity"]; title: string; suggestion: string; related: EntityRef[]; evidence: Record<string, unknown> }> = [];
+      for (const issue of lifeIssues(timeline)) {
+        found.push({
+          signature: issue.kind, severity: issue.kind === "menor_de_edad" ? "low" : "high",
+          title: `${quote(person.name)} ${issue.detail}`,
+          suggestion: issue.kind === "despues_de_morir"
+            ? "Verificar en fuentes: un homónimo vivo (separar la ficha), un período de membresía mal fechado o una fecha de muerte de otra persona"
+            : "Verificar en fuentes: un homónimo de otra época (separar la ficha) o una fecha de nacimiento de otra persona",
+          related: artistRefs(issue.events.map((event) => event.artistId)),
+          evidence: { kind: issue.kind, birthYear: timeline.birthYear, deathYear: timeline.deathYear,
+            events: issue.events.slice(0, 20).map((event) => ({ source: event.source, id: event.refId, year: event.year, creditType: event.creditType, role: event.role, artistId: event.artistId })) },
+        });
+      }
+      for (const item of found) {
+        out.push({
+          detector: this.key, category: this.category, signature: item.signature, signatureLabel: TIMELINE_LABELS[item.signature]!,
+          severity: item.severity, entity: { kind: "person", id: person.id, label: person.name }, field: "trajectory", value: person.name,
+          title: item.title, suggestion: item.suggestion, related: item.related, evidence: item.evidence,
+        });
+      }
     }
     return out;
   },
@@ -457,6 +541,7 @@ export const E11_GLOBAL_DETECTORS: readonly Detector[] = [
   duplicateCredits,
   roleVsCreditType,
   impossibleMembershipPeriod,
+  impossibleTimeline,
   labelIsArtist,
   aliasCollidesWithEntity,
   redirectChain,
@@ -467,6 +552,7 @@ export const E11_DETECTORS: readonly Detector[] = [
   duplicateCredits,
   roleVsCreditType,
   impossibleMembershipPeriod,
+  impossibleTimeline,
   organizationTypeVsName,
   labelIsArtist,
   albumWithoutTracks,

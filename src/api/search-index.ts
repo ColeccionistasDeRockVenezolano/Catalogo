@@ -23,7 +23,7 @@ import { getPool } from "../db/client.js";
 import { moduleLogger } from "../logger/index.js";
 import { normalizeEntityName } from "../normalization/entity-name.js";
 
-export type IndexedKind = "person" | "artist" | "organization";
+export type IndexedKind = "person" | "artist" | "organization" | "album";
 
 export interface SearchIndexEntry {
   id: number;
@@ -39,6 +39,7 @@ const TTL_MS = 60_000;
 const REFRESH_RETRY_MS = 5_000;
 
 const SOURCES: Readonly<Record<IndexedKind, { table: string; aliasTable: string; aliasColumn: string }>> = {
+  album: { table: "public.albums", aliasTable: "ingest.album_aliases", aliasColumn: "album_id" },
   person: { table: "public.persons", aliasTable: "ingest.person_aliases", aliasColumn: "person_id" },
   artist: { table: "public.artists", aliasTable: "ingest.artist_aliases", aliasColumn: "artist_id" },
   organization: { table: "public.organizations", aliasTable: "ingest.organization_aliases", aliasColumn: "organization_id" },
@@ -72,14 +73,18 @@ function entryFor(kind: IndexedKind): CacheEntry {
 async function loadEntries(kind: IndexedKind): Promise<SearchIndexEntry[]> {
   const source = SOURCES[kind];
   const [entities, aliases] = await Promise.all([
-    getPool().query<{ id: string; name: string }>(`SELECT id::text, name FROM ${source.table} ORDER BY id`),
+    getPool().query<{ id: string; name: string; context?: string }>(kind === "album"
+      ? "SELECT al.id::text,al.title AS name,a.name AS context FROM public.albums al JOIN public.artists a ON a.id=al.artist_id ORDER BY al.id"
+      : `SELECT id::text, name FROM ${source.table} ORDER BY id`),
     getPool().query<{ owner_id: string; alias: string }>(
       `SELECT ${source.aliasColumn}::text AS owner_id, alias FROM ${source.aliasTable} ORDER BY ${source.aliasColumn}, alias`),
   ]);
   const byId = new Map<number, SearchIndexEntry>();
   for (const row of entities.rows) {
     const key = normalizeEntityName(row.name).secondaryKey;
-    byId.set(Number(row.id), { id: Number(row.id), name: row.name, keys: key ? [key] : [] });
+    const keys=key ? [key] : [];
+    if(row.context) keys.push(normalizeEntityName(row.context).secondaryKey,normalizeEntityName(`${row.name} ${row.context}`).secondaryKey);
+    byId.set(Number(row.id), { id: Number(row.id), name: row.name, keys });
   }
   for (const row of aliases.rows) {
     const entry = byId.get(Number(row.owner_id));
@@ -169,7 +174,7 @@ export async function searchIds(kind: IndexedKind, q: string): Promise<number[]>
 }
 
 /**
- * Sin `kind`, invalida los tres índices. Se llama al terminar cualquier
+ * Sin `kind`, invalida los índices de entidades. Se llama al terminar cualquier
  * escritura del catálogo: marca lo servido como vencido y refresca ya, sin
  * bloquear a quien escribió ni a quien lea en el intervalo.
  */
@@ -183,7 +188,7 @@ export function invalidateSearchIndex(kind?: IndexedKind): void {
 }
 
 /**
- * Carga los tres índices. Se llama al arrancar la API —en segundo plano y sin
+ * Carga los índices de entidades. Se llama al arrancar la API —en segundo plano y sin
  * bloquear el `listen`— para que la primera búsqueda real no sea la que pague
  * la lectura completa (~900 ms en caliente; en frío, lo que diga el disco).
  * Con los índices ya frescos no hace nada.

@@ -68,12 +68,13 @@ export interface OperatorAction {
 export async function withOperatorRun<T>(
   action: OperatorAction,
   work: (context: OperatorContext) => Promise<T>,
+  options: { rollbackOnly?: boolean; serializable?: boolean } = {},
 ): Promise<{ runId: number; result: T }> {
   const note = action.note.trim();
   if (!note) throw new OperatorError("invalid", "nota obligatoria");
   const client = await getPool().connect();
   try {
-    await client.query("BEGIN");
+    await client.query(options.serializable ? "BEGIN ISOLATION LEVEL SERIALIZABLE" : "BEGIN");
     await client.query(`
       INSERT INTO ingest.sources(slug,name,site_type,trust_level,enabled,notes)
       VALUES($1,'Operador del catálogo (API)','database','high',false,
@@ -87,8 +88,8 @@ export async function withOperatorRun<T>(
     const runId = Number(run.rows[0]!.id);
     const result = await work({ client, runId, sourceId, operator: action.operator, note });
     await client.query("UPDATE ingest.scrape_runs SET status='ok',finished_at=now() WHERE id=$1", [runId]);
-    await client.query("COMMIT");
-    invalidateSearchIndex();
+    await client.query(options.rollbackOnly ? "ROLLBACK" : "COMMIT");
+    if (!options.rollbackOnly) invalidateSearchIndex();
     return { runId, result };
   } catch (error) {
     await client.query("ROLLBACK");

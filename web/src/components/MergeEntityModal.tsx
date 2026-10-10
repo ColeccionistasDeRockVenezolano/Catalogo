@@ -11,6 +11,7 @@ import { formatMergeValue } from "../lib/format";
 import { useToast } from "../lib/ToastContext";
 import { Modal } from "./Modal";
 import { EntityPicker } from "./EntityPicker";
+import { PersonPairWebResearch } from "./PersonPairWebResearch";
 import type { MergeableKind, PersonMergeField, PersonMergePreview, PersonMergeResult } from "../lib/types";
 
 /** «1 crédito» / «3 créditos»: sin esto la interfaz decía «1 revisiones». */
@@ -32,6 +33,11 @@ function mergeRowFields(preview: PersonMergePreview): string[] {
 /** Etiquetas de los campos fusionables, de las tres entidades (E11.3/E11.10). */
 const FIELD_LABELS: Readonly<Record<string, string>> = {
   biography: "Biografía",
+  real_name: "Nombre real",
+  birth_city: "Ciudad de nacimiento",
+  death_cause: "Causa de fallecimiento",
+  trivia: "Información adicional",
+  gender: "Género personal",
   picture_url: "Foto",
   nationality: "Nacionalidad",
   is_venezuelan: "Venezolano/a",
@@ -72,11 +78,13 @@ interface MergeEntityModalProps {
   /** La otra ficha, cuando se abre desde la página de candidatos. */
   otherId?: number;
   otherName?: string;
+  /** Recomendación de la investigación web que motivó abrir la comparación. */
+  identityAdvice?: string;
   onMerged: (keepId: number) => void;
   onClose: () => void;
 }
 
-export function MergeEntityModal({ kind, entityId, entityName, otherId, otherName, onMerged, onClose }: MergeEntityModalProps) {
+export function MergeEntityModal({ kind, entityId, entityName, otherId, otherName, identityAdvice, onMerged, onClose }: MergeEntityModalProps) {
   const { notify } = useToast();
   const noun = NOUNS[kind];
   const [dropId, setDropId] = useState<number | null>(otherId ?? null);
@@ -94,6 +102,7 @@ export function MergeEntityModal({ kind, entityId, entityName, otherId, otherNam
   const [aiUsed, setAiUsed] = useState<Record<string, string>>({});
   const combinedId = useId();
   const [keepDropNameAsAlias, setKeepDropNameAsAlias] = useState(true);
+  const [allowEraConflict, setAllowEraConflict] = useState(false);
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<PersonMergeResult | null>(null);
@@ -176,6 +185,7 @@ export function MergeEntityModal({ kind, entityId, entityName, otherId, otherNam
           rewriteLater,
         } : {}),
         keepDropNameAsAlias, note: note.trim(),
+        ...(preview.eraConflict && allowEraConflict ? { allowEraConflict: true } : {}),
       });
       notify("success", `Fusión completada: «${preview.drop.name}» → «${preview.keep.name}» (${plural(result.moved, "referencia movida", "referencias movidas")}).`);
       // El modal no se cierra: muestra el resultado y deja deshacer la fusión
@@ -203,7 +213,11 @@ export function MergeEntityModal({ kind, entityId, entityName, otherId, otherNam
     : 0;
 
   return (
-    <Modal title={result ? "Fusión completada" : `Fusionar ${noun.plural}`} onClose={onClose} wide>
+    <Modal title={result ? "Fusión completada" : `Revisar fusión de ${noun.plural}`} onClose={onClose} wide>
+      {!result ? <p className="merge-guidance">Elige la ficha que se conserva, revisa los datos y confirma al final. Sus créditos, vínculos y alias quedarán reunidos.</p> : null}
+      {!result && kind === "person" ? <p className="alert-block" style={{ marginBottom: 14 }}>
+        {identityAdvice ?? "Investiga la identidad de ambas fichas antes de fusionarlas. El nombre o la época por sí solos no confirman que sean la misma persona."}
+      </p> : null}
       {result ? (
         <>
           <p style={{ fontSize: 14, margin: "0 0 10px" }}>
@@ -252,10 +266,10 @@ export function MergeEntityModal({ kind, entityId, entityName, otherId, otherNam
               <div className="compare-grid" style={{ marginBottom: 14 }}>
                 {([["keep", preview.keep], ["drop", preview.drop]] as const).map(([role, side]) => (
                   <div className="compare-side" key={role}>
-                    <h4>{role === "keep" ? "Ficha que queda" : "Ficha que desaparece"}{side.id === preview.recommendedKeepId ? " · recomendada" : ""}</h4>
-                    <p style={{ margin: "0 0 6px", fontWeight: 600 }}>{side.name}</p>
+                    <h4>{role === "keep" ? "Se conserva" : "Se integra en la otra"}{side.id === preview.recommendedKeepId ? " · recomendada" : ""}</h4>
+                    <p style={{ margin: "0 0 6px", fontWeight: 600 }}>{side.name} <span className="merge-ficha-id">#{side.id}</span></p>
                     <p className="hint" style={{ margin: 0 }}>
-                      {side.counts.albumCredits + side.counts.trackCredits} créditos · {side.counts.bands} membresías · {side.counts.organizations} organizaciones · {side.counts.claims} claims
+                      {side.counts.albumCredits + side.counts.trackCredits} créditos · {side.counts.bands} membresías · {side.counts.organizations} organizaciones · {side.counts.claims} datos con procedencia
                     </p>
                     {side.aliases.length ? <p className="hint" style={{ margin: "6px 0 0" }}>Alias: {side.aliases.join(", ")}</p> : null}
                   </div>
@@ -264,7 +278,7 @@ export function MergeEntityModal({ kind, entityId, entityName, otherId, otherNam
 
               <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
                 <button type="button" className="btn btn--sm" onClick={swap} disabled={busy}>
-                  Intercambiar (queda «{preview.drop.name}»)
+                  Conservar la otra ficha (#{preview.drop.id})
                 </button>
               </div>
 
@@ -278,8 +292,8 @@ export function MergeEntityModal({ kind, entityId, entityName, otherId, otherNam
               ) : null}
 
               <div className="table-wrap" style={{ marginBottom: 14 }}>
-                <table>
-                  <thead><tr><th>Campo</th><th>Queda</th><th>Desaparece</th><th>Decisión</th></tr></thead>
+                <table className="merge-compare-table">
+                  <thead><tr><th>Campo</th><th>Ficha que se conserva</th><th>Ficha que se integra</th><th>Decisión</th></tr></thead>
                   <tbody>
                     {mergeRowFields(preview).map((field) => {
                       const conflict = preview.fieldConflicts.find((item) => item.field === field);
@@ -288,10 +302,10 @@ export function MergeEntityModal({ kind, entityId, entityName, otherId, otherNam
                       const joined = (preview.joinedFields ?? []).includes(field);
                       return (
                         <tr key={field}>
-                          <td>{FIELD_LABELS[field]}</td>
-                          <td>{formatMergeValue(preview.keep.fields[field])}</td>
-                          <td>{formatMergeValue(preview.drop.fields[field])}</td>
-                          <td>
+                          <td data-label="Dato">{FIELD_LABELS[field] ?? field}</td>
+                          <td data-label={`Se conserva: ${preview.keep.name}`}>{formatMergeValue(preview.keep.fields[field])}</td>
+                          <td data-label={`Se integra: ${preview.drop.name}`}>{formatMergeValue(preview.drop.fields[field])}</td>
+                          <td data-label="Decisión">
                             {conflict && joined ? <span className="badge badge--teal">se unen</span> : conflict ? (
                               <fieldset style={{ border: 0, margin: 0, padding: 0 }}>
                                 <legend className="visually-hidden">Decisión para {FIELD_LABELS[field]}</legend>
@@ -374,6 +388,16 @@ export function MergeEntityModal({ kind, entityId, entityName, otherId, otherNam
                 {" "}«{preview.drop.name}» dejará de existir y su enlace llevará a «{preview.keep.name}».
               </p>
 
+              {preview.eraConflict ? (
+                <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 13, marginBottom: 12 }}>
+                  <input type="checkbox" checked={allowEraConflict} onChange={(event) => setAllowEraConflict(event.target.checked)} />
+                  Confirmo que son la misma persona pese a las épocas ({preview.eraConflict})
+                </label>
+              ) : null}
+
+              {kind === "person" ? <PersonPairWebResearch key={`${preview.keep.id}-${preview.drop.id}`}
+                aId={preview.keep.id} bId={preview.drop.id} autoExpandSaved={false} /> : null}
+
               <label style={{ display: "flex", gap: 8, alignItems: "center", fontSize: 13, marginBottom: 12 }}>
                 <input type="checkbox" checked={keepDropNameAsAlias} onChange={(event) => setKeepDropNameAsAlias(event.target.checked)} />
                 Guardar «{preview.drop.name}» como alias de «{preview.keep.name}»
@@ -395,9 +419,9 @@ export function MergeEntityModal({ kind, entityId, entityName, otherId, otherNam
             <button
               type="button" className="btn btn--danger"
               onClick={submit}
-              disabled={busy || !preview || loading || !note.trim()}
+              disabled={busy || !preview || loading || !note.trim() || (Boolean(preview.eraConflict) && !allowEraConflict)}
             >
-              {busy ? "Fusionando…" : preview ? `Fusionar «${preview.drop.name}» en «${preview.keep.name}»` : "Fusionar"}
+              {busy ? "Fusionando…" : preview ? `Confirmar fusión` : "Fusionar"}
             </button>
           </div>
         </>

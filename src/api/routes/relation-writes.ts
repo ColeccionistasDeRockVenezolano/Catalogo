@@ -68,7 +68,7 @@ const creditValues = (body: Body): RelationValues => ({
   credit_role: valueOf(body, "role"), credit_type: valueOf(body, "creditType"), notes: valueOf(body, "notes"),
 });
 
-const RELATION_ROUTES: readonly RelationRoute[] = [
+export const RELATION_ROUTES: readonly RelationRoute[] = [
   {
     kind: "artist_membership", path: "/artist-members", label: "miembro de artista",
     create: {

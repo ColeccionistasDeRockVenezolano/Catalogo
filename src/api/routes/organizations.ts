@@ -3,7 +3,8 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { paginationQuerySchema, toPage } from "../pagination.js";
 import { idParamSchema, aliasSchema, paginatedResponseSchema } from "../schemas.js";
-import { getOrganizationDetail, listOrganizations } from "../repositories/organizations.js";
+import { getOrganizationDetail, listOrganizations, getOrganizationFacets } from "../repositories/organizations.js";
+import { organizationTypeEnum } from "../../db/schema/core.js";
 import { notFoundEntity } from "../repositories/redirects.js";
 
 const organizationListItemSchema = z.object({
@@ -11,6 +12,7 @@ const organizationListItemSchema = z.object({
   name: z.string(),
   organizationType: z.string(),
   country: z.string().nullable(),
+  pictureUrl: z.string().nullable(),
 });
 
 const organizationDetailSchema = organizationListItemSchema.extend({
@@ -30,10 +32,23 @@ const organizationDetailSchema = organizationListItemSchema.extend({
   aliases: z.array(aliasSchema),
 });
 
-const listQuerySchema = paginationQuerySchema.extend({ q: z.string().trim().min(1).optional() });
+const listQuerySchema = paginationQuerySchema.extend({
+  q: z.string().trim().min(1).optional(),
+  organizationType: z.enum(organizationTypeEnum.enumValues).optional(),
+});
 
 export async function registerOrganizationRoutes(app: FastifyInstance): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();
+
+  server.get("/organizations/facets", {
+    schema: {
+      tags: ["organizations"],
+      response: { 200: z.object({
+        total: z.number().int().nonnegative(),
+        types: z.array(z.object({ organizationType: z.string(), count: z.number().int().nonnegative() })),
+      }) },
+    },
+  }, async () => getOrganizationFacets());
 
   server.get("/organizations", {
     schema: {

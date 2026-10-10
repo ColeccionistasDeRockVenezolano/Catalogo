@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Buildings, ClockCounterClockwise, Disc, MagnifyingGlass, Stack, User, UsersThree, type Icon } from "@phosphor-icons/react";
 import { OperatorPill } from "./OperatorSettings";
 import { UndoBar } from "./UndoBar";
@@ -21,6 +21,8 @@ const NAV_ITEMS: ReadonlyArray<NavItem> = [
 
 export function Layout({ children }: { children: ReactNode }) {
   const { isAdmin } = useOperator();
+  const { pathname } = useLocation();
+  const hasGallery = /^\/(artistas(?:\/\d+)?|personas|discos|organizaciones)\/?$/.test(pathname);
   const items = NAV_ITEMS.filter((item) => !item.adminOnly || isAdmin);
   return (
     <>
@@ -50,7 +52,7 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       </header>
       <main>
-        <div className="container">{children}</div>
+        <div className={`container${hasGallery ? " container--gallery" : ""}`}>{children}</div>
       </main>
       <UndoBar />
     </>

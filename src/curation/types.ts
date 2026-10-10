@@ -46,7 +46,7 @@ export interface Finding {
 }
 
 export interface SnapshotArtist { id: number; name: string; originCity: string | null; formedYear: number | null; disbandedYear: number | null; }
-export interface SnapshotPerson { id: number; name: string; }
+export interface SnapshotPerson { id: number; name: string; birthYear?: number | null; deathYear?: number | null; }
 export interface SnapshotOrganization { id: number; name: string; type: string; }
 export interface SnapshotAlbum { id: number; artistId: number; title: string; releaseYear: number | null; albumType: string; labelId?: number | null; }
 export interface SnapshotTrack { id: number; albumId: number; disc: number; number: number; title: string; durationSeconds: number | null; }

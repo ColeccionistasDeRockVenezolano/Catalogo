@@ -78,6 +78,11 @@ export const ARTIST_TYPES = Object.keys(DICTS["artistType"]!);
 export const ALBUM_TYPES = Object.keys(DICTS["albumType"]!);
 export const ORGANIZATION_TYPES = Object.keys(DICTS["organizationType"]!);
 export const CREDIT_TYPES = Object.keys(DICTS["creditType"]!);
+export const PERSON_ROLES = ["band_member", ...CREDIT_TYPES];
+export const personRoleLabel = (value: string) => ({
+  band_member: "Integrantes de bandas", musician: "Músicos", guest: "Invitados", writer: "Autores",
+  composer: "Compositores", other: "Otros créditos",
+} as Record<string, string>)[value] ?? creditTypeLabel(value);
 export const ALIAS_TYPES = Object.keys(DICTS["aliasType"]!);
 export const PUBLICATION_STATUSES = Object.keys(DICTS["publicationStatus"]!);
 

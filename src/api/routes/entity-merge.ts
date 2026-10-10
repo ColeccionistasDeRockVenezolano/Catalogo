@@ -157,6 +157,7 @@ export async function registerEntityMergeRoutes(app: FastifyInstance): Promise<v
       aliasesToAdd: z.array(z.string()),
       reviewsBetween: z.array(z.number().int()),
       warnings: z.array(z.string()),
+      eraConflict: z.string().nullable().describe("Personas: por qué las trayectorias son imposibles juntas (créditos antes de nacer o después de morir, o épocas separadas ≥20 años sin proyecto común). Fusionar exige `allowEraConflict`."),
       combinableFields: z.array(z.enum(fields)).describe("Textos largos en conflicto que admiten `combine`."),
       joinedFields: z.array(z.enum(fields)).describe("Campos en conflicto que se unen solos."),
       previewHash: z.string().regex(/^[0-9a-f]{64}$/u),
@@ -186,6 +187,7 @@ export async function registerEntityMergeRoutes(app: FastifyInstance): Promise<v
       combinedTexts: z.object(Object.fromEntries(rewriteFields.map((field) => [toCamel(field), z.string().trim().min(1).max(20000).optional()])))
         .strict().optional().describe("Texto final de cada campo combinado (editado a mano o propuesto por la IA)."),
       rewriteLater: z.boolean().optional().describe("Los campos combinados quedan marcados para que la IA los reescriba después."),
+      allowEraConflict: z.boolean().optional().describe("Personas: confirmo que son la misma persona pese al `eraConflict` de la previsualización."),
       keepDropNameAsAlias: z.boolean().describe("Guardar el nombre de la ficha que desaparece como alias."),
       note: noteSchema.describe("Motivo obligatorio: queda en el run, en la auditoría y en el claim."),
     }).strict();
@@ -242,6 +244,7 @@ export async function registerEntityMergeRoutes(app: FastifyInstance): Promise<v
             .map(([key, value]) => [toSnake(key), value])),
         } : {}),
         ...(body.rewriteLater === undefined ? {} : { rewriteLater: body.rewriteLater }),
+        ...(body.allowEraConflict === true ? { allowEraConflict: true } : {}),
       }));
       return { ...result, runId };
     });

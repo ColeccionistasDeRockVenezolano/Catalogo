@@ -1,5 +1,5 @@
 {
- "generado": "2026-10-06 08:34:09",
+ "generado": "2026-10-06 08:38:09",
  "discos_capturados_unicos": 7255,
  "aplicables": 5018,
  "ya_existe": 4987,
@@ -17,12 +17,12 @@
   "dueño sin_ficha": 150
  },
  "completar_existentes": {
-  "pistas (discos sin pistas)": 31,
-  "pistas totales": 184,
-  "años (discos sin año)": 17,
-  "portadas: ficha vacía → se fija": 37,
-  "portadas: ficha con imagen → candidata": 4592,
-  "géneros (discos sin principal)": 32
+  "pistas (discos sin pistas)": 1,
+  "pistas totales": 1,
+  "años (discos sin año)": 0,
+  "portadas: ficha vacía → se fija": 5,
+  "portadas: ficha con imagen → candidata": 4624,
+  "géneros (discos sin principal)": 3
  },
  "altas": {
   "discos": 31,

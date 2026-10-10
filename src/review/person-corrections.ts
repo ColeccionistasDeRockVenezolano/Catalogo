@@ -44,7 +44,9 @@ const why = z.string().min(1);
 const isoDay = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const correctionSchema = z.discriminatedUnion("op", [
   z.object({ op: z.literal("rename"), person: entityRef, to: z.string().min(1), keepOldNameAsAlias: z.boolean(), why }),
-  z.object({ op: z.literal("merge"), keep: entityRef, drop: entityRef, keepDropNameAsAlias: z.boolean(), why }),
+  z.object({ op: z.literal("merge"), keep: entityRef, drop: entityRef, keepDropNameAsAlias: z.boolean(), why,
+    /** Confirmación humana de que son la misma persona pese a épocas incompatibles (era-guard). */
+    allowEraConflict: z.boolean().optional() }),
   z.object({ op: z.literal("drop_aliases"), person: entityRef, aliases: z.array(z.string().min(1)).min(1), why }),
   z.object({ op: z.literal("to_artist"), person: entityRef, artist: entityRef, keepNameAsAlias: z.boolean().default(false), why }),
   z.object({ op: z.literal("to_organization"), person: entityRef, organization: entityRef, keepNameAsAlias: z.boolean().default(false), why }),
@@ -156,7 +158,8 @@ async function applyOne(client: PoolClient, correction: PersonCorrection, note: 
       expectName("persona", correction.drop, drop);
       // Las mismas piezas que el servicio de fusión de la API (E11.3):
       // mergeInto + créditos y membresías equivalentes (P7).
-      const merged = await mergeEntityRows(client, "person", correction.keep.id, correction.drop.id, reason, runId, correction.keepDropNameAsAlias);
+      const merged = await mergeEntityRows(client, "person", correction.keep.id, correction.drop.id, reason, runId, correction.keepDropNameAsAlias,
+        undefined, { allowEraConflict: correction.allowEraConflict === true });
       return { op: "merge", status: "applied", detail: `«${correction.drop.name}» (${correction.drop.id}) → «${correction.keep.name}» (${correction.keep.id}); ${merged.moved} referencias movidas, ${merged.membershipsMerged} membresías unidas, ${merged.membershipReviewsOpened} revisiones de período`, credits: merged.creditsMerged };
     }
     case "drop_aliases": {

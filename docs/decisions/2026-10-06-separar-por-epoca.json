@@ -1,0 +1,310 @@
+{
+  "note": "Caso Víctor Valerio (Brian, 2026-10-06): homónimos de distintas épocas fusionados en una ficha; cada parte verificada en fuentes",
+  "splits": [
+    {
+      "from": 1294,
+      "expectName": "Víctor Valerio",
+      "why": "el Víctor Valerio de Niuno Niotro (banda colegial, nacido hacia 1998–2000 según Brian) no es el productor e ingeniero de 1978–79; la run 13285 los volvió a juntar por «apellido poco común»",
+      "keep": {
+        "fields": {
+          "biography": "Víctor Valerio es vocalista, bajista y letrista de Niuno Niotro, banda del Colegio San Agustín de El Marqués (Caracas) que publicó su EP en 2010 y ganó el Intercolegial del Festival Nuevas Bandas en 2012. En el EP firma también la composición de «Caramelo Dulce»."
+        },
+        "evidence": [
+          "https://runrun.es/noticias/53018/festival-nuevas-bandas-2012-un-evento-tres-ganadores/",
+          "https://www.youtube.com/watch?v=GH-BbhG6i3o"
+        ]
+      },
+      "parts": [
+        {
+          "key": "ingeniero",
+          "name": "Víctor Valerio",
+          "fields": {
+            "biography": "Víctor Valerio fue productor e ingeniero de grabación y mezcla en Caracas a finales de los años setenta. Produjo «Almendra» (1978), el único LP del grupo Almendra; grabó y mezcló en 1978 dos discos de Los Melódicos («20 Aniversario», junto a Fernando Hernández, y «Cámara... Acción... Ritmo») y en 1979 mezcló «El Maestro» de Federico y Su Combo Latino y «Amigos y Amantes» de Carlos Moreno.",
+            "notes": "Separado de la ficha 1294 (Víctor Valerio de Niuno Niotro) el 2026-10-06: homónimo de otra época. Fuentes: sincopa.com (créditos de Los Melódicos y Carlos Moreno), discogs.com/master/1069804 (Almendra, producción)."
+          },
+          "albumCredits": [
+            6494,
+            15443,
+            34519,
+            38173,
+            38180
+          ],
+          "claims": [
+            62187,
+            226324
+          ],
+          "moveAliasIds": [
+            1432
+          ],
+          "evidence": [
+            "https://sincopa.com/latin_pop/cdinfo_latin/melodicos/melodicos_lm14_20aniversario.htm",
+            "https://sincopa.com/rock_pop/cdinfo_rock/carlosmoreno_79amigosyamantes.htm",
+            "https://www.discogs.com/master/1069804-Grupo-Almendra-Almendra"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 1298,
+      "expectName": "Francisco González",
+      "why": "la ficha del guitarrista de Niuno Niotro juntaba al ingeniero de Estudios Fidelis (1976–2005), a Francisco «Pacho» González de Recoveco (colombiano), a dos bajistas de metal de Punto Fijo, al baterista de un tributo a The Police y al productor ejecutivo de Parthenon (sello Luna Negra)",
+      "keep": {
+        "fields": {
+          "biography": "Francisco González es guitarrista de Niuno Niotro, banda del Colegio San Agustín de El Marqués (Caracas) que publicó su EP en 2010 y ganó el Intercolegial del Festival Nuevas Bandas en 2012; en el EP figura también como compositor."
+        },
+        "evidence": [
+          "https://runrun.es/noticias/53018/festival-nuevas-bandas-2012-un-evento-tres-ganadores/",
+          "https://www.youtube.com/watch?v=GH-BbhG6i3o"
+        ]
+      },
+      "parts": [
+        {
+          "key": "ingeniero",
+          "name": "Francisco González",
+          "fields": {
+            "biography": "Francisco González es ingeniero de grabación y mezcla de Caracas, activo desde mediados de los años setenta. En Estudios Fidelis grabó y mezcló discos de Dimensión Latina como «Dimensión Latina 78 – 780 Kilos de Salsa» (1977) y «Canto Para Ti» (1989). En el catálogo figura en decenas de discos entre 1976 y 2005, de Billo's Caracas Boys, Los Melódicos, Canelita Medina, Sonero Clásico del Caribe, Reyna Lucero, Gualberto Ibarreto o Simón Díaz, entre otros; en algunas de esas sesiones aparece también en sintetizador, coros o percusión.",
+            "notes": "Separado de la ficha 1298 (guitarrista de Niuno Niotro) el 2026-10-06. Fuentes: sincopa.com; herencialatina.com (Dimensión Latina, Estudios Fidelis)."
+          },
+          "albumCredits": [
+            8856,
+            13294,
+            17230,
+            17236,
+            19323,
+            21665,
+            21674,
+            22312,
+            22968,
+            29445,
+            29447,
+            31194,
+            31997,
+            32001,
+            32003,
+            33531,
+            33532,
+            34160,
+            34168,
+            34182,
+            34198,
+            34203,
+            34210,
+            34217,
+            34224,
+            34365,
+            34371,
+            34373,
+            34390,
+            34421,
+            34423,
+            34467,
+            34536,
+            34538,
+            34794,
+            35054,
+            35250,
+            35364,
+            35377,
+            35408,
+            35410,
+            35517,
+            35616,
+            35721,
+            35738,
+            35814,
+            36540,
+            37185,
+            37188,
+            37378,
+            37794,
+            38188,
+            39041,
+            39080,
+            39098,
+            39561,
+            39581,
+            39593,
+            39615,
+            39618,
+            39627,
+            39832,
+            39933,
+            39948,
+            41657,
+            41738,
+            44360,
+            44515,
+            44516,
+            44540,
+            44543,
+            45557,
+            46321,
+            46328,
+            46329,
+            46831,
+            46862,
+            46863,
+            46878,
+            58453,
+            61265,
+            61266,
+            68504,
+            68735,
+            68738,
+            68889,
+            68895,
+            68896,
+            69692,
+            69693,
+            69706
+          ],
+          "moveAliasIds": [
+            34614
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "http://www.herencialatina.com/Dimesion_Latina/La%20Dimension%20Latina.htm",
+            "http://ipasme.gob.ve/images/Varias/Fondo%20Editorial/Arte%20y%20Literatura/Coleccion%20Alba%20Musical/dimension_latina.pdf"
+          ]
+        },
+        {
+          "key": "recoveco",
+          "name": "Francisco González",
+          "aliases": [
+            "Pacho González",
+            "Francisco \"Pacho\" González"
+          ],
+          "fields": {
+            "nationality": "Colombia",
+            "is_venezuelan": false,
+            "birth_city": "Manizales",
+            "biography": "Francisco «Pacho» González es un guitarrista y compositor colombiano, nacido en Manizales y radicado desde hace años en Francia. Integra el ensamble colombo-venezolano Recoveco, con el que grabó «Recoveco» (1997), «Bicho... y Hecho» (2001), «Recoveco Live» (2004) y el disco con Alexis Cárdenas (2013), y tocó la guitarra en el disco de Rafael Mejías y su Sanko8 (2009).",
+            "notes": "Separado de la ficha 1298 el 2026-10-06. Fuentes: unradio.unal.edu.co (Recoveco, ensamble colombo-venezolano), redalyc.org (La música para guitarra de Francisco González)."
+          },
+          "albumCredits": [
+            50056,
+            49844,
+            50063,
+            50069,
+            49682
+          ],
+          "trackCredits": [
+            43395,
+            43096,
+            43409,
+            43428
+          ],
+          "memberships": [
+            10330
+          ],
+          "evidence": [
+            "http://unradio.unal.edu.co/nc/detalle/cat/travesia-por-las-musicas-colombianas/article/recoveco-ensamble-colombo-venezolano-3-parte.html",
+            "https://www.redalyc.org/journal/874/87470125004/"
+          ]
+        },
+        {
+          "key": "oblivion",
+          "name": "Francisco González",
+          "fields": {
+            "biography": "Francisco González fue bajista de Oblivion of Hybrids, banda de melodic death metal de Punto Fijo (Falcón) formada en 2013.",
+            "notes": "Separado de la ficha 1298 el 2026-10-06. Fuente: Metal Archives (Oblivion of Hybrids, bajistas anteriores)."
+          },
+          "memberships": [
+            4556
+          ],
+          "claims": [
+            664313,
+            664314,
+            664315,
+            664316
+          ],
+          "deriveVenezuelan": true,
+          "evidence": [
+            "https://www.metal-archives.com/bands/Oblivion_of_Hybrids/3540559067"
+          ]
+        },
+        {
+          "key": "sacrilegio",
+          "name": "Francisco González",
+          "fields": {
+            "biography": "Francisco González figura como bajista de Sacrilegio, banda de melodic death metal de Punto Fijo (Falcón) formada en 2009.",
+            "notes": "Separado de la ficha 1298 el 2026-10-06. Fuente: Metal Archives. Puede ser el mismo bajista de Oblivion of Hybrids (misma ciudad y género), sin confirmar: queda en la mesa."
+          },
+          "memberships": [
+            3286
+          ],
+          "deriveVenezuelan": true,
+          "reviewWith": {
+            "key": "oblivion",
+            "why": "los dos son bajistas de melodic death metal en Punto Fijo (Sacrilegio 2009, Oblivion of Hybrids 2013); sin fuente que confirme que son la misma persona"
+          },
+          "evidence": [
+            "https://www.metal-archives.com/bands/Sacrilegio"
+          ]
+        },
+        {
+          "key": "outlandos",
+          "name": "Francisco González",
+          "fields": {
+            "notes": "Separado de la ficha 1298 el 2026-10-06: batería y percusión en «Outlandos D'Americas: A Tribute To The Police» (2000), según la descripción del video del canal. Sin identificar."
+          },
+          "albumCredits": [
+            1535
+          ],
+          "evidence": [
+            "https://secondhandsongs.com/release/4780/all"
+          ]
+        },
+        {
+          "key": "parthenon",
+          "name": "Francisco González",
+          "fields": {
+            "notes": "Separado de la ficha 1298 el 2026-10-06: productor ejecutivo, con Juan José Salas, de «Mare Tenebris» de Parthenon (2005, sello mexicano Luna Negra)."
+          },
+          "albumCredits": [
+            9504
+          ],
+          "evidence": [
+            "https://www.discogs.com/release/2824041-Parthenon-Mare-Tenebris"
+          ]
+        }
+      ]
+    },
+    {
+      "from": 4531,
+      "expectName": "James Brown",
+      "why": "el cantante estadounidense (1933–2006), compositor de «I Got You (I Feel Good)» versionado por Los Impala, no es el ingeniero británico que mezcló a Caramelos de Cianuro en 2010",
+      "keep": {
+        "fields": {
+          "biography": "James Brown fue un cantante, compositor y productor estadounidense, nacido el 3 de mayo de 1933 en Barnwell, Carolina del Sur, y fallecido el 25 de diciembre de 2006 en Atlanta, Georgia; su obra abarca el funk, el soul y el rhythm and blues.\n\nEn el catálogo figura como compositor de «Estoy Bien», versión de «I Got You (I Feel Good)» grabada por Los Impala, y de «Me vuelvo loco», de Los Holiday's."
+        },
+        "evidence": [
+          "https://en.wikipedia.org/wiki/James_Brown"
+        ]
+      },
+      "parts": [
+        {
+          "key": "ingeniero",
+          "name": "James Brown",
+          "fields": {
+            "nationality": "Reino Unido",
+            "is_venezuelan": false,
+            "biography": "James Brown es un ingeniero de grabación y mezcla y productor británico. Se formó en los estudios RAK de Londres antes de mudarse a Estados Unidos, y ha trabajado con Foo Fighters (grabó «Wasting Light»), Arctic Monkeys, Nine Inch Nails, U2 y Björk. En el catálogo mezcló «Verano» e «Infierno VIP», del disco homónimo de Caramelos de Cianuro (2010).",
+            "notes": "Separado de la ficha 4531 (James Brown, cantante) el 2026-10-06 a pedido de Brian. Fuentes: rateyourmusic.com/release/album/caramelos-de-cianuro/caramelos-de-cianuro.p/, sonicscoop.com."
+          },
+          "albumCredits": [
+            9449
+          ],
+          "trackCredits": [
+            16274
+          ],
+          "evidence": [
+            "https://rateyourmusic.com/release/album/caramelos-de-cianuro/caramelos-de-cianuro.p/",
+            "https://sonicscoop.com/james-brown-lives-in-new-york-and-he-mixes-records/",
+            "https://www.soundonsound.com/people/foo-fighters-recording-wasting-light"
+          ]
+        }
+      ]
+    }
+  ]
+}

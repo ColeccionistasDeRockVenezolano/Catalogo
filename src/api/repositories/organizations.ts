@@ -7,32 +7,50 @@ export interface OrganizationListRow {
   name: string;
   organizationType: string;
   country: string | null;
+  pictureUrl: string | null;
 }
 
 export async function listOrganizations(
-  query: PaginationQuery & { q?: string | undefined },
+  query: PaginationQuery & { q?: string | undefined; organizationType?: string | undefined },
 ): Promise<{ rows: OrganizationListRow[]; total: number }> {
   const pattern = query.q ? `%${query.q}%` : null;
   const [rows, count] = await Promise.all([
-    getPool().query<{ id: string; name: string; organization_type: string; country: string | null }>(
-      `SELECT id, name, organization_type, country
+    getPool().query<{ id: string; name: string; organization_type: string; country: string | null; picture_url: string | null }>(
+      `SELECT id, name, organization_type, country, picture_url
          FROM public.organizations
-        WHERE $1::text IS NULL OR name ILIKE $1
-        ORDER BY name
-        LIMIT $2 OFFSET $3`,
-      [pattern, query.limit, query.offset],
+        WHERE ($1::text IS NULL OR name ILIKE $1)
+          AND ($2::text IS NULL OR organization_type::text = $2)
+        ORDER BY name, id
+        LIMIT $3 OFFSET $4`,
+      [pattern, query.organizationType ?? null, query.limit, query.offset],
     ),
     getPool().query<{ count: string }>(
-      `SELECT count(*)::text AS count FROM public.organizations WHERE $1::text IS NULL OR name ILIKE $1`,
-      [pattern],
+      `SELECT count(*)::text AS count FROM public.organizations
+        WHERE ($1::text IS NULL OR name ILIKE $1)
+          AND ($2::text IS NULL OR organization_type::text = $2)`,
+      [pattern, query.organizationType ?? null],
     ),
   ]);
   return {
     rows: rows.rows.map((row) => ({
-      id: Number(row.id), name: row.name, organizationType: row.organization_type, country: row.country,
+      id: Number(row.id), name: row.name, organizationType: row.organization_type, country: row.country, pictureUrl: row.picture_url,
     })),
     total: Number(count.rows[0]?.count ?? 0),
   };
+}
+
+/** Conteos del catálogo completo, independientes de la búsqueda y la página. */
+export async function getOrganizationFacets(): Promise<{
+  total: number;
+  types: Array<{ organizationType: string; count: number }>;
+}> {
+  const { rows } = await getPool().query<{ organization_type: string; count: string }>(
+    `SELECT organization_type, count(*)::text AS count
+       FROM public.organizations GROUP BY organization_type
+       ORDER BY count(*) DESC, organization_type`,
+  );
+  const types = rows.map((row) => ({ organizationType: row.organization_type, count: Number(row.count) }));
+  return { total: types.reduce((sum, type) => sum + type.count, 0), types };
 }
 
 export interface OrganizationDetail {

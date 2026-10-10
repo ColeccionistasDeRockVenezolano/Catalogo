@@ -397,6 +397,22 @@ async function applyStep(client: PoolClient, item: Evaluated, info: TableInfo, n
   return detached;
 }
 
+/** Free positions before restoring a permutation; the journal still records the net change. */
+async function stageTrackPositions(client:PoolClient,pending:Evaluated[]):Promise<void> {
+  const tracks=pending.filter(item=>item.change.table==="public.tracks");
+  const hasRestore=tracks.some(item=>item.step==="restore");
+  const moving=tracks.filter(item=>item.current&&(item.step==="revert"&&["album_id","disc_number","track_number"].some(k=>k in (item.change.before??{}))||hasRestore&&item.step==="remove"));
+  if(!moving.length)return;
+  const albums=[...new Set(tracks.flatMap(item=>[item.current?.["album_id"],item.change.before?.["album_id"]]).filter(v=>v!==undefined).map(Number))].sort((a,b)=>a-b);
+  const rows=(await client.query<{track_number:number}>("SELECT track_number FROM public.tracks WHERE album_id=ANY($1::bigint[]) ORDER BY id FOR UPDATE",[albums])).rows;
+  const maximum=Math.max(0,...rows.map(r=>r.track_number),...tracks.map(item=>Number(item.change.before?.["track_number"]??0)));
+  if(maximum+moving.length>=32767)throw new OperatorError("not_open","No queda espacio temporal para deshacer el orden de pistas.");
+  for(const [index,item] of moving.entries()){
+    if(item.step==="revert")item.change.before={...item.change.before,track_number:item.change.before?.["track_number"]??item.current!["track_number"]};
+    await client.query("UPDATE public.tracks SET track_number=$2 WHERE id=$1",[item.change.pk["id"],maximum+index+1]);
+  }
+}
+
 /**
  * Deshace un run con el diario, dentro de la transacción del operador que
  * llama. Si una fila del catálogo cambió después, no escribe nada y responde
@@ -430,6 +446,7 @@ export async function undoRunWithJournal(context: OperatorContext, runId: number
       return depthLeft - depthRight || left.change.firstId - right.change.firstId;
     });
 
+  await stageTrackPositions(client,pending);
   let claimsDetached = 0;
   let queue = pending;
   let lastError: { item: Evaluated; error: Error & { code?: string } } | undefined;

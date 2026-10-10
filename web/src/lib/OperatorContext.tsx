@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ApiError, authApi } from "./api";
 import { clearLegacyOperatorStorage, setSessionCsrf, type OperatorUser } from "./operator";
+import { clearEntityToolDrafts } from "./entityToolStorage";
 import { useToast } from "./ToastContext";
 
 interface OperatorContextValue {
@@ -30,6 +31,7 @@ export function OperatorProvider({ children }: { children: ReactNode }) {
       .catch(() => { /* Sin sesión o API temporalmente inaccesible: queda en solo lectura. */ })
       .finally(() => { if (active) setIsChecking(false); });
     const expire = () => {
+      clearEntityToolDrafts();
       setUser(null);
       if (!sessionExpired.current) {
         sessionExpired.current = true;
@@ -55,6 +57,7 @@ export function OperatorProvider({ children }: { children: ReactNode }) {
     } catch (error: unknown) {
       if (!(error instanceof ApiError) || error.status !== 401) throw error;
     } finally {
+      clearEntityToolDrafts();
       setSessionCsrf("");
       setUser(null);
     }

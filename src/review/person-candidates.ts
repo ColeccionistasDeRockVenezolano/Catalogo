@@ -47,6 +47,7 @@ export interface PersonFacts {
   artistIds?: number[];
   /** Personas acreditadas con ella en discos pequeños (sin recopilatorios). */
   colleagueIds?: number[];
+  projects?: Array<{ name: string; album: string | null; year: number | null; role: string }>;
 }
 
 export interface PairFeature {
@@ -252,8 +253,8 @@ export async function loadPersonFacts(queryable: Pick<PoolClient, "query">): Pro
     "SELECT id::text, name, birth_date::text AS birth_date, death_date::text AS death_date FROM public.persons ORDER BY id")).rows;
   const aliases = (await queryable.query<{ person_id: string; alias: string }>(
     "SELECT person_id::text, alias FROM ingest.person_aliases ORDER BY person_id, alias")).rows;
-  const bands = (await queryable.query<{ person_id: string; artist_id: string }>(
-    "SELECT person_id::text, artist_id::text FROM public.artist_members WHERE person_id IS NOT NULL")).rows;
+  const bands = (await queryable.query<{ person_id: string; artist_id: string; name: string; from_year: number | null; role: string }>(
+    "SELECT m.person_id::text, m.artist_id::text, ar.name, m.from_year, m.role FROM public.artist_members m JOIN public.artists ar ON ar.id=m.artist_id WHERE m.person_id IS NOT NULL")).rows;
   // Un solo viaje para discos acreditados y tipos de crédito (de disco y de pista).
   // Los recopilatorios («Various Artists») no son un proyecto: compartirlos no
   // relaciona a dos personas (Brian, 2026-09-28), así que no dan artista. Sí dan
@@ -262,11 +263,13 @@ export async function loadPersonFacts(queryable: Pick<PoolClient, "query">): Pro
     SELECT al.id::text, CASE WHEN ar.name ~* '^(v\\.?\\s*a\\.?|various( artists?)?|varios( artistas)?)$' THEN NULL ELSE al.artist_id::text END AS artist_id
       FROM public.albums al LEFT JOIN public.artists ar ON ar.id=al.artist_id`)).rows
     .map((row) => [Number(row.id), row.artist_id === null ? null : Number(row.artist_id)]));
-  const credits = (await queryable.query<{ person_id: string; album_id: string; credit_type: string }>(`
-    SELECT person_id::text, album_id::text, credit_type::text FROM public.album_credits WHERE person_id IS NOT NULL
+  const credits = (await queryable.query<{ person_id: string; album_id: string; credit_type: string; name: string; album: string; year: number | null; role: string }>(`
+    SELECT c.person_id::text, c.album_id::text, c.credit_type::text, ar.name, al.title AS album, al.release_year AS year, c.role
+      FROM public.album_credits c JOIN public.albums al ON al.id=c.album_id JOIN public.artists ar ON ar.id=al.artist_id WHERE c.person_id IS NOT NULL
     UNION
-    SELECT tc.person_id::text, t.album_id::text, tc.credit_type::text
-      FROM public.track_credits tc JOIN public.tracks t ON t.id=tc.track_id WHERE tc.person_id IS NOT NULL`)).rows;
+    SELECT tc.person_id::text, t.album_id::text, tc.credit_type::text, ar.name, al.title, al.release_year, tc.role
+      FROM public.track_credits tc JOIN public.tracks t ON t.id=tc.track_id
+      JOIN public.albums al ON al.id=t.album_id JOIN public.artists ar ON ar.id=al.artist_id WHERE tc.person_id IS NOT NULL`)).rows;
 
   // En un recopilatorio el proyecto es la banda acreditada en la misma pista.
   const trackArtists = (await queryable.query<{ person_id: string; artist_id: string }>(`
@@ -286,15 +289,20 @@ export async function loadPersonFacts(queryable: Pick<PoolClient, "query">): Pro
   for (const person of persons) {
     byId.set(Number(person.id), {
       id: Number(person.id), name: person.name, aliases: [], bandIds: [], albumIds: [], creditTypes: [],
-      birthDate: person.birth_date, deathDate: person.death_date,
+      birthDate: person.birth_date, deathDate: person.death_date, projects: [],
     });
   }
   for (const alias of aliases) byId.get(Number(alias.person_id))?.aliases.push(alias.alias);
-  for (const band of bands) byId.get(Number(band.person_id))?.bandIds.push(Number(band.artist_id));
+  for (const band of bands) {
+    const facts = byId.get(Number(band.person_id));
+    facts?.bandIds.push(Number(band.artist_id));
+    facts?.projects?.push({ name: band.name, album: null, year: band.from_year, role: `integrante: ${band.role}` });
+  }
   for (const credit of credits) {
     const facts = byId.get(Number(credit.person_id));
     if (!facts) continue;
     facts.albumIds.push(Number(credit.album_id));
+    facts.projects?.push({ name: credit.name, album: credit.album, year: credit.year, role: credit.role });
     if (!facts.creditTypes.includes(credit.credit_type)) facts.creditTypes.push(credit.credit_type);
   }
   // Colegas: personas acreditadas en el mismo disco, salvo en discos con más de
@@ -325,6 +333,14 @@ export async function loadPersonFacts(queryable: Pick<PoolClient, "query">): Pro
     }
     for (const artistId of trackArtistsOf.get(facts.id) ?? []) artists.add(artistId);
     for (const other of trackColleaguesOf.get(facts.id) ?? []) colleagues.add(other);
+    const projectGroups = new Map<string, { name: string; album: string | null; year: number | null; roles: Set<string> }>();
+    for (const p of facts.projects ?? []) {
+      const key = JSON.stringify([p.name, p.album, p.year]);
+      const group = projectGroups.get(key) ?? { name: p.name, album: p.album, year: p.year, roles: new Set<string>() };
+      group.roles.add(p.role); projectGroups.set(key, group);
+    }
+    facts.projects = [...projectGroups.values()].map(({ roles, ...p }) => ({ ...p, role: [...roles].sort().join(", ") }))
+      .sort((x, y) => JSON.stringify(x).localeCompare(JSON.stringify(y)));
     facts.artistIds = [...artists];
     facts.colleagueIds = [...colleagues];
   }

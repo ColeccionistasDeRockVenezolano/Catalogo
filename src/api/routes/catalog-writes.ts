@@ -31,17 +31,19 @@ export const artistTypeSchema = z.enum(["band", "solo_artist", "duo", "project",
 
 // Campos editables por entidad (camelCase de las columnas de ENTITY_SPECS).
 // `.nullable()` solo donde la columna admite NULL: vaciar un NOT NULL no se ofrece.
-const ENTITY_FIELDS = {
+export const ENTITY_FIELDS = {
   artist: {
     name: text(200),
     artistType: artistTypeSchema,
     biography: longText.nullable(), pictureUrl: url.nullable(),
     originCity: text(120).nullable(), originCountry: text(120),
     formedYear: year.nullable(), disbandedYear: year.nullable(), notes: longText.nullable(),
+    status: text(50).nullable(), themes: longText.nullable(), yearsActive: text(200).nullable(), logoUrl: url.nullable(),
   },
   person: {
     name: text(200), biography: longText.nullable(), pictureUrl: url.nullable(), nationality: text(120).nullable(),
     isVenezuelan: z.boolean().nullable(), isDeceased: z.boolean().nullable(), birthDate: isoDate.nullable(), deathDate: isoDate.nullable(), notes: longText.nullable(),
+    realName: text(200).nullable(), birthCity: text(120).nullable(), deathCause: longText.nullable(), trivia: longText.nullable(), gender: text(50).nullable(),
   },
   organization: {
     name: text(200),
@@ -51,6 +53,7 @@ const ENTITY_FIELDS = {
   },
   album: {
     title: text(250), releaseYear: year.nullable(),
+    releaseDateText: text(40).nullable(), catalogId: text(80).nullable(), mediaFormat: text(50).nullable(),
     albumType: z.enum(["studio_album", "live_album", "ep", "single", "compilation", "demo", "soundtrack", "collaboration_album", "remix", "other"]),
     genre: text(200).nullable(), labelId: z.number().int().positive().nullable(), coverUrl: url.nullable(),
     description: longText.nullable(), youtubeUrl: url.nullable(), youtubeStatus: publication,

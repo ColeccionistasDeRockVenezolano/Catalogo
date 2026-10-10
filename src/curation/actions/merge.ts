@@ -195,6 +195,12 @@ export const mergeAction: FixActionDefinition<MergeParams> = {
       if (error instanceof OperatorError && error.code === "invalid") return blocked(params, "invalid", error.message);
       throw error;
     }
+    // Veto temporal (caso Víctor Valerio): Curaduría no fusiona personas de
+    // épocas imposibles juntas; si son la misma, se fusiona a mano desde la
+    // ficha confirmando las épocas.
+    if (merge.eraConflict !== null) {
+      return blocked(params, "not_applicable", `épocas incompatibles: ${merge.eraConflict}; si son la misma persona, fusiona desde la ficha confirmándolo`);
+    }
     const warnings = [...merge.warnings];
     if (merge.fieldConflicts.length) {
       warnings.push(`Valores distintos en ${merge.fieldConflicts.map((conflict) => conflict.field).join(", ")}: se conserva el de «${merge.keep.name}».`);

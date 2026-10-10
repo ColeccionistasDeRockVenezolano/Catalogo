@@ -1,0 +1,1676 @@
+{
+  "date": "2026-10-06T20:41:56.364Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 27,
+    "correct": 25,
+    "errors": 0,
+    "same": "7/7",
+    "different": "11/12",
+    "mixed": "4/5",
+    "single": "3/3",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": true,
+  "cases": [
+    {
+      "name": "Nene Quintero / Carlos Quintero",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 10,
+      "seconds": 1,
+      "aiRunId": 20605,
+      "rationale": "Las páginas muestran que 'Nene Quintero' y 'Carlos Quintero' son la misma persona: el apodo 'Nene' corresponde al nombre Carlos (pág. 1 y 9). La ficha b incluye el crédito en el disco de Onechot 'Left & Right' (pág. 0,3,5,6,7) en el que también participa Nene Quintero, y la ficha a tiene ese mismo crédito. Además, la página 9 lista 'Nene Quintero' como variación de Carlos Quintero y menciona su papel en Grupo Pan, proyecto de la ficha b. (Prueba: la web liga a la persona con un proyecto de la otra ficha: «carlos nene quintero born resides instruments genre october 21 1946 in caracas venezuela in caracas percussion jazz latin» (https://sincopa.com/musicians/percussion/carlos_nene_quintero.htm).)",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/musicians/percussion/carlos_nene_quintero.htm",
+          "title": "Carlos \"Nene\" Quintero - Bio & Discography",
+          "quote": "Carlos \"Nené\" Quintero",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1167246",
+          "title": "Carlos \"Nené\" Quintero | Discogs",
+          "quote": "Variations: \"Nené\" Quintero, C. Quintero, Carlos \"Nene\" Quintero, Carlos \"nene\" Quintero, Carlos (Nene) Quintero, Carlos Nene Quintero, Carlos Nené Quintero, Carlos Quintero, Nene Quintero, Nene' Quintero, Nené Quintero",
+          "supports": "same"
+        },
+        {
+          "url": "https://music.apple.com/mx/artist/onechot/1473320930",
+          "title": "‎Onechot en Apple Music",
+          "quote": "Left & Right (feat. Onechot, Patafunk, Nene Quintero, Panasuyo & Ricardo Llanos)",
+          "supports": "same"
+        },
+        {
+          "url": "https://patafunk.bandcamp.com/track/left-right-ft-onechot-nene-quintero",
+          "title": "Left & Right Ft Onechot & Nene Quintero | Patafunk",
+          "quote": "Left & Right Ft Onechot & Nene Quintero from Eduardo Llanos - Playa",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/musicians/percussion/carlos_nene_quintero.htm",
+          "title": "Carlos \"Nene\" Quintero - Bio & Discography",
+          "quote": "1970 Pan Pan (Guitar)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1167246",
+          "title": "Carlos \"Nené\" Quintero | Discogs",
+          "quote": "Credits: Written-By – Grupo Pan – Pan (1970).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://music.apple.com/mx/artist/onechot/1473320930",
+        "https://sincopa.com/musicians/percussion/carlos_nene_quintero.htm",
+        "https://www.deezer.com/us/artist/1228191",
+        "https://patafunk.bandcamp.com/track/left-right-ft-onechot-nene-quintero",
+        "https://sincopa.com/latin_pop/cdinfo_latin/los_dementes/dementes_1969siquiatricopop.htm",
+        "https://www.youtube.com/watch?v=HQbC1VVbeQ0",
+        "https://www.shazam.com/es-es/song/6776172699/left-and-right-feat-onechot-patafunk-nene-quintero-panasuyo-and-ricardo-llanos",
+        "https://mp3mn.net/t/06278348940744481144-onechot_feat_pata_funk_nene_quintero_left_right_feat_pata_funk_nene_quintero/",
+        "https://muzvox.org/search/OneChot%20feat.%20Gerry%20Weil%2C%20Victor%20Cuica",
+        "https://www.discogs.com/artist/1167246"
+      ]
+    },
+    {
+      "name": "Neguito Borjas / Abdenago «Neguito» Borjas",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 20466,
+      "rationale": "Ambas fichas describen a la misma persona: el músico venezolano Abdenago \"Neguito\" Borjas, compositor y cantante de gaita zuliana. La ficha a solo registra un crédito como vocalista en el disco de Ilan Chester (Tesoros de La Música Vzlana: ZULIA, 2009), mientras la ficha b acumula numerosos créditos como compositor y vocalista en discos de Guaco, Los Melódicos, Billo's Caracas Boys, etc. No hay contradicción de nacimiento, muerte, edad, parentesco ni nombre completo que indique dos personas distintas; las páginas muestran que \"Neguito Borjas\" y \"Abdenago 'Neguito' Borjas\" son la misma persona, apodada Neguito, y la vinculan con proyectos de ambas fichas (Ilan Chester y Guaco). (Prueba: nombres compatibles y la web confirma el proyecto común: «لمتحدة сша 美国 简体中文 etats unis francais france 미국 estados unidos portugues brasil hoa ky 美國 繁體中文台灣 neguito borjas en apple music noche de bien feat ilan chester marcos witt mayre martinez noel schajris neguito borj» (https://music.apple.com/cl/artist/neguito-borjas/337823181).)",
+      "evidence": [
+        {
+          "url": "https://lanotazuliana.blogspot.com/2016/04/guaco-por-anos-y-discografia.html",
+          "title": "LA NOTA ZULIANA: GUACO POR AÑOS Y DISCOGRAFIA",
+          "quote": "Los temas más destacados fueron: «Zapatero», «Pregúntale a Carruyo» y «Cuatro estaciones», todos compuestos por Abdenago Neguito Borjas, quien logra ser captado como compositor para el grupo, luego de varios intentos por incorporarlo como integrante de la banda, en la década del 70.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=A14ZCTCQI1I",
+          "title": "Gran Coquivacoa Si no estuvieras tú - YouTube",
+          "quote": "Si no estuvieras tú Conjunto: Gran Coquivacoa Autor: Abdenago \"Neguito\" Borjas Canta: Ilan Chester Temporada: 1995",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/6015000",
+          "title": "Abdénago Borjas | Discogs",
+          "quote": "Real Name: Abdenago de Jesús Borjas Urdaneta. Profile: Venezuelan musician, singer, arranger and composer (born 3 Feb. 1956) brother of Heberto Beto Borjas and Oscar Borjas Variations: A. Borjas, Abdenago \"Neguito\" Borjas, Abdenago Borjas, Abdenago Borjas (Neguito), Abdénago \"Negrito\" Borjas, Abdénago \"Neguito\" Borjas, Abdénago 'Negrito' Borjas, Abdénago Borja.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Ilan_Chester",
+          "title": "Ilan Chester - Wikipedia",
+          "quote": "Chester began his career in the second half of the 1960s as part of the bands Los Rítmicos and Los Trams.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Guaco_(banda)",
+          "title": "Guaco (banda) - Wikipedia, la enciclopedia libre",
+          "quote": "Guaco es una orquesta venezolana fundada en 1962 por los hermanos Aguado y un grupo de amigos[1] en Maracaibo, Zulia",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/Ilan_Chester",
+        "https://music.apple.com/cl/artist/neguito-borjas/337823181",
+        "https://www.diariorepublica.com/espectaculos/video-caibo-neguito-borjas-e-ilan-chester-dieron-recital-en-un-establecimiento-de-comida-rapida-de-maracaibo",
+        "https://www.elnacional.com/2016/08/cesar-borjas-el-exitoso-percusionista-venezolano-que-ha-compartido-escenario-hasta-con-ilan-chester/",
+        "https://www.rfi.fr/es/programas/el-invitado-de-rfi/20250214-el-cantante-venezolano-ilan-chester-trae-sus-canciones-y-cuentos-a-par%C3%ADs",
+        "https://es.wikipedia.org/wiki/Guaco_(banda)",
+        "https://eldiario.com/2021/10/17/ilan-chester-entrevista/",
+        "https://lanotazuliana.blogspot.com/2016/04/guaco-por-anos-y-discografia.html",
+        "https://www.youtube.com/watch?v=A14ZCTCQI1I",
+        "https://www.youtube.com/watch?v=tvxRG9hUqdA",
+        "https://www.diariorepublica.com/etiquetas/ilan-chester-neguito-borjas-y-caibo-recital-en-el-propio-carlos",
+        "https://www.discogs.com/artist/6015000"
+      ]
+    },
+    {
+      "name": "Rudy Pagliuca / Rodolfo «Rudy» Pagliuca",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same",
+        "mixed"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 14,
+      "seconds": 5,
+      "aiRunId": 20652,
+      "rationale": "Las páginas 0, 1, 2, 4, 5, 8, 9 y 12-13 vinculan a Rudy Pagliuca con Malanga, La Vida Bohème y Viniloversus. La página 5 menciona explícitamente a Rodolfo 'Rudy' Pagliuca como guitarrista de Malanga. Las páginas 9 y 12-13 lo identifican como productor y músico con los mismos créditos (productor de Viniloversus 'Si No Nos Mata' 2010, guitarrista de Malanga). No hay contradicciones documentadas de nacimiento, muerte, edad, familia o nombre completo. Por tanto, son la misma persona. (Prueba: nombres compatibles y la web confirma el proyecto común: «nload on the netlabel fanzinatra their debut album nuestra was recorded and produced in venezuela by rudy pagliuca guitarist of malanga and mixed by leonel carmona and mastered in argentina by andres mayo it was one» (https://en.wikipedia.org/wiki/La_Vida_Boh%C3%A8me).)",
+      "evidence": [
+        {
+          "url": "https://www.laestrella.com.pa/vida-y-cultura/malanga-nuestro-pico-de-exito-coincidio-con-la-debacle-politica-de-venezuela-IF13256248",
+          "title": "Malanga: ‘Nuestro pico de éxito coincidió con la debacle política de Venezuela’",
+          "quote": "Hace 27 años Arístides Ari Barbella (vocalista), Rodolfo Rudy Pagliuca (guitarra), David Chapis Lasca (bajo) y Juan Luciow (batería) fundaron la banda de rock pop Malanga.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2484076",
+          "title": "Rudy Pagliuca | Discogs",
+          "quote": "Rudy Pagliuca. Credits: Producer – Viniloversus – Si No Nos Mata (2010).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1714127",
+          "title": "Rodolfo Pagliuca | Discogs",
+          "quote": "Rodolfo Pagliuca. Credits: Guitar – Malanga – Ta' Trancao (1999); Producer – Viniloversus – El Día Es Hoy (2008).",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/La_Vida_Boh%C3%A8me",
+          "title": "La Vida Bohème - Wikipedia",
+          "quote": "Their debut album, Nuestra, was recorded and produced in Venezuela by Rudy Pagliuca (guitarist of Malanga) and mixed by Leonel Carmona, and mastered in Argentina by Andrés Mayo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.linkedin.com/in/rudypagliuca",
+          "title": "Rudy Pagliuca - Bandleader · Producer · Artist Coach ...",
+          "quote": "Rudy Pagliuca - Bandleader · Producer · Artist Coach .... A pioneer of the V-Rock movement in Venezuela. - Two Latin GRAMMY wins: Best Rock Album (La Vida Bohème, \"Será\", 2013) and Best Short Form Music Video (La Vida Bohème, \"Flamingo\", 2014)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.setlist.fm/setlist/la-vida-boheme/2023/colegio-san-ignacio-de-loyola-caracas-venezuela-3ba1c424.html",
+        "https://en.wikipedia.org/wiki/La_Vida_Boh%C3%A8me",
+        "https://en.wikipedia.org/wiki/Nuestra",
+        "https://plus.cusica.com/2020/10/23/el-regreso-de-malanga-entrevista-a-rudy-pagliuca/",
+        "https://genius.com/albums/La-vida-boheme/Nuestra",
+        "https://www.laestrella.com.pa/vida-y-cultura/malanga-nuestro-pico-de-exito-coincidio-con-la-debacle-politica-de-venezuela-IF13256248",
+        "https://www.indierocks.mx/musica/articulos/a-10-anos-de-sera-de-la-vida-boheme/",
+        "https://es.wikipedia.org/wiki/La_Vida_Boh%C3%A8me",
+        "https://www.buenamusica.com/la-vida-boheme/biografia",
+        "https://www.linkedin.com/in/rudypagliuca",
+        "https://www.youtube.com/watch?v=v036r3qdfQU",
+        "https://indiehoy.com/entrevistas/la-vida-boheme-arte-lenguaje-universal/",
+        "https://www.discogs.com/artist/2484076",
+        "https://www.discogs.com/artist/1714127"
+      ]
+    },
+    {
+      "name": "Rafael Grego (errata) / Rafael Greco",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 13,
+      "seconds": 3,
+      "aiRunId": 20606,
+      "rationale": "Las páginas 0, 1, 2, 4 y otras muestran que Rafael Greco es un saxofonista venezolano que ha colaborado con Guaco y Patafunk, uniendo los créditos de ambas fichas bajo una misma identidad. (Prueba: la web liga a la persona con un proyecto de la otra ficha: «lang es 419 dir ltr head meta charset utf 8 title new sensation musica y letra de patafunk soultwins rafael greco amanda castillo spotify title link rel icon sizes 32x32 type image png href https open spotifycdn co» (https://open.spotify.com/intl-es/track/5cdx0YhGWeIYUOFcm4LSyn).)",
+      "evidence": [
+        {
+          "url": "https://www.guaco.org/pages/rafael-greco",
+          "title": "Rafael Greco – Guaco",
+          "quote": "Rafael GrecoMetales - Saxo Compositor, Arreglista, Cantante y Productor .Nació el 24 de Enero de 1967 en Maracaibo, Edo. Zulia. Venezuela.Ingresa a la banda en 1988.",
+          "supports": "same"
+        },
+        {
+          "url": "https://agendaculturalccsblog.wordpress.com/2023/07/15/rafael-greco-y-su-destacada-carrera-musical/",
+          "title": "Rafael Greco y su destacada carrera musical – Agenda Cultural CCS",
+          "quote": "Guaco (ganadores de dos Latin Grammys), Guillermo Carrasco, Ralph Irizarry, Mark Walker, Steve Khan, Luisito Quintero, Juanma Trujillo, El Regaño, Jorge Glem, C4 Trio, Monsalve y Los Forajidos, Rawayana son algunos de los artistas con los cuales ha colaborado.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.deezer.com/mx/artist/6840617",
+          "title": "Rafael Greco: álbumes, canciones y conciertos | Deezer",
+          "quote": "Patafunk. Dubdelic.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1420191",
+          "title": "Rafael Greco | Discogs",
+          "quote": "Rafael Greco. Profile: Venezuelan arranger, producer, saxophonist and multi-instrumentalist. Credits: Arranged By, Lead Vocals – Guaco – Dejando Huella (1988); Soprano Saxophone – Guaco – Dejando Huella (1988); Composed By – Guaco – Dejando Huella (1988).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.guaco.org/pages/rafael-greco",
+        "https://agendaculturalccsblog.wordpress.com/2023/07/15/rafael-greco-y-su-destacada-carrera-musical/",
+        "https://agendaculturalccs.com/blog/2023/07/15/rafael-greco-y-su-destacada-carrera-musical/",
+        "https://open.spotify.com/intl-es/track/5cdx0YhGWeIYUOFcm4LSyn",
+        "https://www.bluecanoerecords.com/rafael_greco.html",
+        "https://agendaculturalccsblog.wordpress.com/2023/09/11/guaco-1990-rafael-greco/",
+        "https://www.deezer.com/mx/artist/6840617",
+        "http://laguiadecaracas.net/59957/rafael-greco-y-su-destacada-carrera-musical/",
+        "https://zeno.fm/podcast/neon-jazz-interviews/episodes/rafael-greco-interview-verses-under-my-shadow-venezuelan-jazz-guaco/",
+        "https://www.youtube.com/watch?v=qJrOWsQ9bXQ",
+        "https://famousinterviewswithjoedimino.blogspot.com/2026/08/rafael-greco-interview-verses-under-my.html",
+        "https://www.allaboutjazz.com/musicians/rafael-greco",
+        "https://www.discogs.com/artist/1420191"
+      ]
+    },
+    {
+      "name": "Piti / Alejandro «Piti» González",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 10,
+      "seconds": 1,
+      "aiRunId": 20469,
+      "rationale": "Las páginas muestran que 'Piti' y 'Alejandro \"Piti\" González' son la misma persona. La página 5 lista a Alejandro \"Piti\" González como músico en el álbum 3 Casas de Famasloop con roles de programación y coros; la página 0 acredita a 'Piti' en ese mismo álbum con programación y sintetizadores y lo menciona como ingeniero y coproductor. La página 9 define a 'Piti' como cantautor brasileño con créditos en 3 Casas, y la página 2 y 7 confirman que Alejandro \"Piti\" González es miembro de Famasloop. La página 3 narra que Piti González y Gabriel Millán fueron miembros fundadores de Famasloop (que primero se llamó Sigel). Por tanto, se trata de la misma persona con nombre artístico y nombre completo. (Prueba: nombres compatibles y la web confirma el proyecto común: «l album credits from tres casas released june 1 2006 alain gomez voz guitarras kaos pad programacion piti programacion fruit loops filtros ruidos sintetizadores gabo millan sintetizador oswaldo rodriguez pr» (https://famasloop.bandcamp.com/track/cementerio).)",
+      "evidence": [
+        {
+          "url": "https://www.youtube.com/watch?v=exzQPLX4M0A",
+          "title": "Famasloop - 3 Casas (2006) || Full Album || - YouTube",
+          "quote": "Famasloop. Musicians Lead Vocals & Programming: Alain Gómez Backing Vocals & Programming: Alejandro \"Piti\" González Keyboards & Programming ...",
+          "supports": "same"
+        },
+        {
+          "url": "https://famasloop.bandcamp.com/track/cementerio",
+          "title": "Cementerio | Famasloop",
+          "quote": "Piti: programación, fruit loops, filtros, ruidos, sintetizadores.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.aaemusic.com/artist/famasloop/",
+          "title": "Famasloop Artist Profile | AAE Music",
+          "quote": "Famasloop is an Electronic music band from Caracas, Venezuela. The band's members are Alain Gómez, Alejandro \"Piti\" González, Gabriel Millán and Rafael Urbina.",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/climax/perfil/2015-09-07/alain-gomez-musica-para-poner-a-bailar-el-alma/",
+          "title": "Alain Gómez: música para bailar el alma | Clímax",
+          "quote": "En esa aventura estaban, entre otros, Piti González y Gabriel Millán, miembros fundadores de Famasloop (que primero se llamó Sigel)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/393442",
+          "title": "Piti | Discogs",
+          "quote": "Credits: Producer – Famasloop – 3 Casas (2006); Programmed By – Famasloop – 3 Casas (2006).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=exzQPLX4M0A",
+          "title": "Famasloop - 3 Casas (2006) || Full Album || - YouTube",
+          "quote": "Famasloop - 3 Casas (2006) || Full Album || - YouTube. 11 sept 2017 ... ... Famasloop.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://famasloop.bandcamp.com/track/cementerio",
+        "https://fortnite.pityus.net/tracks",
+        "https://www.last.fm/music/Sur+Carabela/+similar",
+        "https://elestimulo.com/climax/perfil/2015-09-07/alain-gomez-musica-para-poner-a-bailar-el-alma/",
+        "https://runoutfinder.com/",
+        "https://www.youtube.com/watch?v=exzQPLX4M0A",
+        "https://www.discogs.com/release/2559748-Famasloop-3-Casas",
+        "https://www.aaemusic.com/artist/famasloop/",
+        "https://www.last.fm/music/Famasloop/_/Uno+y+el+Universo",
+        "https://www.discogs.com/artist/393442"
+      ]
+    },
+    {
+      "name": "Rodolfo «Fito» Paez / Fito Páez",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 12,
+      "seconds": 5,
+      "aiRunId": 20653,
+      "rationale": "Ambas fichas describen a la misma persona: Rodolfo Páez, conocido como Fito Páez, músico argentino que participó como tecladista y productor en el disco 'El Amor Ya No Existe' de Sentimiento Muerto (1987). La ficha a lo nombra 'Rodolfo \"Fito\" Paez' y la ficha b 'Fito Páez'; las páginas confirman que Rodolfo Páez es Fito Páez y que usó teclados y produjo ese álbum, vinculando ambas fichas con el mismo proyecto. (Prueba: nombres compatibles y la web confirma el proyecto común: «er album oficial de sentimiento muerto grupo legendario de venezuela su grabacion fue encabezada por fito paez en 1987 tras un intento fallido de andres calamaro esos encuentros iniciaron una conexion entre la b» (https://puntodecorte.net/35-anos-del-debut-de-sentimiento-muerto-producido-por-fito-paez/).)",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/672493",
+          "title": "Fito Páez | Discogs",
+          "quote": "Real Name: Rodolfo Páez Ávalos. Profile: Argentine Pianist, Lyricist, Singer and Film Director born on March 13, 1963 in Rosario, Santa Fe Province.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/672493",
+          "title": "Fito Páez | Discogs",
+          "quote": "Credits: Keyboards – Sentimiento Muerto – El Amor Ya No Existe (1987); Producer – Sentimiento Muerto – El Amor Ya No Existe (1987).",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/El_amor_ya_no_existe",
+          "title": "El amor ya no existe - Wikipedia, la enciclopedia libre",
+          "quote": "El álbum fue producido por el reconocido músico argentino Fito Páez, que supuso un gran reto a esta (para entonces) naciente banda.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=El_amor_ya_no_existe",
+          "title": "El amor ya no existe - La Venciclopedia",
+          "quote": "Fue editado en 1987 por la disquera Sono-Rodven en formato LP, vinilo, 33⅓ y 12 in y producido por Fito Páez.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://es.wikipedia.org/wiki/Fito_P%C3%A1ez",
+        "https://puntodecorte.net/35-anos-del-debut-de-sentimiento-muerto-producido-por-fito-paez/",
+        "https://ciudadfitopaez.blogspot.com/2017/12/30-anos-de-sentimiento-muerto.html",
+        "https://es.wikipedia.org/wiki/El_amor_ya_no_existe",
+        "https://www.pagina12.com.ar/412016-los-35-anos-del-debut-de-sentimiento-muerto-leyenda-venezola/",
+        "https://www.facebook.com/HoyenlaHistoriadelPopRockVenezolano/posts/19-de-febrero-de-1954nace-luis-alvarado-en-caracas-venezuela-nombre-completo-lui/1199202813548514/",
+        "https://www.venciclopedia.org/index.php?title=El_amor_ya_no_existe",
+        "https://www.facebook.com/groups/curisports/permalink/1621985826079473/",
+        "https://podcasts.apple.com/mx/podcast/rock-hispano-de-1987/id570052036?i=1000425162432",
+        "https://www.youtube.com/watch?v=Nsd7q7d8AU0",
+        "https://melomanoincurable.wordpress.com/2016/09/16/2192/",
+        "https://www.discogs.com/artist/672493"
+      ]
+    },
+    {
+      "name": "Víctor Valerio: Niuno Niotro / ingeniero 1978",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 4,
+      "sources": 9,
+      "seconds": 1,
+      "aiRunId": 20472,
+      "rationale": "Hay dos fichas con el mismo nombre, 'Víctor Valerio'. La ficha a lo vincula a la banda colegial Niuno Niotro (2010-2012) como vocalista/bajista y compositor; la ficha b lo vincula a la escena de música tropical bailable de finales de los 70 (Los Melódicos, Federico y Su Orquesta) como ingeniero de grabación y mezcla. Ninguna página documenta que sean la misma persona ni aporta una contradicción de nacimiento, muerte, edad, parentesco o nombre completo que permita separarlas. Los roles, géneros y décadas distintos no son prueba suficiente según las reglas, por lo que corresponde abstenerse. (Prueba: épocas separadas por 31 años (2010–2010 / 1978–1979) sin proyecto ni colegas en común.)",
+      "evidence": [
+        {
+          "url": "https://www.facebook.com/coleccionistasderockvenezolano/posts/memoriarock-a%C3%B1o-2010-niuno-niotro-comienza-la-grabaci%C3%B3n-de-sus-primeros-temas-ca/2246567068910912/",
+          "title": "#MemoriaRock Año 2010:... - Coleccionistas De Rock Venezolano",
+          "quote": "#MemoriaRock Año 2010: Niuno Niotro comienza la grabación de sus primeros temas \"Caramelo Dulce\" y \"No Debió Ser Así\". La banda estaba conformada por Víctor Valerio en las voces y el bajo, Francisco Gonzalez en la guitarra lider, Oliver Amaya en la guitarra rítmica y Samuel Caldera en la batería.",
+          "supports": "same"
+        },
+        {
+          "url": "https://runrun.es/noticias/53018/festival-nuevas-bandas-2012-un-evento-tres-ganadores/",
+          "title": "Festival Nuevas Bandas 2012: Un evento, tres ganadores - Runrun.es: En defensa de tus derechos humanos",
+          "quote": "Pero Okills y Holy Sexy Bastards no fueron los únicos ganadores de la noche, en la categoría de mejor banda colegial “Niuno Niotro”, del Colegio San Augustín del Marqués, fue seleccionada como la mejor agrupación del festival intercolegial.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/melodicos/melodicos_lm14_20aniversario.htm",
+          "title": "Los Melódicos - 20 Aniversario (LP Info)",
+          "quote": "Recorded & Mixed by Víctor Valerio & Fernando Hernández",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_18elmaestro.htm",
+          "title": "Federico y Su Orquesta - El Maestro (LP Info)",
+          "quote": "Recorded & Mixed by Leandro F. Hernández & Víctor Valerio",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_18elmaestro.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/melodicos/melodicos_lm14_20aniversario.htm",
+        "https://runrun.es/noticias/53018/festival-nuevas-bandas-2012-un-evento-tres-ganadores/",
+        "https://vuestraradio.foroactivo.com/t4129-los-melodicos-biografia",
+        "https://www.facebook.com/coleccionistasderockvenezolano/posts/memoriarock-a%C3%B1o-2010-niuno-niotro-comienza-la-grabaci%C3%B3n-de-sus-primeros-temas-ca/2246567068910912/",
+        "https://soundcloud.com/fjgs18/hipotetico-niuno-niotro",
+        "https://www.ruacep.com.br/pr/sao-jose-dos-pinhais/ouro-fino/83015140-alameda-bom-pastor/",
+        "https://restaurantguru.com.br/TORO-HAMBUGUERIA-Pinhais",
+        "https://www.facebook.com/niunoniotroband/posts/as%C3%AD-como-dice-el-t%C3%ADtulo-del-album-d/187931797941613/"
+      ]
+    },
+    {
+      "name": "James Brown: cantante / ingeniero de Caramelos",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 5,
+      "sources": 13,
+      "seconds": 3,
+      "aiRunId": 20473,
+      "rationale": "La ficha a es James Brown (James Joseph Brown, Jr.), el músico estadounidense de soul nacido el 3 de mayo de 1933 y fallecido el 25 de diciembre de 2006, autor/compositor de temas versionados por Los Impala y Los Holiday's. La ficha b es un 'James Brown' distinto, un profesional de mezcla/ingeniería que trabajó en discos de Caramelos de Cianuro en 2010-2011, años posteriores a la muerte documentada de James Brown. Además, la página de Discogs distingue a James Brown con el nombre completo 'James Joseph Brown, Jr.', mientras que el mezclador aparece en la página de Caramelos de Cianuro simplemente como 'James Brown' sin vinculación con el catálogo de soul; la incompatibilidad temporal (créditos de 2010-2011 tras la muerte de 2006) es una contradicción documentada de tipo death. (Prueba: murió en 2006; la otra ficha figura activo en 2010, 2011.)",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/12596",
+          "title": "James Brown | Discogs",
+          "quote": "James Brown. Real Name: James Joseph Brown, Jr.. Profile: American singer, songwriter, and musician (born 3 May 1933 near Barnwell, South Carolina; died 25 December 2006 in Atlanta, Georgia (aged 73).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/12596",
+          "title": "James Brown | Discogs",
+          "quote": "Credits: Written-By – Los Holiday's – Un Toque Sicodélico (1968); Lyrics By – Los Impala – ¡Estos Son Los Impala! (1968).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/caramelos_9caramelos2010.htm",
+          "title": "Caramelos de Cianuro - Caramelos De Cianuro (CD Info)",
+          "quote": "Tracks 01, 02 Mixed by James Brown",
+          "supports": "same"
+        },
+        {
+          "url": "https://soundcloud.com/caramelosdecianuro/espuma?in=daniela-brito-373985084%2Fsets%2Fcaramelos-de-cianuro",
+          "title": "Listen to 2011 - 2 Lados B - Espuma by CaramelosDeCianuro in caramelos de cianuro playlist online for free on SoundCloud",
+          "quote": "*Excepto Verano, Infierno VIP y La Carretera mezclados por James Brown (http://justmanaging.com/producers/james-brown/)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/12596",
+          "title": "James Brown | Discogs",
+          "quote": "died 25 December 2006 in Atlanta, Georgia (aged 73)",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/holidays_4sicodelico.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/impala_06europa.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/caramelos_9caramelos2010.htm",
+        "http://www.thedeadrockstarsclub.com/2009.html",
+        "https://pasadoypresentej.blogspot.com/2008/11/caramelos-de-cianuro-banda-de-rock-pop.html",
+        "https://soundcloud.com/caramelosdecianuro/espuma?in=daniela-brito-373985084%2Fsets%2Fcaramelos-de-cianuro",
+        "https://en.wikipedia.org/wiki/Venezuelan_rock",
+        "https://acordesweb.com/artista/los-impala",
+        "https://www.lobotoradio.com/discos/los-impala-1968/",
+        "https://www.facebook.com/groups/3335579966470638/posts/4321669034528388/",
+        "https://www.worldradiohistory.com/Archive-All-Music/Billboard/60s/1968/Billboard%201968-03-02.pdf",
+        "https://es.scribd.com/document/327024365/HRV-pdf",
+        "https://www.discogs.com/artist/12596"
+      ]
+    },
+    {
+      "name": "Alfredo Gil: trompeta salsa / metal 2007",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 5,
+      "sources": 8,
+      "seconds": 2,
+      "aiRunId": 20607,
+      "rationale": "Se trata de dos personas distintas con el mismo nombre: Alfredo Gil (Pollo), trompetista y arreglista venezolano-colombiano activo en salsa desde los años 60-2000 (ficha a), y Alfredo Gil, vocalista de la banda venezolana de metalcore Dying for Redemption, nacido el 13 de febrero de 1989 (ficha b). Existe una contradicción documentada de nacimiento: la ficha b tiene birthDate 1989-02-13 documentada, mientras que la ficha a tiene créditos que comienzan en 1968 como compositor en un disco de Los Blanco y en 1976 como trompetista/arreglista en Federico y Su Combo Latino, lo que sería imposible para alguien nacido en 1989 (tendría entre 0 y 9 años). (Prueba: nació en 1989; la otra ficha tiene créditos de 1968, 1976, 1977, 1978….)",
+      "evidence": [
+        {
+          "url": "https://www.metal-archives.com/artists/Alfredo_Gil/274621",
+          "title": "Alfredo Gil - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Alfredo Gil Real/full name: Alfredo Gil Age: 37 (born Feb 13th, 1989) Place of birth: Venezuela (Valera, Trujillo.) Gender: Male Active Bands Misc. staff Dying for Redemption Vocals (2007-present)",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/3281344",
+          "title": "Alfredo Gil (2) | Discogs",
+          "quote": "Profile: Colombian musician (trumpeter), arranger, he worked in Venezuela in various projects -- also known as Alfredo \"Pollo\" Gil or \"Pollo Gil\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/3281344",
+          "title": "Alfredo Gil (2) | Discogs",
+          "quote": "Credits: Trumpet, Arranged By – Federico y Su Combo Latino – Siguelo Ahí.... a Lo Cortico (1976).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=A_m%C3%AD_s%C3%AD_me_gusta_as%C3%AD",
+          "title": "A mí sí me gusta así - La Venciclopedia",
+          "quote": "Fue editado en 1981 por la disquera Top Hits en formato LP, vinilo, 33⅓ y 12 in y producido por Oscar D'León.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=A_m%C3%AD_s%C3%AD_me_gusta_as%C3%AD",
+          "title": "A mí sí me gusta así - La Venciclopedia",
+          "quote": "Trompeta: Alfredo Gil (Pollo) [1ra], Ángel López [2da], Rafael Araujo [3ra], César Fuentes [4ta]",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/trabucovzlano_2.htm",
+        "https://sincopa.com/classic/cdinfo_class/leobetan_intimo.htm",
+        "https://www.metal-archives.com/artists/Alfredo_Gil/274621",
+        "https://www.metal-archives.com/bands/Dying_for_Redemption/3540334525",
+        "https://en.wikipedia.org/wiki/Oscar_D%27Le%C3%B3n",
+        "https://www.venciclopedia.org/index.php?title=A_m%C3%AD_s%C3%AD_me_gusta_as%C3%AD",
+        "https://sincopa.com/latin_pop/cdinfo_latin/oscar_d_leon/oscardleon_2001masqamorfrenesi.htm",
+        "https://www.discogs.com/artist/3281344"
+      ]
+    },
+    {
+      "name": "Kenny: Las Cuatro Monedas / Coprophagist",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 2,
+      "sources": 12,
+      "seconds": 3,
+      "aiRunId": 20475,
+      "rationale": "Ficha a es Kenny O'Brien, guitarrista y vocalista de la banda venezolana Las Cuatro Monedas (activo en discos de 1968 a 2011). Ficha b es Kenny, vocalista de la banda venezolana de death metal Coprophagist Satisfaction, nacido el 3 de junio de 1988. Las páginas no vinculan a ambas personas: la página 0 identifica a Kenny O'Brien como miembro de Las Cuatro Monedas, mientras que las páginas 2 y 3 identifican a Kenny como vocalista de Coprophagist Satisfaction. No hay pruebas de que sean la misma persona ni contradicciones documentadas que prueben que son diferentes, por lo que el veredicto es 'unknown'. (Prueba: nació en 1988; la otra ficha tiene créditos de 1968, 1969, 1970, 1973….)",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/las_4monedas.htm",
+          "title": "Las Cuatro Monedas - Bio & Discography",
+          "quote": "Lead Guitar & Vocals: Kenny O'Brien",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Kenny/296939",
+          "title": "Kenny - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Kenny Real/full name: N/A Age: 38 (born Jun 3rd, 1988) Place of birth: Venezuela (Maracay)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/las_4monedas.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/4monedas_40anos40exitos.htm",
+        "https://www.metal-archives.com/artists/Kenny/296939",
+        "https://www.metal-archives.com/bands/Coprophagist_Satisfaction/3540324172",
+        "http://thedeadrockstarsclub.com/1990.html",
+        "https://historum.com/t/on-this-day-in-music.8308/page-155",
+        "https://bingquiz.com/bing-homepage-quiz/",
+        "https://bing.weeklyquiz.net/bing-homepage-quiz/",
+        "https://www.youtube.com/watch?v=w_PpePJ79KU",
+        "https://www.lobotoradio.com/bandas/las-4-monedas",
+        "https://www.asieravenezuela.com/p/las-cuatro-monedas.html",
+        "https://www.facebook.com/ramonmatalocutor/posts/las-cuatro-monedas-marlene-brenda-kenny-y-gary-pioneros-del-ska-yeyecuando-yo-cr/27465978453101762/"
+      ]
+    },
+    {
+      "name": "Antonio Casas: hijo (Rawayana) / padre (Wahala)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 5,
+      "sources": 12,
+      "seconds": 2,
+      "aiRunId": 20476,
+      "rationale": "Ambas fichas describen a la misma persona: Antonio \"Tony\" Casas, bajista y percusionista venezolano, miembro de Rawayana y de Wahala. La ficha a lo identifica como bajista de Rawayana en discos de 2011, 2013 y 2016; la ficha b lo identifica como percusionista de Wahala desde 1997 y en discos de 1998-2011. Las páginas muestran que Antonio Casas es miembro de Rawayana y que también participó en Wahala, y que en un videoclip de Rawayana aparece Tony Casas (bajo) junto a su padre, Antonio Casas (percusión), lo que explica la confusión de roles pero confirma que es una misma persona con distintas facetas. No hay contradicción de nacimiento, muerte, edad, parentesco ni nombre completo. (Prueba: Antonio Casas nació en 1989 según su ficha y la otra tiene créditos de 1997.)",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/rawayana.htm",
+          "title": "Rawayana - Bio & Discography",
+          "quote": "Bass & Backing Vocals: Antonio Casas",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/wahala_homegrown.htm",
+          "title": "Wahala - Homegrown (CD Info)",
+          "quote": "Percussion: Antonio Casas",
+          "supports": "same"
+        },
+        {
+          "url": "https://plus.cusica.com/2021/03/29/10-anos-de-licencia-para-ser-libre-el-primer-disco-de-rawayana/",
+          "title": "10 años de ‘Licencia Para Ser Libre’, el primer disco de Rawayana | CusicaPlus",
+          "quote": "Tony Casas (bajo) y su padre, Antonio Casas (percusión)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.musicavenezuela.com/artistas/wahala",
+          "title": "Wahala",
+          "quote": "La agrupación Wahala se fundó en Caracas, Venezuela, a mediados de 1997, integrada originalmente por Gustavo Casas, Javier Marín, Ricardo Martínez, Antonio Casas y Luis Ignacio Márquez.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rawayana",
+          "title": "Rawayana - Wikipedia",
+          "quote": "Antonio \"Tony\" Casas (bass, synth) (2007-present)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/rawayana.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/rawayana_3trippycaribbean.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/americania_2conciertoenlasala.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/wahala_homegrown.htm",
+        "https://plus.cusica.com/2021/03/29/10-anos-de-licencia-para-ser-libre-el-primer-disco-de-rawayana/",
+        "https://en.wikipedia.org/wiki/Rawayana",
+        "https://www.musicavenezuela.com/artistas/wahala",
+        "https://rawayana.bandcamp.com/",
+        "https://readdork.com/credits/antonio-casas/rawayana",
+        "https://www.instagram.com/popular/antonio-casas-rawayana/",
+        "https://www.youtube.com/watch?v=RxWMxLl-GVo",
+        "https://rawayana.bandcamp.com/music"
+      ]
+    },
+    {
+      "name": "Jorge Medina: Evil Reborn / Grupo Vera",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 4,
+      "sources": 12,
+      "seconds": 2,
+      "aiRunId": 20477,
+      "rationale": "Las dos fichas comparten el nombre 'Jorge Medina', pero las páginas muestran dos perfiles inconexos: una ficha de metal (Jorge Medina, guitarrista de Evil Reborn, nacido en 1994, activo desde 2012) y una ficha de música tradicional/folklórica (Jorge Medina, miembro de Grupo Vera, activo en 1983-1987). No hay ninguna página que muestre que ambos créditos pertenezcan a la misma persona, ni ninguna contradicción documentada (nacimiento/muerte/edad/parentesco/nombre completo distinto) que pruebe que son dos personas diferentes. La única evidencia de identidad es el nombre compartido, insuficiente para 'same'; y la disparidad de género/ciudad/década no prueba 'different' según las reglas. (Prueba: nació en 1994; la otra ficha tiene créditos de 1983, 1984, 1985, 1986….)",
+      "evidence": [
+        {
+          "url": "https://www.metal-archives.com/artists/Jorge_Medina/591653",
+          "title": "Jorge Medina - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Jorge Medina Real/full name: Jorge Luis Medina Age: 31 (born Dec 4th, 1994) Place of birth: Venezuela Gender: Male Past Bands Misc. staff Links Evil Reborn Guitars (2012-2017)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Jorge_Medina/591653",
+          "title": "Jorge Medina - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Jorge Medina Real/full name: Jorge Luis Medina Age: 31 (born Dec 4th, 1994) Place of birth: Venezuela Gender: Male Past Bands Misc. staff Links Evil Reborn Guitars (2012-2017)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/grupo_vera/grupovera_83nuestramusicaes.htm",
+          "title": "Grupo Vera - Nuestra Música Es Pueblo (LP Info)",
+          "quote": "Musicians Grupo Vera: Anibal Guerreiro, Iván Salas, Wilfredo Aristiguieta, Ciro Herrera, Freddy Moreno, Boris Pedrá, José Osta, Jorge Medina, Mary Cruz Fadul, Adays Aciego, Argenis Pereira, Reinelys Rodríguez & Mélida Lugo",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/artists2/grupo_vera.htm",
+          "title": "Grupo Vera - Bio & Discography",
+          "quote": "Founder Members: Aníbal Guerreiro, Wilfredo Aristiguieta, Iván Salas Juan A. Díaz, José Osta, Jorge Medina, Ciro Herrera, Boris Pedra, Zuleima Heras, Fael Alvarado, Neisa Delgado, Mélida Lugo",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.metal-archives.com/artists/Jorge_Medina/591653",
+        "https://sincopa.com/rock_pop/cdinfo_rock/evilreborn_1throneinsanity.htm",
+        "https://sincopa.com/traditional/cdinfo2/grupo_vera/grupovera_83nuestramusicaes.htm",
+        "https://sincopa.com/traditional/cdinfo2/grupo_vera/grupovera_85costacaribe.htm",
+        "https://www.spirit-of-metal.com/en/band/Evil_Reborn",
+        "https://spinnradio.com/artist/evil-reborn",
+        "https://sincopa.com/traditional/artists2/grupo_vera.htm",
+        "https://yandex.ru/video/preview/8873254526865143473",
+        "https://www.metal-archives.com/band/view/id/3540389414",
+        "https://www.youtube.com/watch?v=YtJ0FZuIFJs",
+        "https://evilreborn.bandcamp.com/",
+        "https://rockhechovenezuela.com/e/evil-reborn/"
+      ]
+    },
+    {
+      "name": "Jesús Hernández: violinista / metal Maturín",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 6,
+      "sources": 13,
+      "seconds": 2,
+      "aiRunId": 20478,
+      "rationale": "Las páginas describen a dos personas distintas que comparten el nombre 'Jesús Hernández'. La ficha a es un violinista de formación clásica/sinfónica que participó como violinista en discos de Abraham Gustin (2006, 2009) y aparece documentado como 'ex-concertino de la Orquesta Sinfónica de Venezuela'. La ficha b es el guitarrista de metal Jesús Alberto Hernández Rondon, nacido el 3 de febrero de 1989 en Maturín, integrante de bandas de thrash/death metal como Chaima, Mertcurich y Sistema Diez. La contradicción documentada es de tipo full_name/edad: la página 2 da nombre completo 'Jesús Alberto Hernández Rondon' con edad 37 (nacido 1989) para el guitarrista de metal, mientras que el violinista ya estaba activo como ex-concertino y violinista de sesión al menos desde 2000-2009, lo que es incompatible con alguien nacido en 1989 para esos créditos. No hay prueba de que sean la misma persona; la coincidencia de nombre es insuficiente. (Prueba: nació en 1989; la otra ficha tiene créditos de 1981.)",
+      "evidence": [
+        {
+          "url": "https://www.metal-archives.com/artists/Jes%C3%BAs_Hern%C3%A1ndez/188185",
+          "title": "Jesús Hernández - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Real/full name: Jesús Alberto Hernández Rondon Age: 37 (born Feb 3rd, 1989) Place of birth: Venezuela (Maturín, Monagas State)",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Jes%C3%BAs_Hern%C3%A1ndez/188185",
+          "title": "Jesús Hernández - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Mertcurich Guitars (lead), Vocals (2006-present) 2008 Pestilencia (Demo) Guitars (lead), Vocals",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.abrahamgustin.com/correo-del-orinoco-abraham-gustin/",
+          "title": "Compositor Venezolano | Abraham Gustin - Abraham Gustin",
+          "quote": "el exconcertino de la OSV Jesús Hernández",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/a/abraham-gustin/",
+          "title": "Abraham Gustín - RHV Directorio A",
+          "quote": "Jesús Hernández (violín en Eres tu de esas)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Jesus_Hernandez/557247",
+          "title": "Jesus Hernandez - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Sistema Diez Bass, Vocals 2013 Solo quiero que vivas (EP) Bass",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/6472560",
+          "title": "Jesús Hernández (7) | Discogs",
+          "quote": "Violinist Credits: Violin – Cecilia Todd – Canciones de Henry Martínez (2000).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/los_dementes/dementes_1981lindoamanecer.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/abrahamgustin_1casadavid.htm",
+        "https://www.metal-archives.com/artists/Jes%C3%BAs_Hern%C3%A1ndez/188185",
+        "https://www.metal-archives.com/artists/Jesus_Hernandez/557247",
+        "https://rockhechovenezuela.com/a/abraham-gustin/",
+        "https://www.abrahamgustin.com/correo-del-orinoco-abraham-gustin/",
+        "https://prodavinci.com/tercer-disco-de-abraham-gustin/",
+        "https://rockhechovenezuela.com/c/chaima/",
+        "https://rockhechovenezuela.com/c/category/monagas/",
+        "https://www.thegauntlet.com/band/chaima-70291",
+        "https://cerebrosexprimidos.com.ve/chaima/",
+        "https://rockhechovenezuela.com/c/category/maturin/",
+        "https://www.discogs.com/artist/6472560"
+      ]
+    },
+    {
+      "name": "Rafael Rodríguez: ACME / Gallery of Souls",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 4,
+      "sources": 10,
+      "seconds": 3,
+      "aiRunId": 20479,
+      "rationale": "No hay pruebas documentadas en las páginas de que las dos fichas sean la misma persona ni de que sean diferentes. La ficha b tiene fecha de nacimiento (1980-12-01) y créditos en Gallery of Souls como guitarrista. La ficha a no tiene fecha de nacimiento ni muerte y agrupa créditos de bajo, compositor, cuatro y coros en varios artistas. No hay una página que vincule explícitamente el nombre 'Rafael Rodríguez' de la ficha a con los proyectos de la ficha b, ni viceversa. Tampoco hay una contradicción documentada (nacimiento, muerte, edad, familia, nombre completo) que pruebe que son diferentes. Las páginas de Sincopa mencionan a 'Rafael Rodríguez' como compositor de 'Orinoco' y 'Volvamos Al Campo', pero no lo identifican con el guitarrista de Gallery of Souls. La página de Metal Archives sobre Gallery of Souls lista a 'Rafael Rodríguez' como guitarrista, pero no lo conecta con los créditos de la ficha a. Por tanto, la evidencia es insuficiente para decidir. (Prueba: Rafael Rodríguez nació en 1980 según su ficha y la otra tiene créditos de 1987.)",
+      "evidence": [
+        {
+          "url": "https://www.metal-archives.com/artists/Rafael_Rodr%C3%ADguez/95428",
+          "title": "Rafael Rodríguez - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Rafael Rodríguez Real/full name: Rafael Rodríguez Age: 45 (born Dec 1980) Place of birth: Venezuela Gender: Male Past Bands Misc. staff Links Gallery of Souls Guitars 2004 King Of The Wasteland (Single) Guitars",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Rafael_Rodr%C3%ADguez/95428",
+          "title": "Rafael Rodríguez - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Rafael Rodríguez Real/full name: Rafael Rodríguez Age: 45 (born Dec 1980) Place of birth: Venezuela Gender: Male Past Bands Misc. staff Links Gallery of Souls Guitars 2004 King Of The Wasteland (Single) Guitars",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/oscar_d_leon/oscardleon_1996sonerodelmundo.htm",
+          "title": "Oscar D' León - El Sonero Del Mundo (CD Info)",
+          "quote": "09- Orinoco (Rafael Rodríguez) 5:05",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/gual_ibarreto_gsiempreg.htm",
+          "title": "Gualberto Ibarreto - Gualberto Siempre Gualberto (CD Info)",
+          "quote": "12- Volvamos Al Campo (Rafael Rodríguez) 2:58",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/erga_abstinencia.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/oscar_d_leon/oscardleon_1996sonerodelmundo.htm",
+        "https://www.metal-archives.com/artists/Rafael_Rodr%C3%ADguez/95428",
+        "https://en.wikipedia.org/wiki/Gualberto_Ibarreto",
+        "https://apuntaje.blogspot.com/2026/10/caza-de-citas.html",
+        "https://www.buscalibre.ec/libro-picture-gallery-of-souls-sonnets-and-short-poems-1905/9781164841692/p/22481747",
+        "https://es.wikipedia.org/wiki/Gualberto_Ibarreto",
+        "https://www.metal-archives.com/bands/Gallery_of_Souls/32423",
+        "https://sincopa.com/traditional/cdinfo2/gual_ibarreto_gsiempreg.htm",
+        "https://www.metal-archives.com/band/view/id/32423"
+      ]
+    },
+    {
+      "name": "Enrique García: Mata Rica / Neo Noir",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 4,
+      "sources": 12,
+      "seconds": 2,
+      "aiRunId": 20480,
+      "rationale": "No hay evidencia documentada de que las dos fichas correspondan a la misma persona ni a personas distintas según los criterios establecidos. La ficha a (Enrique García) está vinculada a la banda Mata Rica como saxofonista, mientras que la ficha b (Enrique García) está vinculada al proyecto Neo Noir como vocalista y guitarrista, con fecha de nacimiento el 25 de agosto de 1996. Las páginas proporcionadas no conectan explícitamente ambas identidades con proyectos de ambas fichas, ni presentan contradicciones documentadas de nacimiento, muerte, edad, parentesco o nombre completo que permitan un veredicto 'different'. Por tanto, no hay pruebas suficientes para 'same' ni para 'different'. (Prueba: Enrique García nació en 1996 según su ficha y la otra tiene créditos de 1997.)",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/mata_rica.htm",
+          "title": "Mata Rica - Bio & Discography",
+          "quote": "Sax: Enrique García",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Enrique_Garc%C3%ADa/562687",
+          "title": "Enrique García - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Real/full name: Enrique García Age: 30 (born Aug 25th, 1996)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Enrique_Garc%C3%ADa/562687",
+          "title": "Enrique García - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Neo Noir Vocals, Guitars",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/6422160",
+          "title": "Enrique \"Kike\" García | Discogs",
+          "quote": "Enrique \"Kike\" García. Profile: Saxophonist. Variations: Enrique García. Credits: Saxophone – Mata Rica – Pachanga Punk (1999).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/mata_rica.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/matarica_1ritmo.htm",
+        "https://www.metal-archives.com/artists/Enrique_Garc%C3%ADa/562687",
+        "https://www.metal-archives.com/bands/Neo_Noir/3540380530",
+        "https://spinnradio.com/artist/neo-noir",
+        "https://www.last.fm/music/Neo+Noir/_/Neo-Noir",
+        "https://artmonico.com/mata-rica/",
+        "https://www.buenamusica.com/mata-rica",
+        "https://rateyourmusic.com/artist/mata-rica",
+        "https://dev.metal-archives.com/albums/Neo_Noir/Sanatorium/644670",
+        "http://www.sincopa.com/rock_pop/cdinfo_rock/matarica_1ritmo.htm",
+        "https://www.discogs.com/artist/6422160"
+      ]
+    },
+    {
+      "name": "Armando Álvarez: Sevillano 1977 / Gaêlica",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 2,
+      "sources": 12,
+      "seconds": 3,
+      "aiRunId": 20481,
+      "rationale": "No hay pruebas documentadas de que las dos fichas sean la misma persona ni de que sean diferentes. Las páginas muestran a un Armando Álvarez percusionista de Gaêlica (ficha a) y a un Armando Alvarez guitarrista en el disco de Jesús Sevillano (ficha b). No hay evidencia de alias, nacimiento, muerte, edad, parentesco o nombre completo que vincule o separe a ambos. (Prueba: épocas separadas por 24 años (2001–2012 / 1977–1977) sin proyecto ni colegas en común.)",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/ethnic/cdinfo1/gaelica_3paz.htm",
+          "title": "Gaélica - Paz: Una Navidad Celta En Venezuela (CD Info)",
+          "quote": "Percussion, Vocals, Programming & Sequences: Armando Alvarez",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/je_sevillano_77cancionvzla6.htm",
+          "title": "Jesús Sevillano - Vol. 6 Canciones de Venezuela (LP Info)",
+          "quote": "Guitarra: Armando Alvarez",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/gaelica_3paz.htm",
+        "https://sincopa.com/new_age/cdinfo_age/masseratti_7colores.htm",
+        "https://sincopa.com/traditional/cdinfo2/je_sevillano_77cancionvzla6.htm",
+        "https://rockhechovenezuela.com/g/gaelica/",
+        "https://elsistema.org.ve/noticias/gaelica-regresa-junto-al-sistema-en-una-noche-de-luz/",
+        "https://gcootte.blogspot.com/2016/02/armando-alvarez.html",
+        "https://es.wikipedia.org/wiki/Jes%C3%BAs_Sevillano",
+        "https://songbpm.com/@gaelica",
+        "https://www.buenamusica.com/gaelica/biografia",
+        "https://correocultural.com/2011/12/tributo-conarte-al-talento-venezolano-gaelica/",
+        "https://rateyourmusic.com/artist/armando-alvarez/credits/",
+        "https://www.discogs.com/artist/12492376"
+      ]
+    },
+    {
+      "name": "«Cheo» Rodríguez (Desorden) / «Cheo» Valenzuela (Dimensión Latina)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 4,
+      "sources": 14,
+      "seconds": 1,
+      "aiRunId": 20608,
+      "rationale": "Las fichas describen a dos músicos venezolanos distintos que comparten el hipocorístico «Cheo»: la ficha a es el trompetista José «Cheo» Rodríguez y la ficha b es el cantante salsero José «Cheo» Valenzuela. No hay evidencia de que sean la misma persona; las páginas muestran perfiles de instrumentos, alias y proyectos incompatibles (trompeta en jazz/rock vs. voz en salsa de Dimensión Latina). (Prueba: apellidos distintos en las fichas: José \"Cheo\" Rodríguez / José \"Cheo\" Valenzuela.)",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/2681155",
+          "title": "José \"Cheo\" Rodriguez | Discogs",
+          "quote": "José \"Cheo\" Rodriguez. Profile: Trumpeter, flugelhorn performer Variations: Cheo Reodriguez, Cheo Rodriguez, Jose \"Cheo\" Rodriguez, José \"El Maestro\" Rodríguez, José \"Mestro Cheo\" Rodriguez, José Rodriguez. Credits: Trumpet – Gerry Weil – The Message (1971).",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/3146775",
+          "title": "\"Cheo\" Valenzuela | Discogs",
+          "quote": "\"Cheo\" Valenzuela. Profile: Venezuelan salsa singer and backing vocals, alias \"El Sonero De La Dulzura\". Born in Cantaura (Anzoategui) Variations: \"Josmar\" Valenzuela, Cheo, Cheo Valenzuela, Josmar Valenzuela, José \"Cheo\" Valenzuela, José Valenzuela. Credits: Featuring [Vocals] – Gerardo Rosales – Salsa Mundial (2008); Vocals, Backing Vocals – Dimension Latina – Canto Para Ti (1989); Backing Vocals, Vocals [Cantante] – Dimension Latina – Canto Para Ti (1989).",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/ethnic/cdinfo1/jcnunez_suiteurbana.htm",
+          "title": "Juan Carlos Núñez - Suite Urbana (CD Info)",
+          "quote": "Trumpet: José \"Cheo\" Rodríguez",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_24cantopati.htm",
+          "title": "Dimensión Latina - Canto Para Ti (LP Info)",
+          "quote": "Dimensión Latina: Vocals: Wladimir Lozano, Rodrigo Mendoza, Alexis Martínez & Cheo Valenzuela",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/jcnunez_suiteurbana.htm",
+        "https://sincopa.com/ethnic/cdinfo1/save_brisas.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_24cantopati.htm",
+        "https://sincopa.com/jazz/cdinfo/gero_salsamundial.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/desorden_envivo.htm",
+        "https://es.frwiki.wiki/wiki/La_Dimensi%C3%B3n_Latina",
+        "https://www.facebook.com/cheo.valenzuela/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/desorden_5dondeesta.htm",
+        "https://criticadediscosdekamx.wordpress.com/2007/04/12/",
+        "https://pedropracticagrupal1.blogspot.com/",
+        "https://www.youtube.com/watch?v=K6hbbfJDI0Y",
+        "https://www.youtube.com/watch?v=chkDVoHncd4",
+        "https://www.discogs.com/artist/2681155",
+        "https://www.discogs.com/artist/3146775"
+      ]
+    },
+    {
+      "name": "Ezequiel Serrano: padre (Calderón) / hijo (Valencia)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 5,
+      "sources": 14,
+      "seconds": 8,
+      "aiRunId": 20654,
+      "rationale": "La web no liga a cada ficha con sus propios proyectos. Las dos fichas corresponden a dos músicos venezolanos distintos: Ezequiel Serrano Calderón (saxofonista, flautista, productor, nacido en 1953) y Ezequiel Serrano Valencia (guitarrista, cantante, multi-instrumentista, nacido en 1978). Las páginas los distinguen explícitamente: la página 0 y la 5 tratan de Ezequiel Serrano Calderón, mientras que las páginas 6, 11, 12 y 13 tratan de Ezequiel Serrano Valencia. Sus años de nacimiento son incompatibles y sus proyectos son diferentes.",
+      "evidence": [
+        {
+          "url": "https://ezequielserranocalderon.blogspot.com/p/discografia_30.html",
+          "title": "Discografía",
+          "quote": "Ezequiel Serrano Calderón Caracas, Venezuela Visitar perfil Discografía. Blog de Ezequiel Serrano Calderón.",
+          "supports": "different"
+        },
+        {
+          "url": "https://musicosdecatalunya.wordpress.com/2017/09/03/ezequiel-serrano-valencia-cairaco/",
+          "title": "“EZEQUIEL SERRANO VALENCIA” (“CAIRACO”) – MÚSICOS, LOCALES Y CONCIERTOS EN CATALUNYA",
+          "quote": "EZEQUIEL SERRANO VALENCIA es un músico y compositor nacido en Venezuela en 1978 y actualmente residente en Barcelona",
+          "supports": "different"
+        },
+        {
+          "url": "https://musicosdecatalunya.wordpress.com/2017/09/03/ezequiel-serrano-valencia-cairaco/",
+          "title": "“EZEQUIEL SERRANO VALENCIA” (“CAIRACO”) – MÚSICOS, LOCALES Y CONCIERTOS EN CATALUNYA",
+          "quote": "“Tribop”, su primera banda formada en Caracas en 2003",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.venezuelaennotas.com/ediciones/10/la-musica-de-los-80-y-ezequiel-serrano-calderon/",
+          "title": "La música de los 80 y Ezequiel serrano Calderón | Venezuela en Notas",
+          "quote": "Ezequiel nace un 3 de junio en Bucaramanga, Colombia. Saxofonista, flautista, percusionista, arreglista, compositor y productor.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.venezuelaennotas.com/ediciones/10/la-musica-de-los-80-y-ezequiel-serrano-calderon/",
+          "title": "La música de los 80 y Ezequiel serrano Calderón | Venezuela en Notas",
+          "quote": "En 1978 participa tocando el saxo, en el disco “Hechizo” de Frank Quintero",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/4ttoritmicodccs_1encuentro.htm",
+        "https://sincopa.com/latin_pop/artists_lat/adrenalina_caribe.htm",
+        "https://sincopa.com/ethnic/cdinfo1/vytas_estoycomo7.htm",
+        "https://sincopa.com/jazz/cdinfo/antoniomazzei_1contrastes.htm",
+        "https://plus.cusica.com/2016/11/28/playlist-15-tesoritos-escondidos-del-rock-venezolano/",
+        "https://ezequielserranocalderon.blogspot.com/p/discografia_30.html",
+        "https://musicosdecatalunya.wordpress.com/2017/09/03/ezequiel-serrano-valencia-cairaco/",
+        "https://www.venezuelaennotas.com/ediciones/10/la-musica-de-los-80-y-ezequiel-serrano-calderon/",
+        "https://plus.cusica.com/2016/06/16/10-increibles-bandas-venezolanas-de-los-2000-que-desaparecieron-completamente/",
+        "https://www.facebook.com/100070231626571/videos/767209894864541/",
+        "https://ladosisamplificada.wordpress.com/2012/07/26/cabezon-key-8/",
+        "https://rockhechovenezuela.com/c/cabezon-key/",
+        "https://www.discogs.com/artist/5598222",
+        "https://www.discogs.com/artist/938956"
+      ]
+    },
+    {
+      "name": "Francisco González: Oblivion / Sacrilegio",
+      "kind": "pair",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 12,
+      "seconds": 8,
+      "aiRunId": 20517,
+      "rationale": "Ambas fichas describen al mismo Francisco González, bajista venezolano de Punto Fijo, Falcon: la página 0 lo lista como bajista de Oblivion of Hybrids y Sacrilegio (2013-?), y la página 3 (Oblivion of Hybrids) lo lista como bajista con la nota 'See also: ex-Sacrilegio', mientras la página 1 (Sacrilegio) lo lista como bajista (2013-?) con 'See also: ex-Oblivion of Hybrids'. No hay contradicción de nacimiento, muerte, edad, parentesco ni nombre completo; las coincidencias de banda-rol confirman una sola persona. (Prueba: una página liga ambos proyectos: «d user rankings news archive reports contribute to do 2002 2026encyclopaedia metallum privacy policy francisco gonzalez real full name francisco gonzalez age n a place of birth venezuela gender male past bands oblivion o».)",
+      "evidence": [
+        {
+          "url": "https://www.metal-archives.com/artists/Francisco_Gonz%C3%A1lez/933907",
+          "title": "Francisco González - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Francisco González Real/full name: Francisco González Age: N/A Place of birth: Venezuela Gender: Male Past Bands Oblivion of Hybrids Bass Sacrilegio Bass (2013-?)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/bands/Sacrilegio/3540500617",
+          "title": "Sacrilegio - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Francisco González Bass (2013-?) See also: ex-Oblivion of Hybrids",
+          "supports": "same"
+        },
+        {
+          "url": "https://descargasmetalvenezolano.blogspot.com/feeds/posts/default?alt=json&max-results=25&start-index=901",
+          "title": "",
+          "quote": "Banda: Maskhera",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/bands/Oblivion_Of_Hybrids/3540559067",
+          "title": "Oblivion of Hybrids - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Francisco González Bass See also: ex-Sacrilegio",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.instagram.com/sacrilegiovzlaofficial/",
+          "title": "Sacrilegio Vzla Banda (@sacrilegiovzlaofficial) - Instagram",
+          "quote": "Banda de Melódic Death Metal desde 2009 Tisha Mortem/Vocal•Hernán navarro/Guitarra•Francisco González/Bajo #sacrilegiobanda",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.metal-archives.com/artists/Francisco_Gonz%C3%A1lez/933907",
+        "https://www.metal-archives.com/bands/Sacrilegio/3540500617",
+        "https://descargasmetalvenezolano.blogspot.com/feeds/posts/default?alt=json&max-results=25&start-index=901",
+        "https://www.metal-archives.com/bands/Oblivion_Of_Hybrids/3540559067",
+        "https://diariocambio22.mx/reprueba-obispo-sacrilegio-contra-jesus-eucaristia-en-candelaria/",
+        "https://en.wikipedia.org/wiki/Los_Lobos",
+        "https://issuu.com/la_hora/docs/ambato12diciembre2014/26",
+        "https://revistas.usp.br/reb",
+        "https://www.youtube.com/watch?v=NmDftfe56RE",
+        "https://www.instagram.com/sacrilegiovzlaofficial/",
+        "https://repositorio.unican.es/xmlui/bitstream/10902/8208/1/Tesis+AFS.pdf",
+        "https://storage.e.jimdo.com/file/19824d06-1944-414d-bfd1-f5c3133876c3/BRAC_n46_1935-cita.pdf"
+      ]
+    },
+    {
+      "name": "José Romero 486: Romero Bello + Joseíto",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 8,
+      "sources": 13,
+      "seconds": 8,
+      "aiRunId": 20655,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. Las páginas 3, 4 y 12 describen a José Romero Bello, cantante y compositor llanero nacido en 1922 y fallecido en 1998, con créditos como compositor en discos de Adilia Castillo, Anselmo López y Reyna Lucero. Las páginas 0, 1, 2, 6 y 7 describen a José 'Joseíto' Romero, guitarrista y trombonista activo al menos entre 1983 y 2014, vinculado a bandas como Desorden Público, Callejón 88, Tsee Mud, LSD y Bacro. Son personas distintas: el primero nació en 1922, el segundo no pudo haber participado en créditos de 1986 o 1990 si hubiera nacido en 1922, y además el primero es padre del arpista Joseíto Romero, lo que confirma dos identidades diferentes dentro de la misma ficha.",
+      "evidence": [
+        {
+          "url": "https://venezuelaehistoria.blogspot.com/2018/08/jose-romero-bello.html",
+          "title": "VENEZUELA E HISTORIA: JOSÉ ROMERO BELLO",
+          "quote": "El cantante y compositor apureño José Romero Bello falleció en Caracas el 18 de enero de 1998.",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://venezuelaehistoria.blogspot.com/2018/08/jose-romero-bello.html",
+          "title": "VENEZUELA E HISTORIA: JOSÉ ROMERO BELLO",
+          "quote": "José Romero Bello nació en Arichuna, Edo. Apure, el 28 de agosto de 1922.",
+          "supports": "different"
+        },
+        {
+          "url": "https://venezuelaehistoria.blogspot.com/2018/08/jose-romero-bello.html",
+          "title": "VENEZUELA E HISTORIA: JOSÉ ROMERO BELLO",
+          "quote": "Hijo de Narciso Romero y Librada Bello. Contrajo nupcias en dos ocasiones, en el 1er, matrimonio el enlace tuvo un hijo, José (Joseíto Romero), arpista",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.cancioneros.com/at/1636/0/biografia-de-jose-romero-bello",
+          "title": "JOSÉ ROMERO BELLO • Página Principal",
+          "quote": "El cantante y compositor apureño José Romero Bello falleció en Caracas el 18 de enero de 1998.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.lobotoradio.com/bandas/tsee-muds",
+          "title": "Tsee Muds – Lobotoradio",
+          "quote": "Tsee Mud fue una banda formada como trío en 1969 por el ex LSD José Romero \"Joseíto\" (guitarra), Ender Parra (bajo) y Gustavo Calle (batería)",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/desorden_publico.htm",
+          "title": "Desorden Público - Bio & Discography",
+          "quote": "Trombone: José Romero (1990-2003)",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/desorden_2descomp.htm",
+          "title": "Desorden Público - En Descomposición (CD Info)",
+          "quote": "Trombone: José Romero",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/ethnic/cdinfo1/vytas_estoycomo7.htm",
+          "title": "Vytas Brenner - Estoy Como Quiero (LP Info)",
+          "quote": "Guitars: José Romero (tracks 3A, 4A)",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/desorden_publico.htm",
+        "https://sincopa.com/ethnic/cdinfo1/vytas_estoycomo7.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/desorden_2descomp.htm",
+        "https://venezuelaehistoria.blogspot.com/2018/08/jose-romero-bello.html",
+        "https://www.cancioneros.com/at/1636/0/biografia-de-jose-romero-bello",
+        "https://open.spotify.com/album/2oLCd29Mx8XJlchZQnhWQo",
+        "https://www.lobotoradio.com/artistas/bandas/callejon-88/",
+        "https://www.lobotoradio.com/bandas/tsee-muds",
+        "https://music.youtube.com/browse/MPREb_gWataL0Wy6O",
+        "https://www.qobuz.com/gb-en/album/adilia-castillo-y-jose-romero-bello-con-los-llaneros-del-oeste-adilia-castillo-jose-romero-bello/hgdwun7am8zsz",
+        "https://www.youtube.com/watch?v=iQSIlUkiORk",
+        "https://www.qobuz.com/us-en/album/adilia-castillo-y-jose-romero-bello-adilia-castillo/p897ao6k0pxqb",
+        "https://www.discogs.com/artist/3446288"
+      ]
+    },
+    {
+      "name": "Rudy Pagliuca 987: + Los Dangers 1965",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 7,
+      "sources": 22,
+      "seconds": 6,
+      "aiRunId": 20486,
+      "rationale": "Ficha A es el cantante Rudy Márquez, nacido en Caracas en 1942 y fallecido en 2024, vinculado a Los Dangers y a José Luis Rodríguez; ficha B es Rodolfo 'Rudy' Pagliuca, guitarrista de Malanga y productor de rock venezolano, activo desde 1999 hasta 2024. La contradicción documentada es de tipo (birth): Rudy Márquez nació en 1942, lo que hace incompatible que sea la misma persona que el Rodolfo Pagliuca que en 1999 era guitarrista fundador de Malanga (tendría 57 años en un grupo de rock formado por músicos jóvenes) y que en 2024 seguía tocando con Malanga; además, las fichas tienen créditos en proyectos distintos y sin solapamiento, y una nota necrológica de 2024 confirma la muerte de Rudy Márquez, mientras que una entrevista de 2020 muestra a Rudy Pagliuca vivo y en actividad. (Prueba: apellidos distintos en las fichas: Rudy Márquez / Rodolfo \"Rudy\" Pagliuca.) Reparto propuesto: acreditado como Rudy Márquez: Los Dangers, Rudy Márquez, José Luis Rodríguez · Rodolfo \"Rudy\" Pagliuca: Los Dangers, Los Melódicos, Malanga, Damper, Viniloversus, Wahala, Caramelos De Cianuro, La Vida Bohème, SyncroDynamic, Majarete Sound Machine, Samsara, Charliepapa, Luis Enrique +C4 Trío.",
+      "evidence": [
+        {
+          "url": "https://www.elheraldo.co/sociedad/2024/10/09/muere-el-cantante-rudy-marquez-tras-pedir-la-eutanasia-en-colombia/",
+          "title": "Muere el cantante Rudy Márquez tras pedir la eutanasia en Colombia - ELHERALDO.CO",
+          "quote": "Rudy Márquez nació en Caracas en 1942.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.elheraldo.co/sociedad/2024/10/09/muere-el-cantante-rudy-marquez-tras-pedir-la-eutanasia-en-colombia/",
+          "title": "Muere el cantante Rudy Márquez tras pedir la eutanasia en Colombia - ELHERALDO.CO",
+          "quote": "Inició su carrera musical en la década de 1960, formando parte de grupos como Los Dangers y Los Impala, que fueron pioneros del rock en Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere-reportajes/murio-rudy-marquez/",
+          "title": "Murió el cantante Rudy Márquez a los 81 años - Últimas Noticias",
+          "quote": "El intérprete, cuya voz conquistó Argentina, Colombia, Ecuador, España e Italia, inició su larga y exitosa carrera artística en la banda Los Demonios del Rock, en 1961, para luego formar parte de Rudy y los Twist Cast y Los Dangers.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/malanga.htm",
+          "title": "Malanga - Bio & Discography",
+          "quote": "Guitar: Rodolfo \"Rudy\" Pagliuca",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1714127",
+          "title": "Rodolfo Pagliuca | Discogs",
+          "quote": "Guitar – Malanga – Ta' Trancao (1999); Producer – Viniloversus – El Día Es Hoy (2008).",
+          "supports": "same"
+        },
+        {
+          "url": "https://plus.cusica.com/2020/10/23/el-regreso-de-malanga-entrevista-a-rudy-pagliuca/",
+          "title": "El regreso de Malanga: entrevista a Rudy Pagliuca | CusicaPlus",
+          "quote": "En Cúsica tuvimos la oportunidad de hablar con Rudy Pagliuca, guitarrista de la banda, para saber un poco más sobre su regreso, y su nuevo proyecto.",
+          "supports": "same"
+        },
+        {
+          "url": "https://plus.cusica.com/2020/10/23/el-regreso-de-malanga-entrevista-a-rudy-pagliuca/",
+          "title": "El regreso de Malanga: entrevista a Rudy Pagliuca | CusicaPlus",
+          "quote": "La banda venezolana de pop rock, Malanga, luego de ocho años de inactividad como agrupación, vuelve para presentar su nuevo sencillo Tal Vez",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/malanga.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/melodicos/melodicos_v214_distintos.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/lavidaboheme_4caribecaribe.htm",
+        "https://www.oidossucios.com/site/el-intercolegial-nuevas-bandas-celebra-sus-15-anos-este-sabado/",
+        "https://radioaltisima.blogspot.com/2010/11/rudy-pagliuca-el-productor-que-llevo-el.html",
+        "https://elestimulo.com/cultura/2020-06-15/la-vida-boheme-no-pierdan-la-calma/",
+        "https://talentonacionalccs.wordpress.com/",
+        "https://rumberos.net/rudy-pagliuca-el-productor-que-llevo-el-rock-venezolano-a-los-grammys/",
+        "https://www.linkedin.com/in/rudypagliuca",
+        "https://www.facebook.com/rudy.pagliuca/posts/los-mel%C3%B3dicos-circa-1988-pocos-conocen-esta-primera-faceta-como-m%C3%BAsico-profesion/10163681726214387/",
+        "https://elestimulo.com/espectaculos/2020-05-29/la-vida-boheme-se-sacude-el-confinamiento-con-ultimo-round/",
+        "https://www.youtube.com/watch?v=PqwKjtsJyyc",
+        "https://www.discogs.com/artist/1714127",
+        "https://sincopa.com/ethnic/cdinfo1/c4trio_luisenrique_tiempoaltiempo.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_89tengoderecho.htm",
+        "https://www.elheraldo.co/sociedad/2024/10/09/muere-el-cantante-rudy-marquez-tras-pedir-la-eutanasia-en-colombia/",
+        "https://ultimasnoticias.com.ve/chevere-reportajes/murio-rudy-marquez/",
+        "https://plus.cusica.com/2020/10/23/el-regreso-de-malanga-entrevista-a-rudy-pagliuca/",
+        "https://www.discogs.com/artist/2520503-Los-Dangers",
+        "https://www.youtube.com/watch?v=-RRHvqh0gM4",
+        "https://www.publimetro.com.mx/entretenimiento/2024/10/10/quien-era-rudy-marquez-famoso-cantante-que-habria-solicitado-la-eutanasia/",
+        "https://www.abc.es/gente/muere-rudy-marquez-cantante-miticos-impala-tras-20241010124419-nt.html"
+      ]
+    },
+    {
+      "name": "Víctor Valerio juntado (2010 + ingeniero 1978)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 7,
+      "sources": 8,
+      "seconds": 1,
+      "aiRunId": 20488,
+      "rationale": "Las páginas numeradas muestran dos personas distintas con el nombre 'Víctor Valerio': (1) un ingeniero de grabación/producción dominicano que trabajó en discos de 1978-1979 y es hijo del músico Piro Valerio (página 3); y (2) un músico venezolano de rock, vocalista y bajista de la banda Niuno Niotro en 2010 (página 5). La página 3 prueba que el primero es hijo de Carlos Nicanor Valerio ('Piro') y que recibió un homenaje póstumo a su padre en 2018, mientras que la página 5 describe al segundo como miembro de Niuno Niotro en 2010. La separación temporal de 31 años entre los créditos (1978-1979 vs. 2010) refuerza que se trata de personas diferentes. La página 4 (Lobotoradio) solo lista a un 'Víctor Valerio' como artista sin información biográfica, por lo que no permite asociarlo definitivamente con ninguno de los dos grupos, pero no contradice la mezcla. (Prueba: épocas separadas por 31 años (1978–1979 / 2010–2010) sin artista común; la web confirma cada una por separado («ced by federico betancourt production supervisor carlos guerra recorded mixed by leandro f hernandez victor valerio x copyright 2010 sincopa all rights reserved» · «la grabacion de sus primeros temas caramelo dulce y no debio ser asi la banda estaba conformada por victor valerio en las voces y el bajo francisco gonzalez en la guitarra lider oliver amaya en la guitarra ritmica y») y ninguna página las une.) Reparto propuesto: época 1978–1979: Almendra, Los Melódicos, Carlos Moreno, Federico y Su · época 2010–2010: Niuno Niotro.",
+      "evidence": [
+        {
+          "url": "https://www.facebook.com/coleccionistasderockvenezolano/posts/memoriarock-a%C3%B1o-2010-niuno-niotro-comienza-la-grabaci%C3%B3n-de-sus-primeros-temas-ca/2246567068910912/",
+          "title": "#MemoriaRock Año 2010:... - Coleccionistas De Rock Venezolano",
+          "quote": "La banda estaba conformada por Víctor Valerio en las voces y el bajo, Francisco Gonzalez en la guitarra lider, Oliver Amaya en la guitarra rítmica y Samuel Caldera en la batería.",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://eldesenlace.com/2018/01/11/ayuntamiento-de-santiago-rinde-homenaje-a-destacado-musico-piro-valerio/",
+          "title": "Ayuntamiento de Santiago rinde homenaje a destacado músico Piro Valerio – El Desenlace",
+          "quote": "Los descendientes de Piro Valerio, Víctor Valerio y Victoria Valerio, hijo, así como los nietos y bisnietos Ana Leonarda Valerio, Alberto Valerio y Elena Llauger, recibieron una placa en homenaje póstumo",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://eldesenlace.com/2018/01/11/ayuntamiento-de-santiago-rinde-homenaje-a-destacado-musico-piro-valerio/",
+          "title": "Ayuntamiento de Santiago rinde homenaje a destacado músico Piro Valerio – El Desenlace",
+          "quote": "En nombre de los descendientes de Piro Valerio, su hijo Víctor Valerio, Piro, agradeció al alcalde Abel Martínez, en tomar en cuenta y valorar la trayectoria de su padre con este gran homenaje",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://eldesenlace.com/2018/01/11/ayuntamiento-de-santiago-rinde-homenaje-a-destacado-musico-piro-valerio/",
+          "title": "Ayuntamiento de Santiago rinde homenaje a destacado músico Piro Valerio – El Desenlace",
+          "quote": "Carlos Nicanor Valerio Cruz (Piro) nació en la ciudad de Santiago de los Caballeros el 10 de enero de 1898",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://eldesenlace.com/2018/01/11/ayuntamiento-de-santiago-rinde-homenaje-a-destacado-musico-piro-valerio/",
+          "title": "Ayuntamiento de Santiago rinde homenaje a destacado músico Piro Valerio – El Desenlace",
+          "quote": "Carlos Nicanor Valerio (Piro) falleció en esta misma ciudad de Santiago el 31 de mayo de 1982",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://www.facebook.com/coleccionistasderockvenezolano/posts/memoriarock-a%C3%B1o-2010-niuno-niotro-comienza-la-grabaci%C3%B3n-de-sus-primeros-temas-ca/2246567068910912/",
+          "title": "#MemoriaRock Año 2010:... - Coleccionistas De Rock Venezolano",
+          "quote": "La banda estaba conformada por Víctor Valerio en las voces y el bajo, Francisco Gonzalez en la guitarra lider, Oliver Amaya en la guitarra rítmica y Samuel Caldera en la batería.",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://www.facebook.com/coleccionistasderockvenezolano/posts/memoriarock-a%C3%B1o-2010-niuno-niotro-comienza-la-grabaci%C3%B3n-de-sus-primeros-temas-ca/2246567068910912/",
+          "title": "#MemoriaRock Año 2010:... - Coleccionistas De Rock Venezolano",
+          "quote": "Año 2010: Niuno Niotro comienza la grabación de sus primeros temas \"Caramelo Dulce\" y \"No Debió Ser Así\"",
+          "supports": "mixed"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_18elmaestro.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/melodicos/melodicos_lm14_20aniversario.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/carlosmoreno_79amigosyamantes.htm",
+        "https://eldesenlace.com/2018/01/11/ayuntamiento-de-santiago-rinde-homenaje-a-destacado-musico-piro-valerio/",
+        "https://www.lobotoradio.com/artistas/victor-valerio",
+        "https://www.facebook.com/coleccionistasderockvenezolano/posts/memoriarock-a%C3%B1o-2010-niuno-niotro-comienza-la-grabaci%C3%B3n-de-sus-primeros-temas-ca/2246567068910912/",
+        "https://www.ruacep.com.br/pr/sao-jose-dos-pinhais/ouro-fino/83015140-alameda-bom-pastor/",
+        "https://soundcloud.com/fjgs18/hipotetico-niuno-niotro"
+      ]
+    },
+    {
+      "name": "Alfredo Gil juntado (trompeta + metal)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 6,
+      "sources": 21,
+      "seconds": 5,
+      "aiRunId": 20611,
+      "rationale": "Las dos fichas describen a personas distintas: una es el trompetista y arreglista colombiano-venezolano Alfredo Gil (\"Pollo\" Gil), activo en la escena de salsa y jazz latino desde 1976, y la otra es el vocalista venezolano de metalcore Alfredo Gil, nacido en 1989 en Valera, Trujillo, y activo en Dying for Redemption desde 2007. La contradicción documentada es de tipo (age): la ficha b nació en 1989, por lo que en 1976 tendría menos de un año, lo que es incompatible con los créditos de la ficha a que comienzan en 1976 como trompetista y arreglista en discos de Federico y Su Combo Latino y El Trabuco Venezolano. Además, las páginas no muestran ninguna forma de nombre compartida ni vinculación entre los proyectos de ambas fichas. (Prueba: nació en 1989 según la ficha y tiene créditos de 1976.) Reparto propuesto: créditos de antes de 2001: Federico y Su Combo Latino, Almendra, Sexteto Juventud, El Trabuco Venezolano, Rudy Márquez, Tania, Canelita Medina, Culebra, Federico y Su Combo, Los Guaraguao, Oscar D' León, Mirtha Pérez, La 5ta. Galaxia, Azabache, Alberto Naranjo · nacido en 1989: Dying For Redemption.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/3281344",
+          "title": "Alfredo Gil (2) | Discogs",
+          "quote": "Profile: Colombian musician (trumpeter), arranger, he worked in Venezuela in various projects -- also known as Alfredo \"Pollo\" Gil or \"Pollo Gil\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/3281344",
+          "title": "Alfredo Gil (2) | Discogs",
+          "quote": "Credits: Trumpet, Arranged By – Federico y Su Combo Latino – Siguelo Ahí.... a Lo Cortico (1976).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/trabucovzlano_2.htm",
+          "title": "El Trabuco Venezolano - El Trabuco Venezolano 2 (LP Info)",
+          "quote": "Trumpet: Pablo Armitano, Alfredo Gil, Manolo Pérez",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Alfredo_Gil/274621",
+          "title": "Alfredo Gil - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Real/full name: Alfredo Gil Age: 37 (born Feb 13th, 1989) Place of birth: Venezuela (Valera, Trujillo.)",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Alfredo_Gil/274621",
+          "title": "Alfredo Gil - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Dying for Redemption Vocals (2007-present) 2011 The Best Yet to Come Vocals",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Alfredo_Gil/274621",
+          "title": "Alfredo Gil - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Age: 37 (born Feb 13th, 1989)",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/trabucovzlano_2.htm",
+        "https://sincopa.com/classic/cdinfo_class/leobetan_intimo.htm",
+        "https://www.metal-archives.com/artists/Alfredo_Gil/274621",
+        "https://www.venciclopedia.org/index.php/El_Trabuco_Venezolano",
+        "https://historias.nyc/nueva-york-chronicles/topic/los-panchos-bolero-trio-born-in-new-york/",
+        "https://es.wikipedia.org/wiki/Alfredo_Gil",
+        "https://en.wikipedia.org/wiki/Alfredo_Gil",
+        "https://es.wikipedia.org/wiki/Los_Panchos",
+        "https://www.youtube.com/watch?v=Ls5rodnKc7E",
+        "https://www.youtube.com/watch?v=_O8hUAugFmE",
+        "https://www.discogs.com/es/Federico-Y-Su-Combo-Latino-Ayer-Y-Hoy-/master/769501",
+        "https://www.youtube.com/watch?v=34ezHE8ZSpk",
+        "https://www.discogs.com/artist/3281344",
+        "https://sincopa.com/jazz/cdinfo/albna_trabuco1.htm",
+        "https://www.metal-archives.com/bands/Dying_for_Redemption/3540334525",
+        "https://dyingforredemption.blogspot.com/",
+        "https://www.tumblr.com/dying-for-redemption-blog",
+        "https://colegioliceosorolla.es/",
+        "https://music.youtube.com/watch?v=CVPdsi9iD8E&list=PLP2blx3NLXTeXD4cOrv3GfQ5XTWi3LkbU",
+        "https://gladyspalmera.com/coleccion/buscador/fotografias/page/7/",
+        "https://www.discogs.com/es/Canelita-Trae-Candela/master/1121533"
+      ]
+    },
+    {
+      "name": "Antonio Casas juntado (padre + hijo)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 3,
+      "sources": 17,
+      "seconds": 2,
+      "aiRunId": 20491,
+      "rationale": "Las fichas describen a dos personas distintas con el mismo nombre: una es el percusionista de la banda Wahala (Antonio Casas, activo desde 1997) y la otra es el bajista de Rawayana (Antonio 'Tony' Casas, nacido en 1989). La página 5 documenta a Antonio 'Tony' Casas como miembro de Rawayana con bajo y sintetizador, y las páginas 0, 7, 9 y 11 documentan a Antonio Casas como percusionista de Wahala; además, la página 4 menciona explícitamente a 'Antonio Casas Jr.' (bajo y coros) y 'Antonio Casas Sr.' (percusión latina), lo que indica que son padre e hijo, una relación familiar documentada que impide que sean la misma persona. (Prueba: nació en 1989 según la ficha y tiene créditos de 1997.) Reparto propuesto: créditos de antes de 2001: Wahala · nacido en 1989: Rawayana, Americania.",
+      "evidence": [
+        {
+          "url": "https://talentonacionalccs.wordpress.com/",
+          "title": "TalentoNacional – ¿Cómo es la movida musical en Caracas?",
+          "quote": "La banda Rawayana es un quinteto de Folk-Reggae conformado por Alberto Montenegro (Guitarra y Voz Principal) , Antonio Casas Jr. (Bajo y Coros), Alejandro Abeijón (2da Guitarra y Coros), Rodrigo Michelangeli (Batería) y Antonio Casas Sr. (Percusión Latina).",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/wahala_homegrown.htm",
+          "title": "Wahala - Homegrown (CD Info)",
+          "quote": "Percussion: Antonio Casas Guest Musicians:",
+          "supports": "different"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Rawayana",
+          "title": "Rawayana - Wikipedia",
+          "quote": "Antonio \"Tony\" Casas (bass, synth) (2007-present)",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/rawayana.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/americania_2conciertoenlasala.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/wahala_homegrown.htm",
+        "https://www.lobotoradio.com/artistas/antonio-casas",
+        "https://www.buenamusica.com/americania/biografia",
+        "https://es.wikipedia.org/wiki/Antonio_Casas",
+        "https://www.musicavenezuela.com/artistas/wahala",
+        "https://www.transfermarkt.es/antonio-casas/profil/spieler/537767",
+        "https://livevictoria.com/wahala",
+        "https://www.youtube.com/watch?v=JI646Z8iqYo",
+        "https://www.concertarchives.org/bands/wahala",
+        "https://www.soundclick.com/wahala/?content=about",
+        "https://sincopa.com/rock_pop/cdinfo_rock/rawayana_3trippycaribbean.htm",
+        "https://talentonacionalccs.wordpress.com/",
+        "https://en.wikipedia.org/wiki/Rawayana",
+        "https://paltoque.com/gustavo-casas-y-los-que-buscan-centro-cultural-chacao/",
+        "https://scarsonet.wordpress.com/category/onechot/"
+      ]
+    },
+    {
+      "name": "Carlos «Nené» Quintero 1966–2023 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 5,
+      "sources": 13,
+      "seconds": 3,
+      "aiRunId": 20613,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. Las páginas 3 y 6 describen a Carlos Vicente Quintero de Jesús, percusionista venezolano nacido en 1946, alias 'Nené', y la página 5 describe a un Carlos Quintero colombiano, cantante y arpista de música llanera nacido en Paz de Ariporo, activo desde 1992. Son personas distintas: sus nacionalidades, instrumentos y fechas de actividad son incompatibles. Los créditos del catálogo del percusionista (Los Dementes, Esperanto, Vytas Brenner, etc.) no corresponden al arpista llanero.",
+      "evidence": [
+        {
+          "url": "https://www.lobotoradio.com/artistas/carlos-quintero",
+          "title": "Carlos Quintero – Lobotoradio",
+          "quote": "nombre completo: Carlos Vicente Quintero de Jesús alias: Nené nacimiento: 1946-10-21 (Caracas, Distrito Capital, Venezuela)",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/carlos-quintero",
+          "title": "Carlos Quintero – Lobotoradio",
+          "quote": "nombre completo: Carlos Vicente Quintero de Jesús alias: Nené nacimiento: 1946-10-21 (Caracas, Distrito Capital, Venezuela)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.buenamusica.com/carlos-quintero/biografia",
+          "title": "Carlos Quintero - Biografía, historia y legado musical",
+          "quote": "Carlos Quintero es un cantante y arpista colombiano, Nació en Paz de Ariporo, Casanare, Colombia.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.buenamusica.com/carlos-quintero/biografia",
+          "title": "Carlos Quintero - Biografía, historia y legado musical",
+          "quote": "Profesionalmente, Carlos Quintero se inicia en 1992 cuando realizó sus primeras grabaciones con los artistas más destacados del momento tales como Aries Vigoth, Aldrumas Monroy y Tirso Delgado, entre otros.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1167246",
+          "title": "Carlos \"Nené\" Quintero | Discogs",
+          "quote": "Real Name: Carlos Vicente Quintero De Jesús. Profile: Venezuelan percussionist, born October 21, 1946 in Caracas.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/classic/cdinfo_class/clara_rodriguez/clararodriguez_2017americasinfront.htm",
+        "https://sincopa.com/ethnic/cdinfo1/4clarinetes_3suelos.htm",
+        "https://sincopa.com/ethnic/cdinfo1/alexiscardenas_3encoreslatinos.htm",
+        "https://www.lobotoradio.com/artistas/carlos-quintero",
+        "https://tendsrock.wordpress.com/category/rock-and-roll/page/4/",
+        "https://www.buenamusica.com/carlos-quintero/biografia",
+        "https://www.lobotoradio.com/artistas/carlos-quintero/",
+        "https://llanera.com/carlos-quintero-anuncia-el-cierre-de-su-ciclo-profesional-junto-a-reynaldo-armas/27241",
+        "https://www.youtube.com/watch?v=sg7euXrDnbs",
+        "https://www.youtube.com/watch?v=UKyR2MzJULw",
+        "https://web.archive.org/web/20070930161410/http://www.rockhechovenezuela.com/esperanto.htm",
+        "https://www.youtube.com/watch?v=CdDwD4d1SsA",
+        "https://www.discogs.com/artist/1167246"
+      ]
+    },
+    {
+      "name": "Neguito Borjas 1982–2023 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 6,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 20494,
+      "rationale": "No hay evidencia en las páginas que demuestre que la ficha 'Abdenago \"Neguito\" Borjas' mezcle a dos o más personas distintas. Las páginas 3, 4, 5, 6, 7 y 12 confirman que Neguito Borjas es Abdenago de Jesús Borjas Urdaneta, nacido el 3 de febrero de 1956, compositor y cantante venezolano, con amplia trayectoria en gaita y otros géneros. No hay contradicciones de nombre completo, año de nacimiento, parentesco ni división temporal que prueben mezcla.",
+      "evidence": [
+        {
+          "url": "https://dgz.sultanadellago.com/entrada/borjas-abdenago/",
+          "title": "BORJAS, Abdénago — Diccionario General del Zulia",
+          "quote": "Abdénago de Jesús Borjas Urdaneta, más conocido como Neguito Borjas, nació en Cabimas (estado Zulia), el 3 de febrero de 1956.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.buenamusica.com/neguito-borjas/biografia",
+          "title": "Neguito Borjas - Biografía, historia y legado musical",
+          "quote": "Neguito Borjas, cuyo nombre verdadero es Abdenágo de Jesús Borjas Urdaneta, es un licenciado de mercadeo, cantante y compositor venezolano. Nació en Cabimas, Estado Zulia, Venezuela, el 03 de febrero de 1956.",
+          "supports": "same"
+        },
+        {
+          "url": "https://neguitoborjas.com/",
+          "title": "Neguito Borjas",
+          "quote": "Abdenágo de Jesús Borjas Urdaneta conocido artísticamente como “Neguito Borjas”, es un licenciado de mercadeo, cantante, compositor de música regional venezolana de genero Gaita, nacido en Cabimas, Estado Zulia, Venezuela, el 03 de febrero de 1956.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Gran_Coquivacoa",
+          "title": "Gran Coquivacoa - Wikipedia, la enciclopedia libre",
+          "quote": "En 1976 se incorpora Abdénago de Jesús Borjas Urdaneta (Neguito Borjas), quien se convirtió en el líder indiscutible de la agrupación",
+          "supports": "same"
+        },
+        {
+          "url": "https://open.spotify.com/track/7KnjRXEXVfVS7r2jncBEBF",
+          "title": "Reina Mestiza - song and lyrics by El Cuarteto, Abdenago Neguito Borjas | Spotify",
+          "quote": "El Cuarteto, Abdenago Neguito Borjas",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/6015000",
+          "title": "Abdénago Borjas | Discogs",
+          "quote": "Abdénago Borjas. Real Name: Abdenago de Jesús Borjas Urdaneta. Profile: Venezuelan musician, singer, arranger and composer (born 3 Feb. 1956) brother of Heberto Beto Borjas and Oscar Borjas",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/c4trio_suenanavidad.htm",
+        "https://sincopa.com/ethnic/cdinfo1/bebrea_christmas.htm",
+        "https://sincopa.com/ethnic/cdinfo1/carloscapacho_1capachoy4.htm",
+        "https://dgz.sultanadellago.com/entrada/borjas-abdenago/",
+        "https://www.buenamusica.com/neguito-borjas/biografia",
+        "https://neguitoborjas.com/",
+        "https://es.wikipedia.org/wiki/Gran_Coquivacoa",
+        "https://open.spotify.com/track/7KnjRXEXVfVS7r2jncBEBF",
+        "https://www.tiktok.com/@verduguin5/video/7620180596719045909",
+        "https://www.instagram.com/reel/DJJeXWZuTYO/",
+        "https://www.facebook.com/humberto.urdaneta.773/videos/de-neguito-borjasuna-guaracha-con-cheo-garc%C3%ADa-y-los-mel%C3%B3dicos-trabajador-petrole/6284996301558873/",
+        "https://www.tiktok.com/@que_vivito/video/7499606651368934661",
+        "https://www.discogs.com/artist/6015000"
+      ]
+    },
+    {
+      "name": "Rafael Greco 1988–2014 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 6,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 20614,
+      "rationale": "Las páginas describen a un único Rafael Greco: saxofonista, compositor, arreglista, cantante y productor nacido en Maracaibo y vinculado a Guaco desde 1988. No hay nombres completos distintos, parentescos, años de nacimiento incompatibles ni dos épocas separadas sin artista común que prueben que la ficha mezcla a dos personas. La carrera larga y la variedad de roles y colaboraciones no son prueba de mezcla, por lo que corresponde unknown.",
+      "evidence": [
+        {
+          "url": "https://www.guaco.org/pages/rafael-greco",
+          "title": "Rafael Greco – Guaco",
+          "quote": "Nació el 24 de Enero de 1967 en Maracaibo, Edo. Zulia. Venezuela.Ingresa a la banda en 1988.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1420191",
+          "title": "Rafael Greco | Discogs",
+          "quote": "Profile: Venezuelan arranger, producer, saxophonist and multi-instrumentalist.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.bluecanoerecords.com/rafael_greco.html",
+          "title": "Rafael Greco - BLUE CANOE RECORDS",
+          "quote": "Saxophonist, composer, singer and producer/arranger, Rafael Greco was born in Maracaibo, Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://agendaculturalccsblog.wordpress.com/2023/07/15/rafael-greco-y-su-destacada-carrera-musical/",
+          "title": "Rafael Greco y su destacada carrera musical – Agenda Cultural CCS",
+          "quote": "Saxofonista, compositor, arreglista, cantante y productor musical con una exitosa y destacada carrera.",
+          "supports": "same"
+        },
+        {
+          "url": "https://famousinterviewswithjoedimino.blogspot.com/2026/08/rafael-greco-interview-verses-under-my.html",
+          "title": "Famous Interviews with Joe Dimino: Rafael Greco Interview ...",
+          "quote": "Rafael went on to enjoy a distinguished career with Guaco, Venezuela's influential, multi-Latin Grammy-winning group.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.allaboutjazz.com/musicians/rafael-greco",
+          "title": "Rafael Greco | Jazz Piano – Biography, Albums & More | All ...",
+          "quote": "In Venezuela, Rafael Greco has enjoyed a distinguished and successful career as part of Venezuela’s most influential and important group, multi-Latin Grammy winners, Guaco.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/huba_entreamigos2.htm",
+        "https://sincopa.com/ethnic/cdinfo1/huba_myfavoritethings.htm",
+        "https://sincopa.com/jazz/cdinfo/luisitoquintero_3rdelement.htm",
+        "https://www.guaco.org/pages/rafael-greco",
+        "https://agendaculturalccsblog.wordpress.com/2023/07/15/rafael-greco-y-su-destacada-carrera-musical/",
+        "https://www.bluecanoerecords.com/rafael_greco.html",
+        "https://soundcloud.com/rafael-greco-t/cabezon-key-en-vivo-2008",
+        "http://laguiadecaracas.net/59957/rafael-greco-y-su-destacada-carrera-musical/",
+        "https://famousinterviewswithjoedimino.blogspot.com/2026/08/rafael-greco-interview-verses-under-my.html",
+        "https://www.youtube.com/watch?v=qJrOWsQ9bXQ",
+        "https://www.allaboutjazz.com/musicians/rafael-greco",
+        "https://www.discogs.com/release/18456775-Hu%C3%A1scar-Barradas-Y-Maracaibo-Candela",
+        "https://www.discogs.com/artist/1420191"
+      ]
+    }
+  ]
+}

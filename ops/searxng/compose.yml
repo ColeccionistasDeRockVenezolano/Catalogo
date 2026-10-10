@@ -1,0 +1,12 @@
+services:
+  crv-searxng:
+    image: ghcr.io/searxng/searxng:2026.10.4-d48c4b555
+    container_name: crv-searxng
+    restart: unless-stopped
+    environment:
+      SEARXNG_SECRET: ${CRV_SEARXNG_SECRET:?Configure CRV_SEARXNG_SECRET in .env}
+      SEARXNG_BASE_URL: http://127.0.0.1:8888/
+    ports:
+      - "127.0.0.1:8888:8080"
+    volumes:
+      - ./settings.yml:/etc/searxng/settings.yml:ro

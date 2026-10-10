@@ -14,7 +14,7 @@ const { runId } = await withOperatorRun({ name: "curation:merge-balzehaguaos", o
   console.log(await mergeAlbums(context, { keepId: 666, dropId: 528, previewHash: albumPreview.previewHash, keepDropNameAsAlias: false }));
   const artistPreview = await previewEntityMerge(context.client, "artist", 293, 273);
   console.log(artistPreview.warnings, artistPreview.fieldConflicts);
-  console.log(await mergeEntities(context, { kind: "artist", keepId: 293, dropId: 273, previewHash: artistPreview.previewHash }));
+  console.log(await mergeEntities(context, { kind: "artist", keepId: 293, dropId: 273, previewHash: artistPreview.previewHash, keepDropNameAsAlias: true }));
 });
 console.log(`run ${runId}`);
 await closeDb();

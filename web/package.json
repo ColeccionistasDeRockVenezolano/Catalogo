@@ -21,6 +21,7 @@
     "qa:smoke": "node tests/visual/smoke.mjs"
   },
   "dependencies": {
+    "@base-ui/react": "^1.8.0",
     "@phosphor-icons/react": "^2.1.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
