@@ -1,0 +1,37 @@
+{
+ "artistId": 2413,
+ "name": "Atomization",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://atomization.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Atomization"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/atomizationnoise",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Atomization"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Atomization",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

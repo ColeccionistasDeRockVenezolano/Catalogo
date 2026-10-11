@@ -1,0 +1,60 @@
+{
+ "artistId": 912,
+ "name": "Octavio Suñe",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/56797922",
+   "id": 56797922,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Octavio Suñe"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/octaviosune",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Octavio Suñé"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1679,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/esto-ya-lo-toqu%C3%A9-ma%C3%B1ana/1468709936?uo=4",
+   "id": 1468709936,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Esto ya lo toqué mañana",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 1679,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/100424882",
+   "id": 100424882,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Esto ya lo toqué mañana",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": "Octavio Suñé",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

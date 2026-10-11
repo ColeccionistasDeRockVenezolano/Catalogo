@@ -1,0 +1,51 @@
+{
+ "artistId": 3408,
+ "name": "Marieva Dávila",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1684656",
+   "id": 1684656,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Marieva Dávila"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5900,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/piano-de-ida-y-vuelta/514872568?uo=4",
+   "id": 514872568,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Piano De Ida Y Vuelta",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 5900,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1646547",
+   "id": 1646547,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Piano de ida y vuelta",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,28 @@
+{
+ "artistId": 3376,
+ "name": "Héctor Di Donna",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5545935",
+   "id": 5545935,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Hector Di Donna"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 37,
+ "albumes_con_link": 0
+}

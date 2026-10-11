@@ -1,0 +1,55 @@
+{
+ "artistId": 2318,
+ "name": "LUXOR",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/89943",
+   "id": 89943,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Luxor"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5J6VIVOYesAKt2z8U5zjqb",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Luxor"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1655997740",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Luxor"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/55448",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Luxor"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Luxor",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

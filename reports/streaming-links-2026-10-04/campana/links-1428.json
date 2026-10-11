@@ -1,0 +1,27 @@
+{
+ "artistId": 1428,
+ "name": "Desde 1985",
+ "artist_links": [
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/Desde1985music",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Desde 1985",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

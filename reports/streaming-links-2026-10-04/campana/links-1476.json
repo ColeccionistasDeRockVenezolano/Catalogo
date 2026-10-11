@@ -1,0 +1,46 @@
+{
+ "artistId": 1476,
+ "name": "Visceral",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/146269452",
+   "id": 146269452,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "VISCERAL"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://visceralbdmcl.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Visceral"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/VisceralBDM",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Visceral"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Visceral",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

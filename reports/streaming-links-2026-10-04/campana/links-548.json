@@ -1,0 +1,87 @@
+{
+ "artistId": 548,
+ "name": "Necronacia",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/227380125",
+   "id": 227380125,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Necronacia"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/12Z43sMmIFJjkJrNjQHuer",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necronacia"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/necronacia/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necronacia"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/necronacia",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necronacia"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@Necronacia",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necronacia"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1008,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/novus-ordo-seclorum/1704573438?uo=4",
+   "id": 1704573438,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Novus Ordo Seclorum",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 1008,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/481171235",
+   "id": 481171235,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Novus Ordo Seclorum",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "Necronacia",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,61 @@
+{
+ "artistId": 3088,
+ "name": "Imperial Ceremony",
+ "artist_links": [
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/imperialceremony",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Imperial Ceremony"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC9Mzzyl_k0jNyLBcadtC8dg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Imperial Ceremony"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/Imperial_C",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/imperialceremony",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/imperialceremony/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Imperial Ceremony",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

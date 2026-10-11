@@ -1,0 +1,192 @@
+{
+ "artistId": 168,
+ "name": "Masseratti 2lts",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1120615",
+   "id": 1120615,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Masseratti 2lts"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://masseratti2lts.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Masseratti 2lts"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 275,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-sabana-grande-tambien-hay/420552531?uo=4",
+   "id": 420552531,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "En Sabana Grande Tambien Hay",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 1952,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/vacil%C3%B3n-dans-la-chambre/420472888?uo=4",
+   "id": 420472888,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Vacilón dans la Chambre",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 2037,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/exposicion-verano-verano/161862564?uo=4",
+   "id": 161862564,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Exposicion Verano-Verano",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 2034,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/coctel-5-cacao-mujer-y-beats/160955012?uo=4",
+   "id": 160955012,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Coctel #5: cacao,mujer y beats",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 2038,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/folklore-no-tradicional-venezolano-4/79292355?uo=4",
+   "id": 79292355,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Folklore No-Tradicional Venezolano #4",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 2036,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuentos-de-ada-6/266042071?uo=4",
+   "id": 266042071,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuentos de Ada 6",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 2744,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/colores-de-ideas-7/356549219?uo=4",
+   "id": 356549219,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.941,
+   "title_plat": "Colores de Ideas #7",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 5679,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/noveno-disco/589645622?uo=4",
+   "id": 589645622,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Noveno Disco",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 275,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7502743",
+   "id": 7502743,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Sabana Grande Tambien Hay",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 1952,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6996415",
+   "id": 6996415,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vacilón dans la Chambre",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 2037,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6849109",
+   "id": 6849109,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Exposicion Verano-Verano",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 2036,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/824494",
+   "id": 824494,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuentos de Ada 6",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 2744,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/824633",
+   "id": 824633,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.941,
+   "title_plat": "Colores de Ideas #7",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 5679,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7301404",
+   "id": 7301404,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Noveno Disco",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Masseratti 2lts",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 10,
+ "albumes_con_link": 8
+}

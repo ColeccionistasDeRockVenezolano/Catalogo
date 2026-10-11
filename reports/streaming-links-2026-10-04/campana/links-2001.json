@@ -1,0 +1,51 @@
+{
+ "artistId": 2001,
+ "name": "Rodolfo \"Pocho\" Serra",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5469171",
+   "id": 5469171,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Rodolfo \"Pocho\" Serra"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4435,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/las-calles-de-mi-ciudad/285065542?uo=4",
+   "id": 285065542,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Las Calles de Mi Ciudad",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 4435,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7320528",
+   "id": 7320528,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Las Calles de mi Ciudad",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

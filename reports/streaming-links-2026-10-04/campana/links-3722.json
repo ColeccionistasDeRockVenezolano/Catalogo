@@ -1,0 +1,62 @@
+{
+ "artistId": 3722,
+ "name": "Los Kenya",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4360132",
+   "id": 4360132,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Kenya"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 7387,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/349740947",
+   "id": 349740947,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.909,
+   "title_plat": "Ra! Rai!",
+   "year_plat": 1960
+  },
+  {
+   "albumId": 7895,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/349741387",
+   "id": 349741387,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Los Kenya, Vol. 2",
+   "year_plat": 1969
+  },
+  {
+   "albumId": 7388,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/354240077",
+   "id": 354240077,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ronda del Guaguancó",
+   "year_plat": 1969
+  }
+ ],
+ "mb_name": "Los Kenya",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

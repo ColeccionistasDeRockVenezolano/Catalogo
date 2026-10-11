@@ -1,0 +1,73 @@
+{
+ "artistId": 914,
+ "name": "Rebellion",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/134845332",
+   "id": 134845332,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Rébellion"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/60XZ1DvTXVTCINO9NKPnLl",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Rebellion"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/rebellionmetal",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Rebellion"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1456293673",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Rebellion"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/6543099",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Rebellion"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCHjOy9F7T47HgAkXFhgtEHQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Rebellion"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Rebellion",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

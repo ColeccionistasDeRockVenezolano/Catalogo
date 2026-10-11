@@ -1,0 +1,28 @@
+{
+ "artistId": 2012,
+ "name": "Semilla",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6441754",
+   "id": 6441754,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Semilla"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Semilla",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

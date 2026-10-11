@@ -1,0 +1,28 @@
+{
+ "artistId": 1846,
+ "name": "ADN",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/314906021",
+   "id": 314906021,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "ADN"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "ADN",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

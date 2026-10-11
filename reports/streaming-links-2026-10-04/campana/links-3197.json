@@ -1,0 +1,30 @@
+{
+ "artistId": 3197,
+ "name": "Oblivion of Hybrids",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 5466,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/among-the-forgotten/1794191097?uo=4",
+   "id": 1794191097,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Among the Forgotten",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

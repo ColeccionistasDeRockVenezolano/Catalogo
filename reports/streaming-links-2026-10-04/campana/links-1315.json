@@ -1,0 +1,51 @@
+{
+ "artistId": 1315,
+ "name": "Cronovisor",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11400980",
+   "id": 11400980,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cronovisor"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2248,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/uno/1177556872?uo=4",
+   "id": 1177556872,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Uno",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 2248,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14609884",
+   "id": 14609884,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "UNO",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Cronovisor",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

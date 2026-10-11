@@ -1,0 +1,45 @@
+{
+ "artistId": 2399,
+ "name": "Gonzo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/252408",
+   "id": 252408,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "GONZO"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://www.amazon.com/gp/product/B00004SP6B",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gonzo"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCywywdvoy9sUcuvS3rBMgFQ",
+   "id": "UCywywdvoy9sUcuvS3rBMgFQ",
+   "method": "exact",
+   "source": "wikidata-Q1137522",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Gonzo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

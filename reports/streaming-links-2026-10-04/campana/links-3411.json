@@ -1,0 +1,104 @@
+{
+ "artistId": 3411,
+ "name": "Musica Reservata",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1299348",
+   "id": 1299348,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Musica Reservata"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2uXKTe1mNYH5PWFpmoEbF3",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Musica Reservata"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6017,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ave-maris-stella-motetes-marianos-claudio-monteverdi/1523660270?uo=4",
+   "id": 1523660270,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.972,
+   "title_plat": "Ave Maris Stella. Motetes Marianos, Claudio Monteverdi",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 6019,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-llibre-vermell-de-montserrat-el-libro/1523021036?uo=4",
+   "id": 1523021036,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Llibre Vermell de Montserrat. El Libro Rojo de los Peregrinos",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 5907,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/magnificat/1523197111?uo=4",
+   "id": 1523197111,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Magnificat",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 6017,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/161101912",
+   "id": 161101912,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.972,
+   "title_plat": "Ave Maris Stella. Motetes Marianos, Claudio Monteverdi",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 6019,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/160113652",
+   "id": 160113652,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Llibre Vermell de Montserrat. El Libro Rojo de los Peregrinos",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 5907,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/160345142",
+   "id": 160345142,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Magnificat",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": "Musica Reservata",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 3
+}

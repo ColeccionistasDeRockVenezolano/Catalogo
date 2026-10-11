@@ -1,0 +1,28 @@
+{
+ "artistId": 3738,
+ "name": "Orquesta Son 2",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/162882677",
+   "id": 162882677,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.929,
+   "name_plat": "ORQUESTA SON 3"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

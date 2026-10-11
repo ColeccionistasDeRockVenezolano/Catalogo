@@ -1,0 +1,28 @@
+{
+ "artistId": 4531,
+ "name": "Caminant",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/13031687",
+   "id": 13031687,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.941,
+   "name_plat": "Caminante"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

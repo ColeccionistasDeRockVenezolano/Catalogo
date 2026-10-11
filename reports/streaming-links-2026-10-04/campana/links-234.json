@@ -1,0 +1,51 @@
+{
+ "artistId": 234,
+ "name": "Sur Carabela",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6769907",
+   "id": 6769907,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sur Carabela"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 342,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/debut/1737229943?uo=4",
+   "id": 1737229943,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Debut",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 342,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/563154692",
+   "id": 563154692,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Debut",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "Sur Carabela",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

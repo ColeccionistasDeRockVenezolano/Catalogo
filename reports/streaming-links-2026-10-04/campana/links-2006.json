@@ -1,0 +1,40 @@
+{
+ "artistId": 2006,
+ "name": "San Francisco",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/419268",
+   "id": 419268,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "San Francisco"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4471,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1810101",
+   "id": 1810101,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "San Francisco",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "San Francisco's",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 3943,
+ "name": "Edward Ramírez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5719820",
+   "id": 5719820,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Edward Ramírez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9628,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/168199172",
+   "id": 168199172,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Parroquia",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Edward Ramírez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 12,
+ "albumes_con_link": 1
+}

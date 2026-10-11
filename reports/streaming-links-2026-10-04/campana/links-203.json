@@ -1,0 +1,73 @@
+{
+ "artistId": 203,
+ "name": "RC2",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/338352",
+   "id": 338352,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "RC2"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 478,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/rc2/1735053454?uo=4",
+   "id": 1735053454,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Rc2",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 477,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/future-awaits/1737285388?uo=4",
+   "id": 1737285388,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Future Awaits",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 478,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/558392352",
+   "id": 558392352,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rc2",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 477,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/563733882",
+   "id": 563733882,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Future Awaits",
+   "year_plat": 2001
+  }
+ ],
+ "mb_name": "RC2",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

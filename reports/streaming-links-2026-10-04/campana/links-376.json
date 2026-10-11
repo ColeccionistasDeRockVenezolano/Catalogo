@@ -1,0 +1,40 @@
+{
+ "artistId": 376,
+ "name": "Necronomisurf",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12413782",
+   "id": 12413782,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "NECRONOMISURF"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 786,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/vampira-surf-horror/1233035442?uo=4",
+   "id": 1233035442,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Vampira Surf Horror",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,28 @@
+{
+ "artistId": 1873,
+ "name": "Asimilation",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9013768",
+   "id": 9013768,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.957,
+   "name_plat": "Assimilation"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

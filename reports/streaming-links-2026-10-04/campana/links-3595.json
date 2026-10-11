@@ -1,0 +1,30 @@
+{
+ "artistId": 3595,
+ "name": "Yelitze",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 6498,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/body-soul/1556472144?uo=4",
+   "id": 1556472144,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Body & Soul",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

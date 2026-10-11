@@ -1,0 +1,40 @@
+{
+ "artistId": 114,
+ "name": "Icaro",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2690941",
+   "id": 2690941,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Icaro"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 200,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/188694432",
+   "id": 188694432,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ícaro",
+   "year_plat": 2001
+  }
+ ],
+ "mb_name": "Icaro",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

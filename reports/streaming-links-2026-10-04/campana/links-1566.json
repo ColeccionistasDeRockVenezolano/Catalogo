@@ -1,0 +1,28 @@
+{
+ "artistId": 1566,
+ "name": "Pentatoniks",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1182070",
+   "id": 1182070,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.952,
+   "name_plat": "Pentatonik"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

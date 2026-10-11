@@ -1,0 +1,36 @@
+{
+ "artistId": 2550,
+ "name": "Arkhon Infaustus",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/13987",
+   "id": 13987,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Arkhon Infaustus"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0WT2KXSIMI6lrbPCn65POK",
+   "id": "0WT2KXSIMI6lrbPCn65POK",
+   "method": "exact",
+   "source": "wikidata-Q2523018",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Arkhon Infaustus",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

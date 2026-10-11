@@ -1,0 +1,28 @@
+{
+ "artistId": 1350,
+ "name": "Post Data",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/241047",
+   "id": 241047,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.941,
+   "name_plat": "Postdata"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Post Data",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

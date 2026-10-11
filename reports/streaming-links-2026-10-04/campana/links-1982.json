@@ -1,0 +1,46 @@
+{
+ "artistId": 1982,
+ "name": "KBB",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/57037",
+   "id": 57037,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Kbb"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0AgszhVgo2rPgmJ9FxISZH",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "KBB"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCH8bPRnIs2hZE-FC1mt0rfw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "KBB"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "KBB",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

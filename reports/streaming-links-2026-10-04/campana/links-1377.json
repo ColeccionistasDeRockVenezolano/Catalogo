@@ -1,0 +1,80 @@
+{
+ "artistId": 1377,
+ "name": "Penumbra",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11939847",
+   "id": 11939847,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Penumbra"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://penumbra-official.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Penumbra"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4LMOrQtDq76ar9W4d2FsRk",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Penumbra"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id34582404",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Penumbra"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCkG7UmmWkMDTpP_MujZod6g",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Penumbra"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/band_penumbra",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/penumbra.band.official",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Penumbra",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

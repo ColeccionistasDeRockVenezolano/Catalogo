@@ -1,0 +1,51 @@
+{
+ "artistId": 3895,
+ "name": "Mestisay y Serenata Guayanesa",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/101940582",
+   "id": 101940582,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mestisay y Serenata Guayanesa"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9418,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canciones-de-las-dos-orillas/1524971300?uo=4",
+   "id": 1524971300,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Canciones de las Dos Orillas",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 9418,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/711345801",
+   "id": 711345801,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canciones de las Dos Orillas",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

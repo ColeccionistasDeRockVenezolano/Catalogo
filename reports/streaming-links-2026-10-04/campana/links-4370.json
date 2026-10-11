@@ -1,0 +1,43 @@
+{
+ "artistId": 4370,
+ "name": "The London Symphony Orchestra",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5yxyJsFanEAuwSM5kOuZKc",
+   "id": "5yxyJsFanEAuwSM5kOuZKc",
+   "method": "fuzzy",
+   "source": "wikidata-Q155805",
+   "score": 0.926
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/artist/29893",
+   "id": "29893",
+   "method": "fuzzy",
+   "source": "wikidata-Q155805",
+   "score": 0.926
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCY1yTIi-DaxPbNtLCnwAM1g",
+   "id": "UCY1yTIi-DaxPbNtLCnwAM1g",
+   "method": "fuzzy",
+   "source": "wikidata-Q155805",
+   "score": 0.926
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

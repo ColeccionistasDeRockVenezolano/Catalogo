@@ -1,0 +1,40 @@
+{
+ "artistId": 1357,
+ "name": "Tabako",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/64902522",
+   "id": 64902522,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.923,
+   "name_plat": "TABAKOV"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3133,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tabako/1154468885?uo=4",
+   "id": 1154468885,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tabako",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

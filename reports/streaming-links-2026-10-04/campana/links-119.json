@@ -1,0 +1,94 @@
+{
+ "artistId": 119,
+ "name": "Joystick",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/216878115",
+   "id": 216878115,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Joystick"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://joysticknola.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Joystick!"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6QNbUrFd32f8tOVhm1pWEF",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Joystick!"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/Joystick504ska",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Joystick!"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Joystick-128666793827058",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Joystick!"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/joysticknola/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Joystick!"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1240452766",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Joystick!"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 454,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6859082",
+   "id": 6859082,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Lonchera",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Joystick!",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

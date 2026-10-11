@@ -1,0 +1,510 @@
+{
+ "artistId": 99,
+ "name": "Franco De Vita",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6708",
+   "id": 6708,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Franco de Vita"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4NEYQeEYBUjfaXgDQGvFvu",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Franco de Vita"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/ve/artist/id32849",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Franco de Vita"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://www.amazon.com/-/e/B000AQ383U",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Franco de Vita"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/FrancoDVita",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Franco de Vita"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/francodevita",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Franco de Vita"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/francodevita/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Franco de Vita"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCB6y3fGQ3CWHF0nkrFAj1bQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Franco de Vita"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 508,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/franco-de-vita/1098295431?uo=4",
+   "id": 1098295431,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Franco de Vita",
+   "year_plat": 1984
+  },
+  {
+   "albumId": 444,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/fantasia/1098296780?uo=4",
+   "id": 1098296780,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Fantasia",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 506,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/al-norte-del-sur/292359856?uo=4",
+   "id": 292359856,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Al Norte del Sur",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 507,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/extranjero/294275774?uo=4",
+   "id": 294275774,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Extranjero",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 4073,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-vivo-marzo-16/1100964622?uo=4",
+   "id": 1100964622,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "En Vivo Marzo 16",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 448,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/voces-a-mi-alrededor/293941210?uo=4",
+   "id": 293941210,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Voces a Mi Alrededor",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 445,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/fuera-de-este-mundo/294275638?uo=4",
+   "id": 294275638,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Fuera de Este Mundo",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 446,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nada-es-igual/190763021?uo=4",
+   "id": 190763021,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nada Es Igual",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 13486,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/20th-anniversary/1590021657?uo=4",
+   "id": 1590021657,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "20th Anniversary",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 4091,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mis-30-mejores-canciones/604819284?uo=4",
+   "id": 604819284,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mis 30 Mejores Canciones",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 4087,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/segundas-partes-tambi%C3%A9n-son-buenas/1443540057?uo=4",
+   "id": 1443540057,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Segundas Partes También Son Buenas",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 447,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/stop/321303185?uo=4",
+   "id": 321303185,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Stop",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 13485,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/franco-de-vita-ilan-chester-en-concierto-en-vivo/1680617828?uo=4",
+   "id": 1680617828,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Franco de Vita & Ilan Chester En Concierto (En Vivo)",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 4074,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/simplemente-la-verdad/290944802?uo=4",
+   "id": 290944802,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Simplemente la Verdad",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 13493,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuando-tus-ojos-me-miran-acoustic-edit-single/311089843?uo=4",
+   "id": 311089843,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.916,
+   "title_plat": "Cuando Tus Ojos Me Miran (Acoustic Edit) - Single",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 13491,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/si-quieres-decir-adi%C3%B3s-feat-debi-nova-single/469254302?uo=4",
+   "id": 469254302,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.914,
+   "title_plat": "Si Quieres Decir Adiós (feat. Debi Nova) - Single",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 4100,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/s%C3%B3lo-para-mujeres/903542368?uo=4",
+   "id": 903542368,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sólo para Mujeres",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 13483,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/d%C3%B3nde-est%C3%A1-la-vida-victor-porfidio-remix-single/1157685365?uo=4",
+   "id": 1157685365,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.92,
+   "title_plat": "Dónde Está la Vida (Victor Porfidio Remix) - Single",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 4072,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/libre/1162500688?uo=4",
+   "id": 1162500688,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Libre",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 444,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12751870",
+   "id": 12751870,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fantasia",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 506,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1419455",
+   "id": 1419455,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Al Norte Del Sur",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 507,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8290796",
+   "id": 8290796,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Extranjero",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 4073,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12808362",
+   "id": 12808362,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Vivo Marzo 16",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 448,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1223862",
+   "id": 1223862,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Voces A Mi Alrededor",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 446,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1401589",
+   "id": 1401589,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nada Es Igual",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 13486,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/265218962",
+   "id": 265218962,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "20th Anniversary",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 447,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1214105",
+   "id": 1214105,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Stop",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 13485,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/425798557",
+   "id": 425798557,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Franco de Vita & Ilan Chester En Concierto (En Vivo)",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 4074,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1213252",
+   "id": 1213252,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Simplemente La Verdad",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 13493,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/292208",
+   "id": 292208,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Tus Ojos Me Miran (Acoustic Edit)",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 13492,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/936836",
+   "id": 936836,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tan Sólo Tú (feat. Alejandra Guzmán) (Franco De Vita en Primera Fila)",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 13491,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8303680",
+   "id": 8303680,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Si Quieres Decir Adiós (feat. Debi Nova)",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 13483,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14110056",
+   "id": 14110056,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dónde Está la Vida (Victor Porfidio Remix)",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 4072,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14284470",
+   "id": 14284470,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Libre",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 13474,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/44268401",
+   "id": 44268401,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "No Sé Nada de Ti",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 13490,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/129698422",
+   "id": 129698422,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aquí No Se Pide Nada",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13489,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/151241642",
+   "id": 151241642,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Frágiles",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13488,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/614197112",
+   "id": 614197112,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "VinoTinto",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "Franco de Vita",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 72,
+ "albumes_con_link": 24
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 218,
+ "name": "Seguridad Nacional",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1095133",
+   "id": 1095133,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.923,
+   "name_plat": "La Seguridad Nacional"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 318,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/1983-1993/264499545?uo=4",
+   "id": 264499545,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "1983-1993",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 318,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/793584",
+   "id": 793584,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "1983-1993",
+   "year_plat": 2005
+  }
+ ],
+ "mb_name": "Seguridad Nacional",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

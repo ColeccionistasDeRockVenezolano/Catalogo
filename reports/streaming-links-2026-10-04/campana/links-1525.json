@@ -1,0 +1,60 @@
+{
+ "artistId": 1525,
+ "name": "...Al cruzar La Calle",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/96646532",
+   "id": 96646532,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "...Al Cruzar La Calle"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://cruzarlacalle.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "…al cruzar la calle"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15413,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/al-cruzar-la-calle/1516689101?uo=4",
+   "id": 1516689101,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "...Al Cruzar la Calle",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 15413,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/152241932",
+   "id": 152241932,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "...Al Cruzar la Calle",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "…al cruzar la calle",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

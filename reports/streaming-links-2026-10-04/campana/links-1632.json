@@ -1,0 +1,36 @@
+{
+ "artistId": 1632,
+ "name": "NOID",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/271527022",
+   "id": 271527022,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "NoiD"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0RB7SpNZsNjiDhEXDDQpfZ",
+   "id": "0RB7SpNZsNjiDhEXDDQpfZ",
+   "method": "exact",
+   "source": "wikidata-Q20724905",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Noid",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

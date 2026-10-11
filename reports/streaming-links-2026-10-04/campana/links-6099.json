@@ -1,0 +1,37 @@
+{
+ "artistId": 6099,
+ "name": "Jacobo Palm",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4175908",
+   "id": 4175908,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.957,
+   "name_plat": "Jacobo Palma"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2kg5Pa0eh3hoaF69wr4RVU",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jacobo Palm"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Jacobo Palm",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

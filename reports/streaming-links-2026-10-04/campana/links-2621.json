@@ -1,0 +1,18 @@
+{
+ "artistId": 2621,
+ "name": "Nicolai Chek Chenkov",
+ "artist_links": [],
+ "album_links": [],
+ "mb_name": "Nicolai chek chenkov",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

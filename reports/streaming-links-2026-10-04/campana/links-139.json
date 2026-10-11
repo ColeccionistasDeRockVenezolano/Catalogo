@@ -1,0 +1,433 @@
+{
+ "artistId": 139,
+ "name": "La Vida Bohème",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1574533",
+   "id": 1574533,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "La Vida Boheme"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://lavidaboheme.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Vida Bohème"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5gs7iemsrjIJbz0ryFcy79",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Vida Bohème"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/vidaboheme",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Vida Bohème"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/LaVidaBoheme",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Vida Bohème"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/lavidaboheme/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Vida Bohème"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/lavidaboheme",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Vida Bohème"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCXpkOtHoTuhs6r-i_NznPdQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Vida Bohème"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 228,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nuestra/1494010110?uo=4",
+   "id": 1494010110,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nuestra",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 2290,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ser%C3%A1/627028788?uo=4",
+   "id": 627028788,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Será",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1868,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-lucha/1198739802?uo=4",
+   "id": 1198739802,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Lucha",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 14046,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/acci%C3%B3n-o-decreto-de-guerra-a-muerte-a-los/1518085427?uo=4",
+   "id": 1518085427,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.956,
+   "title_plat": "Acción (O: Decreto de Guerra a Muerte a los Traidores del Rock Latinoamericano) - Single",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14033,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tiempo-compartido-live-session/1546715639?uo=4",
+   "id": 1546715639,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tiempo Compartido (LIVE SESSION)",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 4367,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/caribe-caribe/1670773039?uo=4",
+   "id": 1670773039,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Caribe Caribe",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14034,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cementerio-del-este-en-vivo-ep/1735396179?uo=4",
+   "id": 1735396179,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.947,
+   "title_plat": "Cementerio Del Este (En Vivo) - EP",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14031,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/di%C3%A1spora-live-vol-1/1739391815?uo=4",
+   "id": 1739391815,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Diáspora Live, Vol.1",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 5547,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tierra-de-nadie/1835927262?uo=4",
+   "id": 1835927262,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tierra De Nadie",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 228,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/125773802",
+   "id": 125773802,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nuestra",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 2290,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/129096302",
+   "id": 129096302,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Será",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 1868,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/127887982",
+   "id": 127887982,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Lucha",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 14047,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/146903912",
+   "id": 146903912,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Último Round",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14046,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/154166312",
+   "id": 154166312,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Acción (O: Decreto de Guerra a Muerte a los Traidores del Rock Latinoamericano)",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14044,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/168237252",
+   "id": 168237252,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Miami S&M",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 5577,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/188535262",
+   "id": 188535262,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "FREESSR",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14045,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/169906292",
+   "id": 169906292,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "¡Plis, plis, plis!",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14033,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/196272032",
+   "id": 196272032,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tiempo Compartido (LIVE SESSION)",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14043,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/229945492",
+   "id": 229945492,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Paraíso Perdido",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14042,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/280389002",
+   "id": 280389002,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Men vs Men",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14041,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/317489627",
+   "id": 317489627,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Carrusel / Suzie Kamikaze",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 5549,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/354162487",
+   "id": 354162487,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tiempo Comparti2",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14030,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/499750871",
+   "id": 499750871,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Sombra del Amanecer",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14039,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/547276302",
+   "id": 547276302,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Manos Arriba (En Vivo)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14038,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/651974341",
+   "id": 651974341,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Calle En El Cielo",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14034,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/558964992",
+   "id": 558964992,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cementerio Del Este (En Vivo)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14040,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/538390202",
+   "id": 538390202,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Calle Barcelona (En Vivo)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 5547,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/811561271",
+   "id": 811561271,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tierra De Nadie",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14037,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/693800551",
+   "id": 693800551,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "¡Al Coro De Las Masas!",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14036,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/784583971",
+   "id": 784583971,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Entretenimiento",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14035,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/811237431",
+   "id": 811237431,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "¡Coño!",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": "La Vida Bohème",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 37,
+ "albumes_con_link": 24
+}

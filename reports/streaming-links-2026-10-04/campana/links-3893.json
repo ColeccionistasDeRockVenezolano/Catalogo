@@ -1,0 +1,48 @@
+{
+ "artistId": 3893,
+ "name": "Reinaldo Armas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4064695",
+   "id": 4064695,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Reinaldo Armas"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCaRRGZajlQglkWBKUuU0e8w",
+   "id": "UCaRRGZajlQglkWBKUuU0e8w",
+   "method": "fuzzy",
+   "source": "wikidata-Q7319541",
+   "score": 0.929
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9332,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-indio/1726087928?uo=4",
+   "id": 1726087928,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Indio",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

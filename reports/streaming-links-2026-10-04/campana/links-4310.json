@@ -1,0 +1,117 @@
+{
+ "artistId": 4310,
+ "name": "Maracaibo 15",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1268644",
+   "id": 1268644,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Maracaibo 15"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15022,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/s%C3%BAper-%C3%A9xitos-maracaibo-15/1441086053?uo=4",
+   "id": 1441086053,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Súper Éxitos Maracaibo 15",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 15025,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-gaitazo-los-%C3%A9xitos-de-maracaibo-15-vol-2/1438063470?uo=4",
+   "id": 1438063470,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Gaitazo: Los Éxitos de Maracaibo 15 Vol. 2",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 15024,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/del-lp-a-digital-vol-2/1839296661?uo=4",
+   "id": 1839296661,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Del Lp a Digital, Vol. 2",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15023,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/del-lp-a-digital-vol-3/6799123952?uo=4",
+   "id": 6799123952,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Del Lp a Digital, Vol. 3",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 15022,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/77459892",
+   "id": 77459892,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Super Éxitos Maracaibo 15",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 15025,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/74774552",
+   "id": 74774552,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Gaitazo: Los Éxitos de Maracaibo 15 Vol. 2",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 15024,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/820042921",
+   "id": 820042921,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Del Lp a Digital, Vol. 2",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15023,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1048579752",
+   "id": 1048579752,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Del Lp a Digital, Vol. 3",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Maracaibo 15",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 4
+}

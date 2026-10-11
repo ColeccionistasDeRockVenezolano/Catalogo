@@ -1,0 +1,49 @@
+{
+ "artistId": 23,
+ "name": "Necrosis",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1112418",
+   "id": 1112418,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Necrosis"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/necrosisofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necrosis"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 33,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/383614827",
+   "id": 383614827,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Consigna de Guerra",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Necrosis",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

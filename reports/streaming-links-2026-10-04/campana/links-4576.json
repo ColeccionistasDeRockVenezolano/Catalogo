@@ -1,0 +1,55 @@
+{
+ "artistId": 4576,
+ "name": "The Monroes",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/74094962",
+   "id": 74094962,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "The Monroes"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5e6KN1XMdBpyWXF4KrSdrx",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Monroes"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id282276143",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Monroes"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/31964516",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Monroes"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "The Monroes",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

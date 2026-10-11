@@ -1,0 +1,46 @@
+{
+ "artistId": 472,
+ "name": "Devastación",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/52475752",
+   "id": 52475752,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Devastacion"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0W1WjasYT75zcbSOwQYWnI",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Devastación"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Devastaciondeathrash",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Devastación"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Devastación",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

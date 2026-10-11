@@ -1,0 +1,71 @@
+{
+ "artistId": 1988,
+ "name": "Leo Carnicella",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/136658692",
+   "id": 136658692,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Leo Carnicella"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://leocarnicella.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Leo Carnicella"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4384,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/super-sargasso-sea/1632311455?uo=4",
+   "id": 1632311455,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Super~Sargasso Sea",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 4383,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/238419522",
+   "id": 238419522,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Until a new dawn",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 4384,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/331775067",
+   "id": 331775067,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Super~Sargasso Sea",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Leo Carnicella",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

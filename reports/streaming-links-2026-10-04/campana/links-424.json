@@ -1,0 +1,51 @@
+{
+ "artistId": 424,
+ "name": "Diatriba",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1387677",
+   "id": 1387677,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Diatriba"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1128,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/despe%C3%B1o-de-realidad/1188369205?uo=4",
+   "id": 1188369205,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Despeño de Realidad",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 854,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%A1rtires-del-cambio/1376597767?uo=4",
+   "id": 1376597767,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mártires del Cambio",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

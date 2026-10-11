@@ -1,0 +1,28 @@
+{
+ "artistId": 102,
+ "name": "Gasolina",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1416189",
+   "id": 1416189,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gasolina"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Gasolina",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

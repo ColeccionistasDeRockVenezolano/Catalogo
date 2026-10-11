@@ -1,0 +1,216 @@
+{
+ "artistId": 192,
+ "name": "PapaShanty Saund System",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1239838",
+   "id": 1239838,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.978,
+   "name_plat": "PapaShanty SaundSystem"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 299,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ashanty-granpa/1671451576?uo=4",
+   "id": 1671451576,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ashanty Granpa",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 14473,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/all-right-rock-al-aire-session-studio-live-single/1829229307?uo=4",
+   "id": 1829229307,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.923,
+   "title_plat": "All Right - Rock al Aire - Session Studio (Live) - Single",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 299,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/389996417",
+   "id": 389996417,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ashanty Granpa",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14463,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/223391852",
+   "id": 223391852,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vene Chile",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14474,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/384452557",
+   "id": 384452557,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Musica de Paz",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14475,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/386308237",
+   "id": 386308237,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Roots (Dub Version)",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14476,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/386308597",
+   "id": 386308597,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Por la Raza (Dub Version)",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14469,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666128901",
+   "id": 666128901,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Himno Shanty - Rock al Aire - Session Studio",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14465,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666128831",
+   "id": 666128831,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Musica de Paz - Rock al Aire - Session Studio",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14466,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666128841",
+   "id": 666128841,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Wo No Noo - Rock al Aire - Session Studio",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14467,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666128871",
+   "id": 666128871,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Feel the Flow - Rock al Aire - Session Studio",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14464,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666128771",
+   "id": 666128771,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Abre los Ojos - Rock al Aire - Session Studio",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14472,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666131051",
+   "id": 666131051,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Caminando - Rock al Aire - Session Studio (Live)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14473,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666131061",
+   "id": 666131061,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "All Right - Rock al Aire - Session Studio (Live)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14468,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666128891",
+   "id": 666128891,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Roots - Rock al Aire - Session Studio",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14470,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666128921",
+   "id": 666128921,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nuevo Ciclo - Rock al Aire - Session Studio",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14471,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666130871",
+   "id": 666130871,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Por la Raza - Rock al Aire - Session Studio",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "Papashanty Saund System",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 20,
+ "albumes_con_link": 15
+}

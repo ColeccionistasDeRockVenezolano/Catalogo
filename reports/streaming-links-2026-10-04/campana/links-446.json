@@ -1,0 +1,162 @@
+{
+ "artistId": 446,
+ "name": "A Raíz de Nuevas Causas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14508531",
+   "id": 14508531,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "A Raíz de Nuevas Causas"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3ugCpFYvXZLKE9tMid9JLy",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "A Raíz De Nuevas Causas"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/araizhardcore",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "A Raíz De Nuevas Causas"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Araizdenuevascausas",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "A Raíz De Nuevas Causas"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/araizdenuevascausas/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "A Raíz De Nuevas Causas"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@ARAIZDENUEVASCAUSAS",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "A Raíz De Nuevas Causas"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1002,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/estamos-de-pie-ep/1358682665?uo=4",
+   "id": 1358682665,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.903,
+   "title_plat": "Estamos De Pie - EP",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 879,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-vieja-escuela-nunca-muere/1378815828?uo=4",
+   "id": 1378815828,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Vieja Escuela Nunca Muere",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1316,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-ra%C3%ADz-de-nuevas-causas/1472944283?uo=4",
+   "id": 1472944283,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A Raíz de Nuevas Causas",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 1002,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/58946732",
+   "id": 58946732,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Estamos de pie",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 879,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/62782292",
+   "id": 62782292,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La vieja escuela nunca muere",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 1316,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103730322",
+   "id": 103730322,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Raíz de Nuevas Causas",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 15421,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/463537735",
+   "id": 463537735,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vol. IV",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15422,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/685995211",
+   "id": 685995211,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Supongo que es normal",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "A Raíz De Nuevas Causas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 5
+}

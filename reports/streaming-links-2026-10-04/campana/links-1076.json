@@ -1,0 +1,30 @@
+{
+ "artistId": 1076,
+ "name": "Suramerican",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 2002,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/by-the-money-the-monkey-dance/6767701781?uo=4",
+   "id": 6767701781,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "By the Money the Monkey Dance",
+   "year_plat": 2004
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

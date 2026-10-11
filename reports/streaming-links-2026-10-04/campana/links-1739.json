@@ -1,0 +1,28 @@
+{
+ "artistId": 1739,
+ "name": "Bysonar",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://bysonar.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bysonar"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Bysonar",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 3162,
+ "name": "Instinctus",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1245805",
+   "id": 1245805,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.947,
+   "name_plat": "Instincts"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5376,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/eternos-hipocritas/1863752114?uo=4",
+   "id": 1863752114,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Eternos Hipocritas",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 1802,
+ "name": "Los Perfectos Desconocidos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1124487",
+   "id": 1124487,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Perfectos Desconocidos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3431,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sentidos/336032497?uo=4",
+   "id": 336032497,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sentidos",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 3431,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/829737",
+   "id": 829737,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sentidos",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

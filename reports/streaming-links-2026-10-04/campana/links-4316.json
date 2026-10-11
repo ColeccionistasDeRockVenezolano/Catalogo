@@ -1,0 +1,117 @@
+{
+ "artistId": 4316,
+ "name": "The Same People",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4303423",
+   "id": 4303423,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "The Same People"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15034,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-same-people/1201996926?uo=4",
+   "id": 1201996926,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Same People",
+   "year_plat": 1987
+  },
+  {
+   "albumId": 15033,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-callao-de-fiesta/1195672888?uo=4",
+   "id": 1195672888,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Callao de Fiesta",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 15032,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-callao-calypso/1886748104?uo=4",
+   "id": 1886748104,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "EL CALLAO CALYPSO",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 15031,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sexy-maria/1886748042?uo=4",
+   "id": 1886748042,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "SEXY MARIA",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 15034,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/15260573",
+   "id": 15260573,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Same People",
+   "year_plat": 1987
+  },
+  {
+   "albumId": 15033,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/15084855",
+   "id": 15084855,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Callao de Fiesta",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 15032,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/944154341",
+   "id": 944154341,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "EL CALLAO CALYPSO",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 15031,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/944154211",
+   "id": 944154211,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "SEXY MARIA",
+   "year_plat": 1994
+  }
+ ],
+ "mb_name": "The Same People",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

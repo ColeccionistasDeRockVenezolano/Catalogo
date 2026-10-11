@@ -1,0 +1,45 @@
+{
+ "artistId": 4586,
+ "name": "Joudy",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5402920",
+   "id": 5402920,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Joudy"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@joudyjoudyjoudy",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Joudy"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/joudy.joudy.joudy/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Joudy",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

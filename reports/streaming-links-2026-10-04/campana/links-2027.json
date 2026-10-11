@@ -1,0 +1,30 @@
+{
+ "artistId": 2027,
+ "name": "Tinajas",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 4543,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tinaja/1349709461?uo=4",
+   "id": 1349709461,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.923,
+   "title_plat": "Tinaja",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

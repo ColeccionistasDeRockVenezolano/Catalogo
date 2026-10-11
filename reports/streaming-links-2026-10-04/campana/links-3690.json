@@ -1,0 +1,95 @@
+{
+ "artistId": 3690,
+ "name": "Conjunto Ingeniería",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4179766",
+   "id": 4179766,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Conjunto Ingenieria"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6900,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/conjunto-ingenier%C3%ADa/1714255254?uo=4",
+   "id": 1714255254,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Conjunto Ingeniería",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 6901,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aqu%C3%AD-esta-el-conjunto-ingenier%C3%ADa/1713959327?uo=4",
+   "id": 1713959327,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aquí Esta el Conjunto Ingeniería",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 6902,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/boogaloo-con-ingenier%C3%ADa/1713959295?uo=4",
+   "id": 1713959295,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Boogaloo Con Ingeniería",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 6900,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/506654151",
+   "id": 506654151,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Conjunto Ingeniería",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 6901,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/505531281",
+   "id": 505531281,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aqui Esta el Conjunto Ingeniería",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 6902,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/505538801",
+   "id": 505538801,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Boogaloo Con Ingeniería",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Conjunto Ingenieria",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

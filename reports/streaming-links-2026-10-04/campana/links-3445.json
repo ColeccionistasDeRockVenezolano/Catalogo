@@ -1,0 +1,95 @@
+{
+ "artistId": 3445,
+ "name": "André Carrasquero",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/150697172",
+   "id": 150697172,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Andre Carrasquero"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6069,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/meus-saudades/1594019555?uo=4",
+   "id": 1594019555,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Meus Saudades",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 6072,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-magic-lamp-ep/1619843707?uo=4",
+   "id": 1619843707,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.903,
+   "title_plat": "The Magic Lamp - EP",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 6073,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/eight-piano-pieces/1631482701?uo=4",
+   "id": 1631482701,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Eight Piano Pieces",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 6070,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/echoes-of-macanao-ep/1619841793?uo=4",
+   "id": 1619841793,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.919,
+   "title_plat": "Echoes of Macanao - EP",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 6073,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/330170387",
+   "id": 330170387,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Eight Piano Pieces",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 6075,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/343271037",
+   "id": 343271037,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tudo Brasil",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 9,
+ "albumes_con_link": 5
+}

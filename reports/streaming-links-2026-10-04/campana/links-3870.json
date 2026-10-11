@@ -1,0 +1,458 @@
+{
+ "artistId": 3870,
+ "name": "Reyna Lucero",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1199688",
+   "id": 1199688,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Reyna Lucero"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9304,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aires-de-mi-tierra/6797906088?uo=4",
+   "id": 6797906088,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aires de Mi Tierra",
+   "year_plat": 1978
+  },
+  {
+   "albumId": 9306,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-consentida/6805687208?uo=4",
+   "id": 6805687208,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Consentida",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 9305,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/segundo-impacto-de-reina-lucero/6803224525?uo=4",
+   "id": 6803224525,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Segundo Impacto de Reina Lucero",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 9307,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-triunfadora/6816993643?uo=4",
+   "id": 6816993643,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Triunfadora",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 9309,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/amiga/6805687132?uo=4",
+   "id": 6805687132,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Amiga",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 9308,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-impactante/6796081451?uo=4",
+   "id": 6796081451,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Impactante",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 9312,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/reina-siempre-reina/1725570459?uo=4",
+   "id": 1725570459,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Reina Siempre Reina",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 9310,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-nuevo-de-reyna-lucero/6798762095?uo=4",
+   "id": 6798762095,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lo Nuevo de Reyna Lucero",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 9313,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/reyna-le-canta-al-amor/1725575532?uo=4",
+   "id": 1725575532,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.955,
+   "title_plat": "Reyna Le Canta Al Amor",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 9131,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sigo-siendo-reyna/1134266556?uo=4",
+   "id": 1134266556,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sigo Siendo Reyna",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 9315,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/due%C3%B1a-y-se%C3%B1ora/1131429733?uo=4",
+   "id": 1131429733,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Dueña y Señora",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 9316,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tri%C3%A1ngulo-de-amor/1129392596?uo=4",
+   "id": 1129392596,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Triángulo de Amor",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 14705,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/100-x-100-criollo/1112341292?uo=4",
+   "id": 1112341292,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "100 X 100 Criollo",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 9321,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cancionera/1579128536?uo=4",
+   "id": 1579128536,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cancionera",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 9326,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sus-%C3%A9xitos/1436149366?uo=4",
+   "id": 1436149366,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sus Éxitos",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 14702,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/16-grandes-%C3%A9xitos/1548569429?uo=4",
+   "id": 1548569429,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "16 Grandes Éxitos",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 14703,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/segundo-impacto-de-reyna-lucero/1548585401?uo=4",
+   "id": 1548585401,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Segundo Impacto De Reyna Lucero",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 9324,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/homenaje-a-la-gaita/1542694886?uo=4",
+   "id": 1542694886,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Homenaje A La Gaita",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 9325,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lunita-llanera/1773796098?uo=4",
+   "id": 1773796098,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lunita Llanera",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9304,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1045997862",
+   "id": 1045997862,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aires De Mi Tierra",
+   "year_plat": 1978
+  },
+  {
+   "albumId": 9306,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1063839911",
+   "id": 1063839911,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Consentida",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 9305,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1058301822",
+   "id": 1058301822,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Segundo Impacto De Reina Lucero",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 9307,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/71422562",
+   "id": 71422562,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Triunfadora",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 9309,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1063839951",
+   "id": 1063839951,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Amiga",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 9308,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1041575002",
+   "id": 1041575002,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Impactante",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 9312,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/534429662",
+   "id": 534429662,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Reina Siempre Reina",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 9310,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1047858922",
+   "id": 1047858922,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Lo Nuevo De Reyna Lucero",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 9313,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/534436782",
+   "id": 534436782,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.955,
+   "title_plat": "Reyna Le Canta Al Amor",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 9131,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13461965",
+   "id": 13461965,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sigo Siendo Reyna",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 9315,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13514941",
+   "id": 13514941,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dueña y Señora",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 9316,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13470313",
+   "id": 13470313,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Triangulo de Amor",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 14705,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13061446",
+   "id": 13061446,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "100 X 100 Criollo",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 9320,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/251720972",
+   "id": 251720972,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.919,
+   "title_plat": "El Hogar de Reyna",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9321,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/248569682",
+   "id": 248569682,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cancionera",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 9326,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/73099702",
+   "id": 73099702,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sus Exitos",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 14702,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/88725502",
+   "id": 88725502,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "16 Grandes Éxitos",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 14703,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/83900222",
+   "id": 83900222,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Segundo Impacto De Reyna Lucero",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 9324,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/187860922",
+   "id": 187860922,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Homenaje A La Gaita",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 9325,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/237208162",
+   "id": 237208162,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Lunita Llanera",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Reyna Lucero",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 30,
+ "albumes_con_link": 20
+}

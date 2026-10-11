@@ -1,0 +1,112 @@
+{
+ "artistId": 3540,
+ "name": "Marlon Simon",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1121212",
+   "id": 1121212,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Marlon Simon"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5Lqi7SAm30coFkFdAkINqq",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Marlon Simon"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/marlonsimonmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6372,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/rumba-a-la-patato/1878214311?uo=4",
+   "id": 1878214311,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Rumba a La Patato",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 6373,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/live-in-la-paz-bolivia/75525803?uo=4",
+   "id": 75525803,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Live In la Paz Bolivia",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 6374,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/in-case-you-missed-it/1066885989?uo=4",
+   "id": 1066885989,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "In Case You Missed It",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 6372,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/921757521",
+   "id": 921757521,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rumba a La Patato",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 6373,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/825415",
+   "id": 825415,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Live in La Paz Bolivia",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 6374,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11922030",
+   "id": 11922030,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "In Case You Missed It",
+   "year_plat": 2007
+  }
+ ],
+ "mb_name": "Marlon Simon",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 3
+}

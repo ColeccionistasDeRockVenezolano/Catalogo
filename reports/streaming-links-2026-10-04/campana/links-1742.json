@@ -1,0 +1,51 @@
+{
+ "artistId": 1742,
+ "name": "Los Domingues",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6385452",
+   "id": 6385452,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Domingues"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3208,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/un-bolon/306213978?uo=4",
+   "id": 306213978,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Un Bolon",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 3208,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8379818",
+   "id": 8379818,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Un Bolon",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Los Domingues",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

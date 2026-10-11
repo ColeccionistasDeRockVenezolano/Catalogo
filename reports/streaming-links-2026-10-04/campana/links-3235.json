@@ -1,0 +1,28 @@
+{
+ "artistId": 3235,
+ "name": "People Pie",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/566219",
+   "id": 566219,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.9,
+   "name_plat": "People Die"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

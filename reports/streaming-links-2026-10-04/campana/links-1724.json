@@ -1,0 +1,28 @@
+{
+ "artistId": 1724,
+ "name": "Perfect Asymmetry",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1550178",
+   "id": 1550178,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.97,
+   "name_plat": "Perfect Symmetry"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

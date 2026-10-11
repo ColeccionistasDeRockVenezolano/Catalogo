@@ -1,0 +1,131 @@
+{
+ "artistId": 481,
+ "name": "Sistema Diez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5475110",
+   "id": 5475110,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sistema Diez"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://sistemadiez.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sistema Diez"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7Ez8aIp7xmepXSXmnTxbF3",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sistema Diez"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/sistemadiez/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sistema Diez"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/sistemadiez",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sistema Diez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1788,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/solo-quiero-que-vivas/1439251421?uo=4",
+   "id": 1439251421,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Solo Quiero Que Vivas",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1855,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/todos-sospechosos/1634049636?uo=4",
+   "id": 1634049636,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Todos Sospechosos",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 1788,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/75844332",
+   "id": 75844332,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Solo Quiero Que Vivas",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1855,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/334879477",
+   "id": 334879477,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Todos Sospechosos",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 1024,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/115445782",
+   "id": 115445782,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Estafa Colectiva",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 921,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/147504082",
+   "id": 147504082,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Forjados Por el Odio",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Sistema Diez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 4
+}

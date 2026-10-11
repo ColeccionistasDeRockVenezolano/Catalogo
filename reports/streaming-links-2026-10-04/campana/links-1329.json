@@ -1,0 +1,28 @@
+{
+ "artistId": 1329,
+ "name": "The Luchos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/7712386",
+   "id": 7712386,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.9,
+   "name_plat": "The Cuchos"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

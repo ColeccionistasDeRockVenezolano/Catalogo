@@ -1,0 +1,51 @@
+{
+ "artistId": 3987,
+ "name": "Neíffe Peña",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4343368",
+   "id": 4343368,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Neiffe Peña"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9757,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mi-ciudad/594048149?uo=4",
+   "id": 594048149,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mi ciudad",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 9757,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6236474",
+   "id": 6236474,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi ciudad",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

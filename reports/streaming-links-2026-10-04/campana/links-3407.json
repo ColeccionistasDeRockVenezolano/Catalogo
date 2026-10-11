@@ -1,0 +1,161 @@
+{
+ "artistId": 3407,
+ "name": "Leopoldo Betancourt",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1128795",
+   "id": 1128795,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Leopoldo Betancourt"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6014,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/los-a%C3%B1os-dorados-de-la-m%C3%B9sica-latinoamericana/814284705?uo=4",
+   "id": 814284705,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Los Años Dorados de la Mùsica Latinoamericana",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 5890,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/los-boleros-de-agust%C3%ADn-lara/808980948?uo=4",
+   "id": 808980948,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Los Boleros de Agustín Lara",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 5889,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/intimo/811548200?uo=4",
+   "id": 811548200,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Intimo",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 5892,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dos-mundos/1527711017?uo=4",
+   "id": 1527711017,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Dos Mundos",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 5895,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dos-mundos/1527711017?uo=4",
+   "id": 1527711017,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "Dos Mundos",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 5897,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/con-el-coraz%C3%B3n-en-las-manos/1373224471?uo=4",
+   "id": 1373224471,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Con el Corazón en las Manos",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 5899,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/poemas-infinitos/1685760866?uo=4",
+   "id": 1685760866,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Poemas Infinitos",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 6014,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8356654",
+   "id": 8356654,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Los Años Dorados de la Mùsica Latinoamericana",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 5892,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56388462",
+   "id": 56388462,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dos Mundos",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 5895,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56388462",
+   "id": 56388462,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.909,
+   "title_plat": "Dos Mundos",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 5897,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/61475262",
+   "id": 61475262,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Con el Corazón en las Manos",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 5899,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/436674957",
+   "id": 436674957,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Poemas Infinitos",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 34,
+ "albumes_con_link": 7
+}

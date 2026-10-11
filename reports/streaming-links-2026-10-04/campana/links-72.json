@@ -1,0 +1,51 @@
+{
+ "artistId": 72,
+ "name": "DJ Afro",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1608146",
+   "id": 1608146,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "DJ Afro"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 435,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/free/420167376?uo=4",
+   "id": 420167376,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Free",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 435,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1527086",
+   "id": 1527086,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Free",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "DJ Afro",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

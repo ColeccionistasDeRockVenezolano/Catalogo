@@ -1,0 +1,28 @@
+{
+ "artistId": 1558,
+ "name": "Bluff",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/368219",
+   "id": 368219,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "BLUFF"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "BLUFF",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

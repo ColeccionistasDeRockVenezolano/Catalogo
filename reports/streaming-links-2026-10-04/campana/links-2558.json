@@ -1,0 +1,118 @@
+{
+ "artistId": 2558,
+ "name": "Death",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/61256482",
+   "id": 61256482,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Death"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://death.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Death"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4f5V3PQ66nIrBCqugJtaGn",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Death"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id17249530",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Death"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/deathofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Death"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/DeathOfficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Death"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/deathofficial/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Death"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/deathofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Death"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B001SY1UX8",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Death"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/37424",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Death"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://music.youtube.com/channel/UCBtumM97cGWGtM0n2A9A8NQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Death"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Death",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

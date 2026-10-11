@@ -1,0 +1,82 @@
+{
+ "artistId": 643,
+ "name": "Trueno",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1333264",
+   "id": 1333264,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Trueno"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2x7PC78TmgqpEIjaGAZ0Oz",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trueno"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/TruenoOficiaI",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trueno"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/trueno/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trueno"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/ar/artist/269919603",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trueno"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4197130",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trueno"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCEPYn7xbzvQwL9C21evFGDg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trueno"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Trueno",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

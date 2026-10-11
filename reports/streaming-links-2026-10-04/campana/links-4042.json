@@ -1,0 +1,30 @@
+{
+ "artistId": 4042,
+ "name": "Carrasco/Castillo",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 9925,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ahora-o-nunca/410459569?uo=4",
+   "id": 410459569,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ahora o Nunca",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

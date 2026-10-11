@@ -1,0 +1,69 @@
+{
+ "artistId": 3444,
+ "name": "Andrés Briceño",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10929544",
+   "id": 10929544,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Andrés Briceño"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/andresitodrum",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Andrés Briceño"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/andresbric02/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Andrés Briceño"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6067,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/gratitude/1580969728?uo=4",
+   "id": 1580969728,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Gratitude",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 6067,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/251437082",
+   "id": 251437082,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Gratitude",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Andrés Briceño",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

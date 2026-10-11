@@ -1,0 +1,36 @@
+{
+ "artistId": 4625,
+ "name": "Escritores de Salem",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/56047702",
+   "id": 56047702,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.905,
+   "name_plat": "Los Escritores de Salem"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2CRAO3XGnUInExxwpFAAs7",
+   "id": "2CRAO3XGnUInExxwpFAAs7",
+   "method": "fuzzy",
+   "source": "spotify-search",
+   "score": 0.905,
+   "name_plat": "Los Escritores de Salem"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

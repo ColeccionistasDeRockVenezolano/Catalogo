@@ -1,0 +1,88 @@
+{
+ "artistId": 347,
+ "name": "Niño Nuclear",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10806620",
+   "id": 10806620,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7eTCFFftJMUnRRB4GUKm8c",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/Ni%C3%B1oNuclear",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7eTCFFftJMUnRRB4GUKm8c",
+   "id": "7eTCFFftJMUnRRB4GUKm8c",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Niño Nuclear"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 834,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/los-mutantes-nunca-mueren/1823521819?uo=4",
+   "id": 1823521819,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 747,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/re-sol-abierto/1511955476?uo=4",
+   "id": 1511955476,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 834,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/779628841",
+   "id": 779628841,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 747,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/711084651",
+   "id": 711084651,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0
+  }
+ ],
+ "mb_name": "Niño Nuclear",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

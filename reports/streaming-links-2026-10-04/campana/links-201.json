@@ -1,0 +1,40 @@
+{
+ "artistId": 201,
+ "name": "Punto De Partida",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14994363",
+   "id": 14994363,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Punto de Partida"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 85,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/688520671",
+   "id": 688520671,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "No Te Lo Tomes a Mal",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

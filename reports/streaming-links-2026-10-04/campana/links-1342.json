@@ -1,0 +1,62 @@
+{
+ "artistId": 1342,
+ "name": "Ficción",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/319258",
+   "id": 319258,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ficcion"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2352,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/486511",
+   "id": 486511,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sobre el Abismo",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 2349,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/437305",
+   "id": 437305,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sobre la Cresta de la Ola",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 4783,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7621799",
+   "id": 7621799,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sobre La Ira De Dios",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Ficción",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

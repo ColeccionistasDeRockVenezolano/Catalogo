@@ -1,0 +1,46 @@
+{
+ "artistId": 4528,
+ "name": "Priska",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/256798",
+   "id": 256798,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Priska"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2VnNxgnvg9H85vWtZuBo6w",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Priska"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4582145",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Priska"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Priska",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

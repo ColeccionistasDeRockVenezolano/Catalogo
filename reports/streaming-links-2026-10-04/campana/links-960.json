@@ -1,0 +1,28 @@
+{
+ "artistId": 960,
+ "name": "Baphometh",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/97202",
+   "id": 97202,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.941,
+   "name_plat": "Baphomet"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Baphometh",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

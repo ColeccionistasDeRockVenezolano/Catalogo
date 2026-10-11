@@ -1,0 +1,115 @@
+{
+ "artistId": 125,
+ "name": "King Changó",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12464",
+   "id": 12464,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "King Changó"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5nZlhgO7iNedGlO0gKu9us",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "King Changó"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 208,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/king-chango/3737857?uo=4",
+   "id": 3737857,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "King Chango",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 209,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-return-of-el-santo/4512169?uo=4",
+   "id": 4512169,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Return of El Santo",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 208,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1158145",
+   "id": 1158145,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "King Changó",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 209,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1157639",
+   "id": 1157639,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Return of El Santo",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 5546,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/570789121",
+   "id": 570789121,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "One of a King",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 5544,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/521079122",
+   "id": 521079122,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mele Kalikimaka",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 5543,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/463292385",
+   "id": 463292385,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Latin Ska 27",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "King Changó",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 5
+}

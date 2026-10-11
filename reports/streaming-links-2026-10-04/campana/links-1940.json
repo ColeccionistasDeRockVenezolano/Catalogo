@@ -1,0 +1,95 @@
+{
+ "artistId": 1940,
+ "name": "Fauna Crepuscular",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/92530792",
+   "id": 92530792,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Fauna Crepuscular"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 525,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-primero-siempre-es-r%C3%A1pido/1570311372?uo=4",
+   "id": 1570311372,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Primero Siempre Es Rápido",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 524,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/camina/1510055748?uo=4",
+   "id": 1510055748,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Camina",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 526,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/fauna/1569508924?uo=4",
+   "id": 1569508924,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Fauna",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 525,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/234568142",
+   "id": 234568142,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Primero Siempre Es Rápido",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 524,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/144193562",
+   "id": 144193562,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Camina",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 526,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/233118752",
+   "id": 233118752,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fauna",
+   "year_plat": 2006
+  }
+ ],
+ "mb_name": "Fauna Crepuscular",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

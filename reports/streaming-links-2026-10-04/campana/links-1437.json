@@ -1,0 +1,82 @@
+{
+ "artistId": 1437,
+ "name": "Dolli",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://dolli.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dolli"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5ft57pjoYVkFusGm6GQbnL",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dolli"
+  },
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1342317",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dolli"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/brolidolli",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dolli"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/el-dolli-de-los-foleys",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dolli"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/206518943",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dolli"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4626969",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dolli"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Dolli",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 10,
+ "albumes_con_link": 0
+}

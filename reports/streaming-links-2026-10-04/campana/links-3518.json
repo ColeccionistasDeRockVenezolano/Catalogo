@@ -1,0 +1,62 @@
+{
+ "artistId": 3518,
+ "name": "Juan Ernesto Velásquez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/66453982",
+   "id": 66453982,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Juan Ernesto Velasquez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6326,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%BAsica-para-ver-las-nubes/6804990235?uo=4",
+   "id": 6804990235,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Música para ver las nubes",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 6326,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1062448381",
+   "id": 1062448381,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Música para ver las nubes",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 6327,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1052404662",
+   "id": 1052404662,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Marea",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

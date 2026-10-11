@@ -1,0 +1,46 @@
+{
+ "artistId": 4655,
+ "name": "Los Cadillac's",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/458233",
+   "id": 458233,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Cadillac'S"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/loscadillacs_",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Cadillac's"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/pages/LOS-CADILLACS/82714768227",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Cadillac's"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Los Cadillac's",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

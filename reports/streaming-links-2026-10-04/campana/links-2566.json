@@ -1,0 +1,91 @@
+{
+ "artistId": 2566,
+ "name": "Ghoul",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/807399",
+   "id": 807399,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ghoul"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://maniaxe.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ghoul"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/06C4vc6gfSVrsyl1RUuVb6",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ghoul"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id267306410",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ghoul"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/GhoulOfficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ghoul"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/GhoulunaticsAsylum",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ghoul"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/30565349",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ghoul"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCKkOQ702Bkj6e_tHuj3JrMA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ghoul"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Ghoul",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

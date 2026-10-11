@@ -1,0 +1,246 @@
+{
+ "artistId": 4271,
+ "name": "Gustavo Dudamel",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/391474",
+   "id": 391474,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gustavo Dudamel"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0cxXnDhpgxcMMkKddhORHY",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gustavo Dudamel"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/GustavoDudamel",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gustavo Dudamel"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/GDudamel",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gustavo Dudamel"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/gustavodudamel/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gustavo Dudamel"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/gustavodudamel",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gustavo Dudamel"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/173392443",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gustavo Dudamel"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/5912030",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gustavo Dudamel"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14137,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/beethoven-symphonies-nos-5-7-shostakovich-festive-overture/6812050461?uo=4",
+   "id": 6812050461,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Beethoven: Symphonies Nos. 5 & 7; Shostakovich: Festive Overture",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 14136,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/fiesta/1452658999?uo=4",
+   "id": 1452658999,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Fiesta",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 14133,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/discoveries/1452576246?uo=4",
+   "id": 1452576246,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Discoveries",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 14131,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/beethoven-symphony-no-7/1073646323?uo=4",
+   "id": 1073646323,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Beethoven: Symphony No. 7",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14129,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/beethoven-symphony-no-5/1206417421?uo=4",
+   "id": 1206417421,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.902,
+   "title_plat": "Beethoven: Symphony No. 5",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 14130,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/odyssey/1828649659?uo=4",
+   "id": 1828649659,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Odyssey",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14138,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ravel-bol%C3%A9ro-m-81/1800714856?uo=4",
+   "id": 1800714856,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ravel: Boléro, M. 81",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14137,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6405021",
+   "id": 6405021,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Beethoven: Symphonies Nos. 5 & 7; Shostakovich: Festive Overture",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 14136,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6450626",
+   "id": 6450626,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fiesta",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 14133,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6425511",
+   "id": 6425511,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Discoveries",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 14139,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/793439591",
+   "id": 793439591,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Danzon No. 9",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14130,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/793433871",
+   "id": 793433871,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Odyssey",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14138,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/723860411",
+   "id": 723860411,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ravel: Boléro, M. 81",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14132,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/940235671",
+   "id": 940235671,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Alma y Fuego",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Gustavo Dudamel",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 11,
+ "albumes_con_link": 9
+}

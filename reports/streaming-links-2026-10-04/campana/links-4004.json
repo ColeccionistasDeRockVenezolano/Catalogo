@@ -1,0 +1,109 @@
+{
+ "artistId": 4004,
+ "name": "Sinfónica Coral Kanaimö",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/252890912",
+   "id": 252890912,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sinfónica Coral Kanaimö"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://sinfonicacoralkanaimo.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sinfónica Coral Kanaimö"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/sinfonica.canaima/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sinfónica Coral Kanaimö"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/1728913673",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sinfónica Coral Kanaimö"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@Sinfonica.Canaima",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sinfónica Coral Kanaimö"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9799,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/patamuna/1728913354?uo=4",
+   "id": 1728913354,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Patamuna",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 9800,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ukowann%C3%B6ndok/1816768054?uo=4",
+   "id": 1816768054,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.957,
+   "title_plat": "Ukowannöndok",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 9799,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/542787652",
+   "id": 542787652,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Patamuna",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 9800,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/762864101",
+   "id": 762864101,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.957,
+   "title_plat": "Ukowannöndok",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": "Sinfónica Coral Kanaimö",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

@@ -1,0 +1,60 @@
+{
+ "artistId": 1361,
+ "name": "Jan Pawel",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://janpawel.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jan Pawel"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/janpawelmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jan Pawel"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2378,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/conejillo-de-indias/1515175053?uo=4",
+   "id": 1515175053,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.947,
+   "title_plat": "Conejillo de Indias",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 2379,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/demasiado-viejo-para-morir-joven/1515177148?uo=4",
+   "id": 1515177148,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Demasiado Viejo para Morir Joven",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "Jan Pawel",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

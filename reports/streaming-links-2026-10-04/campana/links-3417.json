@@ -1,0 +1,62 @@
+{
+ "artistId": 3417,
+ "name": "Simón Bolívar Symphony Orchestra of Venezuela",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1305191",
+   "id": 1305191,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Simón Bolívar Symphony Orchestra of Venezuela"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5930,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/caramelos-latinos/557241856?uo=4",
+   "id": 557241856,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Caramelos Latinos",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 5929,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/latin-american-ballets/557220638?uo=4",
+   "id": 557220638,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Latin American Ballets",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 5929,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/580805621",
+   "id": 580805621,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Latin American Ballets",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 9,
+ "albumes_con_link": 2
+}

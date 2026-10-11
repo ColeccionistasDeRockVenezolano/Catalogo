@@ -1,0 +1,95 @@
+{
+ "artistId": 3084,
+ "name": "The Silent of Death",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/246999052",
+   "id": 246999052,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "The Silent Of Death"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5197,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/guerra-a-tu-mente/1756608044?uo=4",
+   "id": 1756608044,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Guerra A Tu Mente",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 5198,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/inocencia-muerta-ep/1763227633?uo=4",
+   "id": 1763227633,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.914,
+   "title_plat": "Inocencia Muerta - EP",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 5196,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/523979882",
+   "id": 523979882,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Días Endemoniados",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 5197,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/612446052",
+   "id": 612446052,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Guerra A Tu Mente",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 5198,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/630452961",
+   "id": 630452961,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Inocencia Muerta",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 5200,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/802934761",
+   "id": 802934761,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aquelarre",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 4
+}

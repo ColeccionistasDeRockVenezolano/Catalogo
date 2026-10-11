@@ -1,0 +1,40 @@
+{
+ "artistId": 2726,
+ "name": "Trujillo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1460319",
+   "id": 1460319,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Trujillo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15604,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1611263",
+   "id": 1611263,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Daltonic Now!",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Trujillo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 1
+}

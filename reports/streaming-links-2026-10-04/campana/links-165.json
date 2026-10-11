@@ -1,0 +1,64 @@
+{
+ "artistId": 165,
+ "name": "Mantra",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/75269462",
+   "id": 75269462,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mantra"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7KDVw12ewVe5yE1707NUmW",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mantra"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/mantra_mc",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mantra"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/mantrahiphop",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mantra"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCgaDelCAyUFYLxysz_OMHCA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mantra"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Mantra",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

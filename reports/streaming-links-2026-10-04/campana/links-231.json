@@ -1,0 +1,62 @@
+{
+ "artistId": 231,
+ "name": "Submarino",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/54546982",
+   "id": 54546982,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Submarino"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://submarino.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Submarino"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/02FHtKJwAbzg3Notvort3F",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Submarino"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/submarino2001",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/submarino2001/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Submarino",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

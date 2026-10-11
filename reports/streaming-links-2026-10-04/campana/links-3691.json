@@ -1,0 +1,46 @@
+{
+ "artistId": 3691,
+ "name": "Cora",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/116090532",
+   "id": 116090532,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cora"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1CgZJ1xulYlXA3TBv3ufmr",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cora"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/CoraAmsterdam",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cora"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Cora",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,404 @@
+{
+ "artistId": 4255,
+ "name": "Akapellah",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6998083",
+   "id": 6998083,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Akapellah"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6fMZytDgX1Q9OV6ndSugym",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Akapellah"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/6275315",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Akapellah"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/artist/935514904",
+   "id": "935514904",
+   "method": "exact",
+   "source": "wikidata-Q65062061",
+   "score": 1.0
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCltYE2CLCq9Ww4KJ5szfFEg",
+   "id": "UCltYE2CLCq9Ww4KJ5szfFEg",
+   "method": "exact",
+   "source": "wikidata-Q65062061",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 13723,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/como-siempre/940287793?uo=4",
+   "id": 940287793,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Como Siempre",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 13754,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/fiesta-boombox-remix-feat-lil-supa-single/1100242791?uo=4",
+   "id": 1100242791,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.907,
+   "title_plat": "Fiesta (Boombox Remix) [feat. Lil Supa] - Single",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 13749,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/double-cup-feat-trainer-big-soto-single/1202600467?uo=4",
+   "id": 1202600467,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.901,
+   "title_plat": "Double Cup (feat. Trainer & Big Soto) - Single",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 13715,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/funky-fresco/1531483824?uo=4",
+   "id": 1531483824,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Funky Fresco",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13716,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/goldo-funky/1541081235?uo=4",
+   "id": 1541081235,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Goldo Funky",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13717,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/respira-deluxe/1653885525?uo=4",
+   "id": 1653885525,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Respira (Deluxe)",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 13722,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/xtassy/1682712476?uo=4",
+   "id": 1682712476,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Xtassy",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13720,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pedro-el%C3%ADas/1740184388?uo=4",
+   "id": 1740184388,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pedro Elías",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13718,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pneuma/1816033859?uo=4",
+   "id": 1816033859,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pneuma",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13723,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9148183",
+   "id": 9148183,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Como Siempre",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 13715,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/173644042",
+   "id": 173644042,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Funky Fresco",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13716,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/187462032",
+   "id": 187462032,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Goldo Funky",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13738,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/267326422",
+   "id": 267326422,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Am0R",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13737,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/281288001",
+   "id": 281288001,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "No Me Quiero Levantar",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13735,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/311147877",
+   "id": 311147877,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Velocidad",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 13717,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/374119827",
+   "id": 374119827,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Respira (Deluxe)",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 13736,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/292933032",
+   "id": 292933032,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Choppa",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 13734,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/421126717",
+   "id": 421126717,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pa' ganá",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13733,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/496226641",
+   "id": 496226641,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "SUCIO",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13722,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/429659607",
+   "id": 429659607,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Xtassy",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13732,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/521135552",
+   "id": 521135552,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ni Con Money",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13720,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/570945751",
+   "id": 570945751,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pedro Elías",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13731,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/553389632",
+   "id": 553389632,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pertenezco Aquí",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13728,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/861389982",
+   "id": 861389982,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Te Mande 10K",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13730,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/705085471",
+   "id": 705085471,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dá Professor",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13718,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/759934881",
+   "id": 759934881,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pneuma",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13729,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/746844181",
+   "id": 746844181,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Parriba (feat. Trueno)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13726,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/982130341",
+   "id": 982130341,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hijos de la Tierra",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 13724,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1104107732",
+   "id": 1104107732,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pedro Cash",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 13725,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1050982152",
+   "id": 1050982152,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Plaga",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 13727,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/966646641",
+   "id": 966646641,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Pana Deiby",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Akapellah",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 41,
+ "albumes_con_link": 24
+}

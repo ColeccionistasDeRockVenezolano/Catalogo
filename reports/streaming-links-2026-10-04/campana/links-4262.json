@@ -1,0 +1,37 @@
+{
+ "artistId": 4262,
+ "name": "Teresa Carreño",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/3337701",
+   "id": 3337701,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Teresa Carreno"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/78r2ZzStp8jQKUOCy2tcE7",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Teresa Carreño"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Teresa Carreño",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

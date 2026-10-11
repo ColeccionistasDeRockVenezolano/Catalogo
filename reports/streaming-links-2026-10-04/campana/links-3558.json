@@ -1,0 +1,95 @@
+{
+ "artistId": 3558,
+ "name": "Otmaro Ruiz",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1055446",
+   "id": 1055446,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Otmaro Ruiz"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6432,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sojourn/338910200?uo=4",
+   "id": 338910200,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sojourn",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6433,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/elemental/1443917433?uo=4",
+   "id": 1443917433,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Elemental",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 6434,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ess%C3%AAncia/1497044980?uo=4",
+   "id": 1497044980,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Essência",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 6432,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/2841011",
+   "id": 2841011,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sojourn",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6433,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/76810842",
+   "id": 76810842,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Elemental",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 6434,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/129299512",
+   "id": 129299512,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Essência",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Otmaro Ruiz",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 3
+}

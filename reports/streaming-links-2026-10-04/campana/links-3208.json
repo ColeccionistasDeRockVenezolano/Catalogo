@@ -1,0 +1,40 @@
+{
+ "artistId": 3208,
+ "name": "Abísmal",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4505704",
+   "id": 4505704,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Abismal"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5491,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/919788671",
+   "id": 919788671,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Seres del abismo",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Abismal",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,28 @@
+{
+ "artistId": 4297,
+ "name": "Grupo Madera",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1819601",
+   "id": 1819601,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Grupo Madera"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Grupo Madera",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

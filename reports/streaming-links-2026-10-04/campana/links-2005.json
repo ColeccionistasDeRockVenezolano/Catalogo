@@ -1,0 +1,51 @@
+{
+ "artistId": 2005,
+ "name": "San Lukas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/139221352",
+   "id": 139221352,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "San Lukas"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4470,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/alto-voltaje/522021696?uo=4",
+   "id": 522021696,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Alto Voltaje",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 4470,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/244480432",
+   "id": 244480432,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Alto Voltaje",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

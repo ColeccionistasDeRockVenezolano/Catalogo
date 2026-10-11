@@ -1,0 +1,78 @@
+{
+ "artistId": 2324,
+ "name": "Illya Kuryaki & The Valderramas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/414431602",
+   "id": 414431602,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Illya Kuryaki & The Valderramas"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2Rc3Tb5XUPF1YlnQwuPgjg",
+   "id": null,
+   "method": "fuzzy",
+   "source": "musicbrainz-url-rels",
+   "score": 0.935,
+   "name_plat": "Illya Kuryaki and the Valderramas"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3515805",
+   "id": null,
+   "method": "fuzzy",
+   "source": "musicbrainz-url-rels",
+   "score": 0.935,
+   "name_plat": "Illya Kuryaki and the Valderramas"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/artist/161873942",
+   "id": "161873942",
+   "method": "fuzzy",
+   "source": "wikidata-Q1658936",
+   "score": 0.935
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/ikvoficial",
+   "id": null,
+   "method": "fuzzy",
+   "source": "musicbrainz-url-rels",
+   "score": 0.935
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/ikvoficial",
+   "id": null,
+   "method": "fuzzy",
+   "source": "musicbrainz-url-rels",
+   "score": 0.935
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/ikvoficial/",
+   "id": null,
+   "method": "fuzzy",
+   "source": "musicbrainz-url-rels",
+   "score": 0.935
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Illya Kuryaki and the Valderramas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

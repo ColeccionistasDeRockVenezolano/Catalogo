@@ -1,0 +1,95 @@
+{
+ "artistId": 289,
+ "name": "Azúcar, Cacao & Leche",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11392140",
+   "id": 11392140,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.947,
+   "name_plat": "Azucar, Cacao Y Leche"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4645,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/los-m%C3%A1s-grandes-%C3%A9xitos-de-edgar-alexander-az%C3%BAcar/1495437448?uo=4",
+   "id": 1495437448,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Los Más Grandes Éxitos De Edgar Alexander & Azúcar, Cacao Y Leche",
+   "year_plat": 1975
+  },
+  {
+   "albumId": 4957,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/gente/1496223546?uo=4",
+   "id": 1496223546,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Gente",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 4956,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tiempo-para-amar/1495435920?uo=4",
+   "id": 1495435920,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tiempo Para Amar",
+   "year_plat": 1975
+  },
+  {
+   "albumId": 4645,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/128715332",
+   "id": 128715332,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Los Más Grandes Éxitos De Edgar Alexander & Azúcar, Cacao Y Leche",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 4957,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/128761022",
+   "id": 128761022,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Gente",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 4956,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/128733522",
+   "id": 128733522,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tiempo Para Amar",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 3
+}

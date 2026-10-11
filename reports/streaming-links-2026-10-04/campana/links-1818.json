@@ -1,0 +1,67 @@
+{
+ "artistId": 1818,
+ "name": "Mariano Godoy",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1121729",
+   "id": 1121729,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mariano Godoy"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://marianogodoy2.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mariano Godoy"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/godoymariano",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mariano Godoy"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/fanpagemarianogodoy",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mariano Godoy"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3531,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/826189",
+   "id": 826189,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Demons",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Mariano Godoy",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

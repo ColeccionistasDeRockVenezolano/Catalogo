@@ -1,0 +1,75 @@
+{
+ "artistId": 312,
+ "name": "Prozak",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/279736871",
+   "id": 279736871,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Prozak"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4NSyPddPUVUfPVMiBn9UAg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Prozak"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/4258290",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Prozak"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3876006",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Prozak"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC9PIQuiRXhMU_J9NdBWu2cA",
+   "id": "UC9PIQuiRXhMU_J9NdBWu2cA",
+   "method": "exact",
+   "source": "wikidata-Q4353377",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 691,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/prozak/1523240232?uo=4",
+   "id": 1523240232,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Prozak",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Prozak",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 1
+}

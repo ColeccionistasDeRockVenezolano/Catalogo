@@ -1,0 +1,40 @@
+{
+ "artistId": 656,
+ "name": "Necroprogenie",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11419094",
+   "id": 11419094,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Necroprogenie"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1157,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dead-in-vain-pact-of-blood-single/1780674820?uo=4",
+   "id": 1780674820,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.943,
+   "title_plat": "Dead In Vain (Pact of Blood) - Single",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "Necroprogenie",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

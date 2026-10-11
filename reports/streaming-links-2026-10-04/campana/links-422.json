@@ -1,0 +1,58 @@
+{
+ "artistId": 422,
+ "name": "P3D1TVM",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/81823362",
+   "id": 81823362,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "P3D1TVM"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://p3d1tvm.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "P3D1TVM"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/user-376742695",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "P3D1TVM"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1308,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/124460832",
+   "id": 124460832,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Romantic Fecal Dinner",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": "P3D1TVM",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,82 @@
+{
+ "artistId": 4735,
+ "name": "Montesanto",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/13024671",
+   "id": 13024671,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Montesanto"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/71UQaXNOhfg5hlYglhzVCJ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Montesanto"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id1272197845",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Montesanto"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/montesantoficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Montesanto"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/montesantoficial/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Montesanto"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com.mx/artists/B074VCJXGH",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Montesanto"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCnZ6hoEaTBKA_ai42j2Ao1A",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Montesanto"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Montesanto",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

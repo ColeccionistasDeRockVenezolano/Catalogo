@@ -1,0 +1,73 @@
+{
+ "artistId": 129,
+ "name": "La Corte",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5220032",
+   "id": 5220032,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "La Corte"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 214,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/c%C3%B3digo-demente/6770690506?uo=4",
+   "id": 6770690506,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Código Demente",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 215,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/imperia/1884744758?uo=4",
+   "id": 1884744758,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Imperia",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 214,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/985809681",
+   "id": 985809681,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Código Demente",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 215,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/566230941",
+   "id": 566230941,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Imperia",
+   "year_plat": 2000
+  }
+ ],
+ "mb_name": "La Corte",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 2
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 1865,
+ "name": "Alterna",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5475933",
+   "id": 5475933,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Alterna"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3781,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1039416692",
+   "id": 1039416692,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Alterna",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Alterna",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,71 @@
+{
+ "artistId": 262,
+ "name": "Wahala",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/401033",
+   "id": 401033,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Wahala"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://wahala.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Wahala"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 97,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/wahala/199896439?uo=4",
+   "id": 199896439,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Wahala",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 408,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mejores-dias-y-mejores-noches/545184730?uo=4",
+   "id": 545184730,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mejores Dias y Mejores Noches",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 408,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/4539661",
+   "id": 4539661,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mejores Dias y Mejores Noches",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Wahala",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 2
+}

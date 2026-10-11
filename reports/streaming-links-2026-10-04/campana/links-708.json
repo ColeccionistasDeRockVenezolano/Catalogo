@@ -1,0 +1,28 @@
+{
+ "artistId": 708,
+ "name": "Makara",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2338671",
+   "id": 2338671,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "MAKARA"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Makara",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

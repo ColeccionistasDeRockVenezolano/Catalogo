@@ -1,0 +1,40 @@
+{
+ "artistId": 1509,
+ "name": "Antares",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/112931",
+   "id": 112931,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Antares"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5042,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/903316882",
+   "id": 903316882,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antares",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Antares",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 4331,
+ "name": "Impromptu Trio",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/169967437",
+   "id": 169967437,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Impromptu Trio"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15280,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/spontaneous/1703047495?uo=4",
+   "id": 1703047495,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.952,
+   "title_plat": "Spontaneous",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15280,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/477459695",
+   "id": 477459695,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.952,
+   "title_plat": "Spontaneous",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Impromptu Trio",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

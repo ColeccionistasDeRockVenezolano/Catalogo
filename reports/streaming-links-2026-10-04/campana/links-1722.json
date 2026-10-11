@@ -1,0 +1,359 @@
+{
+ "artistId": 1722,
+ "name": "Frank Quintero",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/826229",
+   "id": 826229,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Frank Quintero"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2362,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/despu%C3%A9s-de-la-tormenta/1528611385?uo=4",
+   "id": 1528611385,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Después de la Tormenta",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3163,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-noche-con-poca-luz/1483281367?uo=4",
+   "id": 1483281367,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.955,
+   "title_plat": "De Noche Con Poca Luz",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 3164,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/letra-y-m%C3%BAsica/1442130947?uo=4",
+   "id": 1442130947,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Letra y Música",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 3167,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/p%C3%A1jaros-y-estrellas/1453569802?uo=4",
+   "id": 1453569802,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pájaros y Estrellas",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 3162,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-trav%C3%A9s-de-mis-ojos/1435109806?uo=4",
+   "id": 1435109806,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A Través De Mis Ojos",
+   "year_plat": 1984
+  },
+  {
+   "albumId": 3161,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/una-en-un-mill%C3%B3n/1453570097?uo=4",
+   "id": 1453570097,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Una En un Millón",
+   "year_plat": 1985
+  },
+  {
+   "albumId": 3160,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-de-siempre/1436325100?uo=4",
+   "id": 1436325100,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El De Siempre",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 3157,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/agua-dulce/1437920731?uo=4",
+   "id": 1437920731,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Agua Dulce",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 4105,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bien/1737460750?uo=4",
+   "id": 1737460750,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bien",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 3156,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/signos-de-admiraci%C3%B3n/1736163157?uo=4",
+   "id": 1736163157,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Signos de Admiración",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 4107,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/guerreros-de-luz/494213523?uo=4",
+   "id": 494213523,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Guerreros De Luz",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 3406,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/natural/1000092601?uo=4",
+   "id": 1000092601,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Natural",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 2362,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/168395872",
+   "id": 168395872,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Después de la Tormenta",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3169,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/85697012",
+   "id": 85697012,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Travesia",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 3166,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/90096042",
+   "id": 90096042,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hechizo",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 3163,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/114616482",
+   "id": 114616482,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.955,
+   "title_plat": "De Noche Con Poca Luz",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 3164,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/86879062",
+   "id": 86879062,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Letra y Música",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3167,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103449742",
+   "id": 103449742,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pájaros y Estrellas",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3162,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/72268422",
+   "id": 72268422,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Través De Mis Ojos",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 3168,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/626858471",
+   "id": 626858471,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.927,
+   "title_plat": "Calle del Atardecer",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 3161,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/93013252",
+   "id": 93013252,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Una en un Millón",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 4104,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/634726161",
+   "id": 634726161,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hablando a tu Sueño",
+   "year_plat": 1987
+  },
+  {
+   "albumId": 3160,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/73205312",
+   "id": 73205312,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El De Siempre",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 3165,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/626841271",
+   "id": 626841271,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Buscando Soles",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 3157,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/74622962",
+   "id": 74622962,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Agua Dulce",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 4108,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/359529667",
+   "id": 359529667,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canciones para Mis Pequeños Amigos",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 4105,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/563687412",
+   "id": 563687412,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bien",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 3156,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/560706522",
+   "id": 560706522,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Signos de Admiración",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 4107,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7137783",
+   "id": 7137783,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Guerreros de luz",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 3406,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10530642",
+   "id": 10530642,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Natural",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": "Frank Quintero",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 36,
+ "albumes_con_link": 18
+}

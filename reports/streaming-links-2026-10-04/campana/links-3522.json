@@ -1,0 +1,40 @@
+{
+ "artistId": 3522,
+ "name": "Kactus",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/366964",
+   "id": 366964,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Kactus"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6337,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/213202492",
+   "id": 213202492,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Habitat",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Kactus",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

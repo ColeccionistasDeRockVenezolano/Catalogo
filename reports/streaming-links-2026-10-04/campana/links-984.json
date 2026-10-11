@@ -1,0 +1,28 @@
+{
+ "artistId": 984,
+ "name": "Obsidiah",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1930431",
+   "id": 1930431,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.933,
+   "name_plat": "Obsidia"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

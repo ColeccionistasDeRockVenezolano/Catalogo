@@ -1,0 +1,302 @@
+{
+ "artistId": 70,
+ "name": "Culto Oculto",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5659618",
+   "id": 5659618,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "culto oculto"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/CULTOOCULTO",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Culto Oculto"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14021,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/boa-com%C3%BAn-constrictor-constrictor-single/1350599007?uo=4",
+   "id": 1350599007,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.904,
+   "title_plat": "Boa Común (Constrictor, Constrictor) - Single",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 434,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/blanco/210435127?uo=4",
+   "id": 210435127,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "blanco",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 2715,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/puticlub/1677249499?uo=4",
+   "id": 1677249499,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Puticlub",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14009,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-el-calabozo-de-tu-amor-ep/1738841157?uo=4",
+   "id": 1738841157,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.943,
+   "title_plat": "En el Calabozo de Tu Amor - EP",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14007,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/te-voy-a-olvidar-ep/1809828474?uo=4",
+   "id": 1809828474,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.914,
+   "title_plat": "Te Voy a Olvidar - EP",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14006,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bulcitup/1878134850?uo=4",
+   "id": 1878134850,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bulcitup",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14021,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/57500342",
+   "id": 57500342,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Boa Común (Constrictor, Constrictor)",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 434,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7602113",
+   "id": 7602113,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "blanco",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 2715,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/418055607",
+   "id": 418055607,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Puticlub",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14020,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/142469962",
+   "id": 142469962,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Güeitin",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14018,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/189022552",
+   "id": 189022552,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mientras Tanto",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14019,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/178885512",
+   "id": 178885512,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Mono y la Lagartija",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14017,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/221970572",
+   "id": 221970572,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Mono y el Lobito",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14016,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/418088107",
+   "id": 418088107,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bestia",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14013,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/493662211",
+   "id": 493662211,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Io Me Lo Mangio Tutto",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14015,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/436546217",
+   "id": 436546217,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Escupe Hielo",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14014,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/472680615",
+   "id": 472680615,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Loop (Remix) [Radio Edit]",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14012,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/517633022",
+   "id": 517633022,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pinche Canción",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14009,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/567815801",
+   "id": 567815801,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En el Calabozo de Tu Amor",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14008,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/661583811",
+   "id": 661583811,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vinimos a Reventarnos",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14011,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/545014372",
+   "id": 545014372,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Contigo",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14007,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/746147081",
+   "id": 746147081,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Te Voy a Olvidar",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14010,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/801860591",
+   "id": 801860591,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Puertas Adentro",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14006,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/922819131",
+   "id": 922819131,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bulcitup",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Culto Oculto",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 23,
+ "albumes_con_link": 18
+}

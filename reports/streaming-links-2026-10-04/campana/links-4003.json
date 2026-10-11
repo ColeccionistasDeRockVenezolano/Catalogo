@@ -1,0 +1,95 @@
+{
+ "artistId": 4003,
+ "name": "Saúl Vera",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1096953",
+   "id": 1096953,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Saul Vera"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9793,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bandola-de-reyes/302685026?uo=4",
+   "id": 302685026,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bandola de Reyes",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 9794,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/selva-y-lujuria/295178071?uo=4",
+   "id": 295178071,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Selva y Lujuria",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9795,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tierra-c%C3%A1lida/295959933?uo=4",
+   "id": 295959933,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tierra Cálida",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 9793,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/795995",
+   "id": 795995,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bandola de Reyes",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 9794,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/795994",
+   "id": 795994,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Selva y Lujuria",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9795,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/795993",
+   "id": 795993,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tierra Cálida",
+   "year_plat": 1997
+  }
+ ],
+ "mb_name": "Saúl Vera",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 9,
+ "albumes_con_link": 3
+}

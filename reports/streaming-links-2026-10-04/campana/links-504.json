@@ -1,0 +1,28 @@
+{
+ "artistId": 504,
+ "name": "Eternal Sorrow",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/56152202",
+   "id": 56152202,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Eternal Sorrow"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Eternal Sorrow",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

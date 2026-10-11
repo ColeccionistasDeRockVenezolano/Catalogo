@@ -1,0 +1,91 @@
+{
+ "artistId": 2331,
+ "name": "Molotov",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/82436832",
+   "id": 82436832,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Molotov"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/27Owkm4TGlMqb0BqaEt3PW",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Molotov"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id101419",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Molotov"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/MolotovBanda",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Molotov"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/molotovoficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Molotov"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/molotovbanda/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Molotov"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/33008",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Molotov"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCGeB59j5PTFjyIyWBNCo71g",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Molotov"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Molotov",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

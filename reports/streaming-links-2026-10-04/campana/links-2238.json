@@ -1,0 +1,28 @@
+{
+ "artistId": 2238,
+ "name": "Sin Salida",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://sinsalida.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sin Salida"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Sin Salida",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

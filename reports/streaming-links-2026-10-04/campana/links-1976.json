@@ -1,0 +1,100 @@
+{
+ "artistId": 1976,
+ "name": "Juan Carlos Sabater",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/82035072",
+   "id": 82035072,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Juan Carlos Sabater"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/JuanCarlosSabaterOfficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Juan Carlos Sabater"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/juan.carlos.sabater/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Juan Carlos Sabater"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/JSRecords1000",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Juan Carlos Sabater"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4308,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mensaje-de-un-sue%C3%B1o/1493139817?uo=4",
+   "id": 1493139817,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mensaje De Un Sueño",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 4304,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/una-vez-m%C3%A1s/1757160488?uo=4",
+   "id": 1757160488,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Una Vez Más",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 4308,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/124811592",
+   "id": 124811592,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mensaje De Un Sueño",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 4304,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/615109392",
+   "id": 615109392,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Una Vez Más",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "Juan Carlos Sabater",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

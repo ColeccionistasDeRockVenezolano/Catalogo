@@ -1,0 +1,109 @@
+{
+ "artistId": 3574,
+ "name": "Santiago Bosch",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/50564892",
+   "id": 50564892,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Santiago Bosch"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://santiagobosch.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Santiago Bosch"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/santiagobosch87",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Santiago Bosch"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/santiago.bosch/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Santiago Bosch"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCHLd91obqSpB26Q_QXAGurQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Santiago Bosch"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6459,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/guaro-report/1433998348?uo=4",
+   "id": 1433998348,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Guaro Report",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 6460,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/galactic-warrior/1485172119?uo=4",
+   "id": 1485172119,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Galactic Warrior",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 6459,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/71550142",
+   "id": 71550142,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Guaro Report",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 6460,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/116767442",
+   "id": 116767442,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Galactic Warrior",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": "Santiago Bosch",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

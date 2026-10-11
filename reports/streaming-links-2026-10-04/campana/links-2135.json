@@ -1,0 +1,30 @@
+{
+ "artistId": 2135,
+ "name": "Los J",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 15529,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/no-nos-j-m%C3%A1s/1495123298?uo=4",
+   "id": 1495123298,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "No Nos [ J ] Más",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 467,
+ "name": "Salomón",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1097751",
+   "id": 1097751,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Salomon"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2005,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/1986/1188144895?uo=4",
+   "id": 1188144895,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "1986",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 2005,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14894803",
+   "id": 14894803,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "1986",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Salomon",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

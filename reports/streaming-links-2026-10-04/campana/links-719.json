@@ -1,0 +1,124 @@
+{
+ "artistId": 719,
+ "name": "Etnica",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/463065",
+   "id": 463065,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Etnica"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://etnica.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Etnica"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2uY6n7zcOlm2yugy9ItRW7",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Etnica"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/Etnicanet",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Etnica"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/EtnicaBand",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Etnica"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/etnica",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Etnica"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3874489",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Etnica"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCeij1QP5LeoGerJR0P1Sb5g",
+   "id": "UCeij1QP5LeoGerJR0P1Sb5g",
+   "method": "exact",
+   "source": "wikidata-Q784381",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1276,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/etnica/544518438?uo=4",
+   "id": 544518438,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Etnica",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 1276,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/286568492",
+   "id": 286568492,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Etnica",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 4044,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/286015482",
+   "id": 286015482,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Redencion",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": "Etnica",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

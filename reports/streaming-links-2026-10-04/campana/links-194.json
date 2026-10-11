@@ -1,0 +1,51 @@
+{
+ "artistId": 194,
+ "name": "Pedro Manuel Bolívar",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/287332441",
+   "id": 287332441,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Pedro Manuel Bolivar"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 475,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aurora/1776381321?uo=4",
+   "id": 1776381321,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "AURORA",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 475,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/661714651",
+   "id": 661714651,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "AURORA",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

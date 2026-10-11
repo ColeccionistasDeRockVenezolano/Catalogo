@@ -1,0 +1,60 @@
+{
+ "artistId": 225,
+ "name": "Skin",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2272",
+   "id": 2272,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Skin"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2twFUPBFAf6wTnfI7X9z0j",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Skin"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 331,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/skin/128916642?uo=4",
+   "id": 128916642,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Skin",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 331,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6917643",
+   "id": 6917643,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Skin",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": "Skin",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

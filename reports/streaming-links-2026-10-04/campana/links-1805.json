@@ -1,0 +1,51 @@
+{
+ "artistId": 1805,
+ "name": "Mirada Interna",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9720820",
+   "id": 9720820,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mirada Interna"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3561,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ciega-fuerza/1082394447?uo=4",
+   "id": 1082394447,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ciega Fuerza",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3561,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12368756",
+   "id": 12368756,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ciega Fuerza",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

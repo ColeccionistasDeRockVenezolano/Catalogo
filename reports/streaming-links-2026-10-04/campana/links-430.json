@@ -1,0 +1,28 @@
+{
+ "artistId": 430,
+ "name": "Krabat",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/216258",
+   "id": 216258,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.909,
+   "name_plat": "Kabát"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Krabat",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

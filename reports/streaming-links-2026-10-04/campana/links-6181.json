@@ -1,0 +1,46 @@
+{
+ "artistId": 6181,
+ "name": "AGU!",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5DOTNetsnKcd2P8dhv75yr",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Agu"
+  },
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6047896",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Agu"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1522715265",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Agu"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Agu",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 3849,
+ "name": "Rúper Vásquez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/233722621",
+   "id": 233722621,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Rúper Vásquez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9007,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/un-solo-de-boca/1709603907?uo=4",
+   "id": 1709603907,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Un Solo de Boca",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 9007,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/494988661",
+   "id": 494988661,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Un Solo de Boca",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

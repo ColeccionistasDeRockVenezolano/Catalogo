@@ -1,0 +1,44 @@
+{
+ "artistId": 361,
+ "name": "Bajo Tierra",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1455844",
+   "id": 1455844,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Bajo Tierra"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/bajotierra.co",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/bajotierra_oficial/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Bajo Tierra",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

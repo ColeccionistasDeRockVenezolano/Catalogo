@@ -1,0 +1,181 @@
+{
+ "artistId": 4290,
+ "name": "Teo Galíndez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1314559",
+   "id": 1314559,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Teo Galíndez"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0yle51AZ3w7AcKKPGN5xkG",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Teo Galindez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14750,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-una-manera-especial/1725571367?uo=4",
+   "id": 1725571367,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Una Manera Especial",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14749,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/entre-amores/1725570661?uo=4",
+   "id": 1725570661,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Entre Amores",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14748,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-ladr%C3%B3n-enamorado/1725571004?uo=4",
+   "id": 1725571004,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Ladrón Enamorado",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14751,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-magia-de-teo-galindez/1726429702?uo=4",
+   "id": 1726429702,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Magia De Teo Galindez",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14747,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/serie-yo-soy-venezuela/1725582100?uo=4",
+   "id": 1725582100,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Serie Yo Soy Venezuela",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14752,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/romance-de-luna-llena/1725575914?uo=4",
+   "id": 1725575914,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Romance De Luna Llena",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14750,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/534431372",
+   "id": 534431372,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Una Manera Especial",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14749,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/534433582",
+   "id": 534433582,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Entre Amores",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14748,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/534439112",
+   "id": 534439112,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Ladrón Enamorado",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14751,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/536661622",
+   "id": 536661622,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Magia De Teo Galindez",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14747,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/534438782",
+   "id": 534438782,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Serie Yo Soy Venezuela",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14752,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/534433562",
+   "id": 534433562,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Romance De Luna Llena",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14746,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/401398317",
+   "id": 401398317,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Secreto",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Teo Galindez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 7
+}

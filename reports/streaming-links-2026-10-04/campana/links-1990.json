@@ -1,0 +1,49 @@
+{
+ "artistId": 1990,
+ "name": "Lift",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/72890",
+   "id": 72890,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Lift"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1wrmxgmyFYkb0jVR8g6Iud",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lift"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4374,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10573381",
+   "id": 10573381,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Camino",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "Lift",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,95 @@
+{
+ "artistId": 1813,
+ "name": "Unicornio",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9342092",
+   "id": 9342092,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Unicornio"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3476,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-magia-de-unicornio/1797416881?uo=4",
+   "id": 1797416881,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Magia De Unicornio",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 3474,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/unicornio/1576880955?uo=4",
+   "id": 1576880955,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Unicornio",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 3480,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/triunfadores/1690874851?uo=4",
+   "id": 1690874851,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "TRIUNFADORES",
+   "year_plat": 1983
+  },
+  {
+   "albumId": 3476,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/715804601",
+   "id": 715804601,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Magia De Unicornio",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 3474,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/245022542",
+   "id": 245022542,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Unicornio",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 3480,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/449016585",
+   "id": 449016585,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "TRIUNFADORES",
+   "year_plat": 1983
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,46 @@
+{
+ "artistId": 3186,
+ "name": "Blodmåne",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://blodmane666.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Blodmåne"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/profile.php?id=100088431236007",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Blodmåne"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/blodmane_official666/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Blodmåne"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Blodmåne",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 0
+}

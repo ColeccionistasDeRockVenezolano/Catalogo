@@ -1,0 +1,51 @@
+{
+ "artistId": 107,
+ "name": "Grupo Pan",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/211232407",
+   "id": 211232407,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Grupo Pan"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 195,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pan/1852561480?uo=4",
+   "id": 1852561480,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pan",
+   "year_plat": 1970
+  },
+  {
+   "albumId": 195,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/448898505",
+   "id": 448898505,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pan",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Grupo Pan",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

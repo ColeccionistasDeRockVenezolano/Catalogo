@@ -1,0 +1,117 @@
+{
+ "artistId": 3800,
+ "name": "Alejandro Zavala",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5769052",
+   "id": 5769052,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Alejandro Zavala"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8491,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/origen/498889078?uo=4",
+   "id": 498889078,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Origen",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 8492,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/primavera-para-mayo/498893774?uo=4",
+   "id": 498893774,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Primavera para Mayo",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 8493,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/colores-tierra/892366187?uo=4",
+   "id": 892366187,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Colores Tierra",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 8494,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/vocal/1550427071?uo=4",
+   "id": 1550427071,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Vocal",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 8495,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cantautor/1655392151?uo=4",
+   "id": 1655392151,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cantautor",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 8492,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7673610",
+   "id": 7673610,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Primavera para Mayo",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 8493,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8754739",
+   "id": 8754739,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Colores Tierra",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 8494,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/202363102",
+   "id": 202363102,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vocal",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 5
+}

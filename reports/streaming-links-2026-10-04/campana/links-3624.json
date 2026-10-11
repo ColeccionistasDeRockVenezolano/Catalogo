@@ -1,0 +1,51 @@
+{
+ "artistId": 3624,
+ "name": "Baden Goyo Trío",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12732929",
+   "id": 12732929,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Baden Goyo Trio"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6605,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/magenta/1254453987?uo=4",
+   "id": 1254453987,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Magenta",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 6605,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/43912001",
+   "id": 43912001,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Magenta",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

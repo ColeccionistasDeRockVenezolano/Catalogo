@@ -1,0 +1,302 @@
+{
+ "artistId": 3500,
+ "name": "Gerry Weil",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1228191",
+   "id": 1228191,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gerry Weil"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/gerryweil",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gerry Weil"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6271,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-message/1535109774?uo=4",
+   "id": 1535109774,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Message",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 6276,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/free-play-love-songs-live-vol-1/520102820?uo=4",
+   "id": 520102820,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Free Play & Love Songs (Live), Vol. 1",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 6278,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/navijazz/519874588?uo=4",
+   "id": 519874588,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Navijazz",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 6279,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tepuy/1807951734?uo=4",
+   "id": 1807951734,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tepuy",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6280,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/im-beginning-to-see-the-light/1298063506?uo=4",
+   "id": 1298063506,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "I'm Beginning to See the Light",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 13112,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/gerry-weil-big-band-jazz-simon-bolivar/1500070770?uo=4",
+   "id": 1500070770,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Gerry Weil & Big Band Jazz Simon Bolivar",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 6281,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/live-in-vienna/1464350236?uo=4",
+   "id": 1464350236,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Live In Vienna",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 6283,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sabana-grande/1542959403?uo=4",
+   "id": 1542959403,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sabana Grande",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 6284,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sabana-grande-cl%C3%A1sico-ep/1542955006?uo=4",
+   "id": 1542955006,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.933,
+   "title_plat": "Sabana Grande Clásico - EP",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 6282,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/kosmic-flow-80-years-young/1512828030?uo=4",
+   "id": 1512828030,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Kosmic Flow (80 Years Young)",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13116,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/gerry-plays-bach/1691321002?uo=4",
+   "id": 1691321002,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Gerry Plays Bach",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13115,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/alma-feat-nene-quintero/1689510124?uo=4",
+   "id": 1689510124,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Alma (feat. Nene Quintero)",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 6271,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/178390272",
+   "id": 178390272,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Message",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 6276,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/2011501",
+   "id": 2011501,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Free Play & Love Songs (Live, Vol.1)",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 6278,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7172207",
+   "id": 7172207,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Navijazz",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 6277,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/594572412",
+   "id": 594572412,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Empatía",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 6279,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/740995771",
+   "id": 740995771,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tepuy",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 6280,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/50137382",
+   "id": 50137382,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "I'm Beginning to See the Light",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 13114,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/114131422",
+   "id": 114131422,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Mensaje",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13112,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/133004372",
+   "id": 133004372,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Gerry Weil & Big Band Jazz Simon Bolivar",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 6281,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/96553852",
+   "id": 96553852,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Live in Vienna",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 6283,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/190345932",
+   "id": 190345932,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sabana Grande",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13113,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/132168442",
+   "id": 132168442,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Achanta el Pure E' Pana",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 6282,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/147686962",
+   "id": 147686962,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Kosmic Flow (80 Years Young)",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Gerry Weil",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 20,
+ "albumes_con_link": 15
+}

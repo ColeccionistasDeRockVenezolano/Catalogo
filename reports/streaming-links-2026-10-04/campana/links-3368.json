@@ -1,0 +1,62 @@
+{
+ "artistId": 3368,
+ "name": "Oscar Caraballo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5718883",
+   "id": 5718883,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Oscar Caraballo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5750,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/themes-between-two-times/682583152?uo=4",
+   "id": 682583152,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Themes Between Two Times",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 5695,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/melodic-dreams/681987556?uo=4",
+   "id": 681987556,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Melodic Dreams",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 5750,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7645397",
+   "id": 7645397,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Themes Between Two Times",
+   "year_plat": 1994
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 2
+}

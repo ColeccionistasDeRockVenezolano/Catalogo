@@ -1,0 +1,28 @@
+{
+ "artistId": 2389,
+ "name": "SxWxMx",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://sxwxmx1.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "SxWxMx"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "SxWxMx",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,28 @@
+{
+ "artistId": 1591,
+ "name": "Los Blonders",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/140238582",
+   "id": 140238582,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.957,
+   "name_plat": "Los Blonder"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Los Blonders",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

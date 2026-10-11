@@ -1,0 +1,51 @@
+{
+ "artistId": 155,
+ "name": "Los Buitres",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/391081",
+   "id": 391081,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "LOS BUITRES"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 253,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/historietas/1475927822?uo=4",
+   "id": 1475927822,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Historietas",
+   "year_plat": 1991
+  },
+  {
+   "albumId": 253,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14485012",
+   "id": 14485012,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Historietas",
+   "year_plat": 1991
+  }
+ ],
+ "mb_name": "Los Buitres",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

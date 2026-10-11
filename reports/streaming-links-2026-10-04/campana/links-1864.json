@@ -1,0 +1,64 @@
+{
+ "artistId": 1864,
+ "name": "Almas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/322218931",
+   "id": 322218931,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "ALMAS"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3HctDes7HXVEnK9uuejru0",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Almas"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/almasofficial_/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Almas"
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@almaslarry",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Almas"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCFTFYssxSFIO3w7-e5ESKkw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Almas"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Almas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

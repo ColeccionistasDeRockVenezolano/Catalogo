@@ -1,0 +1,30 @@
+{
+ "artistId": 466,
+ "name": "Languidez",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 4372,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mil-estaciones/495796731?uo=4",
+   "id": 495796731,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mil Estaciones",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,37 @@
+{
+ "artistId": 2017,
+ "name": "Sin Dirección",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11154706",
+   "id": 11154706,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5591,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/98318802",
+   "id": 98318802,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

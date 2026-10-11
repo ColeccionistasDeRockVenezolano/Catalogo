@@ -1,0 +1,28 @@
+{
+ "artistId": 2863,
+ "name": "DJ Bombay",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6226",
+   "id": 6226,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.941,
+   "name_plat": "DJ Bomba"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "DJ Bombay",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

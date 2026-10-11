@@ -1,0 +1,36 @@
+{
+ "artistId": 818,
+ "name": "Brutal Mutilation",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11508491",
+   "id": 11508491,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Brutal Mutilation"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1pTtKvm1AA8uaVXo96s32U",
+   "id": "1pTtKvm1AA8uaVXo96s32U",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Brutal Mutilation"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

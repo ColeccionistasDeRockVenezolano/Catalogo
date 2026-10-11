@@ -1,0 +1,260 @@
+{
+ "artistId": 3740,
+ "name": "Pecos Kanvas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/826223",
+   "id": 826223,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Pecos Kanvas"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14580,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%A1rchate/1455516037?uo=4",
+   "id": 1455516037,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Márchate",
+   "year_plat": 1972
+  },
+  {
+   "albumId": 7703,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pecos-kanvas/6794247696?uo=4",
+   "id": 6794247696,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pecos Kanvas",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 7710,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/fiel/1485778652?uo=4",
+   "id": 1485778652,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Fiel",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 7709,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/que-quieres-de-mi/1453522745?uo=4",
+   "id": 1453522745,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Que Quieres de Mi",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7714,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mar-y-luna/1447689689?uo=4",
+   "id": 1447689689,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mar y Luna",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 7720,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-mejor-de-mi-vida/581145673?uo=4",
+   "id": 581145673,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lo Mejor de Mi Vida",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 14576,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mis-mejores-baladas/1319661922?uo=4",
+   "id": 1319661922,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mis Mejores Baladas",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 14577,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-tanta-piel/1447688327?uo=4",
+   "id": 1447688327,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Tanta Piel",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 14578,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/amores-de-luna-llena/1459433548?uo=4",
+   "id": 1459433548,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Amores de Luna Llena",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14579,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuando-seas-m%C3%ADa/1472686363?uo=4",
+   "id": 1472686363,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Seas Mía",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14580,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/89657912",
+   "id": 89657912,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Márchate",
+   "year_plat": 1972
+  },
+  {
+   "albumId": 7703,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1036849382",
+   "id": 1036849382,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pecos Kanvas",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 7710,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/117208432",
+   "id": 117208432,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fiel",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 7709,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/87874602",
+   "id": 87874602,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Que Quieres de Mi",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7713,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/923969701",
+   "id": 923969701,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Después de la Noche...",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 7714,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/82667032",
+   "id": 82667032,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mar y Luna",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 7720,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6313238",
+   "id": 6313238,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Lo Mejor de Mi Vida",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 14576,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/52654842",
+   "id": 52654842,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mis Mejores Baladas",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 14577,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/82666292",
+   "id": 82666292,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Tanta Piel",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14578,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/93266652",
+   "id": 93266652,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Amores de Luna Llena",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14579,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103350992",
+   "id": 103350992,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Seas Mía",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Pecos Kanvas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 23,
+ "albumes_con_link": 11
+}

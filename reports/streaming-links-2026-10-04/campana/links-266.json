@@ -1,0 +1,84 @@
+{
+ "artistId": 266,
+ "name": "Zapato 3",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10667591",
+   "id": 10667591,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Zapato 3"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 410,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/amor-furia-y-languidez/6766506363?uo=4",
+   "id": 6766506363,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Amor, Furia y Languidez",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 411,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/b%C3%A9same-y-suicidate/1132271565?uo=4",
+   "id": 1132271565,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bésame y Suicidate",
+   "year_plat": 1991
+  },
+  {
+   "albumId": 415,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/separacion/1132267989?uo=4",
+   "id": 1132267989,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Separacion",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 411,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13530347",
+   "id": 13530347,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bésame y Suicidate",
+   "year_plat": 1991
+  },
+  {
+   "albumId": 415,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13530345",
+   "id": 13530345,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Separacion",
+   "year_plat": 1993
+  }
+ ],
+ "mb_name": "Zapato 3",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 27,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,30 @@
+{
+ "artistId": 357,
+ "name": "Trallador",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 762,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-aperitivo-del-diablo-ep/1478909610?uo=4",
+   "id": 1478909610,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.939,
+   "title_plat": "El Aperitivo del Diablo - EP",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

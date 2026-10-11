@@ -1,0 +1,41 @@
+{
+ "artistId": 603,
+ "name": "Khristenn Corpse",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 1591,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-khristenn-corpse-ep/1532697961?uo=4",
+   "id": 1532697961,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.93,
+   "title_plat": "The Khristenn Corpse - EP",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 1080,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/grotesque/1532698012?uo=4",
+   "id": 1532698012,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Grotesque",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "Khristenn Corpse",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

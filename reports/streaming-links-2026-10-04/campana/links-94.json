@@ -1,0 +1,28 @@
+{
+ "artistId": 94,
+ "name": "Faceless",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/204862277",
+   "id": 204862277,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Faceless"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Faceless",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 0
+}

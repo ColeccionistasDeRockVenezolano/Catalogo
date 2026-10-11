@@ -1,0 +1,55 @@
+{
+ "artistId": 1795,
+ "name": "BrainX",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0CslFDW6t5OOoM5HIQDabT",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Brainx"
+  },
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/60043692",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Brainx"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1453843870",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Brainx"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/15090810",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Brainx"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Brainx",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,62 @@
+{
+ "artistId": 1583,
+ "name": "Junior Squad",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2047371",
+   "id": 2047371,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Junior Squad"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2858,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/675766701",
+   "id": 675766701,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "New Pop Group",
+   "year_plat": 1966
+  },
+  {
+   "albumId": 2857,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/676707171",
+   "id": 676707171,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.919,
+   "title_plat": "Junior Squad, Vol. 2",
+   "year_plat": 1967
+  },
+  {
+   "albumId": 4322,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/903736682",
+   "id": 903736682,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Baila Muchacha",
+   "year_plat": 1968
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 3
+}

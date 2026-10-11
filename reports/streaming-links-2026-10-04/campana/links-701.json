@@ -1,0 +1,28 @@
+{
+ "artistId": 701,
+ "name": "Degollado",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://degollado.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Degollado"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Degollado",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

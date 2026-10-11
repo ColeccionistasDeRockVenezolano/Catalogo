@@ -1,0 +1,51 @@
+{
+ "artistId": 3820,
+ "name": "Grupo Vera",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4144736",
+   "id": 4144736,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Grupo Vera"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8592,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/costa-caribe/624551201?uo=4",
+   "id": 624551201,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Costa Caribe",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 8592,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6435195",
+   "id": 6435195,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Costa Caribe",
+   "year_plat": 2002
+  }
+ ],
+ "mb_name": "Grupo Vera",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 12,
+ "albumes_con_link": 1
+}

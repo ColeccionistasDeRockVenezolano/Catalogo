@@ -1,0 +1,55 @@
+{
+ "artistId": 2074,
+ "name": "Los Hippies",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9566524",
+   "id": 9566524,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.909,
+   "name_plat": "Les Hippies"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2PNJtGXS4PSyVvonRYrVMi",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Hippies"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1403679820",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Hippies"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/10229908",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Hippies"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Los Hippies",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

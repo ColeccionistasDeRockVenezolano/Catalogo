@@ -1,0 +1,203 @@
+{
+ "artistId": 1816,
+ "name": "María Conchita Alonso",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/337307",
+   "id": 337307,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Maria Conchita Alonso"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/MariaConchita_A",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "María Conchita Alonso"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3508,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-witch/1528588919?uo=4",
+   "id": 1528588919,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Witch",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3506,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dangerous-rhythm/1718487522?uo=4",
+   "id": 1718487522,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Dangerous Rhythm",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 3517,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/te-amo/1472686952?uo=4",
+   "id": 1472686952,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Te Amo",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3509,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/o-ella-o-yo/1445564465?uo=4",
+   "id": 1445564465,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "O Ella o Yo",
+   "year_plat": 1985
+  },
+  {
+   "albumId": 3521,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/grandes-%C3%A9xitos/1443835805?uo=4",
+   "id": 1443835805,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Grandes Éxitos",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 3522,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-mejor-de-mar%C3%ADa-conchita-alonso/1443846809?uo=4",
+   "id": 1443846809,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.903,
+   "title_plat": "Lo Mejor de María Conchita Alonso",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 3512,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mirame/1443589153?uo=4",
+   "id": 1443589153,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mirame",
+   "year_plat": 1987
+  },
+  {
+   "albumId": 3513,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/hazme-sentir/644182202?uo=4",
+   "id": 644182202,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Hazme Sentir",
+   "year_plat": 1973
+  },
+  {
+   "albumId": 3516,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/imaginame/1503436596?uo=4",
+   "id": 1503436596,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Imaginame",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 3520,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-colecci%C3%B3n/1766276988?uo=4",
+   "id": 1766276988,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Colección",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 3508,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/168373102",
+   "id": 168373102,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Witch",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3517,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103350552",
+   "id": 103350552,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Te Amo",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3509,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/80984682",
+   "id": 80984682,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "O Ella o Yo",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3513,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6562447",
+   "id": 6562447,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hazme Sentir",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 3520,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/639553351",
+   "id": 639553351,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Colección",
+   "year_plat": 1994
+  }
+ ],
+ "mb_name": "María Conchita Alonso",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 22,
+ "albumes_con_link": 10
+}

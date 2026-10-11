@@ -1,0 +1,30 @@
+{
+ "artistId": 1105,
+ "name": "Rousbel",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 2826,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-antemano/1550134871?uo=4",
+   "id": 1550134871,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.957,
+   "title_plat": "De Antemano",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Rousbel",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

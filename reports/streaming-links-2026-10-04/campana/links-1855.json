@@ -1,0 +1,100 @@
+{
+ "artistId": 1855,
+ "name": "Delia",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/297726361",
+   "id": 297726361,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Delia"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6YomcUxZXNftP5OyuHoVmB",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Delia"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/ro/artist/id263040126",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Delia"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/delia_official",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Delia"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/OfficialDelia",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Delia"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/delia/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Delia"
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@delia",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Delia"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3631566",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Delia"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/DELIAOFFICIAL",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Delia"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Delia",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 8,
+ "albumes_con_link": 0
+}

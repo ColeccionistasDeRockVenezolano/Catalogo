@@ -1,0 +1,51 @@
+{
+ "artistId": 4330,
+ "name": "Coral Lombana",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6395804",
+   "id": 6395804,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Coral Lombana"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15347,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/jazz-rojo-coral-vol-2/709694413?uo=4",
+   "id": 709694413,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Jazz Rojo Coral, Vol. 2",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 15347,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8394292",
+   "id": 8394292,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Jazz Rojo Coral, Vol. 2",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

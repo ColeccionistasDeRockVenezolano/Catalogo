@@ -1,0 +1,95 @@
+{
+ "artistId": 3942,
+ "name": "Eddy Marcano",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/667700",
+   "id": 667700,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Eddy Marcano"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9624,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/venezuela-en-viol%C3%ADn-vol-1/1527683954?uo=4",
+   "id": 1527683954,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.96,
+   "title_plat": "Venezuela en Violín, Vol. 1",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 9625,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/venezuela-en-viol%C3%ADn-vol-2/1527684007?uo=4",
+   "id": 1527684007,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.941,
+   "title_plat": "Venezuela en Violín, Vol. 2",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 9627,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tarde-tinta/1527686857?uo=4",
+   "id": 1527686857,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tarde Tinta",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 9624,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14776615",
+   "id": 14776615,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.96,
+   "title_plat": "Venezuela en Violin, Vol. 2",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 9625,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14776615",
+   "id": 14776615,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.941,
+   "title_plat": "Venezuela en Violin, Vol. 2",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 9627,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14730292",
+   "id": 14730292,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tarde Tinta",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

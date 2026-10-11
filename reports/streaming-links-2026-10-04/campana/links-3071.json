@@ -1,0 +1,30 @@
+{
+ "artistId": 3071,
+ "name": "Lucifugo",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 5160,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lucifugo/1867736483?uo=4",
+   "id": 1867736483,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lucifugo",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

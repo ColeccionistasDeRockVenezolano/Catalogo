@@ -1,0 +1,55 @@
+{
+ "artistId": 2127,
+ "name": "CG Project",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/08WEdCf4fmDvwA0vNqeULe",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "CG Project"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/CesarAshG",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "CG Project"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/cgproject_/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "CG Project"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCiJjPasP9wr5RVmcM9CCOIA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "CG Project"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "CG Project",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

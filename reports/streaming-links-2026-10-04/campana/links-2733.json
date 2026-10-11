@@ -1,0 +1,499 @@
+{
+ "artistId": 2733,
+ "name": "Cardopusher",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/63695",
+   "id": 63695,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cardopusher"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7de3eunuDjvcwRudXnJEXr",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cardopusher"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/cardopusher",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cardopusher"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/cardopusher",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cardopusher"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/cardopusher/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cardopusher"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/cardopusher",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cardopusher"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/252729936",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cardopusher"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3613673",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cardopusher"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 12797,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/down-to-the-wire-ep/305000534?uo=4",
+   "id": 305000534,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.914,
+   "title_plat": "Down to the Wire - EP",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 12808,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/yr-fifteen-minutes-are-up/432266257?uo=4",
+   "id": 432266257,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Yr Fifteen Minutes Are Up",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12779,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/coppertoned-punch/431002642?uo=4",
+   "id": 431002642,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.919,
+   "title_plat": "Coppertoned Punch",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12814,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/manipulator/1033730851?uo=4",
+   "id": 1033730851,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Manipulator",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 12796,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/unsatisfied-customer-jams-ep/1098705993?uo=4",
+   "id": 1098705993,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.943,
+   "title_plat": "Unsatisfied Customer Jams - EP",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 12807,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/new-cult-fear/1247739212?uo=4",
+   "id": 1247739212,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "New Cult Fear",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 12811,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/muscle-memory/1443701213?uo=4",
+   "id": 1443701213,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Muscle Memory",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 12804,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-convenient-excuse-pt-1-ep/1440920801?uo=4",
+   "id": 1440920801,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.941,
+   "title_plat": "A Convenient Excuse, Pt. 1 - EP",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 12788,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mental-jobs-ep/1376541383?uo=4",
+   "id": 1376541383,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mental Jobs EP",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 12805,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/acid-avengers-012-ep/1463922266?uo=4",
+   "id": 1463922266,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.919,
+   "title_plat": "Acid Avengers 012 - EP",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 12778,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-convenient-excuse-pt-2-ep/1468395621?uo=4",
+   "id": 1468395621,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.941,
+   "title_plat": "A Convenient Excuse, Pt. 2 - EP",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 15457,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/conformity-kills-ep/1497792318?uo=4",
+   "id": 1497792318,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Conformity Kills - EP",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 12783,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/psyops-ii-ep/1678186436?uo=4",
+   "id": 1678186436,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Psyops II EP",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 12816,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/immaculate-poison/1650633259?uo=4",
+   "id": 1650633259,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Immaculate Poison",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 12813,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1511210",
+   "id": 1511210,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Red Red Blood",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 12797,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/994317",
+   "id": 994317,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Down To the Wire",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 12786,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6218464",
+   "id": 6218464,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bad Face / Lonesome Town",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 12781,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/113413032",
+   "id": 113413032,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Schematic Blocks",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 12817,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1264823",
+   "id": 1264823,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "We Want Ca$h EP",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12808,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1165573",
+   "id": 1165573,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Yr Fifteen Minutes Are Up",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12779,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1119222",
+   "id": 1119222,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Coppertoned Punch EP",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12806,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7062127",
+   "id": 7062127,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Control Your Body",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 12780,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6581200",
+   "id": 6581200,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Faults",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 12814,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11091460",
+   "id": 11091460,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Manipulator",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 12802,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13726298",
+   "id": 13726298,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mindwarp",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 12796,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12679812",
+   "id": 12679812,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Unsatisfied Customer Jams",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 12807,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/43056371",
+   "id": 43056371,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "New Cult Fear",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 12811,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79306962",
+   "id": 79306962,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Muscle Memory",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 12804,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/77342212",
+   "id": 77342212,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Convenient Excuse, Pt. 1",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 12788,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/62230982",
+   "id": 62230982,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mental Jobs EP",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 12784,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/98337282",
+   "id": 98337282,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Flesh Impact",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 12805,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/97097802",
+   "id": 97097802,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Acid Avengers 012",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 12778,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/100232932",
+   "id": 100232932,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Convenient Excuse, Pt. 2",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 15457,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/130162802",
+   "id": 130162802,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Conformity Kills - EP",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 12785,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/132229292",
+   "id": 132229292,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fed With Lies",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 12783,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/419824957",
+   "id": 419824957,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Psyops II EP",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 12816,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/368979417",
+   "id": 368979417,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Immaculate Poison",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Cardopusher",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 57,
+ "albumes_con_link": 23
+}

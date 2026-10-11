@@ -1,0 +1,62 @@
+{
+ "artistId": 3093,
+ "name": "Gears Attack",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/75793702",
+   "id": 75793702,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gears Attack"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5218,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-red-vulture-ep/1654180212?uo=4",
+   "id": 1654180212,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "The Red Vulture - EP",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 5219,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/into-noiseless-perception/1482597532?uo=4",
+   "id": 1482597532,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Into Noiseless Perception",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 5219,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/114065902",
+   "id": 114065902,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Into Noiseless Perception",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": "Gears Attack",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

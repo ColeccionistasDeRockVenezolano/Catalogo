@@ -1,0 +1,169 @@
+{
+ "artistId": 1496,
+ "name": "Lasso",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/124796022",
+   "id": 124796022,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Lasso"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3SCOuAxngTC1yGjKMcIPEd",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lasso"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/428045365",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lasso"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/LassoMusica",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lasso"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/lassomusica",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lasso"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/LassoMusica/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lasso"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/5157822",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lasso"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC_-DFOq1gbrC8tccO49CJ-Q",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lasso"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2671,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sin-otro-sentido/1443537379?uo=4",
+   "id": 1443537379,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sin Otro Sentido",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 4381,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-exilio-voluntario-de-una-mente-saturada/1443825616?uo=4",
+   "id": 1443825616,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Exilio Voluntario De Una Mente Saturada",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 13627,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/los-amigos-no-se-besan-en-la-boca-single/1540358005?uo=4",
+   "id": 1540358005,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.904,
+   "title_plat": "Los Amigos no se Besan en la Boca - Single",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13601,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuatro-estaciones/1578557662?uo=4",
+   "id": 1578557662,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuatro Estaciones",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13602,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/eva/1675142153?uo=4",
+   "id": 1675142153,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Eva",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13603,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-vivo-desde-el-teatro-caupolic%C3%A1n-santiago-de-chile/1694977977?uo=4",
+   "id": 1694977977,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "En Vivo Desde El Teatro Caupolicán, Santiago de Chile",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13599,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/malcriado/1800596358?uo=4",
+   "id": 1800596358,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Malcriado",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": "Lasso",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 53,
+ "albumes_con_link": 7
+}

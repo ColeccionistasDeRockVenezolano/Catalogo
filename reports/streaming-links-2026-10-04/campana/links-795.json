@@ -1,0 +1,345 @@
+{
+ "artistId": 795,
+ "name": "Zardonic",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/984216",
+   "id": 984216,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Zardonic"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://zardonic.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zardonic"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7BqEidErPMNiUXCRE0dV2n",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zardonic"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/zardonic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zardonic"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/zardonic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zardonic"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/zardonic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zardonic"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3547398",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zardonic"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCmC_na-XRiW1lhQNRJbAR-w",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zardonic"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14416,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/restless-remixes-ep/722870786?uo=4",
+   "id": 722870786,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.914,
+   "title_plat": "Restless (Remixes) - EP",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14417,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antihero/1030495800?uo=4",
+   "id": 1030495800,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Antihero",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 1428,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/become/1414969049?uo=4",
+   "id": 1414969049,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Become",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14409,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/superhot-mind-control-delete-soundtrack/1521752548?uo=4",
+   "id": 1521752548,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Superhot: Mind Control Delete Soundtrack",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14413,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-become-remix-album/1503343159?uo=4",
+   "id": 1503343159,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Become Remix Album",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14401,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/superstars/1693441419?uo=4",
+   "id": 1693441419,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Superstars",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14416,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7023617",
+   "id": 7023617,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Restless Remixes",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14422,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9087649",
+   "id": 9087649,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "For Justice",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 14417,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11048446",
+   "id": 11048446,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antihero",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14429,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/71321052",
+   "id": 71321052,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Revelation",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 1428,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/69043372",
+   "id": 69043372,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Become",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14430,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/70078992",
+   "id": 70078992,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Before The Dawn (feat. Celldweller)",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14427,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/136723862",
+   "id": 136723862,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Takeover (Zardonic & Fickle6 VIP Remix) (Instrumental)",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14426,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/141175842",
+   "id": 141175842,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Children Of Tomorrow (Pythius Remix) (Instrumental)",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14428,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/141972952",
+   "id": 141972952,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Takeover (VIP Mix)",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14413,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/136920722",
+   "id": 136920722,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Become Remix Album",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14424,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/424451657",
+   "id": 424451657,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Follow Me",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14421,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/436172057",
+   "id": 436172057,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Death By The Bassline",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14397,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/399076477",
+   "id": 399076477,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bitter",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14425,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/408922437",
+   "id": 408922437,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bring The Rukus",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14401,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/455503575",
+   "id": 455503575,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Superstars",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14423,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/447651115",
+   "id": 447651115,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rave Until The Apocalypse",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14398,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/856542282",
+   "id": 856542282,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fearless",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": "Zardonic",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 54,
+ "albumes_con_link": 18
+}

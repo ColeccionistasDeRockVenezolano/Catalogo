@@ -1,0 +1,544 @@
+{
+ "artistId": 78,
+ "name": "Desorden Público",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/182041",
+   "id": 182041,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Desorden Público"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0kyQwKHCZnKE7kTXkxXjrB",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Desorden Público"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4550588",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Desorden Público"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/artist/65513124",
+   "id": "65513124",
+   "method": "exact",
+   "source": "wikidata-Q502500",
+   "score": 1.0
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/desordenpublico",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/desordenpublico",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 166,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/desorden-publico/1358963638?uo=4",
+   "id": 1358963638,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Desorden Publico",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 168,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/descomposici%C3%B3n/1061134654?uo=4",
+   "id": 1061134654,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.903,
+   "title_plat": "Descomposición",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 165,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canto-popular-de-la-vida-y-la-muerte/1066386150?uo=4",
+   "id": 1066386150,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.957,
+   "title_plat": "Canto Popular de la Vida y la Muerte",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 171,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/plomo-revienta/1061840288?uo=4",
+   "id": 1061840288,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Plomo Revienta",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 3978,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pa-fuera/1440070466?uo=4",
+   "id": 1440070466,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pa' Fuera",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 13975,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/desorden-pre-pandemic-remixes/1557530452?uo=4",
+   "id": 1557530452,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Desorden Pre-Pandemic (Remixes)",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13987,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tetero-de-petr%C3%B3leo-versi%C3%B3n-25-a%C3%B1os-single/1513653544?uo=4",
+   "id": 1513653544,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.907,
+   "title_plat": "Tetero de Petróleo (Versión 25 Años) - Single",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13971,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/desorden-forajido/1508621896?uo=4",
+   "id": 1508621896,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Desorden Forajido",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 5601,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canto-popular-25-a%C3%B1os/1559153756?uo=4",
+   "id": 1559153756,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Canto Popular 25 Años",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 166,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/58863482",
+   "id": 58863482,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Desorden Publico",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 168,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11760924",
+   "id": 11760924,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.903,
+   "title_plat": "Descomposición",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 165,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11919612",
+   "id": 11919612,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.957,
+   "title_plat": "Canto Popular de la Vida y la Muerte",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 171,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11782500",
+   "id": 11782500,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Plomo Revienta",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 167,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/215003972",
+   "id": 215003972,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Diablo",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 13978,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/212038632",
+   "id": 212038632,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Vivo en el Teatro Teresa Carreño, Vol. 1",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 13979,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/212066622",
+   "id": 212066622,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Vivo en el Teatro Teresa Carreño, Vol. 2",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 13977,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/214151842",
+   "id": 214151842,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Estrellas del Caos (Ska Sound From Venezuela)",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 436,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/213190302",
+   "id": 213190302,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Los Contrarios",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 4692,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/213318842",
+   "id": 213318842,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Guarachando en Navidad, Vol. 1",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 13976,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/213318552",
+   "id": 213318552,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Desorden Mundial (En Vivo)",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 3978,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/76607362",
+   "id": 76607362,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pa' Fuera",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3976,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/202038372",
+   "id": 202038372,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bailando Sobre las Ruinas",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 13994,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/78727792",
+   "id": 78727792,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Ti Te Cantamos (Preciosa María)",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 13995,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/73384282",
+   "id": 73384282,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ska Mundo Ska",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 13990,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/116025042",
+   "id": 116025042,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Danza de los Esqueletos (Versión 25 Años)",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13993,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/100719222",
+   "id": 100719222,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cachos de Vaca (Versión 25 Años)",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13992,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/104266522",
+   "id": 104266522,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rosas Azules (Versión 25 Años)",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13989,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/120109032",
+   "id": 120109032,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tiembla (Versión 25 Años)",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13991,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/112336332",
+   "id": 112336332,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hay Cosquillas Que No Dan Risa (Versión 25 Años)",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13988,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/121498502",
+   "id": 121498502,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canto Popular de la Vida y Muerte (Versión 25 Años)",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13975,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/202038212",
+   "id": 202038212,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Desorden Pre-Pandemic (Remixes)",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13987,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/148718552",
+   "id": 148718552,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tetero de Petróleo (Versión 25 Años)",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13986,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/153046002",
+   "id": 153046002,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sinónimo",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13971,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/142661752",
+   "id": 142661752,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Desorden Forajido",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 5601,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/201148412",
+   "id": 201148412,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canto Popular 25 Años",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13985,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/248203682",
+   "id": 248203682,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sorbito de Champán - Bonita y Mentirosa (Desorden Público rinde Homenaje al Indio Pastor López ft Billo's & Chicha Libre)",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13983,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/269932162",
+   "id": 269932162,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Traicionera / El Reo Ausente (Desorden Público rinde Homenaje al Indio Pastor López)",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13970,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/258651992",
+   "id": 258651992,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "FUNEBRE",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13974,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/235686402",
+   "id": 235686402,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Desorden en Petare (Concierto en la Platabanda)",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13984,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/259668872",
+   "id": 259668872,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Golpe Con Golpe (Homenaje al Indio Pastor López)",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13982,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/301416967",
+   "id": 301416967,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Desorden Público rinde Homenaje al Indio Pastor López (Medley al Pastor)",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 13981,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/362218547",
+   "id": 362218547,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ron con Sugar (Cinco Estrellas ElFiveStar)",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 13980,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/912477831",
+   "id": 912477831,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Salsa All Ska",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Desorden Público",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 62,
+ "albumes_con_link": 34
+}

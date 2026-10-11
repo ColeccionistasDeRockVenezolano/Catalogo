@@ -1,0 +1,89 @@
+{
+ "artistId": 698,
+ "name": "Lepster",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/69ntxGASY2VqdXEjwGggIF",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lepster"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/LepsterGram/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lepster"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/lepster",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lepster"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/LepsterTVCanal",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lepster"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1228,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-k-a-communication-aja/1492349558?uo=4",
+   "id": 1492349558,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A.K.a. Communication Aja",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 15522,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/danko-sur-real-acto-ii/1492323693?uo=4",
+   "id": 1492323693,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.977,
+   "title_plat": "Danko Sur - Real Acto II",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 15691,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/danko-sur-real-acto-ii/1492323693?uo=4",
+   "id": 1492323693,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Danko Sur - Real Acto II",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Lepster",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

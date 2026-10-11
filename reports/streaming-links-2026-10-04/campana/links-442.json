@@ -1,0 +1,37 @@
+{
+ "artistId": 442,
+ "name": "Defragment",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/89329872",
+   "id": 89329872,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Defragment"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://defragmentmetal.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Defragment"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Defragment",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

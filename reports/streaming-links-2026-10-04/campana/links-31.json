@@ -1,0 +1,73 @@
+{
+ "artistId": 31,
+ "name": "1ra Edición",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1230936",
+   "id": 1230936,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "1ra Edicion"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 102,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tiempo-de-actuar/359621289?uo=4",
+   "id": 359621289,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tiempo de Actuar +",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 101,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/1986/440932491?uo=4",
+   "id": 440932491,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "1986",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 102,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/971983",
+   "id": 971983,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tiempo de Actuar +",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 101,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1187055",
+   "id": 1187055,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "1986",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 1420,
+ "name": "Selector Cocoman",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5795541",
+   "id": 5795541,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Selector Cocoman"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2527,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aquellos-tiempos/1452923931?uo=4",
+   "id": 1452923931,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aquellos Tiempos",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 2527,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/87037712",
+   "id": 87037712,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aquellos Tiempos",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": "Selector Cocoman",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

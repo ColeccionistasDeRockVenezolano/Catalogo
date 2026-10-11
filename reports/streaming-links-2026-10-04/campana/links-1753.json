@@ -1,0 +1,30 @@
+{
+ "artistId": 1753,
+ "name": "UD-Ska",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 4565,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/artiller%C3%ADa-pensada/1581262644?uo=4",
+   "id": 1581262644,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.971,
+   "title_plat": "Artillería Pensada",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

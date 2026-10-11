@@ -1,0 +1,54 @@
+{
+ "artistId": 3501,
+ "name": "Giselle Brass",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/125408972",
+   "id": 125408972,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3FmYXg8C3C2fKAjPPpisp2",
+   "id": "3FmYXg8C3C2fKAjPPpisp2",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Giselle Brass"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6561,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/my-favorite-songs/1556463836?uo=4",
+   "id": 1556463836,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 6561,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/212125172",
+   "id": 212125172,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

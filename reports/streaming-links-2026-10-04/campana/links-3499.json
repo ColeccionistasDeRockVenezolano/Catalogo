@@ -1,0 +1,205 @@
+{
+ "artistId": 3499,
+ "name": "Gerardo Rosales",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1228188",
+   "id": 1228188,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gerardo Rosales"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6256,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/venezuela-sonora/262249192?uo=4",
+   "id": 262249192,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Venezuela Sonora",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 6257,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/se%C3%B1or-tambo/1600090307?uo=4",
+   "id": 1600090307,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Señor Tambo",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 6258,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-venezolano/262114461?uo=4",
+   "id": 262114461,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Venezolano",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 6260,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-salsa-es-mi-vida/257492119?uo=4",
+   "id": 257492119,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Salsa Es Mi Vida",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 6261,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tribute-to-fania-allstars/1576550101?uo=4",
+   "id": 1576550101,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 0.98,
+   "title_plat": "Tribute To Fania Allstars",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 6263,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/salsa-mundial/320515920?uo=4",
+   "id": 320515920,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Salsa Mundial",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 6268,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/s%C3%ADguelo/767525043?uo=4",
+   "id": 767525043,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Síguelo",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 6269,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/salsa-vintage/1147541991?uo=4",
+   "id": 1147541991,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Salsa Vintage",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6256,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/281465501",
+   "id": 281465501,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Venezuela Sonora",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 6257,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/280342972",
+   "id": 280342972,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Señor Tambo",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 6258,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/281278911",
+   "id": 281278911,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Venezolano",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 6259,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/863811192",
+   "id": 863811192,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ritmico y Pianistico",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 6260,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/979948",
+   "id": 979948,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Salsa es Mi Vida",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 6261,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/244410972",
+   "id": 244410972,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 0.98,
+   "title_plat": "Tribute To Fania Allstars",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 6268,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7182181",
+   "id": 7182181,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Síguelo",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 6269,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13900944",
+   "id": 13900944,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Salsa Vintage",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Gerardo Rosales",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 16,
+ "albumes_con_link": 9
+}

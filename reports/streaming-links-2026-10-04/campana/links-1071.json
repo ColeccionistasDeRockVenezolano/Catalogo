@@ -1,0 +1,73 @@
+{
+ "artistId": 1071,
+ "name": "Jahbafana",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/97868892",
+   "id": 97868892,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jahbafana"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2114,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/jahbafana/1518045352?uo=4",
+   "id": 1518045352,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Jahbafana",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 1995,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/amen/1523190826?uo=4",
+   "id": 1523190826,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Amen",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 2114,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/154785632",
+   "id": 154785632,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Jahbafana",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 1995,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/160366052",
+   "id": 160366052,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Amen",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Jahbafana",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

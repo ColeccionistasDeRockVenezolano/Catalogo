@@ -1,0 +1,67 @@
+{
+ "artistId": 296,
+ "name": "Roraima",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9539764",
+   "id": 9539764,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Roraima"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://roraima.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Roraima"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7JTYr09ImRyM5hWdJh8mFp",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Roraima"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id1632063477",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Roraima"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 673,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/818496721",
+   "id": 818496721,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Autana (Wahari Kuawai)",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "Roraima",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

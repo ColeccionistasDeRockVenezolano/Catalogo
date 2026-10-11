@@ -1,0 +1,51 @@
+{
+ "artistId": 402,
+ "name": "Bolívar",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5576134",
+   "id": 5576134,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Bolivar"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1687,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13122582",
+   "id": 13122582,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pisada y Huella",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 826,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13353141",
+   "id": 13353141,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Enemigo Imaginario",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Bolivar",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 2
+}

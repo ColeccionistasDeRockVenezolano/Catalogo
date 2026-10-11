@@ -1,0 +1,96 @@
+{
+ "artistId": 961,
+ "name": "Obscura Insania",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10789352",
+   "id": 10789352,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Obscura Insania"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://obscurainsania.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Obscura Insania"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0ObBz0O4DcrOVlCcpMErkF",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Obscura Insania"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/obscurainsania",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Obscura Insania"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/ObscuraInsania",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Obscura Insania"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/obscurainsania/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Obscura Insania"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1818,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sodoma/1462535181?uo=4",
+   "id": 1462535181,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sodoma",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 1818,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13697942",
+   "id": 13697942,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sodoma",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Obscura Insania",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

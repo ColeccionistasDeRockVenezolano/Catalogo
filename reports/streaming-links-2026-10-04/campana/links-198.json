@@ -1,0 +1,67 @@
+{
+ "artistId": 198,
+ "name": "Planeador",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6724755",
+   "id": 6724755,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Planeador"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/PlaneadorvOF",
+   "id": null,
+   "method": "fuzzy",
+   "source": "musicbrainz-url-rels",
+   "score": 0.9,
+   "name_plat": "Planeador V"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/planeadorvtributo",
+   "id": null,
+   "method": "fuzzy",
+   "source": "musicbrainz-url-rels",
+   "score": 0.9,
+   "name_plat": "Planeador V"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/planeadorv/",
+   "id": null,
+   "method": "fuzzy",
+   "source": "musicbrainz-url-rels",
+   "score": 0.9,
+   "name_plat": "Planeador V"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 476,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/148303852",
+   "id": 148303852,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Barcelona 10c",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Planeador V",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

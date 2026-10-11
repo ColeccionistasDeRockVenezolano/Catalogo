@@ -1,0 +1,51 @@
+{
+ "artistId": 4521,
+ "name": "Orquesta La Tremenda",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2768361",
+   "id": 2768361,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Orquesta la Tremenda"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15369,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/fieston-79/6813532032?uo=4",
+   "id": 6813532032,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Fieston 79",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 15369,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1081839352",
+   "id": 1081839352,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fieston 79",
+   "year_plat": 1979
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

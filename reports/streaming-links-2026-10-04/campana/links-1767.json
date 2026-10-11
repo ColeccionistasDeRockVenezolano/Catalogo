@@ -1,0 +1,37 @@
+{
+ "artistId": 1767,
+ "name": "4to Poder",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6729389",
+   "id": 6729389,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "4to Poder"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/4to_poder",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "4to Poder"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "4to Poder",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

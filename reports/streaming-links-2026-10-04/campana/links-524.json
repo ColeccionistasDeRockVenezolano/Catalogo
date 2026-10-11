@@ -1,0 +1,51 @@
+{
+ "artistId": 524,
+ "name": "Gladys Cordero",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/104932672",
+   "id": 104932672,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gladys Cordero"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 986,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/gladys-cordero/1677783315?uo=4",
+   "id": 1677783315,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Gladys Cordero",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 986,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/417952937",
+   "id": 417952937,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Gladys Cordero",
+   "year_plat": 1999
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

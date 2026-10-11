@@ -1,0 +1,91 @@
+{
+ "artistId": 3105,
+ "name": "Ty",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/384361971",
+   "id": 384361971,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "TY'"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0JtNaNLqFXHZ1B0Slcu1FJ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ty"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id3859591",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ty"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/tymusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ty"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/TYMusicFanpage",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ty"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/tymusical/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ty"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3544028",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ty"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/TYISCLOSER",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ty"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Ty",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

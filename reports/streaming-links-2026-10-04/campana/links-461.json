@@ -1,0 +1,51 @@
+{
+ "artistId": 461,
+ "name": "Boogieman's Curda",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11397982",
+   "id": 11397982,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Boogieman's Curda"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 901,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/freedom-of-repression-prophetic-tunes-for-a-present/1177694333?uo=4",
+   "id": 1177694333,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Freedom of Repression: Prophetic Tunes for a Present in Turmoil, Pt. 1",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 901,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14599506",
+   "id": 14599506,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Freedom of Repression: Prophetic Tunes for a Present in Turmoil, Pt. 1",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

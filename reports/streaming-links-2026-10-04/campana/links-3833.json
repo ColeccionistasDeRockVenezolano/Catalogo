@@ -1,0 +1,188 @@
+{
+ "artistId": 3833,
+ "name": "Luis Silva",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/173552267",
+   "id": 173552267,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Luis Silva"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0jfBF9nGfPmmvviidh2xrk",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Luis Silva"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/6627056",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Luis Silva"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4131034",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Luis Silva"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8817,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sangre-azul/1577594473?uo=4",
+   "id": 1577594473,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sangre Azul",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 8829,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mis-canciones/1551892773?uo=4",
+   "id": 1551892773,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mis Canciones",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 8819,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sencillo/1575013471?uo=4",
+   "id": 1575013471,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sencillo",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 8820,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/enamorado-de-ti/1106612057?uo=4",
+   "id": 1106612057,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Enamorado de Ti",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 14714,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/instrumentales/1114599130?uo=4",
+   "id": 1114599130,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Instrumentales",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 8830,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-leyenda-viva/1495492966?uo=4",
+   "id": 1495492966,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Leyenda Viva",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 8822,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-vuelta-a-mis-raices/1108144942?uo=4",
+   "id": 1108144942,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Vuelta a Mis Raices",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 8832,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/16-grandes-%C3%A9xitos/1107082649?uo=4",
+   "id": 1107082649,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "16 Grandes Éxitos",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 8828,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/soy-venezuela/1485020636?uo=4",
+   "id": 1485020636,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Soy Venezuela",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14709,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/romance-quincea%C3%B1ero/1512949711?uo=4",
+   "id": 1512949711,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Romance Quinceañero",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14712,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/c%C3%B3mo-no-voy-a-decirlo/1514917325?uo=4",
+   "id": 1514917325,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cómo No Voy a Decirlo",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14715,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antolog%C3%ADa-musical-ep/6783569553?uo=4",
+   "id": 6783569553,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.919,
+   "title_plat": "Antología Musical - EP",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Luis Silva",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 54,
+ "albumes_con_link": 12
+}

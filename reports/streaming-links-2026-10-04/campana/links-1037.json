@@ -1,0 +1,30 @@
+{
+ "artistId": 1037,
+ "name": "Keedosh",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 1950,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/estigmas-de-un-alma-ep/1730863460?uo=4",
+   "id": 1730863460,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.927,
+   "title_plat": "Estigmas De Un Alma - EP",
+   "year_plat": 2007
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

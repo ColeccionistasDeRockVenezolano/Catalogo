@@ -1,0 +1,40 @@
+{
+ "artistId": 3152,
+ "name": "One Night Stand",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/334664",
+   "id": 334664,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "ONE NIGHT STAND"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5356,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/532051352",
+   "id": 532051352,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ouroboros",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "One Night Stand",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

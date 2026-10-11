@@ -1,0 +1,30 @@
+{
+ "artistId": 3805,
+ "name": "Angel Jesús Mavo",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 8521,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/caminata-por-las-cuerdas/1717316291?uo=4",
+   "id": 1717316291,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Caminata por las Cuerdas",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

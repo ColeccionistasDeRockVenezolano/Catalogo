@@ -1,0 +1,52 @@
+{
+ "artistId": 1938,
+ "name": "Fabrika",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1404005",
+   "id": 1404005,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Fabrika"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0EKEm3s5k8SV394494b0Af",
+   "id": "0EKEm3s5k8SV394494b0Af",
+   "method": "exact",
+   "source": "wikidata-Q430826",
+   "score": 1.0
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/artist/203968372",
+   "id": "203968372",
+   "method": "exact",
+   "source": "wikidata-Q430826",
+   "score": 1.0
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC8rro7esy5YFAo3l5IYB96Q",
+   "id": "UC8rro7esy5YFAo3l5IYB96Q",
+   "method": "exact",
+   "source": "wikidata-Q430826",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Fabrika",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,111 @@
+{
+ "artistId": 134,
+ "name": "La Misma Gente",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/190483",
+   "id": 190483,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "La Misma Gente"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4q3sKRFsDPs82sKriW34mJ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Misma Gente"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/co/artist/id284627174",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Misma Gente"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/LaMismaGenteOficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Misma Gente"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1657,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-la-calle/1778312242?uo=4",
+   "id": 1778312242,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A La Calle!",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 222,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/203554222",
+   "id": 203554222,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Por Fin",
+   "year_plat": 1983
+  },
+  {
+   "albumId": 1659,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/225220582",
+   "id": 225220582,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Luz y Fuerza",
+   "year_plat": 1984
+  },
+  {
+   "albumId": 1658,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/230497472",
+   "id": 230497472,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tres",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 1657,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666542281",
+   "id": 666542281,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A La Calle!",
+   "year_plat": 1992
+  }
+ ],
+ "mb_name": "La Misma Gente",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 4
+}

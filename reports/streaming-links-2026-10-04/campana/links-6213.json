@@ -1,0 +1,64 @@
+{
+ "artistId": 6213,
+ "name": "Otrebor",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/77021312",
+   "id": 77021312,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Otrebor"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://otrebor12.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Otrebor"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4GE3w9LX8D6CGbfSk7PF88",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Otrebor"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1512209606",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Otrebor"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/17447770",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Otrebor"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Otrebor",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,104 @@
+{
+ "artistId": 95,
+ "name": "Famasloop",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5411086",
+   "id": 5411086,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Famasloop"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/famasloop",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Famasloop"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 187,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/3-casas/1539523906?uo=4",
+   "id": 1539523906,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "3 Casas",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 188,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/casa-4/1539514950?uo=4",
+   "id": 1539514950,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Casa 4",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 189,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-quema/1539517094?uo=4",
+   "id": 1539517094,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Quema",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 187,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/185170942",
+   "id": 185170942,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "3 Casas",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 188,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/185170362",
+   "id": 185170362,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Casa 4",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 189,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/185169882",
+   "id": 185169882,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Quema",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Famasloop",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

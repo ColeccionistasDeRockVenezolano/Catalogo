@@ -1,0 +1,109 @@
+{
+ "artistId": 2393,
+ "name": "Kadaverficker",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/89290632",
+   "id": 89290632,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Kadaverficker"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://kadaverficker.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kadaverficker"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/57NjjRyPxXEoEOaDd0qjXg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kadaverficker"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/de/artist/id1504701514",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kadaverficker"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Kadaverficker",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kadaverficker"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/kdvrfckr/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kadaverficker"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/kadaverficker",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kadaverficker"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.de/artists/B086CCKH93",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kadaverficker"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/18821828",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kadaverficker"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/KADAVERFICKERTV",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kadaverficker"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Kadaverficker",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

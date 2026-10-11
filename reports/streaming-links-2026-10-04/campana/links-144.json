@@ -1,0 +1,28 @@
+{
+ "artistId": 144,
+ "name": "Las Cuatro Monedas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1008414",
+   "id": 1008414,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Las Cuatro Monedas"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Las Cuatro Monedas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 13,
+ "albumes_con_link": 0
+}

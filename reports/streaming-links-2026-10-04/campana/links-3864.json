@@ -1,0 +1,40 @@
+{
+ "artistId": 3864,
+ "name": "Aquiles Baez, Aquiles Machado & Alexis Cardenas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/7905192",
+   "id": 7905192,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Aquiles Báez, Aquiles Machado & Alexis Cárdenas"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9119,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10228540",
+   "id": 10228540,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Canción De Venezuela Volumen 2",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

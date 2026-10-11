@@ -1,0 +1,117 @@
+{
+ "artistId": 2013,
+ "name": "Sergio Pérez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/122649",
+   "id": 122649,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sergio Perez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4488,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sergio-perez/1217143019?uo=4",
+   "id": 1217143019,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sergio Perez",
+   "year_plat": 1987
+  },
+  {
+   "albumId": 4485,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mueve-un-pie/1235108931?uo=4",
+   "id": 1235108931,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mueve un Pie",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 4487,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/hay-que-vivir/1107085773?uo=4",
+   "id": 1107085773,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Hay Que Vivir",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 4486,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/se-oye-en-la-calle/1106043979?uo=4",
+   "id": 1106043979,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Se Oye en la Calle",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 4488,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/15676960",
+   "id": 15676960,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sergio Perez",
+   "year_plat": 1987
+  },
+  {
+   "albumId": 4485,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/41358191",
+   "id": 41358191,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mueve un Pie",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 4487,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12935534",
+   "id": 12935534,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hay Que Vivir",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 4486,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12914650",
+   "id": 12914650,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Se Oye en la Calle",
+   "year_plat": 1998
+  }
+ ],
+ "mb_name": "Sergio Pérez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 8,
+ "albumes_con_link": 4
+}

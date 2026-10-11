@@ -1,0 +1,260 @@
+{
+ "artistId": 2861,
+ "name": "María Rivas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5439076",
+   "id": 5439076,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Maria Rivas"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5562,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/primogenito/538029941?uo=4",
+   "id": 538029941,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Primogenito",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 5561,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/manduco/537301631?uo=4",
+   "id": 537301631,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Manduco",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 5560,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mapale/537299576?uo=4",
+   "id": 537299576,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mapale",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 5559,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/muar%C3%A9/537315540?uo=4",
+   "id": 537315540,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Muaré",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 5558,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/caf%C3%A9-negrito/537323006?uo=4",
+   "id": 537323006,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Café Negrito",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 5555,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pepiada-queen/537307040?uo=4",
+   "id": 537307040,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pepiada Queen",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 5554,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aquador/537357502?uo=4",
+   "id": 537357502,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aquador",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 13120,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/maria-rivas-18-greatest-hits-18-grandes-%C3%A9xitos/537951857?uo=4",
+   "id": 537951857,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Maria Rivas' 18 Greatest Hits (18 Grandes Éxitos)",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 5553,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/live-lunch-break/537294821?uo=4",
+   "id": 537294821,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Live Lunch Break",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 5552,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/motivos/1371262261?uo=4",
+   "id": 1371262261,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Motivos",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 5562,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79182662",
+   "id": 79182662,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Primogenito",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 5561,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79306892",
+   "id": 79306892,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Manduco",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 5560,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79321142",
+   "id": 79321142,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mapale",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 5559,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79310482",
+   "id": 79310482,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Muaré",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 5558,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79312722",
+   "id": 79312722,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Café Negrito",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 5557,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/913430321",
+   "id": 913430321,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Concierto",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 5555,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79304502",
+   "id": 79304502,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pepiada Queen",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 5554,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79308692",
+   "id": 79308692,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aquador",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 13120,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79463962",
+   "id": 79463962,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Maria Rivas' 18 Greatest Hits (18 Grandes Éxitos)",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 5553,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79321772",
+   "id": 79321772,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Live Lunch Break",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 5552,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/61222512",
+   "id": 61222512,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Motivos",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "María Rivas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 14,
+ "albumes_con_link": 11
+}

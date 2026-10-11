@@ -1,0 +1,30 @@
+{
+ "artistId": 647,
+ "name": "Conspiracy Of The Unseen",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 1145,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-hidden-truth-ep/1483836390?uo=4",
+   "id": 1483836390,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.914,
+   "title_plat": "The Hidden Truth - EP",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

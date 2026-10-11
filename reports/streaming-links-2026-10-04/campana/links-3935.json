@@ -1,0 +1,51 @@
+{
+ "artistId": 3935,
+ "name": "Cuarteto Fosforera",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11824679",
+   "id": 11824679,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cuarteto Fosforera"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9614,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/all%C3%A1-quita-aca-sabe/1199996211?uo=4",
+   "id": 1199996211,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Allá Quita, Aca Sabe",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 9614,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/15196049",
+   "id": 15196049,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Alla Quita, Aca Sabe",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

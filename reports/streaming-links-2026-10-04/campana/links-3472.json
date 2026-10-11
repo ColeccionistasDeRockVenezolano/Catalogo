@@ -1,0 +1,135 @@
+{
+ "artistId": 3472,
+ "name": "David Brito",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6267336",
+   "id": 6267336,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "David Brito"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4wc0iH7vW229cnuL3Rzx3O",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "David Brito"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/gb/artist/id345881285",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "David Brito"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6157,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tendencia-nueva/973877094?uo=4",
+   "id": 973877094,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tendencia Nueva",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 6159,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dinner-with-aldemaro/1124693668?uo=4",
+   "id": 1124693668,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Dinner With Aldemaro",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6158,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/venezuela-songbook/1124693266?uo=4",
+   "id": 1124693266,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Venezuela Songbook",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6160,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/reflejos/1562714189?uo=4",
+   "id": 1562714189,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Reflejos",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 6157,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11950184",
+   "id": 11950184,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tendencia Nueva",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 6159,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13363809",
+   "id": 13363809,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dinner With Aldemaro",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6158,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13363805",
+   "id": 13363805,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Venezuela Songbook",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6160,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/222421862",
+   "id": 222421862,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Reflejos",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "David Brito",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

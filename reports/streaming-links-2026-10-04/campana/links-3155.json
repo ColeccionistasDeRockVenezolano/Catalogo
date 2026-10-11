@@ -1,0 +1,51 @@
+{
+ "artistId": 3155,
+ "name": "Evil and Madness",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/406365282",
+   "id": 406365282,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Evil and Madness"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5361,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ubel-und-wahnsinn/6794046632?uo=4",
+   "id": 6794046632,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ubel und Wahnsinn",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 5361,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1039366742",
+   "id": 1039366742,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ubel und Wahnsinn",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

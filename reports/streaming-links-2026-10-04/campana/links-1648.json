@@ -1,0 +1,40 @@
+{
+ "artistId": 1648,
+ "name": "Coletivo Proyectil",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/88283382",
+   "id": 88283382,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.973,
+   "name_plat": "Colectivo Proyectil"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2991,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/425998487",
+   "id": 425998487,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.96,
+   "title_plat": "Palantespaya",
+   "year_plat": 2002
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,28 @@
+{
+ "artistId": 3564,
+ "name": "Rafael \"Gallo\" Velásquez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/394738881",
+   "id": 394738881,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.936,
+   "name_plat": "Rafael \"El Gallo\" Velásquez"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 1318,
+ "name": "Vel France",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12646699",
+   "id": 12646699,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Vel France"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15637,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/memorias-al-mar/1247866165?uo=4",
+   "id": 1247866165,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Memorias al Mar",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 15637,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/43128991",
+   "id": 43128991,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Memorias al Mar",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

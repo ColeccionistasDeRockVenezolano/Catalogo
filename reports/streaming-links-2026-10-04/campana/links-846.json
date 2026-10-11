@@ -1,0 +1,59 @@
+{
+ "artistId": 846,
+ "name": "Brutal Assault",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/483124",
+   "id": 483124,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Brutal Assault"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCVe5DrZzi1XVZqTAPGFhrmw",
+   "id": "UCVe5DrZzi1XVZqTAPGFhrmw",
+   "method": "exact",
+   "source": "wikidata-Q994618",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1504,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/brutal-assault/481800917?uo=4",
+   "id": 481800917,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Brutal Assault",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 1504,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1583099",
+   "id": 1583099,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Brutal Assault",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "Brutal Assault",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

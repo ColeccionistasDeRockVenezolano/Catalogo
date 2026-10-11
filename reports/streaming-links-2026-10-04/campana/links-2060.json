@@ -1,0 +1,28 @@
+{
+ "artistId": 2060,
+ "name": "Ainhoa",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/3854651",
+   "id": 3854651,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ainhoa"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Ainhoa",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,108 @@
+{
+ "artistId": 1254,
+ "name": "Hagane",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10263478",
+   "id": 10263478,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Hagane"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0aid1vDJX1Ao4fgm3lUREs",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "HAGANE"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/jp/artist/1614761165",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "HAGANE"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/9191840",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "HAGANE"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCLrYavXppY_4oRfquHk9VQg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "HAGANE"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/hagane_0623",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/people/Hagane-Artist-Page/61578711261605",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/hagane_0623official/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@hagane.official",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2921,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/429293517",
+   "id": 429293517,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.957,
+   "title_plat": "Between blood and light",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "HAGANE",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

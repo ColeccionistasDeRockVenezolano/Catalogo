@@ -1,0 +1,63 @@
+{
+ "artistId": 6362,
+ "name": "Steven Seagal",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/3235",
+   "id": 3235,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Steven Seagal"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1jgRWeREJTbx96zhcn8vgx",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Steven Seagal"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/sseagalofficial/timeline",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Steven Seagal"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/365564",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Steven Seagal"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCrNy-K5sLxrDISa58W9hPrg",
+   "id": "UCrNy-K5sLxrDISa58W9hPrg",
+   "method": "exact",
+   "source": "wikidata-Q82110",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Steven Seagal",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

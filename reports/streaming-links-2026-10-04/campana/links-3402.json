@@ -1,0 +1,58 @@
+{
+ "artistId": 3402,
+ "name": "Francisco León",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5217616",
+   "id": 5217616,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Francisco León"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/franciscoleon1",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Francisco León"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/franciscoleonoficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Francisco León"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5850,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/861121712",
+   "id": 861121712,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Encuentro En La Serranía",
+   "year_plat": 1992
+  }
+ ],
+ "mb_name": "Francisco León",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

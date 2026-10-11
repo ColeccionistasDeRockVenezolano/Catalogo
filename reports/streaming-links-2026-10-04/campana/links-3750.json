@@ -1,0 +1,30 @@
+{
+ "artistId": 3750,
+ "name": "Son Collage",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 7834,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/son-del-caribe/1122322793?uo=4",
+   "id": 1122322793,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Son del Caribe",
+   "year_plat": 1992
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,69 @@
+{
+ "artistId": 1406,
+ "name": "Climax",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/115203612",
+   "id": 115203612,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Climax"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1OzPxKCB5R3MLxvkdGN03X",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Climax"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3554122",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Climax"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2491,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/climax/1649759715?uo=4",
+   "id": 1649759715,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Climax",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 2491,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/950011531",
+   "id": 950011531,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Climax",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Climax",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,109 @@
+{
+ "artistId": 2918,
+ "name": "Voicians",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1067492",
+   "id": 1067492,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Voicians"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://voicians.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Voicians"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3JBuRhCKusstPRZ5O7fsVs",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Voicians"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/de/artist/id348748566",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Voicians"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/Voicians",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Voicians"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Voicians",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Voicians"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/voicians/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Voicians"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/voicians",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Voicians"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4803040",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Voicians"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCyQUWqp2sbO7rj8oQSk9a3A",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Voicians"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Voicians",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

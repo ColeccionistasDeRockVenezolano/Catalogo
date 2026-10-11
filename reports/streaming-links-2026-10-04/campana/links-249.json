@@ -1,0 +1,184 @@
+{
+ "artistId": 249,
+ "name": "Tomates Fritos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1075655",
+   "id": 1075655,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Tomates Fritos"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://tomatesfritos.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tomates Fritos"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/tomatesfritos",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tomates Fritos"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/tomatesfritos",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tomates Fritos"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/tomatesfritos/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tomates Fritos"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/tomatesfritos",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tomates Fritos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 356,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/odissey/1852687133?uo=4",
+   "id": 1852687133,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Odissey",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 355,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/molly/1852180099?uo=4",
+   "id": 1852180099,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Molly",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 354,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/hombre-bala/1850902625?uo=4",
+   "id": 1850902625,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Hombre Bala",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 576,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/hotel-miramar/1850902389?uo=4",
+   "id": 1850902389,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Hotel Miramar",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 357,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tomates-fritos/1852179679?uo=4",
+   "id": 1852179679,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tomates Fritos",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 356,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/855593412",
+   "id": 855593412,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Odissey",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 355,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/854564842",
+   "id": 854564842,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Molly",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 354,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/850761932",
+   "id": 850761932,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hombre Bala",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 576,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/850761972",
+   "id": 850761972,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hotel Miramar",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 357,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/854564792",
+   "id": 854564792,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tomates Fritos",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Tomates Fritos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 5
+}

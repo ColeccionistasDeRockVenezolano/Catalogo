@@ -1,0 +1,73 @@
+{
+ "artistId": 566,
+ "name": "AdxivA",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://adxiva.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AdxivA"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/AdxivA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AdxivA"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/AdxivA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AdxivA"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/AdxivA/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AdxivA"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/adxiva",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AdxivA"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCvL0w5ZPbDufJ8b6_2vmZ4g",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AdxivA"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "AdxivA",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

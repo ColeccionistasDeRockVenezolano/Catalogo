@@ -1,0 +1,73 @@
+{
+ "artistId": 649,
+ "name": "Bleeding Tears",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5496908",
+   "id": 5496908,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Bleeding Tears"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1617,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/brother-wolf/1019950660?uo=4",
+   "id": 1019950660,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Brother Wolf",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1147,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-fall-of-lucifer-ep/1077576395?uo=4",
+   "id": 1077576395,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.927,
+   "title_plat": "The Fall of Lucifer - EP",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 1617,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10844670",
+   "id": 10844670,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Brother Wolf",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1147,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12240660",
+   "id": 12240660,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Fall of Lucifer",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

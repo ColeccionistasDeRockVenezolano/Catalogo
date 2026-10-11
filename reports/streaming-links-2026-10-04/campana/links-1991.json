@@ -1,0 +1,40 @@
+{
+ "artistId": 1991,
+ "name": "Lorenzo Adam",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4807799",
+   "id": 4807799,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.917,
+   "name_plat": "Lorenzo Dada"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4387,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ciudad-de-cerveza/1558463316?uo=4",
+   "id": 1558463316,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ciudad De Cerveza",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,59 @@
+{
+ "artistId": 250,
+ "name": "Trance Nuance",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/114241552",
+   "id": 114241552,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Trance Nuance"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/trance.nuance",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 358,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/s%C3%ADlabas-eid%C3%A9ticas/1694310183?uo=4",
+   "id": 1694310183,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sílabas Eidéticas",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 358,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/431463427",
+   "id": 431463427,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sílabas Eidéticas",
+   "year_plat": 1996
+  }
+ ],
+ "mb_name": "Trance Nuance",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,87 @@
+{
+ "artistId": 3506,
+ "name": "Hugo Fuguet",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/57994602",
+   "id": 57994602,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Hugo Fuguet"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/HugoFuguet",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hugo Fuguet"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/hugofuguet/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hugo Fuguet"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/hugofuguet",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hugo Fuguet"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/hugofuguet",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hugo Fuguet"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6304,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/desde-tan-lejos/897302084?uo=4",
+   "id": 897302084,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Desde Tan Lejos",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 6305,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nueve-dias/897307934?uo=4",
+   "id": 897307934,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nueve Dias",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": "Hugo Fuguet",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

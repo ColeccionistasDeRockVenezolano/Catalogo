@@ -1,0 +1,62 @@
+{
+ "artistId": 3154,
+ "name": "Chimo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1384824",
+   "id": 1384824,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Chimo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5358,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/318314017",
+   "id": 318314017,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Chimo",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 5359,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/318331347",
+   "id": 318331347,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cybersex",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 5360,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/318331017",
+   "id": 318331017,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Flor de Carne",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Chimo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

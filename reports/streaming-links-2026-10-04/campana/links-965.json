@@ -1,0 +1,30 @@
+{
+ "artistId": 965,
+ "name": "Ad Intra",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 3636,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/inside-us-all/629573377?uo=4",
+   "id": 629573377,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Inside Us All",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Ad Intra",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

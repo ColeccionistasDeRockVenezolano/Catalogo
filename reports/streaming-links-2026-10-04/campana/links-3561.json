@@ -1,0 +1,51 @@
+{
+ "artistId": 3561,
+ "name": "Pedrito López",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/7951000",
+   "id": 7951000,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Pedrito López"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6438,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/caribe-jazz/1180458687?uo=4",
+   "id": 1180458687,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Caribe Jazz",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6438,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14665922",
+   "id": 14665922,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Caribe Jazz",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Pedrito López",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,73 @@
+{
+ "artistId": 1609,
+ "name": "Saem",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/49444282",
+   "id": 49444282,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Saem"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3vAgOWTb95EDtPV2Tp2lBs",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saem"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/1869518154",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saem"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/1saem_Official",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saem"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/1saem_/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saem"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCyWSTXEurIIRwpNV9_iqovA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saem"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Saem",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,117 @@
+{
+ "artistId": 1928,
+ "name": "Elisa Rego",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10023646",
+   "id": 10023646,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Elisa Rego"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4028,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/elisa-rego/1353148097?uo=4",
+   "id": 1353148097,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Elisa Rego",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 4031,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/vale-la-pena/1516806852?uo=4",
+   "id": 1516806852,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Vale la Pena",
+   "year_plat": 1991
+  },
+  {
+   "albumId": 4027,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/temperamental/1516815348?uo=4",
+   "id": 1516815348,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Temperamental",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 4029,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/rockola/1516822436?uo=4",
+   "id": 1516822436,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Rockola",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 4028,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/57892772",
+   "id": 57892772,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Elisa Rego",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 4031,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/151433272",
+   "id": 151433272,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vale la Pena",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 4027,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/151433472",
+   "id": 151433472,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Temperamental",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 4029,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/151437152",
+   "id": 151437152,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rockola",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Elisa Rego",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 4
+}

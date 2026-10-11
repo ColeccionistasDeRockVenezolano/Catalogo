@@ -1,0 +1,28 @@
+{
+ "artistId": 2884,
+ "name": "DJ Wope",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/540732",
+   "id": 540732,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Dj Wope"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "DJ Wope",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

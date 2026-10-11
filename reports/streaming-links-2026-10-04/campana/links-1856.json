@@ -1,0 +1,95 @@
+{
+ "artistId": 1856,
+ "name": "Pentágono",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/299489",
+   "id": 299489,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Pentagono"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3759,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pentagono/1440694466?uo=4",
+   "id": 1440694466,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pentagono",
+   "year_plat": 1987
+  },
+  {
+   "albumId": 3760,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%A1s-rom%C3%A1ntico/1435201662?uo=4",
+   "id": 1435201662,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Más Romántico",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 3762,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pent%C3%A1gono-3/1437344777?uo=4",
+   "id": 1437344777,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pentágono 3",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 3763,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-mejor-de-pent%C3%A1gono/1364095154?uo=4",
+   "id": 1364095154,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lo Mejor de Pentágono",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 3759,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14218312",
+   "id": 14218312,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pentágono",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 3762,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14218312",
+   "id": 14218312,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.9,
+   "title_plat": "Pentágono",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "Pentágono",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 4
+}

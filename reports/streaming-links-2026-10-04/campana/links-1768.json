@@ -1,0 +1,46 @@
+{
+ "artistId": 1768,
+ "name": "La Liga",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/332943",
+   "id": 332943,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "La Liga"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0WG7v7wcDK5ZsUHjnZo9E6",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Liga"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@titoylaligaok",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Liga"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "La Liga",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 1124,
+ "name": "Mermelada Maker",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/331405761",
+   "id": 331405761,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mermelada Maker"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15539,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/774539731",
+   "id": 774539731,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mermelada Maker",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

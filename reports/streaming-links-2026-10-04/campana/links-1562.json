@@ -1,0 +1,41 @@
+{
+ "artistId": 1562,
+ "name": "Predator T",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 2805,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/march-of-death/1727969704?uo=4",
+   "id": 1727969704,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "March of Death",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 2800,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/red-day/1727441668?uo=4",
+   "id": 1727441668,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Red Day",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "Predator T",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 2
+}

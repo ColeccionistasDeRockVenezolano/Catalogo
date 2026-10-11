@@ -1,0 +1,30 @@
+{
+ "artistId": 1002,
+ "name": "Ultra IB",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 2849,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/esperar/1121798090?uo=4",
+   "id": 1121798090,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Esperar",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

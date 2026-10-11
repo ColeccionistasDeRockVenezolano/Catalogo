@@ -1,0 +1,71 @@
+{
+ "artistId": 788,
+ "name": "Gota",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1384082",
+   "id": 1384082,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gota"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1t3344DpBqbezUv3QIR1DH",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "GOTA"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/jp/artist/1649076670",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "GOTA"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@gotatw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "GOTA"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/gota.tw/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "twitter",
+   "url": "https://www.kkbox.com/tw/artist/DXw9xAQ11asjFX90Os",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "GOTA",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

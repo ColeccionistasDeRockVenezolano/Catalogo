@@ -1,0 +1,27 @@
+{
+ "artistId": 1245,
+ "name": "Sala de Leb",
+ "artist_links": [
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/pages/Sala-De-Leb/109488575745483",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Sala de Leb",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

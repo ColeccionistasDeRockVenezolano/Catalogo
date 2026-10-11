@@ -1,0 +1,82 @@
+{
+ "artistId": 5916,
+ "name": "Bob Bissonnette",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5637404",
+   "id": 5637404,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Bob Bissonnette"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/69Lg4McXyOIjgODP8I3l10",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bob Bissonnette"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/ca/artist/id380609148",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bob Bissonnette"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/bobbissonnette1",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bob Bissonnette"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/bob.bissonnette.officiel",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bob Bissonnette"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/bobbissonnette/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bob Bissonnette"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCwHRJz4jXF4Qb6vbJ7mDb0w",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bob Bissonnette"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Bob Bissonnette",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

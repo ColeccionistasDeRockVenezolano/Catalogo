@@ -1,0 +1,40 @@
+{
+ "artistId": 3498,
+ "name": "Gerardo Chacón",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4660110",
+   "id": 4660110,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gerardo Chacon"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6254,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/471822185",
+   "id": 471822185,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sueño de Niños",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

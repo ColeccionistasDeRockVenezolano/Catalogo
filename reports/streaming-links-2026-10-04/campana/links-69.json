@@ -1,0 +1,98 @@
+{
+ "artistId": 69,
+ "name": "Colina",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/216074925",
+   "id": 216074925,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Colina"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6wNbTJte0MrrSveCpOemhy",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Colina"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/djanecolina",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/djanecolina",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4671,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/amanecer/1483072868?uo=4",
+   "id": 1483072868,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Amanecer",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 433,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/colina/1102930132?uo=4",
+   "id": 1102930132,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Colina",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 4673,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sampler/1107068218?uo=4",
+   "id": 1107068218,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sampler",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 4674,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuando-un-loco-ama/1106614898?uo=4",
+   "id": 1106614898,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuando un Loco Ama",
+   "year_plat": 1988
+  }
+ ],
+ "mb_name": "Colina",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 11,
+ "albumes_con_link": 4
+}

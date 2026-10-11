@@ -1,0 +1,64 @@
+{
+ "artistId": 6046,
+ "name": "Mida",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2539531",
+   "id": 2539531,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mida"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2Pr26KMbfrX8zb8Vk6jFHe",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mida"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/mida.mp3/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mida"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4629599",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mida"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCBIMsdkO45PS3gX2A4Idbog",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mida"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Mida",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

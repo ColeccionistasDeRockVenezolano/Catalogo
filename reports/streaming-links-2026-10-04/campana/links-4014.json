@@ -1,0 +1,51 @@
+{
+ "artistId": 4014,
+ "name": "Ximena Borges",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5589281",
+   "id": 5589281,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.929,
+   "name_plat": "Xi.me.na Borges"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9811,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/joyful-noise/761254912?uo=4",
+   "id": 761254912,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Joyful Noise",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 9811,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7508067",
+   "id": 7508067,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Joyful Noise",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

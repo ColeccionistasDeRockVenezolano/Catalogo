@@ -1,0 +1,73 @@
+{
+ "artistId": 1513,
+ "name": "Omerta",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/412834581",
+   "id": 412834581,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Omerta"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1jaUyj8ygmhlaHEiGSMFPx",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Omerta"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/157534497657708",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Omerta"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/realomerta/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Omerta"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/mitasomerta",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Omerta"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/lt/artist/1643015037",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Omerta"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Omerta",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

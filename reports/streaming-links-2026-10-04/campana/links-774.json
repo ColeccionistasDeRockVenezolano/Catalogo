@@ -1,0 +1,69 @@
+{
+ "artistId": 774,
+ "name": "Verminous",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/300812",
+   "id": 300812,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Verminous"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://verminous.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Verminous"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/hordesofvermin",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Verminous"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1723,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/depraved-institution/984543201?uo=4",
+   "id": 984543201,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Depraved Institution",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 1723,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10138642",
+   "id": 10138642,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Depraved Institution",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "Verminous",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

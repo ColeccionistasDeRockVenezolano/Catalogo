@@ -1,0 +1,46 @@
+{
+ "artistId": 2101,
+ "name": "Teoría del Caos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/91307112",
+   "id": 91307112,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Teoria Del Caos"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3exyA4Z3neIpnVks47uLPZ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Teoría del Caos"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1507561116",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Teoría del Caos"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Teoría del Caos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

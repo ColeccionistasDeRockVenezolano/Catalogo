@@ -1,0 +1,98 @@
+{
+ "artistId": 2345,
+ "name": "Nightrage",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/101130",
+   "id": 101130,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Nightrage"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://nightrage.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nightrage"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6dhqzgrbFggOBns03STnU3",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nightrage"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/se/artist/id19092957",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nightrage"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/nightrage",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nightrage"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3569632",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nightrage"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCs87DUvK7Cd0zzSH_KYs-9w",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nightrage"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/nightrage",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/nightrage",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Nightrage",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

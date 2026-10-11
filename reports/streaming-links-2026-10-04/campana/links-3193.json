@@ -1,0 +1,62 @@
+{
+ "artistId": 3193,
+ "name": "Hanged Cross",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/268450902",
+   "id": 268450902,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Hanged Cross"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5458,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dancing-over-dead-bodies-ep/1811596556?uo=4",
+   "id": 1811596556,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.941,
+   "title_plat": "Dancing Over Dead Bodies - EP",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 5457,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/596993092",
+   "id": 596993092,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Welcome to...",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 5458,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/749917321",
+   "id": 749917321,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dancing Over Dead Bodies",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

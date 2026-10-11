@@ -1,0 +1,49 @@
+{
+ "artistId": 486,
+ "name": "Alfredo Herrera",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14995609",
+   "id": 14995609,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Alfredo Herrera"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1ovaJRIHK9WZePJ2TV8jw0",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Alfredo Herrera"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 930,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/323380397",
+   "id": 323380397,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "No More War",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Alfredo Herrera",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,55 @@
+{
+ "artistId": 416,
+ "name": "Meid",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2Z0nCJEWeODgFjH5hPaY8K",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEID"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/jp/artist/1489923232",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEID"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/meid_official0828/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEID"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCr-2ErR8B7J6XnHxem7IAGA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEID"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "MEID",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

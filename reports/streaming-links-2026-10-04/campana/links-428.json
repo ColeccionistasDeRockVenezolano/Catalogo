@@ -1,0 +1,40 @@
+{
+ "artistId": 428,
+ "name": "Fuga",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5001216",
+   "id": 5001216,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Fuga"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 859,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13928182",
+   "id": 13928182,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fuga",
+   "year_plat": 1984
+  }
+ ],
+ "mb_name": "Fuga",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

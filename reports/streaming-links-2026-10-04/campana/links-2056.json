@@ -1,0 +1,40 @@
+{
+ "artistId": 2056,
+ "name": "Quincalla",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10454899",
+   "id": 10454899,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Quincalla"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15566,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/funicular-liminal-ep/1119083817?uo=4",
+   "id": 1119083817,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.919,
+   "title_plat": "Funicular Liminal - EP",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

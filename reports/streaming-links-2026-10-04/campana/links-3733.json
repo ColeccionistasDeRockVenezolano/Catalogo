@@ -1,0 +1,73 @@
+{
+ "artistId": 3733,
+ "name": "Orinoco Banda Show",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11437836",
+   "id": 11437836,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Orinoco Banda Show"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 7649,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tropical-vol-1/1180265091?uo=4",
+   "id": 1180265091,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tropical, Vol. 1",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7650,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tropical-vol-2/1180269518?uo=4",
+   "id": 1180269518,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tropical, Vol. 2",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7649,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14657806",
+   "id": 14657806,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tropical, Vol. 1",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7650,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14657808",
+   "id": 14657808,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tropical, Vol. 2",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

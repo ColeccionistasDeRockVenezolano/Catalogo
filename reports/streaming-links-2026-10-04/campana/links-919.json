@@ -1,0 +1,95 @@
+{
+ "artistId": 919,
+ "name": "Blackstone",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/58270",
+   "id": 58270,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Blackstone"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1695,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/spectrum/1564986260?uo=4",
+   "id": 1564986260,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Spectrum",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 1747,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/spiritual-waste/1565271590?uo=4",
+   "id": 1565271590,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Spiritual Waste",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 1745,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/devoid-of-humanity/1564788457?uo=4",
+   "id": 1564788457,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Devoid of Humanity",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 1695,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/226151372",
+   "id": 226151372,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Spectrum",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 1747,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/225822822",
+   "id": 225822822,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Spiritual Waste",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 1745,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/225854112",
+   "id": 225854112,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Devoid of Humanity",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Blackstone",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 3560,
+ "name": "Paul Fuenmayor",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/101126582",
+   "id": 101126582,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Paul Fuenmayor"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6437,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/jazzberto-ibarreto/1803917589?uo=4",
+   "id": 1803917589,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Jazzberto Ibarreto",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 6437,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/731679391",
+   "id": 731679391,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Jazzberto Ibarreto",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

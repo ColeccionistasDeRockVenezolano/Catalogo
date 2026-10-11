@@ -1,0 +1,73 @@
+{
+ "artistId": 3453,
+ "name": "Benjamín Brea",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1632827",
+   "id": 1632827,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Benjamin Brea"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6608,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/another-point-of-view/1180264892?uo=4",
+   "id": 1180264892,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Another Point of View",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 9908,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/un-viejo-amor/494092021?uo=4",
+   "id": 494092021,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Un Viejo Amor",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 6608,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14658412",
+   "id": 14658412,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Another Point of View",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 9908,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1561940",
+   "id": 1561940,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Un Viejo Amor",
+   "year_plat": 1996
+  }
+ ],
+ "mb_name": "Benjamín Brea",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

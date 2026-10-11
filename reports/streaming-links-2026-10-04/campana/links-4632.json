@@ -1,0 +1,55 @@
+{
+ "artistId": 4632,
+ "name": "Rumberos del Callejón",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4841873",
+   "id": 4841873,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Rumberos Del Callejon"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/19GHGxg5GK9QZVe2nuDHUL",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Rumberos del Callejón"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/ve/artist/id492713971",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Rumberos del Callejón"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/rumberosdelcallejon1",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Rumberos del Callejón"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Rumberos del Callejón",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

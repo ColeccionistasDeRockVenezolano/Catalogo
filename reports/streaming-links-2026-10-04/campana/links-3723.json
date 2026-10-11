@@ -1,0 +1,18 @@
+{
+ "artistId": 3723,
+ "name": "Los Melódicos / Renato Capriles",
+ "artist_links": [],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 94,
+ "albumes_con_link": 0
+}

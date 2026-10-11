@@ -1,0 +1,49 @@
+{
+ "artistId": 1319,
+ "name": "Mc Klopedia",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4577322",
+   "id": 4577322,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.952,
+   "name_plat": "Mcklopedia"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1PNgAcUW6UgN59okEaTpvG",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MC Klopedia"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2294,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/932759061",
+   "id": 932759061,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Superlirical",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "MC Klopedia",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

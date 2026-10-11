@@ -1,0 +1,30 @@
+{
+ "artistId": 352,
+ "name": "Vallium 100kg",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 755,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/virus/1558149092?uo=4",
+   "id": 1558149092,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Virus",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

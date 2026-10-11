@@ -1,0 +1,62 @@
+{
+ "artistId": 809,
+ "name": "Noctambulath",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11419100",
+   "id": 11419100,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Noctambulath"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1541,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cr%C3%B3nica-de-un-vil-y-seductor-ritual/1768358563?uo=4",
+   "id": 1768358563,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Crónica De Un Vil Y Seductor Ritual",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 1450,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/636173331",
+   "id": 636173331,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sirviente de Muerte",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 1541,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643009721",
+   "id": 643009721,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Crónica De Un Vil Y Seductor Ritual",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "Noctambulath",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

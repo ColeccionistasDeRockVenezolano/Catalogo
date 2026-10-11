@@ -1,0 +1,51 @@
+{
+ "artistId": 3983,
+ "name": "Marco Granados",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1158556",
+   "id": 1158556,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Marco Granados"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9750,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/music-of-venezuela/1495591792?uo=4",
+   "id": 1495591792,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Music of Venezuela",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 9750,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/127607552",
+   "id": 127607552,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Music of Venezuela",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "Marco Granados",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 1
+}

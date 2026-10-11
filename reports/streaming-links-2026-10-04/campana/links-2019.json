@@ -1,0 +1,51 @@
+{
+ "artistId": 2019,
+ "name": "Still Dot",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1085328",
+   "id": 1085328,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Still Dot"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4510,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ok/295182187?uo=4",
+   "id": 295182187,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ok",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 4510,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/782736",
+   "id": 782736,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ok",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

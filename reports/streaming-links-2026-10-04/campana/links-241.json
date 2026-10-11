@@ -1,0 +1,95 @@
+{
+ "artistId": 241,
+ "name": "Telegrama",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/348329",
+   "id": 348329,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Telegrama"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 347,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-quien-pueda-interesar/1625835745?uo=4",
+   "id": 1625835745,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A Quien Pueda Interesar",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 539,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/country-club/1633499767?uo=4",
+   "id": 1633499767,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Country Club",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 4525,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cambia-tus-amigos/1706423997?uo=4",
+   "id": 1706423997,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cambia Tus Amigos",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 347,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/505452711",
+   "id": 505452711,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Quien Pueda Interesar",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 539,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/484585665",
+   "id": 484585665,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Country Club",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 4525,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/484585805",
+   "id": 484585805,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cambia Tus Amigos",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Telegrama",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

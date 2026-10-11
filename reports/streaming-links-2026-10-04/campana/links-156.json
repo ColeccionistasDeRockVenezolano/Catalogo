@@ -1,0 +1,118 @@
+{
+ "artistId": 156,
+ "name": "Los Crema Paraíso",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4506834",
+   "id": 4506834,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Crema Paraiso"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://loscremaparaiso.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Crema Paraiso"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/loscremaparaiso",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Crema Paraiso"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/loscremaparaiso",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Crema Paraiso"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/loscremaparaiso/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Crema Paraiso"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCmkn7d2qX1szcKnz2xL9Z4Q",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Crema Paraiso"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 77,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-debut/609039285?uo=4",
+   "id": 609039285,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Debut",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 3389,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-pel%C3%ADcula/983748164?uo=4",
+   "id": 983748164,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Película",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 77,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6384409",
+   "id": 6384409,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Debut",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 3389,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10036156",
+   "id": 10036156,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Película",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": "Los Crema Paraiso",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

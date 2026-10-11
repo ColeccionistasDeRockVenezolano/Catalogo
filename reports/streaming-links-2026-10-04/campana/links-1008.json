@@ -1,0 +1,30 @@
+{
+ "artistId": 1008,
+ "name": "Los Residuos",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 1945,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/perdiendo-la-forma-humana/1645125082?uo=4",
+   "id": 1645125082,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Perdiendo La Forma Humana",
+   "year_plat": 2002
+  }
+ ],
+ "mb_name": "Los Residuos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 1
+}

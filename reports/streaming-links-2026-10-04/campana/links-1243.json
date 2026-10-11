@@ -1,0 +1,40 @@
+{
+ "artistId": 1243,
+ "name": "Cerouno",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9526726",
+   "id": 9526726,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cerouno"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2201,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/368568947",
+   "id": 368568947,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Atari Amor",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Cerouno",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

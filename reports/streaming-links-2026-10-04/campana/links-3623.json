@@ -1,0 +1,73 @@
+{
+ "artistId": 3623,
+ "name": "The VNote Ensemble",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1032024",
+   "id": 1032024,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "The VNote Ensemble"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6518,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-vnote-ensemble/305554066?uo=4",
+   "id": 305554066,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Vnote Ensemble",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6555,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/urbano/950061630?uo=4",
+   "id": 950061630,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Urbano",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6518,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/762384",
+   "id": 762384,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Vnote Ensemble",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6555,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9342200",
+   "id": 9342200,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Urbano",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

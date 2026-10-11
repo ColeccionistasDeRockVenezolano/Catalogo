@@ -1,0 +1,223 @@
+{
+ "artistId": 3950,
+ "name": "Ensamble Gurrufío",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6769833",
+   "id": 6769833,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ensamble Gurrufio"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6iTMDgbSdvt33wnKzUnH8G",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ensamble Gurrufío"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id654035412",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ensamble Gurrufío"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9661,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cosas-del-ayer/1588179337?uo=4",
+   "id": 1588179337,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cosas del Ayer",
+   "year_plat": 1991
+  },
+  {
+   "albumId": 9664,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sesiones-con-mois%C3%A9s-torrealba/1588475957?uo=4",
+   "id": 1588475957,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sesiones Con Moisés Torrealba",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 9658,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9946068",
+   "id": 9946068,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Maroa",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 9659,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/262790822",
+   "id": 262790822,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Cruzao",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 9660,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/261704182",
+   "id": 261704182,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Trabadedos",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 9661,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/261704482",
+   "id": 261704482,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cosas del Ayer",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 9821,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/262552672",
+   "id": 262552672,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ensamble Gurrufío Con la Orquesta Sinfónica Gran Mariscal de Ayacucho",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 14914,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/261698332",
+   "id": 261698332,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Serenata Guayanesa Con Ensamble Gurrufío",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 9664,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/262785092",
+   "id": 262785092,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sesiones Con Moisés Torrealba",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 9665,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9946070",
+   "id": 9946070,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Reto",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14910,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/261300522",
+   "id": 261300522,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.921,
+   "title_plat": "Sesiones Con Hamilton de Holanda",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 9668,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/262552862",
+   "id": 262552862,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sesiones Con Alfredo Naranjo",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 9667,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/261300522",
+   "id": 261300522,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sesiones Con Hamilton de Holanda",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14913,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9946060",
+   "id": 9946060,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Isla: 500 Years of the Discovery",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14911,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9946058",
+   "id": 9946058,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cancionero Infantil Venezolano",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14912,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/261722822",
+   "id": 261722822,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Gurrufío en Vivo 15 Años",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Ensamble Gurrufío",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 21,
+ "albumes_con_link": 14
+}

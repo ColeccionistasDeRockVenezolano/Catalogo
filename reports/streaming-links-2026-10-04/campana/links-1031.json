@@ -1,0 +1,28 @@
+{
+ "artistId": 1031,
+ "name": "Taxidermia",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/11hsug3DEsL71KzApTmWcj",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "TAXIDERMIA"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "TAXIDERMIA",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

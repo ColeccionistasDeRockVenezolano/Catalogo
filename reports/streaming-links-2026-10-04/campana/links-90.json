@@ -1,0 +1,60 @@
+{
+ "artistId": 90,
+ "name": "El Supremo Hongo Imaginario",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1168706",
+   "id": 1168706,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "El Supremo Hongo Imaginario"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://utam.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "El Supremo Hongo Imaginario"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 182,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/e-s-h-i/1112328032?uo=4",
+   "id": 1112328032,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "E.S.H.I",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 182,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/884964",
+   "id": 884964,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "E.S.H.I",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "El Supremo Hongo Imaginario",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,28 @@
+{
+ "artistId": 3959,
+ "name": "Fernando Alvarez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/123003",
+   "id": 123003,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Fernándo Älvarez"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Fernando Alvarez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

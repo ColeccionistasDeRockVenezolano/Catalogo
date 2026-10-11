@@ -1,0 +1,69 @@
+{
+ "artistId": 3509,
+ "name": "Jesús Florido",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1143544",
+   "id": 1143544,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jesus Florido"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2r6kziVUoG9QktWZZizNdd",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jesús Florido"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/12836235",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jesús Florido"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6314,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/heading-north/215295025?uo=4",
+   "id": 215295025,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Heading North",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 6314,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/855006",
+   "id": 855006,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Heading North",
+   "year_plat": 2003
+  }
+ ],
+ "mb_name": "Jesús Florido",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

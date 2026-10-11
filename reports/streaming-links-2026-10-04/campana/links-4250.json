@@ -1,0 +1,443 @@
+{
+ "artistId": 4250,
+ "name": "Jerry Di",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12717391",
+   "id": 12717391,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jerry Di"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7f02bxFbZIOVdSbYRNYvLT",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jerry Di"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/8893210",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jerry Di"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 13378,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/di-letra/1503600027?uo=4",
+   "id": 1503600027,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "DI LETRA",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13395,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/asilo-collections-vol-i-negaci%C3%B3n-single/1735051038?uo=4",
+   "id": 1735051038,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.901,
+   "title_plat": "ASILO COLLECTIONS - VOL I - Negación - Single",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13387,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/asilo-collections-vol-v-aceptaci%C3%B3n-single/1770132637?uo=4",
+   "id": 1770132637,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.907,
+   "title_plat": "ASILO COLLECTIONS: VOL V - Aceptación - Single",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13388,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/asilo-collections-vol-iv-depresi%C3%B3n-single/1766843137?uo=4",
+   "id": 1766843137,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.907,
+   "title_plat": "ASILO COLLECTIONS: VOL IV - Depresión - Single",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13391,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/asilo-collections-vol-iii-negociaci%C3%B3n-single/1750947928?uo=4",
+   "id": 1750947928,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.914,
+   "title_plat": "ASILO COLLECTIONS: VOL III - Negociación - Single",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13407,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/61408872",
+   "id": 61408872,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Culito Nuevo",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 13404,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/115643362",
+   "id": 115643362,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Verano En París (Remix)",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13405,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/111244492",
+   "id": 111244492,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Confuzio",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13377,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103576282",
+   "id": 103576282,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Shorty",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13403,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/122161762",
+   "id": 122161762,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13406,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/107876542",
+   "id": 107876542,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Papi Cachondo",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13378,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/138796112",
+   "id": 138796112,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "DI LETRA",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13402,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/156004292",
+   "id": 156004292,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "BAD DECISIONS",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13401,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/226816312",
+   "id": 226816312,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Diablo",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13400,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/236032082",
+   "id": 236032082,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Cuarto 2",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13399,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/241441832",
+   "id": 241441832,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Adicto A Tus Sábanas",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13398,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/253054222",
+   "id": 253054222,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vaticano",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13397,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/518539272",
+   "id": 518539272,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sé que tú quieres verme llorar",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13395,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/560398542",
+   "id": 560398542,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "ASILO COLLECTIONS: VOL I - Negación",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13387,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/651738211",
+   "id": 651738211,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "ASILO COLLECTIONS: VOL V - Aceptación",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13388,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/645686461",
+   "id": 645686461,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "ASILO COLLECTIONS: VOL IV - Depresión",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13389,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/636151051",
+   "id": 636151051,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Obra De Arte",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13394,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/569374221",
+   "id": 569374221,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Katana",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13392,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/594740682",
+   "id": 594740682,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "ASILO COLLECTIONS: VOL II - Ira",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13393,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/577909521",
+   "id": 577909521,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Llorarás",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13391,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/604607522",
+   "id": 604607522,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "ASILO COLLECTIONS: VOL III - Negociación",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13390,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/611118732",
+   "id": 611118732,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Si Supieras",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13396,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/539719782",
+   "id": 539719782,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ke onda mami",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13384,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/847583712",
+   "id": 847583712,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Wapa (Remix)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13379,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/754068791",
+   "id": 754068791,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Wapa",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13380,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/772194191",
+   "id": 772194191,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ponme En Tu Boca",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13386,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/772334861",
+   "id": 772334861,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Wapa (Cobuz & Bustta Remix)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13385,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/803739261",
+   "id": 803739261,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "White Wine",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13381,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/917977471",
+   "id": 917977471,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "11:11pm",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 13382,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1064842471",
+   "id": 1064842471,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Todo Está Bien",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 13383,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/963263661",
+   "id": 963263661,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ojalay",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Jerry Di",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 31,
+ "albumes_con_link": 31
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 3912,
+ "name": "Alcides Rodríguez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/62806182",
+   "id": 62806182,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Alcides Rodriguez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9830,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-venezuelan-clarinet-el-clarinete-venezolano/380713390?uo=4",
+   "id": 380713390,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Venezuelan Clarinet / El Clarinete Venezolano",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": "Alcides Rodriguez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

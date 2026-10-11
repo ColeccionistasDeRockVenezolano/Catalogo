@@ -1,0 +1,82 @@
+{
+ "artistId": 1578,
+ "name": "Sitcom",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1090277",
+   "id": 1090277,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sitcom"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://sitcom.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sitcom"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1AHWalyPZ4Zx1s7BampY8C",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sitcom"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/sitcom__stupid/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sitcom"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/sitcom_stupid",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sitcom"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/308265961",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sitcom"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://music.youtube.com/channel/UCA-YfFISnrpFClHhewmwIPw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sitcom"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Sitcom",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 1030,
+ "name": "Big Landin Orquesta",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5047277",
+   "id": 5047277,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.927,
+   "name_plat": "La Big Landin Orquesta"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2941,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/skaterriza/369110818?uo=4",
+   "id": 369110818,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "SKAterriza",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 2941,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6816138",
+   "id": 6816138,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "SKAterriza",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

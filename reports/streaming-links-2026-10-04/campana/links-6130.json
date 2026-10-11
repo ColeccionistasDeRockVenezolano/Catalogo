@@ -1,0 +1,28 @@
+{
+ "artistId": 6130,
+ "name": "Lord Brynner",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/541180",
+   "id": 541180,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "LORD BRYNNER"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Lord Brynner",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

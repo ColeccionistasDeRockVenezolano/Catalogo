@@ -1,0 +1,28 @@
+{
+ "artistId": 1580,
+ "name": "Paralelo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/316898",
+   "id": 316898,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.941,
+   "name_plat": "Paralelos"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Paralelo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

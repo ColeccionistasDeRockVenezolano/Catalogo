@@ -1,0 +1,46 @@
+{
+ "artistId": 6009,
+ "name": "Sergio Tiempo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/240608",
+   "id": 240608,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sergio Tiempo"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7kIK193iuLPugEvQGoirww",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sergio Tiempo"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3507513",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sergio Tiempo"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Sergio Tiempo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

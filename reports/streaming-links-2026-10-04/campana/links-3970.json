@@ -1,0 +1,51 @@
+{
+ "artistId": 3970,
+ "name": "Jhonny Kotock",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/67722692",
+   "id": 67722692,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jhonny Kotock"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9711,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/oriundo/1561436611?uo=4",
+   "id": 1561436611,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Oriundo",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9711,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/218965672",
+   "id": 218965672,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Oriundo",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

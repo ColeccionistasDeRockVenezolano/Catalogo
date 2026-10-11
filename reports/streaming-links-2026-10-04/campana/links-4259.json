@@ -1,0 +1,73 @@
+{
+ "artistId": 4259,
+ "name": "BigBro Blues Band",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/13978365",
+   "id": 13978365,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "BigBro Blues Band"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14127,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/irreverente/1474465882?uo=4",
+   "id": 1474465882,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Irreverente",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14128,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sobrenatural/1474461251?uo=4",
+   "id": 1474461251,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sobrenatural",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14127,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/105208072",
+   "id": 105208072,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Irreverente",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14128,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/105208482",
+   "id": 105208482,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sobrenatural",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

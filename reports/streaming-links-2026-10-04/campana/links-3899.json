@@ -1,0 +1,106 @@
+{
+ "artistId": 3899,
+ "name": "Luis Julio Toro",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/499084",
+   "id": 499084,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Luis Julio Toro"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9484,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/vientos-alisios/1585405068?uo=4",
+   "id": 1585405068,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Vientos Alisios",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9488,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cantos-y-tonadas/1582896752?uo=4",
+   "id": 1582896752,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cantos y Tonadas",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9485,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/miranda-su-flauta-y-su-m%C3%BAsica/1586400467?uo=4",
+   "id": 1586400467,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.931,
+   "title_plat": "Miranda Su Flauta y Su Música",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9486,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/solo/1585405485?uo=4",
+   "id": 1585405485,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Solo",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9485,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/259670522",
+   "id": 259670522,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.931,
+   "title_plat": "Miranda Su Flauta y Su Música",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9487,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/256512492",
+   "id": 256512492,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bach",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9486,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/258037922",
+   "id": 258037922,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Solo",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Luis Julio Toro",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 20,
+ "albumes_con_link": 5
+}

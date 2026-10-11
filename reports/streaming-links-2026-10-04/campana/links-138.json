@@ -1,0 +1,73 @@
+{
+ "artistId": 138,
+ "name": "La Puta Eléctrica",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/15334903",
+   "id": 15334903,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "La Puta Eléctrica"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 532,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/misi%C3%B3n-fantasma/1775911053?uo=4",
+   "id": 1775911053,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Misión Fantasma",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 531,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/kazando-malandras/1779557328?uo=4",
+   "id": 1779557328,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Kazando Malandras",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 532,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/661992441",
+   "id": 661992441,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Misión Fantasma",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 531,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/669880551",
+   "id": 669880551,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Kazando Malandras",
+   "year_plat": 2005
+  }
+ ],
+ "mb_name": "La Puta Eléctrica",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 10,
+ "albumes_con_link": 2
+}

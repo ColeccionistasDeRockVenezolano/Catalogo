@@ -1,0 +1,117 @@
+{
+ "artistId": 3483,
+ "name": "El Trabuco Venezolano",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5149081",
+   "id": 5149081,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "El Trabuco Venezolano"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6206,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-trabuco-venezolano/1747035611?uo=4",
+   "id": 1747035611,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Trabuco Venezolano",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 6207,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-trabuco-venezolano/1747035611?uo=4",
+   "id": 1747035611,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.955,
+   "title_plat": "El Trabuco Venezolano",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 6208,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-trabuco-venezolano/1747035611?uo=4",
+   "id": 1747035611,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.955,
+   "title_plat": "El Trabuco Venezolano",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 6211,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-flor-y-nata/1747272781?uo=4",
+   "id": 1747272781,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Flor Y Nata",
+   "year_plat": 1984
+  },
+  {
+   "albumId": 6206,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/588261202",
+   "id": 588261202,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Trabuco Venezolano",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 6207,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/588261202",
+   "id": 588261202,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.955,
+   "title_plat": "El Trabuco Venezolano",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 6208,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/588261202",
+   "id": 588261202,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.955,
+   "title_plat": "El Trabuco Venezolano",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 6211,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/589488292",
+   "id": 589488292,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Flor Y Nata",
+   "year_plat": 1984
+  }
+ ],
+ "mb_name": "El Trabuco Venezolano",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 9,
+ "albumes_con_link": 4
+}

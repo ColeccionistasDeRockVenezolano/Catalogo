@@ -1,0 +1,102 @@
+{
+ "artistId": 549,
+ "name": "Optofobia",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/255385472",
+   "id": 255385472,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Optofobia"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://optofobia.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Optofobia"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/OPTOFOBIAGRINDCORE",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Optofobia"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1015,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/corporotocracia-ep/1732708129?uo=4",
+   "id": 1732708129,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Corporotocracia - EP",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 1010,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/existencia-en-decadencia-ep/1822657389?uo=4",
+   "id": 1822657389,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Existencia en decadencia - EP",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 1009,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/optofobia-ep/1822679373?uo=4",
+   "id": 1822679373,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Optofobia - EP",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 1015,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/550874472",
+   "id": 550874472,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.909,
+   "title_plat": "Corporotocracia",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 1010,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/777485571",
+   "id": 777485571,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.941,
+   "title_plat": "Existencia en decadencia",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": "Optofobia",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 2028,
+ "name": "Tolerance",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1075808",
+   "id": 1075808,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Tolerance"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4544,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6523005",
+   "id": 6523005,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "When Time Stops",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Tolerance",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

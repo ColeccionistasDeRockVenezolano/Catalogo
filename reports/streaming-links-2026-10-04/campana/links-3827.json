@@ -1,0 +1,348 @@
+{
+ "artistId": 3827,
+ "name": "Jesús Sevillano",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/54179012",
+   "id": 54179012,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jesus Sevillano"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8693,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canciones-venezolanas/1884381536?uo=4",
+   "id": 1884381536,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "CANCIONES VENEZOLANAS",
+   "year_plat": 1969
+  },
+  {
+   "albumId": 8694,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canciones-de-venezuela-vol-3/1886766253?uo=4",
+   "id": 1886766253,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.964,
+   "title_plat": "CANCIONES DE VENEZUELA VOL. 3",
+   "year_plat": 1971
+  },
+  {
+   "albumId": 8695,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canciones-de-venezuela-vol-3/1886766253?uo=4",
+   "id": 1886766253,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "CANCIONES DE VENEZUELA VOL. 3",
+   "year_plat": 1971
+  },
+  {
+   "albumId": 8696,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canciones-de-venezuela-y-america-vol-5/1886766659?uo=4",
+   "id": 1886766659,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.901,
+   "title_plat": "CANCIONES DE VENEZUELA Y AMERICA VOL.5",
+   "year_plat": 1975
+  },
+  {
+   "albumId": 8698,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canciones-de-venezuela-y-america-vol-5/1886766659?uo=4",
+   "id": 1886766659,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.93,
+   "title_plat": "CANCIONES DE VENEZUELA Y AMERICA VOL.5",
+   "year_plat": 1975
+  },
+  {
+   "albumId": 8699,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canciones-de-venezuela-vol-6/1886767030?uo=4",
+   "id": 1886767030,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "CANCIONES DE VENEZUELA VOL. 6",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 9195,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antolog%C3%ADa-vol-5/1541753584?uo=4",
+   "id": 1541753584,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 5",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9196,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antolog%C3%ADa-vol-6/1541752469?uo=4",
+   "id": 1541752469,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 6",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9194,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antolog%C3%ADa-vol-4/1541805592?uo=4",
+   "id": 1541805592,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 4",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9193,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antolog%C3%ADa-vol-3/1541797583?uo=4",
+   "id": 1541797583,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 3",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9192,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antolog%C3%ADa-vol-2/1539495887?uo=4",
+   "id": 1539495887,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 2",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9191,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antolog%C3%ADa-vol-1/1537194253?uo=4",
+   "id": 1537194253,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 1",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9198,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antolog%C3%ADa-vol-8/1541761329?uo=4",
+   "id": 1541761329,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 8",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9197,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antolog%C3%ADa-vol-7/1541799786?uo=4",
+   "id": 1541799786,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 7",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 8693,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/937702511",
+   "id": 937702511,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "CANCIONES VENEZOLANAS",
+   "year_plat": 1969
+  },
+  {
+   "albumId": 8694,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/944234801",
+   "id": 944234801,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.964,
+   "title_plat": "CANCIONES DE VENEZUELA VOL. 3",
+   "year_plat": 1971
+  },
+  {
+   "albumId": 8695,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/944234801",
+   "id": 944234801,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "CANCIONES DE VENEZUELA VOL. 3",
+   "year_plat": 1971
+  },
+  {
+   "albumId": 8696,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/937702421",
+   "id": 937702421,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.93,
+   "title_plat": "Canciones de Venezuela y América Vol. 4",
+   "year_plat": 1984
+  },
+  {
+   "albumId": 8698,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/944235091",
+   "id": 944235091,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.93,
+   "title_plat": "CANCIONES DE VENEZUELA Y AMERICA VOL.5",
+   "year_plat": 1975
+  },
+  {
+   "albumId": 8699,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/944235031",
+   "id": 944235031,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "CANCIONES DE VENEZUELA VOL. 6",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 8702,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/944242041",
+   "id": 944242041,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aguinaldos y Parrandas Venezolanas",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 9195,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/188697662",
+   "id": 188697662,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 5",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9196,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/188697562",
+   "id": 188697562,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 6",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9194,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/188768582",
+   "id": 188768582,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 4",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9193,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/188758582",
+   "id": 188758582,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 3",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9192,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/185469422",
+   "id": 185469422,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 2",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9191,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/181781512",
+   "id": 181781512,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 1",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9198,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/188697702",
+   "id": 188697702,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 8",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9197,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/188761662",
+   "id": 188761662,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antología, Vol. 7",
+   "year_plat": 1996
+  }
+ ],
+ "mb_name": "Jesus Sevillano",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 42,
+ "albumes_con_link": 15
+}

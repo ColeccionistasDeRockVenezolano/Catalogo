@@ -1,0 +1,73 @@
+{
+ "artistId": 4719,
+ "name": "La Gallera Social Club",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5623145",
+   "id": 5623145,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "La Gallera Social Club"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://lagallerasocialclub.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Gallera Social Club"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/lagalleraclub",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Gallera Social Club"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/lagallerasocialclub",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Gallera Social Club"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/lagallerasocialclub",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Gallera Social Club"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC3U2hO-V5VhATu2BSyEBO4w",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Gallera Social Club"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "La Gallera Social Club",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

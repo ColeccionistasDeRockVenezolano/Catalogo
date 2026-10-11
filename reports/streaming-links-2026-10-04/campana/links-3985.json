@@ -1,0 +1,122 @@
+{
+ "artistId": 3985,
+ "name": "Miguel Siso",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14247379",
+   "id": 14247379,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Miguel Siso"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/miguelsiso",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Miguel Siso"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/soymiguelsiso/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Miguel Siso"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@miguelsiso",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Miguel Siso"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9753,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-siembra-del-cuatro/1535143763?uo=4",
+   "id": 1535143763,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Siembra del Cuatro",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 9754,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/identidad/1354834207?uo=4",
+   "id": 1354834207,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Identidad",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 9755,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/itinerante/1565490214?uo=4",
+   "id": 1565490214,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Itinerante",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9753,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/178999182",
+   "id": 178999182,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Siembra del Cuatro",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 9754,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/58197792",
+   "id": 58197792,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Identidad",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 9755,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/227079392",
+   "id": 227079392,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Itinerante",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Miguel Siso",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

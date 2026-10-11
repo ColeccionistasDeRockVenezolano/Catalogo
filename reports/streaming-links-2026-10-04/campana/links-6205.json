@@ -1,0 +1,55 @@
+{
+ "artistId": 6205,
+ "name": "jorge andrés",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/13319417",
+   "id": 13319417,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jorge Andres"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1esW7hGVtWoOv1TLgw4YVd",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jorge Andrés"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/ve/artist/1688756307",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jorge Andrés"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/12947158",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jorge Andrés"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Jorge Andrés",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

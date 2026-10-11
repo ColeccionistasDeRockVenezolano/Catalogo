@@ -1,0 +1,146 @@
+{
+ "artistId": 238,
+ "name": "TLX",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/7861078",
+   "id": 7861078,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "TLX"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/tlx_",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "tlx"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/tlxofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "tlx"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 344,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/33-minutos-y-en-auto/1699403322?uo=4",
+   "id": 1699403322,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "33 Minutos y en Auto",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 15593,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/medios-de-transporte-ep/1699124979?uo=4",
+   "id": 1699124979,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.93,
+   "title_plat": "Medios de Transporte - EP",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 5592,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/46-dpi/1090460167?uo=4",
+   "id": 1090460167,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "46 Dpi",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 344,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/469100295",
+   "id": 469100295,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "33 Minutos y en Auto",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15593,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/468314275",
+   "id": 468314275,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Medios de Transporte",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 5592,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12562784",
+   "id": 12562784,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "46 Dpi",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 15596,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/468277545",
+   "id": 468277545,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Todo Se Apague",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15597,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/463461605",
+   "id": 463461605,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Casa Serizawa",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15598,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/661001741",
+   "id": 661001741,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Platino",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "tlx",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 10,
+ "albumes_con_link": 6
+}

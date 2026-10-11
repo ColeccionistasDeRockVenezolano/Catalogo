@@ -1,0 +1,28 @@
+{
+ "artistId": 554,
+ "name": "NewtralSide",
+ "artist_links": [
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCnelIsfv4pUR9KZdRsljTPQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "NewtralSide"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "NewtralSide",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

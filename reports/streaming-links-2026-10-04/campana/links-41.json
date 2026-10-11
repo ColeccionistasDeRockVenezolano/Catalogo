@@ -1,0 +1,131 @@
+{
+ "artistId": 41,
+ "name": "Americania",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/7574708",
+   "id": 7574708,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Americania"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://americania.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Americania"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/Americania",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Americania"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/americania/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Americania"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/americania",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Americania"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 418,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sigo/1087285475?uo=4",
+   "id": 1087285475,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sigo",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3799,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-fiesta-del-rey-drama/1090078501?uo=4",
+   "id": 1090078501,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Fiesta del Rey Drama",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3794,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/saludos-de-americania/1886099319?uo=4",
+   "id": 1886099319,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Saludos de Americania",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 418,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12493670",
+   "id": 12493670,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sigo",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3799,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12563210",
+   "id": 12563210,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Fiesta del Rey Drama",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3794,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/942420191",
+   "id": 942420191,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Saludos de Americania",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Americania",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 8,
+ "albumes_con_link": 3
+}

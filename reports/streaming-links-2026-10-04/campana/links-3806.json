@@ -1,0 +1,194 @@
+{
+ "artistId": 3806,
+ "name": "Anselmo López",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5208855",
+   "id": 5208855,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Anselmo Lopez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8522,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/viajando-al-llano/1883810148?uo=4",
+   "id": 1883810148,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Viajando al Llano",
+   "year_plat": 1968
+  },
+  {
+   "albumId": 8525,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bandola-internacional/1882773361?uo=4",
+   "id": 1882773361,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bandola Internacional",
+   "year_plat": 1972
+  },
+  {
+   "albumId": 8526,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/arpa-y-bandola/1883746100?uo=4",
+   "id": 1883746100,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Arpa y Bandola",
+   "year_plat": 1974
+  },
+  {
+   "albumId": 8528,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/esta-es-mi-bandola/1882828573?uo=4",
+   "id": 1882828573,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Esta Es Mi Bandola",
+   "year_plat": 1976
+  },
+  {
+   "albumId": 8529,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bandola-del-llano-adentro/6791736323?uo=4",
+   "id": 6791736323,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bandola del Llano Adentro",
+   "year_plat": 1973
+  },
+  {
+   "albumId": 8531,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/folklore-puro/6814521392?uo=4",
+   "id": 6814521392,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Folklore Puro",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 8532,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bandola-de-chaparrito/1882857732?uo=4",
+   "id": 1882857732,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bandola de Chaparrito",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 8522,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/936178971",
+   "id": 936178971,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Viajando Al Llano",
+   "year_plat": 1968
+  },
+  {
+   "albumId": 8525,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/933415041",
+   "id": 933415041,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bandola Internacional",
+   "year_plat": 1972
+  },
+  {
+   "albumId": 8526,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/936016151",
+   "id": 936016151,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Arpa Y Bandola",
+   "year_plat": 1974
+  },
+  {
+   "albumId": 8528,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/933585391",
+   "id": 933585391,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Esta Es Mi Bandola",
+   "year_plat": 1976
+  },
+  {
+   "albumId": 8529,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1031041432",
+   "id": 1031041432,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bandola Del Llano Adentro",
+   "year_plat": 1973
+  },
+  {
+   "albumId": 8531,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/70642892",
+   "id": 70642892,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Folklore Puro",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 8532,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/933655691",
+   "id": 933655691,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bandola De Chaparrito",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 8543,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/522679622",
+   "id": 522679622,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Mejor Bandola",
+   "year_plat": 1999
+  }
+ ],
+ "mb_name": "Anselmo López",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 23,
+ "albumes_con_link": 8
+}

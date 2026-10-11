@@ -1,0 +1,55 @@
+{
+ "artistId": 635,
+ "name": "Emptiness",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/199828",
+   "id": 199828,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Emptiness"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5AXPdt3zknCylvlnEi0JFO",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Emptiness"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/be/artist/id303855225",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Emptiness"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Emptiness.be",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Emptiness"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Emptiness",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

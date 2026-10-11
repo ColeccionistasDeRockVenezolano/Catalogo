@@ -1,0 +1,30 @@
+{
+ "artistId": 887,
+ "name": "Halteria",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 1596,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/factor-irreal/1502372073?uo=4",
+   "id": 1502372073,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Factor Irreal",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

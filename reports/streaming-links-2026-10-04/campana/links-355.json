@@ -1,0 +1,63 @@
+{
+ "artistId": 355,
+ "name": "Room Of The Mad Robots",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1568027",
+   "id": 1568027,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Room of the mad Robots"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://roomofthemadrobots.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Room of the Mad Robots"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/madrobots",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Room of the Mad Robots"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/roomofthemadrobots",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Room of the Mad Robots"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/robotsmad",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Room of the Mad Robots",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

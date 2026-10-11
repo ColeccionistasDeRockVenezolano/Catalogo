@@ -1,0 +1,51 @@
+{
+ "artistId": 3158,
+ "name": "Excretaputreparasiforme",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/182830777",
+   "id": 182830777,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Excretaputreparasiforme"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5367,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/more-pieces-of-flesh-ep/1644350225?uo=4",
+   "id": 1644350225,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.93,
+   "title_plat": "More Pieces of Flesh - EP",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 5367,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/355184377",
+   "id": 355184377,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "More Pieces of Flesh",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

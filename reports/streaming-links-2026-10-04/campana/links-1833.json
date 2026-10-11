@@ -1,0 +1,28 @@
+{
+ "artistId": 1833,
+ "name": "Alfred Gómez Jr.",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4664686",
+   "id": 4664686,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Alfred Gomez, Jr."
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Alfred Gomez Jr.",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

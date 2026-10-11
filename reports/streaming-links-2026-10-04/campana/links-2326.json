@@ -1,0 +1,46 @@
+{
+ "artistId": 2326,
+ "name": "La Unión",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/64941",
+   "id": 64941,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "La Unión"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2Ax9wZpdlg4r2zkc3pcI8U",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Unión"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/12017",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Unión"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "La Unión",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

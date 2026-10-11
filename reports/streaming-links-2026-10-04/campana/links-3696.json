@@ -1,0 +1,73 @@
+{
+ "artistId": 3696,
+ "name": "Edwin Sanz",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/60344972",
+   "id": 60344972,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Edwin Sanz"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6975,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/san-agustin/876513168?uo=4",
+   "id": 876513168,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "San Agustin",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6976,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/overflow/1150560584?uo=4",
+   "id": 1150560584,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Overflow",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6975,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/88581672",
+   "id": 88581672,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "San Agustin",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6976,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/98446442",
+   "id": 98446442,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Overflow",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Edwin Sanz",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

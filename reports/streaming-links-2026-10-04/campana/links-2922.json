@@ -1,0 +1,55 @@
+{
+ "artistId": 2922,
+ "name": "Playma",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1454291",
+   "id": 1454291,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "PLAYMA"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/playmamusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "PLAYMA"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/playmamusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "PLAYMA"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCzj4P0wlgVhHNSJa5BTrb-A",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "PLAYMA"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "PLAYMA",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

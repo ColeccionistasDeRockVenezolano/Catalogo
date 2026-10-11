@@ -1,0 +1,49 @@
+{
+ "artistId": 1920,
+ "name": "Dúplex",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/176516",
+   "id": 176516,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Duplex"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5IcvUuDw0yoFZ4mx8lwpFn",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Duplex"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3988,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1179507",
+   "id": 1179507,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Carne y hueso",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "Duplex",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

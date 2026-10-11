@@ -1,0 +1,51 @@
+{
+ "artistId": 1150,
+ "name": "SocialKlash",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1263920",
+   "id": 1263920,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.957,
+   "name_plat": "Social Klash"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3379,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/plastic-love/263075434?uo=4",
+   "id": 263075434,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Plastic Love",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 3379,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7755244",
+   "id": 7755244,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Plastic Love",
+   "year_plat": 2007
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

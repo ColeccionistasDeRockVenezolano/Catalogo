@@ -1,0 +1,60 @@
+{
+ "artistId": 374,
+ "name": "Epitafio",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/59628212",
+   "id": 59628212,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Epitafio"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/pages/EPITAFIO/101837243201321",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Epitafio"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4036,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/years-of-dominion/1685919498?uo=4",
+   "id": 1685919498,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Years of Dominion",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 4036,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/436395797",
+   "id": 436395797,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Years of Dominion",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Epitafio",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 1
+}

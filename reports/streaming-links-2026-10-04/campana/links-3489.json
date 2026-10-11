@@ -1,0 +1,28 @@
+{
+ "artistId": 3489,
+ "name": "Félix Rodríguez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/142941132",
+   "id": 142941132,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.938,
+   "name_plat": "Felix O. Rodriguez"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Felix Rodriguez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

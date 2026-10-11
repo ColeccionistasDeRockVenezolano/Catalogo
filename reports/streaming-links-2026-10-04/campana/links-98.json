@@ -1,0 +1,95 @@
+{
+ "artistId": 98,
+ "name": "Fordelucs",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12028188",
+   "id": 12028188,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Fordelucs"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 191,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mundo/1538273866?uo=4",
+   "id": 1538273866,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mundo",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 190,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/fotograma/1754073924?uo=4",
+   "id": 1754073924,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Fotograma",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 4070,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/despierta/1538367814?uo=4",
+   "id": 1538367814,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Despierta",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 191,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/183252072",
+   "id": 183252072,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mundo",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 190,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/607258222",
+   "id": 607258222,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fotograma",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 4070,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/183365192",
+   "id": 183365192,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Despierta",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Fordelucs",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 1061,
+ "name": "NPI",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11621003",
+   "id": 11621003,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Npi"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2189,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/309839537",
+   "id": 309839537,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Con Todos los Juguetes",
+   "year_plat": 2004
+  }
+ ],
+ "mb_name": "NPI",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

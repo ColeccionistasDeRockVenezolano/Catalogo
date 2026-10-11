@@ -1,0 +1,37 @@
+{
+ "artistId": 2704,
+ "name": "Zona 7",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/161120822",
+   "id": 161120822,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Zona 7"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/00NjBHJBqHJXIiKr9OLAhI",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zona 7"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Zona 7",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

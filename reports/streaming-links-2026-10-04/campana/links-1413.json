@@ -1,0 +1,51 @@
+{
+ "artistId": 1413,
+ "name": "Pachi Jiménez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1176551",
+   "id": 1176551,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Pachi Jimenez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3204,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-camino-de-regreso/1500219522?uo=4",
+   "id": 1500219522,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Camino De Regreso",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 3204,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/133397072",
+   "id": 133397072,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Camino De Regreso",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

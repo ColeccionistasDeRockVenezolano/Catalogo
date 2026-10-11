@@ -1,0 +1,51 @@
+{
+ "artistId": 3491,
+ "name": "Fran Vielma",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14529103",
+   "id": 14529103,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Fran Vielma"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6234,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tendencias/1374466319?uo=4",
+   "id": 1374466319,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tendencias",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 6234,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/61903662",
+   "id": 61903662,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tendencias",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

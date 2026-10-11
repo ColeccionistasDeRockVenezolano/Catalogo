@@ -1,0 +1,51 @@
+{
+ "artistId": 4254,
+ "name": "Aneeka",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5033027",
+   "id": 5033027,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Aneeka"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 13690,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ni-antes-ni-despu%C3%A9s/1460137035?uo=4",
+   "id": 1460137035,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ni Antes... Ni Después",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 13690,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/94091932",
+   "id": 94091932,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ni Antes... Ni Después",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

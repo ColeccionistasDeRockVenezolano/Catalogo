@@ -1,0 +1,91 @@
+{
+ "artistId": 3059,
+ "name": "Worm",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/368447352",
+   "id": 368447352,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Worm"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://wormgloom.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Worm"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5KGJFenkLeQ77WEgKFPnTZ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Worm"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/1511829388",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Worm"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/wormgloom/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Worm"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B0B2KJK63P",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Worm"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/34808671",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Worm"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://music.youtube.com/channel/UCeMh8U95Zv68VG4B1cP9RvA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Worm"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Worm",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

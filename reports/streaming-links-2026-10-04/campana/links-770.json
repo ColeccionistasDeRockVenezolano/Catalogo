@@ -1,0 +1,51 @@
+{
+ "artistId": 770,
+ "name": "Santo Greal",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9474714",
+   "id": 9474714,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.909,
+   "name_plat": "Santo Graal"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1390,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/memorias/1504784225?uo=4",
+   "id": 1504784225,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Memorias...",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 1510,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/21-gr/1506497581?uo=4",
+   "id": 1506497581,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "21 Gr",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

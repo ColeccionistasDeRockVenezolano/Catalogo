@@ -1,0 +1,40 @@
+{
+ "artistId": 2677,
+ "name": "Evio Di Marzo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10180688",
+   "id": 10180688,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Evio di Marzo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15495,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13154482",
+   "id": 13154482,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Evio Di Marzo - Adrenalina Caribe",
+   "year_plat": 1987
+  }
+ ],
+ "mb_name": "Evio Di Marzo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

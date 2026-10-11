@@ -1,0 +1,51 @@
+{
+ "artistId": 624,
+ "name": "Alto Voltaje",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/357472",
+   "id": 357472,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Alto Voltaje"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3788,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/incombustible/1598969490?uo=4",
+   "id": 1598969490,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Incombustible",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 3788,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/278101632",
+   "id": 278101632,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Incombustible",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "Alto Voltaje",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 1
+}

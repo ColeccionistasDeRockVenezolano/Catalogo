@@ -1,0 +1,46 @@
+{
+ "artistId": 2130,
+ "name": "Ruptura",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11919577",
+   "id": 11919577,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ruptura"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6cWR2HPYW3SOZvA3Y9sDYW",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ruptura"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1479445639",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ruptura"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Ruptura",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

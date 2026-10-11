@@ -1,0 +1,82 @@
+{
+ "artistId": 2674,
+ "name": "Syme",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1548139",
+   "id": 1548139,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Syme"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://syme.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Syme"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2XEzodXgAGQkpBHSEclMW0",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Syme"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/ca/artist/id77011742",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Syme"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/grandsyme",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Syme"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/simmysyme/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Syme"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/GrandSyme/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Syme"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Syme",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

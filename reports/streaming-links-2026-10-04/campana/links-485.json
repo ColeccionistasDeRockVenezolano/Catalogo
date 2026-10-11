@@ -1,0 +1,117 @@
+{
+ "artistId": 485,
+ "name": "Guerra Santa",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/51358222",
+   "id": 51358222,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Guerra Santa"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4183,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pesadilla/1767932076?uo=4",
+   "id": 1767932076,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pesadilla",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 1791,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-sombra-de-un-buf%C3%B3n/1778292460?uo=4",
+   "id": 1778292460,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Sombra de un Bufón",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 1092,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-guerra-apenas-empieza/1778293502?uo=4",
+   "id": 1778293502,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Guerra Apenas Empieza",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 4179,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/%C3%A9xodo-un-nuevo-comienzo/1778291928?uo=4",
+   "id": 1778291928,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Éxodo: Un nuevo comienzo",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 4183,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/642061551",
+   "id": 642061551,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pesadilla",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 1791,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666804271",
+   "id": 666804271,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Sombra de un Bufón",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 1092,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666954171",
+   "id": 666954171,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Guerra Apenas Empieza",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 4179,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/666940571",
+   "id": 666940571,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Éxodo: Un nuevo comienzo",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "Guerra Santa",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 8,
+ "albumes_con_link": 4
+}

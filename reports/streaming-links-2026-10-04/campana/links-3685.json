@@ -1,0 +1,51 @@
+{
+ "artistId": 3685,
+ "name": "Caracas Soul Connection",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4892728",
+   "id": 4892728,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Caracas Soul Connection"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6865,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canciones-del-alma/1807950907?uo=4",
+   "id": 1807950907,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Canciones del Alma",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6865,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/740993711",
+   "id": 740993711,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canciones del Alma",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

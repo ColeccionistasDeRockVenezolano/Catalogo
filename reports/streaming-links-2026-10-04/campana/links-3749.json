@@ -1,0 +1,469 @@
+{
+ "artistId": 3749,
+ "name": "Soledad Bravo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12369",
+   "id": 12369,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Soledad Bravo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 7797,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/soledad/1649213404?uo=4",
+   "id": 1649213404,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Soledad",
+   "year_plat": 1968
+  },
+  {
+   "albumId": 14832,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/arvolicos-dalmendra/1454036281?uo=4",
+   "id": 1454036281,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Arvolicos d'Almendra",
+   "year_plat": 1976
+  },
+  {
+   "albumId": 14831,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mariposas/1483992603?uo=4",
+   "id": 1483992603,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mariposas",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 7807,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cantos-sefardies/206541007?uo=4",
+   "id": 206541007,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cantos Sefardies",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 7808,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/boleros/1495503283?uo=4",
+   "id": 1495503283,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Boleros",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 7809,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/caribe/1495517157?uo=4",
+   "id": 1495517157,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Caribe",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 7810,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mambembe/1463855285?uo=4",
+   "id": 1463855285,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mambembe",
+   "year_plat": 1983
+  },
+  {
+   "albumId": 7811,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/soledad-bravo/1688802514?uo=4",
+   "id": 1688802514,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Soledad Bravo",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 7812,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/coraz%C3%B3n-de-madera/1495514954?uo=4",
+   "id": 1495514954,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Corazón De Madera",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 7824,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bailables-del-caribe/1456414012?uo=4",
+   "id": 1456414012,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bailables del Caribe",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 14830,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-tirana/1454731382?uo=4",
+   "id": 1454731382,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Tirana",
+   "year_plat": 1991
+  },
+  {
+   "albumId": 14824,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cantos-revolucionarios-de-america-latina/77811777?uo=4",
+   "id": 77811777,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cantos Revolucionarios de America Latina",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 7818,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuando-hay-amor/1745351257?uo=4",
+   "id": 1745351257,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Hay Amor",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 7819,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/paloma-negra/75544714?uo=4",
+   "id": 75544714,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Paloma Negra",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 7822,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/homenaje-a-alfredo-zitarrosa/287920199?uo=4",
+   "id": 287920199,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Homenaje a Alfredo Zitarrosa",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 14829,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/trova-de-amor-canta-a-pablo-milanes/315947358?uo=4",
+   "id": 315947358,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Trova de amor - Canta a Pablo Milanes",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 14826,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/palabras/1452620289?uo=4",
+   "id": 1452620289,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Palabras",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14825,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-voz-de-venezuela-en-vivo/1459426896?uo=4",
+   "id": 1459426896,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Voz de Venezuela (En Vivo)",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14828,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-historia-musical-y-algo-m%C3%A1s/1455531465?uo=4",
+   "id": 1455531465,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Historia Musical y Algo Más...",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14827,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/vivir/1459213014?uo=4",
+   "id": 1459213014,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Vivir",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7797,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/364920187",
+   "id": 364920187,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Soledad",
+   "year_plat": 1968
+  },
+  {
+   "albumId": 14832,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/88344962",
+   "id": 88344962,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Arvolicos d'Almendra",
+   "year_plat": 1976
+  },
+  {
+   "albumId": 14831,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/115381852",
+   "id": 115381852,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mariposas",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 7807,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/45783",
+   "id": 45783,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cantos sefardies",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 7808,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/128744262",
+   "id": 128744262,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Boleros",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 7809,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/128761332",
+   "id": 128761332,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Caribe",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 7810,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/97026572",
+   "id": 97026572,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mambembe",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7811,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/443848885",
+   "id": 443848885,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Soledad Bravo",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 7812,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/128760122",
+   "id": 128760122,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Corazón De Madera",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 7824,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/90514572",
+   "id": 90514572,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bailables del Caribe",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 14830,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/88995892",
+   "id": 88995892,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Tirana",
+   "year_plat": 1991
+  },
+  {
+   "albumId": 14824,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/41685",
+   "id": 41685,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cantos revolucionarios de america latina",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 7818,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/583904522",
+   "id": 583904522,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Hay Amor",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 7819,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/41712",
+   "id": 41712,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Paloma negra",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 7822,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/121712",
+   "id": 121712,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Homenaje a Alfredo Zitarrosa",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 14829,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/335839",
+   "id": 335839,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Trova de amor - Canta a Pablo Milanes",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 14826,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/87211752",
+   "id": 87211752,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Palabras",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14825,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/93266352",
+   "id": 93266352,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Voz de Venezuela (En Vivo)",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14828,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/89675112",
+   "id": 89675112,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Historia Musical y Algo Más...",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14827,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/93010002",
+   "id": 93010002,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vivir",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Soledad Bravo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 55,
+ "albumes_con_link": 20
+}

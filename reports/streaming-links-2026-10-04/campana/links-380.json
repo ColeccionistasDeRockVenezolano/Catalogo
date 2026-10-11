@@ -1,0 +1,30 @@
+{
+ "artistId": 380,
+ "name": "Eztado kritiko",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 791,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-nueva-casta/1552714916?uo=4",
+   "id": 1552714916,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La nueva casta",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

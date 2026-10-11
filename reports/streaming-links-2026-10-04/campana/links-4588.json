@@ -1,0 +1,62 @@
+{
+ "artistId": 4588,
+ "name": "Los Prisioneros",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4939",
+   "id": 4939,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Prisioneros"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2mSHY8JOR0nRi3mtHqVa04",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Prisioneros"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/56145",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Prisioneros"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/artist/473687",
+   "id": "473687",
+   "method": "exact",
+   "source": "wikidata-Q783578",
+   "score": 1.0
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCYvK6UYKyaf0ykPLh7lWwBw",
+   "id": "UCYvK6UYKyaf0ykPLh7lWwBw",
+   "method": "exact",
+   "source": "wikidata-Q783578",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Los Prisioneros",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

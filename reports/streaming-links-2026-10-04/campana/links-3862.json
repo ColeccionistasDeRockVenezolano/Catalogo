@@ -1,0 +1,51 @@
+{
+ "artistId": 3862,
+ "name": "Zeneida Rodríguez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4638419",
+   "id": 4638419,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Zeneida Rodriguez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9109,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-cuerpo-y-alma/1644804768?uo=4",
+   "id": 1644804768,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "En Cuerpo y Alma",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 9109,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/356006637",
+   "id": 356006637,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Cuerpo y Alma",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Zeneida Rodríguez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,117 @@
+{
+ "artistId": 3679,
+ "name": "Bailatino",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1362825",
+   "id": 1362825,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Bailatino"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6709,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bailatino-lleg%C3%B3-con-todo/1728325512?uo=4",
+   "id": 1728325512,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bailatino Llegó... Con Todo!",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 6710,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ante-los-ojos-del-mundo/6806311219?uo=4",
+   "id": 6806311219,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ante Los Ojos del Mundo",
+   "year_plat": 1938
+  },
+  {
+   "albumId": 6711,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-resistencia/1724304868?uo=4",
+   "id": 1724304868,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Resistencia",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 6712,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aniversario/1744222903?uo=4",
+   "id": 1744222903,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aniversario",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 6709,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/505629341",
+   "id": 505629341,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bailatino Llego... Con Todo!!!",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 6710,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1065317171",
+   "id": 1065317171,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ante Los Ojos del Mundo",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 6711,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/531267222",
+   "id": 531267222,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Resistencia",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 6712,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/580741511",
+   "id": 580741511,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aniversario",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Bailatino",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

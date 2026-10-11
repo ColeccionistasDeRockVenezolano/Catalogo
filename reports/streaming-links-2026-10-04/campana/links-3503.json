@@ -1,0 +1,95 @@
+{
+ "artistId": 3503,
+ "name": "Gonzalo Teppa",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1159448",
+   "id": 1159448,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gonzalo Teppa"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6297,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/designios/1554615881?uo=4",
+   "id": 1554615881,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Designios",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 6298,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/traves%C3%ADas/1554592664?uo=4",
+   "id": 1554592664,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Travesías",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 6300,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sinergia/856624328?uo=4",
+   "id": 856624328,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sinergia",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6297,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/209163342",
+   "id": 209163342,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Designios",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 6298,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/209133152",
+   "id": 209133152,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Travesías",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 6300,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/115994482",
+   "id": 115994482,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sinergia",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "Gonzalo Teppa",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 3
+}

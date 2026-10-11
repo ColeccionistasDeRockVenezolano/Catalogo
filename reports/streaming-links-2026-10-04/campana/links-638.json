@@ -1,0 +1,117 @@
+{
+ "artistId": 638,
+ "name": "Extrema Realidad",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/268059362",
+   "id": 268059362,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Extrema Realidad"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1406,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/desahogo/1749753444?uo=4",
+   "id": 1749753444,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "DESAHOGO",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 2446,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/como-no-sentir-odio/1749802770?uo=4",
+   "id": 1749802770,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.914,
+   "title_plat": "¿Como no Sentir Odio?",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 1461,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/como-no-sentir-odio/1749802770?uo=4",
+   "id": 1749802770,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "¿Como no Sentir Odio?",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 1136,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/no-m%C3%A1s/1749808052?uo=4",
+   "id": 1749808052,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "No más",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 1406,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/595664822",
+   "id": 595664822,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "DESAHOGO",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 2446,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/595899282",
+   "id": 595899282,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.914,
+   "title_plat": "¿Como no Sentir Odio?",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 1461,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/595899282",
+   "id": 595899282,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "¿Como no Sentir Odio?",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 1136,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/595910352",
+   "id": 595910352,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "No más",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

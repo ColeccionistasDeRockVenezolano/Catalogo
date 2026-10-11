@@ -1,0 +1,46 @@
+{
+ "artistId": 2328,
+ "name": "Antonio Vega",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/3611",
+   "id": 3611,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Antonio Vega"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0r4YtlmJPQk1xhiVKHuPeF",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Antonio Vega"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3514279",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Antonio Vega"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Antonio Vega",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

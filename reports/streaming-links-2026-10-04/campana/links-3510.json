@@ -1,0 +1,40 @@
+{
+ "artistId": 3510,
+ "name": "Joel Martínez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4366913",
+   "id": 4366913,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Joel Martinez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6315,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/217148772",
+   "id": 217148772,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mirando De Lejos",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Joel Martínez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

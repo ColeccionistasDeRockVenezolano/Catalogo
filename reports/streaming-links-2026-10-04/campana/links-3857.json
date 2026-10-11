@@ -1,0 +1,386 @@
+{
+ "artistId": 3857,
+ "name": "Un Solo Pueblo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1444741",
+   "id": 1444741,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Un Solo Pueblo"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6dTMVeRubUzINO6gmQhWat",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Un Solo Pueblo"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/470758744",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Un Solo Pueblo"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4561273",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Un Solo Pueblo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14940,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-m%C3%BAsica-de-un-solo-pueblo/1539041105?uo=4",
+   "id": 1539041105,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 9071,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-m%C3%BAsica-de-un-solo-pueblo-vol-2/1541028269?uo=4",
+   "id": 1541028269,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.97,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 2",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 9072,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-m%C3%BAsica-navide%C3%B1a-de-un-solo-pueblo/1633092927?uo=4",
+   "id": 1633092927,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Música Navideña de un Solo Pueblo",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 9073,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-m%C3%BAsica-de-un-solo-pueblo-vol-2/1541028269?uo=4",
+   "id": 1541028269,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 2",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 9074,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-m%C3%BAsica-de-un-solo-pueblo-vol-3/1543380379?uo=4",
+   "id": 1543380379,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 3",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 9076,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-m%C3%BAsica-de-un-solo-pueblo-vol-4/1633091663?uo=4",
+   "id": 1633091663,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 4",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 9078,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%BAsica-navide%C3%B1a-de-un-solo-pueblo-vol-2/1644525404?uo=4",
+   "id": 1644525404,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Música Navideña de un Solo Pueblo, Vol. 2",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 9077,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-m%C3%BAsica-de-un-solo-pueblo-vol-5/1543380269?uo=4",
+   "id": 1543380269,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 5",
+   "year_plat": 1983
+  },
+  {
+   "albumId": 9079,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-m%C3%BAsica-de-un-solo-pueblo-vol-6/1122772103?uo=4",
+   "id": 1122772103,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 6",
+   "year_plat": 1984
+  },
+  {
+   "albumId": 9081,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/alumbrame-el-zaguan/1108554272?uo=4",
+   "id": 1108554272,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Alumbrame el Zaguan",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 9082,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-fiesta/1108544568?uo=4",
+   "id": 1108544568,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Fiesta",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 9083,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/con-su-m%C3%BAsica-a-otra-parte/1108545952?uo=4",
+   "id": 1108545952,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Con Su Música a Otra Parte",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 14939,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/original/1717187973?uo=4",
+   "id": 1717187973,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "ORIGINAL",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 14938,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/un-solo-pueblo-12-1/1118254662?uo=4",
+   "id": 1118254662,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Un Solo Pueblo 12 + 1",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 14937,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/caracas-caracas/1115389637?uo=4",
+   "id": 1115389637,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Caracas Caracas",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 14940,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/184504882",
+   "id": 184504882,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 9071,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/187377992",
+   "id": 187377992,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.97,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 2",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 9072,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/183273842",
+   "id": 183273842,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Musica Navideña de un Solo Pueblo",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 9073,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/187377992",
+   "id": 187377992,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 2",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 9074,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/184882352",
+   "id": 184882352,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 3",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 9076,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/184882202",
+   "id": 184882202,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 4",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 9078,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/355242247",
+   "id": 355242247,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Música Navideña de un Solo Pueblo, Vol. 2",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 9077,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/183273812",
+   "id": 183273812,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Musica de un Solo Pueblo, Vol. 5",
+   "year_plat": 1983
+  },
+  {
+   "albumId": 9079,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13317247",
+   "id": 13317247,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Música de un Solo Pueblo, Vol. 6",
+   "year_plat": 1984
+  },
+  {
+   "albumId": 9081,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12972680",
+   "id": 12972680,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Alumbrame el Zaguan",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 9082,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12972756",
+   "id": 12972756,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Fiesta",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 9083,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12972760",
+   "id": 12972760,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Con Su Música a Otra Parte",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 14939,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/514010272",
+   "id": 514010272,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "ORIGINAL",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 14938,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13213760",
+   "id": 13213760,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Un Solo Pueblo 12 + 1",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 14937,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13174824",
+   "id": 13174824,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Caracas Caracas",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": "Un Solo Pueblo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 34,
+ "albumes_con_link": 15
+}

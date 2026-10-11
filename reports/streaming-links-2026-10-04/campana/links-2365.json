@@ -1,0 +1,46 @@
+{
+ "artistId": 2365,
+ "name": "Bitchfork",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/50205242",
+   "id": 50205242,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Bitchfork"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/bforkmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bitchfork"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@bitchfork9145",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bitchfork"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Bitchfork",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

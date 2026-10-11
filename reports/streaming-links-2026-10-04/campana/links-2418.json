@@ -1,0 +1,64 @@
+{
+ "artistId": 2418,
+ "name": "Cum Book",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/142562442",
+   "id": 142562442,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cum book"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://cumbook.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cum Book"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/cumbookgrind",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cum Book"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/cumbookgrind",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cum Book"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/c/cumbook",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cum Book"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Cum Book",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

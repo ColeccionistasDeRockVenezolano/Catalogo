@@ -1,0 +1,40 @@
+{
+ "artistId": 3687,
+ "name": "Carlos Jaeger",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/15296755",
+   "id": 15296755,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Carlos Jaeger"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6871,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/216767382",
+   "id": 216767382,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Claroscuro",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

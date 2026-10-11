@@ -1,0 +1,183 @@
+{
+ "artistId": 3551,
+ "name": "Olegario Díaz",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1717931",
+   "id": 1717931,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Olegario Diaz"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6408,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/casi-en-el-guaire/895658865?uo=4",
+   "id": 895658865,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Casi en el Guaire",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 6409,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/jazz-figures-piano-solo/521832873?uo=4",
+   "id": 521832873,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Jazz Figures Piano Solo",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 6410,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/trios/521834690?uo=4",
+   "id": 521834690,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Trios",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 6411,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/chill-art-tribute/519027998?uo=4",
+   "id": 519027998,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Chill Art Tribute",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 6412,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/having-fun/453243101?uo=4",
+   "id": 453243101,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Having Fun",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 6413,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-skyline-session/567413794?uo=4",
+   "id": 567413794,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Skyline Session",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 6414,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/basquiat-by-night-day/877571089?uo=4",
+   "id": 877571089,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Basquiat By Night/Day",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6415,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aleph-in-chromatic/1156113135?uo=4",
+   "id": 1156113135,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aleph in Chromatic",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6416,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/i-remember-chet/1339225137?uo=4",
+   "id": 1339225137,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "I Remember Chet",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 6408,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8877991",
+   "id": 8877991,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Casi en el Guaire",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 6409,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/2233041",
+   "id": 2233041,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Jazz Figures Piano Solo",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 6411,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1725231",
+   "id": 1725231,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.97,
+   "title_plat": "Chillart Tribute",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 6415,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14081542",
+   "id": 14081542,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aleph in Chromatic",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6416,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56446982",
+   "id": 56446982,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "I Remember Chet",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "Olegario Díaz",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 9,
+ "albumes_con_link": 9
+}

@@ -1,0 +1,52 @@
+{
+ "artistId": 607,
+ "name": "Haboryn",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 1087,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/welcome-to-the-suffering/1297473142?uo=4",
+   "id": 1297473142,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Welcome to the Suffering",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 1086,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/at-the-edge-of-extinction/476937815?uo=4",
+   "id": 476937815,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "At The Edge Of Extinction",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 1616,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/chapter-unread/1451201925?uo=4",
+   "id": 1451201925,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Chapter Unread",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": "Haboryn",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 3
+}

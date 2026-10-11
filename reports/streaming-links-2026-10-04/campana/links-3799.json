@@ -1,0 +1,128 @@
+{
+ "artistId": 3799,
+ "name": "Rosa Virginia Chacín",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1098490",
+   "id": 1098490,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Rosa Virginia Chacin"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8472,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/un-momento-contigo/1004288729?uo=4",
+   "id": 1004288729,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Un Momento Contigo",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 8473,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-voz-m%C3%A1s-dulce-de-venezuela/423090819?uo=4",
+   "id": 423090819,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Voz Más Dulce de Venezuela",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 8481,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/recital-venezolano/1576923793?uo=4",
+   "id": 1576923793,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Recital Venezolano",
+   "year_plat": 1962
+  },
+  {
+   "albumId": 8488,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/orgullo-de-ser-latino/423091501?uo=4",
+   "id": 423091501,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Orgullo de ser Latino",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 8472,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11169808",
+   "id": 11169808,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Un Momento Contigo",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 8473,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/928135",
+   "id": 928135,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Voz más dulce de Venezuela",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 8481,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/245065852",
+   "id": 245065852,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Recital Venezolano",
+   "year_plat": 1962
+  },
+  {
+   "albumId": 8489,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/798107",
+   "id": 798107,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Propio Yo",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 8488,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/928137",
+   "id": 928137,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Orgullo de ser Latino",
+   "year_plat": 1999
+  }
+ ],
+ "mb_name": "Rosa Virginia Chacín",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 20,
+ "albumes_con_link": 5
+}

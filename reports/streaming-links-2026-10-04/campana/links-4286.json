@@ -1,0 +1,298 @@
+{
+ "artistId": 4286,
+ "name": "Eneas Perdomo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1314565",
+   "id": 1314565,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Eneas Perdomo"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4ubYoogp83UPNqtjAzyohM",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Eneas Perdomo"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/es/artist/123109674",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Eneas Perdomo"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4131036",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Eneas Perdomo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14679,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bajo-el-cielo-llanero/1884424423?uo=4",
+   "id": 1884424423,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bajo el Cielo Llanero",
+   "year_plat": 1971
+  },
+  {
+   "albumId": 14676,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/romance-en-camaguan/6791725651?uo=4",
+   "id": 6791725651,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Romance en Camaguan",
+   "year_plat": 1972
+  },
+  {
+   "albumId": 14677,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/al-estilo-de-eneas-perdomo/6793676042?uo=4",
+   "id": 6793676042,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Al Estilo de Eneas Perdomo",
+   "year_plat": 1974
+  },
+  {
+   "albumId": 14673,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/un-se%C3%B1or-cantante/6795610060?uo=4",
+   "id": 6795610060,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Un Señor Cantante",
+   "year_plat": 1976
+  },
+  {
+   "albumId": 14671,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-cabrestero-de-la-copla/6796011086?uo=4",
+   "id": 6796011086,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Cabrestero de la Copla",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 14672,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cantor-de-cielo-y-sabana/6800810420?uo=4",
+   "id": 6800810420,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cantor de Cielo y Sabana",
+   "year_plat": 1978
+  },
+  {
+   "albumId": 14675,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/romance-de-la-ni%C3%B1a-india/6798829715?uo=4",
+   "id": 6798829715,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Romance de la Niña India",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 14678,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-lo-criollo/1881741442?uo=4",
+   "id": 1881741442,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A Lo Criollo",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 14674,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-eneas-de-mi-tierra-cantora/1545066030?uo=4",
+   "id": 1545066030,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A Eneas de Mi Tierra Cantora",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14670,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/adi%C3%B3s-a-mi-tierra/1545066029?uo=4",
+   "id": 1545066029,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Adiós A Mi Tierra",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14669,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/apure-siempre-es-apure/1545066504?uo=4",
+   "id": 1545066504,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Apure Siempre Es Apure",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14679,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/937829731",
+   "id": 937829731,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bajo El Cielo Llanero",
+   "year_plat": 1971
+  },
+  {
+   "albumId": 14676,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1031017092",
+   "id": 1031017092,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Romance En Camaguan",
+   "year_plat": 1972
+  },
+  {
+   "albumId": 14677,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1035839772",
+   "id": 1035839772,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Al Estilo De Eneas Perdomo",
+   "year_plat": 1974
+  },
+  {
+   "albumId": 14673,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1040340382",
+   "id": 1040340382,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Un Señor Cantante",
+   "year_plat": 1976
+  },
+  {
+   "albumId": 14671,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1041369742",
+   "id": 1041369742,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Cabrestero De La Copla",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 14672,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1052626192",
+   "id": 1052626192,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cantor De Cielo Y Sabana",
+   "year_plat": 1978
+  },
+  {
+   "albumId": 14675,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1048018032",
+   "id": 1048018032,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Romance De La Niña India",
+   "year_plat": 1980
+  },
+  {
+   "albumId": 14678,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/931065651",
+   "id": 931065651,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Lo Criollo",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 14674,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/131029342",
+   "id": 131029342,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Eneas de Mi Tierra Cantora",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14670,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1031025452",
+   "id": 1031025452,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Adios A Mi Tierra",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14669,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1030123932",
+   "id": 1030123932,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Apure Siempre Es Apure",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Eneas Perdomo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 11,
+ "albumes_con_link": 11
+}

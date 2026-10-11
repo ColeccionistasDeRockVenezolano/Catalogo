@@ -1,0 +1,62 @@
+{
+ "artistId": 3622,
+ "name": "Aquiles Báez Trío",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6044368",
+   "id": 6044368,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Aquiles Báez Trío"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6603,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-mis-hermanos/510202863?uo=4",
+   "id": 510202863,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A Mis Hermanos",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 6604,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/san-miguel/1133405880?uo=4",
+   "id": 1133405880,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "San Miguel",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 6603,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8047100",
+   "id": 8047100,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Mis Hermanos",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

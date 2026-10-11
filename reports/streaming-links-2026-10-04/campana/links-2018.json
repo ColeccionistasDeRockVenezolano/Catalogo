@@ -1,0 +1,51 @@
+{
+ "artistId": 2018,
+ "name": "Srod",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/3658961",
+   "id": 3658961,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Srod"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4509,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nature/549643895?uo=4",
+   "id": 549643895,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nature",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 4509,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/5208971",
+   "id": 5208971,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nature",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

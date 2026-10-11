@@ -1,0 +1,73 @@
+{
+ "artistId": 230,
+ "name": "Spiteri",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/350641",
+   "id": 350641,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Spiteri"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 51,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/spiteri/351471243?uo=4",
+   "id": 351471243,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Spiteri",
+   "year_plat": 1974
+  },
+  {
+   "albumId": 653,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/spiteri/351471243?uo=4",
+   "id": 351471243,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Spiteri",
+   "year_plat": 1974
+  },
+  {
+   "albumId": 51,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/485291",
+   "id": 485291,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Spiteri",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 653,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/485291",
+   "id": 485291,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Spiteri",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": "Spiteri",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

@@ -1,0 +1,118 @@
+{
+ "artistId": 2914,
+ "name": "Exhumed",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/57487",
+   "id": 57487,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://exhumed.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2OjtmMho2pBS86zQ1PliRu",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id74420429",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/ExhumedOfficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/ExhumedOfficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/exhumed_official/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/exhumedofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B001SZ24RI",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3888229",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/OfficialExhumed",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Exhumed"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Exhumed",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

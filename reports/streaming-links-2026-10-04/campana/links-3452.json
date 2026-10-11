@@ -1,0 +1,122 @@
+{
+ "artistId": 3452,
+ "name": "Benito González",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/981046",
+   "id": 981046,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Benito Gonzalez"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6GjyDhhjQuF2nOavAcip7Q",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Benito Gonzalez"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/47619483",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Benito Gonzalez"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/benitopiano/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Benito Gonzalez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6115,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/starting-point/47619780?uo=4",
+   "id": 47619780,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Starting Point",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 6117,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dream-rhapsody/1089669482?uo=4",
+   "id": 1089669482,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Dream Rhapsody",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6119,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sing-to-the-world/1663669283?uo=4",
+   "id": 1663669283,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sing to the World",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 6115,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6554533",
+   "id": 6554533,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Starting Point",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 6117,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12554048",
+   "id": 12554048,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dream Rhapsody",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6119,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/394405957",
+   "id": 394405957,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sing to the World",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Benito Gonzalez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,54 @@
+{
+ "artistId": 529,
+ "name": "Nekro Cvlt Desecration",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/229145045",
+   "id": 229145045,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5TnyKdzkVT4zK06Z3pk2cN",
+   "id": "5TnyKdzkVT4zK06Z3pk2cN",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Nekro Cvlt Desecration"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 995,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nekrosatani-alcoholocausto/1749979841?uo=4",
+   "id": 1749979841,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 995,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/596303682",
+   "id": 596303682,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0
+  }
+ ],
+ "mb_name": "Nekro Cvlt Desecration",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

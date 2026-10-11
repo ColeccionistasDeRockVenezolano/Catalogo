@@ -1,0 +1,183 @@
+{
+ "artistId": 4236,
+ "name": "Aérea Negrot",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/712350",
+   "id": 712350,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Aérea Negrot"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/AereaNegrot",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aérea Negrot"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/aereanegrot",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aérea Negrot"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/aereanegrot",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aérea Negrot"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/AereaNegrot",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aérea Negrot"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4ix8eWGATi2Ot5ZmWITDaJ",
+   "id": "4ix8eWGATi2Ot5ZmWITDaJ",
+   "method": "exact",
+   "source": "wikidata-Q4833224",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 12820,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/all-i-wanna-do-ep/414009380?uo=4",
+   "id": 414009380,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.903,
+   "title_plat": "All I Wanna Do - EP",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 12821,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/arabxilla/964521681?uo=4",
+   "id": 964521681,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Arabxilla",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12819,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/its-lover-love-remixes/480113346?uo=4",
+   "id": 480113346,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "It's Lover, Love Remixes",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12818,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/right-body-wrong-time-ep/451943053?uo=4",
+   "id": 451943053,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.933,
+   "title_plat": "Right Body Wrong Time - EP",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12822,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/macuto/535116652?uo=4",
+   "id": 535116652,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Macuto",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 12820,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/61297002",
+   "id": 61297002,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "All I Wanna Do",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 12821,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/61295642",
+   "id": 61295642,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Arabxilla",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12819,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/62703392",
+   "id": 62703392,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "It's Lover, Love Remixes",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12818,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/61303552",
+   "id": 61303552,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Right Body Wrong Time",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 12822,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/62682592",
+   "id": 62682592,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Macuto",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Aérea Negrot",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 5
+}

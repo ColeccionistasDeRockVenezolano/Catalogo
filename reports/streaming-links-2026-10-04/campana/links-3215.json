@@ -1,0 +1,40 @@
+{
+ "artistId": 3215,
+ "name": "Arteria",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9629522",
+   "id": 9629522,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Arteria"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5499,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/244563522",
+   "id": 244563522,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Arteria",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Arteria",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

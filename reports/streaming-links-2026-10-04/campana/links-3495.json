@@ -1,0 +1,51 @@
+{
+ "artistId": 3495,
+ "name": "Gabriel Dávila",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6833095",
+   "id": 6833095,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gabriel Davila"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6247,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/uno/867368229?uo=4",
+   "id": 867368229,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Uno",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6247,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8858681",
+   "id": 8858681,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Uno",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "Gabriel Dávila",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,95 @@
+{
+ "artistId": 3543,
+ "name": "Maruja Muci",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1120907",
+   "id": 1120907,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Maruja Muci"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6384,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dreaming-in-caracas/301963253?uo=4",
+   "id": 301963253,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Dreaming In Caracas",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 6385,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/my-funny-valentine/301793877?uo=4",
+   "id": 301793877,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "My Funny Valentine",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 6386,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tiempos-modernos/375146843?uo=4",
+   "id": 375146843,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tiempos Modernos",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 6384,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6844586",
+   "id": 6844586,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dreaming in Caracas",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 6385,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/824945",
+   "id": 824945,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "My Funny Valentine",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 6386,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8386772",
+   "id": 8386772,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tiempos Modernos",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,64 @@
+{
+ "artistId": 1181,
+ "name": "Aerea",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/321621501",
+   "id": 321621501,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Aérea"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1R7K0l6ALmjcP4rH3AIqKE",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AéreA"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/aereabandaoficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AéreA"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/aerea_banda/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AéreA"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/AEREABANDA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AéreA"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "AéreA",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

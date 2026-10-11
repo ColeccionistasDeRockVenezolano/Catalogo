@@ -1,0 +1,95 @@
+{
+ "artistId": 3629,
+ "name": "César Orozco & Kamarata Jazz",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2573571",
+   "id": 2573571,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "César Orozco & Kamarata Jazz"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6521,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/orozcojam/530333873?uo=4",
+   "id": 530333873,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "OrozcoJam",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 6522,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/no-limits-for-tumbao/1145222810?uo=4",
+   "id": 1145222810,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "No Limits For Tumbao",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 6524,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/rooted-forward/1529799390?uo=4",
+   "id": 1529799390,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Rooted Forward",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 6521,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/3330771",
+   "id": 3330771,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "OrozcoJam",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 6522,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13834960",
+   "id": 13834960,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "No Limits For Tumbao",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 6524,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/170073022",
+   "id": 170073022,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rooted Forward",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,440 @@
+{
+ "artistId": 4280,
+ "name": "LAGOS",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1370118",
+   "id": 1370118,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Lagos"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7uQ1D2NNHs5cUL3CLKRbia",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "LAGOS"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4305651",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "LAGOS"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCK3bkIK9qpyxOL0Ua6VxMew",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "LAGOS"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/lagosmusica",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Lagosmusica",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/lagosmusica/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@lagosmusica",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14366,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cl%C3%A1sicos/1567485677?uo=4",
+   "id": 1567485677,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Clásicos",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14377,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/agus-song-mejor-dejarte-ir-en-vivo-desde-caracas-single/1610204531?uo=4",
+   "id": 1610204531,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.932,
+   "title_plat": "Agus' Song (Mejor Dejarte Ir) [En Vivo Desde Caracas] - Single",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14359,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/alta-fidelidad/1742767710?uo=4",
+   "id": 1742767710,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Alta Fidelidad",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14358,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/las-cosas-que-solo-se-hacen-en-la-noche/6807160249?uo=4",
+   "id": 6807160249,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Las Cosas Que Solo Se Hacen En La Noche",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14360,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/117736612",
+   "id": 117736612,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Línea",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 14382,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103841632",
+   "id": 103841632,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Guerra Fría",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 14381,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103839712",
+   "id": 103839712,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Reset",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 14367,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/149279342",
+   "id": 149279342,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "PRIMAVOLTA",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14379,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/164977712",
+   "id": 164977712,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Si El Mundo Se Acabara",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14380,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/139143262",
+   "id": 139143262,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuerno",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14356,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/199226722",
+   "id": 199226722,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Quién lo diría",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14362,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/272159872",
+   "id": 272159872,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Julia",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14366,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/230042052",
+   "id": 230042052,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Clásicos",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14378,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/234731502",
+   "id": 234731502,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mónaco",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14376,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/353838967",
+   "id": 353838967,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Permanente",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14377,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/295911152",
+   "id": 295911152,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Agus' Song (Mejor Dejarte Ir) (En Vivo Desde Caracas)",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14364,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/398169237",
+   "id": 398169237,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "No Se Acaba Hasta Que Acabe",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14375,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/456979025",
+   "id": 456979025,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Agus' Song II (Soltando A Pedazos)",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14355,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/536325172",
+   "id": 536325172,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Blanco Y Negro",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14359,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/577015311",
+   "id": 577015311,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Alta Fidelidad",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14365,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/766988321",
+   "id": 766988321,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Televisor",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14371,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/772211271",
+   "id": 772211271,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dime Quién (Live)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14372,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/772228241",
+   "id": 772228241,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tarde, Lejos (Acústica)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14357,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/762047371",
+   "id": 762047371,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Relevo (Demo)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14373,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/772228431",
+   "id": 772228431,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tengamos Pasado (Remix)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14374,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/772228491",
+   "id": 772228491,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tuvimos Futuro (Remix)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14370,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/772202501",
+   "id": 772202501,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ni Feliz Ni Triste",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14369,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1003130621",
+   "id": 1003130621,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "WhyWhyWhy",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14361,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1042355512",
+   "id": 1042355512,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tal Vez Mañana",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14368,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1064282261",
+   "id": 1064282261,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Solo Fumo Cuando Bebo",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14363,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/955717611",
+   "id": 955717611,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Himno Nacional",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14358,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1067476381",
+   "id": 1067476381,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Las Cosas Que Solo Se Hacen En La Noche",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "LAGOS",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 28,
+ "albumes_con_link": 28
+}

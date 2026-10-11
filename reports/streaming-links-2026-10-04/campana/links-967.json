@@ -1,0 +1,51 @@
+{
+ "artistId": 967,
+ "name": "Lignum Crucis",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/201121527",
+   "id": 201121527,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Lignum Crucis"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1823,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/just-before-dawn/1671070108?uo=4",
+   "id": 1671070108,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Just Before Dawn",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 1823,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/406143217",
+   "id": 406143217,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Just Before Dawn",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,52 @@
+{
+ "artistId": 4748,
+ "name": "Tokyo Ska Paradise Orchestra",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/87206",
+   "id": 87206,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Tokyo Ska Paradise Orchestra"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0UZq6vAHrwGgctvxTzzxYm",
+   "id": "0UZq6vAHrwGgctvxTzzxYm",
+   "method": "exact",
+   "source": "wikidata-Q610696",
+   "score": 1.0
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/artist/73969372",
+   "id": "73969372",
+   "method": "exact",
+   "source": "wikidata-Q610696",
+   "score": 1.0
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC5RmUAcm_w5K9cxtQSj7W7g",
+   "id": "UC5RmUAcm_w5K9cxtQSj7W7g",
+   "method": "exact",
+   "source": "wikidata-Q610696",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

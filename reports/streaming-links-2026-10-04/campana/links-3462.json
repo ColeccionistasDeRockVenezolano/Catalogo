@@ -1,0 +1,73 @@
+{
+ "artistId": 3462,
+ "name": "Carlos Urribarrí",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/84529782",
+   "id": 84529782,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Carlos Urribarrí"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6137,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/templo-de-agua/1632964922?uo=4",
+   "id": 1632964922,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Templo de Agua",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 6138,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/centauro/1733063685?uo=4",
+   "id": 1733063685,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Centauro",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 6137,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/332246397",
+   "id": 332246397,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Templo de Agua",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 6138,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/553638802",
+   "id": 553638802,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Centauro",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

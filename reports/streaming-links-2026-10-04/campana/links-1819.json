@@ -1,0 +1,51 @@
+{
+ "artistId": 1819,
+ "name": "Maricruz Quintero",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5327542",
+   "id": 5327542,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Maricruz Quintero"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3533,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/niebla-lluvia/1558852928?uo=4",
+   "id": 1558852928,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Niebla & Lluvia",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 3533,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/215538802",
+   "id": 215538802,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Niebla & Lluvia",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,95 @@
+{
+ "artistId": 3753,
+ "name": "Tania",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/98265",
+   "id": 98265,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Tania"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 7856,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/80983712",
+   "id": 80983712,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Solamente Tania",
+   "year_plat": 1973
+  },
+  {
+   "albumId": 7858,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/245129442",
+   "id": 245129442,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Incomparable!",
+   "year_plat": 1976
+  },
+  {
+   "albumId": 7861,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/93264612",
+   "id": 93264612,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Insuperable!",
+   "year_plat": 1973
+  },
+  {
+   "albumId": 7865,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103449672",
+   "id": 103449672,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.95,
+   "title_plat": "Tania y Andy Montañez",
+   "year_plat": 1978
+  },
+  {
+   "albumId": 7867,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/108451982",
+   "id": 108451982,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.952,
+   "title_plat": "Es Tiempo de Merengue",
+   "year_plat": 1973
+  },
+  {
+   "albumId": 7868,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/245129622",
+   "id": 245129622,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Grandes Exitos de Tania",
+   "year_plat": 1973
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 16,
+ "albumes_con_link": 6
+}

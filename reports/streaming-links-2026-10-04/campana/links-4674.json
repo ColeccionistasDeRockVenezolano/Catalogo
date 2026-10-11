@@ -1,0 +1,28 @@
+{
+ "artistId": 4674,
+ "name": "Inaeternum",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/196021",
+   "id": 196021,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.952,
+   "name_plat": "In Aeternum"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

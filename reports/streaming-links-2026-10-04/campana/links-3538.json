@@ -1,0 +1,51 @@
+{
+ "artistId": 3538,
+ "name": "Mario Rodríguez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/305992",
+   "id": 305992,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mario Rodriguez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6567,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/balance/1127560485?uo=4",
+   "id": 1127560485,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Balance",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6567,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13438419",
+   "id": 13438419,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Balance",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Mario Rodriguez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

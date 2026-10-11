@@ -1,0 +1,28 @@
+{
+ "artistId": 1553,
+ "name": "100 Grados",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5527897",
+   "id": 5527897,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.9,
+   "name_plat": "180 Grados"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "100 Grados",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 0
+}

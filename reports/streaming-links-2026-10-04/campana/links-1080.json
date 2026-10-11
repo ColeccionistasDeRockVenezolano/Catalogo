@@ -1,0 +1,28 @@
+{
+ "artistId": 1080,
+ "name": "Furia de Buzo Ciego",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://furiadebuzociego.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Furia de Buzo Ciego"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Furia de Buzo Ciego",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

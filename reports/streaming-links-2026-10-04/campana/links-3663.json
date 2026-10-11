@@ -1,0 +1,28 @@
+{
+ "artistId": 3663,
+ "name": "Marcus Vinicius",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/348087",
+   "id": 348087,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.933,
+   "name_plat": "Marcos Vinicius"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Marcus Vinícius",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

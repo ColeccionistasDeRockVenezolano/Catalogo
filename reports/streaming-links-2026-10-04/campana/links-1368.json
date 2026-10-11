@@ -1,0 +1,28 @@
+{
+ "artistId": 1368,
+ "name": "Mind The Gap",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/317604",
+   "id": 317604,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mind The Gap"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Mind the Gap",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

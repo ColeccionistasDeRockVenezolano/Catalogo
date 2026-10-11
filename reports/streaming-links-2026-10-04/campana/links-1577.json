@@ -1,0 +1,78 @@
+{
+ "artistId": 1577,
+ "name": "Guarapita",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6577",
+   "id": 6577,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Guarapita"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://guarapita.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Guarapita"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/guarapitaofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Guarapita"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC3U3aFg8TcoGBQq025GDldQ/featured",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Guarapita"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2836,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/si-hay/1830342658?uo=4",
+   "id": 1830342658,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "¡Si Hay!",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 2836,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/797972191",
+   "id": 797972191,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "¡Si Hay!",
+   "year_plat": 2004
+  }
+ ],
+ "mb_name": "Guarapita",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

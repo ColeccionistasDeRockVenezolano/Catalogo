@@ -1,0 +1,200 @@
+{
+ "artistId": 3550,
+ "name": "Ofelia del Rosal",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1108871",
+   "id": 1108871,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ofelia del Rosal"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/ve/artist/id74300057",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ofelia del Rosal"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/ofeliadelrosal",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6397,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/brasil-en-blanco-y-negro/1565903182?uo=4",
+   "id": 1565903182,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Brasil en Blanco y Negro",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 6398,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aldemareando/1737241465?uo=4",
+   "id": 1737241465,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aldemareando",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 6399,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/vino-tinto/256415225?uo=4",
+   "id": 256415225,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Vino Tinto",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 6576,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/simon-diaz-universal/256420750?uo=4",
+   "id": 256420750,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Simon Diaz Universal",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 6579,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/flor-de-mayo/269532431?uo=4",
+   "id": 269532431,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Flor de Mayo",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 6404,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/entre-pianos/875548504?uo=4",
+   "id": 875548504,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Entre Pianos",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6405,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-cantos-de-venezuela/992225877?uo=4",
+   "id": 992225877,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.977,
+   "title_plat": "En-Cantos de Venezuela",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 6397,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/227795772",
+   "id": 227795772,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Brasil en Blanco y Negro",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 6398,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/563222342",
+   "id": 563222342,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aldemareando",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 6399,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/810676",
+   "id": 810676,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vino Tinto",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 6576,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/810675",
+   "id": 810675,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Simon Diaz Universal",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 6579,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/810683",
+   "id": 810683,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Flor de Mayo",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 6404,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8952013",
+   "id": 8952013,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Entre Pianos",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6405,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10230844",
+   "id": 10230844,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.977,
+   "title_plat": "En-Cantos de Venezuela",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": "Ofelia del Rosal",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 11,
+ "albumes_con_link": 7
+}

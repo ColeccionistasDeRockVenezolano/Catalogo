@@ -1,0 +1,30 @@
+{
+ "artistId": 1946,
+ "name": "Fractaler",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 4071,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/y-calm/272362503?uo=4",
+   "id": 272362503,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Y Calm",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

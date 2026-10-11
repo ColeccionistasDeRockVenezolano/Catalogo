@@ -1,0 +1,55 @@
+{
+ "artistId": 6056,
+ "name": "AlexTrip Sands",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14435249",
+   "id": 14435249,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "AlexTrip Sands"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5MKEh6IaFZK3knCjCok3rI",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AlexTrip Sands"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/alextripsands",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AlexTrip Sands"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1333323279",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "AlexTrip Sands"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "AlexTrip Sands",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

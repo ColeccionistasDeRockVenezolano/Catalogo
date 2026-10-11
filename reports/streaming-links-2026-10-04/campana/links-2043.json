@@ -1,0 +1,30 @@
+{
+ "artistId": 2043,
+ "name": "Zignia",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 4617,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mejor-que-ayer/1698471295?uo=4",
+   "id": 1698471295,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mejor Que Ayer",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,49 @@
+{
+ "artistId": 1516,
+ "name": "The Hangover",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/13991",
+   "id": 13991,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.96,
+   "name_plat": "The Hangovers"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://thehangoverband.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Hangover"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2690,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/what-happens-in-vegas/1552215069?uo=4",
+   "id": 1552215069,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "What Happens In Vegas",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "The Hangover",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

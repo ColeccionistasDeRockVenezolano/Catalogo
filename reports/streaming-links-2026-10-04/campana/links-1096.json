@@ -1,0 +1,73 @@
+{
+ "artistId": 1096,
+ "name": "Captan obvio",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/52909842",
+   "id": 52909842,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Captan, Obvio"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15452,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/die-captan-obvio-die/6810655079?uo=4",
+   "id": 6810655079,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Die Captan, obvio Die!",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 15453,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-mala-hierba-nunca-muere/1439943470?uo=4",
+   "id": 1439943470,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Mala Hierba Nunca Muere",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 15452,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1075776152",
+   "id": 1075776152,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Die Captan, obvio Die!",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 15453,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/76140952",
+   "id": 76140952,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Mala Hierba Nunca Muere",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Captan, Obvio",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 2
+}

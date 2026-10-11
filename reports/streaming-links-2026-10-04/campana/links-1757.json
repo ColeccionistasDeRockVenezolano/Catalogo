@@ -1,0 +1,127 @@
+{
+ "artistId": 1757,
+ "name": "Saliva",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/3117",
+   "id": 3117,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://officialsaliva.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5S6hjAxgxjsLylsTtMIimO",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id391630",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://www.amazon.com/-/e/B000APAELU",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/OfficialSaliva",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Saliva",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/saliva/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@salivamusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/saliva",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/28918",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/SalivaVEVO",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Saliva"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Saliva",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

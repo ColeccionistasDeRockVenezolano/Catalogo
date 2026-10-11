@@ -1,0 +1,178 @@
+{
+ "artistId": 4249,
+ "name": "Danny Ocean",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/115049882",
+   "id": 115049882,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Danny Ocean"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5H1nN1SzW0qNeUEZvuXjAj",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Danny Ocean"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/Dannocean",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Danny Ocean"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/dannoceanmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Danny Ocean"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/dannocean/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Danny Ocean"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/dannoceanmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Danny Ocean"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1248515752",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Danny Ocean"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://music.youtube.com/channel/UCfSyPd6CYcYdBL7dQSs230w",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Danny Ocean"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3558465",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Danny Ocean"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 13353,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/54-1/1455553642?uo=4",
+   "id": 1455553642,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "54+1",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13344,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dannocean/1608575910?uo=4",
+   "id": 1608575910,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "@dannocean",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 13357,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/reflexa/1738537234?uo=4",
+   "id": 1738537234,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "REFLEXA",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13340,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/venequia/1757431325?uo=4",
+   "id": 1757431325,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "venequia.",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13347,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/alma-llanera-venezuela-live-from-nobel-peace-prize/1860405961?uo=4",
+   "id": 1860405961,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.94,
+   "title_plat": "Alma Llanera / Venezuela (Live from Nobel Peace Prize 2025) - Single",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13346,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/babylon-club/1857774825?uo=4",
+   "id": 1857774825,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Babylon Club",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13355,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/babylona-blue/6778974685?uo=4",
+   "id": 6778974685,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "babylona blue",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Danny Ocean",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 37,
+ "albumes_con_link": 7
+}

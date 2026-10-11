@@ -1,0 +1,36 @@
+{
+ "artistId": 5840,
+ "name": "Alicia Machado",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1822331",
+   "id": 1822331,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Alicia Machado"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCjoOp0enQ5zNeyaYwS64wNQ",
+   "id": "UCjoOp0enQ5zNeyaYwS64wNQ",
+   "method": "exact",
+   "source": "wikidata-Q649736",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

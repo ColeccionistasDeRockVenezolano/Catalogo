@@ -1,0 +1,55 @@
+{
+ "artistId": 5796,
+ "name": "satosgang",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/109718212",
+   "id": 109718212,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "satosgang"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://satosgang.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "satosgang"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5cd37EiOdBnVxkV6w3b8ew",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "satosgang"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@sebastiancubas",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "satosgang"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "satosgang",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

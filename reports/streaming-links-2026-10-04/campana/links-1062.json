@@ -1,0 +1,51 @@
+{
+ "artistId": 1062,
+ "name": "Nou Vin Lakay",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9219228",
+   "id": 9219228,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Nou Vin Lakay"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1986,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-la-casa/1698989153?uo=4",
+   "id": 1698989153,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De la Casa",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 1986,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/468462405",
+   "id": 468462405,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De la Casa",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

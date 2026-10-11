@@ -1,0 +1,51 @@
+{
+ "artistId": 1947,
+ "name": "Frank Morón",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/115425542",
+   "id": 115425542,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.909,
+   "name_plat": "Frank'Moran"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4096,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nada-que-decir/1465859510?uo=4",
+   "id": 1465859510,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nada Que Decir",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 15496,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ma%C3%B1ana/1893917963?uo=4",
+   "id": 1893917963,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mañana",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

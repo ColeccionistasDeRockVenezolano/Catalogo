@@ -1,0 +1,28 @@
+{
+ "artistId": 1155,
+ "name": "Doppler",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/190999337",
+   "id": 190999337,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Doppler"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "DOPPLeR",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

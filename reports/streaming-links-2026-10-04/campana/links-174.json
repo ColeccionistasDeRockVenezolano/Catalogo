@@ -1,0 +1,92 @@
+{
+ "artistId": 174,
+ "name": "Metrozubdivision",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/85506292",
+   "id": 85506292,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Metrozubdivision"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/metrozub",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 284,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ccs/1513773686?uo=4",
+   "id": 1513773686,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ccs",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 284,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/148891272",
+   "id": 148891272,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ccs",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 15540,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/450438335",
+   "id": 450438335,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Butcher",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15686,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/431073887",
+   "id": 431073887,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Another Self",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15541,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/508712001",
+   "id": 508712001,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Echoes",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Metrozubdivision",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 4
+}

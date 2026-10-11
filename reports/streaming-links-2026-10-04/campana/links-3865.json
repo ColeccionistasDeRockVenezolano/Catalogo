@@ -1,0 +1,51 @@
+{
+ "artistId": 3865,
+ "name": "Francisco Pacheco y Su Pueblo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9547192",
+   "id": 9547192,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Francisco Pacheco Y Su Pueblo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9132,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/francisco-pacheco-y-su-pueblo/1739107907?uo=4",
+   "id": 1739107907,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Francisco Pacheco... y Su Pueblo",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 9132,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/568200551",
+   "id": 568200551,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Francisco Pacheco... y Su Pueblo",
+   "year_plat": 2001
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 1
+}

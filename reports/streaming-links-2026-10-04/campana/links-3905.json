@@ -1,0 +1,135 @@
+{
+ "artistId": 3905,
+ "name": "Cheo Hurtado",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/331803",
+   "id": 331803,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cheo Hurtado"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5cWTKxIOWibe6xe5gqQHwS",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cheo Hurtado"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/CHEOHURTADO",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cheo Hurtado"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9534,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/compadre-pancho/1629611861?uo=4",
+   "id": 1629611861,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Compadre Pancho",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 9536,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuatro-arpas-y-un-cuatro/815316889?uo=4",
+   "id": 815316889,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuatro Arpas y un Cuatro",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 9538,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/seis-guayan%C3%A9s/1677928451?uo=4",
+   "id": 1677928451,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Seis Guayanés",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 9534,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9841916",
+   "id": 9841916,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Compadre Pancho",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 9536,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8358720",
+   "id": 8358720,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuatro Arpas y un Cuatro",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 9538,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/419154867",
+   "id": 419154867,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Seis Guayanés",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 9539,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9841920",
+   "id": 9841920,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Cuatro Suelto",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 9540,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9841888",
+   "id": 9841888,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.955,
+   "title_plat": "42 Años Instrumentado",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": "Cheo Hurtado",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 27,
+ "albumes_con_link": 5
+}

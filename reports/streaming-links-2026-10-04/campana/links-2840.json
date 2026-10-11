@@ -1,0 +1,40 @@
+{
+ "artistId": 2840,
+ "name": "Ra Visual Sound",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1101893",
+   "id": 1101893,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ra Visual Sound"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5698,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/660621901",
+   "id": 660621901,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Natura",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": "Ra Visual Sound",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

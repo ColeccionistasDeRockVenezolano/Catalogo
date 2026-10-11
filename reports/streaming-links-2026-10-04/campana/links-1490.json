@@ -1,0 +1,28 @@
+{
+ "artistId": 1490,
+ "name": "Evero",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1027614",
+   "id": 1027614,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.909,
+   "name_plat": "Everon"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

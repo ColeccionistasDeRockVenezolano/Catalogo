@@ -1,0 +1,30 @@
+{
+ "artistId": 1134,
+ "name": "Rojo Satura",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 4439,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/k%C3%A1iser-panorama/1482724741?uo=4",
+   "id": 1482724741,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Káiser Panorama",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

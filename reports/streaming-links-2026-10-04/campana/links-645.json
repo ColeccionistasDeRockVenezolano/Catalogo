@@ -1,0 +1,37 @@
+{
+ "artistId": 645,
+ "name": "Laverno",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5742228",
+   "id": 5742228,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.923,
+   "name_plat": "Lavern"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://laverno.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "LAVERNO"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "LAVERNO",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,95 @@
+{
+ "artistId": 207,
+ "name": "Reciclaje",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9499002",
+   "id": 9499002,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Reciclaje"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 537,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cu%C3%A1l-futuro/1563681325?uo=4",
+   "id": 1563681325,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "¿Cuál Futuro?",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 1071,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/caretas/1563817705?uo=4",
+   "id": 1563817705,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Caretas",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 479,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/excomulgado/1501917182?uo=4",
+   "id": 1501917182,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Excomulgado",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 537,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/223170842",
+   "id": 223170842,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "¿Cuál Futuro?",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 1071,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/223274722",
+   "id": 223274722,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Caretas",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 479,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/135343002",
+   "id": 135343002,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Excomulgado",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Reciclaje",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

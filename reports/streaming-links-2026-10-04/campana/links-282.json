@@ -1,0 +1,51 @@
+{
+ "artistId": 282,
+ "name": "Virtual Lakai",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/282743781",
+   "id": 282743781,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Virtual Lakai"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 642,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/paralelo-m%C3%A1s-all%C3%A1-de-la-realidad/1792548917?uo=4",
+   "id": 1792548917,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Paralelo: Más Allá De La Realidad",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 642,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/701834161",
+   "id": 701834161,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Paralelo: Más Allá De La Realidad",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,67 @@
+{
+ "artistId": 1236,
+ "name": "Skamorphosis",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://skamorphosis.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Skamorphosis"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/skamorphosis",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Skamorphosis"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/pages/SKAMORPHOSIS/66993102924",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Skamorphosis"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/skamorphosis",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Skamorphosis"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2195,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-el-area/1493044088?uo=4",
+   "id": 1493044088,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "En el Area",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": "Skamorphosis",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

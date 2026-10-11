@@ -1,0 +1,28 @@
+{
+ "artistId": 2699,
+ "name": "Al Jadaqui",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5661384",
+   "id": 5661384,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.947,
+   "name_plat": "Aljadaqui"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

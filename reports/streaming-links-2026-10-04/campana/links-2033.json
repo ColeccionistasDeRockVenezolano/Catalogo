@@ -1,0 +1,69 @@
+{
+ "artistId": 2033,
+ "name": "Vile Hex",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/66482202",
+   "id": 66482202,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Vile Hex"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://vilehex.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vile Hex"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/vilehex/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vile Hex"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4573,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/from-the-ashes-of-death/1465820463?uo=4",
+   "id": 1465820463,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "From the Ashes of Death",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 4573,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/98448082",
+   "id": 98448082,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "From the Ashes of Death",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": "Vile Hex",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

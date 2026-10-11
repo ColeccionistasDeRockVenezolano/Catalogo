@@ -1,0 +1,28 @@
+{
+ "artistId": 3736,
+ "name": "Orquesta La Amistad",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5972550",
+   "id": 5972550,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.914,
+   "name_plat": "Orquesta Amistad"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 0
+}

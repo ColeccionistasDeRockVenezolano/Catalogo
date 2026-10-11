@@ -1,0 +1,62 @@
+{
+ "artistId": 3973,
+ "name": "Jorge Torres",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2573201",
+   "id": 2573201,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jorge Torres"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9725,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/3330431",
+   "id": 3330431,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Jorge Torres",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 9726,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/58223622",
+   "id": 58223622,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En la Cuerda Floja",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 9727,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/327856417",
+   "id": 327856417,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hing",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Jorge Torres",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 3
+}

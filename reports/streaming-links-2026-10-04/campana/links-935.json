@@ -1,0 +1,51 @@
+{
+ "artistId": 935,
+ "name": "Goat on Sale",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/100611822",
+   "id": 100611822,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Goat On Sale"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1739,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/got-out-the-farm/1523239574?uo=4",
+   "id": 1523239574,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Got Out the Farm",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 1739,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/430876927",
+   "id": 430876927,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Got Out The Farm",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

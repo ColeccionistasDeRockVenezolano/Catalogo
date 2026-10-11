@@ -1,0 +1,82 @@
+{
+ "artistId": 243,
+ "name": "The Asbestos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/470092",
+   "id": 470092,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "The Asbestos"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6Mt9MkSGacy6mPVAUGVsem",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Asbestos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3371,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/waking-the-nightmares/1321675961?uo=4",
+   "id": 1321675961,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.976,
+   "title_plat": "Waking the Nightmares",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 348,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/waking-the-nightmares/1321675961?uo=4",
+   "id": 1321675961,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Waking the Nightmares",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 3371,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/52978882",
+   "id": 52978882,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.976,
+   "title_plat": "Waking The Nightmares",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 348,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/52978882",
+   "id": 52978882,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Waking The Nightmares",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": "The Asbestos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 2
+}

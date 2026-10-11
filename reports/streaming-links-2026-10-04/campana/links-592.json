@@ -1,0 +1,71 @@
+{
+ "artistId": 592,
+ "name": "Tree Of Life",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2673781",
+   "id": 2673781,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Tree Of Life"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://treeoflife.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tree of Life"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2KqC36ijtGvHbU21zziwpX",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tree of Life"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCBYwPHsv6MzsXUdsGQ93BEg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tree of Life"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/treeoflifescore",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/treeoflifescore/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Tree of Life",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,73 @@
+{
+ "artistId": 594,
+ "name": "Leviathan",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12096",
+   "id": 12096,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Leviathan"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://trvlvthn.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Leviathan"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3Q0xW53DvJc2ZE6nMImii0",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Leviathan"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/14873141",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Leviathan"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3609360",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Leviathan"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://music.youtube.com/channel/UCdOy5jYFLQ6JxbBI-DmXdBw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Leviathan"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Leviathan",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

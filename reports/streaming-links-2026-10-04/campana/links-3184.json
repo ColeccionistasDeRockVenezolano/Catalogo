@@ -1,0 +1,41 @@
+{
+ "artistId": 3184,
+ "name": "Svartr",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 5422,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/evig-natt/1863392619?uo=4",
+   "id": 1863392619,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Evig Natt",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 5424,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lupercalia/1872765279?uo=4",
+   "id": 1872765279,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lupercalia",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 2
+}

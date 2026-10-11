@@ -1,0 +1,386 @@
+{
+ "artistId": 3822,
+ "name": "Hernán Gamboa",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1283462",
+   "id": 1283462,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Hernán Gamboa"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1X4pmZhaFxmit30AOxFpaL",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hernan Gamboa"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/190763070",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hernan Gamboa"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4196494",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hernan Gamboa"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8625,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%BAsica-popular-y-folkl%C3%B3rica-venezolana-ep/1528388929?uo=4",
+   "id": 1528388929,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.962,
+   "title_plat": "Música Popular y Folklórica Venezolana - EP",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 8629,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-mundo-en-cuatro-cuerdas/1485748660?uo=4",
+   "id": 1485748660,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Mundo en Cuatro Cuerdas",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 8634,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ra%C3%ADces-y-motivos/1527692128?uo=4",
+   "id": 1527692128,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Raíces y Motivos",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 8635,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/valses-venezolanos/1547501533?uo=4",
+   "id": 1547501533,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Valses Venezolanos",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 8637,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/venezuela-linda/1550600665?uo=4",
+   "id": 1550600665,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Venezuela Linda",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 8638,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sentir-de-mi-tierra/1555095422?uo=4",
+   "id": 1555095422,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sentir De Mi Tierra",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 8639,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tangos-en-3x4/1554307654?uo=4",
+   "id": 1554307654,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.929,
+   "title_plat": "Tangos En 3x4",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 8643,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-fiesta/267425037?uo=4",
+   "id": 267425037,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Fiesta",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 8645,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/los-cantos-que-cantamos/1554545742?uo=4",
+   "id": 1554545742,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Los Cantos Que Cantamos",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 8647,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/joropotango/534927530?uo=4",
+   "id": 534927530,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Joropotango",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 8648,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/herencia-de-trovadores/1553351984?uo=4",
+   "id": 1553351984,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Herencia De Trovadores",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 8651,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/amalia-rosa/1551201295?uo=4",
+   "id": 1551201295,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Amalia Rosa",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 8620,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/225338422",
+   "id": 225338422,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Cuatro de Venezuela",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 8621,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6739158",
+   "id": 6739158,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Cuatro de Venezuela, Vol. 2",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 9120,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13154044",
+   "id": 13154044,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.965,
+   "title_plat": "Hernán Gamboa y Nuestros Cantos Infantiles",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 8625,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/168154302",
+   "id": 168154302,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Música Popular y Folklórica Venezolana",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 8627,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12057530",
+   "id": 12057530,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canta a Nuestros Poetas",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 8629,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/117206382",
+   "id": 117206382,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Mundo en Cuatro Cuerdas",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 8630,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13154054",
+   "id": 13154054,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tributo",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 8634,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/15056639",
+   "id": 15056639,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Raíces y Motivos",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 8637,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/202229882",
+   "id": 202229882,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Venezuela Linda",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 8638,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/211764772",
+   "id": 211764772,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sentir de Mi Tierra",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 8639,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12058000",
+   "id": 12058000,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.929,
+   "title_plat": "Tangos en 3x4",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 8644,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/187922372",
+   "id": 187922372,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mis Aguinaldos",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 8643,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1087323",
+   "id": 1087323,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Fiesta",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 8641,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/204508242",
+   "id": 204508242,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Serenatas en Contrapuntos",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 8645,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12057976",
+   "id": 12057976,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Los Cantos Que Cantamos",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 8647,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/3709471",
+   "id": 3709471,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Joropotango",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 8650,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7819145",
+   "id": 7819145,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Uniendo Mundos",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 8648,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/207371432",
+   "id": 207371432,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Herencia de Trovadores",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Hernan Gamboa",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 55,
+ "albumes_con_link": 20
+}

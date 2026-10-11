@@ -1,0 +1,91 @@
+{
+ "artistId": 2909,
+ "name": "The Berzerker",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/8720",
+   "id": 8720,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "The Berzerker"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://theberzerker.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Berzerker"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0JmYYXVIvhS97jOhbmVrN9",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Berzerker"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/42257218",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Berzerker"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/OfficiallyTheBerzerker",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Berzerker"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/the_berzerker_official/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Berzerker"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3617622",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Berzerker"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCauz0WIgwW4pLc_lENl6tPA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "The Berzerker"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "The Berzerker",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

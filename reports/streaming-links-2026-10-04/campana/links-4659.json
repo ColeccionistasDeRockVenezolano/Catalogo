@@ -1,0 +1,82 @@
+{
+ "artistId": 4659,
+ "name": "Ravahil",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/272191962",
+   "id": 272191962,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ravahil"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://ravahil.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ravahil"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4pBOuiUgr9Flbrr15f5UEK",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ravahil"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/ravahil.sa/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ravahil"
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@ravahil.sa",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ravahil"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/ec/artist/1755262283",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ravahil"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@RavahilHQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ravahil"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Ravahil",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

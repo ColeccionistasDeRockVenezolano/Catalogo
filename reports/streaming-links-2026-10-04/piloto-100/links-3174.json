@@ -1,0 +1,59 @@
+{
+ "artistId": 3174,
+ "name": "Spartans",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/648271",
+   "id": 648271,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Spartans"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1sBjTPGXnW2NR4uH9IFCiH",
+   "id": "1sBjTPGXnW2NR4uH9IFCiH",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Spartans"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5396,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nunca-dejes-de-so%C3%B1ar/1695172343?uo=4",
+   "id": 1695172343,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nunca dejes de soñar",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 5396,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/459581775",
+   "id": 459581775,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nunca dejes de soñar",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Spartans",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

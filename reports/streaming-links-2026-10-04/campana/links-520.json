@@ -1,0 +1,82 @@
+{
+ "artistId": 520,
+ "name": "Infestus",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1347381",
+   "id": 1347381,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Infestus"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://infestusbm.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Infestus"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4IXvYfWUEGRYYkQT3epHuL",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Infestus"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/pages/INFESTUS/135325213233956",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Infestus"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/455030445",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Infestus"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3960654",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Infestus"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCaO6PEZ0YaVCY63_c8q0ofw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Infestus"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Infestus",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,62 @@
+{
+ "artistId": 1218,
+ "name": "Ernie",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/100013",
+   "id": 100013,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ernie"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2169,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/underground/1595481628?uo=4",
+   "id": 1595481628,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Underground",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 2163,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/momentos-plat%C3%B3nicos/1595223962?uo=4",
+   "id": 1595223962,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Momentos Platónicos",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 2169,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/272696952",
+   "id": 272696952,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Underground",
+   "year_plat": 2003
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

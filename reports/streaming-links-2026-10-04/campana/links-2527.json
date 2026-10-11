@@ -1,0 +1,37 @@
+{
+ "artistId": 2527,
+ "name": "Massacrator",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11810799",
+   "id": 11810799,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Massacrator"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://massacratormx.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Massacrator"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Massacrator",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

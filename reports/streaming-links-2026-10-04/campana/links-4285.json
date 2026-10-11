@@ -1,0 +1,436 @@
+{
+ "artistId": 4285,
+ "name": "Simón Díaz",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/321122",
+   "id": 321122,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Simon Diaz"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14610,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tonadas/398839197?uo=4",
+   "id": 398839197,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tonadas",
+   "year_plat": 1974
+  },
+  {
+   "albumId": 14608,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/golpe-y-pasaje/423103913?uo=4",
+   "id": 423103913,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Golpe y Pasaje",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 14613,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sus-grandes-%C3%A9xitos/398795030?uo=4",
+   "id": 398795030,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sus Grandes Éxitos",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 14624,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/amor-enguayabo/423095693?uo=4",
+   "id": 423095693,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Amor Enguayabo",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 14607,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuenta-y-canta-vol-1/423103341?uo=4",
+   "id": 423103341,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "Cuenta y Canta, Vol. 1",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 14617,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuenta-y-canta-vol-2/423093241?uo=4",
+   "id": 423093241,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "Cuenta y Canta, Vol. 2",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 15269,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/amorosamente/1462976218?uo=4",
+   "id": 1462976218,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Amorosamente",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 14623,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/frente-a-frente/423089193?uo=4",
+   "id": 423089193,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Frente a Frente",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 15274,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuando-las-ganas-se-juntan/1509476131?uo=4",
+   "id": 1509476131,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuando las Ganas Se Juntan",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 14629,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sim%C3%B3n-d%C3%ADaz-mis-tonadas-16-grandes-%C3%A9xitos/398803599?uo=4",
+   "id": 398803599,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Simón Díaz Mis Tonadas & 16 Grandes Éxitos",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 14622,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sim%C3%B3n-en-clave-de-humor/631525828?uo=4",
+   "id": 631525828,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Simón en Clave de Humor",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 14628,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-parranda-con-simon/591375672?uo=4",
+   "id": 591375672,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Parranda Con Simon",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 14627,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-venezuela-inedito/730048270?uo=4",
+   "id": 730048270,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A Venezuela (Inedito)",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14619,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/las-tonadas-de-sim%C3%B3n/729950648?uo=4",
+   "id": 729950648,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Las Tonadas de Simón",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14618,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/as%C3%AD-comenzo-todo/729999423?uo=4",
+   "id": 729999423,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Así Comenzo Todo",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 14616,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/caballo-viejo-the-best-of-sim%C3%B3n-d%C3%ADaz/825404174?uo=4",
+   "id": 825404174,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Caballo Viejo: The Best of Simón Díaz",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 14625,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tonadas-2/1825158286?uo=4",
+   "id": 1825158286,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tonadas 2",
+   "year_plat": 1976
+  },
+  {
+   "albumId": 14610,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/716165",
+   "id": 716165,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tonadas",
+   "year_plat": 1974
+  },
+  {
+   "albumId": 14608,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/928146",
+   "id": 928146,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Golpe y Pasaje",
+   "year_plat": 1981
+  },
+  {
+   "albumId": 14613,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/716164",
+   "id": 716164,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sus Grandes Exitos",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 14624,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/928142",
+   "id": 928142,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Amor Enguayabo",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 14607,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/928143",
+   "id": 928143,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuenta y Canta Volumen 1",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 14617,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/928144",
+   "id": 928144,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuenta y Canta Volumen 2",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 15269,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/96298892",
+   "id": 96298892,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Amorosamente",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 14623,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/928145",
+   "id": 928145,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Frente a Frente",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 15274,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/142742392",
+   "id": 142742392,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando las Ganas Se Juntan",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 14629,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/716163",
+   "id": 716163,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Simón Díaz Mis Tonadas & 16 Grandes Éxitos",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 14621,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6283042",
+   "id": 6283042,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "40 Años 40 Exitos de Simon Diaz",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 14622,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6478635",
+   "id": 6478635,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Simón en Clave de Humor",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 14628,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6303515",
+   "id": 6303515,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Parranda Con Simon",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 14627,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7051920",
+   "id": 7051920,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Venezuela (Inedito)",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14619,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7052628",
+   "id": 7052628,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Las Tonadas de Simon",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14618,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7052626",
+   "id": 7052626,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Asi Comenzo Todo",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14620,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6742722",
+   "id": 6742722,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Simon en Salsa... En Gaita...",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14616,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7459257",
+   "id": 7459257,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Caballo Viejo: The Best of Simón Díaz",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 14625,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/784162601",
+   "id": 784162601,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tonadas 2",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14626,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/521264692",
+   "id": 521264692,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Burrito Sabanero",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Simón Díaz",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 59,
+ "albumes_con_link": 20
+}

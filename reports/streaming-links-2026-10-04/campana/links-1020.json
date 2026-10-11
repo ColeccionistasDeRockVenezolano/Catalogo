@@ -1,0 +1,51 @@
+{
+ "artistId": 1020,
+ "name": "Rastamaika",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14008333",
+   "id": 14008333,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Rastamaika"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3222,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cr%C3%B3nicas-del-ed%C3%A9n/1342285801?uo=4",
+   "id": 1342285801,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.941,
+   "title_plat": "Crónicas del Edén",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 3222,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56117402",
+   "id": 56117402,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.941,
+   "title_plat": "Crónicas del Edén",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

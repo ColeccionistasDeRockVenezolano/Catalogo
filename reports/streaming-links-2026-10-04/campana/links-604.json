@@ -1,0 +1,62 @@
+{
+ "artistId": 604,
+ "name": "Immunity Machine",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14260663",
+   "id": 14260663,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Immunity Machine"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1081,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/terrorbox-001/1355679816?uo=4",
+   "id": 1355679816,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.963,
+   "title_plat": "Terrorbox 001",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1081,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/58381332",
+   "id": 58381332,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.963,
+   "title_plat": "Terrorbox 001",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1349,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/98815032",
+   "id": 98815032,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Parasito",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

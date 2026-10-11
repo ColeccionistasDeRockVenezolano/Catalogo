@@ -1,0 +1,30 @@
+{
+ "artistId": 2054,
+ "name": "Novo Color",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 15551,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/novo-color-vivo-en-vivo-centro-cultural-chacao-2015/1698414864?uo=4",
+   "id": 1698414864,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Novo Color Vivo (En vivo - Centro Cultural Chacao 2015)",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,84 @@
+{
+ "artistId": 219,
+ "name": "Sentencia",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1357178",
+   "id": 1357178,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sentencia"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1001,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/solve-et-coagula/1519426735?uo=4",
+   "id": 1519426735,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Solve Et Coagula",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 3251,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10697264",
+   "id": 10697264,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.941,
+   "title_plat": "Sentencia",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 320,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10697264",
+   "id": 10697264,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sentencia",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 1152,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1057127882",
+   "id": 1057127882,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tu abismo",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 1001,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/155660062",
+   "id": 155660062,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Solve Et Coagula",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Sentencia",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 9,
+ "albumes_con_link": 4
+}

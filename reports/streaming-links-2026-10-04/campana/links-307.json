@@ -1,0 +1,152 @@
+{
+ "artistId": 307,
+ "name": "Psicosis",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10975834",
+   "id": 10975834,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Psicosis"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1Wx1tvF7BuMeFDpxnJq2cM",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Psicosis"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id1151590645",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Psicosis"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCGDjnCy-M9zzeKzdC_uoGUw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Psicosis"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/psicosisnic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1569,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/trail-of-sculptures/1504082747?uo=4",
+   "id": 1504082747,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Trail of Sculptures",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 1350,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-sound-of-the-leaves/1504076612?uo=4",
+   "id": 1504076612,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Sound of the Leaves",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 1351,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/premonition/1504076539?uo=4",
+   "id": 1504076539,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Premonition",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 684,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/times-of-hate-times-of-domination/1503690202?uo=4",
+   "id": 1503690202,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Times of Hate / Times of Domination",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 1569,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/137466892",
+   "id": 137466892,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Trail of Sculptures",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 1350,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/137466842",
+   "id": 137466842,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Sound of the Leaves",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 1351,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/137466932",
+   "id": 137466932,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Premonition",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 684,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/137466982",
+   "id": 137466982,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Times of Hate / Times of Domination",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Psicosis",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 179,
+ "name": "Nana Cadavieco",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/77039422",
+   "id": 77039422,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Nana Cadavieco"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 467,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/expos%C3%A9/327800247?uo=4",
+   "id": 327800247,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Exposé",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": "Nana Cadavieco",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

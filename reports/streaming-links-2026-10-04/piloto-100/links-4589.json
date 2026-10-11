@@ -1,0 +1,35 @@
+{
+ "artistId": 4589,
+ "name": "cats! and beloved pets",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/103661352",
+   "id": 103661352,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5EfHbSJLwAfBvDYK7TukPJ",
+   "id": "5EfHbSJLwAfBvDYK7TukPJ",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "cats! and beloved pets"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

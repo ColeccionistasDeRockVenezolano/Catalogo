@@ -1,0 +1,258 @@
+{
+ "artistId": 2679,
+ "name": "Cecilia Todd",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/117531",
+   "id": 117531,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cecilia Todd"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/42MtvWbpLboJmThRItMWSZ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cecilia Todd"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5540,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pajarillo-verde/598313775?uo=4",
+   "id": 598313775,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pajarillo Verde",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 14816,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canto-de-orde%C3%B1o-remaster-2024-50-aniversario-single/1782943883?uo=4",
+   "id": 1782943883,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.926,
+   "title_plat": "Canto de ordeño (Remaster 2024 - 50 Aniversario) - Single",
+   "year_plat": 1974
+  },
+  {
+   "albumId": 14814,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cecilia-todd/1661082501?uo=4",
+   "id": 1661082501,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cecilia Todd",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 5537,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-tu-regreso/1129946308?uo=4",
+   "id": 1129946308,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.917,
+   "title_plat": "A Tu Regreso",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 5535,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/una-sola-vida-tengo/1543377408?uo=4",
+   "id": 1543377408,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Una Sola Vida Tengo",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 5534,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canciones-de-henry-martinez/1567636680?uo=4",
+   "id": 1567636680,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Canciones de Henry Martinez",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 5532,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nino-jesus-de-merey/605818954?uo=4",
+   "id": 605818954,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nino Jesus de Merey",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 5531,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-alma-de-mi-pa%C3%ADs/1764173966?uo=4",
+   "id": 1764173966,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El alma de mi país",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14812,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/casi-de-puro-so%C3%B1arte/1856394151?uo=4",
+   "id": 1856394151,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Casi de Puro Soñarte",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 5540,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/179117",
+   "id": 179117,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pajarillo Verde",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 14816,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/678486521",
+   "id": 678486521,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canto de ordeño (Remaster 2024 - 50 Aniversario)",
+   "year_plat": 1974
+  },
+  {
+   "albumId": 14814,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/181221302",
+   "id": 181221302,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cecilia Todd",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 5537,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13480907",
+   "id": 13480907,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.917,
+   "title_plat": "A Tu Regreso",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 5535,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/181221352",
+   "id": 181221352,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Una Sola Vida Tengo",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 5534,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/230288322",
+   "id": 230288322,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canciones de Henry Martinez",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 14813,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/465221",
+   "id": 465221,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Vivo En Argentina",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 5532,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/585006712",
+   "id": 585006712,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nino Jesus de Merey",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 5531,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/633537381",
+   "id": 633537381,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El alma de mi país",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14812,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/865707122",
+   "id": 865707122,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Casi de Puro Soñarte",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14815,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/930783751",
+   "id": 930783751,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Acidito",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Cecilia Todd",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 21,
+ "albumes_con_link": 11
+}

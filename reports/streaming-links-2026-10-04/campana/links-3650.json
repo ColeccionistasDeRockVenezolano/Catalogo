@@ -1,0 +1,40 @@
+{
+ "artistId": 3650,
+ "name": "Leo Quintero",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5241468",
+   "id": 5241468,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.96,
+   "name_plat": "Leo Quinteros"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6652,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/another-day/189257637?uo=4",
+   "id": 189257637,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Another Day",
+   "year_plat": 2004
+  }
+ ],
+ "mb_name": "Leo Quintero",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 1
+}

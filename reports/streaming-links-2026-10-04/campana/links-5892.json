@@ -1,0 +1,37 @@
+{
+ "artistId": 5892,
+ "name": "Manira",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/100260202",
+   "id": 100260202,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Manira"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4HoFv27c9NhqhfiyNCjPsT",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Manira"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Manira",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,45 @@
+{
+ "artistId": 753,
+ "name": "Herejía",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11036660",
+   "id": 11036660,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Herejía"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7yqqfAUPxH0hRFTm1rqnV0",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Herejía"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6RNBlGWhl9n1ZaERGSfjH5",
+   "id": "6RNBlGWhl9n1ZaERGSfjH5",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Herejía"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Herejía",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

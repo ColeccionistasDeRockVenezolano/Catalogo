@@ -1,0 +1,76 @@
+{
+ "artistId": 3218,
+ "name": "Pray",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/405024",
+   "id": 405024,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Pray"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://praymusic.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Praÿ"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Pra%C3%BF-261207078079295",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Praÿ"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/praytheband/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Praÿ"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCzx_NqKASdCYtQhBX2Ap5dQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Praÿ"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5503,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/332514907",
+   "id": 332514907,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Priests of Blood",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "Praÿ",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

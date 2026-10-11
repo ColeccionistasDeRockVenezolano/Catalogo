@@ -1,0 +1,304 @@
+{
+ "artistId": 2794,
+ "name": "Miguel Noya",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4342914",
+   "id": 4342914,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Miguel Noya"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5680,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/gran-sabana/1022798257?uo=4",
+   "id": 1022798257,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Gran Sabana",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 5681,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/huellas/1022530445?uo=4",
+   "id": 1022530445,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Huellas",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 5682,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ballrooms-on-the-moon/1029546323?uo=4",
+   "id": 1029546323,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ballrooms on the Moon",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 14584,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/psycho-music-dance-love-sex-mind-music/1495894519?uo=4",
+   "id": 1495894519,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Psycho - Music (Dance, Love / Sex, Mind Music)",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 5683,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/esferas-vivientes/1115420764?uo=4",
+   "id": 1115420764,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Esferas Vivientes",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 14582,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/remix-de-la-obra-electronica-gran-sabana/1024089792?uo=4",
+   "id": 1024089792,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Remix de la Obra Electronica Gran Sabana",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 15712,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-power-of-distance/1486622328?uo=4",
+   "id": 1486622328,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Power of Distance",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 5685,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/interspecies-communication/1652762826?uo=4",
+   "id": 1652762826,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Interspecies Communication",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 5686,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/inner-bodies/1609707622?uo=4",
+   "id": 1609707622,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Inner Bodies",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 15544,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/infinite-halls/1705312789?uo=4",
+   "id": 1705312789,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Infinite Halls",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15545,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/biophony-life-voices/1722356356?uo=4",
+   "id": 1722356356,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Biophony / Life Voices",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15546,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aiqc/1796480714?uo=4",
+   "id": 1796480714,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "AIQC",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15715,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/biofoni-a-ii-voces-de-la-tierra/1808498694?uo=4",
+   "id": 1808498694,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Biofonía II: Voces de la Tierra",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14584,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/44873821",
+   "id": 44873821,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Psycho - Music (Dance, Love / Sex, Mind Music)",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 5683,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8402398",
+   "id": 8402398,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Esferas Vivientes",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14583,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7428871",
+   "id": 7428871,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Gran Sabana RMX (Decomposicion)",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14582,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10924274",
+   "id": 10924274,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Remix de la Obra Electronica Gran Sabana",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14585,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12387510",
+   "id": 12387510,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Caballo Viejo",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 15712,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/211803152",
+   "id": 211803152,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Power of Distance",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 5685,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/372233447",
+   "id": 372233447,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Interspecies Communication",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 5686,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/294997052",
+   "id": 294997052,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Inner Bodies",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 15544,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/482468355",
+   "id": 482468355,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Infinite Halls",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15545,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/527409332",
+   "id": 527409332,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Biophony / Life Voices",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15546,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/711396171",
+   "id": 711396171,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "AIQC",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15715,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/742257961",
+   "id": 742257961,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Biofonía II: Voces de la Tierra",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": "Miguel Noya",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 24,
+ "albumes_con_link": 15
+}

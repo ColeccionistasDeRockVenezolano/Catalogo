@@ -1,0 +1,355 @@
+{
+ "artistId": 2003,
+ "name": "Rudy La Scala",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/214884",
+   "id": 214884,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Rudy La Scala"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0og9Hk6RVwNayDiXdbGVhb",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Rudy La Scala"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCyf05X_x8MP1YYN-Tc_5O_Q",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Rudy La Scala"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4444,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/its-time-to-dance/1459212813?uo=4",
+   "id": 1459212813,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "It's Time to Dance",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 4445,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/vete-al-infierno/1445785026?uo=4",
+   "id": 1445785026,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Vete al Infierno",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 4446,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/volvamos-a-vivir/1105452144?uo=4",
+   "id": 1105452144,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Volvamos a Vivir",
+   "year_plat": 1985
+  },
+  {
+   "albumId": 4448,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/como-quisiera/1136040937?uo=4",
+   "id": 1136040937,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Como Quisiera",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 3650,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuando-yo-amo/1113364585?uo=4",
+   "id": 1113364585,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Yo Amo",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 3649,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/por-qu%C3%A9-ser%C3%A1/1100957327?uo=4",
+   "id": 1100957327,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Por Qué Será",
+   "year_plat": 1991
+  },
+  {
+   "albumId": 4447,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sentimientos/1100963547?uo=4",
+   "id": 1100963547,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sentimientos",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 14567,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-colecci%C3%B3n/1100987067?uo=4",
+   "id": 1100987067,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Colección",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 3651,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-cuerpo-y-alma/1194588425?uo=4",
+   "id": 1194588425,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "En Cuerpo y Alma",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 14569,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/por-amor-a-venezuela/1174486349?uo=4",
+   "id": 1174486349,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Por Amor a Venezuela",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14572,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/yo-triunfar%C3%A9-no-hay-vuelta-atr%C3%A1s-single/1565224107?uo=4",
+   "id": 1565224107,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.901,
+   "title_plat": "Yo Triunfaré (No Hay Vuelta Atrás) - Single",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14568,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/yo-soy-rudy-la-scala/1555811941?uo=4",
+   "id": 1555811941,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Yo Soy Rudy la Scala",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 4444,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/92987612",
+   "id": 92987612,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "It's Time to Dance",
+   "year_plat": 1979
+  },
+  {
+   "albumId": 4445,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/81149052",
+   "id": 81149052,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vete al Infierno",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 4446,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12902738",
+   "id": 12902738,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Volvamos a Vivir",
+   "year_plat": 1985
+  },
+  {
+   "albumId": 4448,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13620118",
+   "id": 13620118,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Como Quisiera",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 3650,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13151294",
+   "id": 13151294,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Yo Amo",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 3649,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12808522",
+   "id": 12808522,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Por Que Sera",
+   "year_plat": 1991
+  },
+  {
+   "albumId": 4447,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12808952",
+   "id": 12808952,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sentimientos",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 14567,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12811668",
+   "id": 12811668,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Coleccion",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 3651,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/15050549",
+   "id": 15050549,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Cuerpo y Alma",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 14569,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14513066",
+   "id": 14513066,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Por Amor a Venezuela",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14574,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/145582932",
+   "id": 145582932,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Mi Corazon a Tu Corazon",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14573,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/155648522",
+   "id": 155648522,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Give Me Your Soul",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14572,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/226462282",
+   "id": 226462282,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Yo Triunfaré (No Hay Vuelta Atrás)",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14571,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/247937382",
+   "id": 247937382,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Uno Sobra",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14568,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/210872012",
+   "id": 210872012,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Yo Soy Rudy la Scala",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14570,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/635682141",
+   "id": 635682141,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "QUEDATE UN POQUITO +",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "Rudy La Scala",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 28,
+ "albumes_con_link": 16
+}

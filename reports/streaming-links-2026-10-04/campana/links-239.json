@@ -1,0 +1,73 @@
+{
+ "artistId": 239,
+ "name": "Tarot",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4823",
+   "id": 4823,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Tarot"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/60WI98KvQgbplg7Soa95e4",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tarot"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/artist/id14957062",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tarot"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/tarotofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tarot"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/tarot",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tarot"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/tarotofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tarot"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Tarot",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

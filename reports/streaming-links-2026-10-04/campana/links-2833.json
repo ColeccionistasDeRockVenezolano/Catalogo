@@ -1,0 +1,64 @@
+{
+ "artistId": 2833,
+ "name": "Klahr",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9350638",
+   "id": 9350638,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Klahr"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3OITAuZNhf2Z9DySHJsCKD",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Klahr"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/JohannesKlahr",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Klahr"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/klahrmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Klahr"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/klahrmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Klahr"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Klahr",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

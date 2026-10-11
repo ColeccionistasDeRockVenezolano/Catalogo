@@ -1,0 +1,54 @@
+{
+ "artistId": 564,
+ "name": "Orion",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/8976816",
+   "id": 8976816,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Orion"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2PW9tXc4w8ta4Gl91Snzgb",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Orion"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/jeanborelli",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Orion"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/pages/Orion-Jean-Borelli/444370182267426",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Orion",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

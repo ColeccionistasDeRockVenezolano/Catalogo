@@ -1,0 +1,87 @@
+{
+ "artistId": 3431,
+ "name": "Domingo Pagliuca",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/8088041",
+   "id": 8088041,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Domingo Pagliuca"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1SKkea8G1aP3apX3hjqRqp",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Domingo Pagliuca"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id1467031882",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Domingo Pagliuca"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B0051G81FY",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Domingo Pagliuca"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/11992537",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Domingo Pagliuca"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5997,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/eternal-gratitude/1472939218?uo=4",
+   "id": 1472939218,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Eternal Gratitude",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 5997,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103706722",
+   "id": 103706722,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Eternal Gratitude",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": "Domingo Pagliuca",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

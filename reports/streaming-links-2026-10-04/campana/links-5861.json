@@ -1,0 +1,55 @@
+{
+ "artistId": 5861,
+ "name": "Briella",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/159258542",
+   "id": 159258542,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Briella"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3ef240gIQOpOu1OaPNYF2b",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Briella"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1586049897",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Briella"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/9515484",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Briella"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Briella",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

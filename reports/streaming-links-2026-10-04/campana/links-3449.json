@@ -1,0 +1,116 @@
+{
+ "artistId": 3449,
+ "name": "Aquiles Báez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/427187",
+   "id": 427187,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4PAvAiO3X9vzUY8fOAi8VX",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/74302941",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6099,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-casa-azul/1712682860?uo=4",
+   "id": 1712682860,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 6103,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ana-mar%C3%ADa/1713836869?uo=4",
+   "id": 1713836869,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 14885,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/encantado/1030934725?uo=4",
+   "id": 1030934725,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 6099,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/502332761",
+   "id": 502332761,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 6102,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/565721521",
+   "id": 565721521,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 6103,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/501901151",
+   "id": 501901151,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 6104,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/740989521",
+   "id": 740989521,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 14885,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11028852",
+   "id": 11028852,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0
+  }
+ ],
+ "mb_name": "Aquiles Báez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 13,
+ "albumes_con_link": 5
+}

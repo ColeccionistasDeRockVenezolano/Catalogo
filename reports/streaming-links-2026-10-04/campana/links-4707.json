@@ -1,0 +1,28 @@
+{
+ "artistId": 4707,
+ "name": "Velandia y la Tigra",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9946126",
+   "id": 9946126,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Velandia y la Tigra"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Velandia y la Tigra",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,82 @@
+{
+ "artistId": 920,
+ "name": "Asmodeo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/96925832",
+   "id": 96925832,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Asmodeo"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://asmodeo.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Asmodeo"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/322C1DqUjnzCTSUenaZ1Eb",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Asmodeo"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/asmodeooficial/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Asmodeo"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/asmodeo_oficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Asmodeo"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/1517003226",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Asmodeo"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/19908678",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Asmodeo"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Asmodeo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

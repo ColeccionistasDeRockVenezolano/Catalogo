@@ -1,0 +1,91 @@
+{
+ "artistId": 6007,
+ "name": "Jan Wagner",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1603267",
+   "id": 1603267,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jan Wagner"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://janwagner.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jan Wagner"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2SoZ45FJ4E7EP43kPdtPxX",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jan Wagner"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/wagner__jan",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jan Wagner"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/janwagnermusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jan Wagner"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/jan__wagner/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jan Wagner"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/128715132",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jan Wagner"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCXZscq3L0RmQi5eBGQWR7TA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jan Wagner"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Jan Wagner",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

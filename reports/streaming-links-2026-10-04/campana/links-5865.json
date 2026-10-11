@@ -1,0 +1,55 @@
+{
+ "artistId": 5865,
+ "name": "Giovanni Guzzo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2312031",
+   "id": 2312031,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Giovanni Guzzo"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6ddTMDsbV8eo0k56ICDnXY",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Giovanni Guzzo"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id526960326",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Giovanni Guzzo"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/6315434",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Giovanni Guzzo"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Giovanni Guzzo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

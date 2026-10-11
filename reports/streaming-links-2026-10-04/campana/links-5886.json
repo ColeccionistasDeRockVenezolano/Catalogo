@@ -1,0 +1,46 @@
+{
+ "artistId": 5886,
+ "name": "Fabro",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5042174",
+   "id": 5042174,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Fabro"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/64CJy4LTJjFj7lcDxTECn2",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fabro"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/39560856",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fabro"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Fabro",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

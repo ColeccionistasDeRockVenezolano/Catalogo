@@ -1,0 +1,40 @@
+{
+ "artistId": 1110,
+ "name": "EA",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/283685",
+   "id": 283685,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ea"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2054,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/104170962",
+   "id": 104170962,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pachanga Star",
+   "year_plat": 2005
+  }
+ ],
+ "mb_name": "Ea!",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

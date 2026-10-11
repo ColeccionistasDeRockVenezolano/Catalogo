@@ -1,0 +1,73 @@
+{
+ "artistId": 3177,
+ "name": "Devilish Goat",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/222743985",
+   "id": 222743985,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Devilish Goat"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5403,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bloody-blasphemy/1698884693?uo=4",
+   "id": 1698884693,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bloody Blasphemy",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 5404,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cornutus-bestialis/1704343070?uo=4",
+   "id": 1704343070,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cornutus Bestialis",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 5403,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/467726805",
+   "id": 467726805,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bloody Blasphemy",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 5405,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/617634941",
+   "id": 617634941,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Burning God's House",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

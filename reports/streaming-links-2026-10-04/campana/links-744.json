@@ -1,0 +1,104 @@
+{
+ "artistId": 744,
+ "name": "Frente De Ira",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/7092537",
+   "id": 7092537,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Frente de Ira"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://frentedeira.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Frente De Ira"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1339,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-certeza-de-lo-que-se-espera-y-la-convicci%C3%B3n-de-lo-que-no-se-ve/1489890603?uo=4",
+   "id": 1489890603,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La certeza de lo que se espera y la convicción de lo que no se ve",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 1341,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nuevo-norte/1490240480?uo=4",
+   "id": 1490240480,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nuevo Norte",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 1342,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-la-sangre/941902257?uo=4",
+   "id": 941902257,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "En la Sangre",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 1339,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/121247682",
+   "id": 121247682,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La certeza de lo que se espera y la convicción de lo que no se ve",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 1341,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/121595562",
+   "id": 121595562,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nuevo Norte",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 1342,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9170599",
+   "id": 9170599,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En la Sangre",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "Frente De Ira",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

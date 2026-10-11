@@ -1,0 +1,117 @@
+{
+ "artistId": 204,
+ "name": "Radio Clip",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5775571",
+   "id": 5775571,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.947,
+   "name_plat": "Radioclip"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 310,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/radio-clip/1458949494?uo=4",
+   "id": 1458949494,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Radio Clip",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 308,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/donde-sopla-el-viento/1458942341?uo=4",
+   "id": 1458942341,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Donde Sopla el Viento",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 309,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/fuego-en-la-corriente/1458938817?uo=4",
+   "id": 1458938817,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Fuego en la Corriente",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 612,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/brilla/380410998?uo=4",
+   "id": 380410998,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Brilla",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 310,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/92760972",
+   "id": 92760972,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Radio Clip",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 308,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/92741322",
+   "id": 92741322,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Donde Sopla el Viento",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 309,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/92733572",
+   "id": 92733572,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fuego en la Corriente",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 612,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7677992",
+   "id": 7677992,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Brilla",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": "Radio Clip",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 4
+}

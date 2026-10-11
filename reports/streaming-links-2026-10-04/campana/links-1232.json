@@ -1,0 +1,51 @@
+{
+ "artistId": 1232,
+ "name": "Dulce o Truco",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/88775432",
+   "id": 88775432,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Dulce o Truco"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2351,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/amor-en-tiempos-de-guerra/1502762265?uo=4",
+   "id": 1502762265,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Amor en Tiempos de Guerra",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 2351,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/137097522",
+   "id": 137097522,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Amor en Tiempos de Guerra",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

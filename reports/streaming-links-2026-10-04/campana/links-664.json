@@ -1,0 +1,28 @@
+{
+ "artistId": 664,
+ "name": "Blindeyes",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/555566",
+   "id": 555566,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.947,
+   "name_plat": "Blind Eyes"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Blindeyes",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

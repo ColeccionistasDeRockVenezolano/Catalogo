@@ -1,0 +1,40 @@
+{
+ "artistId": 1814,
+ "name": "Maiah",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/72134362",
+   "id": 72134362,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Maiah"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3475,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/839880942",
+   "id": 839880942,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Través de Mis Ojos",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

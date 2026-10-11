@@ -1,0 +1,51 @@
+{
+ "artistId": 1472,
+ "name": "WAG",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1375565",
+   "id": 1375565,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Wag"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2620,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/wag/1688484818?uo=4",
+   "id": 1688484818,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "WAG",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 2620,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/443043015",
+   "id": 443043015,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "WAG",
+   "year_plat": 1989
+  }
+ ],
+ "mb_name": "WAG",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,95 @@
+{
+ "artistId": 1628,
+ "name": "Carlos Angola",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9710760",
+   "id": 9710760,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Carlos Angola"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2953,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/rompecabezas/1536788419?uo=4",
+   "id": 1536788419,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Rompecabezas",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 15469,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nosotros-celebramos-los-motivos-ya-vendr%C3%A1n/1301708291?uo=4",
+   "id": 1301708291,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nosotros Celebramos, Los Motivos Ya Vendrán",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 15470,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/historias-del-terror-cronolog%C3%ADa-ac%C3%BAstica-de-un/1477373627?uo=4",
+   "id": 1477373627,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Historias del Terror: Cronología Acústica de un Adiós Sin Ademán",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 2953,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/181049962",
+   "id": 181049962,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rompecabezas",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 15469,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/50682602",
+   "id": 50682602,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nosotros Celebramos, Los Motivos Ya Vendrán",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 15470,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/108470682",
+   "id": 108470682,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Historias del Terror: Cronología Acústica de un Adiós Sin Ademán",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,62 @@
+{
+ "artistId": 1970,
+ "name": "Ivo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/159388",
+   "id": 159388,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ivo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4283,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/45955632",
+   "id": 45955632,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "IVO",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 15681,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/45955632",
+   "id": 45955632,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "IVO",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 4284,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/716079",
+   "id": 716079,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mis Grandes Exitos",
+   "year_plat": 2000
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 13,
+ "albumes_con_link": 3
+}

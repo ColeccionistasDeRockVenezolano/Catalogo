@@ -1,0 +1,62 @@
+{
+ "artistId": 616,
+ "name": "Southaven",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12479438",
+   "id": 12479438,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Southaven"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15581,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/belcefuzz/1633142560?uo=4",
+   "id": 1633142560,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Belcefuzz",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 1639,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/317287507",
+   "id": 317287507,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.933,
+   "title_plat": "La Caza de las Bruxas",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 15581,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/333278147",
+   "id": 333278147,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Belcefuzz",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "Southaven",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 2
+}

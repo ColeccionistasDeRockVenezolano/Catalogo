@@ -1,0 +1,486 @@
+{
+ "artistId": 4282,
+ "name": "Fur Coat",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1651807",
+   "id": 1651807,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Fur Coat"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0GMwMFkCTtv1HZ2PGmhchD",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fur Coat"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/furcoatmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fur Coat"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/FurCoatMusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fur Coat"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/furcoatmusic/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fur Coat"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/furcoatmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fur Coat"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/469401262",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fur Coat"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4653638",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fur Coat"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCrNZ6MCGJVqAgv9bZoGhUgA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fur Coat"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14440,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mind-over-matter/1677699690?uo=4",
+   "id": 1677699690,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mind over Matter",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 14436,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/katarsis-ep/1746770078?uo=4",
+   "id": 1746770078,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Katarsis EP",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14435,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/balance-presents-fur-coat/990973954?uo=4",
+   "id": 990973954,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Balance Presents Fur Coat",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14446,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/berlin-chronicles-ep/1677648195?uo=4",
+   "id": 1677648195,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Berlin Chronicles EP",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14438,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/numbers-ep/1677721752?uo=4",
+   "id": 1677721752,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Number's EP",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14448,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-sequel-ep/1441317799?uo=4",
+   "id": 1441317799,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Sequel - EP",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14453,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/polyphony/1822781695?uo=4",
+   "id": 1822781695,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Polyphony",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14451,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/time-traveler-ep/1568474505?uo=4",
+   "id": 1568474505,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Time Traveler - EP",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14455,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/in-our-town-ep/1600604423?uo=4",
+   "id": 1600604423,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "In Our Town - EP",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14462,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/418621497",
+   "id": 418621497,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Space Ballad",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 14440,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/418663467",
+   "id": 418663467,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mind over Matter",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 14447,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/418605587",
+   "id": 418605587,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "You and I",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 14437,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/418976357",
+   "id": 418976357,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fall's Away",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 14443,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/419764557",
+   "id": 419764557,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "There's No Time",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 14436,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/587805002",
+   "id": 587805002,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Katarsis EP",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14435,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10196702",
+   "id": 10196702,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Balance presents Fur Coat",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14446,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/418553077",
+   "id": 418553077,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Berlin Chronicles EP",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14438,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/418601887",
+   "id": 418601887,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Number's EP",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14457,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13938532",
+   "id": 13938532,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Interstellar EP",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 14445,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56590742",
+   "id": 56590742,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Immersion EP",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14442,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/636491741",
+   "id": 636491741,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Repeat EP",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14461,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/775140331",
+   "id": 775140331,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Shades",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14456,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/775140261",
+   "id": 775140261,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hurricane",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14453,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/775140361",
+   "id": 775140361,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Polyphony",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14451,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/231516112",
+   "id": 231516112,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Time Traveler - EP",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14454,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/775140411",
+   "id": 775140411,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Storm EP",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14460,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/775140771",
+   "id": 775140771,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dystopia",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 14455,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/280852321",
+   "id": 280852321,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "In Our Town - EP",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14450,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/449336305",
+   "id": 449336305,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tomb Raider",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 14459,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/679354241",
+   "id": 679354241,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Wait for Silence",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14441,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/584414092",
+   "id": 584414092,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Wall in the Mirror",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14458,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/684801391",
+   "id": 684801391,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Gone",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14449,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1018143011",
+   "id": 1018143011,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hold Me Close",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14444,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/993370401",
+   "id": 993370401,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Own the Night",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14452,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/941238521",
+   "id": 941238521,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Timeless Motion",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Fur Coat",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 29,
+ "albumes_con_link": 27
+}

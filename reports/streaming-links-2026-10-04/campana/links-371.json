@@ -1,0 +1,55 @@
+{
+ "artistId": 371,
+ "name": "Necropsia",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6719997",
+   "id": 6719997,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Necropsia"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/necropsia9230",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necropsia"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/necropsia9230/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necropsia"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@necropsiazenekar",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necropsia"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Necropsia",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

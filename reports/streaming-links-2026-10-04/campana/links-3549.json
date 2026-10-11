@@ -1,0 +1,18 @@
+{
+ "artistId": 3549,
+ "name": "Nuevo Mundo Jazz Band",
+ "artist_links": [],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 0
+}

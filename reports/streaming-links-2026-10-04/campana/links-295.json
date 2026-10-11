@@ -1,0 +1,51 @@
+{
+ "artistId": 295,
+ "name": "Miguel Oldenburg",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1108385",
+   "id": 1108385,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Miguel Oldenburg"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 668,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/memorias-de-bravo-pueblo/6679590?uo=4",
+   "id": 6679590,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Memorias De Bravo Pueblo",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 668,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/810164",
+   "id": 810164,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Memorias de bravo pueblo",
+   "year_plat": 2003
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,71 @@
+{
+ "artistId": 1939,
+ "name": "Feedback",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/263483",
+   "id": 263483,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Feedback"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7hgP9ut4HLRb0J9I2GCyyl",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Feedback"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4060,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cristales-rotos/1455664556?uo=4",
+   "id": 1455664556,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cristales Rotos",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 4052,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/258860922",
+   "id": 258860922,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Feedback",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 4060,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13939776",
+   "id": 13939776,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cristales Rotos",
+   "year_plat": 1990
+  }
+ ],
+ "mb_name": "Feedback",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

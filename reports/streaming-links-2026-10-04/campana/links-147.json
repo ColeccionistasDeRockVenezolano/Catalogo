@@ -1,0 +1,128 @@
+{
+ "artistId": 147,
+ "name": "Lebronch",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/7999582",
+   "id": 7999582,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Lebronch"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 459,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/todos-los-topinos-de-lebronch/1273005570?uo=4",
+   "id": 1273005570,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Todos Los Topinos De Lebronch",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 458,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-chow/1274343547?uo=4",
+   "id": 1274343547,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Chow",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 15515,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-fogati%C3%B1a-m%C3%A1gica/1383125022?uo=4",
+   "id": 1383125022,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Fogatiña Mágica",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 459,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/46551112",
+   "id": 46551112,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Todos Los Topinos De Lebronch",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 458,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/46808322",
+   "id": 46808322,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Chow",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 15516,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/10529182",
+   "id": 10529182,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Fire",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 15517,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/53133262",
+   "id": 53133262,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Crazy Glue",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 15515,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/63447942",
+   "id": 63447942,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Fogatiña Mágica",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 15518,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/581988912",
+   "id": 581988912,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Music Animal",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 6
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 1549,
+ "name": "BreakDown",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/64786",
+   "id": 64786,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Breakdown"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2762,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/hope-lies-ahead-ep/1827543652?uo=4",
+   "id": 1827543652,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "Hope Lies Ahead - EP",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 2762,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/789659051",
+   "id": 789659051,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hope Lies Ahead",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Breakdown",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

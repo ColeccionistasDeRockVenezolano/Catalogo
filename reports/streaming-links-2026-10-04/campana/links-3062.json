@@ -1,0 +1,37 @@
+{
+ "artistId": 3062,
+ "name": "Noxious",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/301295631",
+   "id": 301295631,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Noxious"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/noxiouspunkbrisbane",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Noxious"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Noxious",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

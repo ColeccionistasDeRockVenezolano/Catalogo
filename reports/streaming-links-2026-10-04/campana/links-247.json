@@ -1,0 +1,46 @@
+{
+ "artistId": 247,
+ "name": "Tisuby & Georgina",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5VxYG7ivmtla9Rg007D6PE",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tisuby & Georgina"
+  },
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6729287",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tisuby & Georgina"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/ve/artist/id1247902507",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Tisuby & Georgina"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Tisuby & Georgina",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

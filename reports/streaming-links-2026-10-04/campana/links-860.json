@@ -1,0 +1,55 @@
+{
+ "artistId": 860,
+ "name": "Bloodwork",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/185729",
+   "id": 185729,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Bloodwork"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/Bloodworkmetal",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bloodwork"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/bloodworkmetal",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bloodwork"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCcKGw2Nbyzn9Wm9Qs-_2TDQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bloodwork"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Bloodwork",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

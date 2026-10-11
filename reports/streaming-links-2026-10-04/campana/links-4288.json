@@ -1,0 +1,166 @@
+{
+ "artistId": 4288,
+ "name": "Francisco Montoya",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1314583",
+   "id": 1314583,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Francisco Montoya"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5fVPUxNheJfwqnL9IzlqeE",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Francisco Montoya"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1084838683",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Francisco Montoya"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4131040",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Francisco Montoya"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14692,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sentimiento-apure%C3%B1o/6802440558?uo=4",
+   "id": 6802440558,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sentimiento Apureño",
+   "year_plat": 1959
+  },
+  {
+   "albumId": 14692,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1030140162",
+   "id": 1030140162,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sentimiento Apureño",
+   "year_plat": 1966
+  },
+  {
+   "albumId": 14693,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1030140222",
+   "id": 1030140222,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Caimán De Boca Brava",
+   "year_plat": 1967
+  },
+  {
+   "albumId": 14700,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1030140242",
+   "id": 1030140242,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Coplero Araucano",
+   "year_plat": 1968
+  },
+  {
+   "albumId": 14699,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/203274512",
+   "id": 203274512,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Espanto Del Troncón",
+   "year_plat": 1968
+  },
+  {
+   "albumId": 14691,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1030180892",
+   "id": 1030180892,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Moderno Florentino",
+   "year_plat": 1970
+  },
+  {
+   "albumId": 14698,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/225890352",
+   "id": 225890352,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Puros Pasajes",
+   "year_plat": 1984
+  },
+  {
+   "albumId": 14694,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1030140232",
+   "id": 1030140232,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pajarillo De Mi Tierra",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 14695,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/72621892",
+   "id": 72621892,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Apure Soy Tu Hijo",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14696,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/85292862",
+   "id": 85292862,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Amor Y Llano",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "Francisco Montoya",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 9,
+ "albumes_con_link": 9
+}

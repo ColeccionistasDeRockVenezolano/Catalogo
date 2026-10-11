@@ -1,0 +1,30 @@
+{
+ "artistId": 3178,
+ "name": "Andenwölfe",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 5407,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/reminiscing-on-tragedy-ep/1709624918?uo=4",
+   "id": 1709624918,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.936,
+   "title_plat": "Reminiscing on Tragedy - EP",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

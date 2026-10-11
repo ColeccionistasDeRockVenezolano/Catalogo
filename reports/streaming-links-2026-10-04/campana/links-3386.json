@@ -1,0 +1,46 @@
+{
+ "artistId": 3386,
+ "name": "Camerata Salzburg",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/287173",
+   "id": 287173,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Camerata Salzburg"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2YVKCFWKG6JdDHKYvbEljE",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Camerata Salzburg"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3691827",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Camerata Salzburg"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Camerata Salzburg",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

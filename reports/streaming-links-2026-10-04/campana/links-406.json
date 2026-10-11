@@ -1,0 +1,46 @@
+{
+ "artistId": 406,
+ "name": "Echoes",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/355634022",
+   "id": 355634022,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "ECHOES"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/pages/Echoes/341827395893071",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Echoes"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/echoesperformingPinkFloyd",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Echoes"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Echoes",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

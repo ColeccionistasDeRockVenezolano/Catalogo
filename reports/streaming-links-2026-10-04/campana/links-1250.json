@@ -1,0 +1,78 @@
+{
+ "artistId": 1250,
+ "name": "Nuuro",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/63826",
+   "id": 63826,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Nuuro"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/59O4pHlANHYrHM5HGz6JbM",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nuuro"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/ve/artist/id156675471",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nuuro"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3889297",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nuuro"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3274,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/all-clear/251578056?uo=4",
+   "id": 251578056,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "All Clear",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 3274,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6244478",
+   "id": 6244478,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "All Clear",
+   "year_plat": 2006
+  }
+ ],
+ "mb_name": "Nuuro",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 1
+}

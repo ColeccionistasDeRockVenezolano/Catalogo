@@ -1,0 +1,55 @@
+{
+ "artistId": 5830,
+ "name": "El Carrao de Palmarito",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1277774",
+   "id": 1277774,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "El Carrao de Palmarito"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1qZj5O5enZvggQz2aErDQF",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "El Carrao de Palmarito"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/es/artist/121073339",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "El Carrao de Palmarito"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4160323",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "El Carrao de Palmarito"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "El Carrao de Palmarito",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

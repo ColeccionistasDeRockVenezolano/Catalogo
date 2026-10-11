@@ -1,0 +1,41 @@
+{
+ "artistId": 3946,
+ "name": "El Tramao",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 9862,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-tramao-de-venezuela/1640931440?uo=4",
+   "id": 1640931440,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Tramao de Venezuela",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 9863,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mas-all%C3%A1-de-venezuela/1889322963?uo=4",
+   "id": 1889322963,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mas Allá de Venezuela",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

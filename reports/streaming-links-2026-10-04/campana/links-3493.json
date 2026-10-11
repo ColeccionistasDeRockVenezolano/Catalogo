@@ -1,0 +1,51 @@
+{
+ "artistId": 3493,
+ "name": "Freddy Adrián",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14747679",
+   "id": 14747679,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Freddy Adrian"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6244,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/encontrandome/1455786983?uo=4",
+   "id": 1455786983,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Encontrandome",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 6244,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/93254592",
+   "id": 93254592,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Encontrandome",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

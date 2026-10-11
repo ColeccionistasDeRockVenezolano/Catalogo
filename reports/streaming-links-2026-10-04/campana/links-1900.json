@@ -1,0 +1,91 @@
+{
+ "artistId": 1900,
+ "name": "Clio",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/63968672",
+   "id": 63968672,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Clio"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0TMi4dfaeWLOtRybyX09XW",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Clio"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id1439123027",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Clio"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/cliochansons",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Clio"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/cliofficiel",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Clio"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/clioradio/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Clio"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3602505",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Clio"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCu6RlSZlT_E3uRzz1uqt7eQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Clio"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Clio",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

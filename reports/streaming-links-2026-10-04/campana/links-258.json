@@ -1,0 +1,51 @@
+{
+ "artistId": 258,
+ "name": "Vinicio Adames",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11836031",
+   "id": 11836031,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Vinicio Adames"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5706,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/al-comienzo-del-camino/1562148487?uo=4",
+   "id": 1562148487,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Al Comienzo Del Camino",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 5706,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/221374622",
+   "id": 221374622,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Al Comienzo Del Camino",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Vinicio Adames",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 1
+}

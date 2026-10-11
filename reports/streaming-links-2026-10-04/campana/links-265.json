@@ -1,0 +1,139 @@
+{
+ "artistId": 265,
+ "name": "Yátu",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1063411",
+   "id": 1063411,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "YATU"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 513,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-conciencia/250221564?uo=4",
+   "id": 250221564,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A conciencia",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 515,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/joroporoll/272399389?uo=4",
+   "id": 272399389,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Joroporoll",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 516,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-condici%C3%B3n-de-este-mundo/294150451?uo=4",
+   "id": 294150451,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Condición de Este Mundo",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 514,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/inmortal/502655034?uo=4",
+   "id": 502655034,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Inmortal",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 501,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/extra%C3%B1o-mundo/1500768648?uo=4",
+   "id": 1500768648,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Extraño Mundo",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 513,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/757433",
+   "id": 757433,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A conciencia",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 515,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/757475",
+   "id": 757475,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Joroporoll",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 516,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/757516",
+   "id": 757516,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Condición De Este Mundo",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 514,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1551918",
+   "id": 1551918,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Inmortal",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 501,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/426525957",
+   "id": 426525957,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Extraño Mundo",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 16,
+ "albumes_con_link": 5
+}

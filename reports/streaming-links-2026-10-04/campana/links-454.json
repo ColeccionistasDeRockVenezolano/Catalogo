@@ -1,0 +1,37 @@
+{
+ "artistId": 454,
+ "name": "Arrecho",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://arrecho.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arrecho"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Arrechoband-555762197791305",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arrecho"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Arrecho",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 13,
+ "albumes_con_link": 0
+}

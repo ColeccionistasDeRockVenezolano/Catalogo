@@ -1,0 +1,64 @@
+{
+ "artistId": 3064,
+ "name": "Painless",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0X3p855HPD3LqQhXayG2u7",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Painless"
+  },
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/7082649",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Painless"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id327192807",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Painless"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/painlessofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Painless"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/wearepainless/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Painless"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Painless",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

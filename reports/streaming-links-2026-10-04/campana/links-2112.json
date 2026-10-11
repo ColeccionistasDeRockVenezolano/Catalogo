@@ -1,0 +1,46 @@
+{
+ "artistId": 2112,
+ "name": "Gas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/160992022",
+   "id": 160992022,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gas"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://kompakt-gas.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gas"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0J8cNhY7V2NoRt9O6uCeUX",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gas"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Gas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

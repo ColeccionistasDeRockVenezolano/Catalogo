@@ -1,0 +1,139 @@
+{
+ "artistId": 3542,
+ "name": "Martes 8:30",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5646214",
+   "id": 5646214,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Martes 8:30"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6528,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/villa-sebuc%C3%A1n/1737468308?uo=4",
+   "id": 1737468308,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Villa Sebucán",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 6379,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/origen-caracas/1738478245?uo=4",
+   "id": 1738478245,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Origen Caracas",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 6380,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ayer-y-hoy/1738392786?uo=4",
+   "id": 1738392786,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ayer y Hoy",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 6381,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sinceramente/1737460918?uo=4",
+   "id": 1737460918,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sinceramente",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 6382,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/moosaah/1738608181?uo=4",
+   "id": 1738608181,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Moosaah...",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 6528,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/563687302",
+   "id": 563687302,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Villa Sebucán",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 6379,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/566158391",
+   "id": 566158391,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Origen Caracas",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 6380,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/565646101",
+   "id": 565646101,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ayer y Hoy",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 6381,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/563687222",
+   "id": 563687222,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sinceramente",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 6382,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/566442711",
+   "id": 566442711,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Moosaah...",
+   "year_plat": 2004
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 5
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 3673,
+ "name": "4to. Creciente",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/291380251",
+   "id": 291380251,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "4to Creciente"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6665,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/so%C3%B1ando-azules-ep/1781803639?uo=4",
+   "id": 1781803639,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.903,
+   "title_plat": "Soñando Azules - EP",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 6665,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/675436411",
+   "id": 675436411,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Soñando Azules",
+   "year_plat": 1996
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,73 @@
+{
+ "artistId": 6192,
+ "name": "Blure",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5628607",
+   "id": 5628607,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Blure"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://blure.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Blure"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6Ho9pT1qKhmmNGjFnXD5a7",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Blure"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/844823007",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Blure"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/bluremusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Blure"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/7063150",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Blure"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Blure",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

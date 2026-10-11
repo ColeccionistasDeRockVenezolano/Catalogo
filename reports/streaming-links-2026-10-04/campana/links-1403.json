@@ -1,0 +1,40 @@
+{
+ "artistId": 1403,
+ "name": "Stereografía",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/13876795",
+   "id": 13876795,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Stereografia"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2706,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/113638312",
+   "id": 113638312,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Futuro en Regresión",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

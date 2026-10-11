@@ -1,0 +1,190 @@
+{
+ "artistId": 668,
+ "name": "Subliminal Code",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1604980",
+   "id": 1604980,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Subliminal Code"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://subliminalcode.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Subliminal Code"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0bkdgiojpGQ4bKXAURC3NP",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Subliminal Code"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id498517786",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Subliminal Code"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/subliminalcode",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Subliminal Code"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4523373",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Subliminal Code"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCy3N1K2Hs6Qu8ifM4homfmw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Subliminal Code"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/SubliminalCode",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15582,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/karma-in-mortem/1793557277?uo=4",
+   "id": 1793557277,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Karma in Mortem",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 15718,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/soldier-of-hell-reborn/1499726375?uo=4",
+   "id": 1499726375,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Soldier of Hell Reborn",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 15583,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-cancer-of-the-world-is-human-beings/1562269013?uo=4",
+   "id": 1562269013,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Cancer of the World Is Human Beings",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 15587,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/behind-the-mask-ep/6795229075?uo=4",
+   "id": 6795229075,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "Behind the mask - EP",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 15582,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/705382261",
+   "id": 705382261,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Karma in Mortem",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 15586,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/664338881",
+   "id": 664338881,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Another Day",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 15718,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/784194511",
+   "id": 784194511,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Soldier of Hell Reborn",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 15583,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/705378741",
+   "id": 705378741,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Cancer Of The World Is Human Beings",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 15587,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1039412172",
+   "id": 1039412172,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Behind the mask",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Subliminal Code",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 8,
+ "albumes_con_link": 5
+}

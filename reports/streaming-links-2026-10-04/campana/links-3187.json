@@ -1,0 +1,28 @@
+{
+ "artistId": 3187,
+ "name": "Asathor..!",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/221775945",
+   "id": 221775945,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Asathor"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Asathor",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

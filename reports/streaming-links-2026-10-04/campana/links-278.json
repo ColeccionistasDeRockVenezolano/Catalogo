@@ -1,0 +1,117 @@
+{
+ "artistId": 278,
+ "name": "Los Paranoias",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/260563",
+   "id": 260563,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Paranoias"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 601,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aaah-estos-son-los-paranoias/1380741829?uo=4",
+   "id": 1380741829,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aaah! Estos Son Los Paranoias!",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 603,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/hey-d%C3%B3nde-est%C3%A1n-los-paranoias/1380658301?uo=4",
+   "id": 1380658301,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Hey! Dónde Están Los Paranoias?",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 602,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aqu%C3%AD-fue/1379039506?uo=4",
+   "id": 1379039506,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aquí Fue",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 605,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/que-se-activen-las-alarmas/1378988522?uo=4",
+   "id": 1378988522,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Que Se Activen Las Alarmas",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 601,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/62933952",
+   "id": 62933952,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aaah! Estos Son Los Paranoias!",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 603,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/62925642",
+   "id": 62925642,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hey! Dónde Están Los Paranoias?",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 602,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/62814282",
+   "id": 62814282,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aquí Fue",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 605,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/62799452",
+   "id": 62799452,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Que Se Activen Las Alarmas",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Los Paranoias",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 4
+}

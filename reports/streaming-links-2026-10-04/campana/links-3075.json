@@ -1,0 +1,28 @@
+{
+ "artistId": 3075,
+ "name": "Stygian",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/322801451",
+   "id": 322801451,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Stygian"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Stygian",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: HTTP Error 429: Too Many Requests"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 1436,
+ "name": "Los Sordos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5324913",
+   "id": 5324913,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Sordos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2558,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/volumen-0/473345688?uo=4",
+   "id": 473345688,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Volumen 0.",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 2558,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7095516",
+   "id": 7095516,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Volumen 0",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

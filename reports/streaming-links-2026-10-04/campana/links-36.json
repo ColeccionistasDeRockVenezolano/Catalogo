@@ -1,0 +1,183 @@
+{
+ "artistId": 36,
+ "name": "Aditus",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5297839",
+   "id": 5297839,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Aditus"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 106,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-trav%C3%A9s-de-la-ventana/1468630578?uo=4",
+   "id": 1468630578,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A Través de la Ventana",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 4623,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/serie-lo-m%C3%A1ximo/1113391700?uo=4",
+   "id": 1113391700,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Serie Lo Máximo",
+   "year_plat": 1985
+  },
+  {
+   "albumId": 3014,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/juegos-de-azar/1585714820?uo=4",
+   "id": 1585714820,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Juegos de Azar",
+   "year_plat": 1985
+  },
+  {
+   "albumId": 3013,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/algo-electrico/1585709131?uo=4",
+   "id": 1585709131,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Algo Electrico",
+   "year_plat": 1987
+  },
+  {
+   "albumId": 3008,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a%C3%B1os-despu%C3%A9s/1468635033?uo=4",
+   "id": 1468635033,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Años Después",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 3005,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/reversible-por-ambos-lados/1468637566?uo=4",
+   "id": 1468637566,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Reversible por Ambos Lados",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 3004,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-alcabala-a-peligro/594691859?uo=4",
+   "id": 594691859,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Alcabala a Peligro",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 106,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/100330702",
+   "id": 100330702,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Través de la Ventana",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 4623,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13152920",
+   "id": 13152920,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Serie Lo Maximo",
+   "year_plat": 1985
+  },
+  {
+   "albumId": 3014,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/258767102",
+   "id": 258767102,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Juegos de Azar",
+   "year_plat": 1985
+  },
+  {
+   "albumId": 3013,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/258569692",
+   "id": 258569692,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Algo Electrico",
+   "year_plat": 1987
+  },
+  {
+   "albumId": 3008,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/100335182",
+   "id": 100335182,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Años después",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 3005,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/100338962",
+   "id": 100338962,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Reversible por ambos lados",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 3004,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8648076",
+   "id": 8648076,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Alcabala a Peligro",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Aditus",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 25,
+ "albumes_con_link": 7
+}

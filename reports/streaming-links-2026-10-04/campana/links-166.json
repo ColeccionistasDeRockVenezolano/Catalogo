@@ -1,0 +1,51 @@
+{
+ "artistId": 166,
+ "name": "Marilanne",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6391494",
+   "id": 6391494,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Marilanne"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 81,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/somos-jovenes-me-quiero-divertir-ep/397873641?uo=4",
+   "id": 397873641,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.955,
+   "title_plat": "Somos Jovenes Me Quiero Divertir - EP",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 81,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8385750",
+   "id": 8385750,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Somos Jovenes Me Quiero Divertir",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,166 @@
+{
+ "artistId": 1681,
+ "name": "Apache",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/120924332",
+   "id": 120924332,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Apache"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0wY6h98lBt17ZJsJPZNdRv",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Apache"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/1643670559",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Apache"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3713882",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Apache"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3020,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sin-afina-mucho/1526229841?uo=4",
+   "id": 1526229841,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.968,
+   "title_plat": "Sin Afina' Mucho",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 2753,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/afinando/1527662361?uo=4",
+   "id": 1527662361,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Afinando",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 3019,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-necesario/1524746679?uo=4",
+   "id": 1524746679,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lo Necesario",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 15687,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/apa-y-can/6797973480?uo=4",
+   "id": 6797973480,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Apa y Can",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 15425,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/original-combination/1526228210?uo=4",
+   "id": 1526228210,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Original Combination",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 15426,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ahora-o-nunca/1524746853?uo=4",
+   "id": 1524746853,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ahora o Nunca",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 15427,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/apache/1539821892?uo=4",
+   "id": 1539821892,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Apache",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 15428,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ocho/1562766343?uo=4",
+   "id": 1562766343,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "OCHO",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 15710,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/territorio-apache-vol-2-champion-sound/1777297635?uo=4",
+   "id": 1777297635,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "TERRITORIO APACHE, VOL. 2 (CHAMPION SOUND)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15430,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/apuesta-al-negro/1817464228?uo=4",
+   "id": 1817464228,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "APUESTA AL NEGRO",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": "Apache",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 19,
+ "albumes_con_link": 10
+}

@@ -1,0 +1,36 @@
+{
+ "artistId": 2422,
+ "name": "Game Black Ant",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://gameblackant.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Game Black Ant"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/gameblackantporngrindtrenggalek",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Game Black Ant",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

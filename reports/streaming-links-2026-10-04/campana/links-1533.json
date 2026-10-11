@@ -1,0 +1,118 @@
+{
+ "artistId": 1533,
+ "name": "La Ultima Thule",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/84625102",
+   "id": 84625102,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "La Ultima Thule"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://laultimathule.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Ultima Thule"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/LaUltimaThule",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Ultima Thule"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/laultimathule",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Ultima Thule"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/LaUltimaThule/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Ultima Thule"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/LaUltimaThule",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "La Ultima Thule"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4365,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-furia/1497225488?uo=4",
+   "id": 1497225488,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Furia.",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 4362,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-cueva/1504918362?uo=4",
+   "id": 1504918362,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Cueva",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 4365,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/129346192",
+   "id": 129346192,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Furia.",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 4362,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/138587712",
+   "id": 138587712,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Cueva",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "La Ultima Thule",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

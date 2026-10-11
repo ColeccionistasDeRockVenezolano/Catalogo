@@ -1,0 +1,51 @@
+{
+ "artistId": 3488,
+ "name": "Federico Britos Ruiz",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11272352",
+   "id": 11272352,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Federico Britos Ruiz"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6228,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/blues-concerto/1180287805?uo=4",
+   "id": 1180287805,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Blues Concerto",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6228,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/14658788",
+   "id": 14658788,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Blues Concerto",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

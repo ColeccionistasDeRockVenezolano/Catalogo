@@ -1,0 +1,51 @@
+{
+ "artistId": 1853,
+ "name": "Paula Morales",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5187669",
+   "id": 5187669,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Paula Morales"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3730,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/est%C3%A1s-bien/642020251?uo=4",
+   "id": 642020251,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Estás Bien",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 3730,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7778206",
+   "id": 7778206,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Estás Bien",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

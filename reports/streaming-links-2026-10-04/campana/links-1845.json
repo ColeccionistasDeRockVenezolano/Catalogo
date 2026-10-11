@@ -1,0 +1,30 @@
+{
+ "artistId": 1845,
+ "name": "Numens",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 3635,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sue%C3%B1os-ahogados-ep/993336507?uo=4",
+   "id": 993336507,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "Sueños Ahogados - EP",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

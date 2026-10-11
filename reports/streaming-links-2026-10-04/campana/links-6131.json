@@ -1,0 +1,46 @@
+{
+ "artistId": 6131,
+ "name": "Mighty Duke",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9485150",
+   "id": 9485150,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.909,
+   "name_plat": "Mighty Duck"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/75ZMUQrdutA8Dn2vzO2mCx",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mighty Duke"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/tt/artist/id349296760",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mighty Duke"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Mighty Duke",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,117 @@
+{
+ "artistId": 3982,
+ "name": "Los Sinvergüenzas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1125284",
+   "id": 1125284,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Sinvergüenzas"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9742,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bichoneando/1650693775?uo=4",
+   "id": 1650693775,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bichoneando",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 9743,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/desde-otro-lugar/263122961?uo=4",
+   "id": 263122961,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Desde Otro Lugar",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 9744,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sinverg%C3%BCensuranzas/1145765408?uo=4",
+   "id": 1145765408,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sinvergüensuranzas",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 9745,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/raices/1330057808?uo=4",
+   "id": 1330057808,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Raices",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 9742,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/368467337",
+   "id": 368467337,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bichoneando",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 9743,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/830875",
+   "id": 830875,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Desde Otro Lugar",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 9744,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13850874",
+   "id": 13850874,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sinvergüensuranzas",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 9745,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/54205272",
+   "id": 54205272,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Raices",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Los Sinvergüenzas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 4
+}

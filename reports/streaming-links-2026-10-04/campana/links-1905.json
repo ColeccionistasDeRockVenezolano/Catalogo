@@ -1,0 +1,73 @@
+{
+ "artistId": 1905,
+ "name": "Cuarto Poder",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/357476",
+   "id": 357476,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cuarto Poder"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2jZIvxOfIP6hhzthCqRmqI",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cuarto Poder"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/4to_poder",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cuarto Poder"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/4toPoderFullCriolloRap",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cuarto Poder"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/ve/artist/210418710",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cuarto Poder"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://music.youtube.com/channel/UCt8Qwm_3D2GAj_2sCpkuZSg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cuarto Poder"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Cuarto Poder",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

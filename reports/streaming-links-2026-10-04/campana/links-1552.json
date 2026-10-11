@@ -1,0 +1,51 @@
+{
+ "artistId": 1552,
+ "name": "Big Mandrake",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10399286",
+   "id": 10399286,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Big Mandrake"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2771,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-fant%C3%A1stica-m%C3%A1quina-m%C3%A1gica/1440294823?uo=4",
+   "id": 1440294823,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Fantástica Máquina Mágica",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 3448,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-brigada-del-ruido/1432616024?uo=4",
+   "id": 1432616024,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Brigada del Ruido",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "Big Mandrake",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

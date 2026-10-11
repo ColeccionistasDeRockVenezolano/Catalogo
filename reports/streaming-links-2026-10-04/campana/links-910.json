@@ -1,0 +1,56 @@
+{
+ "artistId": 910,
+ "name": "StormThrash",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12558898",
+   "id": 12558898,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "StormThrash"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/StormThrash",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/stormthrashvzla/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1665,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/stormthrash-ep/1244463168?uo=4",
+   "id": 1244463168,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "StormThrash - EP",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": "StormThrash",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

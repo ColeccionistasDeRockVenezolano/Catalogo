@@ -1,0 +1,96 @@
+{
+ "artistId": 511,
+ "name": "Jihad",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1142999",
+   "id": 1142999,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jihad"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://jihad-music.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jihad"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3DNwLgBofCJzR8aYKAj6g9",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jihad"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/pages/Jihad-Rich-James/164122663619569",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jihad"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1434231321",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jihad"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4206105",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jihad"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2570,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6475013",
+   "id": 6475013,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Psicofonias",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1735,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6475013",
+   "id": 6475013,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Psicofonias",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Jihad",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 2
+}

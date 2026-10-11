@@ -1,0 +1,84 @@
+{
+ "artistId": 3179,
+ "name": "Abaddonsheol",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/231443725",
+   "id": 231443725,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Abaddonsheol"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5411,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/emissary-for-a-mind-of-dead-memories-single/1731395062?uo=4",
+   "id": 1731395062,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.911,
+   "title_plat": "Emissary for a Mind of Dead Memories - Single",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 5410,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/506532541",
+   "id": 506532541,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Andras",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 5408,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/491354685",
+   "id": 491354685,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Famulus",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 5409,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/496921211",
+   "id": 496921211,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Decaying",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 5411,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/548858212",
+   "id": 548858212,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Emissary for a Mind of Dead Memories",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

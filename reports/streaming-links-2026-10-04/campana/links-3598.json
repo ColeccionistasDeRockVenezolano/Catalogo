@@ -1,0 +1,51 @@
+{
+ "artistId": 3598,
+ "name": "Zaperoco Conspiracy",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/165950637",
+   "id": 165950637,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Zaperoco Conspiracy"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6500,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/zaperoco-conspiracy-ep/1617982369?uo=4",
+   "id": 1617982369,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.927,
+   "title_plat": "Zaperoco Conspiracy - EP",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 6500,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/308821227",
+   "id": 308821227,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Zaperoco Conspiracy",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

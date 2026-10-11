@@ -1,0 +1,249 @@
+{
+ "artistId": 3747,
+ "name": "Sexteto Juventud",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1238382",
+   "id": 1238382,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sexteto Juventud"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 7771,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mala/1472692404?uo=4",
+   "id": 1472692404,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mala!",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7776,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-todo/1528415373?uo=4",
+   "id": 1528415373,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "En Todo!",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7777,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-todo-ritmo/1701692448?uo=4",
+   "id": 1701692448,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A Todo Ritmo",
+   "year_plat": 1976
+  },
+  {
+   "albumId": 7781,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-espiritual-de-sexteto-juventud/1548610985?uo=4",
+   "id": 1548610985,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.985,
+   "title_plat": "Lo Espiritual De Sexteto Juventud",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 7782,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-su-10-aniversario/1838599307?uo=4",
+   "id": 1838599307,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.976,
+   "title_plat": "En Su 10° Aniversario",
+   "year_plat": 1975
+  },
+  {
+   "albumId": 7785,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cocinando-salsa/364154850?uo=4",
+   "id": 364154850,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cocinando Salsa!",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 15386,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cocinando-salsa/364154850?uo=4",
+   "id": 364154850,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cocinando Salsa!",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 8391,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sexteto-juventud/496973441?uo=4",
+   "id": 496973441,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sexteto Juventud",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 7791,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sexteto-juventud/496973441?uo=4",
+   "id": 496973441,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.914,
+   "title_plat": "Sexteto Juventud",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 7771,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103350952",
+   "id": 103350952,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mala!",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7776,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/168173562",
+   "id": 168173562,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Todo!",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7777,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/474049945",
+   "id": 474049945,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Todo Ritmo",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 7781,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/95190842",
+   "id": 95190842,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.985,
+   "title_plat": "Lo Espiritual De Sexteto Juventud",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7782,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/818291651",
+   "id": 818291651,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.976,
+   "title_plat": "En Su 10° Aniversario",
+   "year_plat": 1975
+  },
+  {
+   "albumId": 7785,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1562246",
+   "id": 1562246,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cocinando Salsa!",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 7786,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/315916927",
+   "id": 315916927,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Brujería",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 15386,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1562246",
+   "id": 1562246,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cocinando Salsa!",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 8391,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1637361",
+   "id": 1637361,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sexteto Juventud",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 7791,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1637361",
+   "id": 1637361,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.914,
+   "title_plat": "Sexteto Juventud",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 15387,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/315916927",
+   "id": 315916927,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Brujería",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Sexteto Juventud",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 28,
+ "albumes_con_link": 11
+}

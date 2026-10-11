@@ -1,0 +1,49 @@
+{
+ "artistId": 1478,
+ "name": "Colorado",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9788900",
+   "id": 9788900,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Colorado"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/wearecoloradomusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Colorado"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2612,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/shooting-stars/475082829?uo=4",
+   "id": 475082829,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Shooting Stars",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "Colorado",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

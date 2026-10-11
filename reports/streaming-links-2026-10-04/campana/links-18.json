@@ -1,0 +1,73 @@
+{
+ "artistId": 18,
+ "name": "Civilis",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14928207",
+   "id": 14928207,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Civilis"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1038,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/i/6775424964?uo=4",
+   "id": 6775424964,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "I",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 27,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/chapter-i-epiphany/1681344627?uo=4",
+   "id": 1681344627,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Chapter I: Epiphany",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 1038,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/604464072",
+   "id": 604464072,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "I",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 27,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/429368467",
+   "id": 429368467,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Chapter I: Epiphany",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

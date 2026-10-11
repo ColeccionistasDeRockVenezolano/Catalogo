@@ -1,0 +1,138 @@
+{
+ "artistId": 306,
+ "name": "Trauma",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/104253",
+   "id": 104253,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Trauma"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://traumavzla.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trauma"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7yJOvTel1J9AwQP3zfn8cv",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trauma"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Traumaven",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trauma"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/traumavzlaoficial/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trauma"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/trauma-venezuela",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trauma"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@traumavzla",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Trauma"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 680,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/436002027",
+   "id": 436002027,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Reino De Naciones Oscuras",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 1446,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/310006567",
+   "id": 310006567,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Prejuicios y Miedos",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 681,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/436002617",
+   "id": 436002617,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dios Korporation",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 683,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/438798137",
+   "id": 438798137,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Conspiración del Sistema",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 1165,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/308563357",
+   "id": 308563357,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Miseria de Muchos es la Tiranía de unos Pocos",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Trauma",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 5
+}

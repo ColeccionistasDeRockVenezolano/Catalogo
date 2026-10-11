@@ -1,0 +1,64 @@
+{
+ "artistId": 687,
+ "name": "Fedon",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5184126",
+   "id": 5184126,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Fedon"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0fBEgrLBNZC4LUvb2oO4I4",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fedon"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id584866839",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fedon"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B00BJW7WRC",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fedon"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/5478298",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Fedon"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Fedon",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 693,
+ "name": "Juan Manuel Ponce",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/8908698",
+   "id": 8908698,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Juan Manuel Ponce"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2222,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/odio-muerte-y-olvido-en-revoluci%C3%B3n/1544486513?uo=4",
+   "id": 1544486513,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Odio, Muerte y Olvido en Revolución",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

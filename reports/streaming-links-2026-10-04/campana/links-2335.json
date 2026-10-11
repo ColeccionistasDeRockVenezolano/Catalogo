@@ -1,0 +1,55 @@
+{
+ "artistId": 2335,
+ "name": "Paulo Ricardo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/185872",
+   "id": 185872,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Paulo Ricardo"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/07V0GWuWYmgheREejBORmk",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Paulo Ricardo"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/PauloRicardo",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Paulo Ricardo"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/pauloricardo/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Paulo Ricardo"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Paulo Ricardo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

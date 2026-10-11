@@ -1,0 +1,40 @@
+{
+ "artistId": 1439,
+ "name": "Los Clippers",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5197281",
+   "id": 5197281,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.917,
+   "name_plat": "Los Flippers"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4392,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/twist/1635406730?uo=4",
+   "id": 1635406730,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Twist",
+   "year_plat": 1962
+  }
+ ],
+ "mb_name": "Los Clippers",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 1
+}

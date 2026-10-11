@@ -1,0 +1,64 @@
+{
+ "artistId": 13,
+ "name": "Kharma",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/411933212",
+   "id": 411933212,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "KHARMA"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2jKVfdJBclXOpymp2JljJL",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kharma"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/kharmamwhc",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kharma"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/kharmamwhc",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kharma"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/kharmamwhc/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kharma"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Kharma",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 0
+}

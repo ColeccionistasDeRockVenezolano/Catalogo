@@ -1,0 +1,28 @@
+{
+ "artistId": 299,
+ "name": "Embriogenesis",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/72640582",
+   "id": 72640582,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.923,
+   "name_plat": "Embryogenesis"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

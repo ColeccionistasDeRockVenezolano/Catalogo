@@ -1,0 +1,55 @@
+{
+ "artistId": 5868,
+ "name": "Aurora Dream",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/65012512",
+   "id": 65012512,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Aurora Dream"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/id/artist/1771125399",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aurora Dream"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/auroradream.ofc/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aurora Dream"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@auroradreamofc",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aurora Dream"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Aurora Dream",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

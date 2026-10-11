@@ -1,0 +1,300 @@
+{
+ "artistId": 3904,
+ "name": "Huáscar Barradas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1150106",
+   "id": 1150106,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Huascar Barradas"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4nIsOtdwz5360ZrYFbZBLU",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Huáscar Barradas"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/6883261",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Huáscar Barradas"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9516,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-nueva-onda-de-la-m%C3%BAsica-venezolana/1527704578?uo=4",
+   "id": 1527704578,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Nueva Onda de la Música Venezolana",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 9519,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/candela/1527713928?uo=4",
+   "id": 1527713928,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Candela",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 9524,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/my-favorite-things/187396435?uo=4",
+   "id": 187396435,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "My Favorite Things",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 9523,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/latineando/1527703007?uo=4",
+   "id": 1527703007,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Latineando",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 9525,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/in%C3%A9ditos/1527705835?uo=4",
+   "id": 1527705835,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Inéditos",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 9526,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/reinvenci%C3%B3n/1527693236?uo=4",
+   "id": 1527693236,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Reinvención",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 9527,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/entre-amigos-2-en-vivo/463000853?uo=4",
+   "id": 463000853,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Entre Amigos 2 (En Vivo)",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 9528,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/hallacas-con-flauta/1527706363?uo=4",
+   "id": 1527706363,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Hallacas Con Flauta",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 9529,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dos-mundos/1527711017?uo=4",
+   "id": 1527711017,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Dos Mundos",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 9530,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/hallacas-con-flauta/1527706363?uo=4",
+   "id": 1527706363,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.95,
+   "title_plat": "Hallacas Con Flauta",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 9532,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/karibe/1527705427?uo=4",
+   "id": 1527705427,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Karibe",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 9531,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dos-mundos/1527711017?uo=4",
+   "id": 1527711017,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "Dos Mundos",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 9516,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56388512",
+   "id": 56388512,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Nueva Onda de la Música Venezolana",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 9519,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56389042",
+   "id": 56389042,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Candela",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 9524,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56389032",
+   "id": 56389032,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "My Favorite Things",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 9523,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56388452",
+   "id": 56388452,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Latineando",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 9525,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56388492",
+   "id": 56388492,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Inéditos",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 9526,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56389052",
+   "id": 56389052,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Reinvención",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 9528,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56388602",
+   "id": 56388602,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hallacas Con Flauta",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 9529,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56388462",
+   "id": 56388462,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dos Mundos",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 9530,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56388602",
+   "id": 56388602,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.95,
+   "title_plat": "Hallacas Con Flauta",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 9532,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56388442",
+   "id": 56388442,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Karibe",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 9531,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56388462",
+   "id": 56388462,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.909,
+   "title_plat": "Dos Mundos",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": "Huáscar Barradas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 18,
+ "albumes_con_link": 12
+}

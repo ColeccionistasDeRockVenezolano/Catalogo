@@ -1,0 +1,37 @@
+{
+ "artistId": 1815,
+ "name": "Mancha Negra",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/68149432",
+   "id": 68149432,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mancha Negra"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://manchanegra.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mancha Negra"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Mancha Negra",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

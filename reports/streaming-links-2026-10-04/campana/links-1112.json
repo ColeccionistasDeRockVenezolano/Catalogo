@@ -1,0 +1,51 @@
+{
+ "artistId": 1112,
+ "name": "Carmina",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1178509",
+   "id": 1178509,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Carmiña"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2055,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/entre-huellas/1515826887?uo=4",
+   "id": 1515826887,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Entre Huellas",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 2055,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/151560642",
+   "id": 151560642,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Entre Huellas",
+   "year_plat": 2007
+  }
+ ],
+ "mb_name": "Carmina",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

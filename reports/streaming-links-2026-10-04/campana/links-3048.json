@@ -1,0 +1,55 @@
+{
+ "artistId": 3048,
+ "name": "Nova Prospekt",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5090641",
+   "id": 5090641,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Nova Prospekt"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3pFdpSjHbkqBjvKu9mjgom",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nova Prospekt"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/novaprospektswe",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nova Prospekt"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@KarlPrytz",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nova Prospekt"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Nova Prospekt",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

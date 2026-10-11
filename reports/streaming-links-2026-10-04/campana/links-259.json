@@ -1,0 +1,456 @@
+{
+ "artistId": 259,
+ "name": "Viniloversus",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/345164",
+   "id": 345164,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Viniloversus"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/viniloversus",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "VINILOVERSUS"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/viniloversus",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "VINILOVERSUS"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/VINILOVERSUS",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/VINILOVERSUS",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/viniloversus/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 541,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-d%C3%ADa-es-hoy/6793220384?uo=4",
+   "id": 6793220384,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "EL Día Es Hoy",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 404,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/si-no-nos-mata/6793220247?uo=4",
+   "id": 6793220247,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Si No Nos Mata",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 14064,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/so%C3%B1ar%C3%A9-hasta-que-llegue-cadenas-b-sides-single/6780896322?uo=4",
+   "id": 6780896322,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.918,
+   "title_plat": "Soñaré Hasta Que Llegue / Cadenas (B-Sides) - Single",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 14063,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tu-ambici%C3%B3n-del-suelo-al-cielo-b-sides-single/6780895911?uo=4",
+   "id": 6780895911,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.916,
+   "title_plat": "Tu Ambición/ Del Suelo Al Cielo (B-Sides) - Single",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 2235,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cambi%C3%A9-de-nombre/6793220838?uo=4",
+   "id": 6793220838,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cambié De Nombre",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 1878,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/days-of-exile/6780435235?uo=4",
+   "id": 6780435235,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Days of Exile",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 3720,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/vvv/6780503757?uo=4",
+   "id": 6780503757,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "VVV",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 3722,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-vivo/6796766860?uo=4",
+   "id": 6796766860,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "En Vivo",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 4576,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mi-mejor-enemigo/6780902729?uo=4",
+   "id": 6780902729,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mi Mejor Enemigo",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 5596,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-frontera/1891418958?uo=4",
+   "id": 1891418958,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Frontera",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 541,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1034681962",
+   "id": 1034681962,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "EL Día Es Hoy",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 404,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1034682052",
+   "id": 1034682052,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Si No Nos Mata",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 14064,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1007009121",
+   "id": 1007009121,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Soñaré Hasta Que Llegue / Cadenas (B-Sides)",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 14063,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1007009021",
+   "id": 1007009021,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tu Ambición/ Del Suelo Al Cielo (B-Sides)",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 2235,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1034681992",
+   "id": 1034681992,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cambié De Nombre",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 14062,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1007009271",
+   "id": 1007009271,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sangre Fría",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 1878,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1006035521",
+   "id": 1006035521,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Days of Exile",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 14061,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1015348611",
+   "id": 1015348611,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "So Many Stars (Remixes)",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 14048,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/64040042",
+   "id": 64040042,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Huella",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14059,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/79297402",
+   "id": 79297402,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Are You Moving On?",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 14060,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1007009061",
+   "id": 1007009061,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Laberinto Eterno",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 3720,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/92333172",
+   "id": 92333172,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "VVV",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 14058,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/86961022",
+   "id": 86961022,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ultraviolenta",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 14057,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/90526532",
+   "id": 90526532,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Carpe Diem",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 14056,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/95673212",
+   "id": 95673212,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Shiva",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 14055,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/111190522",
+   "id": 111190522,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Kali: En Vivo Desde Buenos Aires",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 14054,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1006174271",
+   "id": 1006174271,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canción De Amor",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 3722,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1043222342",
+   "id": 1043222342,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Vivo",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 4576,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1007017291",
+   "id": 1007017291,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Mejor Enemigo",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14052,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1007830351",
+   "id": 1007830351,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Animal Temporal",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14053,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1007009361",
+   "id": 1007009361,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "No Más",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14049,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/948058621",
+   "id": 948058621,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Avión",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 5596,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/956435561",
+   "id": 956435561,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Frontera",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14051,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/961578091",
+   "id": 961578091,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Destruirse",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14050,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/946438801",
+   "id": 946438801,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vértigo",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "VINILOVERSUS",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 31,
+ "albumes_con_link": 25
+}

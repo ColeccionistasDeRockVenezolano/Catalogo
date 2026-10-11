@@ -1,0 +1,88 @@
+{
+ "artistId": 478,
+ "name": "Masturbation with the Bible",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/67667662",
+   "id": 67667662,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/masturbationwiththebible",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCnuaiZxrin_1a5FJ2kfOETA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7wwIu4SraXSbQzniAAJT6f",
+   "id": "7wwIu4SraXSbQzniAAJT6f",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Masturbation with the Bible"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1111,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/drowned-in-holy-vaginal-fluids/1470662462?uo=4",
+   "id": 1470662462,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 916,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/good-nuns-gone-dirty-ep/1521224695?uo=4",
+   "id": 1521224695,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.93
+  },
+  {
+   "albumId": 1111,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/100381052",
+   "id": 100381052,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0
+  },
+  {
+   "albumId": 916,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/154711852",
+   "id": 154711852,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0
+  }
+ ],
+ "mb_name": "Masturbation with the Bible",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

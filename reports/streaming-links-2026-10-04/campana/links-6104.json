@@ -1,0 +1,64 @@
+{
+ "artistId": 6104,
+ "name": "Kris Berry",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1210986",
+   "id": 1210986,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Kris Berry"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://krisberrymusic.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kris Berry"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0IIPgITtEO4JJfipw57KGv",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kris Berry"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/424433888",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kris Berry"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4631999",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Kris Berry"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Kris Berry",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

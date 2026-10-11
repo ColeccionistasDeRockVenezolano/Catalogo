@@ -1,0 +1,35 @@
+{
+ "artistId": 6266,
+ "name": "Anarcoguarachero",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/314532471",
+   "id": 314532471,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2ufkgvImXb9lRSTlNNpR6T",
+   "id": "2ufkgvImXb9lRSTlNNpR6T",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Anarcoguarachero"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

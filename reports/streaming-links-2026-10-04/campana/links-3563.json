@@ -1,0 +1,73 @@
+{
+ "artistId": 3563,
+ "name": "Prisca Dávila",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5571133",
+   "id": 5571133,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Prisca Dávila"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6442,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/piano-jazz-venezolano-ii/492487478?uo=4",
+   "id": 492487478,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.933,
+   "title_plat": "Piano Jazz Venezolano II",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 6446,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/piano-jazz-venezolano-ii/492487478?uo=4",
+   "id": 492487478,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Piano Jazz Venezolano II",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 6442,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7484463",
+   "id": 7484463,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.933,
+   "title_plat": "Piano Jazz Venezolano II",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 6446,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7484463",
+   "id": 7484463,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Piano Jazz Venezolano II",
+   "year_plat": 2011
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 2
+}

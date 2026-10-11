@@ -1,0 +1,54 @@
+{
+ "artistId": 3182,
+ "name": "Horus",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/150114",
+   "id": 150114,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Horus"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1HCxHEbOOHXS0XAJTq3vdi",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Horus"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/1434446284",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Horus"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://music.yandex.com/artist/4025838",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Horus",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

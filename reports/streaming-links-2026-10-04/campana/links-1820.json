@@ -1,0 +1,60 @@
+{
+ "artistId": 1820,
+ "name": "Cadáveres Podridos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/66326642",
+   "id": 66326642,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cadáveres Podridos"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://cadaverespodridos.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cadáveres Podridos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3535,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/viva-nada/1464029940?uo=4",
+   "id": 1464029940,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Viva Nada",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 3535,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/98202452",
+   "id": 98202452,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Viva Nada",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": "Cadáveres Podridos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

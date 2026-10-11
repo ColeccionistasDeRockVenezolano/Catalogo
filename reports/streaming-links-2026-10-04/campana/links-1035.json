@@ -1,0 +1,40 @@
+{
+ "artistId": 1035,
+ "name": "7dice",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/67614262",
+   "id": 67614262,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "7Dice"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1947,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/337587327",
+   "id": 337587327,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "ON THE ROAD",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "7dice",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

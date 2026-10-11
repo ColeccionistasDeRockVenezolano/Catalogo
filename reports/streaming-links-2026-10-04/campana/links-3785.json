@@ -1,0 +1,249 @@
+{
+ "artistId": 3785,
+ "name": "Felipe Pirela",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/290532",
+   "id": 290532,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Felipe Pirela"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 7054,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/paula/1728046491?uo=4",
+   "id": 1728046491,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Paula",
+   "year_plat": 1967
+  },
+  {
+   "albumId": 7057,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/canciones-de-ayer-y-hoy/1749076663?uo=4",
+   "id": 1749076663,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Canciones de Ayer y Hoy",
+   "year_plat": 1961
+  },
+  {
+   "albumId": 8089,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/%C3%BAnicamente-t%C3%BA/1446041411?uo=4",
+   "id": 1446041411,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Únicamente Tú",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 8092,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sombras-nada-m%C3%A1s/1100963919?uo=4",
+   "id": 1100963919,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sombras Nada Más",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 8094,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/felipe-sigue-de-frente/1455503871?uo=4",
+   "id": 1455503871,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Felipe Sigue de Frente!",
+   "year_plat": 1975
+  },
+  {
+   "albumId": 7069,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/felipe-pirela-con-billos-caracas-boys/1797416830?uo=4",
+   "id": 1797416830,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 0.987,
+   "title_plat": "Felipe Pirela Con Billo's Caracas Boys",
+   "year_plat": 1966
+  },
+  {
+   "albumId": 8096,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuando-vivas-conmigo/1472691162?uo=4",
+   "id": 1472691162,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Vivas Conmigo",
+   "year_plat": 1970
+  },
+  {
+   "albumId": 8104,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-que-es-la-vida/1483294064?uo=4",
+   "id": 1483294064,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lo Que Es la Vida",
+   "year_plat": 1970
+  },
+  {
+   "albumId": 8111,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-adi%C3%B3s-del-inmortal/545813841?uo=4",
+   "id": 545813841,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Adiós...del Inmortal",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 13066,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-legado-musical/1453522226?uo=4",
+   "id": 1453522226,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Legado Musical",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7054,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/541061742",
+   "id": 541061742,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Paula",
+   "year_plat": 1967
+  },
+  {
+   "albumId": 7057,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/593969632",
+   "id": 593969632,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canciones de Ayer y Hoy",
+   "year_plat": 1961
+  },
+  {
+   "albumId": 8089,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/81368592",
+   "id": 81368592,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Únicamente Tú",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 8092,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/85358482",
+   "id": 85358482,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sombras Nada Más",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 8094,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/89656572",
+   "id": 89656572,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Felipe Sigue de Frente!",
+   "year_plat": 1975
+  },
+  {
+   "albumId": 7069,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/715804631",
+   "id": 715804631,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 0.987,
+   "title_plat": "Felipe Pirela Con Billo's Caracas Boys",
+   "year_plat": 1966
+  },
+  {
+   "albumId": 8096,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103340762",
+   "id": 103340762,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Vivas Conmigo",
+   "year_plat": 1970
+  },
+  {
+   "albumId": 8104,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/114616442",
+   "id": 114616442,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Lo Que Es la Vida",
+   "year_plat": 1970
+  },
+  {
+   "albumId": 8111,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/4507201",
+   "id": 4507201,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Adios...del Inmortal",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 13066,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/87874612",
+   "id": 87874612,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Legado Musical",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Felipe Pirela",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 50,
+ "albumes_con_link": 10
+}

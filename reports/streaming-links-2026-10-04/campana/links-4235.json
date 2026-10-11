@@ -1,0 +1,275 @@
+{
+ "artistId": 4235,
+ "name": "Arca",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/67532232",
+   "id": 67532232,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Arca"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://arca1000000.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arca"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4SQdUpG4f7UbkJG3cJ2Iyj",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arca"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/es/artist/948498542",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arca"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/arca1000000",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arca"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/arca1000000",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arca"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/arca1000000/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arca"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/arca1000000",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arca"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/5293333",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arca"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCNZxkCLMDGrYDaqSkaGn5iw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arca"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 12721,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/stretch-2/947485749?uo=4",
+   "id": 947485749,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Stretch 2",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 12755,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/1525035651?uo=4",
+   "id": 1525035651,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "&&&&&",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 12764,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/xen/915861599?uo=4",
+   "id": 915861599,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Xen",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 12740,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mutant/1049134484?uo=4",
+   "id": 1049134484,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mutant",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 12722,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/arca/1203295856?uo=4",
+   "id": 1203295856,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Arca",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 12773,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/riquiqu%C3%AD-bronze-instances-1-100/1544170715?uo=4",
+   "id": 1544170715,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Riquiquí;Bronze-Instances(1-100)",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 12757,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/kick-i/1511122250?uo=4",
+   "id": 1511122250,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "KiCk i",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 12750,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/klk-single/1516343858?uo=4",
+   "id": 1516343858,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "KLK - Single",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 12749,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/kick-ii/1585538713?uo=4",
+   "id": 1585538713,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "KICK ii",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 12765,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/kick-iii/1590379249?uo=4",
+   "id": 1590379249,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "KicK iii",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 12756,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/kick-iiii/1590609875?uo=4",
+   "id": 1590609875,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "kick iiii",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 12770,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/madre/1549289201?uo=4",
+   "id": 1549289201,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Madre",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 12772,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/kick-iiiii/1594208474?uo=4",
+   "id": 1594208474,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "kiCK iiiii",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 12719,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/kick/1656091540?uo=4",
+   "id": 1656091540,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Kick",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 12768,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/xxxxx/6771049554?uo=4",
+   "id": 6771049554,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "XXXXX",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Arca",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 59,
+ "albumes_con_link": 15
+}

@@ -1,0 +1,28 @@
+{
+ "artistId": 208,
+ "name": "Recipe Morado",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/100784082",
+   "id": 100784082,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Recipe Morado"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Recipe Morado",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 0
+}

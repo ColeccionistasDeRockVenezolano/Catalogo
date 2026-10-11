@@ -1,0 +1,51 @@
+{
+ "artistId": 3571,
+ "name": "Rolando Grooscors",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1157841",
+   "id": 1157841,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Rolando Grooscors"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6456,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/thankful/296442167?uo=4",
+   "id": 296442167,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Thankful",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 6456,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/871977",
+   "id": 871977,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Thankful",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

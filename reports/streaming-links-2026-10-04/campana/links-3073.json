@@ -1,0 +1,64 @@
+{
+ "artistId": 3073,
+ "name": "Necromycon",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/68787702",
+   "id": 68787702,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.9,
+   "name_plat": "Necromicon"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/NecromycoN_Vzla",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necromycon"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/necromyconvzla/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necromycon"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/user-370364792",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necromycon"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC5-nuqPCxn7UUYObBJYkWkg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Necromycon"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Necromycon",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

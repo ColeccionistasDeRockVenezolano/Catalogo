@@ -1,0 +1,161 @@
+{
+ "artistId": 277,
+ "name": "Los Mentas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/616909",
+   "id": 616909,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Mentas"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 599,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/taguaras-forever/1319623805?uo=4",
+   "id": 1319623805,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.97,
+   "title_plat": "Taguaras Forever",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 595,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/hasta-que-los-bares-nos-separen/1316948428?uo=4",
+   "id": 1316948428,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Hasta Que los Bares Nos Separen",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 596,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/masacre-en-el-pin-5/1314539834?uo=4",
+   "id": 1314539834,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Masacre en el Pin 5",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 598,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sopa-seco-y-jugo/1326701543?uo=4",
+   "id": 1326701543,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sopa, Seco y Jugo",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 2274,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dios-el-diablo-y-el-dinero/1326263754?uo=4",
+   "id": 1326263754,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Dios, el Diablo y el Dinero",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 5551,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/museo-de-los-pillos/1613572170?uo=4",
+   "id": 1613572170,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Museo de los Pillos",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 599,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/52749782",
+   "id": 52749782,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.97,
+   "title_plat": "Taguaras Forever",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 595,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/52278092",
+   "id": 52278092,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hasta Que los Bares Nos Separen",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 596,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/51869672",
+   "id": 51869672,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Masacre en el Pin 5",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 598,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6251172",
+   "id": 6251172,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sopa Seco y Jugo",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 2274,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/53638302",
+   "id": 53638302,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dios, el Diablo y el Dinero",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 5551,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/302048247",
+   "id": 302048247,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Museo de los Pillos",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Los Mentas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 13,
+ "albumes_con_link": 6
+}

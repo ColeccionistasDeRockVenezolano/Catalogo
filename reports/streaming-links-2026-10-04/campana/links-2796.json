@@ -1,0 +1,28 @@
+{
+ "artistId": 2796,
+ "name": "Manuel Ragel",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1306187",
+   "id": 1306187,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.917,
+   "name_plat": "Manuel Ángel"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

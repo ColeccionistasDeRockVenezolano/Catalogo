@@ -1,0 +1,51 @@
+{
+ "artistId": 691,
+ "name": "Sonidos Foráneos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10022262",
+   "id": 10022262,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sonidos Foráneos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1220,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/momentos-oportunos/1265764037?uo=4",
+   "id": 1265764037,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Momentos Oportunos",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 1220,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/111008372",
+   "id": 111008372,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Momentos Oportunos",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": "Sonidos Foráneos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

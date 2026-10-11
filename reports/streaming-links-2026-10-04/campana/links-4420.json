@@ -1,0 +1,28 @@
+{
+ "artistId": 4420,
+ "name": "Orquesta de Humberto Suárez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/84277532",
+   "id": 84277532,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.947,
+   "name_plat": "La Orquesta de Humberto Suarez"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Orquesta de Humberto Suárez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

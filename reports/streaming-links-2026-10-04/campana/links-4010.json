@@ -1,0 +1,51 @@
+{
+ "artistId": 4010,
+ "name": "Venezuelan Roots",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/60221382",
+   "id": 60221382,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Venezuelan Roots"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9807,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/pajarillismos/1454114071?uo=4",
+   "id": 1454114071,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Pajarillismos",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 9807,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/88392552",
+   "id": 88392552,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pajarillismos",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

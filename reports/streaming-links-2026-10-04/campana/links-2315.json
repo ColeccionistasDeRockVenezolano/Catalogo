@@ -1,0 +1,100 @@
+{
+ "artistId": 2315,
+ "name": "MEDUZA",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/97641412",
+   "id": 97641412,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Meduza"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0xRXCcSX89eobfrshSVdyu",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEDUZA"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/1449138676",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEDUZA"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/meduzamusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEDUZA"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/meduzamusic/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEDUZA"
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@meduza_music",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEDUZA"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/meduzamusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEDUZA"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/15645510",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEDUZA"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC65kzmQBQ-hdEIS5THSOUtA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "MEDUZA"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "MEDUZA",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 601,
+ "name": "Shelter Nefarie",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12618591",
+   "id": 12618591,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Shelter Nefarie"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1078,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/creciendo-entre-ruinas/1244702851?uo=4",
+   "id": 1244702851,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Creciendo entre Ruinas",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 1078,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/43182921",
+   "id": 43182921,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Creciendo entre Ruinas",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

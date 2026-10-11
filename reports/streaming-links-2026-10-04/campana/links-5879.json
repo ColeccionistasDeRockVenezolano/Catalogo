@@ -1,0 +1,37 @@
+{
+ "artistId": 5879,
+ "name": "Alboa",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/65490062",
+   "id": 65490062,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Alboa"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/ro/artist/1646145051",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Alboa"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Alboa",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,37 @@
+{
+ "artistId": 4631,
+ "name": "Los Colores",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/7574710",
+   "id": 7574710,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Colores"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/los_colores",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Los Colores"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Los Colores",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

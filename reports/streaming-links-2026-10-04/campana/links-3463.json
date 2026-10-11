@@ -1,0 +1,84 @@
+{
+ "artistId": 3463,
+ "name": "Carmelo Medina",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5372496",
+   "id": 5372496,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Carmelo Medina"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6140,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/otro-sistema/1086982069?uo=4",
+   "id": 1086982069,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Otro Sistema",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6139,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12479456",
+   "id": 12479456,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Horizontes",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 6140,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12479396",
+   "id": 12479396,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Otro Sistema",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6141,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12485782",
+   "id": 12485782,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "¡ Oh Que Bueno ! En Vivo",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 6142,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12479772",
+   "id": 12479772,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Buena Ocasion",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

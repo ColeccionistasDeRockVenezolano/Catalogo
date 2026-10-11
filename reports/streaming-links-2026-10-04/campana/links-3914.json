@@ -1,0 +1,142 @@
+{
+ "artistId": 3914,
+ "name": "Alexis Cárdenas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5442275",
+   "id": 5442275,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Alexis Cardenas"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7K0qNclNmfJUXGp9NNjW4J",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Alexis Cárdenas"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/AlexisViolin",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Alexis Cárdenas"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/alexisviolin/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Alexis Cárdenas"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/5170114",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Alexis Cárdenas"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9579,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ensamble-gurruf%C3%ADo-presenta-a-alexis-c%C3%A1rdenas/1827775380?uo=4",
+   "id": 1827775380,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.977,
+   "title_plat": "Ensamble Gurrufío Presenta a Alexis Cárdenas",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 9580,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/geol%C3%B3gico/1694066196?uo=4",
+   "id": 1694066196,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Geológico",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 9581,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/encores-latinos/1693554193?uo=4",
+   "id": 1693554193,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Encores Latinos",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 9579,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9946054",
+   "id": 9946054,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ensamble Gurrufio Presenta Alexis Cardenas",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 9580,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/456974055",
+   "id": 456974055,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Geológico",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 9581,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/455808645",
+   "id": 455808645,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Encores Latinos",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 9582,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/350639287",
+   "id": 350639287,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Stories Without Words",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Alexis Cárdenas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

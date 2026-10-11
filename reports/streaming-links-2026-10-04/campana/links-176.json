@@ -1,0 +1,37 @@
+{
+ "artistId": 176,
+ "name": "Movida Acústica Urbana",
+ "artist_links": [
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/MovidaAcUrbana",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Movida Acústica Urbana"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/MovidaAcUrbana",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Movida Acústica Urbana"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Movida Acústica Urbana",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,28 @@
+{
+ "artistId": 4400,
+ "name": "Orquesta De Chucho Rodríguez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4767816",
+   "id": 4767816,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.949,
+   "name_plat": "La Orquesta De Chucho Rodríguez"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Orquesta de Chucho Rodríguez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

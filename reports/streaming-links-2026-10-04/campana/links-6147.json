@@ -1,0 +1,64 @@
+{
+ "artistId": 6147,
+ "name": "Lienzos",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://lienzos.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lienzos"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1EG7SR1rgvFYy0QhaB58IX",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lienzos"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/lienzoss",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lienzos"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/lienzoss",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lienzos"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCgj9frp6UN1pg4-rWQaVjmw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lienzos"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Lienzos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,205 @@
+{
+ "artistId": 3811,
+ "name": "Carota, Ñema y Tajá",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/65183482",
+   "id": 65183482,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Carota, Ñema y Tajá"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8550,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643958881",
+   "id": 643958881,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Puro Pueblo... Na' guará",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 8551,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643958021",
+   "id": 643958021,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sembrando Un Canto",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 8553,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/641790711",
+   "id": 641790711,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Nueva Canción Venezolana",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 8554,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643965251",
+   "id": 643965251,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Como Sol De Invierno",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 8555,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643958101",
+   "id": 643958101,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vivencias",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 8557,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/642278371",
+   "id": 642278371,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "10 Años a Cielo Abierto",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14917,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643076731",
+   "id": 643076731,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Con Sazón Navideño",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14925,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643992041",
+   "id": 643992041,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Gente Cubireña",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14924,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643992001",
+   "id": 643992001,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Donde Sale El Cocuy",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14923,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643610521",
+   "id": 643610521,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Amor Es Tan Sabroso",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14922,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643992781",
+   "id": 643992781,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Terruño Adorado",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14921,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/686498791",
+   "id": 686498791,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Navidad Infantil",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14918,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/641802801",
+   "id": 641802801,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En El Nombre Del Pueblo",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14916,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/643992121",
+   "id": 643992121,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Tamunangue (Sones De Negro)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 14920,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/767342621",
+   "id": 767342621,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mix Homenaje a Compositores (En Vivo)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14919,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/767342511",
+   "id": 767342511,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mix Venezuela Es Una Sola (En Vivo)",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 22,
+ "albumes_con_link": 16
+}

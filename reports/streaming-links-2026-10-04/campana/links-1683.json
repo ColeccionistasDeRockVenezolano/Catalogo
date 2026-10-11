@@ -1,0 +1,60 @@
+{
+ "artistId": 1683,
+ "name": "Bostas Brain",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5535282",
+   "id": 5535282,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Bostas Brain"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2ZlM3duZoyC00Q6r5XVY7A",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bostas Brain"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15447,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/atleta-del-sonido/1460834539?uo=4",
+   "id": 1460834539,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Atleta del Sonido",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 15447,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/94737252",
+   "id": 94737252,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Atleta del Sonido",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Bostas Brain",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

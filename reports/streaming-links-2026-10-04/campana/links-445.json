@@ -1,0 +1,98 @@
+{
+ "artistId": 445,
+ "name": "Sibelíus",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1044506",
+   "id": 1044506,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sibelius"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/SibeliusSoul",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sibelius"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/BandaSibelius",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/bandasibelius/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1224,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/classical-tendencies/412561371?uo=4",
+   "id": 412561371,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Classical Tendencies",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 876,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bipolar/1526582329?uo=4",
+   "id": 1526582329,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bipolar",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 1224,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/744276",
+   "id": 744276,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Classical Tendencies",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 876,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/165627032",
+   "id": 165627032,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bipolar",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Sibelius",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

@@ -1,0 +1,78 @@
+{
+ "artistId": 193,
+ "name": "Patafunk",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1914591",
+   "id": 1914591,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Patafunk"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/patafunk",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Patafunk"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Patafunk",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Patafunk"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/patafunk",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Patafunk"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 300,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/dubdelic/1513101067?uo=4",
+   "id": 1513101067,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Dubdelic",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 300,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/312600597",
+   "id": 312600597,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dubdelic",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Patafunk",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

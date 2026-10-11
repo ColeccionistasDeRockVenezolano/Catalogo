@@ -1,0 +1,37 @@
+{
+ "artistId": 6142,
+ "name": "Drupatee Ramgoonai",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/8997282",
+   "id": 8997282,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Drupatee Ramgoonai"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0b2BvPLwaxjE6lFfwhkpGs",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Drupatee Ramgoonai"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Drupatee Ramgoonai",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 553,
+ "name": "Puah",
+ "artist_links": [
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/PUAHVZLA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "PÚAH"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1901,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/kharma/1813161261?uo=4",
+   "id": 1813161261,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Kharma",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "PÚAH",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

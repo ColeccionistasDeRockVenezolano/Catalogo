@@ -1,0 +1,122 @@
+{
+ "artistId": 4283,
+ "name": "Oksana Linde",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/162495997",
+   "id": 162495997,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Oksana Linde"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1uw253RRnz7eeOGwv4upOx",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Oksana Linde"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1612691200",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Oksana Linde"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/31002778",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Oksana Linde"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14587,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aquatic-and-other-worlds/1613792437?uo=4",
+   "id": 1613792437,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aquatic and Other Worlds",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14588,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/traves%C3%ADas/1792941580?uo=4",
+   "id": 1792941580,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Travesías",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14590,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/724644161",
+   "id": 724644161,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Intromersión",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14587,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/721766881",
+   "id": 721766881,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aquatic and Other Worlds",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 14588,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/728369001",
+   "id": 728369001,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Travesías",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14589,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/728265101",
+   "id": 728265101,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mundos Flotantes",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": "Oksana Linde",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

@@ -1,0 +1,28 @@
+{
+ "artistId": 3941,
+ "name": "Dúo Intermezzo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/3380721",
+   "id": 3380721,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Duo Intermezzo"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Duo Intermezzo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

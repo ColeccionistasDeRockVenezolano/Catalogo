@@ -1,0 +1,144 @@
+{
+ "artistId": 103,
+ "name": "Gaêlica",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5440169",
+   "id": 5440169,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gaêlica"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/mundogaelica",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gaêlica"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/mundogaelica/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gaêlica"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/mundogaelica",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gaêlica"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2108,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/i-o/1700375647?uo=4",
+   "id": 1700375647,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "I/O",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 15724,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/paz-una-navidad-celta-en-venezuela-vol-1/1700374313?uo=4",
+   "id": 1700374313,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.919,
+   "title_plat": "Paz, una Navidad Celta en Venezuela, Vol. 1",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 9681,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/luz-una-navidad-celta-en-venezuela-vol-2/1700939114?uo=4",
+   "id": 1700939114,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.904,
+   "title_plat": "Luz, una Navidad Celta en Venezuela, Vol. 2",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 15277,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/luz-una-navidad-celta-en-venezuela-vol-2/1700939114?uo=4",
+   "id": 1700939114,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.974,
+   "title_plat": "Luz, una Navidad Celta en Venezuela, Vol. 2",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 2108,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/471212605",
+   "id": 471212605,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "I/O",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 15724,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/471212535",
+   "id": 471212535,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.919,
+   "title_plat": "Paz, una Navidad Celta en Venezuela, Vol. 1",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 9681,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/472571575",
+   "id": 472571575,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.904,
+   "title_plat": "Luz, una Navidad Celta en Venezuela, Vol. 2",
+   "year_plat": 2012
+  },
+  {
+   "albumId": 15277,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/472571575",
+   "id": 472571575,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.974,
+   "title_plat": "Luz, una Navidad Celta en Venezuela, Vol. 2",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Gaêlica",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 4
+}

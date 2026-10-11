@@ -1,0 +1,69 @@
+{
+ "artistId": 10,
+ "name": "Permanence",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11874939",
+   "id": 11874939,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Permanence"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://permanenceofficial.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Permanence"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2FbSk7Ty38P7wjtJTAUzsH",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Permanence"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 35,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/402956877",
+   "id": 402956877,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Creation",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 36,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/578851961",
+   "id": 578851961,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Collapse of Singularity",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "Permanence",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

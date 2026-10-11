@@ -1,0 +1,62 @@
+{
+ "artistId": 3832,
+ "name": "Los Cañoneros",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12930187",
+   "id": 12930187,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.923,
+   "name_plat": "Los Kañoneros"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8799,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/los-ca%C3%B1oneros/6808400081?uo=4",
+   "id": 6808400081,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Los Cañoneros",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 8801,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/luna-sobre-el-valle/575014684?uo=4",
+   "id": 575014684,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Luna Sobre el Valle",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 8802,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/esta-es-caracas/992331298?uo=4",
+   "id": 992331298,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Esta Es Caracas",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": "Los Cañoneros",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 3
+}

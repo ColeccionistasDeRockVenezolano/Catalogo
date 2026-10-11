@@ -1,0 +1,91 @@
+{
+ "artistId": 2903,
+ "name": "Piso 21",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4038501",
+   "id": 4038501,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Piso 21"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4bw2Am3p9ji3mYsXNXtQcd",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Piso 21"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/piso21music",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Piso 21"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Piso21Music",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Piso 21"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/piso21music/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Piso 21"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/co/artist/403121923",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Piso 21"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/5032091",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Piso 21"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCEFNzT2RoVqGkV4e3Osyx4A",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Piso 21"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Piso 21",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

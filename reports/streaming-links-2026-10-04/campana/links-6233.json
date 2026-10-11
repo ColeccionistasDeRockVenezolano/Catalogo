@@ -1,0 +1,28 @@
+{
+ "artistId": 6233,
+ "name": "The Back Room",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/3264751",
+   "id": 3264751,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.963,
+   "name_plat": "The Black Room"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "The Back Room",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,69 @@
+{
+ "artistId": 92,
+ "name": "EntreNos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5084472",
+   "id": 5084472,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Entrenos"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/grupoentrenos",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "EntreNos"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/entrenos",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "EntreNos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 551,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/entrenos/1737461396?uo=4",
+   "id": 1737461396,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Entrenos",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 551,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/563687472",
+   "id": 563687472,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Entrenos",
+   "year_plat": 2004
+  }
+ ],
+ "mb_name": "EntreNos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

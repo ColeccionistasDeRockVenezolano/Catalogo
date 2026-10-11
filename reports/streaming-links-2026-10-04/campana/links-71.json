@@ -1,0 +1,18 @@
+{
+ "artistId": 71,
+ "name": "Cunaguaro Soul",
+ "artist_links": [],
+ "album_links": [],
+ "mb_name": "Cunaguaro Soul",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

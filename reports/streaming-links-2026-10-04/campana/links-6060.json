@@ -1,0 +1,109 @@
+{
+ "artistId": 6060,
+ "name": "Neyson D",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3FM9OZlPkCriGXmGHYs7AZ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Neyson D"
+  },
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10639695",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Neyson D"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/neysond",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Neyson D"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/neysond",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Neyson D"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/neysond/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Neyson D"
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@neysond",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Neyson D"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B003IK4HHG",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Neyson D"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/368926488",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Neyson D"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/7956880",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Neyson D"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@neysond",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Neyson D"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Neyson D",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

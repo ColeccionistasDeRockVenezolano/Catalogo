@@ -1,0 +1,62 @@
+{
+ "artistId": 3938,
+ "name": "Demián Martínez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14091385",
+   "id": 14091385,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Demian Martinez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9616,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/del-hecho-al-trecho/1346091172?uo=4",
+   "id": 1346091172,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Del Hecho Al Trecho",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 9617,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/inverosimil/1488872248?uo=4",
+   "id": 1488872248,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Inverosimil",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 9616,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/56676392",
+   "id": 56676392,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Del Hecho Al Trecho",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

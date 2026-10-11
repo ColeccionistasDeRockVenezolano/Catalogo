@@ -1,0 +1,30 @@
+{
+ "artistId": 1404,
+ "name": "La Banda de Casablanca",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 2487,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-sue%C3%B1o/1805757952?uo=4",
+   "id": 1805757952,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Sueño",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

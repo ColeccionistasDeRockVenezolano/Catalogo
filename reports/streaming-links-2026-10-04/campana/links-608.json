@@ -1,0 +1,73 @@
+{
+ "artistId": 608,
+ "name": "Hier",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/193665917",
+   "id": 193665917,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "HIER"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0sg1iaXdBm0fKaIka7kZyo",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "HIER"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/noussommeshier",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "HIER"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/noussommeshier/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "HIER"
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@noussommeshier",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "HIER"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCYaIkLMDMFchVmduweeh5mg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "HIER"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "HIER",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

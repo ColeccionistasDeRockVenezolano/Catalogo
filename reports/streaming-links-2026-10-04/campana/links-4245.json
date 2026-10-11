@@ -1,0 +1,536 @@
+{
+ "artistId": 4245,
+ "name": "Miguel Moly",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1221473",
+   "id": 1221473,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Miguel Moly"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/597Qn1wBw1ZwHNIzeRxOm8",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Miguel Moly"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/ve/artist/id192523853",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Miguel Moly"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/miguelmoly",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Miguel Moly"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/miguelmolypaginaoficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Miguel Moly"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/miguelmoly/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Miguel Moly"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 13174,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-morena/1728512359?uo=4",
+   "id": 1728512359,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Morena",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 13175,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-tecnomerengue/1728512512?uo=4",
+   "id": 1728512512,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Tecnomerengue",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 13167,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/siempre-siempre/1728749333?uo=4",
+   "id": 1728749333,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Siempre Siempre",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 13173,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/como-t%C3%BA-lo-quer%C3%ADas/1729713243?uo=4",
+   "id": 1729713243,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Como Tú Lo Querías",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 13170,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/y-c%C3%B3mo-se-mata-el-gusano-ep/1766131127?uo=4",
+   "id": 1766131127,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.941,
+   "title_plat": "Y Cómo Se Mata El Gusano? - EP",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 13193,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/siempre-siempre-sinf%C3%B3nico-en-vivo-single/1706565427?uo=4",
+   "id": 1706565427,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.904,
+   "title_plat": "Siempre Siempre (Sinfónico En Vivo) - Single",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 13172,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/20-grandes-%C3%A9xitos-vol-2/1827566905?uo=4",
+   "id": 1827566905,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "20 Grandes Éxitos, Vol. 2",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13192,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-alg%C3%BAn-rinc%C3%B3n-de-mi-alma-en-vivo-single/1727676994?uo=4",
+   "id": 1727676994,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.907,
+   "title_plat": "En Algún Rincón de Mi Alma (En Vivo) - Single",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13181,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tendr%C3%ADa-que-llorar-por-ti-sinf%C3%B3nico-single/1763962500?uo=4",
+   "id": 1763962500,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "Tendría Que Llorar por Ti (Sinfónico) - Single",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13191,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mosaico-merecumbe-cayetano-baila-bemb%C3%A9-dolores-la-rigola/1727744250?uo=4",
+   "id": 1727744250,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.954,
+   "title_plat": "Mosaico: Merecumbe / Cayetano Baila Bembé / Dolores / La Rigola / Apagame la Vela - Single",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13171,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/te-vi-con-%C3%A9l/1731944510?uo=4",
+   "id": 1731944510,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Te Vi Con Él",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13168,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/20-grandes-%C3%A9xitos-vol-1/1731720462?uo=4",
+   "id": 1731720462,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "20 Grandes Éxitos, Vol. 1",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13176,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/que-critiquen-y-que-hablen-de-mi-single/6813222900?uo=4",
+   "id": 6813222900,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.901,
+   "title_plat": "Que Critiquen y Que Hablen de Mi - Single",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 13174,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/542291692",
+   "id": 542291692,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Morena",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 13175,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/542291672",
+   "id": 542291672,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Tecnomerengue",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 13167,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/722385151",
+   "id": 722385151,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Siempre Siempre",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13173,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/545164482",
+   "id": 545164482,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Como Tú Lo Querías",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 13170,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/639517731",
+   "id": 639517731,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Y Cómo Se Mata El Gusano?",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 13193,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/485432665",
+   "id": 485432665,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Siempre Siempre (Sinfónico En Vivo)",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13194,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/479686945",
+   "id": 479686945,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mamita (En Vivo Sinfónico)",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13196,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/397494377",
+   "id": 397494377,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Angelito Luka",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13195,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/479760845",
+   "id": 479760845,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Piernona (En Vivo Sinfónico)",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13172,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/790535671",
+   "id": 790535671,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "20 Grandes Éxitos, Vol. 2",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13192,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/537368762",
+   "id": 537368762,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Algún Rincón de Mi Alma (En Vivo)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13179,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/662973241",
+   "id": 662973241,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mix: Junto a Tu Corazón/Siempre Siempre/Dulcemente Bella/Ya Lo Había Vivido/Mamita Mía /Quiéreme/Yo por Ti/La Morena/Te Lloré/En A",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13187,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/588929422",
+   "id": 588929422,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Faldita",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13181,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/629512531",
+   "id": 629512531,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tendría Que Llorar por Ti (Sinfónico)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13183,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/597422512",
+   "id": 597422512,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Lloré (Sinfonico)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13184,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/580401631",
+   "id": 580401631,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Pepas Sinfónico",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13182,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/620067291",
+   "id": 620067291,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sangre en Mi Cuerpo (Sinfónico)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13185,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/588631912",
+   "id": 588631912,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sangre en Mi Cuerpo (En Vivo)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13186,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/572375671",
+   "id": 572375671,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Quiéreme Sinfónico",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13188,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/562310721",
+   "id": 562310721,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Yo por Ti (Sinfonico)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13191,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/540273272",
+   "id": 540273272,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mosaico: Merecumbe / Cayetano Baila Bembe / Dolores / La Rigola / Apagame la Vela",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13190,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/554347412",
+   "id": 554347412,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dulcemente Bella (Sinfonico )",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13189,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/564319022",
+   "id": 564319022,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Junto a Tu Corazón (Sinfónico)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13171,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/550074412",
+   "id": 550074412,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Te Vi Con El",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13168,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/549312282",
+   "id": 549312282,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "20 Grandes Éxitos, Vol. 1",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13180,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/634623571",
+   "id": 634623571,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Alma Llanera (Sinfónico)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13177,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/863200552",
+   "id": 863200552,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "No Te Vayas",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13178,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/754579461",
+   "id": 754579461,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Eres Tu",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13176,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1081085292",
+   "id": 1081085292,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Que Critiquen y Que Hablen de Mi",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Miguel Moly",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 30,
+ "albumes_con_link": 29
+}

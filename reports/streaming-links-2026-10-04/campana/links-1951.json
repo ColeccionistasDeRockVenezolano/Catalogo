@@ -1,0 +1,106 @@
+{
+ "artistId": 1951,
+ "name": "Paul Gillman",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1661431",
+   "id": 1661431,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Paul Gillman"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2147,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sigueme/1513602706?uo=4",
+   "id": 1513602706,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sigueme",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 2122,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/despertando-en-la-historia/1456439744?uo=4",
+   "id": 1456439744,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Despertando en la Historia",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 2152,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/93264492",
+   "id": 93264492,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Levantate... Y Pelea!",
+   "year_plat": 1984
+  },
+  {
+   "albumId": 2147,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/90963222",
+   "id": 90963222,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sigueme",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 2125,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103341392",
+   "id": 103341392,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuauhtemoc",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 2122,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/90471272",
+   "id": 90471272,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Despertando en la Historia",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 4147,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103341392",
+   "id": 103341392,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.947,
+   "title_plat": "Cuauhtemoc",
+   "year_plat": 2003
+  }
+ ],
+ "mb_name": "Paul Gillman",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 30,
+ "albumes_con_link": 5
+}

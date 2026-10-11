@@ -1,0 +1,30 @@
+{
+ "artistId": 3442,
+ "name": "Amereida",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 9826,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/streets/268350699?uo=4",
+   "id": 268350699,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Streets",
+   "year_plat": 2007
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 1
+}

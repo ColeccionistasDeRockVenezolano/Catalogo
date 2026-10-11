@@ -1,0 +1,95 @@
+{
+ "artistId": 1351,
+ "name": "Para Llevar",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12418148",
+   "id": 12418148,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Para Llevar"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3134,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/solo-esc%C3%BAchame/1531171626?uo=4",
+   "id": 1531171626,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Solo Escúchame",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 15560,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-que-nos-toc%C3%B3-vivir/1700597928?uo=4",
+   "id": 1700597928,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lo Que Nos Tocó Vivir",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 15561,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/adorado/1700600140?uo=4",
+   "id": 1700600140,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Adorado",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 3134,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/172363732",
+   "id": 172363732,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Solo Escúchame",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 2370,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/173401102",
+   "id": 173401102,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sin Ciudad",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 15562,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/126366842",
+   "id": 126366842,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Al Final",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 5
+}

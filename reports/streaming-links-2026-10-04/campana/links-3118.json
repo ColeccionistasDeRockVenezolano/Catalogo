@@ -1,0 +1,51 @@
+{
+ "artistId": 3118,
+ "name": "Dhargorak",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/161842922",
+   "id": 161842922,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Dhargorak"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5287,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bosques-de-los-andes-del-norte/1611757232?uo=4",
+   "id": 1611757232,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bosques de los Andes del Norte",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 5287,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/298615522",
+   "id": 298615522,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bosques de los Andes del Norte",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

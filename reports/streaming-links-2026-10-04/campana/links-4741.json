@@ -1,0 +1,28 @@
+{
+ "artistId": 4741,
+ "name": "Scorched Earth",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/327820311",
+   "id": 327820311,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Scorched Earth"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Scorched-Earth",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

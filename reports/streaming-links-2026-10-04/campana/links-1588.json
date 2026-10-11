@@ -1,0 +1,51 @@
+{
+ "artistId": 1588,
+ "name": "Lobin Ejnay",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/141514462",
+   "id": 141514462,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Lobin Ejnay"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2863,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuando-yo-era-pavo/1579938192?uo=4",
+   "id": 1579938192,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Yo Era Pavo",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 2863,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/249842192",
+   "id": 249842192,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando Yo Era Pavo",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,62 @@
+{
+ "artistId": 3387,
+ "name": "Cantoría Alberto Grau",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4555535",
+   "id": 4555535,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cantoria Alberto Grau"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15230,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aguinaldos-tradicionales/1444700438?uo=4",
+   "id": 1444700438,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aguinaldos Tradicionales",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 5794,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/752254491",
+   "id": 752254491,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cantoría Alberto Grau",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 15230,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/80042002",
+   "id": 80042002,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aguinaldos Tradicionales",
+   "year_plat": 1998
+  }
+ ],
+ "mb_name": "Cantoría Alberto Grau",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 10,
+ "albumes_con_link": 2
+}

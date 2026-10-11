@@ -1,0 +1,76 @@
+{
+ "artistId": 16,
+ "name": "Nocturnal Hollow",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/13083713",
+   "id": 13083713,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Nocturnal Hollow"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://nocturnalhollow.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nocturnal Hollow"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/NocturnalHollow",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nocturnal Hollow"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/nocturnal.hollow",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nocturnal Hollow"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/nocturnalhollow",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nocturnal Hollow"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1674,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/49371532",
+   "id": 49371532,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Nuances of Death",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": "Nocturnal Hollow",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 8,
+ "albumes_con_link": 1
+}

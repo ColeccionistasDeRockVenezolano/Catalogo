@@ -1,0 +1,95 @@
+{
+ "artistId": 3925,
+ "name": "Caracas Sincrónica",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/7318230",
+   "id": 7318230,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Caracas Sincrónica"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9601,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-agridulce/1856338736?uo=4",
+   "id": 1856338736,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Agridulce",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 9602,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/zafarafa/1833152955?uo=4",
+   "id": 1833152955,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Zafarafa",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 9603,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/t%C3%A1bara/1608286615?uo=4",
+   "id": 1608286615,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tábara",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 9601,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/865609602",
+   "id": 865609602,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Agridulce",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 9602,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/804584801",
+   "id": 804584801,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Zafarafa",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 9603,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/290895592",
+   "id": 290895592,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tábara",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": "Caracas Sincrónica",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,45 @@
+{
+ "artistId": 395,
+ "name": "Apocalypse",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/285107931",
+   "id": 285107931,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Apocalypse"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/ApocalypseProg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Apocalypse"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCjjbNYhHcCOc5o9nVs3vmCg",
+   "id": "UCjjbNYhHcCOc5o9nVs3vmCg",
+   "method": "exact",
+   "source": "wikidata-Q3620667",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Apocalypse",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

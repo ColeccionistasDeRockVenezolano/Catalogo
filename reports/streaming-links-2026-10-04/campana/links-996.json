@@ -1,0 +1,51 @@
+{
+ "artistId": 996,
+ "name": "Superheterodino",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/102194672",
+   "id": 102194672,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Superheterodino"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2824,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sh/1525154847?uo=4",
+   "id": 1525154847,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sh",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 2824,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/163471072",
+   "id": 163471072,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sh",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

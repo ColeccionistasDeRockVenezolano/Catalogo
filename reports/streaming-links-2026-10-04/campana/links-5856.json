@@ -1,0 +1,64 @@
+{
+ "artistId": 5856,
+ "name": "Mari la Carajita",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/272904172",
+   "id": 272904172,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mari La Carajita"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0og2ubpPFrJOMK9ppv8gGU",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mari La Carajita"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1756327339",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mari La Carajita"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/48979046",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mari La Carajita"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCc9mSb31OtJj9B86BgwtEQw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mari La Carajita"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Mari La Carajita",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

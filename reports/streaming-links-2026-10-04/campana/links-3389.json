@@ -1,0 +1,51 @@
+{
+ "artistId": 3389,
+ "name": "Carlos Duarte",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4148912",
+   "id": 4148912,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Carlos Duarte"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5801,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/213779012",
+   "id": 213779012,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Piano Works",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 5802,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/214140402",
+   "id": 214140402,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Piano Recital",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Carlos Duarte",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

@@ -1,0 +1,27 @@
+{
+ "artistId": 1235,
+ "name": "Sabotaje",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/196389577",
+   "id": 196389577,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.941
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Sabotaje",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

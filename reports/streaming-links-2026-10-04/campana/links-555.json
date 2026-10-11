@@ -1,0 +1,45 @@
+{
+ "artistId": 555,
+ "name": "Celacanto",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/304909251",
+   "id": 304909251,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Celacanto"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1zbFg089KZ1A5YYby6qYtQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Celacanto"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/celacanto.wav/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Celacanto",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

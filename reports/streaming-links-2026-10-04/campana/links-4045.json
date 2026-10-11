@@ -1,0 +1,105 @@
+{
+ "artistId": 4045,
+ "name": "Propaganda",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10422",
+   "id": 10422,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Propaganda"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://propaganda-official.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Propaganda"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/28yIUgPYZqgJoNZjeBvrHn",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Propaganda"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/fr/artist/id724352980",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Propaganda"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B001E3GHKO",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Propaganda"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/8577786",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Propaganda"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://music.youtube.com/channel/UC47Y9QwzNXJ9WUSVCT1oTkw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Propaganda"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9946,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/propaganda/1754148116?uo=4",
+   "id": 1754148116,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Propaganda",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 9946,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/607256922",
+   "id": 607256922,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Propaganda",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "Propaganda",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

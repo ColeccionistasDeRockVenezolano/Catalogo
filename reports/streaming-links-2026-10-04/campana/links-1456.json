@@ -1,0 +1,28 @@
+{
+ "artistId": 1456,
+ "name": "Los Vicios",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12931075",
+   "id": 12931075,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Vicios"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Los Vicios",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,139 @@
+{
+ "artistId": 3845,
+ "name": "Quinto Criollo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1008442",
+   "id": 1008442,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Quinto Criollo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9298,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%BAsica-popular-y-folkl%C3%B3rica-de-venezuela/398814231?uo=4",
+   "id": 398814231,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.93,
+   "title_plat": "Música Popular y Folklórica de Venezuela",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 9299,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%BAsica-popular-y-folkl%C3%B3rica-de-venezuela/398814231?uo=4",
+   "id": 398814231,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.93,
+   "title_plat": "Música Popular y Folklórica de Venezuela",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 9300,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%BAsica-popular-y-folkl%C3%B3rica-de-venezuela/398814231?uo=4",
+   "id": 398814231,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.93,
+   "title_plat": "Música Popular y Folklórica de Venezuela",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 9302,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%BAsica-popular-y-folkl%C3%B3rica-de-venezuela/398814231?uo=4",
+   "id": 398814231,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Música Popular y Folklórica de Venezuela",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 8880,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/alevanta/1895668518?uo=4",
+   "id": 1895668518,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "¡Alevanta!",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 9298,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/716187",
+   "id": 716187,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.93,
+   "title_plat": "Música Popular y Folklórica de Venezuela",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 9299,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/716187",
+   "id": 716187,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.93,
+   "title_plat": "Música Popular y Folklórica de Venezuela",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 9300,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/716187",
+   "id": 716187,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.93,
+   "title_plat": "Música Popular y Folklórica de Venezuela",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 9302,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/716187",
+   "id": 716187,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Música Popular y Folklórica de Venezuela",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 8880,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/970755371",
+   "id": 970755371,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "¡Alevanta!",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Quinto Criollo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 12,
+ "albumes_con_link": 5
+}

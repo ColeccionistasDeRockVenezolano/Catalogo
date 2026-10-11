@@ -1,0 +1,30 @@
+{
+ "artistId": 3980,
+ "name": "Los Anauco",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 9736,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/los-anauco/1649262497?uo=4",
+   "id": 1649262497,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Los Anauco",
+   "year_plat": 1970
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

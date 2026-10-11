@@ -1,0 +1,51 @@
+{
+ "artistId": 3570,
+ "name": "Rodolfo Reyes",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6412022",
+   "id": 6412022,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Rodolfo Reyes"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6455,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/working-days/1581891082?uo=4",
+   "id": 1581891082,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Working Days",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 6455,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/252788472",
+   "id": 252788472,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Working Days",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Rodolfo Reyes",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

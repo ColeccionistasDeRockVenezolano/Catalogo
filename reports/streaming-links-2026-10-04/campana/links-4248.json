@@ -1,0 +1,354 @@
+{
+ "artistId": 4248,
+ "name": "Mau y Ricky",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10189722",
+   "id": 10189722,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mau y Ricky"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2wkoKEfS6dXwThbyTnZWFU",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mau y Ricky"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/mauyricky",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mau y Ricky"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/MauyRicky",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mau y Ricky"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/mauyricky/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mau y Ricky"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B07KWCX41L",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mau y Ricky"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/ie/artist/1096068683",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mau y Ricky"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/7730207",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mau y Ricky"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC5lrDfR-Yjhmqoh5DfLOmwA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mau y Ricky"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 13306,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/para-aventuras-y-curiosidades/1461303677?uo=4",
+   "id": 1461303677,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Para Aventuras y Curiosidades",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13313,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/rifresh/1539722429?uo=4",
+   "id": 1539722429,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "rifresh",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13327,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/desgenerados-mixtape/1694773079?uo=4",
+   "id": 1694773079,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "DESGENERADOS MIXTAPE",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13315,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/hotel-caracas/1746939930?uo=4",
+   "id": 1746939930,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Hotel Caracas",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13314,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-llave/1828103000?uo=4",
+   "id": 1828103000,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "LA LLAVE",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13309,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ricky-y-mau/6769559985?uo=4",
+   "id": 6769559985,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ricky y Mau",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 13307,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12864916",
+   "id": 12864916,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Voy Que Quemo",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 13303,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/41093551",
+   "id": 41093551,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Arte",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 13329,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/74650952",
+   "id": 74650952,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Desconocidos",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 13306,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/94883942",
+   "id": 94883942,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Para Aventuras y Curiosidades",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13301,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103341782",
+   "id": 103341782,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Boca (Remix)",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13339,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/113648882",
+   "id": 113648882,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bota Fuego (con Nicky Jam)",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 13336,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/164425222",
+   "id": 164425222,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "PAPÁS",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13334,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/185593412",
+   "id": 185593412,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "OUCH",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13338,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/112022372",
+   "id": 112022372,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Qué Dirías?",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13313,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/185416312",
+   "id": 185416312,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "rifresh",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13335,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/176583102",
+   "id": 176583102,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Grosera",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13337,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/135919522",
+   "id": 135919522,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Me Enamora",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 13332,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/253702282",
+   "id": 253702282,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mal Acostumbrao (con Maria Becerra)",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13333,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/239293762",
+   "id": 239293762,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Doctor (Versión Acústica)",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13302,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/235741882",
+   "id": 235741882,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "3 de La Mañana",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13331,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/284954282",
+   "id": 284954282,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "No Puede Ser (con Eladio Carrion)",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 13330,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/319711507",
+   "id": 319711507,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Llorar y Llorar (con Carin Leon)",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Mau y Ricky",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 40,
+ "albumes_con_link": 21
+}

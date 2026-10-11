@@ -1,0 +1,159 @@
+{
+ "artistId": 3730,
+ "name": "Mirtha Pérez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1409127",
+   "id": 1409127,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mirtha Perez"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2VVRcyS0qMjxRdKIEc2yIy",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Mirtha Pérez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 7587,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-nave-del-olvido/1472689504?uo=4",
+   "id": 1472689504,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Nave del Olvido",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7597,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/se-busca-un-amante/1576922894?uo=4",
+   "id": 1576922894,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Se Busca un Amante...",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 7576,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7223181",
+   "id": 7223181,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Primero de los Naipes",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 7587,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/103350442",
+   "id": 103350442,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Nave del Olvido",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7592,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6151405",
+   "id": 6151405,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Interpreta a Virginia Lopez",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 7594,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6151404",
+   "id": 6151404,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canto a Venezuela",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 7593,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6373592",
+   "id": 6373592,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.919,
+   "title_plat": "14 Exitos de Siempre",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 7596,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7142915",
+   "id": 7142915,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mirtha en Navidad",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 7597,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/245066242",
+   "id": 245066242,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Se Busca un Amante...",
+   "year_plat": 1982
+  },
+  {
+   "albumId": 7604,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6372657",
+   "id": 6372657,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Baladas de Oro",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 7606,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6373592",
+   "id": 6373592,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "14 Exitos de Siempre",
+   "year_plat": 2007
+  }
+ ],
+ "mb_name": "Mirtha Pérez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 32,
+ "albumes_con_link": 9
+}

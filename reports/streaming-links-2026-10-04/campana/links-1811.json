@@ -1,0 +1,95 @@
+{
+ "artistId": 1811,
+ "name": "Luz Marina",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4913876",
+   "id": 4913876,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Luz Marina"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3462,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a-flor-de-piel/1136051094?uo=4",
+   "id": 1136051094,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "A Flor de Piel",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 3464,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/siempre/1819614172?uo=4",
+   "id": 1819614172,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Siempre",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 3462,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13620122",
+   "id": 13620122,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Flor de Piel",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 3464,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/770020481",
+   "id": 770020481,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Siempre",
+   "year_plat": 1989
+  },
+  {
+   "albumId": 3463,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/997852551",
+   "id": 997852551,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Amando",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 3465,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/997853141",
+   "id": 997853141,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vestida En Flor",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Luz Marina",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 4
+}

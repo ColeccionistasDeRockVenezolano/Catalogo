@@ -1,0 +1,51 @@
+{
+ "artistId": 3726,
+ "name": "Luis Alejandro Serrano",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/92292882",
+   "id": 92292882,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Luis Alejandro Serrano"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 7518,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/admiraci%C3%B3n/1509549283?uo=4",
+   "id": 1509549283,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Admiración",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 7518,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/143752582",
+   "id": 143752582,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Admiración",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

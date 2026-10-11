@@ -1,0 +1,40 @@
+{
+ "artistId": 3180,
+ "name": "Aftárkeias",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/220773385",
+   "id": 220773385,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Aftárkeias"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5412,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/462196315",
+   "id": 462196315,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cephalopoda",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Aftárkeias",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

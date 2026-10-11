@@ -1,0 +1,172 @@
+{
+ "artistId": 3436,
+ "name": "Eric Chacón",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6352632",
+   "id": 6352632,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Eric Chacón"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6026,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/choroni/1470781020?uo=4",
+   "id": 1470781020,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Choroni",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6027,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/esplendida-noche/1540780042?uo=4",
+   "id": 1540780042,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Esplendida Noche",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 6028,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/flaut%C3%ADstico/1470779804?uo=4",
+   "id": 1470779804,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Flautístico",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6029,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/wachafita/1755513044?uo=4",
+   "id": 1755513044,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Wachafita",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 6030,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mestizo/1513588155?uo=4",
+   "id": 1513588155,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mestizo",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 6031,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cosmic-305/1755472836?uo=4",
+   "id": 1755472836,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cosmic 305",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 6032,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/classical-collection/1755460897?uo=4",
+   "id": 1755460897,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Classical Collection",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 6026,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/101772192",
+   "id": 101772192,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Choroni",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6027,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/104750532",
+   "id": 104750532,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Espléndida Noche",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6029,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/611176292",
+   "id": 611176292,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Wachafita",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 6030,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/146548762",
+   "id": 146548762,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mestizo",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 6031,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/611075412",
+   "id": 611075412,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cosmic 305",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 6032,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/611056572",
+   "id": 611056572,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Classical Collection",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 7
+}

@@ -1,0 +1,82 @@
+{
+ "artistId": 1721,
+ "name": "Arena",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/185376917",
+   "id": 185376917,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Arena"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5n72qzNEfzCXvNDxKComR7",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arena"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/ArenaVerglas",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arena"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/ArenaBandofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arena"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/arenabanduk/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arena"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/21366204",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arena"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCFp1-Dr6nbF6H73sdmh8H_w",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Arena"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Arena",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

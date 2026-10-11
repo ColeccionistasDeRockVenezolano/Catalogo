@@ -1,0 +1,40 @@
+{
+ "artistId": 1475,
+ "name": "Carlos Morean",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/11650",
+   "id": 11650,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.923,
+   "name_plat": "Carlos Morgan"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2629,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-gigante-de-la-canci%C3%B3n-juvenil/1852038922?uo=4",
+   "id": 1852038922,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Gigante De La Canción Juvenil",
+   "year_plat": 1969
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 20,
+ "albumes_con_link": 1
+}

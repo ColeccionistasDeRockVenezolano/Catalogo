@@ -1,0 +1,40 @@
+{
+ "artistId": 3787,
+ "name": "José Luis Rodríguez & Raúl Di Blasio",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1404413",
+   "id": 1404413,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "José Luis Rodríguez & Raul Di Blasio"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8158,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1223185",
+   "id": 1223185,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Clave De Amor",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

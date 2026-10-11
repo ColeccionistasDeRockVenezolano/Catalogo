@@ -1,0 +1,40 @@
+{
+ "artistId": 3189,
+ "name": "Eclesiastes",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/8212770",
+   "id": 8212770,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "eclesiastes"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5445,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/542754372",
+   "id": 542754372,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Jinetes de Rohan",
+   "year_plat": 2024
+  }
+ ],
+ "mb_name": "Eclesiastes",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 1
+}

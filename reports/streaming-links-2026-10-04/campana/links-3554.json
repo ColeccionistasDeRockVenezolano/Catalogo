@@ -1,0 +1,117 @@
+{
+ "artistId": 3554,
+ "name": "Orlando Poleo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/76089",
+   "id": 76089,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Orlando Poleo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6590,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cimarroneando/1724322009?uo=4",
+   "id": 1724322009,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cimarroneando",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 6422,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-buen-camino/1547314565?uo=4",
+   "id": 1547314565,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Buen Camino",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 6423,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-bueno-de-la-vida/1550325009?uo=4",
+   "id": 1550325009,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lo Bueno De La Vida",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 6424,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/curate/1807942797?uo=4",
+   "id": 1807942797,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Curate!",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 6590,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/531272362",
+   "id": 531272362,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cimarroneando",
+   "year_plat": 1995
+  },
+  {
+   "albumId": 6422,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/197743942",
+   "id": 197743942,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Buen Camino",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 6423,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/107445",
+   "id": 107445,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Lo bueno de la vida",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 6424,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/740993771",
+   "id": 740993771,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Curate!",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": "Orlando Poleo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

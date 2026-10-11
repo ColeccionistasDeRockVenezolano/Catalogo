@@ -1,0 +1,118 @@
+{
+ "artistId": 2911,
+ "name": "Nine Inch Nails",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/407",
+   "id": 407,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0X380XXQSNBYuleKzav5UO",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id107917",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/nineinchnails",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/100044573853266",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/nineinchnails/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@nineinchnails",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/nineinchnails",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B000VZKOCS",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/15794",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC4a5d57ZAWl999-YXw0C1Vg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nine Inch Nails"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Nine Inch Nails",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 2008,
+ "name": "Santuario",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/2853451",
+   "id": 2853451,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Santuario"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 4478,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/escupiendo-la-ira/1845005971?uo=4",
+   "id": 1845005971,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Escupiendo La Ira",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 4478,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/834424502",
+   "id": 834424502,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Escupiendo La Ira",
+   "year_plat": 2000
+  }
+ ],
+ "mb_name": "Santuario",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,82 @@
+{
+ "artistId": 2349,
+ "name": "Possessed",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/197313",
+   "id": 197313,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Possessed"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0ZEpcKtaM4ItvzHJCg5udc",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Possessed"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id213047691",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Possessed"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/jeffbecerra",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Possessed"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/possessedofficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Possessed"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/possessed_official/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Possessed"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/possessedmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Possessed"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Possessed",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

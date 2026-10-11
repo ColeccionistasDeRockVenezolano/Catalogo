@@ -1,0 +1,245 @@
+{
+ "artistId": 3477,
+ "name": "Ed Calle",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/74624",
+   "id": 74624,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ed Calle"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6r8MZZRBkAXqyzaFLk5YRe",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ed Calle"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3526318",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ed Calle"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6168,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nightgames/1482708265?uo=4",
+   "id": 1482708265,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nightgames",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 6169,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/doubletalk/334806114?uo=4",
+   "id": 334806114,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.952,
+   "title_plat": "Doubletalk",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 6615,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/doubletalk/334806114?uo=4",
+   "id": 334806114,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Doubletalk",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 6170,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sunset-harbor/1443476009?uo=4",
+   "id": 1443476009,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sunset Harbor",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 6171,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/twilight/1444223778?uo=4",
+   "id": 1444223778,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Twilight",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 6616,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/in-the-zone/250512982?uo=4",
+   "id": 250512982,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "In the Zone",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 6174,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/sax-appeal/339085512?uo=4",
+   "id": 339085512,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Sax Appeal",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6176,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/360/1118561430?uo=4",
+   "id": 1118561430,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "360",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6179,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/soulful-nights/1671922801?uo=4",
+   "id": 1671922801,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Soulful Nights",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 6168,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/114054822",
+   "id": 114054822,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nightgames",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 6169,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1074675",
+   "id": 1074675,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.952,
+   "title_plat": "Doubletalk",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6615,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1074675",
+   "id": 1074675,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Doubletalk",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6170,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/220205",
+   "id": 220205,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sunset Harbor",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 6171,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/101102",
+   "id": 101102,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Twilight",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 6616,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1085962",
+   "id": 1085962,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "In The Zone",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 6174,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1109653",
+   "id": 1109653,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Sax Appeal",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 6176,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13221198",
+   "id": 13221198,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "360",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 6179,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/407195477",
+   "id": 407195477,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Soulful Nights",
+   "year_plat": 2022
+  }
+ ],
+ "mb_name": "Ed Calle",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 16,
+ "albumes_con_link": 9
+}

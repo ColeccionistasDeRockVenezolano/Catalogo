@@ -1,0 +1,334 @@
+{
+ "artistId": 459,
+ "name": "Zeta",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/349113",
+   "id": 349113,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Zeta"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://joinzeta.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeta"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6syYSX0eLH4srCtXhUEMXD",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeta"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/zetaonce",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeta"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/joinzeta",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeta"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/joinzeta/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeta"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1052541760",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeta"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3548481",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeta"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3203,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/haedo/1052624569?uo=4",
+   "id": 1052624569,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Haedo",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 897,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/explosi%C3%B3n-del-cosmos-del-alma/1052979989?uo=4",
+   "id": 1052979989,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Explosión Del Cosmos Del Alma",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 15644,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/en-medio-de-la-tormenta/1052641588?uo=4",
+   "id": 1052641588,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "En Medio de la Tormenta",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 15652,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lantiteoria-del-todo/1120803418?uo=4",
+   "id": 1120803418,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "L'antiteoria Del Todo",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 15645,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mochima/1481640379?uo=4",
+   "id": 1481640379,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mochima",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 15646,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/todo-bailarlo/1606750730?uo=4",
+   "id": 1606750730,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Todo Bailarlo",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 15700,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/live-session-2021-ep/1600744081?uo=4",
+   "id": 1600744081,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.919,
+   "title_plat": "Live Session 2021 - EP",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 15647,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/vii-magia-infinita-2024/1737242185?uo=4",
+   "id": 1737242185,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "VII Magia Infinita (2024)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15648,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/was-it-medicine-to-you/1840260687?uo=4",
+   "id": 1840260687,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Was It Medicine To You?",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15699,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/live-from-red-lion-recording-studio-ep/1840208535?uo=4",
+   "id": 1840208535,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.959,
+   "title_plat": "Live From Red Lion Recording Studio - EP",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15650,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/live-in-boston-10-years-of-resilience-in-the-u-s/1885879364?uo=4",
+   "id": 1885879364,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Live In Boston - 10 Years Of Resilience In The U.S.",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 3203,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11513100",
+   "id": 11513100,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Haedo",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 897,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11521896",
+   "id": 11521896,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Explosión Del Cosmos Del Alma",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 15644,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/11513104",
+   "id": 11513104,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "En Medio de la Tormenta",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 15652,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13272471",
+   "id": 13272471,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "L'antiteoria Del Todo",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 15645,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/112661542",
+   "id": 112661542,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mochima",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 15646,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/290175912",
+   "id": 290175912,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Todo Bailarlo",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 15700,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/280953921",
+   "id": 280953921,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Live Session 2021",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 15647,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/563260482",
+   "id": 563260482,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "VII Magia Infinita (2024)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15665,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/553516552",
+   "id": 553516552,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tonada De Luna Llena",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15648,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/822588011",
+   "id": 822588011,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Was It Medicine To You?",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15699,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/822391651",
+   "id": 822391651,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Live From Red Lion Recording Studio",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": "Zeta",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 31,
+ "albumes_con_link": 12
+}

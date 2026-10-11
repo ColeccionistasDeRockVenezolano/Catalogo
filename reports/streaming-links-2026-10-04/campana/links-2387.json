@@ -1,0 +1,62 @@
+{
+ "artistId": 2387,
+ "name": "Meatknife",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/15047073",
+   "id": 15047073,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Meatknife"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0HSrfSnTs6EdDd0fIMje6X",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Meatknife"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCHiLVJQRVzOfKtKt5xFMogQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Meatknife"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/MeatknifeMusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/meatknifemusic/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Meatknife",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

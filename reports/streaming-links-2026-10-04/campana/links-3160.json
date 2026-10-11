@@ -1,0 +1,46 @@
+{
+ "artistId": 3160,
+ "name": "Cavernous Assassin",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://cavernousassassin.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cavernous Assassin"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/people/Cavernous-Assassin/100087557527285",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cavernous Assassin"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/cavernous_assassin/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cavernous Assassin"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Cavernous Assassin",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

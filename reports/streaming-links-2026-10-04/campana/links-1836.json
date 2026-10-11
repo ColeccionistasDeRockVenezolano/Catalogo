@@ -1,0 +1,93 @@
+{
+ "artistId": 1836,
+ "name": "Nella",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5354354",
+   "id": 5354354,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Nella"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6hgiVWraSMs9mbUrhPq8Oh",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nella"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/5201878",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nella"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/nellarojasm",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/marianella.rojas.967",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/nellarojasm/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3615,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/voy/1457843325?uo=4",
+   "id": 1457843325,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Voy",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 3618,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/doce-margaritas/1564988913?uo=4",
+   "id": 1564988913,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Doce Margaritas",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Nella",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

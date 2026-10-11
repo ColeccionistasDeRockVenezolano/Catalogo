@@ -1,0 +1,18 @@
+{
+ "artistId": 1569,
+ "name": "15 Weeks",
+ "artist_links": [],
+ "album_links": [],
+ "mb_name": "15 Weeks",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

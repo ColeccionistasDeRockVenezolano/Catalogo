@@ -1,0 +1,260 @@
+{
+ "artistId": 1715,
+ "name": "Vargas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/333447821",
+   "id": 333447821,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Vargas"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3139,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/619562421",
+   "id": 619562421,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Notas en Mi Habitacion",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 15618,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/619592421",
+   "id": 619592421,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ciudad Mareada",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15619,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/620160391",
+   "id": 620160391,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Radiocassette",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15627,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/100000072",
+   "id": 100000072,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Energia",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 15705,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/190089212",
+   "id": 190089212,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Paréntesis Vol.2 Descanso en la Torre",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 15620,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/620121181",
+   "id": 620121181,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Canciones Perdidas Antes de Volver a Nacer",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 15629,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/222610152",
+   "id": 222610152,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rafael, el Morrocoy Perdido",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 15621,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/620184141",
+   "id": 620184141,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Primer Viaje del Mago",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15694,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/631040431",
+   "id": 631040431,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Pacto de Richie",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15695,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/631040421",
+   "id": 631040421,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Silencio del Espejo",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 15622,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/641549581",
+   "id": 641549581,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nada Que Perder",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15633,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/608362132",
+   "id": 608362132,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Gorilla Business",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15632,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/552232862",
+   "id": 552232862,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Te Vi Volar",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15631,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/533308072",
+   "id": 533308072,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Era Inevitable",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15717,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/676447621",
+   "id": 676447621,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.922,
+   "title_plat": "Gorilla Business (En Vivo, Desde Recoveco Records) (En Vivo)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 15696,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/719695371",
+   "id": 719695371,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Ultimo Disaster en Caracas (En Vivo)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15701,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/823836401",
+   "id": 823836401,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nada Que Perder 2",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15703,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/781926671",
+   "id": 781926671,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nota Negra",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15634,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/746427561",
+   "id": 746427561,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Recetas para Duelos Necesarios",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 15636,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1058326172",
+   "id": 1058326172,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mirada de Jazmín",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 15635,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/931092701",
+   "id": 931092701,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ahora Es Distinto",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 28,
+ "albumes_con_link": 21
+}

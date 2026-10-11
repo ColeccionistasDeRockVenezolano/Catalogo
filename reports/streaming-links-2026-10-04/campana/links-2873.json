@@ -1,0 +1,88 @@
+{
+ "artistId": 2873,
+ "name": "Hidra",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/481216",
+   "id": 481216,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Hidra"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3yzGegJHrOW1CndMVFoo3m",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hidra"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/hidraa",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hidra"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3884467",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hidra"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCiBZ9j8pebwFDOYxs0Ss1kg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Hidra"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/fatihusludur",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/hidraa",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/Hidrhyme/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Hidra",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

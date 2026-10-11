@@ -1,0 +1,100 @@
+{
+ "artistId": 877,
+ "name": "Enigma",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1346883",
+   "id": 1346883,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Enigma!"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://enigmamusic.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Enigma"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3DmG65yHQsMms7WAvrZOdt",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Enigma"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/de/artist/3218461",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Enigma"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/enigmaspace",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Enigma"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Enigma",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Enigma"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B000S2DPPM",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Enigma"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/10091",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Enigma"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UC8XZBbAN0qyfOjghG89236A",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Enigma"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Enigma",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

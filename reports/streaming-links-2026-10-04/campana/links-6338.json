@@ -1,0 +1,37 @@
+{
+ "artistId": 6338,
+ "name": "Manifesto",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/399538",
+   "id": 399538,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Manifesto"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://manifesto1.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Manifesto"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Manifesto",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

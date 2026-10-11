@@ -1,0 +1,46 @@
+{
+ "artistId": 5939,
+ "name": "Vince Vinyl",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1rq92CQv4wi3OPZFmQ36gT",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vince Vinyl"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/malamiaps/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vince Vinyl"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCEJn9nlevBVHrpE2uqCKILQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vince Vinyl"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Vince Vinyl",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

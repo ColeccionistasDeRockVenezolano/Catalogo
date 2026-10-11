@@ -1,0 +1,40 @@
+{
+ "artistId": 151,
+ "name": "Los Alteregos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/13674435",
+   "id": 13674435,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Alteregos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 245,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-que-dejas-atr%C3%A1s/645185290?uo=4",
+   "id": 645185290,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lo Que Dejas Atrás",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Los Alteregos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

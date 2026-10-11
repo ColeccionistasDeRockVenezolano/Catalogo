@@ -1,0 +1,79 @@
+{
+ "artistId": 6012,
+ "name": "Corina Smith",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1576809",
+   "id": 1576809,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Corina Smith"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7mXfsy3lF4kU0f2KTNKSr8",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Corina Smith"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/ve/artist/491887531",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Corina Smith"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://music.youtube.com/channel/UCTkuMXrji9b-dVE5UgEOPGw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Corina Smith"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/corinasmith_",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/corinasmithmusica",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/corinasmith/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Corina Smith",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

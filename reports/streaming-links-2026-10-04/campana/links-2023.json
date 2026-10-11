@@ -1,0 +1,28 @@
+{
+ "artistId": 2023,
+ "name": "The Blues Voodoo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4649518",
+   "id": 4649518,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.933,
+   "name_plat": "The BlueVoodoo"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,100 @@
+{
+ "artistId": 973,
+ "name": "Vitriol",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1609716",
+   "id": 1609716,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Vitriol"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://vitriolwarfare.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vitriol"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7E4LULB8UkUOTEBbpTbLma",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vitriol"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/257946086",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vitriol"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/vitriolwarfare",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vitriol"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/vitriolwarfare/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vitriol"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B00264VAKC",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vitriol"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4608487",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vitriol"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCzJZsg0y6PBgRp78qA7f2pA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Vitriol"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Vitriol",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

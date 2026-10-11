@@ -1,0 +1,95 @@
+{
+ "artistId": 1541,
+ "name": "Caseroloops",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4791445",
+   "id": 4791445,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Caseroloops"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2740,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/venezolano-delux/980729612?uo=4",
+   "id": 980729612,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Venezolano Delux",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 2737,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/afronauta/1436186095?uo=4",
+   "id": 1436186095,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Afronauta",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 3890,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/m%C3%BAsica-para-cruceros/1436204708?uo=4",
+   "id": 1436204708,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Música para Cruceros",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 2740,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9975958",
+   "id": 9975958,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Venezolano Delux",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 2737,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6611720",
+   "id": 6611720,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Afronauta",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 3890,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/73112302",
+   "id": 73112302,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Música para Cruceros",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "Caseroloops",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

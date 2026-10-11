@@ -1,0 +1,51 @@
+{
+ "artistId": 408,
+ "name": "IslaSorda",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/83781142",
+   "id": 83781142,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.947,
+   "name_plat": "Isla Sorda"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 833,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/kali/1496253081?uo=4",
+   "id": 1496253081,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Kali",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 833,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/127883782",
+   "id": 127883782,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Kali",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

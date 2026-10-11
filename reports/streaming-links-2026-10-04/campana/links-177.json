@@ -1,0 +1,95 @@
+{
+ "artistId": 177,
+ "name": "Mulato",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/249487",
+   "id": 249487,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Mulato"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 466,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mulato/1115386383?uo=4",
+   "id": 1115386383,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mulato",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 289,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-aqu%C3%AD-pa-la-playa/1115000946?uo=4",
+   "id": 1115000946,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Aquí Pa' la Playa",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 3574,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/12-hojas-de-vida/1712744417?uo=4",
+   "id": 1712744417,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "12 Hojas de Vida",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 466,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13154052",
+   "id": 13154052,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mulato",
+   "year_plat": 1996
+  },
+  {
+   "albumId": 289,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13152966",
+   "id": 13152966,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Aquí Pa' la Playa",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 3574,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/502459211",
+   "id": 502459211,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "12 Hojas de Vida",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Mulato",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 8,
+ "albumes_con_link": 3
+}

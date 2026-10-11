@@ -1,0 +1,73 @@
+{
+ "artistId": 1597,
+ "name": "Guerrilla Seca",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5591035",
+   "id": 5591035,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Guerrilla Seca"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2898,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-realidad-mas-real/1884744401?uo=4",
+   "id": 1884744401,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Realidad Mas Real",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 2896,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/libre-pero-preso/1765517024?uo=4",
+   "id": 1765517024,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Libre Pero Preso",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 2898,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/938679101",
+   "id": 938679101,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Realidad Mas Real",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 2896,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/636154551",
+   "id": 636154551,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Libre Pero Preso",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Guerrilla Seca",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

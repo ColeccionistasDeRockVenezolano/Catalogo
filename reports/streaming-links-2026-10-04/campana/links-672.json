@@ -1,0 +1,39 @@
+{
+ "artistId": 672,
+ "name": "Cthonica",
+ "artist_links": [
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/CthonicaTriarchiaSacrae",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1179,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/typhomanteia-sacred-triarchy-of-spiritual-putrefaction/1482704541?uo=4",
+   "id": 1482704541,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Typhomanteia: Sacred Triarchy of Spiritual Putrefaction",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": "Cthonica",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

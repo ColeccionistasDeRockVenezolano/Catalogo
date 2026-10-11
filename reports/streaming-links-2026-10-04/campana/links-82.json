@@ -1,0 +1,78 @@
+{
+ "artistId": 82,
+ "name": "Distrust",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1317227",
+   "id": 1317227,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Distrust"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://distrustarmy.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Distrust"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/DistrustArmy",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Distrust"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/distrustarmy/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Distrust"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1744,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/119351742",
+   "id": 119351742,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Losing Our World",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 1107,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/119353152",
+   "id": 119353152,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Chaos Redefined",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": "Distrust",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 2
+}

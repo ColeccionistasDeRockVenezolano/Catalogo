@@ -1,0 +1,55 @@
+{
+ "artistId": 5778,
+ "name": "Nelson Morales",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4379367",
+   "id": 4379367,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Nelson Morales"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/01Ymsp3jvEqslxU7Z8QB8s",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nelson Morales"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1086712523",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nelson Morales"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/4186161",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Nelson Morales"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Nelson Morales",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

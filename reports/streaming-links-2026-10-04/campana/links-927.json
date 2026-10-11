@@ -1,0 +1,30 @@
+{
+ "artistId": 927,
+ "name": "Dlapiel",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 1708,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/unidos-hoy-somos-mas/6779953398?uo=4",
+   "id": 6779953398,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Unidos hoy somos mas",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

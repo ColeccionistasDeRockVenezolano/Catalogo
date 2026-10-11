@@ -1,0 +1,172 @@
+{
+ "artistId": 4246,
+ "name": "Joseph Palacios",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/115283392",
+   "id": 115283392,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Joseph Palacios"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 13253,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tan-enamorados-feat-homero-gallardo-single/1739648114?uo=4",
+   "id": 1739648114,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "Tan Enamorados (feat. Homero Gallardo) - Single",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13248,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1078336782",
+   "id": 1078336782,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Buen Amor (Versión Bachata)",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 13258,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1074553862",
+   "id": 1074553862,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Y ¿Si Fuera Ella?",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 13257,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/383885957",
+   "id": 383885957,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mix Juan Gabriel #Bachata",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 13255,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1075604512",
+   "id": 1075604512,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mix Bachata Vallenato : Olvídala / Me Ilusioné / Busca un Confidente",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13256,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/461495125",
+   "id": 461495125,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Me Enamoré de Ti",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 13247,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/690300461",
+   "id": 690300461,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mis Favoritas",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13254,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/513521592",
+   "id": 513521592,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mix Bachata Vallenato Vol1",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13253,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/569686671",
+   "id": 569686671,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tan Enamorados (feat. Homero Gallardo)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13252,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/687168751",
+   "id": 687168751,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Yo Quería (Salsa)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 13251,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/736770781",
+   "id": 736770781,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tanto (feat. Diveana)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13250,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1074574852",
+   "id": 1074574852,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mía",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 13249,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/933234161",
+   "id": 933234161,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Simplemente Amigos",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 12,
+ "albumes_con_link": 12
+}

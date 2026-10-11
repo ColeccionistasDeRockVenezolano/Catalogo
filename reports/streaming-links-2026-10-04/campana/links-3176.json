@@ -1,0 +1,71 @@
+{
+ "artistId": 3176,
+ "name": "Astadmiah",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/237092741",
+   "id": 237092741,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Astadmiah"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://astadmiah.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Astadmiah"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/astadmiah/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Astadmiah"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@Astadmiahoficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Astadmiah"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/astadmiah",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/astadmiahoficial/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Astadmiah",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

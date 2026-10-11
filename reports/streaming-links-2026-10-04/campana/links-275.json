@@ -1,0 +1,73 @@
+{
+ "artistId": 275,
+ "name": "Circo Vulkano",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/8798156",
+   "id": 8798156,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Circo Vulkano"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2312,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-vida-es/1464327753?uo=4",
+   "id": 1464327753,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Vida Es...",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 594,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-reto/1464333661?uo=4",
+   "id": 1464333661,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Reto",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 2312,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/97208132",
+   "id": 97208132,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Vida Es...",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 594,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/97207192",
+   "id": 97207192,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Reto",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Circo Vulkano",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

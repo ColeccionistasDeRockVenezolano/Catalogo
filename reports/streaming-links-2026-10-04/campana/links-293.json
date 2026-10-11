@@ -1,0 +1,40 @@
+{
+ "artistId": 293,
+ "name": "Frank Quintero & Los Balzehaguaos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10225014",
+   "id": 10225014,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.969,
+   "name_plat": "Frank Quintero y Los Balzehaguaos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9959,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/168406972",
+   "id": 168406972,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hechizo",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

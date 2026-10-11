@@ -1,0 +1,28 @@
+{
+ "artistId": 3410,
+ "name": "Miguel Sánchez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4077478",
+   "id": 4077478,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Miguel Sanchez"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Miguel Sanchez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

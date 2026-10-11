@@ -1,0 +1,30 @@
+{
+ "artistId": 3165,
+ "name": "Constellaris",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 5380,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/nuevos-horizontes/1521034554?uo=4",
+   "id": 1521034554,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Nuevos Horizontes",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 1606,
+ "name": "Jahkogba",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9545486",
+   "id": 9545486,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jahkogba"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2880,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/revelaci%C3%B3n/1512634570?uo=4",
+   "id": 1512634570,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Revelación",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 2880,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/147427582",
+   "id": 147427582,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Revelación",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

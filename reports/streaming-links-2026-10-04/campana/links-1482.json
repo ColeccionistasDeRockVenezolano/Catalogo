@@ -1,0 +1,40 @@
+{
+ "artistId": 1482,
+ "name": "Elaine",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/461584",
+   "id": 461584,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Elaine"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2643,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/156420822",
+   "id": 156420822,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Verdad, de Verdad Quiero Que Te Mueras",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: HTTP Error 429: Too Many Requests"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

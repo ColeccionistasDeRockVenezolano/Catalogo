@@ -1,0 +1,40 @@
+{
+ "artistId": 1875,
+ "name": "Avalancha",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5334536",
+   "id": 5334536,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Avalancha"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3630,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/925763851",
+   "id": 925763851,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Evolución",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Avalancha",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

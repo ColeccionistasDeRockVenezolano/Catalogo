@@ -1,0 +1,40 @@
+{
+ "artistId": 3809,
+ "name": "Beatriz López",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/358468",
+   "id": 358468,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Beatriz Lopez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8548,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/8804243",
+   "id": 8804243,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "y como les venía cantando...",
+   "year_plat": 2002
+  }
+ ],
+ "mb_name": "Beatriz López",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

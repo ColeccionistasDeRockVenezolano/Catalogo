@@ -1,0 +1,51 @@
+{
+ "artistId": 3583,
+ "name": "THE Trío",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/379821",
+   "id": 379821,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "The Trio"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6477,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/the-trio/318290260?uo=4",
+   "id": 318290260,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "The Trio",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 6477,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1633503",
+   "id": 1633503,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Trio",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "The Trio",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

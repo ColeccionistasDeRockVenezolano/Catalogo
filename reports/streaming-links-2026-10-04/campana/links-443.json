@@ -1,0 +1,30 @@
+{
+ "artistId": 443,
+ "name": "Synthness",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 874,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/transition/1518470580?uo=4",
+   "id": 1518470580,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Transition",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Synthness",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,37 @@
+{
+ "artistId": 822,
+ "name": "Intestinal Infection",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/276868361",
+   "id": 276868361,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Intestinal Infection"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/pages/Intestinal-Infection/193165060711177",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Intestinal Infection"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Intestinal Infection",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

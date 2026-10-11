@@ -1,0 +1,73 @@
+{
+ "artistId": 186,
+ "name": "Oscar Fanega",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12329838",
+   "id": 12329838,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Oscar Fanega"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 510,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/solo-bass/1227735641?uo=4",
+   "id": 1227735641,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Solo Bass",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 6427,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/bass-percussion/1314563643?uo=4",
+   "id": 1314563643,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bass & Percussion",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 510,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/40185901",
+   "id": 40185901,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Solo Bass",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 6427,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/51888052",
+   "id": 51888052,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bass & Percussion",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

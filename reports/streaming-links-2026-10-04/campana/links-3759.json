@@ -1,0 +1,51 @@
+{
+ "artistId": 3759,
+ "name": "Miguel Angel Bosch",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5193765",
+   "id": 5193765,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Miguel Angel Bosch"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8402,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cantos-para-arrullar-abuelos/1713421989?uo=4",
+   "id": 1713421989,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cantos para Arrullar Abuelos",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 8402,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/504518181",
+   "id": 504518181,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cantos para Arrullar Abuelos",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Miguel Angel Bosch",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

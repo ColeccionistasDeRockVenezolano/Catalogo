@@ -1,0 +1,55 @@
+{
+ "artistId": 3644,
+ "name": "Michael Simon",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/62014",
+   "id": 62014,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Michael Simon"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/47tdos6tQTQ9AntqjEQjnj",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Michael Simon"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/djmichaelsimon/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Michael Simon"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1249177350",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Michael Simon"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Michael Simon",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 0
+}

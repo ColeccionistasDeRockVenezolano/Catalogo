@@ -1,0 +1,40 @@
+{
+ "artistId": 1506,
+ "name": "Nomeolvides",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/13537769",
+   "id": 13537769,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Nomeolvides"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15550,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/51487642",
+   "id": 51487642,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Nomeolvides",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

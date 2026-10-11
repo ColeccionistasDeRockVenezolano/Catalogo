@@ -1,0 +1,73 @@
+{
+ "artistId": 4590,
+ "name": "mil ataris por segundo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/160960042",
+   "id": 160960042,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "mil ataris por segundo"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://1000atarisxsegundo.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "mil ataris por segundo"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/4YprYq1vIq74xBwBaTTgfs",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "mil ataris por segundo"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/milatarisxsegundo/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "mil ataris por segundo"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/1610468862",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "mil ataris por segundo"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/30733456",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "mil ataris por segundo"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "mil ataris por segundo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

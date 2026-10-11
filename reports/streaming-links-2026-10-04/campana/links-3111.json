@@ -1,0 +1,28 @@
+{
+ "artistId": 3111,
+ "name": "Mortuorium",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/8785268",
+   "id": 8785268,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.947,
+   "name_plat": "Mortuorum"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Mortuorium",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

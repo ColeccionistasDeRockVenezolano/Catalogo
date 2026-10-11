@@ -1,0 +1,55 @@
+{
+ "artistId": 2664,
+ "name": "Lady Bombon",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/520633",
+   "id": 520633,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Lady Bombon"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/ladybombon",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lady Bombon"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/ladybombon",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lady Bombon"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCrkerqyQZy0ZFLY3M5m5Jbg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Lady Bombon"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Lady Bombon",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

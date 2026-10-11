@@ -1,0 +1,175 @@
+{
+ "artistId": 3403,
+ "name": "Gabriela Montero",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/211109",
+   "id": 211109,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gabriela Montero"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0zn66Km3MeK24VuWUZydgr",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gabriela Montero"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/monterogabriela",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gabriela Montero"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/gabriela_montero_piano/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gabriela Montero"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3506304",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gabriela Montero"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5861,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cuando-las-ganas-se-juntan/1509476131?uo=4",
+   "id": 1509476131,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cuando las Ganas Se Juntan",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 5855,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/baroque/742500343?uo=4",
+   "id": 742500343,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Baroque",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 5857,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/solatino/731973533?uo=4",
+   "id": 731973533,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Solatino",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 6003,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/rachmaninov-piano-concerto-no-2-op-18-montero-ex-patria/992174069?uo=4",
+   "id": 992174069,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.921,
+   "title_plat": "Rachmaninov: Piano Concerto No. 2, Op. 18 - Montero: Ex Patria, Op. 1 & Improvisations",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 5861,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/142742392",
+   "id": 142742392,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cuando las Ganas Se Juntan",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 6001,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/302732",
+   "id": 302732,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Baroque Improvisations",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 5855,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/328924",
+   "id": 328924,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Baroque",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 5858,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1233417",
+   "id": 1233417,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Live In Germany",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 5857,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/671025",
+   "id": 671025,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Solatino",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 6003,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/586669892",
+   "id": 586669892,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.921,
+   "title_plat": "Rachmaninov: Piano Concerto No. 2, Op. 18 - Montero: Ex Patria, Op. 1 & Improvisations",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": "Gabriela Montero",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 13,
+ "albumes_con_link": 6
+}

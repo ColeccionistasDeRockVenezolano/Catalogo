@@ -1,0 +1,86 @@
+{
+ "artistId": 3192,
+ "name": "Walter Freitas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6933163",
+   "id": 6933163,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Walter Freitas"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1vafCjASAFH73766NKR3ZC",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Walter Freitas"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/br/artist/1217051237",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Walter Freitas"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/8617763",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Walter Freitas"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/walterfreitascarnauba/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5456,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/room-to-roam/1633459042?uo=4",
+   "id": 1633459042,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Room To Roam",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 5456,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/333832277",
+   "id": 333832277,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Room To Roam",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Walter Freitas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

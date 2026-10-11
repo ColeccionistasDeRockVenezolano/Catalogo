@@ -1,0 +1,28 @@
+{
+ "artistId": 3379,
+ "name": "Alberto Grau",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4879136",
+   "id": 4879136,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Alberto Grau"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Alberto Grau",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

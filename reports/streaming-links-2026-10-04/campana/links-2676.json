@@ -1,0 +1,91 @@
+{
+ "artistId": 2676,
+ "name": "Willie Colón",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/151550632",
+   "id": 151550632,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Willie Colón"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://williecolon.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Willie Colón"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7x5Slu7yTE5icZjNsc3OzW",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Willie Colón"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/us/artist/id31526769",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Willie Colón"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/williecolon",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Willie Colón"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/26231339542",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Willie Colón"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/realwilliecolon/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Willie Colón"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/7773",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Willie Colón"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Willie Colón",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

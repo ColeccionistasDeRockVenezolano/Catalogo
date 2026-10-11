@@ -1,0 +1,67 @@
+{
+ "artistId": 3529,
+ "name": "Linda Briceño",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5478765",
+   "id": 5478765,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Linda Briceño"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/ellabric",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/ellabricmusic/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6351,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/tiempo/6774650005?uo=4",
+   "id": 6774650005,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Tiempo",
+   "year_plat": 2014
+  },
+  {
+   "albumId": 6351,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/994077841",
+   "id": 994077841,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Tiempo",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "Linda Briceño",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

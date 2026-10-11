@@ -1,0 +1,46 @@
+{
+ "artistId": 6215,
+ "name": "Junior Caldera",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/99685512",
+   "id": 99685512,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Junior Caldera"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0rwGV1HhNWK2Ta4rjmlmtp",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Junior Caldera"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3678595",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Junior Caldera"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Junior Caldera",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

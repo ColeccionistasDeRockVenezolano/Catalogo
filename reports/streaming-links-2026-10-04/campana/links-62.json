@@ -1,0 +1,95 @@
+{
+ "artistId": 62,
+ "name": "Chucknorris",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5685644",
+   "id": 5685644,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Chucknorris"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 429,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/11-cuentos/280850545?uo=4",
+   "id": 280850545,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "11 Cuentos",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 801,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/chuckmix/1691929209?uo=4",
+   "id": 1691929209,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Chuckmix",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 787,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/incandescente/354187645?uo=4",
+   "id": 354187645,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Incandescente",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 429,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7629235",
+   "id": 7629235,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "11 Cuentos",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 801,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/451583705",
+   "id": 451583705,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Chuckmix",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 787,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7619895",
+   "id": 7619895,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Incandescente",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": "ChuckNorris",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

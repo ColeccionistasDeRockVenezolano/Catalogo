@@ -1,0 +1,61 @@
+{
+ "artistId": 257,
+ "name": "Various Artists",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/0LyfQWJT6nXafLPZqxe9Of",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Various Artists"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B000QJO93Y",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Various Artists"
+  },
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5080",
+   "id": "5080",
+   "method": "exact",
+   "source": "wikidata-Q3108914",
+   "score": 1.0
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/artist/36270",
+   "id": "36270",
+   "method": "exact",
+   "source": "wikidata-Q3108914",
+   "score": 1.0
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCwnBk4IeB6vOxBop6NvUrAw",
+   "id": "UCwnBk4IeB6vOxBop6NvUrAw",
+   "method": "exact",
+   "source": "wikidata-Q3108914",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Various Artists",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 214,
+ "albumes_con_link": 0
+}

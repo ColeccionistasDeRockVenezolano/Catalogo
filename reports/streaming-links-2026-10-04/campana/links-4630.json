@@ -1,0 +1,37 @@
+{
+ "artistId": 4630,
+ "name": "Todo Bien Todo Mal",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/211092367",
+   "id": 211092367,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Todo Bien Todo Mal"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://todobientodomal.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Todo Bien Todo Mal"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Todo Bien Todo Mal",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

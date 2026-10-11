@@ -1,0 +1,28 @@
+{
+ "artistId": 136,
+ "name": "La Muy Bestia Pop",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/56797392",
+   "id": 56797392,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "La Muy Bestia Pop"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "La Muy Bestia Pop",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

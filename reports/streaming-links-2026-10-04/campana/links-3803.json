@@ -1,0 +1,238 @@
+{
+ "artistId": 3803,
+ "name": "Adilia Castillo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/93512",
+   "id": 93512,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Adilia Castillo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 8502,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/rosalinda/6798802164?uo=4",
+   "id": 6798802164,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Rosalinda",
+   "year_plat": 1964
+  },
+  {
+   "albumId": 8504,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/por-los-caminos-de-venezuela/1622270140?uo=4",
+   "id": 1622270140,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Por los Caminos de Venezuela",
+   "year_plat": 1958
+  },
+  {
+   "albumId": 8505,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/espa%C3%B1ola/1767647894?uo=4",
+   "id": 1767647894,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Española",
+   "year_plat": 1960
+  },
+  {
+   "albumId": 8510,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/gran-festival-del-folklore-venezolano-vol-2/1563233485?uo=4",
+   "id": 1563233485,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.911,
+   "title_plat": "Gran Festival del Folklore Venezolano, Vol. 2",
+   "year_plat": 1971
+  },
+  {
+   "albumId": 9146,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/adilia-internacional/1565994581?uo=4",
+   "id": 1565994581,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Adilia Internacional",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 9145,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/gran-festival-del-folklore-venezolano-vol-2/1563233485?uo=4",
+   "id": 1563233485,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.925,
+   "title_plat": "Gran Festival del Folklore Venezolano, Vol. 2",
+   "year_plat": 1971
+  },
+  {
+   "albumId": 8514,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-do%C3%B1a/1522974514?uo=4",
+   "id": 1522974514,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Doña",
+   "year_plat": 1959
+  },
+  {
+   "albumId": 8515,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lo-mejor-de-adilia-castillo/600319213?uo=4",
+   "id": 600319213,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lo Mejor de Adilia Castillo",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 8516,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-regreso-de-adilia-castillo/709240637?uo=4",
+   "id": 709240637,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Regreso de Adilia Castillo",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 8502,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/641560651",
+   "id": 641560651,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rosalinda",
+   "year_plat": 1964
+  },
+  {
+   "albumId": 8504,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/315730167",
+   "id": 315730167,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Por los Caminos de Venezuela",
+   "year_plat": 1958
+  },
+  {
+   "albumId": 8505,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/641429081",
+   "id": 641429081,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Española",
+   "year_plat": 1960
+  },
+  {
+   "albumId": 8506,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/589867652",
+   "id": 589867652,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Llano Venezolano",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 8510,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/524410432",
+   "id": 524410432,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.911,
+   "title_plat": "Gran Festival del Folklore Venezolano, Vol. 2",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9146,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/524315822",
+   "id": 524315822,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Adilia Internacional",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9145,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/524410432",
+   "id": 524410432,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.925,
+   "title_plat": "Gran Festival del Folklore Venezolano, Vol. 2",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 8514,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/131751332",
+   "id": 131751332,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Doña",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 8515,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6318125",
+   "id": 6318125,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Lo Mejor de Adilia Castillo",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 8516,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/6956183",
+   "id": 6956183,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Regreso de Adilia Castillo",
+   "year_plat": 2013
+  }
+ ],
+ "mb_name": "Adilia Castillo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 20,
+ "albumes_con_link": 10
+}

@@ -1,0 +1,65 @@
+{
+ "artistId": 180,
+ "name": "Ninah Mars",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3bArEST9oC14IAKzlgXX8O",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ninah Mars"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/ninahmars",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Ninah Mars"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/ninahmars",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/ninahmars/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 509,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/alboom/511889166?uo=4",
+   "id": 511889166,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Alboom!",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Ninah Mars",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,58 @@
+{
+ "artistId": 51,
+ "name": "Billy Se Fue",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/394683831",
+   "id": 394683831,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Billy Se Fue"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/billysefue",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Billy Se Fue"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/billysefue",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Billy Se Fue"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 128,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/todo-no-es-suficiente/1845241020?uo=4",
+   "id": 1845241020,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Todo No Es Suficiente",
+   "year_plat": 2006
+  }
+ ],
+ "mb_name": "Billy Se Fue",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 1
+}

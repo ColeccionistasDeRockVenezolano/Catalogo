@@ -1,0 +1,51 @@
+{
+ "artistId": 632,
+ "name": "Disaster Prophet",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/168771527",
+   "id": 168771527,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Disaster Prophet"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3984,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/human-revolver/1622395687?uo=4",
+   "id": 1622395687,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Human Revolver",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 1129,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/virus-sapiens/1029885525?uo=4",
+   "id": 1029885525,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Virus Sapiens",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

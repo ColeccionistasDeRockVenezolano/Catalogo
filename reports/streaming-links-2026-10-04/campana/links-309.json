@@ -1,0 +1,138 @@
+{
+ "artistId": 309,
+ "name": "Veldraveth",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9631112",
+   "id": 9631112,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Veldraveth"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://veldraveth.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Veldraveth"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/70ufmDHiMapM1WV0iyz9ly",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Veldraveth"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/mx/artist/id1072604204",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Veldraveth"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/veldraveth",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Veldraveth"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/pages/Veldraveth/195566383789658",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Veldraveth"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCF_NJlasQoPoVb6twl4nIwA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Veldraveth"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 690,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/live-malformation/1072603476?uo=4",
+   "id": 1072603476,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Live Malformation",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 1420,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/753504471",
+   "id": 753504471,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Our Speech of War",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 1419,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/753496601",
+   "id": 753496601,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hate - San Félix - Hate",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 686,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/753494331",
+   "id": 753494331,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Temples of the Black Flame",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 1904,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/753494351",
+   "id": 753494351,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Monumentos De Oscuridad Y Muerte",
+   "year_plat": 2012
+  }
+ ],
+ "mb_name": "Veldraveth",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 8,
+ "albumes_con_link": 5
+}

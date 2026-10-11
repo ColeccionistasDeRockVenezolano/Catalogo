@@ -1,0 +1,28 @@
+{
+ "artistId": 2666,
+ "name": "Donatore Di Groove",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/365221",
+   "id": 365221,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Donatore di Groove"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Donatore di Groove",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,35 @@
+{
+ "artistId": 5904,
+ "name": "Genaro Salinas",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/83219",
+   "id": 83219,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/306IiRW9xKTqahOyzCI2jD",
+   "id": "306IiRW9xKTqahOyzCI2jD",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Genaro Salinas"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Genaro Salinas",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

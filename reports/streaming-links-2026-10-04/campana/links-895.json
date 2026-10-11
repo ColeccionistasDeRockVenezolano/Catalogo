@@ -1,0 +1,58 @@
+{
+ "artistId": 895,
+ "name": "Theurgia",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://theurgia.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Theurgia"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/theurgiaband",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Theurgia"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCcS4EfrRzEgIJ9qeM5mEPog",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Theurgia"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1635,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/transformation/1599811405?uo=4",
+   "id": 1599811405,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Transformation",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": "Theurgia",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

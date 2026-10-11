@@ -1,0 +1,58 @@
+{
+ "artistId": 1704,
+ "name": "Retrovértigo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/322323",
+   "id": 322323,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Retrovertigo"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3MMhjoyHQi1B8Z7xu27kwF",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Retrovértigo"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/retrovertigo.caracas",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Retrovértigo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3581,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/440642",
+   "id": 440642,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.973,
+   "title_plat": "Idejala! ... Esta Triste",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": "Retrovértigo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,62 @@
+{
+ "artistId": 700,
+ "name": "Cronos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1597014",
+   "id": 1597014,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cronos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2126,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/206774612",
+   "id": 206774612,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Al Fin Una Victoria",
+   "year_plat": 1991
+  },
+  {
+   "albumId": 1427,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/206774672",
+   "id": 206774672,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rules",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 3930,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/206773222",
+   "id": 206773222,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "After All",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Cronos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 6,
+ "albumes_con_link": 3
+}

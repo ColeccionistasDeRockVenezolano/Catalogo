@@ -1,0 +1,73 @@
+{
+ "artistId": 6354,
+ "name": "Bizarre",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/89760062",
+   "id": 89760062,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Bizarre"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/2TSvMFHlguDI495vujOAys",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bizarre"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/bizarresworld",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bizarre"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/bizarresworld/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bizarre"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1320715",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bizarre"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/17542",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Bizarre"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Bizarre",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

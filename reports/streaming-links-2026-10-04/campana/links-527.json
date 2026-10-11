@@ -1,0 +1,52 @@
+{
+ "artistId": 527,
+ "name": "Overhate",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 997,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/god-in-a-trench/1566385413?uo=4",
+   "id": 1566385413,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "God in a Trench",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 1888,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/relentless-is-our-strenght/1565833584?uo=4",
+   "id": 1565833584,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.962,
+   "title_plat": "Relentless Is Our Strenght",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 1103,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/new-beginnings-are-met/1565737840?uo=4",
+   "id": 1565737840,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "New Beginnings are Met",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

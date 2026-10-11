@@ -1,0 +1,73 @@
+{
+ "artistId": 3699,
+ "name": "Esteban Demián",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/63143882",
+   "id": 63143882,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Esteban Demián"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15326,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/subyugante/1559558617?uo=4",
+   "id": 1559558617,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Subyugante",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 15325,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/apretando/1559248115?uo=4",
+   "id": 1559248115,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Apretando",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 15326,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/216179442",
+   "id": 216179442,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Subyugante",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 15325,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/216274082",
+   "id": 216274082,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Apretando",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 12,
+ "albumes_con_link": 2
+}

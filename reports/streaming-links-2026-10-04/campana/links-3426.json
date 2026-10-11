@@ -1,0 +1,36 @@
+{
+ "artistId": 3426,
+ "name": "Maria Guinand",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4529950",
+   "id": 4529950,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "María Guinand"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/artist/73572277",
+   "id": "73572277",
+   "method": "exact",
+   "source": "wikidata-Q4951274",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "María Guinand",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

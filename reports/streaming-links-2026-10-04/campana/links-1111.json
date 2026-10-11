@@ -1,0 +1,73 @@
+{
+ "artistId": 1111,
+ "name": "Bélica",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5249679",
+   "id": 5249679,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Bélica"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2704,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/b%C3%A9lica/1735744821?uo=4",
+   "id": 1735744821,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Bélica",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 3433,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/chica-chic/1888708016?uo=4",
+   "id": 1888708016,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Chica Chic",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 2704,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/559803692",
+   "id": 559803692,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Bélica",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 3433,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/817192451",
+   "id": 817192451,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Chica Chic",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": "Belica",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

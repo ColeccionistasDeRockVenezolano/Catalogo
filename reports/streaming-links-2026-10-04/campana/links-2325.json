@@ -1,0 +1,91 @@
+{
+ "artistId": 2325,
+ "name": "Aterciopelados",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4400",
+   "id": 4400,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Aterciopelados"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3MqjsWDLhq8SyY6N3PE8yW",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aterciopelados"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/aterciopelados",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aterciopelados"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/aterciopelados/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aterciopelados"
+  },
+  {
+   "platform": "amazon_music",
+   "url": "https://music.amazon.com/artists/B000TOTI1Y",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aterciopelados"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/co/artist/296208",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aterciopelados"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/2643",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aterciopelados"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCGaqHkWSf7izAZDX5mVTowg",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Aterciopelados"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Aterciopelados",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

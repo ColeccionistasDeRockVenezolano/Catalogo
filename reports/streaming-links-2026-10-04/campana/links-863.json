@@ -1,0 +1,51 @@
+{
+ "artistId": 863,
+ "name": "Cenizas Del Ayer",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/14172507",
+   "id": 14172507,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cenizas Del Ayer"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1548,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/entre-cuartos-vac%C3%ADos-ep/1362505936?uo=4",
+   "id": 1362505936,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.93,
+   "title_plat": "Entre Cuartos Vacíos EP",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 1547,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/57574782",
+   "id": 57574782,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Orgullo",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 2
+}

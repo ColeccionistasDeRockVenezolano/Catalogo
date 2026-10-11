@@ -1,0 +1,82 @@
+{
+ "artistId": 2604,
+ "name": "Dimitri From Paris",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1061",
+   "id": 1061,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Dimitri From Paris"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5Il27M5JXuQLgwDgVrQMgo",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dimitri From Paris"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://itunes.apple.com/fr/artist/id19280754",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dimitri From Paris"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/DimitriParis",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dimitri From Paris"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/DimitriFromParisOfficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dimitri From Paris"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/dfp",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dimitri From Paris"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/3568433",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dimitri From Paris"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Dimitri From Paris",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

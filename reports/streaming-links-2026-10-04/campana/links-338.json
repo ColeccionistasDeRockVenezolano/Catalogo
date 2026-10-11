@@ -1,0 +1,197 @@
+{
+ "artistId": 338,
+ "name": "Cultura Tres",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1420210",
+   "id": 1420210,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cultura Tres"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://culturatres.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cultura Tres"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/culturatres",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cultura Tres"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/culturatres",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cultura Tres"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/culturatres/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Cultura Tres"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1820,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-cura/937774456?uo=4",
+   "id": 937774456,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Cura",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 1632,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-mal-del-bien/938984270?uo=4",
+   "id": 938984270,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Mal del Bien",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 731,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/rezando-al-miedo/940254013?uo=4",
+   "id": 940254013,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Rezando al Miedo",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1380,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-secta/1321831097?uo=4",
+   "id": 1321831097,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Secta",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 3936,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-cruz-del-seis-ep/1477856010?uo=4",
+   "id": 1477856010,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.914,
+   "title_plat": "La Cruz del Seis - EP",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 3937,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/camino-de-brujos/1654259056?uo=4",
+   "id": 1654259056,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Camino De Brujos",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 1820,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9094087",
+   "id": 9094087,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Cura",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 1632,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9109707",
+   "id": 9109707,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Mal del Bien",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 731,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/9109713",
+   "id": 9109713,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rezando al Miedo",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 1380,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/52998872",
+   "id": 52998872,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Secta",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 3936,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/108962232",
+   "id": 108962232,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Cruz del Seis",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 3937,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/376717197",
+   "id": 376717197,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Camino De Brujos",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Cultura Tres",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 6
+}

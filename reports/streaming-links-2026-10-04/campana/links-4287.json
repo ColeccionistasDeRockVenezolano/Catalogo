@@ -1,0 +1,205 @@
+{
+ "artistId": 4287,
+ "name": "Ángel Custodio Loyola",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1337280",
+   "id": 1337280,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Angel Custodio Loyola"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14687,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/corr%C3%ADo-apure%C3%B1o/6769525614?uo=4",
+   "id": 6769525614,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Corrío Apureño",
+   "year_plat": 1961
+  },
+  {
+   "albumId": 14686,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/traves%C3%ADas-de-mata-larga/6769528030?uo=4",
+   "id": 6769528030,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Travesías de Mata Larga",
+   "year_plat": 1962
+  },
+  {
+   "albumId": 14683,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/lamento-del-canoero/6769529366?uo=4",
+   "id": 6769529366,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Lamento Del Canoero",
+   "year_plat": 1971
+  },
+  {
+   "albumId": 14689,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/con-los-torrealberos/6769527771?uo=4",
+   "id": 6769527771,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Con los Torrealberos",
+   "year_plat": 1950
+  },
+  {
+   "albumId": 14688,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/buenos-aires-llaneros/6771087950?uo=4",
+   "id": 6771087950,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Buenos Aires Llaneros",
+   "year_plat": 1960
+  },
+  {
+   "albumId": 14684,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-tigre-de-masaguarito/6771088990?uo=4",
+   "id": 6771088990,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Tigre De Masaguarito",
+   "year_plat": 1970
+  },
+  {
+   "albumId": 14687,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/983034571",
+   "id": 983034571,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Corrío Apureño",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14686,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/982973511",
+   "id": 982973511,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Travesías de Mata Larga",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14685,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1026197942",
+   "id": 1026197942,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Tigre Del '67",
+   "year_plat": 1967
+  },
+  {
+   "albumId": 14680,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/933615681",
+   "id": 933615681,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Disco De Oro De Ángel C. Loyola",
+   "year_plat": 1976
+  },
+  {
+   "albumId": 14682,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/983024261",
+   "id": 983024261,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "¿Qué Te Pasa Venezuela?",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14683,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/983036711",
+   "id": 983036711,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Lamento Del Canoero",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14689,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/983035531",
+   "id": 983035531,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Con los Torrealberos",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14688,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/987047891",
+   "id": 987047891,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Buenos Aires Llaneros",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14681,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/982973571",
+   "id": 982973571,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Paisaje Contramarcado",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 14684,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/987051401",
+   "id": 987051401,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Tigre De Masaguarito",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Ángel Custodio Loyola",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 11,
+ "albumes_con_link": 10
+}

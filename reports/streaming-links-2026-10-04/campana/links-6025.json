@@ -1,0 +1,46 @@
+{
+ "artistId": 6025,
+ "name": "Jorge Sánchez-Chiong",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1666463",
+   "id": 1666463,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jorge Sanchez-chiong"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/6AfHRDJFi2qLUCqR0Ipqa7",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jorge Sánchez-Chiong"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/jsx",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jorge Sánchez-Chiong"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Jorge Sánchez-Chiong",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

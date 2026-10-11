@@ -1,0 +1,40 @@
+{
+ "artistId": 598,
+ "name": "Basilisk",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/3813521",
+   "id": 3813521,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Basilisk"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1074,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/175036492",
+   "id": 175036492,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "The Great Revolt",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Basilisk",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

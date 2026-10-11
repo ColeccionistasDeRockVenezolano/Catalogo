@@ -1,0 +1,64 @@
+{
+ "artistId": 6090,
+ "name": "Pappa Bear",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4737252",
+   "id": 4737252,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Pappa Bear"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3G2PFP05KsFgy3ESq84RpL",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Pappa Bear"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/officialpappabear",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Pappa Bear"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/8882265",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Pappa Bear"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCGJTJ4BSBIdl6c7fjc1eT6w",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Pappa Bear"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Pappa Bear",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

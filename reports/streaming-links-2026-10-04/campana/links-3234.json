@@ -1,0 +1,69 @@
+{
+ "artistId": 3234,
+ "name": "Gran Celaje",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/76682012",
+   "id": 76682012,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Gran Celaje"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5hheMjdevy0JewtqiXhgx3",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gran Celaje"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@GranCelaje",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Gran Celaje"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5521,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/115599082",
+   "id": 115599082,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Arde",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 5522,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/166444072",
+   "id": 166444072,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Espiral",
+   "year_plat": 2020
+  }
+ ],
+ "mb_name": "Gran Celaje",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

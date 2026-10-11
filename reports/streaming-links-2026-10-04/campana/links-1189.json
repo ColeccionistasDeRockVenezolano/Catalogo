@@ -1,0 +1,28 @@
+{
+ "artistId": 1189,
+ "name": "Voodoo Dolls",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1578161",
+   "id": 1578161,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Voodoo Dolls"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Voodoo Dolls",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

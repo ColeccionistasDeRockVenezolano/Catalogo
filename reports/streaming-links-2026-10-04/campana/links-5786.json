@@ -1,0 +1,37 @@
+{
+ "artistId": 5786,
+ "name": "Perucho Conde",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9965934",
+   "id": 9965934,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Perucho Conde"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5ua5Jq0uxGJT2Dm07XjBrc",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Perucho Conde"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Perucho Conde",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

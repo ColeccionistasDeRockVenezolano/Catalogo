@@ -1,0 +1,51 @@
+{
+ "artistId": 3539,
+ "name": "Marisela Leal",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1228190",
+   "id": 1228190,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Marisela Leal"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6368,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/setoconao/1556258481?uo=4",
+   "id": 1556258481,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Setoconao",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 6368,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/211491312",
+   "id": 211491312,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Setoconao",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

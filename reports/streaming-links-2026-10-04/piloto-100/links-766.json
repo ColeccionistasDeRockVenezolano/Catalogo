@@ -1,0 +1,27 @@
+{
+ "artistId": 766,
+ "name": "Broken Void",
+ "artist_links": [
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/27gYk6MUAKEEeFDXWEuzGW",
+   "id": "27gYk6MUAKEEeFDXWEuzGW",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Broken Void"
+  }
+ ],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,46 @@
+{
+ "artistId": 3122,
+ "name": "Dagga",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/112069852",
+   "id": 112069852,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Dagga"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/bydagga/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dagga"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/daggatrx",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Dagga"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Dagga",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,105 @@
+{
+ "artistId": 6070,
+ "name": "Uzur",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://uzur.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Uzur"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3KQzjT9As8pkISeBzgbzAN",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Uzur"
+  },
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/296276",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Uzur"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/co/artist/1602872540",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Uzur"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/uzurmusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Uzur"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCpkm_D3YbnLbNw69OhC9-sA",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Uzur"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/IsTheRealMurder",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/UzurOfficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/istherealmurder/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  },
+  {
+   "platform": "tiktok",
+   "url": "https://www.tiktok.com/@istherealmurderer",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Uzur",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

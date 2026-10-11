@@ -1,0 +1,94 @@
+{
+ "artistId": 943,
+ "name": "Praise No One",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/149228532",
+   "id": 149228532,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Praise No One"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/1veCohvHq6TvezvfH6dscP",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Praise No One"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/PraiseNoOne",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Praise No One"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/praisenoone",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Praise No One"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/praisenoone/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Praise No One"
+  },
+  {
+   "platform": "soundcloud",
+   "url": "https://soundcloud.com/praisenoone",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Praise No One"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/@PraiseNoOne",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Praise No One"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1759,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/830087971",
+   "id": 830087971,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Second to Fucking None",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Praise No One",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

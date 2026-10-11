@@ -1,0 +1,483 @@
+{
+ "artistId": 4291,
+ "name": "Jorge Guerrero",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5404272",
+   "id": 5404272,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Jorge Guerrero"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3LzBrsUL9GilMqdTaKaKL7",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jorge Guerrero"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/elguerrerojorge",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jorge Guerrero"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/elguerrerojorge",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jorge Guerrero"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/elguerrerojorge/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Jorge Guerrero"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 14763,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/viejo-laurel-sabanero/1786627696?uo=4",
+   "id": 1786627696,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Viejo Laurel Sabanero",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 14753,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/a%C3%B1oranzas/1786625010?uo=4",
+   "id": 1786625010,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Añoranzas",
+   "year_plat": 1994
+  },
+  {
+   "albumId": 14762,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-nuevo-grito-guerrero/1786626592?uo=4",
+   "id": 1786626592,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Nuevo Grito Guerrero",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 14761,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/el-caballo-del-guerrero/1786656352?uo=4",
+   "id": 1786656352,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "El Caballo del Guerrero",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 14760,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/remembranzas-del-guerrero/1789145660?uo=4",
+   "id": 1789145660,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Remembranzas del Guerrero",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 14759,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-nuevo-en-el-arpa/1789874933?uo=4",
+   "id": 1789874933,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Nuevo en el Arpa",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 14758,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aqu%C3%AD-hay-guerrero-pa-rato/1789875033?uo=4",
+   "id": 1789875033,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aquí hay Guerrero pa' rato",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 14757,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/con-sentimiento-guerrero/1789874851?uo=4",
+   "id": 1789874851,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Con Sentimiento Guerrero",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 14756,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-%C3%BAltima-foto/1790233979?uo=4",
+   "id": 1790233979,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Última Foto",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 14755,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/los-hachazos-del-guerrero/1792294219?uo=4",
+   "id": 1792294219,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Los Hachazos del Guerrero",
+   "year_plat": 2015
+  },
+  {
+   "albumId": 14754,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/entreveradas-del-guerrero/1792223108?uo=4",
+   "id": 1792223108,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Entreveradas del Guerrero",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14764,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mi-propio-grito-guerrero-a-cielo-abierto-ep/1792525070?uo=4",
+   "id": 1792525070,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.964,
+   "title_plat": "Mi Propio Grito Guerrero (A Cielo Abierto) - EP",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14765,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cielo-azul-palma-y-camino-ep/1819602304?uo=4",
+   "id": 1819602304,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.943,
+   "title_plat": "Cielo Azul, Palma y Camino - EP",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14763,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/686633701",
+   "id": 686633701,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Viejo Laurel Sabanero",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 14753,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/686622801",
+   "id": 686622801,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Añoranzas",
+   "year_plat": 2020
+  },
+  {
+   "albumId": 14762,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/686619551",
+   "id": 686619551,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Nuevo Grito Guerrero",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 14761,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/686695201",
+   "id": 686695201,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Caballo del Guerrero",
+   "year_plat": 1999
+  },
+  {
+   "albumId": 14760,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/694159941",
+   "id": 694159941,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Remembranzas del Guerrero",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 14759,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/695934141",
+   "id": 695934141,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Nuevo en el Arpa",
+   "year_plat": 2002
+  },
+  {
+   "albumId": 14758,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/695933991",
+   "id": 695933991,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aquí hay Guerrero pa' rato",
+   "year_plat": 2004
+  },
+  {
+   "albumId": 14757,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/695934111",
+   "id": 695934111,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Con Sentimiento Guerrero",
+   "year_plat": 2007
+  },
+  {
+   "albumId": 14756,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/696878791",
+   "id": 696878791,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Última Foto",
+   "year_plat": 2011
+  },
+  {
+   "albumId": 14773,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702989141",
+   "id": 702989141,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aguacero del Recuerdo",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14755,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702360721",
+   "id": 702360721,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Los Hachazos del Guerrero",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14754,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702150271",
+   "id": 702150271,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Entreveradas del Guerrero",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14775,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702990171",
+   "id": 702990171,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "A Otro Nivel",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14764,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702990631",
+   "id": 702990631,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Propio Grito Guerrero (A Cielo Abierto)",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14765,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/770000101",
+   "id": 770000101,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cielo Azul, Palma y Camino",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14767,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/819513341",
+   "id": 819513341,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dios te Guarde",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14768,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/760026901",
+   "id": 760026901,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cometa Errante",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14769,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702144501",
+   "id": 702144501,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Arbolito Sombrío",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14770,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702360861",
+   "id": 702360861,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Testamento",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14771,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702360901",
+   "id": 702360901,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Pañuelito de Petra",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14772,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702988931",
+   "id": 702988931,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Palabrerio del Guerrero",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14774,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702989441",
+   "id": 702989441,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Novilla Reventadora",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14776,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702994591",
+   "id": 702994591,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Enguayabao y pal Pueblo",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14777,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/702994661",
+   "id": 702994661,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Los Días Amargos",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 14766,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/930888171",
+   "id": 930888171,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mi Llano, Tú y Yo",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": "Jorge Guerrero",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 25,
+ "albumes_con_link": 25
+}

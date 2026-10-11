@@ -1,0 +1,28 @@
+{
+ "artistId": 141,
+ "name": "Laberinto",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/85383682",
+   "id": 85383682,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Laberinto"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Laberinto",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 12,
+ "albumes_con_link": 0
+}

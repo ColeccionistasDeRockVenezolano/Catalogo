@@ -1,0 +1,73 @@
+{
+ "artistId": 59,
+ "name": "Cebollas Ardientes",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1239837",
+   "id": 1239837,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Cebollas Ardientes"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 145,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cebollas-ardientes/1106614143?uo=4",
+   "id": 1106614143,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cebollas Ardientes",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 2107,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/enceb%C3%B3llame-este/1828024462?uo=4",
+   "id": 1828024462,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Encebóllame Este",
+   "year_plat": 2000
+  },
+  {
+   "albumId": 145,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12925618",
+   "id": 12925618,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cebollas Ardientes",
+   "year_plat": 1997
+  },
+  {
+   "albumId": 2107,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/791831481",
+   "id": 791831481,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Encebóllame Este",
+   "year_plat": 2000
+  }
+ ],
+ "mb_name": "Cebollas Ardientes",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 2
+}

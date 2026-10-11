@@ -1,0 +1,51 @@
+{
+ "artistId": 3901,
+ "name": "Quinteto BarquisiMetal",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/112790242",
+   "id": 112790242,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Quinteto Barquisimetal"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 9511,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/joropo/1592728650?uo=4",
+   "id": 1592728650,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Joropo",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 9511,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/269969422",
+   "id": 269969422,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Joropo",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,51 @@
+{
+ "artistId": 1116,
+ "name": "Panasuyo",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5278673",
+   "id": 5278673,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Panasuyo"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2057,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/monte-y-culebra/1473310362?uo=4",
+   "id": 1473310362,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Monte y Culebra",
+   "year_plat": 2019
+  },
+  {
+   "albumId": 2057,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/104040772",
+   "id": 104040772,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Monte y Culebra",
+   "year_plat": 2019
+  }
+ ],
+ "mb_name": "Panasuyo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

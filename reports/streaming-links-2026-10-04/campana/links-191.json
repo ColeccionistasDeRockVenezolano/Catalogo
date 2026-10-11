@@ -1,0 +1,117 @@
+{
+ "artistId": 191,
+ "name": "Palmeras Kanibales",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/348496",
+   "id": 348496,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Palmeras Kanibales"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2172,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/13-super-ka%C3%B1onazos-bailables-vol-3/1127219971?uo=4",
+   "id": 1127219971,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.986,
+   "title_plat": "13 Super Kañonazos Bailables, Vol. 3",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 296,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/13-super-ka%C3%B1onazos-bailables-vol-3/1127219971?uo=4",
+   "id": 1127219971,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.903,
+   "title_plat": "13 Super Kañonazos Bailables, Vol. 3",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 298,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/siempre-comemos-con-hambre/1127220942?uo=4",
+   "id": 1127220942,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Siempre Comemos Con Hambre",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 297,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-ruta/1121798353?uo=4",
+   "id": 1121798353,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Ruta",
+   "year_plat": 2006
+  },
+  {
+   "albumId": 2172,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13418689",
+   "id": 13418689,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.986,
+   "title_plat": "13 Super Kañonazos Bailables, Vol. 3",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 296,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13418689",
+   "id": 13418689,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.903,
+   "title_plat": "13 Super Kañonazos Bailables, Vol. 3",
+   "year_plat": 1998
+  },
+  {
+   "albumId": 298,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13418809",
+   "id": 13418809,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Siempre Comemos Con Hambre",
+   "year_plat": 2001
+  },
+  {
+   "albumId": 297,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13296703",
+   "id": 13296703,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "La Ruta",
+   "year_plat": 2006
+  }
+ ],
+ "mb_name": "Palmeras Kanibales",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 7,
+ "albumes_con_link": 4
+}

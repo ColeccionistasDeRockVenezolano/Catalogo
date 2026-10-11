@@ -1,0 +1,30 @@
+{
+ "artistId": 3643,
+ "name": "Michael Simon & Roots United",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 6529,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/revelacion/81995486?uo=4",
+   "id": 81995486,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Revelacion",
+   "year_plat": 2004
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

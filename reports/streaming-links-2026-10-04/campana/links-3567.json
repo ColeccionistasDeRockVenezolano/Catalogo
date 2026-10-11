@@ -1,0 +1,58 @@
+{
+ "artistId": 3567,
+ "name": "Raúl Pérez",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4818972",
+   "id": 4818972,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Raul Perez"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://raulperezmusica.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Raúl Pérez"
+  },
+  {
+   "platform": "instagram",
+   "url": "https://www.instagram.com/raulperezmusica/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Raúl Pérez"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 6453,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/487267585",
+   "id": 487267585,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Contraluz",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": "Raúl Pérez",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

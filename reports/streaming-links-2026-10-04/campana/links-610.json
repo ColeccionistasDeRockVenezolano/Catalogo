@@ -1,0 +1,51 @@
+{
+ "artistId": 610,
+ "name": "Metempsicosis",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9977186",
+   "id": 9977186,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Metempsicosis"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1831,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/alpha/1087056602?uo=4",
+   "id": 1087056602,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Alpha",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 1831,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12572280",
+   "id": 12572280,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Alpha",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Metempsicosis",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 5,
+ "albumes_con_link": 1
+}

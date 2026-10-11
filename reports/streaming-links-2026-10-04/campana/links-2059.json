@@ -1,0 +1,78 @@
+{
+ "artistId": 2059,
+ "name": "Desinformados",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/12240152",
+   "id": 12240152,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Desinformados"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://desinformados.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Desinformados"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/desinformados_",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Desinformados"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/DesinformadosMusic",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Desinformados"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 15479,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/15835450",
+   "id": 15835450,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Playa Nudista",
+   "year_plat": 2017
+  },
+  {
+   "albumId": 15480,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/15835392",
+   "id": 15835392,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Lago Sobre El Puente",
+   "year_plat": 2015
+  }
+ ],
+ "mb_name": "Desinformados",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

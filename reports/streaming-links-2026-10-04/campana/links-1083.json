@@ -1,0 +1,51 @@
+{
+ "artistId": 1083,
+ "name": "Autopista Sur",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4980252",
+   "id": 4980252,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Autopista Sur"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2184,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/caracas-se-quema/1512819263?uo=4",
+   "id": 1512819263,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Caracas Se Quema",
+   "year_plat": 2008
+  },
+  {
+   "albumId": 2184,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/147929512",
+   "id": 147929512,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Caracas Se Quema",
+   "year_plat": 2008
+  }
+ ],
+ "mb_name": "Autopista Sur",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

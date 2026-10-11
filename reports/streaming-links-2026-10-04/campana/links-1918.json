@@ -1,0 +1,62 @@
+{
+ "artistId": 1918,
+ "name": "Dogma Infinito",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/125932162",
+   "id": 125932162,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Dogma Infinito"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3987,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/mensaje/1557398304?uo=4",
+   "id": 1557398304,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Mensaje",
+   "year_plat": 2010
+  },
+  {
+   "albumId": 3986,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/la-ausencia-en-el-camino/1601280014?uo=4",
+   "id": 1601280014,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "La Ausencia en el Camino",
+   "year_plat": 2022
+  },
+  {
+   "albumId": 3987,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/213329082",
+   "id": 213329082,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Mensaje",
+   "year_plat": 2010
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

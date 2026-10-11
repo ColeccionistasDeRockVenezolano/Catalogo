@@ -1,0 +1,30 @@
+{
+ "artistId": 588,
+ "name": "Rudras",
+ "artist_links": [],
+ "album_links": [
+  {
+   "albumId": 1062,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/zen/1511260459?uo=4",
+   "id": 1511260459,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Zen",
+   "year_plat": 2014
+  }
+ ],
+ "mb_name": "Rudras",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,93 @@
+{
+ "artistId": 248,
+ "name": "Todosantos",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5550338",
+   "id": 5550338,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Todosantos"
+  },
+  {
+   "platform": "bandcamp",
+   "url": "https://todosantos.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Todosantos"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 353,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/aeropuerto/1451648883?uo=4",
+   "id": 1451648883,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Aeropuerto",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 5595,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/antes-era-mejor-ep/1812345134?uo=4",
+   "id": 1812345134,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.909,
+   "title_plat": "Antes Era Mejor - EP",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 353,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/86296492",
+   "id": 86296492,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Aeropuerto",
+   "year_plat": 2005
+  },
+  {
+   "albumId": 15600,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/753401701",
+   "id": 753401701,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Hoy Me Faltas Tu",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 5595,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/751820151",
+   "id": 751820151,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Antes Era Mejor",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Todosantos",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 3
+}

@@ -1,0 +1,37 @@
+{
+ "artistId": 303,
+ "name": "Triciclo",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://triciclobanda.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Triciclo"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/triciclo.banda",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Triciclo"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Triciclo",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

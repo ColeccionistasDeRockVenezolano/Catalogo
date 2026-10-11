@@ -1,0 +1,73 @@
+{
+ "artistId": 3241,
+ "name": "Heylel",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/6918919",
+   "id": 6918919,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Heylel"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/7Em97iGeNtsSP8jHZx3kEH",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Heylel"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/artist/777027887",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Heylel"
+  },
+  {
+   "platform": "twitter",
+   "url": "https://twitter.com/HeylelBand",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Heylel"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/heylel.band",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Heylel"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/user/heylelband",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Heylel"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Heylel",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

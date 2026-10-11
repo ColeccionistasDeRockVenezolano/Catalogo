@@ -1,0 +1,67 @@
+{
+ "artistId": 267,
+ "name": "iX",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/318238",
+   "id": 318238,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "iX"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5DaExdctmhPq007t94PLCQ",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "IX"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/au/artist/1256207647",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "IX"
+  },
+  {
+   "platform": "tidal",
+   "url": "https://tidal.com/artist/6158534",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "IX"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 417,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/435306",
+   "id": 435306,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ora Pro Nobis",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": "IX",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

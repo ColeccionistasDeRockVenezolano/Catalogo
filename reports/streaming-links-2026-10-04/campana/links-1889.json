@@ -1,0 +1,167 @@
+{
+ "artistId": 1889,
+ "name": "Carlos Mata",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/4596553",
+   "id": 4596553,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Carlos Mata"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/Carlos-Mata-Oficial-115650618516587",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Carlos Mata"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/33cH4iz0KsL1AoAVCdaap2",
+   "id": "33cH4iz0KsL1AoAVCdaap2",
+   "method": "exact",
+   "source": "wikidata-Q5750930",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3492,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/porque-te-quiero/1121386130?uo=4",
+   "id": 1121386130,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "...Porque Te Quiero",
+   "year_plat": 1985
+  },
+  {
+   "albumId": 3493,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/otra-vez/1122323967?uo=4",
+   "id": 1122323967,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Otra Vez",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 3857,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/enamorado-de-ti/1106057716?uo=4",
+   "id": 1106057716,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Enamorado de Ti",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 3859,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cautivo/1130493318?uo=4",
+   "id": 1130493318,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cautivo",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 3495,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/de-colecci%C3%B3n/1102559378?uo=4",
+   "id": 1102559378,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "De Colección",
+   "year_plat": 1993
+  },
+  {
+   "albumId": 3492,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13288917",
+   "id": 13288917,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "...Porque Te Quiero",
+   "year_plat": 1985
+  },
+  {
+   "albumId": 3493,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13306331",
+   "id": 13306331,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Otra Vez",
+   "year_plat": 1986
+  },
+  {
+   "albumId": 3857,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12915026",
+   "id": 12915026,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Enamorado de Ti",
+   "year_plat": 1988
+  },
+  {
+   "albumId": 3859,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13490773",
+   "id": 13490773,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cautivo",
+   "year_plat": 1990
+  },
+  {
+   "albumId": 3860,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/84431622",
+   "id": 84431622,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Miráme a los Ojos",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 3495,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/12850112",
+   "id": 12850112,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "De Coleccion",
+   "year_plat": 1995
+  }
+ ],
+ "mb_name": "Carlos Mata",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 10,
+ "albumes_con_link": 6
+}

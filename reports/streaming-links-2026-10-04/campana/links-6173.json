@@ -1,0 +1,18 @@
+{
+ "artistId": 6173,
+ "name": "Sir Di Alex",
+ "artist_links": [],
+ "album_links": [],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: HTTP Error 429: Too Many Requests"
+ ],
+ "albumes_catalogo": 0,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,40 @@
+{
+ "artistId": 458,
+ "name": "Agente Extraño",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/104932712",
+   "id": 104932712,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Agente Extraño"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 895,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/768593901",
+   "id": 768593901,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "El Tridente Combativo",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 1
+}

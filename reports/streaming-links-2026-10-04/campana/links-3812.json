@@ -1,0 +1,28 @@
+{
+ "artistId": 3812,
+ "name": "Convenezuela",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/94710",
+   "id": 94710,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Convenezuela"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Convenezuela",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 0
+}

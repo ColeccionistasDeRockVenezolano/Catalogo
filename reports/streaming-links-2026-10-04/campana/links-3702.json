@@ -1,0 +1,73 @@
+{
+ "artistId": 3702,
+ "name": "Fernando Alarcón",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1224046",
+   "id": 1224046,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Fernando Alarcon"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 7072,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/amor-de-estrellas/434334531?uo=4",
+   "id": 434334531,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Amor de Estrellas",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 7073,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/once-de-octubre/433734295?uo=4",
+   "id": 433734295,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Once de Octubre",
+   "year_plat": 2009
+  },
+  {
+   "albumId": 7072,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7021725",
+   "id": 7021725,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Amor de Estrellas",
+   "year_plat": 2003
+  },
+  {
+   "albumId": 7073,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/966025",
+   "id": 966025,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Once De Octubre",
+   "year_plat": 2009
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

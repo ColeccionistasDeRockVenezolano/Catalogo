@@ -1,0 +1,37 @@
+{
+ "artistId": 145,
+ "name": "Le Merm",
+ "artist_links": [
+  {
+   "platform": "bandcamp",
+   "url": "https://lemerm.bandcamp.com/",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 238,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/deep-chill-sessions/1242796777?uo=4",
+   "id": 1242796777,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0
+  }
+ ],
+ "mb_name": "Le Merm",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,64 @@
+{
+ "artistId": 401,
+ "name": "Zeus",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/83966752",
+   "id": 83966752,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Zeus"
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/3nVSvjNTDZJY9VTJ9Rd5UR",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeus"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/zeuspierwszymilion",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeus"
+  },
+  {
+   "platform": "apple_music",
+   "url": "https://music.apple.com/gb/artist/1683785376",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeus"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCJUCn9ybIIstCEPxWt26gBw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Zeus"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Zeus",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 1,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,73 @@
+{
+ "artistId": 11,
+ "name": "Ravenous Feast",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/5722818",
+   "id": 5722818,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Ravenous Feast"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 37,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/listen-to-me/683854367?uo=4",
+   "id": 683854367,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Listen to Me",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 38,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/song-of-heroes/1684090006?uo=4",
+   "id": 1684090006,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "SONG OF HEROES",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 37,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/7646442",
+   "id": 7646442,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Listen to Me",
+   "year_plat": 2013
+  },
+  {
+   "albumId": 38,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/433223297",
+   "id": 433223297,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "SONG OF HEROES",
+   "year_plat": 2023
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

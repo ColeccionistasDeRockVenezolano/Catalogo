@@ -1,0 +1,51 @@
+{
+ "artistId": 971,
+ "name": "Sexto Sonar",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1292178",
+   "id": 1292178,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sexto Sonar"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 1837,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/enfrentando-la-realidad/1584904115?uo=4",
+   "id": 1584904115,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Enfrentando La Realidad",
+   "year_plat": 2021
+  },
+  {
+   "albumId": 1837,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/257252582",
+   "id": 257252582,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Enfrentando la realidad",
+   "year_plat": 2021
+  }
+ ],
+ "mb_name": "Sexto Sonar",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 1
+}

@@ -1,0 +1,37 @@
+{
+ "artistId": 781,
+ "name": "Sacro",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/15358259",
+   "id": 15358259,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Sacro"
+  },
+  {
+   "platform": "youtube",
+   "url": "https://www.youtube.com/channel/UCgFM7dCfNeH9Kk9oRfdVyfw",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Sacro"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Sacro",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,73 @@
+{
+ "artistId": 3206,
+ "name": "Quam Furor",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/398819161",
+   "id": 398819161,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Quam Furor"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 5483,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/%C3%BAltimo-aliento-ep/6785999798?uo=4",
+   "id": 6785999798,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.903,
+   "title_plat": "Último Aliento - EP",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 5485,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1014852271",
+   "id": 1014852271,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Horizonte",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 5483,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1018065791",
+   "id": 1018065791,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ultimo Aliento",
+   "year_plat": 2026
+  },
+  {
+   "albumId": 5484,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/1013120071",
+   "id": 1013120071,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Romance",
+   "year_plat": 2026
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 3,
+ "albumes_con_link": 3
+}

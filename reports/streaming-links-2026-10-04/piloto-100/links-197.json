@@ -1,0 +1,35 @@
+{
+ "artistId": 197,
+ "name": "Pixel",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/115992",
+   "id": 115992,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0
+  },
+  {
+   "platform": "spotify",
+   "url": "https://open.spotify.com/artist/5X2b2FKXLJebqS7nzZytS4",
+   "id": "5X2b2FKXLJebqS7nzZytS4",
+   "method": "exact",
+   "source": "spotify-search",
+   "score": 1.0,
+   "name_plat": "Pixel"
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Pixel",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata",
+  "spotify"
+ ],
+ "fuentes_error": [],
+ "albumes_catalogo": 9,
+ "albumes_con_link": 0
+}

@@ -1,0 +1,27 @@
+{
+ "artistId": 571,
+ "name": "Incendiario",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/85294542",
+   "id": 85294542,
+   "method": "fuzzy",
+   "source": "deezer-search",
+   "score": 0.957
+  }
+ ],
+ "album_links": [],
+ "mb_name": "Incendiario",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 0
+}

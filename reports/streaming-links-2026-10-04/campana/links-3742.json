@@ -1,0 +1,150 @@
+{
+ "artistId": 3742,
+ "name": "Punto Sur",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/1220606",
+   "id": 1220606,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Punto Sur"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 7723,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/juguete-caro/1474277692?uo=4",
+   "id": 1474277692,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Juguete Caro",
+   "year_plat": 1977
+  },
+  {
+   "albumId": 7730,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/otra-vez/1455510420?uo=4",
+   "id": 1455510420,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Otra Vez",
+   "year_plat": 1992
+  },
+  {
+   "albumId": 7722,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/544175012",
+   "id": 544175012,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Temeridad",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 7723,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/105057822",
+   "id": 105057822,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Juguete Caro",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7724,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/549072512",
+   "id": 549072512,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ayudame A Escribir Esta Cancion",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 7725,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/564772402",
+   "id": 564772402,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Muy Romántico",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 8388,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/578765881",
+   "id": 578765881,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Y Punto",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 7728,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/632504361",
+   "id": 632504361,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Noche De Gala...Con Amor",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 7729,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/681694771",
+   "id": 681694771,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Dejate Querer",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 7730,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/89675232",
+   "id": 89675232,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Otra Vez",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 7731,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/41656571",
+   "id": 41656571,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Rumores Hay en la Calle",
+   "year_plat": 2017
+  }
+ ],
+ "mb_name": "Punto Sur",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 13,
+ "albumes_con_link": 9
+}

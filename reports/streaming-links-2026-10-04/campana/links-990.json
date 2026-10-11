@@ -1,0 +1,60 @@
+{
+ "artistId": 990,
+ "name": "Wolfang",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/9550726",
+   "id": 9550726,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "WolFang"
+  },
+  {
+   "platform": "facebook",
+   "url": "https://www.facebook.com/WolfanG.Oficial",
+   "id": null,
+   "method": "exact",
+   "source": "musicbrainz-url-rels",
+   "score": 1.0,
+   "name_plat": "Wolfang"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 3149,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13155772",
+   "id": 13155772,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Angel o Demonio",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 1898,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/13155816",
+   "id": 13155816,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Vida o Muerte",
+   "year_plat": 2016
+  }
+ ],
+ "mb_name": "Wolfang",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}

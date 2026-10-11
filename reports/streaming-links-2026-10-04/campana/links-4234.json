@@ -1,0 +1,84 @@
+{
+ "artistId": 4234,
+ "name": "José Coraspe",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/213248167",
+   "id": 213248167,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "José Coraspe"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 10178,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/ostinato/1687269399?uo=4",
+   "id": 1687269399,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Ostinato",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 10178,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/439829647",
+   "id": 439829647,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Ostinato",
+   "year_plat": 2023
+  },
+  {
+   "albumId": 10179,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/616982651",
+   "id": 616982651,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Alba (Slowed Down Version)",
+   "year_plat": 2024
+  },
+  {
+   "albumId": 10180,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/694867921",
+   "id": 694867921,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Entropy",
+   "year_plat": 2025
+  },
+  {
+   "albumId": 10181,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/722373971",
+   "id": 722373971,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "All fine",
+   "year_plat": 2025
+  }
+ ],
+ "mb_name": null,
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 4,
+ "albumes_con_link": 4
+}

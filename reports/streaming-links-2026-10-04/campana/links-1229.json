@@ -1,0 +1,73 @@
+{
+ "artistId": 1229,
+ "name": "Los Javelin",
+ "artist_links": [
+  {
+   "platform": "deezer",
+   "url": "https://www.deezer.com/artist/10924430",
+   "id": 10924430,
+   "method": "exact",
+   "source": "deezer-search",
+   "score": 1.0,
+   "name_plat": "Los Javelin"
+  }
+ ],
+ "album_links": [
+  {
+   "albumId": 2186,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/surf-a-billy-roll/1492581166?uo=4",
+   "id": 1492581166,
+   "method": "fuzzy",
+   "source": "itunes-albums",
+   "score": 0.938,
+   "title_plat": "Surf-A-Billy & Roll",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 4290,
+   "platform": "apple_music",
+   "url": "https://music.apple.com/us/album/cocktail-caracas/1321822738?uo=4",
+   "id": 1321822738,
+   "method": "exact",
+   "source": "itunes-albums",
+   "score": 1.0,
+   "title_plat": "Cocktail Caracas",
+   "year_plat": 2018
+  },
+  {
+   "albumId": 2186,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/124187112",
+   "id": 124187112,
+   "method": "fuzzy",
+   "source": "deezer-albums",
+   "score": 0.938,
+   "title_plat": "Surf-a-Billy & Roll",
+   "year_plat": 2016
+  },
+  {
+   "albumId": 4290,
+   "platform": "deezer",
+   "url": "https://www.deezer.com/album/53076332",
+   "id": 53076332,
+   "method": "exact",
+   "source": "deezer-albums",
+   "score": 1.0,
+   "title_plat": "Cocktail Caracas",
+   "year_plat": 2018
+  }
+ ],
+ "mb_name": "Los Javelin",
+ "fuentes_ok": [
+  "itunes",
+  "deezer",
+  "musicbrainz",
+  "wikidata"
+ ],
+ "fuentes_error": [
+  "spotify: omitido (--sin-spotify)"
+ ],
+ "albumes_catalogo": 2,
+ "albumes_con_link": 2
+}
