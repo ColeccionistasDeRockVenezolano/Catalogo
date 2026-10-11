@@ -428,3 +428,25 @@ pruebas del verificador).
 | **Total** | **216/243** | **221/243 (91 %)**, **0 errores graves** |
 
 Los informes de esta corrida están en `reports/person-web-verification-v12-2026-10-11/`.
+
+#### Hallazgos aplicados (2026-10-11)
+
+Brian aprobó aplicarlos todos, confirmando cada caso en la web; lo dudoso no se tocó. Un run por caso, todos
+deshacibles:
+
+| Run | Caso |
+|---|---|
+| 18989 | José Antonio Ramos (timplista canario) fuera de Ezlen Ramos (Hiena) |
+| 18990 | «Nacho» de Chino & Nacho fuera de Ignacio «Nacho» Pérez; la foto de Ricochet «Mafia Inc» se queda con Ignacio |
+| 18991 | Rubén «El Enano» Castro (Almas) fuera de Miguel Ángel «El Enano» González |
+| 18992 | Michael «El Enano» Beauford (Necroprogenie) fuera de Miguel Ángel «El Enano» González |
+| 18993 | Luis Quintero «Bostas Brain» (La Corte, PapaShanty) fuera de Luisito Quintero (percusionista) |
+| 18994 | Voces y raps de Huáscar Barradas, de Francisco Gonzalez (9280) a Pipo Ramírez (740) |
+| 18995 | Producción, mezcla y masterización de Los Beat3 «¡En Vivo!», de Nené Quintero (3617) a Carlos Kinttero (18560) |
+| 18996 | Créditos de Americania, de Italo Pizzolante (1260) a Ítalo Aquiles Pizzolante (nueva, 40393) |
+| 18998 | Fusiones: Juan V. Torrealba → Juan Vicente Torrealba; Pedro Junco → Pedro Junco Jr.; las dos «Bostas Brain» → Luis Quintero (plan `2026-10-11-verificacion-web-fusiones.json`) |
+
+Sin tocar, por falta de cita: la producción ejecutiva de Americania «Otra Tarde Más» (sigue en 1260), «El Enano» (4285;
+Naxxo y Caramelos, verosímilmente Miguel Ángel González) y la percusión de Sietecuero (sigue en Luisito Quintero).
+Los casos «mezclados» de los conjuntos frescos que usaban estas fichas (5900, 3343, 2704, 1701, 9280, 3617, 1260) ya
+no están mezclados: antes de volver a medir hay que actualizar sus verdades en el benchmark.

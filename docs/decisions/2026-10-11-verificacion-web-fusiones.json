@@ -1,0 +1,14 @@
+{
+  "decidedAt": "2026-10-11",
+  "evidence": "Hallazgos del verificador web de personas (docs/decisions/2026-10-06-verificacion-web-personas.md), confirmados en la web y aprobados por Brian el 2026-10-11.",
+  "corrections": [
+    { "op": "merge", "keep": { "id": 4456, "name": "Juan Vicente Torrealba" }, "drop": { "id": 21742, "name": "Juan V. Torrealba" }, "keepDropNameAsAlias": true,
+      "why": "«Juan V. Torrealba» firma como compositor los temas de Juan Vicente Torrealba («Concierto en la llanura», «Sinfonía del palmar», «Esteros de Camaguán») en sus propios discos: es el mismo." },
+    { "op": "merge", "keep": { "id": 20312, "name": "Pedro Junco Jr." }, "drop": { "id": 29174, "name": "Pedro Junco" }, "keepDropNameAsAlias": true,
+      "why": "El compositor cubano de «Nosotros» firma como Pedro Junco y como Pedro Junco Jr.: una sola persona." },
+    { "op": "merge", "keep": { "id": 15448, "name": "Luis Quintero" }, "drop": { "id": 37609, "name": "Bostas Brain" }, "keepDropNameAsAlias": true,
+      "why": "Luis Quintero, alias Bostas Brain (arepavolatil.com); proyecto común: Mata Rica «Pachanga Punk» (1999)." },
+    { "op": "merge", "keep": { "id": 15448, "name": "Luis Quintero" }, "drop": { "id": 15467, "name": "Bostas Brain" }, "keepDropNameAsAlias": true,
+      "why": "Luis Quintero, alias Bostas Brain, fundador de PapaShanty Saund System (arepavolatil.com); proyecto común: PapaShanty." }
+  ]
+}
