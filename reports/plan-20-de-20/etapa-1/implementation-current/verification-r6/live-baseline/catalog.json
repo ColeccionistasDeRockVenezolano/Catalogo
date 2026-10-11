@@ -1,0 +1,324 @@
+{
+  "version": 1,
+  "capturedAt": "2026-10-11T00:12:41.982Z",
+  "corpus": {
+    "file": "docs/plan-20-de-20/stage1-cases.json",
+    "version": 1,
+    "artists": [
+      {
+        "requestedName": "Jeremías",
+        "id": "6912",
+        "name": "Jeremías"
+      },
+      {
+        "requestedName": "Apache",
+        "id": "1681",
+        "name": "Apache"
+      },
+      {
+        "requestedName": "La Banana Voladora",
+        "id": "1212",
+        "name": "La Banana Voladora"
+      },
+      {
+        "requestedName": "Caramelos De Cianuro",
+        "id": "58",
+        "name": "Caramelos De Cianuro"
+      }
+    ]
+  },
+  "consistency": "repeatable-read, read-only",
+  "hashAlgorithm": "md5 of the sorted multiset of complete JSONB row digests, computed by PostgreSQL",
+  "tables": [
+    {
+      "table": "public.album_credits",
+      "count": "68462",
+      "hash": "abff32f6484795824c34ac6f83a49584"
+    },
+    {
+      "table": "public.album_formats",
+      "count": "744",
+      "hash": "328a1de5e1658bf3d344550c5a7e0e36"
+    },
+    {
+      "table": "public.albums",
+      "count": "15607",
+      "hash": "c25551d8d4ce75a1436789ee7c3e45ad"
+    },
+    {
+      "table": "public.artist_members",
+      "count": "10043",
+      "hash": "1c9cce4589f44f93917b22762a694944"
+    },
+    {
+      "table": "public.artists",
+      "count": "4766",
+      "hash": "9521212eed0d7832afd9af52415568c1"
+    },
+    {
+      "table": "public.organizations",
+      "count": "2875",
+      "hash": "8606b5bca22e8cd4c2622a558e4ea530"
+    },
+    {
+      "table": "public.person_organizations",
+      "count": "0",
+      "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    {
+      "table": "public.persons",
+      "count": "32145",
+      "hash": "07e525794b311c56160f0ddfe9750c07"
+    },
+    {
+      "table": "public.social_links",
+      "count": "1171",
+      "hash": "3ecfc38330b42e59f59ff51b09e2505e"
+    },
+    {
+      "table": "public.streaming_links",
+      "count": "12357",
+      "hash": "b102c4118368ce3d1ced7c18e28df122"
+    },
+    {
+      "table": "public.track_credits",
+      "count": "67565",
+      "hash": "432be30a4a4935ea889c732f66106d3b"
+    },
+    {
+      "table": "public.tracks",
+      "count": "121199",
+      "hash": "efa89972f298ab4d3c72e9c9a6506cea"
+    }
+  ],
+  "migrations": [
+    {
+      "version": "0001_ingest_core",
+      "applied_at": "2026-09-08T03:05:06.654Z"
+    },
+    {
+      "version": "0002_media",
+      "applied_at": "2026-09-08T03:05:07.844Z"
+    },
+    {
+      "version": "0003_ingest_claims_identity",
+      "applied_at": "2026-09-08T03:05:11.229Z"
+    },
+    {
+      "version": "0004_review_kinds",
+      "applied_at": "2026-09-08T03:05:11.288Z"
+    },
+    {
+      "version": "0005_raw_pages_run",
+      "applied_at": "2026-09-08T03:34:11.251Z"
+    },
+    {
+      "version": "0006_youtube_pipeline",
+      "applied_at": "2026-09-08T12:01:28.544Z"
+    },
+    {
+      "version": "0007_entity_resolution_ai",
+      "applied_at": "2026-09-08T12:01:29.507Z"
+    },
+    {
+      "version": "0008_media_link_claims",
+      "applied_at": "2026-09-08T23:06:46.153Z"
+    },
+    {
+      "version": "0009_media_link_constraints",
+      "applied_at": "2026-09-08T23:17:43.642Z"
+    },
+    {
+      "version": "0010_review_decisions",
+      "applied_at": "2026-09-09T04:54:12.426Z"
+    },
+    {
+      "version": "0011_album_classifications",
+      "applied_at": "2026-09-13T05:30:24.195Z"
+    },
+    {
+      "version": "0012_ambiguity_resolutions",
+      "applied_at": "2026-09-14T18:28:15.598Z"
+    },
+    {
+      "version": "0013_fk_indexes",
+      "applied_at": "2026-09-15T04:58:23.583Z"
+    },
+    {
+      "version": "0014_entity_redirects",
+      "applied_at": "2026-09-16T13:13:18.722Z"
+    },
+    {
+      "version": "0015_review_kind_person_duplicate",
+      "applied_at": "2026-09-16T13:13:18.925Z"
+    },
+    {
+      "version": "0016_person_duplicate_pair_uk",
+      "applied_at": "2026-09-16T13:13:19.250Z"
+    },
+    {
+      "version": "0017_curation_findings",
+      "applied_at": "2026-09-16T18:50:12.530Z"
+    },
+    {
+      "version": "0018_curation_finding_fixes",
+      "applied_at": "2026-09-16T21:28:16.433Z"
+    },
+    {
+      "version": "0019_curation_scan_resolution",
+      "applied_at": "2026-09-17T00:22:38.161Z"
+    },
+    {
+      "version": "0020_curation_durable_decisions",
+      "applied_at": "2026-09-17T09:21:28.586Z"
+    },
+    {
+      "version": "0021_curation_fix_batches",
+      "applied_at": "2026-09-17T21:44:24.900Z"
+    },
+    {
+      "version": "0022_er_decisions_retention",
+      "applied_at": "2026-09-18T11:26:45.177Z"
+    },
+    {
+      "version": "0023_curation_incremental",
+      "applied_at": "2026-09-20T22:43:57.347Z"
+    },
+    {
+      "version": "0024_curation_autofix",
+      "applied_at": "2026-09-20T22:43:57.389Z"
+    },
+    {
+      "version": "0025_seed_upload_order_optional",
+      "applied_at": "2026-09-21T23:25:35.051Z"
+    },
+    {
+      "version": "0026_claims_identity_idx",
+      "applied_at": "2026-09-22T10:10:55.844Z"
+    },
+    {
+      "version": "0027_genre_taxonomy",
+      "applied_at": "2026-09-22T12:07:30.817Z"
+    },
+    {
+      "version": "0028_change_journal",
+      "applied_at": "2026-09-22T13:19:21.417Z"
+    },
+    {
+      "version": "0029_persons_venezuelan_tristate",
+      "applied_at": "2026-09-22T13:45:21.897Z"
+    },
+    {
+      "version": "0030_merge_traces",
+      "applied_at": "2026-09-23T19:36:01.746Z"
+    },
+    {
+      "version": "0031_genre_external_sources",
+      "applied_at": "2026-09-23T19:36:01.841Z"
+    },
+    {
+      "version": "0032_persons_deceased",
+      "applied_at": "2026-09-30T21:51:24.074Z"
+    },
+    {
+      "version": "0033_core_ma_fields",
+      "applied_at": "2026-10-01T11:11:57.785Z"
+    },
+    {
+      "version": "0034_text_rewrites",
+      "applied_at": "2026-10-01T15:35:11.068Z"
+    },
+    {
+      "version": "0035_artist_relations",
+      "applied_at": "2026-10-01T18:53:37.110Z"
+    },
+    {
+      "version": "0036_artist_genres_from_albums",
+      "applied_at": "2026-10-01T21:42:33.526Z"
+    },
+    {
+      "version": "0037_genre_subgenres",
+      "applied_at": "2026-10-03T01:04:07.384Z"
+    },
+    {
+      "version": "0038_image_candidates",
+      "applied_at": "2026-10-04T14:15:26.678Z"
+    },
+    {
+      "version": "0039_streaming_links",
+      "applied_at": "2026-10-05T01:12:25.899Z"
+    },
+    {
+      "version": "0040_social_links",
+      "applied_at": "2026-10-05T17:06:20.842Z"
+    },
+    {
+      "version": "0041_person_web_verification",
+      "applied_at": "2026-10-06T14:50:35.985Z"
+    },
+    {
+      "version": "0042_person_web_mixed",
+      "applied_at": "2026-10-06T14:57:58.601Z"
+    },
+    {
+      "version": "0043_person_pair_research",
+      "applied_at": "2026-10-06T23:02:13.755Z"
+    },
+    {
+      "version": "0044_person_comparison",
+      "applied_at": "2026-10-07T19:26:35.596Z"
+    },
+    {
+      "version": "0045_entity_verification",
+      "applied_at": "2026-10-07T20:02:47.785Z"
+    },
+    {
+      "version": "0046_entity_comparison",
+      "applied_at": "2026-10-07T21:00:21.725Z"
+    },
+    {
+      "version": "0047_verification_progress",
+      "applied_at": "2026-10-08T01:03:50.557Z"
+    },
+    {
+      "version": "0048_verification_research_state",
+      "applied_at": "2026-10-08T01:56:35.976Z"
+    },
+    {
+      "version": "0049_ai_curation_plans",
+      "applied_at": "2026-10-08T13:21:03.524Z"
+    },
+    {
+      "version": "0050_ai_curation_decisions",
+      "applied_at": "2026-10-10T04:10:37.167Z"
+    },
+    {
+      "version": "0051_person_artist_resolution",
+      "applied_at": "2026-10-10T04:10:37.215Z"
+    },
+    {
+      "version": "0052_discovery",
+      "applied_at": "2026-10-10T10:50:30.895Z"
+    },
+    {
+      "version": "0053_discovery_metrics",
+      "applied_at": "2026-10-10T16:47:45.716Z"
+    },
+    {
+      "version": "0054_track_contexts",
+      "applied_at": "2026-10-10T16:47:45.924Z"
+    },
+    {
+      "version": "0055_integrity_fk_indexes",
+      "applied_at": "2026-10-10T16:47:46.066Z"
+    },
+    {
+      "version": "0056_discovery_recommendations",
+      "applied_at": "2026-10-10T16:47:46.097Z"
+    },
+    {
+      "version": "0057_integrity_reconciliation",
+      "applied_at": "2026-10-10T16:47:46.184Z"
+    }
+  ]
+}

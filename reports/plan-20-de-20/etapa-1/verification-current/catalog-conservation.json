@@ -1,0 +1,106 @@
+{
+  "baselineAt": "2026-10-10T13:06:37.375Z",
+  "reconciliationAt": "2026-10-10T17:14:57.152Z",
+  "auditAt": "2026-10-10T19:09:11.381Z",
+  "baselineVsReconciliation": [
+    {
+      "table": "public.album_credits",
+      "conserved": true
+    },
+    {
+      "table": "public.album_formats",
+      "conserved": true
+    },
+    {
+      "table": "public.albums",
+      "conserved": true
+    },
+    {
+      "table": "public.artist_members",
+      "conserved": true
+    },
+    {
+      "table": "public.artists",
+      "conserved": true
+    },
+    {
+      "table": "public.organizations",
+      "conserved": true
+    },
+    {
+      "table": "public.person_organizations",
+      "conserved": true
+    },
+    {
+      "table": "public.persons",
+      "conserved": true
+    },
+    {
+      "table": "public.social_links",
+      "conserved": true
+    },
+    {
+      "table": "public.streaming_links",
+      "conserved": true
+    },
+    {
+      "table": "public.track_credits",
+      "conserved": true
+    },
+    {
+      "table": "public.tracks",
+      "conserved": true
+    }
+  ],
+  "baselineVsCurrent": [
+    {
+      "table": "public.album_credits",
+      "conserved": true
+    },
+    {
+      "table": "public.album_formats",
+      "conserved": true
+    },
+    {
+      "table": "public.albums",
+      "conserved": true
+    },
+    {
+      "table": "public.artist_members",
+      "conserved": true
+    },
+    {
+      "table": "public.artists",
+      "conserved": true
+    },
+    {
+      "table": "public.organizations",
+      "conserved": true
+    },
+    {
+      "table": "public.person_organizations",
+      "conserved": true
+    },
+    {
+      "table": "public.persons",
+      "conserved": true
+    },
+    {
+      "table": "public.social_links",
+      "conserved": true
+    },
+    {
+      "table": "public.streaming_links",
+      "conserved": true
+    },
+    {
+      "table": "public.track_credits",
+      "conserved": true
+    },
+    {
+      "table": "public.tracks",
+      "conserved": true
+    }
+  ],
+  "artistsConserved": true
+}

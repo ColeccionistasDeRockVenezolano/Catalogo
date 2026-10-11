@@ -1,0 +1,8 @@
+{
+  "capturedAt": "2026-10-10T20:27:20.240Z",
+  "tablesIdentical": true,
+  "tableCount": 12,
+  "artistsIdentical": true,
+  "latestLiveMigration": "0057_integrity_reconciliation",
+  "migrations0058And0059Applied": false
+}

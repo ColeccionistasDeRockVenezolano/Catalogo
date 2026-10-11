@@ -1,0 +1,10 @@
+{
+  "database": "disposable PostgreSQL; no live writes",
+  "concurrentWriter": "withOperatorRun + updateEntity",
+  "editRun": 2,
+  "concurrentCommittedValue": "Colombia",
+  "injectedAfterSnapshotRead": true,
+  "undoError": null,
+  "finalValue": null,
+  "concurrentEditConserved": false
+}

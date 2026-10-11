@@ -1,0 +1,21 @@
+{
+  "ranWhileRemainingContractsWereActive": true,
+  "note": "Supplemental checks start only after E9.5 has completed; they do not replace the full contract result.",
+  "commit": "2857dfeb6a8064ef7a200a6852f9245265487ef2",
+  "baselineHash": "dcccd5c3c55e6d92c1924e1b7925761d2dc5cc98fb2562f39837cdbbe4ddbbec",
+  "checks": [
+    {
+      "name": "coverage",
+      "args": [
+        "run",
+        "test:coverage"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T20:32:09.594Z",
+      "finishedAt": "2026-10-10T20:33:38.826Z"
+    }
+  ],
+  "unchanged": true,
+  "passed": true,
+  "finishedAt": "2026-10-10T20:33:38.827Z"
+}

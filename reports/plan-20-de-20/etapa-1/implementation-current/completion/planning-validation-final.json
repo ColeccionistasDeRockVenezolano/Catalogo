@@ -1,0 +1,14 @@
+{
+  "planStages": 5,
+  "workPackages": 25,
+  "dependencyCycles": 0,
+  "acceptanceDimensions": 29,
+  "metrics": 13,
+  "planningCriteria": 20,
+  "effortPersonDays": [
+    64,
+    112
+  ],
+  "consistency": "passed",
+  "softwareStatus": "not evaluated by this validator"
+}

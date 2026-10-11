@@ -1,0 +1,137 @@
+{
+  "commit": "2857dfeb6a8064ef7a200a6852f9245265487ef2",
+  "sourceHash": "f4c3a529f0c4962209663a274221850942be79d80900344c7645f6e815251641",
+  "sourceFilesUnchangedAtEnd": true,
+  "qualityPassed": false,
+  "additionalQualityPassed": true,
+  "stageComplete": false,
+  "checks": [
+    {
+      "name": "typecheck",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:04:28.376Z",
+      "finishedAt": "2026-10-10T19:04:58.844Z",
+      "sourceHash": "f4c3a529f0c4962209663a274221850942be79d80900344c7645f6e815251641"
+    },
+    {
+      "name": "lint",
+      "args": [
+        "run",
+        "lint"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:04:58.845Z",
+      "finishedAt": "2026-10-10T19:06:35.120Z",
+      "sourceHash": "f4c3a529f0c4962209663a274221850942be79d80900344c7645f6e815251641"
+    },
+    {
+      "name": "unit",
+      "args": [
+        "run",
+        "test:unit"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:06:35.122Z",
+      "finishedAt": "2026-10-10T19:08:13.444Z",
+      "sourceHash": "f4c3a529f0c4962209663a274221850942be79d80900344c7645f6e815251641"
+    },
+    {
+      "name": "web-unit",
+      "args": [
+        "run",
+        "test:web"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:08:13.445Z",
+      "finishedAt": "2026-10-10T19:08:23.782Z",
+      "sourceHash": "f4c3a529f0c4962209663a274221850942be79d80900344c7645f6e815251641"
+    },
+    {
+      "name": "contract",
+      "args": [
+        "run",
+        "test:contract"
+      ],
+      "code": 1,
+      "startedAt": "2026-10-10T19:08:23.783Z",
+      "finishedAt": "2026-10-10T19:21:18.656Z",
+      "sourceHash": "f4c3a529f0c4962209663a274221850942be79d80900344c7645f6e815251641"
+    },
+    {
+      "name": "backend-build",
+      "args": [
+        "run",
+        "build"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:21:21.453Z",
+      "finishedAt": "2026-10-10T19:21:54.646Z"
+    },
+    {
+      "name": "web-build",
+      "args": [
+        "--prefix",
+        "web",
+        "run",
+        "build"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:21:54.647Z",
+      "finishedAt": "2026-10-10T19:23:05.348Z"
+    },
+    {
+      "name": "browser",
+      "args": [
+        "run",
+        "test:browser"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:23:05.349Z",
+      "finishedAt": "2026-10-10T19:23:21.931Z"
+    },
+    {
+      "name": "coverage",
+      "args": [
+        "run",
+        "test:coverage"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:23:21.932Z",
+      "finishedAt": "2026-10-10T19:25:10.417Z"
+    }
+  ],
+  "contract": {
+    "passed": 480,
+    "failed": 1,
+    "total": 481,
+    "warmScanMs": 6100,
+    "limitExclusiveMs": 5000
+  },
+  "unit": {
+    "backend": 741,
+    "web": 49
+  },
+  "defectReproductions": {
+    "V1": "failed as expected, twice",
+    "V2": "failed as expected, twice"
+  },
+  "visual": {
+    "widths": [
+      1440,
+      390
+    ],
+    "api": "controlled fixture",
+    "realApplyFromDialogTested": false
+  },
+  "packages": {
+    "E1-01": "partial",
+    "E1-02": "partial",
+    "E1-03": "partial",
+    "E1-04": "not_implemented",
+    "E1-05": "partial"
+  }
+}

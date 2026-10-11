@@ -1,0 +1,189 @@
+{
+  "verifiedAt": "2026-10-10T20:09:41.103808+00:00",
+  "commit": "2857dfeb6a8064ef7a200a6852f9245265487ef2",
+  "sourceHash": "3b17bf5af2d72c4bd72f9930a23cd4805476e3448b81ebb4fd913b3a7321424c",
+  "localNode": "v24.21.0",
+  "sourceUnchangedDuringChecks": true,
+  "stage1Complete": false,
+  "automatedQualityPassed": false,
+  "checks": [
+    {
+      "name": "typecheck",
+      "args": [
+        "run",
+        "typecheck"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:51:53.759Z",
+      "finishedAt": "2026-10-10T19:52:21.813Z",
+      "sourceHash": "3b17bf5af2d72c4bd72f9930a23cd4805476e3448b81ebb4fd913b3a7321424c"
+    },
+    {
+      "name": "lint",
+      "args": [
+        "run",
+        "lint"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:52:21.815Z",
+      "finishedAt": "2026-10-10T19:53:47.941Z",
+      "sourceHash": "3b17bf5af2d72c4bd72f9930a23cd4805476e3448b81ebb4fd913b3a7321424c"
+    },
+    {
+      "name": "unit",
+      "args": [
+        "run",
+        "test:unit"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:53:47.942Z",
+      "finishedAt": "2026-10-10T19:55:22.805Z",
+      "sourceHash": "3b17bf5af2d72c4bd72f9930a23cd4805476e3448b81ebb4fd913b3a7321424c"
+    },
+    {
+      "name": "web-unit",
+      "args": [
+        "run",
+        "test:web"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:55:22.806Z",
+      "finishedAt": "2026-10-10T19:55:31.544Z",
+      "sourceHash": "3b17bf5af2d72c4bd72f9930a23cd4805476e3448b81ebb4fd913b3a7321424c"
+    },
+    {
+      "name": "contract",
+      "args": [
+        "run",
+        "test:contract"
+      ],
+      "code": 1,
+      "startedAt": "2026-10-10T19:55:31.545Z",
+      "finishedAt": "2026-10-10T20:08:38.350Z",
+      "sourceHash": "3b17bf5af2d72c4bd72f9930a23cd4805476e3448b81ebb4fd913b3a7321424c"
+    },
+    {
+      "name": "backend-build",
+      "args": [
+        "run",
+        "build"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T20:01:49.031Z",
+      "finishedAt": "2026-10-10T20:02:25.777Z"
+    },
+    {
+      "name": "web-build",
+      "args": [
+        "--prefix",
+        "web",
+        "run",
+        "build"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T20:02:25.779Z",
+      "finishedAt": "2026-10-10T20:03:20.766Z"
+    },
+    {
+      "name": "browser",
+      "args": [
+        "run",
+        "test:browser"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T20:03:20.767Z",
+      "finishedAt": "2026-10-10T20:03:37.159Z"
+    },
+    {
+      "name": "coverage",
+      "args": [
+        "run",
+        "test:coverage"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T20:03:37.160Z",
+      "finishedAt": "2026-10-10T20:05:33.717Z"
+    }
+  ],
+  "unit": {
+    "backendPassed": 741,
+    "webPassed": 52
+  },
+  "contracts": {
+    "total": 488,
+    "passed": 487,
+    "failed": 1,
+    "files": 69,
+    "passedFiles": 68,
+    "failedFiles": 1,
+    "durationSeconds": 785.79,
+    "failure": "E9.5 performance: 5942 ms; requirement <5000 ms",
+    "directedMilliseconds": 152
+  },
+  "coverage": {
+    "lines": {
+      "total": 47284,
+      "covered": 16602,
+      "skipped": 0,
+      "pct": 35.11
+    },
+    "statements": {
+      "total": 47284,
+      "covered": 16602,
+      "skipped": 0,
+      "pct": 35.11
+    },
+    "functions": {
+      "total": 2188,
+      "covered": 1039,
+      "skipped": 0,
+      "pct": 47.48
+    },
+    "branches": {
+      "total": 8639,
+      "covered": 7102,
+      "skipped": 0,
+      "pct": 82.2
+    },
+    "branchesTrue": {
+      "total": 0,
+      "covered": 0,
+      "skipped": 0,
+      "pct": 100
+    }
+  },
+  "targetedContractTests": {
+    "passed": 29,
+    "files": 4,
+    "overlapsFullSuite": true
+  },
+  "additionalNegativeReproductions": {
+    "includedIn488ContractTests": false,
+    "undoConcurrencyDirectSqlConserved": false,
+    "undoConcurrencyRealWriterConserved": false
+  },
+  "liveCatalogConservation": {
+    "capturedAt": "2026-10-10T19:50:14.179Z",
+    "tablesIdentical": true,
+    "tableCount": 12,
+    "artistsIdentical": true,
+    "latestLiveMigration": "0057_integrity_reconciliation",
+    "migrations0058And0059Applied": false
+  },
+  "release": {
+    "publishedDuringReview": false,
+    "newMigrationsAppliedToLive": false
+  },
+  "humanValidation": {
+    "availableParticipants": 1,
+    "requiredParticipants": 8,
+    "completedEightParticipantBaseline": false
+  },
+  "pendingPackages": [
+    "E1-01 corpus and usage baseline",
+    "E1-02 performance and actual CI",
+    "E1-03 concurrency, historical reconstruction limits and candidate rollout",
+    "E1-04 compatible date/identity/work/edition/media model",
+    "E1-05 persistent facts/evidence inventory"
+  ]
+}

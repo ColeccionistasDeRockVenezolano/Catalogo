@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "sha256": "90daa543b150c47d5d7376ff96b61116f10d04c67b37b3abc1a499b1035d2893",
+  "entities": 40,
+  "development": 24,
+  "reserved": 16,
+  "observations": 565,
+  "negatives": 100,
+  "documents": 120,
+  "images": 100
+}

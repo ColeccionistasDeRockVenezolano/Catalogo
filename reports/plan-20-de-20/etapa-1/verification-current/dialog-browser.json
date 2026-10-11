@@ -1,0 +1,44 @@
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "layout": {
+      "left": 200,
+      "right": 1240,
+      "width": 1040,
+      "viewport": 1440,
+      "bodyOverflow": false
+    },
+    "errors": [],
+    "previewRequests": 2,
+    "editorialValuesSent": {
+      "year": 1990,
+      "basis": "Documento contemporáneo que registra la formación en 1990."
+    },
+    "applyDisabledUntilNewPreview": true,
+    "api": "controlled fixture; no backend writes"
+  },
+  {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "layout": {
+      "left": 0,
+      "right": 390,
+      "width": 390,
+      "viewport": 390,
+      "bodyOverflow": false
+    },
+    "errors": [],
+    "previewRequests": 2,
+    "editorialValuesSent": {
+      "year": 1990,
+      "basis": "Documento contemporáneo que registra la formación en 1990."
+    },
+    "applyDisabledUntilNewPreview": true,
+    "api": "controlled fixture; no backend writes"
+  }
+]

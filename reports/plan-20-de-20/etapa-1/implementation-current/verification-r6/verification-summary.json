@@ -1,0 +1,78 @@
+{
+  "sourceHash": "f792e196a064bba4f65125906bc4b0898e5124cc120c5da361cfe8ac5974139c",
+  "frozenWorktree": "/mnt/datos/crv-stage1-verification-20261010",
+  "qualityPassed": true,
+  "qualityExitCode": 0,
+  "coverageExitCode": 0,
+  "counts": {
+    "backendUnit": 796,
+    "webUnit": 55,
+    "contracts": 504,
+    "contractFiles": 71
+  },
+  "coverage": {
+    "lines": {
+      "total": 43467,
+      "covered": 16817,
+      "skipped": 0,
+      "pct": 38.68
+    },
+    "statements": {
+      "total": 43467,
+      "covered": 16817,
+      "skipped": 0,
+      "pct": 38.68
+    },
+    "functions": {
+      "total": 2225,
+      "covered": 1141,
+      "skipped": 0,
+      "pct": 51.28
+    },
+    "branches": {
+      "total": 8875,
+      "covered": 7417,
+      "skipped": 0,
+      "pct": 83.57
+    },
+    "branchesTrue": {
+      "total": 0,
+      "covered": 0,
+      "skipped": 0,
+      "pct": 100
+    }
+  },
+  "coverageMeasuredFiles": 296,
+  "coverageScope": "Backend unit tests only; do not interpret percentages as a coverage increase relative to earlier rounds because line denominators differ.",
+  "performance": {
+    "rows": 117946,
+    "coldMs": 8933,
+    "warmMs": 4373,
+    "directedMs": 137,
+    "warmLimitMs": 5000,
+    "directedLimitMs": 1000
+  },
+  "sourceComparison": {
+    "checkedAt": "2026-10-11T00:17:17.119466+00:00",
+    "frozenHash": "f792e196a064bba4f65125906bc4b0898e5124cc120c5da361cfe8ac5974139c",
+    "frozenUnchanged": true,
+    "workspaceHash": "f792e196a064bba4f65125906bc4b0898e5124cc120c5da361cfe8ac5974139c",
+    "workspaceMatchesFrozen": true,
+    "changedWorkspaceFiles": []
+  },
+  "catalogConservation": {
+    "comparison": "r4 vs r6, consultas repeatable-read/read-only",
+    "before": "reports/plan-20-de-20/etapa-1/implementation-current/verification-r4/live-baseline/catalog.json",
+    "after": "reports/plan-20-de-20/etapa-1/implementation-current/verification-r6/live-baseline/catalog.json",
+    "sameCompleteRows": true,
+    "differentTables": [],
+    "sameArtistIds": true,
+    "latestMigration": "0057_integrity_reconciliation",
+    "tableCount": 12,
+    "artistCount": 4
+  },
+  "node": "v24.21.0",
+  "externalCiVerified": false,
+  "published": false,
+  "stage1Complete": false
+}

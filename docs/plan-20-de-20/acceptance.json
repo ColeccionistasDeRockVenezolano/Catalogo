@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "date": "2026-10-10",
   "scope": "Requirements, not measured results",
   "passRule": "All29 gates pass on same release; no P0/P1/P2 known open within scope. Three reserved-corpus repetitions, real sessions/provider, UX and observation required.",
@@ -63,7 +63,7 @@
     {
       "id": "M09",
       "name": "Tareas sin ayuda",
-      "definitionAndThreshold": "Éxitos sin intervención / tareas intentadas. Segunda ronda: ≥44/48 global y ≥22/24 en cada cohorte; acciones críticas correctas 8/8.",
+      "definitionAndThreshold": "Éxitos sin intervención / tareas intentadas por el propietario. Registrar números absolutos; aplicación y deshacer correctos en todos los intentos evaluados. Sin mínimo de participantes ni cohortes.",
       "status": "pending",
       "observedResult": null
     },
@@ -281,7 +281,7 @@
     {
       "id": "G18",
       "dimension": "UX/carga cognitiva",
-      "requiredEvidence": "Resultados por cohorte, tareas y navegación; M09/M10",
+      "requiredEvidence": "Resultados del propietario, tareas y navegación; M09/M10",
       "packageAndReviewer": "E4-05 · Q/participantes",
       "metrics": [
         "M09",

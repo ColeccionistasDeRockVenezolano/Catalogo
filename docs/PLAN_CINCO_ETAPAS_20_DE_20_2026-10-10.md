@@ -135,7 +135,7 @@ Los umbrales de este plan son requisitos de aceptación, no resultados ya medido
 4. Separar respaldo documental, cobertura, contradicciones y avance. Mostrar por qué una investigación terminó aunque la ficha tenga dudas. Sustituir bloques masivos de indicadores por un resumen y tareas prioritarias.
 5. Resolver navegación de pistas y resultados truncados de búsqueda. Preservar ficha, filtros, avance y selección al volver o cambiar de dispositivo cuando corresponda.
 6. Corregir galería móvil, contraste, objetivos táctiles, zoom, lectura con teclado/lector de pantalla, estados vacíos, errores y cargas. Probar también fichas largas, textos y URLs extensas.
-7. Hacer dos rondas de uso con personas: una permite descubrir problemas, la segunda comprueba las correcciones con participantes que no aprendieron los recorridos de la primera. Ocho participantes por ronda —cuatro nuevos y cuatro curadores— y seis tareas por participante. La muestra inicial mide la línea base y puede volver en la ronda formativa; los ocho de aceptación final son distintos.
+7. Hacer recorridos formativo y final con el propietario, único participante disponible. Registrar el aprendizaje previo y seis tareas por recorrido. Por instrucción del propietario, no se exigen ocho personas, cohortes ni participantes nuevos.
 
 ### Entregables
 
@@ -146,7 +146,7 @@ Los umbrales de este plan son requisitos de aceptación, no resultados ya medido
 ### Criterios de salida
 
 - Los participantes pueden encontrar/crear ficha, investigar, revisar evidencia, elegir imagen, decidir una propuesta y deshacer.
-- Al menos 44/48 tareas sin ayuda del evaluador y 22/24 en cada cohorte de la ronda final; aplicación y deshacer correctos en los ocho participantes. Cero aceptaciones accidentales o confusión observada entre respaldado y pendiente. Informar números absolutos y muestra, sin convertir una muestra pequeña en certeza estadística.
+- Registrar éxitos y tareas intentadas por el propietario; aplicación y deshacer correctos en todos los intentos evaluados. Sin mínimo de participantes ni cohortes. Cero aceptaciones accidentales o confusión observada entre respaldado y pendiente. Informar números absolutos y muestra, sin convertir una muestra pequeña en certeza estadística.
 - Disminuye al menos 50 % el número de decisiones de navegación entre módulos en el recorrido estándar frente a la línea base. La agrupación no debe ocultar decisiones editoriales distintas.
 - Ningún bloqueo conocido de teclado, contraste aplicable o reflow en los recorridos centrales. Verificación de anchos 320, 390, 768 y 1440 px, zoom y contenido largo.
 - Los cuatro artistas pueden revisarse desde su ficha sin recorrer una cola de cientos de sugerencias sin agrupar.

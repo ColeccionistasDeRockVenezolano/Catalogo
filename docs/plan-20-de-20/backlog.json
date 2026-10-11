@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "date": "2026-10-10",
   "scope": "Planning only; no task implemented by this document",
   "dayHours": 6,
@@ -381,7 +381,7 @@
       },
       "deliverable": "Guion fijo, flujo probado y problemas de la primera ronda priorizados",
       "acceptance": "G18",
-      "verification": "8 participantes basales; comparar acciones de navegación; registrar intervenciones",
+      "verification": "Recorrido basal con el propietario; comparar acciones de navegación y registrar intervenciones y aprendizaje previo, sin mínimo de participantes",
       "codeAreas": [
         "web/src/pages/AiCurationPage.tsx",
         "web/src/components/VerificationCurationQueue.tsx",
@@ -463,7 +463,7 @@
     {
       "id": "E4-05",
       "stage": 4,
-      "title": "Validar con participantes nuevos y cerrar UX",
+      "title": "Validar el recorrido final con el propietario y cerrar UX",
       "ownerRole": "F/C",
       "reviewerRole": "Q",
       "dependencies": [
@@ -473,9 +473,9 @@
         "min": 2,
         "max": 4
       },
-      "deliverable": "Informe de 8 participantes nuevos, 48 tareas y correcciones verificadas",
+      "deliverable": "Informe de las seis tareas del propietario y correcciones verificadas, registrando aprendizaje previo",
       "acceptance": "G18,G19,G20",
-      "verification": "44/48 tareas sin ayuda y22/24 por cohorte; acciones críticas 8/8; revalidar defectos",
+      "verification": "Registrar éxitos/tareas del propietario; aplicación y deshacer correctos en todos los intentos; revalidar defectos, sin mínimo de participantes ni cohortes",
       "codeAreas": [
         "docs/ui-qa",
         "web/tests/visual",

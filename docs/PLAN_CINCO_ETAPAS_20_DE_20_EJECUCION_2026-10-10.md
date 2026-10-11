@@ -1,10 +1,12 @@
 # Contrato de ejecución y aceptación del plan de cinco etapas
 
-Versión 2 · 10 de octubre de 2026 · Documento complementario del [plan principal](PLAN_CINCO_ETAPAS_20_DE_20_2026-10-10.md).
+Versión 3 · 10 de octubre de 2026 · Documento complementario del [plan principal](PLAN_CINCO_ETAPAS_20_DE_20_2026-10-10.md).
 
 Este contrato vuelve ejecutables las cinco etapas. [Backlog estructurado](plan-20-de-20/backlog.json) y [matriz estructurada de aceptación](plan-20-de-20/acceptance.json). Las tareas están en estado **planificado**; los umbrales son requisitos de aceptación, no resultados alcanzados. La entrega actual modifica documentación y planificación, no fichas ni código de producto.
 
 La [validación de consistencia](plan-20-de-20/planning-validation.json) comprueba cinco etapas, 25 paquetes, dependencias sin ciclos, 29 dimensiones, 13 métricas, 20 criterios de preparación, enlaces y concordancia entre documento/JSON. Se reproduce desde la raíz con `./scripts/with-node22.sh node docs/plan-20-de-20/validate-plan.mjs`. Esta comprobación valida el plan; los resultados del software permanecen pendientes.
+
+La revisión 3 incorpora la instrucción del propietario: «Olvida esa regla de ocho personas, no hay». La muestra obligatoria de ocho y sus cohortes quedan retiradas; el único participante disponible es el propietario. Se conservan las pruebas técnicas, la prohibición de inventar sesiones y la distinción entre una implementación aprobada técnicamente y la evaluación editorial de hechos.
 
 ## 1. Alcance cerrado y dependencias de ejecución
 
@@ -86,7 +88,7 @@ Las dependencias del backlog determinan cuándo puede comenzar cada paquete. Se 
 | E4-02 | Investigar y completar, propuestas agrupadas y continuidad | F/B · Q/C | E4-01 | 3–5 |
 | E4-03 | Búsqueda completa, pista a álbum y operaciones existentes accesibles | F/B · Q | E4-02 | 2–4 |
 | E4-04 | Móvil, accesibilidad y error/recuperación | F · Q | E4-03 | 2–4 |
-| E4-05 | Segunda ronda con participantes nuevos y cierre de defectos de UX | F/C · Q | E4-04 | 2–4 |
+| E4-05 | Recorrido final con el propietario y cierre de defectos de UX | F/C · Q | E4-04 | 2–4 |
 
 ### Etapa 5
 
@@ -134,7 +136,7 @@ Ejecutar tres veces la reserva sobre la misma versión, con nuevas ejecuciones d
 | M06 | Imágenes | Entidad/edición correcta 100 % de las propuestas verificadas; clasificación de uso ≥95 % del corpus; variantes óptimas disponibles 100 % de sus grupos; cero recurso fallido seleccionable como verificado. |
 | M07 | Plan coherente | 100 % de planes: resumen compatible con operaciones/dudas; vacíos explicados; operaciones viables o bloqueo explícito. |
 | M08 | Aplicar y deshacer | 100 % de escenarios obligatorios conserva/restaura campos, relaciones, claims y medios previstos; cambios posteriores protegidos; repetición no duplica. |
-| M09 | Tareas sin ayuda | Éxitos sin intervención / tareas intentadas. Segunda ronda: ≥44/48 global y ≥22/24 en cada cohorte; acciones críticas correctas 8/8. |
+| M09 | Tareas sin ayuda | Éxitos sin intervención / tareas intentadas por el propietario. Registrar números absolutos; aplicación y deshacer correctos en todos los intentos evaluados. Sin mínimo de participantes ni cohortes. |
 | M10 | Navegación | Mediana de cambios de módulo en guion fijo reducido≥50 % respecto a línea base; registrar antes/después, sin confundir menos pantallas con menos decisiones editoriales. |
 | M11 | Rendimiento | Búsqueda/lectura ordinaria p95 <1 s y p99 <2,5 s en API; errores inesperados<0,1 %. Análisis dirigido <1 s y completo <15 s en catálogo vigente. |
 | M12 | Recuperación | Cero hechos/citas/decisiones perdidos en interrupciones probadas; un único resultado editorial por operación; jobs de otro proceso no invalidados. |
@@ -144,11 +146,11 @@ No se excluyen errores, abandonos, casos difíciles o hechos omitidos después d
 
 ### Protocolo de UX
 
-Primera muestra: ocho participantes, cuatro nuevos y cuatro curadores. Medir línea base en E1-01; esa muestra puede participar en la ronda formativa de E4-01, cuyo aprendizaje no se confundirá con validación final. Segunda ronda: ocho personas distintas, cuatro por cohorte, en E4-05.
+La disponibilidad real es una persona: el propietario. Los recorridos formativo y final pueden hacerse con él; registrar el aprendizaje previo. No hay requisito de ocho participantes, cohortes ni participantes nuevos. Las pruebas de navegador no se contabilizan como sesiones humanas.
 
 Seis tareas por participante: encontrar/crear ficha; iniciar investigación e interpretar avance; revisar hecho/cita/duda; elegir una imagen pertinente; aplicar una propuesta comprobada; comprobar y deshacer. Moderador observa sin orientar; toda ayuda se registra y la tarea deja de contar como éxito sin ayuda. Registrar abandono, acción equivocada, confusión, navegación, tiempo y comentarios, con IDs de participante sin datos personales innecesarios.
 
-Aplicación y deshacer son críticos y deben ejecutarse correctamente por los ocho participantes. Una aceptación accidental o confusión respaldado/pendiente bloquea cierre de UX aunque el total supere 44/48. Corregir y validar con personas nuevas si el cambio alteró el recorrido. Reportar resultados por cohorte; 16 participantes aportan evidencia de problemas y tareas, no garantía estadística de toda la población.
+Aplicación y deshacer son críticos y deben ejecutarse correctamente en los recorridos evaluados. Una aceptación accidental o confusión respaldado/pendiente exige corregir el recorrido. Publicar los números absolutos del propietario sin generalizarlos a otras personas; la falta de participantes adicionales no bloquea la implementación de la etapa 1.
 
 ### Protocolo de rendimiento y fallos
 
@@ -181,7 +183,7 @@ Cada gate tiene resultado, evidencia y verificador. Valores posibles: **pendient
 | G15 | Autocorrección | Lista blanca demostrable, límites, fallo/reversión y ninguna inferencia histórica automática | E1-05/E3-05 · Q/C |
 | G16 | Historial/deshacer | Antes/después y fuente accesibles, límites históricos explícitos; M08/M13 | E3-05/E4-03 · Q/C |
 | G17 | Interfaz pública | Listados/fichas/enlaces/medios funcionales, legibles y con cargas/ausencias claras | E4-03/E4-04 · Q |
-| G18 | UX/carga cognitiva | Resultados por cohorte, tareas y navegación; M09/M10 | E4-05 · Q/participantes |
+| G18 | UX/carga cognitiva | Resultados del propietario, tareas y navegación; M09/M10 | E4-05 · Q/participantes |
 | G19 | Móvil | 320/390/768/1440 px, contenido largo, zoom y sin overflow del documento | E4-04/E4-05 · Q |
 | G20 | Accesibilidad | Recorrido de teclado/lector/foco, contraste y reflow; criterios AA aplicables sin fallos conocidos | E4-04/E4-05 · Q |
 | G21 | Rendimiento | Benchmark del tamaño actual, escenarios 2× y concurrencia; M11 | E5-03 · Q/O |
@@ -244,7 +246,7 @@ Esta checklist evalúa la preparación del documento; no puntúa software aún s
 |8 |29 dimensiones con aceptación individual | G01–G29 |
 |9 | Métricas con denominador y límites | M01–M13/§5 |
 |10 | Corpus etiquetado, negativos y reserva | §5 |
-|11 | Usuarios reales y protocolo de tareas | Dos cohortes, dos rondas y M09/M10 |
+|11 | Disponibilidad real y protocolo de tareas | Propietario, recorridos registrados y M09/M10 |
 |12 | Esfuerzo y recalibración |64–112 jornadas+reserva;§3 |
 |13 | Recursos, costo y disponibilidad | §4 |
 |14 | Conservación, continuidad e idempotencia | E2/E3/M01/M08/M12 |

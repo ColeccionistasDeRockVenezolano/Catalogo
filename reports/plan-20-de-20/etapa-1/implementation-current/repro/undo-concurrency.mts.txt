@@ -1,0 +1,43 @@
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {writeFile,mkdir} from 'node:fs/promises';
+const root=process.cwd();
+const local=async(file:string)=>import(pathToFileURL(path.join(root,file)).href);
+const {startPgContainer}=await local('test/support/pg-container.ts');
+const {applyCore}=await local('test/support/apply-core.ts');
+const {migrateUp}=await local('src/db/migrate.ts');
+const {closeDb,getPool}=await local('src/db/client.ts');
+const {resetEnvCache}=await local('src/config/env.ts');
+const {withOperatorRun,createEntity,updateEntity}=await local('src/merge/operator.ts');
+const {undoRun}=await local('src/merge/run-undo.ts');
+const database=await startPgContainer();
+const out=path.join(root,'reports/plan-20-de-20/etapa-1/implementation-current/verification');
+try{
+  process.env.DATABASE_URL=database.databaseUrl;resetEnvCache();
+  await applyCore(database.name);await migrateUp();
+  const operation=(work:any)=>withOperatorRun({name:'verification:concurrency',operator:'QA',note:'Reproducción aislada de concurrencia'},work);
+  const created=await operation((ctx:any)=>createEntity(ctx,'person',{name:'Persona concurrencia'}));
+  const id=created.result.id;
+  const edit=await operation((ctx:any)=>updateEntity(ctx,'person',id,{nationality:'Venezuela'}));
+  let inserted=false,error:string|null=null;
+  try{
+    await operation(async(ctx:any)=>{
+      const original=ctx.client.query.bind(ctx.client);
+      ctx.client.query=async(...args:any[])=>{
+        const result=await original(...args);
+        if(!inserted&&typeof args[0]==='string'&&args[0].includes('SELECT to_jsonb(t) AS row FROM "public"."persons"')){
+          inserted=true;
+          // A second connection commits an edit after undo reads its snapshot.
+          await getPool().query('UPDATE public.persons SET nationality=$2 WHERE id=$1',[id,'Colombia']);
+        }
+        return result;
+      };
+      return undoRun(ctx,edit.runId);
+    });
+  }catch(cause){error=cause instanceof Error?cause.message:String(cause);}
+  const row=(await getPool().query('SELECT nationality FROM public.persons WHERE id=$1',[id])).rows[0];
+  const result={database:'disposable PostgreSQL; no live writes',editRun:edit.runId,concurrentCommittedValue:'Colombia',injectedAfterSnapshotRead:inserted,undoError:error,finalValue:row.nationality,concurrentEditConserved:row.nationality==='Colombia'};
+  await mkdir(out,{recursive:true});await writeFile(path.join(out,'undo-concurrency.json'),JSON.stringify(result,null,2)+'\n');
+  console.log(JSON.stringify(result));
+  if(!result.concurrentEditConserved)process.exitCode=1;
+}finally{await closeDb();await database.stop();}

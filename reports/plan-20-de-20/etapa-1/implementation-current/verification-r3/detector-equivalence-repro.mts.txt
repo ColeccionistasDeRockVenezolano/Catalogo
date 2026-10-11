@@ -1,0 +1,17 @@
+import path from 'node:path';import {pathToFileURL} from 'node:url';import {writeFile} from 'node:fs/promises';
+const local=async(file:string)=>import(pathToFileURL(path.join(process.cwd(),file)).href);
+const {startPgContainer}=await local('test/support/pg-container.ts');const {applyCore}=await local('test/support/apply-core.ts');
+const {loadCatalogCopies}=await local('test/support/curation-load-fixture.ts');const {migrateUp}=await local('src/db/migrate.ts');
+const {closeDb,getPool}=await local('src/db/client.ts');const {resetEnvCache}=await local('src/config/env.ts');
+const {loadCatalogSnapshot}=await local('src/curation/snapshot.ts');const {buildLexicon,collectNames}=await local('src/curation/lexicon.ts');
+const {DETECTORS,buildContext,analyzeCatalog}=await local('src/curation/analyze.ts');
+const {runCurationScan,waitForCurationScans}=await local('src/curation/scan.ts');
+const database=await startPgContainer();const measurements=[];
+try{process.env.DATABASE_URL=database.databaseUrl;resetEnvCache();await applyCore(database.name);await migrateUp();
+ const loaded=await loadCatalogCopies(getPool(),2);
+ const client=await getPool().connect();let snapshot;try{snapshot=await loadCatalogSnapshot(client);}finally{client.release();}
+ const names=collectNames(snapshot),lexicon=buildLexicon(snapshot,names),context=buildContext(snapshot,lexicon);
+ const analysis=analyzeCatalog(snapshot,{lexicon});
+ await writeFile(process.argv[2],JSON.stringify(analysis));
+ console.log(JSON.stringify({rows:loaded.rows,findings:analysis.findings.length,file:process.argv[2]}));
+}finally{await waitForCurationScans();await closeDb();await database.stop();}

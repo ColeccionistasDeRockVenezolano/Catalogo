@@ -1,0 +1,51 @@
+{
+  "commit": "2857dfeb6a8064ef7a200a6852f9245265487ef2",
+  "baselineHash": "f4c3a529f0c4962209663a274221850942be79d80900344c7645f6e815251641",
+  "checks": [
+    {
+      "name": "backend-build",
+      "args": [
+        "run",
+        "build"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:21:21.453Z",
+      "finishedAt": "2026-10-10T19:21:54.646Z"
+    },
+    {
+      "name": "web-build",
+      "args": [
+        "--prefix",
+        "web",
+        "run",
+        "build"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:21:54.647Z",
+      "finishedAt": "2026-10-10T19:23:05.348Z"
+    },
+    {
+      "name": "browser",
+      "args": [
+        "run",
+        "test:browser"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:23:05.349Z",
+      "finishedAt": "2026-10-10T19:23:21.931Z"
+    },
+    {
+      "name": "coverage",
+      "args": [
+        "run",
+        "test:coverage"
+      ],
+      "code": 0,
+      "startedAt": "2026-10-10T19:23:21.932Z",
+      "finishedAt": "2026-10-10T19:25:10.417Z"
+    }
+  ],
+  "unchanged": true,
+  "passed": true,
+  "finishedAt": "2026-10-10T19:25:10.418Z"
+}
