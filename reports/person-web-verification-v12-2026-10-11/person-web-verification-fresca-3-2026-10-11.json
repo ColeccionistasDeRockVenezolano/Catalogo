@@ -1,0 +1,638 @@
+{
+  "date": "2026-10-11T15:37:37.515Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 10,
+    "correct": 9,
+    "errors": 0,
+    "same": "3/4",
+    "different": "1/1",
+    "mixed": "1/1",
+    "single": "4/4",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": true,
+  "cases": [
+    {
+      "name": "Chonto Turola / Alejandro «Chonto» Turola",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 11,
+      "seconds": 18,
+      "aiRunId": 21809,
+      "rationale": "Una fuente vincula una forma del nombre con un proyecto de la otra ficha.",
+      "evidence": [
+        {
+          "url": "https://songblog.io/es/latin/302802/circo-vulkano/review/circo-vulkano-se-presentara-en-caracas",
+          "title": "Circo Vulkano se presentará en Caracas - Circo Vulkano reseña del artista hecha por SongBlog - Song Blog",
+          "quote": "Circo Vulkano es una propuesta que se basa en la fusión de diferentes ritmos musicales como el rock, reggae, jazz, ska, ritmos latinos, caribeños y música folklórica y está compuesta por Alejandro \"Chonto\" Turola (voz, melódica, órgano hammond, guitarra acústica, coros), William \"Magu\" Guzmán (guitarras, coros), Kev (bajo), Luis \"Luisle\" López (batería) y Makenzy (teclados).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/circovulkano_1lavidaes.htm",
+          "title": "Circo Vulkano - La Vida Es ... (CD Info)",
+          "quote": "Musicians Vocals, Acoustic Guitar & Melodica: Alejandro \"Chonto\" Turola",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2954025-Alejandro-Turola",
+          "title": "Alejandro Turola Discography | Discogs",
+          "quote": "Aliases: Chonto In Groups: Circo Vulkano, Papashanty, Papashanty Saund System",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2954025",
+          "title": "Alejandro Turola | Discogs",
+          "quote": "Real Name: Alejandro Turola. Variations: Chonto. Credits: Keyboards – PapaShanty Saund System – Ashanty Granpa (2005); Composed By – Circo Vulkano – El Reto (2013).",
+          "supports": "same"
+        },
+        {
+          "url": "https://chica-cosmica.blogspot.com/2010/05/el-pasado-sabado-24-de-abril-satelite.html",
+          "title": "SATÉLITE MUSICAL RADIO: El pasado sábado 24 de abril, «Satélite Musical» Entrevistó: a Arras y Chonto de Circo Vulkano",
+          "quote": "En la segunda hora del programa estuvimos acompañados de Chonto integrante de Circo Vulkano",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/ub/viciosidades/2017-09-21/la-movida-rockera-en-caracas-se-esta-yendo-a-la-mierda/",
+          "title": "“La movida rockera en Caracas se está yendo a la mierda\" | UB",
+          "quote": "Chonto Turola no piensa distinto: “A Circo Vulkano le dieron la oportunidad primeriza de Discovery. Ellos querían que tocara mi banda anterior, Papashanty Saund System.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://chica-cosmica.blogspot.com/2010/05/el-pasado-sabado-24-de-abril-satelite.html",
+        "https://elestimulo.com/ub/viciosidades/2017-09-21/la-movida-rockera-en-caracas-se-esta-yendo-a-la-mierda/",
+        "https://songblog.io/es/latin/302802/circo-vulkano/review/circo-vulkano-se-presentara-en-caracas",
+        "https://sincopa.com/rock_pop/cdinfo_rock/circovulkano_1lavidaes.htm",
+        "https://contenidos.studiomios.com/circo-vulkano-online",
+        "https://www.lobotoradio.com/artistas/alejandro-turola",
+        "https://apesardelamiopia.wordpress.com/2013/10/24/circo-vulkano-continua-su-trilogia-con-el-reto/",
+        "https://rockhechovenezuela.com/c/circo-vulkano/",
+        "http://www.sincopa.com/rock_pop/artist_rock/circo_vulkano.htm",
+        "https://www.discogs.com/artist/2954025-Alejandro-Turola",
+        "https://www.discogs.com/artist/2954025"
+      ]
+    },
+    {
+      "name": "Jeremy Ruiz / Jeremías «Jeremy» Ruiz",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 8,
+      "seconds": 15,
+      "aiRunId": 21810,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://www.youtube.com/watch?v=RFmadSm44-I",
+          "title": "Meganeura Monji - A Fragment Of My Mind (2002) - YouTube",
+          "quote": "Lead Vocals: Jeremias \"Jeremy\" Ruiz",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=xNEVYNYbZNs",
+          "title": "Various Artists - Festival Nuevas Bandas Dosmiluno (2001) - YouTube",
+          "quote": "Meganeura Monji (track 08) Lead Vocals: Jeremias \"Jeremy\" Ruiz",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.oocities.org/sunsetstrip/3490/biograph.htm",
+          "title": "Biografia Meganeura monji",
+          "quote": "Jeremy Ruiz: Participa como vocalista en la banda.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.oocities.org/sunsetstrip/3490/meganeur.htm",
+          "title": "meganeuramonji-official page",
+          "quote": "* jeremy ruiz (vocalista).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://soundcloud.com/proyekto-aura/horchela",
+        "https://soundcloud.com/meganeuramonji",
+        "https://www.venciclopedia.org/index.php?title=Festival_Nuevas_Bandas_2001",
+        "https://blackmetalcloud.blogspot.com/2001/08/meganeura.html",
+        "https://www.oocities.org/sunsetstrip/3490/biograph.htm",
+        "https://www.youtube.com/watch?v=RFmadSm44-I",
+        "https://www.youtube.com/watch?v=xNEVYNYbZNs",
+        "https://www.oocities.org/sunsetstrip/3490/meganeur.htm"
+      ]
+    },
+    {
+      "name": "Luis «Papo» Márquez / Luis Márquez",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 11,
+      "seconds": 12,
+      "aiRunId": 21811,
+      "rationale": "Una fuente vincula una forma del nombre con un proyecto de la otra ficha.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/4186895",
+          "title": "Luis Márquez (3) | Discogs",
+          "quote": "Real Name: Luis Javier Márquez García. Profile: Cuban trumpeter, flugelhornist, producer, songwriter, singer, based in Miami, FL.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/4186895",
+          "title": "Luis Márquez (3) | Discogs",
+          "quote": "Variations: Luis \"Papo\" Marquez, Luis \"Papo\" Márquez, Luis (Papo) Marquez, Luis J. Márquez, Luis Marquez, Luis Papo Marquez, Luis “Papo” Marquez, Luis “Papo” Márquez.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/musicians/trumpet/luis_marquez.htm",
+          "title": "Luis Márquez - Bio",
+          "quote": "Luis \"Papo\" Márquez Born: Resides: Instruments: Genre: In Cuba In Miami, FL Trumpet, Flugelhorn Jazz, Latin, World Appears On 1993 Colina Vuelve (Trumpet)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/musicians/trumpet/luis_marquez.htm",
+          "title": "Luis Márquez - Bio",
+          "quote": "2009 Bulevar Qué (Trumpet)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/musicians/trumpet/luis_marquez.htm",
+          "title": "Luis Márquez - Bio",
+          "quote": "Luis Márquez - Bio. (Trumpet) 1996 Gerardo Rosales Venezuela Sonora (Trumpet)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/musicians/trumpet/luis_marquez.htm",
+          "title": "Luis Márquez - Bio",
+          "quote": "1997 Cebollas Ardientes Cebollas Ardientes (Trumpet)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/musicians/trumpet/luis_marquez.htm",
+        "https://es.salsagoogle.com/luis-papo-marquez-musico-cantante-compositor-y-productor/",
+        "https://chumanceralatinjazz.blogspot.com/2019/05/luis-papo-marquez-primogenito-2019.html",
+        "https://sincopa.com/rock_pop/cdinfo_rock/serv_floren_6sf.htm",
+        "http://www.hablemosaudio.com/p/blog-page.html",
+        "https://soundcloud.com/edgar-jimenez-con-sm/sets/edgarjimenez-sm",
+        "https://muzjam.org/search/120.%20Marquez%20Ill",
+        "https://music.youtube.com/channel/UCSyWJhfJHBRTJPqH409HbJg",
+        "https://muzbrick.org/search/SpR%2037%2041hz%20Roberto%20Kan",
+        "https://zvu4it.org/tracks/Bordon-4%20feat.%20Silvia%20Pantoja",
+        "https://www.discogs.com/artist/4186895"
+      ]
+    },
+    {
+      "name": "Alfred Gómez / Alfred Gómez Jr. (la misma persona)",
+      "kind": "pair",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 8,
+      "sources": 12,
+      "seconds": 12,
+      "aiRunId": 21812,
+      "rationale": "Solo un nombre lleva «Hijo» o «Jr.»: puede ser el padre o el hijo; no se propone fusión.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/alfred_gomez_jr.htm",
+          "title": "Alfred Gómez Jr. - Bio & Discography",
+          "quote": "Alfred Gómez Jr. Born: Resides: Instruments: Genres: October 17, 1978 In Caracas, Venezuela In Buenos Aires, Argentina Vocals, Piano, Keyboards Pop, Latin Pop, Latin, Salsa",
+          "supports": "same"
+        },
+        {
+          "url": "https://soundcloud.com/alfredgomezjr",
+          "title": "Stream Alfred Gómez Jr. music | Listen to songs, albums, playlists for free on SoundCloud",
+          "quote": "Stream Alfred Gómez Jr. music | Listen to songs, albums, playlists for.... Alfred Gómez Jr., es un cantante, compositor y productor nacido en Caracas, Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://alfredgomezjr.bandcamp.com/",
+          "title": "Cerca Del Fuego | Alfred Gomez, Jr. | Alfred Gómez Jr.",
+          "quote": "Alfred Gómez Jr: Voz, teclados y sintetizador de bajo",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.paperblog.com/frank-moron-llega-a-caracas-con-nada-que-decir-4307459/",
+          "title": "Frank Morón llega a Caracas con “Nada que Decir” - Paperblog",
+          "quote": "Vale recordar que en Nada que decir tuvo como productor al renombrado Alfred Gómez Jr, y los músicos fueron Max Martínez, Gabriel Fernández y Reynaldo Goitia (Tomates Fritos), entre otros",
+          "supports": "same"
+        },
+        {
+          "url": "https://paltoque.com/concierto-buenaparte-llega-a-merida-con-estoy-de-paso-17-de-octubre/",
+          "title": "[Concierto] Buenaparte llega a Mérida con “Estoy De Paso” -17 de Octubre - Pal Toque",
+          "quote": "Buenaparte contó con la colaboración de grandes amigos y músicos como: Alfred Gómez Jr., Matía Medina (vocalista de Charlipapa) y Rodrigo Vera (ex-guitarrista de Tomates Fritos).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/channel/UC7VuR0Tl0f92SfwPw82IklA",
+          "title": "Alfred Gómez Jr. - YouTube",
+          "quote": "Carrasco, Gómez, Greco y Rangel presentan \"Canción - Sesión en vivo\" desde Estudios Santa Mónica, Caracas, Venezuela.Carrasco, Gómez, Greco y Rangel. Abril del 2024 Créditos: Letra y Música por Alfred G. Gómez Caraballo Alfred Gómez Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2928649",
+          "title": "Alfred Gómez Jr | Discogs",
+          "quote": "Alfred Gómez Jr. Profile: Singer-songwriter and producer, born in Caracas, Venezuela in 1978.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2928649",
+          "title": "Alfred Gómez Jr | Discogs",
+          "quote": "Credits: Producer – Frank Morón – Nada Que Decir (2013); Keyboards – Frank Morón – Nada Que Decir (2013).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/alfred_gomez_jr.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/buenaparte_1lacaidadlucy.htm",
+        "https://soundcloud.com/alfredgomezjr",
+        "https://alfredgomezjr.bandcamp.com/",
+        "https://es.paperblog.com/frank-moron-llega-a-caracas-con-nada-que-decir-4307459/",
+        "https://www.facebook.com/agjrmusic/",
+        "https://paltoque.com/concierto-buenaparte-llega-a-merida-con-estoy-de-paso-17-de-octubre/",
+        "https://www.youtube.com/channel/UC7VuR0Tl0f92SfwPw82IklA",
+        "https://www.youtube.com/alfredgomezjr",
+        "https://ve.linkedin.com/in/agjrmusic",
+        "https://alfredgomezjr.com/",
+        "https://www.discogs.com/artist/2928649"
+      ]
+    },
+    {
+      "name": "Hernán Gamboa / Hernán Gamboa Jr. (padre e hijo)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 3,
+      "sources": 13,
+      "seconds": 26,
+      "aiRunId": 21813,
+      "rationale": "una misma frase enumera a Hernán Gamboa y a Hernán Gamboa Jr.: «Vocals: Hernán Gamboa & Hernán Gamboa Jr.»",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/hernan_gamboa/hgamboa_24misaguinaldos.htm",
+          "title": "Hernán Gamboa - Mis Aguinaldos (CD Info)",
+          "quote": "Vocals: Hernán Gamboa & Hernán Gamboa Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+          "title": "Hernán Gamboa - Wikipedia, la enciclopedia libre",
+          "quote": "Hijos Hernán José Gamboa Ordaz Marylena del Carmen Gamboa Ordaz Marisela del Carmen Gamboa Ordaz Mariflor del Carmen Gamboa Ordaz Rodrigo José Gamboa Díaz Martín José Gamboa Díaz",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+          "title": "Hernán Gamboa - Wikipedia, la enciclopedia libre",
+          "quote": "Hernán José Gamboa Alexis (San Tomé, Anzoátegui, Venezuela; 18 de junio de 1946-Buenos Aires, Argentina; 10 de enero de 2016), más conocido como Hernán Gamboa,[1] fue un cantante, músico y arreglista venezolano, uno de los fundadores de la agrupación Serenata Guayanesa y exponente de la ejecución del cuatro venezolano.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/juancsalazar_2raices.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/ilanchester_tmv2_costas.htm",
+        "https://sincopa.com/traditional/cdinfo2/hernan_gamboa/hgamboa_24misaguinaldos.htm",
+        "https://runrun.es/nacional/243019/murio-hernan-gamboa-fundador-de-serenata-guayanesa/",
+        "https://www.cancioneros.com/co/8083/2/fallece-hernan-gamboa-fundador-de-serenata-guayanesa",
+        "http://boardsnet.com/hernangamboa.htm",
+        "https://es.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+        "https://en.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+        "https://www.guatacanights.com/noticias/serenata-guayanesa-celebra-50-aniversario",
+        "https://www.elnuevoherald.com/noticias/florida/sur-de-la-florida/article67437017.html",
+        "https://donandres.org/wp-content/uploads/2022/12/DANA-Minutes-Special-Meeting-of-Directors-2022-12-12.pdf",
+        "https://hernangamboagallery.org/about",
+        "https://www.discogs.com/artist/2675226"
+      ]
+    },
+    {
+      "name": "Hernán Gamboa juntado (padre + hijo)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 5,
+      "sources": 20,
+      "seconds": 30,
+      "aiRunId": 21814,
+      "rationale": "una misma frase enumera a Hernán Gamboa Jr. y a Hernán Gamboa: «Vocals: Hernán Gamboa & Hernán Gamboa Jr.» Reparto propuesto: acreditado como Hernán Gamboa Jr.: Hernán Gamboa · Hernán Gamboa: Serenata Guayanesa, Enrique Hidalgo, Los Anauco, Cecilia Todd, Hernán Gamboa, Jaime Torres y Hernán Gamboa, Cristóbal Soto, Hernán Gamboa & Juan Carlos Salazar, Ilan Chester, María Márquez.",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+          "title": "Hernán Gamboa - Wikipedia, la enciclopedia libre",
+          "quote": "Hijos Hernán José Gamboa Ordaz Marylena del Carmen Gamboa Ordaz Marisela del Carmen Gamboa Ordaz Mariflor del Carmen Gamboa Ordaz Rodrigo José Gamboa Díaz Martín José Gamboa Díaz",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+          "title": "Hernán Gamboa - Wikipedia, la enciclopedia libre",
+          "quote": "Hernán José Gamboa Alexis (San Tomé, Anzoátegui, Venezuela; 18 de junio de 1946-Buenos Aires, Argentina; 10 de enero de 2016), más conocido como Hernán Gamboa,[1] fue un cantante, músico y arreglista venezolano, uno de los fundadores de la agrupación Serenata Guayanesa y exponente de la ejecución del cuatro venezolano.",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+          "title": "Hernán Gamboa - Wikipedia, la enciclopedia libre",
+          "quote": "2007 Mis aguinaldos Pattaya Discos (Argentina)",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/hernan_gamboa/hgamboa_24misaguinaldos.htm",
+          "title": "Hernán Gamboa - Mis Aguinaldos (CD Info)",
+          "quote": "Vocals: Hernán Gamboa & Hernán Gamboa Jr.",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+          "title": "Hernán Gamboa - Wikipedia, la enciclopedia libre",
+          "quote": "2011 Uniendo mundos",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/crisoto_2callereal.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/juancsalazar_2raices.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/ilanchester14_vivogiraamor.htm",
+        "https://www.ciudadvalencia.com.ve/hernan-gamboa-suena-ciudad-valencia/",
+        "https://www.buenamusica.com/noticias/fallecio-cuatrista-venezolano-hernan-gamboa",
+        "https://www.diversomagazine.com/2016/01/hernan-gamboa.html?m=1",
+        "https://es.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+        "https://runrun.es/nacional/243019/murio-hernan-gamboa-fundador-de-serenata-guayanesa/",
+        "https://www.tiktok.com/@historiaconmusica/video/7322666329671077126",
+        "https://en.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+        "https://es.scribd.com/document/440507227/Biografia-General-De-Hernan-Gamboa",
+        "https://tucuatro.com/es/musicos/hernan-gamboa/",
+        "https://www.discogs.com/artist/2675226",
+        "https://sincopa.com/traditional/cdinfo2/hernan_gamboa/hgamboa_24misaguinaldos.htm",
+        "https://sincopa.com/ethnic/artists1/los_anauco.htm",
+        "http://www.boardsnet.com/hernangamboa.htm",
+        "https://www.cancioneros.com/co/8083/2/fallece-hernan-gamboa-fundador-de-serenata-guayanesa",
+        "https://www.guatacanights.com/noticias/serenata-guayanesa-celebra-50-aniversario",
+        "https://donandres.org/wp-content/uploads/2022/12/DANA-Minutes-Special-Meeting-of-Directors-2022-12-12.pdf",
+        "https://www.elnuevoherald.com/noticias/florida/sur-de-la-florida/article67625312.html"
+      ]
+    },
+    {
+      "name": "Hernán Gamboa 1971–2016 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 1,
+      "sources": 13,
+      "seconds": 5,
+      "aiRunId": 21816,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/juancsalazar_2raices.htm",
+          "title": "Juan Carlos Salazar - Déjame Sentir (CD Info)",
+          "quote": "Artist: Album Title: Company: Genre: Release Year: Hernán Gamboa & Juan Carlos Salazar Raices y Motivos AVR Traditional 2003 (CD)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/juancsalazar_2raices.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/ilanchester_tmv2_costas.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/juancsalazar_6laluz.htm",
+        "https://www.ciudadvalencia.com.ve/hernan-gamboa-suena-ciudad-valencia/",
+        "https://www.buenamusica.com/noticias/fallecio-cuatrista-venezolano-hernan-gamboa",
+        "https://www.diversomagazine.com/2016/01/hernan-gamboa.html?m=1",
+        "https://es.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+        "https://runrun.es/nacional/243019/murio-hernan-gamboa-fundador-de-serenata-guayanesa/",
+        "https://www.tiktok.com/@historiaconmusica/video/7322666329671077126",
+        "https://en.wikipedia.org/wiki/Hern%C3%A1n_Gamboa",
+        "https://es.scribd.com/document/440507227/Biografia-General-De-Hernan-Gamboa",
+        "https://tucuatro.com/es/musicos/hernan-gamboa/",
+        "https://www.discogs.com/artist/2675226"
+      ]
+    },
+    {
+      "name": "Jeremías Ruiz (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 8,
+      "sources": 9,
+      "seconds": 17,
+      "aiRunId": 21817,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://www.oocities.org/sunsetstrip/3490/biograph.htm",
+          "title": "Biografia Meganeura monji",
+          "quote": "Jeremy Ruiz: Participa como vocalista en la banda.",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://www.oocities.org/sunsetstrip/3490/biograph.htm",
+          "title": "Biografia Meganeura monji",
+          "quote": "Jeremy Ruiz: Participa como vocalista en la banda.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.oocities.org/sunsetstrip/3490/biograph.htm",
+          "title": "Biografia Meganeura monji",
+          "quote": "Gollo Altamiranda aparte de ser el Baterista de Meganeura monji, también es baterista de la Banana Voladora.",
+          "supports": "same"
+        },
+        {
+          "url": "https://soundcloud.com/proyekto-aura/horchela",
+          "title": "Stream HORCHELA by Proyekto Aura | Listen online for free on SoundCloud",
+          "quote": "Voz : Jeremy Ruiz Musica: Cezar G Serpa.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=RFmadSm44-I",
+          "title": "Meganeura Monji - A Fragment Of My Mind (2002) - YouTube",
+          "quote": "Musicians Lead Vocals: Jeremias \"Jeremy\" Ruiz Vocoder, Programming, Synths & Samplers: Ricardo \"Rich\" Vizcarrondo",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.primerahora.com/noticias/policia-tribunales/notas/gobernador-indulta-a-jeremy-ruiz-tomassini-preso-por-marihuana/",
+          "title": "Gobernador indulta a Jeremy Ruiz Tomassini preso por marihuana - Primera Hora",
+          "quote": "Gobernador indulta a Jeremy Ruiz Tomassini preso por marihuana",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.primerahora.com/noticias/policia-tribunales/notas/gobernador-indulta-a-jeremy-ruiz-tomassini-preso-por-marihuana/",
+          "title": "Gobernador indulta a Jeremy Ruiz Tomassini preso por marihuana - Primera Hora",
+          "quote": "El joven cumplió más de un año y tres meses de cárcel por el delito imputado.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.primerahora.com/noticias/policia-tribunales/notas/gobernador-indulta-a-jeremy-ruiz-tomassini-preso-por-marihuana/",
+          "title": "Gobernador indulta a Jeremy Ruiz Tomassini preso por marihuana - Primera Hora",
+          "quote": "El representante Luis Vega Ramos consideró un acto de justicia y humanidad el indulto otorgado a Ruiz Tomassini quien fue \"injustamente sentenciado” a cumplir cuatro años de cárcel e ingresado en octubre de 2014 en el Centro Correccional Guerrero en Aguadilla",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://rockdevzla.blogspot.com/feeds/posts/default?alt=json&max-results=25&start-index=51",
+        "https://rockzuela.blogspot.com/feeds/posts/default?alt=json&max-results=25&start-index=376",
+        "https://rockzuela.blogspot.com/feeds/posts/default?alt=json&max-results=25&start-index=626",
+        "https://www.oocities.org/sunsetstrip/3490/biograph.htm",
+        "https://www.facebook.com/JeremyR20/",
+        "https://soundcloud.com/proyekto-aura/horchela",
+        "https://www.primerahora.com/noticias/policia-tribunales/notas/gobernador-indulta-a-jeremy-ruiz-tomassini-preso-por-marihuana/",
+        "https://magazine-pr.com/tag/jeremy-ruiz/",
+        "https://www.youtube.com/watch?v=RFmadSm44-I"
+      ]
+    },
+    {
+      "name": "Alejandro «Chonto» Turola (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 3,
+      "sources": 13,
+      "seconds": 12,
+      "aiRunId": 21818,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/circo_vulkano.htm",
+          "title": "Circo Vulkano - Bio & Discography",
+          "quote": "Vocals, Acoustic Guitar & Melodica: Alejandro \"Chonto\" Turola",
+          "supports": "same"
+        },
+        {
+          "url": "https://curadas.com/2021/01/20/compayson-cumbias-chonto-cumbia/",
+          "title": "CompaySon y Las Cumbias del Chonto lanzan su sencillo \"La Cumbia Caraqueña\" - CURADAS",
+          "quote": "Alejandro «Chonto» Turola, es vocalista y músico de gran trayectoria en bandas caraqueñas como Papashanty Saundsystem» y «Circo Vulkano».",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2954025",
+          "title": "Alejandro Turola | Discogs",
+          "quote": "Real Name: Alejandro Turola. Variations: Chonto.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/circo_vulkano.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/clio_humblesongs.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/circovulkano_1lavidaes.htm",
+        "https://curadas.com/2021/01/20/compayson-cumbias-chonto-cumbia/",
+        "https://elestimulo.com/ub/viciosidades/2017-09-21/la-movida-rockera-en-caracas-se-esta-yendo-a-la-mierda/",
+        "https://songblog.io/es/latin/302802/circo-vulkano/review/circo-vulkano-se-presentara-en-caracas",
+        "https://contenidos.studiomios.com/circo-vulkano-online",
+        "https://rockhechovenezuela.com/c/circo-vulkano/",
+        "https://www.temadehoy.com/cultura/doce-anos-despues-circo-vulkano-lanza-sinfonico-su-concierto-mas-ambicioso.html",
+        "https://musicaemergenteve.blogspot.com/",
+        "https://www.discogs.com/es/artist/2954037-Circo-Vulkano",
+        "https://www.youtube.com/watch?v=zowchDBlqm4",
+        "https://www.discogs.com/artist/2954025"
+      ]
+    },
+    {
+      "name": "Luis «Papo» Márquez (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 7,
+      "sources": 12,
+      "seconds": 15,
+      "aiRunId": 21819,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://www.metal-archives.com/band/view/id/3540509945",
+          "title": "Templo de Chivos - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Current Luis Márquez Bass, Vocals See also: ex- Eutanasia Brutal",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://sincopa.com/musicians/trumpet/luis_marquez.htm",
+          "title": "Luis Márquez - Bio",
+          "quote": "Born: Resides: Instruments: Genre: In Cuba In Miami, FL Trumpet, Flugelhorn Jazz, Latin, World",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/musicians/trumpet/luis_marquez.htm",
+          "title": "Luis Márquez - Bio",
+          "quote": "2016 Ed Calle 360 (Trumpet)",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/4186895",
+          "title": "Luis Márquez (3) | Discogs",
+          "quote": "Real Name: Luis Javier Márquez García.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/4186895",
+          "title": "Luis Márquez (3) | Discogs",
+          "quote": "Profile: Cuban trumpeter, flugelhornist, producer, songwriter, singer, based in Miami, FL. Lived in Venezuela, therefore also works with Venezuelan artists.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.metal-archives.com/band/view/id/3540509945",
+          "title": "Templo de Chivos - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Current Luis Márquez Bass, Vocals See also: ex- Eutanasia Brutal",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.youtube.com/channel/UCE3PakcD-ySagvumPpONaWg",
+          "title": "Templo de Chivos - YouTube",
+          "quote": "Bajista y coros: Luis Márquez",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/orpo_cimarron.htm",
+        "https://sincopa.com/jazz/cdinfo/bidco_jazblues.htm",
+        "https://sincopa.com/jazz/cdinfo/cabijazz_1suena_salsajazz.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/rafael_pollo_brito/rafaelpollobrito_2secantavzlano.htm",
+        "https://sincopa.com/musicians/trumpet/luis_marquez.htm",
+        "https://doomed-nation.com/chilean-stoner-doom-punk-trio-templo-de-chivos-share-new-single-la-casa-de-la-pradera/",
+        "https://cerebrosexprimidos.com.ve/entrevista-a-templo-de-chivos/",
+        "https://www.tiktok.com/@ismaelantoniocolinanews/video/7387031636916948229",
+        "https://www.tiktok.com/@ismaelantoniocolinanews/video/7388696543676665094",
+        "https://www.metal-archives.com/band/view/id/3540509945",
+        "https://www.youtube.com/channel/UCE3PakcD-ySagvumPpONaWg",
+        "https://www.discogs.com/artist/4186895"
+      ]
+    }
+  ]
+}

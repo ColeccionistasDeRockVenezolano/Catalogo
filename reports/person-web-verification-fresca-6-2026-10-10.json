@@ -1,0 +1,1893 @@
+{
+  "date": "2026-10-10T23:39:58.672Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 29,
+    "correct": 22,
+    "errors": 0,
+    "same": "13/15",
+    "different": "2/4",
+    "mixed": "0/3",
+    "single": "7/7",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": false,
+  "cases": [
+    {
+      "name": "Colina / Oscar De Jesús Colina",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 7,
+      "sources": 9,
+      "seconds": 1,
+      "aiRunId": 21211,
+      "rationale": "una cita une los dos nombres y el proyecto común",
+      "evidence": [
+        {
+          "url": "https://eglycolinamarinprimera.blogspot.com/2015/09/oscar-de-jesus-colina.html",
+          "title": "OSCAR DE JESÚS COLINA",
+          "quote": "Oscar de Jesús Colina nació en la ciudad Mariana de Santa Ana de Coro, 15 de febrero de 1955 República de Venezuela, y es un cantante y compositor venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://eglycolinamarinprimera.blogspot.com/2015/09/oscar-de-jesus-colina.html",
+          "title": "OSCAR DE JESÚS COLINA",
+          "quote": "En 1982 graba su primer disco, Amanecer, que incluye temas en inglés y español.",
+          "supports": "same"
+        },
+        {
+          "url": "https://eglycolinamarinprimera.blogspot.com/2015/09/oscar-de-jesus-colina.html",
+          "title": "OSCAR DE JESÚS COLINA",
+          "quote": "En 1987 graba su cuarto disco llamado Cuando un loco ama",
+          "supports": "same"
+        },
+        {
+          "url": "https://vidayarte.com/espectaculos/club-tachira-presenta-exitos-de-colina-con-los-mejores-djs",
+          "title": "Club Táchira presenta “Éxitos de Colina” con los mejores DJs | Vida y Arte",
+          "quote": "Oscar de Jesús Colina nació el 15 de febrero de 1955 en Coro, estado Falcón, Venezuela. Es un cantante y compositor venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://vidayarte.com/espectaculos/club-tachira-presenta-exitos-de-colina-con-los-mejores-djs",
+          "title": "Club Táchira presenta “Éxitos de Colina” con los mejores DJs | Vida y Arte",
+          "quote": "En el año 1977 viaja a Londres en donde estudia cine en el London International Film School durante años.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.deezer.com/ru/track/974811982",
+          "title": "Elisa Rego - Amándote | Deezer",
+          "quote": "Amándote Elisa Rego | Время : 03:51 Композитор: Oscar de Jesús Colina",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2034460",
+          "title": "Oscar De Jesús Colina | Discogs",
+          "quote": "Oscar De Jesús Colina. Profile: Venezuelan pop rock musician, singer, composer, known as Colina",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://eglycolinamarinprimera.blogspot.com/2015/09/oscar-de-jesus-colina.html",
+        "https://vidayarte.com/espectaculos/club-tachira-presenta-exitos-de-colina-con-los-mejores-djs",
+        "https://t.me/dayscolinaa",
+        "https://www.deezer.com/ru/track/974811982",
+        "https://www.tiktok.com/discover/colina-cantante",
+        "https://www.youtube.com/watch?v=l-ldZ3oOfaE",
+        "https://web.archive.org/web/20090524061628/http://www.rockhechovenezuela.com/colina.htm",
+        "https://oscar-de-jesus-colinazi.bandcamp.com/",
+        "https://www.discogs.com/artist/2034460"
+      ]
+    },
+    {
+      "name": "Héctor «Tito» Fierro / Tito Fierro",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 11,
+      "seconds": 4,
+      "aiRunId": 21212,
+      "rationale": "una cita une los dos nombres y el proyecto común",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/2464860",
+          "title": "Héctor Fierro | Discogs",
+          "quote": "Héctor Fierro. Variations: Hector 'Tito' Fierro, Héctor \"Tito\" Fierro. Credits: Guitar – Zapato 3 – Amor, Furia y Languidez (1989); Guitar, Backing Vocals – Pablo Dagnino – EÚS: El Último Sentimiento Unplugged (2003); Guitar – Pixel – Pixel (2001).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/2016/05/integrantes-zapato-acompanaran-ultima-funcion-sesiones-vrock_33230/",
+          "title": "Integrantes de Zapato 3 acompañarán en la última función de Sesiones VRock - EL NACIONAL",
+          "quote": "el músico Tito Fierro, guitarrista invitado de Zapato 3 y miembro de Los Píxel, liderará un ensamble",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/ub/melomania/2016-04-07/sesiones-vrock-una-idea-muy-obscena/",
+          "title": "Sesiones VRock: Una Idea Muy Obscena | UB",
+          "quote": "el músico Tito Fierro (guitarrista invitado de Zapato 3 y miembro de Los Píxel) fungirá como director de una banda",
+          "supports": "same"
+        },
+        {
+          "url": "https://mediaforceglobal.com/press-releases/los-pixel-lanzan-al-mercado-su-nuevo-sencillo-la-clave/",
+          "title": "Los Pixel “lanzan” al mercado su nuevo sencillo “La clave” • Media...",
+          "quote": "Pablo Dagnino (voz), Héctor “Tito” Fierro (guitarra), Pablo Fernandes (bajo) y Eduardo Sáez (batería) son los cuatro venezolanos quienes dan vida a la banda de Rock en Español Los Pixel.",
+          "supports": "same"
+        },
+        {
+          "url": "https://twitter.com/lospixel?lang=ga",
+          "title": "LOS PIXEL (@LOSPIXEL) / Twitter",
+          "quote": "Los Pixel son: Pablo Dagnino (Voz) Héctor 'Tito' Fierro (Guitarra) Pablo Fernandes (Bajo) y Eduardo Sáez (Batería).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://steampeek.hu/?appid=394360",
+        "https://noesfm.com/los-pixel-ahora-lo-sabes-todo/",
+        "https://www.elnacional.com/2016/05/integrantes-zapato-acompanaran-ultima-funcion-sesiones-vrock_33230/",
+        "https://www.officialdata.org/inflation/red-dead-redemption",
+        "https://www.gamersdecide.com/pc-game-news/top-10-games-hearts-iron-iv-if-you-hearts-iron-iv-you-ll-love-these",
+        "https://elestimulo.com/ub/melomania/2016-04-07/sesiones-vrock-una-idea-muy-obscena/",
+        "https://www.youtube.com/watch?v=XvFYYpyDbX8",
+        "https://www.youtube.com/watch?v=VT7aBbaca84",
+        "https://mediaforceglobal.com/press-releases/los-pixel-lanzan-al-mercado-su-nuevo-sencillo-la-clave/",
+        "https://twitter.com/lospixel?lang=ga",
+        "https://www.discogs.com/artist/2464860"
+      ]
+    },
+    {
+      "name": "Henry Augustus Stephen Pierre / Henry Augustus Stephen",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 9,
+      "sources": 9,
+      "seconds": 1,
+      "aiRunId": 21213,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Henry_Stephen_(musician)",
+          "title": "Henry Stephen (musician) - Wikipedia",
+          "quote": "Henry Augustus Stephen Pierre (15 July 1941 – 5 April 2021) was one of the earliest Venezuelan proponents of rock and roll music.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/996893",
+          "title": "Henry Stephen | Discogs",
+          "quote": "He once belonged to the \"Los Impala\" music group, and later became a solo artist with the 1969 hit song \"Limón, Limonero\".",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Henry_Stephen_(musician)",
+          "title": "Henry Stephen (musician) - Wikipedia",
+          "quote": "Stephen died from COVID-19 in Caracas on 5 April 2021, during the COVID-19 pandemic in Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere/muere-henry-stephen-victima-de-covid-19/",
+          "title": "Muere Henry Stephen, víctima de covid-19 - Últimas Noticias",
+          "quote": "Henry Augustus Stephen Pierre nació en Cabimas, estado Zulia el 15 de julio de 1941 fue un cantautor y actor venezolano de telenovelas, considerado como uno de los primeros Pioneros del rock and roll en Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere/muere-henry-stephen-victima-de-covid-19/",
+          "title": "Muere Henry Stephen, víctima de covid-19 - Últimas Noticias",
+          "quote": "En 1968 obtuvo un éxito de público y ventas con la canción «Limón, Limonero», que se convirtió en una popular canción del verano en España.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.ultimasnoticias.com.ve/flashback/Henry-Stephen-made-the-best-lemonade/",
+          "title": "Henry Stephen made the best lemonade",
+          "quote": "Henry Augustus Stephen Pierre was born on July 15, 1941 in Cabimas.",
+          "supports": "same"
+        },
+        {
+          "url": "https://ninos.kiddle.co/Henry_Stephen",
+          "title": "Henry Stephen para Niños",
+          "quote": "Henry Augustus Stephen Pierre (nacido el 15 de julio de 1941 en Cabimas, Zulia, y fallecido el 5 de abril de 2021 en Caracas) fue un famoso cantante y actor venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/996893",
+          "title": "Henry Stephen | Discogs",
+          "quote": "Henry Stephen (born 15 July 1941 in Cabimas, Zulia state, Venezuela – died 5 April 2021 in Caracas, Distrito Federal state, Venezuela) is one of the earliest Venezuelan proponents of rock and roll music.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/996893",
+          "title": "Henry Stephen | Discogs",
+          "quote": "Credits: Written-By – Henry Stephen – Limón Limonero (1968).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://ultimasnoticias.com.ve/chevere/muere-henry-stephen-victima-de-covid-19/",
+        "https://en.ultimasnoticias.com.ve/flashback/Henry-Stephen-made-the-best-lemonade/",
+        "https://en.wikipedia.org/wiki/Henry_Stephen_(musician)",
+        "https://ninos.kiddle.co/Henry_Stephen",
+        "https://www.discogs.com/artist/996893-Henry-Stephen",
+        "https://www.whosampled.com/Henry-Stephen/",
+        "https://www.tiktok.com/@venezolano100to/video/7583840543805869323",
+        "https://www.youtube.com/watch?v=md2t3kaSbdE",
+        "https://www.discogs.com/artist/996893"
+      ]
+    },
+    {
+      "name": "Mauricio Castro / Mauricio Castro Rodríguez",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 10,
+      "seconds": 1,
+      "aiRunId": 21214,
+      "rationale": "una cita une los dos nombres y el proyecto común",
+      "evidence": [
+        {
+          "url": "https://radio.otilca.org/venezuela-en-las-voces-e-instrumentos-de-serenata-guayanesa/",
+          "title": "Venezuela en las voces e instrumentos de Serenata Guayanesa - Otilca Radio",
+          "quote": "Mauricio Castro Rodríguez: Nacido en Ciudad Bolívar en el año 1946, formó parte del Orfeón de la Universidad de Oriente.",
+          "supports": "same"
+        },
+        {
+          "url": "https://radio.otilca.org/venezuela-en-las-voces-e-instrumentos-de-serenata-guayanesa/",
+          "title": "Venezuela en las voces e instrumentos de Serenata Guayanesa - Otilca Radio",
+          "quote": "con sus integrantes fundadores:: Mauricio Castro, Hernán Gamboa, Iván Pérez Ross y César Pérez Rossi",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/4690756",
+          "title": "Mauricio Castro | Discogs",
+          "quote": "Mauricio Castro. Real Name: Mauricio Castro Rodríguez. Profile: Venezuelan folk singer, percussionist",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/4690756",
+          "title": "Mauricio Castro | Discogs",
+          "quote": "Credits: Tenor Vocals, Percussion – Serenata Guayanesa – Serenata Guayanesa (1971).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.deezer.com/es/artist/1199693",
+          "title": "Serenata Guayanesa: discos, canciones y conciertos | Deezer",
+          "quote": "Serenata Guayanesa es un cuarteto folclórico venezolano formado en 1971 en Ciudad Bolívar por Hernán Gamboa, Iván Pérez Rossi, César Pérez Rossi y Mauricio Castro Rodríguez.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://radio.otilca.org/venezuela-en-las-voces-e-instrumentos-de-serenata-guayanesa/",
+        "https://grokipedia.com/page/Glossary_of_real-time_strategy_terms",
+        "https://sincopa.com/traditional/artists2/serenata.htm",
+        "https://runrun.es/noticias/451564/venezuela-celebra-los-50-anos-de-serenata-guayanesa/",
+        "https://www.deezer.com/es/artist/1199693",
+        "https://www.youtube.com/watch?v=zpO7BZusyaM",
+        "https://www.linkedin.com/pub/dir/Mauricio/Rodr%C3%ADguez+Castro",
+        "https://www.cancioneros.com/co/3202/2/serenata-guayanesa-declarada-patrimonio-cultural-de-venezuela",
+        "https://radio.otilca.org/serenata-guayanesa-mas-de-medio-siglo-de-musica-tradicion-y-arraigo-venezolano/",
+        "https://www.discogs.com/artist/4690756"
+      ]
+    },
+    {
+      "name": "Chapis Lasca / David «Chapis» Lasca",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 14,
+      "seconds": 1,
+      "aiRunId": 21215,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/1747242",
+          "title": "Chapis Lasca | Discogs",
+          "quote": "Chapis Lasca. Real Name: David Lasca . Profile: Venezuelan bassist and acoustic guitar player. Variations: Chapis, David \"Chapis\" Lasca, Lasca.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1747242",
+          "title": "Chapis Lasca | Discogs",
+          "quote": "Credits: Bass, Guitar – Malanga – Ta' Trancao (1999)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1747242",
+          "title": "Chapis Lasca | Discogs",
+          "quote": "Bass – Mata Rica – Pachanga Punk (1999)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1747242",
+          "title": "Chapis Lasca | Discogs",
+          "quote": "5-String Bass – Los Cañoneros – Luna Sobre El Valle (2009)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/viniloversus_3cambiednombre.htm",
+          "title": "Viniloversus - Cambie De Nombre (CD Info)",
+          "quote": "Tracks 01, 03, 04, 05, 10, 11 Produced by Rudy Pagliuca, Chapis Lasca & Carlos Imperatori",
+          "supports": "same"
+        },
+        {
+          "url": "https://chapislascacom.wordpress.com/",
+          "title": "David \"Chapis\" Lasca – David \"Chapis\" Lasca. Músico, creador de Lasca, Bajista de Malanga y Gaélica. Productor Musical de ViniloVersus, La Vida Boheme, Los Colores, McKlopedia, Majarete Sound Machine, Los Cañoneros, SamSara entre otros.",
+          "quote": "Malanga firmó contrato con la discográfica Líderes, en Agosto de 1.999 que tuve que dedicarme (como Arístides, Juan y Rudy) tiempo completo a la promoción de nuestro primer disco Ta’ Trancao.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.setlist.fm/setlist/viniloversus/2008/teatro-del-colegio-santa-rosa-de-lima-caracas-venezuela-43ce0b43.html",
+        "https://www.loscanoneros.net/la_banda.php",
+        "https://chapislascacom.wordpress.com/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/viniloversus_3cambiednombre.htm",
+        "https://soundcloud.com/mochuelo-1/te-vas",
+        "https://genius.com/La-vida-boheme-la-vida-mejor-lyrics",
+        "https://elmiope.com/2024/11/30/el-caracha-reggae-de-mata-rica/",
+        "https://chapislascacom.wordpress.com/2017/12/12/los-canoneros/",
+        "https://monitoreamos.com/entretenimiento/provea-presenta-libro-y-disco-sobre-el-rock-venezolano-y-los-derechos-humanos",
+        "https://ichamo.com/records/2017/10/10/a-color-el-primer-album-de-el-otro-polo-como-solista/",
+        "https://www.buenamusica.com/malanga/biografia",
+        "https://genius.com/artists/Chapis-lasca",
+        "https://www.discogs.com/artist/1747242",
+        "https://www.discogs.com/artist/6422422"
+      ]
+    },
+    {
+      "name": "Manuel Diquez / Manuel «Manny» Diquez",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 8,
+      "sources": 11,
+      "seconds": 1,
+      "aiRunId": 21216,
+      "rationale": "Rol, género o época distintos no prueban dos personas, y no aparece un proyecto común en la web.",
+      "evidence": [
+        {
+          "url": "https://ultimasnoticias.com.ve/pop/diquez-vuelve-a-la-accion-con-su-nuevo-album-en-vivo-para-nadie/",
+          "title": "Diquez vuelve a la acción con su nuevo álbum \"En vivo. Para nadie\"",
+          "quote": "el artista mantiene dos proyectos musicales en paralelo a su carrera como solista, dirigidos al mercado anglo y a seguidores del jazz y world music: “Manny & The Rumors” y “Miami Mambo System”",
+          "supports": "same"
+        },
+        {
+          "url": "https://deventosreportentertainment.wordpress.com/tag/manuel-diquez/",
+          "title": "Manuel Diquez – D´Eventos Report Entertainment",
+          "quote": "PRODUCIDO POR MANNY DIQUEZ Y JUDY BUENDÍA para ELECTRIC MIND ENTERTAINMENT",
+          "supports": "same"
+        },
+        {
+          "url": "https://deventosreportentertainment.wordpress.com/tag/manuel-diquez/",
+          "title": "Manuel Diquez – D´Eventos Report Entertainment",
+          "quote": "Manny Diquez: Arreglos, voz líder, coros, guitarras, bajo, teclados, cuatro",
+          "supports": "same"
+        },
+        {
+          "url": "https://rumberos.net/manuel-diquez-explosion-y-rock-con-los-ojos-rojos/",
+          "title": "MANUEL DIQUEZ: explosión y rock con los OJOS ROJOS | Rumberos",
+          "quote": "Tras su tránsito por la agrupación ‘UltraChic’, el joven compositor, cantante y músico multi-instrumentista venezolano MANUEL DIQUEZ, retoma su carrera en solitario",
+          "supports": "same"
+        },
+        {
+          "url": "https://rumberos.net/manuel-diquez-explosion-y-rock-con-los-ojos-rojos/",
+          "title": "MANUEL DIQUEZ: explosión y rock con los OJOS ROJOS | Rumberos",
+          "quote": "el artista que ha acompañado como vocalista y músico a Franco De Vita durante sus recientes giras mundiales",
+          "supports": "same"
+        },
+        {
+          "url": "https://acordesweb.com/artista/manuel-diquez",
+          "title": "▷ Acordes de MANUEL DIQUEZ para Guitarra, Piano y Ukelele | AcordesWeb",
+          "quote": "mas de 28 discos participando como músico entre los que se cuentan Franco de Vita, Frank Quintero y Jeremías",
+          "supports": "same"
+        },
+        {
+          "url": "https://acordesweb.com/artista/manuel-diquez",
+          "title": "▷ Acordes de MANUEL DIQUEZ para Guitarra, Piano y Ukelele | AcordesWeb",
+          "quote": "A finales de este año forma la banda Ultra Chic junto a Luis Golding, siendo el productor y principal escritor",
+          "supports": "same"
+        },
+        {
+          "url": "https://acordesweb.com/artista/manuel-diquez",
+          "title": "▷ Acordes de MANUEL DIQUEZ para Guitarra, Piano y Ukelele | AcordesWeb",
+          "quote": "trabajaría en los teclados con los Caramelos de Cianuro en vivo y como tecladista del disco Miss Mujerzuela",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://ultimasnoticias.com.ve/pop/diquez-vuelve-a-la-accion-con-su-nuevo-album-en-vivo-para-nadie/",
+        "https://deventosreportentertainment.wordpress.com/tag/manuel-diquez/",
+        "https://rumberos.net/manuel-diquez-explosion-y-rock-con-los-ojos-rojos/",
+        "https://acordesweb.com/artista/manuel-diquez",
+        "https://sincopa.com/rock_pop/cdinfo_rock/roqvalero_insomnio.htm",
+        "https://philopedia.org/works/twilight-of-the-idols/",
+        "https://www.youtube.com/watch?v=E6UmYtfKtTU",
+        "https://www.diversomagazine.com/2010/05/manuel-diquez.html",
+        "https://www.shazam.com/song/578051311/louis",
+        "https://www.youtube.com/watch?v=rFtqSr2IYQg",
+        "https://www.discogs.com/artist/4701169"
+      ]
+    },
+    {
+      "name": "Erwin «Wincho» Schäfer / Wincho Schäfer",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 11,
+      "seconds": 1,
+      "aiRunId": 21217,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://elestimulo.com/climax/cooltura-climax/2019-08-23/el-sentimiento-de-wincho-schafer/",
+          "title": "El sentimiento de Wincho Schafer | Clímax",
+          "quote": "Desde la niñez Ervin “Wincho” Schäfer estuvo expuesto a diferentes estilos.",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/climax/cooltura-climax/2019-08-23/el-sentimiento-de-wincho-schafer/",
+          "title": "El sentimiento de Wincho Schafer | Clímax",
+          "quote": "Debutó como miembro de Sentimiento Muerto, formó parte de PAN, Famasloop, Atkinson y otras agrupaciones.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Atkinson_(banda)",
+          "title": "Atkinson (banda) - Wikipedia, la enciclopedia libre",
+          "quote": "Atkinson fue un supergrupo de rock originario de Caracas, Venezuela, conformado por Wincho Schafer, Rafael Cadavieco y Erik Aldrey.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2841010",
+          "title": "Erwin Schäfer | Discogs",
+          "quote": "Best known as Wincho Schäfer, is a Venezuelan musician and Bass player. Former band member of Sentimiento Muerto",
+          "supports": "same"
+        },
+        {
+          "url": "https://opinionynoticias.com/opinioncultura/10037-atkinson-entre-el-cielo-y-el-infierno",
+          "title": "Atkinson: entre el cielo y el infierno",
+          "quote": "Ervin \"Wincho\" Schäfer (W), 44 años, fue bajista de Sentimiento Muerto...",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/espectaculos/2022-06-14/wincho-ciudad-cancion-radio-bar/",
+          "title": "\"Ciudad Canción\" recibe a Wincho Schäfer | El Estímulo",
+          "quote": "Schäfer fue bajista de la banda Sentimiento Muerto entre 1984 y 1990, además ha trabajado con otras bandas y artistas locales como Famasloop, Masseratti 2Lts, Nana Cadavieco, Sur Carabela, La Corte, Gaélica, Atkinson, Pan y otros.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.hola.com/actualidad/20261007927564/te-presentamos-a-la-famosa-pareja-de-rowan-atkinson-30-anos-menor-que-el-que-protagoniza-una-comedia-enormemente-popular/",
+        "https://es.wikipedia.org/wiki/Atkinson_(banda)",
+        "https://elestimulo.com/climax/cooltura-climax/2019-08-23/el-sentimiento-de-wincho-schafer/",
+        "https://elestimulo.com/espectaculos/2022-06-14/wincho-ciudad-cancion-radio-bar/",
+        "https://www.sps.edu/sps360/alumni-spotlight/david-atkinson-59",
+        "https://en.wikipedia.org/wiki/Atkinson_(band)",
+        "https://opinionynoticias.com/opinioncultura/10037-atkinson-entre-el-cielo-y-el-infierno",
+        "https://archive.org/details/atkinson-la-banda",
+        "https://plus.cusica.com/tag/wincho-schafer/",
+        "https://www.youtube.com/watch?v=-yawkBlUXsY",
+        "https://www.discogs.com/artist/2841010"
+      ]
+    },
+    {
+      "name": "Liberatoscioli / Sandro Liberatoscioli",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 10,
+      "seconds": 1,
+      "aiRunId": 21218,
+      "rationale": "una cita une los dos nombres y el proyecto común",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/Aditus",
+          "title": "Aditus - Wikipedia, la enciclopedia libre",
+          "quote": "Sandro Liberatoscioli abandona la banda comenzando los 90 por razones de trabajo como ingeniero químico",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Aditus",
+          "title": "Aditus - Wikipedia, la enciclopedia libre",
+          "quote": "En 1993 lograron un éxito comercial con En concierto en este país, disco independiente en vivo que recopilaba la mayoría de los éxitos de la banda.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Aditus",
+          "title": "Aditus - Wikipedia, la enciclopedia libre",
+          "quote": "siendo su último álbum \"De Alcabala a Peligro\" (2007)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1127708",
+          "title": "Sandro Liberatoscioli | Discogs",
+          "quote": "Sandro Liberatoscioli. Real Name: Sandro Liberatoscioli. Variations: Liberatoscioli, S. Liberatoscioli.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Aditus",
+          "title": "Aditus - Wikipedia, la enciclopedia libre",
+          "quote": "el bajista Sandro Liberatoscioli",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://es.wikipedia.org/wiki/Aditus",
+        "https://www.cbsnews.com/losangeles/news/operation-street-sweeper-los-angeles-police-department-street-takeover-bust/",
+        "https://www.venciclopedia.org/index.php?title=Aditus",
+        "https://mp3sun.org/catalog/mp3/Proyecto-Verona%20%E2%80%93%20Amor-Amargo.html",
+        "https://sincopa.com/rock_pop/cdinfo_rock/aditus_09otromundo.htm",
+        "https://www.youtube.com/watch?v=Vz2Kn46eIWA",
+        "https://www.shazam.com/es-mx/song/1541017437/en-este-pac3ads-en-vivo",
+        "https://www.deezer.com/mx/artist/5297839",
+        "https://www.letras.com/aditus/261673/",
+        "https://www.discogs.com/artist/1127708"
+      ]
+    },
+    {
+      "name": "Henríquez / George Henríquez",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 9,
+      "seconds": 1,
+      "aiRunId": 21219,
+      "rationale": "una cita une los dos nombres y el proyecto común",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/Aditus",
+          "title": "Aditus - Wikipedia, la enciclopedia libre",
+          "quote": "George Henríquez: Voz & Teclados.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1127709",
+          "title": "George Henríquez | Discogs",
+          "quote": "George Henríquez. Real Name: George D. Henríquez. Profile: Venezuelan musician and singer. He is best known as the keyboardist and singer for the Venezuelan band Aditus.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/aditus_08mejor_peor.htm",
+          "title": "Aditus - Lo Mejor y Lo Peor... (LP Info)",
+          "quote": "Keyboards & Vocals: George Henríquez",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Aditus",
+          "title": "Aditus - Wikipedia, la enciclopedia libre",
+          "quote": "En 1993 lograron un éxito comercial con En concierto en este país, disco independiente en vivo que recopilaba la mayoría de los éxitos de la banda.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Aditus",
+          "title": "Aditus - Wikipedia, la enciclopedia libre",
+          "quote": "siendo su último álbum \"De Alcabala a Peligro\" (2007)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://es.wikipedia.org/wiki/Aditus",
+        "https://sincopa.com/rock_pop/cdinfo_rock/francodvita_3norte.htm",
+        "https://www.venciclopedia.org/index.php?title=Aditus",
+        "https://sincopa.com/rock_pop/cdinfo_rock/aditus_08mejor_peor.htm",
+        "https://www.lobotoradio.com/discos/aditus-2",
+        "https://www.asieravenezuela.com/p/aditus.html",
+        "https://mundour.com/2021/08/25/george-henriquez-aditus-se-convirtio-en-una-marca/",
+        "https://elestimulo.com/etiqueta/aditus/",
+        "https://www.discogs.com/artist/1127709"
+      ]
+    },
+    {
+      "name": "L. Colina / Leo Colina",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21220,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://www.deezer.com/en/album/75589562",
+          "title": "Mermelada Bunch - Pum Pum | Deezer",
+          "quote": "10 No Te Vistas Que No Vas Mermelada Bunch Pum Pum 02:51 Writer: L. Colina / Composers: L. Colina",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.deezer.com/en/album/75589562",
+          "title": "Mermelada Bunch - Pum Pum | Deezer",
+          "quote": "Composers: L. Colina Total duration:41 min",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/mermeladabunch_1pumpum.htm",
+          "title": "Mermelada Bunch - Pum Pum (CD Info)",
+          "quote": "Lead Vocals: Pipo Ramírez & Leo Colina",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/channel/UCPxNNB0hUh1mvnixU6HL3iA",
+          "title": "Mermelada Bunch - YouTube",
+          "quote": "Leo Colina: Voz Lider",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.deezer.com/en/album/75589562",
+        "https://en.wikipedia.org/wiki/L",
+        "https://www.buenamusica.com/mermelada-bunch/album/dale-a-play",
+        "https://open.spotify.com/track/1O83NpAvbyk4B1VVJ7JN5e",
+        "https://www.buenamusica.com/mermelada-bunch/biografia",
+        "https://mermeladabunch.bandcamp.com/track/la-hora-loca-sensacional",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mermeladabunch_1pumpum.htm",
+        "https://music.apple.com/us/artist/leo-colina/635963869",
+        "https://www.youtube.com/watch?v=OOps1vwziVM",
+        "https://www.youtube.com/channel/UCPxNNB0hUh1mvnixU6HL3iA",
+        "https://clipzag.com/watch?v=wfDolkgSXjg",
+        "https://www.youtube.com/watch?v=9eN-t1ZLClg"
+      ]
+    },
+    {
+      "name": "Pepo Lamberti / Gabriel «Pepo» Lamberti",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 11,
+      "seconds": 2,
+      "aiRunId": 21221,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://www.arsnotoria.com.ar/en/pepolamberti/",
+          "title": "PEPO LAMBERTI – ARSNotoria",
+          "quote": "Gabriel “Pepo” Lamberti es Licenciado en Comunicación Social, vocalista y bajista de la reconocida banda de rock venezolana, Andreazulado, con la que editó seis placas discográficas",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/andreazulado_5dolby.htm",
+          "title": "Andreazulado - Dolby (CD Info)",
+          "quote": "Vocals, Guitars, Keyboards, Bass, Programming & MacBook Pro: Gabriel (Pepo) Lamberti",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.deezer.com/mx/artist/1448276",
+          "title": "Andreazulado: álbumes, canciones y conciertos | Deezer",
+          "quote": "Compositores: Gabriel Pepo Lamberti - Edgar Adriano Lamberti",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.deezer.com/mx/artist/1448276",
+          "title": "Andreazulado: álbumes, canciones y conciertos | Deezer",
+          "quote": "Compositores: Gabriel Pepo Lamberti",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.ivoox.com/en/podcast-esto-si-suena_sq_f16450_9.html",
+        "https://www.obby.fun/blog/roblox-monetization-guide",
+        "https://www.arsnotoria.com.ar/en/pepolamberti/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/andreazulado_5dolby.htm",
+        "https://www.alivegames.io/posts/roblox-outfit-template",
+        "https://www.deezer.com/mx/artist/1448276",
+        "https://www.youtube.com/watch?v=U5Tjm_01u0M",
+        "https://www.youtube.com/watch?v=9eEUpRt1n-E",
+        "https://www.shazam.com/song/1574444065/si-me-das-tu-abrigo",
+        "https://www.shazam.com/song/631378420/yani",
+        "https://www.discogs.com/artist/5574499"
+      ]
+    },
+    {
+      "name": "Mariana «Nana» Cadavieco / Nana Cadavieco",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 10,
+      "seconds": 1,
+      "aiRunId": 21222,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://www.musica.com/letras.asp?biografia=44177",
+          "title": "Biografía de Nana Cadavieco - Musica.com",
+          "quote": "Son muchos los caminos que la cantante venezolana Nana Cadavieco ha recorrido antes de lanzar al mercado su primera producción discográfica, titulada Exposé, con un concepto que dos años después le ha dado más luces que oscuridad.Estudiar con ocho Marianas más en el mismo salón de clases influyó de manera determinante para que su apodo terminara convirtiéndose en una carta de presentación.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.musica.com/letras.asp?biografia=44177",
+          "title": "Biografía de Nana Cadavieco - Musica.com",
+          "quote": "Nana es la hija de Sonia y José Ignacio Cadavieco, venezolana, de 30 años de edad",
+          "supports": "same"
+        },
+        {
+          "url": "http://www.nanacadavieco.com/",
+          "title": "Nana Cadavieco – Exposé |",
+          "quote": "Nana y Sunsplash presentan: Rock⚡Swag Grabación del show y disco Exposé EN VIVO #15Julio en Moulin Rouge // June 27th, 2011 // No Comments » // Uncategorized “Inmortaliza tu voz”, como dicen mis queridos Tomates Fritos",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.musica.com/letras.asp?biografia=44177",
+          "title": "Biografía de Nana Cadavieco - Musica.com",
+          "quote": "Parte de esos personajes son sus participaciones como invitada en los discos y toques de las agrupaciones, también venezolanas, Masseratti 2lts. y Gaêlica.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "http://www.nanacadavieco.com/",
+        "https://soundcloud.com/masseratti2lts/di-amantes-brillantes-noveno",
+        "https://music.apple.com/us/artist/nana-cadavieco/327800261",
+        "https://www.musica.com/letras.asp?biografia=44177",
+        "https://masseratti2lts.bandcamp.com/album/noveno-disco",
+        "https://www.youtube.com/watch?v=SkJrbLMSGuA",
+        "https://masseratti2lts.bandcamp.com/track/di-amantes-brillantes-feat-nana-cadavieco",
+        "https://www.discogs.com/release/8082269",
+        "https://open.spotify.com/intl-es/track/3pRbBsIsF5v9Q4Y3gwRDm6",
+        "https://www.discogs.com/artist/4868145"
+      ]
+    },
+    {
+      "name": "Jorge Ramírez «Pipo» / Pipo Ramírez",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 7,
+      "sources": 10,
+      "seconds": 1,
+      "aiRunId": 21223,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/mermeladabunch_1pumpum.htm",
+          "title": "Mermelada Bunch - Pum Pum (CD Info)",
+          "quote": "Lead Vocals: Pipo Ramírez & Leo Colina",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/mermeladabunch_1pumpum.htm",
+          "title": "Mermelada Bunch - Pum Pum (CD Info)",
+          "quote": "01- Los Pum Pum (J. Ramírez/L. Colina/D. Schlesinger)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.amazon.com/Mermelada-Bunch-Dedico-DVD-Producciones/dp/B01KS7B2OW",
+          "title": "Mermelada Bunch, Leo Colina, Pipo Ramírez, Armando Hernández, Juan Paul Hernández, Edmundo Rincon, David Schelsinger - Mermelada Bunch - Te La Dedico (2013) CD + DVD- HAF Producciones (CDDVD-072) - Amazon.com Music",
+          "quote": "Pipo Ramírez (Composer)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.amazon.com/Mermelada-Bunch-Dedico-DVD-Producciones/dp/B01KS7B2OW",
+          "title": "Mermelada Bunch, Leo Colina, Pipo Ramírez, Armando Hernández, Juan Paul Hernández, Edmundo Rincon, David Schelsinger - Mermelada Bunch - Te La Dedico (2013) CD + DVD- HAF Producciones (CDDVD-072) - Amazon.com Music",
+          "quote": "Formación: Leo Colina, Pipo Ramírez, Armando Hernández, Juan Paul Hernández, Edmundo Rincon, David Schelsinger.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.buenamusica.com/mermelada-bunch",
+          "title": "Mermelada Bunch - Perfil Artístico y Personal",
+          "quote": "La banda Mermelada Bunch es una agrupación musical alternativa fundada en Maracaibo, Venezuela, en el año 1999, liderada por Pipo y Leo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://chordu.com/chords-tabs--free-cover-mermelada-bunch-mix-pipo-y-leo--id_WuVlDRwEX4g",
+          "title": "[Free Cover] Mermelada Bunch Mix (Pipo y Leo) Chords - ChordU",
+          "quote": "[Free Cover] Mermelada Bunch Mix (Pipo y Leo)",
+          "supports": "same"
+        },
+        {
+          "url": "https://oem.com.mx/elsoldecuernavaca/gossip/pipo-ramirez-y-su-mermelada-bunch-de-vuelta-al-ruedo-musical-20065614?token=-1178881290",
+          "title": "Pipo Ramírez y su Mermelada Bunch de vuelta al ruedo musical - El...",
+          "quote": "El tema “Baila” marca el regreso del cantante venezolano Pipo Ramírez, vocalista de Mermelada Bunch.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.amazon.com/Mermelada-Bunch-Dedico-DVD-Producciones/dp/B01KS7B2OW",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mermeladabunch_1pumpum.htm",
+        "https://www.buenamusica.com/mermelada-bunch",
+        "https://open.spotify.com/track/1O83NpAvbyk4B1VVJ7JN5e",
+        "https://chordu.com/chords-tabs--free-cover-mermelada-bunch-mix-pipo-y-leo--id_WuVlDRwEX4g",
+        "https://www.thespike.gg/events/results/valorant-champions-tour-2026-champions-shanghai/4233",
+        "https://www.youtube.com/watch?v=9eN-t1ZLClg",
+        "https://www.tiktok.com/discover/pipo-ram%C3%ADrez",
+        "https://oem.com.mx/elsoldecuernavaca/gossip/pipo-ramirez-y-su-mermelada-bunch-de-vuelta-al-ruedo-musical-20065614?token=-1178881290",
+        "https://www.shazam.com/artist/pipo-ramirez/1543976053"
+      ]
+    },
+    {
+      "name": "Pedro Junco / Pedro Junco Jr. (el mismo compositor)",
+      "kind": "pair",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 4,
+      "sources": 13,
+      "seconds": 3,
+      "aiRunId": 21224,
+      "rationale": "Solo un nombre lleva «Hijo» o «Jr.»: puede ser el padre o el hijo; no se propone fusión.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/1186133",
+          "title": "Pedro Junco Jr. | Discogs",
+          "quote": "Variations: Junco, Junco J., Junco Jr., Junco, Jr., Juncos, P. Junco, P. Junco H., P. Junco Jnr, P. Junco Jr., P. Junco Junior, P. Junco, Jr., P. R. Junco, P.R. Junco, Pedro B. Jesus Junco Redondas, Pedro Jaimes, Pedro Junco, Pedro Junco Jnr, Pedro Junco Junior, Pedro Junco, Jr, Pedro Junco, Jr., Pedro Junto Junior, Pedro R. Junco, T. Junco.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1186133",
+          "title": "Pedro Junco Jr. | Discogs",
+          "quote": "Real Name: Pedro Buenaventura Jesus del Junco-Redondas.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/ethnic/cdinfo1/hubaleobetan_2mundos.htm",
+          "title": "Huáscar Barradas & Leopolodo Betancourt - Dos Mundos (CD Info)",
+          "quote": "12- Nosotros (Pedro Junco) 3:42",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/classic/cdinfo_class/leobetan_poemasinfinitos.htm",
+          "title": "Leopoldo Betancourt - Poemas Infinitos (DA Info)",
+          "quote": "10- Nosotros (Pedro Junco Jr.)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/hubaleobetan_2mundos.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/soledad_antologia2.htm",
+        "https://sincopa.com/classic/cdinfo_class/leobetan_poemasinfinitos.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/billos/discoteca/billos_557_billo76_5.htm",
+        "https://rubenriosmrpachanga.com/pedro-junco-jr-nosotros-1942/",
+        "https://www.cibercuba.com/noticias/2023-06-08-u199370-e199370-s27315-nosotros-historia-amor-imposible-hecha-bolero",
+        "https://www.milenio.com/espectaculos/nosotros-una-tragedia-hecha-cancion",
+        "https://music.apple.com/ar/artist/pedro-junco-jr/160013170",
+        "https://sincopa.com/latin_pop/cdinfo_latin/melodicos/melodicos_40exitos.htm",
+        "https://www.amazon.com/Lideres-Los-Melodicos/dp/B07B9H88LH",
+        "https://www.shazam.com/song/307463255/nosotros",
+        "http://labilloscaracasboys.blogspot.com/2009/02/billo-76-1976.html",
+        "https://www.discogs.com/artist/1186133"
+      ]
+    },
+    {
+      "name": "Juan V. Torrealba / Juan Vicente Torrealba (el mismo)",
+      "kind": "pair",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 13,
+      "seconds": 10,
+      "aiRunId": 21225,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://ninos.kiddle.co/Juan_Vicente_Torrealba",
+          "title": "Juan Vicente Torrealba para Niños",
+          "quote": "Juan Vicente Torrealba Pérez (nacido en Caracas, el 20 de febrero de 1917, y fallecido en la misma ciudad el 2 de mayo de 2019) fue un talentoso músico y compositor venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/731237",
+          "title": "Juan Vicente Torrealba | Discogs",
+          "quote": "Variations: J. A. Torrealba, J. B. Torrealba, J. Torrealba, J. V. T., J. V. Torealba, J. V. Torre-Alba, J. V. Torrealba",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/731237",
+          "title": "Juan Vicente Torrealba | Discogs",
+          "quote": "Credits: Written-By – El Trabuco Venezolano – La Flor y Nata (1984).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_2criollisimos.htm",
+          "title": "Los Torrealberos - Dos Criollísimos (LP Info)",
+          "quote": "Juan Vicente Torrealba & Angel Custodio Loyola - Dos Criollisimos.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/fero_mi_llano.htm",
+        "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_18exitos.htm",
+        "https://sincopa.com/classic/cdinfo_class/osv_centro.htm",
+        "https://sincopa.com/classic/cdinfo_class/vzsuite_4larense.htm",
+        "https://ninos.kiddle.co/Juan_Vicente_Torrealba",
+        "https://venezuelatuya.com/biografias/juan_vicente_torrealba.htm",
+        "https://es.wikipedia.org/wiki/Juan_Vicente_Torrealba",
+        "https://www.fao.org/4/t0098e/T0098E02.htm",
+        "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_2criollisimos.htm",
+        "https://www.youtube.com/watch?v=ybVZQphbGV4",
+        "https://cuentaelabuelo.blogspot.com/2011/01/juan-vicente-torrealba.html",
+        "https://www.discogs.com/es/artist/731237-Juan-Vicente-Torrealba",
+        "https://www.discogs.com/artist/731237"
+      ]
+    },
+    {
+      "name": "Juan V. Torrealba / Juan V. Torrealba Jr. (padre e hijo)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 5,
+      "sources": 13,
+      "seconds": 3,
+      "aiRunId": 21226,
+      "rationale": "Solo un nombre lleva «Hijo» o «Jr.»: puede ser el padre o el hijo; no se propone fusión.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/731237",
+          "title": "Juan Vicente Torrealba | Discogs",
+          "quote": "Juan Vicente Torrealba. Real Name: Juan Vicente Torrealba Pérez.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/731237",
+          "title": "Juan Vicente Torrealba | Discogs",
+          "quote": "Variations: J. A. Torrealba, J. B. Torrealba, J. Torrealba, J. V. T., J. V. Torealba, J. V. Torre-Alba, J. V. Torrealba, J. V. Torrealva, J. Vicente Torrealba, J. Vicente-Torrealba, J. Vte. Torrealba, J.B. Torrealba, J.V. Torrealba, Juan B. Torrealba, Juan José Torrealba, Juan N. Torrealba, Juan V. Torrealba, Juan Vicente, Juan Vicente - Torrealba, Juan Vicente Torrealba Con Orquesta, Juan Vicente Torrealba Y Su Conjunto, Juan Vincente, Juan Vincente Torrealba, Juan Vte. Torrealba, Juán V. Torrealba, Torreaiba, Torrealba, Torrealva, V. Torrealba, V. Torres Alba, Vicente Torrealba, Vicente Torr",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_18exitos.htm",
+          "title": "Juan Vicente Torrealba - 18 Grandes Exitos (CD Info)",
+          "quote": "Group: Los Torrealberos Juan Vicente Torrealba, Douglas T. Mardonio Tortolero, Henry Rubio & Juan Vicente Torrealba Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_almallanera_basf.htm",
+          "title": "Juan Vicente Torrealba - Alma Llanera (LP Info)",
+          "quote": "Maracas: Juan V. Torrealba Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_clasictorrealbero.htm",
+          "title": "Juan Vicente Torrealba - Clásicos Torrealberos (LP Info)",
+          "quote": "Maracas: Juan V. Torrealba Jr.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/fero_mi_llano.htm",
+        "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_18exitos.htm",
+        "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_almallanera_basf.htm",
+        "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_clasictorrealbero.htm",
+        "https://www.fao.org/4/t0098e/T0098E02.htm",
+        "https://venezuelaensonidos.wordpress.com/tag/juan-v-torrealba/",
+        "https://cuentaelabuelo.blogspot.com/2011/01/juan-vicente-torrealba.html",
+        "https://chordu.com/chords-tabs-la-potra-zaina-juan-v-torrealba--id_SvBBtymR2tc",
+        "https://www.youtube.com/watch?v=ybVZQphbGV4",
+        "https://www.youtube.com/watch?v=ywpeH0DmkNU",
+        "https://lightaudio.ru/mp3/juan%20v.%20torrealba",
+        "https://sincopa.com/traditional/cdinfo2/adilia_castillo/adiliacastillo_ladona.htm",
+        "https://www.discogs.com/artist/731237"
+      ]
+    },
+    {
+      "name": "Evio Di Marzo / Giordano Di Marzo (hermanos)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 7,
+      "sources": 14,
+      "seconds": 6,
+      "aiRunId": 21227,
+      "rationale": "relación familiar citada: «Evio di Marzo, hermano del también artista Yordano, fue asesinado el lunes en Caracas»",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia, la enciclopedia libre",
+          "quote": "Giordano Di Marzo Migani (Roma, 27 de octubre de 1951), conocido artísticamente como Yordano, es un cantautor y músico ítalo-venezolano.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1214065",
+          "title": "Evio Di Marzo | Discogs",
+          "quote": "Italian born Venezuelan musician, singer, composer, and anthropologist (Roma, Italy, 23 May 1954 - Caracas, Venezuela, 28 May 2018)",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.bbc.com/mundo/noticias-america-latina-44295426",
+          "title": "Venezuela: asesinan a Evio di Marzo, cantautor y hermano del artista Yordano - BBC News Mundo",
+          "quote": "Evio di Marzo, hermano del también artista Yordano, fue asesinado el lunes en Caracas",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.bbc.com/mundo/noticias-america-latina-44295426",
+          "title": "Venezuela: asesinan a Evio di Marzo, cantautor y hermano del artista Yordano - BBC News Mundo",
+          "quote": "Su hermano Yordano, dos años mayor que él, fue una de sus grandes influencias.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.freemusicas.com/romantica/yordano/",
+          "title": "Disfruta de la Mejor Música de Yordano en el Género Romantica | FreeMusicas",
+          "quote": "Es hijo de padres italianos y hermano del también cantautor Evio Di Marzo.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.bbc.com/mundo/noticias-america-latina-44295426",
+          "title": "Venezuela: asesinan a Evio di Marzo, cantautor y hermano del artista Yordano - BBC News Mundo",
+          "quote": "El compositor y cantautor alcanzó la fama en su país en la década de los 80 con el grupo Adrenalina Caribe",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/release/3702934-Sietecuero-Rojo-Sangre",
+          "title": "Sietecuero – Rojo Sangre – Vinyl (LP, Album), 1978... | Discogs",
+          "quote": "Lead Vocals, Acoustic Guitar – Giordano Di Marzo. Percussion, Timbales, Bongos – Alberto Borregales.Recorded By – Fred Weinberg. Vocals, Drums, Guitar, Percussion – Evio Di Marzo.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/artists_lat/adrenalina_caribe.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1986_3etapa.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/compilations1/1sotanodflorida.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/amigosinvisibles_5superpopvzla.htm",
+        "https://www.freemusicas.com/romantica/yordano/",
+        "https://www.bbc.com/mundo/noticias-america-latina-44295426",
+        "https://www.infobae.com/america/entretenimiento/2018/05/29/asesinaron-a-tiros-al-cantante-venezolano-evio-di-marzo-en-caracas/",
+        "https://radiocafeatlantico.com/tag/yordano/",
+        "https://www.discogs.com/release/3702934-Sietecuero-Rojo-Sangre",
+        "https://www.lobotoradio.com/bandas/sietecuero/",
+        "https://www.youtube.com/watch?v=rTwezswgvks",
+        "https://es.wikipedia.org/wiki/Yordano",
+        "https://www.discogs.com/artist/1214065",
+        "https://www.discogs.com/artist/2757081"
+      ]
+    },
+    {
+      "name": "Edgar Lamberti / Gabriel «Pepo» Lamberti (hermanos)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 7,
+      "sources": 14,
+      "seconds": 5,
+      "aiRunId": 21228,
+      "rationale": "Rol, género o época distintos no prueban dos personas, y no aparece un proyecto común en la web.",
+      "evidence": [
+        {
+          "url": "https://www.lobotoradio.com/bandas/andreazulado",
+          "title": "Andreazulado – Lobotoradio",
+          "quote": "Los miembros originales fueron Édgar Lamberti (voz, guitarra) y Gabriel Lamberti (Pepo) (voz líder, bajo, guitarra, piano, sampler), a los que se unieron José Gómez (batería, percusión) y Manuel Lamberti (violín, teclados, coros).",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.lobotoradio.com/bandas/andreazulado",
+          "title": "Andreazulado – Lobotoradio",
+          "quote": "Nuevas deserciones reducen Andreazulado al dúo de Edgar Lamberti y Gabriel Lamberti.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/7175463",
+          "title": "Edgar Lamberti | Discogs",
+          "quote": "Edgar Lamberti. Profile: Venezuelan rock guitarist Credits: Guitar, Backing Vocals – Andreazulado – Despegue Eterno (2005).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/5574499",
+          "title": "Gabriel Lamberti | Discogs",
+          "quote": "Gabriel Lamberti. Profile: Venezuelan rock singer and multi-instrumentist musician Credits: Lead Vocals, Bass, Guitar, Piano, Sampler – Andreazulado – Despegue Eterno (2005).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/andreazulado_2despegue.htm",
+          "title": "Andreazulado - Despegue Eterno (CD Info)",
+          "quote": "Musicians Vocals, Bass & Guitar: Gabriel Lamberti Guitar & Backing Vocals: Edgar Lamberti",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.shazam.com/song/1201480731/la-parodia",
+          "title": "La Parodia - Andreazulado: Song Lyrics, Music Videos & Concerts",
+          "quote": "Gabriel Pepo Lamberti. Автор песен. Edgar Adriano Lamberti.Writer(s): Edgar Lamberti, José Rafael Gómez",
+          "supports": "different"
+        },
+        {
+          "url": "https://scarsonet.wordpress.com/2011/10/24/entrevista-andreazulado-union-rock-show-especial-21-10-2011/",
+          "title": "Entrevista: Andreazulado – Union Rock Show Especial – (21.10.2011) | SCARSO.NET",
+          "quote": "Edgar (Guitarra y Coros), Puly (Batería y Coros) y Pepo (Voz y Bajo)",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/andreazulado.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/andreazulado_2despegue.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/andreazulado_3cronicas.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/compilations1/pop_vzlano.htm",
+        "https://scarsonet.wordpress.com/2011/10/24/entrevista-andreazulado-union-rock-show-especial-21-10-2011/",
+        "https://plus.cusica.com/2017/12/10/discos-y-eps-nacionales-lo-mejor-del-2017/",
+        "https://www.lobotoradio.com/bandas/andreazulado",
+        "https://www.arsnotoria.com.ar/en/pepolamberti/",
+        "https://www.youtube.com/channel/UCH1nJ1Dp3Df2p0UugkdQXkg",
+        "https://rumberos.net/andreazulado-vuelve-a-mtv/",
+        "https://www.shazam.com/song/1201480731/la-parodia",
+        "https://sincopa.com/rock_pop/cdinfo_rock/andreazulado_5dolby.htm",
+        "https://www.discogs.com/artist/7175463",
+        "https://www.discogs.com/artist/5574499"
+      ]
+    },
+    {
+      "name": "Carlos Segura / Álvaro Segura (hermanos)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 5,
+      "sources": 14,
+      "seconds": 5,
+      "aiRunId": 21229,
+      "rationale": "relación familiar citada: «Finalmente, se dirigió a Fernando Batoni, Carlos Segura (su hermano), Jaime Verdaguer y Dario Adames, integrantes de Zapato 3.»",
+      "evidence": [
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere/alvaro-segura-deja-zapato-3/",
+          "title": "Álvaro Segura: \"Zapato 3 es mi pasado\" - Últimas Noticias",
+          "quote": "Finalmente, se dirigió a Fernando Batoni, Carlos Segura (su hermano), Jaime Verdaguer y Dario Adames, integrantes de Zapato 3.",
+          "supports": "different"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere/alvaro-segura-deja-zapato-3/",
+          "title": "Álvaro Segura: \"Zapato 3 es mi pasado\" - Últimas Noticias",
+          "quote": "Álvaro Segura, guitarrista de Zapato 3, anunció su salida de la icónica banda de rock debido a diferencias creativas.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.lobotoradio.com/bandas/el-rastro",
+          "title": "El Rastro – Lobotoradio",
+          "quote": "Carlos Segura también sirvió como vocalista en su etapa formativa.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/987024",
+          "title": "Carlos Segura | Discogs",
+          "quote": "Carlos Segura. Variations: Carlos Segura M.. Credits: Lead Vocals – Zapato 3 – Amor, Furia y Languidez (1989); Percussion, Producer, Vocals – Solares – Loft (2004); Vocals, Tambourine – Solares – Cruel (Instinto De Morder) (2008); Lead Vocals – Zapato 3 – Separación (1994).",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/987025",
+          "title": "Álvaro Segura | Discogs",
+          "quote": "Álvaro Segura. Variations: Alvaro Segura. Credits: Guitar, Backing Vocals – Zapato 3 – Amor, Furia y Languidez (1989); Producer, Guitar, Recorded By, Engineer, Mixed By, Keyboards, Artwork, Graphic Design – Solares – Loft (2004); Written-By – Solares – Loft (2004); Recorded By, Engineer, Producer, Mixed By, Artwork, Graphic Design, Guitar, Keyboards – Solares – Loft (2004); Lead Vocals, Guitar – Alvaro Segura – Así Lo Veo Yo (2025); Music By – Alvaro Segura – Así Lo Veo Yo (2025); Guitar, Engineer, Mixed By – Solares – Cruel (Instinto De Morder) (2008).",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/zapato3_5coleccion.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/zapato3_laultimacruzada.htm",
+        "https://sincopa.com/rock_pop/artist_rock/zapato3.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/yatu_3lacondicion.htm",
+        "https://www.lobotoradio.com/bandas/el-rastro",
+        "https://ultimasnoticias.com.ve/chevere/alvaro-segura-deja-zapato-3/",
+        "https://www.amazon.com/Cruel-Instinto-Morder-Solares/dp/B01DPRR59I",
+        "https://radio.otilca.org/alvaro-segura-rompe-el-silencio-con-asi-lo-veo-yo/",
+        "https://www.youtube.com/watch?v=Kujn4yGpVRA",
+        "https://www.youtube.com/watch?v=PqJdaDy57n0",
+        "https://www.youtube.com/watch?v=2ailcoo-QTE",
+        "https://www.youtube.com/watch?v=6Vtj_5w0EQc",
+        "https://www.discogs.com/artist/987024",
+        "https://www.discogs.com/artist/987025"
+      ]
+    },
+    {
+      "name": "Yordano juntado (+ su hermano Evio)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 8,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21230,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia, la enciclopedia libre",
+          "quote": "Giordano Di Marzo Migani (Roma, 27 de octubre de 1951), conocido artísticamente como Yordano, es un cantautor y músico ítalo-venezolano.",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia, la enciclopedia libre",
+          "quote": "Giordano Di Marzo Migani (Roma, 27 de octubre de 1951), conocido artísticamente como Yordano, es un cantautor y músico ítalo-venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.buenamusica.com/yordano",
+          "title": "Yordano - Perfil Artístico y Personal",
+          "quote": "Giordano di Marzo Migani, conocido en el medio artístico como Yordano es un músico compositor e intérprete venezolano, que nació en 1951, en la ciudad de Roma, Italia.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Yordano",
+          "title": "Yordano Di Marzo - La Venciclopedia",
+          "quote": "Giordano Di Marzo Migani es un cantante y compositor nacido en Roma, Italia, el 27 de octubre de 1951.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Yordano",
+          "title": "Yordano Di Marzo - La Venciclopedia",
+          "quote": "Hermano del también cantautor Evio Di Marzo.",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia, la enciclopedia libre",
+          "quote": "hermano del también cantautor Evio Di Marzo",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia, la enciclopedia libre",
+          "quote": "En 1984 entra a la sección rítmica en su rol de teclados y coros Jesús Enrique González, quien continua su labor hasta 1996.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.lobotoradio.com/bandas/sietecuero",
+          "title": "Sietecuero – Lobotoradio",
+          "quote": "Sietecuero fue una banda de jazz fusión y fausión latina formada en Caracas en 1978 por Alberto Slezynger (teclados), Giordano di Marzo (voz, guitarra), Evio di Marzo (batería, percusión, voz, guitarra), Rafael Figliuolo (bajo), Bartolomé Díaz (guitarra, cuatro, voz), Totoño Blanco (congas, voz) y Alberto Borregales (percusión).",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/jesuscamacho_adn.htm",
+        "https://sincopa.com/classic/cdinfo_class/leobetan_conelcorazon.htm",
+        "https://sincopa.com/ethnic/cdinfo1/c4trio_4pollobrito.htm",
+        "https://www.venciclopedia.org/index.php?title=Yordano",
+        "https://caracol.com.co/programa/2018/10/28/a_vivir_que_son_dos_dias/1540749971_428274.html",
+        "https://www.freemusicas.com/romantica/yordano/",
+        "https://es.wikipedia.org/wiki/Yordano",
+        "https://www.buenamusica.com/yordano",
+        "https://www.tiktok.com/@clasicos1964/video/7433536201665056005",
+        "https://www.cancioneros.com/at/4545/0/biografia-de-yordano",
+        "https://www.youtube.com/watch?v=a5xdK-W36cY",
+        "https://www.lobotoradio.com/bandas/sietecuero",
+        "https://www.discogs.com/artist/2757081"
+      ]
+    },
+    {
+      "name": "Pepo Lamberti juntado (+ su hermano Edgar)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 4,
+      "sources": 10,
+      "seconds": 2,
+      "aiRunId": 21231,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/andreazulado.htm",
+          "title": "Andreazulado - Bio & Discography",
+          "quote": "Vocals, Bass, Guitar, Keyboards & Piano: Gabriel (Pepo) Lamberti",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.arsnotoria.com.ar/pepolamberti/",
+          "title": "PEPO LAMBERTI – ARSNotoria",
+          "quote": "Gabriel “Pepo” Lamberti es Licenciado en Comunicación Social, vocalista y bajista de la reconocida banda de rock venezolana, Andreazulado, con la que editó seis placas discográficas y recorrió buena parte de Venezuela, además de viajar para ofrecer recitales en Estados Unidos, Colombia y Argentina.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.eldia.com/nota/2019-1-19-5-38-22-pepo-de-venezuela-a-la-plata-escapando-de-la-crisis-buscando-volver-a-empezar-espectaculos",
+          "title": "Pepo: de Venezuela a La Plata, escapando de la crisis, buscando volver a empezar | El Dia",
+          "quote": "vocalista y bajista de una reconocida banda de rock venezolana, Andreazulado",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/5574499",
+          "title": "Gabriel Lamberti | Discogs",
+          "quote": "Venezuelan rock singer and multi-instrumentist musician",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/andreazulado.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/andreazulado_3cronicas.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/compilations1/pop_vzlano.htm",
+        "https://www.arsnotoria.com.ar/pepolamberti/",
+        "https://www.eldia.com/nota/2019-1-19-5-38-22-pepo-de-venezuela-a-la-plata-escapando-de-la-crisis-buscando-volver-a-empezar-espectaculos",
+        "https://www.arsnotoria.com.ar/en/pepolamberti/",
+        "https://www.ivoox.com/en/podcast-esto-si-suena_sq_f16450_9.html",
+        "https://www.deezer.com/mx/artist/1448276",
+        "https://www.youtube.com/watch?v=U5Tjm_01u0M",
+        "https://www.discogs.com/artist/5574499"
+      ]
+    },
+    {
+      "name": "Álvaro Segura juntado (+ su hermano Carlos)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 5,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21232,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/%C3%81lvaro_Segura",
+          "title": "Álvaro Segura - Wikipedia, la enciclopedia libre",
+          "quote": "Álvaro José Segura Arcas (Caracas, Venezuela. 17 de septiembre de 1967) es un músico, compositor y artista visual venezolano-estadounidense, conocido por haber sido guitarrista de la banda de rock alternativo Zapato 3",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/%C3%81lvaro_Segura",
+          "title": "Álvaro Segura - Wikipedia, la enciclopedia libre",
+          "quote": "Estando radicados en Miami, los hermanos Carlos y Álvaro Segura forman en 2004 la agrupación Solares",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/987025",
+          "title": "Álvaro Segura | Discogs",
+          "quote": "Guitar, Backing Vocals – Zapato 3 – Amor, Furia y Languidez (1989); Producer, Guitar, Recorded By, Engineer, Mixed By, Keyboards, Artwork, Graphic Design – Solares – Loft (2004)",
+          "supports": "same"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere/alvaro-segura-deja-zapato-3/",
+          "title": "Álvaro Segura: \"Zapato 3 es mi pasado\" - Últimas Noticias",
+          "quote": "Álvaro Segura, guitarrista de Zapato 3, anunció su salida de la icónica banda de rock debido a diferencias creativas.",
+          "supports": "same"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere/alvaro-segura-o-la-reinvencion-del-rock-venezolano/",
+          "title": "Álvaro Segura o la reinvencion del rock venezolano - Últimas Noticias",
+          "quote": "Quienes seguimos la trayectoria de Álvaro Segura (Un perfecto extraño, Solares, Zapato 3) sabíamos que su universo sonoro y poético tan potente, tarde o temprano reclamaría su propio espacio.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/solares.htm",
+        "https://sincopa.com/rock_pop/artist_rock/zapato3.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/yatu_2joroporoll.htm",
+        "https://ultimasnoticias.com.ve/chevere/alvaro-segura-o-la-reinvencion-del-rock-venezolano/",
+        "https://ultimasnoticias.com.ve/chevere/alvaro-segura-deja-zapato-3/",
+        "https://radio.otilca.org/alvaro-segura-rompe-el-silencio-con-asi-lo-veo-yo/",
+        "https://www.elnacional.com/2025/07/alvaro-segura-casi-he-renunciado-muchas-veces/",
+        "https://es.wikipedia.org/wiki/%C3%81lvaro_Segura",
+        "https://www.youtube.com/watch?v=_5Dv1sho0C8",
+        "https://elestimulo.com/ub/melomania/2026-10-06/alvaro-segura-show-valencia/",
+        "https://tenemosnoticias.com/entretenimiento/clasificadas-tenemosnoticias-com/alvaro-segura-exintegrante-de-zapato-3-regresa-a-los-escenarios-con-un-show-inmersivo-en-valencia-albertonews/",
+        "https://www.youtube.com/watch?v=eRWQ5FAUlqE",
+        "https://www.discogs.com/artist/987025"
+      ]
+    },
+    {
+      "name": "Colina 1982–2019 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 7,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21233,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://venezuelaehistoria.blogspot.com/2021/02/oscar-de-jesus-colina.html",
+          "title": "VENEZUELA E HISTORIA: OSCAR DE JESÚS COLINA",
+          "quote": "El cantante, productor musical y compositor Oscar de Jesús Colina, conocido artísticamente como Colina, nació en Coro, Edo. Falcón, el 15 de febrero de 1955.",
+          "supports": "same"
+        },
+        {
+          "url": "https://eglycolinamarinprimera.blogspot.com/2015/09/oscar-de-jesus-colina.html",
+          "title": "OSCAR DE JESÚS COLINA",
+          "quote": "Oscar de Jesús Colina nació en la ciudad Mariana de Santa Ana de Coro, 15 de febrero de 1955 República de Venezuela, y es un cantante y compositor venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.wikiwand.com/es/articles/Colina_(cantante)",
+          "title": "Oscar de Jesús Colina es un cantautor venezolano. - Wikiwand",
+          "quote": "Oscar de Jesús Colina es un cantautor venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2034460",
+          "title": "Oscar De Jesús Colina | Discogs",
+          "quote": "Oscar De Jesús Colina",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/colina_0amanecer.htm",
+          "title": "Colina - Amanecer (LP Info)",
+          "quote": "Colina Guitar: Colina (tracks A1, A2, A3, A4, B1, B2, B3, B4)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.curiosoteatro.com/2024/01/colina-y-sus-grandes-exitos-musicales-desde-la-casona-cultural-aquiles-nazoa.html",
+          "title": "Colina y sus grandes éxitos musicales",
+          "quote": "Oscar de Jesús Colina, conocido artísticamente como Colina, es uno de los intérpretes venezolanos más influyentes de las décadas de 1970 y 1980.",
+          "supports": "same"
+        },
+        {
+          "url": "https://eglycolinamarinprimera.blogspot.com/2015/09/oscar-de-jesus-colina.html",
+          "title": "OSCAR DE JESÚS COLINA",
+          "quote": "En 1987 graba su cuarto disco llamado Cuando un loco ama, una producción hecha con artistas como: Carlos Mata, Luz Marina, Cecilia Todd, María Rivas, Elisa Rego, Moisés González, Fernando Carrillo y Evio di Marzo.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/elisarego_4temperamental.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1986_3etapa.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/colina_0amanecer.htm",
+        "https://venezuelaehistoria.blogspot.com/2021/02/oscar-de-jesus-colina.html",
+        "https://eglycolinamarinprimera.blogspot.com/2015/09/oscar-de-jesus-colina.html",
+        "https://swifttechy.in/performance/intel-core-i5-10400f-review-benchmarks",
+        "https://www.deezer.com/ru/track/974811982",
+        "https://www.curiosoteatro.com/2024/01/colina-y-sus-grandes-exitos-musicales-desde-la-casona-cultural-aquiles-nazoa.html",
+        "https://www.wikiwand.com/es/articles/Colina_(cantante)",
+        "https://www.tiktok.com/@culturamicky/video/7609557348939533588",
+        "https://www.youtube.com/watch?v=kih6xbpQeBM",
+        "https://www.aporrea.org/actualidad/n302151.html",
+        "https://www.discogs.com/artist/2034460"
+      ]
+    },
+    {
+      "name": "Henry Stephen 1964–2011 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 6,
+      "sources": 13,
+      "seconds": 11,
+      "aiRunId": 21234,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://www.canal26.com/espectaculos/2021/04/06/a-los-79-anos-murio-por-coronavirus-henry-stephen-popular-musico-venezolano/",
+          "title": "A los 79 años murió por coronavirus Henry Stephen, popular músico venezolano | canal26.com",
+          "quote": "falleció a los 79 años por Covid-19",
+          "supports": "same"
+        },
+        {
+          "url": "https://eldiario.com/2021/04/05/murio-henry-stephen-covid-19/",
+          "title": "El cantante venezolano Henry Stephen murió por covid-19",
+          "quote": "Henry Augustus Stephen Pierre nació en Cabimas, estado Zulia, el 15 de julio de 1941",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.buenamusica.com/henry-stephen/biografia",
+          "title": "Henry Stephen - Biografía, historia y legado musical",
+          "quote": "Henry Augustus Stephen Pierre mejor conocido como Henry Stephen, fue un cantante y actor venezolano",
+          "supports": "same"
+        },
+        {
+          "url": "https://ninos.kiddle.co/Henry_Stephen",
+          "title": "Henry Stephen para Niños",
+          "quote": "Henry Augustus Stephen Pierre (nacido el 15 de julio de 1941 en Cabimas, Zulia, y fallecido el 5 de abril de 2021 en Caracas) fue un famoso cantante y actor venezolano",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=QmAHcFWFBg4",
+          "title": "Los Impala - Conozca A Los Impala (1964) || Full Album || - YouTube",
+          "quote": "Lead Vocals: Henry Augustus Stephen",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/996893",
+          "title": "Henry Stephen | Discogs",
+          "quote": "Real Name: Henry Augustus Stephen Pierre",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/henrystephen_40years4oexitos.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/henrystephen_66lordhenry.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/henrystephen_susexitos.htm",
+        "https://www.canal26.com/espectaculos/2021/04/06/a-los-79-anos-murio-por-coronavirus-henry-stephen-popular-musico-venezolano/",
+        "https://eldiario.com/2021/04/05/murio-henry-stephen-covid-19/",
+        "https://www.buenamusica.com/henry-stephen/biografia",
+        "https://ninos.kiddle.co/Henry_Stephen",
+        "https://beijingpost.com/china-s-commitment-to-reunification-advances",
+        "https://www.ecured.cu/Henry_Stephen",
+        "http://www.psuv.org.ve/temas/noticias/fallece-por-covid-19-reconocido-cantante-venezolano-henry-stephen/",
+        "https://storage.googleapis.com/qurium/elpitazo.net/cultura-perfil-henry-stephen-protagonista-de-la-escena-del-rock-en-venezuela.html",
+        "https://www.youtube.com/watch?v=QmAHcFWFBg4",
+        "https://www.discogs.com/artist/996893"
+      ]
+    },
+    {
+      "name": "Mauricio Castro Rodríguez (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 4,
+      "sources": 12,
+      "seconds": 2,
+      "aiRunId": 21235,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/traditional/artists2/serenata.htm",
+          "title": "Serenata Guayanesa - Bio & Discography",
+          "quote": "Contratenor Vocals & Percussion: Mauricio Castro",
+          "supports": "same"
+        },
+        {
+          "url": "https://radio.otilca.org/venezuela-en-las-voces-e-instrumentos-de-serenata-guayanesa/",
+          "title": "Venezuela en las voces e instrumentos de Serenata Guayanesa - Otilca Radio",
+          "quote": "Mauricio Castro Rodríguez: Nacido en Ciudad Bolívar en el año 1946",
+          "supports": "same"
+        },
+        {
+          "url": "https://steemit.com/spanish/@bassrog/serenata-guayanesa-47-anos-cantandole-a-venezuela",
+          "title": "Serenata Guayanesa: 47 Años Cantándole A Venezuela — Steemit",
+          "quote": "Mauricio Castro como tenor",
+          "supports": "same"
+        },
+        {
+          "url": "https://elcorreofinanciero.com/50-anos-de-serenata-guayanesa/",
+          "title": "50 años de Serenata Guayanesa - El Correo Financiero",
+          "quote": "Mauricio Castro Rodríguez (contratenor y percusionista)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/mab_cantos.htm",
+        "https://sincopa.com/traditional/artists2/serenata.htm",
+        "https://sincopa.com/traditional/cdinfo2/cecitodd_henrymart.htm",
+        "https://radio.otilca.org/venezuela-en-las-voces-e-instrumentos-de-serenata-guayanesa/",
+        "https://www.deezer.com/es/artist/1199693",
+        "https://steemit.com/spanish/@bassrog/serenata-guayanesa-47-anos-cantandole-a-venezuela",
+        "https://www.cancioneros.com/in/4/3680/articulos-relacionados-con-canciones-de-serenata-guayanesa",
+        "https://tucuatro.com/es/cancion/la-pulga-y-el-piojo/",
+        "https://www.youtube.com/watch?v=jxrKJXBunzM",
+        "https://www.ciudadvalencia.com.ve/serenata-guayanesa-patrimonio/",
+        "https://elcorreofinanciero.com/50-anos-de-serenata-guayanesa/",
+        "https://www.youtube.com/watch?v=L3bsmojzlLk"
+      ]
+    },
+    {
+      "name": "Tito Fierro (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 9,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21236,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/pixel_5envivo2013.htm",
+          "title": "Pixel - En Vivo 2013 (CD Info)",
+          "quote": "Guitar & Backing Vocals: Héctor \"Tito\" Fierro",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_7lavelaqno.htm",
+          "title": "La Misma Gente - La Vela Que No Se Apaga (CD Info)",
+          "quote": "Guitar: Richard Pacheco & Héctor \"Tito\" Fierro",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/marcelotoutin_2elplacerdestaraqui.htm",
+          "title": "Marcelo Toutin - El Placer De Estar Aquí (CD Info)",
+          "quote": "Electric Guitar: Tito Fierro (tracks 9, 10)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/2016/05/integrantes-zapato-acompanaran-ultima-funcion-sesiones-vrock_33230/",
+          "title": "Integrantes de Zapato 3 acompañarán en la última función de Sesiones VRock - EL NACIONAL",
+          "quote": "el músico Tito Fierro, guitarrista invitado de Zapato 3 y miembro de Los Píxel",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/entretenimiento/musicos-venezolanos-quieren-ganar-frio-desierto-las-vegas_259667/",
+          "title": "Músicos venezolanos quieren ganar en el frío desierto de Las Vegas - EL NACIONAL",
+          "quote": "Tito Fierro, el guitarrista, afirma: “Creo que tenemos un buen trabajo, que puede dar la talla para ganar.",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/ub/melomania/2016-04-07/sesiones-vrock-una-idea-muy-obscena/",
+          "title": "Sesiones VRock: Una Idea Muy Obscena | UB",
+          "quote": "el músico Tito Fierro (guitarrista invitado de Zapato 3 y miembro de Los Píxel)",
+          "supports": "same"
+        },
+        {
+          "url": "https://cabezademoog.blogspot.com/2015/07/festival-la-plata-prog-2015.html",
+          "title": "Festival La Plata Prog 2015",
+          "quote": "Héctor Tito Fierro (Los Pixel)",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/ub/melomania/2024-02-14/los-pixel-disco-fractura/",
+          "title": "Los Pixel andan de estreno: \"Fractura\" es su sexto álbum de estudio | ...",
+          "quote": "“Fractura”, es el resultado del retorno a los estudios de grabación de Pablo Dagnino, Héctor ‘Tito’ Fierro, Pablo Fernandes y Eduardo Sáez, integrantes de la banda de rock Los Pixel",
+          "supports": "same"
+        },
+        {
+          "url": "https://correocultural.com/2016/05/dos-nuevas-funciones-de-sesiones-vrock-una-idea-muy-obscena/",
+          "title": "Dos nuevas funciones de Sesiones VRock: Una... — Correo Cultural",
+          "quote": "el músico Tito Fierro (guitarrista invitado de Zapato 3 y miembro de Los Píxel)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/pixel_5envivo2013.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_7lavelaqno.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/marcelotoutin_2elplacerdestaraqui.htm",
+        "https://www.elnacional.com/2016/05/integrantes-zapato-acompanaran-ultima-funcion-sesiones-vrock_33230/",
+        "https://www.officialdata.org/inflation/red-dead-redemption",
+        "https://www.elnacional.com/entretenimiento/musicos-venezolanos-quieren-ganar-frio-desierto-las-vegas_259667/",
+        "https://elestimulo.com/ub/melomania/2016-04-07/sesiones-vrock-una-idea-muy-obscena/",
+        "https://cabezademoog.blogspot.com/2015/07/festival-la-plata-prog-2015.html",
+        "https://www.youtube.com/watch?v=dXEDDgJ4nB4",
+        "https://elestimulo.com/ub/melomania/2024-02-14/los-pixel-disco-fractura/",
+        "https://music.apple.com/ru/song/tito-fierro/1683091020",
+        "https://correocultural.com/2016/05/dos-nuevas-funciones-de-sesiones-vrock-una-idea-muy-obscena/"
+      ]
+    },
+    {
+      "name": "Evio Di Marzo 1975–2013 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 3,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21237,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://www.bbc.com/mundo/noticias-america-latina-44295426",
+          "title": "Venezuela: asesinan a Evio di Marzo, cantautor y hermano del artista Yordano - BBC News Mundo",
+          "quote": "Evio di Marzo nació en Caracas el 23 de mayo de 1953",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/artists_lat/adrenalina_caribe.htm",
+          "title": "Adrenalina Caribe - Bio & Discography",
+          "quote": "Lead Vocals, Guitar, Drums, Keyboards & Percussion: Evio Di Marzo",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1214065",
+          "title": "Evio Di Marzo | Discogs",
+          "quote": "Featuring – Guaco – Tercera Etapa (1986)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/artists_lat/adrenalina_caribe.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1986_3etapa.htm",
+        "https://sincopa.com/ethnic/cdinfo1/c4trio_4pollobrito.htm",
+        "https://es.wikipedia.org/wiki/Evio_di_Marzo",
+        "https://radio.otilca.org/el-ritmo-insumiso-de-la-memoria-evio-di-marzo/",
+        "https://www.bbc.com/mundo/noticias-america-latina-44295426",
+        "https://www.elnacional.com/2018/05/evio-marzo-amo-vivio-canto-caribe-con-guitarra-electrica_237762/",
+        "https://www.mincultura.gob.ve/noticias/colina-puso-a-vibrar-a-caracas-al-son-de-la-musica-pop-de-los-80s/",
+        "https://actualidad.rt.com/actualidad/253279-evio-di-marzo-musico-venezolano",
+        "https://www.nodal.am/2018/05/venezuela-dice-adios-al-trovador-caribeno-evio-di-marzo/",
+        "https://www.elciudadano.com/latinoamerica/evio-di-marzo-un-artista-irreverente-que-trascendio-a-la-muerte/05/29/",
+        "https://radiocafeatlantico.com/evio-di-marzo/",
+        "https://www.discogs.com/artist/1214065"
+      ]
+    },
+    {
+      "name": "Manny Diquez (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 4,
+      "sources": 8,
+      "seconds": 2,
+      "aiRunId": 21238,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/francodvita13_vuelven1rafila.htm",
+          "title": "Franco de Vita - Vuelve En Primera Fila (CD Info)",
+          "quote": "Acoustic & Electric Guitar, Banjo & Backing Vocals: Manuel Diquez",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/roqvalero_insomnio.htm",
+          "title": "Roque Valero - Insomnio (CD Info)",
+          "quote": "Co-Producers: Manuel Diquez, Salomón Lerner & Jorge Luis Chasín",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/frankquint_20devueltalacalle.htm",
+          "title": "Frank Quintero - De Vuelta a La Calle Del Atardecer (CD Info)",
+          "quote": "Backing Vocals: Frank Quintero, Manuel Diquez, Hiyanú Alcántara, María Alejandra Scelza & Norma Barreno",
+          "supports": "same"
+        },
+        {
+          "url": "https://deventosreportentertainment.wordpress.com/tag/banda-la-republica-altanera/",
+          "title": "Banda La República Altanera! – D´Eventos Report Entertainment",
+          "quote": "Manny Diquez: Arreglos, voz líder, coros, guitarras, bajo, teclados, cuatro.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/francodvita13_vuelven1rafila.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/roqvalero_insomnio.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/frankquint_20devueltalacalle.htm",
+        "https://philopedia.org/works/twilight-of-the-idols/",
+        "https://pricehistory.app/p/pny-nvidia-rtx-a6000-7bNkeBce",
+        "https://deventosreportentertainment.wordpress.com/tag/banda-la-republica-altanera/",
+        "https://intempestivemeditations.wordpress.com/2026/03/24/gotzen-dammerung-and-gotterdammerung-idols-twilights-and-the-philosophical-percussions-of-a-hammer/",
+        "https://siliconcomps.com/gpu/rtx-a6000/price-history/"
+      ]
+    },
+    {
+      "name": "Carlos Segura (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 7,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21239,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/zapato3_5coleccion.htm",
+          "title": "Zapato 3 - CD Colección (CD Info)",
+          "quote": "Vocals: Carlos Segura",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/zapato3_laultimacruzada.htm",
+          "title": "Zapato 3 - La Ultima Cruzada (CD Info)",
+          "quote": "Vocals: Carlos Segura",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/solares.htm",
+          "title": "Solares - Bio & Discography",
+          "quote": "Lead Vocals: Carlos Segura",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/bandas/el-rastro",
+          "title": "El Rastro – Lobotoradio",
+          "quote": "Carlos Segura también sirvió como vocalista en su etapa formativa.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=qyYJhy86h-w",
+          "title": "Carlos Segura - Zapato 3 - YouTube",
+          "quote": "Carlos Segura - Zapato 3 - YouTube.",
+          "supports": "same"
+        },
+        {
+          "url": "https://peru21.pe/cultura/zapato-3-no-queremos-estar-en-el-espectro-de-la-nostalgia-movida21-rock-venezuela-noticia/",
+          "title": "Zapato 3: “No queremos estar en el espectro de la nostalgia” | Movida21",
+          "quote": "Conversamos con Carlos Segura, el vocalista del grupo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/987024",
+          "title": "Carlos Segura | Discogs",
+          "quote": "Lead Vocals – Zapato 3 – Amor, Furia y Languidez (1989); Percussion, Producer, Vocals – Solares – Loft (2004); Vocals, Tambourine – Solares – Cruel (Instinto De Morder) (2008); Lead Vocals – Zapato 3 – Separación (1994).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/zapato3_5coleccion.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/zapato3_laultimacruzada.htm",
+        "https://sincopa.com/rock_pop/artist_rock/solares.htm",
+        "https://contrapunto.com/cultura/fallecio-diego-marquez-baterista-de-la-banda-venezolana-zapato-3/",
+        "https://www.lobotoradio.com/bandas/el-rastro",
+        "https://www.amazon.com/Cruel-Instinto-Morder-Solares/dp/B01DPRR59I",
+        "https://elestimulo.com/cultura/2020-06-21/anos-90-en-venezuela-entre-la-calle-y-la-gozadera/",
+        "https://www.pagina12.com.ar/2026/05/08/zapato3-rock-venezolano-en-buenos-aires/",
+        "https://www.youtube.com/watch?v=IQXPibpnLxQ",
+        "https://www.tiktok.com/@elespiraldelrockpop/video/7593088626506960135",
+        "https://www.youtube.com/watch?v=qyYJhy86h-w",
+        "https://peru21.pe/cultura/zapato-3-no-queremos-estar-en-el-espectro-de-la-nostalgia-movida21-rock-venezuela-noticia/",
+        "https://www.discogs.com/artist/987024"
+      ]
+    }
+  ]
+}

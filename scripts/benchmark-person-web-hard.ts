@@ -58,8 +58,11 @@ const cases: Case[] = [
   { kind: "mixed", name: "Víctor Valerio juntado (2010 + ingeniero 1978)", truth: "mixed", accept: ["mixed"], person: 1294, join: [40353] },
   { kind: "mixed", name: "Alfredo Gil juntado (trompeta + metal)", truth: "mixed", accept: ["mixed"], person: 376, join: [40375] },
   { kind: "mixed", name: "Antonio Casas juntado (padre + hijo)", truth: "mixed", accept: ["mixed"], person: 1460, join: [40386] },
+  // Nené Quintero (3617) se creía una sola persona, pero tiene la mezcla y masterización de Los Beat3 «¡En Vivo!» (2010),
+  // que según el librito son de Carlos Kinttero, bajista del grupo (hippitoysuschatarritas.blogspot.com, 2012/09).
+  // El verificador lo vio primero; se corrigió la etiqueta el 2026-10-10 con esa fuente.
+  { kind: "mixed", name: "Carlos «Nené» Quintero 3617: + mezcla de Los Beat3 (Kinttero)", truth: "mixed", accept: ["mixed"], person: 3617 },
   // Una sola persona con carrera larga: no deben salir mezcladas.
-  { kind: "mixed", name: "Carlos «Nené» Quintero 1966–2023 (una persona)", truth: "single", accept: ["unknown"], person: 3617 },
   { kind: "mixed", name: "Neguito Borjas 1982–2023 (una persona)", truth: "single", accept: ["unknown"], person: 7814 },
   { kind: "mixed", name: "Rafael Greco 1988–2014 (una persona)", truth: "single", accept: ["unknown"], person: 3259 },
 ];
@@ -192,7 +195,238 @@ const fresh4: Case[] = [
   { kind: "mixed", name: "Aldemaro Romero (una persona)", truth: "single", accept: ["unknown"], person: 30 },
   { kind: "mixed", name: "Frank Quintero (una persona)", truth: "single", accept: ["unknown"], person: 3346 },
 ];
+// Quinto conjunto fresco (FRESH=5, 2026-10-10): armado después de dar 17/20 y SIN tocar el verificador, para medir
+// el código tal cual (con la lectura de páginas v4). Fuentes: revistaladosis y cusica (Boston Rex = Reynaldo Goitía,
+// Tomates Fritos); diariolasamericas y senderosdeapure (Blanquito Man = José Andrés Blanco, King Changó); cusica y
+// eluniversal (Mauricio «Maurimix» Arcas); salsabravave y lasalsavive (Calavén = Carlos Rafael Perdomo Yáñez, Los
+// Calvos, Los Kenya); rockhechovenezuela y noesfm (Bélica = Annabella, La Hermandad, Guerrilla Seca); en.wikipedia
+// y buenamusica (Yordano = Giordano Di Marzo Migani); sincopa y junglaboulevard.bandcamp (Magú Guzmán, guitarra de
+// Jungla Boulevard); reverbnation y sincopa (Chofa Loero en Naxxo Piloto y Los Chevynovas); sincopa (Ivo = Pablo
+// Augusto Díaz Barroso, Los Supersónicos); kontraste-latino y discogs (Felipe «Mandingo» Rengifo, Trabuco);
+// yonathangavidia y guatacanights (Yonathan «Morocho» Gavidia, percusión con el Pollo Brito); es.wikipedia y
+// talcualdigital (Álvaro Segura, guitarra de Zapato 3). Padre e hijo: discogs (Carlos Guerra Jr., trombón de
+// Dimensión Latina, hijo de Carlos Guerra Alcalá); en.wikipedia y lanacion (Ricky Montaner = Ricardo Andrés Reglero,
+// hijo de Ricardo Montaner, Mau y Ricky); quepasa (Heriberto Molina Jr., hijo del compositor de Guaco); otilca y hive
+// (Adelso «Rolito» Paz; su hijo Adelso Jr. es maraquero: «Adelso Paz Jr.» y «Adelso Paz hijo» son él).
+const fresh5: Case[] = [
+  { kind: "merged", name: "Boston Rex / Reynaldo Goitía", truth: "same", accept: ["same"], run: 13285, dropped: 976, droppedName: "Boston Rex", kept: 774 },
+  { kind: "merged", name: "Blanquito Man / José Andrés Blanco", truth: "same", accept: ["same"], run: 13285, dropped: 1418, droppedName: "Blanquito Man", kept: 3208 },
+  { kind: "merged", name: "Maurimix / Mauricio Arcas", truth: "same", accept: ["same"], run: 13285, dropped: 229, droppedName: "Maurimix", kept: 367 },
+  { kind: "merged", name: "Carlos Yánes / Calavén", truth: "same", accept: ["same"], run: 13285, dropped: 25443, droppedName: "Carlos Yánes", kept: 27867 },
+  { kind: "merged", name: "Bélica / Annabella Almenar", truth: "same", accept: ["same"], run: 13285, dropped: 3725, droppedName: "Bélica", kept: 223 },
+  { kind: "merged", name: "Yordano / Giordano Di Marzo", truth: "same", accept: ["same"], run: 13285, dropped: 4332, droppedName: "Yordano", kept: 1856 },
+  { kind: "merged", name: "Magu / William «Magú» Guzmán", truth: "same", accept: ["same"], run: 13285, dropped: 5211, droppedName: "Magu", kept: 1848 },
+  { kind: "merged", name: "Chofa / Alejandro «Chofa» Loero", truth: "same", accept: ["same"], run: 13285, dropped: 785, droppedName: "Chofa", kept: 437 },
+  { kind: "merged", name: "Pablo Díaz / Ivo", truth: "same", accept: ["same"], run: 13285, dropped: 3802, droppedName: "Pablo Díaz", kept: 2869 },
+  { kind: "merged", name: "Billo Frometa / Luis María «Billo» Frómeta", truth: "same", accept: ["same"], run: 13285, dropped: 20300, droppedName: "Billo Frometa", kept: 7779 },
+  { kind: "merged", name: "Chelique / Chelique Sarabia", truth: "same", accept: ["same"], run: 13218, dropped: 31206, droppedName: "Chelique", kept: 57 },
+  { kind: "merged", name: "Felipe Rengifo / Felipe «Mandingo» Rengifo", truth: "same", accept: ["same"], run: 13285, dropped: 20787, droppedName: "Felipe Rengifo", kept: 513 },
+  { kind: "merged", name: "Yonathan Gavidia / Yonathan «Morocho» Gavidia", truth: "same", accept: ["same"], run: 13285, dropped: 21487, droppedName: "Yonathan Gavidia", kept: 8974 },
+  { kind: "merged", name: "A. Segura / Álvaro Segura", truth: "same", accept: ["same"], run: 13285, dropped: 34568, droppedName: "A. Segura", kept: 490 },
+  { kind: "pair", name: "Carlos Guerra / Carlos Guerra Jr. (padre e hijo)", truth: "different", accept: ["different"], a: 1282, b: 1047 },
+  { kind: "pair", name: "Ricardo Montaner / Ricardo Montaner Jr. (Ricky)", truth: "different", accept: ["different"], a: 8405, b: 38122 },
+  { kind: "pair", name: "Heriberto Molina / Heriberto Molina Jr.", truth: "different", accept: ["different"], a: 28154, b: 7767 },
+  { kind: "pair", name: "Adelso Paz / Adelso Paz Jr.", truth: "different", accept: ["different"], a: 31155, b: 31156 },
+  { kind: "pair", name: "Adelso Paz Jr. / Adelso Paz hijo (la misma persona)", truth: "same", accept: ["same"], a: 31156, b: 32344 },
+  { kind: "mixed", name: "Carlos Guerra juntado (padre + hijo)", truth: "mixed", accept: ["mixed"], person: 1282, join: [1047] },
+  { kind: "mixed", name: "Ricardo Montaner juntado (+ Ricky)", truth: "mixed", accept: ["mixed"], person: 8405, join: [38122] },
+  { kind: "mixed", name: "Heriberto Molina juntado (padre + hijo)", truth: "mixed", accept: ["mixed"], person: 28154, join: [7767] },
+  { kind: "mixed", name: "Adelso Paz juntado (padre + hijo)", truth: "mixed", accept: ["mixed"], person: 31155, join: [31156] },
+  { kind: "mixed", name: "Yordano 1975–2023 (una persona)", truth: "single", accept: ["unknown"], person: 1856 },
+  { kind: "mixed", name: "Billo Frómeta 1940–2014 (una persona)", truth: "single", accept: ["unknown"], person: 7779 },
+  { kind: "mixed", name: "Ricardo Montaner (una persona)", truth: "single", accept: ["unknown"], person: 8405 },
+  { kind: "mixed", name: "Reynaldo Goitía (una persona)", truth: "single", accept: ["unknown"], person: 774 },
+  { kind: "mixed", name: "Álvaro Segura (una persona)", truth: "single", accept: ["unknown"], person: 490 },
+  { kind: "mixed", name: "Chelique Sarabia 1958–2014 (una persona)", truth: "single", accept: ["unknown"], person: 57 },
+  { kind: "mixed", name: "Oscar D'León 1972–2023 (una persona)", truth: "single", accept: ["unknown"], person: 21846 },
+];
+// Sexto conjunto fresco (FRESH=6, 2026-10-10): armado después de corregir lo que destapó el quinto (apellido
+// compuesto: «Brother of Evio Di Marzo» separaba a Yordano), sin ajustar nada con él. Fuentes: es.wikipedia y
+// meridiano (Colina = Oscar de Jesús Colina); noesfm y sincopa (Héctor «Tito» Fierro, Pixel, invitado de Zapato 3);
+// en.wikipedia y biografiaszulianas (Henry Augustus Stephen Pierre); en.wikipedia «Serenata Guayanesa» (Mauricio
+// Castro Rodríguez, fundador; Iván y César Pérez Rossi); cusica y ataquesonico (David «Chapis» Lasca, productor de
+// Viniloversus y La Vida Bohème); analitica (Manuel «Manny» Diquez, 15 años con Franco De Vita); elestimulo y
+// rockhechovenezuela (Erwin «Wincho» Schäfer, Sentimiento Muerto, Atkinson); es.wikipedia «Aditus» (Sandro
+// Liberatoscioli, George Henríquez); buenamusica y sincopa (Leo Colina y Pipo Ramírez, Mermelada Bunch); paltoque
+// (Gabriel «Pepo» Lamberti y su hermano Edgar, Andreazulado); lasemifusa y todosantos.bandcamp (Mariana «Nana»
+// Cadavieco); es.wikipedia «Pedro Junco Jr.» (compositor de «Nosotros»: las dos fichas son él); en.wikipedia «Juan
+// Vicente Torrealba» (sus temas; su hijo Juan Vicente Torrealba León, n. 1945); en.wikipedia «Yordano» (hermano de
+// Evio Di Marzo, los dos en Sietecuero); talcualdigital (Álvaro Segura fundó Zapato 3 con su hermano Carlos).
+const fresh6: Case[] = [
+  { kind: "merged", name: "Colina / Oscar De Jesús Colina", truth: "same", accept: ["same"], run: 13285, dropped: 2567, droppedName: "Colina", kept: 2675 },
+  { kind: "merged", name: "Héctor «Tito» Fierro / Tito Fierro", truth: "same", accept: ["same"], run: 10552, dropped: 299, droppedName: 'Héctor "Tito" Fierro', kept: 1556 },
+  { kind: "merged", name: "Henry Augustus Stephen Pierre / Henry Augustus Stephen", truth: "same", accept: ["same"], run: 13285, dropped: 2716, droppedName: "Henry Augustus Stephen Pierre", kept: 1868 },
+  { kind: "merged", name: "Mauricio Castro / Mauricio Castro Rodríguez", truth: "same", accept: ["same"], run: 13285, dropped: 25537, droppedName: "Mauricio Castro", kept: 914 },
+  { kind: "merged", name: "Chapis Lasca / David «Chapis» Lasca", truth: "same", accept: ["same"], run: 10552, dropped: 250, droppedName: "Chapis Lasca", kept: 657 },
+  { kind: "merged", name: "Manuel Diquez / Manuel «Manny» Diquez", truth: "same", accept: ["same"], run: 13285, dropped: 34728, droppedName: "Manuel Diquez", kept: 1669 },
+  { kind: "merged", name: "Erwin «Wincho» Schäfer / Wincho Schäfer", truth: "same", accept: ["same"], run: 10552, dropped: 2662, droppedName: 'Erwin "Wincho" Schäfer', kept: 174 },
+  { kind: "merged", name: "Liberatoscioli / Sandro Liberatoscioli", truth: "same", accept: ["same"], run: 4659, dropped: 9375, droppedName: "Liberatoscioli", kept: 40 },
+  { kind: "merged", name: "Henríquez / George Henríquez", truth: "same", accept: ["same"], run: 4657, dropped: 7080, droppedName: "Henríquez", kept: 67 },
+  { kind: "merged", name: "L. Colina / Leo Colina", truth: "same", accept: ["same"], run: 13285, dropped: 37699, droppedName: "L. Colina", kept: 741 },
+  { kind: "merged", name: "Pepo Lamberti / Gabriel «Pepo» Lamberti", truth: "same", accept: ["same"], run: 10552, dropped: 1001, droppedName: "Pepo Lamberti", kept: 992 },
+  { kind: "merged", name: "Mariana «Nana» Cadavieco / Nana Cadavieco", truth: "same", accept: ["same"], run: 10552, dropped: 1225, droppedName: 'Mariana "Nana" Cadavieco', kept: 3493 },
+  { kind: "merged", name: "Jorge Ramírez «Pipo» / Pipo Ramírez", truth: "same", accept: ["same"], run: 10552, dropped: 2219, droppedName: 'Jorge Ramírez "Pipo"', kept: 740 },
+  { kind: "pair", name: "Pedro Junco / Pedro Junco Jr. (el mismo compositor)", truth: "same", accept: ["same"], a: 29174, b: 20312 },
+  { kind: "pair", name: "Juan V. Torrealba / Juan Vicente Torrealba (el mismo)", truth: "same", accept: ["same"], a: 21742, b: 4456 },
+  { kind: "pair", name: "Juan V. Torrealba / Juan V. Torrealba Jr. (padre e hijo)", truth: "different", accept: ["different"], a: 21742, b: 31942 },
+  { kind: "pair", name: "Evio Di Marzo / Giordano Di Marzo (hermanos)", truth: "different", accept: ["different"], a: 2359, b: 1856 },
+  { kind: "pair", name: "Edgar Lamberti / Gabriel «Pepo» Lamberti (hermanos)", truth: "different", accept: ["different"], a: 996, b: 992 },
+  { kind: "pair", name: "Carlos Segura / Álvaro Segura (hermanos)", truth: "different", accept: ["different"], a: 493, b: 490 },
+  { kind: "mixed", name: "Yordano juntado (+ su hermano Evio)", truth: "mixed", accept: ["mixed"], person: 1856, join: [2359] },
+  { kind: "mixed", name: "Pepo Lamberti juntado (+ su hermano Edgar)", truth: "mixed", accept: ["mixed"], person: 992, join: [996] },
+  { kind: "mixed", name: "Álvaro Segura juntado (+ su hermano Carlos)", truth: "mixed", accept: ["mixed"], person: 490, join: [493] },
+  { kind: "mixed", name: "Colina 1982–2019 (una persona)", truth: "single", accept: ["unknown"], person: 2675 },
+  { kind: "mixed", name: "Henry Stephen 1964–2011 (una persona)", truth: "single", accept: ["unknown"], person: 1868 },
+  { kind: "mixed", name: "Mauricio Castro Rodríguez (una persona)", truth: "single", accept: ["unknown"], person: 914 },
+  { kind: "mixed", name: "Tito Fierro (una persona)", truth: "single", accept: ["unknown"], person: 1556 },
+  { kind: "mixed", name: "Evio Di Marzo 1975–2013 (una persona)", truth: "single", accept: ["unknown"], person: 2359 },
+  { kind: "mixed", name: "Manny Diquez (una persona)", truth: "single", accept: ["unknown"], person: 1669 },
+  { kind: "mixed", name: "Carlos Segura (una persona)", truth: "single", accept: ["unknown"], person: 493 },
+];
+// Séptimo conjunto fresco (FRESH=7, 2026-10-10): armado después de corregir lo que destaparon el quinto y el sexto
+// (hermanos con el mismo apellido, seudónimo junto a «hijo», variantes de Discogs), sin ajustar nada con él. Fuentes:
+// en.wikipedia «Ilan Chester» (Ilan Czenstochowski Schaechter); diariolasamericas y en.wikipedia «King Changó»
+// (Negrito Man = Luis Eduardo Blanco, hermano de José Andrés «Blanquito Man» Blanco); eluniverso y armando.info
+// (KPU = Leandro Ciro Añez Grippa, productor de Canserbero); rockhechovenezuela «Billy Se Fue» (Jarzen Arcia «Jarz»,
+// Neil Enet «Nilz»); rockhechovenezuela «God's New Version» (Andrés Morillo y Jesús «G-zaz» Romero); talentovenezolano
+// (Alfredo Matheus Diez «Matheus10»); venciclopedia «La Misma Gente» (Pedro Vicente «PTT» Lizardo y su hermano Humberto
+// Enrique Lizardo); en.wikipedia «Nella Rojas» (Marianella Rojas); cusica (Orlando «Mangan» Martínez, Viniloversus).
+const fresh7: Case[] = [
+  { kind: "merged", name: "Ilan Chéster / Ilan Czenstochouski Schechter", truth: "same", accept: ["same"], run: 13285, dropped: 30702, droppedName: "Ilan Chéster", kept: 544 },
+  { kind: "merged", name: "Negrito Man / Luis Eduardo Blanco", truth: "same", accept: ["same"], run: 13285, dropped: 13241, droppedName: "Negrito Man", kept: 3217 },
+  { kind: "merged", name: "Leandro Añez Grippa / KPU", truth: "same", accept: ["same"], run: 13285, dropped: 13008, droppedName: "Leandro Añez Grippa", kept: 2764 },
+  { kind: "merged", name: "Jarz / Jarzen Arcia", truth: "same", accept: ["same"], run: 13285, dropped: 4926, droppedName: "Jarz", kept: 862 },
+  { kind: "merged", name: "Neil Enet / Nilz", truth: "same", accept: ["same"], run: 13285, dropped: 860, droppedName: "Neil Enet", kept: 4927 },
+  { kind: "merged", name: "G-Zaz / Jesús Romero", truth: "same", accept: ["same"], run: 13285, dropped: 34394, droppedName: "G-Zaz", kept: 5839 },
+  { kind: "merged", name: "André / Andrés Morillo", truth: "same", accept: ["same"], run: 13285, dropped: 34393, droppedName: "André", kept: 5845 },
+  { kind: "merged", name: "Matheus 10 / Alfredo Matheus Diez", truth: "same", accept: ["same"], run: 13285, dropped: 35413, droppedName: "Matheus 10", kept: 7101 },
+  { kind: "merged", name: "PTT Lizardo / Pedro V. Lizardo", truth: "same", accept: ["same"], run: 10549, dropped: 4720, droppedName: "PTT Lizardo", kept: 1068 },
+  { kind: "merged", name: "Nella / Marianella Rojas", truth: "same", accept: ["same"], run: 13285, dropped: 21016, droppedName: "Nella", kept: 17364 },
+  { kind: "merged", name: "Orlando Martínez / Orlando «Mangan» Martínez", truth: "same", accept: ["same"], run: 13285, dropped: 36474, droppedName: "Orlando Martínez", kept: 3344 },
+  { kind: "merged", name: "Humberto E. Lizardo «Ike» / Humberto E. Lizardo", truth: "same", accept: ["same"], run: 10549, dropped: 3618, droppedName: 'Humberto E. Lizardo "Ike"', kept: 3225 },
+  { kind: "pair", name: "Pedro V. Lizardo / Humberto E. Lizardo (hermanos)", truth: "different", accept: ["different"], a: 1068, b: 3225 },
+  { kind: "pair", name: "José Andrés Blanco / Luis Eduardo Blanco (hermanos)", truth: "different", accept: ["different"], a: 3208, b: 3217 },
+  { kind: "pair", name: "Jesús «G-zaz» Romero / Andrés Morillo (God's New Version)", truth: "different", accept: ["different"], a: 5839, b: 5845 },
+  { kind: "pair", name: "Jarzen Arcia / Nilz (Billy Se Fue)", truth: "different", accept: ["different"], a: 862, b: 4927 },
+  { kind: "mixed", name: "PTT Lizardo juntado (+ su hermano Humberto)", truth: "mixed", accept: ["mixed"], person: 1068, join: [3225] },
+  { kind: "mixed", name: "Blanquito Man juntado (+ su hermano Negrito Man)", truth: "mixed", accept: ["mixed"], person: 3208, join: [3217] },
+  { kind: "mixed", name: "G-zaz juntado (+ Andrés Morillo)", truth: "mixed", accept: ["mixed"], person: 5839, join: [5845] },
+  { kind: "mixed", name: "Ilan Chester 1971–2015 (una persona)", truth: "single", accept: ["unknown"], person: 544 },
+  { kind: "mixed", name: "Nella (una persona)", truth: "single", accept: ["unknown"], person: 17364 },
+  { kind: "mixed", name: "KPU (una persona)", truth: "single", accept: ["unknown"], person: 2764 },
+  { kind: "mixed", name: "Matheus10 (una persona)", truth: "single", accept: ["unknown"], person: 7101 },
+  { kind: "mixed", name: "PTT Lizardo 1970–2016 (una persona)", truth: "single", accept: ["unknown"], person: 1068 },
+  { kind: "mixed", name: "Mangan Martínez (una persona)", truth: "single", accept: ["unknown"], person: 3344 },
+  { kind: "mixed", name: "Negrito Man (una persona)", truth: "single", accept: ["unknown"], person: 3217 },
+];
+// Fresco 8 (2026-10-10), armado después de cerrar las reglas del fresco 7 y sin ajustar nada con él. Fuentes:
+// vice.com «Mi obra antes que mi nombre: Lou Fresco» y en.wikipedia «Lil Supa» (Marlon Morales = Lou Fresco);
+// last.fm «luiser» y Deezer (Luis Ernesto Serrano «Luiser», «Morfeo»); elnacional «Murió el cantante Al Zeppy» (Alberto
+// Lewis); keeprockingvenezuela y oidossucios «Subsonus» (Carlos «Fresa» Mata); sincopa «La Ruta» y Big Landin (Guillermo
+// «Willy» Noya, trombón); en.wikipedia «Tweety González» (mezcló «El amor ya no existe» y «Casa 4» de Famasloop);
+// vladbone.com (Vladimir Peña, trombón de Fauna Crepuscular y Los Amigos Invisibles); uncobanda.bandcamp y crestametalica
+// (Carlos «Cuso» González, UNCO). Padre e hijo: rumberos.net «Morocotopo» (William Sigismondi Jr., hijo del pianista).
+// Misma persona con «Jr.»: imdb y encyclopedia.com (Emilio Estefan Jr., el productor; no hay otro Emilio Estefan músico).
+// Mezcladas por fusiones equivocadas de la run 13285: metal-archives «Hiena» (Ezlen Ramos, batería, 2009–2015) frente a
+// es.wikipedia «José Antonio Ramos (músico)» (timplista canario, 1969–2008); houstonsymphony y drummerszone (Luisito
+// Quintero, percusionista, 1967) frente a desdeelghetto «PapaShanty Saund System» (Luis Quintero «Bosta's Brain», voz,
+// de La Corte); es.wikipedia «Roberto Antonio» («25 años», 2010, con Chino & Nacho) y «Nacho (cantante)» (Miguel
+// Ignacio Mendoza) frente al bajista de Ricochet. Una sola persona: es.wikipedia (Gustavo Aguado, Guaco; Renato
+// Capriles, Los Melódicos; Trino Mora; Italo Pizzolante); fullersound.com (Mike Fuller); sincopa (Gonzalo Teppa,
+// Alexander Livinalli).
+const fresh8: Case[] = [
+  { kind: "merged", name: "Lou Fresco / Marlon Morales", truth: "same", accept: ["same"], run: 13285, dropped: 2834, droppedName: "Lou Fresco", kept: 2832 },
+  { kind: "merged", name: "Luiser / Luis E. Serrano", truth: "same", accept: ["same"], run: 13285, dropped: 27442, droppedName: "Luiser", kept: 6537 },
+  { kind: "merged", name: "Al Zeppy / Alberto Lewis", truth: "same", accept: ["same"], run: 13285, dropped: 7192, droppedName: "Al Zeppy", kept: 7178 },
+  { kind: "merged", name: "Fresa / Carlos «Fresa» Mata", truth: "same", accept: ["same"], run: 13285, dropped: 6566, droppedName: "Fresa", kept: 1008 },
+  { kind: "merged", name: "Guillermo Noya / Willy Noya", truth: "same", accept: ["same"], run: 10552, dropped: 6109, droppedName: "Guillermo Noya", kept: 389 },
+  { kind: "merged", name: "Fabián «Tweety» González / Tweety González", truth: "same", accept: ["same"], run: 10552, dropped: 1432, droppedName: 'Fabián "Tweety" González', kept: 451 },
+  { kind: "merged", name: "Vladimir «Arfavor» Peña / Vladimir Peña", truth: "same", accept: ["same"], run: 10448, dropped: 2909, droppedName: 'Vladimir "Arfavor" Peña', kept: 735 },
+  { kind: "merged", name: "Cuso / Carlos «Cuso» González", truth: "same", accept: ["same"], run: 13285, dropped: 1391, droppedName: "Cuso", kept: 6817 },
+  { kind: "pair", name: "William Sigismondi / William Sigismondi Jr. (padre e hijo)", truth: "different", accept: ["different"], a: 3881, b: 21173 },
+  { kind: "pair", name: "Emilio Estefan / Emilio Estefan Jr. (la misma persona)", truth: "same", accept: ["same"], a: 38411, b: 8073 },
+  { kind: "mixed", name: "Ezlen Ramos 5900: + timple de José Antonio Ramos", truth: "mixed", accept: ["mixed"], person: 5900 },
+  { kind: "mixed", name: "Luisito Quintero 1701: + Luis Quintero «Bosta's Brain»", truth: "mixed", accept: ["mixed"], person: 1701 },
+  { kind: "mixed", name: "Ignacio Pérez 3343: + Nacho de Chino & Nacho", truth: "mixed", accept: ["mixed"], person: 3343 },
+  { kind: "mixed", name: "Gustavo Aguado (una persona)", truth: "single", accept: ["unknown"], person: 339 },
+  { kind: "mixed", name: "Renato Capriles (una persona)", truth: "single", accept: ["unknown"], person: 27213 },
+  { kind: "mixed", name: "Trino Mora (una persona)", truth: "single", accept: ["unknown"], person: 8775 },
+  // Se armó como «una persona», pero la ficha tiene voz y guitarras de Americania de 2009–2026 (el compositor murió
+  // en 2011): son de su pariente Ítalo Aquiles Pizzolante (es.wikipedia «Italo Pizzolante»). El verificador lo vio en
+  // la primera corrida; la etiqueta se corrigió después, con esa fuente y los créditos a la vista.
+  { kind: "mixed", name: "Italo Pizzolante 1260: + Ítalo Aquiles Pizzolante (Americania)", truth: "mixed", accept: ["mixed"], person: 1260 },
+  { kind: "mixed", name: "Mike Fuller (una persona)", truth: "single", accept: ["unknown"], person: 2409 },
+  { kind: "mixed", name: "Gonzalo Teppa (una persona)", truth: "single", accept: ["unknown"], person: 3605 },
+  { kind: "mixed", name: "Alexander Livinalli (una persona)", truth: "single", accept: ["unknown"], person: 3517 },
+];
+// Fresco 9 (2026-10-10), armado después de las correcciones que dejó el fresco 8 y sin ajustar nada con él. Fuentes:
+// herencialatina y asocosalsa74 «Federico y su Combo Latino» (Tomás Martínez «El Bobby», cantante fundador);
+// venciclopedia «José Antonio Rojas» e Instagram @rojitasdimension (Rojitas, trombón de Federico y de Dimensión Latina);
+// indierocks y efectococuyo (Leonardo «Kmaron» Jaramillo, guitarrista de Okills). Mezcladas por fusiones equivocadas
+// de la run 13285: rockhechovenezuela «Almas» (Rubén «El Enano» Castro, voz y guitarra, Maracay 2008) frente a
+// en.wikipedia «Caramelos de Cianuro» (Miguel Ángel «El Enano» González); sincopa «Huáscar Barradas & Maracaibo –
+// Encuentros» (los raps son de Pipo Ramírez) frente a Francisco González (Nauta, Novarmada, nacido en 1988). Una sola
+// persona: efemeridesynoticiasmusicales y rockhechovenezuela (Francisco Belisario, Los Impala); venciclopedia
+// «José Antonio Rojas»; solarlatinclub «Raúl Agraz – Between Brothers» (trompetista); es.wikipedia «Témpano»
+// (Iker Gastaminza, teclados).
+const fresh9: Case[] = [
+  { kind: "merged", name: "El Bobby / Tomás Martínez", truth: "same", accept: ["same"], run: 13285, dropped: 27879, droppedName: "El Bobby", kept: 21246 },
+  { kind: "merged", name: "Rojitas / José Antonio Rojas", truth: "same", accept: ["same"], run: 13285, dropped: 27529, droppedName: "Rojitas", kept: 15503 },
+  { kind: "merged", name: "Leonardo «El Kmaron» Jaramillo / Leonardo Jaramillo", truth: "same", accept: ["same"], run: 13285, dropped: 35367, droppedName: 'Leonardo "El Kmaron" Jaramillo', kept: 1278 },
+  { kind: "mixed", name: "Miguel Gonzáles 2704: + Rubén «El Enano» Castro (Almas)", truth: "mixed", accept: ["mixed"], person: 2704 },
+  { kind: "mixed", name: "Francisco Gonzalez 9280: + raps de Pipo Ramírez", truth: "mixed", accept: ["mixed"], person: 9280 },
+  { kind: "mixed", name: "Francisco Belisario (una persona)", truth: "single", accept: ["unknown"], person: 977 },
+  { kind: "mixed", name: "José Antonio Rojas (una persona)", truth: "single", accept: ["unknown"], person: 15503 },
+  { kind: "mixed", name: "Raúl Agraz (una persona)", truth: "single", accept: ["unknown"], person: 2768 },
+  { kind: "mixed", name: "Iker Gastaminza (una persona)", truth: "single", accept: ["unknown"], person: 661 },
+];
+// Fresco 10 (2026-10-10), cerrado antes de medir la v6; todo confirmado en la web:
+// Frank Belisario = Francisco «Frank» Belisario (elestimulo.com, «Años 60…»; antologiavenezuela «Rudy Márquez/Frank Belisario»).
+// Angie Machado = Ángel Vicente Machado, trompetista con Oscar D'León (es.salsagoogle.com).
+// Francisco Tedesco, batería de Carlos Jaeger («Claroscuro», sincopa.com) = Franchesco «Chicho» Tedesco, batería (es.wikipedia Rolling Band).
+// Sofía Pulido = Sofía Pulido «La Nena», coros (antologiavenezuela, etiqueta Reggae).
+// César Somoza, voz y fundador de Resistencia (lobotoradio.com, meridiano.net).
+// Gerardo Ubieda, baterista de Témpano (gerardoubieda.com); sus créditos son todos suyos.
+const fresh10: Case[] = [
+  { kind: "merged", name: "Frank Belisario / Francisco Belisario", truth: "same", accept: ["same"], run: 13285, dropped: 39146, droppedName: "Frank Belisario", kept: 977 },
+  { kind: "merged", name: "Angie Machado / Angel Machado", truth: "same", accept: ["same"], run: 13285, dropped: 30192, droppedName: "Angie Machado", kept: 1703 },
+  { kind: "merged", name: "Francisco Tedesco / Francisco «Chicho» Tedesco", truth: "same", accept: ["same"], run: 13285, dropped: 27438, droppedName: "Francisco Tedesco", kept: 3443 },
+  { kind: "merged", name: "Sofía Pulido / Sofía «La Nena» Pulido", truth: "same", accept: ["same"], run: 13285, dropped: 29392, droppedName: "Sofía Pulido", kept: 5990 },
+  { kind: "merged", name: "César Somoza / César Alberto Somoza", truth: "same", accept: ["same"], run: 13285, dropped: 37936, droppedName: "César Somoza", kept: 2943 },
+  { kind: "mixed", name: "Gerardo Ubieda (una persona)", truth: "single", accept: ["unknown"], person: 923 },
+];
+// Fresco 11 (2026-10-11), cerrado antes de medir la v8 (forma compartida, listas, apodo con letras sueltas):
+// René Toledo = René L. Toledo, guitarrista cubano (audiokat.com: «René L. Toledo nació en La Habana… René Luis Toledo»).
+// Carlos Landaeta = Carlos Emilio Landaeta «Pan con Queso» (sincopa.com Sonero Clásico del Caribe: «Bongos, Congas,
+// Maracas: Carlos Emilio Landaeta "Pan con Queso" (1976-1991)»; telesurtv.net).
+// Pedro Montañez = Pedro José Montañez, fotógrafo de Grupo Vera (sincopa.com «Photo: Pedro José Montañez»).
+const fresh11: Case[] = [
+  { kind: "pair", name: "René Toledo / René L. Toledo (el mismo guitarrista)", truth: "same", accept: ["same"], a: 8058, b: 25948 },
+  { kind: "pair", name: "Carlos Landaeta / Carlos Emilio Landaeta («Pan con Queso»)", truth: "same", accept: ["same"], a: 27398, b: 27340 },
+  { kind: "pair", name: "Pedro Montañez / Pedro José Montañez (fotógrafo de Grupo Vera)", truth: "same", accept: ["same"], a: 31640, b: 31627 },
+  { kind: "mixed", name: "René L. Toledo (una persona)", truth: "single", accept: ["unknown"], person: 25948 },
+  { kind: "mixed", name: "Carlos Emilio Landaeta (una persona)", truth: "single", accept: ["unknown"], person: 27340 },
+];
+// Fresco 12 (2026-10-11), cerrado antes de medir la v11; nombre artístico frente a nombre real, confirmado en la web:
+// Nano Grand = Octavio Ramón Palacios (nanogrand.blogspot.com: «lo bautizaron con el nombre de Octavio Ramón Palacios…»).
+// Joseph Sun = José Montilva (Cinema Sun 2009, créditos: «Drums…: José Montilva "Joseph Sun"»).
+// Juan Camacho = Johnny Quirós («Juan Camacho Camacho es el verdadero nombre de Johnny Quiros», Costa Rica, 1923).
+// Recard = Remo Caremartori (hippitoysuschatarritas, Henry Stephen 1974: «Remo Caremartori a.k.a. Recard»).
+const fresh12: Case[] = [
+  { kind: "merged", name: "Nano Grand / Octavio Palacios", truth: "same", accept: ["same"], run: 13285, dropped: 22217, droppedName: "Nano Grand", kept: 21251 },
+  { kind: "merged", name: "Joseph Sun / José Montilva", truth: "same", accept: ["same"], run: 13285, dropped: 5185, droppedName: "Joseph Sun", kept: 2208 },
+  { kind: "merged", name: "Juan Camacho / Johnny Quiros", truth: "same", accept: ["same"], run: 10552, dropped: 2717, droppedName: "Juan Camacho", kept: 10051 },
+  { kind: "merged", name: "Remo Caremartori / Recard", truth: "same", accept: ["same"], run: 13285, dropped: 47, droppedName: "Remo Caremartori", kept: 11032 },
+];
 const isHoldout = process.env["HOLDOUT"] === "1";
+const isFresh12 = process.env["FRESH"] === "12";
+const isFresh11 = process.env["FRESH"] === "11";
+const isFresh10 = process.env["FRESH"] === "10";
+const isFresh9 = process.env["FRESH"] === "9";
+const isFresh8 = process.env["FRESH"] === "8";
+const isFresh7 = process.env["FRESH"] === "7";
+const isFresh6 = process.env["FRESH"] === "6";
+const isFresh5 = process.env["FRESH"] === "5";
 const isFresh4 = process.env["FRESH"] === "4";
 const isFresh = process.env["FRESH"] === "1";
 const isFresh2 = process.env["FRESH"] === "2";
@@ -261,7 +495,7 @@ interface Row { name: string; kind: Case["kind"]; truth: Truth; accept: Verdict[
 const rows: Row[] = [];
 const only = process.argv.slice(2);
 try {
-  for (const item of isFresh4 ? fresh4 : isFresh3 ? fresh3 : isFresh2 ? fresh2 : isFresh ? fresh : isHoldout ? holdout : cases) {
+  for (const item of isFresh12 ? fresh12 : isFresh11 ? fresh11 : isFresh10 ? fresh10 : isFresh9 ? fresh9 : isFresh8 ? fresh8 : isFresh7 ? fresh7 : isFresh6 ? fresh6 : isFresh5 ? fresh5 : isFresh4 ? fresh4 : isFresh3 ? fresh3 : isFresh2 ? fresh2 : isFresh ? fresh : isHoldout ? holdout : cases) {
     if (only.length && !only.some((needle) => item.name.toLowerCase().includes(needle.toLowerCase()))) continue;
     const started = Date.now();
     const base = { name: item.name, kind: item.kind, truth: item.truth, accept: item.accept };
@@ -319,7 +553,7 @@ try {
   const ready = counts.errors === 0 && counts.falseMerges === 0 && counts.falseSeparations === 0 && counts.falseMixed === 0
     && ratio(of("same")) >= 0.7 && ratio(of("different")) >= 0.6 && ratio(of("mixed")) >= 0.5 && ratio(of("single")) === 1;
   const report = { date: new Date().toISOString(), criteria: "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona", counts, ready, cases: rows };
-  const output = `reports/person-web-verification-${isFresh4 ? "fresca-4" : isFresh3 ? "fresca-3" : isFresh2 ? "fresca-2" : isFresh ? "fresca" : isHoldout ? "validacion" : "dificil"}-${new Date().toISOString().slice(0, 10)}.json`;
+  const output = `reports/person-web-verification-${isFresh12 ? "fresca-12" : isFresh11 ? "fresca-11" : isFresh10 ? "fresca-10" : isFresh9 ? "fresca-9" : isFresh8 ? "fresca-8" : isFresh7 ? "fresca-7" : isFresh6 ? "fresca-6" : isFresh5 ? "fresca-5" : isFresh4 ? "fresca-4" : isFresh3 ? "fresca-3" : isFresh2 ? "fresca-2" : isFresh ? "fresca" : isHoldout ? "validacion" : "dificil"}-${new Date().toISOString().slice(0, 10)}.json`;
   if (!only.length) writeFileSync(output, `${JSON.stringify(report, null, 2)}\n`);
   console.log(counts, { ready });
 } finally { await closeDb(); }

@@ -1,0 +1,2021 @@
+{
+  "date": "2026-10-10T23:41:02.837Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 30,
+    "correct": 26,
+    "errors": 0,
+    "same": "14/15",
+    "different": "3/4",
+    "mixed": "2/4",
+    "single": "7/7",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": true,
+  "cases": [
+    {
+      "name": "Boston Rex / Reynaldo Goitía",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21240,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://plus.cusica.com/2019/06/10/boston-rex-se-defendio-ante-falsas-acusaciones-de-maibort-petit/",
+          "title": "Boston Rex se defendió ante falsas acusaciones de Maibort Petit | CusicaPlus",
+          "quote": "El conocido músico venezolano Reynaldo Goitía (Boston Rex) integrante de la agrupación Tomates Fritos",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/tomates_fritos.htm",
+          "title": "Tomates Fritos - Bio & Discography",
+          "quote": "Lead Vocals, Bass & Keyboards: Reynaldo Goitía",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/unco_2gran_escape.htm",
+          "title": "Unco - El Gran Escape (CD Info)",
+          "quote": "Wurtlizer & Backing Vocals: Boston Rex",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/climax/cooltura-climax/2019-07-05/la-eterna-vigencia-de-boston-rex/",
+          "title": "La eterna vigencia de Boston Rex | Clímax",
+          "quote": "su hijo menor Reynaldo Goitia, mejor conocido como Boston Rex, vocalista de Tomates Fritos y cantautor venezolano",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://plus.cusica.com/2019/06/10/boston-rex-se-defendio-ante-falsas-acusaciones-de-maibort-petit/",
+        "https://elestimulo.com/climax/cooltura-climax/2019-07-05/la-eterna-vigencia-de-boston-rex/",
+        "https://tomatesfritos.bandcamp.com/album/hombre-bala",
+        "https://sincopa.com/rock_pop/artist_rock/tomates_fritos.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/unco_2gran_escape.htm",
+        "https://cancionesdelagente.bandcamp.com/album/canciones-de-la-gente-homenaje-a-ptt",
+        "https://www.youtube.com/watch?v=NymL3aOEOy4",
+        "https://indiehoy.com/descubrir/conoce-tomates-fritos-una-verdadera-institucion-del-indie-venezolano/",
+        "https://www.elnacional.com/2016/05/boston-rex-habla-justicia-formato-acustico_26455/",
+        "https://contrapunto.com/entrevistas-ctp/boston-rex-anuncia-nuevo-disco-con-tomates-fritos-y-como-solista-este-ano/",
+        "https://www.discogs.com/artist/6113481",
+        "https://www.discogs.com/artist/7861530"
+      ]
+    },
+    {
+      "name": "Blanquito Man / José Andrés Blanco",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21241,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "José Andrés Blanco (Blanquito Man) died on November 16, 2017, due to complications from colon cancer.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.univision.com/famosos/murio-blanquito-man-y-nosotros-te-platicamos-como-fue-su-lucha-contra-el-cancer-fotos",
+          "title": "Murió 'Blanquito Man' y nosotros te platicamos cómo fue su lucha contra el cáncer | Univision Famosos | Univision",
+          "quote": "José Andrés Blanco, mejor conocido como 'Blanquito Man', fue el líder y vocalista de la banda de latin ska King Changó.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elespectador.com/entretenimiento/musica/el-homenaje-a-blanquito-man-uno-de-los-precursores-del-reggae-latinoamericano/",
+          "title": "El homenaje a Blanquito Man, uno de los precursores del reggae latinoamericano | EL ESPECTADOR",
+          "quote": "Blanquito era la voz de King Changó, una banda de reggae y ska caraqueña que marcó a varias generaciones.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia, la enciclopedia libre",
+          "quote": "King Changó fue fundada por José Andrés Blanco Aybar, conocido por su nombre artístico «Blanquito Man»",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/frankquint_17signos.htm",
+          "title": "Frank Quintero - Signos De Admiración (CD Info)",
+          "quote": "Vocals: Oscar D'León & Blanquito Man (track 02)",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "King Changó (1996) The Return of El Santo (2000)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+        "https://www.univision.com/famosos/murio-blanquito-man-y-nosotros-te-platicamos-como-fue-su-lucha-contra-el-cancer-fotos",
+        "https://www.elespectador.com/entretenimiento/musica/el-homenaje-a-blanquito-man-uno-de-los-precursores-del-reggae-latinoamericano/",
+        "https://es.wikipedia.org/wiki/King_Chang%C3%B3",
+        "https://albaciudad.org/2017/11/blanquito-man-un-venezolano-que-con-alegria-alzo-la-voz-del-latin-ska/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/frankquint_17signos.htm",
+        "https://tendsrock.wordpress.com/category/rock-de-fusion-latina/page/9/",
+        "https://albaciudad.org/2011/06/buena-fe-la-autocensura-no-es-revolucionaria/",
+        "https://peakd.com/hive-133194/@musicavenezuela/king-chango",
+        "https://clairemagie.com/blanquito-man-and-king-chang-what-really-happened-to-the-latin-ska-icon-240n",
+        "https://www.miamiherald.com/miami-com/en-espanol/article225774620.html",
+        "https://www.vice.com/es/article/fallecio-blanquito-man-despues-de-una-larga-lucha-contra-el-cancer/",
+        "https://www.discogs.com/artist/2542799"
+      ]
+    },
+    {
+      "name": "Maurimix / Mauricio Arcas",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 7,
+      "sources": 11,
+      "seconds": 2,
+      "aiRunId": 21242,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://soundcloud.com/smoothjazz1987/03-maurimix-mauricio-arcas",
+          "title": "Stream 03 - Maurimix (Mauricio Arcas - Amigo Invisible) - You gotta make me doubt (Vside) by SmoothJazz1987 | Listen online for free on SoundCloud",
+          "quote": "Maurimix - Boxin' Da House, primer disco en solitario del conguero, timbalero, percusionista y vocalista del son sabroso y la voz de oro del grupo de Los Amigos Invisibles, Mauricio Arcas.",
+          "supports": "same"
+        },
+        {
+          "url": "https://revistaquetal.com/luego-de-pasar-por-los-amigos-invisibles-maurimix-relanza-el-album-tropicalia-seis-punto-cero/",
+          "title": "Luego de pasar por Los Amigos Invisibles, Maurimix, relanza el álbum \"Tropicalia Seis Punto Cero\" - Revista Que Tal",
+          "quote": "Mauricio Arcas, ex integrante de Los Amigos Invisibles, conocido artísticamente como Maurimix es un cantautor y productor musical venezolano que relanzó el disco “Tropicalia Seis Punto Cero”.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/2017/08/mauricio-arcas-renuncie-estilo-vida-los-amigos-invisibles_201374/",
+          "title": "Mauricio Arcas: \"Renuncié al estilo de vida de Los Amigos Invisibles\" - EL NACIONAL",
+          "quote": "Mauricio Arcas: \"Renuncié al estilo de vida de Los Amigos Invisibles\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/2017/08/mauricio-arcas-renuncie-estilo-vida-los-amigos-invisibles_201374/",
+          "title": "Mauricio Arcas: \"Renuncié al estilo de vida de Los Amigos Invisibles\" - EL NACIONAL",
+          "quote": "Este año estrenaron El Paradise, el primer álbum sin los dos músicos que se fueron hace tres años y el último de Arcas, quien compuso una sola canción para este trabajo antes de anunciar esta semana su separación de la agrupación de la que fue miembro desde 1992.",
+          "supports": "same"
+        },
+        {
+          "url": "https://music.apple.com/ar/artist/maurimix/74305539",
+          "title": "‎Maurimix en Apple Music",
+          "quote": "Sucu (feat. Blanquito Man) Boxin' Da House · 2003",
+          "supports": "same"
+        },
+        {
+          "url": "https://music.apple.com/ar/artist/maurimix/74305539",
+          "title": "‎Maurimix en Apple Music",
+          "quote": "DNC (feat. Maurimix) Fantasía Cósmica (Cara B) - EP · 2026",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.diariolasamericas.com/cultura/mauricio-arcas-da-esperanza-y-frescura-distancia-social-n4202718",
+          "title": "Mauricio Arcas da esperanza y frescura a \"Distancia social\"",
+          "quote": "Mauricio Arcas (Caracas, Mayo 1973), conocido en la industria como Maurimix, ha sido uno de ellos.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.abmauri.lk/",
+        "https://music.apple.com/ar/artist/maurimix/74305539",
+        "https://www.elnacional.com/2024/06/rock-mau-quiere-conectar-con-una-nueva-generacion/",
+        "https://soundcloud.com/smoothjazz1987/03-maurimix-mauricio-arcas",
+        "https://www.elnacional.com/2017/08/mauricio-arcas-renuncie-estilo-vida-los-amigos-invisibles_201374/",
+        "https://revistaquetal.com/luego-de-pasar-por-los-amigos-invisibles-maurimix-relanza-el-album-tropicalia-seis-punto-cero/",
+        "https://www.youtube.com/watch?v=VxsJp_miCjI",
+        "https://www.elnacional.com/2020/06/mauricio-arcas-le-canta-al-reencuentro-en-tiempos-de-confinamiento/",
+        "https://www.diariolasamericas.com/cultura/mauricio-arcas-da-esperanza-y-frescura-distancia-social-n4202718",
+        "https://ultimasnoticias.com.ve/chevere/mauricio-arcas-exintegrante-de-los-amigos-invisibles-dejo-la-solteria/",
+        "https://www.discogs.com/artist/303405"
+      ]
+    },
+    {
+      "name": "Carlos Yánes / Calavén",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 3,
+      "sources": 11,
+      "seconds": 2,
+      "aiRunId": 21243,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/los_calvos/calvos_estosson.htm",
+          "title": "Los Calvos - Estos Son Los Calvos (LP Info)",
+          "quote": "Vocals: Carlos Yánes \"Calavén\" Piano: Ray Pérez",
+          "supports": "same"
+        },
+        {
+          "url": "https://gladyspalmera.com/coleccion/disco/32933/",
+          "title": "Colección Gladys Palmera - Psicodélico con salsa",
+          "quote": "Carlos Yanes \"Calavén\" - Voz",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/4491794",
+          "title": "Calaven | Discogs",
+          "quote": "Real Name: Carlos Rafael Perdomo Yáñez. Profile: Venezuelan salsa singer, also known as El Negrito Calavén (29 Feb. 1940 - Caracas, 3 May 2003) Variations: El Negrito Calaven. Credits: Lead Vocals – Los Dementes – El Milagro (2000).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/los_calvos/calvos_estosson.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/los_calvos/calvos_yqcalvos.htm",
+        "https://salsagoogle.com/category/news/",
+        "https://loscalvos.bandcamp.com/album/esto-son-los-calvos",
+        "https://gladyspalmera.com/coleccion/disco/15981/",
+        "https://gladyspalmera.com/coleccion/disco/32933/",
+        "https://gladyspalmera.com/coleccion/disco/87816/",
+        "https://www.youtube.com/watch?v=Ov7-aRjTqgY",
+        "https://www.youtube.com/watch?v=ZCGTu6NWzsc",
+        "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_11derrapedsalsa.htm",
+        "https://www.discogs.com/artist/4491794"
+      ]
+    },
+    {
+      "name": "Bélica / Annabella Almenar",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 14,
+      "sources": 10,
+      "seconds": 1,
+      "aiRunId": 21369,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://www.diversomagazine.com/2009/09/belica.html",
+          "title": "Bélica - Diverso Magazine",
+          "quote": "Cerca de la 1:00am se montó en tarima Annabella Almenar, a.k.a Bélica, acompañada de su Banda Ancha",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.diversomagazine.com/2009/09/belica.html",
+          "title": "Bélica - Diverso Magazine",
+          "quote": "Su carrera discográfica comienza en 2003 con la edición de su primer álbum como solista, lanzando al mercado su CD homónimo, producido por Dj Trece (3 Dueños)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.diversomagazine.com/2009/09/belica.html",
+          "title": "Bélica - Diverso Magazine",
+          "quote": "Durante su carrera musical ha alternado tarima con artistas nacionales e internacionales de la talla de Divagash, Juanes, Ely Guerra, María Conchita Alonso, María Rivas, Mad Professor, Sean Paul, Vico C, Fito Páez, The Roof, Actitud María Marta, Zapato 3, YATU, Caramelos de Cianuro, Dj Trece, Vagos y Maleantes, ONE-CHOT, 4to Poder, Amigos Invisibles.",
+          "supports": "same"
+        },
+        {
+          "url": "https://plus.cusica.com/2016/12/05/las-mujeres-del-rock-nacional/",
+          "title": "Las mujeres del rock nacional | CusicaPlus",
+          "quote": "Annabella Almenar, también conocida como Bélica, fue una de los miembros de la banda venezolana de culto de los 90 La Hermandad, junto con Yátu (Seguridad Nacional), Fernando Batoni (Zapato 3) y César Domínguez.",
+          "supports": "same"
+        },
+        {
+          "url": "https://plus.cusica.com/2016/12/05/las-mujeres-del-rock-nacional/",
+          "title": "Las mujeres del rock nacional | CusicaPlus",
+          "quote": "En el 2003 publica su primer material, mucho más inclinado al electro pop y el hip hop, seguido por su álbum ‘Chic Chic’ en el 2010.",
+          "supports": "same"
+        },
+        {
+          "url": "https://plus.cusica.com/2016/12/05/las-mujeres-del-rock-nacional/",
+          "title": "Las mujeres del rock nacional | CusicaPlus",
+          "quote": "Adicionalmente, era constante colaboradora del rapero y DJ Trece, y corista de grupos de rap como Guerrilla Seca, Vagos & Maleantes, y más.",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/b/belica/",
+          "title": "Bélica - RHV Directorio B",
+          "quote": "Bélica es una vocalista venezolana que alcanza renombre al formar parte de la agrupación La Hermandad junto a Fernando Batoni (Zapato 3) y Juan Bautista López «Yátu» (La Seguridad Nacional).",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/b/belica/",
+          "title": "Bélica - RHV Directorio B",
+          "quote": "el nombre de Bélica (Annabella Almenar) se encuentra en algunas grabaciones como vocalista invitada y con la edición de Bélica (2003) da a la luz su primera producción discográfica como solista.",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/b/belica/",
+          "title": "Bélica - RHV Directorio B",
+          "quote": "Su carrera mantiene continuidad discográfica con la publicación de Chica Chic (2010).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/bandas/la-hermandad",
+          "title": "La Hermandad – Lobotoradio",
+          "quote": "Annabella Almenar \"Bélica\" (teclados, coros) se unió posteriormente.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=Y2ZRCKt1as8",
+          "title": "La Hermandad - Jai (1999) || Full Album || - YouTube",
+          "quote": "Keyboards & Backing Vocals: Annabella Almenar \"Bélica\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://noesfm.com/las-mujeres-del-rock-venezolano/",
+          "title": "Las mujeres del rock venezolano",
+          "quote": "Los nombres de Biella da Costa y Annabella Almenar “Bélica” también son referencia importante.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.guatacanights.com/noticias/2022-2-16-la-redencin-de-diego-mrquez",
+          "title": "La redención de Diego Márquez – Guataca Nights",
+          "quote": "Y la tercera para hacer un disparatado show en Miami en el que Annabella Almenar, a.k.a Bélica, fue la vocalista del grupo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/3283581",
+          "title": "Bélica | Discogs",
+          "quote": "Credits: Arranged By [Additional] – Guerrilla Seca – La Realidad mas Real (2003); Keyboards, Music By – Guerrilla Seca – La Realidad mas Real (2003); Co-producer – Guerrilla Seca – La Realidad mas Real (2003); Vocals – Guerrilla Seca – La Realidad mas Real (2003).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/belica.htm",
+        "https://www.diversomagazine.com/2009/09/belica.html",
+        "https://plus.cusica.com/2016/12/05/las-mujeres-del-rock-nacional/",
+        "https://rockhechovenezuela.com/b/belica/",
+        "https://www.lobotoradio.com/bandas/la-hermandad",
+        "https://www.lanacion.com.ar/espectaculos/belica-todo-lo-puede-nid597949/",
+        "https://www.youtube.com/watch?v=Y2ZRCKt1as8",
+        "https://noesfm.com/las-mujeres-del-rock-venezolano/",
+        "https://www.guatacanights.com/noticias/2022-2-16-la-redencin-de-diego-mrquez",
+        "https://www.discogs.com/artist/3283581"
+      ]
+    },
+    {
+      "name": "Yordano / Giordano Di Marzo",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 8,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21245,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia",
+          "quote": "Yordano, born Giordano Di Marzo Migani, is an Italian–born Venezuelan singer-songwriter and guitar player.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia",
+          "quote": "In 1982, he released his first solo album Negocios son Negocios on Polygram.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia",
+          "quote": "He then moved to Sonográfica in 1986.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.buenamusica.com/yordano/biografia",
+          "title": "Yordano - Biografía, historia y legado musical",
+          "quote": "Giordano di Marzo Migani, conocido en el medio artístico como Yordano es un músico compositor e intérprete venezolano, que nació en 1951, en la ciudad de Roma, Italia.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.buenamusica.com/yordano/biografia",
+          "title": "Yordano - Biografía, historia y legado musical",
+          "quote": "Acoplado al grupo Sietecuero, integrado también por su hermano Evio, Alberto Slezinger y otros talentos músicos, edita su primer larga duración bajo el sello Velvet",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia, la enciclopedia libre",
+          "quote": "Giordano Di Marzo Migani (Roma, 27 de octubre de 1951), conocido artísticamente como Yordano, es un cantautor y músico ítalo-venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia, la enciclopedia libre",
+          "quote": "En 1982 logra su primer contrato de grabación como solista con la filial venezolana del sello PolyGram con la cual graba su primer LP titulado Negocios son negocios y en el cual apareció acreditado por su nombre de Giordano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/playlist?list=PLgaFNC_I_ZkmnAEM2761PC_aS7mCpX-Fk",
+          "title": "Yordano - Grandes Exitos, Sus Mejores Canciones... - YouTube",
+          "quote": "Giordano Di Marzo Migani, conocido por su seudónimo artístico Yordano, (Roma, 27 de octubre de 1951), es un músico, cantante y compositor ítalo-venezolano.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/Yordano",
+        "https://music.apple.com/bs/artist/yordano/137298367",
+        "https://www.buenamusica.com/yordano/biografia",
+        "https://es.wikipedia.org/wiki/Yordano",
+        "https://sincopa.com/rock_pop/cdinfo_rock/gdavila_83unpocodamor.htm",
+        "https://www.amazon.com/CDs-Vinyl-Rudy-La-Scala/s?rh=n%3A5174%2Cp_32%3ARudy%2BLa%2BScala&page=2",
+        "https://www.deezer.com/it/artist/893728",
+        "https://www.youtube.com/playlist?list=PLgaFNC_I_ZkmnAEM2761PC_aS7mCpX-Fk",
+        "https://www.shazam.com/it-it/song/1102889536/por-estas-calles",
+        "https://www.tiktok.com/discover/giordano-di-mari",
+        "https://www.discogs.com/artist/1214070",
+        "https://www.discogs.com/artist/2757081"
+      ]
+    },
+    {
+      "name": "Magu / William «Magú» Guzmán",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 8,
+      "sources": 11,
+      "seconds": 2,
+      "aiRunId": 21246,
+      "rationale": "Una fuente vincula una forma del nombre con un proyecto de la otra ficha.",
+      "evidence": [
+        {
+          "url": "https://junglaboulevard.bandcamp.com/",
+          "title": "Jungla Boulevard | Jungla boulevard",
+          "quote": "Guitarras : Magu Guzman y Edgard Gonzalez",
+          "supports": "same"
+        },
+        {
+          "url": "https://junglaboulevard.bandcamp.com/",
+          "title": "Jungla Boulevard | Jungla boulevard",
+          "quote": "Bateria Manuel Pancho Montañez Guitarras : Magu Guzman y Edgard Gonzalez",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/j/jungla-boulevard/",
+          "title": "Jungla Boulevard - RHV Directorio J",
+          "quote": "William «Magú» Guzmán (guitarra)",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/j/jungla-boulevard/",
+          "title": "Jungla Boulevard - RHV Directorio J",
+          "quote": "Desorden Público: banda de ska de renombre internacional donde militan Héctor Ascóniga y William \"Magú\" Guzmán.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2954036",
+          "title": "William Guzmán | Discogs",
+          "quote": "William Guzmán. Profile: Guitar player Variations: Magu, William \"Magoo\" Guzmán, William \"Magu\" Guzman, William \"Magú\" Guzmán, Willian \"Magú\" Guzman.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2954036",
+          "title": "William Guzmán | Discogs",
+          "quote": "Credits: Guitar – PapaShanty Saund System – Ashanty Granpa (2005); Guitar [Gypsy Guitar] – Los Amigos Invisibles – El Paradise (2017).",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/j/jungla-boulevard/",
+          "title": "Jungla Boulevard - RHV Directorio J",
+          "quote": "Discográficamente debutan con el álbum Jungla Boulevard (2009).",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/j/jungla-boulevard/",
+          "title": "Jungla Boulevard - RHV Directorio J",
+          "quote": "Formación: Hernán Ascóniga, Edgar Ramírez, William «Magú» Guzmán, Marco Vettor, Manuel Pancho Montañes.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://junglaboulevard.bandcamp.com/",
+        "https://maguautopecas.com.br/clio/433",
+        "https://myspace.com/junglaboulevard",
+        "https://revistaladosis.com/tag/magu-guzman",
+        "https://soundcloud.com/drakoslatin/drakos-lo-que-ser-a-ft-mag",
+        "https://rockhechovenezuela.com/j/jungla-boulevard/",
+        "https://www.behance.net/gallery/25923261/William-Magu-Guzman-(Desorden-Publico)",
+        "https://www.youtube.com/@magumusic/videos",
+        "https://www.elmarchante.blog/blog/salsa-brava-magu-vagamundo",
+        "https://www.youtube.com/watch?v=LgkaLbW0g84",
+        "https://www.discogs.com/artist/2954036"
+      ]
+    },
+    {
+      "name": "Chofa / Alejandro «Chofa» Loero",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 10,
+      "seconds": 1,
+      "aiRunId": 21247,
+      "rationale": "Una fuente vincula una forma del nombre con un proyecto de la otra ficha.",
+      "evidence": [
+        {
+          "url": "https://plus.cusica.com/2018/09/07/22-discos-22-semanas-16-la-bestia-pop-deus-ex-machina/",
+          "title": "22 discos en 22 semanas: 16 La Muy Bestia Pop - Deus Ex Machina | CusicaPlus",
+          "quote": "Formado principalmente por Alejandro «Chofa» Loero (Guitarra y voz principal) y Edward Marshall (Bajo, percusión electrónica y coros) su aplaudido debut de 1994 ‘Deus Ex Machina’",
+          "supports": "same"
+        },
+        {
+          "url": "https://conciertoenelmonte.wordpress.com/category/performance/",
+          "title": "performance | 24 horas de descarga sobrenatural",
+          "quote": "La banda esta integrada por: Alfredo “CHOFA” Loero: Sampler, Guitarra, Mezclador y Efectos.",
+          "supports": "same"
+        },
+        {
+          "url": "https://loschevynovas.bandcamp.com/",
+          "title": "Música en vara | Los Chevynovas",
+          "quote": "A Chofa, el primo, claudio leoni, edgard rodriguez, todos los que prestaron instrumentos sin saber y a todos los que han tocado con los chevys.",
+          "supports": "same"
+        },
+        {
+          "url": "https://plus.cusica.com/2016/06/16/10-increibles-bandas-venezolanas-de-los-2000-que-desaparecieron-completamente/",
+          "title": "10 increíbles bandas venezolanas de los 2000 que desaparecieron completamente | CusicaPlus",
+          "quote": "En el 2005 publicaron ‘Música en vara’, su primer disco.",
+          "supports": "same"
+        },
+        {
+          "url": "https://coleccionistasderockvenezolano.wordpress.com/2015/08/30/la-muy-bestia-pop-deus-ex-machina-1994/",
+          "title": "La Muy Bestia Pop «Deus Ex Machina» 1994",
+          "quote": "Alfredo “Chofa” Loero (guitarra, voz), Edward Marshall (bajo, voz, batería electrónica), Carlos Schudek (batería, percusión) y Wyzton Borrero (teclados, programación, samplers).",
+          "supports": "same"
+        },
+        {
+          "url": "https://ege.electronicgroove.com/metrozubdivision-regresa-con-odd-spine/",
+          "title": "Metrozubdivision regresa con ‘Odd Spine’ - Electronic Groove en...",
+          "quote": "El disco incluye una colaboración con Chofa Loero, ex integrante de La Muy Bestia Pop, quien aportó la guitarra acústica en el tema “Did You Figure It Out”.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://plus.cusica.com/2016/06/16/10-increibles-bandas-venezolanas-de-los-2000-que-desaparecieron-completamente/",
+        "https://plus.cusica.com/2018/09/07/22-discos-22-semanas-16-la-bestia-pop-deus-ex-machina/",
+        "https://conciertoenelmonte.wordpress.com/category/performance/",
+        "https://www.amazon.com/Piloto/dp/B01MTYAR0Y",
+        "https://coleccionistasderockvenezolano.wordpress.com/2015/08/30/la-muy-bestia-pop-deus-ex-machina-1994/",
+        "https://loschevynovas.bandcamp.com/",
+        "https://www.youtube.com/watch?v=PShTj--oEXg",
+        "https://ege.electronicgroove.com/metrozubdivision-regresa-con-odd-spine/",
+        "https://www.reverbnation.com/naxxopiloto/song/23688840-extasis-guitarra-chofa-loero",
+        "https://arepavolatil.com/metrozubdivision-ep-odd-spine/"
+      ]
+    },
+    {
+      "name": "Pablo Díaz / Ivo",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 15,
+      "sources": 10,
+      "seconds": 1,
+      "aiRunId": 21248,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/ivo.htm",
+          "title": "Ivo - Bio & Discography",
+          "quote": "May 05, 1947 in Caracas, Venezuela Pablo Augusto Díaz Barroso",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/ivo.htm",
+          "title": "Ivo - Bio & Discography",
+          "quote": "With Los Supersónicos 1965 Más De Los Supersónicos Souvenir",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/ivo.htm",
+          "title": "Ivo - Bio & Discography",
+          "quote": "Ivo Born: Full Name: Resides: Instruments: Genres: May 05, 1947 in Caracas, Venezuela",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/ivo.htm",
+          "title": "Ivo - Bio & Discography",
+          "quote": "Ivo Born: Full Name: Resides: Instruments: Genres: May 05, 1947 in Caracas, Venezuela Pablo Augusto Díaz Barroso In Caracas Vocals, Guitar Rock, Pop",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/los_supersonicos.htm",
+          "title": "Los Supersónicos - Bio & Discography",
+          "quote": "2nd Guitar & Vocals: Pablo Díaz \"Ivo\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/los_supersonicos.htm",
+          "title": "Los Supersónicos - Bio & Discography",
+          "quote": "Group Members Lead Vocals: Esteban Ruíz Lead Guitar & Vocals: Armando Veitia 2nd Guitar & Vocals: Pablo Díaz \"Ivo\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://lomejordeunadecada.blogspot.com/2017/12/los-supersonicos.html",
+          "title": "Viejos Recuerdos: Los Supersonicos",
+          "quote": "Enrique Piñero es sustituido por Pablo Díaz, mejor conocido como Ivo, y así queda conformada la formación clásica de los Supersónicos la cual graba Mas de Los Supersónicos (1965)",
+          "supports": "same"
+        },
+        {
+          "url": "https://cang03.blogspot.com/2014/12/los-supersonicos.html",
+          "title": "Los Supersonicos | De Vuelta al Pasado...",
+          "quote": "Enrique Piñero es sustituido por Pablo Díaz, mejor conocido como Ivo, y así queda conformada la formación clásica de los Supersónicos",
+          "supports": "same"
+        },
+        {
+          "url": "https://cang03.blogspot.com/2014/12/los-supersonicos.html",
+          "title": "Los Supersonicos | De Vuelta al Pasado...",
+          "quote": "Ivo - Mis Grandes Exitos",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/supersonicos_3show.htm",
+          "title": "Los Supersónicos - Show con Los Supersónicos (LP Info)",
+          "quote": "2nd Guitar & Vocals: Pablo Díaz \"Ivo\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/supersonicos_3show.htm",
+          "title": "Los Supersónicos - Show con Los Supersónicos (LP Info)",
+          "quote": "Lead Guitar & Vocals: Armando Veitia. 2nd Guitar & Vocals: Pablo Díaz \"Ivo\". Bass: Alexis Hernández.",
+          "supports": "same"
+        },
+        {
+          "url": "https://cecilioperlan2.blogspot.com/2024/09/supersonicos-discografia-1964-1966.html",
+          "title": "cecilioperlan2: Supersónicos - Discografía (1964-1966)",
+          "quote": "Enrique Piñero es sustituido por Pablo Díaz, mejor conocido como Ivo, y así queda conformada la formación clásica de Los Supersónicos.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/supersonicos_9vol3.htm",
+          "title": "Los Supersónicos - Super Super Supersónicos Vol. 3 (CD Info)",
+          "quote": "2nd Guitar & Vocals: Pablo Díaz \"Ivo\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/supersonicos_9vol3.htm",
+          "title": "Los Supersónicos - Super Super Supersónicos Vol. 3 (CD Info)",
+          "quote": "Musicians Lead Vocals: Esteban Ruíz Lead Guitar & Vocals: Armando Veitia 2nd Guitar & Vocals: Pablo Díaz \"Ivo\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://gladyspalmera.com/coleccion/el-diario-de-gladys/una-historia-supersonica/",
+          "title": "Una historia supersónica - Radio Gladys Palmera",
+          "quote": "Augusto Pablo Díaz (Ivo)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/ivo.htm",
+        "https://en.wikipedia.org/wiki/El_Guincho",
+        "https://sincopa.com/rock_pop/artist_rock/los_supersonicos.htm",
+        "https://lomejordeunadecada.blogspot.com/2017/12/los-supersonicos.html",
+        "https://go.ivo.io/",
+        "https://cang03.blogspot.com/2014/12/los-supersonicos.html",
+        "https://sincopa.com/rock_pop/cdinfo_rock/supersonicos_3show.htm",
+        "https://cecilioperlan2.blogspot.com/2024/09/supersonicos-discografia-1964-1966.html",
+        "https://sincopa.com/rock_pop/cdinfo_rock/supersonicos_9vol3.htm",
+        "https://gladyspalmera.com/coleccion/el-diario-de-gladys/una-historia-supersonica/"
+      ]
+    },
+    {
+      "name": "Billo Frometa / Luis María «Billo» Frómeta",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21249,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Billo_Fr%C3%B3meta",
+          "title": "Billo Frómeta - Wikipedia",
+          "quote": "Luis María Frómeta Pereyra most known as Billo Frómeta (15 November 1915 – 5 May 1988) was a Dominican-Venezuelan orchestra conductor, arranger and composer.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Billo_Fr%C3%B3meta",
+          "title": "Billo Frómeta - Wikipedia",
+          "quote": "In 1930, at the age of 15, he founded and was the resident conductor of the Banda del Cuerpo de Bomberos de Ciudad Trujillo",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elespectador.com/entretenimiento/musica/la-billo-s-caracas-boys-85-anos-de-una-leyenda-musical-con-ritmo-para-rato/",
+          "title": "La Billo’ s Caracas Boys: 85 años de una leyenda musical con ritmo para rato | EL ESPECTADOR",
+          "quote": "Su creador, el maestro Billo Frómetra nació en República Dominicana, desarrolló su legado en Venezuela",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elespectador.com/entretenimiento/musica/la-billo-s-caracas-boys-85-anos-de-una-leyenda-musical-con-ritmo-para-rato/",
+          "title": "La Billo’ s Caracas Boys: 85 años de una leyenda musical con ritmo para rato | EL ESPECTADOR",
+          "quote": "el 31 de agosto de 1940 nació la Billo’s Caracas Boys, en agradecimiento por la hospitalidad de la ciudad en su convalecencia.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elespectador.com/entretenimiento/musica/la-billo-s-caracas-boys-85-anos-de-una-leyenda-musical-con-ritmo-para-rato/",
+          "title": "La Billo’ s Caracas Boys: 85 años de una leyenda musical con ritmo para rato | EL ESPECTADOR",
+          "quote": "Billo le puso letra para homenajear al maestro Pacho",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Billo%27s_Caracas_Boys",
+          "title": "Billo's Caracas Boys - Wikipedia, la enciclopedia libre",
+          "quote": "Billo's Caracas Boys es una orquesta musical venezolana fundada por el dominicano-venezolano Luis María Frómeta, más conocido como Billo Frómeta el 31 de agosto de 1940",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.elespectador.com/entretenimiento/musica/la-billo-s-caracas-boys-85-anos-de-una-leyenda-musical-con-ritmo-para-rato/",
+        "https://www.noticiascaracol.com/entretenimiento/fallecio-por-covid-ely-mendez-legendario-cantante-de-billos-caracas-boys",
+        "https://en.wikipedia.org/wiki/Billo_Fr%C3%B3meta",
+        "https://es.wikipedia.org/wiki/Billo%27s_Caracas_Boys",
+        "https://chumanceralatinjazz.blogspot.com/search/label/Mar%C3%ADa%20Rivas",
+        "https://es.wikipedia.org/wiki/Los_Mel%C3%B3dicos",
+        "https://music.apple.com/es/album/billo-frometa/1472781947",
+        "https://www.youtube.com/watch?v=v-dejb7S3v0",
+        "https://www.shazam.com/song/1414984237/guarachando",
+        "https://www.deezer.com/en/artist/1195618",
+        "https://es.wikipedia.org/wiki/Billo_Fr%C3%B3meta",
+        "https://www.discogs.com/artist/1783262"
+      ]
+    },
+    {
+      "name": "Chelique / Chelique Sarabia",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21250,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/Chelique_Sarabia",
+          "title": "Chelique Sarabia - Wikipedia, la enciclopedia libre",
+          "quote": "fue un cantante, músico, compositor, poeta, publicista, productor de televisión y asesor político venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/artists_lat/chelique_sarabia.htm",
+          "title": "Chelique Sarabia - Bio & Discography",
+          "quote": "Discography 1958 Alma Juvenil Palacio LP-6016",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/artists_lat/chelique_sarabia.htm",
+          "title": "Chelique Sarabia - Bio & Discography",
+          "quote": "1962 Chelique Presenta a Mister Calypso Palacio LP-6086",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/climax/iconos/2022-02-16/chelique-sarabia-una-cancion-con-historia/",
+          "title": "Fallece Chelique Sarabia, un querido maestro de la música popular | Clímax",
+          "quote": "Chelique Sarabia, cuyo verdadero nombre es José Enrique Sarabia, nació en La Asunción, estado Nueva Esparta, el 13 de marzo de 1940.",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/climax/iconos/2022-02-16/chelique-sarabia-una-cancion-con-historia/",
+          "title": "Fallece Chelique Sarabia, un querido maestro de la música popular | Clímax",
+          "quote": "falleció en la noche de este miércoles 16 de febrero",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://elestimulo.com/climax/iconos/2022-02-16/chelique-sarabia-una-cancion-con-historia/",
+        "https://www.elnacional.com/columnas/2025/12/chelique-sarabia-el-cantor-del-alma-venezolana/",
+        "https://primicia.com.ve/nacion/murio-el-ilustre-cantante-y-compositor-chelique-sarabia/",
+        "https://en.wikipedia.org/wiki/Chelique_Sarabia",
+        "https://es.wikipedia.org/wiki/Mar%C3%ADa_Teresa_Chac%C3%ADn",
+        "https://sincopa.com/latin_pop/artists_lat/chelique_sarabia.htm",
+        "https://sincopa.com/traditional/cdinfo2/rosa_virginia_chacin/rovircha_66chelique_exitos.htm",
+        "https://www.elnacional.com/2022/02/chelique-sarabia-una-vida-dedicada-con-pasion-a-la-musica-y-al-pais/",
+        "https://grokipedia.com/page/chelique_sarabia",
+        "https://es.wikipedia.org/wiki/Chelique_Sarabia",
+        "https://www.wikiwand.com/es/articles/Jos%C3%A9_Enrique_Sarabia",
+        "https://worldmusicianobituaries.org/musicians/jose-enrique-sarabia/"
+      ]
+    },
+    {
+      "name": "Felipe Rengifo / Felipe «Mandingo» Rengifo",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 6,
+      "sources": 9,
+      "seconds": 1,
+      "aiRunId": 21251,
+      "rationale": "Una cita habla de parentesco («Variations: F. R. Mandingo, F. Regifo, F. Rengifo, F.R. Mandingo, Felipe  Rengifo, Felipe (Mandingo) Rengifo, Felipe Mandigo, Felipe Mandingo, Felipe R. Mandingo, Felipe Rengifo, Felipe Rengifo \"Mandingo\", Filipe Mandingo.»): no se propone fusión.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/1659601",
+          "title": "Felipe \"Mandingo\" Rengifo | Discogs",
+          "quote": "Profile: Venezuelan percussionist, background singer & band leader, born March 6, 1952 in Caracas, Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1659601",
+          "title": "Felipe \"Mandingo\" Rengifo | Discogs",
+          "quote": "Variations: F. R. Mandingo, F. Regifo, F. Rengifo, F.R. Mandingo, Felipe  Rengifo, Felipe (Mandingo) Rengifo, Felipe Mandigo, Felipe Mandingo, Felipe R. Mandingo, Felipe Rengifo, Felipe Rengifo \"Mandingo\", Filipe Mandingo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1659601",
+          "title": "Felipe \"Mandingo\" Rengifo | Discogs",
+          "quote": "Credits: Percussion [Latin] – Gualberto Ibarreto – Romántico (1984).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/artists/trabuco_vzlano.htm",
+          "title": "El Trabuco Venezolano - Bio & Discography",
+          "quote": "Percussion: Alberto Naranjo, Carlos \"Nene\" Quintero, Jesús \"Chu\" Quintero, Ricardo Quintero & Felipe Rengifo",
+          "supports": "same"
+        },
+        {
+          "url": "https://quemazonprogrecords.blogspot.com/2009/03/vytas-brenner-en-vivo-ofrenda-1977_21.html",
+          "title": "Quemazon Prog Records Venezuela: VYTAS BRENNER: En Vivo! Ofrenda (1977)",
+          "quote": "Felipe \"Mandingo\" Rengifo: percusión.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/playlist?list=PLF99EB0DB8B3B2C3D",
+          "title": "Trabuco Venezolano - YouTube",
+          "quote": "Mandingo con el Trabuco Venezolano: Compañeros !!! Felipe Rengifo 50K views • 18 years ago",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.lobotoradio.com/artistas/vytas-brenner",
+        "https://quemazonprogrecords.blogspot.com/2009/03/vytas-brenner-en-vivo-ofrenda-1977_21.html",
+        "https://sincopa.com/jazz/artists/trabuco_vzlano.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1980.htm",
+        "https://www.youtube.com/watch?v=JDM3GE_ksJA",
+        "https://www.youtube.com/playlist?list=PLF99EB0DB8B3B2C3D",
+        "https://www.venciclopedia.org/index.php?title=El_Trabuco_Venezolano_Vol._II",
+        "http://www.herencialatina.com/El_Rincon_de_los_Coleccionistas_Carlos/Resena_Abril_2011/el_trabuco_venezolano_vol.htm",
+        "https://www.discogs.com/artist/1659601"
+      ]
+    },
+    {
+      "name": "Yonathan Gavidia / Yonathan «Morocho» Gavidia",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 10,
+      "sources": 11,
+      "seconds": 2,
+      "aiRunId": 21253,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/ethnic/cdinfo1/eduardobetancourt_1adlibitum.htm",
+          "title": "Eduardo Betancourt - Ad Libitum (CD Info)",
+          "quote": "Percussion: Yonathan \"Morocho\" Gavidia",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/ethnic/cdinfo1/eduardobetancourt_1adlibitum.htm",
+          "title": "Eduardo Betancourt - Ad Libitum (CD Info)",
+          "quote": "Additional Recordings: Percussion Recorded by Yonathan Gavidia at Twin Studio",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=KUV9aKfd6T4",
+          "title": "Rafael Pollo Brito - Esperare [Manzanero] - YouTube",
+          "quote": "Bongó y percusión menor: Yonathan Gavidia (@Morochogavidia)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=pHbK4iuMQfk",
+          "title": "Rafael Pollo Brito- Mía [Manzanero] - YouTube",
+          "quote": "Bongó y percusión menor: Yonathan Gavidia (@Morochogavidia)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=gSS593PQlr8",
+          "title": "Rafael Pollo Brito - Un Loco Como Yo [Manzanero]",
+          "quote": "Bongó y percusión menor: Yonathan Gavidia (@Morochogavidia)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.hermanosdelrock.com/2016/12/rock-and-mau-celebra-su-5-aniversario.html",
+          "title": "Rock and MAU celebra su 5º Aniversario en Caracas",
+          "quote": "Eric Chacón, “Chipi” Chacón, “Morocho” Gavidia, Manuel Rangel, Eddie Cordero, Jorge Torres, Edward Ramírez, Luis Freites, Rubén Márquez, José Lunar y “Tipo” Núñez; todos bajo la dirección, arreglos y producción de Alvaro Paiva Bimbo",
+          "supports": "same"
+        },
+        {
+          "url": "https://ichamo.com/records/2014/05/23/la-movida-acustica-urbana-y-su-rock-and-mau-ya-tiene-documental/",
+          "title": "La Movida Acústica Urbana y su Rock and MAU ya tiene documental - Ichamo",
+          "quote": "Yonathan Gavidia – Percusión Afrovenezolana",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/rafael_pollo_brito/rafaelpollobrito_5patiosimon.htm",
+          "title": "Rafael \"Pollo\" Brito - Pa' Tío Simón (CD Info)",
+          "quote": "Afro-Vzuelan Percussion: Yonathan Gavidia (tracks 1, 5, 6, 8, 10, 12, 13)",
+          "supports": "same"
+        },
+        {
+          "url": "https://web.archive.org/web/20180627005329/http://www.evenpro.com/noticia/2015/07/conoce-a-los-nominados-a-los-premios-pepsi-music-2015/",
+          "title": "www.evenpro.com",
+          "quote": "Yonatahan “Morocho” Gavidia",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.facebook.com/morochogavidia/",
+          "title": "Morocho Gavidia - Facebook",
+          "quote": "Morocho Gavidia - Facebook",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.setlist.fm/setlist/movida-acustica-urbana/2024/teatro-del-colegio-santa-rosa-de-lima-caracas-venezuela-4357675f.html",
+        "https://sincopa.com/ethnic/cdinfo1/eduardobetancourt_1adlibitum.htm",
+        "https://web.archive.org/web/20180627005329/http://www.evenpro.com/noticia/2015/07/conoce-a-los-nominados-a-los-premios-pepsi-music-2015/",
+        "https://sincopa.com/latin_pop/cdinfo_latin/rafael_pollo_brito/rafaelpollobrito_5patiosimon.htm",
+        "https://www.hermanosdelrock.com/2016/12/rock-and-mau-celebra-su-5-aniversario.html",
+        "https://ichamo.com/records/2014/05/23/la-movida-acustica-urbana-y-su-rock-and-mau-ya-tiene-documental/",
+        "https://open.spotify.com/intl-es/track/4Hq9fSY56Q0sAsWn8TawRj",
+        "https://www.facebook.com/morochogavidia/",
+        "https://www.youtube.com/watch?v=KUV9aKfd6T4",
+        "https://www.youtube.com/watch?v=pHbK4iuMQfk",
+        "https://www.youtube.com/watch?v=gSS593PQlr8"
+      ]
+    },
+    {
+      "name": "A. Segura / Álvaro Segura",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21254,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/zapato3_7lomejor.htm",
+          "title": "Zapato 3 - Lo Mejor de Zapato 3 (CD Info)",
+          "quote": "02- Ahora Estoy Sin Ti (A. Segura/D. Márquez/C. Segura) 4:03",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/zapato3_7lomejor.htm",
+          "title": "Zapato 3 - Lo Mejor de Zapato 3 (CD Info)",
+          "quote": "Guitar & Backing Vocals: Alvaro Segura",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/987025",
+          "title": "Álvaro Segura | Discogs",
+          "quote": "Lead Vocals, Guitar – Alvaro Segura – Así Lo Veo Yo (2025)",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/%C3%81lvaro_Segura",
+          "title": "Álvaro Segura - Wikipedia, la enciclopedia libre",
+          "quote": "Álvaro José Segura Arcas (Caracas, Venezuela. 17 de septiembre de 1967) es un músico, compositor y artista visual venezolano-estadounidense, conocido por haber sido guitarrista de la banda de rock alternativo Zapato 3",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/%C3%81lvaro_Segura",
+          "title": "Álvaro Segura - Wikipedia, la enciclopedia libre",
+          "quote": "Nombre de nacimiento Álvaro José Segura Arcas",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://es.wikipedia.org/wiki/A",
+        "https://ultimasnoticias.com.ve/chevere/alvaro-segura-deja-zapato-3/",
+        "https://www.uv.es/semicon/grupo_p2.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/zapato3_7lomejor.htm",
+        "https://radio.otilca.org/alvaro-segura-rompe-el-silencio-con-asi-lo-veo-yo/",
+        "https://tenemosnoticias.com/entretenimiento/clasificadas-tenemosnoticias-com/alvaro-segura-exintegrante-de-zapato-3-regresa-a-los-escenarios-con-un-show-inmersivo-en-valencia-albertonews/",
+        "https://es.wikipedia.org/wiki/%C3%81lvaro_Segura",
+        "https://contrapunto.com/cultura/alvaro-segura-exintegrante-de-zapato-3-regresa-a-los-escenarios-con-un-show-inmersivo-en-valencia/",
+        "https://elestimulo.com/ub/melomania/2026-10-06/alvaro-segura-show-valencia/",
+        "https://en.wikipedia.org/wiki/Zapato_3",
+        "https://www.elnacional.com/2025/07/alvaro-segura-casi-he-renunciado-muchas-veces/",
+        "https://www.discogs.com/artist/987025"
+      ]
+    },
+    {
+      "name": "Carlos Guerra / Carlos Guerra Jr. (padre e hijo)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 5,
+      "sources": 10,
+      "seconds": 4,
+      "aiRunId": 21255,
+      "rationale": "Solo un nombre lleva «Hijo» o «Jr.»: puede ser el padre o el hijo; no se propone fusión.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_06dimension76.htm",
+          "title": "Dimensión Latina - Dimensión Latina 76 Salsa Brava (LP Info)",
+          "quote": "Trombone: César Monge, José Antonio Rojas, Carlos Guerra Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/artists_lat/sonero_clasico_del_caribe.htm",
+          "title": "Sonero Clásico del Caribe - Bio & Discography",
+          "quote": "Trumpet: Carlos Guerra (1979-1983)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/sonero_clasico_del_caribe/soneroclasico_80soneroclasico.htm",
+          "title": "Sonero Clásico Del Caribe - Sonero Clásico De Caribe (LP Info)",
+          "quote": "Arrimate A La Candela (Carlos Guerra)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/artists_lat/sonero_clasico_del_caribe.htm",
+          "title": "Sonero Clásico del Caribe - Bio & Discography",
+          "quote": "Trumpet: Carlos Guerra (1979-1983)",
+          "supports": "same"
+        },
+        {
+          "url": "https://disco.market/discographies/artist/3988101-carlos-guerra-jr/",
+          "title": "Исполнитель Carlos Guerra Jr. - купить виниловые пластинки...",
+          "quote": "Carlos Jesús Guerra Bracho. В группах. Los Melódicos , Dimension Latina , Orquesta Expresion , El Trabuco Venezolano , Orquesta La Dimension De Siempre , Orquesta \"El Son De Guerra\".",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/artists_lat/sonero_clasico_del_caribe.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/billos/discomoda/billos_01_comunicando.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_06dimension76.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_08internacional77.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/sonero_clasico_del_caribe/soneroclasico_80soneroclasico.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/sonero_clasico_del_caribe/soneroclasico_77soneroclasico.htm",
+        "https://www.youtube.com/watch?v=lm4hc_BIi0E",
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_13tremendadimension.htm",
+        "https://disco.market/discographies/artist/3988101-carlos-guerra-jr/",
+        "https://kalkaps.com/album/dimension-latina-llorar%C3%A1s-mi-adorada"
+      ]
+    },
+    {
+      "name": "Ricardo Montaner / Ricardo Montaner Jr. (Ricky)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 7,
+      "sources": 12,
+      "seconds": 7,
+      "aiRunId": 21256,
+      "rationale": "una misma frase enumera a Ricardo Montaner y a Ricardo Montaner Jr.: «Otro ejemplo de hermanos son Evaluna Montaner, Ricardo Montaner Jr., Héctor Montaner, Alejandro Montaner y Mauricio Montaner, los hijos del cantante Ricardo Montaner y Marlene Rodríguez Miranda.»",
+      "evidence": [
+        {
+          "url": "https://definicion.de/hermano/",
+          "title": "Hermano - Qué es, definición y concepto",
+          "quote": "Otro ejemplo de hermanos son Evaluna Montaner, Ricardo Montaner Jr., Héctor Montaner, Alejandro Montaner y Mauricio Montaner, los hijos del cantante Ricardo Montaner y Marlene Rodríguez Miranda.",
+          "supports": "different"
+        },
+        {
+          "url": "https://definicion.de/hermano/",
+          "title": "Hermano - Qué es, definición y concepto",
+          "quote": "Todos los hijos de los mismos padres, en definitiva, son hermanos.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.buenamusica.com/mau-y-ricky/biografia",
+          "title": "Mau y Ricky - Biografía, historia y legado musical",
+          "quote": "Mau y Ricky es un dúo de música pop, compuesto por los hermanos Mauricio y Ricardo Montaner Jr., hijos del famoso cantautor argentino-venezolano Ricardo Montaner",
+          "supports": "different"
+        },
+        {
+          "url": "https://grokipedia.com/page/Ricardo_Montaner",
+          "title": "Ricardo Montaner — Grokipedia",
+          "quote": "In 1963, at the age of six, Montaner's family relocated to Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://grokipedia.com/page/Ricardo_Montaner",
+          "title": "Ricardo Montaner — Grokipedia",
+          "quote": "His debut studio album, Cada Día, was released in 1983 on the Venezuelan label Palacio de la Música",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.buenamusica.com/mau-y-ricky/biografia",
+          "title": "Mau y Ricky - Biografía, historia y legado musical",
+          "quote": "Integrantes: Ricardo Montaner JR, Mauricio Montaner",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.buenamusica.com/mau-y-ricky/biografia",
+          "title": "Mau y Ricky - Biografía, historia y legado musical",
+          "quote": "Padres: Marlene Rodríguez y Ricardo Montaner",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/hubaleobetan_2mundos.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/mirla_castellanos/mirla_88amoesteamor.htm",
+        "https://definicion.de/hermano/",
+        "https://grokipedia.com/page/Ricardo_Montaner",
+        "https://www.101soundboards.com/boards/101552-evaluna-montaner-soundboard",
+        "https://elcomercio.pe/luces/musica/instagram-pijama-mau-ricky-hijos-ricardo-montaner-autores-hits-reggaeton-momento-noticia-541133-noticia/",
+        "https://www.buenamusica.com/mau-y-ricky/biografia",
+        "https://www.dailymotion.com/video/x9qqf1g",
+        "https://www.tunota.com/entretenimiento/los-talentosos-hijos-de-ricardo-montaner-estaran-en-honduras",
+        "https://notaclave.com/ricardo-montaner-vota-la-constituyente-favor-la-democracia/",
+        "https://www.youtube.com/watch?v=IJvF6YmFRxw",
+        "https://www.tiktok.com/discover/ricardo-montaner-1978"
+      ]
+    },
+    {
+      "name": "Heriberto Molina / Heriberto Molina Jr.",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 8,
+      "sources": 10,
+      "seconds": 3,
+      "aiRunId": 21257,
+      "rationale": "relación familiar citada: «fundó el Estudio de Grabación Harmony junto a su hijo Heriberto Molina Jr.»",
+      "evidence": [
+        {
+          "url": "https://www.elzulianorajao.com/noticias/heriberto-molina-la-zurda-de-oro/",
+          "title": "HERIBERTO MOLINA, ''LA ZURDA DE ORO''",
+          "quote": "1945, nace en el Hospital Chiquinquirá del barrio El Saladillo de Maracaibo, Zulia, el compositor, escritor, repentista, publicista, guionista de televisión y director de estaciones de radiodifusión Heriberto Molina Vílchez",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.elzulianorajao.com/noticias/heriberto-molina-la-zurda-de-oro/",
+          "title": "HERIBERTO MOLINA, ''LA ZURDA DE ORO''",
+          "quote": "fundó el Estudio de Grabación Harmony junto a su hijo Heriberto Molina Jr.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.elzulianorajao.com/noticias/heriberto-molina-la-zurda-de-oro/",
+          "title": "HERIBERTO MOLINA, ''LA ZURDA DE ORO''",
+          "quote": "Heriberto Molina es el compositor del valse zuliano Rosa sobre tu sien",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1980.htm",
+          "title": "Guaco - Guaco 80 (LP Info)",
+          "quote": "05- Diferendo (R. Hernández/H. Molina)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1983.htm",
+          "title": "Guaco - Guaco 83 (LP Info)",
+          "quote": "Percussion: Alfonso Aguado & Heriberto Molina Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/fernandovalladares_1omni.htm",
+          "title": "Fernando Valladares - Omni (CD Info)",
+          "quote": "Handclaps: Alfredo Ruiz, Alberto Vargas, Heriberto Molina Jr. (trk 07)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elzulianorajao.com/noticias/heriberto-molina-la-zurda-de-oro/",
+          "title": "HERIBERTO MOLINA, ''LA ZURDA DE ORO''",
+          "quote": "Su padre, Ángel Francisco Molina, destacado locutor y director de las emisoras Ondas del Lago 1.120 AM y Radio Calendario 1.020 AM",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/6015108",
+          "title": "Heriberto Molina (2) | Discogs",
+          "quote": "Heriberto Molina (2). Profile: Venezuelan songwriter Variations: H. Molina, Heriberto Molina. Credits: Adapted By – Kurare – Es Kurare (1985); Written-By – Kurare – Es Kurare (1985).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1980.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1983.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/fernandovalladares_1omni.htm",
+        "https://www.elzulianorajao.com/noticias/heriberto-molina-la-zurda-de-oro/",
+        "https://sincopa.com/latin_pop/cdinfo_latin/kurare/kurare_eskurare.htm",
+        "https://www.tiktok.com/@venezolano100to/video/7438771114081373495",
+        "https://www.letras.com/guaco/virgen-guaquera/",
+        "https://www.tunaespana.es/?p=20052",
+        "https://www.youtube.com/watch?v=lq3qFZrk-KQ",
+        "https://www.discogs.com/artist/6015108"
+      ]
+    },
+    {
+      "name": "Adelso Paz / Adelso Paz Jr.",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 4,
+      "sources": 11,
+      "seconds": 5,
+      "aiRunId": 21258,
+      "rationale": "una misma frase enumera a Adelso Paz y a Adelso Paz Jr.: «Cuatro: Adelso Paz Maracas: Adelso Paz Jr.»",
+      "evidence": [
+        {
+          "url": "https://radio.otilca.org/una-institucion-del-cuatro-llamada-adelso-paz-rolito/",
+          "title": "Una institución del cuatro llamada Adelso Paz “Rolito” - Otilca Radio",
+          "quote": "Es casado con la Sra. Maria de jeuss (Maruja) de Paz con quien procreó cuatro hijos, dos de los cuales siguieron sus pasos en la música : Anais, Anamar, Adelso jr.( Maraquero y trompetista), Adelmar (virtuoso bajista, cantante, cuatrista y técnico de sonido).",
+          "supports": "different"
+        },
+        {
+          "url": "https://radio.otilca.org/una-institucion-del-cuatro-llamada-adelso-paz-rolito/",
+          "title": "Una institución del cuatro llamada Adelso Paz “Rolito” - Otilca Radio",
+          "quote": "Adelso de Jesús Paz, es un famoso Cuatrista , compositor, cantante, Luthier, productor y director artístico musical, nacido en Sinamaica, Zulia, el 10 de Agosto de 1941",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_cuentodhadas.htm",
+          "title": "Juan Vicente Torrealba - Cuento de Hadas (LP Info)",
+          "quote": "04- Cuento De Hadas (Adelso Paz)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_serenata_jvtorrealba1.htm",
+          "title": "Rondalla Venezolana - Serenata a Juan Vicente Torrealba I (CD Info)",
+          "quote": "Cuatro: Adelso Paz Maracas: Adelso Paz Jr.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_cuentodhadas.htm",
+        "https://sincopa.com/traditional/cdinfo2/luis_silva/luissilva_82cimarron.htm",
+        "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_serenata_jvtorrealba1.htm",
+        "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_serenata_jvtorrealba2.htm",
+        "https://radio.otilca.org/una-institucion-del-cuatro-llamada-adelso-paz-rolito/",
+        "http://llanomusical.blogspot.com/2010/",
+        "https://www.deezer.com/es/artist/1199688",
+        "https://sincopa.com/traditional/cdinfo2/reyna_lucero/reynalucero_82discodoro.htm",
+        "https://www.tiktok.com/@conocemasv/video/7571226083329117496",
+        "http://llanomusical.blogspot.com/2010/04/rondalla-venezolana-serenata-juan.html",
+        "https://lasmejoresrondallasdemexico.blogspot.com/2010/06/la-rondalla-venezolana-con-juan-vicente.html"
+      ]
+    },
+    {
+      "name": "Adelso Paz Jr. / Adelso Paz hijo (la misma persona)",
+      "kind": "pair",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 2,
+      "sources": 9,
+      "seconds": 4,
+      "aiRunId": 21259,
+      "rationale": "Una fuente vincula una forma del nombre con un proyecto de la otra ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_serenata_jvtorrealba1.htm",
+          "title": "Rondalla Venezolana - Serenata a Juan Vicente Torrealba I (CD Info)",
+          "quote": "Cuatro: Adelso Paz Maracas: Adelso Paz Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/simondiaz_ylarondalla.htm",
+          "title": "Simón Díaz - Simón Díaz y La Rondalla Venezolana (CD Info)",
+          "quote": "Cuatro: Adelso Paz Maracas: Adelso Paz hijo",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_serenata_jvtorrealba1.htm",
+        "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_serenata_jvtorrealba2.htm",
+        "https://sincopa.com/traditional/cdinfo2/simondiaz_ylarondalla.htm",
+        "https://www.nature.com/articles/s41580-025-00895-4",
+        "https://www.trisendmagazine.com/article/dyson-airwrap-review",
+        "https://apps.apple.com/us/app/inter-mobile-banking/id839711154",
+        "https://www.nature.com/articles/s41564-026-02374-8",
+        "http://llanomusical.blogspot.com/2010/04/rondalla-venezolana-serenata-juan.html",
+        "https://lasmejoresrondallasdemexico.blogspot.com/2010/06/la-rondalla-venezolana-con-juan-vicente.html"
+      ]
+    },
+    {
+      "name": "Carlos Guerra juntado (padre + hijo)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 5,
+      "sources": 9,
+      "seconds": 4,
+      "aiRunId": 21260,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/latin_pop/artists_lat/sonero_clasico_del_caribe.htm",
+          "title": "Sonero Clásico del Caribe - Bio & Discography",
+          "quote": "Trumpet: Carlos Guerra (1979-1983)",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/artists_lat/sonero_clasico_del_caribe.htm",
+          "title": "Sonero Clásico del Caribe - Bio & Discography",
+          "quote": "Trumpet: Carlos Guerra (1979-1983)",
+          "supports": "same"
+        },
+        {
+          "url": "https://gladyspalmera.com/coleccion/disco/16376/",
+          "title": "Colección Gladys Palmera - El dictador",
+          "quote": "Carlos Guerra - Trompeta.",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/bienmesabe/lecturas-sabrosas/2018-10-21/saborabeat-sonoramica-menu-callejero-y-el-melao-de-catia/",
+          "title": "SaborABeat: Sonorámica, Menú Callejero y el melao de Catia | Bienmesabe",
+          "quote": "Su trompeta tocó en tantas formaciones, una de ellas fue el Sonero Clásico del Caribe, de su fundador ‘Pan con Queso’, nuestro vecino\", el gran Carlos Emilio Landaeta.",
+          "supports": "same"
+        },
+        {
+          "url": "https://salsabravave.blogspot.com/2009/10/biografia-alfredo-padilla-maestro-del.html",
+          "title": "Biografia: Alfredo Padilla Maestro del Timbal",
+          "quote": "*1970 -Forma el Grupo Pan, junto a Carlos “Nené” Quintero, Jesús “Chú” Quintero, Carlos Guerra, Rubén Correa, Gustavo Colón, Henry Camba, David Azuaje y Cesar Monge.",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/billos/discomoda/billos_01_comunicando.htm",
+        "https://sincopa.com/jazz/cdinfo/pavo_versiones.htm",
+        "https://sincopa.com/latin_pop/artists_lat/sonero_clasico_del_caribe.htm",
+        "https://elestimulo.com/bienmesabe/lecturas-sabrosas/2018-10-21/saborabeat-sonoramica-menu-callejero-y-el-melao-de-catia/",
+        "https://sincopa.com/latin_pop/cdinfo_latin/billos/discomoda/billos_10_impactos.htm",
+        "https://www.micuatro.com/acordes/tag/la-rondalla-venezolana/",
+        "https://salsabravave.blogspot.com/2009/10/biografia-alfredo-padilla-maestro-del.html",
+        "https://www.discogs.com/es/release/7838076-Ray-P%C3%A9rez-Y-Sus-Dementes-El-Dictador",
+        "https://gladyspalmera.com/coleccion/disco/16376/"
+      ]
+    },
+    {
+      "name": "Ricardo Montaner juntado (+ Ricky)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 5,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21262,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://culturaminiteka.com/noticias/blog/ricardo-montaner",
+          "title": "Ricardo Montaner — Blog CMTK · Cultura Miniteka",
+          "quote": "Ricardo Montaner es el nombre artístico de Héctor Eduardo Reglero Montaner, nacido el 8 de septiembre de 1957 en el conurbano sur de Buenos Aires, Argentina.",
+          "supports": "same"
+        },
+        {
+          "url": "https://eglycolinamarinprimera.blogspot.com/2014/05/ricardo-montaner-cantautor-venezolano.html",
+          "title": "RICARDO MONTANER, CANTAUTOR VENEZOLANO",
+          "quote": "Héctor Eduardo Reglero Montaner más conocido como Ricardo Montaner (Valentín Alsina, Buenos Aires, Argentina, 8 de septiembre de 1957), es un cantautor venezolano de origen argentino.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/905430",
+          "title": "Ricardo Montaner | Discogs",
+          "quote": "Real Name: Héctor Eduardo Reglero Montaner. Profile: Argentine-born Venezuelan singer born 8th September 1957 in Valentin Alsina, Greater Buenos Aires",
+          "supports": "same"
+        },
+        {
+          "url": "https://corazon.pe/famosas/musica-y-cine/sin-bandera-y-ricardo-montaner-en-los-especiales-de-radio-corazon-noticia-970179",
+          "title": "Sin Bandera y Ricardo Montaner en los Especiales de Radio Corazón",
+          "quote": "Héctor Eduardo Reglero Montaner, mejor conocido como Ricardo Montaner es un cantautor y músico Venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.freemusicas.com/ricardo-montaner",
+          "title": "Disfruta de la Mejor Música de Ricardo Montaner en el Género Romantica | FreeMusicas",
+          "quote": "Héctor Eduardo Reglero Montaner, es un cantautor argentino, nació el 8 de septiembre de 1957, en Valentín Alsina, su nombre artístico es Ricardo Montaner",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/hubaleobetan_2mundos.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/mirla_castellanos/mirla_88amoesteamor.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/mirtha_perez/mirtha_87inmensamentetuya.htm",
+        "https://culturaminiteka.com/noticias/blog/ricardo-montaner",
+        "https://www.freemusicas.com/ricardo-montaner",
+        "https://www.hola.com/us-es/celebrities/20261001926576/carlos-baute-elogia-hector-hijo-ricardo-montaner-parecido-fisico-vocal-padre/",
+        "https://eglycolinamarinprimera.blogspot.com/2014/05/ricardo-montaner-cantautor-venezolano.html",
+        "https://www.venciclopedia.org/index.php?title=Noche_sin_fin",
+        "https://www.korespa.com/ricardo-montaner/",
+        "https://corazon.pe/famosas/musica-y-cine/sin-bandera-y-ricardo-montaner-en-los-especiales-de-radio-corazon-noticia-970179",
+        "https://www.youtube.com/watch?v=uQ8tjY35xg0",
+        "https://www.youtube.com/watch?v=IJvF6YmFRxw",
+        "https://www.discogs.com/artist/905430"
+      ]
+    },
+    {
+      "name": "Heriberto Molina juntado (padre + hijo)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 5,
+      "sources": 15,
+      "seconds": 4,
+      "aiRunId": 21263,
+      "rationale": "relación familiar citada: «fundó el Estudio de Grabación Harmony junto a su hijo Heriberto Molina Jr.» Reparto propuesto: acreditado como Heriberto Molina Jr.: Guaco, Fernando Valladares · Heriberto Molina: Guaco, Kurare.",
+      "evidence": [
+        {
+          "url": "https://www.elzulianorajao.com/noticias/heriberto-molina-la-zurda-de-oro/",
+          "title": "HERIBERTO MOLINA, ''LA ZURDA DE ORO''",
+          "quote": "fundó el Estudio de Grabación Harmony junto a su hijo Heriberto Molina Jr.",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1983.htm",
+          "title": "Guaco - Guaco 83 (LP Info)",
+          "quote": "Percussion: Alfonso Aguado & Heriberto Molina Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1986_3etapa.htm",
+          "title": "Guaco - Tercera Etapa (LP Info)",
+          "quote": "01- Margarita Vice (Vais) (Heriberto Molina/F. Valladares/A. Pérez)",
+          "supports": "same"
+        },
+        {
+          "url": "https://eldiariodeguayana.com.ve/murio-compositor-zuliano-heriberto-molina/",
+          "title": "Murió el compositor zuliano Heriberto Molina - El Diario de Guayana",
+          "quote": "Murió el compositor zuliano Heriberto Molina",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/6015108",
+          "title": "Heriberto Molina (2) | Discogs",
+          "quote": "Heriberto Molina (2). Profile: Venezuelan songwriter Variations: H. Molina, Heriberto Molina. Credits: Adapted By – Kurare – Es Kurare (1985); Written-By – Kurare – Es Kurare (1985).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1983.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1986_3etapa.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1980.htm",
+        "https://www.quepasa.com.ve/regionales/murio-heriberto-molina-vilchez-compositor-y-musico-gaitero/",
+        "https://sincopa.com/latin_pop/cdinfo_latin/kurare/kurare_eskurare.htm",
+        "https://www.tiktok.com/@venezolano100to/video/7438771114081373495",
+        "https://www.letras.com/guaco/virgen-guaquera/",
+        "https://www.tunaespana.es/?p=20052",
+        "https://www.discogs.com/release/10098753-Grupo-Kurare-Es-Kurare",
+        "https://www.discogs.com/artist/6015108",
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_full.htm",
+        "https://www.elzulianorajao.com/noticias/heriberto-molina-la-zurda-de-oro/",
+        "https://eldiariodeguayana.com.ve/murio-compositor-zuliano-heriberto-molina/",
+        "https://mingzehuang.github.io/ECON410_Macroeconomic_Theory/lecture6.html",
+        "https://www.shazam.com/song/1835508931/la-negra-juana"
+      ]
+    },
+    {
+      "name": "Adelso Paz juntado (padre + hijo)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 5,
+      "sources": 17,
+      "seconds": 2,
+      "aiRunId": 21265,
+      "rationale": "una misma frase enumera a Adelso Paz Jr. y a Adelso Paz: «Cuatro: Adelso Paz Maracas: Adelso Paz Jr.» Reparto propuesto: acreditado como Adelso Paz Jr.: Luis Silva, Rondalla Venezolana · Adelso Paz: Reyna Lucero, Adilia Castillo, Luis Silva, Simón Díaz, Rondalla Venezolana, Juan Vicente Torrealba.",
+      "evidence": [
+        {
+          "url": "https://radio.otilca.org/una-institucion-del-cuatro-llamada-adelso-paz-rolito/",
+          "title": "Una institución del cuatro llamada Adelso Paz “Rolito” - Otilca Radio",
+          "quote": "Es casado con la Sra. Maria de jeuss (Maruja) de Paz con quien procreó cuatro hijos, dos de los cuales siguieron sus pasos en la música : Anais, Anamar, Adelso jr.( Maraquero y trompetista), Adelmar (virtuoso bajista, cantante, cuatrista y técnico de sonido).",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_serenata_jvtorrealba1.htm",
+          "title": "Rondalla Venezolana - Serenata a Juan Vicente Torrealba I (CD Info)",
+          "quote": "Cuatro: Adelso Paz Maracas: Adelso Paz Jr.",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_serenata_jvtorrealba2.htm",
+          "title": "Rondalla Venezolana - Serenata a Juan Vicente Torrealba II (CD Info)",
+          "quote": "Cuatro: Adelso Paz Maracas: Adelso Paz Jr.",
+          "supports": "different"
+        },
+        {
+          "url": "https://radio.otilca.org/una-institucion-del-cuatro-llamada-adelso-paz-rolito/",
+          "title": "Una institución del cuatro llamada Adelso Paz “Rolito” - Otilca Radio",
+          "quote": "Creador de un estilo único y versátil en todas la facetas de la música llanera; me refiero a esa “institución musical viviente” llamada ADELSO PAZ “Rolito”.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.deezer.com/es/artist/1199688",
+          "title": "Reyna Lucero: discos, canciones y conciertos | Deezer",
+          "quote": "Amiga Reyna Lucero Amiga 03:28 Compositores: Adelso Paz - Guillermo Hernandez",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_serenata_jvtorrealba1.htm",
+        "https://sincopa.com/traditional/cdinfo2/luis_silva/luissilva_82cimarron.htm",
+        "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_serenata_jvtorrealba2.htm",
+        "https://radio.otilca.org/tag/adelso-paz/",
+        "https://radio.otilca.org/una-institucion-del-cuatro-llamada-adelso-paz-rolito/",
+        "https://www.deezer.com/es/artist/1199688",
+        "https://www.cancioneros.com/at/5022/0/biografia-de-adelso-paz",
+        "https://sincopa.com/traditional/cdinfo2/reyna_lucero/reynalucero_82discodoro.htm",
+        "https://www.tiktok.com/@conocemasv/video/7571226083329117496",
+        "https://clipzag.com/watch?v=8xfR5xC1O5s",
+        "https://sincopa.com/traditional/cdinfo2/luis_silva/luissilva_87aquienolevagustar.htm",
+        "https://www.tiktok.com/@adelmarbass",
+        "https://sincopa.com/traditional/cdinfo2/jv_torrealba/jvt_cuentodhadas.htm",
+        "https://apps.apple.com/us/app/inter-mobile-banking/id839711154",
+        "http://llanomusical.blogspot.com/2010/",
+        "http://llanomusical.blogspot.com/2010/04/rondalla-venezolana-serenata-juan.html",
+        "https://lasmejoresrondallasdemexico.blogspot.com/2010/06/la-rondalla-venezolana-con-juan-vicente.html"
+      ]
+    },
+    {
+      "name": "Yordano 1975–2023 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 3,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21267,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Yordano",
+          "title": "Yordano Di Marzo - La Venciclopedia",
+          "quote": "Giordano Di Marzo Migani es un cantante y compositor nacido en Roma, Italia, el 27 de octubre de 1951.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Yordano",
+          "title": "Yordano - Wikipedia, la enciclopedia libre",
+          "quote": "Giordano Di Marzo Migani (Roma, 27 de octubre de 1951), conocido artísticamente como Yordano, es un cantautor y músico ítalo-venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2757081",
+          "title": "Giordano Di Marzo | Discogs",
+          "quote": "Real Name: Giordiano Di Marzo Migani. Profile: Venezuelan Singer, Musician and composer, artist name Yordano, brother of Evio Di Marzo",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/compilations1/1sotanodflorida.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/amigosinvisibles_5superpopvzla.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/gdavila_83unpocodamor.htm",
+        "https://www.buenamusica.com/yordano",
+        "https://www.venciclopedia.org/index.php?title=Yordano",
+        "https://caracol.com.co/programa/2018/10/28/a_vivir_que_son_dos_dias/1540749971_428274.html",
+        "https://es.wikipedia.org/wiki/Yordano",
+        "https://venezuelaheterogenea.blogspot.com/2021/06/luisito-quintero-todo-mayo-evio-di.html",
+        "https://www.tiktok.com/@clasicos1964/video/7433536201665056005",
+        "https://www.cancioneros.com/at/4545/0/biografia-de-yordano",
+        "https://www.youtube.com/watch?v=a5xdK-W36cY",
+        "https://www.lobotoradio.com/bandas/sietecuero",
+        "https://www.discogs.com/artist/2757081"
+      ]
+    },
+    {
+      "name": "Billo Frómeta 1940–2014 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 5,
+      "sources": 12,
+      "seconds": 3,
+      "aiRunId": 21268,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://www.elespectador.com/entretenimiento/musica/la-billo-s-caracas-boys-85-anos-de-una-leyenda-musical-con-ritmo-para-rato/",
+          "title": "La Billo’ s Caracas Boys: 85 años de una leyenda musical con ritmo para rato | EL ESPECTADOR",
+          "quote": "Luis María Frómeta Pereira, quien con 15 años dio señas de un talento que transformó en legado.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Billo_Fr%C3%B3meta",
+          "title": "Billo Frómeta - Wikipedia, la enciclopedia libre",
+          "quote": "Luis María Frómeta Pereira (Santo Domingo, 15 de noviembre de 1915 - Caracas, 5 de mayo de 1988), más conocido como Billo Frómeta, fue un músico, compositor y director de orquesta dominicano naturalizado venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Billo_Fr%C3%B3meta",
+          "title": "Billo Frómeta - Wikipedia, la enciclopedia libre",
+          "quote": "Fue el fundador de la orquesta Billo's Caracas Boys, en 1940.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Billo_Fr%C3%B3meta",
+          "title": "Billo Frómeta - Wikipedia, la enciclopedia libre",
+          "quote": "Nacimiento 15 de noviembre de 1915Santo Domingo, República DominicanaFallecimiento 5 de mayo de 1988 (72 años)Caracas, Venezuela",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Billo_Fr%C3%B3meta",
+          "title": "Billo Frómeta - Wikipedia, la enciclopedia libre",
+          "quote": "Fallecimiento 5 de mayo de 1988 (72 años)Caracas, Venezuela",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/classic/cdinfo_class/leobetan_porvzla.htm",
+        "https://sincopa.com/ethnic/cdinfo1/fuchoaparicio_3plus_1vzlamusic.htm",
+        "https://sincopa.com/ethnic/cdinfo1/banmomo_america.htm",
+        "https://www.elespectador.com/entretenimiento/musica/la-billo-s-caracas-boys-85-anos-de-una-leyenda-musical-con-ritmo-para-rato/",
+        "https://curadas.com/2021/11/15/billo-frometa/",
+        "https://es.wikipedia.org/wiki/Billo_Fr%C3%B3meta",
+        "https://ytcventures.com/2026/03/04/analyzing-the-horticulture-business-via-greenhouses-leveraging-israeli-advanced-technology-for-high-yield-sustainable-production/",
+        "https://noticiasaldiayalahora.co/entretenimiento/rendiran-homenaje-a-billo-frometa-con-concierto-de-andy-duran-y-su-big-band/",
+        "https://www.bbc.com/mundo/articles/c89xdd1jyzxo",
+        "https://www.buenamusica.com/billos-caracas-boys/biografia",
+        "https://www.youtube.com/watch?v=2zzGGGstHeo",
+        "https://en.wikipedia.org/wiki/Billo_Fr%C3%B3meta"
+      ]
+    },
+    {
+      "name": "Ricardo Montaner (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 3,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21269,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://culturaminiteka.com/noticias/blog/ricardo-montaner",
+          "title": "Ricardo Montaner — Blog CMTK · Cultura Miniteka",
+          "quote": "Ricardo Montaner es el nombre artístico de Héctor Eduardo Reglero Montaner, nacido el 8 de septiembre de 1957 en el conurbano sur de Buenos Aires, Argentina.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.freemusicas.com/ricardo-montaner",
+          "title": "Disfruta de la Mejor Música de Ricardo Montaner en el Género Romantica | FreeMusicas",
+          "quote": "Héctor Eduardo Reglero Montaner, es un cantautor argentino, nació el 8 de septiembre de 1957, en Valentín Alsina, su nombre artístico es Ricardo Montaner",
+          "supports": "same"
+        },
+        {
+          "url": "https://eglycolinamarinprimera.blogspot.com/2014/05/ricardo-montaner-cantautor-venezolano.html",
+          "title": "Ricardo montaner, cantautor venezolano",
+          "quote": "Héctor Eduardo Reglero Montaner más conocido como Ricardo Montaner (Valentín Alsina, Buenos Aires, Argentina, 8 de septiembre de 1957), es un cantautor venezolano de origen argentino.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/hubaleobetan_2mundos.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/mirla_castellanos/mirla_88amoesteamor.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/mirtha_perez/mirtha_87inmensamentetuya.htm",
+        "https://culturaminiteka.com/noticias/blog/ricardo-montaner",
+        "https://www.freemusicas.com/ricardo-montaner",
+        "https://laopinion.com/2017/01/30/jose-luis-rodriguez-el-puma-no-murio/",
+        "https://impactove.com/montaner-aclara-video-en-el-que-habla-de-colombia",
+        "https://www.musica.com/letras.asp?letra=945895",
+        "https://eglycolinamarinprimera.blogspot.com/2014/05/ricardo-montaner-cantautor-venezolano.html",
+        "https://www.korespa.com/ricardo-montaner/",
+        "https://corazon.pe/famosas/musica-y-cine/sin-bandera-y-ricardo-montaner-en-los-especiales-de-radio-corazon-noticia-970179",
+        "https://www.youtube.com/watch?v=uQ8tjY35xg0"
+      ]
+    },
+    {
+      "name": "Reynaldo Goitía (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 5,
+      "sources": 13,
+      "seconds": 2,
+      "aiRunId": 21270,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://plus.cusica.com/2019/06/10/boston-rex-se-defendio-ante-falsas-acusaciones-de-maibort-petit/",
+          "title": "Boston Rex se defendió ante falsas acusaciones de Maibort Petit | CusicaPlus",
+          "quote": "El conocido músico venezolano Reynaldo Goitía (Boston Rex) integrante de la agrupación Tomates Fritos, fue señalado —sin pruebas que lo fundamenten— el pasado 8 de junio por la periodista investigadora Maibort Petit, de tener un «supuesto hermano» con el cargo de Registrador Mercantil Segundo del Estado Anzoátegui llamado Carlos Franco",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/2024/11/tomates-fritos-regresa-con-la-puerta/",
+          "title": "Tomates Fritos regresa con La puerta",
+          "quote": "la banda, liderada por Reynaldo Goitía, más conocido como Boston Rex (voz principal, bajo y teclados)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/2016/05/boston-rex-habla-justicia-formato-acustico_26455/",
+          "title": "Boston Rex habla de la justicia en formato acústico - EL NACIONAL",
+          "quote": "Reynaldo Goitía ?mejor conocido como Boston Rex? habla con desenvoltura y humor",
+          "supports": "same"
+        },
+        {
+          "url": "https://eldiario.com/2020/11/30/boston-rex-ofrecido-trabajar-politica/",
+          "title": "Boston Rex: “Me han ofrecido trabajar en la política” - El... - elDiario.com",
+          "quote": "Sí, Reynaldo Goitía. Pero es más conocido como Boston Rex, como le dicen desde 2001.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/7861530",
+          "title": "Reynaldo Goitía | Discogs",
+          "quote": "Reynaldo Goitía. Credits: Bass Vocals – Tomates Fritos – Odissey (1999).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/new_age/cdinfo_age/masseratti_8covers1.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/buenaparte_1lacaidadlucy.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/frankmoron_nadaqdecir.htm",
+        "https://plus.cusica.com/2019/06/10/boston-rex-se-defendio-ante-falsas-acusaciones-de-maibort-petit/",
+        "https://lanotaquetoca.wordpress.com/escucha-apolo-cuarto-disco-de-andreazulado-a-un-mes-de-su-lanzamiento/",
+        "https://www.elnacional.com/2016/05/boston-rex-habla-justicia-formato-acustico_26455/",
+        "https://www.elnacional.com/2024/11/tomates-fritos-regresa-con-la-puerta/",
+        "https://indiehoy.com/descubrir/conoce-tomates-fritos-una-verdadera-institucion-del-indie-venezolano/",
+        "https://www.youtube.com/watch?v=5pl7fLJeFMc",
+        "https://eldiario.com/2020/11/30/boston-rex-ofrecido-trabajar-politica/",
+        "https://correocultural.com/2025/11/tomates-fritos-presenta-la-bella-city/",
+        "https://www.youtube.com/watch?v=Y2KJBDI9ScM",
+        "https://www.discogs.com/artist/7861530"
+      ]
+    },
+    {
+      "name": "Álvaro Segura (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 6,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21272,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/%C3%81lvaro_Segura",
+          "title": "Álvaro Segura - Wikipedia, la enciclopedia libre",
+          "quote": "Álvaro José Segura Arcas (Caracas, Venezuela. 17 de septiembre de 1967) es un músico, compositor y artista visual venezolano-estadounidense, conocido por haber sido guitarrista de la banda de rock alternativo Zapato 3, una de las agrupaciones más influyentes del movimiento musical venezolano de los años 90.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/%C3%81lvaro_Segura",
+          "title": "Álvaro Segura - Wikipedia, la enciclopedia libre",
+          "quote": "Estando radicados en Miami, los hermanos Carlos y Álvaro Segura forman en 2004 la agrupación Solares, junto Jaimer Verdaguer en los teclados, Agustín Salas en el bajo y Gabriel Silva en la batería.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/%C3%81lvaro_Segura",
+          "title": "Álvaro Segura - Wikipedia, la enciclopedia libre",
+          "quote": "Zapato 3 fue formada a mediados de los años 80 en Caracas. Álvaro Segura se unió a la agrupación poco tiempo después de su formación inicial, convirtiéndose en uno de los integrantes más destacados por su aporte musical.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/zapato3.htm",
+          "title": "Zapato 3 - Bio & Discography",
+          "quote": "Group Members Vocals: Carlos Segura Guitar: Alvaro Segura Bass: Fernando Batoni Keyboards: Jaime Verdaguer Drums: Diego Márquez",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/solares.htm",
+          "title": "Solares - Bio & Discography",
+          "quote": "Group Members Lead Vocals: Carlos Segura Guitar: Alvaro Segura Bass: Hugo Valbuena Keyboards, Samplers & Programming: Jaime Verdaguer Drums: Gabriel Silva",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/987025",
+          "title": "Álvaro Segura | Discogs",
+          "quote": "Credits: Guitar, Backing Vocals – Zapato 3 – Amor, Furia y Languidez (1989); Producer, Guitar, Recorded By, Engineer, Mixed By, Keyboards, Artwork, Graphic Design – Solares – Loft (2004); Written-By – Solares – Loft (2004); Recorded By, Engineer, Producer, Mixed By, Artwork, Graphic Design, Guitar, Keyboards – Solares – Loft (2004); Lead Vocals, Guitar – Alvaro Segura – Así Lo Veo Yo (2025); Music By – Alvaro Segura – Así Lo Veo Yo (2025); Guitar, Engineer, Mixed By – Solares – Cruel (Instinto De Morder) (2008).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/zapato3.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/yatu_3lacondicion.htm",
+        "https://sincopa.com/rock_pop/artist_rock/solares.htm",
+        "https://ultimasnoticias.com.ve/chevere/alvaro-segura-o-la-reinvencion-del-rock-venezolano/",
+        "https://ultimasnoticias.com.ve/chevere/alvaro-segura-deja-zapato-3/",
+        "https://radio.otilca.org/alvaro-segura-rompe-el-silencio-con-asi-lo-veo-yo/",
+        "https://www.elnacional.com/2025/07/alvaro-segura-casi-he-renunciado-muchas-veces/",
+        "https://es.wikipedia.org/wiki/%C3%81lvaro_Segura",
+        "https://www.youtube.com/watch?v=_5Dv1sho0C8",
+        "https://elestimulo.com/ub/melomania/2026-10-06/alvaro-segura-show-valencia/",
+        "https://tenemosnoticias.com/entretenimiento/clasificadas-tenemosnoticias-com/alvaro-segura-exintegrante-de-zapato-3-regresa-a-los-escenarios-con-un-show-inmersivo-en-valencia-albertonews/",
+        "https://www.youtube.com/watch?v=eRWQ5FAUlqE",
+        "https://www.discogs.com/artist/987025"
+      ]
+    },
+    {
+      "name": "Chelique Sarabia 1958–2014 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 6,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21273,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://www.elnacional.com/columnas/2025/12/chelique-sarabia-el-cantor-del-alma-venezolana/",
+          "title": "Chelique Sarabia: el cantor del alma venezolana - EL NACIONAL",
+          "quote": "José Enrique Sarabia Rodríguez, conocido universalmente como Chelique Sarabia, nació en La Asunción, en la isla de Margarita, el 13 de marzo de 1940.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/columnas/2025/12/chelique-sarabia-el-cantor-del-alma-venezolana/",
+          "title": "Chelique Sarabia: el cantor del alma venezolana - EL NACIONAL",
+          "quote": "Chelique Sarabia falleció en Caracas el 16 de febrero de 2022",
+          "supports": "same"
+        },
+        {
+          "url": "https://eldiario.com/2022/02/16/fallecio-chelique-sarabia-musica-venezolana/",
+          "title": "Murió Chelique Sarabia, un baluarte de la música venezolana",
+          "quote": "El reconocido músico y poeta margariteño José Enrique «Chelique» Sarabia falleció el miércoles 16 de febrero de 2022, a los 81 años de edad, en la ciudad de Lechería, Anzoátegui.",
+          "supports": "same"
+        },
+        {
+          "url": "https://eldiario.com/2022/02/16/fallecio-chelique-sarabia-musica-venezolana/",
+          "title": "Murió Chelique Sarabia, un baluarte de la música venezolana",
+          "quote": "Chelique Sarabia nació en La Asunción, Nueva Esparta, el 13 de marzo de 1940, pero se crió en el campo petrolero San Tomé, en Anzoátegui.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.guatacanights.com/noticias/chelique-sarabia-su-eterna-ansiedad",
+          "title": "Chelique Sarabia y su eterna Ansiedad – Guataca Nights",
+          "quote": "Pero se trata de un vals venezolano compuesto por un artista nacido en La Asunción, Isla de Margarita, llamado José Enrique “Chelique” Sarabia",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1040882",
+          "title": "Jose Enrique Sarabia | Discogs",
+          "quote": "Real Name: José Enrique \"Chelique\" Sarabia Rodríguez. Profile: Venezuelan Singer and Composer, (b. March 13, 1940, La Asunción, Margarita Island, Venezuela - d. February, 16, 2022. Lecherías, Anzoátegui, Venezuela). Worldwide known for his song \"Ansiedad\".",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/armoniavzla_cancionesvzlanas.htm",
+        "https://sincopa.com/ethnic/cdinfo1/jcnunez_suiteurbana.htm",
+        "https://sincopa.com/ethnic/cdinfo1/fuchoaparicio_3plus_1vzlamusic.htm",
+        "https://www.elnacional.com/columnas/2025/12/chelique-sarabia-el-cantor-del-alma-venezolana/",
+        "https://eldiario.com/2022/02/16/fallecio-chelique-sarabia-musica-venezolana/",
+        "https://www.guatacanights.com/noticias/chelique-sarabia-su-eterna-ansiedad",
+        "https://actualy.es/las-historias-no-contadas-de-henry-stephen/chelique-sarabia/",
+        "https://sincopa.com/ethnic/cdinfo1/pabellon_sinbaranda1.htm",
+        "https://www.musica.com/letras.asp?biografia=16482",
+        "https://elpais.com/cultura/2022-02-18/el-ultimo-adios-de-chelique-sarabia-el-compositor-de-ansiedad.html",
+        "https://www.asieravenezuela.com/p/chelique-sarabia.html",
+        "https://www.youtube.com/watch?v=rxz6ILdBouA",
+        "https://www.discogs.com/artist/1040882"
+      ]
+    },
+    {
+      "name": "Oscar D'León 1972–2023 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 3,
+      "sources": 13,
+      "seconds": 2,
+      "aiRunId": 21274,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://steemit.com/cervantes/@ylich/oscardlenelsonerodelmundo-zb9do1cv0c",
+          "title": "Oscar D' León, el Sonero del Mundo — Steemit",
+          "quote": "Óscar Emilio León Simoza, un caraqueño de origen humilde, que vendía la arepas que su mamá preparaba",
+          "supports": "same"
+        },
+        {
+          "url": "https://radio.otilca.org/oscar-dleon-baluarte-venezolano-en-todo-el-mundo/",
+          "title": "Oscar D´León “El Sonero el Mundo” - Otilca Radio",
+          "quote": "Nació en Caracas, el 11 de julio de 1943.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/392744",
+          "title": "Oscar D' León | Discogs",
+          "quote": "Oscar Emilio León Somoza, better known as Oscar D'León (born in Caracas, Venezuela on July 11, 1943)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimension_billo_coleccion2020.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_01clanvictor.htm",
+        "https://sincopa.com/ethnic/cdinfo1/c4trio_suenanavidad.htm",
+        "https://steemit.com/cervantes/@ylich/oscardlenelsonerodelmundo-zb9do1cv0c",
+        "https://www.bilibili.com/video/BV1VLRgBsE1j/",
+        "https://radio.otilca.org/oscar-dleon-baluarte-venezolano-en-todo-el-mundo/",
+        "https://rdnvenezuela.com/huascar-barradas-celebra-59-anos/",
+        "https://m.vkvideo.ru/video1736903_456240157?pl=1736903_-2",
+        "https://venezuelasinfonica.com/oscar-dleon-42-anos-conquistando-el-mundo-con-su-voz-y-su-optimismo/",
+        "https://music.youtube.com/podcast/3xsPXJ6fdvU",
+        "https://www.tiktok.com/discover/lloraras-oscar-dleon",
+        "https://www.youtube.com/watch?v=S4ZHmSkJAjc",
+        "https://www.discogs.com/artist/392744"
+      ]
+    }
+  ]
+}

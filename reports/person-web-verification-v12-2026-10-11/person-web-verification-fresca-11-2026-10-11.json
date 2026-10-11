@@ -1,0 +1,347 @@
+{
+  "date": "2026-10-11T15:00:28.177Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 5,
+    "correct": 4,
+    "errors": 0,
+    "same": "2/3",
+    "different": "0/0",
+    "mixed": "0/0",
+    "single": "2/2",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": false,
+  "cases": [
+    {
+      "name": "René Toledo / René L. Toledo (el mismo guitarrista)",
+      "kind": "pair",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 11,
+      "sources": 12,
+      "seconds": 13,
+      "aiRunId": 21645,
+      "rationale": "Rol, género o época distintos no prueban dos personas, y no aparece un proyecto común en la web.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/569603",
+          "title": "Rene Toledo | Discogs",
+          "quote": "Rene Toledo. Real Name: René Luis Toledo. Profile: Cuban composer, producer, and guitarist. Later based in Miami, Florida, U.S.A. Passed away in February 2024. Not to be confused with his son, Rene Toledo, Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/569603",
+          "title": "Rene Toledo | Discogs",
+          "quote": "Guitar [Soloist] – Carlos Mata – Mírame A Los Ojos (1993).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_91pumaenritmo1.htm",
+          "title": "José Luis Rodríguez - El Puma En Ritmo (LP Info)",
+          "quote": "Guitar: Rene Toledo",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_91pumaenritmo1.htm",
+          "title": "José Luis Rodríguez - El Puma En Ritmo (LP Info)",
+          "quote": "Tracks A4, B4: Keyboards Programming: Carlos Castellón Piano: Paquito Hechevarria Guitar: Rene Toledo",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_94razonespara.htm",
+          "title": "José Luis Rodríguez - Razones Para Una Sonrisa (CD Info)",
+          "quote": "Guitar: Rene L. Toledo (tracks 1, 2, 3, 4, 5, 6, 7, 9, 10)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_94razonespara.htm",
+          "title": "José Luis Rodríguez - Razones Para Una Sonrisa (CD Info)",
+          "quote": "Keyboards Programming: Kike Santander (tracks 1, 2, 3, 4, 7, 8, 9) Rene L. Toledo & Reynerio Pérez (tracks 5, 6, 10, 11)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_2003clavedamor.htm",
+          "title": "José Luis Rodríguez - Clave De Amor (CD Info)",
+          "quote": "Programming: Ricardo Eddy Martínez, Lee Levin & René L. Toledo Guitar: René L. Toledo",
+          "supports": "same"
+        },
+        {
+          "url": "https://rateyourmusic.com/release/album/jose-luis-rodriguez-raul-di-blasio/clave-de-amor/",
+          "title": "Clave de amor by José Luis Rodríguez & Raul Di Blasio - RYM ...",
+          "quote": "Clave de amor, an Album by José Luis Rodríguez & Raul Di Blasio. Released in 2003 on BMG U.S. Latin (catalog no. 74321 97413-2; CD). Featured peformers: René Toledo (producer).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/carlosmata_93miramelosojos.htm",
+          "title": "Carlos Mata - Mírame A Los Ojos (LP Info)",
+          "quote": "Additional Vocals: Pablo Manavello (tracks A1, A5) Rodolfo Castillo (tracks A4, B1). Trombone: John Kricker (track A2). Guitar Solo: Rene Toledo (track A4) Dan Warner (tracks B4, B5).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/carlosbaute_04damedeso.htm",
+          "title": "Carlos Baute - Dame De Eso (CD Info)",
+          "quote": "Guitar: René Toledo (track 1) Leo Quintero (track 2) Andres Castro & Nicolas Tovar (track 3) Yasmil Marrufo (tracks 4, 5, 6)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/release/11464053-Carlos-Mata-M%C3%ADrame-A-Los-Ojos",
+          "title": "Carlos Mata – Mírame A Los Ojos (1993, Vinyl) - Discogs",
+          "quote": "Carlos Mata – Mírame A Los Ojos (1993, Vinyl) - Discogs. Guitar [Solo de guitarra] – René Toledo* (tracks: A4).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_91pumaenritmo1.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/carlosbaute_04damedeso.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_2003clavedamor.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_94razonespara.htm",
+        "https://faurit.com/article/venezuela-profile-important-facts-people-and-history",
+        "https://www.buenamusica.com/carlos-mata/biografia",
+        "https://en.wikipedia.org/wiki/Carlos_Mata",
+        "https://blog.circuit.rocks/build-a-rotating-uv-flame-scanner-with-the-uvtron-r2868",
+        "https://rateyourmusic.com/release/album/jose-luis-rodriguez-raul-di-blasio/clave-de-amor/",
+        "https://www.discogs.com/release/11464053-Carlos-Mata-M%C3%ADrame-A-Los-Ojos",
+        "https://sincopa.com/rock_pop/cdinfo_rock/carlosmata_93miramelosojos.htm",
+        "https://www.discogs.com/artist/569603"
+      ]
+    },
+    {
+      "name": "Carlos Landaeta / Carlos Emilio Landaeta («Pan con Queso»)",
+      "kind": "pair",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 7,
+      "sources": 13,
+      "seconds": 14,
+      "aiRunId": 21576,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/4459977",
+          "title": "Carlos Emilio Landaeta | Discogs",
+          "quote": "Variations: Carlos E. Landaeta, Carlos E. Landaeta \"Pan Con Queso\", Carlos E.Landaeta \"Pan Con Queso\", Carlos Landaeta.",
+          "supports": "same"
+        },
+        {
+          "url": "https://salsabravave.blogspot.com/2009/11/biografia-carlos-emilio-landaeta-pan.html",
+          "title": "Biografía: Carlos Emilio Landaeta “Pan con Queso”",
+          "quote": "Fundado y dirigido por el músico Carlos Emilio Landaeta (\"Pan con Queso\"), conocido por la elaboración de instrumentos de percusión, admirado en toda el área del Caribe y avalado, musicalmente, por sus participaciones en la Orquesta de Luis Alfonso Larraín (1947); La Sonora Caracas (1948, de la cual fue fundador); la Orquesta Billo's Caracas Boys (1951); y Los Dementes (1968).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/4459977",
+          "title": "Carlos Emilio Landaeta | Discogs",
+          "quote": "Credits: Claves – Canelita Medina – Lo Que Siento (1984); Producer – Canelita Medina – Lo Que Siento (1984).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/canelita_medina/canelita_84loqsiento.htm",
+          "title": "Canelita Medina - Lo Que Siento (LP Info)",
+          "quote": "Clave: Carlos Emilio Landaeta (Pan Con Queso)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/sonero_clasico_del_caribe/soneroclasico_82elsabordelson.htm",
+          "title": "Sonero Clásico Del Caribe - El Sabor Del Son (LP Info)",
+          "quote": "Produced by Carlos E. Landaeta \"Pan Con Queso\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/los_dementes/dementes_1967lasalsallego.htm",
+          "title": "Los Dementes - La Salsa Llego (LP Info)",
+          "quote": "01- Mi Suegra (Carlos Landaeta) 02- La Perrita De Floro (Nene & Alfredo)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/los_dementes/dementes_1967lasalsallego.htm",
+          "title": "Los Dementes - La Salsa Llego (LP Info)",
+          "quote": "Congas: Carlos \"Nene\" Quintero Bongos: Angel Pérez",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/los_dementes/dementes_1967lasalsallego.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/sonero_clasico_del_caribe/soneroclasico_82elsabordelson.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/canelita_medina/canelita_84loqsiento.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/sonero_clasico_del_caribe/soneroclasico_78soneroclasico2.htm",
+        "https://elestimulo.com/cultura/2022-02-11/con-teatro-y-musica-el-bod-reactiva-su-agenda-de-espectaculos-presenciales/",
+        "https://radiocafeatlantico.com/una-efemeride-sonera/",
+        "https://orinocopadrerio.blogspot.com/2013/10/la-sonora-caracas-orquesta-pionera.html",
+        "https://salsabravave.blogspot.com/2009/11/biografia-carlos-emilio-landaeta-pan.html",
+        "https://www.facebook.com/p/Sonero-Cl%C3%A1sico-del-Caribe-100049820752723/",
+        "https://hemerotecamusicavenezolana.blogspot.com/p/la-historia-de-la-sonora-caracas.html",
+        "https://www.facebook.com/soneroclasicodelcaribe/mentions/",
+        "https://www.youtube.com/watch?v=i09FdP0qWjg",
+        "https://www.discogs.com/artist/4459977"
+      ]
+    },
+    {
+      "name": "Pedro Montañez / Pedro José Montañez (fotógrafo de Grupo Vera)",
+      "kind": "pair",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 2,
+      "sources": 7,
+      "seconds": 9,
+      "aiRunId": 21646,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/grupo_vera/grupovera_82aguinaldosparrandas.htm",
+          "title": "Grupo Vera - Aguinaldos y Parrandas Venezolanos (LP Info)",
+          "quote": "Back Cover Photo: Pedro Montañez",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/grupo_vera/grupovera_80grupovera.htm",
+          "title": "Grupo Vera - Grupo Vera (LP Info)",
+          "quote": "Photo: Pedro José Montañez",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/traditional/cdinfo2/grupo_vera/grupovera_82aguinaldosparrandas.htm",
+        "https://sincopa.com/traditional/cdinfo2/grupo_vera/grupovera_80grupovera.htm",
+        "https://pedro.org.au/",
+        "https://en.wikipedia.org/wiki/Pedro_(footballer,_born_1987)",
+        "https://www.facebook.com/groups/cubalevantate/posts/2149093365685423/",
+        "https://www.pedroshoes.com/us",
+        "https://www.grupovera.com/"
+      ]
+    },
+    {
+      "name": "René L. Toledo (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 2,
+      "sources": 7,
+      "seconds": 1,
+      "aiRunId": 21578,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://soundbetter.com/profiles/60351-rene-toledo",
+          "title": "Rene Toledo - Guitar Player - Las Vegas | SoundBetter",
+          "quote": "René L. Toledo was born in Havana (Cuba), July 3, 1957.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.amazon.com/music/player/artists/B002NA4934/rene-l-toledo-jr",
+          "title": "Play Rene L. Toledo Jr. on Amazon Music",
+          "quote": "Play Rene L. Toledo Jr. on Amazon Music.",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_2003clavedamor.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_94razonespara.htm",
+        "https://soundbetter.com/profiles/60351-rene-toledo",
+        "https://carlosrobertorocha.blogspot.com/2013/08/guitarrista-rene-l-toledo.html",
+        "https://renetoledo.bandcamp.com/",
+        "https://www.amazon.com/music/player/artists/B002NA4934/rene-l-toledo-jr",
+        "https://www.deezer.com/ru/track/482671482"
+      ]
+    },
+    {
+      "name": "Carlos Emilio Landaeta (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 8,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21579,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://salsabravave.blogspot.com/2009/11/biografia-carlos-emilio-landaeta-pan.html",
+          "title": "Biografía: Carlos Emilio Landaeta “Pan con Queso”",
+          "quote": "Nombre: Carlos Emilio Landaeta. *04/11/1920, Caracas-Venezuela. †30/09/1991, Caracas-Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://salsabravave.blogspot.com/2009/11/biografia-carlos-emilio-landaeta-pan.html",
+          "title": "Biografía: Carlos Emilio Landaeta “Pan con Queso”",
+          "quote": "a la edad de 14 años comienza a hacer investigaciones, de todo lo relacionado con el son cubano",
+          "supports": "same"
+        },
+        {
+          "url": "https://asocosalsa74.blogspot.com/2007/10/sonero-clasico-del-caribe-son-montuno-y.html",
+          "title": "ASOCOSALSA 74': SONERO CLASICO DEL CARIBE, son montuno y guaguanco para siempre",
+          "quote": "Surgió así el Sonero Clásico del Caribe, fundado y dirigido por el músico, Carlos Emilio Landaeta \"Pan con Queso”, especie de \"enciclopedia viviente\" de la historia de la música popular; y reconocido luthier de instrumentos de percusión, admirado en todo el Caribe.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/4459977",
+          "title": "Carlos Emilio Landaeta | Discogs",
+          "quote": "Carlos Emilio Landaeta, best known as \"Pan con Queso\" Landaeta, was a famous Venezuelan luthier and percussionist. Landaeta was born on Caracas, Venezuela, November 4, 1920.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/canelita_medina/canelita_84loqsiento.htm",
+          "title": "Canelita Medina - Lo Que Siento (LP Info)",
+          "quote": "Clave: Carlos Emilio Landaeta (Pan Con Queso)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/sonero_clasico_del_caribe/soneroclasico_78soneroclasico2.htm",
+          "title": "Sonero Clásico Del Caribe - Sonero Clásico Del Caribe Vol.2 (LP Info)",
+          "quote": "Bongos: Carlos Emilio Landaeta",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/sonero_clasico_del_caribe/soneroclasico_79seempatoelsonero.htm",
+          "title": "Sonero Clásico Del Caribe - Se Empato El Sonero (LP Info)",
+          "quote": "Bongos: Carlos Emilio Landaeta",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/4459977",
+          "title": "Carlos Emilio Landaeta | Discogs",
+          "quote": "Carlos E. Landaeta",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/canelita_medina/canelita_84loqsiento.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/sonero_clasico_del_caribe/soneroclasico_78soneroclasico2.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/sonero_clasico_del_caribe/soneroclasico_79seempatoelsonero.htm",
+        "https://radiocafeatlantico.com/una-efemeride-sonera/",
+        "https://www.scribd.com/document/109754640/Biografia-Pan-con-Queso",
+        "https://fmentretenimiento.com.co/artistas/sonero-clasico-del-caribe/",
+        "https://salsabravave.blogspot.com/2009/11/biografia-carlos-emilio-landaeta-pan.html",
+        "https://asocosalsa74.blogspot.com/2007/10/sonero-clasico-del-caribe-son-montuno-y.html",
+        "https://www.youtube.com/watch?v=xuG5Nft5714",
+        "https://albaciudad.org/2014/07/son-montuno-y-guaguanco-toman-el-paseo-los-proceres-este-domingo-con-el-sonero-clasico-del-caribe/",
+        "https://www.youtube.com/watch?v=SCIKghEYX7c",
+        "https://www.elimpulso.com/2023/07/12/canelita-medina-las-trazas-de-autenticidad-por-los-predios-de-la-rumbosa-musica-afrocaribena-12jul/",
+        "https://www.discogs.com/artist/4459977"
+      ]
+    }
+  ]
+}

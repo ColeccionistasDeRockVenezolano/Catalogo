@@ -188,3 +188,243 @@ Hallazgos reales que salieron de las pruebas (sin aplicar):
   (29325); sin confirmar en la web.
 - Nombres a corregir: la 8610 se llama «Robert Vilela» y es Robert Vilera; la 7910 se llama «Marshall» y es
   Freddy Cabezas Álvarez («Freddy Marshall»).
+
+## Ronda del 10 de octubre: frescos 5–9
+
+Con «sube el puntaje a 20/20 realista» se armaron cinco conjuntos frescos más, cada uno después de cerrar las
+reglas del anterior y con la verdad confirmada en la web antes de correrlo (fuentes en los comentarios de
+`scripts/benchmark-person-web-hard.ts`).
+
+Primera pasada de cada fresco, sin haberlo usado para nada:
+
+| Conjunto | Aciertos | Errores graves |
+|---|---|---|
+| Fresco 5 | 24/30 | 1 (Yordano separado de sí mismo) |
+| Fresco 6 | 22/29 | 2 (Lamberti fusionados, Pedro Junco separado) |
+| Fresco 7 | 19/26 | 5 (Ilan Chester, Negrito Man, Jarz/Nilz, PTT) |
+| Fresco 8 | 14/20 | 0 |
+| Fresco 9 | 7/9 | 0 |
+
+En el fresco 8 la primera pasada marcó a Italo Pizzolante como mezclado y la etiqueta decía «una persona». El
+verificador tenía razón: la ficha tiene voz y guitarras de Americania de 2009 a 2026 (el compositor murió en
+2011), que son de Ítalo Aquiles Pizzolante. Por eso cuenta como 14/20 y no como 13/20.
+
+Reglas nuevas (todas generales, con prueba unitaria que falla sin ellas):
+- Nombres de pila que no casan (Lamberti: «Edgar» / «Gabriel "Pepo"») no se fusionan por proyecto común ni por
+  lista. Solo vale un puente explícito entre las dos formas; si lo hay, el veto se levanta.
+- Puentes explícitos: marca de alias, ampliada con «nacido», «nombre completo», «nickname», etc.; paréntesis o
+  comillas («Luis Eduardo Blanco (Negrito Man)»); apodo entre nombre y apellido («Carlos "Nené" Quintero» frente a
+  «Nene Quintero»); aposición «Moira Elisa Martínez Álvarez: Mayra Martí»; página titulada con un nombre cuya
+  cita da el otro tras «nombre completo:» (Lobotoradio, Ilan Chéster).
+- Un nombre de una palabra sin nada en común con el otro («Nilz» / «Jarzen Arcia») no cuenta como compatible.
+- Otro segundo nombre no es un tocayo: «Pedro Francisco Lizardo» (el padre) no casa con «Pedro V. Lizardo».
+- Parentesco con tocayos: no cuentan las menciones que una marca de alias une al mismo nombre (Boston Rex), ni
+  palabras sueltas del propio nombre («di Marzo»).
+- «Jr.» separa si una frase nombra a los dos por separado: enumeración, parentesco entre las menciones
+  («Ricardo Montaner Jr., …, los hijos del cantante Ricardo Montaner») o etiqueta de crédito («Cuatro: Adelso Paz
+  Maracas: Adelso Paz Jr.»). Nombrar dos veces al mismo autor no separa, y Discogs tampoco aquí.
+- «Jr.», «hijo» y «junior» son la misma marca: «Adelso Paz Jr.» y «Adelso Paz hijo» no son dos generaciones.
+- El apodo entre comillas no tapa el nombre al buscar la liga con un proyecto («Guillermo "Willy" Noya»).
+
+Resultado final con la misma versión del código para los doce conjuntos (medido en un worktree de HEAD con el lector
+v3; ver «Pendiente»):
+
+| Conjunto | Aciertos | Misma | Distintas | Mezcladas | Una persona | Errores graves |
+|---|---|---|---|---|---|---|
+| Difícil | 25/27 | 6/7 | 11/12 | 6/6 | 2/2 | 0 |
+| Validación | 27/30 | 9/9 | 6/7 | 7/9 | 4/4 | 0 |
+| Fresco 1 | 18/21 | 8/9 | 2/3 | 2/3 | 5/5 | 0 |
+| Fresco 2 | 15/16 | 5/6 | 2/2 | 2/2 | 6/6 | 0 |
+| Fresco 3 | 9/10 | 3/4 | 1/1 | 1/1 | 4/4 | 0 |
+| Fresco 4 | 8/10 | 2/2 | 2/2 | 1/3 | 3/3 | 0 |
+| Fresco 5 | 26/30 | 14/15 | 3/4 | 2/4 | 7/7 | 0 |
+| Fresco 6 | 22/29 | 13/15 | 2/4 | 0/3 | 7/7 | 0 |
+| Fresco 7 | 21/26 | 10/12 | 3/4 | 1/3 | 7/7 | 0 |
+| Fresco 8 | 14/20 | 6/9 | 0/1 | 2/4 | 6/6 | 0 |
+| Fresco 9 | 7/9 | 3/3 | — | 0/2 | 4/4 | 0 |
+| **Total** | **192/228 (84 %)** | 79/91 | 32/40 | 24/40 | 55/55 | **0** |
+
+(Los «dudosos» del fresco 1 y de la validación, 2/2, entran en el total.)
+
+Lo que falla queda en «no se sabe»:
+- fichas mezcladas por una fusión equivocada (5900, 3343, 2704, 9280), 24/40 en mezcladas;
+- padre e hijo cuando la página escribe distinto el nombre («Williams Sigismondi»);
+- «Emilio Estefan Jr.» = «Emilio Estefan», a propósito, por la regla de «Jr.»;
+- casos que oscilan entre corridas al renovarse la caché de búsqueda (Luis Arismendi, Daniel Gil).
+
+Hallazgos reales de esta ronda (sin aplicar; confirmar y decidir con Brian):
+- 21742 «Juan V. Torrealba» = 4456 Juan Vicente Torrealba.
+- 29174 «Pedro Junco» = 20312 Pedro Junco Jr., el mismo compositor de «Nosotros».
+- La 3617 (Nené Quintero) tiene la mezcla y masterización de Los Beat3 «¡En Vivo!» (2010), que según el librito
+  son de Carlos Kinttero (hippitoysuschatarritas, 2012/09).
+- La 1260 (Italo Pizzolante, m. 2011) tiene voz y guitarras de Americania 2009–2026: son de Ítalo Aquiles
+  Pizzolante.
+- Fusiones equivocadas de la run 13285:
+  - 5900 Ezlen Ramos (batería de Hiena) tiene el timple de José Antonio Ramos, el timplista canario;
+  - 1701 Luisito Quintero (percusionista) tiene la voz de Luis Quintero «Bosta's Brain» (PapaShanty, La Corte);
+  - 3343 Ignacio Pérez (bajista de Ricochet) tiene créditos de Nacho, de Chino & Nacho;
+  - 2704 Miguel «El Enano» González (Caramelos de Cianuro) tiene a Rubén «El Enano» Castro (Almas, 2011);
+  - 9280 Francisco González (Nauta, n. 1988) tiene los raps de Pipo Ramírez en Huáscar Barradas.
+
+Pendiente: en esta rama el lector de páginas (procedencia v4, de otro frente y sin commit) consulta
+`captured_at`/`acquisition_method`, y la migración 0059 no está aplicada en la base de desarrollo. Sin ella, cada
+página falla y el verificador decide solo con fragmentos del buscador. La decisión de aplicarla es de ese frente.
+
+### v6 (2026-10-10, noche) y fresco 10
+
+Reglas nuevas, todas generales y con prueba unitaria que falla sin ellas (46 pruebas del verificador):
+- **Todas las formas acreditadas ajenas** (`foreignCreditForms`): la búsqueda de mezcla ya no mira solo la forma
+  ajena más frecuente. Antes, «Ezlen Ramos» con «José Antonio Ramos» o «Pipo Ramírez» dentro de «Francisco
+  González» quedaban tapados por otra forma. Un apodo de una palabra cuenta como ajeno si no casa con ningún
+  nombre de pila de la ficha (Chino ≠ Agreda sigue sin contar).
+- **Hermanos enumerados**: si una misma frase enumera a dos personas con el mismo apellido y nombres de pila que
+  no casan («Edgar y Gabriel Lamberti»), es una contradicción. Solo se levanta con un puente explícito de
+  seudónimo.
+- **Puentes de seudónimo más amplios**: cuentan el título de la página como nombre («Ilan Chester» + «conocido
+  como Ilan»), el apodo intercalado («Carlos "Nené" Quintero») y la aposición con dos puntos («Moira Elisa
+  Martínez Álvarez: Mayra Martí»). Con nombres de pila que no casan, solo un puente explícito permite el «same».
+- «Hijo», «junior» y «Jr.» son la misma marca de generación.
+
+Medido en el worktree de HEAD (lector v3). El fresco 10 se cerró antes de correrlo y no se tocó después:
+
+| Conjunto | Aciertos | Misma | Distintas | Mezcladas | Una persona | Errores graves |
+|---|---|---|---|---|---|---|
+| Difícil | 25/27 | 6/7 | 11/12 | 6/6 | 2/2 | 0 |
+| Validación | 27/30 | 9/9 | 6/7 | 7/9 | 4/4 | 0 |
+| Fresco 1 | 18/21 | 8/9 | 2/3 | 2/3 | 5/5 | 0 |
+| Fresco 2 | 15/16 | 5/6 | 2/2 | 2/2 | 6/6 | 0 |
+| Fresco 3 | 9/10 | 3/4 | 1/1 | 1/1 | 4/4 | 0 |
+| Fresco 4 | 8/10 | 2/2 | 2/2 | 1/3 | 3/3 | 0 |
+| Fresco 5 | 26/30 | 14/15 | 3/4 | 2/4 | 7/7 | 0 |
+| Fresco 6 | 25/29 | 13/15 | 3/4 | 2/3 | 7/7 | 0 |
+| Fresco 7 | 23/26 | 10/12 | 3/4 | 3/3 | 7/7 | 0 |
+| Fresco 8 | 14/20 | 6/9 | 0/1 | 2/4 | 6/6 | 0 |
+| Fresco 9 | 8/9 | 3/3 | — | 1/2 | 4/4 | 0 |
+| Fresco 10 (intacto) | 4/6 | 3/5 | — | — | 1/1 | 0 |
+| **Total** | **202/234 (86 %)** | 82/96 | 33/40 | 29/40 | 56/56 | **0** |
+
+(Más los «dudosos», 2/2.)
+
+En el fresco 10 fallan Angie Machado = Ángel Machado y Francisco Tedesco = «Chicho» Tedesco. Las dos quedan en
+«no se sabe», y la causa es la búsqueda, no las reglas:
+- SearXNG no devuelve la página de salsagoogle que dice el nombre completo de Angie;
+- de Tedesco solo hay el mismo nombre con dos bandas en páginas distintas, y eso el verificador no acepta como
+  prueba, a propósito (Discogs y los homónimos).
+
+No se agregó una regla de «mismo nombre, mismo instrumento, misma época», porque produciría fusiones falsas (caso
+Víctor Valerio).
+
+Decisión mantenida: **no** separar solo porque el nombre de pila es distinto. Separaría a Nené = Carlos y a Willy
+= Guillermo.
+
+### v7–v8 (2026-10-11) y fresco 11
+
+Tres reglas generales más, cada una con una prueba que falla sin ella (49 pruebas del verificador):
+- **Listas con otros nombres en medio**: «Juan Vicente Torrealba, Douglas T. Mardonio Tortolero, Henry Rubio & Juan
+  Vicente Torrealba Jr.» enumera a dos personas. Cuenta si entre los dos nombres solo hay separadores y nombres
+  cortos. Además, la inicial casa con el nombre completo («Juan V.» = «Juan Vicente»), y el punto de una inicial ya
+  no corta la frase.
+- **Apodo con letras sueltas**: en «Jesús «G-zaz» Romero», el apodo se compara tal cual se escribe; antes la «g»
+  se perdía y no se reconocía el puente.
+- **Forma compartida**: si un nombre es el otro más un apodo o un segundo nombre («Manuel Diquez» / «Manuel "Manny"
+  Diquez»), una página que no sea de Discogs y nombre esa forma con los proyectos de las dos fichas une las fichas.
+  Son las mismas exigencias que con un nombre idéntico: que el modelo diga «same» y que haya dos sitios.
+
+Revisado y no cambiado:
+- Mandingo: su perfil dice «Father of Felipe Rengifo Jr.», así que el veto por parentesco es correcto.
+- Calavén: osciló porque esta vez el modelo citó «Yánez» con «z». Una letra distinta en el apellido no se acepta, por
+  la misma regla de Greco/Grego.
+- Vladimir Peña: el nombre está lejos del proyecto y el título de la página trae una errata.
+- René Toledo / René L. Toledo: sin la inicial, los nombres son idénticos y comparten proyecto. Con un nombre
+  idéntico el proyecto común no aporta nada nuevo y Discogs junta homónimos, así que queda en «no se sabe».
+
+| Conjunto | v6 | v8 |
+|---|---|---|
+| Difícil | 25/27 | 25/27 |
+| Validación | 27/30 | 27/30 |
+| Fresco 1–4 | 50/57 | 50/57 |
+| Fresco 5 | 26/30 | 25/30 (Calavén, variación) |
+| Fresco 6 | 25/29 | 27/29 |
+| Fresco 7 | 23/26 | 24/26 |
+| Fresco 8 | 14/20 | 14/20 |
+| Fresco 9 | 8/9 | 8/9 |
+| Fresco 10 | 4/6 | 4/6 |
+| Fresco 11 (intacto, nuevo) | — | 4/5 |
+| **Total** | **202/234** | **208/239 (87 %)**, **0 errores graves** |
+
+Medido en el worktree de HEAD. Otra sesión dejó en este archivo la consulta a `birth_date_value` (migración 0061, sin
+aplicar); para medir, en el worktree se usó la consulta de HEAD. No se aplicó ninguna migración.
+
+### v9–v11 (2026-10-11): búsqueda y puentes, y un error grave encontrado y corregido
+
+Mejoras generales, cada una con una prueba que falla sin ella (53 pruebas del verificador):
+- **Búsqueda con las dos formas juntas** (`combinedName`): «Guillermo Noya» + «Willy Noya» → «Guillermo Willy Noya»,
+  que encuentra «Guillermo “Willy” Noya». Va primero el nombre de pila y después el diminutivo. No se arma para
+  hermanos («Edgar» + «Gabriel "Pepo"» Lamberti), para generaciones distintas ni para nombres que ya se buscan.
+- **Resultados con las dos formas, primero**: un resultado cuyo título o resumen nombra las dos formas («Ángel
+  "Angie" Machado» en AllMusic) se lee antes. Si la página no se puede leer, se guarda su resumen del buscador.
+- **«credited as», «acreditado como», «nombre de pila», «nombre de nacimiento» y «nombre de bautizo»** son marcas
+  de alias.
+- **Puente por título más amplio**: el título puede contener el nombre («Murió el cantante Al Zeppy a los 80 años»),
+  no solo empezar por él, y vale también el orden «Alberto Lewis, su nombre de pila».
+- **El colegio como lugar no es edad**: «Setlist at Teatro del Colegio Santa Rosa de Lima» ya no lleva a
+  «no pudo nacer antes de 2005» (caso Gavidia).
+- **Error grave de la v10**: «Al Zeppy / Alberto Lewis» salió «distintos» por «apellidos distintos en las fichas».
+  Esta vez el modelo no citó el puente, aunque la página decía «Su nombre de pila es Alberto Lewis». Corrección,
+  que solo evita separar: si una página nombra las dos formas a menos de 250 caracteres y con una marca de alias,
+  «apellidos distintos» no cuenta como contradicción.
+
+| Conjunto | v8 | v11 |
+|---|---|---|
+| Difícil | 25/27 | 25/27 |
+| Validación | 27/30 | 27/30 |
+| Fresco 1–4 | 50/57 | 50/57 |
+| Fresco 5 | 25/30 | 26/30 |
+| Fresco 6 | 27/29 | 27/29 |
+| Fresco 7 | 24/26 | 25/26 |
+| Fresco 8 | 14/20 | 14/20 |
+| Fresco 9 | 8/9 | 8/9 |
+| Fresco 10 | 4/6 | 6/6 |
+| Fresco 11 | 4/5 | 4/5 |
+| Fresco 12 (intacto, nombres artísticos) | — | 4/4 |
+| **Total** | **208/239** | **216/243 (89 %)**, **0 errores graves** |
+
+Lección: la variación entre corridas (qué citas elige el modelo, qué páginas trae el buscador) puede destapar
+errores graves que una sola corrida no muestra. Las reglas que separan no deben depender de que el modelo cite el
+puente: miran también la página.
+
+**Decisión de Brian (2026-10-11): la meta se cierra en 18/20.** Se mantienen las dos protecciones: los pares «X» /
+«X Jr.» quedan en «no se sabe», y entre nombres idénticos (o iguales salvo una inicial) el proyecto común no basta
+para unir. El verificador queda como ayuda que solo propone para revisión manual: 0 errores graves, alrededor del
+88 % de casos decididos.
+
+### v12 (2026-10-11, tarde): en vivo
+
+Para ponerlo en marcha se ensayó sobre una copia restaurada del respaldo de la noche del 10: las migraciones
+0058–0062 entraron en 11 s, el doctor quedó en verde y la API respondió con el código actual. Sin ellas, cualquier
+reinicio de la API dejaba `/persons`, `/artists` y `/albums` en error 500. Con el visto bueno de Brian se aplicaron
+en la base de desarrollo y se reiniciaron crv-api y crv-web.
+
+El verificador corrió sin parches sobre esa copia, y fresco 12 destapó otro **error grave**: «Nano Grand / Octavio
+Palacios» salió «distintos» por «apellidos distintos en las fichas». En esa corrida no apareció la página con
+«conocido artísticamente como», pero otras decían «Voz: Octavio Palacios "Nano Grand"». Corrección, que solo evita
+separar: un puente explícito en cualquier página (el nombre real con el artístico entre comillas o paréntesis)
+también impide usar «apellidos distintos» como contradicción. Hay una prueba que falla sin la corrección (54
+pruebas del verificador).
+
+| Conjunto | v11 | v12 (copia migrada) |
+|---|---|---|
+| Difícil | 25/27 | 26/27 |
+| Validación | 27/30 | 28/30 |
+| Fresco 1–4 | 50/57 | 53/57 |
+| Fresco 5 | 26/30 | 27/30 |
+| Fresco 6 | 27/29 | 28/29 |
+| Fresco 7 | 25/26 | 24/26 |
+| Fresco 8 | 14/20 | 13/20 |
+| Fresco 9 | 8/9 | 8/9 |
+| Fresco 10 | 6/6 | 6/6 |
+| Fresco 11 | 4/5 | 4/5 |
+| Fresco 12 | 4/4 | 4/4 |
+| **Total** | **216/243** | **221/243 (91 %)**, **0 errores graves** |
+
+Los informes de esta corrida están en `reports/person-web-verification-v12-2026-10-11/`.

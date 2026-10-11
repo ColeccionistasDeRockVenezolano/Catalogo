@@ -1,0 +1,692 @@
+{
+  "date": "2026-10-11T15:50:31.470Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 9,
+    "correct": 8,
+    "errors": 0,
+    "same": "3/3",
+    "different": "0/0",
+    "mixed": "1/2",
+    "single": "4/4",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": true,
+  "cases": [
+    {
+      "name": "El Bobby / Tomás Martínez",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 8,
+      "seconds": 11,
+      "aiRunId": 21868,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://gladyspalmera.com/coleccion/disco/73009/",
+          "title": "Colección Gladys Palmera - \"El Pavo\" Frank Hernández está en lo bailable (Vol. III)",
+          "quote": "Voz: Tomás Martínez \"El Bobby\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_08vibracion.htm",
+          "title": "Federico y Su Combo Latino - Vibración y Ritmo (LP Info)",
+          "quote": "Musicians Director & Guiro: Federico Betancourt Vocals: Joe Ruiz, El Negrito Calavén & El Bobby",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/pavo_3bailable.htm",
+          "title": "El Pavo Frank Hernández - Está En Lo Bailable (LP Info)",
+          "quote": "Vocals: Tomás Martínez \"El Bobby\", Rafa Pérez & Williams Hernández.",
+          "supports": "same"
+        },
+        {
+          "url": "https://disco.market/discographies/artist/6433272-el-bobby/",
+          "title": "Исполнитель El Bobby - купить виниловые пластинки, cd-диски...",
+          "quote": "Venezuelan salsa singer, also appears as Tomás Martínez “El Bobby”.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://gladyspalmera.com/coleccion/disco/73009/",
+        "https://sincopa.com/jazz/cdinfo/pavo_3bailable.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_08vibracion.htm",
+        "https://gladyspalmera.com/coleccion/disco/32927/",
+        "https://disco.market/discographies/artist/6433272-el-bobby/",
+        "https://sincopa.com/jazz/cdinfo/pavo_5nuevosonido.htm",
+        "https://chumanceralatinjazz.blogspot.com/2010/10/frank-hernandez-el-pavo-frank-y-su.html",
+        "https://teachereddy.blogspot.com/2011/01/frank-el-pavo-hernandez-de-coleccion.html"
+      ]
+    },
+    {
+      "name": "Rojitas / José Antonio Rojas",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 7,
+      "sources": 11,
+      "seconds": 12,
+      "aiRunId": 21869,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://www.facebook.com/el.dejuliocesar/videos/el-03sept-de-1945-nace-jos%C3%A9-antonio-rojas-rojitas-en-san-jos%C3%A9-de-r%C3%ADo-chico-estad/1347182416770693/",
+          "title": "El #03sept de 1945, nace José Antonio Rojas (Rojitas) en San José de Río Chico, estado Miranda. Comenzó en la música a los 13 años, siendo parte de una agrupación que llevaba por nombre Orquesta Juventud . A los 16 años, se va a la ciudad de La Victoria, dónde ingresa a la Escuela de Bandas Militare",
+          "quote": "El #03sept de 1945, nace José Antonio Rojas (Rojitas) en San José de Río Chico, estado Miranda.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.facebook.com/el.dejuliocesar/videos/el-03sept-de-1945-nace-jos%C3%A9-antonio-rojas-rojitas-en-san-jos%C3%A9-de-r%C3%ADo-chico-estad/1347182416770693/",
+          "title": "El #03sept de 1945, nace José Antonio Rojas (Rojitas) en San José de Río Chico, estado Miranda. Comenzó en la música a los 13 años, siendo parte de una agrupación que llevaba por nombre Orquesta Juventud . A los 16 años, se va a la ciudad de La Victoria, dónde ingresa a la Escuela de Bandas Militare",
+          "quote": "siendo considerado uno de los mejores trombonistas en la historia de la salsa en Venezuela y un referente obligatorio para los amantes de este género musical.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_02salsaysabor.htm",
+          "title": "Federico y Su Combo Latino - Salsa y Sabor (LP Info)",
+          "quote": "Trombone: Arcas (Arcadio), Zanti & Rojitas",
+          "supports": "same"
+        },
+        {
+          "url": "https://gladyspalmera.com/coleccion/el-diario-de-gladys/federico-a-calzon-quitao/",
+          "title": "Federico a calzón quitao - Radio Gladys Palmera",
+          "quote": "El que distribuía y hacia la promoción era Rojitas, (José Antonio Rojas) mi trombonista que es el actual trombonista de la Dimensión Latina y yo me lo traje de El Clavo, de una procesión.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.instagram.com/reel/Dc18oMET2m_/",
+          "title": "Eltumbao Dejuliocesar | El #03sept de 1945, nace José Antonio ...",
+          "quote": "José Antonio Rojas, conocido como “Rojitas”, fue un destacado trombonista y director de orquesta venezolano, famoso por ser uno de los fundadores y trombonistas de la emblemática orquesta La Dimensión Latina.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1944013-Jos%C3%A9-Rojas",
+          "title": "José Rojas | Discography | Discogs",
+          "quote": "Variations: Viewing All | José Rojas \"Rojitas\", Jose A. Rojas, Jose Angel Rojas, Jose Antonio \"Rojita\" Rojas, Jose Antonio Rojas, Jose Rojas, José \"Rojitas\" Rojas, José A. Rojas, José Antonio ...",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1944013",
+          "title": "José Rojas | Discogs",
+          "quote": "José Antonio Rojas, nicknamed \"Rojitas\" is a Venezuela latin cumbia and salsa trombonist.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.facebook.com/el.dejuliocesar/videos/el-03sept-de-1945-nace-jos%C3%A9-antonio-rojas-rojitas-en-san-jos%C3%A9-de-r%C3%ADo-chico-estad/1347182416770693/",
+        "https://colectivomusicaldevenezuela.blogspot.com/2011_06_30_archive.html",
+        "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_02salsaysabor.htm",
+        "https://salsaaycontrol.blogspot.com/2014/03/federico-y-su-combo-latino.html",
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_13tremendadimension.htm",
+        "https://gladyspalmera.com/coleccion/el-diario-de-gladys/federico-a-calzon-quitao/",
+        "https://www.youtube.com/watch?v=q3u8anyerKI",
+        "https://www.discogs.com/artist/1944013-Jos%C3%A9-Rojas",
+        "https://www.instagram.com/reel/Dc18oMET2m_/",
+        "https://www.venezuelanprofiles.com/las-6-orquestas-mas-exitosas-de-venezuela/",
+        "https://www.discogs.com/artist/1944013"
+      ]
+    },
+    {
+      "name": "Leonardo «El Kmaron» Jaramillo / Leonardo Jaramillo",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 12,
+      "seconds": 10,
+      "aiRunId": 21870,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/okills_3americasupersonica.htm",
+          "title": "Okills - América Supersónica (CD Info)",
+          "quote": "Guitar: Leonardo \"El Kmaron\" Jaramillo & Carlos Jorge García.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/okills_3americasupersonica.htm",
+          "title": "Okills - América Supersónica (CD Info)",
+          "quote": "Executive Producers: Alberto Arcas, Kevin Yousef, Carlos Jorge García & Leonardo Jaramillo",
+          "supports": "same"
+        },
+        {
+          "url": "https://contrapunto.com/nacional/okills-anuncia-que-leonardo-jaramillo-ya-no-forma-parte-de-la-banda/",
+          "title": "Okills anuncia que Leonardo Jaramillo ya no forma parte de la banda | Contrapunto.com",
+          "quote": "su guitarrista , Leonardo Jaramillo, integrante de la misma desde el año 2010 ya no formará parte de la agrupación",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lavagacomunicaciones.com/post/viniloversus-est%C3%A1-de-vuelta-con-canci%C3%B3n-de-amor",
+          "title": "Viniloversus está de vuelta con “Canción de amor”",
+          "quote": "Leonardo Jaramillo y Alejandro Baptista, guitarra y batería de Okills",
+          "supports": "same"
+        },
+        {
+          "url": "https://tabs.ultimate-guitar.com/tab/okills/gritarte-chords-1573939",
+          "title": "GRITARTE CHORDS by Okills @ Ultimate-Guitar.Com",
+          "quote": "Los acordes los pasó Leonardo \"El Kmarón\" Jaramillo (Guitarrista de la banda) por twitter",
+          "supports": "same"
+        },
+        {
+          "url": "https://efectococuyo.com/la-humanidad/denuncias-y-reacciones-senalan-a-musicos-de-bandas-venezolanas-de-cometer-abuso-sexual/",
+          "title": "Denuncias y reacciones: señalan a músicos de bandas venezolanas de cometer abuso sexual – Efecto Cocuyo",
+          "quote": "el guitarrista de Okills, Leonardo Jaramillo, apodado “Kmarón”",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://efectococuyo.com/la-humanidad/denuncias-y-reacciones-senalan-a-musicos-de-bandas-venezolanas-de-cometer-abuso-sexual/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/okills_3americasupersonica.htm",
+        "https://songblog.io/es/latin/306719/america-supersonica/review/okills-regresara-a-casa-con-concierto",
+        "https://eugeniomiranda.blogspot.com/",
+        "https://sincopa.com/rock_pop/artist_rock/okills.htm",
+        "https://www.radiofeyalegrianoticias.com/artistas-crearon-movimiento-yo-te-creo-venezuela-en-apoyo-a-las-victimas-de-abuso/",
+        "https://contrapunto.com/nacional/okills-anuncia-que-leonardo-jaramillo-ya-no-forma-parte-de-la-banda/",
+        "https://www.lavagacomunicaciones.com/post/viniloversus-est%C3%A1-de-vuelta-con-canci%C3%B3n-de-amor",
+        "https://tabs.ultimate-guitar.com/tab/okills/gritarte-chords-1573939",
+        "https://www.gotamx.com/noticias/okillsllegaronparaquedarse",
+        "https://lrnzmrtnz.com/snvcls-live-ep006/",
+        "https://maduradas.com/asi-lo-dijo-una-disculpa-todas-las-mujeres-haya-ofendido-lastimado-actitudes-machistas-la-respuesta-del-guitarrista-la-banda-okills-senalado-presunto-acos/"
+      ]
+    },
+    {
+      "name": "Miguel Gonzáles 2704: + Rubén «El Enano» Castro (Almas)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 7,
+      "sources": 17,
+      "seconds": 38,
+      "aiRunId": 21871,
+      "rationale": "apellidos distintos en las fichas: Rubén \"El Enano\" Castro / Miguel Gonzáles Reparto propuesto: acreditado como Rubén \"El Enano\" Castro: Almas · Miguel Gonzáles: Caramelos De Cianuro, La Hermandad, Naxxo, Ultrachic, Almas, Necroprogenie.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/almas_1permiso.htm",
+          "title": "Almas - Permiso Para Despegar (CD Info)",
+          "quote": "Vocals & Guitar: Rubén \"El Enano\" Castro",
+          "supports": "same"
+        },
+        {
+          "url": "https://rumberos.net/almas-musica-para-amar-y-odiar/",
+          "title": "ALMAS, Música para amar y odiar… | Rumberos",
+          "quote": "Rubén el enano Castro, Frank Carmona, Rommer Yépez y Daniel Rey conforman está agrupación musical",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/caramelos_dcianuro.htm",
+          "title": "Caramelos de Cianuro - Bio & Discography",
+          "quote": "Guitars: Miguel Gonzáles \"El Enano\" (1991-2019)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/caramelos_1laspaticas.htm",
+          "title": "Caramelos de Cianuro - Las Paticas de la Abuela (EP Info)",
+          "quote": "Guitar & Backing Vocals: Miguel Gonzáles \"El Enano\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/3746706",
+          "title": "Miguel Gonzáles (5) | Discogs",
+          "quote": "Miguel Gonzáles (5). Variations: Enano. Credits: Guitar, Backing Vocals – Caramelos De Cianuro – Las Paticas De La Abuela (1992).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/caramelos_dcianuro.htm",
+          "title": "Caramelos de Cianuro - Bio & Discography",
+          "quote": "Ex Members: Guitars: Miguel Gonzáles \"El Enano\" (1991-2019)",
+          "supports": "different"
+        },
+        {
+          "url": "https://rumberos.net/almas-musica-para-amar-y-odiar/",
+          "title": "ALMAS, Música para amar y odiar… | Rumberos",
+          "quote": "ALMAS, Música para amar y odiar… Publicado por Rumberos | Feb 23, 2010 | Musica",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/caramelos_dcianuro.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/caramelos_7flordefuego.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/caramelos_1laspaticas.htm",
+        "https://filmora.wondershare.es/video-editing/wedding-luts-premiere-pro.html",
+        "https://cronica.uno/caramelos-de-cianuro-control-en-admiracion-mutua/",
+        "https://filmora.wondershare.es/terraria/best-build-of-terraria-summoner.html",
+        "https://www.diariocontraste.com/2016/11/caramelos-de-cianuro-crisis-en-venezuela-es-peor-de-lo-que-se-cree/",
+        "https://naxxo.bandcamp.com/track/colombian-trance",
+        "https://www.youtube.com/watch?v=0EDnetbiEwA",
+        "https://sincopa.com/rock_pop/cdinfo_rock/caramelos_5frisbee.htm",
+        "https://www.discogs.com/artist/3746706",
+        "https://sincopa.com/rock_pop/cdinfo_rock/almas_1permiso.htm",
+        "https://www.colegioarenasalmas.com/",
+        "https://arenasalmas.educamos.com/",
+        "https://inriinformacion.com/2025/12/16/miguel-gonzalez-de-la-bandera-no-toma-posesion-como-prioste-en-la-macarena/",
+        "https://rumberos.net/almas-musica-para-amar-y-odiar/",
+        "https://www.facebook.com/Disastercco/posts/el-talento-alternativo-en-aragua-existe-debemos-apoyarlo/474318055985878/"
+      ]
+    },
+    {
+      "name": "Francisco Gonzalez 9280: + raps de Pipo Ramírez",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 6,
+      "sources": 6,
+      "seconds": 37,
+      "aiRunId": 21874,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://www.metal-archives.com/artists/Pipo/481572",
+          "title": "Pipo - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Pipo Real/full name: Francisco Gonzalez Age: 38 (born Mar 5th, 1988) Place of birth: Venezuela (San Francisco, Zulia)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/artists/Pipo/481572",
+          "title": "Pipo - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Novarmada Guitars (lead) (2009-present)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/ethnic/cdinfo1/huba_encuentros.htm",
+          "title": "Huáscar Barradas & Maracaibo - Encuentros (CD Info)",
+          "quote": "Vocals, Raps & Background Vocals: Pipo & Leo (track 02)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/ethnic/cdinfo1/huba_myfavoritethings.htm",
+          "title": "Huáscar Barradas - My Favorite Things (CD Info)",
+          "quote": "Vocals, Raps & Background Vocals: Pipo & Leo (track 02)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.ecured.cu/Francisco_Gonz%C3%A1lez_Mart%C3%ADnez",
+          "title": "Francisco González Martínez - EcuRed",
+          "quote": "Francisco González Martínez. Boxeador nicaragüense, conocido en su época como el “Rey del Ring”.",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Francisco_Gonz%C3%A1lez_(m%C3%BAsico)",
+          "title": "Francisco González (músico) - Wikipedia, la enciclopedia libre",
+          "quote": "Francisco González (Santiago, 23 de septiembre de 1972) es un músico chileno.",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.metal-archives.com/artists/Pipo/481572",
+        "https://sincopa.com/ethnic/cdinfo1/huba_encuentros.htm",
+        "https://sincopa.com/ethnic/cdinfo1/huba_myfavoritethings.htm",
+        "https://www.ecured.cu/Francisco_Gonz%C3%A1lez_Mart%C3%ADnez",
+        "https://es.wikipedia.org/wiki/Francisco_Gonz%C3%A1lez_(m%C3%BAsico)",
+        "https://www.youtube.com/watch?v=NlT4Bn6TRH4"
+      ]
+    },
+    {
+      "name": "Francisco Belisario (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 11,
+      "sources": 13,
+      "seconds": 10,
+      "aiRunId": 21877,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://www.lobotoradio.com/artistas/francisco-belisario",
+          "title": "Francisco Belisario – Lobotoradio",
+          "quote": "nombre completo: Francisco Belisario",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/francisco-belisario",
+          "title": "Francisco Belisario – Lobotoradio",
+          "quote": "nacimiento: 1946-03-12 (Maracaibo, Zulia, Venezuela)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/francisco-belisario",
+          "title": "Francisco Belisario – Lobotoradio",
+          "quote": "fallecimiento: 2009-03-23 (Maracaibo, Zulia, Venezuela)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/francisco-belisario",
+          "title": "Francisco Belisario – Lobotoradio",
+          "quote": "alias: Francis-ko",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/francisco-belisario",
+          "title": "Francisco Belisario – Lobotoradio",
+          "quote": "bandas: Los Impala",
+          "supports": "same"
+        },
+        {
+          "url": "https://efemeridesynoticiasmusicales.blogspot.com/2014/03/francisco-belisario-un-12-de-marzo-nace.html",
+          "title": "NOTICIAS Y EFEMERIDES MUSICALES Y DEL CINE: FRANCISCO BELISARIO, UN 12 DE MARZO, NACE EL CANTANTE DE LOS IMPALA, EFEMÉRIDES MUSICALES, UN DÍA COMO HOY EN LA MÚSICA",
+          "quote": "FRANCISCO JOSÉ BELISARIO LEÓN, MAS CONOCIDO EN LA MÚSICA COMO FRANCISCO BELISARIO",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/f/francisco-belisario/",
+          "title": "Francisco Belisario - RHV Directorio F",
+          "quote": "Francisco Belisario formó parte de dos agrupaciones fundamentales dentro del panorama musical venezolano: Los Flippers y Los Impala.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1985604",
+          "title": "Francisco Belisario | Discogs",
+          "quote": "Born in Maracaibo (Zulia state). From an early age shows his inclinations and musical talent and is part of two fundamental groups within the Venezuelan music scene: The Flippers and The Impala; with these last ones it reaches the national and international success and participates in all the recordings realized by the band between 1963 and 1969.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1985604",
+          "title": "Francisco Belisario | Discogs",
+          "quote": "He died on March 23, 2009 at the Adolfo Pons hospital of respiratory failure.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/carlosmorean_4envivo.htm",
+          "title": "Carlos Moreán - En Vivo (CD Info)",
+          "quote": "Guitar & Backing Vocals: Pedro Vilela",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/ilanchester_3solofaltastu.htm",
+          "title": "Ilan Chester - Ilan Chester (Solo Faltas Tu) (LP Info)",
+          "quote": "Background Vocals: Guillermo Carrasco, Francisco Belisario, Isaías Urbina, Manolo Alvarez, Ron Marinelli",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/carlosmorean_4envivo.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/ilanchester_3solofaltastu.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/impala_01conozca.htm",
+        "https://rockhechovenezuela.com/f/category/pioneros/",
+        "https://www.lobotoradio.com/artistas/francisco-belisario",
+        "https://sincopa.com/traditional/cdinfo2/rosa_virginia_chacin/rovircha_65lavozmasdulce.htm",
+        "https://www.amazon.com/Ilan-Chester-Philips-Vinyl/dp/B00K10N574",
+        "https://efemeridesynoticiasmusicales.blogspot.com/2014/03/francisco-belisario-un-12-de-marzo-nace.html",
+        "https://rockhechovenezuela.com/f/francisco-belisario/",
+        "https://www.youtube.com/watch?v=S7PIIdOCSno",
+        "https://www.ecured.cu/Los_Impala",
+        "https://www.discogs.com/release/4785245-Los-Impala-Los-Impala",
+        "https://www.discogs.com/artist/1985604"
+      ]
+    },
+    {
+      "name": "José Antonio Rojas (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 8,
+      "sources": 13,
+      "seconds": 14,
+      "aiRunId": 21878,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Jos%C3%A9_Antonio_Rojas",
+          "title": "José Antonio Rojas - La Venciclopedia",
+          "quote": "José Antonio Rojas es un músico y trombonista venezolano nacido en San José de Río Chico, estado Miranda, el 3 de septiembre de 1945.",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Jos%C3%A9_Antonio_Rojas",
+          "title": "José Antonio Rojas - La Venciclopedia",
+          "quote": "José Antonio Rojas es un músico y trombonista venezolano nacido en San José de Río Chico, estado Miranda, el 3 de septiembre de 1945.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/jose-rojas",
+          "title": "José Rojas – Lobotoradio",
+          "quote": "José Antonio Rojas (Río Chico, 1945) es un trombonista venezolano miembro fundador de Dimensión Latina en 1972.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1944013",
+          "title": "José Rojas | Discogs",
+          "quote": "Real Name: José Antonio Rojas. Profile: José Antonio Rojas, nicknamed \"Rojitas\" is a Venezuela latin cumbia and salsa trombonist.",
+          "supports": "same"
+        },
+        {
+          "url": "https://salsaaycontrol.blogspot.com/2014/03/federico-y-su-combo-latino.html",
+          "title": "Salsa & Control: FEDERICO Y SU COMBO LATINO",
+          "quote": "\"El Negrito\" Calavén, José Antonio Rojas \"Rojita\" y César Monges \"Albóndiga\", entre otros.",
+          "supports": "same"
+        },
+        {
+          "url": "https://integrapanama.org/2025/07/22/jose-antonio-y-el-poder-de-creer-su-camino-con-el-metodo-tomatis/",
+          "title": "José Antonio y el poder de creer: su camino con el Método Tomatis – Integra Vidas",
+          "quote": "Cuando José Antonio Rojas nació, la vida le puso a prueba desde el primer respiro. Complicaciones al momento del parto, falta de oxígeno y una infección severa marcaron su inicio.",
+          "supports": "different"
+        },
+        {
+          "url": "https://integrapanama.org/2025/07/22/jose-antonio-y-el-poder-de-creer-su-camino-con-el-metodo-tomatis/",
+          "title": "José Antonio y el poder de creer: su camino con el Método Tomatis – Integra Vidas",
+          "quote": "Hoy, a sus 19 años, José Antonio tiene un rumbo claro: \"Mi meta es ser traductor. Me gusta mucho traducir del inglés al español\".",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.radioprogreso.icrt.cu/tag/revista-rp-105/",
+          "title": "revista RP 105 – Radio Progreso, la Onda de la Alegría",
+          "quote": "rendirán homenaje al centenario del natalicio del reconocido músico e ingeniero José Antonio Rojas, o sencillamente, Ñico Rojas.",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_03triunfadores.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_04enladimension.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_05dimension75.htm",
+        "https://www.venciclopedia.org/index.php?title=Jos%C3%A9_Antonio_Rojas",
+        "https://www.resolver.se/2024/03/dimension-latina-dos-anecdotarios-de-inicio/",
+        "https://integrapanama.org/2025/07/22/jose-antonio-y-el-poder-de-creer-su-camino-con-el-metodo-tomatis/",
+        "https://salsaaycontrol.blogspot.com/2014/03/federico-y-su-combo-latino.html",
+        "https://www.radioprogreso.icrt.cu/tag/revista-rp-105/",
+        "https://www.lobotoradio.com/artistas/jose-rojas",
+        "https://www.youtube.com/watch?v=q3u8anyerKI",
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_02dimensionlatina.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/dimension_latina/dimensionlatina_15dimensionlatina.htm",
+        "https://www.discogs.com/artist/1944013"
+      ]
+    },
+    {
+      "name": "Raúl Agraz (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 10,
+      "sources": 13,
+      "seconds": 11,
+      "aiRunId": 21880,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/musicians/trumpet/raul_agraz.htm",
+          "title": "Raúl Agraz - Bio & Discography",
+          "quote": "Raúl Agraz Born: Resides: Instruments: Genre: In Villa De Cura, Estado Aragua, Venezuela In New York Trumpet, Flugelhorn Jazz, Latin, World, Pop",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://sincopa.com/musicians/trumpet/raul_agraz.htm",
+          "title": "Raúl Agraz - Bio & Discography",
+          "quote": "Raúl Agraz Born: Resides: Instruments: Genre: In Villa De Cura, Estado Aragua, Venezuela In New York Trumpet, Flugelhorn Jazz, Latin, World, Pop",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/musicians/trumpet/raul_agraz.htm",
+          "title": "Raúl Agraz - Bio & Discography",
+          "quote": "2016 Between Brothers OA2 Records Appears On 1986 Canelita Medina La Experiencia y El Futuro (Trumpet) 1987 Oscar D' León De Venezuela Para El Mundo (Trumpet)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/yordano_5desol.htm",
+          "title": "Yordano - De Sol a Sol (CD Info)",
+          "quote": "Trumpet: Gustavo Aranguren, Raúl Agraz",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=LhNvNv_F5bQ",
+          "title": "Raul Agraz: Entrevista Exclusiva con Salsa Legends And... - YouTube",
+          "quote": "Raul Agraz con Pete Nater's Salsa Legends And Masters Academy SLAMANATER.com",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.analitica.com/entretenimiento/tricolor-presente-estos-son-los-venezolanos-que-compiten-en-el-grammy-latino-2016/",
+          "title": "Tricolor presente! Éstos son los venezolanos que... - Analitica.com",
+          "quote": "También Raúl Agraz, músico residenciado en Nueva York, compite este año con su producción «Between Brother» que disputa la categoría “Mejor Álbum de Jazz Latino”.",
+          "supports": "same"
+        },
+        {
+          "url": "https://salsa.today/es/artist/raul-agraz",
+          "title": "RAÚL AGRAZ - salsa.today",
+          "quote": "Raúl Agraz — discografía, créditos, biografía y contribuciones a la salsa en salsa.today.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/411671",
+          "title": "Raúl Agraz | Discogs",
+          "quote": "Profile: Venezuelan trumpeter, based in New York City",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/raul-agraz",
+          "title": "Raúl Agraz – Lobotoradio",
+          "quote": "aparece en De sol a sol 1992 Hay que vivir 1992 Vuelve Colina 1993",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://oscarcarrasquel.blogspot.com/2025/05/raul-agraz-canto-con-la-orquesta-billos.html",
+          "title": "MÁS LETRAS DE OSCAR CARRASQUEL: RAÚL AGRAZ CANTANTE DE ...",
+          "quote": "Raúl Agraz cuando alcanzaba los 19 años de edad, consiguió cantar varias veces acompañado de la orquesta Billos Caracas Boys, bajo la batuta del maestro Luis María Frómeta, Su actuación en un baile cantando con la orquesta \"Sensación” en Ocumare",
+          "supports": "mixed"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/banmomo_america.htm",
+        "https://sincopa.com/jazz/cdinfo/alibello_1connectccsny.htm",
+        "https://sincopa.com/jazz/cdinfo/bidco_jazblues.htm",
+        "https://sincopa.com/musicians/trumpet/raul_agraz.htm",
+        "https://www.lobotoradio.com/artistas/raul-agraz",
+        "https://duckduckgo.com/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/yordano_5desol.htm",
+        "https://duckduckgo.com/app",
+        "https://www.youtube.com/watch?v=LhNvNv_F5bQ",
+        "https://www.analitica.com/entretenimiento/tricolor-presente-estos-son-los-venezolanos-que-compiten-en-el-grammy-latino-2016/",
+        "https://salsa.today/es/artist/raul-agraz",
+        "https://oscarcarrasquel.blogspot.com/2025/05/raul-agraz-canto-con-la-orquesta-billos.html",
+        "https://www.discogs.com/artist/411671"
+      ]
+    },
+    {
+      "name": "Iker Gastaminza (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 7,
+      "sources": 12,
+      "seconds": 13,
+      "aiRunId": 21881,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://www.lobotoradio.com/artistas/iker-gastaminza",
+          "title": "Iker Gastaminza – Lobotoradio",
+          "quote": "aparece en Pesadilla sin final 1981 PP'S 1981 En reclamación 1983 Seducción subliminal 1984 Tempano 1987 La respuesta 1987 El Tercer Lado 1989 Después del frío 1991",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/920285",
+          "title": "Iker Gastaminza | Discogs",
+          "quote": "Iker Gastaminza. Profile: Venezuelan Grammy Award Winner, Mixer, Producer, Songwriter. Owner and engineer at Ike's Garage, Miami, Florida Studio.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/920285",
+          "title": "Iker Gastaminza | Discogs",
+          "quote": "Electric Piano, Keyboards – Témpano – Pesadilla Sin Final (1981); Drum – Pecos Kanvas – Con El Permiso De Mi Sentimiento (1985); Synthesizer – Pecos Kanvas – Con El Permiso De Mi Sentimiento (1985).",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/T%C3%A9mpano_(banda)",
+          "title": "Témpano (banda) - Wikipedia, la enciclopedia libre",
+          "quote": "Para 1980, Témpano está formado por Ubieda, Castillo, Echevarreneta e Iker Gastaminza como teclista.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/kiara_2buscando.htm",
+          "title": "Kiara - Buscando Pelea (LP Info)",
+          "quote": "Keyboards & Programming: Iker Gastaminza",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/oscar_d_leon/oscardleon_2006fuzionando.htm",
+          "title": "Oscar D' León - Fuzionando (CD Info)",
+          "quote": "Mixed by Iker Gastaminza, Javier Garza, Rodolfo Castillo & Ronnie Torres",
+          "supports": "same"
+        },
+        {
+          "url": "https://ccsblogrock.blogspot.com/",
+          "title": "CARACAS BLOGROCK",
+          "quote": "El nuevo trabajo de Malanga se titula 'Aunque mueran las flores' y ha contado con Iker Gastaminza, ingeniero de sonido de Shakira, como productor.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/oscar_d_leon/oscardleon_2006fuzionando.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/pecos_kanvas/pecoskanvas_85conelpermisod.htm",
+        "https://sincopa.com/rock_pop/artist_rock/tempano.htm",
+        "https://www.lobotoradio.com/artistas/iker-gastaminza",
+        "https://www.lobotoradio.com/bandas/pps",
+        "https://sincopa.com/rock_pop/cdinfo_rock/kiara_2buscando.htm",
+        "https://es.wikipedia.org/wiki/T%C3%A9mpano_(banda)",
+        "https://www.tiktok.com/@salonfamarockvzla/video/7377801880119856390",
+        "https://recordando.mforos.com/1596714/11038272-pp-s/",
+        "https://ccsblogrock.blogspot.com/",
+        "https://www.discogs.com/release/5500096-Kiara-Buscando-Pelea",
+        "https://www.discogs.com/artist/920285"
+      ]
+    }
+  ]
+}

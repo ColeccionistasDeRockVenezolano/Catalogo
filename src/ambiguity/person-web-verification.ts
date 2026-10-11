@@ -1,3 +1,4 @@
+import { dateYear } from "../catalog/date-value.js";
 import { moduleLogger } from "../logger/index.js";
 import { createHash } from "node:crypto";
 import { z } from "zod";
@@ -156,7 +157,21 @@ export function givenCompatible(name: string, fichaName: string): boolean {
   if (!mine.length || !theirs.length || nameTokens(name).length < 2) return true;
   // «Romero Bello»: empieza por un apellido de la ficha, no trae nombre de pila que comparar.
   if (nameTokens(fichaName).slice(1).includes(nameTokens(name)[0]!)) return true;
-  return theirs.some((token) => mine.some((other) => sameGiven(token, other)));
+  return theirs.some((token) => mine.some((other) => sameGiven(token, other))) && !middleClash(name, fichaName);
+}
+
+/** Palabras del nombre con iniciales y «Jr.»/«hijo», sin apodos entre comillas ni partículas. */
+function rawTokens(name: string): string[] {
+  return normalize(name.replace(/["“”«»][^"“”«»]*["“”«»]/gu, " ")).split(/[^\p{L}]+/u).filter((token) => token && !PARTICLES.has(token));
+}
+
+/** Segundo nombre o inicial que no casan: el poeta Pedro Francisco Lizardo no es «Pedro V. Lizardo», su hijo. */
+function middleClash(x: string, y: string): boolean {
+  const [a, b] = [rawTokens(x), rawTokens(y)];
+  if (a.length < 3 || b.length < 3) return false;
+  // Si el segundo de uno es un apellido del otro («Mauricio Castro Rodríguez» / «Mauricio Castro»), no es un segundo nombre.
+  if (b.includes(a[1]!) || a.includes(b[1]!)) return false;
+  return a[1]![0] !== b[1]![0];
 }
 
 /**
@@ -178,9 +193,11 @@ export function namesakeFamily(quote: string, names: readonly string[]): boolean
 export function namesakeRelative(quote: string, names: readonly string[]): string | null {
   const tokens = plain(quote).trim().split(" ");
   const surnames = new Set(names.map((name) => nameTokens(name).at(-1)).filter((token): token is string => Boolean(token)));
+  // La mención empieza por un nombre de pila: «di marzo» de «Brother of Evio Di Marzo» no es un tocayo de Giordano.
+  const rest = new Set(names.flatMap((name) => nameTokens(name).slice(1)));
   // Hasta tres palabras antes del apellido pueden ser el nombre («arpa player Joseito Romero» → joseito romero).
   const window = (at: number) => [2, 3, 4].map((size) => at + 1 >= size ? tokens.slice(at + 1 - size, at + 1) : [])
-    .find((part) => part.length && !part.slice(0, -1).some((token) => surnames.has(token))
+    .find((part) => part.length && !PARTICLES.has(part[0]!) && !rest.has(part[0]!) && !part.slice(0, -1).some((token) => surnames.has(token))
       && names.some((name) => givenCompatible(part.join(" "), name)));
   const mentions = tokens.flatMap((token, at) => surnames.has(token) && window(at) ? [at] : []);
   if (mentions.length < 2) return null;
@@ -191,7 +208,16 @@ export function namesakeRelative(quote: string, names: readonly string[]): strin
     const before = POSSESSIVE.has(tokens[at - 1] ?? "") ? mentions.find((mention) => mention < at - 1 && at - 1 - mention <= 2) : undefined;
     const relative = after ?? before;
     if (relative === undefined) continue;
-    const others = new Set(mentions.filter((mention) => mention !== relative).flatMap((mention) => window(mention) ?? []));
+    // «su hijo menor Reynaldo Goitia, mejor conocido como Boston Rex»: unidas por una marca de alias, las dos
+    // menciones son la misma persona, no dos parientes; y también cualquier otra mención con esos nombres (el título
+    // «La eterna vigencia de Boston Rex»).
+    const label = (mention: number) => (window(mention) ?? []).join(" ");
+    const joined = mentions.filter((mention) => mention !== relative
+      && ALIAS_MARKER.test(tokens.slice(Math.min(mention, relative) + 1, Math.max(mention, relative) + 1).join(" ")));
+    const self = new Set(joined.map(label));
+    const separate = mentions.filter((mention) => mention !== relative && !joined.includes(mention) && !self.has(label(mention)));
+    if (!separate.length) continue;
+    const others = new Set(separate.flatMap((mention) => window(mention) ?? []));
     return (window(relative) ?? []).slice(0, -1).filter((token) => !others.has(token) && token !== tokens[at]).join(" ");
   }
   return null;
@@ -310,7 +336,9 @@ export function findLinks(pages: readonly WebPage[], forms: readonly string[], t
   const links: PageLink[] = [];
   const hit = (window: string, list: readonly string[]) => list.some((term) => window.includes(` ${term} `));
   for (const page of pages) {
-    const text = plain(page.content);
+    // El apodo entre comillas no tapa el nombre: «Guillermo "Willy" Noya» también nombra a «Guillermo Noya».
+    const bare = normalize(page.content).replace(/"[^"]{1,25}"/gu, " ");
+    const text = bare === normalize(page.content) ? plain(page.content) : `${plain(page.content)}${plain(bare)}`;
     // En Sincopa y similares el título es «Artista - Disco»: la página entera es de ese proyecto.
     const title = plain(page.title);
     let found: PageLink | null = null;
@@ -340,7 +368,8 @@ function earliestBirth(item: CheckedEvidence): number | null {
   // Edad, no duración: «con 15 años», «a los 15 años», «15 years old», «at age 15»; no «lasted 21 years» ni «durante 20 años».
   const age = Number((/\b(?:con|a los|de|tenia|tenian|cumplidos) ([5-9]|[1-3]\d) anos\b/u.exec(quote)
     ?? /\b([5-9]|[1-3]\d) (?:years? old|anos de edad)\b/u.exec(quote) ?? /\bat (?:the )?age (?:of )?([5-9]|[1-3]\d)\b/u.exec(quote))?.[1]) || null;
-  if (!age && !SCHOOL.test(quote)) return null;
+  // El colegio como lugar no es edad: «Setlist at Teatro del Colegio Santa Rosa de Lima» (un concierto de 2024).
+  if (!age && !SCHOOL.test(quote.replace(SCHOOL_VENUE, " "))) return null;
   const inQuote = item.quote.match(/\b(19[3-9]\d|20[0-4]\d)\b/u)?.[0];
   const stated = item.item.year && item.quote.includes(String(item.item.year)) ? item.item.year : null;
   const inPage = `${item.page.title} ${item.page.url}`.match(/\b(19[3-9]\d|20[0-4]\d)\b/u)?.[0];
@@ -349,6 +378,7 @@ function earliestBirth(item: CheckedEvidence): number | null {
   return age ? year - age - 1 : year - 19;
 }
 
+const SCHOOL_VENUE = /\b(?:teatro|auditorio|aula magna|anfiteatro|gimnasio|cancha|capilla|salon|sala|patio)(?: [\p{L}]+)? (?:del|de la|de los) (?:colegio|liceo|escuela)\b/gu;
 const STRONG_SCHOOL = /\b(colegial|colegiales|intercolegial|banda del colegio|banda escolar|estudiantes de bachillerato|liceistas|high school band)\b/u;
 
 /**
@@ -393,16 +423,25 @@ function contradiction(evidence: CheckedEvidence[], context: SamePolicyContext, 
     const early = birth ? years[other].filter((credit) => credit < birth + MIN_ACTIVE_AGE) : [];
     if (birth && early.length) return `${names[side]} nació en ${birth} según su ficha y la otra tiene créditos de ${Math.min(...early)}`;
   }
-  // Solo una lleva «Hijo» o «Jr.» y una misma frase nombra a los dos por separado («Vocals: Hernán Gamboa y Hernán
-  // Gamboa Jr.»): la fuente distingue a dos personas. Sin marca de alias («Jr., conocido como…» sería el mismo).
-  if (generation(names.a) !== generation(names.b)) {
-    const sentences = [...evidence.map((item) => item.quote),
-      ...pages.filter((page) => !DISCOGS_PAGE.test(page.url)).flatMap((page) => page.content.split(/(?<=[.;!?])\s+|\n+/u))];
-    const both = sentences.find((sentence) => sentence.length <= 400 && !ALIAS_MARKER.test(plain(sentence)) && namesBoth(sentence, names.a, names.b));
-    if (both) return `una misma frase nombra por separado a ${names.a} y a ${names.b}: «${both.trim()}»`;
+  // Solo una lleva «Hijo» o «Jr.» y una misma frase enumera a los dos («Vocals: Hernán Gamboa y Hernán Gamboa Jr.»):
+  // la fuente distingue a dos personas. Nombrarlo dos veces no basta («"Pedro Junco"… por su autor, Pedro Junco Jr.»
+  // es uno), ni con marca de alias («Jr., conocido como…»).
+  // Lo mismo con el apellido igual y nombres de pila que no casan («Édgar Lamberti (voz) y Gabriel Lamberti»,
+  // «Yordano y su hermano Evio Di Marzo»): dos nombres de pila nombrados por separado son dos personas. Sin esa frase
+  // no se separa: «Nene Quintero» y «Carlos Quintero» son uno.
+  const givenClash = [names.a, names.b].every((name) => nameTokens(name).length >= 2)
+    && !givenCompatible(names.a, names.b) && !givenCompatible(names.b, names.a);
+  if (generation(names.a) !== generation(names.b) || (givenClash && !pseudonym)) {
+    // Discogs tampoco aquí: su «Variations: … Pedro Junco, Pedro Junco Jr.» lista formas de un mismo artista.
+    const sentences = [...evidence.filter((item) => !DISCOGS_PAGE.test(item.url)).map((item) => item.quote),
+      ...pages.filter((page) => !DISCOGS_PAGE.test(page.url)).flatMap((page) => page.content.split(SENTENCE_BREAK))];
+    const both = sentences.find((sentence) => sentence.length <= 400 && !ALIAS_MARKER.test(plain(sentence)) && listedTogether(sentence, names.a, names.b));
+    if (both) return `una misma frase enumera a ${names.a} y a ${names.b}: «${both.trim()}»`;
   }
   // Con una cita de seudónimo («Emidio Falconi a.k.a Baffa») los apellidos distintos son lo esperable.
-  if (!pseudonym && incompatibleNames(names.a, names.b)) return `apellidos distintos en las fichas: ${names.a} / ${names.b}`;
+  // Tampoco si una página nombra las dos formas cerca y con una marca de alias («Al Zeppy … Su nombre de pila es Alberto
+  // Lewis»): aunque el modelo no lo cite como puente, la página no permite separarlas. Esto solo evita separar.
+  if (!pseudonym && incompatibleNames(names.a, names.b) && !nearAlias(pages, [names.a, names.b])) return `apellidos distintos en las fichas: ${names.a} / ${names.b}`;
   const surname = (name: string) => nameTokens(name).at(-1) ?? "";
   const family = evidence.find((item) => namesakeFamily(withSubject(item), [names.a, names.b]) && about(item, projects.a) && about(item, projects.b)
     && [names.a, names.b].some((name) => nameTokens(item.quote).includes(surname(name))));
@@ -461,12 +500,15 @@ function nameTokens(name: string): string[] {
 /** Prefijos de escena que no son parte del nombre: «Dj Baffa» es «Baffa» en «Emidio Falconi a.k.a Baffa». */
 const STAGE_PREFIX = new Set(["dj", "mc", "dr", "lil"]);
 /** Marca de seudónimo en una cita: «a.k.a», «conocida por el nombre artístico», «Real Name:». */
-const ALIAS_MARKER = /\b(a\s?k\s?a|aka|alias|conocid[oa]s? (como|por)|known as|nombre artistico|nombre real|real name|seudonimo|pseudonym|stage name|apodad[oa]|bajo el nombre)\b/u;
+const ALIAS_MARKER = /\b(a\s?k\s?a|aka|alias|conocid[oa]s?( \p{L}+)? (como|por)|known as|nombre artistico|nombre real|real name|seudonimo|pseudonym|stage name|apodad[oa]|apodo|sobrenombre|nickname|bajo el nombre|nombre completo|full name|birth name|nacid[oa] como|born as|verdadero nombre|nombre de pila|nombre de nacimiento|nombre de bautizo|credited as|acreditad[oa] como)\b/u;
 
 /** «Hijo», «Jr.», «Junior», «II»: la fuente distingue a dos generaciones con ese nombre. */
 const GENERATION = /\b(jr|hijo|hija|junior|ii|iii|sr|padre)\b/u;
+/** «Jr.», «hijo» y «junior» son la misma marca (y «Sr.» y «padre»): «Adelso Paz Jr.» y «Adelso Paz hijo» no son dos generaciones. */
+const SAME_GENERATION: Record<string, string> = { hijo: "jr", hija: "jr", junior: "jr", padre: "sr" };
 function generation(name: string): string | null {
-  return GENERATION.exec(plain(name))?.[1] ?? null;
+  const mark = GENERATION.exec(plain(name))?.[1];
+  return mark ? SAME_GENERATION[mark] ?? mark : null;
 }
 
 /** Los dos nombres, cada uno por su lado: «Juan Vicente Torrealba hijo» no nombra también al padre. */
@@ -483,6 +525,120 @@ function aliasBridge(quote: string, names: [string, string]): boolean {
   const [a, b] = names.map((name) => nameTokens(name).filter((token) => !STAGE_PREFIX.has(token))) as [string[], string[]];
   const distinct = [...a.filter((token) => !b.includes(token)), ...b.filter((token) => !a.includes(token))];
   return distinct.length > 0 && [...a, ...b].every((token) => words.has(token));
+}
+
+/** Las palabras de un nombre como patrón que tolera puntuación entre ellas («Luis Eduardo Blanco», «Pedro Junco Jr.»). */
+function namePattern(name: string, keepGeneration = false): string {
+  const tokens = keepGeneration ? normalize(name).replace(/"[^"]*"/gu, " ").split(/[^\p{L}]+/u).filter((token) => token && !["de", "del", "la", "los", "da", "di", "y"].includes(token))
+    : nameTokens(name).filter((token) => !STAGE_PREFIX.has(token));
+  // En una lista la inicial vale por el nombre: «Juan V. Torrealba» es «Juan Vicente Torrealba».
+  return tokens.map((token) => keepGeneration && token.length === 1 ? `${token}\\p{L}*` : token).join("[^\\p{L}]+");
+}
+
+/**
+ * Puente explícito entre las dos formas: «Luis Eduardo Blanco (Negrito Man)», «Luis Eduardo Blanco "Negrito Man"»,
+ * «Ilan Chéster (nacido Ilan Czenstochouski Schechter)», el apodo entre nombre y apellido («Mauricio "Maurimix"
+ * Arcas») o la aposición «Moira Elisa Martínez Álvarez: Mayra Martí» (los dos nombres enteros a los lados de los
+ * dos puntos). Una lista de integrantes («Édgar Lamberti (voz) y Gabriel Lamberti (Pepo)») no lo es.
+ */
+function bracketBridge(quote: string, names: [string, string]): boolean {
+  const text = normalize(quote);
+  const intro = "(?:(?:nacid[oa]|born|nee|alias|aka|a\\.k\\.a\\.?)\\s+)?";
+  for (const [x, y] of [[names[0], names[1]], [names[1], names[0]]] as const) {
+    const fx = namePattern(x); const fy = namePattern(y);
+    if (!fx || !fy) continue;
+    if (new RegExp(`\\b${fx}\\s*,?\\s*[("]\\s*${intro}${fy}\\s*[)"]`, "u").test(text)) return true;
+    // Aposición «Nombre real: Nombre artístico» («cantante Moira Elisa Martínez Álvarez: Mayra Martí, nació…»).
+    if (new RegExp(`\\b${fx}\\s*:\\s*${fy}\\b(?!\\s*:)`, "u").test(text)) return true;
+    const tokens = nameTokens(x).filter((token) => !STAGE_PREFIX.has(token));
+    // El apodo entre nombre y apellido es el otro nombre entero («Mauricio "Maurimix" Arcas») o lo que el otro
+    // tiene de más («Carlos "Nené" Quintero» frente a «Nene Quintero»).
+    const others = nameTokens(y).filter((token) => !STAGE_PREFIX.has(token));
+    const extra = others.filter((token) => !tokens.includes(token));
+    // El apodo tal cual se escribe, con sus letras sueltas («Jesús "G-zaz" Romero»: nameTokens deja solo «zaz»).
+    const raw = normalize(y).replace(/["'()]/gu, " ").split(/[^\p{L}\p{N}]+/u).filter(Boolean).join("[^\\p{L}]*");
+    const nick = `(?:${[fy, raw, ...(extra.length && extra.length < others.length ? [extra.join("[^\\p{L}]+")] : [])].filter(Boolean).join("|")})`;
+    if (tokens.length >= 2 && new RegExp(`\\b${tokens[0]}\\s*[("]\\s*${nick}\\s*[)"]\\s*${tokens.slice(1).join("[^\\p{L}]+")}\\b`, "u").test(text)) return true;
+  }
+  return false;
+}
+
+/**
+ * La página trata de una de las dos («Ilan Chéster – Lobotoradio») y la cita da la otra justo tras una marca de
+ * alias («nombre completo: Ilan Czenstochouski Schechter»): la ficha de la página es el puente.
+ */
+function titledBridge(quote: string, title: string, names: [string, string]): boolean {
+  const head = plain(title.split(/\s[|–—-]\s|:/u)[0] ?? "");
+  const parts = title.split(/\s[|–—-]\s|:/u).map((part) => plain(part));
+  return [[names[0], names[1]], [names[1], names[0]]].some(([x, y]) => {
+    const fx = namePattern(x!); const fy = namePattern(y!);
+    if (!fx || !fy) return false;
+    // La página es de X: su título es X («Ilan Chester – Lobotoradio», «Barraezo: Al Zeppy») o la nota lo nombra
+    // («Murió el cantante Al Zeppy a los 80 años»).
+    const titled = new RegExp(`^ ${fx} $`, "u").test(head) || parts.some((part) => new RegExp(`^ ${fx} $`, "u").test(part))
+      || new RegExp(` ${fx} `, "u").test(plain(title));
+    // «nombre real: Y», «su nombre de pila es Y» o «Y, su nombre de pila».
+    const q = plain(quote);
+    return titled && (new RegExp(`${ALIAS_MARKER.source}(?: (?:es|era|fue))?[^\\p{L}]{0,3}${fy}\\b`, "u").test(q)
+      || new RegExp(`\\b${fy} (?:(?:su|cuyo|como) )?${ALIAS_MARKER.source}`, "u").test(q));
+  });
+}
+
+/**
+ * Una página nombra las dos formas a menos de 250 caracteres con una marca de alias entre ellas o a su lado, o las une
+ * con un puente explícito («Voz: Octavio Palacios "Nano Grand"»).
+ */
+function nearAlias(pages: readonly WebPage[], names: [string, string]): boolean {
+  const [fx, fy] = names.map((name) => namePattern(name));
+  if (!fx || !fy) return false;
+  if (pages.some((page) => bracketBridge(page.content, names))) return true;
+  const pattern = new RegExp(`\\b(?:${fx}\\b.{0,250}?\\b${fy}|${fy}\\b.{0,250}?\\b${fx})\\b`, "gu");
+  return pages.some((page) => [...plain(page.content).matchAll(pattern)].some((hit) => {
+    const at = hit.index ?? 0;
+    return ALIAS_MARKER.test(plain(page.content).slice(Math.max(0, at - 60), at + hit[0].length + 60));
+  }));
+}
+
+/** Cita de seudónimo: las palabras de los dos nombres y una marca de alias o un puente explícito. */
+function pseudonymBridge(quote: string, names: [string, string], title = ""): boolean {
+  return (aliasBridge(quote, names) && (ALIAS_MARKER.test(plain(quote)) || bracketBridge(quote, names))) || titledBridge(quote, title, names);
+}
+
+/**
+ * Dos personas nombradas por separado en una misma frase. Entre una mención y la otra hay una enumeración
+ * («Hernán Gamboa y Hernán Gamboa Jr.»), un parentesco («Ricardo Montaner Jr., Héctor…, los hijos del cantante
+ * Ricardo Montaner») o una etiqueta de crédito («Cuatro: Adelso Paz Maracas: Adelso Paz Jr.»). El nombre sin «Jr.»
+ * no cuenta dentro del que lo lleva, y nombrar dos veces al mismo autor tampoco («"Pedro Junco"… por su autor,
+ * Pedro Junco Jr.»).
+ */
+// Fin de frase, salvo el punto de una inicial («Juan V. Torrealba», «Douglas T. Mardonio»).
+const SENTENCE_BREAK = /(?<=[;!?]|(?<!(?:^|[^\p{L}])\p{L})\.)\s+|\n+/u;
+const KINSHIP = /\b(hij[oa]s?|padre|madre|papa|herman[oa]s?|father|mother|sons?|daughters?|brothers?|sisters?|niet[oa]s?|sobrin[oa]s?)\b/u;
+/**
+ * Entre los dos nombres solo hay una enumeración: un separador («, », « y », « & ») o más nombres cortos separados
+ * igual («Juan Vicente Torrealba, Douglas T. Mardonio Tortolero, Henry Rubio & Juan Vicente Torrealba Jr.»).
+ */
+function listGap(gap: string): boolean {
+  if (/^\s*(?:,|&|y|and|e|con|with)\s*$/u.test(gap)) return true;
+  const parts = gap.split(/\s*(?:,|&|;|\s(?:y|and|e)\s)\s*/u);
+  return parts.length >= 3 && !parts[0]!.trim() && !parts.at(-1)!.trim()
+    && parts.slice(1, -1).every((part) => /^\p{L}[\p{L}.'’-]*(?:\s+\p{L}[\p{L}.'’-]*){0,4}$/u.test(part.trim()));
+}
+
+function listedTogether(sentence: string, a: string, b: string): boolean {
+  const text = normalize(sentence);
+  const bare = "(?![^\\p{L}]*(?:jr|jnr|hijo|junior)\\b)";
+  return [[a, b], [b, a]].some(([x, y]) => {
+    const second = new RegExp(`^(.{0,160}?)\\b${namePattern(y!, true)}\\b${bare}`, "u");
+    for (const hit of text.matchAll(new RegExp(`\\b${namePattern(x!, true)}\\b${bare}`, "gu"))) {
+      const raw = second.exec(text.slice(hit.index + hit[0].length))?.[1];
+      if (raw === undefined || ALIAS_MARKER.test(plain(raw))) continue;
+      // El papel entre paréntesis no corta la enumeración («Édgar Lamberti (voz) y Gabriel Lamberti»).
+      const gap = raw.replace(/\([^()"]{1,30}\)/gu, " ");
+      if (listGap(gap) || KINSHIP.test(plain(gap)) || /\p{L}\s*:\s*$/u.test(gap)) return true;
+    }
+    return false;
+  });
 }
 
 /**
@@ -516,14 +672,26 @@ export function validateWebVerdict(proposal: WebVerdict, pages: WebPage[], conte
   // Solo una lleva «Hijo» o «Jr.»: el nombre ya dice que hay dos generaciones. No se fusiona (tampoco basta para
   // separar: «Emilio Estefan Jr.» y «Emilio Estefan» son el mismo).
   const generations = generation(context.names[0]) !== generation(context.names[1]);
-  const compatible = !incompatibleNames(context.names[0], context.names[1]) && !generations;
+  // Un nombre artístico de una palabra que no comparte nada con el nombre completo («Nilz» / «Jarzen Arcia»): no hay
+  // nada que comparar, así que no cuenta como compatible; solo una cita de seudónimo los une.
+  const ownTokens = context.names.map((name) => nameTokens(name).filter((token) => !STAGE_PREFIX.has(token)));
+  const vacuous = Math.min(ownTokens[0]!.length, ownTokens[1]!.length) === 1 && Math.max(ownTokens[0]!.length, ownTokens[1]!.length) >= 2
+    && !ownTokens[0]!.some((x) => ownTokens[1]!.some((y) => sameGiven(x, y)));
+  const compatible = !incompatibleNames(context.names[0], context.names[1]) && !generations && !vacuous;
+  // Mismo apellido y nombres de pila que no casan («Edgar Lamberti» / «Gabriel "Pepo" Lamberti»): una lista de
+  // integrantes los nombra a los dos con la banda. Ni esa cita ni el proyecto común prueban que sean uno; solo una
+  // cita que una las dos formas («Carlos "Nené" Quintero»).
+  const givenClash = context.names.every((name) => nameTokens(name).length >= 2)
+    && !givenCompatible(context.names[0], context.names[1]) && !givenCompatible(context.names[1], context.names[0]);
   // Nombre artístico y nombre real: los apellidos no casan, pero una cita dice que es el mismo con una marca de alias.
-  const pseudonym = !compatible && !generations ? checked.find((item) => ALIAS_MARKER.test(plain(item.quote)) && aliasBridge(item.quote, context.names)) : undefined;
+  const pseudonym = !compatible && !generations ? checked.find((item) => pseudonymBridge(item.quote, context.names, item.page.title)) : undefined;
   const sites = new Set([...linkA, ...linkB].map((link) => siteKey(link.url)).concat(checked.map((item) => siteKey(item.url))));
 
   // Misma persona.
   let same: string | null = null;
-  if (pseudonym && !context.eraConflict && !family && (hasA || hasB)) same = "Una fuente documenta que un nombre es seudónimo del otro.";
+  // La cita del seudónimo con el proyecto común («Giordano Di Marzo conocido como Yordano en Sietecuero») basta como liga.
+  const pseudonymProject = Boolean(pseudonym) && mentionsAny(`${pseudonym!.quote} ${pseudonym!.page.content}`, context.sharedProjects);
+  if (pseudonym && !context.eraConflict && !family && (hasA || hasB || pseudonymProject)) same = "Una fuente documenta que un nombre es seudónimo del otro.";
   if (compatible && !context.eraConflict && !family) {
     const directCommonProject = !sameName && checked.some((item) => context.sharedProjects.some((project) => {
       const quote = normalize(item.quote);
@@ -531,23 +699,31 @@ export function validateWebVerdict(proposal: WebVerdict, pages: WebPage[], conte
     }));
     const cross = sameName ? [] : [...findLinks(pages, formsB.filter((form) => !formsA.includes(form)), termsA.filter((term) => !termsB.includes(term))),
       ...findLinks(pages, formsA.filter((form) => !formsB.includes(form)), termsB.filter((term) => !termsA.includes(term)))];
-    const alias = !sameName && checked.find((item) => aliasBridge(item.quote, context.names));
+    // Con nombres de pila que no casan solo vale un puente explícito; si lo hay, el veto se levanta para lo demás
+    // («Moira Elisa Martínez Álvarez: Mayra Martí» y la web liga «Gogoteca» con una de las dos formas).
+    const bridge = givenClash ? checked.find((item) => pseudonymBridge(item.quote, context.names, item.page.title)) : undefined;
+    const clash = givenClash && !bridge;
+    const alias = !sameName && (givenClash ? bridge : checked.find((item) => aliasBridge(item.quote, context.names)));
     // Discogs junta homónimos en un mismo artista («Francisco González» ingeniero y guitarrista de Recoveco):
     // con el mismo nombre, que Discogs liste los dos proyectos no prueba nada.
     const bothProjects = findLinks(pages.filter((page) => !DISCOGS_PAGE.test(page.url)), [...new Set([...formsA, ...formsB])], termsA.filter((term) => !termsB.includes(term)),
       termsB.filter((term) => !termsA.includes(term)));
     const shared = context.sharedProjects.map((project) => plain(project).trim());
     const sharedLink = sameName || !shared.length ? [] : findLinks(pages, [...new Set([...formsA, ...formsB])], shared);
-    if (directCommonProject) same = "una cita une los dos nombres y el proyecto común";
-    else if (sharedLink.length) same = "Los nombres son compatibles y una fuente confirma el proyecto común.";
-    else if (cross.length) same = "Una fuente vincula una forma del nombre con un proyecto de la otra ficha.";
+    if (directCommonProject && !clash) same = "una cita une los dos nombres y el proyecto común";
+    else if (sharedLink.length && !clash) same = "Los nombres son compatibles y una fuente confirma el proyecto común.";
+    else if (cross.length && !clash) same = "Una fuente vincula una forma del nombre con un proyecto de la otra ficha.";
     else if (alias && hasA && hasB) same = "Una cita verificada vincula las dos formas del nombre; hay fuentes para ambas trayectorias.";
     else if (sameName && claimed === "same" && bothProjects.some((link) => {
       const page = pages.find((p) => p.url === link.url);
       return page?.origin !== "search_snippet" && /^https?:\/\/(?:www\.)?metal-archives\.com\/artists\/[^/]+\/\d+/u.test(link.url)
         && /real(?:\s*\/?\s*full)?\s+name/iu.test(page?.content ?? "");
     })) same = "Un perfil individual del músico documenta los proyectos de ambas fichas.";
-    else if (sameName && claimed === "same" && bothProjects.length && sites.size >= 2) same = "Una fuente menciona los proyectos de ambas fichas bajo este nombre y otra fuente respalda la atribución.";
+    // Un nombre es el otro más un apodo o un segundo nombre («Manuel Diquez» / «Manuel "Manny" Diquez»): la forma que
+    // comparten pesa lo mismo que un nombre idéntico, con las mismas exigencias.
+    else if ((sameName || (!clash && formsA.some((form) => formsB.includes(form)))) && claimed === "same" && bothProjects.length && sites.size >= 2) {
+      same = "Una fuente menciona los proyectos de ambas fichas bajo este nombre y otra fuente respalda la atribución.";
+    }
   }
   // Personas distintas.
   // La web debe confirmar a las dos personas, cada una con lo suyo; las fechas solas no bastan.
@@ -711,16 +887,30 @@ function bridged(pages: readonly WebPage[], name: string, left: PersonProject[],
  * ficha de Rudy Pagliuca). Devuelve el nombre más frecuente y sus proyectos, y el resto de la ficha.
  */
 export function foreignCredits(person: PersonContext): { name: string; foreign: PersonProject[]; own: PersonProject[] } | null {
+  return foreignCreditForms(person, 1)[0] ?? null;
+}
+
+/**
+ * Cada nombre ajeno con que se acreditó parte de la ficha, del más frecuente al menos (hasta `limit`). Una ficha
+ * fusionada de más puede traer dos: «El Enano» (el mismo Miguel González) y «Rubén "El Enano" Castro» (otro).
+ */
+export function foreignCreditForms(person: PersonContext, limit = 3): Array<{ name: string; foreign: PersonProject[]; own: PersonProject[] }> {
   const ownerOf = new Map<string, string>();
   const resolve = (credited: string, project: PersonProject): string | null => {
     const tokens = nameTokens(credited);
     // «Hernán Gamboa Jr.» en la ficha de Hernán Gamboa: la fuente acreditó al hijo.
-    if (tokens.length >= 2) return incompatibleNames(credited, person.name) || generation(credited) !== generation(person.name) ? credited : null;
+    // También con el mismo apellido y otro nombre de pila («José Antonio Ramos» en la ficha de Ezlen Ramos).
+    if (tokens.length >= 2) return incompatibleNames(credited, person.name) || generation(credited) !== generation(person.name)
+      || (nameTokens(person.name).length >= 2 && !givenCompatible(credited, person.name) && !givenCompatible(person.name, credited)) ? credited : null;
     const owner = nameTokens(project.name);
     if (tokens.length === 1 && owner.length >= 2 && sameGiven(tokens[0]!, owner[0]!) && incompatibleNames(project.name, person.name)) {
       ownerOf.set(tokens[0]!, project.name);
       return project.name;
     }
+    // Un apodo suelto que no sale en el nombre de la ficha («Pipo» en la de Francisco González, «Nacho» en la de
+    // Ignacio Pérez) se investiga como otra forma; el par decide, y sin contradicción comprobable no se parte.
+    const own = plain(person.name).trim().split(" ");
+    if (tokens.length === 1 && tokens[0]!.length >= 3 && !STAGE_PREFIX.has(tokens[0]!) && !own.some((token) => sameGiven(token, tokens[0]!))) return credited;
     return null;
   };
   const foreignOf = (project: PersonProject): string | null => {
@@ -733,15 +923,15 @@ export function foreignCredits(person: PersonContext): { name: string; foreign: 
     const name = foreignOf(project);
     if (name) counts.set(name, (counts.get(name) ?? 0) + 1);
   }
-  const name = [...counts.entries()].sort((x, y) => y[1] - x[1])[0]?.[0];
-  if (!name) return null;
-  // El mismo nombre de pila suelto en otros discos («Rudy» en Los Dangers) va con el dueño que se resolvió.
-  const bare = [...ownerOf.entries()].filter(([, owner]) => owner === name).map(([token]) => token);
-  const isForeign = (project: PersonProject) => foreignOf(project) === name
-    || (bare.length > 0 && (project.credited ?? []).length > 0 && (project.credited ?? []).every((credited) => bare.includes(nameTokens(credited).join(" "))));
-  const foreign = person.projects.filter(isForeign);
-  const own = person.projects.filter((project) => !isForeign(project) && project.name !== "Various Artists");
-  return foreign.length && own.length ? { name, foreign, own } : null;
+  return [...counts.entries()].sort((x, y) => y[1] - x[1]).slice(0, limit).flatMap(([name]) => {
+    // El mismo nombre de pila suelto en otros discos («Rudy» en Los Dangers) va con el dueño que se resolvió.
+    const bare = [...ownerOf.entries()].filter(([, owner]) => owner === name).map(([token]) => token);
+    const isForeign = (project: PersonProject) => foreignOf(project) === name
+      || (bare.length > 0 && (project.credited ?? []).length > 0 && (project.credited ?? []).every((credited) => bare.includes(nameTokens(credited).join(" "))));
+    const foreign = person.projects.filter(isForeign);
+    const own = person.projects.filter((project) => !isForeign(project) && project.name !== "Various Artists");
+    return foreign.length && own.length ? [{ name, foreign, own }] : [];
+  });
 }
 
 /**
@@ -768,7 +958,7 @@ function siteKey(rawUrl: string): string {
 export async function personContext(id: number): Promise<PersonContext> {
   const pool = getPool();
   const person = (await pool.query<{ name: string; birth_date: string | null; death_date: string | null }>(
-    "SELECT name,birth_date::text,death_date::text FROM public.persons WHERE id=$1", [id])).rows[0];
+    "SELECT name,birth_date_value AS birth_date,death_date_value AS death_date FROM public.persons WHERE id=$1", [id])).rows[0];
   if (!person) throw new Error(`Persona ${id} no encontrada`);
   // Un renglón por disco (o membresía) con sus roles unidos: el modelo ve de quién es el disco y qué hizo la persona.
   const projects = await pool.query<PersonProject>(`
@@ -876,6 +1066,7 @@ export function searchQueries(a: PersonContext, b: PersonContext): string[] {
       : `"${nameA}" "${nameB}" ${shared[0] ? `"${shared[0]}"` : "Venezuela música"}`]
     : firstA && firstB ? [`"${nameA}" "${firstA}" "${firstB}" Venezuela`] : [];
   const qa = queryFor(a); const qb = queryFor(b);
+  const combined = combinedName(a.name, b.name);
   // Con nombres distintos, cada nombre con el proyecto de la otra ficha: «Rafael Greco» «Patafunk» encuentra
   // lo que «Rafael Grego» no encuentra. Con el mismo nombre esa búsqueda sería la misma de cada lado.
   const cross = normalize(nameA) === normalize(nameB) ? [] : [firstB && `"${nameA}" "${firstB.replace(/"/gu, "")}"`, firstA && `"${nameB}" "${firstA.replace(/"/gu, "")}"`]
@@ -888,7 +1079,29 @@ export function searchQueries(a: PersonContext, b: PersonContext): string[] {
   const age = laterProject ? [`"${laterProject.replace(/"/gu, "")}" colegio OR liceo OR edad`] : [];
   const extra = [a, b].flatMap((person) => [...new Set(person.projects.map((p) => p.name))]
     .filter((name) => name !== "Various Artists").slice(0, 3).map((name) => `"${searchName(person.name)}" "${name.replace(/"/gu, "")}"`));
-  return [...new Set([...nameQuery, qa[0]!, qb[0]!, ...cross, ...age, qa[1]!, qb[1]!, ...extra])].slice(0, 10);
+  return [...new Set([...nameQuery, ...(combined ? [`"${combined}"`] : []), qa[0]!, qb[0]!, ...cross, ...age, qa[1]!, qb[1]!, ...extra])].slice(0, 10);
+}
+
+/**
+ * Las dos formas en una sola, como las escriben las páginas: «Guillermo Noya» y «Willy Noya» → «Guillermo Willy Noya»
+ * (encuentra «Guillermo “Willy” Noya»: el buscador ignora las comillas). Mismo apellido y nombres de pila distintos;
+ * va primero el nombre de pila y después el apodo («Ángel "Angie" Machado»). null si no aplica.
+ */
+export function combinedName(x: string, y: string): string | null {
+  const [tx, ty] = [x, y].map((name) => name.replace(/["“”«»]/gu, " ").split(/\s+/u).filter((token) => token && !/^(jr|sr)\.?$/iu.test(token)));
+  const last = tx!.at(-1);
+  if (!last || tx!.length < 2 || ty!.length < 2 || normalize(last) !== normalize(ty!.at(-1)!)) return null;
+  const head: string[] = [];
+  for (const token of [...tx!.slice(0, -1), ...ty!.slice(0, -1)]) if (!head.some((other) => normalize(other) === normalize(token))) head.push(token);
+  // Dos palabras antes del apellido: con más serían dos personas («Edgar» y «Gabriel "Pepo"» Lamberti).
+  if (head.length !== 2) return null;
+  // El diminutivo («Willy», «Angie», «Pepito») va después; si no hay, el nombre más largo primero («Carlos "Nené"»).
+  const diminutive = (token: string) => /(?:y|ie|i|ito|ita)$/u.test(normalize(token));
+  const rank = (token: string) => (diminutive(token) ? 100 : 0) - token.length;
+  head.sort((p, q) => rank(p) - rank(q));
+  const result = [...head, last].join(" ");
+  // Un nombre sin apodo entre comillas ya se busca tal cual; el que lo lleva se busca como «apodo apellido».
+  return [x, y].some((name) => !/["“”«»]/u.test(name) && normalize(name) === normalize(result)) ? null : result;
 }
 
 /** Sitios que sin sesión ni JavaScript no traen texto: ocupaban lugares de las 8 páginas (Facebook sí trae los posts públicos). */
@@ -948,9 +1161,15 @@ async function collectPages(broker: WebSearchBroker, sides: SourceSide[], querie
     const at = text.indexOf(` ${label} `);
     return at >= 0 && LIFE_FACT.test(text.slice(Math.max(0, at - 150), at + label.length + 150));
   });
+  // Un resultado que nombra las dos formas («Ángel "Angie" Machado», «Sometimes only credited as "Angel Machado"») es
+  // el que puede unir o separar: va primero. Solo si las formas difieren en alguna palabra.
+  const tokenSets = sides.map((side) => new Set(nameTokens(side.name)));
+  const distinctNames = sides.length === 2 && [...tokenSets[0]!].some((token) => !tokenSets[1]!.has(token))
+    && [...tokenSets[1]!].some((token) => !tokenSets[0]!.has(token));
+  const bothNames = (text: string) => distinctNames && tokenSets.every((set) => [...set].every((token) => text.includes(` ${token} `)));
   const ranked = resultGroups.flat().map((hit) => {
     const text = plain(`${hit.title} ${hit.snippet}`);
-    return { hit, score: near(text, projectLabels) ? 2 : near(text, nameLabels) ? 1 : 0 };
+    return { hit, score: bothNames(text) ? 3 : near(text, projectLabels) ? 2 : near(text, nameLabels) ? 1 : 0 };
   }).filter((item) => item.score > 0).sort((x, y) => y.score - x.score);
   for (const { hit } of ranked) {
     let host: string;
@@ -989,12 +1208,15 @@ async function collectPages(broker: WebSearchBroker, sides: SourceSide[], querie
   // el resumen es texto de esa página («Patafunk feat. Soultwins, Rafael Greco»). Entran aparte, hasta 4, solo si
   // nombran a una de las personas junto a uno de sus proyectos.
   const snippets: WebPage[] = [];
-  for (const hits of resultGroups) {
+  // Los que nombran las dos formas primero (orden estable: lo demás sigue el orden de las búsquedas).
+  const both = (hit: { title: string; snippet?: string | null }) => Number(bothNames(plain(`${hit.title} ${hit.snippet ?? ""}`)));
+  for (const hits of [resultGroups.flat().sort((x, y) => both(y) - both(x))]) {
     for (const hit of hits) {
       if (snippets.length >= 4 || pages.some((old) => old.url === hit.url) || snippets.some((old) => old.url === hit.url) || !hit.snippet) continue;
       const content = `${hit.title}. ${hit.snippet}`;
-      const page: WebPage = { url: hit.url, title: hit.title, content, origin: "search_snippet", contentHash: createHash("sha256").update(content).digest("hex"), fetchedAt: new Date().toISOString() };
-      if (sides.some((side) => findLinks([page], nameForms(side.name), projectTerms([...new Set(side.projects.map((item) => item.name))],
+      const page: WebPage = { url: hit.url, title: hit.title, content, origin: "search_snippet", contentHash: createHash("sha256").update(content).digest("hex"), fetchedAt: hit.capturedAt ?? "", capturedAt: hit.capturedAt ?? null, readAt: new Date().toISOString(), acquisitionMethod: "search_snippet" };
+      // También el que nombra las dos formas aunque no traiga proyecto («Ángel "Angie" Machado Songs, Albums…» de AllMusic).
+      if (bothNames(plain(content)) || sides.some((side) => findLinks([page], nameForms(side.name), projectTerms([...new Set(side.projects.map((item) => item.name))],
         side.projects.flatMap((item) => item.album ? [item.album] : []))).length)) snippets.push(page);
     }
   }
@@ -1123,7 +1345,7 @@ export function buildPersonComparison(a: PersonContext, b: PersonContext, pages:
     });
     const evidence = [...new Map(projects.flatMap((project) => project.evidence).map((cite) => [`${cite.url}:${cite.quote}`, cite])).values()];
     return { ...base, projects, evidence,
-      chronology: { birthYear: person.birthDate ? Number(person.birthDate.slice(0, 4)) : archiveRecord(pages, person)?.birth ?? null,
+      chronology: { birthYear: dateYear(person.birthDate) ?? archiveRecord(pages, person)?.birth ?? null,
         activeYears: [...new Set(activeYears(person))].sort((x,y)=>x-y),
         aliveOnlyYears: [...new Set(person.projects.filter((p) => p.year !== null && aliveOnly(p.role)).map((p) => p.year!))].sort((x,y)=>x-y) },
       missing: [...base.missing, ...projects.filter((project) => (project.coverage ?? 0) < 1)
@@ -1160,8 +1382,8 @@ export function pairPolicyContext(a: PersonContext, b: PersonContext, pages: Web
     aliveYearsA: a.projects.filter((item) => item.year !== null && aliveOnly(item.role)).map((item) => item.year!),
     aliveYearsB: b.projects.filter((item) => item.year !== null && aliveOnly(item.role)).map((item) => item.year!),
     albumsA: a.projects.flatMap((item) => item.album ? [item.album] : []), albumsB: b.projects.flatMap((item) => item.album ? [item.album] : []),
-    birthA: a.birthDate ? Number(a.birthDate.slice(0, 4)) : archiveRecord(pages, a)?.birth ?? null,
-    birthB: b.birthDate ? Number(b.birthDate.slice(0, 4)) : archiveRecord(pages, b)?.birth ?? null };
+    birthA: dateYear(a.birthDate) ?? archiveRecord(pages, a)?.birth ?? null,
+    birthB: dateYear(b.birthDate) ?? archiveRecord(pages, b)?.birth ?? null };
 
 }
 
@@ -1224,11 +1446,11 @@ export async function investigateMixedContext(person: PersonContext, broker = ne
   // Si la página de archivo del músico trae el nacimiento, ella dice qué bandas son de esa persona:
   // lo demás no se parte por la línea de la fecha (el violinista de 1997–2009 no queda cortado en 2001).
   const archive = archiveRecord(pages, person);
-  const birth = person.birthDate ? Number(person.birthDate.slice(0, 4)) : archive?.birth ?? null;
+  const birth = dateYear(person.birthDate) ?? archive?.birth ?? null;
   const owned = archive?.birth === birth && archive.projects.length ? new Set(archive.projects) : null;
   const dated = person.projects.filter((item) => item.year !== null && item.name !== "Various Artists" && performed(item.role));
   // Lo mismo después de morir, solo con créditos de vida (mezcla, producción…): James Brown murió en 2006 y mezcló un disco de 2010.
-  const death = person.deathDate ? Number(person.deathDate.slice(0, 4)) : null;
+  const death = dateYear(person.deathDate);
   for (const limit of [birth ? { kind: "birth" as const, year: birth } : null, death ? { kind: "death" as const, year: death } : null]) {
     if (!limit || validated.verdict === "mixed") continue;
     const outside = (year: number) => limit.kind === "birth" ? year < limit.year + MIN_ACTIVE_AGE : year > limit.year + 1;
@@ -1240,7 +1462,7 @@ export async function investigateMixedContext(person: PersonContext, broker = ne
       : person.projects.filter((item) => item.name !== "Various Artists" && !early.has(item.name) && (item.year === null || !outside(item.year)));
     if (!impossible.length || !possible.length) continue;
     const asPerson = (side: PersonProject[], id: number, own: boolean): PersonContext => ({ id, name: person.name,
-      birthDate: own && limit.kind === "birth" ? person.birthDate ?? `${limit.year}-01-01` : null,
+      birthDate: own && limit.kind === "birth" ? person.birthDate ?? String(limit.year) : null,
       deathDate: own && limit.kind === "death" ? person.deathDate : null, projects: side, sourceUrls: person.sourceUrls });
     const edge = limit.kind === "birth" ? Math.min(...impossible.map((item) => item.year!)) : Math.max(...impossible.map((item) => item.year!));
     const pair = await investigatePersonContexts(asPerson(impossible, -1, false), asPerson(possible, -2, true), broker, gateway,
@@ -1257,9 +1479,10 @@ export async function investigateMixedContext(person: PersonContext, broker = ne
       validated = { ...validated, rationale: `${validated.rationale} Una página une los dos lados («${bridge.snippet}», ${bridge.url}): no se parte.` };
     }
   }
-  // Parte de los créditos se acreditó con otro nombre: esa parte se investiga como la persona de ese nombre.
-  const credited = validated.verdict === "mixed" ? null : foreignCredits(person);
-  if (credited) {
+  // Parte de los créditos se acreditó con otro nombre: esa parte se investiga como la persona de ese nombre (cada
+  // forma ajena por turno, hasta que una resulte otra persona).
+  for (const credited of validated.verdict === "mixed" ? [] : foreignCreditForms(person)) {
+    if (validated.verdict === "mixed") break;
     const side = (projects: PersonProject[], id: number, name: string): PersonContext => ({ id, name, birthDate: null, deathDate: null, projects, sourceUrls: person.sourceUrls });
     const pair = await investigatePersonContexts(side(credited.foreign, -1, credited.name), side(credited.own, -2, person.name), broker, gateway, { eraConflict: null });
     // Un artista con discos de los dos lados (los dos Cheo tocaron con Alberto Naranjo) no sirve de puente.

@@ -1,0 +1,737 @@
+{
+  "date": "2026-10-10T23:48:46.942Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 10,
+    "correct": 8,
+    "errors": 0,
+    "same": "2/2",
+    "different": "2/2",
+    "mixed": "1/3",
+    "single": "3/3",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": false,
+  "cases": [
+    {
+      "name": "Victor González «Kasino» / Victor González",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 9,
+      "seconds": 1,
+      "aiRunId": 21460,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://www.lobotoradio.com/bandas/la-misma-gente",
+          "title": "La Misma Gente – Lobotoradio",
+          "quote": "Fue formada por Pedro Vicente Lizardo (\"PTT\", guitarra, cuatro, voz), su hermano Humberto Enrique Lizardo (\"IKE\", bajo, guitarra, coros) y el ex Sky's White Meditation Víctor González (\"Kasino\", batería, percusión, coros).",
+          "supports": "same"
+        },
+        {
+          "url": "http://www.sincopa.com/rock_pop/artist_rock/la_misma_gente.htm",
+          "title": "La Misma Gente - Bio & Discography",
+          "quote": "Drums & Percussion: Victor González \"Kasino\" (1976-1992)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=La_Misma_Gente_%28disco%29",
+          "title": "La Misma Gente (disco) - La Venciclopedia",
+          "quote": "A pesar del nombre, este disco fue el primero sin el baterista Víctor González \"Kasino\", quien fue sustituido por Luen Pieters.",
+          "supports": "same"
+        },
+        {
+          "url": "https://enniodimarcantoniodigiovanni.wordpress.com/2020/06/29/corazon-rockero-la-musica-que-tu-creaste-es-tuya/",
+          "title": "Corazón Rockero – La música que tú creaste, es tuya – Ennio Di Marcantonio Di Giovanni",
+          "quote": "Victor González «Kasino», por supuesto ‘uso indebido e inconsulto’ de canciones que fueron compuestas, grabadas, e interpretadas en vivo, por los 3 miembros originales de dicha agrupación: Pedro Vicente Lizardo (PTT), Humberto Lizardo (IKE), y Victor Gozález (KASINO).",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovzla.blogspot.com/2019/02/la-misma-gente-y-el-usurpador.html",
+          "title": "La Misma Gente y el Usurpador",
+          "quote": "Allí estaban PTT, su hermano Ike Lizardo y el amigo tamborero Victor \"Kasino\" González mostrando que no se arrodillaban",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.lobotoradio.com/bandas/la-misma-gente",
+        "https://enniodimarcantoniodigiovanni.wordpress.com/2020/06/29/corazon-rockero-la-musica-que-tu-creaste-es-tuya/",
+        "https://redradiove.com/corazon-rockero-el-rock-y-el-metal-venezolano-es-libertad-por-eso-no-trabajamos-por-encargo-comunicado/",
+        "https://rockhechovzla.blogspot.com/2019/02/la-misma-gente-y-el-usurpador.html",
+        "http://www.sincopa.com/rock_pop/artist_rock/la_misma_gente.htm",
+        "https://www.venciclopedia.org/index.php?title=La_Misma_Gente_%28disco%29",
+        "https://steemit.com/music/@rock.ve41/la-misma-gente-de-san-antono-de-los-altos-para-toda-venezuela",
+        "https://www.leanoticias.com/hiperculto-tros-por-willperaza/",
+        "https://vinylfriday.wordpress.com/2020/07/10/vinylfriday-por-fin-la-misma-gente-1983/"
+      ]
+    },
+    {
+      "name": "Iván Velázquez / Iván Velásquez",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 12,
+      "seconds": 2,
+      "aiRunId": 21461,
+      "rationale": "Una fuente vincula una forma del nombre con un proyecto de la otra ficha.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/1659598",
+          "title": "Iván Velásquez | Discogs",
+          "quote": "Variations: Ivan (El Terrible) Velasques, Ivan Velasquez, Ivan Velazquez, Iván Velazquez, Iván Velázquez, Velásquez.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1659598",
+          "title": "Iván Velásquez | Discogs",
+          "quote": "Credits: Drums – Gladys – La Hija de la Oscuridad (1971).",
+          "supports": "same"
+        },
+        {
+          "url": "https://kalosmusicandart.com/ivanvelasquez/",
+          "title": "Ivan Velasquez - Kalos Music & Art School",
+          "quote": "Ivan Velasquez Drums Ivan Velasquez was born in Caracas Venezuela; he comes from a long traditional line of great Venezuelan Musical Family, son of great trumpeter Rafael Velasquez.",
+          "supports": "same"
+        },
+        {
+          "url": "https://kalosmusicandart.com/ivanvelasquez/",
+          "title": "Ivan Velasquez - Kalos Music & Art School",
+          "quote": "In 1987 he started a working relationship with Venezuelan singer/songwriter and Grammy winner Franco De vita that lasted 21 years.",
+          "supports": "same"
+        },
+        {
+          "url": "https://lasvocesdefrancoenmexico.blogspot.com/2024/03/franco-de-vita-en-concierto-1994.html",
+          "title": "LAS VOCES DE FRANCO EN MÉXICO: FRANCO DE VITA en Concierto 1991",
+          "quote": "Músicos: Álvaro Falcón, Luis Emilio Mauri, Luis Romero, Iván Velázquez, Carlos Quintero, Gustavo Aranguren y Glenn Tomassi.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/francodvita_7fuera.htm",
+          "title": "Franco de Vita - Fuera De Este Mundo (CD Info)",
+          "quote": "Drums: Iván Velásquez.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://kalosmusicandart.com/ivanvelasquez/",
+        "https://www.enfoqueperiodistico.com/ivan-velazquez-el-exmagistrado-colombiano-que-no-pudo-ser-profeta-en-su-propia-tierra/",
+        "https://en.wikipedia.org/wiki/Iv%C3%A1n_Vel%C3%A1squez",
+        "https://www.gacetaweb.org/2026/05/luque-ivan-velazquez-fortalece-su.html",
+        "https://www.eluniverso.com/2004/10/08/0001/259/02BF4B36C49A435DBD1FF1B2406155BD.html/",
+        "https://lasvocesdefrancoenmexico.blogspot.com/2024/03/franco-de-vita-en-concierto-1994.html",
+        "https://www.guatevision.com/historico/abogada-estado-pide-reconsiderar-decision-ivan-velasquez",
+        "https://sincopa.com/rock_pop/cdinfo_rock/francodvita_7fuera.htm",
+        "https://antologiavenezuela.blogspot.com/2020/09/franco-de-vita-al-norte-del-sur-1988.html",
+        "https://www.discogs.com/release/3629796-Gladys-La-Hija-De-La-Oscuridad",
+        "https://sincopa.com/rock_pop/cdinfo_rock/gladys_lahijadlaoscuridad.htm",
+        "https://www.discogs.com/artist/1659598"
+      ]
+    },
+    {
+      "name": "Francisco Pacheco / Francisco Pacheco Jr.",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 4,
+      "sources": 14,
+      "seconds": 7,
+      "aiRunId": 21462,
+      "rationale": "una misma frase enumera a Francisco Pacheco y a Francisco Pacheco Jr.: «Francisco Pacheco, Francisco Pacheco Jr., Antonio Armas, Mirla Pacheco, Winda Ortega y Jeanmicet Canónico.»",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/fpacheco_3_30years.htm",
+          "title": "Francisco Pacheco y Su Pueblo - 30 Años De Tradición (CD Info)",
+          "quote": "Produced by Francisco Pacheco",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/fpacheco_3_30years.htm",
+          "title": "Francisco Pacheco y Su Pueblo - 30 Años De Tradición (CD Info)",
+          "quote": "Vocals: Francisco Pacheco Jr., Antonio Armas, Luz Colina, Isabel Loero & Iris Figueroa",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/fpacheco_4diversidad.htm",
+          "title": "Francisco Pacheco y Su Pueblo - Diversidad (CD Info)",
+          "quote": "Produced by Francisco Pacheco",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/fpacheco_4diversidad.htm",
+          "title": "Francisco Pacheco y Su Pueblo - Diversidad (CD Info)",
+          "quote": "Vocals: Francisco Pacheco Jr., Antonio Armas, Mirla Pacheco, Luz Colina & Isabel Loero",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/ofero_entre2duetos.htm",
+        "https://sincopa.com/ethnic/cdinfo1/gurrufio_elreto.htm",
+        "https://sincopa.com/traditional/cdinfo2/fpacheco_3_30years.htm",
+        "https://sincopa.com/traditional/cdinfo2/fpacheco_4diversidad.htm",
+        "https://en.wikipedia.org/wiki/Francisco_Pacheco_(singer)",
+        "https://www.musicavenezuela.com/Artistas/francisco-pacheco",
+        "https://radio.otilca.org/de-parranda-con-francisco-pacheco-y-su-pueblo/",
+        "https://open.spotify.com/artist/3jchg4ccPxlrQArFk24HUZ",
+        "https://ultimasnoticias.com.ve/cultura/repica-la-parranda-de-francisco-pacheco-y-su-pueblo/",
+        "https://antologiavenezuela.blogspot.com/2019/05/francisco-pacheco-y-su-pueblo-30-anos.html",
+        "https://www.shazam.com/es-es/song/1762545881/mi-bandera",
+        "https://www.youtube.com/watch?v=apCWpPK6gGI",
+        "https://www.discogs.com/artist/1733279",
+        "https://www.discogs.com/artist/3591683"
+      ]
+    },
+    {
+      "name": "Luis Arismendi / Luis Arismendi Jr.",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 5,
+      "sources": 12,
+      "seconds": 4,
+      "aiRunId": 21505,
+      "rationale": "relación familiar citada: «Hoy se hace presente una vez mas mi amigo, mi hermano Luis Arismendi Jr. Director de La Rondalla Venezolana»",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_cheofeliciano95_soninolvidables.htm",
+          "title": "Rondalla Venezolana - Cheo Feliciano - Son Inolvidables (CD Info)",
+          "quote": "Produced & Directed by Luis Arismendi",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_cheofeliciano95_soninolvidables.htm",
+          "title": "Rondalla Venezolana - Cheo Feliciano - Son Inolvidables (CD Info)",
+          "quote": "Percussion & Backing Vocals: Luis Arismendi Jr.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/release/13677809-Cheo-Feliciano-Y-La-Rondalla-Venezolana-Son-Inolvidables",
+          "title": "Cheo Feliciano Y La Rondalla Venezolana – Son... - Discogs",
+          "quote": "Directed By, Chorus, Acoustic Guitar – Luis Arismendi. Lead Vocals – Cheo Feliciano. Percussion, Chorus – Luis Arismendi Jr.",
+          "supports": "different"
+        },
+        {
+          "url": "https://primicia.com.ve/placeres/fallecio-luis-arismendi-fundador-de-la-rondalla-venezolana/",
+          "title": "",
+          "quote": "Luis Enrique Arismendi, director y fundador de La Rondalla Venezolana, falleció este martes, 15 de septiembre",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.facebook.com/LaRondallaVenezolanaYLaOrquestaDeCharlieFrometa/videos/hoy-se-hace-presente-una-vez-mas-mi-amigo-mi-hermano-luis-arismendi-jr-director-/937392113541283/",
+          "title": "Hoy se hace presente una vez mas mi amigo, mi hermano Luis Arismendi Jr. Director de La Rondalla Venezolana , cómplice en todo este proceso de la celebración de mis 50 años, es el creador de tan bonito LOGO, invitó a muchos amigos, editó todos y cada uno de los videos enviados por tantos artistas, a",
+          "quote": "Hoy se hace presente una vez mas mi amigo, mi hermano Luis Arismendi Jr. Director de La Rondalla Venezolana",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/chelique_sarabia/chelique_05reddensuenos.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/trio_venezuela/triovzla_07elgrantrio.htm",
+        "https://sincopa.com/traditional/cdinfo2/rondalla_vzlana/rondalla_cheofeliciano95_soninolvidables.htm",
+        "https://primicia.com.ve/placeres/fallecio-luis-arismendi-fundador-de-la-rondalla-venezolana/",
+        "https://calletacarigua.com/blog/2020/09/17/murio-luis-arismendi-fundador-de-la-rondalla-venezolana/",
+        "https://storage.googleapis.com/qurium/elpitazo.net/cultura-fallece-luis-arismendi-fundador-de-la-rondalla-venezolana.html",
+        "https://careers.wbd.com/global/en/recruitment-scams",
+        "https://www.facebook.com/LaRondallaVenezolanaYLaOrquestaDeCharlieFrometa/videos/hoy-se-hace-presente-una-vez-mas-mi-amigo-mi-hermano-luis-arismendi-jr-director-/937392113541283/",
+        "https://www.youtube.com/watch?v=jVZPmRp8PLM",
+        "https://www.discogs.com/release/13677809-Cheo-Feliciano-Y-La-Rondalla-Venezolana-Son-Inolvidables",
+        "https://music.apple.com/ru/song/c%C3%B3mo/642629772",
+        "https://barraezo.blogspot.com/2017/05/boleros-con-la-rondalla-venezolana.html"
+      ]
+    },
+    {
+      "name": "Francisco Pacheco juntado (padre + hijo)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 9,
+      "sources": 21,
+      "seconds": 2,
+      "aiRunId": 21464,
+      "rationale": "una misma frase enumera a Francisco Pacheco Jr. y a Francisco Pacheco: «Vocals & Percussion: Francisco Pacheco Vocals: Francisco Pacheco Jr., Antonio Armas, Mirla Pacheco, Luz Colina & Isabel Loero» Reparto propuesto: acreditado como Francisco Pacheco Jr.: Francisco Pacheco y Su Pueblo · Francisco Pacheco: Chelique Sarabia, Nancy Ramos, María Teresa Chacín, Sonero Clásico del Caribe, Un Solo Pueblo, Los Cuñaos, Iván Pérez Rossi, Cecilia Todd, Saxomania, Francisco Pacheco y Su Pueblo, Orlando Poleo, Jesús Potellá, Franco De Vita, El Cuarteto con Clara Rodriguez, Ilan Chester, Ofelia del Rosal, Los Cañoneros, Juan Diego Villalobos, Los Sinvergüenzas, Alfredo Sadel, Francisco Pacheco.",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Francisco_Pacheco_(singer)",
+          "title": "Francisco Pacheco (singer) - Wikipedia",
+          "quote": "Francisco Pacheco (born October 10, 1955, at Cata, Aragua State), is a Venezuelan folk singer and drummer who had a more than twenty-year career. He was a major parranda singer, and for much of his career he was a member of the group Un Solo Pueblo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Francisco_Pacheco_(singer)",
+          "title": "Francisco Pacheco (singer) - Wikipedia",
+          "quote": "In 2001, he released the album Francisco Pacheco y su pueblo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.musicavenezuela.com/Artistas/francisco-pacheco",
+          "title": "Francisco Pacheco",
+          "quote": "Tras haber sido durante años la voz líder e imagen de la emblemática agrupación Un Solo Pueblo, Francisco Pacheco emprendió a comienzos del año 2001 un nuevo camino con su propio proyecto: Francisco Pacheco y su Pueblo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/fpacheco_3_30years.htm",
+          "title": "Francisco Pacheco y Su Pueblo - 30 Años De Tradición (CD Info)",
+          "quote": "Vocals: Francisco Pacheco Jr., Antonio Armas, Luz Colina, Isabel Loero & Iris Figueroa",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/fpacheco_4diversidad.htm",
+          "title": "Francisco Pacheco y Su Pueblo - Diversidad (CD Info)",
+          "quote": "Vocals & Percussion: Francisco Pacheco Vocals: Francisco Pacheco Jr., Antonio Armas, Mirla Pacheco, Luz Colina & Isabel Loero",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1733279",
+          "title": "Francisco Pacheco | Discogs",
+          "quote": "Francisco Pacheco. Profile: Born in Cata, Aragua state (Venezuela). Essential voice of the Venezuelan popular song, with its grave tessellation, it travels with amazing fluidity the baritonal paths of the song.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1733279",
+          "title": "Francisco Pacheco | Discogs",
+          "quote": "Credits: Lyrics By – Un Solo Pueblo – Alúmbrame El Zaguán (1985); Compiled By – Un Solo Pueblo – Alúmbrame El Zaguán (1985).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.deezer.com/es/track/661359952",
+          "title": "Chelique Sarabia - El Cumaco De San Juan | Deezer",
+          "quote": "El Cumaco De San Juan Chelique Sarabia | Duración : 03:02 Compositor: Francisco Pacheco Esta canción pertenece al álbum: Revolución Electrónica en Música Venezolana Chelique Sarabia",
+          "supports": "same"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/cultura/repica-la-parranda-de-francisco-pacheco-y-su-pueblo/",
+          "title": "Repica la parranda de Francisco Pacheco y su Pueblo - Últimas...",
+          "quote": "Las voces estuvieron a cargo de Francisco Pacheco, Francisco Pacheco Jr., Antonio Armas, Mirla Pacheco, Winda Ortega y Jeanmicet Canónico.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/traditional/cdinfo2/fpacheco_3_30years.htm",
+        "https://sincopa.com/jazz/cdinfo/ofero_entre2duetos.htm",
+        "https://sincopa.com/ethnic/cdinfo1/jesuspotella_mixturacriolla.htm",
+        "https://en.wikipedia.org/wiki/Francisco_Pacheco_(singer)",
+        "https://albaciudad.org/2021/06/francisco-pacheco-estoy-muy-contento-por-todo-lo-que-he-vivido-en-este-mundo-artistico/",
+        "https://academia-lab.com/enciclopedia/francisco-pacheco-cantante/",
+        "https://www.deezer.com/es/track/661359952",
+        "https://elestimulo.com/espectaculos/2024-03-07/dos-conciertos-con-grandes-estrellas-pro-fondos-del-cantautor-henry-martinez/",
+        "https://www.youtube.com/watch?v=Ei0e_TkMM0s",
+        "https://radio.otilca.org/francisco-pacheco-voz-esencial-del-canto-popular-venezolano/",
+        "https://www.musicavenezuela.com/artistas/francisco-pacheco",
+        "https://gmvivavenezuela.com/francisco-pacheco-musico-sanjuanero-y-diablo-danzante/",
+        "https://www.discogs.com/artist/1733279",
+        "https://www.discogs.com/artist/3591683",
+        "https://sincopa.com/traditional/cdinfo2/fpacheco_4diversidad.htm",
+        "https://www.musicavenezuela.com/Artistas/francisco-pacheco",
+        "https://open.spotify.com/artist/3jchg4ccPxlrQArFk24HUZ",
+        "https://ultimasnoticias.com.ve/cultura/repica-la-parranda-de-francisco-pacheco-y-su-pueblo/",
+        "https://radio.otilca.org/de-parranda-con-francisco-pacheco-y-su-pueblo/",
+        "https://antologiavenezuela.blogspot.com/2019/05/francisco-pacheco-y-su-pueblo-30-anos.html",
+        "https://www.shazam.com/es-es/song/1762545881/mi-bandera"
+      ]
+    },
+    {
+      "name": "Luis Arismendi juntado (padre + hijo)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 6,
+      "sources": 12,
+      "seconds": 2,
+      "aiRunId": 21466,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://primicia.com.ve/placeres/fallecio-luis-arismendi-fundador-de-la-rondalla-venezolana/",
+          "title": "",
+          "quote": "Luis Enrique Arismendi, director y fundador de La Rondalla Venezolana, falleció este martes, 15 de septiembre",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.cancioneros.com/at/5094/0/biografia-de-luis-arismendi",
+          "title": "LUIS ARISMENDI • Página Principal",
+          "quote": "Compositor y músico venezolano nacido en Cumaná (Edo. Sucre). Fue el fundador del grupo La Rondalla Venezolana.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.cancioneros.com/at/5094/0/biografia-de-luis-arismendi",
+          "title": "LUIS ARISMENDI • Página Principal",
+          "quote": "Fecha de nacimiento:26 de enero de 1938",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.cancioneros.com/at/5094/0/biografia-de-luis-arismendi",
+          "title": "LUIS ARISMENDI • Página Principal",
+          "quote": "Fecha de fallecimiento:15 de septiembre de 2020",
+          "supports": "same"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere/la-rondalla-venezolana-se-queda-sin-su-mentor/",
+          "title": "La Rondalla Venezolana se queda sin su mentor - Últimas Noticias",
+          "quote": "“Con mucho pesar informamos la pérdida del excelente compositor, productor musical Luis Arismendi, nacido el 26 de enero de 1938 en Cumaná (estado Sucre)”",
+          "supports": "same"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere/la-rondalla-venezolana-se-queda-sin-su-mentor/",
+          "title": "La Rondalla Venezolana se queda sin su mentor - Últimas Noticias",
+          "quote": "Contaba con 82 años de edad",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/chelique_sarabia/chelique_05reddensuenos.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/trio_venezuela/triovzla_07elgrantrio.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_03mas_salsa.htm",
+        "https://primicia.com.ve/placeres/fallecio-luis-arismendi-fundador-de-la-rondalla-venezolana/",
+        "https://www.cancioneros.com/at/5094/0/biografia-de-luis-arismendi",
+        "https://ultimasnoticias.com.ve/chevere/la-rondalla-venezolana-se-queda-sin-su-mentor/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/los_x5.htm",
+        "https://sincopa.com/traditional/cdinfo2/grupo_vera/grupovera_84grupovera.htm",
+        "https://storage.googleapis.com/qurium/elpitazo.net/cultura-fallece-luis-arismendi-fundador-de-la-rondalla-venezolana.html",
+        "https://sincopa.com/latin_pop/cdinfo_latin/trio_venezuela/triovzla_02triovzla.htm",
+        "https://www.tiempodeboleros.solutech.es/historia/por-pais/venezuela",
+        "https://rondalla-venezolana.blogspot.com/"
+      ]
+    },
+    {
+      "name": "Rafael «Gallo» Velásquez 8842 (+ grabaciones y diseño 2014)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 9,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21507,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/jazz/artists/rafael_velasquez.htm",
+          "title": "Rafael \"Gallo\" Velásquez - Bio & Discography",
+          "quote": "Rafael \"Gallo\" Velásquez - Bio & Discography - Sincopa. Born: Died: Resides: Instrument s: Genre: January 06, 1930 in El Sombrero, Estado Guarico, Vzla. October 21, 2009 in Caracas, Venezuela In Caracas, Venezuela Trumpet ...",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/artists/rafael_velasquez.htm",
+          "title": "Rafael \"Gallo\" Velásquez - Bio & Discography",
+          "quote": "Appears On 1956 John La Porta South American Brothers (Trumpet) 1966 El Pavo Frank Rítmico (Trumpet) 1967 El Pavo Frank Está En Lo Bailable (Trumpet) 1968 El Pavo Frank En Salsa (Trumpet) 1969 El Pavo Frank y Su Nuevo Sonido (Trumpet) 1971 Gladys La Hija De La Oscuridad (Flugelhorn) 1976 Moncho y Sus Amigos Estoy Con... (Trumpet) 1977 Carlos Moreán Aquí Estoy (Trumpet) 1977 Trabuco Venezolano El Trabuco Venezolano (Trumpet) 1979 Trabuco Venezolano El Trabuco Venezolano 2 (Trumpet, Flugel) 1984 Daiquirí La Casa Del Ritmo (Trumpet, Flugel) 1989 Aldemaro Romero Como De Costumbre (Trumpet) 1990 Fe",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.sincopa.com/jazz/artists/rafael_velasquez.htm",
+          "title": "Rafael \"Gallo\" Velásquez - Bio & Discography",
+          "quote": "Rafael \"Gallo\" Velásquez - Bio & Discography. Rafael \"Gallo\" Velásquez. Born: Died: Resides: Instruments: Genre: January 06, 1930 in El Sombrero, Estado Guarico, Vzla. October 21, 2009 in Caracas, Venezuela In Caracas, Venezuela Trumpet, Flugelhorn Jazz, Latin.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Frank_Quintero",
+          "title": "Frank Quintero - Wikipedia, la enciclopedia libre",
+          "quote": "Entre los músicos que participaron en esta banda destacan: Willie Croes, Piano y Sintetizadores; José Velásquez “El Patuo” y Lorenzo Barriendos, Bajo; y Carlos “Nene” Quintero en la percusión.",
+          "supports": "same"
+        },
+        {
+          "url": "http://laguiadecaracas.net/39622/7-percusionistas-caraquenos/",
+          "title": "7 Percusionistas caraqueños · La Guía de Caracas",
+          "quote": "Uno de los bateristas venezolanos más destacados, por su increíble capacidad técnica y su estilo personal. Miembro de una familia de músicos populares, hijo del recordado y gran trompetista Rafael “El Gallo” Velásquez.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.facebook.com/efemeridesmusica/photos/rafael-gallo-vel%C3%A1squez-1930-2009el-6-de-enero-de-1930-naci%C3%B3-en-el-sombrero-estad/1165242378296096/",
+          "title": "efemérides - RAFAEL 'GALLO' VELÁSQUEZ (1930-2009) El 6 de ...",
+          "quote": "Tocó a mediados de los años 50 en orquestas como la de Luis Alfonzo Larrain así como con la Orquesta Casablanca que participó en el álbum 'South American Brothers' (1956) del norteamericano John La Porta, reconocida como la primera grabación de jazz realizada en Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://curadas.com/2022/02/03/el-gran-trompetista-venezolano-de-jazz-rafael-velasquez-un-cuento-de-pedrito-lopez/",
+          "title": "El gran trompetista venezolano de jazz Rafael Velásquez / Un ...",
+          "quote": "Realmente lo que sí creo es que Rafael “El Gallo” Velásquez nos trajo la música del universo a todos los que tuvimos la suerte de estar cerca de él y enriqueció nuestras vidas para siempre.",
+          "supports": "same"
+        },
+        {
+          "url": "https://chumanceralatinjazz.blogspot.com/2008/05/frank-pavo-hernndez-latinos-de-etiqueta.html",
+          "title": "L'Ostia: Frank \"El Pavo\" Hernández - Latinos De Etiqueta",
+          "quote": "Bajos: Argenis Carmona, José Velásquez \"El Patuo\", Jorge RomeroRafael \"Gallo\" Velásquez, Elías Guerra, Luis LewisTrombones: Pucho Escalante, Héctor Velásquez, Rafael Silva",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2697287",
+          "title": "Rafael Velásquez | Discogs",
+          "quote": "Rafael Velásquez, best known as. \"El Gallo\" Velásquez (b. January 6th, 1930, El Sombreo, Guárico, State - d. October 21th, 2009, Caracas, D.C). trumpet, flugelhorn, flute and violin player.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/febri_conexionjazz.htm",
+        "https://sincopa.com/jazz/artists/trabuco_vzlano.htm",
+        "https://sincopa.com/jazz/cdinfo/bidco_jazblues.htm",
+        "https://sincopa.com/jazz/artists/rafael_velasquez.htm",
+        "https://www.sincopa.com/jazz/artists/rafael_velasquez.htm",
+        "https://www.venciclopedia.org/index.php/El_Trabuco_Venezolano",
+        "https://www.facebook.com/mexicoensalsa/videos/1622778855142966/",
+        "https://es.wikipedia.org/wiki/Frank_Quintero",
+        "http://laguiadecaracas.net/39622/7-percusionistas-caraquenos/",
+        "https://www.facebook.com/efemeridesmusica/photos/rafael-gallo-vel%C3%A1squez-1930-2009el-6-de-enero-de-1930-naci%C3%B3-en-el-sombrero-estad/1165242378296096/",
+        "https://curadas.com/2022/02/03/el-gran-trompetista-venezolano-de-jazz-rafael-velasquez-un-cuento-de-pedrito-lopez/",
+        "https://chumanceralatinjazz.blogspot.com/2008/05/frank-pavo-hernndez-latinos-de-etiqueta.html",
+        "https://www.discogs.com/artist/2697287"
+      ]
+    },
+    {
+      "name": "Luis Arismendi 1958–2004 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 6,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21469,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://primicia.com.ve/placeres/fallecio-luis-arismendi-fundador-de-la-rondalla-venezolana/",
+          "title": "",
+          "quote": "Luis Enrique Arismendi, director y fundador de La Rondalla Venezolana, falleció este martes, 15 de septiembre, según informó su sobrino Jesús Enrique.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.cancioneros.com/at/5094/0/biografia-de-luis-arismendi",
+          "title": "LUIS ARISMENDI • Página Principal",
+          "quote": "Compositor y músico venezolano nacido en Cumaná (Edo. Sucre). Fue el fundador del grupo La Rondalla Venezolana.",
+          "supports": "same"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere/la-rondalla-venezolana-se-queda-sin-su-mentor/",
+          "title": "La Rondalla Venezolana se queda sin su mentor - Últimas Noticias",
+          "quote": "Con mucho pesar informamos la pérdida del excelente compositor, productor musical Luis Arismendi, nacido el 26 de enero de 1938 en Cumaná (estado Sucre)",
+          "supports": "same"
+        },
+        {
+          "url": "https://ultimasnoticias.com.ve/chevere/la-rondalla-venezolana-se-queda-sin-su-mentor/",
+          "title": "La Rondalla Venezolana se queda sin su mentor - Últimas Noticias",
+          "quote": "El maestro cumanés se encontraba recluido desde hace más de una semana en el Hospital José María Vargas, en Caracas, por problemas respiratorios derivados del covid-19.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.tiempodeboleros.solutech.es/historia/por-pais/venezuela",
+          "title": "Historia del Bolero en Venezuela",
+          "quote": "La Rondalla Venezolana es una agrupación de guitarristas constituida por Luis Arismendi, quién desde los años setenta se convirtió en una entidad del mundo musical romántico venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://storage.googleapis.com/qurium/elpitazo.net/cultura-fallece-luis-arismendi-fundador-de-la-rondalla-venezolana.html",
+          "title": "Fallece Luis Arismendi, fundador de la Rondalla Venezolana - El Pitazo",
+          "quote": "Luis Enrique Arismedi, director y fundador de la Rondalla Venezolana, falleció este martes 15 de septiembre, según informó su sobrino Jesús Enrique.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/chelique_sarabia/chelique_05reddensuenos.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/trio_venezuela/triovzla_07elgrantrio.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/federico_y_su_combo/federicoysucombo_03mas_salsa.htm",
+        "https://primicia.com.ve/placeres/fallecio-luis-arismendi-fundador-de-la-rondalla-venezolana/",
+        "https://www.cancioneros.com/at/5094/0/biografia-de-luis-arismendi",
+        "https://ultimasnoticias.com.ve/chevere/la-rondalla-venezolana-se-queda-sin-su-mentor/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/los_x5.htm",
+        "https://www.tiempodeboleros.solutech.es/historia/por-pais/venezuela",
+        "https://storage.googleapis.com/qurium/elpitazo.net/cultura-fallece-luis-arismendi-fundador-de-la-rondalla-venezolana.html",
+        "https://sincopa.com/latin_pop/cdinfo_latin/trio_venezuela/triovzla_02triovzla.htm",
+        "https://rondalla-venezolana.blogspot.com/",
+        "https://www.shazam.com/album/398792633/mario-su%C3%A1rez-interpreta-a-j-vicente-torrealba-y-chelique-sarabia"
+      ]
+    },
+    {
+      "name": "Aldemaro Romero (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 8,
+      "sources": 13,
+      "seconds": 2,
+      "aiRunId": 21470,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://ninos.kiddle.co/Aldemaro_Romero",
+          "title": "Aldemaro Romero para Niños",
+          "quote": "Aldemaro Romero (nacido en Valencia, Estado Carabobo, el 12 de marzo de 1928 y fallecido en Caracas, Venezuela, el 15 de septiembre de 2007) fue un talentoso músico, compositor, arreglista y director de orquesta venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Aldemaro_Romero",
+          "title": "Aldemaro Romero - Wikipedia, la enciclopedia libre",
+          "quote": "Aldemaro Romero OAB (Valencia, Estado Carabobo, 12 de marzo de 1928 - Caracas, Venezuela, 15 de septiembre de 2007) fue un músico, compositor, arreglista y director de orquesta venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Aldemaro_Romero",
+          "title": "Aldemaro Romero - Wikipedia, la enciclopedia libre",
+          "quote": "Nombre de nacimiento Aldemaro Romero Zerpa",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Aldemaro_Romero",
+          "title": "Aldemaro Romero - Wikipedia, la enciclopedia libre",
+          "quote": "Nacimiento 12 de marzo de 1928 Valencia, Venezuela",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Aldemaro_Romero",
+          "title": "Aldemaro Romero - Wikipedia, la enciclopedia libre",
+          "quote": "Fallecimiento 15 de septiembre de 2007 (79 años) Caracas, Venezuela",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Aldemaro_Romero",
+          "title": "Aldemaro Romero - Wikipedia, la enciclopedia libre",
+          "quote": "Años activo 1937-2007",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/179509",
+          "title": "Aldemaro Romero | Discogs",
+          "quote": "Variations: A. Romero, A. Romero., A.Romero, Adelmaro Romero, Al Romero, Al. Romero, Aldemara Romero, Aldemaro, Aldemaro Romero Y Su Orquesta, Aldemaro Romero, Su Piano Y Su Ritmo, Aldemaro Romero, Su Piano y Su Ritmo, Romero, Рамиро.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Aldemaro_Romero",
+          "title": "Aldemaro Romero - La Venciclopedia",
+          "quote": "Aldemaro Romero fue un director de orquesta, compositor y arreglista venezolano nacido en Valencia, estado Carabobo, el 12 de marzo de 1928, y fallecido en Caracas, el 15 de septiembre de 2007.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/classic/cdinfo_class/leobetan_conelcorazon.htm",
+        "https://sincopa.com/classic/cdinfo_class/clara_rodriguez/clararodriguez_2017americasinfront.htm",
+        "https://sincopa.com/classic/cdinfo_class/vzsuite_3central.htm",
+        "https://ninos.kiddle.co/Aldemaro_Romero",
+        "https://www.venciclopedia.org/index.php?title=Aldemaro_Romero",
+        "https://aldemaroromero.org/biografia/",
+        "https://www.deezer.com/mx/artist/203761397",
+        "https://es.wikipedia.org/wiki/Aldemaro_Romero",
+        "https://www.buenamusica.com/aldemaro-romero",
+        "https://en.wikipedia.org/wiki/Aldemaro_Romero",
+        "https://radio.otilca.org/aldemaro-romero-un-innovador-que-fusiono-la-tradicion-con-la-modernidad/",
+        "https://www.buenamusica.com/aldemaro-romero/biografia",
+        "https://www.discogs.com/artist/179509"
+      ]
+    },
+    {
+      "name": "Frank Quintero (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 8,
+      "sources": 13,
+      "seconds": 2,
+      "aiRunId": 21471,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Frank_Quintero",
+          "title": "Frank Quintero - Wikipedia",
+          "quote": "Frank Quintero (born Juan Francisco Quintero Mendoza ) is a Venezuelan singer-songwriter, guitarist and drummer specialized in pop music.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Frank_Quintero",
+          "title": "Frank Quintero - Wikipedia",
+          "quote": "Born in Caracas, November 27, 1952",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Frank_Quintero",
+          "title": "Frank Quintero - Wikipedia, la enciclopedia libre",
+          "quote": "Juan Francisco Quintero Mendoza, (Caracas; 27 de noviembre de 1952), más conocido como Frank Quintero, es un cantautor, productor musical y músico venezolano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Frank_Quintero",
+          "title": "Frank Quintero - La Venciclopedia",
+          "quote": "Juan Francisco Quintero Mendoza (nombre artístico Frank Quintero) es un multi intrumentista y cantante venezolano nacido en Caracas el 27 de noviembre de 1952.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.musica.com/frank-quintero/biografia",
+          "title": "Biografía de Frank Quintero - Musica.com",
+          "quote": "Frank Quintero nació el 27 de noviembre de 1952 en Caracas, Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/884406",
+          "title": "Frank Quintero | Discogs",
+          "quote": "Real Name: Juan Francisco Quintero Mendoza. Profile: Frank Quintero born November 27, 1952 in Caracas, Venezuela, son of José Quintero",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/884406",
+          "title": "Frank Quintero | Discogs",
+          "quote": "Credits: Guitar, Congas – Gladys – La Hija de la Oscuridad (1971); Coro – La Retreta Mayor – La Retreta Mayor (1976); Drums, Backing Vocals – Pablo Manavello – Cosas Sencillas (1979).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Frank_Quintero",
+          "title": "Frank Quintero - La Venciclopedia",
+          "quote": "Es hermano de la cantante Maricruz Quintero y el guitarrista y compositor Leonardo Quintero.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/jcnunez_suiteurbana.htm",
+        "https://sincopa.com/ethnic/cdinfo1/huba_huascar.htm",
+        "https://sincopa.com/jazz/cdinfo/alro_busqueda.htm",
+        "https://www.musica.com/frank-quintero/biografia",
+        "https://www.venciclopedia.org/index.php?title=Frank_Quintero",
+        "https://en.wikipedia.org/wiki/Frank_Quintero",
+        "https://www.buenamusica.com/frank-quintero/biografia",
+        "https://promoactual.la/el-hotel-humboldt-presenta-a-frank-quintero-en-su-tour-aqui-estoy/",
+        "https://es.wikipedia.org/wiki/Frank_Quintero",
+        "https://culturaminiteka.com/noticias/blog/frank-quintero",
+        "https://www.wikiwand.com/es/Frank_Quintero",
+        "https://www.asieravenezuela.com/p/frank-quintero.html",
+        "https://www.discogs.com/artist/884406"
+      ]
+    }
+  ]
+}

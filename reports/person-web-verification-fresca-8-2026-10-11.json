@@ -1,0 +1,1380 @@
+{
+  "date": "2026-10-11T03:38:22.000Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 20,
+    "correct": 14,
+    "errors": 0,
+    "same": "6/9",
+    "different": "0/1",
+    "mixed": "2/4",
+    "single": "6/6",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": false,
+  "cases": [
+    {
+      "name": "Lou Fresco / Marlon Morales",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 9,
+      "seconds": 3,
+      "aiRunId": 21681,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://genius.com/artists/Lil-supa",
+          "title": "Lil Supa Lyrics, Songs, and Albums | Genius",
+          "quote": "AKA: Marlon Luis Morales, Marc Ginale, Marlon Morales, NEØN, Little Supa', Lou Fresco, Little Zu, and Wise Morales",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/cultura/2020-09-02/lil-supa-neon-marlon-morales-hiphop-venezolano/",
+          "title": "Marlon Morales: \"El mejor rapero venezolano es el que respete la historia antes de él\" | El Estímulo",
+          "quote": "Tanto Lil Supa’ como Lou Fresco o NEØN y otra serie de seudónimos que aun no he sacado a la luz, forman parte del mismo imaginario, el mismo autor y el mismo proceso creativo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://genius.com/artists/Lil-supa",
+          "title": "Lil Supa Lyrics, Songs, and Albums | Genius",
+          "quote": "En febrero de 2017 finalmente publica el audio oficial de la obra “SERIO”, bajo el pseudónimo Lou Fresco",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/cultura/2020-09-02/lil-supa-neon-marlon-morales-hiphop-venezolano/",
+          "title": "Marlon Morales: \"El mejor rapero venezolano es el que respete la historia antes de él\" | El Estímulo",
+          "quote": "Marlon Morales (aka Lil Supa’) se ha caracterizado por ser un músico reservado y a la misma vez controversial",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://elestimulo.com/cultura/2020-09-02/lil-supa-neon-marlon-morales-hiphop-venezolano/",
+        "https://genius.com/artists/Lil-supa",
+        "https://vimeo.com/159287925",
+        "https://www.throwup.it/en/music/interviews/lou-fresco-lil-supa-marc-ginale-from-venezuela-to-the-world/",
+        "https://m.vkvideo.ru/video43279332_456240187",
+        "https://www.youtube.com/watch?v=i6Y48TvAQ6U",
+        "https://www.discogs.com/artist/4458003-Lil-Supa",
+        "https://vimeo.com/198590968",
+        "https://www.youtube.com/watch?v=rqx3_HxbG1E"
+      ]
+    },
+    {
+      "name": "Luiser / Luis E. Serrano",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 11,
+      "seconds": 21,
+      "aiRunId": 21596,
+      "rationale": "una cita une los dos nombres y el proyecto común",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/luiser.htm",
+          "title": "Luiser - Bio & Discography",
+          "quote": "Luiser (Luis Ernesto Serrano)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/luiser.htm",
+          "title": "Luiser - Bio & Discography",
+          "quote": "1993 Morfeo Cygnus",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/luiser.htm",
+          "title": "Luiser - Bio & Discography",
+          "quote": "2010 Pasado Mañana / Uno Independent",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/shesura_1diferente.htm",
+          "title": "Shesura - Diferente Amanecer (CD Info)",
+          "quote": "Guide Sequence: Luis E. Serrano \"Luiser\" (tracks 02, 04, 08)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/luiser.htm",
+          "title": "Luiser - Bio & Discography",
+          "quote": "2001 Shesura Diferente Amanecer Programming",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/shesura_1diferente.htm",
+        "https://sincopa.com/rock_pop/artist_rock/luiser.htm",
+        "https://catchmovement.com/artists/drake/ticket-prices",
+        "https://world.taobao.com/lang/en-us/item/dTFEUEthbmpzanlTSWdhdjNYWTBvZz09.htm",
+        "https://conventuslaw.com/report/malaysia-financial-services-update-new-fee-structure-for-capital-market-sector/",
+        "https://open.spotify.com/intl-ja/track/3celFAQj0EQr1SFwbhchNm",
+        "https://www.japanryokanguide.com/en/blog/best-ryokans-fukuoka",
+        "https://luiser.com/",
+        "https://music.youtube.com/browse/UCApaQjQDIUmqL1mUem8K0bg",
+        "https://m.soundcloud.com/luiser/sets/pasado-manana-uno",
+        "https://luiserarquitectos.com/"
+      ]
+    },
+    {
+      "name": "Al Zeppy / Alberto Lewis",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 11,
+      "seconds": 6,
+      "aiRunId": 21682,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://barraezo-blogspot-com.nproxy.org/search/label/Al%20Zeppy",
+          "title": "Barraezo Presenta: Al Zeppy",
+          "quote": "Su nombre de pila es Alberto Lewis y formo parte del quinteto “Los Zeppy”, del cual también lograron sobresalir cuando este se disolvió en junio de 1962, José Luis Rodríguez y Estelita del Llano.",
+          "supports": "same"
+        },
+        {
+          "url": "https://barraezo-blogspot-com.nproxy.org/search/label/Al%20Zeppy",
+          "title": "Barraezo Presenta: Al Zeppy",
+          "quote": "Al disolverse, se dirige a la isla de Puerto Rico y toma como parte de su nombre artístico el nombre de su anterior grupo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/2019/10/murio-el-cantante-al-zeppy-a-los-80-anos-de-edad/",
+          "title": "Murió el cantante venezolano Al Zeppy a los 80 años de edad",
+          "quote": "Alberto Lewis, su nombre de pila, era de hijo de padre norteamericano y madre venezolana.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/2019/10/murio-el-cantante-al-zeppy-a-los-80-anos-de-edad/",
+          "title": "Murió el cantante venezolano Al Zeppy a los 80 años de edad",
+          "quote": "Luego Zeppy descubrió a la cantante Estrellita de Llano al formar el grupo vocal Los Zeppy.",
+          "supports": "same"
+        },
+        {
+          "url": "https://barraezo-blogspot-com.nproxy.org/search/label/Al%20Zeppy",
+          "title": "Barraezo Presenta: Al Zeppy",
+          "quote": "Al Zeppy en New York - United Artists Records ‎UAL 3583 - 1967",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/los_zeppy_1.htm",
+          "title": "Los Zeppy - Los Zeppy (LP Info)",
+          "quote": "Vocals: Alberto Lewis, Estelita del Llano, José Luis Rodríguez, Nicolás Alvarado & Agustín Calzadilla",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/alzeppy_63elzeppy.htm",
+        "https://barraezo-blogspot-com.nproxy.org/search/label/Al%20Zeppy",
+        "https://sincopa.com/rock_pop/cdinfo_rock/los_zeppy_1.htm",
+        "https://www.elnacional.com/2019/10/murio-el-cantante-al-zeppy-a-los-80-anos-de-edad/",
+        "https://web.archive.org/web/20120427080118/http://www.rockhechovenezuela.com/loszeppy.htm",
+        "https://vuelveprimavera.blogspot.com/2025/10/los-zeppy.html",
+        "https://al-zeppy.bandcamp.com/album/el-zeppy-alberto-lewis",
+        "https://www.youtube.com/watch?v=8LY6Wrd409U",
+        "https://www.youtube.com/watch?v=eR95hmgrbQw",
+        "https://www.youtube.com/watch?v=OmW79RXALOI",
+        "https://www.discogs.com/artist/3707296"
+      ]
+    },
+    {
+      "name": "Fresa / Carlos «Fresa» Mata",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 12,
+      "seconds": 3,
+      "aiRunId": 21564,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/skatz_1allstars.htm",
+          "title": "Zion - Genesis (CD Info)",
+          "quote": "Backing Vocals: Fresa (track 07)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/7314886",
+          "title": "Carlos Mata (2) | Discogs",
+          "quote": "Vocals – Subsonus – Grandes Razones, Fuertes Acciones (2011).",
+          "supports": "same"
+        },
+        {
+          "url": "https://rumberos.net/subsonus-anuncio-su-separacion-definitiva/",
+          "title": "SUBSONUS ANUNCIÓ SU SEPARACIÓN DEFINITIVA | Rumberos",
+          "quote": "Sin embargo, la banda nunca se vio afectada por bajas en sus filas, y se mantuvo hasta hoy con Carlos “Fresa” Mata, Leonardo Molina, Felipe Grüber y Daniel Guzmán.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.oidossucios.com/site/los-musicos-venezolanos-hacen-un-playlist-para-ir-a-votar/",
+          "title": "Los músicos venezolanos hacen un playlist para ir a votar - OidosSucios.Com",
+          "quote": "CARLOS “FRESA” MATA (Cantante, ex Subsonus)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=EA8hjtt0hhk",
+          "title": "Subsonus - Alias (2005) || Full Album || - YouTube",
+          "quote": "Lead Vocals: Carlos \"Fresa\" Mata",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/skatz_1allstars.htm",
+        "https://soundcloud.com/subsonus/grfa-clip",
+        "https://www.armyrecognition.com/news/navy-news/2026/u-s-navy-expands-ballistic-missile-defense-with-745m-raytheon-sm-3-block-iia-contract",
+        "https://fhstats.com/",
+        "https://rumberos.net/subsonus-anuncio-su-separacion-definitiva/",
+        "https://currentcost.org/large-landscaping-stones-cost-price-ranges-budget-tips/",
+        "https://www.oidossucios.com/site/los-musicos-venezolanos-hacen-un-playlist-para-ir-a-votar/",
+        "https://www.youtube.com/watch?v=EA8hjtt0hhk",
+        "https://scarsonet.wordpress.com/2011/12/03/subsonus-anuncia-su-separacion/",
+        "https://melomanosblogs.wordpress.com/2011/12/02/subsonus-anuncia-su-separacion/",
+        "https://suenaenvenezuela.wordpress.com/tag/oscar-tarazona/",
+        "https://www.discogs.com/artist/7314886"
+      ]
+    },
+    {
+      "name": "Guillermo Noya / Willy Noya",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 3,
+      "sources": 9,
+      "seconds": 12,
+      "aiRunId": 21683,
+      "rationale": "Rol, género o época distintos no prueban dos personas, y no aparece un proyecto común en la web.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/master/2753465-La-Big-Landin-Orquesta-SKAterriza",
+          "title": "La Big Landin Orquesta – SKAterriza | Releases | Discogs",
+          "quote": "Guillermo Noya. Trombone.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/labiglandinorq_1skaterriza.htm",
+          "title": "La Big Landin Orquesta - SKAterriza (CD Info)",
+          "quote": "Trombone: Guillermo Noya.",
+          "supports": "same"
+        },
+        {
+          "url": "https://open.spotify.com/intl-es/track/3lE85l2rKPkPX16mvYipmS",
+          "title": "Chacumbele ! - música y letra de Palmeras Kanibales, Willy Noya | Spotify",
+          "quote": "Palmeras Kanibales, Willy Noya · La Ruta · Canción · 2006",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.msdvetmanual.com/respiratory-system/respiratory-diseases-of-small-animals/feline-respiratory-disease-complex",
+        "https://open.spotify.com/intl-es/track/3lE85l2rKPkPX16mvYipmS",
+        "https://en.wikipedia.org/wiki/Rail_transport_in_Tibet",
+        "https://wow-mate.com/compare",
+        "https://namesdir.com/S_Noya",
+        "https://www.discogs.com/release/9806534-SonTizon-A-Cada-11-Le-Llega-Su-13",
+        "https://www.discogs.com/master/2753465-La-Big-Landin-Orquesta-SKAterriza",
+        "https://sincopa.com/rock_pop/cdinfo_rock/labiglandinorq_1skaterriza.htm",
+        "https://secondhandsongs.com/artist/211488/all"
+      ]
+    },
+    {
+      "name": "Fabián «Tweety» González / Tweety González",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 15,
+      "sources": 12,
+      "seconds": 3,
+      "aiRunId": 21599,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://portalnews.ar/contenido/2626/premios-konex-2025",
+          "title": "Premios Konex 2025",
+          "quote": "Fabián \"Tweety\" González - Premios Konex 2015 y 2025 Nació el 03/11/1963. Músico, productor e ingeniero. Tocó con Celeste Carballo, Fito Paez y Soda Stereo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://portalnews.ar/contenido/2626/premios-konex-2025",
+          "title": "Premios Konex 2025",
+          "quote": "Fabián \"Tweety\" González y Lucy Patané, figuras que representan diversas generaciones, estilos y trayectorias",
+          "supports": "same"
+        },
+        {
+          "url": "https://tweetygonzalez.com/",
+          "title": "Inicio - Tweety Gonzalez",
+          "quote": "Tweety González",
+          "supports": "same"
+        },
+        {
+          "url": "https://lapasionde.com/fabian-tweety-gonzalez/",
+          "title": "Fabián “Tweety” González – La Pasión de:",
+          "quote": "Fabián “Tweety” González – La Pasión de:",
+          "supports": "same"
+        },
+        {
+          "url": "https://lapasionde.com/fabian-tweety-gonzalez/",
+          "title": "Fabián “Tweety” González – La Pasión de:",
+          "quote": "Fabián Tweety González, cuatro décadas detrás de la música argentina",
+          "supports": "same"
+        },
+        {
+          "url": "https://lapasionde.com/fabian-tweety-gonzalez/",
+          "title": "Fabián “Tweety” González – La Pasión de:",
+          "quote": "El apodo llegó recién en 1982, y no se lo puso ningún productor. Se lo puso el Mono Fontana",
+          "supports": "same"
+        },
+        {
+          "url": "https://tweetygonzalez.com/",
+          "title": "Inicio - Tweety Gonzalez",
+          "quote": "Mi carrera como músico profesional comenzó en 1983 en las jam sessions que se armaban los domingos en Jazz & Pop.",
+          "supports": "same"
+        },
+        {
+          "url": "https://tweetygonzalez.com/",
+          "title": "Inicio - Tweety Gonzalez",
+          "quote": "En 1985 Fito Páez me convocó para formar parte de su banda y al poco tiempo produje su segundo disco llamado “Giros”.",
+          "supports": "same"
+        },
+        {
+          "url": "https://tweetygonzalez.com/",
+          "title": "Inicio - Tweety Gonzalez",
+          "quote": "En 2009 fundé mi propio estudio de grabación.",
+          "supports": "same"
+        },
+        {
+          "url": "https://tweetygonzalez.com/",
+          "title": "Inicio - Tweety Gonzalez",
+          "quote": "En 2011 produje el disco debut solista de Richard Coleman, y el disco \" Bi\" de Kevin Johansen.",
+          "supports": "same"
+        },
+        {
+          "url": "https://tweetygonzalez.com/",
+          "title": "Inicio - Tweety Gonzalez",
+          "quote": "artistas latinos como Superlitio, Famasloop, Mink, Patanes, De Saloon, entre otros.",
+          "supports": "same"
+        },
+        {
+          "url": "https://portalnews.ar/contenido/2626/premios-konex-2025",
+          "title": "Premios Konex 2025",
+          "quote": "Fabián \"Tweety\" González y Lucy Patané, figuras que representan diversas generaciones, estilos y trayectorias, y que comparten el mérito de haber construido una identidad musical capaz de trascender fronteras.",
+          "supports": "same"
+        },
+        {
+          "url": "https://portalnews.ar/contenido/2626/premios-konex-2025",
+          "title": "Premios Konex 2025",
+          "quote": "Fabián \"Tweety\" González - Premios Konex 2015 y 2025 Nació el 03/11/1963. Músico, productor e ingeniero. Tocó con Celeste Carballo, Fito Paez y Soda Stereo. Produjo los discos Giros, Ey, Ciudad de Pobres Corazones, El Amor Despues del Amor (disco más vendido de la historia Argentina) y Circo Beat.",
+          "supports": "same"
+        },
+        {
+          "url": "https://tweetygonzalez.com/",
+          "title": "Inicio - Tweety Gonzalez",
+          "quote": "En 1989 comencé a tocar en los shows y a participar en los discos de la banda argentina más trascendente de América Latina hasta su separación en 1997: Soda Stereo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://runrun.es/noticias/57315/demasiado-pop-para-ser-raro-demasiado-raro-para-ser-pop-por-annette-barriola/",
+          "title": "Demasiado pop para ser raro, demasiado raro para ser pop por Annette Barriola - Runrun.es: En defensa de tus derechos humanos",
+          "quote": "Que Tweety González pasara de ser conocido como el cuarto Soda Stereo al sexto Famasloop entre los venezolanos",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://portalnews.ar/contenido/2626/premios-konex-2025",
+        "https://tweetygonzalez.com/",
+        "https://runrun.es/noticias/57315/demasiado-pop-para-ser-raro-demasiado-raro-para-ser-pop-por-annette-barriola/",
+        "https://lapasionde.com/fabian-tweety-gonzalez/",
+        "https://www.pagina12.com.ar/412016-los-35-anos-del-debut-de-sentimiento-muerto-leyenda-venezola/",
+        "https://elestimulo.com/cultura/musica/2022-07-27/famasloop-nuevo-disco-lo-mas-seguro-es-que-quien-sabe/",
+        "https://ashleyrhodeslive.com/australian-pull-up-vs-regular-pull-up/",
+        "https://tendsrock.wordpress.com/tag/sentimiento-muerto/",
+        "https://acordesweb.com/artista/famasloop",
+        "https://www.discogs.com/release/3494790-Sentimiento-Muerto-El-Amor-Ya-No-Existe",
+        "https://es.paperblog.com/sentimiento-muerto-28-aniversario-el-amor-ya-no-existe-hay-que-hacerlo-entrevista-especial-a-pinguino-y-wincho-3496215/",
+        "https://www.discogs.com/artist/2024361"
+      ]
+    },
+    {
+      "name": "Vladimir «Arfavor» Peña / Vladimir Peña",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 7,
+      "sources": 11,
+      "seconds": 3,
+      "aiRunId": 21565,
+      "rationale": "La web no liga a cada ficha con sus propios proyectos.",
+      "evidence": [
+        {
+          "url": "https://vladbone.com/",
+          "title": "Vadimir Peña",
+          "quote": "Funda en el 2002 Road House Studio en Caracas, Venezuela, junto al ingeniero de sonido, Marcel Fernandez, allí se dedica a ser músico de sesión, productor y ejecutante de trombón en múltiples estilos musicales y agrupaciones como, Fauna Crepuscular, Amigos Invisibles, Tres Dueños, entre otros.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/fauna_crepusc_1.htm",
+          "title": "Fauna Crepuscular - El Primero Siempre Es Rapido (CD Info)",
+          "quote": "Trombone: Vladimir Peña",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.wikiwand.com/es/articles/Fauna_(banda)",
+          "title": "Fauna (banda) - Wikiwand",
+          "quote": "Vladimir Peña - Trombonista.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=oz3Dze5c-wA",
+          "title": "Los Mentas - Hasta Que Los Bares Nos Separen (2002) - YouTube",
+          "quote": "Trombone: Vladimir Peña",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/mentas_2hastaq.htm",
+          "title": "Los Mentas - Hasta Que Los Bares Nos Separen (CD Info)",
+          "quote": "Trombone: Vladimir Peña.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/release/12434352-Los-Mentas-Masacre-En-El-Pin-5",
+          "title": "Los Mentas – Masacre En El Pin 5 (2004, CD) - Discogs",
+          "quote": "Trombone – Vladimir Peña (tracks: 06, 07).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/205192",
+          "title": "Vladimir Peña | Discogs",
+          "quote": "Vladimir Peña. Variations: V. Peña. Credits: Trombone – Los Mentas – Hasta Que Los Bares Nos Separen (2002); Featuring – Dioslepague – Bronceador (2003); Trombone – Vagos y Maleantes – Papidandeando (2003).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://vladbone.com/",
+        "https://theaiastrology.com/vedic-astrology-vs-western-astrology",
+        "https://paws-tales.com/health-wellbeing/enrofloxacin-for-dogs-medication-guide",
+        "https://sincopa.com/rock_pop/cdinfo_rock/fauna_crepusc_1.htm",
+        "https://zhidao.baidu.com/question/382282644.html",
+        "https://en.wikipedia.org/wiki/List_of_Bluey_characters",
+        "https://www.wikiwand.com/es/articles/Fauna_(banda)",
+        "https://www.youtube.com/watch?v=oz3Dze5c-wA",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mentas_2hastaq.htm",
+        "https://www.discogs.com/release/12434352-Los-Mentas-Masacre-En-El-Pin-5",
+        "https://www.discogs.com/artist/205192"
+      ]
+    },
+    {
+      "name": "Cuso / Carlos «Cuso» González",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 11,
+      "seconds": 2,
+      "aiRunId": 21391,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://ichamo.com/records/2017/12/16/unco-se-lanza-al-corral-de-ordeno/",
+          "title": "UNCO se lanza al “Corral de ordeño” - Ichamo",
+          "quote": "De esta manera el “rock and roll malandro” del trio conformado por Carlos “Cuso” González, José “Triky” González y Tony “Cash” Maestracci, regresa al ruedo de la movida musical nacional haciendo este brutal homenaje al estilo neo folcklore.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/unco_2gran_escape.htm",
+          "title": "Unco - El Gran Escape (CD Info)",
+          "quote": "Guitar & Vocals: Carlos \"Cuso\" González",
+          "supports": "same"
+        },
+        {
+          "url": "https://plus.cusica.com/2025/04/07/unco-revela-el-single-sigo-en-pie/",
+          "title": "UNCO revela el single 'Sigo en Pie' | CusicaPlus",
+          "quote": "Actualmente está formado por Carlos ‘Cuso’ González, sumándose a la alineación Daniel Moreno en el bajo y Doran Mila en la batería.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/bandas/unco",
+          "title": "Unco – Lobotoradio",
+          "quote": "Unco es una banda de rock clásico y blues rock formada en Puerto La Cruz, Anzoátegui, en el 2002 por los hermanos Carlos González \"Cuso\" (voz, guitarra), José González \"Tricky\" (voz, bajo) y Carlos Padrón \"Maracucho\" (batería).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://ichamo.com/records/2017/12/16/unco-se-lanza-al-corral-de-ordeno/",
+        "https://plus.cusica.com/2025/04/07/unco-revela-el-single-sigo-en-pie/",
+        "https://www.lobotoradio.com/bandas/unco",
+        "https://sincopa.com/rock_pop/cdinfo_rock/unco_2gran_escape.htm",
+        "https://paltoque.com/noticia-unco-presenta-sesiones-del-cable-negro/",
+        "https://www.hermanosdelrock.com/2015/07/unco-presenta-su-nuevo-sencillo-llamado.html",
+        "https://scarsonet.wordpress.com/category/unco/",
+        "https://www.youtube.com/watch?v=_0QUhgc36p4",
+        "https://es.paperblog.com/unco-presenta-sesiones-del-cable-negro-3363504/",
+        "https://arepavolatil.com/unco-regresa-con-sigo-en-pie/",
+        "https://tiburonclub.wordpress.com/category/sin-categoria/"
+      ]
+    },
+    {
+      "name": "William Sigismondi / William Sigismondi Jr. (padre e hijo)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 7,
+      "sources": 13,
+      "seconds": 10,
+      "aiRunId": 21392,
+      "rationale": "Solo un nombre lleva «Hijo» o «Jr.»: puede ser el padre o el hijo; no se propone fusión.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/3883967",
+          "title": "William Sigismondi | Discogs",
+          "quote": "Variations: W. Sigismondi, William Sigismondi Jr., Williams Sigismondy.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/3883967",
+          "title": "William Sigismondi | Discogs",
+          "quote": "Credits: Piano – Salón Carmín – Salón Carmín (1991); Arranged By, Directed By – Ilan Chester – Cancionero Del Amor Venezolano (1998).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/priscadavila_4pianocanto2.htm",
+          "title": "Prisca Dávila - Piano En Canto Venezolano II (CD Info)",
+          "quote": "Backing Vocals: William Sigismondi & Eduardo Dávila",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/priscadavila_4pianocanto2.htm",
+          "title": "Prisca Dávila - Piano En Canto Venezolano II (CD Info)",
+          "quote": "Musical Producer & Arranger: William Sigismondi",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/ericchacon_2esplendidanoche.htm",
+          "title": "Eric Chacón - Espléndida Noche (CD Info)",
+          "quote": "Piano: Carlos González, Prisca Dávila, Gerardo Lugo, Pedrito López & William Sigismondi Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/traditional/cdinfo2/zeneidarodriguez_1cuerpoyalma.htm",
+          "title": "Zeneida Rodríguez - En Cuerpo y Alma (CD Info)",
+          "quote": "Recorded by Edgar Espinoza & William Sigismondi Jr at Serena Estudios (Caracas)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/marina_bravo/marinabravo_1ddondevengo.htm",
+          "title": "Marina Bravo - De Donde Vengo (CD Info)",
+          "quote": "Production Assistant: William Sigismondi Jr. Recorded by Edgar Espinoza & William Sigismondi Jr at Serena Estudios (Caracas)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/priscadavila_4pianocanto2.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/oscar_d_leon/oscardleon_2001masqamorfrenesi.htm",
+        "https://sincopa.com/jazz/cdinfo/ericchacon_2esplendidanoche.htm",
+        "https://sincopa.com/traditional/cdinfo2/zeneidarodriguez_1cuerpoyalma.htm",
+        "https://www.cuandoerachamo.com/10-canciones-en-espanol-que-pegaron-en-1989",
+        "https://www.switchbladegaming.com/cozy-games/animal-crossing-vs-stardew-valley/",
+        "https://www.cloudzero.com/blog/aws-vs-azure-pricing/",
+        "https://es.wikipedia.org/wiki/Maruja_Muci",
+        "https://www.shazam.com/es-mx/song/6769577147/el-cumbanchero-feat-tony-succar",
+        "https://sincopa.com/latin_pop/cdinfo_latin/marina_bravo/marinabravo_1ddondevengo.htm",
+        "https://lasalsaesmivida.com/eric-chacon-southern-breeze/",
+        "https://www.youtube.com/watch?v=Q4_ocyCBszk",
+        "https://www.discogs.com/artist/3883967"
+      ]
+    },
+    {
+      "name": "Emilio Estefan / Emilio Estefan Jr. (la misma persona)",
+      "kind": "pair",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 5,
+      "sources": 12,
+      "seconds": 6,
+      "aiRunId": 21393,
+      "rationale": "Solo un nombre lleva «Hijo» o «Jr.»: puede ser el padre o el hijo; no se propone fusión.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/pavo_versiones.htm",
+          "title": "Frank \"El Pavo\" Hernández - Versiones (CD Info)",
+          "quote": "Con Los Años Que Me Quedan (Gloria Estefan/Emilio Estefan)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_90estavez.htm",
+          "title": "José Luis Rodríguez - Esta Vez (LP Info)",
+          "quote": "Emilio Estefan Jr. (track B4)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/carlosbaute_04damedeso.htm",
+          "title": "Carlos Baute - Dame De Eso (CD Info)",
+          "quote": "Produced by Emilio Estefan Jr. & Randall M. Barlow (tracks 1, 8)",
+          "supports": "same"
+        },
+        {
+          "url": "https://music.apple.com/ve/artist/emilio-estefan-jr/14802",
+          "title": "‎Emilio Estefan, Jr. en Apple Music",
+          "quote": "Emilio Estefan, Jr.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.billboard.com/music/latin/latin-artists-who-got-covid-vaccine-9549788/",
+          "title": "Latin Artists Who Got The COVID-19 Vaccine",
+          "quote": "Emilio Estefan Jr.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/pavo_versiones.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_90estavez.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/carlosbaute_04damedeso.htm",
+        "https://www.sonysaborradio.com/2009/06/murio-frank-el-pavo-hernandez.html",
+        "https://music.apple.com/ve/artist/emilio-estefan-jr/14802",
+        "https://www.cbr.com/streaming-report-long-wait-viewership-decline/",
+        "https://www.billboard.com/music/latin/latin-artists-who-got-covid-vaccine-9549788/",
+        "https://www.infobae.com/america/entretenimiento/2019/01/15/jose-luis-rodriguez-el-puma-tendra-en-miami-su-primer-concierto-tras-doble-trasplante-de-pulmon/",
+        "https://en.wikipedia.org/wiki/Baila_Mi_Rumba",
+        "https://sincopa.com/latin_pop/cdinfo_latin/jose_luis_rodriguez/joseluis_91pumaenritmo1.htm",
+        "https://www.cancioneros.com/lyrics/artist/17128/jose-luis-rodriguez",
+        "https://elpais.com/elpais/2019/01/15/gente/1547547279_515819.html"
+      ]
+    },
+    {
+      "name": "Ezlen Ramos 5900: + timple de José Antonio Ramos",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 4,
+      "sources": 12,
+      "seconds": 12,
+      "aiRunId": 21575,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/hiena_involucion.htm",
+          "title": "Hiena - Involución (CD Info)",
+          "quote": "Drums: Ezlen Ramos",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=7O7POjOuckA",
+          "title": "Hiena \"Osamenta\" (vídeo oficial) - YouTube",
+          "quote": "Hiena es: Franklin Suárez Voz Marco Pratolongo Guitarra Trino Esteila Bajo Miguel Yendys Guitarra Ezlen Ramos Bateria",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.metal-archives.com/bands/Hiena/3540375157",
+          "title": "Hiena - Encyclopaedia Metallum: The Metal Archives",
+          "quote": "Ezlen Ramos.Ezlen Ramos. Drums (2009-2015). Jorge Luis Mora.",
+          "supports": "same"
+        },
+        {
+          "url": "https://vk.ru/ezlenramos",
+          "title": "VK.com | VK",
+          "quote": "Ezlen Ramos. День рождения: 19 мая 1987 г.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/hiena_involucion.htm",
+        "https://sincopa.com/jazz/cdinfo/larryjeanlouis_2reaching.htm",
+        "https://sincopa.com/jazz/cdinfo/larryjeanlouis_3ontheway.htm",
+        "https://jkradon.com/block-wall/",
+        "https://soundcloud.com/ezlen-ramos/tracks",
+        "https://novaradon.com/services/",
+        "https://vk.ru/ezlenramos",
+        "https://novaradon.com/services/radon-mitigation/",
+        "https://www.youtube.com/watch?v=7O7POjOuckA",
+        "https://www.metal-archives.com/bands/Hiena/3540375157",
+        "https://tendsrock.wordpress.com/2012/06/06/hiena/",
+        "https://www.spirit-of-metal.com/en/band/Hiena"
+      ]
+    },
+    {
+      "name": "Luisito Quintero 1701: + Luis Quintero «Bosta's Brain»",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 5,
+      "sources": 22,
+      "seconds": 12,
+      "aiRunId": 21576,
+      "rationale": "apellidos distintos en las fichas: Bostas Brain / Luisito Quintero Reparto propuesto: acreditado como Bostas Brain: Mata Rica, Various Artists, Sur Carabela, PapaShanty Saund System, Alvaro Segura · Luisito Quintero: Guaco, Canelita Medina, Oscar D' León, Orquesta Batakum, Andy Durán, Luisito Quintero, Ankla, Daiquirí, Orinoco Banda Show, Caridad Canelón, Los Buitres, Roberto Antonio, Salón Carmín, Daisy, Frank \"El Pavo\" Hernández, Grupo Palo De Arco, Orquesta Son 2, Sergio Pérez, Colina, Franco De Vita, Nancy Ramos, Natusha, Sharon Rose, Alberto Naranjo, Esteban Demián, Rodolfo Reyes, La Corte, Servando y Florentino, Soledad Bravo, Dimension Latina, Gerardo Rosales, Leo Blanco, Los Amigos Invisibles, César \"Chino\" Pérez, Onechot, Michael Simon, Caseroloops, Jahkogba, Julio César, Carlos Baute, Edward Simon, Edwin Sanz, César Orozco & Kamarata Jazz, Raúl Agraz, Miguel Siso, Eric Chacón & Luis Quintero, Silvano Monasterios, Bostas Brain, PapaShanty Saund System, Sietecuero.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/3414029",
+          "title": "Bostas Brain | Discogs",
+          "quote": "Bostas Brain. Real Name: Luis Quintero. Variations: Bosta's Brain, Bostha.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/bostas-brain",
+          "title": "Bostas Brain – Lobotoradio",
+          "quote": "nombre completo: Luis Quintero alias: El Juez nacimiento: 1978-03-11 (Caracas, Distrito Capital, Venezuela) actividad: 1990s - presente",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/bostas-brain",
+          "title": "Bostas Brain – Lobotoradio",
+          "quote": "bandas: La Corte (1998–2000), Papashanty Saundsystem",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/268294",
+          "title": "Luisito Quintero | Discogs",
+          "quote": "Luisito Quintero. Real Name: Luis Ernesto Quintero Jr..",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/268294",
+          "title": "Luisito Quintero | Discogs",
+          "quote": "Credits: Tambora – Orquesta Batakum – Batakum (1984); Percussion, Electronic Drums – Luisito Quintero – Luisito Quintero (1986).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/gero_salsavida.htm",
+        "https://sincopa.com/ethnic/cdinfo1/miguelsiso_3itinerante.htm",
+        "https://sincopa.com/jazz/cdinfo/cesarorozco_3nolimits.htm",
+        "https://www.spanishharlemorchestra.com/luisito-quintero-es",
+        "https://www.audiokat.com/Luisito_Quintero/2870",
+        "https://latinjazzvenezuela.blogspot.com/2008/11/luisito-quintero.html",
+        "https://es.salsagoogle.com/?s=Timbal",
+        "https://www.sustainablevet.org/es/articulo/eleccion-material-sutura-cirugia-perro",
+        "https://zoomcorp.com/es/es/noticias/inside-the-artist-mind-with-luisito-quinteros/",
+        "https://radiocafeatlantico.com/vaya-luisito/",
+        "http://laguiadecaracas.net/41146/luisito-quintero-un-gran-percusionista-caraqueno/",
+        "https://www.scientology.tv/es-ES/series/staywell-concert/artists/",
+        "https://www.discogs.com/artist/268294",
+        "https://sincopa.com/jazz/cdinfo/albna_trabuco2.htm",
+        "https://sabian.com/artist/luisito-quintero/",
+        "https://www.lobotoradio.com/artistas/bostas-brain",
+        "https://www.seekahost.co/how-to-protect-your-minecraft-base/",
+        "https://www.youtube.com/watch?v=1D-H0U0C-s4",
+        "https://www.discogs.com/release/8545494-Mata-Rica-Pachanga-Punk",
+        "https://www.shazam.com/es-mx/album/1713768955/pachanga-punk",
+        "https://www.amazon.es/music/player/albums/B0CLVTXKSM?trackAsin=B0CLVSW1XH",
+        "https://www.discogs.com/artist/3414029"
+      ]
+    },
+    {
+      "name": "Ignacio Pérez 3343: + Nacho de Chino & Nacho",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 7,
+      "sources": 12,
+      "seconds": 6,
+      "aiRunId": 21577,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/ricochet_2mafia_inc.htm",
+          "title": "Ricochet ccs - Mafia Inc. (CD Info)",
+          "quote": "Bass: Ignacio \"Nacho\" Pérez",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/ricochet_2mafia_inc.htm",
+          "title": "Ricochet ccs - Mafia Inc. (CD Info)",
+          "quote": "Bass: Ignacio \"Nacho\" Pérez",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/ricochet_1vol13.htm",
+          "title": "Ricochet ccs - Vol. 13 (CD Info)",
+          "quote": "Bass & Vocals: Ignacio Pérez",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/ricochet_ccs.htm",
+          "title": "Ricochet ccs - Bio & Discography",
+          "quote": "Bass: Ignacio \"Nacho\" Pérez",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.manquepierda.com/historiarealbetis/ignacio-perez-nacho/",
+          "title": "Ignacio Pérez «Nacho» – Historia bética",
+          "quote": "Ignacio Pérez Santamaría, «Nacho», nacido en Málaga el 24 de junio de 1980. Defensa.",
+          "supports": "different"
+        },
+        {
+          "url": "https://revistadiapason.com/entrevista-a-carlos-dieguez-y-jesus-ignacio-perez-perazzo/",
+          "title": "Entrevista a Carlos Diéguez y Jesús Ignacio Pérez Perazzo - Revista Diapasón",
+          "quote": "Jesús Ignacio Pérez Perazzo como protagonista de la conferencia El sistema",
+          "supports": "different"
+        },
+        {
+          "url": "https://revistadiapason.com/entrevista-a-carlos-dieguez-y-jesus-ignacio-perez-perazzo/",
+          "title": "Entrevista a Carlos Diéguez y Jesús Ignacio Pérez Perazzo - Revista Diapasón",
+          "quote": "J. I. Pérez Perazzo: El Sistema tiene dos vertientes muy claramente definidas.",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/ricochet_2mafia_inc.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/ricochet_1vol13.htm",
+        "https://sincopa.com/rock_pop/artist_rock/ricochet_ccs.htm",
+        "https://www.manquepierda.com/historiarealbetis/ignacio-perez-nacho/",
+        "https://www.erome.com/search?q=julia+bonde",
+        "https://en.wikipedia.org/wiki/Uran-9",
+        "https://revistadiapason.com/entrevista-a-carlos-dieguez-y-jesus-ignacio-perez-perazzo/",
+        "https://www.erome.com/OFjulia_bond",
+        "https://www.linkedin.com/pub/dir/Nacho+Ignacio/Perez",
+        "https://www.futmetrix.com/es/players/nacho-perez-t539",
+        "https://www.youtube.com/playlist?list=PLdXk-JrtILWTCcgOJIEwq5ZjI5KIjvK_1",
+        "https://www.aupaathletic.com/ignacio-perez-santamaria/futbolista/610"
+      ]
+    },
+    {
+      "name": "Gustavo Aguado (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 5,
+      "sources": 13,
+      "seconds": 4,
+      "aiRunId": 21398,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://www.guaco.org/pages/gustavo-aguado",
+          "title": "Gustavo Aguado – Guaco",
+          "quote": "Gustavo Aguado Voz Director y Productor Nació el 03 de Noviembre de 1949 en Maracaibo, Edo Zulia. Venezuela. Forma parte de la banda desde sus inicios.",
+          "supports": "same"
+        },
+        {
+          "url": "https://camnd-ma.com/entretenimiento/gustavo-aguado-cumple-76-anos-y-el-zulia-le-canta/",
+          "title": "Gustavo Aguado cumple 76 años y el Zulia le canta",
+          "quote": "Gustavo Adolfo Aguado León, nacido un día como mañana de 1949, en Maracaibo, cumple 76 años de vida y más de seis décadas de historia al frente de una de las agrupaciones más emblemáticas de Venezuela: Guaco, “La Superbanda”.",
+          "supports": "same"
+        },
+        {
+          "url": "https://somosnoticiascol.com/zulia/zulia-gustavo-aguado-cumple-76-anos-y-el-zulia-le-canta/225255/",
+          "title": "ZULIA | Gustavo Aguado cumple 76 años y el Zulia le canta – Somos Noticia Col",
+          "quote": "Gustavo Adolfo Aguado León, nacido un día como mañana de 1949, en Maracaibo, cumple 76 años de vida y más de seis décadas de historia al frente de una de las agrupaciones más emblemáticas de Venezuela: Guaco, “La Superbanda”.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Gustavo_Aguado",
+          "title": "Gustavo Aguado - Wikipedia, la enciclopedia libre",
+          "quote": "Gustavo Adolfo Aguado León (Maracaibo, Zulia, 3 de noviembre de 1949) es un cantante venezolano, director general de la orquesta venezolana Guaco.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1420199",
+          "title": "Gustavo Aguado | Discogs",
+          "quote": "Gustavo Aguado. Profile: Venezuelan vocalist and Guaco's musical director. Variations: Gustavo Adolfo Aguado, Gustavo Aguado L.. Credits: Musician [Guest Artists] – Colina – Vuelve (1993).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/huba_hallacasconflauta2.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/4tocreciente_sonandoazul.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/guaco/guaco_1972estagaitasi.htm",
+        "https://www.guaco.org/pages/gustavo-aguado",
+        "https://camnd-ma.com/entretenimiento/gustavo-aguado-cumple-76-anos-y-el-zulia-le-canta/",
+        "https://somosnoticiascol.com/zulia/zulia-gustavo-aguado-cumple-76-anos-y-el-zulia-le-canta/225255/",
+        "https://es.wikipedia.org/wiki/Gustavo_Aguado",
+        "https://apuraingredients.com/contact-us/",
+        "https://www.buenamusica.com/guaco/biografia",
+        "https://www.tiktok.com/discover/gustavo-aguado",
+        "https://es.wikipedia.org/wiki/Guaco_(banda)",
+        "https://www.youtube.com/watch?v=F3s1cIbsKdc",
+        "https://www.discogs.com/artist/1420199"
+      ]
+    },
+    {
+      "name": "Renato Capriles (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 5,
+      "sources": 12,
+      "seconds": 3,
+      "aiRunId": 21399,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/Renato_Capriles",
+          "title": "Renato Capriles - Wikipedia, la enciclopedia libre",
+          "quote": "Rafael Renato Capriles Ayala (Puerto Cabello, 28 de diciembre de 1931-Caracas, 8 de julio de 2014), más conocido como Renato Capriles, fue un músico y director de orquesta venezolano. En 1958 fundó la orquesta Los Melódicos.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Renato_Capriles",
+          "title": "Renato Capriles - Wikipedia, la enciclopedia libre",
+          "quote": "Renato Capriles nació en Puerto Cabello en el seno de una familia numerosa de 14 hermanos.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Renato_Capriles",
+          "title": "Renato Capriles - Wikipedia, la enciclopedia libre",
+          "quote": "El maestro Renato Capriles falleció a los 82 años en la mañana del 8 de julio de 2014, tras su internamiento en la Policlínica Metropolitana de Caracas a causa de una neumonía.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elespectador.com/cromos/famosos/fallecio-renato-capriles-director-de-la-orquesta-los-melodicos/",
+          "title": "Falleció Renato Capriles, director de la orquesta Los Melódicos | Revista Cromos",
+          "quote": "El músico de origen venezolano murió este martes 8 de julio a la edad de 82 años, por causa de una neumonía.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Los_Mel%C3%B3dicos",
+          "title": "Los Melódicos - Wikipedia, la enciclopedia libre",
+          "quote": "La orquesta Los Melódicos es una agrupación musical venezolana de música caribeña fundada en 1958 por Renato Capriles, director musical, con apoyo del director dominicano-venezolano Billo Frómeta",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/billos/velvet/billomelodicos_2132_juntosgranbaile.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/billos/velvet/billomelodicos_2183_juntosdnuevo.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/melodicos/melodicos_dcm485_imponiendoritmo.htm",
+        "https://www.elpais.com.co/entretenimiento/fallecio-renato-capriles-fundador-de-la-agrupacion-los-melodicos.html",
+        "https://albaciudad.org/2014/07/murio-renato-capriles-fundador-y-director-de-los-melodicos/",
+        "https://www.elespectador.com/cromos/famosos/fallecio-renato-capriles-director-de-la-orquesta-los-melodicos/",
+        "https://es.wikipedia.org/wiki/Renato_Capriles",
+        "https://es.wikipedia.org/wiki/Los_Mel%C3%B3dicos",
+        "https://www.noticiascaracol.com/entretenimiento/fallecio-renato-capriles-fundador-de-la-orquesta-venezolana-los-melodicos",
+        "https://noticialdia.com/farandula/melodias-tristes-para-recordar-la-partida-del-maestro-renato-capriles/",
+        "https://eldiario.com/2024/07/15/los-melodicos-imponiendo-el-ritmo-en-venezuela/",
+        "https://curadas.com/2021/12/28/efemerides-28-de-diciembre-2021/"
+      ]
+    },
+    {
+      "name": "Trino Mora (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 11,
+      "sources": 13,
+      "seconds": 3,
+      "aiRunId": 21400,
+      "rationale": "Falta una contradicción entre las personas (nombre completo, nacimiento o parentesco) citada en dos sitios. ",
+      "evidence": [
+        {
+          "url": "https://www.elnacional.com/2024/12/fallecio-trino-mora-a-los-81-anos/",
+          "title": "Falleció Trino Mora a los 81 años",
+          "quote": "Falleció el cantante, locutor y pionero del rock en Venezuela Trino José Mora García a los 81 años de edad",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/soncollage_92sondelcaribe.htm",
+          "title": "Son Collage - Son Del Caribe (LP Info)",
+          "quote": "Backing Vocals: Trino Mora (track B5)",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/soncollage_92sondelcaribe.htm",
+          "title": "Son Collage - Son Del Caribe (LP Info)",
+          "quote": "Backing Vocals: Ruth Montero, Rudelmis Montero, Leonardo Oporto, & Juan Carlos Gutiérrez",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/soncollage_92sondelcaribe.htm",
+          "title": "Son Collage - Son Del Caribe (LP Info)",
+          "quote": "Backing Vocals: Trino Mora (track B5)",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/trinomora_1969vozjuvenil.htm",
+          "title": "Trino Mora - La Voz Juvenil de Venezuela (LP Info)",
+          "quote": "Artist: Album Title: Company: Genre: Release Year: Trino Mora La Voz Juvenil de Venezuela Souvenir Pop-Rock 1969 (LP)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.avinpro.com/biografias/trino-mora/",
+          "title": "Trino Mora | AVINPRO",
+          "quote": "Trino José Mora García, cantante, locutor de radio y compositor nació el 27 Abril de 1946 en Caracas.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/2024/12/fallecio-trino-mora-a-los-81-anos/",
+          "title": "Falleció Trino Mora a los 81 años",
+          "quote": "Falleció el cantante, locutor y pionero del rock en Venezuela Trino José Mora García a los 81 años de edad",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Trino_Mora",
+          "title": "Trino Mora - Wikipedia, la enciclopedia libre",
+          "quote": "Su primer LP salió a la venta en 1967.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.tiktok.com/discover/trino-mora-cantante",
+          "title": "Trino Mora Cantante | TikTok",
+          "quote": "Trino José Mora García (Caracas, 27 de abril de 1943-Caracas, 10 de diciembre de 2024) fue un cantante y locutor venezolano de pop y rock, popular en la década de los sesenta a ochenta.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1746986",
+          "title": "Trino Mora | Discogs",
+          "quote": "Trino Mora was a Venezuelan Singer and Composer. He was born on 27 April 1943 and died on 9 December 2024.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1746986",
+          "title": "Trino Mora | Discogs",
+          "quote": "Credits: Vocals – Trino Mora – Trino Mora (1968); Vocals – Trino Mora – La Voz Juvenil de Venezuela (1969).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/latin_pop/cdinfo_latin/soncollage_92sondelcaribe.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/trinomora_1969vozjuvenil.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/trinomora_1970tremendo.htm",
+        "https://www.avinpro.com/biografias/trino-mora/",
+        "https://albaciudad.org/2024/12/fallecio-trino-mora/",
+        "https://www.elnacional.com/2024/12/fallecio-trino-mora-a-los-81-anos/",
+        "https://es.wikipedia.org/wiki/Trino_Mora",
+        "https://laprensadelara.com/entretenimiento/musica/el-cantante-venezolano-trino-mora-fallecio-a-los-81-anos/",
+        "https://www.tves.gob.ve/trino-mora-un-legado-a-la-musica-venezolana/",
+        "https://radio.otilca.org/trino-mora-la-voz-torrencial-que-marco-una-epoca-en-la-musica-venezolana/",
+        "https://www.youtube.com/playlist?list=OLAK5uy_maZnms72HP8lfbGrX7J7J9QsHj8C0XmZU",
+        "https://www.tiktok.com/discover/trino-mora-cantante",
+        "https://www.discogs.com/artist/1746986"
+      ]
+    },
+    {
+      "name": "Italo Pizzolante 1260: + Ítalo Aquiles Pizzolante (Americania)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 8,
+      "sources": 12,
+      "seconds": 4,
+      "aiRunId": 21401,
+      "rationale": "relación familiar citada: «Su hijo Italo Pizzolante Negron ha ayudado en todo momento a la documentación de la obra musical de su padre.» Reparto propuesto: Italo Pizzolante (compositor, 1928-2011): Billo's Caracas Boys, Rosa Virginia Chacín, Rosa Virginia Chacín con La Rondalla Venezolana, Rondalla Venezolana, Los Terrícolas, Jesús Sevillano, María Teresa Chacín, Dimension Latina, Charlie Nagy, Banda Filarmónica Moisés Moleiro, Pasacalle, Canela Fina, Devorah Sasha, Nuevo Mundo Jazz Band, Hernán Gamboa & Juan Carlos Salazar, Vocal Song, Ilan Chester, Ricardo Sandoval, David Brito, Leopoldo Betancourt, María Rivas, Kristhyan Benitez · Ítalo Aquiles Pizzolante (sobrino, miembro de Americania): Americania.",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/Italo_Pizzolante",
+          "title": "Italo Pizzolante - Wikipedia, la enciclopedia libre",
+          "quote": "Italo Pizzolante (Puerto Cabello, Venezuela, 2 de diciembre de 1928 - Valencia, 12 de marzo de 2011) fue un poeta, compositor, músico, profesor e ingeniero venezolano de ascendencia italiana.",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Italo_Pizzolante",
+          "title": "Italo Pizzolante - Wikipedia, la enciclopedia libre",
+          "quote": "Ítalo Aquiles Pizzolante, miembro del trío Americania, quien hizo versiones pop de \"Motivos\", cuando a los 12 años comenzó a hacer música más formal.",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://venprensalacosta.com/tag/billos-caracas-boys/",
+          "title": "Billo’s Caracas Boys – Venprensa La Costa",
+          "quote": "Italo Pizzolante, nació el 2 de diciembre de 1928 en Puerto Cabello, estado Carabobo. Fue poeta, músico, compositor, ingeniero y Leer más",
+          "supports": "different"
+        },
+        {
+          "url": "https://radio.otilca.org/italo-pizzolante-eterno-enamorado-de-puerto-cabello/",
+          "title": "Italo Pizzolante eterno enamorado de Puerto Cabello - Otilca Radio",
+          "quote": "Italo Pizzolante, nació el 2 de diciembre de 1928 en Puerto Cabello, estado Carabobo. Fue poeta, músico, compositor, ingeniero y docente.",
+          "supports": "different"
+        },
+        {
+          "url": "https://radio.otilca.org/italo-pizzolante-eterno-enamorado-de-puerto-cabello/",
+          "title": "Italo Pizzolante eterno enamorado de Puerto Cabello - Otilca Radio",
+          "quote": "Italo Pizzolante falleció el 12 de marzo de 2011.",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Italo_Pizzolante",
+          "title": "Italo Pizzolante - Wikipedia, la enciclopedia libre",
+          "quote": "Italo Pizzolante (Puerto Cabello, Venezuela, 2 de diciembre de 1928 - Valencia, 12 de marzo de 2011) fue un poeta, compositor, músico, profesor e ingeniero venezolano de ascendencia italiana.",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Italo_Pizzolante",
+          "title": "Italo Pizzolante - Wikipedia, la enciclopedia libre",
+          "quote": "Su hijo Italo Pizzolante Negron ha ayudado en todo momento a la documentación de la obra musical de su padre.",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Italo_Pizzolante",
+          "title": "Italo Pizzolante - Wikipedia, la enciclopedia libre",
+          "quote": "Ítalo Aquiles Pizzolante, miembro del trío Americania, quien hizo versiones pop de \"Motivos\", cuando a los 12 años comenzó a hacer música más formal.",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/classic/cdinfo_class/kristhyan_benitez/kristhyanbenitez_3nosotros.htm",
+        "https://sincopa.com/ethnic/cdinfo1/banmomo_america.htm",
+        "https://sincopa.com/ethnic/cdinfo1/ricarsandov_entrepanas.htm",
+        "https://venprensalacosta.com/tag/billos-caracas-boys/",
+        "https://www.mincultura.gob.ve/noticias/2-de-diciembre-nace-el-compositor-venezolano-italo-pizzolante/",
+        "https://radio.otilca.org/italo-pizzolante-eterno-enamorado-de-puerto-cabello/",
+        "https://es.wikipedia.org/wiki/Italo_Pizzolante",
+        "https://sincopa.com/traditional/cdinfo2/rosa_virginia_chacin/rovircha_99orgullolatino.htm",
+        "https://www.youtube.com/watch?v=rhHb99qeBEM",
+        "https://www.youtube.com/watch?v=28FFABH0eiY",
+        "https://labilloscaracasboys.blogspot.com/2009/02/discos.html",
+        "https://sincopa.com/latin_pop/cdinfo_latin/billos/gramcko/billos_paula.htm"
+      ]
+    },
+    {
+      "name": "Mike Fuller (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 11,
+      "sources": 10,
+      "seconds": 6,
+      "aiRunId": 21402,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://www.lobotoradio.com/artistas/mike-fuller",
+          "title": "Mike Fuller – Lobotoradio",
+          "quote": "Mike Fuller tipo: artista (M) roles: masterizado por géneros: adulto contemporáneo, indie pop, metal alternativo, pop instrumentos, géneros y roles generados por discos acreditados al artista bio No hay reseña disponible aparece en A+ 2003 La Casa de David 2006 Indeleble 2007",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://www.discogs.com/artist/352925",
+          "title": "Mike Fuller | Discogs",
+          "quote": "Mike Fuller. Real Name: Michael Fuller. Profile: American mastering engineer. Worked at un sello / QCA Custom Pressing from 1971 to 1978, Criteria Recording Studios in Miami, Florida, from 1978 to 1986, when he founded his own facility Fullersound, also in Miami. Fullersound relocated to Fort Lauderdale in 2009.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/mike-fuller",
+          "title": "Mike Fuller – Lobotoradio",
+          "quote": "Mike Fuller tipo: artista (M) roles: masterizado por géneros: adulto contemporáneo, indie pop, metal alternativo, pop instrumentos, géneros y roles generados por discos acreditados al artista bio No hay reseña disponible aparece en A+ 2003 La Casa de David 2006 Indeleble 2007",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/mike-fuller",
+          "title": "Mike Fuller – Lobotoradio",
+          "quote": "aparece en A+ 2003 La Casa de David 2006 Indeleble 2007",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/alfna_vibracion.htm",
+          "title": "Alfredo Naranjo - Vibraciones De Mi Tierra (CD Info)",
+          "quote": "Mastered by Mike Fuller at Fuller Sound (Miami, FL)",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/aqba_lapatilla.htm",
+          "title": "Aquiles Báez - La Patilla (CD Info)",
+          "quote": "Mastered by Mike Fuller at Fullersound (Miami, FL)",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/edca_double.htm",
+          "title": "Ed Calle - Doubletalk (CD Info)",
+          "quote": "Mastered by Mike Fuller",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/gcarrasco_3visual.htm",
+          "title": "Guillermo Carrasco - Visual (CD Info)",
+          "quote": "Mastered by Mike Fuller at Criteria Studios (Miami, FL)",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/ranamers_globalwarningaliencontact.htm",
+          "title": "Ranamers - Global Warning Alien Contact (LP Info)",
+          "quote": "Mastered by Mike Fuller at Fuller Sound (Ft.. Lauderdale, FL)",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Todo_y_nada",
+          "title": "Todo y nada - La Venciclopedia",
+          "quote": "Mike Fuller: Mastering.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.discogs.com/artist/352925",
+          "title": "Mike Fuller | Discogs",
+          "quote": "Credits: Mastered By – José Luis Rodríguez – El Puma En Ritmo (1991); Mastered By – Poster – Despues Del Frío (1991); Mastered By – Carlos Mata – Mírame A Los Ojos (1993); Edited By, Mastered By – Ed Calle – Doubletalk (1996).",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/jazz/cdinfo/alfna_vibracion.htm",
+        "https://sincopa.com/jazz/cdinfo/aqba_lapatilla.htm",
+        "https://sincopa.com/jazz/cdinfo/edca_double.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/gcarrasco_3visual.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/ranamers_globalwarningaliencontact.htm",
+        "https://www.lobotoradio.com/artistas/mike-fuller",
+        "https://yjea.org/2024/06/03/from-streets-to-policies-the-impact-of-yellow-vests-movement-on-french-public-policy/",
+        "https://en.zhongxitesting.com/Thermal-spraying-powder-testing-method.html",
+        "https://www.venciclopedia.org/index.php?title=Todo_y_nada",
+        "https://www.discogs.com/artist/352925"
+      ]
+    },
+    {
+      "name": "Gonzalo Teppa (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 3,
+      "sources": 13,
+      "seconds": 4,
+      "aiRunId": 21578,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/jazz/artists/gonzalo_teppa.htm",
+          "title": "Gonzalo Teppa - Bio & Discography",
+          "quote": "Gonzalo Teppa Born: Resides: Instruments: Genre: 1971 In Barquisimeto, Estado Lara, Venezuela In Boulder, Colorado, USA Acoustic Bass, Bass, Guitar, Piano, Maracas Jazz, World, Ethnic, Traditional",
+          "supports": "same"
+        },
+        {
+          "url": "https://tucuatro.com/camburpinton/gonzalo-teppa/",
+          "title": "Gonzalo Teppa - CamburPinton",
+          "quote": "Gonzalo Teppa comienza sus estudios musicales a la edad de 10 años, en el Conservatorio de Música Vicente Emilio Sojo, Barquisimeto, Venezuela",
+          "supports": "same"
+        },
+        {
+          "url": "https://gagueando.com/2021/05/31/gonzalo-teppa-migrar-en-clave-de-jazz/",
+          "title": "Gonzalo Teppa: Migrar en clave de jazz – Gerardo Guarache Ocque",
+          "quote": "Gonzalo Teppa acababa de editar su cuarto álbum, un trabajo magistral titulado Sinergia que pasaba en limpio sus ideas sobre la música venezolana desde la óptica del jazz.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/ethnic/cdinfo1/carloscapacho_2evolucion.htm",
+        "https://sincopa.com/ethnic/cdinfo1/chchrequena_1fusiones.htm",
+        "https://sincopa.com/ethnic/cdinfo1/elquintetomenos1_1lacasita.htm",
+        "https://sincopa.com/jazz/artists/gonzalo_teppa.htm",
+        "https://tucuatro.com/camburpinton/gonzalo-teppa/",
+        "https://sincopa.com/traditional/cdinfo2/carota_nema_taja/carota_90pasofirme.htm",
+        "https://www.allaboutjazz.com/news/6th-festival-internacional-de-jazz-de-barquisimeto/",
+        "https://esnobs.wordpress.com/2012/11/27/concierto-de-lanzamiento-de-jazzguinaldos-una-nota-de-jazz-para-la-navidad/",
+        "https://gagueando.com/2021/05/31/gonzalo-teppa-migrar-en-clave-de-jazz/",
+        "https://www.caracaschronicles.com/2025/10/22/c4-trio-has-a-trick-to-make-venezuelan-culture-global/?lang=es",
+        "https://venezuelasinfonica.com/gonzalo-teppa-llenara-de-buen-jazz-a-martinis-bistro/",
+        "https://www.elimpulso.com/2013/07/10/sinergia-de-gonzalo-teppa-a-punto/",
+        "https://www.discogs.com/artist/5109096"
+      ]
+    },
+    {
+      "name": "Alexander Livinalli (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 3,
+      "sources": 12,
+      "seconds": 5,
+      "aiRunId": 21404,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/musicians/percussion/alexander_livinalli.htm",
+          "title": "Alexander Livinalli - Bio & Discography",
+          "quote": "Alexander Livinalli Born: Resides: Instruments: Genre: July 21, 1958 In Guatire, Edo. Miranda, Venezuela In Guatire Percussion, Congas, Bongos Jazz, Latin, Salsa, Ethnic, World, Pop",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/musicians/percussion/alexander_livinalli.htm",
+          "title": "Alexander Livinalli - Bio & Discography",
+          "quote": "2009 Cheo Hurtado 42 Años Instrumenteando (Percussion)",
+          "supports": "same"
+        },
+        {
+          "url": "http://laguiadecaracas.net/39622/7-percusionistas-caraquenos/",
+          "title": "7 Percusionistas caraqueños · La Guía de Caracas",
+          "quote": "Alexander Livinalli Es un destacado músico venezolano el cual comienza su carrera en el pueblo que lo vio nacer y desde entonces se ha paseado por los mas importantes teatros y salas de concierto nacionales e internacionales acompañando a reconocidos cantantes y agrupaciones musicales entre las que destacan Un Solo Pueblo, Convenezuela, Costa Caribe, Soledad Bravo, Ilan Chester, Aquiles Báez, Saúl Vera, Ensamble Gurrufío, María Teresa Chacín, Serenata Guayanesa, Snake Trio y Dave Valentin, entre muchos otros.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/classic/cdinfo_class/vzsuite_7stars.htm",
+        "https://sincopa.com/ethnic/cdinfo1/cheohurtado_42years.htm",
+        "https://sincopa.com/ethnic/cdinfo1/elcuarteto_dpascuas10.htm",
+        "https://sincopa.com/musicians/percussion/alexander_livinalli.htm",
+        "https://sincopa.com/traditional/cdinfo2/fpacheco_2raices.htm",
+        "http://laguiadecaracas.net/39622/7-percusionistas-caraquenos/",
+        "https://agendaculturalccsblog.wordpress.com/2024/02/06/7-percusionistas-caraquenos/",
+        "https://www.youtube.com/watch?v=Y23SLTFfd1U",
+        "https://antologiavenezuela.blogspot.com/2013/02/convenezuela-vol-3-lp1984-cd2008.html",
+        "https://soundcloud.com/lionza-music/jazz-y-tradiciones-de-venezuela",
+        "https://bateriaunearteblog.wordpress.com/wp-content/uploads/2019/05/trabajo-de-grado-natasha-gil-04-06-2014.pdf",
+        "https://www.discogs.com/artist/2655639"
+      ]
+    }
+  ]
+}

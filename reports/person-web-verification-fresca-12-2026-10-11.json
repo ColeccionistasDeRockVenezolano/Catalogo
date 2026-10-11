@@ -1,0 +1,287 @@
+{
+  "date": "2026-10-11T03:39:31.581Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 4,
+    "correct": 4,
+    "errors": 0,
+    "same": "4/4",
+    "different": "0/0",
+    "mixed": "0/0",
+    "single": "0/0",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": true,
+  "cases": [
+    {
+      "name": "Nano Grand / Octavio Palacios",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 9,
+      "seconds": 4,
+      "aiRunId": 21718,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://www.youtube.com/watch?v=INItS7RWaXo",
+          "title": "La Situación - Ray Perez y su Charanga - YouTube",
+          "quote": "El hermano de Calaven también participa como cantante con Ray Pérez, pero en la orquesta Casabe, que también estaba formada por los excelentes cantantes Octavio Palacios, conocido artísticamente como Nano Grand",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/fr/artist/2373064-Nano-Grant",
+          "title": "Nano Grant | Discographie | Discogs",
+          "quote": "Variantes : Tout Voir | Nano Grant Gran, Nano, Nano Gran, Octavio Palacios \"Nano Grand\" [a2373064]",
+          "supports": "same"
+        },
+        {
+          "url": "https://gladyspalmera.com/coleccion/disco/73007/",
+          "title": "Colección Gladys Palmera - El Pavo en salsa",
+          "quote": "Voz: Octavio Palacios \"Nano Grand\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/oldi_casiguaire.htm",
+          "title": "Olegario Díaz - Casi en El Guaire (CD Info)",
+          "quote": "Vocals: María Fernanda Márquez, Nano Grand",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/pavo_dcoleccion.htm",
+          "title": "Frank \"El Pavo\" Hernández - De Colección (CD Info)",
+          "quote": "Vocals: Tomás Martínez \"El Bobby\", Rafa Pérez, Luis \"Tata\" Guerra, Williams Hernández, Carlin Rodríguez & Octavio Palacios \"Nano Grand\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/pavo_dcoleccion.htm",
+          "title": "Frank \"El Pavo\" Hernández - De Colección (CD Info)",
+          "quote": "Vocals: Tomás Martínez \"El Bobby\", Rafa Pérez, Luis \"Tata\" Guerra, Williams Hernández, Carlin Rodríguez & Octavio Palacios \"Nano Grand\"",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://gladyspalmera.com/coleccion/disco/73007/",
+        "https://sincopa.com/jazz/cdinfo/oldi_casiguaire.htm",
+        "https://sincopa.com/jazz/cdinfo/pavo_dcoleccion.htm",
+        "https://chumanceralatinjazz.blogspot.com/2010/10/frank-hernandez-el-pavo-frank-y-su.html",
+        "https://teachereddy.blogspot.com/2011/01/frank-el-pavo-hernandez-de-coleccion.html",
+        "https://www.youtube.com/watch?v=INItS7RWaXo",
+        "https://www.discogs.com/fr/artist/2373064-Nano-Grant",
+        "https://www.discogs.com/de/artist/2373064-Nano-Grant",
+        "https://sincopa.com/jazz/cdinfo/pavo_5nuevosonido.htm"
+      ]
+    },
+    {
+      "name": "Joseph Sun / José Montilva",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 9,
+      "seconds": 3,
+      "aiRunId": 21719,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://www.youtube.com/watch?v=VN5fsHWaNz8",
+          "title": "Cinema Sun - Cinema Sun (2009) || Full Album || - YouTube",
+          "quote": "Drums, Syntn & Backing Vocals: José Montilva \"Joseph Sun\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://rateyourmusic.com/artist/cinema-sun",
+          "title": "Cinema Sun Albums: songs, discography, biography, and ...",
+          "quote": "José Montilva \"Joseph Sun\" (drums, synthesizer, backing vocals)",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/c/cinema-sun/",
+          "title": "Cinema Sun - RHV Directorio C",
+          "quote": "Joseph Sun (batería, sintetizador, voz)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/cinemasun_01.htm",
+          "title": "Cinema Sun - Cinema Sun (CD Info)",
+          "quote": "Drums, Synthezisers & Vocals: Joseph Sun",
+          "supports": "same"
+        },
+        {
+          "url": "https://rateyourmusic.com/artist/cinema-sun",
+          "title": "Cinema Sun Albums: songs, discography, biography, and ...",
+          "quote": "Pedro Luis Sanchez [Pedro Sun] (bass, synthesizer, programming, Venezuelan cuatro, backing vocals)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.tradebit.com/filedetail.php/7325373-cinema-sun",
+        "https://sincopa.com/rock_pop/cdinfo_rock/cinemasun_01.htm",
+        "https://rockhechovenezuela.com/c/cinema-sun/",
+        "https://www.facebook.com/crimewatchamerica/photos/the-brief-a-23-year-old-chicago-man-was-accused-of-shooting-and-seriously-woundi/881777568080526/",
+        "https://www.amazon.com.au/Cinema-Sun/dp/B0026UZBXS",
+        "https://www.youtube.com/watch?v=VN5fsHWaNz8",
+        "https://rateyourmusic.com/artist/cinema-sun",
+        "https://vintagevinyl.com/UPC/884502071702",
+        "https://www.amazon.co.jp/Cinema-Sun/dp/B0026UZBXS"
+      ]
+    },
+    {
+      "name": "Juan Camacho / Johnny Quiros",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 14,
+      "sources": 11,
+      "seconds": 3,
+      "aiRunId": 21720,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://historiadevalenciaysusforjadores.blogspot.com/2013/09/la-manana-de-este-sabado-el-compositor.html",
+          "title": "Historia de Valencia, la de Carabobo, narrada a mi manera : La mañana de este sábado el compositor venezolano Juan Camacho Camacho, mejor conocido como Johnny Quiros falleció en la ciudad de Mérida. Era el autor de \"Limón Limonero\"",
+          "quote": "La mañana de este sábado el compositor venezolano Juan Camacho Camacho, mejor conocido como Johnny Quiros falleció en la ciudad de Mérida.",
+          "supports": "same"
+        },
+        {
+          "url": "https://historiadevalenciaysusforjadores.blogspot.com/2013/09/la-manana-de-este-sabado-el-compositor.html",
+          "title": "Historia de Valencia, la de Carabobo, narrada a mi manera : La mañana de este sábado el compositor venezolano Juan Camacho Camacho, mejor conocido como Johnny Quiros falleció en la ciudad de Mérida. Era el autor de \"Limón Limonero\"",
+          "quote": "Era el autor de \"Limón Limonero\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://historiadevalenciaysusforjadores.blogspot.com/2013/09/la-manana-de-este-sabado-el-compositor.html",
+          "title": "Historia de Valencia, la de Carabobo, narrada a mi manera : La mañana de este sábado el compositor venezolano Juan Camacho Camacho, mejor conocido como Johnny Quiros falleció en la ciudad de Mérida. Era el autor de \"Limón Limonero\"",
+          "quote": "Quiros autor de éxitos como El Malquerido, Limón Limonero, Mi Cacharrito, Caracas y Andino, también es recordado por ser el ganador del galardón del BMI por el tema El Malquerido y de Las Llaves de la Ciudad de Mérida por su trayectoria como compositor falleció a los 90 años.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.nacion.com/revista-dominical/el-desconocido-tico-que-escribio-canciones-para/W3H65XETZBCILNHJU2JCB6EPFM/story/",
+          "title": "El (desconocido) tico que escribió canciones para Roberto Carlos, Javier Solís y la Billo’s Caracas Boys | La Nación",
+          "quote": "El compositor nacional Johnny Quirós, cuyo nombre real era Juan Camacho Camacho, fue el responsable de traducir al español esta canción que Roberto Carlos incluyó en su álbum Canta a la juventud.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.nacion.com/revista-dominical/el-desconocido-tico-que-escribio-canciones-para/W3H65XETZBCILNHJU2JCB6EPFM/story/",
+          "title": "El (desconocido) tico que escribió canciones para Roberto Carlos, Javier Solís y la Billo’s Caracas Boys | La Nación",
+          "quote": "La compañía BMI le dio un reconocimiento al compositor costarricense Johnny Quirós por sus éxitos musicales, entre ellos la canción 'El malquerido'.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.notiandes24.com.ve/2013/06/lester-rodriguez-entrego-las-llaves-de.html",
+          "title": "- NOTIANDES24",
+          "quote": "El compositor Johnny Quirós nació en Costa Rica en 1923.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.notiandes24.com.ve/2013/06/lester-rodriguez-entrego-las-llaves-de.html",
+          "title": "- NOTIANDES24",
+          "quote": "Fue compositor de las canciones “El Malquerido” de Felipe Pirela, “Limón Limonero” de Henry Stephen y “Mi Cacharrito” del cantante brasileño Roberto Carlos, así como de “Caracas” y “Andino”, entre más de 200 obras musicales.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elconfidencial.com/cultura/2021-04-06/muere-henry-stephen-cancion-limon-limonero_3021576/",
+          "title": "Muere por coronavirus el cantante Henry Stephen, la voz de 'Limón, limonero'",
+          "quote": "Henry Stephen nació el 15 de julio de 1941 en la ciudad de Cabimas, que se integra en el occidental estado de Zulia, donde su padre, oriundo de Granada, trabajaba para una compañía petrolera.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.elconfidencial.com/cultura/2021-04-06/muere-henry-stephen-cancion-limon-limonero_3021576/",
+          "title": "Muere por coronavirus el cantante Henry Stephen, la voz de 'Limón, limonero'",
+          "quote": "Pero su nombre resonó con fuerza en el panorama musical cuando, como solista, lanzó el disco 'Limón, Limonero', que en 1968 se transformó en un éxito comercial gracias a la popularidad de su tema promocional, que compartía el nombre del propio álbum.",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/henrystephen_83salsomania.htm",
+          "title": "Henry Stephen - Salsomanía (LP Info)",
+          "quote": "Produced by Johnny Quirós",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/henrystephen_83salsomania.htm",
+          "title": "Henry Stephen - Salsomanía (LP Info)",
+          "quote": "Mixed by Augie Verde & Johnny Quirós",
+          "supports": "same"
+        },
+        {
+          "url": "https://storage.googleapis.com/qurium/elpitazo.net/cultura-limon-limonero-la-cancion-que-inmortalizo-a-henry-stephen.html",
+          "title": "“Limón, limonero\": la canción que inmortalizó a Henry Stephen",
+          "quote": "Mario Valdez escribió en Notitarde que el tema \"Limón, limonero\" fue grabado en Radio Contiente por Stephen a petición de Juan Camacho, conocido como Johnny Quiroz.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1414262",
+          "title": "Johnny Quirós | Discogs",
+          "quote": "Real Name: Juan Camacho Camacho.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1414262",
+          "title": "Johnny Quirós | Discogs",
+          "quote": "Credits: Written-By – Henry Stephen – Limón Limonero (1968).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://historiadevalenciaysusforjadores.blogspot.com/2013/09/la-manana-de-este-sabado-el-compositor.html",
+        "https://www.nacion.com/revista-dominical/el-desconocido-tico-que-escribio-canciones-para/W3H65XETZBCILNHJU2JCB6EPFM/story/",
+        "https://www.notiandes24.com.ve/2013/06/lester-rodriguez-entrego-las-llaves-de.html",
+        "https://odysee.com/@ProfesorAlfredo:3/bella-caracas.-pasodoble-billo%27s.-letra:9",
+        "https://www.elconfidencial.com/cultura/2021-04-06/muere-henry-stephen-cancion-limon-limonero_3021576/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/henrystephen_83salsomania.htm",
+        "https://www.telesurtv.net/un-legado-tica-en-venezuela/",
+        "https://www.youtube.com/watch?v=ftn2JhPz4EU",
+        "https://www.youtube.com/watch?v=MGwrSWfwtrs",
+        "https://storage.googleapis.com/qurium/elpitazo.net/cultura-limon-limonero-la-cancion-que-inmortalizo-a-henry-stephen.html",
+        "https://www.discogs.com/artist/1414262"
+      ]
+    },
+    {
+      "name": "Remo Caremartori / Recard",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 1,
+      "sources": 6,
+      "seconds": 8,
+      "aiRunId": 21724,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://hippitoysuschatarritas.blogspot.com/2017/04/henry-stephen-te-he-perdido-mhaida-yare.html",
+          "title": "Hippito y sus chatarritas...!: Henry Stephen - Te He Perdido / Mhaida (Yare 45-642 / Venezuela 1974)",
+          "quote": "Henry Stephen - Te He Perdido / Mhaida (Yare 45-642 / Venezuela 1974) 01. Te He Perdido (Remo Caremartori a.k.a.Recard) 02. Mhaida (Remo Caremartori a.k.a.Recard)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://hippitoysuschatarritas-blogspot-com.nproxy.org/",
+        "https://hippitoysuschatarritas.blogspot.com/",
+        "https://hippitoysuschatarritas.blogspot.com/2017/04/henry-stephen-te-he-perdido-mhaida-yare.html",
+        "https://en.m.wikipedia.org/wiki/Behind_These_Hazel_Eyes",
+        "https://archive.org/stream/Razorback_YB1961/YB_1961_djvu.txt",
+        "https://hilderjhernandez1.blogspot.com/2015/07/la-radio-que-yo-conoci-cuando-por-cosas.html"
+      ]
+    }
+  ]
+}

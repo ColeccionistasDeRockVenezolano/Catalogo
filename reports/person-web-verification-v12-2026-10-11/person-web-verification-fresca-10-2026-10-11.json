@@ -1,0 +1,399 @@
+{
+  "date": "2026-10-11T14:53:14.517Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 6,
+    "correct": 6,
+    "errors": 0,
+    "same": "5/5",
+    "different": "0/0",
+    "mixed": "0/0",
+    "single": "1/1",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": true,
+  "cases": [
+    {
+      "name": "Frank Belisario / Francisco Belisario",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 7,
+      "sources": 13,
+      "seconds": 30,
+      "aiRunId": 21617,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://hippitoysuschatarritas.blogspot.com/2014/08/los-impala-estos-son-los-impala-marfer.html",
+          "title": "Hippito y sus chatarritas...!: Los Impala - Estos son Los Impala (Marfer M 30.056 / España 1968)",
+          "quote": "Los Impala (1968) :Rudy Márquez (Voz Líder) Edgar Alexander Quintero (Voz / Guitarra) Frank Belisario (Guitarra) Nerio Quintero (Bajo) Bernardo Ball (Batería)",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/cultura/2020-05-03/anos-60-los-cinco-discos-indispensables-hechos-en-venezuela/",
+          "title": "Años 60: los cinco discos indispensables hechos en Venezuela | El Estímulo",
+          "quote": "Para el momento ellos eran: Bernardo Ball en la batería, Francisco “Frank” Belisario en la guitarra, Edgar “Alexander” Quintero en guitarra y voz, Nerio Quintero bajo y voz, y Rudy Márquez en la voz líder.",
+          "supports": "same"
+        },
+        {
+          "url": "https://grokipedia.com/page/Francisco_Belisario",
+          "title": "Francisco Belisario — Grokipedia",
+          "quote": "Francisco José Belisario León was born on March 12, 1946, in Maracaibo, Zulia, Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://grokipedia.com/page/Francisco_Belisario",
+          "title": "Francisco Belisario — Grokipedia",
+          "quote": "As vocalist and guitarist, Belisario participated in all of Los Impala's recordings between 1963 and 1969, helping shape the early rock scene in Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://grokipedia.com/page/Francisco_Belisario",
+          "title": "Francisco Belisario — Grokipedia",
+          "quote": "Belisario died on March 23, 2009, at the age of 63, in Maracaibo, Zulia, Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/f/francisco-belisario/",
+          "title": "Francisco Belisario - RHV Directorio F",
+          "quote": "Francisco Belisario formó parte de dos agrupaciones fundamentales dentro del panorama musical venezolano: Los Flippers y Los Impala. Con estos últimos alcanza el éxito a nivel nacional e internacional y participa en todas las grabaciones realizadas por la banda entre 1963 y 1969.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/impala_04_66.htm",
+          "title": "Los Impala - Impala's 66 (LP Info)",
+          "quote": "Guitar & Vocals: Francisco Belisario",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://hippitoysuschatarritas.blogspot.com/2014/08/los-impala-estos-son-los-impala-marfer.html",
+        "https://elestimulo.com/cultura/2020-05-03/anos-60-los-cinco-discos-indispensables-hechos-en-venezuela/",
+        "https://www.amazon.com/Ilan-Chester-Philips-Vinyl/dp/B00K10N574",
+        "https://sincopa.com/rock_pop/cdinfo_rock/impala_04_66.htm",
+        "https://sincopa.com/traditional/cdinfo2/rosa_virginia_chacin/rovircha_65lavozmasdulce.htm",
+        "https://grokipedia.com/page/Francisco_Belisario",
+        "https://www.chicagotribune.com/obituaries/frank-l-bellisario-elgin-il/",
+        "https://antologiavenezuela.blogspot.com/2012/08/los-impala-estos-son-los-impala-1968.html",
+        "https://antoniohuizi.com/ilan-chester/",
+        "https://rockhechovenezuela.com/f/francisco-belisario/",
+        "https://www.youtube.com/watch?v=tPfkcp6ART0",
+        "https://en.wikipedia.org/wiki/Los_Impala",
+        "https://www.discogs.com/artist/1985604"
+      ]
+    },
+    {
+      "name": "Angie Machado / Angel Machado",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 7,
+      "seconds": 19,
+      "aiRunId": 21618,
+      "rationale": "Una fuente vincula una forma del nombre con un proyecto de la otra ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/trina_medina/trinamedina_02entrega.htm",
+          "title": "Trina Medina - Entrega (CD Info)",
+          "quote": "Trumpet: Luis Aquino, Angie Machado, Cusi Castillo & Elias Lopés",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/serv_floren_4losprimera.htm",
+          "title": "Servando y Florentino - Los Primera (CD Info)",
+          "quote": "Trumpet: Vicente “Cusy” Castillo. Trombone: Angel Machado.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.allmusic.com/artist/ngel-angie-machado-mn0000951869",
+          "title": "Ángel \"Angie\" Machado Songs, Albums, Reviews,... | AllMusic",
+          "quote": "Ángel \"Angie\" Machado Songs, Albums, Reviews,...",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.allmusic.com/artist/darvel-garcia-mn0000676049",
+          "title": "Darvel Garcia — Biography, Discography, Albums & Expert... | AllMusic",
+          "quote": "Alberto Machuca Ángel \"Angie\" Machado Elías Lopés",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://labandang.blogspot.com/",
+        "https://sincopa.com/latin_pop/cdinfo_latin/trina_medina/trinamedina_02entrega.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/serv_floren_4losprimera.htm",
+        "https://www.allmusic.com/album/25-7-mw0003138252",
+        "https://www.allmusic.com/artist/darvel-garcia-mn0000676049",
+        "https://www.allmusic.com/artist/ngel-angie-machado-mn0000951869",
+        "https://www.allmusic.com/album/%C2%A1son%C3%B3-son%C3%B3tite-curet!-mw0002244504"
+      ]
+    },
+    {
+      "name": "Francisco Tedesco / Francisco «Chicho» Tedesco",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 8,
+      "seconds": 32,
+      "aiRunId": 21619,
+      "rationale": "Una cita verificada vincula las dos formas del nombre; hay fuentes para ambas trayectorias.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/cjaeger_1poetas.htm",
+          "title": "Carlos Jaeger - Poetas (CD Info)",
+          "quote": "Drums: Francisco Tedesco",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/latin_pop/cdinfo_latin/cjaeger_2claroscuro.htm",
+          "title": "Carlos Jaeger - Claroscuro (CD Info)",
+          "quote": "Drums: Francisco Tedesco",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.facebook.com/HoyenlaHistoriadelPopRockVenezolano/posts/9-de-agosto-de-1962nace-francisco-chicho-tedesco-baterista-de-la-banda-alta-frec/2662491960552918/",
+          "title": "9 DE AGOSTO DE... - Hoy en la Historia del Pop Rock Venezolano",
+          "quote": "9 DE AGOSTO DE 1962 Nace FRANCISCO “CHICHO” TEDESCO. Baterista de la banda Alta Frecuencia en los años 80s.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=h3w8pw24fCE",
+          "title": "Alta Frecuencia - Joven soy - YouTube",
+          "quote": "Francisco Tedesco (batería)",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Francisco",
+          "title": "Francisco - Wikipedia",
+          "quote": "\"Chicho\" is another possibility",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.facebook.com/HoyenlaHistoriadelPopRockVenezolano/posts/9-de-agosto-de-1962nace-francisco-chicho-tedesco-baterista-de-la-banda-alta-frec/2662491960552918/",
+        "https://sincopa.com/latin_pop/cdinfo_latin/cjaeger_1poetas.htm",
+        "https://sincopa.com/latin_pop/cdinfo_latin/cjaeger_2claroscuro.htm",
+        "https://www.facebook.com/HoyenlaHistoriadelPopRockVenezolano/posts/2013704195431701/",
+        "https://en.wikipedia.org/wiki/Francisco",
+        "https://ipexna.com/wp-content/uploads/2023/12/chemical-guide-usen-ipex-pp.pdf",
+        "https://paltoque.com/nicky-scarola-en-lasos-rock-el-13-de-agosto/",
+        "https://www.youtube.com/watch?v=h3w8pw24fCE"
+      ]
+    },
+    {
+      "name": "Sofía Pulido / Sofía «La Nena» Pulido",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 7,
+      "sources": 9,
+      "seconds": 28,
+      "aiRunId": 21620,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://www.discogs.com/artist/2762246",
+          "title": "Sofia Pulido | Discogs",
+          "quote": "Variations: La Nena Pulido, Sofia \"La Nena\" Pulido, Sofia \"Nena\" Pulido, Sofía \"Nena\" Pulido, Sofía Pulido, Sophia Pulido.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2762246",
+          "title": "Sofia Pulido | Discogs",
+          "quote": "Credits: Backing Vocals – Mirla Castellanos – Amo Este Amor (1988).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2762246",
+          "title": "Sofia Pulido | Discogs",
+          "quote": "Member of pop group Jade (51).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/jade_jade.htm",
+          "title": "Jade - Jade (LP Info)",
+          "quote": "Vocals: Meiver Acuña, Marisela Pérez, Candy Rojas & Sofia \"La Nena\" Pulido.",
+          "supports": "same"
+        },
+        {
+          "url": "https://rf3769.wixsite.com/richardfalksreviews/ja-jef",
+          "title": "Ja | richardfalksreviews",
+          "quote": "La Nena Pulido (joint lead vocals).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/francodvita_1.htm",
+          "title": "Franco de Vita - Franco de Vita (LP Info)",
+          "quote": "Background Vocals: Gerardo López, Manolo Alvarez, Alvaro Falcón, Meiver Acuña, Sofía Pulido, Wolfgang Vivas, Ilba Rojas, Biella Da Costa & Franco de Vita.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/montaner_03untoque.htm",
+          "title": "Ricardo Montaner - Un Toque De Misterio (LP Info)",
+          "quote": "Background Vocals: Meiber Acuña, Candi Rojas, Marisela Pérez, Francis Benítez, Sofia \"La Nena\" Pulido, Oscar Galian, Edgar Salazar, Felix Duque, Androcles Del Corral, Daniel Somaroo, Gilberto Bermúdez & Jesús Enrique Montero",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/Ricardo_Montaner",
+        "https://sincopa.com/rock_pop/cdinfo_rock/francodvita_1.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/montaner_03untoque.htm",
+        "https://www.octavado.com/index.php?menu=5&valor=20500",
+        "https://en.wikipedia.org/wiki/Franco_De_Vita",
+        "https://sincopa.com/latin_pop/cdinfo_latin/mirla_castellanos/mirla_88amoesteamor.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/jade_jade.htm",
+        "https://rf3769.wixsite.com/richardfalksreviews/ja-jef",
+        "https://www.discogs.com/artist/2762246"
+      ]
+    },
+    {
+      "name": "César Somoza / César Alberto Somoza",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 11,
+      "seconds": 49,
+      "aiRunId": 21621,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://www.lobotoradio.com/bandas/resistencia",
+          "title": "Resistencia – Lobotoradio",
+          "quote": "Resistencia fue un grupo de rock venezolano fundado en 1977 por los estudiantes de la Universidad Metropolitana Ricardo Escobar y César Somoza.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=jsWKfPsmZd8",
+          "title": "Resistencia - Hecho En Venezuela (1981) || Full Album ||",
+          "quote": "Lead Vocals: César Alberto Somoza",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2543811",
+          "title": "César Somoza | Discogs",
+          "quote": "Variations: César Alberto Somoza Torres",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.facebook.com/HoyenlaHistoriadelPopRockVenezolano/photos/12-de-septiembre-de-1960nace-c%C3%A9sar-alberto-somoza-torres-en-caracas-venezuela-l%C3%AD/2048901185245335/",
+          "title": "Hoy - 12 DE SEPTIEMBRE DE 1960 Nace CÉSAR ALBERTO SOMOZA ...",
+          "quote": "12 DE SEPTIEMBRE DE 1960 Nace CÉSAR ALBERTO SOMOZA",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.instagram.com/cesarsomozatorres/",
+          "title": "Cesar Somoza Torres (@cesarsomozatorres) - Instagram",
+          "quote": "Cantante de la Banda de Rock venezolano Resistencia",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://theanarchist.press/perfect-latin-american-steel-singers/",
+        "https://www.lobotoradio.com/bandas/resistencia",
+        "https://meridiano.net/farandula/legendaria-banda-venezolana-vuelve-a-los-escenarios-y-con-nuevo-disco--202542617200",
+        "https://metalshout.com/the-most-underrated-metal-singers-from-the-80s-ranked/",
+        "https://elestimulo.com/ub/melomania/2025-05-16/asi-fue-el-concierto-de-resistencia-en-caracas/",
+        "https://musikholics.com/guerra-santa-shangrila-and-other-singles/",
+        "https://www.instagram.com/cesarsomozatorres/",
+        "https://www.youtube.com/watch?v=NBhl9h89ibA",
+        "https://www.youtube.com/watch?v=jsWKfPsmZd8",
+        "https://www.facebook.com/HoyenlaHistoriadelPopRockVenezolano/photos/12-de-septiembre-de-1960nace-c%C3%A9sar-alberto-somoza-torres-en-caracas-venezuela-l%C3%AD/2048901185245335/",
+        "https://www.discogs.com/artist/2543811"
+      ]
+    },
+    {
+      "name": "Gerardo Ubieda (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 6,
+      "sources": 13,
+      "seconds": 27,
+      "aiRunId": 21622,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "http://laguiadecaracas.net/56211/gerardo-ubieda-un-legendario-baterista-venezolano/",
+          "title": "Gerardo Ubieda: un legendario baterista venezolano · La Guía de Caracas",
+          "quote": "Gerardo Ubieda es un legendario baterista venezolano, con una gran y larga carrera que ha girado mayormente en torno a Témpano, una de las bandas mas icónicas de Venezuela y de la cual Gerardo ha sido parte desde el principio.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/bandas/tempano",
+          "title": "Témpano – Lobotoradio",
+          "quote": "En 1987 la banda la formaban Ubieda (batería), Gastaminza (teclados), Morales (guitarra), Martín (teclados) y Alexis Peña (voz).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/ficcion.htm",
+          "title": "Ficción - Bio & Discography",
+          "quote": "Drums: Gerardo Ubieda & Isaias Paris",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/compilations1/la_respuesta87.htm",
+          "title": "La Respuesta (LP Info)",
+          "quote": "Drums: Gerardo Ubieda (tracks A1, A4, B1, B4)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/fabricadsuenos_1fueradfase.htm",
+          "title": "Fábrica De Sueños - Fuera De Fase (LP Info)",
+          "quote": "Drums: Gerardo Ubieda & Ignacio Angulo",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/1246970",
+          "title": "Gerardo Ubieda | Discogs",
+          "quote": "Credits: Drums, Percussion – Témpano – Atabal–Yémal (1979); Written-By – Témpano – Atabal–Yémal (1979).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/ficcion.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/compilations1/la_respuesta87.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/fabricadsuenos_1fueradfase.htm",
+        "https://es.wikipedia.org/wiki/T%C3%A9mpano_(banda)",
+        "https://www.lobotoradio.com/bandas/tempano",
+        "https://tendsrock.wordpress.com/tag/franklin-holland-project/",
+        "https://www.deezer.com/mx/artist/322936",
+        "http://laguiadecaracas.net/56211/gerardo-ubieda-un-legendario-baterista-venezolano/",
+        "https://agendaculturalccsblog.wordpress.com/2024/04/22/gerardo-ubieda-un-legendario-baterista-venezolano/",
+        "https://jhonyochentoso.blogspot.com/2007/10/entrevista-exclusiva-con-gerardo-ubieda.html",
+        "https://www.venciclopedia.org/index.php?title=T%C3%A9mpano",
+        "https://criticadediscosdekamx.wordpress.com/2007/12/15/tempano/",
+        "https://www.discogs.com/artist/1246970"
+      ]
+    }
+  ]
+}

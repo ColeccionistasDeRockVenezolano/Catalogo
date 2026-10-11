@@ -1,0 +1,1729 @@
+{
+  "date": "2026-10-10T23:38:48.038Z",
+  "criteria": "0 fusiones falsas, 0 separaciones falsas, 0 mezclas falsas, 0 errores; ≥70 % misma persona, ≥60 % distintas, ≥50 % mezcladas, 100 % fichas de una persona",
+  "counts": {
+    "total": 26,
+    "correct": 21,
+    "errors": 0,
+    "same": "10/12",
+    "different": "3/4",
+    "mixed": "1/3",
+    "single": "7/7",
+    "doubtful": "0/0",
+    "falseMerges": 0,
+    "falseSeparations": 0,
+    "falseMixed": 0
+  },
+  "ready": false,
+  "cases": [
+    {
+      "name": "Ilan Chéster / Ilan Czenstochouski Schechter",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 8,
+      "sources": 11,
+      "seconds": 2,
+      "aiRunId": 21294,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://www.lobotoradio.com/artistas/ilan-chester",
+          "title": "Ilan Chéster – Lobotoradio",
+          "quote": "Ilan Chéster (nacido Ilan Czenstochouski Schechter) es un músico venezolano nacido el 30 de julio de 1952 en Israel.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/ilan-chester",
+          "title": "Ilan Chéster – Lobotoradio",
+          "quote": "Al año siguiente se unió a Azucar, Cacao & Leche (1971-1972) junto a Edgar Alexander, Pedro Matute, Nerio Quintero, Gabriel Quintero y participó en el primer álbum de la banda.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/ilan-chester",
+          "title": "Ilan Chéster – Lobotoradio",
+          "quote": "De regreso a Venezuela, Chéster fundó Melao (1981) junto a Ezequiel Serrano (saxos, flauta), Eddy Pérez (guitarra), Lorenzo Barriendos (bajo) y Carlos \"Nené\" Quintero (percusión).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/ilan-chester",
+          "title": "Ilan Chéster – Lobotoradio",
+          "quote": "Su primera grabación en solitario fue el sencillo en 45 r. p. m. Qué vacilón/Gusto particular (1978). Al año siguiente debutó con Por principio... fin",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/ilan-chester/",
+          "title": "Ilan Chéster – Lobotoradio",
+          "quote": "En 1971 Chéster viajó a Israel y aprendió sobre el movimiento Hare Krisna.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Ilan_Chester",
+          "title": "Ilan Chester - Wikipedia, la enciclopedia libre",
+          "quote": "En 1981 ―a los 29 años de edad― forma, junto a Eduardo \"Eddy\" Pérez, Lorenzo Barriendos, Ezequiel Serrano y Carlos \"Nené\" Quintero ―que más tarde se convertirían en la Sección Rítmica de Caracas―, el grupo Melao.",
+          "supports": "same"
+        },
+        {
+          "url": "https://open.spotify.com/track/4S5cMOo46LYhQcQTo9UBUT",
+          "title": "Es Verdad - song and lyrics by Huascar Barradas, Maracaibo, Ilan Chester | Spotify",
+          "quote": "Huascar Barradas, Maracaibo, Ilan Chester · Candela · Song · 2001",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=E-T3oxmnywY",
+          "title": "Simón Díaz con Ilan Chester Tonada de Luna LLena - YouTube",
+          "quote": "Simón Díaz con Ilan Chester Tonada de Luna LLena",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.lobotoradio.com/artistas/ilan-chester",
+        "https://www.lobotoradio.com/artistas/ilan-chester/",
+        "https://www.ivu.org/people/music/chester.html",
+        "https://es.wikipedia.org/wiki/Ilan_Chester",
+        "https://open.spotify.com/track/4S5cMOo46LYhQcQTo9UBUT",
+        "https://en.wikipedia.org/wiki/Ilan_Chester",
+        "https://www.freemusicas.com/llaneras/simon-diaz/",
+        "https://www.youtube.com/watch?v=E-T3oxmnywY",
+        "https://www.youtube.com/watch?v=dmaZYxN32ME",
+        "https://www.facebook.com/avinpro0/videos/ilan-chester-compartiendo-escenario-junto-al-maestro-sim%C3%B3n-d%C3%ADaz-interpretando-en/1309624274391454/",
+        "https://www.shazam.com/artist/ilan-chester/3449626"
+      ]
+    },
+    {
+      "name": "Negrito Man / Luis Eduardo Blanco",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 6,
+      "sources": 13,
+      "seconds": 2,
+      "aiRunId": 21295,
+      "rationale": "Una cita habla de parentesco («Muchos temas de King Changó fueron compuestos por Negrito Man y su hermano»): no se propone fusión.",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "Luis Eduardo Blanco, (Negrito Man) – keyboard, cuatro and percussion",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/8827930",
+          "title": "Luís Eduardo Blanco | Discogs",
+          "quote": "He usually used Negrito Man as nickname Variations: L. Blanco, Luis Blanco, Negrito Man.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/electrotribal_1.htm",
+          "title": "Electrotribal - Electrotribal (CD Info)",
+          "quote": "Vocals, Cuatro & Accordion: Luis Eduardo Blanco (track 3)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/electrotribal_1.htm",
+          "title": "Electrotribal - Electrotribal (CD Info)",
+          "quote": "track 3 by Luis Eduardo Blanco \"Negrito Man\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.ruidoblanco.fm/noticias-1/2020/4/29/negrito-man-anuncia-el-regreso-de-king-chango",
+          "title": "Negrito Man anuncia el regreso de King Changó — ruidoblanco",
+          "quote": "Muchos temas de King Changó fueron compuestos por Negrito Man y su hermano",
+          "supports": "same"
+        },
+        {
+          "url": "https://rumberos.net/electrotribal-musica-electronica-made-in-venezuela/",
+          "title": "ELECTROTRIBAL: MÚSICA ELECTRÓNICA MADE IN VENEZUELA | Rumberos",
+          "quote": "En este tema canta Blanquito Man desde Nueva York y Negrito Man colaboró con ese cuatro tricolor",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.ruidoblanco.fm/noticias-1/2020/4/29/negrito-man-anuncia-el-regreso-de-king-chango",
+        "https://ultimasnoticias.com.ve/chevere/king-chango-en-el-elegido/",
+        "https://www.diversomagazine.com/2010/05/electrotribal.html",
+        "https://sincopa.com/rock_pop/cdinfo_rock/electrotribal_1.htm",
+        "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+        "https://myspace.com/electrotribal",
+        "https://www.electrotribal.es/",
+        "https://rumberos.net/electrotribal-musica-electronica-made-in-venezuela/",
+        "https://www.amazon.com/Electrotribal/dp/B0031DS294",
+        "https://soundcloud.com/electrotribal/popular-tracks",
+        "https://sonichits.com/artist/Electrotribal_ft_Gaelica",
+        "https://www.youtube.com/watch?v=7oK8J5_LiGU",
+        "https://www.discogs.com/artist/8827930"
+      ]
+    },
+    {
+      "name": "Leandro Añez Grippa / KPU",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 9,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21296,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://desdelabiblioteca.com/quien-es-kapu-copy",
+          "title": "¿Quién es KAPU? Copy | LA VERDAD DE MI HISTORIA",
+          "quote": "Mi nombre es Leandro Añez Grippa, nací en 1981, en Caracas, Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://desdelabiblioteca.com/quien-es-kapu-copy",
+          "title": "¿Quién es KAPU? Copy | LA VERDAD DE MI HISTORIA",
+          "quote": "¿Quién es kapu?",
+          "supports": "same"
+        },
+        {
+          "url": "https://desdelabiblioteca.com/quien-es-kapu-copy",
+          "title": "¿Quién es KAPU? Copy | LA VERDAD DE MI HISTORIA",
+          "quote": "En 2004, comencé a involucrarme en el ámbito musical regional, como MC y luego como productor. En 2005 fundamos Base y Contenido, un colectivo de hip hop independiente donde grabé mis primeras letras y conocí a Canserbero.",
+          "supports": "same"
+        },
+        {
+          "url": "https://desdelabiblioteca.com/quien-es-kapu-copy",
+          "title": "¿Quién es KAPU? Copy | LA VERDAD DE MI HISTORIA",
+          "quote": "Entre 2009 y finales de 2013, publiqué con Canserbero medio centenar de canciones, entre ellas, las contenidas en tres albumes trascendentales: Vida (2010), Muerte (2012), y Apa & Can (2013).",
+          "supports": "same"
+        },
+        {
+          "url": "https://rpp.pe/famosos/celebridades/canserbero-productor-musical-kpu-niega-apropiacion-ilicita-de-las-canciones-noticia-1526661",
+          "title": "Canserbero: productor musical KPU niega apropiación ilícita de las canciones",
+          "quote": "Leandro Ciro Añez Grippa, más conocido como KPU, fue el productor musical de Canserbero.",
+          "supports": "same"
+        },
+        {
+          "url": "https://armando.info/personajes/leandro-anez-grippa-kpu/",
+          "title": "Leandro Añez Grippa (Kpu) - Armando.info",
+          "quote": "Leandro Añez Grippa (Kpu) Arquitecto de profesión. Rapero, representante, productor y DJ. Fue el productor fonográfico de los álbumes Vida, Muerte y Apa y Can del rapero Canserbero",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Kp%C3%BA",
+          "title": "Kpú - Wikipedia, la enciclopedia libre",
+          "quote": "Leandro Ciro Áñez Grippa (Caracas, 5 de febrero de 1981), más conocido como Kpú, es un músico y productor musical venezolano, mejor conocido por su trabajo con el rapero Canserbero.",
+          "supports": "same"
+        },
+        {
+          "url": "https://genius.com/artists/Kpu",
+          "title": "Kpú Lyrics, Songs, and Albums | Genius",
+          "quote": "KPU, alias de Leandro Añez Grippa (a veces también conocido como A.L.Mighty), es un productor y cantautor de rap caraqueño.",
+          "supports": "same"
+        },
+        {
+          "url": "https://todosloshechos.es/cual-fue-la-verdadera-causa-de-la-muerte-de-canserbero",
+          "title": "Cuál fue la verdadera causa de la muerte de canserbero?",
+          "quote": "KPU, alias de Leandro Añez Grippa",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://desdelabiblioteca.com/quien-es-kapu-copy",
+        "https://storage.googleapis.com/qurium/armando.info/asi-quiso-el-chavismo-acabar-con-la-tiradera-por-el-legado-de-canserbero.html",
+        "https://rpp.pe/famosos/celebridades/canserbero-productor-musical-kpu-niega-apropiacion-ilicita-de-las-canciones-noticia-1526661",
+        "https://es.wikipedia.org/wiki/Muerte_(%C3%A1lbum_de_Canserbero)",
+        "https://coolbites.mx/2021/10/20/kpu-poniendo-el-nombre-de-venezuela-en-lo-alto-del-hip-hop-en-espanol/",
+        "https://armando.info/personajes/leandro-anez-grippa-kpu/",
+        "https://es.wikipedia.org/wiki/Kp%C3%BA",
+        "https://impactove.com/rapero-conto-hace-dos-anos-detalles-que-revelo-william-saab-sobre-asesinato-de-canserbero",
+        "https://fan1delcanserbero-adriana.blogspot.com/2011/01/entrevista-al-canser.html",
+        "https://genius.com/artists/Kpu",
+        "https://grokipedia.com/page/pensando_en_ti",
+        "https://todosloshechos.es/cual-fue-la-verdadera-causa-de-la-muerte-de-canserbero"
+      ]
+    },
+    {
+      "name": "Jarz / Jarzen Arcia",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 9,
+      "seconds": 1,
+      "aiRunId": 21363,
+      "rationale": "una cita une los dos nombres y el proyecto común",
+      "evidence": [
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Billy_Se_Fue",
+          "title": "Billy Se Fue - La Venciclopedia",
+          "quote": "Jarzen Arcia \"Jarz\" (guitarra) se unió en el 2001.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Billy_Se_Fue",
+          "title": "Billy Se Fue - La Venciclopedia",
+          "quote": "Billy Se Fue fue una banda de rock alternativo formada en Caracas en el 2000 por Alejandro Estrada \"Alz\" (voz), Carlos Astros \"Carlz\" (batería), Neil Enet \"Nilz\" (bajo) y Liz (guitarra).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=_qe-LgwvjgQ",
+          "title": "Billy Se Fue - Todo No Es Suficiente (2006) || Full Album || - YouTube",
+          "quote": "Guitar: Jarzen Arcia \"Jarz\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.shazam.com/es-es/song/1845420931/desde-cuc3a1ndo-eres-asc3ad",
+          "title": "Desde Cuándo Eres Así? - Billy Se Fue: letras de canciones, vídeos...",
+          "quote": "Jarz. Композитор.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.amazon.com/%C2%BFD%C3%B3nde-Final-Feliz-Pensabas-Conseguir/dp/B0FWCRY4NB",
+          "title": "Amazon.com: ¿Dónde Está El Final Feliz Que Pensabas Conseguir? : Billy Se Fue: Digital Music",
+          "quote": "Neil Enet, Jarzen Arcia, Alejandro Estrada, Carlos Astros",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.venciclopedia.org/index.php?title=Billy_Se_Fue",
+        "https://www.facebook.com/estradamusicproject/videos/billysefue-siempre-en-mi-para-invitarlos-al-reencuentro-del-motor-de-billy-s%C3%A1bad/1234466925501472/",
+        "https://l-hit.com/es/324286",
+        "https://soundcloud.com/billysefue/la-28-en-vivo",
+        "https://www.amazon.com/%C2%BFD%C3%B3nde-Final-Feliz-Pensabas-Conseguir/dp/B0FWCRY4NB",
+        "https://www.youtube.com/watch?v=_qe-LgwvjgQ",
+        "https://www.shazam.com/es-es/song/1845420931/desde-cuc3a1ndo-eres-asc3ad",
+        "https://podtail.com/podcast/track-por-track/billy-se-fue-track-por-track/",
+        "https://www.iheart.com/podcast/256-track-por-track-43067885/"
+      ]
+    },
+    {
+      "name": "Neil Enet / Nilz",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 9,
+      "seconds": 0,
+      "aiRunId": 21298,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Billy_Se_Fue",
+          "title": "Billy Se Fue - La Venciclopedia",
+          "quote": "Neil Enet \"Nilz\" (bajo)",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/b/billy-se-fue/",
+          "title": "Billy Se Fue - RHV Directorio B",
+          "quote": "Neil Enet «Nilz» (bajo)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=_qe-LgwvjgQ",
+          "title": "Billy Se Fue - Todo No Es Suficiente (2006) || Full Album || - YouTube",
+          "quote": "Bass: Neil Enet \"Nilz\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/release/14746752-Billy-Se-Fue-Para-Siempre",
+          "title": "Billy Se Fue – Para Siempre (2009, CD) - Discogs",
+          "quote": "Neil Enet \"Nilz\" (bass)",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Billy_Se_Fue",
+          "title": "Billy Se Fue - La Venciclopedia",
+          "quote": "Billy Se Fue fue una banda de rock alternativo formada en Caracas en el 2000 por Alejandro Estrada \"Alz\" (voz), Carlos Astros \"Carlz\" (batería), Neil Enet \"Nilz\" (bajo) y Liz (guitarra).",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/b/billy-se-fue/",
+          "title": "Billy Se Fue - RHV Directorio B",
+          "quote": "Su debut discográfico se produce con el álbum Todo No Es Suficiente (2006).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.venciclopedia.org/index.php?title=Billy_Se_Fue",
+        "https://l-hit.com/es/324286",
+        "https://rockhechovenezuela.com/b/billy-se-fue/",
+        "https://www.amazon.com/%C2%BFD%C3%B3nde-Final-Feliz-Pensabas-Conseguir/dp/B0FWCRY4NB",
+        "https://www.iheart.com/podcast/256-track-por-track-43067885/",
+        "https://www.youtube.com/watch?v=_qe-LgwvjgQ",
+        "https://www.discogs.com/release/14746752-Billy-Se-Fue-Para-Siempre",
+        "https://music.apple.com/us/album/todo-no-es-suficiente/1845241020",
+        "https://antologiavenezuela.blogspot.com/search/label/Variada?updated-max=2014-08-03T18%3A25%3A00-07%3A00&max-results=20&start=20&by-date=false"
+      ]
+    },
+    {
+      "name": "G-Zaz / Jesús Romero",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 4,
+      "sources": 11,
+      "seconds": 1,
+      "aiRunId": 21299,
+      "rationale": "Rol, género o época distintos no prueban dos personas, y no aparece un proyecto común en la web.",
+      "evidence": [
+        {
+          "url": "https://rockhechovenezuela.com/g/tag/electronica/",
+          "title": "Electrónica Archives - RHV Directorio G",
+          "quote": "God´s New Version es un proyecto musical que forman Andrés Morillo (guitarra, voz) y Jesús «G-zaz» Romero (teclados, programación).",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/g/gods-new-version/",
+          "title": "God´s New Version - RHV Directorio G",
+          "quote": "Formación: Andrés Morillo, Jesús Romero, Carlos Henríquez. Temas: Games, As, Chill, Passout, God´s New Version (Main theme), Confuse but moving things, Machines, American beauty (Ft. Ivette Grau), Collision, Sonic chaos.",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/g/gods-new-version/",
+          "title": "God´s New Version - RHV Directorio G",
+          "quote": "Formación: Andrés Morillo, Jesús Romero, Carlos Henríquez, Eduardo Pacheco. Temas: Violento, Suele pasar, Módulo, Time, Grumo, Sado, Despertar, Mugatu, Stéreo, Moribundo.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=cZYUa1_K7A8",
+          "title": "02 Suele pasar - God's New version - Ordenador [2005]",
+          "quote": "Gods New Version es una banda de la ciudad de Maracaibo formada en el año 2002 por Andrés Morillo (guitarra, voz) y Jesús \"G-zaz\" Romero (teclados, programación), a ellos se le sumaria...",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.google.com/",
+        "https://soundcloud.com/god-s-new-version/sets/gods-new-version-studio-legacy",
+        "https://rockhechovenezuela.com/g/tag/electronica/",
+        "https://rockhechovenezuela.com/g/gods-new-version/",
+        "https://accounts.google.com/servicelogin?service=mail",
+        "https://soundcloud.com/god-s-new-version/as",
+        "https://evilgames.eu/flashgames.htm",
+        "https://mail.google.com/mail/u/0/",
+        "https://www.youtube.com/watch?v=cZYUa1_K7A8",
+        "https://rockhechovenezuela.com/g/category/musica-electronica/",
+        "https://rockhechovenezuela.com/g/category/maracaibo/"
+      ]
+    },
+    {
+      "name": "André / Andrés Morillo",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 5,
+      "sources": 10,
+      "seconds": 7,
+      "aiRunId": 21509,
+      "rationale": "una cita une los dos nombres y el proyecto común",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/gods_new_version.htm",
+          "title": "God's New Version - Bio & Discography",
+          "quote": "Vocals & Guitar: Andrés Morillo \"André\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/g/gods-new-version/",
+          "title": "God´s New Version - RHV Directorio G",
+          "quote": "God´s New Version es un proyecto musical que forman Andrés Morillo (guitarra, voz) y Jesús «G-zaz» Romero (teclados, programación).",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/godsnewversion_boardingpass.htm",
+          "title": "God's New Version - Boarding Pass (CD Info) - sincopa.com",
+          "quote": "Vocals & Guitar: Andrés Morillo \"André\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/godsnewversion_boardingpass.htm",
+          "title": "God's New Version - Boarding Pass (CD Info) - sincopa.com",
+          "quote": "Produced by André & G-Zaz",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=BwlufQcgaDM",
+          "title": "tlx, 06 Vicky - YouTube",
+          "quote": "Andrés Morillo: Batería.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/Andr%C3%A9_3000",
+        "https://rockhechovenezuela.com/g/gods-new-version/",
+        "https://sincopa.com/rock_pop/artist_rock/gods_new_version.htm",
+        "https://en.wikipedia.org/wiki/Andr%C3%A9_3000_discography",
+        "https://www.quepasa.com.ve/sucesos/cicpc-atrapo-brayan-presunto-asesino-del-comerciante-morillo/",
+        "https://soundcloud.com/god-s-new-version/as",
+        "https://www.youtube.com/watch?v=cZYUa1_K7A8",
+        "https://sincopa.com/rock_pop/cdinfo_rock/godsnewversion_boardingpass.htm",
+        "https://soundcloud.com/god-s-new-version/sets/gods-new-version-studio-legacy",
+        "https://www.youtube.com/watch?v=BwlufQcgaDM"
+      ]
+    },
+    {
+      "name": "Matheus 10 / Alfredo Matheus Diez",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 6,
+      "sources": 11,
+      "seconds": 2,
+      "aiRunId": 21301,
+      "rationale": "una cita une los dos nombres y el proyecto común",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/matheus10.htm",
+          "title": "Matheus 10 - Bio & Discography",
+          "quote": "Matheus 10 Born: Full Name: Resides: Instruments: Other Credits: Genres: In Venezuela Alfredo Matheus Diez In Miami, FL. Vocals, Acoustic Guitar, Keyboards Composer, Producer, Sound Engineer, Pop, Pop-Latin",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/matheus10.htm",
+          "title": "Matheus 10 - Bio & Discography",
+          "quote": "2009 Asi Lo Senti... Independent",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/matheus10_2asilosenti.htm",
+          "title": "Matheus 10 - Asi Lo Senti... (CD Info)",
+          "quote": "All tracks by Alfredo Matheus Diez, except track 04 by Alfredo Matheus Diez/Doug Emery & track 08 by Matheus Diez/Fernando Osorio.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/matheus10_2asilosenti.htm",
+          "title": "Matheus 10 - Asi Lo Senti... (CD Info)",
+          "quote": "Musicians on Track 13: Programming: Matheus 10",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/kiara_7comola1ravez.htm",
+          "title": "Kiara - Como La Primera Vez (CD Info) - sincopa.com",
+          "quote": "Recording Engineers: Alfredo Matheus 10, Vladimir Quintero, Arturo Cabrera & Steve Dady",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Roque_Valero",
+          "title": "Roque Valero - Wikipedia",
+          "quote": "2006: Todo Va A Salir Bien",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/matheus10.htm",
+        "https://en.wikipedia.org/wiki/Roque_Valero",
+        "https://www.lostiempos.com/deportes/entretiempo/20180430/mismo-sentir-es-cancion-oficial-juegos-2018",
+        "https://pt.orthodoxwiki.org/Matheus_10:16%E2%80%9322",
+        "https://rumberos.net/suma-y-no-resta-llega-al-mercado-local-jazz-con-ritmos-venezolanos/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/matheus10_2asilosenti.htm",
+        "http://infantoclub.blogspot.com/2011/05/atheus10-y-17-artistas-le-regalan-una.html",
+        "https://www.elnacional.com/2018/06/cantante-venezolana-realizo-tema-oficial-los-juegos-suramericanos_240900/",
+        "https://www.tiktok.com/@ma_the_uzinnx",
+        "https://www.deezer.com/us/artist/250201022",
+        "https://sincopa.com/rock_pop/cdinfo_rock/kiara_7comola1ravez.htm"
+      ]
+    },
+    {
+      "name": "PTT Lizardo / Pedro V. Lizardo",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 4,
+      "sources": 9,
+      "seconds": 2,
+      "aiRunId": 21364,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://rumberos.net/luz-y-fuerza-todos-por-ppt-lizardo-fundador-de-la-misma-gente/",
+          "title": "»LUZ Y FUERZA» TODOS POR PPT LIZARDO, FUNDADOR DE LA MISMA GENTE | Rumberos",
+          "quote": "La Misma Gente, a través de PTT Lizardo poeta urbano del rock es una de las influencias más fuertes en las últimas décadas, debido a los 30 años del grupo y más de 50 desde que formó Los Barracudas en los años 60.",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_1porfin.htm",
+          "title": "La Misma Gente - Por Fin (LP Info)",
+          "quote": "Guitars, Cuatro & Vocals: Pedro V. Lizardo \"PTT\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/La_Misma_Gente",
+          "title": "La Misma Gente - Wikipedia, la enciclopedia libre",
+          "quote": "La Misma Gente nació cuando Pedro Vicente Lizardo (PTT), se unió a su hermano Humberto Enrique Lizardo (IKE), bajista y diseñador, al baterista Victor González (Kasino),[1] a Pedro Alberto Galindo, compositor, cantante y saxofonista, a Mario Bresanutti, pianista, cantante y compositor, y eventualmente, a Ricardo Ramírez, flautista, este último quien dio el nombre a la agrupación en los primeros meses de 1977.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2894607",
+          "title": "Pedro Lizardo | Discogs",
+          "quote": "Real Name: Pedro Vicente Lizardo. Profile: Venezuelan rock musician Variations: PTT Lizardo, Pedro \"PTT\" Lizardo, Pedro V, Lizardo F. (PTT), Pedro V. Lizardo (PTT), Pedro Vicente, Pedro Vicente Lizardo, Pedro Vicente Lizardo (P.T.T.).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://rumberos.net/luz-y-fuerza-todos-por-ppt-lizardo-fundador-de-la-misma-gente/",
+        "https://studylib.es/doc/8648598/1-el-cancionero-de-ptt--prototipo-de-preservaci%C3%B3n-y",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_1porfin.htm",
+        "https://es.wikipedia.org/wiki/La_Misma_Gente",
+        "https://www.discogs.com/release/5193197-La-Misma-Gente-Luz-y-Fuerza",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_7lavelaqno.htm",
+        "https://www.discogs.com/release/5193197-La-Misma-Gente-Luz-Y-Fuerza",
+        "https://vinylfriday.wordpress.com/2020/07/10/vinylfriday-por-fin-la-misma-gente-1983/",
+        "https://www.discogs.com/artist/2894607"
+      ]
+    },
+    {
+      "name": "Nella / Marianella Rojas",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 9,
+      "sources": 11,
+      "seconds": 2,
+      "aiRunId": 21303,
+      "rationale": "Una fuente documenta que un nombre es seudónimo del otro.",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/Nella_Rojas",
+          "title": "Nella Rojas - Wikipedia",
+          "quote": "Marianella Rojas (born November 3, 1989), known as Nella, is a Venezuelan singer, originally from Porlamar, Margarita Island, Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nella_Rojas",
+          "title": "Nella Rojas - Wikipedia",
+          "quote": "She released her second album, Doce Margaritas, in 2021.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nella_Rojas",
+          "title": "Nella Rojas - Wikipedia",
+          "quote": "In May of the same year, Nella made her first record \"Voy,\" an album with compositions and production by Javier Limon for Casa Limón Records and worldwide distributed by The Orchard.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.njarts.net/nella-returns-to-her-roots-on-new-covers-album-en-otra-vida/",
+          "title": "Nella returns to her roots on new covers album, 'En Otra Vida'",
+          "quote": "Born Marianella Rojas on the Venezuelan island of Margarita, Nella attended The Berklee College of Music in Boston.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.njarts.net/nella-returns-to-her-roots-on-new-covers-album-en-otra-vida/",
+          "title": "Nella returns to her roots on new covers album, 'En Otra Vida'",
+          "quote": "In 2019, after releasing her debut album Voy, she won a Latin Grammy as Best New Artist.",
+          "supports": "same"
+        },
+        {
+          "url": "https://open.spotify.com/track/0t0gHYsDa2ZxMpYJjeJeHb",
+          "title": "Camino Sur (feat. Nella) - song and lyrics by New Caracas, Nella | Spotify",
+          "quote": "Camino Sur (feat. Nella) - song and lyrics by New Caracas, Nella | Spotify",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.bmi.com/spotlight/bmi-latin-spotlight-nella",
+          "title": "Nella - BMI | Broadcast Music, Inc.",
+          "quote": "Marianella Rojas, professionally known as Nella, rapidly ascended to international acclaim, propelled by her captivating voice and remarkable stage presence.",
+          "supports": "same"
+        },
+        {
+          "url": "https://thereser.org/event/nella/",
+          "title": "Nella - The Reser",
+          "quote": "27-year-old Marianella Rojas hails from Isla Margarita, Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Nella_Rojas",
+          "title": "Nella Rojas - Wikipedia, la enciclopedia libre",
+          "quote": "Marianella Rojas, conocida como Nella, es una cantante venezolana originaria de la Isla de Margarita, intérprete de música pop.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://en.wikipedia.org/wiki/Nella_Rojas",
+        "https://www.njarts.net/nella-returns-to-her-roots-on-new-covers-album-en-otra-vida/",
+        "https://www.univision.com/musica/ulab-sessions/u-lab-white-sessions-nella",
+        "https://buh.nella.pro/",
+        "https://es.wikipedia.org/wiki/Nella_Rojas",
+        "https://open.spotify.com/track/0t0gHYsDa2ZxMpYJjeJeHb",
+        "https://www.nellaonline.com/collections/nella",
+        "https://www.youtube.com/watch?v=iRhAhb0jafo",
+        "https://www.bmi.com/spotlight/bmi-latin-spotlight-nella",
+        "https://thereser.org/event/nella/",
+        "https://www.deezer.com/en/artist/68974552"
+      ]
+    },
+    {
+      "name": "Orlando Martínez / Orlando «Mangan» Martínez",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 7,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21304,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://eldiario.com/2022/04/30/el-rock-venezolano-no-esta-muerto-escenarios/",
+          "title": "El rock venezolano no está muerto y desea regresar a los escenarios",
+          "quote": "Henry D’Arthenay, vocalista de La Vida Bohème, y Orlando Martínez, baterista de Viniloversus, conversan con El Diario sobre su regreso a Venezuela",
+          "supports": "same"
+        },
+        {
+          "url": "https://eldiario.com/2022/04/30/el-rock-venezolano-no-esta-muerto-escenarios/",
+          "title": "El rock venezolano no está muerto y desea regresar a los escenarios",
+          "quote": "Abajo, Orlando “Mango” Martínez alterna sus conversaciones entre el patio y el bar. Al artista plástico y baterista de Viniloversus también le emociona haber tocado en una tierra que no pisaba hacía una década",
+          "supports": "same"
+        },
+        {
+          "url": "https://wmscradio.com/featured-artist-viniloversus/",
+          "title": "Featured Artist: Viniloversus - WMSC 90.3 FM",
+          "quote": "Drums: Orlando “Mangan” Martínez",
+          "supports": "same"
+        },
+        {
+          "url": "https://genius.com/Viniloversus-carpe-diem-feat-tessa-ia-lyrics",
+          "title": "Viniloversus – Carpe Diem (feat. Tessa Ia) Lyrics | Genius Lyrics",
+          "quote": "DrumOrlando “Mangan” Martinez",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Viniloversus",
+          "title": "Viniloversus - Wikipedia, la enciclopedia libre",
+          "quote": "Está integrada por Rodrigo Gonsalves, Adrián Salas, Juan V. Belisario y Orlando Martínez.",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/ub/melomania/2026-05-27/viniloversus-ya-lanzo-la-frontera/",
+          "title": "Viniloversus ya lanzó \"La frontera\" | UB",
+          "quote": "El baterista Orlando “Mangan” Martínez acota que este nuevo material marca una diferencia dentro de la discografía",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.pointmedialabel.net/pmltalksabout/pmltalksabouttropicalmango-bm6c4",
+          "title": "PML Talks About: TROPICAL MAN GO — PML",
+          "quote": "¿En qué se diferencia Orlando de Viniloversus con Orlando de Tropical Man Go? ¿Es la misma persona?",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://eldiario.com/2022/04/30/el-rock-venezolano-no-esta-muerto-escenarios/",
+        "https://www.elnacional.com/tag/orlando-mangan-martinez/",
+        "https://wmscradio.com/featured-artist-viniloversus/",
+        "https://genius.com/Viniloversus-carpe-diem-feat-tessa-ia-lyrics",
+        "https://es.wikipedia.org/wiki/Viniloversus",
+        "https://arepita.beehiiv.com/p/guarapita-v-rock",
+        "https://elestimulo.com/ub/melomania/2026-05-27/viniloversus-ya-lanzo-la-frontera/",
+        "https://www.shazam.com/song/1802704671/disintegrate-me-live-from-the-woods",
+        "https://eldiario.com/2026/05/28/viniloversus-la-frontera/",
+        "https://aultimominuto.wordpress.com/tag/rock/",
+        "https://www.pointmedialabel.net/pmltalksabout/pmltalksabouttropicalmango-bm6c4",
+        "https://www.discogs.com/artist/7175485",
+        "https://www.discogs.com/artist/15472404"
+      ]
+    },
+    {
+      "name": "Humberto E. Lizardo «Ike» / Humberto E. Lizardo",
+      "kind": "merged",
+      "truth": "same",
+      "accept": [
+        "same"
+      ],
+      "verdict": "same",
+      "correct": true,
+      "citations": 7,
+      "sources": 11,
+      "seconds": 1,
+      "aiRunId": 21305,
+      "rationale": "Los nombres son compatibles y una fuente confirma el proyecto común.",
+      "evidence": [
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=La_Misma_Gente_%28disco%29",
+          "title": "La Misma Gente (disco) - La Venciclopedia",
+          "quote": "Bajo: Humberto E. Lizardo F. \"Ike\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_5mg.htm",
+          "title": "La Misma Gente - La Misma Gente (CD Info)",
+          "quote": "Bass: Humberto E. Lizardo \"Ike\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_1porfin.htm",
+          "title": "La Misma Gente - Por Fin (LP Info)",
+          "quote": "Bass, Guitar & Background Vocals: Humberto E. Lizardo F. \"Ike\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/release/5193197-La-Misma-Gente-Luz-y-Fuerza",
+          "title": "La Misma Gente – Luz y Fuerza (1984, Vinyl) - Discogs",
+          "quote": "Bass, Guitar, Backing Vocals – Humberto E. Lizardo (Ike) *",
+          "supports": "same"
+        },
+        {
+          "url": "https://elblogdecherico.blogspot.com/2010/07/en-1945-en-toronto-nacio-neil-youngy-en.html",
+          "title": "El Blog De Cherico: En 1945 en Toronto nacio Neil Young....y en 1950 en La Candelaria Nacio PTT Lizardo...¡¡¡¡ - LA MISMA GENTE \"Somos Todos\" 2008.",
+          "quote": "junto a IKE Lizardo y Victor \"Casino\" Gomez fundo a La Misma Gente en 1977",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/La_Misma_Gente",
+          "title": "La Misma Gente - Wikipedia, la enciclopedia libre",
+          "quote": "Los hermanos Lizardo (IKE y PTT) se iniciaron musicalmente a principios de los sesenta con Los Barracudas y luego en los setenta con Apocalipsis.",
+          "supports": "same"
+        },
+        {
+          "url": "https://steemit.com/music/@rock.ve41/la-misma-gente-de-san-antono-de-los-altos-para-toda-venezuela",
+          "title": "LA MISMA GENTE DE SAN ANTONO DE LOS ALTOS PARA TODA VENEZUELA — Steemit",
+          "quote": "Humberto Lizardo”IKE” (bajo)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://elblogdecherico.blogspot.com/2010/07/en-1945-en-toronto-nacio-neil-youngy-en.html",
+        "https://www.venciclopedia.org/index.php?title=La_Misma_Gente_%28disco%29",
+        "https://steemit.com/music/@rock.ve41/la-misma-gente-de-san-antono-de-los-altos-para-toda-venezuela",
+        "https://es.wikipedia.org/wiki/La_Misma_Gente",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_1porfin.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_5mg.htm",
+        "https://lahora.gt/opinion/por-la-transparencia/2026/08/27/el-mismo-sol-la-misma-gente-y-el-mismo-ideal/",
+        "https://vinylfriday.wordpress.com/2020/07/10/vinylfriday-por-fin-la-misma-gente-1983/",
+        "https://www.youtube.com/watch?v=AvxAUCffOUw",
+        "https://www.discogs.com/release/3826569-La-Misma-Gente-Por-Fin",
+        "https://www.discogs.com/release/5193197-La-Misma-Gente-Luz-y-Fuerza"
+      ]
+    },
+    {
+      "name": "Pedro V. Lizardo / Humberto E. Lizardo (hermanos)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 3,
+      "sources": 13,
+      "seconds": 6,
+      "aiRunId": 21306,
+      "rationale": "relación familiar citada: «La Misma Gente nació cuando Pedro Vicente Lizardo (PTT), se unió a su hermano Humberto Enrique Lizardo (IKE), bajista y diseñador»",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/la_misma_gente.htm",
+          "title": "La Misma Gente - Bio & Discography",
+          "quote": "Guitars, Cuatro & Vocals: Pedro V. Lizardo \"PTT\" (1976-)",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/la_misma_gente.htm",
+          "title": "La Misma Gente - Bio & Discography",
+          "quote": "Ex-Members: Bass & Back Vocals: Humberto E. Lizardo F. \"Ike\" (1976-2008)",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/La_Misma_Gente",
+          "title": "La Misma Gente - Wikipedia, la enciclopedia libre",
+          "quote": "La Misma Gente nació cuando Pedro Vicente Lizardo (PTT), se unió a su hermano Humberto Enrique Lizardo (IKE), bajista y diseñador",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/la_misma_gente.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_2luz.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_6somostodos.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_1porfin.htm",
+        "https://www.venciclopedia.org/index.php?title=La_Misma_Gente_%28disco%29",
+        "https://es.wikipedia.org/wiki/La_Misma_Gente",
+        "https://vinylfriday.wordpress.com/2020/07/10/vinylfriday-por-fin-la-misma-gente-1983/",
+        "https://steemit.com/spanish/@nahupuku/13-videos-de-rock-fusion-venezolano-que-me-encantan-de-los-70s-y-principios-de-los-80s",
+        "https://www.discogs.com/release/5193197-La-Misma-Gente-Luz-Y-Fuerza",
+        "https://la-misma-gente.bandcamp.com/album/tres",
+        "https://www.youtube.com/watch?v=AvxAUCffOUw",
+        "https://bailes.astalaweb.com/100-Mejores-canciones-de-salsa-2.asp",
+        "https://www.discogs.com/artist/2894607"
+      ]
+    },
+    {
+      "name": "José Andrés Blanco / Luis Eduardo Blanco (hermanos)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 6,
+      "sources": 14,
+      "seconds": 8,
+      "aiRunId": 21307,
+      "rationale": "apellidos distintos en las fichas: José Andrés Blanco / Luis Eduardo Blanco",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "In 2020, Blanco's brother and former keyboardist, Luis Eduardo Blanco (Negrito Man) reformed the band as a three-piece and has continued to tour under the King Changó name.",
+          "supports": "different"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "José Andrés Blanco (Blanquito Man) died on November 16, 2017, due to complications from colon cancer.",
+          "supports": "different"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "José Andrés Blanco, (Blanquito Man) – vocals and percussion",
+          "supports": "different"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "Luis Eduardo Blanco, (Negrito Man) – keyboard, cuatro and percussion",
+          "supports": "different"
+        },
+        {
+          "url": "https://albaciudad.org/2017/11/blanquito-man-un-venezolano-que-con-alegria-alzo-la-voz-del-latin-ska/",
+          "title": "Blanquito Man, un venezolano que con alegría alzó la voz del Latin Ska – Alba Ciudad 96.3 FM",
+          "quote": "Blanquito Man fundó King Chango en 1995 mientras vivía en Nueva York como inmigrante latino",
+          "supports": "same"
+        },
+        {
+          "url": "https://albaciudad.org/2017/11/blanquito-man-un-venezolano-que-con-alegria-alzo-la-voz-del-latin-ska/",
+          "title": "Blanquito Man, un venezolano que con alegría alzó la voz del Latin Ska – Alba Ciudad 96.3 FM",
+          "quote": "El anuncio de su muerte fue hecho por su hermano, Luis Blanco, también integrante de la banda y conocido como \"Negrito Man\".",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/frankquint_17signos.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/frankquint_lahistoria.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/electrotribal_1.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/matarica_2pachanga.htm",
+        "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+        "https://www.univision.com/famosos/murio-blanquito-man-y-nosotros-te-platicamos-como-fue-su-lucha-contra-el-cancer-fotos",
+        "https://www.elespectador.com/entretenimiento/musica/el-homenaje-a-blanquito-man-uno-de-los-precursores-del-reggae-latinoamericano/",
+        "https://albaciudad.org/2017/11/blanquito-man-un-venezolano-que-con-alegria-alzo-la-voz-del-latin-ska/",
+        "https://www.youtube.com/watch?v=YM1ivMmyzQw",
+        "https://www.shazam.com/es-es/song/1696929233/venezuelan-in-new-york",
+        "https://vimeo.com/246550501",
+        "https://es.wikipedia.org/wiki/King_Chang%C3%B3",
+        "https://www.discogs.com/artist/2542799",
+        "https://www.discogs.com/artist/8827930"
+      ]
+    },
+    {
+      "name": "Jesús «G-zaz» Romero / Andrés Morillo (God's New Version)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "different",
+      "correct": true,
+      "citations": 3,
+      "sources": 12,
+      "seconds": 4,
+      "aiRunId": 21308,
+      "rationale": "apellidos distintos en las fichas: Jesús Romero / Andrés Morillo",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/gods_new_version.htm",
+          "title": "God's New Version - Bio & Discography",
+          "quote": "Vocals & Guitar: Andrés Morillo \"André\" Keyboards & Programming: Jesús Romero \"G-Zaz\"",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/godsnewversion_boardingpass.htm",
+          "title": "God's New Version - Boarding Pass (CD Info)",
+          "quote": "Vocals & Guitar: Andrés Morillo \"André\" Keyboards & Programming: Jesús Romero \"G-Zaz\"",
+          "supports": "different"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/g/gods-new-version/",
+          "title": "God´s New Version - RHV Directorio G",
+          "quote": "God´s New Version es un proyecto musical que forman Andrés Morillo (guitarra, voz) y Jesús «G-zaz» Romero (teclados, programación).",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/gods_new_version.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/godsnewversion_boardingpass.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/godsnewversion_ordenador.htm",
+        "https://soundcloud.com/god-s-new-version/as",
+        "https://soundcloud.com/god-s-new-version/sets/gods-new-version-studio-legacy",
+        "https://rockhechovenezuela.com/g/gods-new-version/",
+        "https://evilgames.eu/flashgames.htm",
+        "https://www.quepasa.com.ve/sucesos/cicpc-atrapo-brayan-presunto-asesino-del-comerciante-morillo/",
+        "https://www.youtube.com/watch?v=cZYUa1_K7A8",
+        "https://www.youtube.com/watch?v=BwlufQcgaDM",
+        "https://us.radiocut.fm/audiocut/tlx-nostalgia-pop-rock-de-un-grupo-futurista/",
+        "https://eldiario.com/2021/07/09/heberto-anez-novoa-entrevista/"
+      ]
+    },
+    {
+      "name": "Jarzen Arcia / Nilz (Billy Se Fue)",
+      "kind": "pair",
+      "truth": "different",
+      "accept": [
+        "different"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 7,
+      "sources": 12,
+      "seconds": 4,
+      "aiRunId": 21309,
+      "rationale": "Rol, género o época distintos no prueban dos personas, y no aparece un proyecto común en la web.",
+      "evidence": [
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Billy_Se_Fue",
+          "title": "Billy Se Fue - La Venciclopedia",
+          "quote": "Billy Se Fue fue una banda de rock alternativo formada en Caracas en el 2000 por Alejandro Estrada \"Alz\" (voz), Carlos Astros \"Carlz\" (batería), Neil Enet \"Nilz\" (bajo) y Liz (guitarra). Jarzen Arcia \"Jarz\" (guitarra) se unió en el 2001.",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.venciclopedia.org/index.php?title=Billy_Se_Fue",
+          "title": "Billy Se Fue - La Venciclopedia",
+          "quote": "Neil Enet \"Nilz\" (bajo) y Liz (guitarra). Jarzen Arcia \"Jarz\" (guitarra) se unió en el 2001.",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/billysefue_1todo.htm",
+          "title": "Billy Se Fue - Todo No Es Suficiente (CD Info)",
+          "quote": "Musicians Vocals: Alz Bass: Nilz Guitar: Jarz Drums: Carlz",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/billysefue_1todo.htm",
+          "title": "Billy Se Fue - Todo No Es Suficiente (CD Info)",
+          "quote": "Guitar: Jarz",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/billysefue_1todo.htm",
+          "title": "Billy Se Fue - Todo No Es Suficiente (CD Info)",
+          "quote": "Bass: Nilz",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lobotoradio.com/discos/para-siempre",
+          "title": "Lobotoradio",
+          "quote": "bajo: Neil Enetbatería: Carlos Astrosguitarra: Hertzguitarras: Jarzen Arcia",
+          "supports": "same"
+        },
+        {
+          "url": "https://noesfm.com/a-la-calle-el-ejercito-de-violenta-josefina/",
+          "title": "A la calle el Ejército de Violenta Josefina",
+          "quote": "estoy colaborando como bajista en el proyecto solista de Jarzen Arcia -ex Billy Se Fue-",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/billysefue_1todo.htm",
+        "https://coleccionistasderockvenezolano.wordpress.com/2016/03/06/billy-se-fue/",
+        "https://www.venciclopedia.org/index.php?title=Billy_Se_Fue",
+        "https://rockhechovenezuela.com/b/billy-se-fue/",
+        "https://www.amazon.com/%C2%BFD%C3%B3nde-Final-Feliz-Pensabas-Conseguir/dp/B0FWCRY4NB",
+        "https://www.iheart.com/podcast/256-track-por-track-43067885/",
+        "https://www.lobotoradio.com/discos/para-siempre",
+        "https://music.apple.com/us/album/todo-no-es-suficiente/1845241020",
+        "https://www.youtube.com/watch?v=H-mbIDPlQWs",
+        "https://www.youtube.com/watch?v=_qe-LgwvjgQ",
+        "https://antologiavenezuela.blogspot.com/search/label/Variada?updated-max=2014-08-03T18%3A25%3A00-07%3A00&max-results=20&start=20&by-date=false",
+        "https://noesfm.com/a-la-calle-el-ejercito-de-violenta-josefina/"
+      ]
+    },
+    {
+      "name": "PTT Lizardo juntado (+ su hermano Humberto)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 3,
+      "sources": 11,
+      "seconds": 3,
+      "aiRunId": 21365,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://es.wikipedia.org/wiki/La_Misma_Gente",
+          "title": "La Misma Gente - Wikipedia, la enciclopedia libre",
+          "quote": "La Misma Gente nació cuando Pedro Vicente Lizardo (PTT), se unió a su hermano Humberto Enrique Lizardo (IKE), bajista y diseñador, al baterista Victor González (Kasino),[1] a Pedro Alberto Galindo, compositor, cantante y saxofonista, a Mario Bresanutti, pianista, cantante y compositor, y eventualmente, a Ricardo Ramírez, flautista, este último quien dio el nombre a la agrupación en los primeros meses de 1977.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/ko/artist/2894607-Pedro-Lizardo?noanv=1",
+          "title": "Pedro Lizardo Discography: Vinyl, CDs, & More | Discogs",
+          "quote": "실명: Pedro Vicente Lizardo. 프로필: Venezuelan rock musician.Los Barracudas, Apocalipsis (2), La Misma Gente (2).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2894607",
+          "title": "Pedro Lizardo | Discogs",
+          "quote": "Variations: PTT Lizardo, Pedro \"PTT\" Lizardo, Pedro V, Lizardo F. (PTT), Pedro V. Lizardo (PTT), Pedro Vicente, Pedro Vicente Lizardo, Pedro Vicente Lizardo (P.T.T.).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/la_misma_gente.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_2luz.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_4calle.htm",
+        "https://steemit.com/spanish/@nahupuku/13-videos-de-rock-fusion-venezolano-que-me-encantan-de-los-70s-y-principios-de-los-80s",
+        "https://es.wikipedia.org/wiki/La_Misma_Gente",
+        "https://vinylfriday.wordpress.com/2020/07/10/vinylfriday-por-fin-la-misma-gente-1983/",
+        "https://www.venciclopedia.org/index.php?title=Somos_todos",
+        "https://hubsociology.com/power-elite-c-w-mills-a-sociological-perspec/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_1porfin.htm",
+        "https://www.discogs.com/ko/artist/2894607-Pedro-Lizardo?noanv=1",
+        "https://www.discogs.com/artist/2894607"
+      ]
+    },
+    {
+      "name": "Blanquito Man juntado (+ su hermano Negrito Man)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "mixed",
+      "correct": true,
+      "citations": 4,
+      "sources": 18,
+      "seconds": 16,
+      "aiRunId": 21311,
+      "rationale": "apellidos distintos en las fichas: Luis Eduardo Blanco \"Negrito Man\" / José Andrés Blanco Reparto propuesto: acreditado como Luis Eduardo Blanco \"Negrito Man\": Mata Rica, King Changó, Various Artists, Mermelada Bunch · José Andrés Blanco: King Changó, Mata Rica, Frank Quintero, Horacero, Maurimix, Electrotribal, Onechot.",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "In 2020, Blanco's brother and former keyboardist, Luis Eduardo Blanco (Negrito Man) reformed the band as a three-piece and has continued to tour under the King Changó name.",
+          "supports": "different"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "José Andrés Blanco (Blanquito Man) died on November 16, 2017, due to complications from colon cancer.",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/cdinfo_rock/matarica_2pachanga.htm",
+          "title": "Mata Rica - Pachanga Punk (CD Info)",
+          "quote": "Cuatro: Negrito Man (tracks 09, 12)",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "King Changó (1996)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/frankquint_17signos.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/electrotribal_1.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/frankquint_lahistoria.htm",
+        "https://www.univision.com/famosos/murio-blanquito-man-y-nosotros-te-platicamos-como-fue-su-lucha-contra-el-cancer-fotos",
+        "https://www.desdelaplaza.com/pop/fallecio-lider-vocalista-king-chango-blanquito-man/",
+        "https://www.elespectador.com/entretenimiento/musica/el-homenaje-a-blanquito-man-uno-de-los-precursores-del-reggae-latinoamericano/",
+        "https://tendsrock.wordpress.com/category/rock-de-fusion-latina/page/9/",
+        "https://es.wikipedia.org/wiki/King_Chang%C3%B3",
+        "https://www.miamiherald.com/miami-com/en-espanol/article225774620.html",
+        "https://noticialdia.com/al-dia/blanquito-man-el-musico-venezolano-que-diseno-la-identidad-visual-del-deporte-norteamericano/",
+        "https://albaciudad.org/2017/11/blanquito-man-un-venezolano-que-con-alegria-alzo-la-voz-del-latin-ska/",
+        "https://lopezdoriga.com/entretenimiento/fallece-jose-andres-blanco-vocalista-de-king-chango/",
+        "https://www.discogs.com/artist/2542799",
+        "https://sincopa.com/rock_pop/cdinfo_rock/matarica_2pachanga.htm",
+        "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+        "https://biblehub.com/text/isaiah/14-14.htm",
+        "https://www.youtube.com/watch?v=QBFDYOZzlpE",
+        "https://elcooperante.com/la-participacion-de-blanquito-man-en-secuestro-express-que-jamas-se-vio-en-el-cine/"
+      ]
+    },
+    {
+      "name": "G-zaz juntado (+ Andrés Morillo)",
+      "kind": "mixed",
+      "truth": "mixed",
+      "accept": [
+        "mixed"
+      ],
+      "verdict": "unknown",
+      "correct": false,
+      "citations": 10,
+      "sources": 10,
+      "seconds": 4,
+      "aiRunId": 21485,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/gods_new_version.htm",
+          "title": "God's New Version - Bio & Discography",
+          "quote": "God's New Version Formed: Based: Genre: In 2002 in Maracaibo, Estado Zulia, Venezuela In Maracaibo, Estado Zulia, Venezuela Rock/Industrial Group Members Vocals & Guitar: Andrés Morillo \"André\" Keyboards & Programming: Jesús Romero \"G-Zaz\"",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://letralia.com/262/0302romero.htm",
+          "title": "Letralia 262 | Noticias | Falleció el compositor venezolano Eurípides Jesús Romero",
+          "quote": "Este viernes 2 de marzo falleció en Maracaibo, Zulia, el compositor venezolano Eurípides Jesús Romero, a los 89 años de edad.",
+          "supports": "different"
+        },
+        {
+          "url": "https://letralia.com/262/0302romero.htm",
+          "title": "Letralia 262 | Noticias | Falleció el compositor venezolano Eurípides Jesús Romero",
+          "quote": "Romero había nacido el 15 de febrero de 1923 en el sector Veritas de Maracaibo.",
+          "supports": "different"
+        },
+        {
+          "url": "https://letralia.com/262/0302romero.htm",
+          "title": "Letralia 262 | Noticias | Falleció el compositor venezolano Eurípides Jesús Romero",
+          "quote": "Fue autor de populares gaitas como “El negrito fullero”, popularizada por el cantante y actor Daniel Alvarado con Los Cardenales del Éxito en 1971",
+          "supports": "different"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/gods_new_version.htm",
+          "title": "God's New Version - Bio & Discography",
+          "quote": "God's New Version Formed: Based: Genre: In 2002 in Maracaibo, Estado Zulia, Venezuela In Maracaibo, Estado Zulia, Venezuela Rock/Industrial Group Members Vocals & Guitar: Andrés Morillo \"André\" Keyboards & Programming: Jesús Romero \"G-Zaz\"",
+          "supports": "same"
+        },
+        {
+          "url": "https://rockhechovenezuela.com/g/gods-new-version/",
+          "title": "God´s New Version - RHV Directorio G",
+          "quote": "God´s New Version es un proyecto musical que forman Andrés Morillo (guitarra, voz) y Jesús «G-zaz» Romero (teclados, programación). Procedentes de Maracaibo (estado Zulia), sus inicios datan del año 2002.",
+          "supports": "same"
+        },
+        {
+          "url": "https://soundcloud.com/god-s-new-version/sets/gods-new-version-studio-legacy",
+          "title": "Stream god´s new version. | Listen to gods new version studio legacy playlist online for free on SoundCloud",
+          "quote": "God’snewversion se forma en la ciudad de Maracaibo en mayo del 2002 por iniciativa de sus dos únicos miembros Jesús Romero (Programación, Scratching y Teclados) y Andrés Morillo (Voz, Guitarra y Teclados).",
+          "supports": "same"
+        },
+        {
+          "url": "https://soundcloud.com/god-s-new-version/as",
+          "title": "Stream As by god´s new version. | Listen online for free on ...",
+          "quote": "God’snewversion se forma en la ciudad de Maracaibo en mayo del 2002 por iniciativa de sus dos únicos miembros Jesús Romero (Programación, Scratching y Teclados) y Andrés Morillo (Voz, Guitarra y Teclados).",
+          "supports": "same"
+        },
+        {
+          "url": "https://laopinion.co/colombia/el-vallenatero-jesus-romero-fue-atracado-en-un-restaurante-de-barranquilla",
+          "title": "​​​​​​​El vallenatero Jesús Romero fue atracado en un restaurante de Barranquilla",
+          "quote": "El vallenatero Jesús Romero fue atracado en un restaurante de Barranquilla",
+          "supports": "different"
+        },
+        {
+          "url": "https://reportedelaeconomia.com/venezuela/quien-es-el-comandante-jesus-romero-heroe-o-villano/",
+          "title": "¿Quién es el Comandante Jesús Romero: Héroe o Villano? - REPORTE DE LA ECONOMÍA",
+          "quote": "El Comandante Jesús Romero, de origen venezolano, ha cobrado mucha notoriedad en las últimas semanas",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/gods_new_version.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/godsnewversion_boardingpass.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/godsnewversion_ordenador.htm",
+        "https://letralia.com/262/0302romero.htm",
+        "https://laopinion.co/colombia/el-vallenatero-jesus-romero-fue-atracado-en-un-restaurante-de-barranquilla",
+        "https://soundcloud.com/god-s-new-version/sets/gods-new-version-studio-legacy",
+        "https://en.wikipedia.org/wiki/Three_for_All",
+        "https://reportedelaeconomia.com/venezuela/quien-es-el-comandante-jesus-romero-heroe-o-villano/",
+        "https://soundcloud.com/god-s-new-version/as",
+        "https://rockhechovenezuela.com/g/gods-new-version/"
+      ]
+    },
+    {
+      "name": "Ilan Chester 1971–2015 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 8,
+      "sources": 8,
+      "seconds": 8,
+      "aiRunId": 21367,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://www.lobotoradio.com/artistas/ilan-chester/",
+          "title": "Ilan Chéster – Lobotoradio",
+          "quote": "Ilan Chéster (nacido Ilan Czenstochouski Schechter) es un músico venezolano nacido el 30 de julio de 1952 en Israel.",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://www.lobotoradio.com/artistas/ilan-chester/",
+          "title": "Ilan Chéster – Lobotoradio",
+          "quote": "Ilan Chéster (nacido Ilan Czenstochouski Schechter) es un músico venezolano nacido el 30 de julio de 1952 en Israel.",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Ilan_Chester",
+          "title": "Ilan Chester - Wikipedia, la enciclopedia libre",
+          "quote": "Ilan Czenstochowski Schaechter (Jaffa, 30 de julio de 1952), conocido simplemente como Ilan Chester, es un músico y cantautor venezolano nacido en Israel.",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Felix_Cheong",
+          "title": "Felix Cheong - Wikipedia",
+          "quote": "Felix Cheong (born 1965, Singapore) is a Singaporean author and poet.",
+          "supports": "different"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/%2F%2F",
+          "title": "// - Wikipedia",
+          "quote": "Two slashes (//) are:",
+          "supports": "different"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Felix_Cheong",
+          "title": "Felix Cheong - Wikipedia",
+          "quote": "Felix Cheong Seng Fei: A Biographical Introduction",
+          "supports": "different"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Ilan_Chester",
+          "title": "Ilan Chester - Wikipedia, la enciclopedia libre",
+          "quote": "Nacimiento 30 de julio de 1952 (74 años)Jaffa, Israel",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Felix_Cheong",
+          "title": "Felix Cheong - Wikipedia",
+          "quote": "born 1965, Singapore",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/classic/cdinfo_class/kristhyan_benitez/kristhyanbenitez_3nosotros.htm",
+        "https://sincopa.com/classic/cdinfo_class/leobetan_conelcorazon.htm",
+        "https://sincopa.com/classic/cdinfo_class/osgma_5navidad.htm",
+        "https://www.lobotoradio.com/artistas/ilan-chester/",
+        "https://www.lobotoradio.com/artistas/ilan-chester",
+        "https://en.wikipedia.org/wiki/%2F%2F",
+        "https://es.wikipedia.org/wiki/Ilan_Chester",
+        "https://en.wikipedia.org/wiki/Felix_Cheong"
+      ]
+    },
+    {
+      "name": "Nella (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 4,
+      "sources": 12,
+      "seconds": 2,
+      "aiRunId": 21317,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/nella_rojas.htm",
+          "title": "Nella Rojas - Bio & Discography",
+          "quote": "Nella Born: Full Name: Resides: Instruments: Genres: November 3 in Porlamar, Margarita Island, Venezuela Marianella Rojas - Vocals Pop, Ballad, Latin, World Fusion, Jazz",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/jazz/cdinfo/newcaracas_1nos.htm",
+          "title": "New Caracas - Nos (CD Info)",
+          "quote": "Vocals: Andrea Tierra (track 2) Alea (track 3) Madám (tracks 4, 6, 7, 10) Nella (tracks 6, 7, 8)",
+          "supports": "same"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Nella_Rojas",
+          "title": "Nella Rojas - Wikipedia",
+          "quote": "Marianella Rojas (born November 3, 1989), known as Nella, is a Venezuelan singer, originally from Porlamar, Margarita Island, Venezuela.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.guatacanights.com/noticias/la-voz-desnuda-de-nella-rojas",
+          "title": "La voz desnuda de Nella Rojas – Guataca Nights",
+          "quote": "Marianella Rojas Matos nació el 3 de noviembre de 1989.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/nella_rojas.htm",
+        "https://sincopa.com/jazz/cdinfo/newcaracas_1nos.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/nella_1voy.htm",
+        "https://en.wikipedia.org/wiki/Nella_Rojas",
+        "https://www.guatacanights.com/noticias/la-voz-desnuda-de-nella-rojas",
+        "https://es.wikipedia.org/wiki/Nella_Rojas",
+        "https://www.facebook.com/Marianela.Rojas2/",
+        "https://www.buenamusica.com/nella/biografia",
+        "https://venezuelasinfonica.com/nella-rojas-una-voz-la-vanguardia-la-musica-popular/",
+        "https://cesarmiguelrondon.com/intereses/tambien-sucede/la-voz-desnuda-de-nella-rojas-juan-luis-landaeta/",
+        "https://wvw.plusmusicas.com/biografia/nella",
+        "https://www.infobae.com/america/entretenimiento/2021/02/04/es-una-cancion-de-empoderamiento-nella-hablo-con-infobae-de-solita-su-mas-reciente-sencillo/"
+      ]
+    },
+    {
+      "name": "KPU (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 5,
+      "sources": 8,
+      "seconds": 1,
+      "aiRunId": 21405,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://mninoticias.com/lo-que-no-sabias-de-leandro-anez-mejor-conocido-como-kpu/",
+          "title": "LO QUE NO SABÍAS DE LEANDRO AÑEZ, MEJOR CONOCIDO COMO KPU - MNI NOTICIAS",
+          "quote": "nos encontramos con Leandro Añez, mejor conocido como KPU. Un prolijo productor de Hip Hop",
+          "supports": "same"
+        },
+        {
+          "url": "https://rpp.pe/famosos/celebridades/canserbero-productor-musical-kpu-niega-apropiacion-ilicita-de-las-canciones-noticia-1526661",
+          "title": "Canserbero: productor musical KPU niega apropiación ilícita de las canciones",
+          "quote": "Leandro Ciro Añez Grippa, más conocido como KPU, fue el productor musical de Canserbero",
+          "supports": "same"
+        },
+        {
+          "url": "https://style.shockvisual.net/kpu-se-abre-paso-nuevamente-en-la-industria-musical/",
+          "title": "KPU se abre paso nuevamente en la industria musical - Style by ShockVisual",
+          "quote": "Leandro Añez Grippa, también conocido como KPU, estudió en la Universidad Central de Venezuela obteniendo el título de arquitecto",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/Kp%C3%BA",
+          "title": "Kpú - Wikipedia, la enciclopedia libre",
+          "quote": "Leandro Ciro Áñez Grippa (Caracas, 5 de febrero de 1981), más conocido como Kpú, es un músico y productor musical venezolano",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.eluniverso.com/noticias/internacional/quien-es-leandro-anez-kpu-productor-de-canserbero-nota/",
+          "title": "Alerta roja ante Interpol contra el productor de Canserbero, ¿quién es Leandro Áñez, KPU? | Internacional | Noticias | El Universo",
+          "quote": "decretar la orden de aprehensión, en contra de Leandro Áñez, a quien conocen en el medio artístico como Kpu",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://www.ritmourbano.com.mx/2021/03/kpu-nunca-permitire-remixes-de-reggaeton-con-la-musica-de-canserbero/",
+        "https://mninoticias.com/lo-que-no-sabias-de-leandro-anez-mejor-conocido-como-kpu/",
+        "https://rpp.pe/famosos/celebridades/canserbero-productor-musical-kpu-niega-apropiacion-ilicita-de-las-canciones-noticia-1526661",
+        "https://style.shockvisual.net/kpu-se-abre-paso-nuevamente-en-la-industria-musical/",
+        "https://es.wikipedia.org/wiki/Kp%C3%BA",
+        "https://www.diariocontraste.com/2024/01/solicitan-alerta-roja-ante-la-interpol-contra-kpu-el-productor-de-canserbero/",
+        "https://www.eluniverso.com/noticias/internacional/quien-es-leandro-anez-kpu-productor-de-canserbero-nota/",
+        "https://lakalle.bluradio.com/noticias/canserbero-ordenan-orden-de-arresto-contra-kpu-su-amigo-y-productor-musical-rg10"
+      ]
+    },
+    {
+      "name": "Matheus10 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 4,
+      "sources": 12,
+      "seconds": 1,
+      "aiRunId": 21319,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/matheus10.htm",
+          "title": "Matheus 10 - Bio & Discography",
+          "quote": "Matheus 10 Born: Full Name: Resides: Instruments: Other Credits: Genres: In Venezuela Alfredo Matheus Diez In Miami, FL. Vocals, Acoustic Guitar, Keyboards Composer, Producer, Sound Engineer, Pop, Pop-Latin Matheus 10 - Home Page Discography 2005 Entre La Tierra y El Cielo Independent 2009 Asi Lo Senti... Independent Appears On 2006 Roque Valero Todo Va A Salir Bien (Mix Eng.) 2008 Aditus De Alcabala A Peligro (Keyboards) 2010 Kiara Como La Primera Vez (Producer)",
+          "supports": "same"
+        },
+        {
+          "url": "https://2001online.com/farandula/el-venezolano-detras-de-los-exitos-de-marc-anthony-luis-fonsi-y-cristian-castro-que-hoy-es-ganador-de-cinco-latin-grammy-20266611380",
+          "title": "El venezolano detrás de los éxitos de Marc Anthony, Luis Fonsi y Cristian Castro que hoy es ganador de cinco latín Grammy",
+          "quote": "El compositor y productor venezolano Alfredo Matheus Diez, nacido en Caracas, es uno de esos nombres que, aunque no siempre aparece en el foco mediático, ha sido fundamental en la construcción de grandes éxitos de la música latina contemporánea.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.lostiempos.com/deportes/entretiempo/20180430/mismo-sentir-es-cancion-oficial-juegos-2018",
+          "title": "“Un mismo sentir”, es la canción oficial de los Juegos 2018 | Los Tiempos",
+          "quote": "El tema fue compuesto por el venezolano Alfredo Matheus Diez, conocido también como “Matheus 10”",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/2018/06/cantante-venezolana-realizo-tema-oficial-los-juegos-suramericanos_240900/",
+          "title": "Cantante venezolana realizó el tema oficial de los... - EL NACIONAL",
+          "quote": "Alfredo Matheus Diez, venezolano reconocido en el mundo artístico como Matheus 10, compuso y produjo junto a Arturo Cabrera Brambilla el tema oficial de los XI Juegos Suramericanos Cochabamba 2018 en Bolivia.",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/matheus10.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/aditus_16alcabala.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/matheus10_2asilosenti.htm",
+        "https://2001online.com/farandula/el-venezolano-detras-de-los-exitos-de-marc-anthony-luis-fonsi-y-cristian-castro-que-hoy-es-ganador-de-cinco-latin-grammy-20266611380",
+        "https://elclubdelosochenta.blogspot.com/2009/",
+        "https://www.lostiempos.com/deportes/entretiempo/20180430/mismo-sentir-es-cancion-oficial-juegos-2018",
+        "https://www.deezer.com/mx/artist/5795540",
+        "https://web.archive.org/web/20120328201222/http://www.eluniversal.com/2010/08/01/til_art_vibro-cuando-canto_1987781.shtml",
+        "https://www.elnacional.com/2018/06/cantante-venezolana-realizo-tema-oficial-los-juegos-suramericanos_240900/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/roqvalero_todova.htm",
+        "https://talentovenezolano.blogspot.com/2011/05/matheus10-el-venezolano-ganador-de.html",
+        "http://infantoclub.blogspot.com/2011/05/atheus10-y-17-artistas-le-regalan-una.html"
+      ]
+    },
+    {
+      "name": "PTT Lizardo 1970–2016 (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 6,
+      "sources": 11,
+      "seconds": 3,
+      "aiRunId": 21368,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/la_misma_gente.htm",
+          "title": "La Misma Gente - Bio & Discography",
+          "quote": "Guitars, Cuatro & Vocals: Pedro V. Lizardo \"PTT\" (1976-)",
+          "supports": "same"
+        },
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/la_misma_gente.htm",
+          "title": "La Misma Gente - Bio & Discography",
+          "quote": "Bass & Back Vocals: Humberto E. Lizardo F. \"Ike\" (1976-2008)",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/La_Misma_Gente",
+          "title": "La Misma Gente - Wikipedia, la enciclopedia libre",
+          "quote": "La Misma Gente nació cuando Pedro Vicente Lizardo (PTT), se unió a su hermano Humberto Enrique Lizardo (IKE), bajista y diseñador, al baterista Victor González (Kasino)",
+          "supports": "same"
+        },
+        {
+          "url": "https://es.wikipedia.org/wiki/La_Misma_Gente",
+          "title": "La Misma Gente - Wikipedia, la enciclopedia libre",
+          "quote": "Los hermanos Lizardo (IKE y PTT) se iniciaron musicalmente a principios de los sesenta con Los Barracudas y luego en los setenta con Apocalipsis.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/ko/artist/2894607-Pedro-Lizardo?noanv=1",
+          "title": "Pedro Lizardo Discography: Vinyl, CDs, & More | Discogs",
+          "quote": "실명: Pedro Vicente Lizardo. 프로필: Venezuelan rock musician.Los Barracudas, Apocalipsis (2), La Misma Gente (2).",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/2894607",
+          "title": "Pedro Lizardo | Discogs",
+          "quote": "Pedro Lizardo. Real Name: Pedro Vicente Lizardo. Profile: Venezuelan rock musician Variations: PTT Lizardo, Pedro \"PTT\" Lizardo, Pedro V, Lizardo F. (PTT), Pedro V. Lizardo (PTT), Pedro Vicente, Pedro Vicente Lizardo, Pedro Vicente Lizardo (P.T.T.).",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/la_misma_gente.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_2luz.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_4calle.htm",
+        "https://steemit.com/spanish/@nahupuku/13-videos-de-rock-fusion-venezolano-que-me-encantan-de-los-70s-y-principios-de-los-80s",
+        "https://es.wikipedia.org/wiki/La_Misma_Gente",
+        "https://vinylfriday.wordpress.com/2020/07/10/vinylfriday-por-fin-la-misma-gente-1983/",
+        "https://www.venciclopedia.org/index.php?title=Somos_todos",
+        "https://hubsociology.com/power-elite-c-w-mills-a-sociological-perspec/",
+        "https://sincopa.com/rock_pop/cdinfo_rock/mismagente_1porfin.htm",
+        "https://www.discogs.com/ko/artist/2894607-Pedro-Lizardo?noanv=1",
+        "https://www.discogs.com/artist/2894607"
+      ]
+    },
+    {
+      "name": "Mangan Martínez (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 8,
+      "sources": 13,
+      "seconds": 1,
+      "aiRunId": 21321,
+      "rationale": "Las páginas disponibles no permiten distinguir a dos personas en esta ficha.",
+      "evidence": [
+        {
+          "url": "https://sincopa.com/rock_pop/artist_rock/viniloversus.htm",
+          "title": "Viniloversus - Bio & Discography",
+          "quote": "Drums: Orlando \"Mangan\" Martínez",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.pointmedialabel.net/pmltalksabout/pmltalksabouttropicalmango-bm6c4",
+          "title": "PML Talks About: TROPICAL MAN GO — PML",
+          "quote": "Orlando Martínez, Mangan, Ikorma, Tropical Man Go, Folk",
+          "supports": "same"
+        },
+        {
+          "url": "https://plus.cusica.com/2020/03/24/tropical-man-go-baterista-de-viniloversus-se-prepara-para-el-lanzamiento-de-su-proyecto-solista/",
+          "title": "Tropical Man Go, baterista de Viniloversus, se prepara para el lanzamiento de su proyecto solista | CusicaPlus",
+          "quote": "Mangan Martínez, baterista estrella de Viniloversus, ha decidido que es hora de dar a conocer su proyecto musical solista",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.elnacional.com/tag/orlando-mangan-martinez/",
+          "title": "Orlando \"Mangan\" Martínez - EL NACIONAL",
+          "quote": "Orlando \"Mangan\" Martínez",
+          "supports": "same"
+        },
+        {
+          "url": "https://vortizm1.wixsite.com/valeria-ortiz/orlando-martinez",
+          "title": "Orlando Martínez",
+          "quote": "Orlando “Mangan” Martínez: baterista, artista plástico y chef",
+          "supports": "same"
+        },
+        {
+          "url": "https://elestimulo.com/ub/melomania/2026-05-27/viniloversus-ya-lanzo-la-frontera/",
+          "title": "Viniloversus ya lanzó \"La frontera\" | UB",
+          "quote": "El baterista Orlando “Mangan” Martínez acota que este nuevo material marca una diferencia dentro de la discografía",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=_uEra7gAS9o",
+          "title": "VINILOVERSUS - Ni Más Ni Menos + El Arte Del Olvido... - YouTube",
+          "quote": "Kathy Boos, Rodrigo Gonsalves y Orlando “Mangan” Martínez",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/7175485",
+          "title": "Orlando Martínez (2) | Discogs",
+          "quote": "Profile: Venezuelan rock drummer Credits: Drums – Viniloversus – El Día Es Hoy (2008)",
+          "supports": "same"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/artist_rock/viniloversus.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/viniloversus_6mimejorenemigo.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/viniloversus_livefronthewoods.htm",
+        "https://www.pointmedialabel.net/pmltalksabout/pmltalksabouttropicalmango-bm6c4",
+        "https://plus.cusica.com/2020/03/24/tropical-man-go-baterista-de-viniloversus-se-prepara-para-el-lanzamiento-de-su-proyecto-solista/",
+        "https://www.elnacional.com/tag/orlando-mangan-martinez/",
+        "https://vortizm1.wixsite.com/valeria-ortiz/orlando-martinez",
+        "https://elestimulo.com/ub/melomania/2026-05-27/viniloversus-ya-lanzo-la-frontera/",
+        "https://plus.cusica.com/2020/05/24/mangan-martinez-de-viniloversus-se-encuentra-con-su-proyecto-solista-tropical-man-go/",
+        "https://www.youtube.com/watch?v=_uEra7gAS9o",
+        "https://arepita.beehiiv.com/p/guarapita-v-rock",
+        "https://radio.otilca.org/viniloversus-lanza-su-septimo-album-de-estudio-la-frontera/",
+        "https://www.discogs.com/artist/7175485"
+      ]
+    },
+    {
+      "name": "Negrito Man (una persona)",
+      "kind": "mixed",
+      "truth": "single",
+      "accept": [
+        "unknown"
+      ],
+      "verdict": "unknown",
+      "correct": true,
+      "citations": 6,
+      "sources": 13,
+      "seconds": 2,
+      "aiRunId": 21322,
+      "rationale": "Las citas no identifican a dos personas con proyectos de la ficha. ",
+      "evidence": [
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "Luis Eduardo Blanco, (Negrito Man) – keyboard, cuatro and percussion",
+          "supports": "mixed"
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+          "title": "King Changó - Wikipedia",
+          "quote": "Luis Eduardo Blanco, (Negrito Man) – keyboard, cuatro and percussion",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.discogs.com/artist/8827930",
+          "title": "Luís Eduardo Blanco | Discogs",
+          "quote": "Profile: Venezuelan Musician know mainly as member from the band King Chango. He usually used Negrito Man as nickname",
+          "supports": "same"
+        },
+        {
+          "url": "https://rumberos.net/negrito-man-alista-homenaje-a-su-hermano-blanquito-man-de-king-chango/",
+          "title": "Negrito Man alista homenaje a su hermano Blanquito Man de King Changó | Rumberos",
+          "quote": "Su hermano, Luis Eduardo Blanco Aybar conocido como Negrito Man, prepara una gira en honor al cantante de King Changó con una serie de conciertos que recordarán los temas popularizados por éste.",
+          "supports": "same"
+        },
+        {
+          "url": "https://www.eltiempo.com/colombia/santander/desespero-en-familia-santandereana-buscan-a-soldado-luis-eduardo-blanco-asegura-que-iba-en-el-avion-hercules-accidentado-en-putumayo-no-aparece-3542544",
+          "title": "Desespero en familia santandereana | Buscan a soldado Luís Eduardo Blanco: asegura que iba en el avión Hércules accidentado en Putumayo, no aparece",
+          "quote": "Buscan a soldado Luís Eduardo Blanco: asegura que iba en el avión Hércules accidentado en Putumayo, no aparece",
+          "supports": "different"
+        },
+        {
+          "url": "https://www.eltiempo.com/colombia/santander/desespero-en-familia-santandereana-buscan-a-soldado-luis-eduardo-blanco-asegura-que-iba-en-el-avion-hercules-accidentado-en-putumayo-no-aparece-3542544",
+          "title": "Desespero en familia santandereana | Buscan a soldado Luís Eduardo Blanco: asegura que iba en el avión Hércules accidentado en Putumayo, no aparece",
+          "quote": "Luis Eduardo Blanco es oriundo de Aratoca, Santander",
+          "supports": "different"
+        }
+      ],
+      "sourceUrls": [
+        "https://sincopa.com/rock_pop/cdinfo_rock/electrotribal_1.htm",
+        "https://sincopa.com/rock_pop/cdinfo_rock/matarica_2pachanga.htm",
+        "https://coleccionistasderockvenezolano.wordpress.com/2016/03/14/king-chango/",
+        "https://rumberos.net/negrito-man-alista-homenaje-a-su-hermano-blanquito-man-de-king-chango/",
+        "https://en.wikipedia.org/wiki/King_Chang%C3%B3",
+        "https://www.deezer.com/br/artist/816696",
+        "https://www.rtvcnoticias.com/actualidad/cultura/concierto-esperanza-rtvc-negrito-man-king-chango",
+        "https://www.eltiempo.com/colombia/santander/desespero-en-familia-santandereana-buscan-a-soldado-luis-eduardo-blanco-asegura-que-iba-en-el-avion-hercules-accidentado-en-putumayo-no-aparece-3542544",
+        "https://www.tiktok.com/@sonografica/video/7458644690464689413",
+        "https://en.ultimasnoticias.com.ve/pop/black-man-this-is-a-new-king-monkey/",
+        "https://www.youtube.com/watch?v=7oK8J5_LiGU",
+        "https://music.youtube.com/@Kingchangooficial",
+        "https://www.discogs.com/artist/8827930"
+      ]
+    }
+  ]
+}

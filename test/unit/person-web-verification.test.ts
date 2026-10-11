@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { aliveOnly, findLinks, foreignCredits, givenCompatible, incompatibleNames, namesakeFamily, namesakeRelative, pickProjects, nameForms, searchQueries, validateMixedGroups, validateWebVerdict, webVerdictSchema, type PersonContext, type WebVerdict } from "../../src/ambiguity/person-web-verification.js";
+import { aliveOnly, combinedName, findLinks, foreignCreditForms, foreignCredits, givenCompatible, incompatibleNames, namesakeFamily, namesakeRelative, pickProjects, nameForms, searchQueries, validateMixedGroups, validateWebVerdict, webVerdictSchema, type PersonContext, type WebVerdict } from "../../src/ambiguity/person-web-verification.js";
 import { assertPublicPageUrl, cleanPageContent, decodeWebPage, relevantFirst } from "../../src/ambiguity/web-search.js";
 
 const page = { url: "https://example.org/persona", title: "Biografía", content: "Antonio Toño Casas fundó Wahala en 1997. Tony Casas, su hijo, toca el bajo en Rawayana.", contentHash: "0".repeat(64), fetchedAt: "2026-10-06" };
@@ -184,6 +184,13 @@ describe("reglas de la ronda 20/20 (2026-10-06)", () => {
     // Un hermano con otro nombre no es la pregunta (Neguito Borjas), ni el que funda la banda con él (Chu Quintero).
     expect(namesakeFamily("Abdenago Neguito Borjas, brother of Heberto Beto Borjas and Oscar Borjas", ['Abdenago "Neguito" Borjas'])).toBe(false);
     expect(namesakeFamily("Carlos Nené Quintero together with his brother Jesús Chú Quintero", ['Jesús "Chu" Quintero'])).toBe(false);
+    // Apellido compuesto: «di marzo» solo no es un tocayo (fresca-5, Yordano separado por su hermano Evio).
+    expect(namesakeFamily("Giordano Di Marzo. Profile: Venezuelan singer. Brother of Evio Di Marzo. Credits: Written-By – Yordano",
+      ["Yordano", "Giordano Di Marzo"])).toBe(false);
+    expect(namesakeFamily("Oscar De León, father of Oscar De León Jr.", ["Oscar De León"])).toBe(true);
+    // Seudónimo junto al parentesco: es una sola persona (fresca-5, Boston Rex, hijo de Ramón Goitia).
+    expect(namesakeFamily("Para Ramón Goitia y Argelia Lugo, su hijo menor Reynaldo Goitia, mejor conocido como Boston Rex, vocalista",
+      ["Boston Rex", "Reynaldo Goitía"])).toBe(false);
   });
   it("saca el nombre que distingue al pariente, si lo hay", () => {
     expect(namesakeRelative("José Romero Bello. Tuvo un hijo, José (Joseíto Romero), arpista", ["José Romero"])).toBe("joseito");
@@ -211,6 +218,32 @@ describe("reglas de la ronda 20/20 (2026-10-06)", () => {
     const ordered = relevantFirst('"Francisco González" "Niuno Niotro"', hits);
     expect(ordered.relevant).toBe(1);
     expect(ordered.hits[0]!.url).toBe("https://rock.example/niuno-niotro");
+  });
+  it("cada forma ajena se investiga por turno: «El Enano» y «Rubén «El Enano» Castro» (fresca-9, 2704)", () => {
+    const enano: PersonContext = { id: -4, name: "Miguel Gonzáles", birthDate: null, deathDate: null, sourceUrls: [], projects: [
+      { name: "Naxxo", album: "Piloto", year: 2006, role: "Guitar Loop", credited: ["El Enano"] },
+      { name: "Naxxo", album: "Otro", year: 2007, role: "Guitar", credited: ["El Enano"] },
+      { name: "Almas", album: "Permiso Para Despegar", year: 2011, role: "Vocals & Guitar", credited: ['Rubén "El Enano" Castro'] },
+      { name: "Caramelos De Cianuro", album: "Frisbee", year: 2002, role: "Guitars", credited: ["Miguel González"] }] };
+    const forms = foreignCreditForms(enano);
+    expect(forms.map((form) => form.name)).toContain('Rubén "El Enano" Castro');
+    expect(forms.find((form) => form.name === 'Rubén "El Enano" Castro')?.foreign.map((item) => item.name)).toEqual(["Almas"]);
+  });
+  it("otro nombre de pila con el mismo apellido, o un apodo que no sale en el nombre, son formas ajenas (fresca-8/9)", () => {
+    const ezlen: PersonContext = { id: -5, name: "Ezlen Ramos", birthDate: "1987-05-19", deathDate: null, sourceUrls: [], projects: [
+      { name: "Larry Jean Louis", album: "Reaching The Promise", year: 2003, role: "Timple", credited: ["José Antonio Ramos"] },
+      { name: "Hiena", album: "Involución", year: 2013, role: "Drums", credited: ["Ezlen Ramos"] }] };
+    expect(foreignCredits(ezlen)?.name).toBe("José Antonio Ramos");
+    const pipo: PersonContext = { id: -6, name: "Francisco Gonzalez", birthDate: null, deathDate: null, sourceUrls: [], projects: [
+      { name: "Huáscar Barradas", album: "Encuentros", year: 2004, role: "Raps", credited: ["Pipo"] },
+      { name: "Nauta", album: "Al Natural", year: 2011, role: "composer", credited: ["Francisco Gonzalez"] }] };
+    expect(foreignCredits(pipo)?.name).toBe("Pipo");
+    // El apodo que ya está en el nombre, o el nombre de pila suelto, no es ajeno.
+    const chino: PersonContext = { id: -7, name: 'Pablo "Chino" Agreda', birthDate: null, deathDate: null, sourceUrls: [], projects: [
+      { name: "Grupo X", album: "Uno", year: 1990, role: "Bass", credited: ["Chino"] },
+      { name: "Grupo Y", album: "Dos", year: 1995, role: "Bass", credited: ["Pablo"] },
+      { name: "Grupo Z", album: "Tres", year: 2000, role: "Bass", credited: ["Pablo Agreda"] }] };
+    expect(foreignCredits(chino)).toBeNull();
   });
   it("un disco acreditado a otro («Rudy» en un disco de Rudy Márquez) se separa como ajeno", () => {
     const rudy: PersonContext = { id: -3, name: 'Rodolfo "Rudy" Pagliuca', birthDate: null, deathDate: null, sourceUrls: [], projects: [
@@ -254,6 +287,250 @@ describe("reglas de la ronda 20/20 (2026-10-06)", () => {
     const proposal: WebVerdict = { verdict: "same", rationale: "x", uncertainties: [], evidence: [
       { source: 0, quote: "Baby Bass: Juan Vicente Torrealba hijo.", supports: "same" }] };
     expect(validateWebVerdict(proposal, pages, context).verdict).toBe("unknown");
+  });
+  it("hermanos con el apellido y la banda: la lista de integrantes no los fusiona (fresca-6, Lamberti)", () => {
+    const context = { names: ["Edgar Lamberti", 'Gabriel "Pepo" Lamberti'] as [string, string], sharedProjects: ["Andreazulado"],
+      projectsA: ["Andreazulado"], projectsB: ["Andreazulado", "Alfred Gómez Jr."], eraConflict: null };
+    const pages = [webPage("https://lobotoradio.example/andreazulado", "Andreazulado", "Los miembros originales fueron Édgar Lamberti (voz, guitarra) y Gabriel Lamberti (Pepo) (voz líder, bajo), de Andreazulado."),
+      webPage("https://sincopa.example/despegue", "Andreazulado - Despegue Eterno", "Vocals, Bass & Guitar: Gabriel Lamberti. Guitar & Backing Vocals: Edgar Lamberti. Andreazulado.")];
+    const proposal: WebVerdict = { verdict: "same", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Los miembros originales fueron Édgar Lamberti (voz, guitarra) y Gabriel Lamberti (Pepo) (voz líder, bajo), de Andreazulado.", supports: "same" }] };
+    expect(validateWebVerdict(proposal, pages, context).verdict).not.toBe("same");
+  });
+  it("las variantes de nombre de Discogs no separan al Jr. de la otra ficha (fresca-6, Pedro Junco)", () => {
+    const context = { names: ["Pedro Junco", "Pedro Junco Jr."] as [string, string], sharedProjects: [],
+      projectsA: ["Los Melódicos"], projectsB: ["Los Blanco"], eraConflict: null };
+    const variations = "Variations: Junco Jr., P. Junco, Pedro Junco, Pedro Junco Jnr, Pedro Junco, Jr.";
+    const pages = [webPage("https://www.discogs.com/artist/1186133", "Pedro Junco Jr. | Discogs", `Pedro Junco Jr. ${variations}`),
+      webPage("https://sincopa.example/melodicos", "Los Melódicos", "Nosotros (Pedro Junco), Los Melódicos."),
+      webPage("https://sincopa.example/blanco", "Los Blanco", "Nosotros (Pedro Junco Jr.), Los Blanco.")];
+    const proposal: WebVerdict = { verdict: "different", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: variations, supports: "different" }] };
+    expect(validateWebVerdict(proposal, pages, context).verdict).not.toBe("different");
+  });
+  it("seudónimo con «nacido» o entre paréntesis une las fichas (fresca-7, Ilan Chester y Negrito Man)", () => {
+    const ilan = { names: ["Ilan Chéster", "Ilan Czenstochouski Schechter"] as [string, string], sharedProjects: [],
+      projectsA: ["Huáscar Barradas & Maracaibo"], projectsB: ["Melao", "Ananta"], eraConflict: null };
+    const ilanPages = [webPage("https://lobotoradio.example/ilan", "Ilan Chester", "Ilan Chéster (nacido Ilan Czenstochouski Schechter) es un músico venezolano. Fundó Melao y grabó con Huáscar Barradas & Maracaibo."),
+      webPage("https://otra.example/ilan", "Ilan Czenstochouski Schechter", "Ilan Czenstochouski Schechter grabó Ananta.")];
+    expect(validateWebVerdict({ verdict: "same", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Ilan Chéster (nacido Ilan Czenstochouski Schechter) es un músico venezolano.", supports: "same" }] }, ilanPages, ilan).verdict).toBe("same");
+    const negrito = { names: ["Negrito Man", "Luis Eduardo Blanco"] as [string, string], sharedProjects: [],
+      projectsA: ["Electrotribal"], projectsB: ["King Changó", "Mata Rica"], eraConflict: null };
+    const negritoPages = [webPage("https://en.wikipedia.example/king", "King Changó", "Luis Eduardo Blanco, (Negrito Man) – keyboard, cuatro and percussion in King Changó."),
+      webPage("https://sincopa.example/electrotribal", "Electrotribal", "track 3 by Luis Eduardo Blanco \"Negrito Man\". Negrito Man canta en Electrotribal.")];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Luis Eduardo Blanco, (Negrito Man) – keyboard, cuatro and percussion", supports: "same" }] }, negritoPages, negrito).verdict).toBe("same");
+  });
+  it("un nombre artístico de una palabra no se fusiona por una lista de integrantes (fresca-7, Jarz y Nilz)", () => {
+    const context = { names: ["Jarzen Arcia", "Nilz"] as [string, string], sharedProjects: ["Billy Se Fue"],
+      projectsA: ["Billy Se Fue"], projectsB: ["Billy Se Fue"], eraConflict: null };
+    const pages = [webPage("https://venciclopedia.example/billy", "Billy Se Fue", "Billy Se Fue fue formada por Alejandro Estrada \"Alz\" (voz), Neil Enet \"Nilz\" (bajo) y Liz (guitarra). Jarzen Arcia \"Jarz\" (guitarra) se unió en el 2001.")];
+    expect(validateWebVerdict({ verdict: "same", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Neil Enet \"Nilz\" (bajo) y Liz (guitarra). Jarzen Arcia \"Jarz\" (guitarra) se unió en el 2001.", supports: "same" }] }, pages, context).verdict).not.toBe("same");
+  });
+  it("otro segundo nombre no es un tocayo: el padre Pedro Francisco no mezcla a «Pedro V. Lizardo» (fresca-7)", () => {
+    expect(givenCompatible("Pedro Francisco Lizardo", "Pedro V. Lizardo")).toBe(false);
+    expect(givenCompatible("Pedro Vicente Lizardo", "Pedro V. Lizardo")).toBe(true);
+    expect(givenCompatible("Mauricio Castro", "Mauricio Castro Rodríguez")).toBe(true);
+    expect(namesakeFamily("PTT (Pedro Vicente Lizardo) Cantautor. Hijo del poeta Pedro Francisco Lizardo y de doña Gisela Fernández.", ["Pedro V. Lizardo"])).toBe(false);
+    // Con el título que repite el seudónimo (fresca-5, Boston Rex).
+    expect(namesakeFamily("La eterna vigencia de Boston Rex. Para Ramón Goitia, su hijo menor Reynaldo Goitia, mejor conocido como Boston Rex",
+      ["Boston Rex", "Reynaldo Goitía"])).toBe(false);
+  });
+  it("«Jr.» separa solo si la frase enumera a los dos, no si nombra dos veces al mismo autor (fresca-6, Pedro Junco)", () => {
+    const gamboa = { names: ["Hernán Gamboa", "Hernán Gamboa Jr."] as [string, string], sharedProjects: [],
+      projectsA: ["Serenata Guayanesa"], projectsB: ["Mis Aguinaldos"], eraConflict: null };
+    const gamboaPages = [webPage("https://sincopa.example/aguinaldos", "Mis Aguinaldos", "Vocals: Hernán Gamboa y Hernán Gamboa Jr. Mis Aguinaldos (2007)."),
+      webPage("https://otra.example/serenata", "Serenata Guayanesa", "Hernán Gamboa fundó Serenata Guayanesa.")];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Vocals: Hernán Gamboa y Hernán Gamboa Jr.", supports: "different" }] }, gamboaPages, gamboa).verdict).toBe("different");
+    const junco = { names: ["Pedro Junco", "Pedro Junco Jr."] as [string, string], sharedProjects: [],
+      projectsA: ["Los Melódicos"], projectsB: ["Los Blanco"], eraConflict: null };
+    const juncoPages = [webPage("https://youtube.example/nosotros", "Nosotros", "“NOSOTROS“ “Pedro Junco“ Nosotros-Bolero tocado al piano por su autor, Pedro Junco Jr. Los Melódicos y Los Blanco la grabaron.")];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "“NOSOTROS“ “Pedro Junco“ Nosotros-Bolero tocado al piano por su autor, Pedro Junco Jr.", supports: "different" }] }, juncoPages, junco).verdict).not.toBe("different");
+  });
+  it("el parentesco o la etiqueta de crédito entre las dos menciones también separa al Jr. (fresca-5, Montaner y Adelso Paz)", () => {
+    const montaner = { names: ["Ricardo Montaner", "Ricardo Montaner Jr."] as [string, string], sharedProjects: [],
+      projectsA: ["Cada Día"], projectsB: ["Mau y Ricky"], eraConflict: null };
+    const montanerPages = [webPage("https://def.example/hermano", "Hermano", "Otro ejemplo de hermanos son Evaluna Montaner, Ricardo Montaner Jr., Héctor Montaner, Alejandro Montaner y Mauricio Montaner, los hijos del cantante Ricardo Montaner y Marlene Rodríguez."),
+      webPage("https://bio.example/montaner", "Ricardo Montaner", "Ricardo Montaner publicó Cada Día en 1983."),
+      webPage("https://bio.example/mauyricky", "Mau y Ricky", "Mau y Ricky: Ricardo Montaner Jr. y su hermano Mauricio.")];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Otro ejemplo de hermanos son Evaluna Montaner, Ricardo Montaner Jr., Héctor Montaner, Alejandro Montaner y Mauricio Montaner, los hijos del cantante Ricardo Montaner y Marlene Rodríguez.", supports: "different" }] },
+      montanerPages, montaner).verdict).toBe("different");
+    const paz = { names: ["Adelso Paz", "Adelso Paz Jr."] as [string, string], sharedProjects: [],
+      projectsA: ["Rondalla Venezolana"], projectsB: ["Rondalla Venezolana"], eraConflict: null };
+    const pazPages = [webPage("https://sincopa.example/rondalla", "Rondalla Venezolana", "Cuatro: Adelso Paz Maracas: Adelso Paz Jr. Rondalla Venezolana.")];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Cuatro: Adelso Paz Maracas: Adelso Paz Jr.", supports: "different" }] }, pazPages, paz).verdict).toBe("different");
+    // «Jr.» y «hijo» son la misma marca: no es padre frente a hijo.
+    const same = { names: ["Adelso Paz Jr.", "Adelso Paz hijo"] as [string, string], sharedProjects: ["Rondalla Venezolana"],
+      projectsA: ["Rondalla Venezolana"], projectsB: ["Rondalla Venezolana"], eraConflict: null };
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Cuatro: Adelso Paz Maracas: Adelso Paz Jr.", supports: "different" }] }, pazPages, same).verdict).not.toBe("different");
+  });
+  it("la página titulada con un nombre y «nombre completo: …» con el otro es un puente (fresca-7, Ilan Chester)", () => {
+    const context = { names: ["Ilan Chester", "Ilan Czenstochouski Schechter"] as [string, string], sharedProjects: [],
+      projectsA: ["Franco De Vita"], projectsB: ["Azúcar, Cacao & Leche"], eraConflict: null };
+    const quote = "nombre completo: Ilan Czenstochouski Schechter alias: El Músico de Venezuela nacimiento: 1952-07-30";
+    const sides = [webPage("https://a.example/1", "Franco De Vita", "Ilan Chester tocó los teclados con Franco De Vita."),
+      webPage("https://b.example/2", "Azúcar, Cacao & Leche", "Ilan Czenstochouski Schechter tocó en Azúcar, Cacao & Leche.")];
+    const titled = [webPage("https://lobotoradio.example/ilan", "Ilan Chéster – Lobotoradio", `${quote}.`), ...sides];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [{ source: 0, quote, supports: "different" }] },
+      titled, context).verdict).not.toBe("different");
+    // Sin la ficha en el título no hay puente: la página de un grupo no dice de quién es el nombre completo.
+    const band = [webPage("https://lobotoradio.example/azucar", "Azúcar, Cacao & Leche – Lobotoradio", `${quote}.`), ...sides];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [{ source: 0, quote, supports: "different" }] },
+      band, context).verdict).toBe("different");
+  });
+  it("el apodo entre nombre y apellido une «Nene Quintero» con «Carlos Quintero» aunque los nombres de pila difieran (difícil)", () => {
+    const context = { names: ["Nene Quintero", "Carlos Quintero"] as [string, string], sharedProjects: [],
+      projectsA: ["Onechot"], projectsB: ["Los Dementes"], eraConflict: null };
+    const quote = "Carlos \"Nené\" Quintero, percusionista, grabó con Los Dementes en 1966 y con Onechot en 2009.";
+    const pages = [webPage("https://sincopa.example/nene", "Carlos \"Nene\" Quintero - Bio", quote),
+      webPage("https://genius.example/left-right", "Onechot – Left Right", "Onechot – Left Right. Featuring Patafunk & Nene Quintero."),
+      webPage("https://archivo.example/dementes", "Los Dementes", "Los Dementes (1966): Carlos Quintero, congas.")];
+    expect(validateWebVerdict({ verdict: "same", rationale: "x", uncertainties: [], evidence: [{ source: 0, quote, supports: "same" }] },
+      pages, context).verdict).toBe("same");
+  });
+  it("el apodo entre comillas no tapa el nombre al buscar la liga con el proyecto (fresca-8, Willy Noya)", () => {
+    const page = webPage("https://big.example/landin", "La Big Landin Orquesta", "Guillermo \"Willy\" Noya toca el trombón en La Big Landin Orquesta.");
+    expect(findLinks([page], nameForms("Guillermo Noya"), ["big landin orquesta"])).toHaveLength(1);
+    expect(findLinks([page], nameForms("Willy Noya"), ["big landin orquesta"])).toHaveLength(1);
+    // Sin comillas es otro nombre de pila en medio y no se toma («Carlos Alberto Quintero» no es «Carlos Quintero»).
+    const other = webPage("https://beat.example/3", "Los Beat3", "Carlos Alberto Quintero toca el bajo en Los Beat3.");
+    expect(findLinks([other], nameForms("Carlos Quintero"), ["los beat3"])).toHaveLength(0);
+  });
+  it("el encabezado «Nombre real: Nombre artístico» une las dos formas (fresca-1, Mayra Martí)", () => {
+    const context = { names: ["Mayra Martí", "Moira Elisa Martínez Álvarez"] as [string, string], sharedProjects: [],
+      projectsA: ["Gogoteca"], projectsB: ["Venezuela y sus Intérpretes"], eraConflict: null };
+    const quote = "La abogada, locutora, juez penal, docente y cantante Moira Elisa Martínez Álvarez: Mayra Martí, nació en Puerto La Cruz, Edo. Anzoátegui, el 2 de junio de 1954.";
+    const pages = [webPage("https://historia.example/mayra", "Moira Elisa Martínez Álvarez: Mayra Martí", `${quote} Grabó en Gogoteca (1968).`),
+      webPage("https://disco.example/interpretes", "Venezuela y sus Intérpretes", "Moira Elisa Martínez Álvarez cantó en Venezuela y sus Intérpretes (1969).")];
+    expect(validateWebVerdict({ verdict: "same", rationale: "x", uncertainties: [], evidence: [{ source: 0, quote, supports: "same" }] },
+      pages, context).verdict).toBe("same");
+    // Sin puente, los hermanos de una lista siguen sin fusionarse (Lamberti, más arriba).
+  });
+  it("dos nombres de pila del mismo apellido enumerados por separado son dos personas (fresca-6, Lamberti)", () => {
+    const context = { names: ["Edgar Lamberti", "Gabriel «Pepo» Lamberti"] as [string, string], sharedProjects: ["Los Hermanos Lamberti"],
+      projectsA: ["Los Hermanos Lamberti"], projectsB: ["Los Hermanos Lamberti"], eraConflict: null };
+    const quote = "Los Hermanos Lamberti: Édgar Lamberti (voz) y Gabriel Lamberti (bajo), hermanos de Caracas.";
+    const pages = [webPage("https://rock.example/lamberti", "Los Hermanos Lamberti", quote)];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [{ source: 0, quote, supports: "different" }] },
+      pages, context).verdict).toBe("different");
+    // Sin esa frase, otro nombre de pila no separa («Nene Quintero» / «Carlos Quintero»).
+    const nene = { names: ["Nene Quintero", "Carlos Quintero"] as [string, string], sharedProjects: [],
+      projectsA: ["Onechot"], projectsB: ["Los Dementes"], eraConflict: null };
+    const nenePages = [webPage("https://genius.example/lr", "Onechot – Left Right", "Onechot – Left Right. Featuring Patafunk & Nene Quintero."),
+      webPage("https://archivo.example/dementes", "Los Dementes", "Los Dementes (1966): Carlos Quintero, congas.")];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Onechot – Left Right. Featuring Patafunk & Nene Quintero.", supports: "different" }] }, nenePages, nene).verdict).not.toBe("different");
+  });
+  it("una lista con otros nombres en medio enumera al padre y al hijo (fresca-6, Juan V. Torrealba)", () => {
+    const context = { names: ["Juan V. Torrealba", "Juan V. Torrealba Jr."] as [string, string], sharedProjects: [],
+      projectsA: ["Juan Vicente Torrealba y Su Conjunto"], projectsB: ["Los Torrealberos"], eraConflict: null };
+    const list = "Group: Los Torrealberos Juan Vicente Torrealba, Douglas T. Mardonio Tortolero, Henry Rubio & Juan Vicente Torrealba Jr.";
+    const pages = [webPage("https://sincopa.example/18exitos", "Los Torrealberos - 18 Éxitos", list),
+      webPage("https://sincopa.example/alma", "Los Torrealberos - Alma Llanera", "Maracas: Juan V. Torrealba Jr."),
+      webPage("https://sincopa.example/conjunto", "Juan Vicente Torrealba y Su Conjunto - Clásicos", "Arpa y dirección: Juan V. Torrealba.")];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [{ source: 0, quote: list, supports: "different" }] },
+      pages, context).verdict).toBe("different");
+    // El mismo nombre en frases distintas no es una lista: «Produced by Pedro Junco Jr. Written by Pedro Junco.»
+    const junco = { names: ["Pedro Junco", "Pedro Junco Jr."] as [string, string], sharedProjects: [],
+      projectsA: ["Los Melódicos"], projectsB: ["Los Blanco"], eraConflict: null };
+    const juncoPages = [webPage("https://sincopa.example/melodicos", "Los Melódicos", "Nosotros. Produced by Pedro Junco Jr. Written by Pedro Junco, Los Melódicos."),
+      webPage("https://sincopa.example/blanco", "Los Blanco", "Nosotros (Pedro Junco Jr.), Los Blanco. Pedro Junco Jr. compuso Nosotros, que grabó Pedro Junco.")];
+    expect(validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [
+      { source: 1, quote: "Nosotros (Pedro Junco Jr.), Los Blanco.", supports: "different" }] }, juncoPages, junco).verdict).not.toBe("different");
+  });
+  it("el apodo con letras sueltas entre nombre y apellido une las fichas (fresca-7, G-Zaz)", () => {
+    const context = { names: ["G-Zaz", "Jesús Romero"] as [string, string], sharedProjects: [],
+      projectsA: ["Kontrol Remoto"], projectsB: ["God's New Version"], eraConflict: null };
+    const quote = "God´s New Version es un proyecto musical que forman Andrés Morillo (guitarra, voz) y Jesús «G-zaz» Romero (teclados, programación).";
+    const pages = [webPage("https://rockhecho.example/gnv", "God's New Version", `${quote} Formación: Andrés Morillo, Jesús Romero.`)];
+    expect(validateWebVerdict({ verdict: "same", rationale: "x", uncertainties: [], evidence: [{ source: 0, quote, supports: "same" }] },
+      pages, context).verdict).toBe("same");
+    // Sin el apodo entre nombre y apellido, una lista con los dos nombres no los une.
+    const list = "Formación: Andrés Morillo, Jesús Romero, G-Zaz.";
+    expect(validateWebVerdict({ verdict: "same", rationale: "x", uncertainties: [], evidence: [{ source: 0, quote: list, supports: "same" }] },
+      [webPage("https://rockhecho.example/gnv", "God's New Version", list)], context).verdict).not.toBe("same");
+  });
+  it("con el nombre más un apodo, una página con los proyectos de las dos fichas y otro sitio las une (fresca-6, Diquez)", () => {
+    const context = { names: ["Manuel Diquez", "Manuel «Manny» Diquez"] as [string, string], sharedProjects: [],
+      projectsA: ["Franco De Vita", "Roque Valero"], projectsB: ["Ultrachic", "Caramelos De Cianuro"], eraConflict: null };
+    const bio = "Tras su tránsito por la agrupación UltraChic, el músico venezolano Manuel Diquez, que ha acompañado como vocalista a Franco De Vita, retoma su carrera.";
+    const pages = [webPage("https://rumberos.example/diquez", "Manuel Diquez", bio),
+      webPage("https://sincopa.example/insomnio", "Roque Valero - Insomnio", "Co-Producers: Manuel Diquez, Salomón Lerner & Jorge Luis Chasín")];
+    const proposal = (quote: string): WebVerdict => ({ verdict: "same", rationale: "x", uncertainties: [], evidence: [{ source: 0, quote, supports: "same" }] });
+    expect(validateWebVerdict(proposal(bio), pages, context).verdict).toBe("same");
+    // Discogs junta homónimos: su página con los dos proyectos no basta.
+    const discogs = "Manuel Diquez. Credits: Guitar – Franco De Vita – En Primera Fila; Keyboards – Caramelos De Cianuro – Miss Mujerzuela.";
+    expect(validateWebVerdict(proposal(discogs), [webPage("https://www.discogs.com/artist/1", "Manuel Diquez | Discogs", discogs), pages[1]!], context).verdict).not.toBe("same");
+  });
+  it("busca las dos formas juntas como las escriben las páginas (fresca-8 Noya, fresca-10 Machado)", () => {
+    expect(combinedName("Guillermo Noya", "Willy Noya")).toBe("Guillermo Willy Noya");
+    expect(combinedName("Angie Machado", "Angel Machado")).toBe("Angel Angie Machado");
+    expect(combinedName("Francisco Tedesco", "Francisco «Chicho» Tedesco")).toBe("Francisco Chicho Tedesco");
+    // Hermanos, generaciones y nombres que ya se buscan tal cual: no.
+    expect(combinedName("Edgar Lamberti", 'Gabriel "Pepo" Lamberti')).toBeNull();
+    expect(combinedName("Juan V. Torrealba", "Juan V. Torrealba Jr.")).toBeNull();
+    expect(combinedName("René Toledo", "René L. Toledo")).toBeNull();
+    expect(combinedName("G-Zaz", "Jesús Romero")).toBeNull();
+  });
+  it("«credited as» es una marca de alias: une nombres de pila distintos (fresca-10, Angie Machado)", () => {
+    const context = { names: ["Angie Machado", "Angel Machado"] as [string, string], sharedProjects: [],
+      projectsA: ["Trina Medina"], projectsB: ["Servando y Florentino"], eraConflict: null };
+    const profile = 'Profile: Jazz latin salsa musician, great trumpeter and songwriter from Puerto Rico. Sometimes only credited as "Angel Machado", or Angie Marchado.';
+    const pages = [webPage("https://sincopa.example/entrega", "Trina Medina - Entrega", "Trumpet: Luis Aquino, Angie Machado, Cusi Castillo & Elias Lopés"),
+      webPage("https://sincopa.example/primera", "Servando y Florentino - Los Primera", "Trombone: Angel Machado"),
+      webPage("https://www.discogs.com/artist/1280145-Angie-Machado", "Angie Machado Discography | Discogs", `Angie Machado. ${profile}`)];
+    expect(validateWebVerdict({ verdict: "same", rationale: "x", uncertainties: [], evidence: [{ source: 2, quote: profile, supports: "same" }] },
+      pages, context).verdict).toBe("same");
+    // Sin esa frase, «Angie» y «Angel» con proyectos distintos no se unen.
+    expect(validateWebVerdict({ verdict: "same", rationale: "x", uncertainties: [], evidence: [{ source: 1, quote: "Trombone: Angel Machado", supports: "same" }] },
+      pages.slice(0, 2), context).verdict).not.toBe("same");
+  });
+  it("el teatro de un colegio es un lugar, no una edad (fresca-5, Gavidia)", () => {
+    const context = { names: ["Yonathan Gavidia", "Yonathan «Morocho» Gavidia"] as [string, string], sharedProjects: [],
+      projectsA: ["Eduardo Betancourt"], projectsB: ["Movida Acústica Urbana"], yearsA: [2001], yearsB: [2014, 2024], eraConflict: null };
+    const setlist = "Movida Acústica Urbana Setlist at Teatro del Colegio Santa Rosa de Lima, Caracas, Venezuela";
+    const pages = [webPage("https://www.setlist.fm/setlist/movida-acustica-urbana/2024/teatro", setlist, `${setlist}. Yonathan "Morocho" Gavidia, percusión.`),
+      webPage("https://sincopa.example/adlibitum", "Eduardo Betancourt - Ad Libitum (2001)", "Percussion: Yonathan Gavidia. Eduardo Betancourt.")];
+    const result = validateWebVerdict({ verdict: "different", rationale: "x", uncertainties: [], evidence: [{ source: 0, quote: setlist, supports: "different" }] }, pages, context);
+    expect(result.verdict).not.toBe("different");
+    expect(result.rationale).not.toMatch(/no pudo nacer/u);
+  });
+  it("nombre artístico y «nombre de pila»: no se separa, y con la nota de la persona se une (fresca-8, Al Zeppy)", () => {
+    const context = { names: ["Al Zeppy", "Alberto Lewis"] as [string, string], sharedProjects: [],
+      projectsA: ["Al Zeppy y Su Orquesta"], projectsB: ["Los Zeppy"], eraConflict: null };
+    const blog = webPage("https://barraezo.example/al-zeppy", "Barraezo: Al Zeppy",
+      "Al Zeppy y Su Orquesta grabó en Puerto Rico. Su nombre de pila es Alberto Lewis y formó parte del quinteto Los Zeppy, disuelto en 1962.");
+    const zeppy = webPage("https://sincopa.example/zeppy", "Los Zeppy - Los Zeppy", "Vocals: Alberto Lewis, Estelita del Llano, José Luis Rodríguez & Nicolás Alvarado. Los Zeppy.");
+    const proposal = (source: number, quote: string): WebVerdict => ({ verdict: "different", rationale: "x", uncertainties: [], evidence: [{ source, quote, supports: "different" }] });
+    // El modelo no cita el puente, pero la página lo tiene: «apellidos distintos» no basta para separar.
+    expect(validateWebVerdict(proposal(1, "Vocals: Alberto Lewis, Estelita del Llano, José Luis Rodríguez & Nicolás Alvarado."), [blog, zeppy], context).verdict).not.toBe("different");
+    // La nota de su muerte lo nombra y dice «Alberto Lewis, su nombre de pila»: es la misma persona.
+    const obituary = webPage("https://elnacional.example/al-zeppy", "Murió el cantante Al Zeppy a los 80 años",
+      "Alberto Lewis, su nombre de pila, era hijo de padre norteamericano y madre venezolana. Formó Los Zeppy; luego Al Zeppy y Su Orquesta.");
+    expect(validateWebVerdict({ verdict: "same", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Alberto Lewis, su nombre de pila, era hijo de padre norteamericano y madre venezolana.", supports: "same" }] },
+      [obituary, zeppy], context).verdict).toBe("same");
+  });
+  it("el nombre real con el artístico entre comillas en una página impide separar (fresca-12, Nano Grand)", () => {
+    const context = { names: ["Nano Grand", "Octavio Palacios"] as [string, string], sharedProjects: [],
+      projectsA: ["Olegario Díaz"], projectsB: ["Frank Hernández"], eraConflict: null };
+    const pages = [
+      webPage("https://sincopa.example/oldi", "Olegario Díaz - Casi en El Guaire", "Vocals: María Fernanda Márquez, Nano Grand. Olegario Díaz."),
+      webPage("https://palmera.example/pavo", "El Pavo en salsa", "Frank Hernández y su orquesta. Voz: Octavio Palacios \"Nano Grand\"."),
+    ];
+    const proposal: WebVerdict = { verdict: "different", rationale: "x", uncertainties: [], evidence: [
+      { source: 0, quote: "Vocals: María Fernanda Márquez, Nano Grand.", supports: "different" }] };
+    expect(validateWebVerdict(proposal, pages, context).verdict).not.toBe("different");
+    // Sin ese puente, los apellidos distintos siguen separando.
+    const plainPage = webPage("https://palmera.example/pavo", "El Pavo en salsa", "Frank Hernández y su orquesta. Voz: Octavio Palacios.");
+    expect(validateWebVerdict(proposal, [pages[0]!, plainPage], context).verdict).toBe("different");
   });
   it("una duración no es una edad («a working relationship that lasted 21 years»)", () => {
     const context = { names: ["Iván Velázquez", "Iván Velásquez"] as [string, string], sharedProjects: [],
