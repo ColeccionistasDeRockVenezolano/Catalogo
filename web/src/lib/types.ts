@@ -223,6 +223,7 @@ export interface YoutubeLink { videoId: string; title: string | null; kind: stri
 
 export interface AlbumDetail {
   releaseDateText?: string | null;
+  releaseDateValue?: string | null;
   catalogId?: string | null;
   mediaFormat?: string | null;
   id: number;

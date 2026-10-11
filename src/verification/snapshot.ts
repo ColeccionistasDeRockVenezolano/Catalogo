@@ -1,3 +1,4 @@
+import { dateYear, definitelyBefore, parseDateValue } from "../catalog/date-value.js";
 import { getPool } from "../db/client.js";
 import { getArtistDetail } from "../api/repositories/artists.js";
 import { getPersonDetail } from "../api/repositories/persons.js";
@@ -71,16 +72,16 @@ export async function loadVerificationSnapshot(kind: VerificationKind, id: numbe
     const storedName = (await getPool().query<{real_name:string|null}>("SELECT real_name FROM public.persons WHERE id=$1",[id])).rows[0]?.real_name;
     const realName = storedName ?? real?.alias ?? null;
     add("identity.realName","identity","Nombre real completo", realName,realName ? [realName] : [],[name]);
-    add("status.birth","status","Fecha de nacimiento",person.birthDate,person.birthDate ? [person.birthDate.slice(0,4)] : [],[name]);
-    add("status.life","status","Estado de la persona",person.deathDate ? `Fallecimiento: ${person.deathDate}` : person.isDeceasedFlag === true ? "Fallecido/a" : person.isDeceasedFlag === false ? "Sin fallecimiento registrado" : null,person.deathDate ? [person.deathDate.slice(0,4)] : [],[name],
-      person.birthDate && person.deathDate && person.deathDate < person.birthDate ? "La muerte está registrada antes del nacimiento." : null);
+    add("status.birth","status","Fecha de nacimiento",person.birthDate,dateYear(person.birthDate) !== null ? [String(dateYear(person.birthDate))] : [],[name]);
+    add("status.life","status","Estado de la persona",person.deathDate ? `Fallecimiento: ${person.deathDate}` : person.isDeceasedFlag === true ? "Fallecido/a" : person.isDeceasedFlag === false ? "Sin fallecimiento registrado" : null,dateYear(person.deathDate) !== null ? [String(dateYear(person.deathDate))] : [],[name],
+      person.birthDate && person.deathDate && definitelyBefore(parseDateValue(person.deathDate), parseDateValue(person.birthDate)) ? "La muerte está registrada antes del nacimiento." : null);
     if (!person.bands.length && !person.albumCredits.length && !person.trackCredits.length) add("members.empty","members","Trayectoria y créditos",null);
     for (const band of person.bands) {
       artistIds.push(band.artistId);
       add(`band.${band.id}.name`,"members","Proyecto",band.artistName,[band.artistName],[name]);
       add(`band.${band.id}.role`,"members",`Rol en ${band.artistName}`,band.role,band.role.split(/[,;&/]+/u).map(r=>r.trim()).filter(Boolean),[name,band.artistName]);
       add(`band.${band.id}.period`,"status",`Periodo en ${band.artistName}`,band.fromYear ? `${band.fromYear}–${band.isCurrent ? "actualidad" : band.toYear ?? "sin final registrado"}` : null, [band.fromYear,band.toYear].filter((v):v is number=>v!==null).map(String),[name,band.artistName],
-        band.fromYear && person.birthDate && band.fromYear < Number(person.birthDate.slice(0,4)) ? "La membresía precede al nacimiento." : band.toYear !== null && band.fromYear !== null && band.toYear < band.fromYear ? "Periodo de membresía invertido." : null);
+        band.fromYear && dateYear(person.birthDate) !== null && band.fromYear < dateYear(person.birthDate)! ? "La membresía precede al nacimiento." : band.toYear !== null && band.fromYear !== null && band.toYear < band.fromYear ? "Periodo de membresía invertido." : null);
     }
     for (const credit of [...person.albumCredits,...person.trackCredits]) add(`credit.${"trackId" in credit ? "track" : "album"}.${credit.id}`,"members",`Crédito en ${credit.albumTitle}`,`${credit.role}${"trackTitle" in credit ? ` · ${credit.trackTitle}` : ""}`,credit.role.split(/[,;&/]+/u).map(r=>r.trim()).filter(Boolean),[name,credit.albumTitle]);
     const linked = await getPool().query<{id:string}>(`SELECT DISTINCT id::text FROM public.albums WHERE id IN (

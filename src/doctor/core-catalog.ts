@@ -86,6 +86,13 @@ export const APPROVED_CORE_CHANGES: Readonly<Record<string, string>> = {
  * snapshot y no cuentan como «extra». Solo esta forma exacta.
  */
 export const APPROVED_CORE_ADDITIONS: ReadonlySet<string> = new Set([
+  // 0062: exact deferred parent guards for support/edition consistency.
+  "CONSTRAINT albums.crv_catalog_model_parent_check TRIGGER DEFERRABLE INITIALLY DEFERRED",
+  "CONSTRAINT album_formats.crv_catalog_model_parent_check TRIGGER DEFERRABLE INITIALLY DEFERRED",
+  "CONSTRAINT tracks.crv_catalog_model_parent_check TRIGGER DEFERRABLE INITIALLY DEFERRED",
+  // 0061: user-authorized stage 1; legacy DATE remains an exact projection.
+  "COL persons.birth_date_value text",
+  "COL persons.death_date_value text",
   // 0032 (2026-09-30): NULL = sin dato, true = fallecido/a.
   "COL persons.is_deceased boolean",
   // 0033 (2026-10-01): campos de la captura de Metal Archives (VE).

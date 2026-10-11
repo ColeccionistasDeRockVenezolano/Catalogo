@@ -1,3 +1,4 @@
+import { rememberEvidenceDocument } from "../evidence/inventory.js";
 import {sourceMatchesIdentity} from "./source-identity.js";
 import { getPool } from "../db/client.js";
 import { evaluateVerification, snapshotHash } from "./evaluate.js";
@@ -13,6 +14,7 @@ export async function researchStored(snapshot:VerificationSnapshot,broker?:Verif
  let latest:ResearchState|undefined;
  const persist=async(state:ResearchState)=>{
    latest=state;
+   for(const page of state.pages) await rememberEvidenceDocument(getPool(),{...page,readAt:page.readAt??new Date().toISOString()});
    await getPool().query("INSERT INTO ingest.entity_verification_research_state(entity_kind,entity_id,snapshot_hash,state) VALUES($1,$2,$3,$4::jsonb) ON CONFLICT(entity_kind,entity_id) DO UPDATE SET snapshot_hash=EXCLUDED.snapshot_hash,state=EXCLUDED.state,updated_at=now()",[snapshot.kind,snapshot.id,hash,JSON.stringify(state)]);
  };
  const report=await researchVerification(snapshot,broker,gateway,onProgress,{...(resume?{resume}:{}),onState:persist});

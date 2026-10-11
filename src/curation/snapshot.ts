@@ -44,7 +44,7 @@ async function readCatalog(db: SnapshotClient) {
   const artists = await db.query<{ id: string; name: string; origin_city: string | null; formed_year: number | null; disbanded_year: number | null }>(
     "SELECT id::text, name, origin_city, formed_year, disbanded_year FROM public.artists ORDER BY id");
   const persons = await db.query<{ id: string; name: string; birth_year: number | null; death_year: number | null }>(
-    "SELECT id::text, name, extract(year FROM birth_date)::int AS birth_year, extract(year FROM death_date)::int AS death_year FROM public.persons ORDER BY id");
+    "SELECT id::text, name, CASE WHEN birth_date_value ~ '^[0-9]{4}(-[0-9]{2}){0,2}$' THEN left(birth_date_value,4)::int END AS birth_year, CASE WHEN death_date_value ~ '^[0-9]{4}(-[0-9]{2}){0,2}$' THEN left(death_date_value,4)::int END AS death_year FROM public.persons ORDER BY id");
   const organizations = await db.query<{ id: string; name: string; organization_type: string }>(
     "SELECT id::text, name, organization_type::text FROM public.organizations ORDER BY id");
   const albums = await db.query<{ id: string; artist_id: string; title: string; release_year: number | null; album_type: string; label_id: string | null }>(

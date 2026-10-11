@@ -22,7 +22,7 @@ export interface LoadedTimeline {
 export async function loadPersonTimelines(queryable: Queryable, ids: number[], options: { colleagues?: boolean } = {}): Promise<Map<number, LoadedTimeline>> {
   const out = new Map<number, LoadedTimeline>();
   const { rows: persons } = await queryable.query<{ id: string; birth: number | null; death: number | null }>(`
-    SELECT id::text, extract(year FROM birth_date)::int AS birth, extract(year FROM death_date)::int AS death
+    SELECT id::text, CASE WHEN birth_date_value ~ '^[0-9]{4}(-[0-9]{2}){0,2}$' THEN left(birth_date_value,4)::int END AS birth, CASE WHEN death_date_value ~ '^[0-9]{4}(-[0-9]{2}){0,2}$' THEN left(death_date_value,4)::int END AS death
       FROM public.persons WHERE id = ANY($1::bigint[])`, [ids]);
   for (const row of persons) {
     out.set(Number(row.id), {

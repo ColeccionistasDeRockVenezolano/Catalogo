@@ -137,7 +137,7 @@ export async function getArtistDetail(id: number): Promise<ArtistDetail | null> 
        COALESCE((
          SELECT jsonb_agg(jsonb_build_object(
            'id', am.id, 'personId', p.id, 'personName', p.name, 'personRealName', p.real_name, 'personIsDeceased', ${personDeceasedSql("p")}, 'role', am.role,
-           'personBirthDate', p.birth_date, 'personDeathDate', p.death_date,
+           'personBirthDate', p.birth_date_value, 'personDeathDate', p.death_date_value,
            'fromYear', am.from_year, 'toYear', am.to_year, 'isCurrent', am.is_current
          ) ORDER BY am.from_year NULLS LAST, p.name)
          FROM public.artist_members am JOIN public.persons p ON p.id = am.person_id

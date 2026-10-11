@@ -12,7 +12,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -51,6 +51,8 @@ async function pgDumpPublic(containerName: string): Promise<string> {
     // La quinta (0036): el disparador que anota al artista cuando un disco se
     // borra o cambia de artista (géneros que el artista recibe de sus discos).
     .replace(/--\n-- Name: \S+ crv_artist_genres_from_albums; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_artist_genres_from_albums [^\n]*\n\n\n/gu, "")
+    .replace(/--\n-- Name: persons crv_person_date_precision; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_person_date_precision [^\n]*\n\n\n/gu, "")
+    .replace(/--\n-- Name: \S+ crv_catalog_model_parent_check; Type: TRIGGER;[^\n]*\n--\n\nCREATE CONSTRAINT TRIGGER crv_catalog_model_parent_check [^\n]*\n\n\n/gu, "")
     // La segunda excepción (0029): `persons.is_venezuelan` admite NULL (sin dato).
     .replace(/^ {4}is_venezuelan boolean,$/mu, "    is_venezuelan boolean DEFAULT false NOT NULL,")
     // La tercera excepción (0032): la columna añadida `persons.is_deceased boolean`.
@@ -58,7 +60,7 @@ async function pgDumpPublic(containerName: string): Promise<string> {
     // La cuarta excepción (0033): campos de la captura MA en artists/persons/albums.
     // (la coma final es opcional: la última columna de una tabla no la lleva,
     //  salvo que le sigan CONSTRAINTs como en artists/persons).
-    .replace(/^ {4}(status|themes|years_active|logo_url|real_name|birth_city|death_cause|trivia|gender|release_date_text|catalog_id|media_format) (?:character varying\(\d+\)|text),?\n/gmu, "")
+    .replace(/^ {4}(birth_date_value|death_date_value|status|themes|years_active|logo_url|real_name|birth_city|death_cause|trivia|gender|release_date_text|catalog_id|media_format) (?:character varying\(\d+\)|text),?\n/gmu, "")
     // …y si las columnas quitadas eran las últimas (albums), la columna previa
     // queda con una coma colgando antes de `);`: se normaliza igual en ambos dumps.
     .replace(/,(\n\);)/gu, "$1")
@@ -102,24 +104,14 @@ describe("contrato del core + migraciones (Drizzle/TS)", () => {
     (globalThis as { __crvBeforeSnapshot?: string }).__crvBeforeSnapshot = snapshot;
   });
 
-  it("aplica 0001-0057 vía el runner TS (2 pasadas, la 2ª es no-op)", async () => {
+  it("aplica todas las migraciones versionadas vía el runner TS (2 pasadas, la 2ª es no-op)", async () => {
     const first = await migrateUp();
-    expect(first.applied).toEqual([
-      "0001_ingest_core", "0002_media", "0003_ingest_claims_identity", "0004_review_kinds",
-      "0005_raw_pages_run", "0006_youtube_pipeline", "0007_entity_resolution_ai",
-      "0008_media_link_claims", "0009_media_link_constraints", "0010_review_decisions",
-      "0011_album_classifications", "0012_ambiguity_resolutions", "0013_fk_indexes",
-      "0014_entity_redirects", "0015_review_kind_person_duplicate", "0016_person_duplicate_pair_uk",
-      "0017_curation_findings", "0018_curation_finding_fixes", "0019_curation_scan_resolution", "0020_curation_durable_decisions",
-      "0021_curation_fix_batches", "0022_er_decisions_retention", "0023_curation_incremental", "0024_curation_autofix",
-      "0025_seed_upload_order_optional", "0026_claims_identity_idx", "0027_genre_taxonomy", "0028_change_journal", "0029_persons_venezuelan_tristate", "0030_merge_traces", "0031_genre_external_sources", "0032_persons_deceased", "0033_core_ma_fields", "0034_text_rewrites", "0035_artist_relations", "0036_artist_genres_from_albums", "0037_genre_subgenres", "0038_image_candidates", "0039_streaming_links", "0040_social_links",
-      "0041_person_web_verification", "0042_person_web_mixed", "0043_person_pair_research",
-      "0044_person_comparison", "0045_entity_verification", "0046_entity_comparison",
-      "0047_verification_progress", "0048_verification_research_state", "0049_ai_curation_plans",
-      "0050_ai_curation_decisions", "0051_person_artist_resolution", "0052_discovery",
-      "0053_discovery_metrics", "0054_track_contexts", "0055_integrity_fk_indexes",
-      "0056_discovery_recommendations", "0057_integrity_reconciliation",
-    ]);
+    const files = await readdir(path.join(ROOT, "migrations"));
+    const expected = files.filter(file => file.endsWith(".up.sql")).sort().map(file => file.replace(/\.up\.sql$/u, ""));
+    const down = files.filter(file => file.endsWith(".down.sql")).sort().map(file => file.replace(/\.down\.sql$/u, ""));
+    expect(down).toEqual(expected);
+    expect(first.applied).toEqual(expected);
+    expect((await getPool().query("SELECT version FROM ingest.schema_migrations ORDER BY version")).rows.map(row => row.version)).toEqual(expected);
     const second = await migrateUp();
     expect(second.applied).toEqual([]);
   });
@@ -256,19 +248,9 @@ describe("contrato del core + migraciones (Drizzle/TS)", () => {
     await pool.query("DELETE FROM ingest.review_queue");
 
     const result = await migrateDownAll();
-    expect(result.reverted).toEqual([
-      "0057_integrity_reconciliation", "0056_discovery_recommendations",
-      "0055_integrity_fk_indexes",
-      "0054_track_contexts", "0053_discovery_metrics",
-      "0052_discovery", "0051_person_artist_resolution", "0050_ai_curation_decisions",
-      "0049_ai_curation_plans", "0048_verification_research_state", "0047_verification_progress",
-      "0046_entity_comparison", "0045_entity_verification", "0044_person_comparison",
-      "0043_person_pair_research", "0042_person_web_mixed", "0041_person_web_verification",
-      "0040_social_links", "0039_streaming_links", "0038_image_candidates", "0037_genre_subgenres", "0036_artist_genres_from_albums", "0035_artist_relations", "0034_text_rewrites", "0033_core_ma_fields", "0032_persons_deceased", "0031_genre_external_sources", "0030_merge_traces", "0029_persons_venezuelan_tristate", "0028_change_journal", "0027_genre_taxonomy", "0026_claims_identity_idx", "0025_seed_upload_order_optional",
-      "0024_curation_autofix", "0023_curation_incremental", "0022_er_decisions_retention", "0021_curation_fix_batches", "0020_curation_durable_decisions", "0019_curation_scan_resolution", "0018_curation_finding_fixes", "0017_curation_findings", "0016_person_duplicate_pair_uk", "0015_review_kind_person_duplicate",
-      "0014_entity_redirects", "0013_fk_indexes", "0012_ambiguity_resolutions", "0011_album_classifications", "0010_review_decisions", "0009_media_link_constraints", "0008_media_link_claims",
-      "0007_entity_resolution_ai", "0006_youtube_pipeline", "0005_raw_pages_run", "0004_review_kinds", "0003_ingest_claims_identity", "0002_media", "0001_ingest_core",
-    ]);
+    const expected = (await readdir(path.join(ROOT, "migrations")))
+      .filter(file => file.endsWith(".up.sql")).sort().reverse().map(file => file.replace(/\.up\.sql$/u, ""));
+    expect(result.reverted).toEqual(expected);
 
     const { rows } = await pool.query<{ nspname: string }>(
       "SELECT nspname FROM pg_namespace WHERE nspname IN ('ingest','media')",

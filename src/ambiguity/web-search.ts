@@ -10,15 +10,17 @@ import { getEnv } from "../config/env.js";
 import { getPool } from "../db/client.js";
 import { pageImageResources, VISUAL_RESOURCES_MARKER } from "./page-images.js";
 import { localArchivePage } from "./archive-records.js";
+import { sourceProvenance, type SourceProvenance, type AcquisitionMethod } from "../evidence/provenance.js";
+import { rememberEvidenceDocument } from "../evidence/inventory.js";
 
-export interface SearchHit { url: string; title: string; snippet: string; engine: string; }
-export interface WebPage { url: string; title: string; content: string; contentHash: string; fetchedAt: string; origin?: "page" | "search_snippet"; }
+export interface SearchHit { url: string; title: string; snippet: string; engine: string; capturedAt?: string | null; }
+export interface WebPage extends SourceProvenance { url: string; title: string; content: string; contentHash: string; /** Compatibility alias for capturedAt; empty when unknown. */ fetchedAt: string; origin?: "page" | "search_snippet"; }
 type Queryable = Pick<Pool, "query">;
 const hitSchema = z.object({ url: z.string().url(), title: z.string().default(""), content: z.string().default(""), engine: z.string().default("searxng") });
 const searchSchema = z.object({ results: z.array(hitSchema).default([]), unresponsive_engines: z.array(z.array(z.unknown())).default([]) });
 // Los buscadores suspenden a SearXNG (CAPTCHA, 429) ante ráfagas: una consulta a la vez, espaciadas.
 const SEARCH_GAP_MS = 1500;
-const EXTRACTION_VERSION = "[Extracción de página v3]";
+const EXTRACTION_VERSION = "[Extracción de página v4]";
 let searchQueue: Promise<unknown> = Promise.resolve();
 let lastSearchAt = 0;
 
@@ -92,9 +94,10 @@ export class WebSearchBroker {
 
   async search(query: string): Promise<SearchHit[]> {
     const q = clean(query).slice(0, 250);
-    const cached = await this.db.query<{ results: SearchHit[]; stale: boolean }>(
-      "SELECT results, fetched_at < now() - interval '6 hours' AS stale FROM ingest.person_web_search_cache WHERE query=$1 AND fetched_at > now()-($2::int * interval '1 day')", [q, getEnv().CRV_WEB_SEARCH_CACHE_DAYS]);
+    const cached = await this.db.query<{ results: SearchHit[]; stale: boolean; captured_at: string }>(
+      "SELECT results, fetched_at::text AS captured_at, fetched_at < now() - interval '6 hours' AS stale FROM ingest.person_web_search_cache WHERE query=$1 AND fetched_at > now()-($2::int * interval '1 day')", [q, getEnv().CRV_WEB_SEARCH_CACHE_DAYS]);
     const old = cached.rows[0];
+    if (old) old.results = old.results.map(hit => ({ ...hit, capturedAt: hit.capturedAt ?? old.captured_at ?? null }));
     // Una respuesta guardada sin ningún resultado con las frases se vuelve a pedir (hay más buscadores que antes).
     if (old && (relevantFirst(q, old.results).relevant > 0 || !old.stale || !this.searxngUrl)) return relevantFirst(q, old.results).hits;
     if (!this.searxngUrl) return [];
@@ -117,7 +120,8 @@ export class WebSearchBroker {
         throw new Error(`SearXNG HTTP ${response.status}`);
       }
       const parsed = searchSchema.parse(await response.json());
-      hits = parsed.results.slice(0, 12).map((hit) => ({ url: hit.url, title: hit.title, snippet: hit.content, engine: hit.engine }));
+      const capturedAt = new Date().toISOString();
+      hits = parsed.results.slice(0, 12).map((hit) => ({ url: hit.url, title: hit.title, snippet: hit.content, engine: hit.engine, capturedAt }));
       // Un vacío por buscadores suspendidos no es una respuesta: no se guarda, y se avisa.
       if (!hits.length && parsed.unresponsive_engines.length) {
         if (attempt === 0) continue;
@@ -133,11 +137,18 @@ export class WebSearchBroker {
 
   async page(rawUrl: string): Promise<WebPage | null> {
     const url = await assertPublicPageUrl(rawUrl);
-    const cached = await this.db.query<{ url: string; title: string; content: string; content_hash: string; fetched_at: string }>(
-      "SELECT url,title,content,content_hash,fetched_at::text FROM ingest.person_web_page_cache WHERE url=$1 AND fetched_at > now()-($2::int * interval '1 day')", [url.toString(), getEnv().CRV_WEB_PAGE_CACHE_DAYS]);
+    const cached = await this.db.query<{ url: string; title: string; content: string; content_hash: string; captured_at: string | null; acquisition_method: AcquisitionMethod }>(
+      "SELECT url,title,content,content_hash,captured_at::text,acquisition_method FROM ingest.person_web_page_cache WHERE url=$1 AND fetched_at > now()-($2::int * interval '1 day')", [url.toString(), getEnv().CRV_WEB_PAGE_CACHE_DAYS]);
     if (cached.rows[0]) {
       const row = cached.rows[0];
-      if (!row.content.includes("�") && row.content.includes(VISUAL_RESOURCES_MARKER) && row.content.includes(EXTRACTION_VERSION)) return { url: row.url, title: row.title, content: cleanPageContent(row.url, row.content), contentHash: row.content_hash, fetchedAt: row.fetched_at };
+      if (row.acquisition_method !== "unknown" && !row.content.includes("�") && row.content.includes(VISUAL_RESOURCES_MARKER) && row.content.includes(EXTRACTION_VERSION)) {
+        const readAt = new Date().toISOString();
+        await this.db.query("UPDATE ingest.person_web_page_cache SET read_at=$2::timestamptz WHERE url=$1", [row.url, readAt]);
+        const provenance = sourceProvenance({ capturedAt: row.captured_at, readAt, acquisitionMethod: row.acquisition_method });
+        const page = { url: row.url, title: row.title, content: cleanPageContent(row.url, row.content), contentHash: row.content_hash, fetchedAt: provenance.capturedAt ?? "", ...provenance };
+        await rememberEvidenceDocument(this.db, page);
+        return page;
+      }
     }
     let current = url;
     let response: Response | null = null;
@@ -154,9 +165,12 @@ export class WebSearchBroker {
       }
     } catch { response = null; }
     let bytes: Uint8Array | null = null;
+    let capturedAt: string | null = null;
+    let acquisitionMethod: AcquisitionMethod = "http";
     let contentType = response?.headers.get("content-type") ?? "";
     if (response?.ok && !contentType.match(/^(?!text\/html|text\/plain)/iu) && Number(response.headers.get("content-length") ?? 0) <= 1_000_000) {
       bytes = new Uint8Array(await response.arrayBuffer());
+      capturedAt = new Date().toISOString();
     }
     if (!bytes) {
       // Metal Archives, RYM o Discogs responden 403 a una descarga directa; si el proyecto ya
@@ -164,6 +178,7 @@ export class WebSearchBroker {
       const stored = await this.storedPage(url.toString());
       if (!stored) return null;
       bytes = stored.bytes; contentType = stored.contentType;
+      capturedAt = stored.capturedAt; acquisitionMethod = stored.acquisitionMethod;
     }
     if (bytes.length > 1_000_000) return null;
     const body = decodedHtml(bytes, contentType, current);
@@ -188,24 +203,32 @@ export class WebSearchBroker {
     const content = cleanPageContent(url.toString(), clean($("body").text() || body).slice(0, 55_000) + (links.length ? ` Enlaces de la página: ${links.slice(0, 50).join(" · ")}` : "") + ` ${visualResources} ${EXTRACTION_VERSION}`);
     if (content.length < 100) return null;
     const contentHash = createHash("sha256").update(content).digest("hex");
-    await this.db.query(`INSERT INTO ingest.person_web_page_cache(url,title,content,content_hash) VALUES($1,$2,$3,$4)
-      ON CONFLICT(url) DO UPDATE SET title=EXCLUDED.title,content=EXCLUDED.content,content_hash=EXCLUDED.content_hash,fetched_at=now()`, [url.toString(), title, content, contentHash]);
-    return { url: url.toString(), title, content, contentHash, fetchedAt: new Date().toISOString() };
+    const readAt = new Date().toISOString();
+    await this.db.query(`INSERT INTO ingest.person_web_page_cache(url,title,content,content_hash,captured_at,read_at,acquisition_method) VALUES($1,$2,$3,$4,$5::timestamptz,$6::timestamptz,$7)
+      ON CONFLICT(url) DO UPDATE SET title=EXCLUDED.title,content=EXCLUDED.content,content_hash=EXCLUDED.content_hash,fetched_at=now(),
+        captured_at=EXCLUDED.captured_at,read_at=EXCLUDED.read_at,acquisition_method=EXCLUDED.acquisition_method`, [url.toString(), title, content, contentHash, capturedAt, readAt, acquisitionMethod]);
+    const page = { url: url.toString(), title, content, contentHash, fetchedAt: capturedAt ?? "", capturedAt, readAt, acquisitionMethod };
+    await rememberEvidenceDocument(this.db, page);
+    return page;
   }
 
-  private async storedPage(url: string): Promise<{ bytes: Uint8Array; contentType: string } | null> {
-    const row = (await this.db.query<{ stored_path: string; content_type: string | null }>(
-      `SELECT stored_path, content_type FROM ingest.raw_pages WHERE (url=$1 OR canonical_url=$1) AND http_status=200
+  private async storedPage(url: string): Promise<{ bytes: Uint8Array; contentType: string; capturedAt: string | null; acquisitionMethod: AcquisitionMethod } | null> {
+    const row = (await this.db.query<{ stored_path: string; content_type: string | null; captured_at: string | null; sha256: string }>(
+      `SELECT stored_path, content_type, fetched_at::text AS captured_at, sha256 FROM ingest.raw_pages WHERE (url=$1 OR canonical_url=$1) AND http_status=200
         ORDER BY fetched_at DESC LIMIT 1`, [url])).rows[0];
     if (!row) {
       // Cosechas guardadas fuera de raw_pages (las páginas de músicos de Metal Archives).
       const local = localArchivePage(url);
       if (!local) return null;
-      try { return { bytes: new Uint8Array(await readFile(local)), contentType: "text/html; charset=utf-8" }; } catch { return null; }
+      try { return { bytes: new Uint8Array(await readFile(local)), contentType: "text/html; charset=utf-8", capturedAt: null, acquisitionMethod: "local_archive" }; } catch { return null; }
     }
     const root = resolve(getEnv().DATA_DIR);
     const path = resolve(join(root, row.stored_path));
     if (!path.startsWith(`${root}/`)) return null;
-    try { return { bytes: new Uint8Array(await readFile(path)), contentType: row.content_type ?? "text/html" }; } catch { return null; }
+    try {
+      const bytes = new Uint8Array(await readFile(path));
+      if (createHash("sha256").update(bytes).digest("hex") !== row.sha256) return null;
+      return { bytes, contentType: row.content_type ?? "text/html", capturedAt: row.captured_at ?? null, acquisitionMethod: "raw_archive" };
+    } catch { return null; }
   }
 }

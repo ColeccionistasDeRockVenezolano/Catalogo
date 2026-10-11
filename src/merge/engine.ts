@@ -1,3 +1,4 @@
+import { dateValueText, parseDateValue } from "../catalog/date-value.js";
 // Unico escritor del core. Toda mutacion pasa por policy, advisory lock,
 // claim y merge_audit. DeepSeek nunca entra en este modulo como ejecutor.
 import { bindRun } from "../db/run-binding.js";
@@ -72,6 +73,10 @@ export function canonicalFieldValue(value: unknown, field: string, actor: "syste
 
 function scalar(value: unknown, field: string, preserveLineBreaks = false): string | number | boolean | null {
   if (value === null) return null;
+  if (field === "birth_date" || field === "death_date") {
+    if (typeof value !== "string") throw new Error(`${field}: fecha de texto obligatoria`);
+    return dateValueText(parseDateValue(value));
+  }
   if (INTEGER_FIELDS.has(field)) {
     const parsed = typeof value === "number" ? value : Number(String(value).replace(/\s+/gu, "").replace(/\.0+$/u, ""));
     if (!Number.isInteger(parsed)) throw new Error(`${field} debe ser entero`);
@@ -517,6 +522,7 @@ async function createEntity(client: PoolClient, claim: ClaimToPersist, claimId: 
   const saved = await client.query<{ id: string }>(query, params);
   const id = Number(saved.rows[0]?.id);
   if (!id) throw new Error(`no se pudo crear ${spec.kind}`);
+  if (spec.kind === "album") await client.query("INSERT INTO ingest.catalog_edition_details(album_id) VALUES($1) ON CONFLICT(album_id) DO NOTHING", [id]);
   await attachClaim(client, claimId, spec, id);
   await insertAlias(client, claim, claimId, spec, id, name, true);
   // El nombre tal como lo escribió la fuente queda de alias primario arriba;

@@ -1,3 +1,4 @@
+import { sourceProvenance } from "../evidence/provenance.js";
 import {isDecorativeImageUrl} from "../ambiguity/page-images.js";
 import {sourceMatchesIdentity} from "./source-identity.js";
 import { createHash } from "node:crypto";
@@ -32,7 +33,7 @@ function citations(raw:VerificationProposal["findings"][number]["evidence"],page
     if(item.quote.length<8||item.quote.length>1800||!page||!usablePage(page)||!sourceMatchesIdentity(snapshot,page,pages)||!fold(page.content).includes(fold(item.quote)))continue;
     if(!snapshot.identity.some(name=>pageContextMatches(page,name,true))||!context.filter(Boolean).every(value=>pageContextMatches(page,value)))continue;
     if(found.some(e=>e.url===page.url&&fold(e.quote)===fold(item.quote)))continue;
-    found.push({url:page.url,title:page.title,quote:item.quote,origin:page.origin??"page",fetchedAt:page.fetchedAt});
+    found.push({url:page.url,title:page.title,quote:item.quote,origin:page.origin??"page",fetchedAt:page.fetchedAt,...sourceProvenance(page)});
   }
   return found;
 }
@@ -134,6 +135,6 @@ export function evaluateVerification(snapshot:VerificationSnapshot,pages:WebPage
   const weight=scored.reduce((n,k)=>n+VERIFICATION_AREAS[k].weight,0);
   const areas=keys.map(key=>{const items=findings.filter(f=>f.area===key),evaluated=items.filter(eligible),maximum=evaluated.length?VERIFICATION_AREAS[key].weight/weight*100:0;return {key,label:VERIFICATION_AREAS[key].label,maximum,points:evaluated.length?evaluated.reduce((n,f)=>n+f.coverage,0)/evaluated.length*maximum:0,confirmed:items.filter(f=>f.status==="confirmed").length,partial:items.filter(f=>f.status==="partial").length,missing:items.filter(f=>f.status==="missing").length,contradicted:items.filter(f=>f.status==="contradicted").length,unverified:items.filter(f=>f.status==="unverified").length};});
   return {version:1,rulesVersion:RULES_VERSION,snapshotHash:snapshotHash(snapshot),kind:snapshot.kind,entityId:snapshot.id,name:snapshot.name,createdAt:new Date().toISOString(),researched,stale:false,score:researched&&scored.length?Math.round(areas.reduce((n,a)=>n+a.points,0)*10)/10:null,areas,findings,suggestions,issues:findings.filter(f=>f.issue).map(f=>f.issue!),
-    limitations:[...new Set(["El puntaje mide coincidencia documental entre los datos que se pudieron contrastar; no probabilidad de verdad ni exhaustividad de la ficha.","Sin verificar, pendientes, faltantes, propuestas e incoherencias internas sin evidencia externa quedan fuera del cálculo. Sin datos contrastados no hay puntaje.","Una cita completa de una página leída aporta 100 %. Una coincidencia parcial aporta según su cobertura; un resumen del buscador aporta hasta 25 %. La corroboración independiente no es requisito para una coincidencia completa.","Los pesos de las áreas se redistribuyen entre las áreas con datos contrastados. No encontrar un dato no demuestra que sea falso.",...limitations])],sources:pages.filter(usablePage).map(page=>({url:page.url,title:page.title,origin:page.origin??"page",fetchedAt:page.fetchedAt,contentHash:page.contentHash}))};
+    limitations:[...new Set(["El puntaje mide coincidencia documental entre los datos que se pudieron contrastar; no probabilidad de verdad ni exhaustividad de la ficha.","Sin verificar, pendientes, faltantes, propuestas e incoherencias internas sin evidencia externa quedan fuera del cálculo. Sin datos contrastados no hay puntaje.","Una cita completa de una página leída aporta 100 %. Una coincidencia parcial aporta según su cobertura; un resumen del buscador aporta hasta 25 %. La corroboración independiente no es requisito para una coincidencia completa.","Los pesos de las áreas se redistribuyen entre las áreas con datos contrastados. No encontrar un dato no demuestra que sea falso.",...limitations])],sources:pages.filter(usablePage).map(page=>({url:page.url,title:page.title,origin:page.origin??"page",fetchedAt:page.fetchedAt,contentHash:page.contentHash,...sourceProvenance(page)}))};
 }
 export function areaLabel(area:VerificationArea):string{return VERIFICATION_AREAS[area].label;}

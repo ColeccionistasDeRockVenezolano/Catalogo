@@ -19,6 +19,8 @@ import { migrateUp } from "../../src/db/migrate.js";
 import { buildApp } from "../../src/api/app.js";
 import { withRunScope } from "../../src/db/run-binding.js";
 import { netChanges } from "../../src/merge/journal-undo.js";
+import { loadSheetsFile } from "../../src/genres/external/sheets.js";
+import { upsertExternalSource } from "../../src/genres/external/store.js";
 
 const TOKEN = "token-de-prueba-del-diario-0123456789";
 const OPERATOR = "Tester Diario";
@@ -171,6 +173,35 @@ describe("diario de cambios y deshacer por run (0028)", () => {
     expect(await one("SELECT name FROM public.persons WHERE id=$1", [drop.id])).toEqual({ name: "Ana Fusion" });
     expect(await count("SELECT count(*) n FROM public.album_credits WHERE person_id=$1", [drop.id])).toBe(1);
     expect(await count("SELECT count(*) n FROM ingest.entity_redirects WHERE entity_kind='person' AND from_id=$1", [drop.id])).toBe(0);
+  });
+
+  it("la API de historial conserva identidades externas al fusionar, deshacer y rehacer", async () => {
+    const keepCreated = await write("POST", "/artists", { name: "Identidad API A", note: "alta de prueba", allowSimilar: true });
+    const dropCreated = await write("POST", "/artists", { name: "Identidad API B", note: "alta de prueba", allowSimilar: true });
+    expectOk(keepCreated); expectOk(dropCreated);
+    const keep = keepCreated.json().id as number, drop = dropCreated.json().id as number;
+    const client = await getPool().connect();
+    let source: number;
+    try { source = (await upsertExternalSource(client, (await loadSheetsFile())[0]!, { actor: OPERATOR, reason: "fixture" })).id; }
+    finally { client.release(); }
+    await getPool().query(`INSERT INTO ingest.genre_external_identities
+      (entity_kind,entity_id,source_id,external_id,external_name,score,status,decided_by,decision_kind,reason)
+      VALUES('artist',$1,$2,'api-fixture','Identidad API',1,'matched',$3,'human','Identidad revisada')`, [drop,source,OPERATOR]);
+    const identities = async () => (await getPool().query("SELECT to_jsonb(i) AS row FROM ingest.genre_external_identities i WHERE entity_id=ANY($1::bigint[]) ORDER BY id", [[keep, drop]])).rows;
+    const before = await identities();
+    const preview = await get(`/artists/${keep}/merge-preview?with=${drop}`);
+    expectOk(preview);
+    const merged = await write("POST", `/artists/${keep}/merge`, { dropId: drop, previewHash: preview.json().previewHash, keepDropNameAsAlias: true, note: "Identidad documental comprobada" });
+    expectOk(merged);
+    const after = await identities();
+    const history = await get(`/changes/${merged.json().runId}`);
+    expectOk(history);
+    expect(history.json().undo.plan.byTable["ingest.genre_external_identities"]).toBeDefined();
+    const undone = await undo(merged.json().runId);
+    expectOk(undone);
+    expect(await identities()).toEqual(before);
+    expectOk(await undo(undone.json().runId));
+    expect(await identities()).toEqual(after);
   });
 
   it("dividir una persona se deshace: vuelve la ficha combinada y se retiran las nuevas", async () => {

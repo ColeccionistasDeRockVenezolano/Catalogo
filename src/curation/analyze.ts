@@ -119,6 +119,10 @@ export function buildContext(snapshot: CatalogSnapshot, lexicon?: Lexicon): Anal
 
 /** PostgreSQL no guarda NUL en texto ni surrogates sueltos en jsonb. */
 export function storableText(value: string): string {
+  // Most text is already representable; keep the two repair passes for the
+  // exceptional NUL/lone-surrogate strings only. Unicode pairs stay intact.
+  // eslint-disable-next-line no-control-regex -- PostgreSQL rejects NUL
+  if (!/[\u0000\uD800-\uDFFF]/u.test(value)) return value;
   // eslint-disable-next-line no-control-regex -- quitar NUL es justo lo que se busca
   return value.replace(/\u0000/gu, "").replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/gu, "\uFFFD");
 }

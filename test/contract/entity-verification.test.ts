@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { scryptSync } from "node:crypto";
 import { afterAll,beforeAll,describe,expect,it } from "vitest";
 import type { FastifyInstance } from "fastify";
@@ -73,10 +74,15 @@ describe("verificación individual persistente y privada",()=>{
   });
   it("guarda citas y puntaje, conserva versiones y detecta cambios en pistas",async()=>{
     const snapshot=await loadVerificationSnapshot("album",album);
-    const report=evaluateVerification(snapshot,[{url:"https://fuente.example/qa",title:"Disco QA",content:"Banda QA publicó Disco QA en 2001.",contentHash:"qa",fetchedAt:new Date().toISOString()}],{findings:[{key:"identity.name",status:"confirmed",observed:"Disco QA",reason:"Disco y artista documentados",evidence:[{source:0,quote:"Banda QA publicó Disco QA en 2001."}]}],discoveries:[]},true);
+    const capturedAt="2001-05-06T00:00:00Z",readAt=new Date().toISOString();
+    const report=evaluateVerification(snapshot,[{url:"https://fuente.example/qa",title:"Disco QA",content:"Banda QA publicó Disco QA en 2001.",contentHash:"qa",fetchedAt:capturedAt,capturedAt,readAt,acquisitionMethod:"raw_archive"}],{findings:[{key:"identity.name",status:"confirmed",observed:"Disco QA",reason:"Disco y artista documentados",evidence:[{source:0,quote:"Banda QA publicó Disco QA en 2001."}]}],discoveries:[]},true);
     await saveIndividualVerification(report,"QA admin");
     expect(await getIndividualVerification("album",album)).toMatchObject({score:report.score,stale:false,researched:true});
     expect((await getIndividualVerification("album",album)).findings[0]?.evidence).toHaveLength(1);
+    const apiReport=await app.inject({method:"GET",url:`/entity-verification/album/${album}`,headers:{authorization:`Bearer ${TOKEN}`}});
+    expect(apiReport.statusCode).toBe(200);
+    expect(apiReport.json().sources[0]).toMatchObject({capturedAt,readAt,acquisitionMethod:"raw_archive"});
+    expect(apiReport.json().findings[0].evidence[0]).toMatchObject({capturedAt,readAt,acquisitionMethod:"raw_archive"});
     await getPool().query("UPDATE public.tracks SET title='Primera corregida' WHERE album_id=$1 AND track_number=1",[album]);
     expect(await getIndividualVerification("album",album)).toMatchObject({score:null,stale:true});
     await saveIndividualVerification(evaluateVerification(await loadVerificationSnapshot("album",album),[],undefined,true),"QA admin");
@@ -118,7 +124,7 @@ describe("verificación individual persistente y privada",()=>{
   });
   it("persiste propuestas y datos pendientes y los retoma con un contrato que cabe en ai_runs",async()=>{
     const full=await loadVerificationSnapshot("artist",artist);const snapshot={...full,units:full.units.slice(0,2),sourceUrls:["https://archivo.example/banda-qa"]};
-    const page={url:snapshot.sourceUrls[0]!,title:"Banda QA",content:"Banda QA, banda formada en 2000. Músico QA toca Bass.",contentHash:"state-qa",fetchedAt:new Date().toISOString()};
+    const page={url:snapshot.sourceUrls[0]!,title:"Banda QA",content:"Banda QA, banda formada en 2000. Músico QA toca Bass.",contentHash:createHash("sha256").update("Banda QA, banda formada en 2000. Músico QA toca Bass.").digest("hex"),fetchedAt:new Date().toISOString()};
     const response=(key:string)=>({findings:[{key,status:"unverified",observed:null,reason:"No hay respaldo suficiente",evidence:[]}],discoveries:[]});
     const gateway=createDeepSeekGateway(new MockDeepSeekTransport(response(snapshot.units[0]!.key),{findings:[],discoveries:[]},{findings:[],discoveries:[]}));
     const partial=await researchStored(snapshot,{search:async()=>[],page:async()=>page},gateway);

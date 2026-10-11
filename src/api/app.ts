@@ -1,3 +1,4 @@
+import { registerCatalogModelRoutes } from "./routes/catalog-model.js";
 // CRV · API Fastify (ARCHITECTURE.md §4.14, PHASES §E7A lectura + §E7B escritura).
 // Browser -> API -> PostgreSQL (CONTRACT #20): esta app es el único punto
 // por el que el navegador puede llegar a los datos. La lectura es abierta; la
@@ -49,6 +50,7 @@ import { registerEntityComparisonRoutes } from "./routes/entity-comparison.js";
 import { registerEntityVerificationRoutes } from "./routes/entity-verification.js";
 import { installAutofix } from "../curation/autofix.js";
 import { registerAiCurationRoutes } from "./routes/ai-curation.js";
+import { registerEvidenceInventoryRoutes } from "./routes/evidence-inventory.js";
 
 const log = moduleLogger("api");
 
@@ -153,6 +155,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerReviewRoutes(app);
   await registerYouTubeRoutes(app);
   await registerCatalogWriteRoutes(app);
+  await registerCatalogModelRoutes(app);
   await registerRelationWriteRoutes(app);
   await registerPlatformLinkRoutes(app);
   await registerEntityMergeRoutes(app);
@@ -168,6 +171,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerEntityVerificationRoutes(app);
   await registerEntityComparisonRoutes(app);
   await registerAiCurationRoutes(app);
+  await registerEvidenceInventoryRoutes(app);
   // La autocorrección se engancha al final de cada análisis completo. Sigue
   // apagada mientras CRV_CURATION_AUTOFIX sea false y no haya reglas encendidas.
   installAutofix();

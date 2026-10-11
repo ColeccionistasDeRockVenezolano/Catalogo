@@ -56,6 +56,7 @@ const trackSchema = z.object({
 
 const albumDetailSchema = z.object({
   releaseDateText: z.string().nullable(),
+  releaseDateValue: z.string().nullable(),
   catalogId: z.string().nullable(),
   mediaFormat: z.string().nullable(),
   id: z.number().int(),

@@ -239,13 +239,19 @@ async function checkChangeJournal(pool: Pool): Promise<DoctorCheck> {
   const exists = await pool.query<{ ok: boolean }>("SELECT to_regclass('ingest.change_journal') IS NOT NULL AS ok");
   if (!exists.rows[0]?.ok) return check("journal.triggers", "warn", "sin diario de cambios: falta la migración 0028_change_journal (npm run db:migrate)");
   const missing = await pool.query<{ table_name: string }>(`
+    WITH required(table_name) AS (VALUES ('ingest.genre_external_identities'))
+    SELECT r.table_name FROM required r
+     WHERE to_regclass(r.table_name) IS NOT NULL AND NOT EXISTS (
+       SELECT 1 FROM ingest.change_journal_tables t
+        WHERE t.table_name=r.table_name AND t.mode='full' AND t.policy='strict')
+    UNION
     SELECT t.table_name FROM ingest.change_journal_tables t
      WHERE to_regclass(t.table_name) IS NOT NULL
        AND NOT EXISTS (SELECT 1 FROM pg_trigger g WHERE g.tgrelid = to_regclass(t.table_name) AND g.tgname = 'crv_journal')
      ORDER BY 1`);
   if (missing.rows.length) {
     return check("journal.triggers", "fail",
-      `${missing.rows.length} tabla(s) sin disparador del diario (${missing.rows.map((row) => row.table_name).join(", ")}): SELECT ingest.crv_journal_attach_all();`);
+      `${missing.rows.length} tabla(s) sin registro completo o disparador del diario (${missing.rows.map((row) => row.table_name).join(", ")}): aplica las migraciones y SELECT ingest.crv_journal_attach_all();`);
   }
   const unbound = await pool.query<{ n: string }>(
     "SELECT count(*)::text AS n FROM ingest.change_journal WHERE run_id IS NULL AND at > now() - interval '7 days'");

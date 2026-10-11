@@ -11,7 +11,7 @@
 // invisible o marca) y el campo, no el carácter: con un subgrupo por carácter
 // 156 hallazgos quedaban repartidos en 52 subgrupos (B1). El carácter concreto
 // sigue en el título y en la evidencia.
-import { letterRatio, signClass, signsOf, type FieldProfile, type NameValue, type SignClass } from "../lexicon.js";
+import { letterRatio, signClass, signsOf, textLength, type FieldProfile, type NameValue, type SignClass } from "../lexicon.js";
 import { OTHER_CATEGORY } from "../taxonomy.js";
 import type { Finding } from "../types.js";
 import { ENTITY_NOUN, codePoint, nameFinding, quote, type AnalysisContext, type Detector } from "./shared.js";
@@ -124,7 +124,7 @@ function anomaliesOf(detector: Detector, name: NameValue, profile: FieldProfile,
       suggestion: "Confirmar si es el nombre original o un error de codificación; si es original, añadir la transliteración como alias",
     });
   }
-  const length = [...name.value].length;
+  const length = textLength(name.value);
   const spread = 1.4826 * Math.max(profile.lengthMad, 1);
   const words = name.value.match(/\p{L}+/gu) ?? [];
   // Un artista de dos palabras puede tener un nombre genuinamente largo; el

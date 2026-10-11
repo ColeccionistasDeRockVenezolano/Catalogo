@@ -1,3 +1,5 @@
+import { formatDate } from "../lib/format";
+import { CatalogModelPanel } from "../components/CatalogModelPanel";
 import { EntityVerification } from "../components/EntityVerification";
 import { Fragment, useCallback, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -107,8 +109,8 @@ export function AlbumDetailPage() {
             {album.genreByLaya ? <span className="badge badge--amber" title="Género principal elegido por Laya (último recurso). Solo visible con sesión iniciada.">Género por Laya</span> : null}
             {album.label ? <Link to={`/organizaciones/${album.label.id}`} className="badge badge--violet">{album.label.name}</Link> : null}
           </div>
-          {album.releaseDateText || album.catalogId || album.mediaFormat ? <dl className="album-edition-details">
-            {album.releaseDateText ? <div><dt>Fecha de publicación</dt><dd>{album.releaseDateText}</dd></div> : null}
+          {album.releaseDateValue || album.releaseDateText || album.catalogId || album.mediaFormat ? <dl className="album-edition-details">
+            {album.releaseDateValue || album.releaseDateText ? <div><dt>Fecha de publicación</dt><dd>{album.releaseDateValue ? formatDate(album.releaseDateValue) : album.releaseDateText}</dd></div> : null}
             {album.catalogId ? <div><dt>Número de catálogo</dt><dd>{album.catalogId}</dd></div> : null}
             {album.mediaFormat ? <div><dt>Formato de la edición</dt><dd>{album.mediaFormat}</dd></div> : null}
           </dl> : null}
@@ -297,6 +299,7 @@ export function AlbumDetailPage() {
           title={`Editar «${album.title}»`}
           fields={ALBUM_FIELDS}
           panels={[
+            { key: "model", label: "Obra y soportes", content: <CatalogModelPanel kind="album" id={album.id} onChanged={reload} artistId={album.artist.id} tracks={album.tracklist} /> },
             { key: "videos", label: "Videos de YouTube", content: <AlbumVideoEditor albumId={album.id} links={album.youtubeLinks} onChanged={reload} /> },
             { key: "genres", label: "Géneros", content: <GenreEditor kind="album" id={album.id} genres={album.genres ?? []} primaryGenre={album.primaryGenre ?? null} onChanged={reload} /> },
             { key: "streaming", label: "Escuchar en", content: <PlatformLinkEditor kind="album" id={album.id} category="streaming" onChanged={reload} /> },

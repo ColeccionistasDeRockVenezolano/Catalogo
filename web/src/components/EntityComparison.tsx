@@ -1,3 +1,4 @@
+import { sourceDates } from "../lib/sourceDates";
 import { VerificationReportDetails } from "./VerificationReportDetails";
 import { useCallback, useEffect, useId, useState } from "react";
 import { ArrowsLeftRight, CaretDown, CaretUp, MagnifyingGlass } from "@phosphor-icons/react";
@@ -123,7 +124,7 @@ function ComparisonResult({source,target,revision,onSaved}:{source:EntityRef;tar
   </section>;
 }
 function ValueList({values}:{values:string[]}) {return values.length?<ul>{values.map((v,i)=><li key={`${i}:${v}`}>{v}</li>)}</ul>:<p>Sin dato registrado</p>;}
-function EvidenceList({evidence}:{evidence:ComparisonReport["evidence"]}) {return <ul className="entity-comparison__evidence">{evidence.map((e,i)=><li key={`${e.url}:${i}`}><a href={e.url} target="_blank" rel="noreferrer">{e.title}</a><blockquote>{e.quote}</blockquote><small>{e.origin==="page"?"Página leída":"Resumen del buscador"} · {new Date(e.fetchedAt).toLocaleDateString("es-VE")}</small></li>)}</ul>;}
+function EvidenceList({evidence}:{evidence:ComparisonReport["evidence"]}) {return <ul className="entity-comparison__evidence">{evidence.map((e,i)=><li key={`${e.url}:${i}`}><a href={e.url} target="_blank" rel="noreferrer">{e.title}</a><blockquote>{e.quote}</blockquote><small>{e.origin==="page"?"Página leída":"Resumen del buscador"} · {sourceDates(e)}</small></li>)}</ul>;}
 function SideResearch({side}:{side:ComparisonSide}) {
   const report:VerificationReport=side.verification;
   return <details className="entity-comparison__research verification-browser__group" aria-label={`Investigación de ${side.name}`}><summary><strong>Investigación de {side.name}</strong><span>{KIND[side.kind]} · {report.score===null?"sin puntaje":`${number.format(report.score)} % de respaldo`}{report.evaluation?.complete===false||report.inProgress?" · Informe parcial":""}</span></summary><VerificationReportDetails report={report}/></details>;

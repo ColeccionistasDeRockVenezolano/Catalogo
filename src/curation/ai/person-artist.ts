@@ -1,3 +1,5 @@
+import { writeModel } from "../../catalog/model.js";
+import { sourceProvenance } from "../../evidence/provenance.js";
 import { z } from "zod";
 import type { Database } from "./context.js";
 import { createPlanningBroker, entityState, hashValue } from "./context.js";
@@ -276,6 +278,7 @@ export async function resolvePersonArtist(
         label: page.title,
         contentHash: page.contentHash,
         fetchedAt: page.fetchedAt,
+      ...sourceProvenance(page),
       },
     ];
   });
@@ -454,8 +457,12 @@ export async function resolvePersonArtist(
           [],
           { preview: false },
         );
+        const resolvedArtistId=artist?.id ?? executed.created["solo"]!.id;
+        if(!(await ctx.client.query("SELECT 1 FROM ingest.musical_identities WHERE person_id=$1 AND artist_id=$2 AND relationship='solo_identity' AND period IS NULL",[personId,resolvedArtistId])).rowCount) {
+          await writeModel(ctx,"identity",{personId,artistId:resolvedArtistId,relationship:"solo_identity",notes:identity.explanation});
+        }
         return {
-          artistId: artist?.id ?? executed.created["solo"]!.id,
+          artistId: resolvedArtistId,
           action: artist ? ("linked" as const) : ("created" as const),
           runId: ctx.runId,
         };

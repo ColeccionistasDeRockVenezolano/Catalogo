@@ -600,3 +600,13 @@ export const catalogLinksApi = {
   remove: (kind: "artist" | "album", id: number, category: "social" | "streaming", platform: string, note: string) =>
     request<{ runId: number }>(`/catalog-links/${kind}/${id}/${category}/${platform}`, { method: "DELETE", authenticated: true, query: { note } }),
 };
+
+export interface CatalogModelData {
+  identities: Record<string, unknown>[]; editions: Record<string, unknown>[];
+  works: Record<string, unknown>[]; supports: Record<string, unknown>[]; genres: Record<string, unknown>[];
+}
+export const catalogModelApi = {
+  get: (kind: "artist" | "person" | "album" | "track", id: number) => request<CatalogModelData>(`/catalog-model/${kind}/${id}`),
+  write: (kind: string, body: object, id?: number) => request<{ id: number; runId: number }>(`/catalog-model/${kind}${id === undefined ? "" : `/${id}`}`, { method: id === undefined ? "POST" : "PATCH", authenticated: true, body }),
+  remove: (kind: string, id: number, note: string) => request<{runId:number}>(`/catalog-model/${kind}/${id}`, { method: "DELETE", authenticated: true, query: { note } }),
+};

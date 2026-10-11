@@ -72,6 +72,7 @@ export const personIsNotAName: Detector = {
     // Rol, tipo de disco o descriptor de género/serie («Rock», «Vol»): ninguno es un nombre.
     const generic = (token: string): boolean => context.lexicon.roleTokens.has(token) || context.lexicon.albumTypeWords.has(token)
       || context.lexicon.descriptorTokens.has(token);
+    const places = [...context.lexicon.places];
     return context.names.filter((name) => name.kind === "person").flatMap((name) => {
       const classification = classifyPersonName(name.value);
       const tokens = keyTokens(name.value);
@@ -89,8 +90,8 @@ export const personIsNotAName: Detector = {
         })];
       }
       const key = ` ${tokens.join(" ")} `;
-      const mentionsPlace = [...context.lexicon.places].some((place) => key.includes(` ${place} `));
-      if ((YEAR.test(name.value) && tokens.length >= 3) || (mentionsPlace && tokens.some((token) => context.lexicon.albumTypeWords.has(token) || context.lexicon.descriptorTokens.has(token)))) {
+      const hasEventWord = tokens.some((token) => context.lexicon.albumTypeWords.has(token) || context.lexicon.descriptorTokens.has(token));
+      if ((YEAR.test(name.value) && tokens.length >= 3) || (hasEventWord && places.some((place) => key.includes(` ${place} `)))) {
         return [nameFinding(this, name, {
           signature: "texto_de_evento", signatureLabel: "Texto de un evento o grabación", severity: "high",
           title: "Parece la descripción de una grabación o un evento, no una persona",

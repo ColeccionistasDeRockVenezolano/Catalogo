@@ -27,12 +27,29 @@ STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 FINAL_OUT="$OUT_ROOT/crv-$STAMP"
 OUT="$OUT_ROOT/.crv-$STAMP.partial"
 complete=no
+CRV_SNAPSHOT_ID=""
+CRV_SNAPSHOT_READER=""
+CRV_SNAPSHOT_WRITER=""
+CRV_SNAPSHOT_PROCESS=""
 
 say() { printf '\n\033[1m== %s\033[0m\n' "$*"; }
 fail() { printf '\033[31mERROR: %s\033[0m\n' "$*" >&2; exit 1; }
-psql_q() { docker exec "$CONTAINER" psql -X -v ON_ERROR_STOP=1 -U "$PGUSER_" -d "$PGDB" -tA "$@"; }
-table_counts() { docker exec -i "$CONTAINER" psql -X -v ON_ERROR_STOP=1 -U "$PGUSER_" -d "$PGDB" -tA -F $'\t' < scripts/sql/table-counts.sql; }
+psql_q() {
+  local snapshot_args=()
+  if [[ -n "$CRV_SNAPSHOT_ID" ]]; then snapshot_args=(-c "BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY; SET TRANSACTION SNAPSHOT '$CRV_SNAPSHOT_ID';"); fi
+  docker exec "$CONTAINER" psql -X -q -v ON_ERROR_STOP=1 -U "$PGUSER_" -d "$PGDB" -tA "${snapshot_args[@]}" "$@"
+}
+table_counts() {
+  docker exec -i "$CONTAINER" psql -X -q -v ON_ERROR_STOP=1 -U "$PGUSER_" -d "$PGDB" -tA -F $'\t' \
+    -c "BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY; SET TRANSACTION SNAPSHOT '$CRV_SNAPSHOT_ID';" -f - < scripts/sql/table-counts.sql
+}
 cleanup() {
+  if [[ -n "$CRV_SNAPSHOT_WRITER" ]]; then
+    printf 'ROLLBACK;\n\\q\n' >&"$CRV_SNAPSHOT_WRITER" 2>/dev/null || true
+    eval "exec $CRV_SNAPSHOT_WRITER>&-" || true
+    eval "exec $CRV_SNAPSHOT_READER<&-" || true
+    wait "$CRV_SNAPSHOT_PROCESS" 2>/dev/null || true
+  fi
   # Un directorio sin manifest/sumas no debe parecer un backup recuperable.
   # OUT siempre es el hijo timestampado `.crv-*.partial`, nunca OUT_ROOT.
   if [[ "$complete" != yes && -d "$OUT" ]]; then rm -rf -- "$OUT"; fi
@@ -54,19 +71,18 @@ echo "   destino final: $FINAL_OUT"
 echo "   sistema de archivos: $(df --output=target "$OUT_ROOT" | tail -1)"
 
 say "2/5 pg_dump (formato custom)"
-table_counts > "$OUT/counts.before.tsv"
-# El formato custom se transmite directamente al host. Sigue siendo un archivo
-# buscable para pg_restore, pero evita mantener una segunda copia de varios GB
-# dentro del volumen de Docker mientras se hace el respaldo.
-docker exec "$CONTAINER" pg_dump -U "$PGUSER_" -d "$PGDB" --format=custom --compress=zstd:3 > "$OUT/crv.dump"
-docker exec -i "$CONTAINER" pg_restore --list < "$OUT/crv.dump" > "$OUT/crv.dump.toc" || fail "pg_restore no puede leer el dump recién creado"
+# Export a consistent MVCC snapshot. Cache/ingestion writes may continue;
+# both the counts and pg_dump see precisely the same committed rows.
+coproc CRV_BACKUP_SNAPSHOT { docker exec -i "$CONTAINER" psql -X -qAt -v ON_ERROR_STOP=1 -U "$PGUSER_" -d "$PGDB"; }
+CRV_SNAPSHOT_PROCESS="$CRV_BACKUP_SNAPSHOT_PID"
+CRV_SNAPSHOT_READER="${CRV_BACKUP_SNAPSHOT[0]}"
+CRV_SNAPSHOT_WRITER="${CRV_BACKUP_SNAPSHOT[1]}"
+printf 'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY;\nSELECT pg_export_snapshot();\n' >&"$CRV_SNAPSHOT_WRITER"
+IFS= read -r CRV_SNAPSHOT_ID <&"$CRV_SNAPSHOT_READER" || fail "no se pudo exportar la instantánea"
+[[ "$CRV_SNAPSHOT_ID" =~ ^[0-9A-Fa-f]+-[0-9A-Fa-f]+-[0-9]+$ ]] || fail "identificador de instantánea inválido"
 table_counts > "$OUT/counts.tsv"
-if ! cmp -s "$OUT/counts.before.tsv" "$OUT/counts.tsv"; then
-  diff -u "$OUT/counts.before.tsv" "$OUT/counts.tsv" | head -20 >&2 || true
-  rm -rf "$OUT"
-  fail "la base cambió mientras se respaldaba (hay una ingestión o una edición en curso). Repite el backup con el catálogo quieto: sin conteos estables el restore no se puede verificar."
-fi
-rm -f "$OUT/counts.before.tsv"
+docker exec "$CONTAINER" pg_dump -U "$PGUSER_" -d "$PGDB" --format=custom --compress=zstd:3 --snapshot="$CRV_SNAPSHOT_ID" > "$OUT/crv.dump"
+docker exec -i "$CONTAINER" pg_restore --list < "$OUT/crv.dump" > "$OUT/crv.dump.toc" || fail "pg_restore no puede leer el dump recién creado"
 
 say "3/5 crudo (data/raw)"
 raw_pages="$(psql_q -c "SELECT count(*) FROM ingest.raw_pages")"
@@ -96,6 +112,8 @@ say "4/5 manifest"
 IFS='|' read -r db_encoding db_collate db_ctype < <(psql_q -c "SELECT pg_encoding_to_char(encoding)||'|'||datcollate||'|'||datctype FROM pg_database WHERE datname=current_database()")
 {
   echo "format=crv-backup-1"
+  echo "consistency=exported-repeatable-read-snapshot"
+  echo "snapshot_id=$CRV_SNAPSHOT_ID"
   echo "created_at=$STAMP"
   echo "git_commit=$(git rev-parse HEAD 2>/dev/null || echo unknown)"
   echo "git_dirty=$([[ -n "$(git status --porcelain 2>/dev/null)" ]] && echo yes || echo no)"

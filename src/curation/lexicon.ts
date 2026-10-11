@@ -37,20 +37,27 @@ import type { CatalogSnapshot, EntityRef, SnapshotAlbum, SnapshotArtist } from "
  * depende de qué haya dentro.
  */
 const KEY_CACHE_MAX = 200_000;
-const keyCache = new Map<string, string>();
+const keyCache = new Map<string, { secondary: string; compact: string }>();
+const textCache = new Map<string, { signs: string[]; length: number; letterRatio: number }>();
 
-export function nameKey(value: string): string {
+function nameKeys(value: string): { secondary: string; compact: string } {
   const cached = keyCache.get(value);
   if (cached !== undefined) return cached;
-  const key = normalizeEntityName(value).secondaryKey;
+  const normalized = normalizeEntityName(value);
+  const key = { secondary: normalized.secondaryKey, compact: normalized.articlelessSecondaryKey.replace(/\s+/gu, "") };
   if (keyCache.size >= KEY_CACHE_MAX) keyCache.clear();
   keyCache.set(value, key);
   return key;
 }
 
+export function nameKey(value: string): string {
+  return nameKeys(value).secondary;
+}
+
 /** Solo para pruebas y medidas: vacía la caché de claves. */
 export function resetNameKeyCache(): void {
   keyCache.clear();
+  textCache.clear();
 }
 
 export function keyTokens(value: string): string[] {
@@ -59,7 +66,7 @@ export function keyTokens(value: string): string[] {
 
 /** Clave sin artículo inicial y sin espacios: «Los Flanders» = «Flanders», «AC/DC» = «AC DC». */
 export function compactKey(value: string): string {
-  return normalizeEntityName(value).articlelessSecondaryKey.replace(/\s+/gu, "");
+  return nameKeys(value).compact;
 }
 
 export type NameKind = "artist" | "person" | "organization" | "album" | "track";
@@ -194,9 +201,7 @@ function robustSpread(values: number[]): { median: number; mad: number } {
 }
 
 export function letterRatio(value: string): number {
-  const visible = value.replace(/\s+/gu, "");
-  if (!visible.length) return 0;
-  return (visible.match(/\p{L}/gu) ?? []).length / visible.length;
+  return textMetrics(value).letterRatio;
 }
 
 /**
@@ -210,7 +215,27 @@ export function withoutEmojiJoiners(value: string): string {
 }
 
 export function signsOf(value: string): Set<string> {
-  return new Set([...withoutEmojiJoiners(value)].filter((char) => !/[\p{L}\p{N}\s]/u.test(char)));
+  // Return a fresh set: callers must not mutate the cached scalar analysis.
+  return new Set(textMetrics(value).signs);
+}
+
+export function textLength(value: string): number {
+  return textMetrics(value).length;
+}
+
+/** Metrics depend only on the exact string, never on catalog statistics. */
+function textMetrics(value: string): { signs: string[]; length: number; letterRatio: number } {
+  const cached = textCache.get(value);
+  if (cached) return cached;
+  const visible = value.replace(/\s+/gu, "");
+  const metrics = {
+    signs: [...new Set(withoutEmojiJoiners(value).match(/[^\p{L}\p{N}\s]/gu) ?? [])],
+    length: [...value].length,
+    letterRatio: visible.length ? (visible.match(/\p{L}/gu) ?? []).length / visible.length : 0,
+  };
+  if (textCache.size >= KEY_CACHE_MAX) textCache.clear();
+  textCache.set(value, metrics);
+  return metrics;
 }
 
 export type SignClass = "puntuacion" | "moneda" | "simbolo" | "invisible_o_marca";
@@ -226,7 +251,7 @@ export function signClass(sign: string): SignClass {
 function profileOf(values: string[]): FieldProfile {
   const signDocs = new Map<string, number>();
   for (const value of values) for (const sign of signsOf(value)) signDocs.set(sign, (signDocs.get(sign) ?? 0) + 1);
-  const lengths = robustSpread(values.map((value) => [...value].length));
+  const lengths = robustSpread(values.map(textLength));
   return {
     values: values.length,
     signDocs,

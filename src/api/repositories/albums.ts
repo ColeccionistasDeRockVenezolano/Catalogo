@@ -1,3 +1,4 @@
+import { dateValueText, type DateValue } from "../../catalog/date-value.js";
 // CRV · Consultas de lectura para discos (PHASES §E7A: "ALBUM DETAIL... una
 // de las páginas más importantes"). La ficha agregada trae tracklist,
 // créditos (planos y agrupados por credit_type), formatos, alias y enlaces
@@ -113,6 +114,7 @@ export interface AlbumTrackRow {
 
 export interface AlbumDetail {
   releaseDateText: string | null;
+  releaseDateValue: string | null;
   catalogId: string | null;
   mediaFormat: string | null;
   id: number;
@@ -201,7 +203,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
              SELECT jsonb_agg(${CREDIT_FIELDS})
              FROM (
                SELECT tc.id, tc.credit_type, tc.role, tc.person_id, tcp.name AS person_name,
-                      COALESCE(tcp.is_deceased, false) OR tcp.death_date IS NOT NULL AS person_is_deceased,
+                      COALESCE(tcp.is_deceased, false) OR tcp.death_date_value IS NOT NULL AS person_is_deceased,
                       tc.artist_id, tca.name AS artist_name, tc.organization_id, tco.name AS organization_name
                  FROM public.track_credits tc
                  LEFT JOIN public.persons tcp ON tcp.id = tc.person_id
@@ -217,7 +219,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
          SELECT jsonb_agg(${CREDIT_FIELDS})
          FROM (
            SELECT ac.id, ac.credit_type, ac.role, ac.person_id, acp.name AS person_name,
-                  COALESCE(acp.is_deceased, false) OR acp.death_date IS NOT NULL AS person_is_deceased,
+                  COALESCE(acp.is_deceased, false) OR acp.death_date_value IS NOT NULL AS person_is_deceased,
                   ac.artist_id, aca.name AS artist_name, ac.organization_id, aco.name AS organization_name
              FROM public.album_credits ac
              LEFT JOIN public.persons acp ON acp.id = ac.person_id
@@ -258,6 +260,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
   for (const credit of credits) {
     (creditsByType[credit.creditType] ??= []).push(credit);
   }
+  const structuredRelease=(await getPool().query<{release_date:DateValue|null}>("SELECT release_date FROM ingest.catalog_edition_details WHERE album_id=$1",[id])).rows[0]?.release_date;
   const tracklist = row["tracklist"] as AlbumTrackRow[];
   const genres = (await publicGenresFor("album", [id], new Map([[id, row["genre"] as string | null]]))).get(id)!;
   return {
@@ -265,6 +268,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
     title: row["title"] as string,
     releaseYear: row["release_year"] as number | null,
     releaseDateText: row["release_date_text"] as string | null,
+    releaseDateValue: structuredRelease?dateValueText(structuredRelease):null,
     catalogId: row["catalog_id"] as string | null,
     mediaFormat: row["media_format"] as string | null,
     albumType: row["album_type"] as string,

@@ -79,7 +79,9 @@ export const persons = pgTable("persons", {
   /** NULL = sin dato; false = extranjero afirmado (migración 0029). */
   isVenezuelan: boolean("is_venezuelan"),
   birthDate: date("birth_date"),
+  birthDateValue: text("birth_date_value"),
   deathDate: date("death_date"),
+  deathDateValue: text("death_date_value"),
   notes: text("notes"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),

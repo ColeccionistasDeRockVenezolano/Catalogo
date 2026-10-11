@@ -27,7 +27,7 @@ describe("huella del core con is_deceased (0032)", () => {
 
 describe("fallecido en la API", () => {
   it("persona: la columna o la fecha", () => {
-    expect(personDeceasedSql("p")).toBe("(COALESCE(p.is_deceased, false) OR p.death_date IS NOT NULL)");
+    expect(personDeceasedSql("p")).toBe("(COALESCE(p.is_deceased, false) OR p.death_date_value IS NOT NULL)");
   });
 
   it("artista: titular fallecido o proyecto de una sola persona fallecida, no una banda con un muerto", () => {

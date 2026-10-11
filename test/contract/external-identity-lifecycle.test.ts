@@ -7,7 +7,7 @@ import { migrateUp } from "../../src/db/migrate.js";
 import { deleteEntity, withOperatorRun } from "../../src/merge/operator.js";
 import { mergeInto } from "../../src/review/duplicates.js";
 import { undoMergeRun } from "../../src/merge/unmerge.js";
-import { undoEntityRemoval } from "../../src/merge/structural-undo.js";
+import { undoRun, previewRunUndo } from "../../src/merge/run-undo.js";
 import { loadSheetsFile } from "../../src/genres/external/sheets.js";
 import { upsertExternalSource } from "../../src/genres/external/store.js";
 import { reconcileIntegrity } from "../../src/doctor/reconcile.js";
@@ -47,8 +47,11 @@ describe("conservación de identidades externas y redirecciones", () => {
     const after = await identities([keep, drop]);
     expect(after).toHaveLength(2);
     expect(after.every(({ row }) => Number((row as Record<string, unknown>)["entity_id"]) === keep)).toBe(true);
-    await operation((ctx) => undoMergeRun(ctx, merged.runId));
+    const undone = await operation((ctx) => undoRun(ctx, merged.runId));
+    expect(undone.result.method).toBe("journal");
     expect(await identities([keep, drop])).toEqual(before);
+    await operation((ctx) => undoRun(ctx, undone.runId));
+    expect(await identities([keep, drop])).toEqual(after);
   });
 
   it("identidades aceptadas incompatibles quedan ambiguas, con las dos decisiones en auditoría", async () => {
@@ -66,7 +69,10 @@ describe("conservación de identidades externas y redirecciones", () => {
     const merged = await merge(keep, drop);
     await getPool().query("UPDATE ingest.genre_external_identities SET reason='revisión posterior' WHERE entity_id=$1", [keep]);
     const before = await identities([keep]);
-    await expect(operation((ctx) => undoMergeRun(ctx, merged.runId))).rejects.toThrow(/cambiaron después/);
+    const client = await getPool().connect();
+    try { expect((await previewRunUndo(client, merged.runId)).undoable).toBe(false); }
+    finally { client.release(); }
+    await expect(operation((ctx) => undoRun(ctx, merged.runId))).rejects.toThrow(/cambió después/);
     expect(await identities([keep])).toEqual(before);
     expect((await getPool().query("SELECT id FROM public.artists WHERE id=$1", [drop])).rows).toHaveLength(0);
   });
@@ -91,10 +97,41 @@ describe("conservación de identidades externas y redirecciones", () => {
     const before = await identities([id]);
     const removed = await operation((ctx) => deleteEntity(ctx,"artist",id));
     expect(await identities([id])).toEqual([]);
-    await operation((ctx) => undoEntityRemoval(ctx,removed.runId));
+    await operation((ctx) => undoRun(ctx,removed.runId));
     expect(await identities([id])).toEqual(before);
     expect((await getPool().query("SELECT status FROM ingest.claims WHERE id=$1", [claim])).rows[0]?.status).toBe("accepted");
     expect((await getPool().query("SELECT * FROM ingest.merge_audit_claims WHERE merge_audit_id=$1 AND claim_id=$2", [audit,claim])).rows).toHaveLength(1);
+  });
+
+  it("deshace una fusión anterior al registro de identidades usando su instantánea real", async () => {
+    const keep = await artist("Histórica A"), drop = await artist("Histórica B");
+    await identity(keep, "historical-same"); await identity(drop, "historical-same");
+    const before = await identities([keep, drop]);
+    let merged: Awaited<ReturnType<typeof merge>>;
+    await getPool().query("ALTER TABLE ingest.genre_external_identities DISABLE TRIGGER crv_journal");
+    try { merged = await merge(keep, drop); }
+    finally { await getPool().query("ALTER TABLE ingest.genre_external_identities ENABLE TRIGGER crv_journal"); }
+    expect((await getPool().query("SELECT id FROM ingest.change_journal WHERE run_id=$1 AND table_name='ingest.genre_external_identities'", [merged.runId])).rows).toEqual([]);
+    const client = await getPool().connect();
+    try { expect((await previewRunUndo(client, merged.runId)).plan?.byTable["ingest.genre_external_identities"]).toBeDefined(); }
+    finally { client.release(); }
+    const after = await identities([keep, drop]);
+    const undone = await operation(ctx => undoRun(ctx, merged.runId));
+    expect(await identities([keep, drop])).toEqual(before);
+    await operation(ctx => undoRun(ctx, undone.runId));
+    expect(await identities([keep, drop])).toEqual(after);
+  });
+
+  it("deshace un retiro anterior al registro y conserva todas las identidades originales", async () => {
+    const id = await artist("Retiro histórico");
+    await identity(id, "historical-retire");
+    const before = await identities([id]);
+    let removed: { runId: number };
+    await getPool().query("ALTER TABLE ingest.genre_external_identities DISABLE TRIGGER crv_journal");
+    try { removed = await operation(ctx => deleteEntity(ctx,"artist",id)); }
+    finally { await getPool().query("ALTER TABLE ingest.genre_external_identities ENABLE TRIGGER crv_journal"); }
+    await operation(ctx => undoRun(ctx, removed.runId));
+    expect(await identities([id])).toEqual(before);
   });
 
   it("reconcilia sin inventar fuentes, conserva el core y detecta nuevas lagunas", async () => {

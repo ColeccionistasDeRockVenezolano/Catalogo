@@ -1,3 +1,5 @@
+import type { SourceProvenance } from "../evidence/provenance.js";
+
 export type VerificationKind = "person" | "artist" | "album";
 export const VERIFICATION_AREAS = {
   identity: { label: "Nombre e identidad", weight: 15 },
@@ -25,7 +27,7 @@ export interface VerificationSnapshot {
   albums: Array<{ id: number; title: string; artist: string; year: number | null }>;
 }
 export type VerificationStatus = "confirmed" | "partial" | "contradicted" | "missing" | "unverified";
-export interface VerificationEvidence {
+export interface VerificationEvidence extends SourceProvenance {
   url: string; title: string; quote: string; origin: "page" | "search_snippet"; fetchedAt: string;
 }
 export interface VerificationFinding extends VerificationUnit {
@@ -42,7 +44,7 @@ export interface VerificationReport {
   createdAt: string; researched: boolean; stale: boolean; score: number | null;
   areas: Array<{ key: VerificationArea; label: string; points: number; maximum: number; confirmed: number; partial: number; missing: number; contradicted: number; unverified: number }>;
   findings: VerificationFinding[]; issues: string[]; limitations: string[];
-  sources: Array<{ url: string; title: string; origin: "page" | "search_snippet"; fetchedAt: string; contentHash: string }>;
+  sources: Array<SourceProvenance & { url: string; title: string; origin: "page" | "search_snippet"; fetchedAt: string; contentHash: string }>;
 }
 export interface VerificationJob {
   id: number; kind: VerificationKind; entityId: number;

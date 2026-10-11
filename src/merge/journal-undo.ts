@@ -235,7 +235,7 @@ async function loadTableInfo(client: PoolClient, tables: string[]): Promise<Map<
 }
 
 /** Filas actuales de las claves pedidas, por clave. */
-async function currentRows(client: PoolClient, table: string, info: TableInfo, pks: Row[]): Promise<Map<string, Row>> {
+async function currentRows(client: PoolClient, table: string, info: TableInfo, pks: Row[], lockRows: boolean): Promise<Map<string, Row>> {
   const found = new Map<string, Row>();
   const columns = info.pkColumns.map(ident).join(", ");
   for (let start = 0; start < pks.length; start += 1000) {
@@ -243,7 +243,9 @@ async function currentRows(client: PoolClient, table: string, info: TableInfo, p
     const { rows } = await client.query<{ row: Row }>(`
       SELECT to_jsonb(t) AS row FROM ${qualified(table)} t
        WHERE (${info.pkColumns.map((column) => `t.${ident(column)}`).join(", ")}) IN (
-         SELECT ${columns} FROM jsonb_populate_recordset(NULL::${qualified(table)}, $1::jsonb))`, [JSON.stringify(chunk)]);
+         SELECT ${columns} FROM jsonb_populate_recordset(NULL::${qualified(table)}, $1::jsonb))
+       ORDER BY ${info.pkColumns.map(column => `t.${ident(column)}`).join(", ")}
+       ${lockRows ? "FOR UPDATE OF t" : ""}`, [JSON.stringify(chunk)]);
     for (const { row } of rows) {
       const pk = Object.fromEntries(info.pkColumns.map((column) => [column, row[column]]));
       found.set(rowKey(table, pk), row);
@@ -296,16 +298,69 @@ interface Prepared {
   plan: JournalUndoPlan;
 }
 
-async function prepare(client: PoolClient, runId: number): Promise<Prepared> {
+/**
+ * Before identity journaling, merges/retirements archived their complete rows.
+ * Use those actual snapshots for missing row changes; do not manufacture a
+ * historical journal entry, transaction id or acquisition date.
+ */
+async function archivedIdentityChanges(client: PoolClient, runId: number, recorded: NetChange[]): Promise<NetChange[]> {
+  const table = "ingest.genre_external_identities";
+  const snapshots = (await client.query<{ snapshot: { before: Row[]; after: Row[] } }>(`
+    SELECT new_value->'externalIdentities' AS snapshot
+      FROM ingest.merge_audit WHERE run_id=$1 AND field='merged_duplicate'
+        AND new_value ? 'externalIdentities' ORDER BY id`, [runId])).rows.map(row => row.snapshot);
+  const removal = (await client.query<{ identities: Row[] | null }>(`
+    SELECT params->'removed'->'externalIdentities' AS identities
+      FROM ingest.scrape_runs WHERE id=$1`, [runId])).rows[0]?.identities;
+  if (Array.isArray(removal) && removal.length) snapshots.push({ before: removal, after: [] });
+  const recordedKeys = new Set(recorded.filter(change => change.table === table).map(change => rowKey(table, change.pk)));
+  const lastId = recorded.reduce((maximum, change) => Math.max(maximum, change.lastId), 0);
+  const derived = new Map<string, NetChange>();
+  for (const snapshot of snapshots) {
+    if (!Array.isArray(snapshot?.before) || !Array.isArray(snapshot?.after)) {
+      throw new OperatorError("invalid", "la instantánea histórica de identidad externa está incompleta", { runId });
+    }
+    const keyOf = (row: Row): string => {
+      if (!row || !/^\d+$/u.test(String(row["id"]))) {
+        throw new OperatorError("invalid", "una identidad histórica no tiene clave válida", { runId });
+      }
+      return rowKey(table, { id: row["id"] });
+    };
+    const before = new Map(snapshot.before.map(row => [keyOf(row), row]));
+    const after = new Map(snapshot.after.map(row => [keyOf(row), row]));
+    for (const key of new Set([...before.keys(), ...after.keys()])) {
+      if (recordedKeys.has(key)) continue;
+      const original = before.get(key) ?? null;
+      const final = after.get(key) ?? null;
+      const previous = derived.get(key);
+      derived.set(key, {
+        table, pk: { id: (original ?? final)!["id"] },
+        existedBefore: previous?.existedBefore ?? original !== null,
+        before: previous ? previous.before : original, after: final,
+        afterFull: final !== null, firstId: lastId, lastId,
+      });
+    }
+  }
+  return [...derived.values()].filter(change => !sameValue(change.before, change.after));
+}
+
+async function prepare(client: PoolClient, runId: number, lockRows = false): Promise<Prepared> {
   const journal = await client.query<JournalRow>(`
     SELECT id::text, table_name, op, row_pk, old_data, new_data
       FROM ingest.change_journal WHERE run_id=$1 ORDER BY id`, [runId]);
   const changes = netChanges(journal.rows);
+  changes.push(...await archivedIdentityChanges(client, runId, changes));
   const info = await loadTableInfo(client, [...new Set(changes.map((change) => change.table))]);
   const evaluated: Evaluated[] = [];
-  for (const [table, tableInfo] of info) {
+  // Apply holds the checked rows until its transaction commits. If another
+  // writer holds one first, READ COMMITTED returns its newly committed row
+  // after waiting, so the normal conflict check rejects the stale inverse.
+  // Parents first also prevents a new dependent from appearing while undo
+  // prepares to remove its parent. Read-only previews do not take row locks.
+  const tables = lockRows ? [...info].sort(([left, a], [right, b]) => a.depth - b.depth || left.localeCompare(right)) : info;
+  for (const [table, tableInfo] of tables) {
     const ofTable = changes.filter((change) => change.table === table);
-    const current = await currentRows(client, table, tableInfo, ofTable.map((change) => change.pk));
+    const current = await currentRows(client, table, tableInfo, ofTable.map((change) => change.pk), lockRows);
     for (const change of ofTable) evaluated.push(evaluate(change, current.get(rowKey(table, change.pk))));
   }
   const missingTables = changes.filter((change) => !info.has(change.table)).map((change) => change.table);
@@ -420,7 +475,7 @@ async function stageTrackPositions(client:PoolClient,pending:Evaluated[]):Promis
  */
 export async function undoRunWithJournal(context: OperatorContext, runId: number): Promise<JournalUndoResult> {
   const client = context.client;
-  const prepared = await prepare(client, runId);
+  const prepared = await prepare(client, runId, true);
   const { plan, info } = prepared;
   if (plan.conflicts.length) {
     const first = plan.conflicts[0]!;

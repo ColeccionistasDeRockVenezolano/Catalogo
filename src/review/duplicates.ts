@@ -186,8 +186,8 @@ export async function findDuplicateGroups(queryable: Pick<PoolClient, "query"> =
     groups.push({ kind: "artist", keepId: Number(keep.id), dropIds: list.filter((row) => row.id !== keep.id).map((row) => Number(row.id)), names: list.map((row) => row.name) });
   }
 
-  const albums = (await queryable.query<{ id: string; artist_id: string; title: string; release_year: number | null; artist: string }>(`
-    SELECT a.id::text,a.artist_id::text,a.title,a.release_year,ar.name AS artist
+  const albums = (await queryable.query<{ id: string; artist_id: string; title: string; release_year: number | null; media_format: string | null; catalog_id: string | null; artist: string }>(`
+    SELECT a.id::text,a.artist_id::text,a.title,a.release_year,a.media_format,a.catalog_id,ar.name AS artist
       FROM public.albums a JOIN public.artists ar ON ar.id=a.artist_id ORDER BY a.id`)).rows;
   const byAlbum = new Map<string, typeof albums>();
   for (const album of albums) {
@@ -198,6 +198,12 @@ export async function findDuplicateGroups(queryable: Pick<PoolClient, "query"> =
     if (list.length < 2) continue;
     const years = new Set(list.map((row) => row.release_year).filter((year): year is number => year !== null));
     const names = list.map((row) => `${row.title}${row.release_year ? ` (${row.release_year})` : ""}`);
+    const formats = new Set(list.map(row => row.media_format?.trim().toLowerCase()).filter(Boolean));
+    const catalogs = new Set(list.map(row => row.catalog_id?.trim().toLowerCase()).filter(Boolean));
+    if (formats.size > 1 || catalogs.size > 1) {
+      skipped.push({ kind: "album", ids: list.map(row => Number(row.id)), names, reason: "ediciones con formato o número de catálogo distintos" });
+      continue;
+    }
     if (years.size > 1) {
       skipped.push({ kind: "album", ids: list.map((row) => Number(row.id)), names, reason: `mismo título con años distintos: ${[...years].join(", ")}` });
       continue;
@@ -376,7 +382,7 @@ async function fillEmptyColumns(client: PoolClient, kind: MergeKind, keepId: num
   const table = TABLE[kind];
   const { rows: columns } = await client.query<{ column_name: string }>(`
     SELECT column_name FROM information_schema.columns WHERE table_schema='public' AND table_name=$1 ORDER BY ordinal_position`, [table]);
-  const fillable = columns.map((row) => row.column_name).filter((column) => !NOT_FILLED.has(column));
+  const fillable = columns.map((row) => row.column_name).filter((column) => !NOT_FILLED.has(column) && !(kind === "person" && ["birth_date", "death_date"].includes(column)));
   if (fillable.length === 0) return [];
   const assignments = fillable.map((column) => {
     const rule = EMPTY_RULES[`${table}.${column}`] ?? { empty: `k.${column} IS NULL`, present: `d.${column} IS NOT NULL` };
@@ -431,6 +437,15 @@ export async function mergeInto(
 
   let tracksMerged = 0;
   if (kind === "album") {
+    for (const field of ["media_format", "catalog_id"]) {
+      if (keep[field] && drop[field] && String(keep[field]).trim().toLowerCase() !== String(drop[field]).trim().toLowerCase()) {
+        throw new Error("ediciones distintas: conserva sus fichas y vincúlalas a una obra");
+      }
+    }
+    const editions = (await client.query<{ work_id: string | null; edition_name: string | null; release_date: unknown }>("SELECT work_id::text,edition_name,release_date FROM ingest.catalog_edition_details WHERE album_id=ANY($1::bigint[]) ORDER BY album_id", [[keepId,dropId]])).rows;
+    if (editions.length === 2 && ["work_id","edition_name","release_date"].some(field => editions[0]![field as keyof typeof editions[0]] !== null && editions[1]![field as keyof typeof editions[0]] !== null && JSON.stringify(editions[0]![field as keyof typeof editions[0]]) !== JSON.stringify(editions[1]![field as keyof typeof editions[0]]))) {
+      throw new Error("ediciones documentadas distintas: no se fusionan");
+    }
     const collisions = await trackCollisions(client, keepId, dropId);
     const different = collisions.filter((item) => duplicateKey(item.keepTitle) !== duplicateKey(item.dropTitle));
     if (different.length) {

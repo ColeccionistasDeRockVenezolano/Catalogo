@@ -8,7 +8,7 @@ import { evaluateVerification, fold, verificationProposalSchema, type Verificati
 import { RULES_VERSION, usablePage, words } from "./proof.js";
 import type { VerificationSnapshot, VerificationReport, VerificationProgress } from "./types.js";
 
-export interface VerificationBroker { search(query:string):Promise<Array<{url:string;title:string;snippet:string}>>; page(url:string):Promise<WebPage|null>; }
+export interface VerificationBroker { search(query:string):Promise<Array<{url:string;title:string;snippet:string;capturedAt?:string|null}>>; page(url:string):Promise<WebPage|null>; }
 const BATCH_SIZE=8;
 export interface ResearchState { rulesVersion:number; pages:WebPage[]; proposal:VerificationProposal; pendingKeys:string[]; limitations:string[]; attempts:number; inspectedChunks?:string[]; }
 export interface ResearchOptions { resume?:ResearchState; onState?:(state:ResearchState)=>Promise<void>; }
@@ -59,7 +59,7 @@ export async function researchVerification(snapshot:VerificationSnapshot,broker:
         await fetchPage(hit.url);
         if(!pages.some(page=>page.url===hit.url)&&hit.snippet) {
           const content=`${hit.title}. ${hit.snippet}`;
-          pages.push({url:hit.url,title:hit.title,content,origin:"search_snippet",contentHash:createHash("sha256").update(content).digest("hex"),fetchedAt:new Date().toISOString()});
+          pages.push({url:hit.url,title:hit.title,content,origin:"search_snippet",contentHash:createHash("sha256").update(content).digest("hex"),fetchedAt:hit.capturedAt??"",capturedAt:hit.capturedAt??null,readAt:new Date().toISOString(),acquisitionMethod:"search_snippet"});
         }
       }
     } catch {limitations.push(`No se pudo completar la búsqueda: ${query}`);}

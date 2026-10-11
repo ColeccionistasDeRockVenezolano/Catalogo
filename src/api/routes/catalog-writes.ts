@@ -1,3 +1,4 @@
+import { dateValueText, parseDateValue } from "../../catalog/date-value.js";
 // CRV · Escritura de entidades del core (PHASES §E7B): artistas, personas,
 // organizaciones, álbumes y pistas. Los controllers solo validan y traducen;
 // cada petición es una transacción de `merge/operator.ts` sobre el motor.
@@ -21,7 +22,10 @@ const url = z.string().trim().max(2000).refine(
   (value) => z.string().url().safeParse(value).success || /^\/crv\/media\/[A-Za-z0-9_./-]+$/u.test(value),
   "debe ser una URL válida o una ruta local /crv/media/...",
 );
-const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/u, "fecha AAAA-MM-DD");
+const isoDate = z.string().max(40).transform((value, context) => {
+  try { return dateValueText(parseDateValue(value)); }
+  catch (error) { context.addIssue({ code: z.ZodIssueCode.custom, message: (error as Error).message }); return z.NEVER; }
+});
 const publication = z.enum(["published", "unlisted", "unpublished", "copyright_blocked", "unknown"]);
 
 // Tipos de organización y artista: viven aquí para que la creación (esta ruta)

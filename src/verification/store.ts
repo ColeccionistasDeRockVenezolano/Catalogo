@@ -1,3 +1,5 @@
+import { inventoryVerification } from "../evidence/verification-inventory.js";
+import { withOperatorRun } from "../merge/operator.js";
 import {queueVerificationImages} from "./image-curation.js";
 import { notFound } from "../api/http-errors.js";
 import { getPool } from "../db/client.js";
@@ -19,8 +21,12 @@ export async function getIndividualVerification(kind:VerificationKind,id:number)
 }
 export async function saveIndividualVerification(report:VerificationReport,operator:string):Promise<number> {
   await queueVerificationImages(report,operator);
-  const {rows}=await getPool().query<{id:string}>("INSERT INTO ingest.entity_verification_reports(entity_kind,entity_id,snapshot_hash,report,requested_by) VALUES($1,$2,$3,$4::jsonb,$5) RETURNING id::text",[report.kind,report.entityId,report.snapshotHash,JSON.stringify(report),operator]);
-  return Number(rows[0]!.id);
+  const saved=await withOperatorRun({name:"verification:inventory",operator,note:"Conservar hallazgos de investigación automática sin declarar revisión editorial"},async context=>{
+    const {rows}=await context.client.query<{id:string}>("INSERT INTO ingest.entity_verification_reports(entity_kind,entity_id,snapshot_hash,report,requested_by) VALUES($1,$2,$3,$4::jsonb,$5) RETURNING id::text",[report.kind,report.entityId,report.snapshotHash,JSON.stringify(report),operator]);
+    await inventoryVerification(context,report);
+    return Number(rows[0]!.id);
+  });
+  return saved.result;
 }
 interface JobRow {id:string;entity_kind:VerificationKind;entity_id:string;status:VerificationJob["status"];error:string|null;requested_at:string;finished_at:string|null;progress:VerificationProgress|null;}
 const JOB_COLUMNS="id::text,entity_kind,entity_id::text,status,error,requested_at::text,finished_at::text,progress";

@@ -1,12 +1,14 @@
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
+import { ACQUISITION_METHODS } from "../../evidence/provenance.js";
 import { OPERATOR_SECURITY } from "../auth.js";
 import { notFound } from "../http-errors.js";
 import { activeIndividualJob, latestIndividualJob, getIndividualJob, getIndividualVerification, recoverIndividualJobs, startIndividualVerification } from "../../verification/store.js";
 const area=z.enum(["identity","members","discography","missingAlbums","tracks","socials","genres","status","biography","images","labels"]);
 const kind=z.enum(["person","artist","album"]);
-const evidence=z.object({url:z.string(),title:z.string(),quote:z.string(),origin:z.enum(["page","search_snippet"]),fetchedAt:z.string()});
+const evidence=z.object({url:z.string(),title:z.string(),quote:z.string(),origin:z.enum(["page","search_snippet"]),fetchedAt:z.string(),
+  capturedAt:z.string().nullable().optional(),readAt:z.string().nullable().optional(),acquisitionMethod:z.enum(ACQUISITION_METHODS).optional()});
 const findingSchema=z.object({key:z.string(),area,label:z.string(),value:z.string().nullable(),expected:z.array(z.string()),context:z.array(z.string()),issue:z.string().nullable(),status:z.enum(["confirmed","partial","contradicted","missing","unverified"]),observed:z.string().nullable(),explanation:z.string(),coverage:z.number().min(0).max(1),evidence:z.array(evidence)});
 export const verificationReportSchema=z.object({version:z.literal(1),inProgress:z.boolean().optional(),snapshotHash:z.string(),kind,entityId:z.number().int(),name:z.string(),createdAt:z.string(),researched:z.boolean(),stale:z.boolean(),score:z.number().min(0).max(100).nullable(),
   areas:z.array(z.object({key:area,label:z.string(),points:z.number(),maximum:z.number(),confirmed:z.number().int(),partial:z.number().int(),missing:z.number().int(),contradicted:z.number().int(),unverified:z.number().int()})),

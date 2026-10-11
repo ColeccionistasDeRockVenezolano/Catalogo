@@ -7,3 +7,5 @@ export * from "./discovery.js";
 export * from "./discovery-metrics.js";
 export * from "./track-contexts.js";
 export * from "./recommendations.js";
+export * from "./evidence-inventory.js";
+export * from "./catalog-model.js";

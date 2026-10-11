@@ -1,3 +1,4 @@
+import { sourceProvenance } from "../../evidence/provenance.js";
 import { createHash } from "node:crypto";
 import type { Pool, PoolClient } from "pg";
 import { ENTITY_SPECS } from "../../merge/specs.js";
@@ -252,6 +253,7 @@ export function evidenceFromPage(
       url: page.url,
       quote,
       fetchedAt: page.fetchedAt,
+      ...sourceProvenance(page),
       origin: page.origin ?? "page",
       contentHash: page.contentHash,
       label: page.title,
@@ -326,7 +328,7 @@ export async function planningContext(
       const linkedUnits = units.map((f) => {
         const evidenceIds = ((f["evidence"] as Array<Record<string, unknown>>) ?? []).map((e) => add({
           url: String(e["url"]), quote: String(e["quote"]).slice(0, 1800),
-          fetchedAt: String(e["fetchedAt"] ?? ""), origin: String(e["origin"] ?? "page"),
+          fetchedAt: String(e["fetchedAt"] ?? ""), ...sourceProvenance({ capturedAt:e["capturedAt"],readAt:e["readAt"],acquisitionMethod:e["acquisitionMethod"] }), origin: String(e["origin"] ?? "page"),
           contentHash: "", label: String(f["label"] ?? f["key"]),
         })).filter((id): id is string => !!id);
         return { key: f["key"], area: f["area"], label: f["label"], value: f["value"], observed: f["observed"], status: f["status"], context: f["context"], explanation: f["explanation"], evidenceIds };

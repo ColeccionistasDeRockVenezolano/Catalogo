@@ -29,7 +29,7 @@ export const PRESERVE_SPECS: Readonly<Record<PreserveKind, PreserveSpec>> = {
     rewrite: ["biography"],
     join: ["trivia"],
     note: {
-      nationality: "Nacionalidad", birth_date: "Nacimiento", death_date: "Fallecimiento", real_name: "Nombre real",
+      nationality: "Nacionalidad", birth_date_value: "Nacimiento", death_date_value: "Fallecimiento", real_name: "Nombre real",
       birth_city: "Ciudad natal", death_cause: "Causa de muerte", gender: "Género", picture_url: "Foto", is_deceased: "Fallecido/a",
     },
   },

@@ -1,3 +1,5 @@
+import type { SourceProvenance } from "../../evidence/provenance.js";
+
 /** Shared type-only contract. The model proposes; an admin approves the exact preview. */
 export type CatalogKind =
   | "artist"
@@ -132,7 +134,7 @@ export interface CatalogVocabulary {
     parentGenreId: number | null;
   }>;
 }
-export interface CatalogEvidence {
+export interface CatalogEvidence extends SourceProvenance {
   id: string;
   url: string;
   quote: string;

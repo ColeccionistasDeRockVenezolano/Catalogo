@@ -7,7 +7,7 @@
 
 /** Condición SQL sobre la fila de persona con alias `alias`. */
 export const personDeceasedSql = (alias: string): string =>
-  `(COALESCE(${alias}.is_deceased, false) OR ${alias}.death_date IS NOT NULL)`;
+  `(COALESCE(${alias}.is_deceased, false) OR ${alias}.death_date_value IS NOT NULL)`;
 
 /** Condición SQL sobre un artista, dada la expresión SQL de su id. */
 export const artistDeceasedSql = (artistId: string): string => `(

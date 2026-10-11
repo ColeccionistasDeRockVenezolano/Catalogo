@@ -1,3 +1,4 @@
+import { definitelyBefore, parseDateValue } from "../catalog/date-value.js";
 // Correcciones de identidad de personas decididas por el propietario.
 //
 // La detección de duplicados compara nombres exactos, así que no ve que «Luis
@@ -243,7 +244,7 @@ async function applyOne(client: PoolClient, correction: PersonCorrection, note: 
 /** ¿Falta escribir alguna de las fechas pedidas? */
 async function datesPending(client: PoolClient, id: number, birth?: string, death?: string): Promise<boolean> {
   const row = (await client.query<{ birth_date: string | null; death_date: string | null }>(
-    "SELECT birth_date::text, death_date::text FROM public.persons WHERE id=$1", [id])).rows[0];
+    "SELECT birth_date_value AS birth_date, death_date_value AS death_date FROM public.persons WHERE id=$1", [id])).rows[0];
   return Boolean(row && ((birth && row.birth_date === null) || (death && row.death_date === null)));
 }
 
@@ -255,21 +256,21 @@ async function writeDates(
   client: PoolClient, runId: number, id: number, birth: string | undefined, death: string | undefined, reason: string, claims: number[],
 ): Promise<string[]> {
   const row = (await client.query<{ birth_date: string | null; death_date: string | null }>(
-    "SELECT birth_date::text, death_date::text FROM public.persons WHERE id=$1 FOR UPDATE", [id])).rows[0];
+    "SELECT birth_date_value AS birth_date, death_date_value AS death_date FROM public.persons WHERE id=$1 FOR UPDATE", [id])).rows[0];
   if (!row) return [];
   const newBirth = birth && row.birth_date === null ? birth : null;
   const newDeath = death && row.death_date === null ? death : null;
   const finalBirth = newBirth ?? row.birth_date;
   const finalDeath = newDeath ?? row.death_date;
-  if (finalBirth && finalDeath && finalDeath < finalBirth) throw new Error(`persona ${id}: el fallecimiento (${finalDeath}) no puede ser anterior al nacimiento (${finalBirth})`);
+  if (finalBirth && finalDeath && definitelyBefore(parseDateValue(finalDeath), parseDateValue(finalBirth))) throw new Error(`persona ${id}: el fallecimiento (${finalDeath}) no puede ser anterior al nacimiento (${finalBirth})`);
   const written: string[] = [];
   if (newBirth) {
-    await client.query("UPDATE public.persons SET birth_date=$2, updated_at=now() WHERE id=$1", [id, newBirth]);
+    await client.query("UPDATE public.persons SET birth_date_value=$2, updated_at=now() WHERE id=$1", [id, newBirth]);
     await audit(client, runId, "person", "person_id", id, "birth_date", null, newBirth, reason, claims);
     written.push(`nacimiento ${newBirth}`);
   }
   if (newDeath) {
-    await client.query("UPDATE public.persons SET death_date=$2, updated_at=now() WHERE id=$1", [id, newDeath]);
+    await client.query("UPDATE public.persons SET death_date_value=$2, updated_at=now() WHERE id=$1", [id, newDeath]);
     await audit(client, runId, "person", "person_id", id, "death_date", null, newDeath, reason, claims);
     written.push(`fallecimiento ${newDeath}`);
   }

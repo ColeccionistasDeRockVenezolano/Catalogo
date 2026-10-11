@@ -177,7 +177,7 @@ async function loadSide(queryable: Pick<PoolClient, "query">, kind: MergeableKin
     `SELECT to_jsonb(t) AS row FROM ${spec.table} t WHERE t.id=$1${lock ? " FOR UPDATE" : ""}`, [id]);
   const row = rows[0]?.row;
   if (!row) return null;
-  const fields = Object.fromEntries(MERGE_FIELDS[kind].map((field) => [field, row[field] ?? null]));
+  const fields = Object.fromEntries(MERGE_FIELDS[kind].map((field) => [field, row[spec.fields[field]!] ?? null]));
   const aliases = (await queryable.query<{ alias: string }>(
     `SELECT alias FROM ${spec.aliasTable} WHERE ${spec.aliasTargetColumn}=$1 ORDER BY alias`, [id])).rows.map((item) => item.alias);
   return {
@@ -392,9 +392,10 @@ export async function mergeEntities(context: OperatorContext, request: EntityMer
     // y cierre de conflictos, exactamente como si se hubiera tecleado.
     await updateEntity(context, kind, keepId, { [conflict.field]: conflict.dropValue });
     fieldsCorrected.push(conflict.field);
-    if (conflict.field in preserveSpec.note) {
-      replaced.push({ field: conflict.field, value: conflict.keepValue });
-      resolved.push(conflict.field);
+    const column = ENTITY_SPECS[kind].fields[conflict.field] ?? conflict.field;
+    if (column in preserveSpec.note) {
+      replaced.push({ field: column, value: conflict.keepValue });
+      resolved.push(column);
     }
   }
   const merged = await mergeEntityRows(context.client, kind, keepId, dropId, context.note, context.runId, request.keepDropNameAsAlias,

@@ -1,3 +1,4 @@
+import { CatalogModelPanel } from "../components/CatalogModelPanel";
 import { EntityVerification } from "../components/EntityVerification";
 import { useId, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -378,6 +379,7 @@ export function ArtistDetailPage() {
           fields={ARTIST_FIELDS}
           wide
           panels={[
+            { key: "model", label: "Identidad y períodos", content: <CatalogModelPanel kind="artist" id={artist.id} onChanged={reload} /> },
             { key: "genres", label: "Géneros", content: <GenreEditor kind="artist" id={artist.id} genres={artist.genres ?? []} primaryGenre={artist.primaryGenre ?? null} onChanged={reload} /> },
             { key: "members", label: "Identidad e integrantes", content: <MembershipEditor fixedKind="artist" fixedId={artist.id} rows={artist.members.map((member) => ({ ...member, otherId: member.personId, otherName: member.personName }))} onChanged={reload} /> },
             { key: "socials", label: "Redes sociales", content: <PlatformLinkEditor kind="artist" id={artist.id} category="social" onChanged={reload} /> },

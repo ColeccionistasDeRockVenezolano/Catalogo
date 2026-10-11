@@ -278,7 +278,7 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
   const { rows } = await getPool().query<Record<string, unknown>>(
     `SELECT p.id, p.name, p.biography, p.picture_url, p.nationality, p.is_venezuelan,
             ${personDeceasedSql("p")} AS is_deceased, p.is_deceased AS is_deceased_flag,
-            p.birth_date::text AS birth_date, p.death_date::text AS death_date, p.notes,
+            p.birth_date_value AS birth_date, p.death_date_value AS death_date, p.notes,
             p.real_name, p.birth_city, p.death_cause, p.trivia, p.gender,
             ((SELECT count(*) FROM public.album_credits WHERE person_id=p.id)
              + (SELECT count(*) FROM public.track_credits WHERE person_id=p.id))::int AS credit_count,

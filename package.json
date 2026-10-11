@@ -67,6 +67,7 @@
     "test:web": "./scripts/with-node22.sh vitest run web/tests/unit",
     "test:browser": "./scripts/with-node22.sh tsx web/tests/visual/ci-smoke.mjs",
     "quality:evidence": "./scripts/with-node22.sh node scripts/quality-evidence.mjs",
+    "stage1:reconcile-facts": "./scripts/with-node22.sh tsx scripts/stage1-reconcile-facts.ts",
     "stage1:baseline": "./scripts/with-node22.sh tsx scripts/stage1-baseline.ts"
   },
   "dependencies": {

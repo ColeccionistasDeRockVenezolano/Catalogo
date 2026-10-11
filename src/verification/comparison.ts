@@ -1,3 +1,4 @@
+import { sourceProvenance } from "../evidence/provenance.js";
 import { pageExcerpt as comparisonPageExcerpt } from "./excerpt.js";
 export { pageExcerpt as comparisonPageExcerpt } from "./excerpt.js";
 import { researchStored } from "./research-state.js";
@@ -103,7 +104,7 @@ export function evaluateJoint(left:ComparisonSide,right:ComparisonSide,pages:Web
     const anchors=[...left.snapshot.units,...right.snapshot.units].flatMap(u=>u.expected).filter(v=>v.length>=3&&!left.snapshot.identity.includes(v)&&!right.snapshot.identity.includes(v));
     if(!anchors.some(v=>text.includes(fold(v)))&&!/integrante|miembro|member|real name|nombre real|alias|reedici[oó]n|reissue|same|misma|distint|different/iu.test(citation.quote))continue;
     if(evidence.some(e=>e.url===page.url&&fold(e.quote)===fold(citation.quote)))continue;
-    evidence.push({url:page.url,title:page.title,quote:citation.quote,origin:page.origin??"page",fetchedAt:page.fetchedAt});
+    evidence.push({url:page.url,title:page.title,quote:citation.quote,origin:page.origin??"page",fetchedAt:page.fetchedAt,...sourceProvenance(page)});
   }
   if(proposal?.evidence.length&&!evidence.length) limitations=[...limitations,"Las citas propuestas no demostraban conjuntamente el contexto de ambas fichas. Las evidencias válidas de cada investigación se conservan en sus informes."];
   const readable=evidence.filter(e=>e.origin==="page");
@@ -144,7 +145,7 @@ export async function researchComparison(left:ComparisonSide,right:ComparisonSid
     const source=[...left.verification.sources,...right.verification.sources].find(s=>s.url===url);
     const excerpts=[...left.verification.findings,...right.verification.findings].flatMap(f=>f.evidence).filter(e=>e.url===url).map(e=>e.quote);
     const hit=hits.find(h=>h.url===url);
-    if(excerpts.length||hit?.snippet) pages.push({url,title:source?.title??hit?.title??url,content:excerpts.join(" ")||hit!.snippet,contentHash:source?.contentHash??"",fetchedAt:source?.fetchedAt??new Date().toISOString(),origin:"search_snippet"});
+    if(excerpts.length||hit?.snippet) pages.push({url,title:source?.title??hit?.title??url,content:excerpts.join(" ")||hit!.snippet,contentHash:source?.contentHash??"",fetchedAt:source?.fetchedAt??hit?.capturedAt??"",...sourceProvenance(source??{capturedAt:hit?.capturedAt,readAt:new Date().toISOString(),acquisitionMethod:"search_snippet"}),origin:"search_snippet"});
   }
   const relevant=pages.map((page,index)=>({page,index,rank:[...left.snapshot.identity,...right.snapshot.identity].filter(n=>fold(page.content).includes(fold(n))).length})).sort((a,b)=>b.rank-a.rank).slice(0,16);
   let proposal:JointProposal|undefined;

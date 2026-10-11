@@ -355,6 +355,8 @@ function unbalancedRepair(value: string, mark: string): { kind: "quitar_signo" |
 }
 
 function unbalancedMark(value: string): string | undefined {
+  // Five full character walks are unnecessary when no paired mark occurs.
+  if (!/[()[\]{}«»“”"]/u.test(value)) return undefined;
   for (const [open, close] of PAIRS) {
     let depth = 0;
     for (const char of value) {

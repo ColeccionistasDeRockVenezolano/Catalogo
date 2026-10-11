@@ -1,3 +1,4 @@
+import { CatalogModelPanel } from "../components/CatalogModelPanel";
 import { EntityVerification } from "../components/EntityVerification";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -274,6 +275,7 @@ export function PersonDetailPage() {
           fields={PERSON_FIELDS}
           wide
           panels={[
+            { key: "model", label: "Identidad y períodos", content: <CatalogModelPanel kind="person" id={person.id} onChanged={reload} /> },
             { key: "bands", label: "Bandas y proyectos", content: <MembershipEditor fixedKind="person" fixedId={person.id} rows={person.bands.map((band) => ({ ...band, otherId: band.artistId, otherName: band.artistName }))} onChanged={reload} /> },
           ]}
           initialValues={{ ...entityFormValues(PERSON_FIELDS, person), isDeceased: person.isDeceasedFlag }}

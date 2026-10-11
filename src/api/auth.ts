@@ -45,6 +45,8 @@ const READ_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
  * rastro del operador (merge_audit y sus runs), que solo ve la administración.
  */
 const ADMIN_READS = [
+  /^\/catalog-model(\/|$)/u,
+  /^\/evidence-inventory(\/|$)/u,
   /^\/catalog-links(\/|$)/u,
   /^\/discovery\/metrics(\/|$)/u,
   /^\/discovery\/contexts(\/|$)/u,

@@ -64,7 +64,7 @@ async function waitForPg(name: string): Promise<void> {
 
 let counter = 0;
 
-async function runContainer(name: string, port: number): Promise<void> {
+async function runContainer(name: string, port: number, encoding?: "UTF8" | "SQL_ASCII"): Promise<void> {
   await sh("docker", [
     "run", "-d", "--name", name,
     "-e", "POSTGRES_HOST_AUTH_METHOD=trust",
@@ -73,12 +73,13 @@ async function runContainer(name: string, port: number): Promise<void> {
     // el HDD — con tmpfs, initdb + core + migraciones dejan de depender del disco
     // (medido el 2026-09-18: el arranque por archivo baja de ~30-60 s a ~5-10 s).
     "--tmpfs", "/var/lib/postgresql/data:rw,size=512m",
+    ...(encoding ? ["-e", `POSTGRES_INITDB_ARGS=--encoding=${encoding} --locale=C`] : []),
     PG_IMAGE,
   ]);
 }
 
 /** Levanta un PostgreSQL desechable con el puerto expuesto en el host. */
-export async function startPgContainer(): Promise<PgContainer> {
+export async function startPgContainer(options: { encoding?: "UTF8" | "SQL_ASCII" } = {}): Promise<PgContainer> {
   counter += 1;
   const name = `crv-pg-vitest-${process.pid}-${counter}`;
 
@@ -91,7 +92,7 @@ export async function startPgContainer(): Promise<PgContainer> {
   for (let attempt = 0; attempt < 5; attempt += 1) {
     const port = 55400 + (Math.floor(Math.random() * 400) + counter + attempt);
     try {
-      await runContainer(name, port);
+      await runContainer(name, port, options.encoding);
       await waitForPg(name);
       return {
         name,

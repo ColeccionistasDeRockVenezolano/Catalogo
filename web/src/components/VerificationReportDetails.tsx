@@ -1,3 +1,4 @@
+import { sourceDates } from "../lib/sourceDates";
 import { useId, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
@@ -39,7 +40,7 @@ export function VerificationReportDetails({report,status="all",onStatusChange}:{
     {report.suggestions?.length?<Disclosure label={<><strong>Propuestas por revisar</strong><span>{report.suggestions.length} hallazgos</span></>}><p>Estos hallazgos no reducen el puntaje. La IA puede preparar cada corrección para que la aceptes o rechaces.</p><PagedList items={report.suggestions} name="propuestas" render={item=><Finding item={item} suggestion report={report}/>}/></Disclosure>:null}
     <Disclosure label={<><strong>Fuentes de la investigación</strong><span>{report.sources.length} referencias · {cited.size} citadas</span></>}>
       <p>{report.sources.filter(s=>s.origin==="page").length} páginas legibles · {report.sources.filter(s=>s.origin==="search_snippet").length} resúmenes del buscador. Varias páginas pueden compartir procedencia.</p>
-      <PagedList items={report.sources} name="fuentes" render={source=><div className="verification-browser__source"><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title||source.url}</a><small>{source.origin==="page"?"Página leída":"Resumen del buscador"} · {new Date(source.fetchedAt).toLocaleDateString("es-VE")}{cited.has(source.url)?" · Citada en el informe":""}</small></div>}/>
+      <PagedList items={report.sources} name="fuentes" render={source=><div className="verification-browser__source"><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title||source.url}</a><small>{source.origin==="page"?"Página leída":"Resumen del buscador"} · {sourceDates(source)}{cited.has(source.url)?" · Citada en el informe":""}</small></div>}/>
     </Disclosure>
     <Disclosure label={<><strong>Cómo se calcula y qué quedó pendiente</strong><span>{report.evaluation?.pendingKeys.length??0} datos pendientes</span></>}>
       {report.evaluation?<p>{report.evaluation.processed} de {report.evaluation.total} datos procesados. {report.evaluation.complete?"Evaluación terminada.":"El informe es parcial. Volver a verificar retoma los datos pendientes."}</p>:null}

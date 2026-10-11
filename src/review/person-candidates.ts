@@ -250,7 +250,7 @@ const COLLEAGUE_ALBUM_MAX = 40;
 /** Datos de todas las personas para puntuar pares (lo usa también la verificación de planes). */
 export async function loadPersonFacts(queryable: Pick<PoolClient, "query">): Promise<PersonFacts[]> {
   const persons = (await queryable.query<{ id: string; name: string; birth_date: string | null; death_date: string | null }>(
-    "SELECT id::text, name, birth_date::text AS birth_date, death_date::text AS death_date FROM public.persons ORDER BY id")).rows;
+    "SELECT id::text, name, birth_date_value AS birth_date, death_date_value AS death_date FROM public.persons ORDER BY id")).rows;
   const aliases = (await queryable.query<{ person_id: string; alias: string }>(
     "SELECT person_id::text, alias FROM ingest.person_aliases ORDER BY person_id, alias")).rows;
   const bands = (await queryable.query<{ person_id: string; artist_id: string; name: string; from_year: number | null; role: string }>(

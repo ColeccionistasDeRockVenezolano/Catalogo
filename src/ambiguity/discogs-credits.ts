@@ -117,7 +117,7 @@ export async function discogsPages(forms: readonly string[], projects: readonly 
       const content = [`${name}.`, realName ? `Real Name: ${realName}.` : "", profile ? `Profile: ${profile}` : "",
         variations ? `Variations: ${variations}.` : "", `Credits: ${lines.join("; ")}.`].filter(Boolean).join(" ");
       pages.push({ page: { url: `https://www.discogs.com/artist/${id}`, title: `${name} | Discogs`, content,
-        contentHash: createHash("sha256").update(content).digest("hex"), fetchedAt: new Date().toISOString() },
+        contentHash: createHash("sha256").update(content).digest("hex"), fetchedAt: "", capturedAt: null, readAt: new Date().toISOString(), acquisitionMethod: "unknown" },
       projects: [...new Set(credits.filter((credit) => credit.id === id).map((credit) => credit.project))] });
     }
     return pages;

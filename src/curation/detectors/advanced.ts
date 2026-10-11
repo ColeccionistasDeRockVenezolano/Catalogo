@@ -356,17 +356,21 @@ export const missingDurationsInTimedAlbum: Detector = {
 };
 
 function sustainedUpper(value: string): boolean {
+  // Most catalog names contain lowercase: reject them before mapping every
+  // letter through two locale conversions. The decision stays identical.
+  if (value !== value.toLocaleUpperCase("es")) return false;
+  if (/[./\\-]/u.test(value)) return false;
+  const words = value.match(/\p{L}+/gu) ?? [];
+  if (words.length < 3 || words.filter((word) => [...word].length >= 4).length < 2) return false;
   const letters = [...value].filter((char) => /\p{L}/u.test(char));
   if (letters.length < 6) return false;
   const cased = letters.filter((char) => char.toLocaleLowerCase("es") !== char.toLocaleUpperCase("es"));
-  if (cased.length < 6 || value !== value.toLocaleUpperCase("es")) return false;
+  if (cased.length < 6) return false;
 
   // Una palabra en mayúsculas puede ser una identidad de marca/banda ("DIESEL",
   // "MARSHALL") y las formas con puntos o barras suelen ser siglas. Solo
   // proponemos normalizar frases claras; ante ambigüedad, el detector calla.
-  if (/[./\\-]/u.test(value)) return false;
-  const words = value.match(/\p{L}+/gu) ?? [];
-  return words.length >= 3 && words.filter((word) => [...word].length >= 4).length >= 2;
+  return true;
 }
 
 export const sustainedUppercase: Detector = {

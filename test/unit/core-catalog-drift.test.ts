@@ -33,6 +33,15 @@ describe("diffCoreCatalog · grafías equivalentes tras dump/restore", () => {
     expect(diffCoreCatalog([otroOperador], []).extra).toHaveLength(1);
   });
 
+  it("acepta solo las tres restricciones diferidas del modelo de ediciones", () => {
+    for (const table of ["albums", "album_formats", "tracks"]) {
+      const entry = `CONSTRAINT ${table}.crv_catalog_model_parent_check TRIGGER DEFERRABLE INITIALLY DEFERRED`;
+      expect(diffCoreCatalog([entry], [])).toEqual({ missing: [], extra: [] });
+      expect(diffCoreCatalog([entry.replace("INITIALLY DEFERRED", "INITIALLY IMMEDIATE")], []).extra).toHaveLength(1);
+    }
+    expect(diffCoreCatalog(["CONSTRAINT persons.crv_catalog_model_parent_check TRIGGER DEFERRABLE INITIALLY DEFERRED"], []).extra).toHaveLength(1);
+  });
+
   it("las entradas normales no se ven afectadas", () => {
     expect(diffCoreCatalog(["COL persons.otra boolean"], [])).toEqual({
       missing: [],
