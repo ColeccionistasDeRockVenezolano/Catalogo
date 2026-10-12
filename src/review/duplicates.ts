@@ -53,6 +53,7 @@ import { deriveVenezuelanFor } from "../merge/venezuelan.js";
 import { consolidateMemberships } from "../merge/equivalent-relations.js";
 import { assertEraCompatible } from "../merge/era-guard.js";
 import { isPreserveKind, openRewrites, preserveDiscarded, type PreserveOptions, type PreserveOutcome } from "../merge/preserve.js";
+import { IMAGE_FIELD, proposeImageCandidate, type ImageEntityKind } from "../merge/image-candidates.js";
 
 export type DuplicateKind = "artist" | "album";
 export type MergeKind = DuplicateKind | "track" | "person" | "organization" | "album_credit" | "track_credit" | "artist_membership";
@@ -461,6 +462,20 @@ export async function mergeInto(
       UPDATE media.video_albums SET is_primary_link=false
        WHERE album_id=$1 AND is_primary_link
          AND EXISTS (SELECT 1 FROM media.video_albums WHERE album_id=$2 AND is_primary_link)`, [dropId, keepId]);
+  }
+  // Regla de imágenes (0038): la portada o foto distinta del duplicado se
+  // propone en Curaduría · Portadas y fotos (además de quedar en las notas).
+  // Antes del reapunte: después, sus claims ya serían de `keep` y la imagen
+  // contaría como conocida.
+  if (kind === "album" || kind === "artist") {
+    const field = IMAGE_FIELD[kind as ImageEntityKind];
+    const current = keep[field], candidate = drop[field];
+    if (typeof current === "string" && typeof candidate === "string" && current !== candidate) {
+      await proposeImageCandidate(client, {
+        kind: kind as ImageEntityKind, targetId: keepId, currentUrl: current, candidateUrl: candidate,
+        source: "Fusión de fichas", origin: `fusión: imagen de ${kind} ${dropId}`, runId,
+      });
+    }
   }
   // Los alias primarios del duplicado dejan de serlo; sus ids quedan en la
   // auditoría para que deshacer la fusión los devuelva tal cual (E4).

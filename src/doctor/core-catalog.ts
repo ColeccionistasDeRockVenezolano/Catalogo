@@ -148,6 +148,37 @@ export const APPROVED_CORE_ADDITIONS: ReadonlySet<string> = new Set([
   "CONSTRAINT social_links.social_links_pkey PRIMARY KEY (id)",
   "INDEX social_links_artist_uk CREATE UNIQUE INDEX social_links_artist_uk ON public.social_links USING btree (artist_id, platform)",
   "INDEX social_links_pkey CREATE UNIQUE INDEX social_links_pkey ON public.social_links USING btree (id)",
+  // 0063 (2026-10-11): la tabla `public.album_discs` (nombre de cada disco
+  // de un álbum; octava excepción aprobada al core — Brian: los discos
+  // partidos van en una página con una lista por disco).
+  "COL album_discs.id bigint NOT NULL IDENTITY ALWAYS",
+  "COL album_discs.album_id bigint NOT NULL",
+  "COL album_discs.disc_number smallint NOT NULL",
+  "COL album_discs.title character varying(120) NOT NULL",
+  "COL album_discs.notes text",
+  "CONSTRAINT album_discs.album_discs_disc_number_ck CHECK (((disc_number >= 1) AND (disc_number <= 99)))",
+  "CONSTRAINT album_discs.album_discs_title_ck CHECK ((length(btrim((title)::text)) > 0))",
+  "CONSTRAINT album_discs.album_discs_album_id_fkey FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE",
+  "CONSTRAINT album_discs.album_discs_pkey PRIMARY KEY (id)",
+  "INDEX album_discs_album_disc_uk CREATE UNIQUE INDEX album_discs_album_disc_uk ON public.album_discs USING btree (album_id, disc_number)",
+  "INDEX album_discs_pkey CREATE UNIQUE INDEX album_discs_pkey ON public.album_discs USING btree (id)",
+  // 0063: y `public.album_disc_links` (enlace de escucha de un disco).
+  "COL album_disc_links.id bigint NOT NULL IDENTITY ALWAYS",
+  "COL album_disc_links.album_id bigint NOT NULL",
+  "COL album_disc_links.disc_number smallint NOT NULL",
+  "COL album_disc_links.platform character varying(24) NOT NULL",
+  "COL album_disc_links.url text NOT NULL",
+  "COL album_disc_links.external_id character varying(120)",
+  "COL album_disc_links.method character varying(16) NOT NULL",
+  "COL album_disc_links.source character varying(40) NOT NULL",
+  "COL album_disc_links.verified boolean NOT NULL DEFAULT false",
+  "COL album_disc_links.notes text",
+  "COL album_disc_links.created_at timestamp with time zone NOT NULL DEFAULT now()",
+  "CONSTRAINT album_disc_links.album_disc_links_disc_number_ck CHECK (((disc_number >= 1) AND (disc_number <= 99)))",
+  "CONSTRAINT album_disc_links.album_disc_links_album_id_fkey FOREIGN KEY (album_id) REFERENCES albums(id) ON DELETE CASCADE",
+  "CONSTRAINT album_disc_links.album_disc_links_pkey PRIMARY KEY (id)",
+  "INDEX album_disc_links_album_disc_platform_uk CREATE UNIQUE INDEX album_disc_links_album_disc_platform_uk ON public.album_disc_links USING btree (album_id, disc_number, platform)",
+  "INDEX album_disc_links_pkey CREATE UNIQUE INDEX album_disc_links_pkey ON public.album_disc_links USING btree (id)",
 ]);
 
 /**

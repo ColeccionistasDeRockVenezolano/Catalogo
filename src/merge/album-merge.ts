@@ -10,6 +10,12 @@
 //   5. Los enlaces de medios (media.video_albums, media.media_links) se repuntan.
 //   6. El disco se fusiona mediante `mergeInto('album')`, dejando rastro en
 //      `merge_audit` con `version: 2`, compatible con `undoMergeRun`.
+//
+// Modo `append` (2026-10-11, discos partidos en varias fichas: Lado A/B, CD 1/2,
+// DVD, volúmenes): no se empareja ninguna pista. Los discos del que desaparece
+// pasan como discos siguientes del que queda (disc_number + desplazamiento),
+// con sus nombres de `album_discs`. Emparejar por posición pegaría la pista 1
+// del Lado B a la pista 1 del Lado A.
 import { createHash } from "node:crypto";
 import type { PoolClient } from "pg";
 import { getEnv } from "../config/env.js";
@@ -61,9 +67,14 @@ export interface TrackMatch {
   matchType: "position_and_title" | "title" | "position";
 }
 
+export type AlbumMergeMode = "match" | "append";
+
 export interface AlbumMergePreview {
   keep: AlbumMergeSide;
   drop: AlbumMergeSide;
+  mode: AlbumMergeMode;
+  /** Solo en `append`: lo que se suma al disc_number de las pistas que llegan. */
+  discOffset: number;
   recommendedKeepId: number;
   matchedTracks: TrackMatch[];
   unmatchedDropTracks: AlbumTrackSummary[];
@@ -81,6 +92,7 @@ export interface AlbumMergeRequest {
   previewHash: string;
   fieldChoices?: Partial<Record<AlbumMergeField, "keep" | "drop">> | undefined;
   keepDropNameAsAlias?: boolean | undefined;
+  mode?: AlbumMergeMode | undefined;
 }
 
 export interface AlbumMergeResult {
@@ -254,10 +266,11 @@ function matchTracks(keepTracks: AlbumTrackSummary[], dropTracks: AlbumTrackSumm
 
 export async function previewAlbumMerge(
   queryable: Pick<PoolClient, "query">, keepId: number, dropId: number,
-  options: { lock?: boolean } = {},
+  options: { lock?: boolean; mode?: AlbumMergeMode } = {},
 ): Promise<AlbumMergePreview> {
   if (keepId === dropId) throw new OperatorError("invalid", "no se puede fusionar un disco consigo mismo", { entity: "album", id: keepId });
   const lock = options.lock ?? false;
+  const mode = options.mode ?? "match";
   const keep = await albumSideOrThrow(queryable, keepId, lock);
   const drop = await albumSideOrThrow(queryable, dropId, lock);
 
@@ -277,7 +290,13 @@ export async function previewAlbumMerge(
     }
   }
 
-  const { matched: matchedTracks, unmatched: unmatchedDropTracks } = matchTracks(keep.tracks, drop.tracks);
+  const { matched: matchedTracks, unmatched: unmatchedDropTracks } = mode === "append"
+    ? { matched: [], unmatched: drop.tracks }
+    : matchTracks(keep.tracks, drop.tracks);
+  const discOffset = mode === "append"
+    ? Math.max(0, ...keep.tracks.map((t) => t.discNumber), ...(await queryable.query<{ disc_number: number }>(
+      "SELECT disc_number FROM public.album_discs WHERE album_id=$1", [keepId])).rows.map((r) => r.disc_number))
+    : 0;
 
   const warnings: string[] = [];
   if (keep.artistId !== drop.artistId) {
@@ -286,7 +305,7 @@ export async function previewAlbumMerge(
   if (keep.fields["release_year"] && drop.fields["release_year"] && keep.fields["release_year"] !== drop.fields["release_year"]) {
     warnings.push(`Años de publicación distintos (${keep.fields["release_year"]} vs ${drop.fields["release_year"]}).`);
   }
-  if (keep.tracks.length !== drop.tracks.length) {
+  if (mode === "match" && keep.tracks.length !== drop.tracks.length) {
     warnings.push(`Distinto número de pistas: ${keep.tracks.length} en el disco que queda, ${drop.tracks.length} en el que desaparece.`);
   }
 
@@ -322,7 +341,7 @@ export async function previewAlbumMerge(
   const recommendedKeepId = keepScore >= dropScore ? keep.id : drop.id;
 
   const previewHash = createHash("sha256").update(JSON.stringify([
-    "album",
+    "album", mode, discOffset,
     keep.id, keep.title, keep.fields, keep.tracks.map((t) => [t.discNumber, t.trackNumber, t.title]),
     drop.id, drop.title, drop.fields, drop.tracks.map((t) => [t.discNumber, t.trackNumber, t.title]),
     matchedTracks.map((m) => [m.keepTrackId, m.dropTrackId, m.matchType]),
@@ -331,6 +350,8 @@ export async function previewAlbumMerge(
   return {
     keep,
     drop,
+    mode,
+    discOffset,
     recommendedKeepId,
     matchedTracks,
     unmatchedDropTracks,
@@ -347,7 +368,7 @@ export async function mergeAlbums(context: OperatorContext, request: AlbumMergeR
   const { keepId, dropId } = request;
   await context.client.query("SELECT pg_advisory_xact_lock(hashtext('merge:duplicates'))");
 
-  const preview = await previewAlbumMerge(context.client, keepId, dropId, { lock: true });
+  const preview = await previewAlbumMerge(context.client, keepId, dropId, { lock: true, mode: request.mode ?? "match" });
   if (preview.previewHash !== request.previewHash) {
     throw new OperatorError("stale_preview", "el disco cambió desde la previsualización", {
       entity: "album", keepId, dropId, previewHash: preview.previewHash,
@@ -386,7 +407,38 @@ export async function mergeAlbums(context: OperatorContext, request: AlbumMergeR
 
   // 3. Pistas no emparejadas: mover al álbum destino evitando colisiones en tracks_position_uk
   let tracksMoved = 0;
-  for (const track of preview.unmatchedDropTracks) {
+  if (preview.mode === "append") {
+    // Discos enteros: pasan detrás de los del que queda, con sus nombres y
+    // sus enlaces de escucha.
+    await context.client.query(
+      "UPDATE public.album_discs SET album_id=$1, disc_number=disc_number+$3 WHERE album_id=$2",
+      [keepId, dropId, preview.discOffset]);
+    await context.client.query(
+      "UPDATE public.album_disc_links SET album_id=$1, disc_number=disc_number+$3 WHERE album_id=$2",
+      [keepId, dropId, preview.discOffset]);
+    // El enlace del álbum que desaparece (su «Vol. 2» en Spotify) es el de su
+    // primer disco: `streaming_links` admite uno por plataforma y mergeInto lo
+    // descartaría al chocar con el del que queda. El que repite la URL del
+    // que queda no aporta nada y sí se descarta.
+    await context.client.query(`
+      WITH first AS (
+        SELECT $3::int + COALESCE((SELECT min(disc_number) FROM public.tracks WHERE album_id=$2), 1) AS disc
+      ), moved AS (
+        DELETE FROM public.streaming_links s
+         WHERE s.album_id=$2
+           AND NOT EXISTS (SELECT 1 FROM public.streaming_links k WHERE k.album_id=$1 AND k.platform=s.platform AND k.url=s.url)
+           AND NOT EXISTS (SELECT 1 FROM public.album_disc_links d, first
+                            WHERE d.album_id=$1 AND d.disc_number=first.disc AND d.platform=s.platform)
+        RETURNING s.*
+      )
+      INSERT INTO public.album_disc_links(album_id,disc_number,platform,url,external_id,method,source,verified,notes)
+      SELECT $1, first.disc, m.platform, m.url, m.external_id, m.method, m.source, m.verified, m.notes FROM moved m, first`,
+    [keepId, dropId, preview.discOffset]);
+    tracksMoved = (await context.client.query(
+      "UPDATE public.tracks SET album_id=$1, disc_number=disc_number+$3 WHERE album_id=$2",
+      [keepId, dropId, preview.discOffset])).rowCount ?? 0;
+  }
+  for (const track of preview.mode === "append" ? [] : preview.unmatchedDropTracks) {
     const existing = (await context.client.query<{ max_track: number | null }>(`
       SELECT max(track_number) AS max_track FROM public.tracks WHERE album_id=$1 AND disc_number=$2`,
     [keepId, track.discNumber])).rows[0];

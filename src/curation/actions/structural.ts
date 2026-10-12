@@ -4,7 +4,8 @@
 // fichas y pistas duplicadas, fusionan álbumes o corrigen datos numéricos y
 // de coherencia respetando la integridad referencial y las restricciones únicas.
 import { z } from "zod";
-import { mergeAlbums, previewAlbumMerge } from "../../merge/album-merge.js";
+import { createAlias, promotePrimaryAlias } from "../../api/repositories/aliases.js";
+import { mergeAlbums, previewAlbumMerge, type AlbumMergeMode } from "../../merge/album-merge.js";
 import { withFieldJournal } from "../../merge/field-undo.js";
 import { createEntity, createRelation, deleteEntity, updateEntity } from "../../merge/operator.js";
 import { removeRelation } from "../../merge/removals.js";
@@ -14,7 +15,7 @@ import { convertPerson, splitPerson } from "../../review/person-corrections.js";
 import { classifyPersonName } from "../../review/person-junk.js";
 import { nameKey } from "../lexicon.js";
 import { requireEditorialBasis } from "../editorial-policy.js";
-import type { ActionFinding, ActionPreview, FixActionDefinition } from "./types.js";
+import type { ActionContext, ActionFinding, ActionPreview, FixActionDefinition } from "./types.js";
 
 function blockedPreview(
   touched: Array<{ kind: ResolvableClaimKind; id: number }>,
@@ -1427,6 +1428,135 @@ export const fusionarDiscosAction: FixActionDefinition<FusionarDiscosParams> = {
   },
 };
 
+// 5.3b Juntar un disco partido en varias fichas (Brian, 2026-10-11)
+//
+// «Lado A» y «Lado B», «CD 1» y «CD 2», un CD y su DVD, volúmenes del mismo
+// año: UNA página con una lista por disco, cada una con el nombre de la
+// fuente (`public.album_discs`). Si las dos fichas traen la misma lista (un
+// duplicado o una reedición) se funden emparejando pistas; si no, el que
+// desaparece se suma como disco siguiente (`mode: "append"`), con su enlace
+// de escucha como enlace de su disco. La portada distinta va a Curaduría.
+const juntarDiscosParamsSchema = z.object({
+  keepId: z.number().int().positive(),
+  dropId: z.number().int().positive(),
+  mode: z.enum(["append", "match"]),
+  /** Título final de la ficha que queda (la base sin «Lado A»); null lo deja como está. */
+  title: z.string().trim().min(1).max(250).nullable(),
+  /** Nombre del disco de cada ficha cuando tiene uno solo y aún no lo tiene. */
+  keepDiscTitle: z.string().trim().min(1).max(120).nullable(),
+  dropDiscTitle: z.string().trim().min(1).max(120).nullable(),
+}).strict();
+
+export type JuntarDiscosParams = z.infer<typeof juntarDiscosParamsSchema>;
+
+/** «Disco B» → «Disco A», «CD 2» → «CD 1», «Parte II» → «Parte I»: el nombre de la primera parte. */
+function firstPartLabel(label: string): string | null {
+  const match = /^(.*\S)\s+(B|2|II)$/u.exec(label);
+  if (!match) return null;
+  return `${match[1]} ${match[2] === "B" ? "A" : match[2] === "2" ? "1" : "I"}`;
+}
+
+async function singleUnnamedDisc(client: ActionContext["client"], albumId: number): Promise<number | null> {
+  const discs = (await client.query<{ disc_number: number }>(
+    "SELECT DISTINCT disc_number FROM public.tracks WHERE album_id=$1", [albumId])).rows.map((row) => row.disc_number);
+  if (discs.length > 1) return null;
+  const disc = discs[0] ?? 1;
+  const named = await client.query("SELECT 1 FROM public.album_discs WHERE album_id=$1", [albumId]);
+  return named.rowCount ? null : disc;
+}
+
+export const juntarDiscosAction: FixActionDefinition<JuntarDiscosParams> = {
+  key: "juntar_discos",
+  label: "Juntar en una página",
+  description: "Une las fichas de un disco partido (lados, CD 1/2, CD y DVD, volúmenes del mismo año) en una página con una lista por disco, cada una con el nombre de la fuente.",
+  level: 2,
+  inverse: "merge_undo",
+  paramsSchema: juntarDiscosParamsSchema,
+  appliesTo(finding) {
+    return finding.detector === "discos_partidos" && albumPairOf(finding) !== null;
+  },
+  levelFor() {
+    return 2;
+  },
+  async defaultParams(finding, ctx) {
+    const pair = albumPairOf(finding);
+    if (!pair) return null;
+    const first = Number(finding.evidence["first"]);
+    const keepId = pair.includes(first) ? first : pair[0];
+    const dropId = keepId === pair[0] ? pair[1] : pair[0];
+    const parts = (finding.evidence["parts"] ?? {}) as Record<string, string | null>;
+    const base = typeof finding.evidence["base"] === "string" ? finding.evidence["base"] : null;
+    // La misma lista (duplicado, reedición): se funde emparejando; si no, disco
+    // siguiente. «Misma» = el 60 % de la lista más corta empareja por título.
+    const matching = await previewAlbumMerge(ctx.client, keepId, dropId, { mode: "match" });
+    const byTitle = matching.matchedTracks.filter((match) => match.matchType !== "position").length;
+    const smaller = Math.min(matching.keep.tracks.length, matching.drop.tracks.length);
+    const mode: AlbumMergeMode = smaller > 0 && byTitle / smaller >= 0.6 ? "match" : "append";
+    const dropLabel = parts[String(dropId)] ?? null;
+    const keepLabel = parts[String(keepId)] ?? (dropLabel ? firstPartLabel(dropLabel) : null);
+    const current = (await ctx.client.query<{ title: string }>("SELECT title FROM public.albums WHERE id=$1", [keepId])).rows[0]?.title;
+    return {
+      keepId, dropId, mode,
+      title: base && current !== undefined && current !== base && parts[String(keepId)] ? base : null,
+      keepDiscTitle: mode === "append" ? keepLabel : null,
+      dropDiscTitle: mode === "append" ? dropLabel : null,
+    };
+  },
+  async preconditions(finding, params, ctx) {
+    const keep = (await ctx.client.query("SELECT 1 FROM public.albums WHERE id=$1", [params.keepId])).rowCount;
+    if (!keep) return [{ key: "keep_exists", ok: false, code: "not_found", message: `álbum ${params.keepId} inexistente` }];
+    const drop = (await ctx.client.query("SELECT 1 FROM public.albums WHERE id=$1", [params.dropId])).rowCount;
+    if (!drop) return [{ key: "drop_exists", ok: false, code: "not_found", message: `álbum ${params.dropId} inexistente` }];
+    return [{ key: "keep_exists", ok: true }, { key: "drop_exists", ok: true }];
+  },
+  async preview(finding, params, ctx) {
+    try {
+      const p = await previewAlbumMerge(ctx.client, params.keepId, params.dropId, { mode: params.mode });
+      return {
+        touched: [{ kind: "album", id: params.keepId }, { kind: "album", id: params.dropId }],
+        before: { keep: { id: p.keep.id, title: p.keep.title, tracks: p.keep.tracks.length }, drop: { id: p.drop.id, title: p.drop.title, tracks: p.drop.tracks.length } },
+        after: {
+          keptId: p.keep.id, title: params.title ?? p.keep.title, mode: params.mode,
+          ...(params.mode === "append"
+            ? { discs: [params.keepDiscTitle ?? "Disco 1", params.dropDiscTitle ?? `Disco ${p.discOffset + 1}`], tracksMoved: p.drop.tracks.length }
+            : { tracksMerged: p.matchedTracks.length, tracksMoved: p.unmatchedDropTracks.length }),
+        },
+        blocked: null,
+        collisions: [],
+        warnings: p.warnings,
+        proposal: null,
+        hashMaterial: JSON.stringify([p.previewHash, params.title, params.keepDiscTitle, params.dropDiscTitle]),
+      };
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      return blockedPreview([{ kind: "album", id: params.keepId }, { kind: "album", id: params.dropId }], "invalid", msg);
+    }
+  },
+  async apply(context, finding, params, _preview) {
+    const note = `Curaduría · juntar discos (run ${context.runId})`;
+    if (params.mode === "append") {
+      for (const [albumId, title] of [[params.keepId, params.keepDiscTitle], [params.dropId, params.dropDiscTitle]] as const) {
+        const disc = title ? await singleUnnamedDisc(context.client, albumId) : null;
+        if (disc !== null) {
+          await context.client.query("INSERT INTO public.album_discs(album_id, disc_number, title, notes) VALUES ($1,$2,$3,$4)", [albumId, disc, title, note]);
+        }
+      }
+    }
+    const p = await previewAlbumMerge(context.client, params.keepId, params.dropId, { mode: params.mode });
+    const outcome = await mergeAlbums(context, {
+      keepId: params.keepId, dropId: params.dropId, previewHash: p.previewHash, keepDropNameAsAlias: true, mode: params.mode,
+    });
+    if (params.title && params.title !== p.keep.title) {
+      // El título viejo («… - Lado A») queda como alias; el principal pasa al nuevo.
+      const known = await context.client.query("SELECT 1 FROM ingest.album_aliases WHERE album_id=$1 AND alias=$2", [params.keepId, p.keep.title]);
+      if (!known.rowCount) await createAlias(context, "album", params.keepId, { alias: p.keep.title, aliasType: "alternate_title", isPrimary: false });
+      await updateEntity(context, "album", params.keepId, { title: params.title });
+      await promotePrimaryAlias(context, "album", params.keepId, params.title, "alternate_title");
+    }
+    return { after: { ...outcome, title: params.title ?? p.keep.title } };
+  },
+};
+
 // 5.4 Retirar pista duplicada
 const retirarPistaDuplicadaParamsSchema = z.object({
   keepTrackId: z.number().int().positive(),
@@ -1521,5 +1651,6 @@ export const STRUCTURAL_ACTIONS: readonly FixActionDefinition[] = [
   retirarConCreditosAction,
   retirarHuerfanaAction,
   fusionarDiscosAction,
+  juntarDiscosAction,
   retirarPistaDuplicadaAction,
 ];

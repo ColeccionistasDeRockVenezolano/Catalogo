@@ -108,7 +108,9 @@ docker exec "$CTR" pg_dump -U postgres -d postgres --schema=public --schema-only
 # solo anota al artista para recalcular los géneros que recibe de sus discos.
 # La sexta (0039) es la tabla `public.streaming_links` (enlaces a plataformas
 # de streaming por artista/álbum) y la séptima (0040) la tabla `public.social_links`
-# (redes sociales del artista): se descartan sus bloques completos del dump.
+# (redes sociales del artista); la octava (0063) las tablas `public.album_discs`
+# y `public.album_disc_links` (nombre y enlaces de cada disco de un álbum): se
+# descartan sus bloques completos del dump.
 core_filt() {
   grep -vE '^\\(un)?restrict' "$1" \
     | perl -0pe 's/--\n-- Name: \S+ crv_journal; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_journal [^\n]*\n\n\n//g' \
@@ -116,7 +118,7 @@ core_filt() {
     | sed -E 's/^    is_venezuelan boolean,$/    is_venezuelan boolean DEFAULT false NOT NULL,/' \
     | sed -E '/^    is_deceased boolean,$/d' \
     | sed -E '/^    (status|themes|years_active|logo_url|real_name|birth_city|death_cause|trivia|gender|release_date_text|catalog_id|media_format) (character varying\([0-9]+\)|text),?$/d' \
-    | perl -0pe 'my @b = split(/--\n-- Name: /, $_, -1); my $pre = shift @b; $_ = join("--\n-- Name: ", $pre, grep { !m{^(streaming|social)_links} } @b);' \
+    | perl -0pe 'my @b = split(/--\n-- Name: /, $_, -1); my $pre = shift @b; $_ = join("--\n-- Name: ", $pre, grep { !m{^((streaming|social)_links|album_disc(s|_links))} } @b);' \
     | perl -0pe 's/,\n\);/;\n);/g'
 }
 core_filt "$OUT/core_before.sql" > "$OUT/core_before.filt"

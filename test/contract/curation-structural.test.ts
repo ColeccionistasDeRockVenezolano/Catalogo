@@ -17,6 +17,7 @@ import { migrateUp } from "../../src/db/migrate.js";
 import { buildApp } from "../../src/api/app.js";
 import { withOperatorRun } from "../../src/merge/operator.js";
 import { undoMergeRun } from "../../src/merge/unmerge.js";
+import { undoRunWithJournal } from "../../src/merge/journal-undo.js";
 import { undoEntityRemoval, undoRelationCreation } from "../../src/merge/structural-undo.js";
 import { undoFieldCorrections } from "../../src/merge/field-undo.js";
 import { splitPerson } from "../../src/review/person-corrections.js";
@@ -191,6 +192,67 @@ describe("acciones estructurales (PLAN_CURADURIA E6)", () => {
       const dropRestored = (await client.query("SELECT 1 FROM public.albums WHERE id=$1", [dropAlbumId])).rowCount;
       expect(dropRestored).toBe(1);
       expect(Number((await client.query("SELECT count(*) AS n FROM public.album_credits WHERE album_id IN ($1,$2) AND person_id=$3", [keepAlbumId,dropAlbumId,guitaristId])).rows[0]?.n)).toBe(2);
+    } finally {
+      client.release();
+    }
+  });
+
+  // Discos múltiples (2026-10-11): Lado A + Lado B se suman como discos, sin
+  // emparejar pistas aunque compartan título o posición, con sus nombres.
+  it("album-merge en modo append suma los discos del que desaparece con sus nombres y enlaces, propone su portada y se deshace con el diario", async () => {
+    const client = await getPool().connect();
+    try {
+      const artistId = await one("INSERT INTO public.artists(name) VALUES ('Banda de Lados') RETURNING id");
+      const sideA = await one("INSERT INTO public.albums(artist_id, title, release_year, album_type, cover_url) VALUES ($1, 'En Vivo - Lado A', 2018, 'live_album', '/crv/media/album/lado-a.jpg') RETURNING id", [artistId]);
+      const sideB = await one("INSERT INTO public.albums(artist_id, title, release_year, album_type, cover_url) VALUES ($1, 'En Vivo - Lado B', 2018, 'live_album', '/crv/media/album/lado-b.jpg') RETURNING id", [artistId]);
+      await one("INSERT INTO public.tracks(album_id, disc_number, track_number, title) VALUES ($1, 1, 1, 'Intro') RETURNING id", [sideA]);
+      await one("INSERT INTO public.tracks(album_id, disc_number, track_number, title) VALUES ($1, 1, 2, 'Himno') RETURNING id", [sideA]);
+      const bIntro = await one("INSERT INTO public.tracks(album_id, disc_number, track_number, title) VALUES ($1, 1, 1, 'Intro') RETURNING id", [sideB]);
+      await one("INSERT INTO public.tracks(album_id, disc_number, track_number, title) VALUES ($1, 1, 2, 'Despedida') RETURNING id", [sideB]);
+      await one("INSERT INTO public.album_discs(album_id, disc_number, title) VALUES ($1, 1, 'Lado A') RETURNING id", [sideA]);
+      await one("INSERT INTO public.album_discs(album_id, disc_number, title) VALUES ($1, 1, 'Lado B') RETURNING id", [sideB]);
+      // Spotify: cada lado es su propio álbum; Deezer: el mismo para los dos.
+      const link = "INSERT INTO public.streaming_links(album_id, platform, url, method, source, verified) VALUES ($1, $2, $3, 'exact', 'test', true) RETURNING id";
+      await one(link, [sideA, "spotify", "https://open.spotify.com/album/ladoA"]);
+      const bSpotify = await one(link, [sideB, "spotify", "https://open.spotify.com/album/ladoB"]);
+      await one(link, [sideA, "deezer", "https://www.deezer.com/album/1"]);
+      await one(link, [sideB, "deezer", "https://www.deezer.com/album/1"]);
+
+      const preview = await previewAlbumMerge(client, sideA, sideB, { mode: "append" });
+      expect(preview.matchedTracks).toHaveLength(0);
+      expect(preview.discOffset).toBe(1);
+      expect((await previewAlbumMerge(client, sideA, sideB)).previewHash).not.toBe(preview.previewHash);
+
+      const { runId, result } = await withOperatorRun({ name: "test:album-append", operator: OPERATOR, note: "lados a una ficha" }, async (context) =>
+        mergeAlbums(context, { keepId: sideA, dropId: sideB, previewHash: preview.previewHash, mode: "append" }));
+      expect(result.tracksMerged).toBe(0);
+      expect(result.tracksMoved).toBe(2);
+
+      const tracks = (await client.query<{ disc_number: number; track_number: number; title: string }>(
+        "SELECT disc_number, track_number, title FROM public.tracks WHERE album_id=$1 ORDER BY 1, 2", [sideA])).rows;
+      expect(tracks.map((t) => `${t.disc_number}.${t.track_number} ${t.title}`)).toEqual(["1.1 Intro", "1.2 Himno", "2.1 Intro", "2.2 Despedida"]);
+      const discs = (await client.query<{ disc_number: number; title: string }>(
+        "SELECT disc_number, title FROM public.album_discs WHERE album_id=$1 ORDER BY 1", [sideA])).rows;
+      expect(discs).toEqual([{ disc_number: 1, title: "Lado A" }, { disc_number: 2, title: "Lado B" }]);
+      // La portada del Lado B queda propuesta en Curaduría · Portadas y fotos.
+      expect((await client.query("SELECT candidate_url, status FROM ingest.image_candidates WHERE album_id=$1", [sideA])).rows).toEqual([
+        { candidate_url: "/crv/media/album/lado-b.jpg", status: "open" }]);
+      // El Spotify del Lado B queda como enlace de su disco; el Deezer repetido no se duplica.
+      expect((await client.query("SELECT platform, url FROM public.streaming_links WHERE album_id=$1 ORDER BY platform", [sideA])).rows).toEqual([
+        { platform: "deezer", url: "https://www.deezer.com/album/1" }, { platform: "spotify", url: "https://open.spotify.com/album/ladoA" }]);
+      expect((await client.query("SELECT disc_number, platform, url, verified FROM public.album_disc_links WHERE album_id=$1", [sideA])).rows).toEqual([
+        { disc_number: 2, platform: "spotify", url: "https://open.spotify.com/album/ladoB", verified: true }]);
+
+      await withOperatorRun({ name: "test:undo-append", operator: OPERATOR, note: "deshacer lados" }, async (context) => {
+        await undoRunWithJournal(context, runId);
+      });
+      const back = (await client.query<{ album_id: number; disc_number: number }>(
+        "SELECT album_id::int, disc_number FROM public.tracks WHERE id=$1", [bIntro])).rows[0];
+      expect(back).toEqual({ album_id: sideB, disc_number: 1 });
+      expect((await client.query("SELECT title FROM public.album_discs WHERE album_id=$1", [sideB])).rows).toEqual([{ title: "Lado B" }]);
+      expect((await client.query("SELECT album_id::int FROM public.streaming_links WHERE id=$1", [bSpotify])).rows).toEqual([{ album_id: sideB }]);
+      expect((await client.query("SELECT 1 FROM public.album_disc_links WHERE album_id=$1", [sideA])).rowCount).toBe(0);
+      expect((await client.query("SELECT 1 FROM ingest.image_candidates WHERE album_id=$1", [sideA])).rowCount).toBe(0);
     } finally {
       client.release();
     }

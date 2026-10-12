@@ -109,6 +109,21 @@ export async function updateAlias(
   return { id: Number(row.id), entityId, alias: row.alias, aliasType: row.alias_type, isPrimary: row.is_primary };
 }
 
+/**
+ * Deja `alias` como alias principal de la ficha: marca el que ya existe o lo
+ * crea. Lo usan los renombres, donde el principal sigue al nombre nuevo.
+ */
+export async function promotePrimaryAlias(
+  context: OperatorContext, kind: AliasKind, entityId: number, alias: string, aliasType: string,
+): Promise<void> {
+  const spec = ALIAS_SPECS[kind];
+  const row = (await context.client.query<{ id: string; is_primary: boolean }>(
+    `SELECT id::text, is_primary FROM ${spec.aliasTable} WHERE ${spec.column}=$1 AND alias=$2`, [entityId, alias.trim()])).rows[0];
+  if (row?.is_primary) return;
+  if (row) await updateAlias(context, kind, entityId, Number(row.id), { isPrimary: true });
+  else await createAlias(context, kind, entityId, { alias, aliasType, isPrimary: true });
+}
+
 export async function deleteAlias(context: OperatorContext, kind: AliasKind, entityId: number, aliasId: number): Promise<void> {
   const spec = ALIAS_SPECS[kind];
   await assertEntityExists(context.client, spec, entityId);

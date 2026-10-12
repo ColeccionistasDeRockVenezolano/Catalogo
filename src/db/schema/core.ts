@@ -195,6 +195,32 @@ export const albumFormats = pgTable("album_formats", {
   notes: text("notes"),
 });
 
+// 0063 (2026-10-11): nombre de cada disco de un álbum («Lado A», «CD 2»,
+// «DVD»; octava excepción aprobada al core). Sin fila, la web numera.
+export const albumDiscs = pgTable("album_discs", {
+  id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+  albumId: bigint("album_id", { mode: "number" }).notNull().references(() => albums.id, { onDelete: "cascade" }),
+  discNumber: smallint("disc_number").notNull(),
+  title: varchar("title", { length: 120 }).notNull(),
+  notes: text("notes"),
+});
+
+// 0063: enlace de escucha de UN disco (el Vol. 2 que se juntó con el Vol. 1
+// tiene su propio álbum en Spotify). Mismas columnas que streaming_links.
+export const albumDiscLinks = pgTable("album_disc_links", {
+  id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+  albumId: bigint("album_id", { mode: "number" }).notNull().references(() => albums.id, { onDelete: "cascade" }),
+  discNumber: smallint("disc_number").notNull(),
+  platform: varchar("platform", { length: 24 }).notNull(),
+  url: text("url").notNull(),
+  externalId: varchar("external_id", { length: 120 }),
+  method: varchar("method", { length: 16 }).notNull(),
+  source: varchar("source", { length: 40 }).notNull(),
+  verified: boolean("verified").notNull().default(false),
+  notes: text("notes"),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
 // 0039 (2026-10-04): links a plataformas de streaming por artista (perfil) o
 // por álbum (campaña de enlaces; sexta excepción aprobada al core). Mismos
 // criterios que src/doctor/core-catalog.ts: solo el vocabulario documentado

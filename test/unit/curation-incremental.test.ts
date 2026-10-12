@@ -49,6 +49,7 @@ describe("detectores locales y globales (E9.1)", () => {
       "cola_de_revision",
       "conflictos_abiertos",
       "creditos_duplicados",
+      "discos_partidos",
       "discos_repetidos",
       "enlace_de_medio_a_ficha_fusionada",
       "organizaciones_equivalentes",

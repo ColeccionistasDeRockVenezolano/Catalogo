@@ -42,8 +42,8 @@ function mockFinding(overrides: Partial<ActionFinding> = {}): ActionFinding {
 }
 
 describe("acciones estructurales (E6) — registro y esquemas", () => {
-  it("las 21 acciones estructurales están definidas en STRUCTURAL_ACTIONS con claves únicas", () => {
-    expect(STRUCTURAL_ACTIONS.length).toBe(21);
+  it("las 22 acciones estructurales están definidas en STRUCTURAL_ACTIONS con claves únicas", () => {
+    expect(STRUCTURAL_ACTIONS.length).toBe(22);
     const keys = STRUCTURAL_ACTIONS.map((a) => a.key);
     expect(new Set(keys).size).toBe(keys.length);
   });
