@@ -288,7 +288,7 @@ async function main(): Promise<void> {
     const track = [...tracksByAlbum.entries()].find(([, l]) => l.some((t) => t.id === h.crvId));
     const ownerArtist = track ? crvAlbum.get(track[0])!.artistId : null;
     const featArtist = proven.get(Number(h.aqId));
-    let target: string | null = null; let via = "";
+    let target: string | null = null; let via: string;
     if (featArtist !== undefined && featArtist !== ownerArtist) { target = `a${featArtist}`; via = "artista probado (id de Aqustico con disco en común)"; }
     else {
       const persons = [...(personByKey.get(key(String(h.valor))) ?? [])];
@@ -312,7 +312,7 @@ async function main(): Promise<void> {
   const EDITION = /\b(deluxe|edition|edici[oó]n|remaster(ed)?|versi[oó]n|version|ac[uú]stic[oa]|acoustic|remix(es)?|live|en vivo|ep|single|sencillo|radio edit)\b/giu;
   const base = (title: string) => key(title.replace(/\s*[([].*?[)\]]/gu, " ").replace(/\s+(feat\.?|ft\.?|featuring|con)\s+.*$/iu, " ").replace(EDITION, " "));
   const baseByArtist = new Map<number, Map<string, string>>();
-  for (const [id, a] of crvAlbum) {
+  for (const a of crvAlbum.values()) {
     const m = baseByArtist.get(a.artistId) ?? baseByArtist.set(a.artistId, new Map()).get(a.artistId)!;
     const b = base(a.title);
     if (b) m.set(b, a.title);
