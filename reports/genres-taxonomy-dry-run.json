@@ -1,76 +1,201 @@
 {
   "actor": "brian",
-  "reason": "Etapa 4 del nuevo lote: términos sin equivalente aprobados por Brian el 2026-10-03",
+  "reason": "comprobación",
   "mode": "dry-run",
-  "runId": 11661,
+  "runId": 19156,
   "operations": [
     {
-      "op": "create_genre",
-      "slug": "ritmo-orquidea",
-      "name": "Ritmo orquídea",
-      "level": "genre",
-      "parentSlug": "musica-venezolana",
-      "description": null
-    },
-    {
-      "op": "create_genre",
-      "slug": "musica-de-camara-popular",
-      "name": "Música de cámara popular",
-      "level": "genre",
-      "parentSlug": "musica-venezolana",
-      "description": null
-    },
-    {
-      "op": "create_genre",
-      "slug": "gaban",
-      "name": "Gabán",
-      "level": "subgenre",
-      "parentSlug": "joropo",
-      "description": null
-    },
-    {
-      "op": "create_genre",
-      "slug": "motivo-guaiqueri",
-      "name": "Motivo guaiquerí",
-      "level": "subgenre",
-      "parentSlug": "musica-oriental",
-      "description": null
-    },
-    {
       "op": "set_alias",
-      "alias": "gaban",
-      "target": "gaban",
-      "notes": "nombre del género"
-    },
-    {
-      "op": "set_alias",
-      "alias": "motivo guaiqueri",
-      "target": "motivo-guaiqueri",
-      "notes": "nombre del género"
-    },
-    {
-      "op": "set_alias",
-      "alias": "musica de camara popular",
-      "target": "musica-de-camara-popular",
-      "notes": "nombre del género"
-    },
-    {
-      "op": "set_alias",
-      "alias": "orquidea",
-      "target": "ritmo-orquidea",
-      "notes": "equivalencia aprobada"
-    },
-    {
-      "op": "set_alias",
-      "alias": "ritmo orquidea",
-      "target": "ritmo-orquidea",
-      "notes": "nombre del género"
+      "alias": "vocal group",
+      "target": "not_a_genre",
+      "notes": "no es un género: voz"
     }
   ],
   "affected": {
-    "artist": 0,
+    "artist": 5,
     "album": 0
   },
   "humanNotices": 0,
-  "changes": []
+  "changes": [
+    {
+      "kind": "artist",
+      "entityId": 1837,
+      "before": {
+        "rows": [
+          {
+            "genre": "fusion-latina",
+            "role": "secondary",
+            "status": "confirmed",
+            "decisionKind": "rule"
+          },
+          {
+            "genre": "jazz",
+            "role": "secondary",
+            "status": "confirmed",
+            "decisionKind": "human"
+          },
+          {
+            "genre": "pop",
+            "role": "secondary",
+            "status": "confirmed",
+            "decisionKind": "rule"
+          },
+          {
+            "genre": "pop-latino",
+            "role": "primary",
+            "status": "confirmed",
+            "decisionKind": "human"
+          }
+        ]
+      },
+      "after": {
+        "rows": [
+          {
+            "genre": "fusion-latina",
+            "role": "secondary",
+            "status": "confirmed",
+            "decisionKind": "rule"
+          },
+          {
+            "genre": "jazz",
+            "role": "secondary",
+            "status": "confirmed",
+            "decisionKind": "human"
+          },
+          {
+            "genre": "pop-latino",
+            "role": "primary",
+            "status": "confirmed",
+            "decisionKind": "human"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "artist",
+      "entityId": 3842,
+      "before": {
+        "rows": [
+          {
+            "genre": "folk",
+            "role": "secondary",
+            "status": "superseded",
+            "decisionKind": "rule"
+          },
+          {
+            "genre": "musica-tradicional",
+            "role": "primary",
+            "status": "confirmed",
+            "decisionKind": "rule"
+          },
+          {
+            "genre": "pop",
+            "role": "secondary",
+            "status": "confirmed",
+            "decisionKind": "rule"
+          }
+        ]
+      },
+      "after": {
+        "rows": [
+          {
+            "genre": "folk",
+            "role": "secondary",
+            "status": "superseded",
+            "decisionKind": "rule"
+          },
+          {
+            "genre": "musica-tradicional",
+            "role": "primary",
+            "status": "confirmed",
+            "decisionKind": "rule"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "artist",
+      "entityId": 3845,
+      "before": {
+        "rows": [
+          {
+            "genre": "folk",
+            "role": "secondary",
+            "status": "superseded",
+            "decisionKind": "rule"
+          },
+          {
+            "genre": "musica-tradicional",
+            "role": "primary",
+            "status": "confirmed",
+            "decisionKind": "rule"
+          },
+          {
+            "genre": "pop",
+            "role": "secondary",
+            "status": "confirmed",
+            "decisionKind": "rule"
+          }
+        ]
+      },
+      "after": {
+        "rows": [
+          {
+            "genre": "folk",
+            "role": "secondary",
+            "status": "superseded",
+            "decisionKind": "rule"
+          },
+          {
+            "genre": "musica-tradicional",
+            "role": "primary",
+            "status": "confirmed",
+            "decisionKind": "rule"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "artist",
+      "entityId": 3848,
+      "before": {
+        "rows": [
+          {
+            "genre": "musica-tradicional",
+            "role": "primary",
+            "status": "confirmed",
+            "decisionKind": "human"
+          },
+          {
+            "genre": "musica-tropical",
+            "role": "secondary",
+            "status": "confirmed",
+            "decisionKind": "human"
+          },
+          {
+            "genre": "pop",
+            "role": "secondary",
+            "status": "confirmed",
+            "decisionKind": "rule"
+          }
+        ]
+      },
+      "after": {
+        "rows": [
+          {
+            "genre": "musica-tradicional",
+            "role": "primary",
+            "status": "confirmed",
+            "decisionKind": "human"
+          },
+          {
+            "genre": "musica-tropical",
+            "role": "secondary",
+            "status": "confirmed",
+            "decisionKind": "human"
+          }
+        ]
+      }
+    }
+  ]
 }

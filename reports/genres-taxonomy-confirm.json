@@ -1,70 +1,12 @@
 {
   "actor": "brian",
-  "reason": "Etapa 4 del nuevo lote: términos sin equivalente aprobados por Brian el 2026-10-03",
+  "reason": "Corrección 2026-10-12: «Alternativa»/«Del Mundo» de Aqustico son etiquetas vagas; los 44 discos que resolvían a rock-alternativo/world-ethnic estaban mal (run 19150)",
   "mode": "confirm",
-  "runId": 11662,
+  "runId": 19155,
   "operations": [
     {
-      "op": "create_genre",
-      "slug": "ritmo-orquidea",
-      "name": "Ritmo orquídea",
-      "level": "genre",
-      "parentSlug": "musica-venezolana",
-      "description": null
-    },
-    {
-      "op": "create_genre",
-      "slug": "musica-de-camara-popular",
-      "name": "Música de cámara popular",
-      "level": "genre",
-      "parentSlug": "musica-venezolana",
-      "description": null
-    },
-    {
-      "op": "create_genre",
-      "slug": "gaban",
-      "name": "Gabán",
-      "level": "subgenre",
-      "parentSlug": "joropo",
-      "description": null
-    },
-    {
-      "op": "create_genre",
-      "slug": "motivo-guaiqueri",
-      "name": "Motivo guaiquerí",
-      "level": "subgenre",
-      "parentSlug": "musica-oriental",
-      "description": null
-    },
-    {
-      "op": "set_alias",
-      "alias": "gaban",
-      "target": "gaban",
-      "notes": "nombre del género"
-    },
-    {
-      "op": "set_alias",
-      "alias": "motivo guaiqueri",
-      "target": "motivo-guaiqueri",
-      "notes": "nombre del género"
-    },
-    {
-      "op": "set_alias",
-      "alias": "musica de camara popular",
-      "target": "musica-de-camara-popular",
-      "notes": "nombre del género"
-    },
-    {
-      "op": "set_alias",
-      "alias": "orquidea",
-      "target": "ritmo-orquidea",
-      "notes": "equivalencia aprobada"
-    },
-    {
-      "op": "set_alias",
-      "alias": "ritmo orquidea",
-      "target": "ritmo-orquidea",
-      "notes": "nombre del género"
+      "op": "remove_alias",
+      "alias": "del mundo"
     }
   ],
   "affected": {
