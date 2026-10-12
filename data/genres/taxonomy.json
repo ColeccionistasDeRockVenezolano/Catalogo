@@ -338,7 +338,6 @@
       "name": "World ethnic",
       "family": "folk",
       "aliases": [
-        "del mundo",
         "world",
         "world music",
         "musica del mundo",
@@ -1209,7 +1208,6 @@
       "name": "Rock alternativo",
       "family": "rock",
       "aliases": [
-        "alternativa",
         "alternative rock",
         "rock alternative",
         "alt rock",
@@ -2357,6 +2355,7 @@
       "ua latino"
     ],
     "descriptor": [
+      "alternativa",
       "Aggro",
       "Porn",
       "Gore",

@@ -83,10 +83,24 @@ fichas que ya tenían principal y no se tocaron. Quedan 2 discos sin resolver, a
 Los géneros de artista se recalcularon solos desde sus discos; por ejemplo, Caibo pasa de no
 tener género a `musica-tropical`. `npm run doctor`: el mismo aviso previo, sin cambios.
 
-**Ojo:** «Alternativa» de Aqustico es «música alternativa» en sentido amplio. Los 19
-sencillos de Irepelusa (pop/urbano) quedan con `rock-alternativo` como principal del disco.
-Si no te convence, `crv runs undo 19061` lo deshace entero, o se corrige ficha por ficha en
-la Mesa de géneros.
+## Corrección de géneros sin sentido (pedido de Brian, 2026-10-12)
+
+Revisión de los 293 discos con género de Aqustico, cruzada con los demás discos de cada
+artista en CRV y con la prensa. «Alternativa» resultó ser «música alternativa» en sentido
+amplio: los 43 discos que la usaban quedaron mal con `rock-alternativo`.
+
+| Artista | Discos | Antes → después | Prueba |
+|---|---|---|---|
+| Irepelusa | 19 | rock-alternativo → r-and-b | pop urbano/R&B (El Universal, NTN24); sus otros discos: R&B |
+| Motherflowers | 24 + 1 | rock-alternativo / world-ethnic → hip-hop | trío de hip hop con fusión tropical (Indie Hoy); sus otros discos: hip hop |
+| Francisco Montoya | 1 | musica-tradicional → joropo | cantante llanero; término más preciso |
+
+**Run 19150** (ensayo en el 19149), a nombre de `brian` y por el camino de la Mesa: el género
+correcto se confirma como principal y el de Aqustico queda `rejected`, así que ninguna regla
+lo reabre. Los alias se corrigieron en el run 19154 («alternativa» → `not_a_genre`, ahora en
+`notAGenre.descriptor`) y en el 19155 («del mundo» eliminado). El resto se revisó y se
+mantiene: José y El Toro es bolero (Rolling Stone), Guaco y Frank Lucas son tropical, y
+Rummy Olivo es joropo.
 
 ## Scripts (`scripts/aqustico/`)
 
