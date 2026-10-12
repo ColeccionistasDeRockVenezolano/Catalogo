@@ -67,7 +67,7 @@ describe("API de escritura de alias (E8)", () => {
     // (merge/engine.ts crea uno igual al nombre canónico, marcado primario).
     const detail = (await app.inject({ method: "GET", url: `/artists/${artistId}` })).json();
     expect(detail.aliases.find((row: { id: number }) => row.id === alias.id))
-      .toEqual({ id: alias.id, alias: "Azúcar, Cacao & Leche", aliasType: "spelling_variant", isPrimary: true });
+      .toEqual({ id: alias.id, alias: "Azúcar, Cacao & Leche", aliasType: "spelling_variant", isPrimary: true, publicHidden: false });
     expect(detail.aliases.find((row: { id: number }) => row.id === seededAliasId).isPrimary).toBe(false);
 
     const second = await write("POST", `/artists/${artistId}/aliases`, { alias: "ACYL", aliasType: "acronym", isPrimary: true, note: "sigla" });
@@ -91,7 +91,7 @@ describe("API de escritura de alias (E8)", () => {
     expect(removed.statusCode).toBe(200);
     const finalDetail = (await app.inject({ method: "GET", url: `/artists/${artistId}` })).json();
     expect(finalDetail.aliases.find((row: { id: number }) => row.id === alias.id))
-      .toEqual({ id: alias.id, alias: "Azúcar Cacao y Leche (variante)", aliasType: "spelling_variant", isPrimary: false });
+      .toEqual({ id: alias.id, alias: "Azúcar Cacao y Leche (variante)", aliasType: "spelling_variant", isPrimary: false, publicHidden: false });
     expect(finalDetail.aliases).toHaveLength(2);
   });
 

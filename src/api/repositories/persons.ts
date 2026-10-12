@@ -7,6 +7,7 @@ import { personDeceasedSql } from "./deceased.js";
 import { loadPersonFacts, scorePersonPair } from "../../review/person-candidates.js";
 import { compareCatalog, type PersonComparison } from "../../review/person-comparison.js";
 import { personIdentityAssessment } from "../../review/person-identity-assessment.js";
+import { personDisplayNames, withPublicAliases } from "./person-display.js";
 
 export interface PersonListRow {
   id: number;
@@ -152,6 +153,8 @@ export async function getPersonFacets(): Promise<{
 export interface PersonDetail {
   id: number;
   name: string;
+  /** «Nombre "Apodo" Apellido» solo para pantalla; null si no tiene apodo. */
+  displayName: string | null;
   biography: string | null;
   pictureUrl: string | null;
   nationality: string | null;
@@ -179,7 +182,7 @@ export interface PersonDetail {
   albumCredits: Array<{ id: number; albumId: number; albumTitle: string; artistId: number; artistName: string; creditType: string; role: string }>;
   trackCredits: Array<{ id: number; trackId: number; trackTitle: string; albumId: number; albumTitle: string; creditType: string; role: string }>;
   organizations: Array<{ id: number; organizationId: number; organizationName: string; role: string; fromYear: number | null; toYear: number | null }>;
-  aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>;
+  aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean; publicHidden: boolean }>;
 }
 
 export interface PersonDuplicateCandidateRow {
@@ -332,9 +335,11 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
   // El veredicto sobre el nombre se calcula aquí (no en la web): un solo
   // clasificador alimenta el filtro, el aviso y el plan de correcciones.
   const classification = classifyPersonName(String(row["name"]));
+  const displayNames = await personDisplayNames([id]);
   return {
     id: Number(row["id"]),
     name: row["name"] as string,
+    displayName: displayNames.get(id) ?? null,
     biography: row["biography"] as string | null,
     pictureUrl: row["picture_url"] as string | null,
     nationality: row["nationality"] as string | null,
@@ -357,6 +362,6 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
     albumCredits: row["album_credits"] as PersonDetail["albumCredits"],
     trackCredits: row["track_credits"] as PersonDetail["trackCredits"],
     organizations: row["organizations"] as PersonDetail["organizations"],
-    aliases: row["aliases"] as PersonDetail["aliases"],
+    aliases: withPublicAliases(String(row["name"]), row["aliases"] as Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>, [displayNames.get(id) ?? null]),
   };
 }

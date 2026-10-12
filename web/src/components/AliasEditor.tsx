@@ -27,6 +27,9 @@ export function AliasEditor({ path, entityId, aliases, onChanged, compactTypeLab
   const [editing, setEditing] = useState<Alias | null>(null);
   const [removing, setRemoving] = useState<Alias | null>(null);
   const [promoting, setPromoting] = useState<Alias | null>(null);
+  // El público no ve los alias iguales al nombre ni las variantes de fuente
+  // (plan del primo, punto 10); siguen guardados para la búsqueda y el ER.
+  const shown = isAdmin ? aliases : aliases.filter((item) => !item.publicHidden);
 
   async function handleAdd(event: React.FormEvent) {
     event.preventDefault();
@@ -68,8 +71,9 @@ export function AliasEditor({ path, entityId, aliases, onChanged, compactTypeLab
   return (
     <div>
       <ul style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {aliases.map((item) => (
-          <li key={item.id} className={`chip alias-chip ${item.isPrimary ? "is-primary" : ""}`}>
+        {shown.map((item) => (
+          <li key={item.id} className={`chip alias-chip ${item.isPrimary ? "is-primary" : ""}${item.publicHidden ? " is-hidden" : ""}`}
+            title={item.publicHidden ? "Oculto al público: igual al nombre, repetido o variante de fuente" : undefined}>
             {item.isPrimary ? <Star className="chip-icon chip-icon--primary" aria-label="Alias principal" weight="fill" /> : null}
             <span className="alias-chip__name">{item.alias}</span>
             <span className="alias-chip__type" title={aliasTypeLabel(item.aliasType)}>{compactTypeLabels && item.aliasType === "name_variant" ? "Variante" : aliasTypeLabel(item.aliasType)}</span>
@@ -84,7 +88,7 @@ export function AliasEditor({ path, entityId, aliases, onChanged, compactTypeLab
             ) : null}
           </li>
         ))}
-        {aliases.length === 0 ? <span style={{ color: "var(--text-faint)", fontSize: 13 }}>Sin alias registrados.</span> : null}
+        {shown.length === 0 ? <span style={{ color: "var(--text-faint)", fontSize: 13 }}>Sin alias registrados.</span> : null}
       </ul>
       {isAdmin ? (
         adding ? (

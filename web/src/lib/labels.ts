@@ -24,6 +24,7 @@ const DICTS: Record<string, Record<string, string>> = {
   aliasType: {
     name_variant: "Variante de nombre", spelling_variant: "Variante ortográfica", former_name: "Nombre anterior",
     stage_name: "Nombre artístico", acronym: "Sigla", misspelling: "Errata", alternate_title: "Título alterno", other: "Otro",
+    nickname: "Apodo", source_variant: "Variante de fuente",
   },
   publicationStatus: {
     published: "Publicado", unlisted: "No listado", unpublished: "Despublicado", copyright_blocked: "Bloqueado por copyright", unknown: "Desconocido",
@@ -113,5 +114,11 @@ export function membershipNoun(bands: ReadonlyArray<{ role: string; artistType?:
   const projects = bands.filter(isProjectMembership).length;
   if (bands.length > 0 && projects === bands.length) return { singular: "Proyecto", plural: "Proyectos" };
   if (projects === 0) return { singular: "Banda", plural: "Bandas" };
-  return { singular: "Banda o proyecto", plural: "Bandas y proyectos" };
+  // Bandas y proyectos juntos: «Proyectos musicales» (plan del primo, caso Cheo Pardo).
+  return { singular: "Banda o proyecto", plural: "Proyectos musicales" };
+}
+
+/** El rol genérico «Miembro» de las fuentes se lee «Integrante» (plan del primo, punto 11). */
+export function memberRoleLabel(role: string): string {
+  return /^(miembro|member)$/iu.test(role.trim()) ? "Integrante" : role;
 }

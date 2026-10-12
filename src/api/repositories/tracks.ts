@@ -10,6 +10,7 @@ import { getPool } from "../../db/client.js";
 import type { PaginationQuery } from "../pagination.js";
 import { genreFilterSql, publicGenresFor, type PublicGenre } from "../../genres/public.js";
 import type { GenreStatus } from "../../merge/genre-projection.js";
+import { personDisplayNames, withPublicAliases } from "./person-display.js";
 
 export interface TrackListItem {
   id: number;
@@ -30,6 +31,8 @@ export interface TrackCreditRow {
   role: string;
   personId: number | null;
   personName: string | null;
+  /** «Nombre "Apodo" Apellido» si la persona tiene apodo (solo pantalla). */
+  personDisplayName?: string | null;
   personIsDeceased: boolean;
   artistId: number | null;
   artistName: string | null;
@@ -42,6 +45,7 @@ export interface TrackAliasRow {
   alias: string;
   aliasType: string;
   isPrimary: boolean;
+  publicHidden?: boolean;
 }
 
 export interface TrackDetail extends TrackListItem {
@@ -142,12 +146,13 @@ export async function getTrackDetail(id: number): Promise<TrackDetail | null> {
   if (!row) return null;
   const albumId = Number(row.album_id);
   const genres = (await publicGenresFor("album", [albumId], new Map([[albumId, row.album_genre]]))).get(albumId)!;
+  const displayNames = await personDisplayNames(row.credits.flatMap((credit) => credit.personId === null ? [] : [credit.personId]));
   return {
     ...toListItem(row),
     youtubeStartSeconds: row.youtube_start_seconds,
     notes: row.notes,
-    aliases: row.aliases,
-    credits: row.credits,
+    aliases: withPublicAliases(row.title, row.aliases),
+    credits: row.credits.map((credit) => ({ ...credit, personDisplayName: credit.personId === null ? null : displayNames.get(credit.personId) ?? null })),
     ...genres,
     genreOrigin: "album",
   };

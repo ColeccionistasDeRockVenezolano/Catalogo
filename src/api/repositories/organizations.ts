@@ -1,6 +1,7 @@
 // CRV · Consultas de lectura para organizaciones (PHASES §E7A).
 import { getPool } from "../../db/client.js";
 import type { PaginationQuery } from "../pagination.js";
+import { personDisplayNames, withPublicAliases } from "./person-display.js";
 
 export interface OrganizationListRow {
   id: number;
@@ -64,8 +65,8 @@ export interface OrganizationDetail {
   notes: string | null;
   labelAlbums: Array<{ albumId: number; title: string; releaseYear: number | null; artistId: number; artistName: string }>;
   creditedArtists: Array<{ artistId: number; artistName: string }>;
-  associatedPersons: Array<{ id: number; personId: number; personName: string; personIsDeceased: boolean; role: string; fromYear: number | null; toYear: number | null }>;
-  aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>;
+  associatedPersons: Array<{ id: number; personId: number; personName: string; personDisplayName: string | null; personIsDeceased: boolean; role: string; fromYear: number | null; toYear: number | null }>;
+  aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean; publicHidden: boolean }>;
 }
 
 export async function getOrganizationDetail(id: number): Promise<OrganizationDetail | null> {
@@ -104,6 +105,8 @@ export async function getOrganizationDetail(id: number): Promise<OrganizationDet
   );
   const row = rows[0];
   if (!row) return null;
+  const associatedPersons = row["associated_persons"] as Array<Omit<OrganizationDetail["associatedPersons"][number], "personDisplayName">>;
+  const displayNames = await personDisplayNames(associatedPersons.map((person) => person.personId));
   return {
     id: Number(row["id"]),
     name: row["name"] as string,
@@ -115,7 +118,7 @@ export async function getOrganizationDetail(id: number): Promise<OrganizationDet
     notes: row["notes"] as string | null,
     labelAlbums: row["label_albums"] as OrganizationDetail["labelAlbums"],
     creditedArtists: row["credited_artists"] as OrganizationDetail["creditedArtists"],
-    associatedPersons: row["associated_persons"] as OrganizationDetail["associatedPersons"],
-    aliases: row["aliases"] as OrganizationDetail["aliases"],
+    associatedPersons: associatedPersons.map((person) => ({ ...person, personDisplayName: displayNames.get(person.personId) ?? null })),
+    aliases: withPublicAliases(String(row["name"]), row["aliases"] as Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>),
   };
 }

@@ -10,7 +10,7 @@ import { OPERATOR_SECURITY } from "../auth.js";
 import { idParamSchema, writeErrorResponses } from "../schemas.js";
 import { noteFrom, noteSchema, deleteQuerySchema } from "./catalog-writes.js";
 
-const ALIAS_TYPES = ["name_variant", "spelling_variant", "former_name", "stage_name", "acronym", "misspelling", "alternate_title", "other"] as const;
+const ALIAS_TYPES = ["name_variant", "spelling_variant", "former_name", "stage_name", "acronym", "misspelling", "alternate_title", "other", "nickname", "source_variant"] as const;
 
 const aliasSchema = z.object({
   id: z.number().int(),

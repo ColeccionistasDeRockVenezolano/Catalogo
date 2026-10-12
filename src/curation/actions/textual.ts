@@ -22,7 +22,7 @@ import type {
 } from "./types.js";
 
 const ENTITY_KINDS = new Set<string>(["artist", "person", "organization", "album", "track"]);
-const ALIAS_TYPES = ["name_variant", "spelling_variant", "former_name", "stage_name", "acronym", "misspelling", "alternate_title", "other"] as const;
+const ALIAS_TYPES = ["name_variant", "spelling_variant", "former_name", "stage_name", "acronym", "misspelling", "alternate_title", "other", "nickname", "source_variant"] as const;
 
 const fieldSchema = z.enum(["name", "title"]);
 const valueSchema = z.string().trim().min(1).max(2_000);

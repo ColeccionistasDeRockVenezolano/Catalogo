@@ -14,7 +14,8 @@
 // que «no es un problema» se perdiera. Un par tiene huella propia (tipo +
 // ids menor y mayor) y sobrevive a renombrados y a miembros nuevos.
 import { organizationKey } from "../../review/person-names.js";
-import { isGenericTitle, titleTokens } from "../../ambiguity/text.js";
+import { albumPart, type AlbumPart } from "../../merge/album-parts.js";
+import { isGenericTitle, isGenericTokens, titleTokens } from "../../ambiguity/text.js";
 import { compactKey, nameKey, type NameValue } from "../lexicon.js";
 import type { EntityRef, Finding, Severity } from "../types.js";
 import { quote, type AnalysisContext, type Detector } from "./shared.js";
@@ -84,11 +85,43 @@ function namesOf(context: AnalysisContext, kind: NameValue["kind"]): NameValue[]
 
 const withoutTrailingGroup = (value: string): string => value.replace(/\s*\([^()]*\)\s*$/u, "");
 
+// Plan del primo, etapa 1 (2026-10-12): «1ra Edición» y «Primera Edición»,
+// «La Banda de la Banana Voladora» y «La Banana Voladora», «Atkinson - La
+// Banda» y «Atkinson». Cifra o palabra y el envoltorio «la banda de …» /
+// «… y su banda» no cambian de artista.
+const NUMBER_WORDS: ReadonlyArray<[RegExp, string]> = [
+  [/\b(1(ra|era|ro|ero|a|o|er)?|primer[ao]?|uno|una)\b/gu, "1"],
+  [/\b(2(da|do|a|o)?|segund[ao]|dos)\b/gu, "2"],
+  [/\b(3(ra|ro|era|ero|a|o|er)?|tercer[ao]?|tres)\b/gu, "3"],
+  [/\b(4(ta|to|a|o)?|cuart[ao]|cuatro)\b/gu, "4"],
+  [/\b(5(ta|to|a|o)?|quint[ao]|cinco)\b/gu, "5"],
+  [/\b(seis|sexto|sexta)\b/gu, "6"],
+  [/\b(siete|septim[ao]|setim[ao])\b/gu, "7"],
+  [/\b(ocho|octav[ao])\b/gu, "8"],
+  [/\b(nueve|noven[ao])\b/gu, "9"],
+  [/\b(diez|decim[ao])\b/gu, "10"],
+];
+const BAND_WRAPPERS: readonly RegExp[] = [
+  /^(la |el )?(banda|grupo|orquesta|conjunto|combo|ensamble) (de |del )?/u,
+  / (y|&) (su|sus) (banda|grupo|orquesta|conjunto|combo)$/u,
+  / (la banda|band|banda|y la banda)$/u,
+];
+
+/** Clave de variante: números en cifra y sin el envoltorio de «banda». Vacía si no cambia nada. */
+export function bandVariantKey(value: string): string {
+  const base = nameKey(value.replace(/\s+[-–—]\s+/gu, " "));
+  let key = base;
+  for (const [pattern, digit] of NUMBER_WORDS) key = key.replace(pattern, digit);
+  for (const wrapper of BAND_WRAPPERS) key = key.replace(wrapper, "").trim();
+  if (!key || key === base) return compactKey(value);
+  return compactKey(key);
+}
+
 export const equivalentArtists: Detector = {
   key: "artistas_equivalentes",
   category: CATEGORY,
   label: "Artistas escritos de otra forma",
-  description: "Artistas que coinciden al quitar tildes, artículos («Los», «The»), espacios o una aclaración final entre paréntesis.",
+  description: "Artistas que coinciden al quitar tildes, artículos («Los», «The»), espacios, una aclaración final entre paréntesis, al escribir un número en cifra o en letra («1ra»/«Primera») o al quitar «La Banda de…»/«… - La Banda».",
   actions: { "*": ["fusionar"] },
   run(context) {
     const artists = namesOf(context, "artist");
@@ -98,6 +131,7 @@ export const equivalentArtists: Detector = {
       ["misma_clave", "Solo cambian tildes, mayúsculas o signos", (name) => nameKey(name.value)],
       ["sin_articulo_o_espacios", "Solo cambian el artículo o los espacios", (name) => compactKey(name.value)],
       ["con_aclaracion", "Uno lleva una aclaración entre paréntesis", (name) => compactKey(withoutTrailingGroup(name.value))],
+      ["variante_de_nombre", "Cambia un número escrito en cifra o en letra, o el envoltorio «La Banda de…»", (name) => bandVariantKey(withoutTrailingGroup(name.value))],
     ];
     for (const [signature, signatureLabel, key] of rules) {
       for (const group of groupBy(artists, key)) {
@@ -200,6 +234,90 @@ export const repeatedAlbums: Detector = {
   },
 };
 
+const PART_SIGNATURE: Readonly<Record<AlbumPart["kind"], string>> = {
+  lado: "Lado A / Lado B", disco: "CD 1 / CD 2", parte: "Parte I / Parte II", volumen: "Volúmenes del mismo año", formato: "CD / DVD",
+  edicion: "Reedición",
+};
+
+/** Orden en la serie: sin parte primero (la original), luego por número; «DVD», «CD Reissue» al final. */
+const partOrder = (part: AlbumPart | null): number => (part ? part.order ?? 99 : 0);
+
+/**
+ * Un disco partido en varias fichas (Brian, 2026-10-11): «Live in Paris - Lado
+ * A» y «… - Lado B», «Goma (Disco A)» y «(Disco B)», un DVD y su CD, «Diez
+ * Años Vol. 1» y «Vol. 2» del mismo año, «Internacional» y su «(CD Reissue)».
+ * Van en UNA página con una lista por disco, cada una con el nombre de la
+ * fuente (acción `juntar_discos`; si la lista es la misma, se funden).
+ *
+ * Se emite un par por cada ficha de la serie contra la primera (la de menor
+ * parte o sin parte): al juntar una, el resto de pares sigue siendo válido.
+ * No entran: un «Vol. N» de otro año o sin año, un título que sea solo
+ * «Vol. N» o «Artista Vol. N» (LPs que quedan aparte), dos fichas con la misma
+ * parte (eso es `discos_repetidos`) ni dos años distintos en lados o discos.
+ */
+export const splitAlbums: Detector = {
+  key: "discos_partidos",
+  category: CATEGORY,
+  label: "Disco partido en varias fichas",
+  description: "Lado A/B, CD 1/2, partes, CD y DVD, volúmenes del mismo año o reediciones de un mismo disco en fichas separadas: van en una página con una lista por disco. Un «Vol. N» de otro año, o un título que sea solo «Vol. N» o «Artista Vol. N», no entra.",
+  actions: { "*": ["juntar_discos"] },
+  run(context) {
+    const out: Finding[] = [];
+    const byKey = new Map<string, Array<{ name: NameValue; part: AlbumPart | null }>>();
+    // Sin ninguna ficha con parte, un artista no puede tener grupo: solo se
+    // tokenizan los discos de los que sí (tokenizar todo el catálogo es lo caro).
+    const parted = namesOf(context, "album").map((name) => ({ name, part: albumPart(name.value) }));
+    const withParts = new Set(parted.filter((entry) => entry.part).map((entry) => context.albums.get(entry.name.id)!.artistId));
+    const artistTokens = new Map<number, string[]>();
+    for (const { name, part } of parted) {
+      const album = context.albums.get(name.id)!;
+      if (!withParts.has(album.artistId)) continue;
+      const base = part?.base ?? name.value;
+      let artist = artistTokens.get(album.artistId);
+      if (!artist) artistTokens.set(album.artistId, artist = titleTokens(context.artists.get(album.artistId)?.name ?? ""));
+      const tokens = titleTokens(base);
+      if (isGenericTokens(tokens, artist)) continue;
+      const key = `${album.artistId}|${tokens.join(" ")}`;
+      const list = byKey.get(key);
+      if (list) list.push({ name, part }); else byKey.set(key, [{ name, part }]);
+    }
+    for (const group of byKey.values()) {
+      if (group.length < 2 || !group.some((member) => member.part)) continue;
+      // La primera: sin parte, o la de menor orden; a igualdad, la ficha más antigua.
+      const sorted = [...group].sort((a, b) => partOrder(a.part) - partOrder(b.part) || a.name.id - b.name.id);
+      const first = sorted[0]!;
+      const firstAlbum = context.albums.get(first.name.id)!;
+      for (const other of sorted.slice(1)) {
+        const [a, b] = [first, other];
+        if (context.snapshot.handledPairs.has(pairKey("album", a.name.id, b.name.id))) continue;
+        if (!a.part && !b.part) continue;
+        if (a.part && b.part && a.part.label.toLocaleLowerCase("es") === b.part.label.toLocaleLowerCase("es")) continue;
+        const otherAlbum = context.albums.get(other.name.id)!;
+        const years = [firstAlbum.releaseYear, otherAlbum.releaseYear];
+        const sameYear = years[0] !== null && years[0] === years[1];
+        // Volúmenes: solo del mismo año. Reediciones: de cualquier año. Lados,
+        // discos, partes y formatos: no de dos años distintos.
+        const volume = a.part?.kind === "volumen" || b.part?.kind === "volumen";
+        const reissue = a.part?.kind === "edicion" || b.part?.kind === "edicion";
+        if (volume ? !sameYear : !reissue && years[0] !== null && years[1] !== null && years[0] !== years[1]) continue;
+        const kind = (b.part ?? a.part)!.kind;
+        const artistName = context.artists.get(firstAlbum.artistId)?.name ?? "";
+        out.push(pairFinding(this, a.name, b.name, {
+          signature: `partido_${kind}`, signatureLabel: PART_SIGNATURE[kind], severity: "medium",
+          title: `${quote(a.name.value)} y ${quote(b.name.value)} de ${quote(artistName)} son partes de un mismo disco`,
+          suggestion: "Juntar en una página: cada ficha queda como un disco con su nombre («Lado A», «CD 2», «DVD»)",
+          evidence: {
+            base: (a.part ?? b.part)!.base,
+            parts: { [a.name.id]: a.part?.label ?? null, [b.name.id]: b.part?.label ?? null },
+            first: a.name.id, years,
+          },
+        }));
+      }
+    }
+    return out;
+  },
+};
+
 export const repeatedTracks: Detector = {
   key: "pistas_repetidas",
   category: CATEGORY,
@@ -257,4 +375,4 @@ export const equivalentPersons: Detector = {
   },
 };
 
-export const DUPLICATE_DETECTORS: Detector[] = [equivalentArtists, equivalentOrganizations, repeatedAlbums, repeatedTracks, equivalentPersons];
+export const DUPLICATE_DETECTORS: Detector[] = [equivalentArtists, equivalentOrganizations, repeatedAlbums, splitAlbums, repeatedTracks, equivalentPersons];

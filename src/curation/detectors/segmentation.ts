@@ -417,9 +417,12 @@ export const severalPeopleInOne: Detector = {
 };
 
 const GLUED = /\p{Ll}{3,}\p{Lu}\p{Ll}{2,}/gu;
+const LOWER_THEN_UPPER = /\p{Ll}\p{Lu}/u;
 
 function gluedWords(name: NameValue, vocabulary: Set<string>): Array<{ left: string; right: string; index: number; length: number }> {
   const out: Array<{ left: string; right: string; index: number; length: number }> = [];
+  // Casi ningún nombre tiene una minúscula seguida de una mayúscula: sin ella no hay nada que cortar.
+  if (!LOWER_THEN_UPPER.test(name.value)) return out;
   for (const token of name.value.matchAll(/\p{L}+/gu)) {
     for (const glued of token[0].matchAll(GLUED)) {
       const boundary = [...glued[0]].findIndex((char, index) => index > 0 && /\p{Lu}/u.test(char));

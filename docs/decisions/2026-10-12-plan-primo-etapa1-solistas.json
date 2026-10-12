@@ -1,0 +1,1752 @@
+{
+  "decidedAt": "2026-10-12",
+  "evidence": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave",
+  "corrections": [
+    {
+      "op": "create_titular",
+      "name": "Nelson Morales",
+      "artist": {
+        "id": 5778,
+        "name": "Nelson Morales"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Levy Rossell",
+      "artist": {
+        "id": 5779,
+        "name": "Levy Rossell"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Luidig Ochoa",
+      "artist": {
+        "id": 5781,
+        "name": "Luidig Ochoa"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Manuel Guzman",
+      "artist": {
+        "id": 5782,
+        "name": "Manuel Guzman"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Perucho Conde",
+      "artist": {
+        "id": 5786,
+        "name": "Perucho Conde"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Reymar Perdomo",
+      "artist": {
+        "id": 5791,
+        "name": "Reymar Perdomo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Vicentico Rodríguez",
+      "artist": {
+        "id": 5795,
+        "name": "Vicentico Rodríguez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Evaluna Montaner",
+      "artist": {
+        "id": 5798,
+        "name": "Evaluna Montaner"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Gilberto Perez",
+      "artist": {
+        "id": 5804,
+        "name": "Gilberto Perez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Tomás Montilla",
+      "artist": {
+        "id": 5808,
+        "name": "Tomás Montilla"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Emily Galaviz",
+      "artist": {
+        "id": 5809,
+        "name": "Emily Galaviz"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Pepe Camarillo",
+      "artist": {
+        "id": 5810,
+        "name": "Pepe Camarillo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Johnny Herrera",
+      "artist": {
+        "id": 5811,
+        "name": "Johnny Herrera"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Andrea Maramara",
+      "artist": {
+        "id": 5812,
+        "name": "Andrea Maramara"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Emmanuel Abraham",
+      "artist": {
+        "id": 5816,
+        "name": "Emmanuel Abraham"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Romina Palmisano",
+      "artist": {
+        "id": 5818,
+        "name": "Romina Palmisano"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Adso Alejandro",
+      "artist": {
+        "id": 5820,
+        "name": "Adso Alejandro"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Moisés Velásquez",
+      "artist": {
+        "id": 5822,
+        "name": "Moisés Velásquez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Rosa Esber",
+      "artist": {
+        "id": 5824,
+        "name": "Rosa Esber"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Viviana Baptista",
+      "artist": {
+        "id": 5826,
+        "name": "MUSIANA"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: la biografía da su nombre real («Viviana Baptista»)"
+    },
+    {
+      "op": "create_titular",
+      "name": "Carmen Alicia Lara",
+      "artist": {
+        "id": 5828,
+        "name": "Carmen Alicia Lara"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Yoangel Torrealba",
+      "artist": {
+        "id": 5829,
+        "name": "Yoangel Torrealba"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Michi Sanz",
+      "artist": {
+        "id": 5833,
+        "name": "Michi Sanz"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Miguelito Díaz",
+      "artist": {
+        "id": 5838,
+        "name": "Miguelito Díaz"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Guillermo William Márquez Corao",
+      "artist": {
+        "id": 5839,
+        "name": "Guillermo William Márquez Corao"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Alicia Machado",
+      "artist": {
+        "id": 5840,
+        "name": "Alicia Machado"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Samuel Acosta",
+      "artist": {
+        "id": 5842,
+        "name": "Samuel Acosta"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "V Rod",
+      "artist": {
+        "id": 5845,
+        "name": "V Rod"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Sergio Rosales",
+      "artist": {
+        "id": 5846,
+        "name": "Sergio Rosales"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Vict Molina",
+      "artist": {
+        "id": 5848,
+        "name": "Vict Molina"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Samuel Sahlieh",
+      "artist": {
+        "id": 5850,
+        "name": "Samuel Sahlieh"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Sergio Alonso Américo Bustamante Díaz",
+      "artist": {
+        "id": 5860,
+        "name": "Seji Morto"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: la biografía da su nombre real («Sergio Alonso Américo Bustamante Díaz»)"
+    },
+    {
+      "op": "create_titular",
+      "name": "Dámaso Delgado",
+      "artist": {
+        "id": 5862,
+        "name": "Dámaso Delgado"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Adrian Guacaran",
+      "artist": {
+        "id": 5863,
+        "name": "Adrian Guacaran"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Cornelio Salazar",
+      "artist": {
+        "id": 5864,
+        "name": "Cornelio Salazar"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Giovanni Guzzo",
+      "artist": {
+        "id": 5865,
+        "name": "Giovanni Guzzo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Lú Marié",
+      "artist": {
+        "id": 5866,
+        "name": "Lú Marié"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Erika Needs",
+      "artist": {
+        "id": 5867,
+        "name": "Erika Needs"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Luis Edgardo Ramírez",
+      "artist": {
+        "id": 5871,
+        "name": "Luis Edgardo Ramírez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Astrid Celeste",
+      "artist": {
+        "id": 5874,
+        "name": "Astrid Celeste"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Tony Monserrat",
+      "artist": {
+        "id": 5876,
+        "name": "Tony Monserrat"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Robert Tiamo",
+      "artist": {
+        "id": 5877,
+        "name": "Robert Tiamo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Niko la Fábrica",
+      "artist": {
+        "id": 5878,
+        "name": "Niko la Fábrica"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Rui Gabriel",
+      "artist": {
+        "id": 5881,
+        "name": "Rui Gabriel"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Rafael Payare",
+      "artist": {
+        "id": 5884,
+        "name": "Rafael Payare"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "César Castro",
+      "artist": {
+        "id": 5887,
+        "name": "César Castro"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Jorge Ostos",
+      "artist": {
+        "id": 5889,
+        "name": "Jorge Ostos"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Manu Heredia",
+      "artist": {
+        "id": 5890,
+        "name": "Manu Heredia"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Luca Pisaroni",
+      "artist": {
+        "id": 5891,
+        "name": "Luca Pisaroni"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Scarlett Linares",
+      "artist": {
+        "id": 5894,
+        "name": "Scarlett Linares"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Luis Conny",
+      "artist": {
+        "id": 5896,
+        "name": "Luis Conny"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "María Teresa Acosta",
+      "artist": {
+        "id": 5897,
+        "name": "María Teresa Acosta"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Bill Quick",
+      "artist": {
+        "id": 5902,
+        "name": "Bill Quick"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Genaro Salinas",
+      "artist": {
+        "id": 5904,
+        "name": "Genaro Salinas"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Héctor Murga",
+      "artist": {
+        "id": 5909,
+        "name": "Héctor Murga"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Aldo Donà",
+      "artist": {
+        "id": 5910,
+        "name": "Aldo Donà"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Kiko Mendive",
+      "artist": {
+        "id": 5912,
+        "name": "Kiko Mendive"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Alberto Aguilá",
+      "artist": {
+        "id": 5913,
+        "name": "Alberto Aguilá"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Herminia Martínez",
+      "artist": {
+        "id": 5914,
+        "name": "Herminia Martínez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Bob Bissonnette",
+      "artist": {
+        "id": 5916,
+        "name": "Bob Bissonnette"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Sebastián Bauza-Bueno",
+      "artist": {
+        "id": 5918,
+        "name": "Sebastián Bauza-Bueno"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Efraín Amaya",
+      "artist": {
+        "id": 5921,
+        "name": "Efraín Amaya"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Christian Vásquez",
+      "artist": {
+        "id": 5931,
+        "name": "Christian Vásquez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Vince Vinyl",
+      "artist": {
+        "id": 5939,
+        "name": "Vince Vinyl"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Nicolás Maduro",
+      "artist": {
+        "id": 5940,
+        "name": "Nicolás Maduro"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Patricia Zavala",
+      "artist": {
+        "id": 5949,
+        "name": "Patricia Zavala"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Alejandro Planchart",
+      "artist": {
+        "id": 5950,
+        "name": "Alejandro Planchart"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Marti Ann",
+      "artist": {
+        "id": 5953,
+        "name": "Marti Ann"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Enrique Bencomo",
+      "artist": {
+        "id": 5954,
+        "name": "Enrique Bencomo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Laura Chimaras",
+      "artist": {
+        "id": 5955,
+        "name": "Laura Chimaras"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Rafael Lanzetta",
+      "artist": {
+        "id": 5957,
+        "name": "Rafael Lanzetta"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Andrés Levell",
+      "artist": {
+        "id": 5959,
+        "name": "Andrés Levell"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Nancy Fabiola Herrera",
+      "artist": {
+        "id": 5960,
+        "name": "Nancy Fabiola Herrera"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Victor Porfidio",
+      "artist": {
+        "id": 5963,
+        "name": "Victor Porfidio"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Carlos Montilla",
+      "artist": {
+        "id": 5966,
+        "name": "Carlos Montilla"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Saul Guanipa",
+      "artist": {
+        "id": 5967,
+        "name": "Saul Guanipa"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Soraya Benitez",
+      "artist": {
+        "id": 5968,
+        "name": "Soraya Benitez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Reynaldo Hahn",
+      "artist": {
+        "id": 5970,
+        "name": "Reynaldo Hahn"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Giorgio Maulini",
+      "artist": {
+        "id": 5972,
+        "name": "Giorgio Maulini"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Eddie Le Baron",
+      "artist": {
+        "id": 5974,
+        "name": "Eddie Le Baron"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Harry Zimmerman",
+      "artist": {
+        "id": 5977,
+        "name": "Harry Zimmerman"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Simone Angel",
+      "artist": {
+        "id": 5978,
+        "name": "Simone Angel"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Susan Cagle",
+      "artist": {
+        "id": 5980,
+        "name": "Susan Cagle"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Juan Serrano",
+      "artist": {
+        "id": 5984,
+        "name": "Juan Serrano"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Paul Connor",
+      "artist": {
+        "id": 5988,
+        "name": "Paul Connor"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Susan Justice",
+      "artist": {
+        "id": 5995,
+        "name": "Susan Justice"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Greg Hobson",
+      "artist": {
+        "id": 5996,
+        "name": "Greg Hobson"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Marlon Titre",
+      "artist": {
+        "id": 5998,
+        "name": "Marlon Titre"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Jose Aquilino Sanchez",
+      "artist": {
+        "id": 5999,
+        "name": "Jose Aquilino Sanchez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "García Gomez",
+      "artist": {
+        "id": 6000,
+        "name": "García Gomez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Majandra Delfino",
+      "artist": {
+        "id": 6002,
+        "name": "Majandra Delfino"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Tito Coral",
+      "artist": {
+        "id": 6005,
+        "name": "Tito Coral"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Edicson Ruiz",
+      "artist": {
+        "id": 6006,
+        "name": "Edicson Ruiz"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Jan Wagner",
+      "artist": {
+        "id": 6007,
+        "name": "Jan Wagner"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Sergio Tiempo",
+      "artist": {
+        "id": 6009,
+        "name": "Sergio Tiempo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Corina Smith",
+      "artist": {
+        "id": 6012,
+        "name": "Corina Smith"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Daniela Barranco",
+      "artist": {
+        "id": 6015,
+        "name": "Daniela Barranco"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Marianella",
+      "artist": {
+        "id": 6018,
+        "name": "Marianella"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Elizabeth Ayoub",
+      "artist": {
+        "id": 6019,
+        "name": "Elizabeth Ayoub"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "DN Tato",
+      "artist": {
+        "id": 6020,
+        "name": "DN Tato"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Joaquín Mendoza Sebastián",
+      "artist": {
+        "id": 6021,
+        "name": "Joaquín Mendoza Sebastián"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Liliana Rodríguez Morillo",
+      "artist": {
+        "id": 6023,
+        "name": "Liliana Rodríguez Morillo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Alberto Conde",
+      "artist": {
+        "id": 6024,
+        "name": "Alberto Conde"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Jorge Sánchez-Chiong",
+      "artist": {
+        "id": 6025,
+        "name": "Jorge Sánchez-Chiong"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Arturo Annecchino",
+      "artist": {
+        "id": 6026,
+        "name": "Arturo Annecchino"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Cosmo de la Fuente",
+      "artist": {
+        "id": 6027,
+        "name": "Cosmo de la Fuente"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Osos del sol",
+      "artist": {
+        "id": 6029,
+        "name": "Osos del sol"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Mario Puglia",
+      "artist": {
+        "id": 6031,
+        "name": "Mario Puglia"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Alan Wittels",
+      "artist": {
+        "id": 6033,
+        "name": "Alan Wittels"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Daniella Barbarito",
+      "artist": {
+        "id": 6034,
+        "name": "Daniella Barbarito"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Luis Carreño",
+      "artist": {
+        "id": 6036,
+        "name": "Luis Carreño"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Nico Manzano",
+      "artist": {
+        "id": 6039,
+        "name": "Nico Manzano"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Dave Ruthwell",
+      "artist": {
+        "id": 6041,
+        "name": "Dave Ruthwell"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Domingo Hindoyan",
+      "artist": {
+        "id": 6045,
+        "name": "Domingo Hindoyan"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Freddy Sheinfeld",
+      "artist": {
+        "id": 6047,
+        "name": "Freddy Sheinfeld"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Nirse González",
+      "artist": {
+        "id": 6048,
+        "name": "Nirse González"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Toña Granado",
+      "artist": {
+        "id": 6053,
+        "name": "Toña Granado"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Louis BPM",
+      "artist": {
+        "id": 6059,
+        "name": "Louis BPM"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Selva Volcán",
+      "artist": {
+        "id": 6061,
+        "name": "Selva Volcán"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Natalia Auli",
+      "artist": {
+        "id": 6064,
+        "name": "Natalia Auli"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Rómulo Caicedo",
+      "artist": {
+        "id": 6067,
+        "name": "Rómulo Caicedo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Oriol Rangel",
+      "artist": {
+        "id": 6071,
+        "name": "Oriol Rangel"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Jessi Uribe",
+      "artist": {
+        "id": 6072,
+        "name": "Jessi Uribe"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Juan Pablo Cediel",
+      "artist": {
+        "id": 6074,
+        "name": "Juan Pablo Cediel"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Sergio Cote Barco",
+      "artist": {
+        "id": 6076,
+        "name": "Sergio Cote Barco"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Aida Cortes",
+      "artist": {
+        "id": 6079,
+        "name": "Aida Cortes"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Oscar Acevedo",
+      "artist": {
+        "id": 6080,
+        "name": "Oscar Acevedo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Yolanda Pérez Manzano",
+      "artist": {
+        "id": 6082,
+        "name": "Yolanda Pérez Manzano"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Andy Callister",
+      "artist": {
+        "id": 6087,
+        "name": "Andy Callister"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Pappa Bear",
+      "artist": {
+        "id": 6090,
+        "name": "Pappa Bear"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Tania Kross",
+      "artist": {
+        "id": 6091,
+        "name": "Tania Kross"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Lou Prince",
+      "artist": {
+        "id": 6094,
+        "name": "Lou Prince"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Julian B. Coco",
+      "artist": {
+        "id": 6097,
+        "name": "Julian B. Coco"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Wim Statius Muller",
+      "artist": {
+        "id": 6098,
+        "name": "Wim Statius Muller"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Jacobo Palm",
+      "artist": {
+        "id": 6099,
+        "name": "Jacobo Palm"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Christiana Bohorquez",
+      "artist": {
+        "id": 6100,
+        "name": "Christiana Bohorquez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Lucas Eli",
+      "artist": {
+        "id": 6103,
+        "name": "Lucas Eli"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Kris Berry",
+      "artist": {
+        "id": 6104,
+        "name": "Kris Berry"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Annia Linares",
+      "artist": {
+        "id": 6107,
+        "name": "Annia Linares"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Angelo Milli",
+      "artist": {
+        "id": 6108,
+        "name": "Angelo Milli"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Claudia Prieto",
+      "artist": {
+        "id": 6109,
+        "name": "Claudia Prieto"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Leo Díaz",
+      "artist": {
+        "id": 6110,
+        "name": "Leo Díaz"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Carlos Trewher",
+      "artist": {
+        "id": 6114,
+        "name": "Carlos Trewher"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Maria Otilia Blanco Romero",
+      "artist": {
+        "id": 6119,
+        "name": "Mary'O"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: la biografía da su nombre real («Maria Otilia Blanco Romero»)"
+    },
+    {
+      "op": "create_titular",
+      "name": "Alan Anderson",
+      "artist": {
+        "id": 6120,
+        "name": "Alan Anderson"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Mónica Rodríguez",
+      "artist": {
+        "id": 6122,
+        "name": "Mónica Rodríguez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "María Mulata",
+      "artist": {
+        "id": 6126,
+        "name": "María Mulata"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Juan Farfán",
+      "artist": {
+        "id": 6127,
+        "name": "Juan Farfán"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Daisy Voisin",
+      "artist": {
+        "id": 6129,
+        "name": "Daisy Voisin"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Sandra Browne",
+      "artist": {
+        "id": 6132,
+        "name": "Sandra Browne"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Naya George",
+      "artist": {
+        "id": 6133,
+        "name": "Naya George"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Blue Boy",
+      "artist": {
+        "id": 6137,
+        "name": "Blue Boy"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Iwer George",
+      "artist": {
+        "id": 6138,
+        "name": "Iwer George"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Clive \"Zanda\" Alexander",
+      "artist": {
+        "id": 6139,
+        "name": "Clive \"Zanda\" Alexander"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Vilma Ali",
+      "artist": {
+        "id": 6140,
+        "name": "Vilma Ali"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Sofía Shizuko",
+      "artist": {
+        "id": 6152,
+        "name": "Sofía Shizuko"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Charlie Carr",
+      "artist": {
+        "id": 6159,
+        "name": "Charlie Carr"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Luis Miguel Mussett",
+      "artist": {
+        "id": 6165,
+        "name": "Luis Miguel Mussett"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Pedro Luis Marquina",
+      "artist": {
+        "id": 6176,
+        "name": "Maxplay"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: la biografía da su nombre real («Pedro Luis Marquina»)"
+    },
+    {
+      "op": "create_titular",
+      "name": "Vincent Nuit",
+      "artist": {
+        "id": 6177,
+        "name": "Vincent Nuit"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Nina Romero",
+      "artist": {
+        "id": 6178,
+        "name": "Nina Romero"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Carlitos Calebra",
+      "artist": {
+        "id": 6180,
+        "name": "Carlitos Calebra"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Lolita De Sola",
+      "artist": {
+        "id": 6182,
+        "name": "Lolita De Sola"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Kelly Abarca",
+      "artist": {
+        "id": 6188,
+        "name": "Kelly Abarca"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Helios Martinez Dominguez",
+      "artist": {
+        "id": 6196,
+        "name": "Helios Martinez Dominguez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Joanna Karamazov",
+      "artist": {
+        "id": 6199,
+        "name": "Joanna Karamazov"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Andy Alent",
+      "artist": {
+        "id": 6206,
+        "name": "Andy Alent"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Elvis Trofia",
+      "artist": {
+        "id": 6211,
+        "name": "Elvis Trofia"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Jesús Méndez",
+      "artist": {
+        "id": 6213,
+        "name": "Otrebor"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: la biografía da su nombre real («Jesús Méndez»)"
+    },
+    {
+      "op": "create_titular",
+      "name": "Pedro el Colita",
+      "artist": {
+        "id": 6214,
+        "name": "Pedro el Colita"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Junior Caldera",
+      "artist": {
+        "id": 6215,
+        "name": "Junior Caldera"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Diego Barrios",
+      "artist": {
+        "id": 6257,
+        "name": "Diego Barrios"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Leddy Manzano",
+      "artist": {
+        "id": 6260,
+        "name": "Leddy Manzano"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Johnny Sunrise",
+      "artist": {
+        "id": 6264,
+        "name": "Johnny Sunrise"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Marcelo Beroy",
+      "artist": {
+        "id": 6269,
+        "name": "Marcelo Beroy"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Adriana",
+      "artist": {
+        "id": 6882,
+        "name": "Adriana"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Alejandro Molinari",
+      "artist": {
+        "id": 6883,
+        "name": "Alejandro Molinari"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Andrea Ferrero",
+      "artist": {
+        "id": 6884,
+        "name": "Andrea Ferrero"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Ane Díaz",
+      "artist": {
+        "id": 6885,
+        "name": "Ane Díaz"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Carlos Ibañez",
+      "artist": {
+        "id": 6887,
+        "name": "Carlos Ibañez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Carlos Otero",
+      "artist": {
+        "id": 6888,
+        "name": "Carlos Otero"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Carolina Marconi",
+      "artist": {
+        "id": 6889,
+        "name": "Carolina Marconi"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Elik Álvarez",
+      "artist": {
+        "id": 6892,
+        "name": "Elik Álvarez"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Johnny Sedes",
+      "artist": {
+        "id": 6893,
+        "name": "Johnny Sedes"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Lorenzo González",
+      "artist": {
+        "id": 6897,
+        "name": "Lorenzo González"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Miguel Farías",
+      "artist": {
+        "id": 6901,
+        "name": "Miguel Farías"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Omar Acedo",
+      "artist": {
+        "id": 6902,
+        "name": "Omar Acedo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Osmer Hernández",
+      "artist": {
+        "id": 6903,
+        "name": "Osmer Hernández"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Raquel González",
+      "artist": {
+        "id": 6904,
+        "name": "Raquel González"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Vitico Castillo",
+      "artist": {
+        "id": 6905,
+        "name": "Vitico Castillo"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "William Sarquiz",
+      "artist": {
+        "id": 6906,
+        "name": "William Sarquiz"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Manuel Rocca",
+      "artist": {
+        "id": 6909,
+        "name": "Manuel Rocca"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Marrom Fernández",
+      "artist": {
+        "id": 6910,
+        "name": "Marrom Fernández"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    },
+    {
+      "op": "create_titular",
+      "name": "Sebastian Rivero",
+      "artist": {
+        "id": 6911,
+        "name": "Sebastian Rivero"
+      },
+      "why": "Plan del primo, etapa 1 (punto 6): solista sin titular, reglas del caso Ashwave: nombre con forma de persona y sin ficha de persona"
+    }
+  ]
+}

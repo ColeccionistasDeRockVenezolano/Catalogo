@@ -127,11 +127,31 @@ export function storableText(value: string): string {
   return value.replace(/\u0000/gu, "").replace(/[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/gu, "\uFFFD");
 }
 
-function storable(value: unknown): unknown {
+function repairedStorable(value: unknown): unknown {
   if (typeof value === "string") return storableText(value);
-  if (Array.isArray(value)) return value.map(storable);
-  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, storable(item)]));
+  if (Array.isArray(value)) return value.map(repairedStorable);
+  if (value && typeof value === "object") return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, repairedStorable(item)]));
   return value;
+}
+
+// eslint-disable-next-line no-control-regex -- PostgreSQL rejects NUL
+const UNSTORABLE = /[\u0000\uD800-\uDFFF]/u;
+
+/** ¿Hay algo que reparar o copiar? Casi nunca: entonces el hallazgo pasa tal cual, sin reconstruirlo. */
+function needsStorable(value: unknown): boolean {
+  if (typeof value === "string") return UNSTORABLE.test(value);
+  if (Array.isArray(value)) return value.some(needsStorable);
+  if (value && typeof value === "object") {
+    // Lo que no es un objeto plano (Date, Set…) se convierte como siempre.
+    const proto = Object.getPrototypeOf(value) as unknown;
+    if (proto !== Object.prototype && proto !== null) return true;
+    for (const key in value) if (Object.hasOwn(value, key) && needsStorable((value as Record<string, unknown>)[key])) return true;
+  }
+  return false;
+}
+
+function storable(value: unknown): unknown {
+  return needsStorable(value) ? repairedStorable(value) : value;
 }
 
 function errorMessage(error: unknown): string {
@@ -197,9 +217,20 @@ export function contentHashOf(finding: Finding): string {
 /** JSON con las claves ordenadas: el mismo contenido da siempre el mismo texto. */
 function canonical(value: unknown): string {
   if (value === undefined || value === null || typeof value !== "object") return JSON.stringify(value ?? null);
-  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
-  const entries = Object.entries(value as Record<string, unknown>).filter(([, item]) => item !== undefined).sort(([a], [b]) => (a < b ? -1 : 1));
-  return `{${entries.map(([key, item]) => `${JSON.stringify(key)}:${canonical(item)}`).join(",")}}`;
+  if (Array.isArray(value)) {
+    let out = "[";
+    for (let index = 0; index < value.length; index += 1) out += (index ? "," : "") + canonical(value[index]);
+    return `${out}]`;
+  }
+  const record = value as Record<string, unknown>;
+  let out = "{";
+  // Mismo orden que antes (unidades UTF-16), sin arrays intermedios: son ~26.000 hallazgos por análisis.
+  for (const key of Object.keys(record).sort()) {
+    const item = record[key];
+    if (item === undefined) continue;
+    out += `${out.length > 1 ? "," : ""}${JSON.stringify(key)}:${canonical(item)}`;
+  }
+  return `${out}}`;
 }
 
 export function analyzeCatalog(snapshot: CatalogSnapshot, options: AnalyzeOptions = {}): AnalysisResult {

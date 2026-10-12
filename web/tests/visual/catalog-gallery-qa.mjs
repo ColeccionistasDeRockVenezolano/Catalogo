@@ -86,7 +86,7 @@ try {
     await page.getByRole("button", { name: "← Anterior", exact: true }).click();
     await expect(cards).toHaveCount(24);
     expect(await cards.first().getAttribute("href")).toBe(firstAlbum);
-    await page.getByRole("tab", { name: /Miembros/ }).click();
+    await page.getByRole("tab", { name: /Integrantes/ }).click();
     await page.getByRole("tab", { name: /Discografía/ }).click();
     await expect(cards).toHaveCount(24);
     await open(page, "/artistas/58?discographyPage=invalid");

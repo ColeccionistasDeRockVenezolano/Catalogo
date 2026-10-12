@@ -7,6 +7,7 @@ import { genreStatusOf, type GenreStatus } from "../../merge/genre-projection.js
 import { getPool } from "../../db/client.js";
 import { genreFilterSql, genreMissingSql, publicGenresFor, relatedGenreFilterSql, type PublicGenre } from "../../genres/public.js";
 import type { PaginationQuery } from "../pagination.js";
+import { personDisplayNames, withPublicAliases } from "./person-display.js";
 
 export interface AlbumListRow {
   id: number;
@@ -33,6 +34,7 @@ export interface AlbumListQuery extends PaginationQuery {
   relatedGenre?: boolean | undefined;
   decade?: number | undefined;
   withoutYear?: boolean | undefined;
+  beforeYear?: number | undefined;
   albumType?: string | undefined;
 }
 
@@ -47,9 +49,10 @@ export async function listAlbums(query: AlbumListQuery): Promise<{ rows: AlbumLi
           AND ($4::int IS NULL OR (al.release_year >= $4 AND al.release_year < $4 + 10))
           AND ($5::text IS NULL OR al.album_type::text = $5)
           AND (NOT $6::boolean OR ${genreMissingSql("album", "al.id")})
-          AND (NOT $8::boolean OR al.release_year IS NULL)`;
+          AND (NOT $8::boolean OR al.release_year IS NULL)
+          AND ($9::int IS NULL OR al.release_year < $9)`;
   const params = [pattern, query.artistId ?? null, query.genre ?? null, query.decade ?? null, query.albumType ?? null,
-    query.withoutGenre ?? false, query.relatedGenre ?? false, query.withoutYear ?? false];
+    query.withoutGenre ?? false, query.relatedGenre ?? false, query.withoutYear ?? false, query.beforeYear ?? null];
   const [rows, count] = await Promise.all([
     getPool().query<{
       id: string; title: string; release_year: number | null; album_type: string;
@@ -60,7 +63,7 @@ export async function listAlbums(query: AlbumListQuery): Promise<{ rows: AlbumLi
          JOIN public.artists ar ON ar.id = al.artist_id
         WHERE ${filters}
         ORDER BY al.title
-        LIMIT $9 OFFSET $10`,
+        LIMIT $10 OFFSET $11`,
       [...params, query.limit, query.offset],
     ),
     getPool().query<{ count: string }>(
@@ -88,6 +91,8 @@ export interface AlbumCreditRow {
   role: string;
   personId: number | null;
   personName: string | null;
+  /** «Nombre "Apodo" Apellido» si la persona tiene apodo (solo pantalla). */
+  personDisplayName?: string | null;
   personIsDeceased: boolean;
   artistId: number | null;
   artistName: string | null;
@@ -148,7 +153,12 @@ export interface AlbumDetail {
    */
   scopedCreditsByType: Record<string, ScopedCreditRow[]>;
   formats: Array<{ id: number; format: string; quality: string | null; archiveStatus: string; filePath: string | null; notes: string | null }>;
-  aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>;
+  /**
+   * Cada disco con nombre («Lado A», «CD 2», «DVD») o con enlaces de escucha
+   * propios (0063). Sin nombre, la web numera («Disco 2»).
+   */
+  discs: Array<{ discNumber: number; title: string | null; platforms: Array<{ platform: string; url: string }> }>;
+  aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean; publicHidden: boolean }>;
   youtubeLinks: Array<{ videoId: string; title: string | null; kind: string; isPrimaryLink: boolean }>;
   /** El disco en plataformas de escucha (streaming_links, 0039); solo los de identidad verificada. */
   platforms: Array<{ platform: string; url: string }>;
@@ -233,6 +243,15 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
          FROM public.album_formats f WHERE f.album_id = al.id
        ), '[]'::jsonb) AS formats,
        COALESCE((
+         SELECT jsonb_agg(jsonb_build_object('discNumber', n.disc_number, 'title', d.title, 'platforms', COALESCE((
+                  SELECT jsonb_agg(jsonb_build_object('platform', l.platform, 'url', l.url) ORDER BY l.platform)
+                    FROM public.album_disc_links l WHERE l.album_id = al.id AND l.disc_number = n.disc_number AND l.verified
+                ), '[]'::jsonb)) ORDER BY n.disc_number)
+           FROM (SELECT disc_number FROM public.album_discs WHERE album_id = al.id
+                 UNION SELECT disc_number FROM public.album_disc_links WHERE album_id = al.id AND verified) n
+           LEFT JOIN public.album_discs d ON d.album_id = al.id AND d.disc_number = n.disc_number
+       ), '[]'::jsonb) AS discs,
+       COALESCE((
          SELECT jsonb_agg(jsonb_build_object('id', x.id, 'alias', x.alias, 'aliasType', x.alias_type, 'isPrimary', x.is_primary))
          FROM ingest.album_aliases x WHERE x.album_id = al.id
        ), '[]'::jsonb) AS aliases,
@@ -256,12 +275,15 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
   const row = rows[0];
   if (!row) return null;
   const credits = row["credits"] as AlbumCreditRow[];
+  const tracklist = row["tracklist"] as AlbumTrackRow[];
+  const allCredits = [...credits, ...tracklist.flatMap((track) => track.credits)];
+  const displayNames = await personDisplayNames(allCredits.flatMap((credit) => credit.personId === null ? [] : [credit.personId]));
+  for (const credit of allCredits) credit.personDisplayName = credit.personId === null ? null : displayNames.get(credit.personId) ?? null;
   const creditsByType: Record<string, AlbumCreditRow[]> = {};
   for (const credit of credits) {
     (creditsByType[credit.creditType] ??= []).push(credit);
   }
   const structuredRelease=(await getPool().query<{release_date:DateValue|null}>("SELECT release_date FROM ingest.catalog_edition_details WHERE album_id=$1",[id])).rows[0]?.release_date;
-  const tracklist = row["tracklist"] as AlbumTrackRow[];
   const genres = (await publicGenresFor("album", [id], new Map([[id, row["genre"] as string | null]]))).get(id)!;
   return {
     id: Number(row["id"]),
@@ -292,7 +314,8 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
     creditsByType,
     scopedCreditsByType: scopedCreditsByType(tracklist, credits),
     formats: row["formats"] as AlbumDetail["formats"],
-    aliases: row["aliases"] as AlbumDetail["aliases"],
+    discs: row["discs"] as AlbumDetail["discs"],
+    aliases: withPublicAliases(String(row["title"]), row["aliases"] as Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>),
     youtubeLinks: row["youtube_links"] as AlbumDetail["youtubeLinks"],
     platforms: row["platforms"] as AlbumDetail["platforms"],
   };

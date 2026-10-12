@@ -12,6 +12,8 @@ export interface Alias {
   alias: string;
   aliasType: string;
   isPrimary: boolean;
+  /** El público no lo ve (igual al nombre, repetido o variante de fuente); se conserva para la búsqueda. */
+  publicHidden?: boolean;
 }
 
 export type SearchEntityType = "artist" | "person" | "album" | "track" | "organization";
@@ -52,14 +54,14 @@ export interface ArtistListItem {
 export const TITULAR_ROLE = "Titular del proyecto";
 
 export interface ArtistMember {
-  id: number; personId: number; personName: string; personRealName?: string | null; personIsDeceased?: boolean; role: string;
+  id: number; personId: number; personName: string; personDisplayName?: string | null; personRealName?: string | null; personIsDeceased?: boolean; role: string;
   /** Fechas de la persona: la ficha del proyecto solista las muestra como suyas. */
   personBirthDate?: string | null; personDeathDate?: string | null;
   fromYear: number | null; toYear: number | null; isCurrent: boolean;
 }
 
 export interface DiscographyItem {
-  albumId: number; title: string; releaseYear: number | null; albumType: string; coverUrl: string | null;
+  albumId: number; title: string; releaseYear: number | null; albumType: string; coverUrl: string | null; genres?: PublicGenre[];
 }
 
 /** Género público (PLAN_GENEROS §5): solo lo confirmado. */
@@ -83,7 +85,6 @@ export interface ArtistDetail extends ArtistListItem {
   discography: DiscographyItem[];
   aliases: Alias[];
   /** Sello del disco más reciente que lo declara (derivado). */
-  lastLabel: { id: number; name: string } | null;
   links: ArtistLink[];
   /** Perfiles en plataformas de escucha (solo identidad verificada). La API vieja no los manda. */
   platforms?: PlatformLink[];
@@ -180,7 +181,7 @@ export interface Credit {
   id: number;
   creditType: string;
   role: string;
-  personId: number | null; personName: string | null; personIsDeceased?: boolean;
+  personId: number | null; personName: string | null; personDisplayName?: string | null; personIsDeceased?: boolean;
   artistId: number | null; artistName: string | null;
   organizationId: number | null; organizationName: string | null;
 }
@@ -254,6 +255,8 @@ export interface AlbumDetail {
   /** Créditos de pista agrupados por acreditado, tipo y rol. */
   scopedCreditsByType: Record<string, ScopedCredit[]>;
   formats: AlbumFormat[];
+  /** Nombre de cada disco («Lado A», «CD 2», «DVD»); sin fila, «Disco N». */
+  discs?: Array<{ discNumber: number; title: string | null; platforms: Array<{ platform: string; url: string }> }>;
   aliases: Alias[];
   youtubeLinks: YoutubeLink[];
   /** El disco en plataformas de escucha (solo identidad verificada). */
@@ -297,6 +300,8 @@ export interface PersonTrackCredit { id: number; trackId: number; trackTitle: st
 export interface PersonOrganization { id: number; organizationId: number; organizationName: string; role: string; fromYear: number | null; toYear: number | null; }
 
 export interface PersonDetail extends PersonListItem {
+  /** «Nombre "Apodo" Apellido» solo para pantalla; la ficha conserva el nombre real. */
+  displayName?: string | null;
   realName?: string | null;
   birthCity?: string | null;
   deathCause?: string | null;
@@ -425,7 +430,7 @@ export interface OrganizationListItem {
 
 export interface LabelAlbum { albumId: number; title: string; releaseYear: number | null; artistId: number; artistName: string; }
 export interface CreditedArtist { artistId: number; artistName: string; }
-export interface AssociatedPerson { id: number; personId: number; personName: string; personIsDeceased?: boolean; role: string; fromYear: number | null; toYear: number | null; }
+export interface AssociatedPerson { id: number; personId: number; personName: string; personDisplayName?: string | null; personIsDeceased?: boolean; role: string; fromYear: number | null; toYear: number | null; }
 
 export interface OrganizationDetail extends OrganizationListItem {
   biography: string | null;
@@ -1034,4 +1039,30 @@ export interface DecadeFacets {
 export interface TypeFacets extends DecadeFacets {
   total: number;
   types: Array<{ value: string; count: number }>;
+}
+
+// ---------- portada (GET /home) ----------
+export interface HomeAlbum {
+  id: number; title: string; releaseYear: number | null; albumType: string;
+  artistId: number; artistName: string; coverUrl: string | null; genres: PublicGenre[];
+}
+
+export interface HomeData {
+  date: string;
+  wall: HomeAlbum[];
+  channel: { url: string; checkedAt: string | null; stale: boolean };
+  stats: { artists: number; albums: number; tracks: number; persons: number; firstYear: number | null; lastYear: number | null };
+  anniversaries: Array<{ years: number; releaseYear: number; total: number; albums: HomeAlbum[] }>;
+  videos: Array<{
+    videoId: string; title: string | null; publishedAt: string | null; thumbnailUrl: string | null;
+    album: { id: number; title: string } | null; artist: { id: number; name: string } | null;
+  }>;
+  featuredArtist: {
+    id: number; name: string; artistType: string; pictureUrl: string | null; excerpt: string;
+    originCity: string | null; startYear: number | null; albumCount: number; genre: string | null; primaryGenre: PublicGenre | null;
+    album: HomeAlbum | null;
+    similar: Array<{ id: number; name: string; pictureUrl: string | null }>;
+  } | null;
+  listen: Array<HomeAlbum & { links: Array<{ platform: string; url: string }> }>;
+  labels: Array<{ id: number; name: string; pictureUrl: string | null; albumCount: number; fromYear: number | null; toYear: number | null }>;
 }

@@ -40,19 +40,17 @@ const artistDetailSchema = artistBaseSchema.extend({
   yearsActive: z.string().nullable(),
   notes: z.string().nullable(),
   members: z.array(z.object({
-    id: z.number().int(), personId: z.number().int(), personName: z.string(), personRealName: z.string().nullable(), personIsDeceased: z.boolean(), role: z.string(),
+    id: z.number().int(), personId: z.number().int(), personName: z.string(), personDisplayName: z.string().nullable(), personRealName: z.string().nullable(), personIsDeceased: z.boolean(), role: z.string(),
     // Fechas de la persona: la ficha de un proyecto solista las muestra como suyas.
     personBirthDate: z.string().nullable(), personDeathDate: z.string().nullable(),
     fromYear: z.number().int().nullable(), toYear: z.number().int().nullable(), isCurrent: z.boolean(),
   })),
   discography: z.array(z.object({
     albumId: z.number().int(), title: z.string(), releaseYear: z.number().int().nullable(),
-    albumType: z.string(), coverUrl: z.string().nullable(),
+    albumType: z.string(), coverUrl: z.string().nullable(), genres: z.array(publicGenreSchema),
   })),
   aliases: z.array(aliasSchema),
   genres: z.array(publicGenreSchema),
-  lastLabel: z.object({ id: z.number().int(), name: z.string() }).nullable()
-    .describe("Sello del disco más reciente que lo declara (derivado)."),
   links: z.array(z.object({
     platform: z.enum(["youtube", "instagram", "wordpress"]), url: z.string(), albumId: z.number().int(), albumTitle: z.string(),
   })).describe("Enlaces públicos de sus discos."),

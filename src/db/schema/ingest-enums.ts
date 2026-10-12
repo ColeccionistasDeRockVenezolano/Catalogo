@@ -35,6 +35,8 @@ export const reviewStatusEnum = ingestSchema.enum("review_status", ["open", "in_
 export const aliasTypeEnum = ingestSchema.enum("alias_type", [
   "name_variant", "spelling_variant", "former_name", "stage_name",
   "acronym", "misspelling", "alternate_title", "other",
+  // 0067: apodo de persona y variante de fuente (oculta al público, no se borra).
+  "nickname", "source_variant",
 ]);
 export const conflictStatusEnum = ingestSchema.enum("conflict_status", [
   "open", "resolved_a", "resolved_b", "both_kept", "dismissed",

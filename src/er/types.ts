@@ -5,7 +5,7 @@ export type ResolutionEntityKind = z.infer<typeof resolutionEntityKindSchema>;
 
 export const aliasKindSchema = z.enum([
   "name_variant", "spelling_variant", "former_name", "stage_name", "nickname",
-  "acronym", "misspelling", "alternate_title", "other",
+  "acronym", "misspelling", "alternate_title", "other", "source_variant",
 ]);
 
 export interface ResolutionAlias {

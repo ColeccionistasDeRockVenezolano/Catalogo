@@ -20,6 +20,7 @@ import { EntityLoadError } from "../components/RemovedEntityState";
 import { initialOf } from "../components/EntityCard";
 import { DeceasedMark } from "../components/DeceasedMark";
 import { entityFormValues, ORGANIZATION_FIELDS } from "../lib/entityFields";
+import { CatalogYear } from "../components/CatalogMetadata";
 import { EntityInfo, type InfoItem } from "../components/EntityInfo";
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
@@ -60,7 +61,7 @@ export function OrganizationDetailPage() {
                 <tr key={album.albumId}>
                   <td><Link to={`/discos/${album.albumId}`}>{album.title}</Link></td>
                   <td><Link to={`/artistas/${album.artistId}`}>{album.artistName}</Link></td>
-                  <td className="num">{album.releaseYear ?? "—"}</td>
+                  <td className="num"><CatalogYear year={album.releaseYear}> {album.releaseYear ?? "—"}</CatalogYear></td>
                 </tr>
               ))}
             </tbody>
@@ -98,7 +99,7 @@ export function OrganizationDetailPage() {
             <tbody>
               {org.associatedPersons.map((person) => (
                 <tr key={person.id}>
-                  <td><Link to={`/personas/${person.personId}`}>{person.personName}</Link><DeceasedMark deceased={person.personIsDeceased} /></td>
+                  <td><Link to={`/personas/${person.personId}`}>{person.personDisplayName ?? person.personName}</Link><DeceasedMark deceased={person.personIsDeceased} /></td>
                   <td>{person.role}</td>
                   <td className="mono">{person.fromYear ?? "—"}{person.toYear ? `–${person.toYear}` : ""}</td>
                 </tr>
@@ -125,7 +126,8 @@ export function OrganizationDetailPage() {
         </span>
         <div>
           <h1 className="entity-hero__title">{org.name}</h1>
-          <EntityInfo items={info} wide={{ label: "Alias", content: <AliasEditor path="organizations" entityId={org.id} aliases={org.aliases} onChanged={reload} /> }} />
+          <EntityInfo items={info} showEmpty={isAdmin}
+            wide={isAdmin || org.aliases.some((alias) => !alias.publicHidden) ? { label: "Alias", content: <AliasEditor path="organizations" entityId={org.id} aliases={org.aliases} onChanged={reload} /> } : undefined} />
           {org.biography ? <div className="entity-hero__bio"><ExpandableText className="entity-hero__desc" text={org.biography} /></div> : null}
           <RewritePendingMark kind="organization" id={org.id} onDone={reload} />
         </div>

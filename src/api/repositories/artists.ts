@@ -7,6 +7,7 @@ import { genreFilterSql, genreMissingSql, publicGenresFor, type PublicGenre } fr
 import type { GenreStatus } from "../../merge/genre-projection.js";
 import { artistDeceasedSql, personDeceasedSql } from "./deceased.js";
 import { relatedArtists, similarArtists, type RelatedArtist, type SimilarArtist } from "./artist-neighbors.js";
+import { personDisplayNames, withPublicAliases } from "./person-display.js";
 
 export type { ArtistRelation, ArtistRelationType, RelatedArtist, RelatedRule, SimilarArtist, SimilarRule } from "./artist-neighbors.js";
 
@@ -102,15 +103,14 @@ export interface ArtistDetail {
   notes: string | null;
   /** Su proyecto es de una persona fallecida (titular o único integrante). */
   isDeceased: boolean;
-  members: Array<{ id: number; personId: number; personName: string; personRealName: string | null; personIsDeceased: boolean; role: string; personBirthDate: string | null; personDeathDate: string | null; fromYear: number | null; toYear: number | null; isCurrent: boolean }>;
-  discography: Array<{ albumId: number; title: string; releaseYear: number | null; albumType: string; coverUrl: string | null }>;
-  aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>;
+  /** `personDisplayName`: «Nombre "Apodo" Apellido» si la persona tiene apodo (solo pantalla). */
+  members: Array<{ id: number; personId: number; personName: string; personDisplayName: string | null; personRealName: string | null; personIsDeceased: boolean; role: string; personBirthDate: string | null; personDeathDate: string | null; fromYear: number | null; toYear: number | null; isCurrent: boolean }>;
+  discography: Array<{ albumId: number; title: string; releaseYear: number | null; albumType: string; coverUrl: string | null; genres: PublicGenre[] }>;
+  aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean; publicHidden: boolean }>;
   /** Géneros confirmados del ARTISTA; los discos tienen los suyos. */
   primaryGenre: PublicGenre | null;
   genres: PublicGenre[];
   genreStatus: GenreStatus;
-  /** Sello del disco más reciente que lo declara (derivado; no es un campo propio del artista). */
-  lastLabel: { id: number; name: string } | null;
   /** Enlaces públicos de sus discos (YouTube, Instagram, WordPress), uno por disco y plataforma. */
   links: Array<{ platform: "youtube" | "instagram" | "wordpress"; url: string; albumId: number; albumTitle: string }>;
   /** Perfiles de escucha del artista (streaming_links, 0039); solo los de identidad verificada. */
@@ -154,10 +154,6 @@ export async function getArtistDetail(id: number): Promise<ArtistDetail | null> 
          SELECT jsonb_agg(jsonb_build_object('id', x.id, 'alias', x.alias, 'aliasType', x.alias_type, 'isPrimary', x.is_primary))
          FROM ingest.artist_aliases x WHERE x.artist_id = a.id
        ), '[]'::jsonb) AS aliases,
-       (SELECT jsonb_build_object('id', o.id, 'name', o.name)
-          FROM public.albums al JOIN public.organizations o ON o.id = al.label_id
-         WHERE al.artist_id = a.id
-         ORDER BY al.release_year DESC NULLS LAST, al.id DESC LIMIT 1) AS last_label,
        COALESCE((
          SELECT jsonb_agg(l.link ORDER BY l.year DESC NULLS LAST, l.title, l.platform)
            FROM (
@@ -182,9 +178,13 @@ export async function getArtistDetail(id: number): Promise<ArtistDetail | null> 
   );
   const row = rows[0];
   if (!row) return null;
-  const [genres, related] = await Promise.all([
+  const discography = row["discography"] as ArtistDetail["discography"];
+  const members = row["members"] as Array<Omit<ArtistDetail["members"][number], "personDisplayName">>;
+  const [genres, related, albumGenres, displayNames] = await Promise.all([
     publicGenresFor("artist", [id]).then((byId) => byId.get(id)!),
     relatedArtists(id),
+    publicGenresFor("album", discography.map(album => album.albumId)),
+    personDisplayNames(members.map((member) => member.personId)),
   ]);
   return {
     ...genres,
@@ -203,10 +203,9 @@ export async function getArtistDetail(id: number): Promise<ArtistDetail | null> 
     disbandedYear: row["disbanded_year"] as number | null,
     notes: row["notes"] as string | null,
     isDeceased: row["is_deceased"] as boolean,
-    members: row["members"] as ArtistDetail["members"],
-    discography: row["discography"] as ArtistDetail["discography"],
-    aliases: row["aliases"] as ArtistDetail["aliases"],
-    lastLabel: row["last_label"] as ArtistDetail["lastLabel"],
+    members: members.map((member) => ({ ...member, personDisplayName: displayNames.get(member.personId) ?? null })),
+    discography: discography.map(album => ({ ...album, genres: albumGenres.get(album.albumId)?.genres ?? [] })),
+    aliases: withPublicAliases(String(row["name"]), row["aliases"] as Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>),
     links: row["links"] as ArtistDetail["links"],
     platforms: row["platforms"] as ArtistDetail["platforms"],
     socials: row["socials"] as ArtistDetail["socials"],

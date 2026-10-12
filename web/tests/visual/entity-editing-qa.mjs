@@ -7,7 +7,7 @@ const base = process.env.CRV_WEB_URL ?? "http://127.0.0.1:5173";
 const out = fileURLToPath(new URL("../../../docs/ui-qa/entity-editing/", import.meta.url));
 await mkdir(out, { recursive: true });
 const initialPerson = { id: 9, name: "Persona de prueba", realName: "Nombre real de prueba", birthCity: "Caracas", gender: "male", deathCause: null, trivia: "Compositor y guitarrista", nationality: "Venezolana", isVenezuelan: true, isDeceased: false, isDeceasedFlag: null, birthDate: "1970-02-03", deathDate: null, pictureUrl: null, biography: "Biografía", notes: "Notas", creditCount: 0, bandCount: 0, nameClass: "ok", nameClassReason: "", bands: [], albumCredits: [], trackCredits: [], organizations: [], aliases: [] };
-const initialArtist = { id: 58, name: "Artista de prueba", artistType: "solo_artist", originCountry: "Venezuela", originCity: "Caracas", formedYear: 1990, disbandedYear: null, status: "on_hold", themes: "Historia", yearsActive: "1990–2000, 2005–presente", pictureUrl: null, logoUrl: null, biography: "Biografía", notes: "Notas", members: [], discography: [], aliases: [], lastLabel: null, links: [], platforms: [], socials: [], related: [], similar: [], similarDecade: null, genres: [], primaryGenre: null };
+const initialArtist = { id: 58, name: "Artista de prueba", artistType: "solo_artist", originCountry: "Venezuela", originCity: "Caracas", formedYear: 1990, disbandedYear: null, status: "on_hold", themes: "Historia", yearsActive: "1990–2000, 2005–presente", pictureUrl: null, logoUrl: null, biography: "Biografía", notes: "Notas", members: [], discography: [], aliases: [], links: [], platforms: [], socials: [], related: [], similar: [], similarDecade: null, genres: [], primaryGenre: null };
 const initialAlbum = { id: 57, title: "Disco de prueba", albumType: "studio_album", releaseYear: 2000, releaseDateText: "Octubre de 2000", catalogId: "CRV-001", mediaFormat: "CD", genre: null, genres: [], primaryGenre: null, artist: { id: 58, name: "Artista de prueba" }, label: { id: 2, name: "Sello de prueba" }, coverUrl: null, description: "Descripción", notes: "Notas", youtubeUrl: null, youtubeStatus: "unknown", instagramUrl: null, instagramStatus: "unknown", wordpressUrl: null, wordpressStatus: "unknown", tracklist: [{ id: 1, title: "Pista de prueba", discNumber: 1, trackNumber: 1, durationSeconds: 123, youtubeStartSeconds: null, notes: "Nota existente de la pista", credits: [] }], credits: [], creditsByType: {}, scopedCreditsByType: {}, formats: [], aliases: [], youtubeLinks: [], platforms: [] };
 const initialOrg = { id: 2, name: "Sello de prueba", organizationType: "record_label", biography: "Descripción", pictureUrl: null, country: "Venezuela", websiteUrl: "https://example.com", notes: "Notas", labelAlbums: [], creditedArtists: [], associatedPersons: [], aliases: [] };
 const browser = await chromium.launch({ headless: true });
@@ -48,6 +48,7 @@ try {
         if (pathname === "/genres/vocabulary") return route.fulfill({ json: [{ slug: "rock", name: "Rock", level: "family" }] });
         if (pathname.startsWith("/catalog-links")) return route.fulfill({ json: pathname.endsWith("social") ? socialLinks : [] });
         if (pathname.startsWith("/entity-verification")) return route.fulfill({ json: null });
+        if (pathname.startsWith("/catalog-model/")) return route.fulfill({ json: { identities: [], editions: [], works: [], supports: [], genres: [] } });
         if (pathname.endsWith("/text-rewrites")) return route.fulfill({ json: { pending: [] } });
         if (pathname === "/claims" || pathname === "/audit" || pathname === "/changes") return route.fulfill({ json: { data: [], pagination: { limit: 10, offset: 0, total: 0 } } });
         return route.fulfill({ json: [] });
@@ -87,7 +88,7 @@ try {
       await dialog.getByRole("button", { name: "Quitar vínculo", exact: true }).click();
       await dialog.getByText("Sin vínculos registrados.").first().waitFor();
       assert.equal(writes.at(-1).method, "DELETE");
-      await dialog.getByRole("button", { name: "Añadir miembro", exact: true }).click();
+      await dialog.getByRole("button", { name: "Añadir integrante", exact: true }).click();
       await dialog.getByRole("combobox", { name: "Persona *" }).fill("Persona");
       await dialog.getByRole("option").first().click();
       await dialog.getByLabel("Rol *", { exact: true }).fill("Guitarra");

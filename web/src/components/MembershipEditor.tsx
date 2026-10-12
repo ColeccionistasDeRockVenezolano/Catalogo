@@ -56,7 +56,7 @@ export function MembershipEditor({ fixedKind, fixedId, rows, onChanged }: {
     <button type="button" className="btn" disabled={busy} onClick={() => add(TITULAR_ROLE)}>{fixedKind === "artist" ? "Asociar persona titular" : "Asociar proyecto propio"}</button>
     <h3>{fixedKind === "artist" ? "Integrantes" : "Bandas y agrupaciones"}</h3>
     {list(members)}
-    <button type="button" className="btn" disabled={busy} onClick={() => add("")}>{fixedKind === "artist" ? "Añadir miembro" : "Añadir vínculo con artista"}</button>
+    <button type="button" className="btn" disabled={busy} onClick={() => add("")}>{fixedKind === "artist" ? "Añadir integrante" : "Añadir vínculo con artista"}</button>
     {draft ? <form className="relation-editor__form" onSubmit={submit}>
       <h4>{removing ? `Quitar vínculo con ${draft.otherName}` : draft.role === TITULAR_ROLE ? "Persona titular del proyecto" : "Editar membresía"}</h4>
       {error ? <p className="form-error-banner" role="alert">{error}</p> : null}

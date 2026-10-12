@@ -37,14 +37,18 @@ import type { CatalogSnapshot, EntityRef, SnapshotAlbum, SnapshotArtist } from "
  * depende de qué haya dentro.
  */
 const KEY_CACHE_MAX = 200_000;
-const keyCache = new Map<string, { secondary: string; compact: string }>();
+const keyCache = new Map<string, { secondary: string; compact: string; tokens: readonly string[] }>();
 const textCache = new Map<string, { signs: string[]; length: number; letterRatio: number }>();
 
-function nameKeys(value: string): { secondary: string; compact: string } {
+function nameKeys(value: string): { secondary: string; compact: string; tokens: readonly string[] } {
   const cached = keyCache.get(value);
   if (cached !== undefined) return cached;
   const normalized = normalizeEntityName(value);
-  const key = { secondary: normalized.secondaryKey, compact: normalized.articlelessSecondaryKey.replace(/\s+/gu, "") };
+  const key = {
+    secondary: normalized.secondaryKey,
+    compact: normalized.articlelessSecondaryKey.replace(/\s+/gu, ""),
+    tokens: Object.freeze(normalized.secondaryKey.split(" ").filter(Boolean)),
+  };
   if (keyCache.size >= KEY_CACHE_MAX) keyCache.clear();
   keyCache.set(value, key);
   return key;
@@ -60,8 +64,9 @@ export function resetNameKeyCache(): void {
   textCache.clear();
 }
 
-export function keyTokens(value: string): string[] {
-  return nameKey(value).split(" ").filter(Boolean);
+/** Palabras de `nameKey`. Compartidas por la caché: no se modifican. */
+export function keyTokens(value: string): readonly string[] {
+  return nameKeys(value).tokens;
 }
 
 /** Clave sin artículo inicial y sin espacios: «Los Flanders» = «Flanders», «AC/DC» = «AC DC». */

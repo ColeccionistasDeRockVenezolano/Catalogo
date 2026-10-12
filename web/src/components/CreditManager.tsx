@@ -40,7 +40,8 @@ function creditedHref(credit: Credit): string | undefined {
 }
 
 function creditedName(credit: Credit): string {
-  return credit.personName ?? credit.artistName ?? credit.organizationName ?? "—";
+  // Con apodo, la persona se nombra «Nombre "Apodo" Apellido» (solo en pantalla).
+  return credit.personDisplayName ?? credit.personName ?? credit.artistName ?? credit.organizationName ?? "—";
 }
 
 type CreditedKind = "person" | "artist" | "organization";

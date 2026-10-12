@@ -36,6 +36,7 @@ const creditSchema = z.object({
   role: z.string(),
   personId: z.number().int().nullable(),
   personName: z.string().nullable(),
+  personDisplayName: z.string().nullable().optional(),
   personIsDeceased: z.boolean(),
   artistId: z.number().int().nullable(),
   artistName: z.string().nullable(),
@@ -91,6 +92,10 @@ const albumDetailSchema = z.object({
     id: z.number().int(), format: z.string(), quality: z.string().nullable(), archiveStatus: z.string(),
     filePath: z.string().nullable(), notes: z.string().nullable(),
   })),
+  discs: z.array(z.object({
+    discNumber: z.number().int(), title: z.string().nullable(),
+    platforms: z.array(z.object({ platform: z.string(), url: z.string() })),
+  })).describe("Discos con nombre («Lado A», «CD 2», «DVD») o con enlaces de escucha propios. Sin nombre se muestra «Disco N»."),
   aliases: z.array(aliasSchema),
   youtubeLinks: z.array(z.object({
     videoId: z.string(), title: z.string().nullable(), kind: z.string(), isPrimaryLink: z.boolean(),
@@ -104,6 +109,7 @@ const listQuerySchema = paginationQuerySchema.extend({
   artistId: z.coerce.number().int().positive().optional(),
   ...genreListFilterSchema,
   ...decadeListFilterSchema,
+  beforeYear: z.coerce.number().int().min(1900).max(2100).optional(),
   relatedGenre: relatedGenreQuerySchema,
   albumType: z.string().trim().min(1).max(40).optional(),
 });

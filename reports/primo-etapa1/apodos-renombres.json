@@ -1,0 +1,116 @@
+{
+  "decidedAt": "2026-10-12",
+  "evidence": "Plan del primo, etapa 1 (1B.3): la ficha se llamaba por el apodo; una fuente da el nombre de pila con el mismo apellido. Manda el nombre real (caso Canserbero); el anterior queda como alias.",
+  "corrections": [
+    {
+      "op": "rename",
+      "person": {
+        "id": 174,
+        "name": "Wincho Schäfer"
+      },
+      "to": "Erwin Schäfer",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «Erwin \"Wincho\" Schäfer»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 451,
+        "name": "Tweety González"
+      },
+      "to": "Fabián González",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «Fabián \"Tweety\" González»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 645,
+        "name": "Cayayo Troconis"
+      },
+      "to": "Carlos Eduardo Troconis",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «Carlos Eduardo \"Cayayo\" Troconis»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 1192,
+        "name": "Toro Bernal"
+      },
+      "to": "Marco Bernal",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «Marco \"Toro\" Bernal»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 1434,
+        "name": "Fito Páez"
+      },
+      "to": "Rodolfo Páez",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «Rodolfo \"Fito\" Paez»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 1556,
+        "name": "Tito Fierro"
+      },
+      "to": "Héctor Fierro",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «Héctor \"Tito\" Fierro»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 2740,
+        "name": "Jordi de la Vega"
+      },
+      "to": "Jorge de la Vega",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «Jorge \"Jordi\" De La Vega»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 3266,
+        "name": "Eddy Pérez"
+      },
+      "to": "Eduardo Pérez",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «Eduardo \"Eddy\" Pérez»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 3493,
+        "name": "Nana Cadavieco"
+      },
+      "to": "Mariana Cadavieco",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «Mariana \"Nana\" Cadavieco»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 21473,
+        "name": "Cheo Navarro"
+      },
+      "to": "José Navarro",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «José \"Cheo\" Navarro»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 21722,
+        "name": "Indio Figueredo"
+      },
+      "to": "Ignacio Figueredo",
+      "keepOldNameAsAlias": true,
+      "why": "alias de fuente «Ignacio \"Indio\" Figueredo»"
+    }
+  ]
+}

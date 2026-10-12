@@ -212,7 +212,9 @@ export const brokenEncoding: Detector = {
     letra_perdida: ["restaurar_letra"],
   },
   run({ names, lexicon }) {
-    const rawWords = new Set(names.flatMap((name) => name.value.match(/\p{L}+/gu) ?? []));
+    // Solo hace falta ante un «?» perdido, que es raro: se arma la primera vez.
+    let rawWords: Set<string> | null = null;
+    const wordsOfCatalog = (): Set<string> => rawWords ??= new Set(names.flatMap((name) => name.value.match(/\p{L}+/gu) ?? []));
     return names.flatMap((name) => {
       if (MOJIBAKE.test(name.value)) {
         const repaired = repairMojibake(name.value);
@@ -239,7 +241,7 @@ export const brokenEncoding: Detector = {
         })];
       }
       if (LOST_LETTER.test(name.value)) {
-        const candidates = lostLetterCandidates(name.value, rawWords);
+        const candidates = lostLetterCandidates(name.value, wordsOfCatalog());
         const unique = candidates.length === 1 ? candidates[0] : undefined;
         return [nameFinding(this, name, {
           signature: "letra_perdida", signatureLabel: "Letra perdida como «?»",

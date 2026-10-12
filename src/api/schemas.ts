@@ -33,6 +33,8 @@ export const aliasSchema = z.object({
   alias: z.string(),
   aliasType: z.string(),
   isPrimary: z.boolean(),
+  publicHidden: z.boolean().optional()
+    .describe("El público no lo ve: igual al nombre (salvo mayúsculas o tildes), repetido o variante de fuente. Se conserva para la búsqueda y el ER."),
 });
 
 export function paginatedResponseSchema<T extends z.ZodTypeAny>(item: T) {

@@ -40,7 +40,16 @@ function parentRef(context: AnalysisContext, credit: SnapshotCredit): EntityRef 
   return credit.parentKind === "album" ? entity(context, "album", credit.parentId) : entity(context, "track", credit.parentId);
 }
 
-const roleKey = (role: string): string => nameKey(role).replace(/\s+/gu, " ").trim();
+// Hay ~135.000 créditos y ~1.000 roles distintos: se calcula una vez por texto.
+const roleKeys = new Map<string, string>();
+const roleKey = (role: string): string => {
+  let key = roleKeys.get(role);
+  if (key === undefined) {
+    if (roleKeys.size >= 50_000) roleKeys.clear();
+    roleKeys.set(role, key = nameKey(role).replace(/\s+/gu, " ").trim());
+  }
+  return key;
+};
 
 export const duplicateCredits: Detector = {
   key: "creditos_duplicados",
@@ -100,11 +109,13 @@ export const roleVsCreditType: Detector = {
   description: "El texto del rol declara con claridad una clase de trabajo distinta del credit_type almacenado.",
   run(context) {
     const out: Finding[] = [];
+    const roleMatches = new Map<string, typeof ROLE_EXPECTATIONS>();
     for (const credit of context.snapshot.credits ?? []) {
       // Un rol compuesto ("Guitarra / Mezcla") puede pertenecer a varias
       // familias legítimas. Solo señalamos cuando el texto apunta a UNA clase
       // inequívoca y el tipo guardado no pertenece a ella.
-      const matches = ROLE_EXPECTATIONS.filter((item) => item.pattern.test(credit.role));
+      let matches = roleMatches.get(credit.role);
+      if (!matches) roleMatches.set(credit.role, matches = ROLE_EXPECTATIONS.filter((item) => item.pattern.test(credit.role)));
       if (matches.length !== 1) continue;
       const expected = matches[0]!;
       if (expected.types.includes(credit.creditType)) continue;
@@ -398,10 +409,12 @@ export const sustainedUppercase: Detector = {
 function canonicalByKind(context: AnalysisContext): Map<string, Map<string, number[]>> {
   const result = new Map<string, Map<string, number[]>>();
   const add = (kind: string, id: number, value: string) => {
-    const byName = result.get(kind) ?? new Map<string, number[]>();
+    let byName = result.get(kind);
+    if (!byName) result.set(kind, byName = new Map<string, number[]>());
     const key = nameKey(value);
-    byName.set(key, [...(byName.get(key) ?? []), id]);
-    result.set(kind, byName);
+    const ids = byName.get(key);
+    // Sin copiar la lista: con miles de pistas «Intro» la copia era cuadrática.
+    if (ids) ids.push(id); else byName.set(key, [id]);
   };
   for (const row of context.snapshot.artists) add("artist", row.id, row.name);
   for (const row of context.snapshot.persons) add("person", row.id, row.name);

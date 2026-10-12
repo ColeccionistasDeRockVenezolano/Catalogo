@@ -1,0 +1,2157 @@
+{
+  "stats": {
+    "soloists": 283,
+    "corrections": 0,
+    "linkProject": 0,
+    "createTitular": 0,
+    "pending": 283
+  },
+  "pending": [
+    {
+      "artistId": 5780,
+      "artist": "LILATARI",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5783,
+      "artist": "Dejavú",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5784,
+      "artist": "utsush",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5785,
+      "artist": "STANGAH",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5787,
+      "artist": "XIX",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5788,
+      "artist": "Feral Nox",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5789,
+      "artist": "Replinter",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5790,
+      "artist": "Próxima Estación",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5792,
+      "artist": "The Cure for Anxiety",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5793,
+      "artist": "Doráncel Daga",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5794,
+      "artist": "Yung Iverson",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5796,
+      "artist": "satosgang",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5797,
+      "artist": "Nieves",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5799,
+      "artist": "La Torre de Babiel",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5800,
+      "artist": "Treizy",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5801,
+      "artist": "Letra Emece",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5802,
+      "artist": "Yadam",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5803,
+      "artist": "Celestial Theory",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5805,
+      "artist": "suei",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5806,
+      "artist": "El Café Atómico",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5807,
+      "artist": "Soos Days",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5813,
+      "artist": "Orquesta Pasión Juvenil",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5814,
+      "artist": "DLM",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5815,
+      "artist": "Yorghaki",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5817,
+      "artist": "King Pride",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5819,
+      "artist": "Alaya",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5821,
+      "artist": "Jeeiph",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5823,
+      "artist": "Empty Stomach",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5825,
+      "artist": "Capitán Mostacho",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5827,
+      "artist": "Chivin",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5830,
+      "artist": "El Carrao de Palmarito",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5831,
+      "artist": "Tripulangel",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5832,
+      "artist": "Moncho y su Banda",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5834,
+      "artist": "Friman",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5835,
+      "artist": "Reggi el Auténtico",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5836,
+      "artist": "La Banda Show",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5837,
+      "artist": "Mangus",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5841,
+      "artist": "GreyGerm",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5843,
+      "artist": "Waru7k",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5844,
+      "artist": "Kazugi",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5847,
+      "artist": "Lery Cattleya",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5849,
+      "artist": "Lara Project",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5851,
+      "artist": "Grupo Cuyagua",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5852,
+      "artist": "Tar Majenye",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5853,
+      "artist": "Panchito Prin",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5854,
+      "artist": "Ferraz",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5855,
+      "artist": "Badborn",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5856,
+      "artist": "Mari la Carajita",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5857,
+      "artist": "Chico Mono y sus monitos",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5858,
+      "artist": "Mikaela Monet",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5859,
+      "artist": "85 DBA",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5861,
+      "artist": "Briella",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5868,
+      "artist": "Aurora Dream",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5869,
+      "artist": "Dell Soda",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5870,
+      "artist": "Atípico",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5872,
+      "artist": "Meruva",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5873,
+      "artist": "Aún no Hija",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5875,
+      "artist": "Chaparro",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5879,
+      "artist": "Alboa",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5880,
+      "artist": "pussidiq",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5882,
+      "artist": "Flayme",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5883,
+      "artist": "Mr. Pauer",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5885,
+      "artist": "SALAS",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5886,
+      "artist": "Fabro",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5888,
+      "artist": "Gretchen G",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5892,
+      "artist": "Manira",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5893,
+      "artist": "Vera Delacruz",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5895,
+      "artist": "Francelín Casañas",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5898,
+      "artist": "Grecia Limperani",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5899,
+      "artist": "CORINGTA",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5900,
+      "artist": "Venezuela Strings Recording Ensemble",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5901,
+      "artist": "Contemplando el Cielo",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5903,
+      "artist": "DJ Yirvin",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5905,
+      "artist": "OH!DULCEARi",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5906,
+      "artist": "YUNGLiAN MEDiOCRE BROKE BOi",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5907,
+      "artist": "Eldese",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5908,
+      "artist": "Realengos",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5911,
+      "artist": "Noer Pierkhan",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5915,
+      "artist": "MIGUE MORI",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5917,
+      "artist": "NK Profeta",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5919,
+      "artist": "OCTUBRXLIBRV",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5920,
+      "artist": "Gona",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5922,
+      "artist": "Samy Hawk",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5923,
+      "artist": "Nakary",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5924,
+      "artist": "Somalunar",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5925,
+      "artist": "Motiff",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5926,
+      "artist": "Bolívar Caribano",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5927,
+      "artist": "Lan Liu",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5928,
+      "artist": "Ugoluna",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5929,
+      "artist": "From Fiction",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5930,
+      "artist": "RMS",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5932,
+      "artist": "Maye",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5933,
+      "artist": "AS1",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5934,
+      "artist": "Mestiza",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5935,
+      "artist": "Verkhead",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5936,
+      "artist": "Lele Pons",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5937,
+      "artist": "Lecon",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5938,
+      "artist": "Just Art Dead",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5941,
+      "artist": "Markem",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5942,
+      "artist": "Saunter",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5943,
+      "artist": "Vodini",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5944,
+      "artist": "Ártico",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5945,
+      "artist": "Jambene",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5946,
+      "artist": "Kháli Issis",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5947,
+      "artist": "Zen P",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5948,
+      "artist": "UNDYING TRUTH",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5951,
+      "artist": "Nombres Ocultos",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5952,
+      "artist": "Garee",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5956,
+      "artist": "Hibai Rekondo",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5958,
+      "artist": "Aseari",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5961,
+      "artist": "Safety Trance",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5962,
+      "artist": "Los Pures",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5964,
+      "artist": "JohnThvhk",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5965,
+      "artist": "Banny Kosta",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5969,
+      "artist": "Hein van der Gaag",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5971,
+      "artist": "AG Wild",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5973,
+      "artist": "Zamora",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5975,
+      "artist": "Nani",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5976,
+      "artist": "ahvistetabien",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5979,
+      "artist": "Zuri Nativa",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5981,
+      "artist": "D'Maduro",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5982,
+      "artist": "Lesley Vos",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5983,
+      "artist": "Ishanna",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5985,
+      "artist": "La Costa",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5986,
+      "artist": "Dhaddy Brokke",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5987,
+      "artist": "Blue Haze",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5989,
+      "artist": "The Rabbit Hole Project",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5990,
+      "artist": "Alacrán",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5991,
+      "artist": "Smiley",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5992,
+      "artist": "Rufo Wever",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5993,
+      "artist": "Roykey Wydh",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5994,
+      "artist": "Padú del Caribe",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 5997,
+      "artist": "Lloyd and the Joys",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6001,
+      "artist": "Carzé",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6003,
+      "artist": "El Potro Álvarez",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6004,
+      "artist": "Jorgelia",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6008,
+      "artist": "Hobart Earle",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6010,
+      "artist": "Dru Flecha",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6011,
+      "artist": "Desidere",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6013,
+      "artist": "Kobi Cantillo",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6014,
+      "artist": "andremustdie",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6016,
+      "artist": "DJ Loopy",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6017,
+      "artist": "Weed420",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6022,
+      "artist": "Sixthdagger",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6028,
+      "artist": "OOYAH",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6030,
+      "artist": "Aran One",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6032,
+      "artist": "El Forever",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6035,
+      "artist": "MJ Nebreda",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6037,
+      "artist": "Lil Scars",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6038,
+      "artist": "Kai Tak",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6040,
+      "artist": "Lasmanz",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6042,
+      "artist": "Peche",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6043,
+      "artist": "Jhoanypz Jhoanypz",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6044,
+      "artist": "Orquesta Discotheque",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6046,
+      "artist": "Mida",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6049,
+      "artist": "Mañana el Espacio",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6050,
+      "artist": "Elodie Bouny",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6051,
+      "artist": "nicole.aiff",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6052,
+      "artist": "Sarc The East Face",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6054,
+      "artist": "Chantals",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6055,
+      "artist": "la niña brava",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6056,
+      "artist": "AlexTrip Sands",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6057,
+      "artist": "Orquesta La Junior's",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6058,
+      "artist": "Yeyo y Los Simepagan Boys",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6060,
+      "artist": "Neyson D",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6062,
+      "artist": "Lexxter",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6063,
+      "artist": "Trias GB",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6065,
+      "artist": "BULANGER",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6066,
+      "artist": "Cordillera 905",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6068,
+      "artist": "Yahaira",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6069,
+      "artist": "Fiallo",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6070,
+      "artist": "Uzur",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6073,
+      "artist": "Jaison Neutra",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6075,
+      "artist": "Fatiniza",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6077,
+      "artist": "CRRDR",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6078,
+      "artist": "Santa Trinidad Rap",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6081,
+      "artist": "Lunalé",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6083,
+      "artist": "Lafér",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6084,
+      "artist": "Oswin Chin Behilia",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6085,
+      "artist": "Jandino Asporaat",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6086,
+      "artist": "ORI",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6088,
+      "artist": "Urban Menace",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6089,
+      "artist": "Shirma Rouse",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6092,
+      "artist": "Bboy Puff",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6093,
+      "artist": "Gideon Luciana",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6095,
+      "artist": "Kinderen van de Zesde Klas van het Jeanne d'Arc-College",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6096,
+      "artist": "The Singing Teachers",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6101,
+      "artist": "Ophélia",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6102,
+      "artist": "De Aruba Zusjes",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6105,
+      "artist": "Hotel",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6106,
+      "artist": "Menoles",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6111,
+      "artist": "Conjunto Santa Anita",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6112,
+      "artist": "Molero",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6113,
+      "artist": "Conjunto Blanco y Negro",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6115,
+      "artist": "emnl",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6116,
+      "artist": "The Slow Glow",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6117,
+      "artist": "Annybell",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6118,
+      "artist": "Wight Garden",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6121,
+      "artist": "Kyrie Seiko",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6123,
+      "artist": "Date X Muerto",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6124,
+      "artist": "Karmen Koe",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6125,
+      "artist": "Caceres",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6128,
+      "artist": "Mighty Composer",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6130,
+      "artist": "Lord Brynner",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6131,
+      "artist": "Mighty Duke",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6134,
+      "artist": "Fay-Ann Lyons",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6135,
+      "artist": "Earl Rodney",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6136,
+      "artist": "Superblue",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6141,
+      "artist": "Les Charles",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6142,
+      "artist": "Drupatee Ramgoonai",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6143,
+      "artist": "Sundar Popo",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6144,
+      "artist": "Ramdeo Seelochan",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6145,
+      "artist": "Aries Vigoth",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6146,
+      "artist": "NOHAYCIELOS",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6148,
+      "artist": "Osha Big Humo",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6149,
+      "artist": "rip_sakura",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6150,
+      "artist": "sunn",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6151,
+      "artist": "Anguera",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6153,
+      "artist": "lexestasolo",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6154,
+      "artist": "Bear Bones, Lay Low",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6155,
+      "artist": "El $abor",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6156,
+      "artist": "BABYBLEID",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6160,
+      "artist": "Alleh",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6162,
+      "artist": "Joux",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6163,
+      "artist": "Zarinovak",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6164,
+      "artist": "VeryCherrii",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6168,
+      "artist": "Young Denky",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6169,
+      "artist": "0xtkk",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6171,
+      "artist": "AG SixTeen",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6172,
+      "artist": "King Stephen",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6173,
+      "artist": "Sir Di Alex",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6174,
+      "artist": "The Madman Alex",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6175,
+      "artist": "Subliminal Terry",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6179,
+      "artist": "Cherlatte",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6181,
+      "artist": "AGU!",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6183,
+      "artist": "Tayko",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6185,
+      "artist": "Lyfer",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6186,
+      "artist": "Noixes",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6187,
+      "artist": "Rapisarda",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6189,
+      "artist": "revenue",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6193,
+      "artist": "Washé",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6194,
+      "artist": "Lalter",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6200,
+      "artist": "Doktor Rheal",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6201,
+      "artist": "Oscarcito",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6202,
+      "artist": "Putaliscious",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6203,
+      "artist": "Yua Bits",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6205,
+      "artist": "jorge andrés",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6208,
+      "artist": "El Mago",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6212,
+      "artist": "Skisia2",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6213,
+      "artist": "Otrebor",
+      "reason": "la biografía da el nombre real «Jesús Méndez», pero ese nombre es de otra ficha sin proyecto común: revisar a mano",
+      "candidates": [
+        {
+          "id": 30130,
+          "name": "Jesús Méndez",
+          "credits": 1
+        }
+      ]
+    },
+    {
+      "artistId": 6216,
+      "artist": "DJ Rosmel",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6217,
+      "artist": "Byakko",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6218,
+      "artist": "3m5",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6219,
+      "artist": "DJ SUELDOminimo",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6221,
+      "artist": "juanrutina",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6222,
+      "artist": "Oreste",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6223,
+      "artist": "Kid Problema",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6224,
+      "artist": "Sabita Seinshin",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6225,
+      "artist": "THEALBERTOZ",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6226,
+      "artist": "Vir Martialis",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6229,
+      "artist": "Jemimemu",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6230,
+      "artist": "Yvng Tavo",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6232,
+      "artist": "Mariafer",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6235,
+      "artist": "Okubo",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6236,
+      "artist": "T Izzy",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6237,
+      "artist": "Joss",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6238,
+      "artist": "Kandido",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6239,
+      "artist": "Jeon",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6241,
+      "artist": "Esmeralda",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6242,
+      "artist": "Amy Sorinio",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6245,
+      "artist": "Velesa",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6252,
+      "artist": "high drizzy",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6255,
+      "artist": "Jessie24",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6256,
+      "artist": "Villa",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6261,
+      "artist": "Dibo D",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6262,
+      "artist": "Scäper",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6263,
+      "artist": "Gabio",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6265,
+      "artist": "pm",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6765,
+      "artist": "Mazzarri",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6891,
+      "artist": "El Pricto",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6895,
+      "artist": "La Cruz",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6907,
+      "artist": "Arabella",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    },
+    {
+      "artistId": 6908,
+      "artist": "Lela",
+      "reason": "nombre artístico o no reconocido como nombre de persona (léxico de nombres y apellidos del catálogo) y sin persona homónima: falta identificar a la persona detrás",
+      "candidates": []
+    }
+  ],
+  "withoutAlbums": [
+    {
+      "id": "2161",
+      "name": "Carlos Perez",
+      "titular": "17591",
+      "titular_name": "Carlos Perez",
+      "bio": 162,
+      "credits": "0"
+    },
+    {
+      "id": "2162",
+      "name": "Darwin Lubo",
+      "titular": "17592",
+      "titular_name": "Darwin Lubo",
+      "bio": 477,
+      "credits": "0"
+    },
+    {
+      "id": "2185",
+      "name": "CARLO QUIJADA",
+      "titular": "17619",
+      "titular_name": "CARLO QUIJADA",
+      "bio": 624,
+      "credits": "0"
+    },
+    {
+      "id": "2225",
+      "name": "DJ Rey",
+      "titular": "17663",
+      "titular_name": "Reynaldo Morales",
+      "bio": 1511,
+      "credits": "0"
+    },
+    {
+      "id": "2226",
+      "name": "Wyzton Borreo",
+      "titular": "17664",
+      "titular_name": "Wyzton Borreo",
+      "bio": 537,
+      "credits": "0"
+    },
+    {
+      "id": "2327",
+      "name": "El General",
+      "titular": "17798",
+      "titular_name": "El General",
+      "bio": 611,
+      "credits": "0"
+    },
+    {
+      "id": "2573",
+      "name": "Rafael Rico",
+      "titular": "18037",
+      "titular_name": "Rafael Rico",
+      "bio": 797,
+      "credits": "0"
+    },
+    {
+      "id": "2606",
+      "name": "C-funk",
+      "titular": "18060",
+      "titular_name": "Cristian Moraga",
+      "bio": 347,
+      "credits": "1"
+    },
+    {
+      "id": "2621",
+      "name": "Nicolai Chek Chenkov",
+      "titular": "18069",
+      "titular_name": "Nicolai Chek Chenkov",
+      "bio": 321,
+      "credits": "0"
+    },
+    {
+      "id": "2816",
+      "name": "Robert Rabbath",
+      "titular": "18094",
+      "titular_name": "Robert Rabbath",
+      "bio": 325,
+      "credits": "0"
+    },
+    {
+      "id": "2835",
+      "name": "José Cabello",
+      "titular": "705",
+      "titular_name": "José Cabello",
+      "bio": 143,
+      "credits": "0"
+    },
+    {
+      "id": "2865",
+      "name": "Carlos Salazar",
+      "titular": "18101",
+      "titular_name": "Carlos Salazar",
+      "bio": 525,
+      "credits": "0"
+    },
+    {
+      "id": "2904",
+      "name": "KC",
+      "titular": "18120",
+      "titular_name": "Kevin Cunningham",
+      "bio": 625,
+      "credits": "0"
+    },
+    {
+      "id": "2933",
+      "name": "Reid Speed",
+      "titular": "18148",
+      "titular_name": "Reid Speed",
+      "bio": 245,
+      "credits": "0"
+    },
+    {
+      "id": "4241",
+      "name": "Fedora Alemán",
+      "titular": "38098",
+      "titular_name": "Fedora Alemán",
+      "bio": 179,
+      "credits": "0"
+    },
+    {
+      "id": "4243",
+      "name": "Edgar Bastidas",
+      "titular": "38099",
+      "titular_name": "Edgar Bastidas",
+      "bio": 75,
+      "credits": "0"
+    },
+    {
+      "id": "4260",
+      "name": "Nascuy Linares",
+      "titular": "8997",
+      "titular_name": "Nascuy Linares",
+      "bio": 253,
+      "credits": "0"
+    },
+    {
+      "id": "4261",
+      "name": "Diego Ayala Raffalli",
+      "titular": "38112",
+      "titular_name": "Diego Ayala Raffalli",
+      "bio": 225,
+      "credits": "0"
+    },
+    {
+      "id": "4264",
+      "name": "Vicente Emilio Sojo",
+      "titular": "19382",
+      "titular_name": "Vicente Emilio Sojo",
+      "bio": 399,
+      "credits": "0"
+    },
+    {
+      "id": "4265",
+      "name": "Modesta Bor",
+      "titular": "19499",
+      "titular_name": "Modesta Bor",
+      "bio": 944,
+      "credits": "0"
+    },
+    {
+      "id": "4266",
+      "name": "Antonio Estévez",
+      "titular": "19720",
+      "titular_name": "Antonio Estévez",
+      "bio": 942,
+      "credits": "0"
+    },
+    {
+      "id": "4267",
+      "name": "Inocente Carreño",
+      "titular": "3562",
+      "titular_name": "Inocente Carreño",
+      "bio": 2431,
+      "credits": "0"
+    },
+    {
+      "id": "4268",
+      "name": "Juan Bautista Plaza",
+      "titular": "19213",
+      "titular_name": "Juan Bautista Plaza",
+      "bio": 747,
+      "credits": "0"
+    },
+    {
+      "id": "4269",
+      "name": "Adina Izarra",
+      "titular": "33221",
+      "titular_name": "Adina Izarra",
+      "bio": 429,
+      "credits": "0"
+    },
+    {
+      "id": "4270",
+      "name": "Alfredo Rugeles",
+      "titular": "2645",
+      "titular_name": "Alfredo Rugeles",
+      "bio": 1915,
+      "credits": "0"
+    },
+    {
+      "id": "4272",
+      "name": "Guillermo Castillo Bustamante",
+      "titular": "25598",
+      "titular_name": "Guillermo Castillo Bustamante",
+      "bio": 260,
+      "credits": "0"
+    },
+    {
+      "id": "4276",
+      "name": "Nelson Arrieta",
+      "titular": "3622",
+      "titular_name": "Nelson Arrieta",
+      "bio": 211,
+      "credits": "0"
+    },
+    {
+      "id": "4278",
+      "name": "Karolina con K",
+      "titular": "38116",
+      "titular_name": "Carolina Moraima Pulgar Díaz",
+      "bio": 220,
+      "credits": "0"
+    },
+    {
+      "id": "4284",
+      "name": "Alfredo del Mónaco",
+      "titular": "33209",
+      "titular_name": "Alfredo del Mónaco",
+      "bio": 1346,
+      "credits": "0"
+    },
+    {
+      "id": "4293",
+      "name": "Iván José",
+      "titular": "32167",
+      "titular_name": "Iván José Rodríguez",
+      "bio": 266,
+      "credits": "0"
+    },
+    {
+      "id": "4294",
+      "name": "Iris Gavidia",
+      "titular": "31169",
+      "titular_name": "Iris Gavidia",
+      "bio": 237,
+      "credits": "0"
+    },
+    {
+      "id": "4296",
+      "name": "Otilio Galíndez",
+      "titular": "7389",
+      "titular_name": "Otilio Galíndez",
+      "bio": 327,
+      "credits": "0"
+    },
+    {
+      "id": "4299",
+      "name": "Francisco Mata",
+      "titular": "29466",
+      "titular_name": "Francisco Mata",
+      "bio": 456,
+      "credits": "0"
+    },
+    {
+      "id": "4300",
+      "name": "Luis Mariano Rivera",
+      "titular": "7348",
+      "titular_name": "Luis Mariano Rivera",
+      "bio": 1860,
+      "credits": "0"
+    },
+    {
+      "id": "4301",
+      "name": "Cruz Quinal",
+      "titular": "31641",
+      "titular_name": "Cruz Quinal",
+      "bio": 278,
+      "credits": "0"
+    },
+    {
+      "id": "4302",
+      "name": "Marco Antonio Rivera Useche",
+      "titular": "33837",
+      "titular_name": "Marco A. Rivera Useche",
+      "bio": 1070,
+      "credits": "0"
+    },
+    {
+      "id": "4303",
+      "name": "Luis Felipe Ramón y Rivera",
+      "titular": "11811",
+      "titular_name": "Luis Felipe Ramón y Rivera",
+      "bio": 288,
+      "credits": "31"
+    },
+    {
+      "id": "4304",
+      "name": "Chucho Corrales",
+      "titular": "32304",
+      "titular_name": "Chucho Corrales",
+      "bio": 284,
+      "credits": "0"
+    },
+    {
+      "id": "4311",
+      "name": "Betulio Medina",
+      "titular": "7820",
+      "titular_name": "Betulio Medina",
+      "bio": 231,
+      "credits": "0"
+    },
+    {
+      "id": "4314",
+      "name": "Ricardo Cepeda",
+      "titular": "7819",
+      "titular_name": "Ricardo Cepeda",
+      "bio": 314,
+      "credits": "0"
+    },
+    {
+      "id": "4315",
+      "name": "Astolfo Romero",
+      "titular": "27158",
+      "titular_name": "Astolfo Romero",
+      "bio": 215,
+      "credits": "0"
+    },
+    {
+      "id": "5800",
+      "name": "Treizy",
+      "titular": null,
+      "titular_name": null,
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "5801",
+      "name": "Letra Emece",
+      "titular": null,
+      "titular_name": null,
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "5822",
+      "name": "Moisés Velásquez",
+      "titular": "40797",
+      "titular_name": "Moisés Velásquez",
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "5844",
+      "name": "Kazugi",
+      "titular": null,
+      "titular_name": null,
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "5870",
+      "name": "Atípico",
+      "titular": null,
+      "titular_name": null,
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "5942",
+      "name": "Saunter",
+      "titular": null,
+      "titular_name": null,
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "5956",
+      "name": "Hibai Rekondo",
+      "titular": null,
+      "titular_name": null,
+      "bio": 225,
+      "credits": "0"
+    },
+    {
+      "id": "5983",
+      "name": "Ishanna",
+      "titular": null,
+      "titular_name": null,
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "5990",
+      "name": "Alacrán",
+      "titular": null,
+      "titular_name": null,
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "6080",
+      "name": "Oscar Acevedo",
+      "titular": "40906",
+      "titular_name": "Oscar Acevedo",
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "6152",
+      "name": "Sofía Shizuko",
+      "titular": "40935",
+      "titular_name": "Sofía Shizuko",
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "6163",
+      "name": "Zarinovak",
+      "titular": null,
+      "titular_name": null,
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "6189",
+      "name": "revenue",
+      "titular": null,
+      "titular_name": null,
+      "bio": null,
+      "credits": "0"
+    },
+    {
+      "id": "6223",
+      "name": "Kid Problema",
+      "titular": null,
+      "titular_name": null,
+      "bio": null,
+      "credits": "0"
+    }
+  ]
+}

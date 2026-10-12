@@ -39,7 +39,7 @@ export const SIGNALS: Readonly<Record<string, SignalInfo>> = {
   },
   shared_band: {
     label: "Tocan en la misma banda", weight: "+20", sign: 1,
-    explain: "Las dos fichas figuran como miembros de al menos una misma banda.",
+    explain: "Las dos fichas figuran como integrantes de al menos una misma banda.",
   },
   shared_album: {
     label: "Acreditados en el mismo disco", weight: "+15", sign: 1,

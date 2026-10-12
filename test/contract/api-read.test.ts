@@ -181,7 +181,8 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
     expect(body.discography).toEqual([
       expect.objectContaining({ albumId, title: "Las Paticas De La Abuela", releaseYear: 1992, albumType: "ep" }),
     ]);
-    expect(body.aliases).toEqual([{ id: expect.any(Number), alias: "Caramelos de Cianuro", aliasType: "name_variant", isPrimary: true }]);
+    // Igual al nombre salvo mayúsculas: se conserva, pero el público no lo ve (plan del primo, punto 10).
+    expect(body.aliases).toEqual([{ id: expect.any(Number), alias: "Caramelos de Cianuro", aliasType: "name_variant", isPrimary: true, publicHidden: true }]);
   });
 
   it("GET /artists/:id muestra los linajes documentados (0035) en los dos sentidos", async () => {
@@ -288,7 +289,7 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
 
     const withAlias = await app.inject({ method: "GET", url: `/tracks/${trackIds[2]}` });
     expect(withAlias.json().aliases).toEqual([
-      { id: expect.any(Number), alias: "Hechicera", aliasType: "name_variant", isPrimary: true },
+      { id: expect.any(Number), alias: "Hechicera", aliasType: "name_variant", isPrimary: true, publicHidden: false },
     ]);
     expect(withAlias.json().credits).toEqual([]);
 

@@ -65,10 +65,13 @@ function titleVariants(title: string, artistName: string): string[][] {
 
 /** Título que no identifica el disco: solo palabras genéricas y números, o el nombre del artista. */
 export function isGenericTitle(title: string, artistName: string): boolean {
-  const tokens = titleTokens(title);
+  return isGenericTokens(titleTokens(title), titleTokens(artistName));
+}
+
+/** `isGenericTitle` con los tokens ya calculados (para quien recorre todo el catálogo). */
+export function isGenericTokens(tokens: string[], artist: string[]): boolean {
   if (!tokens.length) return true;
   if (tokens.every((token) => GENERIC_WORDS.has(token) || /^\d+$/u.test(token))) return true;
-  const artist = titleTokens(artistName);
   return tokens.join(" ") === artist.join(" ") || withoutArticle(tokens).join(" ") === withoutArticle(artist).join(" ");
 }
 

@@ -31,7 +31,7 @@ import { entityFormValues, PERSON_FIELDS } from "../lib/entityFields";
 import { EntityInfo, type InfoItem } from "../components/EntityInfo";
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
-import { creditTypeLabel, membershipNoun, nameClassLabel } from "../lib/labels";
+import { creditTypeLabel, memberRoleLabel, membershipNoun, nameClassLabel } from "../lib/labels";
 import { ageText, formatDate } from "../lib/format";
 
 export function PersonDetailPage() {
@@ -68,7 +68,7 @@ export function PersonDetailPage() {
   const info: InfoItem[] = [
     { label: "Nombre real", value: person.realName },
     { label: "Ciudad de nacimiento", value: person.birthCity },
-    { label: "Género", value: person.gender ? ({ male: "Masculino", female: "Femenino", unknown: "Desconocido" } as Record<string, string>)[person.gender] ?? person.gender : null },
+    { label: "Género", value: person.gender && person.gender !== "unknown" ? ({ male: "Masculino", female: "Femenino" } as Record<string, string>)[person.gender] ?? person.gender : null },
     { label: "Nacionalidad", value: person.nationality, fallback: "Sin dato" },
     { label: "Venezolano/a", value: person.isVenezuelan === true ? "Sí" : person.isVenezuelan === false ? "No (extranjero/a)" : null, fallback: "Sin dato" },
     { label: "Estado", value: dead ? "Fallecido/a" : null, fallback: "Sin dato" },
@@ -100,7 +100,7 @@ export function PersonDetailPage() {
               {person.bands.map((band) => (
                 <tr key={band.id}>
                   <td><Link to={`/artistas/${band.artistId}`}>{band.artistName}</Link></td>
-                  <td>{band.role}</td>
+                  <td>{memberRoleLabel(band.role)}</td>
                   <td className="mono">{bandPeriod(band)}</td>
                 </tr>
               ))}
@@ -196,8 +196,9 @@ export function PersonDetailPage() {
           {person.pictureUrl ? <img src={person.pictureUrl} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(person.name)}</span>}
         </span>
         <div>
-          <h1 className="entity-hero__title">{person.name}<DeceasedMark deceased={person.isDeceased} /></h1>
-          <EntityInfo items={info} wide={{ label: "Alias", content: <AliasEditor path="persons" entityId={person.id} aliases={person.aliases} onChanged={reload} /> }} />
+          <h1 className="entity-hero__title">{person.displayName ?? person.name}<DeceasedMark deceased={person.isDeceased} /></h1>
+          <EntityInfo items={info} showEmpty={isAdmin}
+            wide={isAdmin || person.aliases.some((alias) => !alias.publicHidden) ? { label: "Alias", content: <AliasEditor path="persons" entityId={person.id} aliases={person.aliases} onChanged={reload} /> } : undefined} />
           {person.biography ? <div className="entity-hero__bio"><ExpandableText className="entity-hero__desc" text={person.biography} /></div> : null}
           {person.trivia ? <div className="entity-hero__bio"><h2>Datos adicionales</h2><ExpandableText text={person.trivia} /></div> : null}
           <RewritePendingMark kind="person" id={person.id} onDone={reload} />

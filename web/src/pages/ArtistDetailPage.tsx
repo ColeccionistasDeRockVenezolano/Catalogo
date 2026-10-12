@@ -18,6 +18,7 @@ import { DeceasedMark } from "../components/DeceasedMark";
 import { AliasEditor } from "../components/AliasEditor";
 import { ArtistLogoButton } from "../components/ArtistLogoButton";
 import { MembershipEditor } from "../components/MembershipEditor";
+import { CatalogGenres, CatalogPeriod, CatalogYear } from "../components/CatalogMetadata";
 import { GenreEditor } from "../components/GenreEditor";
 import { PlatformLinkEditor } from "../components/PlatformLinkEditor";
 import { EntityFormModal } from "../components/EntityFormModal";
@@ -33,7 +34,7 @@ import { EntityInfo, type InfoGroup, type InfoItem } from "../components/EntityI
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
 import { PlatformLinks } from "../components/PlatformLinks";
-import { artistTypeLabel } from "../lib/labels";
+import { artistTypeLabel, memberRoleLabel } from "../lib/labels";
 import { ageText, formatDate } from "../lib/format";
 import { TITULAR_ROLE, type ArtistMember, type ArtistRelation, type RelatedArtist, type RelatedRule, type SimilarArtist, type SimilarRule } from "../lib/types";
 
@@ -131,7 +132,7 @@ function similarSubtitle(item: SimilarArtist): string {
   if (item.rule === "same_compilation" && evidence.length) return `En ${quoted(evidence)}`;
   if (item.rule === "same_producer" && evidence.length) return `Producción: ${evidence.join(", ")}`;
   if (item.rule === "same_label" && evidence.length) return `Sello: ${evidence.join(", ")}`;
-  return [item.originCountry, item.startYear].filter(Boolean).join(" · ");
+  return item.originCountry ?? "";
 }
 
 export function ArtistDetailPage() {
@@ -165,7 +166,8 @@ export function ArtistDetailPage() {
   // (Brian, 2026-10-01, caso Canserbero: «todo en uno, sin perder nada»).
   const titular = artist.members.find((member) => member.role === TITULAR_ROLE) ?? null;
   const titularDead = titular?.personIsDeceased === true;
-  const status = artist.status ? ({ active: "Activo", split_up: "Disuelto", on_hold: "En pausa", changed_name: "Cambió de nombre", unknown: "Desconocido" } as Record<string, string>)[artist.status] ?? artist.status : artist.disbandedYear ? "Disuelto" : hasCurrentMember ? "Activo" : null;
+  const knownStatus = artist.status === "unknown" ? null : artist.status;
+  const status = knownStatus ? ({ active: "Activo", split_up: "Disuelto", on_hold: "En pausa", changed_name: "Cambió de nombre" } as Record<string, string>)[knownStatus] ?? knownStatus : artist.disbandedYear ? "Disuelto" : hasCurrentMember ? "Activo" : null;
   const activeYears = artist.yearsActive ?? (artist.formedYear
     ? `${artist.formedYear}–${artist.disbandedYear ?? (status === "Activo" ? "presente" : "?")}`
     : null);
@@ -173,11 +175,11 @@ export function ArtistDetailPage() {
     { label: "País de origen", value: artist.originCountry },
     { label: "Ubicación", value: artist.originCity },
     { label: "Estado", value: status, fallback: "Desconocido" },
-    { label: "Formado en", value: artist.formedYear, fallback: "Sin dato" },
-    { label: "Años activos", value: activeYears },
+    { label: "Formado en", value: artist.formedYear === null ? null : <CatalogYear year={artist.formedYear} kind="artist" />, fallback: "Sin dato" },
+    { label: "Años activos", value: activeYears ? <CatalogPeriod text={activeYears} /> : null },
   ];
   const identityInfo: InfoItem[] = [
-    { label: "Nombre real", value: titular ? <Link to={`/personas/${titular.personId}`}>{titular.personRealName ?? titular.personName}</Link> : null },
+    { label: "Nombre real", value: titular ? <Link to={`/personas/${titular.personId}`}>{titular.personRealName ?? titular.personDisplayName ?? titular.personName}</Link> : null },
     // En un proyecto solista «formado en» es la carrera, y el nacimiento y el
     // fallecimiento son los de su titular: solo salen si hay quien los tenga.
     ...(titular ? [
@@ -188,11 +190,10 @@ export function ArtistDetailPage() {
     ] satisfies InfoItem[] : []),
     // Género del artista (su trayectoria); cada disco muestra el suyo.
     { label: "Género", value: artist.genres?.length ? (
-      <span className="entity-info__tags">{artist.genres.map((genre) => <span className="badge" key={genre.id}>{genre.name}</span>)}</span>
+      <span className="entity-info__tags"><CatalogGenres genres={artist.genres} kind="artist" className="badge" /></span>
     ) : null, fallback: "Sin clasificar" },
     { label: "Temas de las letras", value: artist.themes },
-    { label: "Tipo", value: artistTypeLabel(artist.artistType) },
-    { label: "Último sello", value: artist.lastLabel ? <Link to={`/organizaciones/${artist.lastLabel.id}`}>{artist.lastLabel.name}</Link> : null, fallback: "Independiente / sin dato" },
+    { label: "Tipo", value: <Link to={`/artistas?tipo=${artist.artistType}`}>{artistTypeLabel(artist.artistType)}</Link> },
   ];
   const infoGroups: InfoGroup[] = [
     { title: "Origen y trayectoria", items: originInfo },
@@ -213,19 +214,19 @@ export function ArtistDetailPage() {
     {
       key: "discografia", label: "Discografía", count: artist.discography.length,
       content: artist.discography.length === 0 ? <TabEmpty>Sin discos registrados.</TabEmpty> : (
-        <ArtistDiscography albums={artist.discography} artistName={artist.name} />
+        <ArtistDiscography albums={artist.discography} artistName={artist.name} artistId={artist.id} />
       ),
     },
     {
-      key: "miembros", label: "Miembros", count: memberGroups.length,
+      key: "miembros", label: "Integrantes", count: memberGroups.length,
       content: (
         <>
           {isAdmin ? (
             <div className="page-actions" style={{ marginBottom: 14 }}>
-              <button type="button" className="btn btn--sm" onClick={() => setAddingMember(true)}>+ Añadir miembro</button>
+              <button type="button" className="btn btn--sm" onClick={() => setAddingMember(true)}>+ Añadir integrante</button>
             </div>
           ) : null}
-          {artist.members.length === 0 ? <TabEmpty>Sin miembros registrados.</TabEmpty> : (
+          {artist.members.length === 0 ? <TabEmpty>Sin integrantes registrados.</TabEmpty> : (
             <div className="table-wrap">
               <table>
                 <thead><tr><th>Persona</th><th>Rol</th><th>Periodo</th><th></th></tr></thead>
@@ -276,7 +277,7 @@ export function ArtistDetailPage() {
                 <div className="grid-cards">
                   {group.items.map((item) => (
                     <EntityCard key={item.id} to={`/artistas/${item.id}`} title={item.name} imageUrl={item.pictureUrl} placeholder={initialOf(item.name)}
-                      subtitle={similarSubtitle(item)} />
+                      subtitle={similarSubtitle(item)} year={item.startYear} />
                   ))}
                 </div>
               </section>
@@ -331,17 +332,19 @@ export function ArtistDetailPage() {
         </div>
         <div className="artist-profile__content">
           <h1 className="entity-hero__title">{artist.name}<DeceasedMark deceased={artist.isDeceased} /></h1>
-          <EntityInfo items={[]} groups={infoGroups} />
+          <EntityInfo items={[]} groups={infoGroups} showEmpty={isAdmin} />
           {artist.platforms?.length ? (
             <div className="platform-block"><h2>Escuchar en</h2><PlatformLinks links={artist.platforms} subject={artist.name} /></div>
           ) : null}
           {artist.socials?.length ? (
             <div className="platform-block"><h2>Redes</h2><PlatformLinks links={artist.socials} subject={artist.name} /></div>
           ) : null}
-          <div className="artist-profile__aliases">
-            <h2>Alias</h2>
-            <AliasEditor path="artists" entityId={artist.id} aliases={artist.aliases} onChanged={reload} compactTypeLabels />
-          </div>
+          {isAdmin || artist.aliases.some((alias) => !alias.publicHidden) ? (
+            <div className="artist-profile__aliases">
+              <h2>Alias</h2>
+              <AliasEditor path="artists" entityId={artist.id} aliases={artist.aliases} onChanged={reload} compactTypeLabels />
+            </div>
+          ) : null}
         </div>
         {artist.biography ? <div className="artist-profile__biography entity-hero__bio"><h2>Biografía</h2><ExpandableText className="entity-hero__desc" text={artist.biography} /></div> : null}
         <RewritePendingMark kind="artist" id={artist.id} onDone={reload} />
@@ -446,9 +449,9 @@ function MemberRow({ member, personSpan, canEdit, onEdit, onChanged }: {
   return (
     <tr>
       {personSpan > 0 ? (
-        <td rowSpan={personSpan}><Link to={`/personas/${member.personId}`}>{member.personName}</Link><DeceasedMark deceased={member.personIsDeceased} /></td>
+        <td rowSpan={personSpan}><Link to={`/personas/${member.personId}`}>{member.personDisplayName ?? member.personName}</Link><DeceasedMark deceased={member.personIsDeceased} /></td>
       ) : null}
-      <td>{member.role}</td>
+      <td>{memberRoleLabel(member.role)}</td>
       <td className="mono">{member.fromYear ?? "—"}{member.isCurrent ? "–presente" : member.toYear ? `–${member.toYear}` : ""}</td>
       <td className="row-actions">
         {canEdit ? (
@@ -470,7 +473,7 @@ function MemberRow({ member, personSpan, canEdit, onEdit, onChanged }: {
           danger
           onConfirm={async (note) => {
             await artistMemberWrites.remove(member.id, note);
-            notify("success", "Miembro retirado.");
+            notify("success", "Integrante retirado.");
             setRemoving(false);
             onChanged();
           }}
@@ -532,7 +535,7 @@ function MemberFormModal({ artistId, member, onDone, onClose }: {
           ...(nextTo === null ? {} : { toYear: nextTo }),
           note: note.trim(),
         });
-        notify("success", "Miembro añadido.");
+        notify("success", "Integrante añadido.");
       } else {
         const changes: Record<string, unknown> = {};
         if (personId !== member.personId) changes["personId"] = personId;
@@ -542,7 +545,7 @@ function MemberFormModal({ artistId, member, onDone, onClose }: {
         if (isCurrent !== member.isCurrent) changes["isCurrent"] = isCurrent;
         if (Object.keys(changes).length === 0) { setError("No hay cambios que guardar."); setBusy(false); return; }
         await artistMemberWrites.update(member.id, { ...changes, note: note.trim() });
-        notify("success", "Miembro actualizado.");
+        notify("success", "Integrante actualizado.");
       }
       onDone();
     } catch (err) {
@@ -552,7 +555,7 @@ function MemberFormModal({ artistId, member, onDone, onClose }: {
   }
 
   return (
-    <Modal title={editing ? `Corregir membresía de ${member.personName}` : "Añadir miembro"} onClose={onClose}>
+    <Modal title={editing ? `Corregir membresía de ${member.personName}` : "Añadir integrante"} onClose={onClose}>
       <form onSubmit={handleSubmit}>
         {error ? <p className="form-error-banner" role="alert">{error}</p> : null}
         <EntityPicker kind="person" label="Persona *" value={personId} valueLabel={personLabel}
@@ -563,7 +566,7 @@ function MemberFormModal({ artistId, member, onDone, onClose }: {
           <div className="field"><label htmlFor={toId}>Hasta (año)</label><input id={toId} type="number" value={isCurrent ? "" : toYear} disabled={isCurrent} onChange={(event) => setToYear(event.target.value)} /></div>
           <div className="checkbox-field field">
             <input id={currentId} type="checkbox" checked={isCurrent} onChange={(event) => setIsCurrent(event.target.checked)} />
-            <label htmlFor={currentId}>Miembro actual</label>
+            <label htmlFor={currentId}>Integrante actual</label>
           </div>
           <div className="field span-2">
             <label htmlFor={noteId}>Motivo *</label>

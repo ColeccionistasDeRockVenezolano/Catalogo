@@ -4,7 +4,10 @@ export interface InfoItem {
   label: string;
   /** null/undefined/"" = sin dato: la fila se omite salvo que traiga `fallback`. */
   value: ReactNode;
-  /** Texto atenuado cuando no hay dato; sirve para campos que siempre deben verse (p. ej. «Estado»). */
+  /**
+   * Texto atenuado cuando no hay dato («Sin dato»). Solo lo ven los
+   * administradores: el público no ve campos vacíos (plan del primo, punto 5).
+   */
   fallback?: string;
 }
 
@@ -17,12 +20,13 @@ export interface InfoGroup {
  * Datos de la ficha en dos columnas etiqueta/valor (al estilo de las fichas de
  * Metal Archives). Las filas se reparten en dos columnas llenando la izquierda
  * primero; en pantallas estrechas pasan a una sola. `wide` añade una fila de
- * ancho completo debajo (los alias, con su editor).
+ * ancho completo debajo (los alias, con su editor). `showEmpty` (administradores)
+ * muestra las filas vacías con su `fallback`; sin él, una fila vacía no sale.
  */
-export function EntityInfo({ items, groups, wide }: { items: readonly InfoItem[]; groups?: readonly InfoGroup[]; wide?: { label: string; content: ReactNode } }) {
+export function EntityInfo({ items, groups, wide, showEmpty = false }: { items: readonly InfoItem[]; groups?: readonly InfoGroup[]; wide?: { label: string; content: ReactNode } | undefined; showEmpty?: boolean }) {
   const visible = (items: readonly InfoItem[]) => items
     .map((item) => ({ ...item, empty: item.value === null || item.value === undefined || item.value === "" || item.value === false }))
-    .filter((item) => !item.empty || item.fallback);
+    .filter((item) => !item.empty || (showEmpty && item.fallback));
   const rows = visible(items);
   const visibleGroups = groups?.map((group) => ({ ...group, rows: visible(group.items) })).filter((group) => group.rows.length > 0);
   if (rows.length === 0 && !visibleGroups?.length && !wide) return null;

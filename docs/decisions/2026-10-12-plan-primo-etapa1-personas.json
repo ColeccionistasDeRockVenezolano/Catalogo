@@ -1,0 +1,205 @@
+{
+  "decidedAt": "2026-10-12",
+  "evidence": "Plan del primo, etapa 1 (1B.1–1B.3): identidades de persona. Renombres por nombre real de fuente, fusiones con proyecto común (regla de Brian del 2026-09-28) y la ficha doble separada. Choques sin proyecto común (Eddy Pérez, Tweety González) no se renombran.",
+  "corrections": [
+    {
+      "op": "rename",
+      "person": {
+        "id": 174,
+        "name": "Wincho Schäfer"
+      },
+      "to": "Erwin Schäfer",
+      "keepOldNameAsAlias": true,
+      "why": "nombre real según alias de fuente con el apodo entre comillas (1B.3; regla del caso Canserbero): «Erwin \"Wincho\" Schäfer»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 645,
+        "name": "Cayayo Troconis"
+      },
+      "to": "Carlos Eduardo Troconis",
+      "keepOldNameAsAlias": true,
+      "why": "nombre real según alias de fuente con el apodo entre comillas (1B.3; regla del caso Canserbero): «Carlos Eduardo \"Cayayo\" Troconis»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 1434,
+        "name": "Fito Páez"
+      },
+      "to": "Rodolfo Páez",
+      "keepOldNameAsAlias": true,
+      "why": "nombre real según alias de fuente con el apodo entre comillas (1B.3; regla del caso Canserbero): «Rodolfo \"Fito\" Páez»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 1556,
+        "name": "Tito Fierro"
+      },
+      "to": "Héctor Fierro",
+      "keepOldNameAsAlias": true,
+      "why": "nombre real según alias de fuente con el apodo entre comillas (1B.3; regla del caso Canserbero): «Héctor \"Tito\" Fierro»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 3493,
+        "name": "Nana Cadavieco"
+      },
+      "to": "Mariana Cadavieco",
+      "keepOldNameAsAlias": true,
+      "why": "nombre real según alias de fuente con el apodo entre comillas (1B.3; regla del caso Canserbero): «Mariana \"Nana\" Cadavieco»"
+    },
+    {
+      "op": "merge",
+      "keep": {
+        "id": 2663,
+        "name": "Marco Bernal"
+      },
+      "drop": {
+        "id": 1192,
+        "name": "Toro Bernal"
+      },
+      "keepDropNameAsAlias": true,
+      "why": "misma persona: baterista de Laberinto en los dos (proyecto común); manda el nombre real «Marco Bernal»"
+    },
+    {
+      "op": "merge",
+      "keep": {
+        "id": 2740,
+        "name": "Jordi de la Vega"
+      },
+      "drop": {
+        "id": 18613,
+        "name": "Jorge de la Vega"
+      },
+      "keepDropNameAsAlias": true,
+      "why": "misma persona: guitarra y voz de Deskarriados en las dos (proyecto común)"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 2740,
+        "name": "Jordi de la Vega"
+      },
+      "to": "Jorge de la Vega",
+      "keepOldNameAsAlias": true,
+      "why": "nombre real según alias de fuente con el apodo entre comillas (1B.3; regla del caso Canserbero): «Jorge \"Jordi\" de la Vega»"
+    },
+    {
+      "op": "merge",
+      "keep": {
+        "id": 21473,
+        "name": "Cheo Navarro"
+      },
+      "drop": {
+        "id": 21744,
+        "name": "José Navarro"
+      },
+      "keepDropNameAsAlias": true,
+      "why": "misma persona: timbalero de Grupo Mango en las dos (proyecto común); queda la ficha del titular del proyecto «Cheo Navarro»"
+    },
+    {
+      "op": "rename",
+      "person": {
+        "id": 21473,
+        "name": "Cheo Navarro"
+      },
+      "to": "José Navarro",
+      "keepOldNameAsAlias": true,
+      "why": "nombre real según alias de fuente con el apodo entre comillas (1B.3; regla del caso Canserbero): «José \"Cheo\" Navarro»"
+    },
+    {
+      "op": "merge",
+      "keep": {
+        "id": 19268,
+        "name": "Ignacio Figueredo"
+      },
+      "drop": {
+        "id": 21722,
+        "name": "Indio Figueredo"
+      },
+      "keepDropNameAsAlias": true,
+      "why": "misma persona: las dos son titulares del artista Ignacio Figueredo (6664, fusionado con «Ignacio \"Indio\" Figueredo» en el run 19010); manda el nombre real"
+    },
+    {
+      "op": "merge",
+      "keep": {
+        "id": 645,
+        "name": "Carlos Eduardo Troconis"
+      },
+      "drop": {
+        "id": 6490,
+        "name": "Cayayo"
+      },
+      "keepDropNameAsAlias": true,
+      "why": "plan del primo 1B.3: «Cayayo» (Seguridad Nacional, diseño de Sentimiento Muerto) es Cayayo Troconis, miembro de Sentimiento Muerto (proyecto común)"
+    },
+    {
+      "op": "merge",
+      "keep": {
+        "id": 3617,
+        "name": "Carlos Quintero"
+      },
+      "drop": {
+        "id": 26106,
+        "name": "Carlos \"Nene\" Quitero"
+      },
+      "keepDropNameAsAlias": true,
+      "why": "plan del primo 1B.3: errata de «Carlos \"Nene\" Quintero» (percusión), alias ya presente en la ficha 3617"
+    },
+    {
+      "op": "split",
+      "person": {
+        "id": 34380,
+        "name": "Carlos \"Nene\" Quintero Orlando Poleo"
+      },
+      "into": [
+        "Carlos \"Nene\" Quintero",
+        "Orlando Poleo"
+      ],
+      "why": "plan del primo 1B.3: dos percusionistas en una ficha (créditos de percusión de «Mueve Un Pie» de Sergio Pérez, donde figuran los dos)"
+    },
+    {
+      "op": "merge",
+      "keep": {
+        "id": 386,
+        "name": "José Luis Pardo"
+      },
+      "drop": {
+        "id": 7564,
+        "name": "DJ Afro"
+      },
+      "keepDropNameAsAlias": true,
+      "why": "plan del primo (punto 6): DJ Afro es el proyecto de José Luis «Cheo» Pardo; la persona «DJ Afro» produjo discos de Los Amigos Invisibles (su banda) y de Okills"
+    },
+    {
+      "op": "merge",
+      "keep": {
+        "id": 386,
+        "name": "José Luis Pardo"
+      },
+      "drop": {
+        "id": 34688,
+        "name": "Cheo Pardo"
+      },
+      "keepDropNameAsAlias": true,
+      "why": "plan del primo (punto 6): «Cheo Pardo» produjo Okills («Estar Bien»), como DJ Afro («Dimensión Caribe»): proyecto común"
+    },
+    {
+      "op": "merge",
+      "keep": {
+        "id": 386,
+        "name": "José Luis Pardo"
+      },
+      "drop": {
+        "id": 34687,
+        "name": "Cheo Pardo Broccoli Crü"
+      },
+      "keepDropNameAsAlias": true,
+      "why": "plan del primo (punto 6): produjo «Mi Amigo Luis» de Rawayana, la misma pista que «Cheo Pardo»: proyecto común"
+    }
+  ]
+}

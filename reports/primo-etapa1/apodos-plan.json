@@ -1,0 +1,3174 @@
+{
+  "plans": [
+    {
+      "personId": 21,
+      "name": "Iván Velásquez",
+      "nickname": "El Terrible",
+      "from": "Iván \"El Terrible\" Velásquez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 39,
+      "name": "Pablo Manavello",
+      "nickname": "Zenith",
+      "from": "Pablo \"Zenith\" Manavello",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 112,
+      "name": "Alejandro Estrada",
+      "nickname": "Alz",
+      "from": "Alejandro Estrada \"Alz\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 113,
+      "name": "Carlos Astros",
+      "nickname": "Carlz",
+      "from": "Carlos Astros \"Carlz\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 124,
+      "name": "Alfredo Doyavorsky",
+      "nickname": "Frodo",
+      "from": "Alfredo Doyavorsky \"Frodo\"",
+      "existingAliasId": 19123,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 133,
+      "name": "Manuel Macías",
+      "nickname": "Manolo",
+      "from": "Manuel \"Manolo\" Macías",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 167,
+      "name": "José Rodríguez",
+      "nickname": "Joseito",
+      "from": "José \"Joseito\" Rodríguez",
+      "existingAliasId": 22000,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 174,
+      "name": "Wincho Schäfer",
+      "nickname": "Wincho",
+      "from": "Erwin \"Wincho\" Schäfer",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "Erwin Schäfer"
+    },
+    {
+      "personId": 223,
+      "name": "Annabella Almenar",
+      "nickname": "Bélica",
+      "from": "Annabella Almenar \"Bélica\"",
+      "existingAliasId": 22779,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 233,
+      "name": "Gerardo Ochoa",
+      "nickname": "Yayo",
+      "from": "Gerardo Ochoa \"Yayo\"",
+      "existingAliasId": 19225,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 248,
+      "name": "Carlos Eduardo Martínez",
+      "nickname": "CEM",
+      "from": "Carlos Eduardo Martinez \"CEM\"",
+      "existingAliasId": 19229,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 259,
+      "name": "Pedro Itriago",
+      "nickname": "Boxer",
+      "from": "Pedro \"Boxer\" Itriago",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 273,
+      "name": "John Thomas",
+      "nickname": "J.T.",
+      "from": "John \"J.T.\" Thomas",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 367,
+      "name": "Mauricio Arcas",
+      "nickname": "Maurimix",
+      "from": "Mauricio Arcas \"Maurimix\"",
+      "existingAliasId": 22762,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 372,
+      "name": "Norton Pérez",
+      "nickname": "Jack",
+      "from": "Nörton Pérez \"Jack\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 372,
+      "name": "Norton Pérez",
+      "nickname": "Mars",
+      "from": "Nörton \"Mars\" Pérez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 376,
+      "name": "Alfredo Gil",
+      "nickname": "Pollo",
+      "from": "Alfredo \"Pollo\" Gil",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 386,
+      "name": "José Luis Pardo",
+      "nickname": "DJ Afro",
+      "from": "José Luis Pardo \"DJ Afro\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 386,
+      "name": "José Luis Pardo",
+      "nickname": "Cheo",
+      "from": "José Luis \"Cheo\" Pardo",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 411,
+      "name": "Tirone González",
+      "nickname": "Canserbero",
+      "from": "Tirone González \"Canserbero\"",
+      "existingAliasId": 18749,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 415,
+      "name": "Andreas Frege",
+      "nickname": "Campino",
+      "from": "Andreas Frege \"Campino\"",
+      "existingAliasId": 19361,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 451,
+      "name": "Tweety González",
+      "nickname": "Tweety",
+      "from": "Fabián \"Tweety\" González",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "Fabián González"
+    },
+    {
+      "personId": 457,
+      "name": "Héctor Castillo",
+      "nickname": "Perroconsed",
+      "from": "Hector Castillo \"Perroconsed\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 457,
+      "name": "Héctor Castillo",
+      "nickname": "Jector",
+      "from": "Héctor Castillo \"Jector\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 473,
+      "name": "Carlos Julio Molina",
+      "nickname": "Trece",
+      "from": "Carlos Julio Molina \"Trece\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 473,
+      "name": "Carlos Julio Molina",
+      "nickname": "DJ Trece",
+      "from": "Carlos Julio Molina \"DJ Trece\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 481,
+      "name": "Danel Sarmiento",
+      "nickname": "Dr. Dub",
+      "from": "Danel Sarmiento \"Dr. Dub\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 481,
+      "name": "Danel Sarmiento",
+      "nickname": "Danpa",
+      "from": "Danel Sarmiento \"Danpa\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 486,
+      "name": "José Romero",
+      "nickname": "Joseíto",
+      "from": "José \"Joseíto\" Romero",
+      "existingAliasId": 22553,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 486,
+      "name": "José Romero",
+      "nickname": "Cheo",
+      "from": "José \"Cheo\" Romero",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 486,
+      "name": "José Romero",
+      "nickname": "Cheíto",
+      "from": "José \"Cheíto\" Romero",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 498,
+      "name": "Andrés Astorga",
+      "nickname": "Trujillo",
+      "from": "Andrés Astorga \"Trujillo\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 504,
+      "name": "Alfonso González",
+      "nickname": "DJ Hernia",
+      "from": "Alfonso González \"DJ Hernia\"",
+      "existingAliasId": 19375,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 508,
+      "name": "Richard Blanco",
+      "nickname": "El Chicha",
+      "from": "Richard \"El Chicha\" Blanco",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 508,
+      "name": "Richard Blanco",
+      "nickname": "Chicha",
+      "from": "Richard \"Chicha\" Blanco",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 509,
+      "name": "Héctor Paredes",
+      "nickname": "Lucas",
+      "from": "Héctor \"Lucas\" Paredes",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 509,
+      "name": "Héctor Paredes",
+      "nickname": "El Lucas",
+      "from": "Héctor \"El Lucas\" Paredes",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 525,
+      "name": "Ramón Rodríguez",
+      "nickname": "Monchi",
+      "from": "Ramón Rodríguez \"Monchi\"",
+      "existingAliasId": 19378,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 527,
+      "name": "Norman Pérez",
+      "nickname": "Normanramone",
+      "from": "Norman Pérez \"Normanramone\"",
+      "existingAliasId": 19380,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 549,
+      "name": "Francisco Rendiles",
+      "nickname": "FTPinch",
+      "from": "Francisco Rendiles \"FTPinch\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 618,
+      "name": "Roberto Bernal",
+      "nickname": "Chom",
+      "from": "Roberto Bernal \"Chom\"",
+      "existingAliasId": 19390,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 618,
+      "name": "Roberto Bernal",
+      "nickname": "Chon",
+      "from": "Roberto Bernal \"Chon\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 645,
+      "name": "Cayayo Troconis",
+      "nickname": "Cayayo",
+      "from": "Carlos Eduardo \"Cayayo\" Troconis",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "Carlos Eduardo Troconis"
+    },
+    {
+      "personId": 656,
+      "name": "Arístides Barbella",
+      "nickname": "Ari",
+      "from": "Arístides \"Ari\" Barbella",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 669,
+      "name": "Emidio Falconi",
+      "nickname": "DJ Baffa",
+      "from": "Emidio Falconi \"DJ Baffa\"",
+      "existingAliasId": 1701,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 669,
+      "name": "Emidio Falconi",
+      "nickname": "Baffa",
+      "from": "Emidio Falconi \"Baffa\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 696,
+      "name": "José Javier Márquez Nuñez",
+      "nickname": "J.J.",
+      "from": "José Javier Márquez Nuñez \"J.J.\"",
+      "existingAliasId": 19396,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 697,
+      "name": "Jesús Vázquez",
+      "nickname": "Jess",
+      "from": "Jesús Vázquez \"Jess\"",
+      "existingAliasId": 19398,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 699,
+      "name": "Rigoberto Patiño",
+      "nickname": "Rigo",
+      "from": "Rigoberto Patiño \"Rigo\"",
+      "existingAliasId": 19400,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 701,
+      "name": "Fidel Carvajal",
+      "nickname": "Fid",
+      "from": "Fidel Carvajal \"Fid\"",
+      "existingAliasId": 19402,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 705,
+      "name": "José Cabello",
+      "nickname": "DJ Bomby",
+      "from": "José Cabello \"DJ Bomby\"",
+      "existingAliasId": 19404,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 730,
+      "name": "Alberto Montenegro",
+      "nickname": "Beto",
+      "from": "Alberto \"Beto\" Montenegro",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 735,
+      "name": "Vladimir Peña",
+      "nickname": "Arfavor",
+      "from": "Vladimir \"Arfavor\" Peña",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 739,
+      "name": "Brian Gardner",
+      "nickname": "Big Bass",
+      "from": "Brian Gardner \"Big Bass\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 739,
+      "name": "Brian Gardner",
+      "nickname": "Bigbass",
+      "from": "Brian \"Bigbass\" Gardner",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 742,
+      "name": "Armando Hernández",
+      "nickname": "Armandito",
+      "from": "Armando Hernández \"Armandito\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 770,
+      "name": "Chris Rex",
+      "nickname": "Elektrobot",
+      "from": "Chris Rex \"Elektrobot\"",
+      "existingAliasId": 19408,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 774,
+      "name": "Reynaldo Goitía",
+      "nickname": "Boston Rex",
+      "from": "Reynaldo Goitía \"Boston Rex\"",
+      "existingAliasId": 19410,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 789,
+      "name": "Luis Pacheco",
+      "nickname": "Chompiras",
+      "from": "Luis Pacheco \"Chompiras\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 794,
+      "name": "Luis Márquez",
+      "nickname": "Papo",
+      "from": "Luis \"Papo\" Márquez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 822,
+      "name": "Alfonso Ordoñez",
+      "nickname": "Buzz",
+      "from": "Alfonso Ordoñez \"Buzz\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 833,
+      "name": "José Luis Osuna",
+      "nickname": "Tocayo",
+      "from": "José Luis \"Tocayo\" Osuna",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 844,
+      "name": "Andrés Acosta",
+      "nickname": "Patolín",
+      "from": "Andrés Acosta \"Patolín\"",
+      "existingAliasId": 19414,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 862,
+      "name": "Jarzen Arcia",
+      "nickname": "Jarz",
+      "from": "Jarzen Arcia \"Jarz\"",
+      "existingAliasId": 19418,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 873,
+      "name": "Iván Marcano",
+      "nickname": "Gordo",
+      "from": "Iván \"Gordo\" Marcano",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 889,
+      "name": "José Luis Gutiérrez",
+      "nickname": "Pizza",
+      "from": "José Luis Gutiérrez \"Pizza\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 939,
+      "name": "Jesús Jiménez",
+      "nickname": "El Moti",
+      "from": "Jesús \"El Moti\" Jimenez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 939,
+      "name": "Jesús Jiménez",
+      "nickname": "Moti",
+      "from": "Jesús \"Moti\" Jiménez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 963,
+      "name": "Diego Álvarez",
+      "nickname": "El Negro",
+      "from": "Diego \"El Negro\" Álvarez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 985,
+      "name": "Oswaldo Quintero",
+      "nickname": "Wally",
+      "from": "Oswaldo Quintero \"Wally\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 988,
+      "name": "William García",
+      "nickname": "Cafeína",
+      "from": "William García \"Cafeína\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1003,
+      "name": "Juan Bautista López",
+      "nickname": "Yátu",
+      "from": "Juan Bautista López \"Yátu\"",
+      "existingAliasId": 14750,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1017,
+      "name": "Mad Professor",
+      "nickname": "Dark Fantom",
+      "from": "Mad Professor \"Dark Fantom\"",
+      "existingAliasId": 19088,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1068,
+      "name": "Pedro V. Lizardo",
+      "nickname": "PTT",
+      "from": "Pedro V. Lizardo \"PTT\"",
+      "existingAliasId": 19090,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1068,
+      "name": "Pedro V. Lizardo",
+      "nickname": "P.T.T.",
+      "from": "Pedro V. Lizardo \"P.T.T.\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1096,
+      "name": "Armando Gómez",
+      "nickname": "007",
+      "from": "Armando Gómez \"007\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1113,
+      "name": "Oscar Alcaíno",
+      "nickname": "Oscarello El Magnifico",
+      "from": "Oscar Alcaíno \"Oscarello El Magnifico\"",
+      "existingAliasId": 19092,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1113,
+      "name": "Oscar Alcaíno",
+      "nickname": "Oscarello",
+      "from": "Oscar Alcaíno \"Oscarello\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1123,
+      "name": "Gustavo Corma",
+      "nickname": "Gus",
+      "from": "Gustavo Corma \"Gus\"",
+      "existingAliasId": 19094,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1150,
+      "name": "Elías Téllez",
+      "nickname": "E.T.",
+      "from": "Elías Téllez \"E.T.\"",
+      "existingAliasId": 19096,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1152,
+      "name": "Daniel De Castro",
+      "nickname": "De Castro",
+      "from": "Daniel De Castro \"De Castro\"",
+      "existingAliasId": 19101,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1154,
+      "name": "Andrés Simancas",
+      "nickname": "Andrew",
+      "from": "Andrés Simancas \"Andrew\"",
+      "existingAliasId": 19103,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1192,
+      "name": "Toro Bernal",
+      "nickname": "Toro",
+      "from": "Marco \"Toro\" Bernal",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "Marco Bernal"
+    },
+    {
+      "personId": 1195,
+      "name": "Rodolfo Reyes",
+      "nickname": "Panamío",
+      "from": "Rodolfo \"Panamío\" Reyes",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1209,
+      "name": "Miguel Angel Machado",
+      "nickname": "Chivo",
+      "from": "Miguel Angel Machado \"Chivo\"",
+      "existingAliasId": 19105,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1210,
+      "name": "José Miguel Machado",
+      "nickname": "Jo Semi",
+      "from": "José Miguel Machado \"Jo Semi\"",
+      "existingAliasId": 19109,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1220,
+      "name": "Daniel Yánes",
+      "nickname": "Krusty",
+      "from": "Daniel Yánes \"Krusty\"",
+      "existingAliasId": 19111,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1221,
+      "name": "Jorge Sánchez",
+      "nickname": "George",
+      "from": "Jorge Sánchez \"George\"",
+      "existingAliasId": 19113,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1222,
+      "name": "Maximino Heeger",
+      "nickname": "Patán",
+      "from": "Maximino Heeger \"Patán\"",
+      "existingAliasId": 19115,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1223,
+      "name": "Christian Alvarado",
+      "nickname": "Oso",
+      "from": "Christian Alvarado \"Oso\"",
+      "existingAliasId": 19117,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1224,
+      "name": "Cristopher Castro",
+      "nickname": "Flor",
+      "from": "Cristopher Castro \"Flor\"",
+      "existingAliasId": 19119,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1230,
+      "name": "Leonardo Molina",
+      "nickname": "Leo",
+      "from": "Leonardo Molina \"Leo\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1267,
+      "name": "Raúl Alemán",
+      "nickname": "Luar Alem",
+      "from": "Raul Alemán \"Luar Alem\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1278,
+      "name": "Leonardo Jaramillo",
+      "nickname": "Kmarón",
+      "from": "Leonardo Jaramillo \"Kmarón\"",
+      "existingAliasId": 19131,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1278,
+      "name": "Leonardo Jaramillo",
+      "nickname": "El Kmaron",
+      "from": "Leonardo \"El Kmaron\" Jaramillo",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1287,
+      "name": "Carlos Moreán",
+      "nickname": "King George",
+      "from": "Carlos \"King George\" Moreán",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1314,
+      "name": "Carlos Poletto",
+      "nickname": "Polo",
+      "from": "Carlos Poletto \"Polo\"",
+      "existingAliasId": 19151,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1317,
+      "name": "Luis Fernandez",
+      "nickname": "Marcel",
+      "from": "Luis Fernandez \"Marcel\"",
+      "existingAliasId": 19153,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1370,
+      "name": "Carlos Fernández",
+      "nickname": "Carlitos",
+      "from": "Carlos \"Carlitos\" Fernandez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1370,
+      "name": "Carlos Fernández",
+      "nickname": "Morocho",
+      "from": "Carlos \"Morocho\" Fernández",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1371,
+      "name": "Rodrigo Ibarra",
+      "nickname": "Rodrigo Ska",
+      "from": "Rodrigo Ibarra \"Rodrigo Ska\"",
+      "existingAliasId": 19163,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1374,
+      "name": "Rafael Chavarría",
+      "nickname": "Camarón",
+      "from": "Rafael Chavarría \"Camarón\"",
+      "existingAliasId": 19165,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1434,
+      "name": "Fito Páez",
+      "nickname": "Fito",
+      "from": "Rodolfo \"Fito\" Paez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "Rodolfo Páez"
+    },
+    {
+      "personId": 1441,
+      "name": "Enrique Márquez",
+      "nickname": "Kike",
+      "from": "Enrique \"Kike\" Marquez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1473,
+      "name": "Pedro Rodríguez",
+      "nickname": "Connan",
+      "from": "Pedro \"Connan\" Rodríguez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1489,
+      "name": "Ricardo Sosa",
+      "nickname": "Kike",
+      "from": "Ricardo \"Kike\" Sosa",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1534,
+      "name": "Luis Ruíz",
+      "nickname": "El Pulpo",
+      "from": "Luis Ruíz \"El Pulpo\"",
+      "existingAliasId": 19171,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1556,
+      "name": "Tito Fierro",
+      "nickname": "Tito",
+      "from": "Héctor \"Tito\" Fierro",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "Héctor Fierro"
+    },
+    {
+      "personId": 1557,
+      "name": "Rafael Calzadilla",
+      "nickname": "Raffy",
+      "from": "Rafael Calzadilla \"Raffy\"",
+      "existingAliasId": 19173,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1559,
+      "name": "Nicolas D'Agosto",
+      "nickname": "Nico",
+      "from": "Nicolas D'Agosto \"Nico\"",
+      "existingAliasId": 19175,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1604,
+      "name": "José Ramón Morales-Arilla",
+      "nickname": "Curry",
+      "from": "José Ramón Morales-Arilla \"Curry\"",
+      "existingAliasId": 19177,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1605,
+      "name": "Daniel Raguá",
+      "nickname": "Eneldo",
+      "from": "Daniel Raguá \"Eneldo\"",
+      "existingAliasId": 19179,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1616,
+      "name": "Daniel Calvo",
+      "nickname": "Calvin",
+      "from": "Daniel Calvo \"Calvin\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1618,
+      "name": "Leonardo Gil",
+      "nickname": "Iguana",
+      "from": "Leonardo \"Iguana\" Gil",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1640,
+      "name": "Pável Tello",
+      "nickname": "El Ruso",
+      "from": "Pavel Tello \"El Ruso\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1667,
+      "name": "Pablo González",
+      "nickname": "Mulato",
+      "from": "Pablo \"Mulato\" González",
+      "existingAliasId": 22523,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1727,
+      "name": "José Carlos Cabrera Morell",
+      "nickname": "Pepe",
+      "from": "José Carlos Cabrera Morell \"Pepe\"",
+      "existingAliasId": 19181,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1730,
+      "name": "Francisco Escuela Morell",
+      "nickname": "Paco",
+      "from": "Francisco Escuela Morell \"Paco\"",
+      "existingAliasId": 19183,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1795,
+      "name": "Alejandro Gómez",
+      "nickname": "Ringómes",
+      "from": "Alejandro Gómez \"Ringómes\"",
+      "existingAliasId": 19185,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1802,
+      "name": "José Vicente Aguilar",
+      "nickname": "Chevy",
+      "from": "José Vicente Aguilar \"Chevy\"",
+      "existingAliasId": 19189,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1831,
+      "name": "Barbara Lizardo",
+      "nickname": "Baby",
+      "from": "Barbara Lizardo \"Baby\"",
+      "existingAliasId": 19191,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1856,
+      "name": "Giordano Di Marzo",
+      "nickname": "Yordano",
+      "from": "Giordano Di Marzo \"Yordano\"",
+      "existingAliasId": 19193,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1869,
+      "name": "Luís Jesús Ruíz",
+      "nickname": "El Pulpo",
+      "from": "Luís Jesús Ruíz \"El Pulpo\"",
+      "existingAliasId": 19195,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 1909,
+      "name": "Ricardo Vizcarrondo",
+      "nickname": "Rich",
+      "from": "Ricardo \"Rich\" Vizcarrondo",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 1909,
+      "name": "Ricardo Vizcarrondo",
+      "nickname": "Rich Monji",
+      "from": "Ricardo Vizcarrondo \"Rich Monji\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2010,
+      "name": "Alfosn Gonzales",
+      "nickname": "DJ Hernia",
+      "from": "Alfosn Gonzales \"DJ Hernia\"",
+      "existingAliasId": 19197,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2029,
+      "name": "Rodolfo Serra",
+      "nickname": "Pocho",
+      "from": "Rodolfo \"Pocho\" Serra",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2044,
+      "name": "José Martínez",
+      "nickname": "Pepe",
+      "from": "José \"Pepe\" Martínez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2130,
+      "name": "Giovanni Gulli",
+      "nickname": "Pachuco",
+      "from": "Giovanni Gulli \"Pachuco\"",
+      "existingAliasId": 19201,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2151,
+      "name": "Aldo Lamanna",
+      "nickname": "DJ Lamaña",
+      "from": "Aldo Lamanna \"DJ Lamaña\"",
+      "existingAliasId": 19203,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2155,
+      "name": "Carlos Crinigan",
+      "nickname": "DJ Metra",
+      "from": "Carlos \"DJ Metra\" Crinigan",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2169,
+      "name": "Elix Monsanto",
+      "nickname": "Tragavenao",
+      "from": "Elix Monsanto \"Tragavenao\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2188,
+      "name": "Andrés Lara",
+      "nickname": "Nano",
+      "from": "Andrés Lara \"Nano\"",
+      "existingAliasId": 19205,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2192,
+      "name": "Daniel Arreaza",
+      "nickname": "Rino",
+      "from": "Daniel Arreaza \"Rino\"",
+      "existingAliasId": 19207,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2208,
+      "name": "José Montilva",
+      "nickname": "Joseph Sun",
+      "from": "José Montilva \"Joseph Sun\"",
+      "existingAliasId": 19209,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2209,
+      "name": "Daniel Andrade",
+      "nickname": "Daniel Sun",
+      "from": "Daniel Andrade \"Daniel Sun\"",
+      "existingAliasId": 19211,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2211,
+      "name": "Pedro Luis Sanchez",
+      "nickname": "Pedro Sun",
+      "from": "Pedro Luis Sanchez \"Pedro Sun\"",
+      "existingAliasId": 19213,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2221,
+      "name": "Luis Fernández",
+      "nickname": "Toto",
+      "from": "Luis \"Toto\" Fernández",
+      "existingAliasId": 19215,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2228,
+      "name": "Maria Virginia Caldera",
+      "nickname": "Money",
+      "from": "Maria Virginia Caldera \"Money\"",
+      "existingAliasId": 19217,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2235,
+      "name": "Kail Lovera",
+      "nickname": "Plug",
+      "from": "Kail \"Plug\" Lovera",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2308,
+      "name": "Jonathan Cabrera",
+      "nickname": "Jhon",
+      "from": "Jonathan Cabrera \"Jhon\"",
+      "existingAliasId": 19219,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2310,
+      "name": "Osiris Maiz",
+      "nickname": "Charlie",
+      "from": "Osiris Maiz \"Charlie\"",
+      "existingAliasId": 19221,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2311,
+      "name": "Jesús Esteban Campos",
+      "nickname": "Coda",
+      "from": "Jesús Esteban Campos \"Coda\"",
+      "existingAliasId": 19223,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2399,
+      "name": "Eduardo Quintana",
+      "nickname": "Alegretto",
+      "from": "Eduardo Quintana \"Alegretto\"",
+      "existingAliasId": 19227,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2415,
+      "name": "Abraham García",
+      "nickname": "Cangrejo",
+      "from": "Abraham García \"Cangrejo\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2483,
+      "name": "Javier García",
+      "nickname": "Jay",
+      "from": "Javier \"Jay\" García",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2487,
+      "name": "Winston Mandelblúm",
+      "nickname": "Winsman",
+      "from": "Winston Mandelblúm \"Winsman\"",
+      "existingAliasId": 19231,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2490,
+      "name": "Gonzalo Suarez",
+      "nickname": "Gonzo",
+      "from": "Gonzalo Suarez \"Gonzo\"",
+      "existingAliasId": 19233,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2495,
+      "name": "Jesús Chinchilla",
+      "nickname": "Chucho",
+      "from": "Jesús \"Chucho\" Chinchilla",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2518,
+      "name": "Manuel Churión",
+      "nickname": "Churro",
+      "from": "Manuel Churión \"Churro\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2522,
+      "name": "R. Zalazar",
+      "nickname": "Puppi",
+      "from": "R. Zalazar \"Puppi\"",
+      "existingAliasId": 19235,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2609,
+      "name": "Lenny Carrero",
+      "nickname": "Pinky",
+      "from": "Lenny Carrero \"Pinky\"",
+      "existingAliasId": 19237,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2667,
+      "name": "Gabriel Millán",
+      "nickname": "Gabo",
+      "from": "Gabriel Millán \"Gabo\"",
+      "existingAliasId": 19239,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2704,
+      "name": "Miguel Gonzáles",
+      "nickname": "El Enano",
+      "from": "Miguel Gonzáles \"El Enano\"",
+      "existingAliasId": 19241,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2740,
+      "name": "Jordi de la Vega",
+      "nickname": "Jordi",
+      "from": "Jorge \"Jordi\" De La Vega",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "Jorge de la Vega"
+    },
+    {
+      "personId": 2756,
+      "name": "Carlos Da Palma",
+      "nickname": "Palmito",
+      "from": "Carlos Da Palma \"Palmito\"",
+      "existingAliasId": 19243,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2765,
+      "name": "Luis Muños",
+      "nickname": "Gbec",
+      "from": "Luis Muños \"Gbec\"",
+      "existingAliasId": 19245,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2826,
+      "name": "José Antonio Bermúdez",
+      "nickname": "El Chino",
+      "from": "José Antonio Bermúdez \"El Chino\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2831,
+      "name": "Kenys Santiago",
+      "nickname": "Ríal Guawankó",
+      "from": "Kenys Santiago \"Ríal Guawankó\"",
+      "existingAliasId": 19247,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2832,
+      "name": "Marlon Morales",
+      "nickname": "Lou Fresco",
+      "from": "Marlon Morales \"Lou Fresco\"",
+      "existingAliasId": 19249,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2836,
+      "name": "Danilo Amerise Díaz",
+      "nickname": "Dano",
+      "from": "Danilo Amerise Díaz \"Dano\"",
+      "existingAliasId": 19251,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2839,
+      "name": "Joyner Lares",
+      "nickname": "Nasty Killah",
+      "from": "Joyner Lares \"Nasty Killah\"",
+      "existingAliasId": 19253,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2857,
+      "name": "Jesús Toro",
+      "nickname": "Torito",
+      "from": "Jesús \"Torito\" Toro",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 2978,
+      "name": "Daniel Moreno",
+      "nickname": "Dan",
+      "from": "Daniel Moreno \"Dan\"",
+      "existingAliasId": 19255,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 2992,
+      "name": "Jonathan Carrillo",
+      "nickname": "Jona",
+      "from": "Jonathan Carrillo \"Jona\"",
+      "existingAliasId": 19257,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3005,
+      "name": "José Ignacio Mateis",
+      "nickname": "Naxxo",
+      "from": "José Ignacio Mateis \"Naxxo\"",
+      "existingAliasId": 19259,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3007,
+      "name": "Miguel Angel Sojo",
+      "nickname": "Micky",
+      "from": "Miguel Angel Sojo \"Micky\"",
+      "existingAliasId": 19261,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3015,
+      "name": "Marcos Arévalo",
+      "nickname": "Zokram",
+      "from": "Marcos Arévalo \"Zokram\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 3015,
+      "name": "Marcos Arévalo",
+      "nickname": "Socram",
+      "from": "Marcos Arévalo \"Socram\"",
+      "existingAliasId": 19263,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3020,
+      "name": "Daniel Medina",
+      "nickname": "El Niño",
+      "from": "Daniel Medina \"El Niño\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 3036,
+      "name": "Let Arteaga",
+      "nickname": "DJ Let",
+      "from": "Let Arteaga \"DJ Let\"",
+      "existingAliasId": 19265,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3053,
+      "name": "Ricardo Anthés",
+      "nickname": "Ziggy",
+      "from": "Ricardo \"Ziggy\" Anthes",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 3088,
+      "name": "Jorge Peña",
+      "nickname": "Korge",
+      "from": "Jorge Peña \"Korge\"",
+      "existingAliasId": 19267,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3089,
+      "name": "Patricio Marín",
+      "nickname": "Pato",
+      "from": "Patricio Marín \"Pato\"",
+      "existingAliasId": 19269,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3090,
+      "name": "Mariana Suárez",
+      "nickname": "Maly",
+      "from": "Mariana Suárez \"Maly\"",
+      "existingAliasId": 19271,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3092,
+      "name": "Jesús Castillo",
+      "nickname": "Cuco",
+      "from": "Jesús Castillo \"Cuco\"",
+      "existingAliasId": 19273,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3103,
+      "name": "Manuel Montañez",
+      "nickname": "Pacho",
+      "from": "Manuel Montañez \"Pacho\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 3103,
+      "name": "Manuel Montañez",
+      "nickname": "Pancho",
+      "from": "Manuel \"Pancho\" Montañez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 3127,
+      "name": "Walter Velásquez",
+      "nickname": "Mosca",
+      "from": "Walter Velásquez \"Mosca\"",
+      "existingAliasId": 19275,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3165,
+      "name": "Juan Esteban Aristizábal",
+      "nickname": "Juanes",
+      "from": "Juan Esteban Aristizábal \"Juanes\"",
+      "existingAliasId": 19277,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3169,
+      "name": "Fernando Tobón",
+      "nickname": "Toby",
+      "from": "Fernando Tobón \"Toby\"",
+      "existingAliasId": 19279,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3174,
+      "name": "Alejandro Conde",
+      "nickname": "Al-Jay",
+      "from": "Alejandro Conde \"Al-Jay\"",
+      "existingAliasId": 19281,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3178,
+      "name": "Patricio Chapa Elizalde",
+      "nickname": "Pato",
+      "from": "Patricio Chapa Elizalde \"Pato\"",
+      "existingAliasId": 19283,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3183,
+      "name": "Antonio Hernández",
+      "nickname": "Toy",
+      "from": "Antonio Hernández \"Toy\"",
+      "existingAliasId": 19285,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3184,
+      "name": "Guillermo Luis Valentinis",
+      "nickname": "Willie",
+      "from": "Guillermo Luis Valentinis \"Willie\"",
+      "existingAliasId": 19287,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3187,
+      "name": "Diego Blanco",
+      "nickname": "Chapa",
+      "from": "Diego Blanco \"Chapa\"",
+      "existingAliasId": 19289,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3189,
+      "name": "Ariel Fernando Raiman",
+      "nickname": "Topo",
+      "from": "Ariel Fernando Raiman \"Topo\"",
+      "existingAliasId": 19291,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3192,
+      "name": "Horacio Avedaño",
+      "nickname": "Horace",
+      "from": "Horacio Avedaño \"Horace\"",
+      "existingAliasId": 19293,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3198,
+      "name": "Victor González",
+      "nickname": "Kasino",
+      "from": "Victor González \"Kasino\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 3204,
+      "name": "Alejandro Ramírez",
+      "nickname": "Chombie",
+      "from": "Alejandro Ramírez \"Chombie\"",
+      "existingAliasId": 19295,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3208,
+      "name": "José Andrés Blanco",
+      "nickname": "Blanquito Man",
+      "from": "José Andrés Blanco \"Blanquito Man\"",
+      "existingAliasId": 19297,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3217,
+      "name": "Luis Eduardo Blanco",
+      "nickname": "Negrito Man",
+      "from": "Luis Eduardo Blanco \"Negrito Man\"",
+      "existingAliasId": 19299,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3225,
+      "name": "Humberto E. Lizardo",
+      "nickname": "Ike",
+      "from": "Humberto E. Lizardo \"Ike\"",
+      "existingAliasId": 19301,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3251,
+      "name": "Roming Calderón",
+      "nickname": "Blood 69",
+      "from": "Roming Calderón \"Blood 69\"",
+      "existingAliasId": 19303,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3266,
+      "name": "Eddy Pérez",
+      "nickname": "Eddy",
+      "from": "Eduardo \"Eddy\" Pérez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "Eduardo Pérez"
+    },
+    {
+      "personId": 3277,
+      "name": "Carlos Alberto Abuchaibe Ferreira",
+      "nickname": "Cabeto",
+      "from": "Carlos Alberto Abuchaibe Ferreira \"Cabeto\"",
+      "existingAliasId": 19305,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3325,
+      "name": "Daniel Jelinek",
+      "nickname": "Cheky",
+      "from": "Daniel Jelinek \"Cheky\"",
+      "existingAliasId": 19309,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3340,
+      "name": "Humberto Pérez",
+      "nickname": "Hum",
+      "from": "Humberto Pérez \"Hum\"",
+      "existingAliasId": 19311,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3342,
+      "name": "Jesús Arreaza",
+      "nickname": "Flero",
+      "from": "Jesús Arreaza \"Flero\"",
+      "existingAliasId": 19313,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3343,
+      "name": "Ignacio Pérez",
+      "nickname": "Nacho",
+      "from": "Ignacio Pérez \"Nacho\"",
+      "existingAliasId": 19315,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3361,
+      "name": "Javier Avellaneda",
+      "nickname": "Vieja",
+      "from": "Javier Avellaneda \"Vieja\"",
+      "existingAliasId": 19317,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3362,
+      "name": "Alejandro Castro",
+      "nickname": "Aleco",
+      "from": "Alejandro Castro \"Aleco\"",
+      "existingAliasId": 19319,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3363,
+      "name": "Oscar Cartagena",
+      "nickname": "DJ Ortokore",
+      "from": "Oscar Cartagena \"DJ Ortokore\"",
+      "existingAliasId": 19321,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3364,
+      "name": "Freddy Hung",
+      "nickname": "Chino",
+      "from": "Freddy Hung \"Chino\"",
+      "existingAliasId": 19323,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3365,
+      "name": "José Luís Lairet",
+      "nickname": "Gato",
+      "from": "José Luís Lairet \"Gato\"",
+      "existingAliasId": 19325,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3402,
+      "name": "Rafael Alvarez",
+      "nickname": "Chesi",
+      "from": "Rafael Alvarez \"Chesi\"",
+      "existingAliasId": 19327,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3403,
+      "name": "Miguel Carrasco",
+      "nickname": "Chacal",
+      "from": "Miguel Carrasco \"Chacal\"",
+      "existingAliasId": 19329,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3411,
+      "name": "Sebastián Araujo",
+      "nickname": "Sebas",
+      "from": "Sebastián Araujo \"Sebas\"",
+      "existingAliasId": 19331,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3414,
+      "name": "Abraham García Liendo",
+      "nickname": "Cangrejo",
+      "from": "Abraham García Liendo \"Cangrejo\"",
+      "existingAliasId": 19333,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3417,
+      "name": "Jesús Cordero",
+      "nickname": "Yisus",
+      "from": "Jesús Cordero \"Yisus\"",
+      "existingAliasId": 19335,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3421,
+      "name": "Leandro Angarita",
+      "nickname": "Lio",
+      "from": "Leandro Angarita \"Lio\"",
+      "existingAliasId": 19337,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3435,
+      "name": "Stephania Martínez",
+      "nickname": "Teff",
+      "from": "Stephania Martínez \"Teff\"",
+      "existingAliasId": 19339,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3463,
+      "name": "Luis Couto",
+      "nickname": "El Portu",
+      "from": "Luis Couto \"El Portu\"",
+      "existingAliasId": 19341,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3470,
+      "name": "Edison Lizardo",
+      "nickname": "El Topo",
+      "from": "Edison Lizardo \"El Topo\"",
+      "existingAliasId": 19343,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3485,
+      "name": "Carlos Julio Medina",
+      "nickname": "Tony Armas",
+      "from": "Carlos Julio Medina \"Tony Armas\"",
+      "existingAliasId": 19345,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3487,
+      "name": "Juan Aristizábal Vásquez",
+      "nickname": "Juanes",
+      "from": "Juan Aristizábal Vásquez \"Juanes\"",
+      "existingAliasId": 19347,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3493,
+      "name": "Nana Cadavieco",
+      "nickname": "Nana",
+      "from": "Mariana \"Nana\" Cadavieco",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "Mariana Cadavieco"
+    },
+    {
+      "personId": 3573,
+      "name": "Luis Freitas",
+      "nickname": "Luigi",
+      "from": "Luis Freitas \"Luigi\"",
+      "existingAliasId": 19349,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3611,
+      "name": "Charles Alexander",
+      "nickname": "Carlos Quintero",
+      "from": "Charles Alexander \"Carlos Quintero\"",
+      "existingAliasId": 19351,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3617,
+      "name": "Carlos Quintero",
+      "nickname": "Nene",
+      "from": "Carlos \"Nene\" Quintero",
+      "existingAliasId": 22515,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3617,
+      "name": "Carlos Quintero",
+      "nickname": "Kinttero",
+      "from": "Carlos Quintero \"Kinttero\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 3746,
+      "name": "Richard Pacheco",
+      "nickname": "Copash",
+      "from": "Richard Pacheco \"Copash\"",
+      "existingAliasId": 19353,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3774,
+      "name": "Eduardo Malavé",
+      "nickname": "Edu",
+      "from": "Eduardo Malavé \"Edu\"",
+      "existingAliasId": 19355,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 3775,
+      "name": "Gian Piero Gigante",
+      "nickname": "Gian X",
+      "from": "Gian Piero Gigante \"Gian X\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 3779,
+      "name": "Kevin Lovera",
+      "nickname": "Kev",
+      "from": "Kevin Lovera \"Kev\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 3936,
+      "name": "Romiman A-K Center Feel",
+      "nickname": "Roming Calderon",
+      "from": "Romiman A-K Center Feel \"Roming Calderon\"",
+      "existingAliasId": 19359,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 4156,
+      "name": "Fernando Urdaneta",
+      "nickname": "Fercho",
+      "from": "Fernando Urdaneta \"Fercho\"",
+      "existingAliasId": 19363,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 4384,
+      "name": "Ramón Carranza",
+      "nickname": "Moncho",
+      "from": "Ramón \"Moncho\" Carranza",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 4455,
+      "name": "Tony Alda Alejandro Bautista",
+      "nickname": "Drito",
+      "from": "Tony Alda Alejandro Bautista \"Drito\"",
+      "existingAliasId": 19365,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 4625,
+      "name": "Luis Alejandro Díaz",
+      "nickname": "Aleister",
+      "from": "Luis Alejandro Díaz \"Aleister\"",
+      "existingAliasId": 19367,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 4626,
+      "name": "Luis Miguel Sanabria",
+      "nickname": "Vampiro",
+      "from": "Luis Miguel Sanabria \"Vampiro\"",
+      "existingAliasId": 19369,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 4693,
+      "name": "Ramses Alegría",
+      "nickname": "Faraon",
+      "from": "Ramses \"Faraon\" Alegría",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 4783,
+      "name": "Jonathan Delgado",
+      "nickname": "Johnny",
+      "from": "Jonathan Delgado \"Johnny\"",
+      "existingAliasId": 19371,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 4791,
+      "name": "William Ruiz",
+      "nickname": "Will",
+      "from": "William Ruiz \"Will\"",
+      "existingAliasId": 19373,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 5202,
+      "name": "Carlos Montenegro",
+      "nickname": "Carl Martin",
+      "from": "Carlos Montenegro \"Carl Martin\"",
+      "existingAliasId": 9510,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 5309,
+      "name": "Ricardo Prati",
+      "nickname": "Pot",
+      "from": "Ricardo \"Pot\" Prati",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 5348,
+      "name": "Cindy Catoni",
+      "nickname": "Cindyrella",
+      "from": "Cindy Catoni \"Cindyrella\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 5350,
+      "name": "José Pérez Berreiro",
+      "nickname": "Peque",
+      "from": "José Pérez Berreiro \"Peque\"",
+      "existingAliasId": 19382,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 5559,
+      "name": "Licio Lugarini Melloni",
+      "nickname": "Licho",
+      "from": "Licio Lugarini Melloni \"Licho\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 5587,
+      "name": "Héctor Forzano",
+      "nickname": "El Pibe",
+      "from": "Héctor \"El Pibe\" Forzano",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 5740,
+      "name": "Máximo Alvarez",
+      "nickname": "Kari-Kari",
+      "from": "Máximo \"Kari-Kari\" Alvarez",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 5839,
+      "name": "Jesús Romero",
+      "nickname": "G-Zaz",
+      "from": "Jesús Romero \"G-Zaz\"",
+      "existingAliasId": 19384,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 5845,
+      "name": "Andrés Morillo",
+      "nickname": "André",
+      "from": "Andrés Morillo \"André\"",
+      "existingAliasId": 19386,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 5993,
+      "name": "José Velásquez",
+      "nickname": "El Patuo",
+      "from": "José Velásquez \"El Patuo\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 6027,
+      "name": "Eduardo Guerrero",
+      "nickname": "EdWar",
+      "from": "Eduardo Guerrero \"EdWar\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 6086,
+      "name": "Gustavo Pérez",
+      "nickname": "Yeti",
+      "from": "Gustavo Pérez \"Yeti\"",
+      "existingAliasId": 19388,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 6185,
+      "name": "Manuel Martin",
+      "nickname": "Asteroide B612",
+      "from": "Manuel Martin \"Asteroide B612\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 6537,
+      "name": "Luis E. Serrano",
+      "nickname": "Luiser",
+      "from": "Luis E. Serrano \"Luiser\"",
+      "existingAliasId": 19392,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 6843,
+      "name": "Emiro Aguilar",
+      "nickname": "Atari",
+      "from": "Emiro Aguilar \"Atari\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 7178,
+      "name": "Alberto Lewis",
+      "nickname": "Al Zeppy",
+      "from": "Alberto Lewis \"Al Zeppy\"",
+      "existingAliasId": 22808,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 7693,
+      "name": "Jesús Reyes",
+      "nickname": "Reyito",
+      "from": "Jesús Reyes \"Reyito\"",
+      "existingAliasId": 19406,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 8293,
+      "name": "Frank Hernández",
+      "nickname": "El Pavo",
+      "from": "Frank Hernández \"El Pavo\"",
+      "existingAliasId": 19412,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 8415,
+      "name": "Juan Carlos Pineda",
+      "nickname": "Tito",
+      "from": "Juan Carlos \"Tito\" Pineda",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 12391,
+      "name": "L. Romero",
+      "nickname": "La Luz",
+      "from": "L. Romero \"La Luz\"",
+      "existingAliasId": 19121,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 12449,
+      "name": "Pedro Querales",
+      "nickname": "OldTape",
+      "from": "Pedro Querales \"OldTape\"",
+      "existingAliasId": 19125,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 12533,
+      "name": "Daniel Pereira",
+      "nickname": "Danny Deep",
+      "from": "Daniel Pereira \"Danny Deep\"",
+      "existingAliasId": 19127,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 12540,
+      "name": "Luis Salazar",
+      "nickname": "Stardust",
+      "from": "Luis Salazar \"Stardust\"",
+      "existingAliasId": 19129,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 12813,
+      "name": "Carlos David Díaz",
+      "nickname": "Chatto",
+      "from": "Carlos David Díaz \"Chatto\"",
+      "existingAliasId": 19133,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 12931,
+      "name": "Vladimir Marcano",
+      "nickname": "Portal",
+      "from": "Vladimir Marcano \"Portal\"",
+      "existingAliasId": 19135,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 12969,
+      "name": "Juan Carlo Fernández",
+      "nickname": "Wancalo",
+      "from": "Juan Carlo Fernández \"Wancalo\"",
+      "existingAliasId": 19137,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 13009,
+      "name": "Leonardo Diaz",
+      "nickname": "Afromack",
+      "from": "Leonardo Diaz \"Afromack\"",
+      "existingAliasId": 19141,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 13010,
+      "name": "Nicolás Pappaterra",
+      "nickname": "NicoJP",
+      "from": "Nicolás Pappaterra \"NicoJP\"",
+      "existingAliasId": 19143,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 13011,
+      "name": "Nestor Santana",
+      "nickname": "Nessr",
+      "from": "Nestor Santana \"Nessr\"",
+      "existingAliasId": 19145,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 13100,
+      "name": "Patricia Van Dalen",
+      "nickname": "Jardín Lumínico",
+      "from": "Patricia Van Dalen \"Jardín Lumínico\"",
+      "existingAliasId": 19147,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 13101,
+      "name": "Alfredo Loero Echeverria",
+      "nickname": "Chofa",
+      "from": "Alfredo Loero Echeverria \"Chofa\"",
+      "existingAliasId": 19149,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 13327,
+      "name": "Jesús Castillo",
+      "nickname": "El Chuy",
+      "from": "Jesús Castillo \"El Chuy\"",
+      "existingAliasId": 19155,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 13704,
+      "name": "Felix Ruiz",
+      "nickname": "Chiva",
+      "from": "Felix Ruiz \"Chiva\"",
+      "existingAliasId": 19157,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 13705,
+      "name": "Jose Ramirez",
+      "nickname": "Totia",
+      "from": "Jose Ramirez \"Totia\"",
+      "existingAliasId": 19159,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 13706,
+      "name": "Francisco Briceño",
+      "nickname": "Mata Rata",
+      "from": "Francisco Briceño \"Mata Rata\"",
+      "existingAliasId": 19161,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 14625,
+      "name": "Israel David",
+      "nickname": "Yoco",
+      "from": "Israel David \"Yoco\"",
+      "existingAliasId": 19167,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 14735,
+      "name": "Ricardo Kerch",
+      "nickname": "Lord",
+      "from": "Ricardo \"Lord\" Kerch",
+      "existingAliasId": 22462,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 14769,
+      "name": "Alberto Núñez",
+      "nickname": "Beto",
+      "from": "Alberto Núñez \"Beto\"",
+      "existingAliasId": 19169,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 15441,
+      "name": "José Luis Larriva",
+      "nickname": "Maíz",
+      "from": "José Luis Larriva «Maíz»",
+      "existingAliasId": 19469,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 15454,
+      "name": "José María Arria",
+      "nickname": "Chema",
+      "from": "José María Arria \"Chema\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 15971,
+      "name": "Gabriel Marcos",
+      "nickname": "Phinst",
+      "from": "Gabriel Marcos «Phinst»",
+      "existingAliasId": 19887,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 16160,
+      "name": "Victor Ojeda",
+      "nickname": "Willow",
+      "from": "Victor Ojeda «Willow»",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 16167,
+      "name": "Francisco López Alcántara",
+      "nickname": "Paco",
+      "from": "Francisco López Alcántara «Paco»",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 16463,
+      "name": "Alberto Amado",
+      "nickname": "Beto",
+      "from": "Alberto Amado «Beto»",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 16471,
+      "name": "Edgar Albarran",
+      "nickname": "Toto",
+      "from": "Edgar Albarran «Toto»",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 16485,
+      "name": "José Antonio",
+      "nickname": "Chuls",
+      "from": "José Antonio «Chuls»",
+      "existingAliasId": 20283,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 16505,
+      "name": "Manuel Toro",
+      "nickname": "El Gurú",
+      "from": "Manuel Toro «El Gurú»",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 16521,
+      "name": "Daniel Alejandro",
+      "nickname": "Alejo",
+      "from": "Daniel Alejandro \"Alejo\"",
+      "existingAliasId": 20313,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 16609,
+      "name": "Judith Jaque",
+      "nickname": "Nina",
+      "from": "Judith Jaque «Nina»",
+      "existingAliasId": 20375,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 16630,
+      "name": "Robustiano Rondón",
+      "nickname": "Monte",
+      "from": "Robustiano Rondón «Monte»",
+      "existingAliasId": 20389,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 16631,
+      "name": "Micaela Rangel",
+      "nickname": "Culebra",
+      "from": "Micaela Rangel «Culebra»",
+      "existingAliasId": 20391,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 16679,
+      "name": "Miguel Álvarez",
+      "nickname": "Gara",
+      "from": "Miguel Álvarez «Gara»",
+      "existingAliasId": 20433,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 17031,
+      "name": "Manuel Cabello",
+      "nickname": "Chewbacca",
+      "from": "Manuel Cabello «Chewbacca»",
+      "existingAliasId": 22545,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 17130,
+      "name": "Elieser Porras",
+      "nickname": "El Chino",
+      "from": "Elieser Porras «El Chino»",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 17131,
+      "name": "Nelson Matos",
+      "nickname": "Ozzero",
+      "from": "Nelson Matos «Ozzero»",
+      "existingAliasId": 20796,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 17133,
+      "name": "Francisco Caña",
+      "nickname": "El Abuelo",
+      "from": "Francisco Caña «El Abuelo»",
+      "existingAliasId": 20799,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 17250,
+      "name": "Pedro Casadei",
+      "nickname": "Peter",
+      "from": "Pedro Casadei «Peter»",
+      "existingAliasId": 20893,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 17251,
+      "name": "Alexander Salas",
+      "nickname": "Alex",
+      "from": "Alexander Salas «Alex»",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 17252,
+      "name": "Abilio Salmerón",
+      "nickname": "AJ",
+      "from": "Abilio Salmerón «AJ»",
+      "existingAliasId": 20896,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 17254,
+      "name": "Antonio Molina",
+      "nickname": "Toño",
+      "from": "Antonio Molina «Toño»",
+      "existingAliasId": 20899,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 17681,
+      "name": "Jesús Enrique Hernández",
+      "nickname": "El Chuly",
+      "from": "Jesús Enrique Hernández \"El Chuly\"",
+      "existingAliasId": 21218,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 18083,
+      "name": "Jaime Jungheit",
+      "nickname": "Teriyaki",
+      "from": "Jaime Jungheit «Teriyaki»",
+      "existingAliasId": 21543,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 18084,
+      "name": "Gregorio Stasenko",
+      "nickname": "Greko",
+      "from": "Gregorio Stasenko «Greko»",
+      "existingAliasId": 21545,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 18085,
+      "name": "Juan Carlos Suárez",
+      "nickname": "Jc the Lion",
+      "from": "Juan Carlos Suárez «Jc the Lion»",
+      "existingAliasId": 21547,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 18826,
+      "name": "Eliezer Gonzalez",
+      "nickname": "Eliah",
+      "from": "Eliezer Gonzalez \"Eliah\"",
+      "existingAliasId": 23111,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 20641,
+      "name": "José Rafael González Bolívar",
+      "nickname": "Mulato",
+      "from": "José Rafael González Bolívar \"Mulato\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 20902,
+      "name": "Oscar Cordero",
+      "nickname": "Chuky",
+      "from": "Oscar Cordero \"Chuky\"",
+      "existingAliasId": 26586,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 20972,
+      "name": "Calvin Seward",
+      "nickname": "Dr. Rasheed",
+      "from": "Calvin Seward \"Dr. Rasheed\"",
+      "existingAliasId": 26673,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 21246,
+      "name": "Tomás Martínez",
+      "nickname": "El Bobby",
+      "from": "Tomás Martínez \"El Bobby\"",
+      "existingAliasId": 27024,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 21251,
+      "name": "Octavio Palacios",
+      "nickname": "Nano Grand",
+      "from": "Octavio Palacios \"Nano Grand\"",
+      "existingAliasId": 27033,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 21279,
+      "name": "Carlos Julio Ramírez",
+      "nickname": "El Oso",
+      "from": "Carlos Julio Ramírez \"El Oso\"",
+      "existingAliasId": 26837,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 21473,
+      "name": "Cheo Navarro",
+      "nickname": "Cheo",
+      "from": "José \"Cheo\" Navarro",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "José Navarro"
+    },
+    {
+      "personId": 21722,
+      "name": "Indio Figueredo",
+      "nickname": "Indio",
+      "from": "Ignacio \"Indio\" Figueredo",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": "Ignacio Figueredo"
+    },
+    {
+      "personId": 22048,
+      "name": "Nelson Jaime",
+      "nickname": "Gazu",
+      "from": "Nelson Jaime \"Gazu\"",
+      "existingAliasId": 28079,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 22370,
+      "name": "Luis Briceño",
+      "nickname": "Yarum",
+      "from": "Luis Briceño \"Yarum\"",
+      "existingAliasId": 28421,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 23094,
+      "name": "Sergio Barrios",
+      "nickname": "El Hase",
+      "from": "Sergio Barrios \"El Hase\"",
+      "existingAliasId": 29193,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 23132,
+      "name": "José Daltro",
+      "nickname": "Sardinha",
+      "from": "José Daltro “Sardinha”",
+      "existingAliasId": 29243,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 24868,
+      "name": "César Monge",
+      "nickname": "Albondiga",
+      "from": "César Monge \"Albondiga\"",
+      "existingAliasId": 21917,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 24954,
+      "name": "Eduardo Díaz",
+      "nickname": "Kikaro",
+      "from": "Eduardo Díaz \"Kikaro\"",
+      "existingAliasId": 31184,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 25005,
+      "name": "Alexandra Alvarez",
+      "nickname": "La Cheewe",
+      "from": "Alexandra Alvarez \"La Cheewe\"",
+      "existingAliasId": 31234,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 25015,
+      "name": "Carlos Yánez",
+      "nickname": "Negrito Calaven",
+      "from": "Carlos Yánez \"Negrito Calaven\"",
+      "existingAliasId": 31246,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 25139,
+      "name": "Oscar Mijares",
+      "nickname": "El Chivo",
+      "from": "Oscar Mijares \"El Chivo\"",
+      "existingAliasId": 31467,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 25149,
+      "name": "Alfredo Franchesqui",
+      "nickname": "Cutuflá",
+      "from": "Alfredo Franchesqui \"Cutuflá\"",
+      "existingAliasId": 31485,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 25486,
+      "name": "Eduardo Barbosa",
+      "nickname": "Bijú",
+      "from": "Eduardo Barbosa \"Bijú\"",
+      "existingAliasId": 32069,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 25583,
+      "name": "José A. Lorenzo",
+      "nickname": "Pachin",
+      "from": "José A. Lorenzo \"Pachin\"",
+      "existingAliasId": 32169,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 25585,
+      "name": "Néstor Gutierrez",
+      "nickname": "El Chivo",
+      "from": "Néstor Gutierrez \"El Chivo\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 26023,
+      "name": "José Lorenzo Jansen",
+      "nickname": "Pachin",
+      "from": "José Lorenzo Jansen “Pachin”",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 27387,
+      "name": "Luis Henríquez Pérez",
+      "nickname": "Chacho",
+      "from": "Luis Henríquez Pérez \"Chacho\"",
+      "existingAliasId": 34203,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 27655,
+      "name": "José Rojas",
+      "nickname": "Arañita",
+      "from": "José Rojas \"Arañita\"",
+      "existingAliasId": 27096,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 27695,
+      "name": "El Gran",
+      "nickname": "Pepe",
+      "from": "El Gran \"Pepe\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 27735,
+      "name": "José Coronado",
+      "nickname": "Chema Guerra",
+      "from": "José Coronado \"Chema Guerra\"",
+      "existingAliasId": 34556,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 27798,
+      "name": "José Guzmán",
+      "nickname": "Guachafa",
+      "from": "José Guzmán \"Guachafa\"",
+      "existingAliasId": 34635,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 28668,
+      "name": "Gustavo Seclén",
+      "nickname": "Chiclayano",
+      "from": "Gustavo Seclén \"Chiclayano\"",
+      "existingAliasId": 32742,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 28762,
+      "name": "José Ascanio",
+      "nickname": "Melao",
+      "from": "José Ascanio \"Melao\"",
+      "existingAliasId": 35619,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 29963,
+      "name": "José Gomez",
+      "nickname": "Cara E' Caballo",
+      "from": "José Gomez \"Cara E' Caballo\"",
+      "existingAliasId": 36845,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 29970,
+      "name": "Erasmo Machado",
+      "nickname": "Pachanga",
+      "from": "Erasmo Machado \"Pachanga\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 29996,
+      "name": "Manuel Thiago",
+      "nickname": "Manduka",
+      "from": "Manuel Thiago \"Manduka\"",
+      "existingAliasId": 36885,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 30499,
+      "name": "Alejandro Pinazo",
+      "nickname": "Queque",
+      "from": "Alejandro Pinazo \"Queque\"",
+      "existingAliasId": 37371,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 31217,
+      "name": "Alberto Aguilera Valades",
+      "nickname": "Juan Gabriel",
+      "from": "Alberto Aguilera Valades \"Juan Gabriel\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 31711,
+      "name": "Rodrigo José",
+      "nickname": "Rojo",
+      "from": "Rodrigo José \"Rojo\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 32281,
+      "name": "Pedro Aquilino Díaz",
+      "nickname": "Mandarina",
+      "from": "Pedro Aquilino Díaz \"Mandarina\"",
+      "existingAliasId": 39177,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 32866,
+      "name": "Porfirio Garcés",
+      "nickname": "Pocho",
+      "from": "Porfirio Garcés “Pocho”",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 33602,
+      "name": "Juan José González",
+      "nickname": "Juanjo",
+      "from": "Juan José González \"Juanjo\"",
+      "existingAliasId": 40503,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 33861,
+      "name": "Alberto Requena",
+      "nickname": "Cheche",
+      "from": "Alberto Requena “Cheche”",
+      "existingAliasId": 40738,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 34415,
+      "name": "Wilfredo David Pinto",
+      "nickname": "Wilolo",
+      "from": "Wilfredo David Pinto \"Wilolo\"",
+      "existingAliasId": 41321,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 34417,
+      "name": "Wilfredo Daniel Pinto",
+      "nickname": "Conona",
+      "from": "Wilfredo Daniel Pinto \"Conona\"",
+      "existingAliasId": 41325,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 34454,
+      "name": "Pablo González Romero",
+      "nickname": "Mulato",
+      "from": "Pablo González Romero \"Mulato\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 34685,
+      "name": "Antonio Casas Jr.",
+      "nickname": "Tony",
+      "from": "Antonio Casas Jr. \"Tony\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 34881,
+      "name": "Israel Suárez",
+      "nickname": "Piraña",
+      "from": "Israel Suárez \"Piraña\"",
+      "existingAliasId": 41911,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 35444,
+      "name": "Miguel Ignacio Mendoza",
+      "nickname": "Nacho",
+      "from": "Miguel Ignacio Mendoza “Nacho”",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 36377,
+      "name": "Rubén Angel Correa",
+      "nickname": "Micho",
+      "from": "Rubén Angel Correa \"Micho\"",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    },
+    {
+      "personId": 39646,
+      "name": "Nicola Salerno",
+      "nickname": "Nisa",
+      "from": "Nicola Salerno \"Nisa\"",
+      "existingAliasId": 47273,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 39686,
+      "name": "Adelzo Paz",
+      "nickname": "Rolito",
+      "from": "Adelzo Paz \"Rolito\"",
+      "existingAliasId": 47320,
+      "existingType": "name_variant",
+      "rename": null
+    },
+    {
+      "personId": 40355,
+      "name": "Francisco González",
+      "nickname": "Pacho",
+      "from": "Francisco \"Pacho\" González",
+      "existingAliasId": null,
+      "existingType": null,
+      "rename": null
+    }
+  ],
+  "skipped": [
+    {
+      "personId": 1151,
+      "name": "Sebastián González",
+      "alias": "Sebastián González \"Sebas/Grimmode\"",
+      "why": "apodo no plausible"
+    },
+    {
+      "personId": 1801,
+      "name": "Eduardo Goitia",
+      "alias": "Eduardo Goitia \"Eduardo\"",
+      "why": "apodo no plausible"
+    },
+    {
+      "personId": 1849,
+      "name": "Raúl Mota",
+      "alias": "Raul Mota \"Mota\"",
+      "why": "apodo no plausible"
+    },
+    {
+      "personId": 18087,
+      "name": "Jahir Ramos",
+      "alias": "Jahir Ramos «Jahir»",
+      "why": "apodo no plausible"
+    },
+    {
+      "personId": 31479,
+      "name": "Antonio Castillo",
+      "alias": "Antonio Castillo \" El Tigre de la Nietera\"",
+      "why": "apodo no plausible"
+    },
+    {
+      "personId": 33621,
+      "name": "Benjamín Rausseo",
+      "alias": "Benjamín Rausseo \"Er Conde del Guacharo\"",
+      "why": "apodo no plausible"
+    }
+  ]
+}

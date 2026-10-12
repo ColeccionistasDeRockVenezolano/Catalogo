@@ -30,7 +30,8 @@ import { initialOf } from "../components/EntityCard";
 import { entityFormValues, ALBUM_FIELDS, TRACK_FIELDS } from "../lib/entityFields";
 import { albumTypeLabel, formatDuration } from "../lib/labels";
 import type { AlbumFormat, Track } from "../lib/types";
-import { PlatformLinks } from "../components/PlatformLinks";
+import { PlatformLinks, type PlatformLink } from "../components/PlatformLinks";
+import { CatalogGenres, CatalogYear } from "../components/CatalogMetadata";
 import { AlbumYoutubePlayer, type AlbumYoutubePlayerHandle } from "../components/AlbumYoutubePlayer";
 import { albumYoutubeVideoId, trackAtYoutubeTime, type YoutubePlayback } from "../lib/youtube";
 
@@ -82,35 +83,33 @@ export function AlbumDetailPage() {
   const currentTrack = youtubeVideoId && currentPlayback && [1, 2, 3].includes(currentPlayback.state)
     ? trackAtYoutubeTime(album.tracklist, currentPlayback.seconds) : null;
   const playbackLabel = currentPlayback?.state === 1 ? "Reproduciendo" : currentPlayback?.state === 2 ? "En pausa" : "Cargando…";
-
-  const meta = [
-    album.releaseYear ? String(album.releaseYear) : null,
-    albumTypeLabel(album.albumType),
-    // Confirmados primero; un texto de fuente sin confirmar se muestra, pero marcado.
-    ...(album.genres?.length ? album.genres.map((genre) => genre.name)
-      : album.genre ? [album.genreStatus === "pending" ? `${album.genre} (sin confirmar)` : album.genre] : []),
-  ].filter(Boolean);
+  const discGroups = groupTracksByDisc(album.tracklist, album.discs ?? []);
+  // Un solo disco sin nombre no lleva encabezado; con varios, o con nombre
+  // («Lado A», «DVD»), cada lista va bajo el suyo.
+  const showDiscHeadings = discGroups.length > 1 || (album.discs?.length ?? 0) > 0;
 
   return (
     <>
       <BackLink fallback="/discos" />
 
       <div className="entity-hero">
-        <span className="entity-hero__art">
+        <Link to={`/discos/${album.id}`} aria-label={`Ver el disco ${album.title}`} className="entity-hero__art">
           {album.coverUrl ? <img src={album.coverUrl} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(album.title)}</span>}
-        </span>
+        </Link>
         <div>
-          <h1 className="entity-hero__title">{album.title}</h1>
+          <h1 className="entity-hero__title"><Link to={`/discos/${album.id}`}>{album.title}</Link></h1>
           <p style={{ margin: "6px 0 0" }}>
             <Link to={`/artistas/${album.artist.id}`} style={{ fontWeight: 600, color: "var(--text)" }}>{album.artist.name}</Link>
           </p>
           <div className="entity-hero__meta">
-            {meta.map((item) => <span className="badge" key={String(item)}>{item}</span>)}
+            {album.releaseYear !== null ? <CatalogYear year={album.releaseYear} className="badge" /> : null}
+            <Link to={`/discos?tipo=${album.albumType}`} className="badge">{albumTypeLabel(album.albumType)}</Link>
+            {album.genres?.length ? <CatalogGenres genres={album.genres} className="badge" /> : album.genre ? <span className="badge">{album.genre}{album.genreStatus === "pending" ? " (sin confirmar)" : ""}</span> : null}
             {album.genreByLaya ? <span className="badge badge--amber" title="Género principal elegido por Laya (último recurso). Solo visible con sesión iniciada.">Género por Laya</span> : null}
             {album.label ? <Link to={`/organizaciones/${album.label.id}`} className="badge badge--violet">{album.label.name}</Link> : null}
           </div>
           {album.releaseDateValue || album.releaseDateText || album.catalogId || album.mediaFormat ? <dl className="album-edition-details">
-            {album.releaseDateValue || album.releaseDateText ? <div><dt>Fecha de publicación</dt><dd>{album.releaseDateValue ? formatDate(album.releaseDateValue) : album.releaseDateText}</dd></div> : null}
+            {album.releaseDateValue || album.releaseDateText ? <div><dt>Fecha de publicación</dt><dd>{album.releaseYear !== null ? <CatalogYear year={album.releaseYear}>{album.releaseDateValue ? formatDate(album.releaseDateValue) : album.releaseDateText}</CatalogYear> : album.releaseDateValue ? formatDate(album.releaseDateValue) : album.releaseDateText}</dd></div> : null}
             {album.catalogId ? <div><dt>Número de catálogo</dt><dd>{album.catalogId}</dd></div> : null}
             {album.mediaFormat ? <div><dt>Formato de la edición</dt><dd>{album.mediaFormat}</dd></div> : null}
           </dl> : null}
@@ -139,10 +138,12 @@ export function AlbumDetailPage() {
 
       {isAdmin ? <EntityVerification kind="album" id={album.id} revision={album} /> : null}
 
-      <div className="section">
-        <h2>Alias</h2>
-        <AliasEditor path="albums" entityId={album.id} aliases={album.aliases} onChanged={reload} />
-      </div>
+      {isAdmin || album.aliases.some((alias) => !alias.publicHidden) ? (
+        <div className="section">
+          <h2>Alias</h2>
+          <AliasEditor path="albums" entityId={album.id} aliases={album.aliases} onChanged={reload} />
+        </div>
+      ) : null}
 
       {youtubeVideoId ? (
         <div className="section">
@@ -150,7 +151,7 @@ export function AlbumDetailPage() {
             Escuchar disco
             <a className="album-youtube-link" href={`https://youtu.be/${youtubeVideoId}`} target="_blank" rel="noreferrer">Abrir en YouTube</a>
           </h2>
-          <AlbumYoutubePlayer key={`${album.id}:${youtubeVideoId}`} ref={youtubePlayer} videoId={youtubeVideoId} title={album.title} onPlaybackChange={onPlaybackChange} />
+          <AlbumYoutubePlayer key={`${album.id}:${youtubeVideoId}`} ref={youtubePlayer} albumId={album.id} videoId={youtubeVideoId} title={album.title} onPlaybackChange={onPlaybackChange} />
           <p className="album-youtube-current" role="status">
             {currentTrack ? <>{playbackLabel}: <strong>{currentTrack.title}</strong></>
               : currentPlayback?.state === 1 ? "Reproduciendo el disco."
@@ -171,13 +172,23 @@ export function AlbumDetailPage() {
           <div className="table-wrap table-wrap--scroll album-tracklist">
             <table role="table" aria-label="Lista de pistas">
               <thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col" className="num">#</th><th role="columnheader" scope="col">Título</th><th role="columnheader" scope="col" className="num">Duración</th><th role="columnheader" scope="col" className="num">Inicio en YouTube</th><th role="columnheader" scope="col"><span className="visually-hidden">Acciones</span></th></tr></thead>
-              <tbody role="rowgroup">
-                {album.tracklist.map((track) => {
+              {discGroups.map((group) => (
+              <tbody role="rowgroup" key={group.discNumber}>
+                {showDiscHeadings ? (
+                  <tr role="row" className="album-disc-heading">
+                    <th role="columnheader" scope="colgroup" colSpan={5}>
+                      {group.title}
+                      <span className="album-disc-meta">{group.tracks.length === 0 ? "sin pistas registradas" : `${group.tracks.length} ${group.tracks.length === 1 ? "pista" : "pistas"}`}{group.totalSeconds ? ` · ${formatDuration(group.totalSeconds)}` : ""}</span>
+                      <PlatformLinks links={group.platforms} subject={`«${album.title}» · ${group.title}`} size="small" />
+                    </th>
+                  </tr>
+                ) : null}
+                {group.tracks.map((track) => {
                   const isCurrent = currentTrack?.id === track.id;
                   return (
                   <Fragment key={track.id}>
                     <tr role="row" className={`album-track-row${isCurrent ? " is-current" : ""}`} aria-current={isCurrent ? "true" : undefined}>
-                      <td role="cell" className="num album-track-number">{track.discNumber > 1 ? `${track.discNumber}.` : ""}{track.trackNumber}</td>
+                      <td role="cell" className="num album-track-number">{!showDiscHeadings && track.discNumber > 1 ? `${track.discNumber}.` : ""}{track.trackNumber}</td>
                       <td role="cell" className="album-track-title">
                         <span className="album-track-name">{track.title}</span>
                         {isCurrent ? <span className="track-playback-label">{playbackLabel}</span> : null}
@@ -230,6 +241,7 @@ export function AlbumDetailPage() {
                   );
                 })}
               </tbody>
+              ))}
             </table>
           </div>
         )}
@@ -411,6 +423,28 @@ export function AlbumDetailPage() {
       ) : null}
     </>
   );
+}
+
+/** Pistas agrupadas por disco, con el nombre de `album_discs` o «Disco N» y sus enlaces propios. */
+function groupTracksByDisc<T extends { discNumber: number; durationSeconds: number | null }>(
+  tracks: readonly T[], discs: ReadonlyArray<{ discNumber: number; title: string | null; platforms?: PlatformLink[] }>,
+): Array<{ discNumber: number; title: string; platforms: PlatformLink[]; tracks: T[]; totalSeconds: number }> {
+  // Un disco con nombre y sin pistas también se muestra: la página dice que existe.
+  const groups = new Map<number, T[]>(discs.map((disc) => [disc.discNumber, []]));
+  for (const track of tracks) {
+    const list = groups.get(track.discNumber);
+    if (list) list.push(track); else groups.set(track.discNumber, [track]);
+  }
+  return [...groups.entries()].sort(([a], [b]) => a - b).map(([discNumber, list]) => {
+    const disc = discs.find((item) => item.discNumber === discNumber);
+    return {
+      discNumber,
+      title: disc?.title ?? `Disco ${discNumber}`,
+      platforms: disc?.platforms ?? [],
+      tracks: list,
+      totalSeconds: list.reduce((sum, track) => sum + (track.durationSeconds ?? 0), 0),
+    };
+  });
 }
 
 function FormatRemoveButton({ id, format, onDone }: { id: number; format: string; onDone: () => void }) {
