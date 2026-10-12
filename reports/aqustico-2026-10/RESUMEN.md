@@ -2,9 +2,10 @@
 
 **Fecha:** 2026-10-12 · **Plan:** `~/Desktop/PLAN_AQUSTICO_2026-10-12.md` (v2) · **Dossier:** `DOSSIER.md`
 **Pedido de Brian:** «D1 no se borra nada y yo le aviso. Implementa todo lo demás del plan».
-D2–D7 con su valor por defecto (sin alias nuevos, sin artistas nuevos, discos de varias
+D3–D7 con su valor por defecto (sin artistas nuevos, discos de varias
 canciones solo con el orden de otra fuente, sin enlaces a Aqustico, sin similares, sin alta
-formal de la fuente).
+formal de la fuente). **D2 aprobada después por Brian** («aprueba los alias de D2 y rellena
+esos 83 discos»): ver «Segunda pasada».
 
 **Respaldo previo:** `/mnt/datos/backups/crv/crv-20261012T082020Z`, comprobado con
 `db:restore-check` (111 tablas y 20.890.376 filas idénticas; crudo sin faltantes). La primera
@@ -48,7 +49,7 @@ bucket `ichamo-bucket` (D1: se conserva entero).
 
 | | Queda | Motivo |
 |---|---|---|
-| H1 | 83 discos | etiquetas sin término en la taxonomía: Alternativa, Fusion Tropical, Urbana, Tradicional Venezolana, Fusion, Del Mundo… → D2 (alias) |
+| H1 | 2 discos | solo dicen «Fusion», que la taxonomía marca como «no es género» (Guaco «¿Qué Pasa Contigo?», Wannamaker «Ojos del mundo») |
 | H6 | 160 featurings | ya acreditados, nombre en CRV sin segunda prueba o sin ficha (no se crean personas) |
 | H7 | 72 discos de varias canciones | sin orden de pistas en Deezer ni MusicBrainz (D4) |
 | H7 | 37 sencillos | la canción ya es pista de otro disco del artista y el ER no deja crear la pista sin revisión |
@@ -58,6 +59,34 @@ bucket `ichamo-bucket` (D1: se conserva entero).
 | H8 | 12 discos de CRV sin pistas | sin orden fiable |
 | H9 | 154 artistas | D5 = no |
 | — | discrepancias | 133 géneros y 51 duraciones donde Aqustico contradice a CRV: CRV manda (`discrepancias.tsv`) |
+
+## Segunda pasada — D2 aprobada (2026-10-12)
+
+Respaldo previo: `/mnt/datos/backups/crv/crv-20261012T135707Z`.
+
+| Alias (texto de Aqustico) | Género | Run | Discos |
+|---|---|---|---|
+| alternativa | rock-alternativo | 19055 | 43 |
+| fusion tropical | musica-tropical | 19056 | 15 |
+| urbana | urbano-latino | 19057 | 19 |
+| tradicional venezolana | musica-tradicional | 19058 | 3 |
+| del mundo | world-ethnic | 19059 | 1 |
+
+Los alias se ensayaron antes (runs 19050–19054): 0 fichas existentes afectadas. También
+quedan en `data/genres/taxonomy.json`, para que un `taxonomy-apply --prune` no los borre.
+«Del mundo» no estaba en la lista de D2, pero sigue el alias que ya existía («música del
+mundo» → world-ethnic).
+
+Géneros: ensayo run 19060 y aplicación **run 19061**, con **81 discos** confirmados (todos
+como principal único). Los discos con principal confirmado pasan de 9.599 a 9.680. Hubo 212
+fichas que ya tenían principal y no se tocaron. Quedan 2 discos sin resolver, ambos «Fusion».
+Los géneros de artista se recalcularon solos desde sus discos; por ejemplo, Caibo pasa de no
+tener género a `musica-tropical`. `npm run doctor`: el mismo aviso previo, sin cambios.
+
+**Ojo:** «Alternativa» de Aqustico es «música alternativa» en sentido amplio. Los 19
+sencillos de Irepelusa (pop/urbano) quedan con `rock-alternativo` como principal del disco.
+Si no te convence, `crv runs undo 19061` lo deshace entero, o se corrige ficha por ficha en
+la Mesa de géneros.
 
 ## Scripts (`scripts/aqustico/`)
 

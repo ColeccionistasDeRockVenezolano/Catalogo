@@ -169,6 +169,7 @@
       "slug": "urbano-latino",
       "name": "Urbano latino",
       "aliases": [
+        "urbana",
         "urbano",
         "urban pop",
         "latin urban",
@@ -337,6 +338,7 @@
       "name": "World ethnic",
       "family": "folk",
       "aliases": [
+        "del mundo",
         "world",
         "world music",
         "musica del mundo",
@@ -1207,6 +1209,7 @@
       "name": "Rock alternativo",
       "family": "rock",
       "aliases": [
+        "alternativa",
         "alternative rock",
         "rock alternative",
         "alt rock",
@@ -1461,6 +1464,7 @@
       "name": "Música tropical",
       "family": "fusion-latina",
       "aliases": [
+        "fusion tropical",
         "tropical",
         "tropical music",
         "indie tropical",
@@ -1886,6 +1890,7 @@
       "name": "Música tradicional",
       "family": "folk",
       "aliases": [
+        "tradicional venezolana",
         "traditional",
         "folklore",
         "folclore",
