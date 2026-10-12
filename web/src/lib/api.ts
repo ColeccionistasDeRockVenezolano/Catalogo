@@ -14,7 +14,7 @@ import type {
   CurationAutofixRule, CurationAutofixRun, CurationAutofixState,
   AlbumMergePreview, AlbumMergeResult, PersonSplitPreview, PersonSplitResult,
   FindingActionsResult, FixBatch, FixBatchSummary, DistinctPair, ConflictResolveResult, ConflictResolveGroupResult,
-  AuditUndoPreview, ChangeDetail, ChangeEntityKind, ChangeSummary, ChangeUndoResult, GenreFacets,
+  AuditUndoPreview, ChangeDetail, ChangeEntityKind, ChangeSummary, ChangeUndoResult, GenreFacets, HomeData,
 } from "./types";
 
 /**
@@ -173,6 +173,10 @@ export const searchApi = {
 /** Filtros por género de las listas de discos y artistas (ver `genreListFilterSchema`). */
 export type GenreListParams = { genre?: string; withoutGenre?: boolean; relatedGenre?: boolean };
 
+export const homeApi = {
+  get: (signal?: AbortSignal) => request<HomeData>("/home", { ...(signal ? { signal } : {}) }),
+};
+
 export const genresApi = {
   vocabulary: () => request<Array<{ slug: string; name: string; level: string }>>("/genres/vocabulary"),
   decide: (kind: "artist" | "album", id: number, action: "confirm_primary" | "add_secondary" | "reject", genreSlug: string, note: string) =>
@@ -188,7 +192,7 @@ export const artistsApi = {
 
 export const albumsApi = {
   facets: () => request<TypeFacets>("/albums/facets"),
-  list: (params: Paged & GenreListParams & { q?: string; artistId?: number; albumType?: string; decade?: number; withoutYear?: boolean } = {}, signal?: AbortSignal) => request<Page<AlbumListItem>>("/albums", { query: params, ...(signal ? { signal } : {}) }),
+  list: (params: Paged & GenreListParams & { q?: string; artistId?: number; albumType?: string; decade?: number; withoutYear?: boolean; beforeYear?: number } = {}, signal?: AbortSignal) => request<Page<AlbumListItem>>("/albums", { query: params, ...(signal ? { signal } : {}) }),
   get: (id: number) => request<AlbumDetail>(`/albums/${id}`),
 };
 
@@ -562,6 +566,10 @@ export const imageCandidatesApi = {
 
 // Informes de fiabilidad: la API exige rol de administrador, también en lectura.
 export const entityVerificationApi = {
+  versions: (kind:import("../../../src/verification/types").VerificationKind,id:number,beforeId?:number) => request<import("../../../src/verification/types").VerificationHistory>(`/entity-verification/${kind}/${id}/versions`,{query:{beforeId}}),
+  version: (kind:import("../../../src/verification/types").VerificationKind,id:number,versionId:number) => request<import("../../../src/verification/types").VerificationReport>(`/entity-verification/${kind}/${id}/versions/${versionId}`),
+  reprocess: (kind:import("../../../src/verification/types").VerificationKind,id:number,versionId:number) => request<import("../../../src/verification/types").VerificationJob>(`/entity-verification/${kind}/${id}/versions/${versionId}/reprocess`,{method:"POST",authenticated:true}),
+  originalUrl: (captureId:number) => buildUrl(`/entity-verification/captures/${captureId}/original`),
   latest: (kind: import("../../../src/verification/types").VerificationKind, id: number) =>
     request<import("../../../src/verification/types").VerificationJob | null>(`/entity-verification/${kind}/${id}/latest-job`),
   get: (kind: import("../../../src/verification/types").VerificationKind, id: number) =>
@@ -571,6 +579,8 @@ export const entityVerificationApi = {
   start: (kind: import("../../../src/verification/types").VerificationKind, id: number) =>
     request<import("../../../src/verification/types").VerificationJob>(`/entity-verification/${kind}/${id}/jobs`, { method: "POST", authenticated: true }),
   job: (id: number) => request<import("../../../src/verification/types").VerificationJob>(`/entity-verification/jobs/${id}`),
+  control: (id:number,action:"pause"|"resume"|"cancel",budget?:{maxCalls?:number;maxTokens?:number}) =>
+    request<import("../../../src/verification/types").VerificationJob>(`/entity-verification/jobs/${id}/control`, {method:"POST",authenticated:true,body:{action,...(budget?{budget}:{})}}),
 };
 
 function comparisonQuery(left:import("../../../src/verification/comparison-types").EntityRef,right:import("../../../src/verification/comparison-types").EntityRef) {

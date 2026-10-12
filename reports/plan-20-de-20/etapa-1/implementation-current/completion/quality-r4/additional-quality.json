@@ -1,0 +1,52 @@
+{
+  "capturedAt": "2026-10-11T23:30:44.361Z",
+  "passed": true,
+  "sourceHash": "744f3f50db59c1cd9b7df806c008f53bf4e8ae23c17ed3bfb57bb2ce92bb3b93",
+  "checks": [
+    {
+      "name": "coverage",
+      "command": "npm run test:coverage",
+      "code": 0,
+      "tests": 805,
+      "sourceMatchesQualityBaseline": true,
+      "coverage": {
+        "lines": {
+          "total": 43786,
+          "covered": 16938,
+          "skipped": 0,
+          "pct": 38.68
+        },
+        "statements": {
+          "total": 43786,
+          "covered": 16938,
+          "skipped": 0,
+          "pct": 38.68
+        },
+        "functions": {
+          "total": 2252,
+          "covered": 1148,
+          "skipped": 0,
+          "pct": 50.97
+        },
+        "branches": {
+          "total": 8932,
+          "covered": 7475,
+          "skipped": 0,
+          "pct": 83.68
+        },
+        "branchesTrue": {
+          "total": 0,
+          "covered": 0,
+          "skipped": 0,
+          "pct": 100
+        }
+      },
+      "thresholds": {
+        "statements": 35,
+        "lines": 35,
+        "functions": 45,
+        "branches": 78
+      }
+    }
+  ]
+}

@@ -3,7 +3,6 @@ import { createHash } from "node:crypto";
 import type { Pool, PoolClient } from "pg";
 import { ENTITY_SPECS } from "../../merge/specs.js";
 import { RELATION_SPECS } from "../../merge/relations.js";
-import { getEnv } from "../../config/env.js";
 import { WebSearchBroker, type WebPage } from "../../ambiguity/web-search.js";
 import { usablePage } from "../../verification/proof.js";
 import type { CatalogEvidence, CatalogKind } from "./types.js";
@@ -270,13 +269,13 @@ export async function planningContext(
   const column = ENTITY_SPECS[kind].targetColumn;
   const findings = (
     await db.query(
-      "SELECT id,detector,field,value,suggestion,title,evidence FROM ingest.curation_findings WHERE entity_kind=$1 AND entity_id=$2 AND status='open' ORDER BY id LIMIT 40",
+      "SELECT id,detector,field,value,suggestion,title,evidence FROM ingest.curation_findings WHERE entity_kind=$1 AND entity_id=$2 AND status='open' ORDER BY id",
       [kind, id],
     )
   ).rows;
   const claims = (
     await db.query(
-      `SELECT c.field,c.raw_value,c.status,s.slug,e.url,e.excerpt FROM ingest.claims c JOIN ingest.sources s ON s.id=c.source_id LEFT JOIN LATERAL (SELECT url,excerpt FROM ingest.claim_evidence WHERE claim_id=c.id ORDER BY id LIMIT 1) e ON true WHERE c.${column}=$1 ORDER BY c.id DESC LIMIT 40`,
+      `SELECT c.field,c.raw_value,c.status,s.slug,e.url,e.excerpt FROM ingest.claims c JOIN ingest.sources s ON s.id=c.source_id LEFT JOIN ingest.claim_evidence e ON e.claim_id=c.id WHERE c.${column}=$1 ORDER BY c.id DESC,e.id`,
       [id],
     )
   ).rows;
@@ -286,7 +285,6 @@ export async function planningContext(
     const signature = `${e.url}\n${e.quote}`;
     if (!e.quote) return;
     if (seen.has(signature)) return evidence.find((item) => item.url === e.url && item.quote === e.quote)?.id;
-    if (evidence.length >= 40) return;
     seen.add(signature);
     evidence.push({ id: `E${evidence.length + 1}`, ...e });
     return evidence[evidence.length - 1]!.id;
@@ -310,11 +308,12 @@ export async function planningContext(
       const review = curationFindings(saved as unknown as VerificationReport) as unknown as Array<Record<string, unknown>>;
       const selected = [...review, ...pending].find(f => instruction.includes(`hallazgo ${String(f["key"])} (`));
       // A targeted request must retain its finding and citations even when it is past every broad-plan limit.
-      const candidates = review.length ? [
+      const candidates = [...new Map([
         ...review.filter(f => f["observed"]),
         ...review.filter(f => !f["observed"]),
-      ] : pending;
-      const units = selected ? [selected, ...candidates.filter(f => f["key"] !== selected["key"])] : candidates;
+        ...pending,
+      ].map(f=>[String(f["key"]),f])).values()];
+      const units = selected ? [selected] : candidates;
       if (selected) {
         const match = /^(album|track)\.(\d+)/u.exec(String(selected["key"]));
         if (match) {
@@ -327,7 +326,7 @@ export async function planningContext(
       }
       const linkedUnits = units.map((f) => {
         const evidenceIds = ((f["evidence"] as Array<Record<string, unknown>>) ?? []).map((e) => add({
-          url: String(e["url"]), quote: String(e["quote"]).slice(0, 1800),
+          url: String(e["url"]), quote: String(e["quote"]),
           fetchedAt: String(e["fetchedAt"] ?? ""), ...sourceProvenance({ capturedAt:e["capturedAt"],readAt:e["readAt"],acquisitionMethod:e["acquisitionMethod"] }), origin: String(e["origin"] ?? "page"),
           contentHash: "", label: String(f["label"] ?? f["key"]),
         })).filter((id): id is string => !!id);
@@ -343,7 +342,7 @@ export async function planningContext(
   }
   for (const claim of claims)
     if (claim.url && claim.excerpt && !String(claim.url).startsWith("crv-api:"))
-      add({ url: String(claim.url), quote: String(claim.excerpt).slice(0, 1800), fetchedAt: "", origin: "ingest_claim", contentHash: "", label: String(claim.field) });
+      add({ url: String(claim.url), quote: String(claim.excerpt), fetchedAt: "", origin: "ingest_claim", contentHash: "", label: String(claim.field) });
   const taxonomy = (
     await db.query<{ slug: string; name: string; level: string; parent: string | null }>(
       "SELECT g.slug,g.name,g.level,p.slug AS parent FROM ingest.genres g LEFT JOIN ingest.genres p ON p.id=g.parent_genre_id WHERE g.active ORDER BY g.id LIMIT 500",
@@ -382,68 +381,8 @@ export async function planningContext(
     current: Object.fromEntries(Object.entries(root).filter(([key, value]) => ["biography", "description", "notes"].includes(key) && typeof value === "string" && value.length)),
     conflicts: findings.filter((finding) => /biograph|description|bio/iu.test(`${finding.field ?? ""} ${finding.detector ?? ""}`)),
   };
-  // Bound context by removing lower-priority arrays, never by slicing serialized JSON.
-  const max = getEnv().CRV_AI_CURATION_CONTEXT_CHARS - 1500;
-  if (JSON.stringify(context).length > max)
-    context["claims"] = { omittedForBudget: true };
-  if (JSON.stringify(context).length > max) {
-    context["current"] = compact(state, 20, 600);
-    context["relatedEntities"] = (
-      context["relatedEntities"] as unknown[]
-    ).slice(0, 40);
-    context["contextReduced"] = true;
-  }
-  if (JSON.stringify(context).length > max) {
-    evidence.splice(12);
-    context["evidence"] = evidence;
-    context["current"] = compact(state, 8, 600);
-    context["findings"] = compact(findings, 8, 350);
-    if (report) {
-      const pending = report["pending"] as Array<Record<string, unknown>>;
-      context["report"] = {
-        ...report,
-        pending: pending.map((f) => ({
-          key: f["key"], area: f["area"], label: f["label"], value: f["value"], observed: f["observed"], status: f["status"], evidenceIds: f["evidenceIds"],
-          ...(report["selectedKey"] ? { explanation: f["explanation"], context: f["context"] } : {}),
-        })),
-      };
-    }
-  }
-  if (JSON.stringify(context).length > max) {
-    context["relatedEntities"] = (
-      context["relatedEntities"] as unknown[]
-    ).slice(0, 20);
-    evidence.splice(6);
-  }
-  while (JSON.stringify(context).length > max && evidence.length > 1)
-    evidence.pop();
-  if (JSON.stringify(context).length > max)
-    context["current"] = compact(state, 4, 400);
-  if (JSON.stringify(context).length > max) {
-    // Preserve every review item and the full narrative; broad catalog neighbourhoods can be retrieved by id.
-    context["current"] = { row: compact(root, 4, 400), relations: { omittedForBudget: true },
-      ...(state["selectedEntity"] ? { selectedEntity: compact(state["selectedEntity"], 8, 600) } : {}),
-      ...(state["selectedMembership"] ? { selectedMembership: state["selectedMembership"] } : {}),
-    };
-    context["relatedEntities"] = [];
-    context["contextReduced"] = true;
-  }
-  if (JSON.stringify(context).length > max)
-    throw new Error(
-      "El contexto excede el presupuesto. Selecciona un disco o una tarea más concreta.",
-    );
-  if (context["report"]) {
-    const report = context["report"] as { pending: Array<{ evidenceIds?: string[] }> };
-    const ids = new Set(evidence.map((e) => e.id));
-    for (const unit of report.pending) if (unit.evidenceIds) unit.evidenceIds = unit.evidenceIds.filter((id) => ids.has(id));
-    if (context["genreReview"]) {
-      const review = context["genreReview"] as { candidates: Array<{ evidenceIds: string[] }> };
-      review.candidates = review.candidates.filter(candidate => {
-        candidate.evidenceIds = candidate.evidenceIds.filter(id => ids.has(id));
-        return candidate.evidenceIds.length > 0;
-      });
-    }
-  }
+  // This is the preserved research inventory, not a model prompt. The planner
+  // partitions it into bounded tasks; no citation or pending fact is deleted here.
   return { context, evidence };
 }
 export const createPlanningBroker = () => new WebSearchBroker();

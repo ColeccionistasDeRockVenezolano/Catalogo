@@ -10,9 +10,10 @@ import { resetEnvCache } from "../../src/config/env.js";
 import { buildApp } from "../../src/api/app.js";
 import { loadVerificationSnapshot } from "../../src/verification/snapshot.js";
 import { evaluateVerification } from "../../src/verification/evaluate.js";
-import { activeIndividualJob,getIndividualJob,getIndividualVerification,recoverIndividualJobs,saveIndividualVerification,startIndividualVerification } from "../../src/verification/store.js";
+import { controlIndividualVerification,activeIndividualJob,getIndividualJob,getIndividualVerification,recoverIndividualJobs,saveIndividualVerification,startIndividualVerification } from "../../src/verification/store.js";
 import { verificationReportSchema } from "../../src/api/routes/entity-verification.js";
 import { researchStored } from "../../src/verification/research-state.js";
+import {reprocessIndividualVerification,type VerificationWork} from "../../src/verification/store.js";
 import { createDeepSeekGateway, MockDeepSeekTransport } from "../../src/ai/gateway.js";
 import { RULES_VERSION } from "../../src/verification/proof.js";
 import type { VerificationReport } from "../../src/verification/types.js";
@@ -115,12 +116,18 @@ describe("verificación individual persistente y privada",()=>{
     expect(job.progress).toMatchObject({phase:"evaluating",evaluated:3});
     expect((await app.inject({method:"GET",url:`/entity-verification/album/${album}`,headers})).json()).toMatchObject({inProgress:true,score:null});
     await recoverIndividualJobs();
+    expect((await getIndividualJob(first.id))?.status).toBe("running");
+    await getPool().query("UPDATE ingest.entity_verification_jobs SET lease_expires_at=now()-interval '1 second' WHERE id=$1",[first.id]);
+    await recoverIndividualJobs();
     expect(await getIndividualVerification("album",album)).toMatchObject({inProgress:true,score:null});
-    expect((await app.inject({method:"GET",url:`/entity-verification/album/${album}/latest-job`,headers})).json()).toMatchObject({id:first.id,status:"failed",progress:{evaluated:3}});
+    expect((await app.inject({method:"GET",url:`/entity-verification/album/${album}/latest-job`,headers})).json()).toMatchObject({id:first.id,status:"paused",progress:{evaluated:3}});
     stop!(evaluateVerification(snapshot,[],undefined,true));
-    for(let n=0;n<50&&(await getIndividualJob(first.id))?.status!=="done";n++)await new Promise(resolve=>setTimeout(resolve,20));
+    const resumed=await controlIndividualVerification(first.id,"resume","QA",{},async()=>evaluateVerification(snapshot,[],undefined,true));
+    expect(resumed.id).not.toBe(first.id);
+    for(let n=0;n<50&&(await getIndividualJob(resumed.id))?.status!=="done";n++)await new Promise(resolve=>setTimeout(resolve,20));
+    expect((await getIndividualJob(first.id))?.status).toBe("paused");
     expect(await getIndividualVerification("album",album)).not.toHaveProperty("inProgress");
-    expect((await getIndividualJob(first.id))?.progress?.phase).toBe("done");
+    expect((await getIndividualJob(resumed.id))?.status).toBe("done");
   });
   it("persiste propuestas y datos pendientes y los retoma con un contrato que cabe en ai_runs",async()=>{
     const full=await loadVerificationSnapshot("artist",artist);const snapshot={...full,units:full.units.slice(0,2),sourceUrls:["https://archivo.example/banda-qa"]};
@@ -130,12 +137,112 @@ describe("verificación individual persistente y privada",()=>{
     const partial=await researchStored(snapshot,{search:async()=>[],page:async()=>page},gateway);
     expect(partial.evaluation).toMatchObject({processed:1,complete:false,pendingKeys:[snapshot.units[1]!.key]});
     expect((await getPool().query("SELECT state FROM ingest.entity_verification_research_state WHERE entity_kind='artist' AND entity_id=$1",[artist])).rows[0].state.pendingKeys).toEqual([snapshot.units[1]!.key]);
+    const before=(await getPool().query("SELECT id,state FROM ingest.entity_verification_research_versions WHERE entity_kind='artist' AND entity_id=$1 ORDER BY id DESC LIMIT 1",[artist])).rows[0];
     const finished=await researchStored(snapshot,{search:async()=>{throw new Error("No repetir búsqueda");},page:async()=>null},createDeepSeekGateway(new MockDeepSeekTransport(response(snapshot.units[1]!.key))));
     expect(finished.evaluation).toMatchObject({processed:2,complete:true,pendingKeys:[]});
+    const versions=(await getPool().query("SELECT id,parent_version_id,state FROM ingest.entity_verification_research_versions WHERE entity_kind='artist' AND entity_id=$1 ORDER BY id",[artist])).rows;
+    expect(versions).toHaveLength(2);expect(versions[0].state).toEqual(before.state);expect(versions[1].parent_version_id).toBe(before.id);
     expect((await getPool().query("SELECT count(*)::int AS n FROM ingest.ai_runs WHERE schema_version LIKE 'verification.v4.compact.%'")).rows[0].n).toBeGreaterThan(0);
     await saveIndividualVerification({...finished,evaluation:{...finished.evaluation!,complete:false,pendingKeys:[snapshot.units[1]!.key]},suggestions:[]},"QA");
     const stored=(await getPool().query("SELECT report FROM ingest.entity_verification_reports WHERE entity_kind='artist' AND entity_id=$1 ORDER BY id DESC LIMIT 1",[artist])).rows[0].report;
     const serialized=verificationReportSchema.parse(stored);expect(serialized.rulesVersion).toBe(RULES_VERSION);expect(serialized.evaluation?.pendingKeys).toEqual([snapshot.units[1]!.key]);expect(serialized.suggestions).toEqual([]);
+  });
+
+  it("abre versiones y reprocesa copias preservadas con presupuesto y reanudación sin búsquedas ni descargas",async()=>{
+    const entity=Number((await getPool().query("INSERT INTO public.artists(name,artist_type) VALUES('Archivo QA','band') RETURNING id")).rows[0].id);
+    const full=await loadVerificationSnapshot("artist",entity),snapshot={...full,units:full.units.slice(0,1),sourceUrls:["https://archivo.example/version-qa"]};
+    const content="Archivo QA publicó Disco Histórico en 2001.",page={url:snapshot.sourceUrls[0]!,title:"Archivo QA",content,contentHash:createHash("sha256").update(content).digest("hex"),fetchedAt:"2026-10-10T00:00:00Z",capturedAt:"2026-10-10T00:00:00Z",acquisitionMethod:"http" as const};
+    const response={findings:[{key:snapshot.units[0]!.key,status:"confirmed",observed:"Archivo QA",reason:"Nombre documentado",evidence:[{source:0,quote:content}]}],discoveries:[{area:"discography",value:"Disco Histórico",context:"Archivo QA",reason:"Lanzamiento documentado",evidence:[{source:0,quote:content}]}]};
+    const report=await researchStored(snapshot,{search:async()=>[],page:async()=>page},createDeepSeekGateway(new MockDeepSeekTransport(response,{findings:[],discoveries:[]})));
+    const versionId=await saveIndividualVerification(report,"QA archivo"),headers={authorization:`Bearer ${TOKEN}`},base=`/entity-verification/artist/${entity}/versions`;
+    expect((await app.inject({method:"GET",url:base})).statusCode).toBe(401);
+    const history=await app.inject({method:"GET",url:base,headers});expect(history.statusCode).toBe(200);expect(history.json().versions).toMatchObject([{id:versionId,reprocessAvailable:true,sourceCount:1}]);
+    expect((await app.inject({method:"GET",url:`/entity-verification/artist/${artist}/versions/${versionId}`,headers})).statusCode).toBe(404);
+    expect((await app.inject({method:"POST",url:`${base}/${versionId}/reprocess`})).statusCode).toBe(401);
+    const missing=await app.inject({method:"POST",url:`${base}/${versionId+99999}/reprocess`,headers});expect(missing.statusCode,missing.body).toBe(404);
+    const original=(await getPool().query("SELECT report FROM ingest.entity_verification_reports WHERE id=$1",[versionId])).rows[0].report;
+    await getPool().query("UPDATE public.artists SET picture_url='https://archivo.example/retrato.jpg' WHERE id=$1",[entity]);
+    const historical=await app.inject({method:"GET",url:`${base}/${versionId}`,headers});expect(historical.statusCode).toBe(200);expect(historical.json()).toMatchObject({stale:true,score:null,researchVersionId:report.researchVersionId});
+    const now=await loadVerificationSnapshot("artist",entity),transport=new MockDeepSeekTransport(...Array.from({length:20},()=>({findings:now.units.map(unit=>({key:unit.key,status:"unverified",observed:null,reason:"Dato pendiente",evidence:[]})),discoveries:[]})));
+    const work:VerificationWork=async(_kind,_id,notify,options)=>{
+      expect(options.preservedOnly).toBe(true);
+      return researchStored(now,{search:async()=>{throw Error("No buscar durante reprocesamiento");},page:async()=>{throw Error("No descargar durante reprocesamiento");}},createDeepSeekGateway(transport),notify,options);
+    };
+    const created=await reprocessIndividualVerification("artist",entity,versionId,"QA archivo",{maxCalls:1},work);
+    for(let n=0;n<200&&["queued","running"].includes((await getIndividualJob(created.id))!.status);n++)await new Promise(resolve=>setTimeout(resolve,25));
+    const partial=(await getIndividualJob(created.id))!;expect(partial).toMatchObject({status:"partial",sourceReportId:versionId,preservedOnly:true});expect(partial.reportId).toBeDefined();
+    const resumed=await controlIndividualVerification(created.id,"resume","QA archivo",{maxCalls:30},work);
+    for(let n=0;n<200&&["queued","running"].includes((await getIndividualJob(resumed.id))!.status);n++)await new Promise(resolve=>setTimeout(resolve,25));
+    expect((await getIndividualJob(resumed.id))?.status).toBe("done");
+    const result=await getIndividualVerification("artist",entity);expect(result.evaluation?.complete).toBe(true);expect(result.sources[0]).toMatchObject({url:page.url,contentHash:page.contentHash,capturedAt:page.capturedAt});
+    expect(result.suggestions?.some(finding=>finding.observed==="Disco Histórico")).toBe(true);
+    expect((await getPool().query("SELECT report FROM ingest.entity_verification_reports WHERE id=$1",[versionId])).rows[0].report).toEqual(original);
+    const versions=(await getPool().query("SELECT id,parent_version_id FROM ingest.entity_verification_research_versions WHERE entity_kind='artist' AND entity_id=$1 ORDER BY id",[entity])).rows;
+    expect(versions).toHaveLength(3);expect(Number(versions[1].parent_version_id)).toBe(report.researchVersionId);expect(versions[2].parent_version_id).toBe(versions[1].id);
+  });
+
+  it("reanuda el checkpoint propio tras un fallo de publicación aunque otra ejecución haya sustituido el estado de la ficha",async()=>{
+    const entity=Number((await getPool().query("INSERT INTO public.artists(name,artist_type) VALUES('Checkpoint QA','band') RETURNING id")).rows[0].id);
+    const snapshot=await loadVerificationSnapshot("artist",entity),content="Checkpoint QA es una banda venezolana.",page={url:"https://archivo.example/checkpoint",title:snapshot.name,content,contentHash:createHash("sha256").update(content).digest("hex"),fetchedAt:"2026-10-10T00:00:00Z"};
+    const transport=new MockDeepSeekTransport(...Array.from({length:20},()=>({findings:snapshot.units.map(unit=>({key:unit.key,status:"unverified",observed:null,reason:"Pendiente",evidence:[]})),discoveries:[]})));
+    let first=true,searches=0,downloads=0;
+    const work:VerificationWork=async(_kind,_id,notify,options)=>{
+      const report=await researchStored(snapshot,{search:async()=>{searches++;if(!first)throw Error("No repetir búsquedas");return [{url:page.url,title:page.title,snippet:content}];},page:async()=>{downloads++;if(!first)throw Error("No repetir descargas");return page;}},createDeepSeekGateway(transport),notify,options);
+      if(first){first=false;throw Error("Fallo después del checkpoint, antes de publicar");}
+      return report;
+    };
+    const created=await startIndividualVerification("artist",entity,"QA",work);
+    for(let n=0;n<200&&["queued","running"].includes((await getIndividualJob(created.id))!.status);n++)await new Promise(resolve=>setTimeout(resolve,25));
+    const failed=(await getIndividualJob(created.id))!;expect(failed.status).toBe("failed");expect(failed.reportId).toBeUndefined();expect(failed.researchVersionId).toBeDefined();
+    const counts={searches,downloads,calls:transport.requests.length};
+    await getPool().query("UPDATE ingest.entity_verification_research_state SET state=jsonb_set(state,'{pages}','[]'::jsonb) WHERE entity_kind='artist' AND entity_id=$1",[entity]);
+    const resumed=await controlIndividualVerification(created.id,"resume","QA",{},work);
+    for(let n=0;n<200&&["queued","running"].includes((await getIndividualJob(resumed.id))!.status);n++)await new Promise(resolve=>setTimeout(resolve,25));
+    expect((await getIndividualJob(resumed.id))?.status).toBe("done");expect({searches,downloads,calls:transport.requests.length}).toEqual(counts);
+    expect((await getIndividualVerification("artist",entity)).sources).toMatchObject([{url:page.url,contentHash:page.contentHash}]);
+  });
+
+  it("controla pausa y cancelación por la API y distingue un resultado parcial de uno terminado",async()=>{
+    let finish:((report:VerificationReport)=>void)|undefined;
+    const snapshot=await loadVerificationSnapshot("artist",artist);
+    const created=await startIndividualVerification("artist",artist,"QA",async()=>new Promise<VerificationReport>(resolve=>{finish=resolve;}));
+    for(let n=0;n<50&&!finish;n++)await new Promise(resolve=>setTimeout(resolve,20));
+    const controlUrl=`/entity-verification/jobs/${created.id}/control`;
+    expect((await app.inject({method:"POST",url:controlUrl,payload:{action:"pause"}})).statusCode).toBe(401);
+    const headers={authorization:`Bearer ${TOKEN}`};
+    const paused=await app.inject({method:"POST",url:controlUrl,headers,payload:{action:"pause"}});
+    expect(paused.statusCode).toBe(200);expect(paused.json()).toMatchObject({status:"running",control:"paused"});
+    expect((await app.inject({method:"POST",url:controlUrl,headers,payload:{action:"resume"}})).statusCode).toBe(400);
+    finish!({...evaluateVerification(snapshot,[],undefined,true),evaluation:{total:snapshot.units.length,processed:0,pendingKeys:snapshot.units.map(u=>u.key),attempts:0,complete:false}});
+    for(let n=0;n<50&&(await getIndividualJob(created.id))?.status==="running";n++)await new Promise(resolve=>setTimeout(resolve,20));
+    expect((await getIndividualJob(created.id))?.status).toBe("paused");
+    const cancelled=await app.inject({method:"POST",url:controlUrl,headers,payload:{action:"cancel"}});
+    expect(cancelled.statusCode).toBe(200);expect(cancelled.json().status).toBe("cancelled");
+    const partial=await startIndividualVerification("artist",artist,"QA",async()=>({...evaluateVerification(snapshot,[],undefined,true),evaluation:{total:snapshot.units.length,processed:0,pendingKeys:snapshot.units.map(u=>u.key),attempts:0,complete:false}}));
+    for(let n=0;n<50&&(await getIndividualJob(partial.id))?.status!=="partial";n++)await new Promise(resolve=>setTimeout(resolve,20));
+    expect((await getIndividualJob(partial.id))?.status).toBe("partial");
+    expect(await activeIndividualJob("artist",artist)).toBeNull();
+  });
+
+  it("conserva un trabajo de otro proceso con lease vigente y recupera solo el expirado",async()=>{
+    const existing=await getPool().query<{id:string}>("INSERT INTO ingest.entity_verification_jobs(entity_kind,entity_id,requested_by,status,lease_owner,lease_expires_at) VALUES('person',$1,'otro proceso','running','foreign-worker',now()+interval '1 minute') RETURNING id::text",[person]);
+    const id=Number(existing.rows[0]!.id);
+    await recoverIndividualJobs();expect((await getIndividualJob(id))?.status).toBe("running");
+    await getPool().query("UPDATE ingest.entity_verification_jobs SET lease_expires_at=now()-interval '1 second' WHERE id=$1",[id]);
+    await recoverIndividualJobs();expect((await getIndividualJob(id))?.status).toBe("paused");
+  });
+
+  it("no publica informes ni inventario si el proceso perdió el trabajo antes del guardado final",async()=>{
+    const report=evaluateVerification(await loadVerificationSnapshot("person",person),[]);
+    const before=(await getPool().query("SELECT count(*)::int AS n FROM ingest.entity_verification_reports")).rows[0].n;
+    const existing=await getPool().query<{id:string}>("INSERT INTO ingest.entity_verification_jobs(entity_kind,entity_id,requested_by,status,lease_owner,lease_expires_at) VALUES('person',$1,'QA','running','current-owner',now()+interval '1 minute') RETURNING id::text",[person]);
+    const id=Number(existing.rows[0]!.id);
+    await expect(saveIndividualVerification(report,"QA",{jobId:id,owner:"expired-owner",status:"done"})).rejects.toThrow("perdió la propiedad");
+    expect((await getPool().query("SELECT count(*)::int AS n FROM ingest.entity_verification_reports")).rows[0].n).toBe(before);
+    expect((await getIndividualJob(id))?.status).toBe("running");
+    await saveIndividualVerification(report,"QA",{jobId:id,owner:"current-owner",status:"done"});
+    expect((await getIndividualJob(id))?.status).toBe("done");
+    expect((await getPool().query("SELECT count(*)::int AS n FROM ingest.entity_verification_reports")).rows[0].n).toBe(before+1);
   });
 
   it("envía todas las alternativas documentadas a Curaduría sin cambiar las imágenes principales ni reabrir rechazos",async()=>{

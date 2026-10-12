@@ -1,7 +1,7 @@
 import type { WebPage } from "../ambiguity/web-search.js";
 import type { VerificationEvidence, VerificationUnit } from "./types.js";
 
-export const RULES_VERSION = 6;
+export const RULES_VERSION = 7;
 export function fold(value: string): string { return value.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase().replace(/\s+/gu, " ").trim(); }
 export function words(value: string): string { return fold(value.replace(/(\p{L})(?=\d+[.-](?:\s|\p{Lu}))/gu, "$1 ").replace(/([\p{Ll}])([\p{Lu}])/gu, "$1 $2")).replace(/[^\p{L}\p{N}]+/gu, " ").replace(/\s+/gu, " ").trim(); }
 export function contains(text: string, value: string): boolean { const term=words(value); return Boolean(term && ` ${words(text)} `.includes(` ${term} `)); }
@@ -51,7 +51,8 @@ export function corroborationStrength(evidence: VerificationEvidence[], pages: W
 }
 /** Cobertura del dato: una cita completa de una página basta; la independencia es otra dimensión. */
 export function sourceStrength(evidence: VerificationEvidence[], _pages: WebPage[]): number {
-  return evidence.some(e=>e.origin==="page")?1:evidence.length?.25:0;
+  return evidence.some(e=>e.origin==="page"&&!e.requiresOriginalReview&&!e.locations?.some(location=>location.selector.includes("ocr")))?1:
+    evidence.some(e=>e.origin==="page")?.5:evidence.length?.25:0;
 }
 export function canonicalLink(value: string): string {
   const url=new URL(value);

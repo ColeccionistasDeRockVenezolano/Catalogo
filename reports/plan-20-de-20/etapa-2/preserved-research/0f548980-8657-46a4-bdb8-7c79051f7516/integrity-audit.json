@@ -1,0 +1,34 @@
+{
+  "sourceCopiesAltered": false,
+  "results": [
+    {
+      "name": "Jeremías",
+      "reportSources": 232,
+      "missingReportCopies": 0,
+      "mismatchedStatePages": 0,
+      "emptyUncitedSearchMarkers": 0
+    },
+    {
+      "name": "Apache",
+      "reportSources": 98,
+      "missingReportCopies": 0,
+      "mismatchedStatePages": 0,
+      "emptyUncitedSearchMarkers": 0
+    },
+    {
+      "name": "La Banana Voladora",
+      "reportSources": 30,
+      "missingReportCopies": 0,
+      "mismatchedStatePages": 0,
+      "emptyUncitedSearchMarkers": 0
+    },
+    {
+      "name": "Caramelos de Cianuro",
+      "reportSources": 108,
+      "missingReportCopies": 0,
+      "mismatchedStatePages": 50,
+      "emptyUncitedSearchMarkers": 50
+    }
+  ],
+  "limitation": "Legacy empty search markers require explicit normalization before reprocessing the complete legacy state; originals remain preserved."
+}

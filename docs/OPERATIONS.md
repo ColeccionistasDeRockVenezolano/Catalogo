@@ -22,6 +22,45 @@ npm run db:bootstrap   # .env + PostgreSQL + core + migraciones + fuentes + doct
 npm run doctor         # comprobar en cualquier momento
 ```
 
+La investigación documental requiere Chromium de Playwright y Poppler para
+PDF. Instalarlos en el mismo usuario/entorno que ejecuta la API:
+
+```bash
+sudo apt-get install poppler-utils
+./scripts/with-node22.sh npx playwright install --with-deps chromium
+```
+
+El OCR usa Tesseract.js y descarga los modelos de los idiomas configurados
+en `CRV_RESEARCH_OCR_LANGUAGES` la primera vez. Su caché está en
+`DATA_DIR/research/ocr`. Para un entorno sin red, preparar los archivos
+`<idioma>.traineddata.gz` y configurar `CRV_RESEARCH_OCR_LANG_PATH`.
+Los comandos de Poppler, idiomas, renderizado y presupuestos se configuran
+en `.env.example`; un recurso que no pudo leerse conserva su original y el
+motivo pendiente. Desactivar el renderizado no completa una página dinámica.
+
+Respaldar `DATA_DIR/research` junto a la base: `originals/` contiene bytes
+identificados por SHA-256 y `captures/` recibos y checkpoints de lectura.
+El recibo permite recuperar una captura cuyo archivo se guardó antes de un
+fallo de PostgreSQL. No limpiar estos directorios como caché descartable.
+Los originales se descargan desde las citas con sesión de operador; la API
+verifica el hash y los entrega como adjuntos sin ejecutar HTML.
+
+Las posiciones de HTML/JSON señalan el nodo/valor original y los offsets
+UTF-8 del texto conservado. PDF incluye página y coordenadas en puntos;
+las imágenes incluyen coordenadas en píxeles. Una lectura OCR queda marcada
+para revisar el original y no acredita por sí sola una confirmación completa.
+Los PDF se procesan página por página: una interrupción conserva las páginas
+leídas y reanuda las pendientes, sin repetir su texto.
+
+En «Versiones anteriores y copias preservadas» se puede abrir un informe y
+reprocesarlo contra la ficha vigente sin búsquedas ni descargas de sitios.
+La API ofrece `GET /entity-verification/:kind/:id/versions` (paginación con
+`beforeId`), `GET .../versions/:versionId` y `POST .../versions/:versionId/reprocess`.
+Una versión sin copia íntegra informa la limitación; no usa una página nueva
+en su lugar. El nuevo trabajo conserva su presupuesto y permite pausa,
+reanudación y cancelación. Las reglas documentales v7 invalidan el puntaje de
+informes anteriores sin borrar sus datos ni citas.
+
 `db:bootstrap` es idempotente: crea `.env` desde `.env.example` si falta,
 levanta `crv-postgres` (`127.0.0.1:5433`), aplica `crv_simple_v1.sql` verbatim
 solo si la base no tiene el core, corre las migraciones pendientes, siembra

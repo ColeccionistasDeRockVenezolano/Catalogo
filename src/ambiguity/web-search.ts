@@ -1,26 +1,29 @@
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
-import { lookup } from "node:dns/promises";
-import { isIP } from "node:net";
-import { load } from "cheerio";
 import { z } from "zod";
 import type { Pool } from "pg";
 import { getEnv } from "../config/env.js";
 import { getPool } from "../db/client.js";
-import { pageImageResources, VISUAL_RESOURCES_MARKER } from "./page-images.js";
+import { assertPublicPageUrl,publicPageFetch } from "../verification/documents/public-url.js";
+export {assertPublicPageUrl} from "../verification/documents/public-url.js";
+import { contentHash,recoverSourceCapture,preserveCapture,loadCapture,readCaptureOriginal,saveExtraction,ensureSourceSpace,SourceReadError,type SourceCapture } from "../verification/documents/capture.js";
+import { extractDocument,readBoundedResponse } from "../verification/documents/reader.js";
+import { needsRendering } from "../verification/documents/html.js";
+import { renderDocument } from "../verification/documents/render.js";
+import { DOCUMENT_EXTRACTION_VERSION,type DocumentMetadata,type DocumentReadOptions } from "../verification/documents/types.js";
 import { localArchivePage } from "./archive-records.js";
-import { sourceProvenance, type SourceProvenance, type AcquisitionMethod } from "../evidence/provenance.js";
+import { type SourceProvenance, type AcquisitionMethod } from "../evidence/provenance.js";
 import { rememberEvidenceDocument } from "../evidence/inventory.js";
 
 export interface SearchHit { url: string; title: string; snippet: string; engine: string; capturedAt?: string | null; }
-export interface WebPage extends SourceProvenance { url: string; title: string; content: string; contentHash: string; /** Compatibility alias for capturedAt; empty when unknown. */ fetchedAt: string; origin?: "page" | "search_snippet"; }
+export interface WebPage extends SourceProvenance { url: string; title: string; content: string; contentHash: string; /** Compatibility alias for capturedAt; empty when unknown. */ fetchedAt: string; origin?: "page" | "search_snippet"; document?:DocumentMetadata; }
 type Queryable = Pick<Pool, "query">;
 const hitSchema = z.object({ url: z.string().url(), title: z.string().default(""), content: z.string().default(""), engine: z.string().default("searxng") });
 const searchSchema = z.object({ results: z.array(hitSchema).default([]), unresponsive_engines: z.array(z.array(z.unknown())).default([]) });
 // Los buscadores suspenden a SearXNG (CAPTCHA, 429) ante ráfagas: una consulta a la vez, espaciadas.
 const SEARCH_GAP_MS = 1500;
-const EXTRACTION_VERSION = "[Extracción de página v4]";
+const EXTRACTION_VERSION = `[Extracción de documento v${DOCUMENT_EXTRACTION_VERSION}]`;
 let searchQueue: Promise<unknown> = Promise.resolve();
 let lastSearchAt = 0;
 
@@ -69,31 +72,11 @@ function decodedHtml(bytes: Uint8Array, contentType: string, url: URL): string {
 export function decodeWebPage(bytes: Uint8Array, contentType: string, url: string): string {
   return decodedHtml(bytes, contentType, new URL(url));
 }
-function isPrivateAddress(address: string): boolean {
-  const ip = address.toLowerCase();
-  if (ip.includes(":")) return ip === "::" || ip === "::1" || ip.startsWith("fe80:") || ip.startsWith("fc") || ip.startsWith("fd") || ip.startsWith("::ffff:");
-  const p = ip.split(".").map(Number);
-  return p[0] === 0 || p[0] === 10 || p[0] === 127 || p[0]! >= 224 ||
-    (p[0] === 169 && p[1] === 254) || (p[0] === 172 && p[1]! >= 16 && p[1]! <= 31) ||
-    (p[0] === 192 && p[1] === 168) || (p[0] === 100 && p[1]! >= 64 && p[1]! <= 127);
-}
-
-/** Las páginas de resultados no pueden hacer que la API lea servicios internos. */
-export async function assertPublicPageUrl(raw: string): Promise<URL> {
-  const url = new URL(raw);
-  if (url.protocol !== "https:" && url.protocol !== "http:") throw new Error("protocolo de página no permitido");
-  if (url.username || url.password || (url.port && !["80", "443"].includes(url.port))) throw new Error("URL de página no permitida");
-  if (url.hostname === "localhost" || url.hostname.endsWith(".local") || url.hostname.endsWith(".internal")) throw new Error("host interno no permitido");
-  const addresses = isIP(url.hostname) ? [{ address: url.hostname }] : await lookup(url.hostname, { all: true });
-  if (!addresses.length || addresses.some(({ address }) => isPrivateAddress(address))) throw new Error("dirección interna no permitida");
-  return url;
-}
-
 export class WebSearchBroker {
   constructor(private readonly db: Queryable = getPool(), private readonly searxngUrl = getEnv().CRV_SEARXNG_URL, private readonly fetcher = fetch) {}
 
   async search(query: string): Promise<SearchHit[]> {
-    const q = clean(query).slice(0, 250);
+    const q = clean(query);
     const cached = await this.db.query<{ results: SearchHit[]; stale: boolean; captured_at: string }>(
       "SELECT results, fetched_at::text AS captured_at, fetched_at < now() - interval '6 hours' AS stale FROM ingest.person_web_search_cache WHERE query=$1 AND fetched_at > now()-($2::int * interval '1 day')", [q, getEnv().CRV_WEB_SEARCH_CACHE_DAYS]);
     const old = cached.rows[0];
@@ -121,7 +104,7 @@ export class WebSearchBroker {
       }
       const parsed = searchSchema.parse(await response.json());
       const capturedAt = new Date().toISOString();
-      hits = parsed.results.slice(0, 12).map((hit) => ({ url: hit.url, title: hit.title, snippet: hit.content, engine: hit.engine, capturedAt }));
+      hits = parsed.results.map((hit) => ({ url: hit.url, title: hit.title, snippet: hit.content, engine: hit.engine, capturedAt }));
       // Un vacío por buscadores suspendidos no es una respuesta: no se guarda, y se avisa.
       if (!hits.length && parsed.unresponsive_engines.length) {
         if (attempt === 0) continue;
@@ -135,84 +118,94 @@ export class WebSearchBroker {
     return relevantFirst(q, hits).hits;
   }
 
-  async page(rawUrl: string): Promise<WebPage | null> {
-    const url = await assertPublicPageUrl(rawUrl);
-    const cached = await this.db.query<{ url: string; title: string; content: string; content_hash: string; captured_at: string | null; acquisition_method: AcquisitionMethod }>(
-      "SELECT url,title,content,content_hash,captured_at::text,acquisition_method FROM ingest.person_web_page_cache WHERE url=$1 AND fetched_at > now()-($2::int * interval '1 day')", [url.toString(), getEnv().CRV_WEB_PAGE_CACHE_DAYS]);
-    if (cached.rows[0]) {
-      const row = cached.rows[0];
-      if (row.acquisition_method !== "unknown" && !row.content.includes("�") && row.content.includes(VISUAL_RESOURCES_MARKER) && row.content.includes(EXTRACTION_VERSION)) {
-        const readAt = new Date().toISOString();
-        await this.db.query("UPDATE ingest.person_web_page_cache SET read_at=$2::timestamptz WHERE url=$1", [row.url, readAt]);
-        const provenance = sourceProvenance({ capturedAt: row.captured_at, readAt, acquisitionMethod: row.acquisition_method });
-        const page = { url: row.url, title: row.title, content: cleanPageContent(row.url, row.content), contentHash: row.content_hash, fetchedAt: provenance.capturedAt ?? "", ...provenance };
-        await rememberEvidenceDocument(this.db, page);
-        return page;
+  private async resource(raw:string):Promise<{response:Response;finalUrl:string}>{
+    let url=await assertPublicPageUrl(raw);
+    for(let index=0;index<5;index++){
+      const response=this.fetcher===fetch?await publicPageFetch(url):await this.fetcher(url,{redirect:"manual",signal:AbortSignal.timeout(getEnv().CRV_RESEARCH_RENDER_TIMEOUT_MS),headers:{"user-agent":getEnv().CRAWL_USER_AGENT,accept:"text/html,application/json,application/pdf,image/*,text/plain"}});
+      if(response.status>=300&&response.status<400){
+        await response.body?.cancel();
+        const location=response.headers.get("location");if(!location)throw new SourceReadError("La redirección no informa su destino.","inaccessible");
+        url=await assertPublicPageUrl(new URL(location,url).href);continue;
       }
+      return {response,finalUrl:url.href};
     }
-    let current = url;
-    let response: Response | null = null;
-    try {
-      for (let redirects = 0; redirects < 4; redirects += 1) {
-        response = await this.fetcher(current, { redirect: "manual", signal: AbortSignal.timeout(12000), headers: { "user-agent": getEnv().CRAWL_USER_AGENT, accept: "text/html,text/plain" } });
-        if (response.status >= 300 && response.status < 400) {
-          const location = response.headers.get("location");
-          if (!location) return null;
-          current = await assertPublicPageUrl(new URL(location, current).toString());
-          continue;
+    throw new SourceReadError("Se excedió el límite de redirecciones de la fuente.","inaccessible");
+  }
+  async page(rawUrl:string,options:DocumentReadOptions={}):Promise<WebPage|null>{
+    const url=await assertPublicPageUrl(rawUrl);
+    const cached=(await this.db.query<{url:string;title:string;content:string;content_hash:string;captured_at:string|null;acquisition_method:AcquisitionMethod;document_metadata:DocumentMetadata|null}>(
+      "SELECT url,title,content,content_hash,captured_at::text,acquisition_method,document_metadata FROM ingest.person_web_page_cache WHERE url=$1 AND fetched_at>now()-($2::int*interval '1 day')",[url.href,getEnv().CRV_WEB_PAGE_CACHE_DAYS])).rows[0];
+    let capture:SourceCapture|null=null;
+    if(cached?.document_metadata){
+      capture=await loadCapture(this.db,cached.document_metadata.captureId);
+      if(capture){
+        if(capture.rawHash!==cached.document_metadata.rawHash||capture.url!==url.href)throw new SourceReadError("El original no coincide con la versión del documento en caché.","failed",capture.id);
+        await readCaptureOriginal(capture);
+        if(cached.document_metadata.complete&&cached.document_metadata.extractionVersion===DOCUMENT_EXTRACTION_VERSION){
+          const readAt=new Date().toISOString(),content=cleanPageContent(url.href,cached.content);
+          const page:WebPage={url:url.href,title:cached.title,content,contentHash:contentHash(content),fetchedAt:cached.captured_at??"",capturedAt:cached.captured_at,readAt,acquisitionMethod:cached.acquisition_method,document:cached.document_metadata};
+          await this.db.query("UPDATE ingest.person_web_page_cache SET read_at=$2::timestamptz WHERE url=$1",[url.href,readAt]);await rememberEvidenceDocument(this.db,page);return page;
         }
-        break;
+        if(!capture.complete)capture=null;
       }
-    } catch { response = null; }
-    let bytes: Uint8Array | null = null;
-    let capturedAt: string | null = null;
-    let acquisitionMethod: AcquisitionMethod = "http";
-    let contentType = response?.headers.get("content-type") ?? "";
-    if (response?.ok && !contentType.match(/^(?!text\/html|text\/plain)/iu) && Number(response.headers.get("content-length") ?? 0) <= 1_000_000) {
-      bytes = new Uint8Array(await response.arrayBuffer());
-      capturedAt = new Date().toISOString();
     }
-    if (!bytes) {
-      // Metal Archives, RYM o Discogs responden 403 a una descarga directa; si el proyecto ya
-      // guardó esa página al ingerirla (ingest.raw_pages), se lee la copia guardada.
-      const stored = await this.storedPage(url.toString());
-      if (!stored) return null;
-      bytes = stored.bytes; contentType = stored.contentType;
-      capturedAt = stored.capturedAt; acquisitionMethod = stored.acquisitionMethod;
+    if(!capture)capture=await recoverSourceCapture(this.db,url.href);
+    if(!capture){
+      await ensureSourceSpace();
+      let response:Response|null=null,error:string|null=null,finalUrl=url.href;
+      try{const fetched=await this.resource(url.href);response=fetched.response;finalUrl=fetched.finalUrl;}catch(cause){error=cause instanceof Error?cause.message:"Error de red";}
+      if(response){
+        const downloaded=await readBoundedResponse(response);
+        capture=await preserveCapture(this.db,{url:url.href,finalUrl,contentType:response.headers.get("content-type")??"application/octet-stream",capturedAt:new Date().toISOString(),method:"http",status:response.status,complete:downloaded.complete,reason:downloaded.reason,parentId:null},downloaded.bytes);
+        if(!response.ok)error=`HTTP ${response.status}`;
+      }
+      if(!capture||error){
+        const archived=await this.storedPage(url.href);
+        if(!archived){throw new SourceReadError(error??"No se obtuvo una fuente legible.","inaccessible",capture?.id);}
+        capture=await preserveCapture(this.db,{url:url.href,finalUrl:url.href,contentType:archived.contentType,capturedAt:archived.capturedAt,method:archived.acquisitionMethod,status:200,complete:true,reason:null,parentId:null},archived.bytes);
+      }
     }
-    if (bytes.length > 1_000_000) return null;
-    const body = decodedHtml(bytes, contentType, current);
-    const $ = load(body);
-    const visualResources = pageImageResources($, current.toString());
-    $("script,style,nav,footer,header,noscript").remove();
-    const title = clean($("title").first().text()).slice(0, 300);
-    // Preserva el destino de enlaces de escucha y redes: el texto visible por sí
-    // solo pierde el vínculo que permite comprobar un perfil oficial.
-    const links: string[] = [];
-    $("a[href]").each((_index, element) => {
-      const href = $(element).attr("href");
-      if (!href) return;
-      try {
-        const destination = new URL(href, current);
-        if (!/^https?:$/u.test(destination.protocol)) return;
-        if (!/(?:instagram|facebook|twitter|x|tiktok|threads|bsky|spotify|bandcamp|soundcloud|youtube)\.com$|music\.apple\.com$/iu.test(destination.hostname) && !/\/(?:album|albums|disco|release|releases|discografia)\//iu.test(destination.pathname)) return;
-        const link = `Enlace: ${clean($(element).text())} ${destination.toString()}`;
-        if (!links.includes(link)) links.push(link);
-      } catch { /* href no válido */ }
-    });
-    const content = cleanPageContent(url.toString(), clean($("body").text() || body).slice(0, 55_000) + (links.length ? ` Enlaces de la página: ${links.slice(0, 50).join(" · ")}` : "") + ` ${visualResources} ${EXTRACTION_VERSION}`);
-    if (content.length < 100) return null;
-    const contentHash = createHash("sha256").update(content).digest("hex");
-    const readAt = new Date().toISOString();
-    await this.db.query(`INSERT INTO ingest.person_web_page_cache(url,title,content,content_hash,captured_at,read_at,acquisition_method) VALUES($1,$2,$3,$4,$5::timestamptz,$6::timestamptz,$7)
-      ON CONFLICT(url) DO UPDATE SET title=EXCLUDED.title,content=EXCLUDED.content,content_hash=EXCLUDED.content_hash,fetched_at=now(),
-        captured_at=EXCLUDED.captured_at,read_at=EXCLUDED.read_at,acquisition_method=EXCLUDED.acquisition_method`, [url.toString(), title, content, contentHash, capturedAt, readAt, acquisitionMethod]);
-    const page = { url: url.toString(), title, content, contentHash, fetchedAt: capturedAt ?? "", capturedAt, readAt, acquisitionMethod };
-    await rememberEvidenceDocument(this.db, page);
-    return page;
+    const bytes=await readCaptureOriginal(capture);
+    const checkpoint:NonNullable<DocumentReadOptions["checkpoint"]>=async extraction=>{
+      await saveExtraction(this.db,capture!,extraction);await options.checkpoint?.(extraction);
+    };
+    let extraction;
+    try{extraction=await extractDocument(bytes,capture.contentType,capture.finalUrl,decodeWebPage,{...options,...(capture.extraction?{resume:capture.extraction}:{}),checkpoint});}
+    catch(cause){throw new SourceReadError(`Lectura pendiente del original ${capture.id}: ${cause instanceof Error?cause.message:"Error de extracción"}`,"failed",capture.id);}
+    if(extraction.format==="html"&&needsRendering(decodeWebPage(bytes,capture.contentType,capture.finalUrl),extraction)){
+      if(getEnv().CRV_RESEARCH_RENDER_ENABLED){
+        try{
+          const rendered=await renderDocument(capture.finalUrl,decodeWebPage(bytes,capture.contentType,capture.finalUrl),async raw=>(await this.resource(raw)).response);
+          if(!rendered.acquired)throw new Error(rendered.warnings.join("; "));
+          const parent=capture.id,parentKey=capture.key;
+          capture=await preserveCapture(this.db,{url:url.href,finalUrl:capture.finalUrl,contentType:"text/html; charset=utf-8",capturedAt:new Date().toISOString(),method:"rendered",status:200,complete:rendered.complete,reason:rendered.complete?null:rendered.warnings.join("; "),parentId:parent,parentKey},Buffer.from(rendered.html,"utf8"));
+          extraction=await extractDocument(Buffer.from(rendered.html),capture.contentType,capture.finalUrl,decodeWebPage,options);
+          extraction.format="rendered_html";extraction.method="rendered_dom";extraction.complete&&=rendered.complete;extraction.warnings.push(...rendered.warnings);
+          if(!rendered.complete)extraction.unreadParts.push("Renderizado pendiente de completar");
+        }catch(cause){extraction.complete=false;extraction.unreadParts.push(`Renderizado pendiente: ${cause instanceof Error?cause.message:"Error de navegador"}`);}
+      }else{extraction.complete=false;extraction.unreadParts.push("La fuente requiere renderizado; el lector de navegador está deshabilitado.");}
+    }
+    if(!capture.complete){extraction.complete=false;extraction.unreadParts.push(capture.reason??"La captura original quedó incompleta.");}
+    await saveExtraction(this.db,capture,extraction);
+    const content=cleanPageContent(url.href,`${extraction.content}\n${EXTRACTION_VERSION}`),readAt=new Date().toISOString();
+    const method:AcquisitionMethod=capture.method==="rendered"?"http":capture.method;
+    // The existing source-template correction removes bytes. Translate the
+    // transcript ranges through those removals instead of keeping stale offsets.
+    const originalText=`${extraction.content}\n${EXTRACTION_VERSION}`;
+    const removed:Array<{start:number;end:number}>=[];
+    if(content!==originalText)for(const match of originalText.matchAll(/ Gordon \d+(?= tipo:)/gu)){
+      const start=Buffer.byteLength(originalText.slice(0,match.index),"utf8");removed.push({start,end:start+Buffer.byteLength(match[0],"utf8")});
+    }
+    const translated=(offset:number)=>offset-removed.reduce((sum,range)=>sum+Math.max(0,Math.min(offset,range.end)-range.start),0);
+    const locations=extraction.locations.map(location=>({...location,start:translated(location.start),end:translated(location.end)})).filter(location=>location.end>location.start);
+    const document:DocumentMetadata={captureId:capture.id,rawHash:capture.rawHash,format:extraction.format,method:extraction.method,extractionVersion:extraction.version,complete:extraction.complete,unreadParts:extraction.unreadParts,warnings:extraction.warnings,locations,followLinks:extraction.followLinks};
+    const page:WebPage={url:url.href,title:extraction.title,content,contentHash:contentHash(content),fetchedAt:capture.capturedAt??"",capturedAt:capture.capturedAt,readAt,acquisitionMethod:method,document};
+    await this.db.query(`INSERT INTO ingest.person_web_page_cache(url,title,content,content_hash,captured_at,read_at,acquisition_method,document_metadata) VALUES($1,$2,$3,$4,$5::timestamptz,$6::timestamptz,$7,$8::jsonb)
+      ON CONFLICT(url) DO UPDATE SET title=EXCLUDED.title,content=EXCLUDED.content,content_hash=EXCLUDED.content_hash,fetched_at=now(),captured_at=EXCLUDED.captured_at,read_at=EXCLUDED.read_at,acquisition_method=EXCLUDED.acquisition_method,document_metadata=EXCLUDED.document_metadata`,[page.url,page.title,page.content,page.contentHash,capture.capturedAt,readAt,method,JSON.stringify(document)]);
+    await rememberEvidenceDocument(this.db,page);return page;
   }
 
-  private async storedPage(url: string): Promise<{ bytes: Uint8Array; contentType: string; capturedAt: string | null; acquisitionMethod: AcquisitionMethod } | null> {
+  private async storedPage(url: string): Promise<{ bytes: Uint8Array; contentType: string; capturedAt: string | null; acquisitionMethod: "raw_archive"|"local_archive" } | null> {
     const row = (await this.db.query<{ stored_path: string; content_type: string | null; captured_at: string | null; sha256: string }>(
       `SELECT stored_path, content_type, fetched_at::text AS captured_at, sha256 FROM ingest.raw_pages WHERE (url=$1 OR canonical_url=$1) AND http_status=200
         ORDER BY fetched_at DESC LIMIT 1`, [url])).rows[0];

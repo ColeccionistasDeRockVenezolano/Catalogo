@@ -215,7 +215,7 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
       expect(result.context["currentGenres"]).toContainEqual(expect.objectContaining({ slug: genre, role: "secondary", status: "confirmed" }));
     } finally { await getPool().query("DELETE FROM ingest.artist_genres WHERE artist_id=$1", [artist]); }
   });
-  it("conserva todos los pendientes y las citas del hallazgo elegido después de los límites de un plan general", async () => {
+  it("conserva todos los pendientes en el inventario general y carga únicamente el hallazgo elegido con sus citas", async () => {
     const findings = Array.from({ length: 75 }, (_, index) => ({
       key: `missing.${index}`, label: `Dato ${index}`, area: "genres", value: null, observed: `Valor ${index}`,
       status: "missing", context: ["Banda QA"], explanation: "La fuente documenta el dato", evidence: [{ url: `https://catalogo.example/dato/${index}`, quote: `Banda QA documenta exactamente Valor ${index}.`, origin: "page", fetchedAt: "2026-10-10" }],
@@ -227,7 +227,7 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
       const result = await planningContext(getPool(), "artist", artist, "Prepara únicamente la corrección del hallazgo missing.74 (Dato 74).");
       const report = result.context["report"] as { selectedKey: string; pending: Array<{ key: string; evidenceIds: string[] }> };
       expect(report.selectedKey).toBe("missing.74");
-      expect(report.pending).toHaveLength(75);
+      expect(report.pending).toHaveLength(1);
       expect(report.pending[0]!.key).toBe("missing.74");
       expect(result.evidence.find(e => e.id === report.pending[0]!.evidenceIds[0])?.quote).toBe("Banda QA documenta exactamente Valor 74.");
     } finally { await getPool().query("DELETE FROM ingest.entity_verification_reports WHERE entity_kind='artist' AND entity_id=$1", [artist]); }

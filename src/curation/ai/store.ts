@@ -169,17 +169,12 @@ async function prepare(plan: CatalogPlan, work: PlanWork): Promise<void> {
       "UPDATE ingest.ai_curation_plans SET status='running',updated_at=now() WHERE id=$1",
       [plan.id],
     );
-    const result = await work(
-      plan.entityKind,
-      plan.entityId,
-      plan.instruction,
-      async (phase, usage) => {
-        await getPool().query(
-          "UPDATE ingest.ai_curation_plans SET phase=$2,usage=$3::jsonb,updated_at=now() WHERE id=$1 AND status='running'",
-          [plan.id, phase, JSON.stringify(usage)],
-        );
-      },
-    );
+    const notify=async (phase:string, usage:CatalogPlan["usage"]) => {
+      await getPool().query("UPDATE ingest.ai_curation_plans SET phase=$2,usage=$3::jsonb,updated_at=now() WHERE id=$1 AND status='running'",[plan.id,phase,JSON.stringify(usage)]);
+    };
+    const result = work===planWithDeepSeek
+      ? await planWithDeepSeek(plan.entityKind,plan.entityId,plan.instruction,notify,undefined,{planId:plan.id})
+      : await work(plan.entityKind,plan.entityId,plan.instruction,notify);
     const draft = draftSchema.parse(result.draft);
     await getPool().query(
       "UPDATE ingest.ai_curation_plans SET phase='preview',updated_at=now() WHERE id=$1",

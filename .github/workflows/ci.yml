@@ -33,6 +33,11 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - name: Lectores PDF y navegador de investigación
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          npx playwright install --with-deps chromium
       - name: Tipos
         run: npm run typecheck
       - name: Lint
@@ -60,6 +65,11 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - name: Dependencias para documentos de investigación
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          npx playwright install --with-deps chromium
       # Cada archivo de test/contract levanta su propio postgres:16-alpine en
       # un puerto del host y lo destruye al terminar; los runners traen Docker.
       - run: npm run test:contract
@@ -89,3 +99,5 @@ jobs:
         working-directory: web
       - name: Navegador, sesiones, permisos y edición
         run: npm run test:browser
+      - name: Investigación recuperable, sesión y controles
+        run: npm run test:browser:research

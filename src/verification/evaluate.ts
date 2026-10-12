@@ -33,7 +33,13 @@ function citations(raw:VerificationProposal["findings"][number]["evidence"],page
     if(item.quote.length<8||item.quote.length>1800||!page||!usablePage(page)||!sourceMatchesIdentity(snapshot,page,pages)||!fold(page.content).includes(fold(item.quote)))continue;
     if(!snapshot.identity.some(name=>pageContextMatches(page,name,true))||!context.filter(Boolean).every(value=>pageContextMatches(page,value)))continue;
     if(found.some(e=>e.url===page.url&&fold(e.quote)===fold(item.quote)))continue;
-    found.push({url:page.url,title:page.title,quote:item.quote,origin:page.origin??"page",fetchedAt:page.fetchedAt,...sourceProvenance(page)});
+    const offset=page.content.indexOf(item.quote);
+    if(page.document&&offset<0)continue;
+    const start=offset>=0?Buffer.byteLength(page.content.slice(0,offset),"utf8"):-1,end=start+Buffer.byteLength(item.quote,"utf8");
+    const locations=page.document?.locations.filter(location=>location.start<end&&location.end>start)??[];
+    if(page.document&&offset>=0&&!locations.length)continue;
+    if(locations.length&&locations.every(location=>location.context==="navigation"))continue;
+    found.push({contentHash:page.contentHash,...(page.document?{captureId:page.document.captureId,locations,requiresOriginalReview:locations.some(location=>location.selector.includes("ocr"))||(offset<0&&page.document.method.includes("ocr"))}:{}),url:page.url,title:page.title,quote:item.quote,origin:page.origin??"page",fetchedAt:page.fetchedAt,...sourceProvenance(page)});
   }
   return found;
 }
@@ -48,6 +54,12 @@ function evidenceForAtom(unit:VerificationUnit,e:VerificationEvidence,page:WebPa
     try {const target=canonicalLink(unit.value);const candidate=e.quote.match(/https?:\/\/[^\s<>"»]+/gu)??[];return candidate.some(url=>{try{return canonicalLink(url)===target;}catch{return false;}});}catch{return false;}
   }
   if(unit.area==="tracks"&&!unit.key.endsWith(".order")&&/produced by|producer|production|mixed by|mastered by|productor|produccion/iu.test(e.quote)&&!positions(unit,e,page).length)return false;
+  if(e.locations?.length){
+    const start=page.content.indexOf(e.quote),first=start>=0?Buffer.byteLength(page.content.slice(0,start),"utf8"):0,last=first+Buffer.byteLength(e.quote,"utf8");
+    const bytes=Buffer.from(page.content,"utf8");
+    const original=e.locations.filter(location=>!location.selector.includes("image-resources")).map(location=>bytes.subarray(Math.max(first,location.start),Math.min(last,location.end)).toString("utf8")).join(" ");
+    if(!backed(original,atom)&&!(unit.area==="tracks"&&trackTitleMatch(original,atom)))return false;
+  }
   return backed(e.quote,atom)||(unit.area==="tracks"&&trackTitleMatch(e.quote,atom));
 }
 function atoms(unit:VerificationUnit):string[] {
@@ -62,18 +74,18 @@ function proof(unit:VerificationUnit,evidence:VerificationEvidence[],pages:WebPa
   const required=atoms(unit);if(!required.length)return {coverage:0,evidence:[]};
   const useful=new Set<VerificationEvidence>();
   const sums=required.map(atom=>{
-    const support=evidence.filter(e=>{const page=pages.find(p=>p.url===e.url);return Boolean(page&&evidenceForAtom(unit,e,page,atom));});
+    const support=evidence.filter(e=>{const page=pages.find(p=>p.url===e.url&&(!e.contentHash||p.contentHash===e.contentHash));return Boolean(page&&evidenceForAtom(unit,e,page,atom));});
     support.forEach(e=>useful.add(e));return sourceStrength(support,pages);
   });
   // La cobertura completa exige respaldo de todos los componentes del dato.
-  const complete=evidence.filter(e=>{const page=pages.find(p=>p.url===e.url);return page&&required.every(atom=>evidenceForAtom(unit,e,page,atom));});
+  const complete=evidence.filter(e=>{const page=pages.find(p=>p.url===e.url&&(!e.contentHash||p.contentHash===e.contentHash));return page&&required.every(atom=>evidenceForAtom(unit,e,page,atom));});
   const coverage=Math.min(sums.reduce((n,v)=>n+v,0)/required.length,sourceStrength(complete,pages)||1);
   return {coverage,evidence:[...useful]};
 }
 function opposing(unit:VerificationUnit,evidence:VerificationEvidence[],observed:string,pages:WebPage[]):VerificationEvidence[] {
   if(sameValue(unit,observed))return [];
   return evidence.filter(e=>{
-    const page=pages.find(p=>p.url===e.url);if(!page||e.origin!=="page"||sourceCeiling(e.url,e.origin)<.75)return false;
+    const page=pages.find(p=>p.url===e.url&&(!e.contentHash||p.contentHash===e.contentHash));if(!page||e.origin!=="page"||e.requiresOriginalReview||sourceCeiling(e.url,e.origin)<.75)return false;
     if(unit.key.endsWith(".order")) {
       const raw=observed.match(/^(?:(\d+)\.)?0*(\d+)$/u);if(!raw)return false;
       return positions(unit,e,page).some(p=>p.number===Number(raw[2])&&(!raw[1]||p.disc===Number(raw[1]))&&(p.disc!==Number(unit.value?.split(".")[0])||p.number!==Number(unit.value?.split(".")[1])));
@@ -95,7 +107,7 @@ export function evaluateVerification(snapshot:VerificationSnapshot,pages:WebPage
     if(unit.issue)return {...unit,status:"contradicted",observed:null,explanation:unit.issue,coverage:0,evidence:all};
     if(unit.value===null&&unit.key!=="discography.search")return {...unit,status:"missing",observed:all.some(e=>observed&&(unit.area==="images" ? /^https?:\/\//u.test(observed)&&e.quote.includes(observed) : contains(e.quote,observed)))?observed:null,explanation:all.some(e=>observed&&(unit.area==="images" ? /^https?:\/\//u.test(observed)&&e.quote.includes(observed) : contains(e.quote,observed)))&&observed?`Dato ausente en la ficha. Propuesta por revisar: ${observed}.`:"No registrado. Su ausencia no demuestra que la ficha sea incorrecta.",coverage:0,evidence:all};
     // El número observado pertenece al título citado, incluso si la IA marcó confirmed.
-    const numbered=unit.key.endsWith(".order")?all.flatMap(e=>{const page=pages.find(p=>p.url===e.url);if(!page||!claimContext(unit,e,page))return [];const found=positions(unit,e,page);return found.filter(p=>!sameValue(unit,`${p.disc}.${p.number}`)).map(p=>({item:{status:"contradicted" as const,observed:`${p.disc}.${p.number}`},evidence:[e]}));}):[];
+    const numbered=unit.key.endsWith(".order")?all.flatMap(e=>{const page=pages.find(p=>p.url===e.url&&(!e.contentHash||p.contentHash===e.contentHash));if(!page||!claimContext(unit,e,page))return [];const found=positions(unit,e,page);return found.filter(p=>!sameValue(unit,`${p.disc}.${p.number}`)).map(p=>({item:{status:"contradicted" as const,observed:`${p.disc}.${p.number}`},evidence:[e]}));}):[];
     const opposition=[...options,...numbered].flatMap(o=>o.item.status==="contradicted"&&o.item.observed?opposing(unit,o.evidence,o.item.observed,pages):[]);
     const disputed=opposition.length>0&&support.coverage>0;
     if(opposition.length&&!disputed)return {...unit,status:"contradicted",observed:[...options,...numbered].find(o=>o.item.status==="contradicted"&&o.item.observed&&!sameValue(unit,o.item.observed))?.item.observed??null,explanation:"La fuente documenta un valor diferente para el mismo dato. Revisa la edición y la procedencia antes de corregirlo.",coverage:0,evidence:opposition};
@@ -114,9 +126,16 @@ export function evaluateVerification(snapshot:VerificationSnapshot,pages:WebPage
     const matching=findings.find(f=>f.status==="missing"&&f.area===item.area&&(f.key==="status.ended"&&words(item.value)==="activo"));
     if(matching){matching.observed=item.value;matching.evidence=evidence;matching.explanation="Estado propuesto por las fuentes; falta registrarlo y comprobar su vigencia.";continue;}
     const signature=`${item.area==="missingAlbums"?"discography":item.area}:${words(item.context)}`;
-    const duplicate=suggestions.find(s=>s.area===item.area&&words(s.context.join(" "))===words(item.context)&&(contains(item.value,s.observed??"")||contains(s.observed??"",item.value)));
+    const sameDiscoveryValue=(value:string)=>{
+      if(item.area==="images")return value===item.value;
+      if(item.area==="socials"&&/^https?:\/\//u.test(item.value)&&/^https?:\/\//u.test(value)){
+        try{return canonicalLink(value)===canonicalLink(item.value);}catch{return value===item.value;}
+      }
+      return contains(item.value,value)||contains(value,item.value);
+    };
+    const duplicate=suggestions.find(s=>s.area===item.area&&words(s.context.join(" "))===words(item.context)&&sameDiscoveryValue(s.observed??""));
     if(duplicate){duplicate.evidence.push(...evidence.filter(e=>!duplicate.evidence.some(old=>old.url===e.url&&old.quote===e.quote)));continue;}
-    const key=`${signature}:${words(item.value)}`;if(seen.has(key))continue;seen.add(key);
+    const key=`${signature}:${item.area==="images"||item.area==="socials"?item.value:words(item.value)}`;if(seen.has(key))continue;seen.add(key);
     suggestions.push({key:`suggested.${suggestions.length}`,area:item.area,label:`Dato por revisar · ${VERIFICATION_AREAS[item.area].label}`,value:null,expected:[],context:item.context?[item.context]:[],issue:null,status:"unverified",observed:item.value,explanation:item.area==="images" ? `Recurso visual documentado; revisa identidad, edición y calidad antes de incorporarlo. ${item.reason}` : "La fuente menciona este dato. Comprueba si es nuevo, correcto y pertinente antes de incorporarlo. No modifica el denominador del puntaje.",coverage:0,evidence});
   }
   const scan=findings.find(f=>f.key==="discography.search");
@@ -135,6 +154,6 @@ export function evaluateVerification(snapshot:VerificationSnapshot,pages:WebPage
   const weight=scored.reduce((n,k)=>n+VERIFICATION_AREAS[k].weight,0);
   const areas=keys.map(key=>{const items=findings.filter(f=>f.area===key),evaluated=items.filter(eligible),maximum=evaluated.length?VERIFICATION_AREAS[key].weight/weight*100:0;return {key,label:VERIFICATION_AREAS[key].label,maximum,points:evaluated.length?evaluated.reduce((n,f)=>n+f.coverage,0)/evaluated.length*maximum:0,confirmed:items.filter(f=>f.status==="confirmed").length,partial:items.filter(f=>f.status==="partial").length,missing:items.filter(f=>f.status==="missing").length,contradicted:items.filter(f=>f.status==="contradicted").length,unverified:items.filter(f=>f.status==="unverified").length};});
   return {version:1,rulesVersion:RULES_VERSION,snapshotHash:snapshotHash(snapshot),kind:snapshot.kind,entityId:snapshot.id,name:snapshot.name,createdAt:new Date().toISOString(),researched,stale:false,score:researched&&scored.length?Math.round(areas.reduce((n,a)=>n+a.points,0)*10)/10:null,areas,findings,suggestions,issues:findings.filter(f=>f.issue).map(f=>f.issue!),
-    limitations:[...new Set(["El puntaje mide coincidencia documental entre los datos que se pudieron contrastar; no probabilidad de verdad ni exhaustividad de la ficha.","Sin verificar, pendientes, faltantes, propuestas e incoherencias internas sin evidencia externa quedan fuera del cálculo. Sin datos contrastados no hay puntaje.","Una cita completa de una página leída aporta 100 %. Una coincidencia parcial aporta según su cobertura; un resumen del buscador aporta hasta 25 %. La corroboración independiente no es requisito para una coincidencia completa.","Los pesos de las áreas se redistribuyen entre las áreas con datos contrastados. No encontrar un dato no demuestra que sea falso.",...limitations])],sources:pages.filter(usablePage).map(page=>({url:page.url,title:page.title,origin:page.origin??"page",fetchedAt:page.fetchedAt,contentHash:page.contentHash,...sourceProvenance(page)}))};
+    limitations:[...new Set(["El puntaje mide coincidencia documental entre los datos que se pudieron contrastar; no probabilidad de verdad ni exhaustividad de la ficha.","Sin verificar, pendientes, faltantes, propuestas e incoherencias internas sin evidencia externa quedan fuera del cálculo. Sin datos contrastados no hay puntaje.","Una cita completa de una página leída aporta 100 %. Una coincidencia parcial aporta según su cobertura; un resumen del buscador aporta hasta 25 %. La corroboración independiente no es requisito para una coincidencia completa. El OCR requiere revisión del original y aporta como máximo 50 %.","Los pesos de las áreas se redistribuyen entre las áreas con datos contrastados. No encontrar un dato no demuestra que sea falso.",...limitations])],sources:pages.filter(usablePage).map(page=>({url:page.url,title:page.title,origin:page.origin??"page",fetchedAt:page.fetchedAt,contentHash:page.contentHash,...(page.document?{document:{captureId:page.document.captureId,rawHash:page.document.rawHash,format:page.document.format,method:page.document.method,extractionVersion:page.document.extractionVersion,complete:page.document.complete,unreadParts:page.document.unreadParts,warnings:page.document.warnings}}:{}),...sourceProvenance(page)}))};
 }
 export function areaLabel(area:VerificationArea):string{return VERIFICATION_AREAS[area].label;}

@@ -81,9 +81,9 @@ export async function rememberEvidenceDocument(db: Queryable, page: WebPage): Pr
     'url',$1::text,'contentHash',$2::text,'capturedAt',to_char($3::timestamptz AT TIME ZONE 'UTC','YYYY-MM-DD"T"HH24:MI:SS.US"Z"'),'method',$4::text)::text,'UTF8')),'hex') AS key`,
   [page.url, contentHash, capturedAt, method])).rows[0]!.key;
   const inserted = await db.query<{ id: string }>(`
-    INSERT INTO ingest.evidence_documents(document_key,url,title,content_text,content_hash,captured_at,acquisition_method)
-    VALUES($1,$2,$3,$4,$5,$6::timestamptz,$7) ON CONFLICT(document_key) DO NOTHING RETURNING id::text`,
-  [documentKey, page.url, page.title, page.content, contentHash, capturedAt, method]);
+    INSERT INTO ingest.evidence_documents(document_key,url,title,content_text,content_hash,captured_at,acquisition_method,raw_capture_id,extraction_metadata)
+    VALUES($1,$2,$3,$4,$5,$6::timestamptz,$7,$8,$9::jsonb) ON CONFLICT(document_key) DO NOTHING RETURNING id::text`,
+  [documentKey, page.url, page.title, page.content, contentHash, capturedAt, method,page.document?.captureId??null,page.document?JSON.stringify(page.document):null]);
   // A separate statement observes a competing insert after its commit.
   const id = Number(inserted.rows[0]?.id ?? (await db.query<{ id: string }>("SELECT id::text FROM ingest.evidence_documents WHERE document_key=$1", [documentKey])).rows[0]?.id);
   if (!positiveId(id)) throw new Error("no se pudo conservar el documento");
@@ -94,7 +94,7 @@ export async function rememberEvidenceDocument(db: Queryable, page: WebPage): Pr
 /** UTF-8 byte offsets are stable in UTF8 and the production SQL_ASCII database. */
 export async function rememberEvidenceFragment(db: Queryable, documentId: number, quote: string, selector: string | null = null): Promise<number> {
   if (!positiveId(documentId) || !quote.trim()) throw new OperatorError("invalid", "documento y fragmento obligatorios");
-  const row = (await db.query<{ content_text: string }>("SELECT content_text FROM ingest.evidence_documents WHERE id=$1", [documentId])).rows[0];
+  const row = (await db.query<{ content_text: string; extraction_metadata:import("../verification/documents/types.js").DocumentMetadata|null }>("SELECT content_text,extraction_metadata FROM ingest.evidence_documents WHERE id=$1", [documentId])).rows[0];
   if (!row) throw new OperatorError("not_found", "documento conservado inexistente", { documentId });
   const offset = row.content_text.indexOf(quote);
   if (offset < 0) throw new OperatorError("invalid", "el fragmento no aparece literalmente en el documento conservado");
@@ -105,6 +105,10 @@ export async function rememberEvidenceFragment(db: Queryable, documentId: number
   if (legacy) return Number(legacy.id);
   const start = Buffer.byteLength(row.content_text.slice(0, offset), "utf8");
   const end = start + Buffer.byteLength(quote, "utf8");
+  if(!selector&&row.extraction_metadata){
+    const locations=row.extraction_metadata.locations.filter(location=>location.start<end&&location.end>start);
+    selector=JSON.stringify({captureId:row.extraction_metadata.captureId,format:row.extraction_metadata.format,method:row.extraction_metadata.method,locations});
+  }
   const inserted = await db.query<{ id: string }>(`
     INSERT INTO ingest.evidence_fragments(document_id,quote,start_offset,end_offset,selector,offset_unit)
     VALUES($1,$2,$3,$4,$5,'utf8_byte') ON CONFLICT(document_id,offset_unit,start_offset,end_offset) DO NOTHING RETURNING id::text`, [documentId, quote, start, end, selector]);

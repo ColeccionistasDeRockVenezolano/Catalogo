@@ -233,15 +233,18 @@ describe("fiabilidad individual proporcional y basada en citas",()=>{
     expect(evaluateVerification({...snapshot,units:[unit]},[source],{findings:[{key:unit.key,status:"unverified",observed:null,reason:"Crédito",evidence:[{source:0,quote:source.content}]}],discoveries:[]},true).findings[0]).toMatchObject({status:"contradicted",coverage:0,observed:"Crédito de producción"});
   });
 
-  it("conserva citas anteriores válidas y remapea sus fuentes; no conserva citas retiradas de una página actualizada",()=>{
+  it("conserva citas anteriores en su copia original y remapea sus fuentes sin atribuirlas a una página actualizada",()=>{
     const old:ResearchState={rulesVersion:3,pages:[first],proposal:{...proposal,findings:[{...proposal.findings[0]!,evidence:[proposal.findings[0]!.evidence[0]!]}]},pendingKeys:[],limitations:[],attempts:1};
     const latest:ResearchState={...old,pages:[second],proposal:{findings:[],discoveries:[]},limitations:[]};
     expect(retainVerificationEvidence(snapshot,old,latest)).toBe(1);
     expect(latest.proposal.findings[0]?.evidence[0]?.source).toBe(1);
     expect(evaluateVerification(snapshot,latest.pages,latest.proposal,true).findings[0]?.coverage).toBe(1);
     expect(retainVerificationEvidence(snapshot,old,latest)).toBe(0);
-    const changed={...latest,pages:[{...first,content:"Banda Prueba cambió los datos de esta página."}],proposal:{findings:[],discoveries:[]}};
-    expect(retainVerificationEvidence(snapshot,old,changed)).toBe(0);
+    const changed:ResearchState={...latest,pages:[{...first,content:"Banda Prueba cambió los datos de esta página."}],proposal:{findings:[],discoveries:[]}};
+    expect(retainVerificationEvidence(snapshot,old,changed)).toBe(1);
+    expect(changed.pages).toHaveLength(2);expect(changed.pages[1]).toEqual(first);
+    expect(changed.proposal.findings[0]?.evidence[0]?.source).toBe(1);
+    expect(changed.pages[0]?.content).not.toContain(proposal.findings[0]!.evidence[0]!.quote);
   });
 
   it("normaliza el orden global de las caras A y B sin inventar una discrepancia",()=>{

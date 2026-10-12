@@ -1,7 +1,7 @@
 {
   "version": 3,
   "date": "2026-10-10",
-  "scope": "Planning only; no task implemented by this document",
+  "scope": "Execution plan; implemented statuses are backed by linked technical evidence and do not assert global acceptance.",
   "dayHours": 6,
   "estimates": "Planning ranges, not observed throughput; include functional checks, exclude reserve and elapsed observation",
   "tasks": [
@@ -25,7 +25,14 @@
         "scripts/db-restore-check.sh",
         "docs/ui-qa"
       ],
-      "status": "planned"
+      "status": "implemented",
+      "technicalValidation": "passed",
+      "evidence": [
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/before/catalog.json",
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/corpus-r2/verification.json",
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/source-manifest.json"
+      ],
+      "sourceHash": "744f3f50db59c1cd9b7df806c008f53bf4e8ae23c17ed3bfb57bb2ce92bb3b93"
     },
     {
       "id": "E1-02",
@@ -49,7 +56,14 @@
         "test/contract",
         "web/tests"
       ],
-      "status": "planned"
+      "status": "implemented",
+      "technicalValidation": "passed",
+      "evidence": [
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/quality-r4/quality.json",
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/quality-r4/additional-quality.json",
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/DEFECTOS.md"
+      ],
+      "sourceHash": "744f3f50db59c1cd9b7df806c008f53bf4e8ae23c17ed3bfb57bb2ce92bb3b93"
     },
     {
       "id": "E1-03",
@@ -74,7 +88,13 @@
         "migrations",
         "src/api/repositories"
       ],
-      "status": "planned"
+      "status": "implemented",
+      "technicalValidation": "passed",
+      "evidence": [
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/staging/migration-check-final.json",
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/live-current/doctor.log"
+      ],
+      "sourceHash": "744f3f50db59c1cd9b7df806c008f53bf4e8ae23c17ed3bfb57bb2ce92bb3b93"
     },
     {
       "id": "E1-04",
@@ -99,7 +119,14 @@
         "migrations",
         "src/merge"
       ],
-      "status": "planned"
+      "status": "implemented",
+      "technicalValidation": "passed",
+      "evidence": [
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/quality-r4/contract.log",
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/quality-r4/browser.log",
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/integrated-quality.json"
+      ],
+      "sourceHash": "744f3f50db59c1cd9b7df806c008f53bf4e8ae23c17ed3bfb57bb2ce92bb3b93"
     },
     {
       "id": "E1-05",
@@ -123,7 +150,14 @@
         "src/curation/ai/types.ts",
         "src/curation/actions/structural.ts"
       ],
-      "status": "planned"
+      "status": "implemented",
+      "technicalValidation": "passed",
+      "evidence": [
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/quality-r4/contract.log",
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/live-current/stage-schema.json",
+        "reports/plan-20-de-20/etapa-1/implementation-current/completion/staging/migration-check-final.json"
+      ],
+      "sourceHash": "744f3f50db59c1cd9b7df806c008f53bf4e8ae23c17ed3bfb57bb2ce92bb3b93"
     },
     {
       "id": "E2-01",
@@ -146,7 +180,11 @@
         "src/verification/research-state.ts",
         "src/verification/store.ts"
       ],
-      "status": "planned"
+      "status": "in_progress",
+      "evidence": [
+        "reports/plan-20-de-20/etapa-2/ESTADO.md",
+        "reports/plan-20-de-20/etapa-2/context-audit.json"
+      ]
     },
     {
       "id": "E2-02",
@@ -170,7 +208,7 @@
         "src/verification/research.ts",
         "src/verification/excerpt.ts"
       ],
-      "status": "planned"
+      "status": "in_progress"
     },
     {
       "id": "E2-03",
@@ -195,7 +233,11 @@
         "src/verification/proof.ts",
         "src/verification/evaluate.ts"
       ],
-      "status": "planned"
+      "status": "in_progress",
+      "evidence": [
+        "reports/plan-20-de-20/etapa-2/ESTADO.md",
+        "reports/plan-20-de-20/etapa-2/context-audit.json"
+      ]
     },
     {
       "id": "E2-04",
@@ -242,7 +284,11 @@
         "src/verification/comparison-store.ts",
         "src/curation/ai/store.ts"
       ],
-      "status": "planned"
+      "status": "in_progress",
+      "evidence": [
+        "reports/plan-20-de-20/etapa-2/ESTADO.md",
+        "reports/plan-20-de-20/etapa-2/context-audit.json"
+      ]
     },
     {
       "id": "E3-01",
@@ -607,5 +653,6 @@
       ],
       "status": "planned"
     }
-  ]
+  ],
+  "updatedAt": "2026-10-12T04:05:53.203614+00:00"
 }

@@ -1,3 +1,4 @@
+import type { ResearchLedger } from "./research-ledger.js";
 import type { SourceProvenance } from "../evidence/provenance.js";
 
 export type VerificationKind = "person" | "artist" | "album";
@@ -28,6 +29,10 @@ export interface VerificationSnapshot {
 }
 export type VerificationStatus = "confirmed" | "partial" | "contradicted" | "missing" | "unverified";
 export interface VerificationEvidence extends SourceProvenance {
+  contentHash?:string;
+  requiresOriginalReview?:boolean;
+  captureId?:number;
+  locations?:import("./documents/types.js").DocumentLocation[];
   url: string; title: string; quote: string; origin: "page" | "search_snippet"; fetchedAt: string;
 }
 export interface VerificationFinding extends VerificationUnit {
@@ -35,8 +40,10 @@ export interface VerificationFinding extends VerificationUnit {
   coverage: number; evidence: VerificationEvidence[];
 }
 export interface VerificationReport {
+  researchVersionId?:number;
   /** Respaldo provisional guardado mientras se evalúan los lotes. */
   inProgress?: boolean;
+  research?: ResearchLedger | undefined;
   rulesVersion?: number;
   suggestions?: VerificationFinding[];
   evaluation?: { total: number; processed: number; pendingKeys: string[]; attempts: number; complete: boolean; sourceChunks?: { total: number; processed: number } };
@@ -44,14 +51,26 @@ export interface VerificationReport {
   createdAt: string; researched: boolean; stale: boolean; score: number | null;
   areas: Array<{ key: VerificationArea; label: string; points: number; maximum: number; confirmed: number; partial: number; missing: number; contradicted: number; unverified: number }>;
   findings: VerificationFinding[]; issues: string[]; limitations: string[];
-  sources: Array<SourceProvenance & { url: string; title: string; origin: "page" | "search_snippet"; fetchedAt: string; contentHash: string }>;
+  sources: Array<SourceProvenance & { url: string; title: string; origin: "page" | "search_snippet"; fetchedAt: string; contentHash: string;document?:Omit<import("./documents/types.js").DocumentMetadata,"locations"|"followLinks"> }>;
 }
 export interface VerificationJob {
+  researchVersionId?:number;
+  sourceReportId?:number;
+  resumeFromJobId?:number;
+  reportId?:number;
+  preservedOnly?:boolean;
   id: number; kind: VerificationKind; entityId: number;
-  status: "queued" | "running" | "done" | "failed";
+  status: "queued" | "running" | "done" | "failed" | "partial" | "paused" | "cancelled";
+  control?: "continue" | "paused" | "cancelled";
+  budget?: { maxCalls?:number | undefined; maxTokens?:number | undefined };
   error: string | null; requestedAt: string; finishedAt: string | null;
   progress?: VerificationProgress | null;
 }
+export interface VerificationVersion {
+  id:number;createdAt:string;requestedBy:string;sourceCount:number;
+  snapshotHash:string;complete:boolean;reprocessAvailable:boolean;unavailableReason:string|null;
+}
+export interface VerificationHistory {versions:VerificationVersion[];nextBeforeId:number|null;}
 export interface VerificationProgress {
   phase: "collecting" | "evaluating" | "saving" | "done";
   completed: number; total: number; sources: number;

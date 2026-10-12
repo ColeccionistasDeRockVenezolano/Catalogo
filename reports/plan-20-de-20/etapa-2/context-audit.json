@@ -1,0 +1,312 @@
+{
+  "createdAt": "2026-10-12T04:05:58.030Z",
+  "runId": "bc7de459-03b7-4f97-9342-83b0a8ade033",
+  "casesPath": "docs/ui-qa/auditoria-integral-2026-10-10/context-evidence.json",
+  "modelCalls": 0,
+  "results": [
+    {
+      "name": "Jeremías",
+      "id": 6912,
+      "selectedKey": null,
+      "reportCreatedAt": "2026-10-10T11:10:48.894Z",
+      "pending": 436,
+      "citations": 963,
+      "batches": 73,
+      "maxChars": 34000,
+      "maxBatchChars": 33999,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/6912-general.json",
+        "sha256": "c0c5a7a7c42300eefef3e245db7a2508d2cc22d869f570c0bea9bbd08b8f3f48"
+      },
+      "passes": true
+    },
+    {
+      "name": "Jeremías",
+      "id": 6912,
+      "selectedKey": "suggested.0",
+      "reportCreatedAt": "2026-10-10T11:10:48.894Z",
+      "pending": 1,
+      "citations": 2,
+      "batches": 1,
+      "maxChars": 34000,
+      "maxBatchChars": 25626,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/6912-suggested.0.json",
+        "sha256": "627973bc071caf214efb3137a29e7de0566bd2926d0367e47a080b332bba6953"
+      },
+      "passes": true
+    },
+    {
+      "name": "Jeremías",
+      "id": 6912,
+      "selectedKey": "suggested.215",
+      "reportCreatedAt": "2026-10-10T11:10:48.894Z",
+      "pending": 1,
+      "citations": 1,
+      "batches": 1,
+      "maxChars": 34000,
+      "maxBatchChars": 24603,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/6912-suggested.215.json",
+        "sha256": "944f8234f60691896b486ca002d6a3316f841e6d1232fda946de108baf340094"
+      },
+      "passes": true
+    },
+    {
+      "name": "Jeremías",
+      "id": 6912,
+      "selectedKey": "tracks.27694.empty",
+      "reportCreatedAt": "2026-10-10T11:10:48.894Z",
+      "pending": 1,
+      "citations": 0,
+      "batches": 1,
+      "maxChars": 34000,
+      "maxBatchChars": 24129,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/6912-tracks.27694.empty.json",
+        "sha256": "f39ada85d066b6b6a1ce9ec56edd1473e06c5df1faed7a2eaef2f20661d9e96d"
+      },
+      "passes": true
+    },
+    {
+      "name": "Apache",
+      "id": 1681,
+      "selectedKey": null,
+      "reportCreatedAt": "2026-10-10T01:52:42.846Z",
+      "pending": 103,
+      "citations": 68,
+      "batches": 7,
+      "maxChars": 34000,
+      "maxBatchChars": 33934,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/1681-general.json",
+        "sha256": "fac2a67a4e10bf9dfb2b3161d70255ab146bc91aac829d5aa1e63f504984da93"
+      },
+      "passes": true
+    },
+    {
+      "name": "Apache",
+      "id": 1681,
+      "selectedKey": "suggested.0",
+      "reportCreatedAt": "2026-10-10T01:52:42.846Z",
+      "pending": 1,
+      "citations": 12,
+      "batches": 2,
+      "maxChars": 34000,
+      "maxBatchChars": 26869,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/1681-suggested.0.json",
+        "sha256": "3b4abf3cc24b9821be76d1a50549c6993b3aeec5aed0af416364cf1592d14ad4"
+      },
+      "passes": true
+    },
+    {
+      "name": "Apache",
+      "id": 1681,
+      "selectedKey": "tracks.15425.empty",
+      "reportCreatedAt": "2026-10-10T01:52:42.846Z",
+      "pending": 1,
+      "citations": 12,
+      "batches": 2,
+      "maxChars": 34000,
+      "maxBatchChars": 26822,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/1681-tracks.15425.empty.json",
+        "sha256": "5d0054de9b3253223a1a4dacd01681df251ecb8b556d8c773f6046440b8267f6"
+      },
+      "passes": true
+    },
+    {
+      "name": "Apache",
+      "id": 1681,
+      "selectedKey": "tracks.15687.empty",
+      "reportCreatedAt": "2026-10-10T01:52:42.846Z",
+      "pending": 1,
+      "citations": 11,
+      "batches": 2,
+      "maxChars": 34000,
+      "maxBatchChars": 26799,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/1681-tracks.15687.empty.json",
+        "sha256": "ab9ef8f4c985a6d288dd118b06745c23ab351879cb6a9dcdc3a87f3308f03e63"
+      },
+      "passes": true
+    },
+    {
+      "name": "La Banana Voladora",
+      "id": 1212,
+      "selectedKey": null,
+      "reportCreatedAt": "2026-10-10T03:05:28.835Z",
+      "pending": 60,
+      "citations": 79,
+      "batches": 8,
+      "maxChars": 34000,
+      "maxBatchChars": 33927,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/1212-general.json",
+        "sha256": "5799e057757252ece30da5e392baea03c8a079ea8240148ad5a32b5a284e20bd"
+      },
+      "passes": true
+    },
+    {
+      "name": "La Banana Voladora",
+      "id": 1212,
+      "selectedKey": "suggested.0",
+      "reportCreatedAt": "2026-10-10T03:05:28.835Z",
+      "pending": 1,
+      "citations": 34,
+      "batches": 3,
+      "maxChars": 34000,
+      "maxBatchChars": 33875,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/1212-suggested.0.json",
+        "sha256": "ee4a116446cc6521ff2b4c3b857948a8a45112ddbcc61e60e6256e996693f177"
+      },
+      "passes": true
+    },
+    {
+      "name": "La Banana Voladora",
+      "id": 1212,
+      "selectedKey": "member.430.from",
+      "reportCreatedAt": "2026-10-10T03:05:28.835Z",
+      "pending": 1,
+      "citations": 33,
+      "batches": 3,
+      "maxChars": 34000,
+      "maxBatchChars": 33982,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/1212-member.430.from.json",
+        "sha256": "6afbcc1834f26dbf29494adee05f1d7049ed7e8034dfc9f1c8dac4fe7cdbc722"
+      },
+      "passes": true
+    },
+    {
+      "name": "La Banana Voladora",
+      "id": 1212,
+      "selectedKey": "status.ended",
+      "reportCreatedAt": "2026-10-10T03:05:28.835Z",
+      "pending": 1,
+      "citations": 34,
+      "batches": 3,
+      "maxChars": 34000,
+      "maxBatchChars": 33793,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/1212-status.ended.json",
+        "sha256": "e46301e6a4877a2d92c2c64868592238bbb45a9d216e197f815d0706c3a3ce5f"
+      },
+      "passes": true
+    },
+    {
+      "name": "Caramelos de Cianuro",
+      "id": 58,
+      "selectedKey": null,
+      "reportCreatedAt": "2026-10-08T03:01:04.259Z",
+      "pending": 228,
+      "citations": 212,
+      "batches": 16,
+      "maxChars": 34000,
+      "maxBatchChars": 33954,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/58-general.json",
+        "sha256": "0839a2e0a4a69fa82120ad061deb0f15fd53e85b1b503c2d43100214026806e4"
+      },
+      "passes": true
+    },
+    {
+      "name": "Caramelos de Cianuro",
+      "id": 58,
+      "selectedKey": "suggested.0",
+      "reportCreatedAt": "2026-10-08T03:01:04.259Z",
+      "pending": 1,
+      "citations": 115,
+      "batches": 4,
+      "maxChars": 34000,
+      "maxBatchChars": 33926,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/58-suggested.0.json",
+        "sha256": "3b4ad34aa62f5389d6c8388568440b348d2b6c2c2e7412552fa8d30816ae30a1"
+      },
+      "passes": true
+    },
+    {
+      "name": "Caramelos de Cianuro",
+      "id": 58,
+      "selectedKey": "member.505.from",
+      "reportCreatedAt": "2026-10-08T03:01:04.259Z",
+      "pending": 1,
+      "citations": 110,
+      "batches": 4,
+      "maxChars": 34000,
+      "maxBatchChars": 33977,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/58-member.505.from.json",
+        "sha256": "34fea8f195daf7cf13c8edee41abfcaf4ac379b1f8c2ead76b0995821df2932c"
+      },
+      "passes": true
+    },
+    {
+      "name": "Caramelos de Cianuro",
+      "id": 58,
+      "selectedKey": "album.14025.year",
+      "reportCreatedAt": "2026-10-08T03:01:04.259Z",
+      "pending": 1,
+      "citations": 109,
+      "batches": 6,
+      "maxChars": 34000,
+      "maxBatchChars": 33965,
+      "missingCitations": [],
+      "absentFindingKeys": [],
+      "oversizedTasks": [],
+      "preserved": {
+        "path": "reports/plan-20-de-20/etapa-2/preserved/bc7de459-03b7-4f97-9342-83b0a8ade033/58-album.14025.year.json",
+        "sha256": "25fd6c57ad495f0bfb0fd1fe329fc74a92573d6c3ca1d5307e39d4add5a7a958"
+      },
+      "passes": true
+    }
+  ]
+}

@@ -28,6 +28,7 @@ const steps = [
   ["unit", ["run", "test:unit"]], ["web-unit", ["run", "test:web"]],
   ["contract", ["run", "test:contract"]], ["backend-build", ["run", "build"]],
   ["web-build", ["--prefix", "web", "run", "build"]], ["browser", ["run", "test:browser"]],
+  ["research-browser", ["run", "test:browser:research"]],
 ];
 for (const [name, args] of steps) {
   const startedAt = new Date().toISOString();

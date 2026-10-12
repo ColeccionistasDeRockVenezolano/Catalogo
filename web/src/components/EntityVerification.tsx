@@ -1,8 +1,9 @@
 import { isDocumentarilyScored } from "../../../src/verification/types";
-import { useCallback, useEffect, useId, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { MagnifyingGlass, CaretDown, CaretUp, ArrowClockwise } from "@phosphor-icons/react";
 import { VerificationReportDetails } from "./VerificationReportDetails";
+import {VerificationHistory} from "./VerificationHistory";
 import { ScoreRing } from "./ScoreRing";
 import { useEntityToolDraft } from "../lib/entityToolDraft";
 import { EntityComparison } from "./EntityComparison";
@@ -12,6 +13,7 @@ import type { VerificationFinding, VerificationKind, VerificationReport, Verific
 
 const STATUS = {confirmed:"Comprobado",partial:"Respaldo parcial",contradicted:"Incoherencia",missing:"Falta en la ficha",unverified:"Sin verificar"};
 export function EntityVerification({kind,id,revision,onChanged}:{kind:VerificationKind;id:number;revision:unknown;onChanged?:()=>void}) {
+  const requestVersion=useRef(0);
   const [comparisonRefresh,setComparisonRefresh]=useState(0);
   const reloadVerification=useCallback(()=>setComparisonRefresh(v=>v+1),[]);
   const [report,setReport]=useState<VerificationReport|null>(null);
@@ -21,11 +23,15 @@ export function EntityVerification({kind,id,revision,onChanged}:{kind:Verificati
   const [job,setJob]=useState<VerificationJob|null>(null);
   const [jobId,setJobId]=useState<number|null>(null);
   const [busy,setBusy]=useState(false);
+  const [controlling,setControlling]=useState(false);
+  const [resumeCalls,setResumeCalls]=useState<string>("");
+  const [resumeTokens,setResumeTokens]=useState<string>("");
   const [loading,setLoading]=useState(true);
   const [error,setError]=useState<string|null>(null);
   const panelId=useId();const detailId=useId();
   useEffect(()=>{
-    let active=true;
+    let active=true;const version=++requestVersion.current;
+    setControlling(false);
     setLoading(true);setReport(null);setError(null);setJobId(null);setBusy(false);setJob(null);
     void Promise.all([entityVerificationApi.get(kind,id),entityVerificationApi.latest(kind,id)]).then(([saved,job])=>{
       if(!active)return;setReport(saved);setJob(job);
@@ -33,7 +39,7 @@ export function EntityVerification({kind,id,revision,onChanged}:{kind:Verificati
       setJobId(running?job.id:null);setBusy(running);
       if(job?.status==="failed")setError(job.error??"La investigación fue interrumpida. Vuelve a intentarlo.");
     }).catch((cause:unknown)=>{if(active)setError(cause instanceof Error?cause.message:String(cause));}).finally(()=>{if(active)setLoading(false);});
-    return()=>{active=false;};
+    return()=>{active=false;requestVersion.current=version+1;};
   },[kind,id,revision,comparisonRefresh]);
   useEffect(()=>{
     if(jobId===null)return;
@@ -58,9 +64,24 @@ export function EntityVerification({kind,id,revision,onChanged}:{kind:Verificati
     return()=>{active=false;window.clearInterval(timer);};
   },[jobId,kind,id]);
   async function investigate(){
+    const version=requestVersion.current;
     setBusy(true);setDraft({...draft,open:true});setError(null);
-    try{const job=await entityVerificationApi.start(kind,id);setJob(job);setJobId(job.id);}
-    catch(cause){setBusy(false);setError(cause instanceof Error?cause.message:String(cause));}
+    try{const job=await entityVerificationApi.start(kind,id);if(version!==requestVersion.current)return;setJob(job);setJobId(job.id);}
+    catch(cause){if(version===requestVersion.current){setBusy(false);setError(cause instanceof Error?cause.message:String(cause));}}
+  }
+  async function control(action:"pause"|"resume"|"cancel"){
+    if(!job||controlling)return;
+    const version=requestVersion.current;
+    setControlling(true);setError(null);
+    try{
+      const updated=await entityVerificationApi.control(job.id,action,action==="resume"?{...(resumeCalls?{maxCalls:Number(resumeCalls)}:{}),...(resumeTokens?{maxTokens:Number(resumeTokens)}:{})}:undefined);
+      if(version!==requestVersion.current)return;
+      setJob(updated);
+      const running=updated.status==="queued"||updated.status==="running";
+      setBusy(running);setJobId(running?updated.id:null);
+      if(!running){const saved=await entityVerificationApi.get(kind,id);if(version===requestVersion.current)setReport(saved);}
+    }catch(cause){if(version===requestVersion.current)setError(cause instanceof Error?cause.message:String(cause));}
+    finally{if(version===requestVersion.current)setControlling(false);}
   }
   const counts={confirmed:0,partial:0,contradicted:0,missing:0,unverified:0};
   for(const item of report?.findings??[])counts[item.status]++;
@@ -82,8 +103,24 @@ export function EntityVerification({kind,id,revision,onChanged}:{kind:Verificati
         <EntityComparison key={`${kind}:${id}`} source={{kind,id}} revision={revision} onUpdated={reloadVerification} />
       </div>
     </details>
+    <VerificationHistory key={`${kind}:${id}`} kind={kind} id={id} busy={busy} revision={report?.createdAt} onStarted={started=>{setJob(started);setJobId(started.id);setBusy(true);setDraft({...draft,open:true});setError(null);}}/>
     {error?<p role="alert">{error} Puedes volver a intentarlo.</p>:null}
     {busy&&job?<ResearchProgress job={job}/>:null}
+    {job&&busy?<div className="page-actions" aria-label="Controlar investigación">
+      <button type="button" className="btn btn--sm" disabled={controlling||job.control!=="continue"} onClick={()=>void control("pause")}>{job.control==="paused"?"Guardando pausa…":"Pausar investigación"}</button>
+      <button type="button" className="btn btn--sm" disabled={controlling||job.control!=="continue"} onClick={()=>void control("cancel")}>{job.control==="cancelled"?"Guardando cancelación…":"Cancelar investigación"}</button>
+    </div>:null}
+    {job&&!busy&&["paused","partial","failed"].includes(job.status)?<div>
+      <p role="status">{job.status==="paused"?"Investigación pausada.":job.status==="partial"?"La investigación tiene tareas pendientes.":"La investigación se interrumpió."} Los resultados y las citas se conservan.</p>
+      <div className="page-actions">
+        <label className="field">Límite total de llamadas al reanudar <input type="number" min="1" step="1" value={resumeCalls} placeholder={job.budget?.maxCalls?.toString()} onChange={event=>setResumeCalls(event.target.value)}/></label>
+        <label className="field">Límite total de tokens al reanudar <input type="number" min="1" step="1" value={resumeTokens} placeholder={job.budget?.maxTokens?.toString()} onChange={event=>setResumeTokens(event.target.value)}/></label>
+        <button type="button" className="btn" disabled={controlling||[resumeCalls,resumeTokens].some(value=>value!==""&&(!Number.isSafeInteger(Number(value))||Number(value)<=0))} onClick={()=>void control("resume")}>Reanudar investigación</button>
+        <button type="button" className="btn btn--sm" disabled={controlling} onClick={()=>void control("cancel")}>Cancelar pendientes</button>
+      </div>
+    </div>:null}
+    {job?.status==="cancelled"?<p role="status">Investigación cancelada. El informe conserva lo obtenido.</p>:null}
+    {report?.research?<ResearchLedgerDetails report={report}/>:null}
     {busy||error?<button type="button" className="btn btn--sm" onClick={reloadVerification}><ArrowClockwise size={14} aria-hidden="true"/>Actualizar estado</button>:null}
     <div id={panelId} hidden={!open}>
       {!report&&!error?<p role="status">Cargando los datos de la ficha…</p>:null}
@@ -115,4 +152,16 @@ function ResearchProgress({job}:{job:VerificationJob}) {
     {slow?<p>La consulta actual está tardando. El avance guardado se conserva; puedes actualizar el estado.</p>:null}
     <p>Puedes salir de la ficha. El avance y las evidencias se guardan para administradores.</p>
   </div>;
+}
+
+function ResearchLedgerDetails({report}:{report:VerificationReport}) {
+  const research=report.research;if(!research)return null;
+  const names={discovered:"Descubierta",obtained:"Obtenida; lectura pendiente",partially_read:"Leída parcialmente",completely_read:"Leída completamente",failed:"Falló la adquisición",inaccessible:"Inaccesible"};
+  const consumption=research.consumption;
+  return <details className="verification-tools research-ledger"><summary>Fuentes leídas, tareas y consumo</summary>
+    <p>{research.tasks.filter(task=>task.status==="completed").length} de {research.tasks.length} tareas terminadas · {consumption.calls} llamadas · {consumption.cachedCalls} reutilizadas · {consumption.tokensIn.toLocaleString("es-VE")} tokens de entrada · {consumption.tokensOut.toLocaleString("es-VE")} de salida.</p>
+    {consumption.unknownUsageCalls?<p>{consumption.unknownUsageCalls} llamadas sin consumo confirmado por el proveedor.</p>:null}
+    <ul>{research.sources.map(source=><li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.url}</a> · {names[source.status]} · {source.chunks.processed} de {source.chunks.total} fragmentos leídos{source.reason?` · ${source.reason}`:""}</li>)}</ul>
+    <ul>{research.tasks.filter(task=>task.status!=="completed").map(task=><li key={task.id}>{task.input} · {task.error??"Pendiente de procesar"}</li>)}</ul>
+  </details>;
 }

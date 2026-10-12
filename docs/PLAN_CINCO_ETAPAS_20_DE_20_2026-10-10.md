@@ -2,9 +2,9 @@
 
 Fecha: 10 de octubre de 2026. Punto de partida: [evaluación integral de 29 dimensiones](EVALUACION_INTEGRAL_SISTEMA_2026-10-10.md), 12/20 general y 8/20 en investigar y completar fichas.
 
-**Versión 2: contrato completo de planificación.** Las cinco etapas se ejecutan mediante 25 paquetes, con dependencias, responsables, estimaciones, presupuesto y aceptación individual de las 29 dimensiones. Leer el [contrato de ejecución y aceptación](PLAN_CINCO_ETAPAS_20_DE_20_EJECUCION_2026-10-10.md), el [backlog estructurado](plan-20-de-20/backlog.json) y la [matriz de aceptación](plan-20-de-20/acceptance.json) junto a este documento.
+**Versión 3: contrato de ejecución sin mínimo de participantes.** Las cinco etapas se ejecutan mediante 25 paquetes, con dependencias, responsables, estimaciones, presupuesto y aceptación individual de las 29 dimensiones. Leer el [contrato de ejecución y aceptación](PLAN_CINCO_ETAPAS_20_DE_20_EJECUCION_2026-10-10.md), el [backlog estructurado](plan-20-de-20/backlog.json) y la [matriz de aceptación](plan-20-de-20/acceptance.json) junto a este documento.
 
-Este documento prepara la ejecución; no declara implementadas las mejoras. El cierre se evalúa sobre la versión publicada y su funcionamiento con usuarios, fuentes, modelos y datos reales. Cada etapa entrega cambios utilizables, pruebas y evidencia de sus criterios de salida. Un bloqueo de una etapa se resuelve antes de declarar su cierre.
+Este documento define el alcance de las cinco etapas. El [estado de la etapa 1](../reports/plan-20-de-20/etapa-1/ESTADO.md) registra su implementación y evidencia. El cierre global se evalúa sobre la versión publicada y su funcionamiento con usuarios, fuentes, modelos y datos reales. Cada etapa entrega cambios utilizables, pruebas y evidencia de sus criterios de salida. Un bloqueo de una etapa se resuelve antes de declarar su cierre.
 
 | Etapa | Paquetes | Esfuerzo base estimado | Entrega |
 |---|---|---:|---|
@@ -14,7 +14,7 @@ Este documento prepara la ejecución; no declara implementadas las mejoras. El c
 | 4 | E4-01 a E4-05 | 11–20 jornadas | Recorrido claro validado con usuarios |
 | 5 | E5-01 a E5-05 | 13–23 jornadas | Operación, aceptación y uso sostenido |
 
-Una jornada equivale a seis horas; son estimaciones iniciales de esfuerzo humano equivalente, no una promesa de duración. Total base: 64–112 jornadas; con reserva del 30 %: 84–146. E1-01/E1-02 recalibran el trabajo pendiente. El contrato fija recursos, presupuesto propuesto de IA, corpus reservado, protocolo de usuarios, riesgos, reversión y evidencia de cierre. Ninguno de los resultados está marcado como logrado.
+Una jornada equivale a seis horas; son estimaciones iniciales de esfuerzo humano equivalente, no una promesa de duración. Total base: 64–112 jornadas; con reserva del 30 %: 84–146. E1-01/E1-02 recalibran el trabajo pendiente. El contrato fija recursos, presupuesto propuesto de IA, corpus reservado, protocolo de usuarios, riesgos, reversión y evidencia de cierre. Los resultados se acreditan por paquete con sus pruebas y límites.
 
 ## Qué significará 20/20
 
@@ -34,7 +34,7 @@ Los umbrales de este plan son requisitos de aceptación, no resultados ya medido
 
 ### Trabajo
 
-1. Congelar una línea base reproducible: versión de código y bundle, migraciones, dataset de pruebas, conteos, inventario de funcionalidades y los defectos de la auditoría. Medir también el recorrido actual con usuarios para comparar la mejora posterior.
+1. Congelar una línea base reproducible: versión de código y bundle, migraciones, dataset de pruebas, conteos, inventario de funcionalidades y los defectos de la auditoría. Preparar el [guion del propietario](plan-20-de-20/recorrido-propietario.md) para comparar el recorrido posterior; no hay muestra mínima de participantes ni se inventan sesiones.
 2. Resolver los fallos de pruebas y los 27 errores de lint observados. Reconciliar expectativas de búsqueda, taxonomía y migraciones con una política explícita. Las pruebas deben comprobar resultados y conservación de datos; no se relajarán únicamente para volver a verde.
 3. Reparar índices faltantes, identidades externas y redirecciones. Reconciliar las filas sin auditoría, auditorías sin claim y cambios sin run. Cuando una procedencia histórica sea irrecuperable, registrar esa limitación y el estado actual mediante una operación de mantenimiento auditable; no fabricar la fuente original.
 4. Definir y migrar un modelo compatible para precisión de nacimiento/fallecimiento y períodos, identidad musical/persona, obra/edición/soporte, géneros por ámbito y sello por edición. Preservar contratos existentes y usar capas auxiliares cuando permita evitar cambios innecesarios en el core. Validar migración, reversión y conservación de valores previos.
@@ -61,6 +61,8 @@ Los umbrales de este plan son requisitos de aceptación, no resultados ya medido
 ## Etapa 2. Investigación completa, recuperable y reutilizable
 
 **Resultado:** toda información pertinente encontrada queda cruzada con el catálogo y disponible para alimentar fichas y relaciones.
+
+Estado de implementación y comprobaciones: [expediente de la etapa 2](../reports/plan-20-de-20/etapa-2/ESTADO.md). La etapa permanece en ejecución; el expediente distingue capacidades conectadas y criterios aún pendientes.
 
 ### Trabajo
 

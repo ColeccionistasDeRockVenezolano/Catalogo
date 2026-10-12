@@ -1,3 +1,4 @@
+import {entityVerificationApi} from "../lib/api";
 import { sourceDates } from "../lib/sourceDates";
 import { useId, useRef, useState } from "react";
 import type { ReactNode } from "react";
@@ -7,6 +8,7 @@ import type { VerificationFinding, VerificationReport } from "../../../src/verif
 import { findingInstruction } from "../../../src/verification/curation";
 
 export const VERIFICATION_STATUS = {confirmed:"Comprobado",partial:"Respaldo parcial",contradicted:"Incoherencia",missing:"Falta en la ficha",unverified:"Sin verificar"};
+const FORMATS={html:"Página HTML",rendered_html:"Página renderizada",json:"Datos estructurados",text:"Documento de texto",pdf:"PDF",image:"Imagen / OCR"};
 const number = new Intl.NumberFormat("es-VE",{maximumFractionDigits:1});
 const fold = (value:string)=>value.normalize("NFD").replace(/\p{M}/gu,"").toLowerCase();
 const PAGE_SIZE=20;
@@ -40,7 +42,7 @@ export function VerificationReportDetails({report,status="all",onStatusChange}:{
     {report.suggestions?.length?<Disclosure label={<><strong>Propuestas por revisar</strong><span>{report.suggestions.length} hallazgos</span></>}><p>Estos hallazgos no reducen el puntaje. La IA puede preparar cada corrección para que la aceptes o rechaces.</p><PagedList items={report.suggestions} name="propuestas" render={item=><Finding item={item} suggestion report={report}/>}/></Disclosure>:null}
     <Disclosure label={<><strong>Fuentes de la investigación</strong><span>{report.sources.length} referencias · {cited.size} citadas</span></>}>
       <p>{report.sources.filter(s=>s.origin==="page").length} páginas legibles · {report.sources.filter(s=>s.origin==="search_snippet").length} resúmenes del buscador. Varias páginas pueden compartir procedencia.</p>
-      <PagedList items={report.sources} name="fuentes" render={source=><div className="verification-browser__source"><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title||source.url}</a><small>{source.origin==="page"?"Página leída":"Resumen del buscador"} · {sourceDates(source)}{cited.has(source.url)?" · Citada en el informe":""}</small></div>}/>
+      <PagedList items={report.sources} name="fuentes" render={source=><div className="verification-browser__source"><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title||source.url}</a><small>{source.origin==="page"?"Página leída":"Resumen del buscador"} · {sourceDates(source)}{cited.has(source.url)?" · Citada en el informe":""}</small>{source.document?<><a href={entityVerificationApi.originalUrl(source.document.captureId)}>Descargar original</a><small>{source.document.complete?"Lectura del documento terminada":"Lectura parcial"} · {FORMATS[source.document.format]}</small>{source.document.unreadParts.length?<p>Pendiente: {source.document.unreadParts.join(" · ")}</p>:null}</>:null}</div>}/>
     </Disclosure>
     <Disclosure label={<><strong>Cómo se calcula y qué quedó pendiente</strong><span>{report.evaluation?.pendingKeys.length??0} datos pendientes</span></>}>
       {report.evaluation?<p>{report.evaluation.processed} de {report.evaluation.total} datos procesados. {report.evaluation.complete?"Evaluación terminada.":"El informe es parcial. Volver a verificar retoma los datos pendientes."}</p>:null}
@@ -66,7 +68,7 @@ function Finding({item,suggestion=false,pending=false,report}:{item:Verification
   const instruction = findingInstruction(item);
   return <details className="verification-browser__finding" data-status={item.status}><summary><strong>{item.label}</strong><span className="verification-browser__value">{suggestion?item.observed:item.value??"No registrado"}</span><small>{suggestion?"Propuesta":pending?"Pendiente de evaluación":VERIFICATION_STATUS[item.status]}{suggestion||pending?"":isDocumentarilyScored(item)?` · ${number.format(item.coverage*100)} %`:" · Fuera del puntaje"}</small></summary><div className="verification-browser__content">
     <dl><div><dt>Dato en la ficha</dt><dd>{item.value??"No registrado"}</dd></div>{item.observed?<div><dt>{suggestion?"Propuesta encontrada":"Dato respaldado o en discrepancia"}</dt><dd>{item.observed}</dd></div>:null}</dl><p>{item.explanation}</p>{item.context.length?<p className="entity-verification__muted">Contexto: {item.context.join(" · ")}</p>:null}
-    {item.evidence.length?<ul className="entity-verification__evidence">{item.evidence.map((e,i)=><li key={`${e.url}:${i}`}><blockquote>«{e.quote}»</blockquote><a href={e.url} target="_blank" rel="noopener noreferrer">{e.title||e.url}</a><small>{e.origin==="page"?"Página leída":"Resumen del buscador"}</small></li>)}</ul>:<p className="entity-verification__muted">Sin cita documental suficiente para este dato.</p>}
+    {item.evidence.length?<ul className="entity-verification__evidence">{item.evidence.map((e,i)=><li key={`${e.url}:${i}`}><blockquote>«{e.quote}»</blockquote><a href={e.url} target="_blank" rel="noopener noreferrer">{e.title||e.url}</a><small>{e.origin==="page"?"Página leída":"Resumen del buscador"}</small>{e.captureId?<a href={entityVerificationApi.originalUrl(e.captureId)}>Descargar original de la cita{e.locations?.some(location=>location.page)?` · páginas ${[...new Set(e.locations.flatMap(location=>location.page?[location.page]:[]))].join(", ")}`:""}</a>:null}{e.requiresOriginalReview?<small>Texto obtenido mediante OCR; comprueba la lectura en el original.</small>:null}</li>)}</ul>:<p className="entity-verification__muted">Sin cita documental suficiente para este dato.</p>}
     {suggestion || item.status === "missing" || item.status === "contradicted" ? <Link className="btn btn--sm" to={`/curaduria/ia?kind=${report.kind}&id=${report.entityId}&prepare=1&instruction=${encodeURIComponent(instruction)}`}>{item.observed ? "Proponer este cambio con IA" : "Investigar y proponer con IA"}</Link> : null}
   </div></details>;
 }
