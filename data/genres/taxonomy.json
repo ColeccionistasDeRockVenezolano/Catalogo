@@ -169,6 +169,7 @@
       "slug": "urbano-latino",
       "name": "Urbano latino",
       "aliases": [
+        "urbana",
         "urbano",
         "urban pop",
         "latin urban",
@@ -1461,6 +1462,7 @@
       "name": "Música tropical",
       "family": "fusion-latina",
       "aliases": [
+        "fusion tropical",
         "tropical",
         "tropical music",
         "indie tropical",
@@ -1886,6 +1888,7 @@
       "name": "Música tradicional",
       "family": "folk",
       "aliases": [
+        "tradicional venezolana",
         "traditional",
         "folklore",
         "folclore",
@@ -2352,6 +2355,7 @@
       "ua latino"
     ],
     "descriptor": [
+      "alternativa",
       "Aggro",
       "Porn",
       "Gore",

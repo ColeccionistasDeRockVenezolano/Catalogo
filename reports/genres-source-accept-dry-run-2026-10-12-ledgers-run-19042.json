@@ -1,0 +1,1122 @@
+{
+  "mode": "dry-run",
+  "runId": 19042,
+  "candidates": 111,
+  "accepted": [
+    {
+      "caseId": "album:27935",
+      "title": "Mi Control",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27937",
+      "title": "Tiempo Pacifico Remix Pedro Cinema",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27938",
+      "title": "Se Como Duele",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27939",
+      "title": "Juan Camaccho",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27940",
+      "title": "Julieta Fabi Ram Remix",
+      "source": "aqustico",
+      "raw": [
+        "House"
+      ],
+      "primary": "house",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27942",
+      "title": "La Cumbia Rumbera",
+      "source": "aqustico",
+      "raw": [
+        "House"
+      ],
+      "primary": "house",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27944",
+      "title": "La Ola",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27945",
+      "title": "Mano Muerta",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27946",
+      "title": "Bicicleta Intergalactica",
+      "source": "aqustico",
+      "raw": [
+        "Ska"
+      ],
+      "primary": "ska",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27947",
+      "title": "Sensation",
+      "source": "aqustico",
+      "raw": [
+        "Ska"
+      ],
+      "primary": "ska",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27948",
+      "title": "Los Marcianos",
+      "source": "aqustico",
+      "raw": [
+        "Ska"
+      ],
+      "primary": "ska",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27949",
+      "title": "Zumba",
+      "source": "aqustico",
+      "raw": [
+        "Baladas"
+      ],
+      "primary": "balada",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27950",
+      "title": "Pequeña Traviesa",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27951",
+      "title": "Mi Pasión eres Tu (Versión Salsa)",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27952",
+      "title": "Gloria Al Padre Gloria Al Hijo",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27953",
+      "title": "Milagros en Numeros",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27954",
+      "title": "Jesus Trae Esperanza",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27957",
+      "title": "Perdiendo Altura",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27958",
+      "title": "La Unica",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27959",
+      "title": "Tributo a Aditus",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27960",
+      "title": "CON DIOS TODO",
+      "source": "aqustico",
+      "raw": [
+        "Cristiana"
+      ],
+      "primary": "musica-cristiana",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27961",
+      "title": "Gozo",
+      "source": "aqustico",
+      "raw": [
+        "Cristiana"
+      ],
+      "primary": "musica-cristiana",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27964",
+      "title": "La Trampa",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27965",
+      "title": "Five Steps From  You",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27966",
+      "title": "Pasaje No.1",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27967",
+      "title": "Legacy",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27968",
+      "title": "Cruzando El Cielo",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27969",
+      "title": "Creer para crear",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27971",
+      "title": "Venezuelan Gyal",
+      "source": "aqustico",
+      "raw": [
+        "Reggae"
+      ],
+      "primary": "reggae",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27972",
+      "title": "Sinsemilla Professional",
+      "source": "aqustico",
+      "raw": [
+        "Reggae"
+      ],
+      "primary": "reggae",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27974",
+      "title": "Arriba el Animo",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27975",
+      "title": "Postales de Caracas",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27976",
+      "title": "Fighting the Illness",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27979",
+      "title": "Los que se quedan, los que se van",
+      "source": "aqustico",
+      "raw": [
+        "Ska"
+      ],
+      "primary": "ska",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27980",
+      "title": "Los Caracas",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27981",
+      "title": "Grillo",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27982",
+      "title": "Merlina",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27984",
+      "title": "Unidos por el Planeta",
+      "source": "aqustico",
+      "raw": [
+        "Jazz"
+      ],
+      "primary": "jazz",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27986",
+      "title": "Alma de Luz",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27987",
+      "title": "Una Razon",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27988",
+      "title": "Cancion V",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27989",
+      "title": "Poemas de Nuestro Bar",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27991",
+      "title": "Vives Solo Un Rato",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27992",
+      "title": "Miradas Magicas",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27993",
+      "title": "No Quiero Renunciar",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28044",
+      "title": "Pinta Bonito",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28063",
+      "title": "Multiverso",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28064",
+      "title": "Amor Ingles",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28066",
+      "title": "Antes De Caer",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28067",
+      "title": "El Ruido",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28068",
+      "title": "Tu Aprendiz",
+      "source": "aqustico",
+      "raw": [
+        "Bolero"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28069",
+      "title": "Te Pintaré",
+      "source": "aqustico",
+      "raw": [
+        "Bolero"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28070",
+      "title": "Una Ciudad En El Bolsillo",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28071",
+      "title": "Nunca Fuimos",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28072",
+      "title": "Tan Cerca",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28073",
+      "title": "Mi Mejor Amigo",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28074",
+      "title": "Dime Como Hago",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28075",
+      "title": "Historia De Un Amor",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28076",
+      "title": "No Estas",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28077",
+      "title": "Mariposas",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28078",
+      "title": "Corazon",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28079",
+      "title": "Aqui Todo Esta Bien",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28080",
+      "title": "Cuando Cuando",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28081",
+      "title": "La Casa de Nuestros Sueños",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28082",
+      "title": "Enamorate De Ti",
+      "source": "aqustico",
+      "raw": [
+        "Boleros"
+      ],
+      "primary": "bolero",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28084",
+      "title": "No Somos Iguales",
+      "source": "aqustico",
+      "raw": [
+        "Pop Latino"
+      ],
+      "primary": "pop-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28086",
+      "title": "Mi Reina",
+      "source": "aqustico",
+      "raw": [
+        "Pop Latino"
+      ],
+      "primary": "pop-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28087",
+      "title": "Bailar Contigo",
+      "source": "aqustico",
+      "raw": [
+        "Pop Latino"
+      ],
+      "primary": "pop-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28088",
+      "title": "Se Presta",
+      "source": "aqustico",
+      "raw": [
+        "Pop Latino"
+      ],
+      "primary": "pop-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28089",
+      "title": "Pelikulon",
+      "source": "aqustico",
+      "raw": [
+        "Pop Latino"
+      ],
+      "primary": "pop-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28097",
+      "title": "Las Sombras",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28098",
+      "title": "No Te Reconoci",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28099",
+      "title": "Nunca Fue",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28102",
+      "title": "Lo Que Tu Quieras",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28103",
+      "title": "Decreto",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28105",
+      "title": "Rekeme",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop/Rap"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28106",
+      "title": "Los Mate",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop/Rap"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28107",
+      "title": "Vietnam",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop/Rap"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28108",
+      "title": "Oye Muchacho",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop/Rap"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28109",
+      "title": "Og",
+      "source": "aqustico",
+      "raw": [
+        "Rap"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28110",
+      "title": "Cronica de una Muerte",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop/Rap"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28111",
+      "title": "El Rey del Down Town",
+      "source": "aqustico",
+      "raw": [
+        "Gangsta rap"
+      ],
+      "primary": "gangsta-rap",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28112",
+      "title": "Dosis",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop/Rap"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28113",
+      "title": "Ronawei",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop/Rap"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28114",
+      "title": "Calla",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop/Rap"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28116",
+      "title": "La Lengua de los Beatz y lo Oculto de los Versos",
+      "source": "aqustico",
+      "raw": [
+        "Hip Hop/Rap"
+      ],
+      "primary": "hip-hop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28118",
+      "title": "Sara y Lila",
+      "source": "aqustico",
+      "raw": [
+        "Pop"
+      ],
+      "primary": "pop",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28123",
+      "title": "HERRAMIENTA",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28124",
+      "title": "LUCES",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28125",
+      "title": "Perro Negro",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28126",
+      "title": "FURIA",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28127",
+      "title": "LUNA",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28128",
+      "title": "Luna Roja",
+      "source": "aqustico",
+      "raw": [
+        "Rock"
+      ],
+      "primary": "rock",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28130",
+      "title": "Lodo",
+      "source": "aqustico",
+      "raw": [
+        "Rock Alternativo"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    }
+  ],
+  "alreadyClassified": [],
+  "unresolved": [
+    {
+      "caseId": "album:27962",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:27963",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:27973",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:27977",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:28055",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "fragments": [
+        "Fusion Tropical"
+      ]
+    },
+    {
+      "caseId": "album:28056",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "fragments": [
+        "Fusion Tropical"
+      ]
+    },
+    {
+      "caseId": "album:28057",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "fragments": [
+        "Fusion Tropical"
+      ]
+    },
+    {
+      "caseId": "album:28058",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:28060",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:28061",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:28090",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:28091",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:28092",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:28093",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:28094",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:28095",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    },
+    {
+      "caseId": "album:28096",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "fragments": [
+        "Urbana"
+      ]
+    }
+  ],
+  "errors": [],
+  "moreSpecificExists": []
+}

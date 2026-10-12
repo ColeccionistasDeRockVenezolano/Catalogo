@@ -1,0 +1,1051 @@
+{
+  "mode": "dry-run",
+  "runId": 19060,
+  "candidates": 295,
+  "accepted": [
+    {
+      "caseId": "album:14834",
+      "title": "Lilia Vera — Lilia Vera, vol. 3",
+      "source": "aqustico",
+      "raw": [
+        "Tradicional Venezolana"
+      ],
+      "primary": "musica-tradicional",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:8794",
+      "title": "Lilia Vera — De Colección",
+      "source": "aqustico",
+      "raw": [
+        "Tradicional Venezolana"
+      ],
+      "primary": "musica-tradicional",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14691",
+      "title": "Francisco Montoya — El Moderno Florentino",
+      "source": "aqustico",
+      "raw": [
+        "Tradicional Venezolana"
+      ],
+      "primary": "musica-tradicional",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:23996",
+      "title": "Caibo — Poesía criolla",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:23365",
+      "title": "La Melodia Perfecta — Sobrenatural",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:13055",
+      "title": "Guaco — Cinco Rosas",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:13042",
+      "title": "Guaco — Sin Peligro de Extinción",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:13035",
+      "title": "Guaco — El sonido de siempre, las voces de hoy",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:13037",
+      "title": "Guaco — Bidimensional",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:13038",
+      "title": "Guaco — Presente continuo",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:13036",
+      "title": "Guaco — El Sonido De Siempre, Las Voces De Hoy II",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14235",
+      "title": "Motherflowers — El Amor Se Fue de Repente",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14239",
+      "title": "Motherflowers — Porrito y a Dormir",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14257",
+      "title": "Motherflowers — Bájale",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14252",
+      "title": "Motherflowers — La Sala",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14237",
+      "title": "Motherflowers — BEiBi",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14265",
+      "title": "Motherflowers — Morrogaita",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14240",
+      "title": "Motherflowers — Como Blanco",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14259",
+      "title": "Motherflowers — Cautiverio",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14249",
+      "title": "Motherflowers — Macundales",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14261",
+      "title": "Motherflowers — Veracruz",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14251",
+      "title": "Motherflowers — Rock II (Murallas)",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14254",
+      "title": "Motherflowers — Thalia, La Maldita",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14243",
+      "title": "Motherflowers — 33 de Mayo",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14248",
+      "title": "Motherflowers — Rock III (NO KIERO SALIR)",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14241",
+      "title": "Motherflowers — Qué Quieres Tu de Mi?",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14220",
+      "title": "Motherflowers — Quién Lo Diría?",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14263",
+      "title": "Motherflowers — Pásame a Busca",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14247",
+      "title": "Motherflowers — Flixi Flaxi",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14246",
+      "title": "Motherflowers — Clamato",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14260",
+      "title": "Motherflowers — Super Taxi",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14244",
+      "title": "Motherflowers — Xampú",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14250",
+      "title": "Motherflowers — Awakate",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14262",
+      "title": "Motherflowers — 5 AM",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14245",
+      "title": "Motherflowers — Carey",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14228",
+      "title": "Motherflowers — Turromantik",
+      "source": "aqustico",
+      "raw": [
+        "Del Mundo"
+      ],
+      "primary": "world-ethnic",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14255",
+      "title": "Motherflowers — Jamming",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14231",
+      "title": "Motherflowers — YMW",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14195",
+      "title": "Irepelusa — REPAVE (Cumbión Loco)",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14198",
+      "title": "Irepelusa — Nervios de Acero",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14192",
+      "title": "Irepelusa — CARIÑO",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14196",
+      "title": "Irepelusa — Los Domingos La Paso Solita",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14194",
+      "title": "Irepelusa — Losken Roland",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14209",
+      "title": "Irepelusa — Semilla",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14201",
+      "title": "Irepelusa — Curarte",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:23724",
+      "title": "Irepelusa — Juguito de mañana",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14208",
+      "title": "Irepelusa — Tan Poco",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14191",
+      "title": "Irepelusa — Rayos, Besos, Fallos",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14206",
+      "title": "Irepelusa — BUBBLE",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14199",
+      "title": "Irepelusa — Girasoles",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14213",
+      "title": "Irepelusa — Spaceman",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14202",
+      "title": "Irepelusa — Se metieron en mi casa",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14200",
+      "title": "Irepelusa — Todo Se Mantiene en Su Lugar",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14210",
+      "title": "Irepelusa — La Fuga",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14204",
+      "title": "Irepelusa — Parapente",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14215",
+      "title": "Irepelusa — Pasitos",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14211",
+      "title": "Irepelusa — Aguacero",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27239",
+      "title": "Irepelusa — Carledos",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14207",
+      "title": "Irepelusa — Negro",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14205",
+      "title": "Irepelusa — Fango",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:14197",
+      "title": "Irepelusa — XQ TAN DIFERENTE? (≠)",
+      "source": "aqustico",
+      "raw": [
+        "Alternativa"
+      ],
+      "primary": "rock-alternativo",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:24127",
+      "title": "Jambene — She's on Fire",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:21759",
+      "title": "Jambene — Serendipia",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:24128",
+      "title": "Jambene — Estrella",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27962",
+      "title": "La Ultima Noche",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27963",
+      "title": "El Favorito",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27973",
+      "title": "Booty Level",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:27977",
+      "title": "Camara Lenta",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28055",
+      "title": "Bonita Coincidencia",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28056",
+      "title": "Yo Que Muero de Soledad",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28057",
+      "title": "Coleto",
+      "source": "aqustico",
+      "raw": [
+        "Fusion Tropical"
+      ],
+      "primary": "musica-tropical",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28058",
+      "title": "Le Gustan Todos",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28060",
+      "title": "5 am",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28061",
+      "title": "Orsai",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28090",
+      "title": "Dos Pasos",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28091",
+      "title": "TEXT ME",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28092",
+      "title": "PASTEL",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28093",
+      "title": "ORIGAMI",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28094",
+      "title": "BESTIE",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28095",
+      "title": "Snoopy Druki",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    },
+    {
+      "caseId": "album:28096",
+      "title": "Jeva Like Me",
+      "source": "aqustico",
+      "raw": [
+        "Urbana"
+      ],
+      "primary": "urbano-latino",
+      "secondaries": []
+    }
+  ],
+  "alreadyClassified": [
+    "album:2212",
+    "album:15444",
+    "album:26540",
+    "album:13260",
+    "album:14739",
+    "album:14734",
+    "album:14740",
+    "album:14743",
+    "album:14735",
+    "album:14730",
+    "album:14742",
+    "album:14733",
+    "album:13925",
+    "album:14266",
+    "album:13966",
+    "album:13967",
+    "album:15529",
+    "album:23364",
+    "album:15618",
+    "album:15627",
+    "album:15619",
+    "album:15560",
+    "album:22678",
+    "album:5591",
+    "album:24085",
+    "album:14227",
+    "album:14229",
+    "album:14226",
+    "album:14230",
+    "album:22005",
+    "album:15504",
+    "album:15502",
+    "album:15506",
+    "album:15507",
+    "album:27182",
+    "album:27183",
+    "album:26254",
+    "album:26256",
+    "album:26253",
+    "album:26248",
+    "album:26246",
+    "album:26258",
+    "album:26247",
+    "album:22912",
+    "album:13693",
+    "album:13697",
+    "album:13691",
+    "album:13707",
+    "album:13700",
+    "album:13702",
+    "album:13692",
+    "album:13699",
+    "album:13705",
+    "album:13701",
+    "album:13706",
+    "album:13904",
+    "album:13906",
+    "album:13910",
+    "album:13888",
+    "album:13898",
+    "album:13897",
+    "album:13896",
+    "album:13895",
+    "album:13894",
+    "album:13893",
+    "album:13892",
+    "album:13891",
+    "album:13890",
+    "album:13889",
+    "album:13905",
+    "album:13899",
+    "album:13903",
+    "album:13902",
+    "album:13901",
+    "album:13900",
+    "album:13907",
+    "album:13909",
+    "album:13773",
+    "album:13772",
+    "album:13760",
+    "album:13761",
+    "album:13789",
+    "album:13757",
+    "album:13771",
+    "album:13787",
+    "album:13780",
+    "album:13786",
+    "album:13785",
+    "album:13784",
+    "album:13783",
+    "album:13782",
+    "album:13781",
+    "album:13770",
+    "album:13759",
+    "album:13769",
+    "album:13756",
+    "album:13779",
+    "album:13778",
+    "album:13755",
+    "album:13777",
+    "album:13766",
+    "album:13763",
+    "album:13768",
+    "album:13776",
+    "album:13775",
+    "album:13767",
+    "album:26198",
+    "album:26199",
+    "album:26201",
+    "album:26200",
+    "album:23030",
+    "album:5483",
+    "album:5484",
+    "album:5485",
+    "album:21905",
+    "album:21906",
+    "album:21907",
+    "album:21908",
+    "album:27935",
+    "album:27937",
+    "album:27938",
+    "album:27939",
+    "album:27940",
+    "album:27942",
+    "album:27944",
+    "album:27945",
+    "album:27946",
+    "album:27947",
+    "album:27948",
+    "album:27949",
+    "album:27950",
+    "album:27951",
+    "album:27952",
+    "album:27953",
+    "album:27954",
+    "album:27957",
+    "album:27958",
+    "album:27959",
+    "album:27960",
+    "album:27961",
+    "album:27964",
+    "album:27965",
+    "album:27966",
+    "album:27967",
+    "album:27968",
+    "album:27969",
+    "album:27971",
+    "album:27972",
+    "album:27974",
+    "album:27975",
+    "album:27976",
+    "album:27979",
+    "album:27980",
+    "album:27981",
+    "album:27982",
+    "album:27984",
+    "album:27986",
+    "album:27987",
+    "album:27988",
+    "album:27989",
+    "album:27991",
+    "album:27992",
+    "album:27993",
+    "album:28044",
+    "album:28063",
+    "album:28064",
+    "album:28066",
+    "album:28067",
+    "album:28068",
+    "album:28069",
+    "album:28070",
+    "album:28071",
+    "album:28072",
+    "album:28073",
+    "album:28074",
+    "album:28075",
+    "album:28076",
+    "album:28077",
+    "album:28078",
+    "album:28079",
+    "album:28080",
+    "album:28081",
+    "album:28082",
+    "album:28084",
+    "album:28086",
+    "album:28087",
+    "album:28088",
+    "album:28089",
+    "album:28097",
+    "album:28098",
+    "album:28099",
+    "album:28102",
+    "album:28103",
+    "album:28105",
+    "album:28106",
+    "album:28107",
+    "album:28108",
+    "album:28109",
+    "album:28110",
+    "album:28111",
+    "album:28112",
+    "album:28113",
+    "album:28114",
+    "album:28116",
+    "album:28118",
+    "album:28123",
+    "album:28124",
+    "album:28125",
+    "album:28126",
+    "album:28127",
+    "album:28128",
+    "album:28130"
+  ],
+  "unresolved": [
+    {
+      "caseId": "album:13040",
+      "source": "aqustico",
+      "raw": [
+        "Fusion"
+      ],
+      "fragments": []
+    },
+    {
+      "caseId": "album:22281",
+      "source": "aqustico",
+      "raw": [
+        "Fusion"
+      ],
+      "fragments": []
+    }
+  ],
+  "errors": [],
+  "moreSpecificExists": []
+}

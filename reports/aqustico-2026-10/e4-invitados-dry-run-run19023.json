@@ -1,0 +1,603 @@
+{
+ "mode": "dry-run",
+ "runId": 19023,
+ "candidatos": 110,
+ "acreditables": 20,
+ "creados": 20,
+ "yaEstaban": 0,
+ "errores": [],
+ "results": [
+  {
+   "trackId": 3485,
+   "target": "p37076",
+   "name": "Binomio de Oro",
+   "created": true,
+   "id": 71110
+  },
+  {
+   "trackId": 18702,
+   "target": "a1238",
+   "name": "OneChot",
+   "created": true,
+   "id": 71111
+  },
+  {
+   "trackId": 34023,
+   "target": "p16933",
+   "name": "Rekeson",
+   "created": true,
+   "id": 71112
+  },
+  {
+   "trackId": 139336,
+   "target": "p3717",
+   "name": "Valentino Thompson",
+   "created": true,
+   "id": 71113
+  },
+  {
+   "trackId": 139355,
+   "target": "p3717",
+   "name": "Valentino Thompson",
+   "created": true,
+   "id": 71114
+  },
+  {
+   "trackId": 139347,
+   "target": "a3440",
+   "name": "Alfredo Naranjo",
+   "created": true,
+   "id": 71115
+  },
+  {
+   "trackId": 139343,
+   "target": "a5917",
+   "name": "NK Profeta",
+   "created": true,
+   "id": 71116
+  },
+  {
+   "trackId": 32696,
+   "target": "p8405",
+   "name": "Ricardo Montaner",
+   "created": true,
+   "id": 71117
+  },
+  {
+   "trackId": 136864,
+   "target": "a3709",
+   "name": "Guaco",
+   "created": true,
+   "id": 71118
+  },
+  {
+   "trackId": 189285,
+   "target": "a5",
+   "name": "Pedro Castillo",
+   "created": true,
+   "id": 71119
+  },
+  {
+   "trackId": 189286,
+   "target": "a1109",
+   "name": "Guillermo Carrasco",
+   "created": true,
+   "id": 71120
+  },
+  {
+   "trackId": 189282,
+   "target": "a3529",
+   "name": "Linda Briceño",
+   "created": true,
+   "id": 71121
+  },
+  {
+   "trackId": 187144,
+   "target": "a2014",
+   "name": "Servando y Florentino",
+   "created": true,
+   "id": 71122
+  },
+  {
+   "trackId": 187105,
+   "target": "a2014",
+   "name": "Servando y Florentino",
+   "created": true,
+   "id": 71123
+  },
+  {
+   "trackId": 49894,
+   "target": "p1639",
+   "name": "Otmaro Ruiz",
+   "created": true,
+   "id": 71124
+  },
+  {
+   "trackId": 49892,
+   "target": "a4285",
+   "name": "Simon Diaz",
+   "created": true,
+   "id": 71125
+  },
+  {
+   "trackId": 182478,
+   "target": "a5945",
+   "name": "Jambene",
+   "created": true,
+   "id": 71126
+  },
+  {
+   "trackId": 182478,
+   "target": "a6632",
+   "name": "Trainer",
+   "created": true,
+   "id": 71127
+  },
+  {
+   "trackId": 179679,
+   "target": "a6632",
+   "name": "Trainer",
+   "created": true,
+   "id": 71128
+  },
+  {
+   "trackId": 188653,
+   "target": "a5945",
+   "name": "Jambene",
+   "created": true,
+   "id": 71129
+  }
+ ],
+ "enEspera": [
+  {
+   "trackId": 193539,
+   "nombre": "Mata Rica",
+   "detalle": "«La única» de Eliezer Boyer · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 3521,
+   "nombre": "4to Poder",
+   "detalle": "«Mi Party» de Mermelada Bunch · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 3506,
+   "nombre": "Negrito Man",
+   "detalle": "«Music Revolution» de Mermelada Bunch · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 3499,
+   "nombre": "Gustavo Aguado",
+   "detalle": "«Papi Yo Soy Tu Mami» de Mermelada Bunch · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 12216,
+   "nombre": "Dieter Negrín",
+   "detalle": "«Medianía» de BOLIVAR · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 33932,
+   "nombre": "ChQuib Town",
+   "detalle": "«Tips» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 33967,
+   "nombre": "Blanquito Man",
+   "detalle": "«Hey!!! Mi Momento» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 33954,
+   "nombre": "Ras Jahonnan",
+   "detalle": "«Rasta Rules» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 33954,
+   "nombre": "Binghi Fyah",
+   "detalle": "«Rasta Rules» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 33948,
+   "nombre": "Bless Killa",
+   "detalle": "«Ccs» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 33942,
+   "nombre": "Fire Tea",
+   "detalle": "«We Nuh Sell Out» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 34011,
+   "nombre": "McKlopedia",
+   "detalle": "«Explosion Man» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 33960,
+   "nombre": "Valentino Thompson",
+   "detalle": "«Fancy Lady» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 33984,
+   "nombre": "Patafunk",
+   "detalle": "«Left - Right» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 33984,
+   "nombre": "Nene Quintero",
+   "detalle": "«Left - Right» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 20897,
+   "nombre": "Mikal Rose",
+   "detalle": "«Boomblast» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 20911,
+   "nombre": "Thompson",
+   "detalle": "«Africano Latino» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 20911,
+   "nombre": "Baroni",
+   "detalle": "«Africano Latino» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 20909,
+   "nombre": "Fidel Nadal",
+   "detalle": "«Africa Ruge» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 20906,
+   "nombre": "Fire Tea",
+   "detalle": "«Safari» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 20901,
+   "nombre": "MX 1",
+   "detalle": "«Caribbean Coast» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 20895,
+   "nombre": "Rekeson",
+   "detalle": "«The VK» de OneChot · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 139345,
+   "nombre": "Jhoabeat",
+   "detalle": "«Arriba El Animo» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 139351,
+   "nombre": "Darli Fruggiero",
+   "detalle": "«Futuro» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 139336,
+   "nombre": "Gabriel Figueira",
+   "detalle": "«Introspeczion» de OneChot · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 139336,
+   "nombre": "Ras Bernabe",
+   "detalle": "«Introspeczion» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 139342,
+   "nombre": "Chakal",
+   "detalle": "«Libertad» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 139337,
+   "nombre": "Ganjoman",
+   "detalle": "«Legión Libertaria» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 139349,
+   "nombre": "Tarmac",
+   "detalle": "«La Gran Colombia» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 139349,
+   "nombre": "Alkaman",
+   "detalle": "«La Gran Colombia» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 139349,
+   "nombre": "Adelking Farmer",
+   "detalle": "«La Gran Colombia» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 139355,
+   "nombre": "Gabriel Figueira",
+   "detalle": "«Outrospeczion» de OneChot · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 139355,
+   "nombre": "Ras Bernabe",
+   "detalle": "«Outrospeczion» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 139355,
+   "nombre": "Evan Griffin",
+   "detalle": "«Outrospeczion» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 139338,
+   "nombre": "Hana Kobayashi",
+   "detalle": "«Esperanza» de OneChot · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 139352,
+   "nombre": "Peter Jam",
+   "detalle": "«Dando Pelea» de OneChot · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 139340,
+   "nombre": "Selector Cocoman",
+   "detalle": "«No Mas Violencia» de OneChot · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 139346,
+   "nombre": "Macabro 12",
+   "detalle": "«Mujer Guerrera» de OneChot · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 189279,
+   "nombre": "Beto Montes",
+   "detalle": "«Tú» de ORQUESTA DISCOTHEQUE · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 189281,
+   "nombre": "Francisca Valenzuela",
+   "detalle": "«Lanza perfume» de ORQUESTA DISCOTHEQUE · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 189283,
+   "nombre": "Federico Aubele",
+   "detalle": "«Obsesión» de ORQUESTA DISCOTHEQUE · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 189284,
+   "nombre": "Natalia Clavier",
+   "detalle": "«Hay que venir al sur» de ORQUESTA DISCOTHEQUE · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 189280,
+   "nombre": "Catalina García",
+   "detalle": "«Buscando un poco de amor» de ORQUESTA DISCOTHEQUE · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 191830,
+   "nombre": "Gustavo Elis",
+   "detalle": "«Te contare» de La Melodia Perfecta · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 142180,
+   "nombre": "Beat Acosta",
+   "detalle": "«Mi Tío» de Guaco · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 32353,
+   "nombre": "Argenis Brito",
+   "detalle": "«Everybody Wants To Rule The World» de Los Crema Paraiso · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 32349,
+   "nombre": "Rocco Tarpeyo",
+   "detalle": "«Varón Domado» de Los Crema Paraiso · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 32350,
+   "nombre": "Carol C",
+   "detalle": "«Personal Jesus» de Los Crema Paraiso · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 32347,
+   "nombre": "Andrea Echeverri",
+   "detalle": "«El Curruchá» de Los Crema Paraiso · acredita: — (crédito ya existe)"
+  },
+  {
+   "trackId": 186540,
+   "nombre": "Omar Sabino",
+   "detalle": "«Aunque me duela» de NK Profeta · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 186532,
+   "nombre": "Aldo",
+   "detalle": "«Menos es más» de NK Profeta · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 186534,
+   "nombre": "ZPU",
+   "detalle": "«Jaque mate» de NK Profeta · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 186538,
+   "nombre": "Morodo",
+   "detalle": "«La verdad» de NK Profeta · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 186536,
+   "nombre": "Akapellah",
+   "detalle": "«La voz de una generación» de NK Profeta · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 49893,
+   "nombre": "Ensamble Gurrufio",
+   "detalle": "«De Repente» de Ofelia del Rosal · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 193649,
+   "nombre": "Nohemy",
+   "detalle": "«Cheesy» de Briella · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 193654,
+   "nombre": "Luissette",
+   "detalle": "«Baby no» de Briella · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 193659,
+   "nombre": "La Joaqui",
+   "detalle": "«Coquette Remix» de Briella · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 193659,
+   "nombre": "Yami Safdie",
+   "detalle": "«Coquette Remix» de Briella · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 193648,
+   "nombre": "Manira",
+   "detalle": "«Freshca» de Briella · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 193638,
+   "nombre": "Cauty",
+   "detalle": "«Party teteo» de Briella · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 182478,
+   "nombre": "Akapellah",
+   "detalle": "«Bareto» de Junior Caldera · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 182478,
+   "nombre": "Yung Iverson",
+   "detalle": "«Bareto» de Junior Caldera · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 182478,
+   "nombre": "RK Wavy",
+   "detalle": "«Bareto» de Junior Caldera · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 182478,
+   "nombre": "PALACE",
+   "detalle": "«Bareto» de Junior Caldera · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 182478,
+   "nombre": "Oliver Outc",
+   "detalle": "«Bareto» de Junior Caldera · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 185334,
+   "nombre": "Yung Iverson",
+   "detalle": "«Rekemao» de Junior Caldera · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 185334,
+   "nombre": "RK Wavy",
+   "detalle": "«Rekemao» de Junior Caldera · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152263,
+   "nombre": "L-Gante",
+   "detalle": "«Turromantik» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152265,
+   "nombre": "PJ Sin Suela",
+   "detalle": "«Pinta Bonito» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152267,
+   "nombre": "Cardelino",
+   "detalle": "«Sin querer queriendo» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152268,
+   "nombre": "Akapellah",
+   "detalle": "«Amor de Toninas» de Motherflowers · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 152268,
+   "nombre": "Orestes Gómez",
+   "detalle": "«Amor de Toninas» de Motherflowers · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 152269,
+   "nombre": "Ibzen",
+   "detalle": "«Pegarle al Peluche» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152270,
+   "nombre": "Sr Pablo",
+   "detalle": "«TiEMBLa» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152272,
+   "nombre": "L-Gante",
+   "detalle": "«Arrunxis» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152260,
+   "nombre": "Yera",
+   "detalle": "«después del PARi» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152271,
+   "nombre": "Westside",
+   "detalle": "«La Burriquita» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152271,
+   "nombre": "La W357",
+   "detalle": "«La Burriquita» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152271,
+   "nombre": "North Og",
+   "detalle": "«La Burriquita» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152293,
+   "nombre": "L-Gante",
+   "detalle": "«Turromantik» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152322,
+   "nombre": "XICO",
+   "detalle": "«Jamming» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152296,
+   "nombre": "Ceaese",
+   "detalle": "«YMW» de Motherflowers · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152199,
+   "nombre": "Esteman",
+   "detalle": "«Te Amé Temprano» de Irepelusa · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 152207,
+   "nombre": "Esteman",
+   "detalle": "«Te Amé Temprano» de Irepelusa · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 179679,
+   "nombre": "Jerry Di",
+   "detalle": "«Serendipia» de Jambene · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 188653,
+   "nombre": "Noreh",
+   "detalle": "«Hace lo que le da la gana (Remix)» de Victor Drija · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 187719,
+   "nombre": "Britsio",
+   "detalle": "«De ti no me voy a olvidar» de Victor Drija · acredita: — (sin ficha en CRV)"
+  },
+  {
+   "trackId": 187722,
+   "nombre": "Samy Hawk",
+   "detalle": "«Mía» de Victor Drija · acredita: — (nombre en CRV sin segunda prueba)"
+  },
+  {
+   "trackId": 180768,
+   "nombre": "Underaiki",
+   "detalle": "«Me Volviste Loka» de Dru Flecha · acredita: — (nombre en CRV sin segunda prueba)"
+  }
+ ]
+}
