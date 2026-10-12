@@ -10,11 +10,12 @@ import { Pagination } from "./Pagination";
 
 const PAGE_SIZE = 24;
 
-export function ArtistDiscography({ albums, artistName }: { albums: DiscographyItem[]; artistName: string }) {
+export function ArtistDiscography({ albums, artistName, artistId }: { albums: DiscographyItem[]; artistName: string; artistId: number }) {
   const [params, setParams] = useSearchParams();
   const decade = useDecadeFilter("discographyDecade", "discographyPage");
   const filteredAlbums = albums.filter(album => decade.selection === null || (decade.selection === "without-year" ?
-    album.releaseYear === null : album.releaseYear !== null && album.releaseYear >= decade.selection && album.releaseYear < decade.selection + 10));
+    album.releaseYear === null : decade.selection === "before-1950" ? album.releaseYear !== null && album.releaseYear < 1950 :
+      album.releaseYear !== null && album.releaseYear >= decade.selection && album.releaseYear < decade.selection + 10));
   const facets = useMemo(() => {
     const counts = new Map<number, number>();
     let withoutYear = 0;
@@ -50,8 +51,8 @@ export function ArtistDiscography({ albums, artistName }: { albums: DiscographyI
       <div ref={gridRef} className="grid-cards discography-grid pagination-start">
         {filteredAlbums.slice(offset, offset + PAGE_SIZE).map((album) => (
           <EntityCard key={album.albumId} to={`/discos/${album.albumId}`} title={album.title}
-            albumMetadata={{ artist: artistName, year: album.releaseYear, type: albumTypeLabel(album.albumType) }}
-            imageUrl={album.coverUrl} imageFit="contain" placeholder={initialOf(album.title)} />
+            albumMetadata={{ artist: artistName, artistId, year: album.releaseYear, type: albumTypeLabel(album.albumType), typeValue: album.albumType }}
+            genres={album.genres} imageUrl={album.coverUrl} imageFit="contain" placeholder={initialOf(album.title)} />
         ))}
       </div>
       <Pagination scrollTargetRef={gridRef} limit={PAGE_SIZE} offset={offset} total={filteredAlbums.length} onOffsetChange={changePage} />

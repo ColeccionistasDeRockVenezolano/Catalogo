@@ -24,6 +24,7 @@ import { registerDiscoveryRoutes } from "./routes/discovery.js";
 import { registerTrackContextRoutes } from "./routes/track-contexts.js";
 import { registerRecommendationRoutes } from "./routes/recommendations.js";
 import { registerSearchRoutes } from "./routes/search.js";
+import { registerHomeRoutes } from "./routes/home.js";
 import { registerArtistRoutes } from "./routes/artists.js";
 import { registerAlbumRoutes } from "./routes/albums.js";
 import { registerGenreRoutes } from "./routes/genres.js";
@@ -142,6 +143,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerOperatorAuth(app);
   await registerHealthRoutes(app);
   await registerSearchRoutes(app);
+  await registerHomeRoutes(app);
   await registerDiscoveryRoutes(app);
   await registerTrackContextRoutes(app);
   await registerRecommendationRoutes(app);

@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { VideoProvider } from "./components/VideoPlayer";
 import { Layout } from "./components/Layout";
 import { RouteFallback } from "./components/Skeletons";
 import { NotFoundPage } from "./pages/NotFoundPage";
@@ -36,7 +37,7 @@ function LegacyReviewRedirect() {
 
 export function App() {
   return (
-    <Layout>
+    <VideoProvider><Layout>
       {/* El marco (topbar + nav) no se suspende: solo la página en curso. */}
       <Suspense fallback={<RouteFallback />}>
         <Routes>
@@ -73,6 +74,6 @@ export function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
-    </Layout>
+    </Layout></VideoProvider>
   );
 }

@@ -5,6 +5,7 @@ import { getEnv } from "../config/env.js";
 import { moduleLogger } from "../logger/index.js";
 import { buildApp } from "./app.js";
 import { startCurationWatcher } from "../curation/watcher.js";
+import { startHomeChannelRefresh } from "../youtube/home-channel.js";
 import { startEntityResolutionRetention } from "../er/retention.js";
 
 const log = moduleLogger("api-server");
@@ -24,6 +25,7 @@ async function main(): Promise<void> {
   log.info({ port: env.PORT, host: env.HOST }, "API de lectura escuchando");
   // El detector de conflictos queda cableado al catálogo: analiza al arrancar
   // si algo cambió y vigila los cambios hechos fuera de la API.
+  const stopHomeChannel = startHomeChannelRefresh();
   const stopCurationWatcher = startCurationWatcher(env.CRV_CURATION_WATCH_MS);
   // La retención de decisiones ER corre sola cada ER_RETENTION_INTERVAL_HOURS
   // con tope de filas (la CLI puede forzarla con `crv er:prune`).
@@ -32,6 +34,7 @@ async function main(): Promise<void> {
 
   for (const signal of ["SIGINT", "SIGTERM"] as const) {
     process.on(signal, () => {
+      stopHomeChannel();
       stopCurationWatcher();
       stopErRetention();
       void app.close().then(() => process.exit(0));

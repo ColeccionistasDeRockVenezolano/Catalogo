@@ -2,35 +2,39 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Buildings, Disc, ImageSquare } from "@phosphor-icons/react";
 import { DeceasedMark } from "./DeceasedMark";
+import { CatalogGenres, CatalogYear } from "./CatalogMetadata";
+import type { PublicGenre } from "../lib/types";
 
 interface EntityCardProps {
   to: string;
   title: string;
   subtitle?: string | null | undefined;
-  albumMetadata?: { artist: string; year: number | null; type: string };
+  albumMetadata?: { artist: string; artistId: number; year: number | null; type: string; typeValue?: string };
   imageUrl?: string | null | undefined;
   imageFit?: "cover" | "contain";
   placeholder: string;
   tag?: string | null | undefined;
   tagTitle?: string | undefined;
   deceased?: boolean | undefined;
-  /** Género principal confirmado, en una línea propia bajo el subtítulo. */
-  genre?: string | null | undefined;
-  /** Marca de referencia (violeta) cuando la ficha entró al filtro por una relación, no por su género. */
+  genres?: PublicGenre[] | undefined;
+  year?: number | null | undefined;
+  typeValue?: string | undefined;
   note?: string | null | undefined;
   noteTitle?: string | undefined;
 }
 
-export function EntityCard({ to, title, subtitle, albumMetadata, imageUrl, imageFit = "cover", placeholder, tag, tagTitle, deceased, genre, note, noteTitle }: EntityCardProps) {
+export function EntityCard({ to, title, subtitle, albumMetadata, imageUrl, imageFit = "cover", placeholder, tag, tagTitle, deceased, genres, year, typeValue, note, noteTitle }: EntityCardProps) {
   const [failedImage, setFailedImage] = useState<string | null>(null);
   const hasImage = Boolean(imageUrl && failedImage !== imageUrl);
   const isAlbum = to.startsWith("/discos/");
+  const isArtist = to.startsWith("/artistas/");
   const isOrganization = to.startsWith("/organizaciones/");
   const MissingIcon = isAlbum ? Disc : isOrganization ? Buildings : ImageSquare;
   const missingLabel = isAlbum ? "Sin portada" : "Sin imagen";
+  const [typeLabel, ...otherSubtitle] = subtitle?.split(" · ") ?? [];
   return (
-    <Link to={to} className={`entity-card${albumMetadata ? " entity-card--album" : ""}`}>
-      <span className={`entity-card__art${hasImage ? "" : " entity-card__art--empty"}`}>
+    <div className={`entity-card${albumMetadata ? " entity-card--album" : ""}`}>
+      <Link to={to} aria-label={`Ver ${isAlbum ? "el disco" : "la ficha de"} ${title}`} className={`entity-card__art${hasImage ? "" : " entity-card__art--empty"}`}>
         {hasImage && imageUrl ? (
           <img src={imageUrl} alt="" loading="lazy" decoding="async" width="400" height="400"
             style={{ objectFit: imageFit }} onError={() => setFailedImage(imageUrl)} />
@@ -40,22 +44,25 @@ export function EntityCard({ to, title, subtitle, albumMetadata, imageUrl, image
             <span className="entity-card__missing"><MissingIcon size={16} aria-hidden="true" />{missingLabel}</span>
           </span>
         )}
-      </span>
-      <span className="entity-card__body">
-        <span className="entity-card__title">{title}<DeceasedMark deceased={deceased} /></span>
+      </Link>
+      <div className="entity-card__body">
+        <Link to={to} className="entity-card__title">{title}<DeceasedMark deceased={deceased} /></Link>
         {albumMetadata ? <>
-          <span className="entity-card__artist">{albumMetadata.artist}</span>
+          <Link to={`/artistas/${albumMetadata.artistId}`} className="entity-card__artist">{albumMetadata.artist}</Link>
           <span className="entity-card__edition">
-            <span className="entity-card__year"><span className="visually-hidden">Año de lanzamiento: </span>{albumMetadata.year ?? "Sin año"}</span>
+            <CatalogYear year={albumMetadata.year} className="entity-card__year" />
             <span className="entity-card__edition-separator" aria-hidden="true">·</span>
-            <span className="entity-card__album-type">{albumMetadata.type}</span>
+            {albumMetadata.typeValue ? <Link className="entity-card__album-type" to={`/discos?tipo=${encodeURIComponent(albumMetadata.typeValue)}`}>{albumMetadata.type}</Link> : <span className="entity-card__album-type">{albumMetadata.type}</span>}
           </span>
-        </> : subtitle ? <span className="entity-card__sub">{subtitle}</span> : null}
-        {genre ? <span className="entity-card__genre">{genre}</span> : null}
+        </> : subtitle ? <span className="entity-card__sub">
+          {isArtist && typeValue ? <><Link to={`/artistas?tipo=${encodeURIComponent(typeValue)}`}>{typeLabel}</Link>{otherSubtitle.length ? ` · ${otherSubtitle.join(" · ")}` : null}</> : subtitle}
+        </span> : null}
+        {!albumMetadata && year !== undefined && year !== null ? <CatalogYear year={year} kind={isArtist ? "artist" : "album"} className="entity-card__year" /> : null}
+        {genres?.length ? <span className="entity-card__genres"><CatalogGenres genres={genres} kind={isArtist ? "artist" : "album"} className="entity-card__genre" /></span> : null}
         {note ? <span className="badge badge--violet entity-card__tag" title={noteTitle}>{note}</span> : null}
         {tag ? <span className="badge badge--amber entity-card__tag" title={tagTitle}>{tag}</span> : null}
-      </span>
-    </Link>
+      </div>
+    </div>
   );
 }
 

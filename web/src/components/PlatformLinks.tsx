@@ -55,15 +55,18 @@ export function platformLabel(platform: string): string {
   return PLATFORMS[platform]?.label ?? platform;
 }
 
-/** Fila de iconos enlazados a las plataformas de escucha o redes de una ficha. */
-export function PlatformLinks({ links, subject }: { links: PlatformLink[]; subject: string }) {
+/**
+ * Fila de iconos enlazados a las plataformas de escucha o redes de una ficha.
+ * `small` es la variante en línea del encabezado de cada disco.
+ */
+export function PlatformLinks({ links, subject, size = "regular", showLabels = false }: { links: PlatformLink[]; subject: string; size?: "regular" | "small"; showLabels?: boolean }) {
   if (links.length === 0) return null;
   const sorted = [...links].sort((a, b) => {
     const ia = ORDER.indexOf(a.platform), ib = ORDER.indexOf(b.platform);
     return (ia < 0 ? ORDER.length : ia) - (ib < 0 ? ORDER.length : ib);
   });
   return (
-    <ul className="platform-links">
+    <ul className={`platform-links${size === "small" ? " platform-links--small" : ""}${showLabels ? " platform-links--labeled" : ""}`}>
       {sorted.map((link) => {
         const platform = PLATFORMS[link.platform];
         const Icon = platform?.Icon ?? LinkSimple;
@@ -74,7 +77,8 @@ export function PlatformLinks({ links, subject }: { links: PlatformLink[]; subje
             <a className="platform-links__item" href={link.url} target="_blank" rel="noreferrer noopener"
               title={title} aria-label={`${subject} en ${label}`}
               style={{ "--platform-color": platform?.color ?? "var(--text)" } as CSSProperties}>
-              <Icon size={20} />
+              <Icon size={size === "small" ? 16 : 20} />
+              {showLabels ? <span>Escuchar en {label}</span> : null}
             </a>
           </li>
         );

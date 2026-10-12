@@ -109,7 +109,7 @@ export function ArtistsListPage() {
                 subtitle={[artistTypeLabel(artist.artistType), artist.originCity].filter(Boolean).join(" · ")}
                 imageUrl={artist.pictureUrl}
                 placeholder={initialOf(artist.name)}
-                genre={artist.primaryGenre?.name}
+                genres={artist.primaryGenre ? [artist.primaryGenre] : []} year={artist.formedYear} typeValue={artist.artistType}
                 tag={artist.genreByLaya ? "Género por Laya" : null}
                 tagTitle="Género principal elegido por Laya (último recurso), directo o por sus discos. Solo visible con sesión iniciada."
               />

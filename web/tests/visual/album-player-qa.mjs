@@ -74,15 +74,15 @@ try {
 
     await page.goto(`${baseUrl}/discos/57`);
     if (scenario.admin) await page.locator(".entity-verification").waitFor();
-    await page.locator(".album-youtube-player iframe").waitFor();
+    await page.locator(".catalog-video-player__screen iframe").waitFor();
     await page.waitForFunction(() => window.__youtubeInstances?.length === 1);
     await page.evaluate(() => { window.__youtubeCalls.length = 0; });
-    assert.equal(await page.locator(".album-youtube-player iframe").count(), 1);
-    const playerBox = await page.locator(".album-youtube-player").boundingBox();
+    assert.equal(await page.locator(".catalog-video-player__screen iframe").count(), 1);
+    const playerBox = await page.locator(".catalog-video-player__screen").boundingBox();
     const tracksBox = await page.getByRole("heading", { name: "Lista de pistas" }).boundingBox();
     assert.ok(playerBox.y + playerBox.height <= tracksBox.y, "el reproductor precede la lista");
     assert.ok(playerBox.width <= viewport.width && playerBox.height >= 200);
-    const iframe = page.locator(".album-youtube-player iframe");
+    const iframe = page.locator(".catalog-video-player__screen iframe");
     assert.match(await iframe.getAttribute("src"), /enablejsapi=1.*origin=/u);
     assert.equal(await iframe.getAttribute("referrerpolicy"), "strict-origin-when-cross-origin");
     assert.equal(await page.getByRole("button", { name: /Reproducir «/u }).count(), 2);
@@ -125,14 +125,14 @@ try {
     await page.locator(".album-youtube-current").filter({ hasText: "Reproducción finalizada" }).waitFor();
     assert.equal(await page.locator(".album-track-row.is-current").count(), 0);
     await page.evaluate(() => window.__youtubeInstances[0].events.onAutoplayBlocked());
-    await page.getByRole("status").filter({ hasText: "Pulsa el botón" }).waitFor();
+    await page.getByRole("status").filter({ hasText: "Pulsa reproducir" }).waitFor();
     await page.evaluate(() => window.__youtubeInstances[0].setState(1));
-    assert.equal(await page.locator(".album-youtube-message").count(), 0);
+    assert.equal(await page.locator(".catalog-video-player__message").count(), 0);
     await page.getByRole("button", { name: "Reproducir «Verano» desde 0:00" }).focus();
     await page.keyboard.press("Enter");
     await page.locator(".album-track-row.is-current").filter({ hasText: "Verano" }).waitFor();
     await page.evaluate(() => window.__youtubeInstances[0].events.onError());
-    await page.getByRole("status").filter({ hasText: "Este video no se puede" }).waitFor();
+    await page.getByRole("status").filter({ hasText: "Este video no permite" }).waitFor();
     assert.equal(await page.locator(".album-track-row.is-current").count(), 0, "un error borra el estado de reproducción");
     await page.getByRole("button", { name: "créditos (1)", exact: true }).click();
     await page.locator(".album-track-credits").filter({ hasText: "Músico de prueba" }).waitFor();
@@ -144,14 +144,18 @@ try {
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     assert.ok(overflow <= 1, `sin desbordamiento en ${viewport.width}px`);
 
-    // Navegación SPA: salir del disco destruye el reproductor y su audio.
+    // Navegación SPA: el iframe y su audio permanecen en modo flotante.
+    const iframeIdentity = await iframe.elementHandle();
     await page.evaluate(() => { window.history.pushState({}, "", location.pathname.replace("/57", "/58")); window.dispatchEvent(new PopStateEvent("popstate")); });
-    await page.waitForFunction(() => window.__youtubeCalls.some((call) => call[0] === "destroy"));
     await page.getByRole("heading", { name: "Lista de pistas" }).waitFor();
-    assert.equal(await page.locator(".album-youtube-player").count(), 0);
+    await page.locator(".catalog-video-player--floating").waitFor();
+    assert.ok(await iframeIdentity.evaluate(node => node === document.querySelector(".catalog-video-player iframe")));
     assert.equal(await page.getByRole("button", { name: /Reproducir «/u }).count(), 0);
+    await page.getByRole("button", { name: "Cerrar video", exact: true }).click();
+    await page.waitForFunction(() => window.__youtubeInstances.length === 0);
+    assert.ok((await page.evaluate(() => window.__youtubeCalls)).some(call => call[0] === "destroy"));
     await page.evaluate(() => { window.history.pushState({}, "", location.pathname.replace("/58", "/59")); window.dispatchEvent(new PopStateEvent("popstate")); });
-    await page.locator(".album-youtube-player iframe").waitFor();
+    await page.locator(".catalog-video-player__screen iframe").waitFor();
     assert.equal(await page.getByRole("button", { name: /Reproducir «/u }).count(), 2);
     assert.equal(apiLoads, 1, "al navegar reutiliza la API");
     assert.deepEqual(errors, []);

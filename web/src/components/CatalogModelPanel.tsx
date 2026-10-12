@@ -90,7 +90,7 @@ export function CatalogModelPanel({kind,id,artistId,tracks=[],onChanged}: {
   if(error) return <div role="alert"><p>{error}</p><button className="btn" type="button" onClick={reload}>Reintentar</button></div>;
   if(loading&&!data) return <p role="status">Cargando vínculos…</p>;
   return <div>
-    <p className="hint">Cada edición conserva sus pistas, créditos y sello. Vincular fichas mantiene sus identidades y deja historial.</p>
+    <p className="hint">{kind==="album"?"Cada edición conserva sus pistas, créditos y sello. Vincular fichas mantiene sus identidades y deja historial.":kind==="person"?"Vincula la persona con sus proyectos y conserva el período documentado de cada relación.":"Vincula personas con este proyecto y registra sus períodos de participación."}</p>
     <div className="entity-edit-nav" aria-label="Tipo de vínculo">
       {options.map(type=><button key={type} type="button" className={`btn btn--sm${operation===type?" btn--primary":""}`} aria-pressed={operation===type} disabled={busy} onClick={()=>choose(type)}>{label[type]}</button>)}
     </div>

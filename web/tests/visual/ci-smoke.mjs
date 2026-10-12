@@ -97,7 +97,7 @@ try {
   await dialog.getByRole("button",{name:"Identidad y períodos",exact:true}).click();
   await dialog.getByLabel("Artista o proyecto",{exact:true}).fill("Banda QA Editada");
   await dialog.getByRole("option",{name:"Banda QA Editada",exact:false}).click();
-  await dialog.getByLabel("Relación",{exact:true}).selectOption("member");
+  await dialog.getByLabel("Relación *",{exact:true}).selectOption("member");
   await dialog.getByLabel("Período documentado",{exact:true}).fill("~1990/2000");
   await dialog.getByLabel("Motivo",{exact:false}).filter({visible:true}).fill("Vincular fichas conservando período aproximado");
   await dialog.getByRole("button",{name:"Guardar",exact:true}).filter({visible:true}).click();

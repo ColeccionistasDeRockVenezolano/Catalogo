@@ -110,11 +110,11 @@ export function AlbumsListPage() {
                 key={album.id}
                 to={`/discos/${album.id}`}
                 title={album.title}
-                albumMetadata={{ artist: album.artistName, year: album.releaseYear, type: albumTypeLabel(album.albumType) }}
+                albumMetadata={{ artist: album.artistName, artistId: album.artistId, year: album.releaseYear, type: albumTypeLabel(album.albumType), typeValue: album.albumType }}
                 imageUrl={album.coverUrl}
                 imageFit="contain"
                 placeholder={initialOf(album.title)}
-                genre={album.primaryGenre?.name}
+                genres={album.primaryGenre ? [album.primaryGenre] : []}
                 note={genre.selection.related && album.hasOwnGenre === false ? "Por su artista" : null}
                 noteTitle="Este disco aún no tiene género propio: aparece por el género de su artista."
                 tag={album.genreByLaya ? "Género por Laya" : null}

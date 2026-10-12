@@ -40,6 +40,8 @@ export function DecadeFilter({ facets, error, onRetry, selection, onSelect, basi
     </h2><span className="status">{countsLabel}</span></div>
     <div className="gfilter__rail" ref={railRef} role="group" aria-label="Décadas">
       <FilterChip label="Todas" count={facets.total} pressed={selection === null} onClick={() => onSelect(null)} />
+      {basis === "release" ? <FilterChip label="Antes de 1950" count={decades.filter(item => item.decade < 1950).reduce((sum, item) => sum + item.count, 0)}
+        pressed={selection === "before-1950"} onClick={() => onSelect(selection === "before-1950" ? null : "before-1950")} /> : null}
       {decades.map(item => <FilterChip key={item.decade} label={decadeLabel(item.decade)} count={item.count}
         pressed={selection === item.decade} onClick={() => onSelect(selection === item.decade ? null : item.decade)} />)}
       <FilterChip label="Sin año" count={facets.withoutYear} variant="none" pressed={selection === "without-year"}

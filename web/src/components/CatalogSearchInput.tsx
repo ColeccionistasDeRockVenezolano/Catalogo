@@ -26,10 +26,11 @@ interface CatalogSearchInputProps {
   resultsLoading?: boolean;
   resultsError?: string | undefined;
   onRetryResults?: () => void;
+  examplePlacement?: "field" | "below";
 }
 
 /** Ejemplos reales rotativos que se aceptan con Tab y coincidencias al escribir. */
-export function CatalogSearchInput({ scope, value, onChange, label, placeholder, className = "filter-input", id, autoFocus, results = null, resultsQuery = "", resultsLoading = false, resultsError, onRetryResults }: CatalogSearchInputProps) {
+export function CatalogSearchInput({ scope, value, onChange, label, placeholder, className = "filter-input", id, autoFocus, results = null, resultsQuery = "", resultsLoading = false, resultsError, onRetryResults, examplePlacement = "field" }: CatalogSearchInputProps) {
   const generatedId = useId();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -70,22 +71,28 @@ export function CatalogSearchInput({ scope, value, onChange, label, placeholder,
       // Seleccionar navega; no aplicar un filtro tardío a la ficha de destino.
       if (details.reason !== "item-press") onChange(next);
     }} filter={null} itemToStringValue={option => option.label}
-      open={open && Boolean(query)} onOpenChange={next => setOpen(next)} openOnInputClick>
+      open={open && (examplePlacement === "below" ? hasQuery : Boolean(query))} onOpenChange={next => setOpen(next)} openOnInputClick>
     <div className={`catalog-search-field${className === "search-input" ? " catalog-search-field--main" : ""}`}>
       <div className="catalog-search-control">
       <Autocomplete.Input ref={inputRef} id={id ?? generatedId} className={className} type="search"
-        aria-label={label} placeholder={showExample ? "" : scope === "catalog" ? DISCOVERY_FALLBACK : placeholder} autoFocus={autoFocus}
-        onFocus={() => { example.resetOnFocus(); if (query) setOpen(true); }} onKeyDown={example.acceptOnTab}
-        aria-describedby={showExample ? `${id ?? generatedId}-example-hint` : undefined} />
-      <RotatingSearchExample {...example} metricRef={metric.ref} />
+        aria-label={label} placeholder={showExample && examplePlacement === "field" ? "" : scope === "catalog" && examplePlacement === "field" ? DISCOVERY_FALLBACK : placeholder} autoFocus={autoFocus}
+        onFocus={() => { example.resetOnFocus(); if (query) setOpen(true); }} onKeyDown={examplePlacement === "field" ? example.acceptOnTab : undefined}
+        aria-describedby={showExample && examplePlacement === "field" ? `${id ?? generatedId}-example-hint` : undefined} />
+      {examplePlacement === "field" ? <RotatingSearchExample {...example} metricRef={metric.ref} /> : null}
       </div>
-      {scope === "catalog" && example.current ? <div className="discovery-controls" aria-label="Controles de sugerencias">
+      {examplePlacement === "below" && example.current ? <div className="home-search-recommendation" ref={metric.ref}>
+        <span>Prueba con</span><button type="button" onClick={example.accept}>{example.current.label}</button>
+        <button type="button" className="home-search-recommendation__pause" aria-pressed={example.paused} onClick={example.togglePause}>
+          {example.paused ? "Reanudar" : "Pausar"}
+        </button>
+      </div> : null}
+      {scope === "catalog" && example.current && examplePlacement === "field" ? <div className="discovery-controls" aria-label="Controles de sugerencias">
         <button type="button" className="btn btn--sm" aria-pressed={example.paused} onClick={example.togglePause}>
           {example.paused ? "Reanudar sugerencias" : "Pausar sugerencias"}
         </button>
         <button type="button" className="btn btn--sm" onClick={example.skip}>Omitir sugerencia</button>
       </div> : null}
-      <SearchExampleHint id={`${id ?? generatedId}-example-hint`} available={showExample} />
+      {examplePlacement === "field" ? <SearchExampleHint id={`${id ?? generatedId}-example-hint`} available={showExample} /> : null}
     </div>
     <Autocomplete.Portal>
       <Autocomplete.Positioner className="catalog-suggestions-positioner" sideOffset={6} align="start">

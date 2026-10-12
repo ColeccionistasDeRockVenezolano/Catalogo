@@ -125,6 +125,12 @@ describe("API: filtros por género y subgénero en discos y artistas", () => {
     expect(listIds(await get<ListPage>("/artists?withoutGenre=true"))).toEqual([ids["empty"]]);
   });
 
+  it("entrega los géneros propios de cada disco en la discografía", async () => {
+    const artist = await get<{ discography: Array<{ albumId: number; genres: Array<{ slug: string }> }> }>(`/artists/${ids["metalBand"]}`);
+    expect(artist.discography.find(album => album.albumId === ids["thrashAlbum"])?.genres.map(genre => genre.slug)).toEqual(["thrash-metal"]);
+    expect(artist.discography.find(album => album.albumId === ids["bareMetalAlbum"])?.genres).toEqual([]);
+  });
+
   it("rechaza valores inválidos en los filtros", async () => {
     for (const url of ["/albums?withoutGenre=si", "/albums?relatedGenre=1", "/albums?genre=No%20Slug", "/genres/facets?kind=track"]) {
       expect((await app.inject({ method: "GET", url })).statusCode, url).toBe(400);

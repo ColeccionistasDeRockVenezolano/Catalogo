@@ -35,12 +35,12 @@ try {
       expect(layout.overflow).toBeLessThanOrEqual(1);
       expect(['auto', '0px']).toContain(await cards.first().locator('.entity-card__title').evaluate(title => getComputedStyle(title).minHeight));
       const before = await cards.first().boundingBox();
-      await cards.first().hover();
-      await expect.poll(() => cards.first().locator('.entity-card__title').evaluate(title => getComputedStyle(title).color)).toBe('rgb(255, 139, 144)');
-      expect(await cards.first().locator('.entity-card__title').evaluate(title => getComputedStyle(title).textDecorationLine)).toBe('none');
+      await cards.first().locator(".entity-card__title").hover();
+      await expect.poll(() => cards.first().locator('.entity-card__title').evaluate(title => getComputedStyle(title).color)).toBe('rgb(255, 15, 27)');
+      expect(await cards.first().locator('.entity-card__title').evaluate(title => getComputedStyle(title).textDecorationLine)).toBe('underline');
       expect(await cards.first().boundingBox()).toEqual(before);
-      await cards.first().focus();
-      await expect(cards.first()).toBeFocused();
+      await cards.first().locator(".entity-card__title").focus();
+      await expect(cards.first().locator(".entity-card__title")).toBeFocused();
       console.log(`${width}px ${name}: jerarquía, hover estable, foco y ancho OK`);
     }
     expect(errors).toEqual([]);
