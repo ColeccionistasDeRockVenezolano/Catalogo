@@ -8,6 +8,7 @@ import { getPool } from "../../db/client.js";
 import { genreFilterSql, genreMissingSql, publicGenresFor, relatedGenreFilterSql, type PublicGenre } from "../../genres/public.js";
 import type { PaginationQuery } from "../pagination.js";
 import { personDisplayNames, withPublicAliases } from "./person-display.js";
+import { albumDiscography, type AlbumDiscography } from "./discography.js";
 
 export interface AlbumListRow {
   id: number;
@@ -162,6 +163,11 @@ export interface AlbumDetail {
   youtubeLinks: Array<{ videoId: string; title: string | null; kind: string; isPrimaryLink: boolean }>;
   /** El disco en plataformas de escucha (streaming_links, 0039); solo los de identidad verificada. */
   platforms: Array<{ platform: string; url: string }>;
+  /** Plan del primo, etapa 2 (0068): versiones, sellos con rol, series y créditos en frase. */
+  versions: AlbumDiscography["versions"];
+  labels: AlbumDiscography["labels"];
+  series: AlbumDiscography["series"];
+  creditStatements: AlbumDiscography["creditStatements"];
 }
 
 const CREDIT_FIELDS = `jsonb_build_object(
@@ -285,7 +291,9 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
   }
   const structuredRelease=(await getPool().query<{release_date:DateValue|null}>("SELECT release_date FROM ingest.catalog_edition_details WHERE album_id=$1",[id])).rows[0]?.release_date;
   const genres = (await publicGenresFor("album", [id], new Map([[id, row["genre"] as string | null]]))).get(id)!;
+  const label = row["label_id"] != null ? { id: Number(row["label_id"]), name: row["label_name"] as string } : null;
   return {
+    ...await albumDiscography(id, label),
     id: Number(row["id"]),
     title: row["title"] as string,
     releaseYear: row["release_year"] as number | null,
@@ -308,7 +316,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
     wordpressUrl: row["wordpress_url"] as string | null,
     wordpressStatus: row["wordpress_status"] as string,
     artist: { id: Number(row["artist_id"]), name: row["artist_name"] as string },
-    label: row["label_id"] != null ? { id: Number(row["label_id"]), name: row["label_name"] as string } : null,
+    label,
     tracklist,
     credits,
     creditsByType,

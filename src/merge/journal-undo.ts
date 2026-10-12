@@ -344,12 +344,22 @@ async function archivedIdentityChanges(client: PoolClient, runId: number, record
   return [...derived.values()].filter(change => !sameValue(change.before, change.after));
 }
 
-async function prepare(client: PoolClient, runId: number, lockRows = false): Promise<Prepared> {
+/**
+ * Alcance de un deshacer parcial: solo las filas que el filtro acepta. Sirve
+ * para deshacer lo que un run hizo a un grupo de fichas sin tocar el resto
+ * (plan del primo, etapa 2: separar los volúmenes juntados por la run 18980).
+ * El filtro ve la fila antes y después; el efecto neto de cada fila es
+ * independiente, así que acotar por fila no deja estados a medias.
+ */
+export type UndoScope = (change: Pick<NetChange, "table" | "pk" | "before" | "after">) => boolean;
+
+async function prepare(client: PoolClient, runId: number, lockRows = false, scope?: UndoScope): Promise<Prepared> {
   const journal = await client.query<JournalRow>(`
     SELECT id::text, table_name, op, row_pk, old_data, new_data
       FROM ingest.change_journal WHERE run_id=$1 ORDER BY id`, [runId]);
   const changes = netChanges(journal.rows);
   changes.push(...await archivedIdentityChanges(client, runId, changes));
+  if (scope) changes.splice(0, changes.length, ...changes.filter((change) => scope(change)));
   const info = await loadTableInfo(client, [...new Set(changes.map((change) => change.table))]);
   const evaluated: Evaluated[] = [];
   // Apply holds the checked rows until its transaction commits. If another
@@ -400,9 +410,9 @@ async function prepare(client: PoolClient, runId: number, lockRows = false): Pro
   };
 }
 
-/** Qué haría deshacer el run, sin escribir nada. */
-export async function planJournalUndo(client: PoolClient, runId: number): Promise<JournalUndoPlan> {
-  return (await prepare(client, runId)).plan;
+/** Qué haría deshacer el run (o solo su `scope`), sin escribir nada. */
+export async function planJournalUndo(client: PoolClient, runId: number, scope?: UndoScope): Promise<JournalUndoPlan> {
+  return (await prepare(client, runId, false, scope)).plan;
 }
 
 /** `true` si el diario tiene cambios de ese run. */
@@ -473,9 +483,11 @@ async function stageTrackPositions(client:PoolClient,pending:Evaluated[]):Promis
  * llama. Si una fila del catálogo cambió después, no escribe nada y responde
  * `not_open` con cada fila y el run que la cambió.
  */
-export async function undoRunWithJournal(context: OperatorContext, runId: number): Promise<JournalUndoResult> {
+export async function undoRunWithJournal(
+  context: OperatorContext, runId: number, scope?: { rows: UndoScope; albumIds: number[] },
+): Promise<JournalUndoResult> {
   const client = context.client;
-  const prepared = await prepare(client, runId, true);
+  const prepared = await prepare(client, runId, true, scope?.rows);
   const { plan, info } = prepared;
   if (plan.conflicts.length) {
     const first = plan.conflicts[0]!;
@@ -530,9 +542,16 @@ export async function undoRunWithJournal(context: OperatorContext, runId: number
   }
 
   // Los claims que el run creó y siguen vivos: sustituidos, nunca borrados.
-  const superseded = await client.query(`
-    UPDATE ingest.claims SET status='superseded', updated_at=now(), notes=concat_ws(' · ', notes, $2::text)
-     WHERE run_id=$1 AND status IN ('accepted','candidate','conflict')`, [runId, note]);
+  //    Con alcance, solo los de las fichas del alcance.
+  const superseded = scope
+    ? await client.query(`
+        UPDATE ingest.claims SET status='superseded', updated_at=now(), notes=concat_ws(' · ', notes, $2::text)
+         WHERE run_id=$1 AND status IN ('accepted','candidate','conflict')
+           AND (album_id = ANY($3::bigint[]) OR track_id IN (SELECT id FROM public.tracks WHERE album_id = ANY($3::bigint[])))`,
+      [runId, note, scope.albumIds])
+    : await client.query(`
+        UPDATE ingest.claims SET status='superseded', updated_at=now(), notes=concat_ws(' · ', notes, $2::text)
+         WHERE run_id=$1 AND status IN ('accepted','candidate','conflict')`, [runId, note]);
 
   // La historia de cada ficha que vuelve o cambia dice que se deshizo.
   for (const entity of plan.entities) {

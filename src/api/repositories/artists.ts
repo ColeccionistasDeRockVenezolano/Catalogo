@@ -104,7 +104,9 @@ export interface ArtistDetail {
   /** Su proyecto es de una persona fallecida (titular o único integrante). */
   isDeceased: boolean;
   /** `personDisplayName`: «Nombre "Apodo" Apellido» si la persona tiene apodo (solo pantalla). */
-  members: Array<{ id: number; personId: number; personName: string; personDisplayName: string | null; personRealName: string | null; personIsDeceased: boolean; role: string; personBirthDate: string | null; personDeathDate: string | null; fromYear: number | null; toYear: number | null; isCurrent: boolean }>;
+  members: Array<{ id: number; personId: number; personName: string; personDisplayName: string | null; personRealName: string | null; personIsDeceased: boolean; role: string; personBirthDate: string | null; personDeathDate: string | null; fromYear: number | null; toYear: number | null; isCurrent: boolean;
+    /** Plan del primo, etapa 2: fundador con su cita y claves de la lista fija de instrumentos. */
+    isFounder: boolean | null; founderEvidence: string | null; instruments: string[] }>;
   discography: Array<{ albumId: number; title: string; releaseYear: number | null; albumType: string; coverUrl: string | null; genres: PublicGenre[] }>;
   aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean; publicHidden: boolean }>;
   /** Géneros confirmados del ARTISTA; los discos tienen los suyos. */
@@ -138,9 +140,11 @@ export async function getArtistDetail(id: number): Promise<ArtistDetail | null> 
          SELECT jsonb_agg(jsonb_build_object(
            'id', am.id, 'personId', p.id, 'personName', p.name, 'personRealName', p.real_name, 'personIsDeceased', ${personDeceasedSql("p")}, 'role', am.role,
            'personBirthDate', p.birth_date_value, 'personDeathDate', p.death_date_value,
-           'fromYear', am.from_year, 'toYear', am.to_year, 'isCurrent', am.is_current
+           'fromYear', am.from_year, 'toYear', am.to_year, 'isCurrent', am.is_current,
+           'isFounder', md.is_founder, 'founderEvidence', md.founder_evidence, 'instruments', COALESCE(to_jsonb(md.instruments), '[]'::jsonb)
          ) ORDER BY am.from_year NULLS LAST, p.name)
          FROM public.artist_members am JOIN public.persons p ON p.id = am.person_id
+         LEFT JOIN ingest.membership_details md ON md.artist_member_id = am.id
          WHERE am.artist_id = a.id
        ), '[]'::jsonb) AS members,
        COALESCE((

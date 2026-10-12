@@ -19,6 +19,8 @@ const PersonDetailPage = lazy(() => import("./pages/PersonDetailPage").then((mod
 const PersonDuplicatesPage = lazy(() => import("./pages/PersonDuplicatesPage").then((module) => ({ default: module.PersonDuplicatesPage })));
 const OrganizationsListPage = lazy(() => import("./pages/OrganizationsListPage").then((module) => ({ default: module.OrganizationsListPage })));
 const OrganizationDetailPage = lazy(() => import("./pages/OrganizationDetailPage").then((module) => ({ default: module.OrganizationDetailPage })));
+const PlacePage = lazy(() => import("./pages/PlacePage").then((module) => ({ default: module.PlacePage })));
+const SeriesPage = lazy(() => import("./pages/SeriesPage").then((module) => ({ default: module.SeriesPage })));
 const ReviewQueueDetailPage = lazy(() => import("./pages/ReviewQueueDetailPage").then((module) => ({ default: module.ReviewQueueDetailPage })));
 const CurationLayout = lazy(() => import("./pages/CurationLayout").then((module) => ({ default: module.CurationLayout })));
 const CurationOverviewPage = lazy(() => import("./pages/CurationOverviewPage").then((module) => ({ default: module.CurationOverviewPage })));
@@ -51,6 +53,8 @@ export function App() {
           <Route path="/personas/:id" element={<PersonDetailPage />} />
           <Route path="/organizaciones" element={<OrganizationsListPage />} />
           <Route path="/organizaciones/:id" element={<OrganizationDetailPage />} />
+          <Route path="/lugares/:id" element={<PlacePage />} />
+          <Route path="/series/:id" element={<SeriesPage />} />
           <Route path="/curaduria" element={<CurationLayout />}>
             <Route index element={<CurationOverviewPage />} />
             <Route path="categoria/:key" element={<CurationFindingsPage />} />

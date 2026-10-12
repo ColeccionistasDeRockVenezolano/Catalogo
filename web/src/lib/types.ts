@@ -58,6 +58,8 @@ export interface ArtistMember {
   /** Fechas de la persona: la ficha del proyecto solista las muestra como suyas. */
   personBirthDate?: string | null; personDeathDate?: string | null;
   fromYear: number | null; toYear: number | null; isCurrent: boolean;
+  /** Plan del primo, etapa 2: fundador con su cita e instrumentos de la lista fija. */
+  isFounder?: boolean | null; founderEvidence?: string | null; instruments?: string[];
 }
 
 export interface DiscographyItem {
@@ -261,6 +263,11 @@ export interface AlbumDetail {
   youtubeLinks: YoutubeLink[];
   /** El disco en plataformas de escucha (solo identidad verificada). */
   platforms?: PlatformLink[];
+  /** Plan del primo, etapa 2 (0068). */
+  versions?: AlbumVersion[];
+  labels?: LabelRef[];
+  series?: SeriesMembership[];
+  creditStatements?: CreditStatement[];
 }
 
 // ---------- persons ----------
@@ -441,6 +448,50 @@ export interface OrganizationDetail extends OrganizationListItem {
   creditedArtists: CreditedArtist[];
   associatedPersons: AssociatedPerson[];
   aliases: Alias[];
+  /** Plan del primo, etapa 2 (0068): sucesión con fuente, lugares, discos por rol y como estudio. */
+  relations?: OrganizationRelation[];
+  places?: Array<{ id: number; name: string }>;
+  roleAlbums?: Array<LabelAlbum & { role: LabelRef["role"]; roleLabel: string }>;
+  studioAlbums?: Array<LabelAlbum & { roles: string[] }>;
+}
+
+// ---------- modelo discográfico (plan del primo, etapa 2) ----------
+export interface LabelRef { organizationId: number; name: string; role: "label" | "distributor" | "licensee"; roleLabel: string }
+
+export interface AlbumVersion {
+  id: number; position: number; title: string | null; format: string | null; formatDetails: string | null; catalogNumber: string | null;
+  country: string | null; releaseYear: number | null; releaseDate: string | null; coverUrl: string | null; notes: string | null;
+  distinctTracks: boolean; discNumbers: number[]; isPrimary: boolean; source: string | null; sourceUrl: string | null; hasOwnPage: boolean;
+  labels: LabelRef[];
+}
+
+export interface SeriesMembership {
+  id: number; title: string; volumeNumber: number | null; volumeLabel: string | null; line: string;
+  previous: { albumId: number; title: string } | null; next: { albumId: number; title: string } | null;
+}
+
+export interface CreditStatement {
+  id: number; lineNumber: number; sectionKind: string; text: string; trackNumbers: number[];
+  parts: Array<{ start: number; end: number; type: string; roleKey: string | null; personId: number | null; artistId: number | null;
+    organizationId: number | null; placeId: number | null; year: number | null }>;
+}
+
+export interface OrganizationRelation {
+  direction: "outgoing" | "incoming"; relationType: string; other: { id: number; name: string };
+  startYear: number | null; endYear: number | null; evidenceNote: string; sourceUrls: string[];
+}
+
+export interface PlaceDetail {
+  id: number; name: string; placeType: string; city: string | null; region: string | null; country: string | null;
+  parent: { id: number; name: string } | null; children: Array<{ id: number; name: string }>; aliases: string[];
+  studios: Array<{ id: number; name: string; albumCount: number }>;
+  albumsByRole: Array<{ roleKey: string; albums: Array<{ albumId: number; title: string; releaseYear: number | null; artistId: number; artistName: string;
+    coverUrl: string | null; studios: Array<{ id: number; name: string }> }> }>;
+}
+
+export interface SeriesDetail {
+  id: number; title: string; description: string | null; artist: { id: number; name: string } | null; organization: { id: number; name: string } | null;
+  volumes: Array<{ albumId: number; title: string; releaseYear: number | null; coverUrl: string | null; volumeNumber: number | null; volumeLabel: string | null }>;
 }
 
 // ---------- review queue ----------

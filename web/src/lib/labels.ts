@@ -65,6 +65,9 @@ export const artistTypeLabel = (value: string) => label("artistType", value);
 export const albumTypeLabel = (value: string) => label("albumType", value);
 export const organizationTypeLabel = (value: string) => label("organizationType", value);
 export const creditTypeLabel = (value: string) => label("creditType", value);
+/** Encabezado de un grupo de discos por rol en la página de lugar («Grabados», «Mezclados»…). */
+const CREDIT_ROLE_GROUP: Record<string, string> = { recording: "Grabados", mixing: "Mezclados", mastering: "Masterizados", producer: "Producidos" };
+export const creditRoleGroupLabel = (value: string) => CREDIT_ROLE_GROUP[value] ?? creditTypeLabel(value);
 export const aliasTypeLabel = (value: string) => label("aliasType", value);
 export const publicationStatusLabel = (value: string) => label("publicationStatus", value);
 export const reviewKindLabel = (value: string) => label("reviewKind", value);

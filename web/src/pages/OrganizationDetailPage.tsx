@@ -24,7 +24,8 @@ import { CatalogYear } from "../components/CatalogMetadata";
 import { EntityInfo, type InfoItem } from "../components/EntityInfo";
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
-import { organizationTypeLabel } from "../lib/labels";
+import { creditTypeLabel, organizationTypeLabel } from "../lib/labels";
+import { OrganizationSuccession } from "../components/Discography";
 
 export function OrganizationDetailPage() {
   const { id } = useParams();
@@ -45,6 +46,9 @@ export function OrganizationDetailPage() {
     { label: "Tipo", value: organizationTypeLabel(org.organizationType) },
     { label: "País", value: org.country, fallback: "Sin dato" },
     { label: "Sitio web", value: org.websiteUrl ? <a href={org.websiteUrl} target="_blank" rel="noreferrer noopener">{org.websiteUrl.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}</a> : null },
+    { label: "Ubicación", value: org.places?.length ? org.places.map((place, index) => (
+      <span key={place.id}>{index ? " · " : ""}<Link to={`/lugares/${place.id}`}>{place.name}</Link></span>
+    )) : null },
     { label: "Discos como sello", value: org.labelAlbums.length ? org.labelAlbums.length : null },
     { label: "Artistas acreditados", value: org.creditedArtists.length ? org.creditedArtists.length : null },
   ];
@@ -69,6 +73,46 @@ export function OrganizationDetailPage() {
         </div>
       ),
     },
+    ...((org.roleAlbums?.length ?? 0) > 0 ? [{
+      key: "distribucion", label: "Distribución y licencias", count: org.roleAlbums!.length,
+      content: (
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>Disco</th><th>Artista</th><th>Rol</th><th className="num">Año</th></tr></thead>
+            <tbody>
+              {org.roleAlbums!.map((album) => (
+                <tr key={`${album.albumId}:${album.role}`}>
+                  <td><Link to={`/discos/${album.albumId}`}>{album.title}</Link></td>
+                  <td><Link to={`/artistas/${album.artistId}`}>{album.artistName}</Link></td>
+                  <td>{album.roleLabel}</td>
+                  <td className="num"><CatalogYear year={album.releaseYear}>{album.releaseYear ?? "—"}</CatalogYear></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ),
+    }] : []),
+    ...((org.studioAlbums?.length ?? 0) > 0 ? [{
+      key: "estudio", label: "Discos hechos aquí", count: org.studioAlbums!.length,
+      content: (
+        <div className="table-wrap">
+          <table>
+            <thead><tr><th>Disco</th><th>Artista</th><th>Trabajo</th><th className="num">Año</th></tr></thead>
+            <tbody>
+              {org.studioAlbums!.map((album) => (
+                <tr key={album.albumId}>
+                  <td><Link to={`/discos/${album.albumId}`}>{album.title}</Link></td>
+                  <td><Link to={`/artistas/${album.artistId}`}>{album.artistName}</Link></td>
+                  <td>{album.roles.map(creditTypeLabel).join(", ")}</td>
+                  <td className="num"><CatalogYear year={album.releaseYear}>{album.releaseYear ?? "—"}</CatalogYear></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ),
+    }] : []),
     {
       key: "artistas", label: "Artistas acreditados", count: org.creditedArtists.length,
       content: org.creditedArtists.length === 0 ? <TabEmpty>Sin artistas acreditados.</TabEmpty> : (
@@ -144,6 +188,13 @@ export function OrganizationDetailPage() {
           <button type="button" className="btn btn--sm btn--danger" onClick={() => setDeleting(true)}>
             <Trash size={14} weight="bold" aria-hidden="true" />Retirar
           </button>
+        </div>
+      ) : null}
+
+      {org.relations?.length ? (
+        <div className="section">
+          <h2>Sucesión</h2>
+          <OrganizationSuccession relations={org.relations} />
         </div>
       ) : null}
 

@@ -21,6 +21,7 @@ import { TrackAliasesSection } from "../components/TrackAliasesSection";
 import { EntityPicker } from "../components/EntityPicker";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { CreditManager } from "../components/CreditManager";
+import { AlbumVersions, CreditChips, CreditStatements, SeriesLines } from "../components/Discography";
 import { AlbumMergeModal } from "../components/AlbumMergeModal";
 import { EntityProvenance } from "../components/EntityProvenance";
 import { EntityHistory } from "../components/EntityHistory";
@@ -101,12 +102,16 @@ export function AlbumDetailPage() {
           <p style={{ margin: "6px 0 0" }}>
             <Link to={`/artistas/${album.artist.id}`} style={{ fontWeight: 600, color: "var(--text)" }}>{album.artist.name}</Link>
           </p>
+          <SeriesLines series={album.series ?? []} />
           <div className="entity-hero__meta">
             {album.releaseYear !== null ? <CatalogYear year={album.releaseYear} className="badge" /> : null}
             <Link to={`/discos?tipo=${album.albumType}`} className="badge">{albumTypeLabel(album.albumType)}</Link>
             {album.genres?.length ? <CatalogGenres genres={album.genres} className="badge" /> : album.genre ? <span className="badge">{album.genre}{album.genreStatus === "pending" ? " (sin confirmar)" : ""}</span> : null}
             {album.genreByLaya ? <span className="badge badge--amber" title="Género principal elegido por Laya (último recurso). Solo visible con sesión iniciada.">Género por Laya</span> : null}
-            {album.label ? <Link to={`/organizaciones/${album.label.id}`} className="badge badge--violet">{album.label.name}</Link> : null}
+            {album.labels?.length ? album.labels.map((label) => (
+              <Link key={`${label.organizationId}:${label.role}`} to={`/organizaciones/${label.organizationId}`} className="badge badge--violet"
+                title={label.roleLabel}>{label.name}{label.role !== "label" ? ` (${label.roleLabel.toLowerCase()})` : ""}</Link>
+            )) : album.label ? <Link to={`/organizaciones/${album.label.id}`} className="badge badge--violet">{album.label.name}</Link> : null}
           </div>
           {album.releaseDateValue || album.releaseDateText || album.catalogId || album.mediaFormat ? <dl className="album-edition-details">
             {album.releaseDateValue || album.releaseDateText ? <div><dt>Fecha de publicación</dt><dd>{album.releaseYear !== null ? <CatalogYear year={album.releaseYear}>{album.releaseDateValue ? formatDate(album.releaseDateValue) : album.releaseDateText}</CatalogYear> : album.releaseDateValue ? formatDate(album.releaseDateValue) : album.releaseDateText}</dd></div> : null}
@@ -256,12 +261,22 @@ export function AlbumDetailPage() {
             return (
               <div className="credit-group" key={section.title}>
                 <h3>{section.title}</h3>
-                <CreditManager target={{ kind: "album", albumId: album.id }} credits={items} scoped={scoped} onChanged={reload} provenance={creditProvenance} />
+                {/* Público: bloques por rol con chips de nombres (plan del primo, imagen 1); la edición queda para el operador. */}
+                {isAdmin ? <CreditManager target={{ kind: "album", albumId: album.id }} credits={items} scoped={scoped} onChanged={reload} provenance={creditProvenance} />
+                  : <CreditChips credits={items} scoped={scoped} />}
               </div>
             );
           })}
         </div>
+        <CreditStatements statements={album.creditStatements ?? []} />
       </div>
+
+      {(album.versions?.length ?? 0) > 1 ? (
+        <div className="section">
+          <h2>Versiones <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({album.versions!.length})</span></h2>
+          <AlbumVersions versions={album.versions!} coverUrl={album.coverUrl} />
+        </div>
+      ) : null}
 
       <div className="section">
         <h2>

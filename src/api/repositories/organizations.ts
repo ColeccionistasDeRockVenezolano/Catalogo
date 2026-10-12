@@ -2,6 +2,7 @@
 import { getPool } from "../../db/client.js";
 import type { PaginationQuery } from "../pagination.js";
 import { personDisplayNames, withPublicAliases } from "./person-display.js";
+import { organizationDiscography, type OrganizationDiscography } from "./discography.js";
 
 export interface OrganizationListRow {
   id: number;
@@ -67,6 +68,11 @@ export interface OrganizationDetail {
   creditedArtists: Array<{ artistId: number; artistName: string }>;
   associatedPersons: Array<{ id: number; personId: number; personName: string; personDisplayName: string | null; personIsDeceased: boolean; role: string; fromYear: number | null; toYear: number | null }>;
   aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean; publicHidden: boolean }>;
+  /** Plan del primo, etapa 2 (0068): sucesión con fuente, lugares, discos por rol y como estudio. */
+  relations: OrganizationDiscography["relations"];
+  places: OrganizationDiscography["places"];
+  roleAlbums: OrganizationDiscography["roleAlbums"];
+  studioAlbums: OrganizationDiscography["studioAlbums"];
 }
 
 export async function getOrganizationDetail(id: number): Promise<OrganizationDetail | null> {
@@ -108,6 +114,7 @@ export async function getOrganizationDetail(id: number): Promise<OrganizationDet
   const associatedPersons = row["associated_persons"] as Array<Omit<OrganizationDetail["associatedPersons"][number], "personDisplayName">>;
   const displayNames = await personDisplayNames(associatedPersons.map((person) => person.personId));
   return {
+    ...await organizationDiscography(id),
     id: Number(row["id"]),
     name: row["name"] as string,
     organizationType: row["organization_type"] as string,

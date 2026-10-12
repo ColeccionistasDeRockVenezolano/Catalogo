@@ -14,6 +14,7 @@ import { withOperatorRun } from "../../merge/operator.js";
 import { MERGE_ALBUM_FIELDS, previewAlbumMerge, mergeAlbums } from "../../merge/album-merge.js";
 import { getPool } from "../../db/client.js";
 import { layaDecidedIds } from "../../genres/public.js";
+import { albumDiscographySchema } from "./discography.js";
 
 const albumListItemSchema = z.object({
   id: z.number().int(),
@@ -102,6 +103,7 @@ const albumDetailSchema = z.object({
   })),
   platforms: z.array(z.object({ platform: z.string(), url: z.string() }))
     .describe("El disco en plataformas de escucha (Spotify, Apple Music, Deezer…); solo los de identidad verificada."),
+  ...albumDiscographySchema,
 });
 
 const listQuerySchema = paginationQuerySchema.extend({

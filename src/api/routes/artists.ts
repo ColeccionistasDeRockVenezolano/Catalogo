@@ -44,6 +44,7 @@ const artistDetailSchema = artistBaseSchema.extend({
     // Fechas de la persona: la ficha de un proyecto solista las muestra como suyas.
     personBirthDate: z.string().nullable(), personDeathDate: z.string().nullable(),
     fromYear: z.number().int().nullable(), toYear: z.number().int().nullable(), isCurrent: z.boolean(),
+    isFounder: z.boolean().nullable(), founderEvidence: z.string().nullable(), instruments: z.array(z.string()),
   })),
   discography: z.array(z.object({
     albumId: z.number().int(), title: z.string(), releaseYear: z.number().int().nullable(),

@@ -6,6 +6,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import { OperatorProvider } from "./lib/OperatorContext";
 import { ToastProvider } from "./lib/ToastContext";
 import "./styles/global.css";
+import "./styles/discography.css";
 
 const container = document.getElementById("root");
 if (!container) throw new Error("#root no encontrado");

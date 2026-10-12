@@ -392,3 +392,29 @@ export function parseCreditSections(sections: DescriptionSection[]): PersonCredi
   }
   return out;
 }
+
+/**
+ * Una línea de crédito en frase («Track 18 Mixed by K.C. Porter at World Beat
+ * Studios (Calabasas, California)») con sus piezas en crudo, para guardarla
+ * entera y enlazar sus partes (plan del primo, etapa 2, punto 8). Devuelve
+ * null si la línea no tiene la forma «… by/at …» o es una pista.
+ */
+export interface CreditLineMatch {
+  /** Alcance tal como se escribió («Track 18», «All tracks»), o null. */
+  scope: string | null;
+  /** Verbos del rol tal como se escribieron («Mixed & Mastered»). */
+  role: string;
+  preposition: "by" | "at";
+  /** Lo que sigue a «by»/«at». */
+  value: string;
+  credit: CreditLine;
+}
+
+export function matchCreditLine(line: string): CreditLineMatch | null {
+  if (LEADING_TIMESTAMP.test(line) || TRAILING_TIMESTAMP.test(line)) return null;
+  const match = line.match(CREDIT_LINE);
+  if (!match) return null;
+  const credit = parseYouTubeDescription(`Other Credits\n${line}`).credits[0];
+  if (!credit) return null;
+  return { scope: match[1] ?? null, role: match[2]!, preposition: match[3]!.toLowerCase() as "by" | "at", value: match[4]!, credit };
+}

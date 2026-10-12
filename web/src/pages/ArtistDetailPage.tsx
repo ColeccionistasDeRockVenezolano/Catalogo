@@ -14,6 +14,7 @@ import { useToast } from "../lib/ToastContext";
 import { DetailSkeleton } from "../components/Skeletons";
 import { EntityCard, initialOf } from "../components/EntityCard";
 import { ArtistDiscography } from "../components/ArtistDiscography";
+import { groupMembers, MembersTimeline } from "../components/Discography";
 import { DeceasedMark } from "../components/DeceasedMark";
 import { AliasEditor } from "../components/AliasEditor";
 import { ArtistLogoButton } from "../components/ArtistLogoButton";
@@ -227,17 +228,29 @@ export function ArtistDetailPage() {
             </div>
           ) : null}
           {artist.members.length === 0 ? <TabEmpty>Sin integrantes registrados.</TabEmpty> : (
-            <div className="table-wrap">
-              <table>
-                <thead><tr><th>Persona</th><th>Rol</th><th>Periodo</th><th></th></tr></thead>
-                <tbody>
-                  {memberGroups.flatMap((group) => group.map((member, index) => (
-                    <MemberRow key={member.id} member={member} personSpan={index === 0 ? group.length : 0}
-                      canEdit={isAdmin} onEdit={() => setEditingMember(member)} onChanged={reload} />
-                  )))}
-                </tbody>
-              </table>
-            </div>
+            <>
+              {/* La línea de tiempo solo sale cuando todos tienen periodo (plan del primo, punto 12). */}
+              <MembersTimeline members={artist.members} albums={artist.discography}
+                endYear={!hasCurrentMember && artist.disbandedYear ? artist.disbandedYear : new Date().getFullYear()} />
+              <div className="member-groups">
+                {groupMembers(artist.members).map((section) => (
+                  <section key={section.key}>
+                    <h3 className="similar-reason">{section.title}</h3>
+                    <div className="table-wrap">
+                      <table>
+                        <thead><tr><th>Persona</th><th>Rol</th><th>Periodo</th><th></th></tr></thead>
+                        <tbody>
+                          {groupMembersByPerson(section.members).flatMap((group) => group.map((member, index) => (
+                            <MemberRow key={member.id} member={member} personSpan={index === 0 ? group.length : 0}
+                              canEdit={isAdmin} onEdit={() => setEditingMember(member)} onChanged={reload} />
+                          )))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+                ))}
+              </div>
+            </>
           )}
         </>
       ),
@@ -449,7 +462,10 @@ function MemberRow({ member, personSpan, canEdit, onEdit, onChanged }: {
   return (
     <tr>
       {personSpan > 0 ? (
-        <td rowSpan={personSpan}><Link to={`/personas/${member.personId}`}>{member.personDisplayName ?? member.personName}</Link><DeceasedMark deceased={member.personIsDeceased} /></td>
+        <td rowSpan={personSpan}>
+          <Link to={`/personas/${member.personId}`}>{member.personDisplayName ?? member.personName}</Link><DeceasedMark deceased={member.personIsDeceased} />
+          {member.isFounder ? <span className="badge member-founder" title={member.founderEvidence ?? undefined}>Fundador/a</span> : null}
+        </td>
       ) : null}
       <td>{memberRoleLabel(member.role)}</td>
       <td className="mono">{member.fromYear ?? "—"}{member.isCurrent ? "–presente" : member.toYear ? `–${member.toYear}` : ""}</td>

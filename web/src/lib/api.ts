@@ -15,6 +15,7 @@ import type {
   AlbumMergePreview, AlbumMergeResult, PersonSplitPreview, PersonSplitResult,
   FindingActionsResult, FixBatch, FixBatchSummary, DistinctPair, ConflictResolveResult, ConflictResolveGroupResult,
   AuditUndoPreview, ChangeDetail, ChangeEntityKind, ChangeSummary, ChangeUndoResult, GenreFacets, HomeData,
+  PlaceDetail, SeriesDetail,
 } from "./types";
 
 /**
@@ -279,6 +280,12 @@ export const organizationsApi = {
   list: (params: Paged & { q?: string; organizationType?: string } = {}, signal?: AbortSignal) => request<Page<OrganizationListItem>>("/organizations", { query: params, ...(signal ? { signal } : {}) }),
   facets: () => request<OrganizationFacets>("/organizations/facets"),
   get: (id: number) => request<OrganizationDetail>(`/organizations/${id}`),
+};
+
+/** Plan del primo, etapa 2: página de lugar y de serie. */
+export const discographyApi = {
+  place: (id: number) => request<PlaceDetail>(`/places/${id}`),
+  series: (id: number) => request<SeriesDetail>(`/series/${id}`),
 };
 
 /** Lectura de pistas (auditoría #7: el CRUD era asimétrico, sin GET). */

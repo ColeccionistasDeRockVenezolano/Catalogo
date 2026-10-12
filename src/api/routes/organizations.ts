@@ -6,6 +6,7 @@ import { idParamSchema, aliasSchema, paginatedResponseSchema } from "../schemas.
 import { getOrganizationDetail, listOrganizations, getOrganizationFacets } from "../repositories/organizations.js";
 import { organizationTypeEnum } from "../../db/schema/core.js";
 import { notFoundEntity } from "../repositories/redirects.js";
+import { organizationDiscographySchema } from "./discography.js";
 
 const organizationListItemSchema = z.object({
   id: z.number().int(),
@@ -30,6 +31,7 @@ const organizationDetailSchema = organizationListItemSchema.extend({
     fromYear: z.number().int().nullable(), toYear: z.number().int().nullable(),
   })),
   aliases: z.array(aliasSchema),
+  ...organizationDiscographySchema,
 });
 
 const listQuerySchema = paginationQuerySchema.extend({

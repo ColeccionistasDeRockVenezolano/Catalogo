@@ -31,6 +31,7 @@ import { registerGenreRoutes } from "./routes/genres.js";
 import { registerTrackRoutes } from "./routes/tracks.js";
 import { registerPersonRoutes } from "./routes/persons.js";
 import { registerOrganizationRoutes } from "./routes/organizations.js";
+import { registerDiscographyRoutes } from "./routes/discography.js";
 import { registerSourceRoutes } from "./routes/sources.js";
 import { registerReviewRoutes } from "./routes/review-queue.js";
 import { registerYouTubeRoutes } from "./routes/youtube.js";
@@ -153,6 +154,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerTrackRoutes(app);
   await registerPersonRoutes(app);
   await registerOrganizationRoutes(app);
+  await registerDiscographyRoutes(app);
   await registerSourceRoutes(app);
   await registerReviewRoutes(app);
   await registerYouTubeRoutes(app);
