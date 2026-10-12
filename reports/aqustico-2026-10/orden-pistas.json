@@ -1,0 +1,5004 @@
+{
+ "generado": "2026-10-12T05:44:37",
+ "discos": [
+  {
+   "hueco": "H8",
+   "aqIds": "4605",
+   "crvAlbumId": 2212,
+   "artist": "Aditus",
+   "title": "En este país",
+   "songs": [
+    [
+     36093,
+     "Algo eléctrico"
+    ],
+    [
+     36094,
+     "Aquel Amor"
+    ],
+    [
+     36099,
+     "La Vida"
+    ],
+    [
+     36101,
+     "Mi Luz"
+    ],
+    [
+     36095,
+     "Casualidad"
+    ],
+    [
+     36100,
+     "Mi Amplificador"
+    ],
+    [
+     36096,
+     "En Este País"
+    ],
+    [
+     36102,
+     "No se quita"
+    ],
+    [
+     36097,
+     "Guardia de Frontera"
+    ],
+    [
+     36103,
+     "No te pueden Apaga"
+    ],
+    [
+     36105,
+     "Pasión"
+    ],
+    [
+     36107,
+     "Quiero ser tu Héroe"
+    ],
+    [
+     36109,
+     "Tiempo"
+    ],
+    [
+     36098,
+     "Hablame de Ti"
+    ],
+    [
+     36104,
+     "No te vayas ahora"
+    ],
+    [
+     36106,
+     "Perdiendo Altura"
+    ],
+    [
+     36108,
+     "Solo"
+    ],
+    [
+     36110,
+     "Victoria"
+    ]
+   ],
+   "titles": [
+    "Algo eléctrico",
+    "Aquel Amor",
+    "La Vida",
+    "Mi Luz",
+    "Casualidad",
+    "Mi Amplificador",
+    "En Este País",
+    "No se quita",
+    "Guardia de Frontera",
+    "No te pueden Apaga",
+    "Pasión",
+    "Quiero ser tu Héroe",
+    "Tiempo",
+    "Hablame de Ti",
+    "No te vayas ahora",
+    "Perdiendo Altura",
+    "Solo",
+    "Victoria"
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "5181",
+   "crvAlbumId": 15444,
+   "artist": "BioShaft",
+   "title": "Acoustic Live Sessions",
+   "songs": [
+    [
+     42665,
+     "Peso Sobre Un Venezolano PSUV BONUS TRACK"
+    ],
+    [
+     42666,
+     "Walk Through The Fire"
+    ],
+    [
+     42667,
+     "Hypatia"
+    ],
+    [
+     42671,
+     "Blackbandaid"
+    ],
+    [
+     42672,
+     "Fuck Your Solutions"
+    ],
+    [
+     42673,
+     "My Party"
+    ],
+    [
+     42674,
+     "Fly"
+    ]
+   ],
+   "titles": [
+    "Peso Sobre Un Venezolano PSUV BONUS TRACK",
+    "Walk Through The Fire",
+    "Hypatia",
+    "Blackbandaid",
+    "Fuck Your Solutions",
+    "My Party",
+    "Fly"
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "4711",
+   "crvAlbumId": 4189,
+   "artist": "Guillermo Carrasco",
+   "title": "Esto Fue Un Placer",
+   "songs": [
+    [
+     37421,
+     "Algo Eléctrico"
+    ],
+    [
+     37423,
+     "Joven"
+    ],
+    [
+     37425,
+     "Ojalá"
+    ],
+    [
+     37420,
+     "Alégrate"
+    ],
+    [
+     37422,
+     "Bella y Fugaz"
+    ],
+    [
+     37424,
+     "No te vayas ahora"
+    ],
+    [
+     37426,
+     "Te diera"
+    ],
+    [
+     37466,
+     "Mi Amplificador"
+    ],
+    [
+     37468,
+     "Victoria"
+    ],
+    [
+     37467,
+     "Tiempo"
+    ]
+   ],
+   "titles": [
+    "Algo Eléctrico",
+    "Joven",
+    "Ojalá",
+    "Alégrate",
+    "Bella y Fugaz",
+    "No te vayas ahora",
+    "Te diera",
+    "Mi Amplificador",
+    "Victoria",
+    "Tiempo"
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "4709",
+   "crvAlbumId": 4187,
+   "artist": "Guillermo Carrasco",
+   "title": "Ahora o Nunca",
+   "songs": [
+    [
+     37397,
+     "Carretera"
+    ],
+    [
+     37399,
+     "En El Borde"
+    ],
+    [
+     37401,
+     "Por Analogía"
+    ],
+    [
+     37403,
+     "Respuesta"
+    ],
+    [
+     37405,
+     "Te Espero"
+    ],
+    [
+     37407,
+     "Yo Soy Aquel"
+    ],
+    [
+     37396,
+     "A Fondo"
+    ],
+    [
+     37398,
+     "El Tren"
+    ],
+    [
+     37400,
+     "Perdida"
+    ],
+    [
+     37402,
+     "Quiero Ser Tu Héroe"
+    ],
+    [
+     37404,
+     "Te Amaré en Inglaterra"
+    ],
+    [
+     37406,
+     "Verso Duro"
+    ],
+    [
+     37465,
+     "si te vas"
+    ]
+   ],
+   "titles": [
+    "Carretera",
+    "En El Borde",
+    "Por Analogía",
+    "Respuesta",
+    "Te Espero",
+    "Yo Soy Aquel",
+    "A Fondo",
+    "El Tren",
+    "Perdida",
+    "Quiero Ser Tu Héroe",
+    "Te Amaré en Inglaterra",
+    "Verso Duro",
+    "si te vas"
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "4777",
+   "crvAlbumId": 26864,
+   "artist": "Ángel Custodio Loyola",
+   "title": "El guariqueño sí sabe",
+   "songs": [
+    [
+     38173,
+     "Antes de morir les dejo"
+    ],
+    [
+     38174,
+     "Cariño lindo"
+    ],
+    [
+     38175,
+     "El gavan golillu"
+    ],
+    [
+     38176,
+     "El guariqueño si sabe"
+    ],
+    [
+     38177,
+     "Guayabo negro"
+    ],
+    [
+     38178,
+     "La catira"
+    ],
+    [
+     38179,
+     "La guayaba"
+    ],
+    [
+     38180,
+     "La palma"
+    ],
+    [
+     38181,
+     "Relato llanero"
+    ],
+    [
+     38182,
+     "Yo defiendo mi folklore"
+    ]
+   ],
+   "titles": [
+    "Antes de morir les dejo",
+    "Cariño lindo",
+    "El gavan golillu",
+    "El guariqueño si sabe",
+    "Guayabo negro",
+    "La catira",
+    "La guayaba",
+    "La palma",
+    "Relato llanero",
+    "Yo defiendo mi folklore"
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "5252",
+   "crvAlbumId": 15529,
+   "artist": "Los J",
+   "title": "No nos [ J ] más",
+   "songs": [
+    [
+     43216,
+     "Perdida"
+    ],
+    [
+     43217,
+     "Fuego"
+    ],
+    [
+     43218,
+     "Marcianos"
+    ],
+    [
+     43219,
+     "Soñar"
+    ],
+    [
+     43220,
+     "Errores"
+    ],
+    [
+     43221,
+     "Alzheimer"
+    ],
+    [
+     43222,
+     "Malandro"
+    ],
+    [
+     43223,
+     "No paga la vida"
+    ],
+    [
+     43224,
+     "Habitación 44"
+    ],
+    [
+     43225,
+     "Una Vez Mas"
+    ]
+   ],
+   "titles": [
+    "Perdida",
+    "Fuego",
+    "Marcianos",
+    "Soñar",
+    "Errores",
+    "Alzheimer",
+    "Malandro",
+    "No paga la vida",
+    "Habitación 44",
+    "Una Vez Mas"
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/728748891",
+    "externalTitle": "No Nos [ J ] Más",
+    "externalTracks": 10,
+    "order": {
+     "43216": {
+      "disc": 1,
+      "n": 4,
+      "title": "Perdida",
+      "seconds": 193
+     },
+     "43217": {
+      "disc": 1,
+      "n": 9,
+      "title": "Fuego",
+      "seconds": 147
+     },
+     "43218": {
+      "disc": 1,
+      "n": 1,
+      "title": "Marcianos",
+      "seconds": 203
+     },
+     "43219": {
+      "disc": 1,
+      "n": 10,
+      "title": "Soñar",
+      "seconds": 220
+     },
+     "43220": {
+      "disc": 1,
+      "n": 7,
+      "title": "Errores",
+      "seconds": 296
+     },
+     "43221": {
+      "disc": 1,
+      "n": 2,
+      "title": "Alzheimer",
+      "seconds": 236
+     },
+     "43222": {
+      "disc": 1,
+      "n": 6,
+      "title": "Malandro",
+      "seconds": 144
+     },
+     "43223": {
+      "disc": 1,
+      "n": 5,
+      "title": "No Paga la Vida",
+      "seconds": 176
+     },
+     "43224": {
+      "disc": 1,
+      "n": 3,
+      "title": "Habitación 44",
+      "seconds": 207
+     },
+     "43225": {
+      "disc": 1,
+      "n": 8,
+      "title": "Una Vez Más",
+      "seconds": 244
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "5225",
+   "crvAlbumId": 15618,
+   "artist": "Vargas",
+   "title": "Ciudad mareada",
+   "songs": [
+    [
+     43007,
+     "T41085 A"
+    ],
+    [
+     43008,
+     "La Respuesta"
+    ],
+    [
+     43009,
+     "La Estacion Junto a Psychowoof"
+    ],
+    [
+     43010,
+     "El Ruido Que Camina"
+    ],
+    [
+     43011,
+     "Honesto"
+    ],
+    [
+     43012,
+     "Ciclo"
+    ],
+    [
+     43013,
+     "Sin Aliento"
+    ],
+    [
+     43014,
+     "Pasa Sobre Mi"
+    ],
+    [
+     43015,
+     "Aterrizaje"
+    ],
+    [
+     43016,
+     "Los Excesos No Van Mal"
+    ],
+    [
+     43017,
+     "Ciudad Mareada"
+    ],
+    [
+     43018,
+     "Oquedad"
+    ]
+   ],
+   "titles": [
+    "T41085 A",
+    "La Respuesta",
+    "La Estacion Junto a Psychowoof",
+    "El Ruido Que Camina",
+    "Honesto",
+    "Ciclo",
+    "Sin Aliento",
+    "Pasa Sobre Mi",
+    "Aterrizaje",
+    "Los Excesos No Van Mal",
+    "Ciudad Mareada",
+    "Oquedad"
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "5668",
+   "crvAlbumId": 15627,
+   "artist": "Vargas",
+   "title": "La energía",
+   "songs": [
+    [
+     46443,
+     "La Energía"
+    ]
+   ],
+   "titles": [
+    "La Energía"
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/100000072",
+    "externalTitle": "La Energia",
+    "externalTracks": 1,
+    "order": {
+     "46443": {
+      "disc": 1,
+      "n": 1,
+      "title": "La Energia",
+      "seconds": 230
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "5467",
+   "crvAlbumId": 15619,
+   "artist": "Vargas",
+   "title": "Radiocassette",
+   "songs": [
+    [
+     45274,
+     "Manzanas Borrachas"
+    ],
+    [
+     45275,
+     "El Barrendero"
+    ],
+    [
+     45276,
+     "Golpe Bajo"
+    ],
+    [
+     45278,
+     "Radiocassette"
+    ],
+    [
+     45279,
+     "Mala Señal"
+    ],
+    [
+     45280,
+     "No Me Hagas Vivir Así"
+    ],
+    [
+     45281,
+     "Lista de Deseos"
+    ],
+    [
+     45282,
+     "Fracersers"
+    ],
+    [
+     45283,
+     "Caminata"
+    ],
+    [
+     45277,
+     "La Ventana"
+    ]
+   ],
+   "titles": [
+    "Manzanas Borrachas",
+    "El Barrendero",
+    "Golpe Bajo",
+    "Radiocassette",
+    "Mala Señal",
+    "No Me Hagas Vivir Así",
+    "Lista de Deseos",
+    "Fracersers",
+    "Caminata",
+    "La Ventana"
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/620160391",
+    "externalTitle": "Radiocassette",
+    "externalTracks": 10,
+    "order": {
+     "45274": {
+      "disc": 1,
+      "n": 8,
+      "title": "Manzanas Borrachas",
+      "seconds": 238
+     },
+     "45275": {
+      "disc": 1,
+      "n": 1,
+      "title": "El Barrendero",
+      "seconds": 175
+     },
+     "45276": {
+      "disc": 1,
+      "n": 5,
+      "title": "Golpe Bajo",
+      "seconds": 170
+     },
+     "45278": {
+      "disc": 1,
+      "n": 2,
+      "title": "Radiocassette",
+      "seconds": 188
+     },
+     "45279": {
+      "disc": 1,
+      "n": 9,
+      "title": "Mala Señal",
+      "seconds": 202
+     },
+     "45280": {
+      "disc": 1,
+      "n": 10,
+      "title": "No Me Hagas Vivir Asi",
+      "seconds": 176
+     },
+     "45281": {
+      "disc": 1,
+      "n": 7,
+      "title": "Lista de Deseos",
+      "seconds": 191
+     },
+     "45282": {
+      "disc": 1,
+      "n": 4,
+      "title": "Fracersers",
+      "seconds": 141
+     },
+     "45283": {
+      "disc": 1,
+      "n": 3,
+      "title": "Caminata",
+      "seconds": 198
+     },
+     "45277": {
+      "disc": 1,
+      "n": 6,
+      "title": "La Ventana",
+      "seconds": 212
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "5241",
+   "crvAlbumId": 15560,
+   "artist": "Para Llevar",
+   "title": "Lo que nos tocó vivir",
+   "songs": [
+    [
+     43127,
+     "Esquizofrenia Moderna"
+    ],
+    [
+     43128,
+     "Lo que nos toco vivir"
+    ],
+    [
+     43129,
+     "Cambios"
+    ],
+    [
+     43130,
+     "La misma Camada"
+    ],
+    [
+     43131,
+     "El rey y sus peones"
+    ],
+    [
+     43132,
+     "Espinas temblores"
+    ],
+    [
+     43133,
+     "No es fácil"
+    ],
+    [
+     43134,
+     "Ceguera"
+    ],
+    [
+     43135,
+     "Mil formas de pensar"
+    ],
+    [
+     43136,
+     "Amores Verdes"
+    ]
+   ],
+   "titles": [
+    "Esquizofrenia Moderna",
+    "Lo que nos toco vivir",
+    "Cambios",
+    "La misma Camada",
+    "El rey y sus peones",
+    "Espinas temblores",
+    "No es fácil",
+    "Ceguera",
+    "Mil formas de pensar",
+    "Amores Verdes"
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "6088",
+   "crvAlbumId": 26570,
+   "artist": "Frank Lucas",
+   "title": "GIRA SOLITO",
+   "songs": [
+    [
+     47430,
+     "GIRA SOLITO"
+    ],
+    [
+     47433,
+     "Cuando Estas Lejos"
+    ],
+    [
+     47434,
+     "Arrechisimo"
+    ],
+    [
+     47436,
+     "Hola Mor"
+    ],
+    [
+     47440,
+     "Pajarito"
+    ],
+    [
+     47431,
+     "Cosas del Destino"
+    ],
+    [
+     47432,
+     "Ya No Quiero Verte"
+    ],
+    [
+     47435,
+     "Los Caminos"
+    ],
+    [
+     47437,
+     "X Ti"
+    ],
+    [
+     47438,
+     "Yo"
+    ],
+    [
+     47439,
+     "Coco"
+    ]
+   ],
+   "titles": [
+    "GIRA SOLITO",
+    "Cuando Estas Lejos",
+    "Arrechisimo",
+    "Hola Mor",
+    "Pajarito",
+    "Cosas del Destino",
+    "Ya No Quiero Verte",
+    "Los Caminos",
+    "X Ti",
+    "Yo",
+    "Coco"
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "6953",
+   "crvAlbumId": 15504,
+   "artist": "José y El Toro",
+   "title": "Aunque esto se acabe",
+   "songs": [
+    [
+     49900,
+     "No es por celos pero..."
+    ],
+    [
+     49894,
+     "Tu Aprendiz"
+    ],
+    [
+     49895,
+     "Desde Las Venas"
+    ],
+    [
+     49896,
+     "Eternamente Niños"
+    ],
+    [
+     49897,
+     "Una Ciudad En El Bolsillo"
+    ],
+    [
+     49898,
+     "Entrelazados"
+    ],
+    [
+     49899,
+     "Me iré, me voy, me fui"
+    ],
+    [
+     49901,
+     "Te Voy a Perdonar"
+    ],
+    [
+     49902,
+     "Pinche Tirano"
+    ],
+    [
+     49903,
+     "Acciones, No Palabras"
+    ],
+    [
+     49904,
+     "Nadie Está Solo"
+    ],
+    [
+     49905,
+     "Aunque Esto Se Aca"
+    ]
+   ],
+   "titles": [
+    "No es por celos pero...",
+    "Tu Aprendiz",
+    "Desde Las Venas",
+    "Eternamente Niños",
+    "Una Ciudad En El Bolsillo",
+    "Entrelazados",
+    "Me iré, me voy, me fui",
+    "Te Voy a Perdonar",
+    "Pinche Tirano",
+    "Acciones, No Palabras",
+    "Nadie Está Solo",
+    "Aunque Esto Se Aca"
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "6389",
+   "crvAlbumId": 15502,
+   "artist": "José y El Toro",
+   "title": "Retrato",
+   "songs": [
+    [
+     48355,
+     "Cancion Para La Noche"
+    ],
+    [
+     48356,
+     "Hipolita"
+    ],
+    [
+     48357,
+     "Luna Voyerista"
+    ],
+    [
+     48358,
+     "La Ley Del Menos Apto"
+    ],
+    [
+     48359,
+     "Desde Las Venas"
+    ],
+    [
+     48360,
+     "Cuatro Segundos"
+    ],
+    [
+     48361,
+     "Buscame"
+    ],
+    [
+     48362,
+     "La Piedra"
+    ],
+    [
+     48363,
+     "Astromelia"
+    ],
+    [
+     48364,
+     "Stay"
+    ],
+    [
+     48365,
+     "Aurora"
+    ]
+   ],
+   "titles": [
+    "Cancion Para La Noche",
+    "Hipolita",
+    "Luna Voyerista",
+    "La Ley Del Menos Apto",
+    "Desde Las Venas",
+    "Cuatro Segundos",
+    "Buscame",
+    "La Piedra",
+    "Astromelia",
+    "Stay",
+    "Aurora"
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "6384",
+   "crvAlbumId": 15506,
+   "artist": "José y El Toro",
+   "title": "De hierro",
+   "songs": [
+    [
+     48334,
+     "De Hierro"
+    ]
+   ],
+   "titles": [
+    "De Hierro"
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/914124381",
+    "externalTitle": "De hierro",
+    "externalTracks": 1,
+    "order": {
+     "48334": {
+      "disc": 1,
+      "n": 1,
+      "title": "De hierro",
+      "seconds": 207
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H8",
+   "aqIds": "6373",
+   "crvAlbumId": 15507,
+   "artist": "José y El Toro",
+   "title": "Reloj ingrato",
+   "songs": [
+    [
+     48323,
+     "Reloj Ingrato"
+    ]
+   ],
+   "titles": [
+    "Reloj Ingrato"
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/848971262",
+    "externalTitle": "Reloj Ingrato",
+    "externalTracks": 2,
+    "order": {
+     "48323": {
+      "disc": 1,
+      "n": 1,
+      "title": "Reloj Ingrato",
+      "seconds": 176
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4607",
+   "crvArtistId": 3676,
+   "artist": "Alfredo Sadel",
+   "title": "Exitos Del Tenor Favorito De Venezuela",
+   "songs": [
+    [
+     36134,
+     "La Gondola"
+    ],
+    [
+     36135,
+     "La Negra"
+    ],
+    [
+     36126,
+     "A la Orilla del Palmar"
+    ],
+    [
+     36127,
+     "Amor Llanero"
+    ],
+    [
+     36128,
+     "Cantar Venezolano"
+    ],
+    [
+     36129,
+     "Caraqueña Gentil"
+    ],
+    [
+     36130,
+     "Crepusculo Larense"
+    ],
+    [
+     36131,
+     "Donde estas Corazon"
+    ],
+    [
+     36132,
+     "Granada"
+    ],
+    [
+     36133,
+     "Joropo tuyero"
+    ],
+    [
+     36136,
+     "Mi rival"
+    ],
+    [
+     36137,
+     "Penumbras"
+    ],
+    [
+     36138,
+     "Quejas"
+    ],
+    [
+     36139,
+     "Tus Miradas"
+    ],
+    [
+     36140,
+     "Tus Ojos"
+    ],
+    [
+     36141,
+     "Un punto en el camino"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4740",
+   "crvArtistId": 3676,
+   "artist": "Alfredo Sadel",
+   "title": "Alfredo Sadel El Mejor",
+   "songs": [
+    [
+     37723,
+     "Alma Llanera AS"
+    ],
+    [
+     37724,
+     "Amor de mis amores"
+    ],
+    [
+     37725,
+     "Amores de estudiante"
+    ],
+    [
+     37726,
+     "Cancion sin titulo"
+    ],
+    [
+     37727,
+     "Domino"
+    ],
+    [
+     37728,
+     "El hombre de hierro"
+    ],
+    [
+     37729,
+     "Golondrinas Del tiempo"
+    ],
+    [
+     37730,
+     "Humanidad"
+    ],
+    [
+     37731,
+     "Mi Cancion"
+    ],
+    [
+     37732,
+     "No me olvides"
+    ],
+    [
+     37733,
+     "Querer con la Guitarra"
+    ],
+    [
+     37734,
+     "Señora Maria"
+    ],
+    [
+     37735,
+     "Tamborin"
+    ],
+    [
+     37736,
+     "Toledo"
+    ],
+    [
+     37737,
+     "Yo soy aquel cantor"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4606",
+   "crvArtistId": 3676,
+   "artist": "Alfredo Sadel",
+   "title": "Alfredo Sadel en Feria",
+   "songs": [
+    [
+     36111,
+     "Admiracion de Manuel Briceño"
+    ],
+    [
+     36112,
+     "Bernardo Valencia"
+    ],
+    [
+     36113,
+     "Cañitas de Vicente Garrido"
+    ],
+    [
+     36114,
+     "Ccorrida Asturiana"
+    ],
+    [
+     36115,
+     "Giron de mi pueblo"
+    ],
+    [
+     36116,
+     "Granada de Agustin Lara"
+    ],
+    [
+     36117,
+     "La Feria de la Chinita"
+    ],
+    [
+     36118,
+     "La Gondola"
+    ],
+    [
+     36119,
+     "Madre de Jhonny Quiroz"
+    ],
+    [
+     36120,
+     "Maestranza de Maracay"
+    ],
+    [
+     36121,
+     "Mexico canta de Maria Grever"
+    ],
+    [
+     36122,
+     "Ole Gitana de Manuel Briceño"
+    ],
+    [
+     36123,
+     "San Cristobal Andina de Chucho Corrales"
+    ],
+    [
+     36124,
+     "Silveiro Perez de Agustin Lara"
+    ],
+    [
+     36125,
+     "Violi Gitano"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5179",
+   "crvArtistId": 1684,
+   "artist": "BioShaft",
+   "title": "Repeleme",
+   "songs": [
+    [
+     42656,
+     "Repeleme Q fx Remix"
+    ],
+    [
+     42657,
+     "My sweet friend"
+    ],
+    [
+     42658,
+     "Sr Desgracia Instrumental"
+    ],
+    [
+     42659,
+     "Repéleme"
+    ],
+    [
+     42660,
+     "Sr Desgracia"
+    ],
+    [
+     42669,
+     "Sr Desgracia ZoundColector Q FX y Destro Remix"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5180",
+   "crvArtistId": 1684,
+   "artist": "BioShaft",
+   "title": "No Somos Libres",
+   "songs": [
+    [
+     42661,
+     "No Somos Libres Remix by La Tradicion Pirata fet Alter"
+    ],
+    [
+     42662,
+     "Peso Sobre Un Venezolano PSUV"
+    ],
+    [
+     42663,
+     "No Somos Libres con El Rojo"
+    ],
+    [
+     42664,
+     "Fiesta Animal"
+    ],
+    [
+     42670,
+     "Fuck Your Solutions con Percucello y Sergio Perez"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4621",
+   "crvArtistId": 275,
+   "artist": "Circo Vulkano",
+   "title": "Circo Vulkano Remixes Fanfarria",
+   "songs": [
+    [
+     36339,
+     "ChONTOMusik"
+    ],
+    [
+     36340,
+     "Copia Doble Systema"
+    ],
+    [
+     36341,
+     "Demetrio de Ccs"
+    ],
+    [
+     36342,
+     "Dj Dragao"
+    ],
+    [
+     36343,
+     "Ed Turtled Remix Master by Carl Matthes"
+    ],
+    [
+     36344,
+     "El Barba Dub"
+    ],
+    [
+     36345,
+     "El Teclas"
+    ],
+    [
+     36346,
+     "Elastic Bond original"
+    ],
+    [
+     36347,
+     "Flyback Cocobass com Remi"
+    ],
+    [
+     36348,
+     "Folka Rumba DJ Chiflamicas"
+    ],
+    [
+     36349,
+     "Jairomendez"
+    ],
+    [
+     36350,
+     "Masseratti2lts"
+    ],
+    [
+     36351,
+     "Naxxo Antonieta"
+    ],
+    [
+     36352,
+     "Pocz 3ball guarachero"
+    ],
+    [
+     36353,
+     "Tropikore"
+    ],
+    [
+     36354,
+     "U Niko Dub"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4644",
+   "crvArtistId": 3821,
+   "artist": "Gualberto Ibarreto",
+   "title": "El Cantor de la voz de pueblo",
+   "songs": [
+    [
+     36637,
+     "Cuerpo cobarde"
+    ],
+    [
+     36639,
+     "La Carta"
+    ],
+    [
+     36641,
+     "La Negrita ja ja ja"
+    ],
+    [
+     36643,
+     "Malagueña Margariteña"
+    ],
+    [
+     36636,
+     "Canchunchu Florido"
+    ],
+    [
+     36638,
+     "El Guareque"
+    ],
+    [
+     36640,
+     "La Chacalera"
+    ],
+    [
+     36642,
+     "La Viejita Romana"
+    ],
+    [
+     36644,
+     "Punto e velorio"
+    ],
+    [
+     39058,
+     "Lucerito"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4817",
+   "crvArtistId": 3857,
+   "artist": "Un Solo Pueblo",
+   "title": "Venezuela es Un Solo Pueblo",
+   "songs": [
+    [
+     38747,
+     "Adios mujer"
+    ],
+    [
+     38748,
+     "Bolivar Bebe agua de San Juan"
+    ],
+    [
+     38749,
+     "Calipsos"
+    ],
+    [
+     38750,
+     "Canto de guaraña"
+    ],
+    [
+     38751,
+     "Cocoye el mocho carrillo"
+    ],
+    [
+     38752,
+     "Contrapunteo en repiquete"
+    ],
+    [
+     38753,
+     "Cumana tierra fecunda"
+    ],
+    [
+     38754,
+     "El arrendajo"
+    ],
+    [
+     38755,
+     "El camuare"
+    ],
+    [
+     38756,
+     "El cari cari"
+    ],
+    [
+     38757,
+     "El cocuy que alumbra"
+    ],
+    [
+     38758,
+     "El condolirio"
+    ],
+    [
+     38759,
+     "El llavajero"
+    ],
+    [
+     38760,
+     "El pilon"
+    ],
+    [
+     38761,
+     "El venao"
+    ],
+    [
+     38762,
+     "Gaban"
+    ],
+    [
+     38763,
+     "Gallo pinto"
+    ],
+    [
+     38764,
+     "Gavilan trabalengua"
+    ],
+    [
+     38765,
+     "La arigua"
+    ],
+    [
+     38766,
+     "La burra"
+    ],
+    [
+     38767,
+     "La matica"
+    ],
+    [
+     38768,
+     "La pava Uben La Chiva"
+    ],
+    [
+     38769,
+     "La sardina"
+    ],
+    [
+     38770,
+     "La vela"
+    ],
+    [
+     38771,
+     "Las campanas de San Juan"
+    ],
+    [
+     38772,
+     "Las florecitas"
+    ],
+    [
+     38773,
+     "Maria paleta"
+    ],
+    [
+     38774,
+     "Mi mama no quiere"
+    ],
+    [
+     38775,
+     "Rajunao"
+    ],
+    [
+     38776,
+     "San juancito"
+    ],
+    [
+     38777,
+     "Tambor de caraballeda"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4703",
+   "crvArtistId": 3857,
+   "artist": "Un Solo Pueblo",
+   "title": "200 Años de vigencia",
+   "songs": [
+    [
+     37327,
+     "Bolivar bebe agua de San Juan"
+    ],
+    [
+     37328,
+     "Carrizos"
+    ],
+    [
+     37329,
+     "El Caricari"
+    ],
+    [
+     37330,
+     "El Condolirio"
+    ],
+    [
+     37331,
+     "El Llavajero"
+    ],
+    [
+     37332,
+     "Guaraña"
+    ],
+    [
+     37333,
+     "Josefa que linda eres"
+    ],
+    [
+     37334,
+     "La Arigua"
+    ],
+    [
+     37335,
+     "La Sardina"
+    ],
+    [
+     37336,
+     "Tortola"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4714",
+   "crvArtistId": 5,
+   "artist": "Pedro Castillo",
+   "title": "Ahora o Nunca",
+   "songs": [
+    [
+     37446,
+     "A Fondo"
+    ],
+    [
+     37448,
+     "El Tren"
+    ],
+    [
+     37450,
+     "Perdida"
+    ],
+    [
+     37452,
+     "Quiero Ser Tu Héroe"
+    ],
+    [
+     37454,
+     "Te Amaré en Inglaterra"
+    ],
+    [
+     37447,
+     "Carretera"
+    ],
+    [
+     37449,
+     "En El Borde"
+    ],
+    [
+     37451,
+     "Por Analogía"
+    ],
+    [
+     37453,
+     "Respuesta"
+    ],
+    [
+     37455,
+     "Te Espero"
+    ],
+    [
+     37456,
+     "Verso Duro"
+    ],
+    [
+     37457,
+     "Yo Soy Aquel"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4715",
+   "crvArtistId": 5,
+   "artist": "Pedro Castillo",
+   "title": "Esto Fué un Placer",
+   "songs": [
+    [
+     37458,
+     "Alégrate"
+    ],
+    [
+     37460,
+     "Bella y Fugaz"
+    ],
+    [
+     37462,
+     "No te vayas ahora"
+    ],
+    [
+     37464,
+     "Te diera"
+    ],
+    [
+     37470,
+     "Tiempo"
+    ],
+    [
+     37459,
+     "Algo Eléctrico"
+    ],
+    [
+     37461,
+     "Joven"
+    ],
+    [
+     37463,
+     "Ojalá"
+    ],
+    [
+     37469,
+     "Mi Amplificador"
+    ],
+    [
+     37471,
+     "Victoria"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4720",
+   "crvArtistId": 1708,
+   "artist": "Daniela Bascopé",
+   "title": "Tango Remedio",
+   "songs": [
+    [
+     37503,
+     "Aire Celestial"
+    ],
+    [
+     37505,
+     "Bandido"
+    ],
+    [
+     37507,
+     "Psicodelia"
+    ],
+    [
+     37509,
+     "Teresa"
+    ],
+    [
+     37520,
+     "Cancion Suave"
+    ],
+    [
+     37648,
+     "Sombra en los Medanos"
+    ],
+    [
+     37504,
+     "Al Mejor Postor"
+    ],
+    [
+     37506,
+     "La Caja"
+    ],
+    [
+     37508,
+     "Tango Remedio"
+    ],
+    [
+     37510,
+     "Bahia"
+    ],
+    [
+     37647,
+     "Superfantastico"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5183",
+   "crvArtistId": 6787,
+   "artist": "Eliezer Boyer",
+   "title": "Mi Pasión eres Tu",
+   "songs": [
+    [
+     42677,
+     "Mi Pasion Eres Tu"
+    ],
+    [
+     43496,
+     "Mi Pasión Eres Tu (Versión Salsa)"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5412",
+   "crvArtistId": 6787,
+   "artist": "Eliezer Boyer",
+   "title": "Alabale",
+   "songs": [
+    [
+     44616,
+     "Alábale (Live Session)"
+    ],
+    [
+     44615,
+     "Alábale"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5946,4718",
+   "crvArtistId": 6787,
+   "artist": "Eliezer Boyer",
+   "title": "Mi Vida En Cancion",
+   "songs": [
+    [
+     47105,
+     "Intro MVC"
+    ],
+    [
+     47106,
+     "Mi Vida en Cancion Live"
+    ],
+    [
+     37482,
+     "Alabale"
+    ],
+    [
+     37483,
+     "Hoy Entendi"
+    ],
+    [
+     37484,
+     "Marcha para Jesus"
+    ],
+    [
+     37485,
+     "Marchando Va"
+    ],
+    [
+     37486,
+     "Para siempre y mucho mas"
+    ],
+    [
+     37487,
+     "Que seas tu"
+    ],
+    [
+     37488,
+     "Solo a ti rindo mi ser"
+    ],
+    [
+     37489,
+     "Solo digo Gracias"
+    ],
+    [
+     37490,
+     "Todo lo que respire"
+    ],
+    [
+     37491,
+     "Tu eres Digno"
+    ],
+    [
+     37492,
+     "Vives en Mi"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4814",
+   "crvArtistId": 1837,
+   "artist": "Vocal Song",
+   "title": "Dime",
+   "songs": [
+    [
+     38707,
+     "Dime Version Balada"
+    ],
+    [
+     38708,
+     "Dime Version Urbana"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4735",
+   "crvArtistId": 3904,
+   "artist": "Huáscar Barradas",
+   "title": "Candela",
+   "songs": [
+    [
+     37668,
+     "Bulerillo Pajarillo Con Buleria"
+    ],
+    [
+     37670,
+     "Candela"
+    ],
+    [
+     37672,
+     "El Currucha Amalia Rosa"
+    ],
+    [
+     37674,
+     "Esmollejatus Joropus"
+    ],
+    [
+     37676,
+     "La Abejita"
+    ],
+    [
+     37667,
+     "Alde Pavo"
+    ],
+    [
+     37669,
+     "Cancion Sin Nombre"
+    ],
+    [
+     37671,
+     "El Alacran"
+    ],
+    [
+     37673,
+     "Es Verdad"
+    ],
+    [
+     37675,
+     "Huascarada"
+    ],
+    [
+     37677,
+     "Rumba en Madrid"
+    ],
+    [
+     37679,
+     "Vals Triste"
+    ],
+    [
+     37678,
+     "Tonada De Luna Llena HB"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4736",
+   "crvArtistId": 3904,
+   "artist": "Huáscar Barradas",
+   "title": "Encuentros",
+   "songs": [
+    [
+     37680,
+     "Anhelante HB"
+    ],
+    [
+     37681,
+     "Cancion Para Ku"
+    ],
+    [
+     37682,
+     "Chimbangleando"
+    ],
+    [
+     37683,
+     "Habanera"
+    ],
+    [
+     37684,
+     "Joropo Bachiano"
+    ],
+    [
+     37685,
+     "Mereng Miles"
+    ],
+    [
+     37686,
+     "Morrocoy"
+    ],
+    [
+     37687,
+     "My Favorite Things"
+    ],
+    [
+     37688,
+     "Onda 925"
+    ],
+    [
+     37689,
+     "Pavo Real"
+    ],
+    [
+     37690,
+     "Serenata Criolla HB"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4750",
+   "crvArtistId": 3904,
+   "artist": "Huáscar Barradas",
+   "title": "Latineando",
+   "songs": [
+    [
+     37862,
+     "Aires Porteños  Volver El dia Que Me Quieras"
+    ],
+    [
+     37863,
+     "Alfonsina Y El Mar"
+    ],
+    [
+     37864,
+     "Amaneci En Tus Brazos"
+    ],
+    [
+     37865,
+     "Asi Es Mi Tierra"
+    ],
+    [
+     37866,
+     "Capullito De Alheli"
+    ],
+    [
+     37867,
+     "Fantasia Del Altiplano El Humahuaqueño El Condor Pasa"
+    ],
+    [
+     37868,
+     "Fina Estampa"
+    ],
+    [
+     37869,
+     "Gracias A La Vida"
+    ],
+    [
+     37870,
+     "La Flor De La Canela"
+    ],
+    [
+     37871,
+     "Sabor Colombiano El Testamento Matilde Lina Cumbia Sanpuesana"
+    ],
+    [
+     37872,
+     "Tudo Brasil Apanhei Te Cavaquinho Desafinado Garota de Ipanema"
+    ],
+    [
+     37873,
+     "Venezolanisimo Caballo Viejo Alma Llanera"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4745",
+   "crvArtistId": 3946,
+   "artist": "El Tramao",
+   "title": "El Tramao",
+   "songs": [
+    [
+     37791,
+     "Bella Elena"
+    ],
+    [
+     37792,
+     "Cariñoso"
+    ],
+    [
+     37793,
+     "Danza Paraguaya"
+    ],
+    [
+     37794,
+     "El Alambrito"
+    ],
+    [
+     37795,
+     "El Burrito"
+    ],
+    [
+     37796,
+     "El Chalanero"
+    ],
+    [
+     37797,
+     "El Lorito Brasileño"
+    ],
+    [
+     37798,
+     "El Lorito tramao"
+    ],
+    [
+     37799,
+     "El Merendero"
+    ],
+    [
+     37800,
+     "Kaina"
+    ],
+    [
+     37801,
+     "Río Orinoco"
+    ],
+    [
+     37802,
+     "Simon, Siempre Simón"
+    ],
+    [
+     37803,
+     "Tiempos de ño Morean"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4771",
+   "crvArtistId": 1596,
+   "artist": "El Prieto",
+   "title": "Puro Oro Negro",
+   "songs": [
+    [
+     38102,
+     "Mi mujer perfecta"
+    ],
+    [
+     38093,
+     "Antes de morirme"
+    ],
+    [
+     38105,
+     "No mas Violencia"
+    ],
+    [
+     38097,
+     "El Patron"
+    ],
+    [
+     38107,
+     "P I P"
+    ],
+    [
+     38098,
+     "Familia"
+    ],
+    [
+     38094,
+     "Chica mafiosa"
+    ],
+    [
+     38103,
+     "Mi vida en el barrio"
+    ],
+    [
+     38117,
+     "Intro Puro Oro Negro"
+    ],
+    [
+     38100,
+     "Los Enemigos publicos"
+    ],
+    [
+     38109,
+     "Por Siempre"
+    ],
+    [
+     38101,
+     "Man Piraña"
+    ],
+    [
+     38095,
+     "Deprietotrap"
+    ],
+    [
+     38104,
+     "Nada puede evitar que te ame"
+    ],
+    [
+     38096,
+     "Dinero"
+    ],
+    [
+     38106,
+     "Oro negro"
+    ],
+    [
+     38099,
+     "La Leyenda"
+    ],
+    [
+     38108,
+     "Por amor al ghetto"
+    ],
+    [
+     38110,
+     "Vitalia por siempre"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5023",
+   "crvArtistId": 1596,
+   "artist": "El Prieto",
+   "title": "Libro",
+   "songs": [
+    [
+     41093,
+     "Bang Bang El Prieto"
+    ],
+    [
+     41102,
+     "Nacionalista El Prieto"
+    ],
+    [
+     41094,
+     "Biografia El Prieto"
+    ],
+    [
+     41096,
+     "Carro Bomba El Prieto"
+    ],
+    [
+     41098,
+     "Cronica El Prieto"
+    ],
+    [
+     41101,
+     "La Dolorita El Prieto"
+    ],
+    [
+     41095,
+     "Bombo y Caja El Prieto"
+    ],
+    [
+     41104,
+     "Selva de Concreto El Prieto"
+    ],
+    [
+     41099,
+     "Expediente El Prieto"
+    ],
+    [
+     41103,
+     "Religion El Prieto"
+    ],
+    [
+     41097,
+     "Ciudad El Prieto"
+    ],
+    [
+     41100,
+     "Jefferson El Prieto"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4834",
+   "crvArtistId": 1062,
+   "artist": "Nou Vin Lakay",
+   "title": "Lakay Mania",
+   "songs": [
+    [
+     38934,
+     "Baila"
+    ],
+    [
+     38936,
+     "Esto si es amor"
+    ],
+    [
+     38938,
+     "Long time before"
+    ],
+    [
+     38940,
+     "Nyahbingui man"
+    ],
+    [
+     38942,
+     "Ska pa borracho"
+    ],
+    [
+     38944,
+     "Sin ti"
+    ],
+    [
+     38933,
+     "Alfa y Omega"
+    ],
+    [
+     38935,
+     "El espejo"
+    ],
+    [
+     38937,
+     "Intro NVL"
+    ],
+    [
+     38939,
+     "Mania"
+    ],
+    [
+     38941,
+     "Que te pasa a ti"
+    ],
+    [
+     38943,
+     "Tentation"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4823",
+   "crvArtistId": 445,
+   "artist": "Sibelíus",
+   "title": "Tendencies",
+   "songs": [
+    [
+     38805,
+     "Bach Double Concerto"
+    ],
+    [
+     38806,
+     "Beethoven 5th"
+    ],
+    [
+     38807,
+     "Invention No 1"
+    ],
+    [
+     38808,
+     "Listen To The World"
+    ],
+    [
+     38809,
+     "Rising Force Live Cover"
+    ],
+    [
+     38810,
+     "Simon Diaz Tribute"
+    ],
+    [
+     38811,
+     "Venezuela Infinita"
+    ],
+    [
+     38812,
+     "Vivaldi Concerto No 6"
+    ],
+    [
+     38813,
+     "Vivaldi Double Concerto"
+    ],
+    [
+     38814,
+     "Vivaldi The Storm"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4839",
+   "crvArtistId": 4289,
+   "artist": "Rummy Olivo",
+   "title": "Interpreta a Juan Vicente Torrealba",
+   "songs": [
+    [
+     38983,
+     "Clemente el veguero"
+    ],
+    [
+     38984,
+     "Cuatrero del chaparral"
+    ],
+    [
+     38985,
+     "Esteros de camaguan"
+    ],
+    [
+     38986,
+     "Junto al jaguey"
+    ],
+    [
+     38987,
+     "La paraulata"
+    ],
+    [
+     38988,
+     "La potra zaina"
+    ],
+    [
+     38989,
+     "Luna y lejania"
+    ],
+    [
+     38990,
+     "Romance en el caney"
+    ],
+    [
+     38991,
+     "Rumor de soledad"
+    ],
+    [
+     38992,
+     "Solitos con las estrellas"
+    ],
+    [
+     38993,
+     "Tristeza llanera"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4904",
+   "crvArtistId": 3700,
+   "artist": "Federico y Su Combo Latino",
+   "title": "El Pionero de la Salsa",
+   "songs": [
+    [
+     39781,
+     "Abicu"
+    ],
+    [
+     39782,
+     "Cocolia"
+    ],
+    [
+     39783,
+     "Cuando La Lluvia Cae"
+    ],
+    [
+     39784,
+     "Cumbanchero"
+    ],
+    [
+     39785,
+     "Despierta Rumbero"
+    ],
+    [
+     39786,
+     "El Jaleo"
+    ],
+    [
+     39787,
+     "El Pachanguero"
+    ],
+    [
+     39788,
+     "El Sabroson"
+    ],
+    [
+     39789,
+     "Federico Boogaloo"
+    ],
+    [
+     39790,
+     "Homenaje A Billo"
+    ],
+    [
+     39791,
+     "Honesty"
+    ],
+    [
+     39792,
+     "La Ruñidera"
+    ],
+    [
+     39793,
+     "Las Malas Lenguas"
+    ],
+    [
+     39794,
+     "Maina"
+    ],
+    [
+     39795,
+     "Mi Querida Bomba"
+    ],
+    [
+     39796,
+     "Pao Pao"
+    ],
+    [
+     39797,
+     "Que Te Has Creido"
+    ],
+    [
+     39798,
+     "Quisiera Olvidarte"
+    ],
+    [
+     39799,
+     "Recado"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4963",
+   "crvArtistId": 3848,
+   "artist": "Rondalla Venezolana",
+   "title": "Nuestras Vivencias",
+   "songs": [
+    [
+     40535,
+     "Agachate el sombrerito"
+    ],
+    [
+     40536,
+     "Amor se escribe con llanto"
+    ],
+    [
+     40537,
+     "Campesina santandereana"
+    ],
+    [
+     40538,
+     "El camino de la vida"
+    ],
+    [
+     40539,
+     "El guatecano"
+    ],
+    [
+     40540,
+     "Espumas"
+    ],
+    [
+     40541,
+     "Guabina chiquinquireña"
+    ],
+    [
+     40542,
+     "Las mirlas"
+    ],
+    [
+     40543,
+     "Muchacha de risa loca"
+    ],
+    [
+     40544,
+     "Pueblito viejo"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4964",
+   "crvArtistId": 3848,
+   "artist": "Rondalla Venezolana",
+   "title": "Serenata a Juan Vicente Torrealba Vol 1",
+   "songs": [
+    [
+     40545,
+     "Dulce pasion"
+    ],
+    [
+     40547,
+     "Noche de Porlamar"
+    ],
+    [
+     40546,
+     "Morena"
+    ],
+    [
+     40548,
+     "Primaveral"
+    ],
+    [
+     40549,
+     "Secreto de amor"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4965",
+   "crvArtistId": 3848,
+   "artist": "Rondalla Venezolana",
+   "title": "Serenata a Juan Vicente Torrealba Vol 2",
+   "songs": [
+    [
+     40550,
+     "La potrainca zaina"
+    ],
+    [
+     40552,
+     "Mi cielo eres tu"
+    ],
+    [
+     40554,
+     "Paisaje No 8"
+    ],
+    [
+     40556,
+     "Sueño azul"
+    ],
+    [
+     40551,
+     "Los garceros"
+    ],
+    [
+     40553,
+     "Muchachita sabanera"
+    ],
+    [
+     40555,
+     "Rosa angelina"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4966",
+   "crvArtistId": 3848,
+   "artist": "Rondalla Venezolana",
+   "title": "Y la Navidad",
+   "songs": [
+    [
+     40558,
+     "Blanca Navidad"
+    ],
+    [
+     40560,
+     "Feliz Año Nuevo Mama"
+    ],
+    [
+     40562,
+     "Pueblo"
+    ],
+    [
+     40564,
+     "Triste Navidad Noche de Paz"
+    ],
+    [
+     40557,
+     "Ave María"
+    ],
+    [
+     40559,
+     "Espléndida Noche"
+    ],
+    [
+     40561,
+     "Mi Niño"
+    ],
+    [
+     40563,
+     "Santo Domingo"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4910",
+   "crvArtistId": 3848,
+   "artist": "Rondalla Venezolana",
+   "title": "Mejor que nunca",
+   "songs": [
+    [
+     39875,
+     "a mi manera Rondalla Venezolana"
+    ],
+    [
+     39877,
+     "cantos de camino Rondalla Venezolana"
+    ],
+    [
+     39879,
+     "isabel Rondalla Venezolana"
+    ],
+    [
+     39881,
+     "la duda Rondalla Venezolana"
+    ],
+    [
+     39876,
+     "abandonada Rondalla Venezolana"
+    ],
+    [
+     39878,
+     "el parrandero Rondalla Venezolana"
+    ],
+    [
+     39880,
+     "la calle donde vives Rondalla Venezolana"
+    ],
+    [
+     39882,
+     "llorar Rondalla Venezolana"
+    ],
+    [
+     39884,
+     "me robaron mi luna Rondalla Venezolana"
+    ],
+    [
+     39886,
+     "preciosa Rondalla Venezolana"
+    ],
+    [
+     39888,
+     "venezuela Rondalla Venezolana"
+    ],
+    [
+     39883,
+     "lloraras lloraras Rondalla Venezolana"
+    ],
+    [
+     39885,
+     "no sera facil Rondalla Venezolana"
+    ],
+    [
+     39887,
+     "testigo de un romance Rondalla Venezolana"
+    ],
+    [
+     39889,
+     "vuelveme a querer Rondalla Venezolana"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4877",
+   "crvArtistId": 3848,
+   "artist": "Rondalla Venezolana",
+   "title": "Los Originales",
+   "songs": [
+    [
+     39452,
+     "crepusculo coriano"
+    ],
+    [
+     39453,
+     "cumana"
+    ],
+    [
+     39454,
+     "cuna de heroes"
+    ],
+    [
+     39455,
+     "linda merideña"
+    ],
+    [
+     39456,
+     "luna de margarita"
+    ],
+    [
+     39457,
+     "maracaibera"
+    ],
+    [
+     39458,
+     "motivos"
+    ],
+    [
+     39459,
+     "noche de mar"
+    ],
+    [
+     39460,
+     "tierra tachirense"
+    ],
+    [
+     39461,
+     "vision porteña"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4962",
+   "crvArtistId": 3848,
+   "artist": "Rondalla Venezolana",
+   "title": "Leyendas",
+   "songs": [
+    [
+     40521,
+     "Bajo un palmar"
+    ],
+    [
+     40522,
+     "Caracas vieja"
+    ],
+    [
+     40523,
+     "Dama antañona"
+    ],
+    [
+     40524,
+     "Diminuta"
+    ],
+    [
+     40525,
+     "El frutero"
+    ],
+    [
+     40526,
+     "La suegra"
+    ],
+    [
+     40527,
+     "Las perlas de tu boca"
+    ],
+    [
+     40528,
+     "Linda merideña"
+    ],
+    [
+     40529,
+     "Luna de margarita"
+    ],
+    [
+     40530,
+     "Mi carta"
+    ],
+    [
+     40531,
+     "Noche de mar"
+    ],
+    [
+     40532,
+     "Nube gris"
+    ],
+    [
+     40533,
+     "Te lo voy a decir cantando"
+    ],
+    [
+     40534,
+     "Vida consentida"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4870",
+   "crvArtistId": 3848,
+   "artist": "Rondalla Venezolana",
+   "title": "Serenata a Venezuela",
+   "songs": [
+    [
+     39374,
+     "dama antañona"
+    ],
+    [
+     39376,
+     "lejania"
+    ],
+    [
+     39378,
+     "morir es nacer"
+    ],
+    [
+     39380,
+     "rosario"
+    ],
+    [
+     39382,
+     "tu amor fue una ilusion"
+    ],
+    [
+     39373,
+     "cuando me quieras"
+    ],
+    [
+     39375,
+     "el ausente"
+    ],
+    [
+     39377,
+     "linda merideña"
+    ],
+    [
+     39379,
+     "noches larenses"
+    ],
+    [
+     39381,
+     "serenata"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4879",
+   "crvArtistId": 3848,
+   "artist": "Rondalla Venezolana",
+   "title": "Voces de Siempre",
+   "songs": [
+    [
+     39478,
+     "asi"
+    ],
+    [
+     39479,
+     "aunque me cueste la vida"
+    ],
+    [
+     39480,
+     "en el juego de la vida"
+    ],
+    [
+     39481,
+     "envidia"
+    ],
+    [
+     39482,
+     "esperame en el cielo"
+    ],
+    [
+     39483,
+     "frenesi"
+    ],
+    [
+     39484,
+     "idolatria"
+    ],
+    [
+     39485,
+     "la gloria eres tu"
+    ],
+    [
+     39486,
+     "llanto de luna"
+    ],
+    [
+     39487,
+     "nuestras vidas"
+    ],
+    [
+     39488,
+     "obsesion"
+    ],
+    [
+     39489,
+     "piel canela"
+    ],
+    [
+     39490,
+     "somos diferentes"
+    ],
+    [
+     39491,
+     "tu felicidad"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4920",
+   "crvArtistId": 3797,
+   "artist": "María Teresa Chacín",
+   "title": "Grandes Exitos Maria Teresa Chacin",
+   "songs": [
+    [
+     40015,
+     "Acuarela Maria Teresa Chacin"
+    ],
+    [
+     40016,
+     "ahora Maria Teresa Chacin"
+    ],
+    [
+     40017,
+     "algo contigo Maria Teresa Chacin"
+    ],
+    [
+     40018,
+     "de repente Maria Teresa Chacin"
+    ],
+    [
+     40019,
+     "el arreo Maria Teresa Chacin"
+    ],
+    [
+     40020,
+     "el campo esta florido Maria Teresa Chacin"
+    ],
+    [
+     40021,
+     "el totumo de guarenas Maria Teresa Chacin"
+    ],
+    [
+     40022,
+     "en alas de una gaviota Maria Teresa Chacin"
+    ],
+    [
+     40023,
+     "en este pais Maria Teresa Chacin"
+    ],
+    [
+     40024,
+     "la paraulata Maria Teresa Chacin"
+    ],
+    [
+     40025,
+     "la potranca zaina Maria Teresa Chacin"
+    ],
+    [
+     40026,
+     "mas alla de la ternura Maria Teresa Chacin"
+    ],
+    [
+     40027,
+     "mi llano es un paraiso Maria Teresa Chacin"
+    ],
+    [
+     40028,
+     "mi querencia Maria Teresa Chacin"
+    ],
+    [
+     40029,
+     "pajarillo Maria Teresa Chacin"
+    ],
+    [
+     40030,
+     "pasillaneando Maria Teresa Chacin"
+    ],
+    [
+     40031,
+     "polo margariteño Maria Teresa Chacin"
+    ],
+    [
+     40032,
+     "romance Maria Teresa Chacin"
+    ],
+    [
+     40033,
+     "tonada Maria Teresa Chacin"
+    ],
+    [
+     40034,
+     "traigo polvo del camino Maria Teresa Chacin"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "4880",
+   "crvArtistId": 3799,
+   "artist": "Rosa Virginia Chacín",
+   "title": "Orgullo de Ser Latino",
+   "songs": [
+    [
+     39492,
+     "alma mia"
+    ],
+    [
+     39493,
+     "ay de mi"
+    ],
+    [
+     39494,
+     "contigo aprendi"
+    ],
+    [
+     39495,
+     "el destino"
+    ],
+    [
+     39496,
+     "el viento"
+    ],
+    [
+     39497,
+     "la oscuridad"
+    ],
+    [
+     39498,
+     "la piel de tu alma"
+    ],
+    [
+     39499,
+     "lo que pasa contigo"
+    ],
+    [
+     39500,
+     "luna sobre borinquen"
+    ],
+    [
+     39501,
+     "noche ronda"
+    ],
+    [
+     39502,
+     "olvidate que me olvidas"
+    ],
+    [
+     39503,
+     "orgullo de ser latino"
+    ],
+    [
+     39504,
+     "querido"
+    ],
+    [
+     39505,
+     "voy a apagar la luz"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5831",
+   "crvArtistId": 3563,
+   "artist": "Prisca Dávila",
+   "title": "Travesia",
+   "songs": [
+    [
+     46902,
+     "BULERIA"
+    ],
+    [
+     46903,
+     "BOLERO DE LA DESPEDIDA"
+    ],
+    [
+     46904,
+     "EL DIA QUE ME QUIERAS"
+    ],
+    [
+     46905,
+     "Estoy Aqui"
+    ],
+    [
+     46906,
+     "AMANECI OTRA VEZ"
+    ],
+    [
+     46907,
+     "PIKITANGO"
+    ],
+    [
+     46908,
+     "LAGRIMAS NEGRAS"
+    ],
+    [
+     46909,
+     "Diego Eduardo"
+    ],
+    [
+     46910,
+     "MANTECA"
+    ],
+    [
+     46911,
+     "Samba de Verano"
+    ],
+    [
+     46945,
+     "La Flor De La Canela"
+    ],
+    [
+     46946,
+     "Subversivos"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "7017",
+   "crvArtistId": 3563,
+   "artist": "Prisca Dávila",
+   "title": "DAKUM",
+   "songs": [
+    [
+     49998,
+     "Dakum"
+    ],
+    [
+     49999,
+     "Esperanza"
+    ],
+    [
+     50000,
+     "Despedida"
+    ],
+    [
+     50001,
+     "Shanti"
+    ],
+    [
+     50002,
+     "Joropo Moruno"
+    ]
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/568232781",
+    "externalTitle": "Dakum",
+    "externalTracks": 5,
+    "order": {
+     "49998": {
+      "disc": 1,
+      "n": 1,
+      "title": "Dakum",
+      "seconds": 205
+     },
+     "49999": {
+      "disc": 1,
+      "n": 2,
+      "title": "Esperanza",
+      "seconds": 221
+     },
+     "50000": {
+      "disc": 1,
+      "n": 3,
+      "title": "Despedida",
+      "seconds": 216
+     },
+     "50001": {
+      "disc": 1,
+      "n": 4,
+      "title": "Shanti",
+      "seconds": 153
+     },
+     "50002": {
+      "disc": 1,
+      "n": 5,
+      "title": "Joropo Moruno",
+      "seconds": 194
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "7018",
+   "crvArtistId": 3563,
+   "artist": "Prisca Dávila",
+   "title": "Un Piano Dos Hermanas",
+   "songs": [
+    [
+     50003,
+     "Pikirillo a 4 Manos"
+    ],
+    [
+     50004,
+     "Lorca en Caracsa"
+    ],
+    [
+     50005,
+     "Meren Eólico"
+    ],
+    [
+     50006,
+     "Polo Margariteño a 4 manos"
+    ],
+    [
+     50007,
+     "Mixolidiando Merengue"
+    ],
+    [
+     50008,
+     "Esencia"
+    ],
+    [
+     50009,
+     "Cheqa de Saudade a 4 Manos"
+    ],
+    [
+     50010,
+     "El Valle de San Javier"
+    ],
+    [
+     50011,
+     "Alma Llanera"
+    ],
+    [
+     50012,
+     "Frigiando Merengue"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5036",
+   "crvArtistId": 1238,
+   "artist": "Onechot",
+   "title": "Natural",
+   "songs": [
+    [
+     41202,
+     "Another day"
+    ],
+    [
+     41203,
+     "Bailate este regalo"
+    ],
+    [
+     41204,
+     "Cancion bonita"
+    ],
+    [
+     41205,
+     "Demasiado fuerte"
+    ],
+    [
+     41206,
+     "Early"
+    ],
+    [
+     41207,
+     "Es la hora despues"
+    ],
+    [
+     41209,
+     "Intro al natural"
+    ],
+    [
+     41210,
+     "Luna eres un sol"
+    ],
+    [
+     41211,
+     "Maquina"
+    ],
+    [
+     41212,
+     "No voy a pensar en ti"
+    ],
+    [
+     41213,
+     "Pegate al ritmo"
+    ],
+    [
+     41214,
+     "Pirates"
+    ],
+    [
+     41215,
+     "Plasma"
+    ],
+    [
+     41216,
+     "Positive world"
+    ],
+    [
+     41217,
+     "Rotten town remix"
+    ],
+    [
+     41218,
+     "Sabes lo que hago"
+    ],
+    [
+     41219,
+     "Survival"
+    ],
+    [
+     41220,
+     "The river"
+    ],
+    [
+     41221,
+     "Todo buen tiempo"
+    ],
+    [
+     41208,
+     "Eternamente"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5701",
+   "crvArtistId": 1238,
+   "artist": "Onechot",
+   "title": "Social Instrumental",
+   "songs": [
+    [
+     46571,
+     "Instrumental Libertad"
+    ],
+    [
+     46572,
+     "Instrumental Ejercito Libertario"
+    ],
+    [
+     46573,
+     "Instrumental Esto Tiene Que Cambiar"
+    ],
+    [
+     46574,
+     "Instrumental Gran Colombia"
+    ],
+    [
+     46576,
+     "Instrumental Dharana"
+    ],
+    [
+     46578,
+     "Instrumental Mujer Guerrera"
+    ],
+    [
+     46579,
+     "Instrumental Futuro"
+    ],
+    [
+     46580,
+     "Instrumental Dando Pelea"
+    ],
+    [
+     46581,
+     "Instrumental Arriba el Animo"
+    ],
+    [
+     46582,
+     "Instrumental Renacer"
+    ],
+    [
+     46584,
+     "Instrumental El Perdon"
+    ],
+    [
+     46585,
+     "Instrumental Esperanza"
+    ],
+    [
+     46586,
+     "Instrumental Rebeldes con Causa"
+    ],
+    [
+     46570,
+     "Instrumental Postales de Caracas"
+    ],
+    [
+     46575,
+     "Instrumental Ella Mata"
+    ],
+    [
+     46577,
+     "Instrumental Fighting the Illness"
+    ],
+    [
+     46583,
+     "Instrumental Justicia"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5832",
+   "crvArtistId": 1238,
+   "artist": "Onechot",
+   "title": "ONECHOT 20 ANOS",
+   "songs": [
+    [
+     46912,
+     "Living Insane"
+    ],
+    [
+     46914,
+     "Cancion Bonita"
+    ],
+    [
+     46915,
+     "No Voy a Pensar en Ti"
+    ],
+    [
+     46916,
+     "Me Know You Want One"
+    ],
+    [
+     46917,
+     "Plasma"
+    ],
+    [
+     46918,
+     "Fighting The Illness"
+    ],
+    [
+     46920,
+     "Rotten Town"
+    ],
+    [
+     46925,
+     "Demasiado Fuerte"
+    ],
+    [
+     46927,
+     "Ruff"
+    ],
+    [
+     46913,
+     "Boomblast"
+    ],
+    [
+     46919,
+     "Arriba el Animo"
+    ],
+    [
+     46921,
+     "Safari"
+    ],
+    [
+     46922,
+     "Renacer"
+    ],
+    [
+     46923,
+     "Hey Mi Momento"
+    ],
+    [
+     46924,
+     "Dharana"
+    ],
+    [
+     46926,
+     "Soggy Rizzla"
+    ],
+    [
+     46928,
+     "Pirates"
+    ],
+    [
+     46929,
+     "Tips"
+    ],
+    [
+     46930,
+     "Africa Ruge"
+    ],
+    [
+     46931,
+     "La Gran Colombia"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5088",
+   "crvArtistId": 3943,
+   "artist": "Edward Ramírez",
+   "title": "Cu4tro Maraca y Buche",
+   "songs": [
+    [
+     41758,
+     "Amanecer Tuyero"
+    ],
+    [
+     41760,
+     "El beso"
+    ],
+    [
+     41762,
+     "El Ermitaño"
+    ],
+    [
+     41764,
+     "Ipare"
+    ],
+    [
+     41766,
+     "Pajarillo Ocumare"
+    ],
+    [
+     41768,
+     "Tu Voz"
+    ],
+    [
+     41759,
+     "Aragua linda"
+    ],
+    [
+     41761,
+     "El Comegente"
+    ],
+    [
+     41763,
+     "El misterioso"
+    ],
+    [
+     41765,
+     "La caja de música"
+    ],
+    [
+     41767,
+     "Silvestre"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5214",
+   "crvArtistId": 3709,
+   "artist": "Guaco",
+   "title": "Guaco Historico - Solo Audio",
+   "songs": [
+    [
+     42930,
+     "Regalame tu amor con Nelson Arrieta"
+    ],
+    [
+     42931,
+     "Lo eres todo"
+    ],
+    [
+     42932,
+     "Siempre Juntos con Kiara"
+    ],
+    [
+     42933,
+     "Ella con Gilberto Santa Rosa"
+    ],
+    [
+     42934,
+     "Eres Mas"
+    ],
+    [
+     42935,
+     "Si usted la viera con Jorge Luis Chacin"
+    ],
+    [
+     42936,
+     "Quiero decirte"
+    ],
+    [
+     42937,
+     "Ya no eres tú con Gilberto Santa Rosa"
+    ],
+    [
+     42938,
+     "Pa Ti"
+    ],
+    [
+     42939,
+     "Todo Quedo Quedo con Nelson Arrieta"
+    ],
+    [
+     42940,
+     "Como Será con Jorge Luis Chacin"
+    ],
+    [
+     42941,
+     "Como es tan bella con Luis Enrique"
+    ],
+    [
+     42942,
+     "Me vas llevando con Luis Enrique"
+    ],
+    [
+     42943,
+     "Confusión con Gilberto Santa Rosa"
+    ],
+    [
+     42944,
+     "Medley"
+    ],
+    [
+     42945,
+     "Sentimiento Nacional"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6343",
+   "crvArtistId": 3709,
+   "artist": "Guaco",
+   "title": "Álbum Julio Rivera: Guaco 50",
+   "songs": [
+    [
+     48265,
+     "Manten El Control"
+    ],
+    [
+     48262,
+     "Voy"
+    ],
+    [
+     48263,
+     "Soy Como Soy"
+    ],
+    [
+     48264,
+     "En Frio"
+    ],
+    [
+     48267,
+     "Son 20 Mas 30"
+    ],
+    [
+     48268,
+     "Ponte a Creer"
+    ],
+    [
+     48269,
+     "Dale Guaya"
+    ],
+    [
+     48270,
+     "Ni Chicha Ni Limonada"
+    ],
+    [
+     48273,
+     "Bubalu"
+    ],
+    [
+     48274,
+     "Huracan"
+    ],
+    [
+     48275,
+     "Ayayay"
+    ],
+    [
+     48277,
+     "Llevale Tu Amor"
+    ],
+    [
+     48278,
+     "Me Siento Bien"
+    ],
+    [
+     48279,
+     "Giros"
+    ],
+    [
+     48280,
+     "Dejame Tu Adios"
+    ],
+    [
+     48281,
+     "Me Hace Ver"
+    ],
+    [
+     48259,
+     "Roce"
+    ],
+    [
+     48260,
+     "Un Abrazo"
+    ],
+    [
+     48261,
+     "Cinco Rosas"
+    ],
+    [
+     48266,
+     "Se Me Perdio de Vista"
+    ],
+    [
+     48271,
+     "Entonces Pa Cuando"
+    ],
+    [
+     48272,
+     "Los Tontos"
+    ],
+    [
+     48276,
+     "Tu Crees Yo Creo"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5222",
+   "crvArtistId": 3449,
+   "artist": "Aquiles Báez",
+   "title": "En Cantado Sazones",
+   "songs": [
+    [
+     42994,
+     "Tendre Que Ser"
+    ],
+    [
+     42995,
+     "Tonto Malambe"
+    ],
+    [
+     42996,
+     "Sin Derecho A Patalear"
+    ],
+    [
+     42997,
+     "Te Propongo"
+    ],
+    [
+     42998,
+     "Esta Lloviendo"
+    ],
+    [
+     42999,
+     "Te Vas Sin Un Adios"
+    ],
+    [
+     43000,
+     "Quiero Besar Tu Boca"
+    ],
+    [
+     43001,
+     "Eclipse"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5221",
+   "crvArtistId": 3449,
+   "artist": "Aquiles Báez",
+   "title": "En Cantado Razones",
+   "songs": [
+    [
+     42985,
+     "Quizas"
+    ],
+    [
+     42986,
+     "Llegaste Tu"
+    ],
+    [
+     42987,
+     "Carta De amor"
+    ],
+    [
+     42988,
+     "Ya No Somos Dos"
+    ],
+    [
+     42989,
+     "La Despedida"
+    ],
+    [
+     42990,
+     "Vengo De Esta Tierra"
+    ],
+    [
+     42991,
+     "Conjuro"
+    ],
+    [
+     42992,
+     "Si Tu No Estas"
+    ],
+    [
+     42993,
+     "Un Secreto Entre Los Dos"
+    ],
+    [
+     43002,
+     "Niño Del Cielo"
+    ],
+    [
+     43003,
+     "Mi Pequeña"
+    ],
+    [
+     43004,
+     "La Mañana"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5387",
+   "crvArtistId": 61,
+   "artist": "Charliepapa",
+   "title": "La Cima",
+   "songs": [
+    [
+     44407,
+     "La Cima"
+    ],
+    [
+     44408,
+     "La Cima (Remix)"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5278",
+   "crvArtistId": 61,
+   "artist": "Charliepapa",
+   "title": "Bengala",
+   "songs": [
+    [
+     43458,
+     "Bengala (incluye el B-side Jonaz)"
+    ],
+    [
+     43459,
+     "Bengala"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5256",
+   "crvArtistId": 1606,
+   "artist": "Jahkogba",
+   "title": "Lo que soy",
+   "songs": [
+    [
+     43249,
+     "Es Caribe"
+    ],
+    [
+     43250,
+     "Why you running?"
+    ],
+    [
+     43251,
+     "Facil interpretar"
+    ],
+    [
+     43252,
+     "Oh dub!"
+    ],
+    [
+     43253,
+     "Habitantes del mundo"
+    ],
+    [
+     43254,
+     "Llama Santa"
+    ],
+    [
+     43256,
+     "Por una propuesta mejor"
+    ],
+    [
+     43257,
+     "Lo que soy"
+    ],
+    [
+     43258,
+     "You have to listen"
+    ],
+    [
+     43260,
+     "Entre tu acorde y yo (eu ché)"
+    ],
+    [
+     43255,
+     "Un Ska pa vos"
+    ],
+    [
+     43259,
+     "Latinoamérica No doub riddim"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5304",
+   "crvArtistId": 1416,
+   "artist": "Los Elfos",
+   "title": "Flores bajo el sol",
+   "songs": [
+    [
+     43624,
+     "Fiel"
+    ],
+    [
+     43625,
+     "Al miedo"
+    ],
+    [
+     43626,
+     "Escoger"
+    ],
+    [
+     43628,
+     "Siglos"
+    ],
+    [
+     43629,
+     "Yace en paz"
+    ],
+    [
+     43621,
+     "Vampirella"
+    ],
+    [
+     43622,
+     "Flores bajo el sol"
+    ],
+    [
+     43623,
+     "Especial"
+    ],
+    [
+     43627,
+     "Tan fácil"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5396",
+   "crvArtistId": 3542,
+   "artist": "Martes 8:30",
+   "title": "Unidos por el Planeta",
+   "songs": [
+    [
+     44467,
+     "Farmers Trust"
+    ],
+    [
+     44468,
+     "Because we Believe"
+    ],
+    [
+     44469,
+     "Minuano"
+    ],
+    [
+     44470,
+     "The Prayer"
+    ],
+    [
+     44471,
+     "Time Passed Autumn"
+    ],
+    [
+     44472,
+     "Imagine"
+    ],
+    [
+     44473,
+     "Affirmation"
+    ],
+    [
+     44474,
+     "The Look of Love"
+    ],
+    [
+     44475,
+     "First Circle"
+    ],
+    [
+     44476,
+     "All by Myself"
+    ],
+    [
+     44477,
+     "Through the Fire"
+    ]
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/563687372",
+    "externalTitle": "Unidos por el Planeta",
+    "externalTracks": 11,
+    "order": {
+     "44467": {
+      "disc": 1,
+      "n": 3,
+      "title": "Farmers Trust",
+      "seconds": 402
+     },
+     "44468": {
+      "disc": 1,
+      "n": 8,
+      "title": "Because We Believe",
+      "seconds": 306
+     },
+     "44469": {
+      "disc": 1,
+      "n": 5,
+      "title": "Minuano",
+      "seconds": 582
+     },
+     "44470": {
+      "disc": 1,
+      "n": 7,
+      "title": "The Prayer",
+      "seconds": 320
+     },
+     "44471": {
+      "disc": 1,
+      "n": 1,
+      "title": "Time Passed Autumn",
+      "seconds": 267
+     },
+     "44472": {
+      "disc": 1,
+      "n": 10,
+      "title": "Imagine",
+      "seconds": 320
+     },
+     "44473": {
+      "disc": 1,
+      "n": 2,
+      "title": "Affirmation",
+      "seconds": 429
+     },
+     "44474": {
+      "disc": 1,
+      "n": 4,
+      "title": "The Look of Love",
+      "seconds": 365
+     },
+     "44475": {
+      "disc": 1,
+      "n": 11,
+      "title": "First Circle",
+      "seconds": 541
+     },
+     "44476": {
+      "disc": 1,
+      "n": 9,
+      "title": "All by Myself",
+      "seconds": 292
+     },
+     "44477": {
+      "disc": 1,
+      "n": 6,
+      "title": "Through the Fire",
+      "seconds": 174
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5456",
+   "crvArtistId": 3542,
+   "artist": "Martes 8:30",
+   "title": "Sin Fronteras",
+   "songs": [
+    [
+     45188,
+     "Ubatuba"
+    ],
+    [
+     45189,
+     "Through the fire"
+    ],
+    [
+     45190,
+     "Paseo Nocturno"
+    ],
+    [
+     45191,
+     "For Angela"
+    ],
+    [
+     45192,
+     "Los disidentes"
+    ],
+    [
+     45193,
+     "Moon Tower"
+    ],
+    [
+     45194,
+     "Stella by Starlight"
+    ],
+    [
+     45195,
+     "El Catire"
+    ],
+    [
+     45196,
+     "Requiem for Lolo"
+    ],
+    [
+     45197,
+     "Smile"
+    ],
+    [
+     45198,
+     "Cuando vuelva a tu lado"
+    ]
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/7576176",
+    "externalTitle": "Sin Fronteras",
+    "externalTracks": 11,
+    "order": {
+     "45188": {
+      "disc": 1,
+      "n": 7,
+      "title": "Ubatuba",
+      "seconds": 248
+     },
+     "45189": {
+      "disc": 1,
+      "n": 3,
+      "title": "Through the Fire",
+      "seconds": 297
+     },
+     "45190": {
+      "disc": 1,
+      "n": 1,
+      "title": "Paseo Nocturno",
+      "seconds": 315
+     },
+     "45191": {
+      "disc": 1,
+      "n": 6,
+      "title": "For Angela",
+      "seconds": 288
+     },
+     "45192": {
+      "disc": 1,
+      "n": 4,
+      "title": "Los Disidentes",
+      "seconds": 257
+     },
+     "45193": {
+      "disc": 1,
+      "n": 11,
+      "title": "Moon Tower",
+      "seconds": 323
+     },
+     "45194": {
+      "disc": 1,
+      "n": 9,
+      "title": "Stella By Starlight",
+      "seconds": 248
+     },
+     "45195": {
+      "disc": 1,
+      "n": 2,
+      "title": "El Catire",
+      "seconds": 264
+     },
+     "45196": {
+      "disc": 1,
+      "n": 8,
+      "title": "Requiem for Lolo",
+      "seconds": 267
+     },
+     "45197": {
+      "disc": 1,
+      "n": 10,
+      "title": "Smile",
+      "seconds": 261
+     },
+     "45198": {
+      "disc": 1,
+      "n": 5,
+      "title": "Cuando Vuelva a tu lado",
+      "seconds": 362
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5620",
+   "crvArtistId": 1931,
+   "artist": "Ramas",
+   "title": "Medio Sol Sessions",
+   "songs": [
+    [
+     46296,
+     "Nena"
+    ],
+    [
+     46297,
+     "Evolution"
+    ],
+    [
+     46298,
+     "Mentiras"
+    ],
+    [
+     46299,
+     "Runaway"
+    ],
+    [
+     46300,
+     "Intro"
+    ],
+    [
+     46301,
+     "No Soy Tu"
+    ],
+    [
+     46302,
+     "Vengo de Alla"
+    ],
+    [
+     46303,
+     "Enfermo de Amor"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5465",
+   "crvArtistId": 3440,
+   "artist": "Alfredo Naranjo",
+   "title": "Tributo a Joe Cuba",
+   "songs": [
+    [
+     45251,
+     "Sacudete Sacude"
+    ],
+    [
+     45252,
+     "Tus Malos Presagios"
+    ],
+    [
+     45253,
+     "Medley Oriente Juan Ramon"
+    ],
+    [
+     45254,
+     "Mujer Divina"
+    ],
+    [
+     45255,
+     "La Cosecha"
+    ],
+    [
+     45256,
+     "Guaracha y Bembe"
+    ],
+    [
+     45257,
+     "Tiene Saoco"
+    ],
+    [
+     45258,
+     "To Joe"
+    ],
+    [
+     45259,
+     "Opening"
+    ],
+    [
+     45260,
+     "Guajeo"
+    ],
+    [
+     45261,
+     "Bravo Rumbero"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5587",
+   "crvArtistId": 4568,
+   "artist": "Holy Hands",
+   "title": "Y U K I",
+   "songs": [
+    [
+     46036,
+     "Metas"
+    ],
+    [
+     46037,
+     "En la orilla"
+    ],
+    [
+     46038,
+     "UHF"
+    ],
+    [
+     46039,
+     "No Esperes"
+    ],
+    [
+     46040,
+     "El Océano"
+    ],
+    [
+     46041,
+     "Hoy"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5692",
+   "crvArtistId": 691,
+   "artist": "Sonidos Foráneos",
+   "title": "Sonido Foráneos Live",
+   "songs": [
+    [
+     46519,
+     "Canción V"
+    ],
+    [
+     46520,
+     "Porque Sigo, Te Perdiste, Una Razón"
+    ],
+    [
+     46521,
+     "Palabras Claras"
+    ],
+    [
+     46522,
+     "El Cambio"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6101",
+   "crvArtistId": 4274,
+   "artist": "Motherflowers",
+   "title": "Flor de Mayo - Oh Ma Ga : Persinao",
+   "songs": [
+    [
+     47462,
+     "Persinao"
+    ],
+    [
+     47463,
+     "Oh Ma Ga"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6100",
+   "crvArtistId": 4274,
+   "artist": "Motherflowers",
+   "title": "Flor de Mayo - Apache",
+   "songs": [
+    [
+     47460,
+     "El Templo De Apolo"
+    ],
+    [
+     47461,
+     "Quien Lo Diría?"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "5949",
+   "crvArtistId": 6788,
+   "artist": "Gus",
+   "title": "Futura",
+   "songs": [
+    [
+     47112,
+     "Aquellas Noches"
+    ],
+    [
+     47110,
+     "Colores"
+    ],
+    [
+     47109,
+     "Para Llevarte a Vivir"
+    ],
+    [
+     47111,
+     "intro"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6307",
+   "crvArtistId": 6794,
+   "artist": "Frank Lucas",
+   "title": "LIVE FROM LA SELVA",
+   "songs": [
+    [
+     48166,
+     "Cuando Estas Lejos"
+    ],
+    [
+     48169,
+     "Bonita Coincidencia"
+    ],
+    [
+     48165,
+     "La Catalana"
+    ],
+    [
+     48167,
+     "Yo Que Muero De Soledad"
+    ],
+    [
+     48168,
+     "Cosas Del Destino"
+    ],
+    [
+     48170,
+     "Coleto"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6089",
+   "crvArtistId": 6794,
+   "artist": "Frank Lucas",
+   "title": "El Libro De La Selva",
+   "songs": [
+    [
+     47441,
+     "La Catalana"
+    ],
+    [
+     47442,
+     "Bonita Coincidencia"
+    ],
+    [
+     47445,
+     "Los Tigres de Oriente"
+    ],
+    [
+     47447,
+     "Karina y Caribe"
+    ],
+    [
+     47449,
+     "De Vuelta a Casa"
+    ],
+    [
+     47443,
+     "Cuándo Será?"
+    ],
+    [
+     47444,
+     "Canción de Amor"
+    ],
+    [
+     47446,
+     "El Libro de la Selva"
+    ],
+    [
+     47448,
+     "Coleto"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6387",
+   "crvArtistId": 2061,
+   "artist": "José y El Toro",
+   "title": "Exitos Melodramaticos Vol Uno",
+   "songs": [
+    [
+     48349,
+     "La Noche de Anoche Juanhobos, Gallardia"
+    ],
+    [
+     48344,
+     "De Los Besos Que Te Di"
+    ],
+    [
+     48345,
+     "Tu Recuerdo"
+    ],
+    [
+     48346,
+     "Ahora Te Puedes Marchar"
+    ],
+    [
+     48347,
+     "Fiera Inquieta"
+    ],
+    [
+     48348,
+     "Sombras Nada Mas"
+    ],
+    [
+     48350,
+     "Nominao"
+    ],
+    [
+     48351,
+     "Sin Rencor"
+    ],
+    [
+     48352,
+     "La Incondicional"
+    ],
+    [
+     48353,
+     "Y Tu Te Vas"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6673",
+   "crvArtistId": 149,
+   "artist": "Lil Supa'",
+   "title": "Caimanes & Caballos",
+   "songs": [
+    [
+     49148,
+     "Caballos"
+    ],
+    [
+     49149,
+     "Caimanes"
+    ]
+   ],
+   "orden": null
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6691",
+   "crvArtistId": 149,
+   "artist": "Lil Supa'",
+   "title": "EL BLOKE",
+   "songs": [
+    [
+     49206,
+     "HORROR"
+    ],
+    [
+     49207,
+     "LUCHA"
+    ],
+    [
+     49208,
+     "ERDMD"
+    ],
+    [
+     49209,
+     "CHUZO"
+    ],
+    [
+     49210,
+     "CONVOY"
+    ]
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/272162862",
+    "externalTitle": "EL BLOKE",
+    "externalTracks": 5,
+    "order": {
+     "49206": {
+      "disc": 1,
+      "n": 5,
+      "title": "HORROR",
+      "seconds": 202
+     },
+     "49207": {
+      "disc": 1,
+      "n": 4,
+      "title": "LUCHA",
+      "seconds": 182
+     },
+     "49208": {
+      "disc": 1,
+      "n": 3,
+      "title": "ERDMD",
+      "seconds": 171
+     },
+     "49209": {
+      "disc": 1,
+      "n": 2,
+      "title": "CHUZO",
+      "seconds": 194
+     },
+     "49210": {
+      "disc": 1,
+      "n": 1,
+      "title": "CONVOY",
+      "seconds": 202
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6902",
+   "crvArtistId": 6669,
+   "artist": "Ríal Guawankó",
+   "title": "Dosis, Maxi Single",
+   "songs": [
+    [
+     49672,
+     "Dosis"
+    ],
+    [
+     49675,
+     "Dosis (Nicco Dreamcast Remix)"
+    ]
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/133002952",
+    "externalTitle": "Dosis, Maxi Single",
+    "externalTracks": 5,
+    "order": {
+     "49672": {
+      "disc": 1,
+      "n": 1,
+      "title": "Dosis",
+      "seconds": 260
+     },
+     "49675": {
+      "disc": 1,
+      "n": 2,
+      "title": "Dosis (Nicco Dreamcast Remix)",
+      "seconds": 261
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6897",
+   "crvArtistId": 6669,
+   "artist": "Ríal Guawankó",
+   "title": "La Lengua de los Beatz y lo Oculto de los Versos",
+   "songs": [
+    [
+     49642,
+     "Jazz Rap"
+    ],
+    [
+     49643,
+     "Atmósfera Roja"
+    ],
+    [
+     49644,
+     "Rial Nieve"
+    ],
+    [
+     49645,
+     "Jazzy Party"
+    ],
+    [
+     49646,
+     "Plaga Ideológica"
+    ],
+    [
+     49647,
+     "Así Daré la Vida por Lo Que Amé"
+    ],
+    [
+     49648,
+     "F. Money"
+    ],
+    [
+     49649,
+     "Organ Mellodia"
+    ],
+    [
+     49650,
+     "Alma-V"
+    ],
+    [
+     49651,
+     "Get Live"
+    ],
+    [
+     49652,
+     "De Dónde Vienes?"
+    ],
+    [
+     49653,
+     "La Misma Senda"
+    ],
+    [
+     49654,
+     "Definición"
+    ],
+    [
+     49655,
+     "Chin Chun Chow"
+    ]
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/132408582",
+    "externalTitle": "La Lengua de los Beatz y lo Oculto de los Versos",
+    "externalTracks": 16,
+    "order": {
+     "49642": {
+      "disc": 1,
+      "n": 1,
+      "title": "Jazz Rap",
+      "seconds": 258
+     },
+     "49643": {
+      "disc": 1,
+      "n": 2,
+      "title": "Atmósfera Roja",
+      "seconds": 269
+     },
+     "49644": {
+      "disc": 1,
+      "n": 3,
+      "title": "Rial Nieve",
+      "seconds": 181
+     },
+     "49645": {
+      "disc": 1,
+      "n": 4,
+      "title": "Jazzy Party",
+      "seconds": 214
+     },
+     "49646": {
+      "disc": 1,
+      "n": 5,
+      "title": "Plaga Ideológica",
+      "seconds": 206
+     },
+     "49647": {
+      "disc": 1,
+      "n": 7,
+      "title": "Así Daré la Vida por Lo Que Amé",
+      "seconds": 276
+     },
+     "49648": {
+      "disc": 1,
+      "n": 8,
+      "title": "F. Money",
+      "seconds": 141
+     },
+     "49649": {
+      "disc": 1,
+      "n": 9,
+      "title": "Organ Mellodia",
+      "seconds": 284
+     },
+     "49650": {
+      "disc": 1,
+      "n": 10,
+      "title": "Alma-V",
+      "seconds": 315
+     },
+     "49651": {
+      "disc": 1,
+      "n": 11,
+      "title": "Get Live",
+      "seconds": 294
+     },
+     "49652": {
+      "disc": 1,
+      "n": 12,
+      "title": "De Dónde Vienes?",
+      "seconds": 281
+     },
+     "49653": {
+      "disc": 1,
+      "n": 13,
+      "title": "La Misma Senda",
+      "seconds": 255
+     },
+     "49654": {
+      "disc": 1,
+      "n": 14,
+      "title": "Definición",
+      "seconds": 91
+     },
+     "49655": {
+      "disc": 1,
+      "n": 16,
+      "title": "Chin Chun Chow",
+      "seconds": 264
+     }
+    }
+   }
+  },
+  {
+   "hueco": "H7",
+   "aqIds": "6898",
+   "crvArtistId": 6669,
+   "artist": "Ríal Guawankó",
+   "title": "The Real Drama",
+   "songs": [
+    [
+     49656,
+     "Intro"
+    ],
+    [
+     49657,
+     "Amén"
+    ],
+    [
+     49658,
+     "Slow Motion"
+    ],
+    [
+     49659,
+     "Confía En Mí"
+    ],
+    [
+     49660,
+     "Real Drama"
+    ]
+   ],
+   "orden": {
+    "source": "deezer",
+    "url": "https://www.deezer.com/album/132408892",
+    "externalTitle": "The Real Drama",
+    "externalTracks": 5,
+    "order": {
+     "49656": {
+      "disc": 1,
+      "n": 1,
+      "title": "Intro",
+      "seconds": 75
+     },
+     "49657": {
+      "disc": 1,
+      "n": 2,
+      "title": "Amén",
+      "seconds": 167
+     },
+     "49658": {
+      "disc": 1,
+      "n": 3,
+      "title": "Slow Motion",
+      "seconds": 207
+     },
+     "49659": {
+      "disc": 1,
+      "n": 4,
+      "title": "Confía En Mí",
+      "seconds": 293
+     },
+     "49660": {
+      "disc": 1,
+      "n": 5,
+      "title": "Real Drama",
+      "seconds": 325
+     }
+    }
+   }
+  }
+ ]
+}

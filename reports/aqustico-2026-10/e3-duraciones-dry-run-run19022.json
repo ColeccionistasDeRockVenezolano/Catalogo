@@ -1,0 +1,3080 @@
+{
+ "mode": "dry-run",
+ "runId": 19022,
+ "candidates": 614,
+ "applied": 614,
+ "alreadySet": 0,
+ "skippedOtherEdition": [],
+ "applies": [
+  {
+   "trackId": 25101,
+   "seconds": 99,
+   "detalle": "«Fanfarria» en «La Vida Es»"
+  },
+  {
+   "trackId": 25103,
+   "seconds": 104,
+   "detalle": "«La Luna Dub» en «La Vida Es»"
+  },
+  {
+   "trackId": 40726,
+   "seconds": 205,
+   "detalle": "«El alma del mundo» en «Los que rezan»"
+  },
+  {
+   "trackId": 40754,
+   "seconds": 252,
+   "detalle": "«Glamour» en «Los que rezan»"
+  },
+  {
+   "trackId": 40759,
+   "seconds": 233,
+   "detalle": "«Imagenes del amanecer» en «Los que rezan»"
+  },
+  {
+   "trackId": 40736,
+   "seconds": 274,
+   "detalle": "«Pienso» en «Los que rezan»"
+  },
+  {
+   "trackId": 40745,
+   "seconds": 398,
+   "detalle": "«Si te veo afuera» en «Los que rezan»"
+  },
+  {
+   "trackId": 40764,
+   "seconds": 252,
+   "detalle": "«Tormenta» en «Los que rezan»"
+  },
+  {
+   "trackId": 193538,
+   "seconds": 152,
+   "detalle": "«Pequeña Traviesa» en «Canciones en Construccion»"
+  },
+  {
+   "trackId": 193545,
+   "seconds": 278,
+   "detalle": "«Milagros en Números» en «Canciones en Construccion»"
+  },
+  {
+   "trackId": 193547,
+   "seconds": 256,
+   "detalle": "«Te Vas» en «Canciones en Construccion»"
+  },
+  {
+   "trackId": 193544,
+   "seconds": 164,
+   "detalle": "«La Corona» en «Canciones en Construccion»"
+  },
+  {
+   "trackId": 193537,
+   "seconds": 206,
+   "detalle": "«Alicia» en «Canciones en Construccion»"
+  },
+  {
+   "trackId": 193543,
+   "seconds": 222,
+   "detalle": "«Jesus El Mismo de Ayer» en «Canciones en Construccion»"
+  },
+  {
+   "trackId": 193539,
+   "seconds": 214,
+   "detalle": "«La Unica» en «Canciones en Construccion»"
+  },
+  {
+   "trackId": 78548,
+   "seconds": 194,
+   "detalle": "«Dame otro trago» en «Te la dedico»"
+  },
+  {
+   "trackId": 78546,
+   "seconds": 198,
+   "detalle": "«Pura mentira» en «Te la dedico»"
+  },
+  {
+   "trackId": 155480,
+   "seconds": 235,
+   "detalle": "«Mi gente» en «Te la dedico»"
+  },
+  {
+   "trackId": 78547,
+   "seconds": 210,
+   "detalle": "«Tu no estas en na» en «Te la dedico»"
+  },
+  {
+   "trackId": 78993,
+   "seconds": 215,
+   "detalle": "«Amarte Es Un Placer» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 79003,
+   "seconds": 234,
+   "detalle": "«Bachata Rosa» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 78997,
+   "seconds": 153,
+   "detalle": "«De Qué Manera Te Olvido» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 79001,
+   "seconds": 214,
+   "detalle": "«El Ferry» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 78998,
+   "seconds": 273,
+   "detalle": "«Oscarreando» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 79005,
+   "seconds": 187,
+   "detalle": "«Oye Cómo Va» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 78996,
+   "seconds": 192,
+   "detalle": "«Paula» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 78999,
+   "seconds": 159,
+   "detalle": "«Por Una Cabeza» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 79007,
+   "seconds": 203,
+   "detalle": "«Sublime» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 79006,
+   "seconds": 228,
+   "detalle": "«Venezuela Sin Palabras» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 78994,
+   "seconds": 251,
+   "detalle": "«Wilfrido Medley» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 78995,
+   "seconds": 124,
+   "detalle": "«La Donna È Mobile» en «Desde La Calle 5 A Capella»"
+  },
+  {
+   "trackId": 24005,
+   "seconds": 218,
+   "detalle": "«El Malquerido» en «Felipe Pirela de Vuelta»"
+  },
+  {
+   "trackId": 24010,
+   "seconds": 240,
+   "detalle": "«Entre tu amor y mi amor» en «Felipe Pirela de Vuelta»"
+  },
+  {
+   "trackId": 24006,
+   "seconds": 206,
+   "detalle": "«Ese Bolero es mio» en «Felipe Pirela de Vuelta»"
+  },
+  {
+   "trackId": 24008,
+   "seconds": 246,
+   "detalle": "«Mi Puerto Cabello» en «Felipe Pirela de Vuelta»"
+  },
+  {
+   "trackId": 24001,
+   "seconds": 192,
+   "detalle": "«Paula» en «Felipe Pirela de Vuelta»"
+  },
+  {
+   "trackId": 24000,
+   "seconds": 190,
+   "detalle": "«Sombras nada mas» en «Felipe Pirela de Vuelta»"
+  },
+  {
+   "trackId": 24002,
+   "seconds": 168,
+   "detalle": "«Unicamente Tu» en «Felipe Pirela de Vuelta»"
+  },
+  {
+   "trackId": 39881,
+   "seconds": 45,
+   "detalle": "«Ella y ella menor» en «Sueños a la Luna»"
+  },
+  {
+   "trackId": 39804,
+   "seconds": 254,
+   "detalle": "«Ella y Ella» en «Sueños a la Luna»"
+  },
+  {
+   "trackId": 39815,
+   "seconds": 226,
+   "detalle": "«Enamorados» en «Sueños a la Luna»"
+  },
+  {
+   "trackId": 39827,
+   "seconds": 207,
+   "detalle": "«Estoy aquí» en «Sueños a la Luna»"
+  },
+  {
+   "trackId": 39844,
+   "seconds": 217,
+   "detalle": "«Me cuesta tanto» en «Sueños a la Luna»"
+  },
+  {
+   "trackId": 39833,
+   "seconds": 271,
+   "detalle": "«Se que existes» en «Sueños a la Luna»"
+  },
+  {
+   "trackId": 39821,
+   "seconds": 229,
+   "detalle": "«Significas para mí» en «Sueños a la Luna»"
+  },
+  {
+   "trackId": 39810,
+   "seconds": 207,
+   "detalle": "«Sueños a la Luna» en «Sueños a la Luna»"
+  },
+  {
+   "trackId": 39838,
+   "seconds": 205,
+   "detalle": "«Vas conmigo» en «Sueños a la Luna»"
+  },
+  {
+   "trackId": 79038,
+   "seconds": 297,
+   "detalle": "«Amor y Control» en «Amarle»"
+  },
+  {
+   "trackId": 79037,
+   "seconds": 201,
+   "detalle": "«El Mensaje» en «Amarle»"
+  },
+  {
+   "trackId": 79039,
+   "seconds": 189,
+   "detalle": "«Mi Bendicion» en «Amarle»"
+  },
+  {
+   "trackId": 79041,
+   "seconds": 221,
+   "detalle": "«Tu Hombre soy yo» en «Amarle»"
+  },
+  {
+   "trackId": 37967,
+   "seconds": 192,
+   "detalle": "«Te Llamé - I Just Called To Say I Love You» en «Memories»"
+  },
+  {
+   "trackId": 37983,
+   "seconds": 230,
+   "detalle": "«Más que palabras - More Than Words» en «Memories»"
+  },
+  {
+   "trackId": 37989,
+   "seconds": 178,
+   "detalle": "«Ben» en «Memories»"
+  },
+  {
+   "trackId": 78835,
+   "seconds": 226,
+   "detalle": "«A ella» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78833,
+   "seconds": 253,
+   "detalle": "«Amor entre tres» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78836,
+   "seconds": 238,
+   "detalle": "«Bella sin Alma» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78828,
+   "seconds": 204,
+   "detalle": "«Carito» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78837,
+   "seconds": 296,
+   "detalle": "«Caruso» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78838,
+   "seconds": 261,
+   "detalle": "«Dime que pasara» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78831,
+   "seconds": 180,
+   "detalle": "«El destino» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78834,
+   "seconds": 206,
+   "detalle": "«La heroina del Cartel» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78830,
+   "seconds": 168,
+   "detalle": "«Negaiteando» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78827,
+   "seconds": 149,
+   "detalle": "«Nessun Dorma» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78832,
+   "seconds": 275,
+   "detalle": "«Niña Bonita» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78829,
+   "seconds": 218,
+   "detalle": "«Para Vivir» en «De 2 maneras»"
+  },
+  {
+   "trackId": 78826,
+   "seconds": 197,
+   "detalle": "«Wilfri2» en «De 2 maneras»"
+  },
+  {
+   "trackId": 69463,
+   "seconds": 423,
+   "detalle": "«Arapo» en «Reinvención»"
+  },
+  {
+   "trackId": 69458,
+   "seconds": 306,
+   "detalle": "«Maradona Solta La Bola» en «Reinvención»"
+  },
+  {
+   "trackId": 69456,
+   "seconds": 223,
+   "detalle": "«Me Cuesta Tanto Olvidarte» en «Reinvención»"
+  },
+  {
+   "trackId": 69460,
+   "seconds": 268,
+   "detalle": "«Reggaeton alternativo» en «Reinvención»"
+  },
+  {
+   "trackId": 69455,
+   "seconds": 250,
+   "detalle": "«Sueños» en «Reinvención»"
+  },
+  {
+   "trackId": 69464,
+   "seconds": 246,
+   "detalle": "«Tamborera Gitana» en «Reinvención»"
+  },
+  {
+   "trackId": 69465,
+   "seconds": 397,
+   "detalle": "«Tema De Amor» en «Reinvención»"
+  },
+  {
+   "trackId": 69461,
+   "seconds": 369,
+   "detalle": "«Waltz For Debby» en «Reinvención»"
+  },
+  {
+   "trackId": 72087,
+   "seconds": 251,
+   "detalle": "«Love and peace» en «Karibe»"
+  },
+  {
+   "trackId": 35790,
+   "seconds": 188,
+   "detalle": "«Desde que apareciste» en «Hablame»"
+  },
+  {
+   "trackId": 35750,
+   "seconds": 184,
+   "detalle": "«Hablame» en «Hablame»"
+  },
+  {
+   "trackId": 35795,
+   "seconds": 241,
+   "detalle": "«Hoy» en «Hablame»"
+  },
+  {
+   "trackId": 35785,
+   "seconds": 192,
+   "detalle": "«Ni tu ni nadie» en «Hablame»"
+  },
+  {
+   "trackId": 35779,
+   "seconds": 224,
+   "detalle": "«No me mires asi» en «Hablame»"
+  },
+  {
+   "trackId": 35768,
+   "seconds": 265,
+   "detalle": "«No me queda nada» en «Hablame»"
+  },
+  {
+   "trackId": 35762,
+   "seconds": 229,
+   "detalle": "«Palabras» en «Hablame»"
+  },
+  {
+   "trackId": 35756,
+   "seconds": 223,
+   "detalle": "«Te di» en «Hablame»"
+  },
+  {
+   "trackId": 37311,
+   "seconds": 229,
+   "detalle": "«Por amor al underground» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37233,
+   "seconds": 192,
+   "detalle": "«Estilo de Vida» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37252,
+   "seconds": 242,
+   "detalle": "«Sietemesinos» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37293,
+   "seconds": 243,
+   "detalle": "«Chica Internet» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37286,
+   "seconds": 174,
+   "detalle": "«Vivencias Callejeras» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37271,
+   "seconds": 250,
+   "detalle": "«AlDesnudo» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37227,
+   "seconds": 245,
+   "detalle": "«La Historia de leonel» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37299,
+   "seconds": 164,
+   "detalle": "«Fariseos» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37221,
+   "seconds": 277,
+   "detalle": "«Caracas Loca» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37316,
+   "seconds": 204,
+   "detalle": "«Rap de corazon pensamiento y alma» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37281,
+   "seconds": 262,
+   "detalle": "«Hablando con Dios» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37216,
+   "seconds": 271,
+   "detalle": "«Motobanqueando» en «Al Desnudo»"
+  },
+  {
+   "trackId": 37239,
+   "seconds": 242,
+   "detalle": "«Secuestro» en «Al Desnudo»"
+  },
+  {
+   "trackId": 18693,
+   "seconds": 315,
+   "detalle": "«Amor de Jah» en «Evoluzion»"
+  },
+  {
+   "trackId": 18698,
+   "seconds": 266,
+   "detalle": "«Bomba» en «Evoluzion»"
+  },
+  {
+   "trackId": 18704,
+   "seconds": 310,
+   "detalle": "«Carnaval» en «Evoluzion»"
+  },
+  {
+   "trackId": 18690,
+   "seconds": 196,
+   "detalle": "«Discriminación» en «Evoluzion»"
+  },
+  {
+   "trackId": 18708,
+   "seconds": 273,
+   "detalle": "«Mamá» en «Evoluzion»"
+  },
+  {
+   "trackId": 18703,
+   "seconds": 216,
+   "detalle": "«NAP Avance» en «Evoluzion»"
+  },
+  {
+   "trackId": 18692,
+   "seconds": 205,
+   "detalle": "«Reggae Music» en «Evoluzion»"
+  },
+  {
+   "trackId": 18694,
+   "seconds": 268,
+   "detalle": "«Te Amaré» en «Evoluzion»"
+  },
+  {
+   "trackId": 18701,
+   "seconds": 286,
+   "detalle": "«Una Historia» en «Evoluzion»"
+  },
+  {
+   "trackId": 18699,
+   "seconds": 349,
+   "detalle": "«SOS Tierra» en «Evoluzion»"
+  },
+  {
+   "trackId": 18702,
+   "seconds": 189,
+   "detalle": "«Lluvia» en «Evoluzion»"
+  },
+  {
+   "trackId": 9953,
+   "seconds": 190,
+   "detalle": "«A Place to Remember» en «Rebellion»"
+  },
+  {
+   "trackId": 9940,
+   "seconds": 220,
+   "detalle": "«Arpeggio Sin» en «Rebellion»"
+  },
+  {
+   "trackId": 9963,
+   "seconds": 112,
+   "detalle": "«Be my Guest» en «Rebellion»"
+  },
+  {
+   "trackId": 9946,
+   "seconds": 130,
+   "detalle": "«Dancing With the Devil» en «Rebellion»"
+  },
+  {
+   "trackId": 9959,
+   "seconds": 75,
+   "detalle": "«Lucky Number» en «Rebellion»"
+  },
+  {
+   "trackId": 9998,
+   "seconds": 114,
+   "detalle": "«Quick Spelling» en «Rebellion»"
+  },
+  {
+   "trackId": 9986,
+   "seconds": 115,
+   "detalle": "«Rebellion» en «Rebellion»"
+  },
+  {
+   "trackId": 9991,
+   "seconds": 213,
+   "detalle": "«Sibelius» en «Rebellion»"
+  },
+  {
+   "trackId": 9971,
+   "seconds": 99,
+   "detalle": "«The Call» en «Rebellion»"
+  },
+  {
+   "trackId": 10010,
+   "seconds": 229,
+   "detalle": "«Variation» en «Rebellion»"
+  },
+  {
+   "trackId": 10004,
+   "seconds": 347,
+   "detalle": "«When Love is not Enough» en «Rebellion»"
+  },
+  {
+   "trackId": 9931,
+   "seconds": 137,
+   "detalle": "«Will to Be» en «Rebellion»"
+  },
+  {
+   "trackId": 9978,
+   "seconds": 132,
+   "detalle": "«Passage» en «Rebellion»"
+  },
+  {
+   "trackId": 69469,
+   "seconds": 321,
+   "detalle": "«Bily» en «Entre Manos»"
+  },
+  {
+   "trackId": 69470,
+   "seconds": 113,
+   "detalle": "«Introducción Al Vals Gitano» en «Entre Manos»"
+  },
+  {
+   "trackId": 69474,
+   "seconds": 293,
+   "detalle": "«Me Gusta Soñar» en «Entre Manos»"
+  },
+  {
+   "trackId": 69476,
+   "seconds": 434,
+   "detalle": "«Periquera Con Seis Por Derecho» en «Entre Manos»"
+  },
+  {
+   "trackId": 69472,
+   "seconds": 214,
+   "detalle": "«Se Empinan La Botella» en «Entre Manos»"
+  },
+  {
+   "trackId": 69471,
+   "seconds": 294,
+   "detalle": "«Vals Gitano» en «Entre Manos»"
+  },
+  {
+   "trackId": 69473,
+   "seconds": 273,
+   "detalle": "«Valsa Em Si» en «Entre Manos»"
+  },
+  {
+   "trackId": 69475,
+   "seconds": 319,
+   "detalle": "«Vaya Pue» en «Entre Manos»"
+  },
+  {
+   "trackId": 69468,
+   "seconds": 312,
+   "detalle": "«Yari» en «Entre Manos»"
+  },
+  {
+   "trackId": 25742,
+   "seconds": 174,
+   "detalle": "«buenos dias sol» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25730,
+   "seconds": 221,
+   "detalle": "«el guia» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25733,
+   "seconds": 224,
+   "detalle": "«el hombre de la cima» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25734,
+   "seconds": 212,
+   "detalle": "«hoy» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25737,
+   "seconds": 184,
+   "detalle": "«joven amor» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25735,
+   "seconds": 145,
+   "detalle": "«la guitarra» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25732,
+   "seconds": 210,
+   "detalle": "«por ti mujer» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25738,
+   "seconds": 169,
+   "detalle": "«que me importa» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25728,
+   "seconds": 205,
+   "detalle": "«soy asi» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25726,
+   "seconds": 219,
+   "detalle": "«soy poeta» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25741,
+   "seconds": 152,
+   "detalle": "«taxi» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25725,
+   "seconds": 159,
+   "detalle": "«tiempo para amar» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25731,
+   "seconds": 236,
+   "detalle": "«un hombre» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25736,
+   "seconds": 163,
+   "detalle": "«vamos cantando» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 25729,
+   "seconds": 225,
+   "detalle": "«vida normal» en «Por siempre Edgar y Punto»"
+  },
+  {
+   "trackId": 73540,
+   "seconds": 185,
+   "detalle": "«cafe y pan» en «Llego la salsa»"
+  },
+  {
+   "trackId": 55731,
+   "seconds": 186,
+   "detalle": "«celosa» en «Llego la salsa»"
+  },
+  {
+   "trackId": 55726,
+   "seconds": 151,
+   "detalle": "«cocolia» en «Llego la salsa»"
+  },
+  {
+   "trackId": 55727,
+   "seconds": 172,
+   "detalle": "«conmigo» en «Llego la salsa»"
+  },
+  {
+   "trackId": 73536,
+   "seconds": 196,
+   "detalle": "«despierta rumbero» en «Llego la salsa»"
+  },
+  {
+   "trackId": 55728,
+   "seconds": 156,
+   "detalle": "«el pachanguero» en «Llego la salsa»"
+  },
+  {
+   "trackId": 73537,
+   "seconds": 181,
+   "detalle": "«no critiquen» en «Llego la salsa»"
+  },
+  {
+   "trackId": 55729,
+   "seconds": 196,
+   "detalle": "«sancocho caliente» en «Llego la salsa»"
+  },
+  {
+   "trackId": 73538,
+   "seconds": 181,
+   "detalle": "«saoco» en «Llego la salsa»"
+  },
+  {
+   "trackId": 76571,
+   "seconds": 170,
+   "detalle": "«desesperadamente» en «Serenata»"
+  },
+  {
+   "trackId": 76572,
+   "seconds": 202,
+   "detalle": "«destino» en «Serenata»"
+  },
+  {
+   "trackId": 63181,
+   "seconds": 175,
+   "detalle": "«duerme» en «Serenata»"
+  },
+  {
+   "trackId": 76576,
+   "seconds": 182,
+   "detalle": "«frenesi» en «Serenata»"
+  },
+  {
+   "trackId": 63178,
+   "seconds": 161,
+   "detalle": "«inquietud» en «Serenata»"
+  },
+  {
+   "trackId": 63177,
+   "seconds": 182,
+   "detalle": "«la flor de la canela» en «Serenata»"
+  },
+  {
+   "trackId": 76575,
+   "seconds": 16,
+   "detalle": "«linda merideña» en «Serenata»"
+  },
+  {
+   "trackId": 63182,
+   "seconds": 179,
+   "detalle": "«madrugada llanera» en «Serenata»"
+  },
+  {
+   "trackId": 76570,
+   "seconds": 194,
+   "detalle": "«mi plegaria» en «Serenata»"
+  },
+  {
+   "trackId": 63180,
+   "seconds": 214,
+   "detalle": "«mi querencia» en «Serenata»"
+  },
+  {
+   "trackId": 76577,
+   "seconds": 180,
+   "detalle": "«mi tierra» en «Serenata»"
+  },
+  {
+   "trackId": 63179,
+   "seconds": 214,
+   "detalle": "«motivos» en «Serenata»"
+  },
+  {
+   "trackId": 76574,
+   "seconds": 237,
+   "detalle": "«noche de ronda» en «Serenata»"
+  },
+  {
+   "trackId": 76573,
+   "seconds": 189,
+   "detalle": "«noches larenses» en «Serenata»"
+  },
+  {
+   "trackId": 63183,
+   "seconds": 219,
+   "detalle": "«se que te perdi» en «Serenata»"
+  },
+  {
+   "trackId": 63176,
+   "seconds": 172,
+   "detalle": "«traicionera» en «Serenata»"
+  },
+  {
+   "trackId": 63017,
+   "seconds": 178,
+   "detalle": "«ahora» en «Ahora»"
+  },
+  {
+   "trackId": 63021,
+   "seconds": 166,
+   "detalle": "«de vez en cuando» en «Ahora»"
+  },
+  {
+   "trackId": 63019,
+   "seconds": 197,
+   "detalle": "«dejame sola» en «Ahora»"
+  },
+  {
+   "trackId": 63018,
+   "seconds": 129,
+   "detalle": "«me olvide» en «Ahora»"
+  },
+  {
+   "trackId": 76518,
+   "seconds": 132,
+   "detalle": "«mi adios» en «Ahora»"
+  },
+  {
+   "trackId": 76520,
+   "seconds": 142,
+   "detalle": "«nace el sol» en «Ahora»"
+  },
+  {
+   "trackId": 76519,
+   "seconds": 112,
+   "detalle": "«no» en «Ahora»"
+  },
+  {
+   "trackId": 76516,
+   "seconds": 206,
+   "detalle": "«te extraño» en «Ahora»"
+  },
+  {
+   "trackId": 63020,
+   "seconds": 201,
+   "detalle": "«yo te recuerdo» en «Ahora»"
+  },
+  {
+   "trackId": 76517,
+   "seconds": 139,
+   "detalle": "«yo» en «Ahora»"
+  },
+  {
+   "trackId": 62425,
+   "seconds": 171,
+   "detalle": "«El Planeta Dormilon» en «CANTA CUENTOS»"
+  },
+  {
+   "trackId": 76496,
+   "seconds": 171,
+   "detalle": "«el alcaravan» en «La Paraulata»"
+  },
+  {
+   "trackId": 53199,
+   "seconds": 299,
+   "detalle": "«como estas» en «Scala 40»"
+  },
+  {
+   "trackId": 53198,
+   "seconds": 300,
+   "detalle": "«lisa la de los ojos azules» en «Scala 40»"
+  },
+  {
+   "trackId": 53200,
+   "seconds": 229,
+   "detalle": "«champagne» en «Scala 40»"
+  },
+  {
+   "trackId": 72575,
+   "seconds": 250,
+   "detalle": "«la distancia es como el viento» en «Scala 40»"
+  },
+  {
+   "trackId": 53201,
+   "seconds": 258,
+   "detalle": "«mas alla» en «Scala 40»"
+  },
+  {
+   "trackId": 72572,
+   "seconds": 296,
+   "detalle": "«porque me has hecho enamorar» en «Scala 40»"
+  },
+  {
+   "trackId": 53197,
+   "seconds": 304,
+   "detalle": "«un gran amor y nada mas» en «Scala 40»"
+  },
+  {
+   "trackId": 72573,
+   "seconds": 258,
+   "detalle": "«que quiere esa musica esta noche» en «Scala 40»"
+  },
+  {
+   "trackId": 72574,
+   "seconds": 220,
+   "detalle": "«yo que no vivo sin ti» en «Scala 40»"
+  },
+  {
+   "trackId": 157853,
+   "seconds": 134,
+   "detalle": "«ahora» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157850,
+   "seconds": 210,
+   "detalle": "«amor desconocido» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157854,
+   "seconds": 168,
+   "detalle": "«amor enguayabao» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157859,
+   "seconds": 186,
+   "detalle": "«el beso que te di» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157856,
+   "seconds": 185,
+   "detalle": "«guitarra larense» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157857,
+   "seconds": 159,
+   "detalle": "«ingenuo amor» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157858,
+   "seconds": 160,
+   "detalle": "«madrugada llanera» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157855,
+   "seconds": 147,
+   "detalle": "«maria laya» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157848,
+   "seconds": 205,
+   "detalle": "«pasillaneando» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157851,
+   "seconds": 162,
+   "detalle": "«ramoncito en cimarrona» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157861,
+   "seconds": 181,
+   "detalle": "«testigo de un romance» en «Muy Venezolano Vol 4»"
+  },
+  {
+   "trackId": 157472,
+   "seconds": 138,
+   "detalle": "«alma cumanesa» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157470,
+   "seconds": 178,
+   "detalle": "«camino de la esperanza» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157475,
+   "seconds": 187,
+   "detalle": "«desilusion» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157474,
+   "seconds": 206,
+   "detalle": "«lamento llanero» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157464,
+   "seconds": 170,
+   "detalle": "«mis cantares» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157471,
+   "seconds": 177,
+   "detalle": "«mujer llanera» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157469,
+   "seconds": 203,
+   "detalle": "«no me olvides» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157465,
+   "seconds": 160,
+   "detalle": "«por el camino real» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157473,
+   "seconds": 196,
+   "detalle": "«por un adios» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157467,
+   "seconds": 255,
+   "detalle": "«sabaneando» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157468,
+   "seconds": 16,
+   "detalle": "«sentimiento apureño» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 157466,
+   "seconds": 158,
+   "detalle": "«tu boca» en «Muy Venezolano Vol 3»"
+  },
+  {
+   "trackId": 57330,
+   "seconds": 190,
+   "detalle": "«Abril» en «Coleccion de Exitos Vol 3»"
+  },
+  {
+   "trackId": 57331,
+   "seconds": 205,
+   "detalle": "«Dos esclavos» en «Coleccion de Exitos Vol 3»"
+  },
+  {
+   "trackId": 57321,
+   "seconds": 205,
+   "detalle": "«El gallode oro» en «Coleccion de Exitos Vol 3»"
+  },
+  {
+   "trackId": 57329,
+   "seconds": 199,
+   "detalle": "«La carreta» en «Coleccion de Exitos Vol 3»"
+  },
+  {
+   "trackId": 57325,
+   "seconds": 172,
+   "detalle": "«La cinta verde» en «Coleccion de Exitos Vol 3»"
+  },
+  {
+   "trackId": 57328,
+   "seconds": 17,
+   "detalle": "«La piñata» en «Coleccion de Exitos Vol 3»"
+  },
+  {
+   "trackId": 57324,
+   "seconds": 116,
+   "detalle": "«Limbo» en «Coleccion de Exitos Vol 3»"
+  },
+  {
+   "trackId": 57323,
+   "seconds": 154,
+   "detalle": "«Manzanera» en «Coleccion de Exitos Vol 3»"
+  },
+  {
+   "trackId": 57322,
+   "seconds": 172,
+   "detalle": "«Moliendo cafe» en «Coleccion de Exitos Vol 3»"
+  },
+  {
+   "trackId": 57320,
+   "seconds": 151,
+   "detalle": "«Orquidea» en «Coleccion de Exitos Vol 3»"
+  },
+  {
+   "trackId": 57423,
+   "seconds": 173,
+   "detalle": "«Aguita de Rosas» en «Coleccion de Exitos Vol 11»"
+  },
+  {
+   "trackId": 57416,
+   "seconds": 178,
+   "detalle": "«Calypso con Arpa» en «Coleccion de Exitos Vol 11»"
+  },
+  {
+   "trackId": 57424,
+   "seconds": 161,
+   "detalle": "«Casa Colonial» en «Coleccion de Exitos Vol 11»"
+  },
+  {
+   "trackId": 57420,
+   "seconds": 154,
+   "detalle": "«Don Pascual» en «Coleccion de Exitos Vol 11»"
+  },
+  {
+   "trackId": 57421,
+   "seconds": 166,
+   "detalle": "«El Gigante» en «Coleccion de Exitos Vol 11»"
+  },
+  {
+   "trackId": 57427,
+   "seconds": 162,
+   "detalle": "«El Turpial» en «Coleccion de Exitos Vol 11»"
+  },
+  {
+   "trackId": 57425,
+   "seconds": 167,
+   "detalle": "«El Vendedor de Flores» en «Coleccion de Exitos Vol 11»"
+  },
+  {
+   "trackId": 57417,
+   "seconds": 145,
+   "detalle": "«Medialuna» en «Coleccion de Exitos Vol 11»"
+  },
+  {
+   "trackId": 57422,
+   "seconds": 155,
+   "detalle": "«Muchacha Trinitaria» en «Coleccion de Exitos Vol 11»"
+  },
+  {
+   "trackId": 57307,
+   "seconds": 170,
+   "detalle": "«Arco iris» en «Coleccion de Exitos Vol 1»"
+  },
+  {
+   "trackId": 57306,
+   "seconds": 206,
+   "detalle": "«El zapatero» en «Coleccion de Exitos Vol 1»"
+  },
+  {
+   "trackId": 57300,
+   "seconds": 185,
+   "detalle": "«Heriberta» en «Coleccion de Exitos Vol 1»"
+  },
+  {
+   "trackId": 57305,
+   "seconds": 181,
+   "detalle": "«La caracola» en «Coleccion de Exitos Vol 1»"
+  },
+  {
+   "trackId": 57297,
+   "seconds": 168,
+   "detalle": "«La diabla» en «Coleccion de Exitos Vol 1»"
+  },
+  {
+   "trackId": 57296,
+   "seconds": 226,
+   "detalle": "«La rosa blanca» en «Coleccion de Exitos Vol 1»"
+  },
+  {
+   "trackId": 57304,
+   "seconds": 188,
+   "detalle": "«Miel de abejas» en «Coleccion de Exitos Vol 1»"
+  },
+  {
+   "trackId": 57298,
+   "seconds": 156,
+   "detalle": "«Ojos tristes» en «Coleccion de Exitos Vol 1»"
+  },
+  {
+   "trackId": 57299,
+   "seconds": 178,
+   "detalle": "«Paso largo» en «Coleccion de Exitos Vol 1»"
+  },
+  {
+   "trackId": 57314,
+   "seconds": 227,
+   "detalle": "«Al fin paso» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57310,
+   "seconds": 200,
+   "detalle": "«Antes» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57316,
+   "seconds": 179,
+   "detalle": "«Chapoteando» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57319,
+   "seconds": 164,
+   "detalle": "«Corazon de fresa» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57309,
+   "seconds": 211,
+   "detalle": "«En mi cumpleaños» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57317,
+   "seconds": 184,
+   "detalle": "«Levantate» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57315,
+   "seconds": 255,
+   "detalle": "«Mala pata» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57311,
+   "seconds": 360,
+   "detalle": "«Maria merce» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57308,
+   "seconds": 175,
+   "detalle": "«Mañana vas a llorar» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57312,
+   "seconds": 176,
+   "detalle": "«Si te vas te vas» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57313,
+   "seconds": 145,
+   "detalle": "«Tierra mojada» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57318,
+   "seconds": 174,
+   "detalle": "«Un padrenuestro en la playa» en «Coleccion de Exitos Vol 2»"
+  },
+  {
+   "trackId": 57335,
+   "seconds": 194,
+   "detalle": "«Botellero» en «Coleccion de Exitos Vol 4»"
+  },
+  {
+   "trackId": 57333,
+   "seconds": 165,
+   "detalle": "«Dulce de leche» en «Coleccion de Exitos Vol 4»"
+  },
+  {
+   "trackId": 57336,
+   "seconds": 159,
+   "detalle": "«El extraño» en «Coleccion de Exitos Vol 4»"
+  },
+  {
+   "trackId": 57340,
+   "seconds": 167,
+   "detalle": "«El herrero» en «Coleccion de Exitos Vol 4»"
+  },
+  {
+   "trackId": 57343,
+   "seconds": 146,
+   "detalle": "«La chicharra» en «Coleccion de Exitos Vol 4»"
+  },
+  {
+   "trackId": 57337,
+   "seconds": 164,
+   "detalle": "«Orquidea arabe» en «Coleccion de Exitos Vol 4»"
+  },
+  {
+   "trackId": 57334,
+   "seconds": 186,
+   "detalle": "«Teo» en «Coleccion de Exitos Vol 4»"
+  },
+  {
+   "trackId": 57412,
+   "seconds": 192,
+   "detalle": "«Buena Suerte» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57404,
+   "seconds": 189,
+   "detalle": "«Casatschok» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57405,
+   "seconds": 167,
+   "detalle": "«El Baile de la Escoba» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57415,
+   "seconds": 167,
+   "detalle": "«El Seis Chorreao» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57410,
+   "seconds": 227,
+   "detalle": "«El Super Calypso» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57413,
+   "seconds": 185,
+   "detalle": "«La Ardillita» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57409,
+   "seconds": 151,
+   "detalle": "«La Fiesta de los Caracoles» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57408,
+   "seconds": 185,
+   "detalle": "«La Palma de Coco» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57407,
+   "seconds": 140,
+   "detalle": "«Muevete Asi» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57414,
+   "seconds": 190,
+   "detalle": "«No Puedo Apartar mis ojos de ti» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57411,
+   "seconds": 154,
+   "detalle": "«Petroleo» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57406,
+   "seconds": 187,
+   "detalle": "«Que Me Coma el Tigre» en «Coleccion de Exitos Vol 10»"
+  },
+  {
+   "trackId": 57428,
+   "seconds": 183,
+   "detalle": "«Agua Fresca» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57437,
+   "seconds": 154,
+   "detalle": "«Camisa de Flores» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57435,
+   "seconds": 167,
+   "detalle": "«Cara Redonda» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57436,
+   "seconds": 160,
+   "detalle": "«Cintas de Colores» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57430,
+   "seconds": 177,
+   "detalle": "«Esclavos» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57433,
+   "seconds": 150,
+   "detalle": "«Luces de Caracas» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57431,
+   "seconds": 180,
+   "detalle": "«Oro Cochano» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57429,
+   "seconds": 170,
+   "detalle": "«Piedras del Río» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57439,
+   "seconds": 168,
+   "detalle": "«Playa Colorada» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57432,
+   "seconds": 166,
+   "detalle": "«Por la Carretera» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57434,
+   "seconds": 166,
+   "detalle": "«Serpentinas» en «Coleccion de Exitos Vol 12»"
+  },
+  {
+   "trackId": 57449,
+   "seconds": 122,
+   "detalle": "«Si No Estas» en «Coleccion de Exitos Vol 13»"
+  },
+  {
+   "trackId": 57461,
+   "seconds": 196,
+   "detalle": "«A San Rafael» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57452,
+   "seconds": 216,
+   "detalle": "«Arpa Brava» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57463,
+   "seconds": 189,
+   "detalle": "«Canaima» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57460,
+   "seconds": 164,
+   "detalle": "«Canoero» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57454,
+   "seconds": 156,
+   "detalle": "«El Gaban Recio» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57457,
+   "seconds": 191,
+   "detalle": "«Guacharo» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57458,
+   "seconds": 179,
+   "detalle": "«Mi Carnaval» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57456,
+   "seconds": 156,
+   "detalle": "«Mi Zumba Que Zumba» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57459,
+   "seconds": 200,
+   "detalle": "«Miranda» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57455,
+   "seconds": 192,
+   "detalle": "«Un Gavilan» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57462,
+   "seconds": 181,
+   "detalle": "«Una Guacharaca» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57453,
+   "seconds": 164,
+   "detalle": "«Una Quirpa» en «Coleccion de Exitos Vol 14»"
+  },
+  {
+   "trackId": 57471,
+   "seconds": 156,
+   "detalle": "«Amor Callado» en «Coleccion de Exitos Vol 15»"
+  },
+  {
+   "trackId": 57466,
+   "seconds": 195,
+   "detalle": "«Bien Bueno» en «Coleccion de Exitos Vol 15»"
+  },
+  {
+   "trackId": 57475,
+   "seconds": 143,
+   "detalle": "«El Almendron» en «Coleccion de Exitos Vol 15»"
+  },
+  {
+   "trackId": 57473,
+   "seconds": 166,
+   "detalle": "«Interrogacion» en «Coleccion de Exitos Vol 15»"
+  },
+  {
+   "trackId": 57469,
+   "seconds": 258,
+   "detalle": "«La Negra Teresa» en «Coleccion de Exitos Vol 15»"
+  },
+  {
+   "trackId": 57465,
+   "seconds": 171,
+   "detalle": "«Leche Condensada» en «Coleccion de Exitos Vol 15»"
+  },
+  {
+   "trackId": 57468,
+   "seconds": 192,
+   "detalle": "«Lo Mejor de Mi» en «Coleccion de Exitos Vol 15»"
+  },
+  {
+   "trackId": 57464,
+   "seconds": 193,
+   "detalle": "«Margot» en «Coleccion de Exitos Vol 15»"
+  },
+  {
+   "trackId": 57467,
+   "seconds": 278,
+   "detalle": "«Señora» en «Coleccion de Exitos Vol 15»"
+  },
+  {
+   "trackId": 57470,
+   "seconds": 163,
+   "detalle": "«Todo Cambio» en «Coleccion de Exitos Vol 15»"
+  },
+  {
+   "trackId": 57367,
+   "seconds": 202,
+   "detalle": "«Chocolate Caliente» en «Coleccion de Exitos Vol 6»"
+  },
+  {
+   "trackId": 57359,
+   "seconds": 160,
+   "detalle": "«Ciao Ciao» en «Coleccion de Exitos Vol 6»"
+  },
+  {
+   "trackId": 57357,
+   "seconds": 190,
+   "detalle": "«Cumbia con Arpa» en «Coleccion de Exitos Vol 6»"
+  },
+  {
+   "trackId": 57362,
+   "seconds": 166,
+   "detalle": "«Escandalo en la Familia» en «Coleccion de Exitos Vol 6»"
+  },
+  {
+   "trackId": 57364,
+   "seconds": 123,
+   "detalle": "«La Chivera» en «Coleccion de Exitos Vol 6»"
+  },
+  {
+   "trackId": 57365,
+   "seconds": 187,
+   "detalle": "«La Cigarrona» en «Coleccion de Exitos Vol 6»"
+  },
+  {
+   "trackId": 57363,
+   "seconds": 198,
+   "detalle": "«La Trasandina» en «Coleccion de Exitos Vol 6»"
+  },
+  {
+   "trackId": 57360,
+   "seconds": 162,
+   "detalle": "«Playa de San Luis» en «Coleccion de Exitos Vol 6»"
+  },
+  {
+   "trackId": 57356,
+   "seconds": 142,
+   "detalle": "«Priquitin» en «Coleccion de Exitos Vol 6»"
+  },
+  {
+   "trackId": 57366,
+   "seconds": 177,
+   "detalle": "«Una Lagrima en tu Rostro» en «Coleccion de Exitos Vol 6»"
+  },
+  {
+   "trackId": 57376,
+   "seconds": 161,
+   "detalle": "«Anacoco» en «Coleccion de Exitos Vol 7»"
+  },
+  {
+   "trackId": 57375,
+   "seconds": 150,
+   "detalle": "«Brindo Brindo» en «Coleccion de Exitos Vol 7»"
+  },
+  {
+   "trackId": 57377,
+   "seconds": 202,
+   "detalle": "«Dr Zhivago La Sombra de tu Sonrisa» en «Coleccion de Exitos Vol 7»"
+  },
+  {
+   "trackId": 57369,
+   "seconds": 143,
+   "detalle": "«El Marranito» en «Coleccion de Exitos Vol 7»"
+  },
+  {
+   "trackId": 57371,
+   "seconds": 148,
+   "detalle": "«El Vuelo del Avion» en «Coleccion de Exitos Vol 7»"
+  },
+  {
+   "trackId": 57372,
+   "seconds": 183,
+   "detalle": "«Helado de Barquilla» en «Coleccion de Exitos Vol 7»"
+  },
+  {
+   "trackId": 57368,
+   "seconds": 145,
+   "detalle": "«La Chispita» en «Coleccion de Exitos Vol 7»"
+  },
+  {
+   "trackId": 57374,
+   "seconds": 145,
+   "detalle": "«La Rinconada» en «Coleccion de Exitos Vol 7»"
+  },
+  {
+   "trackId": 57379,
+   "seconds": 182,
+   "detalle": "«Las Muchachas de San Pedro» en «Coleccion de Exitos Vol 7»"
+  },
+  {
+   "trackId": 57373,
+   "seconds": 157,
+   "detalle": "«Sombrero de Cogollo» en «Coleccion de Exitos Vol 7»"
+  },
+  {
+   "trackId": 57388,
+   "seconds": 180,
+   "detalle": "«Caripe Tierra del Cafe» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57381,
+   "seconds": 161,
+   "detalle": "«El Cochino» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57391,
+   "seconds": 179,
+   "detalle": "«El Torito» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57384,
+   "seconds": 158,
+   "detalle": "«Fiesta del Arroz» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57387,
+   "seconds": 191,
+   "detalle": "«Guajira con Arpa» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57390,
+   "seconds": 124,
+   "detalle": "«La Banda» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57382,
+   "seconds": 168,
+   "detalle": "«La Cigüeña» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57389,
+   "seconds": 160,
+   "detalle": "«La Olla» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57380,
+   "seconds": 174,
+   "detalle": "«Mosaiquito Cubano» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57386,
+   "seconds": 174,
+   "detalle": "«Plaza de Toros» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57385,
+   "seconds": 182,
+   "detalle": "«Suky» en «Coleccion de Exitos Vol 8»"
+  },
+  {
+   "trackId": 57399,
+   "seconds": 176,
+   "detalle": "«Acuarela del Rio» en «Coleccion de Exitos Vol 9»"
+  },
+  {
+   "trackId": 57392,
+   "seconds": 154,
+   "detalle": "«El Avispon» en «Coleccion de Exitos Vol 9»"
+  },
+  {
+   "trackId": 57400,
+   "seconds": 193,
+   "detalle": "«La Fiestecita» en «Coleccion de Exitos Vol 9»"
+  },
+  {
+   "trackId": 57398,
+   "seconds": 169,
+   "detalle": "«Lulu» en «Coleccion de Exitos Vol 9»"
+  },
+  {
+   "trackId": 57401,
+   "seconds": 166,
+   "detalle": "«Un Amor en cada Parque» en «Coleccion de Exitos Vol 9»"
+  },
+  {
+   "trackId": 57393,
+   "seconds": 167,
+   "detalle": "«Dominguito» en «Coleccion de Exitos Vol 9»"
+  },
+  {
+   "trackId": 57402,
+   "seconds": 167,
+   "detalle": "«Gua Gua» en «Coleccion de Exitos Vol 9»"
+  },
+  {
+   "trackId": 57397,
+   "seconds": 173,
+   "detalle": "«La Vaca Blanca» en «Coleccion de Exitos Vol 9»"
+  },
+  {
+   "trackId": 57395,
+   "seconds": 159,
+   "detalle": "«Santo Domingo» en «Coleccion de Exitos Vol 9»"
+  },
+  {
+   "trackId": 58520,
+   "seconds": 247,
+   "detalle": "«chevere» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58515,
+   "seconds": 237,
+   "detalle": "«cosas que pasan» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58510,
+   "seconds": 189,
+   "detalle": "«el perico» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58504,
+   "seconds": 216,
+   "detalle": "«esta navidad» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58516,
+   "seconds": 321,
+   "detalle": "«golpes de pecho» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58517,
+   "seconds": 213,
+   "detalle": "«hierro» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58508,
+   "seconds": 170,
+   "detalle": "«la cumbia de rosa» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58506,
+   "seconds": 275,
+   "detalle": "«la llorona» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58507,
+   "seconds": 209,
+   "detalle": "«la situacion» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58509,
+   "seconds": 224,
+   "detalle": "«lo que el abuelo cantaba» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58511,
+   "seconds": 194,
+   "detalle": "«muchacha zanahoria» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58513,
+   "seconds": 164,
+   "detalle": "«muchacho barrigon» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58514,
+   "seconds": 219,
+   "detalle": "«pa el 23» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58518,
+   "seconds": 307,
+   "detalle": "«reproche» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58519,
+   "seconds": 207,
+   "detalle": "«todo de mi» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 58503,
+   "seconds": 220,
+   "detalle": "«vengo de oriente» en «El tiempo pasa pero mi salsa llego»"
+  },
+  {
+   "trackId": 66348,
+   "seconds": 167,
+   "detalle": "«Chinquita» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66355,
+   "seconds": 188,
+   "detalle": "«El becerrito» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66356,
+   "seconds": 155,
+   "detalle": "«El cocotero» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66358,
+   "seconds": 158,
+   "detalle": "«El cuara cua cua» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66347,
+   "seconds": 171,
+   "detalle": "«El errante» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66354,
+   "seconds": 180,
+   "detalle": "«Esta mañana la vi» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66344,
+   "seconds": 173,
+   "detalle": "«Gaita a santa lucia» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66342,
+   "seconds": 184,
+   "detalle": "«La barquilla» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66341,
+   "seconds": 174,
+   "detalle": "«La mona» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66352,
+   "seconds": 125,
+   "detalle": "«La pica pica» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66345,
+   "seconds": 169,
+   "detalle": "«Maria cecilia» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66351,
+   "seconds": 114,
+   "detalle": "«Neveri» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66353,
+   "seconds": 194,
+   "detalle": "«No quiero corazon» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66350,
+   "seconds": 152,
+   "detalle": "«Tetas de maria guevara» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 66349,
+   "seconds": 140,
+   "detalle": "«Urupagua» en «Musica Popular y Folklorica de Venezuela»"
+  },
+  {
+   "trackId": 64653,
+   "seconds": 216,
+   "detalle": "«calypso de el callao» en «30 Años de Exitos»"
+  },
+  {
+   "trackId": 64650,
+   "seconds": 199,
+   "detalle": "«mi comay juana maria» en «30 Años de Exitos»"
+  },
+  {
+   "trackId": 76959,
+   "seconds": 313,
+   "detalle": "«Candela con ella» en «Costa Caribe»"
+  },
+  {
+   "trackId": 64115,
+   "seconds": 190,
+   "detalle": "«Curarigua y el tocuyo» en «Costa Caribe»"
+  },
+  {
+   "trackId": 64113,
+   "seconds": 206,
+   "detalle": "«El pilon pilon» en «Costa Caribe»"
+  },
+  {
+   "trackId": 64116,
+   "seconds": 224,
+   "detalle": "«Flores de mayo» en «Costa Caribe»"
+  },
+  {
+   "trackId": 64114,
+   "seconds": 153,
+   "detalle": "«Sol de America» en «Costa Caribe»"
+  },
+  {
+   "trackId": 52690,
+   "seconds": 202,
+   "detalle": "«Así No Mas» en «Estoy Aqui»"
+  },
+  {
+   "trackId": 52689,
+   "seconds": 225,
+   "detalle": "«El Pilon» en «Estoy Aqui»"
+  },
+  {
+   "trackId": 52691,
+   "seconds": 218,
+   "detalle": "«Estoy Aqui» en «Estoy Aqui»"
+  },
+  {
+   "trackId": 52684,
+   "seconds": 247,
+   "detalle": "«Frigiando Merengue» en «Estoy Aqui»"
+  },
+  {
+   "trackId": 52687,
+   "seconds": 234,
+   "detalle": "«Leyenda» en «Estoy Aqui»"
+  },
+  {
+   "trackId": 52693,
+   "seconds": 346,
+   "detalle": "«Pikirillo» en «Estoy Aqui»"
+  },
+  {
+   "trackId": 52688,
+   "seconds": 238,
+   "detalle": "«Vals Criollo No 2» en «Estoy Aqui»"
+  },
+  {
+   "trackId": 52692,
+   "seconds": 157,
+   "detalle": "«Setoconao» en «Estoy Aqui»"
+  },
+  {
+   "trackId": 52685,
+   "seconds": 180,
+   "detalle": "«El Negro José» en «Estoy Aqui»"
+  },
+  {
+   "trackId": 52686,
+   "seconds": 356,
+   "detalle": "«Prisca» en «Estoy Aqui»"
+  },
+  {
+   "trackId": 50261,
+   "seconds": 158,
+   "detalle": "«Caballito Frenao» en «Piano jazz Venezolano»"
+  },
+  {
+   "trackId": 50263,
+   "seconds": 221,
+   "detalle": "«El Viejo Puente en La Pastora» en «Piano jazz Venezolano»"
+  },
+  {
+   "trackId": 50262,
+   "seconds": 197,
+   "detalle": "«Infancia» en «Piano jazz Venezolano»"
+  },
+  {
+   "trackId": 50259,
+   "seconds": 225,
+   "detalle": "«La Revuelta de Don Fulgencio» en «Piano jazz Venezolano»"
+  },
+  {
+   "trackId": 50258,
+   "seconds": 258,
+   "detalle": "«Lydiando Merengue» en «Piano jazz Venezolano»"
+  },
+  {
+   "trackId": 50260,
+   "seconds": 352,
+   "detalle": "«Marieva» en «Piano jazz Venezolano»"
+  },
+  {
+   "trackId": 50266,
+   "seconds": 216,
+   "detalle": "«Merengue Rucaneao» en «Piano jazz Venezolano»"
+  },
+  {
+   "trackId": 33512,
+   "seconds": 213,
+   "detalle": "«ESTRELLA FUGAZ» en «SanLuis»"
+  },
+  {
+   "trackId": 33550,
+   "seconds": 202,
+   "detalle": "«CANTINERO» en «SanLuis»"
+  },
+  {
+   "trackId": 33567,
+   "seconds": 225,
+   "detalle": "«CORRE QUE NO HAY TIEMPO» en «SanLuis»"
+  },
+  {
+   "trackId": 33516,
+   "seconds": 298,
+   "detalle": "«DONDE ANDABAS TU» en «SanLuis»"
+  },
+  {
+   "trackId": 33526,
+   "seconds": 188,
+   "detalle": "«ME FALLE» en «SanLuis»"
+  },
+  {
+   "trackId": 33531,
+   "seconds": 232,
+   "detalle": "«MI CORAZON» en «SanLuis»"
+  },
+  {
+   "trackId": 33538,
+   "seconds": 238,
+   "detalle": "«NO ES IGUAL» en «SanLuis»"
+  },
+  {
+   "trackId": 33562,
+   "seconds": 224,
+   "detalle": "«NO SOY» en «SanLuis»"
+  },
+  {
+   "trackId": 33555,
+   "seconds": 257,
+   "detalle": "«OTRO DIA DE LUTO» en «SanLuis»"
+  },
+  {
+   "trackId": 33522,
+   "seconds": 233,
+   "detalle": "«QUE NO SE ACABE LA NOCHE» en «SanLuis»"
+  },
+  {
+   "trackId": 33545,
+   "seconds": 208,
+   "detalle": "«RECONOZCO» en «SanLuis»"
+  },
+  {
+   "trackId": 140608,
+   "seconds": 226,
+   "detalle": "«Tapame con tu amor» en «De Primera a Primera»"
+  },
+  {
+   "trackId": 140604,
+   "seconds": 281,
+   "detalle": "«Paraguanera» en «De Primera a Primera»"
+  },
+  {
+   "trackId": 140606,
+   "seconds": 240,
+   "detalle": "«Estoy aqui arriba» en «De Primera a Primera»"
+  },
+  {
+   "trackId": 140600,
+   "seconds": 237,
+   "detalle": "«Canción mansa para un pueblo bravo» en «De Primera a Primera»"
+  },
+  {
+   "trackId": 140599,
+   "seconds": 310,
+   "detalle": "«Casas de Cartón» en «De Primera a Primera»"
+  },
+  {
+   "trackId": 140607,
+   "seconds": 276,
+   "detalle": "«Cunaviche adentro» en «De Primera a Primera»"
+  },
+  {
+   "trackId": 140603,
+   "seconds": 304,
+   "detalle": "«Tin marin» en «De Primera a Primera»"
+  },
+  {
+   "trackId": 140605,
+   "seconds": 227,
+   "detalle": "«El despertar de la historia» en «De Primera a Primera»"
+  },
+  {
+   "trackId": 140602,
+   "seconds": 256,
+   "detalle": "«Coquivacoa» en «De Primera a Primera»"
+  },
+  {
+   "trackId": 32673,
+   "seconds": 237,
+   "detalle": "«Aliviame» en «La Historia»"
+  },
+  {
+   "trackId": 32667,
+   "seconds": 302,
+   "detalle": "«Una fan enamorada» en «La Historia»"
+  },
+  {
+   "trackId": 32702,
+   "seconds": 221,
+   "detalle": "«Te regalo la luna» en «La Historia»"
+  },
+  {
+   "trackId": 32696,
+   "seconds": 233,
+   "detalle": "«Mal de Amor» en «La Historia»"
+  },
+  {
+   "trackId": 157566,
+   "seconds": 220,
+   "detalle": "«Sin Embargo Joropo» en «Bichoneando»"
+  },
+  {
+   "trackId": 51175,
+   "seconds": 388,
+   "detalle": "«BEBE» en «CONEXION JAZZ»"
+  },
+  {
+   "trackId": 79865,
+   "seconds": 93,
+   "detalle": "«IMPROVISACION 90» en «CONEXION JAZZ»"
+  },
+  {
+   "trackId": 72483,
+   "seconds": 123,
+   "detalle": "«TENDERLY» en «CONEXION JAZZ»"
+  },
+  {
+   "trackId": 51174,
+   "seconds": 353,
+   "detalle": "«HABANA VIEJA» en «CONEXION JAZZ»"
+  },
+  {
+   "trackId": 53314,
+   "seconds": 306,
+   "detalle": "«Mi niña» en «Claroscuro»"
+  },
+  {
+   "trackId": 53317,
+   "seconds": 249,
+   "detalle": "«Si Estás Tú» en «Claroscuro»"
+  },
+  {
+   "trackId": 53316,
+   "seconds": 299,
+   "detalle": "«Quién» en «Claroscuro»"
+  },
+  {
+   "trackId": 53308,
+   "seconds": 298,
+   "detalle": "«Yo Soy La Rumba» en «Claroscuro»"
+  },
+  {
+   "trackId": 53309,
+   "seconds": 275,
+   "detalle": "«Que me dejó» en «Claroscuro»"
+  },
+  {
+   "trackId": 53313,
+   "seconds": 236,
+   "detalle": "«Nadie me espera» en «Claroscuro»"
+  },
+  {
+   "trackId": 53312,
+   "seconds": 279,
+   "detalle": "«Como se deja de Amar» en «Claroscuro»"
+  },
+  {
+   "trackId": 53311,
+   "seconds": 204,
+   "detalle": "«Sabor a Canela» en «Claroscuro»"
+  },
+  {
+   "trackId": 53315,
+   "seconds": 228,
+   "detalle": "«A Mis Amigos» en «Claroscuro»"
+  },
+  {
+   "trackId": 61086,
+   "seconds": 343,
+   "detalle": "«Estoy Como Nunca» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61080,
+   "seconds": 213,
+   "detalle": "«A Lo Oscuro» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61079,
+   "seconds": 211,
+   "detalle": "«Barrunto» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61089,
+   "seconds": 381,
+   "detalle": "«Bravo Rumbero» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61088,
+   "seconds": 280,
+   "detalle": "«La Tirana» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61082,
+   "seconds": 244,
+   "detalle": "«Arráncame la Vida» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61083,
+   "seconds": 223,
+   "detalle": "«Primoroso Cantar» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61076,
+   "seconds": 69,
+   "detalle": "«Intro: Quimbara» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61084,
+   "seconds": 316,
+   "detalle": "«La Confianza» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61078,
+   "seconds": 251,
+   "detalle": "«Dos Jueyes» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61087,
+   "seconds": 296,
+   "detalle": "«Summertime» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61081,
+   "seconds": 225,
+   "detalle": "«Puro Teatro» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61090,
+   "seconds": 282,
+   "detalle": "«Para Vivir» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61085,
+   "seconds": 240,
+   "detalle": "«Caramelo» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 61077,
+   "seconds": 307,
+   "detalle": "«Mi Música» en «Voces y Música del Alma»"
+  },
+  {
+   "trackId": 21867,
+   "seconds": 263,
+   "detalle": "«Café y Televisión» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 21868,
+   "seconds": 213,
+   "detalle": "«Más fácil» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 22994,
+   "seconds": 153,
+   "detalle": "«Viaje Pal Sol» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 22997,
+   "seconds": 43,
+   "detalle": "«Intro» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 22984,
+   "seconds": 267,
+   "detalle": "«Karma» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 22999,
+   "seconds": 200,
+   "detalle": "«No Volveré A Tomar» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 21863,
+   "seconds": 193,
+   "detalle": "«Confusión» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 22996,
+   "seconds": 178,
+   "detalle": "«Inversa Realidad» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 23000,
+   "seconds": 211,
+   "detalle": "«Mala Suerte» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 23001,
+   "seconds": 186,
+   "detalle": "«Otro Planeta» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 22998,
+   "seconds": 199,
+   "detalle": "«La Vida Que Vivimos» en «Que Buena Vaina»"
+  },
+  {
+   "trackId": 52060,
+   "seconds": 359,
+   "detalle": "«(mde)» en «Uno»"
+  },
+  {
+   "trackId": 52058,
+   "seconds": 338,
+   "detalle": "«Airegin» en «Uno»"
+  },
+  {
+   "trackId": 52064,
+   "seconds": 322,
+   "detalle": "«Commix» en «Uno»"
+  },
+  {
+   "trackId": 52061,
+   "seconds": 263,
+   "detalle": "«A Modo de Blues» en «Uno»"
+  },
+  {
+   "trackId": 52056,
+   "seconds": 396,
+   "detalle": "«Esperanza» en «Uno»"
+  },
+  {
+   "trackId": 52057,
+   "seconds": 436,
+   "detalle": "«Asis» en «Uno»"
+  },
+  {
+   "trackId": 52065,
+   "seconds": 441,
+   "detalle": "«Elevation of Love» en «Uno»"
+  },
+  {
+   "trackId": 52059,
+   "seconds": 444,
+   "detalle": "«BackBeat» en «Uno»"
+  },
+  {
+   "trackId": 52063,
+   "seconds": 433,
+   "detalle": "«Steps» en «Uno»"
+  },
+  {
+   "trackId": 52067,
+   "seconds": 333,
+   "detalle": "«Chela» en «Familia»"
+  },
+  {
+   "trackId": 52066,
+   "seconds": 268,
+   "detalle": "«Cheo» en «Familia»"
+  },
+  {
+   "trackId": 52070,
+   "seconds": 312,
+   "detalle": "«Breathe» en «Familia»"
+  },
+  {
+   "trackId": 52071,
+   "seconds": 344,
+   "detalle": "«ILY» en «Familia»"
+  },
+  {
+   "trackId": 52068,
+   "seconds": 298,
+   "detalle": "«Pikal» en «Familia»"
+  },
+  {
+   "trackId": 52069,
+   "seconds": 423,
+   "detalle": "«Para Andrea» en «Familia»"
+  },
+  {
+   "trackId": 52074,
+   "seconds": 357,
+   "detalle": "«Tough Titty» en «Familia»"
+  },
+  {
+   "trackId": 52073,
+   "seconds": 362,
+   "detalle": "«Keep Trying» en «Familia»"
+  },
+  {
+   "trackId": 52072,
+   "seconds": 441,
+   "detalle": "«Worst Best Friend» en «Familia»"
+  },
+  {
+   "trackId": 62530,
+   "seconds": 290,
+   "detalle": "«Primavera» en «Primavera para Mayo»"
+  },
+  {
+   "trackId": 62532,
+   "seconds": 338,
+   "detalle": "«Fulía Oriental» en «Primavera para Mayo»"
+  },
+  {
+   "trackId": 62526,
+   "seconds": 229,
+   "detalle": "«Si tu no bailas conmigo» en «Primavera para Mayo»"
+  },
+  {
+   "trackId": 62534,
+   "seconds": 238,
+   "detalle": "«Mayo es el milagro» en «Primavera para Mayo»"
+  },
+  {
+   "trackId": 62528,
+   "seconds": 259,
+   "detalle": "«Primavera para mayo» en «Primavera para Mayo»"
+  },
+  {
+   "trackId": 62531,
+   "seconds": 219,
+   "detalle": "«Distancia» en «Primavera para Mayo»"
+  },
+  {
+   "trackId": 62535,
+   "seconds": 234,
+   "detalle": "«Flor de mayo» en «Primavera para Mayo»"
+  },
+  {
+   "trackId": 62527,
+   "seconds": 261,
+   "detalle": "«Guaraña gracitana» en «Primavera para Mayo»"
+  },
+  {
+   "trackId": 62529,
+   "seconds": 158,
+   "detalle": "«Maria Consuelo» en «Primavera para Mayo»"
+  },
+  {
+   "trackId": 62533,
+   "seconds": 303,
+   "detalle": "«Señora» en «Primavera para Mayo»"
+  },
+  {
+   "trackId": 63398,
+   "seconds": 191,
+   "detalle": "«La Vaca Mariposa» en «VOCAL»"
+  },
+  {
+   "trackId": 63400,
+   "seconds": 146,
+   "detalle": "«Arrullo» en «VOCAL»"
+  },
+  {
+   "trackId": 62286,
+   "seconds": 241,
+   "detalle": "«No Preciso» en «Colores Tierra»"
+  },
+  {
+   "trackId": 62284,
+   "seconds": 244,
+   "detalle": "«La Verdad de tus Sueños» en «Colores Tierra»"
+  },
+  {
+   "trackId": 62290,
+   "seconds": 270,
+   "detalle": "«Duele Recordar» en «Colores Tierra»"
+  },
+  {
+   "trackId": 62289,
+   "seconds": 284,
+   "detalle": "«Lejanía» en «Colores Tierra»"
+  },
+  {
+   "trackId": 62291,
+   "seconds": 183,
+   "detalle": "«Asi Dormida» en «Colores Tierra»"
+  },
+  {
+   "trackId": 62292,
+   "seconds": 249,
+   "detalle": "«Una Lagrima» en «Colores Tierra»"
+  },
+  {
+   "trackId": 62285,
+   "seconds": 188,
+   "detalle": "«Infinitivo» en «Colores Tierra»"
+  },
+  {
+   "trackId": 62287,
+   "seconds": 217,
+   "detalle": "«Entre Dos Besos» en «Colores Tierra»"
+  },
+  {
+   "trackId": 62288,
+   "seconds": 226,
+   "detalle": "«Flores de Oriente» en «Colores Tierra»"
+  },
+  {
+   "trackId": 183658,
+   "seconds": 184,
+   "detalle": "«Murphy El Maloa» en «Ojos del Mundo»"
+  },
+  {
+   "trackId": 183657,
+   "seconds": 220,
+   "detalle": "«Tema 1 (El Equilibrio Descansa en esta Canción)» en «Ojos del Mundo»"
+  },
+  {
+   "trackId": 183655,
+   "seconds": 217,
+   "detalle": "«Basta de Historias (Himno de Resistencia)» en «Ojos del Mundo»"
+  },
+  {
+   "trackId": 183659,
+   "seconds": 194,
+   "detalle": "«Pequeño Gigante» en «Ojos del Mundo»"
+  },
+  {
+   "trackId": 183650,
+   "seconds": 244,
+   "detalle": "«El Sonidito» en «Ojos del Mundo»"
+  },
+  {
+   "trackId": 183652,
+   "seconds": 238,
+   "detalle": "«Del Canto a Mi Mismo (Pedro Rey Lobo de los Terrores)» en «Ojos del Mundo»"
+  },
+  {
+   "trackId": 183651,
+   "seconds": 240,
+   "detalle": "«Ahí Va» en «Ojos del Mundo»"
+  },
+  {
+   "trackId": 183653,
+   "seconds": 193,
+   "detalle": "«Santa María» en «Ojos del Mundo»"
+  },
+  {
+   "trackId": 183656,
+   "seconds": 251,
+   "detalle": "«La Pelea es Arriba» en «Ojos del Mundo»"
+  },
+  {
+   "trackId": 15612,
+   "seconds": 108,
+   "detalle": "«No es amor» en «Navidad»"
+  },
+  {
+   "trackId": 15615,
+   "seconds": 155,
+   "detalle": "«Estéril» en «Navidad»"
+  },
+  {
+   "trackId": 15624,
+   "seconds": 195,
+   "detalle": "«Alto muy alto» en «Navidad»"
+  },
+  {
+   "trackId": 15605,
+   "seconds": 143,
+   "detalle": "«Ya» en «Navidad»"
+  },
+  {
+   "trackId": 15515,
+   "seconds": 150,
+   "detalle": "«Esclavo» en «Navidad»"
+  },
+  {
+   "trackId": 15616,
+   "seconds": 182,
+   "detalle": "«Legión» en «Navidad»"
+  },
+  {
+   "trackId": 15512,
+   "seconds": 157,
+   "detalle": "«Bajo el mar» en «Navidad»"
+  },
+  {
+   "trackId": 15514,
+   "seconds": 148,
+   "detalle": "«Esencia» en «Navidad»"
+  },
+  {
+   "trackId": 15636,
+   "seconds": 182,
+   "detalle": "«Adiós» en «Navidad»"
+  },
+  {
+   "trackId": 187142,
+   "seconds": 231,
+   "detalle": "«La avispa» en «Una vez mas»"
+  },
+  {
+   "trackId": 187140,
+   "seconds": 216,
+   "detalle": "«La carcajada» en «Una vez mas»"
+  },
+  {
+   "trackId": 187134,
+   "seconds": 286,
+   "detalle": "«Porque te amo» en «Una vez mas»"
+  },
+  {
+   "trackId": 187128,
+   "seconds": 210,
+   "detalle": "«Mi cachorrita» en «Una vez mas»"
+  },
+  {
+   "trackId": 187130,
+   "seconds": 206,
+   "detalle": "«Sigueme» en «Una vez mas»"
+  },
+  {
+   "trackId": 187138,
+   "seconds": 220,
+   "detalle": "«Me tienes volando» en «Una vez mas»"
+  },
+  {
+   "trackId": 187137,
+   "seconds": 181,
+   "detalle": "«Yo me enamore» en «Una vez mas»"
+  },
+  {
+   "trackId": 187141,
+   "seconds": 227,
+   "detalle": "«Quiero» en «Una vez mas»"
+  },
+  {
+   "trackId": 187129,
+   "seconds": 222,
+   "detalle": "«Como Te Extraña mi Cama» en «Una vez mas»"
+  },
+  {
+   "trackId": 187139,
+   "seconds": 236,
+   "detalle": "«El vestido rojo» en «Una vez mas»"
+  },
+  {
+   "trackId": 187132,
+   "seconds": 222,
+   "detalle": "«Una Vez Mas» en «Una vez mas»"
+  },
+  {
+   "trackId": 187135,
+   "seconds": 209,
+   "detalle": "«Ya no tienes perdón» en «Una vez mas»"
+  },
+  {
+   "trackId": 187133,
+   "seconds": 188,
+   "detalle": "«Cazadora» en «Una vez mas»"
+  },
+  {
+   "trackId": 187144,
+   "seconds": 251,
+   "detalle": "«Una fan enamorada» en «Una vez mas»"
+  },
+  {
+   "trackId": 187114,
+   "seconds": 217,
+   "detalle": "«La Pantallera» en «No pares de sudar»"
+  },
+  {
+   "trackId": 187109,
+   "seconds": 253,
+   "detalle": "«El Marciano» en «No pares de sudar»"
+  },
+  {
+   "trackId": 187112,
+   "seconds": 220,
+   "detalle": "«Que Tu Quieres» en «No pares de sudar»"
+  },
+  {
+   "trackId": 187106,
+   "seconds": 237,
+   "detalle": "«No Pares De Sudar» en «No pares de sudar»"
+  },
+  {
+   "trackId": 187113,
+   "seconds": 230,
+   "detalle": "«Imaginate» en «No pares de sudar»"
+  },
+  {
+   "trackId": 187110,
+   "seconds": 247,
+   "detalle": "«Tengo Fiebre» en «No pares de sudar»"
+  },
+  {
+   "trackId": 187115,
+   "seconds": 238,
+   "detalle": "«Between You And I» en «No pares de sudar»"
+  },
+  {
+   "trackId": 187108,
+   "seconds": 252,
+   "detalle": "«Solo Te Quiero Amar» en «No pares de sudar»"
+  },
+  {
+   "trackId": 187100,
+   "seconds": 262,
+   "detalle": "«Sexy» en «Caliente»"
+  },
+  {
+   "trackId": 187096,
+   "seconds": 221,
+   "detalle": "«El Huracan» en «Caliente»"
+  },
+  {
+   "trackId": 187103,
+   "seconds": 234,
+   "detalle": "«Me gustan nenas sexy» en «Caliente»"
+  },
+  {
+   "trackId": 187098,
+   "seconds": 253,
+   "detalle": "«Con la punta 'el pie» en «Caliente»"
+  },
+  {
+   "trackId": 187094,
+   "seconds": 255,
+   "detalle": "«Que sigan bailando» en «Caliente»"
+  },
+  {
+   "trackId": 187099,
+   "seconds": 313,
+   "detalle": "«Meneate» en «Caliente»"
+  },
+  {
+   "trackId": 187104,
+   "seconds": 261,
+   "detalle": "«Si tu no estas» en «Caliente»"
+  },
+  {
+   "trackId": 187095,
+   "seconds": 249,
+   "detalle": "«Caliente» en «Caliente»"
+  },
+  {
+   "trackId": 187101,
+   "seconds": 268,
+   "detalle": "«Hay fuego» en «Caliente»"
+  },
+  {
+   "trackId": 187097,
+   "seconds": 237,
+   "detalle": "«Calle Ciega» en «Caliente»"
+  },
+  {
+   "trackId": 187105,
+   "seconds": 252,
+   "detalle": "«Una fan enamorada» en «Caliente»"
+  },
+  {
+   "trackId": 22366,
+   "seconds": 237,
+   "detalle": "«Tarde de lluvia» en «Cae la tarde»"
+  },
+  {
+   "trackId": 22362,
+   "seconds": 148,
+   "detalle": "«Camino a Tijuana» en «Cae la tarde»"
+  },
+  {
+   "trackId": 22364,
+   "seconds": 192,
+   "detalle": "«Carretera» en «Cae la tarde»"
+  },
+  {
+   "trackId": 22361,
+   "seconds": 210,
+   "detalle": "«Viaje» en «Cae la tarde»"
+  },
+  {
+   "trackId": 22376,
+   "seconds": 218,
+   "detalle": "«Colgado del vacio» en «Cae la tarde»"
+  },
+  {
+   "trackId": 22358,
+   "seconds": 191,
+   "detalle": "«Agosto» en «Cae la tarde»"
+  },
+  {
+   "trackId": 22374,
+   "seconds": 185,
+   "detalle": "«Cansado» en «Cae la tarde»"
+  },
+  {
+   "trackId": 22365,
+   "seconds": 216,
+   "detalle": "«Balada de la Cota Mil» en «Cae la tarde»"
+  },
+  {
+   "trackId": 22360,
+   "seconds": 190,
+   "detalle": "«Restaurant Chino» en «Cae la tarde»"
+  },
+  {
+   "trackId": 22363,
+   "seconds": 188,
+   "detalle": "«A la calle» en «Cae la tarde»"
+  },
+  {
+   "trackId": 22359,
+   "seconds": 185,
+   "detalle": "«Luces de la ciudad» en «Cae la tarde»"
+  },
+  {
+   "trackId": 15311,
+   "seconds": 197,
+   "detalle": "«Feliz» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 15302,
+   "seconds": 162,
+   "detalle": "«Angela» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 15310,
+   "seconds": 161,
+   "detalle": "«Cowgirl» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 15305,
+   "seconds": 205,
+   "detalle": "«Quedarás» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 15301,
+   "seconds": 157,
+   "detalle": "«Traición» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 15307,
+   "seconds": 188,
+   "detalle": "«Mi Ford pick up» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 15303,
+   "seconds": 145,
+   "detalle": "«Mi amigo Cash» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 15313,
+   "seconds": 152,
+   "detalle": "«Quiero llegar» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 15312,
+   "seconds": 189,
+   "detalle": "«Es mejor» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 15308,
+   "seconds": 132,
+   "detalle": "«Cerca de mi» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 15300,
+   "seconds": 232,
+   "detalle": "«Te rodeo en el rodeo» en «Lanzados al Rodeo»"
+  },
+  {
+   "trackId": 23093,
+   "seconds": 175,
+   "detalle": "«Ay» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 23092,
+   "seconds": 149,
+   "detalle": "«Cada mañana» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 23094,
+   "seconds": 221,
+   "detalle": "«Que facil» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 23085,
+   "seconds": 154,
+   "detalle": "«Autopsia» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 23088,
+   "seconds": 271,
+   "detalle": "«Para ti» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 23087,
+   "seconds": 190,
+   "detalle": "«Adicción» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 23090,
+   "seconds": 297,
+   "detalle": "«Ella» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 23091,
+   "seconds": 313,
+   "detalle": "«Despierta» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 23095,
+   "seconds": 206,
+   "detalle": "«Cuando el cielo pierda su color» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 23096,
+   "seconds": 194,
+   "detalle": "«Todo es tan extraño» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 23086,
+   "seconds": 260,
+   "detalle": "«Volar» en «Cuando el cielo pierda su color»"
+  },
+  {
+   "trackId": 48385,
+   "seconds": 263,
+   "detalle": "«Quisiera» en «Jazzberto Ibarreto»"
+  },
+  {
+   "trackId": 48384,
+   "seconds": 264,
+   "detalle": "«Oro Negro» en «Jazzberto Ibarreto»"
+  },
+  {
+   "trackId": 48383,
+   "seconds": 222,
+   "detalle": "«Carmen» en «Jazzberto Ibarreto»"
+  },
+  {
+   "trackId": 48382,
+   "seconds": 241,
+   "detalle": "«Presagio» en «Jazzberto Ibarreto»"
+  },
+  {
+   "trackId": 48380,
+   "seconds": 200,
+   "detalle": "«La Bikina» en «Jazzberto Ibarreto»"
+  },
+  {
+   "trackId": 48386,
+   "seconds": 258,
+   "detalle": "«Mi Abuela» en «Jazzberto Ibarreto»"
+  },
+  {
+   "trackId": 48381,
+   "seconds": 286,
+   "detalle": "«Anhelante» en «Jazzberto Ibarreto»"
+  },
+  {
+   "trackId": 48388,
+   "seconds": 302,
+   "detalle": "«Jota de mi Canto» en «Jazzberto Ibarreto»"
+  },
+  {
+   "trackId": 48379,
+   "seconds": 227,
+   "detalle": "«Marielena» en «Jazzberto Ibarreto»"
+  },
+  {
+   "trackId": 44696,
+   "seconds": 171,
+   "detalle": "«Human Threat» en «DiElfo»"
+  },
+  {
+   "trackId": 44700,
+   "seconds": 301,
+   "detalle": "«Manta Birostris» en «DiElfo»"
+  },
+  {
+   "trackId": 61946,
+   "seconds": 256,
+   "detalle": "«Lamento de Nube» en «Que Sí»"
+  },
+  {
+   "trackId": 61951,
+   "seconds": 187,
+   "detalle": "«Aquí se Come» en «Que Sí»"
+  },
+  {
+   "trackId": 61943,
+   "seconds": 149,
+   "detalle": "«Chucho y Ceferina» en «Que Sí»"
+  },
+  {
+   "trackId": 61945,
+   "seconds": 128,
+   "detalle": "«Trábala en Mi» en «Que Sí»"
+  },
+  {
+   "trackId": 61955,
+   "seconds": 149,
+   "detalle": "«Madrecita» en «Que Sí»"
+  },
+  {
+   "trackId": 61948,
+   "seconds": 139,
+   "detalle": "«Maracaibo en la noche» en «Que Sí»"
+  },
+  {
+   "trackId": 61954,
+   "seconds": 266,
+   "detalle": "«Amor Andino» en «Que Sí»"
+  },
+  {
+   "trackId": 61944,
+   "seconds": 247,
+   "detalle": "«Con el Sol Adormecido» en «Que Sí»"
+  },
+  {
+   "trackId": 61950,
+   "seconds": 185,
+   "detalle": "«Esta Noche Serena» en «Que Sí»"
+  },
+  {
+   "trackId": 61949,
+   "seconds": 176,
+   "detalle": "«La Mayor» en «Que Sí»"
+  },
+  {
+   "trackId": 61953,
+   "seconds": 140,
+   "detalle": "«Que Sí» en «Que Sí»"
+  },
+  {
+   "trackId": 61952,
+   "seconds": 214,
+   "detalle": "«Nostalgia Andina» en «Que Sí»"
+  },
+  {
+   "trackId": 136674,
+   "seconds": 157,
+   "detalle": "«Is Canzoo» en «Can + Zoo Índigo»"
+  },
+  {
+   "trackId": 180853,
+   "seconds": 247,
+   "detalle": "«Arizona» en «Arizona»"
+  }
+ ]
+}
