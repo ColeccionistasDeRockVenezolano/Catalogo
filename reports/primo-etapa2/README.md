@@ -64,6 +64,14 @@ Criterios de salida comprobados en el navegador (API y web de prueba en puertos 
 
 Pruebas: `test/unit/discography.test.ts` y `test/contract/api-discography.test.ts`.
 
+## Despliegue (2026-10-12)
+
+- La web se compiló desde el commit 8bbab8b en una copia limpia, para no arrastrar cambios ajenos sin commit.
+- Luego se copió a `web/dist-public` y se reiniciaron crv-api y crv-web. `db:migrate` no tenía nada pendiente.
+- Resultado: `/crv/` y `/crv/api/health` responden 200, y los cinco criterios de salida responden en producción.
+- Para volver atrás: el bundle anterior está en `/mnt/datos/tmp/crv-dist-public-prev-4bc3077`. Hay que revertir el commit y reiniciar.
+- `test:browser` aprueba si la web se compila como en CI (`VITE_API_BASE_URL=/api npm run build`).
+
 ## Pendientes y avisos
 
 - **«Los Andes Electrónicos» y «Think! Ok Records»** no tienen ningún disco en el catálogo ni en las fuentes leídas: hace falta ingerirlos para crear su serie.
