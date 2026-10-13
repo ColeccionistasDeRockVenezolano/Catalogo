@@ -71,3 +71,13 @@ logs/
 
 # --- Cachés de Python ---
 __pycache__/
+
+# --- Claude Code: worktrees y ajustes locales de cada máquina ---
+.claude/worktrees/
+.claude/settings.local.json
+
+# --- Investigación (etapa 2): modelos OCR descargables y documentos bajados
+# de las fuentes; son caché local y pesan cientos de MB ---
+data/research/ocr/
+reports/plan-20-de-20/etapa-2/document-candidates/
+reports/plan-20-de-20/etapa-2/normalized-copies/
