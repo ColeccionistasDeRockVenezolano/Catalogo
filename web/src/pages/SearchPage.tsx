@@ -1,8 +1,8 @@
-import { useCallback } from "react";
+import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { searchApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
-import { useDebouncedQuery } from "../lib/useDebouncedQuery";
+import { TYPING_DEBOUNCE_MS } from "../lib/useDebouncedQuery";
 import { entityHref } from "../lib/routes";
 import { searchTypeLabel } from "../lib/labels";
 import { ErrorState, EmptyState } from "../components/StateViews";
@@ -19,16 +19,19 @@ const MIN_QUERY_LENGTH = 3;
 export function SearchPage() {
   const [params, setParams] = useSearchParams();
   const urlQuery = params.get("q") ?? "";
-  const applyQuery = useCallback((next: string) => {
-    const query = next.trim();
-    setParams(query.length >= MIN_QUERY_LENGTH ? { q: query } : {}, { replace: true });
-  }, [setParams]);
-  const [input, setInput] = useDebouncedQuery(urlQuery, applyQuery);
-  const q = urlQuery.trim();
+  const [input, setInput] = useState(urlQuery);
+  const [q, setQuery] = useState(urlQuery.trim());
+  const [suggestionsOpen, setSuggestionsOpen] = useState(false);
+  useEffect(() => { setInput(urlQuery); }, [urlQuery]);
   const inputQuery = input.trim();
+  useEffect(() => {
+    const timer = window.setTimeout(() => setQuery(inputQuery), TYPING_DEBOUNCE_MS);
+    return () => window.clearTimeout(timer);
+  }, [inputQuery]);
   const hasMinimumQuery = q.length >= MIN_QUERY_LENGTH;
   const needsMoreCharacters = inputQuery.length > 0 && inputQuery.length < MIN_QUERY_LENGTH;
   const isSearchPending = inputQuery.length >= MIN_QUERY_LENGTH && inputQuery !== q;
+  const showFullResults = urlQuery.trim().length >= MIN_QUERY_LENGTH && inputQuery === urlQuery.trim() && !suggestionsOpen;
 
   const { data: response, loading, error, reload } = useAsync(
     (signal) => (hasMinimumQuery ? searchApi.search(q, undefined, 20, signal).then(results => ({ query: q, results })) : Promise.resolve(null)),
@@ -41,7 +44,19 @@ export function SearchPage() {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    applyQuery(input);
+    showAllResults();
+  }
+
+  function showAllResults() {
+    if (inputQuery.length < MIN_QUERY_LENGTH) return;
+    setQuery(inputQuery);
+    setSuggestionsOpen(false);
+    setParams({ q: inputQuery });
+  }
+
+  function changeInput(next: string) {
+    setInput(next);
+    if (!next.trim() && urlQuery) setParams({}, { replace: true });
   }
 
   const home = useHomeData();
@@ -49,8 +64,8 @@ export function SearchPage() {
 
   return (
     <>
-      <div className={`home-hero${inputQuery ? " home-hero--searching" : ""}`}>
-      <HomeBackdrop home={home} hidden={Boolean(inputQuery)} />
+      <div className={`home-hero${showFullResults ? " home-hero--searching" : ""}`}>
+      <HomeBackdrop home={home} hidden={showFullResults} />
       <div className="search-shell">
         <p className="home-hero__kicker"><span className="home-kicker__dot" aria-hidden="true" />Recomendaciones diarias</p>
         <h1>Coleccionistas De <span className="home-hero__accent">Rock Venezolano</span></h1>
@@ -63,17 +78,19 @@ export function SearchPage() {
             className="search-input"
             label="Buscar en el catálogo"
             value={input}
-            onChange={setInput}
+            onChange={changeInput}
             results={data} resultsQuery={q} resultsLoading={loading || isSearchPending || awaitingCurrentResults} resultsError={error} onRetryResults={reload}
             placeholder="Busca artistas, bandas, álbumes o canciones"
             examplePlacement="below"
+            onShowAllResults={showAllResults}
+            onSuggestionsOpenChange={setSuggestionsOpen}
           />
         </form>
-        {!inputQuery ? <HomeStats stats={home.data?.stats} home={home} /> : null}
+        {!showFullResults ? <HomeStats stats={home.data?.stats} home={home} /> : null}
 
         {needsMoreCharacters ? (
           <p className="search-status" role="status">Escribe al menos {MIN_QUERY_LENGTH} caracteres para buscar.</p>
-        ) : !inputQuery ? null : isSearchPending || !hasMinimumQuery || loading || awaitingCurrentResults ? (
+        ) : !showFullResults ? null : isSearchPending || !hasMinimumQuery || loading || awaitingCurrentResults ? (
           <RowsSkeleton rows={6} label="Buscando…" />
         ) : error ? (
           <ErrorState message={error} onRetry={reload} />
@@ -96,8 +113,7 @@ export function SearchPage() {
         )}
       </div>
       </div>
-      {/* Sin búsqueda, la portada: aniversarios, artista del día, disco para hoy, canal, géneros, décadas y sellos. */}
-      {!inputQuery ? <HomeSections home={home} /> : null}
+      {!showFullResults ? <HomeSections home={home} /> : null}
     </>
   );
 }

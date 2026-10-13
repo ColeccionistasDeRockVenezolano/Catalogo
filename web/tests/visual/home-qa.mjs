@@ -60,7 +60,7 @@ try {
   await page.locator('.home-wall__current').first().waitFor();
   console.log("Comprobando rotación y carruseles con el reloj real del navegador");
   const covers = () => page.locator('.home-wall__current').evaluateAll(images => images.map(image => image.src));
-  const before = await covers(); await page.waitForTimeout(6600); const after = await covers();
+  const before = await covers(); await page.waitForTimeout(4100); const after = await covers();
   const replaced = before.filter((src, index) => src !== after[index]).length;
   assert.ok([3, 4, 6].includes(replaced), `Cambió ${replaced} portadas`);
   await page.locator('#home-anniversaries').scrollIntoViewIfNeeded();

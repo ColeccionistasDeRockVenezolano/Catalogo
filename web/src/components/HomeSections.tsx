@@ -238,7 +238,7 @@ export function HomeBackdrop({ home, hidden }: { home: ReturnType<typeof useHome
       const next = [...current];
       positions.forEach((position, index) => { next[position] = incoming[index]; });
       return next;
-    }), 6500);
+    }), 4000);
     return () => window.clearInterval(timer);
   }, [hidden, visible, reduced, pool, covers.length]);
   return <div className={`home-hero__backdrop${hidden ? " is-hidden" : ""}`} aria-hidden="true">

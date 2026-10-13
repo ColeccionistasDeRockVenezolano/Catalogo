@@ -13,11 +13,15 @@ export interface CatalogSuggestion {
   href: string;
 }
 const CATEGORIES = { artist: "Artista", person: "Persona", album: "Disco", organization: "Organización", track: "Pista" };
+export const SUGGESTION_GROUP_LABELS: Record<string, string> = {
+  Artista: "Artistas", Pista: "Canciones", Disco: "Álbumes", Persona: "Personas", Organización: "Organizaciones",
+  Género: "Géneros", Subgénero: "Subgéneros", Estilo: "Estilos",
+};
 const normalize = (text: string) => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("es");
 
 export function entitySuggestions(results: SearchResults | null, scope: CatalogSearchScope): CatalogSuggestion[] {
   if (!results) return [];
-  return (["artist", "person", "album", "organization", "track"] as const)
+  return (["artist", "track", "album", "person", "organization"] as const)
     .filter(type => scope === "catalog" || type === scope).flatMap(type =>
       results[type].slice(0, scope === "catalog" ? 3 : 8).map(hit => ({
         key: `${type}-${hit.id}`, label: hit.label, category: CATEGORIES[type], context: hit.context,
