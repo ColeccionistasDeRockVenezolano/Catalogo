@@ -1,0 +1,2033 @@
+{
+ "mode": "dry-run",
+ "runId": 19177,
+ "filas": 337,
+ "candidatas": 320,
+ "yaExistian": 17,
+ "yaAplicadas": 0,
+ "sinFicha": 0,
+ "results": [
+  {
+   "kind": "artist",
+   "id": 3563,
+   "label": "Prisca Davila",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "artist",
+   "id": 58,
+   "label": "Caramelos de Cianuro",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "artist",
+   "id": 78,
+   "label": "Desorden Público",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "artist",
+   "id": 3709,
+   "label": "Guaco",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "artist",
+   "id": 162,
+   "label": "Luz Verde",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "artist",
+   "id": 4274,
+   "label": "Motherflowers",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "artist",
+   "id": 4273,
+   "label": "Irepelusa",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "artist",
+   "id": 4579,
+   "label": "Colibrí",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2212,
+   "label": "En Este Pais",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 13092,
+   "label": "Fuego en el alma",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2759,
+   "label": "Lines in the Dark",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 5535,
+   "label": "Una sola vida tengo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 594,
+   "label": "El Reto",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2312,
+   "label": "La Vida Es",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3915,
+   "label": "Humble Songs",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9163,
+   "label": "Gualberto Ibarreto Vol 3",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14834,
+   "label": "Lilia Vera Vol 3",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8794,
+   "label": "De Coleccion vol2",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2449,
+   "label": "Los que rezan",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2380,
+   "label": "Electrofresco",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 481,
+   "label": "Nada más ser",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2641,
+   "label": "Contra Ataca",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9089,
+   "label": "15 Años",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 95,
+   "label": "De dia es mas oscuro",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4189,
+   "label": "Esto Fué un Placer",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4187,
+   "label": "Ahora o Nunca",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4184,
+   "label": "Inmensa Minoria",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4188,
+   "label": "Una a la Vez",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4182,
+   "label": "Este Miércoles",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14,
+   "label": "Algo Personal",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 17,
+   "label": "Dibujando Historias",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 15,
+   "label": "Volver Al Futuro",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2978,
+   "label": "Ven",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2978,
+   "label": "Ven",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 427,
+   "label": "P.O.P.",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 131,
+   "label": "A+",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 634,
+   "label": "Nueva Guerra",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2095,
+   "label": "Dale a Play",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 282,
+   "label": "Pum Pum",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3559,
+   "label": "Te la dedico",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 465,
+   "label": "La Novela",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3582,
+   "label": "Al Natural",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 13260,
+   "label": "Suerte",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3617,
+   "label": "Felipe Pirela de Vuelta",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3620,
+   "label": "Sueños a la Luna",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3624,
+   "label": "Amarle",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3623,
+   "label": "Memories",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3622,
+   "label": "De 2 maneras",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3837,
+   "label": "Despues de todo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9526,
+   "label": "Reinvención",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9532,
+   "label": "Karibe",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3528,
+   "label": "Hablame",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 5839,
+   "label": "Las Guitarras Del Mundo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9863,
+   "label": "Más alla de Venezuela",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 245,
+   "label": "Lo que dejas atras",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2874,
+   "label": "Al Desnudo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6603,
+   "label": "A Mis Hermanos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14691,
+   "label": "EL MODERNO FLORENTINO",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 1986,
+   "label": "De la casa",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3043,
+   "label": "Evoluzion",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 1225,
+   "label": "Rebellion",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 1686,
+   "label": "Sesión",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 826,
+   "label": "Enemigo Imaginario",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 1546,
+   "label": "Los Signos Vitales",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 1687,
+   "label": "Pisada y Huella",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 562,
+   "label": "Rock And MAU 2",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 288,
+   "label": "Rock and MAU",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14739,
+   "label": "Mujer de palabra cierta",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14734,
+   "label": "Un orgullo ser mujer",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14740,
+   "label": "La del cariño musical",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14743,
+   "label": "La Flor de Zaraza",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14735,
+   "label": "Homenaje a Simon Diaz Dejame Que Te Cante Venezuela",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14730,
+   "label": "El Sabor de la Pasion",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14742,
+   "label": "Colmada de Bendiciones",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14733,
+   "label": "Mis Mejores Canciones",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6638,
+   "label": "VENEZUELA FIESTA",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9597,
+   "label": "GUALBERTO + C4",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14865,
+   "label": "De repente",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 129,
+   "label": "C4 TRIO",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9596,
+   "label": "Entre Manos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9460,
+   "label": "Una por Una",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3995,
+   "label": "Por siempre Edgar y Punto",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6999,
+   "label": "Llego la salsa",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8979,
+   "label": "Serenata",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8463,
+   "label": "Pasiones",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9134,
+   "label": "Ahora",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8461,
+   "label": "CANTA CUENTOS",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8445,
+   "label": "Yo soy Venezolana",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8425,
+   "label": "La Paraulata",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8455,
+   "label": "Me Voy a Regalar",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8446,
+   "label": "Romantica",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8430,
+   "label": "Aguinaldos que no se olvidan",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8454,
+   "label": "Exitos Ye ye",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9137,
+   "label": "Canta a Latinoamerica",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8459,
+   "label": "DE CONDE A PRINCIPAL 45 AÑOS",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14858,
+   "label": "Cancion Para Aldemaro",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8473,
+   "label": "La Voz Mas Dulce de Venezuela",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7767,
+   "label": "Scala 40",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14624,
+   "label": "Amor Enguayabao",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 15276,
+   "label": "Muy Venezolano Vol 2",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 15272,
+   "label": "Simon Diaz y La Rondalla Venezolana",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14607,
+   "label": "Cuenta y Canta Vol 1",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14607,
+   "label": "Cuenta y Canta Vol 2",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 15330,
+   "label": "Muy Venezolano Vol 4",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14613,
+   "label": "Sus grandes exitos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14610,
+   "label": "Tonadas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 15266,
+   "label": "Muy Venezolano Vol 1",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14608,
+   "label": "Golpe y Pasaje",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 15330,
+   "label": "Muy Venezolano Vol 3",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6899,
+   "label": "Chelique en Blanco y Negro",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9563,
+   "label": "Musica Tipica Instrumental",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 3",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 11",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 1",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 2",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 4",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 10",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 12",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 13",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 14",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 15",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 6",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 7",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 8",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 9",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7177,
+   "label": "Sus Grandes Exitos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 5",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8253,
+   "label": "El tiempo pasa pero mi salsa llego",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9302,
+   "label": "Musica Popular y Folklorica de Venezuela",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9172,
+   "label": "Aguinaldos Populares Venezolanos  Vol 5",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9049,
+   "label": "30 Años de Exitos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8592,
+   "label": "Costa Caribe",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4284,
+   "label": "Mis Grandes exitos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3484,
+   "label": "Sr Malanga",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 5900,
+   "label": "Piano de ida y vuelta",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6444,
+   "label": "Piano en canto Venezolano",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6445,
+   "label": "Piano en canto Venezolano II",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6446,
+   "label": "Piano jazz venezolano II",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6443,
+   "label": "Estoy Aqui",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6442,
+   "label": "Piano jazz Venezolano",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4472,
+   "label": "SanLuis",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3326,
+   "label": "Ruff",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2197,
+   "label": "1st Shot",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 13925,
+   "label": "Social",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6351,
+   "label": "Tiempo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4501,
+   "label": "Paso a Paso",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4484,
+   "label": "Los Primera",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14266,
+   "label": "De Primera a Primera",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4500,
+   "label": "La Historia",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9119,
+   "label": "La Canción de Venezuela Volumen 2",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8844,
+   "label": "La Canción de Venezuela",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9745,
+   "label": "Raíces",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9743,
+   "label": "Desde otro lugar",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9742,
+   "label": "Bichoneando",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9744,
+   "label": "Sinvergüensuranzas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9628,
+   "label": "Parroquia",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4354,
+   "label": "Cables a Tierra",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 137,
+   "label": "Caramelos de Cianuro",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 141,
+   "label": "Frisbee",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 144,
+   "label": "Miss Mujerzuela",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 136,
+   "label": "8",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 23996,
+   "label": "Poesia criolla",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6303,
+   "label": "Suma & No Resta",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3804,
+   "label": "Suele Pasar",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 13966,
+   "label": "Amparito",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4692,
+   "label": "Guarachando en Navidad Vol 1",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3976,
+   "label": "Bailando sobre las ruinas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 13967,
+   "label": "Todo Está Muy Normal",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6227,
+   "label": "CONEXION JAZZ",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 23077,
+   "label": "Música Moderna",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 920,
+   "label": "Dentro de los cuentos del dia",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7874,
+   "label": "Claroscuro",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8397,
+   "label": "Voces y Música del Alma",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 187,
+   "label": "3 Casas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 189,
+   "label": "La Quema",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 188,
+   "label": "Casa 4",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3090,
+   "label": "Musical Animal",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 13055,
+   "label": "Cinco Rosas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7129,
+   "label": "Galopando",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 13042,
+   "label": "Sin Peligro de Extinción",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7145,
+   "label": "La Historia 1980 - 2000",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7127,
+   "label": "Como era y Como es",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7133,
+   "label": "Escultura",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7132,
+   "label": "Guajiro",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 13037,
+   "label": "Bidimensional",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 13038,
+   "label": "Presente Continuo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7128,
+   "label": "Equilibrio",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7130,
+   "label": "El Sonido de Venezuela",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3389,
+   "label": "De Pelicula",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 77,
+   "label": "El Debut",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 23905,
+   "label": "Paisajismo Nocturno",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6102,
+   "label": "Reflejando El Dorado",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 89,
+   "label": "Destronando Vidas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4412,
+   "label": "Que Buena Vaina",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6247,
+   "label": "Uno",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6248,
+   "label": "Familia",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8492,
+   "label": "Primavera para Mayo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8494,
+   "label": "VOCAL",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8493,
+   "label": "Colores Tierra",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3134,
+   "label": "Solo Escuchame",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 148,
+   "label": "Quinta Giuliana",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 147,
+   "label": "20000 Leguas Cuadriláteras",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 22678,
+   "label": "Nostalgia",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2880,
+   "label": "Revelacion",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 464,
+   "label": "Manual de Buenas Costumbres",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 535,
+   "label": "El Final del Mundo Vol I",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 463,
+   "label": "En Llamas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 462,
+   "label": "Cinema Cero",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 265,
+   "label": "Rocanrol",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 1763,
+   "label": "El Final del Mundo Vol 2 Nada es Imposible",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2333,
+   "label": "Ad Hominem",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 15333,
+   "label": "Ad libitum",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2515,
+   "label": "Navidad",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6382,
+   "label": "Moosaah",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6379,
+   "label": "Origen Caracas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6380,
+   "label": "Ayer y Hoy",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6528,
+   "label": "Villa Sebucan",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6381,
+   "label": "Sinceramente",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 7652,
+   "label": "Dame tu cariño",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3561,
+   "label": "Ciega Fuerza",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 215,
+   "label": "Imperia",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 214,
+   "label": "Codigo Demente",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4360,
+   "label": "Lo Mejor de La Corte",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3156,
+   "label": "Signos de Admiracion",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4105,
+   "label": "Bien",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 201,
+   "label": "Lunes",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 342,
+   "label": "Debut",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 251,
+   "label": "Todo es rosa",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26226,
+   "label": "Una vez mas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26224,
+   "label": "No pares de sudar",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2704,
+   "label": "Belica",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9133,
+   "label": "Raices",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 9132,
+   "label": "Francisco Pacheco y su Pueblo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3925,
+   "label": "Cae la tarde",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3652,
+   "label": "Mira Como Suena",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 800,
+   "label": "La Puerk puso",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 2480,
+   "label": "Lanzados al Rodeo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3436,
+   "label": "Evolution",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 5591,
+   "label": "Pornografica",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4507,
+   "label": "Cuando el cielo pierda su color",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 244,
+   "label": "Liquet",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6054,
+   "label": "Vibraciones de mi tierra",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6315,
+   "label": "Mirando de Lejos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6437,
+   "label": "Jazzberto Ibarreto",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 4294,
+   "label": "Jorge Cid",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 6398,
+   "label": "Aldemareando",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 13173,
+   "label": "Como tu lo querias",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 22811,
+   "label": "Falsos Hermanos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 22812,
+   "label": "Pasos Sincopados",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 5705,
+   "label": "DiElfo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 8501,
+   "label": "Que Sí",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 23760,
+   "label": "Hijos de los Cielos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 24085,
+   "label": "Luz",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 23868,
+   "label": "Fiesta en El Limbo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 1220,
+   "label": "Momentos Oportunos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 23640,
+   "label": "CODIGO ROSA",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 23639,
+   "label": "Al Mando",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 22093,
+   "label": "Bareto",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 22082,
+   "label": "Derrapo Y Escapo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 22551,
+   "label": "Rekemao",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14235,
+   "label": "El Amor Se Fue de Repente",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14239,
+   "label": "Porrito y a Dormir",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14257,
+   "label": "Bajale",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14252,
+   "label": "La Sala",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14237,
+   "label": "BEiBi",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14222,
+   "label": "EP-rimento 1 Boleritos de la Mar",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14265,
+   "label": "Morrogaita",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14240,
+   "label": "Como Blanco",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14259,
+   "label": "Cautiverio",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14242,
+   "label": "Rock I Rojo Sangre",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14249,
+   "label": "Macundales",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14217,
+   "label": "Retrofuturismopsicotropical",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14261,
+   "label": "Veracruz",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14253,
+   "label": "Xinchorro",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14251,
+   "label": "Rock II Murallas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14254,
+   "label": "Thalia La Maldita",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14243,
+   "label": "33 de Mayo",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14248,
+   "label": "Rock III NO KIERO SALIR",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14241,
+   "label": "Que Quieres Tu De Mi",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14220,
+   "label": "Quien Lo Diria",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14263,
+   "label": "Pasame a Busca",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14247,
+   "label": "Flixi Flaxi",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14246,
+   "label": "Clamato",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14260,
+   "label": "Super Taxi",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14244,
+   "label": "Xampu",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14250,
+   "label": "Awakate",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14262,
+   "label": "5 AM",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14245,
+   "label": "Carey",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14218,
+   "label": "Mama Flor",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14255,
+   "label": "Jamming",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14231,
+   "label": "YMW",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26541,
+   "label": "Verano por Siempre",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14190,
+   "label": "IRENE ALEJANDRA",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14195,
+   "label": "Repave Cumbion Loco",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14198,
+   "label": "Nervios de Acero",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14216,
+   "label": "Pan con Miel",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14192,
+   "label": "CARINO",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14196,
+   "label": "Los Domingos La Paso Solita",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14193,
+   "label": "Te Ame Temprano",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14194,
+   "label": "Losken Roland",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14209,
+   "label": "Semilla",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14201,
+   "label": "Curarte",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 23724,
+   "label": "Juguito de Manana",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14208,
+   "label": "Tan Poco",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14191,
+   "label": "Rayos Besos Fallos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14206,
+   "label": "BUBBLE",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14199,
+   "label": "Girasoles",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14213,
+   "label": "Spaceman",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14202,
+   "label": "Se metieron en mi casa",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14200,
+   "label": "Todo Se Mantiene en Su Lugar",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14210,
+   "label": "La Fuga",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14204,
+   "label": "Parapente",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14215,
+   "label": "Pasitos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14211,
+   "label": "Aguacero",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 27239,
+   "label": "Carledos",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14207,
+   "label": "Negro",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14203,
+   "label": "Un Dia a la Vez",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14205,
+   "label": "Fango",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14197,
+   "label": "XQ TAN DIFERENTE",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 14189,
+   "label": "Un Koala En Una Palmera",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 24127,
+   "label": "Shes On Fire",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 21759,
+   "label": "Serendipia",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 24128,
+   "label": "Estrella",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26570,
+   "label": "GIRA SOLITO",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 25768,
+   "label": "Ven Ven",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 22005,
+   "label": "Las Luces Que Bailan",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 27182,
+   "label": "Un Poquito Mas",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 27183,
+   "label": "Tu Culpa",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26254,
+   "label": "I Love You",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26256,
+   "label": "Esa Sonrisita",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26253,
+   "label": "Beber",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26248,
+   "label": "VICTORIAS",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26246,
+   "label": "Romance Dance",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26258,
+   "label": "Tu Estrella En Navidad",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 26247,
+   "label": "PASADO PRESENTE FUTURO",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 21891,
+   "label": "Me Volviste Loka",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 23030,
+   "label": "ETERNO TRANSITORIO",
+   "outcome": "candidata"
+  }
+ ]
+}

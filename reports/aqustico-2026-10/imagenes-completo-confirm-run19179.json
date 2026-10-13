@@ -1,0 +1,2039 @@
+{
+ "mode": "confirm",
+ "runId": 19179,
+ "filas": 338,
+ "candidatas": 1,
+ "yaExistian": 337,
+ "yaAplicadas": 0,
+ "sinFicha": 0,
+ "results": [
+  {
+   "kind": "artist",
+   "id": 3563,
+   "label": "Prisca Davila",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "artist",
+   "id": 58,
+   "label": "Caramelos de Cianuro",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "artist",
+   "id": 78,
+   "label": "Desorden Público",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "artist",
+   "id": 3709,
+   "label": "Guaco",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "artist",
+   "id": 162,
+   "label": "Luz Verde",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "artist",
+   "id": 4274,
+   "label": "Motherflowers",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "artist",
+   "id": 4273,
+   "label": "Irepelusa",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "artist",
+   "id": 4579,
+   "label": "Colibrí",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2212,
+   "label": "En Este Pais",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 13092,
+   "label": "Fuego en el alma",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2759,
+   "label": "Lines in the Dark",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 5535,
+   "label": "Una sola vida tengo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 594,
+   "label": "El Reto",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2312,
+   "label": "La Vida Es",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3915,
+   "label": "Humble Songs",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9163,
+   "label": "Gualberto Ibarreto Vol 3",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14834,
+   "label": "Lilia Vera Vol 3",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8794,
+   "label": "De Coleccion vol2",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2449,
+   "label": "Los que rezan",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2380,
+   "label": "Electrofresco",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 481,
+   "label": "Nada más ser",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2641,
+   "label": "Contra Ataca",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9089,
+   "label": "15 Años",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 95,
+   "label": "De dia es mas oscuro",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4189,
+   "label": "Esto Fué un Placer",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4187,
+   "label": "Ahora o Nunca",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4184,
+   "label": "Inmensa Minoria",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4188,
+   "label": "Una a la Vez",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4182,
+   "label": "Este Miércoles",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14,
+   "label": "Algo Personal",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 17,
+   "label": "Dibujando Historias",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 15,
+   "label": "Volver Al Futuro",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2978,
+   "label": "Ven",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2978,
+   "label": "Ven",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 427,
+   "label": "P.O.P.",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 131,
+   "label": "A+",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 634,
+   "label": "Nueva Guerra",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2095,
+   "label": "Dale a Play",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 282,
+   "label": "Pum Pum",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3559,
+   "label": "Te la dedico",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 465,
+   "label": "La Novela",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3582,
+   "label": "Al Natural",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 13260,
+   "label": "Suerte",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3619,
+   "label": "Desde La Calle 5 A Capella",
+   "outcome": "candidata"
+  },
+  {
+   "kind": "album",
+   "id": 3617,
+   "label": "Felipe Pirela de Vuelta",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3620,
+   "label": "Sueños a la Luna",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3624,
+   "label": "Amarle",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3623,
+   "label": "Memories",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3622,
+   "label": "De 2 maneras",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3837,
+   "label": "Despues de todo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9526,
+   "label": "Reinvención",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9532,
+   "label": "Karibe",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3528,
+   "label": "Hablame",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 5839,
+   "label": "Las Guitarras Del Mundo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9863,
+   "label": "Más alla de Venezuela",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 245,
+   "label": "Lo que dejas atras",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2874,
+   "label": "Al Desnudo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6603,
+   "label": "A Mis Hermanos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14691,
+   "label": "EL MODERNO FLORENTINO",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 1986,
+   "label": "De la casa",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3043,
+   "label": "Evoluzion",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 1225,
+   "label": "Rebellion",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 1686,
+   "label": "Sesión",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 826,
+   "label": "Enemigo Imaginario",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 1546,
+   "label": "Los Signos Vitales",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 1687,
+   "label": "Pisada y Huella",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 562,
+   "label": "Rock And MAU 2",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 288,
+   "label": "Rock and MAU",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14739,
+   "label": "Mujer de palabra cierta",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14734,
+   "label": "Un orgullo ser mujer",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14740,
+   "label": "La del cariño musical",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14743,
+   "label": "La Flor de Zaraza",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14735,
+   "label": "Homenaje a Simon Diaz Dejame Que Te Cante Venezuela",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14730,
+   "label": "El Sabor de la Pasion",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14742,
+   "label": "Colmada de Bendiciones",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14733,
+   "label": "Mis Mejores Canciones",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6638,
+   "label": "VENEZUELA FIESTA",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9597,
+   "label": "GUALBERTO + C4",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14865,
+   "label": "De repente",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 129,
+   "label": "C4 TRIO",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9596,
+   "label": "Entre Manos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9460,
+   "label": "Una por Una",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3995,
+   "label": "Por siempre Edgar y Punto",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6999,
+   "label": "Llego la salsa",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8979,
+   "label": "Serenata",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8463,
+   "label": "Pasiones",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9134,
+   "label": "Ahora",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8461,
+   "label": "CANTA CUENTOS",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8445,
+   "label": "Yo soy Venezolana",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8425,
+   "label": "La Paraulata",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8455,
+   "label": "Me Voy a Regalar",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8446,
+   "label": "Romantica",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8430,
+   "label": "Aguinaldos que no se olvidan",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8454,
+   "label": "Exitos Ye ye",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9137,
+   "label": "Canta a Latinoamerica",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8459,
+   "label": "DE CONDE A PRINCIPAL 45 AÑOS",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14858,
+   "label": "Cancion Para Aldemaro",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8473,
+   "label": "La Voz Mas Dulce de Venezuela",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7767,
+   "label": "Scala 40",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14624,
+   "label": "Amor Enguayabao",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 15276,
+   "label": "Muy Venezolano Vol 2",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 15272,
+   "label": "Simon Diaz y La Rondalla Venezolana",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14607,
+   "label": "Cuenta y Canta Vol 1",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14607,
+   "label": "Cuenta y Canta Vol 2",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 15330,
+   "label": "Muy Venezolano Vol 4",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14613,
+   "label": "Sus grandes exitos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14610,
+   "label": "Tonadas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 15266,
+   "label": "Muy Venezolano Vol 1",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14608,
+   "label": "Golpe y Pasaje",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 15330,
+   "label": "Muy Venezolano Vol 3",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6899,
+   "label": "Chelique en Blanco y Negro",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9563,
+   "label": "Musica Tipica Instrumental",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 3",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 11",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 1",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 2",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 4",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 10",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 12",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 13",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 14",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 15",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 6",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 7",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 8",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 9",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7177,
+   "label": "Sus Grandes Exitos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7179,
+   "label": "Coleccion de Exitos Vol 5",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8253,
+   "label": "El tiempo pasa pero mi salsa llego",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9302,
+   "label": "Musica Popular y Folklorica de Venezuela",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9172,
+   "label": "Aguinaldos Populares Venezolanos  Vol 5",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9049,
+   "label": "30 Años de Exitos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8592,
+   "label": "Costa Caribe",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4284,
+   "label": "Mis Grandes exitos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3484,
+   "label": "Sr Malanga",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 5900,
+   "label": "Piano de ida y vuelta",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6444,
+   "label": "Piano en canto Venezolano",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6445,
+   "label": "Piano en canto Venezolano II",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6446,
+   "label": "Piano jazz venezolano II",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6443,
+   "label": "Estoy Aqui",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6442,
+   "label": "Piano jazz Venezolano",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4472,
+   "label": "SanLuis",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3326,
+   "label": "Ruff",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2197,
+   "label": "1st Shot",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 13925,
+   "label": "Social",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6351,
+   "label": "Tiempo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4501,
+   "label": "Paso a Paso",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4484,
+   "label": "Los Primera",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14266,
+   "label": "De Primera a Primera",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4500,
+   "label": "La Historia",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9119,
+   "label": "La Canción de Venezuela Volumen 2",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8844,
+   "label": "La Canción de Venezuela",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9745,
+   "label": "Raíces",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9743,
+   "label": "Desde otro lugar",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9742,
+   "label": "Bichoneando",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9744,
+   "label": "Sinvergüensuranzas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9628,
+   "label": "Parroquia",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4354,
+   "label": "Cables a Tierra",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 137,
+   "label": "Caramelos de Cianuro",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 141,
+   "label": "Frisbee",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 144,
+   "label": "Miss Mujerzuela",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 136,
+   "label": "8",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 23996,
+   "label": "Poesia criolla",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6303,
+   "label": "Suma & No Resta",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3804,
+   "label": "Suele Pasar",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 13966,
+   "label": "Amparito",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4692,
+   "label": "Guarachando en Navidad Vol 1",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3976,
+   "label": "Bailando sobre las ruinas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 13967,
+   "label": "Todo Está Muy Normal",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6227,
+   "label": "CONEXION JAZZ",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 23077,
+   "label": "Música Moderna",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 920,
+   "label": "Dentro de los cuentos del dia",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7874,
+   "label": "Claroscuro",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8397,
+   "label": "Voces y Música del Alma",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 187,
+   "label": "3 Casas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 189,
+   "label": "La Quema",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 188,
+   "label": "Casa 4",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3090,
+   "label": "Musical Animal",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 13055,
+   "label": "Cinco Rosas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7129,
+   "label": "Galopando",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 13042,
+   "label": "Sin Peligro de Extinción",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7145,
+   "label": "La Historia 1980 - 2000",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7127,
+   "label": "Como era y Como es",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7133,
+   "label": "Escultura",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7132,
+   "label": "Guajiro",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 13037,
+   "label": "Bidimensional",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 13038,
+   "label": "Presente Continuo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7128,
+   "label": "Equilibrio",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7130,
+   "label": "El Sonido de Venezuela",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3389,
+   "label": "De Pelicula",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 77,
+   "label": "El Debut",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 23905,
+   "label": "Paisajismo Nocturno",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6102,
+   "label": "Reflejando El Dorado",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 89,
+   "label": "Destronando Vidas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4412,
+   "label": "Que Buena Vaina",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6247,
+   "label": "Uno",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6248,
+   "label": "Familia",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8492,
+   "label": "Primavera para Mayo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8494,
+   "label": "VOCAL",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8493,
+   "label": "Colores Tierra",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3134,
+   "label": "Solo Escuchame",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 148,
+   "label": "Quinta Giuliana",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 147,
+   "label": "20000 Leguas Cuadriláteras",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 22678,
+   "label": "Nostalgia",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2880,
+   "label": "Revelacion",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 464,
+   "label": "Manual de Buenas Costumbres",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 535,
+   "label": "El Final del Mundo Vol I",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 463,
+   "label": "En Llamas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 462,
+   "label": "Cinema Cero",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 265,
+   "label": "Rocanrol",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 1763,
+   "label": "El Final del Mundo Vol 2 Nada es Imposible",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2333,
+   "label": "Ad Hominem",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 15333,
+   "label": "Ad libitum",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2515,
+   "label": "Navidad",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6382,
+   "label": "Moosaah",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6379,
+   "label": "Origen Caracas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6380,
+   "label": "Ayer y Hoy",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6528,
+   "label": "Villa Sebucan",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6381,
+   "label": "Sinceramente",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 7652,
+   "label": "Dame tu cariño",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3561,
+   "label": "Ciega Fuerza",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 215,
+   "label": "Imperia",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 214,
+   "label": "Codigo Demente",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4360,
+   "label": "Lo Mejor de La Corte",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3156,
+   "label": "Signos de Admiracion",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4105,
+   "label": "Bien",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 201,
+   "label": "Lunes",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 342,
+   "label": "Debut",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 251,
+   "label": "Todo es rosa",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26226,
+   "label": "Una vez mas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26224,
+   "label": "No pares de sudar",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2704,
+   "label": "Belica",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9133,
+   "label": "Raices",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 9132,
+   "label": "Francisco Pacheco y su Pueblo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3925,
+   "label": "Cae la tarde",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3652,
+   "label": "Mira Como Suena",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 800,
+   "label": "La Puerk puso",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 2480,
+   "label": "Lanzados al Rodeo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 3436,
+   "label": "Evolution",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 5591,
+   "label": "Pornografica",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4507,
+   "label": "Cuando el cielo pierda su color",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 244,
+   "label": "Liquet",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6054,
+   "label": "Vibraciones de mi tierra",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6315,
+   "label": "Mirando de Lejos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6437,
+   "label": "Jazzberto Ibarreto",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 4294,
+   "label": "Jorge Cid",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 6398,
+   "label": "Aldemareando",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 13173,
+   "label": "Como tu lo querias",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 22811,
+   "label": "Falsos Hermanos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 22812,
+   "label": "Pasos Sincopados",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 5705,
+   "label": "DiElfo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 8501,
+   "label": "Que Sí",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 23760,
+   "label": "Hijos de los Cielos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 24085,
+   "label": "Luz",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 23868,
+   "label": "Fiesta en El Limbo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 1220,
+   "label": "Momentos Oportunos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 23640,
+   "label": "CODIGO ROSA",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 23639,
+   "label": "Al Mando",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 22093,
+   "label": "Bareto",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 22082,
+   "label": "Derrapo Y Escapo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 22551,
+   "label": "Rekemao",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14235,
+   "label": "El Amor Se Fue de Repente",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14239,
+   "label": "Porrito y a Dormir",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14257,
+   "label": "Bajale",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14252,
+   "label": "La Sala",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14237,
+   "label": "BEiBi",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14222,
+   "label": "EP-rimento 1 Boleritos de la Mar",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14265,
+   "label": "Morrogaita",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14240,
+   "label": "Como Blanco",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14259,
+   "label": "Cautiverio",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14242,
+   "label": "Rock I Rojo Sangre",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14249,
+   "label": "Macundales",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14217,
+   "label": "Retrofuturismopsicotropical",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14261,
+   "label": "Veracruz",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14253,
+   "label": "Xinchorro",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14251,
+   "label": "Rock II Murallas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14254,
+   "label": "Thalia La Maldita",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14243,
+   "label": "33 de Mayo",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14248,
+   "label": "Rock III NO KIERO SALIR",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14241,
+   "label": "Que Quieres Tu De Mi",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14220,
+   "label": "Quien Lo Diria",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14263,
+   "label": "Pasame a Busca",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14247,
+   "label": "Flixi Flaxi",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14246,
+   "label": "Clamato",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14260,
+   "label": "Super Taxi",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14244,
+   "label": "Xampu",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14250,
+   "label": "Awakate",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14262,
+   "label": "5 AM",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14245,
+   "label": "Carey",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14218,
+   "label": "Mama Flor",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14255,
+   "label": "Jamming",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14231,
+   "label": "YMW",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26541,
+   "label": "Verano por Siempre",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14190,
+   "label": "IRENE ALEJANDRA",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14195,
+   "label": "Repave Cumbion Loco",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14198,
+   "label": "Nervios de Acero",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14216,
+   "label": "Pan con Miel",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14192,
+   "label": "CARINO",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14196,
+   "label": "Los Domingos La Paso Solita",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14193,
+   "label": "Te Ame Temprano",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14194,
+   "label": "Losken Roland",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14209,
+   "label": "Semilla",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14201,
+   "label": "Curarte",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 23724,
+   "label": "Juguito de Manana",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14208,
+   "label": "Tan Poco",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14191,
+   "label": "Rayos Besos Fallos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14206,
+   "label": "BUBBLE",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14199,
+   "label": "Girasoles",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14213,
+   "label": "Spaceman",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14202,
+   "label": "Se metieron en mi casa",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14200,
+   "label": "Todo Se Mantiene en Su Lugar",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14210,
+   "label": "La Fuga",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14204,
+   "label": "Parapente",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14215,
+   "label": "Pasitos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14211,
+   "label": "Aguacero",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 27239,
+   "label": "Carledos",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14207,
+   "label": "Negro",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14203,
+   "label": "Un Dia a la Vez",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14205,
+   "label": "Fango",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14197,
+   "label": "XQ TAN DIFERENTE",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 14189,
+   "label": "Un Koala En Una Palmera",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 24127,
+   "label": "Shes On Fire",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 21759,
+   "label": "Serendipia",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 24128,
+   "label": "Estrella",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26570,
+   "label": "GIRA SOLITO",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 25768,
+   "label": "Ven Ven",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 22005,
+   "label": "Las Luces Que Bailan",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 27182,
+   "label": "Un Poquito Mas",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 27183,
+   "label": "Tu Culpa",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26254,
+   "label": "I Love You",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26256,
+   "label": "Esa Sonrisita",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26253,
+   "label": "Beber",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26248,
+   "label": "VICTORIAS",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26246,
+   "label": "Romance Dance",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26258,
+   "label": "Tu Estrella En Navidad",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 26247,
+   "label": "PASADO PRESENTE FUTURO",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 21891,
+   "label": "Me Volviste Loka",
+   "outcome": "ya_existia"
+  },
+  {
+   "kind": "album",
+   "id": 23030,
+   "label": "ETERNO TRANSITORIO",
+   "outcome": "ya_existia"
+  }
+ ]
+}

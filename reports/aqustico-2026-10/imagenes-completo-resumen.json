@@ -1,0 +1,11 @@
+{
+ "candidatas": 338,
+ "artist": 8,
+ "album": 330,
+ "omitidas": {
+  "artista_ya_aplicado": 7,
+  "disco_ya_aplicado": 15,
+  "disco_sin_copia_local": 1,
+  "disco_solo_bucket_o_sin_cover": 95
+ }
+}
