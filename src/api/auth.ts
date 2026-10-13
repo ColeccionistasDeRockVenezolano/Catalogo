@@ -290,6 +290,29 @@ function noStore(reply: FastifyReply): void {
   reply.header("cache-control", "no-store");
 }
 
+/**
+ * IP de la conexión para los límites por IP: la ÚLTIMA entrada del
+ * X-Forwarded-For. El cliente puede inventar entradas previas, pero la última
+ * la escribe el hop más cercano de confianza (Funnel → server.mjs → API), así
+ * que es la única que no se puede falsear desde fuera.
+ */
+function clientIp(request: FastifyRequest): string {
+  const forwarded = request.headers["x-forwarded-for"];
+  if (typeof forwarded === "string" && forwarded.length > 0) {
+    const parts = forwarded.split(",");
+    const last = parts[parts.length - 1]!.trim();
+    if (last.length > 0) return last;
+  }
+  return request.ip;
+}
+
+/** Tráfico local (scripts, campañas, tests): sin proxy delante y en loopback. */
+function isLocalRequest(request: FastifyRequest): boolean {
+  if (request.headers["x-forwarded-for"] !== undefined) return false;
+  const ip = request.ip.startsWith("::ffff:") ? request.ip.slice("::ffff:".length) : request.ip;
+  return ip === "127.0.0.1" || ip === "::1";
+}
+
 const loginBody = z.object({
   username: z.string().trim().min(3).max(80),
   password: z.string().min(1).max(200),
@@ -307,6 +330,11 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
     if (writesPerMinute.take(identity)) return;
     throw new ApiError(429, "rate_limited", "Demasiadas escrituras seguidas (límite por minuto). Espera unos segundos y reintenta: los lotes de Curaduría continúan donde quedaron.");
   };
+  // Lecturas públicas anónimas por IP (endurecimiento anti-scraping 2026-10-13):
+  // el catálogo es abierto, pero una sola IP no puede vaciarlo a velocidad de
+  // script. No se aplica al tráfico local (scripts, campañas, tests) ni a quien
+  // tiene sesión — un colaborador cargando fichas no debe toparse con el techo.
+  const readsPerMinute = createWindowLimiter({ max: getEnv().CRV_READ_RATE_LIMIT, windowMs: 60_000, maxKeys: 5_000 });
   app.decorateRequest("operator", "");
   app.decorateRequest("viewer", null);
   app.addHook("onClose", async () => herra?.close());
@@ -341,6 +369,12 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
           request.viewer = session ? { name: session.name, role: session.role } : null;
         } catch {
           request.viewer = null;
+        }
+        if (isRead && request.viewer === null && !isLocalRequest(request)) {
+          if (!readsPerMinute.take(clientIp(request))) {
+            reply.header("retry-after", "60");
+            throw new ApiError(429, "rate_limited", "Demasiadas lecturas desde esta conexión. Espera un minuto y vuelve a intentarlo.");
+          }
         }
       }
       return;

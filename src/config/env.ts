@@ -45,6 +45,11 @@ const envSchema = z.object({
   // ítems por llamada y el resto sigue con otra llamada) y estrecho para un
   // bucle descontrolado. 0 desactiva el límite.
   CRV_WRITE_RATE_LIMIT: z.coerce.number().int().nonnegative().default(240),
+  // Lecturas públicas anónimas por IP y minuto (endurecimiento anti-scraping
+  // 2026-10-13): el catálogo abierto se puede recorrer, pero no vaciar a
+  // velocidad de script. 0 desactiva el límite. No se aplica al tráfico local
+  // (scripts, campañas, tests) ni a quien tiene sesión.
+  CRV_READ_RATE_LIMIT: z.coerce.number().int().nonnegative().default(600),
 
   // Detector de conflictos de Curaduría (src/curation/). Cada escritura de
   // la API dispara un análisis que verifica si la corrección abrió errores
