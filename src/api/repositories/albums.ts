@@ -215,6 +215,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
            'id', t.id, 'discNumber', t.disc_number, 'trackNumber', t.track_number,
            'title', t.title, 'durationSeconds', t.duration_seconds,
            'youtubeStartSeconds', t.youtube_start_seconds, 'notes', t.notes,
+           'hasLyrics', (t.lyrics IS NOT NULL),
            'credits', COALESCE((
              SELECT jsonb_agg(${CREDIT_FIELDS})
              FROM (

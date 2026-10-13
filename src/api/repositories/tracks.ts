@@ -51,6 +51,8 @@ export interface TrackAliasRow {
 export interface TrackDetail extends TrackListItem {
   youtubeStartSeconds: number | null;
   notes: string | null;
+  /** Letra de la canción (0073; NULL = sin letra conocida). */
+  lyrics: string | null;
   aliases: TrackAliasRow[];
   credits: TrackCreditRow[];
   /** Géneros confirmados de SU ÁLBUM (PLAN_GENEROS §5): la pista nunca hereda del artista. */
@@ -114,13 +116,14 @@ interface DetailRow extends ListRow {
   youtube_start_seconds: number | null;
   album_genre: string | null;
   notes: string | null;
+  lyrics: string | null;
   aliases: TrackAliasRow[];
   credits: TrackCreditRow[];
 }
 
 export async function getTrackDetail(id: number): Promise<TrackDetail | null> {
   const rows = await getPool().query<DetailRow>(
-    `SELECT ${LIST_COLUMNS}, t.youtube_start_seconds, t.notes, a.genre AS album_genre,
+    `SELECT ${LIST_COLUMNS}, t.youtube_start_seconds, t.notes, t.lyrics, a.genre AS album_genre,
             COALESCE((
               SELECT jsonb_agg(jsonb_build_object('id', x.id, 'alias', x.alias, 'aliasType', x.alias_type, 'isPrimary', x.is_primary) ORDER BY x.id)
                 FROM ingest.track_aliases x WHERE x.track_id = t.id
@@ -151,6 +154,7 @@ export async function getTrackDetail(id: number): Promise<TrackDetail | null> {
     ...toListItem(row),
     youtubeStartSeconds: row.youtube_start_seconds,
     notes: row.notes,
+    lyrics: row.lyrics ?? null,
     aliases: withPublicAliases(row.title, row.aliases),
     credits: row.credits.map((credit) => ({ ...credit, personDisplayName: credit.personId === null ? null : displayNames.get(credit.personId) ?? null })),
     ...genres,

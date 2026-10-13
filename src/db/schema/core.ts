@@ -161,6 +161,9 @@ export const tracks = pgTable("tracks", {
   durationSeconds: integer("duration_seconds"),
   youtubeStartSeconds: integer("youtube_start_seconds"),
   notes: text("notes"),
+  // 0073 (campaña musicavenezuela, 2026-10-13): letra de la canción; novena
+  // excepción aprobada al core. NULL = sin letra conocida.
+  lyrics: text("lyrics"),
 });
 
 export const albumCredits = pgTable("album_credits", {

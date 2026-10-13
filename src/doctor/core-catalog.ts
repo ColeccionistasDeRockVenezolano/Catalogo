@@ -108,6 +108,10 @@ export const APPROVED_CORE_ADDITIONS: ReadonlySet<string> = new Set([
   "COL albums.release_date_text character varying(40)",
   "COL albums.catalog_id character varying(80)",
   "COL albums.media_format character varying(50)",
+  // 0073 (2026-10-13): la letra de la canción en `tracks.lyrics` (novena
+  // excepción aprobada al core — campaña musicavenezuela; aprobación literal:
+  // «Implementa las letras para los tracks correspondientes»).
+  "COL tracks.lyrics text",
   // 0039 (2026-10-04): la tabla `public.streaming_links` (enlaces a
   // plataformas de streaming por artista/álbum; sexta excepción aprobada al
   // core — «implementa todas las etapas» del plan de enlaces).

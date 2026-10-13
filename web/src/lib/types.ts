@@ -197,6 +197,8 @@ export interface Track {
   durationSeconds: number | null;
   youtubeStartSeconds: number | null;
   credits: Credit[];
+  /** Letra disponible (0073): el texto se carga bajo demanda con tracksApi.get. */
+  hasLyrics?: boolean;
 }
 
 // ---------- tracks (lectura propia: auditoría #7) ----------
@@ -216,6 +218,8 @@ export interface TrackListItem {
 export interface TrackDetail extends TrackListItem {
   youtubeStartSeconds: number | null;
   notes: string | null;
+  /** Letra de la canción (0073; null = sin letra conocida). */
+  lyrics: string | null;
   aliases: Alias[];
   credits: Credit[];
 }
