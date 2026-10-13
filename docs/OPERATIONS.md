@@ -348,6 +348,26 @@ en `web/src/main.tsx` se quita la barra final por esto — con la barra,
 `react-router` no reconoce `/crv` sin ella y no monta nada (hallazgo del
 2026-09-15, corregido).
 
+**Límites y rastreo de la publicación (2026-10-13).** El catálogo se lee sin
+cuenta, así que la API y el gateway tienen techo por IP sobre el tráfico
+anónimo: `CRV_READ_RATE_LIMIT` (600/min) en las lecturas del API y
+`CRV_WEB_RATE_LIMIT` (1200/min) en todo lo que sirve `server.mjs` (estáticos,
+media y proxy al API). 0 apaga cada uno. La clave es la última entrada del
+`X-Forwarded-For` — la que añade el hop de confianza (Funnel) — porque el
+cliente puede inventar las anteriores: rotar el header NO evade el techo
+(verificado en vivo el 2026-10-13 desde la URL pública). El tráfico local sin
+proxy (scripts, campañas, tests) y quien tiene sesión quedan exentos; las
+respuestas cortadas son 429 con `Retry-After: 60`. Con CGNAT, varios usuarios
+del mismo operador pueden compartir IP y cupo: si aparecen 429 injustos, subir
+el límite o apagarlo (0) antes de sospechar de la web.
+
+Las imágenes valen 7 días de caché (`stale-while-revalidate` 1 día) + `ETag`
+con 304 (antes: 5 minutos, y cada visita repercutía las mismas portadas).
+`server.mjs` sirve además `robots.txt` y `sitemap.xml` (índice +
+`sitemap-catalogo.xml` + `sitemap-personas.xml`, generados de `GET
+/sitemap-ids` con caché de 1 h) con el host real que ve el buscador — hoy el
+Funnel, mañana el dominio propio.
+
 ### Detector de conflictos (Curaduría)
 
 La web (`/curaduria`, solo admin) muestra una pestaña por categoría: nombres
