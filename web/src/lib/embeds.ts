@@ -13,6 +13,8 @@ export interface EmbedSpec {
   height: number | null;
   /** Sin sesión iniciada en la plataforma solo suenan fragmentos (30 s). */
   previewsWithoutLogin: boolean;
+  /** Ancho máximo propio del reproductor (Bandcamp no pasa de 700 px y deja el resto en blanco). */
+  maxWidth?: number;
 }
 
 /** Orden del selector: primero lo que suena completo para cualquiera. */
@@ -65,7 +67,7 @@ export function embedFor(link: EmbedLink, owner: EmbedOwner): EmbedSpec | null {
       const m = /^(album|track)=(\d+)$/u.exec(link.externalId ?? "");
       if (!m) return null;
       const track = m[1] === "track";
-      return { platform, src: `https://bandcamp.com/EmbeddedPlayer/${m[1]}=${m[2]}/size=large/bgcol=141414/linkcol=e50914/${track ? "" : "tracklist=true/"}artwork=small/transparent=true/`, height: track ? 120 : 472, previewsWithoutLogin: false };
+      return { platform, src: `https://bandcamp.com/EmbeddedPlayer/${m[1]}=${m[2]}/size=large/bgcol=141414/linkcol=e50914/${track ? "" : "tracklist=true/"}artwork=small/transparent=true/`, height: track ? 120 : 472, previewsWithoutLogin: false, maxWidth: 700 };
     }
     case "youtube_music": {
       const list = youtubeList(link.externalId) ?? youtubeList(listFromUrl(url));

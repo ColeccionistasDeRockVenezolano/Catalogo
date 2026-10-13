@@ -90,7 +90,7 @@ export function EmbedPanel({ option, subject, fullElsewhere }: { option: EmbedOp
   if (!target) return null;
   const { label } = platformMeta(option.platform);
   const { embed } = target;
-  const style: CSSProperties = embed.height ? { height: embed.height } : { aspectRatio: "16 / 9" };
+  const style: CSSProperties = { ...(embed.height ? { height: embed.height } : { aspectRatio: "16 / 9" }), ...(embed.maxWidth ? { maxWidth: embed.maxWidth } : {}) };
   return (
     <>
       {option.targets.length > 1 ? (
