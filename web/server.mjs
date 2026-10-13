@@ -3,6 +3,14 @@
 // reenvía /crv/api/* al API local y sirve el build público de Vite
 // (`dist-public/`, el de `npm run build:public`) en /crv/*. El build de
 // verificación (`npm run build`) escribe `dist/` y NO toca lo publicado.
+//
+// Endurecimiento 2026-10-13 (anti-scraping y picos de tráfico):
+// - Techo de solicitudes por IP y minuto (CRV_WEB_RATE_LIMIT, 0 lo apaga);
+//   el tráfico local sin X-Forwarded-For (pruebas) no se limita.
+// - Las imágenes llevan caché larga + ETag/304 (antes: 5 minutos, o sea que
+//   cada visita repercutía el mismo tráfico de portadas).
+// - robots.txt y sitemap.xml dinámicos, con el host real que ven los
+//   buscadores (Funnel hoy, un dominio propio cuando se monte).
 import http from "node:http";
 import { createReadStream } from "node:fs";
 import { stat } from "node:fs/promises";
@@ -18,6 +26,15 @@ const apiHost = process.env.CRV_API_HOST ?? "127.0.0.1";
 const apiPort = Number(process.env.CRV_API_PORT ?? "8080");
 const basePath = `/${(process.env.CRV_PUBLIC_PATH ?? "crv").replace(/^\/+|\/+$/g, "")}`;
 const apiPath = `${basePath}/api`;
+
+// Techo por IP y minuto para TODO lo que sirve el gateway (estáticos, media y
+// el proxy al API). Holgado para navegación humana (una ficha son ~20
+// solicitudes) y estrecho para un volcado: recorrer las 18.000 imágenes pasa
+// de segundos a horas. Una var mal escrita no lo apaga en silencio.
+const configuredRateLimit = Number(process.env.CRV_WEB_RATE_LIMIT ?? "1200");
+const requestsPerMinute = Number.isFinite(configuredRateLimit) ? configuredRateLimit : 1200;
+const RATE_WINDOW_MS = 60_000;
+const MAX_RATE_KEYS = 5_000;
 
 const MIME_TYPES = {
   ".css": "text/css; charset=utf-8", ".html": "text/html; charset=utf-8",
@@ -39,6 +56,131 @@ const SECURITY_HEADERS = {
 function reply(res, status, text) {
   res.writeHead(status, { "content-type": "text/plain; charset=utf-8", ...SECURITY_HEADERS });
   res.end(text);
+}
+
+/** Ruta pública bajo el prefijo montado (basePath puede ser «/»). */
+function publicPath(sub) {
+  return basePath === "/" ? sub : `${basePath}${sub}`;
+}
+
+/**
+ * IP de la conexión para el techo por IP: la ÚLTIMA entrada del
+ * X-Forwarded-For (la añade el Funnel). El cliente puede inventar entradas
+ * previas; la última la escribe el hop de confianza y no se puede falsear.
+ */
+function clientIp(req) {
+  const forwarded = req.headers["x-forwarded-for"];
+  if (typeof forwarded === "string" && forwarded.length > 0) {
+    const parts = forwarded.split(",");
+    const last = parts[parts.length - 1].trim();
+    if (last.length > 0) return last;
+  }
+  return (req.socket.remoteAddress ?? "").replace(/^::ffff:/, "");
+}
+
+/** Tráfico local de pruebas (sin proxy delante): fuera del techo. */
+function isLocalRequest(req) {
+  if (req.headers["x-forwarded-for"] !== undefined) return false;
+  const ip = (req.socket.remoteAddress ?? "").replace(/^::ffff:/, "");
+  return ip === "127.0.0.1" || ip === "::1";
+}
+
+const rateBuckets = new Map();
+function rateLimited(ip) {
+  if (requestsPerMinute <= 0) return false;
+  const now = Date.now();
+  const entry = rateBuckets.get(ip);
+  if (!entry || entry.resetAt <= now) {
+    if (!entry && rateBuckets.size >= MAX_RATE_KEYS) {
+      const oldest = rateBuckets.keys().next().value;
+      if (oldest !== undefined) rateBuckets.delete(oldest);
+    }
+    rateBuckets.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > requestsPerMinute;
+}
+
+// Rutas de trabajo que no deben rastrearse (el API las protege y la SPA las
+// pide tras el login; aquí se declaran para los buscadores). NO se bloquea
+// /api/* entero: el render de la SPA depende de las lecturas públicas.
+const ROBOTS_DISALLOW = [
+  "/api/review-queue", "/api/audit", "/api/curation", "/api/runs/",
+  "/api/changes", "/api/claims", "/api/sources", "/api/credit-sources",
+  "/api/catalog-model", "/api/catalog-links", "/api/evidence-inventory",
+  "/api/discovery", "/api/entity-verification",
+  "/curaduria",
+];
+const SITEMAP_TTL_MS = 60 * 60 * 1000;
+/** kind del sitemap (ruta) → grupos de ids del API. */
+const SITEMAP_CHILDREN = {
+  "/sitemap-catalogo.xml": ["artists", "albums"],
+  "/sitemap-personas.xml": ["persons"],
+};
+let sitemapIdsCache; // { value, expiresAt } — una sola fuente para los hijos
+const sitemapXmlCache = new Map(); // `${origin}|${path}` → { body, expiresAt }
+
+function xmlEscape(value) {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function originOf(req) {
+  const hostHeader = req.headers["x-forwarded-host"] ?? req.headers.host ?? "localhost";
+  const proto = req.headers["x-forwarded-proto"] ?? "http";
+  return `${proto}://${hostHeader}`;
+}
+
+function robotsBody(req) {
+  const lines = ["User-agent: *"];
+  for (const sub of ROBOTS_DISALLOW) lines.push(`Disallow: ${publicPath(sub)}`);
+  lines.push("Allow: /", "", `Sitemap: ${originOf(req)}${publicPath("/sitemap.xml")}`);
+  return `${lines.join("\n")}\n`;
+}
+
+/** Ids de las fichas públicas desde el API (cache 1 h aquí también). */
+async function sitemapIds() {
+  if (sitemapIdsCache && sitemapIdsCache.expiresAt > Date.now()) return sitemapIdsCache.value;
+  const response = await fetch(`http://${apiHost}:${apiPort}/sitemap-ids`, { signal: AbortSignal.timeout(15_000) });
+  if (!response.ok) throw new Error(`la API respondió ${response.status}`);
+  sitemapIdsCache = { value: await response.json(), expiresAt: Date.now() + SITEMAP_TTL_MS };
+  return sitemapIdsCache.value;
+}
+
+function sitemapIndexBody(req) {
+  const origin = originOf(req);
+  const items = Object.keys(SITEMAP_CHILDREN)
+    .map((sub) => `<sitemap><loc>${xmlEscape(origin + publicPath(sub))}</loc></sitemap>`)
+    .join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${items}\n</sitemapindex>\n`;
+}
+
+async function sitemapChildBody(req, childPath) {
+  const origin = originOf(req);
+  const cacheKey = `${origin}|${childPath}`;
+  const cached = sitemapXmlCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) return cached.body;
+  const ids = await sitemapIds();
+  const prefix = { artists: "/artistas/", albums: "/discos/", persons: "/personas/" };
+  const urls = [];
+  for (const group of SITEMAP_CHILDREN[childPath]) {
+    for (const id of ids[group] ?? []) urls.push(`${origin}${publicPath(prefix[group])}${id}`);
+  }
+  const items = urls.map((loc) => `<url><loc>${xmlEscape(loc)}</loc></url>`).join("\n");
+  const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${items}\n</urlset>\n`;
+  sitemapXmlCache.set(cacheKey, { body, expiresAt: Date.now() + SITEMAP_TTL_MS });
+  return body;
+}
+
+function sendText(req, res, status, contentType, body, cacheControl) {
+  res.writeHead(status, {
+    "content-type": contentType,
+    ...(body === undefined ? {} : { "content-length": Buffer.byteLength(body) }),
+    ...(cacheControl ? { "cache-control": cacheControl } : {}),
+    ...SECURITY_HEADERS,
+  });
+  if (req.method === "HEAD" || body === undefined) return res.end();
+  res.end(body);
 }
 
 function proxyApi(req, res, requestUrl) {
@@ -90,20 +232,39 @@ async function serveFile(req, res, pathname) {
   }
 
   const ext = path.extname(file).toLowerCase();
-  const headers = {
+  // ETag barato (tamaño + mtime): revalidar no cuesta releer la imagen.
+  const etag = `W/"${fileStat.size.toString(16)}-${Math.round(fileStat.mtimeMs).toString(16)}"`;
+  const cacheControl = isMedia
+    // Las imágenes del catálogo casi nunca cambian: antes valían 5 minutos y
+    // cada visita repercutía las mismas portadas. El revalidate diario corrige
+    // una portada reemplazada.
+    ? "public, max-age=604800, stale-while-revalidate=86400"
+    : file.includes(`${path.sep}assets${path.sep}`) ? "public, max-age=31536000, immutable"
+      : "no-cache";
+  const ifNoneMatch = req.headers["if-none-match"];
+  if (typeof ifNoneMatch === "string" && ifNoneMatch.split(",").some((value) => value.trim() === etag)) {
+    res.writeHead(304, { etag, "cache-control": cacheControl, ...SECURITY_HEADERS });
+    return res.end();
+  }
+  res.writeHead(200, {
     "content-type": MIME_TYPES[ext] ?? "application/octet-stream",
     "content-length": fileStat.size,
+    etag,
+    "last-modified": fileStat.mtime.toUTCString(),
+    "cache-control": cacheControl,
     ...SECURITY_HEADERS,
-    ...(isMedia ? { "cache-control": "public, max-age=300, stale-while-revalidate=3600" }
-      : file.includes(`${path.sep}assets${path.sep}`) ? { "cache-control": "public, max-age=31536000, immutable" }
-        : { "cache-control": "no-cache" }),
-  };
-  res.writeHead(200, headers);
+  });
   if (req.method === "HEAD") return res.end();
   createReadStream(file).on("error", (error) => res.destroy(error)).pipe(res);
 }
 
 const server = http.createServer(async (req, res) => {
+  const ip = clientIp(req);
+  if (ip.length > 0 && !isLocalRequest(req) && rateLimited(ip)) {
+    res.writeHead(429, { "content-type": "text/plain; charset=utf-8", "retry-after": "60", ...SECURITY_HEADERS });
+    res.end("Demasiadas solicitudes desde esta conexión. Espera un minuto y vuelve a intentarlo.");
+    return;
+  }
   const requestUrl = new URL(req.url ?? "/", `http://${req.headers.host ?? host}`);
   // Funnel elimina el prefijo configurado antes de enviar la petición al
   // destino local. Para pruebas directas también aceptamos la ruta completa.
@@ -113,6 +274,22 @@ const server = http.createServer(async (req, res) => {
   const virtualUrl = new URL(requestUrl);
   virtualUrl.pathname = virtualPath;
   if (virtualUrl.pathname === apiPath || virtualUrl.pathname.startsWith(`${apiPath}/`)) return proxyApi(req, res, virtualUrl);
+  // robots.txt y sitemap los sirve el gateway, no el build: responden con el
+  // host real que ve el buscador (hoy el Funnel; mañana el dominio propio).
+  const literalPath = virtualUrl.pathname === basePath ? "/" : virtualUrl.pathname.slice(basePath.length);
+  if (req.method === "GET" || req.method === "HEAD") {
+    if (literalPath === "/robots.txt") return sendText(req, res, 200, "text/plain; charset=utf-8", robotsBody(req), "public, max-age=3600");
+    try {
+      if (literalPath === "/sitemap.xml") {
+        return sendText(req, res, 200, "application/xml; charset=utf-8", sitemapIndexBody(req), "public, max-age=3600");
+      }
+      if (Object.hasOwn(SITEMAP_CHILDREN, literalPath)) {
+        return sendText(req, res, 200, "application/xml; charset=utf-8", await sitemapChildBody(req, literalPath), "public, max-age=3600");
+      }
+    } catch {
+      return sendText(req, res, 503, "text/plain; charset=utf-8", "El sitemap no está disponible.", "no-store");
+    }
+  }
   // El basename del router de React exige la barra final: sin redirect la
   // app carga (el gateway sirve index.html igual) pero queda en blanco
   // porque el pathname "/crv" no matchea el basename "/crv/".
