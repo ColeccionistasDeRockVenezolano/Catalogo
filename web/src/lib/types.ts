@@ -56,7 +56,7 @@ export const TITULAR_ROLE = "Titular del proyecto";
 export interface ArtistMember {
   id: number; personId: number; personName: string; personDisplayName?: string | null; personRealName?: string | null; personIsDeceased?: boolean; role: string;
   /** Fechas de la persona: la ficha del proyecto solista las muestra como suyas. */
-  personBirthDate?: string | null; personDeathDate?: string | null;
+  personBirthDate?: string | null; personBirthCity?: string | null; personDeathDate?: string | null;
   fromYear: number | null; toYear: number | null; isCurrent: boolean;
   /** Plan del primo, etapa 2: fundador con su cita e instrumentos de la lista fija. */
   isFounder?: boolean | null; founderEvidence?: string | null; instruments?: string[];

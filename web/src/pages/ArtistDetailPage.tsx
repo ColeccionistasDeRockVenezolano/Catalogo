@@ -185,6 +185,7 @@ export function ArtistDetailPage() {
     // fallecimiento son los de su titular: solo salen si hay quien los tenga.
     ...(titular ? [
       { label: "Nacimiento", value: formatDate(titular.personBirthDate ?? null) },
+      { label: "Lugar de nacimiento", value: titular.personBirthCity ?? null },
       { label: "Fallecimiento", value: titularDead ? formatDate(titular.personDeathDate ?? null) : null },
       { label: titularDead ? "Edad al fallecer" : "Edad",
         value: ageText(titular.personBirthDate ?? null, titularDead ? titular.personDeathDate ?? null : null) },
@@ -229,8 +230,8 @@ export function ArtistDetailPage() {
           ) : null}
           {artist.members.length === 0 ? <TabEmpty>Sin integrantes registrados.</TabEmpty> : (
             <>
-              {/* La línea de tiempo solo sale cuando todos tienen periodo (plan del primo, punto 12). */}
-              <MembersTimeline members={artist.members} albums={artist.discography}
+              {/* Línea de tiempo también con periodos parciales (Brian, 2026-10-13). */}
+              <MembersTimeline members={artist.members} albums={artist.discography} formedYear={artist.formedYear ?? null}
                 endYear={!hasCurrentMember && artist.disbandedYear ? artist.disbandedYear : new Date().getFullYear()} />
               <div className="member-groups">
                 {groupMembers(artist.members).map((section) => (

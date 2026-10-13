@@ -75,6 +75,8 @@ a.statement-part:hover { text-decoration-color: currentColor; }
 .members-timeline__legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 12.5px; color: var(--text-muted); }
 .members-timeline__legend i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; border-radius: 2px; }
 .members-timeline__legend .tl-legend-album { background: var(--text); width: 3px; }
+.members-timeline__legend .tl-legend-uncertain { width: 24px; background: linear-gradient(90deg, var(--text-muted), transparent); }
+.members-timeline__missing { margin: 8px 0 0; font-size: 12.5px; color: var(--text-muted); }
 
 /* Sucesión de un sello */
 .org-succession { display: grid; gap: 10px; }

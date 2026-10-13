@@ -1,13 +1,14 @@
 // CRV · Piezas del modelo discográfico (plan del primo, etapa 2): versiones,
 // línea de serie, créditos en bloques de nombres y en frase, integrantes
 // agrupados y línea de tiempo de la banda.
-import { Fragment, type ReactNode } from "react";
+import { Fragment, useId, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import type {
   AlbumVersion, ArtistMember, CreditStatement, DiscographyItem, LabelRef, OrganizationRelation, ScopedCredit, SeriesMembership, Credit,
 } from "../lib/types";
 import { DeceasedMark } from "./DeceasedMark";
 import { INSTRUMENT_LABEL } from "../../../src/discography/instruments";
+import { plotted, timelineReady } from "../lib/membersTimeline";
 
 // ── Versiones ──────────────────────────────────────────────────────────────
 function labelsText(labels: LabelRef[]): ReactNode {
@@ -203,41 +204,54 @@ const INSTRUMENT_COLORS: Readonly<Record<string, string>> = {
   woodwinds: "#29a383", brass: "#d6409f", accordion: "#ad7f58", all_instruments: "#687076", direction: "#3e63dd",
 };
 
-/** Solo si TODOS los integrantes tienen periodo (decisión del plan): entrada y salida o «hasta hoy». */
-export function timelineReady(members: ArtistMember[]): boolean {
-  return members.length >= 2 && members.every((member) => member.fromYear !== null && (member.toYear !== null || member.isCurrent));
-}
+const memberSortYear = (member: ArtistMember) => member.fromYear ?? member.toYear ?? Number.MAX_SAFE_INTEGER;
 
-export function MembersTimeline({ members, albums, endYear }: { members: ArtistMember[]; albums: DiscographyItem[]; endYear: number }) {
+export function MembersTimeline({ members, albums, endYear, formedYear = null }: { members: ArtistMember[]; albums: DiscographyItem[]; endYear: number; formedYear?: number | null }) {
   const instrumentLabels = INSTRUMENT_LABEL as Readonly<Record<string, string>>;
-  if (!timelineReady(members)) return null;
-  // Una fila por persona, en orden de entrada.
+  const uid = useId().replace(/[^a-zA-Z0-9]/gu, "");
+  if (!timelineReady(members, formedYear)) return null;
+  const knownYears = members.flatMap((member) => [member.fromYear, member.toYear]).filter((year): year is number => year !== null);
+  const start = Math.min(...(formedYear !== null ? [formedYear] : []), ...knownYears);
+  const end = Math.max(endYear, ...knownYears);
+  const shown = members.filter((member) => plotted(member, true));
+  const shownPeople = new Set(shown.map((member) => member.personId));
+  const missing = [...new Map(members.filter((member) => !shownPeople.has(member.personId)).map((member) => [member.personId, member])).values()];
+  // Una fila por persona, en orden de entrada (los que solo tienen salida, por su salida).
   const byPerson = new Map<number, ArtistMember[]>();
-  for (const member of [...members].sort((a, b) => a.fromYear! - b.fromYear!)) byPerson.set(member.personId, [...(byPerson.get(member.personId) ?? []), member]);
+  for (const member of [...shown].sort((a, b) => memberSortYear(a) - memberSortYear(b))) byPerson.set(member.personId, [...(byPerson.get(member.personId) ?? []), member]);
   const rows = [...byPerson.values()];
-  const start = Math.min(...members.map((member) => member.fromYear!));
-  const end = Math.max(endYear, ...members.map((member) => member.toYear ?? endYear));
   const studio = albums.filter((album) => album.albumType === "studio_album" && album.releaseYear !== null && album.releaseYear >= start && album.releaseYear <= end);
   const labelWidth = 200; const rowHeight = 22; const width = 1000; const chartWidth = width - labelWidth - 12;
   const x = (year: number) => labelWidth + ((year - start) / Math.max(1, end + 1 - start)) * chartWidth;
   const height = rows.length * rowHeight + 30;
   const step = Math.max(1, Math.ceil((end - start + 1) / 12));
   const ticks = Array.from({ length: Math.floor((end - start) / step) + 1 }, (_, index) => start + index * step);
-  const used = new Set(members.flatMap((member) => member.instruments ?? []));
+  const used = new Set(shown.flatMap((member) => member.instruments ?? []));
+  const uncertain = shown.some((member) => member.fromYear === null || (member.toYear === null && !member.isCurrent));
+  const periodText = (member: ArtistMember) => `${member.fromYear ?? "?"}–${member.isCurrent ? "hoy" : member.toYear ?? "?"}`;
   return (
     <figure className="members-timeline">
       <div className="members-timeline__scroll">
         <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Línea de tiempo de los integrantes">
+          <defs>
+            <linearGradient id={`${uid}-out`}><stop offset="0" stopColor="#fff" stopOpacity="1" /><stop offset="0.3" stopColor="#fff" stopOpacity="0.3" /><stop offset="1" stopColor="#fff" stopOpacity="0.06" /></linearGradient>
+            <linearGradient id={`${uid}-in`}><stop offset="0" stopColor="#fff" stopOpacity="0.06" /><stop offset="0.7" stopColor="#fff" stopOpacity="0.3" /><stop offset="1" stopColor="#fff" stopOpacity="1" /></linearGradient>
+            <mask id={`${uid}-fade-out`} maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill={`url(#${uid}-out)`} /></mask>
+            <mask id={`${uid}-fade-in`} maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill={`url(#${uid}-in)`} /></mask>
+          </defs>
           {rows.map((row, index) => (
             <g key={row[0]!.personId}>
               <rect x={labelWidth} y={index * rowHeight} width={chartWidth} height={rowHeight} className={index % 2 ? "tl-band" : "tl-band tl-band--alt"} />
               <text x={labelWidth - 8} y={index * rowHeight + rowHeight / 2 + 4} textAnchor="end" className="tl-name">{row[0]!.personDisplayName ?? row[0]!.personName}</text>
               {row.map((member) => {
-                const from = x(member.fromYear!); const to = x((member.toYear ?? end) + (member.toYear === null ? 1 : 0.999));
+                // Entrada desconocida: desde el inicio de la banda, difuminado. Salida desconocida: hasta el final, difuminado.
+                const from = x(member.fromYear ?? start);
+                const to = x(member.toYear !== null ? member.toYear + 0.999 : end + 1);
+                const fade = member.fromYear === null ? "in" : member.toYear === null && !member.isCurrent ? "out" : null;
                 const [main, second] = member.instruments?.length ? member.instruments : ["all_instruments"];
                 return (
-                  <g key={member.id}>
-                    <title>{`${member.personName}: ${member.role} (${member.fromYear}–${member.isCurrent ? "hoy" : member.toYear})`}</title>
+                  <g key={member.id} mask={fade ? `url(#${uid}-fade-${fade})` : undefined}>
+                    <title>{`${member.personName}: ${member.role} (${periodText(member)})`}</title>
                     <rect x={from} y={index * rowHeight + 5} width={Math.max(2, to - from)} height={rowHeight - 10} fill={INSTRUMENT_COLORS[main!] ?? "#687076"} />
                     {second ? <rect x={from} y={index * rowHeight + rowHeight / 2 - 2} width={Math.max(2, to - from)} height={4} fill={INSTRUMENT_COLORS[second] ?? "#687076"} /> : null}
                   </g>
@@ -263,7 +277,11 @@ export function MembersTimeline({ members, albums, endYear }: { members: ArtistM
           <span key={key}><i style={{ background: INSTRUMENT_COLORS[key] ?? "#687076" }} />{instrumentLabels[key] ?? key}</span>
         ))}
         {studio.length ? <span><i className="tl-legend-album" />Disco de estudio</span> : null}
+        {uncertain ? <span><i className="tl-legend-uncertain" />Entrada o salida sin fecha</span> : null}
       </figcaption>
+      {missing.length ? (
+        <p className="members-timeline__missing">Sin periodo conocido: {missing.map((member) => member.personDisplayName ?? member.personName).join(", ")}.</p>
+      ) : null}
     </figure>
   );
 }

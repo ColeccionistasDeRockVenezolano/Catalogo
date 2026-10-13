@@ -42,7 +42,7 @@ const artistDetailSchema = artistBaseSchema.extend({
   members: z.array(z.object({
     id: z.number().int(), personId: z.number().int(), personName: z.string(), personDisplayName: z.string().nullable(), personRealName: z.string().nullable(), personIsDeceased: z.boolean(), role: z.string(),
     // Fechas de la persona: la ficha de un proyecto solista las muestra como suyas.
-    personBirthDate: z.string().nullable(), personDeathDate: z.string().nullable(),
+    personBirthDate: z.string().nullable(), personBirthCity: z.string().nullable(), personDeathDate: z.string().nullable(),
     fromYear: z.number().int().nullable(), toYear: z.number().int().nullable(), isCurrent: z.boolean(),
     isFounder: z.boolean().nullable(), founderEvidence: z.string().nullable(), instruments: z.array(z.string()),
   })),
