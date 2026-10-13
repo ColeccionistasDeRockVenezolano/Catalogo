@@ -117,7 +117,7 @@ core_filt() {
     | perl -0pe 's/--\n-- Name: \S+ crv_artist_genres_from_albums; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_artist_genres_from_albums [^\n]*\n\n\n//g' \
     | sed -E 's/^    is_venezuelan boolean,$/    is_venezuelan boolean DEFAULT false NOT NULL,/' \
     | sed -E '/^    is_deceased boolean,$/d' \
-    | sed -E '/^    (status|themes|years_active|logo_url|real_name|birth_city|death_cause|trivia|gender|release_date_text|catalog_id|media_format) (character varying\([0-9]+\)|text),?$/d' \
+    | sed -E '/^    (status|themes|years_active|logo_url|real_name|birth_city|death_cause|trivia|gender|release_date_text|catalog_id|media_format|lyrics) (character varying\([0-9]+\)|text),?$/d' \
     | perl -0pe 'my @b = split(/--\n-- Name: /, $_, -1); my $pre = shift @b; $_ = join("--\n-- Name: ", $pre, grep { !m{^((streaming|social)_links|album_disc(s|_links))} } @b);' \
     | perl -0pe 's/,\n\);/;\n);/g'
 }

@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
 import { BackLink } from "../components/BackLink";
 import { GitMerge, PencilSimple, Play, Trash } from "@phosphor-icons/react";
-import { albumFormatWrites, albumWrites, albumsApi, claimsApi, trackWrites, ApiError } from "../lib/api";
+import { albumFormatWrites, albumWrites, albumsApi, claimsApi, trackWrites, tracksApi, ApiError } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useMovedToRedirect } from "../lib/useMovedTo";
 import { useOperator } from "../lib/OperatorContext";
@@ -68,6 +68,18 @@ export function AlbumDetailPage() {
   const [trackAlbumLabel, setTrackAlbumLabel] = useState<string | null>(null);
   const [removingTrack, setRemovingTrack] = useState<Track | null>(null);
   const [expandedTrack, setExpandedTrack] = useState<number | null>(null);
+  // Letra de la pista (0073): se carga bajo demanda con el detalle de pista.
+  const [letra, setLetra] = useState<{ id: number; texto: string | null; cargando: boolean } | null>(null);
+  const verLetra = useCallback(async (track: Track) => {
+    if (letra?.id === track.id) { setLetra(null); return; }
+    setLetra({ id: track.id, texto: null, cargando: true });
+    try {
+      const detalle = await tracksApi.get(track.id);
+      setLetra({ id: track.id, texto: detalle.lyrics, cargando: false });
+    } catch {
+      setLetra({ id: track.id, texto: null, cargando: false });
+    }
+  }, [letra?.id]);
   const [addingFormat, setAddingFormat] = useState(false);
   const [editingFormat, setEditingFormat] = useState<AlbumFormat | null>(null);
   const [artistId, setArtistId] = useState<number | null>(null);
@@ -282,6 +294,13 @@ export function AlbumDetailPage() {
                             {expandedTrack === track.id ? "ocultar créditos" : `créditos (${track.credits.length})`}
                           </button>
                         ) : null}
+                        {track.hasLyrics ? (
+                          <button type="button" className="btn btn--sm btn--ghost track-lyrics-toggle"
+                            aria-expanded={letra?.id === track.id}
+                            onClick={() => { void verLetra(track); }}>
+                            {letra?.id === track.id ? "ocultar letra" : "letra"}
+                          </button>
+                        ) : null}
                       </td>
                       <td role="cell" className="num album-track-duration"><span className="album-track-duration-label">Duración </span>{formatDuration(track.durationSeconds)}</td>
                       <td role="cell" className="num album-track-start">
@@ -320,6 +339,16 @@ export function AlbumDetailPage() {
                         <td role="cell" colSpan={5} style={{ background: "var(--surface-2)" }}>
                           <CreditManager target={{ kind: "track", trackId: track.id }} credits={track.credits} onChanged={reload} compact provenance={creditProvenance} />
                           {isAdmin?<EntityVerification kind="track" id={track.id} revision={album} onChanged={reload}/>:null}
+                        </td>
+                      </tr>
+                    ) : null}
+                    {letra?.id === track.id ? (
+                      <tr role="row" className="album-track-lyrics">
+                        <td role="cell" colSpan={5} style={{ background: "var(--surface-2)" }}>
+                          {letra.cargando ? <p style={{ color: "var(--text-faint)", fontSize: 13.5 }}>Cargando letra…</p>
+                            : letra.texto
+                              ? <div className="track-lyrics-text">{letra.texto}</div>
+                              : <p style={{ color: "var(--text-faint)", fontSize: 13.5 }}>Sin letra registrada.</p>}
                         </td>
                       </tr>
                     ) : null}

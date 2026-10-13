@@ -32,7 +32,7 @@ export const ENTITY_SPECS: Readonly<Record<ResolvableClaimKind, EntitySpec>> = {
   track: {
     kind: "track", erKind: "TRACK", table: "public.tracks", targetColumn: "track_id", identityColumn: "title",
     aliasTable: "ingest.track_aliases", aliasTargetColumn: "track_id",
-    fields: { title: "title", disc_number: "disc_number", track_number: "track_number", duration_seconds: "duration_seconds", youtube_start_seconds: "youtube_start_seconds", notes: "notes" },
+    fields: { title: "title", disc_number: "disc_number", track_number: "track_number", duration_seconds: "duration_seconds", youtube_start_seconds: "youtube_start_seconds", notes: "notes", lyrics: "lyrics" },
   },
   organization: {
     kind: "organization", erKind: "ORGANIZATION", table: "public.organizations", targetColumn: "organization_id", identityColumn: "name",
