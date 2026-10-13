@@ -42,4 +42,22 @@ Las copias completas de los cuatro informes y estados están en `preserved-resea
 6. Medir M01/M02/M03/M04/M12 con denominadores reales y ejecutar tres repeticiones de reserva. No sustituir recall por trazabilidad ni considerar evaluado un denominador vacío.
 7. Validación integrada del mismo candidato (tipos, lint, builds, unitarias backend/web, contratos pertinentes, navegador y doctor en aceptación), expediente y revisión exigidos por el contrato.
 
-E2-01/E2-02/E2-03/E2-05 están en ejecución; E2-04 sigue pendiente. El objetivo permanece activo.
+E2-01 a E2-05 están en ejecución. El objetivo permanece pendiente de aceptación.
+
+## Avance del 13 de octubre — continúa en ejecución
+
+- Organizaciones y pistas incorporadas a snapshots, API de investigación, informes/versiones, comparación y contexto de propuestas. Las pistas se abren e investigan desde su álbum; los vínculos de comparación/preparación llevan al álbum y posición. Migración 0069 comprobada en PostgreSQL aislado.
+- Inventario de todas las afirmaciones crudas con fuente, estado, destino, motivo y enlace al hallazgo; se guardan también en `catalog_facts` y se incluyen los pendientes adicionales en el contexto por tareas. No se convierte una afirmación automática en revisión editorial.
+- Perfiles de identidad por nombre legal, país, proyectos, repertorio y contexto álbum/artista; navegación no establece identidad. Campos de edición (identificador, soporte, fecha y roles de sello) forman parte de las unidades. Las reglas v8 impiden confirmar una fecha con mes/día a partir de una fuente que solo muestra el año.
+- Preparación de propuestas con lease/heartbeat, recuperación solo de leases vencidas y publicación condicionada a propiedad. Checkpoints incluyen rondas, consultas obtenidas, evidencia y borrador; claves derivadas de la tarea se conservan al continuar. Una preparación parcial sigue accesible para revisión y reanudación. Migración 0071 comprobada en aislamiento.
+- Presupuesto global persistente de dólares/llamadas/tokens/concurrencia, reservas antes de la red, uso confirmado o estimación conservadora ante fallos, caché sin nuevo gasto y consumo visible. Migración 0070 comprobada en aislamiento. Precios oficiales preservados bajo `budget/`; usuario autorizó máximo US$10, gastando solo lo necesario. No se iniciaron llamadas reales todavía.
+- `normalized-copies/43039f64-751d-4b30-be82-1598cf63c071/audit.json` registra conservación de todas las citas crudas de las cuatro copias; Caramelos omite únicamente sus 50 marcadores vacíos sin referencias, con registro explícito y original intacto. Es auditoría de copias, no reprocesamiento con proveedor contra la ficha vigente ni prueba de recall.
+- La ejecución focalizada `/tmp/stage2-integrated-contract-r3.log` aprobó 47 contratos: investigación/historial, propuestas/recuperación, presupuesto y migración/reversión/reaplicación. Fechas/identidad/verificación: 39 unitarias focalizadas aprobadas. Falta una ejecución integrada congelada, corpus documental/editorial real, métricas y tres repeticiones de reserva.
+
+Instrucción vigente del propietario: terminar la etapa 2, condensar el contexto en un resumen persistente y continuar la etapa 3. El techo de US$10 corresponde a aceptación de etapa 2; no es un objetivo de gasto. Todas las migraciones y escrituras de prueba de este avance ocurrieron en PostgreSQL desechable; no se aplicaron estas migraciones a producción.
+
+La validación `quality-recovery-kinds-r1/` conservó el mismo código y detectó una expectativa de mensaje de comparación («álbumes»). Se conservó el contrato y se corrigió el texto de la API para mantener la terminología. `quality-recovery-kinds-r2/` es la candidata posterior; no se acredita hasta que finalice.
+
+`document-candidates/` conserva dos PDF reales accesibles (Ventilador Music y Festival Santa Lucía), originales/hash/fechas y extracciones con posiciones. Se registraron también 404, 403 y fallos de red de otros candidatos. Son documentos candidatos sin aprobación editorial ni conteo de corpus reservado. El PDF de Ventilador revela texto interno de una plantilla de otro álbum que no aparece en la página visible; `hidden-text-case.json` y su preview documentan el problema. Falta impedir que esas lecturas nativas ocultas se utilicen como respaldo y conservarlas como alternativas no corroboradas. El mismo original tiene años de premio distintos en marketing/narrativa; esa contradicción visible debe quedar pendiente, no resolverse de memoria.
+
+Nota histórica: README de migraciones registra aplicación autorizada de 0064–0066 a producción el 12 de octubre, posterior a los avances iniciales de este expediente. Las comprobaciones del 13 de octubre descritas aquí ensayaron 0069–0071 únicamente en PostgreSQL desechable.

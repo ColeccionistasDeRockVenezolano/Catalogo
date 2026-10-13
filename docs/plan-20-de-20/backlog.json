@@ -261,7 +261,10 @@
         "src/verification/curation.ts",
         "src/api/routes/entity-verification.ts"
       ],
-      "status": "planned"
+      "status": "in_progress",
+      "evidence": [
+        "reports/plan-20-de-20/etapa-2/ESTADO.md"
+      ]
     },
     {
       "id": "E2-05",

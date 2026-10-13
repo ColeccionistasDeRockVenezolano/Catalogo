@@ -9,6 +9,7 @@ import type {VerificationHistory,VerificationKind,VerificationReport,Verificatio
 import {loadVerificationSnapshot} from "./snapshot.js";
 import {newResearchLedger} from "./research-ledger.js";
 import type {DocumentMetadata} from "./documents/types.js";
+import {normalizePreservedState} from "./preserved-state.js";
 
 async function storedReport(kind:VerificationKind,id:number,versionId:number):Promise<VerificationReport>{
  const row=(await getPool().query<{report:VerificationReport}>("SELECT report FROM ingest.entity_verification_reports WHERE id=$1 AND entity_kind=$2 AND entity_id=$3",[versionId,kind,id])).rows[0];
@@ -26,10 +27,16 @@ export async function preservedReportState(kind:VerificationKind,id:number,versi
  const report=await storedReport(kind,id,versionId);
  if(report.researchVersionId){
   const row=(await getPool().query<{state:ResearchState}>("SELECT state FROM ingest.entity_verification_research_versions WHERE id=$1 AND entity_kind=$2 AND entity_id=$3 AND snapshot_hash=$4",[report.researchVersionId,kind,id,report.snapshotHash])).rows[0];
-  if(row){
-   if(row.state.pages.some(page=>createHash("sha256").update(page.content).digest("hex")!==page.contentHash))throw badRequest("La copia preservada no coincide con su hash; no se reprocesa una versión alterada.");
-   return structuredClone(row.state);
-  }
+  if(row)return normalizePreservedState(row.state,report);
+ }
+ // Before version IDs existed, the checkpoint was saved immediately before its
+ // report. Never borrow a checkpoint written after the selected report.
+ const candidates=(await getPool().query<{state:ResearchState}>(`SELECT state FROM (
+   SELECT state,updated_at FROM ingest.entity_verification_research_versions WHERE entity_kind=$1 AND entity_id=$2 AND snapshot_hash=$3
+   UNION ALL SELECT state,updated_at FROM ingest.entity_verification_research_state WHERE entity_kind=$1 AND entity_id=$2 AND snapshot_hash=$3
+  ) copies WHERE updated_at<=(SELECT created_at FROM ingest.entity_verification_reports WHERE id=$4) ORDER BY updated_at DESC`,[kind,id,report.snapshotHash,versionId])).rows;
+ for(const candidate of candidates){
+  try{return normalizePreservedState(candidate.state,report);}catch{/* Try an earlier exact copy or the per-document archive. */}
  }
  const pages:WebPage[]=[];
  for(const source of report.sources){
@@ -61,6 +68,15 @@ export async function listVerificationVersions(kind:VerificationKind,id:number,b
    jsonb_array_length(r.report->'sources') AS source_count,coalesce((r.report#>>'{evaluation,complete}')::boolean,false) AS complete,
    (coalesce((SELECT jsonb_array_length(v.state->'pages')>0 FROM ingest.entity_verification_research_versions v
      WHERE v.id=(r.report->>'researchVersionId')::bigint AND v.entity_kind=r.entity_kind AND v.entity_id=r.entity_id AND v.snapshot_hash=r.snapshot_hash),false)
+   OR (jsonb_array_length(r.report->'sources')>0 AND EXISTS (
+    SELECT 1 FROM (
+     SELECT entity_kind,entity_id,snapshot_hash,state,updated_at FROM ingest.entity_verification_research_versions
+     UNION ALL SELECT entity_kind,entity_id,snapshot_hash,state,updated_at FROM ingest.entity_verification_research_state
+    ) legacy WHERE legacy.entity_kind=r.entity_kind AND legacy.entity_id=r.entity_id AND legacy.snapshot_hash=r.snapshot_hash AND legacy.updated_at<=r.created_at
+    AND NOT EXISTS (SELECT 1 FROM jsonb_array_elements(r.report->'sources') s WHERE NOT EXISTS (
+     SELECT 1 FROM jsonb_array_elements(legacy.state->'pages') p WHERE p->>'url'=s->>'url' AND p->>'contentHash'=s->>'contentHash'
+      AND (p->>'capturedAt')::timestamptz IS NOT DISTINCT FROM (s->>'capturedAt')::timestamptz
+      AND coalesce(p->>'acquisitionMethod',CASE WHEN p->>'origin'='search_snippet' THEN 'search_snippet' ELSE 'unknown' END)=coalesce(s->>'acquisitionMethod',CASE WHEN s->>'origin'='search_snippet' THEN 'search_snippet' ELSE 'unknown' END)))))
    OR (jsonb_array_length(r.report->'sources')>0 AND NOT EXISTS (
      SELECT 1 FROM jsonb_array_elements(r.report->'sources') s WHERE NOT EXISTS (
        SELECT 1 FROM ingest.evidence_documents d WHERE d.url=s->>'url' AND d.content_hash=s->>'contentHash'

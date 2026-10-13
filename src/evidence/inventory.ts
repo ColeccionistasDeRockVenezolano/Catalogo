@@ -6,6 +6,7 @@ import { sourceProvenance } from "./provenance.js";
 import { OperatorError, updateEntity, type OperatorContext } from "../merge/operator.js";
 import { canonicalFieldValue } from "../merge/engine.js";
 import { ENTITY_SPECS, type ResolvableClaimKind } from "../merge/specs.js";
+import {extractionKey} from "../verification/documents/extraction-key.js";
 
 type Queryable = Pick<Pool | PoolClient, "query">;
 export const FACT_STATES = ["pending", "verified", "contradicted", "unverifiable", "editorial"] as const;
@@ -74,12 +75,14 @@ export async function rememberEvidenceDocument(db: Queryable, page: WebPage): Pr
   const provenance = sourceProvenance(page);
   const method = provenance.acquisitionMethod;
   const capturedAt = method === "unknown" ? null : provenance.capturedAt;
+  const extraction=page.document?extractionKey(page.document):null;
   if (!provenance.readAt) throw new OperatorError("invalid", "falta la fecha de lectura real de la fuente");
   // PostgreSQL normalizes the instant without discarding its microseconds.
   // The same timestamp written with a different UTC offset is the same key.
-  const documentKey = (await db.query<{ key: string }>(`SELECT encode(sha256(convert_to(jsonb_build_object(
-    'url',$1::text,'contentHash',$2::text,'capturedAt',to_char($3::timestamptz AT TIME ZONE 'UTC','YYYY-MM-DD"T"HH24:MI:SS.US"Z"'),'method',$4::text)::text,'UTF8')),'hex') AS key`,
-  [page.url, contentHash, capturedAt, method])).rows[0]!.key;
+  const documentKey = (await db.query<{ key: string }>(`SELECT encode(sha256(convert_to((jsonb_build_object(
+    'url',$1::text,'contentHash',$2::text,'capturedAt',to_char($3::timestamptz AT TIME ZONE 'UTC','YYYY-MM-DD"T"HH24:MI:SS.US"Z"'),'method',$4::text)
+    || CASE WHEN $5::text IS NULL THEN '{}'::jsonb ELSE jsonb_build_object('extractionHash',$5::text) END)::text,'UTF8')),'hex') AS key`,
+  [page.url, contentHash, capturedAt, method,extraction])).rows[0]!.key;
   const inserted = await db.query<{ id: string }>(`
     INSERT INTO ingest.evidence_documents(document_key,url,title,content_text,content_hash,captured_at,acquisition_method,raw_capture_id,extraction_metadata)
     VALUES($1,$2,$3,$4,$5,$6::timestamptz,$7,$8,$9::jsonb) ON CONFLICT(document_key) DO NOTHING RETURNING id::text`,

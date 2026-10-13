@@ -30,6 +30,7 @@ export function AiCurationPage() {
   const [kind, setKind] = useState<CatalogKind>(initialKind && initialKind in KIND_LABELS ? initialKind : "artist");
   const [entityId, setEntityId] = useState<number | null>(Number(params.get("id")) || null);
   const [entityLabel, setEntityLabel] = useState<string | null>(null);
+  const [parentAlbumId,setParentAlbumId]=useState<number|null>(null);
   const [instruction, setInstruction] = useState(params.get("instruction")?.slice(0, 6000) ?? DEFAULT_INSTRUCTION);
   const [vocabulary, setVocabulary] = useState<CatalogVocabulary | null>(null);
   const [history, setHistory] = useState<CatalogPlan[]>([]);
@@ -57,7 +58,7 @@ export function AiCurationPage() {
   }
   useEffect(() => {
     setReport(null); setReportError(null);
-    if (!entityId || (kind !== "artist" && kind !== "album" && kind !== "person")) return;
+    if (!entityId) return;
     let active = true;
     void entityVerificationApi.get(kind, entityId).then(next => { if (active) setReport(next); }).catch(cause => { if (active) setReportError(humanError(cause)); });
     return () => { active = false; };
@@ -92,10 +93,11 @@ export function AiCurationPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [kind, entityId, setParams]);
   useEffect(() => {
+    setParentAlbumId(null);
     if (!entityId) return;
     let active = true;
     const readers = { artist: artistsApi, person: personsApi, album: albumsApi, organization: organizationsApi, track: tracksApi };
-    void readers[kind].get(entityId).then((row) => { if (active) setEntityLabel("name" in row ? row.name : "title" in row ? row.title : `Ficha #${entityId}`); }).catch(() => undefined);
+    void readers[kind].get(entityId).then((row) => { if (active){setEntityLabel("name" in row ? row.name : "title" in row ? row.title : `Ficha #${entityId}`);if("albumId" in row)setParentAlbumId(row.albumId);} }).catch(() => undefined);
     return () => { active = false; };
   }, [kind, entityId]);
   const pollingId = plan?.id, pollingStatus = plan?.status, pollingPhase = plan?.phase;
@@ -161,6 +163,13 @@ export function AiCurationPage() {
     catch (cause) { setError(humanError(cause)); }
     finally { actionInFlight.current = false; setBusy(false); }
   }
+  async function resumePreparation(){
+    if(!plan||actionInFlight.current)return;
+    actionInFlight.current=true;setBusy(true);setError(null);
+    try{selectPlan(await aiCurationApi.resume(plan.id));}
+    catch(cause){setError(humanError(cause));}
+    finally{actionInFlight.current=false;setBusy(false);}
+  }
   const operations = plan?.draft?.operations ?? [];
   const decisions = plan?.decisions ?? {};
   const remaining = plan?.status === "applied" ? [] : operations.filter((op) => !decisions[op.key]);
@@ -170,7 +179,7 @@ export function AiCurationPage() {
 
   return <section className="ai-curation">
     <header className="page-header"><div><h1><Robot size={26} aria-hidden="true" /> Propuestas con IA</h1><p>La IA prepara cada corrección. Tú eliges Sí o No; cada aceptación se aplica al momento.</p></div></header>
-    {entityId ? <div className="ai-context"><div><strong>{entityLabel ?? `Ficha #${entityId}`}</strong><span>{KIND_LABELS[kind]}</span></div><Link className="btn btn--sm" to={`/${PATHS[kind]}/${entityId}`}>Ver ficha</Link></div> : null}
+    {entityId ? <div className="ai-context"><div><strong>{entityLabel ?? `Ficha #${entityId}`}</strong><span>{KIND_LABELS[kind]}</span></div>{kind!=="track"||parentAlbumId?<Link className="btn btn--sm" to={kind==="track"?`/discos/${parentAlbumId}#pista-${entityId}`:`/${PATHS[kind]}/${entityId}`}>Ver ficha</Link>:null}</div> : null}
     {error ? <p role="alert" className="ai-message ai-message--error">{error}</p> : null}
     {reportError ? <p role="alert">No se pudieron cargar los pendientes de la ficha. {reportError}</p> : null}
     {report ? <VerificationCurationQueue key={`${kind}:${entityId}`} report={report} history={history} disabled={busy || !!running || historyLoading || !vocabulary?.configured} onPrepare={prepareFinding} onSelect={next => { focusPlan.current = true; selectPlan(next); if (next.id === plan?.id) { focusPlan.current = false; planElement.current?.scrollIntoView({ block: "start", behavior: "instant" }); } }} /> : null}
@@ -192,6 +201,7 @@ export function AiCurationPage() {
       <details className="ai-summary-detail"><summary>Qué se pidió en esta propuesta</summary><p>{plan.instruction}</p></details>
       {running ? <p role="status">{PHASES[plan.phase] ?? "Preparando cambios…"} Puedes salir de la página; la propuesta quedará guardada.</p> : null}
       {plan.error ? <p role="alert">{plan.error}</p> : null}
+      {plan.phase==="partial"||plan.status==="failed"?<div role="status"><p>La preparación quedó incompleta. Se conservan los lotes, las fuentes y los cambios obtenidos; puedes continuar las tareas pendientes.</p><button type="button" className="btn" disabled={busy||running} onClick={()=>void resumePreparation()}>Reanudar preparación</button></div>:null}
       {plan.draft && vocabulary ? <>
         <div className="ai-review-heading"><h2>{remaining.length ? `${remaining.length} ${remaining.length === 1 ? "cambio por revisar" : "cambios por revisar"}` : operations.length ? "Revisión terminada" : "Sin cambios preparados"}</h2><p role="status">{accepted || rejected ? `${accepted} aplicados · ${rejected} rechazados` : remaining.length ? "Aceptar modifica el catálogo. Rechazar conserva el dato actual." : plan.status === "applied" ? "Esta propuesta se implementó como lote." : "Consulta las dudas pendientes y las fuentes de esta revisión."}</p></div>
         {operations.length ? <div className="ai-filter" role="group" aria-label="Mostrar propuestas"><button className="btn btn--sm" type="button" aria-pressed={filter === "pending"} onClick={() => setFilter("pending")}>Pendientes ({remaining.length})</button><button className="btn btn--sm" type="button" aria-pressed={filter === "all"} onClick={() => setFilter("all")}>Ver todas ({operations.length})</button>{plan.status === "ready" ? <button type="button" className="btn btn--sm" disabled={busy} onClick={() => void refresh()}>Actualizar cambios</button> : null}</div> : null}

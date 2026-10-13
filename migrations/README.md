@@ -134,3 +134,7 @@ retira los vínculos de recuperación, por lo que requiere respaldo previo.
 ## Plan del primo, etapa 1 (2026-10-12)
 
 `0067_alias_nickname_source_variant` añade dos valores a `ingest.alias_type`: `nickname` (apodo: la API compone «José Luis "Cheo" Pardo» solo en pantalla; la base guarda el nombre real) y `source_variant` (variante de fuente: se conserva para la búsqueda y la ingesta, pero el público no la ve). Solo `ingest`. Aplicada a la base viva (crv-postgres) el 2026-10-12. Ese mismo día, con autorización de Brian, se aplicaron también 0064–0066 para el despliegue de la etapa 1 (respaldo previo `crv-20261012T081703Z`). El down pasa esas filas a `name_variant` y recrea el enum con los ocho valores originales en las cinco tablas de alias.
+
+`0069_verification_entity_kinds` habilita informes, trabajos y checkpoints de organizaciones y pistas. El down rechaza revertir mientras existan investigaciones de esos tipos; no elimina sus datos para satisfacer el esquema anterior.
+
+`0070_ai_execution_budgets` registra presupuestos autorizados y tarifas preservadas, reservas antes de la red y consumo confirmado/estimado. Un proceso interrumpido mantiene la reserva; la caché del gateway no crea otra. `0071_curation_recovery_leases` incorpora propiedad y expiración de preparaciones y el hash de su contexto para reutilizar una propuesta abierta sin ocultar cambios posteriores del catálogo.

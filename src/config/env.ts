@@ -144,6 +144,7 @@ const envSchema = z.object({
   CRV_RESEARCH_PDF_IMAGES_COMMAND: z.string().min(1).default("pdfimages"),
   CRV_RESEARCH_PDF_RASTER_SIZE: z.coerce.number().int().min(1000).max(8000).default(3200),
   CRV_RESEARCH_MAX_CALLS: z.coerce.number().int().positive().default(200),
+  CRV_AI_BUDGET_ID: z.string().min(1).max(100).optional(),
   CRV_RESEARCH_MAX_TOKENS: z.coerce.number().int().positive().default(1000000),
   CRV_RESEARCH_LEASE_SECONDS: z.coerce.number().int().min(30).default(180),
   CRV_WEB_SEARCH_CACHE_DAYS: z.coerce.number().int().positive().default(30),

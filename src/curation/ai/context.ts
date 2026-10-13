@@ -5,6 +5,7 @@ import { ENTITY_SPECS } from "../../merge/specs.js";
 import { RELATION_SPECS } from "../../merge/relations.js";
 import { WebSearchBroker, type WebPage } from "../../ambiguity/web-search.js";
 import { usablePage } from "../../verification/proof.js";
+import {visibleSegments,requiresPdfReread} from "../../verification/documents/visibility.js";
 import type { CatalogEvidence, CatalogKind } from "./types.js";
 import { ENTITY_FIELDS } from "../../api/routes/catalog-writes.js";
 import { RELATION_ROUTES } from "../../api/routes/relation-writes.js";
@@ -236,17 +237,19 @@ export function evidenceFromPage(
   terms: string[],
   start: number,
 ): CatalogEvidence[] {
-  if (!usablePage(page)) return [];
+  if (!usablePage(page)||requiresPdfReread(page.document)) return [];
   // Read across the source, including facts outside the initial request and visual resources.
   // Overlap preserves statements and image URLs that cross a chunk boundary.
   const chunks: string[] = [];
-  for (let offset = 0; offset < page.content.length; offset += 1300)
-    chunks.push(page.content.slice(offset, offset + 1800));
+  for(const segment of page.document?visibleSegments(page.content,page.document.locations):[page.content]){
+    for (let offset = 0; offset < segment.length; offset += 1300)
+      chunks.push(segment.slice(offset, offset + 1800));
+  }
   const needles = terms.map(term => term.toLocaleLowerCase()).filter(term => term.length > 3);
   const rank = (chunk: string) => needles.filter(term => chunk.toLocaleLowerCase().includes(term)).length;
   chunks.sort((a, b) => rank(b) - rank(a));
   return chunks
-    .filter((q) => q.trim().length >= 30)
+    .filter((q) => q.trim().length>0)
     .map((quote, i) => ({
       id: `E${start + i}`,
       url: page.url,
@@ -290,7 +293,7 @@ export async function planningContext(
     return evidence[evidence.length - 1]!.id;
   };
   let report: Record<string, unknown> | null = null;
-  if (kind !== "organization" && kind !== "track") {
+  {
     const savedReport = (
       await db.query<{ report: Record<string, unknown> }>(
         "SELECT report FROM ingest.entity_verification_reports WHERE entity_kind=$1 AND entity_id=$2 ORDER BY id DESC LIMIT 1",
@@ -306,12 +309,18 @@ export async function planningContext(
         (saved["findings"] as Array<Record<string, unknown>>) ?? []
       ).filter((f) => f["status"] !== "confirmed");
       const review = curationFindings(saved as unknown as VerificationReport) as unknown as Array<Record<string, unknown>>;
-      const selected = [...review, ...pending].find(f => instruction.includes(`hallazgo ${String(f["key"])} (`));
+      const rawExtractions=(saved["extractions"]??[]) as NonNullable<VerificationReport["extractions"]>;
+      const preservedSources=(saved["sources"]??[]) as VerificationReport["sources"];
+      const additional=rawExtractions.filter(item=>item.destination!=="already_present"&&item.destination!=="discarded"&&!item.findingKey).map(item=>({
+        key:`extracted.${item.id}`,area:item.area,label:"Dato extraído por resolver",value:null,observed:item.value,status:item.state==="contradicted"?"contradicted":"unverified",context:item.context,explanation:item.reason,
+        evidence:item.evidence.filter(citation=>citation.url&&citation.valid).map(citation=>({...preservedSources.find(source=>source.url===citation.url&&source.contentHash===citation.contentHash),url:citation.url!,quote:citation.quote,contentHash:citation.contentHash??""})),
+      })) as Array<Record<string,unknown>>;
+      const selected = [...review, ...pending,...additional].find(f => instruction.includes(`hallazgo ${String(f["key"])} (`)||String(f["key"]).startsWith("extracted.")&&instruction.includes(`dato extraído ${String(f["key"]).slice(10)}`));
       // A targeted request must retain its finding and citations even when it is past every broad-plan limit.
       const candidates = [...new Map([
         ...review.filter(f => f["observed"]),
         ...review.filter(f => !f["observed"]),
-        ...pending,
+        ...pending,...additional,
       ].map(f=>[String(f["key"]),f])).values()];
       const units = selected ? [selected] : candidates;
       if (selected) {
@@ -328,7 +337,7 @@ export async function planningContext(
         const evidenceIds = ((f["evidence"] as Array<Record<string, unknown>>) ?? []).map((e) => add({
           url: String(e["url"]), quote: String(e["quote"]),
           fetchedAt: String(e["fetchedAt"] ?? ""), ...sourceProvenance({ capturedAt:e["capturedAt"],readAt:e["readAt"],acquisitionMethod:e["acquisitionMethod"] }), origin: String(e["origin"] ?? "page"),
-          contentHash: "", label: String(f["label"] ?? f["key"]),
+          contentHash: String(e["contentHash"]??""), label: String(f["label"] ?? f["key"]),
         })).filter((id): id is string => !!id);
         return { key: f["key"], area: f["area"], label: f["label"], value: f["value"], observed: f["observed"], status: f["status"], context: f["context"], explanation: f["explanation"], evidenceIds };
       });

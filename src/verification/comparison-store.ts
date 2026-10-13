@@ -61,7 +61,7 @@ export async function comparisonHistory(ref:EntityRef):Promise<ComparisonHistory
   const target=row.left.kind===ref.kind&&row.left.id===ref.id?row.right:row.left;
   const saved=[row.report?.left,row.report?.right].find(s=>s?.kind===target.kind&&s?.id===target.id);
   let name=saved?.name;
-  if(!name){const table={artist:"artists",person:"persons",album:"albums"}[target.kind];const column=target.kind==="album"?"title":"name";name=(await getPool().query<{name:string}>(`SELECT ${column} AS name FROM public.${table} WHERE id=$1`,[target.id])).rows[0]?.name;}
+  if(!name){const table={artist:"artists",person:"persons",album:"albums",organization:"organizations",track:"tracks"}[target.kind];const column=target.kind==="album"||target.kind==="track"?"title":"name";name=(await getPool().query<{name:string}>(`SELECT ${column} AS name FROM public.${table} WHERE id=$1`,[target.id])).rows[0]?.name;}
   if(!name)continue;
   result.push({target:{kind:target.kind,id:target.id},name,createdAt:row.created_at,jobId:row.job_id?Number(row.job_id):null,status:row.status});
  }

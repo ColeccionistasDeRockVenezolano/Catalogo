@@ -1,4 +1,4 @@
-export const DOCUMENT_EXTRACTION_VERSION=1;
+export const DOCUMENT_EXTRACTION_VERSION=2;
 export type DocumentFormat="html"|"rendered_html"|"json"|"text"|"pdf"|"image";
 export interface DocumentLocation {
   start:number;end:number;selector:string;
@@ -16,6 +16,7 @@ export interface DocumentExtraction {
   processedPages?:number[];totalPages?:number;parts?:DocumentPart[];
 }
 export interface DocumentMetadata {
+  extractionHash?:string;
   captureId:number;rawHash:string;format:DocumentFormat;method:string;extractionVersion:number;
   complete:boolean;unreadParts:string[];warnings:string[];
   locations:DocumentLocation[];followLinks:string[];

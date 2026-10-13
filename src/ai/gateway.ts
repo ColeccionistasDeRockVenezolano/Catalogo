@@ -6,6 +6,7 @@ import { createHash } from "node:crypto";
 import { z } from "zod";
 import { getEnv } from "../config/env.js";
 import { getPool } from "../db/client.js";
+import {reserveExecutionBudget,settleExecutionBudget} from "./budget.js";
 
 export type DeepSeekTaskKind =
   | "cheap_classification"
@@ -33,6 +34,7 @@ const MODEL_CLASS: Record<DeepSeekTaskKind, DeepSeekModelClass> = {
 };
 
 export interface DeepSeekGatewayConfig {
+  budgetId?:string;
   apiKey?: string;
   baseUrl: string;
   models: Record<DeepSeekModelClass, string>;
@@ -283,6 +285,7 @@ export class DeepSeekGateway {
       const proposal = request.responseSchema.parse(cached.output);
       return { proposal, model: cached.model, modelClass, cached: true, promptHash, runId: cached.id };
     }
+    const reservation=this.config.budgetId?await reserveExecutionBudget(this.config.budgetId,{model,taskKind:request.taskKind,promptHash,system,user,maxTokens:this.config.maxTokens,timeoutMs:this.config.timeoutMs}):undefined;
     let completion: DeepSeekTransportResponse;
     try {
       completion = await this.transport.complete({
@@ -292,6 +295,7 @@ export class DeepSeekGateway {
         system, user,
       });
     } catch (error) {
+      if(reservation)await settleExecutionBudget(reservation,error instanceof DeepSeekValidationError?error.usage:undefined);
       await this.store?.save({
         promptHash, taskKind: request.taskKind, model, schemaVersion: request.schemaVersion,
         status: "failed", inputSummary: request.input, requestPayload,
@@ -300,6 +304,7 @@ export class DeepSeekGateway {
       });
       throw error;
     }
+    if(reservation)await settleExecutionBudget(reservation,completion.tokensIn!==undefined&&completion.tokensOut!==undefined?{tokensIn:completion.tokensIn,tokensOut:completion.tokensOut}:undefined);
     let decoded: unknown;
     try {
       decoded = JSON.parse(completion.content);
@@ -335,6 +340,7 @@ export class DeepSeekGateway {
 export function deepSeekConfigFromEnv(): DeepSeekGatewayConfig {
   const env = getEnv();
   return {
+    ...(env.CRV_AI_BUDGET_ID?{budgetId:env.CRV_AI_BUDGET_ID}:{}),
     ...(env.DEEPSEEK_API_KEY === undefined ? {} : { apiKey: env.DEEPSEEK_API_KEY }),
     baseUrl: env.DEEPSEEK_BASE_URL,
     models: { fast: env.DEEPSEEK_MODEL_FAST, reasoning: env.DEEPSEEK_MODEL_REASONING, vision: env.DEEPSEEK_MODEL_VISION },

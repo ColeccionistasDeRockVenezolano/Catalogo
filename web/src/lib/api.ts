@@ -62,6 +62,7 @@ export const aiCurationApi = {
   list:(kind?:CatalogKind,entityId?:number)=>request<CatalogPlan[]>("/curation/ai/plans",{query:{kind,entityId}}),
   get:(id:number)=>request<CatalogPlan>(`/curation/ai/plans/${id}`),
   start:(kind:CatalogKind,entityId:number,instruction:string)=>request<CatalogPlan>("/curation/ai/plans",{method:"POST",authenticated:true,body:{kind,entityId,instruction}}),
+  resume:(id:number)=>request<CatalogPlan>(`/curation/ai/plans/${id}/resume`,{method:"POST",authenticated:true}),
   save:(plan:CatalogPlan,draft:CatalogDraft,reviewedKeys:string[])=>request<CatalogPlan>(`/curation/ai/plans/${plan.id}`,{method:"PATCH",authenticated:true,body:{revision:plan.revision,draft,reviewedKeys}}),
   decide:(plan:CatalogPlan,key:string,decision:"accepted"|"rejected")=>request<CatalogPlan>(`/curation/ai/plans/${plan.id}/decisions`,{method:"POST",authenticated:true,body:{revision:plan.revision,key,decision}}),
   refresh:(plan:CatalogPlan)=>request<CatalogPlan>(`/curation/ai/plans/${plan.id}/refresh`,{method:"POST",authenticated:true,body:{revision:plan.revision}}),
@@ -573,6 +574,7 @@ export const imageCandidatesApi = {
 
 // Informes de fiabilidad: la API exige rol de administrador, también en lectura.
 export const entityVerificationApi = {
+  budget:()=>request<{id:string;maxUsd:number;chargedUsd:number;calls:number;tokens:number;unknownCalls:number}|null>("/entity-verification/budget"),
   versions: (kind:import("../../../src/verification/types").VerificationKind,id:number,beforeId?:number) => request<import("../../../src/verification/types").VerificationHistory>(`/entity-verification/${kind}/${id}/versions`,{query:{beforeId}}),
   version: (kind:import("../../../src/verification/types").VerificationKind,id:number,versionId:number) => request<import("../../../src/verification/types").VerificationReport>(`/entity-verification/${kind}/${id}/versions/${versionId}`),
   reprocess: (kind:import("../../../src/verification/types").VerificationKind,id:number,versionId:number) => request<import("../../../src/verification/types").VerificationJob>(`/entity-verification/${kind}/${id}/versions/${versionId}/reprocess`,{method:"POST",authenticated:true}),

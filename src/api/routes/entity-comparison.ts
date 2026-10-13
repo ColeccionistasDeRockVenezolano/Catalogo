@@ -5,7 +5,7 @@ import { OPERATOR_SECURITY } from "../auth.js";
 import { notFound } from "../http-errors.js";
 import { verificationReportSchema } from "./entity-verification.js";
 import { comparisonHistory, activeComparisonJob, getComparison, getComparisonJob, recoverComparisonJobs, startComparison } from "../../verification/comparison-store.js";
-const kind=z.enum(["artist","person","album"]);
+const kind=z.enum(["artist","person","album","organization","track"]);
 const ref=z.object({kind,id:z.number().int().positive()});
 const album=z.object({id:z.number().int(),title:z.string(),artist:z.string(),year:z.number().nullable()});
 const side=ref.extend({name:z.string(),hash:z.string(),artistType:z.string().nullable(),facts:z.record(z.array(z.string())),verification:verificationReportSchema,

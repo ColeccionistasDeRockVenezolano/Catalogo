@@ -61,7 +61,7 @@ export async function recoverIndividualJobs():Promise<void> {
 }
 export async function startIndividualVerification(kind:VerificationKind,id:number,operator:string,
   work:VerificationWork=defaultWork,budget:NonNullable<VerificationJob["budget"]>={},source:{sourceReportId?:number;resumeFromJobId?:number;preservedOnly?:boolean}={}):Promise<VerificationJob> {
-  const table={person:"persons",artist:"artists",album:"albums"}[kind];
+  const table={person:"persons",artist:"artists",album:"albums",organization:"organizations",track:"tracks"}[kind];
   const exists=await getPool().query(`SELECT id FROM public.${table} WHERE id=$1`,[id]);
   if(!exists.rows.length)throw notFound(kind,id);
   const current=await activeIndividualJob(kind,id);if(current){if(source.sourceReportId&&source.sourceReportId!==current.sourceReportId)throw badRequest("Ya hay una investigación en curso; espera o páusala antes de reprocesar otra versión.");return current;}

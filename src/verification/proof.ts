@@ -1,7 +1,11 @@
 import type { WebPage } from "../ambiguity/web-search.js";
 import type { VerificationEvidence, VerificationUnit } from "./types.js";
+import {dateBacked} from "./date-proof.js";
+import {visibleQuote,visibleTranscript} from "./documents/visibility.js";
+import {extractionKey} from "./documents/extraction-key.js";
+export function matchesEvidence(page:WebPage,evidence:VerificationEvidence):boolean{return page.url===evidence.url&&(!evidence.contentHash||page.contentHash===evidence.contentHash)&&(!evidence.extractionHash||!!page.document&&extractionKey(page.document)===evidence.extractionHash);}
 
-export const RULES_VERSION = 7;
+export const RULES_VERSION = 10;
 export function fold(value: string): string { return value.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase().replace(/\s+/gu, " ").trim(); }
 export function words(value: string): string { return fold(value.replace(/(\p{L})(?=\d+[.-](?:\s|\p{Lu}))/gu, "$1 ").replace(/([\p{Ll}])([\p{Lu}])/gu, "$1 $2")).replace(/[^\p{L}\p{N}]+/gu, " ").replace(/\s+/gu, " ").trim(); }
 export function contains(text: string, value: string): boolean { const term=words(value); return Boolean(term && ` ${words(text)} `.includes(` ${term} `)); }
@@ -62,6 +66,7 @@ export function canonicalLink(value: string): string {
   return `${url.hostname.replace(/^www\./u,"")}${url.pathname.replace(/\/$/u,"")}${url.search}`;
 }
 const SYNONYMS:Record<string,string[]>={
+  venezuela:["Venezuela","venezolano","venezolana","Venezuelan"],record_label:["record label","sello discográfico","discográfica"],
   "rock alternativo":["rock alternativo","alternative rock"],"alternative rock":["alternative rock","rock alternativo"],
   "pop rock":["pop rock","poprock"],
   bass:["bass","bajo","bajista"],bajo:["bass","bajo","bajista"],guitar:["guitar","guitarra","guitarrista"],guitars:["guitars","guitar","guitarra","guitarrista"],guitarra:["guitar","guitarra","guitarrista"],
@@ -70,7 +75,10 @@ const SYNONYMS:Record<string,string[]>={
   studio_album:["studio album","album de estudio","disco de estudio"],live_album:["live album","album en vivo","disco en vivo","(en vivo)"],compilation:["compilation","recopilacion","compilacion","recopilatorio"],
   single:["single","singles","sencillo"],soundtrack:["soundtrack","banda sonora"],collaboration_album:["collaboration album","album colaborativo"],
 };
-export function backed(text: string, value: string): boolean { return (SYNONYMS[fold(value)]??[value]).some(v=>contains(text,v)); }
+export function backed(text: string, value: string): boolean {
+  if(/^\d{4}-\d{2}(?:-\d{2})?$/u.test(value))return dateBacked(text,value);
+  return (SYNONYMS[fold(value)]??[value]).some(v=>contains(text,v));
+}
 /** Espacios dentro de un nombre compuesto no cambian la identidad de una pista. */
 export function trackTitleMatch(text: string,value: string): boolean {
   const compact=words(value.replace(/[²³]/gu,"")).replace(/ /gu,"");
@@ -81,7 +89,7 @@ export function trackTitleMatch(text: string,value: string): boolean {
 /** Devuelve posiciones ligadas al título, conservando el soporte de la lista. */
 export function positions(unit: VerificationUnit,e: VerificationEvidence,page: WebPage): Array<{disc:number;number:number}> {
   const title=unit.expected[0];if(!title)return [];
-  const normalized=fold(page.content); const quote=fold(e.quote);const start=normalized.indexOf(quote); if(start<0)return [];
+  const normalized=fold(page.document?visibleTranscript(page.content,page.document.locations):page.content); const quote=fold(page.document?visibleQuote(page.content,page.document.locations,e.quote):e.quote);const start=normalized.indexOf(quote); if(start<0)return [];
   const titlePattern=[...words(title.replace(/[²³]/gu,"")).replace(/ /gu,"")].map(escapeRegex).join("[^\\p{L}\\p{N}]*");
   const pattern=new RegExp(`(?:^|[^0-9])(?:(\\d+)\\.)?0*(\\d+)[^\\p{L}\\p{N}]+${titlePattern}(?=$|[^\\p{L}\\p{N}]|\\d+[.-])`,"gu");
   const found:Array<{disc:number;number:number}>=[];

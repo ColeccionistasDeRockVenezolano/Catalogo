@@ -10,8 +10,8 @@ import type { ComparisonReport, ComparisonSide, EntityRef } from "../../../src/v
 import type { ComparisonHistoryItem } from "../../../src/verification/comparison-store";
 import type { VerificationReport } from "../../../src/verification/types";
 
-const KIND={artist:"Artista",person:"Persona",album:"Álbum"};
-const PATH={artist:"artistas",person:"personas",album:"discos"};
+const KIND={artist:"Artista",person:"Persona",album:"Álbum",organization:"Organización",track:"Pista"};
+const PATH={artist:"artistas",person:"personas",album:"discos",organization:"organizaciones",track:"pistas"};
 const CONCLUSION={same_identity:"Evidencia de una misma identidad",related:"Fichas relacionadas",distinct:"Separación documentada",inconclusive:"Evidencia insuficiente"};
 const STATUS={match:"Coincide",partial:"Coincidencia parcial",different:"Valores diferentes",missing:"Faltan datos"};
 const number=new Intl.NumberFormat("es-VE",{maximumFractionDigits:1});
@@ -19,10 +19,11 @@ const same=(a:EntityRef,b:EntityRef)=>a.kind===b.kind&&a.id===b.id;
 
 export function EntityComparison({source,revision,onUpdated}:{source:EntityRef;revision:unknown;onUpdated:()=>void}) {
   type Draft={open:boolean;kind:EntityRef["kind"];query:string;selected:{ref:EntityRef;name:string}|null};
-  const [draft,setDraft]=useEntityToolDraft<Draft>(`compare.${source.kind}.${source.id}`,{open:false,kind:source.kind==="album"?"album":source.kind==="artist"?"person":"artist",query:"",selected:null},(value):value is Draft=>{
+  const performer=source.kind==="person"||source.kind==="artist";
+  const [draft,setDraft]=useEntityToolDraft<Draft>(`compare.${source.kind}.${source.id}`,{open:false,kind:performer?(source.kind==="artist"?"person":"artist"):source.kind,query:"",selected:null},(value):value is Draft=>{
     if(!value||typeof value!=="object")return false;
     const v=value as Draft;
-    return typeof v.open==="boolean"&&typeof v.query==="string"&&v.query.length<=250&&(source.kind==="album"?v.kind==="album":v.kind==="person"||v.kind==="artist")&&(v.selected===null||Boolean(v.selected&&typeof v.selected.name==="string"&&v.selected.ref?.kind===v.kind&&Number.isSafeInteger(v.selected.ref.id)&&v.selected.ref.id>0&&!same(source,v.selected.ref)));
+    return typeof v.open==="boolean"&&typeof v.query==="string"&&v.query.length<=250&&(performer?v.kind==="person"||v.kind==="artist":v.kind===source.kind)&&(v.selected===null||Boolean(v.selected&&typeof v.selected.name==="string"&&v.selected.ref?.kind===v.kind&&Number.isSafeInteger(v.selected.ref.id)&&v.selected.ref.id>0&&!same(source,v.selected.ref)));
   });
   const {open,kind,query,selected}=draft;
   const [hits,setHits]=useState<SearchHit[]>([]);
@@ -53,9 +54,9 @@ export function EntityComparison({source,revision,onUpdated}:{source:EntityRef;r
     <button type="button" className="btn btn--sm" aria-expanded={open} aria-controls={panelId} onClick={()=>setDraft({...draft,open:!open})}><ArrowsLeftRight size={14} aria-hidden="true"/>{open?"Ocultar comparación":"Comparar con otra ficha"}</button>
     <div id={panelId} hidden={!open}>
       <h3>Comparar esta ficha</h3>
-      <p>{source.kind==="album"?"Busca otro álbum para contrastar el lanzamiento, la edición, los créditos y las pistas.":"Busca una persona o un artista para contrastar identidad y trayectoria. Una membresía establece un vínculo; un solista puede corresponder a una persona."}</p>
+      <p>{source.kind==="album"?"Busca otro álbum para contrastar el lanzamiento, la edición, los créditos y las pistas.":source.kind==="track"?"Busca otra pista para contrastar artista, álbum, edición, posición y créditos.":source.kind==="organization"?"Busca otra organización para contrastar nombre, país, personas y discos vinculados.":"Busca una persona o un artista para contrastar identidad y trayectoria. Una membresía establece un vínculo; un solista puede corresponder a una persona."}</p>
       <div className="entity-comparison__search">
-        {source.kind!=="album"?<label className="field" htmlFor={typeId}>Tipo de ficha<select id={typeId} value={kind} onChange={event=>{setDraft({...draft,kind:event.target.value as EntityRef["kind"],query:"",selected:null});}}><option value="person">Personas</option><option value="artist">Artistas</option></select></label>:null}
+        {performer?<label className="field" htmlFor={typeId}>Tipo de ficha<select id={typeId} value={kind} onChange={event=>{setDraft({...draft,kind:event.target.value as EntityRef["kind"],query:"",selected:null});}}><option value="person">Personas</option><option value="artist">Artistas</option></select></label>:null}
         <label className="field" htmlFor={inputId}>Buscar {KIND[kind].toLowerCase()}<input id={inputId} type="search" value={query} placeholder={kind==="album"?"Título o alias del álbum":"Nombre o alias"} onChange={event=>setDraft({...draft,query:event.target.value.slice(0,250)})}/></label>
       </div>
       {error?<p role="alert">{error}</p>:null}
@@ -101,8 +102,9 @@ function ComparisonResult({source,target,revision,onSaved}:{source:EntityRef;tar
   const reversed=report&&!same(report.left,source);
   const left=report?(reversed?report.right:report.left):null;
   const right=report?(reversed?report.left:report.right):null;
+  const targetHref=target.ref.kind==="track"?(right?.snapshot.albums[0]?`/discos/${right.snapshot.albums[0].id}#pista-${target.ref.id}`:null):`/${PATH[target.ref.kind]}/${target.ref.id}`;
   return <section className="entity-comparison__result" aria-label="Resultado de comparación">
-    <h4>Esta ficha ↔ <Link to={`/${PATH[target.ref.kind]}/${target.ref.id}`}>{target.name}</Link></h4>
+    <h4>Esta ficha ↔ {targetHref?<Link to={targetHref}>{target.name}</Link>:target.name}</h4>
     <button type="button" className="btn btn--sm" disabled={busy||loading} onClick={()=>void investigate()}><MagnifyingGlass size={14} aria-hidden="true"/>{busy?"Investigando ambas fichas…":report?.researched?"Volver a investigar y comparar":"Investigar ambas fichas y comparar"}</button>
     {error?<p role="alert">{error} Puedes volver a intentarlo.</p>:null}
     {busy?<p role="status">La comparación continúa en segundo plano. El informe de ambas fichas y sus evidencias quedará guardado; puedes recuperarlo desde cualquiera de las dos.</p>:null}

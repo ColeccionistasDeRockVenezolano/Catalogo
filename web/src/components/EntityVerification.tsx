@@ -17,6 +17,7 @@ export function EntityVerification({kind,id,revision,onChanged}:{kind:Verificati
   const [comparisonRefresh,setComparisonRefresh]=useState(0);
   const reloadVerification=useCallback(()=>setComparisonRefresh(v=>v+1),[]);
   const [report,setReport]=useState<VerificationReport|null>(null);
+  const [financial,setFinancial]=useState<Awaited<ReturnType<typeof entityVerificationApi.budget>>>(null);
   type Draft={open:boolean;details:boolean;filter:"all"|VerificationFinding["status"]};
   const [draft,setDraft]=useEntityToolDraft<Draft>(`verify.${kind}.${id}`,{open:false,details:false,filter:"all"},(v):v is Draft=>Boolean(v&&typeof v==="object"&&typeof (v as Draft).open==="boolean"&&typeof (v as Draft).details==="boolean"&&["all",...Object.keys(STATUS)].includes((v as Draft).filter)));
   const {open,filter}=draft;
@@ -33,8 +34,8 @@ export function EntityVerification({kind,id,revision,onChanged}:{kind:Verificati
     let active=true;const version=++requestVersion.current;
     setControlling(false);
     setLoading(true);setReport(null);setError(null);setJobId(null);setBusy(false);setJob(null);
-    void Promise.all([entityVerificationApi.get(kind,id),entityVerificationApi.latest(kind,id)]).then(([saved,job])=>{
-      if(!active)return;setReport(saved);setJob(job);
+    void Promise.all([entityVerificationApi.get(kind,id),entityVerificationApi.latest(kind,id),entityVerificationApi.budget()]).then(([saved,job,budget])=>{
+      if(!active)return;setReport(saved);setJob(job);setFinancial(budget);
       const running=job?.status==="queued"||job?.status==="running";
       setJobId(running?job.id:null);setBusy(running);
       if(job?.status==="failed")setError(job.error??"La investigación fue interrumpida. Vuelve a intentarlo.");
@@ -55,8 +56,8 @@ export function EntityVerification({kind,id,revision,onChanged}:{kind:Verificati
           return;
         }
         if(job.status==="failed"){setJobId(null);setBusy(false);setError(job.error??"No se pudo verificar. Vuelve a intentarlo.");return;}
-        const saved=await entityVerificationApi.get(kind,id);
-        if(active){setReport(saved);setJobId(null);setBusy(false);setError(null);}
+        const [saved,budget]=await Promise.all([entityVerificationApi.get(kind,id),entityVerificationApi.budget()]);
+        if(active){setReport(saved);setFinancial(budget);setJobId(null);setBusy(false);setError(null);}
       }catch(cause){if(active)setError(cause instanceof Error?cause.message:String(cause));}
       finally{polling=false;}
     };
@@ -121,6 +122,7 @@ export function EntityVerification({kind,id,revision,onChanged}:{kind:Verificati
     </div>:null}
     {job?.status==="cancelled"?<p role="status">Investigación cancelada. El informe conserva lo obtenido.</p>:null}
     {report?.research?<ResearchLedgerDetails report={report}/>:null}
+    {financial?<p>Presupuesto global: US${financial.chargedUsd.toFixed(4)} estimados o reservados de US${financial.maxUsd.toFixed(2)} máximos · {financial.calls} llamadas · {financial.tokens.toLocaleString("es-VE")} tokens.{financial.unknownCalls?` ${financial.unknownCalls} llamadas mantienen su reserva porque falta consumo confirmado.`:""}</p>:null}
     {busy||error?<button type="button" className="btn btn--sm" onClick={reloadVerification}><ArrowClockwise size={14} aria-hidden="true"/>Actualizar estado</button>:null}
     <div id={panelId} hidden={!open}>
       {!report&&!error?<p role="status">Cargando los datos de la ficha…</p>:null}

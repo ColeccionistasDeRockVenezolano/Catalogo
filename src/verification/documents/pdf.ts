@@ -6,6 +6,7 @@ import {join} from "node:path";
 import {load} from "cheerio";
 import {getEnv} from "../../config/env.js";
 import {extractImage} from "./ocr.js";
+import {corroborateNativeLayer} from "./visibility.js";
 import {DOCUMENT_EXTRACTION_VERSION,Transcript,type DocumentExtraction,type DocumentReadOptions,type DocumentPart} from "./types.js";
 const run=promisify(execFile);
 /** Read one original PDF page at a time, checkpointing native text even when that page's OCR fails. */
@@ -59,6 +60,8 @@ export async function extractPdf(bytes:Uint8Array,options:DocumentReadOptions={}
      transcript.locations.push(...ocr.locations.map(location=>({...location,page:number,selector:"pdf:ocr-word",start:location.start+offset+1,end:location.end+offset+1,
       ...(location.bbox&&Number.isFinite(sx)&&Number.isFinite(sy)?{bbox:{x:location.bbox.x*sx,y:location.bbox.y*sy,width:location.bbox.width*sx,height:location.bbox.height*sy,unit:"pt" as const}}:{})})));
      part={...part,method:"pdf_text+ocr",warnings:ocr.warnings};await rm(`${prefix}.png`,{force:true});
+     const uncorroborated=corroborateNativeLayer(transcript.content,transcript.locations);
+     if(uncorroborated)part.warnings.push(`${uncorroborated} palabras de la capa nativa no coinciden con la lectura de sus posiciones visibles; se conservan como alternativas no corroboradas y no respaldan datos.`);
      if(!ocr.complete)throw new Error(ocr.unreadParts.join("; "));
     }
     part={...part,content:transcript.content,locations:transcript.locations,complete:true};

@@ -1,4 +1,4 @@
-import {useEffect,useRef,useState,useId} from "react";
+import {useEffect,useRef,useState,useId,useCallback} from "react";
 import {entityVerificationApi} from "../lib/api";
 import {VerificationReportDetails} from "./VerificationReportDetails";
 import type {VerificationHistory as History,VerificationJob,VerificationKind,VerificationReport} from "../../../src/verification/types";
@@ -6,14 +6,15 @@ import type {VerificationHistory as History,VerificationJob,VerificationKind,Ver
 export function VerificationHistory({kind,id,busy,revision,onStarted}:{kind:VerificationKind;id:number;busy:boolean;revision:unknown;onStarted:(job:VerificationJob)=>void}){
  const [open,setOpen]=useState(false),[history,setHistory]=useState<History|null>(null),[selected,setSelected]=useState<number|null>(null),[report,setReport]=useState<VerificationReport|null>(null),[loading,setLoading]=useState(false),[starting,setStarting]=useState(false),[error,setError]=useState<string|null>(null);
  const request=useRef(0);
+ const invalidate=useCallback(()=>{request.current++;},[]);
  const selectId=useId();
  useEffect(()=>{
   const version=++request.current;setHistory(null);setSelected(null);setReport(null);setError(null);setStarting(false);
   if(!open){setLoading(false);return;}
   setLoading(true);
   void entityVerificationApi.versions(kind,id).then(value=>{if(version===request.current)setHistory(value);}).catch(cause=>{if(version===request.current)setError(cause instanceof Error?cause.message:String(cause));}).finally(()=>{if(version===request.current)setLoading(false);});
-  return()=>{request.current++;};
- },[kind,id,open,revision]);
+  return invalidate;
+ },[kind,id,open,revision,invalidate]);
  async function select(versionId:number){
   const version=++request.current;setSelected(versionId);setReport(null);setError(null);setLoading(true);
   try{const value=await entityVerificationApi.version(kind,id,versionId);if(version===request.current)setReport(value);}

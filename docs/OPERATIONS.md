@@ -618,6 +618,12 @@ YouTube y DeepSeek omiten la URL con la clave.
 
 ## 6. Respaldo
 
+### Presupuesto de investigación y preparación de propuestas
+
+Crear un presupuesto antes de activar `CRV_AI_BUDGET_ID`: `npm run ai:budget -- create <id> <config.json>`. El archivo contiene `maxUsd`, `maxCalls`, `maxTokens`, `maxConcurrency`, `authorizedBy` y `prices` (URL/hash/fecha de la tarifa oficial, margen de tokens del protocolo y tarifas de entrada/salida por millón para cada modelo). Consultar con `npm run ai:budget -- usage <id>`. Nunca reutilizar el ID para reiniciar su consumo. La API privada `/entity-verification/budget` y las fichas muestran el presupuesto global configurado.
+
+Las tarifas registradas pueden ser el máximo aplicable del proveedor: el consumo financiero mostrado será una estimación conservadora, no una factura. Una llamada con uso desconocido conserva su reserva completa; un corte no fabrica costo cero. Las reservas coordinan procesos y comprueban dólares, llamadas, tokens y concurrencia antes de la red. Al agotar el presupuesto, la investigación conserva un informe parcial; las preparaciones conservan rondas, consultas, citas y operaciones y ofrecen reanudación. Los precios vigentes deben preservarse antes de crear otro presupuesto; las respuestas cacheadas no realizan otra llamada pagada.
+
 Ver `docs/DATABASE_BACKUP_RESTORE.md`. En resumen: `npm run db:backup` con el
 catálogo quieto, `npm run db:restore-check -- backups/<dir>` para probarlo y
 `npm run db:restore -- backups/<dir>` para recuperar sin sobrescribir nada.

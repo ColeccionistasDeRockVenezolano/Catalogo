@@ -7,10 +7,12 @@ import {mergeResearchProposal} from "./research-ledger.js";
 import { fullSourceChunks, researchVerification, type ResearchState, type ResearchOptions, type VerificationBroker } from "./research.js";
 import type { DeepSeekGateway } from "../ai/gateway.js";
 import type { VerificationSnapshot, VerificationProgress, VerificationReport } from "./types.js";
+import {normalizePreservedState} from "./preserved-state.js";
+import {extractionKey} from "./documents/extraction-key.js";
 export async function researchStored(snapshot:VerificationSnapshot,broker?:VerificationBroker,gateway?:DeepSeekGateway,onProgress?:(p:VerificationProgress,r?:VerificationReport)=>Promise<void>,options:ResearchOptions={}):Promise<VerificationReport> {
  const hash=snapshotHash(snapshot);
  const {rows}=await getPool().query<{state:ResearchState;snapshot_hash:string}>("SELECT state,snapshot_hash FROM ingest.entity_verification_research_state WHERE entity_kind=$1 AND entity_id=$2",[snapshot.kind,snapshot.id]);
- const old=rows[0]?.state;
+ const old=rows[0]?.state?normalizePreservedState(rows[0].state,{sources:[],findings:[]}):undefined;
  const resume=options.resume??(old&&rows[0]?.snapshot_hash===hash&&researchNeedsResume(snapshot,old)?old:undefined);
  const parent=(await getPool().query<{id:string}>("SELECT id::text FROM ingest.entity_verification_research_versions WHERE entity_kind=$1 AND entity_id=$2 ORDER BY id DESC LIMIT 1",[snapshot.kind,snapshot.id])).rows[0]?.id;
  let versionId:string|undefined;
@@ -54,7 +56,7 @@ export function retainVerificationEvidence(_snapshot:VerificationSnapshot,old:Re
    for(const claim of old.proposal[type]){
      const evidence=claim.evidence.flatMap(e=>{
        const page=old.pages[e.source];if(!page)return [];
-       let index=latest.pages.findIndex(p=>p.url===page.url&&p.contentHash===page.contentHash&&p.content===page.content&&p.document?.captureId===page.document?.captureId);
+       let index=latest.pages.findIndex(p=>p.url===page.url&&p.contentHash===page.contentHash&&p.content===page.content&&p.document?.captureId===page.document?.captureId&&(!p.document&&!page.document||p.document&&page.document&&extractionKey(p.document)===extractionKey(page.document)));
        if(index<0){index=latest.pages.length;latest.pages.push(structuredClone(page));}
        return [{...e,source:index}];
      });

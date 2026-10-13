@@ -1,13 +1,14 @@
 import { getPool } from "../../db/client.js";
+import {randomUUID} from "node:crypto";
 import { getEnv } from "../../config/env.js";
 import { withOperatorRun, OperatorError, type OperatorContext } from "../../merge/operator.js";
 import { activeUndoOf } from "../../merge/run-undo.js";
 import { runCurationScan, trackCurationWork } from "../scan.js";
-import { entityRow, hashValue } from "./context.js";
+import { entityRow, hashValue,planningContext } from "./context.js";
 import { draftSchema } from "./schema.js";
 import { executePlan, planState } from "./executor.js";
 import { remainingDecisionDraft, resolveDecisionOperation, resolveDecisionRef } from "./decisions.js";
-import { planWithDeepSeek, type PlannedDraft } from "./planner.js";
+import { planWithDeepSeek, retainDraft, type PlannedDraft } from "./planner.js";
 import type {
   CatalogDraft,
   CatalogEvidence,
@@ -19,6 +20,7 @@ import type {
 
 const columns = `id::int,entity_kind AS "entityKind",entity_id::int AS "entityId",instruction,status,phase,revision,draft,evidence,reviewed_keys AS "reviewedKeys",decisions,preview,result,usage,requested_by AS "requestedBy",edited_by AS "editedBy",applied_by AS "appliedBy",error,run_id::int AS "runId",created_at::text AS "createdAt",updated_at::text AS "updatedAt"`;
 const pending = new Set<Promise<void>>();
+const workerOwner=randomUUID();
 async function withUndoState(plan: CatalogPlan): Promise<CatalogPlan> {
   for (const decision of Object.values(plan.decisions ?? {})) {
     if (decision.decision === "accepted" && decision.runId)
@@ -50,7 +52,7 @@ export async function listPlans(
 }
 export async function recoverPlans(): Promise<void> {
   await getPool().query(
-    "UPDATE ingest.ai_curation_plans SET status='failed',error='La preparación se interrumpió. El catálogo no cambió; puedes preparar otra propuesta.',updated_at=now() WHERE status IN ('queued','running')",
+    "UPDATE ingest.ai_curation_plans SET status='failed',phase='interrupted',error='La preparación se interrumpió. Los lotes y citas se conservan para reanudar.',lease_owner=NULL,lease_expires_at=NULL,updated_at=now() WHERE status IN ('queued','running') AND (lease_expires_at IS NULL OR lease_expires_at<now())",
   );
 }
 export async function waitForPlans(): Promise<void> {
@@ -88,12 +90,15 @@ export async function startPlan(
       "Esta ficha ya tiene una propuesta en preparación.",
     );
   }
+  const preparationHash=hashValue(await planningContext(getPool(),kind,id,instruction));
+  const reusable=(await getPool().query<CatalogPlan>(`SELECT ${columns} FROM ingest.ai_curation_plans WHERE entity_kind=$1 AND entity_id=$2 AND instruction=$3 AND preparation_hash=$4 AND status='ready' ORDER BY id DESC LIMIT 1`,[kind,id,instruction,preparationHash])).rows[0];
+  if(reusable)return reusable.phase==="partial"?resumePlan(reusable.id,operator,work):withUndoState(reusable);
   let created: CatalogPlan;
   try {
     created = (
       await getPool().query<CatalogPlan>(
-        `INSERT INTO ingest.ai_curation_plans(entity_kind,entity_id,instruction,requested_by) VALUES($1,$2,$3,$4) RETURNING ${columns}`,
-        [kind, id, instruction, operator],
+        `INSERT INTO ingest.ai_curation_plans(entity_kind,entity_id,instruction,requested_by,lease_owner,lease_expires_at,preparation_hash) VALUES($1,$2,$3,$4,$5,now()+($6::int*interval '1 second'),$7) RETURNING ${columns}`,
+        [kind, id, instruction, operator,workerOwner,getEnv().CRV_RESEARCH_LEASE_SECONDS,preparationHash],
       )
     ).rows[0]!;
   } catch (error) {
@@ -108,6 +113,18 @@ export async function startPlan(
   pending.add(task);
   void task.finally(() => pending.delete(task));
   return created;
+}
+export async function resumePlan(id:number,operator:string,work:PlanWork=planWithDeepSeek):Promise<CatalogPlan>{
+ const plan=await getPlan(id);
+ if(plan.status==="queued"||plan.status==="running")return plan;
+ if(plan.status!=="failed"&&!(plan.status==="ready"&&plan.phase==="partial"))throw new OperatorError("not_open","Esta preparación no tiene tareas interrumpidas para reanudar.");
+ await entityRow(getPool(),plan.entityKind,plan.entityId);
+ if(work===planWithDeepSeek&&!getEnv().DEEPSEEK_API_KEY)throw new OperatorError("invalid","Configura DEEPSEEK_API_KEY para preparar propuestas.");
+ try{
+  const row=(await getPool().query<CatalogPlan>(`UPDATE ingest.ai_curation_plans SET status='queued',phase='context',error=NULL,requested_by=$2,lease_owner=$3,lease_expires_at=now()+($4::int*interval '1 second'),revision=revision+1,updated_at=now() WHERE id=$1 AND revision=$5 AND (status='failed' OR status='ready' AND phase='partial') RETURNING ${columns}`,[id,operator,workerOwner,getEnv().CRV_RESEARCH_LEASE_SECONDS,plan.revision])).rows[0];
+  if(!row)throw new OperatorError("stale_preview","La preparación cambió antes de reanudarla.");
+  const task=prepare(row,work);pending.add(task);void task.finally(()=>pending.delete(task));return row;
+ }catch(error){if((error as {code?:string}).code==="23505")throw new OperatorError("not_open","La ficha ya tiene otra preparación en curso.");throw error;}
 }
 async function previewDraft(
   plan: CatalogPlan,
@@ -164,46 +181,61 @@ async function decisionPreview(context: OperatorContext, plan: CatalogPlan, inpu
   }
 }
 async function prepare(plan: CatalogPlan, work: PlanWork): Promise<void> {
+  const cumulative=(part:CatalogPlan["usage"]):CatalogPlan["usage"]=>({...part,calls:plan.usage.calls+part.calls,cachedCalls:plan.usage.cachedCalls+part.cachedCalls,tokensIn:plan.usage.tokensIn+part.tokensIn,tokensOut:plan.usage.tokensOut+part.tokensOut});
+  const assertOwnership=async()=>{
+    const owned=await getPool().query("UPDATE ingest.ai_curation_plans SET lease_expires_at=now()+($3::int*interval '1 second') WHERE id=$1 AND lease_owner=$2 AND status IN ('queued','running') AND lease_expires_at>now() RETURNING id",[plan.id,workerOwner,getEnv().CRV_RESEARCH_LEASE_SECONDS]);
+    if(!owned.rowCount)throw new Error("El proceso perdió la propiedad de la preparación; no puede sobrescribirla.");
+  };
+  const heartbeat=setInterval(()=>{void assertOwnership().catch(()=>undefined);},Math.max(1000,Math.floor(getEnv().CRV_RESEARCH_LEASE_SECONDS*1000/3)));heartbeat.unref();
   try {
+    await assertOwnership();
     await getPool().query(
-      "UPDATE ingest.ai_curation_plans SET status='running',updated_at=now() WHERE id=$1",
-      [plan.id],
+      "UPDATE ingest.ai_curation_plans SET status='running',updated_at=now() WHERE id=$1 AND lease_owner=$2 AND lease_expires_at>now()",
+      [plan.id,workerOwner],
     );
     const notify=async (phase:string, usage:CatalogPlan["usage"]) => {
-      await getPool().query("UPDATE ingest.ai_curation_plans SET phase=$2,usage=$3::jsonb,updated_at=now() WHERE id=$1 AND status='running'",[plan.id,phase,JSON.stringify(usage)]);
+      await assertOwnership();
+      await getPool().query("UPDATE ingest.ai_curation_plans SET phase=$2,usage=$3::jsonb,updated_at=now() WHERE id=$1 AND status='running' AND lease_owner=$4 AND lease_expires_at>now()",[plan.id,phase,JSON.stringify(cumulative(usage)),workerOwner]);
     };
     const result = work===planWithDeepSeek
-      ? await planWithDeepSeek(plan.entityKind,plan.entityId,plan.instruction,notify,undefined,{planId:plan.id})
+      ? await planWithDeepSeek(plan.entityKind,plan.entityId,plan.instruction,notify,undefined,{planId:plan.id,assertOwnership})
       : await work(plan.entityKind,plan.entityId,plan.instruction,notify);
-    const draft = draftSchema.parse(result.draft);
+    const draft:CatalogDraft = draftSchema.parse(retainDraft(plan.draft??undefined,result.draft));
+    if(result.complete!==false)draft.unresolved=draft.unresolved.filter(item=>!/^Tarea [a-f0-9]{64}:/u.test(item));
+    for(const operation of plan.draft?.operations??[])if(plan.decisions?.[operation.key]){
+      const position=draft.operations.findIndex(item=>item.key===operation.key);if(position>=0)draft.operations[position]=operation;
+    }
+    await assertOwnership();
     await getPool().query(
-      "UPDATE ingest.ai_curation_plans SET phase='preview',updated_at=now() WHERE id=$1",
-      [plan.id],
+      "UPDATE ingest.ai_curation_plans SET phase='preview',updated_at=now() WHERE id=$1 AND lease_owner=$2 AND lease_expires_at>now()",
+      [plan.id,workerOwner],
     );
     const preview = await previewDraft(plan, draft, result.evidence, []);
     await getPool().query(
-      "UPDATE ingest.ai_curation_plans SET status='ready',phase='ready',draft=$2::jsonb,evidence=$3::jsonb,preview=$4::jsonb,usage=$5::jsonb,error=NULL,updated_at=now() WHERE id=$1",
+      "UPDATE ingest.ai_curation_plans SET status='ready',phase=$6,draft=$2::jsonb,evidence=$3::jsonb,preview=$4::jsonb,usage=$5::jsonb,error=NULL,lease_owner=NULL,lease_expires_at=NULL,updated_at=now() WHERE id=$1 AND status='running' AND lease_owner=$7 AND lease_expires_at>now()",
       [
         plan.id,
         JSON.stringify(draft),
         JSON.stringify(result.evidence),
         JSON.stringify(preview),
-        JSON.stringify(result.usage),
+        JSON.stringify(cumulative(result.usage)),
+        result.complete===false?"partial":"ready",workerOwner,
       ],
     );
   } catch (error) {
     await getPool()
       .query(
-        "UPDATE ingest.ai_curation_plans SET status='failed',error=$2,updated_at=now() WHERE id=$1",
+        "UPDATE ingest.ai_curation_plans SET status='failed',error=$2,lease_owner=NULL,lease_expires_at=NULL,updated_at=now() WHERE id=$1 AND lease_owner=$3 AND lease_expires_at>now()",
         [
           plan.id,
           error instanceof Error
             ? error.message.slice(0, 600)
             : "No se pudo preparar la propuesta",
+          workerOwner,
         ],
       )
       .catch(() => undefined);
-  }
+  }finally{clearInterval(heartbeat);}
 }
 export async function savePlan(
   id: number,
@@ -255,6 +287,7 @@ export async function applyPlan(
   operator: string,
 ): Promise<CatalogPlan> {
   const first = await getPlan(id);
+  if(first.phase==="partial")throw new OperatorError("not_open","La preparación tiene tareas pendientes. Puedes revisar cambios individuales o reanudar antes de aplicar el conjunto.");
   if (Object.keys(first.decisions ?? {}).length)
     throw new OperatorError("invalid", "Esta propuesta se revisa cambio por cambio. Acepta o rechaza los cambios pendientes.");
   if (first.status === "applied") return first;
@@ -389,10 +422,10 @@ export async function decidePlan(
   if (decision === "rejected") {
     const next = { ...first, decisions: { ...first.decisions, [key]: { decision, decidedBy: operator, decidedAt: new Date().toISOString(), runId: null } } };
     const preview = await previewDraft(next, next.draft!, next.evidence, next.reviewedKeys);
-    const finished = next.draft!.operations.every((op) => next.decisions[op.key]);
+    const finished = first.phase!=="partial"&&next.draft!.operations.every((op) => next.decisions[op.key]);
     const saved = await getPool().query(
       "UPDATE ingest.ai_curation_plans SET decisions=$3::jsonb,preview=$4::jsonb,edited_by=$5,revision=revision+1,status=$6,phase=$7,updated_at=now() WHERE id=$1 AND revision=$2 AND status='ready' RETURNING id",
-      [id, revision, JSON.stringify(next.decisions), JSON.stringify(preview), operator, finished ? "reviewed" : "ready", finished ? "done" : "ready"],
+      [id, revision, JSON.stringify(next.decisions), JSON.stringify(preview), operator, finished ? "reviewed" : "ready", first.phase==="partial"?"partial":finished ? "done" : "ready"],
     );
     if (!saved.rowCount) {
       const latest = await getPlan(id);
@@ -442,10 +475,10 @@ export async function decidePlan(
         }
         await context.client.query("ROLLBACK TO SAVEPOINT remaining_preview");
         await context.client.query("RELEASE SAVEPOINT remaining_preview");
-        const finished = next.draft!.operations.every((item) => next.decisions?.[item.key]);
+        const finished = locked.phase!=="partial"&&next.draft!.operations.every((item) => next.decisions?.[item.key]);
         await context.client.query(
           "UPDATE ingest.ai_curation_plans SET decisions=$2::jsonb,preview=$3::jsonb,result=$4::jsonb,run_id=$5,applied_by=$6,edited_by=$6,revision=revision+1,status=$7,phase=$8,updated_at=now() WHERE id=$1",
-          [id, JSON.stringify(next.decisions), JSON.stringify(preview), JSON.stringify(next.result), context.runId, operator, finished ? "reviewed" : "ready", finished ? "done" : "ready"],
+          [id, JSON.stringify(next.decisions), JSON.stringify(preview), JSON.stringify(next.result), context.runId, operator, finished ? "reviewed" : "ready", locked.phase==="partial"?"partial":finished ? "done" : "ready"],
         );
       },
       { serializable: true },

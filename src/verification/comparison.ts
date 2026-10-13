@@ -8,6 +8,8 @@ import { badRequest } from "../api/http-errors.js";
 import { getArtistDetail } from "../api/repositories/artists.js";
 import { getPersonDetail } from "../api/repositories/persons.js";
 import { getAlbumDetail } from "../api/repositories/albums.js";
+import { getOrganizationDetail } from "../api/repositories/organizations.js";
+import { getTrackDetail } from "../api/repositories/tracks.js";
 import { createDeepSeekGateway, type DeepSeekGateway } from "../ai/gateway.js";
 import { WebSearchBroker, type WebPage } from "../ambiguity/web-search.js";
 import { fold, snapshotHash } from "./evaluate.js";
@@ -19,7 +21,8 @@ import type { VerificationEvidence } from "./types.js";
 
 export function normalizePair(left: EntityRef, right: EntityRef): [EntityRef, EntityRef] {
   if (left.kind === right.kind && left.id === right.id) throw badRequest("Selecciona una ficha distinta de la abierta.");
-  if ((left.kind === "album") !== (right.kind === "album")) throw badRequest("Los álbumes se comparan con otros álbumes; artistas y personas se comparan entre sí.");
+  const family=(ref:EntityRef)=>ref.kind==="artist"||ref.kind==="person"?"performer":ref.kind;
+  if(family(left)!==family(right))throw badRequest("Compara álbumes con álbumes, pistas con pistas y organizaciones con organizaciones; artistas y personas pueden compararse entre sí.");
   return `${left.kind}:${left.id}` < `${right.kind}:${right.id}` ? [left, right] : [right, left];
 }
 export function pairKey(left: EntityRef, right: EntityRef): string {
@@ -30,6 +33,8 @@ export async function loadComparisonSide(ref: EntityRef): Promise<ComparisonSide
   const artist = ref.kind === "artist" ? await getArtistDetail(ref.id) : null;
   const person = ref.kind === "person" ? await getPersonDetail(ref.id) : null;
   const album = ref.kind === "album" ? await getAlbumDetail(ref.id) : null;
+  const organization=ref.kind==="organization"?await getOrganizationDetail(ref.id):null;
+  const track=ref.kind==="track"?await getTrackDetail(ref.id):null;
   // Las duraciones, el sello y los créditos de cada pista también afectan la vigencia.
   const facts: Record<string,string[]> = {};
   if(album) {
@@ -44,7 +49,20 @@ export async function loadComparisonSide(ref: EntityRef): Promise<ComparisonSide
     facts["trajectory"]=person.bands.map(b=>`${b.artistName} · ${b.role} · ${b.fromYear??"inicio sin registrar"}–${b.isCurrent?"actualidad":b.toYear??"final sin registrar"}`);
     facts["credits"]=[...person.albumCredits.map(c=>`${c.artistName} · ${c.albumTitle} · ${c.role}`),...person.trackCredits.map(c=>`${c.albumTitle} · ${c.trackTitle} · ${c.role}`)];
   }
-  const hash = createHash("sha256").update(JSON.stringify([snapshotHash(snapshot),artist?.artistType,album,person,facts])).digest("hex");
+  if(organization){
+    facts["location"]=organization.country?[organization.country]:[];
+    facts["type"]=[organization.organizationType];
+    facts["trajectory"]=organization.associatedPersons.map(person=>`${person.personName} · ${person.role} · ${person.fromYear??"inicio sin registrar"}–${person.toYear??"final sin registrar"}`);
+    facts["credits"]=organization.roleAlbums.map(album=>JSON.stringify(album));
+  }
+  if(track){
+    facts["album"]=[`${track.artistName} · ${track.albumTitle}`];
+    facts["artist"]=[track.artistName];
+    facts["position"]=[`${track.discNumber}.${track.trackNumber}`];
+    facts["durations"]=track.durationSeconds===null?[]:[`${track.durationSeconds} s`];
+    facts["credits"]=track.credits.map(credit=>`${credit.personName??credit.artistName??credit.organizationName} · ${credit.role}`);
+  }
+  const hash = createHash("sha256").update(JSON.stringify([snapshotHash(snapshot),artist?.artistType,album,person,organization,track,facts])).digest("hex");
   return {...ref,name:snapshot.name,hash,artistType:artist?.artistType ?? null,facts,snapshot,verification:await getIndividualVerification(ref.kind,ref.id)};
 }
 const clean = (value: string) => fold(value).replace(/[^\p{L}\p{N}]+/gu," ").trim();
@@ -68,7 +86,11 @@ function values(side: ComparisonSide, key: string): string[] {
 }
 export function compareCatalog(left: ComparisonSide, right: ComparisonSide): ComparisonRow[] {
   const album=left.kind==="album";
-  const fields: Array<[string,string,number]> = album ? [
+  const fields: Array<[string,string,number]> = left.kind==="organization" ? [
+    ["identity","Nombre y alias",4],["type","Tipo de organización",4],["location","País",4],["trajectory","Personas y periodos",8],["albums","Discos vinculados",10],["credits","Roles por edición",6],["socials","Sitio web",2],["biography","Biografía",2],
+  ] : left.kind==="track" ? [
+    ["identity","Título y alias",4],["artist","Artista",6],["album","Álbum y edición",10],["position","Soporte y posición",6],["durations","Duración",4],["credits","Créditos de la pista",8],["biography","Notas",2],
+  ] : album ? [
     ["identity","Título y alias",4],["artist","Artista del lanzamiento",8],["years","Año",4],["type","Tipo de lanzamiento",3],
     ["tracks","Pistas y posiciones",10],["durations","Duraciones por pista",3],["label","Sello",1],["credits","Créditos y alcance por pista",4],["genres","Géneros",1],["socials","Enlaces",1],["biography","Descripción",1],
   ] : [

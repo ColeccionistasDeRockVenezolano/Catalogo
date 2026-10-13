@@ -192,7 +192,7 @@ export function AlbumDetailPage() {
                   const isCurrent = currentTrack?.id === track.id;
                   return (
                   <Fragment key={track.id}>
-                    <tr role="row" className={`album-track-row${isCurrent ? " is-current" : ""}`} aria-current={isCurrent ? "true" : undefined}>
+                    <tr id={`pista-${track.id}`} role="row" className={`album-track-row${isCurrent ? " is-current" : ""}`} aria-current={isCurrent ? "true" : undefined}>
                       <td role="cell" className="num album-track-number">{!showDiscHeadings && track.discNumber > 1 ? `${track.discNumber}.` : ""}{track.trackNumber}</td>
                       <td role="cell" className="album-track-title">
                         <span className="album-track-name">{track.title}</span>
@@ -239,6 +239,7 @@ export function AlbumDetailPage() {
                       <tr role="row" className="album-track-credits">
                         <td role="cell" colSpan={5} style={{ background: "var(--surface-2)" }}>
                           <CreditManager target={{ kind: "track", trackId: track.id }} credits={track.credits} onChanged={reload} compact provenance={creditProvenance} />
+                          {isAdmin?<EntityVerification kind="track" id={track.id} revision={album} onChanged={reload}/>:null}
                         </td>
                       </tr>
                     ) : null}

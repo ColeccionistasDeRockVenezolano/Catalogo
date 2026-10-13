@@ -16,6 +16,7 @@ import { MergeEntityModal } from "../components/MergeEntityModal";
 import { PersonOrgManager } from "../components/PersonOrgManager";
 import { EntityProvenance } from "../components/EntityProvenance";
 import { EntityHistory } from "../components/EntityHistory";
+import { EntityVerification } from "../components/EntityVerification";
 import { EntityLoadError } from "../components/RemovedEntityState";
 import { initialOf } from "../components/EntityCard";
 import { DeceasedMark } from "../components/DeceasedMark";
@@ -154,6 +155,7 @@ export function OrganizationDetailPage() {
       ),
     },
     ...(isAdmin ? [
+      { key: "investigacion", label: "Investigar y completar", content: <EntityVerification kind="organization" id={org.id} revision={org} onChanged={reload} /> },
       { key: "fuentes", label: "Origen de los datos", content: <EntityProvenance entity="organization" id={org.id} revision={org} /> },
       { key: "historial", label: "Historial", content: <EntityHistory entity="organization" id={org.id} /> },
     ] : []),

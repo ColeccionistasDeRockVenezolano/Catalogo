@@ -18,6 +18,9 @@ describe("comparación cruzada de fichas",()=>{
  it("normaliza la pareja en ambos sentidos y rechaza una ficha consigo misma o tipos incompatibles",()=>{
   expect(pairKey(left,right)).toBe(pairKey(right,left));expect(normalizePair(right,left)[0]).toEqual(left);
   expect(()=>normalizePair(left,left)).toThrow("distinta");expect(()=>normalizePair(left,side("album",1,"Disco"))).toThrow("álbumes");
+  expect(()=>normalizePair(side("organization",1,"Sello"),side("organization",2,"Sello"))).not.toThrow();
+  expect(()=>normalizePair(side("track",1,"Pista"),side("track",2,"Pista"))).not.toThrow();
+  expect(()=>normalizePair(side("track",1,"Pista"),side("album",2,"Disco"))).toThrow();
  });
  it("un nombre igual solo aporta 4 puntos y los datos ausentes no llenan áreas",()=>{
   const a=side("person",1,"Pedro QA"),b=side("person",2,"Pedro QA");const rows=compareCatalog(a,b);

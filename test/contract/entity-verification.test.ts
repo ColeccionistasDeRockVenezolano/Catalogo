@@ -17,6 +17,10 @@ import {reprocessIndividualVerification,type VerificationWork} from "../../src/v
 import { createDeepSeekGateway, MockDeepSeekTransport } from "../../src/ai/gateway.js";
 import { RULES_VERSION } from "../../src/verification/proof.js";
 import type { VerificationReport } from "../../src/verification/types.js";
+import {preservedReportState} from "../../src/verification/history.js";
+import {snapshotHash} from "../../src/verification/evaluate.js";
+import type {ResearchState} from "../../src/verification/research.js";
+import {getComparison} from "../../src/verification/comparison-store.js";
 
 const TOKEN="token-de-verificacion-individual-0123456789";
 const PASSWORD="clave-larga-lector-prueba";
@@ -38,6 +42,36 @@ describe("verificación individual persistente y privada",()=>{
     app=await buildApp();
   },120000);
   afterAll(async()=>{await app?.close();await closeDb();delete process.env["CRV_OPERATOR_TOKEN"];delete process.env["CRV_COLLABORATORS_JSON"];resetEnvCache();await container?.stop();},60000);
+  it("investiga sellos y pistas con contexto, guarda sus versiones y permite compararlos por su tipo",async()=>{
+    const org=Number((await getPool().query("INSERT INTO public.organizations(name,country) VALUES('Sello QA','Venezuela') RETURNING id")).rows[0].id);
+    await getPool().query("UPDATE public.albums SET label_id=$1 WHERE id=$2",[org,album]);
+    const track=Number((await getPool().query("SELECT id FROM public.tracks WHERE album_id=$1 ORDER BY id LIMIT 1",[album])).rows[0].id);
+    const organization=await loadVerificationSnapshot("organization",org),song=await loadVerificationSnapshot("track",track);
+    expect(organization.albums.map(item=>item.id)).toContain(album);expect(organization.units.find(item=>item.key==="identity.country")?.value).toBe("Venezuela");
+    expect(song.units[0]?.expected).toEqual(["Primera","Disco QA","Banda QA"]);
+    expect(song.units.find(item=>item.key==="track.order")?.value).toBe("1.1");
+    for(const snapshot of [organization,song]){
+      const report=evaluateVerification(snapshot,[]),versionId=await saveIndividualVerification(report,"QA");
+      const response=await app.inject({method:"GET",url:`/entity-verification/${snapshot.kind}/${snapshot.id}/versions/${versionId}`,headers:{authorization:`Bearer ${TOKEN}`}});
+      expect(response.statusCode,response.body).toBe(200);expect(response.json().kind).toBe(snapshot.kind);
+    }
+    const other=Number((await getPool().query("INSERT INTO public.organizations(name,country) VALUES('Sello Alternativo QA','Venezuela') RETURNING id")).rows[0].id);
+    const comparison=await getComparison({kind:"organization",id:org},{kind:"organization",id:other});
+    expect(comparison.rows.some(row=>row.key==="location")).toBe(true);expect(comparison.rows.reduce((sum,row)=>sum+row.maximum,0)).toBe(40);
+    await getPool().query("UPDATE public.albums SET label_id=NULL WHERE id=$1",[album]);
+  });
+  it("recupera todos los descubrimientos de un estado legado anterior al informe sin inventar una versión nueva de sus fuentes",async()=>{
+    const entity=Number((await getPool().query("INSERT INTO public.artists(name) VALUES('Legado QA') RETURNING id")).rows[0].id);
+    const snapshot=await loadVerificationSnapshot("artist",entity),content="Legado QA publicó el Disco Legado en 1999.",page={url:"https://archivo.example/legado",title:"Legado QA",content,contentHash:createHash("sha256").update(content).digest("hex"),fetchedAt:"2020-01-01T00:00:00Z",capturedAt:"2020-01-01T00:00:00Z",acquisitionMethod:"http" as const};
+    const state:ResearchState={rulesVersion:6,pages:[{...page,url:"https://archivo.example/empty",content:"",contentHash:"legacy",origin:"search_snippet",acquisitionMethod:"search_snippet"},page],proposal:{findings:[],discoveries:[{area:"discography",value:"Disco Legado",context:"Legado QA",reason:"Crudo conservado",evidence:[{source:1,quote:content}]}]},pendingKeys:[],limitations:[],attempts:1};
+    await getPool().query("INSERT INTO ingest.entity_verification_research_state(entity_kind,entity_id,snapshot_hash,state) VALUES('artist',$1,$2,$3::jsonb)",[entity,snapshotHash(snapshot),JSON.stringify(state)]);
+    const report=evaluateVerification(snapshot,[page]),versionId=await saveIndividualVerification(report,"QA");
+    const response=await app.inject({method:"GET",url:`/entity-verification/artist/${entity}/versions`,headers:{authorization:`Bearer ${TOKEN}`}});expect(response.statusCode,response.body).toBe(200);expect(response.json().versions[0].reprocessAvailable).toBe(true);
+    const copy=await preservedReportState("artist",entity,versionId);expect(copy.pages).toEqual([page]);expect(copy.proposal.discoveries[0]?.evidence[0]?.source).toBe(0);expect(copy.normalizations).toHaveLength(1);
+    expect((await getPool().query("SELECT state FROM ingest.entity_verification_research_state WHERE entity_kind='artist' AND entity_id=$1",[entity])).rows[0].state).toEqual(state);
+    await getPool().query("UPDATE ingest.entity_verification_research_state SET updated_at=now()+interval '1 second' WHERE entity_kind='artist' AND entity_id=$1",[entity]);
+    await expect(preservedReportState("artist",entity,versionId)).rejects.toThrow(/copia íntegra/);
+  });
   it("incluye datos de las tres fichas, pistas de cada álbum y enlaces aún no verificados",async()=>{
     const band=await loadVerificationSnapshot("artist",artist);
     expect(new Set(band.units.map(u=>u.area)).size).toBe(11);
@@ -151,7 +185,7 @@ describe("verificación individual persistente y privada",()=>{
   it("abre versiones y reprocesa copias preservadas con presupuesto y reanudación sin búsquedas ni descargas",async()=>{
     const entity=Number((await getPool().query("INSERT INTO public.artists(name,artist_type) VALUES('Archivo QA','band') RETURNING id")).rows[0].id);
     const full=await loadVerificationSnapshot("artist",entity),snapshot={...full,units:full.units.slice(0,1),sourceUrls:["https://archivo.example/version-qa"]};
-    const content="Archivo QA publicó Disco Histórico en 2001.",page={url:snapshot.sourceUrls[0]!,title:"Archivo QA",content,contentHash:createHash("sha256").update(content).digest("hex"),fetchedAt:"2026-10-10T00:00:00Z",capturedAt:"2026-10-10T00:00:00Z",acquisitionMethod:"http" as const};
+    const content="Archivo QA es una banda venezolana. Publicó Disco Histórico en 2001.",page={url:snapshot.sourceUrls[0]!,title:"Archivo QA",content,contentHash:createHash("sha256").update(content).digest("hex"),fetchedAt:"2026-10-10T00:00:00Z",capturedAt:"2026-10-10T00:00:00Z",acquisitionMethod:"http" as const};
     const response={findings:[{key:snapshot.units[0]!.key,status:"confirmed",observed:"Archivo QA",reason:"Nombre documentado",evidence:[{source:0,quote:content}]}],discoveries:[{area:"discography",value:"Disco Histórico",context:"Archivo QA",reason:"Lanzamiento documentado",evidence:[{source:0,quote:content}]}]};
     const report=await researchStored(snapshot,{search:async()=>[],page:async()=>page},createDeepSeekGateway(new MockDeepSeekTransport(response,{findings:[],discoveries:[]})));
     const versionId=await saveIndividualVerification(report,"QA archivo"),headers={authorization:`Bearer ${TOKEN}`},base=`/entity-verification/artist/${entity}/versions`;

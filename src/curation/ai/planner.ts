@@ -10,6 +10,7 @@ import { combinePlanningResults } from "./research-results.js";
 import { hashValue } from "./context.js";
 import { getEnv } from "../../config/env.js";
 import { getPool } from "../../db/client.js";
+import {DeepSeekBudgetExceeded} from "../../ai/budget.js";
 import { EDITORIAL_POLICY_INSTRUCTIONS } from "../editorial-policy.js";
 import {
   catalogLookup,
@@ -71,6 +72,10 @@ export function createCurationGateway(): DeepSeekGateway {
   );
 }
 export interface PlannedDraft {
+  taskKey?:string;
+  complete?:boolean;
+  totalUsage?:CatalogPlan["usage"];
+  continuation?:{round:number;context:Record<string,unknown>;results:unknown[];evidence:CatalogEvidence[];lookups:ReturnType<typeof plannerSchema.parse>["lookups"];lookupIndex:number;previousError?:string;limitations:string[]};
   draft: CatalogDraft;
   evidence: CatalogEvidence[];
   usage: CatalogPlan["usage"];
@@ -94,7 +99,7 @@ export async function planWithDeepSeek(
   kind: CatalogKind,id: number,instruction: string,
   notify: (phase: string, usage: CatalogPlan["usage"]) => Promise<void>,
   gateway: DeepSeekGateway = createCurationGateway(),
-  options:{planId?:number}={},
+  options:{planId?:number;assertOwnership?:()=>Promise<void>}={},
 ): Promise<PlannedDraft> {
   const env=getEnv(),db=getPool();
   const inventory=await planningContext(db,kind,id,instruction);
@@ -102,54 +107,63 @@ export async function planWithDeepSeek(
   const results:PlannedDraft[]=[];
   let usage:CatalogPlan["usage"]={calls:0,cachedCalls:0,tokensIn:0,tokensOut:0,model:env.CRV_AI_CURATION_MODEL};
   const visited=new Set<string>();
+  let complete=true;
   for(let position=0;position<batches.length;position++){
     const batch=batches[position]!;
     if(visited.has(batch.key))continue;visited.add(batch.key);
-    const taskKey=hashValue({version:"curation-research.v1",context:batch.context,instructions:INSTRUCTIONS,model:env.CRV_AI_CURATION_MODEL});
+    const taskKey=hashValue({version:"curation-research.v2",context:batch.context,instructions:INSTRUCTIONS,model:env.CRV_AI_CURATION_MODEL});
     let saved:PlannedDraft|undefined;
+    let seed:PlannedDraft|undefined;
     if(options.planId!==undefined){
       await db.query("INSERT INTO ingest.ai_curation_research_tasks(task_key,plan_id,finding_keys,context,status) VALUES($1,$2,$3::jsonb,$4::jsonb,'pending') ON CONFLICT(task_key) DO NOTHING",[taskKey,options.planId,JSON.stringify(batch.findingKeys),JSON.stringify(batch.context)]);
       const row=(await db.query<{status:string;result:PlannedDraft|null}>("SELECT status,result FROM ingest.ai_curation_research_tasks WHERE task_key=$1",[taskKey])).rows[0];
       if(row?.status==="completed"&&row.result)saved=row.result;
+      else if(row?.result)seed=row.result;
     }
     let result:PlannedDraft;
-    let checkpoint:PlannedDraft|undefined;
+    let checkpoint:PlannedDraft|undefined=seed;
     let lastUsage:CatalogPlan["usage"]={calls:0,cachedCalls:0,tokensIn:0,tokensOut:0};
-    if(saved){result={...saved,usage:{...saved.usage,calls:0,cachedCalls:saved.usage.calls,tokensIn:0,tokensOut:0}};}
+    if(saved){result={...saved,usage:{...saved.usage,calls:0,cachedCalls:(saved.totalUsage??saved.usage).calls,tokensIn:0,tokensOut:0}};}
     else{
       if(options.planId!==undefined)await db.query("UPDATE ingest.ai_curation_research_tasks SET status='running',error=NULL,updated_at=now() WHERE task_key=$1",[taskKey]);
       try{
         if(usage.calls>=env.CRV_RESEARCH_MAX_CALLS||usage.tokensIn+usage.tokensOut>=env.CRV_RESEARCH_MAX_TOKENS)throw new Error("Presupuesto de la ejecución alcanzado; reintentar reutiliza las tareas ya completadas");
         result=await planContextWithDeepSeek(batch.context,structuredClone(batch.evidence),instruction,async(phase,part)=>{
+          await options.assertOwnership?.();
           lastUsage={...part};
           await notify(phase,{...usage,calls:usage.calls+part.calls,cachedCalls:usage.cachedCalls+part.cachedCalls,tokensIn:usage.tokensIn+part.tokensIn,tokensOut:usage.tokensOut+part.tokensOut});
         },gateway,async partial=>{
+          await options.assertOwnership?.();
           checkpoint=structuredClone(partial);
           if(options.planId!==undefined)await db.query("UPDATE ingest.ai_curation_research_tasks SET result=$2::jsonb,updated_at=now() WHERE task_key=$1 AND status='running'",[taskKey,JSON.stringify(partial)]);
-        });
+        },seed,{maxCalls:env.CRV_RESEARCH_MAX_CALLS-usage.calls,maxTokens:env.CRV_RESEARCH_MAX_TOKENS-usage.tokensIn-usage.tokensOut});
+        await options.assertOwnership?.();
         if(options.planId!==undefined)await db.query("UPDATE ingest.ai_curation_research_tasks SET status='completed',result=$2::jsonb,error=NULL,updated_at=now() WHERE task_key=$1",[taskKey,JSON.stringify(result)]);
       }catch(error){
+        await options.assertOwnership?.();
+        complete=false;
         const reason=error instanceof Error?error.message:"No se pudo preparar el lote";
         if(options.planId!==undefined)await db.query("UPDATE ingest.ai_curation_research_tasks SET status='failed',error=$2,updated_at=now() WHERE task_key=$1",[taskKey,reason]);
-        result={draft:{summary:checkpoint?.draft.summary??"Lote pendiente",operations:checkpoint?.draft.operations??[],unresolved:[...(checkpoint?.draft.unresolved??[]),`Tarea ${taskKey}: ${batch.findingKeys.join(", ")||"citas adicionales"}. ${reason}. Las citas y el contexto se conservan para reintentar.`]},evidence:checkpoint?.evidence??batch.evidence,usage:lastUsage,...(checkpoint?.followups?{followups:checkpoint.followups}:{})};
+        result={...checkpoint,draft:{summary:checkpoint?.draft.summary??"Lote pendiente",operations:checkpoint?.draft.operations??[],unresolved:[...(checkpoint?.draft.unresolved??[]),`Tarea ${taskKey}: ${batch.findingKeys.join(", ")||"citas adicionales"}. ${reason}. Las citas y el contexto se conservan para reintentar.`]},evidence:checkpoint?.evidence??batch.evidence,usage:lastUsage,complete:false};
       }
     }
     for(const followup of result.followups??[]){
       const extra=planningBatches(followup.context,followup.evidence,env.CRV_AI_CURATION_CONTEXT_CHARS-6000);
       for(const task of extra)if(!batches.some(batch=>batch.key===task.key))batches.push(task);
     }
-    results.push(result);
+    results.push({...result,...(options.planId!==undefined?{taskKey}:{})});
     usage={...usage,calls:usage.calls+result.usage.calls,cachedCalls:usage.cachedCalls+result.usage.cachedCalls,tokensIn:usage.tokensIn+result.usage.tokensIn,tokensOut:usage.tokensOut+result.usage.tokensOut};
     await notify(`planning:${results.length}/${batches.length}`,usage);
   }
-  return {...combinePlanningResults(results,inventory.evidence),usage};
+  return {...combinePlanningResults(results,inventory.evidence),usage,complete};
 }
 async function planContextWithDeepSeek(
   context:Record<string,unknown>,evidence:CatalogEvidence[],instruction:string,
-  notify:(phase:string,usage:CatalogPlan["usage"])=>Promise<void>,gateway:DeepSeekGateway,checkpoint:(partial:PlannedDraft)=>Promise<void>,
+  notify:(phase:string,usage:CatalogPlan["usage"])=>Promise<void>,gateway:DeepSeekGateway,checkpoint:(partial:PlannedDraft)=>Promise<void>,seed?:PlannedDraft,budget?:{maxCalls:number;maxTokens:number},
 ):Promise<PlannedDraft>{
   const env=getEnv(),db=getPool();
   const broker = createPlanningBroker();
+  if(seed?.continuation)context=structuredClone(seed.continuation.context);
   const usage: CatalogPlan["usage"] = {
     calls: 0,
     cachedCalls: 0,
@@ -157,70 +171,24 @@ async function planContextWithDeepSeek(
     tokensOut: 0,
     model: env.CRV_AI_CURATION_MODEL,
   };
-  const results: unknown[] = [];
-  const preservedEvidence=structuredClone(evidence);
-  const followups:Array<{context:Record<string,unknown>;evidence:CatalogEvidence[]}>=[];
-  let previousError: string | undefined;
-  let previousDraft: CatalogDraft | undefined;
-  const researchLimitations = new Set<string>();
-  for (let round = 0; round < env.CRV_AI_CURATION_MAX_CALLS; round++) {
-    await notify("planning", usage);
-    let result: DeepSeekProposalResult<ReturnType<typeof plannerSchema.parse>>;
-    const input = {
-      ...context,
-      toolResults: results,
-      ...(previousDraft ? { previousDraft } : {}),
-      forcePlan: round === env.CRV_AI_CURATION_MAX_CALLS - 1,
-      ...(previousError ? { formatError: previousError } : {}),
-    };
-    if (JSON.stringify(input).length > env.CRV_AI_CURATION_CONTEXT_CHARS)
-      throw new Error(
-        "La consulta excede el contexto permitido. Divide la tarea por disco o problema.",
-      );
-    usage.calls++;
-    try {
-      result = await gateway.propose({
-        taskKind: "curation_plan",
-        schemaVersion: "curation-plan.v2",
-        modelClass: "fast",
-        responseSchema: plannerSchema,
-        instructions: INSTRUCTIONS,
-        input,
-      });
-    } catch (error) {
-      if (error instanceof DeepSeekValidationError && error.usage) {
-        usage.tokensIn += error.usage.tokensIn;
-        usage.tokensOut += error.usage.tokensOut;
-      }
-      previousError =
-        error instanceof Error ? error.message : "Respuesta inválida";
-      await notify("planning", usage);
-      // A missing database capability or an invalid API key cannot improve with another paid call.
-      if (
-        !(error instanceof DeepSeekValidationError) &&
-        !/DeepSeek HTTP (429|5\d\d)|abort|timeout/iu.test(previousError)
-      )
-        throw error;
-      if (round === env.CRV_AI_CURATION_MAX_CALLS - 1) throw error;
-      continue;
-    }
-    if (result.cached) usage.cachedCalls++;
-    usage.tokensIn += result.tokensIn ?? 0;
-    usage.tokensOut += result.tokensOut ?? 0;
-    usage.model = result.model;
-    await notify("planning", usage);
-    const { lookups: _, resolvedUnresolved, ...roundDraft } = result.proposal;
-    previousDraft = retainDraft(previousDraft, roundDraft, resolvedUnresolved);
-    await checkpoint({draft:previousDraft,evidence:preservedEvidence,usage,followups});
-    if (
-      !result.proposal.lookups.length ||
-      round === env.CRV_AI_CURATION_MAX_CALLS - 1
-    ) {
-      previousDraft.unresolved = [...new Set([...previousDraft.unresolved, ...researchLimitations])];
-      return { draft: previousDraft, evidence:preservedEvidence, usage, followups };
-    }
+  const results: unknown[] = structuredClone(seed?.continuation?.results??[]);
+  evidence=structuredClone(seed?.continuation?.evidence??evidence);
+  context["evidence"]=evidence;
+  const preservedEvidence=structuredClone(seed?.evidence??evidence);
+  const followups:Array<{context:Record<string,unknown>;evidence:CatalogEvidence[]}>=structuredClone(seed?.followups??[]);
+  let previousError: string | undefined=seed?.continuation?.previousError;
+  let previousDraft: CatalogDraft | undefined=structuredClone(seed?.draft);
+  const researchLimitations = new Set<string>(seed?.continuation?.limitations??[]);
+  let continuationRound=seed?.continuation?.round??0;
+  let lookupQueue=structuredClone(seed?.continuation?.lookups??[]),lookupIndex=seed?.continuation?.lookupIndex??0;
+  const accumulated=seed?.totalUsage??seed?.usage;
+  const totalUsage=()=>({...usage,calls:usage.calls+(accumulated?.calls??0),cachedCalls:usage.cachedCalls+(accumulated?.cachedCalls??0),tokensIn:usage.tokensIn+(accumulated?.tokensIn??0),tokensOut:usage.tokensOut+(accumulated?.tokensOut??0)});
+  const persist=()=>checkpoint({draft:previousDraft??{summary:"",operations:[],unresolved:[]},evidence:preservedEvidence,usage:{...usage},totalUsage:totalUsage(),followups,complete:false,continuation:{round:continuationRound,context:structuredClone(context),results:structuredClone(results),evidence:structuredClone(evidence),lookups:structuredClone(lookupQueue),lookupIndex,...(previousError?{previousError}:{}),limitations:[...researchLimitations]}});
+
+  const resolveLookups=async()=>{
     await notify("sources", usage);
-    for (const lookup of result.proposal.lookups) {
+    for (;lookupIndex<lookupQueue.length;) {
+      const lookup=lookupQueue[lookupIndex]!;
       try {
         let data: unknown;
         if (lookup.type === "catalog")
@@ -308,8 +276,72 @@ async function planContextWithDeepSeek(
             error instanceof Error ? error.message : "No se pudo consultar",
         });
       }
-      await checkpoint({draft:previousDraft,evidence:preservedEvidence,usage,followups});
+      lookupIndex++;await persist();
     }
+  };
+  for (let round = continuationRound; round < env.CRV_AI_CURATION_MAX_CALLS; round++) {
+    await resolveLookups();
+    if(usage.calls>=(budget?.maxCalls??env.CRV_RESEARCH_MAX_CALLS)||usage.tokensIn+usage.tokensOut>=(budget?.maxTokens??env.CRV_RESEARCH_MAX_TOKENS))throw new Error("Presupuesto de la ejecución alcanzado; la ronda queda preservada para continuar.");
+    await notify("planning", usage);
+    let result: DeepSeekProposalResult<ReturnType<typeof plannerSchema.parse>>;
+    const input = {
+      ...context,
+      toolResults: results,
+      ...(previousDraft ? { previousDraft } : {}),
+      forcePlan: round === env.CRV_AI_CURATION_MAX_CALLS - 1,
+      ...(previousError ? { formatError: previousError } : {}),
+    };
+    if (JSON.stringify(input).length > env.CRV_AI_CURATION_CONTEXT_CHARS)
+      throw new Error(
+        "La consulta excede el contexto permitido. Divide la tarea por disco o problema.",
+      );
+    usage.calls++;
+    try {
+      result = await gateway.propose({
+        taskKind: "curation_plan",
+        schemaVersion: "curation-plan.v2",
+        modelClass: "fast",
+        responseSchema: plannerSchema,
+        instructions: INSTRUCTIONS,
+        input,
+      });
+    } catch (error) {
+      if(error instanceof DeepSeekBudgetExceeded)usage.calls--;
+      if (error instanceof DeepSeekValidationError && error.usage) {
+        usage.tokensIn += error.usage.tokensIn;
+        usage.tokensOut += error.usage.tokensOut;
+      }
+      previousError =
+        error instanceof Error ? error.message : "Respuesta inválida";
+      continuationRound=Math.min(round+1,env.CRV_AI_CURATION_MAX_CALLS-1);
+      await persist();
+      await notify("planning", usage);
+      // A missing database capability or an invalid API key cannot improve with another paid call.
+      if (
+        !(error instanceof DeepSeekValidationError) &&
+        !/DeepSeek HTTP (429|5\d\d)|abort|timeout/iu.test(previousError)
+      )
+        throw error;
+      if (round === env.CRV_AI_CURATION_MAX_CALLS - 1) throw error;
+      continue;
+    }
+    if (result.cached) usage.cachedCalls++;
+    usage.tokensIn += result.tokensIn ?? 0;
+    usage.tokensOut += result.tokensOut ?? 0;
+    usage.model = result.model;
+    await notify("planning", usage);
+    const { lookups: _, resolvedUnresolved, ...roundDraft } = result.proposal;
+    previousDraft = retainDraft(previousDraft, roundDraft, resolvedUnresolved);
+    continuationRound=Math.min(round+1,env.CRV_AI_CURATION_MAX_CALLS-1);
+    lookupQueue=structuredClone(result.proposal.lookups);lookupIndex=0;
+    await persist();
+    if (
+      !result.proposal.lookups.length
+    ) {
+      previousDraft.unresolved = [...new Set([...previousDraft.unresolved, ...researchLimitations])];
+      return { draft: previousDraft, evidence:preservedEvidence, usage, totalUsage:totalUsage(),followups,complete:true };
+    }
+    await resolveLookups();
   }
   throw new Error("No se obtuvo un plan válido dentro del presupuesto.");
 }

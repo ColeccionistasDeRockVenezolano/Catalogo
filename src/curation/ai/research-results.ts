@@ -3,7 +3,7 @@ import { orderedOperations, operationRefs } from "./schema.js";
 import type { CatalogDraft, CatalogEvidence, CatalogOperation } from "./types.js";
 
 /** Joining independent tasks never replaces another task's same-named operation or citation. */
-export function combinePlanningResults(results:Array<{draft:CatalogDraft;evidence:CatalogEvidence[]}>,original:CatalogEvidence[]=[]):{draft:CatalogDraft;evidence:CatalogEvidence[]} {
+export function combinePlanningResults(results:Array<{draft:CatalogDraft;evidence:CatalogEvidence[];taskKey?:string}>,original:CatalogEvidence[]=[]):{draft:CatalogDraft;evidence:CatalogEvidence[]} {
   const evidence:CatalogEvidence[]=structuredClone(original);
   const operations:CatalogOperation[]=[];
   const unresolved=new Set<string>();
@@ -21,7 +21,7 @@ export function combinePlanningResults(results:Array<{draft:CatalogDraft;evidenc
       if(!id){while(usedIds.has(`E${nextId}`))nextId++;id=`E${nextId++}`;usedIds.add(id);evidence.push({...item,id});sources.set(key,id);}
       citations.set(item.id,id);
     }
-    const prefix=hashValue(result.draft).slice(0,16);
+    const prefix=(result.taskKey??hashValue(result.draft)).slice(0,16);
     const references=new Map<string,string>();
     let ordered:CatalogOperation[];
     try{ordered=orderedOperations(result.draft);}catch{
@@ -45,9 +45,9 @@ export function combinePlanningResults(results:Array<{draft:CatalogDraft;evidenc
     result.draft.unresolved.forEach(item=>unresolved.add(item));
   }
   // One task keeps its public operation keys for compatibility with existing callers.
-  if(results.length===1){
+  if(results.length===1&&!results[0]!.taskKey){
     const originals=results[0]!.draft.operations;
-    const names=new Map(originals.map(op=>[`${hashValue(results[0]!.draft).slice(0,16)}_${op.key}`,op.key]));
+    const names=new Map(originals.map(op=>[`${(results[0]!.taskKey??hashValue(results[0]!.draft)).slice(0,16)}_${op.key}`,op.key]));
     for(const op of operations){op.key=names.get(op.key)??op.key;for(const ref of operationRefs(op))if("key" in ref)ref.key=names.get(ref.key)??ref.key;}
   }
   return {draft:{summary:summaries.join("\n"),operations,unresolved:[...unresolved]},evidence};

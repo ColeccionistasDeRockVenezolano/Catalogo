@@ -1,7 +1,7 @@
 import type { ResearchLedger } from "./research-ledger.js";
 import type { SourceProvenance } from "../evidence/provenance.js";
 
-export type VerificationKind = "person" | "artist" | "album";
+export type VerificationKind = "person" | "artist" | "album" | "organization" | "track";
 export const VERIFICATION_AREAS = {
   identity: { label: "Nombre e identidad", weight: 15 },
   members: { label: "Integrantes y créditos", weight: 15 },
@@ -22,6 +22,7 @@ export interface VerificationUnit {
   expected: string[]; context: string[]; issue: string | null;
 }
 export interface VerificationSnapshot {
+  identityProfile?:{names:string[];legalNames:string[];country:string|null;relatedNames:string[];repertoire:string[];artist?:string;album?:string;catalogId?:string|null;mediaFormat?:string|null};
   kind: VerificationKind; id: number; name: string; identity: string[];
   units: VerificationUnit[]; sourceUrls: string[];
   catalogAlbums: Array<{ id: number; title: string; artist: string; year: number | null }>;
@@ -29,6 +30,7 @@ export interface VerificationSnapshot {
 }
 export type VerificationStatus = "confirmed" | "partial" | "contradicted" | "missing" | "unverified";
 export interface VerificationEvidence extends SourceProvenance {
+  extractionHash?:string;
   contentHash?:string;
   requiresOriginalReview?:boolean;
   captureId?:number;
@@ -36,10 +38,12 @@ export interface VerificationEvidence extends SourceProvenance {
   url: string; title: string; quote: string; origin: "page" | "search_snippet"; fetchedAt: string;
 }
 export interface VerificationFinding extends VerificationUnit {
+  conflicted?:boolean;
   status: VerificationStatus; observed: string | null; explanation: string;
   coverage: number; evidence: VerificationEvidence[];
 }
 export interface VerificationReport {
+  extractions?:ExtractedAssertion[];
   researchVersionId?:number;
   /** Respaldo provisional guardado mientras se evalúan los lotes. */
   inProgress?: boolean;
@@ -52,6 +56,13 @@ export interface VerificationReport {
   areas: Array<{ key: VerificationArea; label: string; points: number; maximum: number; confirmed: number; partial: number; missing: number; contradicted: number; unverified: number }>;
   findings: VerificationFinding[]; issues: string[]; limitations: string[];
   sources: Array<SourceProvenance & { url: string; title: string; origin: "page" | "search_snippet"; fetchedAt: string; contentHash: string;document?:Omit<import("./documents/types.js").DocumentMetadata,"locations"|"followLinks"> }>;
+}
+export interface ExtractedAssertion {
+ id:string;kind:"finding"|"discovery";key:string|null;area:VerificationArea|null;value:string|null;context:string[];
+ state:"supported"|"uncertain"|"contradicted"|"invalid";
+ destination:"already_present"|"proposal"|"conflict"|"pending"|"discarded";
+ reason:string;findingKey:string|null;
+ evidence:Array<{source:number;url:string|null;contentHash:string|null;captureId:number|null;extractionHash?:string;quote:string;valid:boolean;reason:string|null}>;
 }
 export interface VerificationJob {
   researchVersionId?:number;

@@ -1,0 +1,10 @@
+BEGIN;
+ALTER TABLE ingest.entity_verification_reports DROP CONSTRAINT entity_verification_reports_entity_kind_check;
+ALTER TABLE ingest.entity_verification_reports ADD CONSTRAINT entity_verification_reports_entity_kind_check CHECK(entity_kind IN ('artist','person','album','organization','track'));
+ALTER TABLE ingest.entity_verification_jobs DROP CONSTRAINT entity_verification_jobs_entity_kind_check;
+ALTER TABLE ingest.entity_verification_jobs ADD CONSTRAINT entity_verification_jobs_entity_kind_check CHECK(entity_kind IN ('artist','person','album','organization','track'));
+ALTER TABLE ingest.entity_verification_research_state DROP CONSTRAINT entity_verification_research_state_entity_kind_check;
+ALTER TABLE ingest.entity_verification_research_state ADD CONSTRAINT entity_verification_research_state_entity_kind_check CHECK(entity_kind IN ('artist','person','album','organization','track'));
+ALTER TABLE ingest.entity_verification_research_versions DROP CONSTRAINT entity_verification_research_versions_entity_kind_check;
+ALTER TABLE ingest.entity_verification_research_versions ADD CONSTRAINT entity_verification_research_versions_entity_kind_check CHECK(entity_kind IN ('artist','person','album','organization','track'));
+COMMIT;

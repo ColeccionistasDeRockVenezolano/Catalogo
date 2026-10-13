@@ -70,6 +70,8 @@
     "stage1:reconcile-facts": "./scripts/with-node22.sh tsx scripts/stage1-reconcile-facts.ts",
     "stage1:baseline": "./scripts/with-node22.sh tsx scripts/stage1-baseline.ts",
     "stage2:context-audit": "./scripts/with-node22.sh tsx scripts/stage2-context-audit.ts",
+    "ai:budget": "./scripts/with-node22.sh tsx scripts/ai-budget.ts",
+    "stage2:preserved-audit": "./scripts/with-node22.sh tsx scripts/stage2-preserved-audit.ts",
     "test:browser:research": "./scripts/with-node22.sh tsx web/tests/visual/research-recovery-qa.mjs"
   },
   "dependencies": {

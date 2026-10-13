@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
-import { readFile } from "node:fs/promises";
+import { readFile,mkdtemp,rm } from "node:fs/promises";
+import {tmpdir} from "node:os";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { FastifyInstance } from "fastify";
@@ -15,6 +16,8 @@ import { undoRun } from "../../src/merge/run-undo.js";
 import { mergeInto } from "../../src/review/duplicates.js";
 import { parseDateValue } from "../../src/catalog/date-value.js";
 import { applyFact, factRecord, recordFact, rememberEvidenceDocument, rememberEvidenceFragment, type FactInput } from "../../src/evidence/inventory.js";
+import {preserveCapture} from "../../src/verification/documents/capture.js";
+import type {DocumentMetadata} from "../../src/verification/documents/types.js";
 
 const TOKEN = "qa-fact-inventory-01234567890123456789";
 const content = "🎸 Archivo original. La persona nació en mayo de 1973. El sello publicó la edición CD en 2001. La edición DVD es distinta.";
@@ -46,6 +49,22 @@ describe.each(["UTF8", "SQL_ASCII"] as const)("inventario persistente de hechos 
   }, 120_000);
   afterAll(async () => { await app?.close(); await closeDb(); await database?.stop(); if (previousToken === undefined) delete process.env["CRV_OPERATOR_TOKEN"]; else process.env["CRV_OPERATOR_TOKEN"] = previousToken; resetEnvCache(); }, 60_000);
 
+  it("versiona una interpretación nueva sin sobrescribir las posiciones de la anterior con el mismo texto y captura",async()=>{
+    const directory=await mkdtemp(path.join(tmpdir(),"crv-extraction-version-")),previous=process.env["DATA_DIR"];
+    try{
+      process.env["DATA_DIR"]=directory;resetEnvCache();
+      const url="https://example.org/layout-version",capture=await preserveCapture(getPool(),{url,finalUrl:url,contentType:"text/plain",capturedAt,method:"http",status:200,complete:true,reason:null,parentId:null},Buffer.from(content));
+      const metadata:DocumentMetadata={captureId:capture.id,rawHash:capture.rawHash,format:"pdf",method:"pdf_text+ocr",extractionVersion:2,complete:true,unreadParts:[],warnings:[],followLinks:[],locations:[{start:0,end:Buffer.byteLength(content),selector:"pdf:native-word",page:1,bbox:{x:10,y:10,width:100,height:20,unit:"pt"}}]};
+      const source={url,title:"Interpretación",content,contentHash:hash,fetchedAt:capturedAt,capturedAt,readAt,acquisitionMethod:"http" as const};
+      const old=await rememberEvidenceDocument(getPool(),{...source,document:metadata}),next=await rememberEvidenceDocument(getPool(),{...source,document:{...metadata,locations:metadata.locations.map(location=>({...location,selector:"pdf:native-uncorroborated-word"}))}});
+      expect(next).not.toBe(old);
+      const rows=(await getPool().query("SELECT id,extraction_metadata FROM ingest.evidence_documents WHERE id=ANY($1::bigint[]) ORDER BY id",[[old,next]])).rows;
+      expect(rows[0].extraction_metadata.locations[0].selector).toBe("pdf:native-word");expect(rows[1].extraction_metadata.locations[0].selector).toBe("pdf:native-uncorroborated-word");
+      const before=await rememberEvidenceFragment(getPool(),old,quote),after=await rememberEvidenceFragment(getPool(),next,quote);
+      expect(after).not.toBe(before);
+      expect((await getPool().query("SELECT selector FROM ingest.evidence_fragments WHERE id=$1",[after])).rows[0].selector).toContain("uncorroborated");
+    }finally{if(previous===undefined)delete process.env["DATA_DIR"];else process.env["DATA_DIR"]=previous;resetEnvCache();await rm(directory,{recursive:true,force:true});}
+  });
   it("conserva texto, hash, captura y lecturas distintas; sus offsets soportan caracteres astrales", async () => {
     const reread = await rememberEvidenceDocument(getPool(), { url: "https://example.org/original", title: "Archivo original", content, contentHash: hash, fetchedAt: capturedAt, capturedAt, readAt: "2026-10-11T00:00:00.123Z", acquisitionMethod: "raw_archive" });
     expect(reread).toBe(document);

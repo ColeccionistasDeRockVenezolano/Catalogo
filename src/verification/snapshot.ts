@@ -3,6 +3,8 @@ import { getPool } from "../db/client.js";
 import { getArtistDetail } from "../api/repositories/artists.js";
 import { getPersonDetail } from "../api/repositories/persons.js";
 import { getAlbumDetail } from "../api/repositories/albums.js";
+import { getOrganizationDetail } from "../api/repositories/organizations.js";
+import { getTrackDetail } from "../api/repositories/tracks.js";
 import { notFound } from "../api/http-errors.js";
 import type { VerificationArea, VerificationKind, VerificationSnapshot, VerificationUnit } from "./types.js";
 
@@ -15,7 +17,7 @@ export async function loadVerificationSnapshot(kind: VerificationKind, id: numbe
     }
     units.push({key, area, label, value: value?.trim() || null, expected, context, issue});
   };
-  const detail = kind === "artist" ? await getArtistDetail(id) : kind === "person" ? await getPersonDetail(id) : await getAlbumDetail(id);
+  const detail = kind === "artist" ? await getArtistDetail(id) : kind === "person" ? await getPersonDetail(id) : kind === "organization" ? await getOrganizationDetail(id) : kind === "track" ? await getTrackDetail(id) : await getAlbumDetail(id);
   if (!detail) throw notFound(kind, id);
   const name = "name" in detail ? detail.name : detail.title;
   const identity = [name, ...detail.aliases.map((a) => a.alias)];
@@ -26,11 +28,16 @@ export async function loadVerificationSnapshot(kind: VerificationKind, id: numbe
   let albumIds: number[];
   const urls: string[] = [];
   const artistIds: number[] = [];
+  const profile:NonNullable<VerificationSnapshot["identityProfile"]>={names:[...identity],legalNames:[],country:null,relatedNames:[],repertoire:[]};
   let bio: string | null;
   if (kind === "artist") {
     const artist = await getArtistDetail(id);
     if (!artist) throw notFound(kind,id);
     bio = artist.biography;
+    profile.country=artist.originCountry;profile.relatedNames=artist.members.map(member=>member.personName);
+    if(artist.artistType==="solo_artist")profile.legalNames=[...profile.relatedNames];
+    add("identity.country","identity","País del proyecto",artist.originCountry,[artist.originCountry],[name]);
+    add("identity.city","identity","Ciudad de origen",artist.originCity,artist.originCity?[artist.originCity]:[],[name]);
     if (artist.artistType === "solo_artist") identity.push(...artist.members.map(member=>member.personName));
     if (artist.artistType === "solo_artist") {
       for (const member of artist.members) {
@@ -71,6 +78,8 @@ export async function loadVerificationSnapshot(kind: VerificationKind, id: numbe
     const real = person.aliases.find(a=>/real|full|legal/iu.test(a.aliasType));
     const storedName = (await getPool().query<{real_name:string|null}>("SELECT real_name FROM public.persons WHERE id=$1",[id])).rows[0]?.real_name;
     const realName = storedName ?? real?.alias ?? null;
+    profile.country=person.nationality;profile.legalNames=realName?[realName]:[];profile.relatedNames=person.bands.map(band=>band.artistName);
+    add("identity.country","identity","Nacionalidad",person.nationality,person.nationality?[person.nationality]:[],[name]);
     add("identity.realName","identity","Nombre real completo", realName,realName ? [realName] : [],[name]);
     add("status.birth","status","Fecha de nacimiento",person.birthDate,dateYear(person.birthDate) !== null ? [String(dateYear(person.birthDate))] : [],[name]);
     add("status.life","status","Estado de la persona",person.deathDate ? `Fallecimiento: ${person.deathDate}` : person.isDeceasedFlag === true ? "Fallecido/a" : person.isDeceasedFlag === false ? "Sin fallecimiento registrado" : null,dateYear(person.deathDate) !== null ? [String(dateYear(person.deathDate))] : [],[name],
@@ -92,6 +101,33 @@ export async function loadVerificationSnapshot(kind: VerificationKind, id: numbe
     add("socials.empty","socials","Redes personales documentadas",null);
     // No se heredan géneros de las bandas: se investiga la trayectoria propia.
     add("genres.empty","genres","Estilos de la trayectoria personal",null);
+  } else if(kind === "organization") {
+    const org=await getOrganizationDetail(id);if(!org)throw notFound(kind,id);
+    bio=org.biography;
+    profile.country=org.country;profile.relatedNames=[...org.creditedArtists.map(artist=>artist.artistName),...org.associatedPersons.map(person=>person.personName)];
+    add("identity.type","identity","Tipo de organización",org.organizationType,[org.organizationType],[name]);
+    add("identity.country","identity","País de la organización",org.country,org.country?[org.country]:[],[name]);
+    add("social.website","socials","Sitio web oficial",org.websiteUrl,org.websiteUrl?[org.websiteUrl]:[],[name]);
+    if(org.websiteUrl)urls.push(org.websiteUrl);
+    for(const person of org.associatedPersons){
+      add(`organization.person.${person.id}`,"members",`Vínculo con ${person.personName}`,person.role,[person.personName,person.role],[name]);
+      add(`organization.person.${person.id}.period`,"status",`Periodo de ${person.personName}`,person.fromYear?`${person.fromYear}–${person.toYear??"sin final registrado"}`:null,[person.fromYear,person.toYear].filter((year):year is number=>year!==null).map(String),[name,person.personName]);
+    }
+    const linked=await getPool().query<{id:string}>(`SELECT DISTINCT a.id::text FROM public.albums a WHERE a.label_id=$1
+      OR EXISTS(SELECT 1 FROM public.album_credits c WHERE c.album_id=a.id AND c.organization_id=$1)
+      OR EXISTS(SELECT 1 FROM public.tracks t JOIN public.track_credits c ON c.track_id=t.id WHERE t.album_id=a.id AND c.organization_id=$1)
+      OR EXISTS(SELECT 1 FROM ingest.album_labels l WHERE l.album_id=a.id AND l.organization_id=$1)`,[id]);
+    albumIds=linked.rows.map(row=>Number(row.id));
+    for(const relation of org.relations)add(`organization.relation.${relation.direction}.${relation.other.id}.${relation.relationType}`,"labels","Relación entre organizaciones",`${relation.other.name} · ${relation.relationType}`,[relation.other.name],[name]);
+  } else if(kind === "track") {
+    const track=await getTrackDetail(id);if(!track)throw notFound(kind,id);
+    bio=track.notes;albumIds=[track.albumId];artistIds.push(track.artistId);
+    profile.artist=track.artistName;profile.album=track.albumTitle;
+    units[0]!.expected.push(track.albumTitle,track.artistName);units[0]!.context.push(track.albumTitle,track.artistName);
+    add("track.album","discography","Álbum y artista de la pista",`${track.albumTitle} · ${track.artistName}`,[track.albumTitle,track.artistName],[name]);
+    add("track.order","tracks","Posición en la edición",`${track.discNumber}.${track.trackNumber}`,[name,String(track.trackNumber)],[track.albumTitle,track.artistName]);
+    add("track.duration","tracks","Duración en segundos",track.durationSeconds?.toString()??null,track.durationSeconds!==null?[String(track.durationSeconds)]:[],[name,track.albumTitle,track.artistName]);
+    for(const credit of track.credits)add(`trackcredit.${credit.id}`,"members",`Crédito de ${credit.personName??credit.artistName??credit.organizationName}`,credit.role,[credit.role],[name,track.albumTitle,credit.personName??credit.artistName??credit.organizationName??""]);
   } else {
     const album = await getAlbumDetail(id);
     if (!album) throw notFound(kind,id);
@@ -99,6 +135,7 @@ export async function loadVerificationSnapshot(kind: VerificationKind, id: numbe
     units[0]!.expected.push(album.artist.name);
     units[0]!.context.push(album.artist.name);
     albumIds = [id]; artistIds.push(album.artist.id); bio = album.description;
+    profile.artist=album.artist.name;profile.album=album.title;profile.catalogId=album.catalogId;profile.mediaFormat=album.mediaFormat;
     if (!album.genres.length) add("genres.empty","genres","Géneros del disco",null);
     for (const genre of album.genres) add(`genre.${genre.slug}`,"genres","Género del disco",genre.name,[genre.name],[album.title,album.artist.name]);
     for (const [platform,url] of [["YouTube",album.youtubeUrl],["Instagram",album.instagramUrl],["WordPress",album.wordpressUrl],...album.platforms.map(p=>[p.platform,p.url])] as Array<[string,string|null]>) {
@@ -119,11 +156,15 @@ export async function loadVerificationSnapshot(kind: VerificationKind, id: numbe
     if (!album) continue;
     albums.push({id:album.id,title:album.title,artist:album.artist.name,year:album.releaseYear});
     artistIds.push(album.artist.id);
-    const context = [album.artist.name,album.title];
+    const context = [album.artist.name,album.title,...(album.catalogId?[album.catalogId]:[])];
     add(`album.${album.id}.title`,"discography","Disco",album.title,[album.title,album.artist.name],kind === "person" ? [name] : []);
     add(`album.${album.id}.year`,"discography",`Año de ${album.title}`,album.releaseYear?.toString() ?? null,album.releaseYear ? [String(album.releaseYear)] : [],context);
     add(`album.${album.id}.type`,"discography",`Tipo de ${album.title}`,album.albumType,[album.albumType],context);
-    if (kind === "album") {
+    add(`album.${album.id}.catalogId`,"discography",`Identificador de la edición de ${album.title}`,album.catalogId,album.catalogId?[album.catalogId]:[],[album.artist.name,album.title]);
+    add(`album.${album.id}.format`,"discography",`Soporte de ${album.title}`,album.mediaFormat,album.mediaFormat?[album.mediaFormat]:[],context);
+    add(`album.${album.id}.releaseDate`,"discography",`Fecha de edición de ${album.title}`,album.releaseDateValue,album.releaseDateValue?[album.releaseDateValue]:[],context);
+    for(const label of album.labels)add(`album.${album.id}.labelRole.${label.organizationId}.${label.role}`,"labels",`Sello y rol de ${album.title}`,`${label.name} · ${label.roleLabel}`,[label.name,label.roleLabel],context);
+    if (kind === "album" || kind === "organization" || kind === "track") {
       const credits = [...album.credits,...Object.values(album.scopedCreditsByType).flat()];
       if (!credits.length) add("members.empty","members","Créditos del disco",null);
       for (const credit of credits) add(`albumcredit.${credit.id}`,"members",`Crédito de ${credit.personName ?? credit.artistName ?? credit.organizationName}`,credit.role,credit.role.split(/[,;&/]+/u).map(r=>r.trim()).filter(Boolean),[...context,credit.personName ?? credit.artistName ?? credit.organizationName ?? ""]);
@@ -153,10 +194,13 @@ export async function loadVerificationSnapshot(kind: VerificationKind, id: numbe
   }
   add("discography.search","missingAlbums",kind === "album" ? "Otras ediciones y pistas ausentes" : "Lanzamientos ausentes del catálogo",null,[],[name]);
   // Todas las URL de procedencia pertenecen a entidades efectivamente incluidas.
-  const column={person:"person_id",artist:"artist_id",album:"album_id"}[kind];
+  // Claims currently bind artists/persons/albums; organization and track evidence
+  // is reached through their actual albums and the reusable evidence inventory.
+  const column={person:"person_id",artist:"artist_id",album:"album_id",organization:"album_id",track:"album_id"}[kind];
   const {rows}=await getPool().query<{url:string}>(`SELECT DISTINCT r.url FROM ingest.claims c JOIN ingest.raw_pages r ON r.id=c.raw_page_id
-    WHERE (c.${column}=$1 OR c.album_id=ANY($2::bigint[]) OR c.artist_id=ANY($3::bigint[])) AND r.url IS NOT NULL ORDER BY r.url`,[id,albumIds,[...new Set(artistIds)]]);
+    WHERE (c.${column}=$1 OR c.album_id=ANY($2::bigint[]) OR c.artist_id=ANY($3::bigint[])) AND r.url IS NOT NULL ORDER BY r.url`,[kind==="organization"||kind==="track"?null:id,albumIds,[...new Set(artistIds)]]);
   const known=await getPool().query<{id:string;title:string;artist:string;year:number|null}>("SELECT al.id::text,al.title,a.name AS artist,al.release_year AS year FROM public.albums al JOIN public.artists a ON a.id=al.artist_id WHERE al.artist_id=ANY($1::bigint[]) ORDER BY al.id",[[...new Set(artistIds)]]);
   const catalogAlbums=known.rows.map(a=>({...a,id:Number(a.id)}));
-  return {kind,id,name,identity,units,albums,catalogAlbums,sourceUrls:[...new Set([...rows.map(r=>r.url),...urls])].sort()};
+  profile.repertoire=[...new Set([...catalogAlbums.map(album=>album.title),...albums.map(album=>album.title)])];
+  return {kind,id,name,identity,identityProfile:profile,units,albums,catalogAlbums,sourceUrls:[...new Set([...rows.map(r=>r.url),...urls])].sort()};
 }

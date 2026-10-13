@@ -15,6 +15,7 @@ import {
   decidePlan,
   refreshPlan,
   startPlan,
+  resumePlan,
   waitForPlans,
 } from "../../curation/ai/store.js";
 import { describeFields } from "../../curation/ai/fields.js";
@@ -119,6 +120,7 @@ export async function registerAiCurationRoutes(
         request.operator,
       ),
   );
+  server.post("/curation/ai/plans/:id/resume",{schema:{security:OPERATOR_SECURITY,params,response:{200:z.unknown()}}},request=>resumePlan(request.params.id,request.operator));
   server.patch(
     "/curation/ai/plans/:id",
     {

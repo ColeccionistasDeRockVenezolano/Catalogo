@@ -14,6 +14,8 @@ import {
   applyPlan,
   decidePlan,
   refreshPlan,
+  recoverPlans,
+  resumePlan,
 } from "../../src/curation/ai/store.js";
 import { planningContext } from "../../src/curation/ai/context.js";
 import { executePlan } from "../../src/curation/ai/executor.js";
@@ -69,11 +71,12 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
     second: number;
   let genre: string;
   const headers = { authorization: `Bearer ${TOKEN}` };
+  let preparationSequence=0;
   async function prepared(input: CatalogDraft): Promise<CatalogPlan> {
     const p = await startPlan(
       "artist",
       artist,
-      "Revisar ficha con fuentes documentadas",
+      `Revisar ficha con fuentes documentadas, caso de contrato ${++preparationSequence}`,
       "QA",
       async () => ({
         draft: input,
@@ -624,7 +627,33 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
     expect(p.preview?.ready).toBe(true);
     expect(p.reviewedKeys).toEqual(["editorial"]);
   });
+  it("reanuda una ronda fallida con sus operaciones, consultas ya obtenidas y claves estables",async()=>{
+    const entity=Number((await getPool().query("INSERT INTO public.artists(name) VALUES('Rondas QA') RETURNING id")).rows[0].id);
+    const planId=Number((await getPool().query("INSERT INTO ingest.ai_curation_plans(entity_kind,entity_id,instruction,requested_by,status) VALUES('artist',$1,'Recuperar rondas y conservar datos','QA','failed') RETURNING id",[entity])).rows[0].id);
+    const transport=new MockDeepSeekTransport({summary:"Primer hallazgo",operations:[{...base,key:"primer_alias",op:"add_alias",target:{kind:"artist",id:entity},alias:"Alias durante consulta"}],unresolved:[],lookups:[{type:"catalog",kind:"album",query:String(album)}]},new Error("DeepSeek HTTP 503"),{summary:"Continuación",operations:[],unresolved:[],lookups:[]});
+    const gateway=new DeepSeekGateway({baseUrl:"https://mock.invalid",models:{fast:"deepseek-flash",reasoning:"pro",vision:"vision"},maxTokens:6000,timeoutMs:1000},transport,new PostgresDeepSeekRunStore());
+    const partial=await planWithDeepSeek("artist",entity,"Recuperar rondas y conservar datos",async()=>{},gateway,{planId});
+    expect(partial.complete).toBe(false);expect(partial.draft.operations).toHaveLength(1);
+    const saved=(await getPool().query("SELECT result,status FROM ingest.ai_curation_research_tasks WHERE plan_id=$1",[planId])).rows[0];
+    expect(saved.status).toBe("failed");expect(saved.result.continuation.lookupIndex).toBe(1);
+    const finished=await planWithDeepSeek("artist",entity,"Recuperar rondas y conservar datos",async()=>{},gateway,{planId});
+    expect(finished.complete).toBe(true);expect(finished.usage.calls).toBe(1);expect(finished.draft.operations[0]?.key).toBe(partial.draft.operations[0]?.key);
+    const input=JSON.parse(transport.requests[2]!.user.replace(/^INPUT JSON:\n/u,""));
+    expect(input.previousDraft.operations[0].key).toBe("primer_alias");expect(input.toolResults[0].lookup.query).toBe(String(album));expect(JSON.stringify(input.toolResults[0].result)).toContain("Disco Existente");
+    expect(transport.requests).toHaveLength(3);
+  });
+  it("otro proceso no invalida una preparación vigente y el propietario perdido no puede publicar",async()=>{
+    const entity=Number((await getPool().query("INSERT INTO public.artists(name) VALUES('Lease de plan QA') RETURNING id")).rows[0].id);
+    let enter!:()=>void,release!:()=>void;const entered=new Promise<void>(resolve=>{enter=resolve;}),barrier=new Promise<void>(resolve=>{release=resolve;});
+    const plan=await startPlan("artist",entity,"Ensayar recuperación entre procesos","QA",async(_kind,_id,_instruction,notify)=>{enter();await barrier;await notify("planning",{calls:1,cachedCalls:0,tokensIn:1,tokensOut:1});return {draft:draft([]),evidence:[],usage:{calls:1,cachedCalls:0,tokensIn:1,tokensOut:1}};});
+    await entered;await recoverPlans();expect((await getPlan(plan.id)).status).toBe("running");
+    await getPool().query("UPDATE ingest.ai_curation_plans SET lease_owner='otro-proceso',lease_expires_at=now()+interval '1 minute' WHERE id=$1",[plan.id]);
+    release();await waitForPlans();expect(await getPlan(plan.id)).toMatchObject({status:"running",draft:null});
+    await getPool().query("UPDATE ingest.ai_curation_plans SET lease_expires_at=now()-interval '1 second' WHERE id=$1",[plan.id]);await recoverPlans();expect((await getPlan(plan.id)).status).toBe("failed");
+    const resumed=await resumePlan(plan.id,"QA",async()=>({draft:draft([]),evidence:[],usage:{calls:0,cachedCalls:0,tokensIn:0,tokensOut:0}}));await waitForPlans();expect(resumed.id).toBe(plan.id);expect((await getPlan(plan.id)).status).toBe("ready");
+  });
   it("consulta herramientas de lectura y respeta el presupuesto de dos llamadas al modelo", async () => {
+    const validatedBefore=Number((await getPool().query("SELECT count(*)::int AS n FROM ingest.ai_runs WHERE task_kind='curation_plan' AND status='validated'")).rows[0].n);
     const transport = new MockDeepSeekTransport(
       {
         summary: "Consultar disco",
@@ -683,7 +712,7 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
           "SELECT count(*)::int AS n FROM ingest.ai_runs WHERE task_kind='curation_plan' AND status='validated'",
         )
       ).rows[0].n,
-    ).toBe(2);
+    ).toBe(validatedBefore+2);
   });
   it("añade períodos y corrige solo la relación elegida", async () => {
     let p = await prepared(
