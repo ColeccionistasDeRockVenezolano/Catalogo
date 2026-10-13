@@ -25,7 +25,9 @@ export const AlbumYoutubePlayer = forwardRef<AlbumYoutubePlayerHandle, AlbumYout
     useEffect(() => {
       if (initialized.current) return;
       initialized.current = true;
-      // Un video que ya suena sigue flotando hasta que se elija otro.
+      // Un video que ya suena sigue flotando hasta que se elija otro. Si ya es de este disco
+      // (una pista pulsada desde otra plataforma), no se toca: lleva su segundo de inicio.
+      if (session?.owner === owner) return;
       if (!session || session.video.videoId === videoId) play({ videoId, title, album: { id: albumId, title } }, owner, undefined, false);
     }, [session, play, videoId, title, albumId, owner]);
     useEffect(() => { onPlaybackChange(selected ? playback : null); }, [selected, playback, onPlaybackChange]);

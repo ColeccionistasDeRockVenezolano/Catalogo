@@ -95,13 +95,13 @@ const albumDetailSchema = z.object({
   })),
   discs: z.array(z.object({
     discNumber: z.number().int(), title: z.string().nullable(),
-    platforms: z.array(z.object({ platform: z.string(), url: z.string() })),
+    platforms: z.array(z.object({ platform: z.string(), url: z.string(), externalId: z.string().nullable().optional() })),
   })).describe("Discos con nombre («Lado A», «CD 2», «DVD») o con enlaces de escucha propios. Sin nombre se muestra «Disco N»."),
   aliases: z.array(aliasSchema),
   youtubeLinks: z.array(z.object({
     videoId: z.string(), title: z.string().nullable(), kind: z.string(), isPrimaryLink: z.boolean(),
   })),
-  platforms: z.array(z.object({ platform: z.string(), url: z.string() }))
+  platforms: z.array(z.object({ platform: z.string(), url: z.string(), externalId: z.string().nullable().optional() }))
     .describe("El disco en plataformas de escucha (Spotify, Apple Music, Deezer…); solo los de identidad verificada."),
   ...albumDiscographySchema,
 });

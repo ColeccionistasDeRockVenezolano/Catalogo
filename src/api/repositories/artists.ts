@@ -116,7 +116,7 @@ export interface ArtistDetail {
   /** Enlaces públicos de sus discos (YouTube, Instagram, WordPress), uno por disco y plataforma. */
   links: Array<{ platform: "youtube" | "instagram" | "wordpress"; url: string; albumId: number; albumTitle: string }>;
   /** Perfiles de escucha del artista (streaming_links, 0039); solo los de identidad verificada. */
-  platforms: Array<{ platform: string; url: string }>;
+  platforms: Array<{ platform: string; url: string; externalId: string | null }>;
   /** Redes sociales del artista (social_links, 0040); solo las de identidad verificada. */
   socials: Array<{ platform: string; url: string; handle: string | null }>;
   /**
@@ -170,7 +170,7 @@ export async function getArtistDetail(id: number): Promise<ArtistDetail | null> 
            ) l
        ), '[]'::jsonb) AS links,
        COALESCE((
-         SELECT jsonb_agg(jsonb_build_object('platform', sl.platform, 'url', sl.url) ORDER BY sl.platform)
+         SELECT jsonb_agg(jsonb_build_object('platform', sl.platform, 'url', sl.url, 'externalId', sl.external_id) ORDER BY sl.platform)
            FROM public.streaming_links sl WHERE sl.artist_id = a.id AND sl.verified
        ), '[]'::jsonb) AS platforms,
        COALESCE((

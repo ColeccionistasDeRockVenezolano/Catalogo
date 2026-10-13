@@ -158,11 +158,11 @@ export interface AlbumDetail {
    * Cada disco con nombre («Lado A», «CD 2», «DVD») o con enlaces de escucha
    * propios (0063). Sin nombre, la web numera («Disco 2»).
    */
-  discs: Array<{ discNumber: number; title: string | null; platforms: Array<{ platform: string; url: string }> }>;
+  discs: Array<{ discNumber: number; title: string | null; platforms: Array<{ platform: string; url: string; externalId: string | null }> }>;
   aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean; publicHidden: boolean }>;
   youtubeLinks: Array<{ videoId: string; title: string | null; kind: string; isPrimaryLink: boolean }>;
   /** El disco en plataformas de escucha (streaming_links, 0039); solo los de identidad verificada. */
-  platforms: Array<{ platform: string; url: string }>;
+  platforms: Array<{ platform: string; url: string; externalId: string | null }>;
   /** Plan del primo, etapa 2 (0068): versiones, sellos con rol, series y créditos en frase. */
   versions: AlbumDiscography["versions"];
   labels: AlbumDiscography["labels"];
@@ -250,7 +250,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
        ), '[]'::jsonb) AS formats,
        COALESCE((
          SELECT jsonb_agg(jsonb_build_object('discNumber', n.disc_number, 'title', d.title, 'platforms', COALESCE((
-                  SELECT jsonb_agg(jsonb_build_object('platform', l.platform, 'url', l.url) ORDER BY l.platform)
+                  SELECT jsonb_agg(jsonb_build_object('platform', l.platform, 'url', l.url, 'externalId', l.external_id) ORDER BY l.platform)
                     FROM public.album_disc_links l WHERE l.album_id = al.id AND l.disc_number = n.disc_number AND l.verified
                      AND NOT (l.platform = 'youtube' AND EXISTS (
                        SELECT 1 FROM media.youtube_videos dv
@@ -273,7 +273,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
          WHERE va.album_id = al.id AND v.publication_status NOT IN ('unpublished', 'copyright_blocked')
        ), '[]'::jsonb) AS youtube_links,
        COALESCE((
-         SELECT jsonb_agg(jsonb_build_object('platform', sl.platform, 'url', sl.url) ORDER BY sl.platform)
+         SELECT jsonb_agg(jsonb_build_object('platform', sl.platform, 'url', sl.url, 'externalId', sl.external_id) ORDER BY sl.platform)
            FROM public.streaming_links sl WHERE sl.album_id = al.id AND sl.verified
        ), '[]'::jsonb) AS platforms
      FROM public.albums al

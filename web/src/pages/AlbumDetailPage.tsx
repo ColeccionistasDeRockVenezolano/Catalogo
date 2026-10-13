@@ -36,6 +36,8 @@ import { CatalogGenres, CatalogYear } from "../components/CatalogMetadata";
 import { AlbumYoutubePlayer, type AlbumYoutubePlayerHandle } from "../components/AlbumYoutubePlayer";
 import { albumDiscVideos, albumYoutubeVideoId, trackAtYoutubeTime, type DiscVideo, type YoutubePlayback } from "../lib/youtube";
 import { useVideoPlayer } from "../components/VideoPlayer";
+import { EmbedPanel, ListenSection, resolveListenPlatform, useListenChoice, type ListenTab } from "../components/ListenPlayer";
+import { embedOptions } from "../lib/embeds";
 
 const CREDIT_SECTIONS: ReadonlyArray<{ title: string; types: readonly string[] }> = [
   { title: "Músicos", types: ["musician"] },
@@ -76,7 +78,9 @@ export function AlbumDetailPage() {
   const [playback, setPlayback] = useState<(YoutubePlayback & { albumId: number }) | null>(null);
   // Video elegido entre los de los discos (Lado A / Lado B, CD 1 / CD 2).
   const [chosenVideo, setChosenVideo] = useState<{ albumId: number; videoId: string } | null>(null);
-  const { session: videoSession } = useVideoPlayer();
+  const { session: videoSession, play: playVideo, close: closeVideo } = useVideoPlayer();
+  const [chosenPlatform, choosePlatform] = useListenChoice(albumId);
+  const listenSection = useRef<HTMLDivElement>(null);
   const onPlaybackChange = useCallback((value: YoutubePlayback | null) => {
     setPlayback(value ? { ...value, albumId } : null);
   }, [albumId]);
@@ -104,9 +108,31 @@ export function AlbumDetailPage() {
   const currentTrack = youtubeVideoId && currentPlayback && [1, 2, 3].includes(currentPlayback.state)
     ? trackAtYoutubeTime(playingTracks, currentPlayback.seconds) : null;
   const playbackLabel = currentPlayback?.state === 1 ? "Reproduciendo" : currentPlayback?.state === 2 ? "En pausa" : "Cargando…";
+  // Plataformas con reproductor: YouTube (el canal, suena completo para todos) y las demás.
+  const embeds = embedOptions([
+    { label: null, links: album.platforms ?? [] },
+    ...(album.discs ?? []).map((disc) => ({ label: disc.title ?? `Disco ${disc.discNumber}`, links: disc.platforms.filter((link) => link.platform !== "youtube") })),
+  ], "album");
+  const listenTabs: ListenTab[] = [
+    ...(youtubeVideoId ? [{ platform: "youtube", url: `https://youtu.be/${youtubeVideoId}` }] : []),
+    ...embeds.map((option) => ({ platform: option.platform, url: option.targets[0]!.url })),
+  ];
+  const listenPlatform = resolveListenPlatform(listenTabs.map((tab) => tab.platform), chosenPlatform);
+  const activeEmbed = embeds.find((option) => option.platform === listenPlatform) ?? null;
+  const switchPlatform = (platform: string) => {
+    // Al dejar YouTube, el video de este disco se detiene (no queda sonando flotante por debajo).
+    if (platform !== "youtube" && videoSession?.owner === `album-${album.id}`) closeVideo();
+    choosePlatform(platform);
+  };
   const playDisc = (video: DiscVideo, seconds = 0) => {
     setChosenVideo({ albumId: album.id, videoId: video.videoId });
-    youtubePlayer.current?.playFrom(seconds, { videoId: video.videoId, title: multipleVideos ? `${album.title} · ${tabLabel(video)}` : album.title });
+    const title = multipleVideos ? `${album.title} · ${tabLabel(video)}` : album.title;
+    if (youtubePlayer.current) { youtubePlayer.current.playFrom(seconds, { videoId: video.videoId, title }); return; }
+    // Una pista pulsada mientras suena otra plataforma vuelve a YouTube desde su inicio.
+    switchPlatform("youtube");
+    playVideo({ videoId: video.videoId, title, album: { id: album.id, title } }, `album-${album.id}`, seconds);
+    setPlayback({ seconds, state: 3, albumId: album.id });
+    requestAnimationFrame(() => listenSection.current?.scrollIntoView({ block: "start", behavior: "instant" }));
   };
   // Un solo disco sin nombre no lleva encabezado; con varios, o con nombre
   // («Lado A», «DVD»), cada lista va bajo el suyo.
@@ -173,36 +199,41 @@ export function AlbumDetailPage() {
         </div>
       ) : null}
 
-      {youtubeVideoId ? (
-        <div className="section">
-          <h2>
-            Escuchar disco
-            <a className="album-youtube-link" href={`https://youtu.be/${youtubeVideoId}`} target="_blank" rel="noreferrer">Abrir en YouTube</a>
-          </h2>
-          {multipleVideos ? (
-            <div className="album-disc-videos" role="group" aria-label="Video de cada disco">
-              {videoTabs.map((video) => {
-                const active = video.videoId === youtubeVideoId;
-                return (
-                  <button key={video.videoId} type="button" className={`album-disc-video${active ? " is-active" : ""}`} aria-pressed={active}
-                    onClick={() => playDisc(video)}>
-                    <img src={`https://i.ytimg.com/vi/${video.videoId}/mqdefault.jpg`} alt="" loading="lazy" decoding="async" />
-                    <span><Play size={12} weight="fill" aria-hidden="true" />{tabLabel(video)}</span>
-                  </button>
-                );
-              })}
-            </div>
-          ) : null}
-          <AlbumYoutubePlayer key={album.id} ref={youtubePlayer} albumId={album.id} videoId={youtubeVideoId} title={playerTitle} onPlaybackChange={onPlaybackChange} />
-          <p className="album-youtube-current" role="status">
-            {currentTrack ? <>{playbackLabel}: <strong>{currentTrack.title}</strong></>
-              : currentPlayback?.state === 1 ? "Reproduciendo el disco."
-                : currentPlayback?.state === 2 ? "Reproducción en pausa."
-                  : currentPlayback?.state === 3 ? "Cargando el video…"
-                    : currentPlayback?.state === 0 ? "Reproducción finalizada."
-                : multipleVideos ? "Cada disco tiene su video: elige uno arriba o una pista para escucharla desde su inicio."
-                : "Elige una pista para escucharla desde su inicio."}
-          </p>
+      {listenPlatform ? (
+        <div ref={listenSection} className="listen-anchor">
+          <ListenSection heading="Escuchar disco" subject={`«${album.title}»`} tabs={listenTabs} active={listenPlatform} onChange={switchPlatform}>
+            {listenPlatform === "youtube" && youtubeVideoId ? (
+                <>
+                  {multipleVideos ? (
+                    <div className="album-disc-videos" role="group" aria-label="Video de cada disco">
+                      {videoTabs.map((video) => {
+                        const active = video.videoId === youtubeVideoId;
+                        return (
+                          <button key={video.videoId} type="button" className={`album-disc-video${active ? " is-active" : ""}`} aria-pressed={active}
+                            onClick={() => playDisc(video)}>
+                            <img src={`https://i.ytimg.com/vi/${video.videoId}/mqdefault.jpg`} alt="" loading="lazy" decoding="async" />
+                            <span><Play size={12} weight="fill" aria-hidden="true" />{tabLabel(video)}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  ) : null}
+                  <AlbumYoutubePlayer key={album.id} ref={youtubePlayer} albumId={album.id} videoId={youtubeVideoId} title={playerTitle} onPlaybackChange={onPlaybackChange} />
+                  <p className="album-youtube-current" role="status">
+                    {currentTrack ? <>{playbackLabel}: <strong>{currentTrack.title}</strong></>
+                      : currentPlayback?.state === 1 ? "Reproduciendo el disco."
+                        : currentPlayback?.state === 2 ? "Reproducción en pausa."
+                          : currentPlayback?.state === 3 ? "Cargando el video…"
+                            : currentPlayback?.state === 0 ? "Reproducción finalizada."
+                        : multipleVideos ? "Cada disco tiene su video: elige uno arriba o una pista para escucharla desde su inicio."
+                        : "Elige una pista para escucharla desde su inicio."}
+                  </p>
+                </>
+            ) : activeEmbed ? (
+              <EmbedPanel key={`${album.id}:${activeEmbed.platform}`} option={activeEmbed} subject={`«${album.title}»`}
+                fullElsewhere={youtubeVideoId ? "youtube" : embeds.some((option) => option.platform === "youtube_music") ? "youtube_music" : null} />
+            ) : null}
+          </ListenSection>
         </div>
       ) : null}
 

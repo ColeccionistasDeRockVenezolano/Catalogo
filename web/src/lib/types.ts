@@ -98,7 +98,7 @@ export interface ArtistDetail extends ArtistListItem {
   similar: SimilarArtist[];
 }
 
-export interface PlatformLink { platform: string; url: string; handle?: string | null; }
+export interface PlatformLink { platform: string; url: string; handle?: string | null; externalId?: string | null; }
 
 export interface ArtistLink { platform: "youtube" | "instagram" | "wordpress"; url: string; albumId: number; albumTitle: string; }
 export type ArtistRelationType = "successor" | "ex_member_project" | "temporary_name";
@@ -258,7 +258,7 @@ export interface AlbumDetail {
   scopedCreditsByType: Record<string, ScopedCredit[]>;
   formats: AlbumFormat[];
   /** Nombre de cada disco («Lado A», «CD 2», «DVD»); sin fila, «Disco N». */
-  discs?: Array<{ discNumber: number; title: string | null; platforms: Array<{ platform: string; url: string }> }>;
+  discs?: Array<{ discNumber: number; title: string | null; platforms: Array<{ platform: string; url: string; externalId?: string | null }> }>;
   aliases: Alias[];
   youtubeLinks: YoutubeLink[];
   /** El disco en plataformas de escucha (solo identidad verificada). */

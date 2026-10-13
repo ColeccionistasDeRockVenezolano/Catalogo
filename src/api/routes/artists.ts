@@ -55,7 +55,7 @@ const artistDetailSchema = artistBaseSchema.extend({
   links: z.array(z.object({
     platform: z.enum(["youtube", "instagram", "wordpress"]), url: z.string(), albumId: z.number().int(), albumTitle: z.string(),
   })).describe("Enlaces públicos de sus discos."),
-  platforms: z.array(z.object({ platform: z.string(), url: z.string() }))
+  platforms: z.array(z.object({ platform: z.string(), url: z.string(), externalId: z.string().nullable().optional() }))
     .describe("Perfiles del artista en plataformas de escucha (Spotify, Apple Music, Deezer…); solo los de identidad verificada."),
   socials: z.array(z.object({ platform: z.string(), url: z.string(), handle: z.string().nullable() }))
     .describe("Redes sociales del artista (Instagram, Facebook, X, TikTok…); solo las de identidad verificada."),

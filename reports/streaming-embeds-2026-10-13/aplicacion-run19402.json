@@ -1,0 +1,16 @@
+{
+  "runId": 19402,
+  "filas": 971,
+  "nuevos": 966,
+  "actualizados": 5,
+  "resumen": {
+    "disco:spotify": 268,
+    "artista:spotify": 50,
+    "disco:youtube_music": 249,
+    "artista:youtube_music": 62,
+    "disco:bandcamp": 342
+  },
+  "cuenta": {
+    "spotify: perfil ya verificado": 10
+  }
+}

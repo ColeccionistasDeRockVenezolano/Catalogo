@@ -4,7 +4,7 @@ import type { OperatorContext } from "./operator.js";
 import { OperatorError } from "./operator.js";
 
 export const SOCIAL_PLATFORMS = ["instagram", "facebook", "x", "tiktok", "threads", "bluesky"] as const;
-export const STREAMING_PLATFORMS = ["spotify", "apple_music", "deezer", "youtube", "tidal", "bandcamp", "soundcloud", "amazon_music"] as const;
+export const STREAMING_PLATFORMS = ["spotify", "apple_music", "deezer", "youtube", "youtube_music", "tidal", "bandcamp", "soundcloud", "amazon_music"] as const;
 export type LinkOwner = "artist" | "album";
 export type LinkCategory = "social" | "streaming";
 export interface EditablePlatformLink {

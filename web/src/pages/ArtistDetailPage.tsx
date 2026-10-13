@@ -35,6 +35,8 @@ import { EntityInfo, type InfoGroup, type InfoItem } from "../components/EntityI
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
 import { PlatformLinks } from "../components/PlatformLinks";
+import { EmbedPanel, ListenSection, resolveListenPlatform, useListenChoice } from "../components/ListenPlayer";
+import { embedOptions } from "../lib/embeds";
 import { artistTypeLabel, memberRoleLabel } from "../lib/labels";
 import { ageText, formatDate } from "../lib/format";
 import { TITULAR_ROLE, type ArtistMember, type ArtistRelation, type RelatedArtist, type RelatedRule, type SimilarArtist, type SimilarRule } from "../lib/types";
@@ -150,10 +152,15 @@ export function ArtistDetailPage() {
   const [editingMember, setEditingMember] = useState<ArtistMember | null>(null);
   const [merging, setMerging] = useState(false);
   const [viewingImage, setViewingImage] = useState<"photo" | "logo" | null>(null);
+  const [chosenPlatform, choosePlatform] = useListenChoice(artistId);
   useDiscoveryVisitMetric(artistId, Boolean(artist) && !loading && !error, !isAdmin && !isChecking);
 
   if (loading && (!artist || artist.id !== artistId)) return <DetailSkeleton />;
   if (error || !artist) return <EntityLoadError message={error ?? "Artista no encontrado."} errorValue={errorValue} onRetry={reload} />;
+  // Lo más escuchado del artista en cada plataforma con reproductor (perfiles verificados).
+  const listenOptions = embedOptions([{ label: null, links: artist.platforms ?? [] }], "artist");
+  const listenActive = resolveListenPlatform(listenOptions.map((option) => option.platform), chosenPlatform);
+  const listenOption = listenOptions.find((option) => option.platform === listenActive) ?? null;
 
   const hasCurrentMember = artist.members.some((member) => member.isCurrent);
   // Una persona aparece una vez aunque tenga varias etapas en la banda
@@ -387,6 +394,14 @@ export function ArtistDetailPage() {
       ) : null}
 
       {isAdmin ? <EntityVerification kind="artist" id={artist.id} revision={artist} /> : null}
+
+      {listenOptions.length && listenOption ? (
+        <ListenSection heading="Escuchar" subject={artist.name} active={listenOption.platform} onChange={choosePlatform}
+          tabs={listenOptions.map((option) => ({ platform: option.platform, url: option.targets[0]!.url }))}>
+          <EmbedPanel key={`${artist.id}:${listenOption.platform}`} option={listenOption} subject={artist.name}
+            fullElsewhere={listenOptions.find((option) => option.platform.startsWith("youtube"))?.platform ?? null} />
+        </ListenSection>
+      ) : null}
 
       <EntityTabs tabs={tabs} defaultKey="discografia" />
 

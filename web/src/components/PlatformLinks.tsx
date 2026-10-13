@@ -25,7 +25,16 @@ function BandcampLogo({ size = 20 }: IconProps) {
   );
 }
 
-interface Platform { label: string; color: string; Icon: ComponentType<IconProps> }
+// YouTube Music tampoco: el disco con el «play» dentro, en la misma retícula.
+function YoutubeMusicLogo({ size = 20 }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 256 256" fill="none" stroke="currentColor" strokeWidth={16} strokeLinejoin="round" aria-hidden="true">
+      <circle cx="128" cy="128" r="96" /><circle cx="128" cy="128" r="56" /><path d="M112 104L152 128L112 152Z" />
+    </svg>
+  );
+}
+
+export interface Platform { label: string; color: string; Icon: ComponentType<IconProps> }
 
 // Color de marca: solo al pasar el cursor o enfocar; en reposo todos comparten
 // el gris del tema para no romper la ficha.
@@ -34,6 +43,7 @@ const PLATFORMS: Record<string, Platform> = {
   apple_music: { label: "Apple Music", color: "#fa2d48", Icon: AppleLogo },
   deezer: { label: "Deezer", color: "#a238ff", Icon: DeezerLogo },
   youtube: { label: "YouTube", color: "#ff0033", Icon: YoutubeLogo },
+  youtube_music: { label: "YouTube Music", color: "#ff0033", Icon: YoutubeMusicLogo },
   tidal: { label: "Tidal", color: "#f5f5f5", Icon: TidalLogo },
   amazon_music: { label: "Amazon Music", color: "#25d1da", Icon: AmazonLogo },
   bandcamp: { label: "Bandcamp", color: "#629aa9", Icon: BandcampLogo },
@@ -49,7 +59,11 @@ const PLATFORMS: Record<string, Platform> = {
 // Orden fijo: primero las plataformas de escucha más usadas, luego las redes.
 const ORDER = Object.keys(PLATFORMS);
 
-export interface PlatformLink { platform: string; url: string; handle?: string | null }
+export interface PlatformLink { platform: string; url: string; handle?: string | null; externalId?: string | null }
+
+export function platformMeta(platform: string): Platform {
+  return PLATFORMS[platform] ?? { label: platform, color: "var(--text)", Icon: LinkSimple };
+}
 
 export function platformLabel(platform: string): string {
   return PLATFORMS[platform]?.label ?? platform;

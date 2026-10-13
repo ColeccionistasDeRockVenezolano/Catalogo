@@ -6,7 +6,7 @@ import { useToast } from "../lib/ToastContext";
 import { platformLabel } from "./PlatformLinks";
 
 const SOCIAL = ["instagram", "facebook", "x", "tiktok", "threads", "bluesky"];
-const STREAMING = ["spotify", "apple_music", "deezer", "youtube", "tidal", "bandcamp", "soundcloud", "amazon_music"];
+const STREAMING = ["spotify", "apple_music", "deezer", "youtube", "youtube_music", "tidal", "bandcamp", "soundcloud", "amazon_music"];
 export function PlatformLinkEditor({ kind, id, category, onChanged }: {
   kind: "artist" | "album"; id: number; category: "social" | "streaming"; onChanged: () => void;
 }) {
