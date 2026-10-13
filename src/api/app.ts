@@ -53,6 +53,7 @@ import { registerEntityVerificationRoutes } from "./routes/entity-verification.j
 import { installAutofix } from "../curation/autofix.js";
 import { registerAiCurationRoutes } from "./routes/ai-curation.js";
 import { registerEvidenceInventoryRoutes } from "./routes/evidence-inventory.js";
+import { registerSitemapRoutes } from "./routes/sitemap.js";
 
 const log = moduleLogger("api");
 
@@ -143,6 +144,7 @@ export async function buildApp(): Promise<FastifyInstance> {
 
   await registerOperatorAuth(app);
   await registerHealthRoutes(app);
+  await registerSitemapRoutes(app);
   await registerSearchRoutes(app);
   await registerHomeRoutes(app);
   await registerDiscoveryRoutes(app);

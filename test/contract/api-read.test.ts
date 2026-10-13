@@ -448,6 +448,15 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
     expect(spec.paths["/search"]).toBeDefined();
   });
 
+  it("GET /sitemap-ids enumera las fichas públicas para el gateway", async () => {
+    const res = await app.inject({ method: "GET", url: "/sitemap-ids" });
+    expect(res.statusCode).toBe(200);
+    const body = res.json() as { artists: number[]; albums: number[]; persons: number[] };
+    expect(body.artists).toContain(artistId);
+    expect(body.albums).toContain(albumId);
+    expect(body.persons).toContain(boriMilanId);
+  });
+
   it("una ruta inexistente y un error interno devuelven la misma forma de error", async () => {
     const res = await app.inject({ method: "GET", url: "/no-existe" });
     expect(res.statusCode).toBe(404);
