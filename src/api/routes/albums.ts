@@ -119,6 +119,8 @@ const listQuerySchema = paginationQuerySchema.extend({
 
 const previewQuerySchema = z.object({
   with: z.coerce.number().int().positive().describe("Id del disco que desaparecería (drop)."),
+  mode: z.enum(["match", "append"]).default("match")
+    .describe("match: el mismo disco (empareja pistas); append: el que desaparece se suma como disco siguiente (Lado B, CD 2, B-Sides)."),
 });
 
 const trackSummarySchema = z.object({
@@ -140,13 +142,24 @@ const albumSideSchema = z.object({
   fields: z.record(z.string(), z.unknown()),
   aliases: z.array(z.string()),
   tracks: z.array(trackSummarySchema),
+  discs: z.array(z.object({ discNumber: z.number().int(), title: z.string().nullable(), trackCount: z.number().int(), hasVideo: z.boolean() })),
   counts: z.object({ tracks: z.number().int(), albumCredits: z.number().int(), formats: z.number().int(), mediaLinks: z.number().int(), claims: z.number().int() }),
 });
 
 const albumMergePreviewSchema = z.object({
   keep: albumSideSchema,
   drop: albumSideSchema,
+  mode: z.enum(["match", "append"]),
+  discOffset: z.number().int(),
   recommendedKeepId: z.number().int(),
+  suggestion: z.object({
+    mode: z.enum(["match", "append"]),
+    keepId: z.number().int(),
+    title: z.string().nullable(),
+    keepDiscTitle: z.string().nullable(),
+    dropDiscTitle: z.string().nullable(),
+    reason: z.string(),
+  }),
   matchedTracks: z.array(z.object({
     keepTrackId: z.number().int(),
     dropTrackId: z.number().int(),
@@ -175,6 +188,10 @@ const mergeAlbumBodySchema = z.object({
   previewHash: z.string().regex(/^[0-9a-f]{64}$/u),
   fieldChoices: z.record(z.enum(MERGE_ALBUM_FIELDS), z.enum(["keep", "drop"])).optional(),
   keepDropNameAsAlias: z.boolean().default(false),
+  mode: z.enum(["match", "append"]).default("match"),
+  keepDiscTitle: z.string().trim().min(1).max(120).nullable().optional(),
+  dropDiscTitle: z.string().trim().min(1).max(120).nullable().optional(),
+  title: z.string().trim().min(1).max(250).nullable().optional(),
   note: noteSchema,
 }).strict();
 
@@ -253,7 +270,7 @@ export async function registerAlbumRoutes(app: FastifyInstance): Promise<void> {
   }, async (request) => {
     const client = await getPool().connect();
     try {
-      return await previewAlbumMerge(client, request.params.id, request.query.with);
+      return await previewAlbumMerge(client, request.params.id, request.query.with, { mode: request.query.mode });
     } finally {
       client.release();
     }
@@ -275,7 +292,12 @@ export async function registerAlbumRoutes(app: FastifyInstance): Promise<void> {
       name: "api:merge:album",
       operator: request.operator,
       note: body.note,
-      params: { keepId, dropId: body.dropId, ...(body.fieldChoices ? { fieldChoices: body.fieldChoices } : {}) },
+      params: {
+        keepId, dropId: body.dropId, mode: body.mode,
+        ...(body.fieldChoices ? { fieldChoices: body.fieldChoices } : {}),
+        ...(body.mode === "append" ? { keepDiscTitle: body.keepDiscTitle ?? null, dropDiscTitle: body.dropDiscTitle ?? null } : {}),
+        ...(body.title ? { title: body.title } : {}),
+      },
     }, async (context) => {
       return mergeAlbums(context, {
         keepId,
@@ -283,6 +305,10 @@ export async function registerAlbumRoutes(app: FastifyInstance): Promise<void> {
         previewHash: body.previewHash,
         fieldChoices: body.fieldChoices,
         keepDropNameAsAlias: body.keepDropNameAsAlias,
+        mode: body.mode,
+        keepDiscTitle: body.keepDiscTitle,
+        dropDiscTitle: body.dropDiscTitle,
+        title: body.title,
       });
     });
     return { ...result, runId };

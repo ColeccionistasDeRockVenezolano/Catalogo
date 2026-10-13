@@ -861,7 +861,19 @@ export interface AlbumMergeSide {
   fields: Record<string, unknown>;
   aliases: string[];
   tracks: AlbumMergeTrackSummary[];
+  discs: Array<{ discNumber: number; title: string | null; trackCount: number; hasVideo: boolean }>;
   counts: { tracks: number; albumCredits: number; formats: number; mediaLinks: number; claims: number };
+}
+
+export type AlbumMergeMode = "match" | "append";
+
+export interface AlbumMergeSuggestion {
+  mode: AlbumMergeMode;
+  keepId: number;
+  title: string | null;
+  keepDiscTitle: string | null;
+  dropDiscTitle: string | null;
+  reason: string;
 }
 
 export interface AlbumTrackMatch {
@@ -873,7 +885,11 @@ export interface AlbumTrackMatch {
 export interface AlbumMergePreview {
   keep: AlbumMergeSide;
   drop: AlbumMergeSide;
+  mode: AlbumMergeMode;
+  /** Solo en `append`: lo que se suma al número de disco de las pistas que llegan. */
+  discOffset: number;
   recommendedKeepId: number;
+  suggestion: AlbumMergeSuggestion;
   matchedTracks: AlbumTrackMatch[];
   unmatchedDropTracks: AlbumMergeTrackSummary[];
   fieldConflicts: Array<{ field: string; keepValue: unknown; dropValue: unknown }>;

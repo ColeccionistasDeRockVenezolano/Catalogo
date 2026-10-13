@@ -6,13 +6,18 @@
 // (merge/album-merge.ts) dentro de una transacción del operador; aquí no hay
 // reglas propias. El modal no se cierra al fusionar: muestra el resultado y
 // deja deshacer la fusión mientras el run siga siendo reversible.
+//
+// Dos maneras de juntar (2026-10-13): «el mismo disco» empareja pistas;
+// «partes de un mismo disco» (Lado B, CD 2, B-Sides, DVD) suma la otra ficha
+// como disco siguiente, con su nombre y su propio video, y la página muestra
+// una lista y un reproductor por disco. El motor sugiere cuál y qué ficha queda.
 import { useCallback, useEffect, useState } from "react";
 import { albumMergeApi, ApiError } from "../lib/api";
 import { formatMergeValue } from "../lib/format";
 import { useToast } from "../lib/ToastContext";
 import { Modal } from "./Modal";
 import { EntityPicker } from "./EntityPicker";
-import type { AlbumMergePreview, AlbumMergeResult, AlbumTrackMatch } from "../lib/types";
+import type { AlbumMergeMode, AlbumMergePreview, AlbumMergeResult, AlbumTrackMatch } from "../lib/types";
 
 /** Etiquetas de los campos fusionables de un disco (MERGE_ALBUM_FIELDS). */
 const FIELD_LABELS: Readonly<Record<string, string>> = {
@@ -37,6 +42,17 @@ function plural(count: number, singular: string, pluralForm: string): string {
 /** Textos que, sin elección, se unen al fusionar (la reseña además queda marcada para la IA). */
 const TEXT_FIELDS = new Set(["description", "notes"]);
 
+/** La sugerencia del motor vista desde la orientación de esta previsualización. */
+function suggestedNames(preview: AlbumMergePreview): { keep: string; drop: string; title: string } {
+  const s = preview.suggestion;
+  const straight = s.keepId === preview.keep.id;
+  return {
+    keep: (straight ? s.keepDiscTitle : s.dropDiscTitle) ?? "",
+    drop: (straight ? s.dropDiscTitle : s.keepDiscTitle) ?? "",
+    title: straight ? s.title ?? "" : "",
+  };
+}
+
 interface AlbumMergeModalProps {
   albumId: number;
   albumTitle: string;
@@ -58,8 +74,14 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<AlbumMergeResult | null>(null);
+  const [mode, setMode] = useState<AlbumMergeMode>("match");
+  const [keepDiscTitle, setKeepDiscTitle] = useState("");
+  const [dropDiscTitle, setDropDiscTitle] = useState("");
+  const [pageTitle, setPageTitle] = useState("");
 
-  const load = useCallback(async (firstId: number, secondId: number, orient: "recommended" | "first" = "recommended") => {
+  const load = useCallback(async (
+    firstId: number, secondId: number, orient: "recommended" | "first" = "recommended", wanted?: AlbumMergeMode,
+  ) => {
     setLoading(true);
     setError(undefined);
     setStale(false);
@@ -68,8 +90,19 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
       // «recommended» normaliza al disco recomendado por el motor; «first»
       // respeta la orientación pedida — así el botón Intercambiar cambia de
       // verdad quién queda (el servidor no normaliza, solo informa).
-      let loaded = await albumMergeApi.preview(firstId, secondId);
-      if (orient === "recommended" && loaded.recommendedKeepId === secondId) loaded = await albumMergeApi.preview(secondId, firstId);
+      // Sin modo pedido manda la sugerencia: modo y qué ficha queda.
+      let loaded = await albumMergeApi.preview(firstId, secondId, wanted ?? "match");
+      const nextMode = wanted ?? loaded.suggestion.mode;
+      const keep = orient === "first" ? firstId
+        : nextMode === "append" ? loaded.suggestion.keepId : loaded.recommendedKeepId;
+      if (keep !== loaded.keep.id || nextMode !== loaded.mode) {
+        loaded = await albumMergeApi.preview(keep, keep === firstId ? secondId : firstId, nextMode);
+      }
+      const names = suggestedNames(loaded);
+      setMode(loaded.mode);
+      setKeepDiscTitle(names.keep);
+      setDropDiscTitle(names.drop);
+      setPageTitle(names.title);
       setKeepId(loaded.keep.id);
       setDropId(loaded.drop.id);
       setPreview(loaded);
@@ -88,7 +121,11 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
   }
 
   function swap() {
-    if (preview) void load(preview.drop.id, preview.keep.id, "first");
+    if (preview) void load(preview.drop.id, preview.keep.id, "first", mode);
+  }
+
+  function changeMode(next: AlbumMergeMode) {
+    if (preview && next !== mode) void load(preview.keep.id, preview.drop.id, "first", next);
   }
 
   useEffect(() => {
@@ -104,16 +141,23 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
       const merged = await albumMergeApi.merge(keepId, {
         dropId, previewHash: preview.previewHash,
         ...(Object.keys(choices).length ? { fieldChoices: choices } : {}),
-        keepDropNameAsAlias, note: note.trim(),
+        keepDropNameAsAlias, mode, note: note.trim(),
+        ...(mode === "append" ? {
+          keepDiscTitle: keepDiscTitle.trim() || null,
+          dropDiscTitle: dropDiscTitle.trim() || null,
+          ...(pageTitle.trim() && pageTitle.trim() !== preview.keep.title ? { title: pageTitle.trim() } : {}),
+        } : {}),
       });
-      notify("success", `Discos fusionados: «${preview.drop.title}» → «${preview.keep.title}» (${plural(merged.tracksMerged + merged.tracksMoved, "pista movida o unificada", "pistas movidas o unificadas")}).`);
+      notify("success", mode === "append"
+        ? `«${preview.drop.title}» quedó como ${dropDiscTitle.trim() ? `«${dropDiscTitle.trim()}»` : "disco siguiente"} de «${pageTitle.trim() || preview.keep.title}».`
+        : `Discos fusionados: «${preview.drop.title}» → «${preview.keep.title}» (${plural(merged.tracksMerged + merged.tracksMoved, "pista movida o unificada", "pistas movidas o unificadas")}).`);
       setResult(merged);
       setBusy(false);
     } catch (err) {
       if (err instanceof ApiError && err.code === "stale_preview") {
         setStale(true);
         setChoices({});
-        void load(preview.keep.id, preview.drop.id, "first");
+        void load(preview.keep.id, preview.drop.id, "first", mode);
       } else {
         setError(err instanceof Error ? err.message : "No se pudo fusionar.");
       }
@@ -126,12 +170,20 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
     <Modal title={result ? "Fusión completada" : "Fusionar discos"} onClose={onClose} wide>
       {result ? (
         <>
+          {mode === "append" ? (
+            <p style={{ fontSize: 14, margin: "0 0 10px" }}>
+              «{preview?.drop.title}» es ahora {dropDiscTitle.trim() ? `«${dropDiscTitle.trim()}»` : "el disco siguiente"} de
+              {" "}«{pageTitle.trim() || preview?.keep.title}»: {plural(result.tracksMoved, "pista sumada", "pistas sumadas")}, con su propia lista
+              {" "}y su video en la misma página.
+            </p>
+          ) : (
           <p style={{ fontSize: 14, margin: "0 0 10px" }}>
             «{preview?.drop.title}» se fusionó en «{preview?.keep.title}»: {plural(result.tracksMerged, "pista unificada", "pistas unificadas")},
             {" "}{plural(result.tracksMoved, "pista movida", "pistas movidas")}, {plural(result.creditsMerged, "crédito unificado", "créditos unificados")} y
             {" "}{plural(result.formatsMerged, "formato unificado", "formatos unificados")}
             {result.fieldsCorrected.length ? `; campos corregidos: ${result.fieldsCorrected.map((field) => FIELD_LABELS[field] ?? field).join(", ")}` : ""}.
           </p>
+          )}
           <p className="hint">El id del disco que desapareció ya lleva al que quedó (redirección). Los enlaces de medios se repuntaron.</p>
           <p className="hint">
             ¿Fue un error? Al cerrar queda a la vista la barra «Deshacer» de este cambio; también está en el Historial.
@@ -181,10 +233,67 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
               </div>
 
               <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
-                <button type="button" className="btn btn--sm" onClick={swap} disabled={busy}>
+                <button type="button" className="btn btn--sm" onClick={swap} disabled={busy || loading}>
                   Intercambiar (queda «{preview.drop.title}»)
                 </button>
               </div>
+
+              <fieldset className="merge-mode">
+                <legend>¿Qué son estas dos fichas?</legend>
+                {([
+                  ["match", "El mismo disco", "Se emparejan las pistas y queda una sola lista."],
+                  ["append", "Partes de un mismo disco", `«${preview.drop.title}» se suma como disco siguiente (Lado B, CD 2, B-Sides, DVD…), con su lista y su video.`],
+                ] as const).map(([value, label, help]) => (
+                  <label key={value} className={`merge-mode__option${mode === value ? " is-active" : ""}`}>
+                    <input type="radio" name="album-merge-mode" checked={mode === value} disabled={busy || loading} onChange={() => changeMode(value)} />
+                    <span>
+                      <strong>{label}</strong>{preview.suggestion.mode === value ? <span className="merge-mode__badge">sugerido</span> : null}
+                      <span className="hint">{help}</span>
+                    </span>
+                  </label>
+                ))}
+                <p className="hint" style={{ margin: "6px 0 0" }}>{preview.suggestion.reason}</p>
+              </fieldset>
+
+              {mode === "append" ? (
+                <div className="merge-discs">
+                  <h4>Cómo quedará la página</h4>
+                  <div className="field">
+                    <label htmlFor="album-merge-title">Título de la página</label>
+                    <input
+                      id="album-merge-title" type="text" value={pageTitle} placeholder={preview.keep.title}
+                      onChange={(event) => setPageTitle(event.target.value)}
+                    />
+                    <span className="hint">Vacío lo deja como está; si cambia, «{preview.keep.title}» queda como alias.</span>
+                  </div>
+                  <ol>
+                    {([["keep", preview.keep, 0], ["drop", preview.drop, preview.discOffset]] as const).flatMap(([role, side, offset]) => {
+                      const single = side.discs.length <= 1;
+                      const discs = side.discs.length ? side.discs : [{ discNumber: 1, title: null, trackCount: 0, hasVideo: false }];
+                      return discs.map((disc, index) => {
+                        const number = disc.discNumber + offset;
+                        const video = disc.hasVideo ? "video propio"
+                          : index === 0 && side.fields["youtube_url"] ? (role === "keep" ? "video de la ficha" : "su video pasa a este disco")
+                          : role === "keep" ? null : "sin video propio";
+                        return (
+                          <li key={`${role}-${disc.discNumber}`} className={role === "drop" ? "is-new" : undefined}>
+                            <span className="merge-discs__number">Disco {number}</span>
+                            {single ? (
+                              <input
+                                type="text" aria-label={`Nombre del disco ${number}`}
+                                value={role === "keep" ? keepDiscTitle : dropDiscTitle}
+                                placeholder={disc.title ?? (role === "keep" ? "Sin nombre" : `Disco ${number}`)}
+                                onChange={(event) => (role === "keep" ? setKeepDiscTitle : setDropDiscTitle)(event.target.value)}
+                              />
+                            ) : <span className="merge-discs__name">{disc.title ?? `Disco ${number}`}</span>}
+                            <span className="hint">{plural(disc.trackCount, "pista", "pistas")}{video ? ` · ${video}` : ""}</span>
+                          </li>
+                        );
+                      });
+                    })}
+                  </ol>
+                </div>
+              ) : null}
 
               {preview.warnings.length ? (
                 <div className="alert-block" role="alert" style={{ marginBottom: 14 }}>
@@ -195,7 +304,7 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
                 </div>
               ) : null}
 
-              {preview.matchedTracks.length ? (
+              {mode === "match" && preview.matchedTracks.length ? (
                 <div className="table-wrap table-wrap--scroll" style={{ marginBottom: 14 }}>
                   <table>
                     <caption className="visually-hidden">Pistas emparejadas entre los dos discos</caption>
@@ -213,7 +322,7 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
                 </div>
               ) : null}
 
-              {preview.unmatchedDropTracks.length ? (
+              {mode === "match" && preview.unmatchedDropTracks.length ? (
                 <p style={{ fontSize: 13.5, margin: "0 0 12px" }}>
                   Se moverán al disco que queda sus {plural(preview.unmatchedDropTracks.length, "pista sin pareja", "pistas sin pareja")}:
                   {" "}{preview.unmatchedDropTracks.map((track) => `«${track.title}»`).join(", ")}.
@@ -296,7 +405,7 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
                 <textarea
                   id="album-merge-note" rows={3} value={note}
                   onChange={(event) => setNote(event.target.value)}
-                  placeholder="Por qué son el mismo disco (queda en la auditoría)"
+                  placeholder={mode === "append" ? "Por qué son partes del mismo disco (queda en la auditoría)" : "Por qué son el mismo disco (queda en la auditoría)"}
                 />
               </div>
 
@@ -307,7 +416,9 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
                   onClick={submit}
                   disabled={busy || loading || !note.trim()}
                 >
-                  {busy ? "Fusionando…" : `Fusionar «${preview.drop.title}» en «${preview.keep.title}»`}
+                  {busy ? "Fusionando…" : mode === "append"
+                    ? `Sumar «${preview.drop.title}» como ${dropDiscTitle.trim() ? `«${dropDiscTitle.trim()}»` : `disco ${preview.discOffset + 1}`}`
+                    : `Fusionar «${preview.drop.title}» en «${preview.keep.title}»`}
                 </button>
               </div>
             </>

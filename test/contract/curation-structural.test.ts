@@ -258,6 +258,52 @@ describe("acciones estructurales (PLAN_CURADURIA E6)", () => {
     }
   });
 
+  // Desde la página (2026-10-13): «B-Sides: X» se suma a X como disco
+  // «B-Sides» por la API, con su video en su disco y no en la ficha.
+  it("la API sugiere sumar «B-Sides: X» como disco siguiente y lo nombra, con su video en su disco", async () => {
+    const headers = { authorization: `Bearer ${TOKEN}`, "x-crv-operator": OPERATOR };
+    const artistId = await one("INSERT INTO public.artists(name) VALUES ('Banda de Caras') RETURNING id");
+    const main = await one("INSERT INTO public.albums(artist_id, title, release_year, album_type) VALUES ($1, 'Ciudad Harakiri - Lado A', 2015, 'studio_album') RETURNING id", [artistId]);
+    const extra = await one("INSERT INTO public.albums(artist_id, title, release_year, album_type, youtube_url) VALUES ($1, 'B-Side: Ciudad Harakiri - Lado A', 2015, 'other', 'https://www.youtube.com/watch?v=bsidesVideo') RETURNING id", [artistId]);
+    await one("INSERT INTO public.tracks(album_id, disc_number, track_number, title) VALUES ($1, 1, 1, 'Apertura') RETURNING id", [main]);
+    await one("INSERT INTO public.tracks(album_id, disc_number, track_number, title) VALUES ($1, 1, 1, 'Rareza') RETURNING id", [extra]);
+
+    // Abierta desde la ficha del B-Side: el motor sugiere que quede el álbum.
+    const first = await app.inject({ method: "GET", url: `/albums/${extra}/merge-preview?with=${main}`, headers });
+    expect(first.statusCode).toBe(200);
+    expect(first.json().suggestion).toMatchObject({
+      mode: "append", keepId: main, title: "Ciudad Harakiri", keepDiscTitle: "Lado A", dropDiscTitle: "B-Sides",
+    });
+
+    const preview = await app.inject({ method: "GET", url: `/albums/${main}/merge-preview?with=${extra}&mode=append`, headers });
+    const body = preview.json();
+    expect(body).toMatchObject({ mode: "append", discOffset: 1, matchedTracks: [] });
+    expect(body.fieldConflicts.map((c: { field: string }) => c.field)).not.toContain("youtube_url");
+    expect(body.fieldsFilledFromDrop).not.toContain("youtube_url");
+
+    const merged = await app.inject({
+      method: "POST", url: `/albums/${main}/merge`, headers,
+      payload: {
+        dropId: extra, previewHash: body.previewHash, mode: "append", keepDropNameAsAlias: true,
+        keepDiscTitle: "Lado A", dropDiscTitle: "B-Sides", title: "Ciudad Harakiri", note: "b-sides a su disco",
+      },
+    });
+    expect(merged.statusCode).toBe(200);
+    expect(merged.json()).toMatchObject({ tracksMoved: 1, tracksMerged: 0 });
+
+    const pool = getPool();
+    expect((await pool.query("SELECT title, youtube_url, notes FROM public.albums WHERE id=$1", [main])).rows[0]).toMatchObject({
+      title: "Ciudad Harakiri", youtube_url: null,
+    });
+    expect(String((await pool.query("SELECT notes FROM public.albums WHERE id=$1", [main])).rows[0]?.notes ?? "")).not.toContain("bsidesVideo");
+    expect((await pool.query("SELECT disc_number, title FROM public.album_discs WHERE album_id=$1 ORDER BY 1", [main])).rows).toEqual([
+      { disc_number: 1, title: "Lado A" }, { disc_number: 2, title: "B-Sides" }]);
+    expect((await pool.query("SELECT disc_number, platform, url FROM public.album_disc_links WHERE album_id=$1", [main])).rows).toEqual([
+      { disc_number: 2, platform: "youtube", url: "https://www.youtube.com/watch?v=bsidesVideo" }]);
+    const aliases = (await pool.query<{ alias: string }>("SELECT alias FROM ingest.album_aliases WHERE album_id=$1", [main])).rows.map((r) => r.alias);
+    expect(aliases).toEqual(expect.arrayContaining(["Ciudad Harakiri - Lado A", "B-Side: Ciudad Harakiri - Lado A"]));
+  });
+
   // -------------------------------------------------------------------------
   // Acciones de coherencia con deshacer
   // -------------------------------------------------------------------------

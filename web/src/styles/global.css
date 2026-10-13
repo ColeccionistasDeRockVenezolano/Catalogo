@@ -690,6 +690,25 @@ td.num { font-family: var(--font-mono); }
 }
 tbody:first-of-type > .album-disc-heading th { padding-top: 10px; }
 .album-disc-meta { margin-left: 10px; font-weight: 400; font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+/* Un video por disco (Lado A / Lado B, CD 1 / CD 2, B-Sides): pestañas sobre el reproductor. */
+.album-disc-videos { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 0 auto 12px; max-width: 1100px; }
+.album-disc-video {
+  display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 6px 12px 6px 6px;
+  border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface);
+  color: var(--text-muted); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, background-color .15s ease;
+}
+.album-disc-video img { width: 64px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; display: block; }
+.album-disc-video span { display: inline-flex; align-items: center; gap: 6px; }
+.album-disc-video:hover { color: var(--text); border-color: var(--text-faint); }
+.album-disc-video.is-active { color: var(--text); border-color: var(--red); background: var(--red-soft); }
+.album-disc-video:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.album-disc-play { margin-left: 12px; vertical-align: middle; gap: 6px; }
+.album-disc-play.is-active { background: var(--red); border-color: var(--red); color: #fff; }
+@media (max-width: 760px) {
+  .album-disc-video { flex: 1 1 calc(50% - 5px); }
+  .album-disc-play { margin: 8px 0 0; display: inline-flex; }
+}
 
 @media (max-width: 760px) {
   .album-tracklist { max-height: none; overflow: visible; }
@@ -1040,6 +1059,28 @@ tbody:first-of-type > .album-disc-heading th { padding-top: 10px; }
 .compare-side { padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface-2); }
 .compare-side h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); margin: 0 0 6px; }
 .compare-side pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: 500 13px/1.5 var(--font-mono); color: var(--text); }
+/* Fusión de discos: el mismo disco o partes de uno (Lado B, CD 2, B-Sides). */
+.merge-mode { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; border: 0; padding: 0; margin: 0 0 14px; }
+.merge-mode legend { font-size: 13px; font-weight: 700; margin-bottom: 8px; padding: 0; }
+.merge-mode > .hint { grid-column: 1 / -1; }
+.merge-mode__option { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); cursor: pointer; font-size: 13.5px; }
+.merge-mode__option > span { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.merge-mode__option input { margin-top: 3px; accent-color: var(--red); }
+.merge-mode__option.is-active { border-color: var(--red); background: var(--red-soft); }
+.merge-mode__badge { margin-left: 8px; padding: 1px 7px; border-radius: 999px; background: var(--red); color: #fff; font-size: 11px; font-weight: 700; vertical-align: 1px; }
+.merge-discs { margin: 0 0 14px; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); }
+.merge-discs h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); margin: 0 0 10px; }
+.merge-discs ol { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; }
+.merge-discs li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 13.5px; }
+.merge-discs li.is-new .merge-discs__number { color: var(--red); }
+.merge-discs__number { font-weight: 700; white-space: nowrap; }
+.merge-discs__name { font-weight: 600; overflow-wrap: anywhere; }
+.merge-discs li input { min-width: 0; }
+@media (max-width: 640px) {
+  .merge-mode { grid-template-columns: 1fr; }
+  .merge-discs li { grid-template-columns: auto minmax(0, 1fr); }
+  .merge-discs li .hint { grid-column: 2; }
+}
 .review-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 22px 0 0; }
 .review-facts > div { padding: 11px 13px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); min-width: 0; }
 .review-facts dt { color: var(--text-faint); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }

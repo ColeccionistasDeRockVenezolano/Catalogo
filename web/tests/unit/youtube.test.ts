@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { albumYoutubeVideoId, trackAtYoutubeTime, youtubeVideoId } from "../../src/lib/youtube";
+import { albumDiscVideos, albumYoutubeVideoId, trackAtYoutubeTime, youtubeVideoId } from "../../src/lib/youtube";
 
 const primaryId = "Q-pRpO2sYSI";
 const secondaryId = "abcdefghijk";
@@ -82,5 +82,26 @@ describe("video del disco", () => {
       ],
     })).toBe(primaryId);
     expect(albumYoutubeVideoId({ youtubeUrl: null, youtubeLinks: [] })).toBeNull();
+  });
+});
+
+describe("video de cada disco", () => {
+  const sideB = "KLXp1um-404";
+  it("un disco con su propio video lo usa; los demás, el del álbum", () => {
+    const videos = albumDiscVideos(primaryId, [
+      { discNumber: 1, title: null, platforms: [] },
+      { discNumber: 2, title: "B-Sides", platforms: [{ platform: "youtube", url: `https://www.youtube.com/watch?v=${sideB}` }] },
+    ]);
+    expect(videos).toEqual([
+      { discNumber: 1, title: null, videoId: primaryId, own: false },
+      { discNumber: 2, title: "B-Sides", videoId: sideB, own: true },
+    ]);
+  });
+  it("sin video del álbum, solo cuentan los discos que tienen el suyo", () => {
+    const videos = albumDiscVideos(null, [
+      { discNumber: 1, title: "Lado A", platforms: [{ platform: "deezer", url: "https://www.deezer.com/album/1" }] },
+      { discNumber: 2, title: "Lado B", platforms: [{ platform: "youtube", url: `https://youtu.be/${sideB}` }] },
+    ]);
+    expect(videos.map((video) => video.discNumber)).toEqual([2]);
   });
 });

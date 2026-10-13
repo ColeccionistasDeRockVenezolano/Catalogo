@@ -34,7 +34,8 @@ import type { AlbumFormat, Track } from "../lib/types";
 import { PlatformLinks, type PlatformLink } from "../components/PlatformLinks";
 import { CatalogGenres, CatalogYear } from "../components/CatalogMetadata";
 import { AlbumYoutubePlayer, type AlbumYoutubePlayerHandle } from "../components/AlbumYoutubePlayer";
-import { albumYoutubeVideoId, trackAtYoutubeTime, type YoutubePlayback } from "../lib/youtube";
+import { albumDiscVideos, albumYoutubeVideoId, trackAtYoutubeTime, type DiscVideo, type YoutubePlayback } from "../lib/youtube";
+import { useVideoPlayer } from "../components/VideoPlayer";
 
 const CREDIT_SECTIONS: ReadonlyArray<{ title: string; types: readonly string[] }> = [
   { title: "Músicos", types: ["musician"] },
@@ -73,18 +74,40 @@ export function AlbumDetailPage() {
   const [labelLabel, setLabelLabel] = useState<string | null>(null);
   const youtubePlayer = useRef<AlbumYoutubePlayerHandle>(null);
   const [playback, setPlayback] = useState<(YoutubePlayback & { albumId: number }) | null>(null);
+  // Video elegido entre los de los discos (Lado A / Lado B, CD 1 / CD 2).
+  const [chosenVideo, setChosenVideo] = useState<{ albumId: number; videoId: string } | null>(null);
+  const { session: videoSession } = useVideoPlayer();
   const onPlaybackChange = useCallback((value: YoutubePlayback | null) => {
     setPlayback(value ? { ...value, albumId } : null);
   }, [albumId]);
 
   if (loading && (!album || album.id !== albumId)) return <DetailSkeleton />;
   if (error || !album) return <EntityLoadError message={error ?? "Disco no encontrado."} errorValue={errorValue} onRetry={reload} />;
-  const youtubeVideoId = albumYoutubeVideoId(album);
-  const currentPlayback = playback?.albumId === album.id ? playback : null;
-  const currentTrack = youtubeVideoId && currentPlayback && [1, 2, 3].includes(currentPlayback.state)
-    ? trackAtYoutubeTime(album.tracklist, currentPlayback.seconds) : null;
-  const playbackLabel = currentPlayback?.state === 1 ? "Reproduciendo" : currentPlayback?.state === 2 ? "En pausa" : "Cargando…";
   const discGroups = groupTracksByDisc(album.tracklist, album.discs ?? []);
+  const albumVideoId = albumYoutubeVideoId(album);
+  const discVideos = albumDiscVideos(albumVideoId, discGroups);
+  const videoOfDisc = new Map(discVideos.map((video) => [video.discNumber, video]));
+  // Una pestaña por video distinto; varios discos con el mismo video comparten la suya.
+  const videoTabs = discVideos.filter((video, index) => discVideos.findIndex((other) => other.videoId === video.videoId) === index);
+  const multipleVideos = videoTabs.length > 1;
+  const sessionVideoId = videoSession?.owner === `album-${album.id}` ? videoSession.video.videoId : null;
+  const youtubeVideoId = [chosenVideo?.albumId === album.id ? chosenVideo.videoId : null, sessionVideoId]
+    .find((videoId) => videoId && videoTabs.some((tab) => tab.videoId === videoId))
+    ?? albumVideoId ?? videoTabs[0]?.videoId ?? null;
+  const tabLabel = (video: DiscVideo) => discVideos.filter((other) => other.videoId === video.videoId)
+    .map((other) => discGroups.find((group) => group.discNumber === other.discNumber)?.title ?? `Disco ${other.discNumber}`).join(" · ");
+  const activeTab = videoTabs.find((tab) => tab.videoId === youtubeVideoId);
+  const playerTitle = multipleVideos && activeTab ? `${album.title} · ${tabLabel(activeTab)}` : album.title;
+  const currentPlayback = playback?.albumId === album.id ? playback : null;
+  // Los segundos de inicio se miden sobre el video del disco: solo cuentan las pistas de los discos que suenan.
+  const playingTracks = album.tracklist.filter((track) => videoOfDisc.get(track.discNumber)?.videoId === youtubeVideoId);
+  const currentTrack = youtubeVideoId && currentPlayback && [1, 2, 3].includes(currentPlayback.state)
+    ? trackAtYoutubeTime(playingTracks, currentPlayback.seconds) : null;
+  const playbackLabel = currentPlayback?.state === 1 ? "Reproduciendo" : currentPlayback?.state === 2 ? "En pausa" : "Cargando…";
+  const playDisc = (video: DiscVideo, seconds = 0) => {
+    setChosenVideo({ albumId: album.id, videoId: video.videoId });
+    youtubePlayer.current?.playFrom(seconds, { videoId: video.videoId, title: multipleVideos ? `${album.title} · ${tabLabel(video)}` : album.title });
+  };
   // Un solo disco sin nombre no lleva encabezado; con varios, o con nombre
   // («Lado A», «DVD»), cada lista va bajo el suyo.
   const showDiscHeadings = discGroups.length > 1 || (album.discs?.length ?? 0) > 0;
@@ -156,13 +179,28 @@ export function AlbumDetailPage() {
             Escuchar disco
             <a className="album-youtube-link" href={`https://youtu.be/${youtubeVideoId}`} target="_blank" rel="noreferrer">Abrir en YouTube</a>
           </h2>
-          <AlbumYoutubePlayer key={`${album.id}:${youtubeVideoId}`} ref={youtubePlayer} albumId={album.id} videoId={youtubeVideoId} title={album.title} onPlaybackChange={onPlaybackChange} />
+          {multipleVideos ? (
+            <div className="album-disc-videos" role="group" aria-label="Video de cada disco">
+              {videoTabs.map((video) => {
+                const active = video.videoId === youtubeVideoId;
+                return (
+                  <button key={video.videoId} type="button" className={`album-disc-video${active ? " is-active" : ""}`} aria-pressed={active}
+                    onClick={() => playDisc(video)}>
+                    <img src={`https://i.ytimg.com/vi/${video.videoId}/mqdefault.jpg`} alt="" loading="lazy" decoding="async" />
+                    <span><Play size={12} weight="fill" aria-hidden="true" />{tabLabel(video)}</span>
+                  </button>
+                );
+              })}
+            </div>
+          ) : null}
+          <AlbumYoutubePlayer key={album.id} ref={youtubePlayer} albumId={album.id} videoId={youtubeVideoId} title={playerTitle} onPlaybackChange={onPlaybackChange} />
           <p className="album-youtube-current" role="status">
             {currentTrack ? <>{playbackLabel}: <strong>{currentTrack.title}</strong></>
               : currentPlayback?.state === 1 ? "Reproduciendo el disco."
                 : currentPlayback?.state === 2 ? "Reproducción en pausa."
                   : currentPlayback?.state === 3 ? "Cargando el video…"
                     : currentPlayback?.state === 0 ? "Reproducción finalizada."
+                : multipleVideos ? "Cada disco tiene su video: elige uno arriba o una pista para escucharla desde su inicio."
                 : "Elige una pista para escucharla desde su inicio."}
           </p>
         </div>
@@ -184,6 +222,16 @@ export function AlbumDetailPage() {
                     <th role="columnheader" scope="colgroup" colSpan={5}>
                       {group.title}
                       <span className="album-disc-meta">{group.tracks.length === 0 ? "sin pistas registradas" : `${group.tracks.length} ${group.tracks.length === 1 ? "pista" : "pistas"}`}{group.totalSeconds ? ` · ${formatDuration(group.totalSeconds)}` : ""}</span>
+                      {multipleVideos && videoOfDisc.get(group.discNumber) ? (() => {
+                        const video = videoOfDisc.get(group.discNumber)!;
+                        const active = video.videoId === youtubeVideoId && currentPlayback?.state === 1;
+                        return (
+                          <button type="button" className={`btn btn--sm album-disc-play${active ? " is-active" : ""}`}
+                            aria-label={`Reproducir «${group.title}»`} onClick={() => playDisc(video)}>
+                            <Play size={12} weight="fill" aria-hidden="true" />{active ? "Sonando" : "Reproducir"}
+                          </button>
+                        );
+                      })() : null}
                       <PlatformLinks links={group.platforms} subject={`«${album.title}» · ${group.title}`} size="small" />
                     </th>
                   </tr>
@@ -208,12 +256,13 @@ export function AlbumDetailPage() {
                       <td role="cell" className="num album-track-start">
                         <span className="track-youtube-start">
                           <span className="track-youtube-time">{track.youtubeStartSeconds !== null ? formatDuration(track.youtubeStartSeconds) : "—"}</span>
-                          {youtubeVideoId && track.youtubeStartSeconds !== null && track.youtubeStartSeconds >= 0 ? (
+                          {videoOfDisc.get(track.discNumber) && track.youtubeStartSeconds !== null && track.youtubeStartSeconds >= 0 ? (
                             <button type="button" className="btn btn--sm track-youtube-play"
                               aria-label={`Reproducir «${track.title}» desde ${formatDuration(track.youtubeStartSeconds)}`}
                               title={`Reproducir desde ${formatDuration(track.youtubeStartSeconds)}`}
                               onClick={() => {
-                                if (track.youtubeStartSeconds !== null) youtubePlayer.current?.playFrom(track.youtubeStartSeconds);
+                                const video = videoOfDisc.get(track.discNumber);
+                                if (video && track.youtubeStartSeconds !== null) playDisc(video, track.youtubeStartSeconds);
                               }}>
                               <Play size={16} weight="fill" aria-hidden="true" />
                             </button>

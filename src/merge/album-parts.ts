@@ -12,8 +12,10 @@
 // reedición («(CD Reissue)», «(Cassette)», «Deluxe Edition») va en la página
 // de la original aunque sea de otro año. Un «(Single)» no es reedición: el
 // sencillo es otro disco aunque se llame igual que el álbum.
+import { nameKey } from "../curation/lexicon.js";
 
-export type AlbumPartKind = "lado" | "disco" | "parte" | "volumen" | "formato" | "edicion";
+/** `extra`: material aparte del disco (B-Sides, demos, sessions), solo vía `partAgainst`. */
+export type AlbumPartKind = "lado" | "disco" | "parte" | "volumen" | "formato" | "edicion" | "extra";
 
 export interface AlbumPart {
   /** El título sin la parte: «Live in Paris». */
@@ -105,6 +107,46 @@ export function albumPart(title: string): AlbumPart | null {
     const base = cleanBase(format[1]!);
     if (!base) return null;
     return { base, label: format[2]!.replace(/\s+/gu, "").toLocaleUpperCase("es"), kind: "formato", order: null };
+  }
+  return null;
+}
+
+/** «Disco B» → «Disco A», «CD 2» → «CD 1», «Parte II» → «Parte I»: el nombre de la primera parte. */
+export function firstPartLabel(label: string): string | null {
+  const match = /^(.*\S)\s+(B|2|II)$/u.exec(label);
+  if (!match) return null;
+  return `${match[1]} ${match[2] === "B" ? "A" : match[2] === "2" ? "1" : "I"}`;
+}
+
+/** «B-Side», «b sides» → «B-Sides»; lo demás, con mayúscula inicial como lo escribe la fuente. */
+function extraLabel(raw: string): string {
+  const value = raw.trim();
+  if (/^b[\s-]?sides?$/iu.test(value)) return "B-Sides";
+  return value.charAt(0).toLocaleUpperCase("es") + value.slice(1);
+}
+
+/**
+ * Qué parte es `title` del disco `other` al juntarlos en una página (Brian,
+ * 2026-10-13). Además de las partes de `albumPart` («Lado B», «CD 2», «DVD»)
+ * reconoce el material extra que repite el título del otro: «B-Sides: Harakiri
+ * City», «Demos: Nuestra», «Hijos De Nadie (Temas Promocionales)». Ese extra
+ * (kind `extra`) va siempre detrás (order 2) y nunca se empareja: un demo
+ * repite los títulos del álbum, pero es otra grabación.
+ */
+export function partAgainst(title: string, other: string): AlbumPart | null {
+  const value = title.trim();
+  const base = other.trim();
+  if (!base || nameKey(value) === nameKey(base)) return null;
+  // Antes que `albumPart`: «B-Side: Live - Lado A» es el B-Side, no el Lado A.
+  const prefixed = /^(.+?)\s*[:\-–—]\s+(.+)$/u.exec(value);
+  if (prefixed && nameKey(prefixed[2]!) === nameKey(base)) {
+    return { base, label: extraLabel(prefixed[1]!), kind: "extra", order: 2 };
+  }
+  const part = albumPart(title);
+  if (part) return part;
+  if (value.length > base.length && value.toLocaleLowerCase("es").startsWith(base.toLocaleLowerCase("es"))) {
+    const rest = value.slice(base.length).replace(/^[\s\-–—:,.([]+/u, "").replace(/[\s)\]]+$/u, "");
+    if (rest) return { base, label: extraLabel(rest), kind: "extra", order: 2 };
   }
   return null;
 }

@@ -12,7 +12,7 @@ import type {
   CurationFinding, CurationFindingStatus, CurationIgnoreReason, CurationPairKind, CurationScan, CurationScanResult,
   CurationSeverity, CurationSummary,
   CurationAutofixRule, CurationAutofixRun, CurationAutofixState,
-  AlbumMergePreview, AlbumMergeResult, PersonSplitPreview, PersonSplitResult,
+  AlbumMergeMode, AlbumMergePreview, AlbumMergeResult, PersonSplitPreview, PersonSplitResult,
   FindingActionsResult, FixBatch, FixBatchSummary, DistinctPair, ConflictResolveResult, ConflictResolveGroupResult,
   AuditUndoPreview, ChangeDetail, ChangeEntityKind, ChangeSummary, ChangeUndoResult, GenreFacets, HomeData,
   PlaceDetail, SeriesDetail,
@@ -259,12 +259,17 @@ export interface AlbumMergeRequest {
   previewHash: string;
   fieldChoices?: Record<string, "keep" | "drop">;
   keepDropNameAsAlias: boolean;
+  /** match: el mismo disco; append: se suma como disco siguiente (Lado B, CD 2, B-Sides). */
+  mode: AlbumMergeMode;
+  keepDiscTitle?: string | null;
+  dropDiscTitle?: string | null;
+  title?: string | null;
   note: string;
 }
 
 export const albumMergeApi = {
-  preview: (keepId: number, dropId: number) =>
-    request<AlbumMergePreview>(`/albums/${keepId}/merge-preview`, { query: { with: dropId } }),
+  preview: (keepId: number, dropId: number, mode: AlbumMergeMode = "match") =>
+    request<AlbumMergePreview>(`/albums/${keepId}/merge-preview`, { query: { with: dropId, mode } }),
   merge: (keepId: number, body: AlbumMergeRequest) =>
     request<AlbumMergeResult>(`/albums/${keepId}/merge`, { method: "POST", authenticated: true, body }),
 };

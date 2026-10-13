@@ -6,6 +6,7 @@
 import { z } from "zod";
 import { createAlias, promotePrimaryAlias } from "../../api/repositories/aliases.js";
 import { mergeAlbums, previewAlbumMerge, type AlbumMergeMode } from "../../merge/album-merge.js";
+import { firstPartLabel } from "../../merge/album-parts.js";
 import { withFieldJournal } from "../../merge/field-undo.js";
 import { createEntity, createRelation, deleteEntity, updateEntity } from "../../merge/operator.js";
 import { removeRelation } from "../../merge/removals.js";
@@ -1448,13 +1449,6 @@ const juntarDiscosParamsSchema = z.object({
 }).strict();
 
 export type JuntarDiscosParams = z.infer<typeof juntarDiscosParamsSchema>;
-
-/** «Disco B» → «Disco A», «CD 2» → «CD 1», «Parte II» → «Parte I»: el nombre de la primera parte. */
-function firstPartLabel(label: string): string | null {
-  const match = /^(.*\S)\s+(B|2|II)$/u.exec(label);
-  if (!match) return null;
-  return `${match[1]} ${match[2] === "B" ? "A" : match[2] === "2" ? "1" : "I"}`;
-}
 
 async function singleUnnamedDisc(client: ActionContext["client"], albumId: number): Promise<number | null> {
   const discs = (await client.query<{ disc_number: number }>(

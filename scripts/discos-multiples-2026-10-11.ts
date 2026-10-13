@@ -17,7 +17,10 @@
 // Cada grupo va en su SAVEPOINT: uno que falla no arrastra a los demás.
 // Sin --confirm todo corre en un run que se revierte (ensayo).
 //
-//   ./scripts/with-node22.sh npx tsx scripts/discos-multiples-2026-10-11.ts [--confirm] [--only=<texto del grupo>]
+// Otras tandas con el mismo formato de plan: --dir=<carpeta con plan.json>; el
+// plan puede traer `title` y `note` propios (B-Sides, 2026-10-13).
+//
+//   ./scripts/with-node22.sh npx tsx scripts/discos-multiples-2026-10-11.ts [--confirm] [--only=<texto del grupo>] [--dir=reports/…]
 import { readFileSync, writeFileSync } from "node:fs";
 import type { PoolClient } from "pg";
 import { closeDb } from "../src/db/client.js";
@@ -33,12 +36,13 @@ type Step =
   | { op: "move_disc"; album: number; from: number; to: number };
 interface Group { name: string; why: string; steps: Step[] }
 
-const DIR = "reports/discos-multiples-2026-10-11";
+const DIR = process.argv.find((item) => item.startsWith("--dir="))?.slice(6) ?? "reports/discos-multiples-2026-10-11";
 const confirm = process.argv.includes("--confirm");
 const only = process.argv.find((item) => item.startsWith("--only="))?.slice(7);
-const plan = JSON.parse(readFileSync(`${DIR}/plan.json`, "utf8")) as { groups: Group[]; doubts: string[] };
+const plan = JSON.parse(readFileSync(`${DIR}/plan.json`, "utf8")) as { groups: Group[]; doubts: string[]; title?: string; note?: string };
 const groups = plan.groups.filter((group) => !only || group.name.includes(only));
-const NOTE = "Discos múltiples 2026-10-11: los discos partidos en varias fichas van en una página con una lista por disco (Brian)";
+const NOTE = plan.note ?? "Discos múltiples 2026-10-11: los discos partidos en varias fichas van en una página con una lista por disco (Brian)";
+const TITLE = plan.title ?? "Discos múltiples 2026-10-11";
 
 async function tracksOf(client: PoolClient, album: number): Promise<Array<{ id: number; disc: number; num: number; title: string }>> {
   return (await client.query<{ id: string; disc_number: number; track_number: number; title: string }>(
@@ -133,7 +137,7 @@ const { runId } = await withOperatorRun({ name: "curation:album-discs", operator
   }
 }, { rollbackOnly: !confirm });
 
-const head = `# Discos múltiples 2026-10-11 — ${confirm ? `run ${runId}` : `ensayo (run ${runId} revertido)`}\n\n${groups.length - failed.length}/${groups.length} grupos aplicados.\n`;
+const head = `# ${TITLE} — ${confirm ? `run ${runId}` : `ensayo (run ${runId} revertido)`}\n\n${groups.length - failed.length}/${groups.length} grupos aplicados.\n`;
 writeFileSync(`${DIR}/${confirm ? "aplicado" : "ensayo"}.md`, `${head}\n${report.join("\n\n")}\n\n## Dudas (sin tocar)\n${plan.doubts.map((d) => `- ${d}`).join("\n")}\n`);
 console.log(head);
 for (const line of failed) console.log("  fallo", line);

@@ -1,7 +1,7 @@
 // Discos partidos en varias fichas (Brian, 2026-10-11): la parte del título,
 // el detector `discos_partidos` y los valores por defecto de `juntar_discos`.
 import { describe, expect, it } from "vitest";
-import { albumPart } from "../../src/merge/album-parts.js";
+import { albumPart, firstPartLabel, partAgainst } from "../../src/merge/album-parts.js";
 import { analyzeCatalog } from "../../src/curation/analyze.js";
 import { juntarDiscosAction } from "../../src/curation/actions/structural.js";
 import { cleanSnapshot } from "../support/curation-snapshot.js";
@@ -94,5 +94,29 @@ describe("acción juntar_discos", () => {
     expect(juntarDiscosAction.appliesTo(finding as never)).toBe(true);
     expect(juntarDiscosAction.levelFor(finding as never, null)).toBe(2);
     expect(juntarDiscosAction.appliesTo({ ...finding, detector: "discos_repetidos" } as never)).toBe(false);
+  });
+});
+
+describe("partAgainst: qué parte es una ficha de la otra (2026-10-13)", () => {
+  it("reconoce el material extra que repite el título del otro disco", () => {
+    expect(partAgainst("B-Side: Harakiri City", "Harakiri City")).toMatchObject({ label: "B-Sides", order: 2 });
+    expect(partAgainst("B-Sides: Miss Mujerzuela", "Miss Mujerzuela")).toMatchObject({ label: "B-Sides", order: 2 });
+    expect(partAgainst("Demos: Nuestra", "Nuestra")).toMatchObject({ label: "Demos", order: 2 });
+    expect(partAgainst("Hijos De Nadie (Temas Promocionales)", "Hijos De Nadie")).toMatchObject({ label: "Temas Promocionales" });
+    expect(partAgainst("Desde Cero: Demos y Rarezas", "Desde Cero")).toMatchObject({ label: "Demos y Rarezas" });
+    expect(partAgainst("B-Side: Live - Lado A", "Live - Lado A")).toMatchObject({ label: "B-Sides" });
+  });
+
+  it("usa las partes de siempre y no inventa una entre discos sin relación", () => {
+    expect(partAgainst("Live in Paris - Lado B", "Live in Paris - Lado A")).toMatchObject({ label: "Lado B", order: 2 });
+    expect(partAgainst("Harakiri City", "B-Side: Harakiri City")).toBeNull();
+    expect(partAgainst("Black", "Black")).toBeNull();
+    expect(partAgainst("Nuestra", "Otra cosa")).toBeNull();
+  });
+
+  it("firstPartLabel da el nombre de la primera parte", () => {
+    expect(firstPartLabel("Lado B")).toBe("Lado A");
+    expect(firstPartLabel("CD 2")).toBe("CD 1");
+    expect(firstPartLabel("B-Sides")).toBeNull();
   });
 });

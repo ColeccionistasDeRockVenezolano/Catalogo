@@ -236,7 +236,7 @@ export const repeatedAlbums: Detector = {
 
 const PART_SIGNATURE: Readonly<Record<AlbumPart["kind"], string>> = {
   lado: "Lado A / Lado B", disco: "CD 1 / CD 2", parte: "Parte I / Parte II", volumen: "Volúmenes del mismo año", formato: "CD / DVD",
-  edicion: "Reedición",
+  edicion: "Reedición", extra: "B-Sides / demos",
 };
 
 /** Orden en la serie: sin parte primero (la original), luego por número; «DVD», «CD Reissue» al final. */

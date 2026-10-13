@@ -3,7 +3,10 @@ import { Play } from "@phosphor-icons/react";
 import type { YoutubePlayback } from "../lib/youtube";
 import { useVideoPlayer, VideoSlot } from "./VideoPlayer";
 
-export interface AlbumYoutubePlayerHandle { playFrom: (seconds: number) => void; }
+export interface AlbumYoutubePlayerHandle {
+  /** Con `video`, cambia al de ese disco (Lado B, CD 2) y suena desde `seconds`. */
+  playFrom: (seconds: number, video?: { videoId: string; title: string }) => void;
+}
 interface AlbumYoutubePlayerProps {
   videoId: string;
   title: string;
@@ -28,9 +31,10 @@ export const AlbumYoutubePlayer = forwardRef<AlbumYoutubePlayerHandle, AlbumYout
     useEffect(() => { onPlaybackChange(selected ? playback : null); }, [selected, playback, onPlaybackChange]);
     useEffect(() => () => onPlaybackChange(null), [onPlaybackChange]);
     useImperativeHandle(ref, () => ({
-      playFrom(seconds) {
+      playFrom(seconds, other) {
         if (!Number.isFinite(seconds) || seconds < 0) return;
-        play({ videoId, title, album: { id: albumId, title } }, owner, seconds);
+        const target = other ?? { videoId, title };
+        play({ videoId: target.videoId, title: target.title, album: { id: albumId, title: target.title } }, owner, seconds);
         onPlaybackChange({ seconds, state: 3 });
         container.current?.scrollIntoView({ block: "center", behavior: "instant" });
       },

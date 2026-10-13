@@ -113,3 +113,30 @@ export function loadYoutubeIframeApi(): Promise<YoutubeIframeApi> {
   });
   return iframeApi;
 }
+
+export interface DiscVideo {
+  discNumber: number;
+  /** Nombre del disco («Lado B», «B-Sides»); null en un disco único sin nombre. */
+  title: string | null;
+  videoId: string;
+  /** true si el video es del disco (album_disc_links) y no el del álbum. */
+  own: boolean;
+}
+
+/**
+ * El video de cada disco: el suyo si lo tiene (Lado B, CD 2, B-Sides sumados
+ * a la página), si no el del álbum. Los segundos de inicio de una pista se
+ * miden sobre el video de su disco.
+ */
+export function albumDiscVideos(
+  albumVideoId: string | null,
+  discs: ReadonlyArray<{ discNumber: number; title: string | null; platforms: ReadonlyArray<{ platform: string; url: string }> }>,
+): DiscVideo[] {
+  const out: DiscVideo[] = [];
+  for (const disc of discs) {
+    const own = youtubeVideoId(disc.platforms.find((link) => link.platform === "youtube")?.url ?? null);
+    const videoId = own ?? albumVideoId;
+    if (videoId) out.push({ discNumber: disc.discNumber, title: disc.title, videoId, own: Boolean(own) });
+  }
+  return out;
+}
