@@ -49,6 +49,7 @@ const ADMIN_READS = [
   /^\/evidence-inventory(\/|$)/u,
   /^\/catalog-links(\/|$)/u,
   /^\/discovery\/metrics(\/|$)/u,
+  /^\/search\/misses(\/|$)/u,
   /^\/discovery\/contexts(\/|$)/u,
   /^\/discovery\/recommendations(\/|$)/u,
   /^\/sources(\/|$)/u,
@@ -296,7 +297,7 @@ function noStore(reply: FastifyReply): void {
  * la escribe el hop más cercano de confianza (Funnel → server.mjs → API), así
  * que es la única que no se puede falsear desde fuera.
  */
-function clientIp(request: FastifyRequest): string {
+export function clientIp(request: FastifyRequest): string {
   const forwarded = request.headers["x-forwarded-for"];
   if (typeof forwarded === "string" && forwarded.length > 0) {
     const parts = forwarded.split(",");
@@ -307,7 +308,7 @@ function clientIp(request: FastifyRequest): string {
 }
 
 /** Tráfico local (scripts, campañas, tests): sin proxy delante y en loopback. */
-function isLocalRequest(request: FastifyRequest): boolean {
+export function isLocalRequest(request: FastifyRequest): boolean {
   if (request.headers["x-forwarded-for"] !== undefined) return false;
   const ip = request.ip.startsWith("::ffff:") ? request.ip.slice("::ffff:".length) : request.ip;
   return ip === "127.0.0.1" || ip === "::1";

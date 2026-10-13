@@ -92,7 +92,7 @@ export function CatalogSearchInput({ scope, value, onChange, label, placeholder,
   metricAccept.current = metric.accept;
   const showExample = Boolean(example.current);
   const query = value.trim();
-  const minimum = scope === "catalog" ? 3 : 2;
+  const minimum = scope === "catalog" ? 1 : 2;
   const hasQuery = query.length >= minimum;
   const search = useCatalogSuggestions(scope, value);
   const loading = hasQuery && (scope === "catalog" ? resultsLoading || resultsQuery !== query : search.loading);

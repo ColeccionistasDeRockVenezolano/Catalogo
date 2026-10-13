@@ -138,3 +138,5 @@ retira los vínculos de recuperación, por lo que requiere respaldo previo.
 `0069_verification_entity_kinds` habilita informes, trabajos y checkpoints de organizaciones y pistas. El down rechaza revertir mientras existan investigaciones de esos tipos; no elimina sus datos para satisfacer el esquema anterior.
 
 `0070_ai_execution_budgets` registra presupuestos autorizados y tarifas preservadas, reservas antes de la red y consumo confirmado/estimado. Un proceso interrumpido mantiene la reserva; la caché del gateway no crea otra. `0071_curation_recovery_leases` incorpora propiedad y expiración de preparaciones y el hash de su contexto para reutilizar una propuesta abierta sin ocultar cambios posteriores del catálogo.
+
+`0072_search_misses` guarda, agregadas, las búsquedas públicas que no devolvieron nada (`ingest.search_misses`: consulta normalizada, un ejemplo, cuántas veces, primera y última vez; sin IP ni usuario). La API las cuenta en memoria y las vuelca por lotes con tope de claves; `GET /search/misses` (solo administradores) y `scripts/busquedas-sin-resultados.ts` las listan para encontrar siglas y grafías que faltan como alias. El down quita la tabla.

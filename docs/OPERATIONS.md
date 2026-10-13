@@ -716,6 +716,24 @@ los destinos.
 - `hasCredits=false` (sin crédito ni membresía), `suspect=<clase>` (nombres
   sospechosos de E11.7) y `sort=credits`; el listado trae `creditCount` y
   `bandCount`.
+- `GET /search` (buscador principal, 2026-10-13) no tiene mínimo de letras.
+  Todos los tipos, pistas incluidas, buscan en el índice en memoria; la base
+  solo resuelve por id. Con 1–2 letras solo cuentan los comienzos de nombre o
+  de palabra; desde 3, también «contiene». Orden: idéntico › empieza por ›
+  palabra que empieza por › contiene, y dentro de cada nivel la relevancia
+  (discos del artista, créditos de la persona; Various Artists no pesa).
+  Protecciones: caché de 60 s ligada a la versión del índice, peticiones
+  idénticas compartidas, 503 con más de 24 búsquedas distintas en curso,
+  180 búsquedas por IP y minuto (IP real del Funnel; el tráfico local queda
+  fuera) y 6.000 en total, y `q` de hasta 100 caracteres. Medido: ~300
+  búsquedas distintas por segundo con 20 a la vez.
+- Las siglas NO se calculan: una sigla funciona si es alias `acronym` con
+  fuente (`scripts/iniciales-2026-10-13.ts`, lista curada en
+  `reports/iniciales-2026-10-13/siglas-documentadas.json`).
+- Búsquedas sin resultados (0072): la API las cuenta agregadas (sin IP ni
+  usuario; ni administradores ni tráfico local) y las vuelca cada 5 min.
+  `tsx scripts/busquedas-sin-resultados.ts [días] [límite]` o
+  `GET /search/misses` (administradores) muestran qué se busca y falta.
 
 ### 9.6 Verificación visual de la interfaz
 

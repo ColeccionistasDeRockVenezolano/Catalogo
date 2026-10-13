@@ -5,6 +5,7 @@
 // no el merge engine) y ejercita cada ruta con `app.inject()`.
 import { createHash } from "node:crypto";
 import { refreshSearchIndex } from "../../src/api/search-index.js";
+import { flushSearchMisses } from "../../src/api/search-misses.js";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { FastifyInstance } from "fastify";
 import { startPgContainer, type PgContainer } from "../support/pg-container.js";
@@ -171,6 +172,33 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
     expect(missing.statusCode).toBe(400);
     const badType = await app.inject({ method: "GET", url: "/search?q=x&types=nope" });
     expect(badType.statusCode).toBe(400);
+    const tooLong = await app.inject({ method: "GET", url: `/search?q=${"a".repeat(101)}` });
+    expect(tooLong.statusCode).toBe(400);
+  });
+
+  it("GET /search limita por IP real (la última del X-Forwarded-For) y deja pasar el tráfico local", async () => {
+    const from = (ip: string) => app.inject({ method: "GET", url: "/search?q=caramelos", headers: { "x-forwarded-for": `1.2.3.4, ${ip}` } });
+    for (let index = 0; index < 180; index += 1) expect((await from("203.0.113.7")).statusCode).toBe(200);
+    const blocked = await from("203.0.113.7");
+    expect(blocked.statusCode).toBe(429);
+    expect(blocked.headers["retry-after"]).toBe("60");
+    // Otra IP (aunque invente la misma primera entrada) no se ve afectada, ni el tráfico local.
+    expect((await from("203.0.113.8")).statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: "/search?q=caramelos" })).statusCode).toBe(200);
+  });
+
+  it("GET /search cuenta las búsquedas públicas sin resultados y solo un administrador las lista", async () => {
+    const miss = () => app.inject({ method: "GET", url: "/search?q=Zzqxw%20Inexistente", headers: { "x-forwarded-for": "198.51.100.9" } });
+    await miss(); await miss();
+    // Con `types` (listas) o desde local no cuenta.
+    await app.inject({ method: "GET", url: "/search?q=zzqxw%20inexistente&types=artist", headers: { "x-forwarded-for": "198.51.100.9" } });
+    await app.inject({ method: "GET", url: "/search?q=zzqxw%20inexistente" });
+    await flushSearchMisses();
+    const { rows } = await getPool().query<{ misses: number; sample_query: string }>(
+      "SELECT misses, sample_query FROM ingest.search_misses WHERE normalized_query = 'zzqxw inexistente'");
+    expect(rows).toEqual([{ misses: 2, sample_query: "Zzqxw Inexistente" }]);
+    const anonymous = await app.inject({ method: "GET", url: "/search/misses", headers: { "x-forwarded-for": "198.51.100.9" } });
+    expect(anonymous.statusCode).toBe(401);
   });
 
   it("GET /artists/:id devuelve la ficha con discografía", async () => {

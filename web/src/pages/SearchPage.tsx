@@ -14,7 +14,8 @@ import { useDiscoverySearchMetric } from "../lib/discoveryMetrics";
 import { HomeBackdrop, HomeSections, HomeStats, useHomeData } from "../components/HomeSections";
 
 const GROUP_ORDER: SearchEntityType[] = ["artist", "album", "person", "organization", "track"];
-const MIN_QUERY_LENGTH = 3;
+// Una letra basta: con consultas cortas la API solo busca comienzos de nombre o palabra, y las guarda en caché.
+const MIN_QUERY_LENGTH = 1;
 
 export function SearchPage() {
   const [params, setParams] = useSearchParams();

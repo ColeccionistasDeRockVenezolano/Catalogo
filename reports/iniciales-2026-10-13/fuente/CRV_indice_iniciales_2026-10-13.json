@@ -1,0 +1,1583 @@
+{
+  "schema": "crv-iniciales-index-v1",
+  "fecha": "2026-10-13",
+  "indice": {
+    "007": [
+      "crv:los-007"
+    ],
+    "12IN": [
+      "crv:12-inch-ninjazz"
+    ],
+    "3": [
+      "crv:3am"
+    ],
+    "3AM": [
+      "crv:3am"
+    ],
+    "3BMQP": [
+      "crv:los-3-bebes-y-la-madre-que-los-pario"
+    ],
+    "3D": [
+      "crv:3-duenos"
+    ],
+    "3S": [
+      "crv:3-som"
+    ],
+    "4": [
+      "crv:sus-4"
+    ],
+    "4P": [
+      "crv:4to-poder"
+    ],
+    "808": [
+      "crv:808"
+    ],
+    "A": [
+      "crv:aborigen",
+      "crv:aditus",
+      "crv:adolescent-s-orquesta",
+      "crv:adr1k",
+      "crv:adso",
+      "crv:agata",
+      "crv:agonia",
+      "crv:agresion",
+      "crv:aguilar",
+      "crv:ainhoa",
+      "crv:akapellah",
+      "crv:alitasia",
+      "crv:alleh",
+      "crv:almendra",
+      "crv:alogena",
+      "crv:amansaguapo",
+      "crv:americania",
+      "crv:anakena",
+      "crv:aneeka",
+      "crv:apache",
+      "crv:arca",
+      "crv:arkangel",
+      "crv:aros",
+      "crv:atkinson",
+      "crv:la-alianza",
+      "crv:the-asbestos"
+    ],
+    "AA": [
+      "crv:alban-arthuan",
+      "crv:andreina-alvarez"
+    ],
+    "AB": [
+      "crv:aquiles-baez",
+      "crv:augusto-brandt"
+    ],
+    "ABM": [
+      "crv:atanasio-bello-montero"
+    ],
+    "AC": [
+      "crv:apa-y-can",
+      "crv:asier-cazalis"
+    ],
+    "ACL": [
+      "crv:ana-cecilia-loyo",
+      "crv:azucar-cacao-y-leche"
+    ],
+    "ACYL": [
+      "crv:azucar-cacao-y-leche"
+    ],
+    "AD": [
+      "crv:la-abuela-disco"
+    ],
+    "ADM": [
+      "crv:amor-de-madre"
+    ],
+    "ADR1K": [
+      "crv:adr1k"
+    ],
+    "ADSO": [
+      "crv:adso"
+    ],
+    "AE": [
+      "crv:antonio-estevez"
+    ],
+    "AF": [
+      "crv:adelys-freites",
+      "crv:alta-frecuencia"
+    ],
+    "AG": [
+      "crv:alegres-gaiteros"
+    ],
+    "AI": [
+      "crv:anorexia-isan",
+      "crv:los-amigos-invisibles"
+    ],
+    "AM": [
+      "crv:agni-mogollon",
+      "crv:alexandra-mey",
+      "crv:amor-de-madre",
+      "crv:antena-mantis",
+      "crv:armando-martinez"
+    ],
+    "AN": [
+      "crv:aerea-negrot",
+      "crv:aida-navarro"
+    ],
+    "AO": [
+      "crv:adolescent-s-orquesta"
+    ],
+    "AP": [
+      "crv:altar-prototipo",
+      "crv:and-panza"
+    ],
+    "AR": [
+      "crv:agente-rudo",
+      "crv:aldemaro-romero",
+      "crv:alfombra-roja",
+      "crv:angel-rada"
+    ],
+    "AS": [
+      "crv:alfredo-sadel",
+      "crv:alvise-sacchi",
+      "crv:angel-sauce",
+      "crv:animal-social",
+      "crv:los-antanos-del-stadium"
+    ],
+    "AV": [
+      "crv:anais-vivas"
+    ],
+    "AYC": [
+      "crv:apa-y-can"
+    ],
+    "B": [
+      "crv:barblues",
+      "crv:bidaia",
+      "crv:bioshaft",
+      "crv:bloon",
+      "crv:boanerges",
+      "crv:bonanza",
+      "crv:bridges",
+      "crv:buenaparte",
+      "crv:los-blonders",
+      "crv:los-buitres"
+    ],
+    "BBV": [
+      "crv:la-banda-de-la-banana-voladora"
+    ],
+    "BCB": [
+      "crv:billo-s-caracas-boys"
+    ],
+    "BD": [
+      "crv:blue-dog"
+    ],
+    "BG": [
+      "crv:barbara-garofalo"
+    ],
+    "BHN": [
+      "crv:black-hole-nine"
+    ],
+    "BIDAIA": [
+      "crv:bidaia"
+    ],
+    "BL": [
+      "crv:buena-lavativa"
+    ],
+    "BM": [
+      "crv:buffalo-mad",
+      "crv:la-banda-municipal"
+    ],
+    "BOC": [
+      "crv:barrio-obrero-de-cabimas"
+    ],
+    "BODC": [
+      "crv:barrio-obrero-de-cabimas"
+    ],
+    "BS": [
+      "crv:big-soto"
+    ],
+    "BSF": [
+      "crv:banda-sick-feel",
+      "crv:billy-se-fue"
+    ],
+    "C": [
+      "crv:camay",
+      "crv:canserbero",
+      "crv:caramelos-de-cianuro",
+      "crv:caribian",
+      "crv:castigaita",
+      "crv:catatumbo",
+      "crv:cdm",
+      "crv:ceres",
+      "crv:charliepapa",
+      "crv:chinelo",
+      "crv:clandestinos",
+      "crv:claroscuro",
+      "crv:clubhouse",
+      "crv:colibri",
+      "crv:colina",
+      "crv:compayson",
+      "crv:cristal",
+      "crv:cronos",
+      "crv:cuasar",
+      "crv:cunaguaro",
+      "crv:el-cuarteto",
+      "crv:el-cuervo",
+      "crv:la-calle",
+      "crv:la-chica",
+      "crv:la-contra",
+      "crv:la-corte",
+      "crv:las-cartujas",
+      "crv:le-cinema",
+      "crv:los-canoneros",
+      "crv:los-claners",
+      "crv:los-clippers",
+      "crv:los-colores",
+      "crv:los-colosales",
+      "crv:los-confleis"
+    ],
+    "C4": [
+      "crv:c4-trio"
+    ],
+    "C4T": [
+      "crv:c4-trio"
+    ],
+    "C66": [
+      "crv:candy-66"
+    ],
+    "C89": [
+      "crv:la-chusma-89"
+    ],
+    "CA": [
+      "crv:cebollas-ardientes",
+      "crv:cesar-del-avila"
+    ],
+    "CB": [
+      "crv:carlos-baute",
+      "crv:carlos-bonnet",
+      "crv:colectivo-breddas"
+    ],
+    "CC": [
+      "crv:caramelos-de-cianuro",
+      "crv:cayetano-carreno",
+      "crv:la-cantante-calva"
+    ],
+    "CDA": [
+      "crv:cesar-del-avila"
+    ],
+    "CDC": [
+      "crv:caramelos-de-cianuro"
+    ],
+    "CDE": [
+      "crv:cardenales-del-exito"
+    ],
+    "CDM": [
+      "crv:cdm"
+    ],
+    "CE": [
+      "crv:cardenales-del-exito",
+      "crv:colerico-espin",
+      "crv:los-compadres-del-exito"
+    ],
+    "CF": [
+      "crv:casona-fletcher"
+    ],
+    "CFI": [
+      "crv:cruz-felipe-iriarte"
+    ],
+    "CG": [
+      "crv:control-y-gaita"
+    ],
+    "CH": [
+      "crv:la-caceria-de-hamlet"
+    ],
+    "CL": [
+      "crv:chupi-lumpi"
+    ],
+    "CM": [
+      "crv:capitan-mostacho",
+      "crv:chyno-miranda",
+      "crv:las-cuatro-monedas"
+    ],
+    "CN": [
+      "crv:chino-y-nacho"
+    ],
+    "CO": [
+      "crv:culto-oculto"
+    ],
+    "COA": [
+      "crv:la-caja-organica-antirritmo"
+    ],
+    "CP": [
+      "crv:colectivo-proyectil",
+      "crv:la-corte-en-pleno"
+    ],
+    "CR": [
+      "crv:campesinos-rap",
+      "crv:claudia-rojas"
+    ],
+    "CS": [
+      "crv:corina-smith",
+      "crv:cristobal-soto",
+      "crv:cunaguaro-soul"
+    ],
+    "CT": [
+      "crv:cecilia-todd"
+    ],
+    "CV": [
+      "crv:la-candida-virgen",
+      "crv:the-caribbean-vampires"
+    ],
+    "CYG": [
+      "crv:control-y-gaita"
+    ],
+    "CYN": [
+      "crv:chino-y-nacho"
+    ],
+    "D": [
+      "crv:dasein",
+      "crv:decibeles",
+      "crv:demise",
+      "crv:derna",
+      "crv:desinformados",
+      "crv:desorden-publico",
+      "crv:doink",
+      "crv:doppler",
+      "crv:drag",
+      "crv:drogui65",
+      "crv:duendes",
+      "crv:duplex",
+      "crv:la-divaza",
+      "crv:los-dangers",
+      "crv:los-darts",
+      "crv:los-delorean",
+      "crv:los-dinamicos",
+      "crv:los-dionys"
+    ],
+    "DB": [
+      "crv:devendra-banhart"
+    ],
+    "DC": [
+      "crv:daniella-cabello",
+      "crv:diosa-canales",
+      "crv:drosera-capensis"
+    ],
+    "DDV": [
+      "crv:despues-de-vieja"
+    ],
+    "DE": [
+      "crv:d-eras"
+    ],
+    "DEL": [
+      "crv:domingo-en-llamas"
+    ],
+    "DF": [
+      "crv:damaso-figueredo"
+    ],
+    "DL": [
+      "crv:dandy-leon",
+      "crv:dimension-latina",
+      "crv:domingo-en-llamas"
+    ],
+    "DM": [
+      "crv:danza-mecanica"
+    ],
+    "DN": [
+      "crv:djane-nany"
+    ],
+    "DO": [
+      "crv:danny-ocean"
+    ],
+    "DP": [
+      "crv:del-pez",
+      "crv:desierto-polar",
+      "crv:desorden-publico"
+    ],
+    "DS": [
+      "crv:don-seruyo"
+    ],
+    "DT": [
+      "crv:dermis-tatu"
+    ],
+    "DV": [
+      "crv:despues-de-vieja"
+    ],
+    "Drogui65": [
+      "crv:drogui65"
+    ],
+    "E": [
+      "crv:electrometro",
+      "crv:ernie",
+      "crv:esperanto",
+      "crv:estructura"
+    ],
+    "EA": [
+      "crv:elizabeth-ayoub"
+    ],
+    "EB": [
+      "crv:edgar-bastidas",
+      "crv:emilio-biggi"
+    ],
+    "EC": [
+      "crv:el-cuarteto",
+      "crv:el-cuervo",
+      "crv:esos-cubos",
+      "crv:evencio-castellanos"
+    ],
+    "EG": [
+      "crv:elisa-guerrero",
+      "crv:elite-gaitera",
+      "crv:ensamble-gurrufio"
+    ],
+    "EGG": [
+      "crv:entre-gaitas-y-gaiteros"
+    ],
+    "EGYG": [
+      "crv:entre-gaitas-y-gaiteros"
+    ],
+    "EJ": [
+      "crv:espiral-jack"
+    ],
+    "EM": [
+      "crv:evaluna-montaner"
+    ],
+    "EMBAS": [
+      "crv:e-m-b-a-s"
+    ],
+    "EP": [
+      "crv:el-prieto",
+      "crv:jose-luis-rodriguez"
+    ],
+    "EPDFH": [
+      "crv:el-proyecto-de-franklin-holland"
+    ],
+    "EPV": [
+      "crv:las-espiguitas-del-padre-vilchez"
+    ],
+    "EQC": [
+      "crv:el-quinto-combo"
+    ],
+    "ER": [
+      "crv:el-rastro",
+      "crv:elena-rose"
+    ],
+    "ES": [
+      "crv:los-escritores-de-salem"
+    ],
+    "ET": [
+      "crv:ender-thomas"
+    ],
+    "EV": [
+      "crv:equilibrio-vital"
+    ],
+    "F": [
+      "crv:fahrenheit",
+      "crv:fakboi",
+      "crv:famasloop",
+      "crv:fordelucs",
+      "crv:formas",
+      "crv:frailes",
+      "crv:fugados",
+      "crv:la-fleur"
+    ],
+    "FA": [
+      "crv:fedora-aleman",
+      "crv:la-fiesta-animal"
+    ],
+    "FC": [
+      "crv:fauna-crepuscular"
+    ],
+    "FDV": [
+      "crv:franco-de-vita"
+    ],
+    "FJ": [
+      "crv:la-fabula-jack"
+    ],
+    "FL": [
+      "crv:felipe-larrazabal"
+    ],
+    "FM": [
+      "crv:francisco-montoya"
+    ],
+    "FO": [
+      "crv:fernando-osorio"
+    ],
+    "FP": [
+      "crv:felipe-pirela"
+    ],
+    "FQ": [
+      "crv:frank-quintero"
+    ],
+    "FV": [
+      "crv:franco-de-vita"
+    ],
+    "FV8": [
+      "crv:frankenstein-v8"
+    ],
+    "G": [
+      "crv:gabylonia",
+      "crv:galenos",
+      "crv:gegga",
+      "crv:gillman",
+      "crv:goe",
+      "crv:gona",
+      "crv:grendel",
+      "crv:grog",
+      "crv:guaco",
+      "crv:guaica"
+    ],
+    "GB": [
+      "crv:gaiteros-de-birimba",
+      "crv:grand-bite"
+    ],
+    "GC": [
+      "crv:gaita-compakta",
+      "crv:gaiteros-de-caba",
+      "crv:gran-celaje",
+      "crv:gran-coquivacoa",
+      "crv:guillermo-carrasco"
+    ],
+    "GCY": [
+      "crv:gonzalo-castellanos-yumar"
+    ],
+    "GD": [
+      "crv:gustavo-dudamel"
+    ],
+    "GDB": [
+      "crv:gaiteros-de-birimba"
+    ],
+    "GDC": [
+      "crv:gaiteros-de-caba"
+    ],
+    "GDP": [
+      "crv:gaiteros-de-pillopo",
+      "crv:gaiteros-de-primera",
+      "crv:guayana-dub-project"
+    ],
+    "GI": [
+      "crv:gualberto-ibarreto"
+    ],
+    "GL2020": [
+      "crv:grupo-leyenda-2020"
+    ],
+    "GM": [
+      "crv:grubi-man"
+    ],
+    "GMT": [
+      "crv:grillos-mientras-tanto"
+    ],
+    "GN": [
+      "crv:graciela-naranjo"
+    ],
+    "GP": [
+      "crv:gaiteros-de-pillopo",
+      "crv:gaiteros-de-primera"
+    ],
+    "GRR": [
+      "crv:gran-radio-riviera"
+    ],
+    "GS": [
+      "crv:gioconda-santa",
+      "crv:guerrilla-seca"
+    ],
+    "GU": [
+      "crv:la-gran-universidad"
+    ],
+    "GV": [
+      "crv:los-gaiteros-de-venecia"
+    ],
+    "GW": [
+      "crv:gerry-weil"
+    ],
+    "GZ": [
+      "crv:guasacaca-zon",
+      "crv:guasinca-zuliana"
+    ],
+    "H": [
+      "crv:haz",
+      "crv:horacero",
+      "crv:hotel",
+      "crv:los-holidays"
+    ],
+    "HB": [
+      "crv:horacio-blanco"
+    ],
+    "HEG": [
+      "crv:hv-en-gaitas"
+    ],
+    "HG": [
+      "crv:happy-gaita",
+      "crv:hernan-gamboa",
+      "crv:hv-en-gaitas"
+    ],
+    "HI": [
+      "crv:huck-it"
+    ],
+    "HK": [
+      "crv:hana-kobayashi"
+    ],
+    "HO": [
+      "crv:hely-orsini"
+    ],
+    "HP": [
+      "crv:holy-pigs"
+    ],
+    "HSB": [
+      "crv:holy-sexy-bastards"
+    ],
+    "I": [
+      "crv:iluminacion",
+      "crv:inocencia",
+      "crv:irepelusa",
+      "crv:los-impala"
+    ],
+    "IACR": [
+      "crv:in-a-cold-room"
+    ],
+    "IB": [
+      "crv:intelegencia-bruta"
+    ],
+    "IC": [
+      "crv:ilan-chester",
+      "crv:inocente-carreno"
+    ],
+    "ICR": [
+      "crv:in-a-cold-room"
+    ],
+    "IDT": [
+      "crv:iguanas-de-trapo"
+    ],
+    "IG": [
+      "crv:inspiracion-gaitera"
+    ],
+    "IO": [
+      "crv:i-o"
+    ],
+    "IP": [
+      "crv:italo-pizzolante"
+    ],
+    "IQ": [
+      "crv:ismael-querales"
+    ],
+    "IT": [
+      "crv:iguanas-de-trapo"
+    ],
+    "J": [
+      "crv:jambene",
+      "crv:jerry-di",
+      "crv:joaquina",
+      "crv:los-j",
+      "crv:los-jensen"
+    ],
+    "JAA": [
+      "crv:jose-antonio-abreu"
+    ],
+    "JAC": [
+      "crv:jose-antonio-calcano"
+    ],
+    "JAL": [
+      "crv:jose-angel-lamas"
+    ],
+    "JB": [
+      "crv:josefina-benedetti"
+    ],
+    "JBP": [
+      "crv:juan-bautista-plaza"
+    ],
+    "JC": [
+      "crv:jose-coraspe"
+    ],
+    "JCC": [
+      "crv:juan-de-la-cruz-carreno"
+    ],
+    "JCDO": [
+      "crv:jean-carlo-de-oliveira"
+    ],
+    "JCO": [
+      "crv:jean-carlo-de-oliveira"
+    ],
+    "JD": [
+      "crv:jerry-di"
+    ],
+    "JDLCC": [
+      "crv:juan-de-la-cruz-carreno"
+    ],
+    "JG": [
+      "crv:jorge-guerrero"
+    ],
+    "JGC": [
+      "crv:jose-gregorio-coraspe"
+    ],
+    "JH": [
+      "crv:jekyl-hydes"
+    ],
+    "JJ": [
+      "crv:joudy-ju"
+    ],
+    "JJL": [
+      "crv:juan-jose-landaeta"
+    ],
+    "JLR": [
+      "crv:jose-luis-rodriguez"
+    ],
+    "JM": [
+      "crv:jesus-moreno"
+    ],
+    "JMO": [
+      "crv:juan-manuel-olivares"
+    ],
+    "JP": [
+      "crv:juan-peyote"
+    ],
+    "JS": [
+      "crv:jackie-schriber",
+      "crv:jesus-sevillano"
+    ],
+    "JT": [
+      "crv:jose-y-el-toro"
+    ],
+    "JVA": [
+      "crv:jose-vinicio-adames"
+    ],
+    "JYET": [
+      "crv:jose-y-el-toro"
+    ],
+    "K": [
+      "crv:karina",
+      "crv:karnavali",
+      "crv:kiara",
+      "crv:koquimba",
+      "crv:kraptor",
+      "crv:krueger",
+      "crv:kurarex"
+    ],
+    "KFC": [
+      "crv:kung-fu-club"
+    ],
+    "KM": [
+      "crv:karen-martello"
+    ],
+    "KS": [
+      "crv:kurikos-suin"
+    ],
+    "L": [
+      "crv:lafunnyco",
+      "crv:lagos",
+      "crv:lamias",
+      "crv:lanthanum",
+      "crv:lasso",
+      "crv:laurence",
+      "crv:laverno",
+      "crv:lebronch",
+      "crv:leech",
+      "crv:levitico",
+      "crv:liquet",
+      "crv:lumbral",
+      "crv:para-llevar"
+    ],
+    "L007": [
+      "crv:los-007"
+    ],
+    "L3BYLMQLP": [
+      "crv:los-3-bebes-y-la-madre-que-los-pario"
+    ],
+    "LA": [
+      "crv:adolescent-s-orquesta",
+      "crv:la-alianza",
+      "crv:luky-y-los-astrolabios"
+    ],
+    "LAD": [
+      "crv:la-abuela-disco"
+    ],
+    "LADS": [
+      "crv:los-antanos-del-stadium"
+    ],
+    "LAGOS": [
+      "crv:lagos"
+    ],
+    "LAI": [
+      "crv:los-amigos-invisibles"
+    ],
+    "LB": [
+      "crv:linda-briceno",
+      "crv:los-blonders",
+      "crv:los-buitres",
+      "crv:louis-bpm"
+    ],
+    "LBDLBV": [
+      "crv:la-banda-de-la-banana-voladora"
+    ],
+    "LBDO": [
+      "crv:lo-blanco-del-ojo"
+    ],
+    "LBM": [
+      "crv:la-banda-municipal"
+    ],
+    "LBO": [
+      "crv:lo-blanco-del-ojo"
+    ],
+    "LC": [
+      "crv:la-calle",
+      "crv:la-chica",
+      "crv:la-contra",
+      "crv:la-corte",
+      "crv:las-cartujas",
+      "crv:le-cinema",
+      "crv:los-canoneros",
+      "crv:los-claners",
+      "crv:los-clippers",
+      "crv:los-colores",
+      "crv:los-colosales",
+      "crv:los-confleis"
+    ],
+    "LC89": [
+      "crv:la-chusma-89"
+    ],
+    "LCC": [
+      "crv:la-cantante-calva"
+    ],
+    "LCDE": [
+      "crv:los-compadres-del-exito"
+    ],
+    "LCDH": [
+      "crv:la-caceria-de-hamlet"
+    ],
+    "LCEP": [
+      "crv:la-corte-en-pleno"
+    ],
+    "LCM": [
+      "crv:las-cuatro-monedas"
+    ],
+    "LCOA": [
+      "crv:la-caja-organica-antirritmo"
+    ],
+    "LCV": [
+      "crv:la-candida-virgen"
+    ],
+    "LD": [
+      "crv:la-divaza",
+      "crv:los-dangers",
+      "crv:los-darts",
+      "crv:los-delorean",
+      "crv:los-dinamicos",
+      "crv:los-dionys",
+      "crv:the-love-depression"
+    ],
+    "LDF": [
+      "crv:llave-de-fuego"
+    ],
+    "LEDPV": [
+      "crv:las-espiguitas-del-padre-vilchez"
+    ],
+    "LEDS": [
+      "crv:los-escritores-de-salem"
+    ],
+    "LF": [
+      "crv:la-fleur",
+      "crv:llave-de-fuego"
+    ],
+    "LFA": [
+      "crv:la-fiesta-animal"
+    ],
+    "LFJ": [
+      "crv:la-fabula-jack"
+    ],
+    "LG": [
+      "crv:lino-gallardo"
+    ],
+    "LGDV": [
+      "crv:los-gaiteros-de-venecia"
+    ],
+    "LGU": [
+      "crv:la-gran-universidad"
+    ],
+    "LH": [
+      "crv:los-holidays"
+    ],
+    "LHD": [
+      "crv:lalo-hernandez-diez"
+    ],
+    "LI": [
+      "crv:los-impala"
+    ],
+    "LJ": [
+      "crv:los-j",
+      "crv:los-jensen"
+    ],
+    "LL": [
+      "crv:luis-laguna",
+      "crv:luis-levine",
+      "crv:luis-lizardo"
+    ],
+    "LLDT": [
+      "crv:las-locuras-de-tomasito"
+    ],
+    "LM": [
+      "crv:la-mar",
+      "crv:le-merm",
+      "crv:lilibeth-morillo",
+      "crv:los-melodicos",
+      "crv:los-memphis",
+      "crv:los-mentas",
+      "crv:los-mesoneros"
+    ],
+    "LMBP": [
+      "crv:la-muy-bestia-pop"
+    ],
+    "LMG": [
+      "crv:la-maquina-gaitera",
+      "crv:la-misma-gente"
+    ],
+    "LN": [
+      "crv:la-nave"
+    ],
+    "LO": [
+      "crv:los-oceanicos"
+    ],
+    "LODVB": [
+      "crv:la-ofrenda-de-vytas-brenner"
+    ],
+    "LP": [
+      "crv:lele-pons",
+      "crv:los-paranoias",
+      "crv:los-pixel"
+    ],
+    "LPA": [
+      "crv:la-poceta-azul"
+    ],
+    "LPDF": [
+      "crv:los-pacientes-de-freud"
+    ],
+    "LPE": [
+      "crv:la-puta-electrica"
+    ],
+    "LPG": [
+      "crv:la-pelota-gaitera"
+    ],
+    "LPT": [
+      "crv:la-pagana-trinidad"
+    ],
+    "LR": [
+      "crv:liliana-rodriguez"
+    ],
+    "LS": [
+      "crv:las-sensacionales",
+      "crv:lil-supa",
+      "crv:los-strato",
+      "crv:los-supersonicos",
+      "crv:luis-silva"
+    ],
+    "LT": [
+      "crv:las-locuras-de-tomasito",
+      "crv:los-telecaster",
+      "crv:los-terricolas",
+      "crv:los-thunderbirds"
+    ],
+    "LTDT": [
+      "crv:los-turpiales-de-tamare"
+    ],
+    "LUT": [
+      "crv:la-ultima-thule"
+    ],
+    "LV": [
+      "crv:la-vesper",
+      "crv:la-voragine",
+      "crv:lilia-vera",
+      "crv:luz-verde"
+    ],
+    "LVB": [
+      "crv:la-vida-boheme"
+    ],
+    "LWC": [
+      "crv:ladies-w-c"
+    ],
+    "LYLA": [
+      "crv:luky-y-los-astrolabios"
+    ],
+    "M": [
+      "crv:la-mar",
+      "crv:le-merm",
+      "crv:los-melodicos",
+      "crv:los-memphis",
+      "crv:los-mentas",
+      "crv:los-mesoneros",
+      "crv:mamajammings",
+      "crv:maragaita",
+      "crv:marilanne",
+      "crv:maskhera",
+      "crv:mcklopedia",
+      "crv:melissa",
+      "crv:merlot",
+      "crv:meruva",
+      "crv:mirages",
+      "crv:mochuelo",
+      "crv:motorfunk",
+      "crv:musanostra",
+      "crv:musikautomatika"
+    ],
+    "M15": [
+      "crv:maracaibo-15"
+    ],
+    "MA": [
+      "crv:maquina-animal",
+      "crv:marti-ann",
+      "crv:melancolicos-anonimos"
+    ],
+    "MB": [
+      "crv:modesta-bor"
+    ],
+    "MBP": [
+      "crv:la-muy-bestia-pop"
+    ],
+    "MBS": [
+      "crv:e-m-b-a-s"
+    ],
+    "MCA": [
+      "crv:maria-conchita-alonso"
+    ],
+    "MD": [
+      "crv:marielena-davila"
+    ],
+    "MDS": [
+      "crv:monaguillos-de-sodoma"
+    ],
+    "MF": [
+      "crv:magik-family"
+    ],
+    "MFB": [
+      "crv:max-y-los-fagocitos-blancos"
+    ],
+    "MG": [
+      "crv:la-maquina-gaitera",
+      "crv:la-misma-gente",
+      "crv:master-guru",
+      "crv:melody-gaita",
+      "crv:mind-the-gap"
+    ],
+    "ML": [
+      "crv:mike-lemus"
+    ],
+    "MLE": [
+      "crv:maria-luisa-escobar"
+    ],
+    "MM": [
+      "crv:mayre-martinez",
+      "crv:meganeura-monji",
+      "crv:moises-moleiro",
+      "crv:morella-munoz"
+    ],
+    "MN": [
+      "crv:miguel-noya"
+    ],
+    "MR": [
+      "crv:maria-rivas",
+      "crv:mau-y-ricky"
+    ],
+    "MS": [
+      "crv:marger-sealey",
+      "crv:monaguillos-de-sodoma"
+    ],
+    "MSC": [
+      "crv:malasangre-social-club"
+    ],
+    "MT": [
+      "crv:micro-tdh"
+    ],
+    "MTC": [
+      "crv:maria-teresa-chacin"
+    ],
+    "MTG": [
+      "crv:mind-the-gap"
+    ],
+    "MV": [
+      "crv:mariana-vega"
+    ],
+    "MX": [
+      "crv:motor-x"
+    ],
+    "MYLFB": [
+      "crv:max-y-los-fagocitos-blancos"
+    ],
+    "MYR": [
+      "crv:mau-y-ricky"
+    ],
+    "N": [
+      "crv:la-nave",
+      "crv:nacho",
+      "crv:nanis",
+      "crv:nikitao",
+      "crv:nina",
+      "crv:nomaste",
+      "crv:noreh",
+      "crv:novanout",
+      "crv:novocolor",
+      "crv:npi"
+    ],
+    "NA": [
+      "crv:nelson-arrieta"
+    ],
+    "NAP": [
+      "crv:nzila-afrobeat-project"
+    ],
+    "NFDH": [
+      "crv:niggaz-fell-da-hood"
+    ],
+    "NFH": [
+      "crv:niggaz-fell-da-hood"
+    ],
+    "NN": [
+      "crv:nino-nuclear",
+      "crv:nueve-noventa"
+    ],
+    "NOREH": [
+      "crv:noreh"
+    ],
+    "NP": [
+      "crv:nk-profeta"
+    ],
+    "NPI": [
+      "crv:npi"
+    ],
+    "NR": [
+      "crv:nella-rojas"
+    ],
+    "NS": [
+      "crv:neutro-shorty"
+    ],
+    "O": [
+      "crv:los-oceanicos",
+      "crv:obertura",
+      "crv:ofrenda",
+      "crv:ohmio",
+      "crv:okills",
+      "crv:omegua",
+      "crv:outsiders"
+    ],
+    "ODL": [
+      "crv:oscar-d-leon"
+    ],
+    "OG": [
+      "crv:otilio-galindez"
+    ],
+    "OL": [
+      "crv:oksana-linde"
+    ],
+    "OPN": [
+      "crv:ora-pro-nobis"
+    ],
+    "OVB": [
+      "crv:la-ofrenda-de-vytas-brenner"
+    ],
+    "P": [
+      "crv:and-panza",
+      "crv:del-pez",
+      "crv:el-prieto",
+      "crv:jose-luis-rodriguez",
+      "crv:los-paranoias",
+      "crv:los-pixel",
+      "crv:pakalolo",
+      "crv:pan",
+      "crv:pandesousa",
+      "crv:petrula",
+      "crv:phonit",
+      "crv:planeador",
+      "crv:polyman",
+      "crv:prometeo",
+      "crv:prozak",
+      "crv:puah",
+      "crv:salpachino"
+    ],
+    "PA": [
+      "crv:la-poceta-azul",
+      "crv:power-age",
+      "crv:proyekto-aura"
+    ],
+    "PAN": [
+      "crv:pan"
+    ],
+    "PC": [
+      "crv:pablo-camacaro",
+      "crv:perucho-conde"
+    ],
+    "PD": [
+      "crv:pablo-dagnino"
+    ],
+    "PDG": [
+      "crv:pastel-de-gente"
+    ],
+    "PDP": [
+      "crv:punto-de-partida"
+    ],
+    "PE": [
+      "crv:la-puta-electrica",
+      "crv:prudencio-esaa"
+    ],
+    "PEG": [
+      "crv:pedro-elias-gutierrez"
+    ],
+    "PF": [
+      "crv:los-pacientes-de-freud"
+    ],
+    "PFH": [
+      "crv:el-proyecto-de-franklin-holland"
+    ],
+    "PG": [
+      "crv:la-pelota-gaitera",
+      "crv:paola-galue",
+      "crv:pastel-de-gente",
+      "crv:paul-gillman"
+    ],
+    "PK": [
+      "crv:palmeras-kanibales"
+    ],
+    "PL": [
+      "crv:paisaje-local",
+      "crv:para-llevar",
+      "crv:pastor-lopez",
+      "crv:proyecto-lossada"
+    ],
+    "PM": [
+      "crv:pablo-manavello"
+    ],
+    "PN": [
+      "crv:pan"
+    ],
+    "PP": [
+      "crv:punto-de-partida"
+    ],
+    "PR": [
+      "crv:punto-rojo"
+    ],
+    "PSL": [
+      "crv:proyecto-soul-latino"
+    ],
+    "PSS": [
+      "crv:papashanty-saund-system"
+    ],
+    "PT": [
+      "crv:la-pagana-trinidad"
+    ],
+    "PV": [
+      "crv:pez-volador"
+    ],
+    "PZ": [
+      "crv:salpachino"
+    ],
+    "Q": [
+      "crv:quincalla"
+    ],
+    "QC": [
+      "crv:el-quinto-combo",
+      "crv:quinteto-contrapunto"
+    ],
+    "QM": [
+      "crv:q-molleja"
+    ],
+    "R": [
+      "crv:el-rastro",
+      "crv:r1tval",
+      "crv:rawayana",
+      "crv:reke",
+      "crv:repe",
+      "crv:represion",
+      "crv:resistencia",
+      "crv:retrovisor",
+      "crv:revolucion",
+      "crv:romanza",
+      "crv:rudras"
+    ],
+    "R1TVAL": [
+      "crv:r1tval"
+    ],
+    "R2": [
+      "crv:rc2"
+    ],
+    "RA": [
+      "crv:rebelion-andina",
+      "crv:reynaldo-armas",
+      "crv:ricardo-aguirre",
+      "crv:roldan-ayata"
+    ],
+    "RBR": [
+      "crv:royal-big-road"
+    ],
+    "RC": [
+      "crv:radio-clip",
+      "crv:rapisarda-y-la-celebracion",
+      "crv:raquel-castano"
+    ],
+    "RC2": [
+      "crv:rc2"
+    ],
+    "RD": [
+      "crv:raped-dolls"
+    ],
+    "RG": [
+      "crv:rebelion-gaitera",
+      "crv:rial-guawanko"
+    ],
+    "RH": [
+      "crv:reynaldo-hahn"
+    ],
+    "RLS": [
+      "crv:rudy-la-scala"
+    ],
+    "RM": [
+      "crv:ricardo-montaner",
+      "crv:rincon-morales"
+    ],
+    "RO": [
+      "crv:rummy-olivo"
+    ],
+    "RRG": [
+      "crv:rafael-rincon-gonzalez"
+    ],
+    "RS": [
+      "crv:rudy-la-scala"
+    ],
+    "RV": [
+      "crv:roque-valero"
+    ],
+    "RYLC": [
+      "crv:rapisarda-y-la-celebracion"
+    ],
+    "S": [
+      "crv:las-sensacionales",
+      "crv:los-strato",
+      "crv:los-supersonicos",
+      "crv:saladillo",
+      "crv:salpachino",
+      "crv:salserin",
+      "crv:sanluis",
+      "crv:santuario",
+      "crv:scrop",
+      "crv:sentencia",
+      "crv:sherwood",
+      "crv:sibelius",
+      "crv:sieben",
+      "crv:silfo",
+      "crv:skatz",
+      "crv:skin",
+      "crv:sonica",
+      "crv:stake",
+      "crv:stereolux",
+      "crv:submarino",
+      "crv:subsonus",
+      "crv:sunu",
+      "crv:superglicerina",
+      "crv:supernova",
+      "crv:syma"
+    ],
+    "S2": [
+      "crv:sistema-2"
+    ],
+    "S4": [
+      "crv:sus-4"
+    ],
+    "SA": [
+      "crv:santa-anita"
+    ],
+    "SB": [
+      "crv:sir-buffalo"
+    ],
+    "SC": [
+      "crv:sur-carabela"
+    ],
+    "SD": [
+      "crv:simon-diaz",
+      "crv:sin-direccion"
+    ],
+    "SF": [
+      "crv:servando-y-florentino",
+      "crv:sr-funky"
+    ],
+    "SG": [
+      "crv:serenata-guayanesa",
+      "crv:song-gaitero",
+      "crv:steffano-gramitto"
+    ],
+    "SM": [
+      "crv:sentimiento-muerto"
+    ],
+    "SN": [
+      "crv:seguridad-nacional",
+      "crv:soires-naes"
+    ],
+    "SO": [
+      "crv:septimo-oxigeno"
+    ],
+    "SP": [
+      "crv:santa-palanka",
+      "crv:un-solo-pueblo"
+    ],
+    "SR": [
+      "crv:sheryl-rubio",
+      "crv:soma-raza"
+    ],
+    "SS": [
+      "crv:sin-sospechas"
+    ],
+    "SYF": [
+      "crv:servando-y-florentino"
+    ],
+    "T": [
+      "crv:los-telecaster",
+      "crv:los-terricolas",
+      "crv:los-thunderbirds",
+      "crv:technicolor",
+      "crv:telecolor",
+      "crv:tempano",
+      "crv:tepuy",
+      "crv:the",
+      "crv:the-termites",
+      "crv:thorvald",
+      "crv:toberias",
+      "crv:todosantos",
+      "crv:torkhe",
+      "crv:trama",
+      "crv:trasvidas",
+      "crv:truko",
+      "crv:twamb"
+    ],
+    "TA": [
+      "crv:the-asbestos"
+    ],
+    "TAC": [
+      "crv:tequila-and-caroline"
+    ],
+    "TC": [
+      "crv:tequila-and-caroline",
+      "crv:teresa-carreno"
+    ],
+    "TCV": [
+      "crv:the-caribbean-vampires"
+    ],
+    "TE": [
+      "crv:todos-estrellas"
+    ],
+    "TF": [
+      "crv:tomates-fritos"
+    ],
+    "TG": [
+      "crv:teo-galindez",
+      "crv:tren-gaitero",
+      "crv:trova-gaitera"
+    ],
+    "THE": [
+      "crv:the"
+    ],
+    "TL": [
+      "crv:trip-land"
+    ],
+    "TLD": [
+      "crv:the-love-depression"
+    ],
+    "TM": [
+      "crv:trina-medina"
+    ],
+    "TN": [
+      "crv:trance-nuance"
+    ],
+    "TT": [
+      "crv:los-turpiales-de-tamare",
+      "crv:the-termites"
+    ],
+    "TVG": [
+      "crv:the-viridian-groove"
+    ],
+    "U": [
+      "crv:ubercafe",
+      "crv:ultravioleta"
+    ],
+    "USP": [
+      "crv:un-solo-pueblo"
+    ],
+    "UT": [
+      "crv:la-ultima-thule"
+    ],
+    "V": [
+      "crv:la-vesper",
+      "crv:la-voragine",
+      "crv:v-ilis",
+      "crv:versed",
+      "crv:viniloversus",
+      "crv:vital",
+      "crv:volta"
+    ],
+    "VA": [
+      "crv:virtual-animal"
+    ],
+    "VB": [
+      "crv:la-vida-boheme",
+      "crv:vytas-brenner"
+    ],
+    "VDD": [
+      "crv:van-der-dijs"
+    ],
+    "VES": [
+      "crv:vicente-emilio-sojo"
+    ],
+    "VG": [
+      "crv:the-viridian-groove"
+    ],
+    "VHG": [
+      "crv:venezuela-habla-gaiteando"
+    ],
+    "VHHLP": [
+      "crv:vielma-ha-hurtado-las-porras"
+    ],
+    "VHHP": [
+      "crv:vielma-ha-hurtado-las-porras"
+    ],
+    "VM": [
+      "crv:vals-monserrat"
+    ],
+    "VPH": [
+      "crv:v-p-h"
+    ],
+    "VR": [
+      "crv:vision-real"
+    ],
+    "VS": [
+      "crv:vanessa-suarez"
+    ],
+    "W": [
+      "crv:wahala",
+      "crv:wannamaker"
+    ],
+    "WB": [
+      "crv:wyzton-borrero"
+    ],
+    "WF": [
+      "crv:wilmer-franco"
+    ],
+    "WLA": [
+      "crv:walking-like-ants"
+    ],
+    "WO": [
+      "crv:white-offense"
+    ],
+    "X": [
+      "crv:xtremauncion"
+    ],
+    "XIT": [
+      "crv:xanaxboy-y-los-inie-tro"
+    ],
+    "XYLIT": [
+      "crv:xanaxboy-y-los-inie-tro"
+    ],
+    "Y": [
+      "crv:yordano",
+      "crv:yorghaki"
+    ],
+    "YT": [
+      "crv:yalung-tang"
+    ],
+    "Z": [
+      "crv:zhamira",
+      "crv:zoller"
+    ],
+    "Z3": [
+      "crv:zapato-3"
+    ],
+    "ZSS": [
+      "crv:zaperoco-sound-system"
+    ]
+  },
+  "total_registros": 628
+}

@@ -139,8 +139,13 @@ try {
   assert.equal((await request("/evidence-inventory/facts?kind=person&entityId=1")).status, 403);
   assert.equal((await request("/evidence-inventory/documents/1")).status, 403);
   await expect(page.locator(".page-actions").getByRole("button", { name: "Editar", exact: true })).toHaveCount(0);
+  // Buscador sin mínimo de letras (2026-10-13): una sola letra ya sugiere fichas.
+  assert.equal((await request("/search/misses")).status, 403);
+  await page.goto(base);
+  await page.getByLabel("Buscar en el catálogo", { exact: true }).fill("b");
+  await expect(page.getByRole("option", { name: /^Banda QA Editada/u })).toBeVisible();
   assert.deepEqual(errors, []);
-  console.log("Smoke aprobado: SPA compilada, PostgreSQL aislado, login, roles, CSRF, fechas parciales, identidad, obra y edición persistidas.");
+  console.log("Smoke aprobado: SPA compilada, PostgreSQL aislado, login, roles, CSRF, fechas parciales, identidad, obra y edición persistidas, buscador desde una letra.");
 } finally {
   await browser?.close();
   if (web) await new Promise((resolve, reject) => web.httpServer.close(error => error ? reject(error) : resolve()));

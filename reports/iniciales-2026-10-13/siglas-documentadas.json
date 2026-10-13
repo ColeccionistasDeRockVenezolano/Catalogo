@@ -1,0 +1,140 @@
+{
+  "fecha": "2026-10-13",
+  "criterio": "Solo siglas escritas junto al nombre del artista en una fuente (fuerte) o usadas como título de su obra (media). Sin siglas calculadas.",
+  "siglas": [
+    {
+      "artistId": 152,
+      "artist": "Los Amigos Invisibles",
+      "sigla": "LAI",
+      "fuerza": "fuerte",
+      "fuente": "https://elestimulo.com/cultura/2020-06-21/anos-90-en-venezuela-entre-la-calle-y-la-gozadera/",
+      "cita": "«LAI apuesta a la jerga callejera»; Sincopa lista «Grandes Exitos de LAI…The Beginnings» (EMI 2003); créditos «José Luis Pardo (LAI)»"
+    },
+    {
+      "artistId": 58,
+      "artist": "Caramelos De Cianuro",
+      "sigla": "CDC",
+      "fuerza": "fuerte",
+      "fuente": "https://www.buenamusica.com/caramelos-de-cianuro",
+      "cita": "«Otros Nombres: CDC, Caramelos»; también Last.fm (fuente del JSON externo)"
+    },
+    {
+      "artistId": 78,
+      "artist": "Desorden Público",
+      "sigla": "DP",
+      "fuerza": "fuerte",
+      "fuente": "https://es.wikipedia.org/wiki/Desorden_P%C3%BAblico",
+      "cita": "disco «DP 18 / Desorden Público en Concierto» (2004); listado «Canto popular de la vida y muerte / DP» (rockzuela)"
+    },
+    {
+      "artistId": 138,
+      "artist": "La Puta Eléctrica",
+      "sigla": "LPE",
+      "fuerza": "fuerte",
+      "fuente": "https://es.wikipedia.org/wiki/Los_Pixel",
+      "cita": "«Norton Pérez líder de la banda La Puta Eléctrica (LPE)»"
+    },
+    {
+      "artistId": 191,
+      "artist": "Palmeras Kanibales",
+      "sigla": "PK",
+      "fuerza": "fuerte",
+      "fuente": "youtube:video 325",
+      "cita": "créditos «Produced by Luciano Calello & Palmeras Kanibales (PK)»"
+    },
+    {
+      "artistId": 693,
+      "artist": "Juan Manuel Ponce",
+      "sigla": "JMP",
+      "fuerza": "fuerte",
+      "fuente": "https://rockhechovzla.blogspot.com/2019/02/la-misma-gente-y-el-usurpador.html",
+      "cita": "«la ya extensa carrera musical de Juan Manuel Ponce (JMP)»"
+    },
+    {
+      "artistId": 176,
+      "artist": "Movida Acústica Urbana",
+      "sigla": "MAU",
+      "fuerza": "fuerte",
+      "fuente": "https://elestimulo.com/ub/viciosidades/2017-09-21/la-movida-rockera-en-caracas-se-esta-yendo-a-la-mierda/",
+      "cita": "«Los músicos de la MAU (Movida Acústica Urbana)»; eldiario.com: «el regreso del Rock and MAU»"
+    },
+    {
+      "artistId": 4385,
+      "artist": "Orquesta Sinfónica Municipal de Caracas",
+      "sigla": "OSMC",
+      "fuerza": "fuerte",
+      "fuente": "https://es.wikipedia.org/wiki/Aldemaro_Romero",
+      "cita": "«La Orquesta Sinfónica Municipal de Caracas (OSMC)» (biografía de la ficha)"
+    },
+    {
+      "artistId": 2944,
+      "artist": "Orquesta Sinfónica de Venezuela",
+      "sigla": "OSV",
+      "fuerza": "fuerte",
+      "fuente": "https://sincopa.com/jazz/cdinfo/ofero_entre2duetos.htm",
+      "cita": "créditos «Orchestra: Orquesta Sinfónica de Venezuela O.S.V.»"
+    },
+    {
+      "artistId": 3414,
+      "artist": "Orquesta Filarmónica Nacional",
+      "sigla": "OFN",
+      "fuerza": "fuerte",
+      "fuente": "https://www.cancioneros.com/in/4/3680/articulos-relacionados-con-canciones-de-serenata-guayanesa",
+      "cita": "«la Orquesta Filarmónica Nacional (OFN)»"
+    },
+    {
+      "artistId": 90,
+      "artist": "El Supremo Hongo Imaginario",
+      "sigla": "ESHI",
+      "fuerza": "media",
+      "fuente": "disco 182",
+      "cita": "disco titulado «E.S.H.I.» (la sigla como título)"
+    },
+    {
+      "artistId": 1916,
+      "artist": "Difuntos, Extraños y Volátiles",
+      "sigla": "DEV",
+      "fuerza": "media",
+      "fuente": "disco 3982",
+      "cita": "disco titulado «DEV» (la sigla como título)"
+    },
+    {
+      "artistId": 446,
+      "artist": "A Raíz de Nuevas Causas",
+      "sigla": "ARDNC",
+      "fuerza": "media",
+      "fuente": "disco 1002",
+      "cita": "canción «A.R.D.N.C» (la sigla como título)"
+    },
+    {
+      "artistId": 194,
+      "artist": "Pedro Manuel Bolívar",
+      "sigla": "PMB",
+      "fuerza": "media",
+      "fuente": "disco 2243",
+      "cita": "«Aurora es un disco de música electrónica de PMB Pedro Manuel Bolívar»"
+    }
+  ],
+  "descartadas": [
+    {
+      "sigla": "C4",
+      "artist": "C4 Trío (53)",
+      "motivo": "documentada (c4trio.com), pero choca con el nombre de la ficha «C4» (2091), otra banda; no es duplicado"
+    },
+    {
+      "sigla": "LVM",
+      "artist": "Latin Vox Machine",
+      "motivo": "documentada en Wikipedia («abreviado como LVM»), pero el grupo no está en el catálogo"
+    },
+    {
+      "sigla": "ARHC",
+      "artist": "Alternativa Radical Hard Core",
+      "motivo": "documentada en Wikipedia (Punk en Latinoamérica), pero el grupo no está en el catálogo"
+    },
+    {
+      "sigla": "DP",
+      "artist": "Desierto Porno (556)",
+      "motivo": "falso positivo: «Canto popular de la vida y muerte / DP» es una canción de Desorden Público"
+    }
+  ]
+}

@@ -1,14 +1,22 @@
 // CRV · Búsqueda global (PHASES §E7A: "búsqueda global... los alias
-// participan"). Una consulta por tipo de entidad; el nombre/título propio
-// o cualquiera de sus alias (ingest.*_aliases) puede matchear.
+// participan"). El nombre/título propio o cualquiera de sus alias
+// (ingest.*_aliases) puede matchear.
 //
-// Personas, artistas y organizaciones buscan con el índice en memoria
-// (E11.9): la base es SQL_ASCII y `ILIKE '%jose%'` no encuentra «José».
-// Los álbumes incluyen títulos, alias y nombre del artista sin distinguir tildes.
-// Las pistas mantienen su búsqueda SQL.
+// Todos los tipos —pistas incluidas— buscan en el índice en memoria (E11.9 y
+// 2026-10-13): la base es SQL_ASCII y `ILIKE '%jose%'` no encuentra «José», y
+// recorrer 121k pistas por consulta era el punto débil frente a ráfagas. La
+// base solo resuelve por clave primaria los ids que el índice ya eligió.
+//
+// CONSULTAS CORTAS SIN RIESGO (2026-10-13): (1) las respuestas se guardan un
+// rato en memoria, ligadas a la versión del índice; (2) dos peticiones
+// idénticas en vuelo comparten una sola consulta; (3) con demasiadas
+// búsquedas distintas a la vez se responde «ocupado» en lugar de encolar sin
+// fin. El límite por IP vive en la ruta.
 import { getPool } from "../../db/client.js";
+import { normalizeEntityName } from "../../normalization/entity-name.js";
+import { ApiError } from "../http-errors.js";
 import { ALL_SEARCH_TYPES, type SearchEntityType } from "../schemas.js";
-import { searchIds, type IndexedKind } from "../search-index.js";
+import { searchIds, searchIndexVersion, type IndexedKind } from "../search-index.js";
 
 export interface SearchHit {
   type: SearchEntityType;
@@ -24,7 +32,7 @@ async function searchIndexed<T extends { id: string; name: string }>(
   kind: IndexedKind, q: string, limit: number, type: SearchEntityType,
   sql: string, context: (row: T) => string | null,
 ): Promise<SearchHit[]> {
-  const ids = (await searchIds(kind, q)).slice(0, limit);
+  const ids = await searchIds(kind, q, limit);
   if (ids.length === 0) return [];
   const { rows } = await getPool().query<T>(sql, [ids]);
   return rows.map((row) => ({ type, id: Number(row.id), label: row.name, context: context(row), albumId: null }));
@@ -51,17 +59,15 @@ async function searchAlbums(q: string, limit: number): Promise<SearchHit[]> {
 }
 
 async function searchTracks(q: string, limit: number): Promise<SearchHit[]> {
-  const pattern = `%${q}%`;
+  const ids = await searchIds("track", q, limit);
+  if (ids.length === 0) return [];
   const { rows } = await getPool().query<{ id: string; title: string; album_id: string; album_title: string; artist_name: string }>(
-    `SELECT t.id, t.title, al.id AS album_id, al.title AS album_title, ar.name AS artist_name
+    `SELECT t.id::text, t.title, al.id::text AS album_id, al.title AS album_title, ar.name AS artist_name
        FROM public.tracks t
        JOIN public.albums al ON al.id = t.album_id
        JOIN public.artists ar ON ar.id = al.artist_id
-      WHERE t.title ILIKE $1
-         OR EXISTS (SELECT 1 FROM ingest.track_aliases x WHERE x.track_id = t.id AND x.alias ILIKE $1)
-      ORDER BY t.title
-      LIMIT $2`,
-    [pattern, limit],
+      WHERE t.id = ANY($1::bigint[]) ORDER BY array_position($1::bigint[], t.id)`,
+    [ids],
   );
   return rows.map((row) => ({
     type: "track", id: Number(row.id), label: row.title, context: `${row.artist_name} · ${row.album_title}`,
@@ -84,11 +90,39 @@ const SEARCHERS: Record<SearchEntityType, (q: string, limit: number) => Promise<
   organization: searchOrganizations,
 };
 
+type SearchResult = Record<SearchEntityType, SearchHit[]>;
+
+const RESULT_TTL_MS = 60_000;
+const RESULT_CACHE_MAX = 1_000;
+/** Búsquedas distintas resolviéndose a la vez; por encima se responde 503 (cada una son ~10–30 ms de CPU). */
+const MAX_UNCACHED_IN_FLIGHT = 24;
+let uncachedInFlight = 0;
+/** Respuestas recientes (orden de inserción = antigüedad) y consultas en vuelo. */
+const resultCache = new Map<string, { at: number; promise: Promise<SearchResult> }>();
+
 export async function globalSearch(
   q: string, limit: number, types: readonly SearchEntityType[] = ALL_SEARCH_TYPES,
-): Promise<Record<SearchEntityType, SearchHit[]>> {
+): Promise<SearchResult> {
+  const needle = normalizeEntityName(q).secondaryKey;
+  const key = `${searchIndexVersion()}|${needle}|${limit}|${[...types].sort().join(",")}`;
+  const cached = resultCache.get(key);
+  if (cached && Date.now() - cached.at < RESULT_TTL_MS) return cached.promise;
+  if (uncachedInFlight >= MAX_UNCACHED_IN_FLIGHT) {
+    throw new ApiError(503, "search_busy", "El buscador está ocupado; intenta de nuevo en un momento");
+  }
+  uncachedInFlight += 1;
+  const promise = runSearch(q, limit, types).finally(() => { uncachedInFlight -= 1; });
+  resultCache.delete(key);
+  resultCache.set(key, { at: Date.now(), promise });
+  // Un fallo no se guarda: la siguiente petición vuelve a intentarlo.
+  promise.catch(() => { if (resultCache.get(key)?.promise === promise) resultCache.delete(key); });
+  while (resultCache.size > RESULT_CACHE_MAX) resultCache.delete(resultCache.keys().next().value!);
+  return promise;
+}
+
+async function runSearch(q: string, limit: number, types: readonly SearchEntityType[]): Promise<SearchResult> {
   const entries = await Promise.all(types.map(async (type) => [type, await SEARCHERS[type](q, limit)] as const));
-  const result = {} as Record<SearchEntityType, SearchHit[]>;
+  const result = {} as SearchResult;
   for (const [type, hits] of entries) result[type] = hits;
   for (const type of ALL_SEARCH_TYPES) result[type] ??= [];
   return result;
