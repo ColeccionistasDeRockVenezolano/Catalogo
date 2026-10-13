@@ -29,4 +29,11 @@ Tidal, SoundCloud y todas las que se puedan, «como un switch de plataformas».
   programada (`crv-embeds-spotify-retoma.timer`, 2026-10-14 ~16:17, pausa 3 s). El listado de
   discos por artista (`/artists/{id}/albums`) también está castigado.
 - YouTube Music: `crv-embeds-ytmusic` sigue (≈4,5 h). Al terminar, repetir el aplicador.
-- Tidal: discos sin id; hace falta una credencial de developer.tidal.com (búsqueda por UPC).
+- Tidal: credencial de Brian en `.env` (TIDAL_CLIENT_ID/SECRET, 2026-10-13); `crv-embeds-tidal` busca
+  por disco en openapi.tidal.com/v2 (`/searchResults?filter[query]=…&include=albums,albums.artists`).
+  Al terminar, repetir el aplicador.
+
+## Publicación
+
+- 2026-10-13: commits 1c2a30d, 9659e68, 42ca828 (trabajo de la otra sesión), 1eab222, 76cf242 y el
+  arreglo de Bandcamp; `npm run deploy -- --api` hecho. Sin push.
