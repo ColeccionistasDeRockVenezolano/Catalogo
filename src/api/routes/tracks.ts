@@ -39,6 +39,8 @@ const trackCreditSchema = z.object({
 const trackDetailSchema = trackListItemSchema.extend({
   youtubeStartSeconds: z.number().int().nullable(),
   notes: z.string().nullable(),
+  /** Letra de la canción (0073; null = sin letra conocida). */
+  lyrics: z.string().nullable(),
   aliases: z.array(aliasSchema),
   credits: z.array(trackCreditSchema),
   primaryGenre: publicGenreSchema.nullable(),

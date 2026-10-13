@@ -115,6 +115,8 @@ export interface AlbumTrackRow {
   title: string;
   durationSeconds: number | null;
   youtubeStartSeconds: number | null;
+  /** Letra disponible (0073): el texto se sirve en el detalle de la pista. */
+  hasLyrics: boolean;
   credits: AlbumCreditRow[];
 }
 

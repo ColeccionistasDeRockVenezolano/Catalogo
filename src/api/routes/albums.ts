@@ -53,6 +53,8 @@ const trackSchema = z.object({
   title: z.string(),
   durationSeconds: z.number().int().nullable(),
   youtubeStartSeconds: z.number().int().nullable(),
+  /** Letra disponible (0073): el texto se sirve en el detalle de la pista. */
+  hasLyrics: z.boolean(),
   credits: z.array(creditSchema),
 });
 
