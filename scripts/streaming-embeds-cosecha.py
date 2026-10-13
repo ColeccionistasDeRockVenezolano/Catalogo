@@ -113,20 +113,31 @@ def pick(album, cands):
 
 class Spotify:
     def __init__(self):
-        self.creds = [(env("SPOTIFY_CLIENT_ID" + s), env("SPOTIFY_CLIENT_SECRET" + s)) for s in ("", "_FALLBACK")]
+        # La de respaldo se llama SPOTIFY_FALLBACK_CLIENT_ID/SECRET en el .env (antes, sufijo _FALLBACK).
+        self.creds = [(env("SPOTIFY_CLIENT_ID"), env("SPOTIFY_CLIENT_SECRET")),
+                      (env("SPOTIFY_FALLBACK_CLIENT_ID") or env("SPOTIFY_CLIENT_ID_FALLBACK"),
+                       env("SPOTIFY_FALLBACK_CLIENT_SECRET") or env("SPOTIFY_CLIENT_SECRET_FALLBACK"))]
         self.creds = [c for c in self.creds if c[0] and c[1]]
-        self.token, self.vence = None, 0
+        self.actual, self.token, self.vence = 0, None, 0
 
     def get(self, path):
-        if not self.token or time.time() > self.vence:
-            cid, sec = self.creds[0]
-            d = http("https://accounts.spotify.com/api/token", data={"grant_type": "client_credentials"},
-                     headers={"Authorization": "Basic " + base64.b64encode(f"{cid}:{sec}".encode()).decode()})
-            self.token, self.vence = d["access_token"], time.time() + d.get("expires_in", 3600) - 120
-        # Pausa entre llamadas: 0,5 s castigó las dos credenciales ~24 h (2026-10-13) tras ~1.500
-        # búsquedas; la reanudación va a 3 s (CRV_SPOTIFY_PAUSA).
+        # Pausa entre llamadas: 0,5 s castigó la credencial principal ~24 h (2026-10-13) tras ~1.500
+        # búsquedas; se sigue a 3 s (CRV_SPOTIFY_PAUSA).
         time.sleep(float(os.environ.get("CRV_SPOTIFY_PAUSA", "3")))
-        return http("https://api.spotify.com/v1" + path, headers={"Authorization": "Bearer " + self.token})
+        while True:
+            if not self.token or time.time() > self.vence:
+                cid, sec = self.creds[self.actual]
+                d = http("https://accounts.spotify.com/api/token", data={"grant_type": "client_credentials"},
+                         headers={"Authorization": "Basic " + base64.b64encode(f"{cid}:{sec}".encode()).decode()})
+                self.token, self.vence = d["access_token"], time.time() + d.get("expires_in", 3600) - 120
+            try:
+                return http("https://api.spotify.com/v1" + path, headers={"Authorization": "Bearer " + self.token})
+            except RuntimeError as e:
+                # Castigo largo: se pasa a la credencial siguiente; sin más, se corta (salida 3).
+                if "rate-limit largo" not in str(e) or self.actual + 1 >= len(self.creds):
+                    raise
+                self.actual, self.token = self.actual + 1, None
+                print(f"spotify: {e}; paso a la credencial {self.actual + 1} de {len(self.creds)}", flush=True)
 
     def artistas(self, name):
         d = self.get("/search?" + urllib.parse.urlencode({"q": name, "type": "artist", "limit": 10}))

@@ -115,8 +115,8 @@ class Spotify:
         self.token = None
         self.creds = []
         for sufijo in ("", "_FALLBACK"):
-            cid = env("SPOTIFY_CLIENT_ID" + sufijo)
-            sec = env("SPOTIFY_CLIENT_SECRET" + sufijo)
+            cid = env("SPOTIFY_CLIENT_ID" + sufijo) or (env("SPOTIFY_FALLBACK_CLIENT_ID") if sufijo else None)
+            sec = env("SPOTIFY_CLIENT_SECRET" + sufijo) or (env("SPOTIFY_FALLBACK_CLIENT_SECRET") if sufijo else None)
             if cid and sec:
                 self.creds.append((cid, sec))
         self.fallos = 0
