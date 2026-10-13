@@ -9,6 +9,7 @@ los que faltan para poder insertar el reproductor de cada plataforma:
   ytmusic   — álbumes de YouTube Music (su lista OLAK5uy_… se inserta con el reproductor de
               YouTube) y la lista «Canciones» del artista.
   bandcamp  — discos de los perfiles de Bandcamp ya verificados (el reproductor pide el id).
+  tidal     — discos por búsqueda en la API oficial (openapi.tidal.com/v2).
 
 Identidad (mismas reglas que la campaña de enlaces): el nombre del artista debe coincidir
 EXACTO (normalizado, o con uno de sus alias) y el perfil solo vale si casa al menos un disco
@@ -306,11 +307,64 @@ def cosechar_bandcamp(artista, discos):
     return {"artist_link": None, "album_links": casados, "items": len(plat)}
 
 
+# --------------------------------------------------------------------------- tidal
+
+class Tidal:
+    """API oficial (openapi.tidal.com/v2, credencial de developer.tidal.com en .env)."""
+
+    def __init__(self):
+        self.cid, self.sec = env("TIDAL_CLIENT_ID"), env("TIDAL_CLIENT_SECRET")
+        if not (self.cid and self.sec):
+            raise SystemExit("faltan TIDAL_CLIENT_ID/TIDAL_CLIENT_SECRET")
+        self.token, self.vence = None, 0
+
+    def get(self, path, params):
+        if not self.token or time.time() > self.vence:
+            d = http("https://auth.tidal.com/v1/oauth2/token", data={"grant_type": "client_credentials"},
+                     headers={"Authorization": "Basic " + base64.b64encode(f"{self.cid}:{self.sec}".encode()).decode()})
+            self.token, self.vence = d["access_token"], time.time() + d.get("expires_in", 3600) - 120
+        time.sleep(float(os.environ.get("CRV_TIDAL_PAUSA", "1")))
+        return http("https://openapi.tidal.com/v2" + path + "?" + urllib.parse.urlencode(params),
+                    headers={"Authorization": "Bearer " + self.token, "accept": "application/vnd.api+json"})
+
+
+def cosechar_tidal(td, artista, discos):
+    """Una búsqueda por disco («artista título»); vale título idéntico con un artista de nombre exacto."""
+    nombres = {norm(artista["name"])} | {norm(a) for a in artista.get("aliases") or []}
+    casados, perfiles = [], {}
+    for d in discos:
+        if (d["links"].get("tidal") or {}).get("verified"):
+            continue
+        res = td.get("/searchResults", {"filter[query]": f"{artista['name']} {d['title']}"[:200], "countryCode": "US",
+                                        "include": "albums,albums.artists"})
+        inc = {(x["type"], x["id"]): x for x in res.get("included") or []}
+        plat = []
+        for x in res.get("included") or []:
+            if x["type"] != "albums":
+                continue
+            artistas = [inc.get(("artists", r["id"])) for r in ((x.get("relationships") or {}).get("artists") or {}).get("data") or []]
+            ids = [a["id"] for a in artistas if a and norm(a["attributes"].get("name")) in nombres]
+            if ids:
+                at = x["attributes"]
+                plat.append({"id": x["id"], "title": at.get("title"), "year": year_of(at.get("releaseDate")),
+                             "url": f"https://tidal.com/browse/album/{x['id']}", "artist": ids[0],
+                             "artist_name": inc[("artists", ids[0])]["attributes"].get("name")})
+        p = pick(d, plat)
+        if p:
+            casados.append({"albumId": d["id"], "url": p["url"], "id": p["id"], "title_plat": p["title"], "year_plat": p["year"]})
+            perfiles.setdefault(p["artist"], [p["artist_name"], 0])[1] += 1
+    artist_link = None
+    if perfiles:
+        aid, (nombre, comunes) = max(perfiles.items(), key=lambda kv: kv[1][1])
+        artist_link = {"url": f"https://tidal.com/browse/artist/{aid}", "id": aid, "name_plat": nombre, "comunes": comunes}
+    return {"artist_link": artist_link, "album_links": casados}
+
+
 # ---------------------------------------------------------------------------- main
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("plataforma", choices=["spotify", "ytmusic", "bandcamp"])
+    ap.add_argument("plataforma", choices=["spotify", "ytmusic", "bandcamp", "tidal"])
     ap.add_argument("--dir", default="reports/streaming-embeds-2026-10-13")
     ap.add_argument("--limit", type=int, default=0)
     args = ap.parse_args()
@@ -325,7 +379,7 @@ def main():
             discos.setdefault(d["artistId"], []).append(d)
     if args.plataforma == "bandcamp":
         artistas = [a for a in artistas if (a["links"].get("bandcamp") or {}).get("verified")]
-    motor = Spotify() if args.plataforma == "spotify" else YTM() if args.plataforma == "ytmusic" else None
+    motor = {"spotify": Spotify, "ytmusic": YTM, "tidal": Tidal}.get(args.plataforma, lambda: None)()
     hechos = errores = 0
     for i, a in enumerate(artistas):
         dest = out / f"a-{a['id']}.json"
@@ -338,6 +392,8 @@ def main():
                 r = cosechar_spotify(motor, a, discos.get(a["id"], []))
             elif args.plataforma == "ytmusic":
                 r = cosechar_ytmusic(motor, a, discos.get(a["id"], []))
+            elif args.plataforma == "tidal":
+                r = cosechar_tidal(motor, a, discos.get(a["id"], []))
             else:
                 r = cosechar_bandcamp(a, discos.get(a["id"], []))
         except Exception as e:  # noqa: BLE001 — se anota y se sigue; el archivo no se escribe y se reintenta

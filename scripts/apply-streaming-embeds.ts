@@ -1,6 +1,6 @@
 // Aplica la cosecha de reproductores (scripts/streaming-embeds-cosecha.py, 2026-10-13) a
-// `public.streaming_links` en UN run reversible (diario 0028): discos de Spotify, YouTube Music y
-// Bandcamp, más los perfiles de Spotify y YouTube Music que esos discos confirman.
+// `public.streaming_links` en UN run reversible (diario 0028): discos de Spotify, YouTube Music,
+// Bandcamp y Tidal, más los perfiles que esos discos confirman.
 //
 // Uso: ./scripts/with-node22.sh npx tsx scripts/apply-streaming-embeds.ts \
 //        reports/streaming-embeds-2026-10-13 [--confirm]
@@ -27,6 +27,7 @@ const FUENTES = [
   { dir: "spotify", platform: "spotify", source: "spotify-search-album" },
   { dir: "ytmusic", platform: "youtube_music", source: "ytmusic-search" },
   { dir: "bandcamp", platform: "bandcamp", source: "bandcamp-music" },
+  { dir: "tidal", platform: "tidal", source: "tidal-search" },
 ] as const;
 
 type Fila = { artistId: number | null; albumId: number | null; platform: string; url: string; externalId: string | null; source: string; nota: string };
@@ -82,7 +83,7 @@ async function main(): Promise<void> {
   const { runId, result } = await withOperatorRun({
     name: "claude-code:streaming-embeds",
     operator: "claude-code (delegado por Brian)",
-    note: "Reproductores por plataforma (Brian 2026-10-13: «deezer+tidal+spotify+ytcanal+ytmusic+soundcloud… como un switch de plataformas»): discos de Spotify, YouTube Music y Bandcamp con nombre de artista exacto y título idéntico, y los perfiles que esos discos confirman.",
+    note: "Reproductores por plataforma (Brian 2026-10-13: «deezer+tidal+spotify+ytcanal+ytmusic+soundcloud… como un switch de plataformas»): discos de Spotify, YouTube Music, Bandcamp y Tidal con nombre de artista exacto y título idéntico, y los perfiles que esos discos confirman.",
   }, async (context) => {
     let nuevos = 0, actualizados = 0;
     for (const f of filas) {
