@@ -1,0 +1,9 @@
+[Unit]
+Description=CRV videos nuevos del canal → catálogo (enlace, renombre o alta)
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+ExecStart=/bin/bash "/home/brian/apps/Coleccionistas De Rock Venezolano/scripts/with-node22.sh" npx tsx ops/youtube-canal/canal.ts watch
+TimeoutStartSec=20min

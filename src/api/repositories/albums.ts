@@ -252,6 +252,9 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
          SELECT jsonb_agg(jsonb_build_object('discNumber', n.disc_number, 'title', d.title, 'platforms', COALESCE((
                   SELECT jsonb_agg(jsonb_build_object('platform', l.platform, 'url', l.url) ORDER BY l.platform)
                     FROM public.album_disc_links l WHERE l.album_id = al.id AND l.disc_number = n.disc_number AND l.verified
+                     AND NOT (l.platform = 'youtube' AND EXISTS (
+                       SELECT 1 FROM media.youtube_videos dv
+                        WHERE dv.publication_status IN ('unpublished', 'copyright_blocked') AND strpos(l.url, dv.video_id) > 0))
                 ), '[]'::jsonb)) ORDER BY n.disc_number)
            FROM (SELECT disc_number FROM public.album_discs WHERE album_id = al.id
                  UNION SELECT disc_number FROM public.album_disc_links WHERE album_id = al.id AND verified) n
@@ -266,7 +269,8 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
            'videoId', v.video_id, 'title', v.title, 'kind', va.album_kind, 'isPrimaryLink', va.is_primary_link
          ) ORDER BY va.is_primary_link DESC, v.published_at)
          FROM media.video_albums va JOIN media.youtube_videos v ON v.id = va.video_id
-         WHERE va.album_id = al.id
+         -- Un video borrado o bloqueado conserva su enlace, pero no se ofrece (yt:watch).
+         WHERE va.album_id = al.id AND v.publication_status NOT IN ('unpublished', 'copyright_blocked')
        ), '[]'::jsonb) AS youtube_links,
        COALESCE((
          SELECT jsonb_agg(jsonb_build_object('platform', sl.platform, 'url', sl.url) ORDER BY sl.platform)
@@ -309,7 +313,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
     coverUrl: row["cover_url"] as string | null,
     description: row["description"] as string | null,
     notes: row["notes"] as string | null,
-    youtubeUrl: row["youtube_url"] as string | null,
+    youtubeUrl: ["unpublished", "copyright_blocked"].includes(row["youtube_status"] as string) ? null : row["youtube_url"] as string | null,
     youtubeStatus: row["youtube_status"] as string,
     instagramUrl: row["instagram_url"] as string | null,
     instagramStatus: row["instagram_status"] as string,

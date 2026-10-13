@@ -1,0 +1,9 @@
+[Unit]
+Description=CRV disponibilidad de los videos del canal (borrados, privados, bloqueados)
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+ExecStart=/bin/bash "/home/brian/apps/Coleccionistas De Rock Venezolano/scripts/with-node22.sh" npx tsx ops/youtube-canal/canal.ts availability
+TimeoutStartSec=20min

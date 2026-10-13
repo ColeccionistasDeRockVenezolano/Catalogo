@@ -166,6 +166,7 @@ export async function getArtistDetail(id: number): Promise<ArtistDetail | null> 
                FROM public.albums al
                CROSS JOIN LATERAL (VALUES ('youtube', al.youtube_url), ('instagram', al.instagram_url), ('wordpress', al.wordpress_url)) AS x(platform, url)
               WHERE al.artist_id = a.id AND x.url IS NOT NULL AND x.url <> ''
+                AND NOT (x.platform = 'youtube' AND al.youtube_status IN ('unpublished', 'copyright_blocked'))
            ) l
        ), '[]'::jsonb) AS links,
        COALESCE((
