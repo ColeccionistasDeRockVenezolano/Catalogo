@@ -354,13 +354,17 @@ def main():
     ap.add_argument("--tope", type=int, default=int(os.environ.get("CRV_SPOTIFY_TOPE", "500")),
                     help="llamadas por credencial y día (castigo observado: ~690 a 3 s y ~1.500 a 0,5 s)")
     ap.add_argument("--pausa", type=float, default=float(os.environ.get("CRV_SPOTIFY_PAUSA", "3")))
+    # Las fotos quedan fuera por defecto (2026-10-14): el lote casó solo por nombre a artistas sin
+    # discos, y muchas capturas son homónimos (Aurora de Ojeda → AURORA noruega, MEDUZA de Trujillo
+    # → el trío italiano) o extranjeros cuya discografía no es pertinente. Solo con --con-fotos.
+    ap.add_argument("--con-fotos", action="store_true")
     ap.add_argument("--solo", choices=["fotos", "reproductores"])
     args = ap.parse_args()
     sp = Cuota(args.tope, args.pausa)
     log(f"inicio · {sp.resumen()}")
     fotos_faltan = rep_faltan = None
     nuevos = 0
-    if args.solo in (None, "fotos"):
+    if args.solo == "fotos" or (args.solo is None and args.con_fotos):
         try:
             _, fotos_faltan = fotos(sp)
             if fotos_faltan == 0:
