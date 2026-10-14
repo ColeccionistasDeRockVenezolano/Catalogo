@@ -1,0 +1,22 @@
+{
+  "runId": 19486,
+  "filas": 15455,
+  "nuevos": 15403,
+  "actualizados": 52,
+  "resumen": {
+    "disco:spotify": 330,
+    "artista:spotify": 66,
+    "disco:youtube_music": 5825,
+    "artista:youtube_music": 1313,
+    "disco:tidal": 6503,
+    "artista:tidal": 1418
+  },
+  "cuenta": {
+    "spotify: disco ya verificado": 268,
+    "spotify: perfil ya verificado": 69,
+    "youtube_music: disco ya verificado": 249,
+    "youtube_music: perfil ya verificado": 62,
+    "bandcamp: disco ya verificado": 342,
+    "tidal: perfil ya verificado": 78
+  }
+}

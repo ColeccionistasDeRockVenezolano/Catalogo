@@ -1,13 +1,19 @@
 {
-  "filas": 897,
+  "filas": 14326,
   "resumen": {
-    "disco:spotify": 246,
-    "artista:spotify": 50,
-    "disco:youtube_music": 210,
-    "artista:youtube_music": 49,
-    "disco:bandcamp": 342
+    "disco:spotify": 330,
+    "artista:spotify": 66,
+    "disco:youtube_music": 5825,
+    "artista:youtube_music": 1313,
+    "disco:tidal": 5573,
+    "artista:tidal": 1219
   },
   "cuenta": {
-    "spotify: perfil ya verificado": 9
+    "spotify: disco ya verificado": 268,
+    "spotify: perfil ya verificado": 69,
+    "youtube_music: disco ya verificado": 249,
+    "youtube_music: perfil ya verificado": 62,
+    "bandcamp: disco ya verificado": 342,
+    "tidal: perfil ya verificado": 74
   }
 }

@@ -22,16 +22,16 @@ Tidal, SoundCloud y todas las que se puedan, «como un switch de plataformas».
   reanudable por artista). Nombre de artista exacto (o alias) + título idéntico.
 - `scripts/apply-streaming-embeds.ts [--confirm]`: run reversible; no pisa verificados ni manuales.
 - Run 19402: 966 nuevos + 5 actualizados (Bandcamp completo; Spotify y YouTube Music parciales).
+- Run 19486 (2026-10-13 ~22:50): 15.403 nuevos + 52 actualizados. YouTube Music y Tidal completos
+  (3.716 artistas, 0 errores): discos YT Music 5.825, Tidal 6.503, Spotify 330; perfiles YT Music
+  1.313, Tidal 1.418, Spotify 66.
 
 ## Pendiente
 
-- Spotify: las dos credenciales castigadas ~24 h tras ~1.500 búsquedas a 0,5 s. Reanudación
-  programada (`crv-embeds-spotify-retoma.timer`, 2026-10-14 ~16:17, pausa 3 s). El listado de
-  discos por artista (`/artists/{id}/albums`) también está castigado.
-- YouTube Music: `crv-embeds-ytmusic` sigue (≈4,5 h). Al terminar, repetir el aplicador.
-- Tidal: credencial de Brian en `.env` (TIDAL_CLIENT_ID/SECRET, 2026-10-13); `crv-embeds-tidal` busca
-  por disco en openapi.tidal.com/v2 (`/searchResults?filter[query]=…&include=albums,albums.artists`).
-  Al terminar, repetir el aplicador.
+- Spotify: 214 de 3.716 artistas. La principal quedó castigada ~24 h tras ~1.500 búsquedas a 0,5 s;
+  la de respaldo (`SPOTIFY_FALLBACK_CLIENT_*`, leída desde 88f0956) cayó tras ~690 a 3 s: parece un
+  tope diario por credencial, no de ritmo. Reanudación con `crv-embeds-spotify-retoma.timer`
+  (2026-10-14 18:30). Quedan ~14.000 búsquedas; al terminar cada tanda, repetir el aplicador.
 
 ## Publicación
 
