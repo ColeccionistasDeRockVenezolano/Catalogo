@@ -1,0 +1,57 @@
+{
+ "mode": "dry-run",
+ "runId": 19607,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2054-novo-color",
+ "artist": {
+  "id": 2054,
+  "name": "Novo Color",
+  "spotifyId": "6nvjrNWiFLEkS5osy2EV2P",
+  "photo": "https://i.scdn.co/image/ab6761610000e5eb60411c7f1defa6a3b546da78"
+ },
+ "created": [
+  {
+   "albumId": 28217,
+   "title": "Novo Color Vivo (En vivo)",
+   "year": 2015,
+   "type": "single",
+   "date": "2015-06-27",
+   "tracks": 5,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273310bc66db633a190af294f4c"
+  }
+ ],
+ "skipped": [
+  {
+   "title": "Novo Color Vivo (En vivo - Centro Cultural Chacao 2015)",
+   "why": "ya en catálogo (id 15551)"
+  },
+  {
+   "title": "Años Salvajes",
+   "why": "ya en catálogo (id 15552)"
+  }
+ ],
+ "fields": [
+  {
+   "albumId": 28217,
+   "field": "release_year",
+   "value": "2015"
+  },
+  {
+   "albumId": 28217,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28217,
+   "field": "release_date_text",
+   "value": "2015-06-27"
+  },
+  {
+   "albumId": 28217,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273310bc66db633a190af294f4c"
+  }
+ ],
+ "candidates": [],
+ "errors": []
+}

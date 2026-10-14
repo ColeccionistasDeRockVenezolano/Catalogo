@@ -1,0 +1,106 @@
+{
+ "mode": "confirm",
+ "runId": 19652,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2156-cronicas-de-elyze",
+ "artist": {
+  "id": 2156,
+  "name": "Crónicas De Elyze",
+  "spotifyId": "2BjfKKsHlMLr9XZ9qRDzJa",
+  "photo": "https://i.scdn.co/image/ab6761610000e5ebe69450cf90216027aab44426"
+ },
+ "created": [
+  {
+   "albumId": 28293,
+   "title": "Hi Demmacrada's",
+   "year": 2007,
+   "type": "single",
+   "date": "2007-01-15",
+   "tracks": 5,
+   "cover": "https://i.scdn.co/image/ab67616d0000b2735f917611a918423d1f287b6d"
+  },
+  {
+   "albumId": 28294,
+   "title": "Bye Bye Demmacrada's",
+   "year": 2014,
+   "type": "single",
+   "date": "2014-01-07",
+   "tracks": 5,
+   "cover": "https://i.scdn.co/image/ab67616d0000b2730bfb9d0b538d5672f5d9af78"
+  },
+  {
+   "albumId": 28295,
+   "title": "Frontiers",
+   "year": 2016,
+   "type": "studio_album",
+   "date": "2016-08-01",
+   "tracks": 9,
+   "cover": "https://i.scdn.co/image/ab67616d0000b27319cef2b2e6bbb3d01629c6b1"
+  }
+ ],
+ "skipped": [],
+ "fields": [
+  {
+   "albumId": 28293,
+   "field": "release_year",
+   "value": "2007"
+  },
+  {
+   "albumId": 28293,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28293,
+   "field": "release_date_text",
+   "value": "2007-01-15"
+  },
+  {
+   "albumId": 28293,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b2735f917611a918423d1f287b6d"
+  },
+  {
+   "albumId": 28294,
+   "field": "release_year",
+   "value": "2014"
+  },
+  {
+   "albumId": 28294,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28294,
+   "field": "release_date_text",
+   "value": "2014-01-07"
+  },
+  {
+   "albumId": 28294,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b2730bfb9d0b538d5672f5d9af78"
+  },
+  {
+   "albumId": 28295,
+   "field": "release_year",
+   "value": "2016"
+  },
+  {
+   "albumId": 28295,
+   "field": "album_type",
+   "value": "studio_album"
+  },
+  {
+   "albumId": 28295,
+   "field": "release_date_text",
+   "value": "2016-08-01"
+  },
+  {
+   "albumId": 28295,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b27319cef2b2e6bbb3d01629c6b1"
+  }
+ ],
+ "candidates": [],
+ "errors": []
+}

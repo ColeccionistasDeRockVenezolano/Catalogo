@@ -1,0 +1,17 @@
+{
+ "mode": "dry-run",
+ "runId": 19637,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2469-skank",
+ "artist": {
+  "id": 2469,
+  "name": "Skank",
+  "spotifyId": "4C4kpaAdp6aKSkguw40SsU",
+  "photo": "https://i.scdn.co/image/ab6761610000e5eb2b61503716c9cbb86f6a0658"
+ },
+ "created": [],
+ "skipped": [],
+ "fields": [],
+ "candidates": [],
+ "errors": []
+}

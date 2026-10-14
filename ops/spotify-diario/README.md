@@ -14,3 +14,18 @@ cuenta de desarrollador y por grupo de endpoints; al agotarse responde 429 con
 `"reason": "QUOTA_EXCEEDED"` (~24 h). Más Client IDs de la misma cuenta no suman cuota. El script
 lleva la cuenta por credencial y tipo de consulta con un tope diario (`--tope`, 500) y 3 s entre
 llamadas; los grupos sin cuota se saltan y se retoman al día siguiente.
+
+## Lote sin foto: identidad antes de aplicar (2026-10-14)
+
+El lote casó por nombre a artistas sin discos, así que cada captura se cruza con el catálogo antes
+de aplicarse (informe en `reports/spotify-lote-2026-10-03/identidad/INFORME.md`):
+
+1. `identidad-catalogo.mts <ids.json> <catalogo.json>`: vuelca bio, país, enlaces, discos y pistas de las fichas.
+2. `identidad-lote.py <catalogo.json> <identidad.json>`: confirmado / descartado / sin confirmar.
+3. `aplicar-captura.ts --capture=… --artist-id=… [--solo-foto] [--confirm]`: venezolanos completos,
+   extranjeros solo foto; un run por artista.
+4. `enlaces-lote.ts [--confirm]`: perfiles y discos de Spotify de los confirmados.
+5. `npm run media:localize` baja fotos y portadas (se sirven desde `web/public/media`, sin desplegar).
+
+`diario.py` lee `identidad.json`: no usa los descartados como perfil ni los vuelve a capturar, y las
+fotos siguen apagadas por defecto (`--con-fotos`).

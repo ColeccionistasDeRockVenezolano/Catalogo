@@ -1,0 +1,17 @@
+{
+ "mode": "dry-run",
+ "runId": 19616,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2222-zapiratz",
+ "artist": {
+  "id": 2222,
+  "name": "ZaPiratz",
+  "spotifyId": "45lOzDFvufpegnGsP9DsUz",
+  "photo": "https://i.scdn.co/image/ab67616d0000b2735cc1b825bfa2ec52df6bf747"
+ },
+ "created": [],
+ "skipped": [],
+ "fields": [],
+ "candidates": [],
+ "errors": []
+}

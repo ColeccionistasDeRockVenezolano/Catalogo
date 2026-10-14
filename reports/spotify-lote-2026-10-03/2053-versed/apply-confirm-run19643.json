@@ -1,0 +1,90 @@
+{
+ "mode": "confirm",
+ "runId": 19643,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2053-versed",
+ "artist": {
+  "id": 2053,
+  "name": "Versed",
+  "spotifyId": "5nHmsvOgRMErvcGmVKGGwb",
+  "photo": "https://i.scdn.co/image/ab6761610000e5ebe6ffc92377aedee8ff7b671f"
+ },
+ "created": [
+  {
+   "albumId": 28257,
+   "title": "Mil Maneras",
+   "year": 2018,
+   "type": "single",
+   "date": "2018-09-14",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273f28cbf0543e17ce91fcbb5b9"
+  },
+  {
+   "albumId": 28258,
+   "title": "Déjà Vu",
+   "year": 2019,
+   "type": "single",
+   "date": "2019-05-10",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273ef9b2d931c265694fe732c92"
+  }
+ ],
+ "skipped": [
+  {
+   "title": "Prisma",
+   "why": "ya en catálogo (id 15640)"
+  },
+  {
+   "title": "Visiones",
+   "why": "ya en catálogo (id 15638)"
+  },
+  {
+   "title": "Moirè",
+   "why": "ya en catálogo (id 15641)"
+  }
+ ],
+ "fields": [
+  {
+   "albumId": 28257,
+   "field": "release_year",
+   "value": "2018"
+  },
+  {
+   "albumId": 28257,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28257,
+   "field": "release_date_text",
+   "value": "2018-09-14"
+  },
+  {
+   "albumId": 28257,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273f28cbf0543e17ce91fcbb5b9"
+  },
+  {
+   "albumId": 28258,
+   "field": "release_year",
+   "value": "2019"
+  },
+  {
+   "albumId": 28258,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28258,
+   "field": "release_date_text",
+   "value": "2019-05-10"
+  },
+  {
+   "albumId": 28258,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273ef9b2d931c265694fe732c92"
+  }
+ ],
+ "candidates": [],
+ "errors": []
+}

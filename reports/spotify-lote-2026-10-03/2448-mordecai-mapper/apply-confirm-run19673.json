@@ -1,0 +1,17 @@
+{
+ "mode": "confirm",
+ "runId": 19673,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2448-mordecai-mapper",
+ "artist": {
+  "id": 2448,
+  "name": "Mordecai Mapper",
+  "spotifyId": "2esa9Oi9IlrzJXOKhtVAU3",
+  "photo": "https://i.scdn.co/image/ab67616d0000b273df820aadc52aad0fa6db035a"
+ },
+ "created": [],
+ "skipped": [],
+ "fields": [],
+ "candidates": [],
+ "errors": []
+}

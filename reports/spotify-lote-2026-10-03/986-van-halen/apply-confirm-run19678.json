@@ -1,0 +1,17 @@
+{
+ "mode": "confirm",
+ "runId": 19678,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/986-van-halen",
+ "artist": {
+  "id": 986,
+  "name": "Van Halen",
+  "spotifyId": "2cnMpRsOVqtPMfq7YiFE6K",
+  "photo": "https://i.scdn.co/image/ab6761610000e5ebd8475001d2700686e1008dfb"
+ },
+ "created": [],
+ "skipped": [],
+ "fields": [],
+ "candidates": [],
+ "errors": []
+}

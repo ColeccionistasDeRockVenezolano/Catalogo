@@ -1,0 +1,17 @@
+{
+ "mode": "confirm",
+ "runId": 19667,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2362-carnal-diafragma",
+ "artist": {
+  "id": 2362,
+  "name": "Carnal Diafragma",
+  "spotifyId": "6QZpWtpBE67giFqcFxLW5E",
+  "photo": "https://i.scdn.co/image/ab6761610000e5eb0553ed3e2245c6d6c816d335"
+ },
+ "created": [],
+ "skipped": [],
+ "fields": [],
+ "candidates": [],
+ "errors": []
+}

@@ -1,0 +1,718 @@
+{
+ "mode": "dry-run",
+ "runId": 19610,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2061-jose-y-el-toro",
+ "artist": {
+  "id": 2061,
+  "name": "José y el Toro",
+  "spotifyId": "5Bq8Ri1jFba5clhChG8Cex",
+  "photo": "https://i.scdn.co/image/ab6761610000e5eb859b3ff018668f4793e96771"
+ },
+ "created": [
+  {
+   "albumId": 28218,
+   "title": "Fierita",
+   "year": 2020,
+   "type": "single",
+   "date": "2020-09-30",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b27375c4809ed9b4d28982042165"
+  },
+  {
+   "albumId": 28219,
+   "title": "Mi mejor canción",
+   "year": 2021,
+   "type": "single",
+   "date": "2021-01-01",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273c288914b7df5546f9b3f3b0b"
+  },
+  {
+   "albumId": 28220,
+   "title": "noche sin luna",
+   "year": 2021,
+   "type": "single",
+   "date": "2021-09-30",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273581fa28cf3812861b6b2d5d4"
+  },
+  {
+   "albumId": 28221,
+   "title": "Reloj",
+   "year": 2022,
+   "type": "single",
+   "date": "2022-07-08",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b27383ecbcbeb8b749be95abb839"
+  },
+  {
+   "albumId": 28222,
+   "title": "Mi Cielo",
+   "year": 2023,
+   "type": "single",
+   "date": "2023-06-09",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b2736a414aea480fcc4394ff37b0"
+  },
+  {
+   "albumId": 28223,
+   "title": "Desde mi habitación",
+   "year": 2024,
+   "type": "single",
+   "date": "2024-01-19",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273689a28122d2e8c9dfe0ecc5c"
+  },
+  {
+   "albumId": 28224,
+   "title": "Fantasías",
+   "year": 2024,
+   "type": "single",
+   "date": "2024-05-11",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b2730a3794ad913ce375b5568656"
+  },
+  {
+   "albumId": 28225,
+   "title": "Mi Alma Gemela Murió",
+   "year": 2024,
+   "type": "single",
+   "date": "2024-06-14",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b27368ecf953b6133c3fce028020"
+  },
+  {
+   "albumId": 28226,
+   "title": "cuando el mundo acabe",
+   "year": 2024,
+   "type": "single",
+   "date": "2024-07-09",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273c523a5fa956c921a53acb345"
+  },
+  {
+   "albumId": 28227,
+   "title": "Los Lugares Más Bonitos",
+   "year": 2024,
+   "type": "single",
+   "date": "2024-07-12",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273e12c405940235404bce1c4db"
+  },
+  {
+   "albumId": 28228,
+   "title": "Pálida Luna",
+   "year": 2024,
+   "type": "single",
+   "date": "2024-08-09",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273f438392e78944795b010f09e"
+  },
+  {
+   "albumId": 28229,
+   "title": "Bonita Coincidencia (LIVE FROM LA SELVA)",
+   "year": 2024,
+   "type": "single",
+   "date": "2024-11-07",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b2734f9a6fb89a76079c62bd29b8"
+  },
+  {
+   "albumId": 28230,
+   "title": "Molero Amor Con Las Damitas Histeria",
+   "year": 2025,
+   "type": "single",
+   "date": "2025-05-23",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273af72e8e465c958e16300f357"
+  },
+  {
+   "albumId": 28231,
+   "title": "Cómplices Con José y el Toro",
+   "year": 2025,
+   "type": "single",
+   "date": "2025-06-02",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273dd1eadabbf8b09018e50f833"
+  },
+  {
+   "albumId": 28232,
+   "title": "Empecemos a Empezar",
+   "year": 2026,
+   "type": "single",
+   "date": "2026-02-13",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273de5ee8016bb86bd0ed81666e"
+  },
+  {
+   "albumId": 28233,
+   "title": "Eternamente niños",
+   "year": 2026,
+   "type": "single",
+   "date": "2026-04-02",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b27381450d76f36da6a4f000c70b"
+  },
+  {
+   "albumId": 28234,
+   "title": "Me iré, me voy, me fui",
+   "year": 2026,
+   "type": "single",
+   "date": "2026-04-16",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b2737f35cebb057a549fa187f531"
+  },
+  {
+   "albumId": 28235,
+   "title": "Si te vieras",
+   "year": 2026,
+   "type": "single",
+   "date": "2026-07-02",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b2735b22633980dadf73370d382d"
+  },
+  {
+   "albumId": 28236,
+   "title": "No Fue Falta de Amor",
+   "year": 2026,
+   "type": "single",
+   "date": "2026-09-03",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273b93c2232458edf8cd51f103f"
+  },
+  {
+   "albumId": 28237,
+   "title": "Yo esperaré (인연)",
+   "year": 2026,
+   "type": "single",
+   "date": "2026-09-30",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273b23905eea06abe5186ee01bb"
+  }
+ ],
+ "skipped": [
+  {
+   "title": "foto de José y el Toro",
+   "why": "picture_url ya presente (/crv/media/artist/2061.png) — propuesta como candidata de curaduría"
+  },
+  {
+   "title": "Retrato",
+   "why": "ya en catálogo (id 15502)"
+  },
+  {
+   "title": "De hierro",
+   "why": "ya en catálogo (id 15506)"
+  },
+  {
+   "title": "No estás",
+   "why": "ya en catálogo (id 28076)"
+  },
+  {
+   "title": "Dime cómo hago",
+   "why": "ya en catálogo (id 28074)"
+  },
+  {
+   "title": "Corazón",
+   "why": "ya en catálogo (id 28078)"
+  },
+  {
+   "title": "Tan cerca",
+   "why": "ya en catálogo (id 28072)"
+  },
+  {
+   "title": "Éxitos Melodramáticos, Vol. 1",
+   "why": "ya en catálogo (id 15503)"
+  },
+  {
+   "title": "Reloj Ingrato",
+   "why": "ya en catálogo (id 15507)"
+  },
+  {
+   "title": "Reloj Ingrato (Acústica)",
+   "why": "variante probable de «Reloj ingrato» (id 15507)"
+  },
+  {
+   "title": "Historia de un Amor",
+   "why": "ya en catálogo (id 28075)"
+  },
+  {
+   "title": "Historia de un Amor (Acústico)",
+   "why": "variante probable de «Historia De Un Amor» (id 28075)"
+  },
+  {
+   "title": "Aquí Todo Está Bien",
+   "why": "ya en catálogo (id 28079)"
+  },
+  {
+   "title": "Cuando Cuando",
+   "why": "ya en catálogo (id 28080)"
+  },
+  {
+   "title": "Nunca Fuimos",
+   "why": "ya en catálogo (id 28071)"
+  },
+  {
+   "title": "Viejitos",
+   "why": "ya en catálogo (id 15508)"
+  },
+  {
+   "title": "Viejitos (Acústica)",
+   "why": "variante probable de «Viejitos» (id 15508)"
+  },
+  {
+   "title": "La Vida Lenta",
+   "why": "ya en catálogo (id 15505)"
+  },
+  {
+   "title": "La Vida Lenta (Deluxe)",
+   "why": "ya en catálogo (id 15505)"
+  },
+  {
+   "title": "La Casa de Nuestros Sueños",
+   "why": "ya en catálogo (id 28081)"
+  },
+  {
+   "title": "Una Ciudad en el Bolsillo",
+   "why": "ya en catálogo (id 28070)"
+  },
+  {
+   "title": "Enamórate de Ti",
+   "why": "ya en catálogo (id 28082)"
+  },
+  {
+   "title": "Amorcito Corazón",
+   "why": "variante probable de «Corazon» (id 28078)"
+  },
+  {
+   "title": "Infierno Favorito",
+   "why": "ya en catálogo (id 15509)"
+  },
+  {
+   "title": "Tu Aprendiz",
+   "why": "ya en catálogo (id 28068)"
+  },
+  {
+   "title": "Te pintaré",
+   "why": "ya en catálogo (id 28069)"
+  },
+  {
+   "title": "Aunque esto se acabe",
+   "why": "ya en catálogo (id 15504)"
+  },
+  {
+   "title": "Reloj ingrato (Korean Version)",
+   "why": "ya en catálogo (id 15507)"
+  }
+ ],
+ "fields": [
+  {
+   "albumId": 28218,
+   "field": "release_year",
+   "value": "2020"
+  },
+  {
+   "albumId": 28218,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28218,
+   "field": "release_date_text",
+   "value": "2020-09-30"
+  },
+  {
+   "albumId": 28218,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b27375c4809ed9b4d28982042165"
+  },
+  {
+   "albumId": 28219,
+   "field": "release_year",
+   "value": "2021"
+  },
+  {
+   "albumId": 28219,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28219,
+   "field": "release_date_text",
+   "value": "2021-01-01"
+  },
+  {
+   "albumId": 28219,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273c288914b7df5546f9b3f3b0b"
+  },
+  {
+   "albumId": 28220,
+   "field": "release_year",
+   "value": "2021"
+  },
+  {
+   "albumId": 28220,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28220,
+   "field": "release_date_text",
+   "value": "2021-09-30"
+  },
+  {
+   "albumId": 28220,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273581fa28cf3812861b6b2d5d4"
+  },
+  {
+   "albumId": 28221,
+   "field": "release_year",
+   "value": "2022"
+  },
+  {
+   "albumId": 28221,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28221,
+   "field": "release_date_text",
+   "value": "2022-07-08"
+  },
+  {
+   "albumId": 28221,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b27383ecbcbeb8b749be95abb839"
+  },
+  {
+   "albumId": 28222,
+   "field": "release_year",
+   "value": "2023"
+  },
+  {
+   "albumId": 28222,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28222,
+   "field": "release_date_text",
+   "value": "2023-06-09"
+  },
+  {
+   "albumId": 28222,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b2736a414aea480fcc4394ff37b0"
+  },
+  {
+   "albumId": 28223,
+   "field": "release_year",
+   "value": "2024"
+  },
+  {
+   "albumId": 28223,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28223,
+   "field": "release_date_text",
+   "value": "2024-01-19"
+  },
+  {
+   "albumId": 28223,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273689a28122d2e8c9dfe0ecc5c"
+  },
+  {
+   "albumId": 28224,
+   "field": "release_year",
+   "value": "2024"
+  },
+  {
+   "albumId": 28224,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28224,
+   "field": "release_date_text",
+   "value": "2024-05-11"
+  },
+  {
+   "albumId": 28224,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b2730a3794ad913ce375b5568656"
+  },
+  {
+   "albumId": 28225,
+   "field": "release_year",
+   "value": "2024"
+  },
+  {
+   "albumId": 28225,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28225,
+   "field": "release_date_text",
+   "value": "2024-06-14"
+  },
+  {
+   "albumId": 28225,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b27368ecf953b6133c3fce028020"
+  },
+  {
+   "albumId": 28226,
+   "field": "release_year",
+   "value": "2024"
+  },
+  {
+   "albumId": 28226,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28226,
+   "field": "release_date_text",
+   "value": "2024-07-09"
+  },
+  {
+   "albumId": 28226,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273c523a5fa956c921a53acb345"
+  },
+  {
+   "albumId": 28227,
+   "field": "release_year",
+   "value": "2024"
+  },
+  {
+   "albumId": 28227,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28227,
+   "field": "release_date_text",
+   "value": "2024-07-12"
+  },
+  {
+   "albumId": 28227,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273e12c405940235404bce1c4db"
+  },
+  {
+   "albumId": 28228,
+   "field": "release_year",
+   "value": "2024"
+  },
+  {
+   "albumId": 28228,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28228,
+   "field": "release_date_text",
+   "value": "2024-08-09"
+  },
+  {
+   "albumId": 28228,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273f438392e78944795b010f09e"
+  },
+  {
+   "albumId": 28229,
+   "field": "release_year",
+   "value": "2024"
+  },
+  {
+   "albumId": 28229,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28229,
+   "field": "release_date_text",
+   "value": "2024-11-07"
+  },
+  {
+   "albumId": 28229,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b2734f9a6fb89a76079c62bd29b8"
+  },
+  {
+   "albumId": 28230,
+   "field": "release_year",
+   "value": "2025"
+  },
+  {
+   "albumId": 28230,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28230,
+   "field": "release_date_text",
+   "value": "2025-05-23"
+  },
+  {
+   "albumId": 28230,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273af72e8e465c958e16300f357"
+  },
+  {
+   "albumId": 28231,
+   "field": "release_year",
+   "value": "2025"
+  },
+  {
+   "albumId": 28231,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28231,
+   "field": "release_date_text",
+   "value": "2025-06-02"
+  },
+  {
+   "albumId": 28231,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273dd1eadabbf8b09018e50f833"
+  },
+  {
+   "albumId": 28232,
+   "field": "release_year",
+   "value": "2026"
+  },
+  {
+   "albumId": 28232,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28232,
+   "field": "release_date_text",
+   "value": "2026-02-13"
+  },
+  {
+   "albumId": 28232,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273de5ee8016bb86bd0ed81666e"
+  },
+  {
+   "albumId": 28233,
+   "field": "release_year",
+   "value": "2026"
+  },
+  {
+   "albumId": 28233,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28233,
+   "field": "release_date_text",
+   "value": "2026-04-02"
+  },
+  {
+   "albumId": 28233,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b27381450d76f36da6a4f000c70b"
+  },
+  {
+   "albumId": 28234,
+   "field": "release_year",
+   "value": "2026"
+  },
+  {
+   "albumId": 28234,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28234,
+   "field": "release_date_text",
+   "value": "2026-04-16"
+  },
+  {
+   "albumId": 28234,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b2737f35cebb057a549fa187f531"
+  },
+  {
+   "albumId": 28235,
+   "field": "release_year",
+   "value": "2026"
+  },
+  {
+   "albumId": 28235,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28235,
+   "field": "release_date_text",
+   "value": "2026-07-02"
+  },
+  {
+   "albumId": 28235,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b2735b22633980dadf73370d382d"
+  },
+  {
+   "albumId": 28236,
+   "field": "release_year",
+   "value": "2026"
+  },
+  {
+   "albumId": 28236,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28236,
+   "field": "release_date_text",
+   "value": "2026-09-03"
+  },
+  {
+   "albumId": 28236,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273b93c2232458edf8cd51f103f"
+  },
+  {
+   "albumId": 28237,
+   "field": "release_year",
+   "value": "2026"
+  },
+  {
+   "albumId": 28237,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28237,
+   "field": "release_date_text",
+   "value": "2026-09-30"
+  },
+  {
+   "albumId": 28237,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273b23905eea06abe5186ee01bb"
+  }
+ ],
+ "candidates": [
+  {
+   "artistId": 2061,
+   "url": "https://i.scdn.co/image/ab6761610000e5eb859b3ff018668f4793e96771",
+   "reemplaza": "/crv/media/artist/2061.png"
+  }
+ ],
+ "errors": []
+}

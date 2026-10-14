@@ -1,0 +1,48 @@
+{
+ "mode": "confirm",
+ "runId": 19655,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2297-fulerious",
+ "artist": {
+  "id": 2297,
+  "name": "Fulerious",
+  "spotifyId": "5qZZ9LmzScmKH1ShIdu8hl",
+  "photo": "https://i.scdn.co/image/ab67616d0000b273788cca59f83b020f8c0a4d8f"
+ },
+ "created": [
+  {
+   "albumId": 28297,
+   "title": "Palmen",
+   "year": 2016,
+   "type": "studio_album",
+   "date": "2016-03-11",
+   "tracks": 11,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273788cca59f83b020f8c0a4d8f"
+  }
+ ],
+ "skipped": [],
+ "fields": [
+  {
+   "albumId": 28297,
+   "field": "release_year",
+   "value": "2016"
+  },
+  {
+   "albumId": 28297,
+   "field": "album_type",
+   "value": "studio_album"
+  },
+  {
+   "albumId": 28297,
+   "field": "release_date_text",
+   "value": "2016-03-11"
+  },
+  {
+   "albumId": 28297,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273788cca59f83b020f8c0a4d8f"
+  }
+ ],
+ "candidates": [],
+ "errors": []
+}

@@ -1,0 +1,48 @@
+{
+ "mode": "confirm",
+ "runId": 19654,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2286-lenguaje-caustico",
+ "artist": {
+  "id": 2286,
+  "name": "Lenguaje Cáustico",
+  "spotifyId": "2EEGWAjtR7nkDAMw19miCP",
+  "photo": "https://i.scdn.co/image/ab67616d0000b27307584e15dd7518ef44f324df"
+ },
+ "created": [
+  {
+   "albumId": 28296,
+   "title": "Lenguaje Cáustico",
+   "year": 2006,
+   "type": "studio_album",
+   "date": "2006",
+   "tracks": 9,
+   "cover": "https://i.scdn.co/image/ab67616d0000b27307584e15dd7518ef44f324df"
+  }
+ ],
+ "skipped": [],
+ "fields": [
+  {
+   "albumId": 28296,
+   "field": "release_year",
+   "value": "2006"
+  },
+  {
+   "albumId": 28296,
+   "field": "album_type",
+   "value": "studio_album"
+  },
+  {
+   "albumId": 28296,
+   "field": "release_date_text",
+   "value": "2006"
+  },
+  {
+   "albumId": 28296,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b27307584e15dd7518ef44f324df"
+  }
+ ],
+ "candidates": [],
+ "errors": []
+}

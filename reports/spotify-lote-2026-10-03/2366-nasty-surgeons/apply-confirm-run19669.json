@@ -1,0 +1,17 @@
+{
+ "mode": "confirm",
+ "runId": 19669,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2366-nasty-surgeons",
+ "artist": {
+  "id": 2366,
+  "name": "Nasty Surgeons",
+  "spotifyId": "0RqXGWKIK0EY88omCuXICA",
+  "photo": "https://i.scdn.co/image/ab6761610000e5ebe9f207169b3143ab57b798b4"
+ },
+ "created": [],
+ "skipped": [],
+ "fields": [],
+ "candidates": [],
+ "errors": []
+}

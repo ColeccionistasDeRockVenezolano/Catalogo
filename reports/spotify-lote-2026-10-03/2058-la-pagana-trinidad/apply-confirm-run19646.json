@@ -1,0 +1,22 @@
+{
+ "mode": "confirm",
+ "runId": 19646,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2058-la-pagana-trinidad",
+ "artist": {
+  "id": 2058,
+  "name": "La Pagana Trinidad",
+  "spotifyId": "4KsIrxDdCZRTrggq2Xm8un",
+  "photo": "https://i.scdn.co/image/ab67616d0000b27302fe47040726fa8c455ca92d"
+ },
+ "created": [],
+ "skipped": [
+  {
+   "title": "De Donde Vengo",
+   "why": "ya en catálogo (id 15512)"
+  }
+ ],
+ "fields": [],
+ "candidates": [],
+ "errors": []
+}

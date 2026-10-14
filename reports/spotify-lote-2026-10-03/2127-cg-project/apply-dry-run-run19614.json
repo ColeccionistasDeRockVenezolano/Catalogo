@@ -1,0 +1,106 @@
+{
+ "mode": "dry-run",
+ "runId": 19614,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2127-cg-project",
+ "artist": {
+  "id": 2127,
+  "name": "CG Project",
+  "spotifyId": "08WEdCf4fmDvwA0vNqeULe",
+  "photo": "https://i.scdn.co/image/ab6761610000e5ebc332e839e1aad451e3b66590"
+ },
+ "created": [
+  {
+   "albumId": 28248,
+   "title": "Running In Circles",
+   "year": 2019,
+   "type": "studio_album",
+   "date": "2019-06-14",
+   "tracks": 8,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273c6b5d7c8a87c5f6d5a755d84"
+  },
+  {
+   "albumId": 28249,
+   "title": "Breakthrough",
+   "year": 2023,
+   "type": "single",
+   "date": "2023-12-16",
+   "tracks": 3,
+   "cover": "https://i.scdn.co/image/ab67616d0000b2732d32c89e1a2cab7b7a1b5748"
+  },
+  {
+   "albumId": 28250,
+   "title": "Insidia",
+   "year": 2025,
+   "type": "single",
+   "date": "2025-07-11",
+   "tracks": 1,
+   "cover": "https://i.scdn.co/image/ab67616d0000b273677ed045b59f5271c83cff04"
+  }
+ ],
+ "skipped": [],
+ "fields": [
+  {
+   "albumId": 28248,
+   "field": "release_year",
+   "value": "2019"
+  },
+  {
+   "albumId": 28248,
+   "field": "album_type",
+   "value": "studio_album"
+  },
+  {
+   "albumId": 28248,
+   "field": "release_date_text",
+   "value": "2019-06-14"
+  },
+  {
+   "albumId": 28248,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273c6b5d7c8a87c5f6d5a755d84"
+  },
+  {
+   "albumId": 28249,
+   "field": "release_year",
+   "value": "2023"
+  },
+  {
+   "albumId": 28249,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28249,
+   "field": "release_date_text",
+   "value": "2023-12-16"
+  },
+  {
+   "albumId": 28249,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b2732d32c89e1a2cab7b7a1b5748"
+  },
+  {
+   "albumId": 28250,
+   "field": "release_year",
+   "value": "2025"
+  },
+  {
+   "albumId": 28250,
+   "field": "album_type",
+   "value": "single"
+  },
+  {
+   "albumId": 28250,
+   "field": "release_date_text",
+   "value": "2025-07-11"
+  },
+  {
+   "albumId": 28250,
+   "field": "cover_url",
+   "value": "https://i.scdn.co/image/ab67616d0000b273677ed045b59f5271c83cff04"
+  }
+ ],
+ "candidates": [],
+ "errors": []
+}

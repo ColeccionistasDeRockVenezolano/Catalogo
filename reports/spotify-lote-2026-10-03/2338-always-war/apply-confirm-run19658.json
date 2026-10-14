@@ -1,0 +1,17 @@
+{
+ "mode": "confirm",
+ "runId": 19658,
+ "operator": "claude-code (delegado por Brian)",
+ "capture": "data/raw/spotify-lote-2026-10-03/2338-always-war",
+ "artist": {
+  "id": 2338,
+  "name": "Always War",
+  "spotifyId": "79sSkrLnHfevUkd9YhHpNA",
+  "photo": "https://i.scdn.co/image/ab6761610000e5eba66786b0169769e18bf902e9"
+ },
+ "created": [],
+ "skipped": [],
+ "fields": [],
+ "candidates": [],
+ "errors": []
+}

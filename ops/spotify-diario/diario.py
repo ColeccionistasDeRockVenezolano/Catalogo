@@ -184,7 +184,8 @@ def fotos(sp):
     """Termina la captura del lote sin foto con los archivos de fetch_artist.py."""
     capturar = cargar("capturar", LOTE / "capturar.py")
     sel = [r for r in map(json.loads, (LOTE / "matches.jsonl").read_text().splitlines())
-           if r["status"] == "exact1" and r.get("spotify_id") and r["discos"] == 0]
+           if r["status"] == "exact1" and r.get("spotify_id") and r["discos"] == 0
+           and (identidad().get(r["artist_id"]) or {}).get("veredicto") != "descartado"]
     faltan = [r for r in sel if not capturar.captura_completa(str(CAPTURAS / f"{r['artist_id']}-{capturar.slugify(r['artist_name'])}"))]
     log(f"fotos: faltan {len(faltan)} de {len(sel)}")
     hechos = 0
@@ -249,8 +250,23 @@ def cerrar_fotos():
 
 # ------------------------------------------------------------------------ 2. reproductores
 
+IDENTIDAD = ROOT / "reports/spotify-lote-2026-10-03/identidad/identidad.json"
+
+
+def identidad():
+    """Veredicto de cada captura del lote contra el catálogo (identidad-lote.py, 2026-10-14):
+    confirmado (pistas, discos o bio en común, o perfil verificado) o descartado (homónimo)."""
+    return {x["artist_id"]: x for x in json.loads(IDENTIDAD.read_text())} if IDENTIDAD.exists() else {}
+
+
 def barrido():
-    return {r["artist_id"]: r for r in map(json.loads, (LOTE / "matches.jsonl").read_text().splitlines())}
+    """Barrido del lote con los veredictos de identidad encima: un exact1 descartado es un
+    homónimo (Aurora de Ojeda ≠ AURORA) y no vale como perfil."""
+    lote = {r["artist_id"]: r for r in map(json.loads, (LOTE / "matches.jsonl").read_text().splitlines())}
+    for aid, x in identidad().items():
+        if aid in lote and lote[aid].get("spotify_id") == x["spotify_id"]:
+            lote[aid] = {**lote[aid], "veredicto": x["veredicto"]}
+    return lote
 
 
 def captura_previa(artist_id, spotify_id):
@@ -274,8 +290,10 @@ def reproductores(sp, artista, discos, lote):
     m = lote.get(artista["id"]) or {}
     if previo:
         sid, via = previo, "perfil verificado"
+    elif m.get("veredicto") == "descartado":
+        return {"artist_link": None, "album_links": [], "via": "barrido exact1: homónimo descartado"}
     elif m.get("status") == "exact1" and m.get("spotify_id"):
-        sid, via = m["spotify_id"], "barrido exact1"
+        sid, via = m["spotify_id"], "barrido exact1" + (" confirmado" if m.get("veredicto") == "confirmado" else "")
     elif m.get("status") == "sin_match":
         return {"artist_link": None, "album_links": [], "via": "barrido sin_match"}
     elif m.get("status") == "exacto_n":
