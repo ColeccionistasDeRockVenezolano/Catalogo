@@ -73,6 +73,11 @@ async function main(): Promise<void> {
   console.log(`filas ${filas.length}`);
   for (const [k, v] of Object.entries(resumen).sort()) console.log(`  ${k.padEnd(24)} ${v}`);
   for (const [k, v] of Object.entries(cuenta).sort()) console.log(`  ${k}: ${v}`);
+  if (confirm && filas.length === 0) {
+    console.log("nada nuevo: sin run");
+    await closeDb();
+    return;
+  }
   if (!confirm) {
     writeFileSync(path.join(DIR, "aplicacion-ensayo.json"), JSON.stringify({ filas: filas.length, resumen, cuenta }, null, 2));
     console.log("dry-run: ejecuta con --confirm");

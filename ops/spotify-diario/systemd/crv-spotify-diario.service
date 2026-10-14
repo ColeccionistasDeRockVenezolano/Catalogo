@@ -1,0 +1,11 @@
+[Unit]
+Description=CRV Spotify diario: lote sin foto + discos para el reproductor, con tope por credencial
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+ExecStart=/home/brian/.venvs/crv-embeds/bin/python -I "/home/brian/apps/Coleccionistas De Rock Venezolano/ops/spotify-diario/diario.py"
+StandardOutput=append:/home/brian/apps/Coleccionistas De Rock Venezolano/data/raw/spotify-diario/diario.log
+StandardError=append:/home/brian/apps/Coleccionistas De Rock Venezolano/data/raw/spotify-diario/diario.log
+TimeoutStartSec=6h

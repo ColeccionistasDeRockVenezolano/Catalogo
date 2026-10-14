@@ -1,0 +1,10 @@
+[Unit]
+Description=CRV Spotify diario, una vez al día (19:00)
+
+[Timer]
+OnCalendar=*-*-* 19:00:00
+RandomizedDelaySec=10min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

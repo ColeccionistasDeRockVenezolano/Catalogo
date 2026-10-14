@@ -28,10 +28,12 @@ Tidal, SoundCloud y todas las que se puedan, «como un switch de plataformas».
 
 ## Pendiente
 
-- Spotify: 214 de 3.716 artistas. La principal quedó castigada ~24 h tras ~1.500 búsquedas a 0,5 s;
-  la de respaldo (`SPOTIFY_FALLBACK_CLIENT_*`, leída desde 88f0956) cayó tras ~690 a 3 s: parece un
-  tope diario por credencial, no de ritmo. Reanudación con `crv-embeds-spotify-retoma.timer`
-  (2026-10-14 18:30). Quedan ~14.000 búsquedas; al terminar cada tanda, repetir el aplicador.
+- Spotify: 214 de 3.716 artistas. Desde el 2026-10-14 lo lleva `ops/spotify-diario` (timer
+  `crv-spotify-diario`, 19:00): un solo dueño de la cuota para el lote sin foto y los reproductores.
+  La cuota se agota por credencial y grupo de endpoints (búsqueda, discos del artista, fichas), así
+  que va por la lista de discos del artista cuando su perfil se conoce (verificado o exact1 del
+  barrido del 2026-10-03), salta los sin_match y busca disco por disco solo con varios homónimos:
+  ~5.500–7.600 llamadas en vez de ~14.200.
 
 ## Publicación
 
