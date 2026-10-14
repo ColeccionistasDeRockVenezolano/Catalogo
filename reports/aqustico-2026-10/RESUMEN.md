@@ -41,7 +41,7 @@ comprobación falló porque el crudo no cabe en `/tmp` (tmpfs de 9,8 GB); se rep
 | `npm run doctor` | 1 aviso previo (3 auditorías sin claim) | el mismo aviso, sin cambios |
 
 Las portadas de la tienda vieja de Ichamo (que no responde desde el 2026-10-12) se tomaron
-de la copia ya bajada en `/mnt/1tb/aqustico-assets/caratulas/`. Se sembraron en el manifiesto
+de la copia ya bajada en `/mnt/1tb/Shared/aqustico-assets/_raw/v1-plano/caratulas/` (archivado el 2026-10-14; lo vigente es el árbol organizado en `/mnt/1tb/Shared/aqustico-assets/`). Se sembraron en el manifiesto
 con su URL original y `media:localize` las asoció por su camino normal. No se usó nada del
 bucket `ichamo-bucket` (D1: se conserva entero).
 
