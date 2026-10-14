@@ -55,7 +55,9 @@ const BOOLEAN_FIELDS = new Set(["is_venezuelan", "is_deceased"]);
 // normalizador de nombres colapsa todo espacio, saltos incluidos, y eso sigue
 // valiendo para lo que llega de las fuentes (su HTML no afirma párrafos); solo
 // el texto humano conserva los saltos de línea.
-const TEXT_BLOCK_FIELDS = new Set(["biography", "description", "notes"]);
+// `lyrics` (0073): la letra ES texto con verso — conserva sus saltos aunque
+// venga de una fuente (el HTML del sitio publica los cortes de verso).
+const TEXT_BLOCK_FIELDS = new Set(["biography", "description", "notes", "lyrics"]);
 
 function json(value: unknown): string { return JSON.stringify(value); }
 function same(left: unknown, right: unknown): boolean { return json(left) === json(right); }
