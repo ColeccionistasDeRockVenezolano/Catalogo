@@ -8,7 +8,7 @@ las fichas SIN imagen y manda a Curaduría · Imágenes las que ya tienen una
 
 La tienda vieja de Ichamo (www.ichamo.com/tienda/image/data/caratulas/) no
 responde desde el 2026-10-12, pero esas carátulas ya se bajaron íntegras a
-/mnt/1tb/aqustico-assets/caratulas/ (mismo nombre de archivo). Para ellas se
+/mnt/1tb/Shared/aqustico-assets/_raw/v1-plano/caratulas/ (mismo nombre de archivo). Para ellas se
 siembra la copia en web/public/media/<kind>/<id>.<ext> y su entrada en el
 manifiesto con la URL original como origen: localize la encuentra «en caché» y
 solo la asocia por su camino de siempre (operador, claim humano y auditoría).
@@ -20,7 +20,7 @@ import hashlib, json, os, shutil, sys, time
 
 ROOT = "/home/brian/apps/Coleccionistas De Rock Venezolano"
 DIR = f"{ROOT}/reports/aqustico-2026-10"
-LOCAL = "/mnt/1tb/aqustico-assets/caratulas"
+LOCAL = "/mnt/1tb/Shared/aqustico-assets/_raw/v1-plano/caratulas"
 TIENDA = "https://www.ichamo.com/tienda/image/data/"  # caratulas/<x> y <x> se bajaron con su nombre de archivo
 STORE = f"{ROOT}/web/public/media"
 ALTAS = "--altas" in sys.argv

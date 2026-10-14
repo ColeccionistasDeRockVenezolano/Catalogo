@@ -22,11 +22,11 @@ from collections import Counter
 ROOT = "/home/brian/apps/Coleccionistas De Rock Venezolano"
 RAW = f"{ROOT}/data/raw/aqustico-2026-10-11"
 DIR = f"{ROOT}/reports/aqustico-2026-10"
-CARATULAS = "/mnt/1tb/aqustico-assets/caratulas"
-ARTISTAS = "/mnt/1tb/aqustico-assets/artistas"
+CARATULAS = "/mnt/1tb/Shared/aqustico-assets/_raw/v1-plano/caratulas"
+ARTISTAS = "/mnt/1tb/Shared/aqustico-assets/_raw/v1-plano/artistas"
 TIENDA = "https://www.ichamo.com/tienda/image/data/"
 STORE = f"{ROOT}/web/public/media"
-MAPEO = "/mnt/1tb/aqustico-assets/_mapeo-canciones-caratula.tsv"
+MAPEO = "/mnt/1tb/Shared/aqustico-assets/_raw/v1-plano/_mapeo-canciones-caratula.tsv"
 COPIAR = "--copiar" in sys.argv
 
 JPEG = b"\xff\xd8\xff"
