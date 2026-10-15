@@ -72,31 +72,42 @@ def get(url: str, intentos: int = 3, timeout: int = 40) -> tuple[bytes | None, i
     return None, None, (time.time() - t0) * 1000
 
 
-def snapshots(slug: str) -> tuple[list[tuple[str, str]], float, bool, dict[str, int]]:
+def snapshots(slug: str) -> tuple[list[tuple[str, str]], float, bool, dict[str, int], str]:
     """Consulta LIGERA al CDX (sin filter/collapse: son la parte cara y devuelven vacíos falsos).
 
-    Devuelve (clásicos 200 como (timestamp, original), ms, respondió, conteo de statuses).
-    El patrón medido: perfiles que solo tienen un 301 moderno (redirect al MySpace actual) no
-    tienen snapshot clásico — eso NO es saturación y no se reintenta.
+    Patrones medidos que fijan la política:
+      - `www.myspace.com/<slug>:80` rinde 91 % (el clásico se archivó con el puerto explícito);
+        `myspace.com/<slug>` solo 11 % → se prueba primero la forma con www y, si no hay 200s
+        clásicos, la forma sin www.
+      - Los perfiles con solo un 301/2024 no tienen clásico: eso NO es saturación y no se reintenta.
+    Devuelve (clásicos 200 de 2004-2010 como (timestamp, original), ms, respondió, conteos, forma).
     """
-    consulta = urllib.parse.urlencode({
-        "url": f"myspace.com/{slug}", "output": "text", "fl": "timestamp,statuscode,original", "limit": "40",
-    })
-    t0 = time.time()
-    cuerpo, status, _ = get(f"{CDX}?{consulta}", intentos=2)
-    ms = (time.time() - t0) * 1000
-    if cuerpo is None:
-        return [], ms, False, {}
     clasicos: list[tuple[str, str]] = []
+    ms_total = 0.0
+    respondio = False
     statuses: dict[str, int] = {}
-    for linea in cuerpo.decode("utf-8", "replace").strip().splitlines():
-        partes = linea.split()
-        if len(partes) >= 2 and partes[0].isdigit():
-            statuses[partes[1]] = statuses.get(partes[1], 0) + 1
-            if partes[1] == "200":
-                original = partes[2] if len(partes) > 2 else f"myspace.com/{slug}"
-                clasicos.append((partes[0], original))
-    return clasicos, ms, True, statuses
+    forma = "myspace.com"
+    for intento_forma in (f"www.myspace.com/{slug}:80", f"myspace.com/{slug}"):
+        consulta = urllib.parse.urlencode({
+            "url": intento_forma, "output": "text", "fl": "timestamp,statuscode,original", "limit": "40",
+        })
+        t0 = time.time()
+        cuerpo, status, _ = get(f"{CDX}?{consulta}", intentos=2)
+        ms_total += (time.time() - t0) * 1000
+        if cuerpo is None:
+            continue
+        respondio = True
+        for linea in cuerpo.decode("utf-8", "replace").strip().splitlines():
+            partes = linea.split()
+            if len(partes) >= 2 and partes[0].isdigit():
+                statuses[partes[1]] = statuses.get(partes[1], 0) + 1
+                if partes[1] == "200" and int(partes[0][:4]) <= 2010:
+                    original = partes[2] if len(partes) > 2 else intento_forma
+                    clasicos.append((partes[0], original))
+        if clasicos:
+            forma = intento_forma.split("/")[0]
+            break
+    return clasicos, ms_total, respondio, statuses, forma
 
 
 def elegir(ts_lista: list[str]) -> str | None:
@@ -120,6 +131,14 @@ def limpio(t: str) -> str:
     return re.sub(r"\n{3,}", "\n\n", html.unescape(t)).strip()
 
 
+EQUIV = {
+    "Miembro desde": "Member Since", "Miembros de la banda": "Band Members",
+    "Sello discográfico": "Record Label", "Tipo de sello": "Type of Label",
+    "Sitio Web de la banda": "Band Website", "Influencias": "Influences",
+    "Suena como": "Sounds Like", "Sonido similar": "Sounds Like", "Acerca de": "About",
+}
+
+
 def extraer(src: str) -> dict:
     titulo = ""
     m = re.search(r"<title>(.*?)</title>", src, re.S)
@@ -127,7 +146,8 @@ def extraer(src: str) -> dict:
         titulo = html.unescape(m.group(1)).strip()
     campos: dict[str, str] = {}
     for m in re.finditer(r'<td id="Profile([^"]{2,40})"[^>]*>(.*?)</td>', src, re.S):
-        etiqueta, valor = m.group(1), limpio(m.group(2))
+        etiqueta = EQUIV.get(m.group(1), m.group(1))
+        valor = limpio(m.group(2))
         valor = re.split(r"a,\s*a\.man", valor)[0].strip()
         if valor and len(valor) > 1:
             campos[etiqueta] = valor[:2000]
@@ -156,8 +176,9 @@ def main() -> None:
             for linea in fh:
                 try:
                     r = json.loads(linea)
-                    # Hechos: con HTML, con campos o con ausencia REAL confirmada (solo-301).
-                    if r.get("campos") or r.get("archivo") or r.get("sin_snapshot_real"):
+                    # Hechos: con HTML, con campos o ausencia REAL confirmada con AMBAS formas de URL.
+                    # (Los «sin_snapshot_real» de la política vieja —solo forma sin www— se re-evalúan.)
+                    if r.get("campos") or r.get("archivo") or r.get("sin_clasico_definitivo"):
                         hechos.add(marca_perfil(r))
                 except Exception:  # noqa: BLE001
                     pass
@@ -191,16 +212,18 @@ def main() -> None:
                 forma = re.sub(r"https?://", "", original).split("/")[0]
         sin_clasico = False
         if not ts and slug:
-            lista, cdx_ms, respondio, statuses = snapshots(slug)
+            lista, cdx_ms, respondio, statuses, forma_cdx = snapshots(slug)
             evento({**base, "fase": "cdx", "filas": len(lista), "ms": round(cdx_ms),
-                    "respondio": respondio, "statuses": statuses, "vacios_seguidos": vacios_seguidos})
+                    "respondio": respondio, "statuses": statuses, "forma_ok": forma_cdx,
+                    "vacios_seguidos": vacios_seguidos})
             if lista:
                 vacios_seguidos = 0
-                log(f"  {i}/{len(pendientes)} {slug}: {len(lista)} snapshots 200 ({cdx_ms:.0f} ms)")
+                log(f"  {i}/{len(pendientes)} {slug}: {len(lista)} snapshots 200-2010 vía {forma_cdx} ({cdx_ms:.0f} ms)")
             elif respondio and statuses:
-                # Hay archivo pero sin ningún 200 (p. ej. solo un 301 moderno): sin clásico REAL.
+                # Hay archivo pero sin ningún 200 clásico (solo 301/2011+): sin clásico REAL.
                 sin_clasico = True
                 log(f"  {i}/{len(pendientes)} {slug}: sin 200 clásico · statuses {statuses} (no se reintenta)")
+                time.sleep(random.uniform(6.0, 10.0))  # el CDX está lento: espaciar cuando se falla
             else:
                 vacios_seguidos += 1
                 espera = min(20 + 20 * vacios_seguidos, 300)
@@ -217,22 +240,17 @@ def main() -> None:
                         break
             if lista:
                 ts = elegir([t for t, _ in lista])
-                if ts and int(ts[:4]) > 2012:
-                    # 200s pero todos modernos (plantilla JS sin datos): sin clásico real.
-                    sin_clasico = True
-                    log(f"  {i}/{len(pendientes)} {slug}: snapshots solo modernos ({ts[:4]}) — sin clásico (no se reintenta)")
-                    ts = None
-                else:
-                    original_cdx = dict(lista).get(ts or "")
-                    if original_cdx:
-                        original = original_cdx if re.match(r"https?://", original_cdx) else "https://" + original_cdx
-                        forma = re.sub(r"https?://", "", original).split("/")[0]
-            time.sleep(random.uniform(2.5, 4.5))
+                original_cdx = dict(lista).get(ts or "")
+                if original_cdx:
+                    original = original_cdx if re.match(r"https?://", original_cdx) else "https://" + original_cdx
+                    forma = re.sub(r"https?://", "", original).split("/")[0]
+            time.sleep(random.uniform(3.5, 6.0))
         if not ts or not original:
             etiqueta = "sin_clasico" if sin_clasico else "sin_snapshot"
             log(f"  {i}/{len(pendientes)} {slug or ma_id} ({banda[:30]}): {etiqueta}")
             evento({**base, "fase": "resultado", "fuente": fuente, "forma": forma, "resultado": etiqueta})
             registro["sin_snapshot_real"] = sin_clasico
+            registro["sin_clasico_definitivo"] = sin_clasico
             _anexar(registro)
             continue
 

@@ -116,6 +116,9 @@ def main() -> None:
             if st and not c.get("filas"):
                 con_archivo_sin_200 += 1
         lineas.append(f"- statuses vistos: {stats_glob.most_common(6)} · consultas con archivo pero sin 200: {con_archivo_sin_200}")
+        formas_ok = Counter(c.get("forma_ok") for c in cdx if c.get("filas"))
+        if formas_ok:
+            lineas.append(f"- forma de URL que rindió (con 200 clásicos): {formas_ok.most_common()}")
         lineas.append("")
 
     # 5. Campos que rinden
