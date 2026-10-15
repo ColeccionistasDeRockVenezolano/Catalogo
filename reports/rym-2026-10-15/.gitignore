@@ -1,0 +1,7 @@
+# Datos de la campaña (derivados y pesados): se rehacen con los scripts
+cruce.jsonl
+enlaces.jsonl
+verificacion-enlaces.json
+creditos-sin-persona.json
+*-ensayo.json
+lotes-soundcloud/

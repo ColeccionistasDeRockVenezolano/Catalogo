@@ -1,0 +1,30 @@
+{
+ "runId": 20083,
+ "campos": 256,
+ "aliasCreados": 1053,
+ "miembros": 335,
+ "personasCambiadas": 334,
+ "cuenta": {
+  "artista sin ficha en el catálogo": 498,
+  "alias: 2": 266,
+  "personas: fechas": 334,
+  "alias: 1": 521,
+  "artista sin persona homónima": 205,
+  "miembro sin ficha de persona": 832,
+  "miembro ambiguo": 77,
+  "ficha: campos": 256,
+  "miembros: 2": 37,
+  "membresía ya presente": 128,
+  "ficha sin nada que aplicar": 51,
+  "fechas sin hueco o incompletas": 93,
+  "miembros: 1": 56,
+  "miembros: 4": 11,
+  "alias ya presente": 8,
+  "persona ambigua": 6,
+  "miembros: 3": 14,
+  "miembros: 8": 3,
+  "miembros: 5": 10,
+  "miembros: 6": 3,
+  "miembros: 9": 3
+ }
+}
