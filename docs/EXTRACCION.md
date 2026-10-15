@@ -94,7 +94,25 @@ sus 8.270 discos, y una pasada 2 encadenada de 487 artistas sin ningún enlace. 
 `crv-streaming-profundo{,-2}`; salida en `reports/streaming-profundo-2026-10-16/{cosecha,cosecha2}/`;
 aplicación con `npx tsx scripts/apply-streaming-links.ts <dir>` (ensayo → `--confirm`), con la
 verificación de identidad MB/Deezer copiada de la campaña anterior. Ritmo medido 11,6 s/artista.
-Sección 5 del tablero de la campaña (`/tmp/crv-recon/extraccion-2026-10-16.html`).
+Sección 5 del tablero de la campaña (`/tmp/crv-recon/extraccion-2026-10-16.html`), con barras de
+avance por pasada, aplicación y hueco cerrado.
+
+**Otras vías, además de las APIs** (pedido de Brian: «buscador, páginas de noticias, páginas oficiales
+de las bandas»):
+
+1. **Mina de disco** — `scripts/streaming-profundo-2026-10-16/02-fuentes-disco.py` casa el
+   usuario/subdominio visto en lo capturado con el nombre del artista del catálogo: Bandcamp 546,
+   SoundCloud 175, YouTube 30 canales (de 36.599 subdominios, 1.019 usuarios y 2.713 URLs que hay en
+   `data/raw`). Aplicado: SoundCloud 133 perfiles (run 20162; artistas con perfil verificado 134→271)
+   y Bandcamp/YouTube 348 verificados (run 20164).
+2. **Mina de URLs con metadato público** — `scripts/streaming-profundo-2026-10-16/03-mina-spotify-deezer.py`
+   extrae 20.383 URLs de Spotify/Deezer vistas en prensa y fichas capturadas, las verifica por su
+   metadato público (oEmbed de Spotify sin credenciales; `api.deezer.com` con título **y** artista) y
+   las casa con el catálogo (título exacto + artista; descarta si es ambiguo). Unidad
+   `crv-mina-disco`. Muestra inicial: 303 casados de 500 revisados.
+3. **Buscador en vivo**: sin clave de Brave en `.env` (cuota agotada) — la vía dirigida con el
+   buscador de Hermes queda para listas cortas y priorizadas (p. ej. los 100 artistas con más
+   discografía sin enlaces), no para el catálogo entero.
 
 ## 4. Portadas y fotos (APIs públicas, sin captura)
 

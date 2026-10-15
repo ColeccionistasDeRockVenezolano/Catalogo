@@ -512,13 +512,22 @@ def cosecha_resumen():
     return _cos_cache
 
 
+def barra_linea(etiqueta, hechos, total, color="ok"):
+    """Una línea con su barra: lo que Brian pide para saber «cómo va» de un vistazo."""
+    pct = (100.0 * hechos / total) if total else 0.0
+    return (f'<div class="barra-linea">{esc(etiqueta)} — <b>{miles(hechos)}</b>/{miles(total)} '
+            f'({pct:.1f} %){barra(pct, color)}</div>')
+
+
 def bloque_e():
     """Búsqueda profunda de enlaces de streaming: hueco del catálogo, cosecha en curso y ETA."""
     filas_db = psql("""SELECT (SELECT count(*) FROM public.albums al WHERE NOT EXISTS
                                  (SELECT 1 FROM public.streaming_links sl WHERE sl.album_id=al.id)),
                               (SELECT count(*) FROM public.artists a WHERE NOT EXISTS
                                  (SELECT 1 FROM public.streaming_links sl WHERE sl.artist_id=a.id)),
-                              (SELECT count(*) FROM public.streaming_links WHERE created_at::date = current_date)""")
+                              (SELECT count(*) FROM public.streaming_links WHERE created_at::date = current_date
+                                 AND (source LIKE 'deezer%' OR source LIKE 'itunes%' OR source LIKE 'musicbrainz%'
+                                      OR source LIKE 'wikidata%'))""")
     discos_sin = artistas_sin = aplicados_hoy = 0
     if filas_db and len(filas_db[0]) >= 3:
         discos_sin, artistas_sin, aplicados_hoy = (int(x) for x in filas_db[0][:3])
@@ -526,6 +535,8 @@ def bloque_e():
     res = cosecha_resumen()
     cola1, cola2 = 2840, 487
     hechos = res["archivos"]
+    hechos1 = len(list((STREAM / "cosecha").glob("links-*.json"))) if (STREAM / "cosecha").exists() else 0
+    hechos2 = len(list((STREAM / "cosecha2").glob("links-*.json"))) if (STREAM / "cosecha2").exists() else 0
     pendientes = max(0, cola1 + cola2 - hechos)
     seg = 11.6  # medido de los mtime de cosecha/ (pasada 1)
     eta = f"~{pendientes * seg / 3600:.1f} h" if pendientes else "—"
@@ -551,9 +562,9 @@ def bloque_e():
         tarjeta("Enlaces cosechados", f"<b>{miles(enlaces)}</b>",
                 f"{miles(sum(res['perfiles'].values()))} de perfil · {miles(sum(res['discos'].values()))} de disco",
                 "Encontrados en disco por el colector; la aplicación los verifica antes de escribir."),
-        tarjeta("Aplicados hoy (enlaces)", f"<b>{miles(aplicados_hoy)}</b>",
+        tarjeta("Aplicados por esta búsqueda", f"<b>{miles(aplicados_hoy)}</b>",
                 f"pasada 1: {u1} · pasada 2: {u2}",
-                "Filas de public.streaming_links creadas hoy (todas las campañas, incluida la aplicación de esta búsqueda)."),
+                "Filas creadas hoy en public.streaming_links con fuentes del colector (Deezer/iTunes/MusicBrainz/Wikidata) — o sea, las de esta búsqueda. No cuenta lo de otras campañas del mismo día."),
     ]
     return f"""<section>
   <h2>5 · Búsqueda profunda de enlaces de streaming <span class="mini">(artista por artista y disco por disco, sin ChatGPT)</span></h2>
@@ -563,6 +574,17 @@ def bloque_e():
   su cuota la administra el trabajo diario de las 19:00. Cada enlace que sale de aquí pasa después por
   <code>scripts/apply-streaming-links.ts</code> (verificación por cruce de disco antes de escribir).</p>
   <div class="grid">{''.join(tarjetas)}</div>
+  <h3>Avance</h3>
+  <div class="barras">
+    {barra_linea("cosecha · pasada 1 (2.840 artistas con discos sin enlaces)", hechos1, cola1)}
+    {barra_linea("cosecha · pasada 2 (487 artistas sin ningún enlace)", hechos2, cola2)}
+    {barra_linea("aplicado al catálogo por esta búsqueda (escritos hoy / cosechados)", aplicados_hoy, max(1, enlaces), "azul")}
+    {barra_linea("hueco cerrado (discos que ya tienen enlace)", 8270 - discos_sin, 8270, "azul")}
+  </div>
+  <p class="mini">Barras: <b>cosecha</b> = artistas consultados sobre el total de cada pasada (una consulta por
+  artista = perfil + discos); <b>aplicado</b> = filas escritas hoy en public.streaming_links frente a lo
+  cosechado; <b>hueco cerrado</b> = discos del catálogo que ya tienen al menos un enlace sobre los 8.270 que
+  faltaban al arrancar. La aplicación va por lotes con ensayo previo, así que esa barra se mueve a saltos.</p>
   <h3>Lo cosechado en disco, por plataforma</h3>
   <div class="scroll">{tabla(["plataforma", "de perfil", "de disco"], filas) if filas else '<p class="mini">todavía sin cosecha (el colector arranca por los artistas con más discos).</p>'}</div>
   <div class="enlaces">{enlace("colector.log", str(STREAM / "colector.log"))}{enlace("cosecha/", str(STREAM / "cosecha"))}{enlace("informe de la campaña", str(Path(REPO) / "reports/campana-2026-10-16/INFORME.md"))}</div>

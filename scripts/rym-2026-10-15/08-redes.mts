@@ -7,12 +7,12 @@
 // `verified` cuando el usuario de la red COINCIDE con el nombre del artista (normalizado); si no,
 // queda candidato (no se publica). YouTube y Bandcamp sí se abren y se lee su título.
 // Uso: ./scripts/with-node22.sh npx tsx scripts/rym-2026-10-15/08-redes.mts [--confirm] [--limit=N]
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { closeDb, getPool } from "../../src/db/client.js";
 import { withOperatorRun } from "../../src/merge/operator.js";
 
-const DIR = "reports/redes-2026-10-15";
+const DIR = process.argv.slice(2).find((v) => !v.startsWith("--")) ?? "reports/redes-2026-10-15";
 const confirm = process.argv.includes("--confirm");
 const limite = Number(process.argv.find((v) => v.startsWith("--limit="))?.slice(8) ?? 0);
 const pausa = Number(process.argv.find((v) => v.startsWith("--pausa="))?.slice(8) ?? 300);
@@ -41,9 +41,10 @@ async function tituloDe(url: string): Promise<string | null> {
 }
 
 async function main(): Promise<void> {
-  const archivo = path.join(DIR, "redes.jsonl");
-  if (!existsSync(archivo)) { console.error(`no existe ${archivo} (fase 7, extracción)`); process.exit(1); }
-  const todas = readFileSync(archivo, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l) as Fila);
+  // Lee TODOS los .jsonl de la carpeta (permite encadenar fuentes distintas en un mismo run).
+  const archivos = readdirSync(DIR).filter((n) => n.endsWith(".jsonl") && n !== "aplicacion-run.jsonl").sort();
+  if (!archivos.length) { console.error(`no hay .jsonl en ${DIR}`); process.exit(1); }
+  const todas = archivos.flatMap((n) => readFileSync(path.join(DIR, n), "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l) as Fila));
   const filas = limite ? todas.slice(0, limite) : todas;
 
   const pool = getPool();
