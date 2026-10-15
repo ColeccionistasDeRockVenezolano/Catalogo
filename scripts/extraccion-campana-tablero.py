@@ -5,9 +5,9 @@ Todo lo que muestra se MIDE en vivo de sus fuentes (disco, logs y BD): nada se e
 Pensado para correr en bucle desde la unidad crv-extraccion-tablero (refresco 5 s) y para abrirse
 en el navegador con file:///tmp/crv-recon/extraccion-2026-10-16.html
 
-  A · Captura RYM «resto»   — unidad, cola, páginas capturadas, muro de Cloudflare y ETA
-  B · Portadas y fotos      — cada discoverer (progreso del log + candidatas) y el estado de la BD
-  C · Redes sociales        — cosecha de evidencia + lo aplicado a public.social_links
+  A · Captura RYM «resto»   — la cola, qué se trabajó (lista ficha por ficha), ritmo y muro
+  B · Portadas y fotos      — cada discoverer y lo que se bajó/asoció al catálogo
+  C · Redes sociales        — evidencia cosechada y lo aplicado a public.social_links
   D · Escrituras recientes  — últimos runs del operador (lo que de verdad entró al catálogo)
 
 Escribe:
@@ -21,6 +21,7 @@ import re
 import subprocess
 import sys
 import time
+import unicodedata
 from html import escape as esc
 from pathlib import Path
 
@@ -35,10 +36,39 @@ MEDIA = REPO / "reports/fotos-portadas-2026-10-16"
 REDES = REPO / "reports/redes-2026-10-16"
 COLCHON_DB = 10.0  # los números de la BD se refrescan como mucho cada 10 s (son los caros)
 
-# números caros, con colchón: la BD cada 10 s y el manifiesto una vez por corrida
 _cache_t = 0.0
 _cache_db: dict = {}
 _cache_manifest: dict | None = None
+_cache_catalogo_t = 0.0
+_cache_catalogo: dict = {}
+COLCHON_CATALOGO = 60.0  # el índice de artistas del catálogo cambia poco: una lectura por minuto
+
+
+def norm_nombre(t):
+    """Normalización para cruzar el nombre de la ficha con el del catálogo (espejo del proyecto)."""
+    t = unicodedata.normalize("NFD", t or "")
+    t = "".join(c for c in t if unicodedata.category(c) != "Mn").lower()
+    t = re.sub(r"\b(?:official|oficial|music|musica|band|banda|the|el|la|los|las)\b", " ", t)
+    return re.sub(r"[^a-z0-9]+", "", t)
+
+
+def catalogo_artistas():
+    """{nombre normalizado: {id, formed_year, origin_city, miembros}} — para medir el progreso EN DATOS."""
+    global _cache_catalogo_t, _cache_catalogo
+    if time.time() - _cache_catalogo_t < COLCHON_CATALOGO:
+        return _cache_catalogo
+    filas = psql("""
+      SELECT a.name, a.formed_year, coalesce(a.origin_city,''), count(m.id)
+        FROM public.artists a LEFT JOIN public.artist_members m ON m.artist_id = a.id
+       GROUP BY a.id, a.name, a.formed_year, a.origin_city""", timeout=40)
+    datos = {}
+    for f in filas:
+        if len(f) < 4:
+            continue
+        datos[norm_nombre(f[0])] = {"formed_year": f[1] or None, "origin_city": f[2] or "", "miembros": int(f[3] or 0)}
+    _cache_catalogo_t = time.time()
+    _cache_catalogo = datos
+    return datos
 
 
 def leer(ruta, n=1):
@@ -66,6 +96,15 @@ def unidad(nombre):
         return "?"
 
 
+def estado_de(nombre, log):
+    """(etiqueta, clase) de una unidad: activa · terminada (su log cerró con el JSON) · parada."""
+    u = unidad(nombre)
+    if u == "active":
+        return ("activa", "ok")
+    ultima = (leer(log, 1) or [""])[0]
+    return (("terminada", "apagado") if ultima.strip().startswith("{") else (u, "mal"))
+
+
 def psql(consulta, timeout=20):
     try:
         r = subprocess.run(["docker", "exec", "crv-postgres", "psql", "-U", "crv", "-d", "crv", "-tAF", "\t", "-c", consulta],
@@ -81,29 +120,31 @@ def db():
     global _cache_t, _cache_db
     if time.time() - _cache_t < COLCHON_DB:
         return _cache_db
+    datos: dict = {}
     filas = psql("""
       SELECT (SELECT count(*) FROM public.albums WHERE cover_url IS NULL),
              (SELECT count(*) FROM public.artists WHERE picture_url IS NULL OR btrim(picture_url)=''),
-             (SELECT count(*) FROM public.albums WHERE cover_url LIKE '/crv/media/%'),
              (SELECT count(*) FROM public.social_links),
              (SELECT count(*) FROM public.social_links WHERE verified),
-             (SELECT count(*) FROM public.social_links WHERE source='discogs-urls')""")
-    datos: dict = {}
+             (SELECT count(*) FROM public.social_links WHERE source='discogs-urls'),
+             (SELECT count(*) FROM public.streaming_links WHERE source='discogs-urls')""")
     if filas and len(filas[0]) >= 6:
-        alb_sin, art_sin, alb_local, redes, verif, discogs = filas[0][:6]
-        datos = {"alb_sin": int(alb_sin), "art_sin": int(art_sin), "alb_local": int(alb_local),
-                 "redes": int(redes), "verif": int(verif), "discogs": int(discogs)}
+        alb_sin, art_sin, redes, verif, discogs, disc_stream = filas[0][:6]
+        datos.update({"alb_sin": int(alb_sin), "art_sin": int(art_sin), "redes": int(redes),
+                      "verif": int(verif), "discogs": int(discogs), "disc_stream": int(disc_stream)})
     datos["runs"] = psql("""SELECT id, left(coalesce(params->>'action',''),40), status,
                                    to_char(finished_at,'HH24:MI:SS')
                               FROM ingest.scrape_runs WHERE kind='manual'
-                             ORDER BY id DESC LIMIT 6""")
+                             ORDER BY id DESC LIMIT 8""")
+    datos["redes_plat"] = psql("""SELECT platform, count(*), count(*) FILTER (WHERE verified)
+                                    FROM public.social_links WHERE source='discogs-urls' GROUP BY 1 ORDER BY 2 DESC""")
     _cache_t = time.time()
     _cache_db = datos
     return datos
 
 
 def manifest_hoy():
-    """{kind: n} de imágenes asociadas hoy, del manifiesto de media:localize."""
+    """{kind: n} de imágenes asociadas hoy, del manifiesto de media:localize (se lee una vez)."""
     global _cache_manifest
     if _cache_manifest is not None:
         return _cache_manifest
@@ -114,7 +155,8 @@ def manifest_hoy():
             manifiesto = json.load(fh)
         for entrada in manifiesto.get("entries", {}).values():
             if str(entrada.get("associatedAt", "")).startswith(hoy):
-                cuenta[entrada.get("kind", "?")] = cuenta.get(entrada.get("kind", "?"), 0) + 1
+                k = entrada.get("kind", "?")
+                cuenta[k] = cuenta.get(k, 0) + 1
     except Exception:
         cuenta = {}
     _cache_manifest = cuenta
@@ -145,7 +187,6 @@ def ritmo_medido(log_tail, ultimas=60):
     """Segundos por ficha MEDIDOS: mediana de los últimos tramos entre marcas del log.
 
     La media engaña (los timeouts de 60 s la disparan); la mediana describe el paso normal.
-    Devuelve (mediana, n_tramos) o (None, 0) si no hay datos suficientes.
     """
     marcas = [segundos(m.group(1)) for m in (re.match(r"\[(\d{2}:\d{2}:\d{2})\] \+ \[", l) for l in log_tail) if m]
     marcas = marcas[-ultimas:]
@@ -156,175 +197,351 @@ def ritmo_medido(log_tail, ultimas=60):
     return (tramos[len(tramos) // 2], len(tramos))
 
 
-def fila(etiqueta, valor, clase=""):
-    return f'<div class="fila"><span class="et">{esc(etiqueta)}</span><span class="va {clase}">{valor}</span></div>'
+def estado_json():
+    """Lo trabajado, en orden reciente: lista de dicts {slug, hora, ...} desde <outdir>/estado.json."""
+    try:
+        with open(CAPTURA / "estado.json", encoding="utf-8") as fh:
+            datos = json.load(fh)
+    except Exception:
+        return []
+    filas = []
+    for href, rec in datos.items():
+        if not isinstance(rec, dict):
+            continue
+        filas.append({
+            "href": href, "slug": href.rsplit("/", 1)[-1], "nombre": rec.get("name"),
+            "at": rec.get("at") or "", "ts": rec.get("ts") or 0, "status": rec.get("status"),
+            "nRows": rec.get("nRows"), "nGen": rec.get("nGen"), "formed": rec.get("formed"),
+            "nTracks": rec.get("nTracks"), "sinDatos": rec.get("sinDatos"), "sinDiscografia": rec.get("sinDiscografia"),
+        })
+    filas.sort(key=lambda f: (-float(f["ts"] or 0)))
+    return filas
 
 
-def estado_de(nombre, log):
-    """(etiqueta, clase) de una unidad: activa · terminada (su log cerró con el JSON) · parada."""
-    u = unidad(nombre)
-    if u == "active":
-        return ("active", "ok")
-    ultima = (leer(log, 1) or [""])[0]
-    return (("terminada", "apagado") if ultima.strip().startswith("{") else (u, "mal"))
+# ---------------------------------------------------------------- bloques
+
+def tarjeta(titulo, valor, pie="", ayuda="", clase=""):
+    help_attr = f' title="{esc(ayuda)}"' if ayuda else ""
+    pie_html = f'<div class="pie-c">{esc(pie)}</div>' if pie else ""
+    ayuda_html = f'<div class="ayuda">{esc(ayuda)}</div>' if ayuda else ""
+    return (f'<div class="tarjeta {clase}"{help_attr}><div class="t-t">{esc(titulo)}</div>'
+            f'<div class="t-v">{valor}</div>{pie_html}{ayuda_html}</div>')
 
 
-def enlace(etiqueta, ruta):
-    return f'<a class="lnk" href="{esc(ruta)}">{esc(etiqueta)}</a>'
+def barra(pct, color="ok"):
+    return f'<div class="barra"><i class="{color}" style="width:{max(0.6, min(100, pct)):.1f}%"></i></div>'
 
 
-def principal():
-    ahora = time.strftime("%F %T")
-    partes = []
-    estilos = """
-    <style>
-      :root { color-scheme: dark; }
-      body { background:#0e1116; color:#d7dee8; font:13px/1.5 "DejaVu Sans Mono",monospace; margin:0; padding:18px; }
-      h1 { font-size:17px; margin:0 0 4px; color:#f0f4f8; }
-      h1 small { color:#8b98a8; font-weight:normal; font-size:12px; }
-      section { border:1px solid #232a35; border-radius:8px; margin:14px 0; padding:10px 14px; background:#131820; }
-      section h2 { font-size:14px; margin:0 0 8px; color:#9fd1ff; letter-spacing:.4px; }
-      .fila { display:flex; justify-content:space-between; gap:12px; border-bottom:1px dotted #1e2530; padding:2px 0; }
-      .fila:last-child { border-bottom:0; }
-      .et { color:#8b98a8; }
-      .va { color:#e6edf5; text-align:right; }
-      .ok { color:#7ee787; } .mal { color:#ff7b72; } .ojo { color:#ffd166; } .apagado { color:#6e7681; }
-      .lnk { color:#79c0ff; text-decoration:none; margin-right:12px; }
-      .lnk:hover { text-decoration:underline; }
-      .barra { height:9px; background:#1b222c; border-radius:5px; overflow:hidden; margin:6px 0 2px; }
-      .barra > i { display:block; height:100%; background:linear-gradient(90deg,#2f81f7,#7ee787); }
-      .pie { color:#6e7681; font-size:12px; margin-top:10px; }
-      .log { color:#8b98a8; font-size:12px; white-space:pre-wrap; word-break:break-all; margin-top:6px; }
-    </style>
-    """
-    return estilos, ahora
+def _progreso_catalogo(ficha, catalogo):
+    """Qué tiene ya el catálogo de este artista y qué le falta — el «progreso en datos» de la ficha."""
+    entrada = catalogo.get(norm_nombre(ficha["nombre"] or ""))
+    if not entrada:
+        return '<span class="apagado">no está en el catálogo</span>'
+    faltan = []
+    if not entrada["formed_year"] and ficha.get("formed"):
+        faltan.append("año")
+    if not entrada["origin_city"]:
+        faltan.append("ciudad")
+    if not entrada["miembros"]:
+        faltan.append("miembros")
+    if not faltan:
+        return '<span class="ok">ficha completa</span>'
+    return f'<span class="ojo">faltan: {esc(", ".join(faltan))}</span>'
+
+
+def tabla(cabeceras, filas, clases=None):
+    th = "".join(f"<th>{esc(c)}</th>" for c in cabeceras)
+    cuerpo = []
+    for fila in filas:
+        celdas = []
+        for i, celda in enumerate(fila):
+            clase = (clases or {}).get(i, "")
+            celdas.append(f'<td class="{clase}">{celda}</td>')
+        cuerpo.append("<tr>" + "".join(celdas) + "</tr>")
+    return f'<table><thead><tr>{th}</tr></thead><tbody>{"".join(cuerpo)}</tbody></table>'
 
 
 def bloque_a():
-    u = unidad("crv-scrapling-rym-resto")
-    vivo = subprocess.run(["pgrep", "-f", "scrapling-rym.py"], capture_output=True, text=True).stdout.strip() != ""
-    paginas = []
+    estado = estado_json()
+    catalogo = catalogo_artistas()
+    cola = contar_lineas(CAPTURA / "cola-artistas.jsonl") or 0
+    trabajadas = len(estado)
+    utiles = [f for f in estado if f["status"] != 404]
+    no_existen = [f for f in estado if f["status"] == 404]
+    vacias = [f for f in utiles if f["sinDatos"] or (not f["nRows"] and not f["nGen"] and not f["formed"] and not f["nombre"])]
+    con_datos = [f for f in utiles if f not in vacias]
+    con_discos = [f for f in utiles if f["nRows"]]
+    pendientes = max(0, cola - trabajadas)
+    seg_ficha, tramos = ritmo_medido(leer(LOG_A, 400))
+    estado_muro, cuando = reloj_muro(leer(LOG_A, 400))
+    ultima_pagina = max((f["ts"] for f in utiles), default=0)
+    paginas_disco = 0
     try:
-        for entrada in os.scandir(CAPTURA / "pages"):
-            if entrada.name.endswith(".html"):
-                paginas.append((entrada.name, entrada.stat().st_mtime))
+        paginas_disco = sum(1 for n in os.listdir(CAPTURA / "pages") if n.startswith("rel_") and n.endswith(".html"))
     except OSError:
         pass
-    discos = sum(1 for n, _ in paginas if n.startswith("rel_"))
-    artistas_n = len(paginas) - discos
-    ultima = time.strftime("%H:%M:%S", time.localtime(max((m for _, m in paginas), default=0))) if paginas else "—"
-    cola = contar_lineas(CAPTURA / "cola-artistas.jsonl") or 0
-    hechas = None
-    try:
-        with open(CAPTURA / "estado.json", encoding="utf-8") as fh:
-            hechas = len(json.load(fh))
-    except Exception:
-        pass
-    pendientes = (cola - hechas) if isinstance(hechas, int) else None
-    estado_muro, cuando = reloj_muro(leer(LOG_A, 400))
-    seg_ficha, tramos = ritmo_medido(leer(LOG_A, 400))
-    if pendientes and seg_ficha:
-        eta = f"~{pendientes * seg_ficha / 3600:.1f} h (a {seg_ficha} s/ficha medidos en {tramos} tramos)"
-    else:
-        eta = "—"
-    pct = f"{100 * len(paginas) / cola:.1f} %" if cola else "?"
-    clase = "ok" if estado_muro == "OK" else "mal"
-    salida = ['<section><h2>1 · Captura RYM «resto» (A)</h2>']
-    salida.append(fila("Unidad crv-scrapling-rym-resto",
-                       f'<span class="{ "ok" if u == "active" else "mal" }">{esc(u)}</span>'
-                       f'{" · proceso vivo" if vivo else " · sin proceso"}'))
-    salida.append(fila("Páginas capturadas", f"<b>{len(paginas)}</b> de {cola} de la cola · {pct} ({artistas_n} de artista · {discos} de disco)"))
-    if pendientes is not None:
-        salida.append(fila("Hechas / pendientes", f"{hechas} / {pendientes} · ETA {eta}"))
-    salida.append(fila("Muro de Cloudflare", f'<span class="{clase}">{estado_muro}</span> · última marca {esc(str(cuando))}'))
-    salida.append(fila("Última página capturada", esc(ultima)))
-    if estado_muro != "OK":
-        salida.append('<div class="ojo">▸ El muro pide al dueño: abrir rateyourmusic.com en Firefox ~30 s. La unidad reintenta sola (sondas cada ~20 min).</div>')
-    salida.append('<div class="log">' + esc(" | ".join(leer(LOG_A, 2))) + "</div>")
-    salida.append('<div>' + enlace("log de la captura", f"file://{LOG_A}") + enlace("estado.sh", "file://" + str(REPO / "ops/rym-resto/estado.sh")) + enlace("RateYourMusic", "https://rateyourmusic.com/") + "</div>")
-    salida.append("</section>")
-    return "\n".join(salida)
+    eta = f"~{pendientes * seg_ficha / 3600:.1f} h" if pendientes and seg_ficha else "—"
+    clase_muro = "ok" if estado_muro == "OK" else "mal"
+    u, clase_u = estado_de("crv-scrapling-rym-resto", LOG_A)
+
+    tarjetas = [
+        tarjeta("Cola de fichas (meta fase 1)", f"<b>{cola:,}</b>".replace(",", "."), "artistas del catálogo sin ficha RYM",
+                "Son los hrefs de artistas del catálogo que aún no tienen ficha capturada. Es la meta de la fase 1."),
+        tarjeta("Trabajadas", f"<b>{trabajadas:,}</b>".replace(",", "."),
+                f"{100 * trabajadas / cola:.1f} % de la cola" if cola else "",
+                "Fichas ya INTENTADAS: cuentan también las que no existen en RYM (404). Es el avance real de la cola."),
+        tarjeta("Páginas guardadas", f"<b>{len(utiles):,}</b>".replace(",", "."),
+                f"+ {paginas_disco} fichas de disco" if paginas_disco else "fase 2 sin empezar",
+                "Fichas que SÍ existen en RYM y quedaron en disco (html + json). Son las que alimentan la cadena de datos."),
+        tarjeta("Con datos aprovechables", f"<b>{len(con_datos)}</b>", f"{len(con_discos)} con discografía listada",
+                "Páginas con algo que la cadena puede aplicar: discografía, géneros, año de formación, foto…"),
+        tarjeta("No existen en RYM", f"<b>{len(no_existen)}</b>", "descartadas solas",
+                "Los slugs inferidos por nombre que RYM no tiene (404). No son un error: la cola traía variantes por probar."),
+        tarjeta("Pendientes", f"<b>{pendientes:,}</b>".replace(",", "."), f"ETA {eta}",
+                "Lo que falta de la cola, con la ETA calculada del ritmo medido (mediana de los últimos tramos)."),
+        tarjeta("Ritmo de captura", f"<b>{seg_ficha or '?'} s</b>", f"por ficha · {tramos} tramos medidos",
+                "Mediana de segundos por ficha en los últimos tramos del log. La media engaña: los timeouts de 60 s la disparan."),
+        tarjeta("Muro de Cloudflare", f'<span class="{clase_muro}">{estado_muro}</span>', f"última marca {esc(str(cuando))}",
+                "OK = RYM responde. MURO = pide al dueño abrir rateyourmusic.com en Firefox ~30 s; la unidad reintenta sola."),
+    ]
+
+    filas_tabla = []
+    for f in utiles[:25]:
+        if f["sinDatos"]:
+            que = '<span class="ojo">página vacía en RYM</span>'
+            datos = "—"
+            cat = "—"
+        else:
+            que = '<span class="ok">ficha guardada</span>'
+            datos = []
+            if f["nRows"]:
+                datos.append(f'{f["nRows"]} discos')
+            if f["nGen"]:
+                datos.append(f'{f["nGen"]} géneros')
+            if f["formed"]:
+                datos.append(f'formada {f["formed"]}')
+            if f["nTracks"]:
+                datos.append(f'{f["nTracks"]} pistas')
+            datos = " · ".join(datos) or "sin datos extra"
+            cat = _progreso_catalogo(f, catalogo)
+        filas_tabla.append([esc(f["at"]), f'<b>{esc(f["nombre"] or f["slug"])}</b>', que, esc(datos), cat])
+    ultimos_404 = [f["slug"] for f in estado if f["status"] == 404][:12]
+    pct_cola = f"{100 * trabajadas / cola:.1f}" if cola else "?"
+
+    return f"""<section>
+  <h2>1 · Captura RYM «resto» (bloque A) <span class="pill {clase_u}">{esc(u)}</span></h2>
+  <p class="resumen"><b>De un vistazo:</b> de <b>{cola:,}</b> fichas de la cola → <b>{trabajadas}</b> trabajadas
+  ({pct_cola} %): <b>{len(utiles)}</b> guardadas con datos · <b>{len(no_existen)}</b> no existen en RYM
+  · faltan <b>{pendientes:,}</b> para terminar la fase 1 (ETA {eta}).</p>
+  <p class="explica">Descarga, a ritmo humano y con las cookies del Firefox del dueño, la ficha de cada
+  artista del catálogo que aún no la tenía. La cola son <b>hrefs</b> (5.476): unos vistos como enlace en lo
+  ya capturado y otros inferidos del nombre — por eso hay 404 que no son fallo. Lo capturado queda en
+  <code>data/raw/fuentes-web-2026-10-16/rym-resto/pages/</code> y lo aplica después
+  <code>ops/rym-resto/procesar.sh</code> (reparse → cruce → enlaces → aplicar).</p>
+  <div class="grid">{''.join(tarjetas)}</div>
+  <div class="barras">
+    <div class="barra-linea">Cola trabajada <b>{trabajadas}/{cola}</b>{barra(100 * trabajadas / cola if cola else 0)}</div>
+    <div class="barra-linea">De lo trabajado, con página útil <b>{len(utiles)}/{trabajadas or 1}</b>{barra(100 * len(utiles) / (trabajadas or 1), "azul")}</div>
+  </div>
+  <h3>Últimas 25 fichas guardadas <span class="mini">(lo más nuevo arriba — las que traen datos)</span></h3>
+  <div class="scroll">{tabla(["hora", "artista", "qué pasó", "datos de la ficha", "progreso en el catálogo"], filas_tabla, {0: "num", 3: "mini"})}</div>
+  <p class="mini">«Progreso en el catálogo» compara la ficha capturada con la ficha viva del catálogo:
+  ficha completa = ya tiene año de formación, ciudad y miembros; «faltan: …» = huecos que la cadena
+  (<code>procesar.sh aplicar</code>) puede rellenar con esta captura. Los descartes por 404 de RYM
+  ({len(no_existen)} en total) no traen datos: los últimos han sido
+  <span class="mini">{esc(", ".join(ultimos_404))}{"…" if len(no_existen) > len(ultimos_404) else ""}</span></p>
+  <div class="enlaces">{enlace("log de la captura", f"file://{LOG_A}")}{enlace("páginas en disco", f"file://{CAPTURA / 'pages'}")}{enlace("estado.sh", "file://" + str(REPO / "ops/rym-resto/estado.sh"))}{enlace("RateYourMusic", "https://rateyourmusic.com/")}</div>
+</section>"""
 
 
 def bloque_b():
     datos = db()
     mh = manifest_hoy()
     unidades = [
-        ("crv-media-deezer-covers", "deezer-covers.jsonl", "portadas Deezer"),
-        ("crv-media-deezer-fotos", "deezer-artist-photos.jsonl", "fotos Deezer"),
-        ("crv-media-itunes", "itunes-covers.jsonl", "portadas iTunes"),
-        ("crv-media-wikidata", "wikidata-images.jsonl", "Commons/Wikidata"),
-        ("crv-media-discogs", "discogs-artist-photos.jsonl", "fotos Discogs"),
+        ("crv-media-deezer-covers", "deezer-covers.jsonl", "Portadas · Deezer", "álbumes sin carátula"),
+        ("crv-media-deezer-fotos", "deezer-artist-photos.jsonl", "Fotos · Deezer", "artistas sin foto (guarda: disco en común)"),
+        ("crv-media-itunes", "itunes-covers.jsonl", "Portadas · iTunes", "álbumes sin carátula (Apple limita a ~20 req/min)"),
+        ("crv-media-wikidata", "wikidata-images.jsonl", "Imágenes · Wikidata/Commons", "entidades ancladas en Venezuela"),
+        ("crv-media-discogs", "discogs-artist-photos.jsonl", "Fotos · Discogs", "identidades Discogs ya aceptadas"),
     ]
-    salida = ['<section><h2>2 · Portadas y fotos (B)</h2>']
-    for nombre, archivo, titulo in unidades:
-        # «terminada» = la unidad ya no corre y su log cerró con el resumen JSON de la corrida.
-        etiqueta, clase_u = estado_de(nombre, MEDIA / f"{nombre}.log")
-        ultima = (leer(MEDIA / f"{nombre}.log", 1) or ["—"])[0][:150]
+    filas = []
+    for nombre, archivo, titulo, que in unidades:
+        etiqueta, clase = estado_de(nombre, MEDIA / f"{nombre}.log")
+        ultima = (leer(MEDIA / f"{nombre}.log", 1) or [""])[0]
+        consultados = re.search(r"consultados (\d+)/(\d+)", ultima)
+        if not consultados:  # la corrida terminó: su última línea es el resumen JSON
+            consultados = re.search(r'"pending":(\d+)', ultima)
+            if consultados:
+                consultados = re.match(r"(\d+)(?:/(\d+))?", consultados.group(1))
         cand = contar_lineas(MEDIA / archivo)
-        salida.append(fila(f"{titulo}",
-                           f'<span class="{clase_u}">{esc(etiqueta)}</span> · candidatas: <b>{cand if cand is not None else "?"}</b>'))
-        salida.append(f'<div class="log">{esc(ultima)}</div>')
+        fallos = re.search(r'"failures":(\d+)', ultima)
+        if consultados and consultados.group(2):
+            progreso = f"{consultados.group(1)}/{consultados.group(2)}"
+        elif consultados:
+            progreso = f"hechos: {consultados.group(1)}"
+        else:
+            progreso = "—"
+        filas.append([f'{esc(titulo)}<div class="mini">{esc(que)}</div>',
+                      f'<span class="{clase}">{esc(etiqueta)}</span>',
+                      f'<span class="num">{progreso}</span>',
+                      f'<b>{cand if cand is not None else "?"}</b>',
+                      f'<span class="ojo">{fallos.group(1)}</span>' if fallos else "0"])
     asociadas = ", ".join(f"{k}: {v}" for k, v in sorted(mh.items())) or "ninguna aún"
-    salida.append(fila("Imágenes asociadas hoy (media:localize)", f"<b>{esc(asociadas)}</b>"))
-    if datos:
-        salida.append(fila("BD · discos sin carátula", f'{datos.get("alb_sin","?")} <span class="apagado">(con carátula local: {datos.get("alb_local","?")})</span>'))
-        salida.append(fila("BD · artistas sin foto", f'{datos.get("art_sin","?")}'))
-    salida.append('<div>' + enlace("candidatas (carpeta)", f"file://{MEDIA}") + enlace("ensayo del aplicador de imágenes", f"file://{REPO}/reports/fotos-portadas-2026-10-16/") + "</div>")
-    salida.append("</section>")
-    return "\n".join(salida)
+    return f"""<section>
+  <h2>2 · Portadas y fotos por APIs públicas (bloque B)</h2>
+  <p class="explica">Sin captura: se pregunta a las APIs de Deezer, Apple y Wikidata/Commons por las fichas
+  que tienen el hueco. Cada <b>candidata</b> es una imagen cuyo nombre de artista/disco coincide de forma
+  exacta y única (con guardas de disco compartido). Después <code>localize-images.ts</code> la descarga a
+  <code>web/public/media/</code> y la asocia en un run reversible; si la ficha ya tenía imagen, la candidata
+  va a Curaduría en vez de pisarla.</p>
+  <div class="grid">
+    {tarjeta("Discos sin carátula", f'<b>{datos.get("alb_sin", "?")}</b>', "hueco en el catálogo",
+             "Fichas de álbum con cover_url vacío: el objetivo de las portadas.")}
+    {tarjeta("Artistas sin foto", f'<b>{datos.get("art_sin", "?")}</b>', "hueco en el catálogo",
+             "Fichas de artista con picture_url vacío: el objetivo de las fotos.")}
+    {tarjeta("Imágenes asociadas hoy", f'<b>{esc(asociadas)}</b>', "descargadas a disco y asociadas",
+             "Del manifiesto de media:localize: entradas con associatedAt de hoy, por tipo de ficha.")}
+  </div>
+  <h3>Cada discoverer</h3>
+  <div class="scroll">{tabla(["discoverer", "estado", "consultados", "candidatas", "fallos"], filas, {2: "num", 3: "num", 4: "num"})}</div>
+  <p class="mini">Residual: 140 imágenes de Commons respondieron HTTP 429 (Wikimedia limita tras cientos de
+  descargas seguidas); se reintentan más tarde con 1 hilo. La lista está en <code>/tmp/wikidata-429-reintento.jsonl</code>.</p>
+  <div class="enlaces">{enlace("carpeta de candidatas", f"file://{MEDIA}")}{enlace("manifiesto de imágenes", "file://" + str(REPO / "web/public/media/manifest.json"))}</div>
+</section>"""
 
 
 def bloque_c():
     datos = db()
     etiqueta_c, clase_c = estado_de("crv-redes-discogs", REDES / "crv-redes-discogs.log")
-    ultima = (leer(REDES / "crv-redes-discogs.log", 1) or ["(sin log todavía)"])[0][:200]
-    evid_d = contar_lineas(REDES / "evidencia-discogs.jsonl")
-    evid_w = contar_lineas(REDES / "evidencia-wikidata.jsonl")
-    desc = contar_lineas(REDES / "descartes-discogs.jsonl")
-    total_objetivo = datos.get("redes_objetivo", 3957)
-    salida = ['<section><h2>3 · Redes sociales (C)</h2>']
-    salida.append(fila("Cosecha Discogs", f'<span class="{clase_c}">{esc(etiqueta_c)}</span> · evidencia: <b>{evid_d if evid_d is not None else "?"}</b> · descartes: {desc if desc is not None else "?"}'))
-    salida.append(fila("Cosecha Wikidata (anclada)", f"evidencia: <b>{evid_w if evid_w is not None else '?'}</b>"))
-    salida.append(f'<div class="log">{esc(ultima)}</div>')
-    if datos:
-        salida.append(fila("BD · social_links", f'{datos.get("redes","?")} filas · {datos.get("verif","?")} verificadas · {datos.get("discogs","?")} del aplicador nuevo'))
-    salida.append(fila("Objetivo del bloque", f"{total_objetivo} artistas sin ninguna red (al arrancar)"))
-    salida.append('<div>' + enlace("evidencia Discogs", f"file://{REDES}/evidencia-discogs.jsonl") + enlace("evidencia Wikidata", f"file://{REDES}/evidencia-wikidata.jsonl") + enlace("carpeta de la campaña", f"file://{REDES}") + "</div>")
-    salida.append("</section>")
-    return "\n".join(salida)
+    evid_d = contar_lineas(REDES / "evidencia-discogs.jsonl") or 0
+    evid_w = contar_lineas(REDES / "evidencia-wikidata.jsonl") or 0
+    desc = contar_lineas(REDES / "descartes-discogs.jsonl") or 0
+    resumen = ""
+    ultima = (leer(REDES / "crv-redes-discogs.log", 1) or [""])[0]
+    if ultima.strip().startswith("{"):
+        try:
+            r = json.loads(ultima)
+            c = r.get("cuenta", {})
+            resumen = (f'Disco en común: {c.get("evidencia: disco común", 0)} · '
+                       f'perfil de Venezuela: {c.get("evidencia: perfil Venezuela", 0)} · '
+                       f'descartes: {c.get("descartado", 0)} · sin candidato: {c.get("sin candidato", 0)} · '
+                       f'{r.get("pedidos", 0)} pedidos a la API.')
+        except Exception:
+            resumen = ""
+    filas = [[esc(p), f'<b>{n}</b>', f'{v} <span class="mini">({100 * int(v) / max(1, int(n)):.0f} %)</span>']
+             for p, n, v in (datos.get("redes_plat") or [])]
+    return f"""<section>
+  <h2>3 · Redes sociales desde Discogs/Wikidata (bloque C) <span class="pill {clase_c}">{esc(etiqueta_c)}</span></h2>
+  <p class="explica">El pozo de Discogs (<code>urls[]</code> de la ficha del artista, 13.950 respuestas crudas
+  ya guardadas en disco) y Wikidata (anclada por la identidad Discogs/MusicBrainz aceptada). Por cada artista
+  se prueba la identidad: <b>disco en común</b> (un release con el título de un disco del catálogo) o
+  <b>nombre único en el pozo + perfil de Venezuela</b>. Lo que no pasa la guarda se descarta con motivo.
+  El aplicador marca <b>verificada</b> solo cuando el usuario de la red coincide con el nombre del artista
+  (YouTube/Bandcamp se abren y se les lee el título); el resto queda candidato y no se publica.</p>
+  <div class="grid">
+    {tarjeta("Evidencia cosechada", f"<b>{evid_d + evid_w}</b>", f"Discogs {evid_d} · Wikidata {evid_w}",
+             "Artistas con al menos una URL social y guarda de identidad superada.")}
+    {tarjeta("Descartes con motivo", f"<b>{desc}</b>", "sin guarda de identidad",
+             "Artistas que se miraron y NO pasaron la guarda: quedan registrados en descartes-discogs.jsonl.")}
+    {tarjeta("Aplicado a social_links", f"<b>{datos.get('discogs', '?')}</b>", f"+ {datos.get('disc_stream', '?')} perfiles de escucha",
+             "Filas escritas por el aplicador (run 20153): las candidatas también se escriben, pero la web solo publica las verificadas.")}
+    {tarjeta("social_links (catálogo)", f"<b>{datos.get('redes', '?')}</b>", f"{datos.get('verif', '?')} verificadas",
+             "Total de la tabla tras la campaña (venía de 1.446 filas).")}
+  </div>
+  <h3>Lo aplicado, por red <span class="mini">(filas · verificadas)</span></h3>
+  <div class="scroll">{tabla(["red", "filas", "verificadas"], filas, {1: "num", 2: "num"}) if filas else '<p class="mini">sin datos</p>'}</div>
+  <p class="mini">{esc(resumen)}</p>
+  <div class="enlaces">{enlace("evidencia Discogs", f"file://{REDES}/evidencia-discogs.jsonl")}{enlace("evidencia Wikidata", f"file://{REDES}/evidencia-wikidata.jsonl")}{enlace("descartes", f"file://{REDES}/descartes-discogs.jsonl")}{enlace("carpeta de la campaña", f"file://{REDES}")}</div>
+</section>"""
 
 
 def bloque_d():
     datos = db()
-    salida = ['<section><h2>4 · Escrituras recientes del operador (lo que ya entró)</h2>']
-    filas = datos.get("runs", [])
-    if not filas:
-        salida.append(fila("Runs", "?"))
-    for run in filas[:6]:
+    filas = []
+    for run in (datos.get("runs") or [])[:8]:
         if len(run) < 4:
             continue
         rid, accion, estado, hora = run[:4]
         clase = "ok" if estado == "ok" else "ojo"
-        salida.append(fila(f"run {rid} · {hora}", f'{esc(accion)} <span class="{clase}">{esc(estado)}</span>'))
-    salida.append("</section>")
-    return "\n".join(salida)
+        filas.append([f'<span class="num">{esc(rid)}</span>', esc(hora), esc(accion), f'<span class="{clase}">{esc(estado)}</span>'])
+    return f"""<section>
+  <h2>4 · Escrituras recientes del operador <span class="mini">(lo que ya entró al catálogo)</span></h2>
+  <p class="explica">Cada escritura va en un <b>run del operador</b>: es reversible desde Historial y deja su
+  fila de auditoría. Aquí salen los últimos runs manuales de la base — los de esta campaña y los de las otras
+  sesiones que trabajan el mismo catálogo (por eso el número de run es la forma de citarlos).</p>
+  <div class="scroll">{tabla(["run", "hora", "acción", "estado"], filas, {0: "num", 1: "num"})}</div>
+</section>"""
+
+
+def enlace(etiqueta, ruta):
+    return f'<a class="lnk" href="{esc(ruta)}">{esc(etiqueta)}</a>'
+
+
+ESTILOS = """
+<style>
+  :root { color-scheme: dark; --bg:#0d1117; --panel:#151b24; --panel2:#1b2330; --linea:#263041;
+          --txt:#dfe6ef; --tenue:#8b98a8; --ok:#7ee787; --mal:#ff7b72; --ojo:#ffd166; --azul:#79c0ff; }
+  * { box-sizing:border-box; }
+  body { background:var(--bg); color:var(--txt); font:13px/1.55 "DejaVu Sans Mono",ui-monospace,monospace;
+         margin:0; padding:20px 22px 40px; }
+  h1 { font-size:18px; margin:0 0 2px; color:#f4f8fc; }
+  h1 small { color:var(--tenue); font-weight:normal; font-size:12px; }
+  h2 { font-size:15px; margin:0 0 6px; color:#b9dcff; display:flex; align-items:center; gap:10px; }
+  h3 { font-size:13px; margin:14px 0 6px; color:#cbd6e4; font-weight:600; }
+  section { border:1px solid var(--linea); border-radius:10px; margin:16px 0; padding:14px 16px; background:var(--panel); }
+  .explica { color:var(--tenue); margin:0 0 12px; max-width:120ch; }
+  .resumen { background:#101a26; border-left:3px solid var(--azul); border-radius:5px;
+             padding:7px 11px; margin:0 0 10px; color:#cfe0f2; }
+  .pill { font-size:11px; padding:1px 8px; border-radius:9px; border:1px solid var(--linea); background:var(--panel2); }
+  .pill.ok { color:var(--ok); border-color:#2c4a33; } .pill.mal { color:var(--mal); border-color:#5a2b2b; }
+  .pill.apagado { color:var(--tenue); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:10px; margin:6px 0 12px; }
+  .tarjeta { background:var(--panel2); border:1px solid var(--linea); border-radius:8px; padding:9px 11px; }
+  .t-t { color:var(--tenue); font-size:11.5px; text-transform:uppercase; letter-spacing:.4px; }
+  .t-v { font-size:20px; margin:3px 0 1px; color:#f2f7fd; }
+  .pie-c { color:#a9b6c7; font-size:11.5px; }
+  .ayuda { color:#6e7c8c; font-size:11px; margin-top:5px; border-top:1px dotted #2a3444; padding-top:4px; }
+  .barras { margin:10px 0 4px; }
+  .barra-linea { margin:8px 0; color:#b6c2d1; }
+  .barra { height:10px; background:#111823; border:1px solid var(--linea); border-radius:6px; overflow:hidden; margin-top:4px; }
+  .barra > i { display:block; height:100%; background:linear-gradient(90deg,#2f81f7,#7ee787); }
+  .barra > i.azul { background:linear-gradient(90deg,#1f6feb,#79c0ff); }
+  table { border-collapse:collapse; width:100%; }
+  th { text-align:left; color:var(--tenue); font-weight:600; font-size:11.5px; text-transform:uppercase;
+       letter-spacing:.4px; border-bottom:1px solid var(--linea); padding:5px 8px; position:sticky; top:0; background:var(--panel); }
+  td { padding:4px 8px; border-bottom:1px dotted #1f2733; vertical-align:top; }
+  tr:hover td { background:#182030; }
+  td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .scroll { max-height:420px; overflow:auto; border:1px solid var(--linea); border-radius:8px; }
+  .mini { color:var(--tenue); font-size:11.5px; }
+  .ok { color:var(--ok); } .mal { color:var(--mal); } .ojo { color:var(--ojo); } .apagado { color:var(--tenue); }
+  .enlaces { margin-top:10px; }
+  .lnk { color:var(--azul); text-decoration:none; margin-right:14px; }
+  .lnk:hover { text-decoration:underline; }
+  .pie { color:var(--tenue); font-size:11.5px; margin-top:14px; }
+  code { background:#101722; border:1px solid var(--linea); border-radius:4px; padding:0 4px; color:#c9d6e4; }
+</style>
+"""
 
 
 def construir():
-    estilos, ahora = principal()
+    ahora = time.strftime("%F %T")
     html = f"""<!doctype html>
 <html lang="es"><head><meta charset="utf-8">
 <meta http-equiv="refresh" content="{REF_MS // 1000}">
-<title>CRV · extracción 2026-10-16</title>{estilos}</head>
+<title>CRV · extracción 2026-10-16</title>{ESTILOS}</head>
 <body>
-<h1>Campaña de extracción · 2026-10-16 <small>· actualizado {ahora} · refresco automático cada {REF_MS // 1000} s</small></h1>
+<h1>Campaña de extracción · 2026-10-16
+  <small>· actualizado {ahora} · refresco automático cada {REF_MS // 1000} s · tablero sin LLM (unidad crv-extraccion-tablero)</small></h1>
+<p class="mini">Cómo se lee: cada número sale de su fuente en vivo — el avance de la captura del
+<code>estado.json</code> del capturador, el ritmo de los tramos del log, los huecos del catálogo de Postgres y
+lo aplicado de los runs del operador. <b>Trabajadas</b> = fichas intentadas (incluye las que no existen en RYM);
+<b>páginas guardadas</b> = las que sí existen y ya están en disco; <b>pendientes</b> = lo que resta de la cola.</p>
 {bloque_a()}
 {bloque_b()}
 {bloque_c()}
 {bloque_d()}
-<div class="pie">Todos los números se miden en vivo (disco, logs y BD). Tablero sin LLM:
-lo escribe la unidad <b>crv-extraccion-tablero</b>. Esta página: file://{OUT}</div>
+<div class="pie">Esta página: file://{OUT} · copia: reports/campana-2026-10-16/tablero.html</div>
 </body></html>
 """
     return html
