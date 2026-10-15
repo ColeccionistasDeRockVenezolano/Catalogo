@@ -1,0 +1,54 @@
+{
+ "artista": 2288,
+ "disco": "Dos humanidades diferentes",
+ "pistas": [
+  {
+   "n": 1,
+   "title": "Hiel",
+   "seconds": 101
+  },
+  {
+   "n": 2,
+   "title": "Gotas de alma",
+   "seconds": 236
+  },
+  {
+   "n": 3,
+   "title": "Fantasmas apostólicas avernales",
+   "seconds": 294
+  },
+  {
+   "n": 4,
+   "title": "No necesito morir",
+   "seconds": 279
+  }
+ ],
+ "bioCaracteres": 1027,
+ "albumId": 28306,
+ "pistaIds": [
+  {
+   "n": 1,
+   "id": 205575,
+   "title": "Hiel"
+  },
+  {
+   "n": 2,
+   "id": 205576,
+   "title": "Gotas de alma"
+  },
+  {
+   "n": 3,
+   "id": 205577,
+   "title": "Fantasmas apostólicas avernales"
+  },
+  {
+   "n": 4,
+   "id": 205578,
+   "title": "No necesito morir"
+  }
+ ],
+ "biografia": [
+  "biography:corrected"
+ ],
+ "run": null
+}
