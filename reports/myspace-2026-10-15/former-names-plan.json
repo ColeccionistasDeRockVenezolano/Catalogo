@@ -1,0 +1,102 @@
+[
+ {
+  "nueva": "Lake of Tears",
+  "idNueva": 6972,
+  "idBuena": 678,
+  "buena": "Dreams of Tears",
+  "discos": 1,
+  "duplicados": [
+   "28878"
+  ],
+  "reatribuir": [],
+  "enBuena": 3
+ },
+ {
+  "nueva": "Hodah",
+  "idNueva": 6973,
+  "idBuena": 661,
+  "buena": "Exordium Profanum",
+  "discos": 3,
+  "duplicados": [
+   "28879",
+   "28880",
+   "28881"
+  ],
+  "reatribuir": [],
+  "enBuena": 3
+ },
+ {
+  "nueva": "Nigrium Mortualia",
+  "idNueva": 6974,
+  "idBuena": 2160,
+  "buena": "Moriturio",
+  "discos": 1,
+  "duplicados": [],
+  "reatribuir": [
+   "28882"
+  ],
+  "enBuena": 2
+ },
+ {
+  "nueva": "Gorepriest",
+  "idNueva": 6975,
+  "idBuena": 870,
+  "buena": "Sol Nocturno",
+  "discos": 4,
+  "duplicados": [
+   "28883",
+   "28884",
+   "28885",
+   "28886"
+  ],
+  "reatribuir": [],
+  "enBuena": 5
+ },
+ {
+  "nueva": "Godless Crown",
+  "idNueva": 6977,
+  "idBuena": 609,
+  "buena": "Godless",
+  "discos": 4,
+  "duplicados": [
+   "28888"
+  ],
+  "reatribuir": [
+   "28889",
+   "28890",
+   "28891"
+  ],
+  "enBuena": 1
+ },
+ {
+  "nueva": "Okkvlt",
+  "idNueva": 6978,
+  "idBuena": 672,
+  "buena": "Cthonica",
+  "discos": 1,
+  "duplicados": [
+   "28892"
+  ],
+  "reatribuir": [],
+  "enBuena": 6
+ },
+ {
+  "nueva": "Leviathan A.C.",
+  "idNueva": 6984,
+  "idBuena": 594,
+  "buena": "Leviathan",
+  "discos": 7,
+  "duplicados": [
+   "28929"
+  ],
+  "reatribuir": [
+   "28925",
+   "28926",
+   "28927",
+   "28928",
+   "28930",
+   "28931"
+  ],
+  "enBuena": 1
+ }
+]

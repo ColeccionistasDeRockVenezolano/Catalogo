@@ -1,0 +1,36 @@
+{
+ "artista": {
+  "name": "Gillman",
+  "artist_type": "band"
+ },
+ "albumes": 22,
+ "pistas": 263,
+ "duplicados": [
+  "Levántate... y pelea!",
+  "El guerrero",
+  "Sígueme",
+  "El regreso del guerrero",
+  "15 años",
+  "Lo inédito",
+  "Escalofrío",
+  "Cuauhtemoc",
+  "Despertando en la historia",
+  "Inevitable",
+  "El curandero",
+  "Tributo a los desconocidos",
+  "Escalofrío II... La conclusión",
+  "Escalofrío XX aniversario",
+  "Clásicos recargados",
+  "Vendi mi alma al rock & roll"
+ ],
+ "soloAqui": [
+  "Adriana / El Twist de la menta",
+  "Sólo tú y yo",
+  "Ready to Attack",
+  "Killer",
+  "Vivo & en vivo",
+  "Levántate... y pelea! - 40° aniversario edición especial"
+ ],
+ "run": 20119,
+ "archivosBorrados": 19
+}

@@ -1,0 +1,57 @@
+{
+ "run": 20120,
+ "result": {
+  "detalle": [
+   {
+    "nueva": "Lake of Tears",
+    "buena": "Dreams of Tears",
+    "retirados": 1,
+    "movidos": 0,
+    "alias": "(ya existía: ese alias ya está registrado para este artist)"
+   },
+   {
+    "nueva": "Hodah",
+    "buena": "Exordium Profanum",
+    "retirados": 3,
+    "movidos": 0,
+    "alias": "(ya existía: ese alias ya está registrado para este artist)"
+   },
+   {
+    "nueva": "Nigrium Mortualia",
+    "buena": "Moriturio",
+    "retirados": 0,
+    "movidos": 1,
+    "alias": "(ya existía: ese alias ya está registrado para este artist)"
+   },
+   {
+    "nueva": "Gorepriest",
+    "buena": "Sol Nocturno",
+    "retirados": 4,
+    "movidos": 0,
+    "alias": "(ya existía: ese alias ya está registrado para este artist)"
+   },
+   {
+    "nueva": "Godless Crown",
+    "buena": "Godless",
+    "retirados": 1,
+    "movidos": 3,
+    "alias": "(ya existía: ese alias ya está registrado para este artist)"
+   },
+   {
+    "nueva": "Okkvlt",
+    "buena": "Cthonica",
+    "retirados": 1,
+    "movidos": 0,
+    "alias": "(ya existía: ese alias ya está registrado para este artist)"
+   },
+   {
+    "nueva": "Leviathan A.C.",
+    "buena": "Leviathan",
+    "retirados": 1,
+    "movidos": 6,
+    "alias": "(ya existía: ese alias ya está registrado para este artist)"
+   }
+  ]
+ },
+ "archivos": 11
+}

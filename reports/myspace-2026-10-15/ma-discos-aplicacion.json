@@ -1,0 +1,5738 @@
+{
+ "discos": 565,
+ "pistas": 2493,
+ "portadas": 473,
+ "fallos": 0,
+ "excluidos": 62,
+ "sinFicha": 60,
+ "detalle": [
+  {
+   "albumMa": 1121426,
+   "albumId": 28313,
+   "band": "Demise",
+   "title": "Extreme Gore Live",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 779329,
+   "albumId": 28314,
+   "band": "Demise",
+   "title": "Bits Session",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 887828,
+   "albumId": 28315,
+   "band": "Demise",
+   "title": "As You Die",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1120710,
+   "albumId": 28316,
+   "band": "Demise",
+   "title": "Plagued by the Essence of the Beast",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1302886,
+   "albumId": 28317,
+   "band": "Demise",
+   "title": "Domination",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1314437,
+   "albumId": 28318,
+   "band": "Demise",
+   "title": "Falseness",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 629435,
+   "albumId": 28319,
+   "band": "Khristenn Corpse",
+   "title": "Elements of an Erotical Agony",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 629814,
+   "albumId": 28320,
+   "band": "Khristenn Corpse",
+   "title": "Serpentnation - The Black Cult of Unholy Fornication",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 173896,
+   "albumId": 28321,
+   "band": "Scythe",
+   "title": "When Skin Lacerates",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 182636,
+   "albumId": 28322,
+   "band": "Scythe",
+   "title": "Living Corpses with the Poison Flesh",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 142394,
+   "albumId": 28323,
+   "band": "Resistencia",
+   "title": "Demo 1981",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20102
+  },
+  {
+   "albumMa": 32024,
+   "albumId": 28324,
+   "band": "Resistencia",
+   "title": "Dacapo",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": false,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1125288,
+   "albumId": 28325,
+   "band": "Resistencia",
+   "title": "Templo de la oscuridad",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1224734,
+   "albumId": 28326,
+   "band": "Resistencia",
+   "title": "Pared de concreto",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1224735,
+   "albumId": 28327,
+   "band": "Resistencia",
+   "title": "Los panas americanos",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1245552,
+   "albumId": 28328,
+   "band": "Resistencia",
+   "title": "Debes resistir",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1404387,
+   "albumId": 28329,
+   "band": "Overhate",
+   "title": "A Crushing Shade",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 182168,
+   "albumId": 28330,
+   "band": "Secta Canibal",
+   "title": "Adicción a la carne humana",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 182350,
+   "albumId": 28331,
+   "band": "Eutanasia Brutal",
+   "title": "Genocidio nuclear",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 247936,
+   "albumId": 28332,
+   "band": "Eutanasia Brutal",
+   "title": "SublimisdeusXII",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 182364,
+   "band": "2hd",
+   "title": "Dos humanidades diferentes",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 183085,
+   "albumId": 28333,
+   "band": "Igni Dare",
+   "title": "Sombras de luna llena",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 750802,
+   "albumId": 28334,
+   "band": "Igni Dare",
+   "title": "Nigro ignem consecratis",
+   "tipo": "compilation",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 551796,
+   "albumId": 28335,
+   "band": "Leben und Drama",
+   "title": "Prologo",
+   "tipo": "demo",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1168172,
+   "albumId": 28336,
+   "band": "Leben und Drama",
+   "title": "Magnate Mörder Dai",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 352304,
+   "albumId": 28337,
+   "band": "Cólera Morbus",
+   "title": "En tierra de odio",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 746921,
+   "albumId": 28338,
+   "band": "Korpus Inc.",
+   "title": "Putrefacción",
+   "tipo": "demo",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 337567,
+   "albumId": 28339,
+   "band": "Korpus Inc.",
+   "title": "Sistemas",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 885473,
+   "albumId": 28340,
+   "band": "Korpus Inc.",
+   "title": "Decada apocaliptica 2002-2012",
+   "tipo": "compilation",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 241821,
+   "albumId": 28341,
+   "band": "Avathar",
+   "title": "Avathar",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 241822,
+   "albumId": 28342,
+   "band": "Avathar",
+   "title": "Buscando un lugar",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20102
+  },
+  {
+   "albumMa": 885493,
+   "albumId": 28343,
+   "band": "Avathar",
+   "title": "Venezuelan Heavy Metal",
+   "tipo": "compilation",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1266430,
+   "albumId": 28344,
+   "band": "Avathar",
+   "title": "Avathido",
+   "tipo": "studio_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 1266432,
+   "albumId": 28345,
+   "band": "Avathar",
+   "title": "Despertar",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 186109,
+   "albumId": 28346,
+   "band": "Rhadamanthyz",
+   "title": "Demo 2007",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 186171,
+   "albumId": 28347,
+   "band": "Morrigan Crowley",
+   "title": "Del Mas Dorado Bar De Putas",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20102
+  },
+  {
+   "albumMa": 208183,
+   "albumId": 28348,
+   "band": "Hinris",
+   "title": "Hinris",
+   "tipo": "studio_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 208182,
+   "albumId": 28349,
+   "band": "Hinris",
+   "title": "Instrumental de luz",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 202665,
+   "albumId": 28350,
+   "band": "Raw Oath",
+   "title": "Demo 01 - The Unknown First Tape",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 202666,
+   "albumId": 28351,
+   "band": "Raw Oath",
+   "title": "Demo 02 - Fuck You Raw Oath Is Real",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20102
+  },
+  {
+   "albumMa": 202667,
+   "albumId": 28352,
+   "band": "Raw Oath",
+   "title": "Demo 03 - Black Noise Suicide(Venezuelan Hell Noise ritual)",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 202671,
+   "albumId": 28353,
+   "band": "Raw Oath",
+   "title": "Demo 04 - March of Death",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 202675,
+   "albumId": 28354,
+   "band": "Raw Oath",
+   "title": "Demo 06 - SSatanic Kampf",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 202668,
+   "albumId": 28355,
+   "band": "Raw Oath",
+   "title": "Anti-Human Holocaust",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20103
+  },
+  {
+   "albumMa": 202673,
+   "albumId": 28356,
+   "band": "Raw Oath",
+   "title": "Demo 05 - Apocalizum Orthodox Noizze",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 236919,
+   "albumId": 28357,
+   "band": "Raw Oath",
+   "title": "Demo 07 - Madness",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 236920,
+   "albumId": 28358,
+   "band": "Raw Oath",
+   "title": "Demo 08 - VIII",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 236921,
+   "albumId": 28359,
+   "band": "Raw Oath",
+   "title": "Demo 09 - Kult",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 236923,
+   "albumId": 28360,
+   "band": "Raw Oath",
+   "title": "Demo 11 - A Tribute to the Unknown Forest Poetry",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 257332,
+   "albumId": 28361,
+   "band": "Nota Profana",
+   "title": "The Lake",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 324849,
+   "albumId": 28362,
+   "band": "Divus Kirius",
+   "title": "Divus Kirius",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 592066,
+   "albumId": 28363,
+   "band": "Divus Kirius",
+   "title": "Invasores de cuerpos",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 262525,
+   "albumId": 28364,
+   "band": "Trastorno",
+   "title": "Tetragramaton",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 378015,
+   "albumId": 28365,
+   "band": "Trastorno",
+   "title": "Solemn and Glorious Cult",
+   "tipo": "live_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 1132908,
+   "albumId": 28366,
+   "band": "Trastorno",
+   "title": "God Almighty",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 222396,
+   "albumId": 28367,
+   "band": "Crocell",
+   "title": "Crocell",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 273794,
+   "albumId": 28368,
+   "band": "Crocell",
+   "title": "Agrakas",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 216965,
+   "albumId": 28369,
+   "band": "Infernal Moon",
+   "title": "Demo - Prelude in Flames",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": false,
+   "runId": 20103
+  },
+  {
+   "albumMa": 199900,
+   "albumId": 28370,
+   "band": "Infernal Moon",
+   "title": "Demo I",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": false,
+   "runId": 20103
+  },
+  {
+   "albumMa": 199901,
+   "band": "Infernal Moon",
+   "title": "Demo II",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 153245,
+   "albumId": 28371,
+   "band": "Slow Death",
+   "title": "Demo",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 71738,
+   "albumId": 28372,
+   "band": "Blasphemy",
+   "title": "Mental Apocalypse",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 39708,
+   "albumId": 28373,
+   "band": "Gore Asylum",
+   "title": "Demo I",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20103
+  },
+  {
+   "albumMa": 936666,
+   "albumId": 28374,
+   "band": "Torre de Marfil",
+   "title": "Azul",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 936667,
+   "albumId": 28375,
+   "band": "Torre de Marfil",
+   "title": "Perdido en ninguna parte",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 513612,
+   "albumId": 28376,
+   "band": "Cronos",
+   "title": "Demo",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": false,
+   "runId": 20103
+  },
+  {
+   "albumMa": 513613,
+   "band": "Cronos",
+   "title": "Demo",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 46120,
+   "albumId": 28377,
+   "band": "Noctis Imperium",
+   "title": "Noctis Imperium",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 46121,
+   "albumId": 28378,
+   "band": "Noctis Imperium",
+   "title": "Night Divine",
+   "tipo": "demo",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 648057,
+   "albumId": 28379,
+   "band": "Arkangel",
+   "title": "Loco por el Rock & Roll",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 1248791,
+   "albumId": 28380,
+   "band": "Arkangel",
+   "title": "The Wasted Years",
+   "tipo": "compilation",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 144868,
+   "albumId": 28381,
+   "band": "Adh Seidh",
+   "title": "Rehearsal Demo",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": false,
+   "runId": 20103
+  },
+  {
+   "albumMa": 49148,
+   "albumId": 28382,
+   "band": "The Art of Jor",
+   "title": "Damned You Are Jesus Christ",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 49470,
+   "albumId": 28383,
+   "band": "Morbus",
+   "title": "Promo 2002",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 614857,
+   "albumId": 28384,
+   "band": "Morbus",
+   "title": "20 años de herejía, decidía y enfermedad",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 198199,
+   "albumId": 28385,
+   "band": "Veldraveth",
+   "title": "For the Glory of Satan",
+   "tipo": "compilation",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 940982,
+   "albumId": 28386,
+   "band": "Veldraveth",
+   "title": "Void of Divinity",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 988389,
+   "albumId": 28387,
+   "band": "Veldraveth",
+   "title": "Martyrdom",
+   "tipo": "studio_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 58384,
+   "albumId": 28388,
+   "band": "Sagoth",
+   "title": "Destrucción masiva",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20103
+  },
+  {
+   "albumMa": 92898,
+   "albumId": 28389,
+   "band": "Sagoth",
+   "title": "Lucifer vivo",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20103
+  },
+  {
+   "albumMa": 612067,
+   "albumId": 28390,
+   "band": "Sagoth",
+   "title": "XVII años de odio y blasfemias",
+   "tipo": "compilation",
+   "pistas": 12,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 75536,
+   "albumId": 28391,
+   "band": "Subconsciente?",
+   "title": "El drama del suicidio (Suicide Drama)",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20104
+  },
+  {
+   "albumMa": 75531,
+   "albumId": 28392,
+   "band": "Belzabet",
+   "title": "Danzando en tinieblas",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20104
+  },
+  {
+   "albumMa": 73434,
+   "albumId": 28393,
+   "band": "Tinieblas",
+   "title": "Rehearsal 88",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": false,
+   "runId": 20104
+  },
+  {
+   "albumMa": 76302,
+   "albumId": 28394,
+   "band": "Tinieblas",
+   "title": "Rituales infernales",
+   "tipo": "live_album",
+   "pistas": 17,
+   "portada": false,
+   "runId": 20104
+  },
+  {
+   "albumMa": 213394,
+   "albumId": 28395,
+   "band": "Tinieblas",
+   "title": "Q.D.E.P",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 308907,
+   "albumId": 28396,
+   "band": "Tinieblas",
+   "title": "Diabólica",
+   "tipo": "studio_album",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 308909,
+   "albumId": 28397,
+   "band": "Tinieblas",
+   "title": "El Infierno en vivo",
+   "tipo": "live_album",
+   "pistas": 13,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 347552,
+   "albumId": 28398,
+   "band": "Tinieblas",
+   "title": "Destrozando tus huesos",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 395695,
+   "albumId": 28399,
+   "band": "Tinieblas",
+   "title": "Blasfemias 666",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 918662,
+   "albumId": 28400,
+   "band": "Tinieblas",
+   "title": "28 años - XXVII - Combatiendo en las lineas enemigas",
+   "tipo": "compilation",
+   "pistas": 28,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 400177,
+   "band": "Tinieblas",
+   "title": "Blasfemias 666",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 1047508,
+   "albumId": 28401,
+   "band": "Tinieblas",
+   "title": "Metal Destroyer",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 55031,
+   "albumId": 28402,
+   "band": "Kamá-Merú",
+   "title": "Era",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": false,
+   "runId": 20104
+  },
+  {
+   "albumMa": 55363,
+   "albumId": 28403,
+   "band": "Kamá-Merú",
+   "title": "Tears of Pain",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": false,
+   "runId": 20104
+  },
+  {
+   "albumMa": 179638,
+   "albumId": 28404,
+   "band": "Lord of the Thunder",
+   "title": "Lord of Thunder",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 56305,
+   "albumId": 28405,
+   "band": "Landsemk",
+   "title": "Jamás perderé la fe",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 355491,
+   "albumId": 28406,
+   "band": "Landsemk",
+   "title": "Stars - A Tribute to Ronnie James Dio",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 58473,
+   "albumId": 28407,
+   "band": "Baphometh",
+   "title": "Baphometh Rehearsal",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 58472,
+   "albumId": 28408,
+   "band": "Baphometh",
+   "title": "Boundaries of Insanity",
+   "tipo": "demo",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 67234,
+   "albumId": 28409,
+   "band": "Baphometh",
+   "title": "Rehearsal",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 58471,
+   "albumId": 28410,
+   "band": "Baphometh",
+   "title": "Ars Moriendi",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 104824,
+   "albumId": 28411,
+   "band": "Sentencia",
+   "title": "Demo 1991",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 91494,
+   "albumId": 28412,
+   "band": "Sentencia",
+   "title": "En vivo (Festival N.B)",
+   "tipo": "live_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 91495,
+   "albumId": 28413,
+   "band": "Sentencia",
+   "title": "Okta (Bootleg Maracay 1996)",
+   "tipo": "live_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 1235776,
+   "albumId": 28414,
+   "band": "Sentencia",
+   "title": "Hijos del sur",
+   "tipo": "ep",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 799191,
+   "albumId": 28415,
+   "band": "Necropsia",
+   "title": "Lagos de fuego - Batallas de ideales",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20104
+  },
+  {
+   "albumMa": 64607,
+   "albumId": 28416,
+   "band": "Natastor",
+   "title": "Blasfemia",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20104
+  },
+  {
+   "albumMa": 746612,
+   "albumId": 28417,
+   "band": "Natastor",
+   "title": "Juicio final",
+   "tipo": "demo",
+   "pistas": 8,
+   "portada": false,
+   "runId": 20104
+  },
+  {
+   "albumMa": 64608,
+   "albumId": 28418,
+   "band": "Natastor",
+   "title": "1992-1996",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 402312,
+   "albumId": 28419,
+   "band": "Natastor",
+   "title": "Servant of Darkness",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20104
+  },
+  {
+   "albumMa": 521413,
+   "albumId": 28420,
+   "band": "Natastor",
+   "title": "Legiones de terror",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 66637,
+   "albumId": 28421,
+   "band": "Necrofago",
+   "title": "Del mas allá",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 885782,
+   "albumId": 28422,
+   "band": "Necrofago",
+   "title": "Underbred",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 67275,
+   "albumId": 28423,
+   "band": "Trifixion",
+   "title": "Demo '96",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 748995,
+   "albumId": 28424,
+   "band": "Trifixion",
+   "title": "Descrucificados (Demos 95 - 96)",
+   "tipo": "compilation",
+   "pistas": 13,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 1127774,
+   "albumId": 28425,
+   "band": "Trifixion",
+   "title": "Apocalysis",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 1134581,
+   "albumId": 28426,
+   "band": "Trifixion",
+   "title": "Intikam",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 140174,
+   "albumId": 28427,
+   "band": "Agonía",
+   "title": "Quema de humanos",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 95277,
+   "albumId": 28428,
+   "band": "Diphteria",
+   "title": "Satan's Sacrifice",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20104
+  },
+  {
+   "albumMa": 99480,
+   "albumId": 28429,
+   "band": "Emptiness",
+   "title": "Truths",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 907874,
+   "albumId": 28430,
+   "band": "Orion",
+   "title": "En medio del dolor",
+   "tipo": "demo",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 885500,
+   "albumId": 28431,
+   "band": "Obertura",
+   "title": "Buscando vivir...",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 69307,
+   "albumId": 28432,
+   "band": "Iluvatar",
+   "title": "Fragments",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 885482,
+   "albumId": 28433,
+   "band": "Trauma",
+   "title": "En nombre de la ciencia",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 348744,
+   "albumId": 28434,
+   "band": "Trauma",
+   "title": "Buitres karroñeros",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 885489,
+   "albumId": 28435,
+   "band": "Trauma",
+   "title": "25 años de ruido",
+   "tipo": "compilation",
+   "pistas": 40,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1035423,
+   "albumId": 28436,
+   "band": "Trauma",
+   "title": "El grito de la miseria",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1035421,
+   "albumId": 28437,
+   "band": "Trauma",
+   "title": "Poder Punk",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 302222,
+   "albumId": 28438,
+   "band": "Arastral",
+   "title": "Olvidas que Sufres",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 495519,
+   "albumId": 28439,
+   "band": "Arastral",
+   "title": "Ana Bolena",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 495535,
+   "albumId": 28440,
+   "band": "Arastral",
+   "title": "Astro Imperial",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 302224,
+   "albumId": 28441,
+   "band": "Arastral",
+   "title": "En la Tierra como en el Cielo",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 495527,
+   "albumId": 28442,
+   "band": "Arastral",
+   "title": "En Vivo por la Madre Tierra - Gillmanfest Aragua 2010",
+   "tipo": "live_album",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 495520,
+   "albumId": 28443,
+   "band": "Arastral",
+   "title": "Conciencias",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1104478,
+   "albumId": 28444,
+   "band": "Collapsing System",
+   "title": "Human Nature",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 394758,
+   "albumId": 28445,
+   "band": "Astraria",
+   "title": "Sons of a Sick Creation",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 219300,
+   "albumId": 28446,
+   "band": "Overground",
+   "title": "Diciembre 2006",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 219301,
+   "albumId": 28447,
+   "band": "Overground",
+   "title": "Whispers for the Gravedigger",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 218888,
+   "albumId": 28448,
+   "band": "Nuclear Devastation",
+   "title": "Maqueta",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1213758,
+   "albumId": 28449,
+   "band": "Sibelius",
+   "title": "Orquestas, Vol. I",
+   "tipo": "compilation",
+   "pistas": 30,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 550898,
+   "albumId": 28450,
+   "band": "Cultura Tres",
+   "title": "Demo 2006",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1092831,
+   "albumId": 28451,
+   "band": "Cultura Tres",
+   "title": "Sal y piedras",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1343893,
+   "albumId": 28452,
+   "band": "Cultura Tres",
+   "title": "Cien",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 239075,
+   "albumId": 28453,
+   "band": "Sexto Sonar",
+   "title": "Demo",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 520555,
+   "albumId": 28454,
+   "band": "Necrosis",
+   "title": "Demo",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 251348,
+   "band": "Necrosis",
+   "title": "Demo 1988",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 255451,
+   "albumId": 28455,
+   "band": "Bleeding Tears",
+   "title": "The Dark Has Arrived",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 328897,
+   "albumId": 28456,
+   "band": "Bleeding Tears",
+   "title": "Bleeding Tears",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 319237,
+   "albumId": 28457,
+   "band": "Brutal Destripation",
+   "title": "Inferior Races",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1446588,
+   "albumId": 28458,
+   "band": "Mantra",
+   "title": "Beyond Isolation",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1475980,
+   "albumId": 28459,
+   "band": "Mantra",
+   "title": "An Empty Sequence of Life",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 812855,
+   "albumId": 28460,
+   "band": "Mantra",
+   "title": "Symbolic Moments",
+   "tipo": "single",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1392210,
+   "albumId": 28461,
+   "band": "Mantra",
+   "title": "Fear What You Will Become",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1475981,
+   "albumId": 28462,
+   "band": "Mantra",
+   "title": "Away from the Shore",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1475983,
+   "albumId": 28463,
+   "band": "Mantra",
+   "title": "On the Threshold",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 929299,
+   "albumId": 28464,
+   "band": "Mantra",
+   "title": "It's Time",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1475986,
+   "albumId": 28465,
+   "band": "Mantra",
+   "title": "Hate Lay Hidden",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1446584,
+   "albumId": 28466,
+   "band": "Mantra",
+   "title": "...and Be Remembered as One of the Braves",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1446586,
+   "albumId": 28467,
+   "band": "Mantra",
+   "title": "Writing in the Sand",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20105
+  },
+  {
+   "albumMa": 1446585,
+   "albumId": 28468,
+   "band": "Mantra",
+   "title": "The Book",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 1475776,
+   "albumId": 28469,
+   "band": "Mantra",
+   "title": "Wake Up Call",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20106
+  },
+  {
+   "albumMa": 970213,
+   "albumId": 28470,
+   "band": "Mantra",
+   "title": "Streaming Sessions",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 1392212,
+   "albumId": 28471,
+   "band": "Mantra",
+   "title": "Blinded the New World",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 1475989,
+   "albumId": 28472,
+   "band": "Mantra",
+   "title": "Live in Cumaná (Bootleg)",
+   "tipo": "live_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 392213,
+   "albumId": 28473,
+   "band": "Thunderhell",
+   "title": "Hell Trip",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 557266,
+   "albumId": 28474,
+   "band": "Brutal Assault",
+   "title": "The Claws of the Purgue",
+   "tipo": "studio_album",
+   "pistas": 16,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 711481,
+   "albumId": 28475,
+   "band": "Mashiaj",
+   "title": "Mashiaj",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 661445,
+   "albumId": 28476,
+   "band": "Mashiaj",
+   "title": "Perdedor",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 312109,
+   "albumId": 28477,
+   "band": "Embriogenesis",
+   "title": "Evolución",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 294357,
+   "albumId": 28478,
+   "band": "Embriogenesis",
+   "title": "The Sunshine in the Dark",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 317737,
+   "albumId": 28479,
+   "band": "Embriogenesis",
+   "title": "Promo 2010",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20106
+  },
+  {
+   "albumMa": 373484,
+   "albumId": 28480,
+   "band": "Embriogenesis",
+   "title": "Embriogenesis En Vivo (Santa Barbara del Zulia)",
+   "tipo": "live_album",
+   "pistas": 4,
+   "portada": false,
+   "runId": 20106
+  },
+  {
+   "albumMa": 317731,
+   "albumId": 28481,
+   "band": "Embriogenesis",
+   "title": "Darkgenesis",
+   "tipo": "ep",
+   "pistas": 7,
+   "portada": false,
+   "runId": 20106
+  },
+  {
+   "albumMa": 1404741,
+   "albumId": 28482,
+   "band": "Embriogenesis",
+   "title": "Call of Pripyat",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20106
+  },
+  {
+   "albumMa": 851382,
+   "albumId": 28483,
+   "band": "Kraptor",
+   "title": "Lie Is My Name",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20106
+  },
+  {
+   "albumMa": 851384,
+   "albumId": 28484,
+   "band": "Kraptor",
+   "title": "Like If Be a Game",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 297746,
+   "albumId": 28485,
+   "band": "Morzgul",
+   "title": "Abused God",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 299073,
+   "albumId": 28486,
+   "band": "My Own Creation",
+   "title": "Upwards, Downwards",
+   "tipo": "single",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 300054,
+   "albumId": 28487,
+   "band": "Arma Letal",
+   "title": "Fuego contra fuego",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 392114,
+   "albumId": 28488,
+   "band": "Arma Letal",
+   "title": "El milagro",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 304406,
+   "albumId": 28489,
+   "band": "Coprophagist Satisfaction",
+   "title": "Sexual Anexitis",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 865804,
+   "albumId": 28490,
+   "band": "Coprophagist Satisfaction",
+   "title": "Legacy of a Reign Impure",
+   "tipo": "compilation",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 1288633,
+   "albumId": 28491,
+   "band": "Coprophagist Satisfaction",
+   "title": "Live in Maracay",
+   "tipo": "live_album",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 741699,
+   "albumId": 28492,
+   "band": "Zombies No",
+   "title": "Divided We Fall",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 861738,
+   "albumId": 28493,
+   "band": "Zombies No",
+   "title": "All You Can Hate",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 308910,
+   "albumId": 28494,
+   "band": "Möbius Tyranny",
+   "title": "Hideous Cosmogony (Raw Rehearsal)",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 579038,
+   "albumId": 28495,
+   "band": "Mertcurich",
+   "title": "Pestilencia",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 309805,
+   "albumId": 28496,
+   "band": "Mertcurich",
+   "title": "Total Destruction",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 818231,
+   "albumId": 28497,
+   "band": "Selbst",
+   "title": "The Guardian of the Final Plague",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 1110143,
+   "albumId": 28498,
+   "band": "Selbst",
+   "title": "Vortex of Anguish and Death",
+   "tipo": "live_album",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 1223075,
+   "albumId": 28499,
+   "band": "Selbst",
+   "title": "Chant of Self Confrontation",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 1224431,
+   "albumId": 28500,
+   "band": "Selbst",
+   "title": "When True Loneliness Is Experienced",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20106
+  },
+  {
+   "albumMa": 319615,
+   "albumId": 28501,
+   "band": "Dargothar",
+   "title": "Argoth",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20106
+  },
+  {
+   "albumMa": 391243,
+   "albumId": 28502,
+   "band": "Anopsia",
+   "title": "Poveglia",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 1211480,
+   "albumId": 28503,
+   "band": "Disaster Prophet",
+   "title": "Beautiful Chaos",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 323416,
+   "albumId": 28504,
+   "band": "Blindaje",
+   "title": "Sencillo",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 323421,
+   "albumId": 28505,
+   "band": "Blindaje",
+   "title": "EP",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 615343,
+   "albumId": 28506,
+   "band": "Blindaje",
+   "title": "El ancestro",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20106
+  },
+  {
+   "albumMa": 906793,
+   "band": "Blindaje",
+   "title": "EP",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 906800,
+   "albumId": 28507,
+   "band": "Blindaje",
+   "title": "Blindaje",
+   "tipo": "studio_album",
+   "pistas": 13,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 366683,
+   "albumId": 28508,
+   "band": "Manodura",
+   "title": "El Camino hacia el metal",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 366684,
+   "albumId": 28509,
+   "band": "Manodura",
+   "title": "Librennos",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 361019,
+   "albumId": 28510,
+   "band": "Manodura",
+   "title": "Vivencias de mi pueblo",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 913305,
+   "albumId": 28511,
+   "band": "Manodura",
+   "title": "Un canto pa' mi pueblo",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 729137,
+   "albumId": 28512,
+   "band": "Gravelord",
+   "title": "B-Sides",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1193701,
+   "albumId": 28513,
+   "band": "Brew Army",
+   "title": "Live Bitsession 19/02/2011",
+   "tipo": "live_album",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1221725,
+   "albumId": 28514,
+   "band": "Brew Army",
+   "title": "Rebel",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1463962,
+   "albumId": 28515,
+   "band": "Brew Army",
+   "title": "Many Miles to Ride",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 384880,
+   "albumId": 28516,
+   "band": "Blackfemia",
+   "title": "Condenados a la perdición",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 351329,
+   "albumId": 28517,
+   "band": "Hyon",
+   "title": "Versos de rencor",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 352795,
+   "albumId": 28518,
+   "band": "Hyon",
+   "title": "Obtener la victoria",
+   "tipo": "single",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 389344,
+   "albumId": 28519,
+   "band": "Hyon",
+   "title": "El principe celestial",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 352833,
+   "albumId": 28520,
+   "band": "Wolfang",
+   "title": "Soledad",
+   "tipo": "ep",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20107
+  },
+  {
+   "albumMa": 447739,
+   "albumId": 28521,
+   "band": "Wolfang",
+   "title": "Dolor",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 361224,
+   "albumId": 28522,
+   "band": "Stormthrash",
+   "title": "War Death Terror",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1129498,
+   "albumId": 28523,
+   "band": "Maskhera",
+   "title": "Somos Legión",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1129499,
+   "albumId": 28524,
+   "band": "Maskhera",
+   "title": "Venezuela Metal Fest II",
+   "tipo": "live_album",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1129497,
+   "albumId": 28525,
+   "band": "Maskhera",
+   "title": "Hasta Simpre",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1341540,
+   "albumId": 28526,
+   "band": "Maskhera",
+   "title": "Línea de fuego (en vivo)",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1341542,
+   "albumId": 28527,
+   "band": "Maskhera",
+   "title": "La fuerza que nos unió",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1423934,
+   "albumId": 28528,
+   "band": "Maskhera",
+   "title": "Crazy Train",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 382398,
+   "albumId": 28529,
+   "band": "Lithopedion",
+   "title": "BlackHymn",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20107
+  },
+  {
+   "albumMa": 667982,
+   "albumId": 28530,
+   "band": "Lithopedion",
+   "title": "Antagonist",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 365080,
+   "albumId": 28531,
+   "band": "Nemesis",
+   "title": "Anarquia en L.A.",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 627153,
+   "albumId": 28532,
+   "band": "Nemesis",
+   "title": "Nemesis",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1246884,
+   "band": "Nemesis",
+   "title": "Anarquia en L.A. (Vivo en Pertutti)",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 1246880,
+   "albumId": 28533,
+   "band": "Nemesis",
+   "title": "Revolucion (Vivo en Pertutti)",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1255583,
+   "albumId": 28534,
+   "band": "Nemesis",
+   "title": "El Todopoderoso (Vivo en Pertutti)",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1255580,
+   "albumId": 28535,
+   "band": "Nemesis",
+   "title": "El Imperio (Vivo en Pertutti)",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1318036,
+   "albumId": 28536,
+   "band": "Nemesis",
+   "title": "Vivo en Pertutti",
+   "tipo": "live_album",
+   "pistas": 12,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 368435,
+   "albumId": 28537,
+   "band": "Immolated Souls",
+   "title": "Audit to Human Engine",
+   "tipo": "ep",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 939731,
+   "albumId": 28538,
+   "band": "Living Decomposition",
+   "title": "Internal Defragmentation",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 371745,
+   "albumId": 28539,
+   "band": "Brooken",
+   "title": "Life Inside the Death",
+   "tipo": "demo",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 371746,
+   "albumId": 28540,
+   "band": "Brooken",
+   "title": "Suicidio (La verdad y la mentira)",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 371744,
+   "albumId": 28541,
+   "band": "Brooken",
+   "title": "Naturaleza",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 371743,
+   "albumId": 28542,
+   "band": "Brooken",
+   "title": "Reencarnación en vida",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 371742,
+   "albumId": 28543,
+   "band": "Brooken",
+   "title": "Evolution",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 371747,
+   "albumId": 28544,
+   "band": "Brooken",
+   "title": "Story 97-05",
+   "tipo": "compilation",
+   "pistas": 19,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 371741,
+   "albumId": 28545,
+   "band": "Brooken",
+   "title": "Poder inmortal",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20107
+  },
+  {
+   "albumMa": 1197803,
+   "albumId": 28546,
+   "band": "Brooken",
+   "title": "Anticristo XXI",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 371738,
+   "albumId": 28547,
+   "band": "Brooken",
+   "title": "En vivo desde el 7mo Festival de Rock 100% Venezolano",
+   "tipo": "live_album",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 371737,
+   "albumId": 28548,
+   "band": "Brooken",
+   "title": "Necrogenocidas",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 371736,
+   "albumId": 28549,
+   "band": "Brooken",
+   "title": "La marca de la bestia",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1194352,
+   "albumId": 28550,
+   "band": "Brooken",
+   "title": "Pandemonium",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1197801,
+   "albumId": 28551,
+   "band": "Brooken",
+   "title": "La Cruel Verdad",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 380646,
+   "albumId": 28552,
+   "band": "Rudras",
+   "title": "Delusional Forest",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1219577,
+   "albumId": 28553,
+   "band": "Abaddon",
+   "title": "Dark Funeral",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 388231,
+   "albumId": 28554,
+   "band": "Sick Feel",
+   "title": "Demo 2008",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20108
+  },
+  {
+   "albumMa": 388027,
+   "albumId": 28555,
+   "band": "Sick Feel",
+   "title": "Demo 2011",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 388232,
+   "albumId": 28556,
+   "band": "Sick Feel",
+   "title": "Promo 2012",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1240103,
+   "albumId": 28557,
+   "band": "Sick Feel",
+   "title": "Surreal Host",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1240094,
+   "albumId": 28558,
+   "band": "Sick Feel",
+   "title": "Nothing Inside",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1254416,
+   "albumId": 28559,
+   "band": "Sick Feel",
+   "title": "Reach Bottom",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1300204,
+   "albumId": 28560,
+   "band": "Sick Feel",
+   "title": "Self Incrimination",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 605672,
+   "albumId": 28561,
+   "band": "Goat Serpent",
+   "title": "Supra Summum Mortem",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1323672,
+   "albumId": 28562,
+   "band": "Goat Serpent",
+   "title": "Luzbel Vol.1 Black Metal Under Venezuela (Compilado)",
+   "tipo": "compilation",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 773198,
+   "albumId": 28563,
+   "band": "Goat Serpent",
+   "title": "Art of Rebellion/Supra Summum Mortem",
+   "tipo": "compilation",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1323674,
+   "albumId": 28564,
+   "band": "Goat Serpent",
+   "title": "The Returns Of The Black Legions Latín América (Compilado)",
+   "tipo": "compilation",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1318015,
+   "albumId": 28565,
+   "band": "Goat Serpent",
+   "title": "Mors Deorum Omnium",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 389916,
+   "albumId": 28566,
+   "band": "Predator T",
+   "title": "Thrash, Beer & Sex",
+   "tipo": "studio_album",
+   "pistas": 15,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 440143,
+   "albumId": 28567,
+   "band": "Predator T",
+   "title": "Cadaver",
+   "tipo": "studio_album",
+   "pistas": 15,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 522957,
+   "albumId": 28568,
+   "band": "Predator T",
+   "title": "9 Years Underground",
+   "tipo": "compilation",
+   "pistas": 30,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 396633,
+   "albumId": 28569,
+   "band": "Remembrance",
+   "title": "Soulless",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 398840,
+   "albumId": 28570,
+   "band": "Tephros",
+   "title": "Abismo",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 745508,
+   "albumId": 28571,
+   "band": "Tephros",
+   "title": "Queen Dethroned",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 403726,
+   "albumId": 28572,
+   "band": "Nefarius",
+   "title": "Nefarius",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 405169,
+   "albumId": 28573,
+   "band": "Laberinto",
+   "title": "Radiation",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 405170,
+   "albumId": 28574,
+   "band": "Laberinto",
+   "title": "The World You Are Making",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1059039,
+   "albumId": 28575,
+   "band": "Sistema Diez",
+   "title": "En pajaro negro, Villa Martelli",
+   "tipo": "studio_album",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1059040,
+   "albumId": 28576,
+   "band": "Sistema Diez",
+   "title": "Contra todo pronóstico",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 1355090,
+   "albumId": 28577,
+   "band": "Sistema Diez",
+   "title": "El tesoro del cielo",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 407082,
+   "albumId": 28578,
+   "band": "Puah",
+   "title": "Demo",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 409212,
+   "albumId": 28579,
+   "band": "Agonía",
+   "title": "Unleash the Truth",
+   "tipo": "studio_album",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 763219,
+   "albumId": 28580,
+   "band": "Neo Noir",
+   "title": "Forbidden Chants of Spiritual Famine",
+   "tipo": "studio_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 410476,
+   "albumId": 28581,
+   "band": "Adamantio",
+   "title": "Unworthy Ways of Society",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 411269,
+   "albumId": 28582,
+   "band": "Fractal",
+   "title": "Duospheres",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 962408,
+   "albumId": 28583,
+   "band": "Fractal",
+   "title": "Altered State Patterns 1",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 411454,
+   "albumId": 28584,
+   "band": "Silmarillion",
+   "title": "Espada De Luz",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 411452,
+   "albumId": 28585,
+   "band": "Silmarillion",
+   "title": "Resistencia Ancestral",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20108
+  },
+  {
+   "albumMa": 923832,
+   "albumId": 28586,
+   "band": "Nocturnal Hollow",
+   "title": "Baphometh Crown",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 982580,
+   "albumId": 28587,
+   "band": "Nocturnal Hollow",
+   "title": "Devilish and Raw / Rare and Unreleased Material 2010 - 2021",
+   "tipo": "compilation",
+   "pistas": 14,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1143745,
+   "albumId": 28588,
+   "band": "Nocturnal Hollow",
+   "title": "Baptizing the Dead",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1150246,
+   "albumId": 28589,
+   "band": "Nocturnal Hollow",
+   "title": "Into the Catacombs",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1156176,
+   "albumId": 28590,
+   "band": "Nocturnal Hollow",
+   "title": "Wretched Rituals",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1072988,
+   "albumId": 28591,
+   "band": "Optofobia",
+   "title": "Hacia el matadero",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 844885,
+   "albumId": 28592,
+   "band": "Malevolencia",
+   "title": "The Storms Gates of Hell",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20109
+  },
+  {
+   "albumMa": 594950,
+   "albumId": 28593,
+   "band": "Malevolencia",
+   "title": "Slay the Messiah, Aberrated Nazarene",
+   "tipo": "studio_album",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 940595,
+   "albumId": 28594,
+   "band": "Malevolencia",
+   "title": "Honor and Glory to Black Metal",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1110654,
+   "albumId": 28595,
+   "band": "Malevolencia",
+   "title": "The Black Death Command (Compilation Vol.1)",
+   "tipo": "compilation",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1110652,
+   "albumId": 28596,
+   "band": "Malevolencia",
+   "title": "Metalkinesia Capítulo Falcón (Compilado)",
+   "tipo": "compilation",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1109981,
+   "albumId": 28597,
+   "band": "Malevolencia",
+   "title": "Las hijas escarlatas de Babalon",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1323675,
+   "albumId": 28598,
+   "band": "Malevolencia",
+   "title": "Raise The Dead (Cover Tributo Bathory)",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20109
+  },
+  {
+   "albumMa": 820745,
+   "albumId": 28599,
+   "band": "Morghduet",
+   "title": "Ansiedad",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 820747,
+   "albumId": 28600,
+   "band": "Morghduet",
+   "title": "La fuerza del odio",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 820891,
+   "albumId": 28601,
+   "band": "Morghduet",
+   "title": "Maldita sea tu existencia",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 681544,
+   "albumId": 28602,
+   "band": "Morghduet",
+   "title": "El ocaso de la fe",
+   "tipo": "ep",
+   "pistas": 9,
+   "portada": false,
+   "runId": 20109
+  },
+  {
+   "albumMa": 761856,
+   "albumId": 28603,
+   "band": "Morghduet",
+   "title": "En las sombras de la muerte",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 848256,
+   "albumId": 28604,
+   "band": "Morghduet",
+   "title": "Un oxcvro y maldito odio",
+   "tipo": "compilation",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 899752,
+   "albumId": 28605,
+   "band": "Morghduet",
+   "title": "El libido de la muerte",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1222087,
+   "albumId": 28606,
+   "band": "Morghduet",
+   "title": "Artillero de odio",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 442823,
+   "albumId": 28607,
+   "band": "La Cienaga",
+   "title": "Demo MMXIV",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 762706,
+   "albumId": 28608,
+   "band": "La Cienaga",
+   "title": "Ningun dios",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 458607,
+   "albumId": 28609,
+   "band": "Sullen",
+   "title": "Parasite in Agony",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 498313,
+   "albumId": 28610,
+   "band": "Sullen",
+   "title": "Demons Devour Your Flesh",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1134444,
+   "albumId": 28611,
+   "band": "Anfitrite",
+   "title": "Pandora",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1301364,
+   "albumId": 28612,
+   "band": "Anfitrite",
+   "title": "Final Light",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1299394,
+   "albumId": 28613,
+   "band": "Anfitrite",
+   "title": "Clitemnestra",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 487207,
+   "albumId": 28614,
+   "band": "Hellbents Rise",
+   "title": "The Brotherhood of Hatred",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1419575,
+   "albumId": 28615,
+   "band": "Theurgia",
+   "title": "Emanations",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1041781,
+   "albumId": 28616,
+   "band": "Theurgia",
+   "title": "Virtue",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": false,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1419573,
+   "albumId": 28617,
+   "band": "Theurgia",
+   "title": "The World's Predator",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1437272,
+   "albumId": 28618,
+   "band": "Theurgia",
+   "title": "Mundane Exhibition of Misery",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 557252,
+   "albumId": 28619,
+   "band": "Beyond of Desolation",
+   "title": "En busca de un horizonte",
+   "tipo": "studio_album",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 526468,
+   "albumId": 28620,
+   "band": "Lethal Destroyer",
+   "title": "Human Atrocity",
+   "tipo": "ep",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 885506,
+   "albumId": 28621,
+   "band": "Lethal Destroyer",
+   "title": "Begin the Bloodshed",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 736714,
+   "albumId": 28622,
+   "band": "Moriturio",
+   "title": "Luminatione Exaltat Serpens",
+   "tipo": "compilation",
+   "pistas": 7,
+   "portada": false,
+   "runId": 20109
+  },
+  {
+   "albumMa": 1433979,
+   "albumId": 28623,
+   "band": "Moriturio",
+   "title": "Illuminatus Serpentis Mortis",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 564720,
+   "albumId": 28624,
+   "band": "Porta Infernum",
+   "title": "Lujuria infernal",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 564718,
+   "albumId": 28625,
+   "band": "Porta Infernum",
+   "title": "Oblivisci Castitatis",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20109
+  },
+  {
+   "albumMa": 564722,
+   "albumId": 28626,
+   "band": "Desolated Souls",
+   "title": "Drowned in My Loneliness",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 596122,
+   "albumId": 28627,
+   "band": "Desolated Souls",
+   "title": "As the Time Go By",
+   "tipo": "studio_album",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 564724,
+   "albumId": 28628,
+   "band": "Desolated Souls",
+   "title": "Lost Between Four Walls",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 849971,
+   "albumId": 28629,
+   "band": "Desolated Souls",
+   "title": "Compilation Void",
+   "tipo": "compilation",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 849970,
+   "albumId": 28630,
+   "band": "Desolated Souls",
+   "title": "Instrumental Void",
+   "tipo": "compilation",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 547631,
+   "albumId": 28631,
+   "band": "Haz",
+   "title": "Todos unidos",
+   "tipo": "studio_album",
+   "pistas": 12,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 899075,
+   "albumId": 28632,
+   "band": "Biowarfare",
+   "title": "Wiping Out Human Race",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 778458,
+   "albumId": 28633,
+   "band": "Alice in Hell",
+   "title": "Corazón, sangre, entrañas",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": false,
+   "runId": 20110
+  },
+  {
+   "albumMa": 778470,
+   "albumId": 28634,
+   "band": "Alice in Hell",
+   "title": "Alice in Hell",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 568174,
+   "albumId": 28635,
+   "band": "Among Disaster",
+   "title": "Blood Demands Blood",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1223837,
+   "albumId": 28636,
+   "band": "Among Disaster",
+   "title": "Death Shall Rise Again",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1220067,
+   "albumId": 28637,
+   "band": "Dose",
+   "title": "Forgotten Recordings",
+   "tipo": "compilation",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 595794,
+   "albumId": 28638,
+   "band": "Amordazados",
+   "title": "Las balanzas",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1163810,
+   "albumId": 28639,
+   "band": "Nekro Cvlt Desecration",
+   "title": "The Psalm of the Black Goat",
+   "tipo": "ep",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1350343,
+   "albumId": 28640,
+   "band": "Nekro Cvlt Desecration",
+   "title": "Purification in the Witchcraft Flames",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 605952,
+   "albumId": 28641,
+   "band": "Sentencia Ácida",
+   "title": "República del silencio",
+   "tipo": "ep",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1151408,
+   "albumId": 28642,
+   "band": "Irillion",
+   "title": "Mélamar",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 939975,
+   "albumId": 28643,
+   "band": "Morbid Defecation",
+   "title": "Best & Outtakes",
+   "tipo": "compilation",
+   "pistas": 12,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 857342,
+   "albumId": 28644,
+   "band": "Sequía Negra",
+   "title": "6",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1428855,
+   "albumId": 28645,
+   "band": "Sequía Negra",
+   "title": "Alma solitaria",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 726659,
+   "albumId": 28646,
+   "band": "Boogieman's Curda",
+   "title": "Merchants of Chaos",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1205956,
+   "albumId": 28647,
+   "band": "Osteoporosis Aguda",
+   "title": "Bienvenida oscuridad, PT.1: Palingenesia",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 699401,
+   "albumId": 28648,
+   "band": "Roraima",
+   "title": "Roraima",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 698275,
+   "albumId": 28649,
+   "band": "Roraima",
+   "title": "Wahari Kuawai",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 880974,
+   "albumId": 28650,
+   "band": "Roraima",
+   "title": "Catatumbo",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 933620,
+   "albumId": 28651,
+   "band": "Roraima",
+   "title": "WR",
+   "tipo": "studio_album",
+   "pistas": 13,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1021843,
+   "albumId": 28652,
+   "band": "Roraima",
+   "title": "Caribay",
+   "tipo": "studio_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1105209,
+   "albumId": 28653,
+   "band": "Roraima",
+   "title": "Caribe",
+   "tipo": "studio_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1256165,
+   "albumId": 28654,
+   "band": "Roraima",
+   "title": "Caroni Orinoco",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 641297,
+   "albumId": 28655,
+   "band": "Imitheos",
+   "title": "The New Order of Chaos",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1128396,
+   "albumId": 28656,
+   "band": "Southaven",
+   "title": "Velas negras",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1128395,
+   "albumId": 28657,
+   "band": "Southaven",
+   "title": "Santa muerte",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1128394,
+   "albumId": 28658,
+   "band": "Southaven",
+   "title": "Sesiones pandémicas",
+   "tipo": "studio_album",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 653187,
+   "albumId": 28659,
+   "band": "Escudo",
+   "title": "Rock es revolución",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 964630,
+   "albumId": 28660,
+   "band": "Escudo",
+   "title": "Incorrompible",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1361480,
+   "albumId": 28661,
+   "band": "Escudo",
+   "title": "Alma en condena",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 660675,
+   "albumId": 28662,
+   "band": "Stalingrado",
+   "title": "D E M O",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 861786,
+   "albumId": 28663,
+   "band": "Stalingrado",
+   "title": "Stalingrado",
+   "tipo": "compilation",
+   "pistas": 15,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1316425,
+   "albumId": 28664,
+   "band": "Nox Desperatio",
+   "title": "Muerte al cuerpo carnal tras la catarsis espiritual",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 1395222,
+   "albumId": 28665,
+   "band": "Masturbation with the Bible",
+   "title": "Odium",
+   "tipo": "studio_album",
+   "pistas": 13,
+   "portada": true,
+   "runId": 20110
+  },
+  {
+   "albumMa": 711620,
+   "albumId": 28666,
+   "band": "Deflesh the Abducted",
+   "title": "Sickening Voices",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 846512,
+   "albumId": 28667,
+   "band": "Ghriéving",
+   "title": "Chimére de Hypnos",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 846547,
+   "albumId": 28668,
+   "band": "Ghriéving",
+   "title": "2017/2019 Discography",
+   "tipo": "compilation",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 872985,
+   "albumId": 28669,
+   "band": "P3D1TVM",
+   "title": "She Was Not Ready for T​.​A​.​P.",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1396395,
+   "albumId": 28670,
+   "band": "P3D1TVM",
+   "title": "True Anal Story",
+   "tipo": "studio_album",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1290146,
+   "albumId": 28671,
+   "band": "Kolman",
+   "title": "Somos Metal",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1002030,
+   "albumId": 28672,
+   "band": "Kveldulv",
+   "title": "A Night Before Funeral",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1419359,
+   "albumId": 28673,
+   "band": "Kveldulv",
+   "title": "Her Chants from Within the Abyss Depths",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1397547,
+   "albumId": 28674,
+   "band": "Civilis",
+   "title": "Chosen One",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1397548,
+   "albumId": 28675,
+   "band": "Civilis",
+   "title": "Powerslave",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1397549,
+   "albumId": 28676,
+   "band": "Civilis",
+   "title": "Human Infection",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1391903,
+   "albumId": 28677,
+   "band": "Civilis",
+   "title": "Chapter II: The Sleeping Prophet",
+   "tipo": "studio_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 940585,
+   "albumId": 28678,
+   "band": "Trallador",
+   "title": "1+1=0",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 738423,
+   "albumId": 28679,
+   "band": "Atiko",
+   "title": "Al borde del abismo",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 738265,
+   "albumId": 28680,
+   "band": "Atiko",
+   "title": "Atiko",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 738157,
+   "albumId": 28681,
+   "band": "Atiko",
+   "title": "EP 2003",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 738159,
+   "albumId": 28682,
+   "band": "Atiko",
+   "title": "Demo",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 738161,
+   "albumId": 28683,
+   "band": "Atiko",
+   "title": "Ancestros",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 738269,
+   "albumId": 28684,
+   "band": "Atiko",
+   "title": "EP 2010",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 738424,
+   "band": "Atiko",
+   "title": "Ancestros",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 738267,
+   "albumId": 28685,
+   "band": "Atiko",
+   "title": "EP's 2003-2010",
+   "tipo": "compilation",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 738426,
+   "albumId": 28686,
+   "band": "Atiko",
+   "title": "Cuando un pueblo ciego llora",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 738428,
+   "albumId": 28687,
+   "band": "Atiko",
+   "title": "En vivo Metal Crow II",
+   "tipo": "live_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 740020,
+   "albumId": 28688,
+   "band": "Human Annihilation",
+   "title": "Buried Alive",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 831835,
+   "albumId": 28689,
+   "band": "Human Annihilation",
+   "title": "War Inside",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 806964,
+   "albumId": 28690,
+   "band": "Messiah in the Abyss",
+   "title": "The Cursed God",
+   "tipo": "studio_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 909957,
+   "albumId": 28691,
+   "band": "Messiah in the Abyss",
+   "title": "Necromanticae",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1095991,
+   "albumId": 28692,
+   "band": "Messiah in the Abyss",
+   "title": "Noumenon",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1111416,
+   "albumId": 28693,
+   "band": "Messiah in the Abyss",
+   "title": "Epigram of the Unjust",
+   "tipo": "studio_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 778251,
+   "albumId": 28694,
+   "band": "ThrasherHell",
+   "title": "ThrasherHell",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1191046,
+   "albumId": 28695,
+   "band": "In Nomen",
+   "title": "Precepto Traidor",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1191045,
+   "albumId": 28696,
+   "band": "In Nomen",
+   "title": "Primitivo",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1191044,
+   "albumId": 28697,
+   "band": "In Nomen",
+   "title": "Hybris",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": false,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1263504,
+   "albumId": 28698,
+   "band": "Aethernam",
+   "title": "Out of Control",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1311681,
+   "albumId": 28699,
+   "band": "Burial Ruthless",
+   "title": "Blackheart",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1311680,
+   "albumId": 28700,
+   "band": "Burial Ruthless",
+   "title": "National Autopsy",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1403933,
+   "albumId": 28701,
+   "band": "Burial Ruthless",
+   "title": "Mutilated Mind",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1436085,
+   "albumId": 28702,
+   "band": "Burial Ruthless",
+   "title": "Demons Within",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1438783,
+   "albumId": 28703,
+   "band": "Burial Ruthless",
+   "title": "Held by Evil",
+   "tipo": "studio_album",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1177669,
+   "albumId": 28704,
+   "band": "Derian",
+   "title": "La Máscara de los Falsos",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20111
+  },
+  {
+   "albumMa": 1177668,
+   "albumId": 28705,
+   "band": "Derian",
+   "title": "Derian y sus Reglas",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1289575,
+   "albumId": 28706,
+   "band": "Derian",
+   "title": "Shadows of Gothenburg",
+   "tipo": "single",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 925296,
+   "albumId": 28707,
+   "band": "Cthonica",
+   "title": "Lesser Incantations of Chthonic Lore",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1131083,
+   "albumId": 28708,
+   "band": "Cthonica",
+   "title": "Of Spiritual Contraction & Sphere Dehydration",
+   "tipo": "studio_album",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1230181,
+   "albumId": 28709,
+   "band": "Cthonica",
+   "title": "Cthonic Lore",
+   "tipo": "compilation",
+   "pistas": 15,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1345037,
+   "albumId": 28710,
+   "band": "Cthonica",
+   "title": "Bone Altars of the Vanished Sun",
+   "tipo": "studio_album",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1113020,
+   "albumId": 28711,
+   "band": "Amhortex",
+   "title": "Muere en Silencio",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 821817,
+   "albumId": 28712,
+   "band": "Sifting",
+   "title": "Blurry Paintings",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 821808,
+   "albumId": 28713,
+   "band": "Sifting",
+   "title": "Not from Here",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1118303,
+   "albumId": 28714,
+   "band": "Sifting",
+   "title": "Blowing Fire",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 815621,
+   "albumId": 28715,
+   "band": "Sifting",
+   "title": "The Infinite Loop",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1118283,
+   "albumId": 28716,
+   "band": "Sifting",
+   "title": "Nemesis",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1147625,
+   "albumId": 28717,
+   "band": "Sifting",
+   "title": "Silent Acquiescence",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20112
+  },
+  {
+   "albumMa": 830430,
+   "albumId": 28718,
+   "band": "Wrathful",
+   "title": "Bloodknight",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 841527,
+   "albumId": 28719,
+   "band": "Basilisk",
+   "title": "A Salute",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 841526,
+   "albumId": 28720,
+   "band": "Basilisk",
+   "title": "Wolves Among Sheep",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1013411,
+   "albumId": 28721,
+   "band": "Raza Sur",
+   "title": "Hijos de la maldición (Remastered)",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 859354,
+   "albumId": 28722,
+   "band": "Laverno",
+   "title": "Sin descanso",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": false,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1257185,
+   "albumId": 28723,
+   "band": "Collateral Detriment",
+   "title": "Brainwash",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1462438,
+   "albumId": 28724,
+   "band": "Collateral Detriment",
+   "title": "Collateral End",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1462436,
+   "albumId": 28725,
+   "band": "Collateral Detriment",
+   "title": "Rain of Fire",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1462437,
+   "albumId": 28726,
+   "band": "Collateral Detriment",
+   "title": "The Floor is Lave",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1338198,
+   "albumId": 28727,
+   "band": "Collateral Detriment",
+   "title": "Into the Detriment",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 863981,
+   "albumId": 28728,
+   "band": "Blasphemovs War",
+   "title": "Blasphemovs War",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1227005,
+   "albumId": 28729,
+   "band": "Blasphemovs War",
+   "title": "K​.​A​.​O​.​S. The War Is Here",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1185167,
+   "albumId": 28730,
+   "band": "Lvctvs",
+   "title": "Sobred​ósis de pensamiento f​ú​nebre",
+   "tipo": "studio_album",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1236834,
+   "albumId": 28731,
+   "band": "Lvctvs",
+   "title": "Confinado En Mi Aflicci​ó​n",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 885475,
+   "albumId": 28732,
+   "band": "Neron",
+   "title": "Oscura realidad",
+   "tipo": "demo",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 924242,
+   "albumId": 28733,
+   "band": "Degollado",
+   "title": "El rito",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 944884,
+   "albumId": 28734,
+   "band": "Assarion",
+   "title": "Assarion",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1134018,
+   "albumId": 28735,
+   "band": "Across the Ruins",
+   "title": "Immortal",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1377007,
+   "albumId": 28736,
+   "band": "Necroprogenie",
+   "title": "Odio",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 966472,
+   "albumId": 28737,
+   "band": "Alkkon",
+   "title": "Adelanto",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 975118,
+   "albumId": 28738,
+   "band": "Arsenal",
+   "title": "Demo 2005",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 974694,
+   "albumId": 28739,
+   "band": "Arsenal",
+   "title": "Arsenal",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1012398,
+   "band": "Arsenal",
+   "title": "Arsenal II",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 684352,
+   "albumId": 28740,
+   "band": "Crucifixion",
+   "title": "Tierra maldita",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1079440,
+   "albumId": 28741,
+   "band": "Crucifixion",
+   "title": "Calling Gods",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1098051,
+   "albumId": 28742,
+   "band": "Crucifixion",
+   "title": "Clarity of Madness",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 1141277,
+   "albumId": 28743,
+   "band": "Crucifixion",
+   "title": "Souls",
+   "tipo": "studio_album",
+   "pistas": 12,
+   "portada": true,
+   "runId": 20112
+  },
+  {
+   "albumMa": 985281,
+   "albumId": 28744,
+   "band": "Obnoxious",
+   "title": "¿Sociedad o suciedad?",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1435796,
+   "albumId": 28745,
+   "band": "A.R.O.",
+   "title": "Misericordía Demo #1",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20113
+  },
+  {
+   "albumMa": 994945,
+   "albumId": 28746,
+   "band": "Drakmord",
+   "title": "Iter",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1082058,
+   "band": "Drakmord",
+   "title": "Iter",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 995315,
+   "albumId": 28747,
+   "band": "Alfredo Herrera",
+   "title": "Megamuerte",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 996467,
+   "albumId": 28748,
+   "band": "Evhay",
+   "title": "...por el metal, la paz y libertad",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1223367,
+   "albumId": 28749,
+   "band": "Akuhena Yavari",
+   "title": "El canto de la selva",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1223369,
+   "albumId": 28750,
+   "band": "Akuhena Yavari",
+   "title": "El castigo de los dioses",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1010853,
+   "albumId": 28751,
+   "band": "Core",
+   "title": "Esclavos del artefacto",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1011106,
+   "albumId": 28752,
+   "band": "Anxurth",
+   "title": "El templo de los rituales malditos",
+   "tipo": "compilation",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1011112,
+   "albumId": 28753,
+   "band": "Living Dead",
+   "title": "The Never Ending Dream",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1013400,
+   "albumId": 28754,
+   "band": "Abraxas",
+   "title": "Motores en guerra",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1013428,
+   "albumId": 28755,
+   "band": "Cronica",
+   "title": "Culebra",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1191018,
+   "albumId": 28756,
+   "band": "Incruento",
+   "title": "Incorruptibilidad cadavérica",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1386815,
+   "albumId": 28757,
+   "band": "Incruento",
+   "title": "Zombificación",
+   "tipo": "studio_album",
+   "pistas": 17,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1477295,
+   "albumId": 28758,
+   "band": "Incruento",
+   "title": "10 años de Life Metal",
+   "tipo": "live_album",
+   "pistas": 9,
+   "portada": false,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1037314,
+   "albumId": 28759,
+   "band": "Hagane",
+   "title": "Between Blood and Light",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1032102,
+   "band": "Hagane",
+   "title": "Between Blood and Light",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 1052934,
+   "albumId": 28760,
+   "band": "Grotesque Deformity",
+   "title": "Cirugía macabra",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1057129,
+   "albumId": 28761,
+   "band": "Ira de Dios",
+   "title": "Ira sagrada",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1317373,
+   "albumId": 28762,
+   "band": "Templo de Chivos",
+   "title": "El Estado",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1317374,
+   "albumId": 28763,
+   "band": "Templo de Chivos",
+   "title": "La casa de la pradera",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1317375,
+   "albumId": 28764,
+   "band": "Templo de Chivos",
+   "title": "Conversación con un Mafioso",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1317376,
+   "albumId": 28765,
+   "band": "Templo de Chivos",
+   "title": "La Gula Beach",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1317377,
+   "albumId": 28766,
+   "band": "Templo de Chivos",
+   "title": "Rituales De La Sabana",
+   "tipo": "ep",
+   "pistas": 5,
+   "portada": false,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1117292,
+   "albumId": 28767,
+   "band": "Eighth Sin",
+   "title": "Rehearsal Sessions 1999",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1119272,
+   "albumId": 28768,
+   "band": "Sphingomyelinase",
+   "title": "Demostraci​ó​n 2023",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1128267,
+   "albumId": 28769,
+   "band": "Woodanthorkh",
+   "title": "Ac​ú​stico",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1128560,
+   "albumId": 28770,
+   "band": "Contrataque",
+   "title": "Autodestrucción",
+   "tipo": "studio_album",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1138994,
+   "albumId": 28771,
+   "band": "Alianza Sagrada",
+   "title": "Every Day is the Same",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1129259,
+   "albumId": 28772,
+   "band": "Revolver",
+   "title": "Vendí mi alma al rock and roll",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1129257,
+   "albumId": 28773,
+   "band": "Revolver",
+   "title": "Pandemia",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1129258,
+   "albumId": 28774,
+   "band": "Revolver",
+   "title": "Enterrado en ti",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1140905,
+   "albumId": 28775,
+   "band": "Brutal Nativo",
+   "title": "Xapiripë",
+   "tipo": "studio_album",
+   "pistas": 12,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1162275,
+   "albumId": 28776,
+   "band": "Aggression of Death",
+   "title": "Los condenados",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1199477,
+   "albumId": 28777,
+   "band": "Incendiario",
+   "title": "Somos los guardianes",
+   "tipo": "studio_album",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1204665,
+   "albumId": 28778,
+   "band": "Rompecara",
+   "title": "Rompecara",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1204673,
+   "albumId": 28779,
+   "band": "Rompecara",
+   "title": "Desesperación",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1229224,
+   "albumId": 28780,
+   "band": "Who's Barbara?",
+   "title": "Break the Lies",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1229226,
+   "albumId": 28781,
+   "band": "Who's Barbara?",
+   "title": "My Breed",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20113
+  },
+  {
+   "albumMa": 1229227,
+   "albumId": 28782,
+   "band": "Who's Barbara?",
+   "title": "Bleeding Words",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1248491,
+   "albumId": 28783,
+   "band": "Blood Prophecy",
+   "title": "Machine of Souls",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1254513,
+   "albumId": 28784,
+   "band": "NewtralSide",
+   "title": "Destruction of the World",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1346371,
+   "albumId": 28785,
+   "band": "Xtridencia",
+   "title": "Paper Universe",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1346372,
+   "albumId": 28786,
+   "band": "Xtridencia",
+   "title": "Universo de papel",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1346373,
+   "albumId": 28787,
+   "band": "Xtridencia",
+   "title": "Apocalipsis",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1470479,
+   "albumId": 28788,
+   "band": "Komo Zea",
+   "title": "Elecciones",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1470478,
+   "albumId": 28789,
+   "band": "Komo Zea",
+   "title": "More Beer",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1476931,
+   "albumId": 28790,
+   "band": "Komo Zea",
+   "title": "To the Mosh",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 520827,
+   "albumId": 28791,
+   "band": "SS",
+   "title": "Demo 1985",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 520826,
+   "albumId": 28792,
+   "band": "SS",
+   "title": "Demo 1986",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 520637,
+   "albumId": 28793,
+   "band": "SS",
+   "title": "Demo 2",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 219453,
+   "albumId": 28794,
+   "band": "SS",
+   "title": "Live in Punto Fijo",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 494176,
+   "albumId": 28795,
+   "band": "SS",
+   "title": "South American Slaughter",
+   "tipo": "compilation",
+   "pistas": 16,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 576732,
+   "albumId": 28796,
+   "band": "SS",
+   "title": "SS",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 79903,
+   "albumId": 28797,
+   "band": "Impery",
+   "title": "Infernal 666",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 361199,
+   "albumId": 28798,
+   "band": "Impery",
+   "title": "Belcebu universal",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 367647,
+   "albumId": 28799,
+   "band": "Impery",
+   "title": "I",
+   "tipo": "studio_album",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 787614,
+   "albumId": 28800,
+   "band": "Impery",
+   "title": "Cristo fue mortal",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 142125,
+   "albumId": 28801,
+   "band": "Dreams of Tears",
+   "title": "Concience",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 82497,
+   "albumId": 28802,
+   "band": "Exsecror",
+   "title": "Bloody Obsession",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 82498,
+   "albumId": 28803,
+   "band": "Exsecror",
+   "title": "A Gore Story",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 82760,
+   "albumId": 28804,
+   "band": "Infestus",
+   "title": "Infestus",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 895325,
+   "albumId": 28805,
+   "band": "Infestus",
+   "title": "Undead",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 82774,
+   "albumId": 28806,
+   "band": "Artificio",
+   "title": "Evolución",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 111750,
+   "albumId": 28807,
+   "band": "Distrust",
+   "title": "Distrust",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 83006,
+   "albumId": 28808,
+   "band": "Naturaleza Muerta",
+   "title": "Libro de lágrimas",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 85918,
+   "albumId": 28809,
+   "band": "Deus Irae",
+   "title": "Demo 2004",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 908266,
+   "albumId": 28810,
+   "band": "Deus Irae",
+   "title": "Demo 2007",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1181444,
+   "albumId": 28811,
+   "band": "Deus Irae",
+   "title": "Octavus (VIII)",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 262484,
+   "albumId": 28812,
+   "band": "Carnage",
+   "title": "Sórdido engendro",
+   "tipo": "studio_album",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 91018,
+   "albumId": 28813,
+   "band": "Disarmed Universe",
+   "title": "Disarmed Universe",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1351224,
+   "albumId": 28814,
+   "band": "Disarmed Universe",
+   "title": "World in Ruins",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 1349117,
+   "albumId": 28815,
+   "band": "Disarmed Universe",
+   "title": "Reflections of Reality (Where's Death Is Most Alive)",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 92584,
+   "albumId": 28816,
+   "band": "Altered Saints",
+   "title": "Ritos de la Noche",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 92749,
+   "albumId": 28817,
+   "band": "Revolución",
+   "title": "Sucio mundo",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 92750,
+   "albumId": 28818,
+   "band": "Revolución",
+   "title": "Bajo el guerrillero",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20114
+  },
+  {
+   "albumMa": 410928,
+   "albumId": 28819,
+   "band": "Revolución",
+   "title": "Mañana es tarde",
+   "tipo": "studio_album",
+   "pistas": 10,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 94999,
+   "albumId": 28820,
+   "band": "Mortandad",
+   "title": "Demo",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 95000,
+   "albumId": 28821,
+   "band": "Mortandad",
+   "title": "Antropophagia",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20114
+  },
+  {
+   "albumMa": 769559,
+   "albumId": 28822,
+   "band": "Animas Negras",
+   "title": "Desde el más allá",
+   "tipo": "studio_album",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 588612,
+   "albumId": 28823,
+   "band": "Metastasis",
+   "title": "Mundo enfermo",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 496358,
+   "albumId": 28824,
+   "band": "Centurion",
+   "title": "The Red Zone",
+   "tipo": "studio_album",
+   "pistas": 11,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 661147,
+   "albumId": 28825,
+   "band": "Centurion",
+   "title": "Sucio y podrido",
+   "tipo": "demo",
+   "pistas": 9,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 684221,
+   "albumId": 28826,
+   "band": "Centurion",
+   "title": "Chaotic Side",
+   "tipo": "studio_album",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 857944,
+   "albumId": 28827,
+   "band": "Drahcko",
+   "title": "Inferno",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 145062,
+   "albumId": 28828,
+   "band": "Funebria",
+   "title": "Manifiesto al esclavo",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20115
+  },
+  {
+   "albumMa": 145063,
+   "albumId": 28829,
+   "band": "Funebria",
+   "title": "Holocausto impío en el desierto de Golgota",
+   "tipo": "ep",
+   "pistas": 7,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 138870,
+   "albumId": 28830,
+   "band": "Lumendei",
+   "title": "Poseidon",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20115
+  },
+  {
+   "albumMa": 77108,
+   "albumId": 28831,
+   "band": "Lignum Crucis",
+   "title": "Divine Dreams",
+   "tipo": "demo",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 204752,
+   "albumId": 28832,
+   "band": "Lignum Crucis",
+   "title": "Legions of Shadows",
+   "tipo": "studio_album",
+   "pistas": 9,
+   "portada": false,
+   "runId": 20115
+  },
+  {
+   "albumMa": 706562,
+   "albumId": 28833,
+   "band": "Stratuz",
+   "title": "In Nomine...",
+   "tipo": "demo",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 59917,
+   "albumId": 28834,
+   "band": "Stratuz",
+   "title": "Stratuz",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 937648,
+   "band": "Stratuz",
+   "title": "In Nomine...",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 409904,
+   "albumId": 28835,
+   "band": "Stratuz",
+   "title": "Without Original Sin",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 950187,
+   "albumId": 28836,
+   "band": "Stratuz",
+   "title": "Dawn",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 1012274,
+   "albumId": 28837,
+   "band": "Stratuz",
+   "title": "Caelibatus",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20115
+  },
+  {
+   "albumMa": 1025683,
+   "albumId": 28838,
+   "band": "Stratuz",
+   "title": "Morning Star",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 232297,
+   "albumId": 28839,
+   "band": "Haboryn",
+   "title": "Programming Death",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 742841,
+   "albumId": 28840,
+   "band": "Haboryn",
+   "title": "Reclaim the Light",
+   "tipo": "single",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 135370,
+   "albumId": 28841,
+   "band": "Sexta Legion",
+   "title": "Comienza la Leyenda",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": false,
+   "runId": 20115
+  },
+  {
+   "albumMa": 379212,
+   "albumId": 28842,
+   "band": "Gastonia",
+   "title": "Realidad",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 1017924,
+   "albumId": 28843,
+   "band": "Gastonia",
+   "title": "Oscuro amor",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 1017927,
+   "albumId": 28844,
+   "band": "Gastonia",
+   "title": "Single 2012",
+   "tipo": "single",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 138643,
+   "albumId": 28845,
+   "band": "Azif",
+   "title": "Edición Limitada",
+   "tipo": "demo",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 385253,
+   "albumId": 28846,
+   "band": "Azif",
+   "title": "Rider in Flames",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 138873,
+   "albumId": 28847,
+   "band": "Angelus",
+   "title": "Vive",
+   "tipo": "ep",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 1074741,
+   "albumId": 28848,
+   "band": "Guerra Santa",
+   "title": "Live Session II - Una nueva realidad",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 1074738,
+   "albumId": 28849,
+   "band": "Guerra Santa",
+   "title": "Sin decir adiós",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 1074739,
+   "albumId": 28850,
+   "band": "Guerra Santa",
+   "title": "Muerto en vida",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 1074740,
+   "albumId": 28851,
+   "band": "Guerra Santa",
+   "title": "Tú eres su seguridad",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 1074737,
+   "albumId": 28852,
+   "band": "Guerra Santa",
+   "title": "Donde claudican los dioses",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 141995,
+   "albumId": 28853,
+   "band": "Kroll",
+   "title": "Mutilated of Women",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 903100,
+   "albumId": 28854,
+   "band": "Kroll",
+   "title": "El reino de las moscas",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 144771,
+   "albumId": 28855,
+   "band": "Odo'Sha",
+   "title": "Hekula... Voz de los Espíritus",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20115
+  },
+  {
+   "albumMa": 519059,
+   "albumId": 28856,
+   "band": "Odo'Sha",
+   "title": "El dorado / Solsticio ritual",
+   "tipo": "ep",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20115
+  },
+  {
+   "albumMa": 145792,
+   "albumId": 28857,
+   "band": "Alchera",
+   "title": "Cantus Lunae",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20115
+  },
+  {
+   "albumMa": 145789,
+   "albumId": 28858,
+   "band": "Alchera",
+   "title": "Dream of Dark",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20115
+  },
+  {
+   "albumMa": 145793,
+   "albumId": 28859,
+   "band": "Alchera",
+   "title": "Medusa",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": false,
+   "runId": 20115
+  },
+  {
+   "albumMa": 145796,
+   "albumId": 28860,
+   "band": "Alchera",
+   "title": "Angel Nocturno",
+   "tipo": "demo",
+   "pistas": 3,
+   "portada": false,
+   "runId": 20115
+  },
+  {
+   "albumMa": 937229,
+   "albumId": 28861,
+   "band": "Hecatombe",
+   "title": "El Burro Rockero",
+   "tipo": "demo",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 937249,
+   "albumId": 28862,
+   "band": "Hecatombe",
+   "title": "Braquioproctosigmoidismo",
+   "tipo": "single",
+   "pistas": 5,
+   "portada": false,
+   "runId": 20116
+  },
+  {
+   "albumMa": 148683,
+   "albumId": 28863,
+   "band": "Enigma",
+   "title": "Entre el Cielo y la Tierra",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 148684,
+   "albumId": 28864,
+   "band": "Enigma",
+   "title": "Sueños",
+   "tipo": "demo",
+   "pistas": 5,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 395638,
+   "albumId": 28865,
+   "band": "Noctambulath",
+   "title": "Promesas",
+   "tipo": "single",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 691097,
+   "albumId": 28866,
+   "band": "Noctambulath",
+   "title": "Elohim",
+   "tipo": "single",
+   "pistas": 3,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 152505,
+   "albumId": 28867,
+   "band": "Death Mortor",
+   "title": "Una ilusión",
+   "tipo": "demo",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 1468565,
+   "albumId": 28868,
+   "band": "Death Mortor",
+   "title": "Grotesco",
+   "tipo": "ep",
+   "pistas": 8,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 154182,
+   "band": "Nemesis",
+   "title": "Nemesis",
+   "estado": "ya existía (título igual o afín)"
+  },
+  {
+   "albumMa": 300872,
+   "albumId": 28869,
+   "band": "Krueger",
+   "title": "Mamera zona de muerte",
+   "tipo": "single",
+   "pistas": 1,
+   "portada": false,
+   "runId": 20116
+  },
+  {
+   "albumMa": 367198,
+   "albumId": 28870,
+   "band": "Krueger",
+   "title": "Demo-nologia grotesca",
+   "tipo": "compilation",
+   "pistas": 18,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 532071,
+   "albumId": 28871,
+   "band": "Krueger",
+   "title": "Bizarre Sessions",
+   "tipo": "compilation",
+   "pistas": 20,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 532070,
+   "albumId": 28872,
+   "band": "Krueger",
+   "title": "Bizzarre Sexual Deformations (1991 / 2014)",
+   "tipo": "compilation",
+   "pistas": 16,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 974460,
+   "albumId": 28873,
+   "band": "Krueger",
+   "title": "Galeria bizarra",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 157637,
+   "albumId": 28874,
+   "band": "Dissonath",
+   "title": "Infected World",
+   "tipo": "ep",
+   "pistas": 4,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 188414,
+   "albumId": 28875,
+   "band": "Atlantica",
+   "title": "Mi santuario",
+   "tipo": "demo",
+   "pistas": 2,
+   "portada": true,
+   "runId": 20116
+  },
+  {
+   "albumMa": 1265734,
+   "albumId": 28876,
+   "band": "Deformicario",
+   "title": "Historias ocultas",
+   "tipo": "studio_album",
+   "pistas": 12,
+   "portada": false,
+   "runId": 20116
+  },
+  {
+   "albumMa": 162609,
+   "albumId": 28877,
+   "band": "Insulina",
+   "title": "Idiosincrasia fortitua de la sociedad",
+   "tipo": "ep",
+   "pistas": 6,
+   "portada": true,
+   "runId": 20116
+  }
+ ]
+}

@@ -1,0 +1,666 @@
+{
+ "excluidos": [
+  {
+   "band": "Gutiroth",
+   "title": "Sons of Ancient Woods Where His River Has No End...",
+   "type": "Split"
+  },
+  {
+   "band": "Igni Dare",
+   "title": "Diabolicvm in Tridentem Tenebris",
+   "type": "Split"
+  },
+  {
+   "band": "Raw Oath",
+   "title": "Raw Oath & Zebra MU",
+   "type": "Split"
+  },
+  {
+   "band": "Raw Oath",
+   "title": "N.S.T.M and Misanthropia's Ritual's",
+   "type": "Split"
+  },
+  {
+   "band": "Divus Kirius",
+   "title": "Necrospección",
+   "type": "Split"
+  },
+  {
+   "band": "Slow Death",
+   "title": "Sudamérica brutal 2",
+   "type": "Split"
+  },
+  {
+   "band": "Slow Death",
+   "title": "Blasphemy / Slow Death",
+   "type": "Split"
+  },
+  {
+   "band": "Blasphemy",
+   "title": "Blasphemy Home DVD",
+   "type": "Video"
+  },
+  {
+   "band": "Blasphemy",
+   "title": "Monstruos del rock (Barquisimeto 2014)",
+   "type": "Video"
+  },
+  {
+   "band": "Gore Asylum",
+   "title": "Metal Extremo IV, Gore Asylum en Vivo",
+   "type": "Video"
+  },
+  {
+   "band": "Gore Asylum",
+   "title": "Flaming, Gore Asylum en Vivo.",
+   "type": "Video"
+  },
+  {
+   "band": "Arkangel",
+   "title": "30 años de rock nacional",
+   "type": "Split"
+  },
+  {
+   "band": "Arkangel",
+   "title": "Locos por el rock & roll - El legado",
+   "type": "Split"
+  },
+  {
+   "band": "Veldraveth",
+   "title": "Two Headed Beast - A Journey of Venezuelan Black Metal",
+   "type": "Split"
+  },
+  {
+   "band": "Veldraveth",
+   "title": "Tercer nadir venenoso",
+   "type": "Split"
+  },
+  {
+   "band": "Bajo Zero",
+   "title": "Bands United Volumen 1",
+   "type": "Split"
+  },
+  {
+   "band": "Tinieblas",
+   "title": "Eternal Warfare",
+   "type": "Split"
+  },
+  {
+   "band": "Tinieblas",
+   "title": "Desde las tinieblas se exxecutor la profecía apocrypha",
+   "type": "Split"
+  },
+  {
+   "band": "Tinieblas",
+   "title": "Thrashcerberos",
+   "type": "Split"
+  },
+  {
+   "band": "Tierra del Dragón",
+   "title": "Brethren ov the Undared Obscenity",
+   "type": "Split"
+  },
+  {
+   "band": "Sentencia",
+   "title": "Hecatombe / Sentencia",
+   "type": "Split"
+  },
+  {
+   "band": "Psicosis",
+   "title": "Psicosis / Sepulcro Tribal",
+   "type": "Split"
+  },
+  {
+   "band": "Ritual",
+   "title": "Unholy Legions from the Abyss",
+   "type": "Split"
+  },
+  {
+   "band": "Trauma",
+   "title": "Torturas de Ayer, Hoy y Siempre",
+   "type": "Split"
+  },
+  {
+   "band": "Arastral",
+   "title": "En vivo por la Madre Tierra",
+   "type": "Video"
+  },
+  {
+   "band": "Intestinal Infection",
+   "title": "Your Fucking Body Decapitated / In the Name of Gore",
+   "type": "Split"
+  },
+  {
+   "band": "Cultura Tres",
+   "title": "Southamerican Sludge",
+   "type": "Video"
+  },
+  {
+   "band": "Brutal Destripation",
+   "title": "Cacofonía putrefacta - 4 Way Insane Split",
+   "type": "Split"
+  },
+  {
+   "band": "Kraptor",
+   "title": "New Forces Together for Thrash",
+   "type": "Split"
+  },
+  {
+   "band": "Manodura",
+   "title": "Maria Toledo",
+   "type": "Video"
+  },
+  {
+   "band": "Almagor",
+   "title": "Consecrated Sacrifice - Romans 12.1",
+   "type": "Split"
+  },
+  {
+   "band": "Nabarao",
+   "title": "Sin tu dios nuestra raza es eterna",
+   "type": "Split"
+  },
+  {
+   "band": "Living Decomposition",
+   "title": "Alliance in Chaos",
+   "type": "Split"
+  },
+  {
+   "band": "Goat Serpent",
+   "title": "Ominous Triumviratum for the Holocaust",
+   "type": "Split"
+  },
+  {
+   "band": "Goat Serpent",
+   "title": "Necromantic Visions",
+   "type": "Split"
+  },
+  {
+   "band": "Laberinto",
+   "title": "Large Popmerchandising",
+   "type": "Split"
+  },
+  {
+   "band": "Sistema Diez",
+   "title": "El tesoro del cielo / Resiste por siempre",
+   "type": "Split"
+  },
+  {
+   "band": "Optofobia",
+   "title": "Dalle Killers / Optofobia",
+   "type": "Split"
+  },
+  {
+   "band": "Optofobia",
+   "title": "Nastiness / Optofobia",
+   "type": "Split"
+  },
+  {
+   "band": "Malevolencia",
+   "title": "Gloria Aeterna Est Vita Infernalis",
+   "type": "Split"
+  },
+  {
+   "band": "Morghduet",
+   "title": "Ensayos malditos de odio y muerte",
+   "type": "Split"
+  },
+  {
+   "band": "Morghduet",
+   "title": "Mortuorio manifiesto",
+   "type": "Split"
+  },
+  {
+   "band": "Beyond of Desolation",
+   "title": "Collective Suicide in a Cold November Night",
+   "type": "Split"
+  },
+  {
+   "band": "Pedobear",
+   "title": "Venezuelan Metal Attack",
+   "type": "Split"
+  },
+  {
+   "band": "Pedobear",
+   "title": "4 Ways for a Grotesque Necro-Bestiality",
+   "type": "Split"
+  },
+  {
+   "band": "Among Disaster",
+   "title": "Covenant of Death",
+   "type": "Split"
+  },
+  {
+   "band": "Among Disaster",
+   "title": "Cacophony of Mortality",
+   "type": "Split"
+  },
+  {
+   "band": "Nekro Cvlt Desecration",
+   "title": "South American Unholy Trinity",
+   "type": "Split"
+  },
+  {
+   "band": "Nekro Cvlt Desecration",
+   "title": "Revenge of South American Bestiality",
+   "type": "Split"
+  },
+  {
+   "band": "Osteoporosis Aguda",
+   "title": "In Lies We Trust",
+   "type": "Split"
+  },
+  {
+   "band": "Aborigen",
+   "title": "Endurance Metal Fest, Vol. 1",
+   "type": "Split"
+  },
+  {
+   "band": "Kveldulv",
+   "title": "Unclean Manifestation from the Void",
+   "type": "Split"
+  },
+  {
+   "band": "Messiah in the Abyss",
+   "title": "Skull Bifurcations of Grim Disintegration",
+   "type": "Split"
+  },
+  {
+   "band": "Degollado",
+   "title": "Split underground sudamericano",
+   "type": "Split"
+  },
+  {
+   "band": "IxPxCxCxOxCxDxAxBxCxMxAxBxFxOxHx",
+   "title": "Tits Cum",
+   "type": "Split"
+  },
+  {
+   "band": "Stratuz",
+   "title": "Repulsive Tour 98",
+   "type": "Split video"
+  },
+  {
+   "band": "Gillman",
+   "title": "Lo más duro",
+   "type": "Video"
+  },
+  {
+   "band": "Gillman",
+   "title": "+30 años de Rock nacional - Los videos",
+   "type": "Video"
+  },
+  {
+   "band": "Gillman",
+   "title": "Gillmanfest (Carabobo - Venezuela 2008)",
+   "type": "Video"
+  },
+  {
+   "band": "Gillman",
+   "title": "Gillmanfest Caracas 2013",
+   "type": "Video"
+  },
+  {
+   "band": "Gillman",
+   "title": "Plays Van Halen",
+   "type": "Collaboration"
+  },
+  {
+   "band": "Deformicario",
+   "title": "Evil Conspiracy from Hell",
+   "type": "Split"
+  }
+ ],
+ "sinFicha": [
+  {
+   "band": "Lake of Tears",
+   "title": "Infección",
+   "type": "Demo"
+  },
+  {
+   "band": "Hodah",
+   "title": "Recibidle",
+   "type": "Demo"
+  },
+  {
+   "band": "Hodah",
+   "title": "Divine Consolation",
+   "type": "EP"
+  },
+  {
+   "band": "Hodah",
+   "title": "Recibidle the Divine Consolation - Demos Compilados 2002-2004",
+   "type": "Compilation"
+  },
+  {
+   "band": "Nigrium Mortualia",
+   "title": "Promo",
+   "type": "Demo"
+  },
+  {
+   "band": "Gorepriest",
+   "title": "Beneath Eternal Oceans of Melancholy",
+   "type": "Demo"
+  },
+  {
+   "band": "Gorepriest",
+   "title": "War Against Humanity: The Armageddon Chronicles",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gorepriest",
+   "title": "Perpetual Horizons",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gorepriest",
+   "title": "Thanatologica",
+   "type": "Full-length"
+  },
+  {
+   "band": "Beheaded",
+   "title": "Gates of Suffering",
+   "type": "EP"
+  },
+  {
+   "band": "Blood Work",
+   "title": "Into the Bloodwork",
+   "type": "EP"
+  },
+  {
+   "band": "Blood Work",
+   "title": "War for Blood",
+   "type": "Full-length"
+  },
+  {
+   "band": "Godless Crown",
+   "title": "Beyond the Hate",
+   "type": "EP"
+  },
+  {
+   "band": "Godless Crown",
+   "title": "The Way of Darkness",
+   "type": "EP"
+  },
+  {
+   "band": "Godless Crown",
+   "title": "Endless Nightmare",
+   "type": "EP"
+  },
+  {
+   "band": "Godless Crown",
+   "title": "Dying World",
+   "type": "EP"
+  },
+  {
+   "band": "Okkvlt",
+   "title": "Anti-Theosis de Profvndis (Exvrvs Rationalitas)",
+   "type": "Full-length"
+  },
+  {
+   "band": "EON",
+   "title": "EON",
+   "type": "EP"
+  },
+  {
+   "band": "EON",
+   "title": "Eon",
+   "type": "Full-length"
+  },
+  {
+   "band": "6Sonar",
+   "title": "Everlasting",
+   "type": "EP"
+  },
+  {
+   "band": "Sanetoxic",
+   "title": "Another Chance",
+   "type": "Full-length"
+  },
+  {
+   "band": "Transgresor",
+   "title": "Destructive Thrash",
+   "type": "Demo"
+  },
+  {
+   "band": "Desperatio Dei",
+   "title": "Desperatio Dei",
+   "type": "Full-length"
+  },
+  {
+   "band": "Sorte",
+   "title": "Siete",
+   "type": "Full-length"
+  },
+  {
+   "band": "Anatomiæ Occultii",
+   "title": "Down on My Knees",
+   "type": "Demo"
+  },
+  {
+   "band": "Gillman",
+   "title": "Levántate... y pelea!",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "El guerrero",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "Adriana / El Twist de la menta",
+   "type": "Single"
+  },
+  {
+   "band": "Gillman",
+   "title": "Sólo tú y yo",
+   "type": "Single"
+  },
+  {
+   "band": "Gillman",
+   "title": "Sígueme",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "El regreso del guerrero",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "Ready to Attack",
+   "type": "Demo"
+  },
+  {
+   "band": "Gillman",
+   "title": "Killer",
+   "type": "Single"
+  },
+  {
+   "band": "Gillman",
+   "title": "15 años",
+   "type": "Compilation"
+  },
+  {
+   "band": "Gillman",
+   "title": "Lo inédito",
+   "type": "Compilation"
+  },
+  {
+   "band": "Gillman",
+   "title": "Escalofrío",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "Vivo & en vivo",
+   "type": "Live album"
+  },
+  {
+   "band": "Gillman",
+   "title": "25 años",
+   "type": "Compilation"
+  },
+  {
+   "band": "Gillman",
+   "title": "Cuauhtemoc",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "Despertando en la historia",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "Inevitable",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "El curandero",
+   "type": "EP"
+  },
+  {
+   "band": "Gillman",
+   "title": "Tributo a los desconocidos",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "Escalofrío II... La conclusión",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "Escalofrío XX aniversario",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "Clásicos recargados",
+   "type": "Full-length"
+  },
+  {
+   "band": "Gillman",
+   "title": "Más vivo y en vivo",
+   "type": "Live album"
+  },
+  {
+   "band": "Gillman",
+   "title": "Levántate... y pelea! - 40° aniversario edición especial",
+   "type": "Compilation"
+  },
+  {
+   "band": "Gillman",
+   "title": "Escalofríos 1 + 2 - La saga",
+   "type": "Compilation"
+  },
+  {
+   "band": "Gillman",
+   "title": "Tesoros",
+   "type": "Compilation"
+  },
+  {
+   "band": "Gillman",
+   "title": "Vendi mi alma al rock & roll",
+   "type": "Single"
+  },
+  {
+   "band": "Gillman",
+   "title": "Presente",
+   "type": "Full-length"
+  },
+  {
+   "band": "Leviathan A.C.",
+   "title": "Al Azif",
+   "type": "Single"
+  },
+  {
+   "band": "Leviathan A.C.",
+   "title": "Leviathan",
+   "type": "Demo"
+  },
+  {
+   "band": "Leviathan A.C.",
+   "title": "God's End Is the Path...",
+   "type": "Demo"
+  },
+  {
+   "band": "Leviathan A.C.",
+   "title": "Through the Unholy Rules We Shall Rise",
+   "type": "Full-length"
+  },
+  {
+   "band": "Leviathan A.C.",
+   "title": "From the Abyss",
+   "type": "Compilation"
+  },
+  {
+   "band": "Leviathan A.C.",
+   "title": "The Rise of Leviathan",
+   "type": "EP"
+  },
+  {
+   "band": "Leviathan A.C.",
+   "title": "God's Failure",
+   "type": "Full-length"
+  },
+  {
+   "band": "Daemonhorn",
+   "title": "Black Icon Demonized",
+   "type": "Demo"
+  }
+ ],
+ "primeras": [
+  {
+   "band": "Demise",
+   "artistId": 20,
+   "title": "Extreme Gore Live",
+   "tipo": "single",
+   "year": 2016,
+   "pistas": 1
+  },
+  {
+   "band": "Demise",
+   "artistId": 20,
+   "title": "Bits Session",
+   "tipo": "studio_album",
+   "year": 2017,
+   "pistas": 9
+  },
+  {
+   "band": "Demise",
+   "artistId": 20,
+   "title": "As You Die",
+   "tipo": "single",
+   "year": 2020,
+   "pistas": 1
+  },
+  {
+   "band": "Demise",
+   "artistId": 20,
+   "title": "Plagued by the Essence of the Beast",
+   "tipo": "ep",
+   "year": 2023,
+   "pistas": 5
+  },
+  {
+   "band": "Demise",
+   "artistId": 20,
+   "title": "Domination",
+   "tipo": "single",
+   "year": 2024,
+   "pistas": 1
+  },
+  {
+   "band": "Demise",
+   "artistId": 20,
+   "title": "Falseness",
+   "tipo": "single",
+   "year": 2025,
+   "pistas": 1
+  }
+ ]
+}
