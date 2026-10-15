@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
-"""Piloto: captura por Wayback de los perfiles MySpace de los enlaces de MA.
+"""Campaña MySpace por Wayback: captura + LOG ESTRUCTURADO de cada intento.
 
 Por perfil de la cola (reports/ma-links-2026-10-15/myspace-cola.csv):
-  1) snapshot = el enlace de archive.org que da MA si existe; si no, CDX (2004-2013, status 200).
-  2) se prefiere la ventana 2008-2012 (plantilla clásica con datos); se baja con `id_` (crudo).
-  3) extracción con la lógica del extractor v3 (título + <td id="Profile..."> + About).
+  1) fuente del snapshot: el enlace de archive.org de MA si existe; si no, CDX (2004-2013, 200).
+  2) se prefieren 2008-2009 (clásica con tildes) → 2005-2010 → reciente ≤2012.
+  3) se baja con `id_` (crudo) y se extraen los campos con la lógica del extractor v3.
+  4) TODO intento queda en `capturas-wayback.jsonl` (un evento JSON por fase) para el análisis
+     de patrones de `07-patrones.py`, que ajusta la política de captura.
 
-Salidas: HTML crudo en data/raw/myspace-ma-2026-10-15/ · JSONL y log en reports/ma-links-2026-10-15/.
-Reanudable: salta los slug ya presentes en el JSONL.
+Política anti-saturación (medida): el CDX devuelve vacíos FALSOS en ráfaga; ante cada vacío se
+espacia (20→300 s) y a los 4 vacíos seguidos se respira 300 s y se sigue; a las 3 rondas de
+vacíos se corta la pasada (el CDX está estrangulado; la pasada siguiente reintenta).
 
-Uso: ~/.venvs/scrapling/bin/python scripts/ma-links-2026-10-16/05-myspace-piloto.py [--limite 20]
+Reanudable: solo cuentan como hechos los perfiles con HTML bajado o campos extraídos; el resto
+se reintenta en la pasada siguiente.
+
+Uso: ~/.venvs/scrapling/bin/python scripts/ma-links-2026-10-16/05-myspace-piloto.py [--limite N] [--pasada N]
 """
 import argparse
 import csv
@@ -27,10 +33,11 @@ SALIDA_DIR = "reports/ma-links-2026-10-15"
 RAW = "data/raw/myspace-ma-2026-10-15"
 COLA = f"{SALIDA_DIR}/myspace-cola.csv"
 JSONL = f"{SALIDA_DIR}/myspace-piloto.jsonl"
+EVENTOS = f"{SALIDA_DIR}/capturas-wayback.jsonl"
 LOG = f"{SALIDA_DIR}/myspace-piloto.log"
 UA = "Mozilla/5.0 (X11; Linux x86_64) crv-research/1.0 (contacto: coleccionistasve)"
 CDX = "http://web.archive.org/cdx/search/cdx"
-VENTANA = (2008, 2012)  # plantilla clásica con datos
+PASADA = 1
 
 
 def log(msg: str) -> None:
@@ -40,34 +47,56 @@ def log(msg: str) -> None:
         fh.write(linea + "\n")
 
 
-def get(url: str, intentos: int = 3, timeout: int = 40) -> bytes | None:
+def evento(datos: dict) -> None:
+    """Log estructurado: un JSON por fase/intento (lo consume 07-patrones.py)."""
+    datos["ts"] = datetime.datetime.now().isoformat(timespec="seconds")
+    datos["pasada"] = PASADA
+    with open(EVENTOS, "a", encoding="utf-8") as fh:
+        fh.write(json.dumps(datos, ensure_ascii=False) + "\n")
+
+
+def get(url: str, intentos: int = 3, timeout: int = 40) -> tuple[bytes | None, int | None, float]:
+    """(cuerpo, status, ms). Reintenta con backoff."""
+    t0 = time.time()
     for intento in range(1, intentos + 1):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": UA})
             with urllib.request.urlopen(req, timeout=timeout) as resp:
-                return resp.read()
+                return resp.read(), resp.status, (time.time() - t0) * 1000
         except Exception as e:  # noqa: BLE001
+            status = getattr(e, "code", None)
             log(f"    get falló ({intento}/{intentos}) {type(e).__name__}: {str(e)[:90]}")
+            if intento == intentos:
+                return None, status, (time.time() - t0) * 1000
             time.sleep(4 * intento)
-    return None
+    return None, None, (time.time() - t0) * 1000
 
 
-def snapshots(slug: str) -> list[str]:
-    if not slug:
-        return []
+def snapshots(slug: str) -> tuple[list[tuple[str, str]], float, bool, dict[str, int]]:
+    """Consulta LIGERA al CDX (sin filter/collapse: son la parte cara y devuelven vacíos falsos).
+
+    Devuelve (clásicos 200 como (timestamp, original), ms, respondió, conteo de statuses).
+    El patrón medido: perfiles que solo tienen un 301 moderno (redirect al MySpace actual) no
+    tienen snapshot clásico — eso NO es saturación y no se reintenta.
+    """
     consulta = urllib.parse.urlencode({
-        "url": f"myspace.com/{slug}", "output": "text", "fl": "timestamp,statuscode",
-        "from": "2004", "to": "2013", "filter": "statuscode:200", "collapse": "digest", "limit": "12",
+        "url": f"myspace.com/{slug}", "output": "text", "fl": "timestamp,statuscode,original", "limit": "40",
     })
-    cuerpo = get(f"{CDX}?{consulta}")
-    if not cuerpo:
-        return []
-    out = []
+    t0 = time.time()
+    cuerpo, status, _ = get(f"{CDX}?{consulta}", intentos=2)
+    ms = (time.time() - t0) * 1000
+    if cuerpo is None:
+        return [], ms, False, {}
+    clasicos: list[tuple[str, str]] = []
+    statuses: dict[str, int] = {}
     for linea in cuerpo.decode("utf-8", "replace").strip().splitlines():
         partes = linea.split()
         if len(partes) >= 2 and partes[0].isdigit():
-            out.append(partes[0])
-    return out
+            statuses[partes[1]] = statuses.get(partes[1], 0) + 1
+            if partes[1] == "200":
+                original = partes[2] if len(partes) > 2 else f"myspace.com/{slug}"
+                clasicos.append((partes[0], original))
+    return clasicos, ms, True, statuses
 
 
 def elegir(ts_lista: list[str]) -> str | None:
@@ -80,10 +109,6 @@ def elegir(ts_lista: list[str]) -> str | None:
             return en_ventana[-1]
     hasta_2012 = sorted(t for t in ts_lista if int(t[:4]) <= 2012)
     return (hasta_2012 or sorted(ts_lista))[-1]
-
-
-def url_cruda(snapshot_url: str, ts: str, original: str) -> str:
-    return f"https://web.archive.org/web/{ts}id_/{original}"
 
 
 def limpio(t: str) -> str:
@@ -112,10 +137,17 @@ def extraer(src: str) -> dict:
     return {"titulo": titulo, "campos": campos}
 
 
+def marca_perfil(r: dict) -> str:
+    return str(r.get("slug") or r.get("ma_id") or "")
+
+
 def main() -> None:
+    global PASADA
     ap = argparse.ArgumentParser()
-    ap.add_argument("--limite", type=int, default=20)
+    ap.add_argument("--limite", type=int, default=500)
+    ap.add_argument("--pasada", type=int, default=1)
     args = ap.parse_args()
+    PASADA = args.pasada
     os.makedirs(RAW, exist_ok=True)
     os.makedirs(SALIDA_DIR, exist_ok=True)
     hechos: set[str] = set()
@@ -124,23 +156,31 @@ def main() -> None:
             for linea in fh:
                 try:
                     r = json.loads(linea)
-                    # Solo se dan por hechos los que bajaron HTML o extrajeron campos: los fallos se reintentan.
-                    if r.get("campos") or r.get("archivo"):
-                        hechos.add(r["slug"] or r["ma_id"])
+                    # Hechos: con HTML, con campos o con ausencia REAL confirmada (solo-301).
+                    if r.get("campos") or r.get("archivo") or r.get("sin_snapshot_real"):
+                        hechos.add(marca_perfil(r))
                 except Exception:  # noqa: BLE001
                     pass
     with open(COLA, encoding="utf-8") as fh:
-        cola = [f for f in csv.DictReader(fh)]
+        cola = list(csv.DictReader(fh))
     pendientes = [f for f in cola if (f["slug"] or f["ma_id"]) not in hechos][: args.limite]
-    log(f"piloto MySpace: cola {len(cola)} · ya hechos {len(hechos)} · en esta tanda {len(pendientes)}")
+    log(f"campaña MySpace (pasada {PASADA}): cola {len(cola)} · hechos {len(hechos)} · en esta tanda {len(pendientes)}")
+    evento({"fase": "pasada_inicio", "cola": len(cola), "hechos": len(hechos), "pendientes": len(pendientes)})
 
+    vacios_seguidos = 0
+    rondas_vacias = 0
+    capturados = 0
     for i, fila in enumerate(pendientes, 1):
         slug, ma_id = fila["slug"], fila["ma_id"]
         banda = fila["banda"]
+        base = {"ma_id": ma_id, "banda": banda, "slug": slug,
+                "con_ficha": bool(fila["crv_artist_id"]), "intento": i}
         registro: dict = {"ma_id": ma_id, "banda": banda, "crv_artist_id": fila["crv_artist_id"] or None,
                           "slug": slug, "url": fila["url"], "archivo_org": fila["archivo_org"], "ok": False}
         original = fila["url"].replace("http://", "https://") if fila["url"] else (f"https://myspace.com/{slug}" if slug else "")
+        forma = re.sub(r"https?://", "", original).split("/")[0]
         ts = None
+        fuente = "ma" if fila["archivo_org"] else "cdx"
         if fila["archivo_org"]:
             m = re.search(r"/web/(\d{4,14})(?:id_)?/(.+)$", fila["archivo_org"])
             if m:
@@ -148,21 +188,62 @@ def main() -> None:
                 if not re.match(r"https?://", original_org):
                     original_org = "https://" + original_org
                 original = original_org
+                forma = re.sub(r"https?://", "", original).split("/")[0]
+        sin_clasico = False
         if not ts and slug:
-            lista = snapshots(slug)
-            log(f"  {i}/{len(pendientes)} {slug}: {len(lista)} snapshots CDX")
-            ts = elegir(lista)
+            lista, cdx_ms, respondio, statuses = snapshots(slug)
+            evento({**base, "fase": "cdx", "filas": len(lista), "ms": round(cdx_ms),
+                    "respondio": respondio, "statuses": statuses, "vacios_seguidos": vacios_seguidos})
+            if lista:
+                vacios_seguidos = 0
+                log(f"  {i}/{len(pendientes)} {slug}: {len(lista)} snapshots 200 ({cdx_ms:.0f} ms)")
+            elif respondio and statuses:
+                # Hay archivo pero sin ningún 200 (p. ej. solo un 301 moderno): sin clásico REAL.
+                sin_clasico = True
+                log(f"  {i}/{len(pendientes)} {slug}: sin 200 clásico · statuses {statuses} (no se reintenta)")
+            else:
+                vacios_seguidos += 1
+                espera = min(20 + 20 * vacios_seguidos, 300)
+                log(f"  {i}/{len(pendientes)} {slug}: 0 filas (¿saturación? {vacios_seguidos} seguidos) — pausa {espera}s")
+                time.sleep(espera)
+                if vacios_seguidos >= 4:
+                    rondas_vacias += 1
+                    log(f"  ronda {rondas_vacias} de vacíos: pausa de 300 s (el CDX necesita respirar)")
+                    time.sleep(300)
+                    vacios_seguidos = 0
+                    if rondas_vacias >= 3:
+                        log("3 rondas de vacíos: corto la pasada (el CDX está estrangulado; la siguiente pasada reintenta)")
+                        evento({"fase": "pasada_abortada_cdx", "rondas_vacias": rondas_vacias, "capturados": capturados})
+                        break
+            if lista:
+                ts = elegir([t for t, _ in lista])
+                if ts and int(ts[:4]) > 2012:
+                    # 200s pero todos modernos (plantilla JS sin datos): sin clásico real.
+                    sin_clasico = True
+                    log(f"  {i}/{len(pendientes)} {slug}: snapshots solo modernos ({ts[:4]}) — sin clásico (no se reintenta)")
+                    ts = None
+                else:
+                    original_cdx = dict(lista).get(ts or "")
+                    if original_cdx:
+                        original = original_cdx if re.match(r"https?://", original_cdx) else "https://" + original_cdx
+                        forma = re.sub(r"https?://", "", original).split("/")[0]
             time.sleep(random.uniform(2.5, 4.5))
         if not ts or not original:
-            log(f"  {i}/{len(pendientes)} {slug or ma_id} ({banda[:30]}): SIN snapshot")
+            etiqueta = "sin_clasico" if sin_clasico else "sin_snapshot"
+            log(f"  {i}/{len(pendientes)} {slug or ma_id} ({banda[:30]}): {etiqueta}")
+            evento({**base, "fase": "resultado", "fuente": fuente, "forma": forma, "resultado": etiqueta})
+            registro["sin_snapshot_real"] = sin_clasico
             _anexar(registro)
             continue
 
-        url_snap = url_cruda(fila["archivo_org"], ts, original)
-        registro.update({"snapshot_ts": ts, "url_snapshot": url_snap})
-        cuerpo = get(url_snap)
+        url_snap = f"https://web.archive.org/web/{ts}id_/{original}"
+        registro.update({"snapshot_ts": ts, "url_snapshot": url_snap, "fuente": fuente})
+        cuerpo, status, ms = get(url_snap)
+        evento({**base, "fase": "descarga", "fuente": fuente, "forma": forma, "ts_elegido": ts,
+                "anio": int(ts[:4]), "status": status, "ms": round(ms), "bytes": len(cuerpo) if cuerpo else 0})
         if not cuerpo:
-            log(f"  {i}/{len(pendientes)} {slug}: snapshot {ts} no se pudo bajar")
+            log(f"  {i}/{len(pendientes)} {slug}: snapshot {ts} no se pudo bajar (status {status})")
+            evento({**base, "fase": "resultado", "fuente": fuente, "forma": forma, "resultado": "error_red", "status": status})
             _anexar(registro)
             continue
         archivo = f"{RAW}/{ma_id}-{ts}.html"
@@ -171,27 +252,21 @@ def main() -> None:
         src = cuerpo.decode("utf-8", "replace")
         datos = extraer(src)
         plantilla = "clasica" if datos["campos"] else ("moderna" if "MySpace" in datos["titulo"] else "otra")
-        registro.update({
-            "ok": bool(datos["campos"]) or bool(datos["titulo"]),
-            "bytes": len(cuerpo), "plantilla": plantilla,
-            "titulo": datos["titulo"][:200], "campos": datos["campos"],
-            "no_ascii": sum(1 for c in src[:200000] if ord(c) > 127),
-            "archivo": archivo,
-        })
+        no_ascii = sum(1 for c in src[:200000] if ord(c) > 127)
+        registro.update({"ok": bool(datos["campos"]) or bool(datos["titulo"]), "bytes": len(cuerpo),
+                         "plantilla": plantilla, "titulo": datos["titulo"][:200], "campos": datos["campos"],
+                         "no_ascii": no_ascii, "archivo": archivo, "fuente": fuente})
+        capturados += 1
         log(f"  {i}/{len(pendientes)} {slug}: OK {len(cuerpo)} B · {plantilla} · campos {list(datos['campos'])[:8]}")
+        evento({**base, "fase": "resultado", "fuente": fuente, "forma": forma, "ts_elegido": ts, "anio": int(ts[:4]),
+                "resultado": "ok" if datos["campos"] else "sin_datos", "plantilla": plantilla,
+                "campos": sorted(datos["campos"]), "has_about": "About" in datos["campos"],
+                "no_ascii": no_ascii, "bytes": len(cuerpo)})
         _anexar(registro)
         time.sleep(random.uniform(1.5, 3.0))
 
-    # resumen
-    todos = []
-    with open(JSONL, encoding="utf-8") as fh:
-        for linea in fh:
-            todos.append(json.loads(linea))
-    con_snap = [r for r in todos if r.get("snapshot_ts")]
-    con_datos = [r for r in todos if r.get("campos")]
-    log(f"resumen: {len(todos)} perfiles · {len(con_snap)} con snapshot · {len(con_datos)} con campos extraídos")
-    for r in con_datos[:8]:
-        log(f"   {r['banda'][:32]:32s} | {r['titulo'][:90]}")
+    evento({"fase": "pasada_fin", "capturados": capturados})
+    log(f"fin de pasada {PASADA}: {capturados} capturados con datos en esta pasada")
 
 
 def _anexar(registro: dict) -> None:
