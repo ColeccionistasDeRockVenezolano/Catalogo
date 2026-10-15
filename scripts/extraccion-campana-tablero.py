@@ -478,6 +478,97 @@ def bloque_d():
 </section>"""
 
 
+# ---------------------------------------------------------------- bloque E: búsqueda profunda de enlaces
+STREAM = Path(REPO) / "reports/streaming-profundo-2026-10-16"
+_cos_t, _cos_cache = 0.0, None
+
+
+def cosecha_resumen():
+    """Agrega los links-*.json de las dos pasadas (con caché de 60 s: el tablero refresca cada 5 s)."""
+    global _cos_t, _cos_cache
+    if time.time() - _cos_t < 60 and _cos_cache is not None:
+        return _cos_cache
+    perfiles, discos, artistas_arch, ultimo = {}, {}, 0, 0.0
+    for carpeta in ("cosecha", "cosecha2"):
+        d = STREAM / carpeta
+        if not d.exists():
+            continue
+        for f in sorted(d.glob("links-*.json")):
+            artistas_arch += 1
+            try:
+                j = json.loads(f.read_text(encoding="utf8"))
+            except Exception:
+                continue
+            for l in (j.get("artist_links") or []):
+                perfiles[l.get("platform", "?")] = perfiles.get(l.get("platform", "?"), 0) + 1
+            for l in (j.get("album_links") or []):
+                discos[l.get("platform", "?")] = discos.get(l.get("platform", "?"), 0) + 1
+            try:
+                ultimo = max(ultimo, os.path.getmtime(f))
+            except OSError:
+                pass
+    _cos_cache = {"perfiles": perfiles, "discos": discos, "archivos": artistas_arch, "ultimo": ultimo}
+    _cos_t = time.time()
+    return _cos_cache
+
+
+def bloque_e():
+    """Búsqueda profunda de enlaces de streaming: hueco del catálogo, cosecha en curso y ETA."""
+    filas_db = psql("""SELECT (SELECT count(*) FROM public.albums al WHERE NOT EXISTS
+                                 (SELECT 1 FROM public.streaming_links sl WHERE sl.album_id=al.id)),
+                              (SELECT count(*) FROM public.artists a WHERE NOT EXISTS
+                                 (SELECT 1 FROM public.streaming_links sl WHERE sl.artist_id=a.id)),
+                              (SELECT count(*) FROM public.streaming_links WHERE created_at::date = current_date)""")
+    discos_sin = artistas_sin = aplicados_hoy = 0
+    if filas_db and len(filas_db[0]) >= 3:
+        discos_sin, artistas_sin, aplicados_hoy = (int(x) for x in filas_db[0][:3])
+
+    res = cosecha_resumen()
+    cola1, cola2 = 2840, 487
+    hechos = res["archivos"]
+    pendientes = max(0, cola1 + cola2 - hechos)
+    seg = 11.6  # medido de los mtime de cosecha/ (pasada 1)
+    eta = f"~{pendientes * seg / 3600:.1f} h" if pendientes else "—"
+    enlaces = sum(res["perfiles"].values()) + sum(res["discos"].values())
+    u1, c1 = estado_de("crv-streaming-profundo", STREAM / "colector.log")
+    u2, c2 = estado_de("crv-streaming-profundo2", STREAM / "colector2.log")
+
+    filas = []
+    for plat in sorted(set(res["perfiles"]) | set(res["discos"]), key=lambda p: -(res["discos"].get(p, 0) + res["perfiles"].get(p, 0))):
+        filas.append([esc(plat), f'<span class="num">{miles(res["perfiles"].get(plat, 0))}</span>',
+                      f'<span class="num">{miles(res["discos"].get(plat, 0))}</span>'])
+
+    tarjetas = [
+        tarjeta("Discos sin ningún enlace", f"<b>{miles(discos_sin)}</b>",
+                f"arrancó en 8.270 · ya {miles(8270 - discos_sin)} con enlace",
+                "Hueco que ataca esta búsqueda: cada disco del catálogo sin ningún enlace de plataforma."),
+        tarjeta("Artistas sin ningún enlace", f"<b>{miles(artistas_sin)}</b>",
+                f"arrancó en 1.617 · ya {miles(1617 - artistas_sin)} con perfil",
+                "Perfiles de artista sin ningún enlace de plataforma."),
+        tarjeta("Artistas procesados", f"<b>{miles(hechos)}</b>",
+                f"{100 * hechos / (cola1 + cola2):.1f} % de {miles(cola1 + cola2)} · ETA {eta}",
+                "Artistas ya consultados en las dos pasadas (una consulta por artista: perfil + discos)."),
+        tarjeta("Enlaces cosechados", f"<b>{miles(enlaces)}</b>",
+                f"{miles(sum(res['perfiles'].values()))} de perfil · {miles(sum(res['discos'].values()))} de disco",
+                "Encontrados en disco por el colector; la aplicación los verifica antes de escribir."),
+        tarjeta("Aplicados hoy (enlaces)", f"<b>{miles(aplicados_hoy)}</b>",
+                f"pasada 1: {u1} · pasada 2: {u2}",
+                "Filas de public.streaming_links creadas hoy (todas las campañas, incluida la aplicación de esta búsqueda)."),
+    ]
+    return f"""<section>
+  <h2>5 · Búsqueda profunda de enlaces de streaming <span class="mini">(artista por artista y disco por disco, sin ChatGPT)</span></h2>
+  <p class="explica">Coge <b>todo</b> lo que le falta al catálogo en enlaces: para cada artista sin enlaces y cada
+  disco sin ningún enlace se buscan su perfil y sus discos en las plataformas con API oficial (Deezer, iTunes/Apple,
+  MusicBrainz url-rels, Wikidata) con guardas de homónimo. <b>Spotify queda fuera de estas pasadas</b> a propósito:
+  su cuota la administra el trabajo diario de las 19:00. Cada enlace que sale de aquí pasa después por
+  <code>scripts/apply-streaming-links.ts</code> (verificación por cruce de disco antes de escribir).</p>
+  <div class="grid">{''.join(tarjetas)}</div>
+  <h3>Lo cosechado en disco, por plataforma</h3>
+  <div class="scroll">{tabla(["plataforma", "de perfil", "de disco"], filas) if filas else '<p class="mini">todavía sin cosecha (el colector arranca por los artistas con más discos).</p>'}</div>
+  <div class="enlaces">{enlace("colector.log", str(STREAM / "colector.log"))}{enlace("cosecha/", str(STREAM / "cosecha"))}{enlace("informe de la campaña", str(Path(REPO) / "reports/campana-2026-10-16/INFORME.md"))}</div>
+</section>"""
+
+
 def enlace(etiqueta, ruta):
     return f'<a class="lnk" href="{esc(ruta)}">{esc(etiqueta)}</a>'
 
@@ -546,6 +637,7 @@ lo aplicado de los runs del operador. <b>Trabajadas</b> = fichas intentadas (inc
 {bloque_b()}
 {bloque_c()}
 {bloque_d()}
+{bloque_e()}
 <div class="pie">Esta página: file://{OUT} · copia: reports/campana-2026-10-16/tablero.html</div>
 </body></html>
 """

@@ -85,6 +85,17 @@ Lanzar: `bash ops/rym-resto/lanzar.sh` (unidad `crv-scrapling-rym-resto`, sobrev
 sesión). A ~6 s por página, las 5.476 fichas de artista son ~9 h de captura, y la fase 2 arrastra
 ~4,5 discos por artista. **La captura NO está lanzada**: queda para quien retome.
 
+## 3-bis. Búsqueda profunda de enlaces de streaming (campaña 2026-10-16)
+
+Motor: `scripts/streaming-colector.py` (Deezer, iTunes/Apple, MusicBrainz url-rels, Wikidata; sin
+Spotify, cuya cuota administra `crv-spotify-diario.timer`). Entrada = hueco real del catálogo
+(`bash scripts/streaming-profundo-2026-10-16/01-entrada.sh`): 2.840 artistas con discos sin enlaces +
+sus 8.270 discos, y una pasada 2 encadenada de 487 artistas sin ningún enlace. Unidades
+`crv-streaming-profundo{,-2}`; salida en `reports/streaming-profundo-2026-10-16/{cosecha,cosecha2}/`;
+aplicación con `npx tsx scripts/apply-streaming-links.ts <dir>` (ensayo → `--confirm`), con la
+verificación de identidad MB/Deezer copiada de la campaña anterior. Ritmo medido 11,6 s/artista.
+Sección 5 del tablero de la campaña (`/tmp/crv-recon/extraccion-2026-10-16.html`).
+
 ## 4. Portadas y fotos (APIs públicas, sin captura)
 
 ```
