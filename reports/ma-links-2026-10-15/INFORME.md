@@ -60,3 +60,38 @@ de las bandas.
   (usar `'[p]atrón'`).
 - Las cookies `v11` de Chrome 149 no se descifraron con PBKDF2/saltysalt (1/1003 iters, 16/32 bytes)
   ni GCM: el camino que funciona es el navegador real por CDP.
+
+---
+
+# Piloto MySpace por Wayback (2026-10-15)
+
+`scripts/ma-links-2026-10-16/05-myspace-piloto.py` — cola de 263 perfiles (260 bandas; 205 con ficha),
+piloto sobre los primeros 35. Por perfil: el snapshot de archive.org que da MA si existe; si no, CDX
+(2004-2013, status 200, `collapse=digest`), prefiriendo 2008-2009 (clásica y con tildes). Bajada con
+`id_` y extracción con la lógica del extractor v3 (`<td id="Profile…">` + About).
+
+## Resultado
+
+- **35 perfiles · 27 con campos extraídos (77 %)** · 7 sin snapshot en Wayback (20 %) · 1 con snapshot
+  de plantilla tardía sin datos (2012).
+- Campos por frecuencia: Member Since 27 · Record Label 24 · Influences 21 · Band Members 20 ·
+  Type of Label 16 · Band Website 15 · Sounds Like 15. Los títulos clásicos traen ciudad y géneros
+  («MySpace.com - Gutiroth - Mariara, VE - Black Metal»); 9 de los 27.
+- Consolidado legible: `reports/ma-links-2026-10-15/myspace-piloto-consolidado.csv`
+  (título, About, Members, Influences, Sounds Like, Record Label, Band Website por banda).
+- Crudo: `data/raw/myspace-ma-2026-10-15/<ma_id>-<ts>.html` (35 archivos); JSONL reanudable y log.
+
+## Trampas medidas
+
+- **CDX saturado**: a las ~20 consultas seguidas empiezan 503/timeouts y «0 snapshots» que parecen
+  ausencia real. Espaciar 2,5-4,5 s, reintentar y re-verificar antes de descartar (un falso negativo
+  — Demise — se recuperó al reintentar: tenía snapshot 2010).
+- La reanudación debe contar como «hecho» solo lo que bajó HTML o extrajo campos; los fallos se
+  reintentan (bug corregido en el piloto).
+- 2012 ya es plantilla tardía sin datos → no gastar tiempo; el pozo bueno es 2005-2010.
+
+## Campaña completa (lista para lanzar)
+
+Quedan **228 perfiles** de la cola. A este ritmo (~35 en dos tandas con reintentos) son ~3-4 h en
+tandas con pausas y una pasada final de reintento de los vacíos; después, el mapeo al catálogo
+(bios/miembros/influencias/géneros + web propia) como en el caso 2HD.

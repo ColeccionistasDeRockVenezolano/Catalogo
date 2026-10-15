@@ -27,10 +27,12 @@ def main() -> None:
     os.makedirs(SALIDA_DIR, exist_ok=True)
     filas: list[dict] = []
     con_snapshot: dict[str, str] = {}
+    info_banda: dict[str, dict] = {}
     with open(LINKS, encoding="utf-8") as fh:
         for linea in fh:
             f = json.loads(linea)
             dom, etq = f["dominio"], f["etiqueta"]
+            info_banda.setdefault(f["ma_id"], {"banda": f["banda"] or "", "crv_artist_id": f["crv_artist_id"]})
             if dom == "myspace.com":
                 filas.append(f)
             elif dom == "web.archive.org" and "myspace" in etq.lower():
@@ -46,10 +48,24 @@ def main() -> None:
         vistos.add(clave)
         unicas.append({**f, "slug": slug, "archivo_org": con_snapshot.get(f["ma_id"], "")})
 
+    # Bandas cuyo MySpace solo aparece como snapshot de archive.org (sin URL directa): también entran.
+    con_directo = {u["ma_id"] for u in unicas}
+    solo_snapshot = 0
+    for ma_id, url in sorted(con_snapshot.items()):
+        if ma_id in con_directo:
+            continue
+        info = info_banda.get(ma_id, {})
+        solo_snapshot += 1
+        unicas.append({
+            "ma_id": ma_id, "banda": info.get("banda") or "", "crv_artist_id": info.get("crv_artist_id"),
+            "categoria": "", "etiqueta": "Myspace @ archive.org", "url": "", "dominio": "myspace.com",
+            "slug": "", "archivo_org": url,
+        })
+
     con_ficha = [u for u in unicas if u["crv_artist_id"]]
-    print(f"perfiles MySpace únicos: {len(unicas)} en {len({u['ma_id'] for u in unicas})} bandas")
+    print(f"perfiles MySpace en la cola: {len(unicas)} en {len({u['ma_id'] for u in unicas})} bandas")
     print(f"  con ficha en el catálogo: {len(con_ficha)} · sin ficha: {len(unicas) - len(con_ficha)}")
-    print(f"  con snapshot de archive.org enlazado por MA: {len(con_snapshot)} bandas")
+    print(f"  con snapshot de archive.org: {len(con_snapshot)} bandas · de ellas {solo_snapshot} sin URL directa (entran solo por el snapshot)")
     with open(f"{SALIDA_DIR}/myspace-cola.jsonl", "w", encoding="utf-8") as fh:
         for u in unicas:
             fh.write(json.dumps(u, ensure_ascii=False) + "\n")
