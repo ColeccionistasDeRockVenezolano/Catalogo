@@ -18,6 +18,7 @@ Nunca lanza: si una fuente falla, la muestra como «?» y sigue.
 import json
 import os
 import re
+from collections import Counter
 import subprocess
 import sys
 import time
@@ -591,6 +592,61 @@ def bloque_e():
 </section>"""
 
 
+def bloque_f():
+    """6 · Perfiles MySpace (Wayback) desde los Related Links de Metal Archives."""
+    base = Path(REPO) / "reports/ma-links-2026-10-15"
+    cola = max(1, (contar_lineas(base / "myspace-cola.csv") or 1) - 1)
+    perfiles = {}
+    ruta_jsonl = base / "myspace-piloto.jsonl"
+    if ruta_jsonl.exists():
+        for linea in ruta_jsonl.read_text(encoding="utf-8").splitlines():
+            try:
+                r = json.loads(linea)
+            except Exception:
+                continue
+            perfiles[str(r.get("slug") or r.get("ma_id"))] = r
+    lista = list(perfiles.values())
+    con_datos = [r for r in lista if r.get("campos")]
+    sin_clasico = [r for r in lista if r.get("sin_clasico_definitivo")]
+    pendientes = max(0, cola - len(lista))
+    con_miembros = sum(1 for r in con_datos if (r.get("campos") or {}).get("Band Members"))
+    con_about = sum(1 for r in con_datos if (r.get("campos") or {}).get("About"))
+    campos = Counter()
+    for r in con_datos:
+        for c in r.get("campos") or {}:
+            campos[c] += 1
+    est = unidad("myspace-campana")
+    clase_u = "ok" if est == "active" else "apagado"
+    ultima = (leer(base / "myspace-piloto.log", 1) or [""])[0].strip()[:160]
+    filas = [
+        [r.get("banda", "")[:34], (r.get("snapshot_ts") or "")[:4] or "—",
+         str(len(r.get("campos") or {})), ", ".join(sorted(r.get("campos") or {})[:4])]
+        for r in con_datos[-12:][::-1]
+    ]
+    return f"""<section>
+  <h2>6 · Perfiles MySpace por Wayback <span class="mini">(desde los enlaces «Related Links» de Metal Archives)</span> <span class="pill {clase_u}">{esc(est)}</span></h2>
+  <p class="explica">De las 611 bandas VE capturadas de MA salieron <b>263 perfiles MySpace</b> (260 bandas; 205 con ficha).
+  Cada perfil se busca en Wayback y se extrae el perfil clásico (2005-2010): <b>About</b> (bio), <b>Band Members</b> (con instrumento),
+  <b>Influences</b>, <b>Sounds Like</b>, <b>Record Label</b>, <b>Band Website</b> — insumo para bios, miembros, géneros y redes.
+  Patrones medidos que guían la captura (los saca <code>07-patrones.py</code>): la variante <code>www.myspace.com/&lt;slug&gt;:80</code>
+  rinde ~91 % de perfiles clásicos frente al ~11 % de <code>myspace.com/&lt;slug&gt;</code>; los snapshots de 2011 en adelante
+  no traen datos (plantilla JS); los perfiles con solo un 301 moderno no tienen clásico y no se reintentan.</p>
+  <div class="barras">
+    {barra_linea("Perfiles con datos extraídos", len(con_datos), cola)}
+    {barra_linea("Sin clásico archivado (solo 301 o 2011+; cierre definitivo)", len(sin_clasico), cola, "azul")}
+    {barra_linea("Pendientes / en reintento", pendientes, cola, "azul")}
+    {barra_linea("De los capturados, con miembros", con_miembros, max(1, len(con_datos)), "azul")}
+    {barra_linea("De los capturados, con About", con_about, max(1, len(con_datos)), "azul")}
+  </div>
+  <p class="mini">Última línea del log: <code>{esc(ultima)}</code></p>
+  <h3>Campos que rinden</h3>
+  <p class="mini">{esc(", ".join(f"{c}: {n}" for c, n in campos.most_common(8))) or "todavía sin extracciones."}</p>
+  <h3>Últimos perfiles capturados</h3>
+  <div class="scroll">{tabla(["banda", "año", "campos", "cuáles"], filas) if filas else '<p class="mini">todavía sin capturas.</p>'}</div>
+  <div class="enlaces">{enlace("cola (csv)", str(base / "myspace-cola.csv"))}{enlace("consolidado del piloto", str(base / "myspace-piloto-consolidado.csv"))}{enlace("log", str(base / "myspace-piloto.log"))}{enlace("patrones", str(base / "patrones-wayback.md"))}{enlace("informe", str(Path(REPO) / "reports/ma-links-2026-10-15/INFORME.md"))}</div>
+</section>"""
+
+
 def enlace(etiqueta, ruta):
     return f'<a class="lnk" href="{esc(ruta)}">{esc(etiqueta)}</a>'
 
@@ -660,6 +716,7 @@ lo aplicado de los runs del operador. <b>Trabajadas</b> = fichas intentadas (inc
 {bloque_c()}
 {bloque_d()}
 {bloque_e()}
+{bloque_f()}
 <div class="pie">Esta página: file://{OUT} · copia: reports/campana-2026-10-16/tablero.html</div>
 </body></html>
 """
