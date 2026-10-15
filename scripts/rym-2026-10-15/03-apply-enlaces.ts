@@ -20,7 +20,12 @@ import path from "node:path";
 import { closeDb, getPool } from "../../src/db/client.js";
 import { withOperatorRun } from "../../src/merge/operator.js";
 
-const DIR = "reports/rym-2026-10-15";
+// La campaña «resto» (2026-10-16) reusa esta fase: --dir apunta a sus informes.
+const argumento = (nombre: string): string | undefined => {
+  const i = process.argv.indexOf(nombre);
+  return i < 0 ? undefined : process.argv[i + 1];
+};
+const DIR = argumento("--dir") ?? "reports/rym-2026-10-15";
 const confirm = process.argv.includes("--confirm");
 const limite = Number(process.argv.find((v) => v.startsWith("--limit="))?.slice(8) ?? 0);
 const solo = process.argv.find((v) => v.startsWith("--plataforma="))?.slice(13);

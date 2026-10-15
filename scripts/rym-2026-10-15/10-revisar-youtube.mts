@@ -9,7 +9,13 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { closeDb, getPool } from "../../src/db/client.js";
 import { withOperatorRun } from "../../src/merge/operator.js";
 
-const INFORME = "reports/rym-2026-10-15/verificacion-enlaces.json";
+// La campaña «resto» (2026-10-16) reusa esta fase: --informe apunta a su informe de enlaces.
+const argumento = (nombre: string): string | undefined => {
+  const i = process.argv.indexOf(nombre);
+  return i < 0 ? undefined : process.argv[i + 1];
+};
+const INFORME = argumento("--informe") ?? "reports/rym-2026-10-15/verificacion-enlaces.json";
+const DIR_SALIDA = INFORME.replace(/\/[^/]+$/u, "");
 const confirm = process.argv.includes("--confirm");
 const pausa = 400;
 
@@ -78,7 +84,7 @@ async function main(): Promise<void> {
 
   console.log(`ascenderían: ${ascender.length}`);
   for (const [k, v] of Object.entries(cuenta).sort()) console.log(`  ${k}: ${v}`);
-  if (!confirm) { writeFileSync("reports/rym-2026-10-15/youtube-ensayo.json", JSON.stringify(ascender.slice(0, 200), null, 1)); console.log("dry-run: ensayo en youtube-ensayo.json"); await closeDb(); return; }
+  if (!confirm) { writeFileSync(`${DIR_SALIDA}/youtube-ensayo.json`, JSON.stringify(ascender.slice(0, 200), null, 1)); console.log(`dry-run: ensayo en ${DIR_SALIDA}/youtube-ensayo.json`); await closeDb(); return; }
 
   const { runId, result } = await withOperatorRun({
     name: "hermes:rym-youtube-verificados",
@@ -95,7 +101,7 @@ async function main(): Promise<void> {
     }
     return { actualizados };
   });
-  writeFileSync("reports/rym-2026-10-15/youtube-run" + runId + ".json", JSON.stringify({ runId, ...result, cuenta }, null, 1));
+  writeFileSync(`${DIR_SALIDA}/youtube-run` + runId + ".json", JSON.stringify({ runId, ...result, cuenta }, null, 1));
   console.log(`run ${runId}: ${result.actualizados} enlaces pasados a verificados`);
   await closeDb();
 }

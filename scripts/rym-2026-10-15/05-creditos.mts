@@ -14,8 +14,13 @@ import { closeDb, getPool } from "../../src/db/client.js";
 import { createRelation, withOperatorRun } from "../../src/merge/operator.js";
 import { creditTypeForRole } from "../../src/merge/relations.js";
 
-const DIR = "reports/rym-2026-10-15";
-const V4 = "reports/rym-v4-2026-10-04/albumes.jsonl";
+// La campaña «resto» (2026-10-16) reusa esta fase: --dir (informes) y --v4 (re-parseo) apuntan a lo suyo.
+const argumento = (nombre: string): string | undefined => {
+  const i = process.argv.indexOf(nombre);
+  return i < 0 ? undefined : process.argv[i + 1];
+};
+const DIR = argumento("--dir") ?? "reports/rym-2026-10-15";
+const V4 = argumento("--v4") ?? "reports/rym-v4-2026-10-04/albumes.jsonl";
 const confirm = process.argv.includes("--confirm");
 const limite = Number(process.argv.find((v) => v.startsWith("--limit="))?.slice(8) ?? 0);
 

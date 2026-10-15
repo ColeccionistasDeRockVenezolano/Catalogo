@@ -4,17 +4,28 @@
 Entrada: reports/rym-2026-10-15/cruce.jsonl + /tmp/rym-links.tsv (ids por ficha, extraídos del HTML)
 Salida:  reports/rym-2026-10-15/enlaces.jsonl  (albumId, platform, id, url, tipo)
          reports/rym-2026-10-15/lotes-soundcloud/  (lotes para scripts/apply-soundcloud-chatgpt.ts)
+
+Las rutas se pueden apuntar a otra campaña (campaña «resto» 2026-10-16):
+    python3 scripts/rym-2026-10-15/02-enlaces-lote.py [--dest reports/rym-2026-10-16] [--tsv /tmp/rym-links.tsv]
 """
 from __future__ import annotations
 
+import argparse
 import collections
 import json
 import sys
 from pathlib import Path
 
 ROOT = Path("/home/brian/apps/Coleccionistas De Rock Venezolano")
-DEST = ROOT / "reports" / "rym-2026-10-15"
-TSV = Path("/tmp/rym-links2.tsv")
+
+
+def rutas() -> tuple[Path, Path]:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dest", default="reports/rym-2026-10-15")
+    ap.add_argument("--tsv", default="/tmp/rym-links2.tsv")
+    args = ap.parse_args()
+    dest = Path(args.dest)
+    return (dest if dest.is_absolute() else ROOT / dest), Path(args.tsv)
 
 
 def url_de(plataforma: str, ident: str, tipo: str, url: str, slug_apple: str = "", loc: str = "") -> str | None:
@@ -41,6 +52,7 @@ PLATAFORMA = {"applemusic": "apple_music"}
 
 
 def main() -> int:
+    DEST, TSV = rutas()
     cruce = {}
     for linea in (DEST / "cruce.jsonl").open(encoding="utf8"):
         d = json.loads(linea)
