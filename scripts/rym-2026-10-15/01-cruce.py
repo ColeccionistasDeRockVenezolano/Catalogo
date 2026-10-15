@@ -88,6 +88,7 @@ def main() -> int:
 
     stats = collections.Counter()
     filas = []
+    sobrantes: list[dict] = []
     for pagina in paginas_rel():
         slug = pagina.name[:-5]
         meta = META.search(pagina.read_text(encoding="utf8", errors="replace"))
@@ -123,6 +124,7 @@ def main() -> int:
                    if normalizar(dtitulo) == objetivo]
         if not casados:
             stats["disco sin casar por título"] += 1
+            sobrantes.append({"slug": slug, "artistId": candidatos[0], "tituloRym": titulo, "anio": anio})
             continue
         if len(casados) > 1:
             mismo_anio = [c for c in casados if anio and c[3] == anio]
@@ -145,6 +147,9 @@ def main() -> int:
 
     with (DEST / "cruce.jsonl").open("w", encoding="utf8") as fh:
         for f in filas:
+            fh.write(json.dumps(f, ensure_ascii=False) + "\n")
+    with (DEST / "cruce-sobrantes.jsonl").open("w", encoding="utf8") as fh:
+        for f in sobrantes:
             fh.write(json.dumps(f, ensure_ascii=False) + "\n")
 
     con_v4 = sum(1 for f in filas if f["v4"])
