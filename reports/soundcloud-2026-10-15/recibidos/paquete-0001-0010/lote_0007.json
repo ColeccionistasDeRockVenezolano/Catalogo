@@ -1,0 +1,188 @@
+{
+  "lote": 7,
+  "artistas": [
+    {
+      "artistId": 6823,
+      "nombre": "cloudy",
+      "soundcloud": {
+        "url": "https://soundcloud.com/1lifesoldier",
+        "confianza": "alta",
+        "evidencia": "https://soundcloud.com/1lifesoldier"
+      },
+      "discos": [
+        {
+          "albumId": 26703,
+          "titulo": "تسجيل الدخول باستخدام الفيسبوك (Log In With Facebook)",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 26699,
+          "titulo": "WEBCAMLOOKINGGLASS",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 26710,
+          "titulo": "cloudy @ USTUPIDFEST 9/10/21 [[++work MiX++]]",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 26700,
+          "titulo": "Dread Blade \"I Only See the White of Your Eyes\"",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 26704,
+          "titulo": "(@dj112dirtbag) cloudy x \"Till Its Over\" #FunkCarioca #JerseyClub 【Official Video】【180 BPM】",
+          "url": "https://soundcloud.com/1lifesoldier/dj112dirtbag-cloudy-x-till-its-over-funkcarioca-jerseyclub-official-video-180-bpm",
+          "confianza": "alta",
+          "evidencia": "https://soundcloud.com/1lifesoldier/dj112dirtbag-cloudy-x-till-its-over-funkcarioca-jerseyclub-official-video-180-bpm",
+          "nota": "solo pistas sueltas; página de pista abierta, autor identificado como cloudy. No se verificó un set del disco."
+        },
+        {
+          "albumId": 26705,
+          "titulo": "Wasnt",
+          "url": "https://soundcloud.com/1lifesoldier/dj112dirtbag-cloudy-x-wasnt-funkcarioca-130-bpm",
+          "confianza": "alta",
+          "evidencia": "https://soundcloud.com/1lifesoldier/dj112dirtbag-cloudy-x-wasnt-funkcarioca-130-bpm",
+          "nota": "solo pistas sueltas; página de pista abierta, autor identificado como cloudy. No se verificó un set del disco."
+        },
+        {
+          "albumId": 26706,
+          "titulo": "Head over heels",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "Posible pista mostrada como «Hilux — Head over heels» en el perfil; página individual no accesible, identidad exacta sin validar."
+        },
+        {
+          "albumId": 27208,
+          "titulo": "(@dj112dirtbag) cloudy x \"O MEU PAU TA CHORANDO\" #FunkCarioca #EpicCollage 【128 BPM】",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "Pista comprobada en versión móvil de SoundCloud, pero no cargó la URL canónica solicitada; se deja null por el formato estricto."
+        },
+        {
+          "albumId": 26707,
+          "titulo": "Net weight u.s.a.",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "Pista mostrada en el perfil de cloudy, pero la página individual no cargó; URL descartada por criterio estricto."
+        },
+        {
+          "albumId": 26711,
+          "titulo": "Strichnyne papertowels",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 26708,
+          "titulo": "Tao lin's chain",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 26709,
+          "titulo": "【All my life in a tower of foil...】smelyalata-(with lyrics) x no letting go 14K views 14 years ago lovemabest1",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        }
+      ]
+    },
+    {
+      "artistId": 3446,
+      "nombre": "Andy Durán",
+      "soundcloud": {
+        "url": null,
+        "confianza": "baja",
+        "evidencia": null,
+        "motivo": "No se verificó un perfil oficial de Andy Durán con estos discos; no se aceptaron menciones en cuentas de terceros."
+      },
+      "discos": [
+        {
+          "albumId": 6599,
+          "titulo": "La Orquesta Palladium Mambo - Salsa !",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 6078,
+          "titulo": "A Jazzy Latin Beat",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 6079,
+          "titulo": "Latin Jazz Club",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 6080,
+          "titulo": "Timeless Vol. 1",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 6081,
+          "titulo": "Latin Jazz Light",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 6082,
+          "titulo": "Latin Jazz & More",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 6083,
+          "titulo": "El Swing Afro Caraqueño",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 6084,
+          "titulo": "Formats & Concepts",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        }
+      ]
+    }
+  ]
+}

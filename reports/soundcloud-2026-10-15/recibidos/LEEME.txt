@@ -1,0 +1,19 @@
+Aquí van los resultados que devuelva ChatGPT.
+
+Lo más cómodo: al terminar (o cada cierto rato) selecciona TODO el chat, copia y guarda el volcado
+como un archivo .txt en esta carpeta, por ejemplo:
+
+    chat-soundcloud-1.txt
+    chat-soundcloud-2.txt      (otra sesión de chat)
+
+Yo saco de ahí TODOS los bloques json de una vez (también valen archivos .json sueltos).
+
+Cuando haya algo aquí, aplicar con:
+
+    cd ~/apps/Coleccionistas\ De\ Rock\ Venezolano
+    ./scripts/with-node22.sh npx tsx scripts/apply-soundcloud-chatgpt.ts \
+        reports/soundcloud-2026-10-15/recibidos            # ensayo: verifica y reporta, no escribe
+    ./scripts/with-node22.sh npx tsx scripts/apply-soundcloud-chatgpt.ts \
+        reports/soundcloud-2026-10-15/recibidos --confirm  # escribe en un run reversible
+
+Cada corrida deja el informe en ../verificacion.json (veredicto e iframe por URL).

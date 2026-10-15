@@ -1,0 +1,189 @@
+{
+  "lote": 5,
+  "artistas": [
+    {
+      "artistId": 1331,
+      "nombre": "Sonó Así",
+      "soundcloud": {
+        "url": null,
+        "confianza": "baja",
+        "evidencia": null,
+        "motivo": "No se encontró un perfil verificable del proyecto Sonó Así con las ediciones de la lista."
+      },
+      "discos": [
+        {
+          "albumId": 2321,
+          "titulo": "Telegrama",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 3009,
+          "titulo": "Circo Vulkano",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 3102,
+          "titulo": "UltraChic",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        }
+      ]
+    },
+    {
+      "artistId": 5927,
+      "nombre": "Lan Liu",
+      "soundcloud": {
+        "url": null,
+        "confianza": "baja",
+        "evidencia": null,
+        "motivo": "No se verificó en SoundCloud un perfil oficial con estos títulos de Lan Liu."
+      },
+      "discos": [
+        {
+          "albumId": 22830,
+          "titulo": "listo",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22822,
+          "titulo": "mars",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22823,
+          "titulo": "cave yourself over",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22824,
+          "titulo": "distant nostalgia",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22825,
+          "titulo": "siberia",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22826,
+          "titulo": "fish in dream bathtub",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22831,
+          "titulo": "jerry 10:",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22832,
+          "titulo": "and i drank a cup of mercury this morning",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22833,
+          "titulo": "untitled",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22834,
+          "titulo": "ascending state",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22835,
+          "titulo": "encuentrame en el mar",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22827,
+          "titulo": "zamsatra",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22836,
+          "titulo": "ligeti's breath",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22828,
+          "titulo": "desde el túnel",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22829,
+          "titulo": "El Fin Del Aroma",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 22837,
+          "titulo": "Entre Espacios Y Paredes",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 26940,
+          "titulo": "El Vacío Te Devuelve la Mirada",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        }
+      ]
+    }
+  ]
+}

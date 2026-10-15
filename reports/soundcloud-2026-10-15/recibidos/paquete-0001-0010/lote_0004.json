@@ -1,0 +1,189 @@
+{
+  "lote": 4,
+  "artistas": [
+    {
+      "artistId": 3883,
+      "nombre": "Los Torrealberos Juan Vicente Torrealba",
+      "soundcloud": {
+        "url": null,
+        "confianza": "baja",
+        "evidencia": null,
+        "motivo": "Se encontraron grabaciones atribuidas a Juan Vicente Torrealba, pero no se acreditó un perfil oficial de Los Torrealberos ni coincidencias exactas de estos discos."
+      },
+      "discos": [
+        {
+          "albumId": 15405,
+          "titulo": "La Música Más Pura y Bella de Venezuela",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "Se catalogan varias ediciones con título idéntico; no se verificó un set correspondiente a esta edición."
+        },
+        {
+          "albumId": 15406,
+          "titulo": "La Música Más Pura y Bella de Venezuela",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "Se catalogan varias ediciones con título idéntico; no se verificó un set correspondiente a esta edición."
+        },
+        {
+          "albumId": 15407,
+          "titulo": "La Música Más Pura y Bella de Venezuela",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "Se catalogan varias ediciones con título idéntico; no se verificó un set correspondiente a esta edición."
+        },
+        {
+          "albumId": 15408,
+          "titulo": "La Música Más Pura y Bella de Venezuela",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "Se catalogan varias ediciones con título idéntico; no se verificó un set correspondiente a esta edición."
+        },
+        {
+          "albumId": 15409,
+          "titulo": "La Música Más Pura y Bella de Venezuela",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "Se catalogan varias ediciones con título idéntico; no se verificó un set correspondiente a esta edición."
+        }
+      ]
+    },
+    {
+      "artistId": 1331,
+      "nombre": "Sonó Así",
+      "soundcloud": {
+        "url": null,
+        "confianza": "baja",
+        "evidencia": null,
+        "motivo": "No se encontró un perfil verificable del proyecto Sonó Así con las ediciones de la lista."
+      },
+      "discos": [
+        {
+          "albumId": 2322,
+          "titulo": "Subsonus",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2323,
+          "titulo": "Candy66",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2324,
+          "titulo": "Fractaler",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2326,
+          "titulo": "Fordelucs",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2327,
+          "titulo": "La Vida Bohéme",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2328,
+          "titulo": "Los Mesoneros",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2329,
+          "titulo": "The Asbestos",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2330,
+          "titulo": "1era Edición",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2331,
+          "titulo": "ViniloVersus",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 3104,
+          "titulo": "Los Mentas",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 3105,
+          "titulo": "Pzoom",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 3106,
+          "titulo": "Famasloop",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2317,
+          "titulo": "Randall's Project",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2319,
+          "titulo": "Nana Cadavieco",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 2320,
+          "titulo": "Wahala",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        }
+      ]
+    }
+  ]
+}

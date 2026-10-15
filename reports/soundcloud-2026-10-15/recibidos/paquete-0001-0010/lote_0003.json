@@ -1,0 +1,189 @@
+{
+  "lote": 3,
+  "artistas": [
+    {
+      "artistId": 6888,
+      "nombre": "Carlos Otero",
+      "soundcloud": {
+        "url": null,
+        "confianza": "baja",
+        "evidencia": null,
+        "motivo": "No se pudo identificar un perfil oficial del cantante con esta discografía; existen homónimos."
+      },
+      "discos": [
+        {
+          "albumId": 27568,
+          "titulo": "International",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 27588,
+          "titulo": "Schirokko / Kein Wiederseh'n",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 27589,
+          "titulo": "Sommernacht in Madrid / Mein Zug heißt Sehnsucht",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 27569,
+          "titulo": "Maria Magdalena",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 27570,
+          "titulo": "Nuits a La Havane",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 27571,
+          "titulo": "Castagnetten en gitaren",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        }
+      ]
+    },
+    {
+      "artistId": 3883,
+      "nombre": "Los Torrealberos Juan Vicente Torrealba",
+      "soundcloud": {
+        "url": null,
+        "confianza": "baja",
+        "evidencia": null,
+        "motivo": "Se encontraron grabaciones atribuidas a Juan Vicente Torrealba, pero no se acreditó un perfil oficial de Los Torrealberos ni coincidencias exactas de estos discos."
+      },
+      "discos": [
+        {
+          "albumId": 9210,
+          "titulo": "La Música Más Pura y Bella de Venezuela",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "Se catalogan varias ediciones con título idéntico; no se verificó un set correspondiente a esta edición."
+        },
+        {
+          "albumId": 9211,
+          "titulo": "Sinfonía Del Palmar",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9212,
+          "titulo": "Motivos Llaneros",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9213,
+          "titulo": "Concierto En La Llanura Vol.1",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9214,
+          "titulo": "Cinco Estrellas",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9215,
+          "titulo": "Serenata Llanera",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9216,
+          "titulo": "Ensoñación",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9217,
+          "titulo": "Campesina",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9219,
+          "titulo": "Concierto En La Llanura Vol.2",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9221,
+          "titulo": "Concierto En La Llanura Vol.3",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9222,
+          "titulo": "Concierto En La Llanura Vol.4",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9223,
+          "titulo": "Epoca De Oro De Los Torrealberos",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9229,
+          "titulo": "Concierto En La Llanura Vol.5",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        },
+        {
+          "albumId": 9230,
+          "titulo": "Concierto En La Llanura Vol.6",
+          "url": null,
+          "confianza": "baja",
+          "evidencia": null,
+          "nota": "No se encontró una URL del disco que pudiera abrirse y verificarse con la identidad y título requeridos. No implica inexistencia."
+        }
+      ]
+    }
+  ]
+}
