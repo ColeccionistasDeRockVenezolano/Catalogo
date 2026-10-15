@@ -1,0 +1,1822 @@
+[
+ {
+  "tabla": "social",
+  "artistId": 3,
+  "artista": "Pablo Manavello",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/pmanavello",
+  "handle": "pmanavello",
+  "verified": false,
+  "nota": "Discogs/Social de «Pablo Manavello» · usuario «pmanavello» · identidad: disco en común: 6 («cosassencillas»…) · fuente: https://www.discogs.com/artist/905590 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 14,
+  "artista": "La Abuela Disco",
+  "platform": "youtube",
+  "url": "https://m.youtube.com/channel/UCKH5VeJ6mqIZv9cQ8NtI-qQ?feature=gws_kp_artist&feature=gws_kp_artist",
+  "handle": "UCKH5VeJ6mqIZv9cQ8NtI-qQ",
+  "verified": true,
+  "nota": "Discogs/Social de «La Abuela Disco» · usuario «UCKH5VeJ6mqIZv9cQ8NtI-qQ» · identidad: disco en común: 2 («polvolunar»…) · fuente: https://www.discogs.com/artist/13244469 · usuario NO coincide: candidato · título de la página «La Abuela Disco»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 130,
+  "artista": "La Cándida Virgen",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/LaCandidaVirgenOficial/",
+  "handle": "lacandidavirgenoficial",
+  "verified": true,
+  "nota": "Discogs/Social de «La Cándida Virgen» · usuario «lacandidavirgenoficial» · identidad: disco en común: 1 («powerofpain»…) · fuente: https://www.discogs.com/artist/3386536 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 130,
+  "artista": "La Cándida Virgen",
+  "platform": "bandcamp",
+  "url": "http://lacandidavirgen.bandcamp.com/releases",
+  "handle": "releases",
+  "verified": true,
+  "nota": "Discogs/Social de «La Cándida Virgen» · usuario «releases» · identidad: disco en común: 1 («powerofpain»…) · fuente: https://www.discogs.com/artist/3386536 · usuario NO coincide: candidato · título de la página «Power Of Pain, by La Candida Virgen»"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 132,
+  "artista": "La Leche",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UCnocUSF1-b-_QKwO9i7G2Og",
+  "handle": "UCnocUSF1-b-_QKwO9i7G2Og",
+  "verified": true,
+  "nota": "Discogs/Social de «La Leche» · usuario «UCnocUSF1-b-_QKwO9i7G2Og» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/5553524 · usuario NO coincide: candidato · título de la página «La Leche»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 132,
+  "artista": "La Leche",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/Lalechesuena/",
+  "handle": "lalechesuena",
+  "verified": true,
+  "nota": "Discogs/Social de «La Leche» · usuario «lalechesuena» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/5553524 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 177,
+  "artista": "Mulato",
+  "platform": "facebook",
+  "url": "http://www.facebook.com/Mulato.Reggae",
+  "handle": "mulato.reggae",
+  "verified": true,
+  "nota": "Discogs/Social de «Mulato» · usuario «mulato.reggae» · identidad: disco en común: 6 («mulato»…) · fuente: https://www.discogs.com/artist/1214064 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 187,
+  "artista": "PAN",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/pan_funk/",
+  "handle": "pan_funk",
+  "verified": false,
+  "nota": "Discogs/Social de «PAN» · usuario «pan_funk» · identidad: disco en común: 1 («envivoenteatronacional»…) · fuente: https://www.discogs.com/artist/3106271 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 207,
+  "artista": "Reciclaje",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/reciclajepunkrock/",
+  "handle": "reciclajepunkrock",
+  "verified": true,
+  "nota": "Discogs/Social de «Reciclaje» · usuario «reciclajepunkrock» · identidad: disco en común: 3 («cualfuturo»…) · fuente: https://www.discogs.com/artist/1789487 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 207,
+  "artista": "Reciclaje",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/reciclajepunkrock1994",
+  "handle": "reciclajepunkrock1994",
+  "verified": true,
+  "nota": "Discogs/Social de «Reciclaje» · usuario «reciclajepunkrock1994» · identidad: disco en común: 3 («cualfuturo»…) · fuente: https://www.discogs.com/artist/1789487 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 237,
+  "artista": "Sónica",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/sonicaoficial/",
+  "handle": "sonicaoficial",
+  "verified": true,
+  "nota": "Discogs/Social de «Sónica» · usuario «sonicaoficial» · identidad: disco en común: 3 («tardeotemprano»…) · fuente: https://www.discogs.com/artist/3386541 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 237,
+  "artista": "Sónica",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/@SonicaOficial/about",
+  "handle": "sonicaoficial",
+  "verified": true,
+  "nota": "Discogs/Social de «Sónica» · usuario «sonicaoficial» · identidad: disco en común: 3 («tardeotemprano»…) · fuente: https://www.discogs.com/artist/3386541 · usuario coincide con el nombre · título de la página «SONICA»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 277,
+  "artista": "Los Mentas",
+  "platform": "x",
+  "url": "https://twitter.com/losmentas",
+  "handle": "losmentas",
+  "verified": true,
+  "nota": "Discogs/Social de «Los Mentas» · usuario «losmentas» · identidad: disco en común: 7 («taguarasforever»…) · fuente: https://www.discogs.com/artist/1989413 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 277,
+  "artista": "Los Mentas",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/LosMentasVzla/",
+  "handle": "losmentasvzla",
+  "verified": true,
+  "nota": "Discogs/Social de «Los Mentas» · usuario «losmentasvzla» · identidad: disco en común: 7 («taguarasforever»…) · fuente: https://www.discogs.com/artist/1989413 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 331,
+  "artista": "Ghriéving",
+  "platform": "bandcamp",
+  "url": "https://ghrievingve.bandcamp.com/music",
+  "handle": "music",
+  "verified": true,
+  "nota": "Discogs/Social de «Ghriéving» · usuario «music» · identidad: disco en común: 3 («somniaprima»…) · fuente: https://www.discogs.com/artist/6425084 · usuario NO coincide: candidato · título de la página «Ghriéving»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 419,
+  "artista": "Argovia",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/Argoviaband/",
+  "handle": "argoviaband",
+  "verified": true,
+  "nota": "Discogs/Social de «Argovia» · usuario «argoviaband» · identidad: disco en común: 2 («myonlysavior»…) · fuente: https://www.discogs.com/artist/10514107 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 419,
+  "artista": "Argovia",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/Argoviaband/",
+  "handle": "argoviaband",
+  "verified": true,
+  "nota": "Discogs/Social de «Argovia» · usuario «argoviaband» · identidad: disco en común: 2 («myonlysavior»…) · fuente: https://www.discogs.com/artist/10514107 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 419,
+  "artista": "Argovia",
+  "platform": "x",
+  "url": "https://twitter.com/Argoviaband",
+  "handle": "argoviaband",
+  "verified": true,
+  "nota": "Discogs/Social de «Argovia» · usuario «argoviaband» · identidad: disco en común: 2 («myonlysavior»…) · fuente: https://www.discogs.com/artist/10514107 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 428,
+  "artista": "Fuga",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UCvvvZ2VIwTDrdstYkEOtjKw",
+  "handle": "UCvvvZ2VIwTDrdstYkEOtjKw",
+  "verified": true,
+  "nota": "Discogs/Social de «Fuga» · usuario «UCvvvZ2VIwTDrdstYkEOtjKw» · identidad: disco en común: 1 («fuga»…) · fuente: https://www.discogs.com/artist/4507670 · usuario NO coincide: candidato · título de la página «FUGA Oficial»"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 487,
+  "artista": "Blush Magenta",
+  "platform": "bandcamp",
+  "url": "https://blushmagenta.bandcamp.com/album/caras-flashes-clase-fashion-show",
+  "handle": "album",
+  "verified": true,
+  "nota": "Discogs/Social de «Blush Magenta» · usuario «album» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/7960181 · usuario NO coincide: candidato · título de la página «Caras.Flashes.Clase.Fashion.Show, by Blush Magenta»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 508,
+  "artista": "SS",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/ThrashMetalSS",
+  "handle": "thrashmetalss",
+  "verified": false,
+  "nota": "Discogs/Social de «SS» · usuario «thrashmetalss» · identidad: disco en común: 1 («southamericanslaughter»…) · fuente: https://www.discogs.com/artist/4274829 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 527,
+  "artista": "Overhate",
+  "platform": "facebook",
+  "url": "http://www.facebook.com/overhateband",
+  "handle": "overhateband",
+  "verified": true,
+  "nota": "Discogs/Social de «Overhate» · usuario «overhateband» · identidad: disco en común: 2 («godinatrench»…) · fuente: https://www.discogs.com/artist/6078096 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 527,
+  "artista": "Overhate",
+  "platform": "x",
+  "url": "https://twitter.com/overhateband",
+  "handle": "overhateband",
+  "verified": true,
+  "nota": "Discogs/Social de «Overhate» · usuario «overhateband» · identidad: disco en común: 2 («godinatrench»…) · fuente: https://www.discogs.com/artist/6078096 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 529,
+  "artista": "Nekro Cvlt Desecration",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/NekroCvltDesecration616/",
+  "handle": "nekrocvltdesecration616",
+  "verified": true,
+  "nota": "Discogs/Social de «Nekro Cvlt Desecration» · usuario «nekrocvltdesecration616» · identidad: disco en común: 3 («nekrosatanialcoholocausto»…) · fuente: https://www.discogs.com/artist/5635729 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 551,
+  "artista": "El Viaje de los Antiguos",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/elviajedelosantiguos",
+  "handle": "elviajedelosantiguos",
+  "verified": true,
+  "nota": "Discogs/Social de «El Viaje de los Antiguos» · usuario «elviajedelosantiguos» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/14257090 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 551,
+  "artista": "El Viaje de los Antiguos",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/elviaje_delosantiguos/",
+  "handle": "elviaje_delosantiguos",
+  "verified": true,
+  "nota": "Discogs/Social de «El Viaje de los Antiguos» · usuario «elviaje_delosantiguos» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/14257090 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 616,
+  "artista": "Southaven",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/Southaven.doom/",
+  "handle": "southaven.doom",
+  "verified": true,
+  "nota": "Discogs/Social de «Southaven» · usuario «southaven.doom» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/14257120 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 616,
+  "artista": "Southaven",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/southaven.doom",
+  "handle": "southaven.doom",
+  "verified": true,
+  "nota": "Discogs/Social de «Southaven» · usuario «southaven.doom» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/14257120 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 625,
+  "artista": "Collapsing System",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/collapsingsystemoficial/",
+  "handle": "collapsingsystemoficial",
+  "verified": true,
+  "nota": "Discogs/Social de «Collapsing System» · usuario «collapsingsystemoficial» · identidad: disco en común: 1 («collapsingsystem»…) · fuente: https://www.discogs.com/artist/6095099 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 683,
+  "artista": "Ysis Vivas",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/ysisvivastheravenomnia",
+  "handle": "ysisvivastheravenomnia",
+  "verified": true,
+  "nota": "Discogs/Social de «Ysis Vivas» · usuario «ysisvivastheravenomnia» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/11179181 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 699,
+  "artista": "Chorizo con Papa",
+  "platform": "bandcamp",
+  "url": "https://chorizoconpapamx.bandcamp.com/releases",
+  "handle": "releases",
+  "verified": true,
+  "nota": "Discogs/Social de «Chorizo con Papa» · usuario «releases» · identidad: disco en común: 1 («demoi»…) · fuente: https://www.discogs.com/artist/7427838 · usuario NO coincide: candidato · título de la página «Rehearsal 16-03-20 (Bootleg), by Chorizo Con Papa»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 699,
+  "artista": "Chorizo con Papa",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/ccpbandmx/",
+  "handle": "ccpbandmx",
+  "verified": false,
+  "nota": "Discogs/Social de «Chorizo con Papa» · usuario «ccpbandmx» · identidad: disco en común: 1 («demoi»…) · fuente: https://www.discogs.com/artist/7427838 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 700,
+  "artista": "Cronos",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/cronosmetalband#",
+  "handle": "cronosmetalband",
+  "verified": true,
+  "nota": "Discogs/Social de «Cronos» · usuario «cronosmetalband» · identidad: disco en común: 3 («alfinunavictoria»…) · fuente: https://www.discogs.com/artist/2768347 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 701,
+  "artista": "Degollado",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/degolladobandvnzla",
+  "handle": "degolladobandvnzla",
+  "verified": true,
+  "nota": "Discogs/Social de «Degollado» · usuario «degolladobandvnzla» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/15549897 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 701,
+  "artista": "Degollado",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UC2bPKZHbKGPaWy9mSomiDkA",
+  "handle": "UC2bPKZHbKGPaWy9mSomiDkA",
+  "verified": true,
+  "nota": "Discogs/Social de «Degollado» · usuario «UC2bPKZHbKGPaWy9mSomiDkA» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/15549897 · usuario NO coincide: candidato · título de la página «DEGOLLADO Black y Death Metal Venezuela»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 708,
+  "artista": "Makara",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/we_are_makara?igsh=cjUwanVkM202bz",
+  "handle": "we_are_makara",
+  "verified": true,
+  "nota": "Discogs/Social de «Makara» · usuario «we_are_makara» · identidad: disco en común: 1 («makara»…) · fuente: https://www.discogs.com/artist/1190449 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 775,
+  "artista": "Porta Infernum",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/PortaInfernumofficial/?fref=ts",
+  "handle": "portainfernumofficial",
+  "verified": true,
+  "nota": "Discogs/Social de «Porta Infernum» · usuario «portainfernumofficial» · identidad: disco en común: 2 («lujuriainfernal»…) · fuente: https://www.discogs.com/artist/7243040 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 777,
+  "artista": "Kveldulv",
+  "platform": "bandcamp",
+  "url": "https://kveldulv.bandcamp.com/album/a-night-before-funeral",
+  "handle": "album",
+  "verified": true,
+  "nota": "Discogs/Social de «Kveldulv» · usuario «album» · identidad: disco en común: 1 («anightbeforefuneral»…) · fuente: https://www.discogs.com/artist/11583002 · usuario NO coincide: candidato · título de la página «A Night Before Funeral, by Kveldulv»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 790,
+  "artista": "Mashiaj",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/mashiajbanda",
+  "handle": "mashiajbanda",
+  "verified": true,
+  "nota": "Discogs/Social de «Mashiaj» · usuario «mashiajbanda» · identidad: disco en común: 2 («vomitivo»…) · fuente: https://www.discogs.com/artist/4960114 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 815,
+  "artista": "Trastorno",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/TrastornoBlackMetal/",
+  "handle": "trastornoblackmetal",
+  "verified": true,
+  "nota": "Discogs/Social de «Trastorno» · usuario «trastornoblackmetal» · identidad: disco en común: 2 («evilnothing»…) · fuente: https://www.discogs.com/artist/7069724 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 817,
+  "artista": "La Cienaga",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/lacienagadoom",
+  "handle": "lacienagadoom",
+  "verified": true,
+  "nota": "Discogs/Social de «La Cienaga» · usuario «lacienagadoom» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/14563768 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 817,
+  "artista": "La Cienaga",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/La_Cienaga/",
+  "handle": "la_cienaga",
+  "verified": true,
+  "nota": "Discogs/Social de «La Cienaga» · usuario «la_cienaga» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/14563768 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 845,
+  "artista": "Infernal Moon",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/Infernal-Moon-139075302815865/photos/?ref=page_internal",
+  "handle": "infernal-moon-139075302815865",
+  "verified": true,
+  "nota": "Discogs/Social de «Infernal Moon» · usuario «infernal-moon-139075302815865» · identidad: disco en común: 1 («winepouredintocupofdeath»…) · fuente: https://www.discogs.com/artist/5046701 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 854,
+  "artista": "Sagoth",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/sagothmetal",
+  "handle": "sagothmetal",
+  "verified": true,
+  "nota": "Discogs/Social de «Sagoth» · usuario «sagothmetal» · identidad: disco en común: 2 («dominacionimperial»…) · fuente: https://www.discogs.com/artist/1847564 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 854,
+  "artista": "Sagoth",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UCgzRL3d_PJi4feabAFK4aPA",
+  "handle": "UCgzRL3d_PJi4feabAFK4aPA",
+  "verified": true,
+  "nota": "Discogs/Social de «Sagoth» · usuario «UCgzRL3d_PJi4feabAFK4aPA» · identidad: disco en común: 2 («dominacionimperial»…) · fuente: https://www.discogs.com/artist/1847564 · usuario NO coincide: candidato · título de la página «Sagoth B.M.»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 911,
+  "artista": "El Globo Oscuro",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/elglobooscuro/",
+  "handle": "elglobooscuro",
+  "verified": true,
+  "nota": "Discogs/Social de «El Globo Oscuro» · usuario «elglobooscuro» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/11016821 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 911,
+  "artista": "El Globo Oscuro",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/@elglobooscuro",
+  "handle": "elglobooscuro",
+  "verified": true,
+  "nota": "Discogs/Social de «El Globo Oscuro» · usuario «elglobooscuro» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/11016821 · usuario coincide con el nombre · título de la página «El Globo Oscuro»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 928,
+  "artista": "B.E.T.O.E",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/betoerawpunk",
+  "handle": "betoerawpunk",
+  "verified": true,
+  "nota": "Discogs/Social de «B.E.T.O.E» · usuario «betoerawpunk» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/4585884 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 936,
+  "artista": "Element of Decadence",
+  "platform": "bandcamp",
+  "url": "https://elementofdecadence.bandcamp.com/album/penance-of-this-sacrilege",
+  "handle": "album",
+  "verified": true,
+  "nota": "Discogs/Social de «Element of Decadence» · usuario «album» · identidad: disco en común: 1 («penanceofthissacrilege»…) · fuente: https://www.discogs.com/artist/17604603 · usuario NO coincide: candidato · título de la página «Penance of this Sacrilege, by Element of Decadence»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 980,
+  "artista": "Amantium",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/amantiumband/",
+  "handle": "amantiumband",
+  "verified": true,
+  "nota": "Discogs/Social de «Amantium» · usuario «amantiumband» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/5158106 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 993,
+  "artista": "La Rotunda",
+  "platform": "x",
+  "url": "https://www.twitter.com/larotunda",
+  "handle": "larotunda",
+  "verified": true,
+  "nota": "Discogs/Social de «La Rotunda» · usuario «larotunda» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/8463048 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1142,
+  "artista": "Numb",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/numb_thc?igsh=MTk4N2hkeTN6Ync1YQ==",
+  "handle": "numb_thc",
+  "verified": true,
+  "nota": "Discogs/Social de «Numb» · usuario «numb_thc» · identidad: disco en común: 1 («numb»…) · fuente: https://www.discogs.com/artist/734175 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1142,
+  "artista": "Numb",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/numbthc",
+  "handle": "numbthc",
+  "verified": true,
+  "nota": "Discogs/Social de «Numb» · usuario «numbthc» · identidad: disco en común: 1 («numb»…) · fuente: https://www.discogs.com/artist/734175 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1142,
+  "artista": "Numb",
+  "platform": "x",
+  "url": "http://twitter.com/NUMB_thc",
+  "handle": "numb_thc",
+  "verified": true,
+  "nota": "Discogs/Social de «Numb» · usuario «numb_thc» · identidad: disco en común: 1 («numb»…) · fuente: https://www.discogs.com/artist/734175 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 1155,
+  "artista": "Doppler",
+  "platform": "bandcamp",
+  "url": "https://personnenedanse.bandcamp.com/music",
+  "handle": "music",
+  "verified": true,
+  "nota": "Discogs/Social de «Doppler» · usuario «music» · identidad: disco en común: 1 («doppler»…) · fuente: https://www.discogs.com/artist/1248634 · usuario NO coincide: candidato · título de la página «DOPPLeR»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1229,
+  "artista": "Los Javelin",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/losjavelin/",
+  "handle": "losjavelin",
+  "verified": true,
+  "nota": "Discogs/Social de «Los Javelin» · usuario «losjavelin» · identidad: disco en común: 2 («surfabillyroll»…) · fuente: https://www.discogs.com/artist/5212548 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1414,
+  "artista": "El Arca",
+  "platform": "facebook",
+  "url": "http://www.facebook.com/arca1000000",
+  "handle": "arca1000000",
+  "verified": true,
+  "nota": "Discogs/Social de «El Arca» · usuario «arca1000000» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/2868236 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1414,
+  "artista": "El Arca",
+  "platform": "instagram",
+  "url": "http://instagram.com/arca1000000",
+  "handle": "arca1000000",
+  "verified": true,
+  "nota": "Discogs/Social de «El Arca» · usuario «arca1000000» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/2868236 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1414,
+  "artista": "El Arca",
+  "platform": "x",
+  "url": "http://twitter.com/arca1000000",
+  "handle": "arca1000000",
+  "verified": true,
+  "nota": "Discogs/Social de «El Arca» · usuario «arca1000000» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/2868236 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1793,
+  "artista": "Discarga",
+  "platform": "facebook",
+  "url": "http://www.facebook.com/Discarga-142584699146551",
+  "handle": "discarga-142584699146551",
+  "verified": true,
+  "nota": "Discogs/Social de «Discarga» · usuario «discarga-142584699146551» · identidad: disco en común: 2 («discarga»…) · fuente: https://www.discogs.com/artist/1150709 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1975,
+  "artista": "Juan Carlos Pérez Soto",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/pg/perezsotojc/",
+  "handle": "pg",
+  "verified": false,
+  "nota": "Discogs/Social de «Juan Carlos Pérez Soto» · usuario «pg» · identidad: disco en común: 4 («juancarlosperezsoto»…) · fuente: https://www.discogs.com/artist/726206 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1975,
+  "artista": "Juan Carlos Pérez Soto",
+  "platform": "x",
+  "url": "https://twitter.com/jcperezsoto",
+  "handle": "jcperezsoto",
+  "verified": false,
+  "nota": "Discogs/Social de «Juan Carlos Pérez Soto» · usuario «jcperezsoto» · identidad: disco en común: 4 («juancarlosperezsoto»…) · fuente: https://www.discogs.com/artist/726206 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1975,
+  "artista": "Juan Carlos Pérez Soto",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/jcperezsoto/",
+  "handle": "jcperezsoto",
+  "verified": false,
+  "nota": "Discogs/Social de «Juan Carlos Pérez Soto» · usuario «jcperezsoto» · identidad: disco en común: 4 («juancarlosperezsoto»…) · fuente: https://www.discogs.com/artist/726206 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 1994,
+  "artista": "Raimundo Rodulfo",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UCTDpSpneJWm3fcq-pgEHKbA",
+  "handle": "UCTDpSpneJWm3fcq-pgEHKbA",
+  "verified": true,
+  "nota": "Discogs/Social de «Raimundo Rodulfo» · usuario «UCTDpSpneJWm3fcq-pgEHKbA» · identidad: disco en común: 2 («dreamsconcerto»…) · fuente: https://www.discogs.com/artist/3663102 · usuario NO coincide: candidato · título de la página «Raimundo Rodulfo - Tema»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 2230,
+  "artista": "Panas",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/losandeselectronicos/",
+  "handle": "losandeselectronicos",
+  "verified": false,
+  "nota": "Discogs/Social de «Panas» · usuario «losandeselectronicos» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/169134 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 2243,
+  "artista": "Pablo Schneider",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/1438637659750294/posts/1771724643108259/",
+  "handle": "1438637659750294",
+  "verified": false,
+  "nota": "Discogs/Social de «Pablo Schneider» · usuario «1438637659750294» · identidad: disco en común: 1 («originaldepeliculasobrehierbavirgen»…) · fuente: https://www.discogs.com/artist/341235 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 2726,
+  "artista": "Trujillo",
+  "platform": "facebook",
+  "url": "http://www.facebook.com/djtrujillomusic",
+  "handle": "djtrujillomusic",
+  "verified": true,
+  "nota": "Discogs/Social de «Trujillo» · usuario «djtrujillomusic» · identidad: disco en común: 1 («daltonicnow»…) · fuente: https://www.discogs.com/artist/43707 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 2726,
+  "artista": "Trujillo",
+  "platform": "x",
+  "url": "http://www.twitter.com/djtrujillo",
+  "handle": "djtrujillo",
+  "verified": true,
+  "nota": "Discogs/Social de «Trujillo» · usuario «djtrujillo» · identidad: disco en común: 1 («daltonicnow»…) · fuente: https://www.discogs.com/artist/43707 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 2726,
+  "artista": "Trujillo",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/djtrujillo",
+  "handle": "djtrujillo",
+  "verified": true,
+  "nota": "Discogs/Social de «Trujillo» · usuario «djtrujillo» · identidad: disco en común: 1 («daltonicnow»…) · fuente: https://www.discogs.com/artist/43707 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 2835,
+  "artista": "José Cabello",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/djjosecabello.artist/",
+  "handle": "djjosecabello.artist",
+  "verified": true,
+  "nota": "Discogs/Social de «José Cabello» · usuario «djjosecabello.artist» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/329980 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 2897,
+  "artista": "Ordep Zerep",
+  "platform": "facebook",
+  "url": "http://www.facebook.com/federicoblankmusic",
+  "handle": "federicoblankmusic",
+  "verified": false,
+  "nota": "Discogs/Social de «Ordep Zerep» · usuario «federicoblankmusic» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/885786 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 2897,
+  "artista": "Ordep Zerep",
+  "platform": "instagram",
+  "url": "http://www.instagram.com/federicoblank/",
+  "handle": "federicoblank",
+  "verified": false,
+  "nota": "Discogs/Social de «Ordep Zerep» · usuario «federicoblank» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/885786 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 2944,
+  "artista": "Orquesta Sinfónica de Venezuela",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/SinfonicadeVenezuela/",
+  "handle": "sinfonicadevenezuela",
+  "verified": true,
+  "nota": "Discogs/Social de «Orquesta Sinfónica de Venezuela» · usuario «sinfonicadevenezuela» · identidad: disco en común: 2 («venezolanadeconcierto»…) · fuente: https://www.discogs.com/artist/5986954 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 3071,
+  "artista": "Lucifugo",
+  "platform": "bandcamp",
+  "url": "http://lucifugo.bandcamp.com/releases",
+  "handle": "releases",
+  "verified": true,
+  "nota": "Discogs/Social de «Lucifugo» · usuario «releases» · identidad: disco en común: 1 («lucifugo»…) · fuente: https://www.discogs.com/artist/4262539 · usuario NO coincide: candidato · título de la página «Lucifugo Demo MMVI, by Lucifugo»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3120,
+  "artista": "Prometeo",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/prometeometal/",
+  "handle": "prometeometal",
+  "verified": true,
+  "nota": "Discogs/Social de «Prometeo» · usuario «prometeometal» · identidad: disco en común: 1 («1974»…) · fuente: https://www.discogs.com/artist/11851427 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3120,
+  "artista": "Prometeo",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/prometeometal/",
+  "handle": "prometeometal",
+  "verified": true,
+  "nota": "Discogs/Social de «Prometeo» · usuario «prometeometal» · identidad: disco en común: 1 («1974»…) · fuente: https://www.discogs.com/artist/11851427 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 3149,
+  "artista": "IIRA",
+  "platform": "bandcamp",
+  "url": "https://iira.bandcamp.com/releases",
+  "handle": "releases",
+  "verified": true,
+  "nota": "Discogs/Social de «IIRA» · usuario «releases» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/10889866 · usuario NO coincide: candidato · título de la página «Demo, by IIRA»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3179,
+  "artista": "Abaddonsheol",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/abaddon666sheol/",
+  "handle": "abaddon666sheol",
+  "verified": false,
+  "nota": "Discogs/Social de «Abaddonsheol» · usuario «abaddon666sheol» · identidad: disco en común: 3 («andras»…) · fuente: https://www.discogs.com/artist/13830802 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3223,
+  "artista": "Herejes",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/herejesblackmetal/",
+  "handle": "herejesblackmetal",
+  "verified": true,
+  "nota": "Discogs/Social de «Herejes» · usuario «herejesblackmetal» · identidad: disco en común: 1 («envivocontrafielessancristobal»…) · fuente: https://www.discogs.com/artist/16702447 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 3223,
+  "artista": "Herejes",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/@herejesband/videos",
+  "handle": "herejesband",
+  "verified": true,
+  "nota": "Discogs/Social de «Herejes» · usuario «herejesband» · identidad: disco en común: 1 («envivocontrafielessancristobal»…) · fuente: https://www.discogs.com/artist/16702447 · usuario coincide con el nombre · título de la página «herejesband»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3412,
+  "artista": "Orfeón Lamas",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/122557901185639/posts/1032900990151321/",
+  "handle": "122557901185639",
+  "verified": false,
+  "nota": "Discogs/Social de «Orfeón Lamas» · usuario «122557901185639» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/4391508 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3417,
+  "artista": "Simón Bolívar Symphony Orchestra of Venezuela",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/sinfonicasimonbolivardevzla/?hl=es",
+  "handle": "sinfonicasimonbolivardevzla",
+  "verified": false,
+  "nota": "Discogs/Social de «Simón Bolívar Symphony Orchestra of Venezuela» · usuario «sinfonicasimonbolivardevzla» · identidad: disco en común: 4 («vidabreve»…) · fuente: https://www.discogs.com/artist/1221123 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3464,
+  "artista": "César Orozco",
+  "platform": "x",
+  "url": "https://twitter.com/orozcopiano",
+  "handle": "orozcopiano",
+  "verified": false,
+  "nota": "Discogs/Social de «César Orozco» · usuario «orozcopiano» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/1120333 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3520,
+  "artista": "Julio Mendoza",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/juliomendozajazz/",
+  "handle": "juliomendozajazz",
+  "verified": true,
+  "nota": "Discogs/Social de «Julio Mendoza» · usuario «juliomendozajazz» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/1057829 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3569,
+  "artista": "Roberto Quintero",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/robert.quintero.359",
+  "handle": "robert.quintero.359",
+  "verified": false,
+  "nota": "Discogs/Social de «Roberto Quintero» · usuario «robert.quintero.359» · identidad: disco en común: 2 («transmission»…) · fuente: https://www.discogs.com/artist/803963 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3569,
+  "artista": "Roberto Quintero",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/robertquintero/",
+  "handle": "robertquintero",
+  "verified": false,
+  "nota": "Discogs/Social de «Roberto Quintero» · usuario «robertquintero» · identidad: disco en común: 2 («transmission»…) · fuente: https://www.discogs.com/artist/803963 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 3569,
+  "artista": "Roberto Quintero",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UCFuIoBvBAGnxl0Cu4OUU02g",
+  "handle": "UCFuIoBvBAGnxl0Cu4OUU02g",
+  "verified": false,
+  "nota": "Discogs/Social de «Roberto Quintero» · usuario «UCFuIoBvBAGnxl0Cu4OUU02g» · identidad: disco en común: 2 («transmission»…) · fuente: https://www.discogs.com/artist/803963 · usuario NO coincide: candidato · título de la página «Robert Quintero»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3613,
+  "artista": "Luisito Quintero",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/luisitotimbal/",
+  "handle": "luisitotimbal",
+  "verified": false,
+  "nota": "Discogs/Social de «Luisito Quintero» · usuario «luisitotimbal» · identidad: disco en común: 4 («luisitoquintero»…) · fuente: https://www.discogs.com/artist/268294 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3649,
+  "artista": "Gabriel Vivas",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/gabriel.vivas.982",
+  "handle": "gabriel.vivas.982",
+  "verified": true,
+  "nota": "Discogs/Social de «Gabriel Vivas» · usuario «gabriel.vivas.982» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/2884142 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3650,
+  "artista": "Leo Quintero",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/LeoQuinteroMusicOfficial/",
+  "handle": "leoquinteromusicofficial",
+  "verified": true,
+  "nota": "Discogs/Social de «Leo Quintero» · usuario «leoquinteromusicofficial» · identidad: disco en común: 2 («ofrendas»…) · fuente: https://www.discogs.com/artist/497734 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3709,
+  "artista": "Guaco",
+  "platform": "x",
+  "url": "http://www.twitter.com/OficialGuaco",
+  "handle": "oficialguaco",
+  "verified": true,
+  "nota": "Discogs/Social de «Guaco» · usuario «oficialguaco» · identidad: disco en común: 44 («guacos»…) · fuente: https://www.discogs.com/artist/1278030 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3709,
+  "artista": "Guaco",
+  "platform": "instagram",
+  "url": "http://www.instagram.com/OficialGuaco",
+  "handle": "oficialguaco",
+  "verified": true,
+  "nota": "Discogs/Social de «Guaco» · usuario «oficialguaco» · identidad: disco en común: 44 («guacos»…) · fuente: https://www.discogs.com/artist/1278030 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3709,
+  "artista": "Guaco",
+  "platform": "facebook",
+  "url": "http://www.fb.me/guacooficial",
+  "handle": "guacooficial",
+  "verified": true,
+  "nota": "Discogs/Social de «Guaco» · usuario «guacooficial» · identidad: disco en común: 44 («guacos»…) · fuente: https://www.discogs.com/artist/1278030 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3732,
+  "artista": "Natusha",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/natushalareinadeltecnomerengue",
+  "handle": "natushalareinadeltecnomerengue",
+  "verified": true,
+  "nota": "Discogs/Social de «Natusha» · usuario «natushalareinadeltecnomerengue» · identidad: disco en común: 15 («natushakondor»…) · fuente: https://www.discogs.com/artist/1125392 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3732,
+  "artista": "Natusha",
+  "platform": "x",
+  "url": "https://twitter.com/natushalambada",
+  "handle": "natushalambada",
+  "verified": true,
+  "nota": "Discogs/Social de «Natusha» · usuario «natushalambada» · identidad: disco en común: 15 («natushakondor»…) · fuente: https://www.discogs.com/artist/1125392 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3880,
+  "artista": "Juan Galea",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/folclorica/",
+  "handle": "folclorica",
+  "verified": false,
+  "nota": "Discogs/Social de «Juan Galea» · usuario «folclorica» · identidad: disco en común: 3 («nuevadimensiondejuangalea»…) · fuente: https://www.discogs.com/artist/1195737 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3906,
+  "artista": "Grupo Raíces de Venezuela",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/pg/raicesdevenezuela/about/",
+  "handle": "pg",
+  "verified": false,
+  "nota": "Discogs/Social de «Grupo Raíces de Venezuela» · usuario «pg» · identidad: disco en común: 7 («gruporaicesdevenezuela»…) · fuente: https://www.discogs.com/artist/4305546 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 3917,
+  "artista": "Alzheimer",
+  "platform": "facebook",
+  "url": "https://m.facebook.com/ALZHEIMER-152527154407/",
+  "handle": "alzheimer-152527154407",
+  "verified": true,
+  "nota": "Discogs/Social de «Alzheimer» · usuario «alzheimer-152527154407» · identidad: disco en común: 1 («alzheimer»…) · fuente: https://www.discogs.com/artist/4203228 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4254,
+  "artista": "Aneeka",
+  "platform": "x",
+  "url": "https://twitter.com/aneekamusic?lang=es",
+  "handle": "aneekamusic",
+  "verified": true,
+  "nota": "Discogs/Social de «Aneeka» · usuario «aneekamusic» · identidad: disco en común: 1 («niantesnidespues»…) · fuente: https://www.discogs.com/artist/3858637 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4255,
+  "artista": "Akapellah",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/AkapellahOficial/",
+  "handle": "akapellahoficial",
+  "verified": true,
+  "nota": "Discogs/Social de «Akapellah» · usuario «akapellahoficial» · identidad: disco en común: 16 («comoantes»…) · fuente: https://www.discogs.com/artist/4351818 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4283,
+  "artista": "Oksana Linde",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/linde.o/",
+  "handle": "linde.o",
+  "verified": false,
+  "nota": "Discogs/Social de «Oksana Linde» · usuario «linde.o» · identidad: disco en común: 1 («travesias»…) · fuente: https://www.discogs.com/artist/344122 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 4316,
+  "artista": "The Same People",
+  "platform": "youtube",
+  "url": "https://m.youtube.com/@THESAMEPEOPLEOFICIAL",
+  "handle": "thesamepeopleoficial",
+  "verified": true,
+  "nota": "Discogs/Social de «The Same People» · usuario «thesamepeopleoficial» · identidad: disco en común: 4 («samepeople»…) · fuente: https://www.discogs.com/artist/3571555 · usuario coincide con el nombre · título de la página «THE SAME PEOPLE Calipso De El Callao»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4524,
+  "artista": "Anakena",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/anakenamusica/",
+  "handle": "anakenamusica",
+  "verified": true,
+  "nota": "Discogs/Social de «Anakena» · usuario «anakenamusica» · identidad: disco en común: 1 («anakena»…) · fuente: https://www.discogs.com/artist/9342994 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4524,
+  "artista": "Anakena",
+  "platform": "x",
+  "url": "https://twitter.com/anakenamusica",
+  "handle": "anakenamusica",
+  "verified": true,
+  "nota": "Discogs/Social de «Anakena» · usuario «anakenamusica» · identidad: disco en común: 1 («anakena»…) · fuente: https://www.discogs.com/artist/9342994 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 4524,
+  "artista": "Anakena",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UCmSdR_nQFMbpnBGi6JYw_1g",
+  "handle": "UCmSdR_nQFMbpnBGi6JYw_1g",
+  "verified": true,
+  "nota": "Discogs/Social de «Anakena» · usuario «UCmSdR_nQFMbpnBGi6JYw_1g» · identidad: disco en común: 1 («anakena»…) · fuente: https://www.discogs.com/artist/9342994 · usuario NO coincide: candidato · título de la página «Anakena»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4530,
+  "artista": "Los Propios",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/pg/organizacion-musical-los-propios-de-venezuela-136468995684/about/",
+  "handle": "pg",
+  "verified": false,
+  "nota": "Discogs/Social de «Los Propios» · usuario «pg» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/2976710 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4543,
+  "artista": "Dragón Blanco",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/dragonblancoband",
+  "handle": "dragonblancoband",
+  "verified": true,
+  "nota": "Discogs/Social de «Dragón Blanco» · usuario «dragonblancoband» · identidad: disco en común: 1 («hamelinduality»…) · fuente: https://www.discogs.com/artist/11184032 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 4543,
+  "artista": "Dragón Blanco",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UC7Hbjmr0v7MBOHte80DBMhg",
+  "handle": "UC7Hbjmr0v7MBOHte80DBMhg",
+  "verified": true,
+  "nota": "Discogs/Social de «Dragón Blanco» · usuario «UC7Hbjmr0v7MBOHte80DBMhg» · identidad: disco en común: 1 («hamelinduality»…) · fuente: https://www.discogs.com/artist/11184032 · usuario NO coincide: candidato · título de la página «Dragón Blanco»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4559,
+  "artista": "Los Dead",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/LosDeadPunk/",
+  "handle": "losdeadpunk",
+  "verified": true,
+  "nota": "Discogs/Social de «Los Dead» · usuario «losdeadpunk» · identidad: disco en común: 2 («estoespunk»…) · fuente: https://www.discogs.com/artist/9525430 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4588,
+  "artista": "Los Prisioneros",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/planetaprisionero/",
+  "handle": "planetaprisionero",
+  "verified": false,
+  "nota": "Discogs/Social de «Los Prisioneros» · usuario «planetaprisionero» · identidad: disco en común: 37 («vozde80»…) · fuente: https://www.discogs.com/artist/884977 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 4588,
+  "artista": "Los Prisioneros",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/@LosPrisionerosOficial/",
+  "handle": "losprisionerosoficial",
+  "verified": true,
+  "nota": "Discogs/Social de «Los Prisioneros» · usuario «losprisionerosoficial» · identidad: disco en común: 37 («vozde80»…) · fuente: https://www.discogs.com/artist/884977 · usuario coincide con el nombre · título de la página «Los Prisioneros»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4640,
+  "artista": "Laps Around the Sun",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/lapsaroundthesun",
+  "handle": "lapsaroundthesun",
+  "verified": true,
+  "nota": "Discogs/Social de «Laps Around the Sun» · usuario «lapsaroundthesun» · identidad: disco en común: 1 («foolspoem»…) · fuente: https://www.discogs.com/artist/12400372 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4640,
+  "artista": "Laps Around the Sun",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/lapsaroundthesun",
+  "handle": "lapsaroundthesun",
+  "verified": true,
+  "nota": "Discogs/Social de «Laps Around the Sun» · usuario «lapsaroundthesun» · identidad: disco en común: 1 («foolspoem»…) · fuente: https://www.discogs.com/artist/12400372 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4640,
+  "artista": "Laps Around the Sun",
+  "platform": "x",
+  "url": "https://twitter.com/lapsroundthesun",
+  "handle": "lapsroundthesun",
+  "verified": false,
+  "nota": "Discogs/Social de «Laps Around the Sun» · usuario «lapsroundthesun» · identidad: disco en común: 1 («foolspoem»…) · fuente: https://www.discogs.com/artist/12400372 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4675,
+  "artista": "Dark Manthra",
+  "platform": "facebook",
+  "url": "http://facebook.com/darkmanthrametal",
+  "handle": "darkmanthrametal",
+  "verified": true,
+  "nota": "Discogs/Social de «Dark Manthra» · usuario «darkmanthrametal» · identidad: disco en común: 4 («faithbreaker»…) · fuente: https://www.discogs.com/artist/4463976 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 4675,
+  "artista": "Dark Manthra",
+  "platform": "youtube",
+  "url": "http://youtube.com/darkmanthra",
+  "handle": "darkmanthra",
+  "verified": true,
+  "nota": "Discogs/Social de «Dark Manthra» · usuario «darkmanthra» · identidad: disco en común: 4 («faithbreaker»…) · fuente: https://www.discogs.com/artist/4463976 · usuario coincide con el nombre · título de la página «DARK MANTHRA»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4680,
+  "artista": "Bonestorm",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/bonestormdeathmetal",
+  "handle": "bonestormdeathmetal",
+  "verified": true,
+  "nota": "Discogs/Social de «Bonestorm» · usuario «bonestormdeathmetal» · identidad: disco en común: 3 («hiddenhorizon»…) · fuente: https://www.discogs.com/artist/3931313 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4695,
+  "artista": "Virgin Killer",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/virginkillerbucaramanga",
+  "handle": "virginkillerbucaramanga",
+  "verified": true,
+  "nota": "Discogs/Social de «Virgin Killer» · usuario «virginkillerbucaramanga» · identidad: disco en común: 2 («speedmetalsoldiers»…) · fuente: https://www.discogs.com/artist/3587324 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4717,
+  "artista": "Los Satélites",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/los.devzla/",
+  "handle": "los.devzla",
+  "verified": false,
+  "nota": "Discogs/Social de «Los Satélites» · usuario «los.devzla» · identidad: disco en común: 8 («erupcion»…) · fuente: https://www.discogs.com/artist/1799636 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 4728,
+  "artista": "Gaiteros de Pillopo",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/people/Gaiteros-de-Pillopo/100050826438477/",
+  "handle": "people",
+  "verified": false,
+  "nota": "Discogs/Social de «Gaiteros de Pillopo» · usuario «people» · identidad: disco en común: 8 («gaiterosdepillopo»…) · fuente: https://www.discogs.com/artist/5211585 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 5850,
+  "artista": "Samuel Sahlieh",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/@SamuelSahlieh",
+  "handle": "samuelsahlieh",
+  "verified": true,
+  "nota": "Discogs/Social de «Samuel Sahlieh» · usuario «samuelsahlieh» · identidad: disco en común: 2 («veiled»…) · fuente: https://www.discogs.com/artist/2569854 · usuario coincide con el nombre · título de la página «Samuel Sahlieh»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 5894,
+  "artista": "Scarlett Linares",
+  "platform": "x",
+  "url": "https://twitter.com/scarletlinares2?lang=es",
+  "handle": "scarletlinares2",
+  "verified": false,
+  "nota": "Discogs/Social de «Scarlett Linares» · usuario «scarletlinares2» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/6497748 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 5923,
+  "artista": "Nakary",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/palumbitaaaa",
+  "handle": "palumbitaaaa",
+  "verified": false,
+  "nota": "Discogs/Social de «Nakary» · usuario «palumbitaaaa» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/14827876 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 5923,
+  "artista": "Nakary",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/@Nakarypalumbi",
+  "handle": "nakarypalumbi",
+  "verified": true,
+  "nota": "Discogs/Social de «Nakary» · usuario «nakarypalumbi» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/14827876 · usuario coincide con el nombre · título de la página «NAKARY PALUMBI»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 5923,
+  "artista": "Nakary",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/nakarypalumbi",
+  "handle": "nakarypalumbi",
+  "verified": true,
+  "nota": "Discogs/Social de «Nakary» · usuario «nakarypalumbi» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/14827876 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 5923,
+  "artista": "Nakary",
+  "platform": "x",
+  "url": "https://x.com/nakarypalumbi",
+  "handle": "nakarypalumbi",
+  "verified": true,
+  "nota": "Discogs/Social de «Nakary» · usuario «nakarypalumbi» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/14827876 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 5967,
+  "artista": "Saul Guanipa",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/guanipas",
+  "handle": "guanipas",
+  "verified": false,
+  "nota": "Discogs/Social de «Saul Guanipa» · usuario «guanipas» · identidad: disco en común: 1 («emanations»…) · fuente: https://www.discogs.com/artist/8620932 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 5970,
+  "artista": "Reynaldo Hahn",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/association.reynaldo.hahn/",
+  "handle": "association.reynaldo.hahn",
+  "verified": true,
+  "nota": "Discogs/Social de «Reynaldo Hahn» · usuario «association.reynaldo.hahn» · identidad: nombre único en el pozo + perfil de Venezuela · fuente: https://www.discogs.com/artist/663502 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 5972,
+  "artista": "Giorgio Maulini",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/giomaulini/",
+  "handle": "giomaulini",
+  "verified": true,
+  "nota": "Discogs/Social de «Giorgio Maulini» · usuario «giomaulini» · identidad: disco en común: 6 («spaceport»…) · fuente: https://www.discogs.com/artist/6763289 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 5972,
+  "artista": "Giorgio Maulini",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/giorgiomau/",
+  "handle": "giorgiomau",
+  "verified": true,
+  "nota": "Discogs/Social de «Giorgio Maulini» · usuario «giorgiomau» · identidad: disco en común: 6 («spaceport»…) · fuente: https://www.discogs.com/artist/6763289 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 5984,
+  "artista": "Juan Serrano",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/JuanSerranoFlamenco/",
+  "handle": "juanserranoflamenco",
+  "verified": true,
+  "nota": "Discogs/Social de «Juan Serrano» · usuario «juanserranoflamenco» · identidad: disco en común: 1 («juanserrano»…) · fuente: https://www.discogs.com/artist/972706 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 6017,
+  "artista": "Weed420",
+  "platform": "bandcamp",
+  "url": "https://xweed420x.bandcamp.com/music",
+  "handle": "music",
+  "verified": true,
+  "nota": "Discogs/Social de «Weed420» · usuario «music» · identidad: disco en común: 14 («rvrt3»…) · fuente: https://www.discogs.com/artist/18236193 · usuario NO coincide: candidato · título de la página «weed420»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6092,
+  "artista": "Bboy Puff",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/BboyPuffAkaFan",
+  "handle": "bboypuffakafan",
+  "verified": true,
+  "nota": "Discogs/Social de «Bboy Puff» · usuario «bboypuffakafan» · identidad: disco en común: 2 («lokemitin»…) · fuente: https://www.discogs.com/artist/2711412 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6100,
+  "artista": "Christiana Bohorquez",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/ChristianaBohorquezMusic",
+  "handle": "christianabohorquezmusic",
+  "verified": true,
+  "nota": "Discogs/Social de «Christiana Bohorquez» · usuario «christianabohorquezmusic» · identidad: disco en común: 1 («maybe»…) · fuente: https://www.discogs.com/artist/5093169 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6104,
+  "artista": "Kris Berry",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/krisberrynow/",
+  "handle": "krisberrynow",
+  "verified": true,
+  "nota": "Discogs/Social de «Kris Berry» · usuario «krisberrynow» · identidad: disco en común: 12 («floweremptytree»…) · fuente: https://www.discogs.com/artist/2699653 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6176,
+  "artista": "Maxplay",
+  "platform": "x",
+  "url": "http://twitter.com/Maxplaymusic",
+  "handle": "maxplaymusic",
+  "verified": true,
+  "nota": "Discogs/Social de «Maxplay» · usuario «maxplaymusic» · identidad: disco en común: 1 («celebrationoflifeep»…) · fuente: https://www.discogs.com/artist/2319063 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6181,
+  "artista": "AGU!",
+  "platform": "instagram",
+  "url": "http://www.instagram.com/aguthemorbid/",
+  "handle": "aguthemorbid",
+  "verified": false,
+  "nota": "Discogs/Social de «AGU!» · usuario «aguthemorbid» · identidad: disco en común: 3 («tsundemo»…) · fuente: https://www.discogs.com/artist/7095033 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6181,
+  "artista": "AGU!",
+  "platform": "x",
+  "url": "https://twitter.com/aguthemorbid",
+  "handle": "aguthemorbid",
+  "verified": false,
+  "nota": "Discogs/Social de «AGU!» · usuario «aguthemorbid» · identidad: disco en común: 3 («tsundemo»…) · fuente: https://www.discogs.com/artist/7095033 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6213,
+  "artista": "Otrebor",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/otrebormusic/",
+  "handle": "otrebormusic",
+  "verified": true,
+  "nota": "Discogs/Social de «Otrebor» · usuario «otrebormusic» · identidad: disco en común: 5 («loneliness»…) · fuente: https://www.discogs.com/artist/8265341 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6213,
+  "artista": "Otrebor",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/jesus.mendezcamacho.3",
+  "handle": "jesus.mendezcamacho.3",
+  "verified": false,
+  "nota": "Discogs/Social de «Otrebor» · usuario «jesus.mendezcamacho.3» · identidad: disco en común: 5 («loneliness»…) · fuente: https://www.discogs.com/artist/8265341 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6226,
+  "artista": "Vir Martialis",
+  "platform": "facebook",
+  "url": "https://facebook.com/virmartialisvzla",
+  "handle": "virmartialisvzla",
+  "verified": true,
+  "nota": "Discogs/Social de «Vir Martialis» · usuario «virmartialisvzla» · identidad: disco en común: 3 («metapolemosmetaphysicsofwar»…) · fuente: https://www.discogs.com/artist/2488253 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6239,
+  "artista": "Jeon",
+  "platform": "x",
+  "url": "https://twitter.com/biggyjeon",
+  "handle": "biggyjeon",
+  "verified": true,
+  "nota": "Discogs/Social de «Jeon» · usuario «biggyjeon» · identidad: disco en común: 1 («machika»…) · fuente: https://www.discogs.com/artist/4564719 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6630,
+  "artista": "Nacho",
+  "platform": "x",
+  "url": "https://twitter.com/nacholacriatura",
+  "handle": "nacholacriatura",
+  "verified": true,
+  "nota": "Discogs/Social de «Nacho» · usuario «nacholacriatura» · identidad: disco en común: 7 («bailame»…) · fuente: https://www.discogs.com/artist/5353128 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 6630,
+  "artista": "Nacho",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UCf9WY_e35w2UV3LDLKX2jQw",
+  "handle": "UCf9WY_e35w2UV3LDLKX2jQw",
+  "verified": true,
+  "nota": "Discogs/Social de «Nacho» · usuario «UCf9WY_e35w2UV3LDLKX2jQw» · identidad: disco en común: 7 («bailame»…) · fuente: https://www.discogs.com/artist/5353128 · usuario NO coincide: candidato · título de la página «NachoVEVO»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6639,
+  "artista": "Carlos Giffoni",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/nofundreams/",
+  "handle": "nofundreams",
+  "verified": false,
+  "nota": "Discogs/Social de «Carlos Giffoni» · usuario «nofundreams» · identidad: disco en común: 47 («loquesolosepuedeexpresaratravesdelsilencioyunamiradadeayer»…) · fuente: https://www.discogs.com/artist/212394 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6639,
+  "artista": "Carlos Giffoni",
+  "platform": "x",
+  "url": "http://twitter.com/carlosgiffoni",
+  "handle": "carlosgiffoni",
+  "verified": true,
+  "nota": "Discogs/Social de «Carlos Giffoni» · usuario «carlosgiffoni» · identidad: disco en común: 47 («loquesolosepuedeexpresaratravesdelsilencioyunamiradadeayer»…) · fuente: https://www.discogs.com/artist/212394 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6687,
+  "artista": "Sigmatus",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/the_sigmatus/",
+  "handle": "the_sigmatus",
+  "verified": true,
+  "nota": "Discogs/Social de «Sigmatus» · usuario «the_sigmatus» · identidad: disco en común: 1 («5times1»…) · fuente: https://www.discogs.com/artist/9516769 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 6687,
+  "artista": "Sigmatus",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UCRLE3jFO7qN2ACj88k9YDPA?view_as=subscriber",
+  "handle": "UCRLE3jFO7qN2ACj88k9YDPA",
+  "verified": true,
+  "nota": "Discogs/Social de «Sigmatus» · usuario «UCRLE3jFO7qN2ACj88k9YDPA» · identidad: disco en común: 1 («5times1»…) · fuente: https://www.discogs.com/artist/9516769 · usuario NO coincide: candidato · título de la página «Sigmatus»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6687,
+  "artista": "Sigmatus",
+  "platform": "x",
+  "url": "https://x.com/biant_sabesco",
+  "handle": "biant_sabesco",
+  "verified": false,
+  "nota": "Discogs/Social de «Sigmatus» · usuario «biant_sabesco» · identidad: disco en común: 1 («5times1»…) · fuente: https://www.discogs.com/artist/9516769 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6741,
+  "artista": "Elena Abend",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/eabend",
+  "handle": "eabend",
+  "verified": false,
+  "nota": "Discogs/Social de «Elena Abend» · usuario «eabend» · identidad: disco en común: 1 («brahmsschumann»…) · fuente: https://www.discogs.com/artist/3375858 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6752,
+  "artista": "MPeach",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/mpeachhh",
+  "handle": "mpeachhh",
+  "verified": true,
+  "nota": "Discogs/Social de «MPeach» · usuario «mpeachhh» · identidad: disco en común: 4 («vengoporti»…) · fuente: https://www.discogs.com/artist/3939653 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6752,
+  "artista": "MPeach",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/_mpeach/",
+  "handle": "_mpeach",
+  "verified": true,
+  "nota": "Discogs/Social de «MPeach» · usuario «_mpeach» · identidad: disco en común: 4 («vengoporti»…) · fuente: https://www.discogs.com/artist/3939653 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6758,
+  "artista": "Mikel Erentxun",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/mikelerentxun",
+  "handle": "mikelerentxun",
+  "verified": true,
+  "nota": "Discogs/Social de «Mikel Erentxun» · usuario «mikelerentxun» · identidad: disco en común: 46 («estaluznuncaseapagara»…) · fuente: https://www.discogs.com/artist/492933 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6758,
+  "artista": "Mikel Erentxun",
+  "platform": "x",
+  "url": "https://twitter.com/mikelerentxun",
+  "handle": "mikelerentxun",
+  "verified": true,
+  "nota": "Discogs/Social de «Mikel Erentxun» · usuario «mikelerentxun» · identidad: disco en común: 46 («estaluznuncaseapagara»…) · fuente: https://www.discogs.com/artist/492933 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6758,
+  "artista": "Mikel Erentxun",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/erentxun/",
+  "handle": "erentxun",
+  "verified": true,
+  "nota": "Discogs/Social de «Mikel Erentxun» · usuario «erentxun» · identidad: disco en común: 46 («estaluznuncaseapagara»…) · fuente: https://www.discogs.com/artist/492933 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6761,
+  "artista": "Alonso Casual",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/alonsocasual/",
+  "handle": "alonsocasual",
+  "verified": true,
+  "nota": "Discogs/Social de «Alonso Casual» · usuario «alonsocasual» · identidad: disco en común: 2 («amigosraros»…) · fuente: https://www.discogs.com/artist/9833521 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6761,
+  "artista": "Alonso Casual",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/AlonsoCasual",
+  "handle": "alonsocasual",
+  "verified": true,
+  "nota": "Discogs/Social de «Alonso Casual» · usuario «alonsocasual» · identidad: disco en común: 2 («amigosraros»…) · fuente: https://www.discogs.com/artist/9833521 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6772,
+  "artista": "Rebecca Roger Cruz",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/beccarogercruz",
+  "handle": "beccarogercruz",
+  "verified": true,
+  "nota": "Discogs/Social de «Rebecca Roger Cruz» · usuario «beccarogercruz» · identidad: disco en común: 1 («rioabajo»…) · fuente: https://www.discogs.com/artist/13426416 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 6772,
+  "artista": "Rebecca Roger Cruz",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/@beccarogercruz",
+  "handle": "beccarogercruz",
+  "verified": true,
+  "nota": "Discogs/Social de «Rebecca Roger Cruz» · usuario «beccarogercruz» · identidad: disco en común: 1 («rioabajo»…) · fuente: https://www.discogs.com/artist/13426416 · usuario coincide con el nombre · título de la página «Rebecca Roger Cruz»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6792,
+  "artista": "Ray Pérez",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/ramonepifanio.perezrivas",
+  "handle": "ramonepifanio.perezrivas",
+  "verified": false,
+  "nota": "Discogs/Social de «Ray Pérez» · usuario «ramonepifanio.perezrivas» · identidad: disco en común: 12 («lomejorderayperez»…) · fuente: https://www.discogs.com/artist/2716502 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6795,
+  "artista": "Yva Las Vegass",
+  "platform": "x",
+  "url": "https://twitter.com/yvalasvegass",
+  "handle": "yvalasvegass",
+  "verified": true,
+  "nota": "Discogs/Social de «Yva Las Vegass» · usuario «yvalasvegass» · identidad: disco en común: 1 («iwasborninaplaceofsunshineandsmellofripemangoes»…) · fuente: https://www.discogs.com/artist/2665338 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6796,
+  "artista": "Gusi",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/gusi/",
+  "handle": "gusi",
+  "verified": true,
+  "nota": "Discogs/Social de «Gusi» · usuario «gusi» · identidad: disco en común: 2 («alsondemicorazon»…) · fuente: https://www.discogs.com/artist/5818114 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6796,
+  "artista": "Gusi",
+  "platform": "x",
+  "url": "https://twitter.com/gusi",
+  "handle": "gusi",
+  "verified": true,
+  "nota": "Discogs/Social de «Gusi» · usuario «gusi» · identidad: disco en común: 2 («alsondemicorazon»…) · fuente: https://www.discogs.com/artist/5818114 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6796,
+  "artista": "Gusi",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/gusi/",
+  "handle": "gusi",
+  "verified": true,
+  "nota": "Discogs/Social de «Gusi» · usuario «gusi» · identidad: disco en común: 2 («alsondemicorazon»…) · fuente: https://www.discogs.com/artist/5818114 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6800,
+  "artista": "Omar Rudberg",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/officialomar/",
+  "handle": "officialomar",
+  "verified": false,
+  "nota": "Discogs/Social de «Omar Rudberg» · usuario «officialomar» · identidad: disco en común: 9 («omarcovers»…) · fuente: https://www.discogs.com/artist/5583914 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6812,
+  "artista": "Felipe Peláez",
+  "platform": "x",
+  "url": "https://twitter.com/felipepelaez",
+  "handle": "felipepelaez",
+  "verified": true,
+  "nota": "Discogs/Social de «Felipe Peláez» · usuario «felipepelaez» · identidad: disco en común: 5 («deotramanera»…) · fuente: https://www.discogs.com/artist/4059896 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6812,
+  "artista": "Felipe Peláez",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/felipepelaez",
+  "handle": "felipepelaez",
+  "verified": true,
+  "nota": "Discogs/Social de «Felipe Peláez» · usuario «felipepelaez» · identidad: disco en común: 5 («deotramanera»…) · fuente: https://www.discogs.com/artist/4059896 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6812,
+  "artista": "Felipe Peláez",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/FelipePelaezArtista",
+  "handle": "felipepelaezartista",
+  "verified": true,
+  "nota": "Discogs/Social de «Felipe Peláez» · usuario «felipepelaezartista» · identidad: disco en común: 5 («deotramanera»…) · fuente: https://www.discogs.com/artist/4059896 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 6812,
+  "artista": "Felipe Peláez",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UCMBHnPl1VADzETiVS6y2HOQ",
+  "handle": "UCMBHnPl1VADzETiVS6y2HOQ",
+  "verified": true,
+  "nota": "Discogs/Social de «Felipe Peláez» · usuario «UCMBHnPl1VADzETiVS6y2HOQ» · identidad: disco en común: 5 («deotramanera»…) · fuente: https://www.discogs.com/artist/4059896 · usuario NO coincide: candidato · título de la página «Felipe Peláez»"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 6814,
+  "artista": "Linda Sjöquist",
+  "platform": "bandcamp",
+  "url": "https://nyttarkiv.bandcamp.com/album/hogar-monocroma-tico",
+  "handle": "album",
+  "verified": true,
+  "nota": "Discogs/Social de «Linda Sjöquist» · usuario «album» · identidad: disco en común: 1 («hogarmonocromatico»…) · fuente: https://www.discogs.com/artist/6394518 · usuario NO coincide: candidato · título de la página «Hogar Monocromático, by Linda Sjöquist»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6814,
+  "artista": "Linda Sjöquist",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/sjoquistlinda/?hc_ref=ARQKnLBaz23WuoPlnM6r_bbSibT2FSSwUy12sQUAhBedYCaTufrmrsY5b2gyaVSWHqs&fref=nf",
+  "handle": "sjoquistlinda",
+  "verified": false,
+  "nota": "Discogs/Social de «Linda Sjöquist» · usuario «sjoquistlinda» · identidad: disco en común: 1 («hogarmonocromatico»…) · fuente: https://www.discogs.com/artist/6394518 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6826,
+  "artista": "Elsa y Elmar",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/elsayelmar",
+  "handle": "elsayelmar",
+  "verified": true,
+  "nota": "Discogs/Social de «Elsa y Elmar» · usuario «elsayelmar» · identidad: disco en común: 4 («eresdiamante»…) · fuente: https://www.discogs.com/artist/5142776 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6826,
+  "artista": "Elsa y Elmar",
+  "platform": "x",
+  "url": "https://twitter.com/elsayelmar",
+  "handle": "elsayelmar",
+  "verified": true,
+  "nota": "Discogs/Social de «Elsa y Elmar» · usuario «elsayelmar» · identidad: disco en común: 4 («eresdiamante»…) · fuente: https://www.discogs.com/artist/5142776 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 6826,
+  "artista": "Elsa y Elmar",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/elsayelmar",
+  "handle": "elsayelmar",
+  "verified": true,
+  "nota": "Discogs/Social de «Elsa y Elmar» · usuario «elsayelmar» · identidad: disco en común: 4 («eresdiamante»…) · fuente: https://www.discogs.com/artist/5142776 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 116,
+  "artista": "Ilan Chester",
+  "platform": "x",
+  "url": "https://x.com/Ilan_Chester",
+  "handle": "ilan_chester",
+  "verified": true,
+  "nota": "Discogs/Social de «Ilan Chester» · usuario «ilan_chester» · identidad: entidad Wikidata Q2918727 anclada por Discogs P1953 616922 · fuente: https://www.wikidata.org/wiki/Q2918727 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 141,
+  "artista": "Laberinto",
+  "platform": "x",
+  "url": "https://x.com/laberintomusic",
+  "handle": "laberintomusic",
+  "verified": true,
+  "nota": "Discogs/Social de «Laberinto» · usuario «laberintomusic» · identidad: entidad Wikidata Q18609567 anclada por Discogs P1953 309314 · fuente: https://www.wikidata.org/wiki/Q18609567 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 159,
+  "artista": "Los Mesoneros",
+  "platform": "x",
+  "url": "https://x.com/LOSMESONEROS",
+  "handle": "losmesoneros",
+  "verified": true,
+  "nota": "Discogs/Social de «Los Mesoneros» · usuario «losmesoneros» · identidad: entidad Wikidata Q58619216 anclada por Discogs P1953 5558504 · fuente: https://www.wikidata.org/wiki/Q58619216 · usuario coincide con el nombre"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1250,
+  "artista": "Nuuro",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/arca1000000",
+  "handle": "arca1000000",
+  "verified": false,
+  "nota": "Discogs/Social de «Nuuro» · usuario «arca1000000» · identidad: entidad Wikidata Q16149863 anclada por Discogs P1953 701591 · fuente: https://www.wikidata.org/wiki/Q16149863 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1250,
+  "artista": "Nuuro",
+  "platform": "facebook",
+  "url": "https://www.facebook.com/arca1000000",
+  "handle": "arca1000000",
+  "verified": false,
+  "nota": "Discogs/Social de «Nuuro» · usuario «arca1000000» · identidad: entidad Wikidata Q16149863 anclada por Discogs P1953 701591 · fuente: https://www.wikidata.org/wiki/Q16149863 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1250,
+  "artista": "Nuuro",
+  "platform": "x",
+  "url": "https://x.com/arca1000000",
+  "handle": "arca1000000",
+  "verified": false,
+  "nota": "Discogs/Social de «Nuuro» · usuario «arca1000000» · identidad: entidad Wikidata Q16149863 anclada por Discogs P1953 701591 · fuente: https://www.wikidata.org/wiki/Q16149863 · usuario NO coincide: candidato"
+ },
+ {
+  "tabla": "streaming",
+  "artistId": 1250,
+  "artista": "Nuuro",
+  "platform": "youtube",
+  "url": "https://www.youtube.com/channel/UCNZxkCLMDGrYDaqSkaGn5iw",
+  "handle": "UCNZxkCLMDGrYDaqSkaGn5iw",
+  "verified": false,
+  "nota": "Discogs/Social de «Nuuro» · usuario «UCNZxkCLMDGrYDaqSkaGn5iw» · identidad: entidad Wikidata Q16149863 anclada por Discogs P1953 701591 · fuente: https://www.wikidata.org/wiki/Q16149863 · usuario NO coincide: candidato · título de la página «Arca»"
+ },
+ {
+  "tabla": "social",
+  "artistId": 1738,
+  "artista": "Rada",
+  "platform": "instagram",
+  "url": "https://www.instagram.com/ethnosonics",
+  "handle": "ethnosonics",
+  "verified": false,
+  "nota": "Discogs/Social de «Rada» · usuario «ethnosonics» · identidad: entidad Wikidata Q122229562 anclada por Discogs P1953 639039 · fuente: https://www.wikidata.org/wiki/Q122229562 · usuario NO coincide: candidato"
+ }
+]

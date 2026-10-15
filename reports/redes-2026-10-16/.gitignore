@@ -1,0 +1,6 @@
+# Caché de la API de Discogs de la cosecha de redes (5.000+ respuestas JSON; se regenera
+# volviendo a correr scripts/harvest-social-discogs.mts).
+cache-discogs/
+# Índice masivo del pozo crudo (18.373 resultados de búsqueda): se regenera en 15 s con
+# scripts/discogs-bio-index.py. El índice de fichas sí va versionado (es pequeño y es la evidencia).
+discogs-bio-busquedas.jsonl

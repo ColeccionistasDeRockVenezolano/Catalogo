@@ -136,6 +136,26 @@ def reloj_muro(log_tail):
     return ("OK", ultimo_mas or "-")
 
 
+def segundos(hhmmss):
+    h, m, s = (int(x) for x in hhmmss.split(":"))
+    return h * 3600 + m * 60 + s
+
+
+def ritmo_medido(log_tail, ultimas=60):
+    """Segundos por ficha MEDIDOS: mediana de los últimos tramos entre marcas del log.
+
+    La media engaña (los timeouts de 60 s la disparan); la mediana describe el paso normal.
+    Devuelve (mediana, n_tramos) o (None, 0) si no hay datos suficientes.
+    """
+    marcas = [segundos(m.group(1)) for m in (re.match(r"\[(\d{2}:\d{2}:\d{2})\] \+ \[", l) for l in log_tail) if m]
+    marcas = marcas[-ultimas:]
+    tramos = [b - a for a, b in zip(marcas, marcas[1:]) if 0 <= (b - a) < 3600]
+    if not tramos:
+        return (None, 0)
+    tramos.sort()
+    return (tramos[len(tramos) // 2], len(tramos))
+
+
 def fila(etiqueta, valor, clase=""):
     return f'<div class="fila"><span class="et">{esc(etiqueta)}</span><span class="va {clase}">{valor}</span></div>'
 
@@ -193,7 +213,11 @@ def bloque_a():
         pass
     pendientes = (cola - hechas) if isinstance(hechas, int) else None
     estado_muro, cuando = reloj_muro(leer(LOG_A, 400))
-    eta = f"~{pendientes * 6.5 / 3600:.1f} h" if pendientes else "—"
+    seg_ficha, tramos = ritmo_medido(leer(LOG_A, 400))
+    if pendientes and seg_ficha:
+        eta = f"~{pendientes * seg_ficha / 3600:.1f} h (a {seg_ficha} s/ficha medidos en {tramos} tramos)"
+    else:
+        eta = "—"
     pct = f"{100 * len(paginas) / cola:.1f} %" if cola else "?"
     clase = "ok" if estado_muro == "OK" else "mal"
     salida = ['<section><h2>1 · Captura RYM «resto» (A)</h2>']
@@ -202,7 +226,7 @@ def bloque_a():
                        f'{" · proceso vivo" if vivo else " · sin proceso"}'))
     salida.append(fila("Páginas capturadas", f"<b>{len(paginas)}</b> de {cola} de la cola · {pct} ({artistas_n} de artista · {discos} de disco)"))
     if pendientes is not None:
-        salida.append(fila("Hechas / pendientes", f"{hechas} / {pendientes} · ETA a 6,5 s/página: {eta}"))
+        salida.append(fila("Hechas / pendientes", f"{hechas} / {pendientes} · ETA {eta}"))
     salida.append(fila("Muro de Cloudflare", f'<span class="{clase}">{estado_muro}</span> · última marca {esc(str(cuando))}'))
     salida.append(fila("Última página capturada", esc(ultima)))
     if estado_muro != "OK":
@@ -226,10 +250,16 @@ def bloque_b():
     salida = ['<section><h2>2 · Portadas y fotos (B)</h2>']
     for nombre, archivo, titulo in unidades:
         u = unidad(nombre)
+        ultima_cruda = (leer(MEDIA / f"{nombre}.log", 1) or [""])[0]
+        # «terminada» = la unidad ya no corre y su log cerró con el resumen JSON de la corrida.
+        etiqueta = u
+        if u != "active" and ultima_cruda.strip().startswith("{"):
+            etiqueta = "terminada"
+            u = "apagado"
         ultima = (leer(MEDIA / f"{nombre}.log", 1) or ["—"])[0][:150]
         cand = contar_lineas(MEDIA / archivo)
         salida.append(fila(f"{titulo}",
-                           f'<span class="{ "ok" if u == "active" else "apagado" }">{esc(u)}</span> · candidatas: <b>{cand if cand is not None else "?"}</b>'))
+                           f'<span class="{ "ok" if u == "active" else "apagado" }">{esc(etiqueta)}</span> · candidatas: <b>{cand if cand is not None else "?"}</b>'))
         salida.append(f'<div class="log">{esc(ultima)}</div>')
     asociadas = ", ".join(f"{k}: {v}" for k, v in sorted(mh.items())) or "ninguna aún"
     salida.append(fila("Imágenes asociadas hoy (media:localize)", f"<b>{esc(asociadas)}</b>"))

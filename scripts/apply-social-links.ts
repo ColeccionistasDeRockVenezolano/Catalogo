@@ -58,6 +58,29 @@ function normalizar(texto: string): string {
     .replace(/[^a-z0-9]+/gu, "");
 }
 
+/**
+ * Variante APLASTADA: solo quita signos, sin tocar artículos ni adornos. Hace falta porque los
+ * usuarios de las redes van sin espacios («elviajedelosantiguos»): contra esa forma, la
+ * normalización con adornos («viajedeantiguos») no encuentra nada y la cuenta legítima se caía.
+ */
+function aplastar(texto: string): string {
+  return (texto ?? "").normalize("NFD").replace(/\p{M}+/gu, "").toLowerCase().replace(/[^a-z0-9]+/gu, "");
+}
+
+/** ¿El usuario de la red se puede probar contra el nombre del artista? (regla del proyecto) */
+function usuarioCoincide(handle: string | null, artista: string): boolean {
+  if (!handle) return false;
+  const usuario = normalizar(handle);
+  const nombre = normalizar(artista);
+  const usuarioPlano = aplastar(handle);
+  const nombrePlano = aplastar(artista);
+  if (nombre.length >= 4 && usuario === nombre) return true;
+  if (nombrePlano.length >= 5 && usuarioPlano === nombrePlano) return true;
+  if (usuario.length >= 5 && nombre.length >= 4 && (usuario.includes(nombre) || nombre.includes(usuario))) return true;
+  if (nombrePlano.length >= 5 && usuarioPlano.includes(nombrePlano)) return true;
+  return false;
+}
+
 const dormir = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 /** Título real de una página (og:title o <title>) — la prueba para perfiles de escucha. */
@@ -135,10 +158,8 @@ async function main(): Promise<void> {
         const cl = clasificar(url);
         if (!cl) { sumar("url fuera de catálogo de redes"); continue; }
         let verified = false;
-        if (cl.handle && nombre.length >= 4) {
-          const usuario = normalizar(cl.handle);
-          verified = usuario === nombre
-            || (usuario.length >= 5 && (usuario.includes(nombre) || nombre.includes(usuario)));
+        if (cl.handle && normalizar(e.artista).length >= 4) {
+          verified = usuarioCoincide(cl.handle, e.artista);
         }
         const clave = `${e.artistId}:${cl.platform}`;
         const previa = porClave.get(clave);
