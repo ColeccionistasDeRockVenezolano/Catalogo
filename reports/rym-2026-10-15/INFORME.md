@@ -42,6 +42,12 @@ SoundCloud va por su verificador propio (`scripts/apply-soundcloud-chatgpt.ts`, 
 | Tidal | 4 | 2 | 1 |
 | YouTube | 91 | 281 | 25 (vídeo caído) |
 
+**YouTube — run 20087: 154 enlaces más a verificados.** Los vídeos de las fichas no siempre nombran
+el disco («3 Dueños - 🍩👻⚡️ (Album) | Video Arte» para «Originales»), así que se revisan con dos
+señales por oEmbed (`10-revisar-youtube.mts`): el CANAL es del artista y el vídeo se declara álbum o
+nombra el disco. Ascendieron 154 de 397 revisados; 106 siguen candidatos porque el canal es de un
+tercero (reuploads) y 25 no respondieron. YouTube de disco: 367 filas, 245 verificadas.
+
 **SoundCloud — run 20085: 209 enlaces** (125 verificados · 84 candidatos · 54 descartados por set
 inexistente: los enlaces de RYM envejecen). Se afinó el verificador: una PISTA del propio artista
 cuyo título CONTIENE el del disco («Arca - Airdoll» para «Airdoll») ahora vale como verificada.
@@ -108,6 +114,7 @@ Todos los runs de esta campaña son del operador y se deshacen desde Historial:
 | 20083 | fichas de artista (256), alias (1.053), membresías (335), personas (334) |
 | 20084 | enlaces de escucha verificados (2.118) |
 | 20085 | enlaces de SoundCloud de las fichas de RYM (209) |
+| 20087 | YouTube: candidatos que pasan a verificados (154) |
 | `redes-run*` | redes sociales atribuidas |
 
 Runs anteriores relacionados (misma jornada, SoundCloud): 20076 (prueba), 20077 (primer paquete de
