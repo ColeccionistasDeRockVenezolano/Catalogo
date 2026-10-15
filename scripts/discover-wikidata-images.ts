@@ -36,17 +36,28 @@ function positive(name: string, fallback: number): number {
 async function pause(ms: number): Promise<void> { await new Promise((resolve) => setTimeout(resolve, ms)); }
 
 async function sparql(query: string): Promise<Array<{ name: string; item: string; image: string; artistName?: string }>> {
-  const response = await fetch(`${ENDPOINT}?${new URLSearchParams({ format: "json", query })}`, {
-    headers: { accept: "application/sparql-results+json", "user-agent": "CRV-local-media/1.0 (+coleccionistasderockvenezolano.com)" },
-    signal: AbortSignal.timeout(60_000),
-  });
-  if (!response.ok) throw new Error(`Wikidata HTTP ${response.status}: ${(await response.text()).slice(0, 240)}`);
-  const payload = await response.json() as { results?: { bindings?: Array<Record<string, { value?: string }>> } };
-  return (payload.results?.bindings ?? []).flatMap((row) => {
-    const name = row["name"]?.value; const item = row["item"]?.value; const image = row["image"]?.value;
-    if (!name || !item || !image || !/^https?:\/\//u.test(image)) return [];
-    return [{ name, item, image, ...(row["artistName"]?.value ? { artistName: row["artistName"].value } : {}) }];
-  });
+  // El endpoint de Wikidata tarda y a veces devuelve 502/504: reintento con espera creciente
+  // (medido 2026-10-16: sin esto, un lote lento tumba el barrido entero).
+  let ultimoError: Error | undefined;
+  for (let intento = 0; intento < 4; intento += 1) {
+    try {
+      const response = await fetch(`${ENDPOINT}?${new URLSearchParams({ format: "json", query })}`, {
+        headers: { accept: "application/sparql-results+json", "user-agent": "CRV-local-media/1.0 (+coleccionistasderockvenezolano.com)" },
+        signal: AbortSignal.timeout(150_000),
+      });
+      if (!response.ok) throw new Error(`Wikidata HTTP ${response.status}: ${(await response.text()).slice(0, 240)}`);
+      const payload = await response.json() as { results?: { bindings?: Array<Record<string, { value?: string }>> } };
+      return (payload.results?.bindings ?? []).flatMap((row) => {
+        const name = row["name"]?.value; const item = row["item"]?.value; const image = row["image"]?.value;
+        if (!name || !item || !image || !/^https?:\/\//u.test(image)) return [];
+        return [{ name, item, image, ...(row["artistName"]?.value ? { artistName: row["artistName"].value } : {}) }];
+      });
+    } catch (error) {
+      ultimoError = error as Error;
+      await new Promise((resolve) => setTimeout(resolve, 5_000 * (intento + 1)));
+    }
+  }
+  throw ultimoError ?? new Error("Wikidata sin respuesta");
 }
 
 function queryFor(kind: Exclude<Kind, "album">, names: string[]): string {
