@@ -47,28 +47,23 @@ manual para una sesión nueva: léelo entero antes de tocar nada.
 bash ops/rym-resto/lanzar.sh                 # deja la unidad crv-scrapling-rym-resto corriendo
 bash ops/rym-resto/estado.sh                 # salud, páginas capturadas, últimas líneas del log
 
-# 2) re-parseo offline de lo capturado (rico: label, catálogo, pistas, créditos, formato, fechas)
-python3 scripts/rym-v4-reparse.py --pages <carpeta>/pages --out reports/rym-v4-<fecha>
+# 2) cadena completa con el orquestador (reparse → cruce → enlaces); se puede correr con la
+#    captura viva. Las etapas ya aceptan --dir/--v4/--informe para apuntar a esta campaña.
+bash ops/rym-resto/procesar.sh todo          # re-parseo + cruce + lote de enlaces
 
-# 3) cruce ficha ↔ disco del catálogo (acepta varias carpetas de fichas)
-python3 scripts/rym-2026-10-15/01-cruce.py \
-    --paginas data/raw/fuentes-web-2026-10-16/rym-resto/pages \
-    --v4 reports/rym-v4-<fecha>/albumes.jsonl --dest reports/rym-<fecha>
-
-# 4) lote de enlaces de escucha (data-links de las fichas casadas)
-python3 scripts/rym-2026-10-15/00-extraer-data-links.py /tmp/rym-links.tsv
-python3 scripts/rym-2026-10-15/02-enlaces-lote.py          # ajustar las rutas del TSV si cambia la fecha
-
-# 5) aplicar, fase por fase, siempre ensayo primero y luego --confirm
-./scripts/with-node22.sh npx tsx scripts/rym-2026-10-15/03-apply-enlaces.ts [--confirm]
-./scripts/with-node22.sh npx tsx scripts/rym-2026-10-15/04-campos.mts [--confirm]
-./scripts/with-node22.sh npx tsx scripts/rym-2026-10-15/05-creditos.mts [--confirm]
-./scripts/with-node22.sh npx tsx scripts/rym-2026-10-15/06-artista.mts [--confirm]
-./scripts/with-node22.sh npx tsx scripts/rym-2026-10-15/10-revisar-youtube.mts [--confirm]
+# 3) aplicar, fase por fase: primero SIEMPRE el ensayo (sin --confirm) y luego --confirm
+bash ops/rym-resto/procesar.sh aplicar              # ensayo de las 6 fases
+bash ops/rym-resto/procesar.sh aplicar --confirm    # en firme (run del operador, reversible)
 
 # 6) SoundCloud de las fichas (lotes → verificador con og:type/og:title)
 ./scripts/with-node22.sh npx tsx scripts/apply-soundcloud-chatgpt.ts <carpeta-de-lotes> [--confirm]
 ```
+
+Los comandos sueltos de cada etapa (si hay que correr una sola) están en `procesar.sh`: el
+re-parseo (`scripts/rym-v4-reparse.py --pages/--out`), el cruce (`01-cruce.py --paginas/--v4/--dest`),
+los enlaces (`00-extraer-data-links.py <tsv> --paginas`, `02-enlaces-lote.py --dest --tsv`) y los
+appliers `03-apply-enlaces.ts`, `04-campos.mts`, `05-creditos.mts`, `06-artista.mts`,
+`10-revisar-youtube.mts` (todos con `--dir`/`--v4`/`--informe`).
 
 **Rendimiento medido** (campos de las 1.816 fichas de artista + 8.107 de disco capturadas el 1-2 de
 octubre): 3.937 discos casados · 2.108 enlaces de escucha verificados · 2.071 campos de disco
@@ -93,13 +88,23 @@ sesión). A ~6 s por página, las 5.476 fichas de artista son ~9 h de captura, y
 ## 4. Portadas y fotos (APIs públicas, sin captura)
 
 ```
-npx tsx scripts/discover-deezer-covers.ts --limit 200 --out /tmp/covers-deezer.json       # portadas
-npx tsx scripts/discover-deezer-artist-photos.ts --limit 200 --doubts --out /tmp/fotos.json # fotos
-npx tsx scripts/discover-itunes-album-images.ts        # alternativa/complemento
-npx tsx scripts/discover-wikidata-images.ts            # Commons, solo entidades en Venezuela
-npx tsx scripts/discogs-artist-photos.mts              # fotos de artista vía Discogs
-npx tsx scripts/localize-images.ts --candidates <archivo.json> [--associate-only]  # descarga y asocia
+bash ops/media-2026-10-16/lanzar.sh          # los cinco discoverers, como unidades systemd --user
+bash ops/media-2026-10-16/lanzar.sh --estado # salud y última línea de cada uno
+
+./scripts/with-node22.sh npm run media:localize -- \
+    --candidates reports/fotos-portadas-2026-10-16/<archivo>.jsonl --only-candidates
 ```
+Los discoverers son: `discover-deezer-covers.ts` (portadas), `discover-deezer-artist-photos.ts`
+(fotos, con guarda de disco en común), `discover-itunes-album-images.ts` (portadas; Apple da 403
+por encima de ~20 req/min → 3 s por consulta), `discover-wikidata-images.ts` (Commons, anclaje
+Venezuela) y `discogs-artist-photos.mts` (solo identidades Discogs ya aceptadas). `localize-images.ts`
+descarga a `web/public/media/` y asocia en un run del operador; si la ficha ya tenía imagen, la
+candidata va a Curaduría · Imágenes (no se pisa).
+
+**Pitfall medido:** las salidas van en rutas RELATIVAS al repo — con ruta absoluta, los espacios de
+«Coleccionistas De Rock Venezolano» parten el argumento de `systemd-run` y los candidatos acaban en
+un camino inventado (`home/brian/apps/Coleccionistas`).
+
 Regla: los candidatos se verifican por nombre exacto + disco compartido antes de asociarse; la imagen
 siempre se descarga a disco (`localize-images.ts`), nunca se deja la URL remota.
 
@@ -107,12 +112,32 @@ siempre se descarga a disco (`localize-images.ts`), nunca se deja la URL remota.
 
 Fuentes, en orden de fiabilidad: (1) capturas propias ya en disco
 (`scripts/rym-2026-10-15/07-redes.py` — regla clave: el **usuario** de la red debe coincidir con el
-nombre del artista), (2) Discogs `urls[]` (`harvest-discogs-evidence.ts`), (3) Wikidata
-(`harvest-wikidata-artist-evidence.ts`), (4) Brave dirigido cuando haya cuota.
+nombre del artista), (2) MusicBrainz url-rels (campaña 2026-10-04, `scripts/streaming-colector.py`),
+(3) **Discogs `urls[]`** y (4) **Wikidata** — estos dos, cosechados y aplicados por la campaña
+2026-10-16. OJO: los `harvest-*` que citaba este runbook (`harvest-discogs-evidence.ts`,
+`harvest-wikidata-artist-evidence.ts`) son de evidencia de GÉNERO, no de redes: nunca lo fueron.
 
-Falta construir: el **aplicador** de las evidencias de Discogs/Wikidata a `social_links` (hoy hay
-recolectores de evidencia y el aplicador de la campaña de capturas). El patrón de escritura está en
-`scripts/apply-streaming-links.ts:182` y en `scripts/rym-2026-10-15/08-redes.mts`.
+```
+# cosecha de evidencia (unidades systemd --user; NO escriben el catálogo)
+bash ops/redes-2026-10-16/lanzar.sh            # Discogs (urls[]) + Wikidata (anclada)
+python3 scripts/discogs-bio-index.py           # índice del pozo crudo data/raw/discogs-bio/ (offline)
+
+# aplicación (un run del operador, reversible desde Historial)
+./scripts/with-node22.sh npx tsx scripts/apply-social-links.ts            # ensayo
+./scripts/with-node22.sh npx tsx scripts/apply-social-links.ts --confirm  # en firme
+```
+
+Piezas y reglas:
+
+| Pieza | Qué hace |
+|---|---|
+| `scripts/discogs-bio-index.py` | Índice offline del pozo `data/raw/discogs-bio/` (13.950 respuestas: 2.038 fichas de artista con `urls[]` + 18.373 resultados de búsqueda). Hoy son archivos con nombre hash: sin índice no se pueden cruzar. |
+| `scripts/harvest-social-discogs.mts` | Evidencia de los artistas SIN ninguna red (3.957). Offline primero; la API solo para la guarda. Identidad probada por **disco en común** (un release de Discogs con el título de un disco del catálogo) o por **nombre único en el pozo + perfil de Venezuela**. Reanudable. |
+| `scripts/harvest-social-wikidata.mts` | Wikidata anclada por la identidad Discogs/MusicBrainz ya aceptada (P1953/P434): P2002 X · P2013 Facebook · P2003 Instagram · P7085 TikTok · P2397 YouTube · P3283 Bandcamp. **Sin anclaje no emite nada** (fin de los homónimos). |
+| `scripts/apply-social-links.ts` | Mapea URL→red por dominio, marca `verified` solo si el usuario coincide con el nombre del artista (YouTube/Bandcamp se abren y se les lee el `og:title`), escribe en UN run del operador y **nunca pisa** filas `verified` ni `source='crv-operador'`. |
+
+Pitfall de Wikidata SPARQL (medido): `?item ?prop ?valor . VALUES ?prop { wd:P2002 … }` devuelve
+**cero filas** — el predicado no se filtra por `VALUES`. Hay que usar `UNION` de predicados explícitos.
 
 ## 6. Letras
 
@@ -148,6 +173,9 @@ nunca a mano.
 | Para… | Comando |
 |---|---|
 | Estado de la captura nueva | `bash ops/rym-resto/estado.sh` |
+| Procesar lo capturado (cadena RYM) | `bash ops/rym-resto/procesar.sh {reparse\|cruce\|enlaces\|aplicar\|todo}` |
+| Portadas y fotos (discoverers) | `bash ops/media-2026-10-16/lanzar.sh [--estado]` |
+| Redes sociales (cosecha + aplicación) | `bash ops/redes-2026-10-16/lanzar.sh [--estado]` · `scripts/apply-social-links.ts` |
 | Capturas de la campaña «nuevos» (referencia) | `bash ops/rym-nuevos/estado.sh` |
 | Tablero de la captura | `file:///tmp/crv-recon/rym-nuevos-tablero.html` |
 | Pruebas de la campaña RYM | `npm run test:rym-nuevos` |
