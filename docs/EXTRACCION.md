@@ -77,7 +77,7 @@ fechas · 307 redes. Por cada 100 fichas de disco que casen: ~45 formatos, 33 n.
 
 | Salida | Qué es |
 |---|---|
-| `data/raw/fuentes-web-2026-10-16/rym-resto/cola-artistas.jsonl` | **5.476** hrefs (565 con existencia confirmada + 4.911 inferidos por nombre); todos atribuibles a artistas del catálogo |
+| `data/raw/fuentes-web-2026-10-16/rym-resto/cola-artistas.jsonl` | **5.476 URLs = 3.635 artistas distintos** (no son 5.476 artistas: a 1.841 se les da DOS slugs candidatos porque RYM usa guiones y guiones bajos — el capturador tira la que no existe). 565 URLs con existencia confirmada + 4.911 inferidas del nombre; todas atribuibles a artistas del catálogo |
 | `…/prioridad-catalogo.txt` | esos mismos hrefs, para que los discos de artistas del catálogo se capturen primero |
 | `reports/campana-2026-10-16/rym-artistas-fuera-del-catalogo.txt` | **21.782** slugs de RYM vistos en lo capturado que NO están en el catálogo → insumo para «el resto de artistas venezolanos» (filtrar por Venezuela antes de dar de alta) |
 

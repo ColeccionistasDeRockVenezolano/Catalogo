@@ -18,8 +18,10 @@ cookies del Firefox del dueño, ritmo humano, estado reanudable, tablero).
 
 ## Qué captura y en qué orden
 
-1. **Fase 1 — fichas de artista** de `cola-artistas.jsonl` (5.476 hrefs: 565 de existencia confirmada
-   + 4.911 inferidos del nombre; el motor descarta solas las que no existan en RYM).
+1. **Fase 1 — fichas de artista** de `cola-artistas.jsonl`: **5.476 URLs que cubren 3.635 artistas**
+distintos (a 1.841 se les dan dos slugs candidatos, con guion y con guion bajo, porque RYM usa ambos;
+el motor descarta sola la que no exista, ~1 s). 565 URLs con existencia confirmada + 4.911 inferidas
+del nombre.
 2. **Fase 2 — fichas de disco** de esos artistas, priorizando los de artistas que ya están en el
    catálogo (`prioridad-catalogo.txt`).
 
