@@ -103,6 +103,40 @@ Facebook 126 (125 verificadas) · Instagram 79 (78) · X 69 (68) · YouTube 31 (
 `streaming_links` como perfil) · TikTok 1 · Threads 1. `public.social_links` pasa a **1.446 filas de
 829 artistas**.
 
+## Antes vs después (medido en la base, 2026-10-15)
+
+Enlaces de escucha (`public.streaming_links`). «Antes» = estado al empezar la jornada
+(total actual menos las filas creadas hoy; hoy no se borró nada):
+
+| plataforma | antes | después | +hoy | verif. antes | verif. después | origen de lo nuevo |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Tidal | 8.146 | 8.152 | +6 | 8.044 | 8.048 | RYM (6) |
+| YouTube Music | 7.447 | 7.447 | 0 | 7.447 | 7.447 | — |
+| Deezer | 7.014 | 7.087 | +73 | 4.985 | 5.056 | RYM (73) |
+| Apple Music | 3.424 | 3.798 | +374 | 2.933 | 3.224 | RYM (374) |
+| Spotify | 2.025 | 2.914 | +889 | 1.671 | 2.519 | RYM (889) |
+| Bandcamp | 667 | 1.066 | +399 | 515 | 830 | RYM (399) |
+| YouTube | 364 | 762 | +398 | 180 | 456 | RYM (367) + perfiles (31) |
+| SoundCloud | 237 | 501 | +264 | 130 | 305 | ChatGPT/cosecha de perfiles |
+| Amazon Music | 46 | 46 | 0 | 27 | 27 | — |
+| **TOTAL** | **29.370** | **31.773** | **+2.403** | **25.932** | **27.912** | |
+
+Discos (álbumes) con al menos un reproductor verificado: **7.457 → 7.793** (+336 fichas que antes
+no tenían ningún reproductor).
+
+Redes sociales (`public.social_links`):
+
+| red | antes | después | +hoy | verificadas de las nuevas |
+| --- | ---: | ---: | ---: | ---: |
+| Facebook | 488 | 614 | +126 | 125 |
+| Instagram | 347 | 426 | +79 | 78 |
+| X / Twitter | 304 | 373 | +69 | 68 |
+| TikTok | 31 | 32 | +1 | 1 |
+| Threads | 0 | 1 | +1 | 1 |
+| **TOTAL** | **1.170** | **1.446** | **+276** | **273** |
+
+(+31 canales de YouTube de los perfiles, que van a `streaming_links`, no a `social_links`.)
+
 ## Reversibilidad y registro
 
 Todos los runs de esta campaña son del operador y se deshacen desde Historial:
