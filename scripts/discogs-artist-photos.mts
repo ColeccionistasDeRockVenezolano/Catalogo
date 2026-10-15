@@ -10,7 +10,9 @@ import { config as loadDotenv } from "dotenv";
 import pg from "pg";
 
 loadDotenv();
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+// OJO: este script vive en scripts/, así que la raíz del repo es su padre (con «../..» apuntaba a
+// /home/brian/apps y las candidatas acababan fuera del repo — medido 2026-10-16).
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const USER_AGENT = "CRV-local-media/1.0 (+coleccionistasderockvenezolano.com)";
 
 function arg(name: string): string | undefined { const i = process.argv.indexOf(name); return i < 0 ? undefined : process.argv[i + 1]; }
