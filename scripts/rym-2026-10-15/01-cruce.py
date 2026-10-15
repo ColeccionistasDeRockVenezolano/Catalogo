@@ -15,6 +15,7 @@ Reglas del cruce (estrictas, para no inventar enlaces):
 """
 from __future__ import annotations
 
+import argparse
 import collections
 import json
 import re
@@ -24,7 +25,10 @@ import unicodedata
 from pathlib import Path
 
 ROOT = Path("/home/brian/apps/Coleccionistas De Rock Venezolano")
-PAGINAS = ROOT / "data" / "raw" / "fuentes-web-2026-10-01" / "rym-nuevos" / "pages"
+# Reutilizable por campañas nuevas: --paginas (una o varias carpetas de fichas), --v4 (re-parseo) y
+# --dest (carpeta de informes). Por defecto, la campaña del 2026-10-15.
+_paginas_por_defecto = [ROOT / "data" / "raw" / "fuentes-web-2026-10-01" / "rym-nuevos" / "pages"]
+PAGINAS = _paginas_por_defecto
 V4 = ROOT / "reports" / "rym-v4-2026-10-04" / "albumes.jsonl"
 DEST = ROOT / "reports" / "rym-2026-10-15"
 
@@ -48,6 +52,15 @@ def psql(sql: str) -> list[list[str]]:
 
 
 def main() -> int:
+    global V4, DEST, PAGINAS
+    ap = argparse.ArgumentParser(description="Cruce fichas RYM ↔ discos del catálogo")
+    ap.add_argument("--paginas", action="append", default=[], help="carpeta de fichas (repetible)")
+    ap.add_argument("--v4", default=str(V4), help="re-parseo rico (albumes.jsonl)")
+    ap.add_argument("--dest", default=str(DEST), help="carpeta de informes")
+    args = ap.parse_args()
+    if args.paginas:
+        PAGINAS = [Path(p) for p in args.paginas]
+    V4, DEST = Path(args.v4), Path(args.dest)
     DEST.mkdir(parents=True, exist_ok=True)
     artistas = {int(i): n for i, n in psql("SELECT id, name FROM public.artists ORDER BY id;")}
     por_nombre: dict[str, list[int]] = collections.defaultdict(list)
@@ -67,9 +80,15 @@ def main() -> int:
             continue
         ricos[d.get("slug") or ""] = d
 
+    def paginas_rel() -> list[Path]:
+        salida: list[Path] = []
+        for carpeta in PAGINAS:
+            salida.extend(sorted(carpeta.glob("rel_*.html")) if carpeta.exists() else [])
+        return salida
+
     stats = collections.Counter()
     filas = []
-    for pagina in sorted(PAGINAS.glob("rel_*.html")):
+    for pagina in paginas_rel():
         slug = pagina.name[:-5]
         meta = META.search(pagina.read_text(encoding="utf8", errors="replace"))
         titulo = artista = tipo = fecha = ""

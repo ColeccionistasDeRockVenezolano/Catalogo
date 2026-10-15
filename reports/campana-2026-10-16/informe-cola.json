@@ -1,0 +1,18 @@
+{
+ "artistas_catalogo": 4791,
+ "fichas_ya_capturadas": 1813,
+ "cola_total": 5476,
+ "por_fuente": {
+  "existe": 565,
+  "inferido": 4911
+ },
+ "slugs_de_rym_vistos": 23501,
+ "slugs_rym_fuera_del_catalogo": 21782,
+ "ejemplos": [
+  "/artist/2hd",
+  "/artist/3-duenos",
+  "/artist/4b",
+  "/artist/4to-reich",
+  "/artist/a_l_o"
+ ]
+}
