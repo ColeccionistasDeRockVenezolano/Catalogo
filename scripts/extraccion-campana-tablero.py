@@ -160,6 +160,15 @@ def fila(etiqueta, valor, clase=""):
     return f'<div class="fila"><span class="et">{esc(etiqueta)}</span><span class="va {clase}">{valor}</span></div>'
 
 
+def estado_de(nombre, log):
+    """(etiqueta, clase) de una unidad: activa · terminada (su log cerró con el JSON) · parada."""
+    u = unidad(nombre)
+    if u == "active":
+        return ("active", "ok")
+    ultima = (leer(log, 1) or [""])[0]
+    return (("terminada", "apagado") if ultima.strip().startswith("{") else (u, "mal"))
+
+
 def enlace(etiqueta, ruta):
     return f'<a class="lnk" href="{esc(ruta)}">{esc(etiqueta)}</a>'
 
@@ -249,17 +258,12 @@ def bloque_b():
     ]
     salida = ['<section><h2>2 · Portadas y fotos (B)</h2>']
     for nombre, archivo, titulo in unidades:
-        u = unidad(nombre)
-        ultima_cruda = (leer(MEDIA / f"{nombre}.log", 1) or [""])[0]
         # «terminada» = la unidad ya no corre y su log cerró con el resumen JSON de la corrida.
-        etiqueta = u
-        if u != "active" and ultima_cruda.strip().startswith("{"):
-            etiqueta = "terminada"
-            u = "apagado"
+        etiqueta, clase_u = estado_de(nombre, MEDIA / f"{nombre}.log")
         ultima = (leer(MEDIA / f"{nombre}.log", 1) or ["—"])[0][:150]
         cand = contar_lineas(MEDIA / archivo)
         salida.append(fila(f"{titulo}",
-                           f'<span class="{ "ok" if u == "active" else "apagado" }">{esc(etiqueta)}</span> · candidatas: <b>{cand if cand is not None else "?"}</b>'))
+                           f'<span class="{clase_u}">{esc(etiqueta)}</span> · candidatas: <b>{cand if cand is not None else "?"}</b>'))
         salida.append(f'<div class="log">{esc(ultima)}</div>')
     asociadas = ", ".join(f"{k}: {v}" for k, v in sorted(mh.items())) or "ninguna aún"
     salida.append(fila("Imágenes asociadas hoy (media:localize)", f"<b>{esc(asociadas)}</b>"))
@@ -273,14 +277,14 @@ def bloque_b():
 
 def bloque_c():
     datos = db()
-    u = unidad("crv-redes-discogs")
+    etiqueta_c, clase_c = estado_de("crv-redes-discogs", REDES / "crv-redes-discogs.log")
     ultima = (leer(REDES / "crv-redes-discogs.log", 1) or ["(sin log todavía)"])[0][:200]
     evid_d = contar_lineas(REDES / "evidencia-discogs.jsonl")
     evid_w = contar_lineas(REDES / "evidencia-wikidata.jsonl")
     desc = contar_lineas(REDES / "descartes-discogs.jsonl")
     total_objetivo = datos.get("redes_objetivo", 3957)
     salida = ['<section><h2>3 · Redes sociales (C)</h2>']
-    salida.append(fila("Cosecha Discogs", f'<span class="{ "ok" if u == "active" else "apagado" }">{esc(u)}</span> · evidencia: <b>{evid_d if evid_d is not None else "?"}</b> · descartes: {desc if desc is not None else "?"}'))
+    salida.append(fila("Cosecha Discogs", f'<span class="{clase_c}">{esc(etiqueta_c)}</span> · evidencia: <b>{evid_d if evid_d is not None else "?"}</b> · descartes: {desc if desc is not None else "?"}'))
     salida.append(fila("Cosecha Wikidata (anclada)", f"evidencia: <b>{evid_w if evid_w is not None else '?'}</b>"))
     salida.append(f'<div class="log">{esc(ultima)}</div>')
     if datos:
