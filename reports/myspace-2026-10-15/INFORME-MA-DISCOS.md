@@ -8,9 +8,11 @@ captura MA que no estaban en el catálogo. Todo con runs del operador reversible
 | Fase | Qué | Números |
 |---|---|---|
 | **A** — discos de bandas con ficha | runs **20101–20116** | **570 discos** (5 de prueba + 565) · **2.493 pistas** · **473 portadas** locales · **0 fallos** |
-| **B** — bandas sin ficha | run **20117** | 14 fichas creadas · 50 discos · **7 fichas resultaron duplicadas y se corrigieron** (abajo) · quedan **6 bandas nuevas legítimas** (Beheaded, EON, 6Sonar, Transgresor, Desperatio Dei, Daemonhorn) con 7 discos y 33 pistas |
+| **B** — bandas sin ficha | run **20117** | 14 fichas creadas · 50 discos · **13 resultaron duplicadas de fichas existentes (con el otro nombre) y se corrigieron** — ver abajo · queda **1 banda legítimamente nueva: EON** |
 | Corrección 1 | run **20119** | «Gillman» (banda) retirada: su discografía ya está bajo el solista **Paul Gillman (#1951)**; 22 discos / 263 pistas retirados con snapshot, 19 archivos huérfanos borrados |
 | Corrección 2 | run **20120** | **7 fichas creadas con el NOMBRE ANTIGUO** de bandas que el catálogo ya tiene con el nombre actual: 11 discos duplicados retirados y **10 discos legítimos reatribuidos a la ficha buena** |
+| Corrección 3 | run **20121** | **5 fichas más con el otro nombre** (el catálogo tenía el nombre *opuesto* al de MA y los alias ya estaban): Beheaded→Behated Reign, 6Sonar→Sexto Sonar, Transgresor→Neon Genesis, Desperatio Dei→Nox Desperatio, Daemonhorn→Theurgia. 5 discos reatribuidos, temas completados en Behated Reign; fichas retiradas |
+| Cierre de EON | run **20122** | foto y logo de la captura + lineup actual (3 personas: Alexander Pulido, Ronald Lares, Lenin Morales) con claim de la fuente y evidencia |
 
 Los 7 casos de nombre antiguo (la captura lo dice en `years_active`: «… (as X)»):
 
@@ -30,6 +32,13 @@ previas): el cruce de bandas debió consultarlos. Lección para el próximo cier
 ## Estado del catálogo
 
 - Álbumes: 15.764 → **16.351** · pistas: → **123.837**.
+- **Única banda nueva: EON (#6979)** con sus 2 discos (EON 2016 ep, Eon 2024), foto, logo y lineup.
+  Los 5 discos de las otras fichas retiradas se reatribuyeron a sus fichas reales (Behated Reign,
+  Sexto Sonar, Neon Genesis, Nox Desperatio, Theurgia), que ya tenían membresías y géneros de
+  campañas previas.
+- Género de EON: el claim crudo de la fuente («Melodic Death Metal») existe; el **backfill de
+  vocabulario global sigue en pausa** (su dry-run baja 16 principales confirmados y abre 48 avisos:
+  4030→4014 artistas con principal), así que la asignación queda pendiente del flujo dirigido.
 - Residual de la captura MA: **69 discos**, todos justificados:
   - 48 `Split` + 1 `Split video` + 1 `Collaboration` — el modelo de álbum tiene UN artista;
   - 10 `Video` — no son álbumes de música;

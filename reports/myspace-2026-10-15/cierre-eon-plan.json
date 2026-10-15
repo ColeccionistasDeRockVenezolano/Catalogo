@@ -1,0 +1,21 @@
+{
+ "ARTISTA": 6979,
+ "LINEUP": [
+  {
+   "personId": 4925,
+   "person": "Alexander Pulido",
+   "role": "Drums"
+  },
+  {
+   "personId": 4883,
+   "person": "Ronald Lares",
+   "role": "Guitars, Bass"
+  },
+  {
+   "personId": 13481,
+   "person": "Lenin Morales",
+   "role": "Vocals"
+  }
+ ],
+ "FICHA_MA": "https://www.metal-archives.com/bands/EON/3540500619"
+}

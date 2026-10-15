@@ -1,0 +1,72 @@
+[
+ {
+  "nueva": "Beheaded",
+  "idNueva": 6976,
+  "idBuena": 931,
+  "buena": "Behated Reign",
+  "discos": [
+   {
+    "id": "28887",
+    "title": "Gates of Suffering"
+   }
+  ],
+  "temasNueva": "Mal, Malicia, Sufrimiento",
+  "temasBuena": null
+ },
+ {
+  "nueva": "6Sonar",
+  "idNueva": 6980,
+  "idBuena": 971,
+  "buena": "Sexto Sonar",
+  "discos": [
+   {
+    "id": "28895",
+    "title": "Everlasting"
+   }
+  ],
+  "temasNueva": null,
+  "temasBuena": "Temas sociales"
+ },
+ {
+  "nueva": "Transgresor",
+  "idNueva": 6981,
+  "idBuena": 3050,
+  "buena": "Neon Genesis",
+  "discos": [
+   {
+    "id": "28896",
+    "title": "Destructive Thrash"
+   }
+  ],
+  "temasNueva": null,
+  "temasBuena": "Vida, Social, Religión"
+ },
+ {
+  "nueva": "Desperatio Dei",
+  "idNueva": 6982,
+  "idBuena": 730,
+  "buena": "Nox Desperatio",
+  "discos": [
+   {
+    "id": "28897",
+    "title": "Desperatio Dei"
+   }
+  ],
+  "temasNueva": null,
+  "temasBuena": "Muerte"
+ },
+ {
+  "nueva": "Daemonhorn",
+  "idNueva": 6985,
+  "idBuena": 895,
+  "buena": "Theurgia",
+  "discos": [
+   {
+    "id": "28932",
+    "title": "Black Icon Demonized"
+   }
+  ],
+  "temasNueva": "Oscuridad, Muerte",
+  "temasBuena": "Nihilismo, Filosofía, Guerra"
+ }
+]
