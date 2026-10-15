@@ -228,6 +228,11 @@ def tarjeta(titulo, valor, pie="", ayuda="", clase=""):
             f'<div class="t-v">{valor}</div>{pie_html}{ayuda_html}</div>')
 
 
+def miles(n):
+    """Separador de miles español (5.476, no 5,476)."""
+    return f"{int(n):,}".replace(",", ".")
+
+
 def barra(pct, color="ok"):
     return f'<div class="barra"><i class="{color}" style="width:{max(0.6, min(100, pct)):.1f}%"></i></div>'
 
@@ -285,19 +290,19 @@ def bloque_a():
     u, clase_u = estado_de("crv-scrapling-rym-resto", LOG_A)
 
     tarjetas = [
-        tarjeta("Cola de fichas (meta fase 1)", f"<b>{cola:,}</b>".replace(",", "."), "artistas del catálogo sin ficha RYM",
+        tarjeta("Cola de fichas (meta fase 1)", f"<b>{miles(cola)}</b>", "artistas del catálogo sin ficha RYM",
                 "Son los hrefs de artistas del catálogo que aún no tienen ficha capturada. Es la meta de la fase 1."),
-        tarjeta("Trabajadas", f"<b>{trabajadas:,}</b>".replace(",", "."),
+        tarjeta("Trabajadas", f"<b>{miles(trabajadas)}</b>",
                 f"{100 * trabajadas / cola:.1f} % de la cola" if cola else "",
                 "Fichas ya INTENTADAS: cuentan también las que no existen en RYM (404). Es el avance real de la cola."),
-        tarjeta("Páginas guardadas", f"<b>{len(utiles):,}</b>".replace(",", "."),
+        tarjeta("Páginas guardadas", f"<b>{miles(len(utiles))}</b>",
                 f"+ {paginas_disco} fichas de disco" if paginas_disco else "fase 2 sin empezar",
                 "Fichas que SÍ existen en RYM y quedaron en disco (html + json). Son las que alimentan la cadena de datos."),
         tarjeta("Con datos aprovechables", f"<b>{len(con_datos)}</b>", f"{len(con_discos)} con discografía listada",
                 "Páginas con algo que la cadena puede aplicar: discografía, géneros, año de formación, foto…"),
         tarjeta("No existen en RYM", f"<b>{len(no_existen)}</b>", "descartadas solas",
                 "Los slugs inferidos por nombre que RYM no tiene (404). No son un error: la cola traía variantes por probar."),
-        tarjeta("Pendientes", f"<b>{pendientes:,}</b>".replace(",", "."), f"ETA {eta}",
+        tarjeta("Pendientes", f"<b>{miles(pendientes)}</b>", f"ETA {eta}",
                 "Lo que falta de la cola, con la ETA calculada del ritmo medido (mediana de los últimos tramos)."),
         tarjeta("Ritmo de captura", f"<b>{seg_ficha or '?'} s</b>", f"por ficha · {tramos} tramos medidos",
                 "Mediana de segundos por ficha en los últimos tramos del log. La media engaña: los timeouts de 60 s la disparan."),
@@ -330,9 +335,9 @@ def bloque_a():
 
     return f"""<section>
   <h2>1 · Captura RYM «resto» (bloque A) <span class="pill {clase_u}">{esc(u)}</span></h2>
-  <p class="resumen"><b>De un vistazo:</b> de <b>{cola:,}</b> fichas de la cola → <b>{trabajadas}</b> trabajadas
+  <p class="resumen"><b>De un vistazo:</b> de <b>{miles(cola)}</b> fichas de la cola → <b>{miles(trabajadas)}</b> trabajadas
   ({pct_cola} %): <b>{len(utiles)}</b> guardadas con datos · <b>{len(no_existen)}</b> no existen en RYM
-  · faltan <b>{pendientes:,}</b> para terminar la fase 1 (ETA {eta}).</p>
+  · faltan <b>{miles(pendientes)}</b> para terminar la fase 1 (ETA {eta}).</p>
   <p class="explica">Descarga, a ritmo humano y con las cookies del Firefox del dueño, la ficha de cada
   artista del catálogo que aún no la tenía. La cola son <b>hrefs</b> (5.476): unos vistos como enlace en lo
   ya capturado y otros inferidos del nombre — por eso hay 404 que no son fallo. Lo capturado queda en
