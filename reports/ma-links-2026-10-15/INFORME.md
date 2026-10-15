@@ -95,3 +95,42 @@ piloto sobre los primeros 35. Por perfil: el snapshot de archive.org que da MA s
 Quedan **228 perfiles** de la cola. A este ritmo (~35 en dos tandas con reintentos) son ~3-4 h en
 tandas con pausas y una pasada final de reintento de los vacíos; después, el mapeo al catálogo
 (bios/miembros/influencias/géneros + web propia) como en el caso 2HD.
+
+---
+
+# Campaña completa MySpace — CIERRE (2026-10-15, 4 pasadas)
+
+Sistema de captura con **log estructurado** (`capturas-wayback.jsonl`: un evento por fase) y
+**analizador de patrones** (`07-patrones.py` → `patrones-wayback.md`) que ajusta la política.
+Tablero en vivo: sección 6 de `file:///tmp/crv-recon/extraccion-2026-10-16.html`.
+
+## Resultado (263 perfiles, 260 bandas)
+
+- **146 con datos extraídos (56 %)** · 100 sin clásico archivado (cierre definitivo) ·
+  15 con snapshot pero sin datos (plantilla tardía 2011-2012) · 2 sin nada en Wayback.
+- Campos: Member Since 142 · Influences 105 · Band Members 105 · Record Label 102 ·
+  Type of Label 102 · Sounds Like 82 · Band Website 76 · About (variable) ·
+  55 perfiles con **ciudad y géneros** en el título clásico.
+- Consolidado: `myspace-piloto-consolidado.csv` · crudo: `data/raw/myspace-ma-2026-10-15/`.
+
+## Patrones medidos (los que cambiaron la captura)
+
+1. **Por año: 2007-2010 = 100 % con datos; 2011+ = 0 %** (plantilla JS). El corte de año es 2010.
+2. **Por forma de URL: `www.myspace.com/<slug>:80` rinde ~91 % de clásicos vs ~11 % de
+   `myspace.com/<slug>`** → se consulta primero la forma con puerto. Los «sin clásico» iniciales
+   eran en gran parte falsos por consultar solo la forma sin www.
+3. **CDX: la consulta «cara»** (`filter=statuscode:200` + `collapse=digest`) devuelve **vacíos
+   falsos** y es la más lenta → consulta ligera + filtro en cliente.
+4. **Saturación**: 43 % de consultas vacías en pico, ráfagas de hasta **33 vacíos seguidos**;
+   p50 16 s · p90 50 s. Política aplicada: pausa 20→300 s por vacío, ronda de 300 s a los 4
+   seguidos, corte de pasada a las 3 rondas, y 4 pasadas con 7 min de respiro.
+5. **Solo-301 / solo-2011+** = sin clásico real: cierre definitivo, no se reintenta (patrón
+   `statuses` en el log lo distingue de la saturación).
+6. **Campos bilingües**: 6 perfiles con etiquetas en español («Miembro desde», «Sello
+   discográfico»…) → normalizadas al mapa común.
+
+## Siguiente paso
+
+Mapeo al catálogo (caso 2HD como plantilla): About → biografía; Band Members → miembros con
+instrumento; Influences → géneros; Record Label / Band Website → contexto y redes. 205 de los
+263 perfiles tienen ficha en el catálogo.

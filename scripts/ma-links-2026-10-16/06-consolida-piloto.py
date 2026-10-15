@@ -23,10 +23,13 @@ for r in con_campos:
     for k in r["campos"]:
         conteo_campos[k] += 1
 con_ciudad = [r for r in con_campos if " - " in (r.get("titulo") or "") and "MySpace.com - " in (r.get("titulo") or "")]
+sin_clasico = [r for r in registros if r.get("sin_clasico_definitivo")]
+sin_snapshot = [r for r in registros if not r.get("snapshot_ts") and not r.get("sin_clasico_definitivo")]
 print(f"perfiles únicos: {len(registros)}")
 print(f"  con campos extraídos: {len(con_campos)} ({100*len(con_campos)/max(1,len(registros)):.0f} %)")
 print(f"  con snapshot pero sin datos (plantilla tardía): {len(sin_datos)}")
-print(f"  sin snapshot en Wayback: {len(sin_snapshot)}")
+print(f"  sin clásico archivado (solo 301 o 2011+; cierre definitivo): {len(sin_clasico)}")
+print(f"  sin nada en Wayback (reintentado 4 pasadas): {len(sin_snapshot)}")
 print("  campos por frecuencia:", conteo_campos.most_common(12))
 print(f"  con ciudad/géneros en el título (plantilla clásica): {len(con_ciudad)}")
 
