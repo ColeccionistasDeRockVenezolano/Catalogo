@@ -16,12 +16,14 @@ Uso: python3 scripts/lastfm-2026-10-16/03-cargar-tablas.py [--confirm] [--captur
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import subprocess
 import sys
 import time
 import unicodedata
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path('/home/brian/apps/Coleccionistas De Rock Venezolano')
@@ -109,6 +111,49 @@ for path, tipo in fuentes:
 con_metricas = sum(1 for d in datos.values() if d['listeners'] or d['playcount'])
 total_tags = sum(len(d['tags']) for d in datos.values())
 print(f'artistas con datos: {len(datos)} | con métricas: {con_metricas} | tags: {total_tags} | sin resolver a ficha: {sin_id}')
+
+# ---- discos del catálogo (albumes.jsonl de la cosecha) → entity_metrics ----
+albumes: dict[int, dict] = {}
+alb_path = ROOT / 'reports' / 'lastfm-catalogo-2026-10-16' / 'albumes.jsonl'
+if alb_path.exists():
+    for l in open(alb_path):
+        try:
+            d = json.loads(l)
+        except Exception:
+            continue
+        if d.get('error') or not d.get('id'):
+            continue
+        if d.get('listeners') or d.get('playcount'):
+            albumes[int(d['id'])] = {'listeners': int(d.get('listeners') or 0), 'playcount': int(d.get('playcount') or 0)}
+print(f'discos con métricas: {len(albumes)}')
+
+# ---- comentarios (shouts.jsonl de la captura con sesión) → entity_shouts ----
+shouts: list[dict] = []
+sh_path = ROOT / 'reports' / 'lastfm-shouts-2026-10-16' / 'shouts.jsonl'
+if sh_path.exists():
+    for l in open(sh_path):
+        try:
+            d = json.loads(l)
+        except Exception:
+            continue
+        if d.get('kind') != 'artistas' or not d.get('id'):
+            continue
+        for s in d.get('shouts') or []:
+            texto = (s.get('text') or '').strip()
+            autor = (s.get('author') or '').strip()[:120]
+            if not texto or not autor:
+                continue
+            cuando = re.sub(r'\s+', ' ', s.get('when') or '').strip()[:80]
+            fp = hashlib.sha1(f"{d['id']}|{autor}|{texto}|{cuando}".encode()).hexdigest()
+            posted_at = None
+            try:
+                posted_at = datetime.strptime(cuando, '%d %b %Y, %I:%M%p').strftime('%Y-%m-%d %H:%M:%S-04')
+            except Exception:
+                pass
+            shouts.append({'aid': int(d['id']), 'author': autor, 'text': texto[:2000], 'posted_text': cuando,
+                           'posted_at': posted_at, 'url': d.get('url') or '', 'fp': fp})
+print(f'comentarios: {len(shouts)} de {len({s["aid"] for s in shouts})} artistas')
+
 print(f'captured_at: {CAPTURED}')
 
 if not CONFIRM:
@@ -129,11 +174,26 @@ filas_t = [(aid, t, w) for aid, d in datos.items() for t, w in d['tags'].items()
 for i in range(0, len(filas_t), 500):
     vals = ','.join(f"({aid},'lastfm','{esc(t)[:250]}',{w},'{CAPTURED}')" for aid, t, w in filas_t[i:i + 500])
     sql.append(f"INSERT INTO public.entity_user_tags (artist_id, source, tag, weight, captured_at) VALUES {vals} ON CONFLICT (artist_id, source, tag) WHERE artist_id IS NOT NULL DO UPDATE SET weight = GREATEST(public.entity_user_tags.weight, EXCLUDED.weight), captured_at = EXCLUDED.captured_at, updated_at = now();")
+
+# discos: el histórico de métricas no se pisa (DO NOTHING por captura)
+filas_a = [(aid, d['listeners'], d['playcount']) for aid, d in albumes.items()]
+for i in range(0, len(filas_a), 500):
+    vals = ','.join(f"({aid},'lastfm',{lo},{pc},'{CAPTURED}')" for aid, lo, pc in filas_a[i:i + 500])
+    sql.append(f"INSERT INTO public.entity_metrics (album_id, source, listeners, playcount, captured_at) VALUES {vals} ON CONFLICT (album_id, source, captured_at) WHERE album_id IS NOT NULL DO NOTHING;")
+
+# comentarios: dedupe por fingerprint (re-cargar no duplica)
+for i in range(0, len(shouts), 400):
+    vals = ','.join(
+        f"({s['aid']},'lastfm','{esc(s['author'])[:120]}','{esc(s['posted_text'])[:80]}',"
+        f"{('NULL' if not s['posted_at'] else chr(39) + s['posted_at'] + chr(39))},'{esc(s['text'])}',"
+        f"'{esc(s['url'])}','{s['fp']}','{CAPTURED}')"
+        for s in shouts[i:i + 400])
+    sql.append(f"INSERT INTO public.entity_shouts (artist_id, source, author, posted_text, posted_at, text, url, fingerprint, captured_at) VALUES {vals} ON CONFLICT (artist_id, fingerprint) WHERE artist_id IS NOT NULL DO NOTHING;")
 sql.append('COMMIT;')
 
 archivo = Path('/tmp/lfm-carga.sql')
 archivo.write_text('\n'.join(sql))
-print(f'SQL: {archivo} ({archivo.stat().st_size // 1024} KB, {len(filas_m)} métricas + {len(filas_t)} tags)')
+print(f'SQL: {archivo} ({archivo.stat().st_size // 1024} KB, {len(filas_m)} métricas + {len(filas_t)} tags + {len(filas_a)} discos + {len(shouts)} comentarios)')
 
 o = subprocess.run(['docker', 'exec', '-i', 'crv-postgres', 'psql', '-U', 'crv', '-d', 'crv', '-q', '-v', 'ON_ERROR_STOP=1', '-f', '-'],
                    input=archivo.read_text(), capture_output=True, text=True)
