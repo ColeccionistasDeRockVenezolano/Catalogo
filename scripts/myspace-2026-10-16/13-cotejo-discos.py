@@ -41,10 +41,15 @@ def main() -> None:
     print(f"citas de discos: {len(discos)}")
 
     ids = sorted({int(c["artistId"]) for c in discos})
+    lista_ids = ",".join(map(str, ids))
     albumes: dict[int, list[tuple[int, str, str]]] = collections.defaultdict(list)
-    for a in p01.psql(f"SELECT artist_id, id, title, coalesce(year::text,'') FROM albums WHERE artist_id IN ({','.join(map(str, ids))})"):
+    for a in p01.psql(f"SELECT artist_id, id, title, coalesce(release_year::text,'') FROM albums WHERE artist_id IN ({lista_ids})"):
         if len(a) >= 4:
             albumes[int(a[0])].append((int(a[1]), norm_titulo(a[2]), a[3]))
+    # títulos alternativos (aliases de álbum), si la tabla existe
+    for a in p01.psql(f"SELECT al.artist_id, al.id, coalesce(al2.alias,'') FROM albums al JOIN ingest.album_aliases al2 ON al2.album_id=al.id WHERE al.artist_id IN ({lista_ids})"):
+        if len(a) >= 3 and a[2].strip():
+            albumes[int(a[0])].append((int(a[1]), norm_titulo(a[2]), ""))
 
     # títulos de pistas (a veces la cita es un tema suelto)
     pistas: dict[int, list[str]] = collections.defaultdict(list)

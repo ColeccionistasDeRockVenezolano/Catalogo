@@ -1,191 +1,44 @@
-{"artistId": 12, "cita": "Hacia Adelante y Abajo", "normalizado": "hacia adelante y abajo", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 12, "cita": "Reinventándonos", "normalizado": "reinventandonos", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 12, "cita": "Intro", "normalizado": "intro", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 20, "cita": "Promo Demo 2006", "normalizado": "promo 2006", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 20, "cita": "Mode Terror", "normalizado": "mode terror", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 20, "cita": "Matanza", "normalizado": "matanza", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 20, "cita": "XX Años de Purga", "normalizado": "xx anos de purga", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 20, "cita": "From Brutality to Obscurity", "normalizado": "from brutality to obscurity", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 20, "cita": "Old Skull", "normalizado": "old skull", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 22, "cita": "Metalkinesia: Capítulo Falcón (2019)", "normalizado": "metalkinesia capitulo falcon", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 29, "cita": "Chronology of a Downfall", "normalizado": "chronology of a downfall", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 46, "cita": "La Respuesta", "normalizado": "la respuesta", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 46, "cita": "El Inmortal", "normalizado": "el inmortal", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 46, "cita": "MMVII", "normalizado": "mmvii", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 46, "cita": "Theatrum Timorem", "normalizado": "theatrum timorem", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 46, "cita": "Platinum", "normalizado": "platinum", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 46, "cita": "El Viaje - 40º Aniversario", "normalizado": "el viaje 40 aniversario", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 82, "cita": "Distrust", "normalizado": "distrust", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 82, "cita": "Losing Our World", "normalizado": "losing our world", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 82, "cita": "Chaos Redefined", "normalizado": "chaos redefined", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 105, "cita": "Al Borde del Precipicio", "normalizado": "al borde del precipicio", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 105, "cita": "Guandel", "normalizado": "guandel", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 105, "cita": "Al Borde del Precipicio / No Moriré", "normalizado": "al borde del precipicio no morire", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 105, "cita": "Túnel Hacia lo Desconocido", "normalizado": "tunel hacia lo desconocido", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 105, "cita": "Long live rock'n'roll", "normalizado": "long live rock n roll", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 105, "cita": "Prepare to fight", "normalizado": "prepare to fight", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 141, "cita": "Laberinto", "normalizado": "laberinto", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 141, "cita": "Live", "normalizado": "live", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 141, "cita": "The World Might Suck", "normalizado": "the world might suck", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 141, "cita": "Mask of a Thousand Faces", "normalizado": "mask of a thousand faces", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 141, "cita": "De Colección", "normalizado": "de coleccion", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 165, "cita": "Long Way To Oblivion", "normalizado": "long way to oblivion", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 165, "cita": "In Solitude... I'll Watch You Fall", "normalizado": "in solitude i ll watch you fall", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 165, "cita": "Complexity", "normalizado": "complexity", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 167, "cita": "Caracas", "normalizado": "caracas", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 167, "cita": "Maskhovers", "normalizado": "maskhovers", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 210, "cita": "Hecho en Venezuela", "normalizado": "hecho en venezuela", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 210, "cita": "Estrategia contra el movimiento", "normalizado": "estrategia contra el movimiento", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 210, "cita": "Dacapo", "normalizado": "dacapo", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 210, "cita": "Zodíaco", "normalizado": "zodiaco", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 210, "cita": "Intenso", "normalizado": "intenso", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 210, "cita": "Epílogo", "normalizado": "epilogo", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 307, "cita": "Premonition", "normalizado": "premonition", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 307, "cita": "Times of Hate - Times of Domination", "normalizado": "times of hate times of domination", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 321, "cita": "Natural", "normalizado": "natural", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 322, "cita": "2004 - 2009", "normalizado": "2004 2009", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 325, "cita": "La Búsqueda", "normalizado": "la busqueda", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 325, "cita": "La Nimiedad de la Existencia", "normalizado": "la nimiedad de la existencia", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 325, "cita": "Metalkinesia. Capítulo Zulia", "normalizado": "metalkinesia capitulo zulia", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 327, "cita": "Guerreros del Metal", "normalizado": "guerreros del metal", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 327, "cita": "Venerock", "normalizado": "venerock", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 328, "cita": "Encarando La Muerte", "normalizado": "encarando la muerte", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 328, "cita": "La única culpa que tengo", "normalizado": "la unica culpa que tengo", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 335, "cita": "Demo 1992", "normalizado": "1992", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 335, "cita": "Top Rock News", "normalizado": "top rock news", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 335, "cita": "Demos 1992-1996", "normalizado": "demos 1992 1996", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 335, "cita": "Thrash Attack", "normalizado": "thrash attack", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 335, "cita": "Nación", "normalizado": "nacion", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 339, "cita": "Penumbras", "normalizado": "penumbras", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 363, "cita": "DEMO 2010", "normalizado": "2010", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 369, "cita": "Espiritu del Orgasmo (1992)", "normalizado": "espiritu del orgasmo", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 369, "cita": "Espíritu de Orgasmo (1991)", "normalizado": "espiritu de orgasmo", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 369, "cita": "Krueger en Vivo (1992)", "normalizado": "krueger en vivo", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 369, "cita": "Obsecracion al Dolor (1994)", "normalizado": "obsecracion al dolor", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 369, "cita": "Obsecración al Dolor (1994)", "normalizado": "obsecracion al dolor", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 369, "cita": "En vivo San Antonio de los Altos (1992)", "normalizado": "en vivo san antonio de los altos", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 369, "cita": "Live in Pto. Ordaz (2002)", "normalizado": "live in pto ordaz", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 369, "cita": "Venezuela: Cuentos Grotescos de Amor y Muerte (2013)", "normalizado": "venezuela cuentos grotescos de amor y muerte", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 369, "cita": "Melomaniac Venezuelan Metal Compilation (2000)", "normalizado": "melomaniac venezuelan metal compilation", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 369, "cita": "Melomaniac Venezuelan Metal Compilation 2 (2002)", "normalizado": "melomaniac venezuelan metal compilation 2", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 374, "cita": "Reflections of Pain", "normalizado": "reflections of pain", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 374, "cita": "Dominion", "normalizado": "dominion", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 374, "cita": "Dying Out", "normalizado": "dying out", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 374, "cita": "Years Of Dominion", "normalizado": "years of dominion", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 374, "cita": "Epitafio III: Operis Tertium", "normalizado": "epitafio iii operis tertium", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 404, "cita": "Destino", "normalizado": "destino", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 404, "cita": "Memorias de una Luz Entre las Sombras", "normalizado": "memorias de una luz entre las sombras", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 404, "cita": "Remastered Edition 2009-2016", "normalizado": "remastered edition 2009 2016", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 404, "cita": "In Memoriam", "normalizado": "in memoriam", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 405, "cita": "The Beginning of the Lascivious Addiction", "normalizado": "the beginning of the lascivious addiction", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 405, "cita": "2O Aaños De Herejia, Desidia y Enfermedad", "normalizado": "2o aanos de herejia desidia y enfermedad", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 415, "cita": "Demo 1 The Unknown", "normalizado": "1 the unknown", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 415, "cita": "Demo 2 Fuck Off Raw Oath Is Real", "normalizado": "2 fuck off raw oath is real", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 415, "cita": "Demo 3 Black Noise Suicide (Venezuelan Hell Noise Ritual)", "normalizado": "3 black noise suicide venezuelan hell noise ritual", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 415, "cita": "Split Zebra Mu / Raw Oath", "normalizado": "split zebra mu raw oath", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 415, "cita": "Demo 4 March Of Death", "normalizado": "4 march of death", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 415, "cita": "Demo 6 SSatanic Kampf", "normalizado": "6 ssatanic kampf", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 415, "cita": "Split Zbt / Raw Oath - N.S.T.M & Misanthropic's Ritual's", "normalizado": "split zbt raw oath n s t m misanthropic s ritual s", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 415, "cita": "Demo 7 Madness", "normalizado": "7 madness", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 415, "cita": "Demo 8 VIII", "normalizado": "8 viii", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 415, "cita": "Demo 9 Kvlt", "normalizado": "9 kvlt", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 415, "cita": "Demo 10 O.D.W", "normalizado": "10 o d w", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 431, "cita": "Merciless Pain", "normalizado": "merciless pain", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 431, "cita": "Rules", "normalizado": "rules", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 445, "cita": "Rebellion - For The Passion Of Music", "normalizado": "rebellion for the passion of music", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 445, "cita": "Classical Tendencies", "normalizado": "classical tendencies", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 445, "cita": "Bipolar", "normalizado": "bipolar", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 464, "cita": "GoreGrind DEMO", "normalizado": "goregrind", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 464, "cita": "Satanicas decapitaciones por un carnicero", "normalizado": "satanicas decapitaciones por un carnicero", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 465, "cita": "Sombras de Muerte", "normalizado": "sombras de muerte", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 465, "cita": "Inconciencia Humana", "normalizado": "inconciencia humana", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 465, "cita": "Mórbido Letargo", "normalizado": "morbido letargo", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 465, "cita": "Acata Supuesto 1994-2012", "normalizado": "acata supuesto 1994 2012", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 477, "cita": "Beyond The Ruin", "normalizado": "beyond the ruin", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 477, "cita": "Chapters Of Hate", "normalizado": "chapters of hate", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 477, "cita": "The Rat Race", "normalizado": "the rat race", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 485, "cita": "Se7en", "normalizado": "se7en", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 485, "cita": "Recopilatorio 1992-2002", "normalizado": "recopilatorio 1992 2002", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 485, "cita": "Acústico", "normalizado": "acustico", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 485, "cita": "La Sombra de un Bufón", "normalizado": "la sombra de un bufon", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 485, "cita": "Acústico 1998/2004", "normalizado": "acustico 1998 2004", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 488, "cita": "El Camino Hacia La Luz (Edición Especial)", "normalizado": "el camino hacia la luz", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 488, "cita": "El Camino Hacia La Luz (Demo 2009)", "normalizado": "el camino hacia la luz", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 496, "cita": "Metalkinesia: Capítulo Anzoátegui (2019)", "normalizado": "metalkinesia capitulo anzoategui", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 507, "cita": "Demo 2001", "normalizado": "2001", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 507, "cita": "Demo 2002", "normalizado": "2002", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 507, "cita": "Demo 2003", "normalizado": "2003", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 507, "cita": "Preproducción 2006", "normalizado": "preproduccion 2006", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 507, "cita": "32232332", "normalizado": "32232332", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 507, "cita": "32232332 Demo 2007", "normalizado": "32232332 2007", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 527, "cita": "God in a Trench", "normalizado": "god in a trench", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 527, "cita": "Relentless Is Our Strength", "normalizado": "relentless is our strength", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 527, "cita": "New Beginnings Are Met", "normalizado": "new beginnings are met", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 578, "cita": "Under The Demon's Shade", "normalizado": "under the demon s shade", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 581, "cita": "Adh Seidh", "normalizado": "adh seidh", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 589, "cita": "Preludio de Muerte", "normalizado": "preludio de muerte", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 603, "cita": "The Khristenn Corpse", "normalizado": "the khristenn corpse", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 603, "cita": "Elements of an Erotical Agony", "normalizado": "elements of an erotical agony", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 603, "cita": "Serpentnation", "normalizado": "serpentnation", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 603, "cita": "Bloodmiracle", "normalizado": "bloodmiracle", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 603, "cita": "Grotesque", "normalizado": "grotesque", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 606, "cita": "Demo I", "normalizado": "i", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 606, "cita": "Naturaleza Inmortal", "normalizado": "naturaleza inmortal", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 606, "cita": "Esencia Dorada", "normalizado": "esencia dorada", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 606, "cita": "Deshojando Paisajes - Live Big Mosh Attack", "normalizado": "deshojando paisajes live big mosh attack", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 607, "cita": "Infernal Melodies", "normalizado": "infernal melodies", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 610, "cita": "Metempsicosis", "normalizado": "metempsicosis", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 610, "cita": "Demo 2000", "normalizado": "2000", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 610, "cita": "Alpha", "normalizado": "alpha", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 625, "cita": "Zombie Sessions", "normalizado": "zombie sessions", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 625, "cita": "Collapsing System", "normalizado": "collapsing system", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 644, "cita": "P D E C O E O D L V C", "normalizado": "p d e c o e o d l v c", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 644, "cita": "When Dry Branches Caress the Cold Hatred", "normalizado": "when dry branches caress the cold hatred", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 644, "cita": "Matices de Otros Tiempos", "normalizado": "matices de otros tiempos", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 644, "cita": "Divine Landscape of Perseverance", "normalizado": "divine landscape of perseverance", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 648, "cita": "Una Ilusión", "normalizado": "una ilusion", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 648, "cita": "El Principio del Fin", "normalizado": "el principio del fin", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 648, "cita": "Metalkinesia. Capítulo Carabobo", "normalizado": "metalkinesia capitulo carabobo", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 649, "cita": "Bleeding Tears", "normalizado": "bleeding tears", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 652, "cita": "Legiones de Odio", "normalizado": "legiones de odio", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 673, "cita": "Aberrante Aleación", "normalizado": "aberrante aleacion", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 673, "cita": "Aberración Aleación", "normalizado": "aberracion aleacion", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 678, "cita": "Infection demo 2004", "normalizado": "infection 2004", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 688, "cita": "Recuerdos del Olvido", "normalizado": "recuerdos del olvido", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 688, "cita": "Melomaniac Compilatorio Vol. 2", "normalizado": "melomaniac compilatorio vol 2", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 688, "cita": "Oscuridad Eterna", "normalizado": "oscuridad eterna", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 723, "cita": "demo promocional", "normalizado": "promocional", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 724, "cita": "Promo", "normalizado": "promo", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 736, "cita": "Los Demos", "normalizado": "los demos", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 736, "cita": "Redención", "normalizado": "redencion", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 739, "cita": "Compilado Barquisimetal", "normalizado": "compilado barquisimetal", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 747, "cita": "Self-titled demo 2003", "normalizado": "self titled 2003", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 747, "cita": "Night Divine demo 2004", "normalizado": "night divine 2004", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 747, "cita": "Evil Philosophies", "normalizado": "evil philosophies", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 747, "cita": "Imperium", "normalizado": "imperium", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 747, "cita": "Nihil", "normalizado": "nihil", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 747, "cita": "Glorification of evil: The age of the golden dawn", "normalizado": "glorification of evil the age of the golden dawn", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 749, "cita": "Oldskull", "normalizado": "oldskull", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 751, "cita": "La era de los Muertos andantes", "normalizado": "la era de los muertos andantes", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 752, "cita": "A Prayer for the Damn", "normalizado": "a prayer for the damn", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 757, "cita": "Hijos Malditos", "normalizado": "hijos malditos", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 759, "cita": "Korpus Inc", "normalizado": "korpus inc", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 759, "cita": "Korpus Inc. 06", "normalizado": "korpus inc 06", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 762, "cita": "Lord of Destruction", "normalizado": "lord of destruction", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 769, "cita": "Buscando Cadaveres", "normalizado": "buscando cadaveres", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 770, "cita": "Memorias", "normalizado": "memorias", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 770, "cita": "21 gr", "normalizado": "21 gr", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 771, "cita": "Luz de mi Destino", "normalizado": "luz de mi destino", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 774, "cita": "In Extremis", "normalizado": "in extremis", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 774, "cita": "Gusanos en el puerto", "normalizado": "gusanos en el puerto", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 774, "cita": "Depraved Institution", "normalizado": "depraved institution", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 779, "cita": "Ten Lies and Seven Glories", "normalizado": "ten lies and seven glories", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 785, "cita": "The chaos profecy I", "normalizado": "the chaos profecy i", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 790, "cita": "Loser", "normalizado": "loser", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 794, "cita": "Live at the Eternal Kingdom", "normalizado": "live at the eternal kingdom", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 794, "cita": "Burying the Goodness", "normalizado": "burying the goodness", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 796, "cita": "Melomaniac Metal Compilation III", "normalizado": "melomaniac metal compilation iii", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 796, "cita": "Into The Gore", "normalizado": "into the gore", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 796, "cita": "Metal Extremo IV", "normalizado": "metal extremo iv", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 796, "cita": "Gore Asylum en Vivo", "normalizado": "gore asylum en vivo", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 796, "cita": "en Vivo", "normalizado": "en vivo", "estado": "no_en_catalogo", "match": ""}
@@ -195,93 +48,39 @@
 {"artistId": 804, "cita": "Perpetual Horizons", "normalizado": "perpetual horizons", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 804, "cita": "War Against Humanity", "normalizado": "war against humanity", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 804, "cita": "Beneath Eternal Oceans Of Melancholy", "normalizado": "beneath eternal oceans of melancholy", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 822, "cita": "Internal Deformities", "normalizado": "internal deformities", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 824, "cita": "Hekula... Voz de los Espíritus", "normalizado": "hekula voz de los espiritus", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 824, "cita": "Suramérica Aborigen", "normalizado": "suramerica aborigen", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 834, "cita": "EP 2001", "normalizado": "2001", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 834, "cita": "EP 2003", "normalizado": "2003", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 834, "cita": "EP 2004", "normalizado": "2004", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 834, "cita": "EP 2008", "normalizado": "2008", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 834, "cita": "EP 2010", "normalizado": "2010", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 834, "cita": "EPs 2003-2010", "normalizado": "eps 2003 2010", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 834, "cita": "Atiko en Vivo Metal Crow II", "normalizado": "atiko en vivo metal crow ii", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 839, "cita": "Desecrating the Ancient Christian Rites", "normalizado": "desecrating the ancient christian rites", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 845, "cita": "demo de cinco canciones", "normalizado": "de cinco canciones", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 845, "cita": "larga duración", "normalizado": "larga duracion", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 848, "cita": "Lessthanot", "normalizado": "lessthanot", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 848, "cita": "We Will Judge Angels...", "normalizado": "we will judge angels", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 854, "cita": "Lucifer Vivo", "normalizado": "lucifer vivo", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 854, "cita": "Southern Storm Of Evil", "normalizado": "southern storm of evil", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 854, "cita": "Glorificando La Oscuridad", "normalizado": "glorificando la oscuridad", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 854, "cita": "XVII Años de Odio y Blasfemias", "normalizado": "xvii anos de odio y blasfemias", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 854, "cita": "Word of Black Metal", "normalizado": "word of black metal", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 859, "cita": "Iniciando La Oscuridad Suramericana", "normalizado": "iniciando la oscuridad suramericana", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 859, "cita": "Post-Mortem", "normalizado": "post mortem", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 861, "cita": "The Fortress of Frozen Bones", "normalizado": "the fortress of frozen bones", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 861, "cita": "With Nature Strength", "normalizado": "with nature strength", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 861, "cita": "Black Metal Agenda Vol.18", "normalizado": "black metal agenda vol 18", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 861, "cita": "Sons of Ancient Woods Where His River Has No End...", "normalizado": "sons of ancient woods where his river has no end", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 864, "cita": "Las manos ociosas son terreno del diablo", "normalizado": "las manos ociosas son terreno del diablo", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 864, "cita": "Insano", "normalizado": "insano", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 864, "cita": "El arte de la necrofagia (2003-2010)", "normalizado": "el arte de la necrofagia", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 865, "cita": "Revolución", "normalizado": "revolucion", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 870, "cita": "Perpetual Horizons", "normalizado": "perpetual horizons", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 870, "cita": "War Against Humanity: The Armageddon Chronicles", "normalizado": "war against humanity the armageddon chronicles", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 870, "cita": "Melomaniac Compilation Vol. 3", "normalizado": "melomaniac compilation vol 3", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 870, "cita": "Rotten World Prod. Compilation Vol. II", "normalizado": "rotten world prod compilation vol ii", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 871, "cita": "Sentencia Fatal", "normalizado": "sentencia fatal", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 892, "cita": "Demo 2008-2010", "normalizado": "2008 2010", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 906, "cita": "Promo Al Hampa", "normalizado": "promo al hampa", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 919, "cita": "Devoid of Humanity", "normalizado": "devoid of humanity", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 919, "cita": "Melomaniac 2002", "normalizado": "melomaniac 2002", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 919, "cita": "Melomaniac 2007", "normalizado": "melomaniac 2007", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 929, "cita": "Let Me Go To Hell", "normalizado": "let me go to hell", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 929, "cita": "Home DVD", "normalizado": "home dvd", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 932, "cita": "New Forces Together For Thrash", "normalizado": "new forces together for thrash", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 932, "cita": "Life it be a game", "normalizado": "life it be a game", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 948, "cita": "Testimonio de Sangre", "normalizado": "testimonio de sangre", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 951, "cita": "Violent Whispers", "normalizado": "violent whispers", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 951, "cita": "The Devil's Playground", "normalizado": "the devil s playground", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 953, "cita": "Edición Limitada", "normalizado": "edicion limitada", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 953, "cita": "Heredando la Realidad", "normalizado": "heredando la realidad", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 955, "cita": "Demo autotitulado", "normalizado": "autotitulado", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 955, "cita": "La Orden del Cristal", "normalizado": "la orden del cristal", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 955, "cita": "Contundentemente vivos", "normalizado": "contundentemente vivos", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 955, "cita": "Metalkinesia. Capítulo Táchira", "normalizado": "metalkinesia capitulo tachira", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 962, "cita": "de la opera", "normalizado": "de la opera", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1512, "cita": "You Owe Me Horror", "normalizado": "you owe me horror", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 1512, "cita": "New Borns Die for Me", "normalizado": "new borns die for me", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 1512, "cita": "Kept Name", "normalizado": "kept name", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1562, "cita": "Latinoamérica Thrashing the World", "normalizado": "latinoamerica thrashing the world", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1562, "cita": "Thrash Invasion Vol.1", "normalizado": "thrash invasion vol 1", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1562, "cita": "Red Day", "normalizado": "red day", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1574, "cita": "Ion Eras", "normalizado": "ion eras", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 1604, "cita": "Sexta Legión", "normalizado": "sexta legion", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1604, "cita": "Comienza La Historia", "normalizado": "comienza la historia", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 1660, "cita": "Hinris 1991 – 1997", "normalizado": "hinris 1991 1997", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 1660, "cita": "Hinris «En vivo» (1995)", "normalizado": "hinris en vivo", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 1660, "cita": "recopilación de 1994", "normalizado": "recopilacion de 1994", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 1660, "cita": "recopilación de 2002", "normalizado": "recopilacion de 2002", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1664, "cita": "Poseidón", "normalizado": "poseidon", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 1879, "cita": "Niñez perdida/el obsequio", "normalizado": "ninez perdida el obsequio", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1879, "cita": "Blindaje", "normalizado": "blindaje", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 1951, "cita": "Arkangel", "normalizado": "arkangel", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "Sígueme", "normalizado": "sigueme", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "Vivo y en Vivo", "normalizado": "vivo y en vivo", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "25 Años", "normalizado": "25 anos", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "Cuahtemoc", "normalizado": "cuahtemoc", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "Despertando en la Historia", "normalizado": "despertando en la historia", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "30 Años", "normalizado": "30 anos", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "Escalofrío II", "normalizado": "escalofrio ii", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "Tributo a lo Desconocido", "normalizado": "tributo a lo desconocido", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "Clásicos Recargados", "normalizado": "clasicos recargados", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "Más Vivo & En Vivo", "normalizado": "mas vivo en vivo", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "Levántate y Pelea - 40 Aniversario", "normalizado": "levantate y pelea 40 aniversario", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1951, "cita": "Tesoros", "normalizado": "tesoros", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1968, "cita": "Aurora", "normalizado": "aurora", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 1968, "cita": "The Mothman Prophecies", "normalizado": "the mothman prophecies", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 2100, "cita": "Entre murmullos y Sombras", "normalizado": "entre murmullos y sombras", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 2100, "cita": "El Delicado Sonido del Rock - Volumen II", "normalizado": "el delicado sonido del rock volumen ii", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 2217, "cita": "Lucha por Vivir", "normalizado": "lucha por vivir", "estado": "no_en_catalogo", "match": ""}
 {"artistId": 2217, "cita": "Compilado 01 Edición de Colección", "normalizado": "compilado 01 edicion de coleccion", "estado": "no_en_catalogo", "match": ""}
-{"artistId": 2288, "cita": "Dos Humanidades Diferentes", "normalizado": "dos humanidades diferentes", "estado": "no_en_catalogo", "match": ""}

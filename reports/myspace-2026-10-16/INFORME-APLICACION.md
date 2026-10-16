@@ -41,6 +41,25 @@ faltaban, claims de fotos y la minería de las bios.
   complementarios: ciudad vs estado). Insumo para campañas de discografía/sellos.
 - 3 bios sin cambios (ya cubrían el perfil) y 3 fichas editadas por otra mano (no se pisaron).
 
+## ER dirigida de candidatos y cotejo de discos (segunda pasada)
+
+- **Candidatos de miembros** (283 tras dedupe de plan+minería): la ER dirigida resolvió **5**
+  (tokens nombre+apellido ≥0.90: Spíndola, Witynski, «Peluso», Gonzalez, Hernandez — run 20280),
+  descartó 12 que ya estaban en la banda (por id) y dejó: **92 nombres de una palabra a revisión**
+  (homónimos), **172 sin candidato** → lote de **altas de persona** con el ER del sistema como
+  árbitro (`12-alta-miembros.ts`: crea si no hay parecidos, usa la existente si `already_exists`,
+  manda a revisión si `needs_review`; 150 pasaron los filtros) y 2 ambiguos.
+  Calibración medida: el primer intento con difflib ≥0.88 a secas daba falsos positivos
+  («Franny Borges ≈ Ronny Borges» 0.88, «Morillo ≈ Portillo» 0.90) → exigir nombre Y apellido.
+- **Umbral del ER para personas de 1 palabra**: NUNCA automático (ni por alias registrado:
+  «Gustavo», «Vargas» son homónimos fáciles).
+- **Discos citados en los perfiles** (534 citas de `mineria/otros.jsonl`): **399 ya en el
+  catálogo**, 42 son pistas del propio artista y **86 no aparecen** (candidatas: incluyen compilados
+  de terceros tipo «Metalkinesia: Capítulo Falcón», temas sueltos y posibles discos faltantes) →
+  `er/discos-no-en-catalogo.jsonl`. Pitfall: `public.albums` NO tiene columna `year` (es
+  `release_year`); una consulta fallida dejó la lista vacía y marcó 287 falsos «no está» — el
+  cotejo se rehizo con `release_year` + `ingest.album_aliases`.
+
 ## Pitfalls medidos (para futuras campañas)
 
 1. **psql desde python y textos multilínea**: `-tA` sin `-R` rompe las bios por saltos de línea
