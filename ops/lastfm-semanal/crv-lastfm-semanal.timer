@@ -1,0 +1,10 @@
+[Unit]
+Description=Refresco semanal de metricas de escucha (Last.fm API): lunes 04:00
+
+[Timer]
+OnCalendar=Mon 04:00
+Persistent=true
+RandomizedDelaySec=1800
+
+[Install]
+WantedBy=timers.target

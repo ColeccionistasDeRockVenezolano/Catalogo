@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresco semanal de metricas de escucha (Last.fm API) -> public.entity_metrics
+Documentation=file:/home/brian/apps/Coleccionistas De Rock Venezolano/ops/lastfm-semanal/README.md
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+ExecStart=/usr/bin/python3 scripts/lastfm-2026-10-16/04-refresco-semanal.py
+TimeoutStartSec=43200
+Nice=10
