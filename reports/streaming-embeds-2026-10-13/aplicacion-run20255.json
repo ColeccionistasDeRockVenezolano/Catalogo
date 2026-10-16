@@ -1,0 +1,26 @@
+{
+  "runId": 20255,
+  "filas": 507,
+  "nuevos": 494,
+  "actualizados": 13,
+  "resumen": {
+    "disco:spotify": 370,
+    "artista:spotify": 137
+  },
+  "cuenta": {
+    "spotify: disco ya verificado": 1072,
+    "spotify: perfil ya verificado": 317,
+    "spotify: artista ya no existe": 4,
+    "spotify: disco movido o retirado": 3,
+    "youtube_music: disco ya verificado": 6070,
+    "youtube_music: perfil ya verificado": 1375,
+    "youtube_music: artista ya no existe": 4,
+    "youtube_music: disco movido o retirado": 4,
+    "bandcamp: disco ya verificado": 341,
+    "bandcamp: disco movido o retirado": 1,
+    "tidal: disco ya verificado": 6498,
+    "tidal: perfil ya verificado": 1496,
+    "tidal: artista ya no existe": 4,
+    "tidal: disco movido o retirado": 5
+  }
+}
