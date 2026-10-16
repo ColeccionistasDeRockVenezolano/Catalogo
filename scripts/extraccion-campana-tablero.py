@@ -236,6 +236,7 @@ def manifest_hoy():
 def reloj_muro(log_tail):
     """(estado, detalle) del muro de Cloudflare leyendo el log de la captura."""
     ultimo_mas, ultimo_bloqueo, cf = None, None, False
+    bloqueos_403 = bloqueos_503 = 0
     for linea in log_tail:
         m = re.match(r"\[(\d{2}:\d{2}:\d{2})\] \+ \[", linea)
         if m:
@@ -243,9 +244,22 @@ def reloj_muro(log_tail):
         m = re.match(r"\[(\d{2}:\d{2}:\d{2})\] \[bloqueo\] \((\d+)\)", linea)
         if m:
             ultimo_bloqueo, cf = m.group(1), m.group(2) == "403"
+            if m.group(2) == "403":
+                bloqueos_403 += 1
+            elif m.group(2) == "503":
+                bloqueos_503 += 1
     if ultimo_bloqueo and (not ultimo_mas or ultimo_bloqueo > ultimo_mas):
-        return ("MURO" if cf else "MURO SUAVE", ultimo_bloqueo)
-    return ("OK", ultimo_mas or "-")
+        return ("MURO" if cf else "MURO SUAVE", ultimo_bloqueo, (bloqueos_403, bloqueos_503))
+    return ("OK", ultimo_mas or "-", (bloqueos_403, bloqueos_503))
+
+
+def estado_cliquer():
+    """Estado del wall-clicker (reports/crv-marcas/clicker-guardia) — el que mantiene la sesión."""
+    try:
+        with open(REPO / "reports/crv-marcas/clicker-guardia", encoding="utf-8") as fh:
+            return json.load(fh)
+    except Exception:
+        return {}
 
 
 def segundos(hhmmss):
@@ -348,7 +362,8 @@ def bloque_a():
     con_discos = [f for f in utiles if f["nRows"]]
     pendientes = max(0, cola - trabajadas)
     seg_ficha, tramos = ritmo_medido(leer(LOG_A, 400))
-    estado_muro, cuando = reloj_muro(leer(LOG_A, 400))
+    estado_muro, cuando, (bloqueos_403, bloqueos_503) = reloj_muro(leer(LOG_A, 400))
+    cliquer = estado_cliquer()
     # Ritmo de la ÚLTIMA MEDIA HORA, medido del ts de cada ficha en estado.json
     ahora = time.time()
     ventana = [f for f in estado if f["ts"] and ahora - float(f["ts"]) <= 1800]
@@ -401,6 +416,13 @@ def bloque_a():
                 "Lo útil no es lo mismo que lo intentado: las inferidas fallan mucho más que las confirmadas."),
         tarjeta("Muro de Cloudflare", f'<span class="{clase_muro}">{estado_muro}</span>', f"última marca {esc(str(cuando))}",
                 ayuda_muro, clase=clase_muro),
+        tarjeta("Cliquer (sesión del dueño)", f'<span class="{"ok" if cliquer.get("modo") != "muro" else "ojo"}">{esc(str(cliquer.get("modo") or "?"))}</span>',
+                f"clics hoy {cliquer.get('clics_dia', 0)} · última: {esc(str(cliquer.get('motivo') or '-')[:60])}",
+                "El cliquer mantiene caliente la sesión del Firefox del dueño (clics humanos en enlaces de RYM cada "
+                "30-65 s). Durante un muro del capturador ya NO se queda quieto: refresca la pestaña con F5 cada "
+                "90-180 s (solo con el dueño inactivo y sin tocar retos) para renovar la cf_clearance que el "
+                "capturador recarga al reintentar. Bloqueos de hoy: "
+                f"{bloqueos_403} de 403 (Cloudflare) y {bloqueos_503} de 503 (muro propio)."),
     ]
 
     filas_tabla = []
