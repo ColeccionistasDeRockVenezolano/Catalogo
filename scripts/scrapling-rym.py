@@ -289,7 +289,11 @@ def main():
                 s = session["s"]
             assert s is not None
             try:
-                page = s.fetch(url, timeout=60000)
+                # disable_resources: bloquea fuentes/imágenes/media (solo esos tipos). No cambia el
+                # HTML —que es lo que leemos— y evita que la espera a «load» se cuelgue detrás de
+                # CDNs de imágenes: medido 2026-10-16, ~25 timeouts de 60 s por hora que costaban
+                # ~5 min por slug atascado. El reto de Cloudflare va por JS y no se ve afectado.
+                page = s.fetch(url, timeout=60000, disable_resources=True)
             except Exception as exc:
                 log(f"[fetch-err] {url}: {str(exc)[:100]}")
                 time.sleep(10 + intento * 10)
