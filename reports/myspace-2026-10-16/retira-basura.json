@@ -1,0 +1,35 @@
+{
+  "runId": 20285,
+  "report": [
+    {
+      "personId": 41277,
+      "name": "ESCLAVO DE LA ETERNIDAD",
+      "relaciones": 1,
+      "ok": true
+    },
+    {
+      "personId": 41278,
+      "name": "REGRESO DEL ABISMO",
+      "relaciones": 1,
+      "ok": true
+    },
+    {
+      "personId": 41279,
+      "name": "Editor de Imagenes",
+      "relaciones": 1,
+      "ok": true
+    },
+    {
+      "personId": 41281,
+      "name": "Google search",
+      "relaciones": 1,
+      "ok": true
+    },
+    {
+      "personId": 41283,
+      "name": "PHOTOS BY",
+      "relaciones": 1,
+      "ok": true
+    }
+  ]
+}

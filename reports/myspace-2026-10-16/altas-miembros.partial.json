@@ -1,0 +1,34 @@
+{
+  "runs": [
+    20286
+  ],
+  "creadas": [],
+  "yaExistian": [],
+  "revisar": [
+    {
+      "banda": "",
+      "person": "Romel Salcedo",
+      "role": "",
+      "detalle": "el catálogo no autoriza crear person «Romel Salcedo»: POSSIBLE_MATCH: no se modifica el canonico"
+    },
+    {
+      "banda": "",
+      "person": "Giampietro Taza",
+      "role": "",
+      "detalle": "el catálogo no autoriza crear person «Giampietro Taza»: POSSIBLE_MATCH: no se modifica el canonico"
+    },
+    {
+      "banda": "",
+      "person": "B. Vrolok",
+      "role": "",
+      "detalle": "el catálogo no autoriza crear person «B. Vrolok»: POSSIBLE_MATCH: no se modifica el canonico"
+    },
+    {
+      "banda": "",
+      "person": "Jovino Becerra",
+      "role": "",
+      "detalle": "el catálogo no autoriza crear person «Jovino Becerra»: POSSIBLE_MATCH: no se modifica el canonico"
+    }
+  ],
+  "errores": []
+}

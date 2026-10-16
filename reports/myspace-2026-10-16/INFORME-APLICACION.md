@@ -60,6 +60,26 @@ faltaban, claims de fotos y la minería de las bios.
   `release_year`); una consulta fallida dejó la lista vacía y marcó 287 falsos «no está» — el
   cotejo se rehizo con `release_year` + `ingest.album_aliases`.
 
+### Cierre del lote de altas (runs 20283/20284 + 20286 + 20288)
+
+- De 150 altas candidatas: **12 personas creadas** + **4 con ficha creada y relación aplicada
+  después** (run 20288; rol «Miembro» cuando el perfil no lo dice) = **11 personas nuevas netas
+  con membresía** (Agony Tul→Gutiroth, Dionardo Aparicio, Aeneas Inferno, Tormentum Ov War,
+  Hell Torment, Mors Desolatvm, Yazmal Destructor, Romel Salcedo→Fening, Giampietro Taza,
+  B. Vrolok, Jovino Becerra).
+- **5 fichas basura retiradas** (run 20285): «ESCLAVO DE LA ETERNIDAD» y «REGRESO DEL ABISMO»
+  (títulos de vídeo de Natastor), «Editor de Imagenes», «Google search», «PHOTOS BY» — mal parseo
+  de la minería. Filtros añadidos al applier: palabras prohibidas (video/photos/editor/google/…)
+  y nada todo-mayúsculas.
+- **130 en revisión** (`er/miembros-revisar-134.jsonl`): el ER del sistema marca POSSIBLE_MATCH y
+  no autoriza la creación («no se modifica el canonico»). 103 con candidato probable al lado
+  (ratio 0.75-0.89: «Ángel Pereira ≈ angel ferreira», «Jean Robert Puccia ≈ jean robert puccia
+  suarez», «Mladen Horbart ≈ mladen horvat bartl») y 27 sin candidato. La franja difusa NO se
+  aplica sola: decisión humana con el candidato ya servido.
+- Pitfall: los .json de reporte del applier se sobrescriben entre corridas y el estado del lote
+  grande quedó solo en el partial → reconstruible desde `er/miembros-sin-resolver.jsonl` + las
+  listas de creadas/errores (`16-revisar-reconstruido.py`).
+
 ## Pitfalls medidos (para futuras campañas)
 
 1. **psql desde python y textos multilínea**: `-tA` sin `-R` rompe las bios por saltos de línea

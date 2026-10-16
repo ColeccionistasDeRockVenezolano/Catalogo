@@ -17,12 +17,24 @@ const LEDGER = args.find((v) => !v.startsWith("--")) ?? "reports/myspace-2026-10
 const confirm = args.includes("--confirm");
 const EXTRACTOR = "perfil-myspace-wayback";
 const NOMBRE = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ'’.\- ]{6,60}$/u;
+// basura medida del primer lote: etiquetas de plantilla y títulos de vídeo/disco, no personas
+const PALABRAS_MALAS = /\b(video|vídeo|photos?|fotos?|editor|imagen|google|search|by|realizado|editado|myspace|demo|disc|album|álbum|contacto|manager|booking|promo|intro|outro|live|official)\b/iu;
 const sha = (v: unknown) => createHash("sha256").update(JSON.stringify(v)).digest("hex");
 
 async function main(): Promise<void> {
+  // los ya evaluados como needs_review por el ER no se reintentan (protege el canonico)
+  let yaRevisados = new Set<string>();
+  try {
+    const previo = JSON.parse(readFileSync("reports/myspace-2026-10-16/altas-miembros.json", "utf8")) as {
+      revisar?: Array<{ banda: string; person: string }>; creadas?: Array<{ banda: string; person: string }>;
+    };
+    yaRevisados = new Set([...(previo.revisar ?? []), ...(previo.creadas ?? [])].map((r) => `${r.banda}|${r.person}`));
+  } catch { /* sin corrida previa */ }
   const filas = (readFileSync(LEDGER, "utf8").split("\n").filter((l) => l.trim()).map((l) => JSON.parse(l) as Fila))
     .filter((f) => f.motivo === "sin candidato" && NOMBRE.test(f.person) && !/\d/u.test(f.person)
-      && f.person.split(/\s+/u).length >= 2 && f.person.split(/\s+/u).length <= 4);
+      && !PALABRAS_MALAS.test(f.person) && /[a-záéíóúñ]/u.test(f.person)   // no todo-mayúsculas
+      && f.person.split(/\s+/u).length >= 2 && f.person.split(/\s+/u).length <= 4
+      && !yaRevisados.has(`${f.banda}|${f.person}`));
   const pool = getPool();
   const source = await pool.query<{ id: string }>("SELECT id::text FROM ingest.sources WHERE slug='myspace-wayback-machine'");
   const sourceId = Number(source.rows[0]?.id);
@@ -85,7 +97,7 @@ async function main(): Promise<void> {
         await context.client.query("SAVEPOINT rel");
         try {
           const rel = await createRelation(context, "artist_membership", { artistId: f.artistId, personId: personId! },
-            f.role ? { role: f.role } : {});
+            { role: f.role || "Miembro" });
           const claimR = await context.client.query<{ id: string }>(`
             INSERT INTO ingest.claims(source_id,entity_kind,artist_membership_id,field,raw_value,normalized_value,raw_hash,extractor,
                                       extractor_version,confidence,status,created_by,run_id,notes,identity_key)
