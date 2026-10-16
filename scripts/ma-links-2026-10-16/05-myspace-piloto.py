@@ -139,6 +139,31 @@ EQUIV = {
 }
 
 
+def foto_default(src: str) -> str:
+    """URL de la default pic del perfil (la foto de banda del MySpace clásico)."""
+    m = re.search(r'id="[^"]*hlDefaultImage"[^>]*>\s*<img src="([^"]+)"', src, re.I)
+    if m:
+        return m.group(1)
+    # Variante sin ancla: la única imagen `m_<hash>` del archivo es la del perfil.
+    ms = re.findall(r'src="([^"]*myspacecdn\.com/[^"]*m_[0-9a-f]{16,}\.(?:jpg|jpeg|png|gif))"', src, re.I)
+    return ms[0] if len(ms) == 1 else ""
+
+
+def extraer_about(src: str) -> str:
+    """El About clásico vive entre el encabezado «About <nombre>» y la sección siguiente.
+
+    (El patrón `id="ProfileAbout"` casi nunca aparece en estas plantillas: medido, daba
+    0/146. Este rango sí rinde: bios reales en español e inglés.)
+    """
+    m = re.search(r'<span class="orangetext15">\s*About(?:&nbsp;|&#160;|\s)[^<]{0,80}</span>', src, re.I)
+    if not m:
+        return ""
+    resto = src[m.end():]
+    siguiente = re.search(r'<span class="orangetext15">', resto)
+    bloque = resto[: siguiente.start()] if siguiente else resto[:20000]
+    return limpio(bloque)[:3000]
+
+
 def extraer(src: str) -> dict:
     titulo = ""
     m = re.search(r"<title>(.*?)</title>", src, re.S)
@@ -151,9 +176,9 @@ def extraer(src: str) -> dict:
         valor = re.split(r"a,\s*a\.man", valor)[0].strip()
         if valor and len(valor) > 1:
             campos[etiqueta] = valor[:2000]
-    m = re.search(r'id="ProfileAbout"[^>]*>(.*?)</td>', src, re.S)
-    if m:
-        campos["About"] = limpio(m.group(1))[:3000]
+    about = extraer_about(src)
+    if about and len(about) > 20:
+        campos["About"] = about
     return {"titulo": titulo, "campos": campos}
 
 

@@ -1,0 +1,14 @@
+{"ma_id": "101214", "banda": "Abolición", "crv_artist_id": "", "fase": "cdx_imagen", "variante": "m_21b22236ae88ca65587c9a3ceb2e812c.jpg", "ts_captura": null, "cdx_ms": 19131, "ts": "2026-10-16T00:46:32"}
+{"ma_id": "101214", "banda": "Abolición", "crv_artist_id": "", "fase": "cdx_imagen", "variante": "l_21b22236ae88ca65587c9a3ceb2e812c.jpg", "ts_captura": null, "cdx_ms": 17396, "ts": "2026-10-16T00:46:51"}
+{"ma_id": "101214", "banda": "Abolición", "crv_artist_id": "", "fase": "cdx_imagen", "variante": "s_21b22236ae88ca65587c9a3ceb2e812c.jpg", "ts_captura": "20071006105536", "cdx_ms": 13845, "ts": "2026-10-16T00:47:07"}
+{"ma_id": "101214", "banda": "Abolición", "crv_artist_id": "", "fase": "resultado", "resultado": "ok", "bytes": 3057, "talla": "s_", "ts_captura": "20071006105536", "ts": "2026-10-16T00:47:08"}
+{"ma_id": "103572", "banda": "Gutiroth", "crv_artist_id": "606", "fase": "cdx_imagen", "variante": "m_87070ac66e730aab87b20566d17be4e2.jpg", "ts_captura": null, "cdx_ms": 7456, "ts": "2026-10-16T00:47:17"}
+{"ma_id": "103572", "banda": "Gutiroth", "crv_artist_id": "606", "fase": "cdx_imagen", "variante": "l_87070ac66e730aab87b20566d17be4e2.jpg", "ts_captura": null, "cdx_ms": 22298, "ts": "2026-10-16T00:47:41"}
+{"ma_id": "103572", "banda": "Gutiroth", "crv_artist_id": "606", "fase": "cdx_imagen", "variante": "s_87070ac66e730aab87b20566d17be4e2.jpg", "ts_captura": "20081101140140", "cdx_ms": 8667, "ts": "2026-10-16T00:47:52"}
+{"ma_id": "103572", "banda": "Gutiroth", "crv_artist_id": "606", "fase": "resultado", "resultado": "ok", "bytes": 1280, "talla": "s_", "ts_captura": "20081101140140", "ts": "2026-10-16T00:47:53"}
+{"ma_id": "105392", "banda": "Represion", "crv_artist_id": "2217", "fase": "cdx_imagen", "variante": "m_a386f1d11ddd5a5fb41e2a37c012c075.jpg", "ts_captura": null, "cdx_ms": 25024, "ts": "2026-10-16T00:48:19"}
+{"ma_id": "105392", "banda": "Represion", "crv_artist_id": "2217", "fase": "cdx_imagen", "variante": "l_a386f1d11ddd5a5fb41e2a37c012c075.jpg", "ts_captura": null, "cdx_ms": 44742, "ts": "2026-10-16T00:49:06"}
+{"ma_id": "105392", "banda": "Represion", "crv_artist_id": "2217", "fase": "cdx_imagen", "variante": "s_a386f1d11ddd5a5fb41e2a37c012c075.jpg", "ts_captura": null, "cdx_ms": 15803, "ts": "2026-10-16T00:49:24"}
+{"ma_id": "105392", "banda": "Represion", "crv_artist_id": "2217", "fase": "cdx_imagen", "variante": "t_a386f1d11ddd5a5fb41e2a37c012c075.jpg", "ts_captura": null, "cdx_ms": 22156, "ts": "2026-10-16T00:49:48"}
+{"ma_id": "105392", "banda": "Represion", "crv_artist_id": "2217", "fase": "resultado", "resultado": "sin_imagen", "ts": "2026-10-16T00:49:50"}
+{"ma_id": "106507", "banda": "Demise", "crv_artist_id": "20", "fase": "cdx_imagen", "variante": "m_0c656c3b995047938d3ecb6f59ad85b0.jpg", "ts_captura": "20150823084427", "cdx_ms": 18963, "ts": "2026-10-16T00:50:10"}
