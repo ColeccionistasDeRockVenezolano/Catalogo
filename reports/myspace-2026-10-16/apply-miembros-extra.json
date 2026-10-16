@@ -1,0 +1,95 @@
+{
+  "runs": [
+    20275
+  ],
+  "creadas": 68,
+  "yaEstaban": 15,
+  "review": [
+    {
+      "banda": "",
+      "person": "Daniel López (Dalk)",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Freddy «Marshall» Cabezas",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Antonio Narciso",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Eduardo Sáez",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Ricardo Rodríguez",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Santiago Aquino",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Tadeo Díaz",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Adolfo Tapias",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Antonio Belisario",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Rafael Martínez",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Neomar Sánchez",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Renato Alarcón",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "David Morillo",
+      "role": "",
+      "detail": "role obligatorio"
+    },
+    {
+      "banda": "",
+      "person": "Federico Agreda",
+      "role": "",
+      "detail": "role obligatorio"
+    }
+  ],
+  "saltadas": [],
+  "errores": []
+}

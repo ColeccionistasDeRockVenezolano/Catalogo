@@ -138,11 +138,11 @@ def main() -> None:
             miembros_bd[int(m[0])].add(norm(m[1]))
     print(f"personas en el catálogo: {len(personas)} · bandas con membresías: {len(miembros_bd)}")
 
-    # estado del core para contraste
+    # estado del core para contraste (bio solo por longitud: evita romper por saltos de línea)
     core = {}
-    for c in psql(f"SELECT id, coalesce(origin_city,''), coalesce(origin_country,''), coalesce(formed_year::text,''), coalesce(biography,'') FROM artists WHERE id IN ({lista})"):
+    for c in psql(f"SELECT id, coalesce(origin_city,''), coalesce(origin_country,''), coalesce(formed_year::text,''), length(coalesce(biography,'')) FROM artists WHERE id IN ({lista})"):
         if len(c) >= 5:
-            core[int(c[0])] = {"ciudad": c[1], "pais": c[2], "anio": c[3], "bio_len": len(c[4])}
+            core[int(c[0])] = {"ciudad": c[1], "pais": c[2], "anio": c[3], "bio_len": int(c[4] or 0)}
 
     miembros, candidatos, generos, ciudades, bios = [], [], [], [], []
     sin_destino = collections.Counter()

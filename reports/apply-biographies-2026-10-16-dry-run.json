@@ -1,0 +1,41 @@
+{
+  "mode": "dry-run",
+  "runId": 20272,
+  "models": [
+    "deepseek-chat"
+  ],
+  "outputs": 133,
+  "badLines": [],
+  "applied": {
+    "artist": 127,
+    "album": 0,
+    "person": 0,
+    "organization": 0
+  },
+  "enriched": 127,
+  "created": 0,
+  "unchanged": 3,
+  "noData": 0,
+  "changedSinceExport": [
+    "artist-861",
+    "artist-871"
+  ],
+  "rejected": [
+    {
+      "caseId": "artist-804",
+      "batch": "artist-001",
+      "reason": "dice partir de una biografía que no existe"
+    }
+  ],
+  "unknownCase": [],
+  "lostYears": [
+    {
+      "caseId": "artist-374",
+      "years": [
+        "1993"
+      ]
+    }
+  ],
+  "notes": [],
+  "discarded": 0
+}

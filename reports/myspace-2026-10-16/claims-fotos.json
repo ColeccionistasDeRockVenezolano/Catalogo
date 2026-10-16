@@ -1,0 +1,13 @@
+{
+  "runs": [
+    20274
+  ],
+  "claims": 132,
+  "yaEstaban": 0,
+  "errores": [
+    {
+      "artistId": 804,
+      "error": "insert or update on table \"claims\" violates foreign key constraint \"claims_artist_id_fkey\""
+    }
+  ]
+}
