@@ -9,4 +9,6 @@ echo "== a) cargar tags a la base:"
 python3 scripts/lastfm-2026-10-16/03-cargar-tablas.py 2>&1 | tail -4
 echo "== b) cadena emocional (Laya + léxico v3):"
 bash scripts/lastfm-2026-10-16/07-cadena-laya.sh 2>&1 | tail -8
+echo "== c) comentarios nuevos (Laya + gate):"
+/home/brian/.venvs/laya/bin/python scripts/lastfm-2026-10-16/10-clasificar-shouts.py 2>&1 | grep -vE "Fetching|RuntimeWarning|agent = Agent" | tail -4
 echo "== FIN refresco emocional"
