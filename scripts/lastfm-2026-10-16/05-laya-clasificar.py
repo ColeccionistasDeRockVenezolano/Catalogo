@@ -29,7 +29,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 CACHE = OUT / 'tags-clasificados.jsonl'
 LOG = OUT / 'laya.log'
 SEP = chr(31)
-MODEL_VERSION = 'laya-multilingual-noul-en-v1'
+MODEL_VERSION = 'laya-multilingual-noul-en-v2-vocab'
 LIMITE = int(next((a.split('=', 1)[1] for a in sys.argv[1:] if a.startswith('--limite=')), '0') or 0)
 APPLY_ONLY = '--apply-only' in sys.argv
 
@@ -119,7 +119,7 @@ def aplicar(hechos: dict[str, dict]) -> None:
     filas = [l.split(SEP) for l in psql("SELECT artist_id, tag, weight, emotions->>'categoria' FROM public.entity_user_tags").split('\n') if l.strip()]
     agg: dict[tuple[int, str], dict] = {}
     for aid, tag, w, cat in filas:
-        if not cat or cat == 'no_expresa_emocion':
+        if not cat or cat in ('no_expresa_emocion', 'dudoso'):
             continue
         k = (int(aid), cat)
         d = agg.setdefault(k, {'score': 0, 'tags': []})

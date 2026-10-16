@@ -160,9 +160,9 @@ def fase_albumes() -> None:
                         'listeners': int(ab.get('listeners') or 0), 'playcount': int(ab.get('playcount') or 0),
                         'tags_info': tags_list((ab.get('tags') or {})), 'wiki': w[:6000],
                     })
-                    time.sleep(DELAY)
-                    tt = call({'method': 'album.getTopTags', 'artist': artist, 'album': title, 'autocorrect': '0'})
-                    fila['tags'] = tags_list((tt or {}).get('toptags', {})) if isinstance(tt, dict) else []
+                    # album.getTopTags eliminado (2026-10-16): la cobertura de tags PROPIOS de
+                    # disco es ínfima y duplica el tiempo de cosecha; los tags de disco vistos
+                    # son ruido de usuario. Los que existan vienen en tags_info de getInfo.
             except Exception as e:
                 fila['error'] = f'{type(e).__name__}: {e}'
             fh.write(json.dumps(fila, ensure_ascii=False) + '\n')
