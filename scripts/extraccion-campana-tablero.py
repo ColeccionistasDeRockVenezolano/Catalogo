@@ -9,6 +9,9 @@ en el navegador con file:///tmp/crv-recon/extraccion-2026-10-16.html
   B · Portadas y fotos      — cada discoverer y lo que se bajó/asoció al catálogo
   C · Redes sociales        — evidencia cosechada y lo aplicado a public.social_links
   D · Escrituras recientes  — últimos runs del operador (lo que de verdad entró al catálogo)
+  E · Enlaces de streaming  — búsqueda profunda (dos pasadas)
+  F · Perfiles MySpace      — Related Links de Metal Archives por Wayback
+  G · Períodos de miembros  — MBID de Last.fm, relaciones de MusicBrainz, lo aplicado y la ronda 2
 
 Escribe:
   · /tmp/crv-recon/extraccion-2026-10-16.html          (vista, refresco 5 s)
@@ -835,6 +838,329 @@ def bloque_f():
 </section>"""
 
 
+# ---------------------------------------------------------------- bloque G: períodos de miembros (MusicBrainz)
+LF_CAT = REPO / "reports/lastfm-catalogo-2026-10-16"
+MB_RELS = REPO / "reports/musicbrainz-artist-rels-2026-10-16"
+MB_APLICA = REPO / "reports/musicbrainz-apply-2026-10-16"
+MBID_MAPA = REPO / "reports/lastfm-mbid-2026-10-16.json"
+_cache_lf_t, _cache_lf = 0.0, None
+_cache_mbid_clave, _cache_mbid = None, None
+_cache_plan_t, _cache_plan = 0.0, None
+_cache_mbdb_t, _cache_mbdb = 0.0, None
+_cache_altas_t, _cache_altas = 0.0, None
+
+
+def cosecha_lastfm():
+    """Avance MEDIDO de la cosecha del catálogo Last.fm: JSONL en disco + ritmo del log.
+
+    El log marca cada 100 discos; el paso normal sale de la MEDIANA de esos tramos (la media la
+    disparan los reintentos). La ETA se recalcula con ese paso medido, no se copia del log.
+    """
+    global _cache_lf_t, _cache_lf
+    if time.time() - _cache_lf_t < 20 and _cache_lf is not None:
+        return _cache_lf
+    artistas = contar_lineas(LF_CAT / "artistas.jsonl")
+    albumes = contar_lineas(LF_CAT / "albumes.jsonl")
+    errores = contar_lineas(LF_CAT / "errores.jsonl")
+    total_albumes = 16346
+    tramos = []
+    for linea in leer(LF_CAT / "cosecha.log", 500):
+        m = re.match(r"(\d{2}:\d{2}:\d{2}) ALBUMES (\d+)/(\d+) · ([\d.]+) min", linea)
+        if m:
+            tramos.append((segundos(m.group(1)), int(m.group(2)), float(m.group(4))))
+            total_albumes = int(m.group(3))
+    primero = tramos[0] if tramos else None
+    ultimo = tramos[-1] if tramos else None
+    paso100 = None
+    if len(tramos) >= 4:
+        deltas = []
+        for (s1, n1, _), (s2, n2, _) in zip(tramos[-31:], tramos[-30:]):
+            if n2 > n1 and s2 > s1:
+                deltas.append((s2 - s1) / ((n2 - n1) / 100.0))
+        if deltas:
+            deltas.sort()
+            paso100 = deltas[len(deltas) // 2]
+    pendientes = max(0, total_albumes - (albumes or 0))
+    restantes = (pendientes / 100.0 * paso100) if paso100 else None
+    transcurrido = (ultimo[0] - primero[0]) if (primero and ultimo and ultimo[0] > primero[0]) else None
+    hecho_ventana = (ultimo[1] - primero[1]) if (primero and ultimo) else 0
+    datos = {
+        "artistas": artistas, "albumes": albumes, "total_albumes": total_albumes, "errores": errores,
+        "paso100": paso100, "eta_h": (restantes / 3600) if restantes else None,
+        "alb_min": (hecho_ventana / (transcurrido / 60)) if (transcurrido and transcurrido > 0) else None,
+        "ultima": (tramos[-1][0] if tramos else None), "tramos": len(tramos),
+        "activa": unidad("crv-lastfm-catalogo.service") == "active",
+    }
+    _cache_lf_t = time.time()
+    _cache_lf = datos
+    return datos
+
+
+def mbids_lastfm():
+    """MBID de los artistas cosechados y cuántos NO tienen rels de MusicBrainz (ronda 2).
+
+    artistas.jsonl pesa ~17 MB y ya está cerrado: se relee solo si cambia (mtime+tamaño).
+    """
+    global _cache_mbid_clave, _cache_mbid
+    ruta = LF_CAT / "artistas.jsonl"
+    try:
+        st = ruta.stat()
+    except OSError:
+        return None
+    clave = (st.st_mtime, st.st_size)
+    if clave == _cache_mbid_clave and _cache_mbid is not None:
+        return _cache_mbid
+    mbids, total = set(), 0
+    for linea in ruta.open(encoding="utf-8", errors="replace"):
+        total += 1
+        try:
+            m = (json.loads(linea).get("mbid") or "").strip()
+        except Exception:
+            continue
+        if m:
+            mbids.add(m)
+    try:
+        previos = {v for v in json.loads(MBID_MAPA.read_text(encoding="utf-8")).values() if v}
+    except Exception:
+        previos = set()
+    datos = {"total": total, "con_mbid": len(mbids), "previos": len(previos), "nuevos": len(mbids - previos)}
+    _cache_mbid_clave = clave
+    _cache_mbid = datos
+    return datos
+
+
+def plan_mb():
+    """Lo planificado y lo aplicado del hilo MusicBrainz (archivos del 16/10, con caché de 5 min)."""
+    global _cache_plan_t, _cache_plan
+    if time.time() - _cache_plan_t < 300 and _cache_plan is not None:
+        return _cache_plan
+    datos = {
+        "rels": contar_lineas(MB_RELS / "relaciones.jsonl"),
+        "campos": contar_lineas(MB_APLICA / "campos.jsonl"),
+        "membresias": contar_lineas(MB_APLICA / "membresias.jsonl"),
+        "descartes": contar_lineas(MB_APLICA / "descartes.jsonl"),
+        "personas": contar_lineas(MB_APLICA / "personas-nuevas.jsonl"),
+        "vinculos": None, "aplicado": {}, "aplicado_campos": {}, "nombres": [],
+    }
+    vinculos = 0
+    try:
+        for linea in (MB_APLICA / "personas-nuevas.jsonl").open(encoding="utf-8"):
+            try:
+                d = json.loads(linea)
+            except Exception:
+                continue
+            vinculos += len(d.get("bandas") or [])
+            n = (d.get("name") or "").strip()
+            if n:
+                datos["nombres"].append(n)
+    except OSError:
+        pass
+    datos["vinculos"] = vinculos
+    # Relaciones de verdad: cada línea de relaciones.jsonl es un artista con su entidad `mb` y sus
+    # `rels` (miembro de banda, fundador, homenaje…). Contar las de tipo «member of band» es lo que
+    # mide el insumo del hito: de ahí salen las membresías con período.
+    rels_total = rels_miembro = artistas_con_rels = 0
+    try:
+        with (MB_RELS / "relaciones.jsonl").open(encoding="utf-8") as fh:
+            for linea in fh:
+                try:
+                    mb = (json.loads(linea).get("mb") or {})
+                except Exception:
+                    continue
+                rels = mb.get("rels") or []
+                if rels:
+                    artistas_con_rels += 1
+                for r in rels:
+                    rels_total += 1
+                    if isinstance(r, dict) and r.get("type") == "member of band":
+                        rels_miembro += 1
+    except OSError:
+        pass
+    datos["rels_total"] = rels_total
+    datos["rels_miembro"] = rels_miembro
+    datos["artistas_con_rels"] = artistas_con_rels
+    datos["rels_min"] = None
+    for linea in leer(MB_RELS / "relaciones.log", 5):
+        m = re.search(r"FIN:.*?en ([\d.]+) min", linea)
+        if m:
+            datos["rels_min"] = m.group(1).replace(".", ",")
+    for clave, archivo in (("aplicado", "apply-membresias.json"), ("aplicado_campos", "apply-campos.json")):
+        try:
+            datos[clave] = json.loads((MB_APLICA / archivo).read_text(encoding="utf-8"))
+        except Exception:
+            datos[clave] = {}
+    _cache_plan_t = time.time()
+    _cache_plan = datos
+    return datos
+
+
+def db_mb():
+    """Períodos de miembros y campos de origen en la base viva (una consulta psql, caché de 60 s)."""
+    global _cache_mbdb_t, _cache_mbdb
+    if time.time() - _cache_mbdb_t < 60 and _cache_mbdb is not None:
+        return _cache_mbdb
+    datos: dict = {"miembros": None, "completos": None, "vigentes": None, "desde": None, "hasta": None,
+                   "ciudades": None, "formacion": None, "disolucion": None, "claims": None}
+    filas = psql("""SELECT (SELECT count(*) FROM public.artist_members),
+                           (SELECT count(*) FROM public.artist_members WHERE from_year IS NOT NULL AND to_year IS NOT NULL),
+                           (SELECT count(*) FROM public.artist_members WHERE is_current),
+                           (SELECT count(*) FROM public.artist_members WHERE from_year IS NOT NULL),
+                           (SELECT count(*) FROM public.artist_members WHERE to_year IS NOT NULL),
+                           (SELECT count(*) FROM public.artists WHERE coalesce(origin_city,'') <> ''),
+                           (SELECT count(*) FROM public.artists WHERE formed_year IS NOT NULL),
+                           (SELECT count(*) FROM public.artists WHERE disbanded_year IS NOT NULL),
+                           (SELECT count(*) FROM ingest.claims WHERE extractor = 'musicbrainz-api'
+                              AND run_id BETWEEN 20289 AND 20292)""", timeout=25)
+    if filas and len(filas[0]) >= 9:
+        claves = ["miembros", "completos", "vigentes", "desde", "hasta", "ciudades", "formacion", "disolucion", "claims"]
+        for clave, valor in zip(claves, filas[0][:9]):
+            try:
+                datos[clave] = int(valor)
+            except ValueError:
+                datos[clave] = None
+    _cache_mbdb_t = time.time()
+    _cache_mbdb = datos
+    return datos
+
+
+def altas_hechas(nombres):
+    """De las personas nuevas de MusicBrainz, cuántas YA existen en el catálogo (nombre exacto).
+
+    Es el pendiente honesto: si son 0, las altas no se han empezado. Cacheado 5 min.
+    """
+    global _cache_altas_t, _cache_altas
+    if time.time() - _cache_altas_t < 300 and _cache_altas is not None:
+        return _cache_altas
+    if not nombres:
+        return None
+    lista = ",".join("'" + n.replace("'", "''") + "'" for n in nombres)
+    filas = psql(f"SELECT count(*) FROM public.persons WHERE name IN ({lista})", timeout=25)
+    try:
+        hechas = int(filas[0][0]) if filas else None
+    except (ValueError, IndexError):
+        hechas = None
+    _cache_altas_t = time.time()
+    _cache_altas = hechas
+    return hechas
+
+
+def bloque_g():
+    """7 · Períodos de miembros (MusicBrainz): la ronda 1 aplicada y lo que falta de la ronda 2."""
+    lf = cosecha_lastfm()
+    mb = mbids_lastfm() or {"total": None, "con_mbid": None, "previos": None, "nuevos": None}
+    plan = plan_mb()
+    vivo = db_mb()
+    ap = plan["aplicado"] or {}
+    ap_campos = plan["aplicado_campos"] or {}
+    altas = altas_hechas(plan["nombres"])
+
+    eta = f"~{lf['eta_h']:.0f} h" if lf["eta_h"] else "sin ritmo medido"
+    estado_lf = "activa" if lf["activa"] else "parada"
+    aplicadas = ap.get("aplicados")
+    review_crudo: object = ap.get("review")
+    errores_crudo: object = ap.get("errores")
+    revisar_lista: list = list(review_crudo) if isinstance(review_crudo, list) else []
+    errores_lista: list = list(errores_crudo) if isinstance(errores_crudo, list) else []
+    revisar, errores_lote = len(revisar_lista), len(errores_lista)
+    ya = ap.get("yaEstaban")
+    bandas_review = sorted({
+        str((fila.get("fila") or {}).get("banda") or "").strip()
+        for fila in revisar_lista + errores_lista
+        if isinstance(fila, dict) and ((fila.get("fila") or {}).get("banda"))
+    })
+    detalle_review = ", ".join(bandas_review) if bandas_review else "sin detalle"
+
+    tarjetas = [
+        tarjeta("Cosecha Last.fm · artistas", f"<b>{miles(lf['artistas'] or 0)}</b>",
+                f"fase cerrada · {miles(mb['con_mbid'] or 0)} con MBID",
+                "Artistas del catálogo consultados por la API oficial (métricas, tags y top de pistas). "
+                "Está cerrada: la unidad ya pasó a la fase de discos."),
+        tarjeta("Cosecha Last.fm · discos", f"<b>{miles(lf['albumes'] or 0)}</b>/{miles(lf['total_albumes'])}",
+                f"{100 * (lf['albumes'] or 0) / max(1, lf['total_albumes']):.1f} % · {estado_lf} · ETA {eta}",
+                "Discos consultados por la API (métricas, tags y reseña). El avance sale de las líneas ya "
+                "escritas en albumes.jsonl, no del log; la ETA se recalcula con la mediana de los tramos del log."),
+        tarjeta("Relaciones de MusicBrainz", f"<b>{miles(plan['rels_miembro'] or 0)}</b>",
+                f"«miembro de banda» · de {miles(plan['artistas_con_rels'] or 0)} artistas con datos · "
+                f"{miles(plan['rels_total'] or 0)} relaciones en total · {miles(mb['previos'] or 0)} artistas en "
+                f"{plan['rels_min'] or '—'} min",
+                "Relaciones que MusicBrainz devuelve por artista (miembro con instrumento y años, fundador, "
+                "área, años de formación). Ahí SÍ viven los períodos: el sidebar de Last.fm es MusicBrainz. "
+                "De estas relaciones salen las membresías y las personas nuevas del plan."),
+        tarjeta("Ronda 2 lista de arrancar", f"<b>{miles(mb['nuevos'] or 0)}</b>",
+                "MBID nuevos sin rels cosechadas",
+                "Artistas con MBID que la cosecha completa de Last.fm trajo de más y todavía no tienen sus "
+                "relaciones de MusicBrainz pedidas: cada uno puede aportar períodos de miembros."),
+        tarjeta("Aplicado al catálogo", f"<b>{miles(aplicadas or 0)}</b> membresías",
+                f"{miles(ap_campos.get('aplicados') or 0)} campos de artista · "
+                f"{miles(ya or 0)} ya existían · {miles(revisar or 0)} en revisión · {miles(errores_lote or 0)} error",
+                "Lo que el aplicador escribió con evidencia «MusicBrainz» (runs 20289-20292): períodos exactos "
+                "en membresías y campos que faltaban (ciudad, año de formación, disolución)."),
+        tarjeta("Períodos de miembros en la base", f"<b>{miles(vivo['completos'] or 0)}</b>",
+                f"de {miles(vivo['miembros'] or 0)} membresías · {miles(vivo['vigentes'] or 0)} vigentes",
+                "Membresías con «desde» Y «hasta» en todo el catálogo (no solo las de esta campaña): "
+                f"{miles(vivo['desde'] or 0)} con desde · {miles(vivo['hasta'] or 0)} con hasta."),
+        tarjeta("Altas pendientes (personas nuevas)", f"<b>{miles(altas or 0)}</b>/{miles(plan['personas'] or 0)}",
+                f"{miles(plan['vinculos'] or 0)} vínculos banda-persona esperando",
+                "Personas que citan las relaciones de MusicBrainz y no existen en el catálogo: sus períodos "
+                "no se pueden escribir hasta dar el alta. Medido contra public.persons por nombre exacto."),
+        tarjeta("Descartes por identidad", f"<b>{miles(plan['descartes'] or 0)}</b>",
+                f"de {miles(mb['previos'] or 0)} artistas consultados · "
+                f"{miles(max(0, (mb['previos'] or 0) - (plan['descartes'] or 0)))} pasaron la guarda de país",
+                "Los MBID que Last.fm entrega vienen envenenados con homónimos extranjeros: si el artista de "
+                "MusicBrainz no es de Venezuela, se descarta entero (relaciones incluidas). Nada de esto entró "
+                f"al catálogo; queda en descartes.jsonl. Es la razón de que {miles(plan['rels_miembro'] or 0)} "
+                f"relaciones de miembro dejen solo {miles(plan['membresias'] or 0)} membresías planificadas."),
+    ]
+    filas_pend = [
+        [esc("Altas de personas nuevas"), f'<span class="num">{miles(plan["personas"] or 0)}</span> personas · {miles(plan["vinculos"] or 0)} vínculos',
+         "Los períodos ya están en disco; falta la ficha de cada persona para poder escribirlos.",
+         enlace("personas-nuevas.jsonl", str(MB_APLICA / "personas-nuevas.jsonl"))],
+        [esc("Períodos contradictorios"), f'<span class="num">{miles(revisar or 0)}</span> membresías',
+         f"La membresía ya existía con otras fechas; el aplicador no pisa, abre revisión ({esc(detalle_review)}).",
+         enlace("apply-membresias.json", str(MB_APLICA / "apply-membresias.json"))],
+        [esc("Rol no reconocido"), f'<span class="num">{miles(errores_lote or 0)}</span> fila',
+         "Rol compuesto «Original & Keyboards» (Los Dementes) rechazado por el operador: hay que partirlo.",
+         enlace("apply-membresias.json", str(MB_APLICA / "apply-membresias.json"))],
+        [esc("Ronda 2 de relaciones MB"), f'<span class="num">{miles(mb["nuevos"] or 0)}</span> artistas',
+         "MBID nuevos que trajo la cosecha de Last.fm: pedirles sus relaciones para sacar más períodos.",
+         enlace("artistas.jsonl (cosecha)", str(LF_CAT / "artistas.jsonl"))],
+        [esc("Descartes por homónimo"), f'<span class="num">{miles(plan["descartes"] or 0)}</span> MBID',
+         "País distinto a Venezuela: no se aplicaron. Revisables uno por uno si se quiere rescatar alguno.",
+         enlace("descartes.jsonl", str(MB_APLICA / "descartes.jsonl"))],
+    ]
+    return f"""<section>
+  <h2>7 · Períodos de miembros (MusicBrainz) <span class="mini">(lo que Last.fm sí identificó y lo que falta de la ronda 2)</span></h2>
+  <p class="explica">Last.fm <b>no trae los períodos de miembros</b>: su ficha los muestra porque importa MusicBrainz
+  por el MBID. Por eso este hilo hace dos cosas: cosecha del catálogo Last.fm para conseguir MBID, y consulta a
+  MusicBrainz de las relaciones de cada artista (miembro + instrumento + años, ciudad, formación, disolución).
+  La <b>ronda 1</b> ya se aplicó al catálogo; la <b>ronda 2</b> espera a que la cosecha cierre y a que se den de alta
+  las personas nuevas. Todo lo de esta sección se mide de disco y de la base; nada estimado.</p>
+  <div class="resumen"><b>De un vistazo:</b> ronda 1 = {miles(mb['previos'] or 0)} artistas con rels cosechadas →
+  {miles(aplicadas or 0)} membresías con período + {miles(ap_campos.get('aplicados') or 0)} campos aplicados.
+  Quedan {miles(altas or 0)}/{miles(plan['personas'] or 0)} altas de personas, {miles(revisar or 0)} períodos
+  contradictorios, {miles(errores_lote or 0)} rol por corregir y {miles(mb['nuevos'] or 0)} MBID nuevos para pedir rels
+  (la cosecha Last.fm va por {miles(lf['albumes'] or 0)} de {miles(lf['total_albumes'])} discos, ETA {eta}).</div>
+  <div class="grid">{''.join(tarjetas)}</div>
+  <h3>Avance</h3>
+  <div class="barras">
+    {barra_linea("cosecha Last.fm · artistas", mb['total'] or 0, mb['total'] or 1)}
+    {barra_linea("cosecha Last.fm · discos", lf['albumes'] or 0, lf['total_albumes'])}
+    {barra_linea("ronda 1 · artistas con relaciones de MusicBrainz pedidas", mb['previos'] or 0, mb['previos'] or 1)}
+    {barra_linea("ronda 2 · MBID nuevos por cosechar", 0, mb['nuevos'] or 1, "ojo")}
+    {barra_linea("altas de personas nuevas escritas", altas or 0, plan['personas'] or 1, "ojo")}
+    {barra_linea("membresías con período completo (catálogo entero)", vivo['completos'] or 0, vivo['miembros'] or 1, "azul")}
+  </div>
+  <p class="mini">Ritmo de la cosecha Last.fm: {miles(lf['alb_min'] or 0)} discos/min medidos en la ventana de
+  {lf['tramos']} marcas del log (paso {lf['paso100']:.1f} s por 100 discos si hay datos; ETA {eta} con esa mediana,
+  no con la del log). «Ahora» ≠ «el promedio»: si el ritmo cae, la ETA sube sola. {miles(vivo['ciudades'] or 0)}
+  artistas con ciudad · {miles(vivo['formacion'] or 0)} con año de formación · {miles(vivo['disolucion'] or 0)} con
+  disolución · {miles(vivo['claims'] or 0)} claims de MusicBrainz aceptados en los runs 20289-20292.</p>
+  <h3>Lo que falta de este hilo</h3>
+  <div class="scroll">{tabla(["pendiente", "cuánto", "por qué / dónde está", "evidencia"], filas_pend)}</div>
+  <div class="enlaces">{enlace("cosecha.log (Last.fm)", str(LF_CAT / "cosecha.log"))}{enlace("albumes.jsonl", str(LF_CAT / "albumes.jsonl"))}{enlace("relaciones.jsonl (MB)", str(MB_RELS / "relaciones.jsonl"))}{enlace("apply-membresias.json", str(MB_APLICA / "apply-membresias.json"))}{enlace("descartes.jsonl", str(MB_APLICA / "descartes.jsonl"))}</div>
+</section>"""
+
+
 def enlace(etiqueta, ruta):
     return f'<a class="lnk" href="{esc(ruta)}">{esc(etiqueta)}</a>'
 
@@ -905,6 +1231,7 @@ lo aplicado de los runs del operador. <b>Trabajadas</b> = fichas intentadas (inc
 {bloque_d()}
 {bloque_e()}
 {bloque_f()}
+{bloque_g()}
 <div class="pie">Esta página: file://{OUT} · copia: reports/campana-2026-10-16/tablero.html</div>
 </body></html>
 """
