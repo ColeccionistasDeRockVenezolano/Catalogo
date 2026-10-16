@@ -1,0 +1,5215 @@
+{
+ "trabajos": [
+  {
+   "artistId": 32,
+   "nombre": "20/20",
+   "cambios": {
+    "formed_year": 1976,
+    "origin_city": "Tulsa, OK"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1765,
+   "nombre": "3 Dueños",
+   "cambios": {
+    "formed_year": 2005
+   },
+   "alias": [
+    "Tres Dueños"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3208,
+   "nombre": "Abísmal",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 4369,
+     "role": "guitar",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 2262,
+   "nombre": "ADES",
+   "cambios": {},
+   "alias": [
+    "Samir Larbi, Ades Prod",
+    "Paris, Île-de-France, France"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6882,
+   "nombre": "Adriana",
+   "cambios": {},
+   "alias": [
+    "Adriana Rosa dos Santos [birth name]"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 40954,
+     "cambios": {
+      "birth_date": "1953-02-03"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 6346,
+   "nombre": "Aesir",
+   "cambios": {
+    "formed_year": 2005,
+    "origin_city": "Donostia-San Sebastián, Euskadi"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3439,
+   "nombre": "Alex Rodríguez",
+   "cambios": {},
+   "alias": [
+    "Newport Beach, CA, United States"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 20926,
+     "cambios": {
+      "birth_date": "1978-03-16"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 3439,
+   "nombre": "Alex Rodríguez",
+   "cambios": {},
+   "alias": [
+    "Alexander Emmanuel Rodriguez [birth name], A-Rod"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 20926,
+     "cambios": {
+      "birth_date": "1975-06-27"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 4270,
+   "nombre": "Alfredo Rugeles",
+   "cambios": {},
+   "alias": [
+    "Alfredo Rugeles Asuaje [birth name]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4375,
+   "nombre": "Allegri String Quartet",
+   "cambios": {
+    "formed_year": 1953
+   },
+   "alias": [
+    "Allegri Quartet"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4375,
+   "nombre": "Allegri String Quartet",
+   "cambios": {
+    "formed_year": 1953
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2269,
+   "nombre": "ANARKIA",
+   "cambios": {
+    "formed_year": 2006
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3607,
+   "nombre": "Antonia",
+   "cambios": {},
+   "alias": [
+    "Antonia Rodriguez"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2208,
+   "nombre": "Ares",
+   "cambios": {
+    "formed_year": 2003,
+    "origin_city": "Seoul, South Korea"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2325,
+   "nombre": "Aterciopelados",
+   "cambios": {},
+   "alias": [
+    "Delia y los Aminoácidos"
+   ],
+   "miembros": [
+    {
+     "personId": 1939,
+     "role": "drums, 1995-98",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 475,
+   "nombre": "Aversio Humanitatis",
+   "cambios": {
+    "formed_year": 2010,
+    "origin_city": "Madrid, Comunidad de Madrid"
+   },
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 7705,
+     "role": "drums",
+     "desde": 2011,
+     "hasta": null,
+     "vigente": true
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 1834,
+   "nombre": "Azabache",
+   "cambios": {
+    "formed_year": 1979,
+    "origin_city": "Madrid, Comunidad de Madrid"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1034,
+   "nombre": "Bacos",
+   "cambios": {
+    "formed_year": 2014
+   },
+   "alias": [
+    "São Paulo, São Paulo, Brazil"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 361,
+   "nombre": "Bajo Tierra",
+   "cambios": {
+    "formed_year": 1989
+   },
+   "alias": [
+    "Bogotá, Colombia"
+   ],
+   "miembros": [
+    {
+     "personId": 34921,
+     "role": "keyboards, 1990",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 1939,
+     "role": "drums",
+     "desde": 1997,
+     "hasta": null,
+     "vigente": true
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 7,
+   "nombre": "Ballroom Orchestra",
+   "cambios": {},
+   "alias": [
+    "Hamburg, Hamburg, Germany"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 960,
+   "nombre": "Baphometh",
+   "cambios": {},
+   "alias": [
+    "Banished [1992-93]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 314,
+   "nombre": "Beyond of Desolation",
+   "cambios": {},
+   "alias": [
+    "Mirfak",
+    "La Victoria, Aragua, Venezuela"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3764,
+   "nombre": "Billo's Caracas Boys",
+   "cambios": {},
+   "alias": [
+    "Santo Domingo Jazz Band, Billo's Happy Boys",
+    "Venezuela"
+   ],
+   "miembros": [
+    {
+     "personId": 26664,
+     "role": "piano",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 22435,
+     "role": "saxophone, violin",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 27268,
+     "role": "vocals, 1937-40",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 30460,
+     "role": "vocals, 1940-41",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 26752,
+     "role": "vocals, 1940-41",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 2489,
+   "nombre": "Bizarre Bondage",
+   "cambios": {},
+   "alias": [
+    "Steve \"Bukkake Master\" Montero",
+    "La Paz, La Paz, Bolivia"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2552,
+   "nombre": "Black Label Society",
+   "cambios": {},
+   "alias": [
+    "Hell's Kitchen"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 919,
+   "nombre": "Blackstone",
+   "cambios": {},
+   "alias": [
+    "Blackstone Rangers"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2272,
+   "nombre": "BLESS",
+   "cambios": {},
+   "alias": [
+    "Ben Rinehart [birth name]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1879,
+   "nombre": "Blindaje",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 4951,
+     "role": "guitar, 2007-?",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 4177,
+     "role": "vocals",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 29519,
+     "role": "lead guitar",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 3186,
+   "nombre": "Blodmåne",
+   "cambios": {},
+   "alias": [
+    "Universe [2010-12]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6343,
+   "nombre": "Blood Ritual",
+   "cambios": {},
+   "alias": [
+    "Necropriest",
+    "VIC, Australia"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 5987,
+   "nombre": "Blue Haze",
+   "cambios": {},
+   "alias": [
+    "Michael Burns [birth name], Cardboard, Panoptic",
+    "Birmingham, West Midlands, United Kingdom"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1882,
+   "nombre": "Bonanza",
+   "cambios": {
+    "origin_city": "Liverpool, Merseyside"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 349,
+   "nombre": "Boston Rex",
+   "cambios": {},
+   "alias": [
+    "Reynaldo Antonio Goitia Lugo"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 774,
+     "cambios": {
+      "birth_city": "Barcelona"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 3386,
+   "nombre": "Camerata Salzburg",
+   "cambios": {
+    "formed_year": 1952,
+    "origin_city": "Salzburg, Salzburg, Austria"
+   },
+   "alias": [
+    "Camerata Academica des Mozarteums Salzburg, Camerata Academica Salzburg"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1145,
+   "nombre": "Capitán Melao",
+   "cambios": {},
+   "alias": [
+    "Javier Andrés Weyler [birth name], Javier Weyler",
+    "London, Greater London, United Kingdom"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 496,
+     "cambios": {
+      "birth_date": "1975-07-03",
+      "birth_city": "Buenos Aires"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 3460,
+   "nombre": "Carlos Cuevas",
+   "cambios": {},
+   "alias": [
+    "New York, NY, United States"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 22892,
+     "cambios": {
+      "birth_city": "United Kingdom"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 2364,
+   "nombre": "Cerebral Enema",
+   "cambios": {
+    "formed_year": 2013
+   },
+   "alias": [
+    "TerroRape [2013-?]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 60,
+   "nombre": "Cero A La Izquierda",
+   "cambios": {
+    "origin_city": "October 1985"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3464,
+   "nombre": "César Orozco",
+   "cambios": {},
+   "alias": [
+    "NY, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2314,
+   "nombre": "CHAIN REACTION",
+   "cambios": {
+    "formed_year": 1983
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1896,
+   "nombre": "Cherry Navarro",
+   "cambios": {},
+   "alias": [
+    "Alexis Enrique Navarro Velásquez [birth name]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1900,
+   "nombre": "Clio",
+   "cambios": {},
+   "alias": [
+    "Maria Chiara Perugini [birth name], Clio Bianco, Cléo",
+    "Italy"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2475,
+   "nombre": "Control Machete",
+   "cambios": {
+    "formed_year": 1995,
+    "origin_city": "Monterrey, Nuevo León"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2282,
+   "nombre": "CRON",
+   "cambios": {},
+   "alias": [
+    "Todd Sines , .XTrak , Enhanced",
+    "New York, NY, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2108,
+   "nombre": "Cronopios",
+   "cambios": {
+    "formed_year": 2011
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2394,
+   "nombre": "Cum Gayser",
+   "cambios": {},
+   "alias": [
+    "Roman Efremov",
+    "Podolsk, Moscow Oblast, Russian Federation"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4673,
+   "nombre": "Curse",
+   "cambios": {},
+   "alias": [
+    "Michael Sebastian Kurth [birth name], Mic Genius, Michael Kurth"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3694,
+   "nombre": "Daisy",
+   "cambios": {
+    "origin_city": "Turku, Varsinais-Suomi, Finland"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 851,
+   "nombre": "Dandelion",
+   "cambios": {
+    "formed_year": 1989
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3394,
+   "nombre": "Daniela Padrón",
+   "cambios": {},
+   "alias": [
+    "Daniela Virginia Padrón López",
+    "Miami Beach, FL, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2264,
+   "nombre": "DARK ANGELS",
+   "cambios": {
+    "formed_year": 2004
+   },
+   "alias": [
+    "České Budějovice, Jihočeský kraj, Czechia"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 442,
+   "nombre": "Defragment",
+   "cambios": {
+    "formed_year": 2017,
+    "origin_city": "Santiago, Región Metropolitana de Santiago"
+   },
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 4948,
+     "role": "drums",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 13918,
+     "role": "bass",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 35455,
+     "role": "bass, 2017",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 4954,
+     "role": "guitar, 2017",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 14648,
+     "role": "guitar, 2017",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 2506,
+   "nombre": "Demencia",
+   "cambios": {
+    "formed_year": 1995,
+    "origin_city": "San Nicolás, Buenos Aires"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2360,
+   "nombre": "Denso",
+   "cambios": {},
+   "alias": [
+    "Marcopolo Mutti"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2534,
+   "nombre": "Der Misanthrope",
+   "cambios": {},
+   "alias": [
+    "Lord Scrotum",
+    "QC, Canada"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 77,
+   "nombre": "Desiderata",
+   "cambios": {},
+   "alias": [
+    "Jill Saward"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2537,
+   "nombre": "Desolate Soul",
+   "cambios": {
+    "origin_city": "Estonia"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 732,
+   "nombre": "Deus Ex Machina",
+   "cambios": {
+    "formed_year": 1985
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1302,
+   "nombre": "DIESEL",
+   "cambios": {},
+   "alias": [
+    "Mark Lizotte",
+    "NSW, Australia"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2827,
+   "nombre": "DJ Who",
+   "cambios": {},
+   "alias": [
+    "San Diego, CA, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2866,
+   "nombre": "DJ Fist",
+   "cambios": {},
+   "alias": [
+    "Carlos Tejada [birth name], Charlie Snitch, Mr. Tee",
+    "Medellin, Antioquia, Colombia"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2209,
+   "nombre": "Dominion",
+   "cambios": {
+    "formed_year": 1995,
+    "origin_city": "Dewsbury, West Yorkshire"
+   },
+   "alias": [
+    "Blasphemer [1990-95, 2014-present]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2479,
+   "nombre": "Dressed for Apocalypse",
+   "cambios": {},
+   "alias": [
+    "Alienlord",
+    "Cagliari, Sardegna, Italy"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1777,
+   "nombre": "Dromdead",
+   "cambios": {
+    "origin_city": "Caracas, Distrito Capital"
+   },
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 17118,
+     "role": "guitar, 2005-09",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 27220,
+     "role": "guitar, vocals",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 977,
+   "nombre": "Dxnny Glxver",
+   "cambios": {},
+   "alias": [
+    "Anzoategui, Venezuela"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4702,
+   "nombre": "Eden",
+   "cambios": {
+    "formed_year": 1996
+   },
+   "alias": [
+    "The Sugarbrides"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1923,
+   "nombre": "Edgar Alexander",
+   "cambios": {},
+   "alias": [
+    "Edgar Enrique Quintero Castillo [birth name], Edgar Quintero"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 89,
+   "nombre": "El Rastro",
+   "cambios": {},
+   "alias": [
+    "Venezuela"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2542,
+   "nombre": "Elastic Bond",
+   "cambios": {
+    "formed_year": 2006,
+    "origin_city": "Miami, FL"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2546,
+   "nombre": "Elderwind",
+   "cambios": {
+    "formed_year": 2009,
+    "origin_city": "Yekaterinburg, Sverdlovsk Oblast, Russian Federation"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 591,
+   "nombre": "Enemigo",
+   "cambios": {},
+   "alias": [
+    "Huacho, Lima, Peru"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3950,
+   "nombre": "Ensamble Gurrufío",
+   "cambios": {},
+   "alias": [
+    "Gurrufío Chamber Ensemble"
+   ],
+   "miembros": [
+    {
+     "personId": 19741,
+     "role": "maracas",
+     "desde": 1998,
+     "hasta": null,
+     "vigente": true
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 6241,
+   "nombre": "Esmeralda",
+   "cambios": {},
+   "alias": [
+    "María Graciela Herrejón Cabello [birth name], Alma Graciela Haro Cabello"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2188,
+   "nombre": "ESTOCOLMO",
+   "cambios": {},
+   "alias": [
+    "João Botelho"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2927,
+   "nombre": "Evan Gamble Lewis",
+   "cambios": {},
+   "alias": [
+    "Evan Lewis",
+    "United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 268,
+   "nombre": "Éxodo",
+   "cambios": {
+    "formed_year": 1982,
+    "origin_city": "Sestao, Euskadi"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 388,
+   "nombre": "Farenheit",
+   "cambios": {
+    "formed_year": 1981
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4672,
+   "nombre": "Faster",
+   "cambios": {},
+   "alias": [
+    "Suciu Laurentiu [birth name]",
+    "Bucureşti, Bucureşti, Romania"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3785,
+   "nombre": "Felipe Pirela",
+   "cambios": {},
+   "alias": [
+    "Felipe Antonio Pirela Morón"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3489,
+   "nombre": "Félix Rodríguez",
+   "cambios": {},
+   "alias": [
+    "F. Rodriguez, Joey Demo"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2700,
+   "nombre": "Ferreira",
+   "cambios": {
+    "origin_city": "Rio de Janeiro, Rio de Janeiro, Brazil"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 552,
+   "nombre": "Flanders",
+   "cambios": {
+    "formed_year": 1993,
+    "origin_city": "Mandurah, WA, Australia"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1722,
+   "nombre": "Frank Quintero",
+   "cambios": {},
+   "alias": [
+    "Juan Francisco Quintero Mendoza [birth name]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6952,
+   "nombre": "fresaconcrimen",
+   "cambios": {},
+   "alias": [
+    "Penélope Mata"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 40995,
+     "cambios": {
+      "birth_date": "1998-06-10"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 2606,
+   "nombre": "C-funk",
+   "cambios": {},
+   "alias": [
+    "Cristian Sol Moraga Farías, Cee-Funk, Funky-C",
+    "CA, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 101,
+   "nombre": "Garnica",
+   "cambios": {},
+   "alias": [
+    "Rafael López Garnica [birth name]",
+    "Barcelona, Catalunya, Spain"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3502,
+   "nombre": "Gonzalo Micó",
+   "cambios": {},
+   "alias": [
+    "Caracas, Distrito Capital, Venezuela"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 105,
+   "nombre": "Grand Bite",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 37779,
+     "role": "bass",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 37370,
+     "role": "bass",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 4450,
+   "nombre": "Grupo Raices",
+   "cambios": {
+    "formed_year": 1984,
+    "origin_city": "Barranquilla, Atlántico"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 738,
+   "nombre": "Hekla",
+   "cambios": {},
+   "alias": [
+    "Hekla Magnúsdóttir",
+    "Berlin, Berlin, Germany"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4,
+   "nombre": "Henry Stephen",
+   "cambios": {},
+   "alias": [
+    "Henry Augustus Stephen Pierre [birth name]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3506,
+   "nombre": "Hugo Fuguet",
+   "cambios": {},
+   "alias": [
+    "Fort Lauderdale, FL, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3710,
+   "nombre": "Hugo Blanco",
+   "cambios": {},
+   "alias": [
+    "Hugo César Blanco Manzo, Hugo Blanco y su Arpa Viajera"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 520,
+   "nombre": "Infestus",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 27133,
+     "role": "guitar, backing vocals",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 2455,
+   "nombre": "Insufferable",
+   "cambios": {},
+   "alias": [
+    "Dunfermline, Fife, United Kingdom"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3372,
+   "nombre": "International Live Looping Trio",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 18846,
+     "role": "laptop",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 18839,
+     "role": "guitar, effects, loops",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 1501,
+   "nombre": "Irión",
+   "cambios": {
+    "formed_year": 2026,
+    "origin_city": "South Korea"
+   },
+   "alias": [
+    "이리온"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 267,
+   "nombre": "iX",
+   "cambios": {
+    "formed_year": 2004,
+    "origin_city": "Edinburgh, City of Edinburgh"
+   },
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 29390,
+     "role": "keyboards, vocals",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 3510,
+   "nombre": "Joel Martínez",
+   "cambios": {},
+   "alias": [
+    "Caracas, Distrito Capital, Venezuela"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3972,
+   "nombre": "Jorge Glem",
+   "cambios": {},
+   "alias": [
+    "New York, NY, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3515,
+   "nombre": "Jorge Rivera",
+   "cambios": {},
+   "alias": [
+    "Jorge \"Piro\" Rivera, Jorge E. Rivera Jr."
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 21686,
+     "cambios": {
+      "birth_date": "1958-02-17",
+      "death_date": "2019-08-24",
+      "birth_city": "Guayanilla",
+      "is_deceased": true
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 6626,
+   "nombre": "Joselo",
+   "cambios": {},
+   "alias": [
+    "José Alfredo Rangel Arroyo, Joselo Rangel",
+    "Tepoztlán, Morelos, Mexico"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3519,
+   "nombre": "Juanma Trujillo",
+   "cambios": {},
+   "alias": [
+    "Juan Manuel Trujillo",
+    "Barcelona, Catalunya, Spain"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4594,
+   "nombre": "Junko Furuta",
+   "cambios": {
+    "formed_year": 2016
+   },
+   "alias": [
+    "SC, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2878,
+   "nombre": "Klipp",
+   "cambios": {
+    "formed_year": 2005,
+    "origin_city": "Ciudad de México, Distrito Federal"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 807,
+   "nombre": "Korpus",
+   "cambios": {},
+   "alias": [
+    "Korpus-Reaktywacja [2013-?]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 124,
+   "nombre": "KRé",
+   "cambios": {
+    "formed_year": 1999
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4697,
+   "nombre": "Kroniker",
+   "cambios": {},
+   "alias": [
+    "Kronikerz, Mista Daddy Kro"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 733,
+   "nombre": "Ktharsys",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 6095,
+     "role": "guitar",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 6895,
+   "nombre": "La Cruz",
+   "cambios": {},
+   "alias": [
+    "Argentina"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2463,
+   "nombre": "La Fe Perdida",
+   "cambios": {
+    "formed_year": 1968
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3526,
+   "nombre": "Larry Vincent",
+   "cambios": {},
+   "alias": [
+    "Vincent Narcisso Allaria [birth name]"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 24160,
+     "cambios": {
+      "birth_date": "1901-01-13",
+      "death_date": "1977-01-05",
+      "birth_city": "San Jose",
+      "is_deceased": true
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 1496,
+   "nombre": "Lasso",
+   "cambios": {},
+   "alias": [
+    "Andy Catlin, The Lasso",
+    "Detroit, MI, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6908,
+   "nombre": "Lela",
+   "cambios": {},
+   "alias": [
+    "レラ"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1988,
+   "nombre": "Leo Carnicella",
+   "cambios": {},
+   "alias": [
+    "Germany"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2524,
+   "nombre": "Ley Del Caos",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 17043,
+     "role": "guitar",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 937,
+   "nombre": "Lithopedion",
+   "cambios": {},
+   "alias": [
+    "Gabriel Wismar Pulido Cordero, Wismar Pulido, Wismar, Jonas Jihad, Gabriel Wismar, Gabriel W"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 152,
+   "nombre": "Los Amigos Invisibles",
+   "cambios": {},
+   "alias": [
+    "United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 159,
+   "nombre": "Los Mesoneros",
+   "cambios": {},
+   "alias": [
+    "Ciudad de México, Ciudad de México, Mexico"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1593,
+   "nombre": "Los Claners",
+   "cambios": {},
+   "alias": [
+    "Sangre"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1963,
+   "nombre": "Los Holiday's",
+   "cambios": {
+    "formed_year": 1964
+   },
+   "alias": [
+    "Los Holidays, Fresh Holidays [1968-69]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 597,
+   "nombre": "Los Telecaster",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 1795,
+     "role": "vocals",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 1799,
+     "role": "drums, ?-present",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 3125,
+   "nombre": "Lvctvs",
+   "cambios": {},
+   "alias": [
+    "Raal Prez",
+    "Venezuela"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1815,
+   "nombre": "Mancha Negra",
+   "cambios": {
+    "formed_year": 1994,
+    "origin_city": "Porto, Porto, Portugal"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6126,
+   "nombre": "María Mulata",
+   "cambios": {
+    "formed_year": 2005
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3539,
+   "nombre": "Marisela Leal",
+   "cambios": {},
+   "alias": [],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 3510,
+     "cambios": {
+      "birth_city": "Caracas"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 2456,
+   "nombre": "Meekness",
+   "cambios": {},
+   "alias": [
+    "Teófilo",
+    "Ciudad de México, Mexico"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2553,
+   "nombre": "Meshuggah",
+   "cambios": {},
+   "alias": [
+    "Calipash"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3410,
+   "nombre": "Miguel Sánchez",
+   "cambios": {},
+   "alias": [
+    "Miguel Sánchez \"El Canijo\""
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2794,
+   "nombre": "Miguel Noya",
+   "cambios": {},
+   "alias": [
+    "Miguel Ángel Noya, Noya"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6318,
+   "nombre": "Morgvir",
+   "cambios": {},
+   "alias": [
+    "Neurotic",
+    "Finland"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 321,
+   "nombre": "Morzgul",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 7693,
+     "role": "drums",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 177,
+   "nombre": "Mulato",
+   "cambios": {},
+   "alias": [
+    "Theuzitz",
+    "Jandira, São Paulo, Brazil"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 529,
+   "nombre": "Nekro Cvlt Desecration",
+   "cambios": {},
+   "alias": [
+    "Buenos Aires, Argentina"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 315,
+   "nombre": "Neo Noir",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 33364,
+     "role": "drums",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 6638,
+   "nombre": "Nina",
+   "cambios": {},
+   "alias": [
+    "Anna Maria Agustí Flores"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 809,
+   "nombre": "Noctambulath",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 25728,
+     "role": "guitar",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 1061,
+   "nombre": "NPI",
+   "cambios": {
+    "formed_year": 2015,
+    "origin_city": "South Korea"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1012,
+   "nombre": "Op3rador",
+   "cambios": {
+    "formed_year": 2001
+   },
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 12971,
+     "role": "graphic design, art",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 18726,
+     "role": "saxophone",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 3555,
+   "nombre": "Orinoko",
+   "cambios": {},
+   "alias": [
+    "Kinetic A.T.O.M. , [O]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3736,
+   "nombre": "Orquesta La Amistad",
+   "cambios": {},
+   "alias": [
+    "La Amistad de Chuito & Rodrigo",
+    "Venezuela"
+   ],
+   "miembros": [
+    {
+     "personId": 1045,
+     "role": "leader, piano",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 27170,
+     "role": "trumpet",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 29597,
+     "role": "trombone",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 29598,
+     "role": "trombone",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 29603,
+     "role": "timbales",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 24851,
+     "role": "flute",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 29604,
+     "role": "congas",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 29608,
+     "role": "bass",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 1384,
+   "nombre": "Pablo Mendoza",
+   "cambios": {},
+   "alias": [
+    "Pablo Javier Mendoza Paz [birth name]"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 4861,
+     "cambios": {
+      "birth_city": "Caracas"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 1413,
+   "nombre": "Pachi Jiménez",
+   "cambios": {},
+   "alias": [
+    "Pachi Jiménez y Los Matamoro Mackenzies"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 4128,
+     "cambios": {
+      "birth_city": "United States"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 3199,
+   "nombre": "Patior Eugea",
+   "cambios": {},
+   "alias": [
+    "José Pérez, Pariah R",
+    "Venezuela"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4047,
+   "nombre": "Paul G",
+   "cambios": {},
+   "alias": [
+    "Germany"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2811,
+   "nombre": "Pedro Gil",
+   "cambios": {},
+   "alias": [
+    "Pedro Gadelha Gil Moreira [birth name], Pedrinho"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6265,
+   "nombre": "pm",
+   "cambios": {
+    "formed_year": 1980
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2373,
+   "nombre": "Postmorten",
+   "cambios": {
+    "origin_city": "Bogotá, Distrito Capital"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2266,
+   "nombre": "POX",
+   "cambios": {
+    "formed_year": 2005,
+    "origin_city": "Antwerpen, Antwerpen, Belgium"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2414,
+   "nombre": "Proyecto Panica",
+   "cambios": {},
+   "alias": [
+    "Cholo del Diablo",
+    "Antioquia, Colombia"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6397,
+   "nombre": "Pudridero",
+   "cambios": {
+    "formed_year": 2019,
+    "origin_city": "Santiago, Región Metropolitana de Santiago"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1994,
+   "nombre": "Raimundo Rodulfo",
+   "cambios": {},
+   "alias": [
+    "Miami, FL, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3615,
+   "nombre": "Raúl Agraz",
+   "cambios": {},
+   "alias": [],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 2768,
+     "cambios": {
+      "birth_city": "Venezuela"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 3566,
+   "nombre": "Raúl Monsalve",
+   "cambios": {},
+   "alias": [
+    "Paris, Île-de-France, France"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1567,
+   "nombre": "Reckless",
+   "cambios": {
+    "formed_year": 1980,
+    "origin_city": "Ottawa, ON, Canada"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2372,
+   "nombre": "Rectal Rooter",
+   "cambios": {
+    "origin_city": "Graz, Steiermark, Austria"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 211,
+   "nombre": "Reyes",
+   "cambios": {},
+   "alias": [
+    "Erik de Koning , Enrico"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 886,
+   "nombre": "Rotten Vomit",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 15750,
+     "role": "vocals",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 6380,
+   "nombre": "Rupture of an Aneuvrysm to the Coronary Sinus",
+   "cambios": {},
+   "alias": [
+    "Jazz Noise Grinder",
+    "France"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2006,
+   "nombre": "San Francisco",
+   "cambios": {},
+   "alias": [
+    "Francisco Tamarit Sales, Paco Tamarit",
+    "València, Comunitat Valenciana, Spain"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2009,
+   "nombre": "Sandino",
+   "cambios": {},
+   "alias": [
+    "Sandino Rafael Primera Mussett [birth name]"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2846,
+   "nombre": "Santo",
+   "cambios": {},
+   "alias": [
+    "Rodolfo Guzmán Huerta [birth name], El Santo"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3575,
+   "nombre": "Saxomania",
+   "cambios": {
+    "formed_year": 1987
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 784,
+   "nombre": "Sea of Nectar",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 14613,
+     "role": "guitar, drums",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 14612,
+     "role": "guitar, vocals",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 533,
+     "role": "vocals, guitar",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 1375,
+     "role": "bass",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 2874,
+   "nombre": "Sebas",
+   "cambios": {},
+   "alias": [
+    "Sebas on the Beat",
+    "Ecuador"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 17,
+   "nombre": "Selbst",
+   "cambios": {},
+   "alias": [
+    "Chile"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 737,
+   "nombre": "Sepultura",
+   "cambios": {
+    "formed_year": 1984
+   },
+   "alias": [
+    "São Paulo, São Paulo, Brazil"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6377,
+   "nombre": "Sexual Intrusive Thoughts",
+   "cambios": {},
+   "alias": [
+    "Ricardo L., Toto",
+    "Mexico"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3577,
+   "nombre": "Silvano Monasterios",
+   "cambios": {},
+   "alias": [
+    "Silvano Antonio Monasterios Delgado [birth name]",
+    "Miami, FL, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2238,
+   "nombre": "Sin Salida",
+   "cambios": {
+    "origin_city": "Archena, Región de Murcia"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2592,
+   "nombre": "Six Magics",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 32298,
+     "role": "bass",
+     "desde": 1998,
+     "hasta": 2002,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 3107,
+   "nombre": "Somdark",
+   "cambios": {},
+   "alias": [
+    "David Quintero, Som Quintero, SomdarkQ",
+    "Mérida, Mérida, Venezuela"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2330,
+   "nombre": "Soraya",
+   "cambios": {},
+   "alias": [
+    "Soraya Raquel Lamilla Cuevas"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 508,
+   "nombre": "SS",
+   "cambios": {},
+   "alias": [
+    "エスエス"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6362,
+   "nombre": "Steven Seagal",
+   "cambios": {},
+   "alias": [
+    "Stiven Sigal",
+    "Coquimbo, Chile"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 6392,
+   "nombre": "Su Asti",
+   "cambios": {},
+   "alias": [
+    "Suasti"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 231,
+   "nombre": "Submarino",
+   "cambios": {
+    "formed_year": 1999,
+    "origin_city": "Mérida, Mérida"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4238,
+   "nombre": "Sunsplash",
+   "cambios": {},
+   "alias": [
+    "Alberto Stangarone",
+    "Guadalajara, Jalisco, Mexico"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 1022,
+     "cambios": {
+      "birth_city": "Venezuela"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 2389,
+   "nombre": "SxWxMx",
+   "cambios": {},
+   "alias": [
+    "Sex With Menstruation"
+   ],
+   "miembros": [
+    {
+     "personId": 9023,
+     "role": "guitar, 2014-?",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 568,
+   "nombre": "Take Control",
+   "cambios": {},
+   "alias": [
+    "Boston, MA, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3148,
+   "nombre": "Témenos",
+   "cambios": {},
+   "alias": [
+    "United Kingdom"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 254,
+   "nombre": "Témpano",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 37669,
+     "role": "bass, 1977-78",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    },
+    {
+     "personId": 1134,
+     "role": "keyboards, 1979-80",
+     "desde": 1998,
+     "hasta": null,
+     "vigente": true
+    },
+    {
+     "personId": 36377,
+     "role": "guitar, 198",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 2909,
+   "nombre": "The Berzerker",
+   "cambios": {},
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 23038,
+     "role": "drums, 2001-03",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 4744,
+   "nombre": "The New Vaudeville Band",
+   "cambios": {
+    "formed_year": 1966
+   },
+   "alias": [
+    "New Vaudeville Band"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4576,
+   "nombre": "The Monroes",
+   "cambios": {
+    "formed_year": 1982
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2028,
+   "nombre": "Tolerance",
+   "cambios": {},
+   "alias": [
+    "Nick Lucas, Zer0 Tolerance, Nicky Stardust, The Underdog",
+    "Montreal, QC, Canada"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1169,
+   "nombre": "Tótem",
+   "cambios": {
+    "formed_year": 1971,
+    "origin_city": "Montevideo, Montevideo, Uruguay"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 4432,
+   "nombre": "Trío Matamoros",
+   "cambios": {
+    "origin_city": "8 May 1925, Santiago de Cuba, Santiago de Cuba"
+   },
+   "alias": [
+    "La Habana, Ciudad de La Habana, Cuba"
+   ],
+   "miembros": [
+    {
+     "personId": 20258,
+     "role": "musical director, lead vocals, guitar",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  },
+  {
+   "artistId": 1019,
+   "nombre": "Ulises Hadjis",
+   "cambios": {},
+   "alias": [
+    "Ulises Evangelos Hadjis Labarca [birth name]",
+    "Ciudad de México, Ciudad de México, Mexico"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 1330,
+     "cambios": {
+      "birth_date": "1982-10-24"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 2526,
+   "nombre": "Unscarred",
+   "cambios": {
+    "formed_year": 2002,
+    "origin_city": "Paris, Île-de-France, France"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 669,
+   "nombre": "Vorarephilia",
+   "cambios": {},
+   "alias": [
+    "Bobby Maggard",
+    "Russellville, AR, United States"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1592,
+   "nombre": "Vortex",
+   "cambios": {
+    "origin_city": "April 1975, Lyon, Auvergne-Rhône-Alpes, France"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2037,
+   "nombre": "Voz Veis",
+   "cambios": {
+    "formed_year": 1994
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 3192,
+   "nombre": "Walter Freitas",
+   "cambios": {},
+   "alias": [
+    "Walter D. de Freitas",
+    "Belém, Pará, Brazil"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 13478,
+     "cambios": {
+      "birth_city": "Acre"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 6730,
+   "nombre": "YEI",
+   "cambios": {},
+   "alias": [
+    "Javier David Gonzalez Tapia",
+    "Stockholm, Stockholms Iän, Sweden"
+   ],
+   "miembros": [],
+   "personas": [
+    {
+     "personId": 39895,
+     "cambios": {
+      "birth_date": "1984-08-21"
+     }
+    }
+   ]
+  },
+  {
+   "artistId": 1057,
+   "nombre": "Zion",
+   "cambios": {
+    "formed_year": 1981,
+    "origin_city": "Sioux Falls, SD"
+   },
+   "alias": [],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 2070,
+   "nombre": "Zoller",
+   "cambios": {},
+   "alias": [
+    "Alex Hill"
+   ],
+   "miembros": [],
+   "personas": []
+  },
+  {
+   "artistId": 1464,
+   "nombre": "Zul",
+   "cambios": {
+    "origin_city": "September 1998, Tarragona, Catalunya"
+   },
+   "alias": [],
+   "miembros": [
+    {
+     "personId": 4772,
+     "role": "bass",
+     "desde": 1998,
+     "hasta": 2000,
+     "vigente": false
+    },
+    {
+     "personId": 2933,
+     "role": "2000-02",
+     "desde": null,
+     "hasta": null,
+     "vigente": false
+    }
+   ],
+   "personas": []
+  }
+ ],
+ "sinPersona": [
+  {
+   "artista": "20/20",
+   "miembro": "Steve Allen"
+  },
+  {
+   "artista": "20/20",
+   "miembro": "Ron Flynt"
+  },
+  {
+   "artista": "20/20",
+   "miembro": "Mike Gallo"
+  },
+  {
+   "artista": "20/20",
+   "miembro": "Chris Silagyi"
+  },
+  {
+   "artista": "20/20",
+   "miembro": "Joel Turrisi"
+  },
+  {
+   "artista": "20/20",
+   "miembro": "Dean Korth"
+  },
+  {
+   "artista": "20/20",
+   "miembro": "Bill Belknap"
+  },
+  {
+   "artista": "Abísmal",
+   "miembro": "Agustín Di Mauro"
+  },
+  {
+   "artista": "Abísmal",
+   "miembro": "Gabino De Diego"
+  },
+  {
+   "artista": "Abísmal",
+   "miembro": "Renato Santiago Carrizo Cruz"
+  },
+  {
+   "artista": "Abísmal",
+   "miembro": "Daniel Comba"
+  },
+  {
+   "artista": "Abísmal",
+   "miembro": "Guillermo Bernascony"
+  },
+  {
+   "artista": "Abísmal",
+   "miembro": "Milton Arias"
+  },
+  {
+   "artista": "Abísmal",
+   "miembro": "Mauricio Ponce"
+  },
+  {
+   "artista": "Abísmal",
+   "miembro": "Pablo Garay"
+  },
+  {
+   "artista": "Abstracademy",
+   "miembro": "Carol Amy"
+  },
+  {
+   "artista": "Abstracademy",
+   "miembro": "Manu"
+  },
+  {
+   "artista": "Abstracademy",
+   "miembro": "The Birdman"
+  },
+  {
+   "artista": "Aesir",
+   "miembro": "Josu Arancón"
+  },
+  {
+   "artista": "Aesir",
+   "miembro": "Jon Mellado"
+  },
+  {
+   "artista": "Aesir",
+   "miembro": "Mikel Etxauri"
+  },
+  {
+   "artista": "Aesir",
+   "miembro": "Erik Gómez"
+  },
+  {
+   "artista": "Aesir",
+   "miembro": "Igor Ariz"
+  },
+  {
+   "artista": "Aesir",
+   "miembro": "Mikel Arenas"
+  },
+  {
+   "artista": "Aetheris",
+   "miembro": "Carlos Eduardo"
+  },
+  {
+   "artista": "Aetheris",
+   "miembro": "Miguel “Toronto” Torres"
+  },
+  {
+   "artista": "Alice in Hell",
+   "miembro": "Daisuke Hamate"
+  },
+  {
+   "artista": "Alice in Hell",
+   "miembro": "Riku"
+  },
+  {
+   "artista": "Alice in Hell",
+   "miembro": "Chieko"
+  },
+  {
+   "artista": "Alice in Hell",
+   "miembro": "Dokumiso"
+  },
+  {
+   "artista": "Alice in Hell",
+   "miembro": "Ryoichi"
+  },
+  {
+   "artista": "Alice in Hell",
+   "miembro": "Dar"
+  },
+  {
+   "artista": "Alice in Hell",
+   "miembro": "Mikihito Fukushima"
+  },
+  {
+   "artista": "Alice in Hell",
+   "miembro": "Taki"
+  },
+  {
+   "artista": "Alice in Hell",
+   "miembro": "Eiji Umeda"
+  },
+  {
+   "artista": "Alice in Hell",
+   "miembro": "Masatoshi Iiyama"
+  },
+  {
+   "artista": "ANARKIA",
+   "miembro": "Giovanni de la Cruz"
+  },
+  {
+   "artista": "ANARKIA",
+   "miembro": "Walter Monsanto"
+  },
+  {
+   "artista": "ANARKIA",
+   "miembro": "Kevin Letona"
+  },
+  {
+   "artista": "ANARKIA",
+   "miembro": "Samuel Bulux"
+  },
+  {
+   "artista": "ANARKIA",
+   "miembro": "Vinnie Molina"
+  },
+  {
+   "artista": "Ares",
+   "miembro": "Ares J. Wittenvelt"
+  },
+  {
+   "artista": "Ares",
+   "miembro": "Darken Dusk"
+  },
+  {
+   "artista": "Ares",
+   "miembro": "Arcaneon"
+  },
+  {
+   "artista": "Arma Letal",
+   "miembro": "Jorge Martínez"
+  },
+  {
+   "artista": "Arma Letal",
+   "miembro": "Daniel Rodríguez"
+  },
+  {
+   "artista": "Arma Letal",
+   "miembro": "William Doré"
+  },
+  {
+   "artista": "Arpía",
+   "miembro": "Leonardo Bonetti"
+  },
+  {
+   "artista": "Arpía",
+   "miembro": "Fabio Brait"
+  },
+  {
+   "artista": "Arpía",
+   "miembro": "Aldo Orazi"
+  },
+  {
+   "artista": "Arpía",
+   "miembro": "Paola Feraiorni"
+  },
+  {
+   "artista": "Aterciopelados",
+   "miembro": "Charlie Marquéz"
+  },
+  {
+   "artista": "Aterciopelados",
+   "miembro": "Andrés Giraldo"
+  },
+  {
+   "artista": "Aterciopelados",
+   "miembro": "Alejandro Gómez Cáceres"
+  },
+  {
+   "artista": "Aterciopelados",
+   "miembro": "Mauricio Montenegro"
+  },
+  {
+   "artista": "Aterciopelados",
+   "miembro": "Camilo Velásquez"
+  },
+  {
+   "artista": "Aterciopelados",
+   "miembro": "Urián Sarmiento"
+  },
+  {
+   "artista": "Aversio Humanitatis",
+   "miembro": "S.D."
+  },
+  {
+   "artista": "Aversio Humanitatis",
+   "miembro": "A.M."
+  },
+  {
+   "artista": "Azabache",
+   "miembro": "Jorge Barral"
+  },
+  {
+   "artista": "Azabache",
+   "miembro": "Gustavo Ros"
+  },
+  {
+   "artista": "Azabache",
+   "miembro": "Daniel Henestrosa"
+  },
+  {
+   "artista": "Azabache",
+   "miembro": "Ricardo Valle"
+  },
+  {
+   "artista": "Azabache",
+   "miembro": "Hermes Calabria"
+  },
+  {
+   "artista": "Azabache",
+   "miembro": "Miguel Torres"
+  },
+  {
+   "artista": "Bacos",
+   "miembro": "Nathan Diesendruck"
+  },
+  {
+   "artista": "Bacos",
+   "miembro": "Pedro Asfora"
+  },
+  {
+   "artista": "Bacos",
+   "miembro": "Pedro Padilha"
+  },
+  {
+   "artista": "Bacos",
+   "miembro": "Mari Guerra"
+  },
+  {
+   "artista": "Bacos",
+   "miembro": "Gui Fuentes"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Javi Methal"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Naxto Viento"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Gelo García"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Isaac Herrera"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Trapy"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Lucas Mateo Guingue"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Jaime Andrés Pulgarín"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Nicolas Naranjo"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Alejandro Posada (bass, 1990) Cesar Cura"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Paula Vélez"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Camilo Suárez"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Cuzco"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Pedro Villa"
+  },
+  {
+   "artista": "Bajo Tierra",
+   "miembro": "Carlos Olarte [aka \"panelo\"]"
+  },
+  {
+   "artista": "Ballroom Orchestra",
+   "miembro": "Christoph Herrmann"
+  },
+  {
+   "artista": "Ballroom Orchestra",
+   "miembro": "Volker Reckeweg"
+  },
+  {
+   "artista": "Ballroom Orchestra",
+   "miembro": "Hans-Jürgen Wittmann"
+  },
+  {
+   "artista": "Ballroom Orchestra",
+   "miembro": "Wolfgang Burmeister"
+  },
+  {
+   "artista": "Ballroom Orchestra",
+   "miembro": "Walter Lorenz"
+  },
+  {
+   "artista": "Ballroom Orchestra",
+   "miembro": "Rainer Rubink"
+  },
+  {
+   "artista": "Ballroom Orchestra",
+   "miembro": "Joachim Krumsiek"
+  },
+  {
+   "artista": "Ballroom Orchestra",
+   "miembro": "Ingo Hobrecht"
+  },
+  {
+   "artista": "Ballroom Orchestra",
+   "miembro": "Peter Wehrspann"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Tom Frost"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Dave Graiglow"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Gary Schipani"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Rick Breier"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Scott Calkins"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Ken Young"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Steve Rzepka"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Joe Gammalo"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Tom Bukowski"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Mike Paravalos"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Brian Jezioro"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Shawn Gomez"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Allen Malkiewicz"
+  },
+  {
+   "artista": "Baphometh",
+   "miembro": "Greg DiPasquale"
+  },
+  {
+   "artista": "Belzabet",
+   "miembro": "Caszandra Morzu"
+  },
+  {
+   "artista": "Belzabet",
+   "miembro": "Lexuz"
+  },
+  {
+   "artista": "Belzabet",
+   "miembro": "Reyzan"
+  },
+  {
+   "artista": "Belzabet",
+   "miembro": "Dacrae Santisani"
+  },
+  {
+   "artista": "Belzabet",
+   "miembro": "Darkreth Lethe"
+  },
+  {
+   "artista": "Belzabet",
+   "miembro": "Sir Dacri"
+  },
+  {
+   "artista": "Belzabet",
+   "miembro": "Wurtz Da Guizard"
+  },
+  {
+   "artista": "Belzabet",
+   "miembro": "Samuel Guerra"
+  },
+  {
+   "artista": "Belzabet",
+   "miembro": "Sader"
+  },
+  {
+   "artista": "Belzabet",
+   "miembro": "Richard Trismegisto"
+  },
+  {
+   "artista": "Black Label Society",
+   "miembro": "Nick Catanese"
+  },
+  {
+   "artista": "Black Label Society",
+   "miembro": "Phil Ondich"
+  },
+  {
+   "artista": "Black Label Society",
+   "miembro": "John DeServio"
+  },
+  {
+   "artista": "Black Label Society",
+   "miembro": "Craig Nunenmacher"
+  },
+  {
+   "artista": "Black Label Society",
+   "miembro": "Steve Gibb [aka S. O. Fuckin' B.]"
+  },
+  {
+   "artista": "Black Label Society",
+   "miembro": "Mike Inez"
+  },
+  {
+   "artista": "Black Label Society",
+   "miembro": "Robert Trujillo"
+  },
+  {
+   "artista": "Black Label Society",
+   "miembro": "James LoMenzo"
+  },
+  {
+   "artista": "Black Label Society",
+   "miembro": "Will Hunt"
+  },
+  {
+   "artista": "Blackstone",
+   "miembro": "John Finley"
+  },
+  {
+   "artista": "Blackstone",
+   "miembro": "Michael Fonfara"
+  },
+  {
+   "artista": "Blackstone",
+   "miembro": "Peter Hodgson"
+  },
+  {
+   "artista": "Blackstone",
+   "miembro": "Larry Leishman"
+  },
+  {
+   "artista": "Blackstone",
+   "miembro": "Frank \"Zeke\" Sheppard"
+  },
+  {
+   "artista": "Blackstone",
+   "miembro": "Richard Steinberg"
+  },
+  {
+   "artista": "Blackstone",
+   "miembro": "Danny Weis"
+  },
+  {
+   "artista": "Blindaje",
+   "miembro": "Jesús Rafael Figueredo B."
+  },
+  {
+   "artista": "Blindaje",
+   "miembro": "Leo Carrero"
+  },
+  {
+   "artista": "Blindaje",
+   "miembro": "Luis Carlos García"
+  },
+  {
+   "artista": "Blodmåne",
+   "miembro": "Daemon"
+  },
+  {
+   "artista": "Blodmåne",
+   "miembro": "Arch"
+  },
+  {
+   "artista": "Blodmåne",
+   "miembro": "Cazmeth"
+  },
+  {
+   "artista": "C.a.q.ll.e.d",
+   "miembro": "Jerry \"Malpa\" Cárdenas"
+  },
+  {
+   "artista": "Cerebral Enema",
+   "miembro": "Brett \"ClitMan\" Heart [Adrian]"
+  },
+  {
+   "artista": "Cerebral Enema",
+   "miembro": "Dr. Fetus [Paul]"
+  },
+  {
+   "artista": "Cerebral Enema",
+   "miembro": "Le Gorefuck [aka Goregotron ]"
+  },
+  {
+   "artista": "Cerebral Enema",
+   "miembro": "Ol' Dirty BassTard [Izzy]"
+  },
+  {
+   "artista": "Cerebral Enema",
+   "miembro": "USB [ Are Kangus ]"
+  },
+  {
+   "artista": "Cero A La Izquierda",
+   "miembro": "Cayayo Troconis [aka Cayayo ]"
+  },
+  {
+   "artista": "Cero A La Izquierda",
+   "miembro": "Manuel Enrique \"Manri\" Perez Olivares"
+  },
+  {
+   "artista": "Cero A La Izquierda",
+   "miembro": "Mauricio Cepeda"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "John Rigg"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Derek Hodd"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Ade Ellis"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Nick Bourne"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Andy Yates"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Andy Talbot"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Marty Spaulding"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Keith Spaulding"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Nick Pannier"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Brian Bazeley"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Mike Hole"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Robbi Serrano"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Dave Owen"
+  },
+  {
+   "artista": "CHAIN REACTION",
+   "miembro": "Chris Hawken"
+  },
+  {
+   "artista": "Control Machete",
+   "miembro": "Fermin IV Caballero Elizondo [ Fermin IV ]"
+  },
+  {
+   "artista": "Cronopios",
+   "miembro": "Pol Orobitg"
+  },
+  {
+   "artista": "Cronopios",
+   "miembro": "Eloi Orihuela"
+  },
+  {
+   "artista": "Cronopios",
+   "miembro": "Jaume Palomar"
+  },
+  {
+   "artista": "Cronopios",
+   "miembro": "Martina Solivelles"
+  },
+  {
+   "artista": "Cronopios",
+   "miembro": "Julio Granero"
+  },
+  {
+   "artista": "Cronopios",
+   "miembro": "Adrià Barja"
+  },
+  {
+   "artista": "Cronopios",
+   "miembro": "Albert Gallego"
+  },
+  {
+   "artista": "Cronopios",
+   "miembro": "Salva Sanchis"
+  },
+  {
+   "artista": "Cronopios",
+   "miembro": "David Piquer"
+  },
+  {
+   "artista": "Daiquirí",
+   "miembro": "Mike Hickey [aka Major Entertainer ]"
+  },
+  {
+   "artista": "Daiquirí",
+   "miembro": "Leigh Newton [aka Lee Neutron ]"
+  },
+  {
+   "artista": "Daiquirí",
+   "miembro": "Glenn Humplik"
+  },
+  {
+   "artista": "Daiquirí",
+   "miembro": "Paul Petrin"
+  },
+  {
+   "artista": "Daisy",
+   "miembro": "Thomas Lilley"
+  },
+  {
+   "artista": "Daisy",
+   "miembro": "Heikki Vesa"
+  },
+  {
+   "artista": "Daisy",
+   "miembro": "Tomi Lehtola"
+  },
+  {
+   "artista": "Daisy",
+   "miembro": "Matti Ikonen"
+  },
+  {
+   "artista": "Daisy",
+   "miembro": "Jukka Tamminen"
+  },
+  {
+   "artista": "Dame pa Matala",
+   "miembro": "Pedro Luis Blanco [Cacayara]"
+  },
+  {
+   "artista": "Dame pa Matala",
+   "miembro": "Jesús Lozada [Chucho Rap]"
+  },
+  {
+   "artista": "Dandelion",
+   "miembro": "Kevin Morpurgo"
+  },
+  {
+   "artista": "Dandelion",
+   "miembro": "Carl Hinds"
+  },
+  {
+   "artista": "Dandelion",
+   "miembro": "Dante Cimino"
+  },
+  {
+   "artista": "Dandelion",
+   "miembro": "Mike Morpurgo"
+  },
+  {
+   "artista": "Dargothar",
+   "miembro": "Jorge Chirinos"
+  },
+  {
+   "artista": "Dargothar",
+   "miembro": "Fredrico Agreda"
+  },
+  {
+   "artista": "Dargothar",
+   "miembro": "Maria Beatriz Rosell"
+  },
+  {
+   "artista": "Dargothar",
+   "miembro": "Ana Maria Perozo"
+  },
+  {
+   "artista": "Dargothar",
+   "miembro": "Donald"
+  },
+  {
+   "artista": "Dargothar",
+   "miembro": "Ricardo Rozo"
+  },
+  {
+   "artista": "Dargothar",
+   "miembro": "Beto"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Václav Votruba"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Michal Jelínek"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Lucie Avramová"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Tomáš Strádal"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Sváťa Doubek"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Jan Landkammer"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Standa Bardoun"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Vlasta Zahradník"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Jakub Vondrka"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Petra Došková"
+  },
+  {
+   "artista": "DARK ANGELS",
+   "miembro": "Dalibor Doubek"
+  },
+  {
+   "artista": "Death Mortor",
+   "miembro": "Tony Belisario"
+  },
+  {
+   "artista": "Death Mortor",
+   "miembro": "Angelo Herrera"
+  },
+  {
+   "artista": "Death Mortor",
+   "miembro": "Tater"
+  },
+  {
+   "artista": "Defragment",
+   "miembro": "Franklin Manrique"
+  },
+  {
+   "artista": "Defragment",
+   "miembro": "Juan Carlos \"Cactus\" Orellana"
+  },
+  {
+   "artista": "Defragment",
+   "miembro": "Danny"
+  },
+  {
+   "artista": "Defragment",
+   "miembro": "Ignacio Muñoz"
+  },
+  {
+   "artista": "Demencia",
+   "miembro": "Hernán Gonzalez"
+  },
+  {
+   "artista": "Demencia",
+   "miembro": "Martín Parodi"
+  },
+  {
+   "artista": "Demencia",
+   "miembro": "Juan Pablo Gaitán"
+  },
+  {
+   "artista": "Demencia",
+   "miembro": "Guillermo Tinarelli"
+  },
+  {
+   "artista": "Demencia",
+   "miembro": "Gonzalo Usart"
+  },
+  {
+   "artista": "Demencia",
+   "miembro": "Martin Ageleri"
+  },
+  {
+   "artista": "Demencia",
+   "miembro": "Federico Galvan"
+  },
+  {
+   "artista": "DEMOLITION",
+   "miembro": "John Cadden"
+  },
+  {
+   "artista": "DEMOLITION",
+   "miembro": "Dave Gough"
+  },
+  {
+   "artista": "DEMOLITION",
+   "miembro": "Gurmeet Singh \"Lita\" Panesar"
+  },
+  {
+   "artista": "DEMOLITION",
+   "miembro": "Ray Horton"
+  },
+  {
+   "artista": "Deus Ex Machina",
+   "miembro": "Claudio Trotta"
+  },
+  {
+   "artista": "Deus Ex Machina",
+   "miembro": "Alessandro Porreca"
+  },
+  {
+   "artista": "Deus Ex Machina",
+   "miembro": "Maurino Collina"
+  },
+  {
+   "artista": "Deus Ex Machina",
+   "miembro": "Alessandro Bonetti"
+  },
+  {
+   "artista": "Deus Ex Machina",
+   "miembro": "Fabrizio Puglisi"
+  },
+  {
+   "artista": "Deus Ex Machina",
+   "miembro": "Alberto Piras"
+  },
+  {
+   "artista": "Dominion",
+   "miembro": "Michelle Richfield"
+  },
+  {
+   "artista": "Dominion",
+   "miembro": "Mass Firth"
+  },
+  {
+   "artista": "Dominion",
+   "miembro": "Arno Cagna"
+  },
+  {
+   "artista": "Dominion",
+   "miembro": "Danny North"
+  },
+  {
+   "artista": "Dominion",
+   "miembro": "Bill Law"
+  },
+  {
+   "artista": "Drakmord",
+   "miembro": "Javier López"
+  },
+  {
+   "artista": "Dromdead",
+   "miembro": "Karl"
+  },
+  {
+   "artista": "Dromdead",
+   "miembro": "Jonathan"
+  },
+  {
+   "artista": "Dromdead",
+   "miembro": "Fergu"
+  },
+  {
+   "artista": "Dromdead",
+   "miembro": "Dito"
+  },
+  {
+   "artista": "Dromdead",
+   "miembro": "Tom"
+  },
+  {
+   "artista": "Ebola",
+   "miembro": "Karin, Micky, Andrew Nolan"
+  },
+  {
+   "artista": "Ebola",
+   "miembro": "Chrissy"
+  },
+  {
+   "artista": "Ebola",
+   "miembro": "Johnny"
+  },
+  {
+   "artista": "Ebola",
+   "miembro": "Nick"
+  },
+  {
+   "artista": "Ebola",
+   "miembro": "Skater"
+  },
+  {
+   "artista": "Ebola",
+   "miembro": "Set"
+  },
+  {
+   "artista": "Ebola",
+   "miembro": "Duane"
+  },
+  {
+   "artista": "Ebola",
+   "miembro": "Andy Irvine"
+  },
+  {
+   "artista": "Ebola",
+   "miembro": "Steve"
+  },
+  {
+   "artista": "Eden",
+   "miembro": "Roos Van Acker"
+  },
+  {
+   "artista": "Eden",
+   "miembro": "Sofie Buyck"
+  },
+  {
+   "artista": "Eden",
+   "miembro": "Tyl Dekeyser"
+  },
+  {
+   "artista": "Eden",
+   "miembro": "Mario Rombaut"
+  },
+  {
+   "artista": "Eden",
+   "miembro": "Lieven van Hyfte"
+  },
+  {
+   "artista": "Eden",
+   "miembro": "Philip Madou"
+  },
+  {
+   "artista": "Eden",
+   "miembro": "Griet Van Wolleghem"
+  },
+  {
+   "artista": "Eden",
+   "miembro": "Nathalie Herwegh"
+  },
+  {
+   "artista": "Elastic Bond",
+   "miembro": "Andres Ponce"
+  },
+  {
+   "artista": "Elastic Bond",
+   "miembro": "Buffalo Brown"
+  },
+  {
+   "artista": "Elastic Bond",
+   "miembro": "David Burgos"
+  },
+  {
+   "artista": "Elderwind",
+   "miembro": "Persy [Vyacheslav Oboskalov]"
+  },
+  {
+   "artista": "Elderwind",
+   "miembro": "Alexander Sinyugin"
+  },
+  {
+   "artista": "Elderwind",
+   "miembro": "Andrey Bykov"
+  },
+  {
+   "artista": "Elderwind",
+   "miembro": "Alexander Shirochenko"
+  },
+  {
+   "artista": "Elderwind",
+   "miembro": "Dmitry Mazur"
+  },
+  {
+   "artista": "Enemigo",
+   "miembro": "Miguel Gutierrez"
+  },
+  {
+   "artista": "Enemigo",
+   "miembro": "Howard Ramirez"
+  },
+  {
+   "artista": "Enemigo",
+   "miembro": "Diego Crispín"
+  },
+  {
+   "artista": "Enemigo",
+   "miembro": "Jeanfranco Durand"
+  },
+  {
+   "artista": "Enemigo",
+   "miembro": "Remato Salazar"
+  },
+  {
+   "artista": "Enigma",
+   "miembro": "Michael Cretu"
+  },
+  {
+   "artista": "Enigma",
+   "miembro": "Sandra"
+  },
+  {
+   "artista": "Enigma",
+   "miembro": "David Fairstein"
+  },
+  {
+   "artista": "Enigma",
+   "miembro": "Louisa Stanley"
+  },
+  {
+   "artista": "Enigma",
+   "miembro": "Jens Gad"
+  },
+  {
+   "artista": "Enigma",
+   "miembro": "Peter Cornelius"
+  },
+  {
+   "artista": "Enigma",
+   "miembro": "Ruth-Ann Boyle"
+  },
+  {
+   "artista": "Enigma",
+   "miembro": "Andru Donalds"
+  },
+  {
+   "artista": "Ensamble Gurrufío",
+   "miembro": "Jesús González"
+  },
+  {
+   "artista": "Epitafio",
+   "miembro": "Alvaro Marquez"
+  },
+  {
+   "artista": "Epitafio",
+   "miembro": "Alejandro L"
+  },
+  {
+   "artista": "Evil Reborn",
+   "miembro": "Jorge Medina"
+  },
+  {
+   "artista": "Evil Reborn",
+   "miembro": "Armando Henriquez"
+  },
+  {
+   "artista": "Éxodo",
+   "miembro": "J. Iñaki Urquizu"
+  },
+  {
+   "artista": "Éxodo",
+   "miembro": "Quique Villegas"
+  },
+  {
+   "artista": "Éxodo",
+   "miembro": "Jose Luis Arbide"
+  },
+  {
+   "artista": "Éxodo",
+   "miembro": "Seni Lopez"
+  },
+  {
+   "artista": "Éxodo",
+   "miembro": "Koldo Mikel Pizarro"
+  },
+  {
+   "artista": "Éxodo",
+   "miembro": "Garlopa"
+  },
+  {
+   "artista": "Extremo Sur",
+   "miembro": "Max Fustamante"
+  },
+  {
+   "artista": "Extremo Sur",
+   "miembro": "Alfredo Maquera"
+  },
+  {
+   "artista": "Extremo Sur",
+   "miembro": "Jaime Benavides"
+  },
+  {
+   "artista": "Extremo Sur",
+   "miembro": "José Luis Egúsquiza"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Gonzalo Romero"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Mario Gimeno"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Gabriela Gonzalez"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Bicho Villoldo"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Julio Lastra"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Ricardo Baldoni"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Sergio Coronel"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Leonardo Giordano"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Lolo Micucci"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Daniel Gastaminza"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Adrián Seara"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Ana Martins"
+  },
+  {
+   "artista": "Farenheit",
+   "miembro": "Teresa Murad"
+  },
+  {
+   "artista": "Ferreira",
+   "miembro": "Marc Ferreira"
+  },
+  {
+   "artista": "Ferreira",
+   "miembro": "Alex Ferreira"
+  },
+  {
+   "artista": "Ferreira",
+   "miembro": "Andy Guerra"
+  },
+  {
+   "artista": "Fulgur",
+   "miembro": "Sami Kemppainen"
+  },
+  {
+   "artista": "Fulgur",
+   "miembro": "Jesse Niemi"
+  },
+  {
+   "artista": "Fulgur",
+   "miembro": "Heikki Mitikka"
+  },
+  {
+   "artista": "Fulgur",
+   "miembro": "Pyry Ojala"
+  },
+  {
+   "artista": "Fulgur",
+   "miembro": "Toni Taipale"
+  },
+  {
+   "artista": "Fulgur",
+   "miembro": "Jaakko Heikka"
+  },
+  {
+   "artista": "Fulgur",
+   "miembro": "Jukka-Pekka Velin"
+  },
+  {
+   "artista": "Fulgur",
+   "miembro": "Joona Lapilainen"
+  },
+  {
+   "artista": "Ghriéving",
+   "miembro": "H.K."
+  },
+  {
+   "artista": "Goat Serpent",
+   "miembro": "Jarmo Talvivaara"
+  },
+  {
+   "artista": "Goat Serpent",
+   "miembro": "Mikko Tirkkonen"
+  },
+  {
+   "artista": "Goat Serpent",
+   "miembro": "Jari Kärki"
+  },
+  {
+   "artista": "Grand Bite",
+   "miembro": "Gianni Regmícoli"
+  },
+  {
+   "artista": "Grand Bite",
+   "miembro": "Rubén Perez"
+  },
+  {
+   "artista": "Human Error",
+   "miembro": "Kylie Buddin"
+  },
+  {
+   "artista": "Human Error",
+   "miembro": "Ed Nehring"
+  },
+  {
+   "artista": "Human Error",
+   "miembro": "Steve McCall"
+  },
+  {
+   "artista": "Human Error",
+   "miembro": "Tim Kennels"
+  },
+  {
+   "artista": "Human Error",
+   "miembro": "Keith Perry"
+  },
+  {
+   "artista": "Infestation",
+   "miembro": "Mike DiSalvo"
+  },
+  {
+   "artista": "Infestation",
+   "miembro": "Eric Berube"
+  },
+  {
+   "artista": "Infestation",
+   "miembro": "Matthew R. Raymond"
+  },
+  {
+   "artista": "Infestation",
+   "miembro": "Mark Brophy"
+  },
+  {
+   "artista": "Infestation",
+   "miembro": "Mike Hubbard"
+  },
+  {
+   "artista": "Infestus",
+   "miembro": "Goma"
+  },
+  {
+   "artista": "Infestus",
+   "miembro": "Chico [Antonio Gonzalez aka Chicosis]"
+  },
+  {
+   "artista": "Infestus",
+   "miembro": "Pato"
+  },
+  {
+   "artista": "Infestus",
+   "miembro": "Asog"
+  },
+  {
+   "artista": "Infestus",
+   "miembro": "Bifu"
+  },
+  {
+   "artista": "Insane",
+   "miembro": "Nuno Martins"
+  },
+  {
+   "artista": "Insane",
+   "miembro": "Miguel Veloso"
+  },
+  {
+   "artista": "Insane",
+   "miembro": "Sergio Veloso"
+  },
+  {
+   "artista": "Insane",
+   "miembro": "Sérgio Garraio"
+  },
+  {
+   "artista": "International Live Looping Trio",
+   "miembro": "Rick Walker [aka Ultra Violette ]"
+  },
+  {
+   "artista": "Irión",
+   "miembro": "애니 [Annie, Hwang Zia]"
+  },
+  {
+   "artista": "Irión",
+   "miembro": "아지 [Aji, 나나 [Nana] ]"
+  },
+  {
+   "artista": "Irión",
+   "miembro": "카린 [Karin, 카에데 [Kaede] ]"
+  },
+  {
+   "artista": "Irión",
+   "miembro": "아이사 [Aisa]"
+  },
+  {
+   "artista": "iX",
+   "miembro": "Neil Armitage"
+  },
+  {
+   "artista": "iX",
+   "miembro": "Paul \"Wally\" Wilson"
+  },
+  {
+   "artista": "iX",
+   "miembro": "Guss Mortimer"
+  },
+  {
+   "artista": "iX",
+   "miembro": "Hamish MacKintosh [aka Vostok ]"
+  },
+  {
+   "artista": "iX",
+   "miembro": "Ellie Sutherland"
+  },
+  {
+   "artista": "iX",
+   "miembro": "Neil Reid"
+  },
+  {
+   "artista": "Junko Furuta",
+   "miembro": "Diana Garvin"
+  },
+  {
+   "artista": "Junko Furuta",
+   "miembro": "Juliette Ringsrud [aka Schoolgirl Upon Thy Corpse ]"
+  },
+  {
+   "artista": "Khristenn Corpse",
+   "miembro": "Lhysta"
+  },
+  {
+   "artista": "Khristenn Corpse",
+   "miembro": "Demonium"
+  },
+  {
+   "artista": "Khristenn Corpse",
+   "miembro": "Rheblys"
+  },
+  {
+   "artista": "Khristenn Corpse",
+   "miembro": "Karonthe"
+  },
+  {
+   "artista": "Khristenn Corpse",
+   "miembro": "Cuarthym"
+  },
+  {
+   "artista": "Khristenn Corpse",
+   "miembro": "Beleth"
+  },
+  {
+   "artista": "Khristenn Corpse",
+   "miembro": "Darknite"
+  },
+  {
+   "artista": "Kiara",
+   "miembro": "Gregory Charley"
+  },
+  {
+   "artista": "Kiara",
+   "miembro": "John Winston"
+  },
+  {
+   "artista": "Korpus",
+   "miembro": "Janusz Stasiak"
+  },
+  {
+   "artista": "Korpus",
+   "miembro": "Roman Iwanowicz"
+  },
+  {
+   "artista": "Korpus",
+   "miembro": "Przemysław Gnatowski"
+  },
+  {
+   "artista": "Korpus",
+   "miembro": "Paweł Słabiak"
+  },
+  {
+   "artista": "Korpus",
+   "miembro": "Dariusz Olszewski"
+  },
+  {
+   "artista": "Korpus",
+   "miembro": "Cezary \"Dziadek\" Łostowski"
+  },
+  {
+   "artista": "Korpus",
+   "miembro": "Nazim Alijew"
+  },
+  {
+   "artista": "Korpus",
+   "miembro": "Paweł \"Schenker\" Koziej"
+  },
+  {
+   "artista": "Korpus",
+   "miembro": "Marek \"Czaszka\" Balaszczuk"
+  },
+  {
+   "artista": "La Fe Perdida",
+   "miembro": "Alvaro Cordero"
+  },
+  {
+   "artista": "Leben Und Drama",
+   "miembro": "Daniel Hernandez"
+  },
+  {
+   "artista": "Ley Del Caos",
+   "miembro": "Eduardo Antonio Correa"
+  },
+  {
+   "artista": "Ley Del Caos",
+   "miembro": "Christopher Latorre"
+  },
+  {
+   "artista": "Ley Del Caos",
+   "miembro": "Cristian Roman"
+  },
+  {
+   "artista": "Ley Del Caos",
+   "miembro": "Misael \"Mayza\" Parra"
+  },
+  {
+   "artista": "Lignum Crucis",
+   "miembro": "Gizeh"
+  },
+  {
+   "artista": "Lignum Crucis",
+   "miembro": "Johnass"
+  },
+  {
+   "artista": "Lignum Crucis",
+   "miembro": "Johell Screams"
+  },
+  {
+   "artista": "Loica",
+   "miembro": "Jorge Bolton"
+  },
+  {
+   "artista": "Loica",
+   "miembro": "Cristóbal González"
+  },
+  {
+   "artista": "Loica",
+   "miembro": "Ismael Moreno"
+  },
+  {
+   "artista": "Loica",
+   "miembro": "Francisco Aguayo"
+  },
+  {
+   "artista": "Loica",
+   "miembro": "Diego Contreras"
+  },
+  {
+   "artista": "Los Amigos Invisibles",
+   "miembro": "Julio Briceño [aka Chulius & The Filarmónicos ]"
+  },
+  {
+   "artista": "Los Mesoneros",
+   "miembro": "Luis Jiménez"
+  },
+  {
+   "artista": "Los Mesoneros",
+   "miembro": "Juanchi Sucre"
+  },
+  {
+   "artista": "Los Mesoneros",
+   "miembro": "Andrés Belloso [aka Los Estadios del Alma ]"
+  },
+  {
+   "artista": "Los Claners",
+   "miembro": "Carlos Montenegro [Carl Martin]"
+  },
+  {
+   "artista": "Los Holiday's",
+   "miembro": "Jean Louis Ajzemberg [Froggie]"
+  },
+  {
+   "artista": "Los Holiday's",
+   "miembro": "Franklin van Splunteren [ Franklin Holland ]"
+  },
+  {
+   "artista": "Los Holiday's",
+   "miembro": "Randy Cottin"
+  },
+  {
+   "artista": "Los Telecaster",
+   "miembro": "Carlos Sánchez"
+  },
+  {
+   "artista": "Los Telecaster",
+   "miembro": "Andrés Scarioni"
+  },
+  {
+   "artista": "Los Telecaster",
+   "miembro": "Kevin Cedeño"
+  },
+  {
+   "artista": "Los Telecaster",
+   "miembro": "Carlitos \"del Valle\" Monseratte"
+  },
+  {
+   "artista": "Mancha Negra",
+   "miembro": "Marco"
+  },
+  {
+   "artista": "Mancha Negra",
+   "miembro": "Cabeças"
+  },
+  {
+   "artista": "Mancha Negra",
+   "miembro": "Messi"
+  },
+  {
+   "artista": "Mancha Negra",
+   "miembro": "Freak"
+  },
+  {
+   "artista": "Mertcurich",
+   "miembro": "Jesús Hernández [Jesús Alberto Hernández Rondon]"
+  },
+  {
+   "artista": "Mertcurich",
+   "miembro": "Jose \"El Lobo\" Rondon"
+  },
+  {
+   "artista": "Meshuggah",
+   "miembro": "Johan Sjögren"
+  },
+  {
+   "artista": "Meshuggah",
+   "miembro": "Per Sjögren"
+  },
+  {
+   "artista": "Meshuggah",
+   "miembro": "Jörgen Lindmark"
+  },
+  {
+   "artista": "Meshuggah",
+   "miembro": "Jonas Lindberg"
+  },
+  {
+   "artista": "Meshuggah",
+   "miembro": "Niklas Lundgren"
+  },
+  {
+   "artista": "Meshuggah",
+   "miembro": "Peter Nordin"
+  },
+  {
+   "artista": "Meshuggah",
+   "miembro": "Gustaf Hielm"
+  },
+  {
+   "artista": "MORFINA",
+   "miembro": "Igor Peixoto"
+  },
+  {
+   "artista": "MORFINA",
+   "miembro": "Reuel Albuquerque"
+  },
+  {
+   "artista": "Nederheim",
+   "miembro": "Manuel Yanez"
+  },
+  {
+   "artista": "Nekro Cvlt Desecration",
+   "miembro": "Seth Nekromancer"
+  },
+  {
+   "artista": "Nekro Cvlt Desecration",
+   "miembro": "Nekrovomits"
+  },
+  {
+   "artista": "Nekro Cvlt Desecration",
+   "miembro": "Urnh [aka Pestifervm ]"
+  },
+  {
+   "artista": "Nekro Cvlt Desecration",
+   "miembro": "Bestial Offensor [ Gustavo Quiroga ]"
+  },
+  {
+   "artista": "Nekro Cvlt Desecration",
+   "miembro": "Deathwitch [ Daiana Ramírez ]"
+  },
+  {
+   "artista": "Nekro Cvlt Desecration",
+   "miembro": "Griselda Gonzalez"
+  },
+  {
+   "artista": "Nekro Cvlt Desecration",
+   "miembro": "Ereshkigal"
+  },
+  {
+   "artista": "Nekro Cvlt Desecration",
+   "miembro": "Typhos"
+  },
+  {
+   "artista": "Nekro Cvlt Desecration",
+   "miembro": "Goat Destruktor [ Francisco Goya ]"
+  },
+  {
+   "artista": "Nekro Cvlt Desecration",
+   "miembro": "Nashgot [ Gaston Tieri ]"
+  },
+  {
+   "artista": "Neo Noir",
+   "miembro": "Simón Torres [aka NN-S]"
+  },
+  {
+   "artista": "Neo Noir",
+   "miembro": "José Morante [aka Nokter]"
+  },
+  {
+   "artista": "Neo Noir",
+   "miembro": "Enrique García [aka Count Kriegmoon]"
+  },
+  {
+   "artista": "Noctambulath",
+   "miembro": "Joan Rodriguez"
+  },
+  {
+   "artista": "Noctambulath",
+   "miembro": "José Salazar"
+  },
+  {
+   "artista": "Noctambulath",
+   "miembro": "Elennys Salas"
+  },
+  {
+   "artista": "Noctambulath",
+   "miembro": "Luis Castillo"
+  },
+  {
+   "artista": "Nova Prospekt",
+   "miembro": "Tintin Jönsson"
+  },
+  {
+   "artista": "Nova Prospekt",
+   "miembro": "Karl Prytz"
+  },
+  {
+   "artista": "Nova Prospekt",
+   "miembro": "Victor Fridefors"
+  },
+  {
+   "artista": "Nova Prospekt",
+   "miembro": "Emil Mansfeld"
+  },
+  {
+   "artista": "Nuclear Devastation",
+   "miembro": "Davide Albini"
+  },
+  {
+   "artista": "Nuclear Devastation",
+   "miembro": "Georges"
+  },
+  {
+   "artista": "Nuclear Devastation",
+   "miembro": "Marcellino Castellani"
+  },
+  {
+   "artista": "Nuclear Devastation",
+   "miembro": "Claude De Rosa"
+  },
+  {
+   "artista": "Nuclear Devastation",
+   "miembro": "Marco Zambruni"
+  },
+  {
+   "artista": "Nuclear Devastation",
+   "miembro": "Luca Salvafiorita"
+  },
+  {
+   "artista": "Nuclear Devastation",
+   "miembro": "Andrea Marino"
+  },
+  {
+   "artista": "Odio",
+   "miembro": "Hugo Palacios L."
+  },
+  {
+   "artista": "Odio",
+   "miembro": "Ricardo"
+  },
+  {
+   "artista": "One Night Stand",
+   "miembro": "Dave Reumers"
+  },
+  {
+   "artista": "One Night Stand",
+   "miembro": "Richard Prevaas"
+  },
+  {
+   "artista": "One Night Stand",
+   "miembro": "Roy Bos"
+  },
+  {
+   "artista": "One Night Stand",
+   "miembro": "Frank Soeren"
+  },
+  {
+   "artista": "One Night Stand",
+   "miembro": "Richard Bruinen"
+  },
+  {
+   "artista": "Op3rador",
+   "miembro": "Daniel Bargach"
+  },
+  {
+   "artista": "Op3rador",
+   "miembro": "J.C.G. Millo \"Paranoir\""
+  },
+  {
+   "artista": "Op3rador",
+   "miembro": "Calvin Calvo"
+  },
+  {
+   "artista": "Op3rador",
+   "miembro": "Harouth Sánchez"
+  },
+  {
+   "artista": "Op3rador",
+   "miembro": "El Negro Bermúdez"
+  },
+  {
+   "artista": "Op3rador",
+   "miembro": "Capitán Bermúdez"
+  },
+  {
+   "artista": "Op3rador",
+   "miembro": "Pablo Varsky"
+  },
+  {
+   "artista": "Op3rador",
+   "miembro": "Emerson"
+  },
+  {
+   "artista": "Orquesta La Amistad",
+   "miembro": "Bienvenido \"Conin\" Acevedo"
+  },
+  {
+   "artista": "Orquesta La Amistad",
+   "miembro": "Julio \"Pollo\" Barraez"
+  },
+  {
+   "artista": "Orquesta La Amistad",
+   "miembro": "Ramón \"Cujen\" Rodríguez"
+  },
+  {
+   "artista": "Pentágono",
+   "miembro": "Rael da Rima"
+  },
+  {
+   "artista": "Pentágono",
+   "miembro": "Apolo"
+  },
+  {
+   "artista": "Pentágono",
+   "miembro": "Massão"
+  },
+  {
+   "artista": "Pentágono",
+   "miembro": "M. Sário"
+  },
+  {
+   "artista": "Pentágono",
+   "miembro": "Kiko"
+  },
+  {
+   "artista": "Piso 21",
+   "miembro": "Juan David Huertas Clavijo, Pablo Mejía Bermúdez, David Escobar Gallego, Juan David Castaño Montoya [aka Llane ]"
+  },
+  {
+   "artista": "pm",
+   "miembro": "John Nitzinger"
+  },
+  {
+   "artista": "pm",
+   "miembro": "Barry Finnerty"
+  },
+  {
+   "artista": "pm",
+   "miembro": "Erik Scott"
+  },
+  {
+   "artista": "pm",
+   "miembro": "Todd Cochran"
+  },
+  {
+   "artista": "pm",
+   "miembro": "Carl Palmer"
+  },
+  {
+   "artista": "Postmorten",
+   "miembro": "Ivan \"Skeletor\" Arevalo"
+  },
+  {
+   "artista": "Postmorten",
+   "miembro": "Gabriel \"Piolin Insane\" Luna Trujillo"
+  },
+  {
+   "artista": "Postmorten",
+   "miembro": "Aristobulo Ibañez Parra"
+  },
+  {
+   "artista": "Postmorten",
+   "miembro": "Luis Fernando \"Psychobutcher\" Agredo Rodriguez"
+  },
+  {
+   "artista": "POX",
+   "miembro": "Mark Meyers"
+  },
+  {
+   "artista": "POX",
+   "miembro": "Koen Van den Camp"
+  },
+  {
+   "artista": "POX",
+   "miembro": "Jurgen Leclercq"
+  },
+  {
+   "artista": "POX",
+   "miembro": "Rudy Trouvé"
+  },
+  {
+   "artista": "POX",
+   "miembro": "Dirk De Hooghe"
+  },
+  {
+   "artista": "PP's",
+   "miembro": "Pedro Pérez"
+  },
+  {
+   "artista": "Pudridero",
+   "miembro": "Goreskull"
+  },
+  {
+   "artista": "Pudridero",
+   "miembro": "Excreted Alive"
+  },
+  {
+   "artista": "Reckless",
+   "miembro": "Douglas Lang Adams"
+  },
+  {
+   "artista": "Reckless",
+   "miembro": "Steve Madden"
+  },
+  {
+   "artista": "Reckless",
+   "miembro": "Todd Pilon"
+  },
+  {
+   "artista": "Reckless",
+   "miembro": "Steve Wayne Lederman"
+  },
+  {
+   "artista": "Revolver",
+   "miembro": "Mat Flint"
+  },
+  {
+   "artista": "Revolver",
+   "miembro": "Hamish Brown"
+  },
+  {
+   "artista": "Revolver",
+   "miembro": "Nick Dewey"
+  },
+  {
+   "artista": "Rotten Vomit",
+   "miembro": "Kyle Parker"
+  },
+  {
+   "artista": "Sacrilegio",
+   "miembro": "Víctor \"Metalian\" Escalona"
+  },
+  {
+   "artista": "Sacrilegio",
+   "miembro": "Juan Soto"
+  },
+  {
+   "artista": "Sacrilegio",
+   "miembro": "Víctor Castelán"
+  },
+  {
+   "artista": "Salazar",
+   "miembro": "Pete Salazar"
+  },
+  {
+   "artista": "Salazar",
+   "miembro": "David Perry"
+  },
+  {
+   "artista": "Samadhi",
+   "miembro": "Luciano Regoli"
+  },
+  {
+   "artista": "Samadhi",
+   "miembro": "Nanni Civitenga"
+  },
+  {
+   "artista": "Samadhi",
+   "miembro": "Stefano Sabatini"
+  },
+  {
+   "artista": "Samadhi",
+   "miembro": "Stevo Saradzic"
+  },
+  {
+   "artista": "Samadhi",
+   "miembro": "Aldo Bellanova"
+  },
+  {
+   "artista": "Samadhi",
+   "miembro": "Sandro Conti"
+  },
+  {
+   "artista": "Samadhi",
+   "miembro": "Ruggero Stefani"
+  },
+  {
+   "artista": "Sangre Antigua",
+   "miembro": "Baal Taraan"
+  },
+  {
+   "artista": "Sangre Antigua",
+   "miembro": "Chaoswolf"
+  },
+  {
+   "artista": "Sangre Antigua",
+   "miembro": "Flagellum"
+  },
+  {
+   "artista": "Sangre Antigua",
+   "miembro": "Lord Marganor"
+  },
+  {
+   "artista": "Saxomania",
+   "miembro": "Claude Tissendier"
+  },
+  {
+   "artista": "Saxomania",
+   "miembro": "Didier Desbois"
+  },
+  {
+   "artista": "Saxomania",
+   "miembro": "Claude Braud"
+  },
+  {
+   "artista": "Saxomania",
+   "miembro": "François Penot"
+  },
+  {
+   "artista": "Saxomania",
+   "miembro": "Patrice Authier"
+  },
+  {
+   "artista": "Saxomania",
+   "miembro": "Jean-Pierre Rebillard"
+  },
+  {
+   "artista": "Saxomania",
+   "miembro": "Alain Chaudron"
+  },
+  {
+   "artista": "Sea of Nectar",
+   "miembro": "Santiago Pineda"
+  },
+  {
+   "artista": "Sea of Nectar",
+   "miembro": "Tadeo A. \"Mr. T.\" Diaz"
+  },
+  {
+   "artista": "Selbst",
+   "miembro": "Frozen [A.M.]"
+  },
+  {
+   "artista": "Selbst",
+   "miembro": "N. Onfray"
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Igor Cavalera"
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Max Cavalera"
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Wagner Antichrist"
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Roberto UFO"
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Roberto Raffan"
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Paulo Jr."
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Jairo Guedz"
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Andreas Kisser"
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Derrick Green"
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Jean Dolabella"
+  },
+  {
+   "artista": "Sepultura",
+   "miembro": "Eloy Casagrande"
+  },
+  {
+   "artista": "Sibelíus",
+   "miembro": "Philipp K. Scheer"
+  },
+  {
+   "artista": "Simbiosis",
+   "miembro": "Cristian \"Titi\" Lapolla"
+  },
+  {
+   "artista": "Simbiosis",
+   "miembro": "Claudio \"Pato\" Strunz"
+  },
+  {
+   "artista": "Simbiosis",
+   "miembro": "Niko Takara"
+  },
+  {
+   "artista": "Simbiosis",
+   "miembro": "David \"Vishu\" Urrutia"
+  },
+  {
+   "artista": "Simbiosis",
+   "miembro": "Pablo Gallo"
+  },
+  {
+   "artista": "Simbiosis",
+   "miembro": "Emiliano Rojas"
+  },
+  {
+   "artista": "Six Magics",
+   "miembro": "Sergio Villaroel"
+  },
+  {
+   "artista": "Six Magics",
+   "miembro": "Sergio Domínguez"
+  },
+  {
+   "artista": "Six Magics",
+   "miembro": "Sebastián Carrasco"
+  },
+  {
+   "artista": "Six Magics",
+   "miembro": "Gabriel Hidalgo"
+  },
+  {
+   "artista": "Six Magics",
+   "miembro": "Mauricio Nader"
+  },
+  {
+   "artista": "Six Magics",
+   "miembro": "Elisabeth Vásquez [aka Ely]"
+  },
+  {
+   "artista": "SS",
+   "miembro": "Tommy SS [トミー]"
+  },
+  {
+   "artista": "SS",
+   "miembro": "Jun Shinoda [しのやん]"
+  },
+  {
+   "artista": "SS",
+   "miembro": "Tsuyoshi Takeno [ツヨシ]"
+  },
+  {
+   "artista": "SS",
+   "miembro": "Takami Isono [タカミ]"
+  },
+  {
+   "artista": "Steven Seagal",
+   "miembro": "Navea"
+  },
+  {
+   "artista": "Steven Seagal",
+   "miembro": "Riffo"
+  },
+  {
+   "artista": "Su Asti",
+   "miembro": "Sucellus"
+  },
+  {
+   "artista": "Su Asti",
+   "miembro": "Yaocuicatl Tlateotocani"
+  },
+  {
+   "artista": "Subconsciente?",
+   "miembro": "Mury, Condy, Neném"
+  },
+  {
+   "artista": "Subconsciente?",
+   "miembro": "Dikyla"
+  },
+  {
+   "artista": "Subconsciente?",
+   "miembro": "Mina Mary"
+  },
+  {
+   "artista": "Submarino",
+   "miembro": "Andrés Sosa [aka 5053x ]"
+  },
+  {
+   "artista": "Submarino",
+   "miembro": "Rafael López"
+  },
+  {
+   "artista": "SulleN",
+   "miembro": "Justin Slazinik"
+  },
+  {
+   "artista": "SulleN",
+   "miembro": "Shanna Kiel"
+  },
+  {
+   "artista": "SulleN",
+   "miembro": "Scott Freeman"
+  },
+  {
+   "artista": "SulleN",
+   "miembro": "Tommy Schmitz"
+  },
+  {
+   "artista": "SxWxMx",
+   "miembro": "David Barba [aka Alejandro Barba]"
+  },
+  {
+   "artista": "SxWxMx",
+   "miembro": "Vinicio Cevallos"
+  },
+  {
+   "artista": "SxWxMx",
+   "miembro": "David Peñafiel"
+  },
+  {
+   "artista": "SxWxMx",
+   "miembro": "Dilson Xavier"
+  },
+  {
+   "artista": "SxWxMx",
+   "miembro": "Haerelil [Cynthia Velásquez]"
+  },
+  {
+   "artista": "SxWxMx",
+   "miembro": "Niko Haller"
+  },
+  {
+   "artista": "SxWxMx",
+   "miembro": "Alexa Katerine Guadir Hurtado"
+  },
+  {
+   "artista": "SxWxMx",
+   "miembro": "Luis Cabrera"
+  },
+  {
+   "artista": "SxWxMx",
+   "miembro": "Alex Pozo"
+  },
+  {
+   "artista": "Take Control",
+   "miembro": "Devin \"Booj\" Borjeson-Troupe"
+  },
+  {
+   "artista": "Take Control",
+   "miembro": "Doug \"Dunk\" Ostroskey"
+  },
+  {
+   "artista": "Take Control",
+   "miembro": "John Mangano"
+  },
+  {
+   "artista": "Take Control",
+   "miembro": "Rob Rose"
+  },
+  {
+   "artista": "The Berzerker",
+   "miembro": "Chris Valagao"
+  },
+  {
+   "artista": "The Berzerker",
+   "miembro": "Patrick Beaudoin"
+  },
+  {
+   "artista": "The Berzerker",
+   "miembro": "Ed Lacey"
+  },
+  {
+   "artista": "The Berzerker",
+   "miembro": "Sam Bean"
+  },
+  {
+   "artista": "The Berzerker",
+   "miembro": "Jason V."
+  },
+  {
+   "artista": "The Berzerker",
+   "miembro": "Matt Wilcock"
+  },
+  {
+   "artista": "The Berzerker",
+   "miembro": "Fillip Rutherford"
+  },
+  {
+   "artista": "The Berzerker",
+   "miembro": "Adrian Naudi"
+  },
+  {
+   "artista": "The New Vaudeville Band",
+   "miembro": "Henri Harrison"
+  },
+  {
+   "artista": "The New Vaudeville Band",
+   "miembro": "Tristram, Seventh Earl of Cricklewood [ Alan Klein ]"
+  },
+  {
+   "artista": "The New Vaudeville Band",
+   "miembro": "Mick Wilsher"
+  },
+  {
+   "artista": "The New Vaudeville Band",
+   "miembro": "Stan Haywood"
+  },
+  {
+   "artista": "The New Vaudeville Band",
+   "miembro": "Neil Korner"
+  },
+  {
+   "artista": "The New Vaudeville Band",
+   "miembro": "Hugh \"Shuggy\" Watts"
+  },
+  {
+   "artista": "The New Vaudeville Band",
+   "miembro": "Bob Kerr"
+  },
+  {
+   "artista": "The New Vaudeville Band",
+   "miembro": "Chris Eedy"
+  },
+  {
+   "artista": "The New Vaudeville Band",
+   "miembro": "Charles Obscure"
+  },
+  {
+   "artista": "The New Vaudeville Band",
+   "miembro": "Paul G. T. Wright"
+  },
+  {
+   "artista": "The Monroes",
+   "miembro": "Lage Fossheim"
+  },
+  {
+   "artista": "The Monroes",
+   "miembro": "Eivind Rølles"
+  },
+  {
+   "artista": "Tierra del Dragón",
+   "miembro": "Carlos Rodríguez"
+  },
+  {
+   "artista": "Tierra del Dragón",
+   "miembro": "Pablo Rodríguez"
+  },
+  {
+   "artista": "Tierra del Dragón",
+   "miembro": "Ángel Rodríguez"
+  },
+  {
+   "artista": "Tierra del Dragón",
+   "miembro": "Huaico Lovera"
+  },
+  {
+   "artista": "Tótem",
+   "miembro": "Eduardo Useta"
+  },
+  {
+   "artista": "Tótem",
+   "miembro": "Enrique Rey"
+  },
+  {
+   "artista": "Tótem",
+   "miembro": "Mario \"Chichito\" Cabral"
+  },
+  {
+   "artista": "Tótem",
+   "miembro": "Roberto Galletti"
+  },
+  {
+   "artista": "Tótem",
+   "miembro": "Ruben Rada"
+  },
+  {
+   "artista": "Tótem",
+   "miembro": "Daniel “Lobito” Lagarde"
+  },
+  {
+   "artista": "Tótem",
+   "miembro": "Santiago Ameijenda"
+  },
+  {
+   "artista": "Tótem",
+   "miembro": "Roberto Giordano"
+  },
+  {
+   "artista": "Tótem",
+   "miembro": "Tomás “Chocho” Paolini"
+  },
+  {
+   "artista": "Trastorno",
+   "miembro": "Esgaroth [Samuel Hernandez]"
+  },
+  {
+   "artista": "Trastorno",
+   "miembro": "Leo [Leobaldo Luquez]"
+  },
+  {
+   "artista": "Trío Matamoros",
+   "miembro": "Rafael Cueto"
+  },
+  {
+   "artista": "Trío Matamoros",
+   "miembro": "Siro Rodríguez"
+  },
+  {
+   "artista": "Unscarred",
+   "miembro": "Brice"
+  },
+  {
+   "artista": "Unscarred",
+   "miembro": "Boris"
+  },
+  {
+   "artista": "Unscarred",
+   "miembro": "Nico"
+  },
+  {
+   "artista": "Unscarred",
+   "miembro": "Niloofar [Nelly]"
+  },
+  {
+   "artista": "Unscarred",
+   "miembro": "Franck"
+  },
+  {
+   "artista": "Velork",
+   "miembro": "Nigales"
+  },
+  {
+   "artista": "Velork",
+   "miembro": "Velorio [Misoa Nav]"
+  },
+  {
+   "artista": "Vortex",
+   "miembro": "Jean-Pierre Vivante"
+  },
+  {
+   "artista": "Vortex",
+   "miembro": "Jacques Vivante"
+  },
+  {
+   "artista": "Vortex",
+   "miembro": "Jeff Trouillet"
+  },
+  {
+   "artista": "Vortex",
+   "miembro": "Gérard Jolivet"
+  },
+  {
+   "artista": "Vortex",
+   "miembro": "François Gérald"
+  },
+  {
+   "artista": "Vortex",
+   "miembro": "Maurice Sonjon"
+  },
+  {
+   "artista": "Vortex",
+   "miembro": "Alain Chaléard"
+  },
+  {
+   "artista": "Voz Veis",
+   "miembro": "Luis Enrique Leal"
+  },
+  {
+   "artista": "Voz Veis",
+   "miembro": "Luis Fernando \"Luigi\" Castillo"
+  },
+  {
+   "artista": "Voz Veis",
+   "miembro": "Carlos Eduardo Labrador"
+  },
+  {
+   "artista": "Voz Veis",
+   "miembro": "Roberto Ignacio Zambrano"
+  },
+  {
+   "artista": "Voz Veis",
+   "miembro": "Gustavo Alfredo González"
+  },
+  {
+   "artista": "Voz Veis",
+   "miembro": "Santiago Henry Castillo"
+  },
+  {
+   "artista": "Wargod",
+   "miembro": "Rob Perkins"
+  },
+  {
+   "artista": "Wargod",
+   "miembro": "Michelle Meldrum"
+  },
+  {
+   "artista": "Wargod",
+   "miembro": "Phil Williams"
+  },
+  {
+   "artista": "Wargod",
+   "miembro": "Greg Gunthner"
+  },
+  {
+   "artista": "Wargod",
+   "miembro": "Gene Hoglan"
+  },
+  {
+   "artista": "Wargod",
+   "miembro": "Lee Rausch"
+  },
+  {
+   "artista": "Wolfang",
+   "miembro": "Luis Milano"
+  },
+  {
+   "artista": "Wolfang",
+   "miembro": "Hector Javier Barrios"
+  },
+  {
+   "artista": "Zion",
+   "miembro": "David Moore"
+  },
+  {
+   "artista": "Zion",
+   "miembro": "Rex Scott"
+  },
+  {
+   "artista": "Zion",
+   "miembro": "Jeff Johnson"
+  },
+  {
+   "artista": "Zion",
+   "miembro": "Tommy Bozung"
+  },
+  {
+   "artista": "Zion",
+   "miembro": "Greg Sauer"
+  },
+  {
+   "artista": "Zion",
+   "miembro": "Bruce Fischer"
+  },
+  {
+   "artista": "Zion",
+   "miembro": "Marlin Saner"
+  },
+  {
+   "artista": "Zion",
+   "miembro": "Ray Roeter"
+  },
+  {
+   "artista": "Zul",
+   "miembro": "Nando Rabasó"
+  },
+  {
+   "artista": "Zul",
+   "miembro": "Gerard Gil"
+  },
+  {
+   "artista": "Zul",
+   "miembro": "Ricard"
+  },
+  {
+   "artista": "Zul",
+   "miembro": "Chris Moya"
+  },
+  {
+   "artista": "Zul",
+   "miembro": "Adela Tàpies"
+  }
+ ]
+}

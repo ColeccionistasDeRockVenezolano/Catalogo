@@ -59,7 +59,8 @@ aplicar)
   fi
   ;;
 todo)
-  "$0" reparse && "$0" cruce && "$0" enlaces
+  # `bash "$0"` a propósito: el script no depende del bit de ejecución (write_file lo crea 644).
+  bash "$0" reparse && bash "$0" cruce && bash "$0" enlaces
   ;;
 *)
   echo "uso: bash ops/rym-resto/procesar.sh {reparse|cruce|enlaces|aplicar|todo} [--confirm]"
