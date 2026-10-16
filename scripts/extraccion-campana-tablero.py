@@ -640,7 +640,8 @@ def bloque_f():
     # Captura: sin datos puede ser (a) cierre definitivo con flag, (b) fallo sin cerrar
     # (reintentable) o (c) reabierto para la pasada de la plantilla intermedia 2011-2012.
     cerrados = [r for r in lista if r.get("sin_clasico_definitivo") and not r.get("campos")]
-    sin_cerrar = [r for r in lista if not r.get("campos") and not r.get("archivo") and not r.get("sin_clasico_definitivo")]
+    sin_cerrar = [r for r in lista if not r.get("campos") and not r.get("archivo")
+                  and not r.get("sin_clasico_definitivo") and not r.get("reabierto_tardia")]
     reabiertos = [r for r in lista if r.get("reabierto_tardia") and not r.get("campos")]
     intermedia = [r for r in con_datos if r.get("plantilla") == "intermedia"]
     # Estado de las DOS fases del segmento: captura (unidad vieja o la de la pasada de
