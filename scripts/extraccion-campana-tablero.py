@@ -43,6 +43,49 @@ _cache_manifest: dict | None = None
 _cache_catalogo_t = 0.0
 _cache_catalogo: dict = {}
 COLCHON_CATALOGO = 60.0  # el índice de artistas del catálogo cambia poco: una lectura por minuto
+_cache_dur: dict = {}  # duración de cada unidad (de su journal), con su hora de lectura
+
+
+def duracion_unidad(unidad_nombre, colchon=300.0):
+    """Segundos que estuvo (o lleva) corriendo la unidad, del journal de systemd.
+
+    Las unidades transitorias de systemd-run desaparecen al terminar (--collect), así que sus
+    marcas monotónicas se pierden; el journal SÍ conserva el «Started…» y el cierre, y su primera
+    y última línea acotan la corrida. Se cachea: una unidad terminada no cambia.
+    """
+    guardado = _cache_dur.get(unidad_nombre)
+    if guardado and time.time() - guardado[0] < colchon:
+        return guardado[1]
+    duracion = None
+    try:
+        r = subprocess.run(["journalctl", "--user", "-u", unidad_nombre, "-o", "short-unix", "--no-pager"],
+                           capture_output=True, text=True, timeout=30)
+        marcas = []
+        for linea in r.stdout.splitlines():
+            if linea[:1].isdigit():
+                try:
+                    marcas.append(float(linea.split()[0]))
+                except ValueError:
+                    pass
+        if len(marcas) >= 2:
+            duracion = marcas[-1] - marcas[0]
+    except Exception:
+        duracion = None
+    _cache_dur[unidad_nombre] = (time.time(), duracion)
+    return duracion
+
+
+def por_minuto(cantidad, segundos):
+    """«X/min» a partir de una cantidad y su duración; «—» si no hay datos."""
+    if not cantidad or not segundos or segundos <= 0:
+        return "—"
+    return f"{cantidad / (segundos / 60):.1f}/min"
+
+
+def por_hora(cantidad, segundos):
+    if not cantidad or not segundos or segundos <= 0:
+        return "—"
+    return f"{cantidad / (segundos / 3600):.1f}/h"
 
 
 def norm_nombre(t):
@@ -133,10 +176,12 @@ def db():
         alb_sin, art_sin, redes, verif, discogs, disc_stream = filas[0][:6]
         datos.update({"alb_sin": int(alb_sin), "art_sin": int(art_sin), "redes": int(redes),
                       "verif": int(verif), "discogs": int(discogs), "disc_stream": int(disc_stream)})
-    datos["runs"] = psql("""SELECT id, left(coalesce(params->>'action',''),40), status,
-                                   to_char(finished_at,'HH24:MI:SS')
-                              FROM ingest.scrape_runs WHERE kind='manual'
-                             ORDER BY id DESC LIMIT 8""")
+    datos["runs"] = psql("""SELECT r.id, left(coalesce(r.params->>'action',''),40), r.status,
+                                   to_char(r.finished_at,'HH24:MI:SS'),
+                                   round(extract(epoch from (coalesce(r.finished_at, now()) - r.created_at)))::int,
+                                   (SELECT count(*) FROM ingest.merge_audit a WHERE a.run_id = r.id)::int
+                              FROM ingest.scrape_runs r WHERE r.kind='manual'
+                             ORDER BY r.id DESC LIMIT 8""")
     datos["redes_plat"] = psql("""SELECT platform, count(*), count(*) FILTER (WHERE verified)
                                     FROM public.social_links WHERE source='discogs-urls' GROUP BY 1 ORDER BY 2 DESC""")
     _cache_t = time.time()
@@ -145,23 +190,47 @@ def db():
 
 
 def manifest_hoy():
-    """{kind: n} de imágenes asociadas hoy, del manifiesto de media:localize (se lee una vez)."""
+    """Imágenes de hoy del manifiesto de media:localize: {porKind, ritmo_min, span_s} (una lectura).
+
+    El ritmo sale del tramo real entre el primer y el último `downloadedAt` de hoy: es la velocidad
+    de la etapa de DESCARGA (lo que tardó la bajada y asociación, no lo que tardó el descubrimiento).
+    """
     global _cache_manifest
     if _cache_manifest is not None:
         return _cache_manifest
     hoy = time.strftime("%F")
-    cuenta: dict = {}
+    por_kind: dict = {}
+    descargas: list = []
     try:
         with open(REPO / "web/public/media/manifest.json", encoding="utf-8") as fh:
             manifiesto = json.load(fh)
         for entrada in manifiesto.get("entries", {}).values():
             if str(entrada.get("associatedAt", "")).startswith(hoy):
                 k = entrada.get("kind", "?")
-                cuenta[k] = cuenta.get(k, 0) + 1
+                por_kind[k] = por_kind.get(k, 0) + 1
+            marca = entrada.get("downloadedAt")
+            if marca:
+                descargas.append(str(marca))
     except Exception:
-        cuenta = {}
-    _cache_manifest = cuenta
-    return cuenta
+        por_kind = {}
+    # Último lote de descargas: el tramo final sin cortes de más de 10 min (una corrida de localize).
+    lote = None
+    if len(descargas) >= 2:
+        from datetime import datetime
+        try:
+            tiempos = sorted(datetime.fromisoformat(m.replace("Z", "+00:00")) for m in descargas)
+            fin = len(tiempos) - 1
+            inicio = fin
+            while inicio > 0 and (tiempos[inicio] - tiempos[inicio - 1]).total_seconds() <= 600:
+                inicio -= 1
+            span = (tiempos[fin] - tiempos[inicio]).total_seconds()
+            if span > 0:
+                lote = {"n": fin - inicio + 1, "span_s": span,
+                        "hasta": tiempos[fin].strftime("%d-%m %H:%M"), "desde": tiempos[inicio].strftime("%H:%M")}
+        except Exception:
+            lote = None
+    _cache_manifest = {"por_kind": por_kind, "total": sum(por_kind.values()), "lote": lote}
+    return _cache_manifest
 
 
 def reloj_muro(log_tail):
@@ -280,6 +349,14 @@ def bloque_a():
     pendientes = max(0, cola - trabajadas)
     seg_ficha, tramos = ritmo_medido(leer(LOG_A, 400))
     estado_muro, cuando = reloj_muro(leer(LOG_A, 400))
+    # Ritmo de la ÚLTIMA MEDIA HORA, medido del ts de cada ficha en estado.json
+    ahora = time.time()
+    ventana = [f for f in estado if f["ts"] and ahora - float(f["ts"]) <= 1800]
+    utiles_ventana = [f for f in ventana if f["status"] != 404]
+    fichas_min = len(ventana) / 30 if ventana else None
+    utiles_hora = len(utiles_ventana) * 2 if ventana else None
+    pct_util_ventana = f"{100 * len(utiles_ventana) / len(ventana):.0f}" if ventana else "?"
+    dur_captura = duracion_unidad("crv-scrapling-rym-resto", colchon=120.0)
     ultima_pagina = max((f["ts"] for f in utiles), default=0)
     paginas_disco = 0
     try:
@@ -305,8 +382,13 @@ def bloque_a():
                 "Los slugs inferidos por nombre que RYM no tiene (404). No son un error: la cola traía variantes por probar."),
         tarjeta("Pendientes", f"<b>{miles(pendientes)}</b>", f"ETA {eta}",
                 "Lo que falta de la cola, con la ETA calculada del ritmo medido (mediana de los últimos tramos)."),
-        tarjeta("Ritmo de captura", f"<b>{seg_ficha or '?'} s</b>", f"por ficha · {tramos} tramos medidos",
+        tarjeta("Ritmo de captura", f"<b>{seg_ficha or '?'} s</b>",
+                f"por ficha · {tramos} tramos" + (f" · desde el arranque {por_minuto(trabajadas, dur_captura)}" if dur_captura else ""),
                 "Mediana de segundos por ficha en los últimos tramos del log. La media engaña: los timeouts de 60 s la disparan."),
+        tarjeta("Rendimiento (última ½ hora)", f"<b>{fichas_min:.1f}</b> fichas/min" if fichas_min else "<b>—</b>",
+                (f"{utiles_hora:.0f} páginas útiles/h · {pct_util_ventana} % de lo intentado trae datos" if utiles_hora is not None else "sin actividad en la ventana"),
+                "Fichas intentadas por minuto y páginas útiles por hora en los últimos 30 min (del ts de cada ficha en estado.json). "
+                "Lo útil no es lo mismo que lo intentado: las inferidas fallan mucho más que las confirmadas."),
         tarjeta("Muro de Cloudflare", f'<span class="{clase_muro}">{estado_muro}</span>', f"última marca {esc(str(cuando))}",
                 "OK = RYM responde. MURO = pide al dueño abrir rateyourmusic.com en Firefox ~30 s; la unidad reintenta sola."),
     ]
@@ -387,12 +469,25 @@ def bloque_b():
             progreso = f"hechos: {consultados.group(1)}"
         else:
             progreso = "—"
+        dur = duracion_unidad(nombre)
+        total_consultas = int(consultados.group(1)) if consultados else None
+        ritmo = por_minuto(total_consultas, dur)
+        ritmo_cand = por_hora(cand, dur) if cand else "—"
         filas.append([f'{esc(titulo)}<div class="mini">{esc(que)}</div>',
                       f'<span class="{clase}">{esc(etiqueta)}</span>',
                       f'<span class="num">{progreso}</span>',
                       f'<b>{cand if cand is not None else "?"}</b>',
-                      f'<span class="ojo">{fallos.group(1)}</span>' if fallos else "0"])
-    asociadas = ", ".join(f"{k}: {v}" for k, v in sorted(mh.items())) or "ninguna aún"
+                      f'<span class="ojo">{fallos.group(1)}</span>' if fallos else "0",
+                      f'<span class="num">{ritmo}</span>',
+                      f'<span class="num">{ritmo_cand}</span>'])
+    asociadas = ", ".join(f"{k}: {v}" for k, v in sorted(mh["por_kind"].items())) or "ninguna aún"
+    if mh["lote"]:
+        lote = mh["lote"]
+        valor_ritmo = por_minuto(lote["n"], lote["span_s"])
+        pie_ritmo = (f"imágenes/min · último lote: {lote['n']} en {lote['span_s'] / 60:.0f} min "
+                     f"({lote['desde']}→{lote['hasta'].split()[-1]}, {lote['hasta'].split()[0]})")
+    else:
+        valor_ritmo, pie_ritmo = "—", "sin lote de descargas medible"
     return f"""<section>
   <h2>2 · Portadas y fotos por APIs públicas (bloque B)</h2>
   <p class="explica">Sin captura: se pregunta a las APIs de Deezer, Apple y Wikidata/Commons por las fichas
@@ -407,9 +502,12 @@ def bloque_b():
              "Fichas de artista con picture_url vacío: el objetivo de las fotos.")}
     {tarjeta("Imágenes asociadas hoy", f'<b>{esc(asociadas)}</b>', "descargadas a disco y asociadas",
              "Del manifiesto de media:localize: entradas con associatedAt de hoy, por tipo de ficha.")}
+    {tarjeta("Ritmo de descarga (hoy)", f"<b>{esc(valor_ritmo)}</b>", esc(pie_ritmo),
+             "Velocidad de la etapa de bajada y asociación (localize-images), medida con los "
+             "downloadedAt/associatedAt del manifiesto: es la etapa que escribe en el catálogo.")}
   </div>
-  <h3>Cada discoverer</h3>
-  <div class="scroll">{tabla(["discoverer", "estado", "consultados", "candidatas", "fallos"], filas, {2: "num", 3: "num", 4: "num"})}</div>
+  <h3>Cada discoverer <span class="mini">(ritmo = consultas por minuto; candidatas por hora de corrida)</span></h3>
+  <div class="scroll">{tabla(["discoverer", "estado", "consultados", "candidatas", "fallos", "ritmo", "candidatas/h"], filas, {2: "num", 3: "num", 4: "num", 5: "num", 6: "num"})}</div>
   <p class="mini">Residual: 140 imágenes de Commons respondieron HTTP 429 (Wikimedia limita tras cientos de
   descargas seguidas); se reintentan más tarde con 1 hilo. La lista está en <code>/tmp/wikidata-429-reintento.jsonl</code>.</p>
   <div class="enlaces">{enlace("carpeta de candidatas", f"file://{MEDIA}")}{enlace("manifiesto de imágenes", "file://" + str(REPO / "web/public/media/manifest.json"))}</div>
@@ -424,14 +522,20 @@ def bloque_c():
     desc = contar_lineas(REDES / "descartes-discogs.jsonl") or 0
     resumen = ""
     ultima = (leer(REDES / "crv-redes-discogs.log", 1) or [""])[0]
+    dur_cosecha = duracion_unidad("crv-redes-discogs")
+    artistas_cosecha = pedidos = None
     if ultima.strip().startswith("{"):
         try:
             r = json.loads(ultima)
             c = r.get("cuenta", {})
+            artistas_cosecha = r.get("cola")
+            pedidos = r.get("pedidos")
             resumen = (f'Disco en común: {c.get("evidencia: disco común", 0)} · '
                        f'perfil de Venezuela: {c.get("evidencia: perfil Venezuela", 0)} · '
                        f'descartes: {c.get("descartado", 0)} · sin candidato: {c.get("sin candidato", 0)} · '
-                       f'{r.get("pedidos", 0)} pedidos a la API.')
+                       f'{r.get("pedidos", 0)} pedidos a la API · ritmo: '
+                       f'{por_minuto(artistas_cosecha, dur_cosecha)} artistas, {por_minuto(pedidos, dur_cosecha)} pedidos'
+                       + (f' ({por_hora(evid_d, dur_cosecha)} evidencias)' if dur_cosecha else "") + ".")
         except Exception:
             resumen = ""
     filas = [[esc(p), f'<b>{n}</b>', f'{v} <span class="mini">({100 * int(v) / max(1, int(n)):.0f} %)</span>']
@@ -468,14 +572,22 @@ def bloque_d():
         if len(run) < 4:
             continue
         rid, accion, estado, hora = run[:4]
+        escritas = int(run[5]) if len(run) > 5 and run[5] else 0
         clase = "ok" if estado == "ok" else "ojo"
-        filas.append([f'<span class="num">{esc(rid)}</span>', esc(hora), esc(accion), f'<span class="{clase}">{esc(estado)}</span>'])
+        filas.append([f'<span class="num">{esc(rid)}</span>', esc(hora), esc(accion),
+                      f'<span class="{clase}">{esc(estado)}</span>',
+                      f'<span class="num">{escritas}</span>'])
     return f"""<section>
   <h2>4 · Escrituras recientes del operador <span class="mini">(lo que ya entró al catálogo)</span></h2>
   <p class="explica">Cada escritura va en un <b>run del operador</b>: es reversible desde Historial y deja su
   fila de auditoría. Aquí salen los últimos runs manuales de la base — los de esta campaña y los de las otras
-  sesiones que trabajan el mismo catálogo (por eso el número de run es la forma de citarlos).</p>
-  <div class="scroll">{tabla(["run", "hora", "acción", "estado"], filas, {0: "num", 1: "num"})}</div>
+  sesiones que trabajan el mismo catálogo (por eso el número de run es la forma de citarlos).
+  <b>Filas</b> = escrituras auditadas de ese run (merge_audit). <b>Ojo con el ritmo</b>: un run entero
+  es UNA transacción, así que `created_at` y `finished_at` son el mismo instante — la duración no se
+  puede derivar de la base (por eso no se muestra: no se inventa). El ritmo de cada etapa se mide
+  donde sí hay reloj: la captura en su log, los discoverers y la cosecha en su journal, y la descarga
+  de imágenes en los timestamps del manifiesto.</p>
+  <div class="scroll">{tabla(["run", "hora", "acción", "estado", "filas"], filas, {0: "num", 1: "num", 4: "num"})}</div>
 </section>"""
 
 
