@@ -831,3 +831,6 @@
 {"ma_id": "99031", "banda": "Heaven Rays", "slug": "heavenrays", "con_ficha": false, "intento": 1, "fase": "resultado", "fuente": "cdx", "forma": "myspace.com", "resultado": "sin_snapshot", "ts": "2026-10-15T19:13:36", "pasada": 4}
 {"ma_id": "3540500621", "banda": "Akuhena Yavari", "slug": "", "con_ficha": true, "intento": 2, "fase": "resultado", "fuente": "ma", "forma": "", "resultado": "sin_snapshot", "ts": "2026-10-15T19:13:36", "pasada": 4}
 {"fase": "pasada_fin", "capturados": 0, "ts": "2026-10-15T19:13:36", "pasada": 4}
+{"fase": "pasada_inicio", "cola": 263, "hechos": 166, "pendientes": 97, "ts": "2026-10-16T01:15:00", "pasada": 5}
+{"ma_id": "116378", "banda": "Igni Dare", "slug": "ignidare", "con_ficha": true, "intento": 1, "fase": "cdx", "filas": 0, "ms": 12545, "respondio": true, "statuses": {"200": 5, "301": 1}, "forma_ok": "myspace.com", "vacios_seguidos": 0, "ts": "2026-10-16T01:15:12", "pasada": 5}
+{"ma_id": "116378", "banda": "Igni Dare", "slug": "ignidare", "con_ficha": true, "intento": 1, "fase": "resultado", "fuente": "cdx", "forma": "myspace.com", "resultado": "sin_clasico", "ts": "2026-10-16T01:15:27", "pasada": 5}

@@ -101,7 +101,8 @@ def snapshots(slug: str) -> tuple[list[tuple[str, str]], float, bool, dict[str, 
             partes = linea.split()
             if len(partes) >= 2 and partes[0].isdigit():
                 statuses[partes[1]] = statuses.get(partes[1], 0) + 1
-                if partes[1] == "200" and int(partes[0][:4]) <= 2010:
+                # ≤2012: la plantilla intermedia 2011-2012 también rinde (extractor tardío).
+                if partes[1] == "200" and int(partes[0][:4]) <= 2012:
                     original = partes[2] if len(partes) > 2 else intento_forma
                     clasicos.append((partes[0], original))
         if clasicos:
@@ -149,6 +150,12 @@ def foto_default(src: str) -> str:
     return ms[0] if len(ms) == 1 else ""
 
 
+def foto_tardia(src: str) -> str:
+    """Foto de perfil de la plantilla intermedia: og:image (…/<hash>/p.jpg)."""
+    m = re.search(r'property="og:image"\s+content="([^"]+)"', src, re.I)
+    return m.group(1) if m else ""
+
+
 def extraer_about(src: str) -> str:
     """El About clásico vive entre el encabezado «About <nombre>» y la sección siguiente.
 
@@ -162,6 +169,70 @@ def extraer_about(src: str) -> str:
     siguiente = re.search(r'<span class="orangetext15">', resto)
     bloque = resto[: siguiente.start()] if siguiente else resto[:20000]
     return limpio(bloque)[:3000]
+
+
+PARES_TARDIA = {
+    "bandgenres": ("Genres", "Genre"),
+    "location": ("Location", "Location"),
+    "membersince": ("Member Since", "Member Since"),
+    "labeltype": ("Type of Label", "Type of Label"),
+    "recordlabel": ("Record Label", "Record Label"),
+    "bandwebsite": ("Band Website", "Website"),
+    "website": ("Band Website", "Website"),
+    "profileviews": ("Profile Views", "Profile Views"),
+    "lastlogin": ("Last Login", "Last Login"),
+}
+MODULOS_TARDIA = {
+    "artistbio": "About",
+    "artistbandmembers": "Band Members",
+    "artistmembers": "Band Members",
+    "artistinfluences": "Influences",
+    "artistsoundslike": "Sounds Like",
+    "artistrecordlabel": "Record Label",
+    "artisttypeofabel": "Type of Label",
+    "artistwebsite": "Band Website",
+}
+
+
+def limpiar_modulo(cuerpo: str) -> str:
+    """Texto de un módulo `artistXxx` de la plantilla intermedia (rellenos «..» fuera)."""
+    cuerpo = re.sub(r"<br\s*/?>", "\n", cuerpo, flags=re.I)
+    lineas = []
+    for l in limpio(cuerpo).split("\n"):
+        l = re.sub(r"^[\s.]{2,}", "", l)
+        l = re.sub(r"[\s.]{2,}$", "", l)
+        l = l.strip(" \t.")
+        if l:
+            lineas.append(l)
+    return "\n".join(lineas)
+
+
+def extraer_tardia(src: str) -> dict:
+    """Campos de la plantilla intermedia 2011-2012 («Free Music, Tour Dates, Photos, Videos»).
+
+    Medido 2026-10-16: 13/15 perfiles con esta plantilla rinden campos — el «corte 2010»
+    del análisis de patrones era un artefacto del extractor clásico, no de la fuente.
+    """
+    campos: dict[str, str] = {}
+    for m in re.finditer(r'<p class="[^"]*?\b([A-Za-z]{4,20})\b[^"]*"[^>]*>(.*?)</p>', src, re.S):
+        par = PARES_TARDIA.get(m.group(1).lower())
+        if not par:
+            continue
+        etiqueta, prefijo = par
+        valor = limpio(m.group(2))
+        valor = re.sub(rf"^{re.escape(prefijo)}\s*:?\s*", "", valor, flags=re.I).strip()
+        valor = re.sub(r"\s+,", ",", valor)
+        if valor and len(valor) > 1:
+            campos.setdefault(etiqueta, valor[:2000])
+    for m in re.finditer(r'<li class="[^"]*?\b(artist[A-Za-z]{3,20})\b[^"]*"[^>]*>(.*?)</li>', src, re.S | re.I):
+        etiqueta = MODULOS_TARDIA.get(m.group(1).lower())
+        if not etiqueta:
+            continue
+        cuerpo = re.sub(r"<h4[^>]*>.*?</h4>", " ", m.group(2), flags=re.S | re.I)
+        valor = limpiar_modulo(cuerpo)
+        if valor and len(valor) > 1:
+            campos[etiqueta] = valor[:3000]
+    return campos
 
 
 def extraer(src: str) -> dict:
@@ -179,7 +250,10 @@ def extraer(src: str) -> dict:
     about = extraer_about(src)
     if about and len(about) > 20:
         campos["About"] = about
-    return {"titulo": titulo, "campos": campos}
+    tardios = extraer_tardia(src)
+    for etiqueta, valor in tardios.items():
+        campos.setdefault(etiqueta, valor)
+    return {"titulo": titulo, "campos": campos, "intermedia": bool(tardios)}
 
 
 def marca_perfil(r: dict) -> str:
@@ -294,11 +368,15 @@ def main() -> None:
             fh.write(cuerpo)
         src = cuerpo.decode("utf-8", "replace")
         datos = extraer(src)
-        plantilla = "clasica" if datos["campos"] else ("moderna" if "MySpace" in datos["titulo"] else "otra")
+        plantilla = ("intermedia" if datos.get("intermedia") else "clasica") if datos["campos"] \
+            else ("moderna" if "MySpace" in datos["titulo"] else "otra")
         no_ascii = sum(1 for c in src[:200000] if ord(c) > 127)
         registro.update({"ok": bool(datos["campos"]) or bool(datos["titulo"]), "bytes": len(cuerpo),
                          "plantilla": plantilla, "titulo": datos["titulo"][:200], "campos": datos["campos"],
                          "no_ascii": no_ascii, "archivo": archivo, "fuente": fuente})
+        foto = foto_default(src) or foto_tardia(src)
+        if foto:
+            registro["foto_url"] = foto
         capturados += 1
         log(f"  {i}/{len(pendientes)} {slug}: OK {len(cuerpo)} B · {plantilla} · campos {list(datos['campos'])[:8]}")
         evento({**base, "fase": "resultado", "fuente": fuente, "forma": forma, "ts_elegido": ts, "anio": int(ts[:4]),

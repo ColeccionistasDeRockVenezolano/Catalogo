@@ -607,7 +607,6 @@ def bloque_f():
             perfiles[str(r.get("slug") or r.get("ma_id"))] = r
     lista = list(perfiles.values())
     con_datos = [r for r in lista if r.get("campos")]
-    sin_clasico = [r for r in lista if r.get("sin_clasico_definitivo")]
     pendientes = max(0, cola - len(lista))
     con_miembros = sum(1 for r in con_datos if (r.get("campos") or {}).get("Band Members"))
     con_about = sum(1 for r in con_datos if (r.get("campos") or {}).get("About"))
@@ -638,10 +637,20 @@ def bloque_f():
     for r in con_datos:
         for c in r.get("campos") or {}:
             campos[c] += 1
-    # Estado de las DOS fases del segmento: la captura cerró sus pasadas (unidad inactiva con la
-    # cola completa) y la bajada de fotos corre aparte → el título muestra una píldora por fase.
+    # Captura: sin datos puede ser (a) cierre definitivo con flag, (b) fallo sin cerrar
+    # (reintentable) o (c) reabierto para la pasada de la plantilla intermedia 2011-2012.
+    cerrados = [r for r in lista if r.get("sin_clasico_definitivo") and not r.get("campos")]
+    sin_cerrar = [r for r in lista if not r.get("campos") and not r.get("archivo") and not r.get("sin_clasico_definitivo")]
+    reabiertos = [r for r in lista if r.get("reabierto_tardia") and not r.get("campos")]
+    intermedia = [r for r in con_datos if r.get("plantilla") == "intermedia"]
+    # Estado de las DOS fases del segmento: captura (unidad vieja o la de la pasada de
+    # intermedia r5) y bajada de fotos; el título muestra una píldora por fase.
     u_cap, u_fot = unidad("myspace-campana"), unidad("myspace-fotos")
-    et_cap, clase_cap = ("activa", "ok") if u_cap == "active" else (("terminada", "apagado") if pendientes == 0 else ("parada", "mal"))
+    if unidad("myspace-campana-r5") == "active":
+        u_cap = "active"  # re-captura de la plantilla intermedia 2011-2012
+    en_cola = pendientes + len(sin_cerrar) + len(reabiertos)
+    et_cap, clase_cap = ("activa", "ok") if u_cap == "active" else (("terminada", "apagado") if en_cola == 0 else ("parada", "mal"))
+    pill_cap_det = f" · {en_cola} en cola" if en_cola else ""
     et_fot, clase_fot = ("activa", "ok") if u_fot == "active" else (("terminada", "apagado") if con_foto and fotos_hechas >= con_foto else ("parada", "mal"))
     pill_fot_det = f" · {fotos_hechas}/{con_foto}" if con_foto else ""
     ultima = (leer(base / "myspace-piloto.log", 1) or [""])[0].strip()[:160]
@@ -652,20 +661,22 @@ def bloque_f():
         for r in con_datos[-12:][::-1]
     ]
     return f"""<section>
-  <h2>6 · Perfiles MySpace por Wayback <span class="mini">(desde los enlaces «Related Links» de Metal Archives)</span> <span class="pill {clase_cap}">captura: {esc(et_cap)}</span> <span class="pill {clase_fot}">fotos: {esc(et_fot + pill_fot_det)}</span></h2>
+  <h2>6 · Perfiles MySpace por Wayback <span class="mini">(desde los enlaces «Related Links» de Metal Archives)</span> <span class="pill {clase_cap}">captura: {esc(et_cap + pill_cap_det)}</span> <span class="pill {clase_fot}">fotos: {esc(et_fot + pill_fot_det)}</span></h2>
   <p class="explica">De las 611 bandas VE capturadas de MA salieron <b>263 perfiles MySpace</b> (260 bandas; 205 con ficha).
   Cada perfil se busca en Wayback y se extrae el perfil clásico (2005-2010): <b>About</b> (bio), <b>Band Members</b> (con instrumento),
   <b>Influences</b>, <b>Sounds Like</b>, <b>Record Label</b>, <b>Band Website</b> — insumo para bios, miembros, géneros y redes.
   Patrones medidos que guían la captura (los saca <code>07-patrones.py</code>): la variante <code>www.myspace.com/&lt;slug&gt;:80</code>
-  rinde ~91 % de perfiles clásicos frente al ~11 % de <code>myspace.com/&lt;slug&gt;</code>; los snapshots de 2011 en adelante
-  no traen datos (plantilla JS); los perfiles con solo un 301 moderno no tienen clásico y no se reintentan.
-  La captura ya cerró sus pasadas; ahora corre la bajada de las fotos de perfil a disco (variantes de talla del mismo hash en Wayback).</p>
+  rinde ~91 % de perfiles clásicos frente al ~11 % de <code>myspace.com/&lt;slug&gt;</code>. La plantilla intermedia 2011-2012
+  también rinde (About, miembros, influencias, género) con el extractor tardío — el «corte 2010» del análisis de patrones
+  era un artefacto del extractor clásico, no de la fuente; los 2013+ (plantilla moderna) siguen sin datos.
+  Ahora corren en paralelo la re-captura de los reabiertos (pasada 5) y la bajada de las fotos de perfil a disco.</p>
   <div class="barras">
     {barra_linea("Perfiles con datos extraídos", len(con_datos), cola)}
-    {barra_linea("Sin clásico archivado (solo 301 o 2011+; cierre definitivo)", len(sin_clasico), cola, "azul")}
+    {barra_linea("Cierres definitivos sin datos (solo 301/2013+)", len(cerrados), cola, "azul")}
     {barra_linea("Pendientes / en reintento", pendientes, cola, "azul")}
     {barra_linea("De los capturados, con miembros", con_miembros, max(1, len(con_datos)), "azul")}
     {barra_linea("De los capturados, con About", con_about, max(1, len(con_datos)), "azul")}
+    {barra_linea("Plantilla intermedia 2011-2012 con datos", len(intermedia), max(1, len(con_datos)), "azul")}
     {barra_linea("Fotos ya intentadas (bajada o sin captura)", fotos_hechas, max(1, con_foto), "azul")}
     {barra_linea("Fotos de perfil (default pic) bajadas a disco", fotos_ok, max(1, con_foto), "azul")}
   </div>
