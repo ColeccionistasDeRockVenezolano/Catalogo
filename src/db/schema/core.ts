@@ -14,8 +14,10 @@ import {
   boolean,
   date,
   integer,
+  jsonb,
   pgEnum,
   pgTable,
+  real,
   smallint,
   text,
   timestamp,
@@ -256,4 +258,64 @@ export const socialLinks = pgTable("social_links", {
   verified: boolean("verified").notNull().default(false),
   notes: text("notes"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+// 0081 (2026-10-16): datos sociales por entidad — décima excepción aprobada al
+// core, pedida por Brian («vincules estas métricas con artistas/albums/pistas y
+// que se actualicen semanalmente… quiero las opiniones de la gente»).
+// `entity_metrics` guarda FOTOS de métricas con fecha (el histórico no se pisa);
+// `entity_user_tags` la folksonomía cruda de Last.fm; `entity_shouts` los
+// comentarios de usuarios; y `entity_emotions` el agregado clasificado (Laya).
+export const entityMetrics = pgTable("entity_metrics", {
+  id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+  artistId: bigint("artist_id", { mode: "number" }).references(() => artists.id, { onDelete: "cascade" }),
+  albumId: bigint("album_id", { mode: "number" }).references(() => albums.id, { onDelete: "cascade" }),
+  trackId: bigint("track_id", { mode: "number" }).references(() => tracks.id, { onDelete: "cascade" }),
+  source: varchar("source", { length: 24 }).notNull(),
+  listeners: bigint("listeners", { mode: "number" }),
+  playcount: bigint("playcount", { mode: "number" }),
+  capturedAt: timestamp("captured_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const entityUserTags = pgTable("entity_user_tags", {
+  id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+  artistId: bigint("artist_id", { mode: "number" }).references(() => artists.id, { onDelete: "cascade" }),
+  albumId: bigint("album_id", { mode: "number" }).references(() => albums.id, { onDelete: "cascade" }),
+  trackId: bigint("track_id", { mode: "number" }).references(() => tracks.id, { onDelete: "cascade" }),
+  source: varchar("source", { length: 24 }).notNull(),
+  tag: varchar("tag", { length: 250 }).notNull(),
+  weight: integer("weight").notNull().default(0),
+  emotions: jsonb("emotions"),
+  capturedAt: timestamp("captured_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const entityShouts = pgTable("entity_shouts", {
+  id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+  artistId: bigint("artist_id", { mode: "number" }).references(() => artists.id, { onDelete: "cascade" }),
+  albumId: bigint("album_id", { mode: "number" }).references(() => albums.id, { onDelete: "cascade" }),
+  trackId: bigint("track_id", { mode: "number" }).references(() => tracks.id, { onDelete: "cascade" }),
+  source: varchar("source", { length: 24 }).notNull(),
+  author: varchar("author", { length: 120 }).notNull(),
+  postedText: varchar("posted_text", { length: 80 }),
+  postedAt: timestamp("posted_at", { withTimezone: true }),
+  text: text("text").notNull(),
+  url: text("url").notNull(),
+  fingerprint: varchar("fingerprint", { length: 64 }).notNull(),
+  emotions: jsonb("emotions"),
+  capturedAt: timestamp("captured_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const entityEmotions = pgTable("entity_emotions", {
+  id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+  artistId: bigint("artist_id", { mode: "number" }).references(() => artists.id, { onDelete: "cascade" }),
+  albumId: bigint("album_id", { mode: "number" }).references(() => albums.id, { onDelete: "cascade" }),
+  trackId: bigint("track_id", { mode: "number" }).references(() => tracks.id, { onDelete: "cascade" }),
+  emotion: varchar("emotion", { length: 24 }).notNull(),
+  score: real("score").notNull().default(0),
+  basis: varchar("basis", { length: 16 }).notNull(),
+  evidence: integer("evidence").notNull().default(0),
+  detail: jsonb("detail"),
+  modelVersion: varchar("model_version", { length: 40 }),
+  computedAt: timestamp("computed_at", { withTimezone: true }).notNull().defaultNow(),
 });

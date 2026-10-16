@@ -65,14 +65,16 @@ async function pgDumpPublic(containerName: string): Promise<string> {
     // …y si las columnas quitadas eran las últimas (albums), la columna previa
     // queda con una coma colgando antes de `);`: se normaliza igual en ambos dumps.
     .replace(/,(\n\);)/gu, "$1")
-    // La sexta, la séptima y la octava excepción (0039, 0040, 0063): las tablas
-    // `public.streaming_links`, `public.social_links`, `public.album_discs` y
-    // `public.album_disc_links`. Se descartan sus bloques completos (CREATE
+    // La sexta, la séptima, la octava y la décima excepción (0039, 0040, 0063,
+    // 0081): las tablas `public.streaming_links`, `public.social_links`,
+    // `public.album_discs`, `public.album_disc_links` y las cuatro de datos
+    // sociales (`entity_metrics`, `entity_user_tags`, `entity_shouts`,
+    // `entity_emotions`). Se descartan sus bloques completos (CREATE
     // TABLE, constraints e índices; su disparador del diario ya lo quita el
     // filtro genérico de arriba) para que «antes» y «después» de migrar sigan
     // coincidiendo.
     .split("--\n-- Name: ")
-    .filter((bloque, i) => i === 0 || !/^((streaming|social)_links|album_disc(s|_links))/u.test(bloque))
+    .filter((bloque, i) => i === 0 || !/^((streaming|social)_links|album_disc(s|_links)|entity_(metrics|user_tags|shouts|emotions))/u.test(bloque))
     .join("--\n-- Name: ");
 }
 
