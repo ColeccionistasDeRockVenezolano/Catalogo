@@ -611,43 +611,65 @@ def bloque_f():
     pendientes = max(0, cola - len(lista))
     con_miembros = sum(1 for r in con_datos if (r.get("campos") or {}).get("Band Members"))
     con_about = sum(1 for r in con_datos if (r.get("campos") or {}).get("About"))
-    fotos_ok = fotos_total = 0
-    ruta_fotos = base / "fotos.csv"
-    if ruta_fotos.exists():
-        import csv as _csv
-        with open(ruta_fotos, encoding="utf-8") as fh:
-            filas_f = list(_csv.reader(fh))[1:]
-        fotos_total = len(filas_f)
-        fotos_ok = sum(1 for f in filas_f if len(f) > 8 and f[8] == "ok")
+    # Fase de fotos: el CSV de resultados solo se escribe al cerrar la pasada, así que el avance
+    # vivo sale de fotos-eventos.jsonl (un evento `resultado` por foto; dedup por ma_id).
+    con_foto = sum(1 for r in lista if r.get("foto_url"))
+    foto_resultado: dict = {}
+    ruta_eventos_f = base / "fotos-eventos.jsonl"
+    if ruta_eventos_f.exists():
+        for linea in ruta_eventos_f.read_text(encoding="utf-8").splitlines():
+            try:
+                ev = json.loads(linea)
+            except Exception:
+                continue
+            if ev.get("fase") == "resultado":
+                foto_resultado[str(ev.get("ma_id"))] = ev.get("resultado")
+    fotos_hechas = len(foto_resultado)
+    fotos_ok = sum(1 for v in foto_resultado.values() if v == "ok")
+    if not foto_resultado:  # respaldo: pasadas anteriores con el CSV ya cerrado
+        ruta_fotos = base / "fotos.csv"
+        if ruta_fotos.exists():
+            import csv as _csv
+            with open(ruta_fotos, encoding="utf-8") as fh:
+                filas_f = list(_csv.reader(fh))[1:]
+            fotos_hechas = len(filas_f)
+            fotos_ok = sum(1 for f in filas_f if len(f) > 8 and f[8] == "ok")
     campos = Counter()
     for r in con_datos:
         for c in r.get("campos") or {}:
             campos[c] += 1
-    est = unidad("myspace-campana")
-    clase_u = "ok" if est == "active" else "apagado"
+    # Estado de las DOS fases del segmento: la captura cerró sus pasadas (unidad inactiva con la
+    # cola completa) y la bajada de fotos corre aparte → el título muestra una píldora por fase.
+    u_cap, u_fot = unidad("myspace-campana"), unidad("myspace-fotos")
+    et_cap, clase_cap = ("activa", "ok") if u_cap == "active" else (("terminada", "apagado") if pendientes == 0 else ("parada", "mal"))
+    et_fot, clase_fot = ("activa", "ok") if u_fot == "active" else (("terminada", "apagado") if con_foto and fotos_hechas >= con_foto else ("parada", "mal"))
+    pill_fot_det = f" · {fotos_hechas}/{con_foto}" if con_foto else ""
     ultima = (leer(base / "myspace-piloto.log", 1) or [""])[0].strip()[:160]
+    ultima_fotos = (leer(base / "fotos.log", 1) or [""])[0].strip()[:160]
     filas = [
         [r.get("banda", "")[:34], (r.get("snapshot_ts") or "")[:4] or "—",
          str(len(r.get("campos") or {})), ", ".join(sorted(r.get("campos") or {})[:4])]
         for r in con_datos[-12:][::-1]
     ]
     return f"""<section>
-  <h2>6 · Perfiles MySpace por Wayback <span class="mini">(desde los enlaces «Related Links» de Metal Archives)</span> <span class="pill {clase_u}">{esc(est)}</span></h2>
+  <h2>6 · Perfiles MySpace por Wayback <span class="mini">(desde los enlaces «Related Links» de Metal Archives)</span> <span class="pill {clase_cap}">captura: {esc(et_cap)}</span> <span class="pill {clase_fot}">fotos: {esc(et_fot + pill_fot_det)}</span></h2>
   <p class="explica">De las 611 bandas VE capturadas de MA salieron <b>263 perfiles MySpace</b> (260 bandas; 205 con ficha).
   Cada perfil se busca en Wayback y se extrae el perfil clásico (2005-2010): <b>About</b> (bio), <b>Band Members</b> (con instrumento),
   <b>Influences</b>, <b>Sounds Like</b>, <b>Record Label</b>, <b>Band Website</b> — insumo para bios, miembros, géneros y redes.
   Patrones medidos que guían la captura (los saca <code>07-patrones.py</code>): la variante <code>www.myspace.com/&lt;slug&gt;:80</code>
   rinde ~91 % de perfiles clásicos frente al ~11 % de <code>myspace.com/&lt;slug&gt;</code>; los snapshots de 2011 en adelante
-  no traen datos (plantilla JS); los perfiles con solo un 301 moderno no tienen clásico y no se reintentan.</p>
+  no traen datos (plantilla JS); los perfiles con solo un 301 moderno no tienen clásico y no se reintentan.
+  La captura ya cerró sus pasadas; ahora corre la bajada de las fotos de perfil a disco (variantes de talla del mismo hash en Wayback).</p>
   <div class="barras">
     {barra_linea("Perfiles con datos extraídos", len(con_datos), cola)}
     {barra_linea("Sin clásico archivado (solo 301 o 2011+; cierre definitivo)", len(sin_clasico), cola, "azul")}
     {barra_linea("Pendientes / en reintento", pendientes, cola, "azul")}
     {barra_linea("De los capturados, con miembros", con_miembros, max(1, len(con_datos)), "azul")}
     {barra_linea("De los capturados, con About", con_about, max(1, len(con_datos)), "azul")}
-    {barra_linea("Fotos de perfil (default pic) bajadas a disco", fotos_ok, max(1, fotos_total), "azul")}
+    {barra_linea("Fotos ya intentadas (bajada o sin captura)", fotos_hechas, max(1, con_foto), "azul")}
+    {barra_linea("Fotos de perfil (default pic) bajadas a disco", fotos_ok, max(1, con_foto), "azul")}
   </div>
-  <p class="mini">Última línea del log: <code>{esc(ultima)}</code></p>
+  <p class="mini">Captura (última línea del log): <code>{esc(ultima)}</code><br>Fotos (última línea del log): <code>{esc(ultima_fotos)}</code></p>
   <h3>Campos que rinden</h3>
   <p class="mini">{esc(", ".join(f"{c}: {n}" for c, n in campos.most_common(8))) or "todavía sin extracciones."}</p>
   <h3>Últimos perfiles capturados</h3>
