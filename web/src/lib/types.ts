@@ -26,13 +26,35 @@ export interface SearchHit {
   albumId: number | null;
 }
 
-export type SearchResults = Record<SearchEntityType, SearchHit[]>;
+/** Emoción (taxonomía Laya) con la que la búsqueda clasificó la consulta. */
+export type Emotion = "emocion" | "tristeza" | "enfocado" | "libertad" | "cachonda" | "aumenta_mi_aura";
+
+export interface EmotionArtist {
+  id: number;
+  name: string;
+  emotion: Emotion;
+  /** Suma de los pesos (0–100) de los tags que sustentan la emoción. */
+  score: number;
+  evidence: number;
+  listeners: number;
+  tags: { tag: string; weight: number }[];
+}
+
+/** Bloque «Por emoción»: «música para tener sexo» → artistas con esa emoción. */
+export interface EmotionMatch {
+  emotion: Emotion;
+  artists: EmotionArtist[];
+}
+
+export type SearchResults = Record<SearchEntityType, SearchHit[]> & { emotion?: EmotionMatch | null };
 
 // ---------- artists ----------
 export interface ArtistListItem {
   id: number;
   name: string;
   artistType: string;
+  /** Banda, solista o dúo para el público (band, solo_artist, duo); `artistType` es el dato guardado. */
+  artistGroup?: string;
   originCity: string | null;
   originCountry: string;
   formedYear: number | null;
@@ -64,6 +86,11 @@ export interface ArtistMember {
 
 export interface DiscographyItem {
   albumId: number; title: string; releaseYear: number | null; albumType: string; coverUrl: string | null; genres?: PublicGenre[];
+  /** Álbum en vivo o sencillo/EP con la clasificación «En vivo». */
+  isLive?: boolean;
+  isBSides?: boolean;
+  classifications?: Array<{ classification: string }>;
+  editionTypes?: string[];
 }
 
 /** Género público (PLAN_GENEROS §5): solo lo confirmado. */
@@ -72,6 +99,9 @@ export interface PublicGenre { id: number; slug: string; name: string; family: s
 export type GenreStatus = "confirmed" | "pending" | "unclassified";
 
 export interface ArtistDetail extends ArtistListItem {
+  audiovisuals?: ArtistAudiovisual[];
+  dailyCycle?: import("../../../src/shared/daily-cycle.js").DailyCycle;
+  channelVideo?: { date: string; videoId: string; url: string; title: string | null; count: number } | null;
   status?: string | null;
   themes?: string | null;
   yearsActive?: string | null;
@@ -96,6 +126,14 @@ export interface ArtistDetail extends ArtistListItem {
   /** Década de arranque (formación o primer disco); null si no hay año. */
   similarDecade: number | null;
   similar: SimilarArtist[];
+}
+
+export interface ArtistAudiovisual {
+  id: number; title: string; releaseYear: number | null;
+  kind: "documentary" | "live_concert" | "music_video" | "interview" | "short" | "other";
+  description: string | null; videoId: string | null; url: string | null; thumbnailUrl: string | null;
+  durationSeconds: number | null; publicationStatus: string; playable: boolean; publishedAt?: string | null;
+  chapters: Array<{ title: string; startSeconds: number }>;
 }
 
 export interface PlatformLink { platform: string; url: string; handle?: string | null; externalId?: string | null; }
@@ -143,6 +181,10 @@ export interface AlbumListItem {
   title: string;
   releaseYear: number | null;
   albumType: string;
+  isLive?: boolean;
+  isBSides?: boolean;
+  classifications?: Array<{ classification: string; inferred: boolean }>;
+  editionTypes?: string[];
   artistId: number;
   artistName: string;
   coverUrl: string | null;
@@ -237,6 +279,10 @@ export interface AlbumDetail {
   title: string;
   releaseYear: number | null;
   albumType: string;
+  isLive?: boolean;
+  isBSides?: boolean;
+  classifications?: Array<{ classification: string; inferred: boolean }>;
+  editionTypes?: string[];
   genre: string | null;
   /** Estado del género mostrado (PLAN_GENEROS §5). */
   genreStatus?: GenreStatus;
@@ -463,6 +509,7 @@ export interface OrganizationDetail extends OrganizationListItem {
 export interface LabelRef { organizationId: number; name: string; role: "label" | "distributor" | "licensee"; roleLabel: string }
 
 export interface AlbumVersion {
+  editionTypes?: string[];
   id: number; position: number; title: string | null; format: string | null; formatDetails: string | null; catalogNumber: string | null;
   country: string | null; releaseYear: number | null; releaseDate: string | null; coverUrl: string | null; notes: string | null;
   distinctTracks: boolean; discNumbers: number[]; isPrimary: boolean; source: string | null; sourceUrl: string | null; hasOwnPage: boolean;
@@ -1119,11 +1166,12 @@ export interface HomeAlbum {
 }
 
 export interface HomeData {
+  dailyCycle: import("../../../src/shared/daily-cycle.js").DailyCycle;
   date: string;
   wall: HomeAlbum[];
   channel: { url: string; checkedAt: string | null; stale: boolean };
   stats: { artists: number; albums: number; tracks: number; persons: number; firstYear: number | null; lastYear: number | null };
-  anniversaries: Array<{ years: number; releaseYear: number; total: number; albums: HomeAlbum[] }>;
+  eras: Array<{ decade: number; total: number; albums: HomeAlbum[] }>;
   videos: Array<{
     videoId: string; title: string | null; publishedAt: string | null; thumbnailUrl: string | null;
     album: { id: number; title: string } | null; artist: { id: number; name: string } | null;

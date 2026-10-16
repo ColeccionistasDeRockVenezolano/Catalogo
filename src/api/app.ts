@@ -1,3 +1,5 @@
+import { registerCatalogEditorRoutes } from "./routes/catalog-editor.js";
+import { registerSiteAppearanceRoutes } from "./routes/site-appearance.js";
 import { registerCatalogModelRoutes } from "./routes/catalog-model.js";
 // CRV · API Fastify (ARCHITECTURE.md §4.14, PHASES §E7A lectura + §E7B escritura).
 // Browser -> API -> PostgreSQL (CONTRACT #20): esta app es el único punto
@@ -24,7 +26,9 @@ import { registerDiscoveryRoutes } from "./routes/discovery.js";
 import { registerTrackContextRoutes } from "./routes/track-contexts.js";
 import { registerRecommendationRoutes } from "./routes/recommendations.js";
 import { registerSearchRoutes } from "./routes/search.js";
+import { registerEmotionRoutes } from "./routes/emotions.js";
 import { registerHomeRoutes } from "./routes/home.js";
+import { registerDailyCycleRoutes } from "./daily-cycle.js";
 import { registerArtistRoutes } from "./routes/artists.js";
 import { registerAlbumRoutes } from "./routes/albums.js";
 import { registerGenreRoutes } from "./routes/genres.js";
@@ -144,9 +148,12 @@ export async function buildApp(): Promise<FastifyInstance> {
 
   await registerOperatorAuth(app);
   await registerHealthRoutes(app);
+  await registerSiteAppearanceRoutes(app);
   await registerSitemapRoutes(app);
   await registerSearchRoutes(app);
+  await registerEmotionRoutes(app);
   await registerHomeRoutes(app);
+  await registerDailyCycleRoutes(app);
   await registerDiscoveryRoutes(app);
   await registerTrackContextRoutes(app);
   await registerRecommendationRoutes(app);
@@ -162,6 +169,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerYouTubeRoutes(app);
   await registerCatalogWriteRoutes(app);
   await registerCatalogModelRoutes(app);
+  await registerCatalogEditorRoutes(app);
   await registerRelationWriteRoutes(app);
   await registerPlatformLinkRoutes(app);
   await registerEntityMergeRoutes(app);

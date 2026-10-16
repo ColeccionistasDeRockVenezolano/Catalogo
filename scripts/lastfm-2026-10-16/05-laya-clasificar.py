@@ -29,7 +29,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 CACHE = OUT / 'tags-clasificados.jsonl'
 LOG = OUT / 'laya.log'
 SEP = chr(31)
-MODEL_VERSION = 'laya-multilingual-noul-en-v2-vocab'
+MODEL_VERSION = 'laya-multilingual-noul-en-v3-lexico'
 LIMITE = int(next((a.split('=', 1)[1] for a in sys.argv[1:] if a.startswith('--limite=')), '0') or 0)
 APPLY_ONLY = '--apply-only' in sys.argv
 

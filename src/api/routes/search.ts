@@ -3,6 +3,8 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { ALL_SEARCH_TYPES, searchEntityTypeSchema } from "../schemas.js";
 import { globalSearch } from "../repositories/search.js";
+import { detectEmotionIntent, emotionArtists } from "../repositories/emotions.js";
+import { emotionArtistSchema, emotionSchema } from "./emotions.js";
 import { ApiError, badRequest } from "../http-errors.js";
 import { clientIp, isLocalRequest } from "../auth.js";
 import { createWindowLimiter } from "../rate-limit.js";
@@ -56,6 +58,8 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
           album: z.array(searchHitSchema),
           track: z.array(searchHitSchema),
           organization: z.array(searchHitSchema),
+          emotion: z.object({ emotion: emotionSchema, artists: z.array(emotionArtistSchema) }).nullable()
+            .describe("Intención emocional de la consulta («música para tener sexo» → cachonda). Solo en la búsqueda principal."),
         }),
       },
     },
@@ -76,11 +80,15 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
       }
     }
     const result = await globalSearch(q, limit, (requestedTypes as typeof ALL_SEARCH_TYPES | undefined) ?? ALL_SEARCH_TYPES);
+    // Intención emocional: «música para tener sexo» → artistas con «cachonda».
+    const intent = requestedTypes ? null : detectEmotionIntent(q);
+    const emotion = intent ? { emotion: intent, artists: await emotionArtists(intent, limit) } : null;
     // Solo el buscador principal (sin `types`) y solo el público: los
     // administradores y los scripts no son la señal que se quiere medir.
     if (!requestedTypes && request.viewer?.role !== "admin" && !isLocalRequest(request)
-      && ALL_SEARCH_TYPES.every((type) => result[type].length === 0)) recordSearchMiss(q);
-    return result;
+      && ALL_SEARCH_TYPES.every((type) => result[type].length === 0)
+      && !(emotion && emotion.artists.length > 0)) recordSearchMiss(q);
+    return { ...result, emotion };
   });
 
   server.get("/search/misses", {

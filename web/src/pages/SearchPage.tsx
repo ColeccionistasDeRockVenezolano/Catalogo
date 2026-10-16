@@ -4,7 +4,7 @@ import { searchApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { TYPING_DEBOUNCE_MS } from "../lib/useDebouncedQuery";
 import { entityHref } from "../lib/routes";
-import { searchTypeLabel } from "../lib/labels";
+import { emotionLabel, searchTypeLabel } from "../lib/labels";
 import { ErrorState, EmptyState } from "../components/StateViews";
 import { RowsSkeleton } from "../components/Skeletons";
 import { CatalogSearchInput } from "../components/CatalogSearchInput";
@@ -61,7 +61,12 @@ export function SearchPage() {
   }
 
   const home = useHomeData();
-  const hasAnyResult = data ? GROUP_ORDER.some((type) => data[type].length > 0) : false;
+  // «música para tener sexo» no es un nombre: la API detecta la emoción pedida
+  // y devuelve artistas del catálogo que la expresan (tags y opiniones).
+  const emotionMatch = data?.emotion && data.emotion.artists.length > 0 ? data.emotion : null;
+  const hasAnyResult = data
+    ? GROUP_ORDER.some((type) => data[type].length > 0) || Boolean(emotionMatch)
+    : false;
 
   return (
     <>
@@ -99,6 +104,18 @@ export function SearchPage() {
           <EmptyState title={`Sin resultados para «${q}»`} hint="Prueba con otro nombre o revisa la ortografía." />
         ) : (
           <div className="search-groups">
+            {emotionMatch ? (
+              <div className="search-group search-group--emotion">
+                <h2>Por emoción: {emotionLabel(emotionMatch.emotion)} <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({emotionMatch.artists.length})</span></h2>
+                <p className="search-emotion-note">Estos artistas expresan esa emoción según las etiquetas y opiniones de sus oyentes.</p>
+                {emotionMatch.artists.map((artist) => (
+                  <Link key={`emotion-artist-${artist.id}`} className="search-hit" to={entityHref("artist", artist.id)}>
+                    <span className="label">{artist.name}</span>
+                    {artist.tags.length > 0 ? <span className="context">{artist.tags.map((tag) => tag.tag).join(" · ")}</span> : null}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
             {GROUP_ORDER.filter((type) => (data?.[type].length ?? 0) > 0).map((type) => (
               <div className="search-group" key={type}>
                 <h2>{searchTypeLabel(type)} <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({data![type].length})</span></h2>
