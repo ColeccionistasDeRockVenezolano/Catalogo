@@ -484,7 +484,7 @@ def bloque_b():
     if mh["lote"]:
         lote = mh["lote"]
         valor_ritmo = por_minuto(lote["n"], lote["span_s"])
-        pie_ritmo = (f"imágenes/min · último lote: {lote['n']} en {lote['span_s'] / 60:.0f} min "
+        pie_ritmo = (f"último lote: {lote['n']} imágenes en {lote['span_s'] / 60:.0f} min "
                      f"({lote['desde']}→{lote['hasta'].split()[-1]}, {lote['hasta'].split()[0]})")
     else:
         valor_ritmo, pie_ritmo = "—", "sin lote de descargas medible"
@@ -502,7 +502,7 @@ def bloque_b():
              "Fichas de artista con picture_url vacío: el objetivo de las fotos.")}
     {tarjeta("Imágenes asociadas hoy", f'<b>{esc(asociadas)}</b>', "descargadas a disco y asociadas",
              "Del manifiesto de media:localize: entradas con associatedAt de hoy, por tipo de ficha.")}
-    {tarjeta("Ritmo de descarga (hoy)", f"<b>{esc(valor_ritmo)}</b>", esc(pie_ritmo),
+    {tarjeta("Ritmo de descarga (último lote)", f"<b>{esc(valor_ritmo)}</b>", esc(pie_ritmo),
              "Velocidad de la etapa de bajada y asociación (localize-images), medida con los "
              "downloadedAt/associatedAt del manifiesto: es la etapa que escribe en el catálogo.")}
   </div>
