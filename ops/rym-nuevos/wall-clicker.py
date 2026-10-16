@@ -94,7 +94,13 @@ CURSOR_ENLACE = {"pointer", "hand", "hand1", "hand2", "pointing_hand"}
 BOT_RE = r"un momento|just a moment|attention required|verify you are human|verifica que eres|security check|checking your browser|cloudflare"
 INTERVALO = (30, 65)      # s entre clics (instrucción del dueño 2026-10-05)
 INTERVALO_RECARGA = (90, 180)  # s entre recargas de sesión mientras el capturador está bloqueado
-IDLE_MIN = 20             # s sin uso del teclado/ratón antes de tocar nada
+INTERVALO_SESION = (600, 900)  # s entre refrescos preventivos de la sesión (sin muro y con el dueño delante)
+IDLE_MIN = 8              # s sin uso del teclado/ratón antes de tocar nada (ver nota de 2026-10-16)
+# Nota 2026-10-16 (queja del dueño «el clicker sigue sin hacer nada útil»): con 20 s el cliquer cedía
+# el control SIEMPRE que el dueño estaba delante (114 de 123 ciclos en una hora: 2 clics útiles en
+# el día). La red de seguridad real no es el umbral sino `Interaccion.comprobar()`: cualquier entrada
+# nueva del dueño aborta la interacción y devuelve el foco al instante («cedo el control»). Con 8 s
+# entra en las pausas naturales de lectura y sigue sin tocar nada mientras se teclea seguido.
 M_GUARDIA = f"{MK}/clicker-guardia"
 ULTIMO_CLIC_TS = None
 PROXIMO_CLIC_TS = None
@@ -102,6 +108,7 @@ _INTERACCION = None
 _FUENTE_CACHE = (0.0, None)
 _MURO_CACHE = (0.0, None, None)
 _RECARGA_TS = 0.0         # hora de la última recarga de sesión (F5) durante un muro del capturador
+_SESION_TS = 0.0          # hora del último refresco preventivo de la sesión (F5, sin muro)
 _ENLACES = {}            # posiciones verificadas por ventana, URL y geometría (máximo 64)
 _BUSQUEDAS = {}          # siguiente tramo de la rejilla; evita repetir seis puntos vacíos
 ERROR_RE = (r"problema al cargar la p[aá]gina|problem loading page|server not found|"
@@ -674,6 +681,57 @@ def esperar_titulo(wid, viejo, seg=3.0):
     return t
 
 
+def refrescar_sesion_periodica():
+    """F5 preventivo sobre la pestaña RYM del dueño (sin muro): mantiene viva la cf_clearance.
+
+    Con el dueño delante el cliquer no puede clicar (cedería ante su uso), pero SÍ puede mantener la
+    sesión: es un F5 y restaurar. Reglas: nunca si él ya está en la pestaña de RYM (sesión caliente),
+    nunca si acaba de teclear (≥3 s), nunca sobre un reto visible, y una vez cada 10-15 min.
+    """
+    global _SESION_TS
+    if os.path.exists(M_PAUSA):
+        return False, "pausa manual: no refresco"
+    espera = random.randint(*INTERVALO_SESION)
+    if time.time() - _SESION_TS < espera:
+        return False, "sesión al día"
+    ventanas = ventanas_firefox()
+    if bloqueo_bots(ventanas):
+        return False, "tu Firefox muestra un reto: no lo toco"
+    v = ventana_rym(ventanas)
+    if not v:
+        return False, "sin pestaña RYM visible: no refresco"
+    wid, pid, titulo, _ = v
+    previa, origen = ventana_activa(), puntero()
+    ina = dueño_inactivo_s()
+    # Si la pestaña de RYM es la ventana activa Y el dueño la tocó hace poco, está leyéndola: aparte.
+    # Pero estar EN la página no renueva nada: si lleva un minuto sin tocar nada, el F5 es lo útil.
+    if previa == wid and ina < 60:
+        return False, f"estás mirando RYM (uso hace {ina:.0f} s): no refresco"
+    if ina < 3:
+        return False, f"acabas de usar el teclado/ratón ({ina:.0f} s): cedo"
+    interaccion = Interaccion(wid, previa, origen)
+    try:
+        if previa != wid and not activar(wid):
+            return False, "no pude activar Firefox: no mando el F5"
+        comprobar_control()
+        url_activa = leer_url_activa()
+        if url_activa is None or not url_rym_valida(url_activa):
+            return False, "la pestaña activa no está en RYM: no refresco"
+        _SESION_TS = time.time()
+        _tecla(0xFFC2)  # F5
+        nuevo = esperar_titulo(wid, titulo, seg=15.0)
+        if re.search(BOT_RE, nuevo, re.I):
+            return False, "tras el F5 aparece un reto: lo dejo, no lo toco"
+        return True, f"F5 preventivo de sesión («{titulo[:26]}» → «{nuevo[:26]}»)"
+    except Interrumpido as exc:
+        return False, f"refresco cancelado: {exc}"
+    finally:
+        try:
+            interaccion.restaurar()
+        finally:
+            _INTERACCION = None
+
+
 def recargar_sesion(detalle):
     """El capturador está bloqueado: refresca la SESIÓN del dueño con un F5 humano.
 
@@ -688,9 +746,6 @@ def recargar_sesion(detalle):
     espera = random.randint(*INTERVALO_RECARGA)
     if time.time() - _RECARGA_TS < espera:
         return False, f"bloqueo del capturador: espero entre recargas ({espera} s)"
-    ina = dueño_inactivo_s()
-    if ina < IDLE_MIN:
-        return False, f"estás usando el equipo (actividad hace {ina:.0f} s): no recargo"
     ventanas = ventanas_firefox()
     bot = bloqueo_bots(ventanas)
     if bot:
@@ -702,6 +757,15 @@ def recargar_sesion(detalle):
         return False, "sin pestaña RYM visible en el Firefox del dueño: no recargo"
     wid, pid, titulo, _ = v
     previa, origen = ventana_activa(), puntero()
+    # Durante un MURO el refresco es la acción que destraba la captura, así que no se exige la
+    # inactividad completa del dueño: basta con que NO esté mirando la propia pestaña de RYM (si la
+    # usa él, la sesión ya está caliente) y con que no haya tecleado en el último par de segundos.
+    # Cualquier entrada nueva durante la interacción la aborta y devuelve el foco (`comprobar_control`).
+    ina = dueño_inactivo_s()
+    if previa == wid and ina < 60:
+        return False, f"estás en la pestaña de RYM (uso hace {ina:.0f} s): no recargo"
+    if ina < 3:
+        return False, f"acabas de usar el teclado/ratón ({ina:.0f} s): no recargo"
     interaccion = Interaccion(wid, previa, origen)
     try:
         if previa != wid and not activar(wid):
@@ -749,6 +813,11 @@ def clickear():
         # tocar ningún reto) la renueva y destraba al capturador. Antes esto se quedaba en «espero» y
         # el bloqueo se sostenía solo (medido 2026-10-16: 503 de 01:28 a 01:50 con 1 clic en el día).
         return recargar_sesion(detalle)
+    # Sin muro: con el dueño delante el clic está descartado (cedería ante su uso), pero la sesión
+    # se mantiene con un F5 preventivo cada 10-15 min — así la cf_clearance no envejece sin testigos.
+    refresco, motivo_refresco = refrescar_sesion_periodica()
+    if refresco:
+        return True, motivo_refresco
     ina = dueño_inactivo_s()
     if ina < IDLE_MIN:
         return False, f"estás usando el equipo (actividad hace {ina:.0f} s): espero"
@@ -838,6 +907,8 @@ def guardar_guardia(modo, hecho, motivo):
         g["clics_dia"] = g.get("clics_dia", 0) + 1
         g["ultimo"] = int(ULTIMO_CLIC_TS or time.time())
         g["ultimo_motivo"] = motivo[:160]
+    if hecho and "F5" in (motivo or ""):
+        g["recargas_dia"] = g.get("recargas_dia", 0) + 1
     tmp = M_GUARDIA + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
         f.write(json.dumps(g, ensure_ascii=False))

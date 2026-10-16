@@ -417,11 +417,12 @@ def bloque_a():
         tarjeta("Muro de Cloudflare", f'<span class="{clase_muro}">{estado_muro}</span>', f"última marca {esc(str(cuando))}",
                 ayuda_muro, clase=clase_muro),
         tarjeta("Cliquer (sesión del dueño)", f'<span class="{"ok" if cliquer.get("modo") != "muro" else "ojo"}">{esc(str(cliquer.get("modo") or "?"))}</span>',
-                f"clics hoy {cliquer.get('clics_dia', 0)} · última: {esc(str(cliquer.get('motivo') or '-')[:60])}",
-                "El cliquer mantiene caliente la sesión del Firefox del dueño (clics humanos en enlaces de RYM cada "
-                "30-65 s). Durante un muro del capturador ya NO se queda quieto: refresca la pestaña con F5 cada "
-                "90-180 s (solo con el dueño inactivo y sin tocar retos) para renovar la cf_clearance que el "
-                "capturador recarga al reintentar. Bloqueos de hoy: "
+                f"clics hoy {cliquer.get('clics_dia', 0)} · refrescos {cliquer.get('recargas_dia', 0)} · última: {esc(str(cliquer.get('motivo') or '-')[:52])}",
+                "Mantiene caliente la sesión del Firefox del dueño. Tres modos: (1) clics humanos en enlaces de RYM "
+                "cada 30-65 s cuando el dueño no está (8 s de silencio); (2) con el dueño delante, un F5 preventivo "
+                "de la pestaña de RYM cada 10-15 min, sin tocar su ventana activa; (3) en muro del capturador, F5 "
+                "cada 90-180 s aunque el dueño esté presente (nunca si él está en la pestaña de RYM ni si acaba de "
+                "teclear). Nunca toca un reto visible. Bloqueos de hoy: "
                 f"{bloqueos_403} de 403 (Cloudflare) y {bloqueos_503} de 503 (muro propio)."),
     ]
 
