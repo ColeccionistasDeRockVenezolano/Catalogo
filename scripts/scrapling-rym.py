@@ -417,8 +417,27 @@ def main():
     if args.phase in ("artists", "both"):
         pendientes = [("artist", norm_href(r["rymHref"]), r) for r in cola
                       if norm_href(r["rymHref"]) and not es_hecho_artista(estado.get(norm_href(r["rymHref"])))]
-        random.shuffle(pendientes)
-        log(f"fase 1 (fichas): {len(pendientes)} artistas por capturar")
+        # Orden de VALOR, no solo azar: las de existencia confirmada (fuente='existe', las primeras de
+        # la cola) rinden el 100 % y las inferidas ~23 % (medido 2026-10-16: 106/106 vs 245/1.076 en
+        # 1.177 fichas). Se respeta ese orden y el shuffle solo dispersa DENTRO de cada bloque — mismo
+        # criterio que la fase de discos con `--prioridad`. Colas sin `fuente` (campaña «nuevos») van
+        # todas al bloque 0: se comportan como antes.
+        def bloque_art(it):
+            return 0 if (it[2] or {}).get("fuente") == "existe" else 1
+        ordenados = []
+        i = 0
+        while i < len(pendientes):
+            j = i
+            k = bloque_art(pendientes[i])
+            while j < len(pendientes) and bloque_art(pendientes[j]) == k:
+                j += 1
+            bloque = pendientes[i:j]
+            random.shuffle(bloque)
+            ordenados.extend(bloque)
+            i = j
+        pendientes = ordenados
+        confirmadas = sum(1 for it in pendientes if bloque_art(it) == 0)
+        log(f"fase 1 (fichas): {len(pendientes)} artistas por capturar ({confirmadas} de existencia confirmada primero)")
         procesar(pendientes, 1, len(pendientes))
         log("FASE 1 TERMINADA (fichas)")
         marca_f1 = os.path.join(outdir, reglas.MARCA_FASE1)
