@@ -365,6 +365,16 @@ def bloque_a():
         pass
     eta = f"~{pendientes * seg_ficha / 3600:.1f} h" if pendientes and seg_ficha else "—"
     clase_muro = "ok" if estado_muro == "OK" else "mal"
+    if estado_muro.startswith("MURO SUAVE"):
+        ayuda_muro = ("RYM devolvió 503 «Security check required» (muro propio del sitio): el motor "
+                      "enfría y reintenta solo, sin perder nada. Si se sostiene más de ~20 min, "
+                      "abrirlo en el Firefox del dueño refresca la sesión.")
+    elif estado_muro == "MURO":
+        ayuda_muro = ("Muro de Cloudflare (403 «Un momento…»): la sesión del dueño venció — abrir "
+                      "rateyourmusic.com en su Firefox ~30 s. El motor reintenta solo cada ~20 min "
+                      "recargando cookies y los ítems quedan pendientes (nada se pierde).")
+    else:
+        ayuda_muro = "OK = RYM responde con normalidad; última marca de captura la de la izquierda."
     u, clase_u = estado_de("crv-scrapling-rym-resto", LOG_A)
 
     tarjetas = [
@@ -390,7 +400,7 @@ def bloque_a():
                 "Fichas intentadas por minuto y páginas útiles por hora en los últimos 30 min (del ts de cada ficha en estado.json). "
                 "Lo útil no es lo mismo que lo intentado: las inferidas fallan mucho más que las confirmadas."),
         tarjeta("Muro de Cloudflare", f'<span class="{clase_muro}">{estado_muro}</span>', f"última marca {esc(str(cuando))}",
-                "OK = RYM responde. MURO = pide al dueño abrir rateyourmusic.com en Firefox ~30 s; la unidad reintenta sola."),
+                ayuda_muro, clase=clase_muro),
     ]
 
     filas_tabla = []
