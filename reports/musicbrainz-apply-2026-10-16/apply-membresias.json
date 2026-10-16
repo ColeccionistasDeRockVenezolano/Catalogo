@@ -1,0 +1,140 @@
+{
+ "modo": "membresias",
+ "aplicados": 65,
+ "yaEstaban": 27,
+ "saltados": 0,
+ "review": [
+  {
+   "fila": {
+    "artistId": 700,
+    "banda": "cronos",
+    "personId": 2953,
+    "role": "Guitars",
+    "fromYear": 1984,
+    "toYear": 1992,
+    "isCurrent": false,
+    "url": "https://musicbrainz.org/artist/e88117d5-9b6c-425d-98fc-de6f12624aba",
+    "evidencia": "MusicBrainz: Cronos — miembro (guitar) 1984–1992"
+   },
+   "detail": "período contradictorio para una membresía ya registrada; review=1854597"
+  },
+  {
+   "fila": {
+    "artistId": 700,
+    "banda": "cronos",
+    "personId": 2953,
+    "role": "Guitars",
+    "fromYear": 2002,
+    "toYear": 2006,
+    "isCurrent": false,
+    "url": "https://musicbrainz.org/artist/e88117d5-9b6c-425d-98fc-de6f12624aba",
+    "evidencia": "MusicBrainz: Cronos — miembro (guitar) 2002–2006"
+   },
+   "detail": "período contradictorio para una membresía ya registrada; review=1854598"
+  },
+  {
+   "fila": {
+    "artistId": 700,
+    "banda": "cronos",
+    "personId": 2953,
+    "role": "Guitars",
+    "fromYear": 2019,
+    "toYear": null,
+    "isCurrent": true,
+    "url": "https://musicbrainz.org/artist/e88117d5-9b6c-425d-98fc-de6f12624aba",
+    "evidencia": "MusicBrainz: Cronos — miembro (guitar) 2019–presente"
+   },
+   "detail": "período contradictorio para una membresía ya registrada; review=1854599"
+  },
+  {
+   "fila": {
+    "artistId": 36,
+    "banda": "aditus",
+    "personId": 38,
+    "role": "Guitars & Vocals",
+    "fromYear": 1980,
+    "toYear": 1993,
+    "isCurrent": false,
+    "url": "https://musicbrainz.org/artist/7e9312b6-7f1f-4d26-96b4-1cb1c5d10b9f",
+    "evidencia": "MusicBrainz: Aditus — miembro (guitar, lead vocals) 1980–1993"
+   },
+   "detail": "período contradictorio para una membresía ya registrada; review=1854600"
+  },
+  {
+   "fila": {
+    "artistId": 58,
+    "banda": "caramelos de cianuro",
+    "personId": 2713,
+    "role": "Drums",
+    "fromYear": 1989,
+    "toYear": 1998,
+    "isCurrent": false,
+    "url": "https://musicbrainz.org/artist/3ee62edc-3521-4c39-89ce-081aafa79c00",
+    "evidencia": "MusicBrainz: Caramelos de Cianuro — miembro (drums (drum set)) 1989–1998"
+   },
+   "detail": "período contradictorio para una membresía ya registrada; review=1854601"
+  },
+  {
+   "fila": {
+    "artistId": 58,
+    "banda": "caramelos de cianuro",
+    "personId": 2698,
+    "role": "Bass",
+    "fromYear": 1989,
+    "toYear": 1999,
+    "isCurrent": false,
+    "url": "https://musicbrainz.org/artist/3ee62edc-3521-4c39-89ce-081aafa79c00",
+    "evidencia": "MusicBrainz: Caramelos de Cianuro — miembro (bass) 1989–1999"
+   },
+   "detail": "período contradictorio para una membresía ya registrada; review=1854602"
+  },
+  {
+   "fila": {
+    "artistId": 58,
+    "banda": "caramelos de cianuro",
+    "personId": 2698,
+    "role": "Vocals & Keyboards",
+    "fromYear": 1989,
+    "toYear": null,
+    "isCurrent": true,
+    "url": "https://musicbrainz.org/artist/3ee62edc-3521-4c39-89ce-081aafa79c00",
+    "evidencia": "MusicBrainz: Caramelos de Cianuro — miembro (lead vocals, piano) 1989–presente"
+   },
+   "detail": "período contradictorio para una membresía ya registrada; review=1854603"
+  },
+  {
+   "fila": {
+    "artistId": 3792,
+    "banda": "los dementes",
+    "personId": 2870,
+    "role": "Timbales",
+    "fromYear": 1975,
+    "toYear": null,
+    "isCurrent": true,
+    "url": "https://musicbrainz.org/artist/4520f89a-7a67-403b-b67d-314394f47702",
+    "evidencia": "MusicBrainz: Los Dementes — miembro (timbales) 1975–presente"
+   },
+   "detail": "período contradictorio para una membresía ya registrada; review=1854604"
+  }
+ ],
+ "errores": [
+  {
+   "fila": {
+    "artistId": 3792,
+    "banda": "los dementes",
+    "personId": 20541,
+    "role": "Original & Keyboards",
+    "fromYear": null,
+    "toYear": 1968,
+    "isCurrent": false,
+    "url": "https://musicbrainz.org/artist/4520f89a-7a67-403b-b67d-314394f47702",
+    "evidencia": "MusicBrainz: Los Dementes — miembro (original, piano) ?–1968-12"
+   },
+   "error": "new row for relation \"artist_members\" violates check constraint \"artist_members_years_chk\""
+  }
+ ],
+ "runs": [
+  20289,
+  20290
+ ]
+}
