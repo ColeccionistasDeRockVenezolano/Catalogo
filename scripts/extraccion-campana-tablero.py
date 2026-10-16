@@ -611,6 +611,14 @@ def bloque_f():
     pendientes = max(0, cola - len(lista))
     con_miembros = sum(1 for r in con_datos if (r.get("campos") or {}).get("Band Members"))
     con_about = sum(1 for r in con_datos if (r.get("campos") or {}).get("About"))
+    fotos_ok = fotos_total = 0
+    ruta_fotos = base / "fotos.csv"
+    if ruta_fotos.exists():
+        import csv as _csv
+        with open(ruta_fotos, encoding="utf-8") as fh:
+            filas_f = list(_csv.reader(fh))[1:]
+        fotos_total = len(filas_f)
+        fotos_ok = sum(1 for f in filas_f if len(f) > 8 and f[8] == "ok")
     campos = Counter()
     for r in con_datos:
         for c in r.get("campos") or {}:
@@ -637,6 +645,7 @@ def bloque_f():
     {barra_linea("Pendientes / en reintento", pendientes, cola, "azul")}
     {barra_linea("De los capturados, con miembros", con_miembros, max(1, len(con_datos)), "azul")}
     {barra_linea("De los capturados, con About", con_about, max(1, len(con_datos)), "azul")}
+    {barra_linea("Fotos de perfil (default pic) bajadas a disco", fotos_ok, max(1, fotos_total), "azul")}
   </div>
   <p class="mini">Última línea del log: <code>{esc(ultima)}</code></p>
   <h3>Campos que rinden</h3>
