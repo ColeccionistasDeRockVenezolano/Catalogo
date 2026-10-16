@@ -27,3 +27,17 @@ journalctl --user -u crv-lastfm-semanal -n 50        # ver la corrida
 
 Consulta «última foto»: `DISTINCT ON (entity_kind…) ORDER BY captured_at DESC` sobre
 `entity_metrics` (o el agregado que exponga la API en E5).
+
+## Clasificación emocional (desde 2026-10-16)
+
+- Al terminar las métricas, `ExecStartPost` corre `scripts/lastfm-2026-10-16/09-refresco-emocional.sh`:
+  recarga tags de usuario (`03-cargar-tablas.py`), clasifica pendientes con Laya (GPU) y aplica el
+  léxico v3 (`07-cadena-laya.sh` → `05` + `08-reclasificar-v3.py` + `05 --apply-only`).
+  Idempotente: sin tags nuevos no cambia nada.
+- Léxico editable: `scripts/lastfm-2026-10-16/lexico-emocional.json`.
+  `fuerzas` = emoción fija por palabra; `candidatas` = decide Laya (≥0.80; 0.50–0.80 → revisión);
+  `filtros` = género, país, ciudad e idioma nunca expresan emoción.
+- Tablero de calibración: `python3 /tmp/crv-laya-tablero.py` → `/tmp/crv-recon/crv-laya-calibracion.html`
+  (servido en :8920). Brian marca correcto/incorrecto y devuelve el JSON de correcciones.
+- Publicación: API `/emotions/:emotion/artists` y bloque `emotion` en `/search`
+  («música para tener sexo» → cachonda). Solo emociones claras (`entity_emotions`, `basis='tags'`).

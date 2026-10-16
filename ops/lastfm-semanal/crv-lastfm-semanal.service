@@ -7,5 +7,8 @@ After=network-online.target
 Type=oneshot
 WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
 ExecStart=/usr/bin/python3 scripts/lastfm-2026-10-16/04-refresco-semanal.py
+# Cierra el pipeline de tags (cargar + Laya + léxico v3); idempotente y sin efecto
+# si no hay tags nuevos. Ver scripts/lastfm-2026-10-16/09-refresco-emocional.sh.
+ExecStartPost=/bin/bash scripts/lastfm-2026-10-16/09-refresco-emocional.sh
 TimeoutStartSec=43200
 Nice=10

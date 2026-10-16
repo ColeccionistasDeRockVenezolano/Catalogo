@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Re-decisión v2 de la clasificación Laya (sin re-ejecutar el modelo).
 
+SUPERADO (2026-10-16) por `08-reclasificar-v3.py`: el léxico v3 (fuerzas por
+palabra + candidatas + filtros separados) mide mejor. Se conserva como
+referencia histórica; la cadena 07 ya usa el 08.
+
 Problema medido (2026-10-16): con umbral 0.5, tags de GÉNERO caían en emociones
 («rock»→aumenta_mi_aura 0.57, «llanera»→cachonda, «dark wave»→tristeza).
 
