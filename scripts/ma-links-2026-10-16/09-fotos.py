@@ -91,6 +91,11 @@ def variantes(url: str) -> list[str]:
         nueva = re.sub(r"/([mlsta])_([0-9a-f]{16,}\.(?:jpg|jpeg|png|gif))", rf"/{talla}\2", url, flags=re.I)
         if nueva != url and nueva not in out:
             out.append(nueva)
+    # Plantilla intermedia: …/<hash>/p.jpg (misma imagen en otras tallas: p·m·l·s·t).
+    for talla in ("p", "m", "l", "s", "t"):
+        nueva = re.sub(r"/([pmlst])\.(jpg|jpeg|png|gif)$", rf"/{talla}.\2", url, flags=re.I)
+        if nueva != url and nueva not in out:
+            out.append(nueva)
     return out
 
 
