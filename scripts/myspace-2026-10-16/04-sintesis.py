@@ -89,7 +89,9 @@ def llamar(case: dict, api_key: str, modelo: str, intentos: int = 3) -> dict:
             if isinstance(texto, str):
                 texto = re.sub(r"\s+\n", "\n", texto).strip()
                 texto = None if len(texto) < 40 else texto
-            return {"caseId": case["caseId"], "text": texto, "sourcesUsed": ["current", "myspace"],
+            # sin biografía actual, «current» no es una fuente real (el validador lo rechaza)
+            usados = ["current", "myspace"] if case.get("currentText") else ["myspace"]
+            return {"caseId": case["caseId"], "text": texto, "sourcesUsed": usados,
                     "note": out.get("note"), "model": modelo, "datos": out.get("datos")}
         except Exception as e:  # noqa: BLE001
             if intento == intentos:

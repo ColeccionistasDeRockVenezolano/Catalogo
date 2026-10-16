@@ -42,6 +42,12 @@ def psql(sql: str) -> list[list[str]]:
 
 
 def main() -> None:
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--solo-ids", default="", help="lista de artistId separados por coma (re-proceso dirigido)")
+    args = ap.parse_args()
+    solo = {int(x) for x in args.solo_ids.split(",") if x.strip()} if args.solo_ids else set()
+
     regs: dict[str, dict] = {}
     for l in JSONL.read_text(encoding="utf-8").splitlines():
         try:
@@ -62,6 +68,8 @@ def main() -> None:
     with open(SALIDA, "w", encoding="utf-8") as fh:
         for r in sorted(con_ficha, key=lambda x: int(x["crv_artist_id"])):
             aid = int(r["crv_artist_id"])
+            if solo and aid not in solo:
+                continue
             campos = r["campos"] or {}
             about = util(campos.get("About") or "", minimo=60)
             # fuente: About (si sirve) + campos estructurados útiles

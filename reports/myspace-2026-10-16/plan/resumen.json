@@ -1,9 +1,9 @@
 {
- "con_ficha": 130,
- "miembros_con_persona": 5,
+ "con_ficha": 133,
+ "miembros_con_persona": 1,
  "miembros_candidatos": 62,
- "genero_claims": 108,
+ "genero_claims": 113,
  "ciudad_contraste": 19,
- "bio_claims": 55,
+ "bio_claims": 57,
  "sin_destino": {}
 }
