@@ -1,0 +1,109 @@
+{
+ "aplicados": 309,
+ "yaEstaban": 1,
+ "saltados": 0,
+ "review": [
+  {
+   "fila": {
+    "tabla": "artists",
+    "id": 44,
+    "campo": "origin_city",
+    "catalogo": "Antena Mantis",
+    "tipo_rym": "grupo",
+    "nivel": "clave",
+    "rym": "Antena Mantis",
+    "slug": "antena-mantis",
+    "ciudad": "Barquisimeto",
+    "ubicacion_completa": "Barquisimeto, Lara, Venezuela",
+    "anio": 2001,
+    "referencia": "2001, Barquisimeto, Lara, Venezuela",
+    "pagina": "Marin, Yaracuy, VE",
+    "rym_url": "https://rateyourmusic.com/artist/antena-mantis"
+   },
+   "detail": "año RYM 2001 ≠ catálogo 1996"
+  },
+  {
+   "fila": {
+    "tabla": "artists",
+    "id": 128,
+    "campo": "origin_city",
+    "catalogo": "La Calle",
+    "tipo_rym": "grupo",
+    "nivel": "clave",
+    "rym": "La Calle",
+    "slug": "la-calle",
+    "ciudad": "Caracas",
+    "ubicacion_completa": "Caracas, Distrito Capital, Venezuela",
+    "anio": 1991,
+    "referencia": "29 March 1991, Caracas, Distrito Capital, Venezuela",
+    "pagina": "Villa de Cura, Aragua, VE",
+    "rym_url": "https://rateyourmusic.com/artist/la-calle"
+   },
+   "detail": "año RYM 1991 ≠ catálogo 1993"
+  },
+  {
+   "fila": {
+    "tabla": "artists",
+    "id": 1320,
+    "campo": "origin_city",
+    "catalogo": "Indigo",
+    "tipo_rym": "",
+    "nivel": "clave",
+    "rym": "Indigo",
+    "slug": "indigo-9",
+    "ciudad": "Maracaibo",
+    "ubicacion_completa": "Maracaibo, Zulia, Venezuela",
+    "anio": 2014,
+    "referencia": "2014, Maracaibo, Zulia, Venezuela",
+    "pagina": "Ciudad Ojeda, Zulia, VE",
+    "rym_url": "https://rateyourmusic.com/artist/indigo-9"
+   },
+   "detail": "año RYM 2014 ≠ catálogo 2007"
+  },
+  {
+   "fila": {
+    "tabla": "artists",
+    "id": 2007,
+    "campo": "origin_city",
+    "catalogo": "San Luis",
+    "tipo_rym": "grupo",
+    "nivel": "clave",
+    "rym": "SanLuis",
+    "slug": "sanluis",
+    "ciudad": "Maracaibo",
+    "ubicacion_completa": "Maracaibo, Zulia, Venezuela",
+    "anio": 2011,
+    "referencia": "2011, Maracaibo, Zulia, Venezuela",
+    "pagina": "Cabimas, Zulia, VE",
+    "rym_url": "https://rateyourmusic.com/artist/sanluis"
+   },
+   "detail": "año RYM 2011 ≠ catálogo 2010"
+  },
+  {
+   "fila": {
+    "tabla": "artists",
+    "id": 1132,
+    "campo": "origin_city",
+    "catalogo": "Negus Nagast",
+    "tipo_rym": "grupo",
+    "nivel": "clave",
+    "rym": "Negus Nagast",
+    "slug": "negus_nagast",
+    "ciudad": "Caracas",
+    "ubicacion_completa": "Caracas, Distrito Capital, Venezuela",
+    "anio": 1997,
+    "referencia": "1997, Caracas, Distrito Capital, Venezuela",
+    "pagina": "Chacao, Miranda, VE",
+    "rym_url": "https://rateyourmusic.com/artist/negus_nagast"
+   },
+   "detail": "año RYM 1997 ≠ catálogo 1998"
+  }
+ ],
+ "errores": [],
+ "runs": [
+  20369,
+  20370,
+  20371,
+  20372
+ ]
+}
