@@ -48,6 +48,14 @@ _cache_catalogo: dict = {}
 COLCHON_CATALOGO = 60.0  # el índice de artistas del catálogo cambia poco: una lectura por minuto
 _cache_dur: dict = {}  # duración de cada unidad (de su journal), con su hora de lectura
 
+try:  # mismas reglas que el capturador: una sola definición de «hecho» y de la cola de discos
+    sys.path.insert(0, str(REPO / "scripts"))
+    import rym_reglas as reglas  # noqa: E402
+except Exception:  # el tablero nunca debe morir por el motor
+    reglas = None
+_cache_campana: tuple = (0.0, None)
+COLCHON_CAMPANA = 300.0  # la cola y sus cuentas cambian lento; leer 5.476 JSON cuesta ~2 s
+
 
 def duracion_unidad(unidad_nombre, colchon=300.0):
     """Segundos que estuvo (o lleva) corriendo la unidad, del journal de systemd.
@@ -270,12 +278,15 @@ def segundos(hhmmss):
     return h * 3600 + m * 60 + s
 
 
-def ritmo_medido(log_tail, ultimas=60):
+def ritmo_medido(log_tail, ultimas=60, solo=None):
     """Segundos por ficha MEDIDOS: mediana de los últimos tramos entre marcas del log.
 
     La media engaña (los timeouts de 60 s la disparan); la mediana describe el paso normal.
+    `solo` limita a un tipo de ficha («release», «artist»): las fases tienen ritmos distintos.
     """
-    marcas = [segundos(m.group(1)) for m in (re.match(r"\[(\d{2}:\d{2}:\d{2})\] \+ \[", l) for l in log_tail) if m]
+    marcas = [segundos(m.group(1)) for m in
+              (re.match(r"\[(\d{2}:\d{2}:\d{2})\] \+ \[(\w+)\]", l) for l in log_tail)
+              if m and (solo is None or m.group(2) == solo)]
     marcas = marcas[-ultimas:]
     tramos = [b - a for a, b in zip(marcas, marcas[1:]) if 0 <= (b - a) < 3600]
     if not tramos:
@@ -297,9 +308,10 @@ def estado_json():
             continue
         filas.append({
             "href": href, "slug": href.rsplit("/", 1)[-1], "nombre": rec.get("name"),
+            "kind": rec.get("kind") or "artist",
             "at": rec.get("at") or "", "ts": rec.get("ts") or 0, "status": rec.get("status"),
             "nRows": rec.get("nRows"), "nGen": rec.get("nGen"), "formed": rec.get("formed"),
-            "nTracks": rec.get("nTracks"), "sinDatos": rec.get("sinDatos"), "sinDiscografia": rec.get("sinDiscografia"),
+            "nTracks": rec.get("nTracks"), "nCredits": rec.get("nCredits"), "sinDatos": rec.get("sinDatos"), "sinDiscografia": rec.get("sinDiscografia"),
         })
     filas.sort(key=lambda f: (-float(f["ts"] or 0)))
     return filas
@@ -322,6 +334,14 @@ def miles(n):
 
 def barra(pct, color="ok"):
     return f'<div class="barra"><i class="{color}" style="width:{max(0.6, min(100, pct)):.1f}%"></i></div>'
+
+
+def eta_txt(n, seg):
+    """ETA legible: horas si pasa de una, minutos si no (nunca un «0.0 h»)."""
+    if not n or not seg:
+        return "—"
+    s = n * seg
+    return f"~{s / 3600:.1f} h" if s >= 3600 else f"~{max(1, round(s / 60))} min"
 
 
 def _progreso_catalogo(ficha, catalogo):
@@ -353,19 +373,58 @@ def tabla(cabeceras, filas, clases=None):
     return f'<table><thead><tr>{th}</tr></thead><tbody>{"".join(cuerpo)}</tbody></table>'
 
 
+def campana():
+    """Cola y cuentas oficiales de la campaña (las mismas reglas que el capturador).
+
+    Cachea 5 min: abrir los 5.476 JSON de artista para reconstruir la cola de discos cuesta un
+    par de segundos y la cola cambia lento. Si las reglas no cargan, devuelve la cola en cero y
+    el bloque cae a las cuentas del estado, sin inventar metas.
+    """
+    global _cache_campana
+    t, datos = _cache_campana
+    if datos is not None and time.time() - t < COLCHON_CAMPANA:
+        return datos
+    datos = {"cola_n": 0, "artistas": 0, "dos_slugs": 0, "prog": None}
+    try:
+        cola = [json.loads(l) for l in open(CAPTURA / "cola-artistas.jsonl", encoding="utf-8") if l.strip()]
+        ids = Counter(r.get("artistId") for r in cola)
+        datos["cola_n"] = len(cola)
+        datos["artistas"] = len(ids)
+        datos["dos_slugs"] = sum(1 for n in ids.values() if n > 1)
+        if reglas is not None:
+            estado_crudo, _ = reglas.cargar_estado(str(CAPTURA / "estado.json"))
+            discos = reglas.discos_de_artistas(cola, str(CAPTURA / "pages"))
+            datos["prog"] = reglas.progreso(estado_crudo, cola, discos)
+    except Exception as exc:
+        print(f"[{time.strftime('%T')}] tablero: cuentas de campaña: {exc}", flush=True)
+    _cache_campana = (time.time(), datos)
+    return datos
+
+
 def bloque_a():
     estado = estado_json()
     catalogo = catalogo_artistas()
-    cola = contar_lineas(CAPTURA / "cola-artistas.jsonl") or 0
-    trabajadas = len(estado)
-    utiles = [f for f in estado if f["status"] != 404]
-    no_existen = [f for f in estado if f["status"] == 404]
+    cuentas = campana()
+    prog = cuentas.get("prog") or {}
+    cola = cuentas["cola_n"] or contar_lineas(CAPTURA / "cola-artistas.jsonl") or 0
+    fichas = [f for f in estado if f["kind"] != "release"]
+    discos_estado = [f for f in estado if f["kind"] == "release"]
+    trabajadas = len(fichas)                       # solo fase 1: la cola son fichas de artista
+    utiles = [f for f in fichas if f["status"] != 404]
+    no_existen = [f for f in fichas if f["status"] == 404]
     vacias = [f for f in utiles if f["sinDatos"] or (not f["nRows"] and not f["nGen"] and not f["formed"] and not f["nombre"])]
-    con_datos = [f for f in utiles if f not in vacias]
     con_discos = [f for f in utiles if f["nRows"]]
-    pendientes = max(0, cola - trabajadas)
-    seg_ficha, tramos = ritmo_medido(leer(LOG_A, 400))
-    estado_muro, cuando, (bloqueos_403, bloqueos_503) = reloj_muro(leer(LOG_A, 400))
+    pendientes = cola - trabajadas                 # sin max(0): si la cola cambió, se ve
+    todas = prog.get("todas") or (len(discos_estado) if discos_estado else 0)
+    hechos = prog.get("hechos", len(discos_estado))
+    discos_ok = prog.get("ok", sum(1 for f in discos_estado if f["status"] != 404 and not f["sinDatos"]))
+    discos_vacios = prog.get("vacios", sum(1 for f in discos_estado if f["sinDatos"]))
+    faltan_discos = prog.get("faltan", todas - hechos if todas else 0)
+    log_a = leer(LOG_A, 400)
+    seg_ficha, tramos = ritmo_medido(log_a)
+    seg_artista, _tramos_artista = ritmo_medido(log_a, solo="artist")
+    seg_disco, tramos_disco = ritmo_medido(log_a, solo="release")
+    estado_muro, cuando, (bloqueos_403, bloqueos_503) = reloj_muro(log_a)
     cliquer = estado_cliquer()
     # Ritmo de la ÚLTIMA MEDIA HORA, medido del ts de cada ficha en estado.json
     ahora = time.time()
@@ -374,14 +433,12 @@ def bloque_a():
     fichas_min = len(ventana) / 30 if ventana else None
     utiles_hora = len(utiles_ventana) * 2 if ventana else None
     pct_util_ventana = f"{100 * len(utiles_ventana) / len(ventana):.0f}" if ventana else "?"
-    dur_captura = duracion_unidad("crv-scrapling-rym-resto", colchon=120.0)
-    ultima_pagina = max((f["ts"] for f in utiles), default=0)
-    paginas_disco = 0
-    try:
-        paginas_disco = sum(1 for n in os.listdir(CAPTURA / "pages") if n.startswith("rel_") and n.endswith(".html"))
-    except OSError:
-        pass
-    eta = f"~{pendientes * seg_ficha / 3600:.1f} h" if pendientes and seg_ficha else "—"
+    # ETA con el ritmo EFECTIVO de la ventana (incluye pausas y timeouts); la mediana subestima.
+    ventana_discos = [f for f in ventana if f["kind"] == "release"]
+    discos_min = len(ventana_discos) / 30 if ventana_discos else None
+    seg_efectivo = 60 / discos_min if discos_min else seg_disco
+    eta = eta_txt(pendientes, seg_artista or seg_ficha)
+    eta_discos = eta_txt(faltan_discos, seg_efectivo)
     clase_muro = "ok" if estado_muro == "OK" else "mal"
     if estado_muro.startswith("MURO SUAVE"):
         ayuda_muro = ("RYM devolvió 503 «Security check required» (muro propio del sitio): el motor "
@@ -396,23 +453,31 @@ def bloque_a():
     u, clase_u = estado_de("crv-scrapling-rym-resto", LOG_A)
 
     tarjetas = [
-        tarjeta("Cola de fichas (meta fase 1)", f"<b>{miles(cola)}</b>", "artistas del catálogo sin ficha RYM",
-                "Son los hrefs de artistas del catálogo que aún no tienen ficha capturada. Es la meta de la fase 1."),
-        tarjeta("Trabajadas", f"<b>{miles(trabajadas)}</b>",
-                f"{100 * trabajadas / cola:.1f} % de la cola" if cola else "",
-                "Fichas ya INTENTADAS: cuentan también las que no existen en RYM (404). Es el avance real de la cola."),
-        tarjeta("Páginas guardadas", f"<b>{miles(len(utiles))}</b>",
-                f"+ {paginas_disco} fichas de disco" if paginas_disco else "fase 2 sin empezar",
+        tarjeta("Cola de artistas (fase 1)", f"<b>{miles(cola)}</b>",
+                f"{miles(cuentas['artistas'])} artistas · {miles(cuentas['dos_slugs'])} con dos slugs",
+                "Hrefs de artistas del catálogo sin ficha RYM capturada: unos vistos como enlace en lo ya "
+                "capturado y otros inferidos del nombre. Un artista con dos slugs (guion y guion bajo) ocupa dos líneas."),
+        tarjeta("Artistas trabajados", f"<b>{miles(trabajadas)}</b>",
+                f"{100 * trabajadas / cola:.2f} % de la cola" if cola else "",
+                "Fichas de artista ya INTENTADAS: cuentan también las que no existen en RYM (404). Es el avance real de la fase 1."),
+        tarjeta("Artistas con ficha guardada", f"<b>{miles(len(utiles))}</b>",
+                f"+ {miles(len(no_existen))} 404 · {miles(len(vacias))} vacías · {miles(len(con_discos))} con discografía",
                 "Fichas que SÍ existen en RYM y quedaron en disco (html + json). Son las que alimentan la cadena de datos."),
-        tarjeta("Con datos aprovechables", f"<b>{len(con_datos)}</b>", f"{len(con_discos)} con discografía listada",
-                "Páginas con algo que la cadena puede aplicar: discografía, géneros, año de formación, foto…"),
-        tarjeta("No existen en RYM", f"<b>{len(no_existen)}</b>", "descartadas solas",
-                "Los slugs inferidos por nombre que RYM no tiene (404). No son un error: la cola traía variantes por probar."),
-        tarjeta("Pendientes", f"<b>{miles(pendientes)}</b>", f"ETA {eta}",
-                "Lo que falta de la cola, con la ETA calculada del ritmo medido (mediana de los últimos tramos)."),
-        tarjeta("Ritmo de captura", f"<b>{seg_ficha or '?'} s</b>",
-                f"por ficha · {tramos} tramos" + (f" · desde el arranque {por_minuto(trabajadas, dur_captura)}" if dur_captura else ""),
-                "Mediana de segundos por ficha en los últimos tramos del log. La media engaña: los timeouts de 60 s la disparan."),
+        tarjeta("Pendientes fase 1", f"<b>{miles(pendientes)}</b>", f"ETA {eta}",
+                "Lo que resta de la cola de artistas. Un slug que cae en muro persistente se queda aquí hasta que el motor lo reintente."),
+        tarjeta("Discos (fase 2)", f"<b>{miles(hechos)}</b>",
+                f"de {miles(todas)} · {100 * hechos / todas:.1f} %" if todas else "fase 2 sin empezar",
+                "Fichas de disco (release) de esos artistas, descubiertas en las discografías ya capturadas. "
+                "La meta es la cola de discos del motor, no la cola de artistas."),
+        tarjeta("Discos con datos", f"<b>{miles(discos_ok)}</b>", f"{miles(discos_vacios)} vacíos en RYM",
+                "Discos con portada, pistas o géneros aprovechables. Los vacíos existen pero RYM no sirve nada en ellos."),
+        tarjeta("Pendientes fase 2", f"<b>{miles(faltan_discos)}</b>", f"ETA {eta_discos}",
+                "Discos de la cola sin capturar. La ETA usa el ritmo efectivo de la última media hora "
+                "(incluye pausas y timeouts), no la mediana de tramos."),
+        tarjeta("Ritmo de captura", f"<b>{seg_disco or seg_ficha or '?'} s</b>",
+                f"por disco · artistas {seg_artista or '—'} s · {tramos} tramos ({tramos_disco} de disco)",
+                "Mediana de segundos por ficha en los últimos tramos del log, separada por fase. "
+                "La media engaña: los timeouts de 60 s la disparan."),
         tarjeta("Rendimiento (última ½ hora)", f"<b>{fichas_min:.1f}</b> fichas/min" if fichas_min else "<b>—</b>",
                 (f"{utiles_hora:.0f} páginas útiles/h · {pct_util_ventana} % de lo intentado trae datos" if utiles_hora is not None else "sin actividad en la ventana"),
                 "Fichas intentadas por minuto y páginas útiles por hora en los últimos 30 min (del ts de cada ficha en estado.json). "
@@ -430,8 +495,13 @@ def bloque_a():
     ]
 
     filas_tabla = []
-    for f in utiles[:25]:
-        if f["sinDatos"]:
+    for f in estado[:25]:
+        tipo = "disco" if f["kind"] == "release" else "artista"
+        if f["status"] == 404:
+            que = '<span class="apagado">404 · no existe</span>'
+            datos = "—"
+            cat = "—"
+        elif f["sinDatos"]:
             que = '<span class="ojo">página vacía en RYM</span>'
             datos = "—"
             cat = "—"
@@ -446,33 +516,41 @@ def bloque_a():
                 datos.append(f'formada {f["formed"]}')
             if f["nTracks"]:
                 datos.append(f'{f["nTracks"]} pistas')
+            if f["nCredits"]:
+                datos.append(f'{f["nCredits"]} créditos')
             datos = " · ".join(datos) or "sin datos extra"
-            cat = _progreso_catalogo(f, catalogo)
-        filas_tabla.append([esc(f["at"]), f'<b>{esc(f["nombre"] or f["slug"])}</b>', que, esc(datos), cat])
-    ultimos_404 = [f["slug"] for f in estado if f["status"] == 404][:12]
-    pct_cola = f"{100 * trabajadas / cola:.1f}" if cola else "?"
+            cat = _progreso_catalogo(f, catalogo) if tipo == "artista" else '<span class="mini">disco de la fase 2</span>'
+        filas_tabla.append([esc(f["at"]), f'<b>{esc(f["nombre"] or f["slug"])}</b> <span class="mini">{tipo}</span>', que, esc(datos), cat])
+    ultimos_404 = [f["slug"] for f in no_existen][:12]
+    pct_cola = f"{100 * trabajadas / cola:.2f}" if cola else "?"
+    pct_discos = f"{100 * hechos / todas:.1f}" if todas else "—"
 
     return f"""<section>
   <h2>1 · Captura RYM «resto» (bloque A) <span class="pill {clase_u}">{esc(u)}</span></h2>
-  <p class="resumen"><b>De un vistazo:</b> de <b>{miles(cola)}</b> fichas de la cola → <b>{miles(trabajadas)}</b> trabajadas
-  ({pct_cola} %): <b>{len(utiles)}</b> guardadas con datos · <b>{len(no_existen)}</b> no existen en RYM
-  · faltan <b>{miles(pendientes)}</b> para terminar la fase 1 (ETA {eta}).</p>
+  <p class="resumen"><b>Fase 1 (artistas):</b> <b>{miles(trabajadas)}</b> de <b>{miles(cola)}</b> hrefs intentados
+  ({pct_cola} %) — <b>{miles(len(utiles))}</b> con ficha, <b>{miles(len(no_existen))}</b> 404, faltan
+  <b>{miles(pendientes)}</b> (ETA {eta}).<br>
+  <b>Fase 2 (discos):</b> <b>{miles(hechos)}</b> de <b>{miles(todas)}</b> ({pct_discos} %) —
+  <b>{miles(discos_ok)}</b> con datos, <b>{miles(discos_vacios)}</b> vacíos, faltan
+  <b>{miles(faltan_discos)}</b> (ETA {eta_discos}).</p>
   <p class="explica">Descarga, a ritmo humano y con las cookies del Firefox del dueño, la ficha de cada
-  artista del catálogo que aún no la tenía. La cola son <b>hrefs</b> (5.476): unos vistos como enlace en lo
-  ya capturado y otros inferidos del nombre — por eso hay 404 que no son fallo. Lo capturado queda en
+  artista del catálogo que aún no la tenía y después la de <b>cada disco</b> de su discografía. La cola de
+  artistas son <b>hrefs</b> ({miles(cola)} para {miles(cuentas['artistas'])} artistas): unos vistos como enlace
+  y otros inferidos del nombre — por eso hay 404 que no son fallo. Lo capturado queda en
   <code>data/raw/fuentes-web-2026-10-16/rym-resto/pages/</code> y lo aplica después
   <code>ops/rym-resto/procesar.sh</code> (reparse → cruce → enlaces → aplicar).</p>
   <div class="grid">{''.join(tarjetas)}</div>
   <div class="barras">
-    <div class="barra-linea">Cola trabajada <b>{trabajadas}/{cola}</b>{barra(100 * trabajadas / cola if cola else 0)}</div>
-    <div class="barra-linea">De lo trabajado, con página útil <b>{len(utiles)}/{trabajadas or 1}</b>{barra(100 * len(utiles) / (trabajadas or 1), "azul")}</div>
+    <div class="barra-linea">Fase 1 · artistas <b>{trabajadas}/{cola}</b>{barra(100 * trabajadas / cola if cola else 0)}</div>
+    <div class="barra-linea">Fase 2 · discos <b>{hechos}/{miles(todas)}</b>{barra(100 * hechos / todas if todas else 0, "azul")}</div>
   </div>
-  <h3>Últimas 25 fichas guardadas <span class="mini">(lo más nuevo arriba — las que traen datos)</span></h3>
-  <div class="scroll">{tabla(["hora", "artista", "qué pasó", "datos de la ficha", "progreso en el catálogo"], filas_tabla, {0: "num", 3: "mini"})}</div>
-  <p class="mini">«Progreso en el catálogo» compara la ficha capturada con la ficha viva del catálogo:
+  <h3>Últimas 25 fichas capturadas <span class="mini">(lo más nuevo arriba; artistas y discos se distinguen en la fila)</span></h3>
+  <div class="scroll">{tabla(["hora", "nombre", "qué pasó", "datos de la ficha", "progreso en el catálogo"], filas_tabla, {0: "num", 3: "mini"})}</div>
+  <p class="mini">«Progreso en el catálogo» compara la ficha de ARTISTA capturada con la ficha viva del catálogo:
   ficha completa = ya tiene año de formación, ciudad y miembros; «faltan: …» = huecos que la cadena
-  (<code>procesar.sh aplicar</code>) puede rellenar con esta captura. Los descartes por 404 de RYM
-  ({len(no_existen)} en total) no traen datos: los últimos han sido
+  (<code>procesar.sh aplicar</code>) puede rellenar con esta captura. Los discos no tienen ficha propia ahí:
+  alimentan sus campos y pistas. Los descartes por 404 de RYM
+  ({miles(len(no_existen))} en total) no traen datos: los últimos han sido
   <span class="mini">{esc(", ".join(ultimos_404))}{"…" if len(no_existen) > len(ultimos_404) else ""}</span></p>
   <div class="enlaces">{enlace("log de la captura", f"file://{LOG_A}")}{enlace("páginas en disco", f"file://{CAPTURA / 'pages'}")}{enlace("estado.sh", "file://" + str(REPO / "ops/rym-resto/estado.sh"))}{enlace("RateYourMusic", "https://rateyourmusic.com/")}</div>
 </section>"""
