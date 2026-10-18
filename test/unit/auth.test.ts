@@ -48,6 +48,9 @@ describe("sesiones de colaboradores", () => {
     app.get("/persons/:id/identity-research", async () => ({ private: true }));
     app.get("/persons/identity-research/active-job", async () => ({ private: true }));
     app.get("/persons/identity-research/jobs/:id", async () => ({ private: true }));
+    app.get("/runs/:id", async () => ({ private: true }));
+    app.get("/persons/:id/split-preview", async () => ({ private: true }));
+    app.get("/docs/json", async () => ({ private: true }));
   });
 
   afterEach(async () => {
@@ -183,6 +186,25 @@ describe("sesiones de colaboradores", () => {
     // limitada aunque pruebe la cuenta legítima que sí conoce.
     const correct = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "ana.crv", password: PASSWORD } });
     expect(correct.statusCode).toBe(429);
+  });
+
+  it("el cupo por IP usa la IP real detrás del proxy, no la del propio proxy", async () => {
+    for (let attempt = 1; attempt <= 20; attempt += 1) {
+      const rejected = await app.inject({ method: "POST", url: "/auth/login", headers: { "x-forwarded-for": "203.0.113.9" }, payload: { username: `cuenta-${attempt}`, password: "incorrecta" } });
+      expect(rejected.statusCode).toBe(401);
+    }
+    const attacker = await app.inject({ method: "POST", url: "/auth/login", headers: { "x-forwarded-for": "203.0.113.9" }, payload: { username: "ana.crv", password: PASSWORD } });
+    expect(attacker.statusCode).toBe(429);
+    const admin = await app.inject({ method: "POST", url: "/auth/login", headers: { "x-forwarded-for": "198.51.100.4" }, payload: { username: "ana.crv", password: PASSWORD } });
+    expect(admin.statusCode).toBe(200);
+  });
+
+  it("no se salta la protección codificando la ruta y reserva la documentación y las divisiones", async () => {
+    for (const url of ["/%72eview-queue", "/review%2Dqueue", "/runs/%31", "/persons/%31/merge-preview", "/persons/1/split-preview?into=a,b", "/docs/json"]) {
+      const response = await app.inject({ method: "GET", url });
+      expect(response.statusCode, url).toBe(401);
+    }
+    expect((await app.inject({ method: "GET", url: "/%E0%A4%A" })).statusCode).toBe(400);
   });
 
   it("no deja pasar más intentos que el cupo aunque lleguen en paralelo", async () => {

@@ -467,8 +467,9 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
     });
   });
 
-  it("expone OpenAPI en /docs/json", async () => {
-    const res = await app.inject({ method: "GET", url: "/docs/json" });
+  it("expone OpenAPI en /docs/json solo a la administración", async () => {
+    expect((await app.inject({ method: "GET", url: "/docs/json" })).statusCode).toBe(401);
+    const res = await app.inject({ method: "GET", url: "/docs/json", headers: admin });
     expect(res.statusCode).toBe(200);
     const spec = res.json();
     expect(spec.paths["/albums/{id}"]).toBeDefined();

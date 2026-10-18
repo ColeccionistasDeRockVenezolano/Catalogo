@@ -579,7 +579,7 @@ describe("API de escritura (E7B)", () => {
   });
 
   it("expone la escritura en OpenAPI con el esquema de seguridad del operador", async () => {
-    const spec = (await app.inject({ method: "GET", url: "/docs/json" })).json();
+    const spec = (await app.inject({ method: "GET", url: "/docs/json", headers: { authorization: `Bearer ${TOKEN}` } })).json();
     expect(spec.components.securitySchemes.collaboratorSession).toMatchObject({ type: "apiKey", in: "cookie", name: "crv_session" });
     expect(spec.components.securitySchemes.operatorToken).toMatchObject({ type: "http", scheme: "bearer" });
     expect(spec.paths["/artists"].post.security).toEqual([{ collaboratorSession: [] }, { operatorToken: [] }]);

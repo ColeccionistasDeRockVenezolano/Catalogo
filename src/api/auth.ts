@@ -45,6 +45,8 @@ const READ_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
  * rastro del operador (merge_audit y sus runs), que solo ve la administración.
  */
 const ADMIN_READS = [
+  // La documentación OpenAPI enumera todas las rutas internas.
+  /^\/docs(\/|$)/u,
   /^\/catalog-model(\/|$)/u,
   /^\/evidence-inventory(\/|$)/u,
   /^\/catalog-links(\/|$)/u,
@@ -59,6 +61,7 @@ const ADMIN_READS = [
   /^\/entity-verification(\/|$)/u,
   /^\/review-queue(\/|$)/u,
   /^\/persons\/duplicate-candidates$/u,
+  /^\/persons\/\d+\/split-preview$/u,
   /^\/curation(\/|$)/u,
   /^\/[a-z]+\/\d+\/merge-preview$/u,
   /^\/audit(\/|$)/u,
@@ -125,6 +128,22 @@ function digest(value: string): Buffer {
 
 function safeEqual(left: string, right: string): boolean {
   return timingSafeEqual(digest(left), digest(right));
+}
+
+/**
+ * Ruta tal como la entiende el router. Fastify decodifica los %XX antes de
+ * buscar la ruta, así que comparar ADMIN_READS contra la URL cruda dejaba
+ * pasar `/%72eview-queue` o `/runs/%31` sin sesión. Decodificar aquí solo
+ * puede hacer coincidir más patrones (falla cerrado); una codificación rota
+ * se rechaza.
+ */
+function requestPath(request: FastifyRequest): string {
+  const raw = request.url.split("?", 1)[0]!;
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    throw new ApiError(400, "bad_request", "Ruta inválida.");
+  }
 }
 
 function bearer(request: FastifyRequest): string | undefined {
@@ -357,7 +376,7 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
   };
 
   app.addHook("onRequest", async (request, reply) => {
-    const path = request.url.split("?", 1)[0]!;
+    const path = requestPath(request);
     const isRead = READ_METHODS.has(request.method);
     const isMetricEvent = request.method === "POST" && path === "/discovery/metrics/events";
     if (isMetricEvent) assertTrustedOrigin(request);
@@ -418,7 +437,7 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
     }
 
     if (!loginEnabled && !expected && !isRead) {
-      throw new ApiError(403, "writes_disabled", "escritura deshabilitada: no hay cuentas de colaboradores configuradas");
+      throw new ApiError(403, "writes_disabled", "La edición no está disponible.");
     }
     throw new ApiError(401, "unauthorized", "Inicia sesión con una cuenta administradora.");
   });
@@ -428,9 +447,11 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
   }, async (request, reply) => {
     noStore(reply);
     assertTrustedOrigin(request);
-    if (!loginEnabled) throw new ApiError(503, "accounts_disabled", "El servidor todavía no tiene cuentas de colaboradores configuradas.");
+    if (!loginEnabled) throw new ApiError(503, "accounts_disabled", "El acceso de colaboradores no está disponible.");
     const username = request.body.username.toLowerCase();
-    const ipKey = request.ip;
+    // Detrás del proxy request.ip es siempre 127.0.0.1: con él, 20 fallos de
+    // cualquiera bloqueaban el acceso de todos los administradores.
+    const ipKey = clientIp(request);
     const accountKey = `${ipKey}:${username}`;
     assertBelowLimit(ipKey, LOGIN_IP_MAX_FAILURES);
     assertBelowLimit(accountKey, LOGIN_MAX_FAILURES);
@@ -475,13 +496,13 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
     if (!valid || !account) {
       // El intento ya quedó contado por chargeLoginAttempt; solo falta el
       // registro de auditoría (sin filtrar si la cuenta existe o no).
-      request.log.warn({ ip: request.ip, username }, "login_failed");
+      request.log.warn({ ip: ipKey, username }, "login_failed");
       throw new ApiError(401, "invalid_credentials", "Usuario o contraseña incorrectos.");
     }
     // El acierto perdona el cupo de esa cuenta; el de la IP se deja intacto
     // para no premiar a quien ya venía probando cuentas ajenas desde ahí.
     forgiveLoginAttempt(accountKey);
-    request.log.info({ ip: request.ip, username: account.username, source: herraRef ? "herra" : "local" }, "login_ok");
+    request.log.info({ ip: ipKey, username: account.username, source: herraRef ? "herra" : "local" }, "login_ok");
     const token = randomBytes(SESSION_BYTES).toString("base64url");
     const csrf = randomBytes(CSRF_BYTES).toString("base64url");
     const maxAge = getEnv().CRV_SESSION_TTL_HOURS * 60 * 60;

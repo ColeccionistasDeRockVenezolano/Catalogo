@@ -19,6 +19,7 @@
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getEnv } from "../config/env.js";
+import { clientIp } from "../api/auth.js";
 import { HERRA_DUMMY_HASH, HerraAccounts, herraPasswordMatches, type HerraSessionRef } from "../api/herra-accounts.js";
 
 export const COTEJO_SESSION_COOKIE = "crv_cotejo_session";
@@ -183,14 +184,14 @@ export function registerCotejoAuth(app: FastifyInstance, options: { herra?: Herr
   app.post("/api/auth/login", async (request, reply) => {
     reply.header("cache-control", "no-store");
     if (!trustedOrigin(request)) return fail(reply, new CotejoAuthError(403, "untrusted_origin", "Origen no permitido."));
-    if (!herra) return fail(reply, new CotejoAuthError(503, "accounts_disabled", "La Mesa no tiene configurada la base de cuentas de herra (CRV_HERRA_DB_PATH)."));
+    if (!herra) return fail(reply, new CotejoAuthError(503, "accounts_disabled", "El acceso a la Mesa no está disponible."));
     const body = (request.body ?? {}) as { username?: unknown; password?: unknown };
     const username = typeof body.username === "string" ? body.username.trim().toLowerCase() : "";
     const password = typeof body.password === "string" ? body.password : "";
     if (username.length < 3 || username.length > 80 || !password || password.length > 200) {
       return reply.code(400).send({ error: "Escribe tu usuario y tu contraseña de herra." });
     }
-    const ipKey = request.ip;
+    const ipKey = clientIp(request);
     const accountKey = `${ipKey}:${username}`;
     if (limited(ipKey, LOGIN_IP_MAX_FAILURES) || limited(accountKey, LOGIN_MAX_FAILURES)) {
       return fail(reply, new CotejoAuthError(429, "too_many_attempts", "Demasiados intentos. Espera 15 minutos antes de probar de nuevo."));
@@ -215,7 +216,7 @@ export function registerCotejoAuth(app: FastifyInstance, options: { herra?: Herr
       }
     }
     if (!matched) {
-      request.log.warn({ ip: request.ip, username }, "cotejo_login_failed");
+      request.log.warn({ ip: ipKey, username }, "cotejo_login_failed");
       return fail(reply, new CotejoAuthError(401, "invalid_credentials", "Usuario o contraseña incorrectos."));
     }
     failures.delete(accountKey);

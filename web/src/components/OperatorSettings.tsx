@@ -137,7 +137,6 @@ export function OperatorDialog({ onClose }: { onClose: () => void }) {
           </div>
         </div>
         {error ? <p className="form-error" role="alert">{error}</p> : null}
-        <p className="security-note">La sesión se protege en una cookie inaccesible para JavaScript. La contraseña no se guarda en este dispositivo.</p>
         <div className="form-actions">
           <button type="button" className="btn" onClick={onClose}>Cancelar</button>
           <button type="submit" className="btn btn--primary" disabled={submitting || username.trim().length < 3 || !password}>

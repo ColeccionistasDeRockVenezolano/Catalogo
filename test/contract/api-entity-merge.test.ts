@@ -149,7 +149,7 @@ describe("fusión de organizaciones y artistas (E11.10)", () => {
   });
 
   it("las rutas nuevas quedan visibles en el esquema OpenAPI", async () => {
-    const docs = await app.inject({ method: "GET", url: "/docs/json" });
+    const docs = await app.inject({ method: "GET", url: "/docs/json", headers });
     const paths = Object.keys(docs.json().paths);
     for (const path of ["/persons/{id}/merge", "/organizations/{id}/merge-preview", "/artists/{id}/merge", "/merge-runs/{runId}/undo", "/persons/duplicate-candidates", "/persons/{id}/convert"]) {
       expect(paths).toContain(path);

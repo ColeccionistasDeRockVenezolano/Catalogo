@@ -154,7 +154,7 @@ describe("API de fusión de personas (E11.4)", () => {
   });
 
   it("los endpoints salen en OpenAPI", async () => {
-    const spec = (await app.inject({ method: "GET", url: "/docs/json" })).json();
+    const spec = (await app.inject({ method: "GET", url: "/docs/json", headers: { authorization: `Bearer ${TOKEN}` } })).json();
     expect(spec.paths["/persons/{id}/merge-preview"]).toBeDefined();
     expect(spec.paths["/persons/{id}/merge"]).toBeDefined();
   });
