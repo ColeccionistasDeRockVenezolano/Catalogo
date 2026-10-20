@@ -1,4 +1,4 @@
-// CRV · Curaduría 2026-10-05: sello de los discos desde Sincopa (solo vacíos).
+// CRV · Sello del disco desde el claim `label` de una fuente (solo vacíos).
 //
 // Sincopa da el sello de ~5.000 discos (claim `label`, aceptado) pero el motor
 // no lo escribe: `label` es texto y `albums.label_id` es una ficha. Las fichas
@@ -10,14 +10,18 @@
 // ediciones) manda la ficha cuyo año coincide con el del disco, luego el más
 // citado; un empate queda fuera.
 //
-//   ./scripts/with-node22.sh npx tsx scripts/curaduria-2026-10-05-album-labels.ts [--confirm]
+// Vive aquí desde la campaña de Sincopa y sirve a cualquier fuente que emita el
+// claim contextual `label` (Venciclopedia lo hace desde 2026-10-20).
+//
+//   ./scripts/with-node22.sh npx tsx scripts/curaduria-2026-10-05-album-labels.ts [--source=sincopa] [--confirm]
 import { writeFileSync } from "node:fs";
 import type { PoolClient } from "pg";
 import { closeDb, getPool } from "../src/db/client.js";
 import { withOperatorRun } from "../src/merge/operator.js";
 
-const OPERATOR = "claude-code";
-const NOTE = "Curaduría 2026-10-05: sello del disco según Sincopa (claim label aceptado), solo donde el disco no tenía sello";
+const SOURCE = process.argv.find((arg) => arg.startsWith("--source="))?.slice("--source=".length) ?? "sincopa";
+const OPERATOR = "hermes-agent";
+const NOTE = (source: string): string => `${source}: sello del disco según el claim label aceptado de la fuente, solo donde el disco no tenía sello`;
 const fold = (s: string): string => s.normalize("NFD").replace(/\p{Mn}/gu, "").toLowerCase().replace(/[^\p{L}\d]+/gu, " ").trim();
 const GENERIC = new Set(["independent", "independiente", "indie", "independiente ve", "self released", "autoproduccion", "autoproducido", "n a", "none", "private", "privado"]);
 
@@ -33,7 +37,7 @@ async function work(client: PoolClient): Promise<Record<string, unknown>> {
            (SELECT substring(y.raw_value #>> '{}' from '(\\d{4})') FROM ingest.claims y
              WHERE y.raw_page_id=c.raw_page_id AND y.source_id=c.source_id AND y.album_id=c.album_id AND y.field='release_year' LIMIT 1) AS page_year
       FROM ingest.claims c JOIN public.albums a ON a.id=c.album_id
-     WHERE c.source_id=(SELECT id FROM ingest.sources WHERE slug='sincopa') AND c.field='label' AND c.status='accepted' AND a.label_id IS NULL`);
+     WHERE c.source_id=(SELECT id FROM ingest.sources WHERE slug=$1) AND c.field='label' AND c.status='accepted' AND a.label_id IS NULL`, [SOURCE]);
   const perAlbum = new Map<number, Array<{ org: number; sameYear: boolean }>>();
   const unresolved = new Map<string, number>();
   for (const claim of claims) {
@@ -61,13 +65,13 @@ async function work(client: PoolClient): Promise<Record<string, unknown>> {
 async function main(): Promise<void> {
   let report: Record<string, unknown>;
   if (process.argv.includes("--confirm")) {
-    const { runId, result } = await withOperatorRun({ name: "curation:album-labels-from-sincopa", operator: OPERATOR, note: NOTE }, (context) => work(context.client));
+    const { runId, result } = await withOperatorRun({ name: `curation:album-labels-from-${SOURCE}`, operator: OPERATOR, note: NOTE(SOURCE) }, (context) => work(context.client));
     report = { runId, ...result };
   } else {
     const client = await getPool().connect();
     try { await client.query("BEGIN"); report = await work(client); } finally { await client.query("ROLLBACK"); client.release(); }
   }
-  writeFileSync(`reports/curaduria-2026-10-05/album-labels-${process.argv.includes("--confirm") ? "confirm" : "dry-run"}.json`, JSON.stringify(report, null, 1));
+  writeFileSync(`reports/curaduria-2026-10-05/album-labels-${SOURCE}-${process.argv.includes("--confirm") ? "confirm" : "dry-run"}.json`, JSON.stringify(report, null, 1));
   const { unresolved, ...rest } = report as { unresolved: unknown[] };
   console.log(rest, `${unresolved.length} textos sin ficha única`);
   await closeDb();

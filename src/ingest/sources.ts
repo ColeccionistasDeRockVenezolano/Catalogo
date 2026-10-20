@@ -10,7 +10,7 @@
 import { createHash } from "node:crypto";
 import path from "node:path";
 import ExcelJS from "exceljs";
-import { eq, sql } from "drizzle-orm";
+import { eq, and, sql } from "drizzle-orm";
 import { getDb } from "../db/client.js";
 import { sources, scrapeRuns } from "../db/schema/ingest.js";
 import { moduleLogger } from "../logger/index.js";
@@ -301,4 +301,33 @@ export async function proposeSource(input: {
 
   log.info(result, "fuente propuesta (pendiente de aprobación)");
   return result;
+}
+
+/**
+ * Aprobación de una fuente propuesta (SOURCES.md §6). Habilita la fuente, fija
+ * su nivel de confianza y cierra el ítem `new_source` con nota firmada. Solo la
+ * usa el propietario a través del CLI: no hay camino automático hasta aquí.
+ */
+export async function approveSource(input: {
+  slug: string; trustLevel: TrustLevel; publicDisplay: boolean; operator: string; note: string;
+}): Promise<{ sourceId: number; reviewsClosed: number }> {
+  const db = getDb();
+  const { reviewQueue } = await import("../db/schema/ingest.js");
+  return db.transaction(async (tx) => {
+    const [source] = await tx.select().from(sources).where(eq(sources.slug, input.slug));
+    if (!source) throw new Error(`fuente desconocida: ${input.slug}`);
+    await tx.update(sources).set({
+      enabled: true,
+      trustLevel: input.trustLevel,
+      publicDisplay: input.publicDisplay,
+      notes: `${source.notes ?? ""}\nAprobada por ${input.operator} el ${new Date().toISOString().slice(0, 10)}: ${input.note}`.trim(),
+      updatedAt: new Date(),
+    }).where(eq(sources.id, source.id));
+    const closed = await tx.update(reviewQueue)
+      .set({ status: "approved", notes: `Aprobada por ${input.operator}: ${input.note}`, updatedAt: new Date() })
+      .where(and(eq(reviewQueue.kind, "new_source"), eq(reviewQueue.status, "open"), sql`${reviewQueue.payload}->>'sourceId' = ${String(source.id)}`))
+      .returning({ id: reviewQueue.id });
+    log.info({ slug: input.slug, trustLevel: input.trustLevel, reviewsClosed: closed.length }, "fuente aprobada");
+    return { sourceId: source.id, reviewsClosed: closed.length };
+  });
 }

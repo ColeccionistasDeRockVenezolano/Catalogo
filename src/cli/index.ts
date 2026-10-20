@@ -7,7 +7,7 @@ import { runDoctor } from "../doctor/index.js";
 import { migrateUp, migrateDownAll } from "../db/migrate.js";
 import { closeDb } from "../db/client.js";
 import { moduleLogger } from "../logger/index.js";
-import { seedSources, listSources, proposeSource, LINKS_XLSX_PATH } from "../ingest/sources.js";
+import { seedSources, listSources, proposeSource, approveSource, LINKS_XLSX_PATH } from "../ingest/sources.js";
 import { runObserve } from "../fetcher/observe.js";
 import { assertSupportedNode } from "../config/runtime.js";
 import { listRuns, createArtistEnrichmentRun, finishRun } from "../ingest/runs.js";
@@ -175,6 +175,24 @@ async function main(): Promise<number> {
         `Ítem de revisión creado (review id ${result.reviewId}, kind=new_source). ` +
         "Requiere aprobación manual antes de habilitarla (SOURCES.md §6).",
       );
+      return 0;
+    }
+
+    case "sources:approve": {
+      const slug = args[0];
+      const trust = args.find((arg) => arg.startsWith("--trust="))?.slice("--trust=".length) ?? "";
+      const note = args.find((arg) => arg.startsWith("--note="))?.slice("--note=".length) ?? "";
+      const confirmed = args.includes("--confirm");
+      const publicDisplay = args.includes("--public");
+      if (!slug || !["high", "medium", "api"].includes(trust) || !note || !confirmed) {
+        console.error('uso: sources:approve <slug> --trust=high|medium|api --note="<motivo>" [--public] --confirm');
+        return 1;
+      }
+      const approved = await approveSource({
+        slug, trustLevel: trust as "high" | "medium" | "api",
+        publicDisplay, operator: process.env["CRV_OPERATOR"] ?? "brian", note,
+      });
+      console.log(`fuente ${slug} habilitada (trust=${trust}, public=${publicDisplay}); reviews new_source cerradas: ${approved.reviewsClosed}`);
       return 0;
     }
 
@@ -525,7 +543,10 @@ async function main(): Promise<number> {
       if (args[0] === "source") {
         const slug = args[1];
         const dryRun = args.includes("--dry-run");
-        if (!slug || !args.includes("--all")) { console.error("uso: crv scrape source <source> --all [--dry-run]"); return 1; }
+        const confidenceArg = args.find((arg) => arg.startsWith("--confidence="))?.slice("--confidence=".length) ?? "low";
+        if (!slug || !args.includes("--all")) { console.error("uso: crv scrape source <source> --all [--dry-run] [--confidence=high]"); return 1; }
+        if (!["high", "medium", "low"].includes(confidenceArg)) { console.error(`--confidence inválido: ${confidenceArg}`); return 1; }
+        const confidence = confidenceArg as "high" | "medium" | "low";
         const [source] = await getDb().select().from(sources).where(eq(sources.slug, slug));
         if (!source) { console.error(`fuente desconocida: ${slug}`); return 1; }
         const adapter = adapterFor(source);
@@ -536,16 +557,20 @@ async function main(): Promise<number> {
             : `la fuente ${slug} no tiene adapter HTTP automatizado autorizado`);
           return 1;
         }
+        // Un nivel alto es una afirmación editorial sobre la fuente: solo se
+        // admite si el propietario ya la aprobó como tal en ingest.sources.
+        if (confidence !== "low" && source.trustLevel !== "high") {
+          console.error(`la fuente ${slug} tiene trust_level=${source.trustLevel}: no puede ingerirse como ${confidence}. Apruébala con sources:approve --trust=high.`);
+          return 1;
+        }
         if (dryRun) {
-          const parsed = await ingestStoredAdapterSource(slug, adapter, { confidence: "low", dryRun: true });
-          console.log(JSON.stringify({ dryRun: true, source: slug, adapter: adapter.slug, claims: parsed.plan, merges: [] }, null, 2));
+          const parsed = await ingestStoredAdapterSource(slug, adapter, { confidence, dryRun: true });
+          console.log(JSON.stringify({ dryRun: true, source: slug, adapter: adapter.slug, confidence, claims: parsed.plan, merges: [] }, null, 2));
           return 0;
         }
         const observed = await runObserve(slug);
-        // Todos los adapters web entran primero como candidatos low: preservan
-        // evidencia y evitan cualquier alta/duplicado en el catálogo canónico.
-        const parsed = await ingestStoredAdapterSource(slug, adapter, { confidence: "low" });
-        console.log(`scrape source ${slug}: ${observed.fetched} descargadas, ${observed.cached} desde caché, ${observed.errors} errores${observed.limited ? "; límite de crawl alcanzado" : ""}; adapter=${adapter.slug}, claims=${parsed.claimsInserted} nuevas/${parsed.claimsReused} reutilizadas (candidatas, sin mutar core)`);
+        const parsed = await ingestStoredAdapterSource(slug, adapter, { confidence });
+        console.log(`scrape source ${slug}: ${observed.fetched} descargadas, ${observed.cached} desde caché, ${observed.errors} errores${observed.limited ? "; límite de crawl alcanzado" : ""}; adapter=${adapter.slug}, confidence=${confidence}, claims=${parsed.claimsInserted} nuevas/${parsed.claimsReused} reutilizadas${confidence === "low" ? " (candidatas, sin mutar core)" : ""}`);
         return observed.errors > 0 ? 1 : 0;
       }
       if (args[0] === "artist") {

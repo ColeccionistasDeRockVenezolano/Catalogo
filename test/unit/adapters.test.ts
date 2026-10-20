@@ -453,9 +453,10 @@ describe("adapters funcionales de las fuentes autorizadas", () => {
     expect(claims.some((claim) => claim.entityKind === "person" && claim.field === "name" && claim.rawValue === "Persona Leyenda")).toBe(true);
   });
 
-  it("registra las once fuentes y expresa las capacidades limitadas sin adapter HTTP", () => {
-    expect(registeredAdapterSlugs()).toHaveLength(11);
-    expect(functionalAdapterSlugs()).toHaveLength(9);
+  it("registra las once fuentes del XLSX más las ampliadas por el propietario", () => {
+    // 11 del XLSX + venciclopedia (alta aprobada 2026-10-20, SOURCES.md §7.1).
+    expect(registeredAdapterSlugs()).toHaveLength(12);
+    expect(functionalAdapterSlugs()).toHaveLength(10);
 
     const deska = adapterRegistrationFor({ slug: "rock-y-pop-venezuela-merch-store" });
     expect(deska).toMatchObject({ status: "limited", mode: "disabled", automation: "disabled", acceptsManualEvidence: false });
@@ -471,9 +472,12 @@ describe("adapters funcionales de las fuentes autorizadas", () => {
     expect(hemeroteka.isAllowedEvidenceUrl("https://example.com/p/AbC_123/", "https://www.instagram.com/hemeroteka/")).toBe(false);
   });
 
-  it("el registro cerrado coincide exactamente con las once filas del XLSX", async () => {
+  it("el registro cerrado coincide con las once filas del XLSX más las fuentes ampliadas", async () => {
+    // La lista del XLSX sigue siendo la base cerrada; la ampliación del
+    // propietario es explícita y vive en SOURCES.md §7, no en la hoja.
+    const OWNER_ADDED = ["venciclopedia"];
     const xlsxSlugs = (await readLinksXlsxRows()).map((row) => row.slug).sort();
-    expect(registeredAdapterSlugs().sort()).toEqual(xlsxSlugs);
+    expect(registeredAdapterSlugs().sort()).toEqual([...xlsxSlugs, ...OWNER_ADDED].sort());
   });
 
   it.each(slugs)("normalizar dos veces %s produce hashes equivalentes, sin claims equivalentes extra", async (slug) => {

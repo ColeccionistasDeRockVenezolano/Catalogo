@@ -17,6 +17,8 @@ Lo confirmado se marca **[CONFIRMADO]**; lo no verificado se marca
 
 ## 1. Política general de fuentes
 
+La investigación puntual de fichas cuenta además con un [inventario de fuentes musicales venezolanas](RESEARCH_SOURCES_2026-10-13.md), autorizado por el usuario el 2026-10-13. Sus URL leídas se utilizan como entradas finitas del broker de verificación y generan propuestas con evidencia y revisión. Este inventario no agrega fuentes habilitadas a `ingest.sources` ni capacidades de scraping masivo; los perfiles de Bandcamp conservan la titularidad pendiente.
+
 1. Solo fuentes registradas en `ingest.sources` con `enabled=true` pueden ser
    scrapeadas. El alta de una fuente nueva pasa por la cola de revisión y
    requiere aprobación manual (§6).
@@ -750,7 +752,9 @@ no crean disco ni suenan en la radio.
 3. Tras la aprobación manual: se ejecuta la sonda de verificación (GET,
    robots, encoding, JS, canal estructurado), se completan
    `access_strategy` y `trust_level` y se habilita `enabled=true`
-   **solo para el alcance aprobado**.
+   **solo para el alcance aprobado**. La vía ejecutable es
+   `npm run cli -- sources:approve <slug> --trust=high|medium|api --note="<motivo>" [--public] --confirm`,
+   que habilita la fuente y cierra el ítem `new_source` con nota firmada.
 4. El dominio nuevo no puede exceder el alcance aprobado sin una nueva
    aprobación.
 5. Ninguna fase posterior puede añadir fuentes por su cuenta: la lista de
@@ -779,3 +783,42 @@ botones que fingen una elección.
 normalizan `label` → `record_label` antes de comparar o escribir. Las
 afirmaciones originales siguen intactas en sus claims, pero nunca se intenta
 insertar en el enum un valor inexistente.
+
+## 7. Fuentes ampliadas por el propietario (fuera del XLSX)
+
+La lista de §3 es cerrada, pero el propietario puede ampliarla. Cada fuente
+añadida aquí lleva su propia ficha, su adapter y su nivel de confianza.
+
+### 7.1 Venciclopedia — `venciclopedia` (alta 2026-10-20)
+
+- **URL**: https://www.venciclopedia.org · **site_type**: `database`
+- **trust_level**: `high` · **enabled**: sí · **public_display**: sí
+- **Aprobación**: instrucción expresa de Brian (2026-10-20) de absorber la
+  fuente y tratarla como verdad de alto nivel. Registrada en `ingest.sources`
+  con nota firmada; el ítem `new_source` se cerró con `sources:approve`.
+- **Canal**: API MediaWiki (`/api.php`), JSON, sin navegador y sin JS. Lotes
+  de 20 títulos por `prop=revisions|categories`, que entrega wikitexto y
+  categorías en la misma respuesta. `robots.txt` permite `/api.php` y declara
+  `Crawl-delay: 10`, que `politeFetch` ya respeta (≈5 min por barrido).
+- **Frontera** (finita, sin crawl abierto): páginas que transcluyen
+  `Plantilla:Record`, `Plantilla:Disco`, `Plantilla:Grupo musical`,
+  `Plantilla:Pistas` o `Plantilla:Créditos`, más los miembros de las
+  categorías de músicos, cantantes, compositores, guitarristas, directores,
+  arpistas y grupos de rock.
+- **Qué aporta, medido**: 275 fichas de disco (año 275, sello 271, nº de
+  catálogo 236, formato físico 268, productor 208, estudio 137, carátula 264,
+  contraportada 92, depósito legal 71), 123 tracklists con 1.183 pistas
+  (1.105 con duración, 1.099 con autor) y 88 fichas de agrupación con origen,
+  año de formación y de disolución.
+- **Por qué es fiable en lo suyo**: la discografía no es prosa, es plantilla.
+  El artista **no se adivina**: sale de las categorías `Discos de <artista>`,
+  descartando años, sellos, tipos y géneros; si no se puede decidir, el disco
+  no se emite. El sello sale del campo `sello`, y los nombres de sello se
+  reconocen con `src/adapters/venciclopedia-labels.ts` (derivado del propio
+  corpus, regenerable con `scripts/venciclopedia-listas.mts --write`).
+- **Límites declarados**: wiki pequeña (2.390 artículos, pocos editores);
+  licencia GNU FDL, así que los hechos se absorben pero la prosa no se copia.
+  Comparado con el catálogo, los años coinciden en 152 de 195 casos y las
+  discrepancias son casi todas edición distinta (LP 1963 vs CD 1964).
+- **Qué NO se toma**: biografías textuales, depósito legal (no hay columna en
+  el core), y ningún dato que la plantilla no declare.

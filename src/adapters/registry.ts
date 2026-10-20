@@ -7,6 +7,7 @@ import { RockDeVzlaAdapter } from "./rock-de-vzla.js";
 import { RockzuelaAdapter } from "./rockzuela.js";
 import { HippitoYSusChatarritasAdapter } from "./hippito.js";
 import { SincopaAdapter } from "./sincopa.js";
+import { VenciclopediaAdapter } from "./venciclopedia.js";
 import { ColeccionistasWordpressAdapter, ElPunkEnVenezuelaAdapter, RockHechoEnVenezuelaAdapter } from "./wordpress.js";
 
 function automatic(adapter: SourceAdapter, reason: string): AdapterRegistration {
@@ -39,6 +40,7 @@ const registrations = new Map<string, AdapterRegistration>([
   ["rhv-blogspot", automatic(new RhvBlogspotAdapter(), "Feed público Blogger; HTTP sin navegador.")],
   ["rock-hecho-en-venezuela", automatic(new RockHechoEnVenezuelaAdapter(), "HTML y WordPress REST públicos, finitos y accesibles sin navegador.")],
   ["sincopa", automatic(new SincopaAdapter(), "HTML público estático, con frontera finita por rutas conocidas.")],
+  ["venciclopedia", automatic(new VenciclopediaAdapter(), "API MediaWiki pública: wikitexto estructurado (fichas de disco, tracklists y categorías de artista/sello/año). Fuente de alto nivel aprobada por el propietario el 2026-10-20.")],
   ["coleccionistas-de-rock-venezolano", automatic(new ColeccionistasWordpressAdapter(), "WordPress.com REST público.")],
   ["el-punk-en-venezuela", automatic(new ElPunkEnVenezuelaAdapter(), "WordPress REST público sobre pages.")],
   ["rock-y-pop-venezuela-merch-store", {

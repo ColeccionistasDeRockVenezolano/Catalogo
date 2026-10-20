@@ -1,0 +1,230 @@
+{
+ "runId": 21293,
+ "confirm": true,
+ "stats": {
+  "artists": {
+   "matched": 77,
+   "ambiguous": 0,
+   "unmatched": 11,
+   "filled": {
+    "disbanded_year": 1
+   }
+  },
+  "albums": {
+   "matched": 175,
+   "ambiguous": 8,
+   "unmatched": 28,
+   "filled": {
+    "label_id": 10,
+    "catalog_id": 22,
+    "media_format": 22,
+    "album_type": 14
+   },
+   "created": 2,
+   "createdList": [
+    {
+     "artist": "Oscar D'León",
+     "title": "2 sets con Oscar",
+     "year": 1977
+    },
+    {
+     "artist": "Dimensión Latina, Rodrigo Mendoza",
+     "title": "Solamente... Rodrigo con... Dimensión",
+     "year": 1980
+    }
+   ],
+   "proposed": [
+    {
+     "artist": "Dimensión Latina",
+     "title": "Combinación Latina No 4",
+     "year": 1979,
+     "why": "título parecido a otro disco del artista (0.91)"
+    },
+    {
+     "artist": "Simón Díaz",
+     "title": "Culpable?",
+     "year": 1975,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Dimensión Latina",
+     "title": "Dimensión Latina 76",
+     "year": 1975,
+     "why": "título parecido a otro disco del artista (0.94)"
+    },
+    {
+     "artist": "Dimensión Latina",
+     "title": "Dimensión Latina 77",
+     "year": 1976,
+     "why": "título parecido a otro disco del artista (0.94)"
+    },
+    {
+     "artist": "Alberto Naranjo",
+     "title": "Dulce y picante",
+     "year": 1998,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Dimensión Latina",
+     "title": "El Clan de Víctor y Dimensión Latina",
+     "year": 1972,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Simón Díaz",
+     "title": "Enemigo Público No 1",
+     "year": 1975,
+     "why": "título parecido a otro disco del artista (0.68)"
+    },
+    {
+     "artist": "El Trabuco Venezolano, Irakere",
+     "title": "Irakere & Trabuco. En Vivo Poliedro de Caracas Mayo 14 '81",
+     "year": 1981,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "El Trabuco Venezolano, Irakere",
+     "title": "Irakere & Trabuco. En Vivo Poliedro de Caracas Mayo 15 '81",
+     "year": 1981,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "La Crítica",
+     "title": "La Crítica con Wladimir y Teo",
+     "year": 1980,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Vytas Brenner",
+     "title": "La ofrenda de Vytas",
+     "year": 1973,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Oscar D'León, Wladimir Lozano",
+     "title": "Oscar D'León y su Salsa Mayor",
+     "year": 1978,
+     "why": "título parecido a otro disco del artista (0.63)"
+    },
+    {
+     "artist": "Simón Díaz",
+     "title": "Simón Bolívar cantado por su tocayo",
+     "year": 1983,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Oscar D'León",
+     "title": "Con cariño, Oscar",
+     "year": 1984,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Simón Díaz",
+     "title": "Cuenta y canta Vol.1",
+     "year": 1994,
+     "why": "título parecido a otro disco del artista (0.83)"
+    },
+    {
+     "artist": "Simón Díaz",
+     "title": "Cuenta y canta Vol.2",
+     "year": 1994,
+     "why": "título parecido a otro disco del artista (0.83)"
+    },
+    {
+     "artist": "El Trabuco Venezolano",
+     "title": "El Trabuco Venezolano Vol. I",
+     "year": 1977,
+     "why": "título parecido a otro disco del artista (0.91)"
+    },
+    {
+     "artist": "Simón Díaz",
+     "title": "Grandes compositores de Venezuela...",
+     "year": 2001,
+     "why": "título parecido a otro disco del artista (0.68)"
+    },
+    {
+     "artist": "Vytas Brenner",
+     "title": "Lo máximo de Vytas",
+     "year": 1994,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Alberto Naranjo",
+     "title": "Oblación",
+     "year": 1994,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "La Rondalla Venezolana",
+     "title": "40 años después",
+     "year": 1998,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Serenata Guayanesa",
+     "title": "Aguinaldos populares venezolanos",
+     "year": 1978,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Simón Díaz",
+     "title": "Simón Díaz '69",
+     "year": 1969,
+     "why": "título parecido a otro disco del artista (0.63)"
+    },
+    {
+     "artist": "Simón Díaz",
+     "title": "Simón Díaz '71",
+     "year": 1971,
+     "why": "título parecido a otro disco del artista (0.63)"
+    },
+    {
+     "artist": "Alberto Naranjo",
+     "title": "Swing con son",
+     "year": 1996,
+     "why": "título parecido a otro disco del artista (0.90)"
+    },
+    {
+     "artist": "Aldemaro Romero",
+     "title": "The New Wave",
+     "year": 1971,
+     "why": "título parecido a otro disco del artista (0.90)"
+    }
+   ],
+   "noArtist": 44,
+   "noArtistList": [
+    "Lila Morillo",
+    "Xulio Formoso",
+    "Teenrock",
+    "Xulio Formoso",
+    "Simón Díaz, Hugo Blanco",
+    "varios artistas",
+    "varios artistas",
+    "Dimensión Latina, Oscar D'León",
+    "varios artistas",
+    "Paché Vargas",
+    "Oscar D'León, Leo Pacheco",
+    "varios artistas",
+    "Ruddy Rodríguez",
+    "varios artistas",
+    "Xulio Formoso",
+    "varios artistas",
+    "Oscar Hernández",
+    "Alexis Rossell, Levy Rossell",
+    "Canto del Cisne",
+    "Marlene",
+    "varios artistas",
+    "Ricardo Montaner, Melissa, Agni Mogollón, Myriam Hernández, Guillermo Dávila, Mirla Castellanos",
+    "The Love Depression, The Nasty Pillows, Los Snobs, Nancy Ramos, Wendy Vivas, Wolfang Vivas, Trino Mora, Orquesta Venezuela Pop, Carlos Moreán, Los Memphis",
+    "Sky Way",
+    "Coro de Niños EDUCATEL"
+   ]
+  },
+  "tracks": {
+   "filled": 32,
+   "ambiguous": 2,
+   "unmatched": 160,
+   "noAlbum": 194
+  }
+ }
+}
