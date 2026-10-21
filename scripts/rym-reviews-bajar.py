@@ -181,6 +181,14 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
         async with lock:
             return cola_tareas.pop(0) if cola_tareas else None
 
+    bloqueadas_path = campaign / 'no-capturadas.jsonl'
+
+    def registrar_bloqueada(t: dict, status: int, titulo: str) -> None:
+        with open(bloqueadas_path, 'a', encoding='utf-8') as fh:
+            fh.write(json.dumps({'url': t['url'], 'out': t['out'], 'page': t['page'],
+                                 'status': status, 'titulo': (titulo or '')[:120],
+                                 'at': time.strftime('%F %T')}, ensure_ascii=False) + '\n')
+
     def guardar_estado() -> None:
         transcurrido = max(1e-6, time.monotonic() - arranque)
         estado['ppm'] = round(60 * estado['hechas'] / transcurrido, 2)
@@ -225,9 +233,25 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
 
             if es_muro(status, titulo, html):
                 estado['muros'] += 1
+                intentos = t.get('_intentos', 0) + 1
+                t['_intentos'] = intentos
+                # 403 de una página concreta (review restringida): se reintenta al final
+                # sin frenar el grifo global; si insiste, se anota y se sigue.
+                if status == 403:
+                    if intentos >= 3:
+                        registrar_bloqueada(t, status, titulo)
+                        log(f'[bloqueada] {t["out"]} (403) — anotada en no-capturadas.jsonl')
+                        continue
+                    async with lock:
+                        cola_tareas.append(t)
+                    log(f'[403] {t["out"]}: se reintenta al final ({intentos}/3)')
+                    await asyncio.sleep(random.uniform(2, 5))
+                    continue
                 fallos_seg += 1
                 estado['murado'] = True
                 grifo.castigar()
+                async with lock:
+                    cola_tareas.append(t)
                 log(f'[muro] ({status}) {titulo[:50]} · pausa {grifo.pausa_hasta - time.monotonic():.0f}s '
                     f'(seguidos {fallos_seg})')
                 if fallos_seg >= 4:
