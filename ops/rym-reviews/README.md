@@ -49,7 +49,18 @@ bash ops/rym-reviews/bajar.sh            # o systemctl --user start crv-rym-revi
 - Plan completo: 5.537 páginas pendientes.
 - Alcance catálogo: 1.268 páginas (751 de página 1 + 517 subpáginas).
 - Tras excluir los 255 artistas internacionales del reporte del 21-10-2026:
-  **606 páginas** (581 de página 1 + 25 subpáginas) en 581 fichas.
+  606 páginas (581 de página 1 + 25 subpáginas) en 581 fichas.
+- Reintegrados por vínculo venezolano (decisión de Brian, 21-10-2026): **12
+  fichas** — proyectos y trayectorias de venezolanos que el reporte contaba como
+  extranjeras. Lista con su evidencia en
+  `reintegrados-venezolanos.json`: Analog Circl8 (proyecto de Daniel Maal),
+  Orinoko, El Ensamble MCV, Piel de Lobo, Denso, Marco Ciargo (nacido en
+  Caracas), The Snake Trio, Recoveco, Agustín Irusta, Caterinetta Lescano,
+  Arabella y 2irie (carrera en Venezuela).
+  Efecto real en el plan: +1 ficha / +1 página (Marco Ciargo); el resto no
+  tiene ficha de release capturada en RYM, pero quedan dentro del alcance para
+  cuando se capture.
+- Plan final en curso: **607 páginas / 582 fichas**.
 - Descartado: 2.426 fichas / 4.269 páginas (1.364 de artistas que no están en la
   BD y 1.062 de discos que no están en el catálogo). Motivo típico: la ficha del
   artista entró por un bootleg venezolano y el plan tomó su discografía completa

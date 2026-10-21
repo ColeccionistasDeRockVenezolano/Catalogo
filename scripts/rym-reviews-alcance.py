@@ -74,27 +74,35 @@ def coincide(artista: str, titulo: str, discos: dict[str, list[str]]) -> str | N
     return None
 
 
-def excluidos(camp: Path) -> tuple[set[str], set[str]]:
-    """Artistas que no cuentan para reviews.
+def exclusiones(camp: Path) -> tuple[set[str], set[str]]:
+    """(excluidos, reintegrados) para el plan de reviews.
 
-    Fuente principal: el reporte de auditoría de artistas internacionales
-    (`excluidos-artistas-internacionales.json`, 255 fichas con ID y país).
-    Refuerzo: cualquier ficha de artista cuyo `origin_country` registrado no sea
-    Venezuela — así no se cuela una nueva alta extranjera entre auditorías.
+    `excluidos-artistas-internacionales.json`: las 255 fichas del reporte de
+    auditoría (con ID y país).
+    `reintegrados-venezolanos.json`: proyectos y trayectorias de venezolanos que
+    el reporte clasificaba como extranjeros — el proyecto de un venezolano es
+    venezolano (Brian, 2026-10-21), así que vuelven al alcance con su evidencia.
+    Los reintegrados también saltan la regla de país.
     """
     nombres: set[str] = set()
+    reintegrados: set[str] = set()
     ruta = camp / 'excluidos-artistas-internacionales.json'
     if ruta.exists():
         for f in json.loads(ruta.read_text(encoding='utf-8')):
             nombres.add(slug(f['nombre']))
-    return nombres, set()
+    ruta_re = camp / 'reintegrados-venezolanos.json'
+    if ruta_re.exists():
+        for f in json.loads(ruta_re.read_text(encoding='utf-8')):
+            reintegrados.add(slug(f['nombre']))
+    return nombres - reintegrados, reintegrados
 
 
 def main() -> int:
     camp = REPO / (sys.argv[1] if len(sys.argv) > 1 else 'data/raw/rym-reviews-2026-10-20')
     discos, pais = catalogo()
-    excluidos_reporte, _ = excluidos(camp)
-    print(f'excluidos por el reporte de internacionales: {len(excluidos_reporte)} artistas')
+    excluidos_reporte, reintegrados = exclusiones(camp)
+    print(f'excluidos por el reporte: {len(excluidos_reporte)} artistas · '
+          f'reintegrados por vínculo venezolano: {len(reintegrados)}')
     fichas = [json.loads(l) for l in (camp / 'plan-fichas.jsonl').open(encoding='utf-8')]
     fuente_todas = camp / 'tareas-todas.jsonl' if (camp / 'tareas-todas.jsonl').exists() else camp / 'tareas.jsonl'
     tareas_todas = [json.loads(l) for l in fuente_todas.open(encoding='utf-8')]
@@ -109,7 +117,7 @@ def main() -> int:
             fuera.append(f)
             continue
         p = pais.get(artista)
-        if p and p != 'Venezuela':
+        if p and p != 'Venezuela' and artista not in reintegrados:
             f['motivo'] = f'artista con país registrado fuera de Venezuela ({p})'
             fuera.append(f)
             continue
@@ -148,6 +156,7 @@ def main() -> int:
         'descartadas_paginas': sum(len(f['paginas_pendientes']) for f in fuera),
         'descartadas_por_motivo': dict(Counter(f['motivo'] for f in fuera)),
         'excluidos_reporte_internacionales': len(excluidos_reporte),
+        'reintegrados_por_vinculo_venezolano': sorted(reintegrados),
         'fichas_por_pais_bd': dict(por_pais.most_common()),
         'generado': __import__('datetime').datetime.now().isoformat(timespec='seconds'),
     }
