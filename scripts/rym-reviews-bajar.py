@@ -62,10 +62,13 @@ def es_muro(status: int, titulo: str, html: str = '') -> bool:
     el <title>: una página 200 con reviews se marcaba como bloqueo. Si el HTML
     trae los bloques de review, hay contenido y no es muro.
     """
-    if status in (403, 429, 503):
-        return True
+    # RYM devuelve a veces 403 CON el contenido completo de la página (medido
+    # 2026-10-21: status 403 y 8 reviews dentro). Si el HTML trae los bloques de
+    # review, hay página: no es muro.
     if RE_SHELL.search(html or ''):
         return False
+    if status in (403, 429, 503):
+        return True
     return any(m.lower() in (titulo or '').lower() for m in MARCAS_MURO)
 
 
