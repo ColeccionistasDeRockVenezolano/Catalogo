@@ -27,6 +27,7 @@ import asyncio
 import json
 import os
 import random
+import re
 import shutil
 import subprocess
 import sys
@@ -67,7 +68,10 @@ def es_muro(status: int, titulo: str, html: str = '') -> bool:
     # review, hay página: no es muro.
     if RE_SHELL.search(html or ''):
         return False
-    if status in (403, 429, 503):
+    if status in (403, 429, 502, 503, 504):
+        return True
+    # página de error servida con 200 (RYM devuelve «502 Bad gateway» maquetado)
+    if re.search(r'Bad gateway|Error 502|Error 504', html or '', re.I):
         return True
     return any(m.lower() in (titulo or '').lower() for m in MARCAS_MURO)
 
