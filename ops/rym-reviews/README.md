@@ -10,7 +10,9 @@ cd "/home/brian/apps/Coleccionistas De Rock Venezolano"
 python3 scripts/rym-reviews-plan.py --outdir data/raw/rym-reviews-2026-10-20
 #    -> plan-fichas.jsonl, tareas.jsonl, resumen.json
 
-# 2) Acotar al catálogo: solo discos que existen en public.albums
+# 2) Acotar: solo discos del catálogo y sin artistas internacionales
+#    (lee excluidos-artistas-internacionales.json, extraído del reporte
+#     auditable del 2026-10-21: 255 fichas con país distinto de Venezuela)
 python3 scripts/rym-reviews-alcance.py
 #    -> reescribe tareas.jsonl (alcance), respalda tareas-todas.jsonl,
 #       y deja fuera-de-alcance.jsonl con el motivo de cada descarte
@@ -45,7 +47,9 @@ bash ops/rym-reviews/bajar.sh            # o systemctl --user start crv-rym-revi
 
 - Universo: 22.568 fichas de release medidas; 3.216 declaran reviews.
 - Plan completo: 5.537 páginas pendientes.
-- Alcance catálogo: **1.268 páginas** (751 de página 1 + 517 subpáginas).
+- Alcance catálogo: 1.268 páginas (751 de página 1 + 517 subpáginas).
+- Tras excluir los 255 artistas internacionales del reporte del 21-10-2026:
+  **606 páginas** (581 de página 1 + 25 subpáginas) en 581 fichas.
 - Descartado: 2.426 fichas / 4.269 páginas (1.364 de artistas que no están en la
   BD y 1.062 de discos que no están en el catálogo). Motivo típico: la ficha del
   artista entró por un bootleg venezolano y el plan tomó su discografía completa

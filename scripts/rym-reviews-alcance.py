@@ -74,17 +74,45 @@ def coincide(artista: str, titulo: str, discos: dict[str, list[str]]) -> str | N
     return None
 
 
+def excluidos(camp: Path) -> tuple[set[str], set[str]]:
+    """Artistas que no cuentan para reviews.
+
+    Fuente principal: el reporte de auditoría de artistas internacionales
+    (`excluidos-artistas-internacionales.json`, 255 fichas con ID y país).
+    Refuerzo: cualquier ficha de artista cuyo `origin_country` registrado no sea
+    Venezuela — así no se cuela una nueva alta extranjera entre auditorías.
+    """
+    nombres: set[str] = set()
+    ruta = camp / 'excluidos-artistas-internacionales.json'
+    if ruta.exists():
+        for f in json.loads(ruta.read_text(encoding='utf-8')):
+            nombres.add(slug(f['nombre']))
+    return nombres, set()
+
+
 def main() -> int:
     camp = REPO / (sys.argv[1] if len(sys.argv) > 1 else 'data/raw/rym-reviews-2026-10-20')
     discos, pais = catalogo()
+    excluidos_reporte, _ = excluidos(camp)
+    print(f'excluidos por el reporte de internacionales: {len(excluidos_reporte)} artistas')
     fichas = [json.loads(l) for l in (camp / 'plan-fichas.jsonl').open(encoding='utf-8')]
-    tareas_todas = [json.loads(l) for l in (camp / 'tareas.jsonl').open(encoding='utf-8')]
+    fuente_todas = camp / 'tareas-todas.jsonl' if (camp / 'tareas-todas.jsonl').exists() else camp / 'tareas.jsonl'
+    tareas_todas = [json.loads(l) for l in fuente_todas.open(encoding='utf-8')]
 
     dentro, fuera = [], []
     for f in fichas:
         partes = [p for p in f['href'].strip('/').split('/') if p]
         artista = slug(partes[2]) if len(partes) > 2 else ''
         titulo = slug(partes[3]) if len(partes) > 3 else ''
+        if artista in excluidos_reporte:
+            f['motivo'] = 'artista internacional (reporte 2026-10-21)'
+            fuera.append(f)
+            continue
+        p = pais.get(artista)
+        if p and p != 'Venezuela':
+            f['motivo'] = f'artista con país registrado fuera de Venezuela ({p})'
+            fuera.append(f)
+            continue
         tipo = coincide(artista, titulo, discos)
         if tipo:
             f['match'] = tipo
@@ -119,6 +147,7 @@ def main() -> int:
         'descartadas_fichas': len(fuera),
         'descartadas_paginas': sum(len(f['paginas_pendientes']) for f in fuera),
         'descartadas_por_motivo': dict(Counter(f['motivo'] for f in fuera)),
+        'excluidos_reporte_internacionales': len(excluidos_reporte),
         'fichas_por_pais_bd': dict(por_pais.most_common()),
         'generado': __import__('datetime').datetime.now().isoformat(timespec='seconds'),
     }
