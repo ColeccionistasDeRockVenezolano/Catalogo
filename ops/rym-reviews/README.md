@@ -36,6 +36,32 @@ bash ops/rym-reviews/bajar.sh            # o systemctl --user start crv-rym-revi
   refresca la sesión con `chrome.sh --force`. Si el muro sigue, hay que abrir
   rateyourmusic.com en el Chrome del dueño ~30 s.
 
+## Motor alternativo: camofox-browser (Camoufox)
+
+Instalado el 2026-10-21 en `/home/brian/apps/camofox-browser` (Node 24,
+`npm start`, `:9377`, API REST con `/tabs`, `/snapshot`, `/sessions/{user}/cookies`;
+docs en `/openapi.json`). Camoufox es un Firefox parcheado a nivel C++ contra
+fingerprinting.
+
+Medición real contra RYM (dos pruebas):
+
+| Perfil | Cookies | Resultado |
+| --- | --- | --- |
+| limpio | ninguna | 403 + reto `__cf_chl_rt_tk` |
+| limpio | 31 cookies de RYM del Firefox real, `cf_clearance` viva | **403 igual** |
+
+Conclusión: la `cf_clearance` está atada a la huella del navegador que la obtuvo
+(y a la IP). Inyectarla en otro navegador no sirve — es el mismo motivo por el
+que Camoufox daba 403 en la campaña del 16-10 aunque el keeper publicara la
+cookie. Para usar camofox con RYM hay que **minar la sesión dentro de su propio
+perfil**: arrancarlo con `CAMOFOX_INTERACTIVE=desktop`, resolver el reto una vez
+en su ventana y conservar el perfil (`CAMOFOX_PROFILE_DIR`); después se reutiliza
+con `POST /tabs` a 1 página por petición.
+
+Mientras eso no esté hecho, el motor que sostiene la captura es el Chrome real
+por CDP (`ops/rym-resto/chrome.sh`), que en esta campaña hizo 607 páginas a
+10-11 páginas/min sin muros sostenidos.
+
 ## Estado y medidas
 
 - Estado vivo: `data/raw/rym-reviews-2026-10-20/estado-bajar.json`
