@@ -9,7 +9,7 @@ se detuvo la captura y qué hace falta para retomarla sin repetir errores.
 
 | Campaña | Alcance | Resultado |
 | --- | --- | --- |
-| Catálogo (`rym-reviews-2026-10-20`) | 582 fichas con reviews que sí están en `public.albums` (tras excluir 255 artistas internacionales del reporte y reintegrar 12 proyectos de venezolanos) | **607 / 607 páginas** · **3.263 reviews** · `reviews.jsonl` de 4,9 MB |
+| Catálogo (`rym-reviews-2026-10-20`) | 582 fichas con reviews que sí están en `public.albums` (tras excluir 255 artistas internacionales del reporte y reintegrar 12 proyectos de venezolanos) | **607 capturadas**: 606 válidas en `pages/` + 1 en cuarentena (`thealbertoz_eco`, era un 502) · **3.263 reviews** · `reviews.jsonl` de 4,9 MB |
 | Validación de identidad | todas las páginas de las tres campañas | **941 correctas · 0 contaminadas** · 4 apartadas (eran `502 Bad gateway`) |
 
 Comprobaciones que quedan como norma:
@@ -33,7 +33,7 @@ pudieron ingerir): sirven para tener el material listo antes del alta.
 ```
 data/raw/rym-reviews-938-2026-10-21/
   tareas.jsonl ........... 1.028 páginas (938 de página 1 + 90 subpáginas)
-  pages/ ................. 116 capturadas
+  pages/ ................. 116 válidas (3 más en pages-sospechosas, eran 502)
   pages-sospechosas/ ..... 3 apartadas (502)
   pendientes ............. 912
 unidad ................... crv-rym-reviews-938 (inactive + disabled)
