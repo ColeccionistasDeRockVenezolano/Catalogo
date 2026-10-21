@@ -150,6 +150,24 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
     lock = asyncio.Lock()
     arranque = time.monotonic()
     ultimas: list[tuple[float, str, int]] = []
+    abortar = asyncio.Event()
+
+    async def vigia() -> None:
+        """Si no entra ninguna página en --stall-seg, la corrida está muerta: se sale
+        con 75 y systemd la relanza con conexión CDP nueva (el estado es reanudable)."""
+        marca = (estado['hechas'], time.monotonic())
+        while not abortar.is_set():
+            await asyncio.sleep(20)
+            if estado['hechas'] != marca[0]:
+                marca = (estado['hechas'], time.monotonic())
+            elif time.monotonic() - marca[1] > args.stall_seg:
+                log(f'[vigía] {args.stall_seg}s sin capturar — se reinicia la corrida')
+                avisar('🟠 CRV · reviews RYM: la captura se quedó muda; reinicio automático. '
+                       'Si se repite, abre rateyourmusic.com en tu Chrome ~30 s.')
+                estado['parado'] = True
+                guardar_estado()
+                abortar.set()
+                return
 
     async def siguiente() -> dict | None:
         async with lock:
@@ -167,7 +185,8 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
     async def trabajador(n: int, contexto) -> None:
         pagina = await contexto.new_page()
         fallos_seg = 0
-        while True:
+        en_esta_pestana = 0
+        while not abortar.is_set():
             t = await siguiente()
             if t is None:
                 break
@@ -205,10 +224,13 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
                     f'(seguidos {fallos_seg})')
                 if fallos_seg >= 4:
                     avisar('🔒 CRV · reviews RYM: muro sostenido. Abre rateyourmusic.com en tu Chrome '
-                           'unos 30 s para renovar cf_clearance; la captura sigue sola.')
+                           'unos 30 s para renovar cf_clearance; la captura se reinicia sola.')
                     subprocess.run(['bash', str(REPO / 'ops/rym-resto/chrome.sh'), '--force'],
                                    capture_output=True, timeout=180)
-                    fallos_seg = 0
+                    estado['parado'] = True
+                    guardar_estado()
+                    abortar.set()
+                    break
                 continue
             estado['murado'] = False
             fallos_seg = 0
@@ -243,6 +265,14 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
                     f"({estado['ppm'] or 0:.1f}/min)")
             if estado['hechas'] % 5 == 0:
                 guardar_estado()
+            en_esta_pestana += 1
+            if args.reciclar_cada and en_esta_pestana % args.reciclar_cada == 0:
+                try:
+                    await pagina.close()
+                except Exception:
+                    pass
+                pagina = await contexto.new_page()
+                log(f'[reciclar] pestaña {n} renovada tras {en_esta_pestana} páginas')
             if args.pausa_cada and estado['hechas'] % args.pausa_cada == 0:
                 pausa = random.uniform(30, 60)
                 log(f'[higiene] pausa {pausa:.0f}s tras {estado["hechas"]} páginas')
@@ -257,15 +287,19 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
         log(f'CDP conectado a {args.cdp} · pestañas {args.tabs} · grifo {args.gap_min}-{args.gap_max}s '
             f'· pendientes {len(tareas)}')
         hilo_mover = asyncio.create_task(movidos.correr())
+        tarea_vigia = asyncio.create_task(vigia())
         guardar_estado()
         await asyncio.gather(*[trabajador(i, contexto) for i in range(args.tabs)])
+        abortar.set()
+        tarea_vigia.cancel()
         await movidos.cola.put(None)
         await hilo_mover
 
     guardar_estado()
     log(f'FIN · {estado["hechas"]} páginas · {estado["fallos"]} fallos · {estado["muros"]} muros · '
-        f'{movidos.movidos} archivos movidos a 1 TB · {estado["ppm"]:.1f}/min')
-    return estado['hechas']
+        f'{movidos.movidos} archivos movidos a 1 TB · {estado["ppm"]:.1f}/min'
+        f'{" · ABORTADO (se reintenta)" if estado.get("parado") else ""}')
+    return 75 if estado.get('parado') else 0
 
 
 def main() -> int:
@@ -278,6 +312,8 @@ def main() -> int:
     ap.add_argument('--pausa-cada', type=int, default=40, help='pausa de higiene cada N páginas (0 = nunca)')
     ap.add_argument('--limit', type=int, default=0)
     ap.add_argument('--ssd', default=os.environ.get('CRV_RYM_SSD', os.path.expanduser('~/.cache/crv-rym-stage')))
+    ap.add_argument('--reciclar-cada', type=int, default=25, help='renueva la pestaña cada N páginas (0 = nunca)')
+    ap.add_argument('--stall-seg', type=int, default=300, help='sin capturar N s → salir 75 para que systemd relance')
     ap.add_argument('--verbose', action='store_true')
     args = ap.parse_args()
 
@@ -305,8 +341,7 @@ def main() -> int:
         return 0
     if args.limit:
         tareas = tareas[:args.limit]
-    hechas = asyncio.run(capturar(args, tareas, campaign, stage, destino))
-    return 0 if hechas else 1
+    return asyncio.run(capturar(args, tareas, campaign, stage, destino))
 
 
 if __name__ == '__main__':

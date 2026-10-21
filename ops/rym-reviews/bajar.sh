@@ -18,6 +18,8 @@ TABS="${TABS:-2}"
 GAP_MIN="${GAP_MIN:-5}"
 GAP_MAX="${GAP_MAX:-7}"
 LIMIT="${LIMIT:-0}"
+RECICLAR="${RECICLAR:-25}"
+STALL="${STALL:-300}"
 
 mkdir -p "$LOG_DIR"
 
@@ -28,7 +30,8 @@ if ! curl -s -m 2 "http://127.0.0.1:9333/json/version" | grep -q '"Browser"'; th
   bash ops/rym-resto/chrome.sh >>"$LOG" 2>&1 || { echo "[$(date +%T)] ERROR: chrome no arrancó" >>"$LOG"; exit 1; }
 fi
 
-ARGS=(--campaign "$CAMPAIGN" --tabs "$TABS" --gap-min "$GAP_MIN" --gap-max "$GAP_MAX")
+ARGS=(--campaign "$CAMPAIGN" --tabs "$TABS" --gap-min "$GAP_MIN" --gap-max "$GAP_MAX"
+      --reciclar-cada "$RECICLAR" --stall-seg "$STALL")
 [ "$LIMIT" != "0" ] && ARGS+=(--limit "$LIMIT")
 
 echo "[$(date +%T)] arranque · pestañas $TABS · grifo ${GAP_MIN}-${GAP_MAX}s · límite ${LIMIT}" >>"$LOG"
