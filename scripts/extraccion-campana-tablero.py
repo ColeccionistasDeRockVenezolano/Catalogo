@@ -247,7 +247,6 @@ def manifest_hoy():
 def reloj_muro(log_tail):
     """(estado, detalle) del muro de Cloudflare leyendo el log de la captura."""
     ultimo_mas, ultimo_bloqueo, cf = None, None, False
-    bloqueos_403 = bloqueos_503 = 0
     for linea in log_tail:
         m = re.match(r"\[(\d{2}:\d{2}:\d{2})\] \+ \[", linea)
         if m:
@@ -255,22 +254,9 @@ def reloj_muro(log_tail):
         m = re.match(r"\[(\d{2}:\d{2}:\d{2})\] \[bloqueo\] \((\d+)\)", linea)
         if m:
             ultimo_bloqueo, cf = m.group(1), m.group(2) == "403"
-            if m.group(2) == "403":
-                bloqueos_403 += 1
-            elif m.group(2) == "503":
-                bloqueos_503 += 1
     if ultimo_bloqueo and (not ultimo_mas or ultimo_bloqueo > ultimo_mas):
-        return ("MURO" if cf else "MURO SUAVE", ultimo_bloqueo, (bloqueos_403, bloqueos_503))
-    return ("OK", ultimo_mas or "-", (bloqueos_403, bloqueos_503))
-
-
-def estado_cliquer():
-    """Estado del wall-clicker (reports/crv-marcas/clicker-guardia) — el que mantiene la sesión."""
-    try:
-        with open(REPO / "reports/crv-marcas/clicker-guardia", encoding="utf-8") as fh:
-            return json.load(fh)
-    except Exception:
-        return {}
+        return ("MURO" if cf else "MURO SUAVE", ultimo_bloqueo)
+    return ("OK", ultimo_mas or "-")
 
 
 def segundos(hhmmss):
@@ -344,6 +330,18 @@ def eta_txt(n, seg):
     return f"~{s / 3600:.1f} h" if s >= 3600 else f"~{max(1, round(s / 60))} min"
 
 
+def hace_txt(seg):
+    """«hace 2 h 45 min» — para ver de un vistazo si la captura está viva o parada."""
+    if seg is None:
+        return "—"
+    seg = int(seg)
+    if seg < 90:
+        return f"hace {seg} s"
+    if seg < 5400:
+        return f"hace {seg // 60} min"
+    return f"hace {seg // 3600} h {(seg % 3600) // 60:02d} min"
+
+
 def _progreso_catalogo(ficha, catalogo):
     """Qué tiene ya el catálogo de este artista y qué le falta — el «progreso en datos» de la ficha."""
     entrada = catalogo.get(norm_nombre(ficha["nombre"] or ""))
@@ -401,6 +399,49 @@ def campana():
     return datos
 
 
+def _tarjeta_vias():
+    """Qué navegador está trayendo las fichas (Firefox/puente · Chrome) y a qué ritmo.
+
+    Las dos vías comparten estado.json, pages/ y las reservas de scripts/rym_reservas.py: aquí solo
+    se lee la telemetría que ambas dejan en vias.jsonl y el latido del capturador Chrome.
+    """
+    vias = {}
+    try:
+        vias = reglas.leer_vias(CAPTURA)
+    except Exception:
+        pass
+    latido = {}
+    try:
+        with open("/tmp/crv-rym-chrome.json", encoding="utf-8") as fh:
+            latido = json.load(fh)
+    except (OSError, ValueError):
+        pass
+
+    def una(nombre, etiqueta):
+        d = vias.get(nombre) or {}
+        if not d or d.get("hace") is None:
+            return f"{etiqueta}: sin actividad"
+        ritmo = f" · {d['ritmo']:.1f}/min" if d.get("ritmo") else ""
+        return f"{etiqueta}: {miles(d.get('ok', 0))} ok · {hace_txt(d['hace'])}{ritmo}"
+
+    activa = "chrome" if (vias.get("chrome", {}).get("n") or 0) >= (vias.get("firefox", {}).get("n") or 0) \
+        else "firefox"
+    estado_chrome = latido.get("estado") or "—"
+    edad_latido = int(time.time() - latido["ts"]) if latido.get("ts") else None
+    clase = "ok" if activa == "chrome" and estado_chrome == "corriendo" else \
+        ("ojo" if activa == "firefox" else "")
+    ayuda = ("Chrome usa una copia del perfil del dueño CON sesión de RYM (is_logged_in + cf_clearance); "
+             "Firefox es el puente del escritorio. Comparten estado.json, pages/ y las reservas de "
+             "scripts/rym_reservas.py, así que ninguna ficha se pide dos veces. El latido del capturador "
+             "Chrome está en /tmp/crv-rym-chrome.json.")
+    return tarjeta("Vías de captura", f"<b>{activa}</b>",
+                   " · ".join([una("chrome", "chrome"), una("firefox", "firefox")])
+                   + (f" · chrome {estado_chrome}"
+                      + (f" (latido {hace_txt(edad_latido)})" if edad_latido is not None else "")
+                      if latido else ""),
+                   ayuda, clase=clase)
+
+
 def bloque_a():
     estado = estado_json()
     catalogo = catalogo_artistas()
@@ -415,19 +456,33 @@ def bloque_a():
     vacias = [f for f in utiles if f["sinDatos"] or (not f["nRows"] and not f["nGen"] and not f["formed"] and not f["nombre"])]
     con_discos = [f for f in utiles if f["nRows"]]
     pendientes = cola - trabajadas                 # sin max(0): si la cola cambió, se ve
-    todas = prog.get("todas") or (len(discos_estado) if discos_estado else 0)
-    hechos = prog.get("hechos", len(discos_estado))
-    discos_ok = prog.get("ok", sum(1 for f in discos_estado if f["status"] != 404 and not f["sinDatos"]))
-    discos_vacios = prog.get("vacios", sum(1 for f in discos_estado if f["sinDatos"]))
-    faltan_discos = prog.get("faltan", todas - hechos if todas else 0)
+    # Las cuentas de la fase 2 salen SIEMPRE de `reglas.progreso` (misma unidad: discos listados en
+    # las fichas de artista, sin musicvideo). El fallback anterior mezclaba unidades —«hechos» era el
+    # número de entradas release del estado, que incluye musicvideo y fichas fuera de la cola— y
+    # pintaba un «14.363 de 14.377 · faltan 14» falso cuando en realidad no faltaba ninguna.
+    todas = prog.get("todas") or 0
+    hechos = prog.get("hechos") or 0
+    discos_ok = prog.get("ok") or 0
+    discos_vacios = prog.get("vacios") or 0
+    faltan_discos = prog.get("faltan") or 0
+    sin_cuentas = not todas
     log_a = leer(LOG_A, 400)
     seg_ficha, tramos = ritmo_medido(log_a)
     seg_artista, _tramos_artista = ritmo_medido(log_a, solo="artist")
     seg_disco, tramos_disco = ritmo_medido(log_a, solo="release")
-    estado_muro, cuando, (bloqueos_403, bloqueos_503) = reloj_muro(log_a)
-    cliquer = estado_cliquer()
+    estado_muro, cuando = reloj_muro(log_a)
     # Ritmo de la ÚLTIMA MEDIA HORA, medido del ts de cada ficha en estado.json
     ahora = time.time()
+    ultima_ts = max((f["ts"] for f in estado if f["ts"]), default=0)
+    hace_ult = (ahora - float(ultima_ts)) if ultima_ts else None
+    # Próxima sonda del modo muro, tal como la anunció el log («[muro] sonda en N min»).
+    proxima_sonda = None
+    for linea in reversed(log_a):
+        m = re.match(r"\[(\d{2}):(\d{2}):(\d{2})\] \[muro\] sonda en (\d+) min", linea)
+        if m:
+            seg = int(m.group(1)) * 3600 + int(m.group(2)) * 60 + int(m.group(3)) + int(m.group(4)) * 60
+            proxima_sonda = f"{seg // 3600 % 24:02d}:{seg // 60 % 60:02d}"
+            break
     ventana = [f for f in estado if f["ts"] and ahora - float(f["ts"]) <= 1800]
     utiles_ventana = [f for f in ventana if f["status"] != 404]
     fichas_min = len(ventana) / 30 if ventana else None
@@ -438,19 +493,26 @@ def bloque_a():
     discos_min = len(ventana_discos) / 30 if ventana_discos else None
     seg_efectivo = 60 / discos_min if discos_min else seg_disco
     eta = eta_txt(pendientes, seg_artista or seg_ficha)
-    eta_discos = eta_txt(faltan_discos, seg_efectivo)
+    # Sin capturas en la última ½ h no hay ETA honesta: se dice que está parada y desde cuándo.
+    eta_discos = eta_txt(faltan_discos, seg_efectivo) if ventana_discos else f"parado · última ficha {hace_txt(hace_ult)}"
     clase_muro = "ok" if estado_muro == "OK" else "mal"
     if estado_muro.startswith("MURO SUAVE"):
         ayuda_muro = ("RYM devolvió 503 «Security check required» (muro propio del sitio): el motor "
                       "enfría y reintenta solo, sin perder nada. Si se sostiene más de ~20 min, "
                       "abrirlo en el Firefox del dueño refresca la sesión.")
     elif estado_muro == "MURO":
-        ayuda_muro = ("Muro de Cloudflare (403 «Un momento…»): la sesión del dueño venció — abrir "
-                      "rateyourmusic.com en su Firefox ~30 s. El motor reintenta solo cada ~20 min "
-                      "recargando cookies y los ítems quedan pendientes (nada se pierde).")
+        ayuda_muro = ("Muro en las fichas de disco: RYM responde 403 «Un momento…» / 503 Service Unavailable. "
+                      "Comprobado el 2026-10-19 desde dos móviles con datos (otra IP y otro ASN) y desde el "
+                      "hotspot del equipo: portada y fichas de artista cargan, las de DISCO no. No es nuestra "
+                      "IP ni nuestra sesión: es RYM. El motor sondea a 20 → 40 → 80 → 160 → 240 min y reanuda "
+                      "solo; nada se pierde.")
     else:
         ayuda_muro = "OK = RYM responde con normalidad; última marca de captura la de la izquierda."
     u, clase_u = estado_de("crv-scrapling-rym-resto", LOG_A)
+    if not sin_cuentas and faltan_discos == 0 and pendientes <= 0:
+        # El motor Scrapling está parado a propósito (la campaña va por Chrome/Firefox): sin esto la
+        # píldora del título decía «inactive» en rojo con la captura ya terminada.
+        u, clase_u = "completo", "ok"
 
     tarjetas = [
         tarjeta("Cola de artistas (fase 1)", f"<b>{miles(cola)}</b>",
@@ -471,9 +533,16 @@ def bloque_a():
                 "La meta es la cola de discos del motor, no la cola de artistas."),
         tarjeta("Discos con datos", f"<b>{miles(discos_ok)}</b>", f"{miles(discos_vacios)} vacíos en RYM",
                 "Discos con portada, pistas o géneros aprovechables. Los vacíos existen pero RYM no sirve nada en ellos."),
-        tarjeta("Pendientes fase 2", f"<b>{miles(faltan_discos)}</b>", f"ETA {eta_discos}",
+        tarjeta("Pendientes fase 2", f"<b>{miles(faltan_discos)}</b>",
+                f"ETA {eta_discos}" if eta_discos.startswith("~") else eta_discos,
                 "Discos de la cola sin capturar. La ETA usa el ritmo efectivo de la última media hora "
-                "(incluye pausas y timeouts), no la mediana de tramos."),
+                "(incluye pausas y timeouts), no la mediana de tramos. Si no hubo capturas en esa "
+                "ventana se dice «parado» y desde cuándo, en vez de inventar una ETA."),
+        tarjeta("Última ficha capturada", f'<b class="{"mal" if (hace_ult or 0) > 1800 else "ok"}">{hace_txt(hace_ult)}</b>',
+                esc(time.strftime("%H:%M:%S", time.localtime(ultima_ts))) if ultima_ts else "sin capturas",
+                "Marca de la ficha más reciente del estado.json. Si pasa de 30 min con el motor activo, "
+                "el bloqueo es de RYM y las sondas del modo muro son las que lo detectan.",
+                clase="mal" if (hace_ult or 0) > 1800 else "ok"),
         tarjeta("Ritmo de captura", f"<b>{seg_disco or seg_ficha or '?'} s</b>",
                 f"por disco · artistas {seg_artista or '—'} s · {tramos} tramos ({tramos_disco} de disco)",
                 "Mediana de segundos por ficha en los últimos tramos del log, separada por fase. "
@@ -482,16 +551,10 @@ def bloque_a():
                 (f"{utiles_hora:.0f} páginas útiles/h · {pct_util_ventana} % de lo intentado trae datos" if utiles_hora is not None else "sin actividad en la ventana"),
                 "Fichas intentadas por minuto y páginas útiles por hora en los últimos 30 min (del ts de cada ficha en estado.json). "
                 "Lo útil no es lo mismo que lo intentado: las inferidas fallan mucho más que las confirmadas."),
-        tarjeta("Muro de Cloudflare", f'<span class="{clase_muro}">{estado_muro}</span>', f"última marca {esc(str(cuando))}",
+        tarjeta("Muro de Cloudflare", f'<span class="{clase_muro}">{estado_muro}</span>',
+                f"última marca {esc(str(cuando))}" + (f" · próxima sonda {proxima_sonda}" if proxima_sonda else ""),
                 ayuda_muro, clase=clase_muro),
-        tarjeta("Cliquer (sesión del dueño)", f'<span class="{"ok" if cliquer.get("modo") != "muro" else "ojo"}">{esc(str(cliquer.get("modo") or "?"))}</span>',
-                f"clics hoy {cliquer.get('clics_dia', 0)} · refrescos {cliquer.get('recargas_dia', 0)} · última: {esc(str(cliquer.get('motivo') or '-')[:52])}",
-                "Mantiene caliente la sesión del Firefox del dueño. Tres modos: (1) clics humanos en enlaces de RYM "
-                "cada 30-65 s cuando el dueño no está (8 s de silencio); (2) con el dueño delante, un F5 preventivo "
-                "de la pestaña de RYM cada 10-15 min, sin tocar su ventana activa; (3) en muro del capturador, F5 "
-                "cada 90-180 s aunque el dueño esté presente (nunca si él está en la pestaña de RYM ni si acaba de "
-                "teclear). Nunca toca un reto visible. Bloqueos de hoy: "
-                f"{bloqueos_403} de 403 (Cloudflare) y {bloqueos_503} de 503 (muro propio)."),
+        _tarjeta_vias(),
     ]
 
     filas_tabla = []
@@ -524,15 +587,20 @@ def bloque_a():
     ultimos_404 = [f["slug"] for f in no_existen][:12]
     pct_cola = f"{100 * trabajadas / cola:.2f}" if cola else "?"
     pct_discos = f"{100 * hechos / todas:.1f}" if todas else "—"
+    fase2 = (f"<b>{miles(hechos)}</b> de <b>{miles(todas)}</b> ({pct_discos} %) — "
+             f"<b>{miles(discos_ok)}</b> con datos, <b>{miles(discos_vacios)}</b> vacíos, faltan "
+             f"<b>{miles(faltan_discos)}</b> (ETA {eta_discos}). No cuenta "
+             f"<code>/release/musicvideo/</code>: son videoclips y van a audiovisuales."
+             ) if not sin_cuentas else (
+             "cuentas no disponibles: <code>rym_reglas.progreso</code> no respondió "
+             "(mirar el log del tablero).")
 
     return f"""<section>
   <h2>1 · Captura RYM «resto» (bloque A) <span class="pill {clase_u}">{esc(u)}</span></h2>
   <p class="resumen"><b>Fase 1 (artistas):</b> <b>{miles(trabajadas)}</b> de <b>{miles(cola)}</b> hrefs intentados
   ({pct_cola} %) — <b>{miles(len(utiles))}</b> con ficha, <b>{miles(len(no_existen))}</b> 404, faltan
   <b>{miles(pendientes)}</b> (ETA {eta}).<br>
-  <b>Fase 2 (discos):</b> <b>{miles(hechos)}</b> de <b>{miles(todas)}</b> ({pct_discos} %) —
-  <b>{miles(discos_ok)}</b> con datos, <b>{miles(discos_vacios)}</b> vacíos, faltan
-  <b>{miles(faltan_discos)}</b> (ETA {eta_discos}).</p>
+  <b>Fase 2 (discos):</b> {fase2}</p>
   <p class="explica">Descarga, a ritmo humano y con las cookies del Firefox del dueño, la ficha de cada
   artista del catálogo que aún no la tenía y después la de <b>cada disco</b> de su discografía. La cola de
   artistas son <b>hrefs</b> ({miles(cola)} para {miles(cuentas['artistas'])} artistas): unos vistos como enlace
@@ -1239,6 +1307,125 @@ def bloque_g():
 </section>"""
 
 
+CAMP_REVIEWS = REPO / "data/raw/rym-reviews-2026-10-20"
+LOG_H = REPO / "reports/rym-reviews-2026-10-20/bajar.log"
+_cache_rev: tuple = (0.0, (0, 0))
+
+
+def _json(ruta, defecto):
+    try:
+        return json.loads(Path(ruta).read_text(encoding="utf-8"))
+    except Exception:
+        return defecto
+
+
+def _cuenta_reviews() -> tuple[int, int]:
+    """(páginas con N=1, subpáginas N>1) capturadas en esta campaña. Caché 15 s."""
+    global _cache_rev
+    if time.time() - _cache_rev[0] < 15:
+        return _cache_rev[1]
+    p1 = pn = 0
+    for f in (CAMP_REVIEWS / "pages").glob("*_reviews_*.html"):
+        if f.name.endswith("_reviews_1.html"):
+            p1 += 1
+        else:
+            pn += 1
+    _cache_rev = (time.time(), (p1, pn))
+    return p1, pn
+
+
+def _cola_log_h(n=600) -> list[str]:
+    try:
+        with open(LOG_H, encoding="utf-8", errors="replace") as fh:
+            return fh.readlines()[-n:]
+    except Exception:
+        return []
+
+
+def bloque_h():
+    """Reviews RYM: páginas /reviews/N/ capturadas, cola, ritmo, muros y ETA."""
+    resumen = _json(CAMP_REVIEWS / "resumen.json", {})
+    estado = _json(CAMP_REVIEWS / "estado-bajar.json", {})
+    total = int(resumen.get("paginas_necesarias") or 0)
+    fichas = int(resumen.get("fichas_con_reviews") or 0)
+    paginadas = int(resumen.get("fichas_paginadas") or 0)
+    base_hechas = int(resumen.get("paginas_hechas") or 0)
+    p1_pend_plan = int(resumen.get("paginas_1_pendientes") or 0)
+    sub_pend_plan = int(resumen.get("subpaginas_pendientes") or 0)
+
+    p1_camp, sub_camp = _cuenta_reviews()
+    hechas = base_hechas + p1_camp + sub_camp
+    pendientes = max(0, total - hechas)
+    p1_hechas = max(0, fichas - p1_pend_plan) + p1_camp
+    sub_total = max(0, total - fichas)
+    sub_hechas = max(0, sub_total - sub_pend_plan) + sub_camp
+
+    ppm = float(estado.get("ppm") or 0)
+    eta = estado.get("eta_min")
+    eta_txt_h = "—"
+    if pendientes and ppm:
+        minutos = pendientes / ppm
+        eta_txt_h = f"~{minutos / 60:.1f} h" if minutos >= 60 else f"~{round(minutos)} min"
+    elif estado.get("eta_min"):
+        eta_txt_h = f"~{round(float(estado['eta_min']))} min (corrida corta)"
+
+    actualizado = estado.get("actualizado") or ""
+    vivo = False
+    if actualizado:
+        try:
+            vivo = (time.time() - time.mktime(time.strptime(actualizado, "%Y-%m-%d %H:%M:%S"))) < 180
+        except Exception:
+            vivo = False
+    if estado.get("murado"):
+        clase_u, txt_u = "mal", "MURO"
+    elif vivo:
+        clase_u, txt_u = "ok", "capturando"
+    else:
+        clase_u, txt_u = "apagado", "parado"
+
+    filas = []
+    for linea in _cola_log_h()[-400:]:
+        m = re.match(r"\[(\d\d:\d\d:\d\d)\] \+ (\S+) · (\d+) reviews", linea)
+        if m:
+            filas.append([m.group(1), m.group(2), m.group(3) + " reviews"])
+    filas = filas[-12:][::-1]
+
+    tramos: dict[str, int] = {}
+    for linea in _cola_log_h():
+        m = re.match(r"\[(\d\d):(\d)\d:\d\d\] \+ ", linea)
+        if m:
+            clave = f"{m.group(1)}:{int(m.group(2)) * 10:02d}"
+            tramos[clave] = tramos.get(clave, 0) + 1
+    ultimos = list(tramos.items())[-8:]
+    ritmo_html = " · ".join(f"{k} → <b>{v}</b>" for k, v in ultimos) or "sin marcas todavía"
+
+    return f"""<section>
+  <h2>8 · Reviews RYM — páginas /reviews/N/ <span class="pill {clase_u}">{esc(txt_u)}</span></h2>
+  <p class="explica">Segunda pasada del catálogo: la ficha del disco solo renderiza 1-8 reviews, así que
+  faltan <b>{miles(pendientes)}</b> páginas de <b>{miles(total)}</b>. Cada página trae 15 reviews (medido);
+  se baja con el Chrome del dueño por CDP a 5-7 s por página, <b>8-10 páginas/min</b> sostenidas, escribiendo
+  primero al SSD y moviendo después a la carpeta del disco de 1 TB.</p>
+  <div class="grid">
+    {tarjeta("páginas capturadas", f"{miles(hechas)} / {miles(total)}", f"{100 * hechas / total if total else 0:.1f} % del plan", "HTML+JSON en data/raw/rym-reviews-2026-10-20/pages")}
+    {tarjeta("pendientes", miles(pendientes), f"{miles(p1_pend_plan)} de página 1 · {miles(sub_pend_plan)} subpáginas", "salidas de tareas.jsonl del plan")}
+    {tarjeta("ritmo ahora", f"{ppm:.1f}/min", f"{miles(round(ppm * 60))}/h · {estado.get('ultima') or 'sin capturas'}", "medido por el capturador desde su arranque")}
+    {tarjeta("ETA", eta_txt_h, f"muros {estado.get('muros', 0)} · fallos {estado.get('fallos', 0)}", "pendientes / ritmo actual")}
+  </div>
+  <div class="barras">
+    {barra_linea("páginas de reviews capturadas", hechas, total or 1)}
+    {barra_linea("página 1 de fichas con reviews", p1_hechas, fichas or 1, "azul")}
+    {barra_linea("subpáginas 2..N de las paginadas", sub_hechas, sub_total or 1, "ojo")}
+  </div>
+  <p class="mini">Universo medido sobre las 22.568 fichas de release: {miles(fichas)} declaran reviews
+  ({miles(int(resumen.get("declaradas_totales") or 0))} reviews declaradas), {miles(paginadas)} pasan de una página.
+  Las 19.271 restantes no tienen reviews en RYM: no hay nada que bajar ahí.
+  Ritmo por 10 min: {ritmo_html}.</p>
+  <h3>Últimas páginas</h3>
+  <div class="scroll">{tabla(["hora", "página", "trae"], filas) if filas else '<p class="mini">sin capturas en el log de esta campaña</p>'}</div>
+  <div class="enlaces">{enlace("bajar.log", str(LOG_H))}{enlace("estado-bajar.json", str(CAMP_REVIEWS / "estado-bajar.json"))}{enlace("tareas.jsonl", str(CAMP_REVIEWS / "tareas.jsonl"))}{enlace("resumen.json", str(CAMP_REVIEWS / "resumen.json"))}{enlace("carpeta de páginas", str(CAMP_REVIEWS / "pages"))}</div>
+</section>"""
+
+
 def enlace(etiqueta, ruta):
     return f'<a class="lnk" href="{esc(ruta)}">{esc(etiqueta)}</a>'
 
@@ -1310,6 +1497,7 @@ lo aplicado de los runs del operador. <b>Trabajadas</b> = fichas intentadas (inc
 {bloque_e()}
 {bloque_f()}
 {bloque_g()}
+{bloque_h()}
 <div class="pie">Esta página: file://{OUT} · copia: reports/campana-2026-10-16/tablero.html</div>
 </body></html>
 """

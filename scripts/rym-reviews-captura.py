@@ -15,6 +15,7 @@ Salida (outdir):
   tablero.html                          progreso (copia en /tmp/crv-recon/)
 """
 import argparse, html as htmlmod, importlib.util, json, math, os, random, re, subprocess, sys, time
+from typing import Any
 
 SCRIPTS = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, SCRIPTS)
@@ -29,18 +30,9 @@ AVISOS = f"{REPO}/scripts/rym-etapa3-avisos.sh"
 UA = motor.UA
 load_cookies = motor.load_cookies
 
-RE_SHELL = re.compile(r'<div id="review_shell_std_(\d+)"')
-RE_PAG = re.compile(r"/reviews/(\d+)/")
-RE_TOTAL = re.compile(r"<h2>\s*([\d,]+)\s*Reviews?\s*</h2>")
-RE_USER = re.compile(r'class="review_user">\s*<a class="user" href="([^"]+)"[^>]*>([^<]*)</a>')
-RE_FECHA = re.compile(r'class="review_date">\s*<a href="([^"]+)"[^>]*>\s*([^<]*?)\s*</a>')
-RE_RATING = re.compile(r'class="review_rating">\s*<img[^>]*alt="([^"]*)"')
-RE_VOTOS = re.compile(r'class="review_vote_count">([^<]*)<')
-RE_TITULO = re.compile(r'class="review_title">([^<]*)<')
-RE_TEXTO = re.compile(r'class="rendered_text">(.*?)</span>', re.S)
-RE_TRACK = re.compile(
-    r'track_rating_disp"><img[^>]*alt="([^"]*)"[^>]*>.*?tracklist_num">\s*(\d+)\s*<.*?'
-    r'tracklist_title">\s*<span class="rendered_text">(.*?)</span>', re.S)
+from rym_reviews_parse import (  # noqa: E402  — selectores y parseo compartidos
+    RE_PAG, RE_SHELL, RE_TOTAL, limpiar_texto, parsear_reviews,
+)
 
 
 def log(*a):
@@ -61,52 +53,6 @@ def avisar_throttled(msg, min_gap=3600, clave="gen"):
     if time.time() - _LAST.get(clave, 0.0) >= min_gap:
         _LAST[clave] = time.time()
         avisar(msg)
-
-
-def limpiar_texto(h):
-    h = re.sub(r"<br\s*/?>", "\n", h)
-    h = re.sub(r"<[^>]+>", "", h)
-    return htmlmod.unescape(h).strip()
-
-
-def parsear_reviews(html):
-    """Devuelve (total_declarado, [reviews])."""
-    m = RE_TOTAL.search(html)
-    total = int(m.group(1).replace(",", "")) if m else None
-    trozos = RE_SHELL.split(html)
-    out = []
-    for i in range(1, len(trozos) - 1, 2):
-        rid, bloque = trozos[i], trozos[i + 1]
-        # recortar la review a su propio bloque: el trozo se lleva el resto del documento
-        # (tracklist del disco incluido) y el rating por pista se colaba de ahí.
-        bloque = re.split(r"<!-- @@_review_|<div id=\"review_shell_std_", bloque)[0]
-        ru = RE_USER.search(bloque)
-        rf = RE_FECHA.search(bloque)
-        rr = RE_RATING.search(bloque)
-        rv = RE_VOTOS.search(bloque)
-        rt = RE_TITULO.search(bloque)
-        sin_tracks = re.sub(r'<ul class="tracks".*?</ul>', "", bloque, flags=re.S)
-        rtx = RE_TEXTO.search(sin_tracks)
-        # rating por pista SOLO si la review trae su bloque propio (id ligado al review_id):
-        # así no se cuela el tracklist del disco cuando la página no delimita la review.
-        m_tr = re.search(rf'<div id="review_track_rating_{rid}"[^>]*>.*?</ul>', bloque, re.S)
-        tracks = [
-            {"rating": limpiar_texto(a).replace(" stars", ""), "num": int(b), "titulo": limpiar_texto(c)}
-            for a, b, c in RE_TRACK.findall(m_tr.group(0) if m_tr else "")
-        ]
-        out.append({
-            "review_id": int(rid),
-            "usuario": ru.group(2).strip() if ru else None,
-            "usuario_url": ru.group(1) if ru else None,
-            "fecha": rf.group(2) if rf else None,
-            "review_url": ("https://rateyourmusic.com" + rf.group(1)) if rf else None,
-            "rating": (limpiar_texto(rr.group(1)).replace(" stars", "") if rr else None),
-            "votos": (rv.group(1).strip() or "") if rv else "",
-            "titulo": limpiar_texto(rt.group(1)) if rt else None,
-            "texto": limpiar_texto(rtx.group(1)) if rtx else None,
-            "tracks": tracks,
-        })
-    return total, out
 
 
 def exportar_jsonl(pages_dir, destino):
@@ -161,6 +107,10 @@ def main():
     ap.add_argument("--headful", action="store_true")
     ap.add_argument("--base-min", type=float, default=5.0)
     ap.add_argument("--base-max", type=float, default=7.0)
+    ap.add_argument("--cdp", default="",
+                    help="URL del CDP de Chrome (p. ej. http://127.0.0.1:9333). Si se pasa, las "
+                         "páginas se piden con el Chrome del dueño en vez de Camoufox: el 20/10 el "
+                         "motor recibía 403 Verification en /reviews/ y Chrome servía 200.")
     args = ap.parse_args()
 
     outdir = args.outdir
@@ -171,8 +121,37 @@ def main():
     estado, _fuente = reglas.cargar_estado(state_path)
     cola = [json.loads(l) for l in open(args.cola, encoding="utf-8") if l.strip()]
     session = {"s": None}
+    cdp: dict[str, Any] = {"p": None, "b": None, "ctx": None}
+
+    class _Texto:
+        def __init__(self, valor):
+            self.valor = valor
+
+        def get(self):
+            return self.valor
+
+    class PaginaCDP:
+        """Pestaña de Playwright con la interfaz mínima que usa este capturador."""
+
+        def __init__(self, status, html, title):
+            self.status = status
+            self.html_content = html
+            self._title = title
+
+        def css(self, selector):
+            if selector.split("::")[0] in ("title",):
+                return _Texto(self._title)
+            raise NotImplementedError(selector)
 
     def nueva_sesion():
+        if args.cdp:
+            if cdp["ctx"] is None:
+                from playwright.sync_api import sync_playwright
+                cdp["p"] = sync_playwright().start()
+                cdp["b"] = cdp["p"].chromium.connect_over_cdp(args.cdp)
+                cdp["ctx"] = cdp["b"].contexts[0]
+                log(f"sesión CDP conectada a {args.cdp}")
+            return
         if session["s"] is not None:
             try:
                 session["s"].close()
@@ -186,7 +165,42 @@ def main():
                                        timeout=120000, retries=1, solve_cloudflare=False)
         session["s"].start()
 
+    def fetch_cdp(url, max_tries=3):
+        for intento in range(1, max_tries + 1):
+            if cdp["ctx"] is None:
+                nueva_sesion()
+            pg = cdp["ctx"].new_page()
+            html, title, status = "", "", 0
+            try:
+                r = pg.goto(url, wait_until="domcontentloaded", timeout=60000)
+                status = r.status if r else 0
+                for _ in range(6):
+                    html = pg.content()
+                    if "review_shell_std_" in html:
+                        break
+                    pg.wait_for_timeout(800)
+                title = pg.title()
+            except Exception as exc:
+                log(f"[fetch-err-cdp] {url}: {str(exc)[:100]}")
+                time.sleep(5 + intento * 5)
+                continue
+            finally:
+                try:
+                    pg.close()
+                except Exception:
+                    pass
+            bloqueado = status in (403, 429, 503) or re.search(
+                r"Un momento|Just a moment|Security check|Attention Required|Quick verification",
+                title or "", re.I)
+            if not bloqueado:
+                return PaginaCDP(status, html, title)
+            log(f"[bloqueo-cdp] ({status}) {(title or '')[:60]} — enfrío (intento {intento}/{max_tries})")
+            time.sleep(random.uniform(20, 40) * intento)
+        return None
+
     def fetch_una(url, max_tries=3):
+        if args.cdp:
+            return fetch_cdp(url, max_tries)
         for intento in range(1, max_tries + 1):
             if session["s"] is None:
                 nueva_sesion()
