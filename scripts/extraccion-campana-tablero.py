@@ -1416,10 +1416,11 @@ def bloque_h():
     {barra_linea("página 1 de fichas con reviews", p1_hechas, fichas or 1, "azul")}
     {barra_linea("subpáginas 2..N de las paginadas", sub_hechas, sub_total or 1, "ojo")}
   </div>
-  <p class="mini">Universo medido sobre las 22.568 fichas de release: {miles(fichas)} declaran reviews
+  <p class="mini">Alcance: discos que existen en <code>public.albums</code> — {miles(fichas)} fichas con reviews
   ({miles(int(resumen.get("declaradas_totales") or 0))} reviews declaradas), {miles(paginadas)} pasan de una página.
-  Las 19.271 restantes no tienen reviews en RYM: no hay nada que bajar ahí.
-  Ritmo por 10 min: {ritmo_html}.</p>
+  Fuera del alcance quedaron {miles(int(resumen.get("descartadas_fichas") or 0))} fichas
+  ({miles(int(resumen.get("descartadas_paginas") or 0))} páginas): discografías extranjeras completas y discos que no
+  están en el catálogo, en <code>fuera-de-alcance.jsonl</code>. Ritmo por 10 min: {ritmo_html}.</p>
   <h3>Últimas páginas</h3>
   <div class="scroll">{tabla(["hora", "página", "trae"], filas) if filas else '<p class="mini">sin capturas en el log de esta campaña</p>'}</div>
   <div class="enlaces">{enlace("bajar.log", str(LOG_H))}{enlace("estado-bajar.json", str(CAMP_REVIEWS / "estado-bajar.json"))}{enlace("tareas.jsonl", str(CAMP_REVIEWS / "tareas.jsonl"))}{enlace("resumen.json", str(CAMP_REVIEWS / "resumen.json"))}{enlace("carpeta de páginas", str(CAMP_REVIEWS / "pages"))}</div>
