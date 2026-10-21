@@ -12,7 +12,7 @@ cd "$REPO" || exit 1
 
 VENV="$HOME/.venvs/scrapling/bin/python"
 CAMPAIGN="${CAMPAIGN:-data/raw/rym-reviews-2026-10-20}"
-LOG_DIR="reports/rym-reviews-2026-10-20"
+LOG_DIR="reports/$(basename "$CAMPAIGN")"
 LOG="$LOG_DIR/bajar.log"
 TABS="${TABS:-2}"
 GAP_MIN="${GAP_MIN:-5}"

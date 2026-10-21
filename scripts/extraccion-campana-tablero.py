@@ -1309,7 +1309,9 @@ def bloque_g():
 
 CAMP_REVIEWS = REPO / "data/raw/rym-reviews-2026-10-20"
 LOG_H = REPO / "reports/rym-reviews-2026-10-20/bajar.log"
-_cache_rev: tuple = (0.0, (0, 0))
+CAMP_938 = REPO / "data/raw/rym-reviews-938-2026-10-21"
+LOG_938 = REPO / "reports/rym-reviews-938-2026-10-21/bajar.log"
+_cache_rev: dict = {}
 
 
 def _json(ruta, defecto):
@@ -1319,41 +1321,42 @@ def _json(ruta, defecto):
         return defecto
 
 
-def _cuenta_reviews() -> tuple[int, int]:
-    """(páginas con N=1, subpáginas N>1) capturadas en esta campaña. Caché 15 s."""
-    global _cache_rev
-    if time.time() - _cache_rev[0] < 15:
-        return _cache_rev[1]
+def _cuenta_reviews(camp: Path) -> tuple[int, int]:
+    """(páginas con N=1, subpáginas N>1) capturadas en la campaña. Caché 15 s."""
+    clave = str(camp)
+    guardado = _cache_rev.get(clave)
+    if guardado and time.time() - guardado[0] < 15:
+        return guardado[1]
     p1 = pn = 0
-    for f in (CAMP_REVIEWS / "pages").glob("*_reviews_*.html"):
+    for f in (camp / "pages").glob("*_reviews_*.html"):
         if f.name.endswith("_reviews_1.html"):
             p1 += 1
         else:
             pn += 1
-    _cache_rev = (time.time(), (p1, pn))
+    _cache_rev[clave] = (time.time(), (p1, pn))
     return p1, pn
 
 
-def _cola_log_h(n=600) -> list[str]:
+def _cola_log(log: Path, n=600) -> list[str]:
     try:
-        with open(LOG_H, encoding="utf-8", errors="replace") as fh:
+        with open(log, encoding="utf-8", errors="replace") as fh:
             return fh.readlines()[-n:]
     except Exception:
         return []
 
 
-def bloque_h():
-    """Reviews RYM: páginas /reviews/N/ capturadas, cola, ritmo, muros y ETA."""
-    resumen = _json(CAMP_REVIEWS / "resumen.json", {})
-    estado = _json(CAMP_REVIEWS / "estado-bajar.json", {})
-    total = int(resumen.get("paginas_necesarias") or 0)
-    fichas = int(resumen.get("fichas_con_reviews") or 0)
+def bloque_reviews(num: str, titulo: str, camp: Path, log: Path, explica: str, pie: str):
+    """Sección de una campaña de reviews: progreso, ritmo, muros y últimas páginas."""
+    resumen = _json(camp / "resumen.json", {})
+    estado = _json(camp / "estado-bajar.json", {})
+    total = int(resumen.get("paginas_necesarias") or resumen.get("paginas") or 0)
+    fichas = int(resumen.get("fichas_con_reviews") or resumen.get("fichas") or 0)
     paginadas = int(resumen.get("fichas_paginadas") or 0)
     base_hechas = int(resumen.get("paginas_hechas") or 0)
-    p1_pend_plan = int(resumen.get("paginas_1_pendientes") or 0)
-    sub_pend_plan = int(resumen.get("subpaginas_pendientes") or 0)
+    p1_pend_plan = int(resumen.get("paginas_1_pendientes") or resumen.get("paginas_1") or 0)
+    sub_pend_plan = int(resumen.get("subpaginas_pendientes") or resumen.get("subpaginas") or 0)
 
-    p1_camp, sub_camp = _cuenta_reviews()
+    p1_camp, sub_camp = _cuenta_reviews(camp)
     hechas = base_hechas + p1_camp + sub_camp
     pendientes = max(0, total - hechas)
     p1_hechas = max(0, fichas - p1_pend_plan) + p1_camp
@@ -1361,7 +1364,6 @@ def bloque_h():
     sub_hechas = max(0, sub_total - sub_pend_plan) + sub_camp
 
     ppm = float(estado.get("ppm") or 0)
-    eta = estado.get("eta_min")
     eta_txt_h = "—"
     if pendientes and ppm:
         minutos = pendientes / ppm
@@ -1383,15 +1385,16 @@ def bloque_h():
     else:
         clase_u, txt_u = "apagado", "parado"
 
+    lineas = _cola_log(log)
     filas = []
-    for linea in _cola_log_h()[-400:]:
+    for linea in lineas[-400:]:
         m = re.match(r"\[(\d\d:\d\d:\d\d)\] \+ (\S+) · (\d+) reviews", linea)
         if m:
             filas.append([m.group(1), m.group(2), m.group(3) + " reviews"])
     filas = filas[-12:][::-1]
 
     tramos: dict[str, int] = {}
-    for linea in _cola_log_h():
+    for linea in lineas:
         m = re.match(r"\[(\d\d):(\d)\d:\d\d\] \+ ", linea)
         if m:
             clave = f"{m.group(1)}:{int(m.group(2)) * 10:02d}"
@@ -1400,31 +1403,50 @@ def bloque_h():
     ritmo_html = " · ".join(f"{k} → <b>{v}</b>" for k, v in ultimos) or "sin marcas todavía"
 
     return f"""<section>
-  <h2>8 · Reviews RYM — páginas /reviews/N/ <span class="pill {clase_u}">{esc(txt_u)}</span></h2>
-  <p class="explica">Segunda pasada del catálogo: la ficha del disco solo renderiza 1-8 reviews, así que
-  faltan <b>{miles(pendientes)}</b> páginas de <b>{miles(total)}</b>. Cada página trae 15 reviews (medido);
-  se baja con el Chrome del dueño por CDP a 5-7 s por página, <b>8-10 páginas/min</b> sostenidas, escribiendo
-  primero al SSD y moviendo después a la carpeta del disco de 1 TB.</p>
+  <h2>{num} · {esc(titulo)} <span class="pill {clase_u}">{esc(txt_u)}</span></h2>
+  <p class="explica">{explica}</p>
   <div class="grid">
-    {tarjeta("páginas capturadas", f"{miles(hechas)} / {miles(total)}", f"{100 * hechas / total if total else 0:.1f} % del plan", "HTML+JSON en data/raw/rym-reviews-2026-10-20/pages")}
+    {tarjeta("páginas capturadas", f"{miles(hechas)} / {miles(total)}", f"{100 * hechas / total if total else 0:.1f} % del plan", str(camp / "pages"))}
     {tarjeta("pendientes", miles(pendientes), f"{miles(p1_pend_plan)} de página 1 · {miles(sub_pend_plan)} subpáginas", "salidas de tareas.jsonl del plan")}
     {tarjeta("ritmo ahora", f"{ppm:.1f}/min", f"{miles(round(ppm * 60))}/h · {estado.get('ultima') or 'sin capturas'}", "medido por el capturador desde su arranque")}
     {tarjeta("ETA", eta_txt_h, f"muros {estado.get('muros', 0)} · fallos {estado.get('fallos', 0)}", "pendientes / ritmo actual")}
   </div>
   <div class="barras">
     {barra_linea("páginas de reviews capturadas", hechas, total or 1)}
-    {barra_linea("página 1 de fichas con reviews", p1_hechas, fichas or 1, "azul")}
+    {barra_linea("página 1 de las fichas", p1_hechas, fichas or 1, "azul")}
     {barra_linea("subpáginas 2..N de las paginadas", sub_hechas, sub_total or 1, "ojo")}
   </div>
-  <p class="mini">Alcance: discos que existen en <code>public.albums</code> — {miles(fichas)} fichas con reviews
-  ({miles(int(resumen.get("declaradas_totales") or 0))} reviews declaradas), {miles(paginadas)} pasan de una página.
-  Fuera del alcance quedaron {miles(int(resumen.get("descartadas_fichas") or 0))} fichas
-  ({miles(int(resumen.get("descartadas_paginas") or 0))} páginas): discografías extranjeras completas y discos que no
-  están en el catálogo, en <code>fuera-de-alcance.jsonl</code>. Ritmo por 10 min: {ritmo_html}.</p>
+  <p class="mini">{pie} Ritmo por 10 min: {ritmo_html}.</p>
   <h3>Últimas páginas</h3>
   <div class="scroll">{tabla(["hora", "página", "trae"], filas) if filas else '<p class="mini">sin capturas en el log de esta campaña</p>'}</div>
-  <div class="enlaces">{enlace("bajar.log", str(LOG_H))}{enlace("estado-bajar.json", str(CAMP_REVIEWS / "estado-bajar.json"))}{enlace("tareas.jsonl", str(CAMP_REVIEWS / "tareas.jsonl"))}{enlace("resumen.json", str(CAMP_REVIEWS / "resumen.json"))}{enlace("carpeta de páginas", str(CAMP_REVIEWS / "pages"))}</div>
+  <div class="enlaces">{enlace("bajar.log", str(log))}{enlace("estado-bajar.json", str(camp / "estado-bajar.json"))}{enlace("tareas.jsonl", str(camp / "tareas.jsonl"))}{enlace("resumen.json", str(camp / "resumen.json"))}{enlace("carpeta de páginas", str(camp / "pages"))}</div>
 </section>"""
+
+
+def bloque_h():
+    """8 · Reviews del catálogo (607 páginas, cerrada al 100 %)."""
+    return bloque_reviews(
+        "8", "Reviews RYM · catálogo — páginas /reviews/N/", CAMP_REVIEWS, LOG_H,
+        "Segunda pasada del catálogo: la ficha del disco solo renderiza 1-8 reviews, así que se bajaron "
+        "<b>607</b> páginas de <b>582 fichas</b> con el Chrome del dueño por CDP a 5-7 s por página "
+        "(8-11 páginas/min), escribiendo primero al SSD y moviendo después al disco de 1 TB. "
+        "Etapa cerrada: 3.263 reviews en <code>reviews.jsonl</code>.",
+        "Alcance: discos que existen en <code>public.albums</code> — "
+        f"{miles(int(_json(CAMP_REVIEWS / 'resumen.json', {}).get('declaradas_totales') or 0))} reviews declaradas. "
+        f"Fuera del alcance: {miles(int(_json(CAMP_REVIEWS / 'resumen.json', {}).get('descartadas_fichas') or 0))} fichas "
+        "(discografías extranjeras y discos que no están en el catálogo).")
+
+
+def bloque_i():
+    """9 · Reviews de los 938 discos venezolanos que aún no están en el catálogo."""
+    return bloque_reviews(
+        "9", "Reviews RYM · 938 discos fuera del catálogo", CAMP_938, LOG_938,
+        "Discos venezolanos con reviews en RYM que todavía no están en <code>public.albums</code>. "
+        "Se baja el material ahora para que esté listo cuando se den de alta: <b>938 fichas</b>, "
+        "<b>1.028 páginas</b> (938 de página 1 + 90 subpáginas). Mismo puente Chrome+sesión del dueño; "
+        "RYM a veces responde 403 con la página completa y se acepta igual.",
+        "Preparada desde <code>fuera-de-alcance.jsonl</code> (motivo «disco no está en el catálogo»). "
+        "Al dar de alta cada disco, sus reviews ya están en disco y solo hay que ingerirlas.")
 
 
 def enlace(etiqueta, ruta):
@@ -1499,6 +1521,7 @@ lo aplicado de los runs del operador. <b>Trabajadas</b> = fichas intentadas (inc
 {bloque_f()}
 {bloque_g()}
 {bloque_h()}
+{bloque_i()}
 <div class="pie">Esta página: file://{OUT} · copia: reports/campana-2026-10-16/tablero.html</div>
 </body></html>
 """
