@@ -55,9 +55,17 @@ def avisar(msg: str) -> None:
         log(f'aviso Telegram falló: {str(exc)[:80]}')
 
 
-def es_muro(status: int, titulo: str) -> bool:
+def es_muro(status: int, titulo: str, html: str = '') -> bool:
+    """Muro de verdad, no una review que se llame «Un momento contigo».
+
+    El 2026-10-16 el capturador anterior dio 4 falsos positivos por mirar solo
+    el <title>: una página 200 con reviews se marcaba como bloqueo. Si el HTML
+    trae los bloques de review, hay contenido y no es muro.
+    """
     if status in (403, 429, 503):
         return True
+    if RE_SHELL.search(html or ''):
+        return False
     return any(m.lower() in (titulo or '').lower() for m in MARCAS_MURO)
 
 
@@ -215,7 +223,7 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
                     fallos_seg = 0
                 continue
 
-            if es_muro(status, titulo):
+            if es_muro(status, titulo, html):
                 estado['muros'] += 1
                 fallos_seg += 1
                 estado['murado'] = True
