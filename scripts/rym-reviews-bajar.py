@@ -38,6 +38,7 @@ SCRIPTS = Path(__file__).resolve().parent
 REPO = SCRIPTS.parent
 sys.path.insert(0, str(SCRIPTS))
 from rym_reviews_parse import RE_PAG, RE_SHELL, parsear_reviews  # noqa: E402
+from rym_reviews_validate import validate  # noqa: E402
 
 AVISOS = REPO / 'scripts/rym-etapa3-avisos.sh'
 MARCAS_MURO = ('Un momento', 'Just a moment', 'Security check', 'Attention Required',
@@ -74,6 +75,30 @@ def es_muro(status: int, titulo: str, html: str = '') -> bool:
     if re.search(r'Bad gateway|Error 502|Error 504', html or '', re.I):
         return True
     return any(m.lower() in (titulo or '').lower() for m in MARCAS_MURO)
+
+
+OG_URL = re.compile(r'<meta property="og:url" content="https://rateyourmusic\.com(/[^"]+)"')
+
+
+def identidad_ok(html: str, href: str) -> tuple[bool, str]:
+    """¿La página servida es la obra que se pidió?
+
+    RYM ha servido fichas de otro artista (2026-10-21: MF DOOM → Marilyn Manson)
+    a clientes que considera sospechosos. Se compara el og:url real con el href
+    pedido: mismo tipo y mismo artista; el título admite variantes de slug.
+    """
+    m = OG_URL.search(html or '')
+    if not m:
+        return False, ''
+    real = re.sub(r'/+$', '', m.group(1).lower())
+    esp = re.sub(r'/+$', '', href.lower())
+    a, b = real.split('/'), esp.split('/')
+    if len(a) < 4 or len(b) < 4:
+        return real == esp, m.group(1)
+    if a[1] != b[1] or a[2] != b[2]:
+        return False, m.group(1)
+    ta, tb = a[3], b[3]
+    return (ta == tb or ta in tb or tb in ta), m.group(1)
 
 
 class Grifo:
@@ -121,7 +146,7 @@ class Movedor:
             for ruta in rutas:
                 try:
                     final = self.destino / Path(ruta).name
-                    shutil.move(str(ruta), str(final))
+                    await asyncio.to_thread(shutil.move, str(ruta), str(final))
                     self.movidos += 1
                 except Exception as exc:
                     self.errores += 1
@@ -133,16 +158,26 @@ def tareas_pendientes(campaign: Path) -> list[dict]:
     plan = campaign / 'tareas.jsonl'
     if not plan.exists():
         raise SystemExit(f'falta el plan: {plan} (corre scripts/rym-reviews-plan.py)')
-    hechas = set()
-    for d in (REPO / 'data/raw').glob('rym-reviews-*/pages'):
-        for f in d.glob('*_reviews_*.html'):
-            hechas.add(f.name[:-5])
+    # Existing filenames are not evidence of a successful capture.
+    candidates = {}
+    for directory in (REPO / 'data/raw').glob('rym-reviews-*/pages'):
+        for f in directory.glob('*_reviews_*.json'):
+            candidates.setdefault(f.stem, []).append(f)
     pend = []
-    with plan.open(encoding='utf-8') as fh:
-        for linea in fh:
-            t = json.loads(linea)
-            if t['out'] not in hechas:
-                pend.append(t)
+    for linea in plan.read_text(encoding='utf-8').splitlines():
+        t = json.loads(linea)
+        valid = False
+        for f in candidates.get(t['out'], []):
+            try:
+                rec = json.loads(f.read_text())
+                if rec.get('href') == t['href'] and rec.get('page') == t['page']:
+                    valid = validate(f.with_suffix('.html').read_text(), t)['valid']
+                if valid:
+                    break
+            except (OSError, ValueError):
+                continue
+        if not valid:
+            pend.append(t)
     return pend
 
 
@@ -224,7 +259,7 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
                     except Exception:
                         # la página seguía navegando: esperar y reintentar el volcado
                         html = ''
-                    if RE_SHELL.search(html) or '<h2>' in html:
+                    if RE_SHELL.search(html):
                         break
                     await pagina.wait_for_timeout(700 if intento < 4 else 1200)
                 titulo = await pagina.title()
@@ -283,7 +318,13 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
                 await asyncio.sleep(random.uniform(3, 8))
                 continue
 
-            total, reviews = parsear_reviews(html)
+            checked = validate(html, t, pagina.url, status)
+            if not checked['valid']:
+                registrar_bloqueada(t, status, ','.join(checked['errors']))
+                estado['fallos'] += 1
+                log(f"[invalida] {t['out']}: {','.join(checked['errors'])}")
+                continue
+            total, reviews = checked['total'], checked['reviews']
             pags = [int(x) for x in RE_PAG.findall(html) if int(x) < 500]
             rec = {'tipo_doc': 'reviews', 'href': t['href'], 'page': t['page'], 'url': t['url'],
                    'total_declarado': total or t['declaradas'], 'n': len(reviews),
@@ -342,45 +383,8 @@ async def capturar(args, tareas: list[dict], campaign: Path, stage: Path, destin
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description='Captura de páginas /reviews/N/ de RYM')
-    ap.add_argument('--campaign', default='data/raw/rym-reviews-2026-10-20')
-    ap.add_argument('--cdp', default='http://127.0.0.1:9333')
-    ap.add_argument('--tabs', type=int, default=2)
-    ap.add_argument('--gap-min', type=float, default=5.0)
-    ap.add_argument('--gap-max', type=float, default=7.0)
-    ap.add_argument('--pausa-cada', type=int, default=40, help='pausa de higiene cada N páginas (0 = nunca)')
-    ap.add_argument('--limit', type=int, default=0)
-    ap.add_argument('--ssd', default=os.environ.get('CRV_RYM_SSD', os.path.expanduser('~/.cache/crv-rym-stage')))
-    ap.add_argument('--reciclar-cada', type=int, default=25, help='renueva la pestaña cada N páginas (0 = nunca)')
-    ap.add_argument('--stall-seg', type=int, default=300, help='sin capturar N s → salir 75 para que systemd relance')
-    ap.add_argument('--verbose', action='store_true')
-    args = ap.parse_args()
-
-    campaign = (REPO / args.campaign).resolve()
-    destino = campaign / 'pages'
-    stage = Path(args.ssd).resolve() / campaign.name / 'pages'
-    stage.mkdir(parents=True, exist_ok=True)
-    destino.mkdir(parents=True, exist_ok=True)
-
-    # Restos de una corrida anterior en el SSD: se drenan antes de seguir (nunca se
-    # queda una captura huérfana fuera de la carpeta definitiva del disco de 1 TB).
-    restos = [f for f in stage.iterdir() if f.is_file()]
-    for f in restos:
-        try:
-            shutil.move(str(f), str(destino / f.name))
-        except Exception as exc:
-            log(f'[drenar] fallo {f.name}: {str(exc)[:90]}')
-    if restos:
-        log(f'drenados {len(restos)} archivos que quedaron en el SSD')
-
-    tareas = tareas_pendientes(campaign)
-    log(f'plan: {len(tareas)} páginas pendientes · stage SSD {stage} → {destino}')
-    if not tareas:
-        log('nada pendiente')
-        return 0
-    if args.limit:
-        tareas = tareas[:args.limit]
-    return asyncio.run(capturar(args, tareas, campaign, stage, destino))
+    print('Capturador retirado por integridad. Usar scripts/rym-reviews-control.py con cola auditada en staging SSD.', file=sys.stderr)
+    return 2
 
 
 if __name__ == '__main__':
