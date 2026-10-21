@@ -33,12 +33,50 @@ const NOTE = "Absorción de Venciclopedia (fuente trust=high aprobada por Brian 
 const ROOT = projectRoot(import.meta.url);
 const OUT = path.join(ROOT, "reports", "venciclopedia-2026-10-20");
 const CONFIRM = process.argv.includes("--confirm");
+/**
+ * Fichas que la fuente documenta pero NO son un disco del artista que la
+ * categoría sugiere. Se revisaron una a una: `40 años siendo la emisora de
+ * Venezuela` es el aniversario de Radio Rumbos y la wiki lo enlaza desde la
+ * ficha de Simón Díaz por navegación, no por titularidad.
+ */
+const EXCLUDED: Readonly<Record<string, string>> = {
+  "Simón Díaz::40 años siendo la emisora de Venezuela": "el disco es de Radio Rumbos; aparece por navegación en la ficha de Simón Díaz",
+};
 
 function titleKey(value: string): string {
   return value
     .normalize("NFD").replace(/\p{Mn}/gu, "").toLowerCase()
     .replace(/^(los|las|el|la)\s+/u, "")
     .replace(/[^a-z0-9]+/g, "");
+}
+
+const STOPWORDS = new Set(["de", "del", "la", "las", "el", "los", "en", "y", "a", "con", "por", "para", "un", "una", "al", "su", "sus", "vol", "no"]);
+
+/** Palabras significativas de un título (sin artículos ni preposiciones). */
+function titleWords(value: string): Set<string> {
+  return new Set(value.normalize("NFD").replace(/\p{Mn}/gu, "").toLowerCase()
+    .split(/[^a-z0-9]+/u).filter((word) => word.length > 0 && !STOPWORDS.has(word)));
+}
+
+/**
+ * ¿El título ya está en el catálogo con otra grafía? La wiki y el catálogo
+ * escriben distinto el mismo disco («Simón Díaz '69» vs «Simón 69») y también
+ * hay títulos con el nombre del grupo pegado delante («El Trabuco Venezolano
+ * Imagen Latina»). Un alta duplicada cuesta más que un hueco.
+ */
+function looksDuplicate(title: string, existing: Array<{ title: string; artist: string | null; year: number | null }>): string | undefined {
+  const target = titleKey(title);
+  const words = titleWords(title);
+  for (const row of existing) {
+    const other = titleKey(row.title);
+    if (!other) continue;
+    if (other === target) return `idéntico a «${row.title}» (${row.artist ?? "?"}, ${row.year ?? "s/f"})`;
+    const otherWords = titleWords(row.title);
+    if (words.size >= 2 && [...words].every((word) => otherWords.has(word))) {
+      return `contenido en «${row.title}» (${row.artist ?? "?"}, ${row.year ?? "s/f"})`;
+    }
+  }
+  return undefined;
 }
 
 /** Coeficiente de pares de la cadena (Dice) más contención para títulos largos. */
@@ -298,6 +336,23 @@ async function apply(client: PoolClient): Promise<Stats> {
       }
       // No existe: alta solo si es inequívoca.
       stats.albums.unmatched += 1;
+      const excluded = EXCLUDED[wanted.identity];
+      if (excluded) {
+        stats.albums.proposed.push({ artist: wanted.artist, title: wanted.title, ...(wanted.releaseYear ? { year: wanted.releaseYear } : {}), why: excluded });
+        continue;
+      }
+      // Un recopilatorio no es un disco de «Various Artists»: el marcador ocupa
+      // la columna que la tabla exige, pero no identifica a nadie. Y si el
+      // título es el nombre de un artista del catálogo, la ficha está mal
+      // formada (la wiki la usa como disco homónimo): no se crea.
+      if (titleKey(wanted.artist) === titleKey("Various Artists")) {
+        stats.albums.proposed.push({ artist: wanted.artist, title: wanted.title, ...(wanted.releaseYear ? { year: wanted.releaseYear } : {}), why: "recopilatorio: el artista de la ficha es el marcador Various Artists" });
+        continue;
+      }
+      if ((byPrimary.get(titleKey(wanted.title)) ?? []).length > 0) {
+        stats.albums.proposed.push({ artist: wanted.artist, title: wanted.title, ...(wanted.releaseYear ? { year: wanted.releaseYear } : {}), why: "el título es el nombre de un artista del catálogo: ficha mal formada" });
+        continue;
+      }
       const siblings = (albumIdsByArtist.get(artistId) ?? []).map((id) => albumById.get(id)?.title ?? "");
       const worst = siblings.reduce((max, title) => Math.max(max, similarity(titleKey(wanted.title), titleKey(title))), 0);
       if (worst >= 0.6) {
@@ -308,6 +363,12 @@ async function apply(client: PoolClient): Promise<Stats> {
         stats.albums.proposed.push({ artist: wanted.artist, title: wanted.title, why: "sin año en la fuente" });
         continue;
       }
+      const allTitles = [...albumById.values()].map((row) => ({ title: row.title, artist: null, year: row.release_year }));
+      const duplicate = looksDuplicate(wanted.title, allTitles);
+      if (duplicate) {
+        stats.albums.proposed.push({ artist: wanted.artist, title: wanted.title, ...(wanted.releaseYear ? { year: wanted.releaseYear } : {}), why: `ya existe ${duplicate}` });
+        continue;
+      }
       await client.query(
         `INSERT INTO public.albums(artist_id, title, release_year, catalog_id, media_format)
          VALUES ($1,$2,$3,$4,$5)`,
@@ -315,6 +376,17 @@ async function apply(client: PoolClient): Promise<Stats> {
       );
       stats.albums.created += 1;
       stats.albums.createdList.push({ artist: wanted.artist, title: wanted.title, ...(wanted.releaseYear ? { year: wanted.releaseYear } : {}) });
+    }
+
+    // Recuento por álbum de la fuente: sirve para el emparejamiento por
+    // posición cuando el título de la pista no coincide letra a letra (la
+    // fuente y el catálogo suelen escribir distinto el mismo tema).
+    const fuentePorAlbum = new Map<string, number>();
+    for (const item of tracks.values()) fuentePorAlbum.set(item.albumIdentity, (fuentePorAlbum.get(item.albumIdentity) ?? 0) + 1);
+    const crvPorAlbum = new Map<number, number[]>();
+    for (const row of trackRows) {
+      const albumId = Number(row.album_id);
+      const list = crvPorAlbum.get(albumId) ?? []; list.push(Number(row.id)); crvPorAlbum.set(albumId, list);
     }
 
     // ── Duraciones de pista (solo relleno; nunca se crean ni renumeran)
@@ -330,8 +402,19 @@ async function apply(client: PoolClient): Promise<Stats> {
       const albumId = albumIds[0]!;
       const ids = trackByAlbumTitle.get(`${albumId}|${titleKey(wanted.title)}`) ?? [];
       if (ids.length > 1) { stats.tracks.ambiguous += 1; continue; }
-      if (ids.length === 0) { stats.tracks.unmatched += 1; continue; }
-      const trackId = ids[0]!;
+      let trackId: number | undefined = ids[0];
+      if (trackId === undefined) {
+        // Fallback por posición: solo si el álbum tiene EXACTAMENTE el mismo
+        // número de pistas que la fuente y el título se parece lo suficiente.
+        const enFuente = fuentePorAlbum.get(wanted.albumIdentity) ?? 0;
+        const enCrv = crvPorAlbum.get(albumId) ?? [];
+        if (enFuente === enCrv.length && enCrv.length > 0) {
+          const candidate = enCrv[wanted.number - 1];
+          const row = candidate === undefined ? undefined : trackRows.find((item) => Number(item.id) === candidate);
+          if (candidate !== undefined && row && similarity(titleKey(wanted.title), titleKey(row.title)) >= 0.5) trackId = candidate;
+        }
+      }
+      if (trackId === undefined) { stats.tracks.unmatched += 1; continue; }
       if (durationById.get(trackId) !== null) continue;
       await client.query("UPDATE public.tracks SET duration_seconds=$2 WHERE id=$1 AND duration_seconds IS NULL", [trackId, wanted.seconds]);
       stats.tracks.filled += 1;

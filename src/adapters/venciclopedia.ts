@@ -219,14 +219,14 @@ function albumType(raw: string): string | undefined {
 
 // ── Adapter ─────────────────────────────────────────────────────────────────
 
-interface WikiPage {
+export interface WikiPage {
   title: string;
   categories: string[];
   content: string;
   timestamp?: string;
 }
 
-function parseWikiPages(body: string): WikiPage[] {
+export function parseWikiPages(body: string): WikiPage[] {
   let payload: unknown;
   try { payload = JSON.parse(body); } catch { return []; }
   const pages = (payload as { query?: { pages?: unknown } }).query?.pages;
@@ -527,6 +527,22 @@ export class VenciclopediaAdapter implements SourceAdapter {
       }
     }
     return out;
+  }
+
+  /**
+   * Identidad de la edición que documenta una página, tenga ficha `{{record}}`
+   * o no. Las páginas de disco sin ficha (solo tracklist y créditos) también
+   * son una edición: su título es el de la página y el artista sale de las
+   * categorías, igual que en una ficha normal.
+   */
+  releaseIdentity(page: WikiPage): { artist: string; title: string } | undefined {
+    const [template] = [...findTemplates(page.content, "record"), ...findTemplates(page.content, "disco")];
+    const base = page.title.replace(/\s*\((?:disco|álbum|album)[^)]*\)\s*$/i, "").trim();
+    const title = template ? (clean(template.params["nombre"]) || clean(template.params["título"]) || base) : base;
+    if (!title) return undefined;
+    const declared = template ? (clean(template.params["artista"]) || clean(template.params["intérprete"])) : "";
+    const artist = this.resolveArtist(page, template ?? { name: "record", params: {} }, title, declared);
+    return artist ? { artist, title } : undefined;
   }
 
   /** Solo el dominio de la fuente y sus rutas de contenido. */
