@@ -52,10 +52,18 @@ def main() -> int:
     pa = {p["post_id"]: p for p in load("posts_artists.jsonl")}
     videos = load("videos.jsonl")
     audios = load("audios.jsonl")
+    links = load("links.jsonl")
 
     # --- vídeos únicos por (artista, video_key)
     seen = {}
-    for v in videos:
+    # los posts de tipo enlace también traen vídeos de YouTube (bloque `link`)
+    extra_videos = [{"post_id": l["post_id"], "post_url": l.get("post_url"),
+                     "date": l.get("date"), "provider": "youtube",
+                     "video_url": l["url"], "video_key": l["video_key"],
+                     "title": l.get("title") or l.get("anchor"), "src": "bloque_enlace"}
+                    for l in links
+                    if l.get("platform") == "youtube" and l.get("video_key")]
+    for v in videos + extra_videos:
         key = v.get("video_key") or v.get("video_url")
         if not key:
             continue
@@ -86,7 +94,10 @@ def main() -> int:
     # --- audios únicos por (artista, url sin query)
     seen = {}
     for a in audios:
-        url = (a.get("url") or "").split("?")[0]
+        prov = (a.get("provider") or "").lower()
+        raw_url = a.get("url") or a.get("media_url") or ""
+        # en Tumblr alojado la URL lleva play_key: se conserva entera
+        url = raw_url if prov == "tumblr" else raw_url.split("?")[0]
         if not url:
             continue
         artists = pa.get(a["post_id"], {}).get("artists") or []
@@ -98,8 +109,9 @@ def main() -> int:
                 continue
             seen[k] = {
                 "artist_id": art["artist_id"], "artist": art["name"],
-                "conf": art.get("conf", ""), "provider": a.get("provider"),
-                "url": url, "title": a.get("title") or "",
+                "conf": art.get("conf", ""), "provider": prov,
+                "url": url, "media_url": a.get("media_url") or "",
+                "title": a.get("title") or "",
                 "audio_artist": a.get("artist") or "",
                 "post_date": (a.get("date") or "")[:10], "post_url": a.get("post_url"),
                 "source_key": f"tumblr:fuckyeahbandasve:post:{a['post_id']}",

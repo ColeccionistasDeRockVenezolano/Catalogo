@@ -147,6 +147,19 @@ def candidates(post: dict, vids: list, auds: list) -> list[tuple[str, str]]:
         head = re.split(r"\s+[-–—|]\s+", t)[0].strip(" .:;\"'()[]")
         if 2 < len(head) < 70:
             out.append((head, "titulo_video"))
+    # los posts de tipo enlace no tienen texto: su título es "Artista - Tema"
+    for t in post.get("link_titles") or []:
+        head = re.split(r"\s+[-–—|]\s+", t)[0].strip(" .:;\"'()[]")
+        if 2 < len(head) < 70:
+            out.append((head, "titulo_enlace"))
+        if 2 < len(t) < 70:
+            out.append((t.strip(), "titulo_enlace"))
+    # citas: el artista aparece en medio del texto ("... / Allí Estás - Famasloop")
+    if post.get("post_type") == "quote":
+        for seg in re.split(r"\s+[-–—|]\s+|\s*//\s*|\n", post.get("own_text") or ""):
+            seg = seg.strip(" .:;\"'()[]")
+            if 2 < len(seg) < 70:
+                out.append((seg, "texto_cita"))
     for a in post.get("audio_titles") or []:
         head = re.split(r"\s+[-–—|]\s+", a)[0].strip(" .:;\"'()[]")
         if 2 < len(head) < 70:

@@ -102,6 +102,25 @@ def yt_id(url: str) -> str | None:
     return None
 
 
+def video_key_of(url: str, provider: str, meta: dict) -> str | None:
+    """Identificador del vídeo según el proveedor (YouTube, Vimeo, Vevo, Tumblr)."""
+    k = yt_id(url)
+    if k:
+        return k
+    m = VIMEO_RE.search(url or "")
+    if m:
+        return m.group(1)
+    if provider == "vevo":
+        m = re.search(r"/watch/([A-Za-z0-9]+)", url or "")
+        if m:
+            return m.group(1)
+    if provider == "tumblr":
+        m = re.search(r"/(tumblr_[A-Za-z0-9]+)\.(?:mp4|webm)", url or "")
+        if m:
+            return m.group(1)
+    return meta.get("id")
+
+
 def main() -> int:
     DERIVED.mkdir(parents=True, exist_ok=True)
     posts = [json.loads(l) for l in (CAMPAIGN / "posts.jsonl").open()]
@@ -123,6 +142,12 @@ def main() -> int:
                     (own_text if src == "own" else trail_text).append(txt)
                 for h in HREF_RE.findall(b.get("text", "")):
                     links.append({"url": html.unescape(h), "src": src})
+                # NPF: los enlaces del texto no van en <a href>, van en `formatting`
+                for f in b.get("formatting") or []:
+                    if f.get("type") == "link" and f.get("url"):
+                        anchor = clean_text((b.get("text") or "")[f.get("start", 0):f.get("end", 0)])
+                        links.append({"url": f["url"], "src": src, "via": "texto_npf",
+                                      "anchor": anchor})
             elif t == "image":
                 bi = best_image(b.get("media") or [])
                 if bi:
@@ -137,15 +162,16 @@ def main() -> int:
                     m = re.search(r'title="([^"]+)"', b.get("embedHtml") or "")
                     title = html.unescape(m.group(1)) if m else None
                 vids.append({"provider": prov, "url": vurl,
-                             "video_key": yt_id(vurl) or (VIMEO_RE.search(vurl).group(1)
-                                                          if VIMEO_RE.search(vurl) else meta.get("id")),
+                             "media_url": (b.get("media") or {}).get("url"),
+                             "video_key": video_key_of(vurl, prov, meta),
                              "title": clean_text(title) if title else None,
                              "duration": meta.get("duration"), "src": src})
             elif t == "audio":
                 auds.append({"provider": (b.get("provider") or "").lower(),
-                             "url": b.get("url"), "title": b.get("title"),
-                             "artist": b.get("artist"), "album": b.get("album"),
-                             "src": src})
+                             "url": b.get("url"),
+                             "media_url": (b.get("media") or {}).get("url"),
+                             "title": b.get("title"), "artist": b.get("artist"),
+                             "album": b.get("album"), "src": src})
             elif t == "link":
                 lu = b.get("url") or ""
                 links.append({"url": lu, "title": b.get("title"),
@@ -158,13 +184,17 @@ def main() -> int:
 
         # enlaces dentro de los bloques de tipo link también cuentan como enlace externo
         all_urls = []
+        seen_link = set()
         for l in links:
             u = l["url"]
-            if not u.startswith("http"):
+            if not u.startswith("http") or u in seen_link:
                 continue
+            seen_link.add(u)
             all_urls.append(u)
             rec = {"post_id": pid, "post_url": url, "date": p.get("date"),
                    "platform": platform_of(u), "url": u, "src": l["src"],
+                   "via": l.get("via") or "bloque_enlace",
+                   "anchor": l.get("anchor") or l.get("title"),
                    "title": l.get("title"), "description": l.get("description")}
             if platform_of(u) == "youtube":
                 rec["video_key"] = yt_id(u)
@@ -191,14 +221,21 @@ def main() -> int:
         rec = {
             "post_id": pid, "post_url": url, "date": p.get("date"),
             "timestamp": p.get("timestamp"), "post_type": p.get("originalType"),
-            "is_reblog": bool(p.get("rebloggedFromName")),
+            "is_reblog": any(p.get(k) for k in ("rebloggedFromId", "rebloggedFromUrl",
+                                                "rebloggedRootId")),
             "reblog_root": p.get("rebloggedRootName"),
+            "is_submission": bool(p.get("isSubmission")),
+            "submitted_by": p.get("postAuthor") or p.get("authorBlog"),
+            "is_gif": bool(p.get("isGif")),
+            "source_url": p.get("sourceUrl"),
+            "source_title": p.get("sourceTitle"),
             "notes": p.get("noteCount"),
             "tags": tags,
             "format_tags": sorted({t.strip().lower() for t in tags
                                    if t.strip().lower() in FORMAT_TAGS}),
-            "own_text": "\n".join(own_text)[:4000],
-            "trail_text": "\n".join(trail_text)[:4000],
+            "own_text": "\n".join(own_text)[:20000],
+            "trail_text": "\n".join(trail_text)[:20000],
+            "link_titles": [l["title"] for l in links if l.get("title")][:10],
             "slug": p.get("slug"),
             "n_images": len(imgs), "n_videos": len(vids), "n_audios": len(auds),
             "video_titles": [v["title"] for v in vids if v["title"]],
