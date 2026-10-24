@@ -584,6 +584,16 @@ Rock De Vzla, Hippito y Sus Chatarritas, RHV Blogspot)
   de esta fuente no emite **ni un solo** campo de imagen, y hay una prueba
   que lo comprueba. Tampoco traen `figcaption`, así que
   no aportan metadatos.
+- **[CONFIRMADO 2026-10-23] Captura absoluta del sitio** en
+  `data/raw/punkenvenezuela-2026-10-23` (794 MB, 1.107 archivos): las 17
+  páginas (HTML + JSON de WP REST), 686 originales de `wp-content/uploads`
+  —472 fotos de galería, 55 PDF y 15 DOCX de fanzines/folletos (486 MB),
+  1 SVG y 1 MP4—, espejo navegable (`mirror/serve.sh`), texto limpio por
+  capítulo, 14 discos de `humanoderechorecords.bandcamp.com` con 174 pistas,
+  enlaces de YouTube y el enlace MEGA de la portada. La política de ingesta
+  **no cambia**: la captura es evidencia y fuente de hechos; los escaneos
+  siguen sin entrar al catálogo como imágenes de ficha.
+  Herramientas: `docs/capturas/punkenvenezuela-2026-10-23/`.
 - *Confianza:* `medium`.
 
 **10. Deska / Rock & Pop Venezuela Merch Store**
