@@ -594,6 +594,17 @@ Rock De Vzla, Hippito y Sus Chatarritas, RHV Blogspot)
   **no cambia**: la captura es evidencia y fuente de hechos; los escaneos
   siguen sin entrar al catálogo como imágenes de ficha.
   Herramientas: `docs/capturas/punkenvenezuela-2026-10-23/`.
+- **[CONFIRMADO 2026-10-23] Corpus de texto de los fanzines** en
+  `data/research/punkenvenezuela-fanzines-2026-10-23` (13 MB): 71 documentos,
+  805 páginas y 3,6 M caracteres (68 PDF escaneados pasados por OCR `spa` a
+  250 dpi; los 15 DOCX de los capítulos traían texto). Cotejado contra el
+  catálogo con filtro de precisión: **1.661 menciones fuertes** en 430 artistas,
+  47 alias y 357 personas, cada una con documento, página y contexto
+  (`matches.jsonl`). Salidas accionables: `fichas-a-completar.tsv` (224 artistas
+  citados con ciudad o año sin documentar) y `duplicados-catalogo.tsv` (ningún
+  nombre de artista repetido en el catálogo a fecha de hoy). Buscador:
+  `python3 buscar.py "cruz negra"`. Herramientas:
+  `docs/capturas/punkenvenezuela-fanzines-2026-10-23/`.
 - *Confianza:* `medium`.
 
 **10. Deska / Rock & Pop Venezuela Merch Store**
