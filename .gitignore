@@ -28,7 +28,11 @@ build/
 .tsimp/
 
 # --- Datos crudos y volúmenes locales (se respaldan aparte, no en git) ---
-data/raw/
+data/raw
+data/research
+# Almacén local trasladado íntegramente por decisión de Brian (2026-10-20).
+# No versionar el enlace absoluto; ver docs/SHARED_STORAGE.md.
+/reports
 data/*.sqlite
 *.sqlite3
 
@@ -52,7 +56,7 @@ npm-debug.log*
 *.swp
 
 # --- Scratch / análisis temporales ---
-tmp-analysis/
+tmp-analysis
 
 # --- Cachés de herramientas locales (no son artefactos del proyecto) ---
 .impeccable/
@@ -64,7 +68,9 @@ public/cotejo.html
 
 # --- Imágenes descargadas por `npm run media:localize` (web/public/media,
 # ~250 MB). Como data/raw, se respaldan aparte: el core apunta a /crv/media/…
-web/public/media/
+web/public/media
+# Copias WebP reducidas que genera el optimizador (web/media-variants.mjs): se regeneran solas.
+web/.media-variants/
 
 # --- Notas y listas de trabajo de las sesiones (no son artefactos) ---
 logs/
@@ -81,3 +87,8 @@ __pycache__/
 data/research/ocr/
 reports/plan-20-de-20/etapa-2/document-candidates/
 reports/plan-20-de-20/etapa-2/normalized-copies/
+
+# Staging SSD de capturas (ver docs/SHARED_STORAGE.md)
+/staging/
+# Marcador operativo de invalidación; se queda en el SSD.
+data/.catalog-cache-revision*

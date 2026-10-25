@@ -37,7 +37,7 @@ def main():
     else:
         listing = subprocess.check_output(["git", "ls-files", "-c", "-o", "--exclude-standard", "-z"], cwd=ROOT)
         allowed_dirs = ("src/", "scripts/", "test/", "migrations/", "web/src/", "web/scripts/", "web/tests/", ".github/", "docs/", "data/genres/")
-        allowed_roots = {"package.json", "package-lock.json", "tsconfig.json", "vitest.config.ts", "eslint.config.js", "crv_simple_v1.sql", ".env.example", "Dockerfile", "compose.yaml", "README.md", "DESIGN.md", "PRODUCT.md"}
+        allowed_roots = {"package.json", "package-lock.json", "tsconfig.json", "vitest.config.ts", "eslint.config.js", "crv_simple_v1.sql", ".env.example", ".gitignore", "Dockerfile", "compose.yaml", "README.md", "DESIGN.md", "PRODUCT.md", "AGENTS.md", "CLAUDE.md", "SYNAPSE.md"}
         files = sorted({ROOT / name for raw in listing.split(b"\0") if raw
                         for name in [raw.decode()]
                         if name.startswith(allowed_dirs) or name in allowed_roots

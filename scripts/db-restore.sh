@@ -65,5 +65,5 @@ echo "   pg_restore completado ($(manifest tables) tablas, $(manifest rows_total
 say "4/4 crudo"
 mkdir -p "$DATA_DIR_/raw"
 tar -C "$DATA_DIR_" -xzf "$BACKUP/raw.tar.gz"
-echo "   data/raw restaurado en $DATA_DIR_/raw ($(find "$DATA_DIR_/raw" -type f | wc -l | tr -d ' ') archivos)"
+echo "   data/raw restaurado en $DATA_DIR_/raw ($(find -H "$DATA_DIR_/raw" -type f | wc -l | tr -d ' ') archivos)"
 echo "   verifica con: DATABASE_URL=postgresql://<usuario>:<pass>@<host>:<puerto>/$DATABASE npm run doctor"

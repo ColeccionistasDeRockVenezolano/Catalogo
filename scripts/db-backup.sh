@@ -93,7 +93,9 @@ while IFS= read -r rel; do
 done < <(psql_q -c "SELECT stored_path FROM ingest.raw_pages")
 (
   cd "$DATA_DIR_"
-  find raw -type f -print0 > "$OUT/raw-files.list"
+  # raw puede ser el enlace al archivo de capturas en /mnt/1tb/Shared.
+  # -H sigue ese argumento, sin seguir enlaces encontrados dentro del crudo.
+  find -H raw -type f -print0 > "$OUT/raw-files.list"
 )
 raw_files="$(tr -cd '\0' < "$OUT/raw-files.list" | wc -c | tr -d ' ')"
 # Freeze the file inventory before archiving. Crawlers may create additional
