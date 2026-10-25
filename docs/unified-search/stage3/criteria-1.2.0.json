@@ -1,0 +1,87 @@
+{
+ "version": "crv-stage3-criteria-1.2.0",
+ "frozenAt": "2026-10-25",
+ "frozenBy": "Claude (encargo de Brian, 2026-10-25: «Autorizo todo»)",
+ "policy": "Criterios fijados antes de construir léxico, segmentador, preguntas o modelos y antes de ver cualquier resultado sobre la prueba reservada. No se relajan después de medir; un fallo se documenta y obliga a una nueva versión con otra prueba reservada.",
+ "reservedTests": {
+  "queries": {
+   "path": "docs/unified-search/stage3/datasets/query-test-reserved-3.json",
+   "sha256": "5deefe230b92be82873f65a569c3d1fee0e9bcdb3ea453560e1cd9c690c1ac84",
+   "cases": 247,
+   "description": "redacción DeepSeek flash sobre especificación y sorteo con semilla; etiquetas de Claude sin ejecutar el sistema sobre las frases"
+  },
+  "realTraffic": {
+   "path": "docs/unified-search/stage3/datasets/query-test-real.json",
+   "sha256": "3e1d398f84483609b50193183ddac318cf9d31f4a5248c50e1c50883d076a033",
+   "cases": 45,
+   "description": "muestras reales saneadas; evaluación de no invención"
+  },
+  "evidence": {
+   "path": null,
+   "sha256": null,
+   "typed": 0,
+   "extraction": 0,
+   "description": "la versión 1.2.0 no evalúa evidencia: la prueba 2.0.0 ya se usó y no hay modelo nuevo de evidencia; una evaluación de evidencia exige una prueba 3.0.0 adjudicada antes de entrenar"
+  },
+  "mandatory": {
+   "path": "docs/unified-search/stage3/datasets/query-test-mandatory.json",
+   "sha256": "6d05e81b962dda1f97b039547fbb11579f175601b03f1285048c62f0e1d309f9",
+   "cases": 5
+  }
+ },
+ "tasks": {
+  "query_interpretation": {
+   "unit": "consulta completa en forma canónica (estado, exigidos, excluidos, grupos O, preferidos, entidades, número de contextos del oyente y restricción pendiente)",
+   "thresholds": {
+    "exactPlanAccuracy": ">= 0.85 sobre los 247",
+    "exactPlanAccuracyAdversarial": ">= 0.80 en negation, listener, entity, clarify, contradiction y unsupported",
+    "criticalErrors": "<= 2 % de los casos y 0 en los ejemplos obligatorios (M01–M05 y T144, T151, T156, T157, T174, T182, T190, T213)",
+    "unsupportedPreservation": ">= 0.95: toda restricción pendiente de la etiqueta queda pendiente y el plan no se declara identified",
+    "overAbstention": "<= 0.10 de casos query_valid respondidos como clarify/unsupported/unrecognized",
+    "overconfidence": "<= 0.05 de decisiones de Laya incorrectas con confianza calibrada sobre el umbral",
+    "conditionF1": ">= 0.90 micro-F1 de condiciones (exigidas+excluidas+preferidas, con su modo)",
+    "describedGenreRecallAt3": ">= 0.70: alguna alternativa aceptable entre las tres primeras propuestas",
+    "realTrafficNoInvention": ">= 0.98 de consultas reales sin condiciones inventadas",
+    "latencyP95WarmMs": "<= 500 ms interpretación completa en caliente en este equipo (GPU RTX 3050)",
+    "calibrationECE": "<= 0.10 por tipo de pregunta, medida en datos de calibración y comprobada en la prueba"
+   },
+   "baselineMargin": "Debe superar a las reglas heredadas (detectEmotionIntent + explicitRequestSpans) en exactPlanAccuracy por >= 0.20 absoluto y no empeorar a las reglas nuevas sin modelo en criticalErrors"
+  },
+  "evidence_typed_decision": {
+   "questions": [
+    "object_scope",
+    "assertion_state",
+    "support",
+    "activity_basis"
+   ],
+   "thresholds": {
+    "supportMacroF1": ">= 0.75",
+    "assertionStateAccuracy": ">= 0.85 con recall de estados no afirmados >= 0.60",
+    "objectScopeAccuracy": ">= 0.85",
+    "activityDeclaredUsePrecision": ">= 0.90 (no declarar uso desde género, emoción o ritmo)",
+    "calibrationECE": "<= 0.12"
+   },
+   "baselineMargin": "No peor que Laya base en ninguna pregunta y mejor en al menos dos"
+  },
+  "claim_extraction": {
+   "unit": "elegir el fragmento de la reseña que sostiene el atributo candidato entre fragmentos candidatos",
+   "thresholds": {
+    "top1Accuracy": ">= 0.80",
+    "noneRecall": ">= 0.70 cuando ningún fragmento lo sostiene"
+   }
+  }
+ },
+ "authority": "Ninguna predicción, por alta que sea su probabilidad, cambia una decisión humana; se prueba con casos contradictorios. Una tarea que no cumple sus umbrales no se activa; las otras tareas se juzgan por separado.",
+ "activation": "Activar un modelo solo registra una fila atribuida (actor, motivo, ficha y huellas) y es reversible con otra fila; no publica nada en el buscador público hasta la etapa 4.",
+ "supersedes": {
+  "version": "crv-stage3-criteria-1.1.0",
+  "sha256": "f00025f0a7e662706bed7894d91a0d70fa84392d9c03b3ad9178aec928ee4c9a"
+ },
+ "changes": [
+  "Umbrales idénticos a 1.0.0 y 1.1.0.",
+  "Nueva prueba reservada de consultas 3.0.0 (247 casos, misma distribución por categoría); la 2.0.0 pasa a desarrollo.",
+  "Convención: el ruido es unrecognized sin pendientes (T247 y R247 decían pending 1 con unrecognized, combinación imposible).",
+  "Convención: valoraciones sin criterio y circunstancias de tiempo o lugar sin «para» son relleno; idioma, tempo, duración, instrumentación, versión, procedencia y «para» + ocasión fuera del vocabulario quedan pendientes.",
+  "Sin evaluación de evidencia en esta versión (claim_extraction sigue activada desde 1.1.0)."
+ ]
+}
