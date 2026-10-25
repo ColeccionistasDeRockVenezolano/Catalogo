@@ -1,0 +1,64 @@
+/* ============================================================
+   Tipografía en teléfono. Se carga al final para mandar sobre los
+   tamaños de escritorio: ningún texto de lectura baja de 13px, las
+   etiquetas en mayúsculas no bajan de 11px y el cuerpo va a 15px.
+   ============================================================ */
+@media (max-width: 760px) {
+  /* Navegación */
+  .main-nav > a { gap: 4px; font-size: 11.5px; }
+  .nav-icon { width: 22px; height: 22px; }
+  .catalog-tabs__tab { font-size: 12.5px; }
+
+  /* Encabezados y listas */
+  .page-header h1 { font-size: 28px; }
+  .page-lead { font-size: 15px; line-height: 1.55; }
+  .list-summary__count { font-size: 15px; }
+  .fpill { font-size: 13.5px; }
+  .entity-card__title { font-size: 15.5px; line-height: 1.35; }
+  .entity-card__sub, .entity-card__artist, .entity-card__genre { font-size: 13.5px; }
+  .entity-card__edition { font-size: 13px; }
+  .entity-card__missing { font-size: 12px; }
+  .entity-card__tag { font-size: 11.5px; }
+
+  /* Ficha de artista */
+  .artist-profile__facts .entity-info__row dt { font-size: 11px; }
+  .artist-profile__facts .entity-info__row dd { font-size: 14.5px; }
+  .artist-profile__identity .entity-info__row dt { font-size: 11px; }
+  .artist-profile__identity .entity-info__row dd { font-size: 14.5px; }
+  .artist-profile__aliases h2, .artist-profile__biography h2, .artist-profile__genres h2 { font-size: 11.5px; }
+  .artist-profile__genres .badge { font-size: 11.5px; }
+  .artist-profile__connections .platform-block h2 { font-size: 11px; }
+  .artist-profile .entity-hero__desc, .entity-hero__desc { font-size: 15px; line-height: 1.65; }
+  .artist-profile__photo-hint, .album-profile__image-hint { font-size: 12.5px; }
+  .alias-chip__type { font-size: 12px; }
+  .chip { font-size: 13.5px; }
+  .badge { font-size: 11.5px; }
+  .artist-listen h2 { font-size: 12.5px; }
+  .artist-listen__intro, .artist-listen__video-title, .artist-listen__external { font-size: 14px; }
+  .artist-listen__platform { font-size: 13.5px; }
+
+  /* Datos, pestañas y enlaces */
+  .entity-info__row dt, .entity-info__wide-label, .entity-info__heading { font-size: 11.5px; }
+  .entity-info__row dd { font-size: 15px; }
+  .etabs__tab { font-size: 14.5px; }
+  .etabs__empty { font-size: 14.5px; }
+  .etabs__note { font-size: 13.5px; }
+  .link-list a { font-size: 15px; }
+  .link-list__host { font-size: 13px; }
+  .credit-chips__role { font-size: 12px; }
+  .credit-chip__scope, .chip__count { font-size: 12.5px; }
+  .members-timeline__legend, .members-timeline__missing { font-size: 13.5px; }
+
+  /* Ficha de disco: album-detail.css se carga con la página, después de esta
+     hoja; `:root` le gana sin depender del orden. */
+  :root .album-profile__facts dt { font-size: 13px; }
+  :root .album-profile__facts dd { font-size: 15px; }
+  :root .album-listen__intro { font-size: 15px; }
+  :root :is(.album-listen__notice p + p, .album-listen__player-link) { font-size: 13.5px; }
+  :root :is(.album-listen__platform button, .album-listen__external-platform) { font-size: 13px; }
+  :root .album-tracks__summary { font-size: 13.5px; }
+
+  /* Botones */
+  .btn { font-size: 14.5px; }
+  .btn--sm { font-size: 13.5px; }
+}
