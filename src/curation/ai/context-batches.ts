@@ -19,6 +19,28 @@ export interface PlanningBatch {
   evidence:CatalogEvidence[];
 }
 
+const termWords=(value:string)=>` ${value.normalize("NFKD").replace(/\p{M}/gu,"").toLowerCase().replace(/[^a-z0-9]+/gu," ").trim()} `;
+interface Taxonomy{columns:string[];rows:Array<[string,string,string,string|null]>}
+/**
+ * Genre tasks keep the whole taxonomy. Any other task only needs the terms its citations name
+ * (with their parents) and the record's current genres: the rest repeated in every call was
+ * about forty percent of each request without adding evidence.
+ */
+function taxonomyFor(context:Record<string,unknown>,pending:FindingContext[],citations:CatalogEvidence[]):unknown{
+  const taxonomy=context["taxonomy"] as Taxonomy|undefined;
+  if(!taxonomy?.rows||pending.some(unit=>unit.area==="genres")||(!pending.length&&!citations.length)||/g[eé]ner|genre|estilo/iu.test(String(context["instruction"])))return taxonomy;
+  const text=termWords([...citations.map(item=>`${item.quote} ${item.label??""}`),...pending.map(unit=>JSON.stringify(unit))].join(" "));
+  const current=new Set(((context["currentGenres"] as Array<{slug:string}>|undefined)??[]).map(genre=>genre.slug));
+  const bySlug=new Map(taxonomy.rows.map(row=>[row[0],row]));
+  const keep=new Set<string>();
+  for(const [slug,name] of taxonomy.rows){
+    if(!current.has(slug)&&!text.includes(termWords(name))&&!text.includes(termWords(slug)))continue;
+    for(let at:string|null|undefined=slug;at&&!keep.has(at);at=bySlug.get(at)?.[3])keep.add(at);
+  }
+  return {columns:taxonomy.columns,rows:taxonomy.rows.filter(row=>keep.has(row[0])),
+    scope:`Términos nombrados en las citas de esta tarea, sus padres y los géneros actuales (${keep.size} de ${taxonomy.rows.length}); una revisión de géneros recibe la taxonomía completa.`};
+}
+
 /** Task contexts retain complete findings and citations, with only the neighbourhood they need. */
 export function planningBatches(context:Record<string,unknown>,evidence:CatalogEvidence[],maxChars:number):PlanningBatch[] {
   const report=context["report"] as ReportContext|null;
@@ -31,7 +53,7 @@ export function planningBatches(context:Record<string,unknown>,evidence:CatalogE
     const needsNarrative=pending.some(unit=>unit.area==="biography")||(!pending.length&&/biograf|narrativ|text|descrip/iu.test(String(context["instruction"])));
     const current=context["current"] as Record<string,unknown>|undefined;
     const row=current?.["row"] as Record<string,unknown>|undefined;
-    const task:Record<string,unknown>={...base,
+    const task:Record<string,unknown>={...base,taxonomy:taxonomyFor(context,pending,citations),
       // Full narrative remains in the inventory, loaded only by narrative tasks.
       narrativeOriginals:needsNarrative?context["narrativeOriginals"]:{availableByCatalogLookup:true},
       current:{row,selectedEntity:current?.["selectedEntity"],selectedMembership:current?.["selectedMembership"],relations:{availableByCatalogLookup:true}},

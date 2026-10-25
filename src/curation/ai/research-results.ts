@@ -2,6 +2,11 @@ import { hashValue } from "./context.js";
 import { orderedOperations, operationRefs } from "./schema.js";
 import type { CatalogDraft, CatalogEvidence, CatalogOperation } from "./types.js";
 
+function scopedOperationKey(prefix:string,key:string):string {
+  const full=`t${prefix.replace(/[^a-zA-Z0-9_-]/gu,"_")}_${key}`;
+  return full.length<=40?full:`${full.slice(0,27)}_${hashValue(full).slice(0,12)}`;
+}
+
 /** Joining independent tasks never replaces another task's same-named operation or citation. */
 export function combinePlanningResults(results:Array<{draft:CatalogDraft;evidence:CatalogEvidence[];taskKey?:string}>,original:CatalogEvidence[]=[]):{draft:CatalogDraft;evidence:CatalogEvidence[]} {
   const evidence:CatalogEvidence[]=structuredClone(original);
@@ -30,14 +35,15 @@ export function combinePlanningResults(results:Array<{draft:CatalogDraft;evidenc
     }
     for(const input of ordered){
       const operation=structuredClone(input);
-      operation.key=`${prefix}_${input.key}`;
-      for(const ref of operationRefs(operation))if("key" in ref)ref.key=references.get(ref.key)??`${prefix}_${ref.key}`;
+      operation.key=scopedOperationKey(prefix,input.key);
+      for(const ref of operationRefs(operation))if("key" in ref)ref.key=references.get(ref.key)??scopedOperationKey(prefix,ref.key);
       operation.evidenceIds=[...new Set(operation.evidenceIds.map(id=>citations.get(id)??id))];
       const {key:_,label:__,reason:___,evidenceIds:____,...semantic}=operation;
       const key=hashValue(semantic);
       const previous=signatures.get(key);
       if(previous){
-        previous.evidenceIds=[...new Set([...previous.evidenceIds,...operation.evidenceIds])];
+        // The full source set stays in evidence; the public operation contract accepts eight direct citations.
+        previous.evidenceIds=[...new Set([...previous.evidenceIds,...operation.evidenceIds])].slice(0,8);
         references.set(input.key,previous.key);
       }else{signatures.set(key,operation);operations.push(operation);references.set(input.key,operation.key);}
     }
@@ -47,8 +53,10 @@ export function combinePlanningResults(results:Array<{draft:CatalogDraft;evidenc
   // One task keeps its public operation keys for compatibility with existing callers.
   if(results.length===1&&!results[0]!.taskKey){
     const originals=results[0]!.draft.operations;
-    const names=new Map(originals.map(op=>[`${(results[0]!.taskKey??hashValue(results[0]!.draft)).slice(0,16)}_${op.key}`,op.key]));
+    const names=new Map(originals.map(op=>[scopedOperationKey((results[0]!.taskKey??hashValue(results[0]!.draft)).slice(0,16),op.key),op.key]));
     for(const op of operations){op.key=names.get(op.key)??op.key;for(const ref of operationRefs(op))if("key" in ref)ref.key=names.get(ref.key)??ref.key;}
   }
-  return {draft:{summary:summaries.join("\n"),operations,unresolved:[...unresolved]},evidence};
+  const joined=summaries.join("\n");
+  const summary=joined.length<=1500?joined:`${joined.slice(0,1460)}\n[Resumen de ${results.length} lotes; ver operaciones.]`;
+  return {draft:{summary:summary.slice(0,1500),operations,unresolved:[...unresolved]},evidence};
 }

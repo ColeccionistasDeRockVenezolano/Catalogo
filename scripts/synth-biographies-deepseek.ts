@@ -91,6 +91,9 @@ function violations(dossier: Dossier, text: string | null): string | null {
   // Fuentes nombradas en el texto: la guía lo prohíbe (la bio no debe citar Last.fm, Discogs, etc.).
   const fuente = /\b(?:last\.?fm|discogs|wikipedia|musicbrainz|theaudiodb|venciclopedia|lobotoradio|sincopa)\b|\bvzla\s?rockea\b|seg[uú]n (?:el|la|los|las) (?:cat[aá]logo|fuentes?)/iu.exec(text);
   if (fuente) problems.push(`El texto nombra una fuente o el catálogo («${fuente[0]}»): la guía prohíbe nombrarlos. Reescribe el texto completo sin nombrar ninguna.`);
+  // Datos de contacto (encargo de Brian 2026-10-20): la biografía no lleva correos ni enlaces.
+  const contacto = /[\w.+-]+@[\w-]+(?:\.[\w-]+)+|\bhttps?:\/\/\S+|\bwww\.\S+/iu.exec(text);
+  if (contacto) problems.push(`El texto incluye un dato de contacto o un enlace («${contacto[0]}»): la biografía no lleva correos, teléfonos ni URLs. Quítalo por completo y reescribe el texto.`);
   // Solo en reseñas: en personas y artistas las comillas también marcan discos, que la guía permite nombrar.
   const titles = text.match(/«[^»]+»/gu)?.length ?? 0;
   if (dossier.kind === "album" && titles > 4) problems.push(`El texto nombra ${titles} títulos entre comillas: deja como mucho 3 temas y resume el resto.`);

@@ -190,6 +190,26 @@ function compact(value: unknown, limit = 100, textLimit = 1600): unknown {
     );
   return value;
 }
+// Exact name or alias matches only, with the projects that would justify linking one of them.
+export async function personCandidates(db: Database, name: string, artistId: number): Promise<Array<Record<string, unknown>>> {
+  const fold = "translate(lower(btrim(%s)),'áéíóúüñ','aeiouun')";
+  const rows = (await db.query<{ id: number; label: string; projects: string[] | null; shared: boolean }>(
+    `WITH found AS (
+       SELECT id FROM public.persons WHERE ${fold.replace("%s", "name")}=${fold.replace("%s", "$1")}
+       UNION SELECT person_id FROM ingest.person_aliases WHERE ${fold.replace("%s", "alias")}=${fold.replace("%s", "$1")}
+     ), links AS (
+       SELECT m.person_id, m.artist_id FROM public.artist_members m JOIN found f ON f.id=m.person_id
+       UNION SELECT c.person_id, al.artist_id FROM public.album_credits c JOIN public.albums al ON al.id=c.album_id JOIN found f ON f.id=c.person_id
+       UNION SELECT c.person_id, al.artist_id FROM public.track_credits c JOIN public.tracks t ON t.id=c.track_id JOIN public.albums al ON al.id=t.album_id JOIN found f ON f.id=c.person_id
+     )
+     SELECT p.id::int, p.name AS label,
+       (SELECT array_agg(DISTINCT a.name) FROM links l JOIN public.artists a ON a.id=l.artist_id WHERE l.person_id=p.id) AS projects,
+       EXISTS(SELECT 1 FROM links l WHERE l.person_id=p.id AND l.artist_id=$2) AS shared
+     FROM public.persons p JOIN found f ON f.id=p.id ORDER BY p.id LIMIT 6`,
+    [name, artistId],
+  )).rows;
+  return rows.map(row => ({ kind: "person", id: row.id, label: row.label, projects: (row.projects ?? []).slice(0, 8), sharesProjectWithRoot: row.shared }));
+}
 export async function catalogLookup(
   db: Database,
   query: string,
@@ -332,6 +352,11 @@ export async function planningContext(
         }
         const member = /^member\.(\d+)/u.exec(String(selected["key"]));
         if (member) state["selectedMembership"] = (await db.query("SELECT * FROM public.artist_members WHERE id=$1", [Number(member[1])])).rows[0] ?? null;
+        // A person named by a members or credits finding is looked up before planning: the
+        // last round cannot request lookups, and a homonym is linked only through a shared project.
+        const observed = typeof selected["observed"] === "string" ? selected["observed"].trim() : "";
+        if (kind === "artist" && ["members", "credits", "trajectory"].includes(String(selected["area"])) && observed.length > 2 && observed.length <= 80)
+          state["personCandidates"] = await personCandidates(db, observed, id);
       }
       const linkedUnits = units.map((f) => {
         const evidenceIds = ((f["evidence"] as Array<Record<string, unknown>>) ?? []).map((e) => add({

@@ -12,14 +12,50 @@ import {
 import { sensitiveOperation } from "../../src/curation/ai/executor.js";
 import { evidenceFromPage, hashValue } from "../../src/curation/ai/context.js";
 import { prioritizeRetrievedDetail, retainDraft } from "../../src/curation/ai/planner.js";
-import { hasRelevantEvidence } from "../../src/curation/ai/evidence.js";
+import { evidenceGaps, hasRelevantEvidence } from "../../src/curation/ai/evidence.js";
 const base = {
   label: "Cambio documentado",
   reason: "Fuente contrastada",
   evidenceIds: ["E1"],
   enabled: true,
 };
+describe("respuesta del planificador con desbordes de forma", () => {
+  it("recorta textos largos y citas de más y vuelve segura una clave con acentos, sin perder el lote", () => {
+    const draft = draftSchema.parse({ summary: "s".repeat(1600), unresolved: ["d".repeat(900)], operations: [{ ...base, key: "álbum-única", label: "l".repeat(200), reason: "r".repeat(800), evidenceIds: ["E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10"], op: "add_alias", target: { kind: "artist", id: 1 }, alias: "Alias" }] });
+    const op = draft.operations[0]!;
+    expect(op.key).toBe("kalbum-unica");
+    expect(op.label).toHaveLength(160);
+    expect(op.reason).toHaveLength(700);
+    expect(op.evidenceIds).toEqual(["E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8"]);
+    expect(draft.summary).toHaveLength(1500);
+    expect(draft.unresolved[0]!.endsWith("…")).toBe(true);
+  });
+});
 describe("contratos y dependencias de curaduría IA", () => {
+  it("respalda el rol Producer con producción explícita y rechaza una cita sin ese crédito",()=>{
+    const operation=draftSchema.parse({summary:"",unresolved:[],operations:[{...base,key:"producer",op:"create_relation",kind:"album_credit",endpoints:{albumId:{kind:"album",id:1},personId:{kind:"person",id:2}},values:{role:"Producer"}}]}).operations[0]!;
+    const citation={id:"E1",url:"https://band.example/album",quote:"Producción: Carlos Pérez",fetchedAt:"",contentHash:"",origin:"page",label:"Créditos"};
+    expect(hasRelevantEvidence(operation,[citation])).toBe(true);
+    expect(hasRelevantEvidence(operation,[{...citation,quote:"Carlos Pérez tocó el bajo."}])).toBe(false);
+  });
+  it("una cita del título no valida año, portada, pistas ni premios que no contiene (ejemplos de la auditoría)",()=>{
+    const citation={id:"E1",url:"https://band.example/disco",quote:"Su primer disco, Tan Solo una Sonrisa, salió con el sello LPM.",fetchedAt:"",contentHash:"",origin:"page",label:"Reseña"};
+    const [album,bio]=draftSchema.parse({summary:"",unresolved:[],operations:[
+      {...base,key:"album",op:"create_album",artist:{kind:"artist",id:1212},values:{title:"Tan Solo una Sonrisa",releaseYear:1997,coverUrl:"https://img.example/portada.jpg"},tracks:[{title:"Canción Inventada",discNumber:1,trackNumber:1}],credits:[],genres:[],aliases:[],formats:[]},
+      {...base,key:"bio",op:"replace_fields",target:{kind:"artist",id:1212},values:{biography:"Su primer disco, Tan Solo una Sonrisa, salió con el sello LPM. Ganaron tres premios Grammy en 1999 y giraron por Japón."}},
+    ]}).operations as [import("../../src/curation/ai/types.js").CatalogOperation,import("../../src/curation/ai/types.js").CatalogOperation];
+    expect(evidenceGaps(album,[citation])).toEqual(["año «1997»","portada no citada","pista 1 «Canción Inventada»"]);
+    expect(evidenceGaps(bio,[citation])).toEqual(["biografía: «Ganaron tres premios Grammy en 1999 y giraron por Japón.»"]);
+    const full={...citation,quote:"Tan Solo una Sonrisa (1997). 01- Canción Inventada 3:10. Portada: https://img.example/portada.jpg"};
+    expect(hasRelevantEvidence(album,[full])).toBe(true);
+  });
+  it("una relación exige nombrar al otro extremo además del rol",()=>{
+    const op=draftSchema.parse({summary:"",unresolved:[],operations:[{...base,key:"m",op:"create_relation",kind:"artist_membership",endpoints:{artistId:{kind:"artist",id:3127},personId:{kind:"person",id:9}},values:{role:"Bajo"}}]}).operations[0]!;
+    const context={root:{kind:"artist" as const,id:3127},nameOf:(ref:import("../../src/curation/ai/types.js").CatalogRef)=>"id" in ref&&ref.id===9?"Rosbel Rangel":"Intifada"};
+    const citation={id:"E1",url:"https://x.example",quote:"Jhosue Palomino (Guitarra) y el bajo de la banda",fetchedAt:"",contentHash:"",origin:"page",label:"Bio"};
+    expect(evidenceGaps(op,[citation],context)).toEqual(["relación con «Rosbel Rangel»"]);
+    expect(evidenceGaps(op,[{...citation,quote:"Rosbel Rangel (Bajo y Voz)"}],context)).toEqual([]);
+  });
   it("conserva propuestas entre consultas y permite corregir o retirar una propuesta anterior", () => {
     const initial = draftSchema.parse({ summary: "Primera investigación", unresolved: ["Contrastar año"], operations: [
       { ...base, key: "alias", op: "add_alias", target: { kind: "artist", id: 1 }, alias: "Nombre anterior" },

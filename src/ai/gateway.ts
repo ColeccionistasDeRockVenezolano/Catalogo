@@ -7,6 +7,7 @@ import { z } from "zod";
 import { getEnv } from "../config/env.js";
 import { getPool } from "../db/client.js";
 import {reserveExecutionBudget,settleExecutionBudget} from "./budget.js";
+import {responseContract} from "./response-contract.js";
 
 export type DeepSeekTaskKind =
   | "cheap_classification"
@@ -51,7 +52,11 @@ export interface DeepSeekTransportRequest {
   timeoutMs: number;
   system: string;
   user: string;
+  images?: DeepSeekImage[];
 }
+
+/** Captured bytes only: the provider never fetches an unvalidated remote URL. */
+export interface DeepSeekImage { dataUrl: string; sourceUrl: string; }
 
 export interface DeepSeekTransportResponse {
   content: string;
@@ -123,7 +128,10 @@ export class FetchDeepSeekTransport implements DeepSeekTransport {
           model: request.model,
           messages: [
             { role: "system", content: request.system },
-            { role: "user", content: request.user },
+            { role: "user", content: request.images?.length ? [
+              { type: "text", text: request.user },
+              ...request.images.map(image => ({ type: "image_url", image_url: { url: image.dataUrl, detail: "original" } })),
+            ] : request.user },
           ],
           response_format: { type: "json_object" },
           max_tokens: request.maxTokens,
@@ -246,6 +254,7 @@ export interface DeepSeekProposalRequest<TSchema extends z.ZodTypeAny> {
    * sea de ER difícil. Entra en el hash del prompt.
    */
   modelClass?: DeepSeekModelClass;
+  images?: DeepSeekImage[];
 }
 
 export interface DeepSeekProposalResult<T> {
@@ -267,8 +276,18 @@ export class DeepSeekGateway {
   ) {}
 
   async propose<TSchema extends z.ZodTypeAny>(request: DeepSeekProposalRequest<TSchema>): Promise<DeepSeekProposalResult<z.output<TSchema>>> {
+    if(!request.schemaVersion||request.schemaVersion.length>30)throw new Error("schemaVersion debe tener entre 1 y 30 caracteres para el registro persistente.");
     const modelClass = request.modelClass ?? MODEL_CLASS[request.taskKind];
     const model = this.config.models[modelClass];
+    if (request.images?.length && modelClass === "reasoning") throw new Error("El modelo de razonamiento configurado no acepta imágenes; use Flash o vision.");
+    const images = request.images?.map(image => {
+      const match = /^data:image\/(?:png|jpeg|gif|webp);base64,([A-Za-z0-9+/]+={0,2})$/u.exec(image.dataUrl);
+      if (!match) throw new Error("La imagen debe contener bytes capturados en una data URL válida.");
+      const bytes = Buffer.from(match[1]!, "base64");
+      if (!bytes.length || bytes.length > 32 * 1024 * 1024) throw new Error("La imagen está vacía o excede el límite de 32 MiB del proveedor.");
+      return { sourceUrl: image.sourceUrl, sha256: createHash("sha256").update(bytes).digest("hex") };
+    });
+    if ((request.images?.reduce((sum, image) => sum + Buffer.byteLength(image.dataUrl, "utf8"), 0) ?? 0) > 40 * 1024 * 1024) throw new Error("Las imágenes exceden el tamaño disponible del request; dividir la lectura en lotes.");
     const system = [
       "Actuas como arbitro de datos. Devuelve exclusivamente un objeto JSON.",
       request.taskKind === "curation_plan"
@@ -276,16 +295,17 @@ export class DeepSeekGateway {
         : "No ejecutes ni propongas SQL, escrituras, merges o comandos.",
       "Tu salida es una propuesta no vinculante; el codigo aplica la politica.",
       request.instructions,
+      `CONTRATO JSON OBLIGATORIO: ${stableJson(responseContract(request.responseSchema))}`,
     ].join("\n");
     const user = `INPUT JSON:\n${stableJson(request.input)}`;
-    const requestPayload = { taskKind: request.taskKind, modelClass, model, schemaVersion: request.schemaVersion, system, user };
+    const requestPayload = { taskKind: request.taskKind, modelClass, model, schemaVersion: request.schemaVersion, system, user, ...(images?.length ? { images } : {}) };
     const promptHash = createHash("sha256").update(stableJson(requestPayload)).digest("hex");
     const cached = await this.store?.findValidated(promptHash);
     if (cached) {
       const proposal = request.responseSchema.parse(cached.output);
       return { proposal, model: cached.model, modelClass, cached: true, promptHash, runId: cached.id };
     }
-    const reservation=this.config.budgetId?await reserveExecutionBudget(this.config.budgetId,{model,taskKind:request.taskKind,promptHash,system,user,maxTokens:this.config.maxTokens,timeoutMs:this.config.timeoutMs}):undefined;
+    const reservation=this.config.budgetId?await reserveExecutionBudget(this.config.budgetId,{model,taskKind:request.taskKind,promptHash,system,user,maxTokens:this.config.maxTokens,timeoutMs:this.config.timeoutMs,imageTokens:(images?.length??0)*1024}):undefined;
     let completion: DeepSeekTransportResponse;
     try {
       completion = await this.transport.complete({
@@ -293,6 +313,7 @@ export class DeepSeekGateway {
         baseUrl: this.config.baseUrl, model, modelClass,
         maxTokens: this.config.maxTokens, timeoutMs: this.config.timeoutMs,
         system, user,
+        ...(request.images?.length ? { images: request.images } : {}),
       });
     } catch (error) {
       if(reservation)await settleExecutionBudget(reservation,error instanceof DeepSeekValidationError?error.usage:undefined);

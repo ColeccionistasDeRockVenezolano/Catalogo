@@ -35,11 +35,18 @@ const relation = z.enum([
   "track_credit",
   "album_format",
 ]);
+// A reply that overflows a length, quotes too many citations or writes a key with accents keeps its batch:
+// the contract shown to the model is unchanged, and only the overflow is cut or the key made safe.
+const clip = (max: number) => (value: unknown) => (typeof value === "string" && value.length > max ? `${value.slice(0, max - 1)}…` : value);
+const first = (max: number) => (value: unknown) => (Array.isArray(value) ? value.slice(0, max) : value);
+const KEY = /^[a-zA-Z][a-zA-Z0-9_-]{0,39}$/u;
+const safeKey = (value: unknown) => typeof value !== "string" || KEY.test(value) ? value
+  : `k${value.normalize("NFD").replace(/\p{M}/gu, "").replace(/[^a-zA-Z0-9_-]+/gu, "_")}`.slice(0, 40);
 const base = {
-  key: z.string().regex(/^[a-zA-Z][a-zA-Z0-9_-]{0,39}$/u),
-  label: z.string().trim().min(1).max(160),
-  reason: z.string().trim().min(1).max(700),
-  evidenceIds: z.array(z.string().max(80)).max(8).default([]),
+  key: z.preprocess(safeKey, z.string().regex(KEY)),
+  label: z.preprocess(clip(160), z.string().trim().min(1).max(160)),
+  reason: z.preprocess(clip(700), z.string().trim().min(1).max(700)),
+  evidenceIds: z.preprocess(first(8), z.array(z.string().max(80)).max(8).default([])),
   enabled: z.boolean().default(true),
 };
 export const operationSchema = z.discriminatedUnion("op", [
@@ -231,14 +238,14 @@ export const operationSchema = z.discriminatedUnion("op", [
 ]);
 export const draftSchema = z
   .object({
-    summary: z.string().max(1500),
+    summary: z.preprocess(clip(1500), z.string().max(1500)),
     operations: z.array(operationSchema),
-    unresolved: z.array(z.string().max(700)),
+    unresolved: z.array(z.preprocess(clip(700), z.string().max(700))),
   })
   .strict();
 export const plannerSchema = draftSchema
   .extend({
-    resolvedUnresolved: z.array(z.string().max(700)).default([]),
+    resolvedUnresolved: z.array(z.preprocess(clip(700), z.string().max(700))).default([]),
     lookups: z
       .array(
         z

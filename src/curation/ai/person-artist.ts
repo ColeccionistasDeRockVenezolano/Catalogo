@@ -1,4 +1,5 @@
 import { writeModel } from "../../catalog/model.js";
+import { excludedArtist, EDITORIAL_EXCLUSION_MESSAGE } from "../../catalog/editorial-scope.js";
 import { sourceProvenance } from "../../evidence/provenance.js";
 import { z } from "zod";
 import type { Database } from "./context.js";
@@ -169,6 +170,10 @@ export async function resolvePersonArtist(
   dependencies: PersonArtistDependencies = {},
 ): Promise<PersonArtistResult> {
   const db = getPool();
+  if (await excludedArtist(db,{personId})) {
+    return { action:"conflict",artistId:null,stageName:null,explanation:EDITORIAL_EXCLUSION_MESSAGE,
+      conflicts:[EDITORIAL_EXCLUSION_MESSAGE],candidates:[],evidence:[],runId:null,reports:{},pending:[EDITORIAL_EXCLUSION_MESSAGE] };
+  }
   const initial = await entityState(db, "person", personId);
   const person = initial["row"] as {
     name: string;

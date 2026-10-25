@@ -151,12 +151,16 @@ export interface CatalogPreviewItem {
   after: unknown;
   error: string | null;
   warnings: string[];
+  /** Parts without documentary support; present on accepted editorial decisions too. */
+  evidenceGaps?: string[] | undefined;
 }
 export interface CatalogPreview {
   hash: string;
   ready: boolean;
   sensitive: boolean;
   operationHashes?: Record<string, string>;
+  /** What the plan really contains and the summary claims no operation backs. */
+  outcome?: { text: string; issues: string[] } | undefined;
   items: CatalogPreviewItem[];
   affected: Array<{ kind: CatalogKind; id: number; label: string }>;
 }

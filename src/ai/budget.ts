@@ -15,7 +15,8 @@ export async function createExecutionBudget(input:{id:string;maxUsd:number;maxCa
 /** Reserve a conservative UTF-8/token upper bound under one budget row lock.
  * An interrupted request retains its full reservation until usage is known.
  */
-export async function reserveExecutionBudget(budgetId:string,input:{model:string;taskKind:string;promptHash:string;system:string;user:string;maxTokens:number;timeoutMs:number}):Promise<Reservation>{
+export async function reserveExecutionBudget(budgetId:string,input:{model:string;taskKind:string;promptHash:string;system:string;user:string;maxTokens:number;timeoutMs:number;imageTokens?:number}):Promise<Reservation>{
+ if(input.imageTokens!==undefined&&(!Number.isSafeInteger(input.imageTokens)||input.imageTokens<0))throw new Error("Reserva de tokens de imagen inválida.");
  const db=await getPool().connect();
  try{
   await db.query("BEGIN");
@@ -25,7 +26,7 @@ export async function reserveExecutionBudget(budgetId:string,input:{model:string
   if(!rate)throw new DeepSeekBudgetExceeded(`Falta un precio registrado para ${input.model}; no se inicia una llamada pagada.`);
   await db.query("UPDATE ingest.ai_budget_reservations SET state='uncertain',settled_at=now() WHERE budget_id=$1 AND state='reserved' AND expires_at<now()",[budgetId]);
   const usage=(await db.query<{calls:number;tokens:string;micro_usd:string;active:number}>("SELECT count(*)::int AS calls,coalesce(sum(charged_tokens),0)::text AS tokens,coalesce(sum(charged_micro_usd),0)::text AS micro_usd,count(*) FILTER(WHERE state='reserved')::int AS active FROM ingest.ai_budget_reservations WHERE budget_id=$1",[budgetId])).rows[0]!;
-  const inputTokens=Buffer.byteLength(input.system,"utf8")+Buffer.byteLength(input.user,"utf8")+prices.requestTokenOverhead;
+  const inputTokens=Buffer.byteLength(input.system,"utf8")+Buffer.byteLength(input.user,"utf8")+prices.requestTokenOverhead+(input.imageTokens??0);
   const reservedTokens=inputTokens+input.maxTokens,reservedMicroUsd=Math.ceil(inputTokens*rate.inputUsdPerMillion+input.maxTokens*rate.outputUsdPerMillion);
   if(usage.calls>=budget.max_calls||Number(usage.tokens)+reservedTokens>Number(budget.max_tokens)||Number(usage.micro_usd)+reservedMicroUsd>Number(budget.max_micro_usd))throw new DeepSeekBudgetExceeded("Presupuesto global de llamadas, tokens o gasto alcanzado; se conservan los resultados para continuar.");
   if(usage.active>=budget.max_concurrency)throw new DeepSeekBudgetExceeded("El presupuesto global ya tiene una llamada en curso; se conserva la tarea para reintentar.");

@@ -25,7 +25,7 @@ import {
 import { confirmGenre, rejectGenre } from "../../genres/human.js";
 import { operationRefs, orderedOperations } from "./schema.js";
 import { entityRow, entityState, hashValue } from "./context.js";
-import { hasRelevantEvidence } from "./evidence.js";
+import { EvidenceGapError, evidenceGaps, type EvidenceContext } from "./evidence.js";
 import type {
   CatalogDraft,
   CatalogEvidence,
@@ -601,6 +601,20 @@ export async function executePlan(
   const created: Created = {};
   const items: CatalogPreviewItem[] = [];
   const evidenceIds = new Set(evidence.map((e) => e.id));
+  const plannedNames = new Map(
+    draft.operations.flatMap((o) => {
+      if (o.op !== "create_entity" && o.op !== "create_album") return [];
+      const name = o.values["name"] ?? o.values["title"];
+      return typeof name === "string" ? [[o.key, name] as const] : [];
+    }),
+  );
+  const evidenceContext: EvidenceContext = {
+    root,
+    nameOf: (ref) =>
+      "id" in ref
+        ? beforeState.affected.find((a) => a.kind === ref.kind && a.id === ref.id)?.label
+        : plannedNames.get(ref.key),
+  };
   let ordered: CatalogOperation[];
   try {
     ordered = orderedOperations(draft);
@@ -638,10 +652,9 @@ export async function executePlan(
         throw new Error(
           "Sin evidencia. Marca esta operación como decisión editorial si la has comprobado.",
         );
-      if (!reviewedKeys.includes(op.key) && !hasRelevantEvidence(op, evidence))
-        throw new Error(
-          "El extracto citado no respalda datos específicos de este cambio. Revisa las fuentes o confirma un criterio editorial.",
-        );
+      const gaps = evidenceGaps(op, evidence, evidenceContext);
+      if (!reviewedKeys.includes(op.key) && gaps.length)
+        throw new EvidenceGapError(gaps);
       const after = await execute(
         {
           ...context,
@@ -651,7 +664,9 @@ export async function executePlan(
         created,
         reviewedKeys.includes(op.key),
       );
-      const warnings: string[] = [];
+      const warnings: string[] = gaps.length
+        ? [`Decisión editorial: sin respaldo documental para ${gaps.join("; ")}.`]
+        : [];
       if (
         op.op === "create_album" ||
         (op.op === "create_entity" && op.kind === "album")
@@ -669,6 +684,7 @@ export async function executePlan(
         after,
         error: null,
         warnings,
+        ...(gaps.length ? { evidenceGaps: gaps } : {}),
       });
       await context.client.query("RELEASE SAVEPOINT ai_operation");
     } catch (error) {
@@ -684,6 +700,7 @@ export async function executePlan(
         after: null,
         warnings: [],
         error: error instanceof Error ? error.message : String(error),
+        ...(error instanceof EvidenceGapError ? { evidenceGaps: error.gaps } : {}),
       });
     }
   }

@@ -1,3 +1,4 @@
+import { jsonb } from "../../db/json.js";
 import { getPool } from "../../db/client.js";
 import {randomUUID} from "node:crypto";
 import { getEnv } from "../../config/env.js";
@@ -15,8 +16,10 @@ import type {
   CatalogKind,
   CatalogPlan,
   CatalogPreview,
+  CatalogPreviewItem,
   CatalogDecision,
 } from "./types.js";
+import { operationSignature, planOutcome } from "./coherence.js";
 
 const columns = `id::int,entity_kind AS "entityKind",entity_id::int AS "entityId",instruction,status,phase,revision,draft,evidence,reviewed_keys AS "reviewedKeys",decisions,preview,result,usage,requested_by AS "requestedBy",edited_by AS "editedBy",applied_by AS "appliedBy",error,run_id::int AS "runId",created_at::text AS "createdAt",updated_at::text AS "updatedAt"`;
 const pending = new Set<Promise<void>>();
@@ -144,23 +147,18 @@ async function previewDraft(
     );
     return result.preview;
   } catch (error) {
-    return {
-      hash: "",
-      ready: false,
-      sensitive: false,
-      affected: [],
-      items: [
-        {
-          key: "plan",
-          op: "replace_fields",
-          label: "Validación de la propuesta",
-          before: null,
-          after: null,
-          warnings: [],
-          error: error instanceof Error ? error.message : String(error),
-        },
-      ],
-    };
+    const items: CatalogPreviewItem[] = [
+      {
+        key: "plan",
+        op: "replace_fields",
+        label: "Validación de la propuesta",
+        before: null,
+        after: null,
+        warnings: [],
+        error: error instanceof Error ? error.message : String(error),
+      },
+    ];
+    return { hash: "", ready: false, sensitive: false, affected: [], items, outcome: planOutcome(draft, items, plan.decisions ?? {}) };
   }
 }
 async function decisionPreview(context: OperatorContext, plan: CatalogPlan, input: CatalogDraft, evidence: CatalogEvidence[], reviewedKeys: string[]): Promise<CatalogPreview> {
@@ -175,9 +173,24 @@ async function decisionPreview(context: OperatorContext, plan: CatalogPlan, inpu
     } catch { /* Pending dependencies or missing entities are validated below; other proposals retain their own snapshots. */ }
   }
   try {
-    return { ...(await executePlan(context, root, draft, evidence, reviewedKeys, { preview: true })).preview, operationHashes };
+    const preview = (await executePlan(context, root, draft, evidence, reviewedKeys, { preview: true })).preview;
+    // Another open preparation of the same record may already propose this change; decide it once.
+    const elsewhere = new Map<string, number>();
+    const others = await context.client.query<{ id: number; draft: CatalogDraft; decisions: Record<string, CatalogDecision> | null }>(
+      "SELECT id::int,draft,decisions FROM ingest.ai_curation_plans WHERE entity_kind=$1 AND entity_id=$2 AND id<>$3 AND status IN ('ready','reviewed') AND draft IS NOT NULL",
+      [plan.entityKind, plan.entityId, plan.id],
+    );
+    for (const other of others.rows) for (const op of other.draft.operations) if (op.enabled && !other.decisions?.[op.key]) elsewhere.set(operationSignature(op), other.id);
+    const byKey = new Map(draft.operations.map((op) => [op.key, op]));
+    const items = preview.items.map((item) => {
+      const op = byKey.get(item.key);
+      const other = op && elsewhere.get(operationSignature(op));
+      return other ? { ...item, warnings: [...item.warnings, `También figura sin decidir en la propuesta #${other}; decide este cambio una sola vez.`] } : item;
+    });
+    return { ...preview, items, operationHashes, outcome: planOutcome(input, items, plan.decisions ?? {}) };
   } catch (error) {
-    return { hash: "", operationHashes, ready: false, sensitive: false, affected: [], items: [{ key: "plan", op: "replace_fields", label: "Cambios pendientes", before: null, after: null, warnings: [], error: error instanceof Error ? error.message : String(error) }] };
+    const items: CatalogPreviewItem[] = [{ key: "plan", op: "replace_fields", label: "Cambios pendientes", before: null, after: null, warnings: [], error: error instanceof Error ? error.message : String(error) }];
+    return { hash: "", operationHashes, ready: false, sensitive: false, affected: [], items, outcome: planOutcome(input, items, plan.decisions ?? {}) };
   }
 }
 async function prepare(plan: CatalogPlan, work: PlanWork): Promise<void> {
@@ -195,12 +208,14 @@ async function prepare(plan: CatalogPlan, work: PlanWork): Promise<void> {
     );
     const notify=async (phase:string, usage:CatalogPlan["usage"]) => {
       await assertOwnership();
-      await getPool().query("UPDATE ingest.ai_curation_plans SET phase=$2,usage=$3::jsonb,updated_at=now() WHERE id=$1 AND status='running' AND lease_owner=$4 AND lease_expires_at>now()",[plan.id,phase,JSON.stringify(cumulative(usage)),workerOwner]);
+      await getPool().query("UPDATE ingest.ai_curation_plans SET phase=$2,usage=$3::jsonb,updated_at=now() WHERE id=$1 AND status='running' AND lease_owner=$4 AND lease_expires_at>now()",[plan.id,phase,jsonb(cumulative(usage)),workerOwner]);
     };
     const result = work===planWithDeepSeek
       ? await planWithDeepSeek(plan.entityKind,plan.entityId,plan.instruction,notify,undefined,{planId:plan.id,assertOwnership})
       : await work(plan.entityKind,plan.entityId,plan.instruction,notify);
-    const draft:CatalogDraft = draftSchema.parse(retainDraft(plan.draft??undefined,result.draft));
+    // Notes assembled by code (task keys, research limits) may exceed the 700-character contract; clip them instead of losing the plan.
+    const retained=retainDraft(plan.draft??undefined,result.draft);
+    const draft:CatalogDraft = draftSchema.parse({...retained,unresolved:[...new Set(retained.unresolved.map(item=>item.length<=700?item:`${item.slice(0,699)}…`))]});
     if(result.complete!==false)draft.unresolved=draft.unresolved.filter(item=>!/^Tarea [a-f0-9]{64}:/u.test(item));
     for(const operation of plan.draft?.operations??[])if(plan.decisions?.[operation.key]){
       const position=draft.operations.findIndex(item=>item.key===operation.key);if(position>=0)draft.operations[position]=operation;
@@ -215,10 +230,10 @@ async function prepare(plan: CatalogPlan, work: PlanWork): Promise<void> {
       "UPDATE ingest.ai_curation_plans SET status='ready',phase=$6,draft=$2::jsonb,evidence=$3::jsonb,preview=$4::jsonb,usage=$5::jsonb,error=NULL,lease_owner=NULL,lease_expires_at=NULL,updated_at=now() WHERE id=$1 AND status='running' AND lease_owner=$7 AND lease_expires_at>now()",
       [
         plan.id,
-        JSON.stringify(draft),
-        JSON.stringify(result.evidence),
-        JSON.stringify(preview),
-        JSON.stringify(cumulative(result.usage)),
+        jsonb(draft),
+        jsonb(result.evidence),
+        jsonb(preview),
+        jsonb(cumulative(result.usage)),
         result.complete===false?"partial":"ready",workerOwner,
       ],
     );
@@ -266,9 +281,9 @@ export async function savePlan(
     [
       id,
       revision,
-      JSON.stringify(draft),
+      jsonb(draft),
       reviewedKeys,
-      JSON.stringify(preview),
+      jsonb(preview),
       operator,
     ],
   );
@@ -357,7 +372,7 @@ export async function applyPlan(
             id,
             operator,
             context.runId,
-            JSON.stringify({ runId: context.runId, created: result.created }),
+            jsonb({ runId: context.runId, created: result.created }),
           ],
         );
       },
@@ -389,7 +404,7 @@ export async function applyPlan(
     }).then(async (verification) => {
       await getPool().query(
         "UPDATE ingest.ai_curation_plans SET result=jsonb_set(result,'{verification}',$2::jsonb),phase='done',updated_at=now() WHERE id=$1",
-        [id, JSON.stringify(verification)],
+        [id, jsonb(verification)],
       );
     }),
   ).catch(async () => {
@@ -425,7 +440,7 @@ export async function decidePlan(
     const finished = first.phase!=="partial"&&next.draft!.operations.every((op) => next.decisions[op.key]);
     const saved = await getPool().query(
       "UPDATE ingest.ai_curation_plans SET decisions=$3::jsonb,preview=$4::jsonb,edited_by=$5,revision=revision+1,status=$6,phase=$7,updated_at=now() WHERE id=$1 AND revision=$2 AND status='ready' RETURNING id",
-      [id, revision, JSON.stringify(next.decisions), JSON.stringify(preview), operator, finished ? "reviewed" : "ready", first.phase==="partial"?"partial":finished ? "done" : "ready"],
+      [id, revision, jsonb(next.decisions), jsonb(preview), operator, finished ? "reviewed" : "ready", first.phase==="partial"?"partial":finished ? "done" : "ready"],
     );
     if (!saved.rowCount) {
       const latest = await getPlan(id);
@@ -478,13 +493,14 @@ export async function decidePlan(
         const finished = locked.phase!=="partial"&&next.draft!.operations.every((item) => next.decisions?.[item.key]);
         await context.client.query(
           "UPDATE ingest.ai_curation_plans SET decisions=$2::jsonb,preview=$3::jsonb,result=$4::jsonb,run_id=$5,applied_by=$6,edited_by=$6,revision=revision+1,status=$7,phase=$8,updated_at=now() WHERE id=$1",
-          [id, JSON.stringify(next.decisions), JSON.stringify(preview), JSON.stringify(next.result), context.runId, operator, finished ? "reviewed" : "ready", locked.phase==="partial"?"partial":finished ? "done" : "ready"],
+          [id, jsonb(next.decisions), jsonb(preview), jsonb(next.result), context.runId, operator, finished ? "reviewed" : "ready", locked.phase==="partial"?"partial":finished ? "done" : "ready"],
         );
       },
       { serializable: true },
     );
   } catch (error) {
-    if (error instanceof OperatorError && error.code === "already_exists") {
+    // The same decision taken at the same time by another request (it may surface as a serialization failure): return it.
+    if (error instanceof OperatorError && error.code === "already_exists" || (error as { code?: string }).code === "40001") {
       const latest = await getPlan(id);
       if (latest.decisions?.[key]?.decision === decision) return latest;
     }

@@ -40,4 +40,12 @@ describe("presupuesto financiero global de IA",()=>{
   await expect(gateway.propose({...input,input:{value:2}})).rejects.toThrow(/Presupuesto global/);
   expect(transport.requests).toHaveLength(1);expect(await executionBudgetUsage("gateway")).toMatchObject({calls:1,unknownCalls:0});
  });
+ it("reserva los tokens de imágenes antes de la red y conserva su costo si el uso queda desconocido",async()=>{
+  await createExecutionBudget({id:"vision",maxUsd:1,maxCalls:2,maxTokens:2000,prices,authorizedBy:"QA"});
+  const reservation=await reserveExecutionBudget("vision",{...request,imageTokens:1024});
+  await settleExecutionBudget(reservation);
+  expect(await executionBudgetUsage("vision")).toMatchObject({calls:1,tokens:1142,unknownCalls:1});
+  await expect(reserveExecutionBudget("vision",{...request,imageTokens:1024})).rejects.toThrow(/Presupuesto global/);
+  await expect(reserveExecutionBudget("vision",{...request,imageTokens:-1})).rejects.toThrow(/inválida/);
+ });
 });

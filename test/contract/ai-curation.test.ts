@@ -24,6 +24,7 @@ import { undoRun } from "../../src/merge/run-undo.js";
 import { waitForCurationScans } from "../../src/curation/scan.js";
 import { draftSchema } from "../../src/curation/ai/schema.js";
 import { planWithDeepSeek } from "../../src/curation/ai/planner.js";
+import { DeepSeekBudgetExceeded } from "../../src/ai/budget.js";
 import {
   DeepSeekGateway,
   PostgresDeepSeekRunStore,
@@ -183,6 +184,15 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
         })
       ).statusCode,
     ).toBe(401);
+  });
+  it("recorta las notas largas armadas por el código en vez de perder la preparación", async () => {
+    const long = `Límite de investigación en ${Array.from({ length: 80 }, (_, i) => `finding.${i}`).join(", ")}: las citas se conservan para reintentar.`;
+    expect(long.length).toBeGreaterThan(700);
+    const plan = await prepared({ ...draft([]), unresolved: [long, long, "Duda corta"] });
+    expect(plan.status, plan.error ?? "").toBe("ready");
+    expect(plan.draft!.unresolved).toHaveLength(2);
+    expect(plan.draft!.unresolved[0]).toHaveLength(700);
+    expect(plan.draft!.unresolved[0]!.endsWith("…")).toBe(true);
   });
   it("recupera contexto acotado del sistema, hallazgos, fuentes y relaciones", async () => {
     const result = await planningContext(
@@ -642,6 +652,37 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
     expect(input.previousDraft.operations[0].key).toBe("primer_alias");expect(input.toolResults[0].lookup.query).toBe(String(album));expect(JSON.stringify(input.toolResults[0].result)).toContain("Disco Existente");
     expect(transport.requests).toHaveLength(3);
   });
+  it("un presupuesto agotado antes de preguntar no consume la ronda con consultas",async()=>{
+    const entity=Number((await getPool().query("INSERT INTO public.artists(name) VALUES('Presupuesto QA') RETURNING id")).rows[0].id);
+    const planId=Number((await getPool().query("INSERT INTO ingest.ai_curation_plans(entity_kind,entity_id,instruction,requested_by,status) VALUES('artist',$1,'Ronda sin presupuesto','QA','failed') RETURNING id",[entity])).rows[0].id);
+    const transport=new MockDeepSeekTransport({summary:"Con consultas",operations:[],unresolved:[],lookups:[]});
+    let refused=false;
+    // The budget refuses before the provider is asked, so the mock sees only the resumed round.
+    const gateway=new DeepSeekGateway({baseUrl:"https://mock.invalid",models:{fast:"deepseek-flash",reasoning:"pro",vision:"vision"},maxTokens:6000,timeoutMs:1000},{complete:request=>{if(!refused){refused=true;throw new DeepSeekBudgetExceeded("Presupuesto agotado");}return transport.complete(request);}},new PostgresDeepSeekRunStore());
+    const partial=await planWithDeepSeek("artist",entity,"Ronda sin presupuesto",async()=>{},gateway,{planId});
+    expect(partial.complete).toBe(false);
+    const saved=(await getPool().query("SELECT result FROM ingest.ai_curation_research_tasks WHERE plan_id=$1",[planId])).rows[0];
+    expect(saved.result.continuation.round).toBe(0);expect(saved.result.usage.calls).toBe(0);
+    const finished=await planWithDeepSeek("artist",entity,"Ronda sin presupuesto",async()=>{},gateway,{planId});
+    expect(finished.complete).toBe(true);
+    expect(JSON.parse(transport.requests[0]!.user.replace(/^INPUT JSON:\n/u,"")).forcePlan).toBe(false);
+  });
+  it("una caída o cuota del proveedor no consume la ronda, no llega al modelo como error y se reanuda",async()=>{
+    const entity=Number((await getPool().query("INSERT INTO public.artists(name) VALUES('Proveedor caído QA') RETURNING id")).rows[0].id);
+    const planId=Number((await getPool().query("INSERT INTO ingest.ai_curation_plans(entity_kind,entity_id,instruction,requested_by,status) VALUES('artist',$1,'Proveedor caído','QA','failed') RETURNING id",[entity])).rows[0].id);
+    const transport=new MockDeepSeekTransport({summary:"Tras la caída",operations:[],unresolved:[],lookups:[]});
+    let failures=0;
+    const gateway=new DeepSeekGateway({baseUrl:"https://mock.invalid",models:{fast:"deepseek-flash",reasoning:"pro",vision:"vision"},maxTokens:6000,timeoutMs:1000},{complete:request=>{if(failures<2){failures++;throw new Error("DeepSeek HTTP 429: quota exceeded");}return transport.complete(request);}},new PostgresDeepSeekRunStore());
+    const partial=await planWithDeepSeek("artist",entity,"Proveedor caído",async()=>{},gateway,{planId,providerRetryMs:0});
+    expect(partial.complete).toBe(false);expect(failures).toBe(2);
+    expect(partial.draft.unresolved.join(" ")).toContain("El proveedor de IA no respondió tras reintentar");
+    const saved=(await getPool().query("SELECT status,result FROM ingest.ai_curation_research_tasks WHERE plan_id=$1",[planId])).rows[0];
+    expect(saved.status).toBe("failed");expect(saved.result.continuation.round).toBe(0);expect(saved.result.continuation.previousError).toBeUndefined();
+    const finished=await planWithDeepSeek("artist",entity,"Proveedor caído",async()=>{},gateway,{planId,providerRetryMs:0});
+    expect(finished.complete).toBe(true);
+    const input=JSON.parse(transport.requests[0]!.user.replace(/^INPUT JSON:\n/u,""));
+    expect(input.forcePlan).toBe(false);expect(input.formatError).toBeUndefined();
+  });
   it("otro proceso no invalida una preparación vigente y el propietario perdido no puede publicar",async()=>{
     const entity=Number((await getPool().query("INSERT INTO public.artists(name) VALUES('Lease de plan QA') RETURNING id")).rows[0].id);
     let enter!:()=>void,release!:()=>void;const entered=new Promise<void>(resolve=>{enter=resolve;}),barrier=new Promise<void>(resolve=>{release=resolve;});
@@ -875,6 +916,45 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
     await withOperatorRun({ name: "qa:undo-single", operator: "QA", note: "Deshacer únicamente la aceptación" }, (ctx) => undoRun(ctx, p.decisions!["ciudad_inmediata"]!.runId!));
     expect((await getPlan(p.id)).decisions?.["ciudad_inmediata"]?.undone).toBe(true);
     expect((await getPlan(p.id)).decisions?.["alias_rechazado"]?.decision).toBe("rejected");
+  });
+  it("la misma aceptación enviada dos veces a la vez escribe un solo run y ambas respuestas devuelven la decisión", async () => {
+    const p = await prepared(draft([{ ...base, key: "ciudad_doble", op: "replace_fields", target: { kind: "artist", id: artist }, values: { originCity: "Barquisimeto" } }]));
+    const both = await Promise.allSettled([decidePlan(p.id, p.revision, "ciudad_doble", "accepted", "QA"), decidePlan(p.id, p.revision, "ciudad_doble", "accepted", "QA")]);
+    await waitForCurationScans();
+    expect(both.map((r) => r.status)).toEqual(["fulfilled", "fulfilled"]);
+    const runs = both.map((r) => (r as PromiseFulfilledResult<CatalogPlan>).value.decisions?.["ciudad_doble"]?.runId);
+    expect(runs[0]).toBeTruthy();
+    expect(runs[1]).toBe(runs[0]);
+    const accepts = (await getPool().query("SELECT count(*)::int AS n FROM ingest.scrape_runs WHERE params->>'operationKey'='ciudad_doble'")).rows[0].n;
+    expect(accepts).toBe(1);
+  });
+  it("muestra las partes sin respaldo antes de decidir y las registra como decisión editorial al aceptar", async () => {
+    let p = await prepared(draft([
+      { ...base, key: "anio_sin_cita", op: "replace_fields", target: { kind: "artist", id: artist }, values: { formedYear: 1987, originCity: "Caracas" } },
+    ]));
+    const pending = p.preview!.items.find((item) => item.key === "anio_sin_cita")!;
+    expect(pending.error).toContain("Respaldo insuficiente");
+    expect(pending.evidenceGaps).toEqual(["año de formación «1987»"]);
+    p = await decidePlan(p.id, p.revision, "anio_sin_cita", "accepted", "QA");
+    const accepted = p.decisions?.["anio_sin_cita"]?.preview;
+    expect(accepted?.evidenceGaps).toEqual(["año de formación «1987»"]);
+    expect(accepted?.warnings.join(" ")).toContain("Decisión editorial: sin respaldo documental para año de formación «1987»");
+    expect((await getPool().query("SELECT formed_year FROM public.artists WHERE id=$1", [artist])).rows[0].formed_year).toBe(1987);
+    await withOperatorRun({ name: "qa:undo-editorial", operator: "QA", note: "Deshacer la decisión editorial" }, (ctx) => undoRun(ctx, p.decisions!["anio_sin_cita"]!.runId!));
+  });
+  it("explica qué contiene el plan, señala un resumen sin operaciones y avisa de cambios repetidos en otra propuesta", async () => {
+    const repeated = { ...base, key: "alias_repetido", op: "add_alias", target: { kind: "artist", id: artist }, alias: "Banda Alternativa", aliasType: "name_variant" };
+    const first = await prepared(draft([repeated]));
+    const second = await prepared(draftSchema.parse({ summary: "Se añade el alias. Se agrega el integrante «Músico Fantasma».", unresolved: ["Falta la fecha de formación"], operations: [repeated] }));
+    expect(second.preview?.outcome?.text).toBe("1 cambio listo para decidir (1 alias) · 1 duda pendiente con lo que falta para resolverla.");
+    expect(second.preview?.outcome?.issues).toEqual([
+      "El resumen anuncia créditos o integrantes («Se agrega el integrante «Músico Fantasma».»), pero ninguna operación lo propone.",
+      "El resumen menciona «Músico Fantasma», que no figura en ninguna operación ni duda.",
+    ]);
+    expect(second.preview?.items[0]?.warnings).toContain(`También figura sin decidir en la propuesta #${first.id}; decide este cambio una sola vez.`);
+    await decidePlan(first.id, first.revision, "alias_repetido", "rejected", "QA");
+    const refreshed = await savePlan(second.id, second.revision, second.draft!, [], "QA");
+    expect(refreshed.preview?.items[0]?.warnings.join(" ") ?? "").not.toContain("También figura");
   });
   it("acepta altas y relaciones dependientes por separado sin reaplicar lo ya creado", async () => {
     let p = await prepared(draft([
