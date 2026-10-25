@@ -71,6 +71,35 @@ describe("interpretación de consultas (etapa 3)", () => {
     const r = interpret("algo parecido a Los Gatos", both);
     expect(r.canonical.ent[0]).toMatchObject({ role: "reference", kind: "artist" });
   });
+  it("un nombre suelto del catálogo sin frases del léxico es la ficha, como artista (1.2.0)", () => {
+    const both: CatalogResolver = { lookup: l => catalogKey(l) === catalogKey("Caos") ? [{ kind: "artist", id: 3, name: "Caos" }, { kind: "track", id: 4, name: "Caos" }] : [] };
+    const r = interpret("Caos", both);
+    expect(r.canonical.status).toBe("entity_lookup");
+    expect(r.canonical.ent[0]).toMatchObject({ role: "target", kind: "artist" });
+  });
+  it("un género gana a una canción homónima, una palabra vacía no es ficha (1.2.0)", () => {
+    const titles: CatalogResolver = { lookup: l => ["golpe larense", "de"].includes(catalogKey(l)) ? [{ kind: "track", id: 5, name: l }] : [] };
+    expect(interpret("golpe larense", titles).canonical).toMatchObject({ status: "query_valid", req: ["genre:golpe-larense"] });
+    expect(interpret("una canción de ensueño", titles).canonical).toMatchObject({ status: "query_valid", req: ["atmosphere:dreamy"], ent: [] });
+  });
+  it("versión en vivo y circunstancia temporal (1.2.0)", () => {
+    expect(interpret("rock grabado en vivo").canonical).toMatchObject({ status: "partial", req: ["genre:rock"] });
+    expect(interpret("música para descansar después del trabajo").canonical).toMatchObject({ status: "query_valid", req: ["activity:relaxation"] });
+  });
+  it("elipsis coordinada y ruido de teclado (1.2.0)", () => {
+    expect(interpret("algo de energía media o alta").canonical.any).toEqual([["energy:energy-high", "energy:energy-medium"]]);
+    expect(interpret("zxcv lkjh").canonical.status).toBe("unrecognized");
+  });
+  it("una descripción de sonido se aclara y suma los géneros nombrados (1.2.0)", () => {
+    const seg = segmentQuery("batería boom bap, rimas y scratches", lexicon, emptyCatalog);
+    const answers = rulesAnswers(seg, buildQuestions(seg, lexicon));
+    for (const s of seg.spans.filter(x => x.kind === "residual")) answers[`dim:${s.id}`] = { choice: "genre_description", probabilities: { genre_description: 0.9 } };
+    answers["describe:genre"] = { choice: "genre:hip-hop", probabilities: { "genre:hip-hop": 0.8, other: 0.1 } };
+    const r = compileInterpretation(seg, answers, lexicon);
+    expect(r.canonical.status).toBe("clarify");
+    expect(r.canonical.req).toEqual([]);
+    expect(r.canonical.alts.slice(0, 2)).toEqual(["genre:boom-bap", "genre:hip-hop"]);
+  });
   it("una contradicción no se ejecuta", () => {
     expect(interpret("algo alegre pero sin alegría").canonical.status).toBe("contradiction");
   });

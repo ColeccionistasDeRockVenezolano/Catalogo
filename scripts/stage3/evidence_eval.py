@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Métricas de evidencia de la etapa 3 sobre respuestas de Laya (formato de laya_runner).
 
-  evidence_eval.py --tasks tasks.jsonl --answers answers.jsonl [--calibration c.json]
+  evidence_eval.py --tasks tasks.jsonl --answers answers.jsonl [--calibration c.json] [--decision d.json]
+Regla de decisión (parte del paquete del modelo): {familia: {etiqueta: probabilidad mínima calibrada, "fallback": etiqueta}}.
+Una etiqueta bajo su mínimo se sustituye por la alternativa prudente (p. ej. contradicts → insufficient).
 Decisiones tipadas: support macro-F1, exactitud de assertion_state y recall de estados no afirmados,
 exactitud de object_scope, precisión de declared_use. Extracción: top-1 y recall de «none». ECE por familia.
 """
@@ -23,8 +25,17 @@ def macro_f1(pairs, labels):
     return sum(f) / len(f) if f else None
 
 
-def metrics(tasks_path, answers_path, calibration=None):
+def decide(family, choice, logits, keys, temps, decision):
+    rule = decision.get(family)
+    if not rule or choice not in rule:
+        return choice
+    probs = softmax(logits, float(temps.get(family, 1.0)))
+    return choice if probs[keys.index(choice)] >= rule[choice] else rule["fallback"]
+
+
+def metrics(tasks_path, answers_path, calibration=None, decision_path=None):
     temps = (json.load(open(calibration))["temperature"] if calibration else {})
+    decision = json.load(open(decision_path))["decision"] if decision_path else {}
     gold = {(t["qid"], t["key"]): t for t in map(json.loads, open(tasks_path))}
     by = defaultdict(list)
     for a in map(json.loads, open(answers_path)):
@@ -32,7 +43,8 @@ def metrics(tasks_path, answers_path, calibration=None):
         if not t:
             continue
         keys = list(a["raw"].keys())
-        by[a["family"]].append((t["gold"], a["choice"], a["logits"], keys.index(t["gold"])))
+        choice = decide(a["family"], a["choice"], a["logits"], keys, temps, decision)
+        by[a["family"]].append((t["gold"], choice, a["logits"], keys.index(t["gold"])))
     out = {}
     def acc(fam):
         rows = by.get(fam, [])
@@ -58,6 +70,6 @@ def metrics(tasks_path, answers_path, calibration=None):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--tasks", required=True); ap.add_argument("--answers", required=True); ap.add_argument("--calibration")
+    ap.add_argument("--tasks", required=True); ap.add_argument("--answers", required=True); ap.add_argument("--calibration"); ap.add_argument("--decision")
     a = ap.parse_args()
-    print(json.dumps(metrics(a.tasks, a.answers, a.calibration), ensure_ascii=False))
+    print(json.dumps(metrics(a.tasks, a.answers, a.calibration, a.decision), ensure_ascii=False))

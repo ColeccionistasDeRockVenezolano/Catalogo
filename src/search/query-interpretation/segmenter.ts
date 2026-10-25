@@ -15,7 +15,8 @@ export interface Span {
   /** Ids de concepto/género/faceta propuestos por el léxico (nunca decididos aquí). */
   candidates: string[];
   /** Señal sintáctica observada: «sobre», «para», adjetivo, ninguna. */
-  cue: "theme" | "activity" | "origin" | "none";
+  /** «version»: versión, cifra o atributo sin eje; queda pendiente sin preguntar. */
+  cue: "theme" | "activity" | "origin" | "version" | "none";
   mode: Mode; group: string | null;
   entity?: { role: "target" | "reference"; kindHint: CatalogMatch["kind"] | null; literal: string; matches: CatalogMatch[]; quoted: boolean };
   aspect?: string; decade?: string;
@@ -67,13 +68,17 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     }
     return best;
   };
+  const isLexiconPhrase = (idx: number[]) => lexicon.phrases.has(idx.map(j => tokens[j]!.norm).join(" "));
   const markUsed = (from: number, n: number) => { for (let j = from, k = 0; j < tokens.length && k < n; j++) if (!tokens[j]!.punct) { tokens[j]!.used = true; k++; } };
   const origOf = (idx: number[]) => idx.map(j => tokens[j]!.orig).join(" ");
   /** Prefijo más largo (en palabras desde i) que resuelve exactamente en el catálogo. */
   const longestCatalog = (i: number, maxWords = 8, kinds?: CatalogMatch["kind"][]) => {
     const idx = wordsAt(i, maxWords);
     for (let n = idx.length; n >= 1; n--) {
-      const part = idx.slice(0, n), matches = catalog.lookup(origOf(part)).filter(x => !kinds || kinds.includes(x.kind));
+      const part = idx.slice(0, n);
+      // Una ficha cuyo nombre son solo palabras vacías («De», «Que») no se toma como entidad.
+      if (part.every(j => lexicon.fillers.has(tokens[j]!.norm))) continue;
+      const matches = catalog.lookup(origOf(part)).filter(x => !kinds || kinds.includes(x.kind));
       if (matches.length) return { part, matches };
     }
     return null;
@@ -117,6 +122,8 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     // «el disco X» admite un nombre aún no resuelto; «disco» sin artículo solo con coincidencia exacta.
     const withArticle = cue[1] > 1;
     if (!found && !withArticle) continue;
+    // «una canción agridulce»: sin artículo determinado, un concepto del léxico describe, no nombra.
+    if (found && !withArticle && isLexiconPhrase(found.part)) continue;
     const part = found?.part ?? wordsAt(after, 8);
     if (!part.length) continue;
     const literal = origOf(part);
@@ -131,6 +138,8 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     const after = wordsAt(i, n).at(-1)! + 1;
     const found = longestCatalog(after, 8, ["artist", "person"]);
     if (!found) continue;
+    // «temas de bossa nova», «música de sexo»: un concepto en minúsculas no es un dueño.
+    if (isLexiconPhrase(found.part) && found.part.every(j => tokens[j]!.orig === tokens[j]!.orig.toLowerCase())) continue;
     markUsed(i, n); for (const j of found.part) tokens[j]!.used = true;
     spans.push({ id: nextId(), kind: "entity", text: origOf(found.part), start: i, end: found.part.at(-1)!, candidates: [], cue: "none", mode: "required", group: null,
       entity: { role: "target", kindHint: "artist", literal: origOf(found.part), matches: found.matches, quoted: false } });
@@ -217,6 +226,29 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     if (n) { markUsed(i, n); attenuatedStarts.add(wordsAt(i, n).at(-1)! + 1); }
   }
 
+  // 6c. Circunstancia temporal («después del trabajo», «antes de dormir»): no pide nada a la música.
+  const circumstances = phraseSet(m.circumstances ?? []);
+  const circumstanceStop = new Set(["y", "o", "pero", "sin", "con", "para", "pa", "pal", "aunque"]);
+  for (let i = 0; i < tokens.length; i++) {
+    const n = tokens[i]!.used ? 0 : phraseAt(i, circumstances);
+    if (!n) continue;
+    markUsed(i, n);
+    let j = wordsAt(i, n).at(-1)! + 1;
+    for (let k = 0; k < 4 && j < tokens.length && !tokens[j]!.punct && !tokens[j]!.used && !circumstanceStop.has(tokens[j]!.norm); k++, j++) tokens[j]!.used = true;
+    i = j - 1;
+  }
+
+  // 6d. Versión o grabación («grabado en vivo», «remix»): intention-v1 no la representa; queda pendiente.
+  const versions = phraseSet(m.versionMarkers ?? []);
+  for (let i = 0; i < tokens.length; i++) {
+    const n = tokens[i]!.used ? 0 : phraseAt(i, versions);
+    if (!n) continue;
+    const idx = wordsAt(i, n);
+    markUsed(i, n);
+    spans.push({ id: nextId(), kind: "residual", text: origOf(idx), start: i, end: idx.at(-1)!, candidates: [], cue: "version", mode: "required", group: null });
+    i = idx.at(-1)!;
+  }
+
   // 7. Frases del léxico (la más larga primero). Los sustantivos temáticos exigen señal temática.
   const themeCues = phraseSet(m.themeCues);
   const activityCue = new Set(["para", "pa", "pal", "for"]);
@@ -251,6 +283,17 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     spans.push({ id: nextId(), kind, text: origOf(idx), start, end: idx.at(-1)!, candidates, cue, mode: "required", group: null,
       ...(attenuatedStarts.has(start) ? { attenuated: true } : {}) });
     i = idx.at(-1)!;
+    // Elipsis coordinada («energía media o alta»): el núcleo de la frase se sobrentiende en la segunda.
+    const conj = tokens[i + 1], w = tokens[i + 2];
+    if (n >= 2 && conj && w && ["o", "u", "y", "e"].includes(conj.norm) && !w.punct && !w.used && !(tokens[i + 3] && !tokens[i + 3]!.punct && !tokens[i + 3]!.used && !lexicon.fillers.has(tokens[i + 3]!.norm))) {
+      const elided = (lexicon.phrases.get(`${tokens[idx[0]!]!.norm} ${w.norm}`) ?? []).filter(e => e.kind !== "themeNoun");
+      if (elided.length && !lexicon.phrases.has(w.norm)) {
+        w.used = true;
+        const c2 = [...new Set(elided.flatMap(e => e.candidates))];
+        spans.push({ id: nextId(), kind: c2.every(c => c.startsWith("genre:")) ? "genre" : "concept", text: w.orig, start: i + 2, end: i + 2, candidates: c2, cue, mode: "required", group: null });
+        i = i + 1; // la conjunción queda libre para el paso de operadores
+      }
+    }
   }
   function nextWord(i: number) { for (let j = i; j < tokens.length; j++) { if (tokens[j]!.punct) return -1; if (!tokens[j]!.used && !["el", "la", "los", "las", "un", "una", "de"].includes(tokens[j]!.norm)) return j; } return -1; }
   function longestPhrase(i: number, themed: boolean) {
@@ -285,6 +328,9 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     if (matched) continue;
   }
   const origins = new Set((m.origins ?? []).map(normalizeQueryText));
+  const unrepresentableWords = new Set((m.unrepresentable ?? []).map(normalizeQueryText));
+  // Ruido de teclado («zxcv»): palabras sin vocal no forman fragmento.
+  for (const t of tokens) if (!t.punct && !t.used && t.norm.length >= 3 && !/[aeiouy]/u.test(t.norm) && !/\d/u.test(t.norm)) t.used = true;
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i]!;
     if (t.punct || t.used || lexicon.fillers.has(t.norm)) continue;
@@ -306,7 +352,15 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     }
     for (const part of parts) {
       const first = part.idx[0]!;
-      const cue = part.origin ? "origin" : tokens[first - 1] && activityCue.has(tokens[first - 1]!.norm) ? "activity" : "none";
+      // Cifras (BPM, compás, minutos) o atributos sin eje (colores): restricción que no se descarta.
+      const unrepresentable = part.idx.some(k => /\d/u.test(tokens[k]!.norm) || unrepresentableWords.has(tokens[k]!.norm));
+      if (!part.origin && unrepresentable) {
+        spans.push({ id: nextId(), kind: "residual", text: origOf(part.idx), start: first, end: part.idx.at(-1)!, candidates: [], cue: "version", mode: "required", group: null });
+        continue;
+      }
+      let back = first - 1;
+      while (back >= 0 && ["la", "el", "los", "las", "un", "una", "mi", "mis"].includes(tokens[back]!.norm)) back--;
+      const cue = part.origin ? "origin" : back >= 0 && activityCue.has(tokens[back]!.norm) ? "activity" : "none";
       spans.push({ id: nextId(), kind: "residual", text: origOf(part.idx), start: first, end: part.idx.at(-1)!, candidates: [], cue, mode: "required", group: null });
     }
     i = j - 1;

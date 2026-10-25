@@ -156,6 +156,84 @@ Consultas 0.5.0 frente a la base sobre la prueba 2.0.0 (base 0,385). Cumplen los
 - Las facetas no representables aparecen sin familia.
 - Los géneros descritos por timbre e instrumentación fallan.
 
+## Versión 1.2.0 (criterios `criteria-1.2.0.json`, prueba reservada de consultas 3.0.0)
+
+Mismos umbrales. Solo se evalúan consultas; la evidencia tipada espera un lote adjudicado.
+
+La prueba 3.0.0 (`datasets/query-test-reserved-3.json`, 247 casos) se redactó así:
+- DeepSeek flash escribió las frases por categoría (semilla 31; `scripts/stage3/draft_reserved_query_v3.py`);
+- los nombres se sortearon del catálogo;
+- Claude las etiquetó sin pasar el sistema por ellas (`author_reserved_query_test_v3.py`).
+
+La prueba 2.0.0 pasa a ser de desarrollo. Corrección de convención: T247 y R247 eran `unrecognized` con un pendiente, y T094 era `query_valid` con un pendiente. Ningún sistema podía cumplir esos tres casos.
+
+**Cambios.**
+- Léxico 0.3.0:
+  - flexiones de género y número;
+  - alias de tema (satírico, de protesta);
+  - sustantivos de tema (emigración, tecnología);
+  - facetas de producción, voz, estructura y recepción;
+  - marcadores de versión («en vivo», «remix»), circunstancias («antes de», «después del») y colores no representables.
+- Segmentador:
+  - una frase del léxico no se toma como entidad;
+  - la elipsis coordinada («energía media o alta») se interpreta;
+  - el ruido sin vocales se descarta.
+- Compilador 0.2.0:
+  - un género gana a una canción homónima;
+  - un nombre suelto se resuelve como artista;
+  - la versión queda pendiente;
+  - un género descrito pasa a `clarify` y suma los géneros nombrados.
+- Preguntas 0.2.0:
+  - lista corta de géneros por BM25 sobre el mapa de significados (definición y rasgos sonoros); el acierto entre diez en las pruebas 1 y 2 sube de 0,68 a 0,93;
+  - se retira la pregunta `kind` (ECE 0,17–0,21 con 13 ejemplos) y la decide una regla.
+- Modelo `crv-query-heads-0.6.0`, elegido en validación. El 0.5.0 incumplía la ECE de `genre_description` (0,109); el 0.6.0 la deja en 0,095.
+
+| Criterio | 0.6.0 | Umbral | Cumple |
+| --- | --- | --- | --- |
+| Exactitud | 0,704 | ≥ 0,85 | no |
+| Adversariales | 0,764 | ≥ 0,80 | no |
+| Críticos | 0,0202 | ≤ 0,02 | no |
+| Obligatorios | 5/5 | 5/5 | sí |
+| Pendientes conservados | 0,761 | ≥ 0,95 | no |
+| Sobreabstención | 0,082 | ≤ 0,10 | sí |
+| Sobreconfianza | 0,166 | ≤ 0,05 | no |
+| F1 de condiciones | 0,911 | ≥ 0,90 | sí |
+| Género descrito, acierto entre tres | 0,54 | ≥ 0,70 | no |
+| Tráfico real sin invención | 1,0 | ≥ 0,98 | sí |
+| Latencia p95 | 474 ms | ≤ 500 | sí |
+| ECE máxima (validación) | 0,095 | ≤ 0,10 | sí |
+| Margen sobre las reglas heredadas | 0,547 | ≥ 0,20 | sí |
+| Críticos frente a reglas sin modelo | 0,020 frente a 0 | no peor | no |
+
+Exactitud de los otros sistemas en la misma prueba:
+
+| Sistema | Exactitud |
+| --- | --- |
+| Base sin especializar | 0,275 |
+| Reglas | 0,640 |
+| Heredado | 0,158 |
+
+**No cumple; no se activa.**
+
+Las frases redactadas por otro modelo son mucho más naturales que las de 1.0.0 y 2.0.0, y la caída (0,834 → 0,704) mide sobre todo cobertura.
+
+**Fallos (la prueba 3.0.0 ya es de desarrollo para 1.3.0).**
+
+| Categoría | Aciertos |
+| --- | --- |
+| Actividad | 5/17 |
+| Tema | 3/15 |
+| Fuera de vocabulario | 9/19 |
+| Preferencia | 3/7 |
+| Descrito | 7/13 |
+
+Lo demás está por encima de 0,7.
+- Las circunstancias y los complementos quedan como pendientes en lugar de relleno: «todas las mañanas», «media hora», «de mi mamá», «con un café».
+- Faltan temas y actividades: protesta, soledad, guerra, erotismo, mitología, salud mental, naturaleza, despecho, religión; catarsis, «bajar revoluciones», pesas.
+- Instrumentación y voz («voz de mujer», «saxofón y batería») salen como `clarify` en lugar de `unsupported`/`partial`.
+- Cuatro restricciones caen: «sabor de acá», «latinoamericana», «para un día de playa», «ojalá sin letra», «que no sean tan conocidas».
+  Esos casos son los críticos y la sobreconfianza.
+
 ## Reproducir
 
 ```bash

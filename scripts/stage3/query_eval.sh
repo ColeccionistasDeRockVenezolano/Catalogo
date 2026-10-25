@@ -30,6 +30,8 @@ evaluate() { # $1 nombre, $2 conjunto
 if [ "$MODE" = dev ]; then
   evaluate dev "$DS/query-dev-matrix.json"
   evaluate val "$C/query-val.json"
+  # Pruebas reservadas ya gastadas: desarrollo («nombre:ruta» separados por espacios).
+  for extra in ${CRV_STAGE3_DEV_EXTRA:-}; do evaluate "${extra%%:*}" "${extra#*:}"; done
   run val-tasks "$C/tasks-val.jsonl"
   $PY scripts/stage3/calibrate.py ece --tasks "$C/tasks-val.jsonl" --answers "$W/answers-val-tasks.jsonl" --calibration "$CAL"
 else

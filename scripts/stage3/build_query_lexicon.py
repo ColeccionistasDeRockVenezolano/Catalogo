@@ -37,7 +37,7 @@ ADDITIONS: dict[str, list[str]] = {
     "activity:dancing": ["echar pie", "bailar", "bailando", "to dance", "dancing"],
     "activity:exercise": ["gym", "ejercicio", "ejercitarse", "entrenando", "workout", "to work out"],
     "activity:running": ["trotando", "corriendo", "running", "to run"],
-    "activity:walking": ["paseo", "caminando", "paseando", "walking"],
+    "activity:walking": ["paseo", "caminando", "paseando", "walking", "pasear al perro", "sacar al perro", "pasear el perro"],
     "activity:travel": ["manejar", "manejo", "manejando", "conducir", "conduciendo", "carretera", "viaje", "driving", "travel", "traveling"],
     "activity:intimacy": ["tener sex", "sex", "making love"],
     "activity:socializing": ["una cena", "cena", "reunion", "reunion con amigos", "panas", "con panas", "con amigos", "charlar", "conversar"],
@@ -87,20 +87,57 @@ THEME_NOUNS: dict[str, list[str]] = {
     "theme:spirituality": ["religion", "la religion", "espiritualidad", "dios", "fe", "religiosa", "religion and faith"],
     "theme:nature": ["naturaleza", "la naturaleza", "nature"],
     "theme:identity": ["identidad", "raices", "raices culturales", "pertenencia"],
-    "theme:migration": ["migracion", "la migracion", "exilio", "el exilio", "diaspora", "emigrar", "la diaspora", "migration"],
+    "theme:migration": ["migracion", "la migracion", "exilio", "el exilio", "diaspora", "emigrar", "la diaspora", "migration", "emigracion", "la emigracion", "emigrantes", "migrantes"],
     "theme:loneliness": ["soledad", "la soledad", "aislamiento", "loneliness"],
     "theme:mental-health": ["salud mental", "depresion", "ansiedad", "mental health"],
     "theme:fantasy": ["fantasia", "mitologia", "seres mitologicos", "fantasy"],
-    "theme:science-fiction": ["ciencia ficcion", "el futuro", "science fiction"],
+    "theme:science-fiction": ["ciencia ficcion", "el futuro", "science fiction", "futuro", "tecnologia", "la tecnologia", "robots"],
     "theme:violence": ["violencia", "crimen", "crimen y violencia", "violence", "crime"],
     "theme:substances": ["drogas", "alcohol", "sustancias", "drugs"],
     "theme:history": ["historia", "la historia", "memoria historica", "history"],
     "theme:humor": ["humor", "satira", "humoristicas", "humoristicos", "humor"],
 }
+# Alias adjetivales de temas: no exigen señal temática («canciones satíricas»).
+THEME_ALIASES: dict[str, list[str]] = {
+    "theme:humor": ["satirico", "satirica", "satiricos", "satiricas", "humoristico", "humoristica", "humoristicos", "humoristicas", "jocoso", "jocosas", "jocosos"],
+    "theme:politics": ["politicas", "politicos", "de protesta"],
+}
+
+# Paráfrasis frecuentes de las familias de rasgos técnicos (no amplían el vocabulario de facetas).
+FACET_ADDITIONS: dict[str, list[str]] = {
+    "candidate:production.sources": ["samples", "sampleos", "sampleado", "sampleados", "grabaciones de campo", "field recordings", "sonidos encontrados", "collage", "collages"],
+    "candidate:vocals.mode": ["rap", "rapee", "rapeen", "rapear", "rapeada", "rapeados", "voz recitada", "recitado", "voces habladas"],
+    "candidate:vocals.prominence": ["voz al fondo", "voz muy al fondo", "voz al fondo de la mezcla", "voz muy al fondo de la mezcla", "voz enterrada en la mezcla", "voz baja en la mezcla"],
+    "candidate:structure.continuity": ["sin pausas", "sin pausas entre los temas", "sin pausas entre temas", "sin silencios entre los temas", "temas enlazados", "enlazados", "sin interrupciones", "de un tiron"],
+    "candidate:reception.acclimatization": ["mejore con cada escucha", "mejora con cada escucha", "mejoran con cada escucha", "gana con cada escucha", "crece con cada escucha", "crece con las escuchas"],
+    "candidate:structure.narrative": ["album conceptual", "cuenta una historia"],
+}
+
+# Variantes de género y número (y aumentativo/diminutivo afectivo) de los alias de una palabra
+# de emoción, ambiente y energía: «enigmática» ← «enigmaticos», «alegrón» ← «alegre».
+def inflections(word: str, dimension: str) -> set[str]:
+    if " " in word or len(word) < 5 or not word.isalpha():
+        return set()
+    out: set[str] = set()
+    for suf, stem_len in (("os", 2), ("as", 2), ("o", 1), ("a", 1)):
+        if word.endswith(suf):
+            stem = word[:-stem_len]
+            out |= {stem + "o", stem + "a", stem + "os", stem + "as"}
+            break
+    else:
+        if word.endswith("es") and not word.endswith("ses"):
+            out |= {word[:-1]}
+        elif word.endswith("e"):
+            out |= {word + "s"}
+    if dimension == "emotion" and word.endswith(("e", "o", "a")):
+        stem = word[:-1]
+        out |= {stem + "on", stem + "ona", stem + "ones", stem + "onas", stem + "ito", stem + "ita", stem + "itos", stem + "itas"}
+    return out - {word}
+
 # Alias de género demasiado genéricos o rotos en el registro para proponer un fragmento.
 GENRE_ALIAS_DENY = {"wave", "tracker", "sequencer", "jerk", "tread", "vapor", "mashup", "big music", "no melody",
                     "batida", "weightless", "drumless", "instrumental", "musica venezolana", "venezolana",
-                    "musica", "latin", "pop rap"}
+                    "musica", "latin", "pop rap", "rumba"}
 
 # Expresiones ambiguas del diccionario 0.1.0 (ambiguousExpressions) y de la matriz
 # de desarrollo (Q129). Sin señal sintáctica son candidatas múltiples: Laya decide
@@ -120,6 +157,10 @@ AMBIGUOUS: dict[str, list[str]] = {
     "psicodelico": ["atmosphere:psychedelic", "genre:rock-psicodelico"],
     "psicodelica": ["atmosphere:psychedelic", "genre:rock-psicodelico"],
     "animarme": ["emotion:joyful", "emotion:euphoric", "emotion:confident"],
+    "intenso": ["emotion:tense", "energy:energy-high"],
+    "intensa": ["emotion:tense", "energy:energy-high"],
+    "intensos": ["emotion:tense", "energy:energy-high"],
+    "intensas": ["emotion:tense", "energy:energy-high"],
     "para animarme": ["emotion:joyful", "emotion:euphoric", "emotion:confident"],
 }
 
@@ -151,6 +192,15 @@ francia frances francesa franceses alemania aleman alemana alemanes italia itali
 caracas caraqueno caraquena caraquenos maracaibo maracucho maracucha maracuchos zulia zuliano zuliana valencia carabobeno barquisimeto larense larenses guaro guara guaros merida merideno merida andino andina andinos
 oriente oriental orientales llanero llanera llaneros llanos margarita margariteno margaritena barlovento falcon coro tachira tachirense maracay aragueno lecheria puerto la cruz ciudad bolivar
 bogota medellin lima montevideo quito guayaquil habana madrid barcelona londres""".split()) - {"la", "puerto", "rico", "cruz", "ciudad", "costa", "rica", "estados", "unidos", "salvador", "margarita"}),
+    # Versión o grabación: no representable en intention-v1; se conserva pendiente.
+    "versionMarkers": ["en vivo", "grabado en vivo", "grabada en vivo", "grabados en vivo", "grabadas en vivo", "en directo", "version en vivo", "versiones en vivo",
+                       "remix", "remixes", "remezcla", "remezclas", "remasterizado", "remasterizada", "remasterizados", "version extendida", "live"],
+    # Atributos que intention-v1 no representa y que Laya tiende a tomar por relleno (desarrollo: T189, R189).
+    "unrepresentable": ["rojo", "roja", "rojos", "rojas", "verde", "verdes", "azul", "azules", "amarillo", "amarilla", "amarillos", "amarillas",
+                        "morado", "morada", "morados", "moradas", "naranja", "naranjas", "rosado", "rosada", "rosados", "rosadas", "blanco", "blanca",
+                        "blancos", "blancas", "negro", "negra", "negros", "negras", "gris", "grises", "violeta", "violetas"],
+    # Circunstancia temporal («después del trabajo», «antes de dormir»): no es un pedido a la música.
+    "circumstances": ["antes de", "antes del", "despues de", "despues del", "luego de", "luego del", "al salir de", "al salir del", "al volver de", "al volver del"],
     "fillerIdioms": ["sin parar", "sin cesar", "sin descanso", "no recuerdo", "no me acuerdo", "no se", "no importa", "casi no importa", "no se como se llama"],
     "comparatives": ["mas", "menos", "more", "less"],
     "attenuators": ["ni tan", "no tan", "no muy", "medio", "un poco", "not too"],
@@ -175,7 +225,14 @@ def main(genres_path: str) -> None:
             nouns = []
         concepts.append({"id": c["id"], "dimension": c["dimension"], "labelEs": c["labelEs"], "definitionEs": c["definitionEs"],
                          "aliases": aliases, "themeNouns": nouns})
-    facets = [{"id": f["id"], "aliases": sorted({norm(a) for a in f["aliasesEs"]}), "definition": f["definition"]} for f in vocab["facets"]]
+    taken = {a for c in concepts for a in c["aliases"] + c["themeNouns"]} | set(AMBIGUOUS)
+    for c in concepts:
+        if c["dimension"] in ("emotion", "atmosphere", "energy"):
+            extra = {v for a in c["aliases"] for v in inflections(a, c["dimension"])} - taken
+            c["aliases"] = sorted(set(c["aliases"]) | extra)
+        if c["id"] in THEME_ALIASES:
+            c["aliases"] = sorted(set(c["aliases"]) | {norm(a) for a in THEME_ALIASES[c["id"]]})
+    facets = [{"id": f["id"], "aliases": sorted({norm(a) for a in f["aliasesEs"] + FACET_ADDITIONS.get(f["id"], [])}), "definition": f["definition"]} for f in vocab["facets"]]
     genres = []
     for g in genres_db:
         m = gmap.get(g["slug"], {})
@@ -188,7 +245,7 @@ def main(genres_path: str) -> None:
                        "mapStatus": m.get("descriptionStatus"), "aliases": aliases})
     sources = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (VOCAB, GENRE_MAP)}
     sources["genres-db-export"] = hashlib.sha256(Path(genres_path).read_bytes()).hexdigest()
-    body = {"version": "crv-query-lexicon-0.2.0", "builtBy": "scripts/stage3/build_query_lexicon.py", "vocabularyVersion": vocab["version"],
+    body = {"version": "crv-query-lexicon-0.3.0", "builtBy": "scripts/stage3/build_query_lexicon.py", "vocabularyVersion": vocab["version"],
             "genreMapVersion": json.loads(GENRE_MAP.read_text())["version"], "sources": sources,
             "policy": "Candidatos léxicos para proponer fragmentos; no deciden, no asignan atributos ni crean géneros o conceptos.",
             "concepts": concepts, "facets": facets, "genres": genres,

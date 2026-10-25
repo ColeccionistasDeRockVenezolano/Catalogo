@@ -3,13 +3,15 @@ import type { QueryLexicon } from "./lexicon.js";
 import type { CatalogMatch, Segmentation, Span } from "./segmenter.js";
 import { DESCRIBE_KEY, NOT_REQUESTED, OTHER, UNCLEAR, type Dimension, type QuestionTask } from "./questions.js";
 
-export const COMPILER_VERSION = "crv-query-compiler-0.1.0";
+export const COMPILER_VERSION = "crv-query-compiler-0.2.0";
 export interface Answer { choice: string; probabilities: Record<string, number> }
 export type Answers = Record<string, Answer>;
 /** Umbral de confianza calibrada por familia de pregunta; por debajo se pregunta o se conserva pendiente. */
 /** `filler` es la confianza mínima para descartar un residuo como relleno; por debajo queda pendiente. */
-export type Thresholds = Partial<Record<QuestionTask["family"] | "filler", number>>;
-export const DEFAULT_THRESHOLDS: Required<Thresholds> = { span: 0.5, dim: 0.5, pick: 0.5, genre_description: 0.2, facet_family: 0.4, query_kind: 0.6, filler: 0.5 };
+/** `residual` es la confianza conjunta mínima (dimensión × concepto) para que un residuo sea condición;
+ * `fillerAfterCue` la de descartar como relleno lo que sigue a «para» («para la piscina»). */
+export type Thresholds = Partial<Record<QuestionTask["family"] | "filler" | "fillerAfterCue" | "residual", number>>;
+export const DEFAULT_THRESHOLDS: Required<Thresholds> = { span: 0.5, dim: 0.5, pick: 0.5, genre_description: 0.2, facet_family: 0.4, query_kind: 0.6, filler: 0.5, fillerAfterCue: 0.5, residual: 0 };
 
 export type QueryStatus = "query_valid" | "partial" | "entity_lookup" | "clarify" | "unsupported" | "contradiction" | "unrecognized";
 export interface Canonical {
@@ -36,7 +38,7 @@ function ranked(a: Answer | undefined, exclude: string[] = []): string[] {
 export const DESCRIBED_LEXICAL_PRIOR = 0.3;
 
 export function compileInterpretation(seg: Segmentation, answers: Answers, lexicon: QueryLexicon, thresholds: Thresholds = {}): Interpretation {
-  let describedWithoutGenre = 0, facetPending = 0;
+  let describedWithoutGenre = 0;
   const describedSpans: Span[] = [];
   const thr = { ...DEFAULT_THRESHOLDS, ...thresholds };
   const conds: Cond[] = [], pending: { text: string; reason: string }[] = [], trace: Interpretation["trace"] = [];
@@ -46,7 +48,8 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
   const addEntity = (role: "target" | "reference", hint: CatalogMatch["kind"] | null, literal: string, matches: CatalogMatch[]) => {
     const kinds = [...new Set(matches.map(x => x.kind))];
     // Una referencia de parecido apunta al artista cuando el catálogo lo tiene como tal.
-    const kind = hint ?? (kinds.length === 1 ? kinds[0]! : role === "reference" && kinds.includes("artist") ? "artist" : null);
+    // Sin señal de clase, un nombre suelto o de referencia apunta al artista cuando el catálogo lo tiene.
+    const kind = hint ?? (kinds.length === 1 ? kinds[0]! : kinds.includes("artist") ? "artist" : null);
     const same = matches.filter(x => !kind || x.kind === kind);
     entities.push({ role, kind, literal: normalizeLiteral(literal) });
     intentionEntities.push({ role, kind: (kind ?? "artist") as SearchIntention["entities"][number]["kind"], id: same.length === 1 ? same[0]!.id : null, name: literal,
@@ -86,21 +89,24 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     const t = { span: span.id, text: span.text, decision: dim, confidence: p, outcome: "" };
     trace.push(t);
     if (span.cue === "origin") { pending.push({ text: span.text, reason: "origin_not_representable" }); t.decision = "origin"; t.outcome = "pending"; return; }
+    if (span.cue === "version") { pending.push({ text: span.text, reason: "attribute_not_representable" }); t.decision = "unrepresentable"; t.outcome = "pending"; return; }
     if (p < thr.dim) { pending.push({ text: span.text, reason: "residual_low_confidence" }); t.outcome = "pending"; return; }
     const d = dim as Dimension;
     // Lo negado nunca es relleno: descartarlo perdería una exclusión pedida.
-    if (d === "filler" && p >= thr.filler && span.mode !== "excluded") { t.outcome = "ignored"; ignoredFiller++; return; }
+    if (d === "filler" && p >= (span.cue === "activity" ? Math.max(thr.filler, thr.fillerAfterCue) : thr.filler) && span.mode !== "excluded") { t.outcome = "ignored"; ignoredFiller++; return; }
     if (d === "filler") { pending.push({ text: span.text, reason: span.mode === "excluded" ? "excluded_restriction_not_representable" : "residual_low_confidence" }); t.outcome = "pending"; return; }
     if (d === "catalog_name") { pending.push({ text: span.text, reason: "unresolved_name" }); t.outcome = "pending"; return; }
     if (d === "unsupported") { pending.push({ text: span.text, reason: "unsupported_restriction" }); t.outcome = "pending"; return; }
     if (d === "technical_facet") {
       const [f, fp] = top(answers[`pick:${span.id}:facet`]);
       if (f !== OTHER && fp >= thr.facet_family) facets.push(f);
-      pending.push({ text: span.text, reason: f !== OTHER && fp >= thr.facet_family ? `facet_candidate:${f}` : "technical_facet" }); facetPending++; t.outcome = "facet"; return;
+      pending.push({ text: span.text, reason: f !== OTHER && fp >= thr.facet_family ? `facet_candidate:${f}` : "technical_facet" }); t.outcome = "facet"; return;
     }
+    // Un sonido negado («sin voces») no describe un género: es una restricción pendiente.
+    if (d === "genre_description" && span.mode === "excluded") { pending.push({ text: span.text, reason: "excluded_restriction_not_representable" }); t.outcome = "pending"; return; }
     if (d === "genre_description") { describedSpans.push(span); t.outcome = "described"; return; }
     const [c, cp] = top(answers[`pick:${span.id}:${d}`]);
-    if (c === OTHER || cp < thr.pick) { pending.push({ text: span.text, reason: c === OTHER ? "concept_not_in_vocabulary" : "pick_low_confidence" }); t.outcome = "pending"; return; }
+    if (c === OTHER || cp < thr.pick || p * cp < thr.residual) { pending.push({ text: span.text, reason: c === OTHER ? "concept_not_in_vocabulary" : "pick_low_confidence" }); t.outcome = "pending"; return; }
     conds.push({ concept: c, text: span.text, mode: span.mode, group: span.group, scope: scopeOf(c) }); t.outcome = "condition";
   }
 
@@ -117,8 +123,12 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
 
   // Consulta que coincide entera con una ficha y además contiene posibles conceptos.
   let wholeAsEntity = false;
-  if (seg.wholeQueryMatches.length) {
-    const conditionLike = conds.length + clarify.length + pending.length > 0;
+  const lexical = seg.spans.filter(s => ["concept", "genre", "ambiguous", "facet", "decade"].includes(s.kind));
+  // Un género del léxico gana a una canción o persona homónima («golpe larense»), no a un artista.
+  const genreOverTitle = lexical.length > 0 && lexical.every(s => s.kind === "genre") && !seg.wholeQueryMatches.some(x => x.kind === "artist");
+  if (seg.wholeQueryMatches.length && !genreOverTitle) {
+    // Sin frases del léxico, el resto de la consulta no puede ser un pedido: es el nombre.
+    const conditionLike = lexical.length > 0 && conds.length + clarify.length + pending.length > 0;
     if (!conditionLike && !needClarify) wholeAsEntity = true;
     else {
       const [k, kp] = top(answers["kind"]);
@@ -143,16 +153,21 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
   const energies = required.filter(c => c.startsWith("energy:"));
   const contradiction = required.some(c => excluded.includes(c)) || new Set(energies).size > 1;
 
+  // Una descripción de sonido se aclara con la persona: los géneros nombrados se suman a las
+  // alternativas y las demás condiciones no se ejecutan hasta que elija.
+  const describing = (described.length > 0 || describedWithoutGenre > 0) && !entities.some(e => e.role === "target");
+  if (describing) {
+    const named = unique.filter(c => c.concept.startsWith("genre:") && c.mode === "required").map(c => c.concept);
+    described.splice(0, described.length, ...[...new Set([...named, ...described])]);
+  }
   let status: QueryStatus;
   if (contradiction) status = "contradiction";
   else if (needClarify) status = "clarify";
-  // Una descripción de sonido sin condiciones se aclara con la persona, aunque no haya género candidato.
-  else if ((described.length || describedWithoutGenre) && !unique.length && pending.length === describedWithoutGenre + facetPending) status = "clarify";
+  else if (describing) { status = "clarify"; unique.length = 0; required.length = 0; excluded.length = 0; }
   else if (!unique.length && entities.some(e => e.role === "target")) status = "entity_lookup";
   else if (unique.length) status = pending.length ? "partial" : "query_valid";
   else if (pending.length) status = "unsupported";
   else status = "unrecognized";
-  if (status === "query_valid" && described.length) status = "partial";
 
   const anyGroups = [...new Set(unique.filter(c => c.group).map(c => c.group!))].map(g => unique.filter(c => c.group === g).map(c => c.concept).sort());
   const alternatives = [...new Set([...clarify, ...described])];

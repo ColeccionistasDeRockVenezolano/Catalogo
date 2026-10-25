@@ -2,7 +2,7 @@ import { normalizeQueryText, type QueryLexicon } from "./lexicon.js";
 import type { Segmentation, Span } from "./segmenter.js";
 
 /** Preguntas tipadas para Laya. Opciones acotadas y jerárquicas; nunca texto libre ni IDs. */
-export const QUESTION_VERSION = "crv-query-questions-0.1.0";
+export const QUESTION_VERSION = "crv-query-questions-0.2.0";
 export interface LayaQuestion { type: "choice"; instructions: string; criteria: Record<string, string> }
 export interface QuestionTask {
   /** Identificador estable dentro de la consulta: span:S3, dim:S4, pick:S4:emotion, kind. */
@@ -32,16 +32,42 @@ function state(seg: Segmentation, span?: Span) {
 
 export const DESCRIBE_KEY = "describe:genre";
 
-/** Atajo léxico para «género por descripción»: géneros cuyos rasgos del mapa comparten palabras con el fragmento. */
+/** Atajo léxico para «género por descripción»: BM25 sobre definición y rasgos del mapa de géneros
+ * (más su nombre y alias), con raíces de cinco letras. Ordena candidatos; no decide. */
+const SHORTLIST_STOP = new Set(["de", "la", "el", "los", "las", "y", "con", "en", "un", "una", "que", "por", "a", "o", "su", "sus", "del", "se", "al", "lo", "muy", "mucha", "mucho",
+  "musica", "cancion", "canciones", "temas", "tema", "algo", "quiero", "dame", "ponme", "busco", "para", "pa", "es", "son", "como", "mas", "sin", "entre", "sobre", "tiene", "tienen", "suele", "suelen", "puede", "pueden"]);
+interface ShortlistIndex { docs: { id: string; tf: Map<string, number>; len: number; name: Set<string> }[]; df: Map<string, number>; avg: number }
+const shortlistIndexes = new WeakMap<QueryLexicon, ShortlistIndex>();
+function stems(text: string, fillers: Set<string>): string[] {
+  return normalizeQueryText(text).split(" ").filter(w => w.length > 2 && !SHORTLIST_STOP.has(w) && !fillers.has(w)).map(w => w.slice(0, 5));
+}
+function shortlistIndex(lexicon: QueryLexicon): ShortlistIndex {
+  const cached = shortlistIndexes.get(lexicon);
+  if (cached) return cached;
+  const docs = lexicon.doc.genres.filter(g => g.traits.length || g.definition).map(g => {
+    const body = stems([g.definition ?? "", ...g.traits.map(t => t.description)].join(" "), lexicon.fillers);
+    const tf = new Map<string, number>(); for (const w of body) tf.set(w, (tf.get(w) ?? 0) + 1);
+    return { id: `genre:${g.slug}`, tf, len: body.length, name: new Set(stems([g.name, ...g.aliases].join(" "), lexicon.fillers)) };
+  });
+  const df = new Map<string, number>();
+  for (const d of docs) for (const w of new Set([...d.tf.keys(), ...d.name])) df.set(w, (df.get(w) ?? 0) + 1);
+  const index = { docs, df, avg: docs.reduce((a, d) => a + d.len, 0) / Math.max(1, docs.length) };
+  shortlistIndexes.set(lexicon, index);
+  return index;
+}
 export function genreShortlist(text: string, lexicon: QueryLexicon, k = 10): string[] {
-  const stop = new Set(["de", "la", "el", "los", "las", "y", "con", "en", "un", "una", "que", "por", "a", "o", "su", "sus", "del", "se", "al", "lo", "muy", "mucha", "mucho"]);
-  const words = (s: string) => new Set(normalizeQueryText(s).split(" ").filter(w => w.length > 2 && !stop.has(w)).map(w => w.replace(/(es|s)$/u, "")));
-  const q = words(text);
+  const q = new Set(stems(text, lexicon.fillers));
   if (!q.size) return [];
-  const scored = lexicon.doc.genres.filter(g => g.traits.length).map(g => {
-    const bag = words([g.definition ?? "", ...g.traits.map(t => t.description)].join(" "));
-    let hit = 0; for (const w of q) if (bag.has(w)) hit++;
-    return { id: `genre:${g.slug}`, score: hit / Math.sqrt(bag.size + 4) };
+  const { docs, df, avg } = shortlistIndex(lexicon), n = docs.length;
+  const scored = docs.map(d => {
+    let score = 0;
+    for (const w of q) {
+      const idf = Math.log(1 + (n - (df.get(w) ?? 0) + 0.5) / ((df.get(w) ?? 0) + 0.5));
+      const f = d.tf.get(w) ?? 0;
+      score += idf * f * 2.2 / (f + 1.2 * (0.25 + 0.75 * d.len / avg));
+      if (d.name.has(w)) score += idf * 1.5;
+    }
+    return { id: d.id, score };
   }).filter(x => x.score > 0).sort((a, b) => b.score - a.score);
   return scored.slice(0, k).map(x => x.id);
 }
@@ -79,16 +105,12 @@ export function buildQuestions(seg: Segmentation, lexicon: QueryLexicon): Questi
   const describable = seg.spans.filter(s => s.kind === "residual" && s.cue !== "theme");
   if (describable.length) {
     const joined = describable.map(s => s.text).join(" · ");
-    const shortlist = genreShortlist(joined, lexicon);
+    const shortlist = genreShortlist(seg.text, lexicon);
     if (shortlist.length) tasks.push({ key: DESCRIBE_KEY, family: "genre_description", spanId: null, state: `Consulta: «${seg.text}»\nDescripción: «${joined}»`, question: { type: "choice",
       instructions: "Si la consulta describe rasgos de un género o estilo, ¿cuál de estos encaja mejor con lo descrito en conjunto? Es una propuesta, no un filtro.",
       criteria: { ...describe(shortlist), [OTHER]: "Ninguno encaja con lo descrito" } } });
   }
-  const conditionSpans = seg.spans.filter(s => ["concept", "genre", "ambiguous", "facet", "residual"].includes(s.kind));
-  if (seg.wholeQueryMatches.length && conditionSpans.length) {
-    tasks.push({ key: "kind", family: "query_kind", spanId: null, state: state(seg), question: { type: "choice",
-      instructions: "La consulta coincide con el nombre de una ficha del catálogo. ¿Qué busca la persona?",
-      criteria: { catalog_lookup: "Busca esa ficha concreta por su nombre (artista, disco o canción)", music_request: "Describe la música que quiere oír; el nombre coincide por casualidad", [UNCLEAR]: "No se puede saber sin preguntar" } } });
-  }
+  // 0.2.0: sin pregunta «kind». Una consulta que coincide entera con una ficha y contiene un concepto
+  // se resuelve por regla en el compilador (género homónimo → pedido; si no, aclarar), igual que el oro.
   return tasks;
 }
