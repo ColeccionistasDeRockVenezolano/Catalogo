@@ -2,7 +2,7 @@
 Description=Refresco semanal de metricas de escucha (Last.fm API): lunes 04:00
 
 [Timer]
-OnCalendar=Mon 04:00
+OnCalendar=Mon *-*-* 04:00:00 America/Caracas
 Persistent=true
 RandomizedDelaySec=1800
 

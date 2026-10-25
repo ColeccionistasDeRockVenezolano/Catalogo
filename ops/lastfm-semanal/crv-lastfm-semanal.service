@@ -1,6 +1,6 @@
 [Unit]
 Description=Refresco semanal de metricas de escucha (Last.fm API) -> public.entity_metrics
-Documentation=file:/home/brian/apps/Coleccionistas De Rock Venezolano/ops/lastfm-semanal/README.md
+Documentation=https://www.last.fm/api
 After=network-online.target
 
 [Service]

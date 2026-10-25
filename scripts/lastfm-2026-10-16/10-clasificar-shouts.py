@@ -13,6 +13,8 @@ Uso: python3 scripts/lastfm-2026-10-16/10-clasificar-shouts.py [--limite=N]
 """
 from __future__ import annotations
 
+raise SystemExit('+shoutbox retirado por Brian (2026-10-16): no clasificar ni publicar comentarios o cachés históricos.')
+
 import json
 import re
 import subprocess

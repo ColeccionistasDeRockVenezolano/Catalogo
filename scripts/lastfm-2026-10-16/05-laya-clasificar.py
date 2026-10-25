@@ -32,6 +32,7 @@ SEP = chr(31)
 MODEL_VERSION = 'laya-multilingual-noul-en-v3-lexico'
 LIMITE = int(next((a.split('=', 1)[1] for a in sys.argv[1:] if a.startswith('--limite=')), '0') or 0)
 APPLY_ONLY = '--apply-only' in sys.argv
+CLASSIFY_ONLY = '--classify-only' in sys.argv
 
 CATS_EN = {
     'tristeza': 'The tag expresses sadness, melancholy, nostalgia, pain or loneliness.',
@@ -104,40 +105,41 @@ def clasificar() -> dict[str, dict]:
 def aplicar(hechos: dict[str, dict]) -> None:
     log(f'aplicando {len(hechos)} clasificaciones a la base...')
     esc = lambda s: s.replace("'", "''")
+    decisiones = {}
+    for line in psql("SELECT tag_key, category FROM ingest.emotion_tag_decisions").split('\n'):
+        if SEP in line:
+            tag_key, category = line.split(SEP, 1)
+            decisiones[tag_key] = category
     with open(OUT / 'laya-apply.partial.sql', 'w') as fh:
+        fh.write('BEGIN;\n')
         for tag, d in hechos.items():
-            j = json.dumps({'categoria': d['categoria'], 'p': d['p'], 'modelo': MODEL_VERSION, 'probs': d['probs']}, ensure_ascii=False)
-            fh.write(f"UPDATE public.entity_user_tags SET emotions = '{j}'::jsonb WHERE lower(tag) = '{esc(tag)}';\n")
+            decision = decisiones.get(tag.lower())
+            j = json.dumps({'categoria': decision or d['categoria'], 'p': d['p'], 'modelo': MODEL_VERSION,
+                            'probs': d['probs'], 'decision': 'editorial' if decision else 'modelo'}, ensure_ascii=False)
+            # Releer la decisión en la transacción de aplicación, no confiar en el snapshot del modelo.
+            fh.write(f"UPDATE public.entity_user_tags SET emotions = '{j}'::jsonb || "
+                     f"COALESCE((SELECT jsonb_build_object('categoria',category,'decision','editorial') "
+                     f"FROM ingest.emotion_tag_decisions WHERE tag_key='{esc(tag.lower())}'), '{{}}'::jsonb) "
+                     f"WHERE lower(tag) = '{esc(tag)}';\n")
         # agregado por artista (basis='tags'): solo emociones expresadas
         fh.write("DELETE FROM public.entity_emotions WHERE basis = 'tags';\n")
+        fh.write("""INSERT INTO public.entity_emotions (artist_id, emotion, basis, score, evidence, detail, model_version)
+SELECT artist_id, emotions->>'categoria', 'tags', sum(weight)::real, count(*)::int,
+       jsonb_build_object('tags', jsonb_agg(jsonb_build_object('tag',tag,'weight',weight) ORDER BY weight DESC)),
+       'laya-editorial-v1'
+  FROM public.entity_user_tags
+ WHERE artist_id IS NOT NULL
+   AND EXISTS (SELECT 1 FROM ingest.lastfm_artist_verifications v WHERE v.artist_id=entity_user_tags.artist_id)
+   AND emotions->>'categoria' IN ('emocion','tristeza','enfocado','libertad','cachonda','aumenta_mi_aura')
+ GROUP BY artist_id, emotions->>'categoria';
+""")
+        fh.write('COMMIT;\n')
     o = subprocess.run(['docker', 'exec', '-i', 'crv-postgres', 'psql', '-U', 'crv', '-d', 'crv', '-q', '-v', 'ON_ERROR_STOP=1', '-f', '-'],
                        input=open(OUT / 'laya-apply.partial.sql').read(), capture_output=True, text=True)
     if o.returncode != 0:
         log(f'ERROR aplicar: {o.stderr[-400:]}')
         raise SystemExit(1)
 
-    filas = [l.split(SEP) for l in psql("SELECT artist_id, tag, weight, emotions->>'categoria' FROM public.entity_user_tags").split('\n') if l.strip()]
-    agg: dict[tuple[int, str], dict] = {}
-    for aid, tag, w, cat in filas:
-        if not cat or cat in ('no_expresa_emocion', 'dudoso'):
-            continue
-        k = (int(aid), cat)
-        d = agg.setdefault(k, {'score': 0, 'tags': []})
-        d['score'] += int(w or 0)
-        d['tags'].append({'tag': tag, 'weight': int(w or 0)})
-    log(f'agregado: {len(agg)} pares artista×emoción')
-    vals = []
-    for (aid, cat), d in agg.items():
-        detail = json.dumps({'tags': sorted(d['tags'], key=lambda x: -x['weight'])[:25]}, ensure_ascii=False).replace("'", "''")
-        vals.append(f"({aid},'{esc(cat)}','tags',{d['score']},{len(d['tags'])},'{detail}'::jsonb,'{MODEL_VERSION}')")
-    for i in range(0, len(vals), 500):
-        trozo = ','.join(vals[i:i + 500])
-        sql = ("INSERT INTO public.entity_emotions (artist_id, emotion, basis, score, evidence, detail, model_version) VALUES "
-               + trozo + " ON CONFLICT (artist_id, emotion, basis) WHERE artist_id IS NOT NULL DO UPDATE SET score = EXCLUDED.score, evidence = EXCLUDED.evidence, detail = EXCLUDED.detail, model_version = EXCLUDED.model_version, computed_at = now();")
-        o = subprocess.run(['docker', 'exec', '-i', 'crv-postgres', 'psql', '-U', 'crv', '-d', 'crv', '-q', '-v', 'ON_ERROR_STOP=1', '-c', sql], capture_output=True, text=True)
-        if o.returncode != 0:
-            log(f'ERROR agregado: {o.stderr[-400:]}')
-            raise SystemExit(1)
     log('aplicado OK')
     log('tags con emoción: ' + psql("SELECT count(*) FROM public.entity_user_tags WHERE emotions->>'categoria' <> 'no_expresa_emocion' AND emotions IS NOT NULL"))
     log('entity_emotions: ' + psql("SELECT count(*) || ' filas, ' || count(DISTINCT artist_id) || ' artistas' FROM public.entity_emotions WHERE basis='tags'"))
@@ -147,5 +149,6 @@ def aplicar(hechos: dict[str, dict]) -> None:
 if __name__ == '__main__':
     log(f'INICIO (limite={LIMITE}, apply_only={APPLY_ONLY})')
     hechos = clasificar()
-    aplicar(hechos)
+    if not CLASSIFY_ONLY:
+        aplicar(hechos)
     log('FIN')

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Captura de COMENTARIOS (shouts) de Last.fm con la sesión real del dueño (campaña 2026-10-16).
+"""Captura cruda de COMENTARIOS de Last.fm para revisión editorial.
+
+Last.fm usa /music/<nombre> para homónimos distintos. Esta captura no verifica
+identidad ni autoriza la carga al catálogo. Se exige una opción explícita para
+evitar que la búsqueda por nombre vuelva a ejecutarse por accidente.
 
 Usa el Chrome copiado (chrome-lfm.service, puerto CDP 9333) con las cookies del dueño
 (la web de Last.fm bloquea a curl/headless: «Client Challenge»; con su sesión, 200 real).
@@ -10,9 +14,12 @@ Salidas reanudables (reports/lastfm-shouts-2026-10-16/):
   no_encontrados.jsonl — entidades sin shoutbox o sin shoutbox con contenido
   crudo/<kind>-<id>.html — HTML de la última página (re-parseo offline)
 
-Uso: python3 scripts/lastfm-shouts-capture-2026-10-16.py [--fase=artistas|albumes]
+Uso: python3 scripts/lastfm-shouts-capture-2026-10-16.py --verified-only
+     Solo para auditar capturas antiguas: --capture-unverified-for-review
 """
 from __future__ import annotations
+
+raise SystemExit('+shoutbox retirado por Brian (2026-10-16): no realizar nuevas capturas; conservar solo el archivo histórico.')
 
 import json
 import re
@@ -26,8 +33,9 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path('/home/brian/apps/Coleccionistas De Rock Venezolano')
 OUT = ROOT / 'reports' / 'lastfm-shouts-2026-10-16'
-SHOUTS = OUT / 'shouts.jsonl'
-MISS = OUT / 'no_encontrados.jsonl'
+VERIFIED_ONLY = '--verified-only' in sys.argv
+SHOUTS = OUT / ('shouts-verified-source.jsonl' if VERIFIED_ONLY else 'shouts.jsonl')
+MISS = OUT / ('no_encontrados-verified-source.jsonl' if VERIFIED_ONLY else 'no_encontrados.jsonl')
 CRUDO = OUT / 'crudo'
 LOG = OUT / 'captura.log'
 CDP = 'http://127.0.0.1:9333'
@@ -49,6 +57,8 @@ SEP = chr(31)  # separador de campos para psql -tA -F
 
 def psql(sql: str) -> str:
     o = subprocess.run(['docker', 'exec', 'crv-postgres', 'psql', '-U', 'crv', '-d', 'crv', '-tA', '-F', SEP, '-c', sql], capture_output=True, text=True)
+    if o.returncode:
+        raise RuntimeError(f'consulta SQL falló: {o.stderr[-300:]}')
     return o.stdout.strip()
 
 
@@ -85,8 +95,11 @@ def extraer_shouts(page) -> list:
     }''')
 
 
-def capturar_entidad(page, kind: str, eid: int, nombre: str, url_extra: str = '') -> None:
-    base = f'{BASE}/music/{slug(nombre)}' + url_extra
+def capturar_entidad(page, kind: str, eid: int, nombre: str, url_extra: str = '', verified_url: str = '') -> None:
+    base = verified_url.rstrip('/') if verified_url else f'{BASE}/music/{slug(nombre)}' + url_extra
+    parsed = urllib.parse.urlparse(base)
+    if parsed.scheme != 'https' or parsed.hostname not in ('last.fm', 'www.last.fm') or not parsed.path.startswith('/music/'):
+        raise ValueError(f'URL de Last.fm inválida para {eid}')
     u = f'{base}/+shoutbox'
     todos = []
     npags = 0
@@ -96,7 +109,7 @@ def capturar_entidad(page, kind: str, eid: int, nombre: str, url_extra: str = ''
         time.sleep(PAUSA)
         html = page.content()
         if p == 1:
-            (CRUDO / f'{kind}-{eid}.html').write_text(html)
+            (CRUDO / f'{"verified-" if VERIFIED_ONLY else ""}{kind}-{eid}.html').write_text(html)
         if 'Client Challenge' in html:
             raise RuntimeError('Client Challenge (sesión caída): abortar para no quemar la sesión')
         if r and r.status == 404:
@@ -118,7 +131,12 @@ def capturar_entidad(page, kind: str, eid: int, nombre: str, url_extra: str = ''
 
 
 def fase(kind: str) -> None:
-    if kind == 'artistas':
+    if VERIFIED_ONLY:
+        if kind != 'artistas':
+            raise SystemExit('La captura verificada solo admite artistas; los discos necesitan su propia identidad')
+        filas = [l.split(SEP) for l in psql("SELECT a.id,a.name,v.lastfm_url FROM ingest.lastfm_artist_verifications v JOIN public.artists a ON a.id=v.artist_id ORDER BY a.id").split('\n') if l.strip()]
+        url_extra = ''
+    elif kind == 'artistas':
         filas = [l.split(SEP) for l in psql("SELECT id, name FROM public.artists ORDER BY id").split('\n') if l.strip()]
         url_extra = ''
     else:
@@ -128,6 +146,9 @@ def fase(kind: str) -> None:
     hechos_set = hechos(SHOUTS) | hechos(MISS)
     pend = [f for f in filas if (kind, int(f[0])) not in hechos_set]
     log(f'{kind.upper()}: {len(filas)} total, {len(hechos_set)} hechos, {len(pend)} pendientes')
+    if VERIFIED_ONLY and not pend:
+        log('Sin URLs verificadas pendientes; no se abre Chrome')
+        return
     p = sync_playwright().start()
     b = p.chromium.connect_over_cdp(CDP)
     ctx = b.contexts[0] if b.contexts else b.new_context()
@@ -140,17 +161,30 @@ def fase(kind: str) -> None:
             eid = int(f[0])
             try:
                 if kind == 'artistas':
-                    capturar_entidad(page, kind, eid, f[1])
+                    capturar_entidad(page, kind, eid, f[1], verified_url=f[2] if VERIFIED_ONLY else '')
                 else:
                     capturar_entidad(page, kind, eid, f[1], '/' + urllib.parse.quote(f[2].replace('/', '-')))
                 fallos_seguidos = 0
             except Exception as e:
                 fallos_seguidos += 1
                 log(f'{kind} {eid} ({f[1]}): EXC {e}')
+                if 'Page crashed' in str(e):
+                    try:
+                        page.close()
+                    except Exception:
+                        pass
+                    page = ctx.new_page()
+                    fallos_seguidos = 0
                 if fallos_seguidos >= 6:
                     log('6 fallos seguidos: abortar (¿Chrome copiado caído? relanzar chrome-lfm)')
                     break
             n += 1
+            if n % 50 == 0:
+                try:
+                    page.close()
+                except Exception:
+                    pass
+                page = ctx.new_page()
             if n % 25 == 0:
                 el = time.time() - t0
                 log(f'{kind.upper()} {len(hechos_set)+n}/{len(filas)} · {el/60:.1f} min · ETA {el/n*(len(pend)-n)/60:.1f} min')
@@ -163,6 +197,8 @@ def fase(kind: str) -> None:
 
 
 if __name__ == '__main__':
+    if VERIFIED_ONLY == ('--capture-unverified-for-review' in sys.argv):
+        raise SystemExit('Elegir --verified-only o --capture-unverified-for-review. La búsqueda por nombre solo produce captura cruda sin publicar.')
     which = 'artistas'
     for a in sys.argv[1:]:
         if a.startswith('--fase='):
