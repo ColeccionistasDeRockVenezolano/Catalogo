@@ -1,7 +1,11 @@
+import type { CatalogTheme, SiteAppearance } from "../../../src/shared/site-appearance";
 // CRV · Cliente de la API (src/api/*). El navegador solo habla con esta API,
 // nunca con PostgreSQL (CONTRACT #20) — cada función de aquí es una llamada
 // HTTP directa, sin lógica de negocio propia.
 import { getSessionCsrf, setSessionCsrf, type OperatorUser } from "./operator";
+import { cachedCatalogRead, canCacheCatalogRead, clearCatalogReadCache, observeCatalogRevision } from "./catalogReadCache";
+import { isCatalogWrite } from "../../../src/shared/catalog-cache-policy";
+import type { DailyClock, DailyCycle } from "../../../src/shared/daily-cycle";
 import type { CatalogDraft,CatalogKind,CatalogPlan,CatalogVocabulary } from "../../../src/curation/ai/types";
 import type {
   Alias, AliasWriteResult, AlbumDetail, AlbumListItem, ArtistDetail, ArtistListItem, AuditRow, Claim, CreditSource, EntityWriteResult,
@@ -55,6 +59,16 @@ export class ApiError extends Error {
 
 type Query = Record<string, string | number | boolean | undefined>;
 
+export interface CatalogOverview {
+  totals: Record<string, number>;
+  genres: Array<{ slug: string; name: string }>;
+  decades: number[];
+}
+
+export const catalogApi = {
+  overview: (signal: AbortSignal) => request<CatalogOverview>("/catalog/overview", { signal }),
+};
+
 export const aiCurationApi = {
   resolveArtist:(personId:number)=>request<import("../../../src/curation/ai/person-artist-types").PersonArtistJob>(`/curation/ai/persons/${personId}/resolve-artist`,{method:"POST",authenticated:true}),
   artistResolution:(personId:number)=>request<import("../../../src/curation/ai/person-artist-types").PersonArtistJob|null>(`/curation/ai/persons/${personId}/resolve-artist`),
@@ -82,6 +96,8 @@ function buildUrl(path: string, query?: Query): string {
 }
 
 interface RequestOptions {
+  binaryBody?: File;
+  onSearchReceipt?: (receipt: string) => void;
   method?: "GET" | "POST" | "PATCH" | "DELETE";
   query?: object;
   body?: unknown;
@@ -89,12 +105,22 @@ interface RequestOptions {
   signal?: AbortSignal;
   /** Esta llamada escribe: exige el token del operador. */
   authenticated?: boolean;
+  /** Uso interno: la carga compartida ejecuta el transporte una sola vez. */
+  skipReadCache?: boolean;
 }
 
 async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const method = options.method ?? "GET";
+  if (method === "GET" && !options.skipReadCache && canCacheCatalogRead(path, options.query)) {
+    const key = new URL(buildUrl(path, options.query as Query | undefined));
+    key.pathname = path;
+    return cachedCatalogRead(key, signal => request<T>(path, {
+      ...options, skipReadCache: true, signal,
+    }), options.signal);
+  }
   const headers: Record<string, string> = {};
   if (options.body !== undefined) headers["content-type"] = "application/json";
+  if (options.binaryBody) headers["content-type"] = options.binaryBody.type;
   if (options.authenticated) {
     const csrf = getSessionCsrf();
     if (!csrf) throw new ApiError(401, "missing_session", "Inicia sesión para poder editar.");
@@ -105,9 +131,12 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     headers,
     credentials: "include",
     ...(options.signal ? { signal: options.signal } : {}),
-    ...(options.body === undefined ? {} : { body: JSON.stringify(options.body) }),
+    ...(options.binaryBody ? { body: options.binaryBody } : options.body === undefined ? {} : { body: JSON.stringify(options.body) }),
   };
   const response = await fetch(buildUrl(path, options.query as Query | undefined), init);
+  observeCatalogRevision(response.headers.get("x-crv-cache-version"));
+  const receipt = response.headers.get("x-crv-search-receipt");
+  if (receipt) options.onSearchReceipt?.(receipt);
   const text = await response.text();
   const json: unknown = text ? JSON.parse(text) : undefined;
   if (!response.ok) {
@@ -126,8 +155,9 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     }
     throw new ApiError(response.status, error?.code ?? "unknown", error?.message ?? response.statusText, error?.details);
   }
+  if (isCatalogWrite(method, path)) window.dispatchEvent(new Event(CATALOG_DATA_CHANGED_EVENT));
   // Toda escritura del catálogo es un run: se anuncia para que la barra de
-  // «Deshacer» (UndoBar) lo ofrezca a la vista, sea edición, fusión,
+  // «Deshacer» (ChangeFeedback) lo ofrezca a la vista, sea edición, fusión,
   // división, retiro o un deshacer (que se deshace = rehacer).
   const runId = (json as { runId?: unknown } | undefined)?.runId;
   if (method !== "GET" && typeof runId === "number") {
@@ -136,10 +166,41 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
   return json as T;
 }
 
-/** Evento de ventana tras cada escritura con run (ver UndoBar). */
+/** Evento de ventana tras cada escritura con run (ver ChangeFeedback). */
 export const CATALOG_CHANGE_EVENT = "crv-change";
+
+export const imageUploadsApi = {
+  upload: async (file: File, signal: AbortSignal) => {
+    try {
+      return await request<import("../../../src/shared/image-upload").UploadedImage>("/media/uploads", {
+        method: "POST", authenticated: true, binaryBody: file, signal,
+      });
+    } catch (error) {
+      if (error instanceof ApiError || signal.aborted) throw error;
+      throw new Error("No se pudo subir la imagen. Comprueba la conexión y vuelve a intentarlo.", { cause: error });
+    }
+  },
+};
 /** Evento de ventana tras deshacer o rehacer: las vistas abiertas recargan (useAsync). */
 export const CATALOG_DATA_CHANGED_EVENT = "crv-data-changed";
+window.addEventListener(CATALOG_DATA_CHANGED_EVENT, clearCatalogReadCache);
+window.addEventListener("crv-session-expired", clearCatalogReadCache);
+window.addEventListener("crv-session-changed", clearCatalogReadCache);
+
+// Detectar deploy/CLI al retomar una pestaña, sin un temporizador de consultas.
+let synchronizingCatalogCache = false;
+async function synchronizeCatalogCache() {
+  if (document.hidden || synchronizingCatalogCache) return;
+  synchronizingCatalogCache = true;
+  try {
+    const value = await request<{ revision: string }>("/catalog/cache-version", { signal: AbortSignal.timeout(5000) });
+    if (observeCatalogRevision(value.revision)) window.dispatchEvent(new Event(CATALOG_DATA_CHANGED_EVENT));
+  } catch { /* Un fallo de red no invalida una lectura vigente. */ }
+  finally { synchronizingCatalogCache = false; }
+}
+window.addEventListener("focus", () => { void synchronizeCatalogCache(); });
+document.addEventListener("visibilitychange", () => { void synchronizeCatalogCache(); });
+void synchronizeCatalogCache();
 export interface CatalogChangeEvent { runId: number; method: string; path: string }
 
 export interface AuthSession {
@@ -165,9 +226,26 @@ export const authApi = {
 };
 
 export interface Paged { limit?: number; offset?: number; }
+type CatalogSortParams = { sort?: "name" | "name_desc" | "year_desc" | "year_asc" };
 
 // ---------- lectura ----------
 export const searchApi = {
+  knowledgeReview: (id: number, signal?: AbortSignal) => request<import("../../../src/search/knowledge-publication").KnowledgeReviewDetail>(`/search/administration/knowledge/reviews/${id}`, { ...(signal ? {signal} : {}) }),
+  decideKnowledge: (id: number, body: import("zod").input<typeof import("../../../src/search/knowledge-publication").knowledgeDecisionSchema>) => request<{runId:number;result:{revision:number;status:string}}>(`/search/administration/knowledge/reviews/${id}/decision`, {method:"POST",body}),
+  knowledge: (signal?: AbortSignal) => request<import("../../../src/search/knowledge-administration").KnowledgeAdministration>("/search/administration/knowledge", { ...(signal ? { signal } : {}) }),
+  observed: async (q: string, signal?: AbortSignal) => {
+    let receipt: string | null = null;
+    try {
+      const results = await request<SearchResults>("/search", { query: { q, limit: 20 }, onSearchReceipt: value => { receipt = value; }, ...(signal ? { signal } : {}) });
+      return { results, receipt, error: undefined as string | undefined, clientIncident: undefined as "network" | "invalid_response" | undefined };
+    } catch (error) {
+      if (signal?.aborted) throw error;
+      return { results: null, receipt, error: error instanceof Error ? error.message : "No se pudo consultar el catálogo", clientIncident: error instanceof ApiError ? undefined : error instanceof SyntaxError ? "invalid_response" as const : "network" as const };
+    }
+  },
+  administration: (signal?: AbortSignal) => request<import("../../../src/search/administration").SearchAdministration>("/search/administration", { ...(signal ? { signal } : {}) }),
+  observe: (q: string, onSearchReceipt: (receipt: string) => void, signal?: AbortSignal) => request<SearchResults>("/search", { query: { q, limit: 20 }, onSearchReceipt, ...(signal ? { signal } : {}) }),
+  confirm: (body: import("../../../src/search/observability").Confirmation) => request<{status:string}>("/search/confirmations", { method: "POST", body }),
   search: (q: string, types?: string[], limit = 20, signal?: AbortSignal) =>
     request<SearchResults>("/search", { query: { q, limit, ...(types?.length ? { types: types.join(",") } : {}) }, ...(signal ? { signal } : {}) }),
 };
@@ -176,10 +254,20 @@ export const searchApi = {
 export type GenreListParams = { genre?: string; withoutGenre?: boolean; relatedGenre?: boolean };
 
 export const homeApi = {
-  get: (signal?: AbortSignal) => request<HomeData>("/home", { ...(signal ? { signal } : {}) }),
+  get: (signal?: AbortSignal, date?: string) => request<HomeData>("/home", { query: { date }, ...(signal ? { signal } : {}) }),
+};
+export const dailyClockApi = { get: (signal?: AbortSignal) => request<DailyClock>("/daily-cycle", { ...(signal ? { signal } : {}) }) };
+export interface Ephemeris {
+  id:number; title:string; description:string; date:string; year:number; place:string; subject:string;
+  sources:Array<{title:string;url:string}>;
+}
+export const ephemeridesApi = {
+  get:(date:string,signal?:AbortSignal)=>request<{dailyCycle:DailyCycle;today:Ephemeris[];events:Ephemeris[]}>("/ephemerides",{query:{date},...(signal?{signal}:{})}),
 };
 
 export const genresApi = {
+  propose: (kind:"artist"|"album",id:number,body:{proposedName:string;familySlug?:string;rawValue?:string;note:string})=>request<{runId:number;reviewId:number}>(`/genres/${kind}/${id}/proposal`,{method:"POST",authenticated:true,body}),
+  periods: (kind:string,id:number)=>request<Array<{id:number;name:string;period:string|null}>>(`/genres/${kind}/${id}/periods`),
   vocabulary: () => request<Array<{ slug: string; name: string; level: string }>>("/genres/vocabulary"),
   decide: (kind: "artist" | "album", id: number, action: "confirm_primary" | "add_secondary" | "reject", genreSlug: string, note: string) =>
     request<{ runId: number }>(`/genres/${kind}/${id}/decision`, { method: "POST", authenticated: true, body: { action, genreSlug, note } }),
@@ -188,13 +276,13 @@ export const genresApi = {
 
 export const artistsApi = {
   facets: () => request<TypeFacets>("/artists/facets"),
-  list: (params: Paged & Omit<GenreListParams, "relatedGenre"> & { q?: string; artistType?: string; decade?: number; withoutYear?: boolean } = {}, signal?: AbortSignal) => request<Page<ArtistListItem>>("/artists", { query: params, ...(signal ? { signal } : {}) }),
-  get: (id: number) => request<ArtistDetail>(`/artists/${id}`),
+  list: (params: Paged & CatalogSortParams & Omit<GenreListParams, "relatedGenre"> & { q?: string; artistType?: string; decade?: number; withoutYear?: boolean } = {}, signal?: AbortSignal) => request<Page<ArtistListItem>>("/artists", { query: params, ...(signal ? { signal } : {}) }),
+  get: (id: number, date?: string, signal?: AbortSignal) => request<ArtistDetail>(`/artists/${id}`, { query: { date }, ...(signal ? { signal } : {}) }),
 };
 
 export const albumsApi = {
   facets: () => request<TypeFacets>("/albums/facets"),
-  list: (params: Paged & GenreListParams & { q?: string; artistId?: number; albumType?: string; decade?: number; withoutYear?: boolean; beforeYear?: number } = {}, signal?: AbortSignal) => request<Page<AlbumListItem>>("/albums", { query: params, ...(signal ? { signal } : {}) }),
+  list: (params: Paged & CatalogSortParams & GenreListParams & { q?: string; artistId?: number; albumType?: string; decade?: number; withoutYear?: boolean; beforeYear?: number } = {}, signal?: AbortSignal) => request<Page<AlbumListItem>>("/albums", { query: params, ...(signal ? { signal } : {}) }),
   get: (id: number) => request<AlbumDetail>(`/albums/${id}`),
 };
 
@@ -329,8 +417,8 @@ export const changesApi = {
 };
 
 export const youtubeApi = {
-  saveAlbumVideo: (albumId: number, videoId: string, kind: string, isPrimaryLink: boolean, note: string) =>
-    request<{ runId: number }>(`/albums/${albumId}/videos/${videoId}`, { method: "PATCH", authenticated: true, body: { kind, isPrimaryLink, note } }),
+  saveAlbumVideo: (albumId: number, videoId: string, kind: string, isPrimaryLink: boolean, note: string, previousVideoId?: string) =>
+    request<{ runId: number }>(`/albums/${albumId}/videos/${videoId}`, { method: "PATCH", authenticated: true, body: { kind, isPrimaryLink, note, previousVideoId } }),
   removeAlbumVideo: (albumId: number, videoId: string, note: string) =>
     request<{ runId: number }>(`/albums/${albumId}/videos/${videoId}`, { method: "DELETE", authenticated: true, query: { note } }),
   list: (params: Paged & { q?: string } = {}) => request<Page<VideoListItem>>("/youtube/videos", { query: params }),
@@ -374,6 +462,7 @@ export const reviewApi = {
 };
 
 export interface CurationFindingQuery extends Paged {
+  sort?: "priority" | "oldest" | "newest" | "entity";
   category?: string;
   detector?: string;
   signature?: string;
@@ -479,6 +568,58 @@ export const curationApi = {
     request<{ acknowledged: number }>("/curation/findings/acknowledge-chain-group", { method: "POST", authenticated: true, body: filter }),
 };
 
+export type EmotionReviewCategory = "no_expresa_emocion" | "emocion" | "tristeza" | "enfocado" | "libertad" | "cachonda" | "aumenta_mi_aura";
+export interface EmotionReviewTag {
+  tag: string;
+  suggested: string;
+  probability: number | null;
+  category: EmotionReviewCategory | null;
+  uses: number;
+  weight: number;
+  artists: { id: number; name: string; weight: number }[];
+  decidedBy: string | null;
+  decidedAt: string | null;
+  note: string | null;
+}
+export const emotionCurationApi = {
+  list: (params: { status: "pending" | "reviewed" | "all"; q: string; limit: number; offset: number }) =>
+    request<{ data: EmotionReviewTag[]; total: number; pending: number }>("/curation/emotions/tags", { query: params }),
+  decide: (tag: string, category: EmotionReviewCategory, note: string) =>
+    request<{ saved: true }>("/curation/emotions/tags/decision", { method: "POST", authenticated: true, body: { tag, category, note } }),
+};
+
+// ---------- buscador: evaluación humana y correspondencias (etapa 2) ----------
+export type HumanBlind = { object: "album" | "track" | "artist" | "unknown"; type: string; state: string; appreciation: string; coverage: string };
+export type HumanVerdict = "supported" | "appreciation_error" | "scope_error" | "unsupported_generalization" | "other_error";
+export interface HumanEvaluationItem {
+  id: string; study: string; work: string | null; workKind: string; quote: string; language: string; source: string;
+  blind: HumanBlind | null; verdict: HumanVerdict | null; note: string; stale: boolean;
+  annotation: null | { object: string; type: string; aspect: string; value: string; state: string; appreciation: string; coverage: string;
+    listeningCondition: string | null; interpretation: string; alternative: string; analyst: string; dependencies: string[] };
+}
+export interface HumanEvaluationState {
+  studyVersion: string; evaluator: string; items: HumanEvaluationItem[]; complete: boolean; meetsThresholds: boolean;
+  metrics: { total: number; blind: number; judged: number; scopeErrors: number; unsupportedGeneralizations: number; supportPrecision: number | null };
+  thresholds: { status: string; scopeErrorsAllowed: number; unsupportedGeneralizationsAllowed: number; supportPrecision: number };
+}
+export type MappingRelation = "equivalence" | "specialization" | "partial" | "pending";
+export interface MappingTerm {
+  originalTerm: string;
+  proposal: { targetSlug: string | null; relation: MappingRelation; sourceConceptKind: string; rationale: string; analyst: string };
+  decision: null | { decision: "approved" | "corrected" | "rejected"; targetSlug: string | null; relation: MappingRelation | null; note: string; decidedBy: string; decidedAt: string; reviewVersion: string };
+}
+export interface MappingAdjudicationState { reviewVersion: string; terms: MappingTerm[]; genres: { slug: string; name: string }[]; decided: number; total: number }
+export const searchHumanReviewApi = {
+  evaluation: () => request<HumanEvaluationState>("/search/administration/human-evaluation"),
+  blind: (id: string, blind: HumanBlind) =>
+    request<{ annotation: NonNullable<HumanEvaluationItem["annotation"]> }>(`/search/administration/human-evaluation/${encodeURIComponent(id)}/blind`, { method: "POST", authenticated: true, body: blind }),
+  verdict: (id: string, verdict: HumanVerdict, note: string) =>
+    request<{ saved: true }>(`/search/administration/human-evaluation/${encodeURIComponent(id)}/verdict`, { method: "POST", authenticated: true, body: { verdict, note } }),
+  mappings: () => request<MappingAdjudicationState>("/search/administration/mapping-adjudications"),
+  decideMapping: (body: { term: string; decision: "approved" | "corrected" | "rejected"; targetSlug: string | null; relation: MappingRelation | null; note: string }) =>
+    request<{ saved: true }>("/search/administration/mapping-adjudications/decision", { method: "POST", authenticated: true, body }),
+};
+
 // ---------- escritura de entidades del core ----------
 export type EntityPath = "artists" | "persons" | "organizations" | "albums" | "tracks";
 
@@ -552,6 +693,17 @@ export interface ImageCandidate {
   height: number | null;
   /** Parecido con la imagen actual (0–1); null cuando no se calculó. */
   score: number | null;
+  /** Inspección al descargar; null mientras no se haya inspeccionado. */
+  naturalWidth: number | null;
+  naturalHeight: number | null;
+  effectiveWidth: number | null;
+  quality: "high" | "medium" | "low" | "failed" | null;
+  use: string | null;
+  reasons: string[];
+  /** Cómo describe la página esta imagen (pie, alt, «Imagen: …»), cuando se conoce. */
+  context: string | null;
+  /** Otra candidata de la misma ficha con la misma imagen (variante). */
+  variantOf: number | null;
 }
 export interface ImageCandidateGroup {
   kind: ImageCandidateKind;
@@ -564,9 +716,16 @@ export interface ImageCandidateGroup {
 }
 
 export const imageCandidatesApi = {
+  jobs: () => request<import("../../../src/shared/image-curation-jobs").ImageJob[]>("/curation/images/jobs"),
+  enqueue: (tasks: import("../../../src/shared/image-curation-jobs").ImageTask[]) => request<import("../../../src/shared/image-curation-jobs").ImageJob[]>("/curation/images/jobs", { method: "POST", authenticated: true, body: { tasks } }),
+  retry: (id: number) => request<import("../../../src/shared/image-curation-jobs").ImageJob>(`/curation/images/jobs/${id}/retry`, { method: "POST", authenticated: true, body: {} }),
+  dismiss: (id: number) => request<{ dismissed: true }>(`/curation/images/jobs/${id}/dismiss`, { method: "POST", authenticated: true, body: {} }),
   summary: () => request<Record<ImageCandidateKind, number>>("/curation/images/summary"),
-  list: (kind: ImageCandidateKind, params: Paged = {}) =>
+  list: (kind: ImageCandidateKind, params: Paged & { entityId?: number } = {}) =>
     request<Page<ImageCandidateGroup>>("/curation/images", { query: { kind, ...params } }),
+  /** Descarga y mide candidatas pendientes; no cambia ninguna ficha. */
+  inspect: (body: { ids?: number[]; limit?: number; vision?: boolean } = {}) =>
+    request<{ runId: number; inspected: number; failed: number; visual: number }>("/curation/images/inspect", { method: "POST", authenticated: true, body }),
   /** `candidateId` null = dejar la imagen actual y descartar las candidatas. */
   decide: (kind: ImageCandidateKind, entityId: number, candidateId: number | null) =>
     request<{ runId: number; kind: ImageCandidateKind; entityId: number; chosenUrl: string | null }>(
@@ -611,7 +770,7 @@ export const entityComparisonApi = {
 export const discoveryApi = {
   event: (body: { id: string; client: string; kind: "impression" | "acceptance" | "search" | "visit"; token: string; visibleMs?: number }) =>
     request<{ status: string; receipt?: string }>("/discovery/metrics/events", { method: "POST", body }),
-  suggestions: (signal: AbortSignal) => request<import("./discovery").DiscoveryResponse>("/discovery/search-suggestions", { signal }),
+  suggestions: (signal: AbortSignal, date?: string) => request<import("./discovery").DiscoveryResponse>("/discovery/search-suggestions", { signal, query: { date } }),
 };
 
 // Enlaces editables: incluye perfiles pendientes; solo los administradores los consultan.
@@ -633,4 +792,43 @@ export const catalogModelApi = {
   get: (kind: "artist" | "person" | "album" | "track", id: number) => request<CatalogModelData>(`/catalog-model/${kind}/${id}`),
   write: (kind: string, body: object, id?: number) => request<{ id: number; runId: number }>(`/catalog-model/${kind}${id === undefined ? "" : `/${id}`}`, { method: id === undefined ? "POST" : "PATCH", authenticated: true, body }),
   remove: (kind: string, id: number, note: string) => request<{runId:number}>(`/catalog-model/${kind}/${id}`, { method: "DELETE", authenticated: true, query: { note } }),
+};
+
+/** La elección del administrador se comparte con todos los visitantes. */
+export const siteAppearanceApi = {
+  get: (signal?: AbortSignal) => request<SiteAppearance>("/site-appearance", signal ? { signal } : {}),
+  update: (catalogTheme: CatalogTheme) => request<SiteAppearance>("/site-appearance", { method: "PATCH", authenticated: true, body: { catalogTheme } }),
+};
+
+export const catalogEditorApi = {
+ vocabulary: ()=>request<{albumTypes:string[];classifications:string[]}>("/catalog-editor/vocabulary"),
+ entity: (kind: string, id: number) => request<{values: Record<string, unknown>; vocabulary: {albumTypes: string[]; classifications: string[]}}>(`/catalog-editor/entity/${kind}/${id}`),
+ list: (owner: "album"|"artist", id: number, resource: string) => request<Record<string, unknown>[]>(`/catalog-editor/${owner}/${id}/${resource}`),
+ save: (owner: "album"|"artist", ownerId: number, resource: string, body: Record<string, unknown>, id?: number) => request<{id:number;runId:number}>(`/catalog-editor/${owner}/${ownerId}/${resource}${id===undefined?"":`/${id}`}`, {method:id===undefined?"POST":"PATCH",authenticated:true,body}),
+ remove: (owner: "album"|"artist", ownerId: number, resource: string, id: number, note: string) => request<{id:number;runId:number}>(`/catalog-editor/${owner}/${ownerId}/${resource}/${id}`, {method:"DELETE",authenticated:true,query:{note}}),
+};
+
+/** Bandeja visual: el servidor recibe únicamente los aportes seleccionados y su versión. */
+export const claimReviewApi = {
+  groups: (query: { limit: number;offset: number;bucket: string;q: string;kind: string },signal?: AbortSignal) =>
+    request<{ data: import("../../../src/shared/claim-review").ClaimReviewGroup[];pagination: { total: number;limit: number;offset: number };claims: number }>("/claims/review/groups",{ query,...(signal ? { signal } : {}) }),
+  group: (id: number,query: { limit: number;offset: number;bucket: string },signal?: AbortSignal) =>
+    request<import("../../../src/shared/claim-review").ClaimReviewDetail>(`/claims/review/groups/${id}`,{ query,...(signal ? { signal } : {}) }),
+  decide: (body: { groupId: number;claims: Array<{ id: number;version: string }>;action: "accept" | "reject";note: string }) =>
+    request<import("../../../src/shared/claim-review").ClaimReviewResult>("/claims/review/decide",{ method: "POST",authenticated: true,body }),
+};
+
+export const artistGalleryApi = {
+  upload: (file: File, signal: AbortSignal) => request<import("../../../src/shared/image-upload").UploadedImage>("/media/gallery-uploads", {
+    method: "POST", authenticated: true, binaryBody: file, signal,
+  }),
+  add: (artistId: number, photos: import("../../../src/shared/artist-gallery").GalleryPhotoInput[], note: string) =>
+    request<{ runId: number; ids: number[] }>(`/artists/${artistId}/gallery`, { method: "POST", authenticated: true, body: { photos, note } }),
+  update: (artistId: number, photoId: number, photo: import("../../../src/shared/artist-gallery").GalleryPhotoInput, note: string) =>
+    request<{ runId: number }>(`/artists/${artistId}/gallery/${photoId}`, { method: "PATCH", authenticated: true, body: { ...photo, note } }),
+  remove: (artistId: number, photoId: number, note: string) =>
+    request<{ runId: number }>(`/artists/${artistId}/gallery/${photoId}?note=${encodeURIComponent(note)}`, { method: "DELETE", authenticated: true }),
+};
+export const artistDocumentsApi = {
+ reclassify:(artistId:number,ids:number[],category:import('../../../src/shared/artist-documents').DocumentCategory,note:string)=>request<{runId:number;updated:number}>(`/artists/${artistId}/documents`,{method:'PATCH',authenticated:true,body:{ids,category,note}}),
 };
