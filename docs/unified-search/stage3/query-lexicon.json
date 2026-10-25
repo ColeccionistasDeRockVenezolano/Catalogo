@@ -1,5 +1,5 @@
 {
- "version": "crv-query-lexicon-0.3.0",
+ "version": "crv-query-lexicon-0.4.0",
  "builtBy": "scripts/stage3/build_query_lexicon.py",
  "vocabularyVersion": "crv-human-intents-0.3.0-reviewed",
  "genreMapVersion": "crv-genre-knowledge-0.17.0",
@@ -16,23 +16,51 @@
    "labelEs": "Concentración",
    "definitionEs": "Atención sostenida durante una tarea; no implica sueño ni calma.",
    "aliases": [
+    "aprender",
+    "atencion sostenida",
+    "computadora",
     "concentracion",
     "concentrar",
     "concentrarme",
     "concentrarse",
+    "enfocando",
+    "enfocarme",
+    "escribir",
+    "escritorio",
+    "escritorio trabajo",
+    "esfuerzo mental",
     "estudiando",
     "estudiar",
     "estudio",
     "focus",
+    "hacer deberes",
+    "hacer tarea",
+    "investigar",
     "leer",
     "leyendo",
+    "mantener atencion",
+    "memorizar",
+    "oficina",
+    "ordenador",
+    "pantalla trabajo",
+    "poner atencion",
+    "preparar examen",
+    "prestar atencion",
     "programando",
     "programar",
+    "redactar",
+    "rendir examen",
+    "repasar",
+    "resolver problemas",
+    "sesion de trabajo",
     "study",
     "studying",
+    "tarea mental",
     "to study",
     "trabajando",
-    "trabajar"
+    "trabajar",
+    "trabajo de oficina",
+    "trabajo mental"
    ],
    "themeNouns": []
   },
@@ -42,16 +70,33 @@
    "labelEs": "Relajación",
    "definitionEs": "Acompañamiento de descanso solicitado; no presupone energía baja.",
    "aliases": [
+    "aliviar el estres",
+    "aquietarse",
+    "bajar las revoluciones",
+    "calmar los nervios",
     "descansar",
     "descanso",
     "desconectar",
+    "encontrar paz",
+    "hacer una pausa",
+    "liberar tensiones",
+    "recostarse",
+    "reducir el estres",
     "relajacion",
+    "relajante",
+    "relajantes",
     "relajar",
     "relajarme",
     "relajarse",
     "relax",
     "relaxing",
-    "to relax"
+    "reposar",
+    "respirar profundo",
+    "serenarse",
+    "sosegarse",
+    "to relax",
+    "tomar un respiro",
+    "tranquilizarse"
    ],
    "themeNouns": []
   },
@@ -66,12 +111,19 @@
     "celebrar",
     "cumpleanos",
     "festejar",
+    "festejo",
+    "festejo familiar",
     "fiesta",
     "fiestas",
+    "ir de parranda",
+    "juntada",
+    "juntada con amigos",
+    "parranda con amigos",
     "party",
     "rumba",
     "rumbear",
-    "rumbeo"
+    "rumbeo",
+    "salir de parranda"
    ],
    "themeNouns": []
   },
@@ -83,8 +135,11 @@
    "aliases": [
     "conciliar el sueno",
     "dormir",
+    "dormirme",
     "echarme una siesta",
     "para la siesta",
+    "quedarme dormido",
+    "quedarse dormido",
     "siesta",
     "sleep",
     "sleeping",
@@ -98,12 +153,26 @@
    "labelEs": "Meditar",
    "definitionEs": "Práctica de meditación solicitada; no implica adscripción espiritual.",
    "aliases": [
+    "aquietar la mente",
+    "atencion plena",
+    "calmar la mente",
+    "calmar los pensamientos",
+    "centrarse",
+    "ejercicios de respiracion",
+    "encontrar paz interior",
+    "estar presente",
     "meditacion",
     "meditando",
     "meditar",
     "meditation",
+    "mindfulness",
+    "respiracion consciente",
+    "respiracion profunda",
     "respirar conscientemente",
-    "to meditate"
+    "to meditate",
+    "tranquilizar la mente",
+    "visualizacion",
+    "vivir el presente"
    ],
    "themeNouns": []
   },
@@ -113,13 +182,25 @@
    "labelEs": "Bailar",
    "definitionEs": "Actividad de baile; un género bailable no demuestra adecuación de cada versión.",
    "aliases": [
+    "bailable",
+    "bailables",
     "bailando",
     "bailar",
     "baile",
+    "bailotear",
     "dancing",
     "echar pie",
     "echar un pie",
-    "to dance"
+    "menear el bulto",
+    "mover el cuerpo",
+    "mover el esqueleto",
+    "pachanguear",
+    "perrear",
+    "sacudir la cadera",
+    "salsiar",
+    "soltar el cuerpo",
+    "to dance",
+    "zapatear"
    ],
    "themeNouns": []
   },
@@ -129,14 +210,35 @@
    "labelEs": "Entrenar",
    "definitionEs": "Actividad física general; no fija intensidad musical.",
    "aliases": [
+    "acondicionamiento fisico",
+    "calentar",
     "ejercicio",
     "ejercitarme",
     "ejercitarse",
+    "entrenamiento",
     "entrenando",
     "entrenar",
+    "estar en forma",
+    "estirar",
     "gimnasio",
     "gym",
+    "hacer abdominales",
+    "hacer cardio",
+    "hacer deporte",
     "hacer ejercicio",
+    "hacer flexiones",
+    "hacer rutina",
+    "hacer sentadillas",
+    "mantenerme en forma",
+    "pesas",
+    "ponerme en forma",
+    "ponerse fuerte",
+    "precalentar",
+    "preparacion fisica",
+    "rutina de entrenamiento",
+    "rutina de pesas",
+    "sesion de entrenamiento",
+    "sudar",
     "to work out",
     "workout"
    ],
@@ -148,13 +250,24 @@
    "labelEs": "Correr",
    "definitionEs": "Carrera o trote; puede coexistir con ejercicio si ambos se piden.",
    "aliases": [
+    "carrera al amanecer",
+    "carrera de fondo",
+    "carrera matutina",
     "correr",
     "corriendo",
+    "darse una carrera",
+    "hacer carrera",
+    "hacer footing",
+    "hacer kilometros",
+    "practicar atletismo",
     "running",
     "salir a correr",
     "to run",
     "trotando",
-    "trotar"
+    "trotar",
+    "trote diario",
+    "trote ligero",
+    "trote matutino"
    ],
    "themeNouns": []
   },
@@ -164,15 +277,32 @@
    "labelEs": "Caminar",
    "definitionEs": "Paseo o caminata; no implica serenidad.",
    "aliases": [
+    "andar a pie",
+    "andar sin rumbo",
+    "bajar la loma",
     "caminando",
     "caminar",
+    "caminata larga",
     "dar un paseo",
+    "dar un recorrido",
+    "dar una caminata",
+    "dar una vuelta",
+    "echar una caminata",
+    "hacer senderismo",
+    "ir a pie",
+    "marchar",
+    "marchar a pie",
     "paseando",
     "pasear",
     "pasear al perro",
     "pasear el perro",
     "paseo",
+    "patear la calle",
+    "recorrer a pie",
+    "recorrer la ciudad",
     "sacar al perro",
+    "salir a andar",
+    "subir la cuesta",
     "walking"
    ],
    "themeNouns": []
@@ -183,19 +313,36 @@
    "labelEs": "Viajar",
    "definitionEs": "Trayecto solicitado; no equivale a libertad emocional.",
    "aliases": [
+    "al volante",
     "carretera",
     "conduciendo",
     "conducir",
+    "de camino",
     "de viaje",
     "driving",
     "en carretera",
+    "en el auto",
+    "en el camino",
+    "en marcha",
+    "excursion",
+    "ir de excursion",
+    "ir de ruta",
+    "ir en coche",
+    "kilometros",
     "manejando",
     "manejar",
     "manejo",
     "para manejar",
+    "recorrer caminos",
+    "recorrer el pais",
     "road trip",
+    "rodando",
+    "ruta larga",
+    "salir a rodar",
     "travel",
     "traveling",
+    "travesia",
+    "trayecto en auto",
     "viajar",
     "viaje"
    ],
@@ -207,15 +354,40 @@
    "labelEs": "Intimidad sexual",
    "definitionEs": "Actividad íntima solicitada; no implica letra sexual, romance ni energía baja.",
    "aliases": [
+    "acostarse",
+    "chapar",
+    "chupar",
     "coger",
+    "correrse",
+    "culiar",
+    "dar placer",
+    "darle duro",
+    "darse carino",
+    "echar un palo",
+    "echar un polvo",
     "follar",
+    "hacer cositas",
     "hacer el amor",
+    "hacer el delicioso",
+    "hacer travesuras",
+    "hacer un rapidito",
+    "hacerlo rico",
+    "intimar",
+    "llegar al orgasmo",
     "making love",
+    "mamar",
+    "meter mano",
     "para la cama",
+    "pasar a mayores",
+    "ponerse caliente",
     "sex",
+    "tener intimidad",
     "tener sex",
     "tener sexo",
-    "tirar"
+    "tirar",
+    "tocar fondo",
+    "un rapidin",
+    "venirse"
    ],
    "themeNouns": []
   },
@@ -226,16 +398,38 @@
    "definitionEs": "Acompañamiento de encuentro social; no presupone fiesta.",
    "aliases": [
     "cena",
+    "charla de sobremesa",
+    "charla entre amigos",
     "charlar",
+    "compartir",
+    "compartir con amigos",
+    "compartir tertulia",
+    "compartir un rato",
     "con amigos",
     "con panas",
+    "conversacion amena",
     "conversar",
+    "encuentro casual",
+    "encuentro de amigos",
+    "estar con amigos",
+    "hablar distendido",
+    "juntada de amigos",
+    "juntarse a hablar",
+    "juntarse los amigos",
     "panas",
     "para una cena",
+    "pasar el rato",
+    "pasar la tarde",
+    "pasar un rato",
+    "rato de charla",
     "reunion",
     "reunion con amigos",
     "reunirme con amigos",
-    "una cena"
+    "sobremesa",
+    "tertulia",
+    "una cena",
+    "visita en casa",
+    "visitar amigos"
    ],
    "themeNouns": []
   },
@@ -245,14 +439,31 @@
    "labelEs": "Desahogarse",
    "definitionEs": "Acción o propósito expresivo del oyente; no deduce el ánimo de la música.",
    "aliases": [
+    "desahogar el alma",
+    "desahogar el dolor",
+    "desahogar el pecho",
+    "desahogar la pena",
     "desahogarme",
     "desahogarse",
     "desahogo",
+    "descargar tensiones",
+    "desfogarme",
+    "desfogue",
+    "desquitarme",
+    "desquitarme de todo",
     "gritar",
     "liberar tension",
     "llorar",
     "para gritar",
-    "para llorar"
+    "para llorar",
+    "sacar el coraje",
+    "sacar el dolor",
+    "sacar el pecho",
+    "sacar la pena",
+    "soltar el alma",
+    "soltar el llanto",
+    "soltar la pena",
+    "vaciar el alma"
    ],
    "themeNouns": []
   },
@@ -296,11 +507,122 @@
     "contentonas",
     "contentones",
     "contentos",
+    "dicha",
+    "dichas",
+    "dichita",
+    "dichitas",
+    "dichitita",
+    "dichititas",
+    "dichitito",
+    "dichititos",
+    "dichito",
+    "dichiton",
+    "dichitona",
+    "dichitonas",
+    "dichitones",
+    "dichitos",
+    "dicho",
+    "dichon",
+    "dichona",
+    "dichonas",
+    "dichones",
+    "dichos",
+    "dichosa",
+    "dichosas",
+    "dichosita",
+    "dichositas",
+    "dichosito",
+    "dichositos",
+    "dichoso",
+    "dichoson",
+    "dichosona",
+    "dichosonas",
+    "dichosones",
+    "dichosos",
     "felice",
     "felices",
     "feliz",
+    "gozadera",
+    "gozaderas",
+    "gozaderita",
+    "gozaderitas",
+    "gozaderito",
+    "gozaderitos",
+    "gozadero",
+    "gozaderon",
+    "gozaderona",
+    "gozaderonas",
+    "gozaderones",
+    "gozaderos",
+    "gozadita",
+    "gozaditas",
+    "gozadito",
+    "gozaditos",
+    "gozon",
+    "gozona",
+    "gozonas",
+    "gozone",
+    "gozones",
+    "gozonita",
+    "gozonitas",
+    "gozonito",
+    "gozonitos",
+    "gozono",
+    "gozonon",
+    "gozonona",
+    "gozononas",
+    "gozonones",
+    "gozonos",
+    "gozosa",
+    "gozosas",
+    "gozosita",
+    "gozositas",
+    "gozosito",
+    "gozositos",
+    "gozoso",
+    "gozoson",
+    "gozosona",
+    "gozosonas",
+    "gozosones",
+    "gozosos",
     "happy",
-    "joyful"
+    "joyful",
+    "jubila",
+    "jubilas",
+    "jubilita",
+    "jubilitas",
+    "jubilito",
+    "jubilitos",
+    "jubilo",
+    "jubilon",
+    "jubilona",
+    "jubilonas",
+    "jubilones",
+    "jubilos",
+    "jubilosa",
+    "jubilosas",
+    "jubilosita",
+    "jubilositas",
+    "jubilosito",
+    "jubilositos",
+    "jubiloso",
+    "jubiloson",
+    "jubilosona",
+    "jubilosonas",
+    "jubilosones",
+    "jubilosos",
+    "regocijada",
+    "regocijadas",
+    "regocijadita",
+    "regocijaditas",
+    "regocijadito",
+    "regocijaditos",
+    "regocijado",
+    "regocijadon",
+    "regocijadona",
+    "regocijadonas",
+    "regocijadones",
+    "regocijados"
    ],
    "themeNouns": []
   },
@@ -310,9 +632,40 @@
    "labelEs": "Melancolía",
    "definitionEs": "Carácter contemplativo de pérdida o añoranza; distinto de tristeza y nostalgia.",
    "aliases": [
+    "apesadumbrada",
+    "apesadumbradas",
+    "apesadumbradita",
+    "apesadumbraditas",
+    "apesadumbraditita",
+    "apesadumbradititas",
+    "apesadumbraditito",
+    "apesadumbradititos",
+    "apesadumbradito",
+    "apesadumbraditon",
+    "apesadumbraditona",
+    "apesadumbraditonas",
+    "apesadumbraditones",
+    "apesadumbraditos",
+    "apesadumbrado",
+    "apesadumbradon",
+    "apesadumbradona",
+    "apesadumbradonas",
+    "apesadumbradones",
+    "apesadumbrados",
+    "desconsuela",
+    "desconsuelas",
+    "desconsuelita",
+    "desconsuelitas",
+    "desconsuelito",
+    "desconsuelitos",
+    "desconsuelo",
+    "desconsuelon",
+    "desconsuelona",
+    "desconsuelonas",
+    "desconsuelones",
+    "desconsuelos",
     "melancholic",
     "melancolia",
-    "melancolias",
     "melancolica",
     "melancolicas",
     "melancolicita",
@@ -334,7 +687,51 @@
     "melancoliona",
     "melancolionas",
     "melancoliones",
-    "melancolios"
+    "melancolios",
+    "morrina",
+    "morrinas",
+    "morrinita",
+    "morrinitas",
+    "morrinitita",
+    "morrinititas",
+    "morrinitito",
+    "morrinititos",
+    "morrinito",
+    "morriniton",
+    "morrinitona",
+    "morrinitonas",
+    "morrinitones",
+    "morrinitos",
+    "morrino",
+    "morrinon",
+    "morrinona",
+    "morrinonas",
+    "morrinones",
+    "morrinos",
+    "morrinosa",
+    "morrinosas",
+    "morrinosita",
+    "morrinositas",
+    "morrinosito",
+    "morrinositos",
+    "morrinoso",
+    "morrinoson",
+    "morrinosona",
+    "morrinosonas",
+    "morrinosones",
+    "morrinosos",
+    "penosa",
+    "penosas",
+    "penosita",
+    "penositas",
+    "penosito",
+    "penositos",
+    "penoso",
+    "penoson",
+    "penosona",
+    "penosonas",
+    "penosones",
+    "penosos"
    ],
    "themeNouns": []
   },
@@ -354,6 +751,93 @@
     "angustiantona",
     "angustiantonas",
     "angustiantones",
+    "desasosiega",
+    "desasosiegas",
+    "desasosiegita",
+    "desasosiegitas",
+    "desasosiegito",
+    "desasosiegitos",
+    "desasosiego",
+    "desasosiegon",
+    "desasosiegona",
+    "desasosiegonas",
+    "desasosiegones",
+    "desasosiegos",
+    "inquieta",
+    "inquietas",
+    "inquietita",
+    "inquietitas",
+    "inquietitita",
+    "inquietititas",
+    "inquietitito",
+    "inquietititos",
+    "inquietito",
+    "inquietiton",
+    "inquietitona",
+    "inquietitonas",
+    "inquietitones",
+    "inquietitos",
+    "inquieto",
+    "inquieton",
+    "inquietona",
+    "inquietonas",
+    "inquietone",
+    "inquietones",
+    "inquietonita",
+    "inquietonitas",
+    "inquietonito",
+    "inquietonitos",
+    "inquietono",
+    "inquietonon",
+    "inquietonona",
+    "inquietononas",
+    "inquietonones",
+    "inquietonos",
+    "inquietos",
+    "intranquila",
+    "intranquilas",
+    "intranquilidad",
+    "intranquilita",
+    "intranquilitas",
+    "intranquilito",
+    "intranquilitos",
+    "intranquilo",
+    "intranquilon",
+    "intranquilona",
+    "intranquilonas",
+    "intranquilones",
+    "intranquilos",
+    "nerviosa",
+    "nerviosas",
+    "nerviosita",
+    "nerviositas",
+    "nerviositita",
+    "nerviosititas",
+    "nerviositito",
+    "nerviosititos",
+    "nerviosito",
+    "nerviositon",
+    "nerviositona",
+    "nerviositonas",
+    "nerviositones",
+    "nerviositos",
+    "nervioso",
+    "nervioson",
+    "nerviosona",
+    "nerviosonas",
+    "nerviosone",
+    "nerviosones",
+    "nerviosonita",
+    "nerviosonitas",
+    "nerviosonito",
+    "nerviosonitos",
+    "nerviosono",
+    "nerviosonon",
+    "nerviosonona",
+    "nerviosononas",
+    "nerviosonones",
+    "nerviosonos",
+    "nerviosos",
     "tensa",
     "tensas",
     "tense",
@@ -378,6 +862,28 @@
    "labelEs": "Serenidad",
    "definitionEs": "Carácter de estabilidad y calma; no garantiza concentración o sueño.",
    "aliases": [
+    "apacible",
+    "apacibles",
+    "apaciblita",
+    "apaciblitas",
+    "apaciblito",
+    "apaciblitos",
+    "apaciblon",
+    "apaciblona",
+    "apaciblonas",
+    "apaciblones",
+    "aploma",
+    "aplomas",
+    "aplomita",
+    "aplomitas",
+    "aplomito",
+    "aplomitos",
+    "aplomo",
+    "aplomon",
+    "aplomona",
+    "aplomonas",
+    "aplomones",
+    "aplomos",
     "calm",
     "calma",
     "calmada",
@@ -403,6 +909,54 @@
     "calmonas",
     "calmones",
     "calmos",
+    "placida",
+    "placidas",
+    "placidita",
+    "placiditas",
+    "placidito",
+    "placiditos",
+    "placido",
+    "placidon",
+    "placidona",
+    "placidonas",
+    "placidones",
+    "placidos",
+    "quieta",
+    "quietas",
+    "quietita",
+    "quietitas",
+    "quietito",
+    "quietitos",
+    "quieto",
+    "quieton",
+    "quietona",
+    "quietonas",
+    "quietones",
+    "quietos",
+    "reposa",
+    "reposada",
+    "reposadas",
+    "reposadita",
+    "reposaditas",
+    "reposadito",
+    "reposaditos",
+    "reposado",
+    "reposadon",
+    "reposadona",
+    "reposadonas",
+    "reposadones",
+    "reposados",
+    "reposas",
+    "reposita",
+    "repositas",
+    "reposito",
+    "repositos",
+    "reposo",
+    "reposon",
+    "reposona",
+    "reposonas",
+    "reposones",
+    "reposos",
     "serena",
     "serenas",
     "serene",
@@ -418,18 +972,61 @@
     "serenonas",
     "serenones",
     "serenos",
+    "sosegada",
+    "sosegadas",
+    "sosegadita",
+    "sosegaditas",
+    "sosegadito",
+    "sosegaditos",
+    "sosegado",
+    "sosegadon",
+    "sosegadona",
+    "sosegadonas",
+    "sosegadones",
+    "sosegados",
+    "sosiega",
+    "sosiegas",
+    "sosiegita",
+    "sosiegitas",
+    "sosiegito",
+    "sosiegitos",
+    "sosiego",
+    "sosiegon",
+    "sosiegona",
+    "sosiegonas",
+    "sosiegones",
+    "sosiegos",
     "tranquila",
     "tranquilas",
+    "tranquilidad",
     "tranquilita",
     "tranquilitas",
+    "tranquilitita",
+    "tranquilititas",
+    "tranquilitito",
+    "tranquilititos",
     "tranquilito",
+    "tranquiliton",
+    "tranquilitona",
+    "tranquilitonas",
+    "tranquilitones",
     "tranquilitos",
     "tranquilo",
     "tranquilon",
     "tranquilona",
     "tranquilonas",
     "tranquilones",
-    "tranquilos"
+    "tranquilos",
+    "tranquilote",
+    "tranquilotes",
+    "tranquilotita",
+    "tranquilotitas",
+    "tranquilotito",
+    "tranquilotitos",
+    "tranquiloton",
+    "tranquilotona",
+    "tranquilotonas",
+    "tranquilotones"
    ],
    "themeNouns": []
   },
@@ -439,6 +1036,48 @@
    "labelEs": "Tristeza",
    "definitionEs": "Carácter musical triste, separado de melancolía; reutiliza el significado útil de tristeza legacy.",
    "aliases": [
+    "afligida",
+    "afligidamente",
+    "afligidamentes",
+    "afligidamentita",
+    "afligidamentitas",
+    "afligidamentito",
+    "afligidamentitos",
+    "afligidamenton",
+    "afligidamentona",
+    "afligidamentonas",
+    "afligidamentones",
+    "afligidas",
+    "afligidita",
+    "afligiditas",
+    "afligiditita",
+    "afligidititas",
+    "afligiditito",
+    "afligidititos",
+    "afligidito",
+    "afligiditon",
+    "afligiditona",
+    "afligiditonas",
+    "afligiditones",
+    "afligiditos",
+    "afligido",
+    "afligidon",
+    "afligidona",
+    "afligidonas",
+    "afligidones",
+    "afligidos",
+    "afligimienta",
+    "afligimientas",
+    "afligimientita",
+    "afligimientitas",
+    "afligimientito",
+    "afligimientitos",
+    "afligimiento",
+    "afligimienton",
+    "afligimientona",
+    "afligimientonas",
+    "afligimientones",
+    "afligimientos",
     "apenada",
     "apenadas",
     "apenadita",
@@ -451,11 +1090,50 @@
     "apenadonas",
     "apenadones",
     "apenados",
+    "dolida",
+    "dolidas",
+    "dolidita",
+    "doliditas",
+    "doliditita",
+    "dolidititas",
+    "doliditito",
+    "dolidititos",
+    "dolidito",
+    "doliditon",
+    "doliditona",
+    "doliditonas",
+    "doliditones",
+    "doliditos",
+    "dolido",
+    "dolidon",
+    "dolidona",
+    "dolidonas",
+    "dolidones",
+    "dolidos",
+    "dolorida",
+    "doloridas",
+    "doloridita",
+    "doloriditas",
+    "doloriditita",
+    "doloridititas",
+    "doloriditito",
+    "doloridititos",
+    "doloridito",
+    "doloriditon",
+    "doloriditona",
+    "doloriditonas",
+    "doloriditones",
+    "doloriditos",
+    "dolorido",
+    "doloridon",
+    "doloridona",
+    "doloridonas",
+    "doloridones",
+    "doloridos",
     "sad",
     "triste",
     "tristes",
     "tristeza",
-    "tristezas",
     "tristezita",
     "tristezitas",
     "tristezito",
@@ -505,6 +1183,39 @@
     "anoranzonas",
     "anoranzones",
     "anoranzos",
+    "evocacion",
+    "evocacione",
+    "evocaciones",
+    "evocador",
+    "evocadora",
+    "evocadoras",
+    "evocadore",
+    "evocadores",
+    "evocadorita",
+    "evocadoritas",
+    "evocadorito",
+    "evocadoritos",
+    "evocadoro",
+    "evocadoron",
+    "evocadorona",
+    "evocadoronas",
+    "evocadorones",
+    "evocadoros",
+    "melancolias",
+    "melancolio",
+    "melancolios",
+    "melancolita",
+    "melancolitas",
+    "melancolitita",
+    "melancolititas",
+    "melancolitito",
+    "melancolititos",
+    "melancolito",
+    "melancoliton",
+    "melancolitona",
+    "melancolitonas",
+    "melancolitones",
+    "melancolitos",
     "nostalgia",
     "nostalgias",
     "nostalgic",
@@ -529,7 +1240,42 @@
     "nostalgiona",
     "nostalgionas",
     "nostalgiones",
-    "nostalgios"
+    "nostalgios",
+    "recuerda",
+    "recuerdas",
+    "recuerdita",
+    "recuerditas",
+    "recuerditita",
+    "recuerdititas",
+    "recuerditito",
+    "recuerdititos",
+    "recuerdito",
+    "recuerditon",
+    "recuerditona",
+    "recuerditonas",
+    "recuerditones",
+    "recuerditos",
+    "recuerdo",
+    "recuerdon",
+    "recuerdona",
+    "recuerdonas",
+    "recuerdones",
+    "recuerdos",
+    "tristecita",
+    "tristecitas",
+    "tristecitita",
+    "tristecititas",
+    "tristecitito",
+    "tristecititos",
+    "tristecito",
+    "tristeciton",
+    "tristecitona",
+    "tristecitonas",
+    "tristecitones",
+    "tristecitos",
+    "tristezas",
+    "tristezo",
+    "tristezos"
    ],
    "themeNouns": []
   },
@@ -539,6 +1285,109 @@
    "labelEs": "Romance y ternura",
    "definitionEs": "Carácter romántico o tierno; no basta que una letra mencione amor.",
    "aliases": [
+    "afectita",
+    "afectitas",
+    "afectitita",
+    "afectititas",
+    "afectitito",
+    "afectititos",
+    "afectito",
+    "afectiton",
+    "afectitona",
+    "afectitonas",
+    "afectitones",
+    "afectitos",
+    "afectuosa",
+    "afectuosas",
+    "afectuosita",
+    "afectuositas",
+    "afectuosito",
+    "afectuositos",
+    "afectuoso",
+    "afectuoson",
+    "afectuosona",
+    "afectuosonas",
+    "afectuosones",
+    "afectuosos",
+    "amorosa",
+    "amorosas",
+    "amorosita",
+    "amorositas",
+    "amorosito",
+    "amorositos",
+    "amoroso",
+    "amoroson",
+    "amorosona",
+    "amorosonas",
+    "amorosones",
+    "amorosos",
+    "carina",
+    "carinas",
+    "carinita",
+    "carinitas",
+    "carinitita",
+    "carinititas",
+    "carinitito",
+    "carinititos",
+    "carinito",
+    "cariniton",
+    "carinitona",
+    "carinitonas",
+    "carinitones",
+    "carinitos",
+    "carino",
+    "carinon",
+    "carinona",
+    "carinonas",
+    "carinones",
+    "carinos",
+    "carinosa",
+    "carinosas",
+    "carinosita",
+    "carinositas",
+    "carinositita",
+    "carinosititas",
+    "carinositito",
+    "carinosititos",
+    "carinosito",
+    "carinositon",
+    "carinositona",
+    "carinositonas",
+    "carinositones",
+    "carinositos",
+    "carinoso",
+    "carinoson",
+    "carinosona",
+    "carinosonas",
+    "carinosones",
+    "carinosos",
+    "dulcecita",
+    "dulcecitas",
+    "dulcecitita",
+    "dulcecititas",
+    "dulcecitito",
+    "dulcecititos",
+    "dulcecito",
+    "dulceciton",
+    "dulcecitona",
+    "dulcecitonas",
+    "dulcecitones",
+    "dulcecitos",
+    "dulzor",
+    "dulzore",
+    "dulzores",
+    "dulzura",
+    "dulzuras",
+    "dulzurita",
+    "dulzuritas",
+    "dulzurito",
+    "dulzuritos",
+    "dulzuro",
+    "dulzuron",
+    "dulzurona",
+    "dulzuronas",
+    "dulzurones",
+    "dulzuros",
     "enamorada",
     "enamoradas",
     "enamoradita",
@@ -578,9 +1427,41 @@
     "ternuros",
     "tierna",
     "tiernas",
+    "tiernecita",
+    "tiernecitas",
+    "tiernecitita",
+    "tiernecititas",
+    "tiernecitito",
+    "tiernecititos",
+    "tiernecito",
+    "tierneciton",
+    "tiernecitona",
+    "tiernecitonas",
+    "tiernecitones",
+    "tiernecitos",
+    "tierneza",
+    "tiernezas",
+    "tiernezita",
+    "tiernezitas",
+    "tiernezito",
+    "tiernezitos",
+    "tiernezo",
+    "tiernezon",
+    "tiernezona",
+    "tiernezonas",
+    "tiernezones",
+    "tiernezos",
     "tiernita",
     "tiernitas",
+    "tiernitita",
+    "tiernititas",
+    "tiernitito",
+    "tiernititos",
     "tiernito",
+    "tierniton",
+    "tiernitona",
+    "tiernitonas",
+    "tiernitones",
     "tiernitos",
     "tierno",
     "tiernon",
@@ -621,6 +1502,28 @@
     "eroticonas",
     "eroticones",
     "eroticos",
+    "insinuante",
+    "insinuantes",
+    "insinuantita",
+    "insinuantitas",
+    "insinuantito",
+    "insinuantitos",
+    "insinuanton",
+    "insinuantona",
+    "insinuantonas",
+    "insinuantones",
+    "provocativa",
+    "provocativas",
+    "provocativita",
+    "provocativitas",
+    "provocativito",
+    "provocativitos",
+    "provocativo",
+    "provocativon",
+    "provocativona",
+    "provocativonas",
+    "provocativones",
+    "provocativos",
     "seductor",
     "seductora",
     "seductoras",
@@ -637,7 +1540,79 @@
     "sensual",
     "sensuale",
     "sensuales",
-    "sexy"
+    "sensualidade",
+    "sensualidades",
+    "sensualita",
+    "sensualitas",
+    "sensualitita",
+    "sensualititas",
+    "sensualitito",
+    "sensualititos",
+    "sensualito",
+    "sensualiton",
+    "sensualitona",
+    "sensualitonas",
+    "sensualitones",
+    "sensualitos",
+    "sensualon",
+    "sensualona",
+    "sensualonas",
+    "sensualone",
+    "sensualones",
+    "sensualonita",
+    "sensualonitas",
+    "sensualonito",
+    "sensualonitos",
+    "sensualono",
+    "sensualonon",
+    "sensualonona",
+    "sensualononas",
+    "sensualonones",
+    "sensualonos",
+    "sensualota",
+    "sensualotas",
+    "sensualote",
+    "sensualotes",
+    "sensualotita",
+    "sensualotitas",
+    "sensualotito",
+    "sensualotitos",
+    "sensualoto",
+    "sensualoton",
+    "sensualotona",
+    "sensualotonas",
+    "sensualotones",
+    "sensualotos",
+    "sexy",
+    "tentador",
+    "tentadora",
+    "tentadoras",
+    "tentadore",
+    "tentadores",
+    "tentadorita",
+    "tentadoritas",
+    "tentadorito",
+    "tentadoritos",
+    "tentadoro",
+    "tentadoron",
+    "tentadorona",
+    "tentadoronas",
+    "tentadorones",
+    "tentadoros",
+    "voluptuosa",
+    "voluptuosas",
+    "voluptuosidade",
+    "voluptuosidades",
+    "voluptuosita",
+    "voluptuositas",
+    "voluptuosito",
+    "voluptuositos",
+    "voluptuoso",
+    "voluptuoson",
+    "voluptuosona",
+    "voluptuosonas",
+    "voluptuosones",
+    "voluptuosos"
    ],
    "themeNouns": []
   },
@@ -649,7 +1624,97 @@
    "aliases": [
     "angry",
     "con rabia",
+    "corajuda",
+    "corajudas",
+    "corajudita",
+    "corajuditas",
+    "corajudito",
+    "corajuditos",
+    "corajudo",
+    "corajudon",
+    "corajudona",
+    "corajudonas",
+    "corajudones",
+    "corajudos",
     "de caracter furioso",
+    "enojada",
+    "enojadas",
+    "enojadita",
+    "enojaditas",
+    "enojaditita",
+    "enojadititas",
+    "enojaditito",
+    "enojadititos",
+    "enojadito",
+    "enojaditon",
+    "enojaditona",
+    "enojaditonas",
+    "enojaditones",
+    "enojaditos",
+    "enojado",
+    "enojadon",
+    "enojadona",
+    "enojadonas",
+    "enojadones",
+    "enojados",
+    "enojita",
+    "enojitas",
+    "enojitita",
+    "enojititas",
+    "enojitito",
+    "enojititos",
+    "enojito",
+    "enojiton",
+    "enojitona",
+    "enojitonas",
+    "enojitones",
+    "enojitos",
+    "enojon",
+    "enojona",
+    "enojonas",
+    "enojone",
+    "enojones",
+    "enojonita",
+    "enojonitas",
+    "enojonito",
+    "enojonitos",
+    "enojono",
+    "enojonon",
+    "enojonona",
+    "enojononas",
+    "enojonones",
+    "enojonos",
+    "enojosa",
+    "enojosas",
+    "enojosita",
+    "enojositas",
+    "enojositita",
+    "enojosititas",
+    "enojositito",
+    "enojosititos",
+    "enojosito",
+    "enojositon",
+    "enojositona",
+    "enojositonas",
+    "enojositones",
+    "enojositos",
+    "enojoso",
+    "enojoson",
+    "enojosona",
+    "enojosonas",
+    "enojosone",
+    "enojosones",
+    "enojosonita",
+    "enojosonitas",
+    "enojosonito",
+    "enojosonitos",
+    "enojosono",
+    "enojosonon",
+    "enojosonona",
+    "enojosononas",
+    "enojosonones",
+    "enojosonos",
+    "enojosos",
     "furiosa",
     "furiosas",
     "furiosita",
@@ -663,6 +1728,7 @@
     "furiosones",
     "furiosos",
     "ira",
+    "odio",
     "rabia",
     "rabias",
     "rabiita",
@@ -696,6 +1762,65 @@
    "labelEs": "Esperanza",
    "definitionEs": "Carácter de expectativa favorable; no deduce calidad de vida del oyente.",
    "aliases": [
+    "alentador",
+    "alentadora",
+    "alentadoras",
+    "alentadorcita",
+    "alentadorcitas",
+    "alentadorcitita",
+    "alentadorcititas",
+    "alentadorcitito",
+    "alentadorcititos",
+    "alentadorcito",
+    "alentadorciton",
+    "alentadorcitona",
+    "alentadorcitonas",
+    "alentadorcitones",
+    "alentadorcitos",
+    "alentadore",
+    "alentadores",
+    "alentadorita",
+    "alentadoritas",
+    "alentadorito",
+    "alentadoritos",
+    "alentadoro",
+    "alentadoron",
+    "alentadorona",
+    "alentadoronas",
+    "alentadorones",
+    "alentadoros",
+    "confiada",
+    "confiadas",
+    "confiadita",
+    "confiaditas",
+    "confiaditita",
+    "confiadititas",
+    "confiaditito",
+    "confiadititos",
+    "confiadito",
+    "confiaditon",
+    "confiaditona",
+    "confiaditonas",
+    "confiaditones",
+    "confiaditos",
+    "confiado",
+    "confiadon",
+    "confiadona",
+    "confiadonas",
+    "confiadones",
+    "confiados",
+    "confiancita",
+    "confiancitas",
+    "confiancitita",
+    "confiancititas",
+    "confiancitito",
+    "confiancititos",
+    "confiancito",
+    "confianciton",
+    "confiancitona",
+    "confiancitonas",
+    "confiancitones",
+    "confiancitos",
     "esperanza",
     "esperanzador",
     "esperanzadora",
@@ -723,7 +1848,54 @@
     "esperanzonas",
     "esperanzones",
     "esperanzos",
+    "fecita",
+    "fecitas",
+    "fecitita",
+    "fecititas",
+    "fecitito",
+    "fecititos",
+    "fecito",
+    "feciton",
+    "fecitona",
+    "fecitonas",
+    "fecitones",
+    "fecitos",
     "hopeful",
+    "ilusion",
+    "ilusionada",
+    "ilusionadas",
+    "ilusionadita",
+    "ilusionaditas",
+    "ilusionaditita",
+    "ilusionadititas",
+    "ilusionaditito",
+    "ilusionadititos",
+    "ilusionadito",
+    "ilusionaditon",
+    "ilusionaditona",
+    "ilusionaditonas",
+    "ilusionaditones",
+    "ilusionaditos",
+    "ilusionado",
+    "ilusionadon",
+    "ilusionadona",
+    "ilusionadonas",
+    "ilusionadones",
+    "ilusionados",
+    "ilusioncita",
+    "ilusioncitas",
+    "ilusioncitita",
+    "ilusioncititas",
+    "ilusioncitito",
+    "ilusioncititos",
+    "ilusioncito",
+    "ilusionciton",
+    "ilusioncitona",
+    "ilusioncitonas",
+    "ilusioncitones",
+    "ilusioncitos",
+    "ilusione",
+    "ilusiones",
     "optimista",
     "optimistas",
     "optimistita",
@@ -745,19 +1917,72 @@
    "labelEs": "Euforia",
    "definitionEs": "Carácter de exaltación; intensidad musical se evalúa aparte.",
    "aliases": [
+    "arrebata",
+    "arrebatada",
+    "arrebatadas",
+    "arrebatadita",
+    "arrebataditas",
+    "arrebatadito",
+    "arrebataditos",
+    "arrebatado",
+    "arrebatadon",
+    "arrebatadona",
+    "arrebatadonas",
+    "arrebatadones",
+    "arrebatados",
+    "arrebatas",
+    "arrebatita",
+    "arrebatitas",
+    "arrebatito",
+    "arrebatitos",
+    "arrebato",
+    "arrebaton",
+    "arrebatona",
+    "arrebatonas",
+    "arrebatones",
+    "arrebatos",
     "euforia",
     "euforias",
     "euforica",
+    "euforicamente",
+    "euforicamentes",
+    "euforicamentita",
+    "euforicamentitas",
+    "euforicamentito",
+    "euforicamentitos",
+    "euforicamenton",
+    "euforicamentona",
+    "euforicamentonas",
+    "euforicamentones",
     "euforicas",
     "euforicita",
     "euforicitas",
+    "euforicitita",
+    "euforicititas",
+    "euforicitito",
+    "euforicititos",
     "euforicito",
+    "euforiciton",
+    "euforicitona",
+    "euforicitonas",
+    "euforicitones",
     "euforicitos",
     "euforico",
     "euforicon",
     "euforicona",
     "euforiconas",
+    "euforicone",
     "euforicones",
+    "euforiconita",
+    "euforiconitas",
+    "euforiconito",
+    "euforiconitos",
+    "euforicono",
+    "euforiconon",
+    "euforiconona",
+    "euforicononas",
+    "euforiconones",
+    "euforiconos",
     "euforicos",
     "euforiita",
     "euforiitas",
@@ -770,6 +1995,29 @@
     "euforiones",
     "euforios",
     "euphoric",
+    "exaltacion",
+    "exaltacione",
+    "exaltaciones",
+    "exaltada",
+    "exaltadas",
+    "exaltadita",
+    "exaltaditas",
+    "exaltaditita",
+    "exaltadititas",
+    "exaltaditito",
+    "exaltadititos",
+    "exaltadito",
+    "exaltaditon",
+    "exaltaditona",
+    "exaltaditonas",
+    "exaltaditones",
+    "exaltaditos",
+    "exaltado",
+    "exaltadon",
+    "exaltadona",
+    "exaltadonas",
+    "exaltadones",
+    "exaltados",
     "exultante",
     "exultantes",
     "exultantita",
@@ -789,6 +2037,49 @@
    "labelEs": "Confianza",
    "definitionEs": "Carácter de autoafirmación; no implica energía alta ni ambiente épico.",
    "aliases": [
+    "autoconfiada",
+    "autoconfiadas",
+    "autoconfiadita",
+    "autoconfiaditas",
+    "autoconfiaditita",
+    "autoconfiadititas",
+    "autoconfiaditito",
+    "autoconfiadititos",
+    "autoconfiadito",
+    "autoconfiaditon",
+    "autoconfiaditona",
+    "autoconfiaditonas",
+    "autoconfiaditones",
+    "autoconfiaditos",
+    "autoconfiado",
+    "autoconfiadon",
+    "autoconfiadona",
+    "autoconfiadonas",
+    "autoconfiadone",
+    "autoconfiadones",
+    "autoconfiadonita",
+    "autoconfiadonitas",
+    "autoconfiadonito",
+    "autoconfiadonitos",
+    "autoconfiadono",
+    "autoconfiadonon",
+    "autoconfiadonona",
+    "autoconfiadononas",
+    "autoconfiadonones",
+    "autoconfiadonos",
+    "autoconfiados",
+    "autoconfianza",
+    "autoconfianzas",
+    "autoconfianzita",
+    "autoconfianzitas",
+    "autoconfianzito",
+    "autoconfianzitos",
+    "autoconfianzo",
+    "autoconfianzon",
+    "autoconfianzona",
+    "autoconfianzonas",
+    "autoconfianzones",
+    "autoconfianzos",
     "confianza",
     "confianzas",
     "confianzita",
@@ -823,6 +2114,51 @@
     "empoderarmona",
     "empoderarmonas",
     "empoderarmones",
+    "firme",
+    "firmecita",
+    "firmecitas",
+    "firmecitita",
+    "firmecititas",
+    "firmecitito",
+    "firmecititos",
+    "firmecito",
+    "firmeciton",
+    "firmecitona",
+    "firmecitonas",
+    "firmecitones",
+    "firmecitos",
+    "firmes",
+    "firmeza",
+    "firmezas",
+    "firmezita",
+    "firmezitas",
+    "firmezito",
+    "firmezitos",
+    "firmezo",
+    "firmezon",
+    "firmezona",
+    "firmezonas",
+    "firmezones",
+    "firmezos",
+    "firmita",
+    "firmitas",
+    "firmito",
+    "firmitos",
+    "firmon",
+    "firmona",
+    "firmonas",
+    "firmone",
+    "firmones",
+    "firmonita",
+    "firmonitas",
+    "firmonito",
+    "firmonitos",
+    "firmono",
+    "firmonon",
+    "firmonona",
+    "firmononas",
+    "firmonones",
+    "firmonos",
     "poderosa",
     "poderosas",
     "poderosita",
@@ -835,8 +2171,31 @@
     "poderosonas",
     "poderosones",
     "poderosos",
+    "segura",
     "segura de mi",
+    "seguras",
+    "seguridad",
+    "seguridade",
+    "seguridades",
+    "segurita",
+    "seguritas",
+    "seguritita",
+    "segurititas",
+    "seguritito",
+    "segurititos",
+    "segurito",
+    "seguriton",
+    "seguritona",
+    "seguritonas",
+    "seguritones",
+    "seguritos",
+    "seguro",
     "seguro de mi",
+    "seguron",
+    "segurona",
+    "seguronas",
+    "segurones",
+    "seguros",
     "sentirme poderoso"
    ],
    "themeNouns": []
@@ -847,8 +2206,79 @@
    "labelEs": "Soledad",
    "definitionEs": "Carácter de aislamiento o soledad; no equivale a tristeza.",
    "aliases": [
+    "aislada",
+    "aisladas",
+    "aisladita",
+    "aisladitas",
+    "aisladitita",
+    "aisladititas",
+    "aisladitito",
+    "aisladititos",
+    "aisladito",
+    "aisladiton",
+    "aisladitona",
+    "aisladitonas",
+    "aisladitones",
+    "aisladitos",
+    "aislado",
+    "aisladon",
+    "aisladona",
+    "aisladonas",
+    "aisladones",
+    "aislados",
+    "apartada",
+    "apartadas",
+    "apartadita",
+    "apartaditas",
+    "apartadito",
+    "apartaditos",
+    "apartado",
+    "apartadon",
+    "apartadona",
+    "apartadonas",
+    "apartadones",
+    "apartados",
+    "desamparada",
+    "desamparadas",
+    "desamparadita",
+    "desamparaditas",
+    "desamparadito",
+    "desamparaditos",
+    "desamparado",
+    "desamparadon",
+    "desamparadona",
+    "desamparadonas",
+    "desamparadones",
+    "desamparados",
+    "incomunicada",
+    "incomunicadas",
+    "incomunicadita",
+    "incomunicaditas",
+    "incomunicadito",
+    "incomunicaditos",
+    "incomunicado",
+    "incomunicadon",
+    "incomunicadona",
+    "incomunicadonas",
+    "incomunicadones",
+    "incomunicados",
     "lonely",
+    "retirada",
+    "retiradas",
+    "retiradita",
+    "retiraditas",
+    "retiradito",
+    "retiraditos",
+    "retirado",
+    "retiradon",
+    "retiradona",
+    "retiradonas",
+    "retiradones",
+    "retirados",
+    "sola",
+    "solas",
     "soledad",
+    "solita",
     "solitaria",
     "solitarias",
     "solitariita",
@@ -860,7 +2290,19 @@
     "solitariona",
     "solitarionas",
     "solitariones",
-    "solitarios"
+    "solitarios",
+    "solitas",
+    "solitita",
+    "solititas",
+    "solitito",
+    "solititos",
+    "solito",
+    "soliton",
+    "solitona",
+    "solitonas",
+    "solitones",
+    "solitos",
+    "solos"
    ],
    "themeNouns": []
   },
@@ -870,6 +2312,92 @@
    "labelEs": "Rebeldía y liberación",
    "definitionEs": "Carácter de desafío o liberación; no demuestra temática política.",
    "aliases": [
+    "desafia",
+    "desafiante",
+    "desafiantes",
+    "desafiantita",
+    "desafiantitas",
+    "desafiantitita",
+    "desafiantititas",
+    "desafiantitito",
+    "desafiantititos",
+    "desafiantito",
+    "desafiantiton",
+    "desafiantitona",
+    "desafiantitonas",
+    "desafiantitones",
+    "desafiantitos",
+    "desafianton",
+    "desafiantona",
+    "desafiantonas",
+    "desafiantones",
+    "desafias",
+    "desafiita",
+    "desafiitas",
+    "desafiito",
+    "desafiitos",
+    "desafio",
+    "desafion",
+    "desafiona",
+    "desafionas",
+    "desafione",
+    "desafiones",
+    "desafionita",
+    "desafionitas",
+    "desafionito",
+    "desafionitos",
+    "desafiono",
+    "desafionon",
+    "desafionona",
+    "desafiononas",
+    "desafionones",
+    "desafionos",
+    "desafios",
+    "indomable",
+    "indomables",
+    "indomablita",
+    "indomablitas",
+    "indomablitita",
+    "indomablititas",
+    "indomablitito",
+    "indomablititos",
+    "indomablito",
+    "indomabliton",
+    "indomablitona",
+    "indomablitonas",
+    "indomablitones",
+    "indomablitos",
+    "indomablon",
+    "indomablona",
+    "indomablonas",
+    "indomablones",
+    "indomadita",
+    "indomaditas",
+    "indomaditita",
+    "indomadititas",
+    "indomaditito",
+    "indomadititos",
+    "indomadito",
+    "indomaditon",
+    "indomaditona",
+    "indomaditonas",
+    "indomaditones",
+    "indomaditos",
+    "insumisa",
+    "insumisas",
+    "insumision",
+    "insumisione",
+    "insumisiones",
+    "insumisita",
+    "insumisitas",
+    "insumisito",
+    "insumisitos",
+    "insumiso",
+    "insumison",
+    "insumisona",
+    "insumisonas",
+    "insumisones",
+    "insumisos",
     "libertad",
     "libre",
     "libres",
@@ -904,7 +2432,8 @@
     "rebeldonas",
     "rebeldones",
     "rebellious",
-    "sin ataduras"
+    "sin ataduras",
+    "sin cadenas"
    ],
    "themeNouns": []
   },
@@ -925,8 +2454,43 @@
     "agridulconas",
     "agridulcones",
     "alegria con tristeza",
+    "amargo con dulzor",
+    "amargo y dulce",
+    "amargor dulce",
     "bittersweet",
-    "dulce y amargo"
+    "dicha y pena",
+    "dulce con amargor",
+    "dulce y amargo",
+    "dulceamarga",
+    "dulceamargas",
+    "dulceamargita",
+    "dulceamargitas",
+    "dulceamargito",
+    "dulceamargitos",
+    "dulceamargo",
+    "dulceamargon",
+    "dulceamargona",
+    "dulceamargonas",
+    "dulceamargones",
+    "dulceamargos",
+    "dulceamarguita",
+    "dulceamarguitas",
+    "dulceamarguitita",
+    "dulceamarguititas",
+    "dulceamarguitito",
+    "dulceamarguititos",
+    "dulceamarguito",
+    "dulceamarguiton",
+    "dulceamarguitona",
+    "dulceamarguitonas",
+    "dulceamarguitones",
+    "dulceamarguitos",
+    "dulzor amargo",
+    "gozo y pena",
+    "lagrimas con sonrisa",
+    "pena y dicha",
+    "pena y gozo",
+    "sonrisa con lagrimas"
    ],
    "themeNouns": []
   },
@@ -936,14 +2500,74 @@
    "labelEs": "Energía baja",
    "definitionEs": "Intensidad percibida ordinal baja según perceived-energy-v1.",
    "aliases": [
+    "adormilada",
+    "adormiladas",
+    "adormilado",
+    "adormilados",
+    "amortiguada",
+    "amortiguadas",
+    "amortiguado",
+    "amortiguados",
+    "apagada",
+    "apagadas",
+    "apagado",
+    "apagados",
+    "arrulladora",
+    "arrulladoras",
+    "arrulladoro",
+    "arrulladoros",
     "baja energia",
+    "bajita",
+    "bajitas",
+    "bajito",
+    "bajitos",
+    "de bajo voltaje",
     "de energia baja",
+    "de poca chispa",
+    "desganada",
+    "desganadas",
+    "desganado",
+    "desganados",
     "energia baja",
+    "floja",
+    "flojas",
+    "flojo",
+    "flojos",
     "intensidad baja",
+    "lenta",
+    "lentas",
+    "lento",
+    "lentos",
     "low energy",
+    "pausada",
+    "pausadas",
+    "pausado",
+    "pausados",
     "poca energia",
     "poco intensa",
-    "poco intenso"
+    "poco intenso",
+    "quedita",
+    "queditas",
+    "queditos",
+    "relajada",
+    "relajadas",
+    "relajado",
+    "relajados",
+    "sedante",
+    "sedantes",
+    "silenciosa",
+    "silenciosas",
+    "silencioso",
+    "silenciosos",
+    "sin brio",
+    "sin empuje",
+    "sin fuerza",
+    "sin intensidad",
+    "sin punch",
+    "suave",
+    "suaves",
+    "tenue",
+    "tenues"
    ],
    "themeNouns": []
   },
@@ -953,10 +2577,26 @@
    "labelEs": "Energía media",
    "definitionEs": "Intensidad percibida ordinal media según perceived-energy-v1.",
    "aliases": [
+    "energia contenida",
+    "energia discreta",
+    "energia equilibrada",
+    "energia intermedia",
     "energia media",
+    "energia mesurada",
     "energia moderada",
+    "energia sin estridencia",
+    "energia sin excesos",
+    "energia templada",
+    "intensidad contenida",
+    "intensidad discreta",
+    "intensidad equilibrada",
+    "intensidad intermedia",
     "intensidad media",
+    "intensidad mesurada",
     "intensidad moderada",
+    "intensidad sin estridencia",
+    "intensidad sin excesos",
+    "intensidad templada",
     "medium energy"
    ],
    "themeNouns": []
@@ -968,6 +2608,18 @@
    "definitionEs": "Intensidad percibida ordinal alta según perceived-energy-v1; energetic es solo candidato externo.",
    "aliases": [
     "alta energia",
+    "arrolladora",
+    "arrolladoramente",
+    "arrolladoramentes",
+    "arrolladoras",
+    "arrolladoro",
+    "arrolladoros",
+    "avassallante",
+    "avassallantes",
+    "desbordante",
+    "desbordantes",
+    "efervescente",
+    "efervescentes",
     "energetic",
     "energetica",
     "energeticas",
@@ -978,9 +2630,37 @@
     "energicas",
     "energico",
     "energicos",
+    "explosiva",
+    "explosivas",
+    "explosivo",
+    "explosivos",
+    "frenetica",
+    "freneticas",
+    "frenetico",
+    "freneticos",
     "high energy",
+    "imparable",
+    "imparables",
+    "impetuosa",
+    "impetuosas",
+    "impetuoso",
+    "impetuosos",
     "intensidad alta",
-    "mucha energia"
+    "movida",
+    "movidas",
+    "movidita",
+    "moviditas",
+    "movidito",
+    "moviditos",
+    "movido",
+    "movidos",
+    "mucha energia",
+    "potente",
+    "potentes",
+    "vertiginosa",
+    "vertiginosas",
+    "vertiginoso",
+    "vertiginosos"
    ],
    "themeNouns": []
   },
@@ -995,8 +2675,22 @@
     "atmosferico",
     "atmosfericos",
     "atmospheric",
+    "audio inmersivo",
+    "audio tridimensional",
     "envolvente",
-    "envolventes"
+    "envolventes",
+    "espacialidad",
+    "experiencia inmersiva",
+    "inmersiva",
+    "inmersivas",
+    "inmersivo",
+    "inmersivos",
+    "panoramica",
+    "panoramicas",
+    "panoramico",
+    "panoramicos",
+    "sensacion inmersiva",
+    "tridimensional"
    ],
    "themeNouns": []
   },
@@ -1007,6 +2701,9 @@
    "definitionEs": "Ambiente sombrío; no demuestra tristeza ni temática de muerte.",
    "aliases": [
     "dark",
+    "densa oscuridad",
+    "lugubremente",
+    "lugubrementes",
     "oscura",
     "oscuras",
     "oscuro",
@@ -1014,7 +2711,11 @@
     "sombria",
     "sombrias",
     "sombrio",
-    "sombrios"
+    "sombrios",
+    "tetrica",
+    "tetricas",
+    "tetrico",
+    "tetricos"
    ],
    "themeNouns": []
   },
@@ -1024,12 +2725,25 @@
    "labelEs": "Nocturno",
    "definitionEs": "Evocación sonora de la noche; no es una hora de publicación o una selección diaria.",
    "aliases": [
+    "aire de noche",
     "ambiente de noche",
+    "de madrugada",
+    "luz de luna",
+    "madrugada",
+    "madrugadas",
+    "madrugado",
+    "madrugados",
+    "misterio de noche",
+    "noche cerrada",
+    "noche estrellada",
+    "noche profunda",
+    "noche silenciosa",
     "nocturna",
     "nocturnal",
     "nocturnas",
     "nocturno",
-    "nocturnos"
+    "nocturnos",
+    "silencio de noche"
    ],
    "themeNouns": []
   },
@@ -1039,13 +2753,36 @@
    "labelEs": "Etéreo",
    "definitionEs": "Textura ambiental percibida como leve o suspendida; no equivale a energía baja.",
    "aliases": [
+    "aire enrarecido",
+    "como en suenos",
+    "desmaterializada",
+    "desmaterializadas",
+    "desmaterializado",
+    "desmaterializados",
     "eterea",
     "etereas",
     "etereo",
     "etereos",
     "ethereal",
     "flotante",
-    "flotantes"
+    "ingravida",
+    "ingravidas",
+    "ingravido",
+    "ingravidos",
+    "inmaterial",
+    "inmateriale",
+    "inmateriales",
+    "levitanda",
+    "levitandas",
+    "levitando",
+    "levitandos",
+    "sutil",
+    "sutile",
+    "sutiles",
+    "vaporosa",
+    "vaporosas",
+    "vaporoso",
+    "vaporosos"
    ],
    "themeNouns": []
   },
@@ -1055,12 +2792,24 @@
    "labelEs": "Onírico",
    "definitionEs": "Ambiente de ensueño o irrealidad; no equivale a dormir.",
    "aliases": [
+    "como un sueno",
     "de ensueno",
     "dreamy",
+    "evanescente",
+    "evanescentes",
+    "fantasiosa",
+    "fantasiosas",
+    "fantasioso",
+    "fantasiosos",
+    "flotantes",
     "onirica",
     "oniricas",
     "onirico",
     "oniricos",
+    "quimerica",
+    "quimericas",
+    "quimerico",
+    "quimericos",
     "sonador",
     "sonadora",
     "sonadoras",
@@ -1075,19 +2824,63 @@
    "labelEs": "Épico",
    "definitionEs": "Escala o dramatismo grandioso; no determina energía.",
    "aliases": [
+    "a lo grande",
+    "apoteosica",
+    "apoteosicas",
+    "apoteosico",
+    "apoteosicos",
+    "colosal",
+    "colosale",
+    "colosales",
+    "de otro mundo",
+    "de proporciones biblicas",
+    "descomunal",
+    "descomunale",
+    "descomunales",
     "epic",
     "epica",
     "epicas",
     "epico",
     "epicos",
+    "fuera de escala",
     "grandiosa",
     "grandiosas",
     "grandioso",
     "grandiosos",
+    "heroica",
+    "heroicas",
+    "heroico",
+    "heroicos",
+    "imponente",
+    "imponentes",
+    "impresionante",
+    "impresionantes",
+    "magnanima",
+    "magnanimas",
+    "magnanimo",
+    "magnanimos",
     "majestuosa",
     "majestuosas",
     "majestuoso",
-    "majestuosos"
+    "majestuosos",
+    "monumental",
+    "monumentale",
+    "monumentales",
+    "sin igual",
+    "soberbia",
+    "soberbias",
+    "soberbio",
+    "soberbios",
+    "sobrecogedor",
+    "sobrecogedore",
+    "sobrecogedores",
+    "titanica",
+    "titanicas",
+    "titanico",
+    "titanicos",
+    "triunfal",
+    "triunfale",
+    "triunfales"
    ],
    "themeNouns": []
   },
@@ -1097,16 +2890,44 @@
    "labelEs": "Íntimo",
    "definitionEs": "Sensación de cercanía y espacio privado; no implica sexo.",
    "aliases": [
+    "a solas",
     "cercana",
     "cercanas",
     "cercano",
     "cercanos",
+    "de alcoba",
+    "de camara",
+    "espacio privado",
     "intima",
     "intimas",
     "intimate",
     "intimates",
     "intimo",
-    "intimos"
+    "intimos",
+    "momento privado",
+    "muy cerca",
+    "muy personal",
+    "personal",
+    "personalizada",
+    "personalizadas",
+    "personalizado",
+    "personalizados",
+    "queda",
+    "quedas",
+    "queditas",
+    "quedito",
+    "queditos",
+    "quedo",
+    "quedos",
+    "recogida",
+    "recogidas",
+    "recogido",
+    "recogidos",
+    "sensacion privada",
+    "sin distancia",
+    "susurrante",
+    "susurrantes",
+    "voz susurrada"
    ],
    "themeNouns": []
   },
@@ -1125,8 +2946,14 @@
     "acogedoros",
     "calida",
     "calidas",
+    "calidez",
     "calido",
     "calidos",
+    "tibia",
+    "tibias",
+    "tibio",
+    "tibios",
+    "voz tibia",
     "warm"
    ],
    "themeNouns": []
@@ -1137,14 +2964,59 @@
    "labelEs": "Frío",
    "definitionEs": "Sensación sonora fría o distante; no significa tristeza.",
    "aliases": [
+    "artica",
+    "articas",
+    "artico",
+    "articos",
+    "aseptica",
+    "asepticas",
+    "aseptico",
+    "asepticos",
     "cold",
+    "congelada",
+    "congeladas",
+    "congelado",
+    "congelados",
+    "congelante",
+    "congelantes",
+    "cortante",
+    "cortantes",
+    "desapegada",
+    "desapegadas",
+    "desapegado",
+    "desapegados",
+    "distante",
+    "distantes",
+    "escarchada",
+    "escarchadas",
+    "escarchado",
+    "escarchados",
     "fria",
     "frias",
     "frio",
     "frios",
+    "gelida",
+    "gelidas",
+    "gelido",
+    "gelidos",
     "glacial",
     "glaciale",
-    "glaciales"
+    "glaciales",
+    "helada",
+    "heladas",
+    "helado",
+    "helados",
+    "impersonal",
+    "impersonale",
+    "impersonales",
+    "indiferente",
+    "indiferentes",
+    "invernal",
+    "invernale",
+    "invernales",
+    "polar",
+    "polare",
+    "polares"
    ],
    "themeNouns": []
   },
@@ -1154,15 +3026,37 @@
    "labelEs": "Amenazante",
    "definitionEs": "Ambiente de amenaza; no demuestra crimen o violencia en la letra.",
    "aliases": [
+    "aire de peligro",
     "amenazante",
     "amenazantes",
+    "aterrador",
+    "aterradora",
+    "aterradoras",
+    "aterradore",
+    "aterradores",
+    "aterradoro",
+    "aterradoros",
+    "clima de acecho",
+    "escalofriante",
+    "escalofriantes",
     "inquietante",
     "inquietantes",
+    "lugubre",
+    "lugubres",
     "ominous",
+    "pavorosa",
+    "pavorosas",
+    "pavoroso",
+    "pavorosos",
+    "sensacion de acecho",
     "siniestra",
     "siniestras",
     "siniestro",
-    "siniestros"
+    "siniestros",
+    "turbia",
+    "turbias",
+    "turbio",
+    "turbios"
    ],
    "themeNouns": []
   },
@@ -1172,15 +3066,27 @@
    "labelEs": "Misterioso",
    "definitionEs": "Ambiente enigmático; no basta un título críptico.",
    "aliases": [
+    "aire de enigma",
+    "aura de misterio",
+    "cargado de misterio",
+    "clima velado",
     "enigmatica",
     "enigmaticas",
     "enigmatico",
     "enigmaticos",
+    "halo de misterio",
+    "lleno de misterio",
+    "misterio latente",
+    "misterio profundo",
+    "misterio sutil",
     "misteriosa",
     "misteriosas",
     "misterioso",
     "misteriosos",
-    "mysterious"
+    "mysterious",
+    "oscuridad sugerente",
+    "sensacion de enigma",
+    "velo de misterio"
    ],
    "themeNouns": []
   },
@@ -1190,13 +3096,29 @@
    "labelEs": "Psicodélico",
    "definitionEs": "Ambiente psicodélico explícito; el estilo homónimo se resuelve por la taxonomía de géneros.",
    "aliases": [
+    "alucinacion auditiva",
     "ambiente psicodelico",
     "atmosfera psicodelica",
+    "capas de distorsion",
+    "eco reverberante",
+    "efecto alucinante",
+    "efectos alucinogenos",
+    "estado alterado",
+    "experiencia sensorial",
+    "frecuencia lisergica",
+    "frecuencias alteradas",
+    "mente expandida",
+    "onda expansiva mental",
+    "ondas cerebrales",
     "psicodelica",
     "psicodelicas",
     "psicodelico",
     "psicodelicos",
-    "psychedelic"
+    "psychedelic",
+    "textura acida",
+    "trance alucinante",
+    "trance hipnotico",
+    "vibracion acida"
    ],
    "themeNouns": []
   },
@@ -1207,6 +3129,25 @@
    "definitionEs": "Carácter ambiental festivo; no prueba adecuación a celebración.",
    "aliases": [
     "ambiente de fiesta",
+    "animada",
+    "animadas",
+    "animado",
+    "animados",
+    "de algarabia",
+    "de bulla",
+    "de carnaval",
+    "de diversion",
+    "de farra",
+    "de guateque",
+    "de jaleo",
+    "de jarana",
+    "de jolgorio",
+    "de marcha",
+    "de pachanga",
+    "de parranda",
+    "de regocijo",
+    "de verbena",
+    "de verbena popular",
     "festiva",
     "festivas",
     "festive",
@@ -1226,11 +3167,24 @@
     "aireadas",
     "aireado",
     "aireados",
+    "amplitud estereo",
+    "arreglo abierto",
+    "arreglo amplio",
+    "arreglo despejado",
+    "escena amplia",
     "espacial",
     "espaciosa",
     "espaciosas",
     "espacioso",
     "espaciosos",
+    "imagen estereo amplia",
+    "mezcla abierta",
+    "mezcla amplia",
+    "mezcla despejada",
+    "mezcla diafana",
+    "mezcla expansiva",
+    "mezcla holgada",
+    "sensacion de espacio",
     "spacious"
    ],
    "themeNouns": []
@@ -1246,9 +3200,35 @@
     "sobre el amor"
    ],
    "themeNouns": [
+    "afecto profundo",
     "amor",
+    "amor a distancia",
+    "amor de pareja",
+    "amor eterno",
+    "amor platonico",
+    "amor prohibido",
+    "amor verdadero",
+    "amores",
+    "celos",
+    "declaracion de amor",
     "el amor",
-    "love"
+    "enamoramiento",
+    "entrega amorosa",
+    "fidelidad",
+    "historia de amor",
+    "infidelidad",
+    "juramento de amor",
+    "love",
+    "loves",
+    "pasion amorosa",
+    "primer amor",
+    "promesa de amor",
+    "reencuentro amoroso",
+    "relacion amorosa",
+    "romance",
+    "sentimiento amoroso",
+    "separacion",
+    "vinculo afectivo"
    ]
   },
   {
@@ -1262,11 +3242,43 @@
     "sobre una ruptura"
    ],
    "themeNouns": [
+    "abandono amoroso",
+    "adios al amor",
+    "alma rota",
+    "amor acabado",
+    "amor fracasado",
+    "amor que termina",
+    "amor roto",
+    "amor terminado",
     "breakup",
+    "breakupes",
+    "corazon destrozado",
     "desamor",
+    "desamores",
+    "desengano amoroso",
     "despecho",
+    "despechos",
+    "despedida amorosa",
+    "divorcio emocional",
+    "dolor de separacion",
+    "fin de relacion",
+    "fin del amor",
+    "final de pareja",
     "heartbreak",
+    "heartbreakes",
+    "herida de amor",
+    "pareja rota",
+    "perdida amorosa",
+    "quiebre sentimental",
+    "relacion fallida",
+    "relacion terminada",
     "ruptura",
+    "ruptura amorosa",
+    "rupturas",
+    "separacion de pareja",
+    "separacion definitiva",
+    "separacion dolorosa",
+    "traicion amorosa",
     "una ruptura"
    ]
   },
@@ -1281,9 +3293,46 @@
     "sobre sexualidad"
    ],
    "themeNouns": [
+    "acto sexual",
+    "alcoba",
+    "amantes",
+    "atraccion fisica",
+    "besos apasionados",
+    "cama",
+    "caricias",
+    "contenido erotico",
+    "cuerpo desnudo",
+    "deseo carnal",
+    "deseo sexual",
+    "desnudez",
+    "encuentro intimo",
+    "erotica",
+    "eroticas",
+    "erotico",
+    "eroticos",
+    "erotismo",
+    "erotismos",
+    "fantasia erotica",
+    "intimidad",
+    "lujuria",
+    "morbo",
+    "orgasmo",
+    "pasion",
+    "piel desnuda",
+    "placer carnal",
+    "placer sexual",
+    "quimica sexual",
+    "relacion intima",
+    "romance erotico",
+    "seduccion",
     "sex",
     "sexo",
-    "sexualidad"
+    "sexos",
+    "sexual",
+    "sexuales",
+    "sexualidad",
+    "sexualidades",
+    "tentacion"
    ]
   },
   {
@@ -1297,11 +3346,40 @@
     "sobre luto"
    ],
    "themeNouns": [
+    "adios definitivo",
+    "ataud",
+    "ausencia eterna",
+    "cementerio",
     "death",
+    "deathes",
+    "despedida final",
+    "difunto",
     "duelo",
+    "duelos",
+    "entierro",
+    "feretro",
+    "funeral",
+    "huerfano",
     "la muerte",
     "luto",
-    "muerte"
+    "lutos",
+    "memoria del fallecido",
+    "muerte",
+    "muertes",
+    "orfandad",
+    "partida sin regreso",
+    "perdida familiar",
+    "perdida irreparable",
+    "persona fallecida",
+    "recuerdo del difunto",
+    "sepelio",
+    "sepulcro",
+    "ser querido fallecido",
+    "ultimo adios",
+    "ultimo aliento",
+    "viuda",
+    "viudez",
+    "viudo"
    ]
   },
   {
@@ -1315,10 +3393,40 @@
     "vida cotidiana"
    ],
    "themeNouns": [
+    "brecha social",
+    "calidad de vida",
+    "clase trabajadora",
+    "condiciones de vida",
+    "contexto social",
+    "convivencia",
+    "cotidianidad",
     "critica social",
+    "desigualdad social",
+    "dia a dia",
+    "dificultades diarias",
+    "entorno social",
+    "gente comun",
     "la sociedad",
     "la vida cotidiana",
-    "sociedad"
+    "lucha diaria",
+    "mundo laboral",
+    "personas comunes",
+    "problemas cotidianos",
+    "problemas sociales",
+    "realidad cotidiana",
+    "realidad social",
+    "relaciones humanas",
+    "sociedad",
+    "sociedades",
+    "supervivencia diaria",
+    "tejido social",
+    "trato social",
+    "vida de barrio",
+    "vida diaria",
+    "vida en comunidad",
+    "vida familiar",
+    "vida laboral",
+    "vida urbana"
    ]
   },
   {
@@ -1327,19 +3435,57 @@
    "labelEs": "Política y protesta",
    "definitionEs": "Contenido político o de protesta; no implica un ánimo rebelde.",
    "aliases": [
+    "contestataria",
+    "contestatarias",
+    "contestatario",
+    "contestatarios",
     "de protesta",
     "letras politicas",
+    "politica",
     "politicas",
+    "politico",
     "politicos",
+    "protesta",
     "protesta social",
     "sobre politica"
    ],
    "themeNouns": [
+    "activismo",
+    "cambio social",
+    "ciudadania",
+    "clase obrera",
+    "conciencia social",
+    "corrupcion",
+    "democracia",
+    "derechos humanos",
+    "desigualdad",
+    "dictadura",
+    "elecciones",
+    "explotacion",
+    "gobierno",
+    "huelga",
+    "injusticia social",
+    "justicia social",
     "la politica",
+    "lucha de clases",
+    "lucha social",
+    "manifestacion",
+    "movimiento social",
+    "opresion",
+    "pobreza",
+    "poder popular",
     "politica",
+    "politicas",
     "politics",
     "protesta",
-    "protesta social"
+    "protesta social",
+    "protestas",
+    "pueblo",
+    "reivindicacion",
+    "represion",
+    "resistencia",
+    "revolucion",
+    "voto"
    ]
   },
   {
@@ -1352,12 +3498,45 @@
     "tematica belica"
    ],
    "themeNouns": [
+    "armamento",
+    "armas de guerra",
+    "batalla",
+    "batallas",
     "belica",
+    "belicas",
     "belico",
+    "belicos",
+    "bombardeo",
+    "bombardeos",
+    "campo de batalla",
+    "canon",
+    "canones",
+    "combate",
+    "combates",
+    "conflicto armado",
+    "conflicto belico",
+    "conflictos armados",
+    "ejercito",
+    "ejercitos",
+    "enemigo",
+    "enemigos",
+    "frente de batalla",
     "guerra",
+    "guerra mundial",
+    "guerras",
+    "guerras mundiales",
     "la guerra",
     "lo belico",
-    "war"
+    "posguerra",
+    "refugiados de guerra",
+    "soldado",
+    "soldados",
+    "trinchera",
+    "trincheras",
+    "tropas",
+    "victimas de guerra",
+    "war",
+    "zona de conflicto"
    ]
   },
   {
@@ -1366,18 +3545,55 @@
    "labelEs": "Espiritualidad y religión",
    "definitionEs": "Contenido religioso o espiritual; no demuestra actividad de meditar.",
    "aliases": [
+    "espiritual",
+    "espirituales",
+    "religiosa",
+    "religiosas",
+    "religioso",
+    "religiosos",
     "sobre espiritualidad",
     "sobre religion",
     "tematica religiosa"
    ],
    "themeNouns": [
+    "angeles",
+    "arrepentimiento",
+    "bautismo",
+    "bendicion",
+    "biblia",
+    "comunion",
+    "creencia",
+    "culto",
+    "devocion",
     "dios",
+    "divino",
+    "doctrina",
     "espiritualidad",
+    "espiritualidades",
+    "evangelio",
     "fe",
+    "jesucristo",
     "la religion",
+    "mandamientos",
+    "milagro",
+    "oracion",
+    "pecado",
+    "perdon divino",
+    "plegaria",
+    "providencia",
+    "redencion",
     "religion",
     "religion and faith",
-    "religiosa"
+    "religiones",
+    "religiosa",
+    "religiosas",
+    "resurreccion",
+    "sacramento",
+    "sagrado",
+    "salvacion",
+    "santos",
+    "vida eterna",
+    "virgen"
    ]
   },
   {
@@ -1391,9 +3607,40 @@
     "sobre naturaleza"
    ],
    "themeNouns": [
+    "animales",
+    "animales salvajes",
+    "arboles",
+    "aves",
+    "bosque",
+    "bosques",
+    "cielo abierto",
+    "ecosistema",
+    "estrellas",
+    "fauna",
+    "flora",
+    "flores",
+    "insectos",
     "la naturaleza",
+    "lluvia",
+    "luna",
+    "mar",
+    "mares",
+    "montana",
+    "montanas",
     "naturaleza",
-    "nature"
+    "naturalezas",
+    "nature",
+    "natures",
+    "oceanos",
+    "peces",
+    "plantas",
+    "rios",
+    "selva",
+    "selvas",
+    "sol",
+    "tierra fertil",
+    "vida silvestre",
+    "viento"
    ]
   },
   {
@@ -1407,10 +3654,38 @@
     "sobre identidad"
    ],
    "themeNouns": [
+    "autoestima cultural",
+    "comunidad de origen",
+    "conciencia de origen",
+    "costumbres propias",
+    "cultura heredada",
+    "esencia propia",
+    "herencia familiar",
+    "historia familiar",
     "identidad",
+    "identidad colectiva",
+    "identidad cultural",
+    "identidad nacional",
+    "identidad personal",
+    "identidades",
+    "lazos comunitarios",
+    "lazos de sangre",
+    "legado ancestral",
+    "marca de origen",
+    "orgullo de origen",
+    "orgullo propio",
     "pertenencia",
+    "pertenencias",
+    "pueblo de origen",
     "raices",
-    "raices culturales"
+    "raices culturales",
+    "raices familiares",
+    "sello identitario",
+    "sentido de pertenencia",
+    "sentirse parte",
+    "tierra natal",
+    "tradiciones heredadas",
+    "valor de origen"
    ]
   },
   {
@@ -1425,18 +3700,53 @@
     "sobre migracion"
    ],
    "themeNouns": [
+    "abandonar la patria",
+    "anoranza del hogar",
+    "asilo",
+    "buscar refugio",
+    "cruce de frontera",
+    "cruzar la frontera",
+    "dejar el pais",
+    "desplazamiento",
+    "destierro",
     "diaspora",
+    "diasporas",
     "el exilio",
     "emigracion",
+    "emigraciones",
     "emigrantes",
     "emigrar",
+    "emigrares",
+    "equipaje",
+    "exiliados",
     "exilio",
+    "exilios",
+    "expatriados",
+    "extranar la patria",
+    "familia separada",
+    "frontera",
+    "huida",
+    "irse del pais",
     "la diaspora",
     "la emigracion",
     "la migracion",
+    "lejos de casa",
+    "maleta",
     "migracion",
+    "migraciones",
     "migrantes",
-    "migration"
+    "migration",
+    "migrationes",
+    "nostalgia del terruno",
+    "pais de acogida",
+    "raices perdidas",
+    "reencuentro",
+    "refugiados",
+    "regreso al pais",
+    "tierra extrana",
+    "tierra lejana",
+    "viaje sin retorno",
+    "volver a casa"
    ]
   },
   {
@@ -1449,10 +3759,40 @@
     "sobre la soledad"
    ],
    "themeNouns": [
+    "abandono emocional",
     "aislamiento",
+    "aislamiento emocional",
+    "aislamiento social",
+    "aislamientos",
+    "ausencia de compania",
+    "desconexion",
+    "estar solo",
+    "falta de compania",
+    "incomunicacion",
     "la soledad",
     "loneliness",
-    "soledad"
+    "quedarse solo",
+    "sentimiento de soledad",
+    "sentirse abandonado",
+    "sentirse aislado",
+    "sentirse desconectado",
+    "sentirse incomprendido",
+    "sentirse solo",
+    "soledad",
+    "soledad absoluta",
+    "soledad afectiva",
+    "soledad amarga",
+    "soledad del alma",
+    "soledad dolorosa",
+    "soledad emocional",
+    "soledad interior",
+    "soledad no deseada",
+    "soledad profunda",
+    "soledad silenciosa",
+    "soledad total",
+    "soledades",
+    "vacio existencial",
+    "vacio interior"
    ]
   },
   {
@@ -1466,10 +3806,39 @@
     "sobre salud mental"
    ],
    "themeNouns": [
+    "aceptacion personal",
+    "agotamiento mental",
+    "amor propio",
+    "angustia",
     "ansiedad",
+    "ansiedades",
+    "apoyo emocional",
+    "ataque de panico",
+    "autoestima",
+    "bienestar emocional",
+    "carga emocional",
+    "contencion emocional",
+    "crisis nerviosa",
     "depresion",
+    "depresiones",
+    "desborde emocional",
+    "equilibrio emocional",
+    "estado de animo",
+    "estres",
+    "fobia",
+    "herida emocional",
+    "insomnio",
     "mental health",
-    "salud mental"
+    "miedo constante",
+    "pensamientos intrusivos",
+    "pensamientos negativos",
+    "perdida emocional",
+    "salud emocional",
+    "salud mental",
+    "terapia psicologica",
+    "trastorno del sueno",
+    "trastorno emocional",
+    "trauma"
    ]
   },
   {
@@ -1483,10 +3852,43 @@
     "sobre mitologia"
    ],
    "themeNouns": [
+    "centauro",
+    "centauros",
+    "criaturas fantasticas",
+    "dioses antiguos",
+    "dragon",
+    "dragones",
+    "duende",
+    "duendes",
+    "elfo",
+    "elfos",
     "fantasia",
+    "fantasias",
     "fantasy",
+    "fantasyes",
+    "fenix",
+    "gigante mitico",
+    "grifo",
+    "hada",
+    "hadas",
+    "hechicero",
+    "magia ancestral",
+    "minotauro",
     "mitologia",
-    "seres mitologicos"
+    "mitologias",
+    "mundo fantastico",
+    "ninfas",
+    "ogro",
+    "quimera",
+    "reino magico",
+    "seres mitologicos",
+    "sirena",
+    "sirenas",
+    "tierra de leyendas",
+    "titan",
+    "trol",
+    "unicornio",
+    "unicornios"
    ]
   },
   {
@@ -1500,13 +3902,44 @@
     "tematica futurista"
    ],
    "themeNouns": [
+    "agujeros negros",
+    "alienigenas",
+    "androides",
+    "apocalipsis",
+    "avances cientificos",
+    "ciborg",
     "ciencia ficcion",
+    "civilizaciones avanzadas",
+    "clonacion",
+    "colonias espaciales",
+    "computadoras conscientes",
+    "dimensiones paralelas",
+    "distopia",
     "el futuro",
+    "era espacial",
+    "exploracion espacial",
     "futuro",
+    "futuros",
+    "galaxias lejanas",
+    "inteligencia artificial",
     "la tecnologia",
+    "mundo distopico",
+    "mutantes",
+    "naves espaciales",
+    "naves interestelares",
+    "paradojas temporales",
+    "post apocaliptico",
+    "realidad virtual",
     "robots",
     "science fiction",
-    "tecnologia"
+    "seres artificiales",
+    "tecnologia",
+    "tecnologia futurista",
+    "tecnologias",
+    "utopia",
+    "viaje espacial",
+    "viajeros del tiempo",
+    "vida extraterrestre"
    ]
   },
   {
@@ -1519,11 +3952,44 @@
     "sobre violencia"
    ],
    "themeNouns": [
+    "ajuste de cuentas",
+    "arma de fuego",
+    "asesinato",
+    "balacera",
+    "cadaver",
+    "carcel",
+    "cartel",
     "crime",
     "crimen",
+    "crimen organizado",
     "crimen y violencia",
+    "crimenes",
+    "crimes",
+    "criminal",
+    "delincuente",
+    "disparo",
+    "extorsion",
+    "guerra de calles",
+    "homicidio",
+    "ley del silencio",
+    "matanza",
+    "muerte violenta",
+    "narcotrafico",
+    "pandilla",
+    "prision",
+    "punalada",
+    "sangre derramada",
+    "secuestro",
+    "sicario",
+    "tiroteo",
+    "venganza sangrienta",
+    "victima",
     "violence",
-    "violencia"
+    "violences",
+    "violencia",
+    "violencia armada",
+    "violencias",
+    "zona roja"
    ]
   },
   {
@@ -1537,10 +4003,41 @@
     "sobre sustancias"
    ],
    "themeNouns": [
+    "abuso de alcohol",
+    "adiccion",
+    "adiccion quimica",
     "alcohol",
+    "alcoholes",
+    "alucinogenos",
+    "borrachera",
+    "cerveza",
+    "cocaina",
+    "consumo de alcohol",
+    "consumo de drogas",
+    "copa",
+    "dependencia",
+    "drogarse",
     "drogas",
     "drugs",
-    "sustancias"
+    "emborracharse",
+    "embriaguez",
+    "estupefacientes",
+    "farmacos",
+    "heroina",
+    "intoxicacion",
+    "licor",
+    "marihuana",
+    "narcoticos",
+    "pastillas",
+    "psicotropicos",
+    "resaca",
+    "sobredosis",
+    "sustancias",
+    "sustancias ilegales",
+    "sustancias psicoactivas",
+    "trafico de drogas",
+    "tragos",
+    "vicio"
    ]
   },
   {
@@ -1553,10 +4050,41 @@
     "sobre historia"
    ],
    "themeNouns": [
+    "acontecimientos historicos",
+    "archivo historico",
+    "conciencia historica",
+    "cronica historica",
+    "deuda historica",
+    "documento historico",
+    "epoca pasada",
+    "eventos historicos",
+    "figuras historicas",
+    "fuente historica",
+    "gesta historica",
+    "hechos historicos",
     "historia",
+    "historias",
     "history",
+    "historyes",
+    "huella del pasado",
     "la historia",
-    "memoria historica"
+    "legado historico",
+    "memoria del pueblo",
+    "memoria historica",
+    "memoria popular",
+    "memoria viva",
+    "pagina historica",
+    "pasado historico",
+    "personajes historicos",
+    "raices historicas",
+    "recuerdo historico",
+    "registro historico",
+    "relato historico",
+    "reparacion historica",
+    "sucesos del pasado",
+    "testimonio historico",
+    "tiempos pasados",
+    "verdad historica"
    ]
   },
   {
@@ -1565,6 +4093,10 @@
    "labelEs": "Humor y sátira",
    "definitionEs": "Contenido humorístico o satírico; no demuestra ánimo alegre.",
    "aliases": [
+    "comica",
+    "comicas",
+    "comico",
+    "comicos",
     "humor",
     "humoristica",
     "humoristicas",
@@ -1581,10 +4113,42 @@
     "satiricos"
    ],
    "themeNouns": [
+    "bufonada",
+    "bufonadas",
+    "burla",
+    "burlas",
+    "caricatura",
+    "caricaturas",
+    "chiste",
+    "chistes",
+    "chistosa",
+    "chistosas",
+    "chistoso",
+    "chistosos",
+    "comica",
+    "comicas",
+    "comico",
+    "comicos",
     "humor",
+    "humores",
     "humoristicas",
     "humoristicos",
-    "satira"
+    "ironia",
+    "ironias",
+    "mofa",
+    "mofas",
+    "parodia",
+    "parodias",
+    "payasada",
+    "payasadas",
+    "ridiculizacion",
+    "ridiculizar",
+    "sarcasmo",
+    "sarcasmos",
+    "satira",
+    "satiras",
+    "tono burlon",
+    "tono ironico"
    ]
   }
  ],
@@ -1737,8 +4301,12 @@
    "id": "candidate:structure.narrative",
    "aliases": [
     "album conceptual",
+    "albumes conceptuales",
+    "conceptual",
+    "conceptuales",
     "cuenta una historia",
     "disco conceptual",
+    "discos conceptuales",
     "relato que se desarrolla",
     "una historia"
    ],
@@ -1811,6 +4379,8 @@
     "cuesta entrar",
     "gana con cada escucha",
     "gana con escuchas",
+    "gane con escuchas",
+    "gane con las escuchas",
     "mejora con cada escucha",
     "mejoran con cada escucha",
     "mejore con cada escucha",
@@ -1899,9 +4469,12 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "adoracion",
+    "adoraciones",
     "alabanza",
     "alabanza y adoracion",
-    "worship"
+    "alabanzas",
+    "worship",
+    "worshipes"
    ]
   },
   {
@@ -1932,7 +4505,9 @@
    "aliases": [
     "aggro tech",
     "aggrotech",
-    "hellektro"
+    "aggroteches",
+    "hellektro",
+    "hellektros"
    ]
   },
   {
@@ -1962,7 +4537,8 @@
     "aguinaldo infantil",
     "aguinaldos",
     "parranda",
-    "parranda navidena"
+    "parranda navidena",
+    "parrandas"
    ]
   },
   {
@@ -1992,10 +4568,12 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "ambiance",
+    "ambiances",
     "ambient",
     "ambient americana",
     "ambient dub",
     "ambient with industrial influences",
+    "ambientes",
     "space ambient",
     "tribal ambient"
    ]
@@ -2024,7 +4602,8 @@
    "aliases": [
     "anarcho punk",
     "anarco punk",
-    "anarcopunk"
+    "anarcopunk",
+    "anarcopunkes"
    ]
   },
   {
@@ -2106,9 +4685,11 @@
    "aliases": [
     "avant garde",
     "avantgarde",
+    "avantgardes",
     "free improvisation",
     "modern creative",
-    "reductionism"
+    "reductionism",
+    "reductionismes"
    ]
   },
   {
@@ -2136,7 +4717,8 @@
     "bachata",
     "bachata crossover",
     "bachata pop",
-    "bachata vallenato crossover"
+    "bachata vallenato crossover",
+    "bachatas"
    ]
   },
   {
@@ -2161,7 +4743,9 @@
     "balada",
     "balada pop",
     "baladas",
+    "balades",
     "ballad",
+    "ballades",
     "cancion melodica",
     "latin balad",
     "latin ballad",
@@ -2191,8 +4775,10 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "bambuco",
+    "bambuco andina",
     "bambuco andino",
-    "bambuco tachirense"
+    "bambuco tachirense",
+    "bambucos"
    ]
   },
   {
@@ -2214,6 +4800,7 @@
     "musica de telenovela",
     "musical theatre and entertainment",
     "soundtrack",
+    "soundtrackes",
     "soundtracks",
     "telenovela music",
     "television music",
@@ -2242,7 +4829,8 @@
    "mapStatus": "excluded_by_decision",
    "aliases": [
     "barquisi metal",
-    "barquisimetal"
+    "barquisimetal",
+    "barquisimetales"
    ]
   },
   {
@@ -2259,7 +4847,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "beat"
+    "beat",
+    "beates"
    ]
   },
   {
@@ -2322,6 +4911,8 @@
     "black metal",
     "black metal with industrial influences",
     "blackened",
+    "blackenedes",
+    "blackes",
     "dissonant black metal",
     "epic black metal",
     "experimental black metal",
@@ -2353,6 +4944,7 @@
    "aliases": [
     "ambient black metal",
     "atmospheric black metal",
+    "black metal atmosferica",
     "black metal atmosferico"
    ]
   },
@@ -2382,11 +4974,13 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "black metal depresiva",
     "black metal depresivo",
     "depressive black metal",
     "depressive post black metal",
     "depressive suicidal black metal",
-    "dsbm"
+    "dsbm",
+    "dsbmes"
    ]
   },
   {
@@ -2407,6 +5001,7 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "black metal sinfonica",
     "black metal sinfonico",
     "symphonic black metal"
    ]
@@ -2638,7 +5233,9 @@
    "aliases": [
     "bossa",
     "bossa nova",
-    "bossanova"
+    "bossanova",
+    "bossanovas",
+    "bossas"
    ]
   },
   {
@@ -2688,9 +5285,13 @@
    "aliases": [
     "calipso",
     "calipso callaoense",
+    "calipso de el callaa",
     "calipso de el callao",
+    "calipso venezolana",
     "calipso venezolano",
+    "calipsos",
     "calypso",
+    "calypsos",
     "steel band"
    ]
   },
@@ -2714,6 +5315,7 @@
    "aliases": [
     "cantautor",
     "cantautora",
+    "cantautoras",
     "cantautores",
     "chanson a texte",
     "chanson quebecoise",
@@ -2744,7 +5346,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "cha cha cha",
-    "chachacha"
+    "chachacha",
+    "chachachas"
    ]
   },
   {
@@ -2790,6 +5393,7 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "chillwave",
+    "chillwaves",
     "hypnagogic pop"
    ]
   },
@@ -2813,6 +5417,7 @@
    "aliases": [
     "cold wave",
     "coldwave",
+    "coldwaves",
     "minimal wave"
    ]
   },
@@ -2835,6 +5440,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "contrapunteo",
+    "contrapunteos",
+    "contrapunto llanera",
     "contrapunto llanero"
    ]
   },
@@ -2856,8 +5463,10 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "corrido llanera",
     "corrido llanero",
-    "corrio"
+    "corrio",
+    "corrios"
    ]
   },
   {
@@ -2875,9 +5484,11 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "americana",
+    "americanas",
     "country",
     "country pop",
     "country rock",
+    "countryes",
     "gothic country"
    ]
   },
@@ -2901,7 +5512,8 @@
    "aliases": [
     "crossover",
     "crossover thrash",
-    "crossover thrash metal"
+    "crossover thrash metal",
+    "crossoveres"
    ]
   },
   {
@@ -2924,6 +5536,7 @@
    "aliases": [
     "crust",
     "crust punk",
+    "crustes",
     "neo crust"
    ]
   },
@@ -2949,8 +5562,10 @@
     "cumbia colombiana",
     "cumbia peruana",
     "cumbia salvadorena",
+    "cumbias",
     "digital cumbia",
-    "merecumbe"
+    "merecumbe",
+    "merecumbes"
    ]
   },
   {
@@ -2965,9 +5580,12 @@
     "alternative dance",
     "bubblegum dance",
     "dance",
+    "dances",
     "electronic dance music",
     "eurobeat",
+    "eurobeates",
     "eurodance",
+    "eurodances",
     "hi nrg",
     "latin freestyle"
    ]
@@ -3007,6 +5625,7 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "dancehall",
+    "dancehalles",
     "digital dancehall"
    ]
   },
@@ -3047,7 +5666,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "dark folk",
-    "neofolk"
+    "neofolk",
+    "neofolkes"
    ]
   },
   {
@@ -3082,6 +5702,7 @@
    "aliases": [
     "dark wave ilegal",
     "darkwave",
+    "darkwaves",
     "minimal synth",
     "neoclassical darkwave"
    ]
@@ -3111,7 +5732,8 @@
     "death and roll",
     "death n roll",
     "death roll",
-    "deathnroll"
+    "deathnroll",
+    "deathnrolles"
    ]
   },
   {
@@ -3156,6 +5778,7 @@
     "atmospheric death",
     "death",
     "death metal",
+    "deathes",
     "experimental death"
    ]
   },
@@ -3181,6 +5804,7 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "death metal melodica",
     "death metal melodico",
     "melodic death",
     "melodic death metal",
@@ -3219,6 +5843,7 @@
    "traits": [],
    "mapStatus": "excluded_by_decision",
    "aliases": [
+    "death metal progresiva",
     "death metal progresivo",
     "progressive death metal"
    ]
@@ -3245,6 +5870,7 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "death metal tecnica",
     "death metal tecnico",
     "technical death metal"
    ]
@@ -3278,6 +5904,7 @@
     "beatdown deathcore",
     "death core",
     "deathcore",
+    "deathcores",
     "slamming brutal deathcore"
    ]
   },
@@ -3299,7 +5926,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "deathgrind"
+    "deathgrind",
+    "deathgrindes"
    ]
   },
   {
@@ -3325,7 +5953,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "death rock",
-    "deathrock"
+    "deathrock",
+    "deathrockes"
    ]
   },
   {
@@ -3350,7 +5979,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "descarga"
+    "descarga",
+    "descargas"
    ]
   },
   {
@@ -3384,9 +6014,14 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "boogie",
+    "boogies",
     "disco",
+    "discos",
+    "electro disca",
     "electro disco",
+    "italo disca",
     "italo disco",
+    "nu disca",
     "nu disco"
    ]
   },
@@ -3412,7 +6047,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "djent"
+    "djent",
+    "djentes"
    ]
   },
   {
@@ -3474,6 +6110,7 @@
     "death doom metal",
     "doom",
     "doom metal",
+    "doomes",
     "metal doom"
    ]
   },
@@ -3500,8 +6137,10 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "chill out",
+    "down tempa",
     "down tempo",
-    "downtempo"
+    "downtempo",
+    "downtempos"
    ]
   },
   {
@@ -3532,7 +6171,8 @@
    "aliases": [
     "ambient pop",
     "dream pop",
-    "dreampop"
+    "dreampop",
+    "dreampopes"
    ]
   },
   {
@@ -3559,6 +6199,7 @@
    "aliases": [
     "chicago drill",
     "drill",
+    "drilles",
     "jersey drill",
     "uk drill"
    ]
@@ -3594,7 +6235,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "drone",
-    "drone metal"
+    "drone metal",
+    "drones"
    ]
   },
   {
@@ -3631,7 +6273,9 @@
     "drum bass",
     "drum n bass",
     "drumfunk",
+    "drumfunkes",
     "jungle",
+    "jungles",
     "liquid drum and bass",
     "ragga jungle"
    ]
@@ -3659,7 +6303,9 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "brostep",
+    "brostepes",
     "dubstep",
+    "dubstepes",
     "post dubstep"
    ]
   },
@@ -3683,8 +6329,10 @@
    "aliases": [
     "easy listening",
     "exotica",
+    "exoticas",
     "light music",
     "lounge",
+    "lounges",
     "space age pop"
    ]
   },
@@ -3752,7 +6400,9 @@
    "aliases": [
     "eai",
     "electroacoustic",
+    "electroacoustices",
     "electroacustica",
+    "electroacusticas",
     "epic collage",
     "musique concrete",
     "plunderphonics",
@@ -3777,25 +6427,36 @@
     "2 step",
     "acid breaks",
     "acidcore",
+    "acidcores",
     "balearic beat",
     "baltimore club",
     "bassline",
+    "basslines",
     "berite club",
     "berlin school",
     "bitpop",
+    "bitpopes",
     "breakbeat",
     "breakbeat hardcore",
+    "breakbeates",
     "breakcore",
+    "breakcores",
     "broken transmission",
     "bubblegum bass",
     "chillsynth",
+    "chillsynthes",
     "chiptune",
+    "chiptunes",
     "complextro",
+    "complextros",
     "dariacore",
+    "dariacores",
     "darksynth",
+    "darksynthes",
     "deconstructed club",
     "digital hardcore",
     "dreampunk",
+    "dreampunkes",
     "early hardstyle",
     "eccojams",
     "electro",
@@ -3804,53 +6465,78 @@
     "electronic music",
     "electronica",
     "electronica pionera",
+    "electronicas",
+    "electronices",
+    "electros",
     "flashcore",
+    "flashcores",
     "flex dance music",
     "footwork",
+    "footworkes",
     "freeform hardcore",
     "future bass",
     "future garage",
     "gabber",
+    "gabberes",
     "glitch hop",
     "happy hardcore",
     "hard dance",
     "hardbass",
     "hardcore breaks",
     "hardstyle",
+    "hardstyles",
     "hardvapour",
+    "hardvapoures",
     "hardwave",
+    "hardwaves",
     "hauntology",
+    "hauntologyes",
     "hexd",
+    "hexdes",
     "horror synth",
     "indietronica",
+    "indietronicas",
     "industrial hardcore",
     "jersey club",
     "jungle terror",
     "krushclub",
+    "krushclubes",
     "kuduro",
+    "kuduros",
     "midtempo bass",
     "moogsploitation",
+    "moogsploitationes",
     "musica electronica",
     "musica electronica temprana",
     "neo rave",
+    "nerdcore techna",
     "nerdcore techno",
     "nervous music",
     "nightcore",
+    "nightcores",
     "nu style gabber",
     "progressive breaks",
     "progressive electronic",
     "raggacore",
+    "raggacores",
     "rawstyle",
+    "rawstyles",
     "slushwave",
+    "slushwaves",
     "speedcore",
+    "speedcores",
     "synthwave",
+    "synthwaves",
     "uk bass",
     "uk funky",
     "uk garage",
     "vaporwave",
+    "vaporwaves",
     "witch house",
     "wonky",
-    "ytpmv"
+    "wonkyes",
+    "ytpmv",
+    "ytpmves"
    ]
   },
   {
@@ -3880,11 +6566,15 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "digicore",
+    "digicores",
     "electro pop",
     "electroclash",
+    "electroclashes",
     "electropop",
+    "electropopes",
     "glitch pop",
-    "hyperpop"
+    "hyperpop",
+    "hyperpopes"
    ]
   },
   {
@@ -3899,9 +6589,12 @@
     "emo",
     "emo pop",
     "emocore",
+    "emocores",
+    "mall screama",
     "mall screamo",
     "midwest emo",
-    "screamo"
+    "screamo",
+    "screamos"
    ]
   },
   {
@@ -3962,7 +6655,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "experimental"
+    "experimental",
+    "experimentales"
    ]
   },
   {
@@ -3996,7 +6690,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "flamenco",
-    "flamenco pop"
+    "flamenco pop",
+    "flamencos"
    ]
   },
   {
@@ -4013,6 +6708,7 @@
     "folclor fusion",
     "folklore fusion",
     "fusion instrumental",
+    "instrumental venezolana",
     "instrumental venezolano",
     "tamunangue fusion",
     "tradicion con swing"
@@ -4035,7 +6731,9 @@
     "ethnic folk",
     "folk",
     "folk pop",
+    "folkes",
     "folktronica",
+    "folktronicas",
     "freak folk",
     "free folk",
     "indie folk",
@@ -4062,6 +6760,7 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "celtic",
+    "celtices",
     "folk celta"
    ]
   },
@@ -4166,7 +6865,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "fulia"
+    "fulia",
+    "fulias"
    ]
   },
   {
@@ -4197,8 +6897,11 @@
    "aliases": [
     "afro funk",
     "afrobeat",
+    "afrobeates",
     "funk",
+    "funkes",
     "funkrockextremo",
+    "funkrockextremos",
     "purple sound",
     "synth funk"
    ]
@@ -4230,13 +6933,19 @@
    "mapStatus": "excluded_by_decision",
    "aliases": [
     "boogaloo",
+    "boogaloos",
     "caribean",
+    "caribeanes",
     "ethnic fusion",
     "fusion latina",
+    "fusion latinoamericana",
     "latin fusion",
     "latina",
+    "latinas",
     "musica latina",
-    "patchanka"
+    "musica latinoamericana",
+    "patchanka",
+    "patchankas"
    ]
   },
   {
@@ -4296,6 +7005,8 @@
    "aliases": [
     "future pop",
     "futurepop",
+    "futurepopes",
+    "synth gotica",
     "synth gotico"
    ]
   },
@@ -4317,7 +7028,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "gaban"
+    "gaban",
+    "gabanes"
    ]
   },
   {
@@ -4347,7 +7059,9 @@
     "gaita humoristica",
     "gaita tradicional",
     "gaita zuliana",
+    "gaitas",
     "gaiton",
+    "gaitones",
     "tamborera zuliana"
    ]
   },
@@ -4377,6 +7091,7 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "gaita de furra",
     "gaita de furro"
    ]
   },
@@ -4416,7 +7131,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "galeron",
-    "galeron oriental"
+    "galeron oriental",
+    "galerones"
    ]
   },
   {
@@ -4430,7 +7146,8 @@
    "aliases": [
     "g funk",
     "gangsta",
-    "gangsta rap"
+    "gangsta rap",
+    "gangstas"
    ]
   },
   {
@@ -4488,6 +7205,7 @@
    "aliases": [
     "glam",
     "glam rock",
+    "glames",
     "neo glam"
    ]
   },
@@ -4517,7 +7235,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "glitch"
+    "glitch",
+    "glitches"
    ]
   },
   {
@@ -4548,6 +7267,7 @@
    "aliases": [
     "folclor larense",
     "golpe larense",
+    "golpe tocuyana",
     "golpe tocuyano"
    ]
   },
@@ -4577,8 +7297,11 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "canto recia",
     "canto recio",
+    "golpe llanera",
     "golpe llanero",
+    "golpe recia",
     "golpe recio"
    ]
   },
@@ -4608,9 +7331,12 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "golpe y estribilla",
     "golpe y estribillo",
     "joropo central",
+    "joropo con estribilla",
     "joropo con estribillo",
+    "joropo tuyera",
     "joropo tuyero"
    ]
   },
@@ -4640,7 +7366,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "goregrind"
+    "goregrind",
+    "goregrindes"
    ]
   },
   {
@@ -4676,7 +7403,9 @@
     "experimental grindcore",
     "grind core",
     "grindcore",
-    "noisegrind"
+    "grindcores",
+    "noisegrind",
+    "noisegrindes"
    ]
   },
   {
@@ -4699,6 +7428,7 @@
    "aliases": [
     "groove",
     "groove metal",
+    "grooves",
     "southern metal"
    ]
   },
@@ -4732,7 +7462,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "grunge"
+    "grunge",
+    "grunges"
    ]
   },
   {
@@ -4761,7 +7492,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "guaguanco"
+    "guaguanco",
+    "guaguancos"
    ]
   },
   {
@@ -4786,7 +7518,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "guaracha"
+    "guaracha",
+    "guarachas"
    ]
   },
   {
@@ -4799,7 +7532,8 @@
    "mapStatus": "excluded_by_decision",
    "aliases": [
     "guaro rock",
-    "guarorock"
+    "guarorock",
+    "guarorockes"
    ]
   },
   {
@@ -4811,7 +7545,8 @@
    "traits": [],
    "mapStatus": "excluded_by_decision",
    "aliases": [
-    "guasa"
+    "guasa",
+    "guasas"
    ]
   },
   {
@@ -4847,7 +7582,9 @@
     "acid hard rock",
     "hard",
     "hard rock",
+    "hardes",
     "hardrock",
+    "hardrockes",
     "latin hard rock",
     "rock duro"
    ]
@@ -4870,6 +7607,7 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "hardcore melodica",
     "hardcore melodico",
     "melodic hardcore"
    ]
@@ -4905,8 +7643,10 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "emoviolence",
+    "emoviolences",
     "hardcore",
     "hardcore punk",
+    "hardcores",
     "hc punk",
     "progressive hardcore",
     "punk hardcore"
@@ -4966,6 +7706,7 @@
     "epic heavy",
     "heavy",
     "heavy metal",
+    "heavyes",
     "melodic heavy",
     "melodic heavy metal"
    ]
@@ -5041,10 +7782,13 @@
     "electro hop",
     "emo rap",
     "grime",
+    "grimes",
     "hardcore hip hop",
     "hip hop",
     "hiphop",
+    "hiphopes",
     "horrorcore",
+    "horrorcores",
     "instrumental hip hop",
     "jersey club rap",
     "latin hip hop",
@@ -5053,6 +7797,7 @@
     "memphis rap",
     "nerdcore hip hop",
     "phonk",
+    "phonkes",
     "political hip hop",
     "rap"
    ]
@@ -5115,11 +7860,13 @@
     "acid house",
     "afro house",
     "ballroom",
+    "ballroomes",
     "bass house",
     "big room house",
     "bounce beat",
     "bubbling",
     "bubbling house",
+    "bubblinges",
     "dance house",
     "deep house",
     "dutch house",
@@ -5130,9 +7877,11 @@
     "ghetto house",
     "hip house",
     "house",
+    "houses",
     "latin house",
     "melodic house",
     "microhouse",
+    "microhouses",
     "outsider house",
     "progressive house",
     "tribal house",
@@ -5191,13 +7940,16 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "baggy",
+    "baggyes",
     "indie",
     "indie rock",
+    "indies",
     "math pop",
     "noise pop",
     "shimokita kei",
     "slacker rock",
-    "slowcore"
+    "slowcore",
+    "slowcores"
    ]
   },
   {
@@ -5239,7 +7991,9 @@
     "industrial dance",
     "industrial music",
     "industrial rock",
+    "industriales",
     "insdrustrial",
+    "insdrustriales",
     "martial industrial",
     "post industrial",
     "power noise"
@@ -5335,6 +8089,7 @@
     "jazz manouche",
     "jazz pop",
     "jazz vocal",
+    "jazzes",
     "modal jazz",
     "new jazz",
     "post bop",
@@ -5363,6 +8118,7 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "afro cuban jazz",
+    "jazz afrocubana",
     "jazz afrocubano"
    ]
   },
@@ -5439,7 +8195,9 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "jazz latina",
     "jazz latino",
+    "jazz latinoamericano",
     "latin jazz"
    ]
   },
@@ -5522,11 +8280,15 @@
    "aliases": [
     "cancion llanera",
     "joropo",
+    "joropo estilizada",
     "joropo estilizado",
     "joropo instrumental",
+    "joropo llanera",
     "joropo llanero",
     "joropo vocal",
+    "joropos",
     "llanera",
+    "llaneras",
     "musica llanera"
    ]
   },
@@ -5569,9 +8331,12 @@
    "traits": [],
    "mapStatus": "excluded_by_decision",
    "aliases": [
+    "electro latina",
     "electro latino",
+    "electro latinoamericano",
     "latin electronic",
     "latin electronic fusion",
+    "tribal guarachera",
     "tribal guarachero"
    ]
   },
@@ -5598,7 +8363,8 @@
    "aliases": [
     "malaguena",
     "malaguena oriental",
-    "malaguena venezolana"
+    "malaguena venezolana",
+    "malaguenas"
    ]
   },
   {
@@ -5623,7 +8389,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "mambo"
+    "mambo",
+    "mambos"
    ]
   },
   {
@@ -5664,7 +8431,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "merengue"
+    "merengue",
+    "merengues"
    ]
   },
   {
@@ -5676,6 +8444,7 @@
    "traits": [],
    "mapStatus": "excluded_by_decision",
    "aliases": [
+    "merengue campesina",
     "merengue campesino",
     "merengue oriental"
    ]
@@ -5702,8 +8471,11 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "merengue caraquena",
     "merengue caraqueno",
+    "merengue rucaneaa",
     "merengue rucaneao",
+    "merengue venezolana",
     "merengue venezolano",
     "musica canonera"
    ]
@@ -5724,6 +8496,7 @@
    "aliases": [
     "heavy metal music",
     "metal",
+    "metales",
     "modern metal"
    ]
   },
@@ -5751,6 +8524,7 @@
    "aliases": [
     "alternative metal",
     "aternative metal",
+    "metal alternativa",
     "metal alternativo"
    ]
   },
@@ -5805,6 +8579,7 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "extreme metal",
+    "metal extrema",
     "metal extremo"
    ]
   },
@@ -5829,6 +8604,8 @@
     "black gothic metal",
     "gothic",
     "gothic metal",
+    "gothices",
+    "metal gotica",
     "metal gotico",
     "new gothic metal",
     "progressive gothic metal"
@@ -5900,7 +8677,10 @@
     "jazz latin metal",
     "latin metal",
     "metal afro",
+    "metal latina",
     "metal latino",
+    "metal latinoamericano",
+    "metal pesado latino americana",
     "metal pesado latino americano"
    ]
   },
@@ -5930,8 +8710,10 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "heavy metal progresivo sinfonica",
     "heavy metal progresivo sinfonico",
     "melodic progressive",
+    "metal progresiva",
     "metal progresivo",
     "pogressive metal",
     "progresivo metal",
@@ -5962,6 +8744,7 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "metal sinfonica",
     "metal sinfonico",
     "symphonic heavy",
     "symphonic metal",
@@ -5996,10 +8779,13 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "mathcore",
+    "mathcores",
     "metal core",
     "metal hardcore",
     "metalcore",
+    "metalcores",
     "nintendocore",
+    "nintendocores",
     "progressive metalcore"
    ]
   },
@@ -6029,8 +8815,10 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "andino venezolana",
     "andino venezolano",
     "cancion tachirense",
+    "joropo andina",
     "joropo andino",
     "musica andina venezolana"
    ]
@@ -6050,6 +8838,7 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "antique",
+    "antiques",
     "baroque music",
     "baroque suite",
     "classical antique",
@@ -6078,35 +8867,49 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "ballet",
+    "balletes",
     "brazilian classical music",
     "choral symphony",
     "cinematic classical",
     "clasical",
+    "clasicales",
     "classical",
     "classical crossover",
     "classical music",
     "classical period",
+    "classicales",
     "concerto",
+    "concertos",
     "fugue",
+    "fugues",
     "impressionism",
+    "impressionismes",
     "latin american classical music",
     "lied",
+    "liedes",
     "minimalism",
+    "minimalismes",
     "modern classical",
     "musica clasica",
     "orchestral music",
     "orchestral song",
     "overture",
+    "overtures",
     "post minimalism",
     "romanticism",
+    "romanticismes",
     "serenade",
+    "serenades",
     "sonata",
+    "sonatas",
     "spanish classical music",
     "stochastic music",
     "symphony",
+    "symphonyes",
     "theme and variation",
     "tone poem",
     "totalism",
+    "totalismes",
     "western classical music"
    ]
   },
@@ -6129,10 +8932,13 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "a cappella",
+    "canto orfeonica",
     "canto orfeonico",
     "choral",
+    "chorales",
     "coro de voces femeninas",
     "coro infantil",
+    "madrigal venezolana",
     "madrigal venezolano",
     "musica academica coral",
     "musica coral",
@@ -6154,7 +8960,9 @@
    "aliases": [
     "christian",
     "christian rock",
+    "christianes",
     "cristiana",
+    "cristianas",
     "musica cristiana"
    ]
   },
@@ -6169,9 +8977,12 @@
    "aliases": [
     "balada cristiana",
     "ccm",
+    "ccm latina",
     "ccm latino",
+    "ccm latinoamericano",
     "contemporary christian",
     "musica cristiana contemporanea",
+    "pop cristiana",
     "pop cristiano"
    ]
   },
@@ -6220,8 +9031,10 @@
    "aliases": [
     "cancion infantil",
     "children",
+    "childrenes",
     "childrens music",
     "infantil",
+    "infantiles",
     "musica infantil",
     "pop infantil",
     "rondas"
@@ -6241,11 +9054,17 @@
     "christmas music",
     "musica navidena",
     "navidad",
+    "navidades",
     "navidena",
+    "navidenas",
     "navideno",
+    "navidenos",
     "parang",
+    "paranges",
     "villancico",
-    "villancico venezolano"
+    "villancico venezolana",
+    "villancico venezolano",
+    "villancicos"
    ]
   },
   {
@@ -6279,13 +9098,17 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "cantata",
+    "cantatas",
     "christian liturgical music",
     "mass",
     "musica sacra",
     "oratorio",
+    "oratorios",
     "passion",
+    "passiones",
     "polyphonic chant",
     "requiem",
+    "requiemes",
     "sacred music"
    ]
   },
@@ -6299,47 +9122,69 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "bullerengue",
+    "bullerengues",
     "cancion campesina",
     "cancion popular",
+    "canto comunitaria",
     "canto comunitario",
     "cantos tradicionales regionales",
     "caribbean folk music",
     "doble paso",
+    "folclor latinoamericana",
     "folclor latinoamericano",
     "folclor tradicional",
     "folclore",
+    "folclores",
     "folklore",
+    "folklore latinoamericana",
     "folklore latinoamericano",
+    "folklores",
     "folklorica",
+    "folkloricas",
     "hispanic american folk music",
     "hispanic american music",
     "indigenous american traditional music",
     "indigenous andean music",
     "marcha",
+    "marchas",
     "mariachi",
+    "mariachis",
     "mazurka",
+    "mazurkas",
     "mexican music",
     "murga",
+    "murgas",
     "musica gaucha",
     "musica tradicional",
     "norteno",
+    "nortenos",
     "pasillo",
+    "pasillos",
     "pasodoble",
+    "pasodobles",
     "polca",
+    "polcas",
     "ranchera",
+    "rancheras",
     "south american music",
     "spanish folk music",
     "tamborito",
+    "tamboritos",
     "tonada chilena",
     "tradicional venezolana",
     "tradidional",
+    "tradidionales",
     "traditional",
     "traditional folk music",
+    "traditionales",
+    "vals criolla",
     "vals criollo",
     "waltz",
+    "waltzes",
     "welsh folk music",
     "work song",
-    "zamba"
+    "zamba",
+    "zambas"
    ]
   },
   {
@@ -6362,30 +9207,43 @@
    "aliases": [
     "afro caribbean pop",
     "afrocaribeno",
+    "afrocaribenos",
     "arpa tropical",
     "bomba",
+    "bombas",
+    "cadence lypsa",
     "cadence lypso",
     "caribbean fusion",
     "caribbean music",
     "conga",
+    "congas",
     "danzon",
+    "danzones",
     "fusion tropical",
     "indie tropical",
     "lambada",
+    "lambadas",
     "latin tropical",
     "mosaico tropical",
     "musica de baile",
     "musica tropical",
     "orquesta bailable",
     "pachanga",
+    "pachangas",
     "plena",
+    "plenas",
     "porro",
+    "porros",
     "rhumba",
+    "rhumbas",
     "rumba cubana",
     "tamborera",
+    "tamboreras",
     "tropical",
     "tropical music",
-    "tumba"
+    "tropicales",
+    "tumba",
+    "tumbas"
    ]
   },
   {
@@ -6399,8 +9257,11 @@
    "aliases": [
     "cancion criolla",
     "cancion venezolana",
+    "canto venezolana",
     "canto venezolano",
+    "folclor venezolana",
     "folclor venezolano",
+    "folklore venezolana",
     "folklore venezolano",
     "musica criolla"
    ]
@@ -6420,6 +9281,7 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "nacionalismo musical",
+    "nacionalismo musical venezolana",
     "nacionalismo musical venezolano",
     "venezuelan nationalist music"
    ]
@@ -6435,7 +9297,8 @@
    "aliases": [
     "neo psicodelia",
     "neo psychedelia",
-    "neopsicodelia"
+    "neopsicodelia",
+    "neopsicodelias"
    ]
   },
   {
@@ -6465,7 +9328,9 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "neoclasica",
-    "neoclassical"
+    "neoclasicas",
+    "neoclassical",
+    "neoclassicales"
    ]
   },
   {
@@ -6548,9 +9413,12 @@
     "harsh noise",
     "harsh noise wall",
     "necronoise",
+    "necronoises",
     "noise",
+    "noises",
     "power electronics",
-    "vapornoise"
+    "vapornoise",
+    "vapornoises"
    ]
   },
   {
@@ -6583,7 +9451,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "noisecore"
+    "noisecore",
+    "noisecores"
    ]
   },
   {
@@ -6674,7 +9543,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "nueva trova",
-    "trova"
+    "trova",
+    "trovas"
    ]
   },
   {
@@ -6747,8 +9617,11 @@
     "opera buffa",
     "opera comique",
     "opera seria",
+    "operas",
     "operetta",
+    "operettas",
     "verismo",
+    "verismos",
     "zarzuela grande"
    ]
   },
@@ -6776,8 +9649,11 @@
    "aliases": [
     "pasaje",
     "pasaje instrumental",
+    "pasaje llanera",
     "pasaje llanero",
-    "pasaje romantico"
+    "pasaje romantica",
+    "pasaje romantico",
+    "pasajes"
    ]
   },
   {
@@ -6803,8 +9679,10 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "polo",
+    "polo margaritena",
     "polo margariteno",
-    "polo oriental"
+    "polo oriental",
+    "polos"
    ]
   },
   {
@@ -6842,22 +9720,27 @@
     "brill building",
     "city pop",
     "europop",
+    "europopes",
     "indie pop",
     "j pop",
     "k pop",
     "levenslied",
+    "levensliedes",
     "musical parody",
     "neo acoustic",
     "novelty",
+    "noveltyes",
     "orchestral pop",
     "peligroso pop",
     "pop",
     "pop instrumental",
     "progressive pop",
     "schlager",
+    "schlageres",
     "sophisti pop",
     "teen pop",
     "tontipop",
+    "tontipopes",
     "vocal group"
    ]
   },
@@ -6886,9 +9769,12 @@
     "latin pop",
     "mpb",
     "pop latin",
+    "pop latina",
     "pop latino",
+    "pop latinoamericano",
     "tejano music",
-    "tropipop"
+    "tropipop",
+    "tropipopes"
    ]
   },
   {
@@ -6917,9 +9803,11 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "pop psicodelica",
     "pop psicodelico",
     "psychedelic pop",
-    "tropicanibalismo"
+    "tropicanibalismo",
+    "tropicanibalismos"
    ]
   },
   {
@@ -6945,7 +9833,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "pop punk",
-    "poppunk"
+    "poppunk",
+    "poppunkes"
    ]
   },
   {
@@ -6990,7 +9879,9 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "porngrind",
-    "pornogrind"
+    "porngrindes",
+    "pornogrind",
+    "pornogrindes"
    ]
   },
   {
@@ -7033,7 +9924,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "post grunge",
-    "postgrunge"
+    "postgrunge",
+    "postgrunges"
    ]
   },
   {
@@ -7122,7 +10014,8 @@
     "post punk",
     "post punk revival",
     "postpunk",
-    "postpunk paranormal"
+    "postpunk paranormal",
+    "postpunkes"
    ]
   },
   {
@@ -7160,7 +10053,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "post rock",
-    "postrock"
+    "postrock",
+    "postrockes"
    ]
   },
   {
@@ -7197,9 +10091,12 @@
     "melodic power metal",
     "power",
     "power metal",
+    "power metal melodica",
     "power metal melodico",
     "power metal with folk elements",
+    "poweres",
     "powermetal",
+    "powermetales",
     "us power metal"
    ]
   },
@@ -7225,6 +10122,7 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "power metal progresiva",
     "power metal progresivo",
     "power progressive metal",
     "progressive power",
@@ -7245,6 +10143,7 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "power metal sinfonica",
     "power metal sinfonico",
     "symphonic power metal"
    ]
@@ -7296,7 +10195,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "psychobilly"
+    "psychobilly",
+    "psychobillyes"
    ]
   },
   {
@@ -7314,6 +10214,7 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "punk",
+    "punkes",
     "synth punk"
    ]
   },
@@ -7374,6 +10275,7 @@
     "puk rock",
     "punk rock",
     "punkrock",
+    "punkrockes",
     "rock punk",
     "rock punkrock",
     "skate punk"
@@ -7388,7 +10290,8 @@
    "traits": [],
    "mapStatus": "excluded_by_decision",
    "aliases": [
-    "puntillanto"
+    "puntillanto",
+    "puntillantos"
    ]
   },
   {
@@ -7419,6 +10322,7 @@
     "new jack swing",
     "r and b",
     "r b",
+    "r b contemporanea",
     "r b contemporaneo",
     "rnb",
     "trap soul"
@@ -7442,7 +10346,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "ragga"
+    "ragga",
+    "raggas"
    ]
   },
   {
@@ -7502,6 +10407,7 @@
     "rap metal",
     "rap rock",
     "rapcore",
+    "rapcores",
     "trap metal"
    ]
   },
@@ -7524,7 +10430,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "raptor",
-    "raptor house"
+    "raptor house",
+    "raptores"
    ]
   },
   {
@@ -7563,7 +10470,8 @@
    "aliases": [
     "noise raw punk",
     "raw punk",
-    "rawpunk"
+    "rawpunk",
+    "rawpunkes"
    ]
   },
   {
@@ -7600,7 +10508,8 @@
     "pop reggae",
     "reggae",
     "reggae pop",
-    "reggae rock"
+    "reggae rock",
+    "reggaes"
    ]
   },
   {
@@ -7652,8 +10561,11 @@
    "aliases": [
     "deconstructed reggaeton",
     "neoperreo",
+    "neoperreos",
     "reggaeton",
-    "regueton"
+    "reggaetones",
+    "regueton",
+    "reguetones"
    ]
   },
   {
@@ -7666,6 +10578,7 @@
    "mapStatus": "excluded_by_decision",
    "aliases": [
     "orquidea",
+    "orquideas",
     "ritmo orquidea"
    ]
   },
@@ -7703,6 +10616,7 @@
     "heartland rock",
     "rock",
     "rock nacional",
+    "rockes",
     "roots rock"
    ]
   },
@@ -7721,6 +10635,7 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "acoustic rock",
+    "rock acustica",
     "rock acustico"
    ]
   },
@@ -7749,8 +10664,10 @@
     "alt rock",
     "alternative",
     "alternative rock",
+    "alternatives",
     "aternative rock",
     "geek rock",
+    "rock alternativa",
     "rock alternative",
     "rock alternativo"
    ]
@@ -7780,7 +10697,8 @@
     "rock and roll",
     "rock n roll",
     "rock roll",
-    "rocknroll"
+    "rocknroll",
+    "rocknrolles"
    ]
   },
   {
@@ -7807,6 +10725,7 @@
    "aliases": [
     "electro rock",
     "electronic rock",
+    "rock electronica",
     "rock electronico",
     "techno rock"
    ]
@@ -7835,6 +10754,7 @@
    "aliases": [
     "experimental rock",
     "krautrock",
+    "krautrockes",
     "math rock",
     "noise rock",
     "rock experimental"
@@ -7872,6 +10792,7 @@
    "aliases": [
     "dark rock",
     "gothic rock",
+    "rock gotica",
     "rock gotico"
    ]
   },
@@ -7912,12 +10833,17 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "alterlatino",
+    "alterlatinos",
+    "alternativo latina",
     "alternativo latino",
+    "alternativo latinoamericano",
     "latin alternative",
     "latin rock",
     "rock en espanol",
     "rock latin",
+    "rock latina",
     "rock latino",
+    "rock latinoamericano",
     "tropical rock"
    ]
   },
@@ -7931,6 +10857,7 @@
    "mapStatus": "excluded_by_decision",
    "aliases": [
     "melodic rock",
+    "rock melodica",
     "rock melodico"
    ]
   },
@@ -7966,6 +10893,7 @@
     "progresive rock",
     "progressive hard rock",
     "progressive rock",
+    "rock progresiva",
     "rock progresivo",
     "rock progressive"
    ]
@@ -8000,8 +10928,11 @@
     "heavy psych",
     "psych rock",
     "psychedelia",
+    "psychedelias",
     "psychedelic rock",
+    "rock acida",
     "rock acido",
+    "rock psicodelica",
     "rock psicodelico",
     "rock psychedelic"
    ]
@@ -8024,7 +10955,9 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "rock sinfonica",
     "rock sinfonico",
+    "rock sinfonico progresiva",
     "rock sinfonico progresivo",
     "symphonic hard rock",
     "symphonic prog rock",
@@ -8049,6 +10982,7 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "rock surena",
     "rock sureno",
     "southern rock"
    ]
@@ -8088,7 +11022,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "rockabilly",
-    "rockabilly revival"
+    "rockabilly revival",
+    "rockabillyes"
    ]
   },
   {
@@ -8113,7 +11048,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "rocksteady"
+    "rocksteady",
+    "rocksteadyes"
    ]
   },
   {
@@ -8165,7 +11101,8 @@
    "aliases": [
     "latin salsa",
     "salsa",
-    "salsa dura"
+    "salsa dura",
+    "salsas"
    ]
   },
   {
@@ -8217,7 +11154,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "samba"
+    "samba",
+    "sambas"
    ]
   },
   {
@@ -8238,7 +11176,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "sangueo"
+    "sangueo",
+    "sangueos"
    ]
   },
   {
@@ -8267,7 +11206,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "shoegaze"
+    "shoegaze",
+    "shoegazes"
    ]
   },
   {
@@ -8323,7 +11263,8 @@
    "aliases": [
     "ska core",
     "ska punk",
-    "skacore"
+    "skacore",
+    "skacores"
    ]
   },
   {
@@ -8354,8 +11295,10 @@
    "aliases": [
     "slam",
     "slam death metal",
+    "slames",
     "slamming",
-    "slamming brutal death metal"
+    "slamming brutal death metal",
+    "slamminges"
    ]
   },
   {
@@ -8437,8 +11380,10 @@
    "aliases": [
     "chutney",
     "chutney soca",
+    "chutneyes",
     "power soca",
-    "soca"
+    "soca",
+    "socas"
    ]
   },
   {
@@ -8488,8 +11433,11 @@
     "cuban charanga",
     "cuban music",
     "guajira",
+    "guajiras",
     "son",
+    "son cubana",
     "son cubano",
+    "son montuna",
     "son montuno"
    ]
   },
@@ -8525,7 +11473,8 @@
     "pop soul",
     "psychedelic soul",
     "romanian popcorn",
-    "soul"
+    "soul",
+    "soules"
    ]
   },
   {
@@ -8607,6 +11556,7 @@
     "jazz poetry",
     "palabra hablada",
     "poetry",
+    "poetryes",
     "spoken word"
    ]
   },
@@ -8658,7 +11608,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "stoner",
-    "stoner rock"
+    "stoner rock",
+    "stoneres"
    ]
   },
   {
@@ -8684,7 +11635,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "street punk",
-    "streetpunk"
+    "streetpunk",
+    "streetpunkes"
    ]
   },
   {
@@ -8721,6 +11673,7 @@
     "surf",
     "surf punk",
     "surf rock",
+    "surfes",
     "vocal surf"
    ]
   },
@@ -8751,7 +11704,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "synth pop",
-    "synthpop"
+    "synthpop",
+    "synthpopes"
    ]
   },
   {
@@ -8773,15 +11727,21 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "afropercusion",
+    "afropercusiones",
     "afrovenezolano",
+    "afrovenezolanos",
     "cumaco",
+    "cumacos",
     "golpe de tambor",
     "musica afrovenezolana",
     "parranda afrovenezolana",
     "tambor",
+    "tambor afrovenezolana",
     "tambor afrovenezolano",
+    "tambor barloventena",
     "tambor barloventeno",
     "tambor de la costa",
+    "tambores",
     "tradiciones costeras"
    ]
   },
@@ -8807,8 +11767,10 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "sones de negra",
     "sones de negro",
-    "tamunangue"
+    "tamunangue",
+    "tamunangues"
    ]
   },
   {
@@ -8837,9 +11799,12 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "latin tanga",
     "latin tango",
     "milonga",
-    "tango"
+    "milongas",
+    "tango",
+    "tangos"
    ]
   },
   {
@@ -8915,23 +11880,38 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "acid techna",
     "acid techno",
+    "ambient techna",
     "ambient techno",
+    "belgian techna",
     "belgian techno",
+    "detroit techna",
     "detroit techno",
+    "dub techna",
     "dub techno",
     "freetekno",
+    "freeteknos",
     "ghettotech",
+    "ghettoteches",
     "hard drum",
+    "hard techna",
     "hard techno",
     "hypertechno",
+    "hypertechnos",
+    "industrial techna",
     "industrial techno",
+    "melodic techna",
     "melodic techno",
+    "minimal techna",
     "minimal techno",
+    "peak time techna",
     "peak time techno",
     "techno",
     "techno bass",
     "techno trance",
+    "technos",
+    "wonky techna",
     "wonky techno"
    ]
   },
@@ -8954,10 +11934,13 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "merenhouse",
+    "merenhouses",
     "techno merengue",
     "technomerengue",
+    "technomerengues",
     "tecno merengue",
-    "tecnomerengue"
+    "tecnomerengue",
+    "tecnomerengues"
    ]
   },
   {
@@ -8991,7 +11974,9 @@
     "thash metal",
     "thrash",
     "thrash metal",
+    "thrash rutera",
     "thrash rutero",
+    "thrashes",
     "tras metal",
     "trash metal"
    ]
@@ -9018,7 +12003,8 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
-    "timba"
+    "timba",
+    "timbas"
    ]
   },
   {
@@ -9039,13 +12025,19 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "canto de ordena",
     "canto de ordeno",
+    "canto de trabaja",
     "canto de trabajo",
+    "canto sabanera",
     "canto sabanero",
+    "cantos de ordena",
     "cantos de ordeno",
+    "cantos de trabaja",
     "cantos de trabajo",
     "tonada",
-    "tonada llanera"
+    "tonada llanera",
+    "tonadas"
    ]
   },
   {
@@ -9079,8 +12071,10 @@
     "euro trance",
     "hard trance",
     "psytrance",
+    "psytrances",
     "tech trance",
-    "trance"
+    "trance",
+    "trances"
    ]
   },
   {
@@ -9114,10 +12108,15 @@
     "dark plugg",
     "hard trap",
     "plugg",
+    "plugges",
     "pluggnb",
+    "pluggnbes",
     "rage",
+    "rages",
     "trap",
-    "vaportrap"
+    "trapes",
+    "vaportrap",
+    "vaportrapes"
    ]
   },
   {
@@ -9139,7 +12138,10 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "latin trap",
+    "trap latina",
     "trap latino",
+    "trap latinoamericano",
+    "trap venezolana",
     "trap venezolano"
    ]
   },
@@ -9199,7 +12201,8 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "turntable music",
-    "turntablism"
+    "turntablism",
+    "turntablismes"
    ]
   },
   {
@@ -9211,7 +12214,8 @@
    "traits": [],
    "mapStatus": "excluded_by_decision",
    "aliases": [
-    "twist"
+    "twist",
+    "twistes"
    ]
   },
   {
@@ -9224,23 +12228,35 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "beat bruxaria",
+    "corrido tumbada",
     "corrido tumbado",
     "dembow",
+    "dembowes",
     "funk 150 bpm",
+    "funk brasileira",
     "funk brasileiro",
     "funk carioca",
+    "funk mandelaa",
     "funk mandelao",
     "latin urban",
+    "mambo urbana",
     "mambo urbano",
     "moombahton",
+    "moombahtones",
     "musica urbana",
     "rasteirinha",
+    "rasteirinhas",
     "rkt",
+    "soul inflected urbana",
     "soul inflected urbano",
     "urban pop",
     "urbana",
+    "urbanas",
     "urbano",
-    "urbano latino"
+    "urbano latina",
+    "urbano latino",
+    "urbano latinoamericano",
+    "urbanos"
    ]
   },
   {
@@ -9267,7 +12283,8 @@
    "aliases": [
     "vallenato",
     "vallenato crossover",
-    "vallenato repertory"
+    "vallenato repertory",
+    "vallenatos"
    ]
   },
   {
@@ -9288,6 +12305,7 @@
    ],
    "mapStatus": "documented_proposal",
    "aliases": [
+    "vals andina",
     "vals andino"
    ]
   },
@@ -9306,7 +12324,9 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "contradanza",
+    "contradanzas",
     "vals",
+    "vals venezolana",
     "vals venezolano"
    ]
   },
@@ -9320,10 +12340,12 @@
    "mapStatus": "documented_proposal",
    "aliases": [
     "christian metal",
+    "metal cristiana",
     "metal cristiano",
     "unblack metal",
     "white",
-    "white metal"
+    "white metal",
+    "whites"
    ]
   },
   {
@@ -9338,14 +12360,18 @@
     "balinese gamelan",
     "cantos sefardies",
     "ethnic",
+    "ethnices",
     "hindustani classical music",
+    "musica del munda",
     "musica del mundo",
     "sephardic music",
     "tassa",
+    "tassas",
     "world",
     "world ethnic",
     "world fusion",
-    "world music"
+    "world music",
+    "worldes"
    ]
   }
  ],
@@ -9449,6 +12475,14 @@
   },
   {
    "phrase": "animarme",
+   "candidates": [
+    "emotion:joyful",
+    "emotion:euphoric",
+    "emotion:confident"
+   ]
+  },
+  {
+   "phrase": "anime",
    "candidates": [
     "emotion:joyful",
     "emotion:euphoric",
@@ -9585,9 +12619,24 @@
    "trata sobre",
    "con letras sobre",
    "con letras de",
-   "de protesta",
    "de tematica",
-   "lyrics about"
+   "lyrics about",
+   "que hablan de",
+   "que habla de",
+   "que hablan sobre",
+   "que habla sobre",
+   "hablen de",
+   "hablan de",
+   "que cuente",
+   "que cuenten",
+   "que narre",
+   "que narren",
+   "con historias de",
+   "historias de",
+   "letras de contenido",
+   "contenido",
+   "que trate",
+   "que traten"
   ],
   "entityCues": {
    "track": [
@@ -9680,6 +12729,7 @@
    ]
   },
   "origins": [
+   "aca",
    "aleman",
    "alemana",
    "alemanes",
@@ -9687,6 +12737,7 @@
    "andina",
    "andino",
    "andinos",
+   "aqui",
    "aragueno",
    "argentina",
    "argentinas",
@@ -9789,6 +12840,10 @@
    "japoneses",
    "larense",
    "larenses",
+   "latinoamericana",
+   "latinoamericanas",
+   "latinoamericano",
+   "latinoamericanos",
    "lecheria",
    "lima",
    "llanera",
@@ -9874,6 +12929,9 @@
    "remasterizado",
    "remasterizada",
    "remasterizados",
+   "remasterizadas",
+   "versiones remasterizadas",
+   "version remasterizada",
    "version extendida",
    "live"
   ],
@@ -9913,6 +12971,120 @@
    "violeta",
    "violetas"
   ],
+  "attributes": [
+   "guitarra",
+   "guitarras",
+   "piano",
+   "pianos",
+   "saxofon",
+   "saxofones",
+   "saxo",
+   "bateria",
+   "baterias",
+   "cuerdas",
+   "violin",
+   "violines",
+   "flauta",
+   "flautas",
+   "arpa",
+   "arpas",
+   "trompeta",
+   "trompetas",
+   "acordeon",
+   "acordeones",
+   "sintetizador",
+   "sintetizadores",
+   "teclado",
+   "teclados",
+   "tambor",
+   "tambores",
+   "percusion",
+   "contrabajo",
+   "cello",
+   "chelo",
+   "clarinete",
+   "voz",
+   "voces",
+   "cantante",
+   "cantantes",
+   "vocalista",
+   "instrumental",
+   "instrumentales",
+   "acapela",
+   "bpm",
+   "compas",
+   "idioma",
+   "espanol",
+   "ingles",
+   "portugues",
+   "frances",
+   "italiano",
+   "aleman",
+   "japones",
+   "english",
+   "vieja",
+   "viejas",
+   "viejo",
+   "viejos",
+   "viejita",
+   "viejitas",
+   "viejito",
+   "viejitos",
+   "antigua",
+   "antiguas",
+   "antiguo",
+   "antiguos",
+   "epoca",
+   "conocida",
+   "conocidas",
+   "conocido",
+   "conocidos",
+   "famosa",
+   "famosas",
+   "famoso",
+   "famosos",
+   "popular",
+   "populares",
+   "desconocida",
+   "desconocidas",
+   "desconocido",
+   "desconocidos"
+  ],
+  "soundAttributes": [
+   "guitarra",
+   "guitarras",
+   "piano",
+   "pianos",
+   "saxofon",
+   "saxofones",
+   "saxo",
+   "bateria",
+   "baterias",
+   "cuerdas",
+   "violin",
+   "violines",
+   "flauta",
+   "flautas",
+   "arpa",
+   "arpas",
+   "trompeta",
+   "trompetas",
+   "acordeon",
+   "acordeones",
+   "sintetizador",
+   "sintetizadores",
+   "teclado",
+   "teclados",
+   "tambor",
+   "tambores",
+   "percusion",
+   "contrabajo",
+   "cello",
+   "chelo",
+   "clarinete",
+   "voz",
+   "voces"
+  ],
   "circumstances": [
    "antes de",
    "antes del",
@@ -9926,6 +13098,10 @@
    "al volver del"
   ],
   "fillerIdioms": [
+   "que suene a",
+   "que suenen a",
+   "suene a",
+   "suenen a",
    "sin parar",
    "sin cesar",
    "sin descanso",
@@ -9941,6 +13117,10 @@
    "menos",
    "more",
    "less"
+  ],
+  "formatNouns": [
+   "disco",
+   "discos"
   ],
   "attenuators": [
    "ni tan",
@@ -9993,6 +13173,19 @@
    ]
   },
   "fillers": [
+   "bandas",
+   "grupos",
+   "artistas",
+   "playlist",
+   "playlists",
+   "lista",
+   "mix",
+   "sonidos",
+   "discos",
+   "disco",
+   "albumes",
+   "album",
+   "grabaciones",
    "musica",
    "musicas",
    "musical",

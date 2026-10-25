@@ -16,7 +16,7 @@ export interface QueryLexiconDocument {
     listener: string[]; listenerEnd: string[]; themeCues: string[];
     entityCues: Record<"track" | "album" | "artist", string[]>; ownerCues: string[];
     similarityCues: string[]; similarityWeakCues: string[]; aspects: Record<string, string[]>;
-    comparatives: string[]; attenuators: string[]; clauseStarts: string[]; decades: Record<string, string[]>; fillers: string[]; origins?: string[]; fillerIdioms?: string[]; circumstances?: string[]; versionMarkers?: string[]; unrepresentable?: string[];
+    comparatives: string[]; attenuators: string[]; clauseStarts: string[]; decades: Record<string, string[]>; fillers: string[]; origins?: string[]; fillerIdioms?: string[]; circumstances?: string[]; versionMarkers?: string[]; unrepresentable?: string[]; attributes?: string[]; soundAttributes?: string[]; formatNouns?: string[];
   };
 }
 

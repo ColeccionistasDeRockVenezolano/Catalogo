@@ -5,6 +5,7 @@ Cada fragmento tiene una etiqueta conocida por construcción (el concepto o la c
 redactar), así que la alineación con los fragmentos del segmentador no depende del modelo.
 La prueba reservada se redactó antes y por otro autor; este banco nunca la lee.
 Salida: <out>/bank.jsonl (texto, etiqueta, clase, autor, lote) y <out>/usage.json.
+Con --supplement redacta el suplemento 0.3.0 (circunstancias, oyente, relleno).
 """
 from __future__ import annotations
 import json, sys, threading, urllib.request
@@ -77,14 +78,28 @@ def jobs():
            "muletillas («lo que sea», «sorpréndeme»).", 30)
 
 
-def main(out_dir: str):
+def supplement_jobs():
+    """Suplemento 0.3.0 (versión 1.3.0): circunstancias que acompañan a una actividad sin pedir nada a la
+    música, y más estados del oyente y relleno. Las clases que Laya confundía con restricciones."""
+    for topic in ("cuándo (hora, día, frecuencia: «todas las mañanas», «el sábado», «temprano»)",
+                  "cuánto dura («media hora», «un rato», «quince minutos al día»)",
+                  "con quién («con mi pareja», «con los panas», «con la familia», «de mi mamá»)",
+                  "dónde o con qué objeto («en la casa», «por la avenida», «un libro con un café», «en la oficina»)"):
+        yield ("filler", "circumstance", f"Complementos que alguien añade DESPUÉS de una actividad en una búsqueda de música («para correr …», «para leer …»), indicando {topic}. "
+               "Escribe SOLO el complemento, sin la actividad, sin «para» al inicio, sin pedir nada sobre cómo debe sonar la música.", 40)
+    yield ("listener", "listener", "Fragmentos donde la persona cuenta CÓMO SE SIENTE O ESTÁ ella ahora o qué le pasa («estoy…», «ando…», «me siento…», «hoy tengo…»), con causas variadas, sin pedir nada a la música.", 60)
+    yield ("filler", "filler", "Relleno de búsqueda sin pedido musical concreto: cortesía, valoraciones vagas, muletillas, comentarios sobre la propia búsqueda.", 40)
+
+
+def main(out_dir: str, supplement: bool = False):
     out = Path(out_dir); out.mkdir(parents=True, exist_ok=True)
     rows = []
-    todo = list(jobs())
+    todo = list(supplement_jobs() if supplement else jobs())
     with ThreadPoolExecutor(6) as pool:
         for (kind, label, _p, _n), phrases in zip(todo, pool.map(lambda j: call(j[2], j[3]), todo)):
             for p in dict.fromkeys(phrases):
-                rows.append({"text": p, "label": label, "class": kind, "author": f"DeepSeek ({MODEL})", "batch": "bank-0.2.0"})
+                rows.append({"text": p, "label": "filler" if label == "circumstance" else label, "class": kind, "author": f"DeepSeek ({MODEL})",
+                             "batch": "bank-0.3.0-supplement" if supplement else "bank-0.2.0", **({"sub": "circumstance"} if label == "circumstance" else {})})
             print(kind, label, len(phrases), flush=True)
     with open(out / "bank.jsonl", "w") as f:
         for r in rows: f.write(json.dumps(r, ensure_ascii=False) + "\n")
@@ -93,4 +108,4 @@ def main(out_dir: str):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], "--supplement" in sys.argv)

@@ -35,7 +35,7 @@ function ranked(a: Answer | undefined, exclude: string[] = []): string[] {
   return a ? Object.entries(a.probabilities).filter(([k]) => !exclude.includes(k)).sort((x, y) => y[1] - x[1]).map(([k]) => k) : [];
 }
 
-export const DESCRIBED_LEXICAL_PRIOR = 0.3;
+export const DESCRIBED_LEXICAL_PRIOR = 1;
 
 export function compileInterpretation(seg: Segmentation, answers: Answers, lexicon: QueryLexicon, thresholds: Thresholds = {}): Interpretation {
   let describedWithoutGenre = 0;
@@ -74,6 +74,11 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     const [choice, p] = top(answers[`span:${span.id}`]);
     trace.push({ span: span.id, text: span.text, decision: choice, confidence: p, outcome: "" });
     const t = trace.at(-1)!;
+    // Un término ambiguo solo, sin señal temática ni otra condición que lo sitúe («música de amor»),
+    // no tiene contexto para decidir: se pregunta (1.3.0; desarrollo: S183, S184).
+    if (span.kind === "ambiguous" && span.cue !== "theme" && span.candidates.length > 1 && isolated(span)) {
+      needClarify = true; clarify.push(...[...ranked(answers[`span:${span.id}`], [NOT_REQUESTED, UNCLEAR]).filter(x => span.candidates.includes(x)), ...span.candidates]); t.outcome = "clarify"; continue;
+    }
     if (choice === NOT_REQUESTED && p >= thr.span) { t.outcome = "not_requested"; continue; }
     if (choice === UNCLEAR || choice === NOT_REQUESTED || p < thr.span) {
       if (span.candidates.length > 1 || span.kind === "ambiguous") { needClarify = true; clarify.push(...ranked(answers[`span:${span.id}`], [NOT_REQUESTED, UNCLEAR]).filter(x => span.candidates.includes(x))); t.outcome = "clarify"; }
@@ -93,7 +98,7 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     if (p < thr.dim) { pending.push({ text: span.text, reason: "residual_low_confidence" }); t.outcome = "pending"; return; }
     const d = dim as Dimension;
     // Lo negado nunca es relleno: descartarlo perdería una exclusión pedida.
-    if (d === "filler" && p >= (span.cue === "activity" ? Math.max(thr.filler, thr.fillerAfterCue) : thr.filler) && span.mode !== "excluded") { t.outcome = "ignored"; ignoredFiller++; return; }
+    if (d === "filler" && p >= (span.cue === "activity" ? Math.max(thr.filler, thr.fillerAfterCue) : thr.filler) && span.mode !== "excluded" && !span.negated) { t.outcome = "ignored"; ignoredFiller++; return; }
     if (d === "filler") { pending.push({ text: span.text, reason: span.mode === "excluded" ? "excluded_restriction_not_representable" : "residual_low_confidence" }); t.outcome = "pending"; return; }
     if (d === "catalog_name") { pending.push({ text: span.text, reason: "unresolved_name" }); t.outcome = "pending"; return; }
     if (d === "unsupported") { pending.push({ text: span.text, reason: "unsupported_restriction" }); t.outcome = "pending"; return; }
@@ -110,14 +115,18 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     conds.push({ concept: c, text: span.text, mode: span.mode, group: span.group, scope: scopeOf(c) }); t.outcome = "condition";
   }
 
+  // Descripción de sonido sin pedido ni atributo negado: se aclara con géneros aunque Laya no marque
+  // ningún resto como descripción (1.3.0; desarrollo: S204, T238).
+  if (!describedSpans.length && seg.soundDescription && !entities.length) describedSpans.push(...seg.spans.filter(s => s.kind === "residual" && s.mode !== "excluded"));
   if (describedSpans.length) {
     // Orden de las alternativas: probabilidad de Laya más un previo por el orden léxico del mapa de
-    // géneros (las opciones llegan ordenadas por coincidencia de rasgos). λ=0,3 elegido en validación.
+    // géneros (las opciones llegan ordenadas por coincidencia de rasgos BM25). λ=1 elegido en desarrollo
+    // 1.3.0 (pruebas 1.0.0–3.0.0); antes 0,3. Con la descripción siempre se ofrecen las tres primeras.
     const a = answers[DESCRIBE_KEY];
     const keys = Object.keys(a?.probabilities ?? {}).filter(k => k !== OTHER);
     const score = (k: string) => (a!.probabilities[k] ?? 0) + DESCRIBED_LEXICAL_PRIOR / (keys.indexOf(k) + 1);
     const options = [...keys].sort((x, y) => score(y) - score(x)).slice(0, 3);
-    if (options.length && (a?.probabilities[OTHER] ?? 0) < 1 - thr.genre_description) described.push(...options);
+    if (options.length) described.push(...options);
     else { pending.push({ text: describedSpans.map(s => s.text).join(" · "), reason: "described_traits_without_genre" }); describedWithoutGenre++; }
   }
 
@@ -128,7 +137,8 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
   const genreOverTitle = lexical.length > 0 && lexical.every(s => s.kind === "genre") && !seg.wholeQueryMatches.some(x => x.kind === "artist");
   if (seg.wholeQueryMatches.length && !genreOverTitle) {
     // Sin frases del léxico, el resto de la consulta no puede ser un pedido: es el nombre.
-    const conditionLike = lexical.length > 0 && conds.length + clarify.length + pending.length > 0;
+    // Si el léxico no cubre toda la consulta («Seguridad Nacional»), el resto confirma el nombre.
+    const conditionLike = lexical.length > 0 && conds.length + clarify.length + pending.length > 0 && !seg.spans.some(s => s.kind === "residual");
     if (!conditionLike && !needClarify) wholeAsEntity = true;
     else {
       const [k, kp] = top(answers["kind"]);
@@ -158,7 +168,7 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
   const describing = (described.length > 0 || describedWithoutGenre > 0) && !entities.some(e => e.role === "target");
   if (describing) {
     const named = unique.filter(c => c.concept.startsWith("genre:") && c.mode === "required").map(c => c.concept);
-    described.splice(0, described.length, ...[...new Set([...named, ...described])]);
+    described.splice(0, described.length, ...[...new Set([...named.slice(0, 1), ...described, ...named.slice(1)])]);
   }
   let status: QueryStatus;
   if (contradiction) status = "contradiction";
@@ -196,6 +206,7 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
   });
   return { version: COMPILER_VERSION, status, intention, canonical, contextOnly, alternatives, describedGenres: described, trace };
 
+  function isolated(span: Span) { return seg.spans.every(o => o === span || o.kind === "listener"); }
   function scopeOf(concept: string) { return axisOf(concept) === "decade" ? "album" : "track"; }
 }
 

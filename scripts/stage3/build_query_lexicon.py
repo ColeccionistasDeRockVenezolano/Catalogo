@@ -30,12 +30,12 @@ def norm(text: str) -> str:
 # Concepto -> alias añadidos. Los temas se marcan aparte (requieren señal temática).
 ADDITIONS: dict[str, list[str]] = {
     "activity:concentration": ["concentrarse", "concentrar", "estudiando", "estudio", "trabajando", "leyendo", "programando", "study", "studying", "focus", "to study"],
-    "activity:relaxation": ["relajarse", "relajar", "relax", "descanso", "relaxing", "to relax"],
+    "activity:relaxation": ["relajante", "relajantes", "relajarse", "relajar", "relax", "descanso", "relaxing", "to relax"],
     "activity:celebration": ["fiestas", "rumbear", "rumbeo", "celebrar", "party", "a party", "cumpleanos"],
-    "activity:sleep": ["siesta", "echarme una siesta", "sleep", "sleeping", "to sleep"],
+    "activity:sleep": ["quedarme dormido", "quedarse dormido", "dormirme", "siesta", "echarme una siesta", "sleep", "sleeping", "to sleep"],
     "activity:meditation": ["meditando", "meditation", "to meditate"],
-    "activity:dancing": ["echar pie", "bailar", "bailando", "to dance", "dancing"],
-    "activity:exercise": ["gym", "ejercicio", "ejercitarse", "entrenando", "workout", "to work out"],
+    "activity:dancing": ["bailable", "bailables", "echar pie", "bailar", "bailando", "to dance", "dancing"],
+    "activity:exercise": ["pesas", "rutina de pesas", "precalentar", "gym", "ejercicio", "ejercitarse", "entrenando", "workout", "to work out"],
     "activity:running": ["trotando", "corriendo", "running", "to run"],
     "activity:walking": ["paseo", "caminando", "paseando", "walking", "pasear al perro", "sacar al perro", "pasear el perro"],
     "activity:travel": ["manejar", "manejo", "manejando", "conducir", "conduciendo", "carretera", "viaje", "driving", "travel", "traveling"],
@@ -50,19 +50,19 @@ ADDITIONS: dict[str, list[str]] = {
     "emotion:nostalgic": ["nostalgicos", "nostalgicas", "nostalgic"],
     "emotion:romantic": ["romanticos", "romanticas", "romantic"],
     "emotion:sensual": ["sensuales", "eroticos", "eroticas", "sexy", "sensual"],
-    "emotion:angry": ["rabiosos", "rabiosas", "furiosos", "furiosas", "angry", "con rabia", "de caracter furioso"],
+    "emotion:angry": ["odio", "rabiosos", "rabiosas", "furiosos", "furiosas", "angry", "con rabia", "de caracter furioso"],
     "emotion:hopeful": ["esperanzadores", "esperanzadoras", "optimistas", "hopeful"],
     "emotion:euphoric": ["euforicos", "euforicas", "euphoric"],
-    "emotion:confident": ["poderoso", "poderosa", "empoderado", "empoderada"],
+    "emotion:confident": ["confianza", "poderoso", "poderosa", "empoderado", "empoderada"],
     "emotion:lonely": ["solitarios", "solitarias", "lonely"],
     "emotion:rebellious": ["rebeldes", "rebellious"],
     "emotion:bittersweet": ["agridulces", "bittersweet"],
     "energy:energy-low": ["poca energia", "baja energia", "de energia baja", "low energy"],
     "energy:energy-medium": ["energia moderada", "intensidad moderada", "medium energy"],
-    "energy:energy-high": ["energeticos", "energeticas", "energicos", "energicas", "alta energia", "high energy", "energetic"],
+    "energy:energy-high": ["movido", "movida", "movidos", "movidas", "movidito", "movidita", "energeticos", "energeticas", "energicos", "energicas", "alta energia", "high energy", "energetic"],
     "atmosphere:atmospheric": ["envolventes", "atmosfericos", "atmosfericas", "atmospheric"],
     "atmosphere:dark": ["oscuros", "oscuras", "sombrios", "sombrias", "dark"],
-    "atmosphere:nocturnal": ["nocturnos", "nocturnas", "nocturnal"],
+    "atmosphere:nocturnal": ["madrugada", "de madrugada", "nocturnos", "nocturnas", "nocturnal"],
     "atmosphere:ethereal": ["etereos", "etereas", "ethereal"],
     "atmosphere:dreamy": ["oniricos", "oniricas", "dreamy"],
     "atmosphere:epic": ["epicos", "epicas", "epic"],
@@ -78,8 +78,8 @@ ADDITIONS: dict[str, list[str]] = {
 # Sustantivos temáticos: solo son candidatos tras una señal temática (THEME_CUES).
 THEME_NOUNS: dict[str, list[str]] = {
     "theme:love": ["amor", "el amor", "love"],
-    "theme:breakup": ["ruptura", "una ruptura", "desamor", "despecho", "breakup", "heartbreak"],
-    "theme:sexuality": ["sexo", "sexualidad", "sex"],
+    "theme:breakup": ["ruptura amorosa", "ruptura", "una ruptura", "desamor", "despecho", "breakup", "heartbreak"],
+    "theme:sexuality": ["sexo", "sexualidad", "sex", "erotico", "erotica", "eroticos", "eroticas", "erotismo", "sexual", "sexuales"],
     "theme:death": ["muerte", "la muerte", "duelo", "luto", "death"],
     "theme:society": ["sociedad", "la sociedad", "critica social", "la vida cotidiana"],
     "theme:politics": ["politica", "la politica", "protesta", "protesta social", "politics"],
@@ -99,8 +99,9 @@ THEME_NOUNS: dict[str, list[str]] = {
 }
 # Alias adjetivales de temas: no exigen señal temática («canciones satíricas»).
 THEME_ALIASES: dict[str, list[str]] = {
-    "theme:humor": ["satirico", "satirica", "satiricos", "satiricas", "humoristico", "humoristica", "humoristicos", "humoristicas", "jocoso", "jocosas", "jocosos"],
-    "theme:politics": ["politicas", "politicos", "de protesta"],
+    "theme:humor": ["satirico", "satirica", "satiricos", "satiricas", "humoristico", "humoristica", "humoristicos", "humoristicas", "jocoso", "jocosas", "jocosos", "comico", "comica", "comicos", "comicas"],
+    "theme:spirituality": ["religioso", "religiosa", "religiosos", "religiosas", "espiritual", "espirituales"],
+    "theme:politics": ["politica", "politico", "politicas", "politicos", "de protesta", "protesta", "protesta social", "contestataria", "contestatarias", "contestatario", "contestatarios"],
 }
 
 # Paráfrasis frecuentes de las familias de rasgos técnicos (no amplían el vocabulario de facetas).
@@ -109,8 +110,8 @@ FACET_ADDITIONS: dict[str, list[str]] = {
     "candidate:vocals.mode": ["rap", "rapee", "rapeen", "rapear", "rapeada", "rapeados", "voz recitada", "recitado", "voces habladas"],
     "candidate:vocals.prominence": ["voz al fondo", "voz muy al fondo", "voz al fondo de la mezcla", "voz muy al fondo de la mezcla", "voz enterrada en la mezcla", "voz baja en la mezcla"],
     "candidate:structure.continuity": ["sin pausas", "sin pausas entre los temas", "sin pausas entre temas", "sin silencios entre los temas", "temas enlazados", "enlazados", "sin interrupciones", "de un tiron"],
-    "candidate:reception.acclimatization": ["mejore con cada escucha", "mejora con cada escucha", "mejoran con cada escucha", "gana con cada escucha", "crece con cada escucha", "crece con las escuchas"],
-    "candidate:structure.narrative": ["album conceptual", "cuenta una historia"],
+    "candidate:reception.acclimatization": ["mejore con cada escucha", "mejora con cada escucha", "mejoran con cada escucha", "gana con cada escucha", "crece con cada escucha", "crece con las escuchas", "gane con escuchas", "gane con las escuchas"],
+    "candidate:structure.narrative": ["album conceptual", "cuenta una historia", "albumes conceptuales", "disco conceptual", "discos conceptuales", "conceptual", "conceptuales"],
 }
 
 # Variantes de género y número (y aumentativo/diminutivo afectivo) de los alias de una palabra
@@ -133,6 +134,15 @@ def inflections(word: str, dimension: str) -> set[str]:
         stem = word[:-1]
         out |= {stem + "on", stem + "ona", stem + "ones", stem + "onas", stem + "ito", stem + "ita", stem + "itos", stem + "itas"}
     return out - {word}
+
+SOUND_WORDS = """guitarra guitarras piano pianos saxofon saxofones saxo bateria baterias cuerdas violin violines flauta flautas arpa arpas
+trompeta trompetas acordeon acordeones sintetizador sintetizadores teclado teclados tambor tambores percusion contrabajo cello chelo clarinete
+voz voces""".split()
+ATTRIBUTE_WORDS = """guitarra guitarras piano pianos saxofon saxofones saxo bateria baterias cuerdas violin violines flauta flautas arpa arpas
+trompeta trompetas acordeon acordeones sintetizador sintetizadores teclado teclados tambor tambores percusion contrabajo cello chelo clarinete
+voz voces cantante cantantes vocalista instrumental instrumentales acapela bpm compas idioma espanol ingles portugues frances italiano aleman japones
+english vieja viejas viejo viejos viejita viejitas viejito viejitos antigua antiguas antiguo antiguos epoca conocida conocidas conocido conocidos
+famosa famosas famoso famosos popular populares desconocida desconocidas desconocido desconocidos""".split()
 
 # Alias de género demasiado genéricos o rotos en el registro para proponer un fragmento.
 GENRE_ALIAS_DENY = {"wave", "tracker", "sequencer", "jerk", "tread", "vapor", "mashup", "big music", "no melody",
@@ -157,6 +167,7 @@ AMBIGUOUS: dict[str, list[str]] = {
     "psicodelico": ["atmosphere:psychedelic", "genre:rock-psicodelico"],
     "psicodelica": ["atmosphere:psychedelic", "genre:rock-psicodelico"],
     "animarme": ["emotion:joyful", "emotion:euphoric", "emotion:confident"],
+    "anime": ["emotion:joyful", "emotion:euphoric", "emotion:confident"],
     "intenso": ["emotion:tense", "energy:energy-high"],
     "intensa": ["emotion:tense", "energy:energy-high"],
     "intensos": ["emotion:tense", "energy:energy-high"],
@@ -172,7 +183,7 @@ MARKERS = {
     "boundary": ["pero", "aunque", "but"],
     "listener": ["estoy", "ando", "me siento", "me encuentro", "i am", "im", "i feel"],
     "listenerEnd": ["quiero", "pon", "ponme", "necesito", "dame", "busco", "y quiero", "pero quiero", "recomiendame"],
-    "themeCues": ["sobre", "acerca de", "que hablen de", "que hable de", "que traten de", "que trate de", "letras sobre", "letras de", "letra sobre", "tematica", "de tematica", "temas sobre", "canciones sobre", "about", "songs about", "cuya letra trate de", "cuya letra trata de", "cuya letra trata sobre", "que trata de", "que trata sobre", "que traten sobre", "que hablen sobre", "traten de", "trata de", "trata sobre", "con letras sobre", "con letras de", "de protesta", "de tematica", "lyrics about"],
+    "themeCues": ["sobre", "acerca de", "que hablen de", "que hable de", "que traten de", "que trate de", "letras sobre", "letras de", "letra sobre", "tematica", "de tematica", "temas sobre", "canciones sobre", "about", "songs about", "cuya letra trate de", "cuya letra trata de", "cuya letra trata sobre", "que trata de", "que trata sobre", "que traten sobre", "que hablen sobre", "traten de", "trata de", "trata sobre", "con letras sobre", "con letras de", "de tematica", "lyrics about", "que hablan de", "que habla de", "que hablan sobre", "que habla sobre", "hablen de", "hablan de", "que cuente", "que cuenten", "que narre", "que narren", "con historias de", "historias de", "letras de contenido", "contenido", "que trate", "que traten"],
     "entityCues": {"track": ["la cancion", "el tema", "la pista", "cancion", "el track", "the song", "song"],
                    "album": ["el disco", "el album", "el lp", "el ep", "disco", "album", "the album"],
                    "artist": ["la banda", "el grupo", "el artista", "la artista", "el cantante", "la cantante", "banda", "grupo", "artista", "the band"]},
@@ -182,7 +193,7 @@ MARKERS = {
     "aspects": {"guitars": ["las guitarras", "la guitarra", "guitarras", "guitarra"], "voice": ["la voz", "las voces", "voz", "voces", "el canto"],
                 "production": ["la produccion", "produccion", "el sonido"], "composition": ["la composicion", "composicion", "las letras", "letras"],
                 "atmosphere": ["el ambiente", "ambiente", "la atmosfera"]},
-    "origins": sorted(set("""venezuela venezolano venezolana venezolanos venezolanas criollo criolla criollos criollas colombia colombiano colombiana colombianos colombianas
+    "origins": sorted(set("""latinoamericano latinoamericana latinoamericanos latinoamericanas aca aqui venezuela venezolano venezolana venezolanos venezolanas criollo criolla criollos criollas colombia colombiano colombiana colombianos colombianas
 ecuador ecuatoriano ecuatoriana ecuatorianos ecuatorianas peru peruano peruana peruanos peruanas chile chileno chilena chilenos chilenas argentina argentino argentinos argentinas
 uruguay uruguayo uruguaya uruguayos uruguayas paraguay paraguayo paraguaya bolivia boliviano boliviana bolivianos bolivianas brasil brasileno brasilena brasilenos brasilenas
 mexico mexicano mexicana mexicanos mexicanas cuba cubano cubana cubanos cubanas puerto rico puertorriqueno puertorriquena boricua boricuas dominicana dominicano dominicanos dominicanas
@@ -194,21 +205,90 @@ oriente oriental orientales llanero llanera llaneros llanos margarita margariten
 bogota medellin lima montevideo quito guayaquil habana madrid barcelona londres""".split()) - {"la", "puerto", "rico", "cruz", "ciudad", "costa", "rica", "estados", "unidos", "salvador", "margarita"}),
     # Versión o grabación: no representable en intention-v1; se conserva pendiente.
     "versionMarkers": ["en vivo", "grabado en vivo", "grabada en vivo", "grabados en vivo", "grabadas en vivo", "en directo", "version en vivo", "versiones en vivo",
-                       "remix", "remixes", "remezcla", "remezclas", "remasterizado", "remasterizada", "remasterizados", "version extendida", "live"],
+                       "remix", "remixes", "remezcla", "remezclas", "remasterizado", "remasterizada", "remasterizados", "remasterizadas", "versiones remasterizadas", "version remasterizada", "version extendida", "live"],
     # Atributos que intention-v1 no representa y que Laya tiende a tomar por relleno (desarrollo: T189, R189).
     "unrepresentable": ["rojo", "roja", "rojos", "rojas", "verde", "verdes", "azul", "azules", "amarillo", "amarilla", "amarillos", "amarillas",
                         "morado", "morada", "morados", "moradas", "naranja", "naranjas", "rosado", "rosada", "rosados", "rosadas", "blanco", "blanca",
                         "blancos", "blancas", "negro", "negra", "negros", "negras", "gris", "grises", "violeta", "violetas"],
+    # 1.3.0 (desarrollo: prueba 3.0.0, S138, S141, S148, S160–S163, S174): instrumentación, voz, idioma,
+    # época y popularidad tampoco tienen eje en intention-v1. En una descripción de sonido sin pedido
+    # («acordeón, caja y guacharaca») describen un género y no se marcan.
+    "attributes": ATTRIBUTE_WORDS,
+    # Subconjunto que delata una descripción de sonido (instrumentos y voz; no idioma, época ni popularidad).
+    "soundAttributes": SOUND_WORDS,
     # Circunstancia temporal («después del trabajo», «antes de dormir»): no es un pedido a la música.
     "circumstances": ["antes de", "antes del", "despues de", "despues del", "luego de", "luego del", "al salir de", "al salir del", "al volver de", "al volver del"],
-    "fillerIdioms": ["sin parar", "sin cesar", "sin descanso", "no recuerdo", "no me acuerdo", "no se", "no importa", "casi no importa", "no se como se llama"],
+    "fillerIdioms": ["que suene a", "que suenen a", "suene a", "suenen a", "sin parar", "sin cesar", "sin descanso", "no recuerdo", "no me acuerdo", "no se", "no importa", "casi no importa", "no se como se llama"],
     "comparatives": ["mas", "menos", "more", "less"],
+    # «un disco», «discos»: el formato, no el género disco (desarrollo: R203, T203, S170).
+    "formatNouns": ["disco", "discos"],
     "attenuators": ["ni tan", "no tan", "no muy", "medio", "un poco", "not too"],
     "clauseStarts": ["para", "pa", "pal", "for"],
     "decades": {"1950s": ["cincuenta", "50", "50s"], "1960s": ["sesenta", "60", "60s"], "1970s": ["setenta", "70", "70s"],
                 "1980s": ["ochenta", "80", "80s"], "1990s": ["noventa", "90", "90s"], "2000s": ["2000", "dos mil", "2000s"], "2010s": ["2010", "2010s"]},
-    "fillers": "musica musicas musical cancion canciones tema temas rola rolas pieza piezas algo cosas cosa song songs music tracks quiero quisiera necesito busco buscar busca dame ponme pon recomiendame recomienda recomiendan escuchar oir para pa por de del la el las los lo un una unos unas al a en que sea sean bien full bastante muy mi me ahora favor porfa rato un rato mientras alguna algun buena buenas bueno buenos tipo for the to of some please i want with mas caracter de caracter ambiente atmosfera estilo onda vibra vibras".split(),
+    "fillers": "bandas grupos artistas playlist playlists lista mix sonidos discos disco albumes album grabaciones musica musicas musical cancion canciones tema temas rola rolas pieza piezas algo cosas cosa song songs music tracks quiero quisiera necesito busco buscar busca dame ponme pon recomiendame recomienda recomiendan escuchar oir para pa por de del la el las los lo un una unos unas al a en que sea sean bien full bastante muy mi me ahora favor porfa rato un rato mientras alguna algun buena buenas bueno buenos tipo for the to of some please i want with mas caracter de caracter ambiente atmosfera estilo onda vibra vibras".split(),
 }
+
+
+EXPANSION = ROOT / "docs/unified-search/stage3/inputs/concept-expansion-2026-10-25.json"
+
+
+EXPANDED: set[str] = set()
+# «solo» es casi siempre adverbio («que solo tengan piano»), no soledad (desarrollo: S162).
+CONCEPT_ALIAS_DENY = {"solo"}
+
+
+def merge_expansion(concepts: list[dict], taken: set[str]) -> None:
+    """Ampliación sistemática (DeepSeek flash, solo etiqueta y definición) con filtros fijos:
+    se descarta lo que ya está en el léxico, lo propuesto para dos conceptos, lo que contiene una
+    palabra que ya es alias de otro concepto, lo que solo alarga un alias del mismo concepto (el resto
+    lo absorbe el segmentador) y las frases de más de tres palabras o con palabras genéricas."""
+    exp = json.loads(EXPANSION.read_text())["concepts"]
+    single = {}
+    for c in concepts:
+        for a in c["aliases"] + c["themeNouns"]:
+            if " " not in a:
+                single.setdefault(a, set()).add(c["id"])
+    proposed: dict[str, set[str]] = {}
+    for cid, items in exp.items():
+        for e in items:
+            proposed.setdefault(norm(e), set()).add(cid)
+    generic = {"musica", "musical", "canciones", "cancion", "sonido", "sonidos", "sonora", "sonoro", "ambiente", "atmosfera", "algo"}
+    by_id = {c["id"]: c for c in concepts}
+    for cid, items in exp.items():
+        c = by_id.get(cid)
+        if not c:
+            continue
+        own = set(c["aliases"] + c["themeNouns"])
+        keep = set()
+        for e in {norm(x) for x in items}:
+            words = e.split()
+            if not e or e in taken or e in CONCEPT_ALIAS_DENY or len(proposed[e]) > 1 or len(words) > 3 or generic & set(words):
+                continue
+            if c["dimension"] != "theme" and any(single.get(w, set()) - {cid} for w in words):
+                continue
+            if len(words) > 1 and c["dimension"] != "theme" and any(w in own for w in words):
+                continue
+            keep.add(e)
+        EXPANDED.update(keep)
+        if c["dimension"] == "theme":
+            c["themeNouns"] = sorted(set(c["themeNouns"]) | keep)
+        else:
+            c["aliases"] = sorted(set(c["aliases"]) | keep)
+
+
+def genre_variants(aliases: set[str]) -> set[str]:
+    """Plural de los nombres de una palabra y femenino del adjetivo final («rock psicodelica»)."""
+    out = set()
+    for a in aliases:
+        w = a.split()
+        if len(w) == 1 and a.isalpha() and len(a) >= 4 and not a.endswith("s"):
+            out.add(a + ("es" if a[-1] not in "aeiou" else "s"))
+        if len(w) >= 2 and w[-1].endswith("o") and len(w[-1]) >= 5:
+            out.add(" ".join(w[:-1] + [w[-1][:-1] + "a"]))
+        if len(w) >= 2 and w[-1] in ("latino", "latina"):
+            out.add(" ".join(w[:-1] + [w[-1].replace("latin", "latinoamerican")]))
+    return out
 
 
 def main(genres_path: str) -> None:
@@ -225,6 +305,12 @@ def main(genres_path: str) -> None:
             nouns = []
         concepts.append({"id": c["id"], "dimension": c["dimension"], "labelEs": c["labelEs"], "definitionEs": c["definitionEs"],
                          "aliases": aliases, "themeNouns": nouns})
+    for c in concepts:
+        c["aliases"] = [a for a in c["aliases"] if a not in CONCEPT_ALIAS_DENY]
+        # Plural de los sustantivos temáticos de una palabra («guerras», «hadas»).
+        c["themeNouns"] = sorted(set(c["themeNouns"]) | {n + ("es" if n[-1] not in "aeiou" else "s") for n in c["themeNouns"] if " " not in n and n.isalpha() and len(n) >= 4 and not n.endswith("s")})
+    taken = {a for c in concepts for a in c["aliases"] + c["themeNouns"]} | set(AMBIGUOUS)
+    merge_expansion(concepts, taken)
     taken = {a for c in concepts for a in c["aliases"] + c["themeNouns"]} | set(AMBIGUOUS)
     for c in concepts:
         if c["dimension"] in ("emotion", "atmosphere", "energy"):
@@ -238,14 +324,22 @@ def main(genres_path: str) -> None:
         m = gmap.get(g["slug"], {})
         aliases = {norm(g["name"]), norm(g["slug"])}
         aliases |= {norm(a) for a in g["aliases"] if not re.search(r"[\[\]()/]", a)}
-        aliases = sorted(a for a in aliases if a and a not in GENRE_ALIAS_DENY and len(a) >= 3)
+        aliases = {a for a in aliases if a and a not in GENRE_ALIAS_DENY and len(a) >= 3}
+        aliases = sorted(aliases | genre_variants(aliases))
         traits = [{"aspect": ch["aspect"], "description": ch["description"]} for ch in m.get("characteristics", [])]
         genres.append({"slug": g["slug"], "name": g["name"], "level": g["level"], "parentId": g["parent_genre_id"],
                        "definition": m.get("description") or m.get("proposedDefinition"), "traits": traits,
                        "mapStatus": m.get("descriptionStatus"), "aliases": aliases})
+    for c in concepts:
+        c["aliases"] = [a for a in c["aliases"] if a not in CONCEPT_ALIAS_DENY]
+    # Una expresión de la ampliación que también nombra un género se descarta («parranda»).
+    genre_names = {a for g in genres for a in g["aliases"]}
+    for c in concepts:
+        for k in ("aliases", "themeNouns"):
+            c[k] = [a for a in c[k] if not (a in EXPANDED and a in genre_names)]
     sources = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (VOCAB, GENRE_MAP)}
     sources["genres-db-export"] = hashlib.sha256(Path(genres_path).read_bytes()).hexdigest()
-    body = {"version": "crv-query-lexicon-0.3.0", "builtBy": "scripts/stage3/build_query_lexicon.py", "vocabularyVersion": vocab["version"],
+    body = {"version": "crv-query-lexicon-0.4.0", "builtBy": "scripts/stage3/build_query_lexicon.py", "vocabularyVersion": vocab["version"],
             "genreMapVersion": json.loads(GENRE_MAP.read_text())["version"], "sources": sources,
             "policy": "Candidatos léxicos para proponer fragmentos; no deciden, no asignan atributos ni crean géneros o conceptos.",
             "concepts": concepts, "facets": facets, "genres": genres,

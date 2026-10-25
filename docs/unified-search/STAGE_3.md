@@ -234,6 +234,100 @@ Lo demás está por encima de 0,7.
 - Cuatro restricciones caen: «sabor de acá», «latinoamericana», «para un día de playa», «ojalá sin letra», «que no sean tan conocidas».
   Esos casos son los críticos y la sobreconfianza.
 
+## Versión 1.3.0 (criterios `criteria-1.3.0.json`, prueba reservada de consultas 4.0.0)
+
+Mismos umbrales. Solo se evalúan consultas.
+
+La prueba 4.0.0 (`datasets/query-test-reserved-4.json`, 247 casos) se redactó así:
+- con el mismo procedimiento que la 3.0.0, con semilla 47;
+- etiquetada con `author_reserved_query_test_v4.py`;
+- congelada en el commit 7d4d294a, antes de cualquier corrección.
+
+La prueba 3.0.0 pasa a ser de desarrollo, junto con la 1.0.0 y la 2.0.0.
+
+**Salvedad de independencia.** Claude etiquetó la 4.0.0 y después corrigió el sistema. Las correcciones se motivaron con fallos de desarrollo (pruebas 1.0.0–3.0.0) y con generación sistemática:
+- expansión de alias con DeepSeek flash a partir de la definición de cada concepto;
+- flexiones del léxico.
+
+No se añadieron frases conocidas solo por la 4.0.0. Aun así, quien etiquetó la prueba también escribió las reglas, así que la independencia no es total.
+
+**Cambios.**
+- Léxico 0.4.0:
+  - expansión de alias (`expand_concept_aliases.py`; `inputs/concept-expansion-2026-10-25.json`), con filtros para que una expresión no choque con otro concepto ni con un género;
+  - variantes de género (plural y femenino);
+  - señales de tema («que hablan de», «historias de»);
+  - marcadores de atributo y sonido (instrumentos, voz, idioma, época);
+  - sustantivos de formato («disco»);
+  - modismos de relleno («que suene a»).
+- Segmentador:
+  - corregido un error que modificaba el léxico compartido al restringir un ambiguo: «amor» quedaba como solo tema para el resto del proceso;
+  - literales fieles al original («Pa'», «Inc.»);
+  - una frase del léxico tras «como» no es referencia;
+  - continuaciones y enumeraciones de tema;
+  - «disco» como formato;
+  - atributos coordinados forman una sola restricción pendiente;
+  - las circunstancias y los auxiliares junto a una actividad se absorben;
+  - detección de descripciones de sonido.
+- Compilador:
+  - un ambiguo aislado pide aclaración;
+  - un resto negado nunca es relleno;
+  - un nombre del catálogo que el léxico no cubre entero es la ficha;
+  - la descripción de sonido fuerza la aclaración con géneros;
+  - previo léxico λ = 1 (antes 0,3; elegido en desarrollo);
+  - como mucho un género nombrado delante de la lista corta.
+- Banco y composición 0.5.0: fragmentos de circunstancia y descripciones sin muletillas.
+- Modelo `crv-query-heads-0.7.0`, elegido frente al 0.6.0 en las pruebas 1.0.0–3.0.0 (r3: 0,931 frente a 0,927; pendientes 0,978 frente a 0,935). ECE máxima 0,097.
+
+| Criterio | 0.7.0 | Umbral | Cumple |
+| --- | --- | --- | --- |
+| Exactitud | 0,854 | ≥ 0,85 | sí |
+| Adversariales | 0,844 | ≥ 0,80 | sí |
+| Críticos | 0,0202 (5/247) | ≤ 0,02 | no |
+| Obligatorios | 5/5 | 5/5 | sí |
+| Pendientes conservados | 0,895 | ≥ 0,95 | no |
+| Sobreabstención | 0 | ≤ 0,10 | sí |
+| Sobreconfianza | 0,101 | ≤ 0,05 | no |
+| F1 de condiciones | 0,956 | ≥ 0,90 | sí |
+| Género descrito, acierto entre tres | 0,769 | ≥ 0,70 | sí |
+| Tráfico real sin invención | 1,0 | ≥ 0,98 | sí |
+| Latencia p95 | 502 ms (modelo 497,5 + compilación 4,7) | ≤ 500 | no |
+| ECE máxima (validación) | 0,097 | ≤ 0,10 | sí |
+| Margen sobre las reglas heredadas | 0,692 | ≥ 0,20 | sí |
+| Críticos frente a reglas sin modelo | 0,020 frente a 0,020 | no peor | sí |
+
+Exactitud de los otros sistemas en la misma prueba:
+
+| Sistema | Exactitud |
+| --- | --- |
+| Base sin especializar | 0,377 |
+| Reglas | 0,810 |
+| Heredado | 0,162 |
+
+**No cumple; no se activa.** La exactitud sube de 0,704 a 0,854, pero las reglas solas ya llegan a 0,810, así que el modelo aporta poco.
+
+**Fallos (la prueba 4.0.0 ya es de desarrollo para 1.4.0).**
+
+Críticos (5):
+- «música instrumental…» (S012, S150): el léxico lo resuelve como `genre:instrumental` y la etiqueta lo marca como pendiente. Es un conflicto de convención entre el mapa de géneros y la regla de instrumentación.
+- «ando triste y nostálgico, quiero canciones alegres»: el estado del oyente se toma como filtro.
+- «canciones con voz susurrada»: la restricción cae.
+- «algo oscuro pero sin oscuridad»: la contradicción se ejecuta.
+
+Pendientes sin necesidad, que son la mayor parte de la sobreconfianza:
+- sinónimos coordinados o redundantes: «rabia y furia», «tranquila y calmada», «tensa de suspenso», «nocturna que evoque la noche»;
+- «con energía»;
+- inglés: «for a dinner», «long drive».
+
+Compañía tomada como actividad: «con los panas», «con amigos» y «reunión familiar» añaden `activity:socializing`.
+
+Fuera de vocabulario (13/19):
+- álbum conceptual o «sin pausas» como `partial`;
+- BPM o duración con actividad como `clarify`.
+
+Ruido: «ñlkj asdf» y «musiquita» salen `unsupported`.
+
+Latencia: el p95 del modelo (497,5 ms) deja 2,5 ms de margen. Hay que reducir preguntas por consulta o lotes.
+
 ## Reproducir
 
 ```bash

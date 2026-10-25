@@ -100,6 +100,29 @@ describe("interpretación de consultas (etapa 3)", () => {
     expect(r.canonical.req).toEqual([]);
     expect(r.canonical.alts.slice(0, 2)).toEqual(["genre:boom-bap", "genre:hip-hop"]);
   });
+  it("la circunstancia tras una actividad no es restricción y el auxiliar se absorbe (1.3.0)", () => {
+    expect(interpret("temas para correr media hora").canonical).toMatchObject({ status: "query_valid", req: ["activity:running"], pending: 0 });
+    expect(interpret("canciones que inviten a bailar").canonical).toMatchObject({ status: "query_valid", req: ["activity:dancing"] });
+  });
+  it("una enumeración temática es un solo asunto (1.3.0)", () => {
+    expect(interpret("canciones que hablen de la naturaleza, ríos y montañas").canonical).toMatchObject({ status: "query_valid", req: ["theme:nature"], pending: 0 });
+  });
+  it("atributos coordinados forman una sola restricción pendiente (1.3.0)", () => {
+    expect(interpret("música con saxofón y batería para una cena").canonical).toMatchObject({ status: "partial", req: ["activity:socializing"], pending: 1 });
+    const seg = segmentQuery("acordeón, caja y guacharaca", lexicon, emptyCatalog);
+    expect(seg.soundDescription).toBe(true);
+    expect(seg.spans.some(s => s.cue === "version")).toBe(false);
+  });
+  it("un ambiguo aislado se aclara y el léxico compartido no se altera con una señal temática (1.3.0)", () => {
+    expect(interpret("canciones que hablen de amor").canonical.req).toEqual(["theme:love"]);
+    const r = interpret("música de amor").canonical;
+    expect(r.status).toBe("clarify");
+    expect(r.alts).toEqual(expect.arrayContaining(["theme:love", "emotion:romantic", "activity:intimacy"]));
+  });
+  it("un nombre del catálogo que el léxico no cubre entero es la ficha (1.3.0)", () => {
+    const names: CatalogResolver = { lookup: l => catalogKey(l) === catalogKey("Seguridad Nacional") ? [{ kind: "artist", id: 8, name: "Seguridad Nacional" }] : [] };
+    expect(interpret("Seguridad Nacional", names).canonical).toMatchObject({ status: "entity_lookup", req: [] });
+  });
   it("una contradicción no se ejecuta", () => {
     expect(interpret("algo alegre pero sin alegría").canonical.status).toBe("contradiction");
   });

@@ -1,6 +1,6 @@
 /**
  * Etapa 3 · composición de consultas etiquetadas para entrenar, validar y calibrar Laya.
- *   compose <bank.jsonl> <outDir> [--seed 7] [--train 6000 --val 900 --calib 900]
+ *   compose <bank.jsonl[,suplemento.jsonl]> <outDir> [--seed 7] [--train 6000 --val 900 --calib 900]
  *   tasks   <dataset.json> <tasks.jsonl>      preguntas con su respuesta esperada (entrenamiento)
  * Cada fragmento tiene etiqueta por construcción; las frases del banco se reparten entre
  * conjuntos por huella, así que una frase nunca aparece en dos conjuntos. No lee la prueba reservada.
@@ -42,10 +42,10 @@ function keep(row: { text: string; class: string; label: string }): boolean {
 if (cmd === "compose") {
   const rand = rng(opt("--seed", 7));
   const pick = <T>(xs: T[]): T => xs[Math.floor(rand() * xs.length)]!;
-  const bank = readFileSync(input!, "utf8").split("\n").filter(Boolean).map(l => JSON.parse(l) as { text: string; class: string; label: string });
+  const bank = input!.split(",").flatMap(f => readFileSync(f, "utf8").split("\n").filter(Boolean).map(l => JSON.parse(l) as { text: string; class: string; label: string; sub?: string }));
   const kept = bank.filter(keep);
   const pools: Record<Split, Map<string, typeof kept>> = { train: new Map(), val: new Map(), calib: new Map() };
-  for (const r of kept) { const p = pools[splitOf(r.text)]; const k = `${r.class}|${r.class === "concept" || r.class === "facet" || r.class === "genre_description" ? r.label : r.class}`; p.set(k, [...(p.get(k) ?? []), r]); }
+  for (const r of kept) { const p = pools[splitOf(r.text)]; const k = r.sub === "circumstance" ? "circumstance|circumstance" : `${r.class}|${r.class === "concept" || r.class === "facet" || r.class === "genre_description" ? r.label : r.class}`; p.set(k, [...(p.get(k) ?? []), r]); }
   // Formas cortas (alias del léxico) para negar o preferir; nombres de género; nombres reales del catálogo.
   const shortForms = lexicon.doc.concepts.flatMap(c => c.dimension === "theme" ? c.themeNouns.slice(0, 2).map(n => ({ text: `sobre ${n}`, label: c.id })) : c.aliases.filter(a => a.split(" ").length <= 3).map(a => ({ text: a, label: c.id })));
   const genreNames = lexicon.doc.genres.filter(g => g.mapStatus !== "excluded_by_decision").map(g => ({ text: g.name.toLowerCase(), label: `genre:${g.slug}` }))
@@ -71,7 +71,8 @@ if (cmd === "compose") {
       let text = "";
       const join = (fs: Frag[], seps: string[]) => {
         const lead = normalizeQueryText(fs[0]!.text);
-        text = category === "whole_name" || fs[0]!.cls === "listener" || /^(quiero|busco|necesito|ponme|pon|dame|recomiendame|i |me |estoy|ando)/u.test(lead) ? "" : pick(openers);
+        // Una descripción de sonido va sin encabezado de pedido: con «quiero…» sería un atributo pendiente (1.3.0).
+        text = category === "whole_name" || category === "described" || fs[0]!.cls === "listener" || /^(quiero|busco|necesito|ponme|pon|dame|recomiendame|i |me |estoy|ando)/u.test(lead) ? "" : pick(openers);
         fs.forEach((f, i) => { if (i) text += seps[i - 1]!; const t = i ? (rand() < 0.7 ? stripLead(f.text) : f.text) : f.text; f.start = text.length; text += t; f.end = text.length; f.text = t; frags.push(f); });
       };
       if (r < 0.22) { const c = concept(); if (!c) continue; join([c], []); }
@@ -83,12 +84,15 @@ if (cmd === "compose") {
       else if (r < 0.73) { category = "listener"; const l = fromPool(split, "listener|listener"); const c = concept(); if (!l || !c) continue; join([{ text: l.text, cls: "listener", label: "listener", mode: "required", group: null }, c], [pick([", ", " y quiero ", ", ponme ", " pero quiero ", ", necesito "])]); }
       else if (r < 0.79) { category = "unsupported"; const c = rand() < 0.75 ? concept() : null; const kindKey = rand() < 0.55 ? "unsupported|unsupported" : pick([...pools[split].keys()].filter(k => k.startsWith("facet|"))); const u = fromPool(split, kindKey); if (!u) continue;
         const uf: Frag = { text: u.text, cls: u.class === "facet" ? "facet" : "unsupported", label: u.label, mode: "required", group: null }; join(c ? [c, uf] : [uf], [pick([" ", ", ", " y "])]); }
-      else if (r < 0.84) { category = "described"; const g = fromPool(split, pick([...pools[split].keys()].filter(k => k.startsWith("genre_description|")))); if (!g) continue; join([{ text: g.text, cls: "genre_description", label: g.label, mode: "required", group: null }], []); }
+      else if (r < 0.84) { category = "described"; const g = fromPool(split, pick([...pools[split].keys()].filter(k => k.startsWith("genre_description|")))); if (!g) continue; join([{ text: stripLead(stripLead(g.text.replace(/^(quiero|busco|necesito|ponme|dame|recomi[eé]ndame)\s+/iu, ""))), cls: "genre_description", label: g.label, mode: "required", group: null }], []); }
       else if (r < 0.87) { category = "filler"; const f = fromPool(split, "filler|filler"); const c = concept(); if (!f || !c) continue; join(rand() < 0.5 ? [c, { text: f.text, cls: "filler", label: "filler", mode: "required", group: null }] : [{ text: f.text, cls: "filler", label: "filler", mode: "required", group: null }, c], [", "]); }
-      else if (r < 0.91) { category = "clarify"; const a = pick(ambiguousPhrases); join([{ text: rand() < 0.5 ? `música ${a}` : `algo ${a}`, cls: "ambiguous", label: "unclear", mode: "required", group: null }], []); }
-      else if (r < 0.95) { category = "entity"; const name = pick(artists); if (splitOf(name) !== split) continue; const form = pick([name, `temas de ${name}`, `la banda ${name}`, `canciones de ${name}`]);
+      else if (r < 0.90) { category = "circumstance"; const f = fromPool(split, "circumstance|circumstance"); const keys = conceptKeys(split).filter(k => k.startsWith("concept|activity:"));
+        const a = keys.length ? fromPool(split, pick(keys)) : null; if (!f || !a) continue;
+        join([{ text: a.text, cls: "concept", label: a.label, mode: "required", group: null }, { text: f.text, cls: "filler", label: "filler", mode: "required", group: null }], [pick([" ", " ", " con ", " en "])]); }
+      else if (r < 0.92) { category = "clarify"; const a = pick(ambiguousPhrases); join([{ text: rand() < 0.5 ? `música ${a}` : `algo ${a}`, cls: "ambiguous", label: "unclear", mode: "required", group: null }], []); }
+      else if (r < 0.955) { category = "entity"; const name = pick(artists); if (splitOf(name) !== split) continue; const form = pick([name, `temas de ${name}`, `la banda ${name}`, `canciones de ${name}`]);
         join([{ text: form, cls: "entity", label: name, mode: "required", group: null }], []); }
-      else if (r < 0.98) { category = "similarity"; const name = pick(artists); if (splitOf(name) !== split) continue; const aspect = pick(["", "", " en las guitarras", " en la voz", " en la producción"]);
+      else if (r < 0.985) { category = "similarity"; const name = pick(artists); if (splitOf(name) !== split) continue; const aspect = pick(["", "", " en las guitarras", " en la voz", " en la producción"]);
         join([{ text: `${pick(["algo parecido a", "parecido a", "similar a", "al estilo de"])} ${name}${aspect}`, cls: "similarity", label: `similarity:${aspect.includes("guitar") ? "guitars" : aspect.includes("voz") ? "voice" : aspect.includes("produc") ? "production" : "overall"}|${name}`, mode: "required", group: null }], []); }
       else {
         category = "whole_name";
