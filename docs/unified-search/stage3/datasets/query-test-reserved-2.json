@@ -1,0 +1,5498 @@
+{
+ "version": "crv-query-test-reserved-2.0.0",
+ "authoredAt": "2026-10-25",
+ "authoredBefore": "correcciones, datos de entrenamiento, umbrales y modelos de la versión 1.1.0",
+ "authoredAfter": "evaluación única de crv-query-heads-0.2.0 sobre crv-query-test-reserved-1.0.0",
+ "policy": "Prueba final reservada: no se usa para desarrollo, reglas, umbrales ni entrenamiento.",
+ "cases": [
+  {
+   "id": "R001",
+   "category": "activity",
+   "text": "algo para conciliar el sueño",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:sleep"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R002",
+   "category": "activity",
+   "text": "música pa' la siesta de la tarde",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:sleep"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R003",
+   "category": "activity",
+   "text": "temas para meditar antes de dormir",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:meditation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "dormir es el momento, no la actividad pedida",
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R004",
+   "category": "activity",
+   "text": "algo pa' echar pie en la rumba",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R005",
+   "category": "activity",
+   "text": "canciones para bailar toda la noche",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R006",
+   "category": "activity",
+   "text": "música para hacer ejercicio en la casa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R007",
+   "category": "activity",
+   "text": "algo para salir a correr temprano",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:running"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R008",
+   "category": "activity",
+   "text": "música para manejar en la autopista",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R009",
+   "category": "activity",
+   "text": "temas para un viaje largo en carretera",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R010",
+   "category": "activity",
+   "text": "música para una reunión con los panas",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:socializing"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R011",
+   "category": "activity",
+   "text": "algo para llorar un rato",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R012",
+   "category": "activity",
+   "text": "música para trabajar concentrado",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R013",
+   "category": "activity",
+   "text": "algo para leer tranquilo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "emotion:serene"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R014",
+   "category": "activity",
+   "text": "música para descansar después del trabajo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R015",
+   "category": "activity",
+   "text": "canciones para la cama con mi pareja",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:intimacy"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R016",
+   "category": "activity",
+   "text": "algo para pasear al perro",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:walking"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R017",
+   "category": "activity",
+   "text": "música para festejar el fin de año",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R018",
+   "category": "emotion",
+   "text": "música contenta",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R019",
+   "category": "emotion",
+   "text": "algo alegrón",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R020",
+   "category": "emotion",
+   "text": "salsa melancólica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:melancholic",
+     "genre:salsa"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R021",
+   "category": "emotion",
+   "text": "canciones bien tristes",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R022",
+   "category": "emotion",
+   "text": "música nostálgica de guayabo",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:nostalgic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "guayabo no es concepto del vocabulario",
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R023",
+   "category": "emotion",
+   "text": "baladas románticas",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:romantic",
+     "genre:balada"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R024",
+   "category": "emotion",
+   "text": "algo erótico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sensual"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R025",
+   "category": "emotion",
+   "text": "algo bien furioso",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:angry"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R026",
+   "category": "emotion",
+   "text": "canciones optimistas",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:hopeful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R027",
+   "category": "emotion",
+   "text": "algo eufórico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:euphoric"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R028",
+   "category": "emotion",
+   "text": "música calmada",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:serene"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R029",
+   "category": "emotion",
+   "text": "música angustiante",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:tense"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R030",
+   "category": "emotion",
+   "text": "temas rebeldes",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:rebellious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R031",
+   "category": "emotion",
+   "text": "una canción agridulce",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:bittersweet"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R032",
+   "category": "emotion",
+   "text": "algo solitario",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:lonely"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R033",
+   "category": "emotion",
+   "text": "música empoderada",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:confident"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R034",
+   "category": "energy",
+   "text": "música con energía baja",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "energy:energy-low"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R035",
+   "category": "energy",
+   "text": "algo de alta energía",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R036",
+   "category": "energy",
+   "text": "algo con energía media",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "energy:energy-medium"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R037",
+   "category": "energy",
+   "text": "canciones enérgicas",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R038",
+   "category": "energy",
+   "text": "música poco intensa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "energy:energy-low"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R039",
+   "category": "atmosphere",
+   "text": "canciones oscuras",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:dark"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R040",
+   "category": "atmosphere",
+   "text": "música nocturna para la madrugada",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:nocturnal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R041",
+   "category": "atmosphere",
+   "text": "algo etéreo y flotante",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:ethereal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R042",
+   "category": "atmosphere",
+   "text": "una canción de ensueño",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:dreamy"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R043",
+   "category": "atmosphere",
+   "text": "rock épico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:epic",
+     "genre:rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R044",
+   "category": "atmosphere",
+   "text": "algo íntimo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:intimate"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R045",
+   "category": "atmosphere",
+   "text": "algo bien cálido",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:warm"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R046",
+   "category": "atmosphere",
+   "text": "algo frío",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:cold"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R047",
+   "category": "atmosphere",
+   "text": "música inquietante",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:ominous"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R048",
+   "category": "atmosphere",
+   "text": "una canción enigmática",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:mysterious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R049",
+   "category": "atmosphere",
+   "text": "música festiva",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:festive"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R050",
+   "category": "atmosphere",
+   "text": "algo atmosférico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:atmospheric"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R051",
+   "category": "atmosphere",
+   "text": "música espaciosa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:spacious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R052",
+   "category": "atmosphere",
+   "text": "un ambiente psicodélico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:psychedelic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R053",
+   "category": "theme",
+   "text": "canciones que tengan letras de amor",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:love"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R054",
+   "category": "theme",
+   "text": "canciones de corazón roto",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:breakup"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R055",
+   "category": "theme",
+   "text": "canciones sobre el duelo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:death"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R056",
+   "category": "theme",
+   "text": "letras políticas",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:politics"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R057",
+   "category": "theme",
+   "text": "canciones sobre la emigración venezolana",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "theme:migration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "venezolana como origen queda pendiente",
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R058",
+   "category": "theme",
+   "text": "canciones con temática bélica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:war"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R059",
+   "category": "theme",
+   "text": "letras sobre paisajes naturales",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:nature"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R060",
+   "category": "theme",
+   "text": "canciones sobre la diáspora",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:migration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R061",
+   "category": "theme",
+   "text": "canciones sobre el alcohol",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:substances"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R062",
+   "category": "theme",
+   "text": "letras sobre la depresión",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:mental-health"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R063",
+   "category": "theme",
+   "text": "canciones sobre el futuro y la tecnología",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:science-fiction"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R064",
+   "category": "theme",
+   "text": "canciones satíricas",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:humor"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R065",
+   "category": "theme",
+   "text": "letras sobre espiritualidad",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:spirituality"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R066",
+   "category": "theme",
+   "text": "canciones sobre la identidad",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:identity"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R067",
+   "category": "theme",
+   "text": "letras sobre mitología",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:fantasy"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R068",
+   "category": "genre",
+   "text": "death metal",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:death-metal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R069",
+   "category": "genre",
+   "text": "rock psicodélico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:rock-psicodelico"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R070",
+   "category": "genre",
+   "text": "merengue venezolano",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:merengue-venezolano"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R071",
+   "category": "genre",
+   "text": "vallenato",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:vallenato"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R072",
+   "category": "genre",
+   "text": "golpe larense",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:golpe-larense"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R073",
+   "category": "genre",
+   "text": "doom metal",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:doom-metal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R074",
+   "category": "genre",
+   "text": "rocksteady",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:rocksteady"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R075",
+   "category": "genre",
+   "text": "techno",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:techno"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R076",
+   "category": "genre",
+   "text": "pop punk",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:pop-punk"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R077",
+   "category": "genre",
+   "text": "dancehall",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:dancehall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R078",
+   "category": "genre",
+   "text": "dream pop",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:dream-pop"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R079",
+   "category": "genre",
+   "text": "downtempo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:downtempo"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R080",
+   "category": "genre",
+   "text": "grunge",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:grunge"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R081",
+   "category": "genre",
+   "text": "trap latino",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:trap-latino"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R082",
+   "category": "genre",
+   "text": "temas de bossa nova",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:bossa-nova"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R083",
+   "category": "and",
+   "text": "rock para manejar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel",
+     "genre:rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R084",
+   "category": "and",
+   "text": "hardcore punk para entrenar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise",
+     "genre:hardcore-punk"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R085",
+   "category": "and",
+   "text": "merengue para bailar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "genre:merengue"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R086",
+   "category": "and",
+   "text": "música melancólica de energía baja",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:melancholic",
+     "energy:energy-low"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R087",
+   "category": "and",
+   "text": "dark ambient para meditar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:meditation",
+     "genre:dark-ambient"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R088",
+   "category": "and",
+   "text": "blues nocturno y solitario",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:nocturnal",
+     "emotion:lonely",
+     "genre:blues"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R089",
+   "category": "and",
+   "text": "metal furioso sobre la guerra",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:angry",
+     "genre:metal",
+     "theme:war"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R090",
+   "category": "and",
+   "text": "música eufórica para celebrar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration",
+     "emotion:euphoric"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R091",
+   "category": "and",
+   "text": "post-punk frío",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:cold",
+     "genre:post-punk"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R092",
+   "category": "and",
+   "text": "algo calmado para relajarme",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:relaxation",
+     "emotion:serene"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R093",
+   "category": "and",
+   "text": "canciones nostálgicas sobre la migración",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:nostalgic",
+     "theme:migration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R094",
+   "category": "and",
+   "text": "cumbia para la piscina, alegre",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:joyful",
+     "genre:cumbia"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "la piscina no es actividad del vocabulario",
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R095",
+   "category": "and",
+   "text": "techno de alta energía para el gimnasio",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise",
+     "energy:energy-high",
+     "genre:techno"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R096",
+   "category": "and",
+   "text": "música misteriosa y oscura",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:dark",
+     "atmosphere:mysterious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R097",
+   "category": "and",
+   "text": "algo cálido y romántico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:warm",
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R098",
+   "category": "and",
+   "text": "thrash metal sobre la violencia",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:thrash-metal",
+     "theme:violence"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R099",
+   "category": "and",
+   "text": "jazz calmado para estudiar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "emotion:serene",
+     "genre:jazz"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R100",
+   "category": "and",
+   "text": "space rock para viajar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel",
+     "genre:space-rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R101",
+   "category": "and",
+   "text": "canciones tristes sobre la soledad",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad",
+     "theme:loneliness"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R102",
+   "category": "and",
+   "text": "disco para bailar con mucha energía",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "energy:energy-high",
+     "genre:disco"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R103",
+   "category": "and",
+   "text": "música etérea y espaciosa para dormir",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:sleep",
+     "atmosphere:ethereal",
+     "atmosphere:spacious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R104",
+   "category": "and",
+   "text": "crust punk rabioso",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:angry",
+     "genre:crust-punk"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R105",
+   "category": "and",
+   "text": "salsa romántica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:salsa-romantica"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "subgénero propio, no salsa + romántico",
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R106",
+   "category": "and",
+   "text": "house eufórico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:euphoric",
+     "genre:house"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R107",
+   "category": "or",
+   "text": "punk o ska para entrenar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "genre:punk",
+      "genre:ska"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R108",
+   "category": "or",
+   "text": "música serena o etérea",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [],
+    "any": [
+     [
+      "atmosphere:ethereal",
+      "emotion:serene"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R109",
+   "category": "or",
+   "text": "cumbia o vallenato para bailar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "genre:cumbia",
+      "genre:vallenato"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R110",
+   "category": "or",
+   "text": "algo para relajarme o meditar",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [],
+    "any": [
+     [
+      "activity:meditation",
+      "activity:relaxation"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R111",
+   "category": "or",
+   "text": "música triste o agridulce",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [],
+    "any": [
+     [
+      "emotion:bittersweet",
+      "emotion:sad"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R112",
+   "category": "or",
+   "text": "letras sobre la muerte o sobre la violencia",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [],
+    "any": [
+     [
+      "theme:death",
+      "theme:violence"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R113",
+   "category": "or",
+   "text": "bolero o tango nocturno",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:nocturnal"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "genre:bolero",
+      "genre:tango"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R114",
+   "category": "or",
+   "text": "techno o house",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [],
+    "any": [
+     [
+      "genre:house",
+      "genre:techno"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R115",
+   "category": "or",
+   "text": "música misteriosa o inquietante",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [],
+    "any": [
+     [
+      "atmosphere:mysterious",
+      "atmosphere:ominous"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R116",
+   "category": "or",
+   "text": "algo de energía media o alta",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [],
+    "any": [
+     [
+      "energy:energy-high",
+      "energy:energy-medium"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R117",
+   "category": "or",
+   "text": "death metal o black metal sobre religión",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:spirituality"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "genre:black-metal",
+      "genre:death-metal"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R118",
+   "category": "negation",
+   "text": "música sin melancolía",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [
+     "emotion:melancholic"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R119",
+   "category": "negation",
+   "text": "no quiero nada oscuro",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [
+     "atmosphere:dark"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R120",
+   "category": "negation",
+   "text": "metal pero que no sea triste",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:metal"
+    ],
+    "exc": [
+     "emotion:sad"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R121",
+   "category": "negation",
+   "text": "música para leer sin jazz ni blues",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [
+     "genre:blues",
+     "genre:jazz"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R122",
+   "category": "negation",
+   "text": "canciones de desamor sin tristeza",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:breakup"
+    ],
+    "exc": [
+     "emotion:sad"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R123",
+   "category": "negation",
+   "text": "algo para la fiesta, nada de vallenato",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [
+     "genre:vallenato"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R124",
+   "category": "negation",
+   "text": "rock sin letras políticas",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:rock"
+    ],
+    "exc": [
+     "theme:politics"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R125",
+   "category": "negation",
+   "text": "algo romántico pero sin energía baja",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:romantic"
+    ],
+    "exc": [
+     "energy:energy-low"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R126",
+   "category": "negation",
+   "text": "música para meditar que no sea oscura",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:meditation"
+    ],
+    "exc": [
+     "atmosphere:dark"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R127",
+   "category": "negation",
+   "text": "metal excepto metalcore",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:metal"
+    ],
+    "exc": [
+     "genre:metalcore"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R128",
+   "category": "negation",
+   "text": "canciones sin letras sobre alcohol",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [
+     "theme:substances"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R129",
+   "category": "negation",
+   "text": "ska sin humor",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:ska"
+    ],
+    "exc": [
+     "theme:humor"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R130",
+   "category": "negation",
+   "text": "música para relajarme, sin nada angustiante",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [
+     "emotion:tense"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R131",
+   "category": "negation",
+   "text": "nada de reggaetón ni trap",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [
+     "genre:reggaeton",
+     "genre:trap"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R132",
+   "category": "negation",
+   "text": "algo nocturno sin ser oscuro",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:nocturnal"
+    ],
+    "exc": [
+     "atmosphere:dark"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R133",
+   "category": "negation",
+   "text": "música para caminar, menos pop",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:walking"
+    ],
+    "exc": [
+     "genre:pop"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R134",
+   "category": "negation",
+   "text": "salsa sin carácter romántico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:salsa"
+    ],
+    "exc": [
+     "emotion:romantic"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R135",
+   "category": "negation",
+   "text": "canciones sobre la guerra pero no épicas",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:war"
+    ],
+    "exc": [
+     "atmosphere:epic"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R136",
+   "category": "negation",
+   "text": "algo ni tan oscuro",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "negación atenuada",
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R137",
+   "category": "preference",
+   "text": "jazz para leer, preferiblemente íntimo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "genre:jazz"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [
+     "atmosphere:intimate"
+    ],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R138",
+   "category": "preference",
+   "text": "algo para la fiesta, de preferencia merengue",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [
+     "genre:merengue"
+    ],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R139",
+   "category": "preference",
+   "text": "música para meditar, mejor si es espaciosa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:meditation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [
+     "atmosphere:spacious"
+    ],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R140",
+   "category": "preference",
+   "text": "punk rabioso, ojalá sobre política",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:angry",
+     "genre:punk"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [
+     "theme:politics"
+    ],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R141",
+   "category": "preference",
+   "text": "música triste, si es posible de energía baja",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [
+     "energy:energy-low"
+    ],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R142",
+   "category": "preference",
+   "text": "bossa nova para una cena, preferiblemente cálida",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:socializing",
+     "genre:bossa-nova"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [
+     "atmosphere:warm"
+    ],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R143",
+   "category": "preference",
+   "text": "canciones sobre la naturaleza, de preferencia folk",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:nature"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [
+     "genre:folk"
+    ],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R144",
+   "category": "listener",
+   "text": "estoy deprimido, ponme algo esperanzador",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:hopeful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R145",
+   "category": "listener",
+   "text": "ando melancólico y quiero algo que acompañe la melancolía",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:melancholic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R146",
+   "category": "listener",
+   "text": "estoy agotado, necesito música para relajarme",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R147",
+   "category": "listener",
+   "text": "me siento sola, quiero algo alegre",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R148",
+   "category": "listener",
+   "text": "estoy nervioso, quiero algo calmado",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:serene"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R149",
+   "category": "listener",
+   "text": "ando aburrido, pon algo para bailar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R150",
+   "category": "listener",
+   "text": "estoy contento, quiero metal enérgico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "energy:energy-high",
+     "genre:metal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R151",
+   "category": "listener",
+   "text": "ando bajoneado, quiero algo para animarme",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "emotion:confident",
+     "emotion:euphoric",
+     "emotion:joyful"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R152",
+   "category": "listener",
+   "text": "me siento nostálgica, ponme boleros",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:bolero"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R153",
+   "category": "listener",
+   "text": "estoy estresada, música para meditar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:meditation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R154",
+   "category": "listener",
+   "text": "estoy de despecho y quiero canciones de corazón roto",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:breakup"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R155",
+   "category": "listener",
+   "text": "ando furioso, quiero música para gritar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R156",
+   "category": "entity",
+   "text": "busca la canción Calma",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "calma"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R157",
+   "category": "entity",
+   "text": "quiero la canción «Furia»",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "furia"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R158",
+   "category": "entity",
+   "text": "la canción Silencio",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "silencio"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R159",
+   "category": "entity",
+   "text": "el tema Dolor",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "dolor"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R160",
+   "category": "entity",
+   "text": "busca el disco Paraíso",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "album",
+      "literal": "paraiso"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R161",
+   "category": "entity",
+   "text": "canción \"Despecho\"",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "despecho"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R162",
+   "category": "entity",
+   "text": "el tema Tormenta",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "tormenta"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R163",
+   "category": "entity",
+   "text": "busca la banda Apocalipsis",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "apocalipsis"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R164",
+   "category": "entity",
+   "text": "Caos",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "caos"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R165",
+   "category": "entity",
+   "text": "temas de Los Mesoneros",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "los mesoneros"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R166",
+   "category": "entity",
+   "text": "Tomates Fritos",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "tomates fritos"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R167",
+   "category": "entity",
+   "text": "discos de Dermis Tatú",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "dermis tatu"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R168",
+   "category": "entity",
+   "text": "canciones de Vytas Brenner",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "vytas brenner"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R169",
+   "category": "entity",
+   "text": "Domingo en Llamas",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "domingo en llamas"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R170",
+   "category": "entity",
+   "text": "Famasloop",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "famasloop"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R171",
+   "category": "entity",
+   "text": "la canción Calor",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "calor"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R172",
+   "category": "entity",
+   "text": "el disco Sombras",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "album",
+      "literal": "sombras"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R173",
+   "category": "entity",
+   "text": "Bacalao Men",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "bacalao men"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R174",
+   "category": "entity",
+   "text": "busca la canción Olvido",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "olvido"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R175",
+   "category": "entity",
+   "text": "Agonía",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "agonia"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R176",
+   "category": "entity",
+   "text": "Okills",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "okills"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R177",
+   "category": "entity",
+   "text": "el tema Invierno",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "invierno"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R178",
+   "category": "entity",
+   "text": "la canción Luz",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "luz"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R179",
+   "category": "similarity",
+   "text": "algo parecido a Viniloversus",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "viniloversus"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R180",
+   "category": "similarity",
+   "text": "bandas como Okills",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "okills"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R181",
+   "category": "similarity",
+   "text": "música similar a Famasloop",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "famasloop"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R182",
+   "category": "similarity",
+   "text": "parecido a Zapato 3 en la voz",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:voice"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "zapato 3"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R183",
+   "category": "similarity",
+   "text": "al estilo de Los Darts en las guitarras",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:guitars"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "los darts"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R184",
+   "category": "similarity",
+   "text": "que suene como Americania en la producción",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:production"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "americania"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R185",
+   "category": "similarity",
+   "text": "como Guaco pero más alegre",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "guaco"
+     }
+    ],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "comparativo no representable",
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R186",
+   "category": "similarity",
+   "text": "parecido a Malanga en el ambiente",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:atmosphere"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "malanga"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R187",
+   "category": "similarity",
+   "text": "algo al estilo de Bacalao Men para bailar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "similarity:overall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "bacalao men"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R188",
+   "category": "unsupported",
+   "text": "música a 90 BPM para caminar",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:walking"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R189",
+   "category": "unsupported",
+   "text": "canciones verdes para relajarme",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R190",
+   "category": "unsupported",
+   "text": "música sin voces para meditar",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:meditation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R191",
+   "category": "unsupported",
+   "text": "salsa grabada en vivo",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:salsa"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R192",
+   "category": "unsupported",
+   "text": "canciones con piano solo",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R193",
+   "category": "unsupported",
+   "text": "música con voz masculina grave",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R194",
+   "category": "unsupported",
+   "text": "canciones de más de diez minutos",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R195",
+   "category": "unsupported",
+   "text": "música en compás de 5/4",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R196",
+   "category": "unsupported",
+   "text": "canciones que suenen a lunes por la mañana",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R197",
+   "category": "unsupported",
+   "text": "metal con guitarra fuzz",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:metal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:timbre.fuzz"
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R198",
+   "category": "unsupported",
+   "text": "algo con sonido lo-fi para relajarme",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:production.fidelity-aesthetic"
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R199",
+   "category": "unsupported",
+   "text": "un álbum conceptual con una historia de principio a fin",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:structure.narrative"
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R200",
+   "category": "unsupported",
+   "text": "temas hechos con grabaciones de campo y samples",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:production.sources"
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R201",
+   "category": "unsupported",
+   "text": "canciones con la voz muy al fondo de la mezcla",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:vocals.prominence"
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R202",
+   "category": "unsupported",
+   "text": "música donde se rapee",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:vocals.mode"
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R203",
+   "category": "unsupported",
+   "text": "un disco que mejore con cada escucha",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:reception.acclimatization"
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R204",
+   "category": "unsupported",
+   "text": "álbumes sin pausas entre los temas",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:structure.continuity"
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R205",
+   "category": "unsupported",
+   "text": "música triste con letras sobre fiestas",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R206",
+   "category": "unsupported",
+   "text": "canciones cuya letra hable de comida",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R207",
+   "category": "decade",
+   "text": "punk de los ochenta",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:1980s",
+     "genre:punk"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R208",
+   "category": "decade",
+   "text": "baladas de los 70",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:1970s",
+     "genre:balada"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R209",
+   "category": "decade",
+   "text": "rock alegre de los 2000",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:2000s",
+     "emotion:joyful",
+     "genre:rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R210",
+   "category": "decade",
+   "text": "música para estudiar de los noventa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "decade:1990s"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R211",
+   "category": "clarify",
+   "text": "temas calientes",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "atmosphere:warm",
+     "emotion:sensual",
+     "energy:energy-high"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R212",
+   "category": "clarify",
+   "text": "algo con aura",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "atmosphere:epic",
+     "emotion:confident",
+     "energy:energy-high"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R213",
+   "category": "clarify",
+   "text": "música de sexo",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "activity:intimacy",
+     "theme:sexuality"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R214",
+   "category": "clarify",
+   "text": "algo pa' recordar",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "emotion:nostalgic",
+     "theme:history"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R215",
+   "category": "clarify",
+   "text": "metal y alegre o triste",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R216",
+   "category": "clarify",
+   "text": "lo psicodélico",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "atmosphere:psychedelic",
+     "genre:rock-psicodelico"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R217",
+   "category": "clarify",
+   "text": "Ira",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": null,
+      "literal": "ira"
+     }
+    ],
+    "pending": 0,
+    "alts": [
+     "emotion:angry"
+    ],
+    "facet": null
+   },
+   "note": "también es banda",
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R218",
+   "category": "clarify",
+   "text": "algo de amor",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "activity:intimacy",
+     "emotion:romantic",
+     "theme:love"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R219",
+   "category": "clarify",
+   "text": "música para animarme un poco",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "emotion:confident",
+     "emotion:euphoric",
+     "emotion:joyful"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R220",
+   "category": "clarify",
+   "text": "algo intenso",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "emotion:tense",
+     "energy:energy-high"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R221",
+   "category": "clarify",
+   "text": "(metal para entrenar) o (jazz para leer)",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "DNF no representable en intention-v1",
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R222",
+   "category": "contradiction",
+   "text": "música alegre pero sin alegría",
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R223",
+   "category": "contradiction",
+   "text": "algo de energía baja y de energía alta",
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R224",
+   "category": "contradiction",
+   "text": "salsa sin salsa",
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R225",
+   "category": "contradiction",
+   "text": "canciones oscuras que no sean oscuras",
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R226",
+   "category": "contradiction",
+   "text": "música nocturna excepto nocturna",
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R227",
+   "category": "described",
+   "text": "doble bombo, voces guturales y riffs muy técnicos",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:brutal-death-metal",
+     "genre:death-metal",
+     "genre:death-metal-progresivo",
+     "genre:death-metal-tecnico",
+     "genre:technical-metal"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R228",
+   "category": "described",
+   "text": "bandola, cuatro y maracas con golpe rápido",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:golpe-llanero",
+     "genre:joropo",
+     "genre:joropo-fusion",
+     "genre:musica-oriental",
+     "genre:musica-tradicional",
+     "genre:pasaje"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R229",
+   "category": "described",
+   "text": "guitarra a contratiempo, bajo protagonista y ritmo relajado",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:reggae",
+     "genre:reggae-y-ska",
+     "genre:rocksteady",
+     "genre:roots-reggae",
+     "genre:ska"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R230",
+   "category": "described",
+   "text": "acordeón, caja y guacharaca",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:cumbia",
+     "genre:vallenato"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R231",
+   "category": "described",
+   "text": "sintetizadores, bombo en negras y hi-hat abierto para la pista de baile",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:dance",
+     "genre:future-house",
+     "genre:house",
+     "genre:tech-house",
+     "genre:techno"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R232",
+   "category": "described",
+   "text": "guitarras limpias con arpegios que crecen hasta un clímax instrumental",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:post-metal",
+     "genre:post-rock",
+     "genre:rock-instrumental"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R233",
+   "category": "described",
+   "text": "voces líricas, orquesta y guitarras rápidas con temas épicos",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:melodic-metal",
+     "genre:metal-sinfonico",
+     "genre:power-metal",
+     "genre:power-metal-sinfonico"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R234",
+   "category": "described",
+   "text": "graves de 808, hi-hats en tresillos y voz con autotune",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:drill",
+     "genre:trap",
+     "genre:trap-latino"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R235",
+   "category": "described",
+   "text": "batería boom bap, rimas y scratches",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:boom-bap",
+     "genre:hip-hop",
+     "genre:jazz-rap",
+     "genre:turntablism"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R236",
+   "category": "described",
+   "text": "saxofón, improvisación y swing",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:big-band",
+     "genre:jazz",
+     "genre:jazz-afrocubano",
+     "genre:jazz-latino",
+     "genre:smooth-jazz"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R237",
+   "category": "described",
+   "text": "cuatro y charrasca con coros navideños",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:aguinaldo",
+     "genre:gaita",
+     "genre:gaita-de-furro",
+     "genre:musica-navidena"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R238",
+   "category": "described",
+   "text": "guitarra acústica suave, voz susurrada y ritmo sincopado brasileño",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:bossa-nova",
+     "genre:samba"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R239",
+   "category": "described",
+   "text": "teclados ochenteros, voces con reverberación y guitarras con chorus",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:coldwave",
+     "genre:darkwave",
+     "genre:dream-pop",
+     "genre:ethereal-wave",
+     "genre:new-wave",
+     "genre:post-punk",
+     "genre:synth-pop"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R240",
+   "category": "multilingual",
+   "text": "music for running",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:running"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R241",
+   "category": "multilingual",
+   "text": "angry songs",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:angry"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R242",
+   "category": "multilingual",
+   "text": "relaxing jazz",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:relaxation",
+     "genre:jazz"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R243",
+   "category": "multilingual",
+   "text": "dark music for driving",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel",
+     "atmosphere:dark"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R244",
+   "category": "multilingual",
+   "text": "nostalgic songs",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:nostalgic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R245",
+   "category": "noise",
+   "text": "zxcv lkjh",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R246",
+   "category": "noise",
+   "text": "canciones",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "R247",
+   "category": "noise",
+   "text": "algo chévere",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "valoración sin criterio representable",
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  }
+ ]
+}
