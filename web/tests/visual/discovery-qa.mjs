@@ -7,7 +7,8 @@ await mkdir(out,{recursive:true});
 const browser = await chromium.launch();
 const errors=[], checks=[];
 const fallback = "Busca artistas, bandas, álbumes o canciones";
-const fixture = { enabled:true, intervalMs:3000, refreshMs:15000, fallback, groupPolicy:["historicos","alternativo"],
+const dailyCycle = { date:"2026-10-09", day:20735, timeZone:"America/Caracas", startsAt:"2026-10-09T04:00:00.000Z", changesAt:"2026-10-10T04:00:00.000Z" };
+const fixture = { dailyCycle, enabled:true, intervalMs:3000, refreshMs:15000, fallback, groupPolicy:["historicos","alternativo"],
  suggestions:[{id:1,name:"Témpano",group:"historicos",priority:1,validUntil:null},{id:2,name:"La Vida Bohème",group:"alternativo",priority:1,validUntil:null}] };
 try {
  for (const [device,viewport] of [["desktop",{width:1280,height:900}],["mobile",{width:390,height:844}]]) {
@@ -16,7 +17,8 @@ try {
   page.on("pageerror",e=>errors.push(e.message));
   let response=structuredClone(fixture),fail=false;
   const requests=[];
-  await page.route("**/discovery/search-suggestions",async route=> {
+  await page.route("**/daily-cycle",async route=>route.fulfill({json:{...dailyCycle,serverNow:await page.evaluate(()=>new Date().toISOString())}}));
+  await page.route("**/discovery/search-suggestions?*",async route=> {
     requests.push(route.request().url());
     if(fail) return route.fulfill({status:503,json:{error:{message:"Servicio indisponible"}}});
     return route.fulfill({json:response});
@@ -26,7 +28,7 @@ try {
   await page.route("**/search?**",route=>route.fulfill({json:{artist:[{type:"artist",id:1,label:"Témpano",context:null,albumId:null}],person:[],album:[],track:[],organization:[]}}));
   const listRequests=[];
   page.on("request",r=>{if(/\/(artists|persons|albums|organizations)\?/.test(r.url()))listRequests.push(r.url());});
-  await page.clock.install();
+  await page.clock.install({time:new Date("2026-10-10T00:00:00Z")});
   await page.goto(base,{waitUntil:"networkidle"});
   const input=page.getByRole("combobox",{name:"Buscar en el catálogo",exact:true});
   const example=page.locator(".catalog-search-example__text").last();

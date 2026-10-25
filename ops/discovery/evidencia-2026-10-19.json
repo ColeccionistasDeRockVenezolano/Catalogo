@@ -1,0 +1,25 @@
+{
+ "reviewer": "Brian (confirmación en chat) · Claude, contraste de fuente 2026-10-19",
+ "note": "Brian confirmó el 2026-10-19 que Danny Ocean, Elena Rose y Yorghaki son venezolanos. Se registra la fuente pública consultada como evidencia de la decisión de descubrimiento, fuera del merge del catálogo.",
+ "sourceId": 49,
+ "artists": [
+  {
+   "artistId": 4249, "expectedName": "Danny Ocean", "criterion": "venezuela",
+   "observation": "Confirmado por Brian. Wikipedia en español: venezolano nacido en Caracas en 1992; activo desde 2009.",
+   "url": "https://es.wikipedia.org/wiki/Danny_Ocean",
+   "excerpt": "[Wikipedia] «venezolano nacionalizado estadounidense de música hispana» · Caracas, 5 de mayo de 1992 · Años activo: desde 2009"
+  },
+  {
+   "artistId": 4252, "expectedName": "Elena Rose", "criterion": "venezuela",
+   "observation": "Confirmado por Brian. Wikipedia en español: cantante, productora y compositora venezolana-estadounidense; sencillo debut «Sandunga» en 2020.",
+   "url": "https://es.wikipedia.org/wiki/Elena_Rose",
+   "excerpt": "[Wikipedia] «cantante, productora y compositora venezolana-estadounidense» · Años activa: desde 2019 · «En mayo de 2020, Rose lanzó su sencillo debut «Sandunga»»"
+  },
+  {
+   "artistId": 5815, "expectedName": "Yorghaki", "criterion": "venezuela",
+   "observation": "Confirmado por Brian. Wikipedia en inglés: cantautor venezolano nacido en Valencia; primera canción en 2017.",
+   "url": "https://en.wikipedia.org/wiki/Yorghaki",
+   "excerpt": "[Wikipedia] «a Venezuelan singer-songwriter of the reggaeton and afrobeat genres» · «Yorghaki was born in Valencia and grew up in Las Mercedes.» · «In 2017, he released his first song, \"La Primera Vez.\"»"
+  }
+ ]
+}

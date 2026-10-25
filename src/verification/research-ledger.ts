@@ -4,7 +4,7 @@ import type { VerificationProposal } from "./evaluate.js";
 
 export type ResearchTaskStatus = "pending" | "running" | "completed" | "failed";
 export type ResearchTaskKind = "search" | "acquire" | "evaluate" | "extract";
-export type ResearchStopReason = "paused" | "cancelled" | "budget";
+export type ResearchStopReason = "paused" | "cancelled" | "budget" | "provider";
 export interface ResearchTask {
   id: string;
   kind: ResearchTaskKind;
@@ -86,5 +86,5 @@ export function mergeResearchProposal(target: VerificationProposal, incoming: Ve
   return changed;
 }
 export class ResearchInterrupted extends Error {
-  constructor(readonly reason: ResearchStopReason) { super(`Investigación detenida: ${reason}`); }
+  constructor(readonly reason: ResearchStopReason, readonly detail?: string) { super(`Investigación detenida: ${reason}`); }
 }

@@ -29,7 +29,7 @@ export async function extractPdf(bytes:Uint8Array,options:DocumentReadOptions={}
    for(const part of ordered){const start=Buffer.byteLength(transcript.content,"utf8");transcript.append(part.content);transcript.locations.push(...part.locations.map(location=>({...location,start:location.start+start,end:location.end+start})));}
    const processed=ordered.filter(part=>part.complete).map(part=>part.page);
    return {version:DOCUMENT_EXTRACTION_VERSION,format:"pdf",method:ordered.some(part=>part.method.includes("ocr"))?"pdf_text+ocr":"pdf_text",title,content:transcript.content,
-    complete:processed.length===total,unreadParts:Array.from({length:total},(_,n)=>n+1).filter(n=>!processed.includes(n)).map(n=>`Página ${n}${failure?`: ${failure}`:""}`),
+    complete:processed.length===total,unreadParts:Array.from({length:total},(_,n)=>n+1).filter(n=>!processed.includes(n)).map(n=>parts.get(n)?.warnings.find(warning=>warning.startsWith(`Página ${n}: `))??`Página ${n}${failure?`: ${failure}`:""}`),
     warnings:[...new Set(ordered.flatMap(part=>part.warnings))],locations:transcript.locations,followLinks:[],parts:ordered,processedPages:processed,totalPages:total};
   };
   for(let number=1;number<=total;number++){
@@ -62,7 +62,11 @@ export async function extractPdf(bytes:Uint8Array,options:DocumentReadOptions={}
      part={...part,method:"pdf_text+ocr",warnings:ocr.warnings};await rm(`${prefix}.png`,{force:true});
      const uncorroborated=corroborateNativeLayer(transcript.content,transcript.locations);
      if(uncorroborated)part.warnings.push(`${uncorroborated} palabras de la capa nativa no coinciden con la lectura de sus posiciones visibles; se conservan como alternativas no corroboradas y no respaldan datos.`);
-     if(!ocr.complete)throw new Error(ocr.unreadParts.join("; "));
+     if(!ocr.complete){
+      // A page without legible text (illustrated cover, photo) stays unread without stopping the rest of the document.
+      if(!ocr.content.trim()){part={...part,content:transcript.content,locations:transcript.locations,warnings:[...part.warnings,`Página ${number}: ${ocr.unreadParts.join("; ")}`]};parts.set(number,part);read++;await options.checkpoint?.(report());continue;}
+      throw new Error(ocr.unreadParts.join("; "));
+     }
     }
     part={...part,content:transcript.content,locations:transcript.locations,complete:true};
    }catch(error){failure=`Página ${number}: ${error instanceof Error?error.message:"Falló la lectura"}`;part={...part,content:transcript.content,locations:transcript.locations,warnings:[...part.warnings,failure]};}

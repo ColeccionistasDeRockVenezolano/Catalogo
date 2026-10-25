@@ -2,8 +2,11 @@
 //
 // Objetivo del plan: «rellenar los huecos de CRV con lo que tiene Aqustico»
 // (~/Desktop/PLAN_AQUSTICO_2026-10-12.md). Este script no escribe en la base:
-// cruza el volcado de api.aqustico.com (data/raw/aqustico-2026-10-11/) con el
-// catálogo y deja en reports/aqustico-2026-10/ qué hueco rellena cada dato.
+// cruza el volcado de api.aqustico.com con el catálogo y deja en el directorio
+// de salida qué hueco rellena cada dato. Volcado por defecto: el rescraping del
+// 2026-10-14 (Shared/aqustico-assets/_raw/api-2026-10-14), que añade el detalle
+// por álbum (sello y orden por canción); AQ_RAW=data/raw/aqustico-2026-10-11 y
+// AQ_OUT=reports/aqustico-2026-10 reproducen la corrida original del plan.
 //
 // Reglas de cruce (§0.4 del plan): solo exacto, con `compactSecondaryKey` del
 // normalizador del repo; un empate (dos fichas con la misma clave) se excluye.
@@ -13,15 +16,18 @@
 //   * disco: título (o alias) dentro de los discos del artista probado.
 //   * pista: título (o alias) único dentro del disco cruzado.
 //
+//   * sello (H10): solo informativo; el sello de Aqustico es el de la edición
+//     digital y su rol no está decidido (sellos con rol del plan del primo).
+//
 //   ./scripts/with-node22.sh node_modules/.bin/tsx scripts/aqustico/cotejo-fino.mts
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { closeDb, getPool } from "../../src/db/client.js";
 import { normalizeEntityName } from "../../src/normalization/entity-name.js";
 
 const ROOT = "/home/brian/apps/Coleccionistas De Rock Venezolano";
-const RAW = path.join(ROOT, "data/raw/aqustico-2026-10-11");
-const OUT = path.join(ROOT, "reports/aqustico-2026-10");
+const RAW = path.resolve(ROOT, process.env["AQ_RAW"] ?? "/mnt/1tb/Shared/aqustico-assets/_raw/api-2026-10-14");
+const OUT = path.resolve(ROOT, process.env["AQ_OUT"] ?? "reports/aqustico-2026-10-14");
 const API = "https://api.aqustico.com";
 
 /** Etiquetas que no son géneros musicales: no se proponen. */
@@ -36,10 +42,13 @@ interface AqSong {
 interface AqAlbum { id: number; nombre: string; cover: string | null; songs_count: string | null }
 interface AqArtist { id: number; nombre: string; profile_image: string | null }
 
+/** Canción en `album-detalle/<id>.json` (solo en el volcado del 2026-10-14). */
+interface AqDetalleSong { id: number; idgenero: number | null; record_label: string | null; orden: number | null }
+
 /** Una canción del disco agregado de Aqustico. */
-interface Cancion { songId: number; title: string; key: string; seconds: number | null; rawDuration: string | null; genre: string | null; featurings: Array<{ id: number; name: string }> }
+interface Cancion { songId: number; title: string; key: string; seconds: number | null; rawDuration: string | null; genre: string | null; label: string | null; featurings: Array<{ id: number; name: string }> }
 /** Disco de Aqustico agregado por (artista, título): la API repite discos con ids distintos. */
-interface DiscoAq { aqArtistId: number; artist: string; title: string; key: string; albumIds: number[]; cover: string | null; canciones: Cancion[]; genres: Array<{ label: string; n: number }> }
+interface DiscoAq { aqArtistId: number; artist: string; title: string; key: string; albumIds: number[]; cover: string | null; canciones: Cancion[]; genres: Array<{ label: string; n: number }>; labels: Array<{ label: string; n: number }> }
 
 function readJson<T>(file: string): T | null {
   const text = readFileSync(file, "utf8").trim();
@@ -64,10 +73,30 @@ async function main(): Promise<void> {
   const runsBefore = Number((await pool.query<{ n: string }>("SELECT count(*)::text n FROM ingest.scrape_runs")).rows[0]!.n);
 
   // ---------- Aqustico ----------
+  // Géneros: el volcado del 11-oct trae song-generos.tsv; el del 14-oct, el id de
+  // género por canción en album-detalle (mismos valores: 11.853 de 11.853).
   const genreBySong = new Map<number, string>();
-  for (const line of readFileSync(path.join(RAW, "generos/song-generos.tsv"), "utf8").split("\n")) {
-    const [id, genre] = line.split("\t");
-    if (id && /^\d+$/u.test(id) && genre?.trim()) genreBySong.set(Number(id), genre.trim());
+  const labelBySong = new Map<number, string>();
+  if (existsSync(path.join(RAW, "generos/song-generos.tsv"))) {
+    for (const line of readFileSync(path.join(RAW, "generos/song-generos.tsv"), "utf8").split("\n")) {
+      const [id, genre] = line.split("\t");
+      if (id && /^\d+$/u.test(id) && genre?.trim()) genreBySong.set(Number(id), genre.trim());
+    }
+  } else {
+    const genreName = new Map<number, string>();
+    for (const line of readFileSync(path.join(RAW, "genero-id.tsv"), "utf8").split("\n")) {
+      const [id, genre] = line.split("\t");
+      if (id && /^\d+$/u.test(id) && genre?.trim()) genreName.set(Number(id), genre.trim());
+    }
+    for (const file of readdirSync(path.join(RAW, "album-detalle"))) {
+      if (!file.endsWith(".json")) continue; // <id>.json.err: 404 de la API
+      const detalle = readJson<{ playlist?: { songs?: AqDetalleSong[] } }>(path.join(RAW, "album-detalle", file));
+      for (const s of detalle?.playlist?.songs ?? []) {
+        const genre = s.idgenero === null ? undefined : genreName.get(s.idgenero);
+        if (genre) genreBySong.set(s.id, genre);
+        if (s.record_label?.trim()) labelBySong.set(s.id, s.record_label.trim());
+      }
+    }
   }
   const artistsAq = new Map<number, AqArtist>();
   for (const file of readdirSync(path.join(RAW, "artist"))) {
@@ -85,7 +114,7 @@ async function main(): Promise<void> {
       const dk = `${s.artist_id}|${key(s.album_name)}`;
       let d = discos.get(dk);
       if (!d) {
-        d = { aqArtistId: s.artist_id, artist: s.artist_name, title: s.album_name, key: key(s.album_name), albumIds: [], cover: null, canciones: [], genres: [] };
+        d = { aqArtistId: s.artist_id, artist: s.artist_name, title: s.album_name, key: key(s.album_name), albumIds: [], cover: null, canciones: [], genres: [], labels: [] };
         discos.set(dk, d);
       }
       if (!d.albumIds.includes(s.album_id)) d.albumIds.push(s.album_id);
@@ -93,13 +122,16 @@ async function main(): Promise<void> {
       const ck = key(s.song_name);
       if (d.canciones.some((c) => c.key === ck)) continue; // misma canción subida dos veces
       d.canciones.push({ songId: s.id, title: s.song_name, key: ck, seconds: seconds(s.song_duration), rawDuration: s.song_duration,
-        genre: genreBySong.get(s.id) ?? null, featurings: s.featurings ?? [] });
+        genre: genreBySong.get(s.id) ?? null, label: labelBySong.get(s.id) ?? null, featurings: s.featurings ?? [] });
     }
   }
   for (const d of discos.values()) {
     const count = new Map<string, number>();
     for (const c of d.canciones) if (c.genre && !NO_GENRE.has(c.genre)) count.set(c.genre, (count.get(c.genre) ?? 0) + 1);
     d.genres = [...count].map(([label, n]) => ({ label, n })).sort((a, b) => b.n - a.n || a.label.localeCompare(b.label));
+    const labels = new Map<string, number>();
+    for (const c of d.canciones) if (c.label) labels.set(c.label, (labels.get(c.label) ?? 0) + 1);
+    d.labels = [...labels].map(([label, n]) => ({ label, n })).sort((a, b) => b.n - a.n || a.label.localeCompare(b.label));
   }
 
   // ---------- CRV ----------
@@ -121,18 +153,20 @@ async function main(): Promise<void> {
   for (const r of (await pool.query<{ artist_id: string; alias: string }>("SELECT artist_id::text, alias FROM ingest.artist_aliases")).rows) {
     addArtist(key(r.alias), Number(r.artist_id), "alias");
   }
-  const crvAlbum = new Map<number, { artistId: number; title: string; cover: string | null; hasPrimary: boolean; type: string }>();
+  const crvAlbum = new Map<number, { artistId: number; title: string; cover: string | null; hasPrimary: boolean; type: string; year: number | null; labels: string[] }>();
   const albumsByArtist = new Map<number, Map<string, Set<number>>>();
   const addAlbum = (artistId: number, k: string, id: number) => {
     if (!k) return;
     const m = albumsByArtist.get(artistId) ?? albumsByArtist.set(artistId, new Map()).get(artistId)!;
     (m.get(k) ?? m.set(k, new Set()).get(k)!).add(id);
   };
-  for (const r of (await pool.query<{ id: string; artist_id: string; title: string; cover_url: string | null; p: boolean; album_type: string }>(`
-      SELECT a.id::text, a.artist_id::text, a.title, a.cover_url, a.album_type::text,
-             EXISTS(SELECT 1 FROM ingest.album_genres g WHERE g.album_id=a.id AND g.role='primary' AND g.status='confirmed') p
+  for (const r of (await pool.query<{ id: string; artist_id: string; title: string; cover_url: string | null; p: boolean; album_type: string; release_year: number | null; labels: string[] }>(`
+      SELECT a.id::text, a.artist_id::text, a.title, a.cover_url, a.album_type::text, a.release_year,
+             EXISTS(SELECT 1 FROM ingest.album_genres g WHERE g.album_id=a.id AND g.role='primary' AND g.status='confirmed') p,
+             array_remove(array(SELECT o.name||' ('||l.role||')' FROM ingest.album_labels l JOIN public.organizations o ON o.id=l.organization_id
+                                 WHERE l.album_id=a.id ORDER BY l.position) || (SELECT o.name||' (label_id)' FROM public.organizations o WHERE o.id=a.label_id), NULL) labels
         FROM public.albums a`)).rows) {
-    crvAlbum.set(Number(r.id), { artistId: Number(r.artist_id), title: r.title, cover: r.cover_url, hasPrimary: r.p, type: r.album_type });
+    crvAlbum.set(Number(r.id), { artistId: Number(r.artist_id), title: r.title, cover: r.cover_url, hasPrimary: r.p, type: r.album_type, year: r.release_year, labels: r.labels });
     addAlbum(Number(r.artist_id), key(r.title), Number(r.id));
   }
   for (const r of (await pool.query<{ album_id: string; alias: string }>("SELECT album_id::text, alias FROM ingest.album_aliases")).rows) {
@@ -199,6 +233,7 @@ async function main(): Promise<void> {
   let ordenOk = 0, ordenTot = 0;
   const discrepancias: Array<Array<string | number | null>> = [];
   const genreRows: Array<{ albumId: number; title: string; artist: string; aqArtistId: number; labels: string[] }> = [];
+  const selloRows: Array<Array<string | number | null>> = [];
 
   for (const c of cruces) {
     const d = c.disco;
@@ -214,6 +249,12 @@ async function main(): Promise<void> {
         huecos.push({ hueco: "H1", kind: "album", crvId: c.crvAlbumId, aqId: d.albumIds.join(","), valor: d.genres.map((g) => g.label), evidencia: evid, detalle: `${d.artist} — ${alb.title}` });
         genreRows.push({ albumId: c.crvAlbumId, title: alb.title, artist: d.artist, aqArtistId: d.aqArtistId, labels: d.genres.map((g) => g.label) });
       }
+    }
+    // H10 sello (informativo: rol sin decidir)
+    if (d.labels.length) {
+      selloRows.push([c.crvAlbumId, d.artist, alb.title, alb.year, alb.type, d.canciones.length, d.labels.map((l) => `${l.label} (${l.n})`).join(" | "),
+        alb.labels.join(" | "), d.albumIds.join(",")]);
+      if (!alb.labels.length) huecos.push({ hueco: "H10", kind: "album", crvId: c.crvAlbumId, aqId: d.albumIds.join(","), valor: d.labels.map((l) => l.label), evidencia: `${API}/song/album/${d.albumIds[0]}`, detalle: `${d.artist} — ${alb.title}` });
     }
     // H4 portada
     if (!alb.cover && d.cover) huecos.push({ hueco: "H4", kind: "album", crvId: c.crvAlbumId, aqId: d.albumIds[0]!, valor: d.cover, evidencia: evid });
@@ -345,6 +386,7 @@ async function main(): Promise<void> {
   tsv("cruces-pistas.tsv", ["aq_song_id", "aq_titulo", "aq_duracion_cruda", "crv_album_id", "crv_track_id", "crv_titulo", "crv_duracion", "motivo_exclusion"], trackRows);
   tsv("huecos.tsv", ["hueco", "kind", "crv_id", "aq_id", "valor_propuesto", "detalle", "evidencia"],
     huecos.map((h) => [h.hueco, h.kind, h.crvId, h.aqId, typeof h.valor === "string" ? h.valor : JSON.stringify(h.valor), h.detalle ?? "", h.evidencia]));
+  tsv("sellos.tsv", ["crv_album_id", "aq_artista", "crv_titulo", "crv_anio", "crv_tipo", "canciones", "sellos_aq", "sellos_crv", "aq_album_ids"], selloRows);
   tsv("discrepancias.tsv", ["tipo", "kind", "crv_id", "ficha", "valor_crv", "valor_aqustico"], discrepancias);
   writeFileSync(path.join(OUT, "tabla-maestra.json"), JSON.stringify({ generado: new Date().toISOString(), huecos }, null, 1));
 
@@ -362,6 +404,7 @@ async function main(): Promise<void> {
     H6: h6.length, H6_acreditables: h6.filter((h) => h.target).length,
     H7: h7.length, H7_una_cancion: h7.filter((h) => (h.valor as { canciones: unknown[] }).canciones.length === 1).length,
     H7_dudas: by("H7-duda").length, H8: by("H8").length, H9_artistas: by("H9").length,
+    H10_sello: by("H10").length, discos_con_sello_aq: selloRows.length,
     discrepancias: { genero: discrepancias.filter((d) => d[0] === "genero").length, duracion: discrepancias.filter((d) => d[0] === "duracion").length },
   };
   writeFileSync(path.join(OUT, "resumen-e0.json"), JSON.stringify(resumen, null, 1));

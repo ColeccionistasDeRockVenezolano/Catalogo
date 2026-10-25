@@ -1,11 +1,12 @@
 import { getPool } from "../db/client.js";
 import { getEnv } from "../config/env.js";
 import type { PoolClient } from "pg";
+import { dailyCycleForDate, dailyDate } from "../shared/daily-cycle.js";
 
 export const DISCOVERY_FALLBACK = "Busca artistas, bandas, álbumes o canciones";
-export async function searchSuggestions(client?: PoolClient) {
+export async function searchSuggestions(client?: PoolClient, date = dailyDate()) {
   const env = getEnv();
-  const config = { enabled: env.CRV_DISCOVERY_ENABLED, intervalMs: env.CRV_DISCOVERY_INTERVAL_MS,
+  const config = { dailyCycle: dailyCycleForDate(date), enabled: env.CRV_DISCOVERY_ENABLED, intervalMs: env.CRV_DISCOVERY_INTERVAL_MS,
     refreshMs: 15000, fallback: DISCOVERY_FALLBACK,
     groupPolicy: env.CRV_DISCOVERY_GROUP_POLICY.split(",").map(x => x.trim()).filter(Boolean) };
   if (!config.enabled) return { ...config, suggestions: [] };
@@ -16,7 +17,7 @@ export async function searchSuggestions(client?: PoolClient) {
   const { rows } = await pool.query<{
     id: string; name: string; exposure_group: string; priority: number; valid_until: Date | null;
   }>(`SELECT DISTINCT ON (a.id) a.id::text,a.name,s.exposure_group,s.priority,s.valid_until
-    FROM ingest.artist_search_suggestions s JOIN public.artists a ON a.id=s.artist_id
+    FROM ingest.artist_search_suggestions s JOIN ingest.catalog_artists a ON a.id=s.artist_id
     JOIN ingest.claim_evidence e ON e.id=s.evidence_id JOIN ingest.claims c ON c.id=e.claim_id
     WHERE s.state='approved' AND s.valid_from<=now() AND (s.valid_until IS NULL OR s.valid_until>now())
       AND c.artist_id=a.id AND c.status NOT IN ('rejected','superseded')

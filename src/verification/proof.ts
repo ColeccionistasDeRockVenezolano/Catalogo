@@ -5,8 +5,79 @@ import {visibleQuote,visibleTranscript} from "./documents/visibility.js";
 import {extractionKey} from "./documents/extraction-key.js";
 export function matchesEvidence(page:WebPage,evidence:VerificationEvidence):boolean{return page.url===evidence.url&&(!evidence.contentHash||page.contentHash===evidence.contentHash)&&(!evidence.extractionHash||!!page.document&&extractionKey(page.document)===evidence.extractionHash);}
 
-export const RULES_VERSION = 10;
+export const RULES_VERSION = 18;
 export function fold(value: string): string { return value.normalize("NFKD").replace(/\p{M}/gu, "").toLowerCase().replace(/\s+/gu, " ").trim(); }
+/**
+ * Text for the literal citation test: besides case, accents and spacing, a quote may straighten
+ * typographic quotes, ignore the spacing around them ("University “"), join a word the scan hyphenated
+ * at a line break ("diver- si anni", "17- 12-95"), drop invisible soft hyphens, read a site's broken accents
+ * ("Fonogra¡fica", "bateri­a": the vowel kept and the second byte of its UTF-8 accent left behind) and run
+ * across the page marker the PDF reader inserts. Omitted words still fail.
+ */
+export function literalText(value: string): string { return fold(value.replace(/([aeiounAEIOUN])[\u00a1\u00a9\u00ad\u00b3\u00ba\u00b1]/gu, "$1").replace(/\u00ad/gu, "").replace(/\n\s*Página PDF \d+\s*\n/gu, " ").replace(/(\p{L})-[^\S\n]*\n\s*(\p{Ll})/gu, "$1$2").replace(/(\d)-[^\S\n]*\n\s*(\d)/gu, "$1-$2")).replace(/[“”„‟«»"]/gu, "\"").replace(/ ?" ?/gu, "\"").replace(/[‘’‚‛`´]/gu, "'"); }
+/** Where a quote goes on after an ellipsis, or after the mark that replaced a personal identity number. */
+const QUOTE_GAP = /\s*(\[\s*(?:\.\.\.|…)\s*\]|\.\.\.|…|\[dato personal omitido\])\s*/u;
+const MIN_PIECE = 15, MAX_GAP = 600;
+/** The omitted personal number: the only text the mark may stand for. */
+const OMITTED_NUMBER = /^[\s.,:]*\d[\d. -]{4,}\d[\s.,:]*$/u;
+/**
+ * Spans of a quote in the source's literal text: one span when it is literal as a whole, or one per piece
+ * when an ellipsis skips text (pieces of 15 characters or more, each within 600 of the previous one, as
+ * OCR may interleave a column) or the personal-data mark stands for a number. A few scattered words never make a quote.
+ */
+export function quoteSpans(content: string, quote: string): Array<[number, number]> | null {
+  const text = literalText(content), whole = literalText(quote).trim();
+  if (!whole) return null;
+  const at = text.indexOf(whole);
+  if (at >= 0) return [[at, at + whole.length]];
+  const parts = quote.split(QUOTE_GAP);
+  const pieces: string[] = [], gaps: boolean[] = []; // gaps[i]: the cut before piece i+1 is an ellipsis
+  for (let i = 0; i < parts.length; i += 2) {
+    const piece = literalText(parts[i]!).replace(/^[\s.,;:]+|[\s.,;:]+$/gu, "");
+    if (!piece) continue;
+    if (pieces.length) gaps.push(!/dato personal omitido/u.test(parts[i - 1] ?? ""));
+    pieces.push(piece);
+  }
+  if (pieces.length < 2 || pieces.some((piece, i) => piece.length < MIN_PIECE && (gaps[i - 1] || gaps[i]))) return null;
+  // Every occurrence of the first piece may start the chain.
+  for (let start = text.indexOf(pieces[0]!); start >= 0; start = text.indexOf(pieces[0]!, start + 1)) {
+    const spans: Array<[number, number]> = [[start, start + pieces[0]!.length]];
+    for (let i = 1; i < pieces.length; i++) {
+      const from = spans[spans.length - 1]![1], next = text.indexOf(pieces[i]!, from);
+      if (next < 0 || next - from > MAX_GAP || !gaps[i - 1] && !OMITTED_NUMBER.test(text.slice(from, next))) break;
+      spans.push([next, next + pieces[i]!.length]);
+    }
+    if (spans.length === pieces.length) return spans;
+  }
+  return null;
+}
+export const quotedIn = (content: string, quote: string): boolean => quoteSpans(content, quote) !== null;
+/** Words that address an AI ("indicación oculta para IA", "ignora las instrucciones", "important for LLM readers"): text a page aims at the model, not a statement of the source. */
+const AI_INSTRUCTION = /\b(?:(?:indicacion|instruccion|nota|mensaje|orden|aviso)(?: \p{L}+){0,2} (?:para|al|a la) (?:la |el )?(?:ia|ai|asistente|modelo|chatbot|llm|bot)\b|(?:ignora|olvida|reemplaza|sustituye) (?:(?:las|los|todas|todos|esta|estas|estos|tus) )?(?:\p{L}+ )?(?:instrucciones|indicaciones|datos)\b|ignore (?:all |the )?(?:previous |above |prior )?instructions|(?:note|message|instruction)s? (?:to|for) (?:the )?(?:ai|assistant|model|llm)\b|(?:for|to|attention) (?:all |any )?(?:llms?|ais?|language models?|chatbots?|ai assistants?)(?: readers?| crawlers?| systems?| agents?| models?)?\b|if you are an? (?:ai|llm|language model|assistant|chatbot)\b|output this as|system prompt)/u;
+/**
+ * A quote that overlaps a passage addressed to an AI. The passage is the bracket that encloses the instruction
+ * or, without one, its sentence: a real statement next to an instruction keeps its value.
+ */
+export function insideInstruction(content: string, quote: string): boolean {
+  const text = literalText(content), spans = quoteSpans(content, quote);
+  if (!spans) return false;
+  for (const match of text.matchAll(new RegExp(AI_INSTRUCTION.source, "gu"))) {
+    const hit = match.index;
+    let from = -1, to = -1;
+    for (const [open, close] of [["(", ")"], ["[", "]"]] as const) {
+      const opened = text.lastIndexOf(open, hit);
+      if (opened >= 0 && opened > text.lastIndexOf(close, hit) && hit - opened < 600 && opened > from) {
+        from = opened; const closed = text.indexOf(close, hit); to = closed < 0 ? hit + 600 : closed + 1;
+      }
+    }
+    if (from < 0) {
+      from = text.lastIndexOf(". ", hit) + 1;
+      const next = text.indexOf(". ", hit); to = next < 0 ? text.length : next + 1;
+    }
+    if (spans.some(([at, end]) => at < to && end > from)) return true;
+  }
+  return false;
+}
 export function words(value: string): string { return fold(value.replace(/(\p{L})(?=\d+[.-](?:\s|\p{Lu}))/gu, "$1 ").replace(/([\p{Ll}])([\p{Lu}])/gu, "$1 $2")).replace(/[^\p{L}\p{N}]+/gu, " ").replace(/\s+/gu, " ").trim(); }
 export function contains(text: string, value: string): boolean { const term=words(value); return Boolean(term && ` ${words(text)} `.includes(` ${term} `)); }
 export function escapeRegex(value: string): string { return value.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&"); }
@@ -15,12 +86,24 @@ export function contextPresent(text: string, value: string): boolean {
   return contains(text,value) || Boolean(/\((?:cd|cd\s*\/\s*dvd)\)/iu.test(value) && contains(text,albumName(value)))
     || Boolean(value.includes(":") && contains(text,value.split(":")[0]!));
 }
-export function usablePage(page: WebPage): boolean {
+/** Why a captured page cannot back any data (challenge, login wall, unsupported-browser shell, unparsed HTML), or null. */
+export function unusableReason(page: WebPage): string | null {
   const text=fold(page.content);
-  return Boolean(text) && !(/^(?:client challenge|just a moment|access denied|attention required)/iu.test(page.title)
-    || (/log in|iniciar sesi[oó]n/iu.test(page.content)&&page.content.length<500&&!/biograf|tracks|discograf|banda|band/iu.test(page.content))
-    || /your current browser isn't compatible with soundcloud|verify you are human|enable javascript and cookies to continue|checking your browser before accessing/iu.test(text));
+  if(!text)return "La fuente no devolvió contenido legible.";
+  if(/^(?:client challenge|just a moment|access denied|attention required)/iu.test(page.title)
+    || /your current browser isn't compatible with soundcloud|verify you are human|enable javascript and cookies to continue|checking your browser before accessing/iu.test(text))
+    return "La fuente devolvió un desafío o bloqueo en lugar de su contenido.";
+  if(/log in|iniciar sesi[oó]n|ingresa a ?tu cuenta/iu.test(page.content)&&page.content.length<500&&!/biograf|tracks|discograf|banda|band/iu.test(page.content))
+    return "La fuente pide iniciar sesión; no se obtuvo su contenido.";
+  // Short shells that only ask for another browser carry no documentary text.
+  if(text.length<600&&/(?:no est[aá]|n[aã]o est[aá]|isn't|is not) (?:optimizad[oa]|otimizad[oa]|optimized|compatible|supported)|navegador no (?:es )?compatible|browser (?:is )?not supported|unsupported browser|actualiza tu navegador|atualiza(?:r|ções)? .{0,20}navegador/iu.test(text))
+    return "La fuente solo mostró un aviso de navegador no compatible.";
+  // Older captures kept the markup instead of the reader's text: they must be read again.
+  if(!page.document&&/^\s*(?:<!doctype html|<html)/iu.test(page.content))
+    return "Captura anterior guardada como HTML sin extraer; hay que volver a leerla.";
+  return null;
 }
+export function usablePage(page: WebPage): boolean { return unusableReason(page)===null; }
 export function publisher(url: string): string {
   const host=new URL(url).hostname.replace(/^www\./u,"");
   // Los catálogos digitales reciben frecuentemente la misma entrega del sello.

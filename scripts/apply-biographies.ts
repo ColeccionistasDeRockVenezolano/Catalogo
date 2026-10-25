@@ -52,10 +52,15 @@ function invalid(item: Synth, dossier: Dossier): string | null {
   if (text.length > 7000) return "texto demasiado largo";
   if (/^\s*(#|[-*•]\s|\d+\.\s)|\*\*|\]\(|https?:\/\//mu.test(text)) return "formato no permitido (Markdown, viñetas o enlaces)";
   if (/\b(expediente|currentText|sourcesUsed|seg[uú]n (?:el|la|los) (?:cat[aá]logo|fuentes?)|(?<!\p{L})s\d+\b)/iu.test(text)) return "habla del expediente o del catálogo en vez de la ficha";
-  const es = text.match(ES)?.length ?? 0;
-  const en = text.match(EN)?.length ?? 0;
+  // Los títulos entre comillas («Through the Unholy Rules…») van en su idioma y
+  // no dicen nada del idioma de la prosa: se quitan antes de medir.
+  const prosa = text.replace(/«[^»]*»/gu, " ");
+  const es = prosa.match(ES)?.length ?? 0;
+  const en = prosa.match(EN)?.length ?? 0;
   if (en > es * 0.25 && en >= 4) return "no parece estar en español";
   if (/\b(?:last\.?fm|discogs|wikipedia|musicbrainz|theaudiodb|venciclopedia|lobotoradio|sincopa)\b|\bvzla\s?rockea\b/iu.test(text)) return "nombra una fuente externa en el texto";
+  // Datos de contacto: una biografía no lleva correos ni dominios sueltos (Brian, 2026-10-20).
+  if (/[\w.+-]+@[\w-]+(?:\.[\w-]+)+|\bwww\./iu.test(text)) return "incluye un correo o un dominio (dato de contacto)";
   const refs = new Set(["catalog", "current", ...dossier.sources.map((source) => source.ref)]);
   const unknown = (item.sourcesUsed ?? []).filter((ref) => !refs.has(ref));
   if (unknown.length) return `cita fuentes inexistentes: ${unknown.join(",")}`;

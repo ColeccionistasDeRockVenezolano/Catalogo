@@ -101,7 +101,7 @@ async function main(): Promise<void> {
     console.log(`${r.created ? "declarado" : "ya existía"}: #${r.pair.aId} ≠ #${r.pair.bId} (par ${r.pair.id})`);
   }
 
-  out.fusiones = fusiones; out.alias = alias; out.distintos = distintos; out.archivos = archivos;
+  out["fusiones"] = fusiones; out["alias"] = alias; out["distintos"] = distintos; out["archivos"] = archivos;
   writeFileSync(path.join(ROOT, DIR, "triaje-pares-aplicado.json"), JSON.stringify(out, null, 1));
   console.log(`\nlisto: ${fusiones.length} fusiones · ${alias.length} alias · ${distintos.length} pares distintos · ${archivos.length} archivos huérfanos`);
   await closeDb();

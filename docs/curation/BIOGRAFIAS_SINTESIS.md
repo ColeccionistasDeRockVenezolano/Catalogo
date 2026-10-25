@@ -95,7 +95,9 @@ Escribe **una línea JSON por expediente, en el mismo orden**, en el archivo de 
    primera persona de las bandas («nuestra música») a tercera.
 7. **Ruido fuera:** enlaces de descarga, contraseñas, pedidos de comentarios,
    saludos del blog, listas de temas, tiempos y créditos completos. Se pueden
-   nombrar productor, estudio o sencillos si las fuentes los destacan.
+   nombrar productor, estudio o sencillos si las fuentes los destacan. **Nunca**
+   correos electrónicos, teléfonos, direcciones postales ni enlaces de contacto
+   o redes sociales: los datos de contacto no forman parte de la biografía.
 8. **Nada de metadatos en el texto:** no nombres «el catálogo», «el
    expediente», «la fuente» ni las fuentes concretas («según Sincopa»,
    «Last.fm dice»). Si dos fuentes discrepan en un dato (un año, la grafía de

@@ -9,7 +9,8 @@ const browser=await chromium.launch();
 // CORS de la instalación publicada al usar el puerto de QA.
 const artistFixture=await (await fetch("http://127.0.0.1:8080/artists/1")).json();
 const errors=[],checks=[];
-const fixture={enabled:true,intervalMs:60000,refreshMs:15000,fallback:"Busca artistas, bandas, álbumes o canciones",groupPolicy:["historicos"],
+const dailyCycle = { date:"2026-10-09", day:20735, timeZone:"America/Caracas", startsAt:"2026-10-09T04:00:00.000Z", changesAt:"2026-10-10T04:00:00.000Z" };
+const fixture={dailyCycle,enabled:true,intervalMs:60000,refreshMs:15000,fallback:"Busca artistas, bandas, álbumes o canciones",groupPolicy:["historicos"],
   metrics:{enabled:true,visibleMs:1000,attributionMs:900000},suggestions:[{id:1,name:"Témpano",group:"historicos",priority:1,validUntil:null,metricTicket:"qa-ticket"}]};
 try {
   for (const [device,viewport] of [["desktop",{width:1280,height:900}],["mobile",{width:390,height:844}]]) {
@@ -19,8 +20,9 @@ try {
     const events=[]; let admin=false,fail=false,enabled=true;
     await page.route("**/auth/me",route=>admin?route.fulfill({json:{user:{username:"qa",name:"QA",role:"admin"},csrf:"qa"}}):route.fulfill({status:401,json:{error:{message:"Sin sesión"}}}));
     await page.route("**/genres/facets**",route=>route.fulfill({json:{families:[],genres:[],total:0}}));
-    await page.route("**/artists/1",route=>route.fulfill({json:artistFixture}));
-    await page.route("**/discovery/search-suggestions",route=>route.fulfill({json:{...fixture,metrics:{...fixture.metrics,enabled}}}));
+    await page.route("**/daily-cycle",async route=>route.fulfill({json:{...dailyCycle,serverNow:await page.evaluate(()=>new Date().toISOString())}}));
+    await page.route("**/artists/1?*",route=>route.fulfill({json:artistFixture}));
+    await page.route("**/discovery/search-suggestions?*",route=>route.fulfill({json:{...fixture,metrics:{...fixture.metrics,enabled}}}));
     await page.route("**/discovery/metrics/events",async route=>{
       events.push(route.request().postDataJSON());
       if(fail)return route.fulfill({status:503,json:{error:{message:"No disponible"}}});

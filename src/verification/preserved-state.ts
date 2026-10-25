@@ -3,8 +3,15 @@ import {badRequest} from "../api/http-errors.js";
 import type {ResearchState} from "./research.js";
 import type {VerificationReport} from "./types.js";
 import {extractionKey} from "./documents/extraction-key.js";
+import {sourceProvenance} from "../evidence/provenance.js";
 
 const hash=(content:string)=>createHash("sha256").update(content).digest("hex");
+type Acquired={origin?:string|undefined;capturedAt?:string|null|undefined;acquisitionMethod?:string|undefined};
+/** Legacy copies: a snippet without a method was a search snippet. */
+const sameAcquisition=(page:Acquired,source:Acquired)=>(page.capturedAt??null)===(source.capturedAt??null)&&
+ (page.acquisitionMethod??(page.origin==="search_snippet"?"search_snippet":"unknown"))===(source.acquisitionMethod??(source.origin==="search_snippet"?"search_snippet":"unknown"));
+/** Reports store the provenance derived from the page, where an absent method is "unknown". */
+const sameProvenance=(page:Acquired,source:Acquired)=>{const a=sourceProvenance(page),b=sourceProvenance(source);return a.acquisitionMethod===b.acquisitionMethod&&a.capturedAt===b.capturedAt;};
 
 /** Old search failures sometimes stored an empty marker with the snippet's hash.
  * Only uncited, empty search markers may be removed. The original stays intact.
@@ -29,8 +36,7 @@ export function normalizePreservedState(input:ResearchState,report:Pick<Verifica
  }
  for(const source of report.sources){
   if(!pages.some(page=>page.url===source.url&&page.contentHash===source.contentHash&&
-   (page.capturedAt??null)===(source.capturedAt??null)&&
-   (page.acquisitionMethod??(page.origin==="search_snippet"?"search_snippet":"unknown"))===(source.acquisitionMethod??(source.origin==="search_snippet"?"search_snippet":"unknown"))&&
+   (sameAcquisition(page,source)||sameProvenance(page,source))&&
    (!source.document?.extractionHash||page.document&&extractionKey(page.document)===source.document.extractionHash)))
    throw badRequest(`No se conserva una copia exacta de ${source.url} para esta versión.`);
  }

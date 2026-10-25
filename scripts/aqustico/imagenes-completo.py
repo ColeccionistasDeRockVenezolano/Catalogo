@@ -20,7 +20,7 @@ import sys
 from collections import Counter
 
 ROOT = "/home/brian/apps/Coleccionistas De Rock Venezolano"
-RAW = f"{ROOT}/data/raw/aqustico-2026-10-11"
+RAW = os.path.join(ROOT, os.environ.get("AQ_RAW", "/mnt/1tb/Shared/aqustico-assets/_raw/api-2026-10-14"))
 DIR = f"{ROOT}/reports/aqustico-2026-10"
 CARATULAS = "/mnt/1tb/Shared/aqustico-assets/_raw/v1-plano/caratulas"
 ARTISTAS = "/mnt/1tb/Shared/aqustico-assets/_raw/v1-plano/artistas"

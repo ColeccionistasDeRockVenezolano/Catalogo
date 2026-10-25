@@ -10,7 +10,7 @@ import { createHash } from "node:crypto";
 import { z } from "zod";
 import type { WebPage } from "../ambiguity/web-search.js";
 import { isDocumentarilyScored, VERIFICATION_AREAS, type VerificationArea, type VerificationEvidence, type VerificationFinding, type VerificationReport, type VerificationSnapshot, type VerificationUnit } from "./types.js";
-import { RULES_VERSION, canonicalLink, trackTitleMatch, fold, words, contains, contextPresent, sourceStrength, sourceCeiling, usablePage, backed, positions, sameValue, releaseBacked, claimContext, albumName,matchesEvidence } from "./proof.js";
+import { RULES_VERSION, quotedIn, insideInstruction, canonicalLink, trackTitleMatch, fold, words, contains, contextPresent, sourceStrength, sourceCeiling, usablePage, backed, positions, sameValue, releaseBacked, claimContext, albumName,matchesEvidence } from "./proof.js";
 export { fold } from "./proof.js";
 const sourceIndex=z.preprocess(value=>typeof value==="string"?(/^\d+$/u.test(value)?Number(value):-1):value,z.number().int().min(-1));
 const evidenceSchema=z.object({source:sourceIndex,quote:z.string()});
@@ -36,7 +36,7 @@ function citations(raw:VerificationProposal["findings"][number]["evidence"],page
   for(const item of raw) {
     const page=pages[item.source];
     if(page&&requiresPdfReread(page.document))continue;
-    if(item.quote.length<8||item.quote.length>1800||!page||!usablePage(page)||!sourceMatchesIdentity(snapshot,page,pages)||!fold(page.content).includes(fold(item.quote)))continue;
+    if(item.quote.length<8||item.quote.length>1800||!page||!usablePage(page)||!sourceMatchesIdentity(snapshot,page,pages)||!quotedIn(page.content,item.quote)||insideInstruction(page.content,item.quote))continue;
     if(!snapshot.identity.some(name=>pageContextMatches(page,name,true))||!context.filter(Boolean).every(value=>pageContextMatches(page,value)))continue;
     if(found.some(e=>e.url===page.url&&fold(e.quote)===fold(item.quote)))continue;
     const offset=page.content.indexOf(item.quote);

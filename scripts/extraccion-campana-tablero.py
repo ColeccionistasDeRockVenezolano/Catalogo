@@ -1423,30 +1423,56 @@ def bloque_reviews(num: str, titulo: str, camp: Path, log: Path, explica: str, p
 </section>"""
 
 
+def _reviews_repair_root():
+    name = "rym-reviews-control-2026-10-21"
+    stage = Path.home() / "crv-staging/data/raw" / name
+    return stage if stage.exists() else REPO / "data/raw" / name
+
+
 def bloque_h():
-    """8 · Reviews del catálogo (607 páginas, cerrada al 100 %)."""
-    return bloque_reviews(
-        "8", "Reviews RYM · catálogo — páginas /reviews/N/", CAMP_REVIEWS, LOG_H,
-        "Segunda pasada del catálogo: la ficha del disco solo renderiza 1-8 reviews, así que se bajaron "
-        "<b>607</b> páginas de <b>582 fichas</b> con el Chrome del dueño por CDP a 5-7 s por página "
-        "(8-11 páginas/min), escribiendo primero al SSD y moviendo después al disco de 1 TB. "
-        "Etapa cerrada: 3.263 reviews en <code>reviews.jsonl</code>.",
-        "Alcance: discos que existen en <code>public.albums</code> — "
-        f"{miles(int(_json(CAMP_REVIEWS / 'resumen.json', {}).get('declaradas_totales') or 0))} reviews declaradas. "
-        f"Fuera del alcance: {miles(int(_json(CAMP_REVIEWS / 'resumen.json', {}).get('descartadas_fichas') or 0))} fichas "
-        "(discografías extranjeras y discos que no están en el catálogo).")
+    root = _reviews_repair_root()
+    audit = _json(root / "repair-summary.json", {})
+    state = _json(root / "controller-state.json", {})
+    complete = int(state.get("completed", audit.get("recoveredPages", 0)))
+    total = int(state.get("plan", audit.get("plannedPages", 0)))
+    engines = [[name, data.get("state", "—"), str(data.get("accepted", 0)),
+                str(data.get("rejected", 0)), data.get("retryAfter", "—")]
+               for name, data in state.get("engines", {}).items()]
+    recent = [[row.get("engine", ""), row.get("page", ""), str(row.get("reviews", 0))]
+              for row in reversed(state.get("recent", []))]
+    status = state.get("status", "preparada")
+    return f"""<section>
+    <h2>8 · Reviews RYM · recuperación verificada <span class="pill ojo">{esc(status)}</span></h2>
+    <p class="explica">Chrome y Mozilla comparten una cola y el objetivo total de <b>9 páginas/s</b>.
+    Solo cuentan páginas cuya identidad y contenido pasaron la validación. Las respuestas mezcladas,
+    vacías sin evidencia y los errores se conservan aparte y quedan pendientes. El ritmo real aparece abajo.</p>
+    <div class="grid">
+      {tarjeta("páginas válidas", f"{complete} / {total}", "incluye recuperadas del HTML original", str(root / "pages"))}
+      {tarjeta("pendientes", str(max(0, total-complete)), "de la cola con identidad documentada", str(root / "tareas.jsonl"))}
+      {tarjeta("ritmo válido real", str(state.get("measuredAcceptedPerSecond", 0)) + "/s", "objetivo total: 9/s; pausa automática al fallar", str(root / "controller-state.json"))}
+      {tarjeta("intentos rechazados", str(state.get("rejected", 0)), "no suman avance", str(root / "rejected"))}
+    </div>
+    <div class="barras">{barra_linea("páginas validadas de la cola", complete, total or 1)}</div>
+    <h3>Navegadores</h3>{tabla(["motor", "estado", "válidas", "rechazadas", "próximo intento"], engines)}
+    <h3>Últimas páginas válidas</h3>{tabla(["motor", "página", "reseñas"], recent)}
+    <p class="mini">Actualizado: {esc(state.get("updatedAt", "—"))}. SSD durante la captura;
+    publicación con verificación SHA-256 al cerrar.</p>
+    <div class="enlaces">{enlace("estado", str(root / "controller-state.json"))}{enlace("cola", str(root / "tareas.jsonl"))}{enlace("auditoría", str(root / "legacy-audit.json"))}</div>
+    </section>"""
 
 
 def bloque_i():
-    """9 · Reviews de los 938 discos venezolanos que aún no están en el catálogo."""
-    return bloque_reviews(
-        "9", "Reviews RYM · 938 discos fuera del catálogo", CAMP_938, LOG_938,
-        "Discos venezolanos con reviews en RYM que todavía no están en <code>public.albums</code>. "
-        "Se baja el material ahora para que esté listo cuando se den de alta: <b>938 fichas</b>, "
-        "<b>1.028 páginas</b> (938 de página 1 + 90 subpáginas). Mismo puente Chrome+sesión del dueño; "
-        "RYM a veces responde 403 con la página completa y se acepta igual.",
-        "Preparada desde <code>fuera-de-alcance.jsonl</code> (motivo «disco no está en el catálogo»). "
-        "Al dar de alta cada disco, sus reviews ya están en disco y solo hay que ingerirlas.")
+    root = _reviews_repair_root()
+    audit = _json(root / "repair-summary.json", {})
+    return f"""<section><h2>9 · Reviews anteriores · auditoría e identidades pendientes</h2>
+    <p class="explica">La campaña anterior queda retirada: descargar un archivo no demuestra que
+    contenga reseñas del disco solicitado. Se conservan todos los originales. Los casos ambiguos
+    requieren evidencia de identidad antes de volver a la cola.</p>
+    <div class="grid">
+      {tarjeta("páginas anteriores auditadas", str(audit.get("legacyPages", 0)), "HTML original conservado", str(root / "legacy-audit.json"))}
+      {tarjeta("páginas que no pasan", str(audit.get("legacyInvalid", 0)), "incluye identidades distintas y errores", str(root / "legacy-audit.json"))}
+      {tarjeta("discos por revisar", str(audit.get("heldReleases", 0)), "no se afirma nacionalidad por coincidencia de nombre", str(root / "identity-review.jsonl"))}
+    </div><div class="enlaces">{enlace("resumen de corrección", str(root / "repair-summary.json"))}{enlace("identidades pendientes", str(root / "identity-review.jsonl"))}</div></section>"""
 
 
 def enlace(etiqueta, ruta):

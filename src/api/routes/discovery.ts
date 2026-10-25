@@ -7,19 +7,21 @@ import { collectMetric, metricEventSchema, metricsReady, suggestionTicket } from
 import { trendPrototype, trendPrototypeSchema } from "../../discovery/trends.js";
 import { createWindowLimiter } from "../rate-limit.js";
 import { ApiError } from "../http-errors.js";
+import { dailyCycleSchema, dailyDateSchema } from "../daily-cycle.js";
 export async function registerDiscoveryRoutes(app: FastifyInstance): Promise<void> {
   const perIp = createWindowLimiter({ max: 120, windowMs: 60_000, maxKeys: 2000 });
   const total = createWindowLimiter({ max: 10000, windowMs: 60_000, maxKeys: 1 });
   const rateSecret = randomBytes(32);
   app.withTypeProvider<ZodTypeProvider>().get("/discovery/search-suggestions", {
     schema: { tags: ["search"], summary: "Ejemplos editoriales aprobados del catálogo local",
-      response: { 200: z.object({ enabled: z.boolean(), intervalMs: z.number(), refreshMs: z.number(), fallback: z.string(),
+      querystring: z.object({ date: dailyDateSchema.optional() }),
+      response: { 200: z.object({ dailyCycle: dailyCycleSchema, enabled: z.boolean(), intervalMs: z.number(), refreshMs: z.number(), fallback: z.string(),
         groupPolicy: z.array(z.string()), metrics: z.object({ enabled: z.boolean(), visibleMs: z.number(), attributionMs: z.number() }),
         suggestions: z.array(z.object({ id: z.number(), name: z.string(),
           group: z.string(), priority: z.number(), validUntil: z.string().nullable(), metricTicket: z.string().optional() })) }) } },
   }, async (request, reply) => {
     reply.header("Cache-Control", "no-store");
-    const data = await searchSuggestions();
+    const data = await searchSuggestions(undefined, request.query.date);
     const unknownSession = request.viewer === null && /(?:^|;\s*)crv_session=/u.test(request.headers.cookie ?? "");
     const enabled = data.enabled && request.viewer?.role !== "admin" && !unknownSession && !request.headers.authorization && await metricsReady();
     const selection = JSON.stringify(data.suggestions.map(s => [s.id,s.name,s.group,s.priority]));

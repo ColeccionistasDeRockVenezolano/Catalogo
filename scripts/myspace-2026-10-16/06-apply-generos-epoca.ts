@@ -73,7 +73,7 @@ async function main(): Promise<number> {
           else report.errores.push({ caseId: row.caseId, error: detalle });
         }
       }
-      if (agregados.length) report.fichasTocadas.push({ caseId: row.caseId, title: row.title, agregados, principales });
+      if (agregados.length) report.fichasTocadas.push({ caseId: row.caseId, ...(row.title === undefined ? {} : { title: row.title }), agregados, principales });
     }
 
     await client.query(`UPDATE ingest.scrape_runs SET status=$2::ingest.run_status, finished_at=now() WHERE id=$1`,

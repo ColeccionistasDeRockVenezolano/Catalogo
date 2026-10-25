@@ -113,6 +113,10 @@ for d in mb:
     for r in rels:
         if r.get('type') != 'member of band':
             continue
+        # A Person -> Group forward edge names the BAND, not a new person.
+        # This planner writes members of an existing group only.
+        if info.get('type') != 'Group' or r.get('direction') != 'backward':
+            continue
         nm = ((r.get('artist') or {}).get('name') or '').strip()
         if not nm:
             continue

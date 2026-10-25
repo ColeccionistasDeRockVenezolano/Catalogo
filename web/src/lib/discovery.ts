@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { CATALOG_DATA_CHANGED_EVENT, discoveryApi } from "./api";
 import type { CatalogSearchExample } from "./catalogSearchExamples";
+import { dailyRandom, type DailyCycle } from "../../../src/shared/daily-cycle";
+import { useDailyCycle } from "./DailyCycleContext";
 export const DISCOVERY_FALLBACK = "Busca artistas, bandas, álbumes o canciones";
 export interface DiscoveryResponse {
+  dailyCycle?: DailyCycle;
   enabled: boolean; intervalMs: number; refreshMs: number; fallback: string; groupPolicy: string[];
   metrics?: { enabled: boolean; visibleMs: number; attributionMs: number };
   suggestions: { id: number; name: string; group: string; priority: number; validUntil: string | null; metricTicket?: string }[];
@@ -10,7 +13,7 @@ export interface DiscoveryResponse {
 /** Turnos por grupo y permutación ponderada por prioridad editorial.
  * Todos los artistas aparecen una vez por vuelta: la prioridad adelanta,
  * no excluye ni expresa popularidad. */
-export function discoveryExamples(data: DiscoveryResponse, random = Math.random): CatalogSearchExample[] {
+export function discoveryExamples(data: DiscoveryResponse, random = dailyRandom(data.dailyCycle?.date ?? "", "discovery")): CatalogSearchExample[] {
   if (!data.enabled) return [];
   const unique = [...new Map(data.suggestions.map(s => [s.id, s])).values()];
   const groups = new Map<string, typeof unique>();
@@ -26,12 +29,14 @@ export function discoveryExamples(data: DiscoveryResponse, random = Math.random)
   return result;
 }
 export function useDiscoveryExamples(active: boolean) {
+  const { cycle: dailyCycle, now: serverNow } = useDailyCycle();
+  const date = dailyCycle?.date;
   const [data, setData] = useState<DiscoveryResponse>();
   const [order, setOrder] = useState<CatalogSearchExample[]>([]);
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(0);
   const [expiresAt, setExpiresAt] = useState(0);
   useEffect(() => {
-    if (!active) return;
+    if (!active || !date) return;
     let disposed = false;
     let controller: AbortController | undefined;
     let timer: number | undefined;
@@ -42,15 +47,13 @@ export function useDiscoveryExamples(active: boolean) {
       const requestController = controller;
       const timeout = window.setTimeout(() => requestController.abort(), 8000);
       try {
-        const result = await discoveryApi.suggestions(requestController.signal);
+        const result = await discoveryApi.suggestions(requestController.signal, date);
         if (disposed || controller !== requestController) return;
-        setData(result); setExpiresAt(Date.now() + result.refreshMs);
+        setData(result); setExpiresAt(performance.now() + result.refreshMs); setNow(serverNow() ?? 0);
         // Una vuelta conserva su orden entre renovaciones; admite cambios de nombre.
-        setOrder(previous => {
+        setOrder(() => {
           const next = discoveryExamples(result);
-          const byKey = new Map(next.map(e => [e.key,e]));
-          return [...previous.flatMap(e => byKey.has(e.key) ? [byKey.get(e.key)!] : []),
-            ...next.filter(e => !previous.some(p => p.key === e.key))];
+          return next;
         });
       } catch {
         if (!disposed && controller === requestController) { setData(undefined); setOrder([]); setExpiresAt(0); }
@@ -63,12 +66,12 @@ export function useDiscoveryExamples(active: boolean) {
     void refresh();
     window.addEventListener(CATALOG_DATA_CHANGED_EVENT, revalidate);
     document.addEventListener("visibilitychange", revalidate);
-    const clock = window.setInterval(() => setNow(Date.now()), 1000);
+    const clock = window.setInterval(() => setNow(serverNow() ?? 0), 1000);
     return () => { disposed = true; controller?.abort(); window.clearTimeout(timer); window.clearInterval(clock);
       window.removeEventListener(CATALOG_DATA_CHANGED_EVENT, revalidate); document.removeEventListener("visibilitychange", revalidate); };
-  }, [active]);
+  }, [active, date, serverNow]);
   const eligibleKeys = data?.suggestions.filter(s => !s.validUntil || Date.parse(s.validUntil)>now).map(s => `artist-${s.id}`).join(",") ?? "";
-  const fresh = active && now < expiresAt;
+  const fresh = active && Boolean(date) && data?.dailyCycle?.date === date && performance.now() < expiresAt;
   const options = useMemo(() => {
     const eligible = new Set(eligibleKeys.split(","));
     return fresh ? order.filter(e => eligible.has(e.key)) : [];

@@ -82,7 +82,7 @@ export async function recommend(input: unknown, actor: string, persist = false, 
       positive AS (SELECT DISTINCT a.track_id,l.slug FROM effective a JOIN ingest.track_context_labels l ON l.id=a.label_id),
       negative AS (${NEGATIVE_LABELS}), versions AS (${VERSION_GROUPS})
       SELECT t.id::float8 AS id,al.artist_id::float8 AS "artistId",v.group_key AS "versionGroup"
-      FROM tracks t JOIN albums al ON al.id=t.album_id JOIN artists ar ON ar.id=al.artist_id
+      FROM ingest.catalog_tracks t JOIN ingest.catalog_albums al ON al.id=t.album_id JOIN ingest.catalog_artists ar ON ar.id=al.artist_id
         LEFT JOIN versions v ON v.track_id=t.id
       WHERE EXISTS (SELECT 1 FROM effective a WHERE a.track_id=t.id)
         AND lower(trim(ar.name)) NOT IN ('various artists','varios artistas')
@@ -151,7 +151,7 @@ export async function importRecommendationVersions(input: unknown, apply = false
   if (new Set(batch.versions.map(x=>x.key)).size !== batch.versions.length) throw new OperatorError("invalid","Clave repetida");
   const op=await withOperatorRun({name:"discovery:recommendation-versions",operator:batch.reviewer,note:batch.note},async ({client})=> {
     for (const row of batch.versions) {
-      const valid = (await client.query(`SELECT t.id FROM tracks t JOIN ingest.claims c ON c.track_id=t.id JOIN ingest.claim_evidence e ON e.claim_id=c.id
+      const valid = (await client.query(`SELECT t.id FROM ingest.catalog_tracks t JOIN ingest.claims c ON c.track_id=t.id JOIN ingest.claim_evidence e ON e.claim_id=c.id
         WHERE t.id=$1 AND t.title=$2 AND t.album_id=$3 AND e.id=$4 AND c.entity_kind='track' AND c.field='discovery_recording_identity'
           AND c.raw_value=to_jsonb($5::text) AND ($6::text<>'approved' OR (c.status NOT IN ('rejected','superseded','conflict') AND length(trim(e.url))>0 AND length(trim(e.excerpt))>0))
         FOR SHARE OF t,c,e`,[row.trackId,row.expectedTitle,row.expectedAlbumId,row.evidenceId,row.group,row.state])).rows[0];

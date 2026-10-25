@@ -54,7 +54,7 @@ export async function trendPrototype(now = new Date()) {
   const rows = (await pool.query(`SELECT d.*,s.artist_id,a.name,
     (SELECT count(*) FROM ingest.discovery_metric_subjects other WHERE other.artist_id=s.artist_id) AS identity_count
     FROM ingest.discovery_metric_daily d JOIN ingest.discovery_metric_subjects s ON s.id=d.subject_id
-    LEFT JOIN public.artists a ON a.id=s.artist_id WHERE day >= $1::date - 14 AND day < $1::date
+    LEFT JOIN ingest.catalog_artists a ON a.id=s.artist_id WHERE day >= $1::date - 14 AND day < $1::date
     ORDER BY d.subject_id,d.day,d.kind`, [end])).rows;
   const subjects = new Map<number, { id: number; name: string | null; stable: boolean; previous: WindowSample; current: WindowSample }>();
   const empty = (): WindowSample => ({ impressions: 0, acceptances: 0, searches: 0, visits: 0, days: 0, configs: [] });

@@ -10,14 +10,17 @@ Deezer y luego en MusicBrainz una edición con:
   * artista y título exactos (misma clave compacta que el normalizador del repo);
   * TODAS las canciones de Aqustico presentes, cada una en una sola posición.
 Sin edición así, el disco queda en espera. Solo lectura de la base; escribe
-reports/aqustico-2026-10/orden-pistas.json.
+orden-pistas.json junto a la tabla maestra (AQ_OUT, por defecto la del volcado
+del 2026-10-14). El campo `orden` del detalle de álbum de ese volcado no sirve
+como fuente: contradice a CRV en 6 de 15 discos comparables y repite posiciones.
 
   python3 -I scripts/aqustico/orden-pistas.py
 """
-import json, re, sys, time, unicodedata, urllib.parse, urllib.request
+import json, os, re, sys, time, unicodedata, urllib.parse, urllib.request
 
 ROOT = "/home/brian/apps/Coleccionistas De Rock Venezolano"
-DIR = f"{ROOT}/reports/aqustico-2026-10"
+DIR = os.path.join(ROOT, os.environ.get("AQ_OUT", "reports/aqustico-2026-10-14"))
+RAW = os.path.join(ROOT, os.environ.get("AQ_RAW", "/mnt/1tb/Shared/aqustico-assets/_raw/api-2026-10-14"))
 UA = "CRV-completar/1.0 (+coleccionistasderockvenezolano.com)"
 GAP = {"deezer": 0.15, "musicbrainz": 1.1}
 _last = {}
@@ -131,11 +134,11 @@ def main():
             todo.append({"hueco": "H8", "aqIds": h["aqId"], "crvAlbumId": h["crvId"], "artist": (artistas.get(int(p[6])) or p[1]) if p and p[6] else (p[1] if p else None),
                          "title": p[8] if p else None, "songs": None, "titles": h["valor"]})
     # H8: las canciones con id salen del volcado
-    raw = f"{ROOT}/data/raw/aqustico-2026-10-11/songs"
-    import os
+    raw = f"{RAW}/songs"
     by_album = {}
     for fn in os.listdir(raw):
-        for s in json.load(open(f"{raw}/{fn}")) or []:
+        text = open(f"{raw}/{fn}").read().strip()
+        for s in (json.loads(text) if text else None) or []:
             by_album.setdefault(str(s["album_id"]), []).append((s["id"], s["song_name"]))
     for t in todo:
         if t["songs"] is None:

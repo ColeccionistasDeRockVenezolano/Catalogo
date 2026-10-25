@@ -1,0 +1,233 @@
+{
+ "batch": "inicial-2026-10-10",
+ "reviewer": "Claude · revisión 2026-10-19",
+ "note": "Revisión 2026-10-19 sobre el lote inicial: reaprobación de Arkangel y Zapato3 con evidencia vigente, contraste de los ocho pendientes con el texto de sus fuentes y aprobación de Danny Ocean, Elena Rose y Yorghaki por confirmación de Brian (evidencias del run 20921). Mismas claves del lote inicial; las filas omitidas no cambian.",
+ "labels": [
+  {
+   "slug": "historicos",
+   "name": "Trayectorias anteriores a 1990",
+   "definition": "Colección editorial de proyectos documentados antes de 1990.",
+   "criterion": "Fuente revisada del origen del proyecto en Venezuela y actividad anterior a 1990. No expresa reconocimiento cuantificado."
+  },
+  {
+   "slug": "alternativo",
+   "name": "Rock y fusión desde los noventa",
+   "definition": "Selección editorial de rock, alternativo y fusión de generaciones posteriores.",
+   "criterion": "Fuente revisada de proyecto vinculado con Venezuela, rock o fusión y trayectoria iniciada desde 1990. No expresa popularidad."
+  },
+  {
+   "slug": "contemporaneos",
+   "name": "Proyectos desde 2000",
+   "definition": "Colección editorial de proyectos con inicios documentados desde 2000.",
+   "criterion": "Fuente revisada del vínculo venezolano y comienzo del proyecto desde 2000. No afirma actualidad, actividad vigente ni tendencia."
+  },
+  {
+   "slug": "experimental",
+   "name": "Experimental y electrónica",
+   "definition": "Colección editorial de proyectos experimentales o electrónicos.",
+   "criterion": "Fuente revisada que documente identidad, vínculo venezolano y propuesta experimental o electrónica."
+  }
+ ],
+ "artists": [
+  {
+   "key": "46",
+   "artistId": 46,
+   "expectedName": "Arkangel",
+   "state": "approved",
+   "evidenceId": 754865,
+   "reason": "Reaprobado 2026-10-19: la evidencia anterior (claim 637293) quedó reemplazada. Rock de Vzla documenta «banda venezolana de heavy metal» nacida en la segunda mitad de los años 70 como Power Age: origen venezolano y trayectoria anterior a 1990.",
+   "group": "historicos",
+   "priority": 1,
+   "validFrom": "2026-10-10T00:00:00Z",
+   "validUntil": null,
+   "labels": [
+    {
+     "slug": "historicos",
+     "state": "approved",
+     "evidenceId": 754865,
+     "reason": "Reaprobado 2026-10-19: la evidencia anterior (claim 637293) quedó reemplazada. Rock de Vzla documenta «banda venezolana de heavy metal» nacida en la segunda mitad de los años 70 como Power Age: origen venezolano y trayectoria anterior a 1990."
+    }
+   ]
+  },
+  {
+   "key": "266",
+   "artistId": 266,
+   "expectedName": "Zapato3",
+   "state": "approved",
+   "evidenceId": 841656,
+   "reason": "Reaprobado 2026-10-19: la evidencia anterior (claim 637040) quedó reemplazada. Sincopa documenta su origen «Mid 80s in Caracas, Venezuela»: origen venezolano y trayectoria anterior a 1990.",
+   "group": "historicos",
+   "priority": 1,
+   "validFrom": "2026-10-10T00:00:00Z",
+   "validUntil": null,
+   "labels": [
+    {
+     "slug": "historicos",
+     "state": "approved",
+     "evidenceId": 841656,
+     "reason": "Reaprobado 2026-10-19: la evidencia anterior (claim 637040) quedó reemplazada. Sincopa documenta su origen «Mid 80s in Caracas, Venezuela»: origen venezolano y trayectoria anterior a 1990."
+    }
+   ]
+  },
+  {
+   "key": "1496",
+   "artistId": 1496,
+   "expectedName": "Lasso",
+   "state": "approved",
+   "evidenceId": 2114898,
+   "reason": "Contraste 2026-10-19 con texto de fuente (Sincopa): nacido el 18-02-1988 en Caracas, Venezuela; discografía propia desde 2011 (Sin Otro Sentido). Vínculo venezolano y proyecto iniciado desde 2000.",
+   "group": "contemporaneos",
+   "priority": 1,
+   "validFrom": "2026-10-10T00:00:00Z",
+   "validUntil": null,
+   "labels": [
+    {
+     "slug": "contemporaneos",
+     "state": "approved",
+     "evidenceId": 2114898,
+     "reason": "Contraste 2026-10-19 con texto de fuente (Sincopa): nacido el 18-02-1988 en Caracas, Venezuela; discografía propia desde 2011 (Sin Otro Sentido). Vínculo venezolano y proyecto iniciado desde 2000."
+    }
+   ]
+  },
+  {
+   "key": "4235",
+   "artistId": 4235,
+   "expectedName": "Arca",
+   "state": "approved",
+   "evidenceId": 3728280,
+   "reason": "Contraste 2026-10-19 con la página de AllMusic (captura Wayback 2026-01-07): nacida el 14-10-1989 en Caracas, Venezuela; géneros Electronic y Avant-Garde, estilo Experimental Electronic. Se usa el claim de lugar de nacimiento, no la síntesis biográfica (que vincula a Nuuro, identidad separada).",
+   "group": "experimental",
+   "priority": 1,
+   "validFrom": "2026-10-10T00:00:00Z",
+   "validUntil": null,
+   "labels": [
+    {
+     "slug": "experimental",
+     "state": "approved",
+     "evidenceId": 3728280,
+     "reason": "Contraste 2026-10-19 con la página de AllMusic (captura Wayback 2026-01-07): nacida el 14-10-1989 en Caracas, Venezuela; géneros Electronic y Avant-Garde, estilo Experimental Electronic. Se usa el claim de lugar de nacimiento, no la síntesis biográfica (que vincula a Nuuro, identidad separada)."
+    }
+   ]
+  },
+  {
+   "key": "4248",
+   "artistId": 4248,
+   "expectedName": "Mau y Ricky",
+   "state": "approved",
+   "evidenceId": 3729643,
+   "reason": "Contraste 2026-10-19 con Wikipedia en inglés: dúo venezolano de Caracas que empezó a actuar en 2011 (como MR hasta 2015). Vínculo venezolano y proyecto iniciado desde 2000.",
+   "group": "contemporaneos",
+   "priority": 1,
+   "validFrom": "2026-10-10T00:00:00Z",
+   "validUntil": null,
+   "labels": [
+    {
+     "slug": "contemporaneos",
+     "state": "approved",
+     "evidenceId": 3729643,
+     "reason": "Contraste 2026-10-19 con Wikipedia en inglés: dúo venezolano de Caracas que empezó a actuar en 2011 (como MR hasta 2015). Vínculo venezolano y proyecto iniciado desde 2000."
+    }
+   ]
+  },
+  {
+   "key": "4249",
+   "artistId": 4249,
+   "expectedName": "Danny Ocean",
+   "state": "approved",
+   "evidenceId": 4944627,
+   "reason": "Aprobado 2026-10-19: Brian confirmó que es venezolano. Wikipedia en español: venezolano nacido en Caracas en 1992, activo desde 2009. La ficha AllMusic mn0003646008 de la evidencia anterior era de otro artista (Dennis Dempsey).",
+   "group": "contemporaneos",
+   "priority": 1,
+   "validFrom": "2026-10-10T00:00:00Z",
+   "validUntil": null,
+   "labels": [
+    {
+     "slug": "contemporaneos",
+     "state": "approved",
+     "evidenceId": 4944627,
+     "reason": "Aprobado 2026-10-19: Brian confirmó que es venezolano. Wikipedia en español: venezolano nacido en Caracas en 1992, activo desde 2009. La ficha AllMusic mn0003646008 de la evidencia anterior era de otro artista (Dennis Dempsey)."
+    }
+   ]
+  },
+  {
+   "key": "4252",
+   "artistId": 4252,
+   "expectedName": "Elena Rose",
+   "state": "approved",
+   "evidenceId": 4944628,
+   "reason": "Aprobada 2026-10-19: Brian confirmó que es venezolana. Wikipedia en español: cantante, productora y compositora venezolana-estadounidense, sencillo debut en 2020. elenarosemusic.com es de una homónima de Nueva Jersey.",
+   "group": "contemporaneos",
+   "priority": 1,
+   "validFrom": "2026-10-10T00:00:00Z",
+   "validUntil": null,
+   "labels": [
+    {
+     "slug": "contemporaneos",
+     "state": "approved",
+     "evidenceId": 4944628,
+     "reason": "Aprobada 2026-10-19: Brian confirmó que es venezolana. Wikipedia en español: cantante, productora y compositora venezolana-estadounidense, sencillo debut en 2020. elenarosemusic.com es de una homónima de Nueva Jersey."
+    }
+   ]
+  },
+  {
+   "key": "4253",
+   "artistId": 4253,
+   "expectedName": "Joaquina",
+   "state": "approved",
+   "evidenceId": 3730188,
+   "reason": "Contraste 2026-10-19 con la biografía de AllMusic: nacida en 2004 en Caracas, Venezuela; su primer sencillo autoeditado («Primer Amor») salió en 2020. Vínculo venezolano y proyecto iniciado desde 2000.",
+   "group": "contemporaneos",
+   "priority": 1,
+   "validFrom": "2026-10-10T00:00:00Z",
+   "validUntil": null,
+   "labels": [
+    {
+     "slug": "contemporaneos",
+     "state": "approved",
+     "evidenceId": 3730188,
+     "reason": "Contraste 2026-10-19 con la biografía de AllMusic: nacida en 2004 en Caracas, Venezuela; su primer sencillo autoeditado («Primer Amor») salió en 2020. Vínculo venezolano y proyecto iniciado desde 2000."
+    }
+   ]
+  },
+  {
+   "key": "5815",
+   "artistId": 5815,
+   "expectedName": "Yorghaki",
+   "state": "approved",
+   "evidenceId": 4944629,
+   "reason": "Aprobado 2026-10-19: Brian confirmó que es venezolano. Wikipedia en inglés: cantautor venezolano nacido en Valencia, primera canción en 2017.",
+   "group": "contemporaneos",
+   "priority": 1,
+   "validFrom": "2026-10-10T00:00:00Z",
+   "validUntil": null,
+   "labels": [
+    {
+     "slug": "contemporaneos",
+     "state": "approved",
+     "evidenceId": 4944629,
+     "reason": "Aprobado 2026-10-19: Brian confirmó que es venezolano. Wikipedia en inglés: cantautor venezolano nacido en Valencia, primera canción en 2017."
+    }
+   ]
+  },
+  {
+   "key": "6160",
+   "artistId": 6160,
+   "expectedName": "Alleh",
+   "state": "approved",
+   "evidenceId": 4736206,
+   "reason": "Contraste 2026-10-19 con el texto de Last.fm: cantante y compositor venezolano nacido el 13-12-2003 en Valencia, Venezuela; comenzó como artista independiente en 2022. Vínculo venezolano y proyecto iniciado desde 2000.",
+   "group": "contemporaneos",
+   "priority": 1,
+   "validFrom": "2026-10-10T00:00:00Z",
+   "validUntil": null,
+   "labels": [
+    {
+     "slug": "contemporaneos",
+     "state": "approved",
+     "evidenceId": 4736206,
+     "reason": "Contraste 2026-10-19 con el texto de Last.fm: cantante y compositor venezolano nacido el 13-12-2003 en Valencia, Venezuela; comenzó como artista independiente en 2022. Vínculo venezolano y proyecto iniciado desde 2000."
+    }
+   ]
+  }
+ ]
+}

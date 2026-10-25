@@ -24,6 +24,7 @@ async function main(): Promise<number> {
           + (decision.rename ? `, renombrado «${item.renamedFrom ?? "?"}» → «${decision.rename}»` : "") + (decision.fillYear ? `, año ${decision.fillYear}` : "")
         : decision.action === "create" ? `disco nuevo «${decision.title}» (${decision.albumType}${decision.year ? `, ${decision.year}` : ""})${item.albumId ? ` id ${item.albumId}` : ""}`
         : decision.action === "review" ? `a la cola: ${decision.reason}${item.reviewOpened === false ? " (ya estaba)" : ""}`
+        : decision.action === "audiovisual" ? `audiovisual: ${decision.reason}`
         : `ignorado: ${decision.reason}`;
       const tracks = item.tracks ? `; pistas: ${item.tracks.created} creadas, ${item.tracks.startsSet} inicios, ${item.tracks.durationsSet} duraciones${item.tracks.unmatched.length ? `, sin casar: ${item.tracks.unmatched.join(" · ")}` : ""}` : "";
       console.log(`  ${item.videoId}  ${item.title}\n      ${item.error ? `ERROR: ${item.error}` : what}${tracks}${item.runId ? ` [run ${item.runId}]` : ""}`);

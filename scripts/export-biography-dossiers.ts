@@ -45,6 +45,9 @@ const kindsArg = process.argv.find((arg) => arg.startsWith("--kinds="))?.slice("
 const KINDS = (kindsArg ? kindsArg.split(",") : ["artist", "album", "person", "organization"]) as Kind[];
 // Segunda pasada: solo las fichas que alguna de estas fuentes cosechadas nombra.
 const withSources = process.argv.find((arg) => arg.startsWith("--with-sources="))?.slice("--with-sources=".length).split(",");
+// Incluir fichas con corrección humana (por defecto se protegen: la síntesis no pisa
+// decisiones humanas). Se usa cuando Brian pide rehacer una bio que él mismo tocó.
+const includeProtected = process.argv.includes("--include-protected");
 
 const pool = getPool();
 const q = async <T extends Record<string, unknown>>(sql: string, params: unknown[] = []) => (await pool.query<T>(sql, params)).rows;
@@ -103,6 +106,8 @@ async function main(): Promise<void> {
     SELECT a.entity_kind || ':' || COALESCE(a.artist_id, a.album_id, a.person_id, a.organization_id)
       FROM ingest.merge_audit a
      WHERE a.field IN ('biography','description') AND a.reason ILIKE 'corrección humana%'`)).map((row) => row.case_id));
+  // `--include-protected`: se pide expresamente rehacer también esas fichas.
+  if (includeProtected) protectedCases.clear();
 
   // --- URLs de origen y textos locales --------------------------------------
   const sourceUrls = group(await q<{ case_id: string; slug: string; url: string }>(`

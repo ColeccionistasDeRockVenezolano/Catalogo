@@ -17,7 +17,7 @@ import { updateEntity, withOperatorRun } from "../src/merge/operator.js";
 
 const DIR = "reports/themes-es-2026-10-15";
 const confirm = process.argv.includes("--confirm");
-const tamanoLote = Number(process.argv.find((v) => v.startsWith("--lote="))?.slice(6) ?? 80);
+const tamanoLote = Number(process.argv.find((v) => v.startsWith("--lote="))?.slice(7) ?? 80);
 const limite = Number(process.argv.find((v) => v.startsWith("--limit="))?.slice(8) ?? 0);
 
 interface Fila { id: number; name: string; antes: string; despues: string }

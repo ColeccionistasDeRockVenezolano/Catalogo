@@ -4,7 +4,7 @@ import { OperatorError } from "../merge/operator.js";
 
 // Shared by serving, evaluation and coverage. Proposals never enter this query.
 export const EFFECTIVE_ASSIGNMENTS = `SELECT a.* FROM ingest.track_context_assignments a
-  JOIN public.tracks t ON t.id=a.track_id JOIN ingest.track_context_labels l ON l.id=a.label_id
+  JOIN ingest.catalog_tracks t ON t.id=a.track_id JOIN ingest.track_context_labels l ON l.id=a.label_id
   JOIN ingest.claim_evidence e ON e.id=a.evidence_id JOIN ingest.claims c ON c.id=e.claim_id
   WHERE a.state='approved' AND a.valid_from<=now() AND (a.valid_until IS NULL OR a.valid_until>now())
     AND c.track_id=t.id AND c.entity_kind='track' AND c.field='discovery_context:'||l.slug
@@ -24,7 +24,7 @@ export async function trackContextsReady(client: PoolClient | ReturnType<typeof 
 export async function trackContexts(trackId: number, client: PoolClient | ReturnType<typeof getPool> = getPool()) {
   const track = (await client.query(`SELECT t.id::float8 AS id,t.title,t.album_id::float8 AS "albumId",t.disc_number AS "discNumber",
     t.track_number AS "trackNumber",al.title AS "albumTitle",al.artist_id::float8 AS "artistId",ar.name AS "artistName"
-    FROM tracks t JOIN albums al ON al.id=t.album_id JOIN artists ar ON ar.id=al.artist_id WHERE t.id=$1`,[trackId])).rows[0];
+    FROM ingest.catalog_tracks t JOIN ingest.catalog_albums al ON al.id=t.album_id JOIN ingest.catalog_artists ar ON ar.id=al.artist_id WHERE t.id=$1`,[trackId])).rows[0];
   if (!track) throw new OperatorError("not_found", `Pista ${trackId} inexistente`);
   // A confirmed parent genre remains a fact at the parent level, not at track level.
   const genres = (await client.query(`SELECT g.id::float8 AS id,g.name,ag.confidence,'album' AS "originalLevel",ag.album_id::float8 AS "entityId",
@@ -78,7 +78,7 @@ export async function contextCoverage(options: ContextCoverageOptions) {
 }
 async function measureCoverage(client: PoolClient, { limit, offset, albumId }: ContextCoverageOptions) {
   if (!await trackContextsReady(client)) return { enabled: false, unit: "track-edition", summary: null, tracks: [], labels: [] };
-  const cte = `WITH eligible AS (${EFFECTIVE_ASSIGNMENTS}), scoped AS (SELECT * FROM tracks WHERE ($1::bigint IS NULL OR album_id=$1)),
+  const cte = `WITH eligible AS (${EFFECTIVE_ASSIGNMENTS}), scoped AS (SELECT * FROM ingest.catalog_tracks WHERE ($1::bigint IS NULL OR album_id=$1)),
     usable AS (SELECT a.* FROM eligible a JOIN scoped t ON t.id=a.track_id),
     assessments AS (SELECT e.*,a.track_id,a.label_id FROM ingest.track_context_evaluations e JOIN usable a ON a.id=e.assignment_id
       WHERE e.assignment_snapshot=to_jsonb(a)),

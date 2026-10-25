@@ -14,6 +14,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { closeDb, getPool } from "../src/db/client.js";
 import { createEntity, withOperatorRun } from "../src/merge/operator.js";
+import { rejectedTracklist } from "../src/verification/tracklist-corrections.js";
 
 const DATE = "2026-09-28";
 const IN = `reports/tracklists-deepseek-${DATE}.jsonl`;
@@ -44,6 +45,7 @@ async function main(): Promise<void> {
     if (exclude.has(row.albumId)) { reject("excluido a mano"); continue; }
     if (!empty.has(row.albumId)) { reject("ya tiene pistas o no existe"); continue; }
     const tracks = row.tracks.map((t) => ({ disc: t.disc, position: t.position, title: clean(t.title), duration: seconds(t.duration) }));
+    if (await rejectedTracklist(pool, row.albumId, tracks.map(track => track.title))) { reject('lista ya rechazada por atribución incorrecta'); continue; }
     const keys = tracks.map((t) => fold(t.title));
     if (new Set(keys).size !== keys.length) { reject("títulos repetidos en la lista"); continue; }
     if (VARIOUS.test(row.artist.trim()) && keys.filter((k) => artistNames.has(k)).length >= 2) { reject("las pistas son nombres de artistas"); continue; }

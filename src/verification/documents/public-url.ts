@@ -38,6 +38,9 @@ export async function publicPageFetch(raw:string|URL):Promise<Response>{
     callback(null,selected[0]!.address,selected[0]!.family);
    },
   },response=>{
+   try{
+   const status=response.statusCode??502;
+   if(status<200||status>599)throw new Error(`Estado HTTP no compatible con la lectura documental: ${status}`);
    const headers=new Headers();
    for(const [name,value] of Object.entries(response.headers))if(value!==undefined)headers.set(name,Array.isArray(value)?value.join(","):value);
    let stream:Readable=response;
@@ -46,8 +49,8 @@ export async function publicPageFetch(raw:string|URL):Promise<Response>{
    else if(encoding==="deflate")stream=response.pipe(createInflate());
    else if(encoding==="br")stream=response.pipe(createBrotliDecompress());
    if(stream!==response){response.on("error",error=>stream.destroy(error));headers.delete("content-encoding");headers.delete("content-length");}
-   const status=response.statusCode??502;
    resolve(new Response([204,205,304].includes(status)?null:Readable.toWeb(stream) as ReadableStream<Uint8Array>,{status,headers}));
+   }catch(error){response.destroy();reject(error);}
   });
   request.once("error",reject);request.once("upgrade",(_response,socket)=>{socket.destroy();reject(new Error("No se permite cambiar el protocolo de lectura"));});request.end();
  });
