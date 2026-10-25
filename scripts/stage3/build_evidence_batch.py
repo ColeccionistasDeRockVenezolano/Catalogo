@@ -30,8 +30,8 @@ def split_of(group: str) -> str:
 MINORITY = re.compile(r"\b(no|nunca|sin|jam[aá]s|ni|not|never|no one|isn'?t|doesn'?t|don'?t|without|lacks?|would|could|if|si fuera|ojal[aá]|quiz[aá]s|tal vez|maybe|perhaps|parece|seems|i wish|imagin|dice|dijo|says|said|ironic|ir[oó]nic|supuestamente|supposedly)\b|[\"«“]", re.I)
 
 
-def pool(out: Path, targeted: bool = False, exclude: Path | None = None):
-    rnd = random.Random(26 if targeted else 25)
+def pool(out: Path, targeted: bool = False, exclude: Path | None = None, reserved: list[Path] | None = None):
+    rnd = random.Random(27 if reserved else 26 if targeted else 25)
     invalid = {json.loads(l)["archivo"].rsplit("/", 1)[-1].removesuffix(".html")
                for l in open(ROOT / "reports/reviews-rym-aoty-inventario-2026-10-24/paginas-invalidas.jsonl")}
     cruce = {}
@@ -88,6 +88,17 @@ def pool(out: Path, targeted: bool = False, exclude: Path | None = None):
                 r = json.loads(l); used.add((r["source"], r["text"]))
         rows = [r for r in rows if split_of(r["group"]) != "test" and (r["source"], r["text"]) not in used
                 and (MINORITY.search(r["text"]) or r["source"] in ("rym_identity_error", "lastfm_homonyms"))]
+    if reserved:
+        # Prueba reservada 2.0.0: solo grupos de la partición test, sin textos ni grupos ya usados en lotes
+        # anteriores ni en la prueba 1.0.0 (que pasa a ser desarrollo).
+        used, used_groups = set(), set()
+        for p in reserved:
+            if p.suffix == ".json":
+                used_groups |= {t["group"] for t in json.loads(p.read_text())["typed"]}
+                continue
+            for l in open(p):
+                r = json.loads(l); used.add((r["source"], r["text"])); used_groups.add(r["group"])
+        rows = [r for r in rows if split_of(r["group"]) == "test" and (r["source"], r["text"]) not in used and r["group"] not in used_groups]
     # Estratificación: tope por obra y por artista; Arca acotada.
     rnd.shuffle(rows)
     per_group, per_artist, kept = Counter(), Counter(), []
@@ -96,6 +107,9 @@ def pool(out: Path, targeted: bool = False, exclude: Path | None = None):
     if targeted:
         caps = {"rym": 8, "rym_identity_error": 4, "aoty": 5, "barraezo": 3, "lastfm_homonyms": 1}
         quota = {"rym": 700, "rym_identity_error": 120, "aoty": 350, "barraezo": 120, "lastfm_homonyms": 40}
+    if reserved:
+        caps = {"rym": 8, "rym_identity_error": 4, "aoty": 4, "barraezo": 4, "lastfm_homonyms": 1}
+        quota = {"rym": 90, "rym_identity_error": 25, "aoty": 50, "barraezo": 35, "lastfm_homonyms": 15}
     per_source = Counter()
     for r in rows:
         a = (r["object"].get("artist") or "").lower()
@@ -104,7 +118,7 @@ def pool(out: Path, targeted: bool = False, exclude: Path | None = None):
         if a and per_artist[a] >= (90 if a == "arca" else 60):
             continue
         per_group[r["group"]] += 1; per_artist[a] += 1; per_source[r["source"]] += 1
-        r["id"] = f"{'EW' if targeted else 'EV'}-{len(kept) + 1:04d}"
+        r["id"] = f"{'ER' if reserved else 'EW' if targeted else 'EV'}-{len(kept) + 1:04d}"
         r["split"] = split_of(r["group"])
         kept.append(r)
     out.mkdir(parents=True, exist_ok=True)
@@ -260,7 +274,9 @@ def items(out: Path):
 
 if __name__ == "__main__":
     cmd = sys.argv[1]
-    if cmd == "pool-targeted":
+    if cmd == "pool-reserved":
+        pool(Path(sys.argv[2]), reserved=[Path(x) for x in sys.argv[3].split(",")])
+    elif cmd == "pool-targeted":
         pool(Path(sys.argv[2]), targeted=True, exclude=Path(sys.argv[3]))
     else:
         {"pool": pool, "annotate": annotate, "items": items}[cmd](Path(sys.argv[2]))

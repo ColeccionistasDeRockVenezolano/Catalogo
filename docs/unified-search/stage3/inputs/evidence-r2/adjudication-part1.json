@@ -1,0 +1,15 @@
+{"fix": {
+ "1": {"activity_basis": "absent"}, "5": {"activity_basis": "absent"},
+ "6": {"object_scope": "same_object", "assertion_state": "affirmed", "support": "supports"},
+ "8": {"activity_basis": "absent"}, "9": {"assertion_state": "affirmed"}, "10": {"assertion_state": "affirmed"},
+ "12": {"activity_basis": "absent"},
+ "13": {"object_scope": "same_object", "assertion_state": "affirmed", "support": "supports"},
+ "20": {"object_scope": "same_object", "assertion_state": "affirmed", "support": "supports"},
+ "21": {"object_scope": "same_object", "assertion_state": "affirmed", "support": "supports"},
+ "22": {"assertion_state": "affirmed", "support": "supports"}, "23": {"assertion_state": "affirmed", "support": "supports"},
+ "28": {"object_scope": "different_object", "assertion_state": "affirmed", "support": "insufficient"},
+ "30": {"assertion_state": "affirmed", "support": "supports"}, "39": {"activity_basis": "absent"}},
+ "drop": {"2": "el rasgo no es musical (posible pedido)", "3": "queja de reproducción del archivo, no rasgo de la obra", "4": "el rasgo no es musical (pedido)",
+  "11": "rasgo y objeto indecidibles (adjetivo citado con sarcasmo)", "14": "valoración sin rasgo", "18": "rasgo sin sentido musical",
+  "19": "texto imitado, estado indecidible", "25": "temor de quien escribe, no rasgo", "26": "consejo al publicador, no rasgo",
+  "31": "disfrute sin rasgo", "32": "valoración sin rasgo", "33": "anécdota biográfica, no rasgo musical", "36": "deseo de escuchar, no rasgo", "37": "hábito de quien escribe, no rasgo"}}

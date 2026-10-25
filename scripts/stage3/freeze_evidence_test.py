@@ -52,4 +52,5 @@ def main(sample_path):
     OUT.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n")
     print(json.dumps({**doc["counts"], "sha256": hashlib.sha256(OUT.read_bytes()).hexdigest()}))
 
-main(sys.argv[1])
+if __name__ == "__main__":
+    main(sys.argv[1])

@@ -1,0 +1,9 @@
+{"fix": {
+ "41": {"activity_basis": "absent"},
+ "44": {"assertion_state": "affirmed", "support": "supports"},
+ "45": {"assertion_state": "affirmed", "support": "supports"},
+ "51": {"object_scope": "same_object", "support": "supports"},
+ "58": {"object_scope": "same_object", "support": "supports"},
+ "77": {"object_scope": "different_object", "support": "insufficient"}},
+ "drop": {"40": "valoración sin rasgo", "43": "actividad de otra persona sobre otra pista; indecidible", "46": "valoración de una pista sin rasgo",
+  "49": "valoración sin rasgo", "52": "valoración sin rasgo («bellas»)", "64": "puntuación", "72": "lista de pistas favoritas, sin rasgo"}}

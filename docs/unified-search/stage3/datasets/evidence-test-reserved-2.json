@@ -1,0 +1,5933 @@
+{
+ "version": "crv-evidence-test-reserved-2.0.0",
+ "frozenAt": "2026-10-25",
+ "policy": "Prueba reservada de los criterios 1.1.0: se congela antes de entrenar la versión siguiente y se evalúa una vez por versión.",
+ "protocol": {
+  "analyst": "DeepSeek (deepseek-flash), lote pool-reserved (ER-*)",
+  "evaluator": "Claude (adjudicación completa de la muestra)",
+  "conventions": [
+   "Un rasgo redactado como ausencia («sin clichés», «falta de crudeza», «mucho relleno») se sostiene (supports); contradicts exige que la cita niegue el rasgo propuesto.",
+   "Una valoración negativa no es contradicción: «aburrido», «voces que necesitan mejorar» sostienen ese rasgo.",
+   "activity_basis distinto de absent exige una actividad de escucha o uso; recomendar oír, comprar o ver un clip no es actividad.",
+   "Las puntuaciones («100/100») no sostienen rasgos.",
+   "Un texto de otra obra, pista concreta u homónimo es different_object y no sostiene el rasgo del objeto.",
+   "Una pista concreta citada dentro del objeto es different_object (misma regla que la 1.0.0).",
+   "Una pregunta retórica o concesiva sobre un rasgo presente lo afirma; «puede sentirse como» describe la obra (affirmed).",
+   "Evocar recuerdos o recomendar escuchar no es actividad: activity_basis = absent.",
+   "Valoraciones sin rasgo («gran disco», «bellas», «fabuloso», «50/50») se excluyen de la prueba."
+  ],
+  "sample": "todos los casos minoritarios del analista + aleatorio (semilla 11) hasta 120 reales, 40 construidos y 70 extracciones",
+  "excluded": {
+   "typed:2": "el rasgo no es musical (posible pedido)",
+   "typed:3": "queja de reproducción del archivo, no rasgo de la obra",
+   "typed:4": "el rasgo no es musical (pedido)",
+   "typed:11": "rasgo y objeto indecidibles (adjetivo citado con sarcasmo)",
+   "typed:14": "valoración sin rasgo",
+   "typed:18": "rasgo sin sentido musical",
+   "typed:19": "texto imitado, estado indecidible",
+   "typed:25": "temor de quien escribe, no rasgo",
+   "typed:26": "consejo al publicador, no rasgo",
+   "typed:31": "disfrute sin rasgo",
+   "typed:32": "valoración sin rasgo",
+   "typed:33": "anécdota biográfica, no rasgo musical",
+   "typed:36": "deseo de escuchar, no rasgo",
+   "typed:37": "hábito de quien escribe, no rasgo",
+   "typed:40": "valoración sin rasgo",
+   "typed:43": "actividad de otra persona sobre otra pista; indecidible",
+   "typed:46": "valoración de una pista sin rasgo",
+   "typed:49": "valoración sin rasgo",
+   "typed:52": "valoración sin rasgo («bellas»)",
+   "typed:64": "puntuación",
+   "typed:72": "lista de pistas favoritas, sin rasgo",
+   "typed:80": "valoración sin rasgo",
+   "typed:82": "valoración sin rasgo",
+   "typed:94": "valoración sin rasgo («50/50»)",
+   "typed:101": "valoración sin rasgo",
+   "typed:102": "experiencia de quien la hizo, no rasgo",
+   "typed:114": "criterio de quien escribe, no rasgo",
+   "typed:115": "juicio sobre la artista, no rasgo de la obra",
+   "typed:144": "el rasgo cambiado coincide en parte con la cita («más linda» / «melodías bellas»)",
+   "extraction:5": "rasgo de valoración («fabuloso»)",
+   "extraction:9": "el rasgo coincide en parte con s3",
+   "extraction:18": "el rasgo coincide en parte con s1 («groovy»)",
+   "extraction:30": "rasgo de valoración",
+   "extraction:31": "rasgo de valoración",
+   "extraction:38": "rasgo vago; s4 lo sostiene en parte",
+   "extraction:45": "juicio sobre la artista, no rasgo de la obra",
+   "extraction:49": "rasgo de valoración",
+   "extraction:64": "rasgo de valoración"
+  },
+  "inputSha256": {
+   "adjudication-extraction.json": "a0858a2d016cdba692e6eda062572f4a2f970e7d642f30eaa881aaa612f773b7",
+   "adjudication-part1.json": "d1fe395cbe035b4a269692e697cda312b4cc3025677ca7db402fa3644739d614",
+   "adjudication-part2.json": "7c842313f0dfe2b5dba943bee81f10a839db2fdfeb54d0a1b90710786e8e694b",
+   "adjudication-part3.json": "06ae2d09c9bb6c2ea2d03776fe1778414a0948361d264dbd9d74ee0e0499dc26",
+   "adjudication-part4.json": "7062f548f01e9117734b66f5da7cf660bd0ae7f589662d493681c7a82fe3a137",
+   "test-sample.json": "2b3ed990686be65464f86cb2d3943180f9f5f8adc8bdbb084ca016cd4b87609f"
+  }
+ },
+ "split": "grupos test (huella SHA-256 en el 15 % superior) no usados en lotes anteriores ni en la prueba 1.0.0",
+ "typed": [
+  {
+   "id": "ER-0001-C2",
+   "group": "aoty:1189780",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0001",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "desahogo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "en el outro (creo que es uno), se nota la inspiración de la Rosalía",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "inspiración de Rosalía en el outro"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0002-C4",
+   "group": "rym:/release/album/mau-y-ricky/rifresh/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0002",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Rifresh",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I'd recommend it as the easiest way for Britpop/indie fans to get into the \"classic Charlatans\" sound",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "para iniciarse en el sonido Charlatans"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "explicit_recommendation"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0012-C4",
+   "group": "rym:/release/ep/emnl/panorama/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0012",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Panorama",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Atomic has a deep rich groove you can easily move to",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "groove bailable para moverse"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "imagined_scene"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0016-C4",
+   "group": "aoty:653342",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0016",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Яitual",
+     "version": null,
+     "segment": null
+    },
+    "quote": "além de, de certa forma, transcendental",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "atmósfera transcendental"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0020-C1",
+   "group": "rym:/release/album/living-death/metal-revolution/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0020",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "metal revolution",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The mighty Sleater-Kinney make one hell of a first impression on what may be the fiercest record in their catalog.",
+    "candidate": {
+     "axis": "energy",
+     "facet": null,
+     "value": "disco feroz"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0027-C4",
+   "group": "rym:/release/ep/oldskull/till_then_you_die/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0027",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Till Then You Die",
+     "version": null,
+     "segment": null
+    },
+    "quote": "this is highly worth checking out as it contains some of the best songs of the band in this time period",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "recomendado por contener buenas canciones"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "explicit_recommendation"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0028-C1",
+   "group": "rym:/release/album/los-impala/los-impala-y-su-musica/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0028",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Los Impala y su Música",
+     "version": null,
+     "segment": null
+    },
+    "quote": "What's the point of the clacks and dings in the middle of the quiet bits of \"O Relógio\"?",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "ruidos y tintineos en partes tranquilas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0028-C2",
+   "group": "rym:/release/album/los-impala/los-impala-y-su-musica/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0028",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Los Impala y su Música",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Why does \"Senhor F\" come back twice at the end?",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "repetición del final dos veces"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0035-C1",
+   "group": "barraezo:https://barraezo.blogspot.com/2011/11/va-exitos-italianos-vol-iii-cbs-1973.html",
+   "source": "barraezo",
+   "constructed": false,
+   "review": "ER-0035",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "V.A. Exitos Italianos Vol. III - CBS - 1973",
+     "version": null,
+     "segment": null
+    },
+    "quote": "que me traen muy gratos recuerdos de una prolongada estadía en ese país",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "evoca recuerdos de una estadía en Italia"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0039-C1",
+   "group": "aoty:1041299",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0039",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Gabriela Ortiz: Revolución diamantina",
+     "version": null,
+     "segment": null
+    },
+    "quote": "another orchestra that felt like a movie score",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "orquesta que suena a banda sonora"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "unclear",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0040-C1",
+   "group": "aoty:515864",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0040",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "El Alma Que Te Trajo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Last year this song played on the bus during a week-long school trip to Xian",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "escuchada en autobús en viaje escolar"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0042-C4",
+   "group": "aoty:653342",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0042",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Яitual",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Really wished this song came out fully finished with a better construction to the outro",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "outro con mejor construcción"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0047-C1",
+   "group": "aoty:435301",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0047",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Electra Rex",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the sounds on Kick II seem somewhat more lively",
+    "candidate": {
+     "axis": "energy",
+     "facet": null,
+     "value": "sonidos más animados"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0052-C1",
+   "group": "aoty:188088",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0052",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Country Pursuits",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Don't go into this expecting some typical Arca shit because you will be thoroughly disappointed when you find out how bare bones this track is.",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción muy desnuda"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "negated",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0052-C2",
+   "group": "aoty:188088",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0052",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Country Pursuits",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I can't really even tell what Arca did on this track other then be a name listed here.",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "aporte de Arca imperceptible"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0052-C3",
+   "group": "aoty:188088",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0052",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Country Pursuits",
+     "version": null,
+     "segment": null
+    },
+    "quote": "It's also pretty disappointing as a snippet from the soundtrack, doesn't sound like a lot going on.",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "poca densidad musical"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "negated",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0054-C3",
+   "group": "aoty:1725373",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0054",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lisa De Maracaibo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the track list isn't as consistent",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "lista de pistas poco consistente"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "negated",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0057-C4",
+   "group": "aoty:1919904",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0057",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "AIRDOLL",
+     "version": null,
+     "segment": null
+    },
+    "quote": "if XXXXX sounds something like this, I'm so ready",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "sonido similar a Airdoll"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0062-C3",
+   "group": "aoty:131564",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0062",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Illness",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Wish those tracks were expanded on and not the rave tracks but ok.",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "pistas de rave menos desarrolladas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0064-C2",
+   "group": "aoty:1493762",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0064",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Mutant (Japanese Edition)",
+     "version": null,
+     "segment": null
+    },
+    "quote": "peonies is such a good outro and doesnt really work outside of that for me sadly",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "no funciona fuera del outro"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "negated",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0065-C2",
+   "group": "aoty:435301",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0065",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Electra Rex",
+     "version": null,
+     "segment": null
+    },
+    "quote": "if u say that Kick iii will be better than kick ii",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "comparación entre Kick iii y Kick ii"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0068-C2",
+   "group": "aoty:327580",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0068",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Oceánica",
+     "version": null,
+     "segment": null
+    },
+    "quote": "No ofrece nada único ni imperdible",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "nada único ni imperdible"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "negated",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0079-C3",
+   "group": "aoty:272046",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0079",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tú",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the addictive, relaxed atmosphere, making it a perfect addition to any chill playlist",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "para playlist relajada"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "explicit_recommendation"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "explicit_recommendation"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0081-C1",
+   "group": "barraezo:https://barraezo.blogspot.com/2018/05/grabaciones-venevox-gilmar-i-billos.html",
+   "source": "barraezo",
+   "constructed": false,
+   "review": "ER-0081",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Grabaciones Venevox - Gilmar I - Billo´s Caracas Boys - Velvet 102695 - 2008",
+     "version": null,
+     "segment": null
+    },
+    "quote": "creo que una recopilación",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "recopilación"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0088-C2",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "source": "rym",
+   "constructed": false,
+   "review": "ER-0088",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "quote": "If the instrumentals were left to stew on their own this could be something more compelling",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "instrumentales más atractivos sin voces"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0090-C2",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "source": "rym",
+   "constructed": false,
+   "review": "ER-0090",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "quote": "es una obra que invita a la contemplación, pero también a la liberación y a la experimentación",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "invita a la contemplación y experimentación"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "explicit_recommendation"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0094-C1",
+   "group": "barraezo:https://barraezo.blogspot.com/2014/10/la-vitrola-popular-950-vol-2-40-anos-de.html",
+   "source": "barraezo",
+   "constructed": false,
+   "review": "ER-0094",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Vitrola Popular 950  Vol. 2 - 40 años de Exitos - 2012 ",
+     "version": null,
+     "segment": null
+    },
+    "quote": "felicitaciones por semejante coleccion de historia e invalorables recuerdos musicales y de vida que se reviven en nuestras mentes al oir estas piezas musicales",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "colección de recuerdos musicales y de vida"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0094-C2",
+   "group": "barraezo:https://barraezo.blogspot.com/2014/10/la-vitrola-popular-950-vol-2-40-anos-de.html",
+   "source": "barraezo",
+   "constructed": false,
+   "review": "ER-0094",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Vitrola Popular 950  Vol. 2 - 40 años de Exitos - 2012 ",
+     "version": null,
+     "segment": null
+    },
+    "quote": "me gustaría si fuera posible y tienes en tu haber un tema que interpreto Felipe Pirela con la Orq. Los Peñiques el tema: No sufras corazón",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "tema de Felipe Pirela con Los Peñiques"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0101-C4",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "source": "rym",
+   "constructed": false,
+   "review": "ER-0101",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "quote": "this EP doesnt move outside of its safe zone that much",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "poca salida de su zona segura"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "negated",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0106-C4",
+   "group": "aoty:953346",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0106",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "VII Magia Infinita (2024)",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Escucharlo puede sentirse como conectar con ese algo mas allá de nuestra compresión",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "sensación de conexión trascendente"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0093-C3",
+   "group": "aoty:471806",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0093",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "@dannocean",
+     "version": null,
+     "segment": null
+    },
+    "quote": "la sensualidad que evoca es de lo más genuino que he visto en un disco latino este año",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "sensualidad genuina"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0020-C3",
+   "group": "rym:/release/album/living-death/metal-revolution/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0020",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "metal revolution",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Even without their eventual ace in the hole, drummer Janet Weiss, Tucker and Brownstein crafted a scintillating and compact set on Sleater-Kinney.",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "set compacto"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0029-C2",
+   "group": "rym:/release/single/arca/desafio/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0029",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Desafío",
+     "version": null,
+     "segment": null
+    },
+    "quote": "il jazz free form di Sun Ra (in realtà ben strutturato dalla mano del leader) si fa avanguardistico, cosmico, impressionistico",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "jazz free form avanguardistico e cosmico"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0049-C2",
+   "group": "aoty:515864",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0049",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "El Alma Que Te Trajo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The synths sound incredibly similar to a lot of Arca’s other songs (most notably “Prada/Rakata” and “Tiro”, which are all also Cardopusher collaborations )",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "sintetizadores similares a otras canciones de Arca"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0076-C1",
+   "group": "aoty:1485115",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0076",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "##forward.2u",
+     "version": null,
+     "segment": null
+    },
+    "quote": "if u into weird bitcrushed trap/cloud rap/plugg then check it out :)",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "trap/cloud rap/plugg con bitcrush"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0009-C2",
+   "group": "rym:/release/mixtape/cordillera-905/bullyng/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0009",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Bullyng",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the first four songs are quite strong for 1980's Stones",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "primeras cuatro canciones fuertes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0054-C4",
+   "group": "aoty:1725373",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0054",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lisa De Maracaibo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Alberto Beltran's collaborations aren't always good; He is hard to blame though, it's more due to how the vocals were mixed at certain moments",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "mezcla de voces deficiente en algunos momentos"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0029-C1",
+   "group": "rym:/release/single/arca/desafio/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0029",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Desafío",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Ipnotico e percussivo",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "suono ipnotico e percussivo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0031-C3",
+   "group": "rym:/release/ep/emnl/panorama/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0031",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Panorama",
+     "version": null,
+     "segment": null
+    },
+    "quote": "This album is an anthology like album where the common denominator connecting the whole album conceptually is how every track is its own sound and hopping genres, from sound to sound.",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "cada pista con sonido y género propio"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0033-C1",
+   "group": "aoty:435301",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0033",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Electra Rex",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the first few seconds of this song sample Gwarek2 by Aphex Twin",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "sample de Gwarek2 de Aphex Twin"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0059-C2",
+   "group": "aoty:1919904",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0059",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "AIRDOLL",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Ese toque de IDM le da su unicidad",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "toque de IDM"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0022-C2",
+   "group": "rym:/release/album/dj-babatr/root-echoes/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0022",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Root Echoes",
+     "version": null,
+     "segment": null
+    },
+    "quote": "From the first blasted notes of \"Search and Destroy\" to the last bit of guitar distortion on \"Death Trip\", this is one rollercoaster heading down a bottomless pit.",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "guitarras distorsionadas y notas explosivas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0090-C3",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "source": "rym",
+   "constructed": false,
+   "review": "ER-0090",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "quote": "una gran muestra del potencial de géneros como el glitch hop y el wonky",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "glitch hop y wonky"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0091-C1",
+   "group": "barraezo:https://barraezo.blogspot.com/2019/01/va-30-anos-con-lo-mejor-volumen-1.html",
+   "source": "barraezo",
+   "constructed": false,
+   "review": "ER-0091",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "V.A. 30 años con lo mejor Volumen 1 - Productos Especiales P.E. 5004 - 1979",
+     "version": null,
+     "segment": null
+    },
+    "quote": "UNa buena y variada selección de lo que se escuchaba en los 70.",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "selección variada de música de los 70"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0019-C1",
+   "group": "rym:/release/ep/the-cure-for-anxiety/demo-tapes/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0019",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Demo Tapes",
+     "version": null,
+     "segment": null
+    },
+    "quote": "His alien wails, halfway between the distorted soul of Jim Morrison and the disquieting baritone of Scott Walker, echoed expressionistic vistas of urban alienation over No Wave tribal beats and Gothic guitar impressions.",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz alienada entre Morrison y Walker"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0013-C3",
+   "group": "rym:/release/single/arca/time/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0013",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Moonage Daydream\" flaunts his rock chops",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "destreza rock"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0028-C3",
+   "group": "rym:/release/album/los-impala/los-impala-y-su-musica/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0028",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Los Impala y su Música",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Baby\" provides many examples of the same sort of thing",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "mismo tipo de irritación"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0033-C2",
+   "group": "aoty:435301",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0033",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Electra Rex",
+     "version": null,
+     "segment": null
+    },
+    "quote": "It's pretty crazy and goes at rapid pace",
+    "candidate": {
+     "axis": "energy",
+     "facet": null,
+     "value": "ritmo rápido y sonido alocado"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0044-C4",
+   "group": "aoty:957326",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0044",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "TOXIC RAVE 2027",
+     "version": null,
+     "segment": null
+    },
+    "quote": "it was really fun on first listen",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "divertido en la primera escucha"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0080-C1",
+   "group": "aoty:1485115",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0080",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "##forward.2u",
+     "version": null,
+     "segment": null
+    },
+    "quote": "digicore/plugg is like my least favorite genre",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "género digicore/plugg"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0020-C2",
+   "group": "rym:/release/album/living-death/metal-revolution/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0020",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "metal revolution",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Emerging from the Pacific Northwest's \"riot grrrl\" scene, the Olympia trio immediately set themselves apart from their contemporaries, based largely on the intense give-and-take between Corin Tucker and Carrie Brownstein.",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "intenso intercambio vocal entre Tucker y Brownstein"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0041-C2",
+   "group": "aoty:1919904",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0041",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "AIRDOLL",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the production was very unique",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción muy singular"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0012-C2",
+   "group": "rym:/release/ep/emnl/panorama/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0012",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Panorama",
+     "version": null,
+     "segment": null
+    },
+    "quote": "paired as always perfectly with the raw power of Deborah's voice",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz cruda y potente"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0089-C1",
+   "group": "aoty:471806",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0089",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "@dannocean",
+     "version": null,
+     "segment": null
+    },
+    "quote": "este es mejor que el anterior en cuanto a creatividad de estilos musicales",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "variedad creativa de estilos musicales"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0027-C3",
+   "group": "rym:/release/ep/oldskull/till_then_you_die/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0027",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Till Then You Die",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the CD was first issued with a bonus CD of additional material",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "edición con CD extra de material adicional"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0054-C2",
+   "group": "aoty:1725373",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0054",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lisa De Maracaibo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Very soft and catchy, but still soulful",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "suave y pegadizo pero con alma"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0064-C1",
+   "group": "aoty:1493762",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0064",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Mutant (Japanese Edition)",
+     "version": null,
+     "segment": null
+    },
+    "quote": "peonies is such a good outro and doesnt really work outside of that for me sadly",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "funciona bien como outro"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "ER-0100-C2",
+   "group": "aoty:1111676",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0100",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Unknown Radio (The Rampage Series Vol.2)",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I loved the production a lot!",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción muy lograda"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0019-C4",
+   "group": "rym:/release/ep/the-cure-for-anxiety/demo-tapes/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0019",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Demo Tapes",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Unknown Pleasures may have been a monochromatic work, but it was a vision so uncompromising and haunting that each track was worth its length.",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "obra monocromática e inquietante"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0016-C2",
+   "group": "aoty:653342",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0016",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Яitual",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Uma música de 4 minutos que pra mim soava cansativa, agora resumida em 1 minuto dos melhores momentos da canção",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "original de 4 minutos resultaba cansativo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0078-C1",
+   "group": "barraezo:https://barraezo.blogspot.com/2010/03/mosaico-diez-billos-caracas-boys.html",
+   "source": "barraezo",
+   "constructed": false,
+   "review": "ER-0078",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "MOSAICO DIEZ – Billo’s Caracas Boys",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Este es el último LP de Felipe Pirela con la Orquesta de Billo Frómeta.",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "último LP de Pirela con Billo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0028-C4",
+   "group": "rym:/release/album/los-impala/los-impala-y-su-musica/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0028",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Los Impala y su Música",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Yes, there's varied instrumentation and an inventiveness with the studio, but still...",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "instrumentación variada e inventiva de estudio"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0038-C1",
+   "group": "barraezo:https://barraezo.blogspot.com/2017/01/v-top-hits-vol-3-ths-1026-1972.html",
+   "source": "barraezo",
+   "constructed": false,
+   "review": "ER-0038",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "V. A. Top Hits Vol. 3 - THS 1026 - 1972",
+     "version": null,
+     "segment": null
+    },
+    "quote": "el tema ketty de los x5 es una version en vivo en no es la original",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "versión en vivo, no original"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0009-C1",
+   "group": "rym:/release/mixtape/cordillera-905/bullyng/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0009",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Bullyng",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the reggae-ish \"Too Rude\" sounds like fucking UB40 and never will be considered a \"classic\" we presume",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "reggae con sonido tipo UB40"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0068-C1",
+   "group": "aoty:327580",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0068",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Oceánica",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Tres temas buenos (Azotea me parece con algo de diferencia el mejor), tres instrumentales buenas y tres remixes buenos.",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "tres temas, tres instrumentales y tres remixes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0042-C3",
+   "group": "aoty:653342",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0042",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Яitual",
+     "version": null,
+     "segment": null
+    },
+    "quote": "it sounds like some half baked song with a really cool idea of sounds",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "canción a medio hacer"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0059-C1",
+   "group": "aoty:1919904",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0059",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "AIRDOLL",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Aquí noto un poco de Elysia y un poco de SD Laika",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "similitud con Elysia y SD Laika"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0042-C1",
+   "group": "aoty:653342",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0042",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Яitual",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I really liked the mix of the dark and disturbing vocals with arguably pleasant and soothing production",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voces oscuras e inquietantes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0026-C3",
+   "group": "rym:/release/album/dj-babatr/root-echoes/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0026",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Root Echoes",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I much prefer The Stooges to the Rolling Stones.",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "preferencia por The Stooges"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0098-C2",
+   "group": "aoty:243404",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0098",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the soundscape of this track is gorgeous",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "paisaje sonoro hermoso"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0013-C1",
+   "group": "rym:/release/single/arca/time/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0013",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The first side is a bunch of great bluesy pop songs injected with soul, jazz and Bowie theatrics.",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "pop bluesero con soul y jazz"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0004-C1",
+   "group": "rym:/release/album/propaganda/wishful-thinking/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0004",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Wishful Thinking",
+     "version": null,
+     "segment": null
+    },
+    "quote": "A set of remixes (they call it _disturbdances_) from the album _A Secret Wish_.",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "remixes de A Secret Wish"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0012-C3",
+   "group": "rym:/release/ep/emnl/panorama/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0012",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Panorama",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The racing and rolling drums add so much motion to the song",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "batería acelerada y rodante"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0057-C3",
+   "group": "aoty:1919904",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0057",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "AIRDOLL",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the engineering and the flow of Airdoll is really fucking good",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "ingeniería y flujo muy buenos"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0060-C1",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "source": "rym",
+   "constructed": false,
+   "review": "ER-0060",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The songs on this project, just like on Baron Libre, are rather dark, but this time they go more in a nocturnal directions.",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "ambiente oscuro y nocturno"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0070-C3",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "source": "rym",
+   "constructed": false,
+   "review": "ER-0070",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "quote": "her 2013-2015 music, soft spot",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "música de 2013-2015"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0098-C3",
+   "group": "aoty:243404",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0098",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Those instrumental passages between the beautiful verses are heavenly",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "pasajes instrumentales entre versos"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0089-C3",
+   "group": "aoty:471806",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0089",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "@dannocean",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Sonidos muy movidos como calmados y bailables",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonidos movidos, calmados y bailables"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0027-C1",
+   "group": "rym:/release/ep/oldskull/till_then_you_die/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0027",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Till Then You Die",
+     "version": null,
+     "segment": null
+    },
+    "quote": "With _Good Humor_, St. Etienne show that they are the masters of dance pop sweet enough to give you a cavity.",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "dance pop muy dulce"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0005-C3",
+   "group": "rym:/release/album/haz/hechiceros/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0005",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Hechiceros",
+     "version": null,
+     "segment": null
+    },
+    "quote": "They're shrill and tuneless a la Poly Styrene",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz chillona y sin melodía"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0044-C2",
+   "group": "aoty:957326",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0044",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "TOXIC RAVE 2027",
+     "version": null,
+     "segment": null
+    },
+    "quote": "it makes for one hell of an entertaining listen",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "escucha entretenida"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0046-C1",
+   "group": "aoty:246372",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0046",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "All Clear",
+     "version": null,
+     "segment": null
+    },
+    "quote": "mto bom ver a evolução dela do Nuuro pra Arca",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "evolución hacia Arca"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0104-C2",
+   "group": "aoty:170784",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0104",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Super Pop Venezuela",
+     "version": null,
+     "segment": null
+    },
+    "quote": "served in cool and fancy, tropical-house covers",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "versiones de tropical-house elegantes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0039-C2",
+   "group": "aoty:1041299",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0039",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Gabriela Ortiz: Revolución diamantina",
+     "version": null,
+     "segment": null
+    },
+    "quote": "i think i equate orchestra to score",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "orquesta asociada a banda sonora"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "unclear",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "unclear",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0017-C1",
+   "group": "rym:/release/mixtape/cordillera-905/bullyng/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0017",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Bullyng",
+     "version": null,
+     "segment": null
+    },
+    "quote": "they go for a glam rock / new wave style",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "estilo glam rock / new wave"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0057-C2",
+   "group": "aoty:1919904",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0057",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "AIRDOLL",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I'm really glad to see her embrace the abrasive sound of kick iii, alongside some aound collage from her early 2010s stuff.",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido abrasivo y collage sonoro"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0098-C4",
+   "group": "aoty:243404",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0098",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I made a video discussing a Queer reading of the song!",
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "lectura queer de la canción"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0013-C4",
+   "group": "rym:/release/single/arca/time/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0013",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Hang Onto Yourself\" comes off like punk Beach Boys",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "suena a punk Beach Boys"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0008-C2",
+   "group": "rym:/release/album/arena/peppers-ghost/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0008",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "peppers ghost",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Though Gomez doesn't quite pull it off, they come darn close with this enjoyable listen.",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "intento cercano pero no logrado"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0003-C5",
+   "group": "rym:/release/album/lo-blanco-del-ojo/lo-blanco-del-ojo/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "review": "ER-0003",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "lo blanco del ojo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "his voice sounds horrible and whiny on \"Dada Was Here\"",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz horrible y quejumbrosa"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0047-C2",
+   "group": "aoty:435301",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0047",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Electra Rex",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Kick III aims to be pushing more in the industrial alley of things",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "estilo industrial"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0083-C2",
+   "group": "aoty:82609",
+   "source": "aoty",
+   "constructed": false,
+   "review": "ER-0083",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Baron Foyel",
+     "version": null,
+     "segment": null
+    },
+    "quote": "her distinctive sound it’s here",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido distintivo de Arca"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0016-C1-X",
+   "group": "aoty:653342",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0016",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Яitual",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Uma versão encurtada que melhora a música e muito.",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "más groove y melodías más efectivas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0003-C5-X",
+   "group": "rym:/release/album/lo-blanco-del-ojo/lo-blanco-del-ojo/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0003",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "lo blanco del ojo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "his voice sounds horrible and whiny on \"Dada Was Here\"",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voces oscuras e inquietantes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0013-C3-X",
+   "group": "rym:/release/single/arca/time/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0013",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Moonage Daydream\" flaunts his rock chops",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "canciones simples y familiares"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0009-C1-X",
+   "group": "rym:/release/mixtape/cordillera-905/bullyng/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0009",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Bullyng",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the reggae-ish \"Too Rude\" sounds like fucking UB40 and never will be considered a \"classic\" we presume",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "orquesta asociada a banda sonora"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0006-C1-X",
+   "group": "aoty:1336803",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0006",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Finest Cuts",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Totalmente recomendado si te gusta el rap hardcore y crudo",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "punk puro y blues"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0009-C2-X",
+   "group": "rym:/release/mixtape/cordillera-905/bullyng/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0009",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Bullyng",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the first four songs are quite strong for 1980's Stones",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "pasajes instrumentales entre versos"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0047-C3-X",
+   "group": "aoty:435301",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0047",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Electra Rex",
+     "version": null,
+     "segment": null
+    },
+    "quote": "by god does it sound good as hell",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "mezcla de breakbeat y hardcore breaks"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0086-C2-X",
+   "group": "aoty:1855925",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0086",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Prokofiev: Romeo and Juliet",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Highlight: Romeo and Juliet, Op. 64, Act I : Prokofiev: Romeo and Juliet, Op. 64, Act I: No. 13, Dance of the Knights",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "final decepcionante"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0022-C1-X",
+   "group": "rym:/release/album/dj-babatr/root-echoes/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0022",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Root Echoes",
+     "version": null,
+     "segment": null
+    },
+    "quote": "'Raw Power' from 1973 was produced by David Bowie, and his slight touches add a bit of panache to the utter madness",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "aporte de Arca imperceptible"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0025-C3-X",
+   "group": "rym:/release/album/malanga/ta-trancao/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0025",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ta' Trancao",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Never before had they combined the poetics of the most immense electricity and the industrial aggression.",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido proto-punk sucio"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0027-C3-X",
+   "group": "rym:/release/ep/oldskull/till_then_you_die/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0027",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Till Then You Die",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the CD was first issued with a bonus CD of additional material",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "versión en vivo, no original"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0044-C2-X",
+   "group": "aoty:957326",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0044",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "TOXIC RAVE 2027",
+     "version": null,
+     "segment": null
+    },
+    "quote": "it makes for one hell of an entertaining listen",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "poco inspirador"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0017-C3-X",
+   "group": "rym:/release/mixtape/cordillera-905/bullyng/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0017",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Bullyng",
+     "version": null,
+     "segment": null
+    },
+    "quote": "repeating the name of the song titles over and over for the chorus with nothing added to it",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "más groove y melodías más efectivas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0030-C1-X",
+   "group": "rym:/release/album/mau-y-ricky/rifresh/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0030",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Rifresh",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Another Rolling Stones providing mostly old and weary and sometimes trying to provide some more modern.",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "jazz con piezas clásicas vanguardistas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0061-C1-X",
+   "group": "barraezo:https://barraezo.blogspot.com/2013/12/la-chica-ye-ye-carmencita-cabrera.html",
+   "source": "barraezo",
+   "constructed": true,
+   "review": "ER-0061",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Chica Ye Ye - Carmencita Cabrera - Velvet  LPV 1329 - 1965",
+     "version": null,
+     "segment": null
+    },
+    "quote": "la dañaste con esa voz que dispersa y distrae la concentración en la música",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz segura y extraña"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0098-C1-X",
+   "group": "aoty:243404",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0098",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "quote": "It doesn't do anything as wild as other tracks on Kick i and ESPECIALLY KICK III",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "distorsión dominante y tema acústico"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0023-C3-X",
+   "group": "rym:/release/single/arca/desafio/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0023",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Desafío",
+     "version": null,
+     "segment": null
+    },
+    "quote": "i rate albums by my enjoyment, not by how far they take the medium into new and dynamic directions",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "gusto minoritario entre oyentes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0098-C2-X",
+   "group": "aoty:243404",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0098",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the soundscape of this track is gorgeous",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "guitarras distorsionadas y notas explosivas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0101-C2-X",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "source": "rym",
+   "constructed": true,
+   "review": "ER-0101",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "quote": "It also  foreshadowed a new era of experimentation in club music",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "producción larga por desmotivación e inseguridad"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0072-C3-X",
+   "group": "aoty:82609",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0072",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Baron Foyel",
+     "version": null,
+     "segment": null
+    },
+    "quote": "quite an eye-opening experience to indulge in",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "hace sentir especial"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0068-C2-X",
+   "group": "aoty:327580",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0068",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Oceánica",
+     "version": null,
+     "segment": null
+    },
+    "quote": "No ofrece nada único ni imperdible",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "gran disco con puntos altos"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0026-C3-X",
+   "group": "rym:/release/album/dj-babatr/root-echoes/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0026",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Root Echoes",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I much prefer The Stooges to the Rolling Stones.",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "fabuloso"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0022-C4-X",
+   "group": "rym:/release/album/dj-babatr/root-echoes/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0022",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Root Echoes",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The name of the album should actually be 'Raw Distortion' as that is the overriding quality of the recording, relieved only by the acoustic \"Gimme Danger\"",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "mezcla de breakbeat y hardcore breaks"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0002-C2-X",
+   "group": "rym:/release/album/mau-y-ricky/rifresh/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0002",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Rifresh",
+     "version": null,
+     "segment": null
+    },
+    "quote": "this is largely a recasting of the band's original Baggy/Madchester sound within a far more hook-centric context",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "canciones simples y familiares"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0106-C3-X",
+   "group": "aoty:953346",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0106",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "VII Magia Infinita (2024)",
+     "version": null,
+     "segment": null
+    },
+    "quote": "flujo perfecto entre canciones",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "creatividad recursiva y estilo cohesionado"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0037-C1-X",
+   "group": "barraezo:https://barraezo.blogspot.com/2013/12/la-chica-ye-ye-carmencita-cabrera.html",
+   "source": "barraezo",
+   "constructed": true,
+   "review": "ER-0037",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Chica Ye Ye - Carmencita Cabrera - Velvet  LPV 1329 - 1965",
+     "version": null,
+     "segment": null
+    },
+    "quote": "El Autor es Augusto Algueró (música) y Antonio Guijarro Campoy(letra)",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "exploración de material inédito y dj mixes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0011-C4-X",
+   "group": "barraezo:https://barraezo.blogspot.com/2017/01/v-top-hits-vol-3-ths-1026-1972.html",
+   "source": "barraezo",
+   "constructed": true,
+   "review": "ER-0011",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "V. A. Top Hits Vol. 3 - THS 1026 - 1972",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Espero este cuando haga la petición por favor",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "difusión egoísta de música antigua"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0076-C4-X",
+   "group": "aoty:1485115",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0076",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "##forward.2u",
+     "version": null,
+     "segment": null
+    },
+    "quote": "it took me almost half a year to make it (mostly due to demotivation n me being insecure bout rapping n shit)",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "exploración de material inédito y dj mixes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0013-C4-X",
+   "group": "rym:/release/single/arca/time/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0013",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Hang Onto Yourself\" comes off like punk Beach Boys",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "fabuloso"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0060-C1-X",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "source": "rym",
+   "constructed": true,
+   "review": "ER-0060",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The songs on this project, just like on Baron Libre, are rather dark, but this time they go more in a nocturnal directions.",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "ambiente urbano, surreal y fantasioso"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0052-C1-X",
+   "group": "aoty:188088",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0052",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Country Pursuits",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Don't go into this expecting some typical Arca shit because you will be thoroughly disappointed when you find out how bare bones this track is.",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "productor y artista en evolución"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0025-C2-X",
+   "group": "rym:/release/album/malanga/ta-trancao/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0025",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ta' Trancao",
+     "version": null,
+     "segment": null
+    },
+    "quote": "few times have they ruled atmosphere, ambience, feedback, percussion power and vocal expression in such a sublime manner",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "ambiente urbano, surreal y fantasioso"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0033-C1-X",
+   "group": "aoty:435301",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0033",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Electra Rex",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the first few seconds of this song sample Gwarek2 by Aphex Twin",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "lado B no se reproduce"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0069-C1-X",
+   "group": "aoty:82609",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0069",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Baron Foyel",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I guess that's her first djset that I actually enjoyed.",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "disfrutar la cara B del disco"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0023-C1-X",
+   "group": "rym:/release/single/arca/desafio/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0023",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Desafío",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The way i'd describe this album is like a jazz band playing avant garde classical pieces.",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "buena química de dúo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0023-C2-X",
+   "group": "rym:/release/single/arca/desafio/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "review": "ER-0023",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Desafío",
+     "version": null,
+     "segment": null
+    },
+    "quote": "It's very interesting, yet not enjoyable.",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "buena experiencia de escucha"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0038-C1-X",
+   "group": "barraezo:https://barraezo.blogspot.com/2017/01/v-top-hits-vol-3-ths-1026-1972.html",
+   "source": "barraezo",
+   "constructed": true,
+   "review": "ER-0038",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "V. A. Top Hits Vol. 3 - THS 1026 - 1972",
+     "version": null,
+     "segment": null
+    },
+    "quote": "el tema ketty de los x5 es una version en vivo en no es la original",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción de David Bowie con toques de distinción"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0054-C1-X",
+   "group": "aoty:1725373",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0054",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lisa De Maracaibo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "it's a pretty fun album born from traditional Caracas sound",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "estilo industrial"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "ER-0016-C2-X",
+   "group": "aoty:653342",
+   "source": "aoty",
+   "constructed": true,
+   "review": "ER-0016",
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Яitual",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Uma música de 4 minutos que pra mim soava cansativa, agora resumida em 1 minuto dos melhores momentos da canção",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "destaca la Danza de los Caballeros"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  }
+ ],
+ "extraction": [
+  {
+   "id": "ER-0080-C1-E",
+   "group": "aoty:1485115",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "##forward.2u",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "género digicore/plugg"
+    }
+   },
+   "options": [
+    "Hate to give a small creator a 0, but digicore/plugg is like my least favorite genre.",
+    "I can't stand listening to it."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "ER-0060-C2-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sintetizadores deformados y disonantes"
+    }
+   },
+   "options": [
+    "The synths are all malformed, sometimes dissonant and strange, but this time they work together to create more clearly defined songs overall.",
+    "There's way more groove here, the melodies click a lot stronger and the inclusion of occasional pitch-shifted vocals also lead to a lot of cool places.",
+    "Sure, there's still more than plenty of room to grow with this EP, but here things are seemingly slowly clicking into place with her music.",
+    "You can tell that she was chasing a way stronger ambition on here, and it pays off.",
+    "Very cool stuff on here, can't lie."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "ER-0057-C1-X-E",
+   "group": "aoty:1919904",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "AIRDOLL",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "neoperreo reggaetón electrónico con sintetizadores"
+    }
+   },
+   "options": [
+    "I'm really glad to see her embrace the abrasive sound of kick iii, alongside some aound collage from her early 2010s stuff.",
+    "the engineering and the flow of Airdoll is really fucking good and if XXXXX sounds something like this, I'm so ready.",
+    "yeah, this is what I was missing."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0054-C2-E",
+   "group": "aoty:1725373",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lisa De Maracaibo",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "suave y pegadizo pero con alma"
+    }
+   },
+   "options": [
+    "Just like \"Por Las Buenas\", it's a pretty fun album born from traditional Caracas sound; Very soft and catchy, but still soulful.",
+    "Overall, it's a good time."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "ER-0101-C4-X-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "estructura predecible sin clímax"
+    }
+   },
+   "options": [
+    "But it just doesnt do it for me personally.",
+    "And when it does it sounds pretty unappealing and awkward.",
+    "It also  foreshadowed a new era of experimentation in club music.",
+    "Arca definitely had an interesting idea to combine hip hop samples with deconstructed club production."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0101-C3-X-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción de David Bowie con toques de distinción"
+    }
+   },
+   "options": [
+    "Arca definitely had an interesting idea to combine hip hop samples with deconstructed club production.",
+    "But it just doesnt do it for me personally.",
+    "And when it does it sounds pretty unappealing and awkward.",
+    "It also  foreshadowed a new era of experimentation in club music."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0098-C1-X-E",
+   "group": "aoty:243404",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "distorsión dominante y tema acústico"
+    }
+   },
+   "options": [
+    "Those instrumental passages between the beautiful verses are heavenly, holy shit.",
+    "Maybe one of my all time favourite Arca songs?",
+    "I made a video discussing a Queer reading of the song!",
+    "You can find the video here: https://youtu.be/e_8E2PJkDwI?si=-5BGjwQYOqteSWHN"
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0079-C4-E",
+   "group": "aoty:272046",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tú",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "estructura predecible sin clímax"
+    }
+   },
+   "options": [
+    "Its greatest strength lies in the airy, ethereal vocals and the addictive, relaxed atmosphere, making it a perfect addition to any chill playlist.",
+    "However, it remains in the 'solid' category as the song structure is relatively safe, lacking explosive climaxes or the musical innovation required to elevate it to the level of a masterpiece.",
+    "Tú is a piece that strikes a delicate balance between a dreamy dream-pop atmosphere and a rustic Latin vibe."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0106-C1-E",
+   "group": "aoty:953346",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "VII Magia Infinita (2024)",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "letras sobre dios y el alma"
+    }
+   },
+   "options": [
+    "Las letras escarban a fondo estos temas, pero su música nos habla más que cualquier cosa: post rock, percusión latina y ritualista, flujo perfecto entre canciones...",
+    "Escucharlo puede sentirse como conectar con ese algo mas allá de nuestra compresión como pocas obras de arte logran hacer.",
+    "Nunca se podrá decir con certeza, pero este LP de los venezolanos Zeta se esfuerza en responderlo."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "ER-0059-C1-E",
+   "group": "aoty:1919904",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "AIRDOLL",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "similitud con Elysia y SD Laika"
+    }
+   },
+   "options": [
+    "Tenía miedo de escuchar esto antes porque pensé que me decepcionaría (spoiler: no lo hizo).",
+    "Ese toque de IDM le da su unicidad a un ambiente que se siente tan urbano, pero a la vez tan surreal y fantasioso.",
+    "Aquí noto un poco de Elysia y un poco de SD Laika o tal vez simplemente estoy perdiendo la cabeza."
+   ],
+   "gold": 2
+  },
+  {
+   "id": "ER-0005-C1-X-E",
+   "group": "rym:/release/album/haz/hechiceros/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Hechiceros",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido abrasivo y collage sonoro"
+    }
+   },
+   "options": [
+    "----------------------------------",
+    "They're shrill and tuneless a la Poly Styrene (or countless other female punx, actually).",
+    "- Seriously, Throwing Muses never get the kind of credit that they deserve.",
+    "Because I feel like an asshole every time I say that I really can't stand Carrie Brownstein's vocals.",
+    "By chance this album was on a playlist with \"The Real Ramona\" and it took me a bit of time to realize that this album wasn't them."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0098-C2-X-E",
+   "group": "aoty:243404",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "guitarras distorsionadas y notas explosivas"
+    }
+   },
+   "options": [
+    "I made a video discussing a Queer reading of the song!",
+    "Those instrumental passages between the beautiful verses are heavenly, holy shit.",
+    "Maybe one of my all time favourite Arca songs?",
+    "You can find the video here: https://youtu.be/e_8E2PJkDwI?si=-5BGjwQYOqteSWHN"
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0100-C2-E",
+   "group": "aoty:1111676",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Unknown Radio (The Rampage Series Vol.2)",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción muy lograda"
+    }
+   },
+   "options": [
+    "The songs are still a bit underdevelopped tho.",
+    "I loved the production a lot!",
+    "A step up on the fucked up scale for the Rampage Series.",
+    "But definitely a step up!",
+    "This one was much more engaging."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0028-C4-X-E",
+   "group": "rym:/release/album/los-impala/los-impala-y-su-musica/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Los Impala y su Música",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción agradable y relajante"
+    }
+   },
+   "options": [
+    "I want to like Os Mutantes, really I do, but they piss me off so much.",
+    "They just put them in there because they could, I imagine.",
+    "Why does \"Senhor F\" come back twice at the end?",
+    "\"Baby\" provides many examples of the same sort of thing--virtually every track does, in fact, with \"Bat Macumba\" the acme of kids-with-ADHD-after-too-much-orange-squash-pulling-at-your-ear-and-screaming-style annoyance.",
+    "I'm so fucking annoyed by the whole thing."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0023-C2-X-E",
+   "group": "rym:/release/single/arca/desafio/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Desafío",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "buena experiencia de escucha"
+    }
+   },
+   "options": [
+    "The way i'd describe this album is like a jazz band playing avant garde classical pieces.",
+    "I feel bad rating it this way, but i rate albums by my enjoyment, not by how far they take the medium into new and dynamic directions.",
+    "Sun Ra is clearly a genius of some kind, but he's not my kind at least here."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0106-C2-X-E",
+   "group": "aoty:953346",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "VII Magia Infinita (2024)",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "trap/cloud rap/plugg con bitcrush"
+    }
+   },
+   "options": [
+    "Nunca se podrá decir con certeza, pero este LP de los venezolanos Zeta se esfuerza en responderlo.",
+    "Escucharlo puede sentirse como conectar con ese algo mas allá de nuestra compresión como pocas obras de arte logran hacer."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0003-C5-X-E",
+   "group": "rym:/release/album/lo-blanco-del-ojo/lo-blanco-del-ojo/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "lo blanco del ojo",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voces oscuras e inquietantes"
+    }
+   },
+   "options": [
+    "I'm terrible at listening to lyrics but I think it's really funny.",
+    "This really surprised me, it is composed of lots of short weird tracks.",
+    "It reminds me of early Zappa albums but this is way more listenable, made up of less weird spoken word segments.",
+    "I guess it's less experimental than Zappa, maybe I'm weak for disliking that music.",
+    "Unlike Third where he gets shoehorned into one lousy 20 minute track."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0025-C2-X-E",
+   "group": "rym:/release/album/malanga/ta-trancao/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ta' Trancao",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "ambiente urbano, surreal y fantasioso"
+    }
+   },
+   "options": [
+    "This is among the select works by this group and of the decade.",
+    "At first sight, its level could lead us to Dirty (1992) as its closest brother.",
+    "There's no place for doubt.",
+    "I'm pretty sure we are in front of the apotheosis made noise, mist, ocean...",
+    "This is a bait of a record which is able to hook anyone forever to the heavenly machinery of these noise jacobites."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0083-C2-E",
+   "group": "aoty:82609",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Baron Foyel",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido distintivo de Arca"
+    }
+   },
+   "options": [
+    "im going thru arca unreleased, dj mixes blah, so this is the first step, baby’s first dj mix.",
+    "truly an incredible project, way simpler and less harsh than her other projects, but her distinctive sound it’s here, a great start of a more than great career"
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0033-C3-E",
+   "group": "aoty:435301",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Electra Rex",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "duración de dos minutos y muy envolvente"
+    }
+   },
+   "options": [
+    "Arca just keeps on growing on me as a producer and artist.",
+    "It's pretty crazy and goes at rapid pace, but is incredibly engaging in its 2 minute runtime.",
+    "There is no fucking doubt in my mind that the first few seconds of this song sample Gwarek2 by Aphex Twin, and I guess that's a good indication of how insane this song sounds."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0072-C3-E",
+   "group": "aoty:82609",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Baron Foyel",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "experiencia reveladora"
+    }
+   },
+   "options": [
+    "best tracks: Bar Fight, Return, Body Effects, Is This Love, Security, 2 Blunted, Body Rush and Extent",
+    "I appreciate this but I felt like a lot was missing, I however still found this decent and quite an eye-opening experience to indulge in."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0012-C3-X-E",
+   "group": "rym:/release/ep/emnl/panorama/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Panorama",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido abrasivo y collage sonoro"
+    }
+   },
+   "options": [
+    "I discovered Blondie via their singles, but Union City Blue is quickly becoming one of my favorite songs by them.",
+    "Songs like Sound-A-Sleep and Die Young Stay Pretty really don't belong on an album like this, diluting the powerful new wave sound with ska and a bland, genreless slow song.",
+    "As a whole though, I feel like the album is just okay.",
+    "There are also more dance oriented numbers; nothing like Heart of Glass, but Atomic has a deep rich groove you can easily move to.",
+    "Debbie's vocals carry through the slump so I can't really hate them, but seeing the full force of what she can produce I'm also just left a little unfulfilled."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0100-C1-E",
+   "group": "aoty:1111676",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Unknown Radio (The Rampage Series Vol.2)",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "energy",
+     "facet": null,
+     "value": "más envolvente"
+    }
+   },
+   "options": [
+    "But definitely a step up!",
+    "A step up on the fucked up scale for the Rampage Series.",
+    "This one was much more engaging.",
+    "The songs are still a bit underdevelopped tho.",
+    "I loved the production a lot!"
+   ],
+   "gold": 2
+  },
+  {
+   "id": "ER-0106-C1-X-E",
+   "group": "aoty:953346",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "VII Magia Infinita (2024)",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "fluidez física y personalidades múltiples"
+    }
+   },
+   "options": [
+    "Escucharlo puede sentirse como conectar con ese algo mas allá de nuestra compresión como pocas obras de arte logran hacer.",
+    "Nunca se podrá decir con certeza, pero este LP de los venezolanos Zeta se esfuerza en responderlo."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0101-C2-X-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "producción larga por desmotivación e inseguridad"
+    }
+   },
+   "options": [
+    "Dont get me wrong, this album has a nice approach but I feel like this EP doesnt move outside of its safe zone that much.",
+    "And when it does it sounds pretty unappealing and awkward.",
+    "But it just doesnt do it for me personally.",
+    "Arca definitely had an interesting idea to combine hip hop samples with deconstructed club production."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0093-C2-E",
+   "group": "aoty:471806",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "@dannocean",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción destacada"
+    }
+   },
+   "options": [
+    "Sorprendentemente bueno, no lo esperaba tan recursivamente creativo y tan estilisticamente conjuntivo.",
+    "La producción es una locura y la sensualidad que evoca es de lo más genuino que he visto en un disco latino este año."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0061-C1-X-E",
+   "group": "barraezo:https://barraezo.blogspot.com/2013/12/la-chica-ye-ye-carmencita-cabrera.html",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Chica Ye Ye - Carmencita Cabrera - Velvet  LPV 1329 - 1965",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz segura y extraña"
+    }
+   },
+   "options": [
+    "Te sugiero que si vas a regalar un obsequio al pueblo, no se lo des roto, no te lo aceptaran.",
+    "Y pienso que si vas a seguir ese lineamiento, para difundir la musica, yo particularmente me retiro."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0027-C3-X-E",
+   "group": "rym:/release/ep/oldskull/till_then_you_die/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Till Then You Die",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "versión en vivo, no original"
+    }
+   },
+   "options": [
+    "Etienne show that they are the masters of dance pop sweet enough to give you a cavity.",
+    "With _Good Humor_, St.",
+    "Every track is a perfectly nuanced mix of retro hip and happening electro pop.",
+    "Another classic from Sarah and the boys."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0060-C3-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "más groove y melodías más efectivas"
+    }
+   },
+   "options": [
+    "Arcas second EP, and also the project that gained her a whole new fanbase, Stretch 1 marks a big step up in ambition for her.",
+    "It's a snappy, concise and approachable slice of super strange and textured Glitch Hop with some very strong highlights along the way.",
+    "On the other hand, songs like DOEP and Truly Carrying manage to uniquely marry the strange, fleshy sounds, night sky atmosphere and danceable grooves to great effect.",
+    "There's way more groove here, the melodies click a lot stronger and the inclusion of occasional pitch-shifted vocals also lead to a lot of cool places.",
+    "Sure, there's still more than plenty of room to grow with this EP, but here things are seemingly slowly clicking into place with her music."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "ER-0083-C3-E",
+   "group": "aoty:82609",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Baron Foyel",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "primer dj mix"
+    }
+   },
+   "options": [
+    "im going thru arca unreleased, dj mixes blah, so this is the first step, baby’s first dj mix.",
+    "truly an incredible project, way simpler and less harsh than her other projects, but her distinctive sound it’s here, a great start of a more than great career"
+   ],
+   "gold": 0
+  },
+  {
+   "id": "ER-0088-C2-X-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "guitarras distorsionadas y notas explosivas"
+    }
+   },
+   "options": [
+    "The foundation is laid and improved upon in subsequent albums.",
+    "Would you rather have your first few projects be the best or the worst?",
+    "I'd opt for the latter.",
+    "Truly Carrying is strong finisher with superb usage of vocalized sounds, but there isn't anything else worth exploring."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0005-C3-X-E",
+   "group": "rym:/release/album/haz/hechiceros/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Hechiceros",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voces molestas, no cautivadoras"
+    }
+   },
+   "options": [
+    "Way too much focus was placed on the fact that there were three women playing loud Indie/Punk rock and not on the quality of the music itself.",
+    "The songs still have hooks but it's rough and ragged like this kind of music should be.",
+    "----------------------------------",
+    "- Seriously, Throwing Muses never get the kind of credit that they deserve.",
+    "+ Other than the vocals, there would be no way of noticing that the band was all women."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0079-C3-E",
+   "group": "aoty:272046",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tú",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "para playlist relajada"
+    }
+   },
+   "options": [
+    "Tú is a piece that strikes a delicate balance between a dreamy dream-pop atmosphere and a rustic Latin vibe.",
+    "Its greatest strength lies in the airy, ethereal vocals and the addictive, relaxed atmosphere, making it a perfect addition to any chill playlist.",
+    "However, it remains in the 'solid' category as the song structure is relatively safe, lacking explosive climaxes or the musical innovation required to elevate it to the level of a masterpiece."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0003-C6-X-E",
+   "group": "rym:/release/album/lo-blanco-del-ojo/lo-blanco-del-ojo/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "lo blanco del ojo",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "uso excelente de sonidos vocalizados"
+    }
+   },
+   "options": [
+    "But that's part of the appeal I think.",
+    "It kinda feels like a frenetic comedy act like a Vaudeville or Bo Burnham or something, with these performers working to construct this show for you.",
+    "It's really special when you put it within Wyatt's discography, this is where he is putting in the most enthusiasm and distilled creativity into each track.",
+    "Unlike Third where he gets shoehorned into one lousy 20 minute track.",
+    "I guess it's less experimental than Zappa, maybe I'm weak for disliking that music."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0001-C1-E",
+   "group": "aoty:1189780",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "desahogo",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "segunda parte más fuerte"
+    }
+   },
+   "options": [
+    "Feliz año nuevo (atrasado).",
+    "La segunda parte es más fuerte y en el outro (creo que es uno), se nota la inspiración de la Rosalía."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0039-C3-X-E",
+   "group": "aoty:1041299",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Gabriela Ortiz: Revolución diamantina",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "autoría de Algueró y Guijarro"
+    }
+   },
+   "options": [
+    "another orchestra that felt like a movie score.",
+    "i think i equate orchestra to score."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0057-C1-E",
+   "group": "aoty:1919904",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "AIRDOLL",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "mezcla de pistas sin reggaetón"
+    }
+   },
+   "options": [
+    "the engineering and the flow of Airdoll is really fucking good and if XXXXX sounds something like this, I'm so ready.",
+    "yeah, this is what I was missing.",
+    "I'm really glad to see her embrace the abrasive sound of kick iii, alongside some aound collage from her early 2010s stuff.",
+    "Arca has proven that she is still able to pull off an unhinged, crazy mix of tracks that aren't reggaeton slop, even if latin spice is still there."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "ER-0072-C1-E",
+   "group": "aoty:82609",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Baron Foyel",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "falta de elementos"
+    }
+   },
+   "options": [
+    "I appreciate this but I felt like a lot was missing, I however still found this decent and quite an eye-opening experience to indulge in.",
+    "best tracks: Bar Fight, Return, Body Effects, Is This Love, Security, 2 Blunted, Body Rush and Extent"
+   ],
+   "gold": 0
+  },
+  {
+   "id": "ER-0101-C1-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "muestras de hip hop con producción de club deconstructiva"
+    }
+   },
+   "options": [
+    "Arca definitely had an interesting idea to combine hip hop samples with deconstructed club production.",
+    "Dont get me wrong, this album has a nice approach but I feel like this EP doesnt move outside of its safe zone that much.",
+    "But it just doesnt do it for me personally.",
+    "It also  foreshadowed a new era of experimentation in club music.",
+    "And when it does it sounds pretty unappealing and awkward."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "ER-0012-C4-X-E",
+   "group": "rym:/release/ep/emnl/panorama/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Panorama",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "invita a la contemplación y experimentación"
+    }
+   },
+   "options": [
+    "The filler is nice, but not something you'd include on a playlist or listen to a second time.",
+    "It hooks you into the album (or at least it did to me) and let's you know you're in for a ride.",
+    "I discovered Blondie via their singles, but Union City Blue is quickly becoming one of my favorite songs by them.",
+    "An incredible work of New Wave music, blending rock and synth beautifully together and paired as always perfectly with the raw power of Deborah's voice.",
+    "The warm noise matched with those sirenic vocals is just so comforting."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0087-C2-E",
+   "group": "aoty:1460313",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tierra De Nadie",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "reflejo de la psique venezolana"
+    }
+   },
+   "options": [
+    "Está es una obra más conceptual, inspirada en la cruda realidad del país, abordando temas de opresión, migración, resistencia y la búsqueda de identidad en un espacio que se siente cada vez más desarraigado.",
+    "De nuevo, banda demuestra un ...",
+    "7/10 Una vez más, La Vida Bohème desde el exilio nos trae un álbum que, más que música, funciona como un espejo fragmentado de la psique venezolana contemporánea."
+   ],
+   "gold": 2
+  },
+  {
+   "id": "ER-0070-C1-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "fluidez física y personalidades múltiples"
+    }
+   },
+   "options": [
+    "Impressions of physical fluidity, of multiple personalities, and of fated transformations",
+    "her 2013-2015 music, soft spot"
+   ],
+   "gold": 0
+  },
+  {
+   "id": "ER-0060-C3-X-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "lista de pistas poco consistente"
+    }
+   },
+   "options": [
+    "It's a snappy, concise and approachable slice of super strange and textured Glitch Hop with some very strong highlights along the way.",
+    "You can tell that she was chasing a way stronger ambition on here, and it pays off.",
+    "The synths are all malformed, sometimes dissonant and strange, but this time they work together to create more clearly defined songs overall.",
+    "Focus and Ass Swung Low are both basically nightmare versions of Rap- and R'n'B-tracks and really benefit from these weird vocals.",
+    "Arcas second EP, and also the project that gained her a whole new fanbase, Stretch 1 marks a big step up in ambition for her."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0098-C3-E",
+   "group": "aoty:243404",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Time",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "pasajes instrumentales entre versos"
+    }
+   },
+   "options": [
+    "It doesn't do anything as wild as other tracks on Kick i and ESPECIALLY KICK III, but the soundscape of this track is gorgeous, and the meaning behind it is incredibly touching!",
+    "Those instrumental passages between the beautiful verses are heavenly, holy shit.",
+    "Maybe one of my all time favourite Arca songs?",
+    "I made a video discussing a Queer reading of the song!",
+    "You can find the video here: https://youtu.be/e_8E2PJkDwI?si=-5BGjwQYOqteSWHN"
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0090-C2-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "invita a la contemplación y experimentación"
+    }
+   },
+   "options": [
+    "Quizás es porque soy un gran fan del hip-hop, pero este EP me parece una maravilla, entiendo totalmente porque fue el disco que le dio a Arca su primer impulso para tener todo el reconocimiento que tiene actualmente.",
+    "Este EP es un testimonio de la visión artística y la habilidad de Arca para romper barreras y explorar nuevos horizontes musicales.",
+    "es una obra que invita a la contemplación, pero también a la liberación y a la experimentación, otro viaje cósmico a la interesante mente de Arca.",
+    "Calificación: Low 9/10",
+    "No es perfecto ni mucho menos, pero tampoco me debería interesar que lo sea, es divertido y solido, una gran muestra del potencial de géneros como el glitch hop y el wonky, y obviamente, el potencial de Arca"
+   ],
+   "gold": 2
+  },
+  {
+   "id": "ER-0033-C3-X-E",
+   "group": "aoty:435301",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Electra Rex",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "primeras cuatro canciones fuertes"
+    }
+   },
+   "options": [
+    "There is no fucking doubt in my mind that the first few seconds of this song sample Gwarek2 by Aphex Twin, and I guess that's a good indication of how insane this song sounds.",
+    "Arca just keeps on growing on me as a producer and artist."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0094-C3-X-E",
+   "group": "barraezo:https://barraezo.blogspot.com/2014/10/la-vitrola-popular-950-vol-2-40-anos-de.html",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Vitrola Popular 950  Vol. 2 - 40 años de Exitos - 2012 ",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "disfrutar la cara B del disco"
+    }
+   },
+   "options": [
+    "Por otra parte me gustaría si fuera posible y tienes en tu haber un tema que interpreto Felipe Pirela con la Orq.",
+    "Un abrazo Jan Cupper",
+    "Muchas gracias si es posible que me la compartas si la posees.",
+    "amigo Barraezo, felicitaciones por semejante coleccion de historia e invalorables recuerdos musicales y de vida que se reviven en nuestras mentes al oir estas piezas musicales.",
+    "Los Peñiques el tema: No sufras corazón."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0059-C1-X-E",
+   "group": "aoty:1919904",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "AIRDOLL",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "cruce entre Stone Roses y Oasis"
+    }
+   },
+   "options": [
+    "Ese toque de IDM le da su unicidad a un ambiente que se siente tan urbano, pero a la vez tan surreal y fantasioso.",
+    "Tenía miedo de escuchar esto antes porque pensé que me decepcionaría (spoiler: no lo hizo)."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0023-C1-X-E",
+   "group": "rym:/release/single/arca/desafio/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Desafío",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "buena química de dúo"
+    }
+   },
+   "options": [
+    "Sun Ra is clearly a genius of some kind, but he's not my kind at least here.",
+    "I feel bad rating it this way, but i rate albums by my enjoyment, not by how far they take the medium into new and dynamic directions.",
+    "It's very interesting, yet not enjoyable."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0002-C1-X-E",
+   "group": "rym:/release/album/mau-y-ricky/rifresh/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Rifresh",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "suena a punk Beach Boys"
+    }
+   },
+   "options": [
+    "Up to Our Hips is the record that revealed the Charlatans to be something more than Baggy/Madchester also-rans.",
+    "The one constant in all of this are the vocals of Tim Burgess, who continues to sound like a more slackerish version of Liam Gallagher with his Mancunian accent and brilliantly understated delivery.",
+    "Personally, Up to the Hips was my introduction to the band and served as a nice gateway into the wider world of Baggy/Madchester.",
+    "As is the case with each of the band's first four releases, Up to Our Hips is an extremely consistent release that makes up for its lack of obvious career highlights with a string of"
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0078-C2-E",
+   "group": "barraezo:https://barraezo.blogspot.com/2010/03/mosaico-diez-billos-caracas-boys.html",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "MOSAICO DIEZ – Billo’s Caracas Boys",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "repertorio y circunstancia destacados"
+    }
+   },
+   "options": [
+    "Testigo de este incidente fue el hoy veterano José de la Trinidad \"Joe\" Urdaneta, a quien nunca incluyó Billo en los mosaicos por razones desconocidas.",
+    "Sabedor el Maestro Billo de que a Pirela le llovían proposiciones para independizarse y que las comentara con los músicos y cantantes y no con él, en una pausa durante un baile lo dijo.",
+    "El sin par \"Malquerido\" iniciaría un corto y tortuoso camino a la popularidad, que sería interrumpido con su asesinato un mal día de 1972.",
+    "Este es el último LP de Felipe Pirela con la Orquesta de Billo Frómeta.",
+    "Por esta razón, este disco de la desaparecida FONOGRAMA del Maestro Billo queda para Internet y la Historia de la Música Popular venezolana por dos razones: su repertorio y su circunstancia."
+   ],
+   "gold": 4
+  },
+  {
+   "id": "ER-0086-C1-E",
+   "group": "aoty:1855925",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Prokofiev: Romeo and Juliet",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "género ballet"
+    }
+   },
+   "options": [
+    "13, Dance of the Knights https://www.youtube.com/watch?v=q3Yy4E7d9dE Made me think of: Seiji Ozawa & Boston Symphony Orchestra Valery Gergiev & Kirov Orchestra Riccardo Chailly & Royal Concertgebouw Orchestra",
+    "Los Angeles Philharmonic & Gustavo Dudamel - Prokofiev: Romeo and Juliet Genre: Ballet Country: US Final Verdict: 66% (Good Album) Yearly Ranking: 156th / 519 Highlight: Romeo and Juliet, Op.",
+    "64, Act I : Prokofiev: Romeo and Juliet, Op."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0052-C1-X-E",
+   "group": "aoty:188088",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Country Pursuits",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "productor y artista en evolución"
+    }
+   },
+   "options": [
+    "Never did I ever think Arca and RDR2 would have a collaboration together but here we are.",
+    "It's also pretty disappointing as a snippet from the soundtrack, doesn't sound like a lot going on.",
+    "I can't really even tell what Arca did on this track other then be a name listed here."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0101-C2-E",
+   "group": "rym:/release/ep/arca/stretch-1/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Stretch 1",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "precursor de experimentación en música de club"
+    }
+   },
+   "options": [
+    "But it just doesnt do it for me personally.",
+    "Arca definitely had an interesting idea to combine hip hop samples with deconstructed club production.",
+    "It also  foreshadowed a new era of experimentation in club music.",
+    "Dont get me wrong, this album has a nice approach but I feel like this EP doesnt move outside of its safe zone that much.",
+    "And when it does it sounds pretty unappealing and awkward."
+   ],
+   "gold": 2
+  },
+  {
+   "id": "ER-0089-C4-E",
+   "group": "aoty:471806",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "@dannocean",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "final decepcionante"
+    }
+   },
+   "options": [
+    "Sonidos muy movidos como calmados y bailables.",
+    "Un muy buen deleite dentro de la discografia de Danny Ocean Aunque el final si queda debiendo Dicen 50 ADO 86 Dorito & Coca-Cola ft.",
+    "Tokischa 52 Tú no me conoces ft."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0022-C4-X-E",
+   "group": "rym:/release/album/dj-babatr/root-echoes/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Root Echoes",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "mezcla de breakbeat y hardcore breaks"
+    }
+   },
+   "options": [
+    "It had already been done - and done better - by a blood-stained, rabid and spitting Iggy, and nearly everything else is wash, rinse, repeat.",
+    "Which is a scary thought.",
+    "From the first blasted notes of \"Search and Destroy\" to the last bit of guitar distortion on \"Death Trip\", this is one rollercoaster heading down a bottomless pit."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0106-C3-E",
+   "group": "aoty:953346",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "VII Magia Infinita (2024)",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "flujo perfecto entre canciones"
+    }
+   },
+   "options": [
+    "Las letras escarban a fondo estos temas, pero su música nos habla más que cualquier cosa: post rock, percusión latina y ritualista, flujo perfecto entre canciones...",
+    "Nunca se podrá decir con certeza, pero este LP de los venezolanos Zeta se esfuerza en responderlo.",
+    "Escucharlo puede sentirse como conectar con ese algo mas allá de nuestra compresión como pocas obras de arte logran hacer."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "ER-0028-C1-X-E",
+   "group": "rym:/release/album/los-impala/los-impala-y-su-musica/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Los Impala y su Música",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido más simple y menos duro"
+    }
+   },
+   "options": [
+    "I want to like Os Mutantes, really I do, but they piss me off so much.",
+    "Yes, OK, it's my loss.",
+    "I'm so fucking annoyed by the whole thing.",
+    "Yes, there's varied instrumentation and an inventiveness with the studio, but still...",
+    "These things make me want to pull my eyelids off."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0002-C2-X-E",
+   "group": "rym:/release/album/mau-y-ricky/rifresh/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Rifresh",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "canciones simples y familiares"
+    }
+   },
+   "options": [
+    "As is the case with each of the band's first four releases, Up to Our Hips is an extremely consistent release that makes up for its lack of obvious career highlights with a string of",
+    "The one constant in all of this are the vocals of Tim Burgess, who continues to sound like a more slackerish version of Liam Gallagher with his Mancunian accent and brilliantly understated delivery.",
+    "Up to Our Hips is the record that revealed the Charlatans to be something more than Baggy/Madchester also-rans.",
+    "Personally, Up to the Hips was my introduction to the band and served as a nice gateway into the wider world of Baggy/Madchester.",
+    "The sound of Up to Our Hips is most easily described as a cross between the Stone Roses and the more upbeat side of early Oasis, although the music here is more key-centric than anything from either of those groups."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "ER-0006-C1-E",
+   "group": "aoty:1336803",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Finest Cuts",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "rap hardcore y crudo"
+    }
+   },
+   "options": [
+    "Uno de los mejores discos de habla hispana en 2025.",
+    "Totalmente recomendado si te gusta el rap hardcore y crudo.",
+    "Totalmente underground, un dúo que no me esperaba que funcione tan bien.",
+    "Impresionante lo que hacen estos 2 juntos."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "ER-0062-C2-E",
+   "group": "aoty:131564",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Illness",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "sonido glitch/IDM en las últimas pistas"
+    }
+   },
+   "options": [
+    "Kid606 is someone who I have tried to get into for months now but I could never finish an album.",
+    "Wish those tracks were expanded on and not the rave tracks but ok.",
+    "The Illness breaks that curse with some intriguing music.",
+    "The first 2 tracks sound like this weird blend of the breakbeat that came before this release and the hardcore breaks revival that came after this in the early 2010s.",
+    "What steals the show for me are the last 3 tracks with a Glitch/IDM sound that I love."
+   ],
+   "gold": 4
+  }
+ ],
+ "counts": {
+  "typed": 131,
+  "corrected": 21,
+  "extraction": 61
+ }
+}

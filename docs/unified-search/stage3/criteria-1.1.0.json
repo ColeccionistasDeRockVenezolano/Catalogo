@@ -16,7 +16,11 @@
       "description": "muestras reales saneadas; evaluación de no invención"
     },
     "evidence": {
-      "description": "pendiente: nueva prueba adjudicada por obra antes de reevaluar evidencia o extracción"
+      "path": "docs/unified-search/stage3/datasets/evidence-test-reserved-2.json",
+      "sha256": "0a35b0e5fcc90714b0a04bc29e046ba7c3b56127a1b5c3963ef97a850f362281",
+      "typed": 131,
+      "extraction": 61,
+      "description": "lote nuevo de grupos test no usados; adjudicado por Claude antes de entrenar la evidencia 1.1.0"
     },
     "mandatory": {
       "path": "docs/unified-search/stage3/datasets/query-test-mandatory.json",
@@ -77,6 +81,6 @@
     "Nueva prueba reservada de consultas (crv-query-test-reserved-2.0.0), redactada tras gastar la 1.0.0 y antes de cualquier corrección de la versión siguiente.",
     "Convención corregida: concepto pedido + restricción no representable = partial (la 1.0.0 tenía tres casos query_valid con pendiente, imposibles de acertar).",
     "Los cinco obligatorios y el tráfico real se conservan: son requisitos, no datos reservados; ya fueron vistos en la evaluación 1.0.0.",
-    "Evidencia y extracción: requieren una nueva prueba reservada adjudicada propia antes de reevaluarse."
+    "Evidencia y extracción: nueva prueba reservada adjudicada (crv-evidence-test-reserved-2.0.0), congelada antes de entrenar la versión de evidencia siguiente; la 1.0.0 pasa a desarrollo."
   ]
 }
