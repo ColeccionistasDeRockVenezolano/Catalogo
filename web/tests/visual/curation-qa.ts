@@ -172,10 +172,13 @@ async function waitForApp(page: Page): Promise<void> {
  * En móvil las acciones de una tarjeta están en una hoja inferior (E8.9): antes
  * de pulsar cualquiera hay que abrirla. En escritorio ya están a la vista.
  */
+/** Diálogos modales: los avisos (Base UI Toast) también llevan role="dialog". */
+const MODAL = '[aria-modal="true"] >> nth=-1';
+
 async function openCardActions(page: Page, mobile: boolean): Promise<void> {
   if (!mobile) return;
   await page.locator(".cfind").first().getByRole("button", { name: "Acciones" }).click();
-  await page.getByRole("dialog").waitFor({ timeout: 10_000 });
+  await page.locator(MODAL).waitFor({ timeout: 10_000 });
 }
 
 async function assertNoOverflow(page: Page, label: string): Promise<void> {
@@ -238,7 +241,7 @@ try {
       await page.getByRole("button", { name: "Iniciar sesión", exact: true }).first().click();
       await page.getByLabel("Usuario").fill(QA_USER);
       await page.getByLabel("Contraseña").fill(QA_PASSWORD);
-      await page.getByRole("dialog").getByRole("button", { name: "Iniciar sesión", exact: true }).click();
+      await page.locator(MODAL).getByRole("button", { name: "Iniciar sesión", exact: true }).click();
 
       // 1. Tablero: menú lateral por categoría (con «Otros») y la cola vieja retirada.
       //    A 400 px el menú está plegado en un botón que muestra la sección abierta.
@@ -254,7 +257,7 @@ try {
         const shown = (await page.locator("body").innerText()).slice(0, 500).replaceAll("\n", " | ");
         throw new Error(`${viewport.name}: no apareció el menú. La página muestra: ${shown} (${(error as Error).message.split("\n")[0]})`);
       });
-      for (const label of ["Conflictos", "Nombres sucios", "Mal segmentados", "Ficha de otro tipo", "Posibles duplicados"]) {
+      for (const label of ["Resumen", "Revisar casos", "Nombres sucios", "Mal segmentados", "Ficha de otro tipo", "Posibles duplicados"]) {
         if (await tabs.getByRole("link", { name: new RegExp(label, "u") }).count() !== 1) throw new Error(`${viewport.name}: falta «${label}» en el menú`);
       }
       if (await tabs.getByText("Cola de revisión").count()) throw new Error(`${viewport.name}: sigue «Cola de revisión» en el menú`);
@@ -264,13 +267,15 @@ try {
         await page.keyboard.press("Escape");
         await page.waitForFunction(() => document.querySelector(".cside__toggle")?.getAttribute("aria-expanded") === "false");
       }
+      // El estado del detector vive en un bloque plegable del resumen.
+      await page.locator("details.cwork-audit > summary", { hasText: "Estado del detector" }).click();
       await page.getByText("Último análisis", { exact: false }).first().waitFor();
       await page.screenshot({ path: path.join(outputDir, `${viewport.name}-conflictos.png`), fullPage: true });
       await assertNoOverflow(page, `${viewport.name} /curaduria`);
 
       // 2. Una categoría, con el tramo marcado del carácter invisible.
       // En la segunda pasada la corrección de la primera ya lo resolvió: se ve en «Resueltos».
-      await page.goto(`${webUrl}/curaduria/categoria/nombres_sucios${index === 0 ? "" : "?status=resolved"}`, { waitUntil: "domcontentloaded" });
+      await page.goto(`${webUrl}/curaduria/categoria/nombres_sucios?view=cards${index === 0 ? "" : "&status=resolved"}`, { waitUntil: "domcontentloaded" });
       await page.locator(".cval__cp").first().waitFor({ timeout: 20_000 }).catch(async (error: unknown) => {
         await page.screenshot({ path: path.join(outputDir, `${viewport.name}-nombres-sucios-fallo.png`), fullPage: true });
         const shown = (await page.locator("main").innerText()).slice(0, 600).replaceAll("\n", " | ");
@@ -284,6 +289,9 @@ try {
       //    sus subgrupos se ven por tandas en vez de todos de golpe.
       await page.goto(`${webUrl}/curaduria/categoria/otros`, { waitUntil: "domcontentloaded" });
       await page.getByText("Memoria § Ciudad", { exact: false }).first().waitFor({ timeout: 20_000 });
+      // Los filtros viven en un bloque plegable sobre la lista.
+      const filters = page.locator("details.cwork-filters");
+      if (!await filters.evaluate((el) => (el as HTMLDetailsElement).open)) await filters.locator("> summary").click();
       const subgroups = page.getByRole("group", { name: "Filtrar por subgrupo" });
       const subgroupChips = subgroups.locator(".cchip--sub");
       const initialChips = await subgroupChips.count();
@@ -298,14 +306,17 @@ try {
       // 4. «No es un problema» pide un motivo y guarda la decisión con él.
       //    En móvil las acciones de la tarjeta viven en una hoja inferior (E8.9),
       //    así que primero se abre.
-      await page.goto(`${webUrl}/curaduria/categoria/ficha_de_otro_tipo`, { waitUntil: "domcontentloaded" });
+      // Escritorio: «Lista y detalle», con el motivo dentro del panel del caso. Móvil: tarjetas y hoja de acciones.
+      await page.goto(`${webUrl}/curaduria/categoria/ficha_de_otro_tipo${index === 1 ? "?view=cards" : ""}`, { waitUntil: "domcontentloaded" });
       await page.locator(".cfind").first().waitFor({ timeout: 20_000 });
-      const before = await page.locator(".cfind").count();
+      // El contador «N hallazgos» vale en tarjetas y en «Lista y detalle» (donde solo hay un caso abierto).
+      const before = await page.evaluate(() => Number(document.querySelector(".cfind-count")?.textContent?.match(/\d+/u)?.[0] ?? Number.NaN));
       await openCardActions(page, index === 1);
       const ignoreButton = page.getByRole("button", { name: "No es un problema" }).first();
       await ignoreButton.waitFor({ timeout: 20_000 });
       await ignoreButton.click();
-      const ignoreDialog = page.getByRole("dialog");
+      // En «Lista y detalle» el motivo se pide dentro del panel del caso; en tarjetas, en un diálogo.
+      const ignoreDialog = page.locator(".cignore").first();
       // Sin motivo no se guarda.
       await ignoreDialog.getByRole("button", { name: "No es un problema" }).click();
       await ignoreDialog.getByText("Elige un motivo.").waitFor();
@@ -316,8 +327,10 @@ try {
       await page.screenshot({ path: path.join(outputDir, `${viewport.name}-ignorar-motivo.png`), fullPage: true });
       await assertNoOverflow(page, `${viewport.name} diálogo de motivo`);
       await ignoreDialog.getByRole("button", { name: "No es un problema" }).click();
-      await page.getByText("Hallazgo ignorado", { exact: false }).first().waitFor();
-      await page.waitForFunction((count) => document.querySelectorAll(".cfind").length < count, before);
+      const ignoredToast = page.locator("[data-crv-toasts] .toast", { hasText: "Marcado como «no es un problema»." });
+      await ignoredToast.waitFor();
+      await ignoredToast.getByRole("button", { name: "Reabrir" }).waitFor();
+      await page.waitForFunction((count) => Number(document.querySelector(".cfind-count")?.textContent?.match(/\d+/u)?.[0] ?? Number.NaN) < count, before);
       await assertNoOverflow(page, `${viewport.name} ficha_de_otro_tipo`);
       const reasons = await getPool().query<{ n: string }>(
         "SELECT count(*)::text AS n FROM ingest.curation_findings WHERE status = 'ignored' AND ignore_reason = 'falso_positivo' AND ignore_note = 'QA: el detector se equivocó'");
@@ -332,7 +345,7 @@ try {
         await distinctButton.waitFor({ timeout: 20_000 });
         const beforeDistinct = await lastScanId();
         await distinctButton.click();
-        const distinctDialog = page.getByRole("dialog");
+        const distinctDialog = page.locator(MODAL);
         await distinctDialog.getByLabel(/Motivo/u).fill("QA: bandas distintas de ciudades distintas");
         await page.waitForTimeout(400);
         await page.screenshot({ path: path.join(outputDir, `${viewport.name}-son-distintas.png`), fullPage: true });
@@ -347,20 +360,27 @@ try {
 
       // 5. Triaje con teclado y selección por filtro (E8.3/E8.6) sobre los
       //    nombres con entidades HTML, que sí tienen corrección de un clic.
-      await page.goto(`${webUrl}/curaduria/categoria/nombres_sucios?detector=entidades_html`, { waitUntil: "domcontentloaded" });
+      // Atajos, selección y acciones de tarjeta se prueban en la vista de tarjetas.
+      await page.goto(`${webUrl}/curaduria/categoria/nombres_sucios?detector=entidades_html&view=cards`, { waitUntil: "domcontentloaded" });
       const card = page.locator(".cfind").first();
       await card.waitFor({ timeout: 20_000 });
       await page.keyboard.press("j");
       await page.locator(".cfind--focused").first().waitFor({ timeout: 10_000 });
-      await page.keyboard.press("x");
       const selectionBar = page.getByRole("toolbar", { name: "Acciones sobre lo seleccionado" });
+      // Si la lista se refresca justo entre «j» y «x», la marca se pierde: se repite una vez.
+      await page.keyboard.press("x");
+      if (!await selectionBar.waitFor({ timeout: 3_000 }).then(() => true, () => false)) {
+        await page.keyboard.press("j");
+        await page.locator(".cfind--focused").first().waitFor({ timeout: 10_000 });
+        await page.keyboard.press("x");
+      }
       await selectionBar.waitFor({ timeout: 10_000 });
       await selectionBar.getByRole("button", { name: /^Seleccionar los .* que cumplen el filtro$/u }).waitFor({ timeout: 10_000 });
       await page.waitForTimeout(300);
       await page.screenshot({ path: path.join(outputDir, `${viewport.name}-seleccion-total.png`), fullPage: true });
       await assertNoOverflow(page, `${viewport.name} selección por filtro`);
       await page.keyboard.press("?");
-      const helpDialog = page.getByRole("dialog");
+      const helpDialog = page.locator(MODAL);
       await helpDialog.getByText("Atajos de teclado").first().waitFor({ timeout: 10_000 });
       await page.waitForTimeout(300);
       await page.screenshot({ path: path.join(outputDir, `${viewport.name}-teclado.png`), fullPage: true });
@@ -372,7 +392,7 @@ try {
       //    una hoja inferior (E8.9).
       if (index === 1) {
         await card.getByRole("button", { name: "Acciones" }).click();
-        const sheet = page.getByRole("dialog");
+        const sheet = page.locator(MODAL);
         await sheet.getByRole("button", { name: /Decodificar/u }).waitFor({ timeout: 10_000 });
         await page.waitForTimeout(300);
         await page.screenshot({ path: path.join(outputDir, `${viewport.name}-acciones-hoja.png`), fullPage: true });
@@ -389,7 +409,8 @@ try {
           throw new Error(`${viewport.name}: falta «Otras correcciones» en un hallazgo con dos acciones`);
         }
         await menuButton.click();
-        const menu = card.getByRole("menu");
+        // El menú se abre en un portal (Base UI Menu), fuera de la tarjeta.
+        const menu = page.getByRole("menu");
         await menu.getByRole("menuitem", { name: /Limpiar el texto/u }).waitFor({ timeout: 10_000 });
         await page.waitForTimeout(200);
         await page.screenshot({ path: path.join(outputDir, `${viewport.name}-otras-correcciones.png`), fullPage: true });
@@ -399,7 +420,7 @@ try {
         await primary.click();
       }
 
-      const fixDialog = page.getByRole("dialog");
+      const fixDialog = page.locator(MODAL);
       await fixDialog.locator(".cdiff").first().waitFor({ timeout: 20_000 });
       if (!await fixDialog.locator(".cdiff mark").count()) {
         throw new Error(`${viewport.name}: la vista previa no resalta el tramo que cambia`);
@@ -450,12 +471,16 @@ try {
       if (!response.ok) throw new Error(`la corrección falló: ${response.status} ${await response.text()}`);
       await waitForCorrectionScan(beforePatch);
       await page.goto(`${webUrl}/curaduria`, { waitUntil: "domcontentloaded" });
+      await page.locator("details.cwork-audit > summary", { hasText: "Estado del detector" }).click();
       await page.getByText(/desencadenados? por la corrección/u).first().waitFor({ timeout: 20_000 });
       await page.getByText("La corrección desencadenó", { exact: false }).first().waitFor();
       await page.screenshot({ path: path.join(outputDir, `${viewport.name}-verificacion.png`), fullPage: true });
 
       await page.getByRole("link", { name: /desencadenados? por la corrección/u }).first().click();
-      await page.getByText("Apareció al corregir", { exact: false }).first().waitFor({ timeout: 20_000 });
+      await page.waitForURL(/chained=true/u);
+      // En móvil, «Lista y detalle» enseña la lista; la procedencia se lee en las tarjetas.
+      if (index === 1) await page.getByRole("button", { name: "Tarjetas", exact: true }).click();
+      await page.getByText("Apareció al corregir", { exact: false }).filter({ visible: true }).first().waitFor({ timeout: 20_000 });
       await page.screenshot({ path: path.join(outputDir, `${viewport.name}-desencadenados.png`), fullPage: true });
       await assertNoOverflow(page, `${viewport.name} desencadenados`);
 
@@ -486,6 +511,7 @@ try {
       }
 
       await page.goto(`${webUrl}/curaduria`, { waitUntil: "domcontentloaded" });
+      await page.locator("details.cwork-audit > summary", { hasText: "Estado del detector" }).click();
       await page.getByRole("heading", { name: "Autocorrecciones de hoy" }).waitFor({ timeout: 20_000 });
       await page.screenshot({ path: path.join(outputDir, `${viewport.name}-autocorreccion-panorama.png`), fullPage: true });
       await assertNoOverflow(page, `${viewport.name} panorama con autocorrección`);

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { MagnifyingGlass, Question, X } from "@phosphor-icons/react";
 import type { GenreFacet, GenreFacets, GenreFamilyFacet, GenreGenreFacet } from "../lib/types";
 import { WITHOUT_GENRE, type GenreSelection } from "../lib/useGenreFilter";
@@ -128,6 +128,41 @@ export function GenreFilter({ kind, facets, facetsError, onRetryFacets, selectio
   const withoutBreakdown = facets.families.filter((entry) => entry.relatedCount > 0)
     .sort((a, b) => b.relatedCount - a.relatedCount);
 
+  // En móvil (hoja de filtros, lista vertical) los subgéneros y estilos se abren
+  // bajo el género elegido; en escritorio van en filas aparte bajo los géneros.
+  const subsBlock = family && subs.length > 0 ? (
+    <div className="gfilter__subs">
+      <p className="gfilter__sublabel">Subgéneros de <strong>{family.name}</strong></p>
+      <div className="gfilter__subchips" ref={subRailRef} role="group" aria-label={`Subgéneros de ${family.name}`}>
+        <FilterChip label={`Todo ${family.name}`} count={effective(family)} pressed={selection.sub === null} small
+          onClick={() => { if (selection.sub !== null) onSub(family.slug, null); }} />
+        {visibleSubs.map((entry, index) => (
+          <FilterChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.sub === entry.slug} small
+            revealed={expanded && index >= SUB_PREVIEW}
+            onClick={() => onSub(family.slug, selection.sub === entry.slug ? null : entry.slug)} />
+        ))}
+        {hiddenCount > 0 ? (
+          <button type="button" className="gchip gchip--more" aria-expanded={expanded} onClick={() => setExpanded((value) => !value)}>
+            {expanded ? "Ver menos" : `Ver ${hiddenCount} más`}
+          </button>
+        ) : null}
+      </div>
+    </div>
+  ) : null;
+  const stylesBlock = family && selectedSub && styles.length > 0 ? (
+    <div className="gfilter__subs">
+      <p className="gfilter__sublabel">Estilos de <strong>{selectedSub.name}</strong></p>
+      <div className="gfilter__subchips" ref={styleRailRef} role="group" aria-label={`Estilos de ${selectedSub.name}`}>
+        <FilterChip label={`Todo ${selectedSub.name}`} count={effective(selectedSub)} pressed={selection.style === null} small
+          onClick={() => { if (selection.style !== null) onStyle(family.slug, selectedSub.slug, null); }} />
+        {styles.map((entry) => (
+          <FilterChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.style === entry.slug} small
+            onClick={() => onStyle(family.slug, selectedSub.slug, selection.style === entry.slug ? null : entry.slug)} />
+        ))}
+      </div>
+    </div>
+  ) : null;
+
   return (
     <section className="gfilter" aria-labelledby={labelId}>
       <div className="gfilter__head">
@@ -138,47 +173,18 @@ export function GenreFilter({ kind, facets, facetsError, onRetryFacets, selectio
       <div className="gfilter__rail" ref={railRef} role="group" aria-label="Géneros">
         <FilterChip label="Todos" count={facets.total} pressed={selection.family === null} onClick={() => { if (selection.family !== null) onFamily(null); }} />
         {families.map((entry) => (
-          <FilterChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.family === entry.slug}
-            onClick={() => onFamily(entry.slug)} />
+          <Fragment key={entry.slug}>
+            <FilterChip label={entry.name} count={effective(entry)} pressed={selection.family === entry.slug}
+              onClick={() => onFamily(entry.slug)} />
+            {isMobile && selection.family === entry.slug && (subsBlock || stylesBlock) ? <div className="gfilter__nested">{subsBlock}{stylesBlock}</div> : null}
+          </Fragment>
         ))}
         <span className="gfilter__divider" aria-hidden="true" />
         <FilterChip label="Sin género" count={facets.withoutGenre} pressed={isWithout} variant="none"
           icon={<Question aria-hidden="true" weight="bold" />} onClick={() => onFamily(WITHOUT_GENRE)} />
       </div>
 
-      {family && subs.length > 0 ? (
-        <div className="gfilter__subs">
-          <p className="gfilter__sublabel">Subgéneros de <strong>{family.name}</strong></p>
-          <div className="gfilter__subchips" ref={subRailRef} role="group" aria-label={`Subgéneros de ${family.name}`}>
-            <FilterChip label={`Todo ${family.name}`} count={effective(family)} pressed={selection.sub === null} small
-              onClick={() => { if (selection.sub !== null) onSub(family.slug, null); }} />
-            {visibleSubs.map((entry, index) => (
-              <FilterChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.sub === entry.slug} small
-                revealed={expanded && index >= SUB_PREVIEW}
-                onClick={() => onSub(family.slug, selection.sub === entry.slug ? null : entry.slug)} />
-            ))}
-            {hiddenCount > 0 ? (
-              <button type="button" className="gchip gchip--more" aria-expanded={expanded} onClick={() => setExpanded((value) => !value)}>
-                {expanded ? "Ver menos" : `Ver ${hiddenCount} más`}
-              </button>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
-
-      {family && selectedSub && styles.length > 0 ? (
-        <div className="gfilter__subs">
-          <p className="gfilter__sublabel">Estilos de <strong>{selectedSub.name}</strong></p>
-          <div className="gfilter__subchips" ref={styleRailRef} role="group" aria-label={`Estilos de ${selectedSub.name}`}>
-            <FilterChip label={`Todo ${selectedSub.name}`} count={effective(selectedSub)} pressed={selection.style === null} small
-              onClick={() => { if (selection.style !== null) onStyle(family.slug, selectedSub.slug, null); }} />
-            {styles.map((entry) => (
-              <FilterChip key={entry.slug} label={entry.name} count={effective(entry)} pressed={selection.style === entry.slug} small
-                onClick={() => onStyle(family.slug, selectedSub.slug, selection.style === entry.slug ? null : entry.slug)} />
-            ))}
-          </div>
-        </div>
-      ) : null}
+      {isMobile ? null : <>{subsBlock}{stylesBlock}</>}
 
       {family && relatedCount > 0 ? (
         <label className="gfilter__related">

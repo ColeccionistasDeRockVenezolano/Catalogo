@@ -94,7 +94,7 @@ export function genreMissingSql(kind: GenreEntityKind, entityExpr: string): stri
  * recibe los géneros de sus discos.)
  */
 export function relatedGenreFilterSql(entityExpr: string, param: string): string {
-  return `EXISTS (SELECT 1 FROM public.albums ra WHERE ra.id = ${entityExpr} AND ${genreFilterSql("artist", "ra.artist_id", param)})`;
+  return `EXISTS (SELECT 1 FROM ingest.catalog_albums ra WHERE ra.id = ${entityExpr} AND ${genreFilterSql("artist", "ra.artist_id", param)})`;
 }
 
 export interface GenreFacet {
@@ -129,15 +129,15 @@ export interface GenreFacets {
 export async function genreFacets(kind: GenreEntityKind, db: Queryable = getPool()): Promise<GenreFacets> {
   const own = kind === "album"
     ? `SELECT x.album_id AS entity_id, x.genre_id FROM ingest.album_genres x
-         JOIN public.albums e ON e.id = x.album_id WHERE x.status = 'confirmed'`
+         JOIN ingest.catalog_albums e ON e.id = x.album_id WHERE x.status = 'confirmed'`
     : `SELECT x.artist_id AS entity_id, x.genre_id FROM ingest.artist_genres x
-         JOIN public.artists e ON e.id = x.artist_id WHERE x.status = 'confirmed'`;
+         JOIN ingest.catalog_artists e ON e.id = x.artist_id WHERE x.status = 'confirmed'`;
   const related = kind === "album"
-    ? `SELECT e.id AS entity_id, x.genre_id FROM public.albums e
+    ? `SELECT e.id AS entity_id, x.genre_id FROM ingest.catalog_albums e
          JOIN ingest.artist_genres x ON x.artist_id = e.artist_id AND x.status = 'confirmed'
         WHERE ${genreMissingSql("album", "e.id")}`
     : "SELECT NULL::bigint AS entity_id, NULL::bigint AS genre_id WHERE false";
-  const entityTable = kind === "album" ? "public.albums" : "public.artists";
+  const entityTable = kind === "album" ? "ingest.catalog_albums" : "ingest.catalog_artists";
   const [counts, totals] = await Promise.all([
     // Cada asignación suma a su nodo y a sus antepasados (género y familia).
     db.query<{ source: "own" | "related"; node_id: string; count: string }>(`

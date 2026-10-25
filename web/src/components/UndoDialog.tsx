@@ -11,6 +11,7 @@ import { useAsync } from "../lib/useAsync";
 import { useToast } from "../lib/ToastContext";
 import type { ChangeUndoResult, UndoConflict, UndoStep } from "../lib/types";
 import { Modal } from "./Modal";
+import { NOTE_PRESETS, NoteField } from "./NoteField";
 
 const ENTITY_LIST_LIMIT = 12;
 
@@ -69,9 +70,7 @@ export function UndoDialog({ runId: initialRunId, onClose, onDone }: {
     setSaveError(undefined);
     try {
       const result = await changesApi.undo(runId, note.trim());
-      notify("success", isRedo
-        ? `Rehecho: #${target} vuelve a estar aplicado (cambio #${result.runId}).`
-        : `Deshecho #${target} (cambio #${result.runId}). Puedes rehacerlo desde la barra o el Historial.`);
+      notify("success", isRedo ? "Cambio rehecho." : "Cambio deshecho.");
       window.dispatchEvent(new Event(CATALOG_DATA_CHANGED_EVENT));
       if (runId !== initialRunId) {
         // Se deshizo el cambio posterior: se vuelve al que se quería deshacer.
@@ -95,7 +94,7 @@ export function UndoDialog({ runId: initialRunId, onClose, onDone }: {
   const laterRuns = [...new Set(conflicts.map((conflict) => conflict.laterRunId).filter((id): id is number => id !== null))];
 
   return (
-    <Modal title={data ? `${verb} #${target}` : `${verb} cambio`} onClose={onClose} wide sheet>
+    <Modal title={!data ? `${verb} cambio` : isRedo ? `Rehacer el cambio #${target}` : `Deshacer «${changeTitle(data)}»`} onClose={onClose} wide sheet closeOnOverlay={!note.trim()}>
       {loading && !data ? (
         <p className="hint">Calculando qué haría…</p>
       ) : error || !data ? (
@@ -200,20 +199,17 @@ export function UndoDialog({ runId: initialRunId, onClose, onDone }: {
           )}
 
           {data.undo.undoable ? (
-            <div className="field" style={{ marginTop: 14 }}>
-              <label htmlFor="undo-note">Motivo *</label>
-              <textarea
-                id="undo-note" rows={2} value={note} onChange={(event) => setNote(event.target.value)}
-                placeholder={isRedo ? "Por qué vuelve a aplicarse" : "Por qué se deshace"}
-              />
+            <div style={{ marginTop: 14 }}>
+              <NoteField value={note} onChange={setNote} presets={isRedo ? NOTE_PRESETS.redo : NOTE_PRESETS.undo}
+                placeholder={isRedo ? "Por qué vuelve a aplicarse" : "Por qué se deshace"} />
             </div>
           ) : null}
           {saveError ? <p className="form-error-banner" role="alert">{saveError}</p> : null}
           <div className="form-actions">
             <button type="button" className="btn btn--ghost" onClick={onClose}>Cerrar</button>
             {data.undo.undoable ? (
-              <button type="button" className={`btn ${isRedo ? "btn--primary" : "btn--danger"}`} onClick={() => void confirm()} disabled={saving || !note.trim()}>
-                {saving ? `${verb === "Rehacer" ? "Rehaciendo" : "Deshaciendo"}…` : `${verb} #${target}`}
+              <button type="button" className="btn btn--primary" onClick={() => void confirm()} disabled={saving || !note.trim()}>
+                {saving ? `${verb === "Rehacer" ? "Rehaciendo" : "Deshaciendo"}…` : `${verb} este cambio`}
               </button>
             ) : null}
           </div>

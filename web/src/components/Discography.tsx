@@ -7,12 +7,15 @@ import type {
   AlbumVersion, ArtistMember, CreditStatement, DiscographyItem, LabelRef, OrganizationRelation, ScopedCredit, SeriesMembership, Credit,
 } from "../lib/types";
 import { DeceasedMark } from "./DeceasedMark";
+import { albumFilterTypeLabel, roleTitle } from "../lib/labels";
+import { creditTarget, orderMusicianBlocks, trackScope, type CreditLine } from "../lib/creditLayout";
 import { INSTRUMENT_LABEL } from "../../../src/discography/instruments";
 import { plotted, timelineReady } from "../lib/membersTimeline";
+import { mediaImage } from "../lib/media";
 
 // ── Versiones ──────────────────────────────────────────────────────────────
 function labelsText(labels: LabelRef[]): ReactNode {
-  if (!labels.length) return <span className="version-row__muted">Edición independiente</span>;
+  if (!labels.length) return <span className="version-row__muted">Sello sin registrar</span>;
   return labels.map((label, index) => (
     <Fragment key={`${label.organizationId}:${label.role}`}>
       {index > 0 ? " · " : null}
@@ -24,19 +27,20 @@ function labelsText(labels: LabelRef[]): ReactNode {
 
 /** Lista sobria de versiones de la obra, al estilo de Discogs (imagen 2 del plan). */
 export function AlbumVersions({ versions, coverUrl }: { versions: AlbumVersion[]; coverUrl: string | null }) {
-  if (versions.length < 2) return null;
+  if (!versions.length || (versions.length === 1 && !versions[0]?.editionTypes?.length)) return null;
   return (
     <ul className="version-list" aria-label="Versiones">
       {versions.map((version) => {
         const cover = version.coverUrl ?? coverUrl;
         return (
           <li key={version.id} className="version-row">
-            <span className="version-row__art">{cover ? <img src={cover} alt="" loading="lazy" decoding="async" /> : null}</span>
+            <span className="version-row__art">{cover ? <img {...mediaImage(cover, 64)} alt="" loading="lazy" decoding="async" /> : null}</span>
             <div className="version-row__body">
               <p className="version-row__title">
                 {version.title ?? (version.isPrimary ? "Edición original" : "Versión")}
                 {version.isPrimary ? <span className="badge" style={{ marginLeft: 8 }}>Principal</span> : null}
               </p>
+              {version.editionTypes?.length ? <div className="entity-hero__meta">{version.editionTypes.map(type => <Link className="badge" key={type} to={`/discos?tipo=${encodeURIComponent(type)}`}>{albumFilterTypeLabel(type)}</Link>)}</div> : null}
               {version.formatDetails ?? version.format ? <p className="version-row__format">{version.formatDetails ?? version.format}</p> : null}
               <p className="version-row__label">
                 {labelsText(version.labels)}
@@ -80,34 +84,10 @@ export function SeriesLines({ series }: { series: SeriesMembership[] }) {
 }
 
 // ── Créditos en bloques de nombres (imagen 1) ──────────────────────────────
-const SMALL_WORDS = new Set(["y", "e", "de", "del", "la", "las", "el", "los", "a", "en", "and", "of", "the", "at", "for", "by"]);
-
-/** «mixed & mastered by» → «Mixed & Mastered»; «diseño gráfico» → «Diseño Gráfico». */
-export function roleTitle(role: string): string {
-  const clean = role.trim().replace(/\s+(?:by|por)\s*:?\s*$/iu, "").replace(/\s+/gu, " ");
-  return clean.split(" ").map((word, index) => {
-    const lower = word.toLocaleLowerCase("es");
-    if (index > 0 && SMALL_WORDS.has(lower)) return lower;
-    if (/[A-Z].*[A-Z]/u.test(word) || /\d/u.test(word)) return word; // siglas: «A&R», «DJ», «2CD»
-    return lower.charAt(0).toLocaleUpperCase("es") + lower.slice(1);
-  }).join(" ");
-}
-
-function creditTarget(credit: Credit): { to: string; name: string; deceased: boolean } | null {
-  if (credit.personId !== null) return { to: `/personas/${credit.personId}`, name: credit.personDisplayName ?? credit.personName ?? "", deceased: credit.personIsDeceased ?? false };
-  if (credit.artistId !== null) return { to: `/artistas/${credit.artistId}`, name: credit.artistName ?? "", deceased: false };
-  if (credit.organizationId !== null) return { to: `/organizaciones/${credit.organizationId}`, name: credit.organizationName ?? "", deceased: false };
-  return null;
-}
-
-function trackScope(tracks: ScopedCredit["tracks"]): string {
-  const multiDisc = tracks.some((track) => track.discNumber > 1);
-  const list = tracks.map((track) => (multiDisc ? `${track.discNumber}.${track.trackNumber}` : String(track.trackNumber)));
-  return `${list.length === 1 ? "pista" : "pistas"} ${list.join(", ")}`;
-}
+export { roleTitle };
 
 /** Bloques por rol con chips de nombres; un nombre acotado a pistas lleva sus números. */
-export function CreditChips({ credits, scoped }: { credits: Credit[]; scoped: ScopedCredit[] }) {
+export function CreditChips({ credits, scoped, musicians = false }: { credits: Credit[]; scoped: ScopedCredit[]; musicians?: boolean }) {
   const blocks = new Map<string, Array<{ credit: Credit; scope: string | null }>>();
   const push = (credit: Credit, scope: string | null) => {
     const key = roleTitle(credit.role || credit.creditType);
@@ -119,9 +99,12 @@ export function CreditChips({ credits, scoped }: { credits: Credit[]; scoped: Sc
   for (const credit of credits) push(credit, null);
   for (const credit of scoped) push(credit, trackScope(credit.tracks));
   if (!blocks.size) return <p className="credit-chips__empty">Sin créditos registrados.</p>;
+  const entries = [...blocks.entries()].map(([role, items]) => ({ role, items }));
+  // Músicos: «Lead Vocals» primero y luego el bloque más grande (plan v2, punto 11).
+  const ordered = musicians ? orderMusicianBlocks(entries, ({ credit }) => creditTarget(credit)?.name ?? credit.role) : entries;
   return (
     <div className="credit-chips">
-      {[...blocks.entries()].map(([role, items]) => (
+      {ordered.map(({ role, items }) => (
         <div key={role} className="credit-chips__block">
           <h4 className="credit-chips__role">{role}</h4>
           <ul className="credit-chips__names">
@@ -174,12 +157,38 @@ export function CreditStatementLine({ statement }: { statement: CreditStatement 
   return <p className="credit-statement">{out}</p>;
 }
 
-export function CreditStatements({ statements }: { statements: CreditStatement[] }) {
+export function CreditStatements({ statements, title = "Créditos del canal" }: { statements: CreditStatement[]; title?: string | null }) {
   if (!statements.length) return null;
   return (
     <div className="credit-statements">
-      <h3>Créditos del canal</h3>
+      {title ? <h3>{title}</h3> : null}
       {statements.map((statement) => <CreditStatementLine key={statement.id} statement={statement} />)}
+    </div>
+  );
+}
+
+/** «Recorded & Mixed by Boris Milan», con el mismo aspecto que las líneas del canal (plan v2, punto 12). */
+export function CreditLines({ lines }: { lines: CreditLine[] }) {
+  if (!lines.length) return null;
+  return (
+    <div className="credit-lines">
+      {lines.map((line) => (
+        <p key={line.key} className="credit-statement">
+          <span className="statement-part statement-part--role">{line.roles}</span>
+          {line.joiner === ":" ? ": " : ` ${line.joiner} `}
+          {line.targets.map(({ target, fallback }, index) => (
+            <Fragment key={target?.key ?? `${fallback}:${index}`}>
+              {index > 0 ? (index === line.targets.length - 1 ? " & " : ", ") : null}
+              {target ? (
+                <Link className={`statement-part statement-part--${target.key.startsWith("o") ? "organization" : "person"}`} to={target.to}>
+                  {target.name}<DeceasedMark deceased={target.deceased} />
+                </Link>
+              ) : <span className="statement-part">{fallback}</span>}
+            </Fragment>
+          ))}
+          {line.scope ? <span className="credit-line__scope"> ({line.scope})</span> : null}
+        </p>
+      ))}
     </div>
   );
 }
@@ -251,7 +260,7 @@ export function MembersTimeline({ members, albums, endYear, formedYear = null }:
                 const [main, second] = member.instruments?.length ? member.instruments : ["all_instruments"];
                 return (
                   <g key={member.id} mask={fade ? `url(#${uid}-fade-${fade})` : undefined}>
-                    <title>{`${member.personName}: ${member.role} (${periodText(member)})`}</title>
+                    <title>{`${member.personName}: ${roleTitle(member.role)} (${periodText(member)})`}</title>
                     <rect x={from} y={index * rowHeight + 5} width={Math.max(2, to - from)} height={rowHeight - 10} fill={INSTRUMENT_COLORS[main!] ?? "#687076"} />
                     {second ? <rect x={from} y={index * rowHeight + rowHeight / 2 - 2} width={Math.max(2, to - from)} height={4} fill={INSTRUMENT_COLORS[second] ?? "#687076"} /> : null}
                   </g>

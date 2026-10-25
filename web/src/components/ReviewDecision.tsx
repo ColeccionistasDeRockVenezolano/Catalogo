@@ -3,6 +3,7 @@
 // según el tipo (PLAN_CURADURIA E7.3). Un solo sitio de verdad para la página
 // de detalle (/curaduria/revision/:id) y la tarjeta de un hallazgo
 // `cola_de_revision` en Curaduría, que antes solo enlazaba a la página.
+import { NoteField } from "./NoteField";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ApiError, reviewApi } from "../lib/api";
@@ -118,10 +119,7 @@ export function ReviewDecisionActions({ review, isAdmin, onDone }: {
   return (
     <div className="section">
       <h2>Decisión</h2>
-      <div className="field span-2">
-        <label htmlFor={`review-note-${review.id}`}>Motivo *</label>
-        <textarea id={`review-note-${review.id}`} rows={2} value={note} onChange={(event) => setNote(event.target.value)} placeholder="Por qué se decide así" />
-      </div>
+      <NoteField value={note} onChange={setNote} presets={["Identidad comprobada", "Son fichas distintas", "Dato comprobado", "Error de extracción"]} />
 
       {review.kind === "field_conflict" ? (
         <>

@@ -24,6 +24,8 @@ export interface SearchHit {
   label: string;
   context: string | null;
   albumId: number | null;
+  /** Portada, foto o logo; ausente si la API aún no lo envía o la ficha no tiene. */
+  imageUrl?: string | null;
 }
 
 /** Emoción (taxonomía Laya) con la que la búsqueda clasificó la consulta. */
@@ -33,11 +35,13 @@ export interface EmotionArtist {
   id: number;
   name: string;
   emotion: Emotion;
-  /** Suma de los pesos (0–100) de los tags que sustentan la emoción. */
+  /** Suma de los pesos de los tags + comentarios que sustentan la emoción. */
   score: number;
   evidence: number;
   listeners: number;
   tags: { tag: string; weight: number }[];
+  /** Comentarios de oyentes que sustentan la emoción. */
+  shouts: string[];
 }
 
 /** Bloque «Por emoción»: «música para tener sexo» → artistas con esa emoción. */
@@ -99,12 +103,18 @@ export interface PublicGenre { id: number; slug: string; name: string; family: s
 export type GenreStatus = "confirmed" | "pending" | "unclassified";
 
 export interface ArtistDetail extends ArtistListItem {
+  documents?: import("../../../src/shared/artist-documents.js").ArtistDocument[];
+  gallery?: import("../../../src/shared/artist-gallery.js").ArtistGalleryPhoto[];
   audiovisuals?: ArtistAudiovisual[];
   dailyCycle?: import("../../../src/shared/daily-cycle.js").DailyCycle;
   channelVideo?: { date: string; videoId: string; url: string; title: string | null; count: number } | null;
   status?: string | null;
   themes?: string | null;
   yearsActive?: string | null;
+  /** Ubicación actual (campo «Currently» de RYM; su análogo de origen es originCity/originCountry). */
+  currentCity?: string | null;
+  currentCountry?: string | null;
+  email?: string | null;
   /** Géneros propios del artista; no se heredan a sus discos. */
   genres?: PublicGenre[];
   primaryGenre?: PublicGenre | null;
@@ -120,6 +130,7 @@ export interface ArtistDetail extends ArtistListItem {
   links: ArtistLink[];
   /** Perfiles en plataformas de escucha (solo identidad verificada). La API vieja no los manda. */
   platforms?: PlatformLink[];
+  playbackAlbums?: Array<PlatformLink & {albumId:number;albumTitle:string}>;
   /** Redes sociales (solo identidad verificada). */
   socials?: PlatformLink[];
   related: RelatedArtist[];
@@ -129,6 +140,7 @@ export interface ArtistDetail extends ArtistListItem {
 }
 
 export interface ArtistAudiovisual {
+  tags?: string[];
   id: number; title: string; releaseYear: number | null;
   kind: "documentary" | "live_concert" | "music_video" | "interview" | "short" | "other";
   description: string | null; videoId: string | null; url: string | null; thumbnailUrl: string | null;
@@ -357,6 +369,7 @@ export interface PersonTrackCredit { id: number; trackId: number; trackTitle: st
 export interface PersonOrganization { id: number; organizationId: number; organizationName: string; role: string; fromYear: number | null; toYear: number | null; }
 
 export interface PersonDetail extends PersonListItem {
+  artistConversionBlocked?: boolean;
   /** «Nombre "Apodo" Apellido» solo para pantalla; la ficha conserva el nombre real. */
   displayName?: string | null;
   realName?: string | null;
@@ -563,6 +576,7 @@ export interface ReviewDetail extends ReviewListItem {
   albumId: number | null; trackId: number | null; videoId: number | null;
   payload: unknown;
   resolvedAt: string | null; resolvedBy: string | null; resolutionNote: string | null;
+  identityContext?: import("../../../src/review/visual-identity.js").ReviewIdentityContext | null;
   claims: Array<{
     id: number; field: string; rawValue: unknown; normalizedValue: unknown; confidence: string; status: string;
     sourceName: string; sourceTrustLevel: string; sourceUrl: string | null; evidenceUrl: string | null;

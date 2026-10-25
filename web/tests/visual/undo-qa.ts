@@ -137,11 +137,34 @@ try {
       if (message.type() === "error" && !message.text().startsWith("Failed to load resource:")) pageErrors.push(message.text());
     });
     const shot = (name: string) => page.screenshot({ path: path.join(outputDir, `desktop-${name}.png`) });
-    const bar = page.locator(".undo-bar");
+    // Avisos (Base UI Toast) y diálogos modales: los avisos también llevan
+    // role="dialog", así que los modales se buscan por aria-modal.
+    const toasts = page.locator("[data-crv-toasts]");
+    const modal = page.locator('[aria-modal="true"]').last();
     const confirmUndo = async (dialog: Locator, note: string, button: RegExp) => {
       await dialog.getByLabel("Motivo *").fill(note);
       await dialog.getByRole("button", { name: button }).click();
       await dialog.waitFor({ state: "detached", timeout: 15000 });
+    };
+    const saveEdit = async (field: string, value: string, note: string) => {
+      await page.locator(".page-actions").getByRole("button", { name: "Editar" }).click();
+      const edit = page.locator('[role="dialog"][aria-modal="true"]');
+      await edit.getByLabel(field).fill(value);
+      await edit.getByLabel("Motivo del cambio *").fill(note);
+      await edit.locator(".eedit__tray-actions button[type=submit]").click();
+      // Si no cierra, el motivo está escrito en el propio modal: decirlo aquí
+      // ahorra abrir el navegador a mano.
+      await edit.waitFor({ state: "detached", timeout: 15000 }).catch(async (error: Error) => {
+        throw new Error(`el modal de edición no cerró: ${(await edit.innerText()).replace(/\s+/gu, " ").slice(0, 400)}`, { cause: error });
+      });
+    };
+    const retireFromMenu = async (note: string) => {
+      await page.getByRole("button", { name: "Más acciones" }).click();
+      await page.getByRole("menuitem", { name: "Retirar del catálogo" }).click();
+      const retire = page.getByRole("alertdialog");
+      await retire.getByLabel("Motivo *").fill(note);
+      await retire.getByRole("button", { name: "Retirar", exact: true }).click();
+      await page.waitForURL(/\/personas$/u, { timeout: 15000 });
     };
 
     // ---- Sesión ----------------------------------------------------------------
@@ -153,37 +176,35 @@ try {
     await page.getByRole("button", { name: "Iniciar sesión", exact: true }).click();
     await page.locator(".page-actions").getByRole("button", { name: "Editar" }).waitFor({ timeout: 15000 });
 
-    // ---- 1. Editar → la barra ofrece deshacer ---------------------------------
-    await page.locator(".page-actions").getByRole("button", { name: "Editar" }).click();
-    const edit = page.getByRole("dialog");
-    await edit.getByLabel("Año de publicación").fill("1998");
-    await edit.getByLabel("Motivo *").fill("QA: año del disco");
-    await edit.getByRole("button", { name: "Guardar" }).click();
-    // Si no cierra, el motivo está escrito en el propio modal: decirlo aquí
-    // ahorra abrir el navegador a mano.
-    await edit.waitFor({ state: "detached", timeout: 15000 }).catch(async (error: Error) => {
-      throw new Error(`el modal de edición no cerró: ${(await edit.innerText()).replace(/\s+/gu, " ").slice(0, 400)}`, { cause: error });
-    });
+    // ---- 1. Editar → el aviso ofrece deshacer y nombra la ficha ---------------
+    await saveEdit("Año de publicación", "1998", "QA: año del disco");
     assertEqual(await yearOf(), 1998, "edición guardada");
-    await bar.getByText("Edición de disco").waitFor({ timeout: 15000 });
-    await bar.getByRole("button", { name: "Deshacer" }).waitFor();
-    await shot("1-barra-tras-editar");
+    await toasts.getByRole("link", { name: "Disco Reversible QA" }).waitFor({ timeout: 15000 });
+    await toasts.getByRole("button", { name: "Deshacer" }).waitFor();
+    assertEqual(await toasts.locator(".toast", { hasText: "Disco Reversible QA" }).count(), 1, "un solo aviso por cambio");
+    await shot("1-aviso-tras-editar");
 
-    // ---- 2. Deshacer desde la barra ---------------------------------------------
-    await bar.getByRole("button", { name: "Deshacer" }).click();
-    const undo = page.getByRole("dialog");
-    await undo.getByText("se revierte").first().waitFor({ timeout: 15000 });
-    await shot("2-dialogo-deshacer");
-    await confirmUndo(undo, "QA: el año no era ese", /^Deshacer #\d+$/u);
-    assertEqual(await yearOf(), null, "deshacer devuelve el año");
-    await bar.getByText(/Deshiciste #\d+/u).waitFor({ timeout: 15000 });
-    await bar.getByRole("button", { name: "Rehacer" }).waitFor();
-    await shot("3-barra-rehacer");
+    // ---- 2. Deshacer al momento desde el aviso (sin diálogo) --------------------
+    await toasts.getByRole("button", { name: "Deshacer" }).click();
+    await toasts.getByText("Cambio deshecho.").waitFor({ timeout: 15000 });
+    assertEqual(await yearOf(), null, "deshacer al momento devuelve el año");
+    assertEqual(await page.locator('[aria-modal="true"]').count(), 0, "deshacer al momento no abre diálogo");
+    await toasts.getByRole("button", { name: "Rehacer" }).waitFor();
+    await shot("2-aviso-rehacer");
 
-    // ---- 3. Rehacer -------------------------------------------------------------
-    await bar.getByRole("button", { name: "Rehacer" }).click();
-    await confirmUndo(page.getByRole("dialog"), "QA: sí era ese año", /^Rehacer #\d+$/u);
+    // ---- 3. Rehacer al momento ----------------------------------------------------
+    await toasts.getByRole("button", { name: "Rehacer" }).click();
+    await toasts.getByText("Cambio rehecho.").waitFor({ timeout: 15000 });
     assertEqual(await yearOf(), 1998, "rehacer vuelve a aplicar la edición");
+
+    // ---- 3b. Cambios de esta sesión (menú de la cuenta) ---------------------------
+    await page.getByRole("button", { name: /^Cuenta de .*cambios de esta sesión/u }).click();
+    const recent = page.locator(".operator-menu");
+    await recent.getByRole("heading", { name: "Cambios de esta sesión" }).waitFor();
+    assertEqual(await recent.locator(".recent-changes__item").count(), 3, "la sesión lista edición, deshacer y rehacer");
+    await recent.evaluate((el) => Promise.all(el.getAnimations().map((animation) => animation.finished)));
+    await shot("3-cambios-de-la-sesion");
+    await page.keyboard.press("Escape");
 
     // ---- 6a. Cambios de esta ficha ----------------------------------------------
     await page.getByRole("heading", { name: "Cambios de esta ficha" }).scrollIntoViewIfNeeded();
@@ -193,34 +214,29 @@ try {
     await page.getByRole("heading", { name: "Cambios de esta ficha" }).screenshot({ path: path.join(outputDir, "desktop-4-cambios-ficha-titulo.png") });
     await page.locator(".section", { has: page.getByRole("heading", { name: "Cambios de esta ficha" }) }).screenshot({ path: path.join(outputDir, "desktop-4-cambios-ficha.png") });
 
-    // ---- 4. Retirar → deshacer desde la barra ------------------------------------
+    // ---- 4. Retirar → deshacer con vista previa desde «Cambios de esta sesión» ----
     await page.goto(`${webUrl}/personas/${retirable}`, { waitUntil: "domcontentloaded" });
-    await page.getByRole("button", { name: "Retirar" }).click();
-    const retire = page.getByRole("dialog");
-    await retire.getByLabel("Motivo *").fill("QA: retiro por error");
-    await retire.getByRole("button", { name: "Retirar" }).click();
-    await page.waitForURL(/\/personas$/u, { timeout: 15000 });
+    await retireFromMenu("QA: retiro por error");
     assertEqual(await personExists(retirable), false, "persona retirada");
-    await bar.getByText("Retiro de persona").waitFor({ timeout: 15000 });
-    await shot("5-barra-tras-retirar");
-    await bar.getByRole("button", { name: "Deshacer" }).click();
-    const undoRetire = page.getByRole("dialog");
-    await undoRetire.getByText("Persona Retirable QA").first().waitFor({ timeout: 15000 });
-    await confirmUndo(undoRetire, "QA: no había que retirarla", /^Deshacer #\d+$/u);
+    await toasts.getByText("Persona Retirable QA").waitFor({ timeout: 15000 });
+    await shot("5-aviso-tras-retirar");
+    await page.getByRole("button", { name: /^Cuenta de .*cambios de esta sesión/u }).click();
+    await recent.locator(".recent-changes__item").first().getByRole("button", { name: "Deshacer" }).click();
+    await modal.getByText("Persona Retirable QA").first().waitFor({ timeout: 15000 });
+    await recent.waitFor({ state: "detached", timeout: 5000 });
+    console.log("   ✓ el panel de la sesión se cierra al abrir el deshacer");
+    await shot("5b-dialogo-deshacer");
+    await confirmUndo(modal, "QA: no había que retirarla", /^Deshacer este cambio$/u);
     assertEqual(await personExists(retirable), true, "deshacer el retiro la devuelve con su mismo id");
 
     // ---- 5. «Deshacer retiro» desde el 404 de la ficha ---------------------------
     await page.goto(`${webUrl}/personas/${retirable2}`, { waitUntil: "domcontentloaded" });
-    await page.getByRole("button", { name: "Retirar" }).click();
-    const retire2 = page.getByRole("dialog");
-    await retire2.getByLabel("Motivo *").fill("QA: retiro que luego se lamenta");
-    await retire2.getByRole("button", { name: "Retirar" }).click();
-    await page.waitForURL(/\/personas$/u, { timeout: 15000 });
+    await retireFromMenu("QA: retiro que luego se lamenta");
     await page.goto(`${webUrl}/personas/${retirable2}`, { waitUntil: "domcontentloaded" });
     await page.getByText("Esta ficha fue retirada del catálogo").waitFor({ timeout: 15000 });
     await shot("6-ficha-retirada");
     await page.getByRole("button", { name: /Deshacer retiro/u }).click();
-    await confirmUndo(page.getByRole("dialog"), "QA: se retiró por error", /^Deshacer #\d+$/u);
+    await confirmUndo(modal, "QA: se retiró por error", /^Deshacer este cambio$/u);
     assertEqual(await personExists(retirable2), true, "«Deshacer retiro» desde la ficha la devuelve");
     await page.getByRole("heading", { name: "Persona Retirada QA" }).waitFor({ timeout: 15000 });
 
@@ -232,22 +248,22 @@ try {
     console.log(`   ✓ historial lista ${listed} cambios`);
     await page.screenshot({ path: path.join(outputDir, "desktop-7-historial.png"), fullPage: true });
 
-    // ---- 7. Móvil -----------------------------------------------------------------
+    // ---- 7. Móvil: aviso sobre la navegación y Ctrl+Z -----------------------------
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`${webUrl}/discos/${album}`, { waitUntil: "domcontentloaded" });
-    await page.locator(".page-actions").getByRole("button", { name: "Editar" }).click();
-    const editMobile = page.getByRole("dialog");
-    await editMobile.getByLabel("Año de publicación").fill("1999");
-    await editMobile.getByLabel("Motivo *").fill("QA: móvil");
-    await editMobile.getByRole("button", { name: "Guardar" }).click();
-    await editMobile.waitFor({ state: "detached", timeout: 15000 });
-    await bar.getByRole("button", { name: "Deshacer" }).waitFor({ timeout: 15000 });
+    await saveEdit("Año de publicación", "1999", "QA: móvil");
+    const toast = toasts.locator(".toast").last();
+    await toast.getByRole("button", { name: "Deshacer" }).waitFor({ timeout: 15000 });
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     if (overflow > 1) throw new Error(`móvil: overflow de ${overflow}px`);
-    const [barBox, navBox] = await Promise.all([bar.boundingBox(), page.locator(".main-nav").boundingBox()]);
-    if (!barBox || !navBox || barBox.y + barBox.height > navBox.y + 1) throw new Error("móvil: la barra queda bajo la navegación inferior");
-    console.log("   ✓ móvil: barra visible sobre la navegación, sin desborde");
-    await page.screenshot({ path: path.join(outputDir, "mobile-barra.png") });
+    await toast.evaluate((el) => Promise.all(el.getAnimations().map((animation) => animation.finished)));
+    const [toastBox, navBox] = await Promise.all([toast.boundingBox(), page.locator(".main-nav").boundingBox()]);
+    if (!toastBox || !navBox || toastBox.y + toastBox.height > navBox.y + 1) throw new Error("móvil: el aviso queda bajo la navegación inferior");
+    console.log("   ✓ móvil: aviso visible sobre la navegación, sin desborde");
+    await page.screenshot({ path: path.join(outputDir, "mobile-aviso.png") });
+    await page.keyboard.press("Control+z");
+    await toasts.getByText("Cambio deshecho.").last().waitFor({ timeout: 15000 });
+    assertEqual(await yearOf(), 1998, "Ctrl+Z deshace el último cambio de la sesión");
 
     if (pageErrors.length) throw new Error(`errores de consola: ${pageErrors.join("; ")}`);
     console.log(`QA de deshacer: todo en verde. Capturas en ${path.relative(root, outputDir)}.`);

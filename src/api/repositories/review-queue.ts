@@ -1,5 +1,6 @@
 // CRV · Lectura paginada de la cola de revisión (PHASES §E7A). Solo lectura:
 // aceptar/rechazar/resolver conflicto es E7B (pasa por el merge engine).
+import { loadReviewIdentityContext, type ReviewIdentityContext } from "../../review/visual-identity.js";
 import { getPool } from "../../db/client.js";
 import type { PaginationQuery } from "../pagination.js";
 
@@ -62,6 +63,7 @@ export interface ReviewQueueDetail extends ReviewQueueListRow {
   resolvedBy: string | null;
   resolutionNote: string | null;
   claims: ReviewEvidenceClaim[];
+  identityContext: ReviewIdentityContext | null;
 }
 
 export interface ReviewEvidenceClaim {
@@ -124,6 +126,7 @@ export async function getReviewQueueDetail(id: number): Promise<ReviewQueueDetai
     payload: row["payload"],
     resolvedAt: row["resolved_at"] as string | null, resolvedBy: row["resolved_by"] as string | null,
     resolutionNote: row["resolution_note"] as string | null,
+    identityContext: await loadReviewIdentityContext(id),
     claims: evidence.rows.map((claim) => ({
       id: Number(claim.id), field: claim.field, rawValue: claim.raw_value, normalizedValue: claim.normalized_value,
       confidence: claim.confidence, status: claim.status, sourceName: claim.source_name, sourceTrustLevel: claim.source_trust_level,

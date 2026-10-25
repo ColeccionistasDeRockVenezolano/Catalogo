@@ -14,6 +14,7 @@ import { MISTYPED_DETECTORS } from "./detectors/mistyped.js";
 import { DUPLICATE_DETECTORS } from "./detectors/duplicates.js";
 import { COHERENCE_DETECTORS } from "./detectors/coherence.js";
 import { QUEUE_DETECTORS } from "./detectors/queue.js";
+import { documentedResearch } from "./detectors/documented-research.js";
 import { ORPHAN_DETECTORS } from "./detectors/orphans.js";
 import { E11_DETECTORS, E11_GLOBAL_DETECTORS } from "./detectors/advanced.js";
 import { TEXT_FORM_CATEGORIES, catalogAnomalies, detectAnomalies } from "./detectors/anomalies.js";
@@ -27,6 +28,7 @@ export const DETECTORS: readonly Detector[] = [
   ...QUEUE_DETECTORS,
   ...ORPHAN_DETECTORS,
   ...E11_DETECTORS,
+  documentedResearch,
 ];
 
 /**
@@ -47,6 +49,7 @@ export const DETECTORS: readonly Detector[] = [
  * dirigido no toca los hallazgos de los detectores globales.
  */
 const GLOBAL_DETECTOR_KEYS: ReadonlySet<string> = new Set([
+  documentedResearch.key,
   ...DUPLICATE_DETECTORS.map((detector) => detector.key),
   ...QUEUE_DETECTORS.map((detector) => detector.key),
   ...E11_GLOBAL_DETECTORS.map((detector) => detector.key),
@@ -76,7 +79,7 @@ export const DETECTOR_DEFINITIONS: readonly DetectorDefinition[] = [...DETECTORS
  * v3 (PLAN_CURADURIA E2 cierre 20/20): además de v2, elimina los falsos
  * positivos etiquetados que todavía dejaban detectores por debajo de 90 %.
  */
-export const RULES_VERSION = "curation-rules.v6";
+export const RULES_VERSION = "curation-rules.v7";
 
 export interface DetectorFailure { detector: string; error: string; }
 

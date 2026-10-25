@@ -3,6 +3,8 @@ import { useSearchParams } from "react-router-dom";
 import { DecadeFilter } from "../components/DecadeFilter";
 import { useDecadeFilter, decadeLabel } from "../lib/useDecadeFilter";
 import { CatalogFilters } from "../components/CatalogFilters";
+import { CatalogSort } from "../components/CatalogSort";
+import { useCatalogSort } from "../lib/useCatalogSort";
 import { TypeFilter } from "../components/TypeFilter";
 import { artistsApi, artistWrites, genresApi } from "../lib/api";
 import { useEntityList } from "../lib/useEntityList";
@@ -17,7 +19,7 @@ import { EntityCard, initialOf } from "../components/EntityCard";
 import { Pagination } from "../components/Pagination";
 import { EntityFormModal } from "../components/EntityFormModal";
 import { ARTIST_FIELDS } from "../lib/entityFields";
-import { ARTIST_TYPES, artistTypeLabel } from "../lib/labels";
+import { ARTIST_TYPES, artistGroupFilterLabel, artistTypeLabel } from "../lib/labels";
 import { CatalogSearchInput } from "../components/CatalogSearchInput";
 
 export function ArtistsListPage() {
@@ -27,10 +29,11 @@ export function ArtistsListPage() {
   const typeParam = params.get("tipo");
   const selectedType = typeParam && ARTIST_TYPES.includes(typeParam) ? typeParam : null;
   const decade = useDecadeFilter();
+  const { sort, selectSort } = useCatalogSort();
   const typeFacets = useAsync(artistsApi.facets, []);
   const genre = useGenreFilter({ allowRelated: false });
   const facets = useAsync(() => genresApi.facets("artist"), []);
-  const { data, loading, error, reload, q, offset, limit, setQuery, setOffset } = useEntityList(artistsApi.list, [user?.name], { ...genre.apiParams, ...decade.apiParams, ...(selectedType ? { artistType: selectedType } : {}) });
+  const { data, loading, error, reload, q, offset, limit, setQuery, setOffset } = useEntityList(artistsApi.list, [user?.name], { sort, ...genre.apiParams, ...decade.apiParams, ...(selectedType ? { artistType: selectedType } : {}) });
   const genreLabel = genreSelectionLabel(facets.data, genre.selection);
   const filtered = Boolean(q.trim()) || genreLabel !== null || selectedType !== null || decade.selection !== null;
   const { notify } = useToast();
@@ -58,13 +61,16 @@ export function ArtistsListPage() {
     <>
       <div className="page-header">
         <div>
-          <p className="page-kicker">Catálogo</p>
-          <h1>Artistas y bandas</h1>
+          <h1>Artistas</h1>
         </div>
         {isAdmin ? <button type="button" className="btn btn--primary" onClick={() => setCreating(true)}>+ Nuevo artista</button> : null}
       </div>
 
-      <CatalogFilters typeLabel="Tipo de artista"
+      <CatalogFilters
+        mobile={{ query: q, onClearQuery: () => setQuery(""), total: data?.pagination.total, noun: { one: "artista", many: "artistas" }, onClearAll: clearFilters }}
+        typeLabel="Tipos"
+        values={{ type: selectedType ? artistGroupFilterLabel(selectedType) : null, genre: genreLabel, decade: decade.selection !== null ? decadeLabel(decade.selection) : null }}
+        sort={<CatalogSort kind="artist" value={sort} onChange={selectSort} />}
         decadeActive={decade.selection !== null}
         decadeFilter={<DecadeFilter facets={typeFacets.data} error={typeFacets.error} onRetry={typeFacets.reload}
           selection={decade.selection} onSelect={decade.select} basis="formation" />}
@@ -74,7 +80,7 @@ export function ArtistsListPage() {
             placeholder="Filtrar por nombre…" label="Filtrar artistas por nombre" />
         }
         typeFilter={
-          <TypeFilter kind="artist" typeLabel={artistTypeLabel} facets={typeFacets.data}
+          <TypeFilter kind="artist" typeLabel={artistGroupFilterLabel} facets={typeFacets.data}
             error={typeFacets.error} onRetry={typeFacets.reload} selectedType={selectedType} onSelect={selectType} />
         }
         genreFilter={
@@ -87,7 +93,7 @@ export function ArtistsListPage() {
         query={q} onClearQuery={() => setQuery("")} onClearAll={clearFilters}
         filters={[
           ...(decade.selection !== null ? [{ key: "decade", label: decadeLabel(decade.selection), onClear: () => decade.select(null) }] : []),
-          ...(selectedType ? [{ key: "type", label: artistTypeLabel(selectedType), onClear: () => selectType(null) }] : []),
+          ...(selectedType ? [{ key: "type", label: artistGroupFilterLabel(selectedType), onClear: () => selectType(null) }] : []),
           ...(genreLabel ? [{ key: "genre", label: genreLabel, onClear: genre.clear }] : []),
         ]} />
 
@@ -106,10 +112,10 @@ export function ArtistsListPage() {
                 to={`/artistas/${artist.id}`}
                 title={artist.name}
                 deceased={artist.isDeceased}
-                subtitle={[artistTypeLabel(artist.artistType), artist.originCity].filter(Boolean).join(" · ")}
+                subtitle={[artistTypeLabel(artist.artistGroup ?? artist.artistType), artist.originCity].filter(Boolean).join(" · ")}
                 imageUrl={artist.pictureUrl}
                 placeholder={initialOf(artist.name)}
-                genres={artist.primaryGenre ? [artist.primaryGenre] : []} year={artist.formedYear} typeValue={artist.artistType}
+                genres={artist.primaryGenre ? [artist.primaryGenre] : []} year={artist.formedYear} typeValue={artist.artistGroup ?? artist.artistType}
                 tag={artist.genreByLaya ? "Género por Laya" : null}
                 tagTitle="Género principal elegido por Laya (último recurso), directo o por sus discos. Solo visible con sesión iniciada."
               />

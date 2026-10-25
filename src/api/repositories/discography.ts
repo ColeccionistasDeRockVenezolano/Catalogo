@@ -19,6 +19,7 @@ export interface AlbumVersion {
   id: number;
   position: number;
   title: string | null;
+  editionTypes: string[];
   format: string | null;
   formatDetails: string | null;
   catalogNumber: string | null;
@@ -54,10 +55,10 @@ const sourceUrlOf = (ref: string | null): string | null => ref?.match(/https?:\/
 export async function albumDiscography(albumId: number, fallbackLabel: { id: number; name: string } | null): Promise<AlbumDiscography> {
   const pool = getPool();
   const [versions, labels, series, statements] = await Promise.all([
-    pool.query<{ id: string; position: number; title: string | null; format: string | null; format_details: string | null; catalog_number: string | null;
+    pool.query<{ id: string; position: number; title: string | null; edition_types: string[]; format: string | null; format_details: string | null; catalog_number: string | null;
       country: string | null; release_year: number | null; release_date: DateValue | null; cover_url: string | null; notes: string | null;
       distinct_tracks: boolean; disc_numbers: number[]; is_primary: boolean; source: string | null; source_ref: string | null }>(`
-      SELECT id::text, position, title, format, format_details, catalog_number, country, release_year, release_date, cover_url, notes,
+      SELECT id::text, position, title, edition_types, format, format_details, catalog_number, country, release_year, release_date, cover_url, notes,
              distinct_tracks, disc_numbers, is_primary, source, source_ref
         FROM ingest.album_versions WHERE album_id = $1 ORDER BY is_primary DESC, position, id`, [albumId]),
     pool.query<{ version_id: string | null; organization_id: string; name: string; role: LabelRole }>(`
@@ -71,7 +72,7 @@ export async function albumDiscography(albumId: number, fallbackLabel: { id: num
         SELECT sa.series_id, sa.album_id, a.title, sa.volume_number,
                lag(sa.album_id) OVER w AS prev_id, lag(a.title) OVER w AS prev_title,
                lead(sa.album_id) OVER w AS next_id, lead(a.title) OVER w AS next_title
-          FROM ingest.series_albums sa JOIN public.albums a ON a.id = sa.album_id
+          FROM ingest.series_albums sa JOIN ingest.catalog_albums a ON a.id = sa.album_id
          WHERE sa.series_id IN (SELECT series_id FROM mine)
         WINDOW w AS (PARTITION BY sa.series_id ORDER BY sa.volume_number NULLS LAST, a.release_year NULLS LAST, a.id))
       SELECT s.id::text, s.title, m.volume_number::text, m.volume_label, o.prev_id::text, o.prev_title, o.next_id::text, o.next_title
@@ -93,7 +94,7 @@ export async function albumDiscography(albumId: number, fallbackLabel: { id: num
   }
   const versionRows: AlbumVersion[] = versions.rows.map((row) => {
     const version: AlbumVersion = {
-      id: Number(row.id), position: row.position, title: row.title, format: row.format, formatDetails: row.format_details, catalogNumber: row.catalog_number,
+      id: Number(row.id), position: row.position, title: row.title, editionTypes: row.edition_types, format: row.format, formatDetails: row.format_details, catalogNumber: row.catalog_number,
       country: row.country, releaseYear: row.release_year, releaseDate: row.release_date ? dateValueText(row.release_date) : null, coverUrl: row.cover_url,
       notes: row.notes, distinctTracks: row.distinct_tracks, discNumbers: row.disc_numbers ?? [], isPrimary: row.is_primary, source: row.source,
       sourceUrl: sourceUrlOf(row.source_ref), hasOwnPage: false, labels: byVersion.get(row.id) ?? [],
@@ -149,7 +150,7 @@ export async function organizationDiscography(organizationId: number): Promise<O
       SELECT p.id::text, p.name FROM ingest.organization_places op JOIN ingest.places p ON p.id = op.place_id WHERE op.organization_id = $1 ORDER BY p.name`, [organizationId]),
     pool.query<{ album_id: string; title: string; release_year: number | null; artist_id: string; artist_name: string; role: LabelRole }>(`
       SELECT DISTINCT a.id::text AS album_id, a.title, a.release_year, ar.id::text AS artist_id, ar.name AS artist_name, l.role
-        FROM ingest.album_labels l JOIN public.albums a ON a.id = l.album_id JOIN public.artists ar ON ar.id = a.artist_id
+        FROM ingest.album_labels l JOIN ingest.catalog_albums a ON a.id = l.album_id JOIN ingest.catalog_artists ar ON ar.id = a.artist_id
        WHERE l.organization_id = $1 AND l.role <> 'label'
        ORDER BY a.release_year NULLS LAST, a.title`, [organizationId]),
     pool.query<{ album_id: string; title: string; release_year: number | null; artist_id: string; artist_name: string; roles: Array<[string, number, number]> | null }>(`
@@ -157,10 +158,11 @@ export async function organizationDiscography(organizationId: number): Promise<O
              jsonb_agg(DISTINCT jsonb_build_array(s.text, r.start_offset, r.end_offset)) FILTER (WHERE r.id IS NOT NULL) AS roles
         FROM ingest.credit_statement_parts p
         JOIN ingest.credit_statements s ON s.id = p.statement_id
-        JOIN public.albums a ON a.id = s.album_id JOIN public.artists ar ON ar.id = a.artist_id
+        JOIN ingest.catalog_albums a ON a.id = s.album_id JOIN ingest.catalog_artists ar ON ar.id = a.artist_id
         LEFT JOIN ingest.credit_statement_parts r ON r.statement_id = s.id AND r.part_type = 'role'
        WHERE p.organization_id = $1
-       GROUP BY a.id, ar.id ORDER BY a.release_year NULLS LAST, a.title`, [organizationId]),
+       GROUP BY a.id, a.title, a.release_year, ar.id, ar.name
+       ORDER BY a.release_year NULLS LAST, a.title`, [organizationId]),
   ]);
   return {
     relations: relations.rows.map((row) => ({ direction: row.direction, relationType: row.relation_type, other: { id: Number(row.other_id), name: row.other_name },
@@ -218,7 +220,7 @@ export async function getPlaceDetail(id: number): Promise<PlaceDetail | null> {
              jsonb_agg(DISTINCT jsonb_build_object('id', o.id, 'name', o.name)) FILTER (WHERE o.id IS NOT NULL) AS studios
         FROM lines l
         JOIN ingest.credit_statements s ON s.id = l.statement_id
-        JOIN public.albums a ON a.id = s.album_id JOIN public.artists ar ON ar.id = a.artist_id
+        JOIN ingest.catalog_albums a ON a.id = s.album_id JOIN ingest.catalog_artists ar ON ar.id = a.artist_id
         LEFT JOIN ingest.credit_statement_parts r ON r.statement_id = s.id AND r.part_type = 'role'
         LEFT JOIN ingest.credit_statement_parts op ON op.statement_id = s.id AND op.organization_id IS NOT NULL
         LEFT JOIN public.organizations o ON o.id = op.organization_id
@@ -267,12 +269,12 @@ export async function getSeriesDetail(id: number): Promise<SeriesDetail | null> 
   const series = (await pool.query<{ id: string; title: string; description: string | null; artist_id: string | null; artist_name: string | null;
     organization_id: string | null; organization_name: string | null }>(`
     SELECT s.id::text, s.title, s.description, ar.id::text AS artist_id, ar.name AS artist_name, o.id::text AS organization_id, o.name AS organization_name
-      FROM ingest.series s LEFT JOIN public.artists ar ON ar.id = s.artist_id LEFT JOIN public.organizations o ON o.id = s.organization_id
+      FROM ingest.series s LEFT JOIN ingest.catalog_artists ar ON ar.id = s.artist_id LEFT JOIN public.organizations o ON o.id = s.organization_id
      WHERE s.id = $1`, [id])).rows[0];
   if (!series) return null;
   const volumes = await pool.query<{ album_id: string; title: string; release_year: number | null; cover_url: string | null; volume_number: string | null; volume_label: string | null }>(`
     SELECT a.id::text AS album_id, a.title, a.release_year, a.cover_url, sa.volume_number::text, sa.volume_label
-      FROM ingest.series_albums sa JOIN public.albums a ON a.id = sa.album_id
+      FROM ingest.series_albums sa JOIN ingest.catalog_albums a ON a.id = sa.album_id
      WHERE sa.series_id = $1 ORDER BY sa.volume_number NULLS LAST, a.release_year NULLS LAST, a.id`, [id]);
   return {
     id: Number(series.id), title: series.title, description: series.description,

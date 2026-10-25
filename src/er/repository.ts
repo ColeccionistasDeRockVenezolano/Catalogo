@@ -53,6 +53,7 @@ interface SnapshotEntry {
   tracks?: Promise<TrackIndex>;
 }
 const candidateSnapshot = new AsyncLocalStorage<Map<ResolutionInput["kind"], SnapshotEntry>>();
+const trackWriteClient = new AsyncLocalStorage<Queryable>();
 
 export function withCandidateSnapshot<T>(fn: () => Promise<T>): Promise<T> {
   return candidateSnapshot.run(new Map(), fn);
@@ -79,19 +80,46 @@ interface TrackIndex {
 
 function buildTrackIndex(candidates: ResolutionCandidate[]): TrackIndex {
   const index: TrackIndex = { byAlbumId: new Map(), byAlbumKey: new Map(), byName: new Map() };
+  for (const candidate of candidates) addTrackCandidate(index, candidate);
+  return index;
+}
+
+function addTrackCandidate(index: TrackIndex, candidate: ResolutionCandidate): void {
+  if (candidate.kind !== "TRACK") return;
   const add = <K>(map: Map<K, ResolutionCandidate[]>, key: K, candidate: ResolutionCandidate) => {
     const list = map.get(key);
     if (list) list.push(candidate); else map.set(key, [candidate]);
   };
-  for (const candidate of candidates) {
-    if (candidate.kind !== "TRACK") continue;
-    if (candidate.album?.id !== undefined) add(index.byAlbumId, candidate.album.id, candidate);
-    if (candidate.album?.name) add(index.byAlbumKey, normalizeEntityName(candidate.album.name).secondaryKey, candidate);
-    const keys = new Set(nameKeys(candidate.canonicalName));
-    for (const alias of candidate.aliases ?? []) for (const key of nameKeys(alias.value)) keys.add(key);
-    for (const key of keys) add(index.byName, key, candidate);
-  }
-  return index;
+  if (candidate.album?.id !== undefined) add(index.byAlbumId, candidate.album.id, candidate);
+  if (candidate.album?.name) add(index.byAlbumKey, normalizeEntityName(candidate.album.name).secondaryKey, candidate);
+  const keys = new Set(nameKeys(candidate.canonicalName));
+  for (const alias of candidate.aliases ?? []) for (const key of nameKeys(alias.value)) keys.add(key);
+  for (const key of keys) add(index.byName, key, candidate);
+}
+
+/**
+ * Instantánea para altas de pistas dentro de una transacción del operador.
+ * Los candados impiden que otro escritor cambie pistas/alias mientras se usa.
+ * Cada alta debe registrarse con rememberCreatedTrackInSnapshot antes de la
+ * siguiente resolución. Las lecturas públicas siguen disponibles.
+ */
+export async function withLockedTrackWriteSnapshot<T>(queryable: Queryable, fn: () => Promise<T>): Promise<T> {
+  await queryable.query("LOCK TABLE public.artists, public.albums, public.tracks, ingest.track_aliases IN SHARE ROW EXCLUSIVE MODE");
+  return trackWriteClient.run(queryable, () => withCandidateSnapshot(fn));
+}
+
+/** Lee la pista ya escrita con sus alias; nunca fabrica un candidato. */
+export async function rememberCreatedTrackInSnapshot(queryable: Queryable, trackId: number): Promise<void> {
+  if (trackWriteClient.getStore() !== queryable) throw new Error("No hay instantánea de escritura activa para este cliente");
+  const entry = candidateSnapshot.getStore()?.get("TRACK");
+  if (!entry) throw new Error("No hay instantánea de pistas activa");
+  const rows = await queryCandidates({ kind: "TRACK", name: "" }, queryable, trackId);
+  if (rows.length !== 1) throw new Error("La pista recién creada no existe");
+  const all = await entry.candidates;
+  if (all.some(candidate => candidate.id === trackId)) throw new Error("La pista ya estaba en la instantánea");
+  const candidate = rows[0]!;
+  all.push(candidate);
+  if (entry.tracks) addTrackCandidate(await entry.tracks, candidate);
 }
 
 function trackCandidatesFor(index: TrackIndex, input: ResolutionInput): ResolutionCandidate[] | undefined {
@@ -107,6 +135,8 @@ function trackCandidatesFor(index: TrackIndex, input: ResolutionInput): Resoluti
 }
 
 export async function loadResolutionCandidates(input: ResolutionInput, queryable: Queryable = getPool()): Promise<ResolutionCandidate[]> {
+  const writer = trackWriteClient.getStore();
+  if (writer && writer !== queryable) throw new Error("La instantánea de escritura requiere el mismo cliente bloqueado");
   const snapshot = candidateSnapshot.getStore();
   if (!snapshot) return queryCandidates(input, queryable);
   let entry = snapshot.get(input.kind);
@@ -123,7 +153,7 @@ export async function loadResolutionCandidates(input: ResolutionInput, queryable
   return trackCandidatesFor(await entry.tracks, input) ?? all;
 }
 
-async function queryCandidates(input: ResolutionInput, queryable: Queryable): Promise<ResolutionCandidate[]> {
+async function queryCandidates(input: ResolutionInput, queryable: Queryable, trackId?: number): Promise<ResolutionCandidate[]> {
   if (input.kind === "ARTIST") {
     const result = await queryable.query<CandidateRow>(`
       SELECT a.id::text, a.name, a.formed_year, a.disbanded_year, a.origin_city, a.origin_country,
@@ -181,7 +211,8 @@ async function queryCandidates(input: ResolutionInput, queryable: Queryable): Pr
     const result = await queryable.query<CandidateRow>(`
       SELECT t.id::text,t.title AS name,t.disc_number,t.track_number,al.id AS album_id,al.title AS album_name,ar.name AS artist_name,
         COALESCE((SELECT jsonb_agg(jsonb_build_object('value',x.alias,'type',x.alias_type,'confidence',x.confidence)) FROM ingest.track_aliases x WHERE x.track_id=t.id),'[]'::jsonb) aliases
-      FROM public.tracks t JOIN public.albums al ON al.id=t.album_id JOIN public.artists ar ON ar.id=al.artist_id ORDER BY t.id`);
+      FROM public.tracks t JOIN public.albums al ON al.id=t.album_id JOIN public.artists ar ON ar.id=al.artist_id
+      ${trackId === undefined ? "" : "WHERE t.id=$1"} ORDER BY t.id`, trackId === undefined ? [] : [trackId]);
     return result.rows.map((row) => ({
       kind: "TRACK", id: Number(row.id), name: row.name, canonicalName: row.name, aliases: aliases(row.aliases),
       album: { id: Number(row["album_id"]), name: String(row["album_name"]), artistName: String(row["artist_name"]) },
@@ -189,12 +220,23 @@ async function queryCandidates(input: ResolutionInput, queryable: Queryable): Pr
     }));
   }
   const result = await queryable.query<CandidateRow>(`
+    WITH organization_album_titles AS (
+      SELECT label_id AS organization_id,title FROM public.albums WHERE label_id IS NOT NULL
+      UNION
+      SELECT ac.organization_id,al.title FROM public.album_credits ac JOIN public.albums al ON al.id=ac.album_id WHERE ac.organization_id IS NOT NULL
+    ), organization_albums AS (
+      SELECT organization_id,array_agg(title ORDER BY title) AS titles FROM organization_album_titles GROUP BY organization_id
+    ), organization_persons AS (
+      SELECT po.organization_id,array_agg(DISTINCT p.name ORDER BY p.name) AS names
+      FROM public.person_organizations po JOIN public.persons p ON p.id=po.person_id GROUP BY po.organization_id
+    )
     SELECT o.id::text,o.name,o.organization_type,o.country,
       COALESCE((SELECT jsonb_agg(jsonb_build_object('value',x.alias,'type',x.alias_type,'confidence',x.confidence)) FROM ingest.organization_aliases x WHERE x.organization_id=o.id),'[]'::jsonb) aliases,
-      ARRAY(SELECT DISTINCT al.title FROM public.albums al WHERE al.label_id=o.id
-            UNION SELECT DISTINCT al2.title FROM public.album_credits ac JOIN public.albums al2 ON al2.id=ac.album_id WHERE ac.organization_id=o.id) associated_albums,
-      ARRAY(SELECT DISTINCT p.name FROM public.person_organizations po JOIN public.persons p ON p.id=po.person_id WHERE po.organization_id=o.id) associated_persons
-    FROM public.organizations o ORDER BY o.id`);
+      COALESCE(oa.titles,ARRAY[]::text[]) associated_albums,
+      COALESCE(op.names,ARRAY[]::text[]) associated_persons
+    FROM public.organizations o
+    LEFT JOIN organization_albums oa ON oa.organization_id=o.id
+    LEFT JOIN organization_persons op ON op.organization_id=o.id ORDER BY o.id`);
   return result.rows.map((row) => ({
     kind: "ORGANIZATION", id: Number(row.id), name: row.name, canonicalName: row.name, aliases: aliases(row.aliases),
     ...(typeof row["organization_type"] === "string" ? { organizationType: row["organization_type"] } : {}),

@@ -4,13 +4,13 @@ import { diffCoreCatalog } from "../../src/doctor/core-catalog.js";
 // Grafía de la base viva (y de las listas aprobadas): comprobada contra
 // postgres:16 al crear `public.social_links`.
 const viva =
-  "CONSTRAINT social_links.social_links_platform_ck CHECK (((platform)::text = ANY ((ARRAY['instagram'::character varying, 'facebook'::character varying, 'x'::character varying, 'tiktok'::character varying, 'threads'::character varying, 'bluesky'::character varying])::text[])))";
+  "CONSTRAINT social_links.social_links_platform_ck CHECK (((platform)::text = ANY ((ARRAY['instagram'::character varying, 'facebook'::character varying, 'x'::character varying, 'tiktok'::character varying, 'threads'::character varying, 'bluesky'::character varying, 'website'::character varying, 'store'::character varying, 'linktree'::character varying])::text[])))";
 
 // Grafía de una copia RESTAURADA con pg_dump custom + pg_restore (postgres:16):
 // la restricción se recrea desde su texto deparseado y los casts quedan por
 // elemento. Es la misma restricción; el doctor no debe reportarla como drift.
 const restaurada =
-  "CONSTRAINT social_links.social_links_platform_ck CHECK (((platform)::text = ANY (ARRAY[('instagram'::character varying)::text, ('facebook'::character varying)::text, ('x'::character varying)::text, ('tiktok'::character varying)::text, ('threads'::character varying)::text, ('bluesky'::character varying)::text])))";
+  "CONSTRAINT social_links.social_links_platform_ck CHECK (((platform)::text = ANY (ARRAY[('instagram'::character varying)::text, ('facebook'::character varying)::text, ('x'::character varying)::text, ('tiktok'::character varying)::text, ('threads'::character varying)::text, ('bluesky'::character varying)::text, ('website'::character varying)::text, ('store'::character varying)::text, ('linktree'::character varying)::text])))";
 
 describe("diffCoreCatalog · grafías equivalentes tras dump/restore", () => {
   it("una restauración fiel con otra grafía no figura como drift", () => {

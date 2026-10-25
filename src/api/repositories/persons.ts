@@ -40,13 +40,13 @@ export interface PersonListQuery extends PaginationQuery {
 
 const PERSON_COLUMNS = `
   p.id::text AS id, p.name, p.nationality, p.is_venezuelan, ${personDeceasedSql("p")} AS is_deceased, p.picture_url,
-  ((SELECT count(*) FROM public.album_credits WHERE person_id=p.id)
-   + (SELECT count(*) FROM public.track_credits WHERE person_id=p.id))::int AS credit_count,
+  ((SELECT count(*) FROM ingest.catalog_album_credits WHERE person_id=p.id)
+   + (SELECT count(*) FROM ingest.catalog_track_credits WHERE person_id=p.id))::int AS credit_count,
   (SELECT count(*) FROM public.artist_members WHERE person_id=p.id)::int AS band_count`;
 
 const HAS_ANY_RELATION = `(
-  EXISTS (SELECT 1 FROM public.album_credits WHERE person_id=p.id)
-  OR EXISTS (SELECT 1 FROM public.track_credits WHERE person_id=p.id)
+  EXISTS (SELECT 1 FROM ingest.catalog_album_credits WHERE person_id=p.id)
+  OR EXISTS (SELECT 1 FROM ingest.catalog_track_credits WHERE person_id=p.id)
   OR EXISTS (SELECT 1 FROM public.artist_members WHERE person_id=p.id))`;
 
 interface PersonRowShape {
@@ -85,8 +85,8 @@ export async function listPersons(query: PersonListQuery): Promise<{ rows: Perso
     params.push(query.role);
     const roleParam = `$${params.length}::text`;
     conditions.push(`(
-      EXISTS (SELECT 1 FROM public.album_credits WHERE person_id=p.id AND credit_type::text=${roleParam})
-      OR EXISTS (SELECT 1 FROM public.track_credits WHERE person_id=p.id AND credit_type::text=${roleParam}))`);
+      EXISTS (SELECT 1 FROM ingest.catalog_album_credits WHERE person_id=p.id AND credit_type::text=${roleParam})
+      OR EXISTS (SELECT 1 FROM ingest.catalog_track_credits WHERE person_id=p.id AND credit_type::text=${roleParam}))`);
   }
   const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
   const base = `SELECT ${PERSON_COLUMNS} FROM public.persons p ${where}`;
@@ -125,32 +125,28 @@ export async function getPersonFacets(): Promise<{
   withoutCredits: number;
   roles: Array<{ role: string; count: number }>;
 }> {
-  const [counts, participation] = await Promise.all([
-    getPool().query<{ total: string; without_credits: string }>(
-      `SELECT count(*)::text AS total,
-              count(*) FILTER (WHERE NOT ${HAS_ANY_RELATION})::text AS without_credits
-         FROM public.persons p`,
-    ),
-    getPool().query<{ role: string; count: string }>(
-      `WITH participation AS (
-         SELECT person_id, credit_type::text AS role FROM public.album_credits WHERE person_id IS NOT NULL
-         UNION
-         SELECT person_id, credit_type::text AS role FROM public.track_credits WHERE person_id IS NOT NULL
-         UNION
-         SELECT person_id, 'band_member' AS role FROM public.artist_members
-       )
-       SELECT role, count(*)::text AS count FROM participation
-        GROUP BY role ORDER BY count(*) DESC, role`,
-    ),
-  ]);
-  return {
-    total: Number(counts.rows[0]?.total ?? 0),
-    withoutCredits: Number(counts.rows[0]?.without_credits ?? 0),
-    roles: participation.rows.map((row) => ({ role: row.role, count: Number(row.count) })),
-  };
+  const { rows } = await getPool().query<{
+    total: number; without_credits: number; roles: Array<{ role: string; count: number }>;
+  }>(`WITH participation AS MATERIALIZED (
+        SELECT person_id, credit_type::text AS role FROM ingest.catalog_album_credits WHERE person_id IS NOT NULL
+        UNION
+        SELECT person_id, credit_type::text AS role FROM ingest.catalog_track_credits WHERE person_id IS NOT NULL
+        UNION
+        SELECT person_id, 'band_member' AS role FROM public.artist_members
+      ), participants AS (SELECT DISTINCT person_id FROM participation),
+      counts AS (
+        SELECT count(*)::int AS total, count(*) FILTER (WHERE r.person_id IS NULL)::int AS without_credits
+          FROM public.persons p LEFT JOIN participants r ON r.person_id=p.id
+      ), roles AS (SELECT role, count(*)::int AS count FROM participation GROUP BY role)
+      SELECT total, without_credits, COALESCE(
+        (SELECT jsonb_agg(jsonb_build_object('role',role,'count',count) ORDER BY count DESC,role) FROM roles),
+        '[]'::jsonb) AS roles FROM counts`);
+  const row = rows[0]!;
+  return { total: row.total, withoutCredits: row.without_credits, roles: row.roles };
 }
 
 export interface PersonDetail {
+  artistConversionBlocked: boolean;
   id: number;
   name: string;
   /** «Nombre "Apodo" Apellido» solo para pantalla; null si no tiene apodo. */
@@ -204,8 +200,8 @@ export interface PersonDuplicateCandidateRow {
 
 /** Créditos y membresías de una ficha: lo que se movería al fusionarla. */
 const CREDIT_COUNT = (column: string) => `(
-  (SELECT count(*) FROM public.album_credits WHERE person_id=c.${column})
-  + (SELECT count(*) FROM public.track_credits WHERE person_id=c.${column})
+  (SELECT count(*) FROM ingest.catalog_album_credits WHERE person_id=c.${column})
+  + (SELECT count(*) FROM ingest.catalog_track_credits WHERE person_id=c.${column})
   + (SELECT count(*) FROM public.artist_members WHERE person_id=c.${column}))::int`;
 
 /**
@@ -280,18 +276,19 @@ export async function listPersonDuplicateCandidates(
 export async function getPersonDetail(id: number): Promise<PersonDetail | null> {
   const { rows } = await getPool().query<Record<string, unknown>>(
     `SELECT p.id, p.name, p.biography, p.picture_url, p.nationality, p.is_venezuelan,
+            EXISTS(SELECT 1 FROM ingest.artist_editorial_persons e WHERE e.person_id=p.id) AS artist_conversion_blocked,
             ${personDeceasedSql("p")} AS is_deceased, p.is_deceased AS is_deceased_flag,
             p.birth_date_value AS birth_date, p.death_date_value AS death_date, p.notes,
             p.real_name, p.birth_city, p.death_cause, p.trivia, p.gender,
-            ((SELECT count(*) FROM public.album_credits WHERE person_id=p.id)
-             + (SELECT count(*) FROM public.track_credits WHERE person_id=p.id))::int AS credit_count,
+            ((SELECT count(*) FROM ingest.catalog_album_credits WHERE person_id=p.id)
+             + (SELECT count(*) FROM ingest.catalog_track_credits WHERE person_id=p.id))::int AS credit_count,
             (SELECT count(*) FROM public.artist_members WHERE person_id=p.id)::int AS band_count,
        COALESCE((
          SELECT jsonb_agg(jsonb_build_object(
            'id', am.id, 'artistId', ar.id, 'artistName', ar.name, 'artistType', ar.artist_type, 'role', am.role,
            'fromYear', am.from_year, 'toYear', am.to_year, 'isCurrent', am.is_current
          ) ORDER BY am.from_year NULLS LAST, ar.name)
-         FROM public.artist_members am JOIN public.artists ar ON ar.id = am.artist_id
+         FROM public.artist_members am JOIN ingest.catalog_artists ar ON ar.id = am.artist_id
          WHERE am.person_id = p.id
        ), '[]'::jsonb) AS bands,
        COALESCE((
@@ -299,9 +296,9 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
            'id', ac.id, 'albumId', al.id, 'albumTitle', al.title, 'artistId', ar2.id, 'artistName', ar2.name,
            'creditType', ac.credit_type, 'role', ac.role
          ) ORDER BY al.title)
-         FROM public.album_credits ac
-         JOIN public.albums al ON al.id = ac.album_id
-         JOIN public.artists ar2 ON ar2.id = al.artist_id
+         FROM ingest.catalog_album_credits ac
+         JOIN ingest.catalog_albums al ON al.id = ac.album_id
+         JOIN ingest.catalog_artists ar2 ON ar2.id = al.artist_id
          WHERE ac.person_id = p.id
        ), '[]'::jsonb) AS album_credits,
        COALESCE((
@@ -309,9 +306,9 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
            'id', tc.id, 'trackId', t.id, 'trackTitle', t.title, 'albumId', al3.id, 'albumTitle', al3.title,
            'creditType', tc.credit_type, 'role', tc.role
          ) ORDER BY al3.title, t.disc_number, t.track_number)
-         FROM public.track_credits tc
-         JOIN public.tracks t ON t.id = tc.track_id
-         JOIN public.albums al3 ON al3.id = t.album_id
+         FROM ingest.catalog_track_credits tc
+         JOIN ingest.catalog_tracks t ON t.id = tc.track_id
+         JOIN ingest.catalog_albums al3 ON al3.id = t.album_id
          WHERE tc.person_id = p.id
        ), '[]'::jsonb) AS track_credits,
        COALESCE((
@@ -338,6 +335,7 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
   const displayNames = await personDisplayNames([id]);
   return {
     id: Number(row["id"]),
+    artistConversionBlocked: Boolean(row["artist_conversion_blocked"]),
     name: row["name"] as string,
     displayName: displayNames.get(id) ?? null,
     biography: row["biography"] as string | null,

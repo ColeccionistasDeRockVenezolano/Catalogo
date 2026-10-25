@@ -26,13 +26,15 @@ export async function registerPlatformLinkRoutes(app: FastifyInstance): Promise<
   server.patch(`${path}/:platform`, {
     schema: { tags: ["catalog-links:write"], security: OPERATOR_SECURITY, params: params.extend({ platform: z.string().max(24) }),
       body: z.object({ url: z.string().trim().url().max(2000).refine((url) => /^https?:\/\//u.test(url), "Usa una URL http o https."),
-        handle: z.string().trim().max(120).nullable().optional(), verified: z.boolean(), note: noteSchema }).strict(),
+        handle: z.string().trim().max(120).nullable().optional(), verified: z.boolean(),
+        externalId: z.string().trim().max(120).nullable().optional(), note: noteSchema }).strict(),
       response: { 200: writeResult, ...writeErrorResponses } },
   }, async (request) => {
     const { kind, id, category, platform } = request.params;
     const { runId } = await withOperatorRun({ name: "api:save:catalog-link", operator: request.operator, note: request.body.note,
       params: { kind, id, category, platform } }, (context) => writePlatformLink(context, kind, id, category, platform,
-        { url: request.body.url, handle: request.body.handle?.replace(/^@/u, "") || null, verified: request.body.verified }));
+        { url: request.body.url, handle: request.body.handle?.replace(/^@/u, "") || null, verified: request.body.verified,
+          externalId: request.body.externalId ?? null }));
     return { runId };
   });
   server.delete(`${path}/:platform`, {

@@ -2,6 +2,16 @@ import { describe, expect, it } from "vitest";
 import { embedFor, embedOptions, preferredPlatform } from "../../src/lib/embeds";
 
 describe("reproductor de cada plataforma", () => {
+  it("CRV reproduce el video elegido sin convertirlo en una lista ni mezclarlo con el YouTube del artista", () => {
+    expect(embedFor({ platform: "crv_youtube", url: "https://www.youtube.com/watch?v=mKt3ABDlyTg" }, "artist"))
+      .toMatchObject({ src: "https://www.youtube-nocookie.com/embed/mKt3ABDlyTg?rel=0", previewsWithoutLogin: false });
+    expect(embedFor({ platform: "crv_youtube", url: "https://www.youtube.com/watch?v=invalido" }, "artist")).toBeNull();
+    const options = embedOptions([{ label: "Video CRV", links: [
+      { platform: "crv_youtube", url: "https://www.youtube.com/watch?v=mKt3ABDlyTg" },
+      { platform: "youtube", url: "https://www.youtube.com/channel/UCtYlrz6GyvRahlhHjocWQYQ" },
+    ] }], "artist");
+    expect(options.map(option => option.platform)).toEqual(["crv_youtube", "youtube"]);
+  });
   it("Spotify: disco, artista y pista, también con prefijo de idioma", () => {
     expect(embedFor({ platform: "spotify", url: "https://open.spotify.com/album/4aawyAB9vmqN3uQ7FjRGTy" }, "album")?.src)
       .toBe("https://open.spotify.com/embed/album/4aawyAB9vmqN3uQ7FjRGTy?utm_source=generator");
@@ -33,6 +43,20 @@ describe("reproductor de cada plataforma", () => {
       .toContain("https://bandcamp.com/EmbeddedPlayer/album=3578302479/");
     expect(embedFor({ platform: "bandcamp", url: "https://x.bandcamp.com/" }, "artist")).toBeNull();
   });
+  it("conserva el perfil y usa el identificador documentado para reproducir", () => {
+    expect(embedFor({platform:"youtube",url:"https://www.youtube.com/@embriogenesis",externalId:"UCtYlrz6GyvRahlhHjocWQYQ"},"artist")?.src)
+      .toContain("list=UUtYlrz6GyvRahlhHjocWQYQ");
+    expect(embedFor({platform:"bandcamp",url:"https://example.bandcamp.com",externalId:"album=123456"},"artist")?.src)
+      .toContain("album=123456/");
+  });
+  it("permite un disco verificado como fuente del reproductor de un artista", () => {
+    const options=embedOptions([
+      {label:null,links:[{platform:"apple_music",url:"https://music.apple.com/us/artist/829131381"}]},
+      {label:"Disco documentado",owner:"album",links:[{platform:"apple_music",url:"https://music.apple.com/us/album/prueba/123456"}]},
+    ],"artist");
+    expect(options).toHaveLength(1);
+    expect(options[0]?.targets[0]).toMatchObject({label:"Disco documentado",embed:{src:"https://embed.music.apple.com/us/album/123456"}});
+  });
 
   it("SoundCloud codifica la URL del perfil", () => {
     const embed = embedFor({ platform: "soundcloud", url: "https://soundcloud.com/gorgorothofficial" }, "artist");
@@ -53,6 +77,34 @@ describe("reproductor de cada plataforma", () => {
 });
 
 describe("selector de plataformas", () => {
+  it("en artistas prioriza SoundCloud, Spotify, CRV y Deezer antes de otros reproductores", () => {
+    const links = [
+      { platform: "youtube", url: "https://www.youtube.com/channel/UCtYlrz6GyvRahlhHjocWQYQ" },
+      { platform: "deezer", url: "https://www.deezer.com/artist/461584" },
+      { platform: "crv_youtube", url: "https://www.youtube.com/watch?v=mKt3ABDlyTg" },
+      { platform: "spotify", url: "https://open.spotify.com/artist/1Dt7cfRzxM8qPVa82jX9y5" },
+      { platform: "soundcloud", url: "https://soundcloud.com/gorgorothofficial" },
+      { platform: "amazon_music", url: "https://music.amazon.com/artists/B000QKCC9Q" },
+    ];
+    for (const expected of ["soundcloud", "spotify", "crv_youtube", "deezer", "youtube"]) {
+      const options = embedOptions([{ label: null, links }], "artist");
+      expect(options[0]?.platform).toBe(expected);
+      expect(options.some(option => option.platform === "amazon_music")).toBe(false);
+      links.splice(links.findIndex(link => link.platform === expected), 1);
+    }
+    expect(embedOptions([{ label: null, links }], "artist")).toEqual([]);
+  });
+
+  it("omite enlaces sin reproductor válido al elegir la prioridad del perfil", () => {
+    const options = embedOptions([{ label: null, links: [
+      { platform: "soundcloud", url: "https://example.com/perfil" },
+      { platform: "spotify", url: "https://open.spotify.com/user/xyz" },
+      { platform: "crv_youtube", url: "https://www.youtube.com/watch?v=invalido" },
+      { platform: "deezer", url: "https://www.deezer.com/artist/461584" },
+    ] }], "artist");
+    expect(options.map(option => option.platform)).toEqual(["deezer"]);
+  });
+
   it("ordena por plataforma, agrupa los reproductores de cada disco y no repite", () => {
     const options = embedOptions([
       { label: null, links: [{ platform: "deezer", url: "https://www.deezer.com/album/1" }, { platform: "spotify", url: "https://open.spotify.com/album/4aawyAB9vmqN3uQ7FjRGTy" }, { platform: "amazon_music", url: "https://music.amazon.com/albums/B1" }] },

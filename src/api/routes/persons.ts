@@ -27,6 +27,7 @@ const personListItemSchema = z.object({
 });
 
 const personDetailSchema = personListItemSchema.extend({
+  artistConversionBlocked: z.boolean(),
   displayName: z.string().nullable().describe("«Nombre \"Apodo\" Apellido» para pantalla (alias de tipo apodo); la ficha conserva el nombre real."),
   realName: z.string().nullable(),
   birthCity: z.string().nullable(),

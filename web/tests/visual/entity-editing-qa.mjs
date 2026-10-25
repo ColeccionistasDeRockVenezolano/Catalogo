@@ -1,3 +1,4 @@
+import { dailyCycleAt } from "../../../src/shared/daily-cycle.ts";
 import assert from "node:assert/strict";
 import { mkdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -7,13 +8,16 @@ const base = process.env.CRV_WEB_URL ?? "http://127.0.0.1:5173";
 const out = fileURLToPath(new URL("../../../docs/ui-qa/entity-editing/", import.meta.url));
 await mkdir(out, { recursive: true });
 const initialPerson = { id: 9, name: "Persona de prueba", realName: "Nombre real de prueba", birthCity: "Caracas", gender: "male", deathCause: null, trivia: "Compositor y guitarrista", nationality: "Venezolana", isVenezuelan: true, isDeceased: false, isDeceasedFlag: null, birthDate: "1970-02-03", deathDate: null, pictureUrl: null, biography: "Biografía", notes: "Notas", creditCount: 0, bandCount: 0, nameClass: "ok", nameClassReason: "", bands: [], albumCredits: [], trackCredits: [], organizations: [], aliases: [] };
-const initialArtist = { id: 58, name: "Artista de prueba", artistType: "solo_artist", originCountry: "Venezuela", originCity: "Caracas", formedYear: 1990, disbandedYear: null, status: "on_hold", themes: "Historia", yearsActive: "1990–2000, 2005–presente", pictureUrl: null, logoUrl: null, biography: "Biografía", notes: "Notas", members: [], discography: [], aliases: [], links: [], platforms: [], socials: [], related: [], similar: [], similarDecade: null, genres: [], primaryGenre: null };
+const serverNow = new Date();
+const clock = {...dailyCycleAt(serverNow),serverNow:serverNow.toISOString()};
+const initialArtist = { id: 58, dailyCycle: clock, name: "Artista de prueba", artistType: "solo_artist", originCountry: "Venezuela", originCity: "Caracas", formedYear: 1990, disbandedYear: null, status: "on_hold", themes: "Historia", yearsActive: "1990–2000, 2005–presente", pictureUrl: null, logoUrl: null, biography: "Biografía", notes: "Notas", members: [], discography: [], aliases: [], links: [], platforms: [], socials: [], related: [], similar: [], similarDecade: null, genres: [], primaryGenre: null };
 const initialAlbum = { id: 57, title: "Disco de prueba", albumType: "studio_album", releaseYear: 2000, releaseDateText: "Octubre de 2000", catalogId: "CRV-001", mediaFormat: "CD", genre: null, genres: [], primaryGenre: null, artist: { id: 58, name: "Artista de prueba" }, label: { id: 2, name: "Sello de prueba" }, coverUrl: null, description: "Descripción", notes: "Notas", youtubeUrl: null, youtubeStatus: "unknown", instagramUrl: null, instagramStatus: "unknown", wordpressUrl: null, wordpressStatus: "unknown", tracklist: [{ id: 1, title: "Pista de prueba", discNumber: 1, trackNumber: 1, durationSeconds: 123, youtubeStartSeconds: null, notes: "Nota existente de la pista", credits: [] }], credits: [], creditsByType: {}, scopedCreditsByType: {}, formats: [], aliases: [], youtubeLinks: [], platforms: [] };
 const initialOrg = { id: 2, name: "Sello de prueba", organizationType: "record_label", biography: "Descripción", pictureUrl: null, country: "Venezuela", websiteUrl: "https://example.com", notes: "Notas", labelAlbums: [], creditedArtists: [], associatedPersons: [], aliases: [] };
 const browser = await chromium.launch({ headless: true });
 try {
   for (const width of [1440, 390]) {
     for (const role of ["admin", "reader", null]) {
+      if(width===1440 && role==="admin" && process.env.CRV_QA_SKIP_DESKTOP_ADMIN) continue;
       const context = await browser.newContext({ viewport: { width, height: 950 } });
       const page = await context.newPage();
       const artist = structuredClone(initialArtist), person = structuredClone(initialPerson), album = structuredClone(initialAlbum), org = structuredClone(initialOrg);
@@ -24,7 +28,13 @@ try {
         const req = route.request();
         if (!["fetch", "xhr"].includes(req.resourceType())) return route.continue();
         const pathname = new URL(req.url()).pathname.replace(/^\/crv\/api/u, "");
+        if (pathname === "/daily-cycle") return route.fulfill({json:clock});
         if (pathname === "/auth/me") return route.fulfill({ json: { user: role ? { name: "QA", username: "qa", role } : null, csrf: "qa-token" } });
+        if (pathname.startsWith("/catalog-editor/entity/")) {
+          const kind=pathname.split("/")[3];const values=({artist,person,album,organization:org,track:album.tracklist[0]})[kind];
+          return route.fulfill({json:{values,vocabulary:{albumTypes:["studio_album","live_album","ep","single","other"],classifications:["B-Sides","En vivo","Remix","Acústico","Instrumental"]}}});
+        }
+        if(pathname.startsWith("/catalog-editor/")||pathname.endsWith("/periods")) return route.fulfill({json:[]});
         if (req.method() !== "GET") {
           const body = req.postDataJSON(); writes.push({ path: pathname, method: req.method(), body });
           if (pathname.startsWith("/artist-members")) {
@@ -60,7 +70,7 @@ try {
         assert.equal(await edit.count(), 0);
         for (const path of ["/personas/9", "/discos/57", "/organizaciones/2"]) {
           await page.goto(`${base}${path}`);
-          await page.locator(".entity-hero").waitFor();
+          await page.locator(".entity-hero__title").waitFor();
           assert.equal(await page.locator(".page-actions").getByRole("button", { name: "Editar", exact: true }).count(), 0);
         }
         assert.equal(writes.length, 0);
@@ -69,22 +79,50 @@ try {
         continue;
       }
       await edit.click();
-      const dialog = page.getByRole("dialog");
+      // Solo diálogos modales: los avisos (Base UI Toast) también llevan role="dialog".
+      const dialog = page.locator('[role="dialog"][aria-modal="true"]');
+      // El botón principal de la bandeja: «Guardar cambio» o «Guardar N cambios».
+      const saveButton = () => dialog.locator(".eedit__tray-actions button[type=submit]");
       assert.equal(await dialog.getByLabel("Estado de actividad").inputValue(), "on_hold");
       assert.equal(await dialog.getByLabel("Períodos de actividad").inputValue(), artist.yearsActive);
-      await dialog.locator("#f-name").fill("Borrador sin perder");
-      await dialog.getByRole("button", { name: "Identidad e integrantes", exact: true }).click();
+      // El foco entra al primer campo de la ficha, no al botón «Cerrar» ni al menú; el fondo queda inerte.
+      assert.equal(await page.evaluate(() => Boolean(document.activeElement?.closest(".eedit__form"))), true, "foco en el primer campo");
+      assert.equal(await page.evaluate(() => document.activeElement === document.querySelector(".modal-close")), false, "el foco no cae en Cerrar");
+      assert.equal(await page.evaluate(() => document.getElementById("root")?.hasAttribute("inert")), true, "fondo inerte");
+      // Con el contenido desplazado, el título, el menú de secciones y la bandeja siguen a la vista
+      // (medido cuando termina la entrada del panel, que en móvil sube 24px).
+      await dialog.evaluate((el) => Promise.all(el.getAnimations().map((animation) => animation.finished)));
+      const scrolled = await dialog.locator(".eedit__main").evaluate((el) => { el.scrollTop = el.scrollHeight; return el.scrollTop; });
+      assert.ok(scrolled > 0, "el contenido del editor scrollea");
+      const headingBox = await dialog.getByRole("heading", { name: `Editar «${artist.name}»` }).boundingBox();
+      assert.ok(headingBox && headingBox.y >= 0 && headingBox.y < 220, "el título sigue visible al desplazar");
+      const navBox = await dialog.getByLabel("Secciones de edición").boundingBox();
+      assert.ok(navBox && navBox.y >= 0 && navBox.y < 320, "las pestañas siguen visibles al desplazar");
+      const trayBox = await dialog.locator(".eedit__tray").boundingBox();
+      const viewport = page.viewportSize();
+      assert.ok(trayBox && viewport && trayBox.y + trayBox.height <= viewport.height + 1, "la bandeja de cambios queda a la vista");
+      await dialog.locator(".eedit__main").evaluate((el) => { el.scrollTop = 0; });
+      await dialog.getByLabel("Nombre *", { exact: true }).fill("Borrador sin perder");
+      // Cerrar con cambios sin guardar exige confirmación; cancelar conserva el borrador.
+      await page.keyboard.press("Escape");
+      const discard = page.getByRole("alertdialog", { name: "Descartar cambios" });
+      await discard.waitFor();
+      await discard.getByRole("button", { name: "Cancelar", exact: true }).click();
+      await discard.waitFor({ state: "hidden" });
+      assert.equal(await dialog.getByLabel("Nombre *", { exact: true }).inputValue(), "Borrador sin perder");
+      assert.equal(await page.evaluate(() => document.getElementById("root")?.hasAttribute("inert")), true, "el fondo sigue inerte");
+      await dialog.getByRole("button", { name: "Titular e integrantes", exact: true }).click();
       await dialog.getByRole("button", { name: "Asociar persona titular", exact: true }).click();
       await dialog.getByRole("combobox", { name: "Persona *" }).fill("Persona");
       await dialog.getByRole("option").first().click();
-      await dialog.getByLabel("Motivo", { exact: false }).filter({ visible: true }).fill("Confirmar titular");
+      await dialog.getByLabel(/^Motivo( \*)?$/).filter({ visible: true }).fill("Confirmar titular");
       await dialog.getByRole("button", { name: "Guardar vínculo", exact: true }).click();
       await dialog.getByRole("button", { name: /Quitar vínculo con/ }).waitFor();
       assert.equal(writes.at(-1).body.role, "Titular del proyecto");
-      assert.equal(await dialog.locator('input[id="f-name"]').inputValue(), "Borrador sin perder");
+      assert.equal(await dialog.getByLabel("Nombre *", { exact: true }).inputValue(), "Borrador sin perder");
       await page.screenshot({ animations: "disabled", path: `${out}/artist-members-${width}.png` });
       await dialog.getByRole("button", { name: /Quitar vínculo con/ }).click();
-      await dialog.getByLabel("Motivo", { exact: false }).filter({ visible: true }).fill("Retirar titular equivocado");
+      await dialog.getByLabel(/^Motivo( \*)?$/).filter({ visible: true }).fill("Retirar titular equivocado");
       await dialog.getByRole("button", { name: "Quitar vínculo", exact: true }).click();
       await dialog.getByText("Sin vínculos registrados.").first().waitFor();
       assert.equal(writes.at(-1).method, "DELETE");
@@ -92,7 +130,7 @@ try {
       await dialog.getByRole("combobox", { name: "Persona *" }).fill("Persona");
       await dialog.getByRole("option").first().click();
       await dialog.getByLabel("Rol *", { exact: true }).fill("Guitarra");
-      await dialog.getByLabel("Motivo", { exact: false }).filter({ visible: true }).fill("Añadir integrante");
+      await dialog.getByLabel(/^Motivo( \*)?$/).filter({ visible: true }).fill("Añadir integrante");
       await dialog.getByRole("button", { name: "Guardar vínculo", exact: true }).click();
       await dialog.getByText("Guitarra", { exact: true }).waitFor();
       assert.equal(writes.at(-1).body.role, "Guitarra");
@@ -100,35 +138,56 @@ try {
       await dialog.getByRole("button", { name: "Añadir red social" }).click();
       await dialog.getByLabel("URL *", { exact: true }).fill("https://instagram.com/prueba");
       await dialog.getByLabel("Identidad confirmada", { exact: true }).check();
-      await dialog.getByLabel("Motivo", { exact: false }).filter({ visible: true }).fill("Perfil oficial");
+      await dialog.getByLabel(/^Motivo( \*)?$/).filter({ visible: true }).fill("Perfil oficial");
       await dialog.getByRole("button", { name: "Guardar enlace" }).click();
       await dialog.getByRole("button", { name: "Editar Instagram" }).waitFor();
       await page.screenshot({ animations: "disabled", path: `${out}/artist-socials-${width}.png` });
-      await dialog.getByRole("button", { name: "Datos de la ficha" }).click();
-      assert.equal(await dialog.locator("#f-name").inputValue(), "Borrador sin perder");
-      await dialog.getByLabel("Motivo", { exact: false }).filter({ visible: true }).fill("Corregir ficha");
-      await dialog.getByRole("button", { name: "Guardar", exact: true }).click();
+      await dialog.getByLabel("Secciones de edición").getByRole("button", { name: /^Identidad/ }).click();
+      assert.equal(await dialog.getByLabel("Nombre *", { exact: true }).inputValue(), "Borrador sin perder");
+      await dialog.getByLabel("Motivo del cambio *").fill("Corregir ficha");
+      await saveButton().click();
       await page.getByRole("heading", { name: "Borrador sin perder", exact: true }).waitFor();
-      assert.equal(writes.at(-1).body.status, "on_hold");
+      assert.equal(writes.at(-1).body.status, undefined);
+      assert.deepEqual(Object.keys(writes.at(-1).body).sort(),["name","note"]);
       for (const [path, key, expected] of [["/personas/9", "Nombre real", person.realName], ["/discos/57", "Número de catálogo", album.catalogId], ["/organizaciones/2", "Sitio web", org.websiteUrl]]) {
         await page.goto(`${base}${path}`); await page.locator(".page-actions").getByRole("button", { name: "Editar", exact: true }).click();
         assert.equal(await dialog.getByLabel(key, { exact: true }).inputValue(), expected);
         if (path.includes("personas")) {
           await dialog.getByLabel("Fecha de nacimiento").fill("");
-          await dialog.getByLabel("Motivo", { exact: false }).filter({ visible: true }).fill("Corregir fecha");
-          await dialog.getByRole("button", { name: "Guardar", exact: true }).click();
-          await page.getByRole("dialog").waitFor({ state: "hidden" });
+          await dialog.getByLabel("Motivo del cambio *").fill("Corregir fecha");
+          await saveButton().click();
+          await dialog.waitFor({ state: "hidden" });
           assert.equal(writes.at(-1).body.birthDate, null);
         } else {
           await page.screenshot({ animations: "disabled", path: `${out}/${path.includes("discos") ? "album" : "organization"}-fields-${width}.png` });
           assert.ok(await dialog.evaluate((el) => el.scrollWidth <= el.clientWidth + 1), "modal sin desbordamiento");
-          await dialog.getByRole("button", { name: "Cerrar", exact: true }).click();
+          await dialog.locator(".eedit__tray-actions").getByRole("button", { name: "Cerrar", exact: true }).click();
         }
       }
       await page.goto(`${base}/discos/57`);
       await page.locator(".album-track-actions").first().getByRole("button", { name: "Editar", exact: true }).click();
-      assert.equal(await dialog.getByLabel("Notas internas").inputValue(), "Nota existente de la pista");
+      assert.equal(await dialog.getByRole("textbox", { name: "Notas internas" }).inputValue(), "Nota existente de la pista");
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
+      // Validación propia: motivo en blanco y campo obligatorio vacío se señalan junto al campo, con foco.
+      const writesBefore = writes.length;
+      await dialog.getByRole("textbox", { name: "Notas internas" }).fill("Borrador con errores");
+      await dialog.getByLabel("Título *", { exact: true }).fill("");
+      await dialog.getByLabel("Motivo del cambio *").fill("   ");
+      await saveButton().click();
+      assert.equal(await dialog.locator(".eedit__tray .note-field.has-error").count(), 1, "el motivo en blanco se señala");
+      assert.ok(await dialog.locator(".field.has-error").count() >= 2, "el título vacío también se señala");
+      assert.equal(await page.evaluate(() => Boolean(document.activeElement?.closest(".field.has-error"))), true, "el foco va al primer error");
+      assert.equal(writes.length, writesBefore, "sin escritura con errores");
+      // Descartar cambios confirmado: cierra sin escribir y el fondo vuelve a responder.
+      await dialog.getByLabel("Motivo del cambio *").fill("motivo válido");
+      await page.keyboard.press("Escape");
+      const discardFinal = page.getByRole("alertdialog", { name: "Descartar cambios" });
+      await discardFinal.waitFor();
+      await discardFinal.getByRole("button", { name: "Descartar", exact: true }).click();
+      await discardFinal.waitFor({ state: "hidden" });
+      assert.equal(writes.length, writesBefore, "descarte sin escritura");
+      assert.equal(await page.evaluate(() => document.getElementById("root")?.hasAttribute("inert")), false, "el fondo vuelve a responder");
+      assert.equal(await page.evaluate(() => document.getElementById("root")?.hasAttribute("aria-hidden")), false, "el fondo recupera su árbol de accesibilidad (diálogo anidado)");
       assert.deepEqual(errors, []);
       await context.close();
       console.log(`✓ ${width}px admin: campos, borrador preservado, asociar/quitar titular, redes, fecha vacía, notas de pista y layout`);

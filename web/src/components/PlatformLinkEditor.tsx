@@ -5,8 +5,7 @@ import { useOperator } from "../lib/OperatorContext";
 import { useToast } from "../lib/ToastContext";
 import { platformLabel } from "./PlatformLinks";
 
-const SOCIAL = ["instagram", "facebook", "x", "tiktok", "threads", "bluesky"];
-const STREAMING = ["spotify", "apple_music", "deezer", "youtube", "youtube_music", "tidal", "bandcamp", "soundcloud", "amazon_music"];
+import { SOCIAL_PLATFORMS as SOCIAL, STREAMING_PLATFORMS as STREAMING } from "../../../src/shared/platforms";
 export function PlatformLinkEditor({ kind, id, category, onChanged }: {
   kind: "artist" | "album"; id: number; category: "social" | "streaming"; onChanged: () => void;
 }) {
@@ -20,6 +19,8 @@ export function PlatformLinkEditor({ kind, id, category, onChanged }: {
   const [failure, setFailure] = useState<string>();
   const uid = useId();
   const platforms = category === "social" ? SOCIAL : STREAMING;
+  const available = platforms.filter(p => !data?.some(link => link.platform === p));
+  const editingExisting = data?.some(link => link.platform === draft?.platform);
   if (!isAdmin) return null;
 
   function open(link: EditablePlatformLink, remove = false) {
@@ -44,18 +45,18 @@ export function PlatformLinkEditor({ kind, id, category, onChanged }: {
         <div><strong>{platformLabel(link.platform)}</strong><a href={link.url} target="_blank" rel="noreferrer noopener">{link.url}</a><span className="hint">{link.verified ? "Identidad confirmada" : "Pendiente de confirmar"}</span></div>
         <div className="relation-editor__actions"><button type="button" className="btn btn--sm" disabled={busy} onClick={() => open(link)}>Editar {platformLabel(link.platform)}</button><button type="button" className="btn btn--sm btn--danger" disabled={busy} onClick={() => open(link, true)}>Quitar {platformLabel(link.platform)}</button></div>
       </li>)}</ul>}
-      {!draft ? <button type="button" className="btn" onClick={() => open({ platform: platforms.find((p) => !data?.some((link) => link.platform === p)) ?? platforms[0]!, url: "", handle: null, verified: false })}>Añadir {category === "social" ? "red social" : "plataforma de escucha"}</button> : null}
+      {!draft && available.length ? <button type="button" className="btn" onClick={() => open({ platform: available[0]!, url: "", handle: null, verified: false })}>Añadir {category === "social" ? "red social" : "plataforma de escucha"}</button> : null}
     </>}
     {draft ? <form className="relation-editor__form" onSubmit={submit}>
       <h4>{removing ? `Quitar ${platformLabel(draft.platform)}` : "Editar enlace"}</h4>
       {failure ? <p className="form-error-banner" role="alert">{failure}</p> : null}
       {!removing ? <div className="form-grid">
-        <div className="field"><label htmlFor={`${uid}-platform`}>Plataforma</label><select id={`${uid}-platform`} value={draft.platform} onChange={(event) => {
+        <div className="field"><label htmlFor={`${uid}-platform`}>Plataforma</label><select id={`${uid}-platform`} value={draft.platform} disabled={editingExisting} onChange={(event) => {
           const existing = data?.find((link) => link.platform === event.target.value);
           setDraft(existing ?? { platform: event.target.value, url: "", handle: null, verified: false });
-        }}>{platforms.map((p) => <option value={p} key={p}>{platformLabel(p)}</option>)}</select></div>
+        }}>{[...new Set([draft.platform, ...(editingExisting ? [] : available)])].map((p) => <option value={p} key={p}>{platformLabel(p)}</option>)}</select></div>
         <div className="field span-2"><label htmlFor={`${uid}-url`}>URL *</label><input id={`${uid}-url`} type="url" required value={draft.url} onChange={(event) => setDraft({ ...draft, url: event.target.value })} /></div>
-        {category === "social" ? <div className="field"><label htmlFor={`${uid}-handle`}>Usuario</label><input id={`${uid}-handle`} maxLength={120} value={draft.handle ?? ""} onChange={(event) => setDraft({ ...draft, handle: event.target.value || null })} /></div> : null}
+        {category === "social" && draft.platform !== "website" ? <div className="field"><label htmlFor={`${uid}-handle`}>Usuario</label><input id={`${uid}-handle`} maxLength={120} value={draft.handle ?? ""} onChange={(event) => setDraft({ ...draft, handle: event.target.value || null })} /></div> : null}
         <div className="checkbox-field field"><input id={`${uid}-verified`} type="checkbox" checked={draft.verified} onChange={(event) => setDraft({ ...draft, verified: event.target.checked })} /><label htmlFor={`${uid}-verified`}>Identidad confirmada</label></div>
       </div> : <p>Se retira el enlace de esta ficha.</p>}
       <div className="field"><label htmlFor={`${uid}-note`}>Motivo *</label><textarea id={`${uid}-note`} required maxLength={2000} value={note} onChange={(event) => setNote(event.target.value)} /></div>

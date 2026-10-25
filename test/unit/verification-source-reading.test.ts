@@ -13,7 +13,7 @@ const gateway=(transport:MockDeepSeekTransport)=>new DeepSeekGateway({baseUrl:"h
 describe("lectura integral de fuentes",()=>{
   it("recorre las fuentes que quedan fuera de los primeros doce y sus datos finales",async()=>{
     const pages=Array.from({length:13},(_,i)=>page(i,i===12?`Jeremías ${"texto ".repeat(4000)} Alias documentado: Jere.`:`Jeremías fuente ${i}.`));
-    const transport=new MockDeepSeekTransport(...Array.from({length:5},()=>({findings:[],discoveries:[]})));
+    const transport=new MockDeepSeekTransport(...Array.from({length:40},()=>({findings:[],discoveries:[]})));
     const resume:ResearchState={rulesVersion:5,pages,proposal:{findings:[],discoveries:[]},pendingKeys:[],limitations:[],attempts:0};
     let state:ResearchState|undefined;
     const report=await researchVerification(snapshot,{search:async()=>[],page:async()=>null},gateway(transport),undefined,{resume,onState:async s=>{state=s;}});
@@ -29,7 +29,8 @@ describe("lectura integral de fuentes",()=>{
   it("guarda fallos como fragmentos pendientes y los reintenta sin repetir búsquedas",async()=>{
     const resume:ResearchState={rulesVersion:5,pages:[page(1,"Jeremías y sus discos.")],proposal:{findings:[],discoveries:[]},pendingKeys:[],limitations:[],attempts:0};
     let state:ResearchState|undefined;
-    const failed=await researchVerification(snapshot,{search:async()=>[],page:async()=>null},gateway(new MockDeepSeekTransport()),undefined,{resume,onState:async s=>{state=s;}});
+    // Unusable answers (not a provider outage, which stops the reading): the fragments stay pending.
+    const failed=await researchVerification(snapshot,{search:async()=>[],page:async()=>null},gateway(new MockDeepSeekTransport(...Array(40).fill("respuesta truncada"))),undefined,{resume,onState:async s=>{state=s;}});
     expect(failed.evaluation?.complete).toBe(false);expect(failed.limitations.join(" ")).toContain("Lectura integral pendiente:");
     const report=await researchVerification(snapshot,{search:async()=>{throw Error("No buscar");},page:async()=>null},gateway(new MockDeepSeekTransport({findings:[],discoveries:[]})),undefined,{resume:state!});
     expect(report.evaluation?.complete).toBe(true);expect(report.limitations.join(" ")).not.toContain("Lectura integral pendiente:");

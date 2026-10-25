@@ -5,8 +5,15 @@ import { App } from "./App";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { OperatorProvider } from "./lib/OperatorContext";
 import { ToastProvider } from "./lib/ToastContext";
+import { DailyCycleProvider } from "./lib/DailyCycleContext";
 import "./styles/global.css";
 import "./styles/discography.css";
+import "./styles/site-appearance.css";
+import "./styles/feedback.css";
+import "./styles/entity-editor.css";
+import "./styles/navigation.css";
+import "./styles/mobile-type.css";
+import "./styles/video-player.css";
 
 const container = document.getElementById("root");
 if (!container) throw new Error("#root no encontrado");
@@ -25,7 +32,7 @@ createRoot(container).render(
       <BrowserRouter basename={basename}>
         <ToastProvider>
           <OperatorProvider>
-            <App />
+            <DailyCycleProvider><App /></DailyCycleProvider>
           </OperatorProvider>
         </ToastProvider>
       </BrowserRouter>

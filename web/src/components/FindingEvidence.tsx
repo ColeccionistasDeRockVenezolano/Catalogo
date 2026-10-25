@@ -12,6 +12,7 @@ import { evidenceLabel, evidenceText } from "../lib/curation";
 /** Lo que ya se muestra de otra forma en la tarjeta y no se repite aquí. */
 export const HIDDEN_EVIDENCE = new Set([
   "span", "signatureLabel", "triggeredBy", "triggeredInScan", "triggeredHistory", "history", "pair",
+  "research",
 ]);
 
 export function FindingEvidence({ evidence }: { evidence: Record<string, unknown> }) {

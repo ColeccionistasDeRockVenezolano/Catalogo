@@ -33,6 +33,33 @@ describe("filtros por décadas", () => {
   afterAll(async () => { await app?.close(); await closeDb(); await container?.stop(); });
 
   for (const route of ["artists", "albums"]) {
+    it(`${route}: ordena todo el catálogo antes de paginar y deja los años desconocidos al final`, async () => {
+      const yearKey = route === "artists" ? "formedYear" : "releaseYear";
+      const nameKey = route === "artists" ? "name" : "title";
+      for (const [sort, expected] of [
+        ["year_asc", [1969, 1970, 1979, 1980, null]],
+        ["year_desc", [1980, 1979, 1970, 1969, null]],
+      ] as const) {
+        const response = await app.inject(`/${route}?sort=${sort}`);
+        expect(response.statusCode).toBe(200);
+        const rows = response.json().data;
+        expect(rows.map((row: Record<string, unknown>) => row[yearKey])).toEqual(expected);
+        const page = await app.inject(`/${route}?sort=${sort}&limit=2&offset=1`);
+        expect(page.statusCode).toBe(200);
+        expect(page.json().data.map((row: { id: number }) => row.id)).toEqual(rows.slice(1, 3).map((row: { id: number }) => row.id));
+        expect(page.json().pagination).toEqual({ total: 5, limit: 2, offset: 1 });
+      }
+      const alphabetical = (await app.inject(`/${route}?sort=name`)).json().data;
+      const reversed = (await app.inject(`/${route}?sort=name_desc`)).json().data;
+      expect(reversed.map((row: Record<string, unknown>) => row[nameKey]))
+        .toEqual(alphabetical.map((row: Record<string, unknown>) => row[nameKey]).reverse());
+      const filtered = await app.inject(`/${route}?sort=year_desc&decade=1970&q=Archivo&limit=1`);
+      expect(filtered.statusCode).toBe(200);
+      expect(filtered.json().data[0][yearKey]).toBe(1979);
+      expect(filtered.json().pagination.total).toBe(2);
+      expect((await app.inject(`/${route}?sort=invalido`)).statusCode).toBe(400);
+    });
+
     it(`${route}: incluye los límites 1970–1979 y pagina el conjunto filtrado`, async () => {
       const first = await app.inject(`/${route}?decade=1970&limit=1`);
       expect(first.statusCode).toBe(200);

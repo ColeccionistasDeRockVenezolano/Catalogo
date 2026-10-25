@@ -31,6 +31,7 @@ import { moduleLogger } from "../logger/index.js";
 import type { Evidence, RawRecord } from "../adapters/contracts.js";
 import { creditTypeForRole, isRoleAgnosticCreditType } from "../merge/relations.js";
 import { canonicalVideoUrl, collectReleaseYears, releaseIdentity } from "./normalization.js";
+import { audiovisualKind } from "./audiovisual-rules.js";
 import { looksLikeOrganization, parseCreditSections, parseYouTubeDescription, parseYouTubeTitle, type DescriptionSection } from "./parsers.js";
 
 const log = moduleLogger("youtube:api-claims");
@@ -52,6 +53,7 @@ export interface ApiClaimsResult {
 }
 
 interface VideoRow {
+  sheet_type?: string | null;
   video_id: string; title: string | null; description: string | null;
   duration_seconds: number | null; publication_status: string | null;
 }
@@ -61,8 +63,9 @@ export async function readHydratedVideos(): Promise<{ videos: VideoRow[]; tracks
   const pool = getPool();
   const videos = await pool.query<VideoRow>(`
     SELECT video_id, title, coalesce(metadata->'snippet'->>'description', description) AS description,
-           duration_seconds, publication_status::text AS publication_status
-      FROM media.youtube_videos
+           duration_seconds, publication_status::text AS publication_status,
+           (SELECT s.type_raw FROM ingest.seed_uploads s WHERE s.video_id=v.video_id ORDER BY s.id LIMIT 1) AS sheet_type
+      FROM media.youtube_videos v
      WHERE last_fetched_at IS NOT NULL
      ORDER BY video_id`);
   const tracks = await pool.query<TrackRow>(`
@@ -125,7 +128,7 @@ export function recordsForVideo(
 
   // Sin marcador de disco no hay publicación: es videoclip, concierto,
   // documental o pieza editorial. El artista sí queda afirmado.
-  if (!parsed.isFullAlbum) return { records, isRelease: false, skipped: false };
+  if (!parsed.isFullAlbum || audiovisualKind(video.sheet_type, video.title ?? "")) return { records, isRelease: false, skipped: false };
 
   const albumIdentity = releaseIdentity(artist, album, parsed.year, yearsByRelease);
   const albumFields: RawRecord["fields"] = [

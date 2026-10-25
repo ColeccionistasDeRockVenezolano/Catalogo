@@ -61,7 +61,7 @@ describe("portada (GET /home)", () => {
   });
   afterAll(async () => { await app?.close(); await closeDb(); await container?.stop(); });
 
-  it("reúne cifras, aniversarios, canal, artista del día, disco para escuchar y sellos", async () => {
+  it("reúne cifras, épocas, canal, artista del día, disco para escuchar y sellos", async () => {
     const response = await app.inject("/home?date=2026-10-11");
     expect(response.statusCode).toBe(200);
     const home = response.json();
@@ -70,12 +70,12 @@ describe("portada (GET /home)", () => {
     expect(home.wall.every((album: { coverUrl: string | null }) => Boolean(album.coverUrl))).toBe(true);
     expect(home.stats).toEqual({ artists: 3, albums: 5, tracks: 1, persons: 0, firstYear: 1976, lastYear: 2006 });
 
-    // 50 años: cuenta los tres discos de 1976, pero «Disco A» repetido sale una vez y primero el de portada.
-    const fifty = home.anniversaries.find((group: { years: number }) => group.years === 50);
-    expect(fifty).toMatchObject({ releaseYear: 1976, total: 3 });
-    expect(fifty.albums.map((album: { title: string }) => album.title)).toEqual(["Disco A", "Disco B"]);
-    expect(fifty.albums[0].coverUrl).toBe("/c/a.jpg");
-    expect(home.anniversaries.map((group: { years: number }) => group.years)).toEqual([50, 30, 20]);
+    // Los 70: cuenta los tres discos de 1976, pero «Disco A» repetido sale una vez y primero el de portada.
+    const seventies = home.eras.find((group: { decade: number }) => group.decade === 1970);
+    expect(seventies).toMatchObject({ total: 3 });
+    expect(seventies.albums.map((album: { title: string }) => album.title)).toEqual(["Disco A", "Disco B"]);
+    expect(seventies.albums[0].coverUrl).toBe("/c/a.jpg");
+    expect(home.eras.map((group: { decade: number }) => group.decade)).toEqual([1970, 1990, 2000]);
 
     // Solo videos publicados; el que tiene disco lleva a su ficha.
     expect(home.videos).toHaveLength(1);
@@ -119,16 +119,17 @@ describe("portada (GET /home)", () => {
       expect(next.featuredArtist.pictureUrl).toBeTruthy();
       expect(next.featuredArtist.excerpt).toBeTruthy();
       expect(next.featuredArtist.album.coverUrl).toBeTruthy();
-      expect(next.anniversaries.every((group: { years: number; releaseYear: number }) => group.years + group.releaseYear === 2026)).toBe(true);
+      expect(next.eras.every((group: { decade: number; albums: Array<{ releaseYear: number }> }) =>
+        group.albums.every(album => Math.floor(album.releaseYear / 10) * 10 === group.decade))).toBe(true);
     } finally {
       await pool.query("UPDATE public.artists SET picture_url = NULL, biography = NULL WHERE name = 'Banda Dos'");
       await pool.query("UPDATE public.albums SET cover_url = NULL WHERE title = 'Disco B'");
     }
   });
-  it("intercala familias musicales confirmadas sin sacrificar el año del aniversario", async () => {
+  it("intercala familias musicales confirmadas sin salirse de la década", async () => {
     const pool = getPool();
     await applyTaxonomyOperations(await planTaxonomyFile(), { actor: "prueba", reason: "taxonomía aprobada" }, { confirm: true });
-    const artistId = Number((await pool.query("INSERT INTO public.artists(name) VALUES('Diversidad aniversarios') RETURNING id")).rows[0].id);
+    const artistId = Number((await pool.query("INSERT INTO public.artists(name) VALUES('Diversidad épocas') RETURNING id")).rows[0].id);
     try {
       for (let index = 0; index < 24; index++) {
         const slug = index < 20 ? "rock" : ["jazz", "folk", "metal", "blues"][index - 20];
@@ -137,9 +138,12 @@ describe("portada (GET /home)", () => {
           SELECT $1, id, 'primary', $3, 'editorial', 'prueba', 'prueba', 'human' FROM ingest.genres WHERE slug = $2`, [albumId, slug, index === 23 ? "suggested" : "confirmed"]);
       }
       const home = (await app.inject("/home?date=2026-10-11")).json();
-      const group = home.anniversaries.find((item: { years: number }) => item.years === 60);
+      const group = home.eras.find((item: { decade: number }) => item.decade === 1960);
       expect(group.albums).toHaveLength(12);
       expect(group.albums.every((album: { releaseYear: number; coverUrl: string }) => album.releaseYear === 1966 && album.coverUrl)).toBe(true);
+      // Otro día, otra tanda de la misma década.
+      const tomorrow = (await app.inject("/home?date=2026-10-12")).json().eras.find((item: { decade: number }) => item.decade === 1960);
+      expect(tomorrow.albums.map((album: { id: number }) => album.id)).not.toEqual(group.albums.map((album: { id: number }) => album.id));
       const families = group.albums.slice(0, 4).flatMap((album: { genres: Array<{ family: string }> }) => album.genres.map(genre => genre.family));
       expect(new Set(families)).toEqual(new Set(["rock", "jazz", "folk", "metal"]));
       expect(group.albums.flatMap((album: { genres: Array<{ slug: string }> }) => album.genres.map(genre => genre.slug))).not.toContain("blues");

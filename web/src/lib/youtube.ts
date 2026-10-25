@@ -1,34 +1,6 @@
-import type { AlbumDetail, Track } from "./types";
-
-const VIDEO_ID = /^[A-Za-z0-9_-]{11}$/u;
-
-export function youtubeVideoId(url: string | null): string | null {
-  if (!url) return null;
-  try {
-    const parsed = new URL(url);
-    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return null;
-    const host = parsed.hostname.toLowerCase();
-    let id: string | null = null;
-    if (host === "youtu.be" || host === "www.youtu.be") id = parsed.pathname.split("/")[1] ?? null;
-    else if (["youtube.com", "www.youtube.com", "m.youtube.com", "music.youtube.com", "youtube-nocookie.com", "www.youtube-nocookie.com"].includes(host)) {
-      const parts = parsed.pathname.split("/");
-      id = parsed.pathname === "/watch" ? parsed.searchParams.get("v")
-        : ["embed", "shorts", "live", "v"].includes(parts[1] ?? "") ? parts[2] ?? null : null;
-    }
-    return id && VIDEO_ID.test(id) ? id : null;
-  } catch {
-    return null;
-  }
-}
-
-export function albumYoutubeVideoId(album: Pick<AlbumDetail, "youtubeLinks" | "youtubeUrl">): string | null {
-  const links = album.youtubeLinks.filter((link) => VIDEO_ID.test(link.videoId));
-  return links.find((link) => link.isPrimaryLink)?.videoId
-    ?? links.find((link) => link.kind === "full_album")?.videoId
-    ?? youtubeVideoId(album.youtubeUrl)
-    ?? links[0]?.videoId
-    ?? null;
-}
+import type { Track } from "./types";
+import { youtubeVideoId } from "../../../src/shared/youtube-playback";
+export { youtubeVideoId, albumYoutubeVideoId } from "../../../src/shared/youtube-playback";
 
 /** La duración evita atribuir huecos o pistas sin tiempo a la anterior. */
 export function trackAtYoutubeTime<T extends Pick<Track, "youtubeStartSeconds" | "durationSeconds">>(tracks: readonly T[], seconds: number): T | null {
@@ -47,13 +19,18 @@ export function trackAtYoutubeTime<T extends Pick<Track, "youtubeStartSeconds" |
   return current;
 }
 
-export interface YoutubePlayback { seconds: number; state: number; }
+export interface YoutubePlayback { seconds: number; state: number; duration?: number; }
 
 export interface YoutubePlayer {
   seekTo: (seconds: number, allowSeekAhead: boolean) => void;
   playVideo: () => void;
+  pauseVideo: () => void;
   getCurrentTime: () => number;
   getPlayerState: () => number;
+  getDuration?: () => number;
+  setVolume?: (volume: number) => void;
+  mute?: () => void;
+  unMute?: () => void;
   destroy: () => void;
 }
 
@@ -63,7 +40,7 @@ interface YoutubeIframeApi {
   Player: new (element: HTMLIFrameElement, options: {
     events: {
       onReady: (event: YoutubePlayerEvent) => void;
-      onError: () => void;
+      onError: (event: { data: number }) => void;
       onAutoplayBlocked: () => void;
       onStateChange: (event: YoutubePlayerEvent & { data: number }) => void;
     };

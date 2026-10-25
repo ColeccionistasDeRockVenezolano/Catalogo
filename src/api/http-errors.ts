@@ -40,6 +40,8 @@ const OPERATOR_STATUS: Readonly<Record<OperatorError["code"], number>> = {
 // las devuelve como error del cliente, con el mensaje de PostgreSQL (no
 // contiene datos sensibles, solo la restricción y los valores de la fila).
 const PG_STATUS: Readonly<Record<string, { status: number; code: string }>> = {
+  "PCE01": { status: 409, code: "editorial_exclusion" },
+  "PCE02": { status: 409, code: "editorial_admission" },
   "23505": { status: 409, code: "unique_violation" },
   "23503": { status: 409, code: "foreign_key_violation" },
   "23514": { status: 422, code: "check_violation" },

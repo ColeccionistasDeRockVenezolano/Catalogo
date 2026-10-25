@@ -3,12 +3,14 @@
 import type { OperatorContext } from "./operator.js";
 import { OperatorError } from "./operator.js";
 
-export const SOCIAL_PLATFORMS = ["instagram", "facebook", "x", "tiktok", "threads", "bluesky"] as const;
-export const STREAMING_PLATFORMS = ["spotify", "apple_music", "deezer", "youtube", "youtube_music", "tidal", "bandcamp", "soundcloud", "amazon_music"] as const;
+import { SOCIAL_PLATFORMS, STREAMING_PLATFORMS } from "../shared/platforms.js";
+export { SOCIAL_PLATFORMS, STREAMING_PLATFORMS };
 export type LinkOwner = "artist" | "album";
 export type LinkCategory = "social" | "streaming";
 export interface EditablePlatformLink {
   platform: string; url: string; handle: string | null; verified: boolean;
+  /** Identificador en la plataforma (p. ej. el id de Spotify). Si la edición no lo trae, se conserva el que hubiera. */
+  externalId?: string | null;
 }
 
 export function linkStorage(kind: LinkOwner, category: LinkCategory) {
@@ -28,12 +30,19 @@ export async function writePlatformLink(context: OperatorContext, kind: LinkOwne
     if (!removed.rowCount) throw new OperatorError("not_found", "El enlace ya no existe.");
     return;
   }
-  const extraColumn = category === "social" ? "handle" : "external_id";
+  const social = category === "social";
+  const extraColumn = social ? "handle" : "external_id";
+  const extraValue = social ? value.handle : value.externalId ?? null;
+  // El identificador de plataforma NUNCA se borra por una edición que no lo trae: la web edita
+  // url/verificado y el id (Spotify, Deezer…) sigue siendo el ancla estable de la identidad.
+  const extraUpdate = social
+    ? `${extraColumn}=EXCLUDED.${extraColumn}`
+    : `${extraColumn}=COALESCE(EXCLUDED.${extraColumn}, ${table}.${extraColumn})`;
   await context.client.query(`
     INSERT INTO public.${table} (${column},platform,url,${extraColumn},method,source,verified,notes)
     VALUES ($1,$2,$3,$4,'exact','crv-operador',$5,$6)
-    ON CONFLICT (${column},platform) ${category === "social" ? "" : `WHERE ${column} IS NOT NULL`}
-    DO UPDATE SET url=EXCLUDED.url, ${extraColumn}=EXCLUDED.${extraColumn}, method=EXCLUDED.method,
+    ON CONFLICT (${column},platform) ${social ? "" : `WHERE ${column} IS NOT NULL`}
+    DO UPDATE SET url=EXCLUDED.url, ${extraUpdate}, method=EXCLUDED.method,
       source=EXCLUDED.source, verified=EXCLUDED.verified, notes=EXCLUDED.notes`,
-  [id, platform, value.url, category === "social" ? value.handle : null, value.verified, context.note]);
+  [id, platform, value.url, extraValue, value.verified, context.note]);
 }

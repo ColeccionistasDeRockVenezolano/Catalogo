@@ -1,3 +1,4 @@
+import { applyEditorialVideoTimes } from "./editorial-times.js";
 // Etapa 6 · Reconciliación del canal con el catálogo (PHASES.md E6; plan de
 // implementación, FASE 10A).
 //
@@ -501,6 +502,7 @@ export async function reconcileYouTubeChannel(options: { dryRun?: boolean; repor
     [plan.videoTracks.map((row) => row.videoDbId), plan.videoTracks.map((row) => row.trackId), plan.videoTracks.map((row) => row.startSeconds),
       plan.videoTracks.map((row) => row.endSeconds), plan.videoTracks.map((row) => row.via === "album_link" ? apiSource : sourceFor(row.via, null)), trackClaims]);
 
+    await applyEditorialVideoTimes(client);
     let reviewsCreated = 0;
     for (const verdict of plan.verdicts.filter((item) => QUEUED_CATEGORIES.has(item.category))) {
       // Una revisión descartada es una decisión del propietario: no se reabre.

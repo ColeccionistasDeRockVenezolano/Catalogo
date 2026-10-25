@@ -1,6 +1,10 @@
+import { galleryPhotoSchema } from "./artist-gallery.js";
+import { documentSchema } from "./artist-documents.js";
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
+import { catalogSortSchema } from "../catalog-sort.js";
+import { dailyCycleSchema, dailyDateSchema } from "../daily-cycle.js";
 import { artistTypeEnum } from "../../db/schema/core.js";
 import { getTypeFacets } from "../repositories/type-facets.js";
 import { paginationQuerySchema, toPage } from "../pagination.js";
@@ -12,11 +16,13 @@ import { RELATED_RULES, SIMILAR_RULES } from "../repositories/artist-neighbors.j
 import { notFoundEntity } from "../repositories/redirects.js";
 import { layaDecidedIds } from "../../genres/public.js";
 import { varyOnCookie } from "./albums.js";
+import { AUDIOVISUAL_KINDS } from "../../youtube/audiovisual-rules.js";
 
 const artistBaseSchema = z.object({
   id: z.number().int(),
   name: z.string(),
   artistType: z.string(),
+  artistGroup: z.string().describe("Banda, solista o dúo para el público (band, solo_artist, duo): agrupa Agrupación y Proyecto por número de integrantes."),
   originCity: z.string().nullable(),
   originCountry: z.string(),
   formedYear: z.number().int().nullable(),
@@ -33,11 +39,25 @@ const artistListItemSchema = artistBaseSchema.extend({
 });
 
 const artistDetailSchema = artistBaseSchema.extend({
+  documents: z.array(documentSchema),
+  gallery: z.array(galleryPhotoSchema),
+  audiovisuals: z.array(z.object({
+    id: z.number().int(), title: z.string(), releaseYear: z.number().int().nullable(), kind: z.enum(AUDIOVISUAL_KINDS), tags:z.array(z.string()).optional(),
+    description: z.string().nullable(), videoId: z.string().nullable(), url: z.string().nullable(),
+    thumbnailUrl: z.string().nullable(), durationSeconds: z.number().int().nullable(), publicationStatus: z.string(), playable: z.boolean(), publishedAt: z.string().nullable(),
+    chapters: z.array(z.object({ title: z.string(), startSeconds: z.number().int().nonnegative() })),
+  })),
+  dailyCycle: dailyCycleSchema,
+  channelVideo: z.object({ date: dailyDateSchema, videoId: z.string(), url: z.string(), title: z.string().nullable(), count: z.number().int().positive() }).nullable(),
+  playbackAlbums: z.array(z.object({albumId:z.number().int(),albumTitle:z.string(),platform:z.string(),url:z.string(),externalId:z.string().nullable().optional()})),
   biography: z.string().nullable(),
   logoUrl: z.string().nullable(),
   status: z.string().nullable(),
   themes: z.string().nullable(),
   yearsActive: z.string().nullable(),
+  currentCity: z.string().nullable().describe("Ubicación actual del artista (campo «Currently» de RYM), p. ej. «Miami, FL». Su análogo de origen es originCity."),
+  currentCountry: z.string().nullable().describe("País de la ubicación actual, p. ej. «United States»."),
+  email: z.string().nullable().describe("Correo de contacto declarado por el artista o su perfil oficial."),
   notes: z.string().nullable(),
   members: z.array(z.object({
     id: z.number().int(), personId: z.number().int(), personName: z.string(), personDisplayName: z.string().nullable(), personRealName: z.string().nullable(), personIsDeceased: z.boolean(), role: z.string(),
@@ -49,6 +69,10 @@ const artistDetailSchema = artistBaseSchema.extend({
   discography: z.array(z.object({
     albumId: z.number().int(), title: z.string(), releaseYear: z.number().int().nullable(),
     albumType: z.string(), coverUrl: z.string().nullable(), genres: z.array(publicGenreSchema),
+    isLive: z.boolean().describe("Álbum en vivo, o sencillo/EP/demo/compilado con la clasificación «En vivo»."),
+    isBSides: z.boolean().describe("B-Sides: clasificación de la hoja o «B-Side(s)» en el título."),
+    classifications: z.array(z.object({ classification: z.string() })),
+    editionTypes: z.array(z.string()),
   })),
   aliases: z.array(aliasSchema),
   genres: z.array(publicGenreSchema),
@@ -82,7 +106,9 @@ const artistDetailSchema = artistBaseSchema.extend({
 });
 
 const listQuerySchema = paginationQuerySchema.extend({
-  artistType: z.enum(artistTypeEnum.enumValues).optional(),
+  sort: catalogSortSchema.optional(),
+  artistType: z.enum(artistTypeEnum.enumValues).optional()
+    .describe("band, solo_artist y duo filtran por grupo (Bandas, Solistas, Dúos: incluyen agrupaciones y proyectos); project y group, por el tipo guardado."),
   q: z.string().trim().min(1).optional(),
   ...genreListFilterSchema,
   ...decadeListFilterSchema,
@@ -123,10 +149,12 @@ export async function registerArtistRoutes(app: FastifyInstance): Promise<void> 
     schema: {
       tags: ["artists"],
       params: idParamSchema,
+      querystring: z.object({ date: dailyDateSchema.optional() }),
       response: { 200: artistDetailSchema },
     },
-  }, async (request) => {
-    const detail = await getArtistDetail(request.params.id);
+  }, async (request, reply) => {
+    reply.header("Cache-Control", "no-store");
+    const detail = await getArtistDetail(request.params.id, request.query.date);
     if (!detail) throw await notFoundEntity("artist", request.params.id);
     return detail;
   });

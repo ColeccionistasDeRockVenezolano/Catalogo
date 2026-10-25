@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import type { CatalogSearchExample } from "../lib/catalogSearchExamples";
 
 /** Comparte el mismo ritmo y la misma transición entre todos los buscadores. */
-export function useRotatingSearchExample(examples: CatalogSearchExample[], value: string, onAccept: (value: string) => void, onCycle?: (firstKey?: string) => void, intervalMs = 3500) {
+export function useRotatingSearchExample(examples: CatalogSearchExample[], value: string, onAccept: (value: string) => void, onCycle?: (firstKey?: string) => void, intervalMs = 3500, cycleKey?: string) {
   const cycleRef = useRef(onCycle);
   cycleRef.current = onCycle;
   const [visible, setVisible] = useState(!document.hidden);
@@ -12,6 +12,12 @@ export function useRotatingSearchExample(examples: CatalogSearchExample[], value
   const [currentKey, setCurrentKey] = useState<string | undefined>(examples[0]?.key);
   const [skipped, setSkipped] = useState(false);
   const [paused, setPaused] = useState(false);
+  const previousCycle = useRef(cycleKey);
+  useEffect(() => {
+    if (previousCycle.current === cycleKey) return;
+    previousCycle.current = cycleKey;
+    setOutgoing(null); setCurrentKey(examples[0]?.key); setIndex(0);
+  }, [cycleKey, examples]);
   const eligibleCurrent = examples.find(e => e.key === currentKey);
   const showExample = !value && eligibleCurrent !== undefined && !skipped;
 

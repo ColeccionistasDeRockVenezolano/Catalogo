@@ -83,14 +83,14 @@ export async function getOrganizationDetail(id: number): Promise<OrganizationDet
            'albumId', al.id, 'title', al.title, 'releaseYear', al.release_year,
            'artistId', ar.id, 'artistName', ar.name
          ) ORDER BY al.release_year NULLS LAST, al.title)
-         FROM public.albums al JOIN public.artists ar ON ar.id = al.artist_id
+         FROM ingest.catalog_albums al JOIN ingest.catalog_artists ar ON ar.id = al.artist_id
          WHERE al.label_id = o.id
        ), '[]'::jsonb) AS label_albums,
        COALESCE((
          SELECT jsonb_agg(DISTINCT jsonb_build_object('artistId', ar2.id, 'artistName', ar2.name))
          FROM public.album_credits ac
-         JOIN public.albums al2 ON al2.id = ac.album_id
-         JOIN public.artists ar2 ON ar2.id = al2.artist_id
+         JOIN ingest.catalog_albums al2 ON al2.id = ac.album_id
+         JOIN ingest.catalog_artists ar2 ON ar2.id = al2.artist_id
          WHERE ac.organization_id = o.id
        ), '[]'::jsonb) AS credited_artists,
        COALESCE((

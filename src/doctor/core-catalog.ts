@@ -100,6 +100,12 @@ export const APPROVED_CORE_ADDITIONS: ReadonlySet<string> = new Set([
   "COL artists.themes text",
   "COL artists.years_active text",
   "COL artists.logo_url text",
+  // 0083 (2026-10-16): la ubicación actual del artista (campo «Currently» de
+  // RYM) — undécima excepción aprobada al core. Brian: «Quiero tener este dato
+  // en un campo separado asi como RYM, no me gustaria perderlos».
+  "COL artists.current_city character varying(120)",
+  "COL artists.current_country character varying(120)",
+  "COL artists.email character varying(200)",
   "COL persons.real_name character varying(200)",
   "COL persons.birth_city character varying(120)",
   "COL persons.death_cause text",
@@ -108,6 +114,10 @@ export const APPROVED_CORE_ADDITIONS: ReadonlySet<string> = new Set([
   "COL albums.release_date_text character varying(40)",
   "COL albums.catalog_id character varying(80)",
   "COL albums.media_format character varying(50)",
+  // 0095 (2026-10-20): la puntuación agregada de RYM en la ficha del disco — media sobre 5 y
+  // nº de puntuaciones. RYM no publica los votos uno a uno; esto es todo lo scrapeable.
+  "COL albums.rym_rating numeric(3,2)",
+  "COL albums.rym_ratings_count integer",
   // 0073 (2026-10-13): la letra de la canción en `tracks.lyrics` (novena
   // excepción aprobada al core — campaña musicavenezuela; aprobación literal:
   // «Implementa las letras para los tracks correspondientes»).
@@ -147,7 +157,7 @@ export const APPROVED_CORE_ADDITIONS: ReadonlySet<string> = new Set([
   "COL social_links.verified boolean NOT NULL DEFAULT false",
   "COL social_links.notes text",
   "COL social_links.created_at timestamp with time zone NOT NULL DEFAULT now()",
-  "CONSTRAINT social_links.social_links_platform_ck CHECK (((platform)::text = ANY ((ARRAY['instagram'::character varying, 'facebook'::character varying, 'x'::character varying, 'tiktok'::character varying, 'threads'::character varying, 'bluesky'::character varying])::text[])))",
+  "CONSTRAINT social_links.social_links_platform_ck CHECK (((platform)::text = ANY ((ARRAY['instagram'::character varying, 'facebook'::character varying, 'x'::character varying, 'tiktok'::character varying, 'threads'::character varying, 'bluesky'::character varying, 'website'::character varying, 'store'::character varying, 'linktree'::character varying])::text[])))",
   "CONSTRAINT social_links.social_links_artist_id_fkey FOREIGN KEY (artist_id) REFERENCES artists(id) ON DELETE CASCADE",
   "CONSTRAINT social_links.social_links_pkey PRIMARY KEY (id)",
   "INDEX social_links_artist_uk CREATE UNIQUE INDEX social_links_artist_uk ON public.social_links USING btree (artist_id, platform)",

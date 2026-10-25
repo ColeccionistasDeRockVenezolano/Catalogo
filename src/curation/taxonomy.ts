@@ -11,6 +11,11 @@ export const OTHER_CATEGORY = "otros";
 
 export const CATEGORIES: readonly CategoryDefinition[] = [
   {
+    key: "investigacion_documentada",
+    label: "Investigaciones documentadas",
+    description: "Casos con fuentes y recomendaciones revisadas: comparar la evidencia y decidir el siguiente cambio.",
+  },
+  {
     key: "nombres_sucios",
     label: "Nombres sucios",
     description: "Texto con defectos de forma: caracteres invisibles, espacios de más, codificación rota, entidades HTML, signos colgantes o sin cerrar.",

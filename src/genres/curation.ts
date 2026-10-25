@@ -46,11 +46,8 @@ export type QueueCategory = typeof QUEUE_CATEGORIES[number];
  */
 export const GENRE_REVIEW_ORIGINS = ["genres", EDITORIAL_REVIEW_ORIGIN, EXTERNAL_REVIEW_ORIGIN, MERGE_REVIEW_ORIGIN] as const;
 
-export class GenreCurationError extends Error {
-  constructor(public readonly code: "invalid" | "not_found" | "conflict", message: string) {
-    super(message);
-  }
-}
+import { GenreCurationError } from "./errors.js";
+export { GenreCurationError };
 
 // --- Acciones ---------------------------------------------------------------
 

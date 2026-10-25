@@ -30,7 +30,7 @@ describe("ejemplos aleatorios de búsqueda", () => {
     for (const value of [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9, 0.999]) random.mockReturnValueOnce(value);
     random.mockReturnValue(0.5);
     const signal = new AbortController().signal;
-    const examples = await loadSearchExamples(scope, signal);
+    const examples = await loadSearchExamples(scope, signal, "2026-10-14", Math.random);
 
     expect(examples).toHaveLength(8);
     expect(new Set(examples.map(example => example.label[0])).size).toBe(8);
@@ -46,7 +46,7 @@ describe("ejemplos aleatorios de búsqueda", () => {
       data: Array.from({ length: Math.min(limit, 100 - offset) }, (_, index) => ({ id: offset + index, name: `Artista ${offset + index}` })) as never,
       pagination: { total: 100, limit, offset },
     }));
-    const examples = await loadSearchExamples("artist", new AbortController().signal);
+    const examples = await loadSearchExamples("artist", new AbortController().signal, "2026-10-14", Math.random);
     expect(examples).toHaveLength(8);
     expect(new Set(examples.map(example => example.key)).size).toBe(8);
     vi.mocked(artistsApi.list).mockReset();
@@ -58,8 +58,20 @@ describe("ejemplos aleatorios de búsqueda", () => {
       data: Array.from({ length: total }, (_, id) => ({ id, name: `Artista ${id}` })) as never,
       pagination: { total, limit: 8, offset: 0 },
     });
-    expect(await loadSearchExamples("artist", new AbortController().signal)).toHaveLength(total);
+    expect(await loadSearchExamples("artist", new AbortController().signal, "2026-10-14")).toHaveLength(total);
     expect(list).toHaveBeenCalledTimes(1);
     list.mockReset();
+  });
+
+  it("conserva la muestra al recargar y la renueva al cambiar el día común", async () => {
+    vi.mocked(artistsApi.list).mockImplementation(async ({ limit = 8, offset = 0 } = {}) => ({
+      data: Array.from({ length: Math.min(limit, 100 - offset) }, (_, index) => ({ id: offset + index, name: `Artista ${offset + index}` })) as never,
+      pagination: { total: 100, limit, offset },
+    }));
+    const load = (date: string) => loadSearchExamples("artist", new AbortController().signal, date);
+    const today = await load("2026-10-14");
+    expect(await load("2026-10-14")).toEqual(today);
+    expect(await load("2026-10-15")).not.toEqual(today);
+    vi.mocked(artistsApi.list).mockReset();
   });
 });

@@ -9,14 +9,14 @@ const KINDS: Record<string, string> = { full_album: "Disco completo", music_vide
 export function AlbumVideoEditor({ albumId, links, onChanged }: { albumId: number; links: YoutubeLink[]; onChanged: () => void }) {
   const { isAdmin } = useOperator();
   const { notify } = useToast();
-  const [draft, setDraft] = useState<{ url: string; kind: string; primary: boolean } | null>(null);
+  const [draft, setDraft] = useState<{ url: string; kind: string; primary: boolean; previousVideoId?: string } | null>(null);
   const [removing, setRemoving] = useState(false);
   const [note, setNote] = useState("");
   const [error, setError] = useState<string>();
   const [busy, setBusy] = useState(false);
   const uid = useId();
   if (!isAdmin) return null;
-  function open(link: YoutubeLink, remove = false) { setDraft({ url: `https://youtu.be/${link.videoId}`, kind: link.kind, primary: link.isPrimaryLink }); setRemoving(remove); setNote(""); setError(undefined); }
+  function open(link: YoutubeLink, remove = false) { setDraft({ url: `https://youtu.be/${link.videoId}`, kind: link.kind, primary: link.isPrimaryLink, previousVideoId: link.videoId }); setRemoving(remove); setNote(""); setError(undefined); }
   async function submit(event: React.FormEvent) {
     event.preventDefault();
     const videoId = youtubeVideoId(draft?.url ?? null);
@@ -24,7 +24,7 @@ export function AlbumVideoEditor({ albumId, links, onChanged }: { albumId: numbe
     setBusy(true); setError(undefined);
     try {
       if (removing) await youtubeApi.removeAlbumVideo(albumId, videoId, note.trim());
-      else await youtubeApi.saveAlbumVideo(albumId, videoId, draft.kind, draft.primary, note.trim());
+      else await youtubeApi.saveAlbumVideo(albumId, videoId, draft.kind, draft.primary, note.trim(), draft.previousVideoId);
       setDraft(null); onChanged(); notify("success", removing ? "Video desvinculado." : "Video vinculado.");
     } catch (cause) { setError(cause instanceof Error ? cause.message : "No se pudo guardar el video."); }
     finally { setBusy(false); }

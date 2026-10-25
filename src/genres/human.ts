@@ -1,3 +1,4 @@
+import { GenreCurationError } from "./errors.js";
 // CRV · Decisiones humanas sobre géneros (PLAN_GENEROS §4 «Prioridad de las
 // decisiones humanas»).
 //
@@ -23,19 +24,19 @@ export interface HumanDecisionInput {
 
 async function genreId(client: PoolClient, slug: string, requireActive: boolean): Promise<number> {
   const { rows } = await client.query<{ id: string; active: boolean }>("SELECT id::text, active FROM ingest.genres WHERE slug=$1", [slug]);
-  if (!rows[0]) throw new Error(`género ${slug} inexistente`);
-  if (requireActive && !rows[0].active) throw new Error(`el género ${slug} está inactivo`);
+  if (!rows[0]) throw new GenreCurationError("not_found", `género ${slug} inexistente`);
+  if (requireActive && !rows[0].active) throw new GenreCurationError("conflict", `el género ${slug} está inactivo`);
   return Number(rows[0].id);
 }
 
 async function entityExists(client: PoolClient, kind: GenreEntityKind, id: number): Promise<void> {
   const table = kind === "album" ? "public.albums" : "public.artists";
   const found = await client.query(`SELECT 1 FROM ${table} WHERE id=$1 FOR UPDATE`, [id]);
-  if (!found.rowCount) throw new Error(`${kind} ${id} inexistente`);
+  if (!found.rowCount) throw new GenreCurationError("not_found", `${kind} ${id} inexistente`);
 }
 
 function validate(input: HumanDecisionInput): void {
-  if (!input.actor.trim() || !input.reason.trim()) throw new Error("una decisión humana exige actor y motivo");
+  if (!input.actor.trim() || !input.reason.trim()) throw new GenreCurationError("conflict", "una decisión humana exige actor y motivo");
 }
 
 async function rowFor(client: PoolClient, kind: GenreEntityKind, entityId: number, genre: number): Promise<Record<string, unknown> | undefined> {
@@ -96,7 +97,7 @@ export async function confirmGenre(
   // Un subgénero que el artista solo recibe de sus discos no impide confirmar
   // la familia como género propio.
   const child = live.find((row) => !row.derived && isAncestorOf(taxonomy, genre, Number(row.genre_id)));
-  if (child) throw new Error(`${input.genreSlug} está por encima de un género ya asignado (familia o género de un subgénero): confirma o rechaza el más específico`);
+  if (child) throw new GenreCurationError("conflict", `${input.genreSlug} está por encima de un género ya asignado (familia o género de un subgénero): confirma o rechaza el más específico`);
   if (input.role === "primary") {
     const previous = (await client.query<Record<string, unknown>>(
       `UPDATE ${table} SET role='secondary', updated_at=now() WHERE ${column}=$1 AND role='primary' AND status='confirmed' AND genre_id<>$2 RETURNING *`,
@@ -136,7 +137,7 @@ export async function revertGenreDecision(client: PoolClient, input: HumanDecisi
   const genre = await genreId(client, input.genreSlug, false);
   const table = GENRE_TABLE[input.kind];
   const before = await rowFor(client, input.kind, input.entityId, genre);
-  if (!before || before["decision_kind"] !== "human") throw new Error(`no hay decisión humana sobre ${input.genreSlug} en ${input.kind} ${input.entityId}`);
+  if (!before || before["decision_kind"] !== "human") throw new GenreCurationError("conflict", `no hay decisión humana sobre ${input.genreSlug} en ${input.kind} ${input.entityId}`);
   await client.query(`UPDATE ${table} SET status='confirmed', superseded_by_id=NULL, updated_at=now() WHERE superseded_by_id=$1`, [Number(before["id"])]);
   await client.query(`DELETE FROM ${table} WHERE id=$1`, [Number(before["id"])]);
   await log(client, input, genre, "revert", before, null);
@@ -155,7 +156,7 @@ export interface EntityNoteInput {
 }
 
 async function noteOnly(client: PoolClient, input: EntityNoteInput, action: string, after: Record<string, unknown>): Promise<void> {
-  if (!input.actor.trim() || !input.reason.trim()) throw new Error("una decisión humana exige actor y motivo");
+  if (!input.actor.trim() || !input.reason.trim()) throw new GenreCurationError("conflict", "una decisión humana exige actor y motivo");
   await entityExists(client, input.kind, input.entityId);
   await client.query(`
     INSERT INTO ingest.genre_assignment_log(entity_kind, entity_id, genre_id, action, before, after, actor, reason, run_id)
@@ -178,7 +179,7 @@ export async function reopenEntity(client: PoolClient, input: EntityNoteInput): 
     SELECT action FROM ingest.genre_assignment_log
      WHERE entity_kind=$1 AND entity_id=$2 AND action IN ('insufficient_evidence','reopen') ORDER BY id DESC LIMIT 1`,
   [input.kind, input.entityId]);
-  if (last.rows[0]?.action !== "insufficient_evidence") throw new Error(`${input.kind} ${input.entityId} no está marcado con evidencia insuficiente`);
+  if (last.rows[0]?.action !== "insufficient_evidence") throw new GenreCurationError("conflict", `${input.kind} ${input.entityId} no está marcado con evidencia insuficiente`);
   await noteOnly(client, input, "reopen", { status: "reopened" });
 }
 
@@ -191,10 +192,10 @@ export async function requestNewTerm(
   client: PoolClient, input: EntityNoteInput & { proposedName: string; familySlug?: string | undefined; rawValue?: string | undefined },
 ): Promise<number> {
   const proposedName = input.proposedName.trim().slice(0, 100);
-  if (!proposedName) throw new Error("falta el nombre del término propuesto");
+  if (!proposedName) throw new GenreCurationError("conflict", "falta el nombre del término propuesto");
   if (input.familySlug) {
     const family = await client.query("SELECT 1 FROM ingest.genres WHERE slug=$1 AND level='family'", [input.familySlug]);
-    if (!family.rowCount) throw new Error(`familia ${input.familySlug} inexistente`);
+    if (!family.rowCount) throw new GenreCurationError("conflict", `familia ${input.familySlug} inexistente`);
   }
   const detail = { proposedName, familySlug: input.familySlug ?? null, rawValue: input.rawValue ?? null };
   await noteOnly(client, input, "request_new_term", detail);

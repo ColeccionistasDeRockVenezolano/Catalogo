@@ -68,13 +68,32 @@ describe("fiabilidad individual proporcional y basada en citas",()=>{
     expect(report.findings[1]).toMatchObject({status:"contradicted",coverage:0,observed:"2002"});
     expect(evaluateVerification({...snapshot,units:[{...snapshot.units[0]!,issue:"Periodo invertido"}]},[],undefined,true).findings[0]?.status).toBe("contradicted");
   });
-  it("evalúa todos los datos en lotes, también más allá de los primeros 40",async()=>{
-    const units=Array.from({length:49},(_,n)=>({...snapshot.units[0]!,key:`identity.${n}`}));
-    const transport=new MockDeepSeekTransport(...Array.from({length:7},(_,batch)=>({findings:units.slice(batch*8,batch*8+8).map(u=>({key:u.key,status:"unverified",observed:null,reason:"Sin respaldo suficiente",evidence:[]})),discoveries:[]})),{findings:[],discoveries:[]});
+  it("lee cada grupo una vez y reparte todos los datos en llamadas, también más allá de los primeros 60",async()=>{
+    const units=Array.from({length:130},(_,n)=>({...snapshot.units[0]!,key:`identity.${n}`}));
+    const transport=new MockDeepSeekTransport({findings:[proposal.findings[0]!].map(f=>({...f,key:"identity.0"})),discoveries:[]},{findings:[],discoveries:[]},{findings:[],discoveries:[]},{findings:[],discoveries:[]});
     const gateway=new DeepSeekGateway({baseUrl:"https://example.com",models:{fast:"mock",reasoning:"mock",vision:"mock"},maxTokens:4096,timeoutMs:1000},transport,new MemoryDeepSeekRunStore());
     const report=await researchVerification({...snapshot,units,sourceUrls:[first.url]},{search:async()=>[],page:async()=>first},gateway);
-    expect(report.findings).toHaveLength(49);expect(transport.requests).toHaveLength(8);
-    expect(transport.requests[6]?.user).toContain("identity.48");
+    expect(report.findings).toHaveLength(130);expect(transport.requests).toHaveLength(4);
+    expect(transport.requests[2]?.user).toContain("identity.129");
+    // Unit calls only check units; each fragment then gets a call devoted to extracting new data.
+    expect(transport.requests[0]?.system).not.toContain("LECTURA INTEGRAL");
+    expect(transport.requests[3]?.system).toContain("LECTURA EXHAUSTIVA");expect(transport.requests[3]?.user).toContain('"units":[]');
+    // An omitted unit was not documented by the pages read: unverified, with its reason.
+    expect(report.findings.find(f=>f.key==="identity.7")).toMatchObject({status:"unverified"});
+    expect(report.evaluation).toMatchObject({processed:130,pendingKeys:[],complete:true});
+  });
+  it("coteja una pista solo con los fragmentos que la nombran y explica la que ninguna fuente menciona",async()=>{
+    const track=(id:number,title:string)=>({key:`track.${id}`,area:"tracks" as const,label:`Disco Uno · 1.${id}`,value:title,expected:[title],context:["Banda Prueba","Disco Uno"],issue:null});
+    const units=[track(1,"Canción Uno"),track(9,"Canción Ausente")];
+    const transport=new MockDeepSeekTransport({findings:[],discoveries:[]},{findings:[],discoveries:[]});
+    const gateway=new DeepSeekGateway({baseUrl:"https://example.com",models:{fast:"mock",reasoning:"mock",vision:"mock"},maxTokens:4096,timeoutMs:1000},transport,new MemoryDeepSeekRunStore());
+    let stored:ResearchState|undefined;
+    const report=await researchVerification({...snapshot,units,sourceUrls:[first.url]},{search:async()=>[],page:async()=>first},gateway,undefined,{onState:async state=>{stored=state;}});
+    expect(transport.requests).toHaveLength(2);
+    expect(transport.requests[0]?.user).toContain('"key":"track.1"');expect(transport.requests[0]?.user).not.toContain('"key":"track.9"');
+    expect(report.findings.find(f=>f.key==="track.9")?.status).toBe("unverified");
+    expect(stored?.proposal.findings.find(f=>f.key==="track.9")?.reason).toContain("Canción Ausente");
+    expect(report.evaluation?.complete).toBe(true);
   });
   it("una cita demasiado corta no descarta el resto del lote",()=>{
     const withShort={...proposal,findings:proposal.findings.map(item=>({...item,evidence:[...item.evidence,{source:0,quote:"2001"}]}))};
@@ -84,20 +103,20 @@ describe("fiabilidad individual proporcional y basada en citas",()=>{
     const report=await researchVerification(snapshot,{search:async()=>{throw new Error("buscador caído");},page:async()=>null});
     expect(report.researched).toBe(true);expect(report.score).toBeNull();expect(report.findings[0]?.status).toBe("unverified");expect(report.limitations.some(l=>l.includes("No se pudo completar"))).toBe(true);
   });
-  it("publica avance por etapas y guarda todos los lotes en checkpoints proporcionales",async()=>{
-    const units=Array.from({length:49},(_,n)=>({...snapshot.units[0]!,key:`identity.${n}`}));
-    const transport=new MockDeepSeekTransport(...Array.from({length:7},(_,batch)=>({findings:units.slice(batch*8,batch*8+8).map(u=>({key:u.key,status:"unverified",observed:null,reason:"Sin respaldo suficiente",evidence:[]})),discoveries:[]})),{findings:[],discoveries:[]});
+  it("publica avance por etapas y guarda cada llamada en checkpoints proporcionales",async()=>{
+    const units=Array.from({length:130},(_,n)=>({...snapshot.units[0]!,key:`identity.${n}`}));
+    const transport=new MockDeepSeekTransport({findings:[],discoveries:[]},{findings:[],discoveries:[]},{findings:[],discoveries:[]},{findings:[],discoveries:[]});
     const gateway=new DeepSeekGateway({baseUrl:"https://example.com",models:{fast:"mock",reasoning:"mock",vision:"mock"},maxTokens:4096,timeoutMs:1000},transport,new MemoryDeepSeekRunStore());
     const updates:Array<{phase:string;completed:number;total:number;evaluated:number;checkpoint?:boolean}>=[];
     await researchVerification({...snapshot,units,sourceUrls:[first.url]},{search:async()=>[],page:async()=>first},gateway,async(progress,checkpoint)=>{
       updates.push({...progress,...(checkpoint?{checkpoint:checkpoint.inProgress??false}:{})});
-      if(checkpoint?.inProgress){expect(checkpoint.findings).toHaveLength(49);expect(checkpoint.score).toBeNull();}
+      if(checkpoint?.inProgress){expect(checkpoint.findings).toHaveLength(130);expect(checkpoint.score).toBeNull();}
     });
     const collecting=updates.filter(u=>u.phase==="collecting");
     expect(collecting[0]?.completed).toBe(0);expect(collecting.at(-1)?.completed).toBe(collecting.at(-1)?.total);
-    const batches=updates.filter(u=>u.checkpoint===true);
-    expect(batches).toHaveLength(8);expect(batches.at(-1)?.evaluated).toBe(49);
-    expect(updates.at(-1)).toMatchObject({phase:"saving",completed:50,total:50,checkpoint:false});
+    const calls=updates.filter(u=>u.checkpoint===true);
+    expect(calls).toHaveLength(4);expect(calls.map(u=>u.evaluated)).toEqual([60,120,130,130]);
+    expect(updates.at(-1)).toMatchObject({phase:"saving",completed:131,total:131,checkpoint:false});
   });
   it("normaliza 01–09 y conserva el DVD como segundo soporte sin falsas contradicciones",()=>{
     const source=page("https://archive.example/edicion","Banda Prueba Disco Uno Tracks CD 01- Canción Uno 02- Canción Dos DVD 10- Oscar D’ León 11- Grandmaster 12- L.A. Viaje 2");
@@ -134,23 +153,46 @@ describe("fiabilidad individual proporcional y basada en citas",()=>{
     expect(evaluateVerification(snapshot,[first,second],parsed,true).findings[0]?.coverage).toBe(0);
     expect(evaluateVerification(snapshot,[first,second],parsed,true).findings[1]?.coverage).toBe(1);
   });
-  it("reintenta omisiones y retoma solo los datos pendientes conservando las citas",async()=>{
+  it("una llamada fallida deja sus datos pendientes y la reanudación retoma solo esos, conservando las citas",async()=>{
     const units=snapshot.units.slice(0,2);
-    const transport=new MockDeepSeekTransport({findings:[proposal.findings[0]],discoveries:[]},{findings:[],discoveries:[]},{findings:[],discoveries:[]});
+    // Two failures per call, then the halves: the first half answers, the second keeps failing.
+    const transport=new MockDeepSeekTransport("truncada","truncada",{findings:[proposal.findings[0]],discoveries:[]},"truncada","truncada",{findings:[],discoveries:[]});
     const gateway=new DeepSeekGateway({baseUrl:"https://example.com",models:{fast:"mock",reasoning:"mock",vision:"mock"},maxTokens:4096,timeoutMs:1000},transport,new MemoryDeepSeekRunStore());
     let stored:ResearchState|undefined;
     const report=await researchVerification({...snapshot,units,sourceUrls:[first.url]},{search:async()=>[],page:async()=>first},gateway,undefined,{onState:async state=>{stored=state;}});
+    // The half that answered counts as evaluated; only the failed half stays pending.
     expect(report.evaluation).toMatchObject({processed:1,pendingKeys:["album.year"],complete:false});
-    expect(transport.requests).toHaveLength(3);
-    const retry=new MockDeepSeekTransport({findings:[{...proposal.findings[1],evidence:[proposal.findings[1]!.evidence[0]]}],discoveries:[]});
+    expect(report.limitations.some(l=>l.includes("datos sin evaluar"))).toBe(true);
+    expect(transport.requests).toHaveLength(6);
+    const retry=new MockDeepSeekTransport({findings:[{...proposal.findings[1],evidence:[proposal.findings[1]!.evidence[0]]}],discoveries:[]},{findings:[],discoveries:[]});
     const retryGateway=new DeepSeekGateway({baseUrl:"https://example.com",models:{fast:"mock",reasoning:"mock",vision:"mock"},maxTokens:4096,timeoutMs:1000},retry,new MemoryDeepSeekRunStore());
     const finished=await researchVerification({...snapshot,units},{search:async()=>{throw new Error("No debe repetir búsquedas");},page:async()=>null},retryGateway,undefined,{resume:stored!});
     expect(finished.evaluation).toMatchObject({processed:2,pendingKeys:[],complete:true});
-    expect(finished.findings.every(f=>f.coverage===1)).toBe(true);
-    expect(retry.requests[0]?.user).toContain('"key":"album.year"');
-    expect(finished.limitations.some(l=>l.startsWith("Lote "))).toBe(false);
+    expect(finished.findings.find(f=>f.key==="identity.name")?.coverage).toBe(1);
+    expect(finished.findings.find(f=>f.key==="album.year")?.coverage).toBe(1);
+    expect(retry.requests[0]?.user).toContain('"key":"album.year"');expect(retry.requests[0]?.user).not.toContain('"key":"identity.name"');
+    // The fragment was already read in full: the resumed call only re-checks the unit.
+    expect(retry.requests).toHaveLength(1);expect(retry.requests[0]?.system).not.toContain("LECTURA INTEGRAL");
   });
 
+  it("un fallo del proveedor o de cuota detiene la lectura sin dividirla y la reanudación la completa",async()=>{
+    const units=snapshot.units.slice(0,2);
+    const down={requests:0,async complete():Promise<never>{this.requests++;throw new Error("DeepSeek HTTP 429: quota exceeded");}};
+    const gateway=new DeepSeekGateway({baseUrl:"https://example.com",models:{fast:"mock",reasoning:"mock",vision:"mock"},maxTokens:4096,timeoutMs:1000},down,new MemoryDeepSeekRunStore());
+    let stored:ResearchState|undefined;
+    const report=await researchVerification({...snapshot,units,sourceUrls:[first.url]},{search:async()=>[],page:async()=>first},gateway,undefined,{providerRetryMs:0,onState:async state=>{stored=state;}});
+    // One retry, then stop: halving the call would only repeat failing requests.
+    expect(down.requests).toBe(2);
+    expect(report.research?.stopReason).toBe("provider");
+    expect(report.evaluation).toMatchObject({processed:0,complete:false});
+    expect(report.limitations.some(l=>l.includes("proveedor de IA no respondió")&&l.includes("429"))).toBe(true);
+    const back=new MockDeepSeekTransport(proposal,{findings:[],discoveries:[]});
+    const backGateway=new DeepSeekGateway({baseUrl:"https://example.com",models:{fast:"mock",reasoning:"mock",vision:"mock"},maxTokens:4096,timeoutMs:1000},back,new MemoryDeepSeekRunStore());
+    const finished=await researchVerification({...snapshot,units},{search:async()=>{throw new Error("No debe repetir búsquedas");},page:async()=>null},backGateway,undefined,{resume:stored!});
+    expect(finished.research?.stopReason).toBeNull();
+    expect(finished.evaluation).toMatchObject({processed:2,pendingKeys:[],complete:true});
+    expect(back.requests).toHaveLength(2);
+  });
   it("excluye desconocidos y ausencias sin diluir las coincidencias; una discrepancia documentada sí reduce el puntaje",()=>{
     const unknown={...snapshot.units[0]!,key:"genre.unknown",area:"genres" as const,value:"Electrónica",expected:["Electrónica"]};
     const report=evaluateVerification({...snapshot,units:[...snapshot.units,unknown]},[first],{...proposal,findings:[{...proposal.findings[0]!,evidence:[proposal.findings[0]!.evidence[0]!]}]},true);

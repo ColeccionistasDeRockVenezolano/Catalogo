@@ -167,7 +167,8 @@ describe("verificación individual persistente y privada",()=>{
     const full=await loadVerificationSnapshot("artist",artist);const snapshot={...full,units:full.units.slice(0,2),sourceUrls:["https://archivo.example/banda-qa"]};
     const page={url:snapshot.sourceUrls[0]!,title:"Banda QA",content:"Banda QA, banda formada en 2000. Músico QA toca Bass.",contentHash:createHash("sha256").update("Banda QA, banda formada en 2000. Músico QA toca Bass.").digest("hex"),fetchedAt:new Date().toISOString()};
     const response=(key:string)=>({findings:[{key,status:"unverified",observed:null,reason:"No hay respaldo suficiente",evidence:[]}],discoveries:[]});
-    const gateway=createDeepSeekGateway(new MockDeepSeekTransport(response(snapshot.units[0]!.key),{findings:[],discoveries:[]},{findings:[],discoveries:[]}));
+    // The call fails twice, then its halves: the first answers, the second keeps failing and stays pending.
+    const gateway=createDeepSeekGateway(new MockDeepSeekTransport("truncada","truncada",response(snapshot.units[0]!.key),"truncada","truncada",{findings:[],discoveries:[]}));
     const partial=await researchStored(snapshot,{search:async()=>[],page:async()=>page},gateway);
     expect(partial.evaluation).toMatchObject({processed:1,complete:false,pendingKeys:[snapshot.units[1]!.key]});
     expect((await getPool().query("SELECT state FROM ingest.entity_verification_research_state WHERE entity_kind='artist' AND entity_id=$1",[artist])).rows[0].state.pendingKeys).toEqual([snapshot.units[1]!.key]);
@@ -176,7 +177,7 @@ describe("verificación individual persistente y privada",()=>{
     expect(finished.evaluation).toMatchObject({processed:2,complete:true,pendingKeys:[]});
     const versions=(await getPool().query("SELECT id,parent_version_id,state FROM ingest.entity_verification_research_versions WHERE entity_kind='artist' AND entity_id=$1 ORDER BY id",[artist])).rows;
     expect(versions).toHaveLength(2);expect(versions[0].state).toEqual(before.state);expect(versions[1].parent_version_id).toBe(before.id);
-    expect((await getPool().query("SELECT count(*)::int AS n FROM ingest.ai_runs WHERE schema_version LIKE 'verification.v4.compact.%'")).rows[0].n).toBeGreaterThan(0);
+    expect((await getPool().query("SELECT count(*)::int AS n FROM ingest.ai_runs WHERE schema_version LIKE 'verification.reading.%'")).rows[0].n).toBeGreaterThan(0);
     await saveIndividualVerification({...finished,evaluation:{...finished.evaluation!,complete:false,pendingKeys:[snapshot.units[1]!.key]},suggestions:[]},"QA");
     const stored=(await getPool().query("SELECT report FROM ingest.entity_verification_reports WHERE entity_kind='artist' AND entity_id=$1 ORDER BY id DESC LIMIT 1",[artist])).rows[0].report;
     const serialized=verificationReportSchema.parse(stored);expect(serialized.rulesVersion).toBe(RULES_VERSION);expect(serialized.evaluation?.pendingKeys).toEqual([snapshot.units[1]!.key]);expect(serialized.suggestions).toEqual([]);
@@ -187,7 +188,7 @@ describe("verificación individual persistente y privada",()=>{
     const full=await loadVerificationSnapshot("artist",entity),snapshot={...full,units:full.units.slice(0,1),sourceUrls:["https://archivo.example/version-qa"]};
     const content="Archivo QA es una banda venezolana. Publicó Disco Histórico en 2001.",page={url:snapshot.sourceUrls[0]!,title:"Archivo QA",content,contentHash:createHash("sha256").update(content).digest("hex"),fetchedAt:"2026-10-10T00:00:00Z",capturedAt:"2026-10-10T00:00:00Z",acquisitionMethod:"http" as const};
     const response={findings:[{key:snapshot.units[0]!.key,status:"confirmed",observed:"Archivo QA",reason:"Nombre documentado",evidence:[{source:0,quote:content}]}],discoveries:[{area:"discography",value:"Disco Histórico",context:"Archivo QA",reason:"Lanzamiento documentado",evidence:[{source:0,quote:content}]}]};
-    const report=await researchStored(snapshot,{search:async()=>[],page:async()=>page},createDeepSeekGateway(new MockDeepSeekTransport(response,{findings:[],discoveries:[]})));
+    const report=await researchStored(snapshot,{search:async()=>[],page:async()=>page},createDeepSeekGateway(new MockDeepSeekTransport({...response,discoveries:[]},{findings:[],discoveries:response.discoveries})));
     const versionId=await saveIndividualVerification(report,"QA archivo"),headers={authorization:`Bearer ${TOKEN}`},base=`/entity-verification/artist/${entity}/versions`;
     expect((await app.inject({method:"GET",url:base})).statusCode).toBe(401);
     const history=await app.inject({method:"GET",url:base,headers});expect(history.statusCode).toBe(200);expect(history.json().versions).toMatchObject([{id:versionId,reprocessAvailable:true,sourceCount:1}]);
@@ -202,7 +203,7 @@ describe("verificación individual persistente y privada",()=>{
       expect(options.preservedOnly).toBe(true);
       return researchStored(now,{search:async()=>{throw Error("No buscar durante reprocesamiento");},page:async()=>{throw Error("No descargar durante reprocesamiento");}},createDeepSeekGateway(transport),notify,options);
     };
-    const created=await reprocessIndividualVerification("artist",entity,versionId,"QA archivo",{maxCalls:1},work);
+    const created=await reprocessIndividualVerification("artist",entity,versionId,"QA archivo",{maxCalls:0},work);
     for(let n=0;n<200&&["queued","running"].includes((await getIndividualJob(created.id))!.status);n++)await new Promise(resolve=>setTimeout(resolve,25));
     const partial=(await getIndividualJob(created.id))!;expect(partial).toMatchObject({status:"partial",sourceReportId:versionId,preservedOnly:true});expect(partial.reportId).toBeDefined();
     const resumed=await controlIndividualVerification(created.id,"resume","QA archivo",{maxCalls:30},work);

@@ -21,12 +21,15 @@ export interface EmotionArtist {
   id: number;
   name: string;
   emotion: Emotion;
-  /** Suma de los pesos (0–100) de los tags que sustentan la emoción. */
+  /** Suma de los pesos de los tags que sustentan la emoción. */
   score: number;
   /** Cuántos tags la sustentan. */
   evidence: number;
   listeners: number;
+  /** Etiquetas de usuario (Last.fm) con su peso. */
   tags: EmotionTag[];
+  /** Compatibilidad del contrato; +shoutbox está retirado y siempre devuelve []. */
+  shouts: string[];
 }
 
 /** Frases y palabras de intención (normalizadas) por emoción, en orden de prioridad. */
@@ -113,42 +116,51 @@ interface EmotionRow {
   emotion: Emotion;
   score: number;
   evidence: number;
-  detail: { tags?: EmotionTag[] } | null;
+  details: { basis: string; detail: { tags?: EmotionTag[] } | null }[];
   listeners: string;
 }
 
 /** Artistas con esa emoción clara, mejor evidencia y más oyentes primero. */
 export async function emotionArtists(emotion: Emotion, limit: number, offset = 0): Promise<EmotionArtist[]> {
   const { rows } = await getPool().query<EmotionRow>(
-    `SELECT e.artist_id::text AS id, a.name, e.emotion, e.score, e.evidence, e.detail,
+    `SELECT e.artist_id::text AS id, a.name, e.emotion,
+            SUM(e.score)::real AS score, SUM(e.evidence)::int AS evidence,
+            jsonb_agg(jsonb_build_object('basis', e.basis, 'detail', e.detail)) AS details,
             COALESCE(m.listeners, 0) AS listeners
        FROM public.entity_emotions e
-       JOIN public.artists a ON a.id = e.artist_id
+       JOIN ingest.catalog_artists a ON a.id = e.artist_id
        LEFT JOIN LATERAL (
          SELECT mm.listeners FROM public.entity_metrics mm
           WHERE mm.artist_id = e.artist_id
           ORDER BY mm.captured_at DESC LIMIT 1
        ) m ON true
-      WHERE e.basis = 'tags' AND e.artist_id IS NOT NULL AND e.emotion = $1
-      ORDER BY e.score * ln(1 + COALESCE(m.listeners, 0)) DESC, e.score DESC
+      WHERE e.artist_id IS NOT NULL AND e.emotion = $1 AND e.basis = 'tags'
+        AND EXISTS (SELECT 1 FROM ingest.lastfm_artist_verifications v WHERE v.artist_id=e.artist_id)
+      GROUP BY e.artist_id, a.name, e.emotion, m.listeners
+      ORDER BY SUM(e.score) * ln(1 + COALESCE(m.listeners, 0)) DESC, SUM(e.score) DESC
       LIMIT $2 OFFSET $3`,
     [emotion, limit, offset],
   );
-  return rows.map((row) => ({
-    id: Number(row.id),
-    name: row.name,
-    emotion: row.emotion,
-    score: row.score,
-    evidence: row.evidence,
-    listeners: Number(row.listeners),
-    tags: row.detail?.tags ?? [],
-  }));
+  return rows.map((row) => {
+    const tags = row.details.flatMap((d) => d.detail?.tags ?? []);
+    return {
+      id: Number(row.id),
+      name: row.name,
+      emotion: row.emotion,
+      score: row.score,
+      evidence: row.evidence,
+      listeners: Number(row.listeners),
+      tags,
+      shouts: [],
+    };
+  });
 }
 
 export async function emotionArtistCount(emotion: Emotion): Promise<number> {
   const { rows } = await getPool().query<{ n: string }>(
-    `SELECT count(*)::text AS n FROM public.entity_emotions
-      WHERE basis = 'tags' AND artist_id IS NOT NULL AND emotion = $1`,
+    `SELECT count(DISTINCT artist_id)::text AS n FROM public.entity_emotions
+      WHERE artist_id IS NOT NULL AND emotion = $1 AND basis = 'tags'
+        AND EXISTS (SELECT 1 FROM ingest.lastfm_artist_verifications v WHERE v.artist_id=entity_emotions.artist_id)`,
     [emotion],
   );
   return Number(rows[0]?.n ?? 0);

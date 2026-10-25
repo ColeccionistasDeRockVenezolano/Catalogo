@@ -15,6 +15,9 @@ import { nameClassLabel, PERSON_ROLES, personRoleLabel } from "../lib/labels";
 import { PersonFilter, WITHOUT_CREDITS } from "../components/PersonFilter";
 import { ListSummary } from "../components/ListFilters";
 import { CatalogSearchInput } from "../components/CatalogSearchInput";
+import { MobileCatalogTools } from "../components/MobileCatalogTools";
+import { MOBILE_QUERY } from "../components/TopbarTools";
+import { useMediaQuery } from "../lib/useMediaQuery";
 
 const LIMIT = 30;
 const SUSPECT_CLASSES = ["organization_like", "duration", "fragment", "multiple_people"] as const;
@@ -33,6 +36,7 @@ export function PersonsListPage() {
   const offset = Number(params.get("offset") ?? "0") || 0;
 
   const { isAdmin } = useOperator();
+  const isMobile = useMediaQuery(MOBILE_QUERY);
   const { notify } = useToast();
   const [creating, setCreating] = useState(false);
 
@@ -80,42 +84,69 @@ export function PersonsListPage() {
     ...(suspect ? [{ key: "suspect", label: `Sospechosas: ${nameClassLabel(suspect)}`, onClear: () => update({ suspect: undefined }) }] : []),
   ];
   const filtered = Boolean(query.trim()) || activeFilters.length > 0;
+  const searchField = (
+    <CatalogSearchInput scope="person" value={query} onChange={setQuery}
+      placeholder="Buscar por nombre o alias (jose encuentra «José»)…" label="Buscar personas" />
+  );
+  const participationFilter = (
+    <PersonFilter facets={facets.data} error={facets.error} onRetry={facets.reload}
+      selection={hasCredits === false ? WITHOUT_CREDITS : role}
+      onSelect={selectParticipation} />
+  );
 
   return (
     <>
       <div className="page-header">
         <div>
-          <p className="page-kicker">Catálogo</p>
           <h1>Personas</h1>
           <p className="page-lead">Explora las personas por sus créditos y participación en bandas.</p>
         </div>
         {isAdmin ? <button type="button" className="btn btn--primary" onClick={() => setCreating(true)}>+ Nueva persona</button> : null}
       </div>
 
-      <div className="list-toolbar">
-        <CatalogSearchInput
-          scope="person" value={query} onChange={setQuery}
-          placeholder="Buscar por nombre o alias (jose encuentra «José»)…"
-          label="Buscar personas"
-        />
-        <label className="visually-hidden" htmlFor="person-sort">Ordenar</label>
-        <select id="person-sort" className="filter-input" value={sort} onChange={(event) => update({ sort: event.target.value })}>
-          <option value="name">Ordenar por nombre</option>
-          <option value="credits">Ordenar por más créditos</option>
-        </select>
-      </div>
+      {isMobile ? (
+        <MobileCatalogTools search={searchField} query={query} onClearQuery={() => setQuery("")}
+          activeCount={activeFilters.length} total={data?.pagination.total} noun={{ one: "persona", many: "personas" }} onClearAll={clearFilters}
+          settings={<>
+            <div className="catalog-sort">
+              <label htmlFor="person-sort">Ordenar por</label>
+              <select id="person-sort" className="filter-input" value={sort} onChange={(event) => update({ sort: event.target.value })}>
+                <option value="name">Nombre</option>
+                <option value="credits">Más créditos</option>
+              </select>
+            </div>
+            <div className="catalog-sort">
+              <label htmlFor="person-suspect">Mostrar</label>
+              <select id="person-suspect" className="filter-input" value={suspect} onChange={(event) => update({ suspect: event.target.value })}>
+                <option value="">Todas las fichas</option>
+                {SUSPECT_CLASSES.map((value) => <option key={value} value={value}>Sospechosas: {nameClassLabel(value)}</option>)}
+              </select>
+            </div>
+          </>}
+          groups={[{ key: "participation", label: "Participación", empty: "Todas",
+            value: hasCredits === false ? "Sin créditos" : role ? personRoleLabel(role) : null, content: participationFilter }]} />
+      ) : (
+        <>
+          <div className="list-toolbar">
+            {searchField}
+            <label className="visually-hidden" htmlFor="person-sort">Ordenar</label>
+            <select id="person-sort" className="filter-input" value={sort} onChange={(event) => update({ sort: event.target.value })}>
+              <option value="name">Ordenar por nombre</option>
+              <option value="credits">Ordenar por más créditos</option>
+            </select>
+          </div>
 
-      <PersonFilter facets={facets.data} error={facets.error} onRetry={facets.reload}
-        selection={hasCredits === false ? WITHOUT_CREDITS : role}
-        onSelect={selectParticipation} />
+          {participationFilter}
 
-      <div className="list-toolbar">
-        <label className="visually-hidden" htmlFor="person-suspect">Filtrar por nombres sospechosos</label>
-        <select id="person-suspect" className="filter-input" value={suspect} onChange={(event) => update({ suspect: event.target.value })}>
-          <option value="">Todas las fichas</option>
-          {SUSPECT_CLASSES.map((value) => <option key={value} value={value}>Sospechosas: {nameClassLabel(value)}</option>)}
-        </select>
-      </div>
+          <div className="list-toolbar">
+            <label className="visually-hidden" htmlFor="person-suspect">Filtrar por nombres sospechosos</label>
+            <select id="person-suspect" className="filter-input" value={suspect} onChange={(event) => update({ suspect: event.target.value })}>
+              <option value="">Todas las fichas</option>
+              {SUSPECT_CLASSES.map((value) => <option key={value} value={value}>Sospechosas: {nameClassLabel(value)}</option>)}
+            </select>
+          </div>
+        </>
+      )}
 
       <ListSummary total={data?.pagination.total} noun={{ one: "persona", many: "personas" }} loading={loading}
         query={query} filters={activeFilters} onClearQuery={() => setQuery("")} onClearAll={clearFilters} />

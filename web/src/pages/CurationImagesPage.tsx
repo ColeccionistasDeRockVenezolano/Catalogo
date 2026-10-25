@@ -6,16 +6,19 @@
 // tarjeta pone la imagen actual al lado de las candidatas: «Usar esta» la
 // cambia en la ficha (un run, con «Deshacer» en la barra de abajo) y «Dejar la
 // actual» solo descarta las candidatas. Nada cambia sin una decisión.
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ArrowSquareOut, Check, Warning, X } from "@phosphor-icons/react";
-import { ApiError, imageCandidatesApi, type ImageCandidate, type ImageCandidateGroup, type ImageCandidateKind } from "../lib/api";
+import { albumWrites, artistWrites, imageCandidatesApi, type ImageCandidate, type ImageCandidateGroup, type ImageCandidateKind } from "../lib/api";
+import { EntityFormModal } from "../components/EntityFormModal";
 import { useAsync } from "../lib/useAsync";
 import { useToast } from "../lib/ToastContext";
 import { formatCount } from "../lib/curation";
 import { EmptyState, ErrorState } from "../components/StateViews";
 import { RowsSkeleton } from "../components/Skeletons";
 import { Pagination } from "../components/Pagination";
+import { ImageCurationProgress } from "../components/ImageCurationProgress";
+import { imageGroupKey, queueImageDecision, queueImageInspection, queueKeepCurrent, useImageCurationQueue } from "../lib/imageCurationQueue";
 
 const LIMIT = 20;
 const TABS: ReadonlyArray<{ kind: ImageCandidateKind; param: string; label: string }> = [
@@ -24,6 +27,8 @@ const TABS: ReadonlyArray<{ kind: ImageCandidateKind; param: string; label: stri
 ];
 const SOURCE_LABEL: Readonly<Record<string, string>> = {
   deezer: "Deezer", musicbrainz: "MusicBrainz", discogs: "Discogs", spotify: "Spotify",
+  "myspace-wayback": "MySpace · Wayback",
+  "myspace-wayback-sin-copia": "MySpace · sin copia local",
 };
 
 export function CurationImagesPage() {
@@ -31,64 +36,47 @@ export function CurationImagesPage() {
   const { notify } = useToast();
   const [params, setParams] = useSearchParams();
   const tab = TABS.find((entry) => entry.param === params.get("tipo")) ?? TABS[0]!;
-  const [offset, setOffset] = useState(0);
-  // Fichas ya decididas en esta vista: desaparecen al momento, sin esperar la recarga.
-  const [decided, setDecided] = useState<ReadonlySet<string>>(new Set());
-  const [busy, setBusy] = useState<string | null>(null);
-
-  const { data, loading, error, reload } = useAsync(() => imageCandidatesApi.list(tab.kind, { limit: LIMIT, offset }), [tab.kind, offset]);
+  const offsetValue = Number(params.get("offset"));
+  const offset = Number.isSafeInteger(offsetValue) && offsetValue > 0 ? offsetValue : 0;
+  const setOffset = (value: number) => setParams(previous => {
+    const next = new URLSearchParams(previous);
+    if (value) next.set("offset", String(value)); else next.delete("offset");
+    return next;
+  });
+  const jobs = useImageCurationQueue();
+  const [editingImage, setEditingImage] = useState<ImageCandidateGroup | null>(null);
+  const entityId = Number(params.get("ficha")) || undefined;
+  const queryKey = `${tab.kind}:${offset}:${entityId ?? ""}`;
+  const result = useAsync(async () => ({
+    ...await imageCandidatesApi.list(tab.kind, { limit: LIMIT, offset, ...(entityId ? { entityId } : {}) }), queryKey,
+  }), [tab.kind, offset, entityId, queryKey]);
+  // Las lecturas anteriores no deben aparecer al cambiar de pestaña o página.
+  const data = result.data?.queryKey === queryKey ? result.data : undefined;
+  const { loading, error, reload } = result;
   const counts = useAsync(() => imageCandidatesApi.summary(), [data]);
+  const hidden = new Set(jobs.filter(job => job.type === "decision" && job.hide).flatMap(job => job.groups.map(imageGroupKey)));
+  const visible = data?.data.filter(group => !hidden.has(imageGroupKey(group))) ?? [];
+  const hiddenHere = data?.data.filter(group => hidden.has(imageGroupKey(group))).length ?? 0;
+  const pending = data ? Math.max(0, data.pagination.total - hiddenHere) : undefined;
+  const measurable = visible.filter(group => group.candidates.some(candidate => candidate.quality === null || candidate.quality === "failed")
+    && !jobs.some(job => job.type === "inspection" && (job.status === "sending" || job.status === "queued" || job.status === "running") && job.groups.some(other => imageGroupKey(other) === imageGroupKey(group))));
 
-  useEffect(() => { setOffset(0); }, [tab.kind]);
-  useEffect(() => { setDecided(new Set()); }, [data]);
-
-  async function decide(group: ImageCandidateGroup, candidate: ImageCandidate | null) {
-    const key = `${group.kind}:${group.entityId}`;
-    setBusy(key);
-    try {
-      await imageCandidatesApi.decide(group.kind, group.entityId, candidate?.id ?? null);
-      setDecided((previous) => new Set(previous).add(key));
-      notify("success", candidate
-        ? `${group.kind === "album" ? "Portada" : "Foto"} de «${group.name}» cambiada.`
-        : `«${group.name}» se queda con su ${group.kind === "album" ? "portada" : "foto"} actual.`);
-      counts.reload();
-    } catch (err) {
-      notify("error", err instanceof ApiError ? err.message : "No se pudo guardar la decisión.");
-      if (err instanceof ApiError && err.status === 409) reload();
-    } finally {
-      setBusy(null);
-    }
+  function decide(group: ImageCandidateGroup, candidate: ImageCandidate | null) {
+    const articles = [...(paginationStartRef.current?.parentElement?.querySelectorAll<HTMLElement>(".img-pick") ?? [])];
+    const current = articles.findIndex(article => article.dataset.entityKey === imageGroupKey(group));
+    const next = articles[current + 1] ?? articles[current - 1];
+    queueImageDecision(group, candidate?.id ?? null);
+    requestAnimationFrame(() => {
+      if (next?.isConnected) next.focus({ preventScroll: true });
+    });
   }
-
-  async function keepAllCurrent(groups: ImageCandidateGroup[]) {
-    if (groups.length === 0) return;
-    setBusy("*");
-    try {
-      const result = await imageCandidatesApi.keepCurrent(tab.kind, groups.map((group) => group.entityId));
-      setDecided((previous) => {
-        const next = new Set(previous);
-        for (const group of groups) next.add(`${group.kind}:${group.entityId}`);
-        return next;
-      });
-      notify("success", `${formatCount(result.entities)} ${result.entities === 1 ? "ficha se queda" : "fichas se quedan"} con su ${tab.kind === "album" ? "portada" : "foto"} actual.`);
-      counts.reload();
-    } catch (err) {
-      notify("error", err instanceof ApiError ? err.message : "No se pudo guardar la decisión.");
-      if (err instanceof ApiError && err.status === 409) reload();
-    } finally {
-      setBusy(null);
-    }
-  }
-
-  const visible = data?.data.filter((group) => !decided.has(`${group.kind}:${group.entityId}`)) ?? [];
-  const pending = data ? Math.max(0, data.pagination.total - decided.size) : undefined;
 
   return (
     <>
       <p className="curation-lead">
         Portadas que podrían cambiarse por la misma en mejor calidad y artistas con más de una foto en las fuentes.
         Compara la imagen actual con las candidatas y elige: «Usar esta» la cambia en la ficha y se puede deshacer;
-        «Dejar la actual» descarta las candidatas.
+        «Dejar la actual» descarta las candidatas. Las decisiones se guardan en segundo plano: puedes seguir con la siguiente ficha.
       </p>
 
       <div className="list-toolbar">
@@ -96,7 +84,12 @@ export function CurationImagesPage() {
           {TABS.map((entry) => (
             <button
               key={entry.kind} type="button" className="segmented__option" aria-pressed={entry.kind === tab.kind}
-              onClick={() => setParams(entry === TABS[0] ? {} : { tipo: entry.param })}
+              onClick={() => setParams(previous => {
+                const next = new URLSearchParams(previous);
+                if (entry === TABS[0]) next.delete("tipo"); else next.set("tipo", entry.param);
+                next.delete("offset"); next.delete("ficha");
+                return next;
+              })}
             >
               {entry.label}
               {counts.data ? <span className="segmented__range">{formatCount(counts.data[entry.kind])}</span> : null}
@@ -104,22 +97,31 @@ export function CurationImagesPage() {
           ))}
         </div>
         {visible.length > 0 ? (
-          <button type="button" className="btn btn--outline btn--sm" disabled={busy !== null} onClick={() => void keepAllCurrent(visible)}>
+          <button type="button" className="btn btn--outline btn--sm" onClick={() => queueKeepCurrent(visible)}>
             <X size={14} weight="bold" aria-hidden="true" />
             Dejar las actuales en esta página ({formatCount(visible.length)})
           </button>
         ) : null}
+        {measurable.length ? (
+          <button type="button" className="btn btn--outline btn--sm" onClick={() => queueImageInspection(measurable)}>
+            Medir calidad de esta página
+          </button>
+        ) : null}
+        {entityId ? <Link className="btn btn--ghost btn--sm" to={tab === TABS[0] ? "" : `?tipo=${tab.param}`}>Ver todas las fichas</Link> : null}
         {pending !== undefined && !loading ? (
           <p className="dup-count" aria-live="polite">{formatCount(pending)} {pending === 1 ? "ficha pendiente" : "fichas pendientes"}</p>
         ) : null}
       </div>
 
+      <ImageCurationProgress />
+
       <div ref={paginationStartRef} className="pagination-start" />
 
       {loading && !data ? <RowsSkeleton rows={3} height={260} label="Cargando las imágenes candidatas…" /> : error ? <ErrorState message={error} onRetry={reload} /> : visible.length === 0 ? (
-        data && data.pagination.total > decided.size ? (
+        data && (data.pagination.total > hiddenHere || jobs.some(job => job.type === "decision" && (job.status === "sending" || job.status === "queued" || job.status === "running") && job.groups.some(group => group.kind === tab.kind)) || offset > 0) ? (
           <div className="img-pick__more">
-            <button type="button" className="btn btn--outline" onClick={reload}>Cargar las siguientes</button>
+            <p role="status">{jobs.some(job => job.type === "decision" && (job.status === "sending" || job.status === "queued" || job.status === "running")) ? "Guardando tus decisiones. Las siguientes fichas aparecerán automáticamente." : "Quedan más fichas por revisar."}</p>
+            <button type="button" className="btn btn--outline" disabled={loading} onClick={() => { setOffset(0); reload(); }}>Cargar las siguientes</button>
           </div>
         ) : (
           <EmptyState
@@ -134,7 +136,7 @@ export function CurationImagesPage() {
               const key = `${group.kind}:${group.entityId}`;
               return (
                 <li key={key}>
-                  <ImageGroupCard group={group} busy={busy === key || busy === "*"} disabled={busy !== null} onDecide={(candidate) => void decide(group, candidate)} />
+                  <ImageGroupCard group={group} onDecide={(candidate) => decide(group, candidate)} onUpload={() => setEditingImage(group)} />
                 </li>
               );
             })}
@@ -142,22 +144,28 @@ export function CurationImagesPage() {
           <Pagination scrollTargetRef={paginationStartRef} limit={LIMIT} offset={offset} total={data?.pagination.total ?? 0} onOffsetChange={setOffset} />
         </>
       )}
+      {editingImage ? <EntityFormModal title={`Cambiar imagen de ${editingImage.name}`} partial
+        fields={[{ key: editingImage.kind === "album" ? "coverUrl" : "pictureUrl", label: editingImage.kind === "album" ? "Portada" : "Foto", type: "mediaUrl", span2: true }]}
+        initialValues={{ [editingImage.kind === "album" ? "coverUrl" : "pictureUrl"]: editingImage.currentUrl }}
+        onSubmit={(values, note) => (editingImage.kind === "album" ? albumWrites : artistWrites).update(editingImage.entityId, { ...values, note })}
+        onSuccess={() => { setEditingImage(null); reload(); counts.reload(); notify("success", "Imagen actualizada. El cambio está disponible en el historial."); }}
+        onClose={() => setEditingImage(null)} /> : null}
     </>
   );
 }
 
-function ImageGroupCard({ group, busy, disabled, onDecide }: {
-  group: ImageCandidateGroup; busy: boolean; disabled: boolean; onDecide: (candidate: ImageCandidate | null) => void;
+function ImageGroupCard({ group, onDecide, onUpload }: {
+  group: ImageCandidateGroup; onDecide: (candidate: ImageCandidate | null) => void; onUpload: () => void;
 }) {
   const href = group.kind === "album" ? `/discos/${group.entityId}` : `/artistas/${group.entityId}`;
   return (
-    <article className="img-pick" aria-busy={busy}>
+    <article className="img-pick" aria-label={group.name} tabIndex={-1} data-entity-key={imageGroupKey(group)}>
       <header className="img-pick__head">
         <div>
           <h3 className="img-pick__title"><Link to={href}>{group.name}</Link></h3>
           {group.subtitle ? <p className="img-pick__meta">{group.subtitle}</p> : null}
         </div>
-        <button type="button" className="btn btn--ghost btn--sm" disabled={disabled} onClick={() => onDecide(null)}>
+        <button type="button" className="btn btn--ghost btn--sm" onClick={() => onDecide(null)}>
           <X size={14} weight="bold" aria-hidden="true" />
           Dejar la actual
         </button>
@@ -169,17 +177,19 @@ function ImageGroupCard({ group, busy, disabled, onDecide }: {
         </p>
       ) : null}
       <div className="img-pick__grid">
-        <ImageTile label="Actual" url={group.currentUrl} current />
+        <ImageTile key={group.currentUrl} label="Actual" url={group.currentUrl} current />
         {group.candidates.map((candidate) => (
           <ImageTile
-            key={candidate.id}
+            key={`${candidate.id}:${candidate.url}`}
             label={SOURCE_LABEL[candidate.source] ?? candidate.source}
             url={candidate.url}
             pageUrl={candidate.pageUrl}
             score={candidate.score}
-            size={candidate.width && candidate.height ? [candidate.width, candidate.height] : null}
-            action={group.stale ? null : (
-              <button type="button" className="btn btn--primary btn--sm btn--block" disabled={disabled} onClick={() => onDecide(candidate)}>
+            size={candidate.naturalWidth && candidate.naturalHeight ? [candidate.naturalWidth, candidate.naturalHeight] : candidate.width && candidate.height ? [candidate.width, candidate.height] : null}
+            inspection={candidate}
+            variantOf={candidate.variantOf ? group.candidates.findIndex((other) => other.id === candidate.variantOf) + 1 : null}
+            action={group.stale || candidate.source === "myspace-wayback-sin-copia" || candidate.quality === "failed" ? null : (
+              <button type="button" className="btn btn--primary btn--sm btn--block" onClick={() => onDecide(candidate)}>
                 <Check size={14} weight="bold" aria-hidden="true" />
                 Usar esta
               </button>
@@ -187,13 +197,20 @@ function ImageGroupCard({ group, busy, disabled, onDecide }: {
           />
         ))}
       </div>
+      <button type="button" className="btn btn--sm" onClick={onUpload}>Subir otra imagen</button>
     </article>
   );
 }
 
-function ImageTile({ label, url, pageUrl = null, score = null, size = null, current = false, action = null }: {
+const QUALITY_LABEL: Readonly<Record<string, string>> = { high: "Alta calidad", medium: "Calidad media", low: "Baja calidad", failed: "No se pudo descargar" };
+const USE_LABEL: Readonly<Record<string, string>> = {
+  cover: "Portada", back_cover: "Contraportada", portrait: "Retrato", group: "Foto de grupo", live: "En vivo",
+  poster: "Afiche", irrelevant: "No sirve como imagen de la ficha", unknown: "Uso sin determinar",
+};
+
+function ImageTile({ label, url, pageUrl = null, score = null, size = null, current = false, action = null, inspection = null, variantOf = null }: {
   label: string; url: string | null; pageUrl?: string | null; score?: number | null; size?: [number, number] | null;
-  current?: boolean; action?: ReactNode;
+  current?: boolean; action?: ReactNode; inspection?: ImageCandidate | null; variantOf?: number | null;
 }) {
   // El tamaño real se mide al cargar: la base no lo guarda para la imagen actual.
   const [natural, setNatural] = useState<[number, number] | null>(null);
@@ -201,7 +218,7 @@ function ImageTile({ label, url, pageUrl = null, score = null, size = null, curr
   const shown = size ?? natural;
   return (
     <figure className={`img-tile${current ? " img-tile--current" : ""}`}>
-      <a className="img-tile__frame" href={url ?? undefined} target="_blank" rel="noreferrer" title="Abrir la imagen a tamaño completo">
+      <a className="img-tile__frame" href={url ?? undefined} target="_blank" rel="noreferrer" aria-label={`Abrir imagen ${label.toLowerCase()} a tamaño completo`} title="Abrir la imagen a tamaño completo">
         {url && !failed ? (
           <img
             src={url} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer"
@@ -216,6 +233,17 @@ function ImageTile({ label, url, pageUrl = null, score = null, size = null, curr
           {shown ? `${shown[0]}×${shown[1]} px` : "—"}
           {score !== null ? ` · parecido ${Math.round(score * 100)} %` : ""}
         </span>
+        {inspection?.quality ? (
+          <span className={`img-tile__quality img-tile__quality--${inspection.quality}`}>
+            {QUALITY_LABEL[inspection.quality]}
+            {inspection.use && inspection.quality !== "failed" ? ` · ${USE_LABEL[inspection.use] ?? inspection.use}` : ""}
+          </span>
+        ) : null}
+        {inspection?.effectiveWidth && inspection.naturalWidth && inspection.effectiveWidth < inspection.naturalWidth * 0.6
+          ? <span className="img-tile__facts">Detalle real de unos {inspection.effectiveWidth} px de ancho</span> : null}
+        {inspection?.context ? <span className="img-tile__facts">«{inspection.context}»</span> : null}
+        {variantOf ? <span className="img-tile__facts">Variante de la candidata {variantOf}</span> : null}
+        {inspection?.quality === "failed" ? <span className="img-tile__facts">{inspection.reasons[0]}</span> : null}
         {pageUrl ? (
           <a className="img-tile__source" href={pageUrl} target="_blank" rel="noreferrer">
             Ver en la fuente <ArrowSquareOut size={12} weight="bold" aria-hidden="true" />

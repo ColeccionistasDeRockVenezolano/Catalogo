@@ -1,3 +1,4 @@
+import { audiovisualAlbumException, audiovisualKind } from "./audiovisual-rules.js";
 /** Canonical YouTube identifiers and the conservative seed classification. */
 export const YOUTUBE_VIDEO_ID = /^[A-Za-z0-9_-]{11}$/;
 
@@ -108,6 +109,9 @@ export function inferredTypeLabel(type: NormalizedReleaseType): string {
 
 /** Clasifica una fila completa: el tipo escrito manda; vacío, se infiere y se dice. */
 export function classifySheetRow(row: { type: string | null | undefined; artistName: string | null | undefined; albumName: string | null | undefined }): ContentClassification {
+  if (audiovisualAlbumException(row.artistName ?? "", row.albumName ?? "")) {
+    return { kind: "release", normalizedType: "other", reason: "excepción editorial de Brian: Gasolina / Blues Criollo permanece como disco (2026-10-15)" };
+  }
   const written = key(row.type ?? "");
   if (written && written !== "empty") return classifyContentType(row.type);
   const inferred = inferSheetType(row.artistName, row.albumName);
@@ -146,6 +150,8 @@ export function collectReleaseYears(entries: Iterable<{ artist: string; album: s
 export function classifyContentType(raw: string | null | undefined): ContentClassification {
   const normalized = key(raw ?? "");
   if (!normalized || normalized === "empty") return { kind: "review", normalizedType: null, reason: "tipo vacío o incompleto" };
+  const audiovisual = audiovisualKind(raw);
+  if (audiovisual) return { kind: "media", normalizedType: ["documentary", "music_video", "live_concert"].includes(audiovisual) ? audiovisual as "documentary" | "music_video" | "live_concert" : null, reason: "contenido audiovisual; va al perfil del artista y no crea álbum" };
   // These labels can be releases, performances, or compilations; the seed alone is insufficient.
   if (/\bb sides?\b|\bunplugged\b/.test(normalized) || /[+/&]/.test(raw ?? "")) {
     return { kind: "review", normalizedType: null, reason: "B-Sides, Unplugged o tipo compuesto requiere evidencia de publicación independiente" };

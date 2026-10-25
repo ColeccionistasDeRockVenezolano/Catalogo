@@ -1,12 +1,18 @@
+import { ArtistGallery } from "../components/ArtistGallery";
+import { ArtistDocuments } from "../components/ArtistDocuments";
+import { EntityAdminBar } from "../components/EntityAdminBar";
+import { GenrePeriods } from "../components/GenrePeriods";
+import { CatalogResourceEditor } from "../components/CatalogResourceEditor";
+import { ImageViewer } from "../components/ImageViewer";
 import { CatalogModelPanel } from "../components/CatalogModelPanel";
 import { EntityVerification } from "../components/EntityVerification";
 import { useId, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
 import { BackLink } from "../components/BackLink";
-import { ArrowsOutSimple, GitMerge, PencilSimple, Trash } from "@phosphor-icons/react";
+import { ArrowsOutSimple, CalendarBlank, Clock, MapPin, PencilSimple, Trash } from "@phosphor-icons/react";
 import { artistsApi, artistMemberWrites, artistWrites } from "../lib/api";
-import { useAsync } from "../lib/useAsync";
+import { useDailyAsync } from "../lib/useDailyAsync";
 import { useMovedToRedirect } from "../lib/useMovedTo";
 import { useOperator } from "../lib/OperatorContext";
 import { useDiscoveryVisitMetric } from "../lib/discoveryMetrics";
@@ -14,6 +20,7 @@ import { useToast } from "../lib/ToastContext";
 import { DetailSkeleton } from "../components/Skeletons";
 import { EntityCard, initialOf } from "../components/EntityCard";
 import { ArtistDiscography } from "../components/ArtistDiscography";
+import { ArtistAudiovisuals } from "../components/ArtistAudiovisuals";
 import { groupMembers, MembersTimeline } from "../components/Discography";
 import { DeceasedMark } from "../components/DeceasedMark";
 import { AliasEditor } from "../components/AliasEditor";
@@ -31,15 +38,17 @@ import { EntityLoadError } from "../components/RemovedEntityState";
 import { EntityPicker } from "../components/EntityPicker";
 import { Modal } from "../components/Modal";
 import { entityFormValues, ARTIST_FIELDS } from "../lib/entityFields";
-import { EntityInfo, type InfoGroup, type InfoItem } from "../components/EntityInfo";
+import { EntityInfo, type InfoItem } from "../components/EntityInfo";
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
 import { PlatformLinks } from "../components/PlatformLinks";
-import { EmbedPanel, ListenSection, resolveListenPlatform, useListenChoice } from "../components/ListenPlayer";
+import { resolveListenPlatform, useListenChoice } from "../components/ListenPlayer";
+import { ArtistListenPanel } from "../components/ArtistListenPanel";
 import { embedOptions } from "../lib/embeds";
-import { artistTypeLabel, memberRoleLabel } from "../lib/labels";
+import { artistTypeLabel, foreignCountry, memberRoleLabel } from "../lib/labels";
 import { ageText, formatDate } from "../lib/format";
 import { TITULAR_ROLE, type ArtistMember, type ArtistRelation, type RelatedArtist, type RelatedRule, type SimilarArtist, type SimilarRule } from "../lib/types";
+import { mediaImage } from "../lib/media";
 
 const LINK_PLATFORMS = [
   { key: "youtube", label: "YouTube" },
@@ -135,7 +144,7 @@ function similarSubtitle(item: SimilarArtist): string {
   if (item.rule === "same_compilation" && evidence.length) return `En ${quoted(evidence)}`;
   if (item.rule === "same_producer" && evidence.length) return `Producción: ${evidence.join(", ")}`;
   if (item.rule === "same_label" && evidence.length) return `Sello: ${evidence.join(", ")}`;
-  return item.originCountry ?? "";
+  return foreignCountry(item.originCountry) ?? "";
 }
 
 export function ArtistDetailPage() {
@@ -144,7 +153,7 @@ export function ArtistDetailPage() {
   const navigate = useNavigate();
   const { isAdmin, isChecking } = useOperator();
   const { notify } = useToast();
-  const { data: artist, loading, error, errorValue, reload } = useAsync(() => artistsApi.get(artistId), [artistId]);
+  const { data: artist, loading, error, errorValue, reload } = useDailyAsync((date, signal) => artistsApi.get(artistId, date, signal), [artistId]);
   useMovedToRedirect(errorValue);
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -158,8 +167,14 @@ export function ArtistDetailPage() {
   if (loading && (!artist || artist.id !== artistId)) return <DetailSkeleton />;
   if (error || !artist) return <EntityLoadError message={error ?? "Artista no encontrado."} errorValue={errorValue} onRetry={reload} />;
   // Lo más escuchado del artista en cada plataforma con reproductor (perfiles verificados).
-  const listenOptions = embedOptions([{ label: null, links: artist.platforms ?? [] }], "artist");
-  const listenActive = resolveListenPlatform(listenOptions.map((option) => option.platform), chosenPlatform);
+  const channelLinks = artist.channelVideo ? [{ platform: "crv_youtube", url: artist.channelVideo.url }] : [];
+  const playbackAlbums = artist.playbackAlbums ?? [];
+  const listenLinks = [...(artist.platforms ?? []), ...channelLinks];
+  for (const link of playbackAlbums) if (!listenLinks.some(existing => existing.platform === link.platform)) listenLinks.push(link);
+  const listenOptions = embedOptions([{ label: null, links: artist.platforms ?? [] },
+    { label: artist.channelVideo?.title ?? null, links: channelLinks },
+    ...playbackAlbums.map(link => ({label:link.albumTitle,links:[link],owner:"album" as const}))], "artist");
+  const listenActive = resolveListenPlatform(listenOptions.map((option) => option.platform), chosenPlatform, listenOptions[0]?.platform);
   const listenOption = listenOptions.find((option) => option.platform === listenActive) ?? null;
 
   const hasCurrentMember = artist.members.some((member) => member.isCurrent);
@@ -179,14 +194,17 @@ export function ArtistDetailPage() {
   const activeYears = artist.yearsActive ?? (artist.formedYear
     ? `${artist.formedYear}–${artist.disbandedYear ?? (status === "Activo" ? "presente" : "?")}`
     : null);
+  const currentLocation = [artist.currentCity, artist.currentCountry].filter(Boolean).join(", ") || null;
   const originInfo: InfoItem[] = [
-    { label: "País de origen", value: artist.originCountry },
-    { label: "Ubicación", value: artist.originCity },
-    { label: "Estado", value: status, fallback: "Desconocido" },
-    { label: "Formado en", value: artist.formedYear === null ? null : <CatalogYear year={artist.formedYear} kind="artist" />, fallback: "Sin dato" },
-    { label: "Años activos", value: activeYears ? <CatalogPeriod text={activeYears} /> : null },
+    { label: "Origen", value: artist.originCity ? <span className="artist-profile__fact"><MapPin size={16} aria-hidden="true" />{artist.originCity}</span> : null },
+    { label: "Ubicación actual", value: currentLocation ? <span className="artist-profile__fact"><MapPin size={16} aria-hidden="true" />{currentLocation}</span> : null },
+    { label: "Formado en", value: artist.formedYear === null ? null : <span className="artist-profile__fact"><CalendarBlank size={16} aria-hidden="true" /><CatalogYear year={artist.formedYear} kind="artist" /></span>, fallback: "Sin dato" },
+    { label: "Años activos", value: activeYears ? <span className="artist-profile__fact"><Clock size={16} aria-hidden="true" /><span><CatalogPeriod text={activeYears} /></span></span> : null },
   ];
   const identityInfo: InfoItem[] = [
+    { label: "País de origen", value: isAdmin ? artist.originCountry : foreignCountry(artist.originCountry) },
+    { label: "Contacto", value: artist.email ? <a href={`mailto:${artist.email}`}>{artist.email}</a> : null },
+    { label: "Estado", value: status, fallback: "Desconocido" },
     { label: "Nombre real", value: titular ? <Link to={`/personas/${titular.personId}`}>{titular.personRealName ?? titular.personDisplayName ?? titular.personName}</Link> : null },
     // En un proyecto solista «formado en» es la carrera, y el nacimiento y el
     // fallecimiento son los de su titular: solo salen si hay quien los tenga.
@@ -197,16 +215,8 @@ export function ArtistDetailPage() {
       { label: titularDead ? "Edad al fallecer" : "Edad",
         value: ageText(titular.personBirthDate ?? null, titularDead ? titular.personDeathDate ?? null : null) },
     ] satisfies InfoItem[] : []),
-    // Género del artista (su trayectoria); cada disco muestra el suyo.
-    { label: "Género", value: artist.genres?.length ? (
-      <span className="entity-info__tags"><CatalogGenres genres={artist.genres} kind="artist" className="badge" /></span>
-    ) : null, fallback: "Sin clasificar" },
     { label: "Temas de las letras", value: artist.themes },
-    { label: "Tipo", value: <Link to={`/artistas?tipo=${artist.artistType}`}>{artistTypeLabel(artist.artistType)}</Link> },
-  ];
-  const infoGroups: InfoGroup[] = [
-    { title: "Origen y trayectoria", items: originInfo },
-    { title: "Identidad musical", items: identityInfo },
+    { label: "Tipo", value: <Link to={`/artistas?tipo=${artist.artistGroup ?? artist.artistType}`}>{artistTypeLabel(artist.artistGroup ?? artist.artistType)}</Link> },
   ];
   // La API más antigua no manda estos campos: la ficha sigue abriendo sin ellos.
   const related = artist.related ?? [];
@@ -225,6 +235,18 @@ export function ArtistDetailPage() {
       content: artist.discography.length === 0 ? <TabEmpty>Sin discos registrados.</TabEmpty> : (
         <ArtistDiscography albums={artist.discography} artistName={artist.name} artistId={artist.id} />
       ),
+    },
+    {
+      key: "audiovisuales", label: "Audiovisuales", count: artist.audiovisuals?.length ?? 0,
+      content: <ArtistAudiovisuals key={artist.id} items={artist.audiovisuals ?? []} artistId={artist.id} artistName={artist.name} />,
+    },
+    {
+      key: "galeria", label: "Galería", count: artist.gallery?.length ?? 0,
+      content: <ArtistGallery key={artist.id} artistId={artist.id} artistName={artist.name} items={artist.gallery ?? []} onChanged={reload} />,
+    },
+    {
+      key: "otros", label: "Otros", count: artist.documents?.length ?? 0,
+      content: <ArtistDocuments key={artist.id} artistId={artist.id} items={artist.documents ?? []} onChanged={reload} />,
     },
     {
       key: "miembros", label: "Integrantes", count: memberGroups.length,
@@ -330,6 +352,7 @@ export function ArtistDetailPage() {
       ),
     },
     ...(isAdmin ? [
+      { key: "generos-periodos", label: "Géneros por período", content: <GenrePeriods kind="artist" id={artist.id}/> },
       { key: "fuentes", label: "Origen de los datos", content: <EntityProvenance entity="artist" id={artist.id} revision={artist} /> },
       { key: "historial", label: "Historial", content: <EntityHistory entity="artist" id={artist.id} /> },
     ] : []),
@@ -339,11 +362,13 @@ export function ArtistDetailPage() {
     <>
       <BackLink fallback="/artistas" />
 
-      <section className="entity-hero artist-profile" aria-label={`Ficha de ${artist.name}`}>
+      {isAdmin ? <EntityAdminBar onEdit={() => setEditing(true)} onMerge={() => setMerging(true)} onRemove={() => setDeleting(true)} /> : null}
+
+      <section className={`entity-hero artist-profile${listenLinks.length ? " artist-profile--with-listen" : ""}`} aria-label={`Ficha de ${artist.name}`}>
         <div className="artist-profile__media">
           {artist.pictureUrl ? (
             <button type="button" className="entity-hero__art artist-profile__image-button" aria-label={`Ampliar foto de ${artist.name}`} onClick={() => setViewingImage("photo")}>
-              <img src={artist.pictureUrl} alt="" loading="eager" decoding="async" />
+              <img {...mediaImage(artist.pictureUrl, 640)} alt="" loading="eager" decoding="async" />
               <span className="artist-profile__photo-hint" aria-hidden="true"><ArrowsOutSimple size={16} /><span>Ampliar foto</span></span>
             </button>
           ) : <span className="entity-hero__art"><span className="placeholder">{initialOf(artist.name)}</span></span>}
@@ -353,55 +378,40 @@ export function ArtistDetailPage() {
         </div>
         <div className="artist-profile__content">
           <h1 className="entity-hero__title">{artist.name}<DeceasedMark deceased={artist.isDeceased} /></h1>
-          <EntityInfo items={[]} groups={infoGroups} showEmpty={isAdmin} />
-          {artist.platforms?.length ? (
-            <div className="platform-block"><h2>Escuchar en</h2><PlatformLinks links={artist.platforms} subject={artist.name} /></div>
+          <div className="artist-profile__facts"><EntityInfo items={originInfo} showEmpty={isAdmin} /></div>
+          {artist.genres?.length || isAdmin ? (
+            <div className="artist-profile__genres">
+              <h2>Género</h2>
+              {artist.genres?.length ? <div className="entity-info__tags"><CatalogGenres genres={artist.genres} kind="artist" className="badge" /></div> : <p className="muted-note">Sin clasificar</p>}
+            </div>
           ) : null}
-          {artist.socials?.length ? (
-            <div className="platform-block"><h2>Redes</h2><PlatformLinks links={artist.socials} subject={artist.name} /></div>
-          ) : null}
+          <div className="artist-profile__identity"><EntityInfo items={identityInfo} showEmpty={isAdmin} /></div>
+          {artist.biography ? <div className="artist-profile__biography entity-hero__bio"><h2>Biografía</h2><ExpandableText key={artist.id} className="entity-hero__desc" text={artist.biography} /></div> : null}
           {isAdmin || artist.aliases.some((alias) => !alias.publicHidden) ? (
             <div className="artist-profile__aliases">
               <h2>Alias</h2>
               <AliasEditor path="artists" entityId={artist.id} aliases={artist.aliases} onChanged={reload} compactTypeLabels />
             </div>
           ) : null}
+          {artist.socials?.length || artist.platforms?.length ? (
+            <div className="artist-profile__connections">
+              {artist.socials?.length ? <div className="platform-block"><h2>{(artist.artistGroup ?? artist.artistType) === "solo_artist" ? "Síguelo en" : "Síguelos en"}</h2><PlatformLinks links={artist.socials} subject={artist.name} /></div> : null}
+              {artist.platforms?.length ? <div className="platform-block"><h2>Escucha en</h2><PlatformLinks links={artist.platforms} subject={artist.name} /></div> : null}
+            </div>
+          ) : null}
         </div>
-        {artist.biography ? <div className="artist-profile__biography entity-hero__bio"><h2>Biografía</h2><ExpandableText className="entity-hero__desc" text={artist.biography} /></div> : null}
+        {listenLinks.length ? <ArtistListenPanel subject={artist.name} links={listenLinks} options={listenOptions}
+          selected={listenOption} onChange={choosePlatform} /> : null}
         <RewritePendingMark kind="artist" id={artist.id} onDone={reload} />
       </section>
 
-      {viewingImage ? (
-        <Modal title={`${viewingImage === "photo" ? "Foto" : "Logo"} de ${artist.name}`} wide onClose={() => setViewingImage(null)}>
-          <div className="artist-image-viewer">
-            <img src={viewingImage === "photo" ? artist.pictureUrl ?? "" : artist.logoUrl ?? ""} alt={`${viewingImage === "photo" ? "Foto" : "Logo"} de ${artist.name}`} />
-          </div>
-        </Modal>
-      ) : null}
-
-      {isAdmin ? (
-        <div className="page-actions" style={{ marginTop: 14 }}>
-          <button type="button" className="btn btn--sm" onClick={() => setEditing(true)}>
-            <PencilSimple size={14} weight="bold" aria-hidden="true" />Editar
-          </button>
-          <button type="button" className="btn btn--sm" onClick={() => setMerging(true)}>
-            <GitMerge size={14} weight="bold" aria-hidden="true" />Fusionar con…
-          </button>
-          <button type="button" className="btn btn--sm btn--danger" onClick={() => setDeleting(true)}>
-            <Trash size={14} weight="bold" aria-hidden="true" />Retirar
-          </button>
-        </div>
-      ) : null}
+      {viewingImage ? <ImageViewer
+        key={`${artist.id}:${viewingImage}`}
+        src={viewingImage === "photo" ? artist.pictureUrl! : artist.logoUrl!}
+        title={`${viewingImage === "photo" ? "Foto" : "Logo"} de ${artist.name}`}
+        onClose={() => setViewingImage(null)} /> : null}
 
       {isAdmin ? <EntityVerification kind="artist" id={artist.id} revision={artist} /> : null}
-
-      {listenOptions.length && listenOption ? (
-        <ListenSection heading="Escuchar" subject={artist.name} active={listenOption.platform} onChange={choosePlatform}
-          tabs={listenOptions.map((option) => ({ platform: option.platform, url: option.targets[0]!.url }))}>
-          <EmbedPanel key={`${artist.id}:${listenOption.platform}`} option={listenOption} subject={artist.name}
-            fullElsewhere={listenOptions.find((option) => option.platform.startsWith("youtube"))?.platform ?? null} />
-        </ListenSection>
-      ) : null}
 
       <EntityTabs tabs={tabs} defaultKey="discografia" />
 
@@ -411,12 +421,15 @@ export function ArtistDetailPage() {
           fields={ARTIST_FIELDS}
           wide
           panels={[
-            { key: "model", label: "Identidad y períodos", content: <CatalogModelPanel kind="artist" id={artist.id} onChanged={reload} /> },
+            { key: "gallery-editor", label: "Galería", content: <ArtistGallery key={artist.id} artistId={artist.id} artistName={artist.name} items={artist.gallery ?? []} onChanged={reload} /> },
+            { key: "audiovisual-editor", label: "Audiovisuales", content: <CatalogResourceEditor owner="artist" id={artist.id} resource="audiovisual" onChanged={reload}/> },
+            { key: "model", label: "Vínculos y períodos", content: <CatalogModelPanel kind="artist" id={artist.id} onChanged={reload} /> },
             { key: "genres", label: "Géneros", content: <GenreEditor kind="artist" id={artist.id} genres={artist.genres ?? []} primaryGenre={artist.primaryGenre ?? null} onChanged={reload} /> },
-            { key: "members", label: "Identidad e integrantes", content: <MembershipEditor fixedKind="artist" fixedId={artist.id} rows={artist.members.map((member) => ({ ...member, otherId: member.personId, otherName: member.personName }))} onChanged={reload} /> },
+            { key: "members", label: "Titular e integrantes", content: <MembershipEditor fixedKind="artist" fixedId={artist.id} rows={artist.members.map((member) => ({ ...member, otherId: member.personId, otherName: member.personName }))} onChanged={reload} /> },
             { key: "socials", label: "Redes sociales", content: <PlatformLinkEditor kind="artist" id={artist.id} category="social" onChanged={reload} /> },
             { key: "streaming", label: "Escuchar en", content: <PlatformLinkEditor kind="artist" id={artist.id} category="streaming" onChanged={reload} /> },
           ]}
+          entity={{kind:"artist",id:artist.id}}
           initialValues={entityFormValues(ARTIST_FIELDS, artist)}
           onSubmit={(values, note) => artistWrites.update(artist.id, { ...values, note })}
           onSuccess={() => { setEditing(false); reload(); notify("success", "Artista actualizado."); }}

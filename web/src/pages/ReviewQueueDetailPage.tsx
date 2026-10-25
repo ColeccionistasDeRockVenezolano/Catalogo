@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { ReviewIdentityComparison } from "../components/ReviewIdentityComparison";
 import { BackLink } from "../components/BackLink";
 import { reviewApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
@@ -119,6 +120,7 @@ export function ReviewQueueDetailPage() {
 
       {review.notes ? <p style={{ color: "var(--text-muted)" }}>{review.notes}</p> : null}
 
+      <ReviewIdentityComparison context={review.identityContext} />
       <ReviewValueComparison payload={review.payload} />
 
       {(refs.artistAId || refs.artistBId || refs.personAId || refs.personBId || refs.organizationAId || refs.organizationBId || refs.albumId || refs.trackId) ? (

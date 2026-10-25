@@ -54,7 +54,7 @@ export async function registerYouTubeRoutes(app: FastifyInstance): Promise<void>
   const videoParams = z.object({ id: z.coerce.number().int().positive(), videoId: z.string().regex(/^[A-Za-z0-9_-]{11}$/u) });
   server.patch("/albums/:id/videos/:videoId", {
     schema: { tags: ["youtube:write"], security: OPERATOR_SECURITY, params: videoParams,
-      body: z.object({ kind: z.enum(["full_album", "music_video", "live_concert", "documentary", "other"]), isPrimaryLink: z.boolean(), note: noteSchema }).strict(),
+      body: z.object({ kind: z.enum(["full_album", "music_video", "live_concert", "documentary", "other"]), isPrimaryLink: z.boolean(), previousVideoId: z.string().regex(/^[A-Za-z0-9_-]{11}$/u).optional(), note: noteSchema }).strict(),
       response: { 200: z.object({ runId: z.number().int() }), ...writeErrorResponses } },
   }, async (request) => {
     const { runId } = await withOperatorRun({ name: "api:save:album-video", operator: request.operator, note: request.body.note,

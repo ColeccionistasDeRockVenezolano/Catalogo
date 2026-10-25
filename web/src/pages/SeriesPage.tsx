@@ -6,6 +6,7 @@ import { initialOf } from "../components/EntityCard";
 import { CatalogYear } from "../components/CatalogMetadata";
 import { discographyApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
+import { mediaImage } from "../lib/media";
 
 /** Página de una serie (plan del primo, punto 13): sus volúmenes en orden, como en Discogs. */
 export function SeriesPage() {
@@ -20,7 +21,7 @@ export function SeriesPage() {
     <>
       <BackLink fallback="/discos" />
       <div className="entity-hero">
-        <span className="entity-hero__art">{cover ? <img src={cover} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(series.title)}</span>}</span>
+        <span className="entity-hero__art">{cover ? <img {...mediaImage(cover, 132)} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(series.title)}</span>}</span>
         <div>
           <p className="entity-hero__kicker">Serie</p>
           <h1 className="entity-hero__title">{series.title}</h1>
@@ -38,7 +39,7 @@ export function SeriesPage() {
           {series.volumes.map((volume) => (
             <li key={volume.albumId} className="series-volume">
               <Link to={`/discos/${volume.albumId}`} className="series-volume__art" aria-hidden="true" tabIndex={-1}>
-                {volume.coverUrl ? <img src={volume.coverUrl} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(volume.title)}</span>}
+                {volume.coverUrl ? <img {...mediaImage(volume.coverUrl, 160)} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(volume.title)}</span>}
               </Link>
               <div>
                 <p className="series-volume__label">{volume.volumeLabel ?? "Sin número"}</p>

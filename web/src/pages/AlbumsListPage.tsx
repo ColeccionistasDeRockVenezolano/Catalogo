@@ -3,6 +3,8 @@ import { useSearchParams } from "react-router-dom";
 import { DecadeFilter } from "../components/DecadeFilter";
 import { useDecadeFilter, decadeLabel } from "../lib/useDecadeFilter";
 import { CatalogFilters } from "../components/CatalogFilters";
+import { CatalogSort } from "../components/CatalogSort";
+import { useCatalogSort } from "../lib/useCatalogSort";
 import { TypeFilter } from "../components/TypeFilter";
 import { albumsApi, albumWrites, genresApi } from "../lib/api";
 import { useEntityList } from "../lib/useEntityList";
@@ -18,22 +20,23 @@ import { Pagination } from "../components/Pagination";
 import { EntityFormModal } from "../components/EntityFormModal";
 import { EntityPicker } from "../components/EntityPicker";
 import { ALBUM_FIELDS } from "../lib/entityFields";
-import { ALBUM_TYPES, albumTypeLabel } from "../lib/labels";
+import { ALBUM_FILTER_TYPES, albumClassificationBadges, albumFilterTypeLabel, albumTypeLabel } from "../lib/labels";
 import { CatalogSearchInput } from "../components/CatalogSearchInput";
+import { parseCategorySelection, toggleCategorySelection } from "../../../src/shared/category-selection";
 
 export function AlbumsListPage() {
   const paginationStartRef = useRef<HTMLDivElement>(null);
   const { isAdmin, user } = useOperator();
   const [params, setParams] = useSearchParams();
-  const typeParam = params.get("tipo");
-  const selectedType = typeParam && ALBUM_TYPES.includes(typeParam) ? typeParam : null;
+  const selectedTypes = parseCategorySelection(params.getAll("tipo")).filter(value=>ALBUM_FILTER_TYPES.includes(value)||value.startsWith("classification:"));
   const decade = useDecadeFilter();
+  const { sort, selectSort } = useCatalogSort();
   const typeFacets = useAsync(albumsApi.facets, []);
   const genre = useGenreFilter({ allowRelated: true });
   const facets = useAsync(() => genresApi.facets("album"), []);
-  const { data, loading, error, reload, q, offset, limit, setQuery, setOffset } = useEntityList(albumsApi.list, [user?.name], { ...genre.apiParams, ...decade.apiParams, ...(selectedType ? { albumType: selectedType } : {}) });
+  const { data, loading, error, reload, q, offset, limit, setQuery, setOffset } = useEntityList(albumsApi.list, [user?.name], { sort, ...genre.apiParams, ...decade.apiParams, ...(selectedTypes.length ? { albumType: selectedTypes.join(",") } : {}) });
   const genreLabel = genreSelectionLabel(facets.data, genre.selection);
-  const filtered = Boolean(q.trim()) || genreLabel !== null || selectedType !== null || decade.selection !== null;
+  const filtered = Boolean(q.trim()) || genreLabel !== null || selectedTypes.length > 0 || decade.selection !== null;
   const { notify } = useToast();
   const [creating, setCreating] = useState(false);
   const [artistId, setArtistId] = useState<number | null>(null);
@@ -44,7 +47,8 @@ export function AlbumsListPage() {
   function selectType(value: string | null) {
     setParams((current) => {
       const next = new URLSearchParams(current);
-      if (value) next.set("tipo", value); else next.delete("tipo");
+      const selected = value === null ? [] : toggleCategorySelection(parseCategorySelection(current.getAll("tipo")).filter(value=>ALBUM_FILTER_TYPES.includes(value)||value.startsWith("classification:")), value);
+      if (selected.length) next.set("tipo", selected.join(",")); else next.delete("tipo");
       next.delete("offset");
       return next;
     });
@@ -63,24 +67,27 @@ export function AlbumsListPage() {
     <>
       <div className="page-header">
         <div>
-          <p className="page-kicker">Catálogo</p>
           <h1>Discos</h1>
         </div>
         {isAdmin ? <button type="button" className="btn btn--primary" onClick={() => setCreating(true)}>+ Nuevo disco</button> : null}
       </div>
 
-      <CatalogFilters typeLabel="Tipo de disco"
+      <CatalogFilters
+        mobile={{ query: q, onClearQuery: () => setQuery(""), total: data?.pagination.total, noun: { one: "disco", many: "discos" }, onClearAll: clearFilters }}
+        typeLabel="Tipo de disco"
+        sort={<CatalogSort kind="album" value={sort} onChange={selectSort} />}
         decadeActive={decade.selection !== null}
         decadeFilter={<DecadeFilter facets={typeFacets.data} error={typeFacets.error} onRetry={typeFacets.reload}
           selection={decade.selection} onSelect={decade.select} basis="release" />}
-        typeActive={selectedType !== null} genreActive={genre.selection.family !== null}
+        values={{ type: selectedTypes.length ? selectedTypes.map(albumFilterTypeLabel).join(" + ") : null, genre: genreLabel, decade: decade.selection !== null ? decadeLabel(decade.selection) : null }}
+        typeActive={selectedTypes.length > 0} genreActive={genre.selection.family !== null}
         search={
           <CatalogSearchInput scope="album" value={q} onChange={setQuery}
             placeholder="Filtrar por título…" label="Filtrar discos por título" />
         }
         typeFilter={
-          <TypeFilter kind="album" typeLabel={albumTypeLabel} facets={typeFacets.data}
-            error={typeFacets.error} onRetry={typeFacets.reload} selectedType={selectedType} onSelect={selectType} />
+          <TypeFilter kind="album" typeLabel={albumFilterTypeLabel} facets={typeFacets.data}
+            error={typeFacets.error} onRetry={typeFacets.reload} selectedTypes={selectedTypes} onSelect={selectType} />
         }
         genreFilter={
           <GenreFilter kind="album" facets={facets.data} facetsError={facets.error} onRetryFacets={facets.reload}
@@ -92,7 +99,7 @@ export function AlbumsListPage() {
         query={q} onClearQuery={() => setQuery("")} onClearAll={clearFilters}
         filters={[
           ...(decade.selection !== null ? [{ key: "decade", label: decadeLabel(decade.selection), onClear: () => decade.select(null) }] : []),
-          ...(selectedType ? [{ key: "type", label: albumTypeLabel(selectedType), onClear: () => selectType(null) }] : []),
+          ...selectedTypes.map(type => ({ key: `type:${type}`, label: albumFilterTypeLabel(type), onClear: () => selectType(type) })),
           ...(genreLabel ? [{ key: "genre", label: genreLabel, onClear: genre.clear }] : []),
         ]} />
 
@@ -110,7 +117,7 @@ export function AlbumsListPage() {
                 key={album.id}
                 to={`/discos/${album.id}`}
                 title={album.title}
-                albumMetadata={{ artist: album.artistName, artistId: album.artistId, year: album.releaseYear, type: albumTypeLabel(album.albumType), typeValue: album.albumType }}
+                albumMetadata={{ artist: album.artistName, artistId: album.artistId, year: album.releaseYear, type: albumTypeLabel(album.albumType), typeValue: album.albumType, categories: albumClassificationBadges(album) }}
                 imageUrl={album.coverUrl}
                 imageFit="contain"
                 placeholder={initialOf(album.title)}

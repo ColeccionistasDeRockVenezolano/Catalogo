@@ -67,7 +67,9 @@ export function EntityPicker({ kind, label, value, valueLabel, onSelect, placeho
     } else if (event.key === "Enter" && open && activeIndex >= 0) {
       event.preventDefault();
       choose(activeIndex);
-    } else if (event.key === "Escape") {
+    } else if (event.key === "Escape" && open) {
+      event.stopPropagation();
+      event.preventDefault();
       setOpen(false);
       setActiveIndex(-1);
     }
@@ -85,14 +87,13 @@ export function EntityPicker({ kind, label, value, valueLabel, onSelect, placeho
         aria-activedescendant={activeIndex >= 0 ? `${listboxId}-${activeIndex}` : undefined}
         value={open ? query : (valueLabel ?? "")}
         onFocus={() => { setOpen(true); setQuery(""); }}
-        onChange={(event) => setQuery(event.target.value)}
+        onChange={(event) => { setQuery(event.target.value); setOpen(true); setActiveIndex(-1); }}
         onKeyDown={handleKeyDown}
         placeholder={placeholder ?? "Escribe para buscar…"}
       />
       {onClear && value !== null ? <button type="button" className="btn btn--sm" style={{ marginTop: 6 }} onClick={() => { onClear(); setOpen(false); setQuery(""); }}>Quitar selección</button> : null}
       {open && results.length > 0 ? (
-        <div id={listboxId} role="listbox" aria-label={`Resultados para ${label}`} style={{
-          position: "absolute", top: "100%", left: 0, right: 0, marginTop: 4, zIndex: 20,
+        <div className="entity-picker__results" id={listboxId} role="listbox" aria-label={`Resultados para ${label}`} style={{
           background: "var(--surface-2)", border: "1px solid var(--border)", borderRadius: "var(--radius-sm)",
           maxHeight: 220, overflowY: "auto", boxShadow: "var(--shadow-md)",
         }}>

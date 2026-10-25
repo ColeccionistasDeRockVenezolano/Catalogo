@@ -1,5 +1,10 @@
 # CRV · Operación
 
+Las capturas y resultados de esta máquina están en el HDD de 1 TB mediante
+enlaces locales. Antes de ejecutar ingestas, comprobar
+`python3 scripts/shared-storage.py status`. Ver
+[SHARED_STORAGE.md](SHARED_STORAGE.md) para rutas, conflictos y respaldo.
+
 Guía de E11 para operar el sistema en la máquina de producción: qué comando
 usar, en qué orden y cómo saber qué pasó. Todos los comandos se corren desde
 la raíz del repositorio. `npm run cli -- <comando>` es el CLI (`src/cli/index.ts`);
@@ -319,6 +324,9 @@ minutos. Las sesiones duran 12 horas y se invalidan al reiniciar la API.
 pero debe permanecer vacío si no existe uno. La cuenta autenticada firma cada
 transacción y run `manual`, visibles en `GET /runs/:id` y `GET /audit`
 (desde el 2026-09-18, ambos exigen cuenta administradora).
+
+El deploy también invalida las cachés del catálogo sin reiniciar la API.
+Para hacerlo por separado: `npm run cache:clear`. Ver [cachés y vigencias](CACHE.md).
 
 **Publicar el frontend bajo un prefijo de Funnel exige dos variables en el
 momento del build**, o la página carga en negro sin ningún error en consola:

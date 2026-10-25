@@ -61,7 +61,10 @@ async function pgDumpPublic(containerName: string): Promise<string> {
     // (la coma final es opcional: la última columna de una tabla no la lleva,
     //  salvo que le sigan CONSTRAINTs como en artists/persons).
     // La novena (0073): `tracks.lyrics` (letra de la canción, campaña musicavenezuela).
-    .replace(/^ {4}(birth_date_value|death_date_value|status|themes|years_active|logo_url|real_name|birth_city|death_cause|trivia|gender|release_date_text|catalog_id|media_format|lyrics) (?:character varying\(\d+\)|text),?\n/gmu, "")
+    // La undécima (0083): `artists.current_city` / `artists.current_country`
+    // (ubicación actual del artista, campo «Currently» de RYM).
+    // La duodécima (0094): `artists.email` (correo de contacto del artista).
+    .replace(/^ {4}(birth_date_value|death_date_value|status|themes|years_active|logo_url|current_city|current_country|email|real_name|birth_city|death_cause|trivia|gender|release_date_text|catalog_id|media_format|lyrics) (?:character varying\(\d+\)|text),?\n/gmu, "")
     // …y si las columnas quitadas eran las últimas (albums), la columna previa
     // queda con una coma colgando antes de `);`: se normaliza igual en ambos dumps.
     .replace(/,(\n\);)/gu, "$1")

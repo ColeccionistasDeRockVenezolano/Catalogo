@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { z } from "zod";
 import { claimEntityKindSchema, rawRecordSchema, type Evidence, type RawRecord } from "../adapters/contracts.js";
 import { normalizeDisplayName, normalizeEntityName } from "./entity-name.js";
+import { liveTitleVerdict } from "./live-title.js";
 
 export const normalizedClaimSchema = z.object({
   entityKind: claimEntityKindSchema,
@@ -61,8 +62,36 @@ function normalizeValue(field: string, rawValue: unknown): unknown {
   return typeof rawValue === "string" ? normalizeText(rawValue) : rawValue;
 }
 
+/**
+ * Regla «en vivo» (plan v2 del primo, punto 5), común a todos los adapters: un
+ * disco cuyo título dice que es en vivo y cuya fuente no da tipo lleva además
+ * `album_type = live_album`, con la evidencia del título. Si la fuente sí da
+ * tipo (la hoja, un «(EP 2015)»), manda la fuente: no se deriva nada. La
+ * hoja YT Master tampoco: un disco suyo sin tipo es un tipo compuesto que
+ * espera revisión, no un hueco.
+ */
+const SHEET_EXTRACTORS = new Set(["yt-master-seed"]);
+
+export function withLiveAlbumType(record: RawRecord): RawRecord {
+  if (record.entityKind !== "album" || SHEET_EXTRACTORS.has(record.extractor)) return record;
+  if (record.fields.some((field) => field.field === "album_type")) return record;
+  const title = record.fields.find((field) => field.field === "title" && typeof field.value === "string");
+  if (!title) return record;
+  const artist = record.fields.find((field) => field.field === "artist_name" && typeof field.value === "string")?.value as string | undefined;
+  const verdict = liveTitleVerdict(title.value as string, artist);
+  if (!verdict.live) return record;
+  return {
+    ...record,
+    fields: [...record.fields, {
+      field: "album_type",
+      value: "live_album",
+      evidence: { ...title.evidence, excerpt: `regla «en vivo» (${verdict.marker}): ${String(title.value)}`.slice(0, 20_000) },
+    }],
+  };
+}
+
 export function normalizeRecord(recordInput: RawRecord): NormalizedClaim[] {
-  const record = rawRecordSchema.parse(recordInput);
+  const record = withLiveAlbumType(rawRecordSchema.parse(recordInput));
   const normalizedIdentity = normalizeEntityName(record.identity);
   const identity = normalizedIdentity.primaryKey;
   return record.fields.map((rawField) => {

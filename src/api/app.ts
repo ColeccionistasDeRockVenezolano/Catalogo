@@ -1,6 +1,11 @@
+import { registerArtistGalleryRoutes } from "./routes/artist-gallery.js";
+import { registerArtistDocumentRoutes } from "./routes/artist-documents.js";
 import { registerCatalogEditorRoutes } from "./routes/catalog-editor.js";
 import { registerSiteAppearanceRoutes } from "./routes/site-appearance.js";
+import { registerImageUploadRoutes } from "./routes/image-uploads.js";
 import { registerCatalogModelRoutes } from "./routes/catalog-model.js";
+import { registerCatalogOverviewRoutes } from "./routes/catalog-overview.js";
+import { registerCatalogCache } from "./catalog-cache.js";
 // CRV · API Fastify (ARCHITECTURE.md §4.14, PHASES §E7A lectura + §E7B escritura).
 // Browser -> API -> PostgreSQL (CONTRACT #20): esta app es el único punto
 // por el que el navegador puede llegar a los datos. La lectura es abierta; la
@@ -29,6 +34,7 @@ import { registerSearchRoutes } from "./routes/search.js";
 import { registerEmotionRoutes } from "./routes/emotions.js";
 import { registerHomeRoutes } from "./routes/home.js";
 import { registerDailyCycleRoutes } from "./daily-cycle.js";
+import { registerEphemeridesRoutes } from "./routes/ephemerides.js";
 import { registerArtistRoutes } from "./routes/artists.js";
 import { registerAlbumRoutes } from "./routes/albums.js";
 import { registerGenreRoutes } from "./routes/genres.js";
@@ -37,6 +43,7 @@ import { registerPersonRoutes } from "./routes/persons.js";
 import { registerOrganizationRoutes } from "./routes/organizations.js";
 import { registerDiscographyRoutes } from "./routes/discography.js";
 import { registerSourceRoutes } from "./routes/sources.js";
+import { registerClaimReviewRoutes } from "./routes/claim-review.js";
 import { registerReviewRoutes } from "./routes/review-queue.js";
 import { registerYouTubeRoutes } from "./routes/youtube.js";
 import { registerCatalogWriteRoutes } from "./routes/catalog-writes.js";
@@ -49,6 +56,7 @@ import { registerAliasRoutes } from "./routes/aliases.js";
 import { registerAuditRoutes } from "./routes/audit.js";
 import { registerChangeRoutes } from "./routes/changes.js";
 import { registerCurationRoutes } from "./routes/curation.js";
+import { registerEmotionCurationRoutes } from "./routes/emotion-curation.js";
 import { registerSearchHumanReviewRoutes } from "./routes/search-human-review.js";
 import { registerCurationActionRoutes } from "./routes/curation-actions.js";
 import { registerCurationAutofixRoutes } from "./routes/curation-autofix.js";
@@ -70,8 +78,11 @@ export async function buildApp(): Promise<FastifyInstance> {
   const app = Fastify({
     logger: {
       level: getEnv().LOG_LEVEL,
+      serializers: {
+        req: (req) => ({ method: req.method, url: req.url.split("?")[0] ?? "" }),
+      },
       redact: {
-        paths: ["req.headers.authorization", "req.headers.cookie", "res.headers['set-cookie']"],
+        paths: ["req.headers.authorization", "req.headers.cookie", "res.headers['set-cookie']", "req.remoteAddress", "req.remotePort"],
         censor: "[REDACTED]",
       },
     },
@@ -79,6 +90,7 @@ export async function buildApp(): Promise<FastifyInstance> {
 
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
+  registerCatalogCache(app);
 
   // origin:true + credentials:true reflejaría cualquier origen con permiso
   // de mandar cookies: cualquier sitio podría leer /auth/me (csrf incluido)
@@ -93,7 +105,7 @@ export async function buildApp(): Promise<FastifyInstance> {
     // declarado distinto del de la API — pasó con el QA de administración
     // (2026-09-18): la web de desarrollo no podía guardar nada.
     methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE"],
-    exposedHeaders: ["x-crv-search-receipt"],
+    exposedHeaders: ["x-crv-search-receipt", "x-crv-cache", "x-crv-cache-version", "x-crv-cache-ttl"],
     allowedHeaders: ["content-type", "authorization", "x-crv-operator", "x-crv-csrf"],
   });
 
@@ -149,6 +161,8 @@ export async function buildApp(): Promise<FastifyInstance> {
   });
 
   await registerOperatorAuth(app);
+  await registerImageUploadRoutes(app);
+  await registerImageUploadRoutes(app, undefined, true);
   await registerHealthRoutes(app);
   await registerSiteAppearanceRoutes(app);
   await registerSitemapRoutes(app);
@@ -156,10 +170,14 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerEmotionRoutes(app);
   await registerHomeRoutes(app);
   await registerDailyCycleRoutes(app);
+  await registerEphemeridesRoutes(app);
   await registerDiscoveryRoutes(app);
   await registerTrackContextRoutes(app);
   await registerRecommendationRoutes(app);
   await registerArtistRoutes(app);
+  await registerArtistGalleryRoutes(app);
+  await registerArtistDocumentRoutes(app);
+  await registerCatalogOverviewRoutes(app);
   await registerAlbumRoutes(app);
   await registerGenreRoutes(app);
   await registerTrackRoutes(app);
@@ -168,6 +186,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerDiscographyRoutes(app);
   await registerSourceRoutes(app);
   await registerReviewRoutes(app);
+  await registerClaimReviewRoutes(app);
   await registerYouTubeRoutes(app);
   await registerCatalogWriteRoutes(app);
   await registerCatalogModelRoutes(app);
@@ -181,6 +200,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerAuditRoutes(app);
   await registerChangeRoutes(app);
   await registerCurationRoutes(app);
+  await registerEmotionCurationRoutes(app);
   await registerSearchHumanReviewRoutes(app);
   await registerCurationActionRoutes(app);
   await registerCurationAutofixRoutes(app);

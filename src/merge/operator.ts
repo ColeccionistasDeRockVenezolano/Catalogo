@@ -34,6 +34,10 @@ import { DependentsError, removeEntity, removeRelation, type RemovalResult } fro
 // invalida aquí, después del COMMIT, para que un alta o un cambio de nombre se
 // vean de inmediato.
 import { invalidateSearchIndex } from "../api/search-index.js";
+import { publishCatalogRevision } from "../storage/catalog-cache-revision.js";
+import { moduleLogger } from "../logger/index.js";
+import { audiovisualAlbumConflict } from "../youtube/audiovisuals.js";
+import { excludedArtist, EDITORIAL_EXCLUSION_MESSAGE } from "../catalog/editorial-scope.js";
 
 export const OPERATOR_SOURCE_SLUG = "crv-operador";
 
@@ -89,7 +93,12 @@ export async function withOperatorRun<T>(
     const result = await work({ client, runId, sourceId, operator: action.operator, note });
     await client.query("UPDATE ingest.scrape_runs SET status='ok',finished_at=now() WHERE id=$1", [runId]);
     await client.query(options.rollbackOnly ? "ROLLBACK" : "COMMIT");
-    if (!options.rollbackOnly) invalidateSearchIndex();
+    if (!options.rollbackOnly) {
+      invalidateSearchIndex();
+      // El marcador también avisa a una API que viva en otro proceso (CLI).
+      try { await publishCatalogRevision(); }
+      catch (error) { moduleLogger("catalog-cache").error({ err: error }, "caché pendiente de expirar tras la edición"); }
+    }
     return { runId, result };
   } catch (error) {
     await client.query("ROLLBACK");
@@ -240,11 +249,18 @@ export async function createEntity(
   const spec = ENTITY_SPECS[kind];
   const name = values[spec.identityColumn];
   if (typeof name !== "string" || !name.trim()) throw new OperatorError("invalid", `${spec.identityColumn} obligatorio`);
+  if ((kind === "artist" && await excludedArtist(context.client,{name})) ||
+      (kind === "album" && await excludedArtist(context.client,{artistId:options.artistId}))) {
+    throw new OperatorError("needs_review",EDITORIAL_EXCLUSION_MESSAGE);
+  }
 
   let extra: Partial<ClaimToPersist> = {};
   if (kind === "album") {
     if (options.artistId === undefined) throw new OperatorError("invalid", "artistId obligatorio para crear un álbum");
     await currentLabel(context, ENTITY_SPECS.artist, options.artistId);
+    if (await audiovisualAlbumConflict(context.client, options.artistId, name)) {
+      throw new OperatorError("invalid", "Esta obra pertenece a Audiovisuales. Para crear una edición musical hace falta documentarla por separado.");
+    }
     extra = { parentArtistId: options.artistId };
   } else if (kind === "track") {
     if (options.albumId === undefined) throw new OperatorError("invalid", "albumId obligatorio para crear una pista");

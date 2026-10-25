@@ -68,7 +68,7 @@ export async function getVideoDetail(id: number): Promise<VideoDetail | null> {
          SELECT jsonb_agg(jsonb_build_object(
            'artistId', ar.id, 'artistName', ar.name, 'relationKind', va.relation_kind, 'confidence', va.confidence
          ))
-         FROM media.video_artists va JOIN public.artists ar ON ar.id = va.artist_id
+         FROM media.video_artists va JOIN ingest.catalog_artists ar ON ar.id = va.artist_id
          WHERE va.video_id = v.id
        ), '[]'::jsonb) AS artists,
        COALESCE((
@@ -76,7 +76,7 @@ export async function getVideoDetail(id: number): Promise<VideoDetail | null> {
            'albumId', al.id, 'title', al.title, 'albumKind', vab.album_kind,
            'isPrimaryLink', vab.is_primary_link, 'confidence', vab.confidence
          ))
-         FROM media.video_albums vab JOIN public.albums al ON al.id = vab.album_id
+         FROM media.video_albums vab JOIN ingest.catalog_albums al ON al.id = vab.album_id
          WHERE vab.video_id = v.id
        ), '[]'::jsonb) AS albums,
        COALESCE((
@@ -85,8 +85,8 @@ export async function getVideoDetail(id: number): Promise<VideoDetail | null> {
            'startSeconds', vt.start_seconds, 'endSeconds', vt.end_seconds, 'confidence', vt.confidence
          ) ORDER BY vt.start_seconds)
          FROM media.video_tracks vt
-         JOIN public.tracks t ON t.id = vt.track_id
-         JOIN public.albums al2 ON al2.id = t.album_id
+         JOIN ingest.catalog_tracks t ON t.id = vt.track_id
+         JOIN ingest.catalog_albums al2 ON al2.id = t.album_id
          WHERE vt.video_id = v.id
        ), '[]'::jsonb) AS tracks
      FROM media.youtube_videos v

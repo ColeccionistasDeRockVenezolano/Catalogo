@@ -15,6 +15,7 @@ import {
   date,
   integer,
   jsonb,
+  numeric,
   pgEnum,
   pgTable,
   real,
@@ -60,6 +61,9 @@ export const artists = pgTable("artists", {
   pictureUrl: text("picture_url"),
   originCity: varchar("origin_city", { length: 120 }),
   originCountry: varchar("origin_country", { length: 120 }).notNull().default("Venezuela"),
+  // 0083 (ubicación actual del artista, campo «Currently» de RYM): par análogo a origin_*.
+  currentCity: varchar("current_city", { length: 120 }),
+  currentCountry: varchar("current_country", { length: 120 }),
   formedYear: smallint("formed_year"),
   disbandedYear: smallint("disbanded_year"),
   notes: text("notes"),
@@ -150,6 +154,9 @@ export const albums = pgTable("albums", {
   releaseDateText: varchar("release_date_text", { length: 40 }), // literal de la fuente («2006», «March 15th, 1993»)
   catalogId: varchar("catalog_id", { length: 80 }),
   mediaFormat: varchar("media_format", { length: 50 }), // CD | MC | LP | Digital…
+  // 0095 (puntuación agregada de RYM, 2026-10-20): RYM no publica los votos uno a uno.
+  rymRating: numeric("rym_rating", { precision: 3, scale: 2 }), // media sobre 5 («3.25»)
+  rymRatingsCount: integer("rym_ratings_count"),                 // nº de puntuaciones
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 });

@@ -7,6 +7,9 @@ import { YT_MASTER_XLSX_PATH } from "../ingest/sources.js";
 import { YouTubeDataApi, iso8601DurationToSeconds, youtubePublicationStatus, type YouTubeChannelPayload, type YouTubePlaylistItemPayload, type YouTubeVideoPayload } from "./api.js";
 import { canonicalVideoUrl, classifySheetRow, extractYouTubeVideoId, sheetTypeIsUnnumbered } from "./normalization.js";
 import { parseYouTubeDescription, parseYouTubeTitle } from "./parsers.js";
+import { syncArtistAudiovisuals } from "./audiovisuals.js";
+import { syncAlbumVideoTrackTimes } from "./track-playback.js";
+import { applyConfirmedChapterTimes } from "./timestamp-corrections.js";
 
 type Json = Record<string, unknown>;
 export interface SeedImportResult { inserted: number; updated: number; unchanged: number; videos: number; reviews: number; /** Filas de la base que ya no están en la hoja: pierden su número. */ unlisted: number; }
@@ -204,6 +207,7 @@ export async function importYouTubeMasterSheet(filePath = YT_MASTER_XLSX_PATH): 
     // no su número: ese número ahora es de otra fila.
     const unlisted = await client.query("UPDATE ingest.seed_uploads SET upload_order=NULL WHERE NOT (id::text = ANY($1::text[])) AND upload_order IS NOT NULL", [[...claimed]]);
     result.unlisted = unlisted.rowCount ?? 0;
+    await syncArtistAudiovisuals(client);
     await client.query("UPDATE ingest.scrape_runs SET status='ok',finished_at=now(),counters=$2::jsonb WHERE id=$1", [runId, JSON.stringify(result)]);
     await client.query("COMMIT");
     return result;
@@ -228,6 +232,8 @@ export async function persistVideoPayload(client: PoolClient, payload: YouTubeVi
     RETURNING id`, [videoId, canonicalVideoUrl(videoId),text(snippet?.["title"]),text(snippet?.["description"]),text(snippet?.["channelId"]),text(snippet?.["channelTitle"]),text(snippet?.["publishedAt"]),iso8601DurationToSeconds(text(details?.["duration"]) ?? undefined),thumbnail(snippet),JSON.stringify(Array.isArray(snippet?.["tags"]) ? snippet!["tags"] : []),youtubePublicationStatus(status),JSON.stringify(payload)]);
   const id = Number(persisted.rows[0]!.id);
   await persistDerivedDescription(client, id, text(snippet?.["description"]));
+  await syncArtistAudiovisuals(client, { videoDbId: id });
+  await syncAlbumVideoTrackTimes(client, { videoDbId: id });
   void sourceId; // relation rows use the source; raw API payload identifies the official source.
   return id;
 }
@@ -240,6 +246,7 @@ export async function persistVideoPayload(client: PoolClient, payload: YouTubeVi
  */
 export async function persistDerivedDescription(client: PoolClient, videoDbId: number, description: string | null): Promise<{ sections: number; tracks: number }> {
   const parsed = parseYouTubeDescription(description);
+  await applyConfirmedChapterTimes(client, videoDbId, parsed.tracklist);
   await client.query("DELETE FROM media.youtube_description_sections WHERE video_id=$1", [videoDbId]);
   await client.query("DELETE FROM media.youtube_tracklist_entries WHERE video_id=$1", [videoDbId]);
   for (const section of parsed.sections) await client.query("INSERT INTO media.youtube_description_sections(video_id,position,section_kind,heading,content) VALUES($1,$2,$3,$4,$5)", [videoDbId, section.position, section.kind, section.heading, section.content]);
@@ -581,6 +588,11 @@ export async function knownYouTubeVideoIds(options: { pendingOnly?: boolean } = 
       SELECT video_id FROM ingest.seed_uploads WHERE video_id IS NOT NULL
       UNION
       SELECT video_id FROM media.youtube_channel_uploads
+      -- Cualquier video ya registrado sin ficha de la API entra al universo:
+      -- las altas editoriales (RYM, AOTY) y los enlaces manuales solo guardan
+      -- el ID, y antes quedaban fuera del lote y nunca salían de 'unknown'.
+      UNION
+      SELECT video_id FROM media.youtube_videos WHERE last_fetched_at IS NULL
     )
     SELECT u.video_id FROM universo u
       LEFT JOIN media.youtube_videos v ON v.video_id = u.video_id

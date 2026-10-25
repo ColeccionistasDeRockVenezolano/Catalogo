@@ -1,8 +1,8 @@
+import { EntityAdminBar } from "../components/EntityAdminBar";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
 import { BackLink } from "../components/BackLink";
-import { GitMerge, PencilSimple, Trash } from "@phosphor-icons/react";
 import { organizationWrites, organizationsApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useMovedToRedirect } from "../lib/useMovedTo";
@@ -27,6 +27,7 @@ import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
 import { creditTypeLabel, organizationTypeLabel } from "../lib/labels";
 import { OrganizationSuccession } from "../components/Discography";
+import { mediaImage } from "../lib/media";
 
 export function OrganizationDetailPage() {
   const { id } = useParams();
@@ -166,9 +167,11 @@ export function OrganizationDetailPage() {
     <>
       <BackLink fallback="/organizaciones" />
 
+      {isAdmin ? <EntityAdminBar onEdit={() => setEditing(true)} onMerge={() => setMerging(true)} onRemove={() => setDeleting(true)} /> : null}
+
       <div className="entity-hero">
         <span className="entity-hero__art">
-          {org.pictureUrl ? <img src={org.pictureUrl} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(org.name)}</span>}
+          {org.pictureUrl ? <img {...mediaImage(org.pictureUrl, 132)} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(org.name)}</span>}
         </span>
         <div>
           <h1 className="entity-hero__title">{org.name}</h1>
@@ -178,20 +181,6 @@ export function OrganizationDetailPage() {
           <RewritePendingMark kind="organization" id={org.id} onDone={reload} />
         </div>
       </div>
-
-      {isAdmin ? (
-        <div className="page-actions" style={{ marginTop: 14 }}>
-          <button type="button" className="btn btn--sm" onClick={() => setEditing(true)}>
-            <PencilSimple size={14} weight="bold" aria-hidden="true" />Editar
-          </button>
-          <button type="button" className="btn btn--sm" onClick={() => setMerging(true)}>
-            <GitMerge size={14} weight="bold" aria-hidden="true" />Fusionar con…
-          </button>
-          <button type="button" className="btn btn--sm btn--danger" onClick={() => setDeleting(true)}>
-            <Trash size={14} weight="bold" aria-hidden="true" />Retirar
-          </button>
-        </div>
-      ) : null}
 
       {org.relations?.length ? (
         <div className="section">
@@ -206,6 +195,7 @@ export function OrganizationDetailPage() {
         <EntityFormModal
           title={`Editar «${org.name}»`}
           fields={ORGANIZATION_FIELDS}
+          entity={{kind:"organization",id:org.id}}
           initialValues={entityFormValues(ORGANIZATION_FIELDS, org)}
           onSubmit={(values, note) => organizationWrites.update(org.id, { ...values, note })}
           onSuccess={() => { setEditing(false); reload(); notify("success", "Organización actualizada."); }}

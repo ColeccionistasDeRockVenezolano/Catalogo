@@ -153,8 +153,8 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
     const res = await app.inject({ method: "GET", url: "/search?q=caramelos" });
     expect(res.statusCode).toBe(200);
     const body = res.json();
-    expect(body.artist).toEqual([{ type: "artist", id: artistId, label: "Caramelos De Cianuro", context: "Caracas", albumId: null }]);
-    expect(body.album).toEqual([{ type: "album", id: albumId, label: "Las Paticas De La Abuela", context: "Caramelos De Cianuro", albumId: null }]);
+    expect(body.artist).toEqual([{ type: "artist", id: artistId, label: "Caramelos De Cianuro", context: "Caracas", albumId: null, imageUrl: null }]);
+    expect(body.album).toEqual([{ type: "album", id: albumId, label: "Las Paticas De La Abuela", context: "Caramelos De Cianuro", albumId: null, imageUrl: null }]);
 
     const byTitle = await app.inject({ method: "GET", url: "/search?q=Paticas" });
     expect(byTitle.json().album[0]).toMatchObject({ type: "album", id: albumId, label: "Las Paticas De La Abuela", context: "Caramelos De Cianuro" });
@@ -172,7 +172,7 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
     expect(missing.statusCode).toBe(400);
     const badType = await app.inject({ method: "GET", url: "/search?q=x&types=nope" });
     expect(badType.statusCode).toBe(400);
-    const tooLong = await app.inject({ method: "GET", url: `/search?q=${"a".repeat(101)}` });
+    const tooLong = await app.inject({ method: "GET", url: `/search?q=${"a".repeat(1001)}` });
     expect(tooLong.statusCode).toBe(400);
   });
 

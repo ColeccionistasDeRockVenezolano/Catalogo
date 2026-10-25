@@ -29,6 +29,9 @@ const MERGE_LABEL: Record<string, string> = {
 
 /** Acciones de procesos (CLI, ingesta, revisión) con nombre propio. */
 const ACTION_LABEL: Record<string, string> = {
+  "api:create:artist-gallery": "Fotos añadidas a la galería",
+  "api:update:artist-gallery": "Edición de foto de la galería",
+  "api:delete:artist-gallery": "Foto retirada de la galería",
   approve: "Aprobación de revisión",
   dismiss: "Descarte de revisión",
   apply_review_decisions: "Decisiones de revisión aplicadas",
@@ -45,6 +48,8 @@ const ACTION_LABEL: Record<string, string> = {
   "api:split:person": "División de persona",
   "api:convert:person": "Persona convertida en organización",
   "curation:resolve-conflict": "Conflicto resuelto",
+  "claims:visual-accept": "Aportes aceptados",
+  "claims:visual-reject": "Aportes descartados",
 };
 
 const RUN_KIND_LABEL: Record<string, string> = {
@@ -91,7 +96,7 @@ export const ENTITY_OP_LABEL = { created: "creada", removed: "retirada", changed
 export const UNDO_STEP_LABEL: Record<UndoStep, string> = { restore: "vuelve", revert: "se revierte", remove: "se retira" };
 
 /** Tablas del catálogo (core); el resto son filas internas: evidencia, revisión, conflictos. */
-export const isCatalogTable = (table: string): boolean => table.startsWith("public.");
+export const isCatalogTable = (table: string): boolean => table.startsWith("public.") || table === "media.artist_gallery";
 
 /** «1 edición · 2 bajas» contando solo el catálogo; lo interno aparte. */
 export function countsSummary(change: Pick<ChangeSummary, "counts" | "total">): string {

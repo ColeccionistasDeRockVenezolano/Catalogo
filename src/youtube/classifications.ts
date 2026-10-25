@@ -3,7 +3,7 @@
 // El core guarda un solo `album_type`; la hoja maestra, fuente de los tipos por
 // decisión del propietario, escribe varias por disco ("Solo Artist, Studio
 // Album"). Esta proyección las guarda todas sin tocar el core y se regenera
-// entera desde `ingest.seed_uploads`.
+// desde `ingest.seed_uploads`, conservando los aportes sin seed_upload_id.
 //
 // Una fila con video se ata a su disco SOLO por el enlace del video: por nombre,
 // el videoclip "Otra Tarde Más" acabaría clasificando al single del mismo
@@ -34,6 +34,22 @@ interface SeedRow extends SheetClassificationRow { id: string; album_year_raw: n
 
 const nameKey = (value: string): string => normalizeEntityName(value).secondaryKey;
 
+export interface PlannedClassification { classification: string; inferred: boolean; seedUploadId: string | null }
+
+/** La hoja manda en orden y certeza; un aporte independiente conserva su origen. */
+export function mergeSheetAndLocalClassifications(sheet: PlannedClassification[], local: PlannedClassification[]): PlannedClassification[] {
+  const result = sheet.map(item => ({ ...item }));
+  for (const item of local) {
+    const existing = result.find(candidate => candidate.classification.toLowerCase() === item.classification.toLowerCase());
+    if (existing) {
+      existing.classification = item.classification;
+      existing.inferred = existing.inferred && item.inferred;
+      existing.seedUploadId = null;
+    } else result.push({ ...item, seedUploadId: null });
+  }
+  return result;
+}
+
 export async function syncAlbumClassifications(options: { dryRun?: boolean } = {}): Promise<ClassificationSyncResult> {
   const pool = getPool();
   const seeds = (await pool.query<SeedRow>(`
@@ -58,7 +74,7 @@ export async function syncAlbumClassifications(options: { dryRun?: boolean } = {
     }
   }
 
-  const planned = new Map<string, Array<{ classification: string; inferred: boolean; seedUploadId: string }>>();
+  const planned = new Map<string, PlannedClassification[]>();
   const result: ClassificationSyncResult = { rows: seeds.length, matched: 0, unmatched: 0, ambiguous: 0, albums: 0, classifications: 0, inferred: 0, dryRun: options.dryRun === true };
   for (const row of seeds) {
     const classes = rowClassifications(row);
@@ -80,6 +96,18 @@ export async function syncAlbumClassifications(options: { dryRun?: boolean } = {
     }
     planned.set(targets[0]!, list);
   }
+  const local = (await pool.query<{ album_id: string; classification: string; inferred: boolean }>(`
+    SELECT album_id::text, classification, inferred FROM ingest.album_classifications
+     WHERE seed_upload_id IS NULL
+    UNION ALL SELECT d.album_id::text,d.classification,false FROM ingest.album_classification_decisions d
+     WHERE d.selected AND NOT EXISTS(SELECT 1 FROM ingest.album_classifications c WHERE c.album_id=d.album_id AND c.classification=d.classification AND c.seed_upload_id IS NULL)`)).rows;
+  const localByAlbum = new Map<string, PlannedClassification[]>();
+  for (const row of local) {
+    const list = localByAlbum.get(row.album_id) ?? [];
+    list.push({ classification: row.classification, inferred: row.inferred, seedUploadId: null });
+    localByAlbum.set(row.album_id, list);
+  }
+  for (const [albumId, list] of localByAlbum) planned.set(albumId, mergeSheetAndLocalClassifications(planned.get(albumId) ?? [], list));
   result.albums = planned.size;
   for (const list of planned.values()) {
     result.classifications += list.length;
@@ -90,12 +118,15 @@ export async function syncAlbumClassifications(options: { dryRun?: boolean } = {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
-    await client.query("DELETE FROM ingest.album_classifications");
+    await client.query("DELETE FROM ingest.album_classifications WHERE seed_upload_id IS NOT NULL");
     for (const [albumId, list] of planned) {
       for (const [index, item] of list.entries()) {
         await client.query(`
           INSERT INTO ingest.album_classifications(album_id,classification,position,inferred,seed_upload_id)
-          VALUES($1,$2,$3,$4,$5)`, [albumId, item.classification, index + 1, item.inferred, item.seedUploadId]);
+          VALUES($1,$2,$3,$4,$5)
+          ON CONFLICT (album_id, classification) DO UPDATE SET
+            position=EXCLUDED.position,
+            inferred=ingest.album_classifications.inferred AND EXCLUDED.inferred`, [albumId, item.classification, index + 1, item.inferred, item.seedUploadId]);
       }
     }
     await client.query("COMMIT");

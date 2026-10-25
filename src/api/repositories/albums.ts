@@ -1,4 +1,6 @@
+import { CLASSIFICATION_CATEGORIES, classificationFilterLabel } from "../../shared/classification-filters.js";
 import { dateValueText, type DateValue } from "../../catalog/date-value.js";
+import { B_SIDES_TITLE_SQL_PATTERN } from "../../normalization/b-sides-title.js";
 // CRV · Consultas de lectura para discos (PHASES §E7A: "ALBUM DETAIL... una
 // de las páginas más importantes"). La ficha agregada trae tracklist,
 // créditos (planos y agrupados por credit_type), formatos, alias y enlaces
@@ -7,14 +9,22 @@ import { genreStatusOf, type GenreStatus } from "../../merge/genre-projection.js
 import { getPool } from "../../db/client.js";
 import { genreFilterSql, genreMissingSql, publicGenresFor, relatedGenreFilterSql, type PublicGenre } from "../../genres/public.js";
 import type { PaginationQuery } from "../pagination.js";
+import type { CatalogSort } from "../catalog-sort.js";
 import { personDisplayNames, withPublicAliases } from "./person-display.js";
 import { albumDiscography, type AlbumDiscography } from "./discography.js";
+import { ALBUM_EDITION_TYPES_SQL, extraAlbumFilterSql } from "./album-categories.js";
+import { parseCategorySelection } from "../../shared/category-selection.js";
+import { albumYoutubeVideoId, youtubeVideoId } from "../../shared/youtube-playback.js";
 
 export interface AlbumListRow {
   id: number;
   title: string;
   releaseYear: number | null;
   albumType: string;
+  isLive: boolean;
+  isBSides: boolean;
+  classifications: Array<{ classification: string; inferred: boolean }>;
+  editionTypes: string[];
   artistId: number;
   artistName: string;
   coverUrl: string | null;
@@ -25,6 +35,7 @@ export interface AlbumListRow {
 }
 
 export interface AlbumListQuery extends PaginationQuery {
+  sort?: CatalogSort | undefined;
   q?: string | undefined;
   artistId?: number | undefined;
   /** Slug de género o familia (PLAN_GENEROS §5): solo asignaciones confirmadas. */
@@ -36,39 +47,80 @@ export interface AlbumListQuery extends PaginationQuery {
   decade?: number | undefined;
   withoutYear?: boolean | undefined;
   beforeYear?: number | undefined;
-  albumType?: string | undefined;
+  /** Tipos y características acumulables: todas deben coincidir. */
+  albumType?: string | string[] | undefined;
 }
 
+/**
+ * Filtro de tipo que no es un `album_type` (Brian, 2026-10-14): los B-Sides
+ * tienen ficha propia; se reconocen por la clasificación «B-Sides» de la hoja
+ * o por llevarlo en el título («B-Side: X», «… (B-Sides)»).
+ */
+export const B_SIDES_FILTER = "b_sides";
+export const B_SIDES_SQL = `(NOT EXISTS(SELECT 1 FROM ingest.album_classification_decisions d WHERE d.album_id=al.id AND d.classification='B-Sides' AND NOT d.selected) AND (al.title ~* '${B_SIDES_TITLE_SQL_PATTERN}'
+  OR EXISTS (SELECT 1 FROM ingest.effective_album_classifications c WHERE c.album_id = al.id AND c.classification = 'B-Sides')))`;
+
+/**
+ * Disco en vivo (plan v2 del primo, punto 5): el álbum en vivo y, por D2, el
+ * sencillo, EP, demo o compilado que conserva su tipo con la clasificación
+ * «En vivo» (scripts/apply-live-album-types.ts).
+ */
+export const LIVE_SQL = `(al.album_type = 'live_album'
+  OR EXISTS (SELECT 1 FROM ingest.effective_album_classifications c WHERE c.album_id = al.id AND c.classification = 'En vivo'))`;
+export const LIVE_FILTER = "live";
+
+const classificationCategorySql = `CASE c.classification ${Object.entries(CLASSIFICATION_CATEGORIES).map(([label,key])=>`WHEN '${label}' THEN '${key}'`).join(" ")} ELSE 'classification:' || c.classification END`;
 export async function listAlbums(query: AlbumListQuery): Promise<{ rows: AlbumListRow[]; total: number }> {
+  const orders: Record<CatalogSort, string> = {
+    name: "al.title ASC, al.id ASC",
+    name_desc: "al.title DESC, al.id ASC",
+    year_asc: "al.release_year ASC NULLS LAST, al.title ASC, al.id ASC",
+    year_desc: "al.release_year DESC NULLS LAST, al.title ASC, al.id ASC",
+  };
+  const order = orders[query.sort ?? "name"];
   const pattern = query.q ? `%${query.q}%` : null;
-  // $1 título · $2 artista · $3 género · $4 década · $5 tipo de lanzamiento
+  // $1 título · $2 artista · $3 género · $4 década · $5 categorías (Y)
   // $6 solo sin género · $7 sumar por el género del artista
   const filters = `($1::text IS NULL OR al.title ILIKE $1)
           AND ($2::bigint IS NULL OR al.artist_id = $2)
           AND ($3::text IS NULL OR ${genreFilterSql("album", "al.id", "$3")}
                OR ($7::boolean AND ${genreMissingSql("album", "al.id")} AND ${relatedGenreFilterSql("al.id", "$3")}))
           AND ($4::int IS NULL OR (al.release_year >= $4 AND al.release_year < $4 + 10))
-          AND ($5::text IS NULL OR al.album_type::text = $5)
+          AND NOT EXISTS (SELECT 1 FROM unnest($5::text[]) requested(category)
+            WHERE NOT (al.album_type::text = requested.category
+               OR (requested.category = '${LIVE_FILTER}' AND ${LIVE_SQL})
+               OR EXISTS (SELECT 1 FROM ingest.effective_album_classifications c WHERE c.album_id=al.id
+                 AND ${classificationCategorySql} = requested.category)
+               OR (requested.category = '${B_SIDES_FILTER}' AND ${B_SIDES_SQL})
+               OR ${extraAlbumFilterSql("requested.category")}))
           AND (NOT $6::boolean OR ${genreMissingSql("album", "al.id")})
           AND (NOT $8::boolean OR al.release_year IS NULL)
           AND ($9::int IS NULL OR al.release_year < $9)`;
-  const params = [pattern, query.artistId ?? null, query.genre ?? null, query.decade ?? null, query.albumType ?? null,
+  const selectedTypes = parseCategorySelection(typeof query.albumType === "string" ? [query.albumType] : query.albumType ?? []).map(value=>{const label=classificationFilterLabel(value);return label===null?value:`classification:${label}`;});
+  const params = [pattern, query.artistId ?? null, query.genre ?? null, query.decade ?? null, selectedTypes,
     query.withoutGenre ?? false, query.relatedGenre ?? false, query.withoutYear ?? false, query.beforeYear ?? null];
   const [rows, count] = await Promise.all([
     getPool().query<{
       id: string; title: string; release_year: number | null; album_type: string;
       artist_id: string; artist_name: string; cover_url: string | null; genre: string | null;
+      is_live: boolean; is_b_sides: boolean;
+      classifications: AlbumListRow["classifications"];
+      edition_types: string[];
     }>(
-      `SELECT al.id, al.title, al.release_year, al.album_type, ar.id AS artist_id, ar.name AS artist_name, al.cover_url, al.genre
-         FROM public.albums al
-         JOIN public.artists ar ON ar.id = al.artist_id
+      `SELECT al.id, al.title, al.release_year, al.album_type, ar.id AS artist_id, ar.name AS artist_name, al.cover_url, al.genre,
+              ${LIVE_SQL} AS is_live, ${B_SIDES_SQL} AS is_b_sides,
+              (SELECT coalesce(jsonb_agg(jsonb_build_object('classification', c.classification, 'inferred', c.inferred) ORDER BY c.position, c.id), '[]'::jsonb)
+                 FROM ingest.effective_album_classifications c WHERE c.album_id=al.id) AS classifications,
+              ${ALBUM_EDITION_TYPES_SQL} AS edition_types
+         FROM ingest.catalog_albums al
+         JOIN ingest.catalog_artists ar ON ar.id = al.artist_id
         WHERE ${filters}
-        ORDER BY al.title
+        ORDER BY ${order}
         LIMIT $10 OFFSET $11`,
       [...params, query.limit, query.offset],
     ),
     getPool().query<{ count: string }>(
-      `SELECT count(*)::text AS count FROM public.albums al WHERE ${filters}`,
+      `SELECT count(*)::text AS count FROM ingest.catalog_albums al WHERE ${filters}`,
       params,
     ),
   ]);
@@ -77,6 +129,9 @@ export async function listAlbums(query: AlbumListQuery): Promise<{ rows: AlbumLi
   return {
     rows: rows.rows.map((row) => ({
       id: Number(row.id), title: row.title, releaseYear: row.release_year, albumType: row.album_type,
+      isLive: row.is_live, isBSides: row.is_b_sides,
+      classifications: row.classifications,
+      editionTypes: row.edition_types,
       artistId: Number(row.artist_id), artistName: row.artist_name, coverUrl: row.cover_url,
       primaryGenre: genres.get(Number(row.id))?.primaryGenre ?? null,
       genreStatus: genres.get(Number(row.id))?.genreStatus ?? "unclassified",
@@ -129,6 +184,10 @@ export interface AlbumDetail {
   title: string;
   releaseYear: number | null;
   albumType: string;
+  isLive: boolean;
+  isBSides: boolean;
+  classifications: Array<{ classification: string; inferred: boolean }>;
+  editionTypes: string[];
   genre: string | null;
   /** `confirmed` (principal confirmado), `pending` (texto de fuente sin confirmar) o `unclassified` (PLAN_GENEROS §5). */
   genreStatus: GenreStatus;
@@ -180,7 +239,7 @@ const CREDIT_FIELDS = `jsonb_build_object(
   )`;
 
 function creditKey(credit: AlbumCreditRow): string {
-  const target = credit.personId !== null ? `p${credit.personId}` : credit.artistId !== null ? `a${credit.artistId}` : `o${credit.organizationId}`;
+  const target = credit.personId !== null ? `p${credit.personId}` : credit.artistId !== null ? `a${credit.artistId}` : credit.organizationId !== null ? `o${credit.organizationId}` : `reference:${credit.artistName}`;
   return `${credit.creditType}|${credit.role.trim().toLowerCase()}|${target}`;
 }
 
@@ -206,6 +265,10 @@ export function scopedCreditsByType(tracklist: AlbumTrackRow[], albumCredits: Al
 export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
   const { rows } = await getPool().query<Record<string, unknown>>(
     `SELECT al.id, al.title, al.release_year, al.album_type, al.genre, al.cover_url,
+       ${LIVE_SQL} AS is_live, ${B_SIDES_SQL} AS is_b_sides,
+       (SELECT coalesce(jsonb_agg(jsonb_build_object('classification', c.classification, 'inferred', c.inferred) ORDER BY c.position, c.id), '[]'::jsonb)
+          FROM ingest.effective_album_classifications c WHERE c.album_id=al.id) AS classifications,
+       ${ALBUM_EDITION_TYPES_SQL} AS edition_types,
             al.description, al.notes, al.release_date_text, al.catalog_id, al.media_format, al.youtube_url, al.youtube_status,
             al.instagram_url, al.instagram_status, al.wordpress_url, al.wordpress_status,
             ar.id AS artist_id, ar.name AS artist_name,
@@ -221,28 +284,28 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
            'credits', COALESCE((
              SELECT jsonb_agg(${CREDIT_FIELDS})
              FROM (
-               SELECT tc.id, tc.credit_type, tc.role, tc.person_id, tcp.name AS person_name,
+               SELECT tc.id, tc.credit_type, tc.role, COALESCE(tc.person_id, tca.reference_person_id) AS person_id, COALESCE(tcp.name, (SELECT p.name FROM public.persons p WHERE p.id=tca.reference_person_id)) AS person_name,
                       COALESCE(tcp.is_deceased, false) OR tcp.death_date_value IS NOT NULL AS person_is_deceased,
-                      tc.artist_id, tca.name AS artist_name, tc.organization_id, tco.name AS organization_name
+                      tca.public_artist_id AS artist_id, tca.name AS artist_name, tc.organization_id, tco.name AS organization_name
                  FROM public.track_credits tc
                  LEFT JOIN public.persons tcp ON tcp.id = tc.person_id
-                 LEFT JOIN public.artists tca ON tca.id = tc.artist_id
+                 LEFT JOIN ingest.catalog_credit_artists tca ON tca.id = tc.artist_id
                  LEFT JOIN public.organizations tco ON tco.id = tc.organization_id
                 WHERE tc.track_id = t.id
              ) credit_rows
            ), '[]'::jsonb)
          ) ORDER BY t.disc_number, t.track_number)
-         FROM public.tracks t WHERE t.album_id = al.id
+         FROM ingest.catalog_tracks t WHERE t.album_id = al.id
        ), '[]'::jsonb) AS tracklist,
        COALESCE((
          SELECT jsonb_agg(${CREDIT_FIELDS})
          FROM (
-           SELECT ac.id, ac.credit_type, ac.role, ac.person_id, acp.name AS person_name,
+           SELECT ac.id, ac.credit_type, ac.role, COALESCE(ac.person_id, aca.reference_person_id) AS person_id, COALESCE(acp.name, (SELECT p.name FROM public.persons p WHERE p.id=aca.reference_person_id)) AS person_name,
                   COALESCE(acp.is_deceased, false) OR acp.death_date_value IS NOT NULL AS person_is_deceased,
-                  ac.artist_id, aca.name AS artist_name, ac.organization_id, aco.name AS organization_name
+                  aca.public_artist_id AS artist_id, aca.name AS artist_name, ac.organization_id, aco.name AS organization_name
              FROM public.album_credits ac
              LEFT JOIN public.persons acp ON acp.id = ac.person_id
-             LEFT JOIN public.artists aca ON aca.id = ac.artist_id
+             LEFT JOIN ingest.catalog_credit_artists aca ON aca.id = ac.artist_id
              LEFT JOIN public.organizations aco ON aco.id = ac.organization_id
             WHERE ac.album_id = al.id
          ) credit_rows
@@ -276,11 +339,20 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
          WHERE va.album_id = al.id AND v.publication_status NOT IN ('unpublished', 'copyright_blocked')
        ), '[]'::jsonb) AS youtube_links,
        COALESCE((
+         SELECT jsonb_agg(jsonb_build_object('trackId', vt.track_id, 'videoId', v.video_id,
+           'startSeconds', vt.start_seconds, 'durationSeconds', v.duration_seconds) ORDER BY
+             EXISTS(SELECT 1 FROM media.youtube_tracklist_entries e WHERE e.video_id=v.id AND e.start_seconds=vt.start_seconds) DESC, vt.start_seconds)
+           FROM media.video_tracks vt JOIN ingest.catalog_tracks t ON t.id=vt.track_id
+           JOIN media.youtube_videos v ON v.id=vt.video_id
+          WHERE t.album_id=al.id AND vt.start_seconds >= 0
+            AND v.publication_status NOT IN ('unpublished','copyright_blocked')
+       ), '[]'::jsonb) AS youtube_occurrences,
+       COALESCE((
          SELECT jsonb_agg(jsonb_build_object('platform', sl.platform, 'url', sl.url, 'externalId', sl.external_id) ORDER BY sl.platform)
            FROM public.streaming_links sl WHERE sl.album_id = al.id AND sl.verified
        ), '[]'::jsonb) AS platforms
-     FROM public.albums al
-     JOIN public.artists ar ON ar.id = al.artist_id
+     FROM ingest.catalog_albums al
+     JOIN ingest.catalog_artists ar ON ar.id = al.artist_id
      LEFT JOIN public.organizations lbl ON lbl.id = al.label_id
      WHERE al.id = $1`,
     [id],
@@ -289,6 +361,21 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
   if (!row) return null;
   const credits = row["credits"] as AlbumCreditRow[];
   const tracklist = row["tracklist"] as AlbumTrackRow[];
+  const occurrences = row["youtube_occurrences"] as Array<{ trackId: number; videoId: string; startSeconds: number; durationSeconds: number | null }>;
+  const albumVideo = albumYoutubeVideoId({ youtubeLinks: row["youtube_links"] as AlbumDetail["youtubeLinks"],
+    youtubeUrl: ["unpublished", "copyright_blocked"].includes(row["youtube_status"] as string) ? null : row["youtube_url"] as string | null });
+  const discs = row["discs"] as AlbumDetail["discs"];
+  for (const track of tracklist) {
+    // El tiempo pertenece al video que se reproduce, incluido el de un CD/lado propio.
+    // La reconciliación guarda aquí los tiempos sin tener que sobrescribir el core.
+    const own = discs.find(disc => disc.discNumber === track.discNumber)?.platforms.find(link => link.platform === "youtube");
+    const videoId = youtubeVideoId(own?.url ?? null) ?? albumVideo;
+    const occurrence = occurrences.find(item => item.trackId === track.id && item.videoId === videoId
+      && (item.durationSeconds === null || item.startSeconds < item.durationSeconds));
+    track.youtubeStartSeconds = occurrence?.startSeconds ?? null;
+    const duration = occurrences.find(item => item.videoId === videoId)?.durationSeconds;
+    if (duration !== null && duration !== undefined && track.youtubeStartSeconds !== null && track.youtubeStartSeconds >= duration) track.youtubeStartSeconds = null;
+  }
   const allCredits = [...credits, ...tracklist.flatMap((track) => track.credits)];
   const displayNames = await personDisplayNames(allCredits.flatMap((credit) => credit.personId === null ? [] : [credit.personId]));
   for (const credit of allCredits) credit.personDisplayName = credit.personId === null ? null : displayNames.get(credit.personId) ?? null;
@@ -309,6 +396,10 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
     catalogId: row["catalog_id"] as string | null,
     mediaFormat: row["media_format"] as string | null,
     albumType: row["album_type"] as string,
+    isLive: row["is_live"] as boolean,
+    isBSides: row["is_b_sides"] as boolean,
+    classifications: row["classifications"] as AlbumDetail["classifications"],
+    editionTypes: row["edition_types"] as string[],
     genre: row["genre"] as string | null,
     genreStatus: genreStatusOf(row["genre_confirmed"] === true, row["genre"] as string | null),
     primaryGenre: genres.primaryGenre,

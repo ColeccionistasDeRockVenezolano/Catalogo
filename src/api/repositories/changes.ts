@@ -184,6 +184,12 @@ export async function listChanges(filter: ChangeFilter): Promise<{ rows: ChangeS
     params.push(CHANGE_ENTITY_TABLES[filter.entity], JSON.stringify({ id: filter.id }), filter.id);
     where.push(`(r.id IN (SELECT run_id FROM ingest.change_journal WHERE table_name=$1 AND row_pk=$2::jsonb AND run_id IS NOT NULL)
               OR r.id IN (SELECT run_id FROM ingest.merge_audit WHERE ${filter.entity}_id=$3 AND run_id IS NOT NULL))`);
+    if (filter.entity === "artist") {
+      where[where.length - 1] = `(${where[where.length - 1]} OR EXISTS (
+        SELECT 1 FROM ingest.change_journal gj WHERE gj.run_id=r.id AND gj.table_name IN ('media.artist_gallery','media.artist_documents','media.artist_audiovisuals')
+          AND COALESCE(gj.new_data->>'artist_id', gj.old_data->>'artist_id', r.params->>'artistId',
+            (SELECT artist_id::text FROM media.artist_gallery WHERE id=(gj.row_pk->>'id')::bigint))=$3::text))`;
+    }
   }
   if (filter.journaled) where.push("EXISTS (SELECT 1 FROM ingest.change_journal j WHERE j.run_id=r.id)");
   const clause = where.length ? `WHERE ${where.join(" AND ")}` : "";

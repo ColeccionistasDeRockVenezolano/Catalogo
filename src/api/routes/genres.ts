@@ -1,3 +1,4 @@
+import { dateValueText } from "../../catalog/date-value.js";
 // CRV · Géneros públicos para los filtros de las listas de discos y artistas:
 // familias y subgéneros con cuántas fichas tienen cada uno (solo asignaciones
 // confirmadas, PLAN_GENEROS §5) y cuántas no tienen género.
@@ -10,7 +11,7 @@ import { ApiError } from "../http-errors.js";
 import { OPERATOR_SECURITY } from "../auth.js";
 import { noteSchema } from "./catalog-writes.js";
 import { writeErrorResponses } from "../schemas.js";
-import { genreFacets, type GenreFacets } from "../../genres/public.js";
+import { genreFacets } from "../../genres/public.js";
 
 const facetSchema = z.object({
   slug: z.string(),
@@ -28,15 +29,29 @@ const facetsSchema = z.object({
   })),
 });
 
-/** Los conteos recorren todas las asignaciones: se recalculan como mucho cada minuto. */
-const FACETS_TTL_MS = 60_000;
-
 export async function registerGenreRoutes(app: FastifyInstance): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();
   server.get("/genres/vocabulary", {
     schema: { tags: ["genres"], response: { 200: z.array(z.object({ slug: z.string(), name: z.string(), level: z.string() })) } },
   }, async () => (await getPool().query<{ slug: string; name: string; level: string }>(
     "SELECT slug,name,level::text FROM ingest.genres WHERE active ORDER BY name")).rows);
+  server.post("/genres/:kind/:id/proposal", {
+    schema: {tags:["genres:write"], security:OPERATOR_SECURITY,
+      params:z.object({kind:z.enum(["artist","album"]),id:z.coerce.number().int().positive()}),
+      body:z.object({proposedName:z.string().trim().min(1).max(100),familySlug:z.string().trim().min(1).max(100).optional(),rawValue:z.string().trim().min(1).max(2000).optional(),note:noteSchema}).strict(),
+      response:{200:z.object({runId:z.number().int(),reviewId:z.number().int()}),...writeErrorResponses}},
+  },async request=>{
+    try {
+      const result=await decideGenre({kind:request.params.kind,entityId:request.params.id,action:"request_new_term",actor:request.operator,reason:request.body.note,...request.body});
+      return {runId:result.runId,reviewId:result.newReviewId!};
+    }catch(error){if(error instanceof GenreCurationError)throw new ApiError(error.code==="not_found"?404:error.code==="conflict"?409:422,error.code,error.message);throw error;}
+  });
+  server.get("/genres/:kind/:id/periods", {
+    schema:{tags:["genres"],params:z.object({kind:z.enum(["album","artist","person","track"]),id:z.coerce.number().int().positive()}),response:{200:z.array(z.object({id:z.number(),name:z.string(),period:z.string().nullable()}))}},
+  },async request=>{
+    const rows=(await getPool().query<{id:string;name:string;period:unknown}>(`SELECT s.id::text,g.name,s.period FROM ingest.scoped_genres s JOIN ingest.genres g ON g.id=s.genre_id WHERE s.${request.params.kind}_id=$1 AND g.active ORDER BY s.id`,[request.params.id])).rows;
+    return rows.map(row=>({id:Number(row.id),name:row.name,period:row.period?dateValueText(row.period as Parameters<typeof dateValueText>[0]):null}));
+  });
   server.post("/genres/:kind/:id/decision", {
     schema: { tags: ["genres:write"], security: OPERATOR_SECURITY,
       params: z.object({ kind: z.enum(["artist", "album"]), id: z.coerce.number().int().positive() }),
@@ -46,34 +61,17 @@ export async function registerGenreRoutes(app: FastifyInstance): Promise<void> {
     try {
       const result = await decideGenre({ kind: request.params.kind, entityId: request.params.id,
         action: request.body.action, genreSlug: request.body.genreSlug, actor: request.operator, reason: request.body.note });
-      cache.clear();
       return { runId: result.runId };
     } catch (error) {
       if (error instanceof GenreCurationError) throw new ApiError(error.code === "not_found" ? 404 : error.code === "conflict" ? 409 : 422, error.code, error.message);
       throw error;
     }
   });
-  const cache = new Map<"album" | "artist", { at: number; value: Promise<GenreFacets> }>();
-
-  function cachedFacets(kind: "album" | "artist"): Promise<GenreFacets> {
-    const hit = cache.get(kind);
-    if (hit && Date.now() - hit.at < FACETS_TTL_MS) return hit.value;
-    const value = genreFacets(kind);
-    cache.set(kind, { at: Date.now(), value });
-    // Un fallo no se queda en caché: la siguiente petición lo reintenta.
-    value.catch(() => { if (cache.get(kind)?.value === value) cache.delete(kind); });
-    return value;
-  }
-
   server.get("/genres/facets", {
     schema: {
       tags: ["genres"],
       querystring: z.object({ kind: z.enum(["album", "artist"]) }),
       response: { 200: facetsSchema },
     },
-  }, async (request, reply) => {
-    // Iguales para todos los visitantes y cambian poco: una caché corta basta.
-    reply.header("cache-control", "public, max-age=120");
-    return cachedFacets(request.query.kind);
-  });
+  }, async request => genreFacets(request.query.kind));
 }

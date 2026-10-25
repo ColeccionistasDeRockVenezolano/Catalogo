@@ -12,7 +12,7 @@ import { entityVerificationApi } from "../lib/api";
 import type { VerificationFinding, VerificationKind, VerificationReport, VerificationJob } from "../../../src/verification/types";
 
 const STATUS = {confirmed:"Comprobado",partial:"Respaldo parcial",contradicted:"Incoherencia",missing:"Falta en la ficha",unverified:"Sin verificar"};
-export function EntityVerification({kind,id,revision,onChanged}:{kind:VerificationKind;id:number;revision:unknown;onChanged?:()=>void}) {
+export function EntityVerification({kind,id,revision,onChanged,artistConversionBlocked=false}:{kind:VerificationKind;id:number;revision:unknown;onChanged?:()=>void;artistConversionBlocked?:boolean}) {
   const requestVersion=useRef(0);
   const [comparisonRefresh,setComparisonRefresh]=useState(0);
   const reloadVerification=useCallback(()=>setComparisonRefresh(v=>v+1),[]);
@@ -94,10 +94,11 @@ export function EntityVerification({kind,id,revision,onChanged}:{kind:Verificati
     <div className="entity-verification__actions page-actions">
       <button type="button" className={`btn${report?.researched ? ' btn--primary' : ''}`} aria-expanded={open} aria-controls={panelId} onClick={()=>setDraft({...draft,open:!open,details:true})}>{open?<CaretUp size={16} aria-hidden="true"/>:<CaretDown size={16} aria-hidden="true"/>}{open?"Ocultar informe":"Ver informe y datos pendientes"}</button>
       <Link className="btn" to={`/curaduria/ia?kind=${kind}&id=${id}&prepare=1`}>Revisar cambios sugeridos por IA</Link>
+      {kind==='album'||kind==='artist'?<Link className="btn" to={`/curaduria/imagenes?${kind==='artist'?'tipo=fotos&':''}ficha=${id}`}>{kind==='album'?'Portadas candidatas':'Fotos candidatas'}</Link>:null}
       {!report?.researched ? <button type="button" className="btn btn--primary" disabled={busy||loading} onClick={()=>void investigate()}><MagnifyingGlass size={16} aria-hidden="true"/>{busy?"Verificación en curso":"Verificar con fuentes"}</button> : null}
     </div>
     <p className="entity-verification__muted verification-action-hint">La IA convierte los hallazgos en correcciones. Acepta o rechaza cada cambio; se aplica al aceptarlo.</p>
-    {kind==='person'?<PersonArtistResolution personId={id} disabled={busy||loading} onChanged={()=>{reloadVerification();onChanged?.();}}/>:null}
+    {kind==='person'?(artistConversionBlocked?<p role="note">Persona conservada para créditos e historia. No convertir en artista: decisión editorial vigente.</p>:<PersonArtistResolution personId={id} disabled={busy||loading} onChanged={()=>{reloadVerification();onChanged?.();}}/>):null}
     <details className="verification-tools"><summary>Más herramientas: verificar y comparar</summary>
       <div className="page-actions">
         {report?.researched ? <button type="button" className="btn" disabled={busy||loading} onClick={()=>void investigate()}><MagnifyingGlass size={16} aria-hidden="true"/>{busy?"Verificación en curso":"Volver a verificar con fuentes"}</button> : null}

@@ -194,4 +194,46 @@ describe("triaje de Curaduría: revisado y historial de lotes (E8)", () => {
     const name = (await getPool().query<{ name: string }>("SELECT name FROM public.artists WHERE id = $1", [dirtyArtist])).rows[0]!.name;
     expect(name).toContain(ZERO_WIDTH_SPACE);
   }, 90_000);
+
+  it("pagina y ordena el conjunto completo, y conserva el total fuera de la última página", async () => {
+    const all = await app.inject({ method: "GET", url: "/curation/findings?sort=entity&limit=200", headers });
+    expect(all.statusCode).toBe(200);
+    const body = all.json();
+    expect(body.pagination.total).toBeGreaterThan(0);
+    const ids = body.data.map((row: { id: number }) => row.id);
+    const next = await app.inject({ method: "GET", url: "/curation/findings?sort=entity&limit=1&offset=1", headers });
+    expect(next.json().data[0].id).toBe(ids[1]);
+    const outside = await app.inject({ method: "GET", url: "/curation/findings?offset=999999", headers });
+    expect(outside.json()).toMatchObject({ data: [], pagination: { total: body.pagination.total } });
+    for (const sort of ["oldest", "newest", "priority"]) {
+      const page = await app.inject({ method: "GET", url: `/curation/findings?sort=${sort}`, headers });
+      expect(page.statusCode).toBe(200);
+      expect(page.json().pagination.total).toBe(body.pagination.total);
+    }
+    const invalid = await app.inject({ method: "GET", url: "/curation/findings?sort=unknown", headers });
+    expect(invalid.statusCode).toBe(400);
+  });
+
+  it("busca ids de fichas relacionadas sin desbordar con números largos", async () => {
+    const found = await app.inject({ method: "GET", url: `/curation/findings?q=%23${dirtyArtist}`, headers });
+    expect(found.statusCode).toBe(200);
+    expect(found.json().data.some((row: { entity: { id: number } }) => row.entity.id === dirtyArtist)).toBe(true);
+    const tooLarge = await app.inject({ method: "GET", url: `/curation/findings?q=${"9".repeat(100)}`, headers });
+    expect(tooLarge.statusCode).toBe(200);
+    const anonymous = await app.inject({ method: "GET", url: "/curation/findings?sort=entity" });
+    expect(anonymous.statusCode).toBe(401);
+  });
+
+  it("las acciones de grupo respetan el mismo filtro por id que la lista", async () => {
+    const found = await app.inject({ method: "GET", url: `/curation/findings?detector=caracteres_invisibles&q=%23${dirtyArtist}`, headers });
+    const before = found.json();
+    expect(before.pagination.total).toBeGreaterThan(0);
+    const ignored = await app.inject({ method: "POST", url: "/curation/findings/ignore-group", headers,
+      payload: { category: "nombres_sucios", detector: "caracteres_invisibles", q: `#${dirtyArtist}`,
+        reason: "fuera_de_alcance", note: "Decisión de prueba limitada al id buscado" } });
+    expect(ignored.statusCode).toBe(200);
+    expect(ignored.json().ignored).toBe(before.pagination.total);
+    const after = await app.inject({ method: "GET", url: `/curation/findings?detector=caracteres_invisibles&q=%23${dirtyArtist}`, headers });
+    expect(after.json().pagination.total).toBe(0);
+  });
 });

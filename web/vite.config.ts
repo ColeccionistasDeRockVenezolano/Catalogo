@@ -21,9 +21,28 @@ export default defineConfig({
   }],
   server: {
     port: 5173,
+    // Las variantes WebP y los medios publicados se regeneran solos y suman
+    // decenas de miles de archivos: vigilarlos agota el límite de inotify de la
+    // máquina y el servidor de desarrollo muere con ENOSPC (fs.watch).
+    // Los directorios de build también quedan fuera: dist/dist-public copian
+    // public/media completo y el watcher los recorría igualmente.
+    watch: {
+      ignored: [
+        "**/.media-variants/**",
+        "**/public/media/**",
+        "**/dist/**",
+        "**/dist-public/**",
+      ],
+    },
   },
   build: {
     outDir: "dist",
     emptyOutDir: true,
+    // `public/media` es un enlace al almacén de 1 TB con 19.586 archivos (2 GB):
+    // copiarlo en cada build ataba la publicación al HDD (1m39s → 9m5s) y dejaba
+    // una copia muerta de las imágenes en `dist-public/media`. `server.mjs` ya
+    // sirve `/crv/media/*` desde `public/media`, así que aquí no se copia nada:
+    // los estáticos sueltos de `public/` los añade scripts/copy-public-root.mjs.
+    copyPublicDir: false,
   },
 });

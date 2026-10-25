@@ -1,15 +1,20 @@
-// CRV · Portada del catálogo: cifras, aniversarios, canal de YouTube,
+// CRV · Portada del catálogo: cifras, épocas, canal de YouTube,
 // artista del día, un disco para escuchar y sellos. Todo sale del core y
 // Las selecciones rotan con la fecha de Venezuela; los videos se consultan
 // directamente al canal oficial y las cifras reflejan el catálogo actual.
 import { getPool } from "../../db/client.js";
 import { publicGenresFor, type PublicGenre } from "../../genres/public.js";
 import { similarArtists } from "./artist-neighbors.js";
+import { artistGroupSql } from "./artist-groups.js";
 import { CRV_CHANNEL_ID, CRV_CHANNEL_URL, latestChannelSnapshot } from "../../youtube/home-channel.js";
+import { dailyCycleForDate, dayNumber, type DailyCycle } from "../../shared/daily-cycle.js";
+export { dailyDate as caracasToday, dayNumber } from "../../shared/daily-cycle.js";
 
-/** Aniversarios redondos que la portada ofrece, de mayor a menor. */
-export const ANNIVERSARY_YEARS = [60, 50, 40, 30, 20, 10] as const;
-const ANNIVERSARY_LIMIT = 12;
+/** Décadas que la portada ofrece en «Por época», de la más vieja a la más nueva. */
+export const ERA_DECADES = [1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020] as const;
+const ERA_LIMIT = 12;
+/** Discos por década que entran al sorteo del día antes de equilibrar géneros. */
+const ERA_POOL = 120;
 const VIDEO_LIMIT = 8;
 const LISTEN_LIMIT = 6;
 const LABEL_LIMIT = 8;
@@ -23,11 +28,12 @@ export interface HomeAlbum {
 }
 
 export interface HomeData {
+  dailyCycle: DailyCycle;
   date: string;
   wall: HomeAlbum[];
   channel: { url: string; checkedAt: string | null; stale: boolean };
   stats: { artists: number; albums: number; tracks: number; persons: number; firstYear: number | null; lastYear: number | null };
-  anniversaries: Array<{ years: number; releaseYear: number; total: number; albums: HomeAlbum[] }>;
+  eras: Array<{ decade: number; total: number; albums: HomeAlbum[] }>;
   videos: Array<{
     videoId: string; title: string | null; publishedAt: string | null; thumbnailUrl: string | null;
     album: { id: number; title: string } | null; artist: { id: number; name: string } | null;
@@ -57,15 +63,6 @@ function toAlbum(row: AlbumRow): HomeAlbum {
   };
 }
 
-/** Fecha de hoy en Venezuela (AAAA-MM-DD): el «día» de la portada es el del público. */
-export function caracasToday(now = new Date()): string {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: "America/Caracas", year: "numeric", month: "2-digit", day: "2-digit" }).format(now);
-}
-
-export function dayNumber(date: string): number {
-  return Math.floor(Date.parse(`${date}T00:00:00Z`) / 86_400_000);
-}
-
 /** Primeras frases de la biografía, cortadas en un final de frase o, si no hay, en una palabra. */
 export function bioExcerpt(text: string, max = BIO_EXCERPT): string {
   const clean = text.replace(/\s+/gu, " ").trim();
@@ -79,41 +76,43 @@ export function bioExcerpt(text: string, max = BIO_EXCERPT): string {
 
 export async function getHomeData(date: string): Promise<HomeData> {
   const pool = getPool();
-  const year = Number(date.slice(0, 4));
-  const years = ANNIVERSARY_YEARS.map((n) => year - n);
-
-  const [stats, anniversaries, videos, listen, labels, featured, wall, channel] = await Promise.all([
+  const [stats, eras, videos, listen, labels, featured, wall, channel] = await Promise.all([
     pool.query<{ artists: string; albums: string; tracks: string; persons: string; first_year: number | null; last_year: number | null }>(
-      `SELECT (SELECT count(*) FROM public.artists)::text AS artists,
-              (SELECT count(*) FROM public.albums)::text AS albums,
-              (SELECT count(*) FROM public.tracks)::text AS tracks,
+      `SELECT (SELECT count(*) FROM ingest.catalog_artists)::text AS artists,
+              (SELECT count(*) FROM ingest.catalog_albums)::text AS albums,
+              (SELECT count(*) FROM ingest.catalog_tracks)::text AS tracks,
               (SELECT count(*) FROM public.persons)::text AS persons,
-              (SELECT min(release_year) FROM public.albums) AS first_year,
-              (SELECT max(release_year) FROM public.albums) AS last_year`),
-    // Por año: primero los que tienen portada y son discos propios (estudio, EP, en vivo).
+              (SELECT min(release_year) FROM ingest.catalog_albums) AS first_year,
+              (SELECT max(release_year) FROM ingest.catalog_albums) AS last_year`),
+    // Por década, una tanda nueva cada día: se sortean con la fecha los discos con portada
+    // (primero los propios: estudio, EP, en vivo) y se intercalan las familias de género.
     // Un título repetido en el mismo año (fichas dobles del mismo disco) sale una sola vez.
-    pool.query<AlbumRow & { total: string }>(
+    pool.query<AlbumRow & { decade: number; total: string }>(
       `WITH candidates AS (
          SELECT DISTINCT ON (al.release_year, lower(al.title)) ${ALBUM_COLUMNS},
-                count(*) OVER (PARTITION BY al.release_year)::text AS total, genre.family
-           FROM public.albums al JOIN public.artists ar ON ar.id = al.artist_id
-           LEFT JOIN LATERAL (
-             SELECT COALESCE(g.family_id, g.id) AS family FROM ingest.album_genres ag
-             JOIN ingest.genre_lineage g ON g.id = ag.genre_id
-             WHERE ag.album_id = al.id AND ag.status = 'confirmed'
-             ORDER BY (ag.role = 'primary') DESC, g.id LIMIT 1
-           ) genre ON true
-          WHERE al.release_year = ANY($1::int[])
+                (al.release_year / 10) * 10 AS decade,
+                count(*) OVER (PARTITION BY (al.release_year / 10) * 10)::text AS total
+           FROM ingest.catalog_albums al JOIN ingest.catalog_artists ar ON ar.id = al.artist_id
+          WHERE (al.release_year / 10) * 10 = ANY($1::int[])
           ORDER BY al.release_year, lower(al.title), (al.cover_url IS NULL), al.id
+       ), pooled AS (
+         SELECT * FROM (SELECT *, row_number() OVER (PARTITION BY decade
+           ORDER BY (cover_url IS NULL), (album_type IN ('studio_album', 'ep', 'live_album')) DESC, md5(id::text || $2)) AS draw
+           FROM candidates) drawn WHERE draw <= $4
        ), balanced AS (
-         SELECT *, row_number() OVER (PARTITION BY release_year, family
+         SELECT pooled.*, genre.family, row_number() OVER (PARTITION BY decade, genre.family
            ORDER BY (cover_url IS NULL), (album_type IN ('studio_album', 'ep', 'live_album')) DESC, md5(id::text || $2)) AS genre_round
-         FROM candidates
+         FROM pooled LEFT JOIN LATERAL (
+           SELECT COALESCE(g.family_id, g.id) AS family FROM ingest.album_genres ag
+           JOIN ingest.genre_lineage g ON g.id = ag.genre_id
+           WHERE ag.album_id = pooled.id AND ag.status = 'confirmed'
+           ORDER BY (ag.role = 'primary') DESC, g.id LIMIT 1
+         ) genre ON true
        ), ranked AS (
-         SELECT *, row_number() OVER (PARTITION BY release_year
+         SELECT *, row_number() OVER (PARTITION BY decade
            ORDER BY genre_round, (cover_url IS NULL), (family IS NULL),
              (album_type IN ('studio_album', 'ep', 'live_album')) DESC, md5(id::text || $2)) AS rn FROM balanced
-       ) SELECT * FROM ranked WHERE rn <= $3 ORDER BY release_year, rn`, [years, date, ANNIVERSARY_LIMIT]),
+       ) SELECT * FROM ranked WHERE rn <= $3 ORDER BY decade, rn`, [[...ERA_DECADES], date, ERA_LIMIT, ERA_POOL]),
     pool.query<{ video_id: string; title: string | null; published_at: string | null; thumbnail_url: string | null;
       album_id: string | null; album_title: string | null; artist_id: string | null; artist_name: string | null }>(
       `SELECT v.video_id, v.title, v.published_at::text AS published_at, v.thumbnail_url,
@@ -121,10 +120,10 @@ export async function getHomeData(date: string): Promise<HomeData> {
          FROM media.youtube_videos v
          LEFT JOIN LATERAL (SELECT vab.album_id FROM media.video_albums vab WHERE vab.video_id = v.id
                              ORDER BY vab.is_primary_link DESC, vab.album_id LIMIT 1) va ON true
-         LEFT JOIN public.albums al ON al.id = va.album_id
+         LEFT JOIN ingest.catalog_albums al ON al.id = va.album_id
          LEFT JOIN LATERAL (SELECT vr.artist_id FROM media.video_artists vr WHERE vr.video_id = v.id
                              ORDER BY (vr.relation_kind = 'performer') DESC, vr.artist_id LIMIT 1) vr ON true
-         LEFT JOIN public.artists ar ON ar.id = vr.artist_id
+         LEFT JOIN ingest.catalog_artists ar ON ar.id = vr.artist_id
         WHERE v.publication_status = 'published' AND v.channel_id = $2
         ORDER BY v.published_at DESC NULLS LAST, v.id DESC
         LIMIT $1`, [VIDEO_LIMIT, CRV_CHANNEL_ID]),
@@ -132,7 +131,7 @@ export async function getHomeData(date: string): Promise<HomeData> {
       `WITH eligible AS (SELECT ${ALBUM_COLUMNS},
               (SELECT jsonb_agg(jsonb_build_object('platform', sl.platform, 'url', sl.url) ORDER BY sl.platform)
                  FROM public.streaming_links sl WHERE sl.album_id = al.id AND sl.verified) AS links
-         FROM public.albums al JOIN public.artists ar ON ar.id = al.artist_id
+         FROM ingest.catalog_albums al JOIN ingest.catalog_artists ar ON ar.id = al.artist_id
         WHERE al.cover_url IS NOT NULL
           AND EXISTS (SELECT 1 FROM public.streaming_links sl WHERE sl.album_id = al.id AND sl.verified)
         ), ranked AS (SELECT *, row_number() OVER (ORDER BY md5(id::text)) - 1 AS position, count(*) OVER () AS size FROM eligible)
@@ -142,24 +141,23 @@ export async function getHomeData(date: string): Promise<HomeData> {
     pool.query<{ id: string; name: string; picture_url: string | null; album_count: string; from_year: number | null; to_year: number | null }>(
       `WITH eligible AS (SELECT o.id, o.name, o.picture_url, count(*)::text AS album_count,
               min(al.release_year) AS from_year, max(al.release_year) AS to_year
-         FROM public.organizations o JOIN public.albums al ON al.label_id = o.id
+         FROM public.organizations o JOIN ingest.catalog_albums al ON al.label_id = o.id
         GROUP BY o.id ORDER BY count(*) DESC, o.name LIMIT 40)
         SELECT * FROM eligible ORDER BY md5(id::text || $2)
         LIMIT $1`, [LABEL_LIMIT, date]),
     featuredArtist(date),
-    pool.query<AlbumRow>(`SELECT ${ALBUM_COLUMNS} FROM public.albums al
-      JOIN public.artists ar ON ar.id = al.artist_id WHERE al.cover_url IS NOT NULL
+    pool.query<AlbumRow>(`SELECT ${ALBUM_COLUMNS} FROM ingest.catalog_albums al
+      JOIN ingest.catalog_artists ar ON ar.id = al.artist_id WHERE al.cover_url IS NOT NULL
       ORDER BY md5(al.id::text || $1) LIMIT 90`, [date]),
     latestChannelSnapshot(),
   ]);
 
   const s = stats.rows[0]!;
-  const groups = new Map<number, HomeData["anniversaries"][number]>();
-  for (const row of anniversaries.rows) {
-    const releaseYear = row.release_year!;
-    const group = groups.get(releaseYear) ?? { years: year - releaseYear, releaseYear, total: Number(row.total), albums: [] };
+  const groups = new Map<number, HomeData["eras"][number]>();
+  for (const row of eras.rows) {
+    const group = groups.get(row.decade) ?? { decade: row.decade, total: Number(row.total), albums: [] };
     group.albums.push(toAlbum(row));
-    groups.set(releaseYear, group);
+    groups.set(row.decade, group);
   }
 
   const homeWall = wall.rows.map(toAlbum);
@@ -168,6 +166,7 @@ export async function getHomeData(date: string): Promise<HomeData> {
   const albumGenres = await publicGenresFor("album", albums.map(album => album.id));
   for (const album of albums) album.genres = albumGenres.get(album.id)?.genres ?? [];
   return {
+    dailyCycle: dailyCycleForDate(date),
     date,
     wall: homeWall,
     channel: { url: CRV_CHANNEL_URL, checkedAt: channel.checkedAt, stale: channel.stale },
@@ -175,7 +174,7 @@ export async function getHomeData(date: string): Promise<HomeData> {
       artists: Number(s.artists), albums: Number(s.albums), tracks: Number(s.tracks), persons: Number(s.persons),
       firstYear: s.first_year, lastYear: s.last_year,
     },
-    anniversaries: [...groups.values()].sort((a, b) => b.years - a.years),
+    eras: [...groups.values()].sort((a, b) => a.decade - b.decade),
     videos: (channel.checkedAt ? channel.videos.map(video => {
       const known = videos.rows.find(row => row.video_id === video.videoId);
       return { ...video, album: known?.album_id ? { id: Number(known.album_id), title: known.album_title! } : null,
@@ -201,13 +200,14 @@ async function featuredArtist(date: string): Promise<HomeData["featuredArtist"]>
     id: string; name: string; artist_type: string; picture_url: string | null; biography: string;
     origin_city: string | null; formed_year: number | null; album_count: string;
   }>(
-    `WITH eligible AS (SELECT a.id, a.name, a.artist_type::text AS artist_type, a.picture_url, a.biography,
+    // El tipo que se muestra es el grupo público (Banda, Solista, Dúo: artist-groups.ts).
+    `WITH eligible AS (SELECT a.id, a.name, ${artistGroupSql("a")} AS artist_type, a.picture_url, a.biography,
             NULLIF(btrim(a.origin_city), '') AS origin_city, a.formed_year,
-            (SELECT count(*) FROM public.albums b WHERE b.artist_id = a.id)::text AS album_count
-       FROM public.artists a
+            (SELECT count(*) FROM ingest.catalog_albums b WHERE b.artist_id = a.id)::text AS album_count
+       FROM ingest.catalog_artists a
       WHERE a.picture_url IS NOT NULL AND btrim(COALESCE(a.biography, '')) <> ''
         AND ${NOT_VARIOUS("a.name")}
-        AND EXISTS (SELECT 1 FROM public.albums b WHERE b.artist_id = a.id AND b.cover_url IS NOT NULL)
+        AND EXISTS (SELECT 1 FROM ingest.catalog_albums b WHERE b.artist_id = a.id AND b.cover_url IS NOT NULL)
       ) SELECT * FROM eligible ORDER BY md5(id::text)
       LIMIT 1 OFFSET (SELECT mod($1::bigint, greatest(count(*), 1)) FROM eligible)`, [dayNumber(date)]);
   if (!row) return null;
@@ -216,7 +216,7 @@ async function featuredArtist(date: string): Promise<HomeData["featuredArtist"]>
     // Disco con portada, priorizando estudio y variando la selección con la fecha.
     pool.query<AlbumRow>(
       `SELECT ${ALBUM_COLUMNS}
-         FROM public.albums al JOIN public.artists ar ON ar.id = al.artist_id
+         FROM ingest.catalog_albums al JOIN ingest.catalog_artists ar ON ar.id = al.artist_id
         WHERE al.artist_id = $1 AND al.cover_url IS NOT NULL
         ORDER BY (al.album_type = 'studio_album') DESC, md5(al.id::text || $2)
         LIMIT 1`, [id, date]),
@@ -225,7 +225,7 @@ async function featuredArtist(date: string): Promise<HomeData["featuredArtist"]>
   const primaryGenre = genres.get(id)?.primaryGenre ?? null;
   const { similar } = await similarArtists(id, primaryGenre);
   const firstAlbumYear = (await pool.query<{ y: number | null }>(
-    "SELECT min(release_year) AS y FROM public.albums WHERE artist_id = $1", [id])).rows[0]?.y ?? null;
+    "SELECT min(release_year) AS y FROM ingest.catalog_albums WHERE artist_id = $1", [id])).rows[0]?.y ?? null;
   return {
     id, name: row.name, artistType: row.artist_type, pictureUrl: row.picture_url,
     excerpt: bioExcerpt(row.biography), originCity: row.origin_city,

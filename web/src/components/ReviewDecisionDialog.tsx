@@ -3,6 +3,7 @@
 // de detalle, sin salir de la lista de Curaduría.
 import { Link } from "react-router-dom";
 import { ArrowSquareOut } from "@phosphor-icons/react";
+import { ReviewIdentityComparison } from "./ReviewIdentityComparison";
 import { Modal } from "./Modal";
 import { ReviewDecisionActions, ReviewEvidenceList, ReviewValueComparison } from "./ReviewDecision";
 import { useAsync } from "../lib/useAsync";
@@ -25,12 +26,13 @@ export function ReviewDecisionDialog({ reviewId, onClose, onDone }: {
         <ErrorState message={error ?? "Revisión no encontrada."} onRetry={reload} />
       ) : (
         <>
+          <ReviewIdentityComparison context={review.identityContext} />
           {review.notes ? <p style={{ color: "var(--text-muted)" }}>{review.notes}</p> : null}
           <ReviewValueComparison payload={review.payload} />
-          <div className="section">
-            <h2>Evidencia de origen</h2>
+          <details className="section" open={review.kind === "field_conflict" ? true : undefined}>
+            <summary>Fuentes y evidencia ({review.claims.length})</summary>
             <ReviewEvidenceList claims={review.claims} />
-          </div>
+          </details>
           <ReviewDecisionActions review={review} isAdmin={isAdmin} onDone={(result) => { onDone(result); onClose(); }} />
           <p className="form-note">
             <Link to={`/curaduria/revision/${review.id}`} target="_blank" rel="noopener">

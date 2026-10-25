@@ -108,8 +108,8 @@ describe("planUpload", () => {
     expect(planUpload(video(title), catalog([alive]))).toMatchObject({ action: "link", primary: false });
   });
 
-  it("ignora lo que no es Full Album y los videos caídos", () => {
-    expect(planUpload(video("Entrevista a CRV por @Exitos103.1"), catalog([])).action).toBe("ignore");
+  it("envía las entrevistas a audiovisuales e ignora discos con videos caídos", () => {
+    expect(planUpload(video("Entrevista a CRV por @Exitos103.1"), catalog([])).action).toBe("audiovisual");
     expect(planUpload(video(title, TRACKS, "unpublished"), catalog([album(4542, "Sueños Simples", 2001)])).action).toBe("ignore");
   });
 });

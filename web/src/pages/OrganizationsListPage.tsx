@@ -15,6 +15,9 @@ import { EntityFormModal } from "../components/EntityFormModal";
 import { ORGANIZATION_FIELDS } from "../lib/entityFields";
 import { ORGANIZATION_TYPES, organizationTypeLabel } from "../lib/labels";
 import { CatalogSearchInput } from "../components/CatalogSearchInput";
+import { MobileCatalogTools } from "../components/MobileCatalogTools";
+import { MOBILE_QUERY } from "../components/TopbarTools";
+import { useMediaQuery } from "../lib/useMediaQuery";
 
 export function OrganizationsListPage() {
   const paginationStartRef = useRef<HTMLDivElement>(null);
@@ -28,6 +31,7 @@ export function OrganizationsListPage() {
   const typeLabel = selectedType ? organizationTypeLabel(selectedType) : null;
   const filtered = Boolean(q.trim()) || selectedType !== null;
   const { isAdmin } = useOperator();
+  const isMobile = useMediaQuery(MOBILE_QUERY);
   const { notify } = useToast();
   const [creating, setCreating] = useState(false);
 
@@ -49,23 +53,34 @@ export function OrganizationsListPage() {
     });
   }
 
+  const searchField = (
+    <CatalogSearchInput scope="organization" value={q} onChange={setQuery}
+      placeholder="Filtrar por nombre…" label="Filtrar organizaciones por nombre" />
+  );
+  const typeFilter = (
+    <OrganizationFilter facets={facets.data} error={facets.error} onRetry={facets.reload}
+      selectedType={selectedType} onSelect={selectType} />
+  );
+
   return (
     <>
       <div className="page-header">
         <div>
-          <p className="page-kicker">Catálogo</p>
           <h1>Organizaciones</h1>
         </div>
         {isAdmin ? <button type="button" className="btn btn--primary" onClick={() => setCreating(true)}>+ Nueva organización</button> : null}
       </div>
 
-      <div className="list-toolbar">
-        <CatalogSearchInput scope="organization" value={q} onChange={setQuery}
-          placeholder="Filtrar por nombre…" label="Filtrar organizaciones por nombre" />
-      </div>
-
-      <OrganizationFilter facets={facets.data} error={facets.error} onRetry={facets.reload}
-        selectedType={selectedType} onSelect={selectType} />
+      {isMobile ? (
+        <MobileCatalogTools search={searchField} query={q} onClearQuery={() => setQuery("")}
+          activeCount={selectedType ? 1 : 0} total={data?.pagination.total} noun={{ one: "organización", many: "organizaciones" }}
+          onClearAll={clearFilters} groups={[{ key: "type", label: "Tipo de organización", value: typeLabel, content: typeFilter }]} />
+      ) : (
+        <>
+          <div className="list-toolbar">{searchField}</div>
+          {typeFilter}
+        </>
+      )}
 
       <ListSummary total={data?.pagination.total} noun={{ one: "organización", many: "organizaciones" }} loading={loading}
         query={q} filterLabel={typeLabel} onClearQuery={() => setQuery("")} onClearFilter={() => selectType(null)}

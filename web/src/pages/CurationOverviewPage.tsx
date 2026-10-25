@@ -17,6 +17,9 @@ import { useAsync } from "../lib/useAsync";
 import { ErrorState } from "../components/StateViews";
 import { HeaderSkeleton, RowsSkeleton } from "../components/Skeletons";
 import { useCurationSummary } from "./CurationLayout";
+import { useOperator } from "../lib/OperatorContext";
+import { readCurationResume } from "../lib/curationResume";
+import "../styles/curation-workbench.css";
 import type { CurationAutofixSummary, CurationCategorySummary, CurationMetrics, CurationScan, DistinctPair } from "../lib/types";
 
 /** A partir de aquí, lo que se ve en pantalla ya no se da por fresco. */
@@ -26,24 +29,33 @@ export function CurationOverviewPage() {
   const { summary, summaryError, summaryFetchedAt, refreshSummary } = useCurationSummary();
   const { notify } = useToast();
   const [scanning, setScanning] = useState(false);
+  const { user } = useOperator();
+  const resume = user ? readCurationResume(user.username) : null;
+
+  // El resultado de un análisis es un informe, no un aviso: queda en la página
+  // hasta el siguiente, y el aviso solo dice que terminó.
+  const [report, setReport] = useState<{ tone: "ok" | "warn" | "bad"; text: string } | null>(null);
 
   async function scanNow() {
     setScanning(true);
     try {
       const result = await curationApi.scan();
       if (result.status === "failed") {
-        notify("error", `El análisis falló: ${result.error ?? "error desconocido"}`);
+        setReport({ tone: "bad", text: `El análisis falló: ${result.error ?? "error desconocido"}` });
+        notify("error", "El análisis falló.");
       } else if (result.status === "skipped") {
-        notify("info", "Otro proceso está analizando el catálogo en este momento. Vuelve a intentarlo en unos segundos.");
+        notify("info", "Otro proceso está analizando el catálogo. Vuelve a intentarlo en unos segundos.");
       } else if (result.status === "partial") {
-        notify("info", `Análisis parcial: ${formatCount(result.inserted + result.reopened)} nuevos, ${formatCount(result.resolved)} resueltos. `
-          + `Fallaron ${result.failures.map((failure) => failure.detector).join(", ")}; sus hallazgos no se tocaron.`);
+        setReport({ tone: "warn", text: `Análisis parcial: ${formatCount(result.inserted + result.reopened)} nuevos, ${formatCount(result.resolved)} resueltos. `
+          + `Fallaron ${result.failures.map((failure) => failure.detector).join(", ")}; sus hallazgos no se tocaron.` });
+        notify("info", "Análisis parcial: revisa el informe.");
       } else {
         // Casi siempre sale «0 nuevos, 0 resueltos» —el catálogo no se ha
         // movido— y eso se lee como «no hizo nada». Se dice también qué miró:
         // el catálogo entero, cuántos hallazgos sostiene y cuánto tardó.
-        notify("success", `Análisis #${result.scanId ?? "?"} del ${scopeLabel(result.scope)}: ${formatCount(result.total)} hallazgos en total · `
-          + `${formatCount(result.inserted + result.reopened)} nuevos · ${formatCount(result.resolved)} resueltos · ${(result.durationMs / 1000).toFixed(1)} s.`);
+        setReport({ tone: "ok", text: `Análisis #${result.scanId ?? "?"} del ${scopeLabel(result.scope)}: ${formatCount(result.total)} hallazgos en total · `
+          + `${formatCount(result.inserted + result.reopened)} nuevos · ${formatCount(result.resolved)} resueltos · ${(result.durationMs / 1000).toFixed(1)} s.` });
+        notify("success", "Análisis terminado.");
       }
     } catch (error) {
       notify("error", error instanceof ApiError ? error.message : "No se pudo analizar el catálogo.");
@@ -78,10 +90,15 @@ export function CurationOverviewPage() {
 
   return (
     <>
-      <p className="curation-lead">
-        El detector recorre todo el catálogo, aprende cómo se escriben sus nombres y agrupa por categoría lo que no
-        encaja. Cada corrección guardada lo vuelve a correr para comprobar si arregló el problema o si hizo aparecer otros.
-      </p>
+      <section className="cwork-entry" aria-labelledby="curation-start-title">
+        <h2 id="curation-start-title">Revisar el catálogo</h2>
+        <p>{formatCount(totals.open)} casos abiertos. Elige un caso en la lista, consulta su evidencia y decide sin perder tu lugar.</p>
+        <div className="cwork-entry__actions">
+          <Link className="btn btn--primary" to={resume ?? "/curaduria/aportes"}>{resume ? "Continuar revisión" : "Revisar aportes"}</Link>
+          {resume ? <Link className="btn btn--outline" to="/curaduria/hallazgos">Todos los casos</Link> : null}
+          <Link className="btn btn--outline" to="/curaduria/categoria/investigacion_documentada">Investigaciones documentadas</Link>
+        </div>
+      </section>
 
       {stale ? (
         <p className="form-error-banner" role="status">
@@ -92,6 +109,14 @@ export function CurationOverviewPage() {
         </p>
       ) : null}
 
+      {/* Fuera del bloque plegable: el informe se ve aunque el estado del detector esté cerrado. */}
+      {report ? (
+        <div className={`cscan-report cscan-report--${report.tone}`} role="status">
+          <span>{report.text}</span>
+          <button type="button" className="btn btn--sm btn--ghost" onClick={() => setReport(null)}>Cerrar</button>
+        </div>
+      ) : null}
+      <details className="cwork-audit"><summary>Estado del detector, métricas e historial</summary>
       <section className="cscan" aria-live="polite">
         <div className="cscan__status">
           <span className={`cscan__dot${running ? " is-running" : lastScan?.status === "failed" ? " is-failed" : lastScan?.status === "partial" ? " is-partial" : ""}`} aria-hidden="true" />
@@ -153,9 +178,10 @@ export function CurationOverviewPage() {
         <div><dt>Ignorados</dt><dd className="mono">{formatCount(totals.ignored)}</dd></div>
         <div><dt>Resueltos</dt><dd className="mono">{formatCount(totals.resolved)}</dd></div>
       </dl>
+      </details>
 
       {active.length ? (
-        <ul className="ccat-grid">
+        <ul className="cwork-categories">
           {active.map((category) => <li key={category.key}><CategoryCard category={category} /></li>)}
         </ul>
       ) : (
@@ -182,7 +208,7 @@ export function CurationOverviewPage() {
         </section>
       ) : null}
 
-      <DistinctPairsSection />
+      <details className="cwork-audit"><summary>Decisiones de mantener fichas separadas</summary><DistinctPairsSection /></details>
     </>
   );
 }

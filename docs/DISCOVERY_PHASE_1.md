@@ -18,6 +18,15 @@ Se conserva un registro independiente por clave de lote y decisión. Cambiar esa
 
 `ops/discovery/initial-2026-10-10.json` contiene los 23 candidatos cotejados por ID y nombre canónico, sin altas ni fusiones. `ops/discovery/review-2026-10-10.json` conserva aliases revisados, referencia al claim/evidencia, extracto y motivo. La revisión aprobó 15 proyectos con extractos documentales disponibles y dejó 8 pendientes de contraste adicional: Lasso, Arca, Mau y Ricky, Danny Ocean, Elena Rose, Joaquina, Yorghaki y Alleh. Pendiente significa falta de comprobación suficiente para este lote, no una afirmación negativa de nacionalidad o elegibilidad.
 
+**Revisión 2026-10-19 (runs 20919–20923).** El lote `ops/discovery/revision-2026-10-19.json` usa el mismo nombre de lote y las mismas claves que el inicial, y solo trae las filas que cambian. Las filas que omite quedan intactas.
+- **Reaprobados:** Arkangel y Zapato3. Sus claims de evidencia habían pasado a `superseded`, así que la lectura los había retirado. Zapato3 cambió de nombre canónico desde «Zapato 3».
+- **Aprobados tras contrastar el texto de la fuente:** Lasso, Arca, Mau y Ricky, Joaquina y Alleh. Las síntesis de `lote-investigacion` no bastan por sí solas.
+- **Aprobados por confirmación de Brian:** Danny Ocean, Elena Rose y Yorghaki. Su evidencia anterior apuntaba a otro artista (la ficha de AllMusic `mn0003646008` es de Dennis Dempsey; elenarosemusic.com es de una homónima de Nueva Jersey) o no documentaba el vínculo. Se registró Wikipedia como evidencia nueva.
+
+Los 23 candidatos están en vivo.
+
+**Evidencia documental nueva.** `npm run discovery:evidence -- archivo.json [--apply]` registra una fuente revisada como claim humano con el campo `discovery_link:<criterio>`. Ese campo queda fuera del merge de campos del catálogo y no escribe el core. Sin `--apply` solo muestra una vista previa. Comprueba el ID y el nombre canónico, no reactiva observaciones rechazadas ni reemplazadas, y devuelve el `evidenceId` que el lote de descubrimiento debe citar. Ejemplo: `ops/discovery/evidencia-2026-10-19.json` (run 20921).
+
 Las colecciones usan criterios comprobables: trayectoria anterior a 1990, rock/fusión desde los noventa, proyectos iniciados desde 2000 y experimental/electrónica. «Desde 2000» no afirma actividad vigente ni popularidad. Las etiquetas coexisten: La Vida Bohème, Los Mesoneros y Viniloversus reciben dos; su grupo de exposición sigue siendo una decisión independiente. Las referencias del JSON corresponden a esta base y deben cotejarse al usar otra instalación.
 
 Vista previa (transacción revertida, no persiste datos ni run):

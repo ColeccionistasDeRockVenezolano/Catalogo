@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ApiError, CATALOG_DATA_CHANGED_EVENT } from "./api";
+import { clearCatalogReadCache } from "./catalogReadCache";
 
 export interface AsyncState<T> {
   data: T | undefined;
@@ -51,6 +52,12 @@ export function useAsync<T>(fetcher: (signal: AbortSignal) => Promise<T>, deps: 
     window.addEventListener(CATALOG_DATA_CHANGED_EVENT, load);
     return () => window.removeEventListener(CATALOG_DATA_CHANGED_EVENT, load);
   }, [load]);
+  useEffect(() => {
+    const changeSession = () => { setData(undefined); load(); };
+    window.addEventListener("crv-session-changed", changeSession);
+    return () => window.removeEventListener("crv-session-changed", changeSession);
+  }, [load]);
 
-  return { data, loading, error, errorValue, reload: load };
+  const reload = useCallback(() => { clearCatalogReadCache(); load(); }, [load]);
+  return { data, loading, error, errorValue, reload };
 }

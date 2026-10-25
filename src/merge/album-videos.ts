@@ -1,7 +1,7 @@
 import { OperatorError, type OperatorContext } from "./operator.js";
 
 export async function editAlbumVideo(context: OperatorContext, albumId: number, videoId: string,
-  value: { kind: string; isPrimaryLink: boolean } | null): Promise<void> {
+  value: { kind: string; isPrimaryLink: boolean; previousVideoId?: string | undefined } | null): Promise<void> {
   // Serializa la selección del video principal en este disco.
   const album = await context.client.query("SELECT id FROM public.albums WHERE id=$1 FOR UPDATE", [albumId]);
   if (!album.rowCount) throw new OperatorError("not_found", "El disco no existe.");
@@ -10,6 +10,12 @@ export async function editAlbumVideo(context: OperatorContext, albumId: number, 
       WHERE va.video_id=v.id AND va.album_id=$1 AND v.video_id=$2 RETURNING va.video_id`, [albumId, videoId]);
     if (!removed.rowCount) throw new OperatorError("not_found", "El video no está vinculado a este disco.");
     return;
+  }
+  if (value.previousVideoId && value.previousVideoId !== videoId) {
+    const duplicate = await context.client.query(`SELECT 1 FROM media.video_albums a JOIN media.youtube_videos v ON v.id=a.video_id WHERE a.album_id=$1 AND v.video_id=$2`, [albumId, videoId]);
+    if (duplicate.rowCount) throw new OperatorError("already_exists", "El video de destino ya está vinculado. Edita ese vínculo.");
+    const removed = await context.client.query(`DELETE FROM media.video_albums a USING media.youtube_videos v WHERE a.video_id=v.id AND a.album_id=$1 AND v.video_id=$2 RETURNING a.video_id`, [albumId, value.previousVideoId]);
+    if (!removed.rowCount) throw new OperatorError("not_found", "El vínculo original ya no existe.");
   }
   const video = await context.client.query<{ id: string }>(`INSERT INTO media.youtube_videos(video_id,url)
     VALUES($1,$2) ON CONFLICT(video_id) DO UPDATE SET video_id=EXCLUDED.video_id RETURNING id::text`, [videoId, `https://youtu.be/${videoId}`]);

@@ -1,15 +1,24 @@
-import { lazy, Suspense } from "react";
-import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { ImageCurationProgress } from "./components/ImageCurationProgress";
+import { SiteAppearanceProvider } from "./lib/SiteAppearanceContext";
+import { startImageQueue } from "./lib/imageCurationQueue";
+import { useOperator } from "./lib/OperatorContext";
+import { lazy, Suspense, useEffect } from "react";
+import { Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { VideoProvider } from "./components/VideoPlayer";
 import { Layout } from "./components/Layout";
 import { RouteFallback } from "./components/Skeletons";
+import { PageBoundary } from "./components/PageBoundary";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { EphemeridesPage, RadioPage } from "./pages/UpcomingPages";
+import { COMMUNITY_PAGES, COMMUNITY_REDIRECTS } from "./lib/communityPages";
 
 // Cada página viaja en su propio chunk (React.lazy): la carga inicial solo trae
 // el marco y la página abierta; al navegar, el chunk llega bajo un skeleton de
 // fallback (RouteFallback). NotFoundPage queda eager: es diminuta y responde
 // cualquier URL desconocida.
 const SearchAdministrationPage = lazy(() => import("./pages/SearchAdministrationPage").then(module => ({ default: module.SearchAdministrationPage })));
+const CommunityPage = lazy(() => import("./pages/CommunityPage").then(module => ({ default: module.CommunityPage })));
+const ConfigurationPage = lazy(() => import("./pages/ConfigurationPage").then((module) => ({ default: module.ConfigurationPage })));
 const SearchPage = lazy(() => import("./pages/SearchPage").then((module) => ({ default: module.SearchPage })));
 const ArtistsListPage = lazy(() => import("./pages/ArtistsListPage").then((module) => ({ default: module.ArtistsListPage })));
 const ArtistDetailPage = lazy(() => import("./pages/ArtistDetailPage").then((module) => ({ default: module.ArtistDetailPage })));
@@ -22,6 +31,7 @@ const OrganizationsListPage = lazy(() => import("./pages/OrganizationsListPage")
 const OrganizationDetailPage = lazy(() => import("./pages/OrganizationDetailPage").then((module) => ({ default: module.OrganizationDetailPage })));
 const PlacePage = lazy(() => import("./pages/PlacePage").then((module) => ({ default: module.PlacePage })));
 const SeriesPage = lazy(() => import("./pages/SeriesPage").then((module) => ({ default: module.SeriesPage })));
+const ClaimReviewPage = lazy(() => import("./pages/ClaimReviewPage").then(module => ({ default: module.ClaimReviewPage })));
 const ReviewQueueDetailPage = lazy(() => import("./pages/ReviewQueueDetailPage").then((module) => ({ default: module.ReviewQueueDetailPage })));
 const CurationLayout = lazy(() => import("./pages/CurationLayout").then((module) => ({ default: module.CurationLayout })));
 const CurationOverviewPage = lazy(() => import("./pages/CurationOverviewPage").then((module) => ({ default: module.CurationOverviewPage })));
@@ -38,13 +48,32 @@ function LegacyReviewRedirect() {
   return <Navigate to={`/curaduria/revision/${id ?? ""}`} replace />;
 }
 
+function CommunityRedirect({ redirect }: { redirect: typeof COMMUNITY_REDIRECTS[number] }) {
+  const { hash, search } = useLocation();
+  let anchor: string = redirect.anchor;
+  try {
+    const oldAnchor = decodeURIComponent(hash.slice(1));
+    anchor = (redirect.anchors as Readonly<Record<string, string>>)[oldAnchor] ?? redirect.anchor;
+  } catch { /* Un ancla mal codificada abre la sección principal. */ }
+  return <Navigate to={`${redirect.to}${search}#${anchor}`} replace />;
+}
+
 export function App() {
+  const { isAdmin } = useOperator();
+  useEffect(() => { if (isAdmin) return startImageQueue(); }, [isAdmin]);
   return (
-    <VideoProvider><Layout>
+    <SiteAppearanceProvider><VideoProvider><Layout>
       {/* El marco (topbar + nav) no se suspende: solo la página en curso. */}
-      <Suspense fallback={<RouteFallback />}>
+      <ImageCurationProgress compact />
+      <PageBoundary><Suspense fallback={<RouteFallback />}>
         <Routes>
           <Route path="/" element={<SearchPage />} />
+          {/* «Catálogo» abre Artistas, la entidad por defecto. */}
+          <Route path="/catalogo" element={<Navigate to="/artistas" replace />} />
+          <Route path="/efemerides" element={<EphemeridesPage />} />
+          <Route path="/radio" element={<RadioPage />} />
+          {COMMUNITY_PAGES.map(page => <Route key={page.id} path={page.path} element={<CommunityPage pageId={page.id} />} />)}
+          {COMMUNITY_REDIRECTS.map(redirect => <Route key={redirect.from} path={redirect.from} element={<CommunityRedirect redirect={redirect} />} />)}
           <Route path="/artistas" element={<ArtistsListPage />} />
           <Route path="/artistas/:id" element={<ArtistDetailPage />} />
           <Route path="/discos" element={<AlbumsListPage />} />
@@ -60,6 +89,7 @@ export function App() {
             <Route index element={<CurationOverviewPage />} />
             <Route path="categoria/:key" element={<CurationFindingsPage />} />
             <Route path="hallazgos" element={<CurationFindingsPage />} />
+            <Route path="aportes" element={<ClaimReviewPage />} />
             {/* La cola de revisión vive ahora dentro de las categorías del detector. */}
             <Route path="revision" element={<Navigate to="/curaduria" replace />} />
             <Route path="revision/:id" element={<ReviewQueueDetailPage />} />
@@ -79,12 +109,14 @@ export function App() {
           </Route>
           <Route path="/administrar/buscador" element={<SearchAdministrationPage />} />
           <Route path="/administrar" element={<Navigate to="/curaduria" replace />} />
+          <Route path="/configuracion" element={<Navigate to="/configuracion/temas" replace />} />
+          <Route path="/configuracion/temas" element={<ConfigurationPage />} />
           <Route path="/historial" element={<ChangesHistoryPage />} />
           <Route path="/revision" element={<Navigate to="/curaduria" replace />} />
           <Route path="/revision/:id" element={<LegacyReviewRedirect />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </Suspense>
-    </Layout></VideoProvider>
+      </Suspense></PageBoundary>
+    </Layout></VideoProvider></SiteAppearanceProvider>
   );
 }

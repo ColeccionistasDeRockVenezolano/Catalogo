@@ -420,6 +420,19 @@ export interface MergeOutcome {
   rewritesOpened: number;
 }
 
+/** La fundación y los instrumentos del detalle de `dropId` pasan al de `keepId` (si los dos tienen detalle). */
+async function absorbMembershipDetails(client: PoolClient, keepId: number, dropId: number): Promise<void> {
+  await client.query(`
+    UPDATE ingest.membership_details k SET
+      is_founder = CASE WHEN d.is_founder AND k.is_founder IS NOT TRUE THEN true ELSE coalesce(k.is_founder, d.is_founder) END,
+      founder_evidence = CASE WHEN d.is_founder AND k.is_founder IS NOT TRUE THEN d.founder_evidence ELSE coalesce(k.founder_evidence, d.founder_evidence) END,
+      founder_source = CASE WHEN d.is_founder AND k.is_founder IS NOT TRUE THEN d.founder_source ELSE coalesce(k.founder_source, d.founder_source) END,
+      instruments = k.instruments || ARRAY(SELECT x FROM unnest(d.instruments) x WHERE x <> ALL(k.instruments)),
+      updated_at = now()
+    FROM ingest.membership_details d
+    WHERE k.artist_member_id=$1 AND d.artist_member_id=$2`, [keepId, dropId]);
+}
+
 export async function mergeInto(
   client: PoolClient, kind: MergeKind, keepId: number, dropId: number, note: string, runId: number,
   options: { alias?: boolean; preserve?: PreserveOptions; allowEraConflict?: boolean } = {},
@@ -506,6 +519,11 @@ export async function mergeInto(
       SELECT mac.claim_id, ma.${kind}_id=$2 FROM ingest.merge_audit ma JOIN ingest.merge_audit_claims mac ON mac.merge_audit_id=ma.id
        WHERE ma.${kind}_id=ANY($1::bigint[])
     ) evidence GROUP BY id ORDER BY bool_or(dropped) DESC,id`, [[keepId, dropId], dropId])).rows.map((row) => Number(row.id));
+
+  // `membership_details` es 1:1 con la membresía: si las dos filas tienen detalle, el del duplicado chocaría
+  // con el de la que queda y se descartaría entero (Dani Debuto perdió «fundador», run 20054). Antes de
+  // reapuntar, la que queda absorbe la fundación y los instrumentos del duplicado.
+  if (kind === "artist_membership") await absorbMembershipDetails(client, keepId, dropId);
 
   let moved = 0;
   const movedRefs: MovedRef[] = [];

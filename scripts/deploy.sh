@@ -49,6 +49,10 @@ echo "› verificando"
 check "http://127.0.0.1:$PORT/crv/"
 check "http://127.0.0.1:$PORT/crv/api/health"
 
+echo "› invalidando cachés del catálogo (sin cerrar sesiones)"
+(cd "$ROOT" && npm run --silent cache:clear)
+check "http://127.0.0.1:$PORT/crv/api/catalog/cache-version"
+
 # Publicar reglas nuevas sin cambiar el catálogo no despierta al vigilante: su
 # firma solo mide datos. Por eso cada publicación de la API fuerza un análisis
 # COMPLETO con el mismo código recién desplegado; así una nueva regla no queda

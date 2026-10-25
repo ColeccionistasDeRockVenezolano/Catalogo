@@ -4,9 +4,11 @@
 import {
   bigint,
   boolean,
+  date,
   integer,
   jsonb,
   pgSchema,
+  smallint,
   text,
   timestamp,
   varchar,
@@ -135,4 +137,41 @@ export const mediaLinks = media.table("media_links", {
   sourceId: bigint("source_id", { mode: "number" }),
   meta: jsonb("meta"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/** Obras del perfil; no son filas de public.albums (0076). */
+export const artistAudiovisuals = media.table("artist_audiovisuals", {
+  id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+  artistId: bigint("artist_id", { mode: "number" }).notNull().references(() => artists.id, { onDelete: "cascade" }),
+  sourceKey: text("source_key").notNull(),
+  videoId: bigint("video_id", { mode: "number" }).references(() => youtubeVideos.id, { onDelete: "set null" }),
+  seedUploadId: bigint("seed_upload_id", { mode: "number" }),
+  title: text("title").notNull(), titleKey: text("title_key").notNull(), releaseYear: smallint("release_year"),
+  kind: text("kind").notNull(), description: text("description"), sourceType: text("source_type"),
+  allowsMusicRelease: boolean("allows_music_release").notNull().default(false),
+  metadata: jsonb("metadata").notNull().default({}),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/** Archivo fotográfico editorial del perfil (0098). */
+export const artistGallery = media.table("artist_gallery", {
+  id: bigint("id", { mode: "number" }).primaryKey().generatedAlwaysAsIdentity(),
+  artistId: bigint("artist_id", { mode: "number" }).notNull().references(() => artists.id, { onDelete: "cascade" }),
+  imageUrl: text("image_url").notNull(),
+  category: text("category").notNull().default("artist"),
+  title: text("title"), description: text("description"), photoDate: date("photo_date"), location: text("location"),
+  sourceKey: text("source_key"), sourceUrl: text("source_url"), tags: text("tags").array().notNull().default([]), metadata: jsonb("metadata").notNull().default({}),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+/** Entrevistas y documentación histórica, reclasificables sin perder procedencia. */
+export const artistDocuments = media.table("artist_documents", {
+ id:bigint("id",{mode:"number"}).primaryKey().generatedAlwaysAsIdentity(),
+ artistId:bigint("artist_id",{mode:"number"}).notNull().references(()=>artists.id,{onDelete:"cascade"}),
+ sourceKey:text("source_key").notNull(),category:text("category").notNull(),title:text("title").notNull(),content:text("content").notNull(),
+ sourceUrl:text("source_url"),archiveUrl:text("archive_url"),dateText:text("date_text"),location:text("location"),
+ tags:text("tags").array().notNull().default([]),metadata:jsonb("metadata").notNull().default({}),
+ createdAt:timestamp("created_at",{withTimezone:true}).notNull().defaultNow(),updatedAt:timestamp("updated_at",{withTimezone:true}).notNull().defaultNow(),
 });

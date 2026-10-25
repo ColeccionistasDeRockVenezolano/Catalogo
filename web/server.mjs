@@ -11,11 +11,16 @@
 //   cada visita repercutía el mismo tráfico de portadas).
 // - robots.txt y sitemap.xml dinámicos, con el host real que ven los
 //   buscadores (Funnel hoy, un dominio propio cuando se monte).
+//
+// Imágenes optimizadas 2026-10-14: `/crv/media/…?w=320` sirve una copia WebP
+// reducida (media-variants.mjs). Si aún no existe se entrega el original y la
+// copia se encarga en segundo plano al optimizador de BrandForge.
 import http from "node:http";
 import { createReadStream } from "node:fs";
 import { stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { MEDIA_WIDTHS, OPTIMIZABLE_EXTENSIONS, optimizerAvailable, optimizerCommand, runOptimizer, variantPath } from "./media-variants.mjs";
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const dist = path.join(directory, "dist-public");
@@ -46,12 +51,63 @@ const MIME_TYPES = {
 };
 
 const SECURITY_HEADERS = {
-  "content-security-policy": "default-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' https://www.youtube.com https://s.ytimg.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'",
+  "content-security-policy": "default-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' https://www.youtube.com https://s.ytimg.com https://w.soundcloud.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'",
   "permissions-policy": "camera=(), microphone=(), geolocation=()",
   "referrer-policy": "no-referrer",
   "x-content-type-options": "nosniff",
   "x-frame-options": "DENY",
 };
+
+// --- Copias optimizadas bajo demanda -------------------------------------
+// Cola en memoria, deduplicada y con tope: una ráfaga de visitas encarga cada
+// copia una sola vez. Las peticiones de una misma página se agrupan en un
+// lote; corre un solo optimizador a la vez, con prioridad baja (nice 15).
+const VARIANT_WIDTHS = new Set(MEDIA_WIDTHS);
+const MAX_PENDING_VARIANTS = 3_000;
+const VARIANT_BATCH = 48;
+const VARIANT_RETRY_MS = 6 * 3_600_000;
+const pendingVariants = new Map();
+const failedVariants = new Map();
+let optimizerBusy = false;
+let optimizerReady = false;
+optimizerAvailable().then((ok) => {
+  optimizerReady = ok;
+  console.log(ok
+    ? `Imágenes optimizadas: ${optimizerCommand}`
+    : `Imágenes optimizadas desactivadas (no se encontró ${optimizerCommand}); se sirven los originales.`);
+});
+
+function requestVariant(src, dst, width) {
+  if (!optimizerReady || pendingVariants.has(dst) || pendingVariants.size >= MAX_PENDING_VARIANTS) return;
+  const failedAt = failedVariants.get(dst);
+  if (failedAt !== undefined && Date.now() - failedAt < VARIANT_RETRY_MS) return;
+  pendingVariants.set(dst, { src, dst, max_side: width });
+  if (!optimizerBusy) {
+    optimizerBusy = true;
+    setTimeout(drainVariants, 400);
+  }
+}
+
+async function drainVariants() {
+  const orders = [...pendingVariants.values()].slice(0, VARIANT_BATCH);
+  if (orders.length === 0) {
+    optimizerBusy = false;
+    return;
+  }
+  const { unanswered, error } = await runOptimizer(orders, {
+    onResult: (result) => {
+      pendingVariants.delete(result.dst);
+      if (!result.ok) failedVariants.set(result.dst, Date.now());
+    },
+  });
+  for (const order of unanswered) {
+    pendingVariants.delete(order.dst);
+    failedVariants.set(order.dst, Date.now());
+  }
+  if (error) console.error(`Optimizador de imágenes: ${error.message}`);
+  if (failedVariants.size > 20_000) failedVariants.clear();
+  setImmediate(drainVariants);
+}
 
 function reply(res, status, text) {
   res.writeHead(status, { "content-type": "text/plain; charset=utf-8", ...SECURITY_HEADERS });
@@ -204,7 +260,7 @@ function proxyApi(req, res, requestUrl) {
   req.pipe(upstream);
 }
 
-async function serveFile(req, res, pathname) {
+async function serveFile(req, res, pathname, searchParams) {
   if (req.method !== "GET" && req.method !== "HEAD") return reply(res, 405, "Método no permitido.");
   let relativePath;
   try { relativePath = decodeURIComponent(pathname.slice(basePath.length)).replace(/^\/+/, ""); }
@@ -231,10 +287,30 @@ async function serveFile(req, res, pathname) {
     catch { return reply(res, 503, "La aplicación no está disponible."); }
   }
 
+  // ?w=N: copia optimizada si ya existe, es más nueva que el original y pesa
+  // menos; si no, el original (con caché corta, para recoger luego la copia).
+  let pendingVariant = false;
+  const width = isMedia ? Number(searchParams?.get("w")) : NaN;
+  if (VARIANT_WIDTHS.has(width) && OPTIMIZABLE_EXTENSIONS.has(path.extname(file).toLowerCase())) {
+    const variant = variantPath(path.relative(media, file), width);
+    let variantStat = null;
+    try { variantStat = await stat(variant); } catch { variantStat = null; }
+    if (variantStat?.isFile() && variantStat.mtimeMs >= fileStat.mtimeMs) {
+      if (variantStat.size < fileStat.size) {
+        file = variant;
+        fileStat = variantStat;
+      }
+    } else {
+      pendingVariant = optimizerReady;
+      requestVariant(file, variant, width);
+    }
+  }
+
   const ext = path.extname(file).toLowerCase();
   // ETag barato (tamaño + mtime): revalidar no cuesta releer la imagen.
   const etag = `W/"${fileStat.size.toString(16)}-${Math.round(fileStat.mtimeMs).toString(16)}"`;
-  const cacheControl = isMedia
+  const cacheControl = pendingVariant ? "public, max-age=300"
+    : isMedia
     // Las imágenes del catálogo casi nunca cambian: antes valían 5 minutos y
     // cada visita repercutía las mismas portadas. El revalidate diario corrige
     // una portada reemplazada.
@@ -297,7 +373,7 @@ const server = http.createServer(async (req, res) => {
     res.writeHead(301, { location: `${basePath}/${requestUrl.search}` });
     return res.end();
   }
-  return serveFile(req, res, virtualUrl.pathname);
+  return serveFile(req, res, virtualUrl.pathname, virtualUrl.searchParams);
 });
 
 server.listen(port, host, () => console.log(`CRV público local: http://${host}:${port}${basePath}/`));

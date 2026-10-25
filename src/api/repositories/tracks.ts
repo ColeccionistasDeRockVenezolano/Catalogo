@@ -66,9 +66,9 @@ const LIST_COLUMNS = `t.id, t.title, t.album_id, a.title AS album_title, a.artis
        t.disc_number, t.track_number, t.duration_seconds,
        (SELECT count(*)::int FROM public.track_credits tc WHERE tc.track_id = t.id) AS credit_count`;
 
-const LIST_FROM = `FROM public.tracks t
-       JOIN public.albums a ON a.id = t.album_id
-       JOIN public.artists ar ON ar.id = a.artist_id`;
+const LIST_FROM = `FROM ingest.catalog_tracks t
+       JOIN ingest.catalog_albums a ON a.id = t.album_id
+       JOIN ingest.catalog_artists ar ON ar.id = a.artist_id`;
 
 interface ListRow {
   id: string; title: string; album_id: string; album_title: string; artist_id: string; artist_name: string;
@@ -131,13 +131,13 @@ export async function getTrackDetail(id: number): Promise<TrackDetail | null> {
             COALESCE((
               SELECT jsonb_agg(jsonb_build_object(
                        'id', tc.id, 'creditType', tc.credit_type, 'role', tc.role,
-                       'personId', tc.person_id, 'personName', pe.name,
+                       'personId', COALESCE(tc.person_id,cr.reference_person_id), 'personName', COALESCE(pe.name,(SELECT p.name FROM public.persons p WHERE p.id=cr.reference_person_id)),
                        'personIsDeceased', COALESCE(pe.is_deceased, false) OR pe.death_date_value IS NOT NULL,
-                       'artistId', tc.artist_id, 'artistName', cr.name,
+                       'artistId', cr.public_artist_id, 'artistName', cr.name,
                        'organizationId', tc.organization_id, 'organizationName', og.name) ORDER BY tc.id)
                 FROM public.track_credits tc
                 LEFT JOIN public.persons pe ON pe.id = tc.person_id
-                LEFT JOIN public.artists cr ON cr.id = tc.artist_id
+                LEFT JOIN ingest.catalog_credit_artists cr ON cr.id = tc.artist_id
                 LEFT JOIN public.organizations og ON og.id = tc.organization_id
                WHERE tc.track_id = t.id
             ), '[]'::jsonb) AS credits

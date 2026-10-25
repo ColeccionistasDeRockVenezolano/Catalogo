@@ -56,11 +56,14 @@ function suggestedNames(preview: AlbumMergePreview): { keep: string; drop: strin
 interface AlbumMergeModalProps {
   albumId: number;
   albumTitle: string;
+  otherAlbum?: { id: number; title: string };
+  initialMode?: AlbumMergeMode;
+  onApplied?: () => void;
   onMerged: (keepId: number) => void;
   onClose: () => void;
 }
 
-export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: AlbumMergeModalProps) {
+export function AlbumMergeModal({ albumId, albumTitle, otherAlbum, initialMode, onApplied, onMerged, onClose }: AlbumMergeModalProps) {
   const { notify } = useToast();
   const [dropId, setDropId] = useState<number | null>(null);
   const [dropLabel, setDropLabel] = useState<string | null>(null);
@@ -114,6 +117,16 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
     }
   }, []);
 
+  const initialOtherId = otherAlbum?.id;
+  const initialOtherTitle = otherAlbum?.title;
+  useEffect(() => {
+    if (!initialOtherId || initialOtherId === albumId) return;
+    setDropLabel(initialOtherTitle ?? null);
+    // Desde un expediente ya se eligieron las dos fichas y, cuando procede,
+    // el modo documentado. No repetir el buscador ni adoptar «append».
+    void load(albumId, initialOtherId, initialMode ? "first" : "recommended", initialMode);
+  }, [albumId, initialOtherId, initialOtherTitle, initialMode, load]);
+
   function chooseOther(id: number, label: string) {
     if (id === albumId) { setError("Es el mismo disco: elige otro."); return; }
     setDropLabel(label);
@@ -152,6 +165,7 @@ export function AlbumMergeModal({ albumId, albumTitle, onMerged, onClose }: Albu
         ? `«${preview.drop.title}» quedó como ${dropDiscTitle.trim() ? `«${dropDiscTitle.trim()}»` : "disco siguiente"} de «${pageTitle.trim() || preview.keep.title}».`
         : `Discos fusionados: «${preview.drop.title}» → «${preview.keep.title}» (${plural(merged.tracksMerged + merged.tracksMoved, "pista movida o unificada", "pistas movidas o unificadas")}).`);
       setResult(merged);
+      onApplied?.();
       setBusy(false);
     } catch (err) {
       if (err instanceof ApiError && err.code === "stale_preview") {

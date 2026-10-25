@@ -154,3 +154,72 @@ retira los vínculos de recuperación, por lo que requiere respaldo previo.
 ## Datos sociales por entidad (2026-10-16)
 
 `0081_entity_social_data` crea cuatro tablas en `public` — `entity_metrics` (fotos de las métricas de escucha con fecha de captura: el histórico no se pisa; refresco semanal por timer), `entity_user_tags` (folksonomía cruda de Last.fm, sin filtro de vocabulario, con la interpretación en `emotions` jsonb), `entity_shouts` (comentarios de usuarios, deduplicados por `fingerprint`) y `entity_emotions` (agregado clasificado por entidad: emoción + score + base + detalle) — **la décima excepción aprobada al core**, pedido de Brian del 2026-10-16: «quiero que modifiques el core y vincules estas métricas con artistas/albums/pistas y que se actualicen semanalmente… quiero las opiniones de la gente… clasificación de emociones por música con laya». Cada fila apunta a UNO de artista/álbum/pista (CASCADE, como `streaming_links`); `source` y `basis` llevan vocabularios documentados, `emotion` va sin CHECK (la taxonomía evoluciona con el modelo y `model_version` permite re-clasificar). El down retira las cuatro tablas; las cosechas de origen siguen en `reports/` y son re-aplicables.
+
+## Ubicación actual del artista (2026-10-16)
+
+`0083_artist_current_location` añade `public.artists.current_city` y `current_country` (varchar(120), NULL = sin dato): **la undécima excepción aprobada al core**, pedido de Brian del 2026-10-16: «Quiero tener este dato en un campo separado asi como RYM, no me gustaria perderlos, es posible?». Guardan el «Currently» de las fichas de artista de RYM — dónde está radicado hoy el artista, análogo a `origin_city`/`origin_country` (que guardan el «Formed») — con el valor literal de la fuente. El lote de fichas RYM del 2026-10-15 había escrito ~515 de estos valores como alias (`name_variant`) por leer «Currently» como un nombre; el backfill `scripts/rym-2026-10-15/11-ubicacion-actual.mts` reparte el valor (última coma = país) y lo lleva al campo nuevo, y `12-limpiar-alias-ubicacion.mts` retira los alias-ubicación en un run auditado (`deleteAlias`) sin pérdida. La ficha web los muestra juntos («Ubicación actual: Miami, FL, United States»). El down retira las dos columnas; los valores se recuperan re-aplicando el backfill desde `reports/rym-v4-2026-10-04/artistas.jsonl` (672 fichas con «Currently»).
+
+`0085_search_observability`: analítica de búsquedas confirmadas en `ingest`,
+separada de `search_misses` y del embudo 0053. Incluye la protección de decisiones
+humanas al escribir tags emocionales y deriva contradicciones a la cola de revisión
+existente. La necesidad del trigger de `public` y la retención/reversión se explican
+en [la entrega de etapa 1](../docs/unified-search/STAGE_1.md). No ejecutar el down
+sin exportar la analítica que se quiera conservar; no elimina casos de revisión.
+
+`0086_search_knowledge_feed`: staging incremental del conocimiento musical; cursor,
+lease y cola de revisión existente. No publica etiquetas ni escribe en `public`.
+Down conserva casos de revisión. Implementación y pendientes: `docs/unified-search/STAGE_2.md`.
+
+`0087_search_knowledge_interpretations`: propuestas Laya comparables por unidad,
+modelo/checkpoint/SDK/preguntas/entrada. No decide ni publica. Las discrepancias
+con decisiones editoriales abren casos en la cola existente. Revertir 0087 antes
+que 0086; los casos y decisiones se conservan como historial.
+
+`0089_artist_website_links`: Brian pidió el 18/10/2026 incorporar las webs
+contrastadas al final de «Síguelo/Síguelos». Amplía el CHECK de `social_links`
+con `website`, sin otra columna ni tabla de enlaces. Conserva una URL por artista,
+la verificación de identidad y el historial reversible. El down exige revertir
+primero los runs que hayan añadido webs, para conservar los enlaces.
+
+`0090_image_candidate_inspection`: plan 20/20, etapa 3. Cada imagen candidata
+guarda su inspección al descargarla: dimensiones naturales, resolución efectiva,
+nitidez, calidad (`high`/`medium`/`low`/`failed`), uso, huella perceptual y
+motivos. La API no permite elegir una candidata fallida. Solo toca `ingest`;
+`width`/`height` siguen siendo las dimensiones declaradas. El down borra las
+columnas y la inspección puede repetirse.
+
+`0091_image_candidate_stored_copy`: plan 20/20, etapa 3. Al elegir una candidata
+se descarga de nuevo, se comprueba que su huella coincida con la inspección y se
+guarda el original en `web/public/media/curated/<sha256>.<ext>`; la ficha apunta
+a esa copia (`/crv/media/curated/…`) y la candidata registra `stored_url` y
+`stored_sha256` junto a su URL de origen. Deshacer el run devuelve la imagen
+anterior; el archivo, direccionado por contenido, se conserva. `image_context`
+guarda el texto de la página que describe la imagen (pie, alt, «Imagen: …») para
+clasificar su uso. El down borra las tres columnas.
+
+`0092_artist_store_link`: Brian pidió el 19/10/2026 recoger la tienda oficial
+del artista (merch, Bandcamp merch, Shopify, Big Cartel). Amplía el CHECK de
+`social_links` con `store`, sin columnas ni tablas nuevas: es un enlace más de
+«Síguelo/Síguelos», convive con `website` y conserva el historial reversible.
+El down exige retirar antes los runs que hayan añadido tiendas.
+
+`0093_artist_linktree_link`: Brian pidió el 19/10/2026 guardar el linktree del artista
+como una página más de su perfil (no solo como fuente de enlaces). Amplía el CHECK de
+`social_links` con `linktree`; el handle es el usuario de linktr.ee. El down exige retirar
+antes los runs que hayan añadido linktrees.
+
+`0095_album_rym_rating`: la puntuación agregada que RYM publica en la ficha de cada disco —media
+sobre 5 y nº de puntuaciones— en `albums.rym_rating` (NUMERIC(3,2)) y `albums.rym_ratings_count`.
+RYM no expone los votos uno a uno, solo el agregado. Decimotercera excepción aprobada al core
+(Brian, 20/10/2026, «Haz 1 y 2»). El down pierde lo poblado; el HTML capturado lo conserva.
+
+`0099_artist_archive`: archivo documental por artista con categorías y etiquetas,
+reclasificación en lote auditada y categoría logo en la galería. Añade procedencia
+a las imágenes. Ver `docs/ARTIST_ARCHIVE.md`. El down elimina estos documentos y
+sus columnas de archivo; usar el diario para deshacer datos antes de retirar el esquema.
+
+`0100_image_curation_jobs`: cola persistente de decisiones y mediciones de
+portadas y fotos. UUID de solicitud único, restricción de tarea activa por ficha
+y tipo, permisos renovables de trabajador, copia preparada y run confirmado
+junto al cambio del catálogo. El down impide eliminar tareas activas. Ver
+`docs/IMAGE_CURATION_QUEUE.md`.

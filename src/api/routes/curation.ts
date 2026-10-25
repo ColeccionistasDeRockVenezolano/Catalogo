@@ -124,6 +124,7 @@ const scanResultSchema = z.object({
 });
 
 const listQuerySchema = paginationQuerySchema.extend({
+  sort: z.enum(["priority", "oldest", "newest", "entity"]).default("priority"),
   category: z.string().max(60).optional(),
   detector: z.string().max(80).optional(),
   signature: z.string().max(300).optional(),

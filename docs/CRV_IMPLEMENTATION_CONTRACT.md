@@ -1,5 +1,11 @@
 # CRV — Contrato Técnico de Implementación
 
+> Actualización autorizada por Brian, 2026-10-21: el alcance venezolano incluye
+> proyectos de venezolanos formados fuera del país. Las referencias extranjeras
+> excluidas se archivan mediante decisiones auxiliares y vistas públicas, con
+> protección contra reimportación; personas, créditos y hechos históricos se
+> conservan. Ver [EDITORIAL_SCOPE.md](EDITORIAL_SCOPE.md), migraciones 0096/0097.
+
 > Documento de gobierno del proyecto **Coleccionistas de Rock Venezolano**.
 > Toda fase posterior se ejecuta contra este contrato. En caso de conflicto
 > entre documentos, este contrato manda; en caso de conflicto con el usuario,

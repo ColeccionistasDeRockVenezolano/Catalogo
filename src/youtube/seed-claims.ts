@@ -29,7 +29,8 @@ import { pathToFileURL } from "node:url";
 import { getPool } from "../db/client.js";
 import { YT_MASTER_XLSX_PATH } from "../ingest/sources.js";
 import { ingestRecords, type IngestionResult } from "../ingest/runner.js";
-import { canonicalVideoUrl, collectReleaseYears, releaseIdentity, sheetTypeIsUnnumbered } from "./normalization.js";
+import { canonicalVideoUrl, classifySheetRow, collectReleaseYears, releaseIdentity, sheetTypeIsUnnumbered } from "./normalization.js";
+import { audiovisualAlbumException, audiovisualKind } from "./audiovisual-rules.js";
 import type { Evidence, RawRecord } from "../adapters/contracts.js";
 import { moduleLogger } from "../logger/index.js";
 
@@ -124,14 +125,17 @@ export function seedRecords(rows: SeedRow[], filePath = YT_MASTER_XLSX_PATH): {
     }
 
     // Un videoclip o un documental no son una publicación discográfica.
-    if (row.content_kind === "media") { mediaOnly += 1; continue; }
+    const exception = audiovisualAlbumException(artist, album, row.video_id);
+    if (!exception && (row.content_kind === "media" || audiovisualKind(row.type_raw))) { mediaOnly += 1; continue; }
 
     const fields: RawRecord["fields"] = [
       { field: "title", value: album, evidence: where },
       { field: "artist_name", value: artist, evidence: where },
     ];
     if (row.album_year_raw !== null) fields.push({ field: "release_year", value: String(row.album_year_raw), evidence: where });
-    if (row.content_kind === "release" && row.normalized_type) {
+    if (exception) {
+      fields.push({ field: "album_type", value: classifySheetRow({ artistName: artist, albumName: album, type: row.type_raw }).normalizedType!, evidence: where });
+    } else if (row.content_kind === "release" && row.normalized_type) {
       fields.push({ field: "album_type", value: row.normalized_type, evidence: where });
     } else {
       albumsSinTipo += 1;

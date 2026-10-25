@@ -14,7 +14,9 @@ export function getSessionCsrf(): string {
 }
 
 export function setSessionCsrf(value: string): void {
+  const changed = csrfToken !== value;
   csrfToken = value;
+  if (changed) window.dispatchEvent(new Event("crv-session-changed"));
 }
 
 /** Retira credenciales heredadas de versiones anteriores de la interfaz. */

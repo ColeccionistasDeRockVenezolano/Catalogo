@@ -1,11 +1,21 @@
 import { useState, type FormEvent } from "react";
-import { SignIn, SignOut } from "@phosphor-icons/react";
+import { NavLink, useLocation } from "react-router-dom";
+import { Popover } from "@base-ui/react/popover";
+import { CaretDown, ClockCounterClockwise, GearSix, SignIn, SignOut, SlidersHorizontal, Stack, type Icon } from "@phosphor-icons/react";
 import { Modal } from "./Modal";
+import { SessionChangesList, useSessionChanges } from "./ChangeFeedback";
 import { ApiError } from "../lib/api";
 import { useOperator } from "../lib/OperatorContext";
 import { useToast } from "../lib/ToastContext";
 
 export function OperatorPill() {
+  const { user, isAdmin } = useOperator();
+  if (isAdmin && user) return <AdminAccountMenu name={user.name} username={user.username} />;
+  return <OperatorButton />;
+}
+
+/** Sin sesión o con cuenta de solo lectura: la píldora abre el diálogo de acceso. */
+function OperatorButton() {
   const { user, isChecking } = useOperator();
   const isSignedIn = user !== null;
   const [open, setOpen] = useState(false);
@@ -27,6 +37,106 @@ export function OperatorPill() {
         <span className="operator-label">{label}</span>
       </button>
       {open ? <OperatorDialog onClose={() => setOpen(false)} /> : null}
+    </>
+  );
+}
+
+const ADMIN_LINKS: ReadonlyArray<{ to: string; label: string; hint: string; icon: Icon }> = [
+  { to: "/administrar/buscador", label: "Buscador y descubrimiento", hint: "Consultas, fuentes y decisiones", icon: SlidersHorizontal },
+  { to: "/curaduria", label: "Curaduría", hint: "Revisar y cuidar el catálogo", icon: Stack },
+  { to: "/configuracion/temas", label: "Configuración", hint: "Temas del catálogo", icon: GearSix },
+];
+
+const ADMIN_AREA = /^\/(historial|curaduria|configuracion|administrar)(\/|$)/u;
+
+/**
+ * Cuenta administradora: la píldora abre (al pasar el puntero o con clic) el
+ * menú de la cuenta con los cambios de esta sesión, el Historial y Administrar.
+ * Aquí vive también el deshacer de la sesión (avisos y Ctrl/⌘+Z).
+ */
+function AdminAccountMenu({ name, username }: { name: string; username: string }) {
+  const { logout } = useOperator();
+  const { notify } = useToast();
+  const { pathname } = useLocation();
+  const changes = useSessionChanges();
+  const [open, setOpen] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+  const initial = name.trim().charAt(0).toUpperCase() || "?";
+  const close = () => setOpen(false);
+
+  async function handleLogout() {
+    setSigningOut(true);
+    try {
+      await logout();
+      notify("success", "Sesión cerrada. El catálogo queda en solo lectura.");
+    } catch (reason: unknown) {
+      notify("error", reason instanceof ApiError ? reason.message : "No se pudo cerrar la sesión.");
+      setSigningOut(false);
+    }
+  }
+
+  return (
+    <>
+      <Popover.Root open={open} onOpenChange={setOpen}>
+        <Popover.Trigger
+          openOnHover
+          delay={120}
+          closeDelay={240}
+          className={`operator-pill is-active is-admin${ADMIN_AREA.test(pathname) ? " is-current" : ""}`}
+          aria-label={`Cuenta de ${name}: cambios de esta sesión, Historial y Administrar${changes.pending ? ` (${changes.pending} cambios sin deshacer)` : ""}`}
+        >
+          <span className="chip" aria-hidden="true">{initial}</span>
+          <span className="operator-label">{name}</span>
+          {changes.pending > 0 ? <span className="operator-pill__count" aria-hidden="true">{changes.pending > 9 ? "9+" : changes.pending}</span> : null}
+          <CaretDown className="operator-pill__caret" size={12} weight="bold" aria-hidden="true" />
+        </Popover.Trigger>
+        <Popover.Portal>
+          <Popover.Positioner sideOffset={8} align="end" collisionPadding={12} className="operator-menu__positioner">
+            <Popover.Popup className="operator-menu">
+              <div className="operator-menu__identity">
+                <span className="account-avatar" aria-hidden="true">{initial}</span>
+                <div>
+                  <Popover.Title className="operator-menu__name">{name}</Popover.Title>
+                  <span>@{username} · Administrador</span>
+                </div>
+              </div>
+
+              <section className="operator-menu__changes" aria-labelledby="operator-menu-changes">
+                <div className="operator-menu__head">
+                  <h2 id="operator-menu-changes">Cambios de esta sesión</h2>
+                  <span className="recent-changes__keys"><kbd>Ctrl</kbd>+<kbd>Z</kbd> deshace el último</span>
+                </div>
+                <SessionChangesList entries={changes.entries} onNavigate={close} onUndo={(runId) => { close(); changes.openUndo(runId); }} />
+                {changes.entries.length ? (
+                  <button type="button" className="operator-menu__clear" onClick={changes.clear}>Vaciar lista</button>
+                ) : null}
+              </section>
+
+              <nav className="operator-menu__nav" aria-label="Administración">
+                <NavLink to="/historial" className="operator-menu__link" onClick={close}>
+                  <ClockCounterClockwise size={20} aria-hidden="true" />
+                  <span>Historial<small>Todo cambio del catálogo, con su deshacer</small></span>
+                </NavLink>
+                <p className="operator-menu__label">Administrar</p>
+                {ADMIN_LINKS.map((link) => (
+                  <NavLink key={link.to} to={link.to} className="operator-menu__link" onClick={close}>
+                    <link.icon size={20} aria-hidden="true" />
+                    <span>{link.label}<small>{link.hint}</small></span>
+                  </NavLink>
+                ))}
+              </nav>
+
+              <div className="operator-menu__foot">
+                <button type="button" className="operator-menu__signout" onClick={() => void handleLogout()} disabled={signingOut}>
+                  <SignOut size={18} weight="bold" aria-hidden="true" />
+                  {signingOut ? "Cerrando…" : "Cerrar sesión"}
+                </button>
+              </div>
+            </Popover.Popup>
+          </Popover.Positioner>
+        </Popover.Portal>
+      </Popover.Root>
+      {changes.dialog}
     </>
   );
 }

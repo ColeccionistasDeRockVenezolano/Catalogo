@@ -25,7 +25,7 @@ export function EntityLoadError({ message, errorValue, onRetry }: { message: str
     <div className="state-block removed-entity">
       <h3>Esta ficha fue retirada del catálogo</h3>
       <p>La retiró el cambio #{runId}. Deshacerlo la devuelve con sus relaciones, alias y evidencia.</p>
-      <button type="button" className="btn btn--danger" onClick={() => setUndoing(true)}>
+      <button type="button" className="btn btn--primary" onClick={() => setUndoing(true)}>
         <ArrowArcLeft aria-hidden="true" weight="bold" /> Deshacer retiro (#{runId})
       </button>
       {undoing ? <UndoDialog runId={runId} onClose={() => setUndoing(false)} /> : null}

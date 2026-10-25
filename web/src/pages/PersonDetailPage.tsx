@@ -1,3 +1,5 @@
+import { EntityAdminBar } from "../components/EntityAdminBar";
+import { GenrePeriods } from "../components/GenrePeriods";
 import { CatalogModelPanel } from "../components/CatalogModelPanel";
 import { EntityVerification } from "../components/EntityVerification";
 import { useEffect, useState } from "react";
@@ -5,7 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
 import { BackLink } from "../components/BackLink";
 import { DeceasedMark } from "../components/DeceasedMark";
-import { ArrowsSplit, GitMerge, PencilSimple, Trash } from "@phosphor-icons/react";
+import { ArrowsSplit } from "@phosphor-icons/react";
 import { personWrites, personsApi, reviewApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useMovedToRedirect } from "../lib/useMovedTo";
@@ -31,8 +33,9 @@ import { entityFormValues, PERSON_FIELDS } from "../lib/entityFields";
 import { EntityInfo, type InfoItem } from "../components/EntityInfo";
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
-import { creditTypeLabel, memberRoleLabel, membershipNoun, nameClassLabel } from "../lib/labels";
+import { creditTypeLabel, memberRoleLabel, membershipNoun, nameClassLabel, roleTitle } from "../lib/labels";
 import { ageText, formatDate } from "../lib/format";
+import { mediaImage } from "../lib/media";
 
 export function PersonDetailPage() {
   const { id } = useParams();
@@ -70,7 +73,8 @@ export function PersonDetailPage() {
     { label: "Ciudad de nacimiento", value: person.birthCity },
     { label: "Género", value: person.gender && person.gender !== "unknown" ? ({ male: "Masculino", female: "Femenino" } as Record<string, string>)[person.gender] ?? person.gender : null },
     { label: "Nacionalidad", value: person.nationality, fallback: "Sin dato" },
-    { label: "Venezolano/a", value: person.isVenezuelan === true ? "Sí" : person.isVenezuelan === false ? "No (extranjero/a)" : null, fallback: "Sin dato" },
+    // En CRV se asume venezolano/a: el público solo ve el «No», que rompe la regla (plan v2, punto 1).
+    { label: "Venezolano/a", value: person.isVenezuelan === false ? "No (extranjero/a)" : isAdmin && person.isVenezuelan === true ? "Sí" : null, fallback: "Sin dato" },
     { label: "Estado", value: dead ? "Fallecido/a" : null, fallback: "Sin dato" },
     { label: "Causa de fallecimiento", value: dead ? person.deathCause : null },
     { label: "Nacimiento", value: formatDate(person.birthDate) },
@@ -121,7 +125,7 @@ export function PersonDetailPage() {
                   <td><Link to={`/discos/${credit.albumId}`}>{credit.albumTitle}</Link></td>
                   <td><Link to={`/artistas/${credit.artistId}`}>{credit.artistName}</Link></td>
                   <td><span className="badge">{creditTypeLabel(credit.creditType)}</span></td>
-                  <td>{credit.role}</td>
+                  <td>{roleTitle(credit.role)}</td>
                 </tr>
               ))}
             </tbody>
@@ -141,7 +145,7 @@ export function PersonDetailPage() {
                   <td>{credit.trackTitle}</td>
                   <td><Link to={`/discos/${credit.albumId}`}>{credit.albumTitle}</Link></td>
                   <td><span className="badge">{creditTypeLabel(credit.creditType)}</span></td>
-                  <td>{credit.role}</td>
+                  <td>{roleTitle(credit.role)}</td>
                 </tr>
               ))}
             </tbody>
@@ -180,6 +184,7 @@ export function PersonDetailPage() {
       ),
     },
     ...(isAdmin ? [
+      { key: "generos-periodos", label: "Géneros por período", content: <GenrePeriods kind="person" id={person.id}/> },
       { key: "fuentes", label: "Origen de los datos", content: <EntityProvenance entity="person" id={person.id} revision={person} /> },
       { key: "historial", label: "Historial", content: <EntityHistory entity="person" id={person.id} /> },
     ] : []),
@@ -191,9 +196,14 @@ export function PersonDetailPage() {
     <>
       <BackLink fallback="/personas" />
 
+      {isAdmin ? <EntityAdminBar onEdit={() => setEditing(true)} onMerge={() => { setMergeFromResearch(false); setMerging(true); }}
+        onRemove={() => setDeleting(true)}
+        extra={[{ label: "Dividir en varias…", icon: <ArrowsSplit size={14} weight="bold" aria-hidden="true" />, onClick: () => setSplitting(true) }]}
+        more={[{ label: `Investigar identidad con otra ficha${identityResearch?.length ? ` · ${identityResearch.length} guardadas` : ""}`, onClick: () => setResearchOpen((open) => !open) }]} /> : null}
+
       <div className="entity-hero">
         <span className="entity-hero__art">
-          {person.pictureUrl ? <img src={person.pictureUrl} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(person.name)}</span>}
+          {person.pictureUrl ? <img {...mediaImage(person.pictureUrl, 132)} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(person.name)}</span>}
         </span>
         <div>
           <h1 className="entity-hero__title">{person.displayName ?? person.name}<DeceasedMark deceased={person.isDeceased} /></h1>
@@ -204,26 +214,6 @@ export function PersonDetailPage() {
           <RewritePendingMark kind="person" id={person.id} onDone={reload} />
         </div>
       </div>
-
-      {isAdmin ? (
-        <div className="page-actions" style={{ marginTop: 14 }}>
-          <button type="button" className="btn btn--sm" onClick={() => setEditing(true)}>
-            <PencilSimple size={14} weight="bold" aria-hidden="true" />Editar
-          </button>
-          <button type="button" className="btn btn--sm" onClick={() => { setMergeFromResearch(false); setMerging(true); }}>
-            <GitMerge size={14} weight="bold" aria-hidden="true" />Fusionar con…
-          </button>
-          <button type="button" className="btn btn--sm" onClick={() => setSplitting(true)}>
-            <ArrowsSplit size={14} weight="bold" aria-hidden="true" />Dividir en varias…
-          </button>
-          <button type="button" className="btn btn--sm btn--outline" onClick={() => setResearchOpen((open) => !open)}>
-            Investigar identidad con otra ficha{identityResearch?.length ? ` · ${identityResearch.length} guardadas` : ""}
-          </button>
-          <button type="button" className="btn btn--sm btn--danger" onClick={() => setDeleting(true)}>
-            <Trash size={14} weight="bold" aria-hidden="true" />Retirar
-          </button>
-        </div>
-      ) : null}
 
       {isAdmin && researchOpen ? <section className="section" aria-label="Investigar identidad de dos personas" style={{ marginTop: 16 }}>
         <h2>Comparar identidad de «{person.name}»</h2>
@@ -266,7 +256,7 @@ export function PersonDetailPage() {
         </div>
       ) : null}
 
-      {isAdmin ? <EntityVerification kind="person" id={person.id} revision={person} onChanged={reload} /> : null}
+      {isAdmin ? <EntityVerification kind="person" id={person.id} revision={person} artistConversionBlocked={person.artistConversionBlocked ?? false} onChanged={reload} /> : null}
 
       <EntityTabs tabs={tabs} defaultKey={defaultKey} />
 
@@ -279,6 +269,7 @@ export function PersonDetailPage() {
             { key: "model", label: "Identidad y períodos", content: <CatalogModelPanel kind="person" id={person.id} onChanged={reload} /> },
             { key: "bands", label: "Bandas y proyectos", content: <MembershipEditor fixedKind="person" fixedId={person.id} rows={person.bands.map((band) => ({ ...band, otherId: band.artistId, otherName: band.artistName }))} onChanged={reload} /> },
           ]}
+          entity={{kind:"person",id:person.id}}
           initialValues={{ ...entityFormValues(PERSON_FIELDS, person), isDeceased: person.isDeceasedFlag }}
           onSubmit={(values, note) => personWrites.update(person.id, { ...values, note })}
           onSuccess={() => { setEditing(false); reload(); notify("success", "Persona actualizada."); }}

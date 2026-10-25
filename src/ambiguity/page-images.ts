@@ -2,7 +2,8 @@ import type { CheerioAPI } from "cheerio";
 
 export function isDecorativeImageUrl(raw:string):boolean{
   try{
-    const url=new URL(raw);
+    // Local catalog copies (/crv/media/…) are judged by their path like any other address.
+    const url=raw.startsWith("/")&&!raw.startsWith("//")?new URL(raw,"https://catalog.invalid"):new URL(raw);
     return /(?:^|[/_.-])(?:logos?|favicons?|icons?|captcha|default_user|placeholder|tracking|pixel|wordmark|play|pause|descargar|download)(?:[/_.-]|$)/iu.test(url.pathname)
       || /[s_/=-](?:\d{1,2}|1\d{2})x(?:\d{1,2}|1\d{2})(?=[a-z_/.-]|$)/iu.test(`${url.pathname}${url.search}`);
   }catch{return true;}

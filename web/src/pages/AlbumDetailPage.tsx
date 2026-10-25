@@ -1,3 +1,6 @@
+import { GenrePeriods } from "../components/GenrePeriods";
+import { AlbumPublishingEditor } from "../components/CatalogResourceEditor";
+import { ImageViewer } from "../components/ImageViewer";
 import { formatDate } from "../lib/format";
 import { CatalogModelPanel } from "../components/CatalogModelPanel";
 import { EntityVerification } from "../components/EntityVerification";
@@ -5,7 +8,8 @@ import { Fragment, useCallback, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
 import { BackLink } from "../components/BackLink";
-import { GitMerge, PencilSimple, Play, Trash } from "@phosphor-icons/react";
+import { ArrowsOutSimple, CalendarBlank, Clock, MusicNotes, PencilSimple, Play, Record, Trash } from "@phosphor-icons/react";
+import { EntityAdminBar } from "../components/EntityAdminBar";
 import { albumFormatWrites, albumWrites, albumsApi, claimsApi, trackWrites, tracksApi, ApiError } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useMovedToRedirect } from "../lib/useMovedTo";
@@ -21,7 +25,8 @@ import { TrackAliasesSection } from "../components/TrackAliasesSection";
 import { EntityPicker } from "../components/EntityPicker";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { CreditManager } from "../components/CreditManager";
-import { AlbumVersions, CreditChips, CreditStatements, SeriesLines } from "../components/Discography";
+import { AlbumVersions, CreditChips, CreditLines, CreditStatements, SeriesLines } from "../components/Discography";
+import { creditLines, otherCreditsWithChannel, otherWithoutRepeats, PRODUCTION_TYPES } from "../lib/creditLayout";
 import { AlbumMergeModal } from "../components/AlbumMergeModal";
 import { EntityProvenance } from "../components/EntityProvenance";
 import { EntityHistory } from "../components/EntityHistory";
@@ -29,24 +34,69 @@ import { EntityLoadError } from "../components/RemovedEntityState";
 import { Modal } from "../components/Modal";
 import { initialOf } from "../components/EntityCard";
 import { entityFormValues, ALBUM_FIELDS, TRACK_FIELDS } from "../lib/entityFields";
-import { albumTypeLabel, formatDuration } from "../lib/labels";
-import type { AlbumFormat, Track } from "../lib/types";
+import { albumClassificationBadges, albumTypeLabel, formatDuration, knownFormat } from "../lib/labels";
+import type { AlbumFormat, Credit, CreditStatement, ScopedCredit, Track } from "../lib/types";
 import { PlatformLinks, type PlatformLink } from "../components/PlatformLinks";
 import { CatalogGenres, CatalogYear } from "../components/CatalogMetadata";
 import { AlbumYoutubePlayer, type AlbumYoutubePlayerHandle } from "../components/AlbumYoutubePlayer";
 import { albumDiscVideos, albumYoutubeVideoId, trackAtYoutubeTime, type DiscVideo, type YoutubePlayback } from "../lib/youtube";
-import { useVideoPlayer } from "../components/VideoPlayer";
-import { EmbedPanel, ListenSection, resolveListenPlatform, useListenChoice, type ListenTab } from "../components/ListenPlayer";
+import { useVideoPlayer, type CatalogVideoTrack } from "../components/VideoPlayer";
+import { EmbedPanel, resolveListenPlatform, useListenChoice, type ListenTab } from "../components/ListenPlayer";
 import { embedOptions } from "../lib/embeds";
+import { mediaImage } from "../lib/media";
+import { AlbumListenPanel } from "../components/AlbumListenPanel";
+import "../styles/album-detail.css";
 
+// «Músicos Invitados» y «Otros Créditos» no se muestran al público sin datos (plan v2, puntos 11 y 12).
+// El operador edita por sección; el público ve la estructura de `PublicCredits`.
 const CREDIT_SECTIONS: ReadonlyArray<{ title: string; types: readonly string[] }> = [
   { title: "Músicos", types: ["musician"] },
-  { title: "Colaboradores / invitados", types: ["guest"] },
-  { title: "Producción", types: ["producer", "recording", "mixing", "mastering"] },
+  { title: "Músicos Invitados", types: ["guest"] },
+  { title: "Producción", types: PRODUCTION_TYPES },
   { title: "Composición", types: ["writer", "composer"] },
   { title: "Arte", types: ["artwork", "photography"] },
-  { title: "Otros créditos", types: ["other"] },
+  { title: "Otros Créditos", types: ["other"] },
 ];
+
+type CreditsByType = Record<string, Credit[] | undefined>;
+type ScopedByType = Record<string, ScopedCredit[] | undefined>;
+
+/**
+ * Créditos para el público (plan v2, etapa 4): con créditos del canal, sus
+ * líneas reemplazan la columna «Producción» bajo «Otros Créditos»; sin canal,
+ * «Producción» va en el mismo formato de línea. Composición y Arte siguen
+ * aparte. Las secciones sin datos que sobran no se muestran.
+ */
+function PublicCredits({ creditsByType, scopedByType, statements }: { creditsByType: CreditsByType; scopedByType: ScopedByType; statements: CreditStatement[] }) {
+  const pick = (types: readonly string[]) => ({
+    credits: types.flatMap((type) => creditsByType[type] ?? []),
+    scoped: types.flatMap((type) => scopedByType[type] ?? []),
+  });
+  const musicians = pick(["musician"]);
+  const guests = pick(["guest"]);
+  const composition = pick(["writer", "composer"]);
+  const art = pick(["artwork", "photography"]);
+  const other = { credits: otherWithoutRepeats(creditsByType.other ?? [], creditsByType, scopedByType), scoped: otherWithoutRepeats(scopedByType.other ?? [], creditsByType, scopedByType) };
+  const channel = statements.length > 0 ? otherCreditsWithChannel(statements, creditsByType, scopedByType) : null;
+  const production = channel ? [] : creditLines(pick(PRODUCTION_TYPES).credits, pick(PRODUCTION_TYPES).scoped);
+  const empty = <p className="credit-chips__empty">Sin créditos registrados.</p>;
+  return (
+    <div className="credit-groups">
+      <div className="credit-group"><h3>Músicos</h3><CreditChips credits={musicians.credits} scoped={musicians.scoped} musicians /></div>
+      {guests.credits.length || guests.scoped.length ? <div className="credit-group"><h3>Músicos Invitados</h3><CreditChips credits={guests.credits} scoped={guests.scoped} /></div> : null}
+      {channel ? (channel.statements.length || channel.lines.length ? (
+        <div className="credit-group credit-group--lines">
+          <h3>Otros Créditos</h3>
+          <CreditStatements statements={channel.statements} title={null} />
+          <CreditLines lines={channel.lines} />
+        </div>
+      ) : null) : <div className="credit-group credit-group--lines"><h3>Producción</h3>{production.length ? <CreditLines lines={production} /> : empty}</div>}
+      <div className="credit-group"><h3>Composición</h3><CreditChips credits={composition.credits} scoped={composition.scoped} /></div>
+      <div className="credit-group"><h3>Arte</h3><CreditChips credits={art.credits} scoped={art.scoped} /></div>
+      {!channel && (other.credits.length || other.scoped.length) ? <div className="credit-group"><h3>Otros Créditos</h3><CreditChips credits={other.credits} scoped={other.scoped} /></div> : null}
+    </div>
+  );
+}
 
 export function AlbumDetailPage() {
   const { id } = useParams();
@@ -59,6 +109,7 @@ export function AlbumDetailPage() {
     () => isAdmin && album ? claimsApi.creditSources("album", albumId) : Promise.resolve([]), [albumId, isAdmin, album],
   );
   useMovedToRedirect(errorValue);
+  const [viewingCover, setViewingCover] = useState(false);
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [mergingAlbum, setMergingAlbum] = useState(false);
@@ -84,13 +135,11 @@ export function AlbumDetailPage() {
   const [editingFormat, setEditingFormat] = useState<AlbumFormat | null>(null);
   const [artistId, setArtistId] = useState<number | null>(null);
   const [artistLabel, setArtistLabel] = useState<string | null>(null);
-  const [labelId, setLabelId] = useState<number | null>(null);
-  const [labelLabel, setLabelLabel] = useState<string | null>(null);
   const youtubePlayer = useRef<AlbumYoutubePlayerHandle>(null);
   const [playback, setPlayback] = useState<(YoutubePlayback & { albumId: number }) | null>(null);
   // Video elegido entre los de los discos (Lado A / Lado B, CD 1 / CD 2).
   const [chosenVideo, setChosenVideo] = useState<{ albumId: number; videoId: string } | null>(null);
-  const { session: videoSession, play: playVideo, close: closeVideo } = useVideoPlayer();
+  const { session: videoSession, play: playVideo } = useVideoPlayer();
   const [chosenPlatform, choosePlatform] = useListenChoice(albumId);
   const listenSection = useRef<HTMLDivElement>(null);
   const onPlaybackChange = useCallback((value: YoutubePlayback | null) => {
@@ -99,6 +148,7 @@ export function AlbumDetailPage() {
 
   if (loading && (!album || album.id !== albumId)) return <DetailSkeleton />;
   if (error || !album) return <EntityLoadError message={error ?? "Disco no encontrado."} errorValue={errorValue} onRetry={reload} />;
+  const shownFormats = isAdmin ? album.formats : album.formats.filter((format) => knownFormat(format.format));
   const discGroups = groupTracksByDisc(album.tracklist, album.discs ?? []);
   const albumVideoId = albumYoutubeVideoId(album);
   const discVideos = albumDiscVideos(albumVideoId, discGroups);
@@ -107,13 +157,19 @@ export function AlbumDetailPage() {
   const videoTabs = discVideos.filter((video, index) => discVideos.findIndex((other) => other.videoId === video.videoId) === index);
   const multipleVideos = videoTabs.length > 1;
   const sessionVideoId = videoSession?.owner === `album-${album.id}` ? videoSession.video.videoId : null;
-  const youtubeVideoId = [chosenVideo?.albumId === album.id ? chosenVideo.videoId : null, sessionVideoId]
+  const youtubeVideoId = [sessionVideoId, chosenVideo?.albumId === album.id ? chosenVideo.videoId : null]
     .find((videoId) => videoId && videoTabs.some((tab) => tab.videoId === videoId))
     ?? albumVideoId ?? videoTabs[0]?.videoId ?? null;
   const tabLabel = (video: DiscVideo) => discVideos.filter((other) => other.videoId === video.videoId)
     .map((other) => discGroups.find((group) => group.discNumber === other.discNumber)?.title ?? `Disco ${other.discNumber}`).join(" · ");
   const activeTab = videoTabs.find((tab) => tab.videoId === youtubeVideoId);
   const playerTitle = multipleVideos && activeTab ? `${album.title} · ${tabLabel(activeTab)}` : album.title;
+  const videoTracks: CatalogVideoTrack[] = discGroups.flatMap(group => group.tracks.flatMap(track => {
+    const video = videoOfDisc.get(track.discNumber);
+    if (!video || track.youtubeStartSeconds === null || !Number.isFinite(track.youtubeStartSeconds) || track.youtubeStartSeconds < 0) return [];
+    const title = multipleVideos ? `${album.title} · ${tabLabel(video)}` : album.title;
+    return [{ video: { videoId: video.videoId, title, album: { id: album.id, title: album.title } }, title: track.title, seconds: track.youtubeStartSeconds }];
+  }));
   const currentPlayback = playback?.albumId === album.id ? playback : null;
   // Los segundos de inicio se miden sobre el video del disco: solo cuentan las pistas de los discos que suenan.
   const playingTracks = album.tracklist.filter((track) => videoOfDisc.get(track.discNumber)?.videoId === youtubeVideoId);
@@ -132,8 +188,6 @@ export function AlbumDetailPage() {
   const listenPlatform = resolveListenPlatform(listenTabs.map((tab) => tab.platform), chosenPlatform);
   const activeEmbed = embeds.find((option) => option.platform === listenPlatform) ?? null;
   const switchPlatform = (platform: string) => {
-    // Al dejar YouTube, el video de este disco se detiene (no queda sonando flotante por debajo).
-    if (platform !== "youtube" && videoSession?.owner === `album-${album.id}`) closeVideo();
     choosePlatform(platform);
   };
   const playDisc = (video: DiscVideo, seconds = 0) => {
@@ -142,31 +196,43 @@ export function AlbumDetailPage() {
     if (youtubePlayer.current) { youtubePlayer.current.playFrom(seconds, { videoId: video.videoId, title }); return; }
     // Una pista pulsada mientras suena otra plataforma vuelve a YouTube desde su inicio.
     switchPlatform("youtube");
-    playVideo({ videoId: video.videoId, title, album: { id: album.id, title } }, `album-${album.id}`, seconds);
+    playVideo({ videoId: video.videoId, title, album: { id: album.id, title } }, `album-${album.id}`, seconds, true, videoTracks);
     setPlayback({ seconds, state: 3, albumId: album.id });
-    requestAnimationFrame(() => listenSection.current?.scrollIntoView({ block: "start", behavior: "instant" }));
   };
   // Un solo disco sin nombre no lleva encabezado; con varios, o con nombre
   // («Lado A», «DVD»), cada lista va bajo el suyo.
   const showDiscHeadings = discGroups.length > 1 || (album.discs?.length ?? 0) > 0;
 
+  const totalSeconds = album.tracklist.reduce((total, track) => total + (track.durationSeconds ?? 0), 0);
+  const hasCompleteDuration = album.tracklist.length > 0 && album.tracklist.every((track) => track.durationSeconds !== null);
+  const durationSummary = album.tracklist.some((track) => track.durationSeconds !== null) ? `${formatDuration(totalSeconds)}${hasCompleteDuration ? "" : " (parcial)"}` : null;
+  const trackCount = `${album.tracklist.length} ${album.tracklist.length === 1 ? "pista" : "pistas"}`;
+
   return (
     <>
       <BackLink fallback="/discos" />
 
-      <div className="entity-hero">
-        <Link to={`/discos/${album.id}`} aria-label={`Ver el disco ${album.title}`} className="entity-hero__art">
-          {album.coverUrl ? <img src={album.coverUrl} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(album.title)}</span>}
-        </Link>
+      {isAdmin ? <EntityAdminBar
+        onEdit={() => { setArtistId(album.artist.id); setArtistLabel(album.artist.name); setEditing(true); }}
+        onMerge={() => setMergingAlbum(true)}
+        onRemove={() => setDeleting(true)} /> : null}
+
+      <p className="album-listening-title">Escuchar disco</p>
+      <div className="album-listening-layout">
+      <section className="album-profile" aria-label="Información del disco">
+        {album.coverUrl ? <button type="button" className="entity-hero__art album-profile__image-button" aria-label={`Ampliar portada de ${album.title}`} onClick={() => setViewingCover(true)}>
+          <img {...mediaImage(album.coverUrl, 440)} alt={`Portada de ${album.title}`} loading="eager" decoding="async" />
+          <span className="album-profile__image-hint" aria-hidden="true"><ArrowsOutSimple size={16} /><span>Ampliar portada</span></span>
+        </button> : <span className="entity-hero__art"><span className="placeholder">{initialOf(album.title)}</span></span>}
         <div>
           <h1 className="entity-hero__title"><Link to={`/discos/${album.id}`}>{album.title}</Link></h1>
           <p style={{ margin: "6px 0 0" }}>
             <Link to={`/artistas/${album.artist.id}`} style={{ fontWeight: 600, color: "var(--text)" }}>{album.artist.name}</Link>
           </p>
-          <SeriesLines series={album.series ?? []} />
           <div className="entity-hero__meta">
             {album.releaseYear !== null ? <CatalogYear year={album.releaseYear} className="badge" /> : null}
-            <Link to={`/discos?tipo=${album.albumType}`} className="badge">{albumTypeLabel(album.albumType)}</Link>
+            {album.albumType !== "other" || !albumClassificationBadges(album).length ? <Link to={`/discos?tipo=${album.albumType}`} className="badge">{albumTypeLabel(album.albumType)}</Link> : null}
+            {albumClassificationBadges(album).map(badge => <Link key={badge.key} to={`/discos?tipo=${badge.key}`} className="badge">{badge.label}</Link>)}
             {album.genres?.length ? <CatalogGenres genres={album.genres} className="badge" /> : album.genre ? <span className="badge">{album.genre}{album.genreStatus === "pending" ? " (sin confirmar)" : ""}</span> : null}
             {album.genreByLaya ? <span className="badge badge--amber" title="Género principal elegido por Laya (último recurso). Solo visible con sesión iniciada.">Género por Laya</span> : null}
             {album.labels?.length ? album.labels.map((label) => (
@@ -174,46 +240,21 @@ export function AlbumDetailPage() {
                 title={label.roleLabel}>{label.name}{label.role !== "label" ? ` (${label.roleLabel.toLowerCase()})` : ""}</Link>
             )) : album.label ? <Link to={`/organizaciones/${album.label.id}`} className="badge badge--violet">{album.label.name}</Link> : null}
           </div>
-          {album.releaseDateValue || album.releaseDateText || album.catalogId || album.mediaFormat ? <dl className="album-edition-details">
-            {album.releaseDateValue || album.releaseDateText ? <div><dt>Fecha de publicación</dt><dd>{album.releaseYear !== null ? <CatalogYear year={album.releaseYear}>{album.releaseDateValue ? formatDate(album.releaseDateValue) : album.releaseDateText}</CatalogYear> : album.releaseDateValue ? formatDate(album.releaseDateValue) : album.releaseDateText}</dd></div> : null}
-            {album.catalogId ? <div><dt>Número de catálogo</dt><dd>{album.catalogId}</dd></div> : null}
-            {album.mediaFormat ? <div><dt>Formato de la edición</dt><dd>{album.mediaFormat}</dd></div> : null}
-          </dl> : null}
-          <PlatformLinks links={album.platforms ?? []} subject={`«${album.title}»`} />
           {album.description ? <p className="entity-hero__desc">{album.description}</p> : null}
           <RewritePendingMark kind="album" id={album.id} onDone={reload} />
+          <dl className="album-profile__facts">
+            <div><dt><Record size={22} aria-hidden="true" />Sello discográfico</dt><dd>{album.labels?.some((label) => label.role === "label") ? album.labels.filter((label) => label.role === "label").map((label, index) => <Fragment key={label.organizationId}>{index > 0 ? ", " : ""}<Link to={`/organizaciones/${label.organizationId}`}>{label.name}</Link></Fragment>) : album.label ? <Link to={`/organizaciones/${album.label.id}`}>{album.label.name}</Link> : "Sin registrar"}</dd></div>
+            <div><dt><CalendarBlank size={22} aria-hidden="true" />Año de lanzamiento</dt><dd>{album.releaseYear !== null ? <CatalogYear year={album.releaseYear} /> : "Sin registrar"}</dd></div>
+            <div><dt><MusicNotes size={22} aria-hidden="true" />Género</dt><dd>{album.primaryGenre ? <CatalogGenres genres={[album.primaryGenre]} /> : album.genres?.length ? <CatalogGenres genres={album.genres} /> : album.genre ? `${album.genre}${album.genreStatus === "pending" ? " (sin confirmar)" : ""}` : "Sin registrar"}</dd></div>
+            <div><dt><Clock size={22} aria-hidden="true" />{hasCompleteDuration ? "Duración total" : "Duración registrada"}</dt><dd>{durationSummary ? `${durationSummary} · ` : ""}{trackCount}</dd></div>
+          </dl>
         </div>
-      </div>
+      </section>
 
-      {isAdmin ? (
-        <div className="page-actions" style={{ marginTop: 14 }}>
-          <button type="button" className="btn btn--sm" onClick={() => {
-            setArtistId(album.artist.id); setArtistLabel(album.artist.name);
-            setLabelId(album.label?.id ?? null); setLabelLabel(album.label?.name ?? null); setEditing(true);
-          }}>
-            <PencilSimple size={14} weight="bold" aria-hidden="true" />Editar
-          </button>
-          <button type="button" className="btn btn--sm" onClick={() => setMergingAlbum(true)}>
-            <GitMerge size={14} weight="bold" aria-hidden="true" />Fusionar con…
-          </button>
-          <button type="button" className="btn btn--sm btn--danger" onClick={() => setDeleting(true)}>
-            <Trash size={14} weight="bold" aria-hidden="true" />Retirar
-          </button>
-        </div>
-      ) : null}
-
-      {isAdmin ? <EntityVerification kind="album" id={album.id} revision={album} /> : null}
-
-      {isAdmin || album.aliases.some((alias) => !alias.publicHidden) ? (
-        <div className="section">
-          <h2>Alias</h2>
-          <AliasEditor path="albums" entityId={album.id} aliases={album.aliases} onChanged={reload} />
-        </div>
-      ) : null}
-
-      {listenPlatform ? (
+      <div className="album-listening-layout__content">
         <div ref={listenSection} className="listen-anchor">
-          <ListenSection heading="Escuchar disco" subject={`«${album.title}»`} tabs={listenTabs} active={listenPlatform} onChange={switchPlatform}>
+          <AlbumListenPanel subject={`«${album.title}»`} links={album.platforms ?? []} tabs={listenTabs} active={listenPlatform} onChange={switchPlatform} hasVideo={Boolean(youtubeVideoId)}>
+            {listenPlatform ? <>
             {listenPlatform === "youtube" && youtubeVideoId ? (
                 <>
                   {multipleVideos ? (
@@ -230,7 +271,7 @@ export function AlbumDetailPage() {
                       })}
                     </div>
                   ) : null}
-                  <AlbumYoutubePlayer key={album.id} ref={youtubePlayer} albumId={album.id} videoId={youtubeVideoId} title={playerTitle} onPlaybackChange={onPlaybackChange} />
+                  <AlbumYoutubePlayer key={album.id} ref={youtubePlayer} albumId={album.id} videoId={youtubeVideoId} title={playerTitle} tracks={videoTracks} onPlaybackChange={onPlaybackChange} />
                   <p className="album-youtube-current" role="status">
                     {currentTrack ? <>{playbackLabel}: <strong>{currentTrack.title}</strong></>
                       : currentPlayback?.state === 1 ? "Reproduciendo el disco."
@@ -242,20 +283,21 @@ export function AlbumDetailPage() {
                   </p>
                 </>
             ) : activeEmbed ? (
-              <EmbedPanel key={`${album.id}:${activeEmbed.platform}`} option={activeEmbed} subject={`«${album.title}»`}
+              <EmbedPanel embeddedVideo key={`${album.id}:${activeEmbed.platform}`} option={activeEmbed} subject={`«${album.title}»`}
                 fullElsewhere={youtubeVideoId ? "youtube" : embeds.some((option) => option.platform === "youtube_music") ? "youtube_music" : null} />
             ) : null}
-          </ListenSection>
+            </> : null}
+          </AlbumListenPanel>
         </div>
-      ) : null}
 
-      <div className="section">
+      <section className="section album-tracks">
         <h2>
-          Lista de pistas <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({album.tracklist.length})</span>
+          <span>Lista de pistas</span>
+          <span className="album-tracks__summary">{trackCount}{durationSummary ? ` · ${durationSummary}` : ""}</span>
           {isAdmin ? <button type="button" className="btn btn--sm btn--ghost" onClick={() => setAddingTrack(true)}>+ Añadir pista</button> : null}
         </h2>
         {album.tracklist.length === 0 ? <p style={{ color: "var(--text-faint)", fontSize: 13.5 }}>Sin pistas registradas.</p> : (
-          <div className="table-wrap table-wrap--scroll album-tracklist">
+          <div className="table-wrap table-wrap--scroll album-tracklist" tabIndex={0} role="region" aria-label="Pistas del disco">
             <table role="table" aria-label="Lista de pistas">
               <thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col" className="num">#</th><th role="columnheader" scope="col">Título</th><th role="columnheader" scope="col" className="num">Duración</th><th role="columnheader" scope="col" className="num">Inicio en YouTube</th><th role="columnheader" scope="col"><span className="visually-hidden">Acciones</span></th></tr></thead>
               {discGroups.map((group) => (
@@ -360,46 +402,71 @@ export function AlbumDetailPage() {
             </table>
           </div>
         )}
+      </section>
+
       </div>
+      </div>
+
+      {viewingCover && album.coverUrl ? <ImageViewer key={album.id} src={album.coverUrl} title={`Portada de ${album.title}`} onClose={() => setViewingCover(false)} /> : null}
+
+      {isAdmin ? <EntityVerification kind="album" id={album.id} revision={album} /> : null}
+
+      {isAdmin || album.aliases.some((alias) => !alias.publicHidden) ? (
+        <div className="section">
+          <h2>Alias</h2>
+          <AliasEditor path="albums" entityId={album.id} aliases={album.aliases} onChanged={reload} />
+        </div>
+      ) : null}
+
+      {album.releaseDateValue || album.releaseDateText || album.catalogId || knownFormat(album.mediaFormat) || album.series?.length ? (
+        <section className="section">
+          <h2>Detalles de la edición</h2>
+          <SeriesLines series={album.series ?? []} />
+          {album.releaseDateValue || album.releaseDateText || album.catalogId || knownFormat(album.mediaFormat) ? <dl className="album-edition-details">
+            {album.releaseDateValue ? <div><dt>Fecha de publicación</dt><dd>{album.releaseYear !== null ? <CatalogYear year={album.releaseYear}>{formatDate(album.releaseDateValue)}</CatalogYear> : formatDate(album.releaseDateValue)}</dd></div> : null}
+            {album.releaseDateText ? <div><dt>Fecha literal de la fuente</dt><dd>{album.releaseDateText}</dd></div> : null}
+            {album.catalogId ? <div><dt>Número de catálogo</dt><dd>{album.catalogId}</dd></div> : null}
+            {knownFormat(album.mediaFormat) ? <div><dt>Formato de la edición</dt><dd>{knownFormat(album.mediaFormat)}</dd></div> : null}
+          </dl> : null}
+        </section>
+      ) : null}
 
       <div className="section">
-        <h2>Créditos del disco</h2>
-        <div className="credit-groups">
-          {CREDIT_SECTIONS.map((section) => {
-            const items = section.types.flatMap((type) => album.creditsByType[type] ?? []);
-            const scoped = section.types.flatMap((type) => album.scopedCreditsByType[type] ?? []);
-            return (
+        <h2>Créditos</h2>
+        {isAdmin ? <>
+          <div className="credit-groups">
+            {CREDIT_SECTIONS.map((section) => (
               <div className="credit-group" key={section.title}>
                 <h3>{section.title}</h3>
-                {/* Público: bloques por rol con chips de nombres (plan del primo, imagen 1); la edición queda para el operador. */}
-                {isAdmin ? <CreditManager target={{ kind: "album", albumId: album.id }} credits={items} scoped={scoped} onChanged={reload} provenance={creditProvenance} />
-                  : <CreditChips credits={items} scoped={scoped} />}
+                <CreditManager target={{ kind: "album", albumId: album.id }} credits={section.types.flatMap((type) => album.creditsByType[type] ?? [])}
+                  scoped={section.types.flatMap((type) => album.scopedCreditsByType[type] ?? [])} onChanged={reload} provenance={creditProvenance} />
               </div>
-            );
-          })}
-        </div>
-        <CreditStatements statements={album.creditStatements ?? []} />
+            ))}
+          </div>
+          <CreditStatements statements={album.creditStatements ?? []} />
+        </> : <PublicCredits creditsByType={album.creditsByType} scopedByType={album.scopedCreditsByType} statements={album.creditStatements ?? []} />}
       </div>
 
-      {(album.versions?.length ?? 0) > 1 ? (
+      {(album.versions?.length ?? 0) > 0 ? (
         <div className="section">
           <h2>Versiones <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({album.versions!.length})</span></h2>
           <AlbumVersions versions={album.versions!} coverUrl={album.coverUrl} />
         </div>
       ) : null}
 
-      <div className="section">
+      {/* «Unknown» no es un formato ni un estado de archivo que el público deba ver (plan v2, punto 10). */}
+      {isAdmin || shownFormats.length ? <div className="section">
         <h2>
           Formatos
           {isAdmin ? <button type="button" className="btn btn--sm btn--ghost" onClick={() => setAddingFormat(true)}>+ Añadir formato</button> : null}
         </h2>
-        {album.formats.length === 0 ? <p style={{ color: "var(--text-faint)", fontSize: 13.5 }}>Sin formatos registrados.</p> : (
+        {shownFormats.length === 0 ? <p style={{ color: "var(--text-faint)", fontSize: 13.5 }}>Sin formatos registrados.</p> : (
           <ul style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {album.formats.map((format) => (
+            {shownFormats.map((format) => (
               <li key={format.id} className="chip">
                 <span>{format.format}</span>
                 {format.quality ? <span style={{ color: "var(--text-faint)", fontSize: 11 }}>{format.quality}</span> : null}
-                <span className="badge" style={{ fontSize: 10 }}>{format.archiveStatus}</span>
+                {format.archiveStatus !== "unknown" ? <span className="badge" style={{ fontSize: 10 }}>{format.archiveStatus}</span> : null}
                 {isAdmin ? (
                   <>
                     <button type="button" title="Editar formato" aria-label={`Editar formato ${format.format}`} onClick={() => setEditingFormat(format)}>
@@ -412,7 +479,7 @@ export function AlbumDetailPage() {
             ))}
           </ul>
         )}
-      </div>
+      </div> : null}
 
       <div className="section">
         <h2>YouTube</h2>
@@ -428,6 +495,7 @@ export function AlbumDetailPage() {
         )}
       </div>
 
+      <GenrePeriods kind="album" id={album.id}/>
       <EntityProvenance entity="album" id={album.id} revision={album} />
       <EntityHistory entity="album" id={album.id} />
 
@@ -436,24 +504,25 @@ export function AlbumDetailPage() {
           title={`Editar «${album.title}»`}
           fields={ALBUM_FIELDS}
           panels={[
+            { key: "publishing", label: "Versiones y publicación", content: <AlbumPublishingEditor id={album.id} onChanged={reload}/> },
             { key: "model", label: "Obra y soportes", content: <CatalogModelPanel kind="album" id={album.id} onChanged={reload} artistId={album.artist.id} tracks={album.tracklist} /> },
             { key: "videos", label: "Videos de YouTube", content: <AlbumVideoEditor albumId={album.id} links={album.youtubeLinks} onChanged={reload} /> },
             { key: "genres", label: "Géneros", content: <GenreEditor kind="album" id={album.id} genres={album.genres ?? []} primaryGenre={album.primaryGenre ?? null} onChanged={reload} /> },
             { key: "streaming", label: "Escuchar en", content: <PlatformLinkEditor kind="album" id={album.id} category="streaming" onChanged={reload} /> },
           ]}
           wide
+          entity={{kind:"album",id:album.id}}
           initialValues={entityFormValues(ALBUM_FIELDS, album)}
+          extraChanges={artistId !== null && artistId !== album.artist.id ? [{ label: "Artista", before: album.artist.name, after: artistLabel ?? `#${artistId}` }] : []}
           extraFields={
             <>
               <EntityPicker kind="artist" label="Artista (atribución del disco)" value={artistId} valueLabel={artistLabel}
                 onSelect={(pickedId, label) => { setArtistId(pickedId); setArtistLabel(label); }} />
-              <EntityPicker kind="organization" label="Sello discográfico" value={labelId} valueLabel={labelLabel}
-                onClear={() => { setLabelId(null); setLabelLabel(null); }}
-                onSelect={(pickedId, label) => { setLabelId(pickedId); setLabelLabel(label); }} />
+
             </>
           }
           onSubmit={(values, note) => albumWrites.update(album.id, {
-            ...values, labelId,
+            ...values,
             ...(artistId !== null && artistId !== album.artist.id ? { artistId } : {}),
             note,
           })}
@@ -493,6 +562,7 @@ export function AlbumDetailPage() {
           title={`Editar «${editingTrack.title}»`}
           fields={TRACK_FIELDS}
           panels={[{ key: "aliases", label: "Alias", content: <TrackAliasesSection trackId={editingTrack.id} onChanged={reload} /> }]}
+          entity={{kind:"track",id:editingTrack.id}}
           initialValues={entityFormValues(TRACK_FIELDS, editingTrack)}
           extraFields={
             <>

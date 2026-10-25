@@ -7,6 +7,7 @@ import { config as loadDotenv } from "dotenv";
 loadDotenv();
 
 const envSchema = z.object({
+  CRV_LAYA_PYTHON: z.string().min(1).default("/home/brian/.venvs/laya/bin/python"),
   CRV_RECOMMENDATIONS_ENABLED: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
   CRV_RECOMMENDATION_PROVIDER: z.enum(["disabled", "laya", "jev"]).default("disabled"),
   CRV_RECOMMENDATION_BASE_URL: z.string().url().default("http://127.0.0.1:8000/"),
@@ -120,7 +121,7 @@ const envSchema = z.object({
   DEEPSEEK_BASE_URL: z.string().url().default("https://api.deepseek.com"),
   DEEPSEEK_MODEL_FAST: z.string().min(1).default("deepseek-flash"),
   DEEPSEEK_MODEL_REASONING: z.string().min(1).default("deepseek-v4-pro"),
-  DEEPSEEK_MODEL_VISION: z.string().min(1).default("deepseek-v4-flash-vision-exp"),
+  DEEPSEEK_MODEL_VISION: z.string().min(1).default("deepseek-flash"),
   DEEPSEEK_MAX_TOKENS_PER_RUN: z.coerce.number().int().positive().default(4000),
   DEEPSEEK_TIMEOUT_MS: z.coerce.number().int().positive().default(30_000),
   // V4.1 Flash se invoca como deepseek-flash en la API oficial. Sin fallback.
@@ -128,6 +129,9 @@ const envSchema = z.object({
   CRV_AI_CURATION_MAX_TOKENS: z.coerce.number().int().min(1000).max(12000).default(6000),
   CRV_AI_CURATION_MAX_CALLS: z.coerce.number().int().min(1).max(3).default(2),
   CRV_AI_CURATION_CONTEXT_CHARS: z.coerce.number().int().min(8000).max(80000).default(40000),
+  // Perfiles por API en la petición general de un artista: la discografía la
+  // compara el código (MusicBrainz, Discogs, Deezer/iTunes) y el modelo no la lee.
+  CRV_SOURCE_PROFILES_ENABLED: z.enum(["true", "false"]).default("false").transform((value) => value === "true"),
   // Buscador privado para verificar identidades; vacío = solo fuentes ya conocidas.
   CRV_SEARXNG_URL: z.preprocess((value) => value === "" ? undefined : value, z.string().url().optional()),
   CRV_RESEARCH_DOCUMENT_MAX_BYTES: z.coerce.number().int().positive().default(25000000),

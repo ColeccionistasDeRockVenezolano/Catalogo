@@ -3,6 +3,7 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { publicGenreSchema } from "../schemas.js";
 import { caracasToday, getHomeData } from "../repositories/home.js";
+import { dailyCycleSchema, dailyDateSchema } from "../daily-cycle.js";
 
 const homeAlbumSchema = z.object({
   id: z.number().int(), title: z.string(), releaseYear: z.number().int().nullable(), albumType: z.string(),
@@ -11,6 +12,7 @@ const homeAlbumSchema = z.object({
 const refSchema = (label: "title" | "name") => z.object({ id: z.number().int(), [label]: z.string() });
 
 const homeSchema = z.object({
+  dailyCycle: dailyCycleSchema,
   date: z.string(),
   wall: z.array(homeAlbumSchema),
   channel: z.object({ url: z.string(), checkedAt: z.string().nullable(), stale: z.boolean() }),
@@ -18,8 +20,8 @@ const homeSchema = z.object({
     artists: z.number().int(), albums: z.number().int(), tracks: z.number().int(), persons: z.number().int(),
     firstYear: z.number().int().nullable(), lastYear: z.number().int().nullable(),
   }),
-  anniversaries: z.array(z.object({
-    years: z.number().int(), releaseYear: z.number().int(), total: z.number().int(), albums: z.array(homeAlbumSchema),
+  eras: z.array(z.object({
+    decade: z.number().int(), total: z.number().int(), albums: z.array(homeAlbumSchema),
   })),
   videos: z.array(z.object({
     videoId: z.string(), title: z.string().nullable(), publishedAt: z.string().nullable(), thumbnailUrl: z.string().nullable(),
@@ -42,10 +44,10 @@ export async function registerHomeRoutes(app: FastifyInstance): Promise<void> {
   app.withTypeProvider<ZodTypeProvider>().get("/home", {
     schema: {
       tags: ["search"],
-      summary: "Portada: cifras, aniversarios, canal, artista del día, disco para escuchar y sellos",
+      summary: "Portada: cifras, épocas, canal, artista del día, disco para escuchar y sellos",
       querystring: z.object({
         // Solo para pruebas y vistas previas; sin ella manda la fecha de Caracas.
-        date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/u, "date debe ser AAAA-MM-DD").optional(),
+        date: dailyDateSchema.optional(),
       }),
       response: { 200: homeSchema },
     },

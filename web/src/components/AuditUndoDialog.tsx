@@ -14,6 +14,7 @@ import { useAsync } from "../lib/useAsync";
 import { useToast } from "../lib/ToastContext";
 import type { CatalogChangeEvent } from "../lib/api";
 import { Modal } from "./Modal";
+import { NOTE_PRESETS, NoteField } from "./NoteField";
 
 export function AuditUndoDialog({ auditId, onClose }: { auditId: number; onClose: () => void }) {
   const { notify } = useToast();
@@ -34,7 +35,7 @@ export function AuditUndoDialog({ auditId, onClose }: { auditId: number; onClose
     setSaveError(undefined);
     try {
       const result = await auditApi.undoEntry(auditId, note.trim());
-      notify("success", `Deshecha la ${what} (cambio #${result.runId}). Puedes rehacerla desde la barra o el Historial.`);
+      notify("success", `${what === "fusión" ? "Fusión deshecha" : "Conversión deshecha"}. Puedes rehacerla desde Cambios recientes.`);
       // Igual que cualquier escritura: la barra «Deshacer» queda a la vista y
       // las listas abiertas se recargan.
       window.dispatchEvent(new CustomEvent<CatalogChangeEvent>(CATALOG_CHANGE_EVENT, {
@@ -51,7 +52,7 @@ export function AuditUndoDialog({ auditId, onClose }: { auditId: number; onClose
   }
 
   return (
-    <Modal title={data ? `Deshacer esta ${what}` : "Deshacer del historial"} onClose={onClose} sheet>
+    <Modal title={data ? `Deshacer esta ${what}` : "Deshacer del historial"} onClose={onClose} sheet closeOnOverlay={!note.trim()}>
       {loading && !data ? (
         <p className="hint">Calculando qué haría…</p>
       ) : error || !data ? (
@@ -81,19 +82,15 @@ export function AuditUndoDialog({ auditId, onClose }: { auditId: number; onClose
           )}
 
           {data.undoable ? (
-            <div className="field" style={{ marginTop: 14 }}>
-              <label htmlFor="audit-undo-note">Motivo *</label>
-              <textarea
-                id="audit-undo-note" rows={2} value={note} onChange={(event) => setNote(event.target.value)}
-                placeholder={`Por qué se deshace esta ${what}`}
-              />
+            <div style={{ marginTop: 14 }}>
+              <NoteField value={note} onChange={setNote} presets={NOTE_PRESETS.undo} placeholder={`Por qué se deshace esta ${what}`} />
             </div>
           ) : null}
           {saveError ? <p className="form-error-banner" role="alert">{saveError}</p> : null}
           <div className="form-actions">
             <button type="button" className="btn btn--ghost" onClick={onClose}>Cerrar</button>
             {data.undoable ? (
-              <button type="button" className="btn btn--danger" onClick={() => void confirm()} disabled={saving || !note.trim()}>
+              <button type="button" className="btn btn--primary" onClick={() => void confirm()} disabled={saving || !note.trim()}>
                 {saving ? "Deshaciendo…" : `Deshacer esta ${what}`}
               </button>
             ) : null}

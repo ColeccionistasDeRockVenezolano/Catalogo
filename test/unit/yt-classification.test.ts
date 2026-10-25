@@ -1,8 +1,21 @@
 import { describe, expect, it } from "vitest";
 import { classifySheetRow, collectReleaseYears, inferSheetType, releaseIdentity } from "../../src/youtube/normalization.js";
-import { rowClassifications } from "../../src/youtube/classifications.js";
+import { mergeSheetAndLocalClassifications, rowClassifications } from "../../src/youtube/classifications.js";
 
 describe("tipos de la hoja", () => {
+  it("conserva categorías locales al regenerar la hoja y no duplica coincidencias", () => {
+    expect(mergeSheetAndLocalClassifications([
+      { classification: "EP", inferred: false, seedUploadId: "1" },
+      { classification: "En vivo", inferred: false, seedUploadId: "1" },
+    ], [
+      { classification: "En vivo", inferred: true, seedUploadId: null },
+      { classification: "B-Sides", inferred: true, seedUploadId: null },
+    ])).toEqual([
+      { classification: "EP", inferred: false, seedUploadId: "1" },
+      { classification: "En vivo", inferred: false, seedUploadId: null },
+      { classification: "B-Sides", inferred: true, seedUploadId: null },
+    ]);
+  });
   it("el tipo escrito manda y uno vacío se infiere marcado", () => {
     expect(classifySheetRow({ type: "Live Album", artistName: "Various Artists", albumName: "X" }).normalizedType).toBe("live_album");
     const inferred = classifySheetRow({ type: null, artistName: "Tulio Chuecos", albumName: "EP" });

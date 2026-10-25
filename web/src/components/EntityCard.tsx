@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { Buildings, Disc, ImageSquare } from "@phosphor-icons/react";
 import { DeceasedMark } from "./DeceasedMark";
 import { CatalogGenres, CatalogYear } from "./CatalogMetadata";
 import type { PublicGenre } from "../lib/types";
+import { mediaImage } from "../lib/media";
 
 interface EntityCardProps {
   to: string;
   title: string;
   subtitle?: string | null | undefined;
-  albumMetadata?: { artist: string; artistId: number; year: number | null; type: string; typeValue?: string };
+  albumMetadata?: { artist: string; artistId: number; year: number | null; type: string; typeValue?: string; categories?: Array<{ key: string; label: string }> };
   imageUrl?: string | null | undefined;
   imageFit?: "cover" | "contain";
   placeholder: string;
@@ -36,7 +37,7 @@ export function EntityCard({ to, title, subtitle, albumMetadata, imageUrl, image
     <div className={`entity-card${albumMetadata ? " entity-card--album" : ""}`}>
       <Link to={to} aria-label={`Ver ${isAlbum ? "el disco" : "la ficha de"} ${title}`} className={`entity-card__art${hasImage ? "" : " entity-card__art--empty"}`}>
         {hasImage && imageUrl ? (
-          <img src={imageUrl} alt="" loading="lazy" decoding="async" width="400" height="400"
+          <img {...mediaImage(imageUrl, 240)} alt="" loading="lazy" decoding="async" width="400" height="400"
             style={{ objectFit: imageFit }} onError={() => setFailedImage(imageUrl)} />
         ) : (
           <span className="entity-card__placeholder" aria-hidden="true">
@@ -52,7 +53,11 @@ export function EntityCard({ to, title, subtitle, albumMetadata, imageUrl, image
           <span className="entity-card__edition">
             <CatalogYear year={albumMetadata.year} className="entity-card__year" />
             <span className="entity-card__edition-separator" aria-hidden="true">·</span>
-            {albumMetadata.typeValue ? <Link className="entity-card__album-type" to={`/discos?tipo=${encodeURIComponent(albumMetadata.typeValue)}`}>{albumMetadata.type}</Link> : <span className="entity-card__album-type">{albumMetadata.type}</span>}
+            {albumMetadata.typeValue !== "other" || !albumMetadata.categories?.length ? albumMetadata.typeValue ? <Link className="entity-card__album-type" to={`/discos?tipo=${encodeURIComponent(albumMetadata.typeValue)}`}>{albumMetadata.type}</Link> : <span className="entity-card__album-type">{albumMetadata.type}</span> : null}
+            {albumMetadata.categories?.map((category, index) => <Fragment key={category.key}>
+              {albumMetadata.typeValue !== "other" || index > 0 ? <span className="entity-card__edition-separator" aria-hidden="true">·</span> : null}
+              <Link className="entity-card__album-type" to={`/discos?tipo=${encodeURIComponent(category.key)}`}>{category.label}</Link>
+            </Fragment>)}
           </span>
         </> : subtitle ? <span className="entity-card__sub">
           {isArtist && typeValue ? <><Link to={`/artistas?tipo=${encodeURIComponent(typeValue)}`}>{typeLabel}</Link>{otherSubtitle.length ? ` · ${otherSubtitle.join(" · ")}` : null}</> : subtitle}

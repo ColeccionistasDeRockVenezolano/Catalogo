@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { hasPendingImageUploads, useImageUploadsPending } from "../lib/imageUploads";
 import { Link } from "react-router-dom";
 import type { CatalogDecision, CatalogOperation, CatalogPlan, CatalogRef, CatalogVocabulary } from "../../../src/curation/ai/types";
 import { operationRefs } from "../../../src/curation/ai/schema";
@@ -6,7 +7,7 @@ import { CatalogChangePreview } from "./CatalogChangePreview";
 import { CatalogOperationEditor, catalogFieldLabel, KIND_LABELS } from "./CatalogOperationEditor";
 
 const PATHS = { artist: "artistas", person: "personas", album: "discos", organization: "organizaciones", track: "pistas" };
-const editorialError = (message: string) => /Sin evidencia|extracto citado|criterio editorial/iu.test(message);
+const editorialError = (message: string) => /Sin evidencia|extracto citado|criterio editorial|Respaldo insuficiente/iu.test(message);
 function title(op: CatalogOperation, vocabulary: CatalogVocabulary): string {
   const genre = (slug: string) => vocabulary.genres.find((item) => item.slug === slug)?.name ?? slug;
   switch (op.op) {
@@ -27,12 +28,15 @@ function title(op: CatalogOperation, vocabulary: CatalogVocabulary): string {
   }
 }
 
-export function CatalogProposalCard({ operation, plan, rootLabel, vocabulary, busy, processing, error, onDecide, onUndo }: {
+export function CatalogProposalCard({ operation, plan, rootLabel, vocabulary, busy: saving, processing, error, onDecide: decide, onUndo }: {
   operation: CatalogOperation; plan: CatalogPlan; vocabulary: CatalogVocabulary; busy: boolean;
   rootLabel: string | null;
   processing: boolean; error?: string | undefined; onDecide: (operation: CatalogOperation, decision: CatalogDecision["decision"]) => void;
   onUndo: (runId: number) => void;
 }) {
+  const uploading = useImageUploadsPending();
+  const busy = saving || uploading;
+  const onDecide: typeof decide = (operation, decision) => { if (!hasPendingImageUploads()) decide(operation, decision); };
   const [op, setOp] = useState(operation);
   const signature = JSON.stringify(operation);
   useEffect(() => { setOp(JSON.parse(signature) as CatalogOperation); }, [signature]);
@@ -59,8 +63,11 @@ export function CatalogProposalCard({ operation, plan, rootLabel, vocabulary, bu
   }
   const dependencies = operationRefs(op).filter((ref) => "key" in ref && (!plan.result?.created[ref.key] || plan.decisions?.[ref.key]?.undone));
   const structuralError = preview?.error && !editorialError(preview.error) ? preview.error : null;
+  // Parts without documentary support stay visible before deciding; accepting records an editorial decision.
+  const gaps = preview?.evidenceGaps ?? [];
+  const editorial = gaps.length > 0 || Boolean(preview?.error && editorialError(preview.error));
   return <article className={`ai-proposal${decision || legacyApplied ? " is-decided" : ""}`} aria-label={title(op, vocabulary)}>
-    <header><h3>{title(op, vocabulary)}</h3>{decision || legacyApplied ? <span className="ai-proposal__state">{decision?.undone ? "Deshecho" : decision?.decision === "rejected" ? "Rechazado" : "Aplicado"}</span> : null}</header>
+    <header><h3>{title(op, vocabulary)}</h3>{decision || legacyApplied ? <span className="ai-proposal__state">{decision?.undone ? "Deshecho" : decision?.decision === "rejected" ? "Rechazado" : editorial ? "Aplicado · decisión editorial" : "Aplicado"}</span> : null}</header>
     {"target" in op ? <p className="ai-proposal__context">En {refLink(op.target)}</p> : null}
     {op.op === "merge_entities" ? <div className="ai-proposal__merge"><p>Unir {refLink(op.drop)} con {refLink(op.keep)}.</p><p>Se conserva {refLink(op.keep)} y se integran las relaciones y los alias de ambas fichas.</p></div> : null}
     {op.op === "create_album" ? <p>{op.tracks.length} pistas · {op.credits.length} créditos · Artista: {refLink(op.artist)}</p> : null}
@@ -68,12 +75,13 @@ export function CatalogProposalCard({ operation, plan, rootLabel, vocabulary, bu
     {otherFields && Object.keys(otherFields.values).length ? <CatalogChangePreview operation={otherFields} preview={displayPreview} vocabulary={vocabulary} /> : null}
     {editable && dependencies.length ? <p className="hint">Primero acepta {dependencies.map((ref) => `«${refName(ref)}»`).join(" y ")}. Este cambio necesita esa ficha.</p> : null}
     {editable && structuralError && !dependencies.length ? <p className="ai-proposal__warning">{structuralError}</p> : null}
+    {editorial && (editable || decision?.decision === "accepted") ? <div className="ai-proposal__gaps" role="note"><strong>{editable ? "Sin respaldo documental" : "Aceptado sin respaldo documental"}</strong>{gaps.length ? <ul>{gaps.map((gap) => <li key={gap}>{gap}</li>)}</ul> : <p>Las citas no bastan para comprobar este cambio.</p>}{editable ? <p className="hint">Si lo aceptas, quedará registrado como decisión editorial tuya.</p> : null}</div> : null}
     {error ? <p className="ai-message ai-message--error" role="alert">{error}</p> : null}
     {processing ? <p role="status">Guardando decisión…</p> : null}
-    {editable ? <div className="ai-proposal__decision" role="group" aria-label={`¿Aceptas el cambio «${title(op, vocabulary)}»?`}><span>¿Aceptas el cambio?</span><button type="button" className="btn btn--primary btn--sm" disabled={busy || dependencies.length > 0} onClick={() => onDecide(op, "accepted")}>Sí, aceptar</button><button type="button" className="btn btn--sm" disabled={busy} onClick={() => onDecide(operation, "rejected")}>No</button></div> : null}
+    {editable ? <div className="ai-proposal__decision" role="group" aria-label={`¿Aceptas el cambio «${title(op, vocabulary)}»?`}><span>¿Aceptas el cambio?</span><button type="button" className="btn btn--primary btn--sm" disabled={busy || dependencies.length > 0} onClick={() => onDecide(op, "accepted")}>{editorial ? "Aceptar como decisión editorial" : "Sí, aceptar"}</button><button type="button" className="btn btn--sm" disabled={busy} onClick={() => onDecide(operation, "rejected")}>No</button></div> : null}
     {decision?.decision === "accepted" && decision.runId && !decision.undone ? <div className="page-actions"><Link className="text-link" to="/historial">Ver cambio #{decision.runId}</Link><button type="button" className="btn btn--sm" disabled={busy} onClick={() => onUndo(decision.runId!)}>Deshacer</button></div> : null}
-    <details className="ai-proposal__detail"><summary>Por qué se propone · {sources.length} {sources.length === 1 ? "fuente" : "fuentes"}</summary><p>{op.reason}</p>{sources.length ? sources.map((source) => <div className="ai-proposal__source" key={source.id}>{/^https?:\/\//iu.test(source.url) ? <a href={source.url} target="_blank" rel="noreferrer">{source.label || source.url}</a> : <strong>{source.label || "Datos del catálogo"}</strong>}<blockquote>{source.quote}</blockquote></div>) : <p>La IA no adjuntó una fuente documental. Revisa el dato antes de aceptarlo.</p>}{preview?.error && editorialError(preview.error) ? <p className="hint">Las citas no bastan para comprobar este cambio. Al aceptarlo confirmas tu revisión editorial.</p> : null}</details>
+    <details className="ai-proposal__detail"><summary>Por qué se propone · {sources.length} {sources.length === 1 ? "fuente" : "fuentes"}</summary><p>{op.reason}</p>{sources.length ? sources.map((source) => <div className="ai-proposal__source" key={source.id}>{/^https?:\/\//iu.test(source.url) ? <a href={source.url} target="_blank" rel="noreferrer">{source.label || source.url}</a> : <strong>{source.label || "Datos del catálogo"}</strong>}<blockquote>{source.quote}</blockquote></div>) : <p>La IA no adjuntó una fuente documental. Revisa el dato antes de aceptarlo.</p>}</details>
     {!["assign_genre", "remove_genre", "add_alias", "replace_fields", "replace_relation"].includes(op.op) ? <details className="ai-proposal__detail"><summary>Ver qué se añadirá o modificará</summary><CatalogChangePreview operation={op} preview={plan.preview} vocabulary={vocabulary} /></details> : null}
-    {editable ? <details className="ai-proposal__detail"><summary>Editar propuesta</summary><fieldset disabled={busy}><CatalogOperationEditor operation={op} operations={plan.draft!.operations} onChange={setOp} vocabulary={vocabulary} preview={plan.preview} /></fieldset><p className="hint">Tus ajustes se guardan y se aplican cuando eliges Sí, aceptar.</p></details> : null}
+    {editable ? <details className="ai-proposal__detail"><summary>Editar propuesta</summary><fieldset disabled={saving}><CatalogOperationEditor operation={op} operations={plan.draft!.operations} onChange={setOp} vocabulary={vocabulary} preview={plan.preview} /></fieldset><p className="hint">Tus ajustes se guardan y se aplican cuando eliges Sí, aceptar.</p></details> : null}
   </article>;
 }

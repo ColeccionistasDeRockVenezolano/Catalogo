@@ -1,4 +1,6 @@
+import { sharedOptionLabel } from "../lib/labels";
 import { useId } from "react";
+import { ImageUploadField } from "./ImageUploadField";
 import { EntityPicker } from "./EntityPicker";
 import type {
   CatalogField,
@@ -101,8 +103,8 @@ const LABELS: Record<string, string> = {
 };
 export const catalogFieldLabel = (key: string) => LABELS[key] ?? key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/^./, c => c.toUpperCase());
 const label = catalogFieldLabel;
-const OPTIONS: Record<string,string> = {studio_album:'Álbum de estudio',live_album:'Álbum en vivo',compilation:'Recopilatorio',single:'Sencillo',ep:'EP',band:'Banda',solo:'Solista',active:'Activo',inactive:'Inactivo',disbanded:'Separado',unknown:'Sin confirmar',primary:'Principal',secondary:'Secundario',musician:'Músico',producer:'Productor',composer:'Compositor',production:'Producción',technical:'Técnico',other:'Otro',published:'Publicado',unpublished:'Inédito',name_variant:'Variante del nombre',spelling_variant:'Variante de escritura',former_name:'Nombre anterior',stage_name:'Nombre artístico',acronym:'Sigla',misspelling:'Error de escritura',alternate_title:'Título alternativo',keep:'Conservar ficha principal',drop:'Tomar de la ficha fusionada',record_label:'Sello discográfico',recording_studio:'Estudio de grabación'};
-export const catalogOptionLabel = (value:string) => OPTIONS[value] ?? value;
+const OPTIONS: Record<string,string> = {studio_album:'Álbum de estudio',live_album:'Álbum en vivo',compilation:'Compilado',single:'Sencillo',ep:'EP',band:'Banda',solo:'Solista',active:'Activo',inactive:'Inactivo',disbanded:'Separado',unknown:'Sin confirmar',primary:'Principal',secondary:'Secundario',musician:'Músico',producer:'Productor',composer:'Compositor',production:'Producción',technical:'Técnico',other:'Otro',published:'Publicado',unpublished:'Inédito',name_variant:'Variante del nombre',spelling_variant:'Variante de escritura',former_name:'Nombre anterior',stage_name:'Nombre artístico',acronym:'Sigla',misspelling:'Error de escritura',alternate_title:'Título alternativo',keep:'Conservar ficha principal',drop:'Tomar de la ficha fusionada',record_label:'Sello discográfico',recording_studio:'Estudio de grabación'};
+export const catalogOptionLabel = (value:string) => sharedOptionLabel(value) !== value ? sharedOptionLabel(value) : OPTIONS[value] ?? value;
 function isRef(value: unknown): value is CatalogRef {
   return Boolean(
     value &&
@@ -421,7 +423,9 @@ function ValueEditor(props: ValueProps) {
   return (
     <div className="field">
       <label htmlFor={inputId}>{label(name)}</label>
-      {genre ? (
+      {parent !== "fieldChoices" && ["pictureUrl", "logoUrl", "coverUrl", "thumbnailUrl"].includes(name) ? (
+        <ImageUploadField id={inputId} label={label(name)} value={String(value ?? "")} onChange={url => onChange(url || null)} />
+      ) : genre ? (
         <select
           id={inputId}
           value={String(value ?? "")}

@@ -37,6 +37,9 @@ import { youtubeLinkKey } from "./linker.js";
 import { canonicalVideoUrl, extractYouTubeVideoId } from "./normalization.js";
 import { parseYouTubeTitle } from "./parsers.js";
 import { persistVideoPayload } from "./pipeline.js";
+import { audiovisualAlbumException, audiovisualKind } from "./audiovisual-rules.js";
+import { syncArtistAudiovisuals } from "./audiovisuals.js";
+import { syncAlbumVideoTrackTimes } from "./track-playback.js";
 import { matchTracklist, reconcileYouTubeChannel, type SnapshotTrack } from "./reconcile.js";
 import {
   applyMusicianPlan, applyOtherPlan, planMusicianSections, planOtherCredits, readMusicianSectionInputs, readOtherCreditInputs,
@@ -118,6 +121,7 @@ export interface WatchAlbum {
   primary: { videoId: string; available: boolean } | null;
 }
 export interface WatchVideo {
+  sheetType?: string | null;
   videoId: string; title: string; durationSeconds: number | null; publicationStatus: string;
   tracklist: Array<{ position: number; title: string; startSeconds: number }>;
 }
@@ -128,6 +132,7 @@ export interface WatchCatalog {
 }
 
 export type WatchDecision =
+  | { action: "audiovisual"; reason: string }
   | { action: "ignore"; reason: string }
   | { action: "review"; reason: string; artistIds: number[]; albumIds: number[] }
   | { action: "link"; artistId: number; albumId: number; rename: string | null; via: string; primary: boolean; fillYear: number | null; reasons: string[] }
@@ -153,7 +158,10 @@ const MIN_ENTRIES = 3;
 
 export function planUpload(video: WatchVideo, catalog: WatchCatalog): WatchDecision {
   const parsed = parseYouTubeTitle(video.title);
-  if (!parsed.isFullAlbum) return { action: "ignore", reason: "no es un Full Album (videoclip, concierto, reseña o pieza editorial)" };
+  if (audiovisualKind(video.sheetType, video.title) && !audiovisualAlbumException(parsed.artist ?? "", parsed.title, video.videoId)) {
+    return { action: "audiovisual", reason: "obra audiovisual: se incorpora al perfil del artista, sin crear disco" };
+  }
+  if (!parsed.isFullAlbum) return { action: "review", reason: "video sin clasificación audiovisual ni marcador de publicación musical: requiere identificar el tipo de obra", artistIds: [], albumIds: [] };
   if (UNAVAILABLE_STATUSES.has(video.publicationStatus)) return { action: "ignore", reason: `video ${video.publicationStatus}` };
   if (!parsed.artist) return { action: "review", reason: "el título no tiene la forma «Artista - Disco»", artistIds: [], albumIds: [] };
   const title = channelAlbumTitle(video.title);
@@ -288,15 +296,17 @@ async function catalogFor(client: PoolClient, video: WatchVideo): Promise<WatchC
 }
 
 async function readVideo(client: PoolClient, videoId: string): Promise<{ dbId: number; video: WatchVideo; thumbnailUrl: string | null } | null> {
-  const row = (await client.query<{ id: string; title: string | null; duration_seconds: number | null; publication_status: string; thumbnail_url: string | null }>(
-    "SELECT id::text, title, duration_seconds, publication_status::text, thumbnail_url FROM media.youtube_videos WHERE video_id=$1", [videoId])).rows[0];
+  const row = (await client.query<{ id: string; title: string | null; duration_seconds: number | null; publication_status: string; thumbnail_url: string | null; sheet_type: string | null }>(
+    `SELECT id::text, title, duration_seconds, publication_status::text, thumbnail_url,
+      (SELECT s.type_raw FROM ingest.seed_uploads s WHERE s.video_id=v.video_id ORDER BY s.id LIMIT 1) AS sheet_type
+      FROM media.youtube_videos v WHERE video_id=$1`, [videoId])).rows[0];
   if (!row || row.title === null) return null;
   const entries = await client.query<{ position: number; title: string; start_seconds: number }>(
     "SELECT position, title, start_seconds FROM media.youtube_tracklist_entries WHERE video_id=$1 ORDER BY position", [row.id]);
   return {
     dbId: Number(row.id), thumbnailUrl: row.thumbnail_url,
     video: {
-      videoId, title: row.title, durationSeconds: row.duration_seconds, publicationStatus: row.publication_status,
+      videoId, title: row.title, durationSeconds: row.duration_seconds, publicationStatus: row.publication_status, sheetType: row.sheet_type,
       tracklist: entries.rows.map((entry) => ({ position: entry.position, title: entry.title, startSeconds: entry.start_seconds })),
     },
   };
@@ -409,6 +419,12 @@ export interface WatchOutcome {
 
 async function applyDecision(context: OperatorContext, dbId: number, video: WatchVideo, thumbnailUrl: string | null, decision: WatchDecision): Promise<Omit<WatchOutcome, "videoId" | "title" | "decision">> {
   const url = canonicalVideoUrl(video.videoId);
+  if (decision.action === "audiovisual") {
+    const synced = await syncArtistAudiovisuals(context.client, { videoDbId: dbId });
+    if (synced.unresolved.length) return { reviewOpened: await openReview(context.client, dbId, { videoId: video.videoId, reason: synced.unresolved }, "Audiovisual pendiente de identificar artista") };
+    await closeReviews(context.client, dbId, "Obra incorporada a Audiovisuales");
+    return {};
+  }
   if (decision.action === "ignore") return {};
   if (decision.action === "review") {
     const reviewOpened = await openReview(context.client, dbId, {
@@ -474,7 +490,7 @@ export async function latestUploadIds(api: YouTubeDataApi): Promise<string[]> {
   } catch (error) {
     log.warn({ error: String(error) }, "la API no dio la lista del canal; se usa el feed público");
     const response = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${CRV_CHANNEL_ID}`, { signal: AbortSignal.timeout(10_000) });
-    if (!response.ok) throw new Error(`feed de YouTube: ${response.status}`);
+    if (!response.ok) throw new Error(`feed de YouTube: ${response.status}`, { cause: error });
     const $ = load(await response.text(), { xml: true });
     return $("entry").toArray().flatMap((entry) => {
       const id = extractYouTubeVideoId($(entry).find("yt\\:videoId").text());
@@ -484,6 +500,8 @@ export async function latestUploadIds(api: YouTubeDataApi): Promise<string[]> {
 }
 
 export interface WatchResult {
+  trackPlayback?: Awaited<ReturnType<typeof syncAlbumVideoTrackTimes>>;
+  audiovisuals?: Awaited<ReturnType<typeof syncArtistAudiovisuals>>;
   dryRun: boolean; checked: number; newVideos: number; outcomes: WatchOutcome[];
   credits: { runs: number[]; added: number; retired: number; retyped: number; reviews: string[] } | null;
   reconcileRunId?: number;
@@ -585,7 +603,10 @@ export async function watchChannelUploads(options: { dryRun?: boolean; api?: You
     reconcileRunId = reconciled.runId;
   }
 
-  const result: WatchResult = { dryRun, checked: latest.length, newVideos: fresh.length, outcomes, credits, ...(reconcileRunId === undefined ? {} : { reconcileRunId }) };
+  const audiovisuals = await withOperatorRun({ name: "youtube-audiovisuales", operator: WATCH_OPERATOR,
+    note: "Sincronizar audiovisuales en los perfiles y marcas de las pistas existentes; no crear discos" },
+  async context => ({ audiovisuals: await syncArtistAudiovisuals(context.client), trackPlayback: await syncAlbumVideoTrackTimes(context.client) }), { rollbackOnly: dryRun });
+  const result: WatchResult = { audiovisuals: audiovisuals.result.audiovisuals, trackPlayback: audiovisuals.result.trackPlayback, dryRun, checked: latest.length, newVideos: fresh.length, outcomes, credits, ...(reconcileRunId === undefined ? {} : { reconcileRunId }) };
   if (!dryRun && (outcomes.length > 0 || fresh.length > 0)) await writeLog("videos-nuevos.jsonl", result);
   return result;
 }

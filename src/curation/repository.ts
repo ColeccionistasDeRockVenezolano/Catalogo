@@ -241,6 +241,7 @@ export interface FindingFilter {
 export interface FindingQuery extends FindingFilter {
   limit: number;
   offset: number;
+  sort?: "priority" | "oldest" | "newest" | "entity" | undefined;
 }
 
 /**
@@ -267,7 +268,13 @@ function buildFindingsWhere(filter: FindingFilter): { where: string[]; params: u
   if (filter.chained) where.push("evidence ? 'triggeredBy'");
   if (filter.q?.trim()) {
     params.push(`%${filter.q.trim().replace(/[\\%_]/gu, (char) => `\\${char}`)}%`);
-    where.push(`(value ILIKE $${params.length} OR entity_label ILIKE $${params.length} OR title ILIKE $${params.length})`);
+    const textMatch = `value ILIKE $${params.length} OR entity_label ILIKE $${params.length} OR title ILIKE $${params.length}`;
+    const id = filter.q.trim().replace(/^#/u, "");
+    if (/^\d{1,16}$/u.test(id) && Number.isSafeInteger(Number(id))) {
+      params.push(id);
+      where.push(`(${textMatch} OR id = $${params.length}::bigint OR entity_id = $${params.length}::bigint
+        OR related @> jsonb_build_array(jsonb_build_object('id', $${params.length}::bigint)))`);
+    } else where.push(`(${textMatch})`);
   }
   return { where, params };
 }
@@ -310,6 +317,12 @@ const FINDING_COLUMNS = `id::text, category, detector, signature, severity, enti
 
 export async function listFindings(query: FindingQuery): Promise<{ rows: FindingRow[]; total: number }> {
   const { where, params } = buildFindingsWhere(query);
+  const order = {
+    priority: "CASE severity WHEN 'high' THEN 0 WHEN 'medium' THEN 1 ELSE 2 END, first_seen_at DESC, f.id",
+    oldest: "first_seen_at ASC, f.id ASC",
+    newest: "first_seen_at DESC, f.id DESC",
+    entity: "entity_label ASC, f.id ASC",
+  }[query.sort ?? "priority"];
   params.push(query.limit, query.offset);
   const [lastScan, result] = await Promise.all([
     lastOkScanId(),
@@ -318,10 +331,16 @@ export async function listFindings(query: FindingQuery): Promise<{ rows: Finding
              count(*) OVER ()::text AS total
         FROM ingest.curation_findings f
        ${where.length ? `WHERE ${where.join(" AND ")}` : ""}
-       ORDER BY CASE severity WHEN 'high' THEN 0 WHEN 'medium' THEN 1 ELSE 2 END, first_seen_at DESC, f.id
+       ORDER BY ${order}
        LIMIT $${params.length - 1} OFFSET $${params.length}`, params),
   ]);
-  return { rows: result.rows.map((row) => findingRow(row, lastScan)), total: Number(result.rows[0]?.total ?? 0) };
+  // Una decisión puede vaciar la última página. El total debe permitir volver
+  // a la anterior; count(*) OVER no devuelve nada cuando OFFSET ya la rebasa.
+  const total = result.rows[0]?.total ?? (query.offset > 0
+    ? (await getPool().query<{ total: string }>(`SELECT count(*)::text AS total FROM ingest.curation_findings f
+        ${where.length ? `WHERE ${where.join(" AND ")}` : ""}`, params.slice(0, -2))).rows[0]?.total
+    : "0");
+  return { rows: result.rows.map((row) => findingRow(row, lastScan)), total: Number(total ?? 0) };
 }
 
 /**

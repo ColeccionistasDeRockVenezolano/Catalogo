@@ -11,8 +11,9 @@
 // (src/api/auth.ts, ADMIN_READS); aquí se explica por qué en vez de mostrar
 // «No se pudo cargar».
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { PageBoundary } from "../components/PageBoundary";
 import { Link, NavLink, Outlet, useLocation, useOutletContext } from "react-router-dom";
-import { CaretDown, ClockCounterClockwise, Copy, Images, LockSimple, Pulse, Robot, SignIn, type Icon } from "@phosphor-icons/react";
+import { CaretDown, ClockCounterClockwise, Copy, Images, ListChecks, LockSimple, MagicWand, Pulse, Robot, SignIn, type Icon } from "@phosphor-icons/react";
 import { useOperator } from "../lib/OperatorContext";
 import { ApiError, curationApi, entityMergeApi, imageCandidatesApi } from "../lib/api";
 import { categoryIcon, formatCount } from "../lib/curation";
@@ -20,6 +21,7 @@ import { LoadingState } from "../components/StateViews";
 import { RowsSkeleton } from "../components/Skeletons";
 import { OperatorDialog } from "../components/OperatorSettings";
 import type { CurationSummary } from "../lib/types";
+import "../styles/curation-workbench.css";
 
 /** Cada cuánto se refresca el resumen; más a menudo mientras un análisis corre. */
 const REFRESH_MS = 20_000;
@@ -168,9 +170,9 @@ export function CurationLayout() {
         <div className="curation-shell">
           <CurationNav summary={summary} duplicateCount={duplicateCount} imageCount={imageCount} />
           <div className="curation-shell__main">
-            <Suspense fallback={<RowsSkeleton rows={4} label="Cargando la sección…" />}>
+            <PageBoundary><Suspense fallback={<RowsSkeleton rows={4} label="Cargando la sección…" />}>
               <Outlet context={context} />
-            </Suspense>
+            </Suspense></PageBoundary>
           </div>
         </div>
       )}
@@ -216,7 +218,8 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const overview: NavEntry = { to: "/curaduria", end: true, label: "Conflictos", icon: Pulse, ...(summary ? { count: summary.totals.open } : {}) };
+  const overview: NavEntry = { to: "/curaduria", end: true, label: "Resumen", icon: Pulse };
+  const workspace: NavEntry = { to: "/curaduria/hallazgos", label: "Revisar casos", icon: ListChecks, ...(summary ? { count: summary.totals.open } : {}) };
   const categories: NavEntry[] = summary?.categories.map((category) => ({
     to: `/curaduria/categoria/${category.key}`,
     label: category.label,
@@ -226,6 +229,7 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
     title: category.description,
   })) ?? [];
   const tools: NavEntry[] = [
+    { to: "/curaduria/aportes", label: "Revisar aportes", icon: ListChecks },
     { to: "/curaduria/ia", label: "Propuestas con IA", icon: Robot },
     {
       to: "/curaduria/duplicados", label: "Posibles duplicados", icon: Copy,
@@ -242,12 +246,12 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
     // contador es lo que lleva corregido hoy: si aparece, algo escribió sin
     // que nadie lo pidiera y conviene verlo.
     {
-      to: "/curaduria/autocorreccion", label: "Autocorrección", icon: Robot,
+      to: "/curaduria/autocorreccion", label: "Autocorrección", icon: MagicWand,
       ...(summary && summary.autofix.today.applied > 0 ? { count: summary.autofix.today.applied } : {}),
       ...(summary && summary.autofix.alerts.length > 0 ? { fresh: true } : {}),
     },
   ];
-  const current = currentEntry(pathname, [overview, ...categories, ...tools]);
+  const current = currentEntry(pathname, [overview, workspace, ...categories, ...tools]);
   const CurrentIcon = current.icon;
 
   return (
@@ -265,8 +269,8 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
       <div className="cside__panel">
         <nav id="cside-nav" className="cside__nav" aria-label="Herramientas de curaduría">
           <div className="cside__sheet">
-            <NavGroup id="cside-overview" label="Panorama" entries={[overview]} />
-            <NavGroup id="cside-tools" label="Revisar y corregir" entries={tools} />
+            <NavGroup id="cside-overview" label="Curaduría" entries={[workspace, overview]} />
+            {/* Las categorías son el trabajo: van antes que las herramientas. */}
             {summary ? (
               <NavGroup id="cside-categories" label="Categorías" entries={categories} />
             ) : (
@@ -275,6 +279,8 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
                 {[0, 1, 2, 3].map((index) => <span key={index} className="skeleton cside__skeleton" aria-hidden="true" />)}
               </div>
             )}
+            <NavGroup id="cside-tools" label="Herramientas" entries={tools} />
+            <p className="cside__aside">Emociones, evaluación de lecturas y correspondencias RYM están en <Link to="/administrar/buscador?seccion=Emociones">Administrar › Buscador</Link>.</p>
           </div>
         </nav>
       </div>

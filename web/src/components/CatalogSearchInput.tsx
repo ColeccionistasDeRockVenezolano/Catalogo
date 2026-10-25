@@ -6,6 +6,9 @@ import { genresApi } from "../lib/api";
 import { genreSearchExamples, loadSearchExamples, randomSample, type CatalogSearchScope } from "../lib/catalogSearchExamples";
 import { DISCOVERY_FALLBACK, useDiscoveryExamples } from "../lib/discovery";
 import { useAsync } from "../lib/useAsync";
+import { useDailyAsync } from "../lib/useDailyAsync";
+import { useDailyCycle } from "../lib/DailyCycleContext";
+import { dailyRandom } from "../../../src/shared/daily-cycle";
 import { entitySuggestions, genreSuggestions, SUGGESTION_GROUP_LABELS, useCatalogSuggestions, type CatalogSuggestion } from "../lib/catalogSearchSuggestions";
 import type { SearchResults } from "../lib/types";
 import { SearchExampleHint } from "./SearchExampleHint";
@@ -14,6 +17,7 @@ import { useVisibleDiscoveryMetric } from "../lib/discoveryMetrics";
 import { useOperator } from "../lib/OperatorContext";
 
 interface CatalogSearchInputProps {
+  onEntitySelection?: (type: string, id: number) => void;
   scope: CatalogSearchScope;
   value: string;
   onChange: (value: string) => void;
@@ -27,8 +31,9 @@ interface CatalogSearchInputProps {
   resultsLoading?: boolean;
   resultsError?: string | undefined;
   onRetryResults?: () => void;
-  examplePlacement?: "field" | "below";
-  onShowAllResults?: () => void;
+  /** "none": sin ejemplos rotativos (el buscador compacto de la barra). */
+  examplePlacement?: "field" | "below" | "none";
+  onShowAllResults?: (kind?: "enter" | "all_results") => void;
   onSuggestionsOpenChange?: (open: boolean) => void;
 }
 
@@ -67,7 +72,7 @@ function HighlightedName({ name, query }: { name: string; query: string }) {
 }
 
 /** Ejemplos reales rotativos que se aceptan con Tab y coincidencias al escribir. */
-export function CatalogSearchInput({ scope, value, onChange, label, placeholder, className = "filter-input", id, autoFocus, results = null, resultsQuery = "", resultsLoading = false, resultsError, onRetryResults, examplePlacement = "field", onShowAllResults, onSuggestionsOpenChange }: CatalogSearchInputProps) {
+export function CatalogSearchInput({ scope, value, onChange, label, placeholder, className = "filter-input", id, autoFocus, results = null, resultsQuery = "", resultsLoading = false, resultsError, onRetryResults, examplePlacement = "field", onShowAllResults, onSuggestionsOpenChange, onEntitySelection }: CatalogSearchInputProps) {
   const generatedId = useId();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -79,15 +84,17 @@ export function CatalogSearchInput({ scope, value, onChange, label, placeholder,
   const { isAdmin, isChecking } = useOperator();
   const metricAccept = useRef<() => void>(() => {});
 
-  const examples = useAsync(signal => scope === "catalog" ? Promise.resolve([]) : loadSearchExamples(scope, signal), [scope]);
+  const { cycle } = useDailyCycle();
+  const examples = useDailyAsync((date, signal) => scope === "catalog" ? Promise.resolve([]) : loadSearchExamples(scope, signal, date), [scope]);
   const catalogGenres = useAsync(signal => scope === "catalog" ? genresApi.facets("artist", signal) : Promise.resolve(null), [scope]);
-  const discovery = useDiscoveryExamples(scope === "catalog");
+  const discovery = useDiscoveryExamples(scope === "catalog" && examplePlacement !== "none");
   const sampledOptions = useMemo(() => {
     if (!examples.data) return [];
-    return randomSample([...examples.data, ...genreSearchExamples(catalogGenres.data)]);
-  }, [examples.data, catalogGenres.data]);
-  const options = scope === "catalog" ? discovery.options : sampledOptions;
-  const example = useRotatingSearchExample(options, value, next => { metricAccept.current(); onChange(next); updateOpen(true); inputRef.current?.focus(); }, scope === "catalog" ? discovery.cycle : examples.reload, scope === "catalog" ? discovery.intervalMs : 3500);
+    const random = dailyRandom(cycle?.date ?? "", `search-options:${scope}`);
+    return randomSample([...examples.data, ...genreSearchExamples(catalogGenres.data, true, random)], undefined, random);
+  }, [examples.data, catalogGenres.data, cycle?.date, scope]);
+  const options = examplePlacement === "none" ? [] : scope === "catalog" ? discovery.options : sampledOptions;
+  const example = useRotatingSearchExample(options, value, next => { metricAccept.current(); onChange(next); updateOpen(true); inputRef.current?.focus(); }, scope === "catalog" ? discovery.cycle : undefined, scope === "catalog" ? discovery.intervalMs : 3500, cycle?.date);
   const metric = useVisibleDiscoveryMetric(example.current, scope === "catalog" && discovery.metricsEnabled && !isAdmin && !isChecking);
   metricAccept.current = metric.accept;
   const showExample = Boolean(example.current);
@@ -127,7 +134,7 @@ export function CatalogSearchInput({ scope, value, onChange, label, placeholder,
           if (event.key === "Enter" && !event.nativeEvent.isComposing && onShowAllResults && hasQuery && !inputRef.current?.getAttribute("aria-activedescendant")) {
             event.preventDefault();
             updateOpen(false);
-            onShowAllResults();
+            onShowAllResults("enter");
           }
         }}
         aria-describedby={showExample && examplePlacement === "field" ? `${id ?? generatedId}-example-hint` : undefined} />
@@ -164,7 +171,11 @@ export function CatalogSearchInput({ scope, value, onChange, label, placeholder,
                 {(option: CatalogSuggestion) => {
                   const Icon = SUGGESTION_ICONS[option.category] ?? Tag;
                   return <Autocomplete.Item key={option.key} value={option}
-                    className="catalog-suggestions__option" data-category={option.category} onClick={() => { updateOpen(false); navigate(option.href); }}>
+                    className="catalog-suggestions__option" data-category={option.category} onClick={() => {
+                      const match = /^(artist|person|album|track|organization)-(\d+)$/.exec(option.key);
+                      if (match) onEntitySelection?.(match[1]!, Number(match[2]));
+                      updateOpen(false); navigate(option.href);
+                    }}>
                     <span className="catalog-suggestions__icon" aria-hidden="true"><Icon size={19} /></span>
                     <span className="catalog-suggestions__text">
                       <span className="catalog-suggestions__name"><HighlightedName name={option.label} query={query} /></span>
@@ -178,7 +189,7 @@ export function CatalogSearchInput({ scope, value, onChange, label, placeholder,
           </Autocomplete.List>
           {hasQuery && onShowAllResults ? <button type="button" className="catalog-suggestions__all" onClick={() => {
             updateOpen(false);
-            onShowAllResults();
+            onShowAllResults("enter");
           }}><MagnifyingGlass size={14} aria-hidden="true" /><span>Ver todos los resultados para «{query}»</span></button> : null}
         </Autocomplete.Popup>
       </Autocomplete.Positioner>

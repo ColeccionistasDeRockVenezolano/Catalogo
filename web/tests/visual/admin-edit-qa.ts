@@ -170,6 +170,9 @@ try {
       }).catch(() => { /* sin cuerpo */ });
     });
 
+    // Diálogos modales: los avisos (Base UI Toast) también llevan role="dialog",
+    // así que se busca el modal de arriba por aria-modal.
+    const modalDialog = () => page.locator('[aria-modal="true"]').last();
     const closeModal = async (dialog: import("@playwright/test").Locator, what: string, extra?: () => Promise<unknown>) => {
       try {
         await dialog.waitFor({ state: "detached", timeout: 15000 });
@@ -191,20 +194,40 @@ try {
     await page.locator(".page-actions").getByRole("button", { name: "Fusionar con…" }).waitFor({ timeout: 15000 });
     console.log("   cookies tras login: " + JSON.stringify((await context.cookies()).map((cookie) => ({ name: cookie.name, domain: cookie.domain, path: cookie.path, sameSite: cookie.sameSite, secure: cookie.secure }))));
 
-    // ---- 1. Editar la ficha del disco (género) --------------------------------
+    // ---- 1. Editar la ficha del disco -----------------------------------------
+    // Con la proyección de géneros encendida el texto de la fuente ya no se
+    // escribe (el servidor lo rechaza con explicación). Se prueban el rechazo, el
+    // descarte confirmado de un borrador y un guardado real que alimenta el
+    // historial de la ficha.
     await page.locator(".page-actions").getByRole("button", { name: "Editar" }).click();
-    const editAlbum = page.getByRole("dialog");
-    await editAlbum.getByLabel("Género").fill("Rock QA");
-    await editAlbum.getByLabel("Motivo *").fill("QA: clasificar el género del disco");
-    console.log(`   valores antes de guardar: género=${JSON.stringify(await editAlbum.getByLabel("Género").inputValue())} motivo=${JSON.stringify(await editAlbum.getByLabel("Motivo *").inputValue())}`);
-    await editAlbum.getByRole("button", { name: "Guardar" }).click();
+    const editAlbum = modalDialog();
+    const albumNote = editAlbum.getByLabel("Motivo del cambio *");
+    const saveAlbum = () => editAlbum.locator(".eedit__tray-actions button[type=submit]");
+    await editAlbum.getByLabel("Texto de género de la fuente").fill("Rock QA");
+    await albumNote.fill("QA: clasificar el género del disco");
+    await saveAlbum().click();
+    const albumBanner = editAlbum.locator(".form-error-banner");
+    await albumBanner.waitFor();
+    const albumBannerText = (await albumBanner.innerText()).trim();
+    assertEqual(albumBannerText.includes("es una proyección de los géneros asignados") && albumBannerText.includes("genres confirm"), true, `aviso de la proyección de géneros (banner: ${JSON.stringify(albumBannerText)})`);
+    assertEqual((await rows<{ genre: string | null }>("SELECT genre FROM public.albums WHERE id=$1", [albumA]))[0]!.genre, null, "género del disco intacto tras el rechazo");
+    await editAlbum.getByRole("button", { name: "Cerrar", exact: true }).click();
+    await page.getByRole("alertdialog", { name: "Descartar cambios" }).getByRole("button", { name: "Descartar", exact: true }).click();
     await closeModal(editAlbum, "editar-disco", async () => editAlbum.innerText());
-    assertEqual((await rows<{ genre: string }>("SELECT genre FROM public.albums WHERE id=$1", [albumA]))[0]!.genre, "Rock QA", "género del disco");
+    await page.locator(".page-actions").getByRole("button", { name: "Editar" }).click();
+    await editAlbum.getByLabel("Descripción", { exact: true }).filter({ visible: true }).fill("QA: descripción revisada");
+    await editAlbum.getByRole("textbox", { name: "Notas internas" }).fill("QA: notas revisadas");
+    await albumNote.fill("QA: anotar la revisión del disco");
+    await saveAlbum().click();
+    await closeModal(editAlbum, "editar-disco", async () => editAlbum.innerText());
+    const albumRow = (await rows<{ description: string; notes: string }>("SELECT description, notes FROM public.albums WHERE id=$1", [albumA]))[0]!;
+    assertEqual(albumRow.description, "QA: descripción revisada", "disco: descripción guardada");
+    assertEqual(albumRow.notes, "QA: notas revisadas", "disco: notas guardadas");
 
     // ---- 2. Corregir un crédito: rol + acreditado (persona → artista) ---------
     const creditRow = page.locator("li.credit-row", { hasText: "Alicia Editable QA" }).first();
     await creditRow.getByRole("button", { name: "Editar" }).click();
-    const editCredit = page.getByRole("dialog");
+    const editCredit = modalDialog();
     await editCredit.getByLabel("Rol (texto de la fuente) *").fill("Guitarra líder");
     await editCredit.getByLabel("Se acredita a").selectOption("artist");
     const creditPicker = editCredit.getByLabel("Acreditado *");
@@ -230,7 +253,7 @@ try {
     // ---- 3. Editar un formato (calidad y estado) ------------------------------
     const formatRow = page.locator("li.chip", { hasText: "MP3" }).first();
     await formatRow.getByRole("button", { name: "Editar" }).click();
-    const editFormat = page.getByRole("dialog");
+    const editFormat = modalDialog();
     await editFormat.getByLabel("Calidad").selectOption("HQ");
     await editFormat.getByLabel("Estado del archivo").selectOption("published");
     await editFormat.getByLabel("Motivo *").fill("QA: el archivo está en alta y publicado");
@@ -242,11 +265,12 @@ try {
     assertEqual(formatDb.archive_status, "published", "formato: estado");
 
     // ---- 4. Corregir una membresía: persona + rol + hasta ---------------------
-    await page.goto(`${webUrl}/artistas/${artist1}`, { waitUntil: "domcontentloaded" });
+    // La formación vive en la pestaña «Integrantes» de la ficha.
+    await page.goto(`${webUrl}/artistas/${artist1}?tab=miembros`, { waitUntil: "domcontentloaded" });
     await waitForApp(page);
     const memberRow = page.locator("tbody tr", { hasText: "Alicia Editable QA" }).first();
     await memberRow.getByRole("button", { name: "Editar" }).click();
-    const editMember = page.getByRole("dialog");
+    const editMember = modalDialog();
     const memberPicker = editMember.getByLabel("Persona *");
     await memberPicker.click();
     await memberPicker.fill("Beto Editable QA");
@@ -263,10 +287,10 @@ try {
     assertEqual(memberDb.to_year, 2001, "membresía: año final");
 
     // ---- 5. Organizaciones de la persona: alta, edición y retiro --------------
-    await page.goto(`${webUrl}/personas/${alice}`, { waitUntil: "domcontentloaded" });
+    await page.goto(`${webUrl}/personas/${alice}?tab=organizaciones`, { waitUntil: "domcontentloaded" });
     await waitForApp(page);
     await page.getByRole("button", { name: "+ Añadir organización" }).click();
-    const addOrg = page.getByRole("dialog");
+    const addOrg = modalDialog();
     const orgPicker = addOrg.getByLabel("Organización *");
     await orgPicker.click();
     await orgPicker.fill("Estudio Editable QA");
@@ -284,7 +308,7 @@ try {
 
     const orgRow = page.locator("tbody tr", { hasText: "Estudio Editable QA" }).first();
     await orgRow.getByRole("button", { name: "Editar" }).click();
-    const editOrg = page.getByRole("dialog");
+    const editOrg = modalDialog();
     await editOrg.getByLabel("Rol *").fill("Dirección");
     await editOrg.getByLabel("Motivo *").fill("QA: el rol correcto es dirección");
     await editOrg.getByRole("button", { name: "Guardar corrección" }).click();
@@ -292,8 +316,8 @@ try {
     assertEqual((await rows<{ role: string }>("SELECT role FROM public.person_organizations WHERE id=$1", [Number(orgLink.id)]))[0]!.role, "Dirección", "vínculo: rol corregido");
 
     await orgRow.getByRole("button", { name: "Quitar" }).click();
-    const removeOrg = page.getByRole("dialog");
-    await removeOrg.locator("#confirm-note").fill("QA: el vínculo no correspondía");
+    const removeOrg = modalDialog();
+    await removeOrg.getByLabel("Motivo *").fill("QA: el vínculo no correspondía");
     await removeOrg.getByRole("button", { name: "Quitar", exact: true }).click();
     await closeModal(removeOrg, "retirar-organizacion");
     assertEqual((await rows("SELECT 1 FROM public.person_organizations WHERE person_id=$1", [alice])).length, 0, "vínculo retirado");
@@ -302,7 +326,7 @@ try {
     await page.goto(`${webUrl}/personas/${combinada}`, { waitUntil: "domcontentloaded" });
     await waitForApp(page);
     await page.getByRole("button", { name: "Dividir en varias…" }).click();
-    const split = page.getByRole("dialog");
+    const split = modalDialog();
     await split.getByLabel("Nombre 1").fill("Combinada Uno QA");
     await split.getByLabel("Nombre 2").fill("Combinada Dos QA");
     await split.getByRole("button", { name: "Previsualizar reparto" }).click();
@@ -323,7 +347,7 @@ try {
     await page.goto(`${webUrl}/discos/${albumB}`, { waitUntil: "domcontentloaded" });
     await waitForApp(page);
     await page.locator(".page-actions").getByRole("button", { name: "Fusionar con…" }).click();
-    const merge = page.getByRole("dialog");
+    const merge = modalDialog();
     const mergePicker = merge.getByRole("combobox");
     await mergePicker.click();
     await mergePicker.fill("Disco Editable QA");
@@ -347,13 +371,13 @@ try {
     assertEqual((await rows("SELECT to_id::text FROM ingest.entity_redirects WHERE entity_kind='album' AND from_id=$1", [albumB]))[0]!.to_id, String(albumA), "redirección del disco");
     assertEqual((await rows<{ album_id: string }>("SELECT album_id::text FROM public.tracks WHERE id=$1", [trackB]))[0]!.album_id, String(albumA), "pista movida al disco que queda");
 
-    // ---- 8. Historial de cambios en la ficha ----------------------------------
-    const history = page.locator(".section", { hasText: "Historial de cambios" }).first();
+    // ---- 8. Historial de campos en la ficha -----------------------------------
+    const history = page.locator(".section", { hasText: "Historial de campos" }).first();
     await history.waitFor({ timeout: 15000 });
     await history.locator("tbody tr").first().waitFor({ timeout: 15000 });
     const historyRows = await history.locator("tbody tr").count();
     if (historyRows < 2) throw new Error(`el historial del disco tiene ${historyRows} filas; se esperaban al menos 2`);
-    if (!(await history.innerText()).includes("Género")) throw new Error("el historial no muestra el cambio de «Género»");
+    if (!(await history.innerText()).includes("Descripción")) throw new Error("el historial no muestra el cambio de «Descripción»");
     await shot("historial");
 
     // ---- 9. Lote de curaduría: vista previa → aplicar → deshacer --------------
@@ -361,9 +385,13 @@ try {
     await waitForApp(page);
     const finding = page.locator("article.cfind", { hasText: "QA Con" }).first();
     await finding.waitFor({ timeout: 20000 });
-    await finding.getByRole("button", { name: "Corregir" }).click();
-    const batch = page.getByRole("dialog");
-    await batch.getByRole("button", { name: "Ver corrección" }).click();
+    // Cada tarjeta ofrece su corrección recomendada como botón principal (E8.1);
+    // en la vista de lista y detalle las acciones del caso viven en su panel.
+    const fixFinding = page.getByRole("button", { name: "Limpiar el texto" }).first();
+    await fixFinding.waitFor({ timeout: 20000 });
+    await fixFinding.click();
+    const batch = modalDialog();
+    // La vista previa se carga sola cuando la acción ya viene recomendada.
     await batch.getByRole("button", { name: /Aplicar 1/u }).waitFor({ timeout: 20000 });
     await batch.locator("#fixbatch-note").fill("QA: quitar los espacios repetidos");
     await batch.getByRole("button", { name: /Aplicar 1/u }).click();

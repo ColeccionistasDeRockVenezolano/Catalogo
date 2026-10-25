@@ -1,6 +1,6 @@
 import type { Pool, PoolClient } from "pg";
-import { parseDateValue } from "./date-value.js";
-import { OperatorError, type OperatorContext } from "../merge/operator.js";
+import { dateYear, parseDateValue } from "./date-value.js";
+import { updateEntity, OperatorError, type OperatorContext } from "../merge/operator.js";
 
 type Database = Pick<Pool | PoolClient, "query">;
 export const MODEL_TABLES = {
@@ -66,6 +66,10 @@ export async function writeModel(context: OperatorContext, kind: ModelKind, inpu
       if (!(await context.client.query("SELECT id FROM public.tracks WHERE id=$1 FOR UPDATE", [track])).rowCount) throw new OperatorError("not_found", "pista inexistente");
       await context.client.query("INSERT INTO ingest.support_tracks(support_id,track_id) VALUES($1,$2)", [result, track]);
     }
+  }
+  if(kind === "edition" && input.releaseDate !== undefined && input.releaseDate !== null) {
+    const owner=(await context.client.query<{album_id:string}>("SELECT album_id::text FROM ingest.catalog_edition_details WHERE id=$1",[result])).rows[0]!;
+    await updateEntity(context,"album",Number(owner.album_id),{release_year:dateYear(input.releaseDate)});
   }
   return result;
 }

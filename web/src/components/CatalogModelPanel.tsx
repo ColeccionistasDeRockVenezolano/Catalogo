@@ -7,11 +7,11 @@ import { dateValueText, type DateValue } from "../../../src/catalog/date-value";
 import { formatDate } from "../lib/format";
 
 type Operation = "identity" | "edition" | "support" | "work" | "genre";
-const label: Record<Operation,string> = { identity: "Identidad musical", edition: "Obra y edición", support: "Soporte y pistas", work: "Nueva obra", genre: "Género por período" };
+const label: Record<Operation,string> = { identity: "Identidad musical", edition: "Vínculo con obra", support: "Soporte y pistas", work: "Nueva obra", genre: "Género por período" };
 const periodHint = "AAAA, AAAA-MM o AAAA-MM-DD; ~ para aproximación e inicio/fin para un período.";
 const configs: Record<Operation,readonly FieldConfig[]> = {
   identity: [{ key: "relationship", label: "Relación", type: "select", required: true, options: [{value:"solo_identity",label:"Identidad solista"},{value:"member",label:"Integrante"},{value:"collaborator",label:"Colaborador"}] }, {key:"period",label:"Período documentado",type:"text",hint:periodHint}],
-  edition: [{key:"editionName",label:"Nombre de esta edición",type:"text"},{key:"releaseDate",label:"Fecha de publicación",type:"text",hint:periodHint}],
+  edition: [],
   support: [{key:"format",label:"Formato",type:"text",required:true,hint:"CD, DVD, LP, casete o digital, según la fuente."},{key:"discNumber",label:"Número de soporte",type:"number",required:true}],
   genre: [{key:"genreSlug",label:"Género",type:"select",required:true,options:[]},{key:"period",label:"Período documentado",type:"text",hint:periodHint}],
   work: [{key:"title",label:"Título de la obra",type:"text",required:true}],
@@ -24,7 +24,7 @@ export function CatalogModelPanel({kind,id,artistId,tracks=[],onChanged}: {
 }) {
   const unique = useId();
   const {data,loading,error,reload} = useAsync(() => catalogModelApi.get(kind,id),[kind,id]);
-  const {data:vocabulary} = useAsync(()=>genresApi.vocabulary(),[]);
+  const {data:vocabulary,loading:vocabularyLoading,error:vocabularyError,reload:reloadVocabulary} = useAsync(()=>genresApi.vocabulary(),[]);
   const [operation,setOperation] = useState<Operation>(kind==="album"?"edition":"identity");
   const [values,setValues] = useState<Record<string,FieldValue>>({relationship:"solo_identity",discNumber:1});
   const [picked,setPicked] = useState<{id:number;name:string}|null>(null);
@@ -70,7 +70,7 @@ export function CatalogModelPanel({kind,id,artistId,tracks=[],onChanged}: {
       const currentId=editId??(edition?Number(edition["id"]):undefined);
       const result=await catalogModelApi.write(operation,body,currentId);
       setMessage(`Cambio guardado. Puedes deshacerlo desde el historial (operación ${result.runId}).`);
-      setEditId(undefined);reload();onChanged();
+      setEditId(result.id);reload();onChanged();
     } catch(err) {setFailure(err instanceof Error?err.message:"No se pudo guardar. Intenta de nuevo.");}
     finally {setBusy(false);}
   }
@@ -90,7 +90,7 @@ export function CatalogModelPanel({kind,id,artistId,tracks=[],onChanged}: {
   if(error) return <div role="alert"><p>{error}</p><button className="btn" type="button" onClick={reload}>Reintentar</button></div>;
   if(loading&&!data) return <p role="status">Cargando vínculos…</p>;
   return <div>
-    <p className="hint">{kind==="album"?"Cada edición conserva sus pistas, créditos y sello. Vincular fichas mantiene sus identidades y deja historial.":kind==="person"?"Vincula la persona con sus proyectos y conserva el período documentado de cada relación.":"Vincula personas con este proyecto y registra sus períodos de participación."}</p>
+    <p className="hint">{kind==="album"?"Vincula una obra documentada y sus soportes físicos. Gestiona las versiones, sus sellos y los CD/lados del reproductor en «Versiones y publicación».":kind==="person"?"Vincula la persona con sus proyectos y conserva el período documentado de cada relación.":"Vincula personas con este proyecto y registra sus períodos de participación."}</p>
     <div className="entity-edit-nav" aria-label="Tipo de vínculo">
       {options.map(type=><button key={type} type="button" className={`btn btn--sm${operation===type?" btn--primary":""}`} aria-pressed={operation===type} disabled={busy} onClick={()=>choose(type)}>{label[type]}</button>)}
     </div>
@@ -99,10 +99,13 @@ export function CatalogModelPanel({kind,id,artistId,tracks=[],onChanged}: {
       {message?<p role="status">{message}</p>:null}
       {operation==="identity"?<EntityPicker kind={kind==="person"?"artist":"person"} label={kind==="person"?"Artista o proyecto":"Persona"} value={picked?.id??null} valueLabel={picked?.name??null} onSelect={(pickedId,name)=>setPicked({id:pickedId,name})}/>:null}
       {operation==="edition"?<div className="field"><label htmlFor={`${unique}-work`}>Obra compartida</label><select id={`${unique}-work`} value={workId??""} onChange={event=>setWorkId(event.target.value?Number(event.target.value):null)}><option value="">Sin vínculo documentado</option>{data?.works.map(work=><option key={String(work["id"])} value={Number(work["id"])}>{String(work["title"])}</option>)}</select><span className="hint">Selecciona una obra existente o créala en «Nueva obra». El parecido del título no establece este vínculo.</span></div>:null}
+      {operation==="genre" && vocabularyLoading?<p role="status">Cargando géneros…</p>:null}
+      {operation==="genre" && vocabularyError?<p role="alert">{vocabularyError} <button type="button" className="btn" onClick={reloadVocabulary}>Reintentar géneros</button></p>:null}
+      {operation==="genre"?<p className="hint">Describe un período documentado. Se muestra por separado y no asigna un género general a la ficha ni a sus discos.</p>:null}
       <FormFields fields={operation==="genre"?configs.genre.map(field=>field.key==="genreSlug"?{...field,type:"select",options:(vocabulary??[]).map(genre=>({value:genre.slug,label:genre.name}))} as FieldConfig:field):configs[operation]} values={values} onChange={(key,value)=>setValues(prev=>({...prev,[key]:value}))}/>
       {operation==="support"&&tracks.length?<fieldset><legend>Pistas de este soporte</legend>{tracks.filter(track=>track.discNumber===Number(values["discNumber"])).map(track=><label key={track.id} className="checkbox-field"><input type="checkbox" checked={selectedTracks.includes(track.id)} onChange={event=>setSelectedTracks(prev=>event.target.checked?[...prev,track.id]:prev.filter(item=>item!==track.id))}/>{track.title}</label>)}</fieldset>:null}
       <div className="field"><label htmlFor={`${unique}-note`}>Motivo *</label><textarea id={`${unique}-note`} required value={note} onChange={event=>setNote(event.target.value)} rows={2}/></div>
-      <div className="form-actions"><button type="submit" className="btn btn--primary" disabled={busy}>{busy?"Guardando…":editId?"Guardar vínculo":"Guardar"}</button></div>
+      <div className="form-actions"><button type="submit" className="btn btn--primary" disabled={busy || (operation==="genre" && (vocabularyLoading || Boolean(vocabularyError) || !vocabulary?.length))}>{busy?"Guardando…":editId?"Guardar vínculo":"Guardar"}</button></div>
     </form>
     {data?.genres.length?<ul>{data.genres.map(row=><li key={String(row["id"])}>{String(row["genre_name"])}{row["period"]?` · ${formatDate(dateText(row["period"]))}`:""} <button className="btn btn--sm" type="button" disabled={busy} onClick={()=>remove("genre",Number(row["id"]))}>Retirar vínculo</button></li>)}</ul>:null}
     {data?.identities.length?<ul>{data.identities.map(row=><li key={String(row["id"])}>{String(row[kind==="person"?"artist_name":"person_name"])} · {({solo_identity:"Identidad solista",member:"Integrante",collaborator:"Colaborador"} as Record<string,string>)[String(row["relationship"])]}{row["period"]?` · ${formatDate(dateText(row["period"]))}`:""} <button type="button" className="btn btn--sm" disabled={busy} onClick={()=>edit("identity",row)}>Editar vínculo</button> <button type="button" className="btn btn--sm" disabled={busy} onClick={()=>remove("identity",Number(row["id"]))}>Retirar vínculo</button></li>)}</ul>:null}

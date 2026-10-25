@@ -1,26 +1,26 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, CaretLeft, CaretRight, DiceFive, Play, Pause, ArrowSquareOut, YoutubeLogo, InstagramLogo } from "@phosphor-icons/react";
+import { ArrowRight, CaretLeft, CaretRight, DiceFive, Play, Pause, ArrowSquareOut } from "@phosphor-icons/react";
 import { albumsApi, genresApi, homeApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
+import { useDailyAsync } from "../lib/useDailyAsync";
+import { DAILY_TIME_ZONE, dayNumber } from "../../../src/shared/daily-cycle";
 import { albumTypeLabel, artistTypeLabel } from "../lib/labels";
 import type { DecadeFacets, GenreFacets, HomeAlbum, HomeData } from "../lib/types";
 import { EntityCard, initialOf } from "./EntityCard";
 import { PlatformLinks } from "./PlatformLinks";
 import { VideoSlot, useVideoPlayer } from "./VideoPlayer";
+import { ChannelVideoCard } from "./ChannelVideoCard";
 import { CatalogGenres, CatalogYear } from "./CatalogMetadata";
-import { Modal } from "./Modal";
 import { ErrorState } from "./StateViews";
+import { mediaImage, mediaUrl } from "../lib/media";
 
 const numberFormat = new Intl.NumberFormat("es-VE");
 const formatNumber = (value: number) => numberFormat.format(value);
-const videoDate = new Intl.DateTimeFormat("es-VE", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
 /** Familias de géneros que la portada ofrece como puerta de entrada. */
 const GENRE_LIMIT = 12;
 /** Portadas del muro del hero: bastan para cubrirlo sin cargar de más. */
 const WALL_COVERS = 28;
-/** Un video publicado hace menos de esto lleva la marca «Nuevo». */
-const NEW_VIDEO_DAYS = 14;
 
 /** Color de cada familia en el mosaico de géneros; las que no están rotan la paleta. */
 const GENRE_HUES: Record<string, string> = {
@@ -185,9 +185,9 @@ function homeAlbums(data: HomeData | undefined): HomeAlbum[] {
   };
   data.listen.forEach(add);
   add(data.featuredArtist?.album);
-  // Intercalar los aniversarios para que el muro mezcle décadas.
-  const longest = Math.max(0, ...data.anniversaries.map((group) => group.albums.length));
-  for (let index = 0; index < longest; index++) data.anniversaries.forEach((group) => add(group.albums[index]));
+  // Intercalar las épocas para que el muro mezcle décadas.
+  const longest = Math.max(0, ...data.eras.map((group) => group.albums.length));
+  for (let index = 0; index < longest; index++) data.eras.forEach((group) => add(group.albums[index]));
   return albums;
 }
 
@@ -210,9 +210,9 @@ function WallCover({ album }: { album: HomeAlbum }) {
     return () => window.clearTimeout(timer);
   }, [loaded]);
   return <span className="home-wall__cover is-loaded">
-    {previous ? <img className="home-wall__previous" src={previous} alt="" /> : null}
+    {previous ? <img className="home-wall__previous" src={mediaUrl(previous, 320)} alt="" /> : null}
     <img key={album.coverUrl} className={`home-wall__current${loaded === album.coverUrl ? " is-loaded" : ""}`}
-      src={album.coverUrl!} alt="" decoding="async" onLoad={() => { setLoaded(album.coverUrl); }} />
+      src={mediaUrl(album.coverUrl!, 320)} alt="" decoding="async" onLoad={() => { setLoaded(album.coverUrl); }} />
   </span>;
 }
 
@@ -302,22 +302,13 @@ function Stat({ value, label }: { value: number; label: string }) {
 }
 
 export function useHomeData() {
-  const home = useAsync((signal) => homeApi.get(signal), []);
-  const date = useRef(home.data?.date);
-  const checked = useRef(Date.now());
+  const home = useDailyAsync((date, signal) => homeApi.get(signal, date));
   const reload = home.reload;
-  date.current = home.data?.date;
   useEffect(() => {
-    const refresh = () => {
-      if (document.hidden) return;
-      const today = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Caracas", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
-      if (today !== date.current || Date.now() - checked.current >= 300_000) {
-        checked.current = Date.now(); reload();
-      }
-    };
-    const timer = window.setInterval(refresh, 60_000);
-    document.addEventListener("visibilitychange", refresh);
-    return () => { window.clearInterval(timer); document.removeEventListener("visibilitychange", refresh); };
+    // Refrescar publicaciones recientes conserva la fecha del reloj común.
+    const refresh = () => { if (!document.hidden) reload(); };
+    const timer = window.setInterval(refresh, 300_000);
+    return () => window.clearInterval(timer);
   }, [reload]);
   return home;
 }
@@ -331,14 +322,13 @@ export function HomeSections({ home }: { home: ReturnType<typeof useHomeData> })
   return (
     <div className="home">
       {data && genres.data && decades.data ? <DailyRoutes data={data} genres={genres.data} decades={decades.data} /> : null}
-      {data ? <Anniversaries key={`anniversaries-${data.date}`} groups={data.anniversaries} /> : <SectionSkeleton title="Cumplen años" />}
+      {data ? <Eras key={`eras-${data.date}`} groups={data.eras} today={data.date} /> : <SectionSkeleton title="Por época" />}
       {data?.featuredArtist ? <FeaturedArtist key={data.featuredArtist.id} artist={data.featuredArtist} /> : null}
       {data && data.listen.length ? <ListenNow key={`listen-${data.date}`} albums={data.listen} /> : null}
       {data ? <ChannelVideos videos={data.videos} today={data.date} channel={data.channel} /> : null}
       {genres.data ? <GenreDoors facets={genres.data} /> : null}
       {decades.data ? <DecadeTimeline facets={decades.data} /> : null}
       {data && data.labels.length ? <Labels labels={data.labels} /> : null}
-      <HomeFooter />
     </div>
   );
 }
@@ -387,40 +377,51 @@ function AlbumSleeve({ album, index = 0 }: { album: HomeAlbum; index?: number })
   );
 }
 
-function Anniversaries({ groups }: { groups: HomeData["anniversaries"] }) {
-  // Se abre en el aniversario más redondo que tenga discos: 50 antes que 40, etc.
-  const preferred = [50, 30, 40, 60, 20, 10].find((years) => groups.some((group) => group.years === years));
-  const [selected, setSelected] = useState(preferred ?? groups[0]?.years);
-  const group = groups.find((item) => item.years === selected) ?? groups[0];
-  const rail = useRail({ resetKey: selected, onCycle: () => {
-    const index = groups.findIndex(item => item.years === selected);
-    setSelected(groups[(index + 1) % groups.length]?.years);
+/** «70s», «00s»: la etiqueta corta de la década. */
+function decadeTag(decade: number) {
+  return `${String(decade % 100).padStart(2, "0")}s`;
+}
+
+/** «los 70», «los 2000»: del 2000 en adelante se nombra el año completo. */
+function decadeName(decade: number) {
+  return `los ${decade < 2000 ? decade % 100 : decade}`;
+}
+
+function Eras({ groups, today }: { groups: HomeData["eras"]; today: string }) {
+  // Cada día abre en una década distinta; los discos de todas cambian con la fecha.
+  const day = dayNumber(today);
+  const [selected, setSelected] = useState(groups.length ? groups[day % groups.length]!.decade : undefined);
+  const group = groups.find((item) => item.decade === selected) ?? groups[0];
+  const rail = useRail({ resetKey: selected ?? 0, onCycle: () => {
+    const index = groups.findIndex(item => item.decade === selected);
+    setSelected(groups[(index + 1) % groups.length]?.decade);
   } });
   if (!group) return null;
   return (
-    <Section id="home-anniversaries" className="home-anniversaries">
+    <Section id="home-eras" className="home-anniversaries home-eras">
       {() => <>
         <div className="home-section__head">
           <div className="home-anniversaries__title">
-            <span className="home-anniversaries__years" aria-hidden="true" key={group.years}>{group.years}</span>
+            <span className="home-anniversaries__years" aria-hidden="true" key={group.decade}>{decadeTag(group.decade)}</span>
             <div>
-              <p className="home-kicker">Aniversarios</p>
-              <h2 id="home-anniversaries-title">Cumplen {group.years} años</h2>
+              <p className="home-kicker">Por época · nuevos cada día</p>
+              <h2 id="home-eras-title">Música de {decadeName(group.decade)}</h2>
               <p className="home-section__lead">
-                {formatNumber(group.total)} {group.total === 1 ? "disco salió" : "discos salieron"} en <CatalogYear year={group.releaseYear} />.
+                Una selección de hoy entre {formatNumber(group.total)} {group.total === 1 ? "disco" : "discos"} de{" "}
+                <Link to={`/discos?decada=${group.decade}`} title="Ver todos los discos de esta década">{group.decade}–{group.decade + 9}</Link>.
               </p>
             </div>
           </div>
           <div className="home-section__action">
-            <div className="home-segments" role="group" aria-label="Elegir aniversario">
+            <div className="home-segments" role="group" aria-label="Elegir época">
               {groups.map((item) => (
-                <button key={item.years} type="button" className="home-segments__option" aria-pressed={item.years === group.years}
-                  onClick={() => setSelected(item.years)}>
-                  {item.years}<span className="visually-hidden"> años</span>
+                <button key={item.decade} type="button" className="home-segments__option" aria-pressed={item.decade === group.decade}
+                  onClick={() => setSelected(item.decade)}>
+                  {decadeTag(item.decade)}<span className="visually-hidden"> ({item.decade}–{item.decade + 9})</span>
                 </button>
               ))}
             </div>
-            <RailArrows rail={rail} label="los discos del aniversario" />
+            <RailArrows rail={rail} label="los discos de la época" />
           </div>
         </div>
         <div ref={rail.ref} className={railClass(rail)}>
@@ -439,11 +440,11 @@ function FeaturedArtist({ artist }: { artist: NonNullable<HomeData["featuredArti
   return (
     <Section id="home-featured" className="home-featured">
       {() => <>
-        {artist.album?.coverUrl ? <img className="home-featured__ambient" src={artist.album.coverUrl} alt="" aria-hidden="true" decoding="async" /> : null}
+        {artist.album?.coverUrl ? <img className="home-featured__ambient" src={mediaUrl(artist.album.coverUrl, 320)} alt="" aria-hidden="true" decoding="async" /> : null}
         <div className="home-featured__inner">
           <Link to={`/artistas/${artist.id}`} className="home-featured__media" aria-label={`Ver a ${artist.name}`}>
             {hasPicture
-              ? <img src={artist.pictureUrl!} alt="" loading="lazy" decoding="async" onError={() => setFailed(true)} />
+              ? <img {...mediaImage(artist.pictureUrl!, 280)} alt="" loading="lazy" decoding="async" onError={() => setFailed(true)} />
               : <span className="placeholder">{initialOf(artist.name)}</span>}
           </Link>
           <div className="home-featured__body">
@@ -493,7 +494,7 @@ function Avatar({ name, url }: { name: string; url: string | null }) {
   const [failed, setFailed] = useState(false);
   return (
     <span className="home-avatar__img" aria-hidden="true">
-      {url && !failed ? <img src={url} alt="" loading="lazy" decoding="async" onError={() => setFailed(true)} /> : initialOf(name)}
+      {url && !failed ? <img {...mediaImage(url, 42)} alt="" loading="lazy" decoding="async" onError={() => setFailed(true)} /> : initialOf(name)}
     </span>
   );
 }
@@ -507,16 +508,16 @@ function ListenNow({ albums }: { albums: HomeData["listen"] }) {
   return (
     <Section id="home-listen" className="home-listen">
       {() => <>
-        {hasCover ? <img key={`ambient-${album.id}`} className="home-listen__ambient" src={album.coverUrl!} alt="" aria-hidden="true" decoding="async" /> : null}
+        {hasCover ? <img key={`ambient-${album.id}`} className="home-listen__ambient" src={mediaUrl(album.coverUrl!, 320)} alt="" aria-hidden="true" decoding="async" /> : null}
         <div className="home-listen__inner">
           <div className="home-turntable" key={album.id}>
             <span className="home-turntable__record" aria-hidden="true">
               <span className="home-turntable__label">
-                {hasCover ? <img src={album.coverUrl!} alt="" decoding="async" /> : null}
+                {hasCover ? <img {...mediaImage(album.coverUrl!, 160)} alt="" decoding="async" /> : null}
               </span>
             </span>
             <Link to={`/discos/${album.id}`} className="home-turntable__sleeve" aria-label={`Ver el disco ${album.title}`}>
-              {hasCover ? <img src={album.coverUrl!} alt="" decoding="async" onError={() => setCoverFailed(album.id)} />
+              {hasCover ? <img {...mediaImage(album.coverUrl!, 330)} alt="" decoding="async" onError={() => setCoverFailed(album.id)} />
                 : <span className="placeholder">{initialOf(album.title)}</span>}
             </Link>
           </div>
@@ -554,7 +555,8 @@ function ListenNow({ albums }: { albums: HomeData["listen"] }) {
 function ChannelVideos({ videos, today, channel }: { videos: HomeData["videos"]; today: string; channel: HomeData["channel"] }) {
   const player = useVideoPlayer();
   const rail = useRail();
-  const checked = channel.checkedAt ? new Intl.DateTimeFormat("es-VE", { hour: "2-digit", minute: "2-digit", timeZone: "America/Caracas" }).format(new Date(channel.checkedAt)) : null;
+  const videoTracks = videos.map(video => ({ video: { ...video, title: video.title ?? "Video del canal" }, title: video.title ?? "Video del canal", seconds: 0 }));
+  const checked = channel.checkedAt ? new Intl.DateTimeFormat("es-VE", { hour: "2-digit", minute: "2-digit", timeZone: DAILY_TIME_ZONE }).format(new Date(channel.checkedAt)) : null;
   return <Section id="home-videos">
     {() => <>
       <SectionHead id="home-videos" kicker="Desde el canal" title="Últimos videos en YouTube"
@@ -562,33 +564,13 @@ function ChannelVideos({ videos, today, channel }: { videos: HomeData["videos"];
         action={<RailArrows rail={rail} label="los videos" />} />
       <div ref={rail.ref} className={railClass(rail, " home-rail--wide")}>
         {!videos.length ? <p role="status">No se pudieron recuperar los videos. Puedes consultar las publicaciones en el canal.</p> : null}
-        {videos.map((video, index) => <VideoCard key={video.videoId} video={video} today={today} index={index} onPlay={() => { player.play({ ...video, title: video.title ?? "Video del canal" }, "channel"); window.setTimeout(() => document.getElementById("channel-player")?.scrollIntoView({ block: "center", behavior: "instant" }), 100); }} />)}
+        {videos.map((video, index) => <ChannelVideoCard key={video.videoId} className="home-rail__item" video={video} url={`https://www.youtube.com/watch?v=${video.videoId}`} today={today} index={index} onPlay={() => player.play({ ...video, title: video.title ?? "Video del canal" }, "channel", undefined, true, videoTracks)} />)}
       </div>
       <a className="home-more home-channel-link" href={`${channel.url}/videos`} target="_blank" rel="noreferrer">Ver el canal en YouTube <ArrowSquareOut size={16} aria-hidden="true" /></a>
       <div id="channel-player"><VideoSlot owner="channel" /></div>
     </>}
   </Section>;
 }
-
-function VideoCard({ video, today, index, onPlay }: { video: HomeData["videos"][number]; today: string; index: number; onPlay: () => void }) {
-  const fallback = `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`;
-  const [src, setSrc] = useState(video.thumbnailUrl ?? fallback);
-  const date = video.publishedAt ? videoDate.format(new Date(video.publishedAt)) : null;
-  const ageDays = video.publishedAt ? (Date.parse(`${today}T12:00:00Z`) - Date.parse(video.publishedAt)) / 86_400_000 : Infinity;
-  return <div className="home-rail__item home-video" style={{ "--i": index } as CSSProperties}>
-    <button type="button" className="home-video__open" onClick={onPlay} aria-label={`Reproducir ${video.title ?? "video del canal"}`}>
-      <span className="home-video__thumb">
-        <img src={src} alt="" loading="lazy" decoding="async" onError={() => { if (src !== fallback) setSrc(fallback); }} />
-        <span className="home-video__play" aria-hidden="true"><Play size={22} weight="fill" /></span>
-        {ageDays >= 0 && ageDays <= NEW_VIDEO_DAYS ? <span className="home-video__new">Nuevo</span> : null}
-      </span>
-      <span className="home-video__title">{video.title ?? "Video del canal"}</span>
-    </button>
-    <span className="home-video__meta">{date}</span>
-    <a className="home-video__youtube" href={`https://www.youtube.com/watch?v=${video.videoId}`} target="_blank" rel="noreferrer">Abrir desde YouTube <ArrowSquareOut size={13} aria-hidden="true" /></a>
-  </div>;
-}
-
 function GenreDoors({ facets }: { facets: GenreFacets }) {
   const families = [...facets.families].filter((family) => family.count > 0)
     .sort((a, b) => b.count - a.count).slice(0, GENRE_LIMIT);
@@ -682,7 +664,7 @@ function Labels({ labels }: { labels: HomeData["labels"] }) {
 
 
 function DailyRoutes({ data, genres, decades }: { data: HomeData; genres: GenreFacets; decades: DecadeFacets }) {
-  const day = Math.floor(Date.parse(`${data.date}T00:00:00Z`) / 86_400_000);
+  const day = dayNumber(data.date);
   const families = genres.families.filter(item => item.count > 0);
   const eras = decades.decades.filter(item => item.count > 0 && item.decade >= 1950);
   const genre = families[day % families.length], era = eras[day % eras.length], label = data.labels[0];
@@ -696,27 +678,4 @@ function DailyRoutes({ data, genres, decades }: { data: HomeData; genres: GenreF
       </div>
     </>}
   </Section>;
-}
-
-function HomeFooter() {
-  const [about, setAbout] = useState(false);
-  const close = useCallback(() => setAbout(false), []);
-  return <footer className="home-footer">
-    <div><strong>Coleccionistas De Rock Venezolano</strong><p>Un archivo para descubrir y conservar la memoria musical de Venezuela.</p></div>
-    <nav aria-label="Sobre el proyecto">
-      <button type="button" onClick={() => setAbout(true)}>Sobre el archivo y sus fuentes</button>
-      <a href="https://coleccionistasderockvenezolano.wordpress.com/" target="_blank" rel="noreferrer">Historias del archivo <ArrowSquareOut size={14} aria-hidden="true" /></a>
-      <a href="https://www.instagram.com/coleccionistasderockvenezolano/" target="_blank" rel="noreferrer"><InstagramLogo size={18} aria-hidden="true" /> Contacto y aportes</a>
-      <a href="https://www.youtube.com/channel/UCtYlrz6GyvRahlhHjocWQYQ" target="_blank" rel="noreferrer"><YoutubeLogo size={18} aria-hidden="true" /> Nuestro canal</a>
-    </nav>
-    {about ? <Modal title="Sobre el archivo" onClose={close}>
-      <div className="home-about">
-        <p>Coleccionistas De Rock Venezolano reúne fichas de artistas, personas, discos y sellos. El catálogo abarca rock y otros géneros de la música venezolana.</p>
-        <h3>Cómo se construye</h3><p>La información se reúne y contrasta con fuentes musicales, discografías y publicaciones, entre ellas Sincopa, MusicBrainz, Discogs, nuestro blog y nuestro canal de YouTube. Las fichas pueden ampliarse y corregirse conforme aparece nueva información.</p>
-        <h3>Recomendaciones diarias</h3><p>Cada día, según la fecha de Venezuela, cambia la selección de artistas, discos y recorridos. Los aniversarios respetan el año de publicación; los discos para escuchar tienen enlaces verificados. El canal se consulta automáticamente para mostrar sus publicaciones recientes.</p>
-        <h3>Ayúdanos a completar el archivo</h3><p>¿Encontraste un dato incorrecto o tienes material para aportar? Escríbenos por Instagram y comparte el enlace de la ficha junto con la fuente que respalda tu aporte.</p>
-        <a className="btn" href="https://www.instagram.com/coleccionistasderockvenezolano/" target="_blank" rel="noreferrer">Contactar por Instagram <ArrowSquareOut size={16} aria-hidden="true" /></a>
-      </div>
-    </Modal> : null}
-  </footer>;
 }

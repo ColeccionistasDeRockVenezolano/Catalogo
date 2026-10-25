@@ -1,4 +1,5 @@
 import { dateValueText, parseDateValue } from "../catalog/date-value.js";
+import { excludedArtist, EDITORIAL_EXCLUSION_MESSAGE } from "../catalog/editorial-scope.js";
 // Unico escritor del core. Toda mutacion pasa por policy, advisory lock,
 // claim y merge_audit. DeepSeek nunca entra en este modulo como ejecutor.
 import { bindRun } from "../db/run-binding.js";
@@ -19,6 +20,7 @@ import { ENTITY_SPECS, claimTargetId, resolvableSpec, type EntitySpec, type Reso
 import { isRelationKind, mergeRelationClaim, type RelationClaimKind } from "./relations.js";
 import { MEDIA_LINK_KIND, mergeMediaLinkClaim } from "./media-links.js";
 import { isImageField, proposeImageCandidate } from "./image-candidates.js";
+import { audiovisualAlbumConflict } from "../youtube/audiovisuals.js";
 
 export interface MergeOutcome {
   action: "applied" | "unchanged" | "candidate" | "conflict" | "unsupported";
@@ -495,6 +497,7 @@ async function createEntity(client: PoolClient, claim: ClaimToPersist, claimId: 
     const artistId = claim.parentArtistId ?? (input.kind === "ALBUM" ? input.artist?.id : undefined)
       ?? (artistName === undefined ? undefined : await resolveParentId(client, { kind: "ARTIST", name: artistName }));
     if (!artistId) return undefined;
+    if (await audiovisualAlbumConflict(client, artistId, name)) return undefined;
     query = "INSERT INTO public.albums(artist_id,title) VALUES($1,$2) RETURNING id"; params = [artistId, name];
   } else {
     const albumRef = input.kind === "TRACK" ? input.album : undefined;
@@ -555,6 +558,12 @@ export async function mergeClaim(
   options: MergeOptions = {},
 ): Promise<MergeOutcome> {
   const spec = resolvableSpec(claim.entityKind);
+  const database = options.client ?? getPool();
+  if ((claim.entityKind === "artist" && await excludedArtist(database,{artistId:claim.artistId,names:[claim.originalIdentity,claim.identity]})) ||
+      (claim.entityKind === "album" && claim.parentArtistId !== undefined && await excludedArtist(database,{artistId:claim.parentArtistId}))) {
+    await database.query("UPDATE ingest.claims SET status='candidate',updated_at=now() WHERE id=$1",[persisted.id]);
+    return {action:"candidate",detail:EDITORIAL_EXCLUSION_MESSAGE};
+  }
   if (!spec) {
     // Las relaciones tienen su propio puente, con la tabla destino fijada por
     // el entity_kind. Regla dura preservada: album_credit/track_credit no

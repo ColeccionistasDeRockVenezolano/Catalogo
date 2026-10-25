@@ -4,6 +4,7 @@
 // YA contempla para crear entidades — no se abre una vía nueva al core ni se
 // eleva la confianza del claim, que sigue siendo `low` y trazable como tal.
 import { getPool } from "../db/client.js";
+import type { PoolClient } from "pg";
 import { mergeClaim, type HumanResolutionOverride } from "../merge/engine.js";
 import { resolvableSpec } from "../merge/specs.js";
 import type { ClaimToPersist, Confidence } from "../claims/persistence.js";
@@ -105,8 +106,8 @@ function toClaimToPersist(row: ClaimRow, options: ApprovalOptions = {}): ClaimTo
 }
 
 /** Recupera un claim ya persistido sin concederle autoridad por sí mismo. */
-export async function loadClaimForApproval(claimId: number): Promise<ClaimToPersist | undefined> {
-  const { rows } = await getPool().query<ClaimRow>(`${SELECT_CLAIM} WHERE c.id=$1`, [claimId]);
+export async function loadClaimForApproval(claimId: number, client?: PoolClient): Promise<ClaimToPersist | undefined> {
+  const { rows } = await (client ?? getPool()).query<ClaimRow>(`${SELECT_CLAIM} WHERE c.id=$1`, [claimId]);
   return rows[0] === undefined ? undefined : toClaimToPersist(rows[0]);
 }
 

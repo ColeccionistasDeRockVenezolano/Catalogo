@@ -56,7 +56,7 @@ export function ChangeList({ rows }: { rows: ChangeSummary[] }) {
                     <ArrowArcRight aria-hidden="true" weight="bold" /> Rehacer
                   </button>
                 ) : (
-                  <button type="button" className={`btn btn--sm ${isUndo ? "" : "btn--danger"}`} onClick={() => setDialogFor(change.runId)}>
+                  <button type="button" className="btn btn--sm" onClick={() => setDialogFor(change.runId)}>
                     {isUndo ? <ArrowArcRight aria-hidden="true" weight="bold" /> : <ArrowArcLeft aria-hidden="true" weight="bold" />}
                     {isUndo ? " Rehacer" : " Deshacer"}
                   </button>

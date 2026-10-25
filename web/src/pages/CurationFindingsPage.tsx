@@ -22,6 +22,7 @@
 // Triaje con teclado (E8.6): j/k mueven, x selecciona, c corrige con la
 // recomendada, i ignora, o abre la ficha y ? explica los atajos.
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import { Menu } from "@base-ui/react/menu";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { BackLink } from "../components/BackLink";
 import {
@@ -43,11 +44,18 @@ import { HeaderSkeleton, RowsSkeleton } from "../components/Skeletons";
 import { Pagination } from "../components/Pagination";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { CurationValue } from "../components/CurationValue";
-import { FindingEvidence } from "../components/FindingEvidence";
+import { FindingEvidence, HIDDEN_EVIDENCE } from "../components/FindingEvidence";
 import { FixBatchDialog } from "../components/FixBatchDialog";
 import { Modal } from "../components/Modal";
 import { MergeEntityModal } from "../components/MergeEntityModal";
 import { PersonPairWebResearch } from "../components/PersonPairWebResearch";
+import { AlbumMergeModal } from "../components/AlbumMergeModal";
+import { CurationWorkbench } from "../components/CurationWorkbench";
+import { FindingResearch } from "../components/FindingResearch";
+import { researchInstruction, researchOf } from "../lib/curationResearch";
+import { useOperator } from "../lib/OperatorContext";
+import { saveCurationResume } from "../lib/curationResume";
+import "../styles/curation-workbench.css";
 import { IDENTITY_RECOMMENDATION, personIdentityAssessment } from "../lib/personIdentityAssessment";
 import { ReviewDecisionDialog } from "../components/ReviewDecisionDialog";
 import { ConflictResolveDialog } from "../components/ConflictResolveDialog";
@@ -61,7 +69,7 @@ import type {
 const REVIEW_DETECTOR = "cola_de_revision";
 const CONFLICT_DETECTOR = "conflictos_abiertos";
 
-const LIMIT = 25;
+const DEFAULT_LIMIT = 50;
 const MOBILE_QUERY = "(max-width: 760px)";
 const MERGEABLE_KINDS = new Set<string>(["person", "organization", "artist"]);
 const PAIR_KINDS = new Set<string>(["artist", "person", "organization", "album", "track"]);
@@ -101,10 +109,12 @@ interface FixTarget {
 
 export function CurationFindingsPage() {
   const paginationStartRef = useRef<HTMLDivElement>(null);
-  const { key } = useParams();
+  const { key: routeKey } = useParams();
   const { summary, summaryError, refreshSummary } = useCurationSummary();
   const { notify } = useToast();
   const [params, setParams] = useSearchParams();
+  const { user } = useOperator();
+  const key = routeKey ?? params.get("category") ?? undefined;
   const isMobile = useMediaQuery(MOBILE_QUERY);
   const [ignoringGroup, setIgnoringGroup] = useState(false);
   const [fixingGroup, setFixingGroup] = useState(false);
@@ -123,8 +133,9 @@ export function CurationFindingsPage() {
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const [selectAll, setSelectAll] = useState(false);
   const [fixingSelected, setFixingSelected] = useState(false);
-  const [focused, setFocused] = useState(-1);
   const listRef = useRef<HTMLOListElement>(null);
+  const pendingIndex = useRef<number | null>(null);
+  const [albumMergeFinding, setAlbumMergeFinding] = useState<CurationFinding | null>(null);
 
   const detector = params.get("detector") ?? "";
   const signature = params.get("signature") ?? "";
@@ -134,7 +145,12 @@ export function CurationFindingsPage() {
   const q = params.get("q") ?? "";
   const scanId = Number(params.get("scanId") ?? "") || undefined;
   const chained = params.get("chained") === "true";
-  const offset = Number(params.get("offset") ?? "0") || 0;
+  const offset = Math.max(0, Math.floor(Number(params.get("offset")) || 0));
+  const limit = [25, 50, 100].includes(Number(params.get("limit"))) ? Number(params.get("limit")) : DEFAULT_LIMIT;
+  const sort = (["priority", "oldest", "newest", "entity"].includes(params.get("sort") ?? "")
+    ? params.get("sort") : "priority") as NonNullable<CurationFindingQuery["sort"]>;
+  const view = params.get("view") === "cards" ? "cards" : "review";
+  const activeId = Number(params.get("case")) || 0;
   const [search, setSearch] = useState(q);
   useEffect(() => setSearch(q), [q]);
 
@@ -142,7 +158,7 @@ export function CurationFindingsPage() {
   const lastScanId = summary?.lastScan?.id ?? 0;
 
   const query: CurationFindingQuery = {
-    limit: LIMIT, offset, status,
+    limit, offset, status, sort,
     ...(key ? { category: key } : {}),
     ...(detector ? { detector } : {}),
     ...(signature ? { signature } : {}),
@@ -152,12 +168,15 @@ export function CurationFindingsPage() {
     ...(scanId ? { scanId } : {}),
     ...(chained ? { chained: true } : {}),
   };
-  const { data, loading, error, reload } = useAsync(
-    () => curationApi.findings(query),
+  const requestKey = JSON.stringify(query);
+  const { data: response, loading, error, reload } = useAsync(
+    async () => ({ ...await curationApi.findings(query), requestKey }),
     // El último análisis entra en las dependencias: si una corrección vuelve a
     // analizar el catálogo, la lista se actualiza sola.
-    [key, detector, signature, severity, entityKind, status, q, scanId, chained, offset, lastScanId],
+    [key, detector, signature, severity, entityKind, status, q, scanId, chained, offset, limit, sort, lastScanId],
   );
+  // Cambiar de filtro no deja decisiones activas sobre la respuesta anterior.
+  const data = response?.requestKey === requestKey ? response : undefined;
 
   // La selección se ancla al FILTRO, no a la página: pasar a la página 2 no
   // borra lo elegido en la 1 (M5). Cambiar cualquier filtro sí, porque ya no
@@ -165,10 +184,56 @@ export function CurationFindingsPage() {
   useEffect(() => {
     setSelected(new Set());
     setSelectAll(false);
-    setFocused(-1);
   }, [key, detector, signature, severity, entityKind, status, q, scanId, chained]);
 
   const rows = data?.data ?? [];
+  const focused = Math.max(0, rows.findIndex((finding) => finding.id === activeId));
+  const activeFinding = rows[focused];
+  const savedParams = params.toString();
+  useEffect(() => {
+    if (user) saveCurationResume(user.username, `/curaduria/${routeKey ? `categoria/${routeKey}` : "hallazgos"}${savedParams ? `?${savedParams}` : ""}`);
+  }, [user, routeKey, savedParams]);
+
+  function activate(index: number) {
+    const finding = rows[index];
+    if (!finding || loading) return;
+    const next = new URLSearchParams(params);
+    next.set("case", String(finding.id));
+    setParams(next, { replace: true });
+  }
+
+  function move(delta: number) {
+    if (loading) return;
+    const nextIndex = focused + delta;
+    if (nextIndex >= 0 && nextIndex < rows.length) { activate(nextIndex); return; }
+    const total = data?.pagination.total ?? 0;
+    if (nextIndex < 0 && offset > 0) {
+      pendingIndex.current = -1;
+      update({ offset: String(Math.max(0, offset - limit)) });
+    } else if (nextIndex >= rows.length && offset + rows.length < total) {
+      pendingIndex.current = 0;
+      update({ offset: String(offset + limit) });
+    }
+  }
+
+  useEffect(() => {
+    if (loading || !data) return;
+    // Al resolver el último caso de una página, retroceder a la última viva.
+    if (offset > 0 && offset >= data.pagination.total) {
+      const next = new URLSearchParams(params);
+      const lastOffset = Math.max(0, (Math.ceil(data.pagination.total / limit) - 1) * limit);
+      if (lastOffset) next.set("offset", String(lastOffset)); else next.delete("offset");
+      next.delete("case");
+      setParams(next, { replace: true });
+      return;
+    }
+    if (pendingIndex.current === null || !data.data.length) return;
+    const index = pendingIndex.current < 0 ? data.data.length - 1 : Math.min(pendingIndex.current, data.data.length - 1);
+    pendingIndex.current = null;
+    const next = new URLSearchParams(params);
+    next.set("case", String(data.data[index]!.id));
+    setParams(next, { replace: true });
+  }, [loading, data, offset, limit, params, setParams]);
 
   function toggleSelected(id: number) {
     if (selectAll) {
@@ -193,11 +258,22 @@ export function CurationFindingsPage() {
     for (const [name, value] of Object.entries(changes)) {
       if (value) next.set(name, value); else next.delete(name);
     }
-    if (!("offset" in changes)) next.delete("offset");
+    if (!("view" in changes)) next.delete("case");
+    if (!("offset" in changes) && !("view" in changes)) next.delete("offset");
     setParams(next);
   }
 
-  const afterWrite = useCallback(() => { reload(); void refreshSummary(); }, [reload, refreshSummary]);
+  const afterWrite = useCallback(() => {
+    const remaining = data?.data ?? [];
+    const nextFinding = remaining[focused + 1] ?? remaining[focused - 1];
+    if (nextFinding) {
+      const next = new URLSearchParams(params);
+      next.set("case", String(nextFinding.id));
+      setParams(next, { replace: true });
+    } else pendingIndex.current = focused;
+    reload();
+    void refreshSummary();
+  }, [data, focused, params, setParams, reload, refreshSummary]);
 
   /**
    * «Deshacer» tras una corrección individual (E8.4). Con una sola corrección
@@ -208,13 +284,15 @@ export function CurationFindingsPage() {
   const offerUndo = useCallback((batch: FixBatch) => {
     const runs = batch.items.filter((item) => item.status === "applied" && item.runId !== null);
     if (runs.length === 1) {
-      notify("success", "Corrección aplicada.");
+      // El aviso del cambio (con su «Deshacer») nace con el evento; el texto
+      // de aquí solo le pone título.
       window.dispatchEvent(new CustomEvent<CatalogChangeEvent>(CATALOG_CHANGE_EVENT, {
         detail: { runId: runs[0]!.runId!, method: "POST", path: `/curation/fixes/${batch.id}` },
       }));
+      notify("success", "Corrección aplicada.");
       return;
     }
-    notify("success", "Corrección aplicada.", {
+    notify("success", runs.length > 1 ? `${formatCount(runs.length)} correcciones aplicadas.` : "Corrección aplicada.", {
       action: {
         label: "Deshacer",
         onAction: async () => {
@@ -270,14 +348,14 @@ export function CurationFindingsPage() {
   const anyDialogOpen = Boolean(
     ignoringFinding || distinctFinding || fixTarget || mergingFinding || deletingFinding || sheetFinding
     || decidingReviewId !== null || resolvingConflict || ignoringGroup || fixingGroup || fixingSelected || applyingTrust
-    || acknowledgingGroup || helpOpen,
+    || acknowledgingGroup || helpOpen || albumMergeFinding,
   );
 
   // Sin lista de dependencias a propósito: el manejador tiene que leer el foco
   // y los hallazgos de ESTE render. Con dependencias habría que enumerarlas
   // todas y cualquier olvido dejaría el atajo actuando sobre una lista vieja.
   useEffect(() => {
-    if (anyDialogOpen) return undefined;
+    if (anyDialogOpen || loading) return undefined;
     const onKey = (event: KeyboardEvent) => {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
       const target = event.target as HTMLElement | null;
@@ -286,8 +364,7 @@ export function CurationFindingsPage() {
       if (!rows.length) return;
       if (event.key === "j" || event.key === "k") {
         event.preventDefault();
-        const delta = event.key === "j" ? 1 : -1;
-        setFocused((index) => (index < 0 ? 0 : Math.min(Math.max(index + delta, 0), rows.length - 1)));
+        move(event.key === "j" ? 1 : -1);
         return;
       }
       const finding = focused >= 0 ? rows[focused] : undefined;
@@ -351,6 +428,9 @@ export function CurationFindingsPage() {
   const canSelectAll = groupFilter !== null && status === "open" && total > 0;
 
   const cardHandlers = (finding: CurationFinding) => ({
+    onAlbumMerge: finding.entity.kind === "album" && findingPair(finding)
+      && (!researchOf(finding) || (researchOf(finding)!.verdict === "consolidar" && !researchOf(finding)!.changedAlbumIds.length))
+      ? () => setAlbumMergeFinding(finding) : undefined,
     onIgnore: () => setIgnoringFinding(finding),
     onReopen: () => void reopen(finding),
     onAcknowledge: finding.triggeredBy.length ? () => void acknowledge(finding) : undefined,
@@ -377,9 +457,62 @@ export function CurationFindingsPage() {
     onResolveConflict: finding.detector === CONFLICT_DETECTOR ? () => setResolvingConflict(finding) : undefined,
   });
 
+  // Lo que está filtrando la lista, siempre a la vista y quitable de a uno.
+  const activeFilters: Array<{ key: string; label: string; clear: Record<string, string | null> }> = [
+    ...(detector ? [{ key: "detector", label: category?.detectors.find((item) => item.key === detector)?.label ?? detector, clear: { detector: null, signature: null } }] : []),
+    ...(signature ? [{ key: "signature", label: signatures.find((item) => item.key === signature)?.label ?? signature, clear: { signature: null } }] : []),
+    ...(severity ? [{ key: "severity", label: `Gravedad ${SEVERITY_LABEL[severity].toLowerCase()}`, clear: { severity: null } }] : []),
+    ...(entityKind ? [{ key: "entityKind", label: ENTITY_KIND_LABEL[entityKind] ?? entityKind, clear: { entityKind: null } }] : []),
+    ...(status !== "open" ? [{ key: "status", label: STATUSES.find((item) => item.value === status)?.label ?? status, clear: { status: null } }] : []),
+    ...(q ? [{ key: "q", label: `«${q}»`, clear: { q: null } }] : []),
+    ...(scanId ? [{ key: "scanId", label: `Análisis #${scanId}`, clear: { scanId: null } }] : []),
+    ...(chained ? [{ key: "chained", label: "Surgidos tras corregir", clear: { chained: null } }] : []),
+  ];
+
+  /** «No es un problema»: tras decidir, el caso siguiente queda delante y el aviso permite reabrirlo. */
+  const ignoreProps = (finding: CurationFinding): IgnoreProps => ({
+    title: "¿No es un problema?",
+    description: `«${finding.title}» dejará de aparecer entre los abiertos mientras el detector lo siga viendo igual. Si el problema desaparece, pasa a resuelto. El catálogo no cambia.`,
+    confirmLabel: "No es un problema",
+    requireNote: false,
+    onConfirm: async (reason, note) => {
+      await curationApi.ignore(finding.id, reason, note);
+      notify("success", "Marcado como «no es un problema».", { action: { label: "Reabrir", onAction: () => reopen(finding) } });
+      setIgnoringFinding(null);
+      afterWrite();
+    },
+    onClose: () => setIgnoringFinding(null),
+  });
+  const ignoreInline = view === "review" && ignoringFinding !== null && activeFinding?.id === ignoringFinding.id;
+
   return (
     <>
       <FindingsHeader category={category} scanId={scanId} chained={chained} />
+
+      <div className="cwork-toolbar">
+        <form className="cfind-search" role="search" onSubmit={(event) => { event.preventDefault(); update({ q: search.trim() || null }); }}>
+          <label className="visually-hidden" htmlFor="cfind-q">Buscar en los hallazgos</label>
+          <input id="cfind-q" className="filter-input" type="search" value={search} placeholder="Nombre, valor o ID…"
+            onChange={(event) => setSearch(event.target.value)} />
+          <button type="submit" className="btn btn--sm">Buscar</button>
+        </form>
+        <div className="segmented" role="group" aria-label="Vista de los casos">
+          <button type="button" className="segmented__option" aria-pressed={view === "review"} onClick={() => update({ view: null })}>Lista y detalle</button>
+          <button type="button" className="segmented__option" aria-pressed={view === "cards"} onClick={() => update({ view: "cards" })}>Tarjetas</button>
+        </div>
+      </div>
+
+      <details className="cwork-filters">
+        <summary>Filtros{[detector, signature, severity, entityKind, status !== "open" ? status : "", q, scanId, chained].filter(Boolean).length
+          ? ` · ${[detector, signature, severity, entityKind, status !== "open" ? status : "", q, scanId, chained].filter(Boolean).length} activos` : ""}</summary>
+      {!routeKey ? <div className="cwork-category-filter">
+        <label htmlFor="cfind-category">Categoría</label>
+        <select id="cfind-category" className="filter-input" value={key ?? ""}
+          onChange={(event) => update({ category: event.target.value || null, detector: null, signature: null })}>
+          <option value="">Todas las categorías</option>
+          {summary?.categories.map((item) => <option key={item.key} value={item.key}>{item.label} ({formatCount(item.open)})</option>)}
+        </select>
+      </div> : null}
 
       {category ? (
         <div className="cfilters" role="group" aria-label="Filtrar por detector">
@@ -404,11 +537,6 @@ export function CurationFindingsPage() {
       ) : null}
 
       <div className="list-toolbar">
-        <form className="cfind-search" role="search" onSubmit={(event) => { event.preventDefault(); update({ q: search.trim() || null }); }}>
-          <label className="visually-hidden" htmlFor="cfind-q">Buscar en los hallazgos</label>
-          <input id="cfind-q" className="filter-input" type="search" value={search} placeholder="Buscar nombre o valor…"
-            onChange={(event) => setSearch(event.target.value)} />
-        </form>
         <div className="cfind-selects">
           <label className="visually-hidden" htmlFor="cfind-severity">Gravedad</label>
           <select id="cfind-severity" className="filter-input" value={severity} onChange={(event) => update({ severity: event.target.value || null })}>
@@ -432,15 +560,45 @@ export function CurationFindingsPage() {
             <Keyboard size={14} weight="bold" aria-hidden="true" />
             <span className="visually-hidden">Atajos de teclado</span>
           </button>
+          <button type="button" className="btn btn--sm btn--ghost" onClick={() => update({ detector: null, signature: null, severity: null,
+            entityKind: null, status: null, q: null, scanId: null, chained: null, ...(!routeKey ? { category: null } : {}) })}>Limpiar filtros</button>
         </div>
       </div>
+      </details>
+
+      {activeFilters.length ? (
+        <div className="cfilter-chips" role="group" aria-label="Filtros activos">
+          {activeFilters.map((filter) => (
+            <span key={filter.key} className="cfilter-chip">
+              <span className="cfilter-chip__label">{filter.label}</span>
+              <button type="button" aria-label={`Quitar filtro ${filter.label}`} onClick={() => update(filter.clear)}>×</button>
+            </span>
+          ))}
+          {activeFilters.length > 1 ? (
+            <button type="button" className="btn-link" onClick={() => update(Object.assign({}, ...activeFilters.map((filter) => filter.clear)))}>Quitar todos</button>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className="cfind-count">
         {data && !loading ? (
           <p aria-live="polite">{total === 1 ? "1 hallazgo" : `${formatCount(total)} hallazgos`}</p>
         ) : <span />}
-        {status === "open" && data && total > 0 ? (
-          <div className="cfind-count__actions">
+        <div className="cwork-order">
+          <label className="visually-hidden" htmlFor="cfind-sort">Ordenar casos</label>
+          <select id="cfind-sort" className="filter-input" value={sort} onChange={(event) => update({ sort: event.target.value })}>
+            <option value="priority">Mayor gravedad primero</option>
+            <option value="oldest">Más antiguos primero</option>
+            <option value="newest">Más recientes primero</option>
+            <option value="entity">Nombre de la ficha</option>
+          </select>
+          <label className="visually-hidden" htmlFor="cfind-limit">Casos por página</label>
+          <select id="cfind-limit" className="filter-input" value={limit} onChange={(event) => update({ limit: event.target.value })}>
+            {[25, 50, 100].map((size) => <option key={size} value={size}>{size} por página</option>)}
+          </select>
+        </div>
+        {status === "open" && data && total > 0 && (groupFilter || chained) ? (
+          <div className="cfind-count__actions" role="group" aria-label="Acciones sobre todo el grupo">
             {/* Solo si hay algo que corregir de un clic en lo que se ve: «Corregir este detector» no debe
                 terminar en «0 corregidos» cuando ningún hallazgo tiene acción (A2). */}
             {groupFilter && fixableShown > 0 ? (
@@ -483,11 +641,30 @@ export function CurationFindingsPage() {
         />
       ) : (
         <>
-          <ol className={`cfind-list${loading ? " is-refreshing" : ""}`} ref={listRef}>
+          {view === "review" && activeFinding ? <CurationWorkbench
+            rows={rows} activeId={activeFinding.id} offset={offset} total={total}
+            selected={selected} selectAll={selectAll} loading={loading} initiallyOpen={activeId > 0}
+            onActivate={activate} onMove={move} onToggleSelected={toggleSelected}
+            onSelectPage={(checked) => {
+              if (selectAll) { setSelectAll(false); setSelected(new Set()); return; }
+              setSelected((current) => {
+                const next = new Set(current);
+                for (const row of rows.filter(isFixable)) { if (checked) next.add(row.id); else next.delete(row.id); }
+                return next;
+              });
+            }}
+            actions={ignoreInline && ignoringFinding ? <IgnoreForm inline {...ignoreProps(ignoringFinding)} />
+              : <FindingActions finding={activeFinding} busy={busyId === activeFinding.id || loading} layout="row" {...cardHandlers(activeFinding)} />}
+            detail={<FindingCard finding={activeFinding} busy={busyId === activeFinding.id || loading} compact={false} hideActions
+              categoryLabel={key ? undefined : summary?.categories.find((item) => item.key === activeFinding.category)?.label ?? "Otros"}
+              selected={selectAll ? isFixable(activeFinding) : selected.has(activeFinding.id)} selectionLocked={selectAll}
+              onToggleSelected={() => toggleSelected(activeFinding.id)} focusedByKeyboard={false}
+              onOpenSheet={() => setSheetFinding(activeFinding)} {...cardHandlers(activeFinding)} />}
+          /> : <ol className={`cfind-list${loading ? " is-refreshing" : ""}`} ref={listRef}>
             {rows.map((finding, index) => (
               <li key={finding.id}>
                 <FindingCard
-                  finding={finding} busy={busyId === finding.id} compact={isMobile}
+                  finding={finding} busy={busyId === finding.id || loading} compact={isMobile}
                   categoryLabel={key ? undefined : summary?.categories.find((item) => item.key === finding.category)?.label ?? "Otros"}
                   selected={selectAll ? isFixable(finding) : selected.has(finding.id)}
                   selectionLocked={selectAll}
@@ -498,8 +675,8 @@ export function CurationFindingsPage() {
                 />
               </li>
             ))}
-          </ol>
-          <Pagination scrollTargetRef={paginationStartRef} limit={LIMIT} offset={offset} total={total} onOffsetChange={(next) => update({ offset: String(next) })} />
+          </ol>}
+          <Pagination scrollTargetRef={paginationStartRef} limit={limit} offset={offset} total={total} onOffsetChange={(next) => update({ offset: String(next) })} />
         </>
       )}
 
@@ -526,21 +703,7 @@ export function CurationFindingsPage() {
         </div>
       ) : null}
 
-      {ignoringFinding ? (
-        <IgnoreDialog
-          title="¿No es un problema?"
-          description={`«${ignoringFinding.title}» dejará de aparecer entre los abiertos mientras el detector lo siga viendo igual. Si el problema desaparece, pasa a resuelto. El catálogo no cambia.`}
-          confirmLabel="No es un problema"
-          requireNote={false}
-          onConfirm={async (reason, note) => {
-            await curationApi.ignore(ignoringFinding.id, reason, note);
-            notify("success", "Hallazgo ignorado con su motivo.");
-            setIgnoringFinding(null);
-            afterWrite();
-          }}
-          onClose={() => setIgnoringFinding(null)}
-        />
-      ) : null}
+      {ignoringFinding && !ignoreInline ? <IgnoreDialog {...ignoreProps(ignoringFinding)} /> : null}
 
       {distinctFinding ? (
         <ConfirmDialog
@@ -683,6 +846,21 @@ export function CurationFindingsPage() {
         />
       ) : null}
 
+      {albumMergeFinding ? (() => {
+        const pair = findingPair(albumMergeFinding)!;
+        const research = researchOf(albumMergeFinding);
+        const keep = research?.suggestedKeep ?? albumMergeFinding.entity.id!;
+        const drop = pair.find((id) => id !== keep)!;
+        const label = (id: number) => research?.albums.find((album) => album.id === id)?.title
+          ?? (id === albumMergeFinding.entity.id ? albumMergeFinding.entity.label : albumMergeFinding.related.find((ref) => ref.kind === "album" && ref.id === id)?.label)
+          ?? `Disco #${id}`;
+        return <AlbumMergeModal albumId={keep} albumTitle={label(keep)} otherAlbum={{ id: drop, title: label(drop) }}
+          {...(research ? { initialMode: "match" as const } : {})}
+          onApplied={afterWrite}
+          onMerged={() => setAlbumMergeFinding(null)}
+          onClose={() => setAlbumMergeFinding(null)} />;
+      })() : null}
+
       {deletingFinding ? (
         <ConfirmDialog
           title="¿Eliminar esta ficha?"
@@ -743,11 +921,21 @@ export function CurationFindingsPage() {
   );
 }
 
-/** «No es un problema» con motivo obligatorio: sin él no se puede medir la precisión de cada detector. */
-function IgnoreDialog({ title, description, confirmLabel, requireNote, onConfirm, onClose }: {
+interface IgnoreProps {
   title: string; description: string; confirmLabel: string; requireNote: boolean;
   onConfirm: (reason: CurationIgnoreReason, note: string) => Promise<void>; onClose: () => void;
-}) {
+}
+
+/** «No es un problema» con motivo obligatorio: sin él no se puede medir la precisión de cada detector. */
+function IgnoreDialog(props: IgnoreProps) {
+  return <Modal title={props.title} onClose={props.onClose}><IgnoreForm {...props} /></Modal>;
+}
+
+/**
+ * La misma decisión dentro del panel del caso (vista «Lista y detalle»): sin
+ * ventana encima, el caso sigue a la vista mientras se elige el motivo.
+ */
+function IgnoreForm({ title, description, confirmLabel, requireNote, onConfirm, onClose, inline = false }: IgnoreProps & { inline?: boolean }) {
   const [reason, setReason] = useState<CurationIgnoreReason | null>(null);
   const [note, setNote] = useState("");
   const [busy, setBusy] = useState(false);
@@ -768,13 +956,14 @@ function IgnoreDialog({ title, description, confirmLabel, requireNote, onConfirm
   }
 
   return (
-    <Modal title={title} onClose={onClose}>
+    <div className={inline ? "cignore cignore--inline" : "cignore"} onKeyDown={(event) => { if (inline && event.key === "Escape") { event.stopPropagation(); onClose(); } }}>
+      {inline ? <h3 className="cignore__title">{title}</h3> : null}
       <p className="dialog-lead">{description}</p>
       <fieldset className="reason-choices">
         <legend>Motivo *</legend>
         {IGNORE_REASONS.map((item) => (
           <label key={item.value} className="reason-choice">
-            <input type="radio" name="ignore-reason" value={item.value} checked={reason === item.value} onChange={() => { setReason(item.value); setError(undefined); }} />
+            <input type="radio" name="ignore-reason" value={item.value} checked={reason === item.value} autoFocus={inline && item === IGNORE_REASONS[0]} onChange={() => { setReason(item.value); setError(undefined); }} />
             <span>
               <span className="reason-choice__label">{item.label}</span>
               <span className="reason-choice__hint">{item.hint}</span>
@@ -792,7 +981,7 @@ function IgnoreDialog({ title, description, confirmLabel, requireNote, onConfirm
         <button type="button" className="btn" onClick={onClose} disabled={busy}>Cancelar</button>
         <button type="button" className="btn btn--primary" onClick={submit} disabled={busy}>{busy ? "Guardando…" : confirmLabel}</button>
       </div>
-    </Modal>
+    </div>
   );
 }
 
@@ -894,6 +1083,7 @@ interface FindingActionsProps {
   onAcknowledge: (() => void) | undefined;
   onFix: (action: CurationActionSummary | null, manual: boolean) => void;
   onMerge: (() => void) | undefined;
+  onAlbumMerge: (() => void) | undefined;
   onDelete: (() => void) | undefined;
   onDistinct: (() => void) | undefined;
   onDecide: (() => void) | undefined;
@@ -907,57 +1097,40 @@ interface FindingActionsProps {
  * para que la primera lectura de la tarjeta no sea una fila de seis botones.
  */
 function FindingActions({
-  finding, busy, layout, onIgnore, onReopen, onAcknowledge, onFix, onMerge, onDelete, onDistinct, onDecide, onResolveConflict, onAny,
+  finding, busy, layout, onIgnore, onReopen, onAcknowledge, onFix, onMerge, onAlbumMerge, onDelete, onDistinct, onDecide, onResolveConflict, onAny,
 }: FindingActionsProps) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
   const open = finding.status === "open";
-
-  // Un menú que solo se cierra volviendo a pulsar su botón atrapa al que lo
-  // abre por error, y con el teclado no hay salida. Escape devuelve el foco al
-  // disparador; un clic fuera lo cierra sin activar nada más.
-  useEffect(() => {
-    if (!menuOpen) return undefined;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      event.stopPropagation();
-      setMenuOpen(false);
-      menuRef.current?.querySelector("button")?.focus();
-    };
-    const onPointerDown = (event: PointerEvent) => {
-      if (!menuRef.current?.contains(event.target as Node)) setMenuOpen(false);
-    };
-    document.addEventListener("keydown", onKey);
-    document.addEventListener("pointerdown", onPointerDown);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.removeEventListener("pointerdown", onPointerDown);
-    };
-  }, [menuOpen]);
   const [recommended, ...others] = finding.actions;
   // Escribir el valor a mano solo tiene sentido donde el detector calculó uno
   // (los hallazgos de texto): en los demás, el valor lo decide la acción.
   const manual = finding.suggestedValue !== null && finding.actions.some((action) => action.key === MANUAL_VALUE_ACTION);
-  const run = (fn: () => void) => () => { setMenuOpen(false); fn(); onAny?.(); };
+  const run = (fn: () => void) => () => { fn(); onAny?.(); };
   const sheet = layout === "sheet";
   const size = sheet ? "" : " btn--sm";
+  // Una sola acción principal por caso: la primera que aplique, en este orden.
+  // Las demás siguen a la vista, pero sin competir por el primer clic.
+  const primary = !open ? null : onAlbumMerge ? "albumMerge" : recommended ? "fix" : onDecide ? "decide" : onResolveConflict ? "resolve" : null;
+  const tone = (key: string) => primary === key ? " btn--primary" : " btn--outline";
 
   return (
     <div className={sheet ? "csheet__actions" : "cfind__actions"}>
+      {open && onAlbumMerge ? <button type="button" className={`btn${size}${tone("albumMerge")}`} onClick={run(onAlbumMerge)} disabled={busy}>
+        <GitMerge size={14} weight="bold" aria-hidden="true" /> Revisar fusión
+      </button> : null}
       {open && recommended ? (
-        <button type="button" className={`btn${size} btn--primary`} onClick={run(() => onFix(recommended, false))} disabled={busy}
+        <button type="button" className={`btn${size}${tone("fix")}`} onClick={run(() => onFix(recommended, false))} disabled={busy}
           title={actionConsequence(recommended)}>
           <Wrench size={14} weight="bold" aria-hidden="true" /> {recommended.label}
         </button>
       ) : null}
       {open && onDecide ? (
-        <button type="button" className={`btn${size} btn--primary`} onClick={run(onDecide)} disabled={busy}
+        <button type="button" className={`btn${size}${tone("decide")}`} onClick={run(onDecide)} disabled={busy}
           title="Aceptar, rechazar o resolver esta revisión sin salir de la lista">
           <Gavel size={14} weight="bold" aria-hidden="true" /> Decidir
         </button>
       ) : null}
       {open && onResolveConflict ? (
-        <button type="button" className={`btn${size} btn--primary`} onClick={run(onResolveConflict)} disabled={busy}
+        <button type="button" className={`btn${size}${tone("resolve")}`} onClick={run(onResolveConflict)} disabled={busy}
           title="Elegir A, B u otro valor con la evidencia de cada fuente">
           <Scales size={14} weight="bold" aria-hidden="true" /> Resolver
         </button>
@@ -992,45 +1165,46 @@ function FindingActions({
             ) : null}
             {onDelete ? (
               <button type="button" className="btn btn--outline" onClick={run(onDelete)} disabled={busy}>
-                <Trash size={14} weight="bold" aria-hidden="true" /> Eliminar ficha sin vista previa
+                <Trash size={14} weight="bold" aria-hidden="true" /> Retirar la ficha
               </button>
             ) : null}
           </>
         ) : (
-          <div className={`cmenu${menuOpen ? " is-open" : ""}`} ref={menuRef}>
-            <button type="button" className="btn btn--sm btn--outline" aria-expanded={menuOpen} aria-haspopup="menu"
-              onClick={() => setMenuOpen((value) => !value)} disabled={busy}>
+          <Menu.Root>
+            <Menu.Trigger className="btn btn--sm btn--outline" disabled={busy}>
               <DotsThree size={16} weight="bold" aria-hidden="true" /> Otras correcciones
-            </button>
-            {menuOpen ? (
-              <div className="cmenu__panel" role="menu">
-                {others.map((action) => (
-                  <button key={action.key} type="button" className="cmenu__item" role="menuitem" onClick={run(() => onFix(action, false))}>
-                    <span className="cmenu__label">{action.label}</span>
-                    <span className="cmenu__hint">{actionConsequence(action)}</span>
-                  </button>
-                ))}
-                {manual ? (
-                  <button type="button" className="cmenu__item" role="menuitem" onClick={run(() => onFix(null, true))}>
-                    <span className="cmenu__label">Escribir el valor a mano</span>
-                    <span className="cmenu__hint">Se aplica el texto que escribas, con vista previa.</span>
-                  </button>
-                ) : null}
-                {onMerge ? (
-                  <button type="button" className="cmenu__item" role="menuitem" onClick={run(onMerge)}>
-                    <span className="cmenu__label">Fusionar eligiendo la otra ficha</span>
-                    <span className="cmenu__hint">Cuando la repetida no es la que propone el detector.</span>
-                  </button>
-                ) : null}
-                {onDelete ? (
-                  <button type="button" className="cmenu__item" role="menuitem" onClick={run(onDelete)}>
-                    <span className="cmenu__label">Eliminar ficha sin vista previa</span>
-                    <span className="cmenu__hint">Se retira del catálogo con auditoría, pero fuera del lote: sin deshacer de un clic.</span>
-                  </button>
-                ) : null}
-              </div>
-            ) : null}
-          </div>
+            </Menu.Trigger>
+            <Menu.Portal>
+              <Menu.Positioner sideOffset={6} align="end" className="cmenu__positioner">
+                <Menu.Popup className="cmenu__panel cmenu__panel--floating">
+                  {others.map((action) => (
+                    <Menu.Item key={action.key} className="cmenu__item" onClick={run(() => onFix(action, false))}>
+                      <span className="cmenu__label">{action.label}</span>
+                      <span className="cmenu__hint">{actionConsequence(action)}</span>
+                    </Menu.Item>
+                  ))}
+                  {manual ? (
+                    <Menu.Item className="cmenu__item" onClick={run(() => onFix(null, true))}>
+                      <span className="cmenu__label">Escribir el valor a mano</span>
+                      <span className="cmenu__hint">Se aplica el texto que escribas, con vista previa.</span>
+                    </Menu.Item>
+                  ) : null}
+                  {onMerge ? (
+                    <Menu.Item className="cmenu__item" onClick={run(onMerge)}>
+                      <span className="cmenu__label">Fusionar eligiendo la otra ficha</span>
+                      <span className="cmenu__hint">Cuando la repetida no es la que propone el detector.</span>
+                    </Menu.Item>
+                  ) : null}
+                  {onDelete ? (
+                    <Menu.Item className="cmenu__item cmenu__item--danger" onClick={run(onDelete)}>
+                      <span className="cmenu__label">Retirar la ficha</span>
+                      <span className="cmenu__hint">Se retira con motivo y auditoría; el aviso trae «Deshacer».</span>
+                    </Menu.Item>
+                  ) : null}
+                </Menu.Popup>
+              </Menu.Positioner>
+            </Menu.Portal>
+          </Menu.Root>
         )
       ) : null}
 
@@ -1056,6 +1230,7 @@ function FindingActions({
 }
 
 interface FindingCardProps extends Omit<FindingActionsProps, "layout" | "onAny"> {
+  hideActions?: boolean;
   categoryLabel: string | undefined;
   selected: boolean;
   /** Con «seleccionar todo el filtro» la casilla refleja el filtro, no una elección ficha a ficha. */
@@ -1112,6 +1287,8 @@ function FindingCard(props: FindingCardProps) {
   const related = finding.related.filter((ref) => !(ref.kind === finding.entity.kind && ref.id === finding.entity.id));
   const recommended = finding.actions[0];
   const selectable = isFixable(finding);
+  const research = researchOf(finding);
+  const hasEvidence = Object.keys(finding.evidence).some((name) => !HIDDEN_EVIDENCE.has(name));
 
   return (
     <article
@@ -1140,6 +1317,8 @@ function FindingCard(props: FindingCardProps) {
       </div>
 
       <h3 className="cfind__title">{finding.title}</h3>
+
+      {research ? <FindingResearch research={research} /> : null}
 
       {finding.value !== null ? (
         <p className="cfind__value">
@@ -1216,16 +1395,16 @@ function FindingCard(props: FindingCardProps) {
       {finding.detector === "trayectoria_imposible" && finding.entity.kind === "person" && finding.entity.id !== null && finding.status === "open"
         ? <MixedPersonWebResearch personId={finding.entity.id} /> : null}
 
-      {finding.status === 'open' && finding.entity.id !== null && ['artist','person','album','organization','track'].includes(finding.entity.kind) ? <div className="cfind__ai"><Link className="btn btn--sm" to={`/curaduria/ia?kind=${finding.entity.kind}&id=${finding.entity.id}&instruction=${encodeURIComponent(`Revisa este hallazgo: ${finding.title}. ${finding.suggestion ?? ''} ${findingPair(finding) ? `Fichas del par: ${findingPair(finding)!.join(' y ')}.` : ''} Consulta las fuentes y prepara solo cambios documentados para revisión humana.`)}`}>Preparar corrección con IA</Link><span>Revisa y edita la propuesta antes de implementarla.</span></div> : null}
+      {finding.status === 'open' && finding.entity.id !== null && ['artist','person','album','organization','track'].includes(finding.entity.kind) ? <div className="cfind__ai"><Link className="btn btn--sm" to={`/curaduria/ia?kind=${finding.entity.kind}&id=${finding.entity.id}&instruction=${encodeURIComponent(researchInstruction(finding))}`}>Preparar corrección con IA</Link><span>Revisa la propuesta antes de aceptar cambios.</span></div> : null}
       {finding.category === "fichas_repetidas" && finding.entity.kind === "person" && finding.status === "open" && findingPair(finding)
         ? <PersonPairWebResearch aId={findingPair(finding)![0]} bId={findingPair(finding)![1]} autoLoad={false} /> : null}
 
-      <div className="cfind__foot">
-        <details className="cfind__evidence">
+      {hasEvidence || !props.hideActions ? <div className="cfind__foot">
+        {hasEvidence ? <details className="cfind__evidence">
           <summary>Evidencia <CaretDown size={12} weight="bold" aria-hidden="true" /></summary>
           <FindingEvidence evidence={finding.evidence} />
-        </details>
-        {compact ? (
+        </details> : null}
+        {props.hideActions ? null : compact ? (
           <div className="cfind__actions">
             <button type="button" className="btn btn--sm btn--primary" onClick={onOpenSheet} disabled={busy}>
               <DotsThree size={16} weight="bold" aria-hidden="true" /> Acciones
@@ -1234,7 +1413,7 @@ function FindingCard(props: FindingCardProps) {
         ) : (
           <FindingActions {...props} layout="row" />
         )}
-      </div>
+      </div> : null}
     </article>
   );
 }

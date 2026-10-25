@@ -1,8 +1,10 @@
+import { classificationFilterLabel } from "../../shared/classification-filters.js";
 import type { FastifyInstance, FastifyReply } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { getTypeFacets } from "../repositories/type-facets.js";
 import { paginationQuerySchema, toPage } from "../pagination.js";
+import { catalogSortSchema } from "../catalog-sort.js";
 import {
   idParamSchema, aliasSchema, decadeListFilterSchema, decadeFacetsSchema, genreListFilterSchema, relatedGenreQuerySchema, genreStatusSchema, paginatedResponseSchema, publicGenreSchema, writeErrorResponses,
 } from "../schemas.js";
@@ -15,12 +17,17 @@ import { MERGE_ALBUM_FIELDS, previewAlbumMerge, mergeAlbums } from "../../merge/
 import { getPool } from "../../db/client.js";
 import { layaDecidedIds } from "../../genres/public.js";
 import { albumDiscographySchema } from "./discography.js";
+import { parseCategorySelection } from "../../shared/category-selection.js";
 
 const albumListItemSchema = z.object({
   id: z.number().int(),
   title: z.string(),
   releaseYear: z.number().int().nullable(),
   albumType: z.string(),
+  isLive: z.boolean(),
+  isBSides: z.boolean(),
+  classifications: z.array(z.object({ classification: z.string(), inferred: z.boolean() })),
+  editionTypes: z.array(z.string()),
   artistId: z.number().int(),
   artistName: z.string(),
   coverUrl: z.string().nullable(),
@@ -67,6 +74,10 @@ const albumDetailSchema = z.object({
   title: z.string(),
   releaseYear: z.number().int().nullable(),
   albumType: z.string(),
+  isLive: z.boolean(),
+  isBSides: z.boolean(),
+  classifications: z.array(z.object({ classification: z.string(), inferred: z.boolean() })),
+  editionTypes: z.array(z.string()),
   genre: z.string().nullable(),
   genreStatus: genreStatusSchema.optional(),
   primaryGenre: publicGenreSchema.nullable(),
@@ -109,13 +120,17 @@ const albumDetailSchema = z.object({
 });
 
 const listQuerySchema = paginationQuerySchema.extend({
+  sort: catalogSortSchema.optional(),
   q: z.string().trim().min(1).optional(),
   artistId: z.coerce.number().int().positive().optional(),
   ...genreListFilterSchema,
   ...decadeListFilterSchema,
   beforeYear: z.coerce.number().int().min(1900).max(2100).optional(),
   relatedGenre: relatedGenreQuerySchema,
-  albumType: z.string().trim().min(1).max(40).optional(),
+  albumType: z.union([z.string().max(1500), z.array(z.string().max(1500)).max(30)])
+    .transform(value => parseCategorySelection(typeof value === "string" ? [value] : value))
+    .pipe(z.array(z.string().min(1).max(600).refine(value=>value.startsWith("classification:")?Boolean(classificationFilterLabel(value))&&(classificationFilterLabel(value)?.length??0)<=60:value.length<=40,"Categoría inválida")).min(1).max(30))
+    .optional().describe("Categorías separadas por comas o repetidas; el disco debe cumplir todas (Y)."),
 });
 
 

@@ -52,6 +52,7 @@ describe("detectores locales y globales (E9.1)", () => {
       "discos_partidos",
       "discos_repetidos",
       "enlace_de_medio_a_ficha_fusionada",
+      "investigacion_documentada",
       "organizaciones_equivalentes",
       "periodo_de_membresia_imposible",
       "personas_equivalentes",

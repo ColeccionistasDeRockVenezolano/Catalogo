@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadResolutionCandidates, persistResolutionDecision, withCandidateSnapshot } from "../../src/er/repository.js";
+import { loadResolutionCandidates, persistResolutionDecision, withCandidateSnapshot, withLockedTrackWriteSnapshot, rememberCreatedTrackInSnapshot } from "../../src/er/repository.js";
 import { resolveEntityDeterministically } from "../../src/er/scoring.js";
 import type { ResolutionInput } from "../../src/er/types.js";
 
@@ -19,6 +19,32 @@ function fakeClient() {
 }
 
 describe("instantánea de candidatos", () => {
+  it("una alta dentro del candado aparece por posición y alias en la siguiente resolución", async () => {
+    const rows = [{ id: "1", name: "Otra pista", disc_number: 1, track_number: 1, album_id: 20, album_name: "Otro disco", artist_name: "Otra banda", aliases: [] as Array<{value:string;type:string;confidence:string}> }];
+    const reads: string[] = [];
+    const client = { async query(sql:string, params?:number[]) {
+      if (sql.startsWith("LOCK TABLE")) { reads.push("lock"); return { rows: [] }; }
+      reads.push(params?.length ? "single" : "all");
+      return { rows: params?.length ? rows.filter(r => Number(r.id) === params[0]) : [...rows] };
+    } } as never;
+    const input:ResolutionInput={kind:"TRACK",name:"Nombre alternativo",album:{id:10,name:"Mi disco"},disc:1,trackNumber:1};
+    await withLockedTrackWriteSnapshot(client, async () => {
+      expect(resolveEntityDeterministically(input,await loadResolutionCandidates(input,client)).action).toBe("NO_MATCH");
+      rows.push({id:"2",name:"Pista creada",disc_number:1,track_number:1,album_id:10,album_name:"Mi disco",artist_name:"Mi banda",aliases:[{value:"Nombre alternativo",type:"other",confidence:"high"}]});
+      await rememberCreatedTrackInSnapshot(client,2);
+      const filtered=await loadResolutionCandidates(input,client);
+      const fresh=await withCandidateSnapshot(()=>loadResolutionCandidates(input,client));
+      const decision=resolveEntityDeterministically(input,filtered);
+      const reference=resolveEntityDeterministically(input,fresh);
+      expect([decision.action,decision.candidateId]).toEqual([reference.action,reference.candidateId]);
+      expect(decision.candidateId).toBe(2);
+      expect(filtered).toHaveLength(1);
+      await expect(rememberCreatedTrackInSnapshot(client,2)).rejects.toThrow("ya estaba");
+      await expect(rememberCreatedTrackInSnapshot(client,999)).rejects.toThrow("no existe");
+    });
+    expect(reads[0]).toBe("lock");
+    await expect(rememberCreatedTrackInSnapshot(client,2)).rejects.toThrow("activa");
+  });
   it("sin instantánea, cada claim vuelve a leer el catálogo", async () => {
     const { calls, client } = fakeClient();
     await loadResolutionCandidates({ kind: "PERSON", name: "a" }, client);

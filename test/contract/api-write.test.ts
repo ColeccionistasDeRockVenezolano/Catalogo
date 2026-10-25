@@ -184,6 +184,21 @@ describe("API de escritura (E7B)", () => {
     expect((await write("DELETE", `/tracks/${track.json().id}`)).statusCode).toBe(200);
   });
 
+  it("guarda la web del artista con identidad confirmada e historial reversible", async () => {
+    const url = `/catalog-links/artist/${artistId}/social/website`;
+    const link = { url: "https://artista.example/", handle: null, verified: true, note: "Web cotejada con el perfil de streaming y la discografía" };
+    const saved = await write("PATCH", url, link);
+    expect(saved.statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: `/artists/${artistId}` })).json().socials)
+      .toContainEqual({ platform: "website", url: link.url, handle: null });
+    const removed = await write("DELETE", `${url}?note=retirar%20web`);
+    expect(removed.statusCode).toBe(200);
+    expect((await write("POST", `/changes/${removed.json().runId}/undo`, { note: "restaurar web cotejada" })).statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: `/artists/${artistId}` })).json().socials)
+      .toContainEqual({ platform: "website", url: link.url, handle: null });
+    expect((await write("DELETE", `${url}?note=limpiar%20web%20de%20prueba`)).statusCode).toBe(200);
+  });
+
   it("gestiona redes y escucha con historial reversible y lectura privada", async () => {
     const url = `/catalog-links/artist/${artistId}/social/instagram`;
     const link = { url: "https://instagram.com/crv_prueba", handle: "@crv_prueba", verified: true, note: "perfil confirmado por la administración" };
@@ -202,8 +217,11 @@ describe("API de escritura (E7B)", () => {
     expect(removed.statusCode).toBe(200);
     expect((await write("POST", `/changes/${removed.json().runId}/undo`, { note: "restaurar perfil" })).statusCode).toBe(200);
     expect((await authedGet(`/catalog-links/artist/${artistId}/social`)).json()).toHaveLength(1);
-    expect((await write("PATCH", `/catalog-links/album/${albumId}/streaming/spotify`, { url: "https://open.spotify.com/album/prueba", verified: true, note: "confirmar disco" })).statusCode).toBe(200);
-    expect((await app.inject({ method: "GET", url: `/albums/${albumId}` })).json().platforms).toContainEqual({ platform: "spotify", url: "https://open.spotify.com/album/prueba" });
+    expect((await write("PATCH", `/catalog-links/album/${albumId}/streaming/spotify`, { url: "https://open.spotify.com/album/prueba", verified: true, externalId: "albumPrueba123", note: "confirmar disco" })).statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: `/albums/${albumId}` })).json().platforms).toContainEqual(expect.objectContaining({ platform: "spotify", url: "https://open.spotify.com/album/prueba", externalId: "albumPrueba123" }));
+    // Editar desde la web (que no envía el id) no puede borrar el identificador de la plataforma.
+    expect((await write("PATCH", `/catalog-links/album/${albumId}/streaming/spotify`, { url: "https://open.spotify.com/album/prueba2", verified: true, note: "corregir la URL" })).statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: `/albums/${albumId}` })).json().platforms).toContainEqual(expect.objectContaining({ platform: "spotify", url: "https://open.spotify.com/album/prueba2", externalId: "albumPrueba123" }));
     expect((await write("PATCH", `/catalog-links/album/${albumId}/social/instagram`, link)).statusCode).toBe(422);
     expect((await write("PATCH", `/catalog-links/artist/${artistId}/social/spotify`, link)).statusCode).toBe(422);
     expect((await write("PATCH", url, { ...link, url: "javascript:alert(1)" })).statusCode).toBe(400);
@@ -576,6 +594,29 @@ describe("API de escritura (E7B)", () => {
 
     const missingNote = await write("POST", `/review-queue/${accepted.json().reviewId}/accept`, {});
     expect(missingNote.statusCode).toBe(400);
+  });
+
+  it("crea y edita clasificaciones combinables sin cambiar el tipo ni borrar otras categorías, con deshacer", async () => {
+    const created = await write("POST", "/albums", {
+      artistId, title: "Rarezas editoriales", albumType: "single", classifications: ["B-Sides", "Remix"], note: "Sencillo de rarezas remezcladas",
+    });
+    expect(created.statusCode, created.body).toBe(201);
+    const id = created.json().id;
+    const detail = () => app.inject(`/albums/${id}`).then(response => response.json());
+    expect(await detail()).toMatchObject({ albumType: "single", isBSides: true,
+      classifications: expect.arrayContaining([{ classification: "B-Sides", inferred: false }, { classification: "Remix", inferred: false }]) });
+    expect((await app.inject("/albums?albumType=b_sides,remix,single")).json().data.some((album: { id: number }) => album.id === id)).toBe(true);
+    await pool().query("INSERT INTO ingest.album_classifications(album_id,classification,position) VALUES($1,'Single',3)", [id]);
+    const changed = await write("PATCH", `/albums/${id}`, { classifications: ["B-Sides", "Instrumental", "Single"], note: "Conservar rarezas y corregir su característica" });
+    expect(changed.statusCode, changed.body).toBe(200);
+    expect((await detail()).classifications.map((item: { classification: string }) => item.classification).sort()).toEqual(["B-Sides", "Instrumental", "Single"]);
+    expect((await write("POST", `/changes/${changed.json().runId}/undo`, { note: "Restaurar clasificación anterior" })).statusCode).toBe(200);
+    expect((await detail()).classifications.map((item: { classification: string }) => item.classification).sort()).toEqual(["B-Sides", "Remix", "Single"]);
+    const removed = await write("PATCH", `/albums/${id}`, { classifications: [], note: "Retirar características conservando el tipo" });
+    expect(removed.statusCode, removed.body).toBe(200);
+    expect(await detail()).toMatchObject({ albumType: "single", isBSides: false, classifications: [] });
+    expect((await write("PATCH", `/albums/${id}`, { classifications: ["Documental"], note: "Un audiovisual no es un tipo musical" })).statusCode).toBe(400);
+    expect((await write("PATCH", "/albums/99999999", { classifications: ["B-Sides"] })).statusCode).toBe(404);
   });
 
   it("expone la escritura en OpenAPI con el esquema de seguridad del operador", async () => {

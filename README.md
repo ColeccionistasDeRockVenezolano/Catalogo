@@ -1,5 +1,11 @@
 # Coleccionistas de Rock Venezolano — DB v1 simplificada
 
+Los datos scrapeados de esta instalación viven en
+`/mnt/1tb/Shared/coleccionistas-rock-venezolano`; los enlaces locales conservan
+las rutas de los scripts. Antes de capturar: `python3 scripts/shared-storage.py status`.
+Ubicación, evaluación de conflictos e instrucciones para Codex, Hermes,
+Synapse y Claude Code: [docs/SHARED_STORAGE.md](docs/SHARED_STORAGE.md).
+
 ## Archivos
 - `crv_simple_v1.dbml`: pegar directamente en https://dbdiagram.io/
 - `crv_simple_v1.sql`: PostgreSQL 15+
@@ -25,6 +31,9 @@ Documentación normativa completa en `docs/` (empezar por
 `docs/OPERATIONS.md`; respaldo y restauración: `docs/DATABASE_BACKUP_RESTORE.md`;
 proceso para una fuente futura: `docs/ADDING_A_SOURCE.md`; estado auditado y
 límites conocidos: `docs/FINAL_AUDIT.md`.
+
+Inventario y plan de fuentes para investigación dirigida: [RESEARCH_SOURCES_2026-10-13.md](docs/RESEARCH_SOURCES_2026-10-13.md).
+Campaña de recorrido, extracción y cotejo con DeepSeek: [OFFICIAL_ENRICHMENT_CAMPAIGN.md](docs/OFFICIAL_ENRICHMENT_CAMPAIGN.md).
 
 Requisitos: Node.js ≥22 (`.nvmrc`) y Docker.
 
@@ -62,6 +71,7 @@ npm run api                 # API Fastify en 127.0.0.1:8080 (OpenAPI en /docs)
 npm run cotejo:build && npm run cotejo:serve    # Mesa de Cotejo en 127.0.0.1:4310
 npm run adapters:fixtures   # candidatos normalizados de los fixtures locales; sin red ni base
 npm run cli -- sources:list # resto de comandos del CLI
+npm run research:sources -- --summary # inventario de fuentes venezolanas para investigación dirigida
 npm run cli -- sources:evidence hemeroteka "https://www.instagram.com/p/CODIGO/" "<extracto>" # entrada humana; no hace fetch
 npm run core:catalog        # regenera la huella del core (solo si el core cambia)
 ```

@@ -19,6 +19,7 @@ export const labelRefSchema = z.object({
 export const albumDiscographySchema = {
   versions: z.array(z.object({
     id: int, position: int, title: z.string().nullable(), format: z.string().nullable(), formatDetails: z.string().nullable(),
+    editionTypes: z.array(z.string()),
     catalogNumber: z.string().nullable(), country: z.string().nullable(), releaseYear: int.nullable(), releaseDate: z.string().nullable(),
     coverUrl: z.string().nullable(), notes: z.string().nullable(), distinctTracks: z.boolean(), discNumbers: z.array(int), isPrimary: z.boolean(),
     source: z.string().nullable(), sourceUrl: z.string().nullable(), hasOwnPage: z.boolean(), labels: z.array(labelRefSchema),

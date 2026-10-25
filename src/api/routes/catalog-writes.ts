@@ -1,11 +1,17 @@
+import { albumTypeEnum } from "../../db/schema/core.js";
+import { syncCoreAlbumLabel } from "../../catalog/album-labels.js";
+import { writeModel } from "../../catalog/model.js";
+import { dateYear } from "../../catalog/date-value.js";
 import { dateValueText, parseDateValue } from "../../catalog/date-value.js";
+import { writeAlbumClassifications } from "../../catalog/album-classifications.js";
+import { isMusicalClassification } from "../../catalog/album-classifications.js";
 // CRV · Escritura de entidades del core (PHASES §E7B): artistas, personas,
 // organizaciones, álbumes y pistas. Los controllers solo validan y traducen;
 // cada petición es una transacción de `merge/operator.ts` sobre el motor.
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { createEntity, deleteEntity, updateEntity, withOperatorRun, type CreateEntityOptions } from "../../merge/operator.js";
+import { OperatorError, type OperatorContext, createEntity, deleteEntity, updateEntity, withOperatorRun, type CreateEntityOptions } from "../../merge/operator.js";
 import type { ResolvableClaimKind } from "../../merge/specs.js";
 import { OPERATOR_SECURITY } from "../auth.js";
 import { idParamSchema, writeErrorResponses } from "../schemas.js";
@@ -41,6 +47,8 @@ export const ENTITY_FIELDS = {
     artistType: artistTypeSchema,
     biography: longText.nullable(), pictureUrl: url.nullable(),
     originCity: text(120).nullable(), originCountry: text(120),
+    currentCity: text(120).nullable(), currentCountry: text(120).nullable(),
+    email: text(200).nullable(),
     formedYear: year.nullable(), disbandedYear: year.nullable(), notes: longText.nullable(),
     status: text(50).nullable(), themes: longText.nullable(), yearsActive: text(200).nullable(), logoUrl: url.nullable(),
   },
@@ -58,13 +66,14 @@ export const ENTITY_FIELDS = {
   album: {
     title: text(250), releaseYear: year.nullable(),
     releaseDateText: text(40).nullable(), catalogId: text(80).nullable(), mediaFormat: text(50).nullable(),
-    albumType: z.enum(["studio_album", "live_album", "ep", "single", "compilation", "demo", "soundtrack", "collaboration_album", "remix", "other"]),
+    albumType: z.enum(albumTypeEnum.enumValues),
     genre: text(200).nullable(), labelId: z.number().int().positive().nullable(), coverUrl: url.nullable(),
     description: longText.nullable(), youtubeUrl: url.nullable(), youtubeStatus: publication,
     instagramUrl: url.nullable(), instagramStatus: publication, wordpressUrl: url.nullable(), wordpressStatus: publication,
     notes: longText.nullable(),
   },
   track: {
+    lyrics: z.string().trim().min(1).max(100_000).nullable(),
     title: text(250), discNumber: z.number().int().positive().max(99), trackNumber: z.number().int().positive().max(999),
     durationSeconds: z.number().int().nonnegative().nullable(), youtubeStartSeconds: z.number().int().nonnegative().nullable(),
     notes: longText.nullable(),
@@ -88,7 +97,8 @@ const ENTITY_ROUTES: readonly EntityRoute[] = [
   { kind: "track", path: "/tracks", label: "pista", identity: "title", parent: "albumId" },
 ];
 
-const CONTROL_KEYS = new Set(["note", "allowSimilar", "artistId", "albumId"]);
+const CONTROL_KEYS = new Set(["note", "allowSimilar", "artistId", "albumId", "classifications", "releaseDate"]);
+const classificationsSchema = z.array(z.string().trim().min(1).max(60).refine(isMusicalClassification, "Gestiona las piezas audiovisuales en Audiovisuales")).max(100);
 
 export function toSnake(key: string): string {
   return key.replace(/[A-Z]/gu, (letter) => `_${letter.toLowerCase()}`);
@@ -140,11 +150,13 @@ export async function registerCatalogWriteRoutes(app: FastifyInstance): Promise<
     };
     const createBody = z.object(fields).partial().extend({
       ...required,
+      ...(route.kind === "album" ? { classifications: classificationsSchema.optional(), releaseDate: isoDate.nullable().optional() } : {}),
       note: noteSchema.optional(),
       allowSimilar: z.boolean().optional()
         .describe("Decisión humana: crear aunque el ER vea candidatos parecidos (homónimos a sabiendas)."),
     }).strict();
     const updateBody = z.object(fields).partial().extend({
+      ...(route.kind === "album" ? { classifications: classificationsSchema.optional(), releaseDate: isoDate.nullable().optional() } : {}),
       note: noteSchema.optional(),
       // El padre (artista del disco, disco de la pista) se fija al crear y se
       // reatribuye aquí: es una corrección con auditoría, no un campo más.
@@ -170,7 +182,15 @@ export async function registerCatalogWriteRoutes(app: FastifyInstance): Promise<
       const { runId, result } = await withOperatorRun({
         name: `api:create:${route.kind}`, operator: request.operator, note: noteFrom(body, `alta de ${route.label} por la API`),
         params: { kind: route.kind, values, options },
-      }, (context) => createEntity(context, route.kind, values, options));
+      }, async (context) => {
+        const created = await createEntity(context, route.kind, values, options);
+        if (route.kind === "album" && Array.isArray(body["classifications"])) {
+          await writeAlbumClassifications(context, created.id, body["classifications"] as string[]);
+        }
+        if (route.kind === "album" && body["releaseDate"] !== undefined) await saveAlbumDate(context, created.id, body["releaseDate"] as string|null);
+        if(route.kind === "album" && body["labelId"]!==undefined) await syncCoreAlbumLabel(context,created.id,body["labelId"] as number|null);
+        return created;
+      });
       return reply.status(201).send({ ...result, runId });
     });
 
@@ -194,8 +214,26 @@ export async function registerCatalogWriteRoutes(app: FastifyInstance): Promise<
           kind: route.kind, id: request.params.id, values,
           ...(parentKey === undefined || parentId === undefined ? {} : { [parentKey]: parentId }),
         },
-      }, (context) => updateEntity(context, route.kind, request.params.id, values,
-        parentId === undefined ? {} : { parentId }));
+      }, async (context) => {
+        if(route.kind === "album" && body["labelId"]!==undefined) await syncCoreAlbumLabel(context,request.params.id,body["labelId"] as number|null);
+        const hasDate = route.kind === "album" && body["releaseDate"] !== undefined;
+        if (hasDate) {
+          const date=body["releaseDate"] as string|null;
+          const projected=date===null?null:dateYear(date);
+          if(values["release_year"]!==undefined && values["release_year"]!==null && projected!==null && values["release_year"]!==projected) throw new OperatorError("invalid","El año y la fecha de publicación no coinciden.");
+          await saveAlbumDate(context,request.params.id,date);
+          if(projected!==null) values["release_year"]=projected;
+        } else if(route.kind === "album" && values["release_year"]!==undefined) {
+          const old=(await context.client.query<{release_date:unknown}>("SELECT release_date FROM ingest.catalog_edition_details WHERE album_id=$1",[request.params.id])).rows[0]?.release_date;
+          if(old && dateYear(dateValueText(old as Parameters<typeof dateValueText>[0]))!==values["release_year"]) await saveAlbumDate(context,request.params.id,null);
+        }
+        const hasClassifications = route.kind === "album" && Array.isArray(body["classifications"]);
+        if (hasClassifications) await writeAlbumClassifications(context, request.params.id, body["classifications"] as string[]);
+        if ((hasClassifications || hasDate) && Object.keys(values).length === 0 && parentId === undefined) {
+          return { kind: route.kind, id: request.params.id, fields: [] };
+        }
+        return updateEntity(context, route.kind, request.params.id, values, parentId === undefined ? {} : { parentId });
+      });
       return { ...result, runId };
     });
 
@@ -216,4 +254,9 @@ export async function registerCatalogWriteRoutes(app: FastifyInstance): Promise<
       return { kind: result.kind, id: result.id, runId, claimsRejected: result.claimsRejected, parentAuditId: result.parentAuditId ?? null };
     });
   }
+}
+
+async function saveAlbumDate(context:OperatorContext,albumId:number,releaseDate:string|null) {
+ const row=(await context.client.query<{id:string}>("SELECT id::text FROM ingest.catalog_edition_details WHERE album_id=$1 FOR UPDATE",[albumId])).rows[0];
+ await writeModel(context,"edition",{albumId,releaseDate},row?Number(row.id):undefined);
 }

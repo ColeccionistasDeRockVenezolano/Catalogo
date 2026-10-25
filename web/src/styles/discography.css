@@ -41,6 +41,8 @@ a.credit-chip:hover { border-color: var(--accent, var(--text-muted)); }
 .credit-statements h3 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); }
 .credit-statement { margin: 0 0 4px; font-size: 14px; line-height: 1.55; overflow-wrap: anywhere; }
 .statement-part--role { font-weight: 600; }
+.credit-group--lines .credit-statements { margin-top: 0; }
+.credit-line__scope { color: var(--text-muted); font-size: 13px; }
 a.statement-part { text-decoration: underline; text-decoration-color: var(--text-faint); text-underline-offset: 3px; }
 a.statement-part:hover { text-decoration-color: currentColor; }
 

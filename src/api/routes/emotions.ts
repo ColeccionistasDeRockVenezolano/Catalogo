@@ -14,10 +14,11 @@ export const emotionArtistSchema = z.object({
   id: z.number().int(),
   name: z.string(),
   emotion: emotionSchema,
-  score: z.number().describe("Suma de los pesos (0–100) de los tags que sustentan la emoción."),
-  evidence: z.number().int().describe("Cuántos tags la sustentan."),
+  score: z.number().describe("Suma de los pesos de los tags + comentarios que sustentan la emoción."),
+  evidence: z.number().int().describe("Cuántas evidencias la sustentan (tags y comentarios)."),
   listeners: z.number().int(),
   tags: z.array(z.object({ tag: z.string(), weight: z.number().int() })),
+  shouts: z.array(z.string()).describe("Comentarios de oyentes (shouts) que sustentan la emoción."),
 });
 
 const emotionArtistsQuerySchema = z.object({

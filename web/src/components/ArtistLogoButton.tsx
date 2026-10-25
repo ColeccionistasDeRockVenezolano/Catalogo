@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowsOutSimple } from "@phosphor-icons/react";
 import { classifyLogoAspect, knownLogoAspect, type LogoAspect } from "../lib/logoAspect";
+import { mediaImage } from "../lib/media";
 
 export function ArtistLogoButton({ src, artistId, name, onOpen }: { src: string; artistId: number; name: string; onOpen: () => void }) {
   const imageRef = useRef<HTMLImageElement>(null);
@@ -19,7 +20,7 @@ export function ArtistLogoButton({ src, artistId, name, onOpen }: { src: string;
     <button type="button" className={`entity-hero__logo artist-profile__image-button artist-profile__logo--${aspect ?? "pending"}`}
       style={{ width: 88, height: aspect === "wide" ? 30 : 88 }}
       aria-label={`Ampliar logo de ${name}`} onClick={onOpen}>
-      <img ref={imageRef} src={src} alt="" loading="eager" decoding="async" onLoad={(event) => {
+      <img ref={imageRef} {...mediaImage(src, 160)} alt="" loading="eager" decoding="async" onLoad={(event) => {
         const image = event.currentTarget;
         if (!catalogAspect && image.naturalWidth && image.naturalHeight) {
           setDetectedAspect(classifyLogoAspect(image.naturalWidth, image.naturalHeight));

@@ -55,6 +55,18 @@ describe("formatos reales con motores de lectura",()=>{
   expect(result.complete).toBe(true);expect(result.method).toContain("ocr");expect(result.content).toContain("2001");expect(result.content).toContain("ANA RIVERA");
   expect(result.locations.some(location=>location.page===1&&location.selector==="pdf:ocr-word"&&location.bbox?.unit==="pt")).toBe(true);
  },120000);
+ it("una página sin texto legible queda pendiente sin detener la lectura del resto",async()=>{
+  const browser=await chromium.launch({headless:true});
+  let pdf:Uint8Array;
+  try{
+   const page=await browser.newPage();
+   await page.setContent('<style>body{font:32px Arial;background:white;color:black;padding:50px}section{break-after:page;min-height:200px}</style><section></section><section><h1>BANDA ARCHIVO</h1><p>DISCO DOS - 2002</p></section>');
+   pdf=await page.pdf({format:"A4",printBackground:true});
+  }finally{await browser.close();}
+  const result=await extractPdf(pdf);
+  expect(result.complete).toBe(false);expect(result.processedPages).toEqual([2]);expect(result.content).toContain("DISCO DOS");
+  expect(result.unreadParts).toEqual(["Página 1: El OCR no recuperó texto; el original queda pendiente de lectura."]);
+ },120000);
  it("renderiza datos tardíos sin autorizar peticiones a servicios internos",async()=>{
   const requested:string[]=[];
   const result=await renderDocument("https://93.184.216.34/dynamic",'<title>Banda Archivo</title><div id="root">Cargando</div><script src="/app.js"></script>',async url=>{

@@ -670,10 +670,23 @@ acción del segundo token para el álbum.
 tipos y un disco puede tener más de uno. `albums.album_type` guarda uno solo,
 así que todas las de la celda, en su orden, viven en
 `ingest.album_classifications` (migración 0011), regenerada con
-`crv youtube classifications`. Una fila con video se ata a su disco solo por
+`crv youtube classifications`. La sincronización reemplaza los aportes ligados
+a `seed_upload_id` y conserva los aportes independientes sin ese vínculo
+(clasificaciones editoriales o inferidas del título, como B-Sides y En vivo).
+Una coincidencia entre ambos orígenes conserva el aporte independiente y
+la certeza explícita de la hoja. Una fila con video se ata a su disco solo por
 el enlace del video; sin video, por artista (o alias) + título + año. La radio
 excluye un video si **cualquiera** de sus clasificaciones es Music Video, Live
 Concert o Documentary.
+
+**Características y ediciones (2026-10-15).** Acústico, Instrumental y Remix son
+clasificaciones complementarias: un EP o sencillo conserva su tipo principal.
+Deluxe, remasterización y reedición se guardan en `ingest.album_versions.edition_types`
+(0077), dentro de la versión correspondiente. Las categorías de edición del disco
+son la unión de las de sus versiones. Los filtros, facetas, tarjetas y discografías
+comparten el vocabulario de `src/shared/album-categories.ts`; las categorías pueden
+solaparse y las facetas cuentan cada disco una sola vez por categoría. Inferir una
+edición del título no autoriza a inventar otra edición, fechas o una ficha nueva.
 
 ### Anomalías de identidad detectadas en el seed (material para entity resolution)
 

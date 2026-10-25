@@ -47,6 +47,8 @@ const READ_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 const ADMIN_READS = [
   // La documentación OpenAPI enumera todas las rutas internas.
   /^\/docs(\/|$)/u,
+  /^\/search\/administration(\/|$)/u,
+  /^\/catalog-editor(\/|$)/u,
   /^\/catalog-model(\/|$)/u,
   /^\/evidence-inventory(\/|$)/u,
   /^\/catalog-links(\/|$)/u,
@@ -378,7 +380,7 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
   app.addHook("onRequest", async (request, reply) => {
     const path = requestPath(request);
     const isRead = READ_METHODS.has(request.method);
-    const isMetricEvent = request.method === "POST" && path === "/discovery/metrics/events";
+    const isMetricEvent = request.method === "POST" && (path === "/discovery/metrics/events" || path === "/search/confirmations");
     if (isMetricEvent) assertTrustedOrigin(request);
     if (isMetricEvent || path === "/auth/login" || (isRead && !ADMIN_READS.some((pattern) => pattern.test(path)))) {
       if ((isRead || isMetricEvent) && path !== "/auth/login") {

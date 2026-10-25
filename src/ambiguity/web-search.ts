@@ -40,7 +40,9 @@ function folded(text: string): string {
 export function relevantFirst(query: string, hits: SearchHit[]): { hits: SearchHit[]; relevant: number } {
   const phrases = [...query.matchAll(/"([^"]+)"/gu)].map((match) => folded(match[1]!)).filter(Boolean);
   if (!phrases.length) return { hits, relevant: hits.length };
-  const has = (hit: SearchHit) => { const text = ` ${folded(`${hit.title} ${hit.snippet} ${decodeURIComponent(hit.url).replace(/[-_/]/gu, " ")}`)} `;
+  // Una dirección mal codificada («%E9» suelto) no debe tumbar la búsqueda: se lee tal cual.
+  const decoded = (url: string) => { try { return decodeURIComponent(url); } catch { return url; } };
+  const has = (hit: SearchHit) => { const text = ` ${folded(`${hit.title} ${hit.snippet} ${decoded(hit.url).replace(/[-_/]/gu, " ")}`)} `;
     return phrases.every((phrase) => text.includes(` ${phrase} `)); };
   const good = hits.filter(has);
   return { hits: [...good, ...hits.filter((hit) => !has(hit))], relevant: good.length };

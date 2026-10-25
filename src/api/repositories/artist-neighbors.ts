@@ -78,7 +78,7 @@ const COMPOSER_CREDITS = ["composer", "writer"];
 
 /** Año de arranque: el de formación o, si falta, el de su primer disco. */
 export const START_YEAR_SQL = (artist: string) =>
-  `COALESCE(${artist}.formed_year, (SELECT min(al.release_year) FROM public.albums al WHERE al.artist_id = ${artist}.id))`;
+  `COALESCE(${artist}.formed_year, (SELECT min(al.release_year) FROM ingest.catalog_albums al WHERE al.artist_id = ${artist}.id))`;
 
 /** El marcador de recopilatorio no es un artista con el que relacionarse. */
 const notVariousSql = (name: string) => `lower(${name}) NOT IN ('various artists', 'varios artistas')`;
@@ -127,7 +127,7 @@ export function rankRelated(candidates: Candidate[], limit = RELATED_LIMIT): Rel
 export async function relatedArtists(id: number): Promise<RelatedArtist[]> {
   const pool = getPool();
   const { rows: [self] } = await pool.query<{ various: boolean }>(
-    `SELECT NOT (${notVariousSql("name")}) AS various FROM public.artists WHERE id = $1`, [id]);
+    `SELECT NOT (${notVariousSql("name")}) AS various FROM ingest.catalog_artists WHERE id = $1`, [id]);
   if (!self || self.various) return [];
 
   const [explicit, members, collaborations, guests, composers] = await Promise.all([
@@ -141,7 +141,7 @@ export async function relatedArtists(id: number): Promise<RelatedArtist[]> {
               CASE WHEN r.to_artist_id = $1 THEN 'earlier' ELSE 'later' END AS direction,
               r.bridge_members, r.start_year, r.end_year, r.evidence_note, r.source_urls, r.confidence
          FROM ingest.artist_relations r
-         JOIN public.artists o ON o.id = CASE WHEN r.to_artist_id = $1 THEN r.from_artist_id ELSE r.to_artist_id END
+         JOIN ingest.catalog_artists o ON o.id = CASE WHEN r.to_artist_id = $1 THEN r.from_artist_id ELSE r.to_artist_id END
         WHERE (r.from_artist_id = $1 OR r.to_artist_id = $1) AND r.from_artist_id <> r.to_artist_id
         ORDER BY r.start_year NULLS LAST, o.name`,
       [id],
@@ -154,9 +154,9 @@ export async function relatedArtists(id: number): Promise<RelatedArtist[]> {
               array_agg(DISTINCT p.name ORDER BY p.name) AS shared_names,
               bool_or(am.role = $2 OR om.role = $2 OR s.artist_type = 'solo_artist' OR o.artist_type = 'solo_artist') AS solo
          FROM public.artist_members am
-         JOIN public.artists s ON s.id = am.artist_id
+         JOIN ingest.catalog_artists s ON s.id = am.artist_id
          JOIN public.artist_members om ON om.person_id = am.person_id AND om.artist_id <> am.artist_id
-         JOIN public.artists o ON o.id = om.artist_id
+         JOIN ingest.catalog_artists o ON o.id = om.artist_id
          JOIN public.persons p ON p.id = am.person_id
         WHERE am.artist_id = $1 AND ${notVariousSql("o.name")}
         GROUP BY o.id, o.name, o.picture_url, o.origin_country`,
@@ -164,24 +164,24 @@ export async function relatedArtists(id: number): Promise<RelatedArtist[]> {
     ),
     // R5 · el otro acreditado como artista en un disco o pista mía, o yo en uno suyo.
     pool.query<{ id: string; name: string; picture_url: string | null; origin_country: string; albums: number; titles: string[] }>(
-      `WITH mine AS (SELECT id, title FROM public.albums WHERE artist_id = $1),
+      `WITH mine AS (SELECT id, title FROM ingest.catalog_albums WHERE artist_id = $1),
             links AS (
               SELECT ac.artist_id AS other_id, m.id AS album_id, m.title
                 FROM mine m JOIN public.album_credits ac ON ac.album_id = m.id WHERE ac.artist_id IS NOT NULL
               UNION
               SELECT tc.artist_id, m.id, m.title
-                FROM mine m JOIN public.tracks t ON t.album_id = m.id JOIN public.track_credits tc ON tc.track_id = t.id
+                FROM mine m JOIN ingest.catalog_tracks t ON t.album_id = m.id JOIN public.track_credits tc ON tc.track_id = t.id
                WHERE tc.artist_id IS NOT NULL
               UNION
               SELECT al.artist_id, al.id, al.title
-                FROM public.album_credits ac JOIN public.albums al ON al.id = ac.album_id WHERE ac.artist_id = $1
+                FROM public.album_credits ac JOIN ingest.catalog_albums al ON al.id = ac.album_id WHERE ac.artist_id = $1
               UNION
               SELECT al.artist_id, al.id, al.title
-                FROM public.track_credits tc JOIN public.tracks t ON t.id = tc.track_id JOIN public.albums al ON al.id = t.album_id
+                FROM public.track_credits tc JOIN ingest.catalog_tracks t ON t.id = tc.track_id JOIN ingest.catalog_albums al ON al.id = t.album_id
                WHERE tc.artist_id = $1)
        SELECT o.id::text AS id, o.name, o.picture_url, o.origin_country,
               count(DISTINCT l.album_id)::int AS albums, array_agg(DISTINCT l.title) AS titles
-         FROM links l JOIN public.artists o ON o.id = l.other_id
+         FROM links l JOIN ingest.catalog_artists o ON o.id = l.other_id
         WHERE l.other_id <> $1 AND ${notVariousSql("o.name")}
         GROUP BY o.id, o.name, o.picture_url, o.origin_country`,
       [id],
@@ -234,7 +234,7 @@ export async function relatedArtists(id: number): Promise<RelatedArtist[]> {
  */
 function bridgeQuery(id: number, creditTypes: string[]) {
   return getPool().query<{ id: string; name: string; picture_url: string | null; origin_country: string; albums: number; bridges: RelatedBridge[] }>(
-    `WITH mine AS (SELECT id, title FROM public.albums WHERE artist_id = $1),
+    `WITH mine AS (SELECT id, title FROM ingest.catalog_albums WHERE artist_id = $1),
           my_members AS (SELECT person_id FROM public.artist_members WHERE artist_id = $1),
           credited AS (
             -- personas acreditadas en mis discos
@@ -243,7 +243,7 @@ function bridgeQuery(id: number, creditTypes: string[]) {
              WHERE ac.person_id IS NOT NULL AND ac.credit_type::text = ANY($2::text[])
             UNION
             SELECT tc.person_id, m.id, m.title
-              FROM mine m JOIN public.tracks t ON t.album_id = m.id JOIN public.track_credits tc ON tc.track_id = t.id
+              FROM mine m JOIN ingest.catalog_tracks t ON t.album_id = m.id JOIN public.track_credits tc ON tc.track_id = t.id
              WHERE tc.person_id IS NOT NULL AND tc.credit_type::text = ANY($2::text[])),
           bridges AS (
             SELECT om.artist_id AS other_id, c.person_id, c.album_id, c.title
@@ -253,21 +253,21 @@ function bridgeQuery(id: number, creditTypes: string[]) {
             -- mis integrantes acreditados en discos de otros
             SELECT al.artist_id, ac.person_id, al.id, al.title
               FROM my_members mm JOIN public.album_credits ac ON ac.person_id = mm.person_id AND ac.credit_type::text = ANY($2::text[])
-              JOIN public.albums al ON al.id = ac.album_id AND al.artist_id <> $1
+              JOIN ingest.catalog_albums al ON al.id = ac.album_id AND al.artist_id <> $1
              WHERE NOT EXISTS (SELECT 1 FROM public.artist_members x WHERE x.artist_id = al.artist_id AND x.person_id = mm.person_id)
             UNION
             SELECT al.artist_id, tc.person_id, al.id, al.title
               FROM my_members mm JOIN public.track_credits tc ON tc.person_id = mm.person_id AND tc.credit_type::text = ANY($2::text[])
-              JOIN public.tracks t ON t.id = tc.track_id
-              JOIN public.albums al ON al.id = t.album_id AND al.artist_id <> $1
+              JOIN ingest.catalog_tracks t ON t.id = tc.track_id
+              JOIN ingest.catalog_albums al ON al.id = t.album_id AND al.artist_id <> $1
              WHERE NOT EXISTS (SELECT 1 FROM public.artist_members x WHERE x.artist_id = al.artist_id AND x.person_id = mm.person_id)),
           reach AS (
             SELECT b.person_id, (
               SELECT count(DISTINCT r.artist_id) FROM (
                 SELECT artist_id FROM public.artist_members WHERE person_id = b.person_id
-                UNION SELECT al.artist_id FROM public.album_credits ac JOIN public.albums al ON al.id = ac.album_id WHERE ac.person_id = b.person_id
-                UNION SELECT al.artist_id FROM public.track_credits tc JOIN public.tracks t ON t.id = tc.track_id
-                        JOIN public.albums al ON al.id = t.album_id WHERE tc.person_id = b.person_id) r) AS artists
+                UNION SELECT al.artist_id FROM public.album_credits ac JOIN ingest.catalog_albums al ON al.id = ac.album_id WHERE ac.person_id = b.person_id
+                UNION SELECT al.artist_id FROM public.track_credits tc JOIN ingest.catalog_tracks t ON t.id = tc.track_id
+                        JOIN ingest.catalog_albums al ON al.id = t.album_id WHERE tc.person_id = b.person_id) r) AS artists
               FROM (SELECT DISTINCT person_id FROM bridges) b)
      SELECT o.id::text AS id, o.name, o.picture_url, o.origin_country,
             count(DISTINCT b.album_id)::int AS albums,
@@ -275,7 +275,7 @@ function bridgeQuery(id: number, creditTypes: string[]) {
        FROM bridges b
        JOIN reach r ON r.person_id = b.person_id AND r.artists <= $3
        JOIN public.persons p ON p.id = b.person_id
-       JOIN public.artists o ON o.id = b.other_id
+       JOIN ingest.catalog_artists o ON o.id = b.other_id
       WHERE ${notVariousSql("o.name")}
       GROUP BY o.id, o.name, o.picture_url, o.origin_country`,
     [id, creditTypes, HUB_LIMIT],
@@ -319,12 +319,12 @@ const SIMILAR_TIERS: SimilarTier[] = [
     // S3 · participan en una misma recopilación (tipo compilation o de Various Artists).
     rule: "same_compilation", applies: () => true,
     with: `comps AS (
-             SELECT al.id, al.title FROM public.albums al JOIN public.artists aa ON aa.id = al.artist_id
+             SELECT al.id, al.title FROM ingest.catalog_albums al JOIN ingest.catalog_artists aa ON aa.id = al.artist_id
               WHERE al.album_type::text = 'compilation' OR NOT (${notVariousSql("aa.name")})),
            participants AS (
-             SELECT cp.id AS album_id, cp.title, al.artist_id FROM comps cp JOIN public.albums al ON al.id = cp.id
+             SELECT cp.id AS album_id, cp.title, al.artist_id FROM comps cp JOIN ingest.catalog_albums al ON al.id = cp.id
              UNION SELECT cp.id, cp.title, ac.artist_id FROM comps cp JOIN public.album_credits ac ON ac.album_id = cp.id WHERE ac.artist_id IS NOT NULL
-             UNION SELECT cp.id, cp.title, tc.artist_id FROM comps cp JOIN public.tracks t ON t.album_id = cp.id
+             UNION SELECT cp.id, cp.title, tc.artist_id FROM comps cp JOIN ingest.catalog_tracks t ON t.album_id = cp.id
                      JOIN public.track_credits tc ON tc.track_id = t.id WHERE tc.artist_id IS NOT NULL),
            hits AS (
              SELECT o.artist_id, o.album_id, o.title FROM participants me JOIN participants o ON o.album_id = me.album_id
@@ -337,10 +337,10 @@ const SIMILAR_TIERS: SimilarTier[] = [
     // S4 · el mismo productor (persona) en discos de los dos, salvo los que producen a medio catálogo.
     rule: "same_producer", applies: () => true,
     with: `produced AS (
-             SELECT ac.person_id, al.artist_id FROM public.album_credits ac JOIN public.albums al ON al.id = ac.album_id
+             SELECT ac.person_id, al.artist_id FROM public.album_credits ac JOIN ingest.catalog_albums al ON al.id = ac.album_id
               WHERE ac.person_id IS NOT NULL AND ac.credit_type::text = 'producer'
-             UNION SELECT tc.person_id, al.artist_id FROM public.track_credits tc JOIN public.tracks t ON t.id = tc.track_id
-                     JOIN public.albums al ON al.id = t.album_id WHERE tc.person_id IS NOT NULL AND tc.credit_type::text = 'producer'),
+             UNION SELECT tc.person_id, al.artist_id FROM public.track_credits tc JOIN ingest.catalog_tracks t ON t.id = tc.track_id
+                     JOIN ingest.catalog_albums al ON al.id = t.album_id WHERE tc.person_id IS NOT NULL AND tc.credit_type::text = 'producer'),
            my_producers AS (
              SELECT pr.person_id FROM produced pr WHERE pr.artist_id = $1
                 AND (SELECT count(DISTINCT x.artist_id) FROM produced x WHERE x.person_id = pr.person_id) <= ${HUB_LIMIT}),
@@ -368,8 +368,8 @@ const SIMILAR_TIERS: SimilarTier[] = [
     // S7 · discos en un mismo sello y la misma familia.
     rule: "same_label", applies: () => true,
     with: `hits AS (
-             SELECT DISTINCT o.artist_id, l.name FROM public.albums me
-               JOIN public.albums o ON o.label_id = me.label_id AND o.artist_id <> $1
+             SELECT DISTINCT o.artist_id, l.name FROM ingest.catalog_albums me
+               JOIN ingest.catalog_albums o ON o.label_id = me.label_id AND o.artist_id <> $1
                JOIN public.organizations l ON l.id = me.label_id
               WHERE me.artist_id = $1)`,
     where: `c.id IN (SELECT artist_id FROM hits) AND ${genreFilterSql("artist", "c.id", "$5")}`,
@@ -394,7 +394,7 @@ export async function similarArtists(
   const { rows: [row] } = await pool.query<{ start_year: number | null; city: string | null; various: boolean }>(
     `SELECT ${START_YEAR_SQL("a")} AS start_year, NULLIF(lower(btrim(a.origin_city)), '') AS city,
             NOT (${notVariousSql("a.name")}) AS various
-       FROM public.artists a WHERE a.id = $1`, [id]);
+       FROM ingest.catalog_artists a WHERE a.id = $1`, [id]);
   const similarDecade = row?.start_year == null ? null : Math.floor(row.start_year / 10) * 10;
   if (!row || row.various || !primaryGenre) return { similar: [], similarDecade };
   const self: SimilarSelf = {
@@ -414,7 +414,7 @@ export async function similarArtists(
             -- Los parámetros van tipados aquí: no todas las reglas usan todos.
             cand AS (SELECT a.id, a.name, a.picture_url, a.origin_country, a.origin_city, ${START_YEAR_SQL("a")} AS start_year,
                             $4::text AS p_primary, $5::text AS p_family, $6::int AS p_decade, $7::text AS p_city
-                       FROM public.artists a WHERE NOT (a.id = ANY($2::bigint[])) AND ${notVariousSql("a.name")})
+                       FROM ingest.catalog_artists a WHERE NOT (a.id = ANY($2::bigint[])) AND ${notVariousSql("a.name")})
        SELECT c.id::text AS id, c.name, c.picture_url, c.origin_country, c.start_year,
               ${tier.evidence ?? "NULL::text[]"} AS evidence
          FROM cand c

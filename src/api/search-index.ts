@@ -81,26 +81,26 @@ const SOURCES: Readonly<Record<IndexedKind, { aliasTable: string; aliasColumn: s
 // tabla (GROUP BY), no con una subconsulta por fila. «Various Artists» no
 // pesa (como en la portada): sus 200+ recopilatorios y los alias con sus
 // nombres lo pondrían primero en casi cualquier búsqueda.
-const ARTIST_ALBUMS = `(SELECT al.artist_id, count(*) AS n FROM public.albums al JOIN public.artists x ON x.id = al.artist_id
+const ARTIST_ALBUMS = `(SELECT al.artist_id, count(*) AS n FROM ingest.catalog_albums al JOIN ingest.catalog_artists x ON x.id = al.artist_id
   WHERE lower(x.name) NOT IN ('various artists', 'varios artistas') GROUP BY al.artist_id)`;
 const ENTITY_SQL: Readonly<Record<IndexedKind, string>> = {
   artist: `SELECT a.id::text, a.name, coalesce(w.n, 0)::text AS weight
-             FROM public.artists a LEFT JOIN ${ARTIST_ALBUMS} w ON w.artist_id = a.id`,
+             FROM ingest.catalog_artists a LEFT JOIN ${ARTIST_ALBUMS} w ON w.artist_id = a.id`,
   person: `SELECT p.id::text, p.name, (coalesce(tc.n, 0) + coalesce(ac.n, 0) + coalesce(am.n, 0))::text AS weight
              FROM public.persons p
-             LEFT JOIN (SELECT person_id, count(*) AS n FROM public.track_credits WHERE person_id IS NOT NULL GROUP BY person_id) tc ON tc.person_id = p.id
-             LEFT JOIN (SELECT person_id, count(*) AS n FROM public.album_credits WHERE person_id IS NOT NULL GROUP BY person_id) ac ON ac.person_id = p.id
+             LEFT JOIN (SELECT person_id, count(*) AS n FROM ingest.catalog_track_credits WHERE person_id IS NOT NULL GROUP BY person_id) tc ON tc.person_id = p.id
+             LEFT JOIN (SELECT person_id, count(*) AS n FROM ingest.catalog_album_credits WHERE person_id IS NOT NULL GROUP BY person_id) ac ON ac.person_id = p.id
              LEFT JOIN (SELECT person_id, count(*) AS n FROM public.artist_members GROUP BY person_id) am ON am.person_id = p.id`,
   organization: `SELECT o.id::text, o.name, (coalesce(tc.n, 0) + coalesce(ac.n, 0))::text AS weight
              FROM public.organizations o
-             LEFT JOIN (SELECT organization_id, count(*) AS n FROM public.track_credits WHERE organization_id IS NOT NULL GROUP BY organization_id) tc ON tc.organization_id = o.id
-             LEFT JOIN (SELECT organization_id, count(*) AS n FROM public.album_credits WHERE organization_id IS NOT NULL GROUP BY organization_id) ac ON ac.organization_id = o.id`,
+             LEFT JOIN (SELECT organization_id, count(*) AS n FROM ingest.catalog_track_credits WHERE organization_id IS NOT NULL GROUP BY organization_id) tc ON tc.organization_id = o.id
+             LEFT JOIN (SELECT organization_id, count(*) AS n FROM ingest.catalog_album_credits WHERE organization_id IS NOT NULL GROUP BY organization_id) ac ON ac.organization_id = o.id`,
   album: `SELECT al.id::text, al.title AS name, a.name AS context, coalesce(w.n, 0)::text AS weight
-             FROM public.albums al JOIN public.artists a ON a.id = al.artist_id LEFT JOIN ${ARTIST_ALBUMS} w ON w.artist_id = al.artist_id`,
+             FROM ingest.catalog_albums al JOIN ingest.catalog_artists a ON a.id = al.artist_id LEFT JOIN ${ARTIST_ALBUMS} w ON w.artist_id = al.artist_id`,
   // Las pistas solo se buscan por su título y sus alias, como antes: «desorden»
   // no debe traer cada tema de Desorden Público (para eso están sus discos).
   track: `SELECT t.id::text, t.title AS name, coalesce(w.n, 0)::text AS weight
-             FROM public.tracks t JOIN public.albums al ON al.id = t.album_id LEFT JOIN ${ARTIST_ALBUMS} w ON w.artist_id = al.artist_id`,
+             FROM ingest.catalog_tracks t JOIN ingest.catalog_albums al ON al.id = t.album_id LEFT JOIN ${ARTIST_ALBUMS} w ON w.artist_id = al.artist_id`,
 };
 
 /**
@@ -341,7 +341,11 @@ export function invalidateSearchIndex(kind?: IndexedKind): void {
   const kinds = kind ? [kind] : Object.keys(SOURCES) as IndexedKind[];
   for (const current of kinds) {
     const entry = cache.get(current);
-    if (entry) entry.stale = true;
+    // Importers also call this after each batch. A process that has never
+    // served this index has no cached results to refresh; its first read
+    // will load the current catalog normally.
+    if (!entry) continue;
+    entry.stale = true;
     void refreshInBackground(current);
   }
 }

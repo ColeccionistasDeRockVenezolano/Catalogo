@@ -96,7 +96,7 @@ export async function listCreditSources(entity: "album" | "track", id: number): 
     WITH credits AS (
       SELECT ac.id, 'album_credit' AS kind FROM public.album_credits ac WHERE $2 = 'album' AND ac.album_id = $1
       UNION ALL
-      SELECT tc.id, 'track_credit' AS kind FROM public.track_credits tc JOIN public.tracks t ON t.id = tc.track_id
+      SELECT tc.id, 'track_credit' AS kind FROM public.track_credits tc JOIN ingest.catalog_tracks t ON t.id = tc.track_id
        WHERE ($2 = 'album' AND t.album_id = $1) OR ($2 = 'track' AND t.id = $1)
     )
     SELECT cr.kind, cr.id::text, ARRAY(
