@@ -10,6 +10,8 @@ import os
 import re
 import sys
 import tempfile
+import time
+import hashlib
 from urllib.parse import unquote
 
 EXTRACTOR_V = 3
@@ -40,25 +42,68 @@ def slug_release(href):
     base = "rel_" + slugify(href.replace("/release/", ""))
     h = norm_href(href)
     if any(ord(c) > 127 for c in h):
-        import hashlib
         base = base[:80] + "-u" + hashlib.sha1(h.encode("utf-8")).hexdigest()[:8]
+    elif len(h.replace("/release/", "").replace("/", "_")) > 90 or re.search(r"[^A-Za-z0-9_/\-.]", h):
+        # Long ASCII URLs used to be truncated to the same filename. Preserve
+        # existing short names and Unicode names, hash every other lossy case.
+        base = base[:76] + "-h" + hashlib.sha256(h.encode("utf-8")).hexdigest()[:16]
     return base
 
 
+def slug_artist(href):
+    """Capture filename only; legacy identity keys using slugify stay unchanged."""
+    h = norm_href(href)
+    full = h.replace('/artist/', '').replace('/', '_')
+    base = slugify(h)
+    if len(full) > 90 or re.search(r'[^A-Za-z0-9_\-.]', full):
+        base = base[:72] + '-h' + hashlib.sha256(h.encode('utf-8')).hexdigest()[:16]
+    return base
+
+
+def captura_conservada(pages_dir, href, kind):
+    """A terminal state needs its own matching JSON AND HTML, never a neighbour's file."""
+    slug = slug_release(href) if kind == "release" else slug_artist(href)
+    try:
+        with open(os.path.join(pages_dir, slug + ".json"), encoding="utf-8") as f:
+            saved = json.load(f)
+        html_path = os.path.join(pages_dir, slug + ".html")
+        if norm_href(saved.get("href")) != norm_href(href) or not os.path.isfile(html_path):
+            return False
+        if saved.get("htmlSha256"):
+            with open(html_path, "rb") as html_file:
+                return hashlib.sha256(html_file.read()).hexdigest() == saved["htmlSha256"]
+        return True
+    except (OSError, ValueError, TypeError):
+        return False
+
+
+def verificar_conservacion(estado, pages_dir):
+    """Mark missing captures for retry without discarding their last known metadata."""
+    changed = 0
+    for href, entry in estado.items():
+        if entry.get("status") == 404 or entry.get("kind") not in ("artist", "release"):
+            continue
+        missing = not captura_conservada(pages_dir, href, entry["kind"])
+        if bool(entry.get("captureMissing")) != missing:
+            entry["captureMissing"] = missing
+            changed += 1
+    return changed
+
+
 def es_ok_artista(e):
-    return bool(e and e.get("v") == EXTRACTOR_V and e.get("name") and not e.get("wall"))
+    return bool(e and e.get("v") == EXTRACTOR_V and e.get("name") and not e.get("wall") and not e.get("captureMissing"))
 
 
 def es_ok_release(e):
     """Disco capturado CON datos (portada, pistas o géneros)."""
-    return bool(e and e.get("v") == EXTRACTOR_V and (e.get("name") or e.get("og"))
+    return bool(e and not e.get("wall") and not e.get("captureMissing") and e.get("v") == EXTRACTOR_V and (e.get("name") or e.get("og"))
                 and (e.get("og") or e.get("nTracks", 0) or e.get("nGen", 0)))
 
 
 def es_vacio_release(e):
     """Disco servido completo pero vacío EN RYM (sin portada, pistas ni géneros):
     no hay nada más que capturar; revisitarlo solo gira en falso."""
-    return bool(e and e.get("v") == EXTRACTOR_V and e.get("sinDatos") and e.get("name") and not e.get("wall"))
+    return bool(e and e.get("v") == EXTRACTOR_V and e.get("sinDatos") and e.get("name") and not e.get("wall") and not e.get("captureMissing"))
 
 
 def es_inexistente(e):
@@ -135,7 +180,7 @@ def rellenar_ts(estado, pages_dir):
     for href, e in estado.items():
         if e.get("ts") or not e.get("at"):
             continue
-        slug = slug_release(href) if e.get("kind") == "release" else slugify(href)
+        slug = slug_release(href) if e.get("kind") == "release" else slug_artist(href)
         try:
             with open(os.path.join(pages_dir, slug + ".json"), encoding="utf-8") as f:
                 cap = json.load(f).get("capturedAt")
@@ -164,7 +209,7 @@ def discos_de_artistas(cola, pages_dir):
         href = norm_href(row.get("rymHref"))
         if not href:
             continue
-        f = os.path.join(pages_dir, slugify(href) + ".json")
+        f = os.path.join(pages_dir, slug_artist(href) + ".json")
         try:
             with open(f, encoding="utf-8") as fh:
                 capt = json.load(fh)
@@ -180,7 +225,12 @@ def discos_de_artistas(cola, pages_dir):
 
 
 def progreso(estado, cola, discos):
-    """Cuentas oficiales de la campaña (lo que muestran tablero, Telegram y pruebas)."""
+    """Cuentas oficiales de la campaña (lo que muestran tablero, Telegram y pruebas).
+
+    Los `/release/musicvideo/` no son discos (van a `artist_audiovisuals`, ver AGENTS.md) y la cola
+    de captura los excluye; contarlos aquí dejaba un «faltan 16» eterno que ninguna vía podía bajar.
+    """
+    discos = [d for d in discos if not d[0].startswith("/release/musicvideo/")]
     art_ok = sum(1 for r in cola if es_hecho_artista(estado.get(norm_href(r.get("rymHref")))))
     ok = vacios = visitados = 0
     for rel, *_ in discos:
@@ -197,6 +247,60 @@ def progreso(estado, cola, discos):
             "todas": len(discos), "ok": ok, "vacios": vacios, "hechos": hechos,
             "faltan": len(discos) - hechos, "sin_entry": len(discos) - visitados,
             "reintento": visitados - hechos}
+
+
+VIAS = "vias.jsonl"
+
+
+def anotar_via(outdir, href, via, status=None, seg=None):
+    """Deja constancia de QUÉ navegador capturó la ficha (Firefox/puente · Chrome · manual).
+
+    Va a un archivo aparte (`vias.jsonl`) y no al `estado.json`: el esquema del estado lo comparten
+    el motor, el puente, el tablero y las pruebas, y no se toca por telemetría.
+    """
+    try:
+        with open(os.path.join(outdir, VIAS), "a", encoding="utf-8") as fh:
+            fh.write(json.dumps({"href": href, "via": via, "status": status,
+                                 "seg": round(seg, 2) if seg is not None else None,
+                                 "ts": int(time.time())}, ensure_ascii=False) + "\n")
+    except OSError:
+        pass
+
+
+def leer_vias(outdir, ventana=1800):
+    """Resumen por vía de las capturas recientes: {"chrome": {"n":…, "ok":…, "ultimo":…, "seg":…}}."""
+    salida = {}
+    ruta = os.path.join(outdir, VIAS)
+    corte = time.time() - ventana
+    try:
+        lineas = open(ruta, encoding="utf-8").read().splitlines()
+    except OSError:
+        return salida
+    for linea in lineas[-5000:]:
+        try:
+            d = json.loads(linea)
+        except ValueError:
+            continue
+        if float(d.get("ts") or 0) < corte:
+            continue
+        via = d.get("via") or "?"
+        e = salida.setdefault(via, {"n": 0, "ok": 0, "ultimo": None, "seg": None,
+                                    "primero": None, "_segs": []})
+        e["n"] += 1
+        if d.get("status") == 200:
+            e["ok"] += 1
+        ts = int(d.get("ts") or 0)
+        e["ultimo"] = max(e["ultimo"] or 0, ts)
+        e["primero"] = min(e["primero"] or ts, ts)
+        if d.get("seg"):
+            e["_segs"].append(float(d["seg"]))
+    for e in salida.values():
+        segs = e.pop("_segs")
+        e["seg"] = round(sum(segs) / len(segs), 2) if segs else None
+        e["hace"] = int(time.time() - e["ultimo"]) if e["ultimo"] else None
+        span = (e["ultimo"] - e["primero"]) if e["primero"] and e["n"] > 1 else 0
+        e["ritmo"] = round(e["n"] / (span / 60), 1) if span >= 60 else None
+    return salida
 
 
 def _cli():

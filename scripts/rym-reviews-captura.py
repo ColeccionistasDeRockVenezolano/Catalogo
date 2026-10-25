@@ -65,7 +65,17 @@ def exportar_jsonl(pages_dir, destino):
         except Exception:
             continue
         if d.get("tipo_doc") == "reviews":
-            filas.append(d)
+            # A historical filename is not a successful capture. Revalidate the HTML.
+            from rym_reviews_validate import validate
+            try:
+                with open(os.path.join(pages_dir, f[:-5] + '.html'), encoding='utf-8') as source:
+                    checked = validate(source.read(), d)
+                if not checked['valid']:
+                    continue
+                filas.append({**d, 'reviews': checked['reviews'], 'n': len(checked['reviews']),
+                              'validation': {k:v for k,v in checked.items() if k not in ('reviews','title')}})
+            except (OSError, ValueError, KeyError):
+                continue
     filas.sort(key=lambda d: (d["href"], d["page"]))
     tmp = destino + ".tmp"
     with open(tmp, "w", encoding="utf-8") as fh:
@@ -364,7 +374,4 @@ def main():
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("\ninterrumpido: estado guardado, se reanuda al relanzar")
+    raise SystemExit('Capturador histórico retirado por integridad; usar scripts/rym-reviews-control.py con cola auditada.')

@@ -35,6 +35,9 @@ from collections import Counter
 from datetime import date
 
 from bs4 import BeautifulSoup, Tag
+from rym_reglas import norm_href, slug_artist, slug_release
+from rym_release_credits import extract_credits
+from rym_release_tracks import extract_tracks
 
 DEF_PAGES = "/home/brian/apps/Coleccionistas De Rock Venezolano/data/raw/fuentes-web-2026-10-01/rym-nuevos/pages"
 DEF_OUT = f"/home/brian/apps/Coleccionistas De Rock Venezolano/reports/rym-v4-{date.today().isoformat()}"
@@ -72,6 +75,9 @@ def parse_release(html, meta):
         "total_seg": None,
         "creditos": [],
         "desc": None,
+        "rating": None,
+        "n_ratings": 0,
+        "n_reviews": 0,
     }
 
     md = soup.find("meta", attrs={"name": "description"}) or soup.find("meta", attrs={"property": "og:description"})
@@ -144,53 +150,23 @@ def parse_release(html, meta):
             g.append(t)
     out["generos"] = g[:20]
 
-    # tracklist (dedupe móvil/escritorio)
-    seen_t = set()
-    for li in soup.select("li.track"):
-        if li.select_one(".tracklist_total"):
-            tt = txt(li.select_one(".tracklist_total"), 60)
-            if tt:
-                out["total_text"] = tt
-                m2 = re.search(r"(\d+):(\d{2})(?::(\d{2}))?", tt)
-                if m2:
-                    if m2.group(3):
-                        out["total_seg"] = int(m2.group(1)) * 3600 + int(m2.group(2)) * 60 + int(m2.group(3))
-                    else:
-                        out["total_seg"] = int(m2.group(1)) * 60 + int(m2.group(2))
-            continue
-        a_song = li.select_one(".tracklist_title a.song") or li.select_one("a[href*='/song/']")
-        num = li.select_one(".tracklist_num")
-        dur = li.select_one(".tracklist_duration")
-        t = txt(a_song, 140) if a_song else txt(li.select_one(".tracklist_title"), 140)
-        if not t:
-            continue
-        key = ((txt(num, 10) or ""), t)
-        if key in seen_t:
-            continue
-        seen_t.add(key)
-        seg = None
-        if dur is not None and dur.get("data-inseconds"):
-            try:
-                seg = int(str(dur.get("data-inseconds")))
-            except ValueError:
-                seg = None
-        out["pistas"].append({
-            "n": txt(num, 10),
-            "titulo": t,
-            "seg": seg,
-            "dur": txt(dur, 10),
-            "href": a_song.get("href") if a_song else None,
-            "nota": txt(li, 300),
-        })
-    out["n_pistas"] = len(out["pistas"])
+    # puntuación agregada de RYM (media sobre 5 y nº de puntuaciones) y contador de reviews
+    avg = soup.select_one("span.avg_rating")
+    if avg is not None:
+        m = re.fullmatch(r"\s*([0-5](?:\.\d+)?)\s*", avg.get_text())
+        out["rating"] = float(m.group(1)) if m else None
+    num = soup.select_one("span.num_ratings")
+    if num is not None:
+        m = re.search(r"([\d.,]+)", num.get_text())
+        out["n_ratings"] = int(re.sub(r"[.,]", "", m.group(1))) if m else 0
+    mh = re.search(r"<h2[^>]*>\s*([\d,]+)\s*Reviews?", html, re.I)
+    if mh:
+        out["n_reviews"] = int(mh.group(1).replace(",", ""))
+
+    out.update(extract_tracks(html))
 
     # créditos generales
-    for li in soup.select("ul.credits li"):
-        na = li.select_one("a.credits_artist") or li.select_one("a")
-        roles = li.select_one(".credits_roles")
-        nom = txt(na, 90)
-        if nom:
-            out["creditos"].append({"nombre": nom, "roles": txt(roles, 140), "href": na.get("href") if na else None})
+    out['creditos'] = extract_credits(html)
 
     return out
 
@@ -223,7 +199,7 @@ def parse_artist(html, meta):
             if "info_hdr" in cl:
                 key = txt(it, 60)
             elif "info_content" in cl and key:
-                val = txt(it, 400)
+                val = txt(it, 8000 if key in ('Members', 'Also Known As') else 1000)
                 if val and key not in out["info"]:
                     out["info"][key] = val
                 key = None
@@ -236,14 +212,87 @@ def parse_artist(html, meta):
     return out
 
 
+def refresh_track_summaries(out, albums):
+    """Keep artist projections and coverage consistent after a track-only reparse."""
+    from rym_reglas import escribir_atomico
+    artists_path = os.path.join(out, 'artistas.jsonl')
+    artists = [json.loads(line) for line in open(artists_path, encoding='utf-8') if line.strip()]
+    by_url = {norm_href(album['url']): album for album in albums}
+    for artist in artists:
+        for projected in artist.get('albumes', []):
+            source = by_url.get(norm_href(projected['url']))
+            if source:
+                for field in ('n_pistas', 'total_seg'):
+                    projected[field] = source[field]
+    escribir_atomico(artists_path, ''.join(json.dumps(artist, ensure_ascii=False)+'\n' for artist in artists))
+    summary_path = os.path.join(out, 'resumen.md')
+    if os.path.exists(summary_path):
+        tracks = [track for album in albums for track in album['pistas']]
+        seconds = sum(track.get('seg') or 0 for track in tracks)
+        replacement = f'- pistas: {len(tracks)} (con duración: {sum(bool(track.get("seg")) for track in tracks)}) · duración acumulada: {seconds // 3600} h {(seconds % 3600) // 60} min'
+        with open(summary_path, encoding='utf-8') as source:
+            lines = source.read().splitlines()
+        lines = [replacement if line.startswith('- pistas:') else line for line in lines]
+        escribir_atomico(summary_path, '\n'.join(lines)+'\n')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pages", default=DEF_PAGES)
     ap.add_argument("--out", default=DEF_OUT)
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument('--credits-only', action='store_true', help='Reanudar solo extracción de créditos sobre el reparseo existente')
+    ap.add_argument('--tracks-only', action='store_true', help='Reanudar solo títulos, posiciones y duraciones sobre el reparseo existente')
+    ap.add_argument('--attributes-only', action='store_true', help='Recuperar características documentadas de publicación sin cambiar pistas ni créditos')
     args = ap.parse_args()
 
     os.makedirs(args.out, exist_ok=True)
+    if args.attributes_only:
+        from lxml import html as lxml_html
+        from rym_release_tracks import publication_attributes
+        from rym_reglas import escribir_atomico
+        albums_path = os.path.join(args.out, 'albumes.jsonl')
+        albums = [json.loads(line) for line in open(albums_path, encoding='utf-8') if line.strip()]
+        for album in albums:
+            with open(os.path.join(args.pages, album['slug']+'.html'), encoding='utf-8') as source:
+                album['publication_attributes'] = publication_attributes(lxml_html.fromstring(source.read()))
+        escribir_atomico(albums_path, ''.join(json.dumps(album, ensure_ascii=False)+'\n' for album in albums))
+        print(f'Características de publicación recuperadas: {sum(bool(album["publication_attributes"]) for album in albums)} de {len(albums)}')
+        return
+    if args.tracks_only:
+        from rym_reglas import escribir_atomico
+        albums_path = os.path.join(args.out, 'albumes.jsonl')
+        albums = [json.loads(line) for line in open(albums_path, encoding='utf-8') if line.strip()]
+        changed = 0
+        for album in albums:
+            filename = os.path.join(args.pages, album['slug']+'.html')
+            with open(filename, encoding='utf-8') as source:
+                tracks = extract_tracks(source.read())
+            if tracks['pistas'] != album['pistas']:
+                changed += 1
+            album.update(tracks)
+        escribir_atomico(albums_path, ''.join(json.dumps(album, ensure_ascii=False)+'\n' for album in albums))
+        refresh_track_summaries(args.out, albums)
+        print(f'Pistas reextraídas de {len(albums)} publicaciones; {changed} listados actualizados; {sum(album["n_pistas"] for album in albums)} filas conservadas')
+        return
+    if args.credits_only:
+        from rym_reglas import escribir_atomico
+        albums_path = os.path.join(args.out,'albumes.jsonl')
+        albums = [json.loads(line) for line in open(albums_path,encoding='utf-8') if line.strip()]
+        for album in albums:
+            filename = os.path.join(args.pages,album['slug']+'.html')
+            with open(filename,encoding='utf-8') as source:
+                album['creditos'] = extract_credits(source.read())
+        escribir_atomico(albums_path, ''.join(json.dumps(album,ensure_ascii=False)+'\n' for album in albums))
+        artists_path = os.path.join(args.out,'artistas.jsonl')
+        artists = [json.loads(line) for line in open(artists_path,encoding='utf-8') if line.strip()]
+        counts = {norm_href(album['url']):len(album['creditos']) for album in albums}
+        for artist in artists:
+            for album in artist.get('albumes',[]):
+                album['n_creditos'] = counts.get(norm_href(album['url']),album.get('n_creditos',0))
+        escribir_atomico(artists_path,''.join(json.dumps(artist,ensure_ascii=False)+'\n' for artist in artists))
+        print(f'Créditos reextraídos de {len(albums)} publicaciones: {sum(len(album["creditos"]) for album in albums)} filas con alcance, sin duplicados de presentación')
+        return
     names = sorted(fn for fn in os.listdir(args.pages) if fn.endswith(".json"))
 
     metas = {}
@@ -268,6 +317,17 @@ def main():
             "wall": rec.get("wall"),
         }
 
+    # Canonical URL is the identity. Legacy filenames remain on disk for old
+    # evidence links but cannot create duplicate publications in a reparse.
+    by_href = {}
+    for meta in metas.values():
+        href = norm_href(meta.get('href'))
+        if not href:
+            continue
+        expected = slug_release(href) if meta['kind']=='release' else slug_artist(href)
+        if href not in by_href or meta['slug']==expected:
+            by_href[href] = meta
+    metas = {meta['slug']:meta for meta in by_href.values()}
     albumes, artistas, errores = [], {}, []
     rel_metas = [m for m in metas.values() if m["kind"] == "release"]
     art_metas = [m for m in metas.values() if m["kind"] == "artist"]
@@ -296,7 +356,8 @@ def main():
     for m in art_metas:
         hp = os.path.join(args.pages, m["slug"] + ".html")
         art = parse_artist(open(hp, encoding="utf-8", errors="replace").read(), m) if os.path.exists(hp) else parse_artist("<html></html>", m)
-        mis = por_artista.get(m["slug"], [])
+        artist_path_slug = norm_href(m['href']).removeprefix('/artist/')
+        mis = por_artista.get(artist_path_slug, [])
         art["n_albumes_capturados"] = len(mis)
         art["albumes"] = [
             {

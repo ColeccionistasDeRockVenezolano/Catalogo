@@ -1,0 +1,17 @@
+[Unit]
+Description=CRV reviews verificadas: Chrome + Mozilla, objetivo total 9 paginas/s
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/brian/.Xauthority
+ExecStart=/home/brian/.venvs/scrapling/bin/python -u "/home/brian/apps/Coleccionistas De Rock Venezolano/scripts/rym-reviews-control.py" --stage /home/brian/crv-staging/data/raw/rym-reviews-control-2026-10-21 --target-rps 9 --chrome-tabs 12
+ExecStopPost=/usr/bin/python3 "/home/brian/apps/Coleccionistas De Rock Venezolano/scripts/staging.py" publish data/raw rym-reviews-control-2026-10-21 --hash
+Restart=no
+TimeoutStopSec=120
+KillSignal=SIGTERM
+KillMode=mixed
+StandardOutput=journal
+StandardError=journal

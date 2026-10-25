@@ -11,6 +11,11 @@ if pgrep -f "scrapling-rym.py --cola $OUT" > /dev/null; then
 else
   echo "proceso:    parado"
 fi
+if systemctl --user is-active --quiet crv-rym-keeper; then
+  echo "guardián:   activo (sesión RYM; cookies en /tmp/rym-prof, $(date -r /tmp/rym-prof/cookies.sqlite '+%H:%M:%S' 2>/dev/null || echo 'sin publicar'))"
+else
+  echo "guardián:   PARADO (crv-rym-keeper) — el capturador tirará del perfil del dueño"
+fi
 
 fichas_artista=$(ls "$OUT/pages" 2>/dev/null | grep -c '\.html$' || true)
 sin_rel=$(ls "$OUT/pages" 2>/dev/null | grep -c '^rel_' || true)

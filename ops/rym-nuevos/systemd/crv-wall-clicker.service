@@ -1,5 +1,5 @@
 [Unit]
-Description=CRV: cliquer de enlaces RYM en el Firefox del dueño
+Description=CRV: mantiene la sesión RYM (F5 o página al azar) en el Firefox del dueño
 StartLimitIntervalSec=0
 
 [Service]

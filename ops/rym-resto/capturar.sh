@@ -32,4 +32,4 @@ exec "$HOME/.venvs/scrapling/bin/python" -u scripts/scrapling-rym.py \
   --cola "$COLA" \
   --outdir "$OUT" --phase both \
   --prioridad "$PRIO" \
-  --base-min 5 --base-max 7 >> "$LOG" 2>&1
+  --base-min 10 --base-max 18 >> "$LOG" 2>&1

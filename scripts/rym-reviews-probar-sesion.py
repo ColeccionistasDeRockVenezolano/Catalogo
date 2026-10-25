@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -77,10 +78,10 @@ def main() -> int:
 
     print(f'\nresultado: limpias {limpias} · señuelo {sospechosas}')
     if sospechosas and sospechosas >= limpias:
-        print('VEREDICTO: SEÑUELO — no se captura. Cambia IP/cuenta y reintenta.')
-        return 2
-    print('VEREDICTO: LIMPIA — se puede capturar.')
-    return 0
+        print('VEREDICTO: SEÑUELO — no se captura. Cambia IP/cuenta y reintenta.', flush=True)
+        os._exit(2)   # el cierre del navegador a veces se cuelga tras un 403 duro
+    print('VEREDICTO: LIMPIA — se puede capturar.', flush=True)
+    os._exit(0)
 
 
 if __name__ == '__main__':

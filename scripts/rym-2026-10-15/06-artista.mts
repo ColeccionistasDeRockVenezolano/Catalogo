@@ -1,8 +1,14 @@
 // Campaña RYM 2026-10-15 · FASE 5: ficha de artista y personas, desde las fichas de artista de RYM.
 //
-//   Also Known As → alias (name_variant)          Currently → alias (name_variant, otro nombre del proyecto)
+//   Also Known As → alias (name_variant)          Currently → artists.current_city/current_country (fase 11, 0083)
 //   Formed        → formed_year y origin_city     Members   → artist_members (rol, años, vigente)
 //   Born / Died   → birth_date, death_date, birth_city, is_deceased de la persona homónima
+//
+// CORREGIDO 2026-10-16: la versión original leía «Currently» como «otro nombre del proyecto» y lo
+// escribía como alias — en realidad es la UBICACIÓN ACTUAL del artista (campo propio desde la
+// migración 0083). El error dejó ~515 ciudades como alias (lote 2026-10-15); las fases 11 y 12
+// (11-ubicacion-actual.mts · 12-limpiar-alias-ubicacion.mts) llevan el dato a su campo y retiran
+// los alias. Este script ya NO escribe «Currently» como alias.
 //
 // Reglas: solo se llenan huecos; la persona de un miembro debe existir ya en el catálogo (nombre o
 // alias exacto) y no tener ya membresía en ese artista; las fechas parciales (solo año) se reportan.
@@ -11,7 +17,9 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { createAlias } from "../../src/api/repositories/aliases.js";
 import { closeDb, getPool } from "../../src/db/client.js";
-import { createRelation, updateEntity, withOperatorRun } from "../../src/merge/operator.js";
+import { createRelation, updateEntity } from "../../src/merge/operator.js";
+import { assertRymIdentity, readRymIdentityLedger, rymHref } from "../../src/verification/rym-identity.js";
+import { applyRymBatches } from "../../src/verification/rym-batches.js";
 
 // La campaña «resto» (2026-10-16) reusa esta fase: --dir (informes) y --v4 (re-parseo) apuntan a lo suyo.
 const argumento = (nombre: string): string | undefined => {
@@ -23,7 +31,7 @@ const V4 = argumento("--v4") ?? "reports/rym-v4-2026-10-04/artistas.jsonl";
 const confirm = process.argv.includes("--confirm");
 const limite = Number(process.argv.find((v) => v.startsWith("--limit="))?.slice(8) ?? 0);
 
-interface Ficha { slug: string; nombre: string; formed: string | null; foto: string | null; info: Record<string, string> }
+interface Ficha { slug: string; href: string; nombre: string; formed: string | null; foto: string | null; info: Record<string, string> }
 
 const MESES: Record<string, string> = { january: "01", february: "02", march: "03", april: "04", may: "05", june: "06", july: "07", august: "08", september: "09", october: "10", november: "11", december: "12" };
 
@@ -47,11 +55,14 @@ function partirFecha(texto: string | undefined): { fecha: string | null; ciudad:
 }
 
 /** «2001, Caracas, Distrito Capital, Venezuela» → { anio: 2001, ciudad: 'Caracas, Distrito Capital' } */
-function partirFormed(texto: string | undefined): { anio: number | null; ciudad: string | null } {
+function partirFormed(texto: string | number | undefined): { anio: number | null; ciudad: string | null } {
   if (!texto) return { anio: null, ciudad: null };
-  const partes = texto.split(",").map((p) => p.trim()).filter(Boolean);
-  const anio = /^(19|20)\d\d$/u.test(partes[0] ?? "") ? Number(partes[0]) : null;
-  const resto = partes.slice(anio ? 1 : 0);
+  const partes = String(texto).split(",").map((p) => p.trim()).filter(Boolean);
+  // RYM también usa «October 1985, Venezuela» y «8 May 1925, Santiago de Cuba».
+  // La fecha describe la formación; jamás debe acabar en origin_city.
+  const fecha = /^(?:(?:\d{1,2}\s+)?[A-Za-z]+\s+)?((?:18|19|20)\d{2})$/u.exec(partes[0] ?? "");
+  const anio = fecha ? Number(fecha[1]) : null;
+  const resto = partes.slice(fecha ? 1 : 0);
   const pais = /^(venezuela|usa|united states|uk|united kingdom|españa|spain|mexico|méxico|colombia|argentina|chile|peru|perú|cuba)$/iu;
   const ciudad = resto.filter((p) => !pais.test(p)).join(", ") || null;
   return { anio, ciudad: ciudad ? ciudad.slice(0, 120) : null };
@@ -81,6 +92,7 @@ function partirMiembros(texto: string): Array<{ nombre: string; role: string; de
 async function main(): Promise<void> {
   if (!existsSync(path.join(DIR, "cruce.jsonl"))) { console.error("falta cruce.jsonl (fase 1)"); process.exit(1); }
   const pool = getPool();
+  const identities = readRymIdentityLedger(path.join(DIR, "identity-ledger.json"));
   const artistas = new Map<number, { id: number; name: string; formed_year: number | null; origin_city: string | null; origin_country: string | null; picture_url: string | null; artist_type: string }>();
   for (const r of (await pool.query<{ id: string; name: string; formed_year: number | null; origin_city: string | null; origin_country: string | null; picture_url: string | null; artist_type: string }>(
     "SELECT id::text AS id, name, formed_year, origin_city, origin_country, picture_url, artist_type::text AS artist_type FROM public.artists")).rows) {
@@ -115,16 +127,18 @@ async function main(): Promise<void> {
   const sumar = (k: string) => { cuenta[k] = (cuenta[k] ?? 0) + 1; };
 
   const trabajos: Array<{
-    artistId: number; nombre: string; cambios: Record<string, string | number>; alias: string[];
+    artistId: number; href: string; nombre: string; cambios: Record<string, string | number>; alias: string[];
     miembros: Array<{ personId: number; role: string; desde: number | null; hasta: number | null; vigente: boolean }>;
     personas: Array<{ personId: number; cambios: Record<string, string | boolean> }>;
   }> = [];
   const sinPersona: Array<{ artista: string; miembro: string }> = [];
 
   for (const f of fichas) {
-    const ids = [...new Set(porNombre.get(normalizar(f.nombre)) ?? [])];
+    const identity = identities.identities.find(row => rymHref(row.href) === rymHref(f.href));
+    const ids = identity?.status === "resolved" && identity.artistId ? [identity.artistId] : [];
     if (ids.length !== 1) { sumar(ids.length === 0 ? "artista sin ficha en el catálogo" : "artista ambiguo"); continue; }
     const artistId = ids[0]!;
+    await assertRymIdentity(pool, identities, f.href, artistId);
     const actual = artistas.get(artistId)!;
     const info = f.info ?? {};
     const cambios: Record<string, string | number> = {};
@@ -134,10 +148,12 @@ async function main(): Promise<void> {
 
     const alias: string[] = [];
     const vistos = aliasExistentes.get(artistId) ?? new Set<string>();
-    for (const posible of [info["Also Known As"], info["Currently"]]) {
+    // «Currently» NO entra aquí: es la ubicación actual del artista, no un alias (0083; ver fase 11).
+    for (const posible of [info["Also Known As"]]) {
       for (const bruto of (posible ?? "").split(/[;|]/u)) {
         const a = bruto.trim();
         if (!a || a.length > 120) continue;
+        if (a.includes(',') || /\[[^\]]*\]/u.test(a)) { sumar('alias compuesto pendiente de revisión'); continue; }
         if (vistos.has(normalizar(a)) || normalizar(a) === normalizar(actual.name)) { sumar("alias ya presente"); continue; }
         alias.push(a);
         vistos.add(normalizar(a));
@@ -146,6 +162,7 @@ async function main(): Promise<void> {
 
     const miembros: Array<{ personId: number; role: string; desde: number | null; hasta: number | null; vigente: boolean }> = [];
     for (const m of partirMiembros(info["Members"] ?? "")) {
+      if (normalizar(m.nombre).split(' ').length < 2) { sinPersona.push({ artista: actual.name, miembro: m.nombre }); sumar('miembro de una palabra (revisión)'); continue; }
       const pids = [...new Set(personasPorNombre.get(normalizar(m.nombre)) ?? [])];
       if (pids.length !== 1) { sumar(pids.length === 0 ? "miembro sin ficha de persona" : "miembro ambiguo"); sinPersona.push({ artista: actual.name, miembro: m.nombre }); continue; }
       if (yaMiembro.has(`${artistId}:${pids[0]}`)) { sumar("membresía ya presente"); continue; }
@@ -158,7 +175,7 @@ async function main(): Promise<void> {
     const muerte = partirFecha(info["Died"]);
     if (nacimiento.fecha || muerte.fecha || nacimiento.ciudad) {
       const pids = [...new Set(personasPorNombre.get(normalizar(f.nombre ?? "")) ?? [])];
-      if (pids.length === 1) {
+      if (pids.length === 1 && yaMiembro.has(`${artistId}:${pids[0]}`)) {
         const p = personas.get(pids[0]!)!;
         const cambiosP: Record<string, string | boolean> = {};
         if (nacimiento.completa && nacimiento.fecha && !p.birth_date) cambiosP["birth_date"] = nacimiento.fecha;
@@ -173,7 +190,7 @@ async function main(): Promise<void> {
     }
 
     if (!Object.keys(cambios).length && !alias.length && !miembros.length && !personasCambios.length) { sumar("ficha sin nada que aplicar"); continue; }
-    trabajos.push({ artistId, nombre: actual.name, cambios, alias, miembros, personas: personasCambios });
+    trabajos.push({ artistId, href: f.href, nombre: actual.name, cambios, alias, miembros, personas: personasCambios });
     if (Object.keys(cambios).length) sumar("ficha: campos");
     if (alias.length) sumar(`alias: ${alias.length}`);
     if (miembros.length) sumar(`miembros: ${miembros.length}`);
@@ -186,34 +203,42 @@ async function main(): Promise<void> {
 
   if (lista.length === 0) { await closeDb(); return; }
   if (!confirm) {
-    writeFileSync(path.join(DIR, "artista-ensayo.json"), JSON.stringify({ trabajos: lista.slice(0, 200), sinPersona: sinPersona.slice(0, 1500) }, null, 1));
+    writeFileSync(path.join(DIR, "artista-ensayo.json"), JSON.stringify({ trabajos: lista, sinPersona }, null, 1));
     console.log("dry-run: muestra en artista-ensayo.json; luego --confirm");
     await closeDb();
     return;
   }
 
-  const { runId, result } = await withOperatorRun({
-    name: "hermes:rym-artista",
-    operator: "hermes (encargo de Brian 2026-10-15)",
-    note: "Fichas de artista de RYM: alias («Also Known As», «Currently»), año de formación, ciudad, membresías con rol y años, y fechas/city de nacimiento y fallecimiento de la persona homónima. Solo huecos; las personas deben existir ya.",
-  }, async (context) => {
-    let campos = 0, aliasCreados = 0, miembros = 0, personasCambiadas = 0;
-    for (const t of lista) {
-      if (Object.keys(t.cambios).length) { await updateEntity(context, "artist", t.artistId, t.cambios); campos++; }
-      for (const a of t.alias) { await createAlias(context, "artist", t.artistId, { alias: a, aliasType: "name_variant", isPrimary: false }); aliasCreados++; }
+  const count = { campos: 0, aliasCreados: 0, miembros: 0, personasCambiadas: 0 };
+  const result = await applyRymBatches({ directory: DIR, phase: 'artista', items: lista,
+    apply: async (context, t) => {
+      await assertRymIdentity(context.client, identities, t.href, t.artistId);
+      const before = JSON.stringify(count);
+      const current = (await context.client.query<Record<string, unknown>>('SELECT * FROM public.artists WHERE id=$1 FOR UPDATE', [t.artistId])).rows[0]!;
+      const fields = Object.fromEntries(Object.entries(t.cambios).filter(([field]) => current[field] === null || current[field] === ''));
+      if (Object.keys(fields).length) { await updateEntity(context, 'artist', t.artistId, fields); count.campos++; }
+      for (const a of t.alias) {
+        const found = await context.client.query('SELECT 1 FROM ingest.artist_aliases WHERE artist_id=$1 AND alias=$2', [t.artistId, a]);
+        if (!found.rowCount) { await createAlias(context, 'artist', t.artistId, { alias: a, aliasType: 'name_variant', isPrimary: false }); count.aliasCreados++; }
+      }
       for (const m of t.miembros) {
+        const found = await context.client.query('SELECT 1 FROM public.artist_members WHERE artist_id=$1 AND person_id=$2', [t.artistId,m.personId]);
+        if (found.rowCount) continue;
         await createRelation(context, "artist_membership", { artistId: t.artistId, personId: m.personId }, {
           role: m.role, from_year: m.desde ?? undefined, to_year: m.hasta ?? undefined,
           is_current: m.vigente ? "true" : "false",
         });
-        miembros++;
+        count.miembros++;
       }
-      for (const p of t.personas) { await updateEntity(context, "person", p.personId, p.cambios); personasCambiadas++; }
-    }
-    return { campos, aliasCreados, miembros, personasCambiadas };
-  });
-  writeFileSync(path.join(DIR, `artista-run${runId}.json`), JSON.stringify({ runId, ...result, cuenta }, null, 1));
-  console.log(`run ${runId}: ${result.campos} fichas · ${result.aliasCreados} alias · ${result.miembros} membresías · ${result.personasCambiadas} personas`);
+      for (const p of t.personas) {
+        const person = (await context.client.query<Record<string, unknown>>('SELECT * FROM public.persons WHERE id=$1 FOR UPDATE', [p.personId])).rows[0];
+        if (!person) throw new Error('Persona retirada durante el lote');
+        const values = Object.fromEntries(Object.entries(p.cambios).filter(([field]) => person[field] === null || person[field] === '' || field === 'is_deceased' && person[field] === false));
+        if (Object.keys(values).length) { await updateEntity(context, 'person', p.personId, values); count.personasCambiadas++; }
+      }
+      return JSON.stringify(count) !== before;
+    } });
+  writeFileSync(path.join(DIR, 'artista-aplicado.json'), JSON.stringify({ ...result, ...count, cuenta, sinPersona }, null, 2)+'\n');
   await closeDb();
 }
 

@@ -1,0 +1,14 @@
+[Unit]
+Description=CRV: guardián de la sesión RYM (Firefox aislado en Xvfb que renueva cf_clearance)
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+ExecStart=/bin/bash "/home/brian/apps/Coleccionistas De Rock Venezolano/ops/rym-resto/keeper.sh"
+Restart=always
+RestartSec=15
+TimeoutStopSec=20
+
+[Install]
+WantedBy=default.target

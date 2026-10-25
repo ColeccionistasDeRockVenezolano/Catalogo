@@ -8,6 +8,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { closeDb, getPool } from "../../src/db/client.js";
 import { withOperatorRun } from "../../src/merge/operator.js";
+import { validateRymCross } from "../../src/verification/rym-identity.js";
 
 // La campaña «resto» (2026-10-16) reusa esta fase: --informe apunta a su informe de enlaces.
 const argumento = (nombre: string): string | undefined => {
@@ -19,14 +20,13 @@ const DIR_SALIDA = INFORME.replace(/\/[^/]+$/u, "");
 const confirm = process.argv.includes("--confirm");
 const pausa = 400;
 
-interface Fila { albumId: number; platform: string; id: string; url: string; titulo: string; tituloPlataforma: string; veredicto: string }
+interface Fila { albumId: number; platform: string; id: string; url: string; titulo: string; tituloPlataforma: string; veredicto: string; slug: string }
 
 const dormir = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 function normalizar(t: string): string {
   return (t ?? "").normalize("NFD").replace(/[\u0300-\u036f]/gu, "").toLowerCase()
-    .replace(/\b(?:official|oficial|music|musica|band|banda|the|el|la|los|las)\b/gu, " ")
-    .replace(/[^a-z0-9]+/gu, "");
+    .replace(/[^a-z0-9]+/gu, " ").trim();
 }
 
 const ES_ALBUM = /\((?:full\s+)?album\)|album\s+completo|\(álbum\)|full\s+album|\(cd\)|\(ep\)/iu;
@@ -46,12 +46,13 @@ async function main(): Promise<void> {
   if (!existsSync(INFORME)) { console.error(`no existe ${INFORME}`); process.exit(1); }
   const informe = JSON.parse(readFileSync(INFORME, "utf8")) as { verificados: Fila[] };
   const pool = getPool();
+  const cross = await validateRymCross(pool, DIR_SALIDA);
   // El informe guarda lo REVISADO, que incluye filas ya verificadas en corridas anteriores: se
   // excluyen para no gastar peticiones ni contar de más.
   const yaVerificados = new Set((await pool.query<{ k: string }>(
     "SELECT album_id::text || '|' || url AS k FROM public.streaming_links WHERE platform='youtube' AND album_id IS NOT NULL AND verified")).rows.map((r) => r.k));
   const candidatos = informe.verificados
-    .filter((f) => f.platform === "youtube" && f.url.includes("watch?v="))
+    .filter((f) => f.platform === "youtube" && f.url.includes("watch?v=") && f.veredicto.startsWith('candidato'))
     .filter((f) => !yaVerificados.has(`${f.albumId}|${f.url}`));
   console.log(`candidatos de YouTube a revisar: ${candidatos.length} (de ${informe.verificados.length} revisados en el informe)`);
 
@@ -70,10 +71,12 @@ async function main(): Promise<void> {
     const datos = await oembed(f.url);
     if (!datos) { sumar("oEmbed no responde"); continue; }
     const na = normalizar(artista), nt = normalizar(datos.title), nal = normalizar(album.title);
-    const canalDelArtista = na.length > 2 && normalizar(datos.author).includes(na);
-    const tituloNombra = na.length > 2 && (nt.includes(na) || nt.includes(nal));
+    if (cross.get(f.slug)?.albumId !== f.albumId) throw new Error('El video no pertenece al cruce acreditado');
+    const canalDelArtista = [na,`${na} official`,`${na} oficial`,`${na} topic`].includes(normalizar(datos.author));
+    const cleanTitle = nt.replace(/ (?:full album|album completo|full ep|ep completo|album|ep|cd)$/u,'').trim();
+    const tituloNombra = [nal,`${na} ${nal}`,`${nal} ${na}`].includes(cleanTitle);
     const seDeclaraAlbum = ES_ALBUM.test(datos.title);
-    const vale = canalDelArtista && (tituloNombra || seDeclaraAlbum);
+    const vale = canalDelArtista && tituloNombra && seDeclaraAlbum;
     if (vale) {
       ascender.push({ ...f, author: datos.author, motivo: `${canalDelArtista ? "canal del artista" : ""}${seDeclaraAlbum ? " + se declara álbum" : ""}${tituloNombra ? " + título nombra" : ""}`.trim() });
       sumar("asciende a verificado");
@@ -84,18 +87,19 @@ async function main(): Promise<void> {
 
   console.log(`ascenderían: ${ascender.length}`);
   for (const [k, v] of Object.entries(cuenta).sort()) console.log(`  ${k}: ${v}`);
+  if (ascender.length === 0) { writeFileSync(`${DIR_SALIDA}/youtube-sin-diferencias.json`,JSON.stringify({pending:0,cuenta},null,2)); await closeDb(); return; }
   if (!confirm) { writeFileSync(`${DIR_SALIDA}/youtube-ensayo.json`, JSON.stringify(ascender.slice(0, 200), null, 1)); console.log(`dry-run: ensayo en ${DIR_SALIDA}/youtube-ensayo.json`); await closeDb(); return; }
 
   const { runId, result } = await withOperatorRun({
     name: "hermes:rym-youtube-verificados",
-    operator: "hermes (encargo de Brian 2026-10-15)",
+    operator: "Codex (encargo de Brian: puntos 1–5)",
     note: "Enlaces de YouTube de las fichas de RYM que estaban como candidatos y pasan a verificados: el canal es del artista y el vídeo se declara álbum o nombra el disco (oEmbed).",
   }, async (context) => {
     let actualizados = 0;
     for (const f of ascender) {
       const { rowCount } = await context.client.query(`
         UPDATE public.streaming_links SET verified = true, notes = COALESCE(notes, '') || $3
-         WHERE album_id = $1 AND platform = 'youtube' AND url = $2 AND NOT verified`,
+         WHERE album_id = $1 AND platform = 'youtube' AND url = $2 AND NOT verified AND source IS DISTINCT FROM 'crv-operador'`,
       [f.albumId, f.url, ` · verificado en revisión: ${f.motivo} (canal «${f.author}», vídeo «${f.tituloPlataforma}»)`]);
       actualizados += rowCount ?? 0;
     }

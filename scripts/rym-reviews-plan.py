@@ -28,7 +28,7 @@ REV = re.compile(rb'<div class="review">')
 PAG = re.compile(rb'/release/[a-z]+/[^"\']*?/reviews/(\d+)/')
 OGURL = re.compile(rb'<meta property="og:url" content="https://rateyourmusic\.com(/release/[^"]+)"')
 TITLE = re.compile(rb'<title>([^<]{1,200})</title>')
-PER_PAGE = 15
+PER_PAGE = 8
 
 DIRS_DEFECTO = [
     'data/raw/fuentes-web-2026-10-01/rym-nuevos/pages',
@@ -81,7 +81,8 @@ def main() -> int:
             href = mu.group(1).decode()
             base = nombre_base(href)
             visibles = len(REV.findall(h))
-            pags = [int(x) for x in PAG.findall(h)]
+            pags = [int(n) for target, n in re.findall(rb'href=["\']([^"\']*?)/reviews/(\d+)/["\']', h)
+                    if target.decode(errors='replace').removeprefix('https://rateyourmusic.com').rstrip('/') == href.rstrip('/')]
             pag_max = max(pags) if pags else 0
             paginas = max(pag_max, math.ceil(declaradas / PER_PAGE))
             if base in vistos:

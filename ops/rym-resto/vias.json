@@ -1,0 +1,74 @@
+{
+  "_comentario": "Fuente única de verdad de las vías de captura RYM «resto». La leen ops/rym-resto/vias.py (acciones, vigilancia y API del panel), control.py (panel web) y el centinela. Rutas relativas al repo salvo las de /tmp. Para añadir una vía: se añade aquí y aparece sola en el panel.",
+  "panel": {"puerto": 8898, "unidad": "crv-rym-panel", "titulo": "CRV · captura RYM"},
+  "outdir": "data/raw/fuentes-web-2026-10-16/rym-resto",
+  "reservas": {"dir": "/tmp/crv-rym-reservas", "ttl": 180},
+  "limite_dia": 6000,
+  "vias": {
+    "chrome": {
+      "etiqueta": "Chrome (perfil del dueño)",
+      "detalle": "Copia del perfil de Google Chrome del dueño: sesión de RYM + cf_clearance.",
+      "capturador": {
+        "unidad": "crv-rym-chrome-captura",
+        "script": "ops/rym-resto/capturar-chrome.sh",
+        "runner": "systemd-run",
+        "pasada": true,
+        "log": "reports/rym-chrome-captura.log"
+      },
+      "navegador": {
+        "tipo": "cdp",
+        "unidad": "crv-rym-chrome",
+        "script": "ops/rym-resto/chrome.sh",
+        "salud": "http://127.0.0.1:9333/json/version",
+        "espera_s": 25
+      },
+      "latido": "/tmp/crv-rym-chrome.json",
+      "freno": "reports/crv-marcas/chrome-freno"
+    },
+    "firefox": {
+      "etiqueta": "Firefox puente (escritorio)",
+      "detalle": "Firefox visible en :0 con la extensión del puente; resuelve el reto con clic real.",
+      "capturador": {
+        "unidad": "crv-rym-puente-cola",
+        "script": "ops/rym-resto/cola-puente.sh",
+        "runner": "systemd-run",
+        "pasada": true,
+        "log": "reports/rym-puente-cola.log"
+      },
+      "navegador": {
+        "tipo": "http",
+        "unidad": "crv-rym-humano",
+        "runner": "systemd-run",
+        "script": "ops/rym-resto/humano.sh",
+        "salud": "http://127.0.0.1:8899/salud",
+        "espera_s": 40
+      },
+      "latido": "/tmp/crv-rym-panel.json",
+      "freno": "reports/crv-marcas/puente-freno"
+    },
+    "motor": {
+      "etiqueta": "Motor Scrapling (Camoufox)",
+      "detalle": "Motor original con navegador stealth y modo muro con sondas. Solo se reanuda a mano.",
+      "capturador": {
+        "unidad": "crv-scrapling-rym-resto",
+        "script": "ops/rym-resto/lanzar.sh",
+        "runner": "script",
+        "log": "reports/scrapling-rym-resto.log"
+      },
+      "navegador": null,
+      "latido": "reports/scrapling-rym-resto.latido",
+      "freno": "reports/crv-marcas/resto-freno",
+      "solo_manual": true,
+      "vigilancia": {
+        "latido_min": 15,
+        "log_errores": {
+          "patrones": ["Page\\.goto: Timeout", "Page crashed", "Target closed", "Node\\.js v[0-9]"],
+          "lineas": 60,
+          "min": 2,
+          "captura": "^\\[[0-9]{2}:[0-9]{2}:[0-9]{2}\\] \\+ \\["
+        },
+        "reciclar_horas": 12
+      }
+    }
+  }
+}

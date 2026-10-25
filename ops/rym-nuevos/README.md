@@ -11,6 +11,8 @@ de `systemd --user` (con linger: arrancan solas al encender la máquina, sin ini
 | Ver la salud de todo | `bash ops/rym-nuevos/estado.sh` |
 | Instalar / reinstalar (idempotente) | `bash ops/rym-nuevos/instalar.sh` |
 | Pruebas | `npm run test:rym-nuevos` |
+| Pruebas del clicker (sin escritorio ni red) | `python3 -m unittest discover -s test/python -p test_rym_clicker.py` |
+| Diagnóstico del clicker (solo lectura) | `python3 ops/rym-nuevos/wall-clicker.py --test` |
 | Tablero | `file:///tmp/crv-recon/rym-nuevos-tablero.html` |
 | Pausar el centinela | `touch reports/crv-marcas/sentinel-pausa` |
 | Pausar el cliquer | `touch reports/crv-marcas/clicker-pausa` |
@@ -23,9 +25,24 @@ de `systemd --user` (con linger: arrancan solas al encender la máquina, sin ini
 | `crv-scrapling-nuevos-super` | `supervisor.sh` | avisos Telegram, atascos, muros, coherencia | systemd (`always`) + centinela si se cuelga |
 | `crv-nuevos-tablero` | `tablero.sh` → `scripts/rym_tablero.py --loop 10` | **único** escritor del tablero | systemd (`always`) |
 | `crv-extracciones-tablero` | `extracciones-tablero.sh` | tablero de enlaces y bios + fragmentos embebidos | systemd (`always`) |
-| `crv-wall-clicker` | `wall-clicker.sh` | Intenta 1 clic en un enlace confirmado de RYM cada 30-65 s en el Firefox del dueño; se pausa ante bloqueos de bots o uso del equipo | systemd (`always`) |
+| `crv-wall-clicker` | `wall-clicker.sh` | Cada 30-50 s al azar: F5 o una ficha de RYM al azar en la misma pestaña del Firefox del dueño; se pausa ante bloqueos de bots o uso del equipo | systemd (`always`) |
 | `crv-bios-lanzador` | `bios-lanzador.sh` | al cerrar «nuevos» arranca `crv-rym-bios` | systemd (`on-failure`) |
 | `crv-nuevos-sentinel.timer` | `centinela.sh` (cada 5 min) | supervisor colgado, unidades paradas | — |
+
+El clicker consulta qué capturador está activo (`crv-scrapling-rym-resto` tiene prioridad
+sobre `crv-scrapling-nuevos`) y lee su log, con caché de dos segundos. Sin capturador
+activo no interviene. `CRV_RYM_LOG` permite indicar una ruta de log personalizada al
+clicker. No inicia, detiene ni escribe archivos de los capturadores.
+
+Solo actúa sobre una pestaña de RYM ya visible en el Firefox sin Marionette del dueño.
+Espera 8 segundos de inactividad real y hasta la hora de la acción. Cada 30-50 s
+aleatorios elige una de dos: reiniciar la página (F5) o entrar en una ficha de RYM
+tomada al azar del `estado.json` del capturador activo (Ctrl+L, pegar, Enter), siempre
+en la misma pestaña y sin abrir nuevas. Si el capturador está en muro, la acción es
+siempre F5. Nunca toca un reto anti-bots.
+Si hay entrada nueva o cambia el foco, cancela sin restaurar por encima del usuario.
+Para aplicar cambios basta reiniciar `crv-wall-clicker`; no reinstalar el conjunto ni
+reiniciar el capturador que esté trabajando. Los avisos siguen a cargo del supervisor.
 
 ## Reglas y datos
 

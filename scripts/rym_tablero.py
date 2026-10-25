@@ -523,8 +523,8 @@ def tablero_html(estado, cola, nota, outdir=None, aviso_estado=None):
     banner = ""
     if parado:
         if bq_cf:
-            ctxt = (f' El cliquer lleva {d["clicker"]} clics en tu Firefox.' if d.get("clicker")
-                    else ' El cliquer hará clics en tu Firefox para renovar la sesión.')
+            ctxt = (f' El cliquer lleva {d["clicker"]} acciones en tu Firefox.' if d.get("clicker")
+                    else ' El cliquer reiniciará o navegará RYM en tu Firefox para renovar la sesión.')
             banner = (f'<div class="banner cf" role="status"><b>Muro de Cloudflare.</b> Sin capturas {hace_ult}.{ctxt} '
                       f'No hace falta que hagas nada: si cede, lo verás aquí.</div>')
         elif bq_rec:
@@ -652,7 +652,7 @@ def tablero_html(estado, cola, nota, outdir=None, aviso_estado=None):
     ep = d.get("clicker_ep") or {}
     if ep:
         c_cls, c_val = "warn", "pausado por bloqueo"
-        c_sub = ("sin clics mientras dure el bloqueo · desde " +
+        c_sub = ("sin acciones mientras dure el bloqueo · desde " +
                  (f'<span class="ago" data-t="{int(ep["inicio"])}">{_tab_hace(ep["inicio"])}</span>' if ep.get("inicio") else "—"))
     else:
         g = d.get("clicker_g") or {}
@@ -668,12 +668,12 @@ def tablero_html(estado, cola, nota, outdir=None, aviso_estado=None):
         elif "sin pestaña RYM" in mot:
             c_cls, c_val, c_sub = "bad", "no ve la pestaña de RYM", "abre Rate Your Music en tu Firefox"
         else:
-            c_cls, c_val = "ok", f"{_n(g.get('clics_dia', 0))} enlaces hoy"
+            c_cls, c_val = "ok", f"{_n(g.get('clics_dia', 0))} acciones hoy"
             if g.get("ultimo"):
                 c_sub = (f'último <span class="ago" data-t="{int(g["ultimo"])}">{_tab_hace(g["ultimo"])}</span>'
-                         " · 1 enlace cada 30-65 s")
+                         " · 1 acción cada 30-50 s")
             else:
-                c_sub = "1 enlace cada 30-65 s"
+                c_sub = "1 acción cada 30-50 s"
             if not g.get("hecho") and mot:
                 c_sub += " · ahora: " + esc(mot.split(":")[0][:60])
     salud = ('<div class="health">' + chip("Muro", m_cls, m_val, m_sub) + chip("Sesión RYM", s_cls, s_val, s_sub)

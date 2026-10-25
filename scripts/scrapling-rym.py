@@ -16,7 +16,7 @@ Uso:
   ~/.venvs/scrapling/bin/python scripts/scrapling-rym.py --cola data/.../cola-nuevos.jsonl \
       --outdir data/raw/fuentes-web-2026-10-01/rym-nuevos --phase both [--limit N] [--headful]
 """
-import argparse, json, os, random, re, shutil, sqlite3, subprocess, tempfile, time
+import argparse, contextlib, json, os, random, re, shutil, signal, sqlite3, subprocess, sys, tempfile, threading, time
 
 from scrapling.fetchers import StealthySession
 
@@ -28,6 +28,12 @@ REPO = "/home/brian/apps/Coleccionistas De Rock Venezolano"
 AVISOS = f"{REPO}/scripts/rym-etapa3-avisos.sh"
 UA = "Mozilla/5.0 (X11; Linux x86_64; rv:153.0) Gecko/20100101 Firefox/153.0"
 COOKIE_SOURCES = ["/tmp/rym-prof", os.path.expanduser("~/.mozilla/firefox/d4qtp99b.default-esr")]
+# El guardián (ops/rym-resto/keeper.py) vigila este flag: al verlo renueva la cf_clearance.
+FLAG_REFRESCO = "/tmp/rym-prof-refrescar"
+# Gobierno de ritmo: ante un bloqueo (403/503/timeout) se frena de forma GLOBAL y exponencial en vez
+# de reintentar cada pocos segundos. El estado vive en disco: un reinicio no vuelve a martillear.
+GOBIERNO_PATH = f"{REPO}/reports/crv-rym-gobierno.json"
+_GOBIERNO = {"fallos": 0, "hasta": 0.0}
 
 
 def log(*a):
@@ -52,12 +58,165 @@ def avisar_throttled(msg, min_gap=900, clave="gen"):
         avisar(msg)
 
 
-def load_cookies():
-    """Lee las cookies de RYM del perfil de Firefox más fresco (copia inmune a locks).
+# ── Vigilancia del motor del navegador ────────────────────────────────────────────────
+# El driver de patchright se cuelga tras «Page.goto: Page crashed»: la llamada de IPC no
+# vuelve nunca y la campaña se detiene en silencio (visto 2026-10-18: 1 h parada con
+# estado.json congelado y el driver girando al 100 % de CPU). Dos redes independientes:
+#  1) toque_de_queda(): SIGALRM alrededor de cada llamada al navegador — ninguna puede
+#     quedarse bloqueada más de lo que dura un intento real.
+#  2) vigilar_progreso(): si nada avanza en STALL minutos, salir con error para que
+#     systemd (Restart=on-failure) relance; el estado.json hace que reanude donde iba.
+STALL = float(os.environ.get("CRV_RYM_STALL_MIN", "40")) * 60
+_LATIDO = {"t": time.time(), "que": "arranque"}
 
-    Preferencia: el perfil del dueño (canónico). /tmp/rym-prof solo gana si su sqlite
-    es >15 min más fresco — así no se elige su copia con sesión caducada solo porque
-    el marionette tocó el archivo al arrancar (403 al primer fetch, visto 17:26)."""
+# Tope diario: el 2026-10-19 RYM toleró ~12,7k fichas y a las 12:12 puso muro (403) que duró
+# horas. Se captura por debajo de esa marca y el tope se reanuda solo a medianoche.
+LIMITE_DIA = int(os.environ.get("CRV_RYM_LIMITE_DIA", "6000"))
+
+
+def capturas_hoy(estado):
+    """Fichas capturadas hoy según el ts local de estado.json."""
+    ini = time.mktime(time.localtime()[:3] + (0, 0, 0, 0, 0, -1))
+    return sum(1 for v in estado.values() if isinstance(v, dict) and (v.get("ts") or 0) >= ini)
+
+
+def latir(que):
+    """Marca de vida del motor: cualquier avance real de la captura."""
+    _LATIDO["t"] = time.time()
+    _LATIDO["que"] = que
+
+
+def pedir_refresco():
+    """Pide al guardián de sesión que renueve la cf_clearance ya (lo hace en ~15 s)."""
+    try:
+        open(FLAG_REFRESCO, "w").close()
+    except OSError:
+        pass
+
+
+def cargar_gobierno():
+    try:
+        with open(GOBIERNO_PATH, encoding="utf-8") as fh:
+            d = json.load(fh)
+        # El contador de una corrida anterior no debe arrancar la nueva con pausas de horas:
+        # la espera larga la decide el modo muro (sondas espaciadas), no este contador.
+        _GOBIERNO["fallos"] = min(2, int(d.get("fallos") or 0))
+        _GOBIERNO["hasta"] = float(d.get("hasta") or 0)
+    except (OSError, ValueError, TypeError):
+        pass
+
+
+def guardar_gobierno():
+    try:
+        reglas.escribir_atomico(GOBIERNO_PATH, json.dumps(_GOBIERNO))
+    except Exception:
+        pass
+
+
+def castigar(motivo, tope=3600.0):
+    """Un bloqueo frena TODA la captura de forma exponencial (45 s → 90 → … → `tope`).
+
+    El tope por intento evita que un fetch con 4 reintentos, arrancando con `fallos` alto,
+    se pase horas esperando dentro de la MISMA ficha: la espera larga es cosa del modo muro.
+    """
+    _GOBIERNO["fallos"] += 1
+    espera = min(tope, 45 * (2 ** (_GOBIERNO["fallos"] - 1))) * random.uniform(0.85, 1.15)
+    _GOBIERNO["hasta"] = time.time() + espera
+    guardar_gobierno()
+    log(f"[gobierno] {motivo} → pausa global de {espera / 60:.1f} min "
+        f"(bloqueo {_GOBIERNO['fallos']}, sin martillear)")
+
+
+def esperar_paciente(seg, que="[muro] espera paciente"):
+    """Espera larga que MANTIENE el latido: el vigilante no debe confundir «muro» con «colgado».
+
+    Sin esto, un sleep de horas dispara el vigilante de STALL (40 min) y el proceso reinicia
+    en bucle, que es justo el martilleo que el gobierno de ritmo quiere evitar.
+    """
+    fin = time.time() + seg
+    while True:
+        restante = fin - time.time()
+        if restante <= 0:
+            return
+        latir(que)
+        time.sleep(min(60.0, restante))
+
+
+def premiar():
+    """Una ficha buena devuelve el ritmo normal."""
+    if _GOBIERNO["fallos"]:
+        log(f"[gobierno] la captura vuelve tras {_GOBIERNO['fallos']} bloqueo(s): ritmo normal")
+        _GOBIERNO["fallos"] = 0
+        _GOBIERNO["hasta"] = 0.0
+        guardar_gobierno()
+
+
+def esperar_turno():
+    """Espera (en tramos con latido) a que el gobierno permita la siguiente petición."""
+    while True:
+        restante = _GOBIERNO["hasta"] - time.time()
+        if restante <= 0:
+            return
+        latir("[gobierno] espera")
+        time.sleep(min(30.0, restante))
+
+
+class ToqueDeQueda(Exception):
+    """La llamada al navegador excedió su límite: el driver dejó de responder."""
+
+
+@contextlib.contextmanager
+def toque_de_queda(seg, que):
+    """Aborta la llamada al navegador si no vuelve en `seg` segundos."""
+    def _golpe(_signum, _frame):
+        raise ToqueDeQueda(f"{que}: {seg:.0f}s sin respuesta del navegador")
+
+    previo = signal.signal(signal.SIGALRM, _golpe)
+    signal.setitimer(signal.ITIMER_REAL, seg)
+    try:
+        yield
+    finally:
+        signal.setitimer(signal.ITIMER_REAL, 0)
+        signal.signal(signal.SIGALRM, previo)
+
+
+def vigilar_progreso(ruta_latido):
+    """Hilo daemon: late en disco y, si el motor no avanza en STALL, sale con error.
+
+    El latido en disco permite que un centinela externo (systemd timer, sin LLM) distinga
+    «esperando el muro» de «driver colgado»: aquí se late cada 30 s pase lo que pase
+    mientras el proceso esté vivo.
+    """
+    def _bucle():
+        try:
+            os.makedirs(os.path.dirname(ruta_latido), exist_ok=True)
+            open(ruta_latido, "a").close()
+            os.utime(ruta_latido, None)   # late ya: si no, el centinela ve el latido viejo y reinicia
+        except OSError as exc:
+            log(f"[vigilante] no pude crear el latido {ruta_latido}: {str(exc)[:80]}")
+        while True:
+            time.sleep(30)
+            try:
+                os.utime(ruta_latido, None)
+            except OSError:
+                pass
+            parado = time.time() - _LATIDO["t"]
+            if parado > STALL:
+                log(f"[vigilante] {parado / 60:.0f} min sin progreso (último: {_LATIDO['que']}) — "
+                    "el motor no responde: salgo para que systemd relance")
+                avisar(f"♻️ CRV · Scrapling-RYM: motor colgado {parado / 60:.0f} min sin capturar; "
+                       "reinicio automático (reanuda por estado.json).")
+                os._exit(75)
+
+    threading.Thread(target=_bucle, daemon=True, name="vigilante-progreso").start()
+
+
+def load_cookies():
+    """Lee las cookies de RYM de la fuente más fiable (copia inmune a locks).
+
+    La sesión la mantiene el guardián (`ops/rym-resto/keeper.py`): un Firefox real en un X
+    virtual que visita RYM y publica /tmp/rym-prof. Esa copia manda mientras tenga menos de
+    30 min; si el guardián está parado o su copia es vieja, se cae al perfil del dueño."""
     cands = []
     for src in COOKIE_SOURCES:
         f = os.path.join(src, "cookies.sqlite")
@@ -65,9 +224,9 @@ def load_cookies():
             continue
         mts = [os.path.getmtime(f)] + [os.path.getmtime(f + s) for s in ("-wal", "-shm") if os.path.exists(f + s)]
         cands.append((max(mts), src))
-    own = next((c for c in cands if ".mozilla" in c[1]), None)
-    if own and all(c[0] <= own[0] + 900 for c in cands):
-        best = own
+    guardian = next((c for c in cands if c[1] == "/tmp/rym-prof"), None)
+    if guardian and time.time() - guardian[0] <= 1800:
+        best = guardian
     else:
         best = max(cands, key=lambda c: c[0]) if cands else None
     if best is None:
@@ -107,7 +266,11 @@ def ext_artist(page):
     h1 = page.css("h1::text").get()
     rec["name"] = h1.strip()[:120] if h1 else None
     bt = body_text(page, 600)
-    rec["wall"] = bool(re.search(r"Just a moment|Attention Required|Verify you are human|Checking your browser", bt, re.I))
+    rec["wall"] = bool(re.search(
+        r"Just a moment|Attention Required|Verify you are human|Checking your browser"
+        r"|Quick verification|Are you a robot|Enable JavaScript and cookies"
+        r"|Error code 5\d\d|Bad gateway|Web server is down|The web server is not returning",
+        bt, re.I))
     md = ""
     mds = page.css('meta[name="description"]::attr(content)').get()
     if mds:
@@ -163,7 +326,11 @@ def ext_release(page):
         name = (re.split(r" by | \(", tt)[0] or "").strip()[:140] or None
     rec["name"] = name
     bt = body_text(page, 600)
-    rec["wall"] = bool(re.search(r"Just a moment|Attention Required|Verify you are human|Checking your browser", bt, re.I))
+    rec["wall"] = bool(re.search(
+        r"Just a moment|Attention Required|Verify you are human|Checking your browser"
+        r"|Quick verification|Are you a robot|Enable JavaScript and cookies"
+        r"|Error code 5\d\d|Bad gateway|Web server is down|The web server is not returning",
+        bt, re.I))
     rec["og"] = page.css('meta[property="og:image"]::attr(content)').get()
     genres = []
     for t in page.css('a[href^="/genre/"]::text').getall():
@@ -171,6 +338,20 @@ def ext_release(page):
         if t and t not in genres:
             genres.append(t)
     rec["genres"] = genres[:20]
+    # Puntuación agregada de la ficha (RYM no publica los votos uno a uno): media sobre 5 y nº de
+    # puntuaciones. Se guardan como campo para no depender del HTML en cada consulta.
+    avg = (page.css("span.avg_rating::text").get() or "").strip()
+    rec["rating"] = float(avg) if re.fullmatch(r"[0-5](?:\.\d+)?", avg) else None
+    num = " ".join(page.css("span.num_ratings::text").getall())
+    mnum = re.search(r"([\d.,]+)", num)
+    rec["nRatings"] = int(re.sub(r"[.,]", "", mnum.group(1))) if mnum else 0
+    nrev = 0
+    for h in page.css("h2::text").getall():
+        mh = re.match(r"\s*([\d,]+)\s*Reviews?\s*$", h or "", re.I)
+        if mh:
+            nrev = int(mh.group(1).replace(",", ""))
+            break
+    rec["nReviews"] = nrev
     a1 = page.css('.release_page_header a[href^="/artist/"]::text').getall() or page.css('.section_release_page a[href^="/artist/"]::text').getall() or page.css('a.artist[href^="/artist/"]::text').getall()
     rec["artist"] = a1[0].strip()[:140] if a1 else None
     info_parts = page.css('.section_release_info ::text').getall() + page.css(".release_page_header ::text").getall() + page.css("#content ::text").getall()
@@ -217,24 +398,40 @@ def recortar(rec):
             "nGen": len(rec.get("genres") or []), "photo": foto,
             "formed": rec.get("formed"), "og": rec.get("og"), "wall": bool(rec.get("wall")),
             "nTracks": len(rec.get("tracks") or []), "nCredits": len(rec.get("creditLinks") or []),
+            "rating": rec.get("rating"), "nRatings": rec.get("nRatings"), "nReviews": rec.get("nReviews"),
             "at": time.strftime("%H:%M:%S"), "ts": int(time.time()), "v": rec.get("v"), "src": "scrapling",
             "sinDiscografia": bool(rec.get("sinDiscografia")),
             "sinDatos": bool(rec.get("sinDatos"))}
 
 
 def guardar_pagina(pages_dir, kind, href, rec, html):
-    slug = reglas.slug_release(href) if kind == "release" else slugify(href)
-    if isinstance(html, str) and len(html) > 3000:
-        reglas.escribir_atomico(os.path.join(pages_dir, slug + ".html"), html)
-    reglas.guardar_json(os.path.join(pages_dir, slug + ".json"),
-                        {"href": href, "rec": rec, "capturedAt": time.strftime("%Y-%m-%d %H:%M:%S")}, indent=1)
+    slug = reglas.slug_release(href) if kind == "release" else reglas.slug_artist(href)
+    json_path = os.path.join(pages_dir, slug + ".json")
+    if os.path.exists(json_path):
+        with open(json_path, encoding="utf-8") as fh:
+            previous = json.load(fh)
+        if norm_href(previous.get("href")) != norm_href(href):
+            raise RuntimeError(f"Colisión de captura: {href} vs {previous.get('href')} en {slug}")
+    if not isinstance(html, str) or not html:
+        raise ValueError(f"Captura sin HTML: {href}")
+    reglas.escribir_atomico(os.path.join(pages_dir, slug + ".html"), html)
+    reglas.guardar_json(json_path,
+                        {"href": href, "rec": rec, "capturedAt": time.strftime("%Y-%m-%d %H:%M:%S"),
+                         "htmlSha256": reglas.hashlib.sha256(html.encode("utf-8")).hexdigest() if html else None}, indent=1)
     return slug
 
 
 def construir_releases(cola, pages_dir, estado):
+    """Fichas de disco pendientes.
+
+    Se excluyen `/release/musicvideo/`: son videoclips, no discos. Por la regla del proyecto van a
+    `media.artist_audiovisuals` (ver AGENTS.md) y además el 99 % no tiene lista de pistas, así que
+    como disco solo aportan ruido. Las capturas ya hechas siguen guardadas y se exportan a
+    `audiovisuales-musicvideo.jsonl` con `scripts/rym-musicvideo-audiovisuales.py`.
+    """
     return [("release", rel, {"name": f"{nombre} - {titulo}", "parent": parent})
             for rel, nombre, parent, titulo in reglas.discos_de_artistas(cola, pages_dir)
-            if not es_hecho_release(estado.get(rel))]
+            if not rel.startswith("/release/musicvideo/") and not es_hecho_release(estado.get(rel))]
 
 
 def main():
@@ -253,6 +450,7 @@ def main():
     pages_dir = os.path.join(outdir, "pages")
     os.makedirs(pages_dir, exist_ok=True)
     os.makedirs("/tmp/crv-recon", exist_ok=True)
+    cargar_gobierno()
     state_path = os.path.join(outdir, "estado.json")
     estado, fuente = reglas.cargar_estado(state_path)
     if fuente and fuente.endswith(".bak"):
@@ -260,46 +458,89 @@ def main():
         avisar("⚠️ CRV · «nuevos»: estado.json estaba ilegible; retomé desde el respaldo (se recapturan solo las últimas fichas).")
     cola = [json.loads(l) for l in open(args.cola, encoding="utf-8") if l.strip()]
 
+    if reglas.verificar_conservacion(estado, pages_dir):
+        reglas.guardar_json(state_path, estado, respaldo=True)
+        log("[conservación] capturas ausentes o de otra URL quedan pendientes de recuperación")
+
     n_ts = reglas.rellenar_ts(estado, pages_dir)
     if n_ts:
         log(f"[estado] {n_ts} fichas sin fecha completa: rellenadas desde capturedAt")
         reglas.guardar_json(state_path, estado, respaldo=True)
 
     session = {"s": None}
+    fallos_sesion = {"n": 0}
+    dia = {"fecha": time.strftime("%F"), "n": capturas_hoy(estado)}
+    log(f"[tope] {dia['n']} fichas capturadas hoy · límite diario {LIMITE_DIA or 'sin límite'}")
+
+    def tope_diario():
+        """Si se alcanzó el presupuesto del día, espera a medianoche (sin martillear RYM)."""
+        hoy = time.strftime("%F")
+        if dia["fecha"] != hoy:
+            dia["fecha"], dia["n"] = hoy, 0
+        if LIMITE_DIA <= 0 or dia["n"] < LIMITE_DIA:
+            return
+        ahora = time.localtime()
+        seg = 24 * 3600 - (ahora.tm_hour * 3600 + ahora.tm_min * 60 + ahora.tm_sec) + 60
+        log(f"[tope] {dia['n']} fichas hoy (límite {LIMITE_DIA}): paro hasta medianoche "
+            f"({seg / 3600:.1f} h) — así RYM no pone muro")
+        avisar_throttled(f"🌙 CRV · RYM: tope diario alcanzado ({dia['n']} fichas). Reanudo solo "
+                         f"a las 00:00; nada se pierde.", min_gap=3600, clave="tope")
+        esperar_paciente(seg, "[tope] espera hasta medianoche")
+        dia["fecha"], dia["n"] = time.strftime("%F"), 0
 
     def nueva_sesion():
         if session["s"] is not None:
             try:
-                session["s"].close()
+                with toque_de_queda(60, "cierre del navegador"):
+                    session["s"].close()
             except Exception:
                 pass
+            session["s"] = None
         cs, src_c, mt_c = load_cookies()
         # cada recarga queda en el log: el tablero muestra cuándo y de dónde se tomó la sesión
         log(f"cookies: {len(cs)} (fuente {src_c}, mtime {time.strftime('%H:%M', time.localtime(mt_c))})"
             f" · cf_clearance {'sí' if any(c['name'] == 'cf_clearance' for c in cs) else 'NO'}")
-        session["s"] = StealthySession(headless=not args.headful, cookies=cs, useragent=UA,
-                                       timeout=120000, retries=1, solve_cloudflare=False)
-        session["s"].start()
+        s = StealthySession(headless=not args.headful, cookies=cs, useragent=UA,
+                            timeout=120000, retries=1, solve_cloudflare=False)
+        with toque_de_queda(180, "arranque del navegador"):
+            s.start()
+        session["s"] = s
+        fallos_sesion["n"] = 0
+        latir("sesión nueva")
 
     def fetch_una(url, max_tries=4):
         for intento in range(1, max_tries + 1):
-            s = session["s"]
-            if s is None:
-                nueva_sesion()
-                s = session["s"]
-            assert s is not None
+            esperar_turno()
+            latir(f"fetch {url.rsplit('/', 2)[-2] if url.endswith('/') else url.rsplit('/', 1)[-1]}")
             try:
+                s = session["s"]
+                if s is None:
+                    nueva_sesion()
+                    s = session["s"]
+                assert s is not None
                 # disable_resources: bloquea fuentes/imágenes/media (solo esos tipos). No cambia el
                 # HTML —que es lo que leemos— y evita que la espera a «load» se cuelgue detrás de
                 # CDNs de imágenes: medido 2026-10-16, ~25 timeouts de 60 s por hora que costaban
                 # ~5 min por slug atascado. El reto de Cloudflare va por JS y no se ve afectado.
-                page = s.fetch(url, timeout=60000, disable_resources=True)
+                # toque_de_queda: si el driver está muerto (p. ej. «Page crashed»), la llamada no
+                # vuelve nunca y sin límite la campaña se queda parada en silencio.
+                with toque_de_queda(150, "ficha"):
+                    page = s.fetch(url, timeout=60000, disable_resources=True)
             except Exception as exc:
                 log(f"[fetch-err] {url}: {str(exc)[:100]}")
-                time.sleep(10 + intento * 10)
+                castigar(f"fallo de navegación ({type(exc).__name__})", tope=300)
+                time.sleep(5 + intento * 5)
                 if intento >= 2:
                     # Segundo fallo seguido: sesión nueva (limpia el estado del navegador)
-                    nueva_sesion()
+                    try:
+                        nueva_sesion()
+                    except Exception as exc2:
+                        fallos_sesion["n"] += 1
+                        log(f"[sesión-err] no pude reabrir el navegador ({fallos_sesion['n']}/2): {str(exc2)[:100]}")
+                        if fallos_sesion["n"] >= 2:
+                            avisar("♻️ CRV · Scrapling-RYM: el navegador no reabre; reinicio automático "
+                                   "(reanuda por estado.json).")
+                            os._exit(74)
                 continue
             title = ""
             try:
@@ -308,22 +549,22 @@ def main():
                 pass
             blocked = page.status in (403, 503) or re.search(r"Un momento|Just a moment|Security check|Attention Required", title, re.I)
             if not blocked:
+                premiar()
+                dia["n"] += 1
                 return page
-            log(f"[bloqueo] ({page.status}) {title} — refresco cookies y enfrío (intento {intento}/{max_tries})")
+            log(f"[bloqueo] ({page.status}) {title} — refresco cookies y enfriamiento global (intento {intento}/{max_tries})")
             tipo_cf = page.status == 403 or bool(re.search(r"Un momento|Just a moment|Attention Required", title, re.I))
             _ULTIMO_MURO["cf"] = tipo_cf
             _ULTIMO_MURO["ts"] = time.time()
+            if tipo_cf:
+                pedir_refresco()   # el guardián de sesión renueva la cf_clearance en ~15 s
+                time.sleep(random.uniform(18, 25))
             if intento == 1:
                 if tipo_cf:
-                    avisar_throttled("🔒 CRV · «nuevos»: muro de Cloudflare («Un momento…» = sesión vencida). Reintentar NO lo destraba: abre rateyourmusic.com en tu Firefox ~30 s. Nada se pierde (los ítems quedan pendientes).", min_gap=3600, clave="cf")
+                    avisar_throttled("🔒 CRV · RYM: Cloudflare pidió verificación. El guardián de sesión la renueva solo; reintento con espera creciente. Sin acción tuya.", min_gap=3600, clave="cf")
                 else:
-                    avisar_throttled("🟡 CRV · «nuevos»: muro suave de RYM (503). Auto-recupera con enfriamiento; sin acción tuya.", min_gap=3600, clave="soft")
-            # El 503 suave de RYM suele ceder en segundos: primera espera corta; solo
-            # el muro CF (necesita al dueño) o los reintentos tardíos enfrían largo.
-            if not tipo_cf and intento == 1:
-                time.sleep(random.uniform(15, 35))
-            else:
-                time.sleep(random.uniform(90, 240))
+                    avisar_throttled("🟡 CRV · RYM: muro suave del sitio (503). El gobierno de ritmo frena y reintenta solo; sin acción tuya.", min_gap=3600, clave="soft")
+            castigar(f"HTTP {page.status}", tope=300)
             nueva_sesion()
         return None
 
@@ -333,6 +574,7 @@ def main():
         for pos, (kind, href, row) in enumerate(items):
             if args.limit and hechos >= args.limit:
                 return hechos
+            tope_diario()
             url = "https://rateyourmusic.com" + href
             if not url.endswith("/"):
                 url += "/"
@@ -340,18 +582,28 @@ def main():
             if page is None:
                 fallos_seguidos += 1
                 log(f"[fallo] {href}: bloqueo persistente ({fallos_seguidos} seguidos)")
-                if fallos_seguidos >= 5:
-                    # Cortacircuitos: muro sostenido -> espera paciente con sondas cada ~20 min
-                    # (refresca cookies en cada sonda; no quema la cola).
-                    log("[muro] sostenido: modo espera paciente (sondas cada ~20 min)")
+                if fallos_seguidos >= 3:
+                    # Cortacircuitos: muro sostenido -> espera paciente con sondas cada vez más
+                    # espaciadas (20 → 40 → 80 → 160 → 240 min). Un muro de RYM dura horas: sondear
+                    # cada 20 min solo alarga el castigo (medido 2026-10-19, muro desde las 12:12).
+                    log("[muro] sostenido: modo espera paciente (sondas espaciadas)")
                     if _ULTIMO_MURO.get("cf") and time.time() - _ULTIMO_MURO.get("ts", 0.0) < 3600:
-                        avisar_throttled("🔒 CRV · «nuevos»: el muro de Cloudflare sigue (espera paciente, sondas ~20 min). Si aún no lo hiciste: abre rateyourmusic.com en tu Firefox ~30 s — es lo único que lo destraba.", min_gap=3600, clave="cf")
+                        avisar_throttled("🔒 CRV · RYM: el muro de Cloudflare sigue (espera paciente, sondas espaciadas). El guardián de sesión lo está reintentando; revisa `systemctl --user status crv-rym-keeper` si dura más de una hora.", min_gap=3600, clave="cf")
                     else:
-                        avisar_throttled("🟡 CRV · «nuevos»: muro sostenido de RYM — espera paciente (~20 min entre sondas); sin acción tuya.", min_gap=3600, clave="soft")
+                        avisar_throttled("🟡 CRV · RYM: muro sostenido del sitio — espera paciente (sondas espaciadas); sin acción tuya.", min_gap=3600, clave="soft")
                     ciclos = 0
+                    # El espaciado de las sondas es el control real aquí: el contador de bloqueos
+                    # del gobierno se reinicia para que una sonda no arrastre pausas absurdas.
+                    _GOBIERNO["fallos"] = 0
+                    _GOBIERNO["hasta"] = 0.0
+                    guardar_gobierno()
                     while True:
-                        time.sleep(random.uniform(900, 1500))
+                        tope_diario()   # el presupuesto del día manda aunque el muro siga
+                        espera = min(240 * 60.0, 1200.0 * (2 ** ciclos)) * random.uniform(0.9, 1.1)
+                        log(f"[muro] sonda en {espera / 60:.0f} min (ciclo {ciclos + 1})")
+                        esperar_paciente(espera)
                         ciclos += 1
+                        latir("[muro] sonda")
                         page = fetch_una(url, max_tries=2)
                         if page is not None:
                             log("[muro] cedió: reanudo la cola")
@@ -373,12 +625,27 @@ def main():
                 if page is None:
                     continue
             fallos_seguidos = 0
-            if getattr(page, "status", 200) == 404:
+
+            def marcar_sin_ficha(motivo):
                 estado[href] = {"name": None, "kind": kind, "v": EXTRACTOR_V, "status": 404,
                                 "at": time.strftime("%H:%M:%S"), "ts": int(time.time()), "src": "scrapling"}
                 reglas.guardar_json(state_path, estado)
+                latir(f"404 {href}")
+                log(f"+ [{kind}] {href} -> ({motivo}) ({hechos + 1}/{total_fase})")
+
+            # RYM no tiene ficha para «Various Artists»: /artist/various-artists/ redirige al
+            # listado /various_artists/. Sin esto el ítem se reintenta como «muro-en-pagina»
+            # en cada corrida y la fase 1 no cierra nunca.
+            final = getattr(page, "url", "") or ""
+            if kind == "artist" and "/various_artists" in final:
+                marcar_sin_ficha("RYM lo redirige al listado de Various Artists: no hay ficha")
                 hechos += 1
-                log(f"+ [{kind}] {href} -> (404: ya no existe en RYM) ({hechos}/{total_fase})")
+                time.sleep(random.uniform(args.base_min, args.base_max))
+                continue
+
+            if getattr(page, "status", 200) == 404:
+                marcar_sin_ficha("404: ya no existe en RYM")
+                hechos += 1
                 time.sleep(random.uniform(args.base_min, args.base_max))
                 continue
             try:
@@ -403,6 +670,7 @@ def main():
             estado[href] = recortar(rec)
             # atómico; cada 25 capturas deja además una foto en estado.json.bak
             reglas.guardar_json(state_path, estado, respaldo=(hechos % 25 == 24))
+            latir(f"{kind} {href}")
             e = estado[href]
             hechos += 1
             log(f"+ [{kind}] {href} -> {e['name']} | rel {e['nRows']} | gen {e['nGen']} | og {bool(e.get('og'))} | pistas {e.get('nTracks',0)} | cred {e.get('nCredits',0)} ({hechos}/{total_fase})")
@@ -416,6 +684,8 @@ def main():
         return hechos
 
     nueva_sesion()
+    vigilar_progreso(os.path.join(REPO, "reports",
+                                  f"scrapling-{os.path.basename(outdir.rstrip('/'))}.latido"))
     log(f"scrapling-rym listo: cola {len(cola)} | fase {args.phase}")
 
     if args.phase in ("artists", "both"):
