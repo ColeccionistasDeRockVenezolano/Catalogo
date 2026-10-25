@@ -1,0 +1,84 @@
+import assert from 'node:assert/strict';
+import { mkdir,writeFile } from 'node:fs/promises';
+import { chromium } from '@playwright/test';
+
+const base=process.env.CRV_WEB_URL??'http://127.0.0.1:3120/crv';
+const output=process.env.CRV_CATEGORY_CAPTURE_DIR??'reports/seleccion-multiple-discos';
+const get=async path=>{const response=await fetch(`${base}/api${path}`);assert.equal(response.status,200,path);return response.json()};
+const remix=await get('/albums?albumType=single,remix&limit=200');
+assert(remix.pagination.total>0);
+assert(remix.data.every(a=>a.albumType==='single'&&a.classifications.some(c=>c.classification==='Remix')));
+const triple=await get('/albums?albumType=single,remix,instrumental&limit=200');
+assert(triple.pagination.total>0);
+const instrumental=await get('/albums?albumType=single,instrumental&limit=200');
+const zardonicAlbum=await get('/albums/14426');
+const zardonic=await get(`/artists/${zardonicAlbum.artist.id}`);
+const viniloversusAlbum=await get('/albums/14063');
+const viniloversus=await get(`/artists/${viniloversusAlbum.artist.id}`);
+const hasRemix=a=>a.albumType==='remix'||a.classifications.some(c=>c.classification==='Remix');
+const hasInstrumental=a=>a.classifications.some(c=>c.classification==='Instrumental');
+const artistRemix=zardonic.discography.filter(a=>a.albumType==='single'&&hasRemix(a)).length;
+const artistTriple=zardonic.discography.filter(a=>a.albumType==='single'&&hasRemix(a)&&hasInstrumental(a)).length;
+const artistBSides=viniloversus.discography.filter(a=>a.albumType==='single'&&a.isBSides).length;
+await mkdir(output,{recursive:true});
+const browser=await chromium.launch({headless:true});
+const checks=[];
+try {
+ for(const width of [1440,390]) {
+  const context=await browser.newContext({viewport:{width,height:1000},reducedMotion:'reduce'});
+  const page=await context.newPage();
+  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+  await page.route(/https:\/\/(?:www\.youtube(?:-nocookie)?\.com|open\.spotify\.com|widget\.deezer\.com)\//,route=>route.abort());
+  const selection=(key,expected)=>page.waitForFunction(({key,expected})=>{
+   const actual=[...new Set(new URL(location.href).searchParams.getAll(key).flatMap(v=>v.split(',')))].sort();
+   return JSON.stringify(actual)===JSON.stringify([...expected].sort());
+  },{key,expected});
+  const count=async expected=>{
+   await page.waitForFunction(expected=>{const summary=document.querySelector('.list-summary');return summary?.getAttribute('aria-busy')==='false'&&summary.querySelector('strong')?.textContent===Number(expected).toLocaleString('es-VE')},expected);
+  };
+  const openTypes=async()=>{const button=page.getByRole('button',{name:/^Tipo de disco/});if(await button.getAttribute('aria-expanded')!=='true')await button.click();await page.getByRole('group',{name:'Tipos de disco',exact:true}).waitFor()};
+  const catalog=()=>page.getByRole('group',{name:'Tipos de disco',exact:true});
+  const discography=()=>page.getByRole('group',{name:'Tipos de disco de esta discografía',exact:true});
+  const noOverflow=async()=>assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+  await page.goto(`${base}/discos?tipo=single&offset=30&orden=year_desc`,{waitUntil:'domcontentloaded'});
+  await page.locator('.grid-cards .entity-card').first().waitFor();await openTypes();
+  await catalog().getByRole('button',{name:/^Remix:/}).click();
+  await selection('tipo',['single','remix']);await count(remix.pagination.total);
+  assert.equal(new URL(page.url()).searchParams.get('offset'),null);
+  assert.equal(new URL(page.url()).searchParams.get('orden'),'year_desc');
+  assert.equal(await catalog().getByRole('button',{pressed:true}).count(),2);
+  await noOverflow();await page.screenshot({path:`${output}/catalogo-${width}.png`});
+  await page.goBack();await selection('tipo',['single']);assert.equal(new URL(page.url()).searchParams.get('offset'),'30');
+  await page.goForward();await selection('tipo',['single','remix']);await count(remix.pagination.total);
+  await catalog().getByRole('button',{name:/^Instrumental:/}).click();await selection('tipo',['single','remix','instrumental']);await count(triple.pagination.total);
+  assert.equal(await page.locator('.grid-cards .entity-card').count(),triple.pagination.total);
+  await page.getByRole('button',{name:'Quitar filtro Remix',exact:true}).click();await selection('tipo',['single','instrumental']);await count(instrumental.pagination.total);
+  await page.reload({waitUntil:'domcontentloaded'});await count(instrumental.pagination.total);await openTypes();
+  assert.equal(await catalog().getByRole('button',{pressed:true}).count(),2);
+  await catalog().getByRole('button',{name:/^Todos:/}).click();await selection('tipo',[]);
+  assert.equal(new URL(page.url()).searchParams.get('orden'),'year_desc');
+  await page.goto(`${base}/discos?tipo=single,ep`,{waitUntil:'domcontentloaded'});await page.getByText('Ningún disco coincide con estos filtros',{exact:true}).waitFor();await count(0);await openTypes();
+  assert.equal(await catalog().getByRole('button',{pressed:true}).count(),2);
+  await page.goto(`${base}/discos?tipo=remix`,{waitUntil:'domcontentloaded'});await page.locator('.grid-cards .entity-card').first().waitFor();await openTypes();
+  assert.equal(await catalog().getByRole('button',{pressed:true}).count(),1);
+  checks.push({width,view:'catalog',andTotal:remix.pagination.total,tripleTotal:triple.pagination.total,reload:true,backForward:true,removeOne:true,clearAll:true,emptyIntersection:true,legacyUrl:true,overflow:false});
+  await page.goto(`${base}/artistas/${zardonic.id}?discographyType=single&discographyPage=2&discographySort=year_desc`,{waitUntil:'domcontentloaded'});
+  await discography().waitFor();await discography().getByRole('button',{name:/^Remix:/}).click();await selection('discographyType',['single','remix']);await count(artistRemix);
+  assert.equal(new URL(page.url()).searchParams.get('discographyPage'),null);assert.equal(new URL(page.url()).searchParams.get('discographySort'),'year_desc');
+  const instrumentalButton=discography().getByRole('button',{name:/^Instrumental:/});await instrumentalButton.focus();await instrumentalButton.press('Space');
+  await selection('discographyType',['single','remix','instrumental']);await count(artistTriple);assert.equal(await discography().getByRole('button',{pressed:true}).count(),3);
+  await page.reload({waitUntil:'domcontentloaded'});await count(artistTriple);assert.equal(await discography().getByRole('button',{pressed:true}).count(),3);
+  await discography().scrollIntoViewIfNeeded();await noOverflow();await page.screenshot({path:`${output}/discografia-${width}.png`});
+  await page.getByRole('button',{name:'Quitar filtros',exact:true}).click();await selection('discographyType',[]);assert.equal(new URL(page.url()).searchParams.get('discographySort'),'year_desc');
+  await page.goto(`${base}/artistas/${viniloversus.id}?discographyType=b_sides`,{waitUntil:'domcontentloaded'});await discography().waitFor();
+  await discography().getByRole('button',{name:/^Single:/}).click();await selection('discographyType',['b_sides','single']);await count(artistBSides);assert.equal(artistBSides,2);
+  await page.goto(`${base}/artistas/${viniloversus.id}?discographyType=single,limited_edition`,{waitUntil:'domcontentloaded'});await page.getByText('Ningún disco coincide con estas categorías',{exact:true}).waitFor();
+  assert.equal(await discography().getByRole('button',{pressed:true}).count(),2);await page.getByRole('button',{name:'Quitar categorías',exact:true}).click();await selection('discographyType',[]);
+  await page.goto(`${base}/artistas?tipo=band`,{waitUntil:'domcontentloaded'});await page.getByRole('button',{name:/^Tipos/}).click();const artistTypes=page.getByRole('group',{name:'Tipos de artista',exact:true});
+  await artistTypes.getByRole('button',{name:/^Solistas:/}).click();await selection('tipo',['solo_artist']);assert.equal(await artistTypes.getByRole('button',{pressed:true}).count(),1);
+  assert.deepEqual(errors,[]);await noOverflow();
+  checks.push({width,view:'artist-discography',andTotal:artistRemix,tripleTotal:artistTriple,bsidesSingle:artistBSides,keyboard:true,reload:true,clearAll:true,emptyIntersection:true,artistTypeStillSingle:true,errors:[],overflow:false});
+  await context.close();
+ }
+ await writeFile(`${output}/navegador.json`,JSON.stringify({checkedAt:new Date().toISOString(),checks},null,2)+'\n');console.log(JSON.stringify(checks));
+}finally{await browser.close()}
