@@ -328,6 +328,96 @@ Ruido: «ñlkj asdf» y «musiquita» salen `unsupported`.
 
 Latencia: el p95 del modelo (497,5 ms) deja 2,5 ms de margen. Hay que reducir preguntas por consulta o lotes.
 
+## Versión 1.4.0 (criterios `criteria-1.4.0.json`, prueba reservada de consultas 5.0.0)
+
+Mismos umbrales. Solo se evalúan consultas.
+
+La prueba 5.0.0 (`datasets/query-test-reserved-5.json`, 224 casos) se redactó con el mismo procedimiento, con semilla 59. Se etiquetó con `author_reserved_query_test_v5.py` y se congeló en el commit 3cd47977, antes de corregir. Se descartaron las frases de etiqueta discutible y no se completó con frases propias.
+
+La prueba 4.0.0 pasa a ser de desarrollo.
+
+**Corrección de convención.** «Instrumental» nombrado es `genre:instrumental`, como en la matriz Q105 y en el mapa de géneros. En 3.0.0 (S094, S174) y 4.0.0 (S012, S150) se había etiquetado como pendiente. Esos casos siguen contando como fallos en desarrollo.
+
+**Salvedades de independencia.**
+- Las mismas que en 1.3.0.
+- Durante el desarrollo se escribió por error una frase de la 5.0.0 («canciones que cuenten historias de guerra») como prueba manual. No se cambió nada por ella, y en la evaluación falla.
+
+**Cambios.**
+- Léxico 0.5.0:
+  - segunda expansión de DeepSeek flash con lemas distintos (la primera gastó su cupo en diminutivos);
+  - filtros que descartan instrumentos, voz y rasgos genéricos de sonido;
+  - inglés solo en actividades, con una lista básica añadida;
+  - «suave» y «pesado» como ambiguos;
+  - «instrumental» como género;
+  - «con energía» sin nivel como energía alta;
+  - «rap» como género y no como faceta de voz;
+  - duración como atributo;
+  - clases de gimnasio;
+  - conjugaciones de las facetas de estructura y recepción;
+  - diminutivos de relleno.
+- Segmentador:
+  - estados del oyente coordinados con «y»;
+  - la compañía o el lugar de otra actividad («con los panas», «en reunión») es circunstancia;
+  - ruido tecleado en una sola fila;
+  - una faceta más larga gana a una señal temática.
+- Descripciones de sonido: los fragmentos van directo a la pregunta de género, sin preguntas por fragmento. El p95 de latencia en desarrollo baja de 497 a 214 ms.
+- Modelo `crv-query-heads-0.7.0`, sin reentrenar. Con el código nuevo superó al 0.8.0 en las pruebas 1.0.0–4.0.0 (r4: 0,935 frente a 0,915).
+
+| Criterio | 0.7.0 | Umbral | Cumple |
+| --- | --- | --- | --- |
+| Exactitud | 0,750 | ≥ 0,85 | no |
+| Adversariales | 0,877 | ≥ 0,80 | sí |
+| Críticos | 0,018 | ≤ 0,02 | sí |
+| Obligatorios | 5/5 | 5/5 | sí |
+| Pendientes conservados | 0,864 | ≥ 0,95 | no |
+| Sobreabstención | 0,016 | ≤ 0,10 | sí |
+| Sobreconfianza | 0,196 | ≤ 0,05 | no |
+| F1 de condiciones | 0,919 | ≥ 0,90 | sí |
+| Género descrito, acierto entre tres | 0,833 | ≥ 0,70 | sí |
+| Tráfico real sin invención | 1,0 | ≥ 0,98 | sí |
+| Latencia p95 | 283 ms | ≤ 500 | sí |
+| ECE máxima (validación) | 0,099 | ≤ 0,10 | sí |
+| Margen sobre las reglas heredadas | 0,567 | ≥ 0,20 | sí |
+| Críticos frente a reglas sin modelo | 0,018 frente a 0,004 | no peor | no |
+
+Exactitud de los otros sistemas en la misma prueba:
+
+| Sistema | Exactitud |
+| --- | --- |
+| Base sin especializar | 0,366 |
+| Reglas | 0,692 |
+| Heredado | 0,183 |
+
+**No cumple; no se activa.**
+
+En desarrollo, las pruebas 1.0.0–4.0.0 llegaban a 0,93–0,97, y la nueva da 0,750. Las correcciones léxicas guiadas por pruebas gastadas no generalizan.
+
+**Fallos (la prueba 5.0.0 ya es de desarrollo para 1.5.0).**
+
+| Categoría | Aciertos |
+| --- | --- |
+| Emoción | 5/15 |
+| Energía | 1/4 |
+| Género | 8/14 |
+| Actividad | 10/15 |
+
+Causa dominante: una cláusula que solo refuerza o elabora lo pedido queda como restricción pendiente, en lugar de relleno:
+- «que te partan el alma»;
+- «para sentirme exaltado»;
+- «que mezcle emociones encontradas»;
+- «que te rodee»;
+- «sin distraerme»;
+- «diez minutos»;
+- «con seguridad».
+
+El banco de fragmentos no tiene ejemplos de esta clase, así que el modelo no aprendió a descartarlas.
+
+Otros fallos:
+- Intensificadores sin alias: «rápido y fuerte», «mucha potencia», «mucho ritmo».
+- Instrumentación con género: «guitarras bien pesadas» sale `clarify` por el ambiguo «pesadas».
+- Compañía: «cumpleaños» o «reunión familiar festiva» generan conceptos de más.
+- Ruido: «cosas» y «algo fino».
+
 ## Reproducir
 
 ```bash

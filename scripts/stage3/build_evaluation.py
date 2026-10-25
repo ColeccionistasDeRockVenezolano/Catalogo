@@ -51,6 +51,9 @@ def write(task: str, model: str, doc: dict):
     RESULTS.mkdir(parents=True, exist_ok=True)
     doc["criteriaVersion"] = CRITERIA["version"]
     path = RESULTS / f"{task}--{model}.json"
+    # Un modelo ya evaluado con otros criterios (0.7.0 en 1.3.0 y 1.4.0): el archivo lleva la versión de criterios.
+    if path.exists() and json.loads(path.read_text()).get("criteriaVersion") != CRITERIA["version"]:
+        path = RESULTS / f"{task}--{model}--{CRITERIA['version'].removeprefix('crv-stage3-criteria-')}.json"
     if path.exists():
         raise SystemExit(f"{path} ya existe: la prueba reservada se evalúa una vez por versión")
     path.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n")
