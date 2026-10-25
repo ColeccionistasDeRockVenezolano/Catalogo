@@ -1,0 +1,61 @@
+{
+  "version": "crv-cross-style-source-review-0.1.0",
+  "analyst": "Codex",
+  "profiles": [
+    "art-pop",
+    "power-pop",
+    "post-grunge",
+    "industrial",
+    "metal-industrial",
+    "grindcore",
+    "speed-metal",
+    "rock-acustico",
+    "rock-experimental",
+    "rock-latino",
+    "death-and-roll",
+    "white-metal",
+    "noisecore",
+    "heavy-rock"
+  ],
+  "sourceIds": [
+    "wiki:Acoustic_music",
+    "wiki:Art_pop",
+    "wiki:Christian_metal",
+    "wiki:Death_%27n%27_roll",
+    "wiki:Experimental_rock",
+    "wiki:Grindcore",
+    "wiki:Hard_rock",
+    "wiki:Industrial_metal",
+    "wiki:Industrial_music",
+    "wiki:Latin_rock",
+    "wiki:Noisecore",
+    "wiki:Post-grunge",
+    "wiki:Power_pop",
+    "wiki:Speed_metal"
+  ],
+  "excluded": [
+    {
+      "id": "wiki:Adult-oriented_rock",
+      "reason": "Desambiguación: no resuelve qué uso de AOR pretende el ID de CRV."
+    },
+    {
+      "id": "wiki:Symphonic_rock",
+      "reason": "Redirige a Progressive rock; no se presenta la redirección como otra autoridad o definición suficiente de rock sinfónico."
+    },
+    {
+      "id": "wiki:Oi!",
+      "reason": "La introducción disponible describe escena y política; falta perfil musical específico."
+    },
+    {
+      "id": "wiki:Twist_(dance)",
+      "reason": "Una descripción del baile no se convierte en rasgos musicales del catálogo."
+    }
+  ],
+  "sourceSelectionRepair": "El lector temporal elegía el primer .mw-parser-output (una caja informativa); se seleccionó el artículo con más párrafos. No se alteró contenido de fuentes.",
+  "policy": "general_knowledge_proposals_never_entity_assignments",
+  "limits": [
+    "Conocimiento general propuesto, sin adjudicación musical independiente",
+    "White metal se trata como categoría temática; rock acústico como enfoque instrumental con fuente de alcance general",
+    "No inferir equipo, actividad, emoción, identidad personal o atributos de obras desde categorías"
+  ]
+}

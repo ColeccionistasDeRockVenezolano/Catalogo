@@ -1,0 +1,321 @@
+{
+  "version": "crv-completion-source-review-0.5.0",
+  "analyst": "Claude",
+  "cut": "crv-genre-knowledge-0.17.0",
+  "policy": "general_knowledge_proposals_never_entity_assignments",
+  "described": [
+    "adoracion",
+    "balada",
+    "bambuco",
+    "black-metal-atmosferico",
+    "black-metal-depresivo",
+    "blackened-death-metal",
+    "brutal-death-metal",
+    "slamming-brutal-death-metal",
+    "cantautor",
+    "contrapunteo",
+    "corrio",
+    "dance",
+    "dark-folk",
+    "flamenco",
+    "funk-y-soul",
+    "gaban",
+    "golpe-larense",
+    "golpe-llanero",
+    "golpe-y-estribillo",
+    "harmonica-blues",
+    "jazz-rock",
+    "jota-oriental",
+    "metal",
+    "metal-experimental",
+    "metal-extremo",
+    "metal-latino",
+    "musica-andina-venezolana",
+    "musica-coral",
+    "musica-cristiana",
+    "musica-oriental",
+    "musica-tradicional",
+    "musica-tropical",
+    "musica-venezolana",
+    "nueva-cancion",
+    "nueva-trova",
+    "pasaje",
+    "polo-oriental",
+    "pop-latino",
+    "porngrind",
+    "post-black-metal",
+    "punk",
+    "raptor-house",
+    "raw-black-metal",
+    "reggae-y-ska",
+    "rock-fusion",
+    "rock-sinfonico",
+    "salsa-romantica",
+    "sangueo",
+    "tambor-afrovenezolano",
+    "tecnomerengue",
+    "urbano-latino",
+    "vals-andino",
+    "world-ethnic",
+    "blackened-crust",
+    "death-metal-old-school",
+    "power-metal-progresivo",
+    "punk-metal",
+    "oi",
+    "aor",
+    "neoclasica"
+  ],
+  "pending": [],
+  "excludedCaptures": [
+    {
+      "spec": "es:Gab%C3%A1n",
+      "reason": "Describe una prenda de vestir."
+    },
+    {
+      "spec": "es:Guasa",
+      "reason": "Describe un pueblo de Huesca."
+    },
+    {
+      "spec": "es:Corr%C3%ADos",
+      "reason": "Describe un palo flamenco, no el corrío llanero."
+    },
+    {
+      "spec": "es:Pasaje_%28m%C3%BAsica%29",
+      "reason": "Trata un registro vocal."
+    },
+    {
+      "spec": "es:Jota_%28m%C3%BAsica%29",
+      "reason": "Jota española; no acredita la jota oriental."
+    },
+    {
+      "spec": "es:Gaita",
+      "reason": "Gaita de fole, no la gaita venezolana."
+    },
+    {
+      "spec": "en:Dark_metal",
+      "reason": "Redirige a Gothic metal."
+    },
+    {
+      "spec": "es:Rock_mel%C3%B3dico",
+      "reason": "Redirige a Soft rock."
+    },
+    {
+      "spec": "en:Twist_(dance)",
+      "reason": "Describe el baile."
+    },
+    {
+      "spec": "en:Latin_funk",
+      "reason": "Redirige a Funk."
+    },
+    {
+      "spec": "en:Instrumental_metal",
+      "reason": "Redirige a Instrumental rock."
+    },
+    {
+      "spec": "en:Technical_metal",
+      "reason": "Redirige a Progressive metal."
+    },
+    {
+      "spec": "en:Melodic_metal",
+      "reason": "Redirige a Heavy metal music."
+    },
+    {
+      "spec": "en:Melodic_rock",
+      "reason": "Redirige a Rock music."
+    },
+    {
+      "spec": "en:Oi!",
+      "reason": "Escena y política sin perfil musical; se usa es:Oi!."
+    },
+    {
+      "spec": "es:Twist",
+      "reason": "Desambiguación."
+    },
+    {
+      "spec": "en:Ethnic_rock",
+      "reason": "Redirige a World music."
+    },
+    {
+      "spec": "en:Melodic_power_metal",
+      "reason": "Redirige a Power metal."
+    }
+  ],
+  "limits": [
+    "Propuestas de una IA distinta de Codex; no son aprobación de Brian.",
+    "No inferir emoción, actividad ni atributos de obras desde categorías; sin herencia género→obra."
+  ],
+  "decisionsByBrian": [
+    {
+      "date": "2026-10-17",
+      "slug": "aor",
+      "decision": "adult-oriented rock como estilo (arena rock); no el formato radial"
+    },
+    {
+      "date": "2026-10-17",
+      "slug": "neoclasica",
+      "decision": "solo metal neoclásico; las fichas académicas requieren revisión editorial, sin reasignación automática"
+    },
+    {
+      "date": "2026-10-17",
+      "slug": "death-metal-progresivo",
+      "decision": "distinta de death-metal-tecnico"
+    },
+    {
+      "date": "2026-10-17",
+      "slug": "folclor-fusion",
+      "decision": "folclore venezolano renovado, sin exigir rock ni jazz"
+    },
+    {
+      "date": "2026-10-18",
+      "slug": "*25 sin fuente*",
+      "decision": "Permiso para excluir del mapa descriptivo las 25 categorías sin fuente («Te doy mi permiso»). Siguen activas en la taxonomía y en sus asignaciones; no se describen ni se les inventan rasgos. Se reabren si aparece una fuente."
+    }
+  ],
+  "searchedWithoutResult": [
+    {
+      "date": "2026-10-17",
+      "source": "Venciclopedia (api.php, búsqueda y páginas Joropo y Polo (música))",
+      "terms": [
+        "malagueña",
+        "puntillanto",
+        "guasa",
+        "orquídea",
+        "guaiquerí",
+        "galerón",
+        "gaita oriental",
+        "merengue oriental",
+        "guarorock",
+        "barquisimetal",
+        "twist"
+      ],
+      "result": "Sin entradas ni menciones."
+    }
+  ],
+  "excludedByBrian": [
+    {
+      "slug": "barquisimetal",
+      "reason": "Sin fuente que describa el término; 0 artistas en el catálogo.",
+      "task": "Buscar uso documentado o proponer retirarlo."
+    },
+    {
+      "slug": "dark-metal",
+      "reason": "La página redirige a gothic metal; una redirección no es equivalencia.",
+      "task": "Buscar fuente propia de dark metal."
+    },
+    {
+      "slug": "death-groove-metal",
+      "reason": "Sin fuente; 0 artistas en el catálogo.",
+      "task": "Buscar uso documentado o proponer retirarlo."
+    },
+    {
+      "slug": "death-metal-progresivo",
+      "reason": "Brian (2026-10-17): se mantiene distinta de death-metal-tecnico. Wikipedia usa ambos términos como sinónimos, así que no sirve para describirla por separado.",
+      "task": "Buscar fuente que describa el death metal progresivo como estilo propio."
+    },
+    {
+      "slug": "ethnic-rock",
+      "reason": "Sin fuente que fije la acepción del catálogo.",
+      "task": "Revisar valores de origen y buscar fuente."
+    },
+    {
+      "slug": "folclor-fusion",
+      "reason": "Brian (2026-10-17): significa folclore venezolano renovado o proyectado, sin exigir rock ni jazz. es:Fusión_latinoamericana no acredita esa acepción.",
+      "task": "Buscar fuente sobre la proyección o renovación del folclore venezolano."
+    },
+    {
+      "slug": "fusion-latina",
+      "reason": "168 artistas y 757 discos con acepción mixta; sin fuente que la delimite.",
+      "task": "Revisar muestra de artistas antes de describir."
+    },
+    {
+      "slug": "gaita-oriental",
+      "reason": "es:Gaita describe la gaita de fole; falta fuente de la gaita oriental venezolana.",
+      "task": "Buscar fuente venezolana."
+    },
+    {
+      "slug": "guarorock",
+      "reason": "Término local de Barquisimeto sin fuente musical.",
+      "task": "Buscar prensa o fuente local."
+    },
+    {
+      "slug": "guasa",
+      "reason": "es:Guasa es un pueblo de Huesca; sin fuente musical; 0 artistas.",
+      "task": "Buscar fuente del golpe oriental."
+    },
+    {
+      "slug": "joropo-fusion",
+      "reason": "Sin fuente que describa el cruce.",
+      "task": "Buscar fuente."
+    },
+    {
+      "slug": "latin-electronic-fusion",
+      "reason": "Sin fuente que fije la acepción.",
+      "task": "Revisar valores de origen."
+    },
+    {
+      "slug": "latin-funk",
+      "reason": "Latin funk redirige a Funk sin sección propia.",
+      "task": "Buscar fuente sobre latin funk."
+    },
+    {
+      "slug": "malaguena",
+      "reason": "La fuente disponible solo da contexto ritual, no rasgos musicales.",
+      "task": "Buscar descripción musical de la malagueña oriental."
+    },
+    {
+      "slug": "melodic-metal",
+      "reason": "Sin fuente que fije la acepción del catálogo.",
+      "task": "Revisar valores de origen."
+    },
+    {
+      "slug": "merengue-oriental",
+      "reason": "Sin fuente específica.",
+      "task": "Buscar fuente venezolana."
+    },
+    {
+      "slug": "metal-instrumental",
+      "reason": "Instrumental metal redirige a Instrumental rock; una redirección no es equivalencia.",
+      "task": "Decidir si se trata como musical_feature y buscar fuente."
+    },
+    {
+      "slug": "motivo-guaiqueri",
+      "reason": "Sin fuente; solo Francisco Mata en el catálogo.",
+      "task": "Buscar fuente margariteña."
+    },
+    {
+      "slug": "musica-de-camara-popular",
+      "reason": "Sin fuente que fije la acepción.",
+      "task": "Revisar valores de origen."
+    },
+    {
+      "slug": "puntillanto",
+      "reason": "Sin fuente; solo Francisco Mata.",
+      "task": "Buscar fuente oriental."
+    },
+    {
+      "slug": "raw-punk",
+      "reason": "Sin página propia (404); Punk rock subgenres solo describe el Spanish raw punk, una variante concreta.",
+      "task": "Buscar fuente del raw punk general."
+    },
+    {
+      "slug": "ritmo-orquidea",
+      "reason": "Sin fuente.",
+      "task": "Buscar fuente venezolana."
+    },
+    {
+      "slug": "rock-melodico",
+      "reason": "Fuentes en conflicto: es:Rock_melódico redirige a soft rock y la desambiguación en:Adult-oriented_rock lo asocia al arena rock (AOR).",
+      "task": "Decidir la relación con aor y soft-rock antes de describirlo."
+    },
+    {
+      "slug": "technical-metal",
+      "reason": "Technical metal redirige a Progressive metal; una redirección no es equivalencia.",
+      "task": "Revisar valores de origen."
+    },
+    {
+      "slug": "twist",
+      "reason": "Twist (dance) describe pasos y éxitos, no rasgos musicales.",
+      "task": "Buscar fuente musical del twist."
+    }
+  ]
+}

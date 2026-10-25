@@ -1,0 +1,1075 @@
+{
+ "version": "crv-extension-readings-0.2.0",
+ "date": "2026-10-25",
+ "decision": "Brian, 2026-10-25: «incluye a AOTY y los fanzines al estudio» y «Resuélvelo tú, confío en tu juicio».",
+ "selectedBy": "Claude (Opus 5.5): 12 citas de AOTY (Arca limitada a 3, sin Kid606 ni weed420 ya estudiados) y 12 de fanzines de época (11 bandas, 1985–1997, OCR con calidad ≥ 0,9). Discos con fichas duplicadas en CRV descartados.",
+ "analyst": "DeepSeek flash; primera lectura, no evaluación independiente",
+ "method": "review-analysis-0.2.0; prompt en scripts/unified-search-extension-deepseek.py",
+ "scope": "Tramo de ampliación del estudio de desarrollo. No alimenta todavía a Laya, a la matriz de consultas ni al cruce de cuatro fuentes.",
+ "readings": [
+  {
+   "id": "E2-A01",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 12757,
+    "name": "KiCk i"
+   },
+   "artist": "Arca",
+   "work": "KiCk i",
+   "quote": "my only complaint is that is definitely is a bit inconsistent as it contains so many different styles",
+   "language": "en",
+   "source": "https://www.albumoftheyear.org/album/222095-arca-kick-i.php",
+   "account": "/user/cokefiend/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:1768 .text",
+   "captureHash": "423f2b5e9583cea42e58b9f255ad3da1465be21c3f22fd9efcc5b60520820ddc",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "1y (relativa a la captura)",
+   "rating": "93",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "the fact this isn’t a must hear album should be a criminal offence.. you definitely need an extensive taste to truly understand and enjoy this album just because it’s just so out there and different but arca is truly one of the most unique and innovative artists of this generation. my only complaint is that is definitely is a bit inconsistent as it contains so many different styles, still an amazing project nonetheless",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/222095-arca-kick-i.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:12757"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "style.mixture",
+    "value": "inconsistencia-por-mezcla-de-estilos",
+    "state": "affirmed",
+    "appreciation": "mixed",
+    "coverage": "complete",
+    "listeningCondition": null,
+    "interpretation": "La cita señala como única queja que el álbum resulta algo inconsistente debido a que contiene muchos estilos diferentes. Es una apreciación sobre la variedad estilística del disco, percibida como falta de cohesión.",
+    "alternative": "La variedad de estilos podría leerse también como riqueza o eclecticismo, pero la cita la enmarca explícitamente como inconsistencia.",
+    "query": "¿Es inconsistente el álbum KiCk i de Arca por mezclar muchos estilos?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A02",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 12765,
+    "name": "KicK iii"
+   },
+   "artist": "Arca",
+   "work": "KicK iii",
+   "quote": "So a spanish hiphop album with the most schizo beats possible with the few bits of english being weird ass lyrics she makes sure we understand.",
+   "language": "en",
+   "source": "https://www.albumoftheyear.org/album/435716-arca-kick-iii.php",
+   "account": "/user/aa342/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:4435 .text",
+   "captureHash": "c6c4bc4a4b2194673db6272394e26b1db00ebfb7bbf9642e6a3afb01c4dc5e8d",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "2y (relativa a la captura)",
+   "rating": "83",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "So a spanish hiphop album with the most schizo beats possible with the few bits of english being weird ass lyrics she makes sure we understand. yeah this album is fantastic",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/435716-arca-kick-iii.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:12765"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "style.mixture",
+    "value": "spanish-hiphop-schizo-beats",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "complete",
+    "listeningCondition": null,
+    "interpretation": "La cita describe el disco como un álbum de hip hop en español con ritmos muy esquizofrénicos, y valora ese conjunto como fantástico.",
+    "alternative": "El término 'schizo beats' es una etiqueta subjetiva del reseñista, no una descripción técnica verificable del sonido.",
+    "query": "reseñas de KicK iii de Arca que describen hip hop en español con ritmos esquizofrénicos",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A03",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 12722,
+    "name": "Arca"
+   },
+   "artist": "Arca",
+   "work": "Arca",
+   "quote": "i have no idea what mother is saying but this is definitely a haunting and beautiful album",
+   "language": "en",
+   "source": "https://www.albumoftheyear.org/album/73019-arca-arca.php",
+   "account": "/user/xoxolathen/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:6679 .text",
+   "captureHash": "e5499a57b00f165439d763852494fb85ebc74dfb46561b0ef1a2640a42a2534a",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "2y (relativa a la captura)",
+   "rating": "95",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "i have no idea what mother is saying but this is definitely a haunting and beautiful album, i didn’t get it at first when i was 12 but then i started loving it",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/73019-arca-arca.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:12722"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "atmosphere",
+    "value": "haunting-beautiful",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "complete",
+    "listeningCondition": null,
+    "interpretation": "La cita afirma que el álbum resulta inquietante y bello a la vez, pese a no entender lo que la vocalista dice; elogia la atmósfera global del disco.",
+    "alternative": "El comentario mezcla la incomprensión de la letra con el juicio estético, por lo que la alabanza podría recaer tanto en la atmósfera como en el conjunto.",
+    "query": "reseñas de Arca Arca álbum atmósfera inquietante y bella",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A04",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 135,
+    "name": "Vida"
+   },
+   "artist": "Canserbero",
+   "work": "Vida",
+   "quote": "los beats son simples pero funcionan de forma bastante efectiva, los coros son superiores a los de muerte",
+   "language": "es",
+   "source": "https://www.albumoftheyear.org/album/144933-canserbero-vida.php",
+   "account": "/user/dfre/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:8309 .text",
+   "captureHash": "e3b3054f5e409377612936c744b8799ef10f0d92fcf174132dc23121cf9bb930",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "3y (relativa a la captura)",
+   "rating": "NR",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "La puta madre como es que pensaba que este álbum era un simple ok. A ver, hay varios puntos positivos para este álbum, primero que nada me voy a sacar de el medio lo importante, está es una tracklist perfecta con 0 skips. Todos los temas suenan bien, los beats son simples pero funcionan de forma bastante efectiva, los coros son superiores a los de muerte, y las letras siguen con ese mismo encanto de siempre. Con esta descripción suena como un álbum perfecto ... read more",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/144933-canserbero-vida.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:135"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "production.texture",
+    "value": "beats-simples-efectivos",
+    "state": "affirmed",
+    "appreciation": "mixed",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "La cita afirma que los beats de «Vida» son sencillos pero efectivos, y que los coros son mejores que los de «Muerte», comparando ambos discos del propio artista.",
+    "alternative": "La alabanza de efectividad es impresionista y no detalla qué rasgos concretos hacen funcionar los beats; la comparación se limita a los coros, no al conjunto.",
+    "query": "¿cómo son los beats y coros de Vida de Canserbero comparados con Muerte?",
+    "objectNote": "Menciona también el álbum «Muerte» para comparar los coros."
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A05",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 134,
+    "name": "Muerte"
+   },
+   "artist": "Canserbero",
+   "work": "Muerte",
+   "quote": "Maestría lírica y beats impecables",
+   "language": "es",
+   "source": "https://www.albumoftheyear.org/album/144934-canserbero-muerte.php",
+   "account": "/user/yelloverme/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:8269 .text",
+   "captureHash": "0e4ecd4927f38f32aba1959060e583a963b54aef60c1deba1597f608c1c0b4df",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "2y* (relativa a la captura)",
+   "rating": "91",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "91 → MARAVILLOSO Maestría lírica y beats impecables: así se puede describir el segundo álbum de Canserbero, considerado por muchos como su mejor trabajo. Un disco que no solo presenta la muerte como nuestro destino inevitable, sino también como un motor para enfrentar todo lo negativo que nos rodea como latinos, desde la violencia desmedida en las calles hasta la corrupción en las altas esferas del poder.",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/144934-canserbero-muerte.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:134"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "lyrics",
+    "aspect": "vocals.lyrics",
+    "value": "lyrical-mastery",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "complete",
+    "listeningCondition": null,
+    "interpretation": "La cita elogia la destreza lírica del álbum y la calidad impecable de sus beats, destacando ambos como virtudes centrales de la obra.",
+    "alternative": "El elogio es genérico y no detalla qué aspectos concretos de las letras o la producción sostienen la valoración.",
+    "query": "reseñas que elogian la maestría lírica y los beats de Muerte de Canserbero",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A06",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 4407,
+    "name": "Trippy Caribbean"
+   },
+   "artist": "Rawayana",
+   "work": "Trippy Caribbean",
+   "quote": "They are fun and simple albums, playing reggae/funk/psychedelic elements.",
+   "language": "en",
+   "source": "https://www.albumoftheyear.org/album/63421-rawayana-trippy-caribbean.php",
+   "account": "/user/marcimar/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:3374 .text",
+   "captureHash": "bb176ccfbcbe7a72a079429079a4b16bd8fab45c2d460fe9371381a5dbf15864",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "1mo (relativa a la captura)",
+   "rating": "69",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "+\"Trippy Caribbean\" & \"Rawayanaland\" They are fun and simple albums, playing reggae/funk/psychedelic elements.It's worth listening to . In other words, they are the perfect definition of beach music.",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/63421-rawayana-trippy-caribbean.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:4407"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "style.mixture",
+    "value": "reggae-funk-psychedelic",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "La cita describe estos discos como divertidos y sencillos, con elementos de reggae, funk y psicodelia. El comentario abarca tanto «Trippy Caribbean» como «Rawayanaland».",
+    "alternative": "La valoración positiva se limita a lo festivo y accesible del sonido, sin detallar cómo se combinan esos géneros.",
+    "query": "¿Qué elementos musicales tiene Trippy Caribbean de Rawayana según las reseñas?",
+    "objectNote": "La cita se refiere conjuntamente a «Trippy Caribbean» y «Rawayanaland»."
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A07",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 3402,
+    "name": "Nuestro Año"
+   },
+   "artist": "Los Mesoneros",
+   "work": "Nuestro Año",
+   "quote": "me gusta pero se nota que quieren ser arctic monkeys.",
+   "language": "es",
+   "source": "https://www.albumoftheyear.org/album/926508-los-mesoneros-nuestro-ano.php",
+   "account": "/user/arepatiesa/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:9565 .text",
+   "captureHash": "e172ad9a2a445416e5fb74d5e5d4e667825908e78547512d27ae14ba38b3ab98",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "4mo (relativa a la captura)",
+   "rating": "70",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "me gusta pero se nota que quieren ser arctic monkeys. Luis de carajito escribía mejor que esto y ahora solo quiere hacer AM 2",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/926508-los-mesoneros-nuestro-ano.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:3402"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "comparison",
+    "aspect": "affinity.aspect",
+    "value": "arctic-monkeys",
+    "state": "affirmed",
+    "appreciation": "mixed",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "La reseña afirma que, aunque le gusta, percibe en la banda la intención de sonar como Arctic Monkeys. Es una comparación de afinidad estilística con valoración mixta.",
+    "alternative": "El gusto expresado puede referirse al disco en general mientras la comparación con Arctic Monkeys funciona como reserva o crítica parcial.",
+    "query": "reseñas de Nuestro Año de Los Mesoneros que los comparan con Arctic Monkeys",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A08",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 3397,
+    "name": "Pangea"
+   },
+   "artist": "Los Mesoneros",
+   "work": "Pangea",
+   "quote": "prefieren concentrarse en 8 temas con una producción prolija y con arreglos esmerados",
+   "language": "es",
+   "source": "https://www.albumoftheyear.org/album/180847-los-mesoneros-pangea.php",
+   "account": "/user/nhanho/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:9573 .text",
+   "captureHash": "5d6b0445928dfff88c853d6bc7088a7ab2499e2fc14e97a7e676160bb61ce5ed",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "4mo (relativa a la captura)",
+   "rating": "91",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "En su 3era placa, Los Mesoneros deciden explorar el derecho que se han ganado de hacer lo que les da la gana; en lugar de expandirse en una docena de canciones prefieren concentrarse en 8 temas con una producción prolija y con arreglos esmerados que bien merecían el equivalente musical a una estrella Michelin, no esa basura en forma de gramófono que da la industria a sus perros mas fieles; así que guárdate tu lista de nominados y tu show que la ignorancia te ... read more",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/180847-los-mesoneros-pangea.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:3397"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "production.texture",
+    "value": "prolija-y-esmerada",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "complete",
+    "listeningCondition": null,
+    "interpretation": "La reseña afirma que el álbum se concentra en ocho temas con una producción cuidada y arreglos esmerados, valorándolo positivamente. Se refiere a la producción y los arreglos del disco en su conjunto.",
+    "alternative": "La cita elogia la prolijidad y el esmero, pero no detalla en qué consisten esos arreglos ni compara con trabajos previos.",
+    "query": "producción y arreglos de Pangea de Los Mesoneros",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A09",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 247,
+    "name": "Arepa 3000: A Venezuelan Journey Into Space"
+   },
+   "artist": "Los Amigos Invisibles",
+   "work": "Arepa 3000: A Venezuelan Journey Into Space",
+   "quote": "a very versatile album with electropop, salsa, funk, indie and above all an unforgettable charisma",
+   "language": "en",
+   "source": "https://www.albumoftheyear.org/album/94568-los-amigos-invisibles-arepa-3000-a-venezuelan-journey-into-space.php",
+   "account": "/user/8teenygz/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:9510 .text",
+   "captureHash": "31cf71664a6ba14d6c4432e8bb05a67eb745604ca03859511745549117240d0e",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "3y (relativa a la captura)",
+   "rating": "80",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "The classic Venezuelan band released one of the best Latin albums of the century, a very versatile album with electropop, salsa, funk, indie and above all an unforgettable charisma that makes this project a classic of Latin music.",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/94568-los-amigos-invisibles-arepa-3000-a-venezuelan-journey-into-space.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:247"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "style.mixture",
+    "value": "electropop-salsa-funk-indie-versatilidad",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "complete",
+    "listeningCondition": null,
+    "interpretation": "La cita afirma que el álbum es muy versátil y mezcla electropop, salsa, funk e indie, con un carisma inolvidable como rasgo destacado. Se refiere al disco en su conjunto.",
+    "alternative": "La mención al carisma es una valoración general del reseñador y no describe un rasgo sonoro concreto.",
+    "query": "¿Qué estilos mezcla el álbum Arepa 3000 de Los Amigos Invisibles según las reseñas?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A10",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 15647,
+    "name": "VII Magia Infinita (2024)"
+   },
+   "artist": "Zeta",
+   "work": "VII Magia Infinita (2024)",
+   "quote": "post rock, percusión latina y ritualista, flujo perfecto entre canciones",
+   "language": "es",
+   "source": "https://www.albumoftheyear.org/album/953346-zeta-vii-magia-infinita-2024.php",
+   "account": "/user/gimabra/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:9669 .text",
+   "captureHash": "14ea7c4fc926ddd1bbb2fe6b8c3f30fd0035f018dc3b5d2c1c01958b21d216f1",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "8mo (relativa a la captura)",
+   "rating": "95",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "¿Existe dios? ¿El alma? Nunca se podrá decir con certeza, pero este LP de los venezolanos Zeta se esfuerza en responderlo. Las letras escarban a fondo estos temas, pero su música nos habla más que cualquier cosa: post rock, percusión latina y ritualista, flujo perfecto entre canciones... Escucharlo puede sentirse como conectar con ese algo mas allá de nuestra compresión como pocas obras de arte logran hacer.",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/953346-zeta-vii-magia-infinita-2024.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:15647"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "style.mixture",
+    "value": "post-rock-con-percusion-latina-ritualista",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "complete",
+    "listeningCondition": null,
+    "interpretation": "La cita describe el sonido del disco como una mezcla de post rock con percusión latina y ritualista, y señala un flujo perfecto entre las canciones.",
+    "alternative": "Es una descripción estilística del reseñador, no una declaración de la banda; 'flujo perfecto' es valoración subjetiva sobre la transición entre temas.",
+    "query": "¿Qué estilo y elementos sonoros tiene el álbum VII Magia Infinita de Zeta?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A11",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 14610,
+    "name": "Tonadas"
+   },
+   "artist": "Simón Díaz",
+   "work": "Tonadas",
+   "quote": "All you need to make fantastical music is a guy who can sing and an acoustic guitar.",
+   "language": "en",
+   "source": "https://www.albumoftheyear.org/album/373088-simon-diaz-tonadas.php",
+   "account": "/user/fairyqueen/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:9631 .text",
+   "captureHash": "15fd16d9e78c413947c1fee76dad06da82f88067bbe156a0e9d6769ce751b818",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "2y (relativa a la captura)",
+   "rating": "80",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "This album proves that to make great music you don't need complex arrangements, grand production, or world class instrumentalists. All you need to make fantastical music is a guy who can sing and an acoustic guitar.",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/373088-simon-diaz-tonadas.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:14610"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "instrumentation.presence",
+    "value": "voz-y-guitarra-acustica",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "complete",
+    "listeningCondition": null,
+    "interpretation": "La cita afirma que para este disco basta una voz y una guitarra acústica para lograr música excelente, destacando la simplicidad instrumental como suficiente.",
+    "alternative": "Es una valoración sobre la sencillez de los arreglos, no una descripción detallada de la instrumentación real del álbum.",
+    "query": "¿Qué instrumentación mínima se destaca en el álbum Tonadas de Simón Díaz?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-A12",
+   "resourceId": "R45",
+   "object": {
+    "kind": "album",
+    "id": 21824,
+    "name": "Lo Bello De Lo Malo"
+   },
+   "artist": "El Café Atómico",
+   "work": "Lo Bello De Lo Malo",
+   "quote": "Lo Bello de lo Malo cae en dos pecados, la repeticion y el no aprovechar tu premisa.",
+   "language": "es",
+   "source": "https://www.albumoftheyear.org/album/1174902-el-cafe-atomico-lo-bello-de-lo-malo.php",
+   "account": "/user/dyrozyv/",
+   "page": null,
+   "locator": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl:9613 .text",
+   "captureHash": "d1a07f4e896121a66498dfc4afde33822506b8d47536f5e15b6f1e00648a4ea4",
+   "capturedAtOriginal": "2026-10-19",
+   "visibleDate": "1y (relativa a la captura)",
+   "rating": "75",
+   "extractorVersion": "aoty-user-reviews-2026-10-19",
+   "context": "A pesar de la interesante premisa de mezclar el tropicanibalismo y los generos caribeños con la neo-psicodelia y el acid rock, Lo Bello de lo Malo cae en dos pecados, la repeticion y el no aprovechar tu premisa. Con algunas excepciones, muchas partes de este proyecto se pueden sentir iguales o como que no estan completos, como que les falto desarrollo. Me gustaria algun dia poder ver a cafe atomico re-tomar este concepto de mejor manera y aprovecharlo a su 100% debido a que el potencial ... read more",
+   "identityEvidence": [
+    "AOTY https://www.albumoftheyear.org/album/1174902-el-cafe-atomico-lo-bello-de-lo-malo.php; cruce_crv.csv artista exacto; título de álbum exacto en public.albums:21824"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "structure.repetition",
+    "value": "repetitive",
+    "state": "affirmed",
+    "appreciation": "disliked",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "La reseña afirma que el álbum incurre en repetición, presentándola como un defecto. Se critica la falta de variedad estructural sin detallar qué partes concretas lo evidencian.",
+    "alternative": "La repetición podría entenderse como recurso estilístico deliberado, pero la cita la enmarca explícitamente como un 'pecado', es decir, un defecto.",
+    "query": "¿Qué críticas se le hacen a la estructura de Lo Bello De Lo Malo de El Café Atómico?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F01",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 76,
+    "name": "Dermis Tatú"
+   },
+   "artist": "Dermis Tatú",
+   "work": "Tierra Bajo Tierra n.º 6",
+   "quote": "DERMIS TATU sonó con un estilo requetecontra ruleteado, ese Rock ininteligible de berreos de guitarra y del cantante (no se le entendía ni pío además, para variar, el sonido era infame)",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2020/07/cap06_PDFs_Tierra_Bajo_Tierra_1995_No6-RestoDelPais.pdf",
+   "account": "Tierra Bajo Tierra n.º 6",
+   "page": 11,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_Tierra_Bajo_Tierra_1995_No6-RestoDelPais.pdf pagina=11 (espacios normalizados)",
+   "captureHash": "4ff140214ee1ff99336f1e106a2774592aa4c2dd0133e124820d0e3852118545",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": "1995",
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": " hotel la Pedregosa, A cielo abierto y bajo Una suave garúa tocaron por Mérida el grupo HIERRO, que se perfila como buen grupo de Heavy metal. DESORDEN PUBLICO hizo bailar y tocar a toda la fanaticada local hasta casi la una de la mañana en su tercera presentación en la ciudad en donde gozan de gran aprecio. Todo lo contrario sucedió en abril, cuando DERMIS TATU se presentó en el recién inaugurado espacio de tarima teatro en las Heroínas. Poca publicidad, poca taquilla, La lluvia del fin de semana ciertamente mermó la asistencia, aunque el espacio de tarima es techado. Poco conocido en Mérida DERMIS TATU sonó con un estilo requetecontra ruleteado, ese Rock ininteligible de berreos de guitarra y del cantante (no se le entendía ni pío además, para variar, el sonido era infame) . De paso, la actitud muy “argentinizada” de los integrantes del grupo. Cero presentación, cero simpatía, cero contacto con el público. Teloneros E e pi los pesados de HOLY Pe asentados Y pro e E da e AfOR el concierto según los salvá asistentes. A principios de mayo le tocó el turno a los super stars de ZAPATO 3. La entrada carísima ( 2.000 per cápita sin derecho a nada ) y el lugar una discoteca famosa pero estrecha, lamentablemente no funcionó, perdieron el esfuerzo de trasladarse a Mérida. ",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 76 con contexto de banda; public.artists:76"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "experience",
+    "aspect": "performance.live-sound",
+    "value": "sonido-e-interpretacion-ininteligibles",
+    "state": "affirmed",
+    "appreciation": "disliked",
+    "coverage": "partial",
+    "listeningCondition": "concierto en el espacio de tarima teatro de Las Heroínas, Mérida",
+    "interpretation": "La cita critica un concierto de Dermis Tatú en Mérida: rock gastado («requetecontra ruleteado»), guitarra y voz ininteligibles y un sonido infame. Juzga esa presentación, no el estilo de la banda en general.",
+    "alternative": "El término 'ruleteado' podría referirse a un sonido cambiante o acelerado más que a una mezcla de estilos, y la crítica se limita a esa presentación concreta.",
+    "query": "¿Cómo sonó Dermis Tatú en vivo en Mérida según el fanzine Tierra Bajo Tierra?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.2.0",
+   "rectifiedBy": "Claude (encargo de Brian, 2026-10-25), según la evaluación de crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F02",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 59,
+    "name": "Cebollas Ardientes"
+   },
+   "artist": "Cebollas Ardientes",
+   "work": "Tierra Bajo Tierra n.º 6",
+   "quote": "esta fue una de las mejores presentaciones, aunque el sonido no los ayudó mucho",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2020/07/cap06_PDFs_Tierra_Bajo_Tierra_1995_No6-RestoDelPais.pdf",
+   "account": "Tierra Bajo Tierra n.º 6",
+   "page": 6,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_Tierra_Bajo_Tierra_1995_No6-RestoDelPais.pdf pagina=6 (espacios normalizados)",
+   "captureHash": "505178754c3c0cd9a60e7049f409e18dec761dbc0f091951d009b129d299c9e8",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": "1995",
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": "mias, cerrando luego con Animal Social, una agrupación de chamos sencillos que hacen un excelente rock, cargado de fuerza y mucho carisma que sorprendió a mucha gente; en mi opinión, una de las mejores bandas del festival. Desde Valencia llegaron los Monaguillos de Sodoma para acompañar a las Cebollas Ardientes, en lo que sería el fin del festival. Con su Rap n' core, música secuenciada, buena escena y letras fuertes, los Monaguillos de Sodoma obtuvieron una mención especial. Las Cebollas por otro lado, representaron al Ska nacional, un movimiento que cada día toma más fuerza en nuestro país; esta fue una de las mejores presentaciones, aunque el sonido no los ayudó mucho y no tenían representación en el jurado, Las Cebollas Ardientes le dieron al público una buena dosis de Raggamuffing, Ska, Dub y Reggae. El festival de Nuevas Bandas, es una buena alternativa para todas las agrupaciones que están comenzando, y confiamos plenamente en que los próximos eventos serán cada vez mejor, en cuanto a mejor escojencia de algunos jurados, mejor selección de la compañía de sonido y un poco más de comprensión y reconocimiento a las bandas (solo un buen sonido basta para ell",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 59 con contexto de banda; public.artists:59"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "experience",
+    "aspect": "performance.live-sound",
+    "value": "poor-sound-undermined-show",
+    "state": "affirmed",
+    "appreciation": "mixed",
+    "coverage": "partial",
+    "listeningCondition": "presentación en vivo en el festival de Nuevas Bandas",
+    "interpretation": "La cita valora la actuación de Cebollas Ardientes como una de las mejores del festival, pero señala que el sonido no los favoreció. El elogio es para el show en vivo, con la salvedad técnica del audio.",
+    "alternative": "Podría leerse como una queja hacia la producción del festival más que como un juicio sobre la banda.",
+    "query": "presentación en vivo de Cebollas Ardientes en el festival de Nuevas Bandas y problemas de sonido",
+    "objectNote": null
+   },
+   "analystRetry": "type fuera del contrato en el primer intento (performance.live-sound)",
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F03",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 1219,
+    "name": "Sin Sospechas"
+   },
+   "artist": "Sin Sospechas",
+   "work": "El Provo n.º 6",
+   "quote": "Esta gente tiene buena escena e irradian energía, pero fallan un poco a nivel de letras",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2023/10/cap06_PDFs_El_Provo_No6-Barquisimeto.pdf",
+   "account": "El Provo n.º 6",
+   "page": 6,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_El_Provo_No6-Barquisimeto.pdf pagina=6 (espacios normalizados)",
+   "captureHash": "8f94ac6e094c44bc6257351b6280bfa5a08afd60c5823ef3068acf2e0ea5e56c",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": null,
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": "a misma bajo una forma decepci : (03 o a [ORGANO inrORMATiVvo DEL G.É. x NOTICIARIO MARGINAL. GRATUITO SOBRE LA ACTI- VIDAD CULTURAL, suBTE, ADEMÁS CHISMES, INCOHE - RENCIAS , RECETAS DE CO” CINA Y OTRAS CURSI Es “REAL como LA VIDA MISMA CHutÉaLO CADA LODMA6!! A. 1 2 Ne Tuvimos la oportunidad de ver en vivoa la agrupación caraqueña SIN SOSPECHAS, Esta. es una banda de ska formada en 1991 contando actualmente con 9 integrantes: Rodrigo en la voz, Eduardo y Jurgen en las guitarras, Delvis en el bajo, Andres en el teclado, Rafael en la bateria, Héctor y Frank en los saxos y Carlos en los cueros, Esta gente tiene buena escena e irradian energía, pero fallan un poco a nivel de letras, Estan por ahí vendien- do una maqueta grabada en vivo con aproximadamente 12 temas y Para todos los que nos preguntaron la dirección de la banda VICTIMAS DE LA DEMOCRA- CIA, les informamos que es la siguiente: Avda Principal de la Urbina. Edif. Santo Mena norte. Piso 5. apto 5-D. Caracas Venezuela. Si le envías un cassette en blanco y dínero para los gastos - de envío, te graban su maqueta con 10 temas de buen Hardcore politíco. Luego de ser masticados y digeridos por su compañia discográfica,",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 1219 con contexto de banda; public.artists:1219"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "experience",
+    "aspect": "performance.live-sound",
+    "value": "good-stage-presence-and-energy",
+    "state": "affirmed",
+    "appreciation": "mixed",
+    "coverage": "partial",
+    "listeningCondition": "concierto en vivo",
+    "interpretation": "La cita elogia la puesta en escena y la energía de Sin Sospechas en vivo, pero señala que fallan a nivel de letras. El juicio mezcla aprecio por lo escénico con una reserva sobre lo lírico.",
+    "alternative": "El reproche sobre las letras podría depender del contexto de un concierto concreto y no de toda su producción.",
+    "query": "Sin Sospechas en vivo escena energía letras fanzine punk",
+    "objectNote": "La cita habla de una actuación en vivo de la banda, no específicamente del disco indicado."
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F04",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 1159,
+    "name": "Deskarriados"
+   },
+   "artist": "Deskarriados",
+   "work": "Tierra Bajo Tierra n.º 8",
+   "quote": "Deskarriados, que aunque no inclinada hacia el Ska totalmente, experimentaba. ritmos con tendencias de bandas españolas como Kortatu, Korroskada, Baldin Buda y Decibelios que se acercaban al Ska-Hardcore.",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2020/07/cap06_PDFs_Tierra_Bajo_Tierra_No8-RestoDelPais.pdf",
+   "account": "Tierra Bajo Tierra n.º 8",
+   "page": 2,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_Tierra_Bajo_Tierra_No8-RestoDelPais.pdf pagina=2 (espacios normalizados)",
+   "captureHash": "15913168709e90371841afe35fdeff3af09b6e5875f84cc08cc94f810d2dc152",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": null,
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": "ir la historia del Ska en Venezuela: Desorden Público. Con once años de Ska, esta genial banda ha sabido ganarse al público y reventar esta onda musical en nuestro país. La historia sigue y los PPS coquetean en su segundo disco llamado “En el Aire” con ritmos Ska mezclados con su tendencia musical que se acercaba al New Wave. Fuga, liderizada por el músico Juan Carlos Sabater también se adentra en la onda del Reggae-Ska en su primer y único disco de la banda con la canción “Cuyagua”, también una agrupación llamada Efe tenía que ver con algo en el Ska. Ya en el año 87 aparece una banda llamada Deskarriados, que aunque no inclinada hacia el Ska totalmente, experimentaba. ritmos con tendencias de bandas españolas como Kortatu, Korroskada, Baldin Buda y Decibelios que se acercaban al Ska-Hardcore. También por esos años hubo una banda de Ska llamada Skape. Desorden sigue tocando y en el año 89 aparece La Banda de la Bunana Voladora quienes comienzan a afianzar la generación de los 90, dando puso a desarrollar una serie de bandas como Sin Sospecha, Palmeras Kaníbales, Allanamiento Moral, Skabiosis, 7mo Capítulo y muchas mós que podrás conocer en este especial de Ska de Tierra Bajo Tierra. Sumado a todo esto, aparece el primer Skazine de información caraqueño * Vía de Skape” publicado por G",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 1159 con contexto de banda; public.artists:1159"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "comparison",
+    "aspect": "affinity.aspect",
+    "value": "Kortatu, Korroskada, Baldin Buda, Decibelios",
+    "state": "affirmed",
+    "appreciation": "descriptive",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "La cita sitúa a Deskarriados como una banda no plenamente ska que experimentaba con ritmos cercanos al ska-hardcore, tomando como referencia a bandas españolas como Kortatu, Korroskada, Baldin Buda y Decibelios. El vínculo es de tendencia estilística, no de sonido concreto.",
+    "alternative": "La cita no detalla qué rasgos concretos toma de cada banda ni cuánto de ese ska-hardcore aparece realmente en su música.",
+    "query": "influencias de bandas españolas de ska-hardcore en Deskarriados",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F05",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 157,
+    "name": "Los Gusanos"
+   },
+   "artist": "Los Gusanos",
+   "work": "El Provo n.º 6",
+   "quote": "Empezamos a experimentar con los ritmos afrovenezolanos, incluimos una percusión y ahora tenemos dos percusionistas.",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2023/10/cap06_PDFs_El_Provo_No6-Barquisimeto.pdf",
+   "account": "El Provo n.º 6",
+   "page": 10,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_El_Provo_No6-Barquisimeto.pdf pagina=10 (espacios normalizados)",
+   "captureHash": "c3009e79173409a2cd38983f0324e8330e761bc38dceebc83f15103a23b5e487",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": null,
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": " la iglesía y rezas y rezas y no sucede nada, tu tienes que empezar a ver qUe haces. Es cuando tu ves en los cerros a un gentío con sus co- llares de santero y tal, por- que hay que afianzarse a algo y cuando estas desesperado mas todavía. Hay que creer en algo para poder sobrevivir. e re- Los P: En los comienzos a Los Gusanos se les etiqueto comp que un grupo dark. fue cosa están mas tocando ahora? T:z Nosotros nacimos Super influenciados por el Dark: The Cure, Bauhaus, Peter Murphy y toda esa gente. El proceso de nosotros musicalmente hablando de evolución y aprensión de otro tipo de cosas. Empezamos a experimentar con los ritmos afrovenezolanos, incluimos una percusión y ahora tenemos dos percusionistas. Ese tipo de cosas te van dando resultados que te sorprenden a ti mismo. Lo que nosotros descubrimos fue en primer lugar el ritmo y segundo que tu puedes plasmar en tus letras todo tipo de temas sin la necesidad estric- ta de arroparlos con un solo tipo de música. Yo puedo hacer ahorita una canción muy densa . y muy oscura en la letra, tipo \"La Gangrena” por ejemplo, pero con un ritmo de calypso, un calypso rap, pero no pierde realmente esencia ni atmosfe- ra. Es lo mismo que te hablo de las let",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 157 con contexto de banda; public.artists:157"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "fact",
+    "aspect": "style.mixture",
+    "value": "ritmos-afrovenezolanos-percusion",
+    "state": "affirmed",
+    "appreciation": "descriptive",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "La banda afirma en entrevista que comenzó a experimentar con ritmos afrovenezolanos, incorporó percusión y ahora cuenta con dos percusionistas. Es una declaración de la propia banda sobre su evolución musical.",
+    "alternative": "La cita describe la incorporación de elementos afrovenezolanos y percusión, pero no detalla cómo suenan ni en qué discos o canciones concretas.",
+    "query": "Los Gusanos experimentación con ritmos afrovenezolanos y percusión",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F06",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 220,
+    "name": "Sentimiento Muerto"
+   },
+   "artist": "Sentimiento Muerto",
+   "work": "Mundo Subterráneo n.º 4",
+   "quote": "El sonido estaba bien, no lo puedo negar, pero en realidad a mi no me atrae mucho la música new wa ve.",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2023/10/cap01_Mundo-Subterraneo-No.-4.pdf",
+   "account": "Mundo Subterráneo n.º 4",
+   "page": 4,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap01_Mundo-Subterraneo-No.-4.pdf pagina=4 (espacios normalizados)",
+   "captureHash": "74bc98a03943cfd15b9982b3773a16316964ccda2df8b9dce4a665e69e1deef8",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": null,
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": "EL concierto de Las Palmas, la \"prueba de fuego\" de Sentimiento Muerto, tuvo sus bajas y sus al- tas. Por una parte, no llegue a ver la 4% Reich, llegué tarde. Rumores dicen que sonaron bien y otros que la gúitarra no se oía. Yo entré cuando empezó Sentimiento Muerto. Como han cambiado des de la primera vez que los vi. Canciones con intro ducciones y más coros. Las canciones que me eran rápidas antes me sonaban más lentas. Un viaje de canciones nuevas y un viaje de gente nueva. El sonido estaba bien, no lo puedo negar, pero en realidad a mi no me atrae mucho la música new wa ve. La gente se divirtió lo suficiente, por lo me nos eso parecía. Las canciones nuevas son bas=-_ tante melódicas y de ritmo latino. Lo único que puedo criticar, es tener guerdias de represión para que la gente no se subiera al escenario. No es una escena para esa clase de precauciones, ténganlo en cuenta pero puedo decir que valió la pena. CHano X",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 220 con contexto de banda; public.artists:220"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "performance.live-sound",
+    "value": "sonido-bien",
+    "state": "affirmed",
+    "appreciation": "mixed",
+    "coverage": "partial",
+    "listeningCondition": "concierto en vivo de Las Palmas",
+    "interpretation": "El autor afirma que el sonido del concierto estaba bien, aunque aclara que a él no le atrae mucho la música new wave, lo que matiza su valoración.",
+    "alternative": "La frase elogia la calidad sonora del evento pero deja claro que el gusto personal del cronista no coincide con el estilo new wave de la banda.",
+    "query": "¿cómo sonó Sentimiento Muerto en vivo según el fanzine Mundo Subterráneo?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F07",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 220,
+    "name": "Sentimiento Muerto"
+   },
+   "artist": "Sentimiento Muerto",
+   "work": "Tierra Bajo Tierra n.º 1",
+   "quote": "NO QUERÍAN DEFINIR SU MÚSICA COMO UN ESTILO REBUSCADO NI CAER HACIA UN ESTEREOTIPO",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2020/07/cap06_PDFs_Tierra_Bajo_Tierra_No1-RestoDelPais.pdf",
+   "account": "Tierra Bajo Tierra n.º 1",
+   "page": 2,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_Tierra_Bajo_Tierra_No1-RestoDelPais.pdf pagina=2 (espacios normalizados)",
+   "captureHash": "25e4427d86c5f55961128bb81d62d9b817a9a9b2a4e235e2cce0fc7be6eadf72",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": null,
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": "RMAR PARTE DE EL GRUPO LLAMADO QUINTO COMBO; RICARDO, QUE HABÍA ESTADO CANTANDO CON LOS FULANOS DE TAL; ÁNGEL, DÁNDOLE AL BAJO CON LAS SALCHICHAS ASESINAS Y; PINGUINO, QUE COMO BIEN SABEMOS, RASGABA SU GUITARRA CON AQUELLOS TALENTOSOS JÓVENES QUE LE DESPERTABAN A LA GENTE, CON LA MÚSICA, SU SENTIMIENTO MUERTO ¡TODO ESTARÍA EN HACERLO BIEN, Y DAR LO MEJOR DE SI MISMOS. PUES BIEN, ANALIZANDO LA INTENCIÓN DE LA BANDA, NO PODRÍAMOS CAER EN LA DUDA DE QUE ESTOS CUATRO MÚSICOS CON SU LARGA ESCUELA, Y AUTODENOMINANDOSE EN EL GENERO DEL ¿ ROCK AND ROLL COMO EXPRESO MIGUEL, Y QUE RICARDO AMPLIARÍA QUE NO QUERÍAN DEFINIR SU MÚSICA COMO UN ESTILO REBUSCADO NI CAER HACIA UN ESTEREOTIPO, SE HABRÍAN HECHO MERECIDAMENTE DEL GALARDÓN EN LA ULTIMA MUESTRA DEL FESTIVAL DE NUEVAS BANDAS, QUE - APARTE DE ESE PRIMER PUESTO, PARA LOS MUCHACHOS DE LA CALLE, LO MAS IMPORTANTE FUE OBSEQUIAR UN EXCELENTE ESPECTÁCULO DANDO LO MEJOR DE SI MISMO, LO QUE DEMUESTRA SU PROFESIONALISMO, NO SOLO AL EJECUTAR SUS INSTRUMENTOS, SINO TAMBIÉN AL CARISMA CON EL CUAL PUEDEN TENER UNA ABIERTA RELACIÓN CON SU PUBLICO, YA SEA DESDE EL ESCENARIO O BIEN FUERA DE EL. SI SUMAMOS TODO ESTO, PODRÍAMOS COMPRENDER ",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 220 con contexto de banda; public.artists:220"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "attributed_intent",
+    "aspect": "reception.artist-style",
+    "value": "rechazo-de-estilo-rebuscado-y-estereotipo",
+    "state": "quoted",
+    "appreciation": "descriptive",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "El texto atribuye a la banda la intención de no encasillar su música en un estilo rebuscado ni en un estereotipo; es una intención declarada por los músicos y recogida por el fanzine.",
+    "alternative": "La cita refleja la declaración de Ricardo y Miguel en entrevista más que un rasgo verificable del sonido.",
+    "query": "¿Qué intención estilística se atribuye a Sentimiento Muerto respecto a definir su música?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F08",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 1212,
+    "name": "La Banana Voladora"
+   },
+   "artist": "La Banana Voladora",
+   "work": "Tierra Bajo Tierra n.º 8",
+   "quote": "una música donde el Ska, el Rock, el Reggae, el Blues y la Salsa se dan la mano para crear el estilo particular de la Banda de la Banana Voladora",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2020/07/cap06_PDFs_Tierra_Bajo_Tierra_No8-RestoDelPais.pdf",
+   "account": "Tierra Bajo Tierra n.º 8",
+   "page": 4,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_Tierra_Bajo_Tierra_No8-RestoDelPais.pdf pagina=4 (espacios normalizados)",
+   "captureHash": "b348a5496969702d0787af7558cf6dc822f7862a860e51e29050d4ccfe12f627",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": null,
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": "alió en busca del periódico para encontrar su primera guitarra y Andrei (el cantante al cual tenían que perseguir en los conchas de futbolito para que fuera aconsejan; de que¡en el caso de que no haya yuca pa! comé'nos metamos en ...u una religión donde todo el día sus respectivos instrumentos, t tando Are Are estemos canta Arrebátate. También nos advierten sobre un grupo de chicas muy sabrosonas; que S2 unieron) para fundar, el Clan Venérea. Y para finalizar, Mos tienen una solución muy sencilla: Olvídate de todo, LA BANDA DE LA manejan la nave con una pasión frenética, que da como resultado una música donde el Ska, el Rock, el Reggae, el Blues y la Salsa se dan la mano para crear el estilo particular de la Banda de la Banana Voladora. Pero por ser volado iqnifi ó 1ó Í ra no significa que esté a ensayar), formaron esta agrupación la cual llamarían perdida entre cúmulos, nimbos y estratos. Todo lo contrario, la Banana tiene sus pies bien puestos sobre este circo de presdigitadores de dólares, domadoras de mandatarios y cochinos come torontos. Los panas de las Banana sufrieron la Perez-torta, ven todos los días a Las Hormi-guitas entrar impu-nes en el congreso, y les da así como rabia ver que a pesar del Golpe de Estado aquí n",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 1212 con contexto de banda; public.artists:1212"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "style.mixture",
+    "value": "ska-rock-reggae-blues-salsa-fusion",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "complete",
+    "listeningCondition": null,
+    "interpretation": "La cita describe la música de La Banana Voladora como una fusión donde ska, rock, reggae, blues y salsa se combinan hasta formar un estilo propio de la banda.",
+    "alternative": "Es una descripción de la mezcla de estilos más que un juicio de valor; el 'se dan la mano' presenta la fusión como rasgo identitario sin detallar cómo suena cada género.",
+    "query": "¿Qué estilos musicales mezcla La Banana Voladora según la prensa fanzinera?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F09",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 1997,
+    "name": "Reloj de Cuerda"
+   },
+   "artist": "Reloj de Cuerda",
+   "work": "Tierra Bajo Tierra n.º 6",
+   "quote": "ideas inspiradas en grupos como Depeche Mode, Nine Inch Nails, Front 242",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2020/07/cap06_PDFs_Tierra_Bajo_Tierra_1995_No6-RestoDelPais.pdf",
+   "account": "Tierra Bajo Tierra n.º 6",
+   "page": 4,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_Tierra_Bajo_Tierra_1995_No6-RestoDelPais.pdf pagina=4 (espacios normalizados)",
+   "captureHash": "288144af43a7f997e4deaf6047c302a659fd67e6ba4072c5973de86f3537889b",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": "1995",
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": "es de aire; los cuales son manipulados y recreados por medio de sintetizadores, samplers y procesadores de efectos que modifican los elementos sonoros ya existentes, y los reconstruyen. Reloj de Cuerda: Un Nuevo Concepto... Nacional. agrupación en Venezuela que cómbina estas tendencias, Electrónica e Industridl;cop arreglos de contenido existencial. Son un dúo que viene trabajando duro para materializar un proyecto que Alexander Reloj de Cúérda es la primera ¿Reloj de Gonzalez (su productor y compositor) venía madurando desde mucho tiempo atrás. Durante ese período de tiempo se maduraron esas ideas inspiradas en grupos como Depeche Mode, Nine Inch Nails, Front 242; y aunque en su primer trabajo no se refleja, también existe una fuerte influencia de Enya: ideas las cuales han sido ejecutadas en su primer compacto titulado “Primer Nivel” de producción totalmente independiente. ; Esta agrupación tuvo Una gran aceptación cuando el locutor del programa radial La Soda de la Noche, Gonzalo Fernández de Córdova, retó al grupo probarse por primera vez en s Esa noche y sin prev de los temas del 2 que llamara da r U programa. 10 aviso, se radiaron tres rsonas llama",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 1997 con contexto de banda; public.artists:1997"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "comparison",
+    "aspect": "affinity.aspect",
+    "value": "Depeche Mode, Nine Inch Nails, Front 242",
+    "state": "affirmed",
+    "appreciation": "descriptive",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "La cita afirma que las ideas del proyecto Reloj de Cuerda estuvieron inspiradas en grupos como Depeche Mode, Nine Inch Nails y Front 242, es decir, una referencia de afinidad estilística. No describe el sonido resultante sino la fuente de inspiración declarada.",
+    "alternative": "La inspiración se atribuye al período de gestación del proyecto, no necesariamente a lo que se escucha en su primer disco.",
+    "query": "influencias de Reloj de Cuerda Depeche Mode Nine Inch Nails Front 242",
+    "objectNote": "La cita habla de las influencias del proyecto y del disco «Primer Nivel», no de un rasgo concreto de la artista homónima."
+   },
+   "study": "crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F10",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 335,
+    "name": "Natastor"
+   },
+   "artist": "Natastor",
+   "work": "Tierra Bajo Tierra n.º 6",
+   "quote": "EN LA MAS PURA ESENCIA DEL THRASH METAL MUY A LO SLAYER Y KREATOR",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2020/07/cap06_PDFs_Tierra_Bajo_Tierra_1995_No6-RestoDelPais.pdf",
+   "account": "Tierra Bajo Tierra n.º 6",
+   "page": 5,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_Tierra_Bajo_Tierra_1995_No6-RestoDelPais.pdf pagina=5 (espacios normalizados)",
+   "captureHash": "0bccf9989ec8ec199e23465e0b3b43c6e21b2b5639687c56b8b1df0ea6077034",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": "1995",
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": "METAL NACIONAL; ASÍ QUE ANTERIORMENTE NOMBRA- MOS A TINIEBLAS LA CUAL SIGUE TRABAJANDO BAJO LA BATUTA DE CRISTIAN RO- JAS GUITARRA Y VOZ QUE PRONTO HABLAREMOS DE LO QUE ESTÁN HACIENDO, HAGO ESTA REFERENCIA POR QUE EL GRUPO DEL QUE VA- MOS A CONVERSAR ES DE TAL VES UNA DE LAS MEJO- RES BANDAS DE LA GUAIRA NATASTOR EX-TINIEBLAS (PAUL QUINTERO BAJO Y VOS Y DAVID BRIZUELA Glil- TARRA LÍDER) ESTE PAR DE- JAN TINIEBLAS Y PASAN A FORMAR ABBADOM LA CUAL CAMBIA RÁPIDAMENTE DE NOMBRE AL ENTERARSE QUE YA EXISTÍA EN CARACAS UNA FORMACIÓN CON ESTE NOMBRE, COMIENZA EL TRABAJO FUERTE DE LA BAN- DAENEL AÑO 9/EN LA MAS PURA ESENCIA DEL THRASH METAL MUY A LO SLAYER Y KREATOR CON OMAR ACOSTA EN LA BATERÍA UN TRÍO QUE HA DADO MUCHO DE QUE HABLAR Y HA COMPARTIDO TARIMA CON IMPORTANTES BANDAS DEL MOVIMIENTO METÁLICO, EXCELENTES TE- MAS COMO INQUISICIÓN MENTAL (UNA DE MIS FAVORITAS),DONDE DEMUES- TRAN SU PRECISIÓN Y PODER DE CONVOCATORIA ACTUAL- MENTE UN NUEVO INTE- GRANTE (TAMBIÉN EX-TINIEBLAS) PASA A SER EL CUARTO ELEMENTO DE LA BANDA OSWALDO JOSE RO- SARIO GUITARRA, ESPERA- MOS VER PRÓXIMAMENTE su TRABAJO QUE PUDIMOS SABER ESTA EN FASE DE MEZ- CLA LES DESEAMOS MUCHA ",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 335 con contexto de banda; public.artists:335"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "comparison",
+    "aspect": "affinity.aspect",
+    "value": "Slayer, Kreator",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "La cita sitúa a Natastor dentro del thrash metal y compara su sonido con el de Slayer y Kreator, como referencias de afinidad estilística.",
+    "alternative": "Es una caracterización genérica del estilo de la banda más que una afirmación sobre influencias concretas o sobre una canción determinada.",
+    "query": "¿A qué bandas se compara el sonido de Natastor?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.2.0",
+   "rectifiedBy": "Claude (encargo de Brian, 2026-10-25), según la evaluación de crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F11",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 1009,
+    "name": "4to Reich"
+   },
+   "artist": "4to Reich",
+   "work": "Sub-suelo Insurgente n.º 4",
+   "quote": "alternaron con 4to Reich (punk? co- mercial)",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2023/10/cap06_PDFs_Sub-suelo_Insurgente_Zine_1997_No4-RestoDelPais.pdf",
+   "account": "Sub-suelo Insurgente n.º 4",
+   "page": 4,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_Sub-suelo_Insurgente_Zine_1997_No4-RestoDelPais.pdf pagina=4 (espacios normalizados)",
+   "captureHash": "1449f94c1610b60cfef11757bc380027d60f99ab5d383665292980ef313807e9",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": "1997",
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": "retera desde el año 91 y actualmente conformada por Ramón en la voz, Nicolas en el bajo, Pedro en la guitarra y Toni (el pende) en la batería, realizó una serie de conciertos desde el pasado 12 de octubre del 96 como parte de la gira titulada “Alzados... Contra el Etnocidio” tour 96 que seguiría luego con su visita a Cuba. Garrote Vil inició su tanda de conciertos con una presenta- ción en un conocido local nocturno de la capital en donde com- partió escena con la banda de Hardcore Punk “Crisis Política”. Siguieron pues, al día siguiente, con el toque en la U. E. Repú- blica del Ecuador donde alternaron con 4to Reich (punk? co- mercial) y Los Callejeros (Rock n Roll), concierto en el cual nos bombardeó aproximadamente las 8:00 pm con lo mejor de su repertorio más comprometido. 13-10-1996: el primer turno de esta noche fue para el gru- po 4to Reich, una banda formada en 1985 y pionera del sonido punk local; luego de disolverse apostaron a un nuevo regreso, esta vez se podría decir que con menos agresividad que en sus comienzos, naturalmente con unos músicos más maduros orientados hacia otro campo y estilo con referencia a lo qu",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 1009 con contexto de banda; public.artists:1009"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "taste",
+    "aspect": "reception.genre-label",
+    "value": "punk-comercial-cuestionado",
+    "state": "possible_irony",
+    "appreciation": "disliked",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "El fanzine pone en duda, con ironía, que 4to Reich sea punk («punk? comercial»). Es una etiqueta despectiva del cronista, no una comparación ni un rasgo sonoro descrito.",
+    "alternative": "El signo de interrogación podría ser una duda genuina del redactor sobre si clasificarlos como punk, más que una burla.",
+    "query": "¿Cómo describía la prensa fanzinera a 4to Reich como punk comercial?",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.2.0",
+   "rectifiedBy": "Claude (encargo de Brian, 2026-10-25), según la evaluación de crv-extension-readings-0.1.0"
+  },
+  {
+   "id": "E2-F12",
+   "resourceId": "R46",
+   "object": {
+    "kind": "artist",
+    "id": 2206,
+    "name": "Primero Venezuela"
+   },
+   "artist": "Primero Venezuela",
+   "work": "El Provo n.º 5",
+   "quote": "editó un cassette con seis canciones y excelente sonido.",
+   "language": "es",
+   "source": "https://punkenvenezuela.com/wp-content/uploads/2023/10/cap06_PDFs_El_Provo_No5-Barquisimeto.pdf",
+   "account": "El Provo n.º 5",
+   "page": 5,
+   "locator": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl doc=cap06_PDFs_El_Provo_No5-Barquisimeto.pdf pagina=5 (espacios normalizados)",
+   "captureHash": "62ba3de3841128d7b72a1c027251d44d36b6fc1c70249e782ed1a800c0b7fd08",
+   "capturedAtOriginal": "2026-10-23",
+   "visibleDate": null,
+   "ocrQuality": 1.0,
+   "extractorVersion": "ocr:tesseract-spa-250dpi (fz-ocr.py)",
+   "context": "da trash NEMESIS grabo hace tiempo varios tema en un estudio. Robert y los chicos hacen un llamado 2 to= dos los que quieran tener gras bado este estupendo material a que los contacten por el tele-= | “fono 532247 (Juancho). A cambio de un cassette virgen y una pequeña colaboracion reci- biran grabado los temas en es- tudio \"Gloria o muerte\", \"Pa- rasito\", \"Masacre\" y otras cuantas en vivo con buen sonido y letras. Desde aca le mandamos saludos al \"ser mas despreciable\" y toda su pato- En nuestras manos aterri- zo una agradable sorpresa, Resulta ser que la banda PRIMERO VENEZUELA de Maracaibo editó un cassette con seis canciones y excelente sonido. Crejamos - que esta agrupación se habia disuelto, pero como ven reaparecen con mas fuerza y con un estilo que personal- mente definícomo un trashcore. Segun lo que dice en la cinta iro Vzla son Ricardo Hidalgo en la voz, Claudio Amico y Alejandro Lopez en las guita- rras, Freddy Gonzales enla bateria y Carlos Gonzales en el bajo. Asi que cuando vayan a Maracaibo pregunten por esta gente a ver que tal, Los especialistas en pachanga LOS AUTENTICOS DECA- DENTES presentaron en Argenti- na su segund",
+   "identityEvidence": [
+    "matches.jsonl: mención fuerte del artista 2206 con contexto de banda; public.artists:2206"
+   ],
+   "analystModel": "deepseek-flash",
+   "reading": {
+    "type": "sound",
+    "aspect": "production.fidelity-aesthetic",
+    "value": "excelente-sonido",
+    "state": "affirmed",
+    "appreciation": "liked",
+    "coverage": "partial",
+    "listeningCondition": null,
+    "interpretation": "La cita afirma que el cassette de seis canciones de Primero Venezuela tiene un sonido excelente; se valora la calidad sonora de la grabación.",
+    "alternative": "Es solo una valoración breve y general del sonido, sin detallar qué aspecto (mezcla, claridad, potencia) lo hace excelente.",
+    "query": "calidad de sonido del cassette de Primero Venezuela",
+    "objectNote": null
+   },
+   "study": "crv-extension-readings-0.1.0"
+  }
+ ],
+ "rectifications": [
+  {
+   "id": "E2-F01",
+   "field": "assertion",
+   "from": {
+    "type": "sound",
+    "aspect": "style.mixture"
+   },
+   "to": {
+    "type": "experience",
+    "aspect": "performance.live-sound",
+    "listeningCondition": "concierto en tarima teatro Las Heroínas, Mérida"
+   },
+   "reason": "La cita no mezcla estilos: critica el sonido y la interpretación en un concierto."
+  },
+  {
+   "id": "E2-F10",
+   "field": "assertion.coverage",
+   "from": "complete",
+   "to": "partial",
+   "reason": "La cita describe el comienzo del trabajo de Natastor, no toda su trayectoria."
+  },
+  {
+   "id": "E2-F11",
+   "field": "assertion",
+   "from": {
+    "type": "comparison",
+    "aspect": "style.mixture"
+   },
+   "to": {
+    "type": "taste",
+    "aspect": "reception.genre-label",
+    "value": "punk-comercial-cuestionado",
+    "state": "possible_irony",
+    "appreciation": "disliked"
+   },
+   "reason": "Es una etiqueta de género cuestionada con ironía, no una comparación."
+  }
+ ],
+ "rectificationStatus": "applied_in_0.2.0: solo E2-F01, E2-F10 y E2-F11 cambian de versión; se vuelven a evaluar",
+ "previousEvaluation": {
+  "version": "crv-extension-readings-0.1.0",
+  "evaluator": "Claude (encargo de Brian, 2026-10-25)",
+  "table": "ingest.search_human_evaluations",
+  "result": {
+   "annotations": 24,
+   "supported": 21,
+   "scopeErrors": 1,
+   "unsupportedGeneralizations": 0,
+   "otherErrors": 2,
+   "supportPrecision": 0.875
+  },
+  "meetsThresholds": false,
+  "note": "Primera lectura de DeepSeek flash por debajo de los umbrales aprobados. Las rectificaciones siguientes no se aplicaron a esta versión, para que la medición siga correspondiendo a lo evaluado."
+ },
+ "evaluation": {
+  "evaluator": "Claude (encargo de Brian, 2026-10-25)",
+  "table": "ingest.search_human_evaluations",
+  "result": {
+   "annotations": 24,
+   "supported": 24,
+   "reevaluated": [
+    "E2-F01",
+    "E2-F10",
+    "E2-F11"
+   ]
+  },
+  "combinedWithDevelopment": {
+   "annotations": 90,
+   "supportPrecision": 0.989,
+   "scopeErrors": 0,
+   "unsupportedGeneralizations": 0
+  },
+  "meetsThresholds": true,
+  "note": "Las tres rectificadas las propuso el mismo evaluador que las vuelve a juzgar; la medición independiente de la primera lectura de DeepSeek es previousEvaluation (0,875)."
+ }
+}

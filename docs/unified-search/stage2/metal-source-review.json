@@ -1,0 +1,96 @@
+{
+  "version": "crv-metal-source-review-0.1.0",
+  "analyst": "Codex",
+  "newProfiles": [
+    "power-metal",
+    "power-metal-sinfonico",
+    "groove-metal",
+    "nu-metal",
+    "metal-alternativo",
+    "metal-progresivo",
+    "metal-sinfonico",
+    "black-metal-sinfonico",
+    "metal-gotico",
+    "folk-metal",
+    "sludge-metal",
+    "stoner-rock",
+    "stoner-metal",
+    "drone-metal",
+    "death-metal-melodico",
+    "death-metal-tecnico",
+    "deathcore",
+    "metalcore",
+    "goregrind",
+    "deathgrind",
+    "crossover-thrash",
+    "djent",
+    "post-metal"
+  ],
+  "sourceIds": [
+    "wiki:Alternative_metal",
+    "wiki:Crossover_thrash",
+    "wiki:Deathcore",
+    "wiki:Deathgrind",
+    "wiki:Djent",
+    "wiki:Drone_metal",
+    "wiki:Folk_metal",
+    "wiki:Goregrind",
+    "wiki:Gothic_metal",
+    "wiki:Groove_metal",
+    "wiki:Melodic_death_metal",
+    "wiki:Metalcore",
+    "wiki:Nu_metal",
+    "wiki:Post-metal",
+    "wiki:Power_metal",
+    "wiki:Progressive_metal",
+    "wiki:Sludge_metal",
+    "wiki:Stoner_rock",
+    "wiki:Symphonic_metal",
+    "wiki:Technical_death_metal"
+  ],
+  "excludedSources": [
+    {
+      "id": "wiki:Speed_metal",
+      "reason": "La descarga no contenía simultáneamente encabezado y artículo legible; no se incorporó.",
+      "url": "https://en.wikipedia.org/wiki/Speed_metal"
+    },
+    {
+      "id": "wiki:Industrial_metal",
+      "reason": "La descarga no contenía simultáneamente encabezado y artículo legible; no se incorporó.",
+      "url": "https://en.wikipedia.org/wiki/Industrial_metal"
+    },
+    {
+      "id": "wiki:Grindcore",
+      "reason": "La descarga no contenía simultáneamente encabezado y artículo legible; no se incorporó.",
+      "url": "https://en.wikipedia.org/wiki/Grindcore"
+    }
+  ],
+  "sharedSources": [
+    {
+      "source": "wiki:Stoner_rock",
+      "profiles": [
+        "stoner-rock",
+        "stoner-metal"
+      ],
+      "meaning": "La fuente trata los nombres conjuntamente; no acredita una frontera exclusiva ni autoriza fusionar categorías.",
+      "unusedRedirectSnapshot": "data/research/unified-search-genres-2026-10-17/Metal-Stoner_metal-b3cf26d283b4.html"
+    },
+    {
+      "source": "wiki:Power_metal",
+      "profiles": [
+        "power-metal",
+        "power-metal-sinfonico"
+      ],
+      "meaning": "La rama sinfónica está descrita expresamente en la introducción."
+    },
+    {
+      "source": "wiki:Symphonic_metal",
+      "profiles": [
+        "metal-sinfonico",
+        "black-metal-sinfonico"
+      ],
+      "meaning": "El subtipo black tiene sección expresa; no se deduce por combinar nombres."
+    }
+  ],
+  "policy": "general_knowledge_proposals_never_entity_assignments"
+}

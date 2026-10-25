@@ -1,0 +1,242 @@
+{
+  "version": "crv-six-release-comparison-0.4.0",
+  "analyst": "Codex",
+  "status": "development_proposal_not_independently_validated",
+  "comparisons": [
+    {
+      "id": "E2-C01",
+      "aspect": "Desarrollo y duración percibida",
+      "annotationIds": [
+        "E2-K01",
+        "E2-K02",
+        "E2-W06"
+      ],
+      "observation": "Ecstasy Motherfucker recibe una metáfora de odisea en discurso imaginado y un rechazo de su extensión. En la otra obra, una reseña destaca samples lo-fi y cita Terminal como ejemplo.",
+      "interpretation": "La intención imaginada de desarrollo en K01, la longitud excesiva percibida en K02 y la construcción de ruido descrita en W06 son aspectos distintos. No se suman como coincidencia sobre una misma propiedad.",
+      "alternative": "El rechazo puede dirigirse a monotonía; el elogio de Terminal puede depender de la textura y no de su duración.",
+      "uncertainty": "No se compararon tiempos, estructuras ni grabaciones mediante escucha. Una pista no representa el arco completo del álbum.",
+      "query": "Comparar intención imaginada, longitud percibida y desarrollo ruidoso conservando los tres aspectos y sus estados.",
+      "prohibitedExplanation": "Ambos discos tienen desarrollo largo y todas sus pistas satisfacen esa condición."
+    },
+    {
+      "id": "E2-C02",
+      "aspect": "Textura, fuentes y procesamiento",
+      "annotationIds": [
+        "E2-K01",
+        "E2-W01",
+        "E2-W02",
+        "E2-W05"
+      ],
+      "observation": "Las lecturas mencionan samples juguetones, sintetizadores reventados, sampling casi bitcrushed y una frase vocal citada. No todas las frases afirman directamente un procedimiento.",
+      "interpretation": "El vocabulario permite formular preguntas de textura y origen percibido. Los estados hipotético y citado se conservan; casi bitcrushed expresa aproximación.",
+      "alternative": "Distorsión o degradación de la fuente podrían producir una impresión similar sin el efecto supuesto por el reseñista.",
+      "uncertainty": "Equipo, proceso, autoría y fuente exacta de samples no acreditados. La comunidad de la ficha no añade oyentes independientes a las reseñas.",
+      "query": "Buscar descripciones atribuidas de sampling lo-fi en una pista concreta sin identificar automáticamente un efecto o autor.",
+      "prohibitedExplanation": "Las cuatro citas acreditan el mismo equipo y la misma técnica de producción."
+    },
+    {
+      "id": "E2-C03",
+      "aspect": "Voz y límites entre álbum y pista",
+      "annotationIds": [
+        "E2-K03",
+        "E2-W04",
+        "E2-W05"
+      ],
+      "observation": "La anotación de Parenthood trata caos y ambient, sin evaluar voz. La reseña de Esto no es un show dice casi sin letras ni voces y cita una frase de Maluca; su ficha reúne instrumental y male vocalist.",
+      "interpretation": "La evidencia de Weed420 admite excepciones y baja prominencia vocal. La voz de Parenthood no fue evaluada en estas unidades.",
+      "alternative": "El tratamiento de samples y la atención del oyente pueden explicar la percepción de poca voz sin ausencia vocal absoluta.",
+      "uncertainty": "No se evaluó cobertura completa de voces por grabación. Un tag del álbum no cumple una exclusión para una pista.",
+      "query": "Encontrar un álbum descrito con voz poco prominente, mostrando las excepciones de pista y dejando pendientes las ausencias no acreditadas.",
+      "prohibitedExplanation": "Ambos álbumes son instrumentales porque sus reseñas no describen voces de la misma forma."
+    },
+    {
+      "id": "E2-C04",
+      "aspect": "Recepción y familiarización",
+      "annotationIds": [
+        "E2-K05",
+        "E2-W03"
+      ],
+      "observation": "Un elogio breve de Kid606 no nombra un rasgo concreto. Otra cuenta relata un cambio de valoración de Esto no es un show después de darle otra oportunidad.",
+      "interpretation": "Evaluación genérica y experiencia temporal del oyente son información de recepción. No se convierten en atributos sonoros ni en promesas sobre otros oyentes.",
+      "alternative": "Pudieron cambiar las condiciones de atención del segundo oyente, sin modificación de la obra.",
+      "uncertainty": "No hay observación controlada de escuchas ni denominador que permita estimar qué proporción de oyentes cambiaría de opinión.",
+      "query": "Consultar relatos atribuidos de cambios de valoración tras varias escuchas, separados de notas y de características musicales.",
+      "prohibitedExplanation": "La mayor nota demuestra que el álbum mejora universalmente con la segunda escucha."
+    },
+    {
+      "id": "E2-C05",
+      "aspect": "Parecido y referencias externas",
+      "annotationIds": [
+        "E2-K04",
+        "E2-W01"
+      ],
+      "observation": "Una reseña compara Parenthood con Boards of Canada sin precisar aspecto. Otra describe una mezcla con cloud rap y post-rock en el álbum de Weed420.",
+      "interpretation": "Una referencia de artista y términos de estilo conservan relaciones diferentes. No hay aquí evidencia de parecido directo entre los dos álbumes estudiados.",
+      "alternative": "La referencia podría aludir a timbre, armonía o atmósfera, pero el texto no permite decidir entre esas posibilidades.",
+      "uncertainty": "Aspecto del parecido pendiente. No se añade la referencia externa al catálogo venezolano ni se transforma un estilo en un artista de referencia.",
+      "query": "Ver comparaciones atribuidas con Boards of Canada y el aspecto aún pendiente antes de pedir parecido por producción.",
+      "prohibitedExplanation": "Ambos álbumes se parecen a Boards of Canada por producción."
+    },
+    {
+      "id": "E2-C06",
+      "aspect": "Bailable, variedad rítmica y actividad",
+      "annotationIds": [
+        "E2-C01",
+        "E2-V01"
+      ],
+      "observation": "Una cuenta distingue dance de influencias bailables en Caribe Caribe. Otra disfruta cambios de ritmo y contrastes entre canciones de La Frontera.",
+      "interpretation": "Son percepciones rítmicas diferentes: bailable no equivale a variación rítmica ni a una recomendación de actividad.",
+      "alternative": "Un pulso estable puede resultar bailable; los cambios podrían estar entre pistas y no dentro de ellas.",
+      "uncertainty": "No hay testimonios de baile efectivo ni criterio de adecuación para una actividad.",
+      "query": "Consultar rock descrito como bailable y comparar qué fuentes hablan de cambios entre pistas, conservando cada alcance.",
+      "prohibitedExplanation": "Ambos álbumes y todas sus pistas sirven para bailar porque tienen ritmo."
+    },
+    {
+      "id": "E2-C07",
+      "aspect": "Recepción opuesta y alcance de la crítica",
+      "annotationIds": [
+        "E2-T01",
+        "E2-T02",
+        "E2-T03"
+      ],
+      "observation": "Una cuenta elogia Tierra de Nadie; otra critica su apertura y llama monótona a Pobres Románticos.",
+      "interpretation": "La valoración del álbum y las críticas de un tramo y una pista se presentan por separado. No son descripciones opuestas del mismo aspecto con igual alcance.",
+      "alternative": "La crítica puede reflejar expectativas de discos anteriores; la defensa puede priorizar la dirección creativa.",
+      "uncertainty": "Dos cuentas, una sola página capturada; no consenso ni mayoría. No se extrapola la monotonía de una pista al álbum.",
+      "query": "Mostrar opiniones favorables del álbum junto a críticas localizadas de apertura y pista.",
+      "prohibitedExplanation": "La mayoría considera monótonas todas las pistas del disco."
+    },
+    {
+      "id": "E2-C08",
+      "aspect": "Disfrute y cierre narrativo dentro de una cuenta",
+      "annotationIds": [
+        "E2-V01",
+        "E2-V02",
+        "E2-V03"
+      ],
+      "observation": "La misma cuenta disfruta contrastes, desea otro cierre y destaca el peso temático de El Avión.",
+      "interpretation": "Coexisten agrado y reservas en aspectos distintos. Tres anotaciones conservan una sola cadena de evidencia.",
+      "alternative": "El deseo de cierre puede depender de una expectativa conceptual; el peso de una pista no identifica por sí solo el tema de su letra.",
+      "uncertainty": "Un reseñista y una página; sin análisis formal completo o contraste documental de letras.",
+      "query": "Opiniones mixtas sobre el arco de La Frontera y pistas destacadas temáticamente, sin inventar tema o cierre ausente.",
+      "prohibitedExplanation": "Tres oyentes independientes confirman que el álbum carece de cierre y trata un tema concreto."
+    },
+    {
+      "id": "E2-C09",
+      "aspect": "Referencia estilística de guitarra y artistas externos",
+      "annotationIds": [
+        "E2-C02",
+        "E2-C03",
+        "E2-C04"
+      ],
+      "observation": "Una misma reseña de Caribe Caribe menciona guitarra de new wave/post-punk y elementos de DEVO y Jumbo.",
+      "interpretation": "La alusión estilística sí nombra guitarra. El parecido con cada artista conserva aspecto pendiente: cercanía textual no asigna automáticamente ese aspecto a ambas referencias.",
+      "alternative": "Las referencias podrían aludir a voz, composición, ritmo o una mezcla; el texto no permite repartirlas.",
+      "uncertainty": "Una cuenta, dos referencias externas; ninguna alta ficticia de artista venezolano ni parecido consolidado.",
+      "query": "Ver la fuente de comparaciones con DEVO/Jumbo y diferenciarla de la referencia explícita de guitarra.",
+      "prohibitedExplanation": "Dos testigos independientes demuestran parecido de guitarra con ambos artistas."
+    },
+    {
+      "id": "E2-C10",
+      "aspect": "Textura fuzz y saturación electrónica",
+      "annotationIds": [
+        "E2-L01",
+        "E2-L02",
+        "E2-L03",
+        "E2-L04",
+        "E2-W01",
+        "E2-W02"
+      ],
+      "observation": "Tres cuentas describen guitarra fuzz y otra describe canciones fuzzy sin precisar instrumento en Ladies W.C.; las reseñas de Weed420 nombran sintetizadores reventados y sampling casi bitcrushed.",
+      "interpretation": "Se pueden contrastar descripciones de timbre y fuentes sin confundir instrumentos, épocas o procedimientos. La recurrencia provisional de fuzz no suma los textos de Weed420 como testigos del mismo rasgo.",
+      "alternative": "La saturación percibida puede tener causas distintas; no se documentó equipo ni escucha comparativa.",
+      "uncertainty": "Las cuentas pueden compartir referencias; no acredita independencia personal ni cobertura de todas las pistas.",
+      "query": "Contrastar guitarra fuzz y sampling lo-fi como necesidades diferentes, conservando citas y alcance.",
+      "prohibitedExplanation": "Ambos discos usan el mismo pedal, técnica o instrumentación."
+    },
+    {
+      "id": "E2-C11",
+      "aspect": "Armónica: presencia y valoración con distinto alcance",
+      "annotationIds": [
+        "E2-L05",
+        "E2-L06",
+        "E2-L07",
+        "E2-L08"
+      ],
+      "observation": "Dos cuentas mencionan armónica al nivel de álbum y una la elogia en algunas canciones; otra considera excesiva la armónica de Put That In Your Pipe and Smoke It.",
+      "interpretation": "Las valoraciones son compatibles por su alcance. Presencia no equivale a gusto; prominencia no equivale a exclusividad instrumental.",
+      "alternative": "Las cuentas pueden referirse a canciones o pasajes diferentes.",
+      "uncertainty": "No hay una contradicción sonora sobre una misma pista y pasaje documentados.",
+      "query": "Recuperar la pista criticada por su armónica y mostrar el rechazo sin borrar los elogios de alcance más amplio.",
+      "prohibitedExplanation": "La mayoría demuestra que esa pista carece de armónica o que todos disfrutan el instrumento."
+    },
+    {
+      "id": "E2-C12",
+      "aspect": "Instrumental apreciado e interpretación vocal irregular",
+      "annotationIds": [
+        "E2-L06",
+        "E2-L09",
+        "E2-L12"
+      ],
+      "observation": "Una misma cuenta valora positivamente el instrumental, critica voz inconsistente, señala exceso de armónica en una pista y considera repetitivo el álbum; su nota global es cuatro.",
+      "interpretation": "La nota resume una valoración global y coexiste con juicios sobre dimensiones distintas. Ninguna crítica vuelve ausente el rasgo descrito.",
+      "alternative": "Puede comparar la voz con un instrumental particularmente logrado; no se midió técnica vocal.",
+      "uncertainty": "Misma cuenta y misma reseña; las tres observaciones no son tres oyentes.",
+      "query": "Consultar interpretación vocal irregular manteniendo valoración, objeto y procedencia.",
+      "prohibitedExplanation": "La nota cuatro invalida las críticas o acredita técnica vocal y producción excelentes."
+    },
+    {
+      "id": "E2-C13",
+      "aspect": "Longitud deseada y longitud excesiva",
+      "annotationIds": [
+        "E2-L10",
+        "E2-L11",
+        "E2-K02"
+      ],
+      "observation": "Una cuenta desea más larga The Time Of Hope Is Gone; otra respalda a un tercero que considera cortas las pistas del álbum. En Kid606 una cuenta siente excesivamente larga otra pista.",
+      "interpretation": "Son experiencias de duración, no mediciones. El respaldo de L11 no constituye corroboración independiente de L10 y conserva alcance de álbum.",
+      "alternative": "Puede tratarse de variedad, disfrute o expectativas, sin relación directa con minutos.",
+      "uncertainty": "El tercero citado no está identificado; no adjudicarlo a CooperBolan. Versiones desconocidas.",
+      "query": "Contrastar pistas que un oyente desea más largas con otras que siente demasiado largas, conservando atribución.",
+      "prohibitedExplanation": "Ladies W.C. tiene duración física menor o dos testigos independientes de la misma pista."
+    },
+    {
+      "id": "E2-C14",
+      "aspect": "Arco del álbum y transiciones",
+      "annotationIds": [
+        "E2-L13",
+        "E2-V02",
+        "E2-W06"
+      ],
+      "observation": "Una cuenta describe efectos entre canciones de Ladies W.C.; otras observaciones del corpus se refieren al cierre de La frontera y al desarrollo de Terminal.",
+      "interpretation": "Transiciones entre canciones, cierre de álbum y desarrollo de pista tienen unidades distintas. Solo L13 documenta aquí efectos entre canciones.",
+      "alternative": "Los efectos pueden afectar continuidad sin demostrar un arco narrativo concebido por los músicos.",
+      "uncertainty": "No se cotejaron audios, marcas de tiempo ni ediciones.",
+      "query": "Recuperar transiciones con efectos sin adjudicarlos a cada pista o afirmar un concepto narrativo.",
+      "prohibitedExplanation": "Todos los discos tienen el mismo arco y cada canción contiene efectos de transición."
+    },
+    {
+      "id": "E2-C15",
+      "aspect": "Rectificación y atribución a otra obra",
+      "annotationIds": [
+        "E2-L09",
+        "E2-L14"
+      ],
+      "observation": "dimdim23 critica la consistencia vocal. Otra cuenta corrige una crítica anterior porque había confundido el álbum con otro.",
+      "interpretation": "La crítica corregida de Tovan no añade corroboración ni contradicción vocal sobre Ladies W.C.; L09 conserva su propia atribución.",
+      "alternative": "El álbum confundido no está identificado y podría tener voces distintas.",
+      "uncertainty": "No consta cuándo se editó la reseña; conservar la rectificación literal y la fecha visible sin inventar revisiones.",
+      "query": "Consultar crítica vocal atribuida y distinguir una crítica retirada por confusión.",
+      "prohibitedExplanation": "Dos cuentas coinciden en que Ladies W.C. tiene voces molestas."
+    }
+  ],
+  "limits": [
+    "Cinco álbumes de cuatro artistas y 28 reseñas examinadas; tres álbumes en estrato de una sola página; no saturación ni representatividad poblacional.",
+    "Veinte anotaciones no son veinte reseñistas distintos.",
+    "Las ocho publicaciones reservadas no participan en este análisis.",
+    "Ediciones desconocidas; no se acreditan exclusiones por falta de mención.",
+    "Relaciones analíticas propuestas, sin aprobación editorial o entrenamiento automático.",
+    "Ladies W.C. es relectura del piloto: dos páginas locales, nueve reseñas, catorce observaciones. No es contraste nuevo ni lectura ciega. Diferencia 1968/1969 no adjudicada; edición desconocida. La recurrencia de fuzz es provisional; el testimonio dependiente sobre duración no aumenta corroboración."
+  ],
+  "predecessor": "crv-five-release-comparison-0.2.0"
+}

@@ -1,0 +1,441 @@
+{
+  "version": "crv-rym-mapping-review-0.3.0",
+  "analyst": "Codex",
+  "policy": "analytical_proposals_preserve_human_assignments",
+  "terms": [
+    {
+      "originalTerm": "Psychedelic Rock",
+      "targetSlug": "rock-psicodelico",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Traducción directa del estilo; Acid Rock se conserva separado.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Acid Rock",
+      "targetSlug": "rock-psicodelico",
+      "relation": "partial",
+      "sourceConceptKind": "style",
+      "rationale": "A veces se usa como sinónimo, pero también designa el extremo más crudo/pesado; no perder esa distinción.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Acid_rock"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Garage Rock",
+      "targetSlug": "garage-rock",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Mismo nombre de estilo en el registro; sin extender rasgos a cada pista.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Blues Rock",
+      "targetSlug": "blues-rock",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Mismo estilo compuesto; no equivale a todo blues o rock.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Boom Bap",
+      "targetSlug": "boom-bap",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Coincidencia con el estilo canónico, manteniendo el nivel de origen.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Hardcore Hip Hop",
+      "targetSlug": "hip-hop",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "El término de origen es más específico que Hip hop; recuperar Hip hop no conserva automáticamente la dureza solicitada.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Latin Rap",
+      "targetSlug": "hip-hop",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "Hip hop regional/lingüístico más específico; no inferir idioma de cada canción.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Drumless",
+      "targetSlug": "hip-hop",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "En el vocabulario RYM de este piloto es una vertiente de hip hop; conservar el detalle drumless y no inferir ausencia absoluta de percusión.",
+      "definitionReferences": [
+        "https://theartofsampling.com/wp-content/uploads/2024/08/TAOS_3_eBook_e2.pdf"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Gangsta Rap",
+      "targetSlug": "gangsta-rap",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Nombre de estilo coincidente; no convertir un género en temática acreditada de cada pista.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Conscious Hip Hop",
+      "targetSlug": "hip-hop",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "Vertiente más específica; la categoría amplia no conserva por sí sola conciencia social o contenido.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Conscious_hip_hop"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Political Hip Hop",
+      "targetSlug": "hip-hop",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "Vertiente temática del hip hop; no fusionar con todo Conscious Hip Hop ni asignar temas a obras por herencia.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Conscious_hip_hop"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Epic Collage",
+      "targetSlug": "electroacustica",
+      "relation": "partial",
+      "sourceConceptKind": "style",
+      "rationale": "Collage de muestras y medios grabados; Electroacústica es otro ámbito más amplio y no una traducción exacta.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Epic_collage",
+        "https://riviste.unimi.it/index.php/connessioniremote/article/download/26645/23332/78311"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Latin Electronic",
+      "targetSlug": "latin-electronic-fusion",
+      "relation": "partial",
+      "sourceConceptKind": "style",
+      "rationale": "Los términos se aproximan, pero la amplitud de la categoría CRV necesita contraste antes de declararlos equivalentes.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Hypnagogic Pop",
+      "targetSlug": "chillwave",
+      "relation": "partial",
+      "sourceConceptKind": "aesthetic",
+      "rationale": "Comparten memoria cultural y estética de medios antiguos; no son denominaciones intercambiables en todos los usos.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Hypnagogic_pop",
+        "https://en.wikipedia.org/wiki/Chillwave"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Reggaetón",
+      "targetSlug": "reggaeton",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Diferencia ortográfica del mismo nombre; no prueba que una obra sea apropiada para bailar.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Plunderphonics",
+      "targetSlug": "electroacustica",
+      "relation": "partial",
+      "sourceConceptKind": "technique",
+      "rationale": "Práctica basada en reelaboración de grabaciones; no equivale a toda electroacústica ni a cualquier uso de samples.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Plunderphonics"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Chopped and Screwed",
+      "targetSlug": "hip-hop",
+      "relation": "partial",
+      "sourceConceptKind": "technique",
+      "rationale": "Tratamiento de grabaciones ligado al hip hop; no reducir la técnica a la familia ni propagarla a todas sus pistas.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Chopped_and_screwed"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Salsa romántica",
+      "targetSlug": "salsa-romantica",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Nombre canónico coincidente; la etiqueta no acredita sensualidad ni actividad íntima.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Field Recording",
+      "targetSlug": null,
+      "relation": "pending",
+      "sourceConceptKind": "technique",
+      "rationale": "Grabación de campo es procedencia/técnica. No crear un género ni resolverla a Experimental sin criterio adicional.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Deconstructed Club",
+      "targetSlug": "electronica",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "Práctica electrónica de club más específica; Electrónica pierde la información de deconstrucción.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Vapornoise",
+      "targetSlug": "noise",
+      "relation": "partial",
+      "sourceConceptKind": "style",
+      "rationale": "MusicBrainz lo sitúa bajo vaporwave e influido por noise; una influencia no constituye equivalencia ni ascendencia segura con Noise.",
+      "definitionReferences": [
+        "https://musicbrainz.org/genre/9e3de3e7-cc54-4aff-b392-5b4c4bf5b946"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Hauntology",
+      "targetSlug": "electronica",
+      "relation": "partial",
+      "sourceConceptKind": "aesthetic",
+      "rationale": "Marco estético/cultural que puede aparecer en electrónica, no sinónimo de toda esa familia.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Art Pop",
+      "targetSlug": "art-pop",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Coincidencia de nombre de estilo; Art no es una puntuación de valor o calidad.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Glitch Pop",
+      "targetSlug": "electropop",
+      "relation": "partial",
+      "sourceConceptKind": "style",
+      "rationale": "Pop con recursos glitch; el electropop genérico no conserva esos recursos y sus límites no coinciden por completo.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Glitch_(music)"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Ambient Pop",
+      "targetSlug": "dream-pop",
+      "relation": "partial",
+      "sourceConceptKind": "style",
+      "rationale": "Cruce de pop y ambient que puede compartir textura con dream pop; conservar ambos términos sin fusionarlos.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Dream_pop"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "IDM",
+      "targetSlug": "idm",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Misma sigla del registro; no mide inteligencia ni garantiza dificultad técnica.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Intelligent_dance_music"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Post-Industrial",
+      "targetSlug": "industrial",
+      "relation": "partial",
+      "sourceConceptKind": "style",
+      "rationale": "Conjunto de desarrollos posteriores al industrial; no todos equivalen al uso canónico de Industrial en CRV.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Neoclassical Darkwave",
+      "targetSlug": "darkwave",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "Vertiente específica vinculada a darkwave; no atribuir instrumentación orquestal a toda la categoría amplia.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Neoclassical_dark_wave"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "New Wave",
+      "targetSlug": "new-wave",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Coincidencia del nombre canónico; respetar el contexto histórico del término.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Synthpop",
+      "targetSlug": "synth-pop",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Variante de escritura del nombre canónico; conservar el término original.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Synth-pop"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Dance-Pop",
+      "targetSlug": "dance-pop",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Variante de guion y capitalización del mismo nombre de estilo.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Electropop",
+      "targetSlug": "electropop",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Coincidencia canónica; no equivale automáticamente a Glitch Pop.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Electropop"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Hi-NRG",
+      "targetSlug": "dance",
+      "relation": "pending",
+      "sourceConceptKind": "style",
+      "rationale": "El término específico no se debe borrar en Dance; falta documentar el alcance de la categoría amplia CRV para fijar la relación.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Alternative Dance",
+      "targetSlug": "dance",
+      "relation": "pending",
+      "sourceConceptKind": "style",
+      "rationale": "Cruce de rock alternativo y electrónica; el destino Dance es demasiado amplio y necesita definición para declarar ascendencia.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Canción melódica",
+      "targetSlug": "balada",
+      "relation": "partial",
+      "sourceConceptKind": "style",
+      "rationale": "Hay solapamiento en el uso popular, pero la categoría Balada reúne contextos que no son exactamente el mismo estilo.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Dancehall",
+      "targetSlug": "dancehall",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Mismo nombre canónico; no deducir tipo de voz, idioma o actividad de cada pista.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Neoperreo",
+      "targetSlug": "reggaeton",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "Escena/vertiente derivada del reggaetón, con cruces propios; no descartar el término más específico.",
+      "definitionReferences": [
+        "https://www.sibetrans.com/etno/public/docs/5-articulo-neoperreo.pdf"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Pop Rap",
+      "targetSlug": "hip-hop",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "Vertiente que cruza rap y pop; Hip hop no conserva por sí solo su orientación pop.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Spoken Word",
+      "targetSlug": "spoken-word",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Mismo término de práctica vocal; su presencia no determina por sí sola el género musical de todo un álbum.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Adult Contemporary",
+      "targetSlug": "pop",
+      "relation": "partial",
+      "sourceConceptKind": "format",
+      "rationale": "Formato/categoría de programación que puede contener pop, sin equivaler a todo el pop ni a un rasgo sonoro único.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Adult_contemporary_music"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Smooth Jazz",
+      "targetSlug": "smooth-jazz",
+      "relation": "equivalence",
+      "sourceConceptKind": "style",
+      "rationale": "Nombre canónico coincidente; no acredita calma o adecuación a actividades.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Lounge",
+      "targetSlug": "easy-listening",
+      "relation": "partial",
+      "sourceConceptKind": "style",
+      "rationale": "Etiquetas con solapamiento contextual; no todo Easy listening es Lounge ni toda música usada en un local comparte estilo.",
+      "definitionReferences": [],
+      "active": false
+    },
+    {
+      "originalTerm": "Smooth Soul",
+      "targetSlug": "soul",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "Propuesta de destino Soul existente, más amplio. La falta del alias anterior no justifica crear un género nuevo.",
+      "definitionReferences": [
+        "https://en.wikipedia.org/wiki/Smooth_soul"
+      ],
+      "active": false
+    },
+    {
+      "originalTerm": "Electro-Disco",
+      "targetSlug": "disco",
+      "relation": "specialization",
+      "sourceConceptKind": "style",
+      "rationale": "Variante electrónica más específica; la categoría Disco no acredita esa instrumentación en cada obra.",
+      "definitionReferences": [],
+      "active": false
+    }
+  ]
+}

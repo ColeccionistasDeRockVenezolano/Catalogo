@@ -1,0 +1,26 @@
+{
+  "version": "crv-knowledge-evidence-questions-v1",
+  "purpose": "Propuestas de interpretación textual; no valida identidad ni escucha audio y no aprueba asignaciones",
+  "questions": {
+    "object_scope": {
+      "type": "choice",
+      "instructions": "¿El fragmento se refiere al objeto propuesto? No traslades rasgos del álbum a una pista ni de otra canción. Usa unclear si falta contexto.",
+      "criteria": {"same_object":"El texto describe el objeto propuesto", "different_object":"Describe otra obra o nivel", "unclear":"No permite resolver el alcance"}
+    },
+    "assertion_state": {
+      "type": "choice",
+      "instructions": "Determina el estado del enunciado sobre el rasgo propuesto. Una intención imaginada o un parecido incierto no son hechos técnicos.",
+      "criteria": {"affirmed":"Afirmación directa del reseñista", "negated":"Negación explícita del rasgo", "hypothetical":"Suposición, intención imaginada o condición", "quoted":"Cita de otra voz o letra", "possible_irony":"Posible ironía no resuelta", "uncertain":"No es posible decidir"}
+    },
+    "support": {
+      "type": "choice",
+      "instructions": "¿Qué relación tiene el fragmento con el atributo propuesto, limitado al objeto? No uses puntuaciones, popularidad, género o conocimiento externo para completar lo ausente.",
+      "criteria": {"supports":"Describe directamente el rasgo en el objeto", "contradicts":"Niega explícitamente el rasgo en ese objeto", "insufficient":"Falta evidencia específica o es ambigua"}
+    },
+    "activity_basis": {
+      "type": "choice",
+      "instructions": "¿Hay testimonio explícito sobre una actividad de escucha? No infieras estudiar, conducir o bailar desde género, emoción o ritmo.",
+      "criteria": {"declared_use":"Uso real declarado con condiciones", "explicit_recommendation":"Recomendación explícita", "imagined_scene":"Deseo o escena imaginada", "represented_activity":"Actividad representada en la obra", "irony":"Uso irónico", "absent":"No hay testimonio directo de actividad"}
+    }
+  }
+}

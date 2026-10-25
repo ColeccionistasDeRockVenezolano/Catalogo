@@ -6,6 +6,7 @@
 // consulta. Cada lote guarda como mucho MAX_KEYS_PER_FLUSH consultas (las más
 // repetidas), y lo que lleva RETENTION_DAYS sin repetirse se poda. No se
 // guarda IP, usuario ni la hora de cada búsqueda.
+import { sanitizeSearchText } from "../search/privacy.js";
 import { getPool } from "../db/client.js";
 import { moduleLogger } from "../logger/index.js";
 import { normalizeEntityName } from "../normalization/entity-name.js";
@@ -24,7 +25,7 @@ const pending = new Map<string, { sample: string; misses: number }>();
 let timer: NodeJS.Timeout | undefined;
 
 export function recordSearchMiss(q: string): void {
-  const sample = q.trim();
+  const sample = sanitizeSearchText(q);
   const key = normalizeEntityName(sample).secondaryKey;
   if (key.length < MIN_LENGTH || key.length > MAX_LENGTH) return;
   const entry = pending.get(key);
@@ -47,8 +48,8 @@ export async function flushSearchMisses(): Promise<number> {
       [batch.map(([key]) => key), batch.map(([, entry]) => entry.sample), batch.map(([, entry]) => entry.misses)]);
     await getPool().query(`DELETE FROM ingest.search_misses WHERE last_seen < now() - make_interval(days => $1)`, [RETENTION_DAYS]);
     return batch.length;
-  } catch (error) {
-    log.warn({ err: error }, "no se pudieron guardar las búsquedas sin resultados");
+  } catch {
+    log.warn({ code: "legacy_search_misses_write_failed" }, "no se pudieron guardar las búsquedas sin resultados");
     return 0;
   }
 }
@@ -60,6 +61,6 @@ export async function listSearchMisses(limit: number, sinceDays: number): Promis
     `SELECT normalized_query, sample_query, misses, first_seen, last_seen FROM ingest.search_misses
       WHERE last_seen >= now() - make_interval(days => $2)
       ORDER BY misses DESC, last_seen DESC LIMIT $1`, [limit, sinceDays]);
-  return rows.map((row) => ({ query: row.normalized_query, sample: row.sample_query, misses: row.misses,
+  return rows.map((row) => ({ query: sanitizeSearchText(row.normalized_query), sample: sanitizeSearchText(row.sample_query), misses: row.misses,
     firstSeen: row.first_seen.toISOString(), lastSeen: row.last_seen.toISOString() }));
 }

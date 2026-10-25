@@ -1,0 +1,4438 @@
+{
+  "version": "crv-semantic-review-0.1.0",
+  "reviewer": "Codex",
+  "reviewType": "analytical_not_independent",
+  "policy": "analytical_dispositions_never_catalog_authority",
+  "sources": [
+    {
+      "path": "reports/intenciones-humanas/v0.1.0/diccionario.json",
+      "sha256": "4b80ce10c1bd214b3b790b6131d83060f7e93c0c63d5d1ec7d5a0bdc52fb4a88"
+    },
+    {
+      "path": "reports/intenciones-humanas/v0.1.0/matriz-consultas.json",
+      "sha256": "d9cdd88d6ecd5e9fe925d1dcc4697de4b0c6c1d49ce6d6a3aa6a2577efb0cdd4"
+    },
+    {
+      "path": "reports/rym-reviews-piloto/v0.1.0/FACETAS_PROPUESTAS.md",
+      "sha256": "efe95a506a3751da892fb3ec515ba86bc672683e7ca6ce2c05511b275d04ac04"
+    },
+    {
+      "path": "reports/rym-reviews-piloto/v0.1.0/hallazgos.json",
+      "sha256": "86ee9c571fa0c8cd80d92ee8ca82fa5ae06ce16a4496b95522d54a2292335c25"
+    },
+    {
+      "path": "reports/unified-search-stage2/study-cuts/development-0.5.0/reports/unified-search-stage2/development-annotations.json",
+      "sha256": "63eeb7ba2939a70046e48d25778bce00513df54560f22427b60e4b2ac3cdf4bf"
+    }
+  ],
+  "entries": [
+    {
+      "id": "activity:concentration",
+      "kind": "concept",
+      "disposition": "reuse",
+      "target": "listener_request",
+      "definition": "Atención sostenida durante una tarea; no implica sueño ni calma.",
+      "rationale": "Estudiar, leer y programar expresan usos distintos bajo atención sostenida; conservar el contexto concreto solicitado y la duración declarada.",
+      "falseFriends": [
+        "dormir",
+        "serenidad",
+        "productividad garantizada"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Estudiar, leer y programar expresan usos distintos bajo atención sostenida; conservar el contexto concreto solicitado y la duración declarada.",
+      "aliasRules": [
+        {
+          "term": "estudiar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "concentrarme",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "concentración",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "trabajar",
+          "usage": "context_required",
+          "reason": "Estudiar, leer y programar expresan usos distintos bajo atención sostenida; conservar el contexto concreto solicitado y la duración declarada."
+        },
+        {
+          "term": "programar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "leer",
+          "usage": "context_required",
+          "reason": "Estudiar, leer y programar expresan usos distintos bajo atención sostenida; conservar el contexto concreto solicitado y la duración declarada."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q001",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:relaxation",
+      "kind": "concept",
+      "disposition": "reuse",
+      "target": "listener_request",
+      "definition": "Acompañamiento de descanso solicitado; no presupone energía baja.",
+      "rationale": "Descansar o desconectar requiere testimonio de uso o recomendación explícita; no se acredita desde intensidad baja.",
+      "falseFriends": [
+        "dormir",
+        "volumen bajo",
+        "tratamiento del estrés"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Descansar o desconectar requiere testimonio de uso o recomendación explícita; no se acredita desde intensidad baja.",
+      "aliasRules": [
+        {
+          "term": "relajarme",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "relajación",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "descansar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "desconectar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q002",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:celebration",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "listener_request",
+      "definition": "Reunión festiva; no equivale a bailar ni a alegría.",
+      "rationale": "Fiesta y rumba necesitan contexto de reunión festiva; rumba también puede nombrar música y no debe expandirse automáticamente.",
+      "falseFriends": [
+        "bailar",
+        "alegría",
+        "toda rumba como género"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Fiesta y rumba necesitan contexto de reunión festiva; rumba también puede nombrar música y no debe expandirse automáticamente.",
+      "aliasRules": [
+        {
+          "term": "celebrar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "celebración",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "fiesta",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "festejar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "rumba",
+          "usage": "context_required",
+          "reason": "Fiesta y rumba necesitan contexto de reunión festiva; rumba también puede nombrar música y no debe expandirse automáticamente."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q003",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:sleep",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "listener_request",
+      "definition": "Preparar un momento de sueño; distinto de atención sostenida.",
+      "rationale": "La petición es acompañar el sueño, distinta de describir ensueño sonoro; conservar condiciones y abstenerse de promesas de efecto.",
+      "falseFriends": [
+        "dream pop",
+        "ambiente onírico",
+        "efecto sedante"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. La petición es acompañar el sueño, distinta de describir ensueño sonoro; conservar condiciones y abstenerse de promesas de efecto.",
+      "aliasRules": [
+        {
+          "term": "dormir",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "conciliar el sueño",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "para la siesta",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q004",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:meditation",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "listener_request",
+      "definition": "Práctica de meditación solicitada; no implica adscripción espiritual.",
+      "rationale": "Meditar es práctica solicitada o declarada; la espiritualidad representada no acredita ese uso.",
+      "falseFriends": [
+        "letra espiritual",
+        "religión",
+        "música lenta"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Meditar es práctica solicitada o declarada; la espiritualidad representada no acredita ese uso.",
+      "aliasRules": [
+        {
+          "term": "meditar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "meditación",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "respirar conscientemente",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q005",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:dancing",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "listener_request",
+      "definition": "Actividad de baile; un género bailable no demuestra adecuación de cada versión.",
+      "rationale": "Echar un pie designa baile en el contexto venezolano de la consulta; distinguir deseo, recomendación y baile efectivamente declarado.",
+      "falseFriends": [
+        "género dance",
+        "ritmo bailable",
+        "celebración"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Echar un pie designa baile en el contexto venezolano de la consulta; distinguir deseo, recomendación y baile efectivamente declarado.",
+      "aliasRules": [
+        {
+          "term": "bailar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "baile",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "echar un pie",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q006",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:exercise",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "listener_request",
+      "definition": "Actividad física general; no fija intensidad musical.",
+      "rationale": "Ejercicio general no especifica deporte o intensidad; una recomendación debe nombrar actividad y condiciones.",
+      "falseFriends": [
+        "energía alta",
+        "correr",
+        "entrenamiento seguro"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Ejercicio general no especifica deporte o intensidad; una recomendación debe nombrar actividad y condiciones.",
+      "aliasRules": [
+        {
+          "term": "entrenar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "hacer ejercicio",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "ejercitarme",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "gimnasio",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q007",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:running",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "listener_request",
+      "definition": "Carrera o trote; puede coexistir con ejercicio si ambos se piden.",
+      "rationale": "Trotar y correr son peticiones de carrera; no sustituirlas por cualquier ejercicio ni deducir cadencia de géneros.",
+      "falseFriends": [
+        "ejercicio genérico",
+        "BPM adecuado",
+        "rapidez musical"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Trotar y correr son peticiones de carrera; no sustituirlas por cualquier ejercicio ni deducir cadencia de géneros.",
+      "aliasRules": [
+        {
+          "term": "correr",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "trotar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "salir a correr",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q008",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:walking",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "listener_request",
+      "definition": "Paseo o caminata; no implica serenidad.",
+      "rationale": "Pasear requiere contexto de desplazamiento a pie; una forma musical llamada marcha no acredita el uso.",
+      "falseFriends": [
+        "viajar",
+        "serenidad",
+        "marcha musical"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Pasear requiere contexto de desplazamiento a pie; una forma musical llamada marcha no acredita el uso.",
+      "aliasRules": [
+        {
+          "term": "caminar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "pasear",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "dar un paseo",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q009",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:travel",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "listener_request",
+      "definition": "Trayecto solicitado; no equivale a libertad emocional.",
+      "rationale": "Viajar, manejar y road trip se conservan como peticiones relacionadas pero distintas; la conducción debe permanecer explícita como subuso.",
+      "falseFriends": [
+        "letra de migración",
+        "escena en autobús",
+        "libertad emocional"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Viajar, manejar y road trip se conservan como peticiones relacionadas pero distintas; la conducción debe permanecer explícita como subuso.",
+      "aliasRules": [
+        {
+          "term": "viajar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "de viaje",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "en carretera",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "para manejar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "road trip",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q010",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:intimacy",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "listener_request",
+      "definition": "Actividad íntima solicitada; no implica letra sexual, romance ni energía baja.",
+      "rationale": "Tirar y coger son ambiguos fuera de contexto; para la cama también puede pedir sueño. Exigir actividad íntima explícita.",
+      "falseFriends": [
+        "letra sexual",
+        "ambiente íntimo",
+        "romanticismo"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Tirar y coger son ambiguos fuera de contexto; para la cama también puede pedir sueño. Exigir actividad íntima explícita.",
+      "aliasRules": [
+        {
+          "term": "tener sexo",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "hacer el amor",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "tirar",
+          "usage": "context_required",
+          "reason": "Tirar y coger son ambiguos fuera de contexto; para la cama también puede pedir sueño. Exigir actividad íntima explícita."
+        },
+        {
+          "term": "follar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "coger",
+          "usage": "context_required",
+          "reason": "Tirar y coger son ambiguos fuera de contexto; para la cama también puede pedir sueño. Exigir actividad íntima explícita."
+        },
+        {
+          "term": "para la cama",
+          "usage": "context_required",
+          "reason": "Tirar y coger son ambiguos fuera de contexto; para la cama también puede pedir sueño. Exigir actividad íntima explícita."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q011",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:socializing",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "listener_request",
+      "definition": "Acompañamiento de encuentro social; no presupone fiesta.",
+      "rationale": "Conversar o cenar describe el encuentro solicitado; no equivale a reunión festiva ni a voces habladas en la grabación.",
+      "falseFriends": [
+        "fiesta",
+        "música alegre",
+        "letra conversacional"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Conversar o cenar describe el encuentro solicitado; no equivale a reunión festiva ni a voces habladas en la grabación.",
+      "aliasRules": [
+        {
+          "term": "conversar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "charlar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "reunirme con amigos",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "para una cena",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q012",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "activity:catharsis",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "listener_request",
+      "definition": "Acción o propósito expresivo del oyente; no deduce el ánimo de la música.",
+      "rationale": "Llorar y gritar pueden ser propósito, experiencia o letra; conservar cuál y no asegurar alivio emocional.",
+      "falseFriends": [
+        "música triste",
+        "ira sonora",
+        "diagnóstico del oyente"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Para atribuir un uso, exigir testimonio de uso real declarado o recomendación explícita, con objeto y condiciones. Registrar escena imaginada, actividad representada e ironía como estados distintos; la petición sola no acredita adecuación. Llorar y gritar pueden ser propósito, experiencia o letra; conservar cuál y no asegurar alivio emocional.",
+      "aliasRules": [
+        {
+          "term": "desahogarme",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "liberar tensión",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "para llorar",
+          "usage": "context_required",
+          "reason": "Llorar y gritar pueden ser propósito, experiencia o letra; conservar cuál y no asegurar alivio emocional."
+        },
+        {
+          "term": "para gritar",
+          "usage": "context_required",
+          "reason": "Llorar y gritar pueden ser propósito, experiencia o letra; conservar cuál y no asegurar alivio emocional."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q013",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:joyful",
+      "kind": "concept",
+      "disposition": "reuse",
+      "target": "dimension",
+      "definition": "Carácter musical de alegría; no equivale a alta energía.",
+      "rationale": "El carácter alegre percibido es distinto de la experiencia de una cuenta o del contenido alegre de una letra.",
+      "falseFriends": [
+        "celebración",
+        "energía alta",
+        "letra feliz"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. El carácter alegre percibido es distinto de la experiencia de una cuenta o del contenido alegre de una letra.",
+      "aliasRules": [
+        {
+          "term": "alegre",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "alegría",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "contenta",
+          "usage": "context_required",
+          "reason": "El carácter alegre percibido es distinto de la experiencia de una cuenta o del contenido alegre de una letra."
+        },
+        {
+          "term": "contento",
+          "usage": "context_required",
+          "reason": "El carácter alegre percibido es distinto de la experiencia de una cuenta o del contenido alegre de una letra."
+        },
+        {
+          "term": "feliz",
+          "usage": "context_required",
+          "reason": "El carácter alegre percibido es distinto de la experiencia de una cuenta o del contenido alegre de una letra."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q014",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:melancholic",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Carácter contemplativo de pérdida o añoranza; distinto de tristeza y nostalgia.",
+      "rationale": "La melancolía combina una percepción contemplativa de pérdida o añoranza; no fundir sus asignaciones con tristeza o memoria autobiográfica.",
+      "falseFriends": [
+        "tristeza",
+        "nostalgia",
+        "depresión"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. La melancolía combina una percepción contemplativa de pérdida o añoranza; no fundir sus asignaciones con tristeza o memoria autobiográfica.",
+      "aliasRules": [
+        {
+          "term": "melancólico",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "melancólica",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "melancolía",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q015",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:tense",
+      "kind": "concept",
+      "disposition": "reuse",
+      "target": "dimension",
+      "definition": "Tensión percibida sostenida o dominante; no implica violencia temática.",
+      "rationale": "La tensión percibida necesita una descripción de ese carácter; angustiante puede referirse al relato o a la escucha y exige alcance.",
+      "falseFriends": [
+        "violencia lírica",
+        "ira",
+        "género extremo"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. La tensión percibida necesita una descripción de ese carácter; angustiante puede referirse al relato o a la escucha y exige alcance.",
+      "aliasRules": [
+        {
+          "term": "tenso",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "tensa",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "tensión",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "angustiante",
+          "usage": "context_required",
+          "reason": "La tensión percibida necesita una descripción de ese carácter; angustiante puede referirse al relato o a la escucha y exige alcance."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q016",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:serene",
+      "kind": "concept",
+      "disposition": "reuse",
+      "target": "dimension",
+      "definition": "Carácter de estabilidad y calma; no garantiza concentración o sueño.",
+      "rationale": "Calma y tranquilidad deben describir el carácter musical para esta acepción; estado del oyente y uso solicitado se separan.",
+      "falseFriends": [
+        "actividad concentración",
+        "sueño",
+        "mezcla silenciosa"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Calma y tranquilidad deben describir el carácter musical para esta acepción; estado del oyente y uso solicitado se separan.",
+      "aliasRules": [
+        {
+          "term": "sereno",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "serena",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "serenidad",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "calma",
+          "usage": "context_required",
+          "reason": "Calma y tranquilidad deben describir el carácter musical para esta acepción; estado del oyente y uso solicitado se separan."
+        },
+        {
+          "term": "tranquilo",
+          "usage": "context_required",
+          "reason": "Calma y tranquilidad deben describir el carácter musical para esta acepción; estado del oyente y uso solicitado se separan."
+        },
+        {
+          "term": "tranquila",
+          "usage": "context_required",
+          "reason": "Calma y tranquilidad deben describir el carácter musical para esta acepción; estado del oyente y uso solicitado se separan."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q017",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:sad",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Carácter musical triste, separado de melancolía; reutiliza el significado útil de tristeza legacy.",
+      "rationale": "Se conserva tristeza como carácter musical; no migrar automáticamente etiquetas emocionales históricas amplias.",
+      "falseFriends": [
+        "melancolía",
+        "nostalgia",
+        "tema muerte"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Se conserva tristeza como carácter musical; no migrar automáticamente etiquetas emocionales históricas amplias.",
+      "aliasRules": [
+        {
+          "term": "triste",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "tristes",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "tristeza",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "apenado",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "apenada",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q018",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:nostalgic",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Evocación afectiva del pasado; puede ser alegre o triste.",
+      "rationale": "Distinguir evocación afectiva del pasado en la música y memoria personal del reseñista; mantener la última como experiencia atribuida.",
+      "falseFriends": [
+        "año antiguo",
+        "tema histórico",
+        "biografía migrante"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Distinguir evocación afectiva del pasado en la música y memoria personal del reseñista; mantener la última como experiencia atribuida.",
+      "aliasRules": [
+        {
+          "term": "nostálgico",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "nostálgica",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "nostalgia",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "añoranza",
+          "usage": "context_required",
+          "reason": "Distinguir evocación afectiva del pasado en la música y memoria personal del reseñista; mantener la última como experiencia atribuida."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q019",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:romantic",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Carácter romántico o tierno; no basta que una letra mencione amor.",
+      "rationale": "Tierno o romántico necesitan contexto perceptivo; enamorado también puede describir al oyente y no se normaliza sin resolver el sujeto.",
+      "falseFriends": [
+        "letra de amor",
+        "actividad íntima",
+        "artista enamorado"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Tierno o romántico necesitan contexto perceptivo; enamorado también puede describir al oyente y no se normaliza sin resolver el sujeto.",
+      "aliasRules": [
+        {
+          "term": "romántico",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "romántica",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "tierno",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "tierna",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "ternura",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "enamorado",
+          "usage": "context_required",
+          "reason": "Tierno o romántico necesitan contexto perceptivo; enamorado también puede describir al oyente y no se normaliza sin resolver el sujeto."
+        },
+        {
+          "term": "enamorada",
+          "usage": "context_required",
+          "reason": "Tierno o romántico necesitan contexto perceptivo; enamorado también puede describir al oyente y no se normaliza sin resolver el sujeto."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q020",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:sensual",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Carácter sensual percibido; no acredita actividad sexual ni temática sexual.",
+      "rationale": "Erótico y cachondo pueden describir letra, oyente o carácter musical; solo el último corresponde aquí.",
+      "falseFriends": [
+        "contenido sexual",
+        "intimidad",
+        "energía baja"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Erótico y cachondo pueden describir letra, oyente o carácter musical; solo el último corresponde aquí.",
+      "aliasRules": [
+        {
+          "term": "sensual",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "seductor",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "seductora",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "erótico",
+          "usage": "context_required",
+          "reason": "Erótico y cachondo pueden describir letra, oyente o carácter musical; solo el último corresponde aquí."
+        },
+        {
+          "term": "erótica",
+          "usage": "context_required",
+          "reason": "Erótico y cachondo pueden describir letra, oyente o carácter musical; solo el último corresponde aquí."
+        },
+        {
+          "term": "cachondo",
+          "usage": "context_required",
+          "reason": "Erótico y cachondo pueden describir letra, oyente o carácter musical; solo el último corresponde aquí."
+        },
+        {
+          "term": "cachonda",
+          "usage": "context_required",
+          "reason": "Erótico y cachondo pueden describir letra, oyente o carácter musical; solo el último corresponde aquí."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q021",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:angry",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "dimension",
+      "definition": "Carácter de ira; agresivo necesita contexto y no determina energía.",
+      "rationale": "Ira o rabia como carácter musical se distinguen de la emoción declarada por el usuario y del discurso representado.",
+      "falseFriends": [
+        "agresión humana",
+        "violencia temática",
+        "energía alta"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Ira o rabia como carácter musical se distinguen de la emoción declarada por el usuario y del discurso representado.",
+      "aliasRules": [
+        {
+          "term": "rabioso",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "rabiosa",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "furioso",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "furiosa",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "ira",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "rabia",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q022",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:hopeful",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "dimension",
+      "definition": "Carácter de expectativa favorable; no deduce calidad de vida del oyente.",
+      "rationale": "Una expectativa favorable percibida se registra con atribución; esperanza sin sujeto o plano requiere desambiguación.",
+      "falseFriends": [
+        "letra de esperanza",
+        "ánimo real del oyente",
+        "alegría"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Una expectativa favorable percibida se registra con atribución; esperanza sin sujeto o plano requiere desambiguación.",
+      "aliasRules": [
+        {
+          "term": "esperanzador",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "esperanzadora",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "optimista",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "esperanza",
+          "usage": "context_required",
+          "reason": "Una expectativa favorable percibida se registra con atribución; esperanza sin sujeto o plano requiere desambiguación."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q023",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:euphoric",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "dimension",
+      "definition": "Carácter de exaltación; intensidad musical se evalúa aparte.",
+      "rationale": "Exaltación afectiva y energía son aspectos distintos; una puede aparecer sin la otra.",
+      "falseFriends": [
+        "energía alta",
+        "rapidez",
+        "celebración"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Exaltación afectiva y energía son aspectos distintos; una puede aparecer sin la otra.",
+      "aliasRules": [
+        {
+          "term": "eufórico",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "eufórica",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "euforia",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "exultante",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q024",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:confident",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Carácter de autoafirmación; no implica energía alta ni ambiente épico.",
+      "rationale": "Seguro de mí y sentirme poderoso suelen expresar objetivo del oyente. Conservar la petición sin convertirla en carácter musical demostrado.",
+      "falseFriends": [
+        "objetivo empoderarme",
+        "épica",
+        "certeza de un dato"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Seguro de mí y sentirme poderoso suelen expresar objetivo del oyente. Conservar la petición sin convertirla en carácter musical demostrado.",
+      "aliasRules": [
+        {
+          "term": "seguro de mí",
+          "usage": "context_required",
+          "reason": "Seguro de mí y sentirme poderoso suelen expresar objetivo del oyente. Conservar la petición sin convertirla en carácter musical demostrado."
+        },
+        {
+          "term": "segura de mí",
+          "usage": "context_required",
+          "reason": "Seguro de mí y sentirme poderoso suelen expresar objetivo del oyente. Conservar la petición sin convertirla en carácter musical demostrado."
+        },
+        {
+          "term": "sentirme poderoso",
+          "usage": "context_required",
+          "reason": "Seguro de mí y sentirme poderoso suelen expresar objetivo del oyente. Conservar la petición sin convertirla en carácter musical demostrado."
+        },
+        {
+          "term": "empoderarme",
+          "usage": "context_required",
+          "reason": "Seguro de mí y sentirme poderoso suelen expresar objetivo del oyente. Conservar la petición sin convertirla en carácter musical demostrado."
+        },
+        {
+          "term": "confianza",
+          "usage": "context_required",
+          "reason": "Seguro de mí y sentirme poderoso suelen expresar objetivo del oyente. Conservar la petición sin convertirla en carácter musical demostrado."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q025",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:lonely",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Carácter de aislamiento o soledad; no equivale a tristeza.",
+      "rationale": "Solitario puede describir instrumentación solista o contenido; precisar que la atribución es un carácter afectivo de aislamiento.",
+      "falseFriends": [
+        "letra sobre soledad",
+        "aislamiento real",
+        "tristeza"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Solitario puede describir instrumentación solista o contenido; precisar que la atribución es un carácter afectivo de aislamiento.",
+      "aliasRules": [
+        {
+          "term": "solitario",
+          "usage": "context_required",
+          "reason": "Solitario puede describir instrumentación solista o contenido; precisar que la atribución es un carácter afectivo de aislamiento."
+        },
+        {
+          "term": "solitaria",
+          "usage": "context_required",
+          "reason": "Solitario puede describir instrumentación solista o contenido; precisar que la atribución es un carácter afectivo de aislamiento."
+        },
+        {
+          "term": "soledad",
+          "usage": "context_required",
+          "reason": "Solitario puede describir instrumentación solista o contenido; precisar que la atribución es un carácter afectivo de aislamiento."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q026",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:rebellious",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Carácter de desafío o liberación; no demuestra temática política.",
+      "rationale": "Libre o sin ataduras no son sinónimos inequívocos de rebeldía: conservar desafío, experiencia y deseo por separado.",
+      "falseFriends": [
+        "letra política",
+        "nacionalidad",
+        "libertad del oyente"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Libre o sin ataduras no son sinónimos inequívocos de rebeldía: conservar desafío, experiencia y deseo por separado.",
+      "aliasRules": [
+        {
+          "term": "rebelde",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "rebeldía",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "libre",
+          "usage": "context_required",
+          "reason": "Libre o sin ataduras no son sinónimos inequívocos de rebeldía: conservar desafío, experiencia y deseo por separado."
+        },
+        {
+          "term": "libertad",
+          "usage": "context_required",
+          "reason": "Libre o sin ataduras no son sinónimos inequívocos de rebeldía: conservar desafío, experiencia y deseo por separado."
+        },
+        {
+          "term": "sin ataduras",
+          "usage": "context_required",
+          "reason": "Libre o sin ataduras no son sinónimos inequívocos de rebeldía: conservar desafío, experiencia y deseo por separado."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q027",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "emotion:bittersweet",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "dimension",
+      "definition": "Carácter de afectos encontrados; conserva un significado compuesto documentable.",
+      "rationale": "Agridulce describe afectos encontrados en la misma percepción; no se fabrica sumando opiniones de alegría y tristeza de personas distintas.",
+      "falseFriends": [
+        "promedio de notas",
+        "desacuerdo entre cuentas",
+        "tristeza pura"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción explícita del carácter musical de la unidad/versión, con sujeto y alcance; conservar gusto y experiencia del oyente separados. No deducir de género, letra, título, notas o biografía. Agridulce describe afectos encontrados en la misma percepción; no se fabrica sumando opiniones de alegría y tristeza de personas distintas.",
+      "aliasRules": [
+        {
+          "term": "agridulce",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "dulce y amargo",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "alegría con tristeza",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q028",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "energy:energy-low",
+      "kind": "concept",
+      "disposition": "reuse",
+      "target": "perceived_energy_method",
+      "definition": "Intensidad percibida ordinal baja según perceived-energy-v1.",
+      "rationale": "Conservar nivel bajo según perceived-energy-v1; no recalcular intensidad desde reseñas, tags o géneros.",
+      "falseFriends": [
+        "BPM lento",
+        "volumen bajo",
+        "sueño"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Aplicar exclusivamente perceived-energy-v1, con actividad, dinámica y densidad documentadas y agregación ordinal del método; cualquier nuevo cálculo requiere su revisión existente. Conservar nivel bajo según perceived-energy-v1; no recalcular intensidad desde reseñas, tags o géneros.",
+      "aliasRules": [
+        {
+          "term": "energía baja",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "intensidad baja",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "poco intensa",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "poco intenso",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q029",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "energy:energy-medium",
+      "kind": "concept",
+      "disposition": "reuse",
+      "target": "perceived_energy_method",
+      "definition": "Intensidad percibida ordinal media según perceived-energy-v1.",
+      "rationale": "Conservar nivel medio del método ordinal existente, sin convertirlo en valor numérico continuo o confianza.",
+      "falseFriends": [
+        "BPM medio",
+        "promedio de ratings",
+        "etiqueta neutral"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Aplicar exclusivamente perceived-energy-v1, con actividad, dinámica y densidad documentadas y agregación ordinal del método; cualquier nuevo cálculo requiere su revisión existente. Conservar nivel medio del método ordinal existente, sin convertirlo en valor numérico continuo o confianza.",
+      "aliasRules": [
+        {
+          "term": "energía media",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "intensidad media",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "intensidad moderada",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q030",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "energy:energy-high",
+      "kind": "concept",
+      "disposition": "reuse",
+      "target": "perceived_energy_method",
+      "definition": "Intensidad percibida ordinal alta según perceived-energy-v1; energetic es solo candidato externo.",
+      "rationale": "Enérgico es candidato léxico contextual; conservar nivel alto del método existente y no reemplazarlo con frecuencia de tags.",
+      "falseFriends": [
+        "rapidez",
+        "rabia",
+        "popularidad"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Aplicar exclusivamente perceived-energy-v1, con actividad, dinámica y densidad documentadas y agregación ordinal del método; cualquier nuevo cálculo requiere su revisión existente. Enérgico es candidato léxico contextual; conservar nivel alto del método existente y no reemplazarlo con frecuencia de tags.",
+      "aliasRules": [
+        {
+          "term": "energía alta",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "intensidad alta",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "mucha energía",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "enérgico",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "enérgica",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q031",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:atmospheric",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Sensación de un espacio sonoro envolvente; no implica género Ambient.",
+      "rationale": "Envolvente describe espacio sonoro percibido; no acredita un género o una técnica concreta de mezcla.",
+      "falseFriends": [
+        "género Ambient",
+        "producción reverberante garantizada",
+        "canción instrumental"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Envolvente describe espacio sonoro percibido; no acredita un género o una técnica concreta de mezcla.",
+      "aliasRules": [
+        {
+          "term": "envolvente",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "atmosférico",
+          "usage": "context_required",
+          "reason": "Envolvente describe espacio sonoro percibido; no acredita un género o una técnica concreta de mezcla."
+        },
+        {
+          "term": "atmosférica",
+          "usage": "context_required",
+          "reason": "Envolvente describe espacio sonoro percibido; no acredita un género o una técnica concreta de mezcla."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q032",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:dark",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Ambiente sombrío; no demuestra tristeza ni temática de muerte.",
+      "rationale": "Oscuro y sombrío deben referirse al ambiente sonoro; oscuridad de la letra o del archivo no comparte esa acepción.",
+      "falseFriends": [
+        "tristeza",
+        "contenido de muerte",
+        "maldad del intérprete"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Oscuro y sombrío deben referirse al ambiente sonoro; oscuridad de la letra o del archivo no comparte esa acepción.",
+      "aliasRules": [
+        {
+          "term": "oscuro",
+          "usage": "context_required",
+          "reason": "Oscuro y sombrío deben referirse al ambiente sonoro; oscuridad de la letra o del archivo no comparte esa acepción."
+        },
+        {
+          "term": "oscura",
+          "usage": "context_required",
+          "reason": "Oscuro y sombrío deben referirse al ambiente sonoro; oscuridad de la letra o del archivo no comparte esa acepción."
+        },
+        {
+          "term": "sombrío",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sombría",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q033",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:nocturnal",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "dimension",
+      "definition": "Evocación sonora de la noche; no es una hora de publicación o una selección diaria.",
+      "rationale": "Noche como evocación sonora se distingue del horario de una escucha individual; no introduce otro reloj editorial.",
+      "falseFriends": [
+        "hora de captura",
+        "rotación diaria",
+        "uso para conducir"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Noche como evocación sonora se distingue del horario de una escucha individual; no introduce otro reloj editorial.",
+      "aliasRules": [
+        {
+          "term": "nocturno",
+          "usage": "context_required",
+          "reason": "Noche como evocación sonora se distingue del horario de una escucha individual; no introduce otro reloj editorial."
+        },
+        {
+          "term": "nocturna",
+          "usage": "context_required",
+          "reason": "Noche como evocación sonora se distingue del horario de una escucha individual; no introduce otro reloj editorial."
+        },
+        {
+          "term": "ambiente de noche",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q034",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:ethereal",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "dimension",
+      "definition": "Textura ambiental percibida como leve o suspendida; no equivale a energía baja.",
+      "rationale": "Etéreo o flotante se preserva como textura ambiental percibida; precisar la unidad o el tramo descrito.",
+      "falseFriends": [
+        "voz débil",
+        "energía baja",
+        "género dream pop"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Etéreo o flotante se preserva como textura ambiental percibida; precisar la unidad o el tramo descrito.",
+      "aliasRules": [
+        {
+          "term": "etéreo",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "etérea",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "flotante",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q035",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:dreamy",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Ambiente de ensueño o irrealidad; no equivale a dormir.",
+      "rationale": "De ensueño caracteriza ambiente percibido; soñador puede referirse a personaje, oyente o letra y exige sujeto.",
+      "falseFriends": [
+        "dormir",
+        "sueño narrado",
+        "dream pop"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. De ensueño caracteriza ambiente percibido; soñador puede referirse a personaje, oyente o letra y exige sujeto.",
+      "aliasRules": [
+        {
+          "term": "onírico",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "onírica",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "de ensueño",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "soñador",
+          "usage": "context_required",
+          "reason": "De ensueño caracteriza ambiente percibido; soñador puede referirse a personaje, oyente o letra y exige sujeto."
+        },
+        {
+          "term": "soñadora",
+          "usage": "context_required",
+          "reason": "De ensueño caracteriza ambiente percibido; soñador puede referirse a personaje, oyente o letra y exige sujeto."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q036",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:epic",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Escala o dramatismo grandioso; no determina energía.",
+      "rationale": "Grandioso o majestuoso requiere escala/dramatismo percibidos; no define duración ni nivel de energía.",
+      "falseFriends": [
+        "género epic metal",
+        "energía alta",
+        "duración larga"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Grandioso o majestuoso requiere escala/dramatismo percibidos; no define duración ni nivel de energía.",
+      "aliasRules": [
+        {
+          "term": "épico",
+          "usage": "context_required",
+          "reason": "Grandioso o majestuoso requiere escala/dramatismo percibidos; no define duración ni nivel de energía."
+        },
+        {
+          "term": "épica",
+          "usage": "context_required",
+          "reason": "Grandioso o majestuoso requiere escala/dramatismo percibidos; no define duración ni nivel de energía."
+        },
+        {
+          "term": "grandioso",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "grandiosa",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "majestuoso",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "majestuosa",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q037",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:intimate",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Sensación de cercanía y espacio privado; no implica sexo.",
+      "rationale": "Íntimo describe proximidad/espacio percibido en esta acepción; una recomendación para intimidad pertenece a actividad.",
+      "falseFriends": [
+        "actividad sexual",
+        "letra romántica",
+        "voz necesariamente cercana"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Íntimo describe proximidad/espacio percibido en esta acepción; una recomendación para intimidad pertenece a actividad.",
+      "aliasRules": [
+        {
+          "term": "íntimo",
+          "usage": "context_required",
+          "reason": "Íntimo describe proximidad/espacio percibido en esta acepción; una recomendación para intimidad pertenece a actividad."
+        },
+        {
+          "term": "íntima",
+          "usage": "context_required",
+          "reason": "Íntimo describe proximidad/espacio percibido en esta acepción; una recomendación para intimidad pertenece a actividad."
+        },
+        {
+          "term": "cercano",
+          "usage": "context_required",
+          "reason": "Íntimo describe proximidad/espacio percibido en esta acepción; una recomendación para intimidad pertenece a actividad."
+        },
+        {
+          "term": "cercana",
+          "usage": "context_required",
+          "reason": "Íntimo describe proximidad/espacio percibido en esta acepción; una recomendación para intimidad pertenece a actividad."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q038",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:warm",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Color o sensación sonora acogedora; caliente no es sinónimo automático.",
+      "rationale": "Calidez sonora no demuestra equipo analógico ni temperatura; acogedor requiere contexto ambiental.",
+      "falseFriends": [
+        "caliente",
+        "archivo con saturación",
+        "acogida positiva"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Calidez sonora no demuestra equipo analógico ni temperatura; acogedor requiere contexto ambiental.",
+      "aliasRules": [
+        {
+          "term": "cálido",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "cálida",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "acogedor",
+          "usage": "context_required",
+          "reason": "Calidez sonora no demuestra equipo analógico ni temperatura; acogedor requiere contexto ambiental."
+        },
+        {
+          "term": "acogedora",
+          "usage": "context_required",
+          "reason": "Calidez sonora no demuestra equipo analógico ni temperatura; acogedor requiere contexto ambiental."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q039",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:cold",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Sensación sonora fría o distante; no significa tristeza.",
+      "rationale": "Frío o glacial como sonido se distingue de una ejecución que el autor rechaza como fría o de la escena representada.",
+      "falseFriends": [
+        "tristeza",
+        "rechazo del crítico",
+        "temperatura"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Frío o glacial como sonido se distingue de una ejecución que el autor rechaza como fría o de la escena representada.",
+      "aliasRules": [
+        {
+          "term": "frío",
+          "usage": "context_required",
+          "reason": "Frío o glacial como sonido se distingue de una ejecución que el autor rechaza como fría o de la escena representada."
+        },
+        {
+          "term": "fría",
+          "usage": "context_required",
+          "reason": "Frío o glacial como sonido se distingue de una ejecución que el autor rechaza como fría o de la escena representada."
+        },
+        {
+          "term": "glacial",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q040",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:ominous",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "dimension",
+      "definition": "Ambiente de amenaza; no demuestra crimen o violencia en la letra.",
+      "rationale": "Amenaza percibida pertenece al ambiente; siniestro necesita ese contexto y no una afirmación biográfica.",
+      "falseFriends": [
+        "violencia real",
+        "crimen lírico",
+        "artista peligroso"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Amenaza percibida pertenece al ambiente; siniestro necesita ese contexto y no una afirmación biográfica.",
+      "aliasRules": [
+        {
+          "term": "amenazante",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "siniestro",
+          "usage": "context_required",
+          "reason": "Amenaza percibida pertenece al ambiente; siniestro necesita ese contexto y no una afirmación biográfica."
+        },
+        {
+          "term": "siniestra",
+          "usage": "context_required",
+          "reason": "Amenaza percibida pertenece al ambiente; siniestro necesita ese contexto y no una afirmación biográfica."
+        },
+        {
+          "term": "inquietante",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q041",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:mysterious",
+      "kind": "concept",
+      "disposition": "propose_attribute",
+      "target": "dimension",
+      "definition": "Ambiente enigmático; no basta un título críptico.",
+      "rationale": "Enigmático caracteriza el ambiente de la escucha, no falta de información en el catálogo.",
+      "falseFriends": [
+        "título críptico",
+        "identidad desconocida",
+        "letra fantástica"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Enigmático caracteriza el ambiente de la escucha, no falta de información en el catálogo.",
+      "aliasRules": [
+        {
+          "term": "misterioso",
+          "usage": "context_required",
+          "reason": "Enigmático caracteriza el ambiente de la escucha, no falta de información en el catálogo."
+        },
+        {
+          "term": "misteriosa",
+          "usage": "context_required",
+          "reason": "Enigmático caracteriza el ambiente de la escucha, no falta de información en el catálogo."
+        },
+        {
+          "term": "enigmático",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "enigmática",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q042",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:psychedelic",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Ambiente psicodélico explícito; el estilo homónimo se resuelve por la taxonomía de géneros.",
+      "rationale": "La petición explícita de atmósfera psicodélica se separa de estilo y tema; no expandir desde cualquiera de ellos.",
+      "falseFriends": [
+        "género psicodélico",
+        "consumo de drogas",
+        "diagnóstico"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. La petición explícita de atmósfera psicodélica se separa de estilo y tema; no expandir desde cualquiera de ellos.",
+      "aliasRules": [
+        {
+          "term": "ambiente psicodélico",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "atmósfera psicodélica",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q043",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:festive",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Carácter ambiental festivo; no prueba adecuación a celebración.",
+      "rationale": "Ambiente de fiesta es una percepción; no autoriza adecuación a reuniones sin evidencia de uso.",
+      "falseFriends": [
+        "actividad celebrar",
+        "alegría",
+        "género bailable"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Ambiente de fiesta es una percepción; no autoriza adecuación a reuniones sin evidencia de uso.",
+      "aliasRules": [
+        {
+          "term": "festivo",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "festiva",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "ambiente de fiesta",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q044",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "atmosphere:spacious",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Sensación espacial de la mezcla o arreglo; espacio exterior en letra es temática.",
+      "rationale": "Espacial necesita contexto: amplitud percibida de arreglo/mezcla o contenido cósmico. No certificar técnica desde la metáfora.",
+      "falseFriends": [
+        "letra sobre espacio exterior",
+        "estéreo técnico",
+        "energía baja"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir descripción atribuida del ambiente/textura/espacio percibido de la unidad; distinguir metáfora, contenido literal y técnica documentada. No completar desde estilos o tags. Espacial necesita contexto: amplitud percibida de arreglo/mezcla o contenido cósmico. No certificar técnica desde la metáfora.",
+      "aliasRules": [
+        {
+          "term": "espacioso",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "espaciosa",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "espacial",
+          "usage": "context_required",
+          "reason": "Espacial necesita contexto: amplitud percibida de arreglo/mezcla o contenido cósmico. No certificar técnica desde la metáfora."
+        },
+        {
+          "term": "aireado",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "aireada",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q045",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:love",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido que trata el amor; separado del ánimo romántico.",
+      "rationale": "Conservar amor como contenido de la obra con evidencia de letra o descripción específica; el tema del artista no se hereda.",
+      "falseFriends": [
+        "romanticismo musical",
+        "biografía amorosa",
+        "intimidad"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Conservar amor como contenido de la obra con evidencia de letra o descripción específica; el tema del artista no se hereda.",
+      "aliasRules": [
+        {
+          "term": "sobre amor",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre el amor",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "letras de amor",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q046",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:breakup",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido de ruptura o desamor; no demuestra tristeza musical.",
+      "rationale": "Desamor y ruptura requieren contenido de relación afectiva; corazón roto puede ser metáfora de la petición o título insuficiente.",
+      "falseFriends": [
+        "tristeza",
+        "ruptura de una banda",
+        "melancolía"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Desamor y ruptura requieren contenido de relación afectiva; corazón roto puede ser metáfora de la petición o título insuficiente.",
+      "aliasRules": [
+        {
+          "term": "sobre desamor",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre una ruptura",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "corazón roto",
+          "usage": "context_required",
+          "reason": "Desamor y ruptura requieren contenido de relación afectiva; corazón roto puede ser metáfora de la petición o título insuficiente."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q047",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:sexuality",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido sexual o erótico; no implica idoneidad para sexo.",
+      "rationale": "Contenido sexual se documenta en la obra; no infiere orientación de autor, intérprete u oyente.",
+      "falseFriends": [
+        "sensualidad musical",
+        "actividad sexual",
+        "orientación personal"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Contenido sexual se documenta en la obra; no infiere orientación de autor, intérprete u oyente.",
+      "aliasRules": [
+        {
+          "term": "sobre sexo",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre sexualidad",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "letra sexual",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q048",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:death",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido de muerte o duelo; no es una emoción ni un género.",
+      "rationale": "Duelo y luto son contenidos si la obra los trata; no se deducen de biografía, estilo o reacción del oyente.",
+      "falseFriends": [
+        "doom metal",
+        "tristeza",
+        "fallecimiento del artista"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Duelo y luto son contenidos si la obra los trata; no se deducen de biografía, estilo o reacción del oyente.",
+      "aliasRules": [
+        {
+          "term": "sobre la muerte",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre duelo",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre luto",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q049",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:society",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido social o cotidiano; no deduce postura política.",
+      "rationale": "Vida cotidiana y crítica social se conservan como contenidos relacionados, pero no equivalentes ni postura partidista acreditada.",
+      "falseFriends": [
+        "política necesariamente",
+        "hechos históricos corroborados",
+        "carácter rebelde"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Vida cotidiana y crítica social se conservan como contenidos relacionados, pero no equivalentes ni postura partidista acreditada.",
+      "aliasRules": [
+        {
+          "term": "sobre la sociedad",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "vida cotidiana",
+          "usage": "context_required",
+          "reason": "Vida cotidiana y crítica social se conservan como contenidos relacionados, pero no equivalentes ni postura partidista acreditada."
+        },
+        {
+          "term": "crítica social",
+          "usage": "context_required",
+          "reason": "Vida cotidiana y crítica social se conservan como contenidos relacionados, pero no equivalentes ni postura partidista acreditada."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q050",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:politics",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido político o de protesta; no implica un ánimo rebelde.",
+      "rationale": "Protesta política exige contenido legible y distinguir sátira, narración o voz citada del apoyo del autor.",
+      "falseFriends": [
+        "rebeldía musical",
+        "respaldo a todo discurso citado",
+        "nacionalidad"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Protesta política exige contenido legible y distinguir sátira, narración o voz citada del apoyo del autor.",
+      "aliasRules": [
+        {
+          "term": "sobre política",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "letras políticas",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "protesta social",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q051",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:war",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido bélico; no determina energía ni agresividad.",
+      "rationale": "Lo bélico debe aparecer en el contenido documentado; un título marcial o metal extremo no bastan.",
+      "falseFriends": [
+        "agresividad sonora",
+        "historia genérica",
+        "rapidez"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Lo bélico debe aparecer en el contenido documentado; un título marcial o metal extremo no bastan.",
+      "aliasRules": [
+        {
+          "term": "sobre la guerra",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "temática bélica",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q052",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:spirituality",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido religioso o espiritual; no demuestra actividad de meditar.",
+      "rationale": "Contenido espiritual/religioso puede ser narración o crítica y no acredita fe personal ni actividad de meditación.",
+      "falseFriends": [
+        "meditar",
+        "religión del intérprete",
+        "ambiente etéreo"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Contenido espiritual/religioso puede ser narración o crítica y no acredita fe personal ni actividad de meditación.",
+      "aliasRules": [
+        {
+          "term": "sobre religión",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre espiritualidad",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "temática religiosa",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q053",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:nature",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido natural; no demuestra ambiente sereno.",
+      "rationale": "Paisajes naturales como contenido requieren letra o documentación específica; sonidos de agua por sí solos no fijan tema narrativo.",
+      "falseFriends": [
+        "grabaciones de campo",
+        "serenidad",
+        "folk"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Paisajes naturales como contenido requieren letra o documentación específica; sonidos de agua por sí solos no fijan tema narrativo.",
+      "aliasRules": [
+        {
+          "term": "sobre naturaleza",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre la naturaleza",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "paisajes naturales",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q054",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:identity",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido de identidad cultural o personal; no acredita origen del artista.",
+      "rationale": "Identidad cultural o personal se atribuye al contenido documentado; no se convierte en dato sensible de personas.",
+      "falseFriends": [
+        "nacionalidad",
+        "género personal",
+        "pertenencia del usuario"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Identidad cultural o personal se atribuye al contenido documentado; no se convierte en dato sensible de personas.",
+      "aliasRules": [
+        {
+          "term": "sobre identidad",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "pertenencia",
+          "usage": "context_required",
+          "reason": "Identidad cultural o personal se atribuye al contenido documentado; no se convierte en dato sensible de personas."
+        },
+        {
+          "term": "raíces culturales",
+          "usage": "context_required",
+          "reason": "Identidad cultural o personal se atribuye al contenido documentado; no se convierte en dato sensible de personas."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q055",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:migration",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido de desplazamiento y exilio; no equivale a viajar.",
+      "rationale": "Desplazamiento, exilio y diáspora se distinguen de viaje recreativo; no inferir biografía del público o tema desde el título.",
+      "falseFriends": [
+        "actividad viajar",
+        "título El Avión",
+        "nacionalidad del oyente"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Desplazamiento, exilio y diáspora se distinguen de viaje recreativo; no inferir biografía del público o tema desde el título.",
+      "aliasRules": [
+        {
+          "term": "sobre migración",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre emigrar",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre exilio",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "diáspora",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q056",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:loneliness",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido sobre soledad; separado de carácter musical solitario.",
+      "rationale": "Soledad tratada en el contenido no equivale a emoción musical ni a situación actual del oyente.",
+      "falseFriends": [
+        "carácter solitario",
+        "tristeza",
+        "escucha a solas"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Soledad tratada en el contenido no equivale a emoción musical ni a situación actual del oyente.",
+      "aliasRules": [
+        {
+          "term": "sobre la soledad",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre aislamiento",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q057",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:mental-health",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido sobre salud mental; no es diagnóstico ni tratamiento.",
+      "rationale": "Depresión/ansiedad como contenido documentado no diagnostica al creador ni promete efecto terapéutico al oyente.",
+      "falseFriends": [
+        "diagnóstico",
+        "terapia",
+        "tristeza musical"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Depresión/ansiedad como contenido documentado no diagnostica al creador ni promete efecto terapéutico al oyente.",
+      "aliasRules": [
+        {
+          "term": "sobre salud mental",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre depresión",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre ansiedad",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q058",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:fantasy",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido fantástico o mitológico; no equivale a ambiente onírico.",
+      "rationale": "Seres mitológicos o sucesos fantásticos deben aparecer en el contenido; conservar límites con ciencia ficción y metáfora.",
+      "falseFriends": [
+        "ambiente onírico",
+        "ciencia ficción automática",
+        "título extraño"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Seres mitológicos o sucesos fantásticos deben aparecer en el contenido; conservar límites con ciencia ficción y metáfora.",
+      "aliasRules": [
+        {
+          "term": "sobre fantasía",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre mitología",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "seres mitológicos",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q059",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:science-fiction",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido de ciencia ficción; futurista sonoro requiere otro concepto futuro.",
+      "rationale": "La narración especulativa necesita contexto de ciencia ficción; sobre el futuro es demasiado amplio como sinónimo incondicional.",
+      "falseFriends": [
+        "sintetizadores",
+        "sonido futurista",
+        "cualquier referencia al futuro"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. La narración especulativa necesita contexto de ciencia ficción; sobre el futuro es demasiado amplio como sinónimo incondicional.",
+      "aliasRules": [
+        {
+          "term": "ciencia ficción",
+          "usage": "context_required",
+          "reason": "La narración especulativa necesita contexto de ciencia ficción; sobre el futuro es demasiado amplio como sinónimo incondicional."
+        },
+        {
+          "term": "sobre el futuro",
+          "usage": "context_required",
+          "reason": "La narración especulativa necesita contexto de ciencia ficción; sobre el futuro es demasiado amplio como sinónimo incondicional."
+        },
+        {
+          "term": "temática futurista",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q060",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:violence",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido de violencia o crimen; no demuestra ira musical.",
+      "rationale": "Violencia o crimen representados se separan de aprobación del discurso y de conducta real.",
+      "falseFriends": [
+        "ira sonora",
+        "volumen alto",
+        "conducta del intérprete"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Violencia o crimen representados se separan de aprobación del discurso y de conducta real.",
+      "aliasRules": [
+        {
+          "term": "sobre violencia",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre crimen",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q061",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:substances",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido que trata sustancias; no se infiere del estilo o ambiente.",
+      "rationale": "Alcohol/drogas como contenido no se infieren desde una estética ni acreditan consumo de ninguna persona.",
+      "falseFriends": [
+        "psicodelia sonora",
+        "conducta del autor",
+        "género"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Alcohol/drogas como contenido no se infieren desde una estética ni acreditan consumo de ninguna persona.",
+      "aliasRules": [
+        {
+          "term": "sobre alcohol",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre drogas",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "sobre sustancias",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q062",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:history",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido histórico; no es año de publicación ni nostalgia musical.",
+      "rationale": "Memoria histórica requiere contenido sobre pasado colectivo documentado; no es fecha de grabación o recuerdo personal por sí solo.",
+      "falseFriends": [
+        "año de edición",
+        "nostalgia",
+        "antigüedad del sonido"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Memoria histórica requiere contenido sobre pasado colectivo documentado; no es fecha de grabación o recuerdo personal por sí solo.",
+      "aliasRules": [
+        {
+          "term": "sobre historia",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        },
+        {
+          "term": "memoria histórica",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q063",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "theme:humor",
+      "kind": "concept",
+      "disposition": "refine",
+      "target": "dimension",
+      "definition": "Contenido humorístico o satírico; no demuestra ánimo alegre.",
+      "rationale": "Distinguir contenido humorístico/satírico y risa del oyente; reconocer sátira no equivale a apoyar el discurso citado.",
+      "falseFriends": [
+        "alegría",
+        "disfrute irónico del crítico",
+        "intención satírica garantizada"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Exigir fragmento de letra o documento adecuado sobre el contenido de esta obra y versión, identificando voz narrativa, cita o sátira cuando corresponda. El tema del artista o álbum no se hereda a pistas. Distinguir contenido humorístico/satírico y risa del oyente; reconocer sátira no equivale a apoyar el discurso citado.",
+      "aliasRules": [
+        {
+          "term": "humor",
+          "usage": "context_required",
+          "reason": "Distinguir contenido humorístico/satírico y risa del oyente; reconocer sátira no equivale a apoyar el discurso citado."
+        },
+        {
+          "term": "sátira",
+          "usage": "context_required",
+          "reason": "Distinguir contenido humorístico/satírico y risa del oyente; reconocer sátira no equivale a apoyar el discurso citado."
+        },
+        {
+          "term": "letras humorísticas",
+          "usage": "candidate_in_explicit_request",
+          "reason": "Candidato léxico de esta acepción; conservar sujeto, negación y alcance antes de normalizar."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "dictionary_case",
+          "id": "Q064",
+          "relation": "motivates_request_not_work_evidence"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:timbre.fuzz",
+      "kind": "facet",
+      "disposition": "propose_attribute",
+      "target": "attribute",
+      "definition": "Timbre identificado; separar parecido de pedal/modelo acreditado",
+      "rationale": "Registrar el timbre atribuido y su instrumento/rol cuando consten; el modelo de pedal necesita documentación técnica.",
+      "falseFriends": [
+        "fuzz como pedal concreto",
+        "cualquier distorsión",
+        "psicodelia como prueba"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Registrar el timbre atribuido y su instrumento/rol cuando consten; el modelo de pedal necesita documentación técnica.",
+      "aliasRules": [
+        {
+          "term": "guitarra fuzz",
+          "usage": "context_required",
+          "reason": "Registrar el timbre atribuido y su instrumento/rol cuando consten; el modelo de pedal necesita documentación técnica."
+        },
+        {
+          "term": "guitarra con pelusa",
+          "usage": "context_required",
+          "reason": "Registrar el timbre atribuido y su instrumento/rol cuando consten; el modelo de pedal necesita documentación técnica."
+        },
+        {
+          "term": "distorsión tipo fuzz",
+          "usage": "context_required",
+          "reason": "Registrar el timbre atribuido y su instrumento/rol cuando consten; el modelo de pedal necesita documentación técnica."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H01",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:timbre.abrasiveness",
+      "kind": "facet",
+      "disposition": "propose_attribute",
+      "target": "attribute",
+      "definition": "Cualidad del sonido y alcance; no medida de daño, volumen o agresividad humana",
+      "rationale": "Áspero describe una textura percibida, separada de fidelidad del archivo, energía y valoración del crítico.",
+      "falseFriends": [
+        "volumen",
+        "daño auditivo",
+        "ira",
+        "letra sucia"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Áspero describe una textura percibida, separada de fidelidad del archivo, energía y valoración del crítico.",
+      "aliasRules": [
+        {
+          "term": "áspero",
+          "usage": "context_required",
+          "reason": "Áspero describe una textura percibida, separada de fidelidad del archivo, energía y valoración del crítico."
+        },
+        {
+          "term": "abrasivo",
+          "usage": "context_required",
+          "reason": "Áspero describe una textura percibida, separada de fidelidad del archivo, energía y valoración del crítico."
+        },
+        {
+          "term": "rasposo",
+          "usage": "context_required",
+          "reason": "Áspero describe una textura percibida, separada de fidelidad del archivo, energía y valoración del crítico."
+        },
+        {
+          "term": "sonido que raspa",
+          "usage": "context_required",
+          "reason": "Áspero describe una textura percibida, separada de fidelidad del archivo, energía y valoración del crítico."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H12",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H35",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:arrangement.density",
+      "kind": "facet",
+      "disposition": "propose_attribute",
+      "target": "attribute",
+      "definition": "Acumulación/espacio del arreglo, precisando tramo o conjunto; no dificultad automática",
+      "rationale": "Precisar densidad de elementos simultáneos y tramo; denso no significa necesariamente muchas capas ni energía alta.",
+      "falseFriends": [
+        "complejidad",
+        "dificultad",
+        "número de pistas",
+        "volumen"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Precisar densidad de elementos simultáneos y tramo; denso no significa necesariamente muchas capas ni energía alta.",
+      "aliasRules": [
+        {
+          "term": "muchas capas",
+          "usage": "context_required",
+          "reason": "Precisar densidad de elementos simultáneos y tramo; denso no significa necesariamente muchas capas ni energía alta."
+        },
+        {
+          "term": "recargado",
+          "usage": "context_required",
+          "reason": "Precisar densidad de elementos simultáneos y tramo; denso no significa necesariamente muchas capas ni energía alta."
+        },
+        {
+          "term": "denso",
+          "usage": "context_required",
+          "reason": "Precisar densidad de elementos simultáneos y tramo; denso no significa necesariamente muchas capas ni energía alta."
+        },
+        {
+          "term": "despejado",
+          "usage": "context_required",
+          "reason": "Precisar densidad de elementos simultáneos y tramo; denso no significa necesariamente muchas capas ni energía alta."
+        },
+        {
+          "term": "pocos elementos",
+          "usage": "context_required",
+          "reason": "Precisar densidad de elementos simultáneos y tramo; denso no significa necesariamente muchas capas ni energía alta."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H12",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H25",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:production.fidelity-aesthetic",
+      "kind": "facet",
+      "disposition": "refine",
+      "target": "attribute",
+      "definition": "Estética percibida o proceso documentado; distinguir avería, compresión y remaster",
+      "rationale": "La revisión separó el valor compuesto anterior: W02 conserva estética lo-fi y W06 construcción ruidosa. Almost no confirma técnica exacta de bitcrushing.",
+      "falseFriends": [
+        "avería del archivo",
+        "bitcrushing confirmado",
+        "remasterización"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Distinguir estética percibida, construcción de ruido y proceso documentado; identidad y alcance deben corresponder a la misma unidad. La revisión separó el valor compuesto anterior: W02 conserva estética lo-fi y W06 construcción ruidosa. Almost no confirma técnica exacta de bitcrushing.",
+      "aliasRules": [
+        {
+          "term": "lo-fi",
+          "usage": "context_required",
+          "reason": "La revisión separó el valor compuesto anterior: W02 conserva estética lo-fi y W06 construcción ruidosa. Almost no confirma técnica exacta de bitcrushing."
+        },
+        {
+          "term": "de baja fidelidad",
+          "usage": "context_required",
+          "reason": "La revisión separó el valor compuesto anterior: W02 conserva estética lo-fi y W06 construcción ruidosa. Almost no confirma técnica exacta de bitcrushing."
+        },
+        {
+          "term": "sonido crudo",
+          "usage": "context_required",
+          "reason": "La revisión separó el valor compuesto anterior: W02 conserva estética lo-fi y W06 construcción ruidosa. Almost no confirma técnica exacta de bitcrushing."
+        },
+        {
+          "term": "sonido de maqueta",
+          "usage": "context_required",
+          "reason": "La revisión separó el valor compuesto anterior: W02 conserva estética lo-fi y W06 construcción ruidosa. Almost no confirma técnica exacta de bitcrushing."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H01",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H12",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-W02"
+      ]
+    },
+    {
+      "id": "candidate:production.sources",
+      "kind": "facet",
+      "disposition": "refine",
+      "target": "attribute",
+      "definition": "Procedencia/técnica explícita; «parece un sample» conserva incertidumbre",
+      "rationale": "Descomponer fuente percibida, procedimiento y origen documental del sample. Una mezcla de estilos descrita no prueba fuente de audio ni equipo.",
+      "falseFriends": [
+        "instrumento acreditado",
+        "sample identificado por metáfora",
+        "género asignado"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Descomponer fuente percibida, procedimiento y origen documental del sample. Una mezcla de estilos descrita no prueba fuente de audio ni equipo.",
+      "aliasRules": [
+        {
+          "term": "con samples",
+          "usage": "context_required",
+          "reason": "Descomponer fuente percibida, procedimiento y origen documental del sample. Una mezcla de estilos descrita no prueba fuente de audio ni equipo."
+        },
+        {
+          "term": "collage de sonidos",
+          "usage": "context_required",
+          "reason": "Descomponer fuente percibida, procedimiento y origen documental del sample. Una mezcla de estilos descrita no prueba fuente de audio ni equipo."
+        },
+        {
+          "term": "voces recortadas",
+          "usage": "context_required",
+          "reason": "Descomponer fuente percibida, procedimiento y origen documental del sample. Una mezcla de estilos descrita no prueba fuente de audio ni equipo."
+        },
+        {
+          "term": "grabaciones de calle",
+          "usage": "context_required",
+          "reason": "Descomponer fuente percibida, procedimiento y origen documental del sample. Una mezcla de estilos descrita no prueba fuente de audio ni equipo."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H12",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H17",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H31",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-W01",
+        "E2-W05"
+      ]
+    },
+    {
+      "id": "candidate:instrument.role",
+      "kind": "facet",
+      "disposition": "propose_attribute",
+      "target": "attribute",
+      "definition": "Instrumento más rol y alcance; parecido tímbrico no equivale a crédito",
+      "rationale": "Vincular instrumento percibido con función en la unidad. Una similitud de guitarra de C02 motiva el límite, pero no es crédito instrumental nuevo.",
+      "falseFriends": [
+        "timbre parecido",
+        "crédito verificado",
+        "ausencia por falta de mención"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Vincular instrumento percibido con función en la unidad. Una similitud de guitarra de C02 motiva el límite, pero no es crédito instrumental nuevo.",
+      "aliasRules": [
+        {
+          "term": "armónica protagonista",
+          "usage": "context_required",
+          "reason": "Vincular instrumento percibido con función en la unidad. Una similitud de guitarra de C02 motiva el límite, pero no es crédito instrumental nuevo."
+        },
+        {
+          "term": "guitarra al frente",
+          "usage": "context_required",
+          "reason": "Vincular instrumento percibido con función en la unidad. Una similitud de guitarra de C02 motiva el límite, pero no es crédito instrumental nuevo."
+        },
+        {
+          "term": "bajo profundo",
+          "usage": "context_required",
+          "reason": "Vincular instrumento percibido con función en la unidad. Una similitud de guitarra de C02 motiva el límite, pero no es crédito instrumental nuevo."
+        },
+        {
+          "term": "saxofón destacado",
+          "usage": "context_required",
+          "reason": "Vincular instrumento percibido con función en la unidad. Una similitud de guitarra de C02 motiva el límite, pero no es crédito instrumental nuevo."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H02",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H11",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H17",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H25",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-C02"
+      ]
+    },
+    {
+      "id": "candidate:vocals.mode",
+      "kind": "facet",
+      "disposition": "propose_attribute",
+      "target": "attribute",
+      "definition": "Modo de intervención vocal, por pista/programa/álbum; no deducirlo solo del género",
+      "rationale": "Canto, rap, habla y narración pueden coexistir; registrar modos y tramos sin convertir un programa hablado en disco musical.",
+      "falseFriends": [
+        "rap como género global",
+        "ausencia de letras",
+        "identidad vocal"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Canto, rap, habla y narración pueden coexistir; registrar modos y tramos sin convertir un programa hablado en disco musical.",
+      "aliasRules": [
+        {
+          "term": "cantado",
+          "usage": "context_required",
+          "reason": "Canto, rap, habla y narración pueden coexistir; registrar modos y tramos sin convertir un programa hablado en disco musical."
+        },
+        {
+          "term": "rapeado",
+          "usage": "context_required",
+          "reason": "Canto, rap, habla y narración pueden coexistir; registrar modos y tramos sin convertir un programa hablado en disco musical."
+        },
+        {
+          "term": "voz hablada",
+          "usage": "context_required",
+          "reason": "Canto, rap, habla y narración pueden coexistir; registrar modos y tramos sin convertir un programa hablado en disco musical."
+        },
+        {
+          "term": "narración",
+          "usage": "context_required",
+          "reason": "Canto, rap, habla y narración pueden coexistir; registrar modos y tramos sin convertir un programa hablado en disco musical."
+        },
+        {
+          "term": "mezcla de canto y rap",
+          "usage": "context_required",
+          "reason": "Canto, rap, habla y narración pueden coexistir; registrar modos y tramos sin convertir un programa hablado en disco musical."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H10",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H34",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H38",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:vocals.prominence",
+      "kind": "facet",
+      "disposition": "refine",
+      "target": "attribute",
+      "definition": "Relación voz/arreglo con evidencia de mezcla y cobertura; no confundir instrumental con sin palabras",
+      "rationale": "Separar presencia, prominencia en mezcla y cantidad; casi sin voz admite excepciones y no satisface exclusión de voces.",
+      "falseFriends": [
+        "instrumental",
+        "ausencia total de voz",
+        "inexistencia de palabras"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Separar presencia, prominencia en mezcla y cantidad; casi sin voz admite excepciones y no satisface exclusión de voces.",
+      "aliasRules": [
+        {
+          "term": "voz al frente",
+          "usage": "context_required",
+          "reason": "Separar presencia, prominencia en mezcla y cantidad; casi sin voz admite excepciones y no satisface exclusión de voces."
+        },
+        {
+          "term": "voz enterrada",
+          "usage": "context_required",
+          "reason": "Separar presencia, prominencia en mezcla y cantidad; casi sin voz admite excepciones y no satisface exclusión de voces."
+        },
+        {
+          "term": "voz como otra textura",
+          "usage": "context_required",
+          "reason": "Separar presencia, prominencia en mezcla y cantidad; casi sin voz admite excepciones y no satisface exclusión de voces."
+        },
+        {
+          "term": "casi sin voz",
+          "usage": "context_required",
+          "reason": "Separar presencia, prominencia en mezcla y cantidad; casi sin voz admite excepciones y no satisface exclusión de voces."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H19",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H38",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-W04"
+      ]
+    },
+    {
+      "id": "candidate:vocals.delivery",
+      "kind": "facet",
+      "disposition": "propose_attribute",
+      "target": "attribute",
+      "definition": "Forma expresiva atribuida, independiente de potencia técnica o identidad de intérprete",
+      "rationale": "Conservar interpretación vocal expresiva como percepción atribuida; drama no mide técnica ni intensidad de todo el arreglo.",
+      "falseFriends": [
+        "energía ordinal",
+        "virtuosismo",
+        "emoción del oyente"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Conservar interpretación vocal expresiva como percepción atribuida; drama no mide técnica ni intensidad de todo el arreglo.",
+      "aliasRules": [
+        {
+          "term": "voz vulnerable",
+          "usage": "context_required",
+          "reason": "Conservar interpretación vocal expresiva como percepción atribuida; drama no mide técnica ni intensidad de todo el arreglo."
+        },
+        {
+          "term": "dramática",
+          "usage": "context_required",
+          "reason": "Conservar interpretación vocal expresiva como percepción atribuida; drama no mide técnica ni intensidad de todo el arreglo."
+        },
+        {
+          "term": "enfática",
+          "usage": "context_required",
+          "reason": "Conservar interpretación vocal expresiva como percepción atribuida; drama no mide técnica ni intensidad de todo el arreglo."
+        },
+        {
+          "term": "calmada",
+          "usage": "context_required",
+          "reason": "Conservar interpretación vocal expresiva como percepción atribuida; drama no mide técnica ni intensidad de todo el arreglo."
+        },
+        {
+          "term": "contenida",
+          "usage": "context_required",
+          "reason": "Conservar interpretación vocal expresiva como percepción atribuida; drama no mide técnica ni intensidad de todo el arreglo."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H07",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H19",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H28",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:vocals.variation",
+      "kind": "facet",
+      "disposition": "propose_attribute",
+      "target": "attribute",
+      "definition": "Variedad de entrega según testigo y referencia, conservando discrepancias",
+      "rationale": "Precisar variedad de entrega vocal dentro de pista o entre pistas y referencia temporal; valoraciones opuestas no niegan por sí solas variación.",
+      "falseFriends": [
+        "variedad rítmica del acompañamiento",
+        "gusto",
+        "ausencia de canto"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Precisar variedad de entrega vocal dentro de pista o entre pistas y referencia temporal; valoraciones opuestas no niegan por sí solas variación.",
+      "aliasRules": [
+        {
+          "term": "cambios de flow",
+          "usage": "context_required",
+          "reason": "Precisar variedad de entrega vocal dentro de pista o entre pistas y referencia temporal; valoraciones opuestas no niegan por sí solas variación."
+        },
+        {
+          "term": "distintas formas de cantar",
+          "usage": "context_required",
+          "reason": "Precisar variedad de entrega vocal dentro de pista o entre pistas y referencia temporal; valoraciones opuestas no niegan por sí solas variación."
+        },
+        {
+          "term": "entrega uniforme",
+          "usage": "context_required",
+          "reason": "Precisar variedad de entrega vocal dentro de pista o entre pistas y referencia temporal; valoraciones opuestas no niegan por sí solas variación."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H09",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H34",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:vocals.treatment",
+      "kind": "facet",
+      "disposition": "propose_attribute",
+      "target": "attribute",
+      "definition": "Tratamiento audible declarado; técnica/equipo solo si documentados",
+      "rationale": "Tratamiento percibido y procedimiento acreditado se registran aparte; acelerada puede ser versión distinta y exige vínculo documentado.",
+      "falseFriends": [
+        "modelo de efecto",
+        "género vocal",
+        "identidad del cantante"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Tratamiento percibido y procedimiento acreditado se registran aparte; acelerada puede ser versión distinta y exige vínculo documentado.",
+      "aliasRules": [
+        {
+          "term": "voz filtrada",
+          "usage": "context_required",
+          "reason": "Tratamiento percibido y procedimiento acreditado se registran aparte; acelerada puede ser versión distinta y exige vínculo documentado."
+        },
+        {
+          "term": "procesada",
+          "usage": "context_required",
+          "reason": "Tratamiento percibido y procedimiento acreditado se registran aparte; acelerada puede ser versión distinta y exige vínculo documentado."
+        },
+        {
+          "term": "distorsionada",
+          "usage": "context_required",
+          "reason": "Tratamiento percibido y procedimiento acreditado se registran aparte; acelerada puede ser versión distinta y exige vínculo documentado."
+        },
+        {
+          "term": "acelerada",
+          "usage": "context_required",
+          "reason": "Tratamiento percibido y procedimiento acreditado se registran aparte; acelerada puede ser versión distinta y exige vínculo documentado."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H09",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H34",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:rhythm.pattern",
+      "kind": "facet",
+      "disposition": "propose_attribute",
+      "target": "attribute",
+      "definition": "Patrón/movimiento con evidencia concreta; no asigna BPM, energía o actividad",
+      "rationale": "Patrón reconocible, groove y variación rítmica son atributos relacionados pero distintos; V01 motiva separarlos, no prueba dembow.",
+      "falseFriends": [
+        "BPM",
+        "actividad bailar",
+        "energía",
+        "género universal"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Patrón reconocible, groove y variación rítmica son atributos relacionados pero distintos; V01 motiva separarlos, no prueba dembow.",
+      "aliasRules": [
+        {
+          "term": "dembow reconocible",
+          "usage": "context_required",
+          "reason": "Patrón reconocible, groove y variación rítmica son atributos relacionados pero distintos; V01 motiva separarlos, no prueba dembow."
+        },
+        {
+          "term": "ritmo de reggaetón",
+          "usage": "context_required",
+          "reason": "Patrón reconocible, groove y variación rítmica son atributos relacionados pero distintos; V01 motiva separarlos, no prueba dembow."
+        },
+        {
+          "term": "groove marcado",
+          "usage": "context_required",
+          "reason": "Patrón reconocible, groove y variación rítmica son atributos relacionados pero distintos; V01 motiva separarlos, no prueba dembow."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H31",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H32",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-C01",
+        "E2-V01"
+      ]
+    },
+    {
+      "id": "candidate:structure.narrative",
+      "kind": "facet",
+      "disposition": "refine",
+      "target": "attribute",
+      "definition": "Concepto/narración; diferenciar intención autoral de lectura simbólica",
+      "rationale": "Separar arco narrativo interpretado e intención documental. V03 destaca relato sin identificar tema y no acredita disco conceptual.",
+      "falseFriends": [
+        "intención autoral",
+        "letra temática precisa",
+        "relato del videoclip"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Separar arco narrativo interpretado e intención documental. V03 destaca relato sin identificar tema y no acredita disco conceptual.",
+      "aliasRules": [
+        {
+          "term": "disco conceptual",
+          "usage": "context_required",
+          "reason": "Separar arco narrativo interpretado e intención documental. V03 destaca relato sin identificar tema y no acredita disco conceptual."
+        },
+        {
+          "term": "una historia",
+          "usage": "context_required",
+          "reason": "Separar arco narrativo interpretado e intención documental. V03 destaca relato sin identificar tema y no acredita disco conceptual."
+        },
+        {
+          "term": "relato que se desarrolla",
+          "usage": "context_required",
+          "reason": "Separar arco narrativo interpretado e intención documental. V03 destaca relato sin identificar tema y no acredita disco conceptual."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H14",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H17",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-V03"
+      ]
+    },
+    {
+      "id": "candidate:structure.continuity",
+      "kind": "facet",
+      "disposition": "refine",
+      "target": "attribute",
+      "definition": "Distinguir flujo de ideas, enlaces musicales y continuidad técnica; evidencia específica para cada uno",
+      "rationale": "Distinguir continuidad técnica, transiciones musicales y cohesión percibida; cada una requiere evidencia y versión propia.",
+      "falseFriends": [
+        "ausencia técnica de cortes",
+        "DJ Mix como tipo",
+        "ideas cohesionadas"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Distinguir continuidad técnica, transiciones musicales y cohesión percibida; cada una requiere evidencia y versión propia.",
+      "aliasRules": [
+        {
+          "term": "de corrido",
+          "usage": "context_required",
+          "reason": "Distinguir continuidad técnica, transiciones musicales y cohesión percibida; cada una requiere evidencia y versión propia."
+        },
+        {
+          "term": "como una sola pieza",
+          "usage": "context_required",
+          "reason": "Distinguir continuidad técnica, transiciones musicales y cohesión percibida; cada una requiere evidencia y versión propia."
+        },
+        {
+          "term": "temas conectados",
+          "usage": "context_required",
+          "reason": "Distinguir continuidad técnica, transiciones musicales y cohesión percibida; cada una requiere evidencia y versión propia."
+        },
+        {
+          "term": "sin cortes",
+          "usage": "context_required",
+          "reason": "Distinguir continuidad técnica, transiciones musicales y cohesión percibida; cada una requiere evidencia y versión propia."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H14",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H20",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:structure.development",
+      "kind": "facet",
+      "disposition": "refine",
+      "target": "attribute",
+      "definition": "Desarrollo temporal y alcance; una pista breve no implica idea incompleta",
+      "rationale": "Distinguir desarrollo de ideas, prolongación percibida y deseo de mayor extensión. K01 es hipotético y K02 critica longitud, sin demostrar desarrollo compositivo suficiente. W06 sí describe construcción ruidosa en la pista, con cita explícita.",
+      "falseFriends": [
+        "duración objetiva",
+        "falta de variedad",
+        "intención hipotética del autor"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Distinguir desarrollo de ideas, prolongación percibida y deseo de mayor extensión. K01 es hipotético y K02 critica longitud, sin demostrar desarrollo compositivo suficiente. W06 conserva esa descripción separada de K02.",
+      "aliasRules": [
+        {
+          "term": "que crezca",
+          "usage": "context_required",
+          "reason": "Distinguir desarrollo de ideas, prolongación percibida y deseo de mayor extensión. K01 es hipotético y K02 critica longitud, sin demostrar desarrollo compositivo suficiente."
+        },
+        {
+          "term": "que desarrolle ideas",
+          "usage": "context_required",
+          "reason": "Distinguir desarrollo de ideas, prolongación percibida y deseo de mayor extensión. K01 es hipotético y K02 critica longitud, sin demostrar desarrollo compositivo suficiente."
+        },
+        {
+          "term": "fragmentos",
+          "usage": "context_required",
+          "reason": "Distinguir desarrollo de ideas, prolongación percibida y deseo de mayor extensión. K01 es hipotético y K02 critica longitud, sin demostrar desarrollo compositivo suficiente."
+        },
+        {
+          "term": "finales abruptos",
+          "usage": "context_required",
+          "reason": "Distinguir desarrollo de ideas, prolongación percibida y deseo de mayor extensión. K01 es hipotético y K02 critica longitud, sin demostrar desarrollo compositivo suficiente."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H05",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H20",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-K01",
+        "E2-K02",
+        "E2-W06"
+      ]
+    },
+    {
+      "id": "candidate:structure.arc",
+      "kind": "facet",
+      "disposition": "refine",
+      "target": "attribute",
+      "definition": "Relación entre partes, sin heredar al conjunto las características de una sección",
+      "rationale": "Registrar relación apertura/desarrollo/cierre con sus segmentos; T02 solo cubre apertura y V02 expresa expectativa de cierre, no ausencia formal.",
+      "falseFriends": [
+        "rasgo del cierre heredado a todo el álbum",
+        "satisfacción",
+        "continuidad técnica"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Registrar relación apertura/desarrollo/cierre con sus segmentos; T02 solo cubre apertura y V02 expresa expectativa de cierre, no ausencia formal.",
+      "aliasRules": [
+        {
+          "term": "que cambie de ambiente",
+          "usage": "context_required",
+          "reason": "Registrar relación apertura/desarrollo/cierre con sus segmentos; T02 solo cubre apertura y V02 expresa expectativa de cierre, no ausencia formal."
+        },
+        {
+          "term": "apertura que presente el disco",
+          "usage": "context_required",
+          "reason": "Registrar relación apertura/desarrollo/cierre con sus segmentos; T02 solo cubre apertura y V02 expresa expectativa de cierre, no ausencia formal."
+        },
+        {
+          "term": "cierre distinto",
+          "usage": "context_required",
+          "reason": "Registrar relación apertura/desarrollo/cierre con sus segmentos; T02 solo cubre apertura y V02 expresa expectativa de cierre, no ausencia formal."
+        },
+        {
+          "term": "final instrumental",
+          "usage": "context_required",
+          "reason": "Registrar relación apertura/desarrollo/cierre con sus segmentos; T02 solo cubre apertura y V02 expresa expectativa de cierre, no ausencia formal."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H23",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H29",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H36",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-T02",
+        "E2-V02"
+      ]
+    },
+    {
+      "id": "candidate:structure.repetition-object",
+      "kind": "facet",
+      "disposition": "refine",
+      "target": "attribute",
+      "definition": "Precisar qué se repite y valoración del autor; no usar monotonía como sinónimo objetivo",
+      "rationale": "Nombrar qué se repite y a qué escala; T03 conserva percepción de monotonía sin inventar motivo, ritmo o técnica repetida.",
+      "falseFriends": [
+        "monotonía objetiva",
+        "calidad",
+        "BPM fijo"
+      ],
+      "scope": [
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Nombrar qué se repite y a qué escala; T03 conserva percepción de monotonía sin inventar motivo, ritmo o técnica repetida.",
+      "aliasRules": [
+        {
+          "term": "bases repetidas",
+          "usage": "context_required",
+          "reason": "Nombrar qué se repite y a qué escala; T03 conserva percepción de monotonía sin inventar motivo, ritmo o técnica repetida."
+        },
+        {
+          "term": "misma entrega",
+          "usage": "context_required",
+          "reason": "Nombrar qué se repite y a qué escala; T03 conserva percepción de monotonía sin inventar motivo, ritmo o técnica repetida."
+        },
+        {
+          "term": "temas líricos parecidos",
+          "usage": "context_required",
+          "reason": "Nombrar qué se repite y a qué escala; T03 conserva percepción de monotonía sin inventar motivo, ritmo o técnica repetida."
+        },
+        {
+          "term": "motivos recurrentes",
+          "usage": "context_required",
+          "reason": "Nombrar qué se repite y a qué escala; T03 conserva percepción de monotonía sin inventar motivo, ritmo o técnica repetida."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H09",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H34",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H36",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-T03"
+      ]
+    },
+    {
+      "id": "candidate:listening.perceived-length",
+      "kind": "facet",
+      "disposition": "propose_relation",
+      "target": "relation",
+      "definition": "Experiencia atribuida; minutos/número de pistas permanecen como metadatos distintos",
+      "rationale": "Conservar experiencia de extensión respecto de expectativas; K02 critica que se prolonga, sin convertirlo en duración cronométrica.",
+      "falseFriends": [
+        "minutos",
+        "número de canciones",
+        "calidad universal"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Conservar experiencia de extensión respecto de expectativas; K02 critica que se prolonga, sin convertirlo en duración cronométrica.",
+      "aliasRules": [
+        {
+          "term": "se hace largo",
+          "usage": "context_required",
+          "reason": "Conservar experiencia de extensión respecto de expectativas; K02 critica que se prolonga, sin convertirlo en duración cronométrica."
+        },
+        {
+          "term": "compacto",
+          "usage": "context_required",
+          "reason": "Conservar experiencia de extensión respecto de expectativas; K02 critica que se prolonga, sin convertirlo en duración cronométrica."
+        },
+        {
+          "term": "sobran temas",
+          "usage": "context_required",
+          "reason": "Conservar experiencia de extensión respecto de expectativas; K02 critica que se prolonga, sin convertirlo en duración cronométrica."
+        },
+        {
+          "term": "se queda corto",
+          "usage": "context_required",
+          "reason": "Conservar experiencia de extensión respecto de expectativas; K02 critica que se prolonga, sin convertirlo en duración cronométrica."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H05",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H09",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H36",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-K02"
+      ]
+    },
+    {
+      "id": "candidate:reception.acclimatization",
+      "kind": "facet",
+      "disposition": "propose_relation",
+      "target": "relation",
+      "definition": "Trayectoria declarada por autor, no atributo ni promesa universal de la obra",
+      "rationale": "Registrar autor y momentos de escucha; distinguir trayectoria de apreciación y revisión de captura. W03 es una experiencia individual.",
+      "falseFriends": [
+        "mejora objetiva",
+        "recomendación universal",
+        "revisión del mismo texto"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Registrar autor y momentos de escucha; distinguir trayectoria de apreciación y revisión de captura. W03 es una experiencia individual.",
+      "aliasRules": [
+        {
+          "term": "gana con escuchas",
+          "usage": "context_required",
+          "reason": "Registrar autor y momentos de escucha; distinguir trayectoria de apreciación y revisión de captura. W03 es una experiencia individual."
+        },
+        {
+          "term": "al principio no entraba",
+          "usage": "context_required",
+          "reason": "Registrar autor y momentos de escucha; distinguir trayectoria de apreciación y revisión de captura. W03 es una experiencia individual."
+        },
+        {
+          "term": "revela detalles",
+          "usage": "context_required",
+          "reason": "Registrar autor y momentos de escucha; distinguir trayectoria de apreciación y revisión de captura. W03 es una experiencia individual."
+        },
+        {
+          "term": "cuesta entrar",
+          "usage": "context_required",
+          "reason": "Registrar autor y momentos de escucha; distinguir trayectoria de apreciación y revisión de captura. W03 es una experiencia individual."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H21",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H37",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-W03"
+      ]
+    },
+    {
+      "id": "candidate:access.lyric-comprehension",
+      "kind": "facet",
+      "disposition": "propose_relation",
+      "target": "relation",
+      "definition": "Necesidad o condición lingüística del oyente; no inferir idioma natal ni afirmar disponibilidad de traducciones",
+      "rationale": "Modelar oyente, obra, idioma/condición y necesidad de acceso; no atributo sonoro de la obra ni disponibilidad de una traducción no verificada.",
+      "falseFriends": [
+        "idioma nativo",
+        "traducción disponible",
+        "inteligencia",
+        "género"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Modelar oyente, obra, idioma/condición y necesidad de acceso; no atributo sonoro de la obra ni disponibilidad de una traducción no verificada.",
+      "aliasRules": [
+        {
+          "term": "quiero seguir las letras",
+          "usage": "context_required",
+          "reason": "Modelar oyente, obra, idioma/condición y necesidad de acceso; no atributo sonoro de la obra ni disponibilidad de una traducción no verificada."
+        },
+        {
+          "term": "con traducción",
+          "usage": "context_required",
+          "reason": "Modelar oyente, obra, idioma/condición y necesidad de acceso; no atributo sonoro de la obra ni disponibilidad de una traducción no verificada."
+        },
+        {
+          "term": "entender lo que dice",
+          "usage": "context_required",
+          "reason": "Modelar oyente, obra, idioma/condición y necesidad de acceso; no atributo sonoro de la obra ni disponibilidad de una traducción no verificada."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H10",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H22",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:reception.cultural-familiarity",
+      "kind": "facet",
+      "disposition": "propose_relation",
+      "target": "relation",
+      "definition": "Relación autobiográfica atribuida; no filtro de nacionalidad del público",
+      "rationale": "Modelar experiencia situada del testigo con referencias culturales; conservar privacidad y no usar como perfil demográfico.",
+      "falseFriends": [
+        "nacionalidad del usuario",
+        "tema migración",
+        "nostalgia universal"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Modelar experiencia situada del testigo con referencias culturales; conservar privacidad y no usar como perfil demográfico.",
+      "aliasRules": [
+        {
+          "term": "me recuerda mi país",
+          "usage": "context_required",
+          "reason": "Modelar experiencia situada del testigo con referencias culturales; conservar privacidad y no usar como perfil demográfico."
+        },
+        {
+          "term": "reconozco esos sonidos",
+          "usage": "context_required",
+          "reason": "Modelar experiencia situada del testigo con referencias culturales; conservar privacidad y no usar como perfil demográfico."
+        },
+        {
+          "term": "no tengo ese contexto",
+          "usage": "context_required",
+          "reason": "Modelar experiencia situada del testigo con referencias culturales; conservar privacidad y no usar como perfil demográfico."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H13",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": []
+    },
+    {
+      "id": "candidate:affinity.aspect",
+      "kind": "facet",
+      "disposition": "propose_relation",
+      "target": "relation",
+      "definition": "Obra/persona de referencia más aspecto, dirección y período si corresponde",
+      "rationale": "Exigir referencia resuelta o externa documentada, aspecto, sentido, polaridad, período y fuente. Boards of Canada y DEVO conservan aspecto pendiente; Jumbo conserva identidad pendiente.",
+      "falseFriends": [
+        "influencia documental",
+        "parecido global",
+        "identidad por nombre"
+      ],
+      "scope": [
+        "listener",
+        "track",
+        "album",
+        "recording",
+        "edition"
+      ],
+      "assignmentCriterion": "Conservar afirmación, objeto, estado, versión, segmento y fuente; descripción atribuida no es hecho técnico ni autorización de catálogo. Exigir referencia resuelta o externa documentada, aspecto, sentido, polaridad, período y fuente. Boards of Canada y DEVO conservan aspecto pendiente; Jumbo conserva identidad pendiente.",
+      "aliasRules": [
+        {
+          "term": "bases a lo Griselda",
+          "usage": "context_required",
+          "reason": "Exigir referencia resuelta o externa documentada, aspecto, sentido, polaridad, período y fuente. Boards of Canada y DEVO conservan aspecto pendiente; Jumbo conserva identidad pendiente."
+        },
+        {
+          "term": "sonido más electrónico que antes",
+          "usage": "context_required",
+          "reason": "Exigir referencia resuelta o externa documentada, aspecto, sentido, polaridad, período y fuente. Boards of Canada y DEVO conservan aspecto pendiente; Jumbo conserva identidad pendiente."
+        },
+        {
+          "term": "voz que recuerda a X",
+          "usage": "context_required",
+          "reason": "Exigir referencia resuelta o externa documentada, aspecto, sentido, polaridad, período y fuente. Boards of Canada y DEVO conservan aspecto pendiente; Jumbo conserva identidad pendiente."
+        }
+      ],
+      "motivation": [
+        {
+          "kind": "pilot_finding",
+          "id": "H06",
+          "relation": "motivates_attribute_not_global_validation"
+        },
+        {
+          "kind": "pilot_finding",
+          "id": "H30",
+          "relation": "motivates_attribute_not_global_validation"
+        }
+      ],
+      "annotationRefs": [
+        "E2-K04",
+        "E2-C03",
+        "E2-C04"
+      ]
+    }
+  ]
+}

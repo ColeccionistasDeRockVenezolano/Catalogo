@@ -49,6 +49,7 @@ import { registerAliasRoutes } from "./routes/aliases.js";
 import { registerAuditRoutes } from "./routes/audit.js";
 import { registerChangeRoutes } from "./routes/changes.js";
 import { registerCurationRoutes } from "./routes/curation.js";
+import { registerSearchHumanReviewRoutes } from "./routes/search-human-review.js";
 import { registerCurationActionRoutes } from "./routes/curation-actions.js";
 import { registerCurationAutofixRoutes } from "./routes/curation-autofix.js";
 import { registerImageCandidateRoutes } from "./routes/image-candidates.js";
@@ -92,6 +93,7 @@ export async function buildApp(): Promise<FastifyInstance> {
     // declarado distinto del de la API — pasó con el QA de administración
     // (2026-09-18): la web de desarrollo no podía guardar nada.
     methods: ["GET", "HEAD", "POST", "PUT", "PATCH", "DELETE"],
+    exposedHeaders: ["x-crv-search-receipt"],
     allowedHeaders: ["content-type", "authorization", "x-crv-operator", "x-crv-csrf"],
   });
 
@@ -123,7 +125,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   });
   await app.register(swaggerUi, { routePrefix: "/docs" });
 
-  app.setErrorHandler((error: Error, _request, reply) => {
+  app.setErrorHandler((error: Error, request, reply) => {
     const expected = toApiError(error);
     if (expected) {
       reply.status(expected.statusCode).send({
@@ -135,10 +137,10 @@ export async function buildApp(): Promise<FastifyInstance> {
     // con statusCode; el resto es un fallo real que se registra y no se disfraza.
     const statusCode = (error as { statusCode?: number }).statusCode;
     if (statusCode !== undefined && statusCode < 500) {
-      reply.status(statusCode).send({ error: { code: "bad_request", message: error.message } });
+      reply.status(statusCode).send({ error: { code: "bad_request", message: request.url.startsWith("/search") ? "Parámetros de petición inválidos" : error.message } });
       return;
     }
-    log.error({ err: error }, "error no controlado en la API");
+    log.error(request.url.startsWith("/search") ? { code: "unhandled_api_error" } : { err: error }, "error no controlado en la API");
     reply.status(500).send({ error: { code: "internal_error", message: "error interno" } });
   });
 
@@ -179,6 +181,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerAuditRoutes(app);
   await registerChangeRoutes(app);
   await registerCurationRoutes(app);
+  await registerSearchHumanReviewRoutes(app);
   await registerCurationActionRoutes(app);
   await registerCurationAutofixRoutes(app);
   await registerImageCandidateRoutes(app);

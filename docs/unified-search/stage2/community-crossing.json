@@ -1,0 +1,966 @@
+{
+  "version": "crv-community-crossing-0.5.0",
+  "analyst": "Codex",
+  "captures": [
+    {
+      "albumId": 26161,
+      "html": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_kid606_kill-sound-before-sound-kills-you.html",
+      "metadata": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_kid606_kill-sound-before-sound-kills-you.json",
+      "htmlHash": "7866882bb05e6d1e01e7fe09b65619e66a0139f658f7130f58ca475463f458ad",
+      "metadataHash": "55b1704664d3e1734e1d550373baae6b04a6eacd67ca162951e9711a177a6bf9",
+      "readingVersion": "crv-community-crossing-0.3.0"
+    },
+    {
+      "albumId": 27004,
+      "html": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_weed420_esto-no-es-un-show.html",
+      "metadata": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_weed420_esto-no-es-un-show.json",
+      "htmlHash": "b7fdded620de298f959b3d90ffc5aad01aeb1998eb7c49fc71dceb0b04343737",
+      "metadataHash": "72e1e778a7c840274e26a8a962478d0b984d34bb1c648dbc899c6a2c5f1c85a5",
+      "readingVersion": "crv-community-crossing-0.3.0"
+    },
+    {
+      "albumId": 4367,
+      "html": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_la-vida-boheme_caribe-caribe.html",
+      "metadata": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_la-vida-boheme_caribe-caribe.json",
+      "htmlHash": "7798fffab73bbe4ce6c21f3c63b1af25a1ba7cb65b7508672b7f30e2ec1ba2d0",
+      "metadataHash": "0d3e0ce5685f25ccca7371e8a2f4984b9d247fd4e4b498599b66f8fce085da65",
+      "readingVersion": "crv-community-crossing-0.3.0"
+    },
+    {
+      "albumId": 5547,
+      "html": "data/raw/fuentes-web-2026-10-01/rym-etapa3/pages/rel_album_la-vida-boheme_tierra-de-nadie.html",
+      "metadata": "data/raw/fuentes-web-2026-10-01/rym-etapa3/pages/rel_album_la-vida-boheme_tierra-de-nadie.json",
+      "htmlHash": "031a199bdf85dae5c924cdf2b9efa1c7ce3792285446c0c8dbb96948cd617a04",
+      "metadataHash": "14efd310968e831864f5418489e581449540079dca2051834de36c29cf1b5841",
+      "readingVersion": "crv-community-crossing-0.3.0"
+    },
+    {
+      "albumId": 5596,
+      "html": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_viniloversus_la-frontera.html",
+      "metadata": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_viniloversus_la-frontera.json",
+      "htmlHash": "1e8c799dac39debb611e66fa48e17cfe5b5373be002d2f82814a8e023b18eb0c",
+      "metadataHash": "62c99c677d5eb21c4a09b726b26b9efc1fe78a9f5a0e0d7bd3cc1980f4223411",
+      "readingVersion": "crv-community-crossing-0.3.0"
+    },
+    {
+      "albumId": 234,
+      "html": "data/raw/fuentes-web-2026-10-01/rym-etapa3/pages/rel_album_ladies-w_c_ladies-w_c.html",
+      "metadata": "data/raw/fuentes-web-2026-10-01/rym-etapa3/pages/rel_album_ladies-w_c_ladies-w_c.json",
+      "htmlHash": "bcf913fcb0ada2476b29fe5e842cf6585c2d4c963b59d1f10902693fc2ad23e6",
+      "metadataHash": "fcdd28cc56a4b8f8db12566a694f56888eb0695a5c8eae6863db3c7486d9da3b",
+      "readingVersion": "crv-community-crossing-0.4.0"
+    },
+    {
+      "albumId": 22337,
+      "html": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_los-prisioneros_pateando-piedras.html",
+      "metadata": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_los-prisioneros_pateando-piedras.json",
+      "htmlHash": "c331ec51388f29e5d47bcce9a138974e1e978eb58de715d4cc76a3941e81e2f8",
+      "metadataHash": "ef2fe24317e84a593ec227fd0a0f3022f1cdac07485302875150b73f8f557efd"
+    },
+    {
+      "albumId": 12740,
+      "html": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_arca_mutant.html",
+      "metadata": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages/rel_album_arca_mutant.json",
+      "htmlHash": "e66d36912809855a16995eaeedfe9508df8c84fc1390f5b87f3f43281e319030",
+      "metadataHash": "4cbd8b4b1e24f85bb065c87e8a86da02699e1d5dd999cf47d72f8be641b87ff3"
+    }
+  ],
+  "readings": [
+    {
+      "annotationId": "E2-K01",
+      "terms": [
+        "Glitch",
+        "IDM",
+        "sampling"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum, no Ecstasy Motherfucker; además la frase de reseña imagina intenciones. No contar los tags como testigos de esa pista.",
+      "genres": [
+        "glitch",
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Definiciones generales de manipulación electrónica y experimentación; no acreditan la duración o el proceso de esta pista."
+    },
+    {
+      "annotationId": "E2-K02",
+      "terms": [
+        "rhythmic"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Un descriptor rítmico del álbum no resuelve la extensión percibida ni el rechazo del autor en esta pista.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Experimentación no implica duración larga ni falta de variedad en una grabación."
+    },
+    {
+      "annotationId": "E2-K03",
+      "terms": [
+        "energetic",
+        "manic"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La reseña niega caos en Parenthood; la ficha califica al álbum. El contraste de niveles no constituye contradicción sobre la misma unidad.",
+      "genres": [
+        "ambient"
+      ],
+      "genreRelation": "refines",
+      "genreReason": "Ambient ayuda a interpretar la alusión literal del reseñista; no demuestra calma, ausencia de caos ni adecuación para dormir."
+    },
+    {
+      "annotationId": "E2-K04",
+      "terms": [
+        "IDM"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El término del álbum no determina el aspecto del parecido entre Parenthood y Boards of Canada.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Compartir un ámbito estilístico no documenta parecido de voz, timbre o composición."
+    },
+    {
+      "annotationId": "E2-K05",
+      "terms": [
+        "playful"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El elogio genérico no expresa un rasgo al que se pueda vincular el descriptor de la ficha.",
+      "genres": [
+        "glitch"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La definición no convierte un elogio en evidencia sonora."
+    },
+    {
+      "annotationId": "E2-W01",
+      "terms": [
+        "Post-Rock",
+        "sampling",
+        "noisy"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "La ficha comparte el término post-rock y términos de textura/muestreo en el álbum. Es convergencia de vocabulario de una plataforma; no acredita equipo, técnica o múltiples oyentes independientes.",
+      "genres": [
+        "ambient"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La presencia de Ambient en la ficha no acredita sintetizadores saturados ni todos los géneros citados por la reseña."
+    },
+    {
+      "annotationId": "E2-W02",
+      "terms": [
+        "lo-fi",
+        "noisy"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Los descriptores del álbum no prueban el sonido ni el procesamiento de El chiste más largo de la historia / Terminal. La reseña solo aproxima bitcrushing.",
+      "genres": [
+        "glitch"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La definición de artefactos digitales no permite identificar bitcrushing en la pista sin evidencia específica."
+    },
+    {
+      "annotationId": "E2-W03",
+      "terms": [
+        "progressive"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Progressive en la ficha no explica un cambio de valoración en una segunda escucha; no confundir evolución musical y familiarización del oyente.",
+      "genres": [
+        "ambient"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "El conocimiento de un estilo no predice cómo cambiará la recepción de una persona."
+    },
+    {
+      "annotationId": "E2-W04",
+      "terms": [
+        "instrumental",
+        "male vocalist"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Instrumental y male vocalist coexisten en la misma ficha. Casi sin voces admite excepciones; no convertirlo en ausencia vocal total ni resolverlo por mayoría de descriptores.",
+      "genres": [
+        "ambient"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Ambient puede incluir voz: el estilo no resuelve la cantidad o prominencia de voces del álbum."
+    },
+    {
+      "annotationId": "E2-W05",
+      "terms": [
+        "sampling",
+        "male vocalist"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Tags del álbum no identifican una frase, cantante o fuente sampleada de Maluca. La frase citada conserva ese estado.",
+      "genres": [
+        "glitch"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "El procesamiento digital general no identifica un sample concreto, autoría ni grabación."
+    },
+    {
+      "annotationId": "E2-C01",
+      "terms": [
+        "Alternative Dance",
+        "Dance-Punk",
+        "rhythmic"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Los términos del álbum contextualizan lo bailable. La reseña distingue dance de danceable; no asignar actividad desde esa convergencia.",
+      "genres": [
+        "post-punk"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La experimentación rítmica general no demuestra que esta obra sirva para bailar."
+    },
+    {
+      "annotationId": "E2-C02",
+      "terms": [
+        "New Wave",
+        "Dance-Punk"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "New Wave figura en la ficha; el texto localiza la alusión en guitarra. Son capas de una plataforma, no otros testigos.",
+      "genres": [
+        "new-wave",
+        "post-punk"
+      ],
+      "genreRelation": "refines",
+      "genreReason": "Las definiciones ayudan a precisar la referencia estilística sin acreditar técnicas o todo el género del álbum."
+    },
+    {
+      "annotationId": "E2-C03",
+      "terms": [
+        "New Wave"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Una etiqueta no determina qué aspectos del álbum se comparan con cada referencia externa.",
+      "genres": [
+        "new-wave"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Una definición general no acredita parecido con un artista concreto."
+    },
+    {
+      "annotationId": "E2-C04",
+      "terms": [
+        "New Wave"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Una etiqueta no determina qué aspectos del álbum se comparan con cada referencia externa.",
+      "genres": [
+        "new-wave"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Una definición general no acredita parecido con un artista concreto."
+    },
+    {
+      "annotationId": "E2-T01",
+      "terms": [
+        "concept album",
+        "political"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El elogio no prueba concepto ni contenido político; la nota de esta cuenta se conserva como evaluación.",
+      "genres": [
+        "post-punk"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Una definición de estilo no acredita calidad o intención de un álbum."
+    },
+    {
+      "annotationId": "E2-T02",
+      "terms": [
+        "Dance-Punk Revival",
+        "Post-Punk Revival"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Tags del álbum no acreditan la dirección o monotonía de las primeras dos pistas.",
+      "genres": [
+        "post-punk"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La variedad del estilo no permite deducir estructura o reacción ante este tramo."
+    },
+    {
+      "annotationId": "E2-T03",
+      "terms": [
+        "rhythmic"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Un descriptor rítmico del álbum no resuelve monotonía percibida de una pista.",
+      "genres": [
+        "post-punk"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "El estilo del álbum no determina el ritmo ni forma de Pobres Románticos."
+    },
+    {
+      "annotationId": "E2-V01",
+      "terms": [
+        "male vocalist"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Es el único descriptor disponible y no resuelve el aspecto anotado; no rellenar géneros o temas ausentes.",
+      "genres": [
+        "rock-alternativo"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Se usa como contraste terminológico general, no como género adjudicado: un paraguas amplio no acredita ritmo, cierre o temática de esta obra."
+    },
+    {
+      "annotationId": "E2-V02",
+      "terms": [
+        "male vocalist"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Es el único descriptor disponible y no resuelve el aspecto anotado; no rellenar géneros o temas ausentes.",
+      "genres": [
+        "rock-alternativo"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Se usa como contraste terminológico general, no como género adjudicado: un paraguas amplio no acredita ritmo, cierre o temática de esta obra."
+    },
+    {
+      "annotationId": "E2-V03",
+      "terms": [
+        "male vocalist"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Es el único descriptor disponible y no resuelve el aspecto anotado; no rellenar géneros o temas ausentes.",
+      "genres": [
+        "rock-alternativo"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Se usa como contraste terminológico general, no como género adjudicado: un paraguas amplio no acredita ritmo, cierre o temática de esta obra."
+    },
+    {
+      "annotationId": "E2-W06",
+      "terms": [
+        "lo-fi",
+        "noisy"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Los tags y definiciones de la ficha no acreditan el desarrollo de una pista; la reseña lo describe explícitamente con alcance propio.",
+      "genres": [
+        "glitch"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Los tags y definiciones de la ficha no acreditan el desarrollo de una pista; la reseña lo describe explícitamente con alcance propio."
+    },
+    {
+      "annotationId": "E2-L01",
+      "terms": [
+        "raw",
+        "lo-fi"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Los términos de álbum aportan vocabulario de textura, sin identificar instrumento, equipo ni corroborar la observación.",
+      "genres": [
+        "rock-psicodelico"
+      ],
+      "genreRelation": "refines",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L02",
+      "terms": [
+        "raw",
+        "lo-fi"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Los términos de álbum aportan vocabulario de textura, sin identificar instrumento, equipo ni corroborar la observación.",
+      "genres": [
+        "rock-psicodelico"
+      ],
+      "genreRelation": "refines",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L03",
+      "terms": [
+        "raw",
+        "lo-fi"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Los términos de álbum aportan vocabulario de textura, sin identificar instrumento, equipo ni corroborar la observación.",
+      "genres": [
+        "rock-psicodelico"
+      ],
+      "genreRelation": "refines",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L04",
+      "terms": [
+        "raw",
+        "lo-fi"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Los términos de álbum aportan vocabulario de textura, sin identificar instrumento, equipo ni corroborar la observación.",
+      "genres": [
+        "rock-psicodelico"
+      ],
+      "genreRelation": "refines",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L05",
+      "terms": [
+        "Blues Rock"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El término general del álbum no acredita este instrumento, valoración o aspecto en la unidad anotada.",
+      "genres": [
+        "blues-rock"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L06",
+      "terms": [
+        "Blues Rock"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El término general del álbum no acredita este instrumento, valoración o aspecto en la unidad anotada.",
+      "genres": [
+        "blues-rock"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L07",
+      "terms": [
+        "Blues Rock"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El término general del álbum no acredita este instrumento, valoración o aspecto en la unidad anotada.",
+      "genres": [
+        "blues-rock"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L08",
+      "terms": [
+        "Blues Rock"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El término general del álbum no acredita este instrumento, valoración o aspecto en la unidad anotada.",
+      "genres": [
+        "blues-rock"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L09",
+      "terms": [
+        "male vocalist"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El término general del álbum no acredita este instrumento, valoración o aspecto en la unidad anotada.",
+      "genres": [
+        "garage-rock"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L10",
+      "terms": [
+        "Psychedelic Rock"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El término general del álbum no acredita este instrumento, valoración o aspecto en la unidad anotada.",
+      "genres": [
+        "rock-psicodelico"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L11",
+      "terms": [
+        "Psychedelic Rock"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El término general del álbum no acredita este instrumento, valoración o aspecto en la unidad anotada.",
+      "genres": [
+        "rock-psicodelico"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L12",
+      "terms": [
+        "Psychedelic Rock"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El término general del álbum no acredita este instrumento, valoración o aspecto en la unidad anotada.",
+      "genres": [
+        "rock-psicodelico"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L13",
+      "terms": [
+        "Psychedelic Rock"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El término general del álbum no acredita este instrumento, valoración o aspecto en la unidad anotada.",
+      "genres": [
+        "rock-psicodelico"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La descripción general orienta la interpretación del vocabulario; no acredita rasgos de esta grabación, equipo, preferencias ni duración."
+    },
+    {
+      "annotationId": "E2-L14",
+      "terms": [
+        "male vocalist"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Un tag de álbum no adjudica una crítica vocal retirada por confusión de obra.",
+      "genres": [
+        "garage-rock"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "El conocimiento general no identifica el álbum confundido ni valida una crítica corregida."
+    },
+    {
+      "annotationId": "E2-PP01",
+      "terms": [
+        "cold",
+        "pessimistic"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Descriptores del álbum próximos a la oscuridad percibida; capas de una plataforma, no testigos adicionales.",
+      "genres": [
+        "synth-pop"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La definición general no acredita oscuridad ni densidad."
+    },
+    {
+      "annotationId": "E2-PP02",
+      "terms": [
+        "cold"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum; no sustenta un atributo de esta pista.",
+      "genres": [
+        "synth-pop"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no acredita carácter siniestro de una pista."
+    },
+    {
+      "annotationId": "E2-PP03",
+      "terms": [
+        "cold"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum; no sustenta un atributo de esta pista.",
+      "genres": [
+        "synth-pop"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no acredita atmósfera de una pista."
+    },
+    {
+      "annotationId": "E2-PP04",
+      "terms": [
+        "mechanical"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum; no sustenta un atributo de esta pista.",
+      "genres": [
+        "synth-pop"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "El synth-pop no excluye instrumentos acústicos; la ausencia necesita la grabación."
+    },
+    {
+      "annotationId": "E2-PP05",
+      "terms": [
+        "eclectic"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum; no sustenta un atributo de esta pista.",
+      "genres": [
+        "new-wave"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La definición no acredita elementos folclóricos en la pista."
+    },
+    {
+      "annotationId": "E2-PP06",
+      "terms": [
+        "rhythmic"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum; no sustenta un atributo de esta pista.",
+      "genres": [
+        "new-wave"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no prueba ausencia de teclados."
+    },
+    {
+      "annotationId": "E2-PP07",
+      "terms": [
+        "Synthpop"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum; no sustenta un atributo de esta pista.",
+      "genres": [
+        "synth-pop"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Una definición general no acredita parecido con un artista concreto."
+    },
+    {
+      "annotationId": "E2-PP08",
+      "terms": [
+        "Post-Punk"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum; no sustenta un atributo de esta pista.",
+      "genres": [
+        "post-punk"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Una definición general no acredita parecido con un artista concreto."
+    },
+    {
+      "annotationId": "E2-PP09",
+      "terms": [
+        "Post-Punk"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum; no sustenta un atributo de esta pista.",
+      "genres": [
+        "post-punk"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Una definición general no acredita parecido con un artista concreto."
+    },
+    {
+      "annotationId": "E2-PP10",
+      "terms": [
+        "rhythmic",
+        "energetic"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Descriptores rítmicos del álbum contextualizan lo bailable; no autorizan actividad.",
+      "genres": [
+        "synth-pop"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "El género no demuestra que la obra sirva para bailar."
+    },
+    {
+      "annotationId": "E2-PP11",
+      "terms": [
+        "rhythmic",
+        "anthemic"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Contexto rítmico del álbum; no son testigos de una actividad.",
+      "genres": [
+        "synth-pop"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "El género no demuestra que la obra sirva para bailar."
+    },
+    {
+      "annotationId": "E2-PP12",
+      "terms": [
+        "mechanical"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Un descriptor no verifica un dato de producción.",
+      "genres": [
+        "synth-pop"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La definición no acredita batería programada en este disco."
+    },
+    {
+      "annotationId": "E2-PP13",
+      "terms": [
+        "bittersweet"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Un descriptor afectivo del álbum convive con la nostalgia percibida; no la prueba.",
+      "genres": [
+        "new-wave"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no acredita emoción."
+    },
+    {
+      "annotationId": "E2-PP14",
+      "terms": [
+        "political",
+        "protest"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "La ficha confirma el carácter político que la cuenta discute; no afecta el gusto musical declarado.",
+      "genres": [
+        "new-wave"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La definición no aborda temas de letras."
+    },
+    {
+      "annotationId": "E2-PP15",
+      "terms": [
+        "Synthpop",
+        "New Wave"
+      ],
+      "communityRelation": "supports",
+      "communityReason": "La ficha clasifica el álbum como synthpop; coincide con la descripción de sintetizadores a nivel de álbum, como capa de plataforma.",
+      "genres": [
+        "synth-pop",
+        "new-wave"
+      ],
+      "genreRelation": "supports",
+      "genreReason": "La definición de synth-pop describe sintetizadores como instrumento dominante; no aplica a cada pista."
+    },
+    {
+      "annotationId": "E2-AM01",
+      "terms": [
+        "instrumental"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "La ficha usa el descriptor instrumental; ni ella ni la reseña tienen cobertura de cada pista, y otra cuenta menciona texto.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no acredita ausencia de voz."
+    },
+    {
+      "annotationId": "E2-AM02",
+      "terms": [
+        "instrumental",
+        "sampling"
+      ],
+      "communityRelation": "disagrees",
+      "communityReason": "El descriptor instrumental del álbum convive con texto en español escaso; se conserva el desacuerdo sin votar.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no resuelve presencia de texto."
+    },
+    {
+      "annotationId": "E2-AM03",
+      "terms": [
+        "epic"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Un descriptor no resuelve la duración percibida.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no implica duración."
+    },
+    {
+      "annotationId": "E2-AM04",
+      "terms": [
+        "epic"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Un descriptor no resuelve la duración percibida.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no implica duración."
+    },
+    {
+      "annotationId": "E2-AM05",
+      "terms": [
+        "atmospheric",
+        "hypnotic"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Atmosférico e hipnótico coinciden con rasgos que la cuenta enumera, sin acreditar aburrimiento.",
+      "genres": [
+        "idm",
+        "ambient"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Las definiciones no acreditan repetición ni aburrimiento."
+    },
+    {
+      "annotationId": "E2-AM06",
+      "terms": [
+        "bassy",
+        "mechanical"
+      ],
+      "communityRelation": "refines",
+      "communityReason": "Descriptores de graves y maquinalidad del álbum próximos a los timbres descritos; capa de plataforma.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no acredita instrumentos ni timbres concretos."
+    },
+    {
+      "annotationId": "E2-AM07",
+      "terms": [
+        "complex",
+        "progressive"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Los descriptores no resuelven variedad percibida.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no implica variedad."
+    },
+    {
+      "annotationId": "E2-AM08",
+      "terms": [
+        "complex"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Los descriptores no resuelven variedad percibida.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no implica variedad."
+    },
+    {
+      "annotationId": "E2-AM09",
+      "terms": [
+        "ethereal"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum; no sustenta un atributo de esta pista.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no acredita cuerdas en una pista."
+    },
+    {
+      "annotationId": "E2-AM10",
+      "terms": [
+        "IDM",
+        "Glitch"
+      ],
+      "communityRelation": "supports",
+      "communityReason": "IDM y Glitch figuran en la ficha; coinciden con parte de la mezcla atribuida, como capa de plataforma.",
+      "genres": [
+        "glitch",
+        "idm",
+        "ambient",
+        "industrial",
+        "hip-hop"
+      ],
+      "genreRelation": "refines",
+      "genreReason": "Las definiciones precisan cada componente sin heredar sus rasgos a las pistas."
+    },
+    {
+      "annotationId": "E2-AM11",
+      "terms": [
+        "bassy",
+        "atmospheric"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La ficha describe el álbum; no sustenta un atributo de esta pista.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no recomienda una condición de escucha."
+    },
+    {
+      "annotationId": "E2-AM12",
+      "terms": [
+        "progressive"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Un descriptor no resuelve la variabilidad de duración.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no implica duración de pistas."
+    },
+    {
+      "annotationId": "E2-AM13",
+      "terms": [
+        "aggressive",
+        "atmospheric"
+      ],
+      "communityRelation": "supports",
+      "communityReason": "Agresivo y atmosférico figuran en la ficha; coinciden con el rasgo aceptado por la cuenta, no con su rechazo.",
+      "genres": [
+        "idm"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La definición no acredita abrasividad."
+    },
+    {
+      "annotationId": "E2-AM14",
+      "terms": [
+        "avant-garde"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "Sin atributo musical que contrastar.",
+      "genres": [
+        "experimental"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La valoración no depende de una definición."
+    },
+    {
+      "annotationId": "E2-AM15",
+      "terms": [
+        "Deconstructed Club"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "La etiqueta existe en la ficha, pero no fecha el origen del estilo.",
+      "genres": [
+        "electronica"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "La definición general no fecha el estilo."
+    },
+    {
+      "annotationId": "E2-AM16",
+      "terms": [
+        "IDM"
+      ],
+      "communityRelation": "unresolved",
+      "communityReason": "El gusto de alcance artista no se contrasta con etiquetas del álbum.",
+      "genres": [
+        "electronica"
+      ],
+      "genreRelation": "unresolved",
+      "genreReason": "Un género no explica un gusto personal."
+    }
+  ]
+}

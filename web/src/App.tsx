@@ -9,6 +9,7 @@ import { NotFoundPage } from "./pages/NotFoundPage";
 // el marco y la página abierta; al navegar, el chunk llega bajo un skeleton de
 // fallback (RouteFallback). NotFoundPage queda eager: es diminuta y responde
 // cualquier URL desconocida.
+const SearchAdministrationPage = lazy(() => import("./pages/SearchAdministrationPage").then(module => ({ default: module.SearchAdministrationPage })));
 const SearchPage = lazy(() => import("./pages/SearchPage").then((module) => ({ default: module.SearchPage })));
 const ArtistsListPage = lazy(() => import("./pages/ArtistsListPage").then((module) => ({ default: module.ArtistsListPage })));
 const ArtistDetailPage = lazy(() => import("./pages/ArtistDetailPage").then((module) => ({ default: module.ArtistDetailPage })));
@@ -65,6 +66,10 @@ export function App() {
             <Route path="duplicados" element={<PersonDuplicatesPage />} />
             {/* Portadas y fotos de artista para elegir a ojo (0038). */}
             <Route path="imagenes" element={<CurationImagesPage />} />
+            {/* Las revisiones del buscador viven ahora en Administrar › Buscador. */}
+            <Route path="emociones" element={<Navigate to="/administrar/buscador?seccion=Emociones" replace />} />
+            <Route path="buscador-evaluacion" element={<Navigate to="/administrar/buscador?seccion=Evaluar%20lecturas" replace />} />
+            <Route path="buscador-correspondencias" element={<Navigate to="/administrar/buscador?seccion=Correspondencias%20RYM" replace />} />
             {/* Historial de lotes de corrección, con su deshacer (PLAN_CURADURIA E8.5). */}
             <Route path="correcciones" element={<CurationFixesPage />} />
             <Route path="correcciones/:batchId" element={<CurationFixesPage />} />
@@ -72,6 +77,8 @@ export function App() {
             <Route path="autocorreccion" element={<CurationAutofixPage />} />
             <Route path="ia" element={<AiCurationPage />} />
           </Route>
+          <Route path="/administrar/buscador" element={<SearchAdministrationPage />} />
+          <Route path="/administrar" element={<Navigate to="/curaduria" replace />} />
           <Route path="/historial" element={<ChangesHistoryPage />} />
           <Route path="/revision" element={<Navigate to="/curaduria" replace />} />
           <Route path="/revision/:id" element={<LegacyReviewRedirect />} />

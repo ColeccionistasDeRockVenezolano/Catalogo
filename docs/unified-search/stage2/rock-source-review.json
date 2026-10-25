@@ -1,0 +1,72 @@
+{
+  "version": "crv-rock-source-review-0.1.0",
+  "analyst": "Codex",
+  "newProfiles": [
+    "rock-and-roll",
+    "rockabilly",
+    "surf-rock",
+    "glam-rock",
+    "rock-sureno",
+    "soft-rock",
+    "jangle-pop",
+    "pop-punk",
+    "post-hardcore",
+    "hardcore-punk",
+    "crust-punk",
+    "anarcopunk",
+    "street-punk",
+    "psychobilly",
+    "ska-punk",
+    "rocksteady",
+    "roots-reggae",
+    "dancehall",
+    "ragga",
+    "disco",
+    "country"
+  ],
+  "sourceIds": [
+    "wiki:Anarcho-punk",
+    "wiki:Country_music",
+    "wiki:Crust_punk",
+    "wiki:Dancehall",
+    "wiki:Disco",
+    "wiki:Glam_rock",
+    "wiki:Hardcore_punk",
+    "wiki:Jangle_pop",
+    "wiki:Pop-punk",
+    "wiki:Post-hardcore",
+    "wiki:Psychobilly",
+    "wiki:Ragga",
+    "wiki:Rock_and_roll",
+    "wiki:Rockabilly",
+    "wiki:Rocksteady",
+    "wiki:Roots_reggae",
+    "wiki:Ska_punk",
+    "wiki:Soft_rock",
+    "wiki:Southern_rock",
+    "wiki:Street_punk",
+    "wiki:Surf_music"
+  ],
+  "excludedSources": [
+    {
+      "id": "wiki:Power_pop",
+      "reason": "La respuesta descargada no contenía simultáneamente encabezado y artículo legible; no se incorporó.",
+      "url": "https://en.wikipedia.org/wiki/Power_pop"
+    },
+    {
+      "id": "wiki:Post-grunge",
+      "reason": "La respuesta descargada no contenía simultáneamente encabezado y artículo legible; no se incorporó.",
+      "url": "https://en.wikipedia.org/wiki/Post-grunge"
+    }
+  ],
+  "deferred": [
+    {
+      "slug": "oi",
+      "source": "https://en.wikipedia.org/wiki/Oi!",
+      "reason": "La lectura documenta historia, escena e ideología, pero no acredita suficientemente un perfil sonoro. Captura de investigación conservada fuera del manifiesto de fuentes utilizadas.",
+      "snapshot": "data/research/unified-search-genres-2026-10-17/Rock-Oi-98d27b71c2fa.html",
+      "sha256": "98d27b71c2fae4d9332c6c372a91c2b9457270389ec199a9afbb008a814fafb3"
+    }
+  ],
+  "policy": "general_knowledge_proposals_never_entity_assignments"
+}

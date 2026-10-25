@@ -1,0 +1,33 @@
+{
+  "version": "crv-regional-source-review-0.1.0",
+  "analyst": "Codex",
+  "catalogScopeEvidence": "reports/unified-search-stage2/verification/regional-catalog-meanings.json",
+  "excludedSources": [
+    {
+      "id": "wiki:Contrapunteo",
+      "url": null,
+      "reason": "HTTPError: HTTP Error 404: Not Found",
+      "snapshot": null,
+      "sha256": null
+    },
+    {
+      "id": "wiki:Onda_nueva",
+      "url": null,
+      "reason": "HTTPError: HTTP Error 404: Not Found",
+      "snapshot": null,
+      "sha256": null
+    },
+    {
+      "id": "wiki-es:Galerón",
+      "url": "https://es.wikipedia.org/wiki/Galer%C3%B3n",
+      "reason": "La acepción de esta página no acredita el galerón oriental del catálogo.",
+      "snapshot": "data/research/unified-search-genres-2026-10-17/Galeron-es-431684a0a81e.html",
+      "sha256": "431684a0a81ee947c146241bf4d88f2590bd9fa624fd6b4b45d86828e0f76d6d"
+    }
+  ],
+  "notes": [
+    "La página general Tango fue sustituida por Tango music para documentar aspectos musicales.",
+    "Los nombres y alias existentes no se modificaron.",
+    "La fuente ministerial hallada no pudo capturarse por fallo DNS; no se utilizó para afirmar rasgos."
+  ]
+}

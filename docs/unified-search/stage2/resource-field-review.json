@@ -1,0 +1,2046 @@
+{
+  "version": "crv-resource-field-review-v1",
+  "analyst": "Codex",
+  "policy": "analytical_dispositions_not_editorial_approvals_or_musical_coverage",
+  "inputs": [
+    {
+      "path": "docs/unified-search/resources.json",
+      "sha256": "24a19e7353cbee4965cb75c90789ef6b495b445341621e1eac66b2f1abdb38be"
+    },
+    {
+      "path": "docs/unified-search/PLAN_1.1.0.md",
+      "sha256": "c059f2a3ad887563d0b1854657daaa1db0482b20b5aa3e3d67c463cf04799524"
+    },
+    {
+      "path": "reports/alimentar-laya-contexto-2026-10-16.md",
+      "sha256": "0dd3453b174c3081b6e2dbaf1cace7a220928255ff6e304aca1f18a68b1affab"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "admin_navigation",
+      "path": "web/src/components/OperatorSettings.tsx",
+      "sha256": "d937d5f24458386fe24c58bf26caabb276a294a4b141e9fb7cabdd8ea138c3fc"
+    },
+    {
+      "id": "annotations",
+      "path": "reports/unified-search-stage2/development-annotations.json",
+      "sha256": "cbe15f661accad4788acf9dc2bd32cdeb9dee163ce1113f723e9b61406fa2a0a"
+    },
+    {
+      "id": "audiovisual_tests",
+      "path": "test/contract/artist-audiovisuals.test.ts",
+      "sha256": "9219d2575c7a51bb535c829da53dd16fe42523e685b4831df7c0ff004f4093f1"
+    },
+    {
+      "id": "audiovisuals",
+      "path": "src/youtube/audiovisuals.ts",
+      "sha256": "895c005b171dc1874a99e9a086e9f165ef54860b99b6a2679db0e27ab9c4c2d9"
+    },
+    {
+      "id": "authority",
+      "path": "src/search/knowledge-contracts.ts",
+      "sha256": "2c54f1ae2e7be6e52299ba333abbcab47d554bdff4d0e8563e46db6bcd929a04"
+    },
+    {
+      "id": "community",
+      "path": "src/search/rym-release-community.ts",
+      "sha256": "c88b220637e2c5ad82c881d547b762727557ad6e299b9b7a18720c0e814af427"
+    },
+    {
+      "id": "contexts",
+      "path": "src/discovery/track-contexts.ts",
+      "sha256": "06e5c27b5ec1bbd3c197010c62f674ba2b43689e8cc9ba56ee71f151371366b9"
+    },
+    {
+      "id": "crossing",
+      "path": "reports/unified-search-stage2/four-source-crossing.json",
+      "sha256": "7c256c0c11e9bcd46d0d07837c3c4784658883dd883efec649249511e14752e2"
+    },
+    {
+      "id": "extractor",
+      "path": "src/search/review-protocol.ts",
+      "sha256": "b6a2f715553c887f22b025b666088ab026742ffc5edda364b6e6a9ef5513d484"
+    },
+    {
+      "id": "feed",
+      "path": "src/search/knowledge-feed.ts",
+      "sha256": "67872b8534d313d92639089f55c3fbd774eb03829edee2755c23d2cf775c9452"
+    },
+    {
+      "id": "genre_map",
+      "path": "reports/unified-search-stage2/genre-map.json",
+      "sha256": "267c1dd1acb277b371e6861f504cb871900385fd96afb7d8b5d947e2468d8bb9"
+    },
+    {
+      "id": "identity",
+      "path": "src/search/study-identity.ts",
+      "sha256": "315563d20e22fbf4ee5bf1ed0cd3b17be850d17e7353acb0d54c2910b62569c8"
+    },
+    {
+      "id": "knowledge_tests",
+      "path": "test/unit/search-knowledge.test.ts",
+      "sha256": "486502f32934938532760a5331d15151ed1b8bac04f04f2e6420b984d2c96603"
+    },
+    {
+      "id": "language",
+      "path": "src/search/rym-release-language.ts",
+      "sha256": "820c67719c042fbc64b2fb343256571bb4a42b023423a8ab9305178fd3855797"
+    },
+    {
+      "id": "languages",
+      "path": "reports/unified-search-stage2/release-languages.json",
+      "sha256": "24dc951869a90e6393ba5703db5d35d40dfe86306141c780350a019a169d1004"
+    },
+    {
+      "id": "mappings",
+      "path": "reports/unified-search-stage2/mappings.json",
+      "sha256": "365075004652b0ff8f94470ae8a9334fc4ad60bb621405e6b4f80b6a4232bf45"
+    },
+    {
+      "id": "metrics",
+      "path": "src/discovery/metrics.ts",
+      "sha256": "8d72c37ed740f32205675a58e27be9e23df2d6bf7150981850da73c75886292c"
+    },
+    {
+      "id": "observation",
+      "path": "src/search/observability.ts",
+      "sha256": "0a46accf43ce2028828ffb467fb0d1842ab0ceb4bc67ce148fa2c9ead3e84234"
+    },
+    {
+      "id": "pilot",
+      "path": "reports/unified-search-stage2/pilot-findings.json",
+      "sha256": "b263a8bea534c92cfcab8d7e0fb3a942bdce356e588cf1d675377ca812f1b7bf"
+    },
+    {
+      "id": "playback",
+      "path": "src/youtube/track-playback.ts",
+      "sha256": "df1395774aa5050f60d862da2ab6eb3d23cf12da1895c87e10aed3e6cd57aedd"
+    },
+    {
+      "id": "playback_tests",
+      "path": "test/contract/album-track-playback.test.ts",
+      "sha256": "3d7373282d15025d6b13836fc8e40ed2c0fd8283ab38700dcf1c692b0e3c41f7"
+    },
+    {
+      "id": "privacy",
+      "path": "src/search/privacy.ts",
+      "sha256": "38af49a5f4d5d4a27534b6b301cf77a5eb2d0b71de8a2e485ae7a21fa75de12f"
+    },
+    {
+      "id": "publication",
+      "path": "src/search/knowledge-publication.ts",
+      "sha256": "6f8b40b387e5a1c7b0277644c11ef609c43f9c70406a31a7e9ba4bccac16d1d6"
+    },
+    {
+      "id": "query_cases",
+      "path": "reports/unified-search-stage2/query-matrix.json",
+      "sha256": "4d0ceb7f73e60ee2a95dd6a612b737455a92d7b5e228b29ebafafb4d4fc565b1"
+    },
+    {
+      "id": "recommendations",
+      "path": "src/discovery/recommendations.ts",
+      "sha256": "684808af4cc68f3f3dbf84474f587b571a90688d02eded14c40e891c2cad2a83"
+    },
+    {
+      "id": "registry",
+      "path": "docs/unified-search/resources.json",
+      "sha256": "24a19e7353cbee4965cb75c90789ef6b495b445341621e1eac66b2f1abdb38be"
+    },
+    {
+      "id": "reserve",
+      "path": "docs/unified-search/stage2/study-reserve.json",
+      "sha256": "360f6ccff3af7bf5128ec23b9870cdf54b08751273e8a982ae2f24ba21e9fc97"
+    },
+    {
+      "id": "search_misses",
+      "path": "src/api/search-misses.ts",
+      "sha256": "93f5cf828026a587cc4995904da3d1dd96e7ec734aba1de71fedce3f4cc67151"
+    },
+    {
+      "id": "semantics",
+      "path": "docs/unified-search/stage2/semantic-review.json",
+      "sha256": "25d3c38465b0a426c738342a9074c7469288a7749da449f4f41c10e351a75a9b"
+    },
+    {
+      "id": "suggestions",
+      "path": "src/discovery/suggestions.ts",
+      "sha256": "98ec502685c9908cfaca1a969f2db2f2992a18a96f4579f48c026fa1d65ea7a9"
+    },
+    {
+      "id": "sync",
+      "path": "src/search/knowledge-sync.ts",
+      "sha256": "15cd08b2764197bf1c6ff123d8f984cd239918b397d4bc48b862ac1ce984b63d"
+    },
+    {
+      "id": "vocabulary",
+      "path": "reports/unified-search-stage2/vocabulary.json",
+      "sha256": "6bd54529b4ca06d65764bfa31fab701eac53b2bf6ac2114016362dbb46012966"
+    },
+    {
+      "id": "similarity_relations",
+      "path": "reports/unified-search-stage2/similarity-relations.json",
+      "sha256": "ec4fbcd3f1ebaa0d9f6108a21f6b79dbaa14c500c1aac88a54ec6fe9873d2eef"
+    },
+    {
+      "id": "similarity_module",
+      "path": "src/search/similarity-relations.ts",
+      "sha256": "7b23ea5c9cbf22ab854afaa7ef06157d4c274ff899d27dc4725ea1b8a4cbc3d3"
+    },
+    {
+      "id": "similarity_tests",
+      "path": "test/unit/search-similarity-relations.test.ts",
+      "sha256": "924fa9ce969e239993fb23c06f02482af193f859faa4e316f91b5411d3b14e8b"
+    },
+    {
+      "id": "shared_storage_paths",
+      "path": "src/storage/project-files.ts",
+      "sha256": "f914c27c4502a77d6fa5e042401ae2a49b66471d4c4426af29c1e15eac285ffc"
+    },
+    {
+      "id": "shared_storage_path_tests",
+      "path": "test/unit/project-files.test.ts",
+      "sha256": "4281ff0930757fa92059c4e0232a20a9d269592c5f78da37a5abf40c46087c1f"
+    },
+    {
+      "id": "reviews_inventory",
+      "path": "reports/reviews-rym-aoty-inventario-2026-10-24/inventario.json",
+      "sha256": "ea9c77733402dae23c4d778748d3b7531f2d794d7976c5c80180697724830121"
+    },
+    {
+      "id": "aoty_report",
+      "path": "data/raw/aoty-2026-10-19/INFORME.md",
+      "sha256": "a7de9deaf743834358fd6738cdc85b00f2dee147cfe212cb84b15c5a749043f9"
+    },
+    {
+      "id": "fanzine_corpus_readme",
+      "path": "data/research/punkenvenezuela-fanzines-2026-10-23/README.md",
+      "sha256": "900651fede027e9932f67da7a4922fbdee745717352ff2b821f5b0a00dca31d7"
+    },
+    {
+      "id": "fanzine_corpus_stats",
+      "path": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus-stats.json",
+      "sha256": "dc501fd6bdec8236fc8a9f356fb86062f6ae3f3857cf5830cd09098510932068"
+    }
+  ],
+  "resources": [
+    {
+      "id": "R01",
+      "sourceFieldText": "`rec.genres`, términos principales/secundarios, ID y captura; claims ya existentes",
+      "fields": [
+        {
+          "key": "genre_levels",
+          "label": "Géneros originales y nivel",
+          "sourceTerms": [
+            "rec.genres",
+            "términos principales/secundarios",
+            "ID",
+            "captura"
+          ],
+          "disposition": "extracted_partial",
+          "scope": "Publicación RYM; seis fichas: cinco de desarrollo nuevo y una relectura del piloto",
+          "reason": "El cruce extrae géneros del HTML con nivel principal/secundario. El JSON original queda conservado; no se presenta su presencia como cobertura de obras.",
+          "nextTask": "Ampliar fichas con identidad y revisar las correspondencias antes de expandir búsquedas.",
+          "evidenceIds": [
+            "community",
+            "crossing",
+            "annotations"
+          ]
+        },
+        {
+          "key": "existing_claims",
+          "label": "Vínculos con claims existentes",
+          "sourceTerms": [
+            "claims ya existentes"
+          ],
+          "disposition": "reused_existing",
+          "scope": "Identidad de seis publicaciones: cinco de desarrollo nuevo y una relectura del piloto",
+          "reason": "El resolvedor exige título aceptado, URL exacta o repertorio documentado; reutiliza IDs sin reescribir asignaciones de género.",
+          "nextTask": "Conservar la autoridad editorial y revalidar al cambiar identidad.",
+          "evidenceIds": [
+            "identity",
+            "annotations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "sourceFieldText": "`release_pri_descriptors`, literal, captura, nivel y posición solo como dato",
+      "fields": [
+        {
+          "key": "descriptor_values",
+          "label": "Descriptores, literal y alcance",
+          "sourceTerms": [
+            "release_pri_descriptors",
+            "literal",
+            "captura",
+            "nivel"
+          ],
+          "disposition": "extracted_partial",
+          "scope": "Metadatos de álbum en seis fichas: cinco nuevas y una del piloto",
+          "reason": "El adaptador lee términos del bloque de descriptores y conserva localizador y huella; una etiqueta de álbum no describe una pista.",
+          "nextTask": "Extender la extracción al corpus con identidad acreditada.",
+          "evidenceIds": [
+            "community",
+            "crossing",
+            "annotations"
+          ]
+        },
+        {
+          "key": "descriptor_order",
+          "label": "Posición del descriptor",
+          "sourceTerms": [
+            "posición"
+          ],
+          "disposition": "deferred",
+          "scope": "Orden de la lista en la captura",
+          "reason": "El orden de origen puede recuperarse de la captura, pero no tiene un campo ordinal validado en la evidencia publicada. No se utiliza como umbral o confianza.",
+          "nextTask": "Añadir ordinal solo si una consulta necesita ese dato y sin interpretación probabilística.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R03",
+      "sourceFieldText": "`avg_rating`, votos, `disco_avg_rating`, `disco_ratings`, `disco_reviews` y fecha",
+      "fields": [
+        {
+          "key": "release_average",
+          "label": "Media, votos y fecha de captura de álbum",
+          "sourceTerms": [
+            "avg_rating",
+            "votos",
+            "fecha"
+          ],
+          "disposition": "extracted_partial",
+          "scope": "Ficha de publicación, no reseñista",
+          "reason": "Se conservan media, escala, votos disponibles y fecha original de captura separados de la nota individual. La fecha de voto individual es desconocida.",
+          "nextTask": "Ampliar capturas sin ponderar veracidad o calidad objetiva por rating.",
+          "evidenceIds": [
+            "community",
+            "crossing"
+          ]
+        },
+        {
+          "key": "discography_average",
+          "label": "Media de fila de discografía",
+          "sourceTerms": [
+            "disco_avg_rating"
+          ],
+          "disposition": "deferred",
+          "scope": "Fila de una ficha de artista",
+          "reason": "El extractor de ficha de publicación no valida las filas de discografía ni sus enlaces de edición.",
+          "nextTask": "Resolver cada fila por URL/ID y mantener su media separada de otras capturas.",
+          "evidenceIds": []
+        },
+        {
+          "key": "discography_votes",
+          "label": "Votos de fila de discografía",
+          "sourceTerms": [
+            "disco_ratings"
+          ],
+          "disposition": "deferred",
+          "scope": "Población de votos de una fila",
+          "reason": "El número de ratings de la discografía necesita denominador y captura propios; no se reemplaza por votos de la ficha del álbum.",
+          "nextTask": "Extraer votos con vínculo de fila, plataforma y fecha.",
+          "evidenceIds": []
+        },
+        {
+          "key": "discography_reviews",
+          "label": "Reseñas contadas en discografía",
+          "sourceTerms": [
+            "disco_reviews"
+          ],
+          "disposition": "deferred",
+          "scope": "Conteo declarado por RYM",
+          "reason": "Las reseñas declaradas no son páginas capturadas ni reseñas únicas examinadas.",
+          "nextTask": "Extraer como conteo de plataforma y contrastar por separado el manifiesto útil.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R04",
+      "sourceFieldText": "ID, cuenta, fecha, título, texto completo, estrellas, utilidad, página y URL",
+      "fields": [
+        {
+          "key": "review_identity",
+          "label": "ID, cuenta, fecha y localización",
+          "sourceTerms": [
+            "ID",
+            "cuenta",
+            "fecha",
+            "página",
+            "URL"
+          ],
+          "disposition": "extracted_partial",
+          "scope": "Reseña concreta en una captura",
+          "reason": "La extracción recupera ID, cuenta, fecha visible, página, URL y localizador. La anotación musical solo cubre el subconjunto de desarrollo.",
+          "nextTask": "Ampliar sin contar varias afirmaciones como varios testigos.",
+          "evidenceIds": [
+            "extractor",
+            "annotations",
+            "sync"
+          ]
+        },
+        {
+          "key": "review_text",
+          "label": "Texto completo, reparaciones y versiones",
+          "sourceTerms": [
+            "texto completo"
+          ],
+          "disposition": "extracted_partial",
+          "scope": "Reseña y fragmentos trazables",
+          "reason": "El texto de spans se repara desde HTML y se conserva completo en la extracción privada; truncamientos se señalan. Los fragmentos del análisis no sustituyen al texto original. Se separa la rectificación de una obra confundida y se conserva la dependencia explícita de un tercero desconocido; no aumentan recurrencia.",
+          "nextTask": "Ampliar revisiones de citas, idiomas, dependencias y muestras nuevas.",
+          "evidenceIds": [
+            "extractor",
+            "annotations"
+          ]
+        },
+        {
+          "key": "review_rating",
+          "label": "Estrellas de la cuenta",
+          "sourceTerms": [
+            "estrellas"
+          ],
+          "disposition": "extracted_partial",
+          "scope": "Evaluación de álbum por esa cuenta",
+          "reason": "La nota y su escala se conservan por reseña y no actúan como peso de verdad.",
+          "nextTask": "Mantener escala y ausencia explícita al añadir otras capturas.",
+          "evidenceIds": [
+            "extractor",
+            "annotations"
+          ]
+        },
+        {
+          "key": "review_title",
+          "label": "Título de la reseña",
+          "sourceTerms": [
+            "título"
+          ],
+          "disposition": "deferred",
+          "scope": "Encabezado del texto del reseñista",
+          "reason": "El extractor actual no conserva un campo de título de reseña. El título del álbum no lo sustituye.",
+          "nextTask": "Añadir selector y pruebas para títulos presentes y ausentes.",
+          "evidenceIds": []
+        },
+        {
+          "key": "review_helpfulness",
+          "label": "Votos de utilidad",
+          "sourceTerms": [
+            "utilidad"
+          ],
+          "disposition": "deferred",
+          "scope": "Interacción comunitaria con una reseña",
+          "reason": "No hay extracción validada del bloque de utilidad; no se toma la nota del álbum como utilidad ni esta como veracidad.",
+          "nextTask": "Extraer valor y denominador solo si están documentados, separados del soporte musical.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R05",
+      "sourceFieldText": "`reviews[].tracks`, título/número, nota, cuenta y escala",
+      "fields": [
+        {
+          "key": "track_rating",
+          "label": "Título, posición, nota y autor de pista",
+          "sourceTerms": [
+            "reviews[].tracks",
+            "título/número",
+            "nota",
+            "cuenta",
+            "escala"
+          ],
+          "disposition": "extracted_partial",
+          "scope": "Bloque de notas de una reseña",
+          "reason": "El bloque de ratings por pista se extrae aparte del texto y de la nota global; conserva título/posición y escala. Los títulos de notas no siempre tienen identidad de pista resuelta.",
+          "nextTask": "Vincular a IDs existentes por identidad/alias exactos y dejar ambigüedades pendientes.",
+          "evidenceIds": [
+            "extractor",
+            "annotations"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R06",
+      "sourceFieldText": "`Languages`, literal, captura y alcance",
+      "fields": [
+        {
+          "key": "release_languages",
+          "label": "Idiomas, literal y captura",
+          "sourceTerms": [
+            "Languages",
+            "literal",
+            "captura",
+            "alcance"
+          ],
+          "disposition": "extracted_partial",
+          "scope": "Metadatos de publicación; edición desconocida",
+          "reason": "Seis fichas (cinco nuevas y una relectura del piloto) conservan los literales de idioma; English/Spanish se normalizan en este corte. Otros valores quedan pendientes y un campo vacío es desconocido.",
+          "nextTask": "Ampliar idiomas y evidencia por unidad sin heredar a pistas o ediciones.",
+          "evidenceIds": [
+            "language",
+            "languages"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R07",
+      "sourceFieldText": "Bios y capturas `Currently`, origen/formación, ciudad/país y fechas",
+      "fields": [
+        {
+          "key": "biography",
+          "label": "Biografía original y síntesis",
+          "sourceTerms": [
+            "Bios"
+          ],
+          "disposition": "deferred",
+          "scope": "Artista y versión de la biografía",
+          "reason": "Una síntesis no es otro testigo y el estudio actual no descompone bios en afirmaciones temporales.",
+          "nextTask": "Volver al original, atribuir afirmaciones y conservar la cadena de síntesis.",
+          "evidenceIds": []
+        },
+        {
+          "key": "current_location",
+          "label": "Residencia actual",
+          "sourceTerms": [
+            "Currently",
+            "ciudad/país",
+            "fechas"
+          ],
+          "disposition": "deferred",
+          "scope": "Artista en la fecha de la captura",
+          "reason": "La residencia aplicada por otra campaña no determina origen, formación o lugar de una canción. Falta un adaptador temporal para el buscador.",
+          "nextTask": "Reutilizar vínculos existentes y separar residencia de origen con fecha y fuente.",
+          "evidenceIds": []
+        },
+        {
+          "key": "formation_origin",
+          "label": "Origen, formación y actividad",
+          "sourceTerms": [
+            "origen/formación",
+            "actividad"
+          ],
+          "disposition": "deferred",
+          "scope": "Proyecto/persona y período documentado",
+          "reason": "Origen del proyecto, nacimiento de una persona y años de actividad son relaciones distintas; el nombre y país coincidentes no bastan.",
+          "nextTask": "Resolver identidad y períodos explícitos antes de crear condiciones geográficas o de actividad.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R08",
+      "sourceFieldText": "`rows {h,t,y,ty}`, `rec.kind`, DJ Mix/Mixtape",
+      "fields": [
+        {
+          "key": "discography_rows",
+          "label": "Enlace, título, año y tipo de fila",
+          "sourceTerms": [
+            "rows {h,t,y,ty}",
+            "rows.h",
+            "rows.t",
+            "rows.y",
+            "rows.ty"
+          ],
+          "disposition": "deferred",
+          "scope": "Fila de discografía y publicación",
+          "reason": "Las filas importadas por otras campañas no son una correspondencia revisada de tipo, versión y edición para este índice.",
+          "nextTask": "Reutilizar IDs/claims, conservar el tipo de origen y revisar características combinables.",
+          "evidenceIds": []
+        },
+        {
+          "key": "pending_release_types",
+          "label": "Tipo de publicación y tipos pendientes",
+          "sourceTerms": [
+            "rec.kind",
+            "DJ Mix/Mixtape"
+          ],
+          "disposition": "deferred",
+          "scope": "Publicación documentada",
+          "reason": "DJ Mix y Mixtape mantienen su pendiente editorial; ni un video ni el número de pistas resuelven el tipo.",
+          "nextTask": "Conservar pendiente hasta decisión expresa, sin reclasificación automática.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R09",
+      "sourceFieldText": "`rec.tracks`, `rec.creditLinks`, persona/rol",
+      "fields": [
+        {
+          "key": "track_identity",
+          "label": "Pistas existentes y repertorio",
+          "sourceTerms": [
+            "rec.tracks"
+          ],
+          "disposition": "reused_existing",
+          "scope": "Pista dentro de publicación documentada",
+          "reason": "El estudio reutiliza IDs y coteja títulos/posiciones cuando el vínculo lo exige. No crea pistas por reseñas o capítulos de video. La secuencia A1–B5 de Ladies W.C. se coteja con diez IDs lineales conservando etiquetas, sin adjudicar edición.",
+          "nextTask": "Extender el enlace documental a otros repertorios y versiones.",
+          "evidenceIds": [
+            "identity",
+            "annotations"
+          ]
+        },
+        {
+          "key": "credited_roles",
+          "label": "Créditos de personas y roles",
+          "sourceTerms": [
+            "rec.creditLinks",
+            "persona/rol"
+          ],
+          "disposition": "deferred",
+          "scope": "Crédito en publicación/edición",
+          "reason": "Una percepción de instrumento en reseña no acredita un intérprete o rol. Falta extraer y adjudicar esos créditos específicos.",
+          "nextTask": "Resolver persona, rol y edición y enlazar el crédito con su documento.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R10",
+      "sourceFieldText": "`og`, imágenes, pendientes de carátula, enlaces RYM de escucha",
+      "fields": [
+        {
+          "key": "images",
+          "label": "Imágenes, portadas y pendientes",
+          "sourceTerms": [
+            "og",
+            "imágenes",
+            "pendientes de carátula"
+          ],
+          "disposition": "deferred",
+          "scope": "Imagen de artista o edición",
+          "reason": "Las campañas de imágenes existentes conservan su función. E2 no verifica aquí una nueva asociación de imagen/edición ni deduce sonido por carátula.",
+          "nextTask": "Reutilizar la campaña y la procedencia de medios, sin alta de entidades duplicadas.",
+          "evidenceIds": []
+        },
+        {
+          "key": "listen_links",
+          "label": "Enlaces de escucha de RYM",
+          "sourceTerms": [
+            "enlaces RYM de escucha"
+          ],
+          "disposition": "deferred",
+          "scope": "Acceso a publicación/versión",
+          "reason": "Un enlace aplicado no acredita cobertura musical ni disponibilidad actual. La asociación exacta debe conservar su verificación original.",
+          "nextTask": "Consumir enlaces existentes con su objeto y estado de disponibilidad; no borrar evidencia si caen.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R11",
+      "sourceFieldText": "`entity_user_tags`, término, `weight`, `emotions`, modelo y `emotion_tag_decisions`",
+      "fields": [
+        {
+          "key": "artist_tags",
+          "label": "Tags de artista y peso",
+          "sourceTerms": [
+            "entity_user_tags",
+            "término",
+            "weight"
+          ],
+          "disposition": "deferred",
+          "scope": "Página y señal comunitaria de Last.fm",
+          "reason": "Los IDs históricos no son identidades musicales auditadas. El peso no es probabilidad ni número de personas independientes comprobadas.",
+          "nextTask": "Extraer vocabulario sin asociaciones y resolver cada página antes de proponer rasgos de artista.",
+          "evidenceIds": []
+        },
+        {
+          "key": "legacy_predictions",
+          "label": "Predicciones emocionales anteriores",
+          "sourceTerms": [
+            "emotions",
+            "modelo"
+          ],
+          "disposition": "deferred",
+          "scope": "Predicción sobre un término de la fuente",
+          "reason": "Las salidas antiguas del modelo no son etiquetas gold ni validan actividades de escucha o propiedades de todas las obras.",
+          "nextTask": "Comparar con los seis ejes y conservar modelo/versión sin reactivar asociaciones.",
+          "evidenceIds": []
+        },
+        {
+          "key": "human_emotion_decisions",
+          "label": "Decisiones humanas sobre tags",
+          "sourceTerms": [
+            "emotion_tag_decisions"
+          ],
+          "disposition": "deferred",
+          "scope": "Autoridad editorial de etiquetas existentes",
+          "reason": "Las decisiones humanas conservan su mecanismo y no se sobrescriben. Esta vía aún no consulta emotion_tag_decisions para adjudicar asociaciones de tags; falta integrar sus contradicciones específicas.",
+          "nextTask": "Consultar el historial vigente al adaptar tags y abrir revisión atribuida ante contradicciones, sin reactivar decisiones retiradas.",
+          "evidenceIds": [
+            "authority",
+            "publication"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R12",
+      "sourceFieldText": "`album.tags.tag[]`, objeto, captura y términos",
+      "fields": [
+        {
+          "key": "album_tags",
+          "label": "Términos y captura de tags de álbum",
+          "sourceTerms": [
+            "album.tags.tag[]",
+            "captura",
+            "términos"
+          ],
+          "disposition": "deferred",
+          "scope": "Respuesta de álbum de Last.fm",
+          "reason": "Las respuestas con tags no equivalen a álbumes distintos con identidad verificada. No se usan tags de artista como sustituto.",
+          "nextTask": "Deduplicar respuestas y separar vocabulario de asociaciones por obra.",
+          "evidenceIds": []
+        },
+        {
+          "key": "album_scope",
+          "label": "Identidad del objeto de respuesta",
+          "sourceTerms": [
+            "objeto"
+          ],
+          "disposition": "deferred",
+          "scope": "Artista–álbum y edición si se conoce",
+          "reason": "Los homónimos y mezclas de repertorio impiden trasladar el perfil completo por nombre coincidente.",
+          "nextTask": "Resolver objeto y edición con vínculos documentados antes de proponer atributos.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R13",
+      "sourceFieldText": "`entity_metrics`, listeners/playcount por artista, álbum y pista, fecha",
+      "fields": [
+        {
+          "key": "platform_metrics",
+          "label": "Listeners y reproducciones por nivel",
+          "sourceTerms": [
+            "entity_metrics",
+            "listeners/playcount",
+            "artista",
+            "álbum",
+            "pista",
+            "fecha"
+          ],
+          "disposition": "deferred",
+          "scope": "Plataforma, entidad y momento",
+          "reason": "Las métricas históricas pueden reutilizarse como contexto de plataforma, pero falta un adaptador E2 que verifique cada identidad, unidad, fecha y duplicado.",
+          "nextTask": "Consumir las métricas existentes sin sustituir requisitos de búsqueda ni medir popularidad universal.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R14",
+      "sourceFieldText": "`similar.artist[]`, origen/destino, orden/medida disponible y captura",
+      "fields": [
+        {
+          "key": "directed_similarity",
+          "label": "Origen, destino y medida de afinidad",
+          "sourceTerms": [
+            "similar.artist[]",
+            "origen/destino",
+            "orden/medida",
+            "captura"
+          ],
+          "disposition": "deferred",
+          "scope": "Relación direccional entre perfiles",
+          "reason": "La similitud comunitaria no documenta voz, guitarra, parentesco o nacionalidad, y ingest.lastfm_artist_verifications está vacía (2026-10-17): ningún origen tiene identidad Last.fm verificada, así que no se usa ningún par.",
+          "nextTask": "Verificar identidades en ingest.lastfm_artist_verifications; después aplicar la misma regla que R28 (aspecto desconocido, referencias externas sin alta).",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R15",
+      "sourceFieldText": "`album.tracks`, biografía y original/síntesis",
+      "fields": [
+        {
+          "key": "source_tracklist",
+          "label": "Tracklist de Last.fm",
+          "sourceTerms": [
+            "album.tracks"
+          ],
+          "disposition": "deferred",
+          "scope": "Respuesta de álbum y versión",
+          "reason": "El repertorio puede ayudar a desambiguar, pero no crea pistas por coincidencia de nombres y puede mezclar ediciones.",
+          "nextTask": "Cotejar títulos/posiciones con IDs actuales y dejar la edición desconocida cuando falte evidencia.",
+          "evidenceIds": []
+        },
+        {
+          "key": "source_biography",
+          "label": "Biografía original y síntesis",
+          "sourceTerms": [
+            "biografía",
+            "original/síntesis"
+          ],
+          "disposition": "deferred",
+          "scope": "Perfil de artista y cadena documental",
+          "reason": "El texto sintetizado no equivale a otra fuente independiente ni acredita todos los datos del perfil.",
+          "nextTask": "Recuperar captura original, fecha y vínculo exacto antes de segmentar afirmaciones.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R16",
+      "sourceFieldText": "`+shoutbox`, cuarentenas de comentarios/emociones, `entity_shouts`, `entity_emotions` y vías de recarga",
+      "fields": [
+        {
+          "key": "retired_source",
+          "label": "Shoutbox y vías de recarga",
+          "sourceTerms": [
+            "+shoutbox",
+            "vías de recarga"
+          ],
+          "disposition": "excluded",
+          "scope": "Todas las vías de ingestión de este proyecto",
+          "reason": "Brian retiró este material; no entra como evidencia, vocabulario, entrenamiento o clasificación aunque exista respaldo.",
+          "nextTask": "Mantener el bloqueo y comprobar que nuevos adaptadores rechacen R16.",
+          "evidenceIds": [
+            "authority",
+            "knowledge_tests"
+          ]
+        },
+        {
+          "key": "retired_tables",
+          "label": "Comentarios y emociones retirados",
+          "sourceTerms": [
+            "entity_shouts",
+            "entity_emotions",
+            "cuarentenas de comentarios/emociones"
+          ],
+          "disposition": "excluded",
+          "scope": "Tablas, derivados y cachés históricos",
+          "reason": "Una tabla vacía no acredita protección. Las cuarentenas se conservan excluidas y no se leen para producir conocimiento nuevo.",
+          "nextTask": "Mantener sus derivados fuera del índice y de los datasets.",
+          "evidenceIds": [
+            "authority",
+            "knowledge_tests"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R17",
+      "sourceFieldText": "MBID, país/área, tipo de artista, vida, miembros/períodos/ciudad",
+      "fields": [
+        {
+          "key": "external_identity",
+          "label": "MBID e identidad de artista",
+          "sourceTerms": [
+            "MBID",
+            "tipo de artista"
+          ],
+          "disposition": "deferred",
+          "scope": "Persona/proyecto de MusicBrainz",
+          "reason": "Un resultado con país compatible no resuelve identidad ni banda frente a persona. Los vínculos existentes se preservan sin emparejar por nombre.",
+          "nextTask": "Resolver MBID exacto usando claims y relaciones ya existentes.",
+          "evidenceIds": []
+        },
+        {
+          "key": "geography_periods",
+          "label": "Área, vida y relaciones temporales",
+          "sourceTerms": [
+            "país/área",
+            "vida",
+            "miembros/períodos/ciudad"
+          ],
+          "disposition": "deferred",
+          "scope": "Artista o relación con período",
+          "reason": "Residencia, origen y pertenencia temporal son hechos diferentes; no hay extracción E2 por afirmación para estas relaciones.",
+          "nextTask": "Reutilizar la vía existente de MusicBrainz y conservar inicio/fin y alcance del vínculo.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R18",
+      "sourceFieldText": "Release-groups, primera edición, tipo, tags/géneros, `tagPolicy` e imports",
+      "fields": [
+        {
+          "key": "release_group",
+          "label": "Grupo de publicaciones, primera fecha y tipo",
+          "sourceTerms": [
+            "Release-groups",
+            "primera edición",
+            "tipo"
+          ],
+          "disposition": "deferred",
+          "scope": "Grupo de publicaciones, no edición individual",
+          "reason": "La primera fecha del release-group no debe reemplazar la fecha de una edición. Falta resolver el vínculo de grupo y objeto concreto.",
+          "nextTask": "Registrar ambos niveles y reutilizar identidades de publicación.",
+          "evidenceIds": []
+        },
+        {
+          "key": "tag_policy",
+          "label": "Tags, géneros y política de importación",
+          "sourceTerms": [
+            "tags/géneros",
+            "tagPolicy",
+            "imports"
+          ],
+          "disposition": "deferred",
+          "scope": "Canal editorial/comunitario de la fuente",
+          "reason": "La disponibilidad del importador no habilita imports. Los tags requieren correspondencia y política vigentes.",
+          "nextTask": "Conservar estado real de importación y revisar términos antes de proponer ampliaciones.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R19",
+      "sourceFieldText": "`realname`, `profile`, `urls`, imágenes, IDs y enlaces sociales/escucha",
+      "fields": [
+        {
+          "key": "profile_identity",
+          "label": "Nombre real, perfil, IDs y URLs",
+          "sourceTerms": [
+            "realname",
+            "profile",
+            "urls",
+            "IDs"
+          ],
+          "disposition": "deferred",
+          "scope": "Perfil de Discogs frente a persona o publicación",
+          "reason": "Los perfiles homónimos y roles de artista/release requieren vínculo exacto. No se ha segmentado el perfil para esta cadena.",
+          "nextTask": "Reutilizar identidades y claims sin inferir identidad por nombre o biografía parecidos.",
+          "evidenceIds": []
+        },
+        {
+          "key": "profile_media",
+          "label": "Imágenes y enlaces del perfil",
+          "sourceTerms": [
+            "imágenes",
+            "enlaces sociales/escucha"
+          ],
+          "disposition": "deferred",
+          "scope": "Medio/enlace asociado a su entidad",
+          "reason": "Las campañas anteriores de fotos y enlaces no acreditan atributos sonoros ni identidad de cada imagen nueva.",
+          "nextTask": "Conservar procedencia y controles existentes; evitar una campaña duplicada.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R20",
+      "sourceFieldText": "Géneros/estilos externos, imports `authorized`, `tagPolicy`, datos de release/sello",
+      "fields": [
+        {
+          "key": "style_terms",
+          "label": "Géneros y estilos externos",
+          "sourceTerms": [
+            "Géneros/estilos externos"
+          ],
+          "disposition": "deferred",
+          "scope": "Vocabulario de Discogs",
+          "reason": "Los cajones amplios de Discogs no equivalen a la taxonomía CRV; Latin sigue ignorado por decisión editorial.",
+          "nextTask": "Revisar correspondencias específicas o parciales conservando términos originales.",
+          "evidenceIds": []
+        },
+        {
+          "key": "authorized_policy",
+          "label": "Imports y política editorial",
+          "sourceTerms": [
+            "authorized",
+            "tagPolicy"
+          ],
+          "disposition": "deferred",
+          "scope": "Estado del import y canal de origen",
+          "reason": "Un import anterior autorizado no habilita todos los datos futuros ni permite reemplazar una decisión humana.",
+          "nextTask": "Respetar la política existente y enviar contradicciones a revisión.",
+          "evidenceIds": []
+        },
+        {
+          "key": "release_label",
+          "label": "Publicación y sello",
+          "sourceTerms": [
+            "datos de release/sello"
+          ],
+          "disposition": "deferred",
+          "scope": "Sello en una publicación y período",
+          "reason": "Compartir sello no acredita sonido parecido; se requiere edición y relación temporal.",
+          "nextTask": "Extraer el vínculo documental sin convertirlo en similitud musical.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R21",
+      "sourceFieldText": "Tracklist, `duration_ms`, `explicit`, `release_date`, copyright, portadas",
+      "fields": [
+        {
+          "key": "track_duration",
+          "label": "Tracklist y duración real",
+          "sourceTerms": [
+            "Tracklist",
+            "duration_ms"
+          ],
+          "disposition": "deferred",
+          "scope": "Pista/grabación de una edición",
+          "reason": "Milisegundos de plataforma no equivalen a duración percibida; faltan vínculos exactos de pista y versión para este adaptador.",
+          "nextTask": "Resolver IDs existentes y conservar unidad, cobertura y fuente del valor.",
+          "evidenceIds": []
+        },
+        {
+          "key": "explicitness",
+          "label": "Marca de contenido explícito",
+          "sourceTerms": [
+            "explicit"
+          ],
+          "disposition": "deferred",
+          "scope": "Pista o publicación según campo de origen",
+          "reason": "Explicitud no prueba tema sexual ni adecuación íntima; un valor faltante no equivale a false.",
+          "nextTask": "Mantener booleano/desconocido y alcance exacto sin clasificación temática automática.",
+          "evidenceIds": []
+        },
+        {
+          "key": "release_metadata",
+          "label": "Fecha, copyright y portadas",
+          "sourceTerms": [
+            "release_date",
+            "copyright",
+            "portadas"
+          ],
+          "disposition": "deferred",
+          "scope": "Edición digital y su presentación",
+          "reason": "La fecha de una edición no debe convertirse en fecha de primera publicación; la imagen no aporta un rasgo musical.",
+          "nextTask": "Conservar edición, literal y procedencia; reutilizar medios existentes.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R22",
+      "sourceFieldText": "`genres.data[]`, `label`, `release_date`, UPC y portadas",
+      "fields": [
+        {
+          "key": "platform_genres",
+          "label": "Géneros de plataforma",
+          "sourceTerms": [
+            "genres.data[]"
+          ],
+          "disposition": "deferred",
+          "scope": "Publicación en Deezer",
+          "reason": "La taxonomía gruesa necesita correspondencia; no se convierte género en emoción o actividad.",
+          "nextTask": "Resolver la edición y revisar el mapa antes de usar el género como condición.",
+          "evidenceIds": []
+        },
+        {
+          "key": "edition_identifiers",
+          "label": "Sello, fecha y UPC",
+          "sourceTerms": [
+            "label",
+            "release_date",
+            "UPC"
+          ],
+          "disposition": "deferred",
+          "scope": "Edición identificada por plataforma",
+          "reason": "UPC, fecha y sello requieren ámbito de edición; el título solo no acredita ese vínculo.",
+          "nextTask": "Conservar identificadores y relaciones específicas sin alterar datos humanos.",
+          "evidenceIds": []
+        },
+        {
+          "key": "cover_images",
+          "label": "Portadas por tamaño",
+          "sourceTerms": [
+            "portadas"
+          ],
+          "disposition": "deferred",
+          "scope": "Presentación de la edición",
+          "reason": "Las imágenes existentes se reutilizan mediante su campaña; no hay un adaptador semántico que necesite los tamaños como señal musical.",
+          "nextTask": "Conservar atribución y evitar descargas/campañas paralelas innecesarias.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R23",
+      "sourceFieldText": "Género, imágenes y enlaces de álbum",
+      "fields": [
+        {
+          "key": "itunes_genre",
+          "label": "Género de iTunes",
+          "sourceTerms": [
+            "Género"
+          ],
+          "disposition": "deferred",
+          "scope": "Taxonomía de plataforma en álbum/edición",
+          "reason": "Un género de tienda no es clasificación editorial CRV ni rasgo emocional; falta correspondencia por edición.",
+          "nextTask": "Preservar el término de plataforma y revisar su relación taxonómica.",
+          "evidenceIds": []
+        },
+        {
+          "key": "itunes_access",
+          "label": "Imágenes y enlaces de álbum",
+          "sourceTerms": [
+            "imágenes",
+            "enlaces de álbum"
+          ],
+          "disposition": "deferred",
+          "scope": "Acceso y presentación",
+          "reason": "La campaña de portadas ya existe; no se crean géneros o entidades por tener una imagen/enlace.",
+          "nextTask": "Reutilizar enlaces y medios con identidad documentada, sin segundo capturador.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R24",
+      "sourceFieldText": "Estilo, sello, formación, país y bios ES/EN",
+      "fields": [
+        {
+          "key": "artist_metadata",
+          "label": "Estilo, sello, formación y país",
+          "sourceTerms": [
+            "Estilo",
+            "sello",
+            "formación",
+            "país"
+          ],
+          "disposition": "deferred",
+          "scope": "Perfil de TheAudioDB",
+          "reason": "Los campos pueden estar vacíos o pertenecer a un homónimo. La disponibilidad de la respuesta no acredita todos los valores.",
+          "nextTask": "Comprobar campo presente y vínculo exacto, separando formación y localización.",
+          "evidenceIds": []
+        },
+        {
+          "key": "multilingual_biographies",
+          "label": "Biografías ES/EN",
+          "sourceTerms": [
+            "bios ES/EN"
+          ],
+          "disposition": "deferred",
+          "scope": "Versión lingüística del texto de perfil",
+          "reason": "Las versiones lingüísticas no son dos testigos y requieren fuente/fecha; no se completa un idioma ausente.",
+          "nextTask": "Conservar originales y cadena de traducción/síntesis antes de anotar.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R25",
+      "sourceFieldText": "Identificadores externos e imágenes",
+      "fields": [
+        {
+          "key": "wikidata_ids",
+          "label": "Identificadores externos",
+          "sourceTerms": [
+            "Identificadores externos"
+          ],
+          "disposition": "deferred",
+          "scope": "Entidad y rol de Wikidata",
+          "reason": "El lote aporta identidad/imágenes, no género musical tipado. Un ID sin tipo/rol exacto no resuelve persona frente a proyecto.",
+          "nextTask": "Reutilizar identificadores verificados y no inventar campos de género ausentes.",
+          "evidenceIds": []
+        },
+        {
+          "key": "wikidata_images",
+          "label": "Imágenes enlazadas",
+          "sourceTerms": [
+            "imágenes"
+          ],
+          "disposition": "deferred",
+          "scope": "Imagen y entidad documentadas",
+          "reason": "La procedencia de una imagen no acredita características musicales ni una asociación nueva para todos los homónimos.",
+          "nextTask": "Reutilizar la campaña de medios y mantener atribución.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R26",
+      "sourceFieldText": "Biografía original, idioma, captura y síntesis ya aplicada",
+      "fields": [
+        {
+          "key": "original_biography",
+          "label": "Texto original, idioma y captura",
+          "sourceTerms": [
+            "Biografía original",
+            "idioma",
+            "captura"
+          ],
+          "disposition": "deferred",
+          "scope": "Página y revisión de biografía",
+          "reason": "Las biografías del lote no se han convertido en afirmaciones de E2. Las fuentes generales del mapa de géneros son otro corte y no validan estas bios.",
+          "nextTask": "Resolver página/revisión y atribuir cada hecho con su alcance.",
+          "evidenceIds": []
+        },
+        {
+          "key": "biography_synthesis",
+          "label": "Síntesis de biografía ya aplicada",
+          "sourceTerms": [
+            "síntesis ya aplicada"
+          ],
+          "disposition": "deferred",
+          "scope": "Texto derivado y original de su idioma",
+          "reason": "La síntesis aplicada no es corroboración independiente ni prueba de sonido de todas las obras del artista.",
+          "nextTask": "Conservar el enlace al original y distinguir diferencias entre idiomas.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R27",
+      "sourceFieldText": "Bios, géneros, álbum/tipo/año/sello, letras, créditos Letra/Música, fotos y videos",
+      "fields": [
+        {
+          "key": "artist_release_metadata",
+          "label": "Bios, géneros y datos de álbum",
+          "sourceTerms": [
+            "Bios",
+            "géneros",
+            "álbum/tipo/año/sello"
+          ],
+          "disposition": "deferred",
+          "scope": "Ficha de artista o publicación de Musicavenezuela",
+          "reason": "El alcance biográfico y el de una edición no se mezclan; las categorías de publicación deben revisarse sin deducirlas del número de pistas.",
+          "nextTask": "Reutilizar claims/IDs y segmentar hechos por objeto, tipo y fecha.",
+          "evidenceIds": []
+        },
+        {
+          "key": "lyrics_authorship",
+          "label": "Letras y autoría",
+          "sourceTerms": [
+            "letras",
+            "créditos Letra/Música"
+          ],
+          "disposition": "deferred",
+          "scope": "Letra y versión concreta, autor/intérprete diferenciados",
+          "reason": "No se ha resuelto cada letra con una pista y versión; un tema sexual no prueba sensualidad ni actividad íntima.",
+          "nextTask": "Vincular fragmento, versión, autor y fuente antes de proponer temática.",
+          "evidenceIds": []
+        },
+        {
+          "key": "visual_content",
+          "label": "Fotos y videos",
+          "sourceTerms": [
+            "fotos",
+            "videos"
+          ],
+          "disposition": "deferred",
+          "scope": "Imagen o audiovisual concreto",
+          "reason": "Una pieza audiovisual no origina disco/pista; la foto solo documenta su propio objeto.",
+          "nextTask": "Usar la vía de Audiovisuales y medios existente, conservando procedencia.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R28",
+      "sourceFieldText": "Canción/duración/featurings, discos/tipos, géneros por canción, 232 playlists y 14.988 pares de similitud del corte",
+      "fields": [
+        {
+          "key": "song_metadata",
+          "label": "Canción, duración y participantes",
+          "sourceTerms": [
+            "Canción/duración/featurings",
+            "discos/tipos"
+          ],
+          "disposition": "deferred",
+          "scope": "Canción/publicación de Aqustico",
+          "reason": "La pista ya puede existir en CRV; falta el vínculo de identidad y el sentido de featuring por captura.",
+          "nextTask": "Reutilizar IDs exactos, resolver versión y no crear pistas por nombre coincidente.",
+          "evidenceIds": []
+        },
+        {
+          "key": "song_genres",
+          "label": "Géneros por canción",
+          "sourceTerms": [
+            "géneros por canción"
+          ],
+          "disposition": "deferred",
+          "scope": "Canción identificada por la fuente",
+          "reason": "Los géneros de canción no se heredan al álbum ni a otras pistas y requieren correspondencia taxonómica.",
+          "nextTask": "Resolver canción y criterio del género antes de proponerlo.",
+          "evidenceIds": []
+        },
+        {
+          "key": "curated_playlists",
+          "label": "Playlists curatoriales",
+          "sourceTerms": [
+            "232 playlists"
+          ],
+          "disposition": "deferred",
+          "scope": "Pertenencia a una lista y criterio de curación",
+          "reason": "El nombre de una lista no prueba idoneidad universal para la actividad que mencione.",
+          "nextTask": "Documentar autor, criterio, condiciones y objeto de la pertenencia.",
+          "evidenceIds": []
+        },
+        {
+          "key": "similarity_pairs",
+          "label": "Pares de afinidad de Aqustico",
+          "sourceTerms": [
+            "14.988 pares de similitud del corte"
+          ],
+          "disposition": "proposed",
+          "scope": "Relación artista→artista listada por Aqustico, con posición y dirección",
+          "reason": "3.018 relaciones desde 159 orígenes con identidad probada (cruce «probado» o alta desde la ficha); 901 con ambos extremos en CRV, 2.117 destinos como referencia externa sin alta; aspecto siempre desconocido y explicación que no acredita sonido, voz, instrumentos, parentesco ni nacionalidad. 11.968 pares de orígenes sin identidad probada no se usan.",
+          "nextTask": "Brian decide si se muestran como «similares» en E4; resolver más identidades amplía la cobertura sin cambiar la regla.",
+          "evidenceIds": [
+            "similarity_relations",
+            "similarity_module",
+            "similarity_tests"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R29",
+      "sourceFieldText": "Banda/género, discos/sello/fecha/formato, pistas/duración, lineup y personas",
+      "fields": [
+        {
+          "key": "band_style",
+          "label": "Identidad y género de banda",
+          "sourceTerms": [
+            "Banda/género"
+          ],
+          "disposition": "deferred",
+          "scope": "Proyecto de Metal Archives",
+          "reason": "La ficha de una banda no acredita género o sonido de cada canción; el vocabulario de la fuente necesita mapa propio.",
+          "nextTask": "Reutilizar identidades externas y revisar correspondencias por nivel.",
+          "evidenceIds": []
+        },
+        {
+          "key": "release_tracklist",
+          "label": "Edición, sello y repertorio",
+          "sourceTerms": [
+            "discos/sello/fecha/formato",
+            "pistas/duración"
+          ],
+          "disposition": "deferred",
+          "scope": "Publicación/edición y pistas documentadas",
+          "reason": "Los formatos y duraciones deben conservar su unidad y relación con una edición; no se usan para estimar marcas de video.",
+          "nextTask": "Vincular edición y pistas actuales sin inferir tipos por cantidad de canciones.",
+          "evidenceIds": []
+        },
+        {
+          "key": "lineup_roles",
+          "label": "Personas y roles de lineup",
+          "sourceTerms": [
+            "lineup",
+            "personas"
+          ],
+          "disposition": "deferred",
+          "scope": "Participante y período o edición acreditados",
+          "reason": "El lineup actual no acredita participación en todas las grabaciones históricas; percepción sonora tampoco acredita persona/rol.",
+          "nextTask": "Resolver persona y período/edición antes de asociar instrumentos o créditos.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R30",
+      "sourceFieldText": "Claims de tracklists, géneros, sellos y encabezados históricos",
+      "fields": [
+        {
+          "key": "imported_claims",
+          "label": "Claims y documento de origen",
+          "sourceTerms": [
+            "Claims de tracklists",
+            "géneros",
+            "sellos",
+            "encabezados históricos"
+          ],
+          "disposition": "deferred",
+          "scope": "Cadena documental Sincopa y sus imports",
+          "reason": "El documento y su claim derivado no son dos fuentes independientes. Falta un adaptador que conserve la cadena por afirmación en esta vía.",
+          "nextTask": "Reutilizar claims y procedencia original, deduplicando copias y versiones.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R31",
+      "sourceFieldText": "Posts, título/categorías, HTML, bios y fotos de rockdevzla, lobotoradio, hippito, RHV, rockzuela, coleccionistas WP y descargas-metal, con inventario de los ocho feeds reales",
+      "fields": [
+        {
+          "key": "feed_inventory",
+          "label": "Inventario de ocho feeds",
+          "sourceTerms": [
+            "inventario de los ocho feeds reales"
+          ],
+          "disposition": "preserved_development",
+          "scope": "Ocho ubicaciones del registro de recursos",
+          "reason": "El registro conserva los ocho feeds efectivos, incluyendo El punk en Venezuela; no los convierte en ocho corpus musicalmente revisados.",
+          "nextTask": "Mantener el inventario y documentar nuevas capturas útiles por feed.",
+          "evidenceIds": [
+            "registry"
+          ]
+        },
+        {
+          "key": "post_text",
+          "label": "Posts, título, categorías y HTML",
+          "sourceTerms": [
+            "Posts",
+            "título/categorías",
+            "HTML",
+            "bios"
+          ],
+          "disposition": "deferred",
+          "scope": "Post con autor, fecha y alcance",
+          "reason": "No se ha reparado ni deduplicado este corpus como texto de afirmaciones. La categoría de un blog no determina el género del disco.",
+          "nextTask": "Extraer autor/fecha/citas y detectar republicaciones antes de estudiar comparaciones o sonido.",
+          "evidenceIds": []
+        },
+        {
+          "key": "post_photos",
+          "label": "Fotos publicadas en los feeds",
+          "sourceTerms": [
+            "fotos"
+          ],
+          "disposition": "deferred",
+          "scope": "Imagen dentro de un post",
+          "reason": "La fotografía requiere identidad y página de origen; no se usa como evidencia de sonido o emoción.",
+          "nextTask": "Reutilizar medios y menciones existentes con su atribución.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R32",
+      "sourceFieldText": "Imagen, `mentions.jsonl`, artista y página de origen",
+      "fields": [
+        {
+          "key": "photo_mentions",
+          "label": "Imagen, artista mencionado y página",
+          "sourceTerms": [
+            "Imagen",
+            "mentions.jsonl",
+            "artista",
+            "página de origen"
+          ],
+          "disposition": "deferred",
+          "scope": "Foto y mención concretas",
+          "reason": "Una mención textual no identifica por sí sola a todas las personas fotografiadas ni a homónimos.",
+          "nextTask": "Verificar persona/objeto y procedencia sin generar atributos musicales.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R33",
+      "sourceFieldText": "Artículo y wikitexto, ID/captura",
+      "fields": [
+        {
+          "key": "article_content",
+          "label": "Artículo, wikitexto e identidad de captura",
+          "sourceTerms": [
+            "Artículo",
+            "wikitexto",
+            "ID/captura"
+          ],
+          "disposition": "deferred",
+          "scope": "Página con contenido efectivo de Venciclopedia",
+          "reason": "Una página vacía o sin wikitexto útil no aporta evidencia. El registro histórico de archivos no acredita legibilidad de cada artículo.",
+          "nextTask": "Verificar texto, referencias y revisión antes de anotar contexto histórico.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R34",
+      "sourceFieldText": "Perfiles/labels, ubicación y catálogo",
+      "fields": [
+        {
+          "key": "profile_label",
+          "label": "Perfiles y sellos",
+          "sourceTerms": [
+            "Perfiles/labels"
+          ],
+          "disposition": "deferred",
+          "scope": "Perfil de artista frente a sello de Bandcamp",
+          "reason": "La naturaleza del perfil y sus vínculos necesitan resolución explícita; un label no es otro nombre del artista.",
+          "nextTask": "Reutilizar enlaces y separar identidad de artista y sello.",
+          "evidenceIds": []
+        },
+        {
+          "key": "location_catalog",
+          "label": "Ubicación y catálogo",
+          "sourceTerms": [
+            "ubicación",
+            "catálogo"
+          ],
+          "disposition": "deferred",
+          "scope": "Perfil o publicación en una fecha",
+          "reason": "La ubicación del sello no es origen del artista y el catálogo de un perfil no acredita autoría de todas las pistas.",
+          "nextTask": "Resolver objeto/fecha de ubicación y relaciones del catálogo.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R35",
+      "sourceFieldText": "Perfil, artista e imágenes",
+      "fields": [
+        {
+          "key": "historical_profile",
+          "label": "Perfil, artista e imágenes históricos",
+          "sourceTerms": [
+            "Perfil",
+            "artista",
+            "imágenes"
+          ],
+          "disposition": "deferred",
+          "scope": "Captura histórica de MySpace",
+          "reason": "La disponibilidad antigua del perfil no prueba continuidad o estado actual del proyecto. No se han adjudicado aquí los homónimos.",
+          "nextTask": "Conservar fecha, enlaces históricos y vigencia desconocida al reutilizar evidencias.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R36",
+      "sourceFieldText": "Perfil y set por disco, enlaces verificados del lote",
+      "fields": [
+        {
+          "key": "verified_access",
+          "label": "Perfil, set y verificación del enlace",
+          "sourceTerms": [
+            "Perfil",
+            "set por disco",
+            "enlaces verificados del lote"
+          ],
+          "disposition": "deferred",
+          "scope": "Enlace SoundCloud y objeto de la verificación original",
+          "reason": "El lote de enlaces aplicado se conserva; falta adaptar su evidencia de identidad/versión a esta cadena. Un enlace caído no borra la obra.",
+          "nextTask": "Reutilizar verificaciones y registrar disponibilidad separada, sin duplicar campaña.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R37",
+      "sourceFieldText": "Videos, descripciones, secciones, créditos, `media.youtube_*`, `media.video_*`, marcas, video–álbum y audiovisuales",
+      "fields": [
+        {
+          "key": "audiovisual_placement",
+          "label": "Video y ubicación editorial",
+          "sourceTerms": [
+            "Videos",
+            "video–álbum",
+            "audiovisuales",
+            "media.youtube_*"
+          ],
+          "disposition": "reused_existing",
+          "scope": "Video y obra/objeto audiovisual documentados",
+          "reason": "La vía existente conserva Audiovisuales sin crear discos o pistas por el video. Gasolina — Blues Criollo mantiene su excepción expresa, sin generalización.",
+          "nextTask": "Reutilizar IDs/relaciones y conservar evidencia si el video deja de estar disponible.",
+          "evidenceIds": [
+            "audiovisuals",
+            "playback",
+            "audiovisual_tests"
+          ]
+        },
+        {
+          "key": "video_timestamps",
+          "label": "Marcas por video, CD o lado",
+          "sourceTerms": [
+            "media.video_*",
+            "marcas"
+          ],
+          "disposition": "reused_existing",
+          "scope": "Video seleccionado y pista existente",
+          "reason": "La reproducción usa marcas del video concreto; cero es válido. Alias exactos, ambigüedades y duración se resuelven con las reglas existentes.",
+          "nextTask": "Mantener marcas ambiguas sin asignar y fuera de duración en revisión; no estimar sumando duraciones.",
+          "evidenceIds": [
+            "playback",
+            "playback_tests"
+          ]
+        },
+        {
+          "key": "video_documentation",
+          "label": "Descripciones, secciones y créditos",
+          "sourceTerms": [
+            "descripciones",
+            "secciones",
+            "créditos"
+          ],
+          "disposition": "deferred",
+          "scope": "Texto de descripción de un video",
+          "reason": "Las secciones importadas no son aún afirmaciones tipadas revisadas de sonido, intención o autoría para este índice.",
+          "nextTask": "Atribuir cada fragmento a video/obra y distinguir crédito de percepción o comentario.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R38",
+      "sourceFieldText": "`media_links` tipo `scan`, imagen/documento, página, fecha y procedencia",
+      "fields": [
+        {
+          "key": "scan_text",
+          "label": "Texto de prensa y transcripción",
+          "sourceTerms": [
+            "media_links",
+            "scan",
+            "imagen/documento"
+          ],
+          "disposition": "deferred",
+          "scope": "Documento escaneado y página legible",
+          "reason": "No hay extracción textual E2 validada para cada scan. OCR o transcripción dudosa no se incorporan como texto fiable de Laya.",
+          "nextTask": "Cotejar transcripción con original antes de proponer afirmaciones.",
+          "evidenceIds": []
+        },
+        {
+          "key": "scan_provenance",
+          "label": "Página, fecha y origen de prensa",
+          "sourceTerms": [
+            "página",
+            "fecha",
+            "procedencia"
+          ],
+          "disposition": "deferred",
+          "scope": "Fragmento y edición del documento",
+          "reason": "La existencia de una imagen no identifica publicación, página, fecha o alcance de todas sus menciones.",
+          "nextTask": "Registrar procedencia y localizador de cada afirmación, conservando dudas de legibilidad.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R39",
+      "sourceFieldText": "`/mnt/1tb/Shared/crv-ic`, `tracks`, `demos`, `song_covers`, `onerpm`, `livewire-tmp`, `aqustico-assets` y explorer existente",
+      "fields": [
+        {
+          "key": "audio_identity",
+          "label": "Masters, demos y previews",
+          "sourceTerms": [
+            "/mnt/1tb/Shared/crv-ic",
+            "tracks",
+            "demos",
+            "onerpm",
+            "livewire-tmp"
+          ],
+          "disposition": "deferred",
+          "scope": "Archivo exacto y relación con grabación/edición",
+          "reason": "La presencia de audio privado no acredita una versión ni la obra completa desde un preview. Laya recibe texto y no escucha estos archivos.",
+          "nextTask": "Resolver archivo y huella con pista/edición; cualquier análisis de audio requiere método y revisión propios.",
+          "evidenceIds": []
+        },
+        {
+          "key": "private_assets",
+          "label": "Carátulas y assets propios",
+          "sourceTerms": [
+            "song_covers",
+            "aqustico-assets",
+            "explorer existente"
+          ],
+          "disposition": "deferred",
+          "scope": "Asset privado y objeto vinculado",
+          "reason": "Los assets se conservan con el explorer existente; no se exponen rutas ni se crea otro catálogo por su disponibilidad.",
+          "nextTask": "Reutilizar acceso y medios documentados, separando presentación y conocimiento musical.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R40",
+      "sourceFieldText": "Ledger de artistas, álbumes, sellos y géneros, rutas y relaciones de `migracion`",
+      "fields": [
+        {
+          "key": "legacy_ledger",
+          "label": "Ledger de artistas, álbumes, sellos y géneros",
+          "sourceTerms": [
+            "Ledger de artistas",
+            "álbumes",
+            "sellos",
+            "géneros"
+          ],
+          "disposition": "deferred",
+          "scope": "ID legado frente a identidad actual",
+          "reason": "Las filas de migración necesitan correspondencia actual y revisión de duplicados; no autorizan revivir decisiones retiradas.",
+          "nextTask": "Enlazar IDs y versión del ledger con claims/historial existentes.",
+          "evidenceIds": []
+        },
+        {
+          "key": "legacy_file_links",
+          "label": "Rutas y relaciones de migración",
+          "sourceTerms": [
+            "migracion",
+            "rutas",
+            "relaciones"
+          ],
+          "disposition": "deferred",
+          "scope": "Vínculo histórico entre fila y archivo",
+          "reason": "Una ruta histórica no prueba que el archivo siga disponible o corresponda a la versión buscada.",
+          "nextTask": "Conservar trazabilidad privada y revisar relaciones sin crear un segundo catálogo.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R41",
+      "sourceFieldText": "Diez contextos, seis categorías emocionales amplias, 64 conceptos propuestos, sinónimos ES, géneros/alias/descripciones, `artists.themes` y glosario EN–ES",
+      "fields": [
+        {
+          "key": "existing_axes",
+          "label": "Contextos y categorías existentes",
+          "sourceTerms": [
+            "Diez contextos",
+            "seis categorías emocionales amplias"
+          ],
+          "disposition": "reused_existing",
+          "scope": "Vocabulario y criterios existentes, sin nuevas asignaciones",
+          "reason": "Los seis ejes se mantienen separados y energía conserva perceived-energy-v1; reconocer intención no prueba adecuación de una obra.",
+          "nextTask": "Reutilizar criterios específicos y mantener desconocidos y exclusiones.",
+          "evidenceIds": [
+            "authority",
+            "vocabulary"
+          ]
+        },
+        {
+          "key": "human_dictionary",
+          "label": "Conceptos y sinónimos españoles",
+          "sourceTerms": [
+            "64 conceptos propuestos",
+            "sinónimos ES",
+            "glosario EN–ES"
+          ],
+          "disposition": "proposed",
+          "scope": "Disposición analítica de cada concepto y alias",
+          "reason": "Los 64 conceptos tienen disposición y conservan definiciones/sinónimos; expresiones venezolanas ambiguas requieren contexto. No hay aprobación editorial de obras.",
+          "nextTask": "Contrastar en obras reservadas y revisar criterios antes de activar extensiones.",
+          "evidenceIds": [
+            "semantics",
+            "vocabulary"
+          ]
+        },
+        {
+          "key": "genre_vocabulary",
+          "label": "Géneros, alias y descripciones",
+          "sourceTerms": [
+            "géneros/alias/descripciones"
+          ],
+          "disposition": "proposed",
+          "scope": "Conocimiento general y correspondencias de taxonomía",
+          "reason": "Mapa y correspondencias conservan originales, rasgos variables y decisiones previas. Libro 0.13.0: 245 propuestas y cinco descripciones editoriales preservadas; faltan 32 categorías con motivo en completion-source-review.json y perfiles detallados. No se heredan rasgos de género a canciones ni se confunden categorías temáticas con estilos sonoros.",
+          "nextTask": "Completar cobertura y revisar alias amplios sin reescribir asignaciones humanas.",
+          "evidenceIds": [
+            "genre_map",
+            "mappings"
+          ]
+        },
+        {
+          "key": "artist_themes",
+          "label": "Temas del artista",
+          "sourceTerms": [
+            "artists.themes"
+          ],
+          "disposition": "deferred",
+          "scope": "Tema documentado en artista",
+          "reason": "Los temas del artista no prueban contenido de una canción o álbum concretos. Falta evidencia específica por obra.",
+          "nextTask": "Conservar el nivel artista y exigir fragmento/criterio para otra unidad.",
+          "evidenceIds": []
+        },
+        {
+          "key": "human_queries",
+          "label": "Consultas humanas del diccionario",
+          "sourceTerms": [
+            "133 consultas"
+          ],
+          "disposition": "preserved_development",
+          "scope": "Especificación de necesidades humanas, no prueba de desempeño",
+          "reason": "Las 133 consultas originales permanecen en el paquete de antecedentes, separadas de las 56 consultas del piloto y de los 85 planes de desarrollo ejecutados. Conservarlas no demuestra precisión del buscador.",
+          "nextTask": "Contrastar necesidades y restricciones en obras nuevas con criterios fijados antes de abrir la reserva.",
+          "evidenceIds": [
+            "pilot"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R42",
+      "sourceFieldText": "42 hallazgos, testigos, 22 familias, método, 56 consultas, inventarios/huellas y siete álbumes estudiados",
+      "fields": [
+        {
+          "key": "pilot_findings",
+          "label": "Hallazgos, testigos y consultas del piloto",
+          "sourceTerms": [
+            "42 hallazgos",
+            "testigos",
+            "56 consultas",
+            "siete álbumes estudiados"
+          ],
+          "disposition": "preserved_development",
+          "scope": "Antecedente de desarrollo, no prueba final",
+          "reason": "Los 42 IDs/estados, citas y 56 consultas se conservan. Ni repetición del piloto ni cantidad de álbumes acreditan saturación o consenso.",
+          "nextTask": "Contrastar necesidades en obras nuevas y preservar minorías y alternativas.",
+          "evidenceIds": [
+            "pilot",
+            "query_cases"
+          ]
+        },
+        {
+          "key": "pilot_facets",
+          "label": "Familias de facetas y método",
+          "sourceTerms": [
+            "22 familias",
+            "método"
+          ],
+          "disposition": "proposed",
+          "scope": "Disposición analítica de familias candidatas",
+          "reason": "Las 22 familias tienen decisión explícita; ninguna se activa por figurar en el piloto. La revisión propia no es evaluación independiente.",
+          "nextTask": "Completar revisión independiente y registrar traducciones/adjudicaciones sin contaminar la reserva.",
+          "evidenceIds": [
+            "semantics",
+            "vocabulary"
+          ]
+        },
+        {
+          "key": "pilot_manifest",
+          "label": "Inventarios y huellas",
+          "sourceTerms": [
+            "inventarios/huellas"
+          ],
+          "disposition": "preserved_development",
+          "scope": "Corte documental y selección del estudio",
+          "reason": "Los antecedentes y la reserva están versionados; capturas vacías o repetidas no amplían páginas útiles. Ladies W.C. se relee con rol piloto explícito y dos páginas locales; no se contabiliza como contraste nuevo.",
+          "nextTask": "Mantener el corte y sus huellas al ampliar material.",
+          "evidenceIds": [
+            "pilot",
+            "reserve",
+            "extractor"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R43",
+      "sourceFieldText": "Plan/handoff de octubre, sugerencias, métricas, contextos por pista, recomendaciones/feedback, auditoría y administración",
+      "fields": [
+        {
+          "key": "existing_operation",
+          "label": "Sugerencias, métricas, contextos y recomendaciones",
+          "sourceTerms": [
+            "sugerencias",
+            "métricas",
+            "contextos por pista",
+            "recomendaciones/feedback"
+          ],
+          "disposition": "reused_existing",
+          "scope": "Servicios y decisiones previos de descubrimiento",
+          "reason": "La implementación conserva servicios y criterios anteriores; no crea otra aplicación ni declara activos despliegues por existir código.",
+          "nextTask": "Integrar la recuperación pública en su etapa y medir flags/despliegue antes de atribuir cobertura.",
+          "evidenceIds": [
+            "suggestions",
+            "metrics",
+            "contexts",
+            "recommendations"
+          ]
+        },
+        {
+          "key": "unified_workbench",
+          "label": "Auditoría, administración y jobs",
+          "sourceTerms": [
+            "Plan/handoff de octubre",
+            "auditoría",
+            "administración"
+          ],
+          "disposition": "reused_existing",
+          "scope": "Espacio administrativo y cola de decisiones existentes",
+          "reason": "Las afirmaciones E2 reutilizan review_queue, historial y el espacio Buscador y descubrimiento. La sincronización no duplica jobs efectivos al repetir corte.",
+          "nextTask": "Conservar URLs, actores y undo; ampliar recursos en esa misma cadena.",
+          "evidenceIds": [
+            "feed",
+            "sync",
+            "publication",
+            "admin_navigation",
+            "shared_storage_paths",
+            "shared_storage_path_tests"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R44",
+      "sourceFieldText": "`search_misses`, eventos de sugerencias y nuevo contrato de búsquedas confirmadas, errores, desconocidas y vacías",
+      "fields": [
+        {
+          "key": "confirmed_observation",
+          "label": "Consultas, errores, vacías y desconocidas",
+          "sourceTerms": [
+            "search_misses",
+            "eventos de sugerencias",
+            "nuevo contrato de búsquedas confirmadas",
+            "errores",
+            "desconocidas",
+            "vacías"
+          ],
+          "disposition": "reused_existing",
+          "scope": "Operación confirmada y series heredadas separadas",
+          "reason": "El contrato conserva confirmación/idempotencia y sanitiza muestras; contadores solapados e históricos no se suman como personas o búsquedas homogéneas.",
+          "nextTask": "Mantener denominadores, retención y política de muestras en el espacio único.",
+          "evidenceIds": [
+            "observation",
+            "privacy",
+            "search_misses"
+          ]
+        },
+        {
+          "key": "future_patterns",
+          "label": "Patrones para vocabulario o dataset",
+          "sourceTerms": [
+            "patrones"
+          ],
+          "disposition": "deferred",
+          "scope": "Agrupación de intención con restricciones",
+          "reason": "Frecuencia, clic o error no generan etiquetas ni gold. El agrupamiento semántico corregible pertenece al trabajo posterior, no a un contador exacto.",
+          "nextTask": "Revisar restricciones, fuentes y decisiones de cada candidato antes de usarlo como dataset.",
+          "evidenceIds": []
+        }
+      ]
+    },
+    {
+      "id": "R45",
+      "sourceFieldText": "`user_reviews_all.jsonl` (cuenta, nota 0–100, fecha relativa, likes, texto), `critic_reviews.csv` (medio, autor, nota, extracto, enlace), `ratings_all.jsonl` e `histograms.jsonl`",
+      "fields": [
+        {
+          "key": "aoty_user_reviews",
+          "label": "Reseñas de usuario: cuenta, texto y likes",
+          "sourceTerms": [
+            "user_reviews_all.jsonl",
+            "cuenta",
+            "texto",
+            "likes"
+          ],
+          "disposition": "deferred",
+          "scope": "Reseña concreta de una cuenta AOTY sobre un álbum AOTY",
+          "reason": "Capturadas y medidas (9.942 con texto, 4.080 cuentas, 486 álbumes; ~75 % Arca y unas 2.950 con menos de 40 caracteres). No hay extractor del protocolo ni cruce álbum–publicación aprobado: el cruce de 309 álbumes es solo por nombre.",
+          "nextTask": "Resolver identidad álbum–publicación, extraer con localizador y estratificar fuera de Arca antes de usarlas como hallazgos; no sumarlas a RYM como testigos independientes.",
+          "evidenceIds": [
+            "reviews_inventory",
+            "aoty_report"
+          ]
+        },
+        {
+          "key": "aoty_user_rating",
+          "label": "Nota de la cuenta (0–100)",
+          "sourceTerms": [
+            "nota 0–100"
+          ],
+          "disposition": "deferred",
+          "scope": "Evaluación del álbum por esa cuenta, en escala AOTY",
+          "reason": "La escala 0–100 no equivale a las estrellas de RYM y no se convierte; la nota no actúa como peso de verdad.",
+          "nextTask": "Conservar escala y ausencia explícita junto a la reseña cuando se extraiga.",
+          "evidenceIds": [
+            "reviews_inventory"
+          ]
+        },
+        {
+          "key": "aoty_relative_date",
+          "label": "Fecha relativa",
+          "sourceTerms": [
+            "fecha relativa"
+          ],
+          "disposition": "deferred",
+          "scope": "Momento aproximado de la reseña",
+          "reason": "La mayoría trae fechas relativas («2mo», «4y»); solo pueden reconstruirse desde la fecha de captura y con precisión variable.",
+          "nextTask": "Reconstruir la fecha desde la captura, marcarla aproximada y no ordenar cronologías finas con ella.",
+          "evidenceIds": [
+            "reviews_inventory"
+          ]
+        },
+        {
+          "key": "aoty_critic_extracts",
+          "label": "Extractos de crítica: medio, autor, nota y enlace",
+          "sourceTerms": [
+            "critic_reviews.csv",
+            "medio",
+            "autor",
+            "extracto",
+            "enlace"
+          ],
+          "disposition": "deferred",
+          "scope": "Extracto citado de una crítica publicada en un medio",
+          "reason": "299 extractos de 51 medios sobre 81 álbumes, casi todos de Arca y Kid606. Son fragmentos: la crítica completa no está capturada.",
+          "nextTask": "Citar solo como extracto con medio, autor y enlace; capturar la crítica completa antes de atribuirle afirmaciones fuera del fragmento.",
+          "evidenceIds": [
+            "reviews_inventory",
+            "aoty_report"
+          ]
+        },
+        {
+          "key": "aoty_ratings_histograms",
+          "label": "Notas sueltas e histogramas",
+          "sourceTerms": [
+            "ratings_all.jsonl",
+            "histograms.jsonl"
+          ],
+          "disposition": "deferred",
+          "scope": "Distribución de notas comunitarias de un álbum AOTY",
+          "reason": "Notas sin texto y distribuciones por álbum; describen recepción en esa plataforma, no rasgos musicales.",
+          "nextTask": "Usar solo como contexto de recepción con población, fecha y escala visibles, si se aprueba un filtro.",
+          "evidenceIds": [
+            "aoty_report"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "R46",
+      "sourceFieldText": "`corpus.jsonl` (texto OCR por documento y página, método, calidad), `matches.jsonl` (menciones con contexto y fuerza) y documento original",
+      "fields": [
+        {
+          "key": "fanzine_ocr_text",
+          "label": "Texto OCR por documento y página",
+          "sourceTerms": [
+            "corpus.jsonl",
+            "texto OCR por documento y página",
+            "método",
+            "calidad"
+          ],
+          "disposition": "deferred",
+          "scope": "Página concreta de un fanzine o folleto",
+          "reason": "805 páginas de 71 documentos (3,6 M de caracteres en español). 27 páginas tienen calidad OCR baja y sirven para buscar, no para citar sin mirar el original.",
+          "nextTask": "Revisar OCR dudoso contra el PDF y extraer vocabulario de escena con documento y página; separar opinión de dato.",
+          "evidenceIds": [
+            "fanzine_corpus_readme",
+            "fanzine_corpus_stats"
+          ]
+        },
+        {
+          "key": "fanzine_mentions",
+          "label": "Menciones con contexto y fuerza",
+          "sourceTerms": [
+            "matches.jsonl",
+            "menciones con contexto y fuerza"
+          ],
+          "disposition": "deferred",
+          "scope": "Mención de un artista o persona del catálogo en una página",
+          "reason": "1.661 menciones fuertes por coincidencia de nombre; las débiles se apartan. Una mención no confirma identidad ni aporta rasgo musical por sí sola.",
+          "nextTask": "Revisar homónimos y contexto antes de vincular; las menciones fuertes siguen siendo candidatas.",
+          "evidenceIds": [
+            "fanzine_corpus_readme",
+            "fanzine_corpus_stats"
+          ]
+        },
+        {
+          "key": "fanzine_original",
+          "label": "Documento original",
+          "sourceTerms": [
+            "documento original"
+          ],
+          "disposition": "deferred",
+          "scope": "PDF/DOCX capturado de punkenvenezuela.com",
+          "reason": "El original se conserva en la captura y es la referencia para verificar el OCR y las citas.",
+          "nextTask": "Mantener el enlace documento–página en toda afirmación derivada.",
+          "evidenceIds": [
+            "fanzine_corpus_readme"
+          ]
+        }
+      ]
+    }
+  ],
+  "publicationAuthorized": false,
+  "automaticActivation": false,
+  "revision": "0.13.1"
+}

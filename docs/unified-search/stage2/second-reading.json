@@ -1,0 +1,120 @@
+{
+  "reviewer": "Codex",
+  "method": "Revisión de soporte y alcance; primera pasada de contraste sin consultar notas ni tags. El mismo analista ya conocía el material; no es revisión independiente.",
+  "reviews": [
+    {
+      "id": "E2-K01",
+      "reviewer": "Codex",
+      "pass": "without_scores_tags",
+      "object": "track:186213",
+      "aspect": "structure.development",
+      "assertionState": "hypothetical",
+      "appreciation": "liked",
+      "support": "partial",
+      "alternative": "El autor imagina las intenciones del productor. La metáfora de odisea sugiere escala, pero no acredita técnica ni desarrollo verificable.",
+      "translation": "Una odisea gigantesca de breakcore llena de samples juguetones; pensamiento del compositor imaginado por el reseñista.",
+      "reason": "La cita está en discurso imaginado. Corregir estado; no consolidar desarrollo extenso desde esta frase."
+    },
+    {
+      "id": "E2-K02",
+      "reviewer": "Codex",
+      "pass": "without_scores_tags",
+      "object": "track:186213",
+      "aspect": "structure.development",
+      "assertionState": "affirmed",
+      "appreciation": "disliked",
+      "support": "supported",
+      "alternative": "El rechazo puede dirigirse a falta de variedad, no al número de minutos.",
+      "translation": "La pista le pareció poco inspirada y demasiado prolongada.",
+      "reason": "Soporta una percepción atribuida y su valoración; no una medida de duración."
+    },
+    {
+      "id": "E2-W01",
+      "reviewer": "Codex",
+      "pass": "without_scores_tags",
+      "object": "album:27004",
+      "aspect": "production.sources",
+      "assertionState": "affirmed",
+      "appreciation": "liked",
+      "support": "supported",
+      "alternative": "El término reventados puede aludir a saturación percibida; no acredita el proceso técnico.",
+      "translation": null,
+      "reason": "Mezcla descrita literalmente por una cuenta. Géneros y equipo no se asignan desde esta percepción."
+    },
+    {
+      "id": "E2-W04",
+      "reviewer": "Codex",
+      "pass": "without_scores_tags",
+      "object": "album:27004",
+      "aspect": "vocals.prominence",
+      "assertionState": "affirmed",
+      "appreciation": "liked",
+      "support": "supported",
+      "alternative": "Una impresión de prominencia vocal no determina presencia o ausencia completa de voz.",
+      "translation": null,
+      "reason": "Casi no tiene conserva una excepción; rechazar inferencia de álbum instrumental."
+    },
+    {
+      "id": "E2-W05",
+      "reviewer": "Codex",
+      "pass": "without_scores_tags",
+      "object": "track:201258",
+      "aspect": "production.sources",
+      "assertionState": "quoted",
+      "appreciation": "liked",
+      "support": "partial",
+      "alternative": "La frase sola no acredita presencia audible, identidad del sample ni autoría. Necesita el contexto de la reseña y contraste específico.",
+      "translation": null,
+      "reason": "Conservar cita e interpretación atribuida; marcar como citado y aplazar identificación de sample."
+    }
+  ],
+  "adjudications": [
+    {
+      "id": "E2-K01",
+      "change": "assertion.state=hypothetical; no consolidated technical/structural fact",
+      "status": "applied_to_development_readings",
+      "independent": false
+    },
+    {
+      "id": "E2-W05",
+      "change": "assertion.state=quoted; source sample identity remains unknown",
+      "status": "applied_to_development_readings",
+      "independent": false
+    }
+  ],
+  "contextPass": "Puntuaciones de álbum separadas. No cambian soporte ni alcance. Géneros y tags comunitarios de las dos nuevas obras no evaluados todavía. No se puede informar acuerdo interevaluador ni validación musical independiente.",
+  "semanticFollowup": {
+    "version": "crv-semantic-followup-0.1.0",
+    "reviewer": "Codex",
+    "independent": false,
+    "method": "Contraste con el texto completo después de revisar el diccionario; el analista conocía las anotaciones anteriores. No se presenta como lectura ciega o independiente.",
+    "changes": [
+      {
+        "id": "E2-K01",
+        "decision": "Conservar intención atribuida hipotética; no atributo sonoro afirmado.",
+        "aspect": "structure.development",
+        "state": "hypothetical"
+      },
+      {
+        "id": "E2-K02",
+        "decision": "Separar experiencia de longitud excesiva de desarrollo compositivo; no son el mismo rasgo que K01.",
+        "aspect": "listening.perceived-length",
+        "state": "affirmed",
+        "translation": "La pista le pareció poco inspirada y demasiado prolongada."
+      },
+      {
+        "id": "E2-W02",
+        "decision": "Estética lo-fi atribuida, vinculada a Terminal mediante contexto textual ampliado; almost conserva la incertidumbre técnica.",
+        "aspect": "production.fidelity-aesthetic",
+        "state": "affirmed",
+        "translation": "Le encanta el sampling lo-fi, casi bitcrushed; da Terminal como ejemplo de las construcciones ruidosas."
+      },
+      {
+        "id": "E2-W06",
+        "decision": "Anotar separadamente la construcción ruidosa que el autor atribuye explícitamente a Terminal; misma cuenta y cadena de W02.",
+        "aspect": "structure.development",
+        "state": "affirmed"
+      }
+    ]
+  }
+}

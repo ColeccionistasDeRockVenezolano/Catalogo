@@ -1,0 +1,1619 @@
+{
+  "version": "crv-search-resources-v1",
+  "checkedAt": "2026-10-17T04:14:37.369Z",
+  "sourceReport": "reports/alimentar-laya-contexto-2026-10-16.md",
+  "planVersion": "1.1.0",
+  "resources": [
+    {
+      "id": "R01",
+      "resource": "Géneros de fichas",
+      "fields": "`rec.genres`, términos principales/secundarios, ID y captura; claims ya existentes",
+      "destination": "Mapa RYM–CRV y consulta por género/estilo conservando especificidad",
+      "validation": "Identidad de publicación, procedencia y relación exacta/especialización/parcial; decisión humana vigente",
+      "stagePriority": "E1 → E2/E4; P1",
+      "acceptance": "Cada término usado tiene original, relación versionada y alcance; no sustituye asignación humana ni borra subestilos",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 17838,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/fuentes-web-2026-10-16/rym-resto/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 6544,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R02",
+      "resource": "Descriptores comunitarios",
+      "fields": "`release_pri_descriptors`, literal, captura, nivel y posición solo como dato",
+      "destination": "Sinónimos y candidatos de faceta por álbum",
+      "validation": "Campo con contenido frente a solo presencia; 1.705/7.328 y 309 términos del inventario corregido como referencia; sin confianza por posición",
+      "stagePriority": "E1 → E2/E3; P1",
+      "acceptance": "Extracción reproducible y cada candidato con fuente; ninguna atribución a pista por herencia",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 17838,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/fuentes-web-2026-10-16/rym-resto/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 6544,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R03",
+      "resource": "Ratings y discografía de fichas de artista",
+      "fields": "`avg_rating`, votos, `disco_avg_rating`, `disco_ratings`, `disco_reviews` y fecha",
+      "destination": "Contexto de recepción y filtros explícitos que se aprueben",
+      "validation": "Escala, fecha, publicación resuelta y diferencia entre media, votos y número de reseñas; deduplicar snapshots",
+      "stagePriority": "E1 → E2/E4; P2",
+      "acceptance": "Población/fecha/escala visibles; no se usa nota como calidad objetiva, rasgo sonoro o verdad del texto",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 17838,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/fuentes-web-2026-10-16/rym-resto/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 6544,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R04",
+      "resource": "Reseñas y nota individual",
+      "fields": "ID, cuenta, fecha, título, texto completo, estrellas, utilidad, página y URL",
+      "destination": "Afirmaciones, patrones, opiniones y comparaciones para necesidades humanas",
+      "validation": "Protocolo de etapa 2 completo, recuperación desde HTML y alcance; 1.004 reseñas/145 páginas/39 publicaciones como corte histórico",
+      "stagePriority": "E1 → E2/E3/E4; P1",
+      "acceptance": "Cada hallazgo vuelve al fragmento y nota de su cuenta; disponibilidad, unicidad y dependencia documentadas",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/rym-reviews-2026-10-16/reviews.jsonl",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 1676194
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R05",
+      "resource": "Notas por pista en reseñas",
+      "fields": "`reviews[].tracks`, título/número, nota, cuenta y escala",
+      "destination": "Distinguir preferencias por canción y evolución de recepción dentro del disco",
+      "validation": "Bloque del autor, pista/edición resuelta o pendiente; no confundir con tracklist global",
+      "stagePriority": "E1 → E2/E4; P1",
+      "acceptance": "Notas vinculadas a su objeto sin inventar atributos ni promediar con notas del álbum",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/rym-reviews-2026-10-16/reviews.jsonl",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 1676194
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R06",
+      "resource": "Idiomas de publicación",
+      "fields": "`Languages`, literal, captura y alcance",
+      "destination": "Consulta de idioma y necesidades de comprensión",
+      "validation": "Idioma de obra frente a texto de reseña; idiomas mixtos y edición; no inferir traducción disponible",
+      "stagePriority": "E1 → E2/E4; P1",
+      "acceptance": "Condición de idioma respaldada en la unidad buscada; estado desconocido conservado",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 17838,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/fuentes-web-2026-10-16/rym-resto/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 6544,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R07",
+      "resource": "Bios, origen y actividad",
+      "fields": "Bios y capturas `Currently`, origen/formación, ciudad/país y fechas",
+      "destination": "Desambiguación, escena, geografía y período documentados",
+      "validation": "Residencia actual frente a origen; versión de bio sintetizada frente a evidencia original",
+      "stagePriority": "E1 → E2/E4; P0 identidad / P2 facetas",
+      "acceptance": "Cada relación temporal/geográfica conserva sentido, fecha y fuente; no describe origen de cada canción por herencia",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 17838,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/fuentes-web-2026-10-16/rym-resto/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 6544,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R08",
+      "resource": "Discografía y tipos pendientes",
+      "fields": "`rows {h,t,y,ty}`, `rec.kind`, DJ Mix/Mixtape",
+      "destination": "Resolver publicaciones y habilitar categorías combinables aprobadas",
+      "validation": "Distinguir tipo de lanzamiento, característica y edición; pendientes requieren decisión expresa",
+      "stagePriority": "E1 → E2/E4; P0 identidad / P2 filtros",
+      "acceptance": "No se reclasifica por cantidad de pistas; DJ Mix/Mixtape conservan pendiente hasta decisión",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 17838,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/fuentes-web-2026-10-16/rym-resto/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 6544,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R09",
+      "resource": "Pistas y créditos",
+      "fields": "`rec.tracks`, `rec.creditLinks`, persona/rol",
+      "destination": "Resolver canciones, participantes e instrumentos documentados",
+      "validation": "Créditos frente a percepción del reseñista; edición, alias, persona y rol exactos",
+      "stagePriority": "E1 → E2/E4; P1",
+      "acceptance": "IDs actuales reutilizados; rol acreditado trazable y sin extensión automática a todo el repertorio",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 17838,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/fuentes-web-2026-10-16/rym-resto/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 6544,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R10",
+      "resource": "Portadas, fotos y enlaces",
+      "fields": "`og`, imágenes, pendientes de carátula, enlaces RYM de escucha",
+      "destination": "Identificación y presentación del resultado, acceso a la obra",
+      "validation": "Entidad/edición y origen de imagen/enlace; disponibilidad separada del conocimiento musical",
+      "stagePriority": "E1 → E2/E4/E5; P2",
+      "acceptance": "No duplicar campañas ni entidades; imagen/enlace ausente no borra evidencia ni genera emociones",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/fuentes-web-2026-10-01/rym-nuevos/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 17838,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/fuentes-web-2026-10-16/rym-resto/pages",
+          "exists": true,
+          "kind": "directory",
+          "entries": 6544,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4/E5",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R11",
+      "resource": "Tags de artista y clasificación anterior",
+      "fields": "`entity_user_tags`, término, `weight`, `emotions`, modelo y `emotion_tag_decisions`",
+      "destination": "Vocabulario, sinónimos y comparación con la ontología anterior",
+      "validation": "Identidad de página y pertinencia de cada asociación; tag/etiqueta del modelo/decisión humana separados",
+      "stagePriority": "E1 → E2/E3; P0 confianza / P1 vocabulario",
+      "acceptance": "Los 1.750 términos sirven léxicamente; los 1.280 IDs históricos no se presentan como artistas verificados; predicciones no son gold",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "scripts/lastfm-2026-10-16/05-laya-clasificar.py",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 7640
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R12",
+      "resource": "Tags de respuestas de álbum",
+      "fields": "`album.tags.tag[]`, objeto, captura y términos",
+      "destination": "Vocabulario al nivel álbum y facetas candidatas",
+      "validation": "Deduplicación e identidad artista–álbum–edición; corrección: 4.812 respuestas con tags y 1.125 términos, no álbumes únicos verificados",
+      "stagePriority": "E1 → E2/E3; P1",
+      "acceptance": "Inventario por respuesta/entidad/cobertura y asociaciones revisadas; no trasladar tag de artista a álbum/pista",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/lastfm-bio",
+          "exists": true,
+          "kind": "directory",
+          "entries": 23520,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R13",
+      "resource": "Métricas Last.fm",
+      "fields": "`entity_metrics`, listeners/playcount por artista, álbum y pista, fecha",
+      "destination": "Contexto de popularidad de esa plataforma y filtros si se aprueban",
+      "validation": "Identidad, nivel, unidad, fecha y duplicados; volumen no acredita nacionalidad ni pertinencia",
+      "stagePriority": "E1 → E2/E4/E5; P2",
+      "acceptance": "Plataforma/población/fecha explícitas; no representa popularidad universal ni oculta requisitos de búsqueda",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/lastfm",
+          "exists": true,
+          "kind": "directory",
+          "entries": 5277,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4/E5",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R14",
+      "resource": "Similares de artista",
+      "fields": "`similar.artist[]`, origen/destino, orden/medida disponible y captura",
+      "destination": "Candidatos de afinidad y referencias «parecido a»",
+      "validation": "Identidad de ambos extremos, naturaleza comunitaria y dirección; similitud no es parentesco ni rasgo acústico probado",
+      "stagePriority": "E1 → E2/E4; P1",
+      "acceptance": "Relación con procedencia/aspecto conocido o desconocido y alcance; referencia externa no crea artista ficticio en CRV",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/lastfm",
+          "exists": true,
+          "kind": "directory",
+          "entries": 5277,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R15",
+      "resource": "Tracklists y bios",
+      "fields": "`album.tracks`, biografía y original/síntesis",
+      "destination": "Resolver repertorio y contexto documentado",
+      "validation": "Artista/álbum exactos, edición, duplicados y mezcla de homónimos",
+      "stagePriority": "E1 → E2/E4; P0 identidad / P2 contexto",
+      "acceptance": "Captura no crea pistas o asociaciones por nombre coincidente; sintetizado conserva evidencia de origen",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/lastfm-bio",
+          "exists": true,
+          "kind": "directory",
+          "entries": 23520,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R16",
+      "resource": "Shouts, cachés y agregados retirados",
+      "fields": "`+shoutbox`, cuarentenas de comentarios/emociones, `entity_shouts`, `entity_emotions` y vías de recarga",
+      "destination": "Control del retiro y prevención de reintroducción",
+      "validation": "Verificar exclusión en fuente, jobs, API, interfaz, cachés, datasets y despliegue; distinguir tablas vacías de protección efectivamente activa",
+      "stagePriority": "E1 → E5; P0",
+      "acceptance": "Sin uso como evidencia, vocabulario de este proyecto, entrenamiento o clasificación; conservar solo respaldo histórico excluido según política vigente",
+      "availability": "available",
+      "status": "withdrawn",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "scripts/lastfm-2026-10-16/10-clasificar-shouts.py",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 11462
+        },
+        {
+          "location": "reports/lastfm-shouts-2026-10-16/quarantine-entity-shouts.jsonl",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 8834788
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Mantener bloqueo de captura/carga/clasificación y probar exclusión del servicio",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R17",
+      "resource": "MusicBrainz, identidad y relaciones",
+      "fields": "MBID, país/área, tipo de artista, vida, miembros/períodos/ciudad",
+      "destination": "Identidad estable, desambiguación y relaciones con tiempo",
+      "validation": "Reutilizar identidades/claims, resolver homónimos y distinguir banda/persona",
+      "stagePriority": "E1 → E2/E4; P0",
+      "acceptance": "Vínculos acreditados y períodos conservados; no emparejar únicamente por nombre o país",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/musicbrainz-bio",
+          "exists": true,
+          "kind": "directory",
+          "entries": 5109,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R18",
+      "resource": "MusicBrainz, publicaciones y tags",
+      "fields": "Release-groups, primera edición, tipo, tags/géneros, `tagPolicy` e imports",
+      "destination": "Contraste de publicación y taxonomía por canal",
+      "validation": "Estado real de importación, autorizado/editorial/comunidad y objeto; no habilitar imports por figurar en el informe",
+      "stagePriority": "E1 → E2/E4; P1",
+      "acceptance": "Término, política y correspondencia revisados; sin reemplazar fecha de edición concreta por primera edición",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/musicbrainz",
+          "exists": true,
+          "kind": "directory",
+          "entries": 2160,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R19",
+      "resource": "Discogs, perfiles e identidad",
+      "fields": "`realname`, `profile`, `urls`, imágenes, IDs y enlaces sociales/escucha",
+      "destination": "Identidad, documentación y presentación",
+      "validation": "Perfil frente a release/persona, origen de imagen y vínculo exacto; decisiones previas",
+      "stagePriority": "E1 → E2/E4; P0 identidad / P2 presentación",
+      "acceptance": "Reutilizar enlaces e identidades; biografía o foto no se convierte en atributo sonoro",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/discogs-bio",
+          "exists": true,
+          "kind": "directory",
+          "entries": 13950,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R20",
+      "resource": "Discogs, estilos y sellos",
+      "fields": "Géneros/estilos externos, imports `authorized`, `tagPolicy`, datos de release/sello",
+      "destination": "Mapa de estilos y filtro documental de sello",
+      "validation": "Cajones amplios frente a taxonomía CRV; «Latin» ignorado por decisión editorial y relaciones temporales",
+      "stagePriority": "E1 → E2/E4; P1",
+      "acceptance": "Política de Brian preservada y correspondencias parciales visibles; sello no implica sonido parecido",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/discogs-bio",
+          "exists": true,
+          "kind": "directory",
+          "entries": 13950,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R21",
+      "resource": "Spotify",
+      "fields": "Tracklist, `duration_ms`, `explicit`, `release_date`, copyright, portadas",
+      "destination": "Duración, explicitud, fecha/edición y presentación",
+      "validation": "Identidad artista–release–pista/versión, unidad de duración, cobertura y original del dato",
+      "stagePriority": "E1 → E2/E4; P1 metadatos / P2 imágenes",
+      "acceptance": "No confundir duración real con duración percibida; explicitud no determina tema sexual ni idoneidad para actividad",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/spotify-lote-2026-10-03",
+          "exists": true,
+          "kind": "directory",
+          "entries": 114,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R22",
+      "resource": "Deezer",
+      "fields": "`genres.data[]`, `label`, `release_date`, UPC y portadas",
+      "destination": "Género de plataforma, sello, edición y enlaces de identidad",
+      "validation": "Taxonomía gruesa, UPC por edición y correspondencia de publicación",
+      "stagePriority": "E1 → E2/E4; P1",
+      "acceptance": "Metadatos por su nivel y mapa revisado; no trasladar género como emoción",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/etapa3-discografias",
+          "exists": true,
+          "kind": "directory",
+          "entries": 6329,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R23",
+      "resource": "iTunes",
+      "fields": "Género, imágenes y enlaces de álbum",
+      "destination": "Contraste de metadatos y presentación",
+      "validation": "Identidad de edición y correspondencia taxonómica; aprovechar campañas existentes",
+      "stagePriority": "E1 → E2/E4; P2",
+      "acceptance": "Género identificado como de plataforma; ninguna imagen implica clasificación",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "scripts/discover-itunes-album-images.ts",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 5592
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R24",
+      "resource": "TheAudioDB",
+      "fields": "Estilo, sello, formación, país y bios ES/EN",
+      "destination": "Contexto, identidad y candidato taxonómico",
+      "validation": "Campo disponible frente a ausente, fecha/objeto y fuente de bio",
+      "stagePriority": "E1 → E2/E4; P2",
+      "acceptance": "Solo se usan campos efectivamente presentes y documentados; no rellenar por similitud de nombres",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/theaudiodb-bio",
+          "exists": true,
+          "kind": "directory",
+          "entries": 4541,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R25",
+      "resource": "Wikidata",
+      "fields": "Identificadores externos e imágenes",
+      "destination": "Cruce de identidad y presentación",
+      "validation": "ID exacto, entidad/rol y fuente de imagen",
+      "stagePriority": "E1 → E2/E4; P0 identidad / P2 imágenes",
+      "acceptance": "No tratar este lote como fuente de género tipado que no contiene",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "scripts/discover-wikidata-images.ts",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 8633
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R26",
+      "resource": "Wikipedia ES/EN",
+      "fields": "Biografía original, idioma, captura y síntesis ya aplicada",
+      "destination": "Contexto histórico/geográfico y candidatos de evidencia",
+      "validation": "Página, revisión/captura, referencias y diferencias entre idiomas; síntesis no es testigo independiente",
+      "stagePriority": "E1 → E2/E3/E4; P2",
+      "acceptance": "Cada afirmación relevante conserva fuente/alcance; texto biográfico no hereda rasgos a todo el catálogo",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/wikipedia-bio-es",
+          "exists": true,
+          "kind": "directory",
+          "entries": 8083,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/wikipedia-bio-en",
+          "exists": true,
+          "kind": "directory",
+          "entries": 6342,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R27",
+      "resource": "Musicavenezuela.com",
+      "fields": "Bios, géneros, álbum/tipo/año/sello, letras, créditos Letra/Música, fotos y videos",
+      "destination": "Tema lírico, autoría, documentación e identidad",
+      "validation": "Texto de letra frente a comentario, versión, autor/intérprete y audiovisual separado",
+      "stagePriority": "E1 → E2/E3/E4; P1",
+      "acceptance": "Tema sustentado por fragmento/objeto; una letra sobre sexo no acredita adecuación íntima",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/musicavenezuela-2026-10-13/data",
+          "exists": true,
+          "kind": "directory",
+          "entries": 13,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R28",
+      "resource": "Aqustico",
+      "fields": "Canción/duración/featurings, discos/tipos, géneros por canción, 232 playlists y 14.988 pares de similitud del corte",
+      "destination": "Evidencia al nivel pista, contexto curatorial y afinidad",
+      "validation": "Identidad y semántica de relación/playlist; no heredar idoneidad solo por título de lista",
+      "stagePriority": "E1 → E2/E4/E5; P1",
+      "acceptance": "Pistas actuales enlazadas sin duplicación; parecido y contexto con fuente y criterio revisados",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/aqustico-2026-10-11",
+          "exists": true,
+          "kind": "directory",
+          "entries": 16,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4/E5",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R29",
+      "resource": "Metal Archives VE",
+      "fields": "Banda/género, discos/sello/fecha/formato, pistas/duración, lineup y personas",
+      "destination": "Identidad, instrumentos acreditados, estilo, época y edición",
+      "validation": "Persona/banda/rol, publicación y mapa del vocabulario de la fuente",
+      "stagePriority": "E1 → E2/E4; P0 identidad / P1 evidencia",
+      "acceptance": "Créditos y género con alcance; formato/lineup no asignan características a canciones no documentadas",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/metal-archives-ve-2026-10-01",
+          "exists": true,
+          "kind": "directory",
+          "entries": 17,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R30",
+      "resource": "Sincopa y extra",
+      "fields": "Claims de tracklists, géneros, sellos y encabezados históricos",
+      "destination": "Repertorio, taxonomía y contexto documental",
+      "validation": "Relación con claims ya importados y procedencia original; evitar doble conteo",
+      "stagePriority": "E1 → E2/E4; P1",
+      "acceptance": "Documento y claim derivados comparten cadena; no se suman como dos corroboraciones",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/sincopa",
+          "exists": true,
+          "kind": "directory",
+          "entries": 11544,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/sincopa-extra",
+          "exists": true,
+          "kind": "directory",
+          "entries": 1500,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R31",
+      "resource": "Blogs y feeds",
+      "fields": "Posts, título/categorías, HTML, bios y fotos de rockdevzla, lobotoradio, hippito, RHV, rockzuela, coleccionistas WP y descargas-metal, con inventario de los ocho feeds reales",
+      "destination": "Lenguaje humano, prensa, comparaciones y contexto de escena",
+      "validation": "Inventariar los feeds efectivos, autor/fecha, republicaciones, citas y alcance del post",
+      "stagePriority": "E1 → E2/E3/E4; P1 texto / P2 fotos",
+      "acceptance": "Afirmaciones trazables; una categoría del blog no se convierte automáticamente en género del álbum",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/coleccionistas-de-rock-venezolano",
+          "exists": true,
+          "kind": "directory",
+          "entries": 190,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/descargas-metal-venezolano",
+          "exists": true,
+          "kind": "directory",
+          "entries": 110,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/el-punk-en-venezuela",
+          "exists": true,
+          "kind": "directory",
+          "entries": 2,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/hippito-y-sus-chatarritas",
+          "exists": true,
+          "kind": "directory",
+          "entries": 124,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/lobotoradio",
+          "exists": true,
+          "kind": "directory",
+          "entries": 4571,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/rhv-blogspot",
+          "exists": true,
+          "kind": "directory",
+          "entries": 22,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/rock-de-vzla",
+          "exists": true,
+          "kind": "directory",
+          "entries": 860,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/rockzuela",
+          "exists": true,
+          "kind": "directory",
+          "entries": 92,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R32",
+      "resource": "Fotos de blogs y menciones",
+      "fields": "Imagen, `mentions.jsonl`, artista y página de origen",
+      "destination": "Identificación y presentación con procedencia",
+      "validation": "Homónimos, persona fotografiada y relación con publicación",
+      "stagePriority": "E1 → E2/E4; P2",
+      "acceptance": "Foto y mención conservan fuente; no producen emoción, género ni parecido musical",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/fotos-blogs-2026-10-01",
+          "exists": true,
+          "kind": "directory",
+          "entries": 7,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R33",
+      "resource": "Venciclopedia",
+      "fields": "Artículo y wikitexto, ID/captura",
+      "destination": "Contexto histórico e identidad",
+      "validation": "Páginas con contenido efectivo, referencias y edición",
+      "stagePriority": "E1 → E2/E3/E4; P2",
+      "acceptance": "Disponibilidad real y afirmación documentadas, sin contar artículo vacío como evidencia",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/venciclopedia-bio",
+          "exists": true,
+          "kind": "directory",
+          "entries": 1058,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R34",
+      "resource": "Bandcamp",
+      "fields": "Perfiles/labels, ubicación y catálogo",
+      "destination": "Identidad, sello y contexto editorial de publicación",
+      "validation": "Artista frente a sello; página propia frente a inferencia; ubicación de qué objeto y fecha",
+      "stagePriority": "E1 → E2/E4/E5; P1",
+      "acceptance": "Vínculos y alcance documentados; ubicación de sello no se convierte en origen del artista",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/bandcamp",
+          "exists": true,
+          "kind": "directory",
+          "entries": 2770,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4/E5",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R35",
+      "resource": "MySpace",
+      "fields": "Perfil, artista e imágenes",
+      "destination": "Identidad y contexto histórico",
+      "validation": "Captura histórica, homónimo, enlaces y vigencia",
+      "stagePriority": "E1 → E2/E4; P2",
+      "acceptance": "Distinguir estado histórico de disponibilidad actual; no suponer continuidad de proyecto",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/myspace-2026-10-15",
+          "exists": true,
+          "kind": "directory",
+          "entries": 4,
+          "bytes": null
+        },
+        {
+          "location": "data/raw/myspace-ma-2026-10-15",
+          "exists": true,
+          "kind": "directory",
+          "entries": 167,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Ruta del informe no disponible; localizar captura o recuperar fuente antes de extracción"
+    },
+    {
+      "id": "R36",
+      "resource": "SoundCloud",
+      "fields": "Perfil y set por disco, enlaces verificados del lote",
+      "destination": "Acceso y resolución de repertorio",
+      "validation": "Mantener evidencia de verificación, entidad/versión y disponibilidad",
+      "stagePriority": "E1 → E2/E4/E5; P2",
+      "acceptance": "Reutilizar enlaces aplicados; enlace caído no borra obra ni prueba ausencia de música",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "reports/streaming-links-2026-10-04",
+          "exists": true,
+          "kind": "directory",
+          "entries": 11,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4/E5",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R37",
+      "resource": "YouTube y datos aplicados",
+      "fields": "Videos, descripciones, secciones, créditos, `media.youtube_*`, `media.video_*`, marcas, video–álbum y audiovisuales",
+      "destination": "Documentación, reproducción de pista existente y acceso audiovisual",
+      "validation": "Video concreto/CD/lado, cero válido, alias exacto, duración y objeto; respetar excepción Gasolina–Blues Criollo",
+      "stagePriority": "E1 → E2/E4/E5; P1",
+      "acceptance": "No crear discos/pistas por video o capítulos; ambiguos sin asignar, marcas fuera de duración a revisión",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "src/youtube/track-playback.ts",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 6691
+        },
+        {
+          "location": "src/youtube/audiovisuals.ts",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 8758
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4/E5",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R38",
+      "resource": "Prensa escaneada",
+      "fields": "`media_links` tipo `scan`, imagen/documento, página, fecha y procedencia",
+      "destination": "Créditos, historia, géneros y contexto documentados",
+      "validation": "Transcripción/OCR frente a original, alcance y legibilidad; si no hay texto, trabajo pendiente",
+      "stagePriority": "E1 → E2/E3/E4; P1 evidencia / P2 extracción",
+      "acceptance": "Cada afirmación vuelve a página/fragmento; OCR dudoso se revisa antes de entrar a texto de Laya",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/fotos-blogs-2026-10-01",
+          "exists": true,
+          "kind": "directory",
+          "entries": 7,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R39",
+      "resource": "Audio y assets propios",
+      "fields": "`/mnt/1tb/Shared/crv-ic`, `tracks`, `demos`, `song_covers`, `onerpm`, `livewire-tmp`, `aqustico-assets` y explorer existente",
+      "destination": "Contrastar duración/versión, preservar portadas y preparar escucha humana específica",
+      "validation": "Archivo exacto, master/demo/preview, relación con pista/edición, huella y acceso; no exponer rutas privadas",
+      "stagePriority": "E1 → E2/E4; P1 verificación / P2 enriquecimiento",
+      "acceptance": "No inferir obra completa desde preview ni convertir Laya textual en analizador de audio; cualquier medición de audio tendrá método y revisión propios",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "/mnt/1tb/Shared/crv-ic",
+          "exists": true,
+          "kind": "directory",
+          "entries": 17,
+          "bytes": null
+        },
+        {
+          "location": "/mnt/1tb/Shared/aqustico-assets",
+          "exists": true,
+          "kind": "directory",
+          "entries": 7,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R40",
+      "resource": "Migración y ledger propio",
+      "fields": "Ledger de artistas, álbumes, sellos y géneros, rutas y relaciones de `migracion`",
+      "destination": "Resolver procedencia, identidad y correspondencias históricas",
+      "validation": "IDs actuales frente a legados, duplicados, versión y vínculo con archivos",
+      "stagePriority": "E1 → E2/E5; P0 identidad",
+      "acceptance": "Migración no crea un segundo catálogo ni revive decisiones retiradas; cada enlace es auditable",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "/mnt/1tb/Shared/crv-ic/migracion",
+          "exists": true,
+          "kind": "directory",
+          "entries": 1,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E5",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R41",
+      "resource": "Ontología y diccionario existentes",
+      "fields": "Diez contextos, seis categorías emocionales amplias, 64 conceptos propuestos, sinónimos ES, géneros/alias/descripciones, `artists.themes` y glosario EN–ES",
+      "destination": "Reutilizar, precisar y proponer con seis ejes separados y facetas adicionales",
+      "validation": "Clasificación de cada término, ambigüedades y estado de propuesta; preservar slugs/decisiones y no heredar temas de artista a pistas",
+      "stagePriority": "E1 → E2/E3/E4; P1",
+      "acceptance": "Tabla de reutilización/novedad y diccionario versionado; 133 consultas conservadas como especificación, no desempeño probado",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "docs/INTENCIONES_HUMANAS_0.1.0.md",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 26593
+        },
+        {
+          "location": "reports/intenciones-humanas/v0.1.0/inventario.json",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 1769
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3/E4",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R42",
+      "resource": "Piloto RYM y evidencia",
+      "fields": "42 hallazgos, testigos, 22 familias, método, 56 consultas, inventarios/huellas y siete álbumes estudiados",
+      "destination": "Semilla del protocolo, comparación y desarrollo del vocabulario",
+      "validation": "Limitaciones de selección, independencia y anotación de un analista; reserva de álbumes nuevos",
+      "stagePriority": "E1 → E2/E3; P1",
+      "acceptance": "IDs, citas y alcance conservados; ninguna de las 22 familias se activa sin decisión; no afirmar saturación ni validación musical general",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "reports/rym-reviews-piloto/v0.1.0/INFORME.md",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 39478
+        },
+        {
+          "location": "reports/rym-reviews-piloto/v0.1.0/FACETAS_PROPUESTAS.md",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 12834
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E2/E3",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R43",
+      "resource": "Descubrimiento previo",
+      "fields": "Plan/handoff de octubre, sugerencias, métricas, contextos por pista, recomendaciones/feedback, auditoría y administración",
+      "destination": "Unificación de contratos, pantallas, decisiones, jobs y seguimiento",
+      "validation": "Inventario técnico/desplegado/activo/con datos; compatibilidad de IDs, tickets y significado de métricas",
+      "stagePriority": "E1 → E4/E5; P0",
+      "acceptance": "Una operación y una cola de decisiones por caso, con continuidad de enlaces y sin duplicación de índices/paneles equivalentes",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "src/discovery",
+          "exists": true,
+          "kind": "directory",
+          "entries": 14,
+          "bytes": null
+        },
+        {
+          "location": "docs/DISCOVERY_PHASE_1.md",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 11997
+        },
+        {
+          "location": "docs/DISCOVERY_PHASE_2.md",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 13467
+        },
+        {
+          "location": "docs/DISCOVERY_PHASE_3.md",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 18788
+        },
+        {
+          "location": "docs/DISCOVERY_PHASE_4.md",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 18829
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E4/E5",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R44",
+      "resource": "Consultas observadas y patrones",
+      "fields": "`search_misses`, eventos de sugerencias y nuevo contrato de búsquedas confirmadas, errores, desconocidas y vacías",
+      "destination": "Diagnóstico, contadores y candidatos revisables de sinónimos/dataset/evidencia",
+      "validation": "Sanitización, correlación/idempotencia, versión, denominador, retención, exclusiones y grupos con restricciones conservadas",
+      "stagePriority": "E1 → E3/E4/E5; P0",
+      "acceptance": "Contadores fiables y acciones desde el mismo espacio; frecuencia/clic/error no crean por sí solos etiquetas ni entrenamiento",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "src/api/search-misses.ts",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 3525
+        },
+        {
+          "location": "src/search/observability.ts",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 8974
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; historical field counts in source report",
+        "musicallyValidated": false
+      },
+      "nextTask": "Contrastar identidad, extracción y criterio de aceptación en E1 → E3/E4/E5",
+      "deferredReason": "Etapa 1 registra disponibilidad; la extracción y aprobación musical corresponden a etapas posteriores"
+    },
+    {
+      "id": "R45",
+      "resource": "AOTY, reseñas y notas",
+      "fields": "`user_reviews_all.jsonl` (cuenta, nota 0–100, fecha relativa, likes, texto), `critic_reviews.csv` (medio, autor, nota, extracto, enlace), `ratings_all.jsonl` e `histograms.jsonl`",
+      "destination": "Procedencia de reseñas separada de RYM: afirmaciones, patrones de recepción y vocabulario en inglés, español y portugués; extractos de crítica citados",
+      "validation": "Cruce álbum AOTY–publicación CRV por identidad, no solo por nombre; fecha relativa reconstruida desde la captura y marcada aproximada; escala 0–100 distinta de RYM; extracto frente a crítica completa; concentración en Arca (~75 %)",
+      "stagePriority": "E2 → E2/E3/E4; P1 texto / P2 notas",
+      "acceptance": "Cada hallazgo vuelve a reseña y cuenta AOTY; no se suma a RYM como corroboración independiente; extracto conserva medio, autor y enlace; nota no es calidad objetiva",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/raw/aoty-2026-10-19/user_reviews_all.jsonl",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 4210421
+        },
+        {
+          "location": "data/raw/aoty-2026-10-19/critic_reviews.csv",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 88020
+        },
+        {
+          "location": "data/raw/aoty-2026-10-19/ratings_all.jsonl",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 13252825
+        },
+        {
+          "location": "data/raw/aoty-2026-10-19/histograms.jsonl",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 924314
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; measured volumes in reports/reviews-rym-aoty-inventario-2026-10-24 and the corpus README",
+        "musicallyValidated": false
+      },
+      "nextTask": "Registrar AOTY como procedencia propia, resolver identidad álbum–publicación y extraer reseñas con fecha aproximada en E2 → E2/E3/E4",
+      "deferredReason": "Capturado el 2026-10-19/20 y medido el 2026-10-24 (reports/reviews-rym-aoty-inventario-2026-10-24); sin extracción al protocolo ni cruce de identidad aprobado"
+    },
+    {
+      "id": "R46",
+      "resource": "Fanzines de punkenvenezuela (OCR)",
+      "fields": "`corpus.jsonl` (texto OCR por documento y página, método, calidad), `matches.jsonl` (menciones con contexto y fuerza) y documento original",
+      "destination": "Vocabulario venezolano de escena, temática y contexto histórico; menciones documentadas de artistas y discos",
+      "validation": "OCR frente a página original y páginas de calidad baja; homónimos y menciones débiles; fecha y número del fanzine; opinión frente a dato",
+      "stagePriority": "E2 → E2/E3/E4; P1 vocabulario / P2 evidencia",
+      "acceptance": "Cada afirmación vuelve a documento, página y fragmento; OCR dudoso se revisa antes de entrar a texto de Laya; una mención débil no vincula artista ni cuenta como cobertura musical",
+      "availability": "available",
+      "status": "inventoried_not_semantically_integrated",
+      "owner": {
+        "editorial": "Brian",
+        "execution": "pipeline del repositorio"
+      },
+      "locations": [
+        {
+          "location": "data/research/punkenvenezuela-fanzines-2026-10-23/corpus.jsonl",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 3947654
+        },
+        {
+          "location": "data/research/punkenvenezuela-fanzines-2026-10-23/matches.jsonl",
+          "exists": true,
+          "kind": "file",
+          "entries": null,
+          "bytes": 899460
+        },
+        {
+          "location": "data/raw/punkenvenezuela-2026-10-23",
+          "exists": true,
+          "kind": "directory",
+          "entries": 10,
+          "bytes": null
+        }
+      ],
+      "coverage": {
+        "measured": "presence and immediate file counts; measured volumes in reports/reviews-rym-aoty-inventario-2026-10-24 and the corpus README",
+        "musicallyValidated": false
+      },
+      "nextTask": "Revisar OCR dudoso y extraer vocabulario y afirmaciones con documento/página en E2 → E2/E3/E4",
+      "deferredReason": "Corpus OCR disponible (commit 4c80dae0); vocabulario y menciones sin revisión editorial ni integración semántica"
+    }
+  ]
+}

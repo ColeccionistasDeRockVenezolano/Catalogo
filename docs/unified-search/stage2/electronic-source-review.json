@@ -1,0 +1,76 @@
+{
+  "version": "crv-electronic-source-review-0.1.0",
+  "analyst": "Codex",
+  "newProfiles": [
+    "electronica",
+    "ebm",
+    "aggrotech",
+    "futurepop",
+    "darkwave",
+    "coldwave",
+    "ethereal-wave",
+    "tech-house",
+    "future-house",
+    "trance",
+    "noise",
+    "turntablism",
+    "trap",
+    "trap-latino",
+    "drill",
+    "gangsta-rap",
+    "rap-metal",
+    "rap-experimental",
+    "nu-jazz",
+    "jazz-latino",
+    "jazz-afrocubano",
+    "smooth-jazz",
+    "big-band"
+  ],
+  "sourceIds": [
+    "wiki:Afro-Cuban_jazz",
+    "wiki:Aggrotech",
+    "wiki:Big_band",
+    "wiki:Cold_wave_(music)",
+    "wiki:Dark_wave",
+    "wiki:Drill_music",
+    "wiki:Electronic_body_music",
+    "wiki:Electronic_music",
+    "wiki:Ethereal_wave",
+    "wiki:Experimental_hip_hop",
+    "wiki:Future_house",
+    "wiki:Futurepop",
+    "wiki:Gangsta_rap",
+    "wiki:Latin_jazz",
+    "wiki:Latin_trap",
+    "wiki:Noise_music",
+    "wiki:Nu_jazz",
+    "wiki:Rap_metal",
+    "wiki:Smooth_jazz",
+    "wiki:Tech_house",
+    "wiki:Trance_music",
+    "wiki:Trap_music",
+    "wiki:Turntablism"
+  ],
+  "excludedSources": [
+    {
+      "id": "wiki:Industrial_music",
+      "reason": "La descarga no contenía simultáneamente encabezado y artículo legible; no se incorporó.",
+      "url": "https://en.wikipedia.org/wiki/Industrial_music"
+    }
+  ],
+  "redirectedSources": [
+    {
+      "source": "wiki:Aggrotech",
+      "canonicalTitle": "Electro-industrial",
+      "locator": "Derivatives > Aggrotech",
+      "meaning": "La sección específica respalda el perfil, no todo el artículo."
+    },
+    {
+      "source": "wiki:Experimental_hip_hop",
+      "canonicalTitle": "Alternative hip-hop",
+      "locator": "Related genres > Experimental hip-hop",
+      "meaning": "No se presume equivalencia entre hip-hop alternativo y experimental."
+    }
+  ],
+  "policy": "general_knowledge_proposals_never_entity_assignments"
+}

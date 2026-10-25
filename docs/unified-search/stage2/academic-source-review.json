@@ -1,0 +1,46 @@
+{
+  "version": "crv-academic-source-review-0.1.0",
+  "analyst": "Codex",
+  "newProfiles": [
+    "musica-clasica",
+    "musica-antigua",
+    "musica-de-camara",
+    "musica-sacra",
+    "opera",
+    "nacionalismo-musical",
+    "electroacustica",
+    "avant-garde",
+    "experimental",
+    "folk",
+    "folk-celta",
+    "new-age",
+    "musica-cristiana-contemporanea"
+  ],
+  "sourceIds": [
+    "wiki:Avant-garde_music",
+    "wiki:Celtic_music",
+    "wiki:Chamber_music",
+    "wiki:Classical_music",
+    "wiki:Contemporary_Christian_music",
+    "wiki:Early_music",
+    "wiki:Electroacoustic_music",
+    "wiki:Experimental_music",
+    "wiki:Folk_music",
+    "wiki:Musical_nationalism",
+    "wiki:New-age_music",
+    "wiki:Opera",
+    "wiki:Religious_music"
+  ],
+  "excludedSources": [
+    {
+      "failed": "Choir",
+      "reason": "missing readable article"
+    }
+  ],
+  "policy": "general_knowledge_proposals_never_entity_assignments",
+  "limits": [
+    "Síntesis generales propuestas; sin validación musical independiente de obras",
+    "La categoría no autoriza asignaciones al catálogo ni inferencias de actividad",
+    "Música coral pendiente: la captura de Choir carecía de artículo utilizable"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "version": "crv-pop-source-review-0.1.0",
+  "analyst": "Codex",
+  "newProfiles": [
+    "art-rock",
+    "pop-psicodelico",
+    "space-rock",
+    "rock-electronico",
+    "rock-instrumental",
+    "rock-gotico",
+    "deathrock",
+    "doo-wop",
+    "easy-listening",
+    "beat",
+    "folk-punk",
+    "horror-punk",
+    "hardcore-melodico"
+  ],
+  "sourceIds": [
+    "wiki:Art_rock",
+    "wiki:Beat_music",
+    "wiki:Deathrock",
+    "wiki:Doo-wop",
+    "wiki:Easy_listening",
+    "wiki:Electronic_rock",
+    "wiki:Folk_punk",
+    "wiki:Gothic_rock",
+    "wiki:Horror_punk",
+    "wiki:Instrumental_rock",
+    "wiki:Melodic_hardcore",
+    "wiki:Psychedelic_pop",
+    "wiki:Space_rock"
+  ],
+  "excludedSources": [
+    {
+      "failed": "Art_pop",
+      "reason": "missing readable article"
+    },
+    {
+      "failed": "Power_pop",
+      "reason": "missing readable article"
+    },
+    {
+      "failed": "Post-grunge",
+      "reason": "missing readable article"
+    },
+    {
+      "failed": "Industrial_music",
+      "reason": "missing readable article"
+    },
+    {
+      "failed": "Industrial_metal",
+      "reason": "missing readable article"
+    },
+    {
+      "failed": "Grindcore",
+      "reason": "missing readable article"
+    },
+    {
+      "failed": "Speed_metal",
+      "reason": "missing readable article"
+    },
+    {
+      "id": "wiki:AOR",
+      "reason": "Desambiguación: no determina si CRV pretende album-oriented rock o adult-oriented rock."
+    },
+    {
+      "id": "wiki:Oi!",
+      "reason": "La introducción respalda historia de escena, pero no aporta el perfil sonoro necesario para esta propuesta."
+    },
+    {
+      "id": "wiki:Twist_(dance)",
+      "reason": "La fuente describe el baile; no se convierte su gesto corporal en una descripción de género musical."
+    }
+  ],
+  "policy": "general_knowledge_proposals_never_entity_assignments",
+  "limits": [
+    "Síntesis generales propuestas; sin validación musical independiente de obras",
+    "La categoría no autoriza asignaciones al catálogo ni inferencias de actividad",
+    "Exclusiones conservadas; no forzar desambiguaciones, bailes o historia de escena a perfiles sonoros"
+  ]
+}

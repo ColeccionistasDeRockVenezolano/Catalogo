@@ -1,0 +1,670 @@
+{
+  "version": "crv-independent-review-claude-0.1.0",
+  "reviewer": {
+    "name": "Claude",
+    "kind": "ai_model_distinct_from_first_analyst",
+    "firstAnalyst": "Codex",
+    "independence": "Analista distinto de Codex, sin acceso a sus interpretaciones durante la primera pasada; no es una persona ni sustituye la evaluación humana ni la decisión de Brian."
+  },
+  "method": [
+    "Primera pasada ciega: solo cita, idioma y obra; sin anotación, valoración numérica ni etiquetas comunitarias.",
+    "Comparación campo a campo con development-annotations.json.",
+    "Adjudicación de cada desacuerdo leyendo el cuerpo completo de la reseña en la captura fijada por huella."
+  ],
+  "input": {
+    "path": "reports/unified-search-stage2/study-cuts/development-0.5.0/reports/unified-search-stage2/development-annotations.json",
+    "sha256": "63eeb7ba2939a70046e48d25778bce00513df54560f22427b60e4b2ac3cdf4bf",
+    "annotations": 35,
+    "cut": "development-0.5.0"
+  },
+  "metrics": {
+    "blindAgreement": {
+      "type": 0.857,
+      "state": 0.829,
+      "appreciation": 0.629,
+      "coverage": 0.286,
+      "object": 0.943
+    },
+    "scopeErrors": 0,
+    "unsupportedGeneralizations": 0,
+    "rectificationsProposed": 3,
+    "supportPrecision": 0.971,
+    "supportPrecisionBasis": "Atributo y valoración soportados por la cita en contexto; E2-L09 sobrestima el rechazo. Las omisiones de condición de E2-C03/C04 no generalizan porque coverage es unknown.",
+    "reviewerBlindErrors": [
+      "E2-W05",
+      "E2-C04"
+    ]
+  },
+  "thresholds": {
+    "status": "approved_by_brian",
+    "scopeErrorsAllowed": 0,
+    "unsupportedGeneralizationsAllowed": 0,
+    "supportPrecision": 0.95,
+    "outcome": "Brian aprobó los tres umbrales el 2026-10-17. La revisión de IA los cumple; la evaluación humana de Brian sigue pendiente.",
+    "approvedAt": "2026-10-17"
+  },
+  "rectifications": [
+    {
+      "id": "E2-L09",
+      "field": "assertion.appreciation",
+      "from": "disliked",
+      "to": "mixed"
+    },
+    {
+      "id": "E2-C03",
+      "field": "assertion.listeningCondition",
+      "from": null,
+      "to": "At its peaks"
+    },
+    {
+      "id": "E2-C04",
+      "field": "assertion.listeningCondition",
+      "from": null,
+      "to": "At its peaks"
+    }
+  ],
+  "rectificationStatus": "applied_after_brian_approval",
+  "items": [
+    {
+      "id": "E2-K01",
+      "quoteSha256": "0bf01528f8e4750b110743d6a93caef45a00d89e878fdb1fac8e9bd16e976494",
+      "blind": {
+        "object": "track",
+        "type": "attributed_intent",
+        "aspect": "form/samples",
+        "state": "affirmed",
+        "appreciation": "descriptive",
+        "coverage": "partial",
+        "note": "Describe lo que el artista quiso hacer; no prueba el resultado sonoro."
+      },
+      "adjudication": {
+        "verdict": "codex",
+        "reason": "Contexto: «you can tell Kid606 ... was like»: intención imaginada por el reseñista; el estado hipotético de Codex es correcto y la valoración global es positiva."
+      }
+    },
+    {
+      "id": "E2-K02",
+      "quoteSha256": "db4e5ad6153773002efc8464e250596a5afe7057b1e3155174416df33e42b001",
+      "blind": {
+        "object": "track",
+        "type": "experience",
+        "aspect": "length",
+        "state": "affirmed",
+        "appreciation": "disliked",
+        "coverage": "partial",
+        "note": "Duración vivida como excesiva; no es un rasgo medible."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-K03",
+      "quoteSha256": "f12d5030fe63c096f4f235d0ded76e81ba7ad7b2436c7c96c18d69139892f95b",
+      "blind": {
+        "object": "unknown",
+        "type": "sound",
+        "aspect": "ambient/no_chaos",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "partial",
+        "note": "Niega caos y afirma ambient; la negación tiene alcance de la pieza comentada."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-K04",
+      "quoteSha256": "373b6a4c3f2659bc53d8ec07b5d6bf8613883013726d9856c4f3acab7b9859b2",
+      "blind": {
+        "object": "track",
+        "type": "comparison",
+        "aspect": "unresolved",
+        "state": "affirmed",
+        "appreciation": "descriptive",
+        "coverage": "unknown",
+        "note": "Parecido a Boards of Canada sin aspecto declarado."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-K05",
+      "quoteSha256": "801e40fc2925ccad7e512bd31f0cbc07440cf72574bf04b3b9055a624ab867e6",
+      "blind": {
+        "object": "album",
+        "type": "taste",
+        "aspect": "none",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "unknown",
+        "note": "Valoración sin atributo."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-W01",
+      "quoteSha256": "f1bbbeb5214f1bf13e534e0efc4d90727d5be5f9faa1133f0f35ef96e2fcdac7",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "synths/genre_mix",
+        "state": "affirmed",
+        "appreciation": "descriptive",
+        "coverage": "partial",
+        "note": "Lista de componentes estilísticos."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-W02",
+      "quoteSha256": "4abab5782e8bdbf8f6ee60dcedd6ba98d016465a5650f5115093fdd7c4a35841",
+      "blind": {
+        "object": "track",
+        "type": "sound",
+        "aspect": "lo-fi_sampling/noise_builds",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "partial",
+        "note": "Textura de muestreo y crescendos ruidosos; ejemplo en una pista concreta."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-W03",
+      "quoteSha256": "aa2f96bcf739bed8b369ac000dd2005cda74578ce4ffb31262c45c14b4117b25",
+      "blind": {
+        "object": "album",
+        "type": "taste",
+        "aspect": "none",
+        "state": "corrected",
+        "appreciation": "liked",
+        "coverage": "unknown",
+        "note": "Revisión de una opinión previa del mismo autor."
+      },
+      "adjudication": {
+        "verdict": "both_defensible",
+        "reason": "«I take it back»: revisión de la propia valoración; sin atributo musical, no afecta recurrencia."
+      }
+    },
+    {
+      "id": "E2-W04",
+      "quoteSha256": "af470834d035b3bc644486ab621782672be7a0969cd728cfd63b1906e050c249",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "voice_presence",
+        "state": "negated",
+        "appreciation": "descriptive",
+        "coverage": "partial",
+        "note": "«Casi»: ausencia parcial; no satisface exclusión de voces."
+      },
+      "adjudication": {
+        "verdict": "codex",
+        "reason": "El autor reconoce voces en «O santa rosa»: prominencia baja afirmada, no ausencia; ambas lecturas evitan una exclusión vocal."
+      }
+    },
+    {
+      "id": "E2-W05",
+      "quoteSha256": "49b0468c641abeaf9ee2c9452ff844cb7d66293984d85aaabce45867dfc0fcc6",
+      "blind": {
+        "object": "unknown",
+        "type": "lyrics",
+        "aspect": "quoted_lyric",
+        "state": "quoted",
+        "appreciation": "descriptive",
+        "coverage": "unknown",
+        "note": "Cita de letra; no expresa emoción del oyente ni de la obra."
+      },
+      "adjudication": {
+        "verdict": "codex",
+        "reason": "Contexto: «Ven y sana mi dolor» es un sample de reguetón en «Maluca», elogiado por su integración; mi lectura ciega como cita de letra era errónea."
+      }
+    },
+    {
+      "id": "E2-W06",
+      "quoteSha256": "c0f52168f57550458ee775775e71187beae660d502d8f5d18176a7f6ab36fd3e",
+      "blind": {
+        "object": "track",
+        "type": "sound",
+        "aspect": "noise_builds",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "partial",
+        "note": "Repite parte de E2-W02: duplicado, no testigo adicional."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-C01",
+      "quoteSha256": "58435d72ea4f3e36082cb711dab0e4691ada084694e78b90c164e0bd7d162f56",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "danceability",
+        "state": "affirmed",
+        "appreciation": "descriptive",
+        "coverage": "partial",
+        "note": "Niega «dance» y afirma influencias bailables; no es actividad declarada."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-C02",
+      "quoteSha256": "3204ad2cdf21df7e4e30b5cf2f8dc247fea2613721112be37a6559a4bf77c723",
+      "blind": {
+        "object": "album",
+        "type": "comparison",
+        "aspect": "guitars",
+        "state": "affirmed",
+        "appreciation": "descriptive",
+        "coverage": "partial",
+        "note": "Estilo de guitarra parecido a new wave/post-punk."
+      },
+      "adjudication": {
+        "verdict": "both_defensible",
+        "reason": "Referencia estilística de guitarra; tipo sonido o comparación son equivalentes para la consulta."
+      }
+    },
+    {
+      "id": "E2-C03",
+      "quoteSha256": "c4d0b86a330d12b54518ff2a32f9b40d107d24699251f36fd62695a44acc0651",
+      "blind": {
+        "object": "album",
+        "type": "comparison",
+        "aspect": "unresolved",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "unknown",
+        "note": "DEVO y Jumbo sin aspecto; identidad de Jumbo por resolver."
+      },
+      "adjudication": {
+        "verdict": "rectification_proposed",
+        "reason": "La comparación vale «At its peaks»: falta registrar esa condición de escucha; coverage unknown evita la generalización, por lo que no es error de alcance."
+      }
+    },
+    {
+      "id": "E2-C04",
+      "quoteSha256": "c4d0b86a330d12b54518ff2a32f9b40d107d24699251f36fd62695a44acc0651",
+      "blind": {
+        "object": "album",
+        "type": "comparison",
+        "aspect": "unresolved",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "unknown",
+        "note": "Misma frase que E2-C03: duplicado."
+      },
+      "adjudication": {
+        "verdict": "rectification_proposed",
+        "reason": "Igual que E2-C03; separar DEVO y Jumbo es correcto (mi marca de duplicado no lo era), pero ambas comparten un único testigo."
+      }
+    },
+    {
+      "id": "E2-T01",
+      "quoteSha256": "c96524478b54151bc075b05953a840f27882a1768226f9ffa21fcd7d3734fe5d",
+      "blind": {
+        "object": "album",
+        "type": "taste",
+        "aspect": "none",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "unknown",
+        "note": "Énfasis de réplica; sin atributo."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-T02",
+      "quoteSha256": "f0bf6f1d2a601b473d033fe0e3b95aca6144279d724cb8a85cf8d0df51644aab",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "punk/directness",
+        "state": "affirmed",
+        "appreciation": "disliked",
+        "coverage": "unknown",
+        "note": "Mezcla rasgo (directo, punk) y rechazo."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-T03",
+      "quoteSha256": "8f31fb7c7cd55c070e52a177036e1fce04c716d72bf34544ab302b7cbae34f98",
+      "blind": {
+        "object": "track",
+        "type": "sound",
+        "aspect": "ballad/monotony",
+        "state": "affirmed",
+        "appreciation": "disliked",
+        "coverage": "complete",
+        "note": "Pista concreta; «cursi» es valoración."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-V01",
+      "quoteSha256": "7bd4691e794d3fe385c30511cca3264ecc266ba6130528ffde2cf741a23e2b4f",
+      "blind": {
+        "object": "album",
+        "type": "experience",
+        "aspect": "rhythm_changes/energy",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "partial",
+        "note": "Cambios de ritmo verificables; energía/tranquilidad son experiencia."
+      },
+      "adjudication": {
+        "verdict": "both_defensible",
+        "reason": "Cambios de ritmo verificables junto a energía/tranquilidad vividas; Codex fija el rasgo de variación rítmica."
+      }
+    },
+    {
+      "id": "E2-V02",
+      "quoteSha256": "30e5b6750732265749cc90eb93ca194591709419d48a16cdc7df812396519bae",
+      "blind": {
+        "object": "album",
+        "type": "experience",
+        "aspect": "closure",
+        "state": "affirmed",
+        "appreciation": "disliked",
+        "coverage": "complete",
+        "note": "Echa en falta un cierre: forma vivida."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-V03",
+      "quoteSha256": "441a20033bbeef40134a0476c2a0fa9066e694795ec4a28d61894a17030881f5",
+      "blind": {
+        "object": "track",
+        "type": "lyrics",
+        "aspect": "thematic_weight",
+        "state": "affirmed",
+        "appreciation": "descriptive",
+        "coverage": "complete",
+        "note": "Peso temático de la letra de una pista."
+      },
+      "adjudication": {
+        "verdict": "codex",
+        "reason": "«Destaco mucho»: valoración positiva; saliencia temática como recepción es aceptable."
+      }
+    },
+    {
+      "id": "E2-L01",
+      "quoteSha256": "75b137b5bdda7518b09055b0c425478448ee88f270f12d6190fb09999af305da",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "guitar_fuzz",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "partial",
+        "note": "Guitarra solista con fuzz."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-L02",
+      "quoteSha256": "35ee1377b812f0fecf3eca6fe45afcf780dc47ffad5d876d0e0eb39860c9f930",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "guitar_fuzz",
+        "state": "affirmed",
+        "appreciation": "descriptive",
+        "coverage": "complete",
+        "note": "«Throughout the whole recording»."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-L03",
+      "quoteSha256": "ff16d516d3fca89a04a9a31c9677704f554f7e9e754e7a3c781eb00a9c2d8ead",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "fuzzy_texture",
+        "state": "affirmed",
+        "appreciation": "descriptive",
+        "coverage": "partial",
+        "note": "Textura fuzzy sin instrumento: no sumar a guitarra fuzz."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-L04",
+      "quoteSha256": "2bed14f92caada763eea4ec2b69bb6cd3794a347af7c39fe49fa3548c87c83d5",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "guitar_fuzz",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "partial",
+        "note": "Tono de guitarra fuzz."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-L05",
+      "quoteSha256": "1e6fa3733d098f2273eb7cc050ee2b3e5fc35a93d86bffa6625bc3e51fd32a31",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "harmonica",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "partial",
+        "note": "Armónica estruendosa destacada."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-L06",
+      "quoteSha256": "3fd2c6ec6b5becc1f889d1e55910d3bbce16c100709a97379b004cf4079640ec",
+      "blind": {
+        "object": "track",
+        "type": "sound",
+        "aspect": "harmonica",
+        "state": "affirmed",
+        "appreciation": "disliked",
+        "coverage": "complete",
+        "note": "Exceso de armónica en una pista concreta."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-L07",
+      "quoteSha256": "2273bdf26a3b8b8ae30fd9d79a35163eab6876285c546441fd5aa264b483f6e1",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "harmonica",
+        "state": "affirmed",
+        "appreciation": "descriptive",
+        "coverage": "partial",
+        "note": "Presencia de armónica."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-L08",
+      "quoteSha256": "6b656dbe72fc4497498517424d2ba5f083507f906ecedbd80a911d70d1e9d2f3",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "harmonica",
+        "state": "affirmed",
+        "appreciation": "liked",
+        "coverage": "partial",
+        "note": "Armónica valorada."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-L09",
+      "quoteSha256": "f8e85d93225529cdd35836ea43ed18d392a69016c3fa8b6264eb8fe3364c9fd6",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "voice",
+        "state": "affirmed",
+        "appreciation": "mixed",
+        "coverage": "partial",
+        "note": "Voces irregulares."
+      },
+      "adjudication": {
+        "verdict": "rectification_proposed",
+        "reason": "«less good, not bad by any means, just more inconsistent»: la valoración es mixta, no rechazo; el atributo está bien soportado."
+      }
+    },
+    {
+      "id": "E2-L10",
+      "quoteSha256": "749c2ba135301b4faf14d6371b4dd2969ee4093053daa23f90d25da54d7ee3da",
+      "blind": {
+        "object": "track",
+        "type": "experience",
+        "aspect": "length",
+        "state": "hypothetical",
+        "appreciation": "liked",
+        "coverage": "complete",
+        "note": "«Should be longer»: deseo, no rasgo."
+      },
+      "adjudication": {
+        "verdict": "codex",
+        "reason": "Incluida entre los mejores momentos; «should be a lot longer» afirma una duración percibida corta."
+      }
+    },
+    {
+      "id": "E2-L11",
+      "quoteSha256": "447b47a290b0d8aab542ced625e60842eeea781038ec026088acbab19aad5606",
+      "blind": {
+        "object": "album",
+        "type": "experience",
+        "aspect": "length",
+        "state": "affirmed",
+        "appreciation": "mixed",
+        "coverage": "partial",
+        "note": "Cita a otro reseñista y coincide: dependencia de tercero."
+      },
+      "adjudication": {
+        "verdict": "both_defensible",
+        "reason": "Acuerdo con otro reseñista; la dependencia third_party ya impide sumarlo como testigo independiente."
+      }
+    },
+    {
+      "id": "E2-L12",
+      "quoteSha256": "aec1fc2c84e1be69d9ae8921f3212edc8185ff3649818ffcb0e24df7219e7a5a",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "repetition",
+        "state": "affirmed",
+        "appreciation": "mixed",
+        "coverage": "unknown",
+        "note": "Repetitivo con valoración positiva global."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-L13",
+      "quoteSha256": "9ee04af192b9e2be2962b1fc8a46e9932d2535b550286b21ac895dd6c50db219",
+      "blind": {
+        "object": "album",
+        "type": "sound",
+        "aspect": "production/effects",
+        "state": "affirmed",
+        "appreciation": "descriptive",
+        "coverage": "partial",
+        "note": "Efectos entre canciones."
+      },
+      "adjudication": {
+        "verdict": "agree",
+        "reason": "Lectura ciega compatible con la anotación en objeto, aspecto, estado y valoración; diferencias de coverage solo por convención (Codex usa unknown)."
+      }
+    },
+    {
+      "id": "E2-L14",
+      "quoteSha256": "7620d81ce6eab3bac8554708526a3bc97fe7a226c30ee77b7d6ecb8ee92e1690",
+      "blind": {
+        "object": "album",
+        "type": "context",
+        "aspect": "identity_error",
+        "state": "withdrawn",
+        "appreciation": "descriptive",
+        "coverage": "unknown",
+        "note": "Confusión de álbum: invalida la reseña como testigo."
+      },
+      "adjudication": {
+        "verdict": "both_defensible",
+        "reason": "Corrected y withdrawn excluyen igualmente la reseña como testigo."
+      }
+    }
+  ],
+  "limits": [
+    "Revisión de una segunda IA: reduce errores de primera lectura pero no establece independencia personal ni validez musical.",
+    "No hay escucha de las obras; solo se juzga si la anotación representa lo que dice la reseña.",
+    "No aprueba asignaciones, umbrales ni publicación."
+  ],
+  "rectificationsAppliedIn": "crv-development-readings-0.7.0"
+}

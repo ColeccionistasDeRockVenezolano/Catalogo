@@ -72,7 +72,20 @@
     "stage2:context-audit": "./scripts/with-node22.sh tsx scripts/stage2-context-audit.ts",
     "ai:budget": "./scripts/with-node22.sh tsx scripts/ai-budget.ts",
     "stage2:preserved-audit": "./scripts/with-node22.sh tsx scripts/stage2-preserved-audit.ts",
-    "test:browser:research": "./scripts/with-node22.sh tsx web/tests/visual/research-recovery-qa.mjs"
+    "test:browser:research": "./scripts/with-node22.sh tsx web/tests/visual/research-recovery-qa.mjs",
+    "search:inventory": "./scripts/with-node22.sh tsx scripts/unified-search-inventory.ts",
+    "search:resources:audit": "./scripts/with-node22.sh tsx scripts/unified-search-resource-audit.ts",
+    "search:baseline": "./scripts/with-node22.sh tsx scripts/unified-search-baseline.ts",
+    "search:knowledge": "./scripts/with-node22.sh tsx scripts/unified-search-knowledge.ts",
+    "search:study": "./scripts/with-node22.sh tsx scripts/unified-search-study.ts",
+    "search:knowledge:rehearsal": "./scripts/with-node22.sh tsx scripts/unified-search-stage2-rehearsal.ts",
+    "search:laya:study": "./scripts/with-node22.sh tsx scripts/unified-search-laya-study.ts",
+    "search:queries:study": "./scripts/with-node22.sh tsx scripts/unified-search-query-matrix.ts",
+    "search:semantics:study": "./scripts/with-node22.sh tsx scripts/unified-search-semantic-review.ts",
+    "search:languages:study": "./scripts/with-node22.sh tsx scripts/unified-search-language-study.ts",
+    "search:human:import": "./scripts/with-node22.sh tsx scripts/search-human-evaluation-import.ts",
+    "search:genres:audit": "./scripts/with-node22.sh tsx scripts/unified-search-genre-audit.ts",
+    "search:similarity": "./scripts/with-node22.sh tsx scripts/unified-search-similarity.ts"
   },
   "dependencies": {
     "@fastify/cors": "^11.3.0",
