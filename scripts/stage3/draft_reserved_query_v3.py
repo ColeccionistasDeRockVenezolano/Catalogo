@@ -6,7 +6,10 @@ a partir de una especificación por categoría; los conceptos, géneros y entida
 semilla fija (nombres reales de la instantánea del catálogo). Claude etiqueta después cada frase
 con las convenciones de la prueba (author_reserved_query_test_v3.py) sin pasar el sistema por ellas.
 
-  draft_reserved_query_v3.py <salida-dir>     (escribe drafts.jsonl y usage.json; nada en la base)
+  draft_reserved_query_v3.py <salida-dir> [semilla]   (escribe drafts.jsonl y usage.json; nada en la base)
+
+La semilla 31 redactó la prueba 3.0.0 (criterios 1.2.0); la 47, la prueba 4.0.0 (criterios 1.3.0).
+Las frases ya presentes en cualquier conjunto de `datasets/` se descartan.
 """
 from __future__ import annotations
 import json, random, sys, urllib.request
@@ -18,7 +21,8 @@ ROOT = Path(__file__).resolve().parents[2]
 LEX = json.loads((ROOT / "docs/unified-search/stage3/query-lexicon.json").read_text())
 CATALOG = Path.home() / ".cache/crv-stage3/catalog-names-2026-10-25.json"
 DS = ROOT / "docs/unified-search/stage3/datasets"
-rnd = random.Random(31)
+SEED = int(sys.argv[2]) if len(sys.argv) > 2 else 31
+rnd = random.Random(SEED)
 
 concepts = {d: [c for c in LEX["concepts"] if c["dimension"] == d] for d in ("activity", "emotion", "energy", "atmosphere", "theme")}
 label = lambda c: f'{c["labelEs"]} ({c["definitionEs"]})'
@@ -98,7 +102,7 @@ def main(out: Path):
     with open(out / "drafts.jsonl", "w") as fh:
         for r in rows:
             fh.write(json.dumps(r, ensure_ascii=False) + "\n")
-    (out / "usage.json").write_text(json.dumps({**usage, "model": model, "seed": 31}, indent=1))
+    (out / "usage.json").write_text(json.dumps({**usage, "model": model, "seed": SEED}, indent=1))
     print(json.dumps({"rows": len(rows), **usage, "byCategory": Counter(r["category"] for r in rows)}, ensure_ascii=False))
 
 
