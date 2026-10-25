@@ -15,7 +15,7 @@ export interface Span {
   /** Ids de concepto/género/faceta propuestos por el léxico (nunca decididos aquí). */
   candidates: string[];
   /** Señal sintáctica observada: «sobre», «para», adjetivo, ninguna. */
-  cue: "theme" | "activity" | "none";
+  cue: "theme" | "activity" | "origin" | "none";
   mode: Mode; group: string | null;
   entity?: { role: "target" | "reference"; kindHint: CatalogMatch["kind"] | null; literal: string; matches: CatalogMatch[]; quoted: boolean };
   aspect?: string; decade?: string;
@@ -270,6 +270,9 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
   const ops = { negation: phraseSet(m.negation), or: phraseSet(m.or), and: phraseSet(m.and), preference: phraseSet(m.preference), boundary: phraseSet(m.boundary), clause: phraseSet(m.clauseStarts) };
   type Op = { at: number; type: keyof typeof ops | "punct" };
   const operators: Op[] = [];
+  // Expresiones hechas que no niegan ni restringen («sin parar», «no recuerdo»): relleno.
+  const idioms = phraseSet(m.fillerIdioms ?? []);
+  for (let i = 0; i < tokens.length; i++) { const n = tokens[i]!.used ? 0 : phraseAt(i, idioms); if (n) { markUsed(i, n); i = wordsAt(i, n).at(-1)!; } }
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i]!;
     if (t.punct) { if ([",", ";", ".", ":"].includes(t.orig)) operators.push({ at: i, type: "punct" }); continue; }
@@ -281,6 +284,7 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     }
     if (matched) continue;
   }
+  const origins = new Set((m.origins ?? []).map(normalizeQueryText));
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i]!;
     if (t.punct || t.used || lexicon.fillers.has(t.norm)) continue;
@@ -293,7 +297,18 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
       idx.push(j);
     }
     for (const k of idx) tokens[k]!.used = true;
-    spans.push({ id: nextId(), kind: "residual", text: origOf(idx), start: idx[0]!, end: idx.at(-1)!, candidates: [], cue: tokens[idx[0]! - 1] && activityCue.has(tokens[idx[0]! - 1]!.norm) ? "activity" : "none", mode: "required", group: null });
+    // Procedencia (país, gentilicio, ciudad): intention-v1 no la representa; queda pendiente sin preguntar.
+    // El topónimo forma su propio fragmento para no arrastrar el resto («mala vibra sonora | perú»).
+    const parts: { idx: number[]; origin: boolean }[] = [];
+    for (const k of idx) {
+      const origin = origins.has(tokens[k]!.norm);
+      if (parts.at(-1)?.origin === origin) parts.at(-1)!.idx.push(k); else parts.push({ idx: [k], origin });
+    }
+    for (const part of parts) {
+      const first = part.idx[0]!;
+      const cue = part.origin ? "origin" : tokens[first - 1] && activityCue.has(tokens[first - 1]!.norm) ? "activity" : "none";
+      spans.push({ id: nextId(), kind: "residual", text: origOf(part.idx), start: first, end: part.idx.at(-1)!, candidates: [], cue, mode: "required", group: null });
+    }
     i = j - 1;
   }
 

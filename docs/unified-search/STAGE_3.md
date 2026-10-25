@@ -1,8 +1,8 @@
-# Buscador unificado — etapa 3: Laya especializado (cerrada sin activación)
+# Buscador unificado — etapa 3: Laya especializado
 
 Iniciada y cerrada el 2026-10-25 por instrucción de Brian: «Acepto esta etapa como cerrada y continuamos con la etapa 3 hasta que la finalices completamente. Autorizo todo!».
 
-**Resultado.** La etapa está técnicamente completa: diseño, conjuntos, entrenamiento, calibración, evaluación única sobre pruebas reservadas y registro de activación. **Ningún modelo supera sus criterios congelados**, de modo que ninguno se activa (`ingest.search_model_activations` vacía, `publicUse: false`). Los criterios no se relajan después de medir; la próxima versión necesita otra prueba reservada. Aceptación: `reports/unified-search-stage3/acceptance.json`.
+**Resultado 1.0.0.** La etapa está técnicamente completa: diseño, conjuntos, entrenamiento, calibración, evaluación única sobre pruebas reservadas y registro de activación. **Ningún modelo supera sus criterios congelados**, de modo que ninguno se activa (`ingest.search_model_activations` vacía, `publicUse: false`). Los criterios no se relajan después de medir; la próxima versión necesita otra prueba reservada. Aceptación: `reports/unified-search-stage3/acceptance.json`.
 
 ## Diseño
 
@@ -110,6 +110,51 @@ Archivos: `stage3/results/<tarea>--<modelo>.json` (`crv-stage3-evaluation-1`).
 2. **Evidencia.**
    - Las clases minoritarias reales (no afirmado, otro objeto, uso declarado) siguen escasas. Las variantes construidas no se trasladaron a la prueba real. Hace falta un lote adjudicado orientado a esas clases.
 3. **Mapa de géneros.** La pregunta por descripción funciona (0,69 de acierto entre tres frente a 0 de la base) y conviene ampliar las definiciones de voz y timbre.
+
+## Versión 1.1.0 (criterios `criteria-1.1.0.json`, pruebas reservadas 2.0.0)
+
+Mismos umbrales que 1.0.0. Pruebas nuevas, sin solaparse con desarrollo:
+
+- consultas: `datasets/query-test-reserved-2.json`, 247 casos;
+- evidencia: `datasets/evidence-test-reserved-2.json`, 131 tipadas y 61 de extracción.
+
+La prueba 1.0.0 pasa a ser de desarrollo. Corrección de convención: un concepto pedido junto a una restricción no representable es `partial`. En 1.0.0, T022, T094 y T089 eran casos imposibles.
+
+**Cambios.**
+- Léxico 0.2.0: procedencias como fragmento propio, pendiente; expresiones hechas («sin parar») como relleno; descripciones con ejemplos.
+- Compilador: lo negado nunca es relleno; una referencia de parecido se resuelve como artista.
+- Evidencia con contexto (±300 caracteres y fuente).
+- `scripts/stage3/activate.ts` registra la activación.
+
+| Tarea | Modelo | Resultado | Criterios que fallan |
+| --- | --- | --- | --- |
+| Extracción de afirmaciones | crv-evidence-heads-0.3.0 | **cumple** (top-1 0,833; «ninguna» 0,774; ECE 0,078) | — |
+| Evidencia tipada | crv-evidence-heads-0.3.0 | no cumple | soporte macro-F1 0,523 (≥ 0,75); uso declarado 0,5 (≥ 0,9) |
+| Consultas | crv-query-heads-0.5.0 | no cumple | ver abajo |
+
+En evidencia tipada sí cumplen la afirmación (0,880), el recall de estados no afirmados (0,60), el alcance del objeto (0,859) y la ECE (0,073).
+
+Consultas 0.5.0 frente a la base sobre la prueba 2.0.0 (base 0,385). Cumplen los adversariales (0,831), los críticos (0,004), la F1 de condiciones (0,969), la sobreabstención (0,024) y la latencia p95 (346 ms). Fallan:
+
+| Criterio | Valor | Umbral |
+| --- | --- | --- |
+| Exactitud | 0,834 | ≥ 0,85 |
+| Obligatorios (M05 «Música sin voces» sale como `clarify`) | 4/5 | 5/5 |
+| Pendientes conservados | 0,84 | ≥ 0,95 |
+| Sobreconfianza | 0,073 | ≤ 0,05 |
+| Género descrito, acierto entre tres | 0,54 | ≥ 0,70 |
+| Tráfico real sin invención (igual que la base) | 0,978 | ≥ 0,98 |
+| ECE de `genre_description` | 0,15 | ≤ 0,10 |
+| Críticos frente a las reglas | 0,004 frente a 0 | no peor |
+
+**Activación.** `claim_extraction → crv-evidence-heads-0.3.0`, run 33737, fila 1 de `ingest.search_model_activations`. No tiene uso público todavía: falta desplegar la API (`npm run deploy -- --api`).
+
+**Fallos de consultas (la prueba 2.0.0 ya es de desarrollo para 1.2.0).**
+- Nombres de artista sueltos que coinciden con varias clases de entidad quedan como `clarify`.
+- Adjetivos de concepto fuera del léxico: alegrón, agridulce, enigmática, de ensueño, psicodélico, satíricas.
+- Una preposición suelta llega a tomarse como entidad.
+- Las facetas no representables aparecen sin familia.
+- Los géneros descritos por timbre e instrumentación fallan.
 
 ## Reproducir
 

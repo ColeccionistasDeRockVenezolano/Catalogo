@@ -1,0 +1,205 @@
+{
+ "version": "crv-stage3-evaluation-1",
+ "task": "evidence_typed_decision",
+ "modelId": "crv-evidence-heads-0.3.0",
+ "baseRevision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+ "weightsSha256": "61ae7c5fe14721ea9d0ce65c3c8bf98965c2bfce2d27393d42dd059054f897ac",
+ "card": {
+  "id": "crv-evidence-heads-0.3.0",
+  "kind": "laya-overlay",
+  "task": "query_interpretation",
+  "baseRevision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+  "baseCheckpoint": "convaiinnovations/laya multilingual",
+  "trainable": [
+   "act_head.0.bias",
+   "act_head.0.weight",
+   "act_head.2.bias",
+   "act_head.2.weight",
+   "encoder.final_norm.weight",
+   "encoder.layers.18.attn.Wo.weight",
+   "encoder.layers.18.attn.Wqkv.weight",
+   "encoder.layers.18.attn_norm.weight",
+   "encoder.layers.18.mlp.Wi.weight",
+   "encoder.layers.18.mlp.Wo.weight",
+   "encoder.layers.18.mlp_norm.weight",
+   "encoder.layers.19.attn.Wo.weight",
+   "encoder.layers.19.attn.Wqkv.weight",
+   "encoder.layers.19.attn_norm.weight",
+   "encoder.layers.19.mlp.Wi.weight",
+   "encoder.layers.19.mlp.Wo.weight",
+   "encoder.layers.19.mlp_norm.weight",
+   "encoder.layers.20.attn.Wo.weight",
+   "encoder.layers.20.attn.Wqkv.weight",
+   "encoder.layers.20.attn_norm.weight",
+   "encoder.layers.20.mlp.Wi.weight",
+   "encoder.layers.20.mlp.Wo.weight",
+   "encoder.layers.20.mlp_norm.weight",
+   "encoder.layers.21.attn.Wo.weight",
+   "encoder.layers.21.attn.Wqkv.weight",
+   "encoder.layers.21.attn_norm.weight",
+   "encoder.layers.21.mlp.Wi.weight",
+   "encoder.layers.21.mlp.Wo.weight",
+   "encoder.layers.21.mlp_norm.weight",
+   "head.layers.0.linear1.bias",
+   "head.layers.0.linear1.weight",
+   "head.layers.0.linear2.bias",
+   "head.layers.0.linear2.weight",
+   "head.layers.0.norm1.bias",
+   "head.layers.0.norm1.weight",
+   "head.layers.0.norm2.bias",
+   "head.layers.0.norm2.weight",
+   "head.layers.0.self_attn.in_proj_bias",
+   "head.layers.0.self_attn.in_proj_weight",
+   "head.layers.0.self_attn.out_proj.bias",
+   "head.layers.0.self_attn.out_proj.weight",
+   "head.layers.1.linear1.bias",
+   "head.layers.1.linear1.weight",
+   "head.layers.1.linear2.bias",
+   "head.layers.1.linear2.weight",
+   "head.layers.1.norm1.bias",
+   "head.layers.1.norm1.weight",
+   "head.layers.1.norm2.bias",
+   "head.layers.1.norm2.weight",
+   "head.layers.1.self_attn.in_proj_bias",
+   "head.layers.1.self_attn.in_proj_weight",
+   "head.layers.1.self_attn.out_proj.bias",
+   "head.layers.1.self_attn.out_proj.weight",
+   "scorer.0.bias",
+   "scorer.0.weight",
+   "scorer.1.bias",
+   "scorer.1.weight",
+   "scorer.3.bias",
+   "scorer.3.weight",
+   "type_emb.weight"
+  ],
+  "unfreezeLayers": 4,
+  "hyper": {
+   "unfreeze": 4,
+   "epochs": 4,
+   "lr": 0.0003,
+   "encoder_lr": 3e-05,
+   "batch": 8,
+   "other_keep": 0.25,
+   "seed": 7,
+   "balance": true,
+   "limit": 0
+  },
+  "train": {
+   "path": "/home/brian/crv-staging/tmp-analysis/unified-search-stage3-v11/evidence-ctx-tasks/tasks-train.jsonl",
+   "sha256": "5e9097edc1505fd263d9608b0efc83c6796bdda705591543506fbb36d826f64e",
+   "rows": 18226
+  },
+  "val": {
+   "path": "/home/brian/crv-staging/tmp-analysis/unified-search-stage3-v11/evidence-ctx-tasks/tasks-val.jsonl",
+   "sha256": "3051e4c7a955b2717d042133906bdad32659529c92188db131ce7bf23ecf863a",
+   "rows": 3304
+  },
+  "baseVal": {
+   "loss": 2.1673,
+   "acc": 0.3344,
+   "byFamily": {
+    "object_scope": 0.5849,
+    "assertion_state": 0.0283,
+    "support": 0.4769,
+    "activity_basis": 0.0833,
+    "claim_extraction": 0.4688
+   }
+  },
+  "bestEpoch": 2,
+  "bestVal": {
+   "loss": 0.4365,
+   "acc": 0.8475,
+   "byFamily": {
+    "object_scope": 0.7909,
+    "assertion_state": 0.8931,
+    "support": 0.7712,
+    "activity_basis": 0.9733,
+    "claim_extraction": 0.843
+   }
+  },
+  "weightsSha256": "61ae7c5fe14721ea9d0ce65c3c8bf98965c2bfce2d27393d42dd059054f897ac",
+  "trainedAt": "2026-10-25T16:35:54Z",
+  "reservedTestUsed": false,
+  "public": false
+ },
+ "criteriaVersion": "crv-stage3-criteria-1.1.0",
+ "evaluatedAt": "2026-10-25T16:43:30Z",
+ "reservedTestRuns": 1,
+ "datasets": {
+  "reserved": {
+   "path": "docs/unified-search/stage3/datasets/evidence-test-reserved-2.json",
+   "sha256": "0a35b0e5fcc90714b0a04bc29e046ba7c3b56127a1b5c3963ef97a850f362281",
+   "cases": 192
+  }
+ },
+ "checks": [
+  {
+   "name": "Soporte: macro-F1",
+   "value": 0.5227,
+   "threshold": ">= 0.75",
+   "pass": false
+  },
+  {
+   "name": "Estado de la afirmación: exactitud",
+   "value": 0.8804,
+   "threshold": ">= 0.85",
+   "pass": true
+  },
+  {
+   "name": "Estados no afirmados: recall",
+   "value": 0.6,
+   "threshold": ">= 0.6",
+   "pass": true
+  },
+  {
+   "name": "Alcance del objeto: exactitud",
+   "value": 0.8587,
+   "threshold": ">= 0.85",
+   "pass": true
+  },
+  {
+   "name": "Uso declarado: precisión",
+   "value": 0.5,
+   "threshold": ">= 0.9",
+   "pass": false
+  },
+  {
+   "name": "ECE máximo por pregunta",
+   "value": 0.0733,
+   "threshold": "<= 0.12",
+   "pass": true
+  },
+  {
+   "name": "No peor que Laya base en ninguna pregunta y mejor en dos",
+   "value": 4.0,
+   "threshold": ">= 2 mejores y 0 peores",
+   "pass": true
+  }
+ ],
+ "comparison": [
+  {
+   "system": "base",
+   "supportMacroF1": 0.3397,
+   "assertionStateAccuracy": 0.0109,
+   "objectScopeAccuracy": 0.4565,
+   "activityBasisAccuracy": 0.0761,
+   "nonAffirmedRecall": 0.0,
+   "activityDeclaredUsePrecision": 0.0
+  },
+  {
+   "system": "tuned",
+   "supportMacroF1": 0.5227,
+   "assertionStateAccuracy": 0.8804,
+   "objectScopeAccuracy": 0.8587,
+   "activityBasisAccuracy": 0.9783,
+   "nonAffirmedRecall": 0.6,
+   "activityDeclaredUsePrecision": 0.5
+  }
+ ],
+ "passed": false,
+ "notes": [
+  "Prueba adjudicada por Claude: 131 decisiones (21 corregidas al analista) y 61 extracciones.",
+  "Las etiquetas de entrenamiento son del analista (DeepSeek flash) con las convenciones de la adjudicación; incluye ejemplos construidos marcados.",
+  "n por pregunta: {'object_scope': 92, 'assertion_state': 92, 'support': 131, 'activity_basis': 92, 'claim_extraction': 61}"
+ ]
+}

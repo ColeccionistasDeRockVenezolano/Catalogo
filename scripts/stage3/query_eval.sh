@@ -34,7 +34,7 @@ if [ "$MODE" = dev ]; then
   $PY scripts/stage3/calibrate.py ece --tasks "$C/tasks-val.jsonl" --answers "$W/answers-val-tasks.jsonl" --calibration "$CAL"
 else
   echo "$(date -u +%FT%TZ) $VARIANT" >> "$W/reserved-runs.log"
-  evaluate reserved "$DS/query-test-reserved.json"
+  evaluate reserved "${CRV_STAGE3_RESERVED:-$DS/query-test-reserved.json}"
   evaluate mandatory "$DS/query-test-mandatory.json"
   evaluate real "$DS/query-test-real.json"
   $PY scripts/stage3/latency_bench.py --tasks "$W/tasks-reserved.jsonl" --variant "$VARIANT" --calibration "$CAL" > "$W/latency.json"

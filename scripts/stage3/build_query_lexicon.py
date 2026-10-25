@@ -141,6 +141,17 @@ MARKERS = {
     "aspects": {"guitars": ["las guitarras", "la guitarra", "guitarras", "guitarra"], "voice": ["la voz", "las voces", "voz", "voces", "el canto"],
                 "production": ["la produccion", "produccion", "el sonido"], "composition": ["la composicion", "composicion", "las letras", "letras"],
                 "atmosphere": ["el ambiente", "ambiente", "la atmosfera"]},
+    "origins": sorted(set("""venezuela venezolano venezolana venezolanos venezolanas criollo criolla criollos criollas colombia colombiano colombiana colombianos colombianas
+ecuador ecuatoriano ecuatoriana ecuatorianos ecuatorianas peru peruano peruana peruanos peruanas chile chileno chilena chilenos chilenas argentina argentino argentinos argentinas
+uruguay uruguayo uruguaya uruguayos uruguayas paraguay paraguayo paraguaya bolivia boliviano boliviana bolivianos bolivianas brasil brasileno brasilena brasilenos brasilenas
+mexico mexicano mexicana mexicanos mexicanas cuba cubano cubana cubanos cubanas puerto rico puertorriqueno puertorriquena boricua boricuas dominicana dominicano dominicanos dominicanas
+panama panameno panamena costa rica costarricense guatemala guatemalteco honduras hondureno nicaragua nicaraguense salvador salvadoreno
+espana espanol espanola espanoles espanolas gringo gringa gringos gringas estadounidense estadounidenses usa eeuu estados unidos inglaterra ingles inglesa ingleses britanico britanica britanicos
+francia frances francesa franceses alemania aleman alemana alemanes italia italiano italiana italianos japon japones japonesa japoneses noruega noruego noruega noruegos suecia sueco sueca suecos finlandia finlandes
+caracas caraqueno caraquena caraquenos maracaibo maracucho maracucha maracuchos zulia zuliano zuliana valencia carabobeno barquisimeto larense larenses guaro guara guaros merida merideno merida andino andina andinos
+oriente oriental orientales llanero llanera llaneros llanos margarita margariteno margaritena barlovento falcon coro tachira tachirense maracay aragueno lecheria puerto la cruz ciudad bolivar
+bogota medellin lima montevideo quito guayaquil habana madrid barcelona londres""".split()) - {"la", "puerto", "rico", "cruz", "ciudad", "costa", "rica", "estados", "unidos", "salvador", "margarita"}),
+    "fillerIdioms": ["sin parar", "sin cesar", "sin descanso", "no recuerdo", "no me acuerdo", "no se", "no importa", "casi no importa", "no se como se llama"],
     "comparatives": ["mas", "menos", "more", "less"],
     "attenuators": ["ni tan", "no tan", "no muy", "medio", "un poco", "not too"],
     "clauseStarts": ["para", "pa", "pal", "for"],
@@ -177,7 +188,7 @@ def main(genres_path: str) -> None:
                        "mapStatus": m.get("descriptionStatus"), "aliases": aliases})
     sources = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (VOCAB, GENRE_MAP)}
     sources["genres-db-export"] = hashlib.sha256(Path(genres_path).read_bytes()).hexdigest()
-    body = {"version": "crv-query-lexicon-0.1.0", "builtBy": "scripts/stage3/build_query_lexicon.py", "vocabularyVersion": vocab["version"],
+    body = {"version": "crv-query-lexicon-0.2.0", "builtBy": "scripts/stage3/build_query_lexicon.py", "vocabularyVersion": vocab["version"],
             "genreMapVersion": json.loads(GENRE_MAP.read_text())["version"], "sources": sources,
             "policy": "Candidatos léxicos para proponer fragmentos; no deciden, no asignan atributos ni crean géneros o conceptos.",
             "concepts": concepts, "facets": facets, "genres": genres,

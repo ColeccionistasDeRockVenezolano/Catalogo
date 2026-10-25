@@ -45,7 +45,8 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
   let needClarify = false, ignoredFiller = 0;
   const addEntity = (role: "target" | "reference", hint: CatalogMatch["kind"] | null, literal: string, matches: CatalogMatch[]) => {
     const kinds = [...new Set(matches.map(x => x.kind))];
-    const kind = hint ?? (kinds.length === 1 ? kinds[0]! : null);
+    // Una referencia de parecido apunta al artista cuando el catálogo lo tiene como tal.
+    const kind = hint ?? (kinds.length === 1 ? kinds[0]! : role === "reference" && kinds.includes("artist") ? "artist" : null);
     const same = matches.filter(x => !kind || x.kind === kind);
     entities.push({ role, kind, literal: normalizeLiteral(literal) });
     intentionEntities.push({ role, kind: (kind ?? "artist") as SearchIntention["entities"][number]["kind"], id: same.length === 1 ? same[0]!.id : null, name: literal,
@@ -84,10 +85,12 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     const [dim, p] = top(answers[`dim:${span.id}`]);
     const t = { span: span.id, text: span.text, decision: dim, confidence: p, outcome: "" };
     trace.push(t);
+    if (span.cue === "origin") { pending.push({ text: span.text, reason: "origin_not_representable" }); t.decision = "origin"; t.outcome = "pending"; return; }
     if (p < thr.dim) { pending.push({ text: span.text, reason: "residual_low_confidence" }); t.outcome = "pending"; return; }
     const d = dim as Dimension;
-    if (d === "filler" && p >= thr.filler) { t.outcome = "ignored"; ignoredFiller++; return; }
-    if (d === "filler") { pending.push({ text: span.text, reason: "residual_low_confidence" }); t.outcome = "pending"; return; }
+    // Lo negado nunca es relleno: descartarlo perdería una exclusión pedida.
+    if (d === "filler" && p >= thr.filler && span.mode !== "excluded") { t.outcome = "ignored"; ignoredFiller++; return; }
+    if (d === "filler") { pending.push({ text: span.text, reason: span.mode === "excluded" ? "excluded_restriction_not_representable" : "residual_low_confidence" }); t.outcome = "pending"; return; }
     if (d === "catalog_name") { pending.push({ text: span.text, reason: "unresolved_name" }); t.outcome = "pending"; return; }
     if (d === "unsupported") { pending.push({ text: span.text, reason: "unsupported_restriction" }); t.outcome = "pending"; return; }
     if (d === "technical_facet") {

@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from evidence_eval import metrics as evidence_metrics  # noqa: E402
 
 RESULTS = ROOT / "docs/unified-search/stage3/results"
-CRITERIA = json.loads((ROOT / "docs/unified-search/stage3/criteria.json").read_text())
+CRITERIA = json.loads((ROOT / "docs/unified-search/stage3/criteria.json").read_text())  # se reemplaza con --criteria
 MODELS = Path.home() / ".local/share/crv-laya/models"
 MANDATORY_IDS = ["T144", "T151", "T156", "T157", "T174", "T182", "T190", "T213"]
 
@@ -49,6 +49,7 @@ def run_baseline(dataset: str, mode: str) -> dict:
 
 def write(task: str, model: str, doc: dict):
     RESULTS.mkdir(parents=True, exist_ok=True)
+    doc["criteriaVersion"] = CRITERIA["version"]
     path = RESULTS / f"{task}--{model}.json"
     if path.exists():
         raise SystemExit(f"{path} ya existe: la prueba reservada se evalúa una vez por versión")
@@ -74,12 +75,13 @@ def query(a):
     res, mand, real = summary(tw, "reserved"), summary(tw, "mandatory"), summary(tw, "real")
     base = summary(bw, "reserved")
     DS = ROOT / "docs/unified-search/stage3/datasets"
-    legacy = run_baseline(str(DS / "query-test-reserved.json"), "legacy")
-    rules = run_baseline(str(DS / "query-test-reserved.json"), "rules")
+    reserved_path = ROOT / CRITERIA["reservedTests"]["queries"]["path"]
+    legacy = run_baseline(str(reserved_path), "legacy")
+    rules = run_baseline(str(reserved_path), "rules")
     lat = json.loads((tw / "latency.json").read_text())
     compile_p95 = json.loads((tw / "eval-reserved.json").read_text())["compileMsP95"] or 0
     crit_ids = {x["id"] for x in res["criticalCases"]} | {x["id"] for x in mand["criticalCases"]}
-    ece, per = ece_max(tw, ROOT / "tmp-analysis/unified-search-stage3/compose-0.1.0/tasks-val.jsonl", tw / "answers-val-tasks.jsonl")
+    ece, per = ece_max(tw, Path(a.val_tasks), tw / "answers-val-tasks.jsonl")
     checks = [
         check("Exactitud del plan (reservada)", res["exactPlanAccuracy"], ">=", 0.85),
         check("Exactitud en casos adversariales", res["exactPlanAccuracyAdversarial"], ">=", 0.80),
@@ -99,7 +101,7 @@ def query(a):
     ]
     row = lambda name, s: {"system": name, "exactitud": s["exactPlanAccuracy"], "críticos": s["criticalErrorRate"], "F1": s["conditionF1"], "sobreconfianza": s.get("overconfidence")}
     comparison = [row("legacy", legacy), row("rules", rules), row("base", base), {**row("tuned", res), "latencia_p95_ms": lat["p95"] + compile_p95}]
-    files = {"reserved": DS / "query-test-reserved.json", "mandatory": DS / "query-test-mandatory.json", "real": DS / "query-test-real.json"}
+    files = {"reserved": reserved_path, "mandatory": DS / "query-test-mandatory.json", "real": DS / "query-test-real.json"}
     datasets = {k: {"path": str(v.relative_to(ROOT)), "sha256": sha(v), "cases": len(json.loads(v.read_text())["cases"])} for k, v in files.items()}
     for k, v in files.items():
         expected = CRITERIA["reservedTests"]["queries" if k == "reserved" else "mandatory" if k == "mandatory" else "realTraffic"]["sha256"]
@@ -116,7 +118,9 @@ def evidence(a):
     tw, bw, tasks = Path(a.tuned), Path(a.base), Path(a.tasks)
     t = evidence_metrics(str(tasks), str(tw / "answers-reserved.jsonl"), str(tw / "calibration.json"))
     b = evidence_metrics(str(tasks), str(bw / "answers-reserved.jsonl"), str(bw / "calibration.json"))
-    test = ROOT / "docs/unified-search/stage3/datasets/evidence-test-reserved.json"
+    test = ROOT / CRITERIA["reservedTests"]["evidence"].get("path", "docs/unified-search/stage3/datasets/evidence-test-reserved.json")
+    if CRITERIA["reservedTests"]["evidence"].get("sha256") and sha(test) != CRITERIA["reservedTests"]["evidence"]["sha256"]:
+        raise SystemExit("evidencia: la huella no coincide con los criterios")
     doc = json.loads(test.read_text())
     datasets = {"reserved": {"path": str(test.relative_to(ROOT)), "sha256": sha(test), "cases": doc["counts"]["typed"] + doc["counts"]["extraction"]}}
     runs = sum(1 for _ in open(tw / "reserved-runs.log"))
@@ -149,5 +153,8 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("kind", choices=["query", "evidence"])
     ap.add_argument("--tuned", required=True); ap.add_argument("--base", required=True); ap.add_argument("--model", required=True); ap.add_argument("--tasks")
+    ap.add_argument("--criteria", default="docs/unified-search/stage3/criteria.json")
+    ap.add_argument("--val-tasks", default=str(ROOT / "tmp-analysis/unified-search-stage3/compose-0.1.0/tasks-val.jsonl"))
     a = ap.parse_args()
+    CRITERIA = json.loads((ROOT / a.criteria).read_text())
     (query if a.kind == "query" else evidence)(a)

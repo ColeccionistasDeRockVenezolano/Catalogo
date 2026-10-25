@@ -16,7 +16,7 @@ export interface QueryLexiconDocument {
     listener: string[]; listenerEnd: string[]; themeCues: string[];
     entityCues: Record<"track" | "album" | "artist", string[]>; ownerCues: string[];
     similarityCues: string[]; similarityWeakCues: string[]; aspects: Record<string, string[]>;
-    comparatives: string[]; attenuators: string[]; clauseStarts: string[]; decades: Record<string, string[]>; fillers: string[];
+    comparatives: string[]; attenuators: string[]; clauseStarts: string[]; decades: Record<string, string[]>; fillers: string[]; origins?: string[]; fillerIdioms?: string[];
   };
 }
 
@@ -73,9 +73,9 @@ export class QueryLexicon {
       return g ? `${g.name}. ${g.definition ?? ""}`.trim() : id;
     }
     const c = this.concepts.get(id);
-    if (c) return `${c.labelEs}. ${c.definitionEs}`;
+    if (c) return `${c.labelEs}. ${c.definitionEs} Ej.: ${conceptExamples(c.aliases).join(", ")}.`;
     const f = this.facets.get(id);
-    return f ? `${f.aliases.slice(0, 3).join(", ")}. ${f.definition}` : id;
+    return f ? `${FACET_LABELS[id] ?? id}. Ej.: ${f.aliases.join(", ")}.` : id;
   }
 }
 
@@ -86,3 +86,42 @@ export function loadQueryLexicon(file = path.join(projectRoot(import.meta.url), 
   cached = new QueryLexicon(JSON.parse(raw) as QueryLexiconDocument, createHash("sha256").update(raw).digest("hex"));
   return cached;
 }
+
+/** Hasta seis alias variados (raíces distintas, incluido inglés) como ejemplos de una opción de concepto. */
+export function conceptExamples(aliases: string[], k = 6): string[] {
+  const seen = new Set<string>(), out: string[] = [];
+  for (const a of [...aliases].sort((x, y) => x.length - y.length)) {
+    const stem = a.slice(0, 5);
+    if (seen.has(stem)) continue;
+    seen.add(stem); out.push(a);
+    if (out.length >= k) break;
+  }
+  return out;
+}
+
+/** Qué pide quien busca con cada familia técnica (las definiciones del vocabulario son notas de curaduría). */
+const FACET_LABELS: Record<string, string> = {
+  "candidate:timbre.fuzz": "Timbre fuzz de guitarra",
+  "candidate:timbre.abrasiveness": "Sonido o voz áspera, rasposa, abrasiva",
+  "candidate:arrangement.density": "Densidad del arreglo: muchas capas o pocos elementos",
+  "candidate:production.fidelity-aesthetic": "Fidelidad de la grabación: lo-fi, crudo, maqueta",
+  "candidate:production.sources": "Fuentes sonoras: samples, collage, grabaciones de campo",
+  "candidate:instrument.role": "Un instrumento protagonista o destacado",
+  "candidate:vocals.mode": "Modo de la voz: cantada, rapeada, hablada o narrada",
+  "candidate:vocals.prominence": "Presencia de la voz en la mezcla: al frente, enterrada o casi sin voz",
+  "candidate:vocals.delivery": "Forma expresiva de cantar: contenida, dramática, vulnerable",
+  "candidate:vocals.variation": "Variación vocal: cambios de flow o de forma de cantar",
+  "candidate:vocals.treatment": "Voz procesada, filtrada, acelerada o distorsionada",
+  "candidate:rhythm.pattern": "Patrón rítmico reconocible (dembow, groove marcado)",
+  "candidate:structure.narrative": "Disco conceptual o que cuenta una historia",
+  "candidate:structure.continuity": "Continuidad: temas enlazados, de corrido, sin cortes",
+  "candidate:structure.development": "Desarrollo de las canciones: que crezcan, finales, intros y outros",
+  "candidate:structure.arc": "Arco del disco o la canción: apertura, cierre, cambio de ambiente, final instrumental",
+  "candidate:structure.repetition-object": "Repetición: bases, motivos o patrones que se repiten",
+  "candidate:listening.perceived-length": "Duración percibida: se hace largo, compacto, sobran temas",
+  "candidate:reception.acclimatization": "Gana con escuchas, cuesta entrar al principio",
+  "candidate:access.lyric-comprehension": "Poder entender o seguir la letra",
+  "candidate:reception.cultural-familiarity": "Familiaridad cultural: me recuerda a mi país, reconozco esos sonidos",
+  "candidate:affinity.aspect": "Parecido con otra obra o persona en un aspecto concreto",
+};
+

@@ -44,6 +44,33 @@ describe("interpretación de consultas (etapa 3)", () => {
     expect(r.canonical.status).toBe("unsupported");
     expect(r.canonical.pending).toBeGreaterThan(0);
   });
+  it("la procedencia queda pendiente en su propio fragmento (1.1.0)", () => {
+    const seg = segmentQuery("rock alegre hecho en colombia", lexicon, emptyCatalog);
+    const origin = seg.spans.filter(s => s.cue === "origin");
+    expect(origin.map(s => s.text)).toEqual(["colombia"]);
+    const r = interpret("rock alegre hecho en colombia");
+    expect(r.canonical.status).toBe("partial");
+    expect(r.canonical.req.sort()).toEqual(["emotion:joyful", "genre:rock"]);
+  });
+  it("lo negado no se descarta como relleno aunque Laya lo llame relleno (1.1.0)", () => {
+    const seg = segmentQuery("algo alegre sin coros", lexicon, emptyCatalog);
+    const tasks = buildQuestions(seg, lexicon);
+    const answers = rulesAnswers(seg, tasks);
+    const residual = seg.spans.find(s => s.kind === "residual" && s.mode === "excluded")!;
+    answers[`dim:${residual.id}`] = { choice: "filler", probabilities: { filler: 0.99 } };
+    const r = compileInterpretation(seg, answers, lexicon);
+    expect(r.canonical.pending).toBeGreaterThan(0);
+    expect(r.canonical.status).not.toBe("query_valid");
+  });
+  it("«sin parar» es una expresión hecha, no una negación (1.1.0)", () => {
+    const seg = segmentQuery("salsa pa bailar sin parar", lexicon, emptyCatalog);
+    expect(seg.spans.some(s => s.mode === "excluded")).toBe(false);
+  });
+  it("la referencia de parecido se resuelve como artista si el catálogo la tiene (1.1.0)", () => {
+    const both: CatalogResolver = { lookup: l => catalogKey(l) === catalogKey("Los Gatos") ? [{ kind: "artist", id: 7, name: "Los Gatos" }, { kind: "track", id: 9, name: "Los Gatos" }] : [] };
+    const r = interpret("algo parecido a Los Gatos", both);
+    expect(r.canonical.ent[0]).toMatchObject({ role: "reference", kind: "artist" });
+  });
   it("una contradicción no se ejecuta", () => {
     expect(interpret("algo alegre pero sin alegría").canonical.status).toBe("contradiction");
   });

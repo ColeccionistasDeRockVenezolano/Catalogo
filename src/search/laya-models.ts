@@ -59,11 +59,19 @@ async function readEvaluations() {
   return out;
 }
 
+/** Criterios vigentes: el archivo criteria-<versión>.json más reciente, o criteria.json (1.0.0). */
+async function readCurrentCriteria(): Promise<string> {
+  const dir = path.join(root, "docs/unified-search/stage3");
+  const versioned = (await readdir(dir)).filter(f => /^criteria-\d+\.\d+\.\d+\.json$/u.test(f))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  return readFile(path.join(dir, versioned.at(-1) ?? "criteria.json"), "utf8");
+}
+
 export async function layaAdministration() {
   const db = getPool();
   const [evaluations, criteriaRaw, history, active] = await Promise.all([
     readEvaluations(),
-    readFile(path.join(root, "docs/unified-search/stage3/criteria.json"), "utf8"),
+    readCurrentCriteria(),
     db.query(`SELECT id,task,action,model_id,weights_sha256,evaluation_path,evaluation_sha256,criteria_version,passed,actor,reason,run_id,created_at
       FROM ingest.search_model_activations ORDER BY id DESC LIMIT 100`),
     db.query("SELECT task,model_id,evaluation_path,evaluation_sha256,actor,reason,run_id,created_at FROM ingest.search_model_active ORDER BY task"),
