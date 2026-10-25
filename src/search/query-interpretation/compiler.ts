@@ -1,7 +1,7 @@
 import { INTENTION_VERSION, intentionSchema, type SearchIntention } from "../contracts.js";
 import type { QueryLexicon } from "./lexicon.js";
 import type { CatalogMatch, Segmentation, Span } from "./segmenter.js";
-import { DESCRIBE_KEY, NOT_REQUESTED, OTHER, UNCLEAR, type Dimension, type QuestionTask } from "./questions.js";
+import { DESCRIBE_KEY, isSoundOnly, NOT_REQUESTED, OTHER, UNCLEAR, type Dimension, type QuestionTask } from "./questions.js";
 
 export const COMPILER_VERSION = "crv-query-compiler-0.2.0";
 export interface Answer { choice: string; probabilities: Record<string, number> }
@@ -40,6 +40,7 @@ export const DESCRIBED_LEXICAL_PRIOR = 1;
 export function compileInterpretation(seg: Segmentation, answers: Answers, lexicon: QueryLexicon, thresholds: Thresholds = {}): Interpretation {
   let describedWithoutGenre = 0;
   const describedSpans: Span[] = [];
+  const soundOnly = isSoundOnly(seg);
   const thr = { ...DEFAULT_THRESHOLDS, ...thresholds };
   const conds: Cond[] = [], pending: { text: string; reason: string }[] = [], trace: Interpretation["trace"] = [];
   const clarify: string[] = [], described: string[] = [], facets: string[] = [], contextOnly: string[] = [];
@@ -68,6 +69,8 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
       continue;
     }
     if (span.kind === "comparative") { pending.push({ text: span.text, reason: "comparative_not_representable" }); continue; }
+    // En una descripción de sonido, un adjetivo ambiguo («pesado», «suave») es un rasgo más (1.4.0).
+    if (soundOnly && span.kind === "ambiguous") { describedSpans.push(span); continue; }
     if (span.kind === "decade") { conds.push({ concept: span.candidates[0]!, text: span.text, mode: span.mode, group: span.group, scope: "album" }); continue; }
     if (span.attenuated) { pending.push({ text: span.text, reason: "attenuated_degree_not_representable" }); continue; }
     if (span.kind === "residual") { compileResidual(span); continue; }
@@ -95,6 +98,13 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     trace.push(t);
     if (span.cue === "origin") { pending.push({ text: span.text, reason: "origin_not_representable" }); t.decision = "origin"; t.outcome = "pending"; return; }
     if (span.cue === "version") { pending.push({ text: span.text, reason: "attribute_not_representable" }); t.decision = "unrepresentable"; t.outcome = "pending"; return; }
+    // Descripción de sonido: los restos son rasgos para la pregunta de género, sin preguntas por fragmento
+    // (1.4.0; latencia: hasta 51 preguntas por consulta en 4.0.0).
+    if (soundOnly) {
+      t.decision = "genre_description";
+      if (span.mode === "excluded") { pending.push({ text: span.text, reason: "excluded_restriction_not_representable" }); t.outcome = "pending"; return; }
+      describedSpans.push(span); t.outcome = "described"; return;
+    }
     if (p < thr.dim) { pending.push({ text: span.text, reason: "residual_low_confidence" }); t.outcome = "pending"; return; }
     const d = dim as Dimension;
     // Lo negado nunca es relleno: descartarlo perdería una exclusión pedida.

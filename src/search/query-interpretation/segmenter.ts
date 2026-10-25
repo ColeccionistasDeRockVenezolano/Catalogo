@@ -52,6 +52,9 @@ function tokenize(text: string): Token[] {
 
 const phraseSet = (list: string[]) => new Map(list.map(p => [normalizeQueryText(p), p.split(" ").length] as const));
 
+const REQUEST_HEADS = new Set(["musica", "canciones", "cancion", "temas", "tema", "algo", "playlist", "discos", "disco", "albumes", "album", "grabaciones", "pistas", "rolas", "sonidos",
+  "quiero", "busco", "necesito", "ponme", "pon", "dame", "recomiendame", "music", "songs", "bandas", "grupos", "artistas"]);
+
 export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: CatalogResolver = emptyCatalog): Segmentation {
   const tokens = tokenize(text);
   const m = lexicon.doc.markers;
@@ -201,7 +204,9 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     const idx: number[] = [];
     for (let j = wordsAt(i, n).at(-1)! + 1; j < tokens.length; j++) {
       const t = tokens[j]!;
-      if (t.punct || t.used || ["y", "pero"].includes(t.norm) || phraseAt(j, listenerEnd)) break;
+      if (t.punct || t.used || t.norm === "pero" || phraseAt(j, listenerEnd)) break;
+      // «ando triste y nostálgico, …»: la «y» coordina estados mientras no empiece el pedido (1.4.0).
+      if (t.norm === "y") { const nx = tokens[j + 1]; if (!nx || nx.punct || nx.used || phraseAt(j + 1, listenerEnd) || REQUEST_HEADS.has(nx.norm)) break; continue; }
       idx.push(j);
     }
     markUsed(i, n); for (const j of idx) tokens[j]!.used = true;
@@ -262,8 +267,6 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     i = idx.at(-1)!;
   }
 
-  const REQUEST_HEADS = new Set(["musica", "canciones", "cancion", "temas", "tema", "algo", "playlist", "discos", "disco", "albumes", "album", "grabaciones", "pistas", "rolas", "sonidos",
-    "quiero", "busco", "necesito", "ponme", "pon", "dame", "recomiendame", "music", "songs", "bandas", "grupos", "artistas"]);
   // 7. Frases del léxico (la más larga primero). Los sustantivos temáticos exigen señal temática.
   const themeCues = phraseSet(m.themeCues);
   const activityCue = new Set(["para", "pa", "pal", "for"]);
@@ -273,6 +276,8 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
   for (let i = 0; i < tokens.length; i++) {
     if (tokens[i]!.used || tokens[i]!.punct) continue;
     let cueLen = phraseAt(i, themeCues);
+    // Una faceta que empieza en la señal y es más larga la gana («que cuente una historia»: estructura; 1.4.0).
+    if (cueLen) { const f = longestPhrase(i, false); if (f && f.n > cueLen && f.entries.every(e => e.kind === "facet")) cueLen = 0; }
     let themed = false, continuation = false;
     // «canciones de despecho»: «de» tras un sustantivo de pedido es señal temática solo si sigue un
     // sustantivo temático; un ambiguo («de amor») conserva todas sus lecturas.
@@ -374,6 +379,13 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
   if (!describing) for (const w of m.attributes ?? []) unrepresentableWords.add(normalizeQueryText(w));
   // Ruido de teclado («zxcv»): palabras sin vocal no forman fragmento.
   for (const t of tokens) if (!t.punct && !t.used && t.norm.length >= 3 && !/[aeiouy]/u.test(t.norm) && !/\d/u.test(t.norm)) t.used = true;
+  // …ni las tecleadas sobre una sola fila con pocas vocales («asdf», «qwe», «asdkjh»; 1.4.0, desarrollo: T245, S245).
+  const KEY_ROWS = ["qwertyuiop", "asdfghjkln", "zxcvbnm"];
+  for (const t of tokens) {
+    if (t.punct || t.used || t.norm.length < 3 || !/^[a-z]+$/u.test(t.norm) || lexicon.fillers.has(t.norm)) continue;
+    const vowels = [...t.norm].filter(ch => "aeiou".includes(ch)).length;
+    if (vowels / t.norm.length < 0.34 && KEY_ROWS.some(row => [...t.norm].every(ch => row.includes(ch)))) t.used = true;
+  }
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i]!;
     if (t.punct || t.used || lexicon.fillers.has(t.norm)) continue;
@@ -478,6 +490,18 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     const themeLike = (sp: Span) => ["concept", "ambiguous"].includes(sp.kind) && sp.candidates.length > 0 && sp.candidates.every(c => c.startsWith("theme:"));
     const ordered = [...spans].sort((a, b) => a.start - b.start);
     const drop = new Set<Span>();
+    // Compañía o lugar de otra actividad («para la fiesta con los panas», «bailar en reunión familiar»):
+    // circunstancia, no encuentro social pedido (1.4.0; convención de 4.0.0).
+    const introducedBy = (sp: Span, words: string[]) => {
+      if (words.includes(tokens[sp.start]!.norm)) return true;
+      let b = sp.start - 1; while (b >= 0 && ["la", "el", "los", "las", "un", "una", "mi", "mis", "unos", "unas"].includes(tokens[b]!.norm)) b--;
+      return b >= 0 && words.includes(tokens[b]!.norm);
+    };
+    const social = (sp: Span) => sp.kind === "concept" && sp.candidates.length === 1 && sp.candidates[0] === "activity:socializing";
+    for (const sp of ordered) {
+      if (!social(sp) || sp.mode !== "required" || !introducedBy(sp, ["con", "en"])) continue;
+      if (ordered.some(o => o !== sp && !social(o) && o.mode === "required" && ["concept", "ambiguous"].includes(o.kind) && o.candidates.every(c => c.startsWith("activity:")))) drop.add(sp);
+    }
     for (let k = 0; k < ordered.length; k++) {
       const sp = ordered[k]!;
       if (!free(sp)) continue;

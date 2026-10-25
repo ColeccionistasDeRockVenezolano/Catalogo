@@ -7,7 +7,10 @@ locuciones; para actividades, el verbo o la situación tras «para»; para temas
 de la letra). No se le muestra ninguna consulta de prueba ni de desarrollo. build_query_lexicon.py filtra
 después colisiones entre conceptos, nombres de género y frases largas.
 
-  expand_concept_aliases.py <salida.json>
+  expand_concept_aliases.py <salida.json>            primera ronda (léxico 0.4.0)
+  expand_concept_aliases.py <salida.json> --round 2  segunda ronda (léxico 0.5.0): la primera gastó el cupo en
+      diminutivos y flexiones; esta pide lemas distintos (las flexiones las genera build_query_lexicon.py)
+      y expresiones en inglés.
 """
 from __future__ import annotations
 import json, sys, urllib.request
@@ -31,13 +34,21 @@ SYSTEM = ("Eres lexicógrafo de búsquedas de música en español de Venezuela y
           "inequívocamente el concepto pedido y no otro concepto cercano. No incluyas géneros musicales, artistas, países ni palabras genéricas (música, canciones, algo).")
 
 
+ROUND = 2 if "--round" in sys.argv and sys.argv[sys.argv.index("--round") + 1] == "2" else 1
+ROUND2 = ("Devuelve hasta 25 LEMAS distintos en español (sustantivos, adjetivos en masculino singular, verbos en infinitivo "
+          "y locuciones) que nombren el concepto, SIN diminutivos, aumentativos ni flexiones de una misma palabra, y hasta "
+          "10 expresiones en inglés con que una persona lo pediría (p. ej. «for a dinner», «long drive»). Incluye el sustantivo "
+          "abstracto de la cualidad cuando exista. No incluyas instrumentos, voces ni rasgos de grabación.")
+
+
 def call(c: dict) -> tuple[str, list[str]]:
     dim = c["dimension"]
-    known = ", ".join((c["aliases"] + c.get("themeNouns", []))[:40])
+    known = ", ".join(sorted({a for a in c["aliases"] + c.get("themeNouns", []) if len(a) < 14})[:80])
+    ask = ROUND2 if ROUND == 2 else "Devuelve hasta 30 expresiones nuevas."
     user = (f"Concepto: {c['labelEs']} — {c['definitionEs']}\nDimensión: {dim}. Pide {GUIDE[dim]}.\n"
-            f"Ya conocidas: {known}\nDevuelve hasta 30 expresiones nuevas.")
+            f"Ya conocidas: {known}\n{ask}")
     body = json.dumps({"model": MODEL, "messages": [{"role": "system", "content": SYSTEM}, {"role": "user", "content": user}],
-                       "response_format": {"type": "json_object"}, "max_tokens": 1500, "temperature": 0.4, "thinking": {"type": "disabled"}, "stream": False}).encode()
+                       "response_format": {"type": "json_object"}, "max_tokens": 3000 if ROUND == 2 else 1500, "temperature": 0.4, "thinking": {"type": "disabled"}, "stream": False}).encode()
     req = urllib.request.Request("https://api.deepseek.com/chat/completions", body, {"content-type": "application/json", "authorization": f"Bearer {KEY}"})
     for _ in range(3):
         try:
@@ -51,8 +62,9 @@ def call(c: dict) -> tuple[str, list[str]]:
 
 if __name__ == "__main__":
     concepts = [c for c in LEX["concepts"] if c["dimension"] in GUIDE]
+    version = "crv-concept-expansion-0.2.0" if ROUND == 2 else "crv-concept-expansion-0.1.0"
     with ThreadPoolExecutor(8) as ex:
         out = dict(ex.map(call, concepts))
-    Path(sys.argv[1]).write_text(json.dumps({"version": "crv-concept-expansion-0.1.0", "model": MODEL, "authoredAt": "2026-10-25",
+    Path(sys.argv[1]).write_text(json.dumps({"version": version, "round": ROUND, "model": MODEL, "authoredAt": "2026-10-25",
                                              "policy": "Generado a partir de etiqueta y definición; sin consultas de prueba ni de desarrollo.", "concepts": out}, ensure_ascii=False, indent=1) + "\n")
     print(json.dumps({k: len(v) for k, v in out.items()}))

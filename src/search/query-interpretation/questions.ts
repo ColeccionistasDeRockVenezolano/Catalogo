@@ -72,16 +72,22 @@ export function genreShortlist(text: string, lexicon: QueryLexicon, k = 10): str
   return scored.slice(0, k).map(x => x.id);
 }
 
+/** Descripción de sonido sin entidades: sus restos solo alimentan la pregunta de género (1.4.0). */
+export function isSoundOnly(seg: Segmentation): boolean {
+  return seg.soundDescription && !seg.spans.some(s => s.kind === "entity" || s.kind === "similarity");
+}
+
 export function buildQuestions(seg: Segmentation, lexicon: QueryLexicon): QuestionTask[] {
   const tasks: QuestionTask[] = [];
+  const soundOnly = isSoundOnly(seg);
   const describe = (ids: string[]) => Object.fromEntries(ids.map(id => [id, lexicon.describe(id)]));
   for (const span of seg.spans) {
-    if (["concept", "genre", "ambiguous", "facet"].includes(span.kind) && span.candidates.length) {
+    if (["concept", "genre", "ambiguous", "facet"].includes(span.kind) && span.candidates.length && !(soundOnly && span.kind === "ambiguous")) {
       tasks.push({ key: `span:${span.id}`, family: "span", spanId: span.id, state: state(seg, span), question: { type: "choice",
         instructions: "¿Qué pide la persona con el fragmento señalado? Elige el significado que tiene en esta consulta. Si el fragmento describe el estado actual de la persona, forma parte de un nombre o no pide nada a la música, elige not_requested.",
         criteria: { ...describe(span.candidates), [NOT_REQUESTED]: "El fragmento no describe la música pedida (estado de la persona, parte de un nombre u otra cosa)", [UNCLEAR]: "La consulta no permite decidir entre los significados; hay que preguntar" } } });
     }
-    if (span.kind === "residual") {
+    if (span.kind === "residual" && !soundOnly) {
       const dims: Dimension[] = span.cue === "theme" ? ["theme", "unsupported"] : Object.keys(DIMENSIONS) as Dimension[];
       tasks.push({ key: `dim:${span.id}`, family: "dim", spanId: span.id, state: state(seg, span), question: { type: "choice",
         instructions: "¿Qué tipo de pedido hace la persona con el fragmento señalado? No deduzcas actividad desde un género o una emoción.",

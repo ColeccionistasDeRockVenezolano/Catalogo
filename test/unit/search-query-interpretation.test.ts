@@ -123,6 +123,25 @@ describe("interpretación de consultas (etapa 3)", () => {
     const names: CatalogResolver = { lookup: l => catalogKey(l) === catalogKey("Seguridad Nacional") ? [{ kind: "artist", id: 8, name: "Seguridad Nacional" }] : [] };
     expect(interpret("Seguridad Nacional", names).canonical).toMatchObject({ status: "entity_lookup", req: [] });
   });
+  it("estados del oyente coordinados y compañía de otra actividad (1.4.0)", () => {
+    expect(interpret("ando triste y nostálgico, quiero canciones alegres").canonical).toMatchObject({ req: ["emotion:joyful"], ctx: 1 });
+    expect(interpret("trap latino para la fiesta con los panas").canonical.req).toEqual(["activity:celebration", "genre:trap-latino"]);
+    expect(interpret("música para compartir con amigos").canonical.req).toEqual(["activity:socializing"]);
+  });
+  it("una descripción de sonido no pregunta por cada fragmento (1.4.0)", () => {
+    const seg = segmentQuery("violín, flauta y arpa con percusión suave", lexicon, emptyCatalog);
+    expect(seg.soundDescription).toBe(true);
+    expect(buildQuestions(seg, lexicon).map(t => t.family)).toEqual(["genre_description"]);
+    expect(interpret("violín, flauta y arpa con percusión suave").canonical).toMatchObject({ status: "clarify", req: [] });
+  });
+  it("«con energía» sin nivel e «instrumental» nombrado (1.4.0)", () => {
+    expect(interpret("salsa con energía").canonical.req).toEqual(["energy:energy-high", "genre:salsa"]);
+    expect(interpret("algo con energía baja").canonical.req).toEqual(["energy:energy-low"]);
+    expect(interpret("música instrumental para estudiar").canonical.req).toEqual(["activity:concentration", "genre:instrumental"]);
+    expect(interpret("musiquita").canonical.status).toBe("unrecognized");
+    expect(interpret("asdkjh qwe").canonical.status).toBe("unrecognized");
+    expect(interpret("rap para correr").canonical.req).toEqual(["activity:running", "genre:hip-hop"]);
+  });
   it("una contradicción no se ejecuta", () => {
     expect(interpret("algo alegre pero sin alegría").canonical.status).toBe("contradiction");
   });
