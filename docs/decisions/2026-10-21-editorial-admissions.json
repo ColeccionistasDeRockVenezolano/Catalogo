@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-21",
+  "rule": "Se incluyen los proyectos de venezolanos y su participación documentada en agrupaciones, aunque se formen o residan fuera del país. No se cambia el origen geográfico por nacionalidad editorial. Un crédito aislado extranjero no autoriza discografía completa. No usar is_venezuelan inferido de créditos como prueba única.",
+  "userInstructions": [
+    "Analog Circl8 artist Daniel Maal is venezuelan",
+    "proyectos de venezolanos tambien son venezolanos"
+  ],
+  "admissions": [
+    {
+      "id": 399,
+      "name": "Marco Ciargo",
+      "reason": "Contradicción de origen: nació en Caracas y fue integrante de Resistencia.",
+      "evidence": [
+        "artist.biography; person #2945, nacionalidad y nacimiento"
+      ]
+    },
+    {
+      "id": 2891,
+      "name": "Analog Circl8",
+      "reason": "Proyecto del venezolano Daniel Maal, aunque radique en Miami.",
+      "evidence": [
+        "Brian: Analog Circl8 artist Daniel Maal is venezuelan"
+      ]
+    },
+    {
+      "id": 3555,
+      "name": "Orinoko",
+      "reason": "Proyecto con el venezolano Isaias Lubo y repertorio vinculado a Venezuela.",
+      "evidence": [
+        "artist.biography"
+      ]
+    },
+    {
+      "id": 3581,
+      "name": "The Snake Trio",
+      "reason": "Proyecto de Jackeline Rago y música tradicional venezolana, formado en California.",
+      "evidence": [
+        "artist.biography; artist_members"
+      ]
+    },
+    {
+      "id": 3954,
+      "name": "El Ensamble MCV",
+      "reason": "Ensamble de música criolla venezolana formado en Madrid.",
+      "evidence": [
+        "artist.biography; disco Música Criolla Venezolana"
+      ]
+    },
+    {
+      "id": 3998,
+      "name": "Recoveco",
+      "reason": "Ensamble colombo-venezolano formado en París.",
+      "evidence": [
+        "artist.biography; integrantes venezolanos y repertorio"
+      ]
+    },
+    {
+      "id": 6877,
+      "name": "Agustín Irusta",
+      "reason": "Carrera y arraigo en Caracas; inclusión editorial previa documentada.",
+      "evidence": [
+        "inventario 2026-10-21; decisión de inclusión 2026-10-09"
+      ]
+    },
+    {
+      "id": 6878,
+      "name": "Caterinetta Lescano",
+      "reason": "Carrera y arraigo en Caracas; inclusión editorial previa documentada.",
+      "evidence": [
+        "inventario 2026-10-21; decisión de inclusión 2026-10-09"
+      ]
+    },
+    {
+      "id": 6907,
+      "name": "Arabella",
+      "reason": "Carrera discográfica en Caracas; inclusión editorial previa documentada.",
+      "evidence": [
+        "inventario 2026-10-21; decisión de inclusión 2026-10-09"
+      ]
+    },
+    {
+      "id": 2338,
+      "name": "Always War",
+      "reason": "Participación del guitarrista Rod, registrado con nacionalidad venezolana.",
+      "evidence": [
+        "person #17813; artist_members. Mantener para revisión de evidencia, sin exclusión por país."
+      ]
+    },
+    {
+      "id": 2340,
+      "name": "Suicide Silence",
+      "reason": "Participación estable del vocalista venezolano Hernán Hermida.",
+      "evidence": [
+        "person #15367: biografía, Cabimas, Zulia; artist_members"
+      ]
+    },
+    {
+      "id": 2342,
+      "name": "Rage",
+      "reason": "Participación del músico de trayectoria venezolana Marcos Rodríguez.",
+      "evidence": [
+        "https://www.rage-official.com/rage-announce-new-line%E2%80%90up/"
+      ]
+    },
+    {
+      "id": 2347,
+      "name": "Kingbeast",
+      "reason": "Participación del bajista venezolano Daniel Sira.",
+      "evidence": [
+        "person #14227; claims de nacionalidad: https://www.metal-archives.com/artists/Daniel_Sira/381991"
+      ]
+    },
+    {
+      "id": 2356,
+      "name": "Piel de Lobo",
+      "reason": "Proyecto de músicos venezolanos y argentinos; trayectoria de Gerardo Torres.",
+      "evidence": [
+        "artist.biography; artist_members"
+      ]
+    },
+    {
+      "id": 2359,
+      "name": "Bala Negra",
+      "reason": "Participación del guitarrista venezolano Tomly Coronel, ex Sepulcro.",
+      "evidence": [
+        "artist.biography; person #17599; artist_members"
+      ]
+    },
+    {
+      "id": 2360,
+      "name": "Denso",
+      "reason": "Formada en Chile por cuatro músicos venezolanos.",
+      "evidence": [
+        "artist.biography: Chucho Negrón, Rodolfo Rivera, Alejandro Rossell, Luis Vázquez"
+      ]
+    },
+    {
+      "id": 2616,
+      "name": "Morajazz",
+      "reason": "Proyecto de músicos mexicanos y venezolanos con base en México.",
+      "evidence": [
+        "artist.biography; artist_members"
+      ]
+    },
+    {
+      "id": 2942,
+      "name": "2irie",
+      "reason": "Más de una década de carrera en Venezuela; arraigo musical documentado en la biografía.",
+      "evidence": [
+        "artist.biography: actividad en la escena venezolana; vínculos con Onechot y Reke"
+      ]
+    }
+  ]
+}

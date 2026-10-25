@@ -1,0 +1,18 @@
+.ephemerides-today { margin-block: 1rem 3rem; padding-block: 1.5rem; border-block: 1px solid var(--border); }
+.ephemerides-today h2 { margin-bottom: 1rem; }
+.ephemerides-filters { display: flex; flex-wrap: wrap; gap: 1rem; margin-block: 1.25rem; }
+.ephemerides-filters > div { display: grid; gap: .4rem; flex: 1 1 200px; max-width: 420px; }
+.ephemerides-filters input, .ephemerides-filters select { width: 100%; min-height: 44px; }
+.ephemeris { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 1.5rem; padding-block: 1.75rem; border-top: 1px solid var(--border); }
+.ephemeris-date { display: flex; flex-direction: column; gap: .5rem; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.ephemeris-date strong { font-size: 2rem; line-height: 1.2; }
+.ephemeris-story { max-width: 760px; min-width: 0; }
+.ephemeris-story h3 { margin-bottom: .35rem; }
+.ephemeris-story p { margin-bottom: .75rem; }
+.ephemeris-sources { margin: 0; padding-left: 1.1rem; overflow-wrap: anywhere; }
+.ephemeris-sources a { text-decoration: underline; text-underline-offset: .2em; }
+@media (max-width: 600px) {
+  .ephemeris { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+  .ephemeris-date { flex-direction: row; align-items: baseline; gap: 1rem; }
+  .ephemeris-date strong { font-size: 1.5rem; }
+}
