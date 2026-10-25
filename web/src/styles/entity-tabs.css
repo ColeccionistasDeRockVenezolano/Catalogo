@@ -1,0 +1,27 @@
+.etabs { margin-top: 32px; min-width: 0; }
+.etabs__navigation { display: flex; align-items: stretch; gap: 4px; border-bottom: 1px solid var(--border); }
+.etabs .etabs__list { display: flex; flex: 1; min-width: 0; gap: 4px; border-bottom: 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+.etabs__list::-webkit-scrollbar { display: none; }
+.etabs .etabs__tab { display: inline-flex; align-items: center; justify-content: center; gap: 8px; flex-shrink: 0; padding: 14px 16px; min-height: 52px; margin: 0; background: transparent; cursor: pointer; border: 0; border-bottom: 3px solid transparent; border-radius: 0; font: 600 14px/1.3 var(--font-body); color: var(--text-muted); transition: color .15s, background .15s; }
+.etabs .etabs__tab:hover { color: var(--text); background: var(--surface); }
+.etabs .etabs__tab.is-active { color: var(--text); border-bottom-color: var(--red); background: var(--surface); }
+.etabs .etabs__count { min-width: 20px; padding: 2px 6px; border-radius: 6px; text-align: center; font: 500 11px/1.4 var(--font-body); font-variant-numeric: tabular-nums; background: var(--surface-3); color: var(--text-muted); }
+.etabs .etabs__tab.is-active .etabs__count { background: var(--red-soft); color: var(--text); }
+.etabs__scroll { display: grid; place-items: center; flex: 0 0 44px; width: 44px; min-height: 52px; padding: 0; border: 0; background: var(--surface); color: var(--text); cursor: pointer; }
+.etabs__scroll:hover:enabled { background: var(--surface-2); }
+.etabs__scroll:disabled { color: var(--text-muted); opacity: .35; cursor: default; }
+.etabs .etabs__panel { padding-top: 28px; }
+.etabs .etabs__panel:focus-visible { outline-offset: 6px; }
+.etabs .etabs__empty { display: grid; justify-items: center; gap: 12px; padding: 40px 20px; border-radius: 12px; background: var(--surface); color: var(--text-muted); font-size: 14px; text-align: center; }
+.etabs__empty p { margin: 0; }
+.etabs__select { display: none; }
+.etabs :is(.etabs__tab, .etabs__scroll, .etabs__select select, .etabs__panel):focus-visible { outline: 2px solid var(--red); outline-offset: -2px; }
+@media (max-width: 760px) {
+  .etabs__select { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .etabs__select > span { color: var(--text-muted); font-size: 12px; flex: none; }
+  .etabs__select select { min-height: 44px; min-width: 0; max-width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; color: var(--text); background: var(--surface); font: 500 14px/1.4 var(--font-body); }
+  .etabs .etabs__tab { padding-inline: 12px; font-size: 14px; }
+  .etabs__scroll { flex-basis: 32px; width: 32px; }
+  .etabs .etabs__panel { padding-top: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .etabs .etabs__tab { transition: none; } }

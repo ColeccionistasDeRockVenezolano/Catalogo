@@ -1,0 +1,26 @@
+{
+  "cases": 1200,
+  "viewports": [
+    {
+      "width": 1366,
+      "passed": true
+    },
+    {
+      "width": 390,
+      "passed": true
+    },
+    {
+      "width": 320,
+      "passed": true
+    }
+  ],
+  "scenarios": [
+    "Teclado, siguiente y anterior entre páginas",
+    "Selección entre páginas, todo el filtro, tamaño y orden en servidor",
+    "No hay acciones de resultados anteriores durante la búsqueda",
+    "Decisión individual y continuidad en la última página",
+    "Dos listas y fuentes dentro del detalle; fusión precargada en modo match"
+  ],
+  "failures": [],
+  "catalogWrites": 0
+}

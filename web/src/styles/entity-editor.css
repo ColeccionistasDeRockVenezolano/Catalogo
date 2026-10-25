@@ -1,0 +1,101 @@
+/* CRV · Editor de fichas (components/EntityFormModal.tsx): menú de secciones,
+   contenido con su propio scroll y bandeja de cambios fija abajo. Sigue la
+   medida de Configuración › Temas: menú de ~230px, aire generoso y una sola
+   acción principal. */
+.modal-overlay--editor { padding: 24px; }
+.modal-panel--editor { width: min(1180px, 100%); height: min(90vh, 940px); max-height: min(90vh, 940px); }
+.modal-panel--editor .modal-header { margin-bottom: 0; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.modal-panel--editor .modal-header h2 { font-size: 20px; letter-spacing: -0.01em; }
+.modal-panel--editor .modal-body { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+
+.eedit { min-width: 0; }
+.eedit--roomy { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 232px minmax(0, 1fr); }
+.eedit__nav { min-height: 0; overflow-y: auto; padding: 20px 12px 24px; border-right: 1px solid var(--border); background: color-mix(in srgb, var(--surface-2) 45%, var(--surface)); }
+.eedit__nav ul { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 2px; }
+.eedit__nav-heading { display: flex; align-items: center; gap: 6px; margin: 0 0 8px; padding: 0 12px; color: var(--text-faint); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.eedit__nav-heading--live { color: var(--amber); }
+.eedit__nav-item {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px; padding: 9px 12px;
+  border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--text-muted); font: 500 13.5px/1.3 var(--font-body);
+  text-align: left; cursor: pointer; transition: color 150ms, background 150ms;
+}
+.eedit__nav-item:hover { color: var(--text); background: var(--surface-2); }
+.eedit__nav-item[aria-current] { color: var(--text); background: var(--red-soft); }
+.eedit__nav-item:focus-visible { outline: 2px solid var(--red); outline-offset: -2px; }
+.eedit__nav-dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--teal); }
+.eedit__nav-error { flex: 0 0 auto; display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--red); color: #fff; font-size: 11px; font-weight: 700; }
+
+.eedit__main { min-width: 0; }
+.eedit--roomy .eedit__main { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px 36px 40px; }
+.eedit__fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.eedit__section { padding: 22px 0 26px; border-bottom: 1px solid var(--border); scroll-margin-top: 8px; }
+.eedit__section:last-child { border-bottom: 0; }
+.eedit:not(.eedit--roomy) .eedit__section:first-child { padding-top: 0; }
+.eedit__section-title { margin: 0 0 4px; font-size: 15px; font-weight: 600; }
+.eedit__section-description { margin: 0; color: var(--text-muted); font-size: 13px; }
+.eedit__section-title + .form-grid, .eedit__section-description + .form-grid, .eedit__extra { margin-top: 16px; }
+.eedit__extra + .form-grid { margin-top: 14px; }
+.eedit__form > .form-error-banner { margin-top: 18px; }
+.eedit__panel-head { padding: 22px 0 18px; margin-bottom: 18px; border-bottom: 1px solid var(--border); }
+.eedit__panel-head h3 { margin: 0 0 6px; font-size: 18px; }
+.eedit__panel-head p { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--text-muted); font-size: 13px; }
+.eedit__panel-head svg { color: var(--amber); flex: 0 0 auto; }
+.eedit__panel-pending { margin: 24px 0 0; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); color: var(--text-muted); font-size: 13px; }
+
+/* Bandeja de cambios. */
+.eedit__tray { display: grid; gap: 12px; padding: 14px 24px; border-top: 1px solid var(--border); background: var(--surface); }
+.eedit__tray.is-dirty { background: color-mix(in srgb, var(--surface-2) 55%, var(--surface)); }
+.modal-panel:not(.modal-panel--editor) .eedit__tray {
+  position: sticky; bottom: calc(-1 * var(--modal-pad-bottom)); z-index: 2;
+  margin: 20px calc(-1 * var(--modal-pad-x)) calc(-1 * var(--modal-pad-bottom)); padding: 14px var(--modal-pad-x) var(--modal-pad-bottom);
+}
+.eedit__tray .note-field { gap: 4px; }
+.eedit__tray .note-field textarea { min-height: 40px; }
+.eedit__tray-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px 16px; }
+.eedit__status { display: flex; align-items: center; gap: 8px; margin: 0; color: var(--text-muted); font-size: 13px; }
+.eedit__tray.is-dirty .eedit__status { color: var(--text); font-weight: 600; }
+.eedit__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+.eedit__status .btn-link { font-weight: 500; }
+.eedit__tray-actions { display: flex; gap: 8px; margin-left: auto; }
+.eedit__tray-actions .btn { min-height: 40px; }
+.eedit__diff { list-style: none; margin: 0; padding: 4px 0 2px; max-height: 180px; overflow-y: auto; display: grid; gap: 6px; font-size: 13px; }
+.eedit__diff li { display: grid; grid-template-columns: minmax(120px, 0.7fr) minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.eedit__diff-label { color: var(--text-muted); font-weight: 600; }
+.eedit__diff-before { color: var(--text-faint); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--text-faint) 60%, transparent); overflow-wrap: anywhere; }
+.eedit__diff-arrow { color: var(--text-faint); }
+.eedit__diff-after { color: var(--text); overflow-wrap: anywhere; }
+
+/* Barra de administración de las fichas: arriba, junto al título. */
+.entity-admin-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 18px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); }
+.entity-admin-bar__label { margin-right: auto; color: var(--text-faint); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.entity-admin-bar .btn { display: inline-flex; align-items: center; gap: 6px; }
+.entity-admin-menu { min-width: 220px; padding: 6px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-md); outline: none; z-index: 150;
+  transform-origin: var(--transform-origin); transition: opacity 140ms ease-out, transform 180ms var(--ease-out-soft); }
+.entity-admin-menu[data-starting-style], .entity-admin-menu[data-ending-style] { opacity: 0; transform: scale(0.97); }
+.entity-admin-menu__item { display: flex; align-items: center; gap: 10px; min-height: 40px; padding: 8px 12px; border-radius: var(--radius-sm); color: var(--text); font-size: 13.5px; cursor: pointer; outline: none; }
+.entity-admin-menu__item[data-highlighted] { background: var(--surface-3); }
+.entity-admin-menu__item--danger { color: #ff7c83; }
+.entity-admin-menu__item--danger[data-highlighted] { background: var(--red-soft); }
+
+@media (max-width: 760px) {
+  .modal-overlay--editor { padding: 0; }
+  .modal-panel--editor { height: 94dvh; max-height: 94dvh; }
+  .eedit--roomy { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .eedit__nav { display: flex; gap: 6px; overflow-x: auto; overflow-y: hidden; padding: 10px var(--gutter); border-right: 0; border-bottom: 1px solid var(--border); scrollbar-width: none; }
+  .eedit__nav ul { display: contents; }
+  .eedit__nav-heading { display: none; }
+  .eedit__nav-item { width: auto; flex: 0 0 auto; min-height: 44px; white-space: nowrap; border: 1px solid var(--border); border-radius: var(--radius-pill); }
+  .eedit--roomy .eedit__main { padding: 0 var(--gutter) 32px; }
+  .eedit__tray { padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom)); }
+  .eedit__tray-actions { width: 100%; }
+  .eedit__tray-actions .btn { flex: 1 1 0; min-height: 44px; }
+  .eedit__diff li { grid-template-columns: 1fr; gap: 0; }
+  .eedit__diff-arrow { display: none; }
+  .entity-admin-bar__label { width: 100%; }
+}
+
+/* Alias: añadir y corregir en la misma línea. */
+.alias-inline { display: grid; gap: 10px; margin-top: 12px; padding: 14px; max-width: 640px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-2); animation: crv-panel-in 180ms var(--ease-out-soft); }
+.alias-inline__row { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 10px; }
+.alias-inline__actions { display: flex; justify-content: flex-end; gap: 8px; }
+@media (max-width: 560px) { .alias-inline__row { grid-template-columns: 1fr; } .alias-inline__actions .btn { flex: 1 1 0; min-height: 44px; } }

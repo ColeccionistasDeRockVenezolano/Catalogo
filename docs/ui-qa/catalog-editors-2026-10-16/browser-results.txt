@@ -1,0 +1,2 @@
+✓ 1440px: datos originales, PATCH parcial, clasificación libre, versiones, cero por video, propuesta de género, búsqueda sucesiva, Escape y ancho
+✓ 390px: datos originales, PATCH parcial, clasificación libre, versiones, cero por video, propuesta de género, búsqueda sucesiva, Escape y ancho

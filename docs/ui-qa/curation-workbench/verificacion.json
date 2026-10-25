@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-10-15T21:16:35.878531+00:00",
+  "unitTests": {
+    "passed": 35
+  },
+  "postgresContractTests": {
+    "passed": 6,
+    "disposableDatabase": true
+  },
+  "webTypecheck": "passed",
+  "applicationAndContractTypecheck": "passed",
+  "globalTypecheck": "unrelated_errors_in_scripts/triaje-pares-2026-10-15.ts:104",
+  "targetedEslint": "passed_without_warnings",
+  "isolatedProductionBuild": "passed",
+  "mechanicalDesignDetector": [],
+  "browserQa": "passed_1200_cases_at_1366_390_320",
+  "researchRegistered": 81,
+  "catalogMergesApplied": 0,
+  "catalogRepairsApplied": 0,
+  "published": false
+}

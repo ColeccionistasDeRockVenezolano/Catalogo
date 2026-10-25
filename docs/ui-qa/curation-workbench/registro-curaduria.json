@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-10-15T21:12:44.293Z",
+  "cases": [
+    {
+      "status": "open",
+      "cases": 81,
+      "changed": 2
+    }
+  ],
+  "distinctPairs": {
+    "total": 1351
+  },
+  "registrationScan": {
+    "id": "1094",
+    "status": "ok",
+    "rules": "curation-rules.v7"
+  },
+  "canonicalChangesApplied": 0
+}
