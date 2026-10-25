@@ -1,0 +1,2508 @@
+{
+ "version": "crv-query-dev-matrix-1.0.0",
+ "source": "reports/intenciones-humanas/v0.1.0/matriz-consultas.json",
+ "policy": "Desarrollo y regresión; no es prueba final.",
+ "cases": [
+  {
+   "id": "Q001",
+   "category": "concepto",
+   "text": "Música para estudiar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q002",
+   "category": "concepto",
+   "text": "Música para relajarme",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q003",
+   "category": "concepto",
+   "text": "Música para celebrar una fiesta",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q004",
+   "category": "concepto",
+   "text": "Música para dormir",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:sleep"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q005",
+   "category": "concepto",
+   "text": "Música para meditar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:meditation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q006",
+   "category": "concepto",
+   "text": "Música para echar un pie",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q007",
+   "category": "concepto",
+   "text": "Música para entrenar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q008",
+   "category": "concepto",
+   "text": "Música para salir a correr",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:running"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q009",
+   "category": "concepto",
+   "text": "Música para dar un paseo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:walking"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q010",
+   "category": "concepto",
+   "text": "Música para manejar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q011",
+   "category": "concepto",
+   "text": "Música para tener sexo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:intimacy"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q012",
+   "category": "concepto",
+   "text": "Música para conversar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:socializing"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q013",
+   "category": "concepto",
+   "text": "Música para desahogarme",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q014",
+   "category": "concepto",
+   "text": "Música alegre",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q015",
+   "category": "concepto",
+   "text": "Música melancólica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:melancholic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q016",
+   "category": "concepto",
+   "text": "Música tensa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:tense"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q017",
+   "category": "concepto",
+   "text": "Música serena",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:serene"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q018",
+   "category": "concepto",
+   "text": "Música triste",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q019",
+   "category": "concepto",
+   "text": "Música nostálgica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:nostalgic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q020",
+   "category": "concepto",
+   "text": "Música romántica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q021",
+   "category": "concepto",
+   "text": "Música sensual",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sensual"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q022",
+   "category": "concepto",
+   "text": "Música de carácter furioso",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:angry"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q023",
+   "category": "concepto",
+   "text": "Música esperanzadora",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:hopeful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q024",
+   "category": "concepto",
+   "text": "Música eufórica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:euphoric"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q025",
+   "category": "concepto",
+   "text": "Música para sentirme poderoso",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:confident"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q026",
+   "category": "concepto",
+   "text": "Música de carácter solitario",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:lonely"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q027",
+   "category": "concepto",
+   "text": "Música de carácter rebelde",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:rebellious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q028",
+   "category": "concepto",
+   "text": "Música de carácter agridulce",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:bittersweet"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q029",
+   "category": "concepto",
+   "text": "Música de energía baja",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "energy:energy-low"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q030",
+   "category": "concepto",
+   "text": "Música de intensidad moderada",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "energy:energy-medium"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q031",
+   "category": "concepto",
+   "text": "Música de energía alta",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q032",
+   "category": "concepto",
+   "text": "Música envolvente",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:atmospheric"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q033",
+   "category": "concepto",
+   "text": "Música de ambiente oscuro",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:dark"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q034",
+   "category": "concepto",
+   "text": "Música de ambiente nocturno",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:nocturnal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q035",
+   "category": "concepto",
+   "text": "Música etérea",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:ethereal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q036",
+   "category": "concepto",
+   "text": "Música de ensueño",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:dreamy"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q037",
+   "category": "concepto",
+   "text": "Música épica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:epic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q038",
+   "category": "concepto",
+   "text": "Música de ambiente íntimo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:intimate"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q039",
+   "category": "concepto",
+   "text": "Música cálida",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:warm"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q040",
+   "category": "concepto",
+   "text": "Música de ambiente frío",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:cold"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q041",
+   "category": "concepto",
+   "text": "Música de ambiente amenazante",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:ominous"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q042",
+   "category": "concepto",
+   "text": "Música de ambiente misterioso",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:mysterious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q043",
+   "category": "concepto",
+   "text": "Música de ambiente psicodélico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:psychedelic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q044",
+   "category": "concepto",
+   "text": "Música de ambiente festivo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:festive"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q045",
+   "category": "concepto",
+   "text": "Música de ambiente espacioso",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:spacious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q046",
+   "category": "concepto",
+   "text": "Canciones que traten sobre el amor",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:love"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q047",
+   "category": "concepto",
+   "text": "Canciones sobre una ruptura",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:breakup"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q048",
+   "category": "concepto",
+   "text": "Canciones sobre sexualidad",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:sexuality"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q049",
+   "category": "concepto",
+   "text": "Canciones sobre la muerte",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:death"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q050",
+   "category": "concepto",
+   "text": "Canciones de crítica social",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:society"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q051",
+   "category": "concepto",
+   "text": "Canciones sobre política",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:politics"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q052",
+   "category": "concepto",
+   "text": "Canciones de temática bélica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:war"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q053",
+   "category": "concepto",
+   "text": "Canciones sobre espiritualidad",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:spirituality"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q054",
+   "category": "concepto",
+   "text": "Canciones sobre la naturaleza",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:nature"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q055",
+   "category": "concepto",
+   "text": "Canciones sobre raíces culturales",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:identity"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q056",
+   "category": "concepto",
+   "text": "Canciones sobre el exilio",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:migration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q057",
+   "category": "concepto",
+   "text": "Canciones sobre la soledad",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:loneliness"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q058",
+   "category": "concepto",
+   "text": "Canciones sobre salud mental",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:mental-health"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q059",
+   "category": "concepto",
+   "text": "Canciones sobre mitología",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:fantasy"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q060",
+   "category": "concepto",
+   "text": "Canciones de ciencia ficción",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:science-fiction"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q061",
+   "category": "concepto",
+   "text": "Canciones sobre crimen",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:violence"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q062",
+   "category": "concepto",
+   "text": "Canciones sobre alcohol",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:substances"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q063",
+   "category": "concepto",
+   "text": "Canciones sobre historia",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:history"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q064",
+   "category": "concepto",
+   "text": "Canciones de sátira",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:humor"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q065",
+   "category": "combinación",
+   "text": "Rock para estudiar, melancólico, de energía baja, nocturno y sobre el exilio",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "atmosphere:nocturnal",
+     "emotion:melancholic",
+     "energy:energy-low",
+     "genre:rock",
+     "theme:migration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q066",
+   "category": "combinación",
+   "text": "Rock y ska para bailar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "genre:rock",
+     "genre:ska"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q067",
+   "category": "combinación",
+   "text": "Rock o ska para bailar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "genre:rock",
+      "genre:ska"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q068",
+   "category": "combinación",
+   "text": "Música alegre y nostálgica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful",
+     "emotion:nostalgic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q069",
+   "category": "combinación",
+   "text": "Música triste pero con energía alta",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad",
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q070",
+   "category": "combinación",
+   "text": "Música alegre de energía baja",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful",
+     "energy:energy-low"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q071",
+   "category": "combinación",
+   "text": "Música para dormir y estudiar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "activity:sleep"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q072",
+   "category": "combinación",
+   "text": "Música para correr y entrenar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise",
+     "activity:running"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q073",
+   "category": "combinación",
+   "text": "Música íntima para tener sexo, sin letras sobre sexo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:intimacy",
+     "atmosphere:intimate"
+    ],
+    "exc": [
+     "theme:sexuality"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q074",
+   "category": "combinación",
+   "text": "Música sobre amor, pero sin carácter romántico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:love"
+    ],
+    "exc": [
+     "emotion:romantic"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q075",
+   "category": "combinación",
+   "text": "Música romántica sin temática de amor",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:romantic"
+    ],
+    "exc": [
+     "theme:love"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q076",
+   "category": "combinación",
+   "text": "Música para hacer el amor",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:intimacy"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q077",
+   "category": "combinación",
+   "text": "Música para llorar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q078",
+   "category": "combinación",
+   "text": "Música oscura sin ser triste",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:dark"
+    ],
+    "exc": [
+     "emotion:sad"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q079",
+   "category": "combinación",
+   "text": "Ambient para estudiar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "genre:ambient"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q080",
+   "category": "combinación",
+   "text": "Black metal",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:black-metal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q081",
+   "category": "combinación",
+   "text": "Rock progresivo de ambiente épico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:epic",
+     "genre:rock-progresivo"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q082",
+   "category": "combinación",
+   "text": "MÚSICA MELANCÓLICA para ESTUDIAR",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "emotion:melancholic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q083",
+   "category": "combinación",
+   "text": "Música melancólica y melancólica",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:melancholic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q084",
+   "category": "combinación",
+   "text": "No quiero música triste",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [
+     "emotion:sad"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q085",
+   "category": "combinación",
+   "text": "Música melancólica o serena, de energía baja",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "energy:energy-low"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "emotion:melancholic",
+      "emotion:serene"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q086",
+   "category": "combinación",
+   "text": "(Rock para estudiar) o (ska para bailar)",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix",
+   "adaptation": "DNF no representable en intention-v1: se pide aclarar"
+  },
+  {
+   "id": "Q087",
+   "category": "combinación",
+   "text": "Música sin rock ni metal",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [
+     "genre:metal",
+     "genre:rock"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q088",
+   "category": "combinación",
+   "text": "Música sin carácter triste ni melancólico",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [
+     "emotion:melancholic",
+     "emotion:sad"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q089",
+   "category": "combinación",
+   "text": "Rock o ska, pero sin carácter triste",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [
+     "emotion:sad"
+    ],
+    "any": [
+     [
+      "genre:rock",
+      "genre:ska"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q090",
+   "category": "combinación",
+   "text": "Rock para estudiar; preferiblemente nocturno",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "genre:rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [
+     "atmosphere:nocturnal"
+    ],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q091",
+   "category": "combinación",
+   "text": "Rock melancólico de los noventa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:1990s",
+     "emotion:melancholic",
+     "genre:rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix",
+   "adaptation": "década como faceta decade:1990s"
+  },
+  {
+   "id": "Q092",
+   "category": "combinación",
+   "text": "Música de energía baja y energía alta",
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q093",
+   "category": "combinación",
+   "text": "Música triste y sin carácter triste",
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q094",
+   "category": "combinación",
+   "text": "Música de energía baja o alta",
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [],
+    "any": [
+     [
+      "energy:energy-high",
+      "energy:energy-low"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q095",
+   "category": "combinación",
+   "text": "Música para aumentar mi aura",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "atmosphere:epic",
+     "emotion:confident",
+     "energy:energy-high"
+    ],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q096",
+   "category": "combinación",
+   "text": "Música caliente",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "atmosphere:warm",
+     "emotion:sensual",
+     "energy:energy-high"
+    ],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q097",
+   "category": "combinación",
+   "text": "Música sobre amor o para amar",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "activity:intimacy",
+     "emotion:romantic",
+     "theme:love"
+    ],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q098",
+   "category": "combinación",
+   "text": "Música para recordar",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "emotion:nostalgic",
+     "theme:history"
+    ],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q099",
+   "category": "combinación",
+   "text": "Psicodélico",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "atmosphere:psychedelic"
+    ],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q100",
+   "category": "combinación",
+   "text": "Música para coger el autobús",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "activity:intimacy",
+     "activity:travel"
+    ],
+    "facet": null
+   },
+   "split": "dev_matrix",
+   "adaptation": "«coger» es ambiguo entre variantes del español"
+  },
+  {
+   "id": "Q101",
+   "category": "combinación",
+   "text": "Música rock y triste o alegre",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q102",
+   "category": "combinación",
+   "text": "Quiero la canción «Amor»",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "amor"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q103",
+   "category": "combinación",
+   "text": "Busca la banda Sexo",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "sexo"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q104",
+   "category": "combinación",
+   "text": "Temas de Los Amigos Invisibles",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "los amigos invisibles"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q105",
+   "category": "combinación",
+   "text": "Música instrumental para estudiar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "genre:instrumental"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix",
+   "adaptation": "la taxonomía CRV tiene el género Instrumental"
+  },
+  {
+   "id": "Q106",
+   "category": "combinación",
+   "text": "Música sin voces para dormir",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:sleep"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix",
+   "adaptation": "«sin voces» se conserva pendiente"
+  },
+  {
+   "id": "Q107",
+   "category": "combinación",
+   "text": "Rock grabado en vivo y acústico",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 2,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix",
+   "adaptation": "en vivo y acústico pendientes"
+  },
+  {
+   "id": "Q108",
+   "category": "combinación",
+   "text": "Música venezolana",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q109",
+   "category": "combinación",
+   "text": "Música a 120 BPM para correr",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:running"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q110",
+   "category": "combinación",
+   "text": "Canciones rojas para viajar",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:travel"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q111",
+   "category": "combinación",
+   "text": "Sexo",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": null,
+      "literal": "sexo"
+     }
+    ],
+    "pending": 0,
+    "alts": [
+     "activity:intimacy",
+     "theme:sexuality"
+    ],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q112",
+   "category": "combinación",
+   "text": "Música ni tan triste",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q113",
+   "category": "cobertura",
+   "text": "Música serena para estudiar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "emotion:serene"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix",
+   "adaptation": "la cobertura es asunto de recuperación (etapa 4)"
+  },
+  {
+   "id": "Q126",
+   "category": "combinación",
+   "text": "Estoy triste, ponme música alegre",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q127",
+   "category": "combinación",
+   "text": "Estoy triste y quiero música que acompañe esa tristeza",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q128",
+   "category": "combinación",
+   "text": "Estoy cansado, necesito música para estudiar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q129",
+   "category": "combinación",
+   "text": "Estoy triste, quiero algo para animarme",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "emotion:confident",
+     "emotion:euphoric",
+     "emotion:joyful"
+    ],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q130",
+   "category": "combinación",
+   "text": "Música alegre con letras sobre nostalgia",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q131",
+   "category": "combinación",
+   "text": "Busca el artista Sex Pistols",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "sex pistols"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q132",
+   "category": "combinación",
+   "text": "Busca la canción «Soledad»",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "soledad"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  },
+  {
+   "id": "Q133",
+   "category": "combinación",
+   "text": "Canciones cuya letra trata de fiestas",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "dev_matrix"
+  }
+ ]
+}

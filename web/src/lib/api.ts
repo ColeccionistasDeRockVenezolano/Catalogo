@@ -244,6 +244,9 @@ export const searchApi = {
     }
   },
   administration: (signal?: AbortSignal) => request<import("../../../src/search/administration").SearchAdministration>("/search/administration", { ...(signal ? { signal } : {}) }),
+  laya: (signal?: AbortSignal) => request<Awaited<ReturnType<typeof import("../../../src/search/laya-models").layaAdministration>>>("/search/administration/laya", { ...(signal ? { signal } : {}) }),
+  layaActivation: (body: import("zod").input<typeof import("../../../src/search/laya-models").activationRequestSchema>) =>
+    request<{ runId: number; result: { id: number; task: string; modelId: string; action: string } }>("/search/administration/laya/activations", { method: "POST", body }),
   observe: (q: string, onSearchReceipt: (receipt: string) => void, signal?: AbortSignal) => request<SearchResults>("/search", { query: { q, limit: 20 }, onSearchReceipt, ...(signal ? { signal } : {}) }),
   confirm: (body: import("../../../src/search/observability").Confirmation) => request<{status:string}>("/search/confirmations", { method: "POST", body }),
   search: (q: string, types?: string[], limit = 20, signal?: AbortSignal) =>

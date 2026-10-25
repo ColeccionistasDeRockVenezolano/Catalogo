@@ -1,0 +1,341 @@
+import { normalizeEntityName } from "../../normalization/entity-name.js";
+import { normalizeQueryText, type QueryLexicon } from "./lexicon.js";
+
+/** Resolución exacta de nombres del catálogo (nombre o alias, sin tildes). Nunca inventa IDs. */
+export interface CatalogMatch { kind: "artist" | "person" | "album" | "track" | "organization"; id: number; name: string }
+export interface CatalogResolver { lookup(literal: string): CatalogMatch[] }
+export const emptyCatalog: CatalogResolver = { lookup: () => [] };
+export function catalogKey(literal: string): string { return normalizeEntityName(literal).secondaryKey; }
+
+interface Token { orig: string; norm: string; punct: boolean; used: boolean; at: number }
+export type Mode = "required" | "excluded" | "preferred";
+export type SpanKind = "concept" | "genre" | "facet" | "ambiguous" | "decade" | "residual" | "entity" | "similarity" | "listener" | "comparative";
+export interface Span {
+  id: string; kind: SpanKind; text: string; start: number; end: number;
+  /** Ids de concepto/género/faceta propuestos por el léxico (nunca decididos aquí). */
+  candidates: string[];
+  /** Señal sintáctica observada: «sobre», «para», adjetivo, ninguna. */
+  cue: "theme" | "activity" | "none";
+  mode: Mode; group: string | null;
+  entity?: { role: "target" | "reference"; kindHint: CatalogMatch["kind"] | null; literal: string; matches: CatalogMatch[]; quoted: boolean };
+  aspect?: string; decade?: string;
+  /** Posición en el texto original [charStart, charEnd). */
+  charStart?: number; charEnd?: number;
+  /** Negación o grado atenuado («ni tan triste»): no representable, se conserva pendiente. */
+  attenuated?: boolean;
+}
+export interface Segmentation {
+  version: "crv-query-segmenter-0.1.0"; lexicon: string; text: string; normalized: string;
+  spans: Span[];
+  /** Entidad exacta del catálogo que coincide con toda la consulta (sin señales). */
+  wholeQueryMatches: CatalogMatch[];
+  structure: { orAndMixed: boolean; parentheses: boolean };
+  listenerStates: number;
+}
+
+const WORD = /[\p{L}\p{N}]+(?:['’][\p{L}]+)?|[«»"“”(),;:.!?¿¡]/gu;
+const QUOTES: Record<string, string> = { "«": "»", "\"": "\"", "“": "”" };
+
+function tokenize(text: string): Token[] {
+  return [...text.matchAll(WORD)].map(m => {
+    const orig = m[0];
+    const punct = !/[\p{L}\p{N}]/u.test(orig);
+    // «pa'» → «pa»: el apóstrofo final no separa otra palabra.
+    return { orig, norm: punct ? orig : normalizeQueryText(orig.replace(/['’]$/u, "")), punct, used: false, at: m.index ?? 0 };
+  }).filter(t => t.punct || t.norm);
+}
+
+const phraseSet = (list: string[]) => new Map(list.map(p => [normalizeQueryText(p), p.split(" ").length] as const));
+
+export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: CatalogResolver = emptyCatalog): Segmentation {
+  const tokens = tokenize(text);
+  const m = lexicon.doc.markers;
+  const spans: Span[] = [];
+  let seq = 0;
+  const nextId = () => `S${++seq}`;
+  const wordsAt = (i: number, n: number) => {
+    const out: number[] = [];
+    for (let j = i; j < tokens.length && out.length < n; j++) { if (tokens[j]!.punct) break; out.push(j); }
+    return out;
+  };
+  const phraseAt = (i: number, phrases: Map<string, number>): number => {
+    // Longitud (en tokens) de la frase más larga de la lista que empieza en i.
+    let best = 0;
+    for (const [p, n] of phrases) {
+      const idx = wordsAt(i, n);
+      if (idx.length === n && idx.every(j => !tokens[j]!.used) && idx.map(j => tokens[j]!.norm).join(" ") === p && n > best) best = n;
+    }
+    return best;
+  };
+  const markUsed = (from: number, n: number) => { for (let j = from, k = 0; j < tokens.length && k < n; j++) if (!tokens[j]!.punct) { tokens[j]!.used = true; k++; } };
+  const origOf = (idx: number[]) => idx.map(j => tokens[j]!.orig).join(" ");
+  /** Prefijo más largo (en palabras desde i) que resuelve exactamente en el catálogo. */
+  const longestCatalog = (i: number, maxWords = 8, kinds?: CatalogMatch["kind"][]) => {
+    const idx = wordsAt(i, maxWords);
+    for (let n = idx.length; n >= 1; n--) {
+      const part = idx.slice(0, n), matches = catalog.lookup(origOf(part)).filter(x => !kinds || kinds.includes(x.kind));
+      if (matches.length) return { part, matches };
+    }
+    return null;
+  };
+
+  // 1. Literales entre comillas: siempre un nombre propio, nunca un concepto.
+  for (let i = 0; i < tokens.length; i++) {
+    const close = QUOTES[tokens[i]!.orig];
+    if (!close) continue;
+    const j = tokens.findIndex((t, k) => k > i && t.orig === close);
+    if (j < 0) continue;
+    const idx = [...Array(j - i - 1).keys()].map(k => i + 1 + k).filter(k => !tokens[k]!.punct);
+    if (!idx.length) continue;
+    const literal = origOf(idx);
+    const hint = cueKindBefore(i);
+    spans.push({ id: nextId(), kind: "entity", text: literal, start: i, end: j, candidates: [], cue: "none", mode: "required", group: null,
+      entity: { role: "target", kindHint: hint, literal, matches: catalog.lookup(literal).filter(x => !hint || x.kind === hint), quoted: true } });
+    for (let k = i; k <= j; k++) tokens[k]!.used = true;
+  }
+  function cueKindBefore(i: number): CatalogMatch["kind"] | null {
+    for (const [kind, cues] of Object.entries(m.entityCues) as [CatalogMatch["kind"], string[]][]) {
+      for (const cue of cues) {
+        const n = cue.split(" ").length, start = i - n;
+        if (start >= 0 && tokens.slice(start, i).map(t => t.norm).join(" ") === normalizeQueryText(cue)) { markUsed(start, n); return kind; }
+      }
+    }
+    return null;
+  }
+
+  // 2. Señales de entidad («la canción X», «la banda X») y de dueño («temas de X»).
+  const entityCues = Object.entries(m.entityCues).flatMap(([kind, cues]) => cues.map(c => [normalizeQueryText(c), c.split(" ").length, kind] as const))
+    .sort((a, b) => b[1] - a[1]);
+  for (let i = 0; i < tokens.length; i++) {
+    if (tokens[i]!.used || tokens[i]!.punct) continue;
+    const cue = entityCues.find(([p, n]) => wordsAt(i, n).map(j => tokens[j]!.norm).join(" ") === p && wordsAt(i, n).length === n);
+    if (!cue) continue;
+    const [, n, kind] = cue;
+    const after = i + n;
+    if (after >= tokens.length || tokens[after]!.punct || tokens[after]!.used) continue;
+    const found = longestCatalog(after, 8, [kind as CatalogMatch["kind"]]);
+    // «el disco X» admite un nombre aún no resuelto; «disco» sin artículo solo con coincidencia exacta.
+    const withArticle = cue[1] > 1;
+    if (!found && !withArticle) continue;
+    const part = found?.part ?? wordsAt(after, 8);
+    if (!part.length) continue;
+    const literal = origOf(part);
+    markUsed(i, n); for (const j of part) tokens[j]!.used = true;
+    spans.push({ id: nextId(), kind: "entity", text: literal, start: i, end: part.at(-1)!, candidates: [], cue: "none", mode: "required", group: null,
+      entity: { role: "target", kindHint: kind as CatalogMatch["kind"], literal, matches: found?.matches ?? [], quoted: false } });
+  }
+  const ownerCues = phraseSet(m.ownerCues);
+  for (let i = 0; i < tokens.length; i++) {
+    const n = phraseAt(i, ownerCues);
+    if (!n) continue;
+    const after = wordsAt(i, n).at(-1)! + 1;
+    const found = longestCatalog(after, 8, ["artist", "person"]);
+    if (!found) continue;
+    markUsed(i, n); for (const j of found.part) tokens[j]!.used = true;
+    spans.push({ id: nextId(), kind: "entity", text: origOf(found.part), start: i, end: found.part.at(-1)!, candidates: [], cue: "none", mode: "required", group: null,
+      entity: { role: "target", kindHint: "artist", literal: origOf(found.part), matches: found.matches, quoted: false } });
+  }
+
+  // 3. Parecido: «parecido a X [en las guitarras] [pero más triste]».
+  const simStrong = phraseSet(m.similarityCues), simWeak = phraseSet(m.similarityWeakCues);
+  const aspectPhrases = Object.entries(m.aspects).flatMap(([aspect, list]) => list.map(p => [normalizeQueryText(p), p.split(" ").length, aspect] as const)).sort((a, b) => b[1] - a[1]);
+  const stopForReference = new Set(["en", "para", "pero", "y", "con", "sin", "de"]);
+  for (let i = 0; i < tokens.length; i++) {
+    let n = phraseAt(i, simStrong), strong = true;
+    if (!n) { n = phraseAt(i, simWeak); strong = false; }
+    if (!n) continue;
+    const after = wordsAt(i, n).at(-1)! + 1;
+    const found = longestCatalog(after, 8, ["artist", "person", "album", "track", "organization"]);
+    if (!found && !strong) continue;
+    const part = found?.part ?? [];
+    if (!found) { for (const j of wordsAt(after, 8)) { if (stopForReference.has(tokens[j]!.norm) || tokens[j]!.used) break; part.push(j); } }
+    if (!part.length) continue;
+    markUsed(i, n); for (const j of part) tokens[j]!.used = true;
+    let aspect = "overall", end = part.at(-1)!;
+    const k = end + 1;
+    if (tokens[k]?.norm === "en") {
+      const hit = aspectPhrases.find(([p, len]) => wordsAt(k + 1, len).length === len && wordsAt(k + 1, len).map(j => tokens[j]!.norm).join(" ") === p);
+      if (hit) { aspect = hit[2]; tokens[k]!.used = true; markUsed(k + 1, hit[1]); end = wordsAt(k + 1, hit[1]).at(-1)!; }
+    }
+    const literal = origOf(part);
+    spans.push({ id: nextId(), kind: "similarity", text: literal, start: i, end, candidates: [`similarity:${aspect}`], cue: "none", mode: "required", group: null, aspect,
+      entity: { role: "reference", kindHint: null, literal, matches: found?.matches ?? [], quoted: false } });
+    // Comparativo tras la referencia («pero más triste»): se conserva como pendiente.
+    let c = end + 1;
+    if (tokens[c]?.norm === "pero") c++;
+    if (tokens[c] && m.comparatives.includes(tokens[c]!.norm)) {
+      const rest = wordsAt(c, 6).filter(j => !tokens[j]!.used);
+      for (const j of rest) tokens[j]!.used = true;
+      if (tokens[end + 1]?.norm === "pero") tokens[end + 1]!.used = true;
+      spans.push({ id: nextId(), kind: "comparative", text: origOf(rest), start: c, end: rest.at(-1) ?? c, candidates: [], cue: "none", mode: "required", group: null });
+    }
+  }
+
+  // 4. Estado actual de la persona: solo contexto, nunca filtro.
+  const listener = phraseSet(m.listener), listenerEnd = phraseSet(m.listenerEnd);
+  let listenerStates = 0;
+  for (let i = 0; i < tokens.length; i++) {
+    const n = phraseAt(i, listener);
+    if (!n) continue;
+    const idx: number[] = [];
+    for (let j = wordsAt(i, n).at(-1)! + 1; j < tokens.length; j++) {
+      const t = tokens[j]!;
+      if (t.punct || t.used || ["y", "pero"].includes(t.norm) || phraseAt(j, listenerEnd)) break;
+      idx.push(j);
+    }
+    markUsed(i, n); for (const j of idx) tokens[j]!.used = true;
+    listenerStates++;
+    spans.push({ id: nextId(), kind: "listener", text: origOf(idx), start: i, end: idx.at(-1) ?? i, candidates: [], cue: "none", mode: "required", group: null });
+  }
+
+  // 5. Década de publicación («de los noventa», «los 80»).
+  const decadeWords = new Map(Object.entries(m.decades).flatMap(([d, list]) => list.map(w => [normalizeQueryText(w), d] as const)));
+  for (let i = 0; i < tokens.length; i++) {
+    if (tokens[i]!.used || tokens[i]!.norm !== "los") continue;
+    const j = i + 1;
+    let len = 1;
+    if (tokens[j]?.norm === "dos" && tokens[j + 1]?.norm === "mil") len = 2;
+    const word = len === 2 ? "dos mil" : tokens[j]?.norm;
+    const decade = word ? decadeWords.get(word) : undefined;
+    if (!decade) continue;
+    const start = tokens[i - 1]?.norm === "de" && !tokens[i - 1]!.used ? i - 1 : i;
+    for (let k = start; k < j + len; k++) tokens[k]!.used = true;
+    spans.push({ id: nextId(), kind: "decade", text: tokens.slice(start, j + len).map(t => t.orig).join(" "), start, end: j + len - 1, candidates: [`decade:${decade}`], cue: "none", mode: "required", group: null, decade });
+  }
+
+  // 6. Consulta que es, entera, un nombre del catálogo (sin señales de pedido).
+  const free = tokens.filter(t => !t.punct && !t.used);
+  const requestWords = new Set(["musica", "canciones", "cancion", "algo", "quiero", "para", "pa", "temas", "rolas", "dame", "ponme", "pon", "busco", "necesito", "music", "songs", "sobre", "sin"]);
+  const wholeQueryMatches = spans.length === 0 && free.length && !free.some(t => requestWords.has(t.norm))
+    ? catalog.lookup(free.map(t => t.orig).join(" ")).filter(x => x.kind !== "organization") : [];
+
+  // 6b. Atenuadores («ni tan», «no muy»): el fragmento siguiente queda pendiente.
+  const attenuators = phraseSet(m.attenuators);
+  const attenuatedStarts = new Set<number>();
+  for (let i = 0; i < tokens.length; i++) {
+    const n = phraseAt(i, attenuators);
+    if (n) { markUsed(i, n); attenuatedStarts.add(wordsAt(i, n).at(-1)! + 1); }
+  }
+
+  // 7. Frases del léxico (la más larga primero). Los sustantivos temáticos exigen señal temática.
+  const themeCues = phraseSet(m.themeCues);
+  const activityCue = new Set(["para", "pa", "pal", "for"]);
+  const markerTokens = new Set<number>();
+  for (let i = 0; i < tokens.length; i++) {
+    if (tokens[i]!.used || tokens[i]!.punct) continue;
+    const cueLen = phraseAt(i, themeCues);
+    let themed = false;
+    if (cueLen) { markUsed(i, cueLen); for (const j of wordsAt(i, cueLen)) markerTokens.add(j); i = wordsAt(i, cueLen).at(-1)!; themed = true; }
+    const start = themed ? nextWord(i + 1) : i;
+    if (start < 0) continue;
+    const hit = longestPhrase(start, themed);
+    if (!hit && themed) {
+      // Señal temática sin tema del vocabulario: no se reinterpreta como emoción ni actividad.
+      const idx: number[] = [];
+      for (const j of wordsAt(start, 6)) { if (tokens[j]!.used || ["y", "o", "pero", "sin", "ni", "para"].includes(tokens[j]!.norm)) break; idx.push(j); }
+      if (idx.length) {
+        for (const j of idx) tokens[j]!.used = true;
+        spans.push({ id: nextId(), kind: "residual", text: origOf(idx), start, end: idx.at(-1)!, candidates: [], cue: "theme", mode: "required", group: null });
+        i = idx.at(-1)!;
+      } else i = start - 1;
+      continue;
+    }
+    if (!hit) continue;
+    const { n, entries } = hit, idx = wordsAt(start, n);
+    const prev = tokens[start - 1];
+    const cue: Span["cue"] = themed ? "theme" : prev && activityCue.has(prev.norm) ? "activity" : "none";
+    const candidates = [...new Set(entries.flatMap(e => e.candidates))];
+    const kind: SpanKind = entries.some(e => e.kind === "ambiguous") ? "ambiguous" : candidates.every(c => c.startsWith("genre:")) ? "genre"
+      : candidates.every(c => c.startsWith("candidate:")) ? "facet" : "concept";
+    for (const j of idx) tokens[j]!.used = true;
+    spans.push({ id: nextId(), kind, text: origOf(idx), start, end: idx.at(-1)!, candidates, cue, mode: "required", group: null,
+      ...(attenuatedStarts.has(start) ? { attenuated: true } : {}) });
+    i = idx.at(-1)!;
+  }
+  function nextWord(i: number) { for (let j = i; j < tokens.length; j++) { if (tokens[j]!.punct) return -1; if (!tokens[j]!.used && !["el", "la", "los", "las", "un", "una", "de"].includes(tokens[j]!.norm)) return j; } return -1; }
+  function longestPhrase(i: number, themed: boolean) {
+    for (let n = Math.min(lexicon.maxPhraseTokens, wordsAt(i, 99).length); n >= 1; n--) {
+      const idx = wordsAt(i, n);
+      if (idx.length !== n || idx.some(j => tokens[j]!.used)) continue;
+      const entries = (lexicon.phrases.get(idx.map(j => tokens[j]!.norm).join(" ")) ?? [])
+        .filter(e => themed ? e.kind === "themeNoun" || e.kind === "ambiguous" || e.candidates.some(c => c.startsWith("theme:")) : e.kind !== "themeNoun");
+      // Con señal temática, un alias ambiguo se restringe a sus lecturas temáticas si las tiene.
+      if (themed) for (const e of entries) if (e.kind === "ambiguous" && e.candidates.some(c => c.startsWith("theme:"))) e.candidates = e.candidates.filter(c => c.startsWith("theme:"));
+      if (entries.length) return { n, entries: entries.map(e => ({ ...e, candidates: [...e.candidates] })) };
+    }
+    return null;
+  }
+
+  // 8. Operadores y restos. Lo que no es relleno ni operador queda como fragmento residual.
+  const ops = { negation: phraseSet(m.negation), or: phraseSet(m.or), and: phraseSet(m.and), preference: phraseSet(m.preference), boundary: phraseSet(m.boundary), clause: phraseSet(m.clauseStarts) };
+  type Op = { at: number; type: keyof typeof ops | "punct" };
+  const operators: Op[] = [];
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i]!;
+    if (t.punct) { if ([",", ";", ".", ":"].includes(t.orig)) operators.push({ at: i, type: "punct" }); continue; }
+    if (t.used) continue;
+    let matched = false;
+    for (const type of ["negation", "preference", "boundary", "or", "and", "clause"] as const) {
+      const n = phraseAt(i, ops[type]);
+      if (n) { operators.push({ at: i, type }); markUsed(i, n); i = wordsAt(i, n).at(-1)!; matched = true; break; }
+    }
+    if (matched) continue;
+  }
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i]!;
+    if (t.punct || t.used || lexicon.fillers.has(t.norm)) continue;
+    const idx: number[] = [];
+    let j = i;
+    for (; j < tokens.length; j++) {
+      const u = tokens[j]!;
+      if (u.punct || u.used) break;
+      if (lexicon.fillers.has(u.norm)) { if (idx.length && j + 1 < tokens.length && !tokens[j + 1]!.used && !tokens[j + 1]!.punct && !lexicon.fillers.has(tokens[j + 1]!.norm)) { idx.push(j); continue; } break; }
+      idx.push(j);
+    }
+    for (const k of idx) tokens[k]!.used = true;
+    spans.push({ id: nextId(), kind: "residual", text: origOf(idx), start: idx[0]!, end: idx.at(-1)!, candidates: [], cue: tokens[idx[0]! - 1] && activityCue.has(tokens[idx[0]! - 1]!.norm) ? "activity" : "none", mode: "required", group: null });
+    i = j - 1;
+  }
+
+  // 9. Alcance: negación hasta límite; preferencia hasta el final; «o» agrupa vecinos.
+  for (const sp of spans) { const a = tokens[sp.start], b = tokens[sp.end]; if (a && b) { sp.charStart = a.at; sp.charEnd = b.at + b.orig.length; } }
+  spans.sort((a, b) => a.start - b.start);
+  operators.sort((a, b) => a.at - b.at);
+  let negated = false, preferred = false, groupSeq = 0, negatedSpans = 0;
+  let lastSpan: Span | null = null;
+  let pendingOr = false;
+  const events = [...operators.map(o => ({ at: o.at, op: o })), ...spans.map(s => ({ at: s.start, span: s }))].sort((a, b) => a.at - b.at);
+  let andCount = 0, orCount = 0, connectorsBetweenSpans = 0;
+  for (const e of events) {
+    if ("op" in e && e.op) {
+      const type = e.op.type;
+      if (type === "negation") { negated = true; negatedSpans = 0; }
+      // «para …» abre otra cláusula: cierra una negación que ya alcanzó algún fragmento.
+      else if (type === "clause") { if (negatedSpans > 0) negated = false; pendingOr = false; }
+      else if (type === "preference") { preferred = true; negated = false; }
+      else if (type === "boundary" || type === "punct") { negated = false; pendingOr = false; }
+      else if (type === "or") { pendingOr = true; orCount++; }
+      else if (type === "and") { andCount++; const next = events.find(x => x.at > e.at); if (!(next && "op" in next && next.op?.type === "negation")) negated = false; }
+      continue;
+    }
+    const s = (e as { span: Span }).span;
+    if (["listener", "comparative"].includes(s.kind)) { lastSpan = null; pendingOr = false; continue; }
+    if (s.kind === "entity") { lastSpan = null; continue; }
+    s.mode = preferred ? "preferred" : negated ? "excluded" : "required";
+    if (s.mode === "excluded") negatedSpans++;
+    if (pendingOr && lastSpan && lastSpan.mode === s.mode) {
+      if (!lastSpan.group) lastSpan.group = `G${++groupSeq}`;
+      s.group = lastSpan.group;
+    }
+    if (lastSpan) connectorsBetweenSpans++;
+    pendingOr = false;
+    lastSpan = s;
+  }
+  const conditionSpans = spans.filter(s => !["listener", "comparative", "entity"].includes(s.kind));
+  const structure = {
+    orAndMixed: orCount > 0 && andCount > 0 && conditionSpans.length >= 3 && !operators.some(o => o.type === "punct" || o.type === "boundary" || o.type === "preference") && connectorsBetweenSpans > 0
+      && conditionSpans.every(sp => sp.mode === conditionSpans[0]!.mode),
+    parentheses: tokens.some(t => t.orig === "(") && tokens.some(t => t.orig === ")"),
+  };
+  return { version: "crv-query-segmenter-0.1.0", lexicon: lexicon.doc.version, text, normalized: normalizeQueryText(text), spans, wholeQueryMatches, structure, listenerStates };
+}

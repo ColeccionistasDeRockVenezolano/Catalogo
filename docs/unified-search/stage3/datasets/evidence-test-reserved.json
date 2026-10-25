@@ -1,0 +1,6683 @@
+{
+ "version": "crv-evidence-test-reserved-1.0.0",
+ "frozenAt": "2026-10-25",
+ "policy": "Prueba reservada: se congela antes de entrenar y se evalúa una vez por versión. Ninguna obra de estas particiones entra en entrenamiento, validación ni calibración.",
+ "protocol": {
+  "analyst": "DeepSeek (deepseek-flash), lote crv-evidence-batch-0.1.0",
+  "evaluator": "Claude (adjudicación completa de la muestra)",
+  "conventions": [
+   "Un rasgo redactado como ausencia («sin clichés», «falta de crudeza», «mucho relleno») se sostiene (supports); contradicts exige que la cita niegue el rasgo propuesto.",
+   "Una valoración negativa no es contradicción: «aburrido», «voces que necesitan mejorar» sostienen ese rasgo.",
+   "activity_basis distinto de absent exige una actividad de escucha o uso; recomendar oír, comprar o ver un clip no es actividad.",
+   "Las puntuaciones («100/100») no sostienen rasgos.",
+   "Un texto de otra obra, pista concreta u homónimo es different_object y no sostiene el rasgo del objeto."
+  ],
+  "excluded": {
+   "typed:43": "rasgo propuesto sin sentido musical",
+   "typed:49": "objeto dudoso (otra banda citada)",
+   "typed:54": "actividad y soporte indecidibles",
+   "typed:61": "uso «para gritar» indecidible",
+   "typed:64": "el rasgo no es un rasgo («para escuchar ahora»)",
+   "typed:138": "el rasgo cambiado coincide en parte con la cita",
+   "typed:154": "el rasgo cambiado coincide en parte con la cita",
+   "extraction:39": "dos frases sostienen el rasgo",
+   "extraction:66": "dos frases sostienen el rasgo"
+  }
+ },
+ "split": "grupos (obra o artista) con huella SHA-256 en el 15 % superior",
+ "typed": [
+  {
+   "id": "EV-0906-C4",
+   "group": "artist:isra",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Isra",
+     "version": null,
+     "segment": null
+    },
+    "quote": "lyrics reflecting on the individuals place in the modern world",
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "letras sobre el lugar del individuo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0908-C1",
+   "group": "artist:lunar",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Lunar",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Lunar was a Croatian post-rock band.",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "post-rock croata"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0807-C2",
+   "group": "artist:devilry",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Devilry",
+     "version": null,
+     "segment": null
+    },
+    "quote": "lyrical themes according to the roots of the genre(satanism, anti-christian/islam, war, death, now NS)",
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "letras sobre satanismo, guerra y muerte"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0908-C3",
+   "group": "artist:lunar",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Lunar",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Lunar is a German Noiserock band",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "noise rock alemán"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0676-C4",
+   "group": "artist:ares",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Ares",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Ares is a Romanian rapper/R&B singer that is mostly known for his lovely voice & lyrics about love & sex.",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz agradable y letras sobre amor y sexo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0676-C3",
+   "group": "artist:ares",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Ares",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Ares is a progressive metal band from Germany, Eckernförde. They are influenced by many different kinds of metal, they make their own sound between death metal, black metal and metalcore.",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido entre death, black y metalcore"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0685-C1",
+   "group": "artist:insane",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Insane",
+     "version": null,
+     "segment": null
+    },
+    "quote": "They play a style identical to Slayer's Show No Mercy.",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "estilo idéntico a Slayer"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0815-C3",
+   "group": "artist:reaper",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Reaper",
+     "version": null,
+     "segment": null
+    },
+    "quote": "A Thrash Metal band formed in 2006, from Bogotá, Colombia",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "thrash metal"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0005-C4",
+   "group": "rym:/release/video/various-artists/classic-rock-roll-of-honour/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "classic rock roll of honour",
+     "version": null,
+     "segment": null
+    },
+    "quote": "sounds like a collection of exotic soundscapes that blend together without leaving a lasting impression",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "paisajes sonoros exóticos indistinguibles"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0069-C4",
+   "group": "rym:/release/album/irepelusa/un-koala-en-una-palmera/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Un koala en una palmera",
+     "version": null,
+     "segment": null
+    },
+    "quote": "It grooves with such smoothness that it slides off the speakers",
+    "candidate": {
+     "axis": "energy",
+     "facet": null,
+     "value": "groove suave y fluido"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0160-C2",
+   "group": "rym:/release/album/hekla/a/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "a",
+     "version": null,
+     "segment": null
+    },
+    "quote": "his versatility as an incredible vocalist, a show-stopping performer and a capable songwriter",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "vocalista versátil y compositor capaz"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0102-C4",
+   "group": "rym:/release/album/aldemaro-romero/el-fabuloso-aldemaro-y-su-onda-nueva/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "El Fabuloso Aldemaro y Su Onda Nueva",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Why Don't You Write Me\" is also beautiful and kind of makes me sad even though it feels happy when you listen to it.",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "alegre en superficie pero melancólica"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0178-C3",
+   "group": "rym:/release/album/almendra/almendra/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "almendra",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Sunday Bloody Sunday is one of the best songs of all time.",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "canción destacada de U2"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0035-C2",
+   "group": "rym:/release/album/gabriel-chakarji/new-beginning/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "New Beginning",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Monsters more or less refines what came before",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "refina lo anterior sin novedades"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0167-C3",
+   "group": "rym:/release/album/various-artists/spawn-the-album/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "spawn the album",
+     "version": null,
+     "segment": null
+    },
+    "quote": "It felt more emotional, more layered than the straight-ahead aggression I was used to",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "más emocional y con más capas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0139-C4",
+   "group": "rym:/release/album/los-mesoneros/indeleble/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Indeleble",
+     "version": null,
+     "segment": null
+    },
+    "quote": "An edit wouldn't hurt (the covers would be first to go) but there is a solid 40-minute album here.",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "edición acortable quitando versiones"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0053-C4",
+   "group": "rym:/release/album/maria-conchita-alonso/o-ella-o-yo/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "O Ella, O Yo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "there is not one escape granted on this whole record, not one chance to catch a break",
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "ausencia de escape o respiro"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0035-C1",
+   "group": "rym:/release/album/gabriel-chakarji/new-beginning/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "New Beginning",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Monsters is somewhat of a mixed bag, with a second side that particularly drags",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "segunda cara que se alarga"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0427-C1",
+   "group": "aoty:1152352",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "ÍCONOS",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Probablemente el proyecto de Supa con la producción más única y variada.",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción única y variada"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0860-C4",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "quote": "esperamos  que el siguiente sea mucho mejor que éste",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "siguiente álbum mejor que este"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0730-C1",
+   "group": "rym:/release/album/lil-supa/yeyo/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Yeyo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "una apertura teatral que parece inspirada por las películas de gánsteres",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "apertura teatral de gánsteres"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0212-C3",
+   "group": "aoty:422055",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Born Yesterday",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I guess thanks Arca for saving a track even though it's yours?",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "Arca salva la pista"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0773-C3",
+   "group": "rym:/release/album/weed420/esto-no-es-un-show/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Esto no es un show",
+     "version": null,
+     "segment": null
+    },
+    "quote": "However you think these guys would fuse their style with post-rock, that’s what it sounds like, I guess.",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "fusión de su estilo con post-rock"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0440-C1",
+   "group": "aoty:603562",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Immaculate Poison",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I didn't expected him to do hardcore and breakcore",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "hardcore y breakcore"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "negated",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0933-C3",
+   "group": "rym:/release/album/caramelos-de-cianuro/miss-mujerzuela/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Miss Mujerzuela",
+     "version": null,
+     "segment": null
+    },
+    "quote": "La música merecería ser escuchada más seguido en las radios, de no ser por sus letras",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "letras impiden difusión radial"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "explicit_recommendation"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0460-C1",
+   "group": "barraezo:https://barraezo.blogspot.com/2018/06/ray-connif-en-venezuela-ray-conniff-cbs.html",
+   "source": "barraezo",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ray Connif en Venezuela - Ray Conniff -  CBS ‎– CS-10.331 - 1979",
+     "version": null,
+     "segment": null
+    },
+    "quote": "terias o album Ray Conniff Play Carpenters",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "petición de otro álbum de Ray Conniff"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0649-C4",
+   "group": "aoty:1152352",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "ÍCONOS",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Uno pensaría que al alejarse tanto de su zona",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "alejamiento de su zona habitual"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0765-C2",
+   "group": "rym:/release/album/simon-diaz/tonadas/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tonadas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "La calidad de sonido puede no ser la mejor (por lo menos por lo que yo escuche)",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "calidad de sonido no la mejor"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0439-C4",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "quote": "como una suerte de Jorge González que no está seguro si está en su fase La Voz de los 80s o la de la carrera solista",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "comparación con Jorge González"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0337-C3",
+   "group": "aoty:1115906",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Better Smile!",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I am cautiously exited for improvements to the sound in further endeavors",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido mejorable en el futuro"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0521-C2",
+   "group": "aoty:531068",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "panorama",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I will 100% be listening to more of what Emauel has to offer.",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "intención de escuchar más del artista"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "imagined_scene"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0141-C1",
+   "group": "rym:/release/mixtape/arca/andandandandand/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "&&&&&",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the music loses all sorts of cohesion inside of your head",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "pérdida de cohesión musical"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "imagined_scene"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0325-C4",
+   "group": "rym:/release/album/hugo-chavez/canciones-de-siempre/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Canciones de siempre",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Esto pordria ser como el album ese de Wu Tang Clan que sacaron en 2015 de una sola copia que valdria 1 millon de dolares",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "álbum de una sola copia muy valiosa"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0223-C1",
+   "group": "rym:/release/mixtape/arca/andandandandand/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "&&&&&",
+     "version": null,
+     "segment": null
+    },
+    "quote": "It feels like it's supposed to be experimental and boundaries pushing, but I dont really see it :/",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "experimental y rupturista"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "negated",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0141-C4",
+   "group": "rym:/release/mixtape/arca/andandandandand/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "&&&&&",
+     "version": null,
+     "segment": null
+    },
+    "quote": "you think you start hearing voices again",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voces inquietantes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "imagined_scene"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0141-C3",
+   "group": "rym:/release/mixtape/arca/andandandandand/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "&&&&&",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The sounds are dancing in front of your face like little shiny bubbles",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonidos brillantes y flotantes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "imagined_scene"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0371-C2",
+   "group": "artist:voyager",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Voyager",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The band has referred to their music as \"80s synth pop on progressive metal narcotics\".",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "synth pop ochentero sobre metal progresivo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "quoted",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "quoted",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0108-C2",
+   "group": "rym:/release/ep/noctis_imperium/nihil/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "nihil",
+     "version": null,
+     "segment": null
+    },
+    "quote": "this is probably Phil Ochs at his finest",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "probablemente lo mejor de Phil Ochs"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0663-C4",
+   "group": "rym:/release/album/nota_profana/the_devils_playground/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Devil's Playground",
+     "version": null,
+     "segment": null
+    },
+    "quote": "they are never used in any interesting way, instead following along with the guitar riffing in the standard symphonic metal fashion",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "cuerdas siguen el riff de guitarra"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "negated",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0263-C2",
+   "group": "aoty:286187",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Funky Fresco",
+     "version": null,
+     "segment": null
+    },
+    "quote": "no corny bars or American trap cliches",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "sin clichés de trap americano"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "negated",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0986-C16",
+   "group": "rym:/release/album/corina-smith/triste-pero-siempre-mami/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "triste pero siempre mami",
+     "version": null,
+     "segment": null
+    },
+    "quote": "hay personas que encontrarán comfort y relatabilidad en su simpleza",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "simpleza que da consuelo y relato"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "imagined_scene"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0271-C1",
+   "group": "rym:/release/album/arca/kick-ii/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "KICK ii",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Pensé que era un poco menos icónico que \"KiCk i\" pero de hecho tiene muchas joyas",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "menos icónico que KiCk i"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0225-C3",
+   "group": "rym:/release/mixtape/arca/andandandandand/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "&&&&&",
+     "version": null,
+     "segment": null
+    },
+    "quote": "i dont know if i actually like this one or not",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "gusto ambiguo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0948-C4",
+   "group": "rym:/release/album/cats-and-beloved-pets/nos-estan-mirando-los-mausis/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "nos están mirando los mausis",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Hacer del silencio una comodidad\" parece un guiño irónico a la textura ruidosa de casi todas las piezas de la obra.",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "textura ruidosa en casi todas las piezas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "possible_irony",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "possible_irony",
+    "support": "insufficient",
+    "activity_basis": "irony"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0214-C4",
+   "group": "aoty:378406",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Cuando los acéfalos predominan",
+     "version": null,
+     "segment": null
+    },
+    "quote": "quieres quedarte pero tienes que irte asi que empaca y vente; te vas a pie o en avión",
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "tensión entre quedarse e irse"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "quoted",
+    "support": "insufficient",
+    "activity_basis": "represented_activity"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "quoted",
+    "support": "insufficient",
+    "activity_basis": "represented_activity"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0524-C1",
+   "group": "barraezo:https://barraezo.blogspot.com/2013/10/v-momentos-ktel-sono-rodven-tv-280-1980.html",
+   "source": "barraezo",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "V. A. Momentos – Ktel / Sono-Rodven TV-280 - 1980",
+     "version": null,
+     "segment": null
+    },
+    "quote": "tenían un programa llamado Momentos en horas de la tarde, donde la música era principalmente de esos discos",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "música emitida en programa radial"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "uncertain",
+    "support": "insufficient",
+    "activity_basis": "declared_use"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0517-C1",
+   "group": "aoty:422055",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Born Yesterday",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I'm sure the song would've sound 100× better if it was with ARCA's vocals instead",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz de Arca en lugar de Sia"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0953-C3",
+   "group": "artist:culebra",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Culebra",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the group was one of the leading groups playing at clubs, festivals such as the Haight Street Fair and, in particular, the San Francisco Carnaval",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "actuaciones en clubs, festivales y carnaval"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "represented_activity"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0963-C1",
+   "group": "rym:/release/album/blue-boy/soca-in-the-shaolin-temple/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Soca in the Shaolin Temple",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I don't listen to much soca, so I am no expert in this musical style",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "estilo soca"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "unclear",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "unclear",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "declared_use"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0709-C1",
+   "group": "rym:/release/album/simon-diaz/tonadas/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tonadas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "La Tonada son los cantos liricos, usualmente de trabajo, que acompañan a diversas faenas como el ordeño, la labranza y el arreo en el campo venezolano y colombiano.",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "cantos de trabajo para faenas del campo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "unclear",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "represented_activity"
+   },
+   "analyst": {
+    "object_scope": "unclear",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "represented_activity"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0080-C4",
+   "group": "rym:/release/mixtape/arca/andandandandand/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "&&&&&",
+     "version": null,
+     "segment": null
+    },
+    "quote": "a majority of these songs went really hard, especially in headphones",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "para escuchar con auriculares"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0625-C1",
+   "group": "barraezo:https://barraezo.blogspot.com/2012/01/rafael-munoz-vol-1-1938-1943-harlequin.html",
+   "source": "barraezo",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Rafael Muñoz  Vol. 1   1938 - 1943  Harlequin HQ LP97",
+     "version": null,
+     "segment": null
+    },
+    "quote": "todavía en los años 80's en mi casa materna la música de Rafael Muñoz sonaba frecuentemente",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "escuchada con frecuencia en casa"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0857-C4",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Assistam o clip de Você!!!",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "recomendación de ver el clip"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "explicit_recommendation"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "explicit_recommendation"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0599-C1",
+   "group": "rym:/release/album/weed420/esto-no-es-un-show/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Esto no es un show",
+     "version": null,
+     "segment": null
+    },
+    "quote": "I decided to listen to this album on the side",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "escucha de fondo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0459-C4",
+   "group": "rym:/release/album/weed420/esto-no-es-un-show/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Esto no es un show",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The record asks for endurance, then tests what you do with discomfort.",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "escucha que exige resistencia"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "imagined_scene"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0293-C2",
+   "group": "rym:/release/album/lil-supa/yeyo/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Yeyo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "es ultra recomendado",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "álbum recomendado"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "explicit_recommendation"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0571-C3",
+   "group": "rym:/release/album/tempano/atabal-yemal-3/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Atabal–Yémal",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Go for the CD re-issue,which contains three extra tracks of untold beauty with an even more adventurous sound.",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido más aventurero en pistas extra"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "explicit_recommendation"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0960-C4",
+   "group": "rym:/release/album/hugo-chavez/canciones-de-siempre/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Canciones de siempre",
+     "version": null,
+     "segment": null
+    },
+    "quote": "ya hemos oído una parte de esto, o por medio de memes, o en el peor de los casos, en las transmisiones de dichas intervenciones",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "difundido por memes y transmisiones"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "declared_use"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0948-C2",
+   "group": "rym:/release/album/cats-and-beloved-pets/nos-estan-mirando-los-mausis/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "nos están mirando los mausis",
+     "version": null,
+     "segment": null
+    },
+    "quote": "El primer track marca un inicio tan melancólico como un sentimiento post-fiesta, tal vez una resaca, tal vez irse de la celebración a causa de una pelea.",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "inicio melancólico post-fiesta"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "imagined_scene"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0274-C1",
+   "group": "rym:/release/single/weed420/vamonos-de-aqui/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Vamonos de aquí",
+     "version": null,
+     "segment": null
+    },
+    "quote": "cuando quiero desentenderme un poco del absurdo dolor de vivir, pongo esta canción y me sumergo en un espacio liminal en el que no existe tal malestar ni debo rendirle cuentas a nadie",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "para evadirse del malestar"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "unclear",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "declared_use"
+   },
+   "analyst": {
+    "object_scope": "unclear",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "declared_use"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0179-C3",
+   "group": "aoty:57531",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Entrañas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "THIS IS EXACTLY LIKE A BAD DREAM WOULD SOUND FR.",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "suena a pesadilla"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "imagined_scene"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0882-C2",
+   "group": "rym:/release/album/kid606/pretty-girls-make-raves/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pretty Girls Make Raves",
+     "version": null,
+     "segment": null
+    },
+    "quote": "ignoring the slow rocking hip-hop closer “Oakland Highsiding.”",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "hip-hop lento y rockero"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0808-C4",
+   "group": "rym:/release/album/00neaj/reverie/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "reverie",
+     "version": null,
+     "segment": null
+    },
+    "quote": "el verso de h0tn1k en modo melancolico, una faceta suya que espero profundice mas en el futuro",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "verso melancólico de h0tn1k"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0816-C3",
+   "group": "rym:/release/album/tempano/atabal-yemal-3/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Atabal–Yémal",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Cascada has great instrumentals, but is too scattered for my taste, starting around 2 minutes in",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "instrumentales grandes pero dispersos"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0102-C1",
+   "group": "rym:/release/album/aldemaro-romero/el-fabuloso-aldemaro-y-su-onda-nueva/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "El Fabuloso Aldemaro y Su Onda Nueva",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The way the guitars on this song are so messy but full of heart.",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "guitarras desordenadas pero emotivas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0906-C2",
+   "group": "artist:isra",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Isra",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The music radiates a calming sensation that lets listeners slip into daydreaming, far away from the city’s concrete jungle.",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "sensación calmada y ensoñadora"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "imagined_scene"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0590-C4",
+   "group": "aoty:422055",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Born Yesterday",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Tudo fica claro com os dois singles lançados: Incendio e",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "dos singles lanzados"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0908-C4",
+   "group": "artist:lunar",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Lunar",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Lunar is an American progressive metal band",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "metal progresivo estadounidense"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0160-C4",
+   "group": "rym:/release/album/hekla/a/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "a",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the immaculate control he exhibits in \"Come to Me\", which is one of the greatest vocal performances I have ever heard",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "control vocal impecable"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0913-C2",
+   "group": "artist:bonestorm",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Bonestorm",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Their lyrics focused primarily on a fictional story of the origins of life on earth, consisting of struggles between robots, dinosaurs, and ghosts.",
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "letras sobre robots, dinosaurios y fantasmas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0953-C2",
+   "group": "artist:culebra",
+   "source": "lastfm_homonyms",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Culebra",
+     "version": null,
+     "segment": null
+    },
+    "quote": "performing a repertoire of many genres of original Caribbean and Latin dance music",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "música caribeña y latina bailable"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0860-C3",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "quote": "El resto es sencillamente aburrido.",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "resto del álbum aburrido"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0715-C4",
+   "group": "rym:/release/album/simon-diaz/tonadas/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tonadas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "when it comes to the more stripped-back, slower cuts on the project, which makes up a good chunk of the material, that's typically where Tonadas loses me a bit",
+    "candidate": {
+     "axis": "energy",
+     "facet": null,
+     "value": "cortes lentos y despojados"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0180-C4",
+   "group": "rym:/release/album/lil-supa/yeyo/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Yeyo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "It lacks much of the rawness and force of personality that made those albums special.",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "falta de crudeza y fuerza de personalidad"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0337-C1",
+   "group": "aoty:1115906",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Better Smile!",
+     "version": null,
+     "segment": null
+    },
+    "quote": "vocals could use some serious work",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voces necesitan mejorar"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0986-C14",
+   "group": "rym:/release/album/corina-smith/triste-pero-siempre-mami/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "triste pero siempre mami",
+     "version": null,
+     "segment": null
+    },
+    "quote": "messy estructuralmente. repetitivo, monotemático, simple. cero ambicioso",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "estructura descuidada y repetitiva"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0856-C1",
+   "group": "rym:/release/album/ad_intra/inside_us_all/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Inside Us All",
+     "version": null,
+     "segment": null
+    },
+    "quote": "No es lo suficientemente rápido como para ser considerado un álbum MDM, por ello voté en contra de esa influencia en esta álbum.",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "no es lo bastante rápido para MDM"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0856-C3",
+   "group": "rym:/release/album/ad_intra/inside_us_all/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Inside Us All",
+     "version": null,
+     "segment": null
+    },
+    "quote": "La segunda voz, algo más aguda, menos gutural, desentona bastante en las canciones, llega incluso a molestar.",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "segunda voz aguda desentona"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0481-C3",
+   "group": "rym:/release/album/akapellah/xtassy/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Xtassy",
+     "version": null,
+     "segment": null
+    },
+    "quote": "has a lot of filler",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "mucho relleno"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0251-C3",
+   "group": "rym:/release/album/lil-supa/yeyo/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Yeyo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "you would hear over a Griselda member album",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "beats similares a Griselda"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0316-C4",
+   "group": "rym:/release/album/todo-bien-todo-mal/malo-para-la-educacion-peor-para-la-salud/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Malo para la educación, peor para la salud.",
+     "version": null,
+     "segment": null
+    },
+    "quote": "In the end, it even dips into folk music for a middle eight.",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "incursión en folk en un puente"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0661-C2",
+   "group": "rym:/release/album/simon-diaz/tonadas/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tonadas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Cómo iba permanecer impávido ante la emoción que transmiten estas letras tan de verdad.",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "letras sinceras y emotivas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0317-C4",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the use of electronics in this album has the purpose of bringing in and out tension",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "electrónica para crear tensión"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0917-C4",
+   "group": "rym:/release/comp/los-prisioneros/ni-por-la-razon-ni-por-la-fuerza/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ni por la razón, ni por la fuerza",
+     "version": null,
+     "segment": null
+    },
+    "quote": "se reunieron a lanzar trabajos que van desde lo mediocre a lo sencillamente malo",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "trabajos de reunión mediocres o malos"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0396-C2",
+   "group": "aoty:193908",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Apa y Can",
+     "version": null,
+     "segment": null
+    },
+    "quote": "La producción es muy buena para ser de tiempo muy atrás y con un presupuesto no muy alto",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción buena con bajo presupuesto"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0005-C1",
+   "group": "rym:/release/video/various-artists/classic-rock-roll-of-honour/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "classic rock roll of honour",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Paul goes back to the basics for a straightforward collection of songs born out of domestic bliss",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "colección de canciones sencillas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0986-C11",
+   "group": "rym:/release/album/corina-smith/triste-pero-siempre-mami/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "triste pero siempre mami",
+     "version": null,
+     "segment": null
+    },
+    "quote": "cero metafórico",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "letras sin metáforas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0648-C4",
+   "group": "rym:/release/album/gabo-xeart/jazz-in-bloom/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Jazz in Bloom",
+     "version": null,
+     "segment": null
+    },
+    "quote": "no pierde el sentido del álbum, haciendo que sea disfrutable desde el inicio hasta el final",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "coherencia disfrutable de principio a fin"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0410-C1",
+   "group": "rym:/release/album/los-prisioneros/pateando-piedras/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pateando piedras",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Los Prisioneros dejan un poco de lado las guitarras, algo que podría haber alejado a más de algún fanático, sobre todo al más rockero, por un synth pop más basado en grupos británicos como Depeche Mode",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "synth pop con menos guitarras"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0849-C4",
+   "group": "rym:/release/album/ad_intra/inside_us_all/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Inside Us All",
+     "version": null,
+     "segment": null
+    },
+    "quote": "generando un clima perfecto de desolación y angustia",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "clima de desolación y angustia"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0772-C4",
+   "group": "rym:/release/comp/los-prisioneros/ni-por-la-razon-ni-por-la-fuerza/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ni por la razón, ni por la fuerza",
+     "version": null,
+     "segment": null
+    },
+    "quote": "La versión de Lo estamos pasando muy bien, por ejemplo, es terrible. Cantada íntegramente por Jorge Gonzalez pierde por completo su brillo y su fuerza.",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "pierde brillo y fuerza"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0180-C1",
+   "group": "rym:/release/album/lil-supa/yeyo/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Yeyo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The beats have these wonderful strings mixed in, giving it an air of glamour.",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "cuerdas en los beats, aire glamuroso"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0179-C4",
+   "group": "aoty:57531",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Entrañas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "It's more depressive and dark.",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "más depresivo y oscuro"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0139-C2",
+   "group": "rym:/release/album/los-mesoneros/indeleble/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Indeleble",
+     "version": null,
+     "segment": null
+    },
+    "quote": "A good contender for an instrumental mix though especially the \"Interrupted\" and \"The Saturday Option\".",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "buenas para una mezcla instrumental"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "explicit_recommendation"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "explicit_recommendation"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0053-C3",
+   "group": "rym:/release/album/maria-conchita-alonso/o-ella-o-yo/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "O Ella, O Yo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "When our protagonist falls in love on F.E.E.L.I.N.G.C.A.L.L.E.D.L.O.V.E. he complains about wrong-time-wrong-place",
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "enamoramiento en momento y lugar equivocados"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "represented_activity"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "represented_activity"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0687-C2",
+   "group": "rym:/release/album/todo-bien-todo-mal/malo-para-la-educacion-peor-para-la-salud/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Malo para la educación, peor para la salud.",
+     "version": null,
+     "segment": null
+    },
+    "quote": "las canciones mientras más va pasando el albúm dejan de ser post-hardcore y tira a algo más al emo-pop/indie",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "evolución de post-hardcore a emo-pop/indie"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0648-C1",
+   "group": "rym:/release/album/gabo-xeart/jazz-in-bloom/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Jazz in Bloom",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Un álbum sólido, cálido y relajante.",
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "ambiente cálido y relajante"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0080-C1",
+   "group": "rym:/release/mixtape/arca/andandandandand/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "&&&&&",
+     "version": null,
+     "segment": null
+    },
+    "quote": "full of heavy bass and chill samples juxtaposed with glitchy and deconstructed production techniques",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "bajos pesados y samples glitch"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0765-C1",
+   "group": "rym:/release/album/simon-diaz/tonadas/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tonadas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "destaca lo mejor de el Joropo venezuelano",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "joropo venezolano"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0220-C1",
+   "group": "aoty:57531",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Entrañas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Production of this mixtape: 💯/100",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción muy valorada"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0748-C1",
+   "group": "rym:/release/album/los-prisioneros/pateando-piedras/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pateando piedras",
+     "version": null,
+     "segment": null
+    },
+    "quote": "there's something about the combination of those tight-ass synthetic drums, those varied synthesizer sounds that sometimes sound way out of place and Jorge's voice and lyrics that makes the music pop so, so much",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "batería sintética y sintetizadores variados"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0511-C2",
+   "group": "aoty:193908",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Apa y Can",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Unas líricas piolas con 2 voces prácticamente opuestas que logran complementarse muy bien",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "dos voces opuestas que se complementan"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0481-C2",
+   "group": "rym:/release/album/akapellah/xtassy/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Xtassy",
+     "version": null,
+     "segment": null
+    },
+    "quote": "also has the worst performances from Akapellah in any album to date",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "las peores interpretaciones de Akapellah"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0687-C4",
+   "group": "rym:/release/album/todo-bien-todo-mal/malo-para-la-educacion-peor-para-la-salud/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Malo para la educación, peor para la salud.",
+     "version": null,
+     "segment": null
+    },
+    "quote": "hay muchas cosas que creo que pueden ser mejores, más que nada al nivel de producción",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción mejorable"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0392-C2",
+   "group": "aoty:532200",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Todo Bailarlo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "no skips except for like 2 interlude tracks, but even they are pretty good",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "dos pistas interludio"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0410-C3",
+   "group": "rym:/release/album/los-prisioneros/pateando-piedras/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pateando piedras",
+     "version": null,
+     "segment": null
+    },
+    "quote": "“Muevan las industrias” uno de los temas mejor producidos del álbum, juega mucho con los samples de fábrica, hablando de la desolación de aquellos que eran despedidos de sus trabajos",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "samples de fábrica"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0691-C3",
+   "group": "rym:/release/comp/los-prisioneros/ni-por-la-razon-ni-por-la-fuerza/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ni por la razón, ni por la fuerza",
+     "version": null,
+     "segment": null
+    },
+    "quote": "hubiese sido bueno que estuviese mejor ordenado el tracklist (por ejemplo: que el primer CD sea los hits y el segundo de unicamente rarezas)",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "tracklist mejor ordenado"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "hypothetical",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0167-C1",
+   "group": "rym:/release/album/various-artists/spawn-the-album/",
+   "source": "rym_identity_error",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "spawn the album",
+     "version": null,
+     "segment": null
+    },
+    "quote": "“Siva” had that push-pull energy, and the guitar tone was thick enough to feel familiar",
+    "candidate": {
+     "axis": "energy",
+     "facet": null,
+     "value": "energía de tira y afloja"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0702-C2",
+   "group": "rym:/release/album/carlos-giffoni/arrogance/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Arrogance",
+     "version": null,
+     "segment": null
+    },
+    "quote": "overall it's too monotonous for it's own good",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "demasiado monótono"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0529-C2",
+   "group": "aoty:422055",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Born Yesterday",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Sia murdered some futuristic moments this track could have because she had a voice that was built more for the opera side",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz más operística que futurista"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "contradicts",
+    "activity_basis": "absent"
+   },
+   "adjudication": "corrected"
+  },
+  {
+   "id": "EV-0666-C2",
+   "group": "rym:/release/album/kid606/pretty-girls-make-raves/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pretty Girls Make Raves",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Chickenfight\" usa una base house \"seria\",acompaniada de los cliches del genero,solo para ir sumando secuencias embrutecidas.",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "base house con secuencias embrutecidas"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "different_object",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0986-C3",
+   "group": "rym:/release/album/corina-smith/triste-pero-siempre-mami/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "triste pero siempre mami",
+     "version": null,
+     "segment": null
+    },
+    "quote": "cheverongo ese break medio bossanova",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "break medio bossanova"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0640-C2",
+   "group": "aoty:1346425",
+   "source": "aoty",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "19 Puntos",
+     "version": null,
+     "segment": null
+    },
+    "quote": "la mayoria de las canciones aqui envejecieron mal",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "canciones envejecidas mal"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0410-C4",
+   "group": "rym:/release/album/los-prisioneros/pateando-piedras/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pateando piedras",
+     "version": null,
+     "segment": null
+    },
+    "quote": "“Por qué los ricos” suena demasiada resentida, muy infantil",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "tono resentido e infantil"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "analyst": {
+    "object_scope": "same_object",
+    "assertion_state": "affirmed",
+    "support": "supports",
+    "activity_basis": "absent"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0709-C2",
+   "group": "rym:/release/album/simon-diaz/tonadas/",
+   "source": "rym",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tonadas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Las Tonadas del llano venezolano consisten en cantarle a la vaca en la labor de ordeño y de arreo, para calmar al animal y conseguir que de mas leche, mientras funge como un alivianador del trabajo.",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "cantar a la vaca en el ordeño"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "object_scope": "unclear",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "represented_activity"
+   },
+   "analyst": {
+    "object_scope": "unclear",
+    "assertion_state": "affirmed",
+    "support": "insufficient",
+    "activity_basis": "represented_activity"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0939-C3-X",
+   "group": "rym:/release/album/luis-perdomo/the-infancia-project/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Infancia Project",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Solar,\" the album's only real \"standard\" is heavily re-imagined as a dissonant, intervalic tone poem that only hints at the original melody.",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "sin rimas, songwriting y flow nulos"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0816-C3-X",
+   "group": "rym:/release/album/tempano/atabal-yemal-3/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Atabal–Yémal",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Cascada has great instrumentals, but is too scattered for my taste, starting around 2 minutes in",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "disco recopilatorio de grandes éxitos"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0069-C3-X",
+   "group": "rym:/release/album/irepelusa/un-koala-en-una-palmera/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Un koala en una palmera",
+     "version": null,
+     "segment": null
+    },
+    "quote": "the obvious retro throwback feel, hailing towards 60′s lounge and 70′s hi-fi studio wizardry",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido más aventurero en pistas extra"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0882-C4-X",
+   "group": "rym:/release/album/kid606/pretty-girls-make-raves/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pretty Girls Make Raves",
+     "version": null,
+     "segment": null
+    },
+    "quote": "As opposed to the mellow dub downtempo that was all the rage in naught five",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "artista del medio electrónico"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0412-C2-X",
+   "group": "aoty:199773",
+   "source": "aoty",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Give Me Five",
+     "version": null,
+     "segment": null
+    },
+    "quote": "interpretacion soza de Can",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz sonora y sincera"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0410-C4-X",
+   "group": "rym:/release/album/los-prisioneros/pateando-piedras/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pateando piedras",
+     "version": null,
+     "segment": null
+    },
+    "quote": "“Por qué los ricos” suena demasiada resentida, muy infantil",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "canciones no agradan al oyente"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0637-C1-X",
+   "group": "barraezo:https://barraezo.blogspot.com/2012/03/gimeno-polidor-mono-352-1966.html",
+   "source": "barraezo",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Gimeno - Polidor Mono 352 - 1966",
+     "version": null,
+     "segment": null
+    },
+    "quote": "El sentimental Gimeno no es venezolano. Nació en las islas Canarias.",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "arte puro hecho con esfuerzo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0698-C4-X",
+   "group": "rym:/release/album/kid606/pretty-girls-make-raves/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pretty Girls Make Raves",
+     "version": null,
+     "segment": null
+    },
+    "quote": "The record's entire purpose seems predicated on the idea that it needs to get you dancing, and it need to do it now.",
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "actuaciones en clubs, festivales y carnaval"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0225-C1-X",
+   "group": "rym:/release/mixtape/arca/andandandandand/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "&&&&&",
+     "version": null,
+     "segment": null
+    },
+    "quote": "its very unique",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "poca innovación sonora"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0715-C1-X",
+   "group": "rym:/release/album/simon-diaz/tonadas/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tonadas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "When there's a bit of a pulse to his songs, Diaz's angelic vocals and fantastic guitar playing really shine through.",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "notas largas que se pierden en el horizonte"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0807-C4-X",
+   "group": "artist:devilry",
+   "source": "lastfm_homonyms",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Devilry",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Russian thrash metal band who released one self-titled album in 1992",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "música caribeña y latina bailable"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0676-C3-X",
+   "group": "artist:ares",
+   "source": "lastfm_homonyms",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Ares",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Ares is a progressive metal band from Germany, Eckernförde. They are influenced by many different kinds of metal, they make their own sound between death metal, black metal and metalcore.",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "post-metal con riffs masivos y melodía melancólica"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0035-C2-X",
+   "group": "rym:/release/album/gabriel-chakarji/new-beginning/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "New Beginning",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Monsters more or less refines what came before",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "atribuido a U2, no a Almendra"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0325-C1-X",
+   "group": "rym:/release/album/hugo-chavez/canciones-de-siempre/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Canciones de siempre",
+     "version": null,
+     "segment": null
+    },
+    "quote": "por lo menos no nos obligo a oír está pendejada",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "probablemente lo mejor de Phil Ochs"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0590-C1-X",
+   "group": "aoty:422055",
+   "source": "aoty",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Born Yesterday",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Apesar de ter apenas trinta e um anos, a DL/produtora/cantora espanhola Arca se tornou um dos nomes de importância única dentro do meio eletrônico",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "synth pop con menos guitarras"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0685-C3-X",
+   "group": "artist:insane",
+   "source": "lastfm_homonyms",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Insane",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Nu-Metal band from Hungary.",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "tumba con influencias de vals y mazurca"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0815-C3-X",
+   "group": "artist:reaper",
+   "source": "lastfm_homonyms",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "artist",
+     "name": "Reaper",
+     "version": null,
+     "segment": null
+    },
+    "quote": "A Thrash Metal band formed in 2006, from Bogotá, Colombia",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "no es lo bastante rápido para MDM"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0691-C1-X",
+   "group": "rym:/release/comp/los-prisioneros/ni-por-la-razon-ni-por-la-fuerza/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ni por la razón, ni por la fuerza",
+     "version": null,
+     "segment": null
+    },
+    "quote": "No es solo un simple recopilatorio de sus canciones mas conocidas, sino que tambien incluye rarezas, demos y nuevas versiones con mejor mezcla de algunas canciones",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "beats sucios, sólidos y oscuros"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0860-C4-X",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "quote": "esperamos  que el siguiente sea mucho mejor que éste",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "canciones geniales que sorprenden"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0474-C2-X",
+   "group": "rym:/release/album/todo-bien-todo-mal/malo-para-la-educacion-peor-para-la-salud/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Malo para la educación, peor para la salud.",
+     "version": null,
+     "segment": null
+    },
+    "quote": "la técnica vocal demostrada por Andrés Boissiere que va desde momentos aceptables hasta furia incontrolada (y desafinadisima) como en el tema de entrada",
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz orientada a lo cancionero"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0005-C1-X",
+   "group": "rym:/release/video/various-artists/classic-rock-roll-of-honour/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "classic rock roll of honour",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Paul goes back to the basics for a straightforward collection of songs born out of domestic bliss",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido de los 90 imitado"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0986-C1-X",
+   "group": "rym:/release/album/corina-smith/triste-pero-siempre-mami/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "triste pero siempre mami",
+     "version": null,
+     "segment": null
+    },
+    "quote": "koonze family ass beat and production",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción lo-fi"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0756-C4-X",
+   "group": "rym:/release/album/los-prisioneros/pateando-piedras/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pateando piedras",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Es un aporte el haber incluido un elemento acústico y folclórico en un disco de tendencia synth",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "falta de crudeza y fuerza de personalidad"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0529-C1-X",
+   "group": "aoty:422055",
+   "source": "aoty",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Born Yesterday",
+     "version": null,
+     "segment": null
+    },
+    "quote": "never ever thought about this combination actually works",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "mejor etapa del trío"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0670-C2-X",
+   "group": "rym:/release/djmix/weed420/rvrt-3/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "RVRT 3",
+     "version": null,
+     "segment": null
+    },
+    "quote": "una creación musical única y experimental",
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "spoken word fuera de lugar"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0214-C3-X",
+   "group": "aoty:378406",
+   "source": "aoty",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Cuando los acéfalos predominan",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Laberinto\" ahonda en ese mismo dilema ¿Que hago si no puedo estar contigo pero tampoco quiero estar sin ti?",
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "mejora en las letras"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0986-C13-X",
+   "group": "rym:/release/album/corina-smith/triste-pero-siempre-mami/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "triste pero siempre mami",
+     "version": null,
+     "segment": null
+    },
+    "quote": "buen closer, lo deja ir desde el amor después de la roncha, el arrastre, y la rabia",
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "ausencia de escape o respiro"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0773-C1-X",
+   "group": "rym:/release/album/weed420/esto-no-es-un-show/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Esto no es un show",
+     "version": null,
+     "segment": null
+    },
+    "quote": "This is a live album and not a DJ mix.",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "álbum no rescatable"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0691-C2-X",
+   "group": "rym:/release/comp/los-prisioneros/ni-por-la-razon-ni-por-la-fuerza/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ni por la razón, ni por la fuerza",
+     "version": null,
+     "segment": null
+    },
+    "quote": "especialmente las perteneciente al album La cultura de la basura",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción sólida"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0702-C1-X",
+   "group": "rym:/release/album/carlos-giffoni/arrogance/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Arrogance",
+     "version": null,
+     "segment": null
+    },
+    "quote": "There are some good sounds sometimes",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "synth pop ochentero sobre metal progresivo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0265-C2-X",
+   "group": "rym:/release/album/nella/voy/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Voy",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Interesting, complex rhythms.",
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "colección de canciones más sencilla"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0590-C3-X",
+   "group": "aoty:422055",
+   "source": "aoty",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Born Yesterday",
+     "version": null,
+     "segment": null
+    },
+    "quote": "o lançamento de trabalhos solos também ajudou a artista a se transforma em uma força artística realmente impressionante",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "contenido comprensible para público estadounidense"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0730-C4-X",
+   "group": "rym:/release/album/lil-supa/yeyo/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Yeyo",
+     "version": null,
+     "segment": null
+    },
+    "quote": "usando un sonido mucho más agresivo, acercándose al Hardcore Hip Hop y al Drumless",
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "piano estilo Chopin con ritmos caribeños"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0102-C4-X",
+   "group": "rym:/release/album/aldemaro-romero/el-fabuloso-aldemaro-y-su-onda-nueva/",
+   "source": "rym_identity_error",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "El Fabuloso Aldemaro y Su Onda Nueva",
+     "version": null,
+     "segment": null
+    },
+    "quote": "\"Why Don't You Write Me\" is also beautiful and kind of makes me sad even though it feels happy when you listen to it.",
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "inicio melancólico post-fiesta"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0158-C3-X",
+   "group": "aoty:1115906",
+   "source": "aoty",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Better Smile!",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Sure it's pretty flawed in some places",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "arreglos sencillos y emocionantes"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0599-C2-X",
+   "group": "rym:/release/album/weed420/esto-no-es-un-show/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Esto no es un show",
+     "version": null,
+     "segment": null
+    },
+    "quote": "putting this piece of art in a box as live album isn't honorable",
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "arte puro hecho con esfuerzo"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0688-C2-X",
+   "group": "rym:/release/album/los-prisioneros/pateando-piedras/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pateando piedras",
+     "version": null,
+     "segment": null
+    },
+    "quote": "obviously inspired by New Order",
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "influencia de Chopin en música antillana"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  },
+  {
+   "id": "EV-0661-C3-X",
+   "group": "rym:/release/album/simon-diaz/tonadas/",
+   "source": "rym",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tonadas",
+     "version": null,
+     "segment": null
+    },
+    "quote": "Cómo iba a mirar para otro lado con estos arreglos tan sencillos y tan emocionantes a la vez.",
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción única y variada"
+    },
+    "comparison": null
+   },
+   "gold": {
+    "support": "insufficient"
+   },
+   "analyst": {
+    "support": "insufficient"
+   },
+   "adjudication": "confirmed"
+  }
+ ],
+ "extraction": [
+  {
+   "id": "EV-0637-C1-X-E",
+   "group": "barraezo:https://barraezo.blogspot.com/2012/03/gimeno-polidor-mono-352-1966.html",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Gimeno - Polidor Mono 352 - 1966",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "arte puro hecho con esfuerzo"
+    }
+   },
+   "options": [
+    "Nació en las islas Canarias.",
+    "El sentimental Gimeno no es venezolano."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0663-C6-X-E",
+   "group": "rym:/release/album/nota_profana/the_devils_playground/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Devil's Playground",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "tracklist mejor ordenado"
+    }
+   },
+   "options": [
+    "Nota Profana play a similar style of metal, mixing harsh death metal vocals with Gaby's soprano, and they also use a large ensemble of orchestral musicians to give the symphonic aspects a more genuine feel.",
+    "However, when compared to symphonic/operatic metal bands such as Epica and Diabulus in Musica, Nota Profana just don't leave enough of an impression.Published",
+    "The strings definitely have a fuller sound than many bands that use synthesized symphonics, which is a plus.",
+    "However, they are never used in any interesting way, instead following along with the guitar riffing in the standard symphonic metal fashion.",
+    "Nota Profana consider themselves noteworthy for featuring soprano vocalist Gaby Koss, who participated in Haggard's excellent album Eppur si muove."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0857-C2-X-E",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "más emocional y con más capas"
+    }
+   },
+   "options": [
+    "Um disco lindo, um grito da América latina, um grito acima de tudo atual da Venezuela, que mostra o poder de seu povo, de saberem olhar ao seu redor e analisarem aonde e como estão.",
+    "Assistam o clip de Você!!!"
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0709-C3-X-E",
+   "group": "rym:/release/album/simon-diaz/tonadas/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Tonadas",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "vocalista versátil y compositor capaz"
+    }
+   },
+   "options": [
+    "Las Tonadas del llano venezolano consisten en cantarle a la vaca en la labor de ordeño y de arreo, para calmar al animal y conseguir que de mas leche, mientras funge como un alivianador del trabajo.",
+    "*Here a mediocre translation*",
+    "La Tonada son los cantos liricos, usualmente de trabajo, que acompañan a diversas faenas como el ordeño, la labranza y el arreo en el campo venezolano y colombiano.",
+    "Logra decodificar el sentimiento de arraigo y conexión del venezolano hacia la naturaleza de su tierra.",
+    "The Tonada are lyrical songs, usually work songs, that accompany various tasks such as milking, plowing and herding in the Venezuelan and Colombian countryside."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0158-C1-X-E",
+   "group": "aoty:1115906",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Better Smile!",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "ambiente y espacio con pesadez"
+    }
+   },
+   "options": [
+    "Just have fun with it ya bitch.",
+    "Sure it's pretty flawed in some places but like, whatever.",
+    "Thank you for letting me work on this <3!"
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0857-C3-X-E",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "omnichord e instrumentos amplificados"
+    }
+   },
+   "options": [
+    "Um disco lindo, um grito da América latina, um grito acima de tudo atual da Venezuela, que mostra o poder de seu povo, de saberem olhar ao seu redor e analisarem aonde e como estão.",
+    "Assistam o clip de Você!!!"
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0882-C4-X-E",
+   "group": "rym:/release/album/kid606/pretty-girls-make-raves/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pretty Girls Make Raves",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "artista del medio electrónico"
+    }
+   },
+   "options": [
+    "As is, though my favourite works are still behind him, it’s good to see the man still trucking and trying different things.",
+    "This guy has more range than most other electronic producers can even dream of."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0529-C1-X-E",
+   "group": "aoty:422055",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Born Yesterday",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "mejor etapa del trío"
+    }
+   },
+   "options": [
+    "The 2nd beat drop is too dance-able, not so artpop-ish, so i decreased some extra points",
+    "Sia murdered some futuristic moments this track could have because she had a voice that was built more for the opera side, but she and arca still ate."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0521-C1-X-E",
+   "group": "aoty:531068",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "panorama",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "estructuras largas y complicadas con cambios de tempo"
+    }
+   },
+   "options": [
+    "I will 100% be listening to more of what Emauel has to offer.",
+    "Led here by grnhll and very thankful that I have been.",
+    "Essential Track - panorama (with Lofi Sax)",
+    "Maybe this is why I struggle with diets, when I find something I like I just want more of it."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0005-C2-X-E",
+   "group": "rym:/release/video/various-artists/classic-rock-roll-of-honour/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "classic rock roll of honour",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "cohesión entre todas las canciones"
+    }
+   },
+   "options": [
+    "Paul goes back to the basics for a straightforward collection of songs born out of domestic bliss",
+    "Yet, the call of St Cecilia beckoned, and Paul reached for his guitar gathering dust in the corner and began to pluck the strings once more.",
+    "That's Where I Belong begins the album with an understated, almost meditative quality about contentment with life.",
+    "Darling Lorraine and Old highlight Paul’s unfortunate new-found tendency to waffle, the former a bittersweet narrative of a troubled marriage (and the longest song in his catalogue), while Old reflects on",
+    "At this point, Simon was reeling from the failure of his Broadway debut."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0986-C3-X-E",
+   "group": "rym:/release/album/corina-smith/triste-pero-siempre-mami/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "triste pero siempre mami",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "guitarras agresivas, siseantes y chirriantes"
+    }
+   },
+   "options": [
+    "es un constante \"¿por qué me hiciste ésto?",
+    "como te va?: OKAAY R&B.",
+    "mejoró la estructura lírica",
+    "la glock: se lanzó un trap pop.",
+    "no me mientas a la cara: irónico q esté firmada a una disquera llamada RIMAS cuando no hace ni una en ésta canción wow."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0396-C3-X-E",
+   "group": "aoty:193908",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Apa y Can",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "tracks largos"
+    }
+   },
+   "options": [
+    "Sin duda un álbum líricalmente sobresaliente",
+    "La producción es muy buena para ser de tiempo muy atrás y con un presupuesto no muy alto."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0439-C3-X-E",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz de Arca en lugar de Sia"
+    }
+   },
+   "options": [
+    "Su sonido original marcado entre el dance punk y el power pop se ha llevado más a terrenos netamente dance o netamente pop.",
+    "Tiene sus momentos, pero está lejos de lo mejor del año.",
+    "Entiendo que quieren entrar al mundo popular luego de que ganaron su Grammy Latino, pero no me convence del todo.",
+    "El disco anterior ya había marcado la deriva del sonido que quería la banda."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0739-C1-X-E",
+   "group": "rym:/release/album/carlos-giffoni/arrogance/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Arrogance",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "bases flamenqueras"
+    }
+   },
+   "options": [
+    "Crumbly, noisy, warping cycles of noise but really lacking an identity or ideas that would differentiate it, and the dry, flat sound quality doesn't do him any favours.",
+    "At least it makes me appreciate Pinkream a bit more."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0080-C2-X-E",
+   "group": "rym:/release/mixtape/arca/andandandandand/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "&&&&&",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "guitarras agresivas, siseantes y chirriantes"
+    }
+   },
+   "options": [
+    "Love the more experimental tracks like Harness and Pinch, as well as the only track with vocals (Waste) which goes incredibly hard.",
+    "Not every track hits, I particularly didn’t care for Hallucinogen (just feels a little too indulgent, even if that’s the point) but a majority of these songs went really hard, especially in headphones."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0963-C1-X-E",
+   "group": "rym:/release/album/blue-boy/soca-in-the-shaolin-temple/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Soca in the Shaolin Temple",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "metal progresivo melódico"
+    }
+   },
+   "options": [
+    "It's fun but not something I would ever listen to again.",
+    "\"Sutti\" was actually a decent song though."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0325-C3-X-E",
+   "group": "rym:/release/album/hugo-chavez/canciones-de-siempre/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Canciones de siempre",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "segundo disco de 1965"
+    }
+   },
+   "options": [
+    "Este huevón nos jodió todos nuestros sueños y esperanzas.",
+    "Yo esperando a que Nicolas Maduro lanze su cover official de Despacito",
+    "Me preguntó que le dió a este jala bolas para un día despertarles con los huevos bien claros y decir \"verga voy a grabar un disco\" y eso hizo con su conjunto de pajuos y de pacos creo está está pendejada.",
+    "Todos los que le han puesto rating a este album no lo han escuchado, incluyendome.",
+    "Tremendo bicho, nos negreo a todos dejando a cargo a este brutiviri, pero por lo menos no nos obligo a oír está pendejada."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0035-C4-X-E",
+   "group": "rym:/release/album/gabriel-chakarji/new-beginning/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "New Beginning",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "violines destacados"
+    }
+   },
+   "options": [
+    "Ultimately, however, it is still a rewarding one for fans.",
+    "Light, on the other hand, is a surreal, synth-laden classic like only this band could write.",
+    "This results in an enjoyable record, but also a less fresh and compelling one than say, Up on the Sun.",
+    "Meltdown, for instance, shows their mastery of the southern, ZZ Top-styled rock they explored on \"Huevos\".",
+    "Other highlights include the light pop of Strings on Your Heart and the two best songs here: unsettling closer Like Being Alive and the extended workout Touchdown King, which shows how tight the band was by this point."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0986-C5-X-E",
+   "group": "rym:/release/album/corina-smith/triste-pero-siempre-mami/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "triste pero siempre mami",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "identidad y pertenencia a la patria"
+    }
+   },
+   "options": [
+    "SERÁ Q AQUÍ EMPIEZA LA ETAPA MAMI?",
+    "take a shot everytim",
+    "mi amor x ti: \"como tú no hay nadie porque nadie es peor\" JKSDAKJASD.",
+    "x100: un reggaeton con buen flow EH, EH, EH.",
+    "depressed but well dressed, triste pero 100pre mami 💔."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0841-C2-X-E",
+   "group": "rym:/release/comp/los-prisioneros/ni-por-la-razon-ni-por-la-fuerza/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ni por la razón, ni por la fuerza",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "activity",
+     "facet": null,
+     "value": "para divertirse escuchándolo"
+    }
+   },
+   "options": [
+    "Gran disco para empezar a escuchar a los prisioneros.",
+    "Después de este disco sabrás a lo que vienes a escuchar."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0939-C4-X-E",
+   "group": "rym:/release/album/luis-perdomo/the-infancia-project/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Infancia Project",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "inicio melancólico post-fiesta"
+    }
+   },
+   "options": [
+    "Ornette Coleman's \"Happy House\" works as an effective tribute to its composer and uses the rather s",
+    "\"Meggido Girl\" also finds Perdomo holding down a difficult groove in his left hand, while his right hand doubles the unpredictable melody with Shim.",
+    "The set is an even mix of Perdomo originals, and off-the-beaten-path covers, and an interesting new arrangement of the Miles Davis standard \"Solar.\"",
+    "Perdomo functions as a part of the rhythm section, but he also adds dimension to the melody by harmonizing it dissonantly with his right hand.",
+    "The piece begins as a fairly straight-forward straight-eighth ballad (with Perdomo on rhodes), but then the percussion drops out for the tune's coda."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0511-C3-X-E",
+   "group": "aoty:193908",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Apa y Can",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "primeras canciones más débiles"
+    }
+   },
+   "options": [
+    "Unas líricas piolas con 2 voces prácticamente opuestas que logran complementarse muy bien, también dejando brillar uno al otro con tracks individuales y colaborativos.",
+    "Un álbum con una tracklist increíblemente variada que de alguna manera no logra sonar desubicada."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0917-C3-X-E",
+   "group": "rym:/release/comp/los-prisioneros/ni-por-la-razon-ni-por-la-fuerza/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ni por la razón, ni por la fuerza",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "álbum de una sola copia muy valiosa"
+    }
+   },
+   "options": [
+    "Rarezas, hits, demos, de todo un poco.",
+    "Este es sin duda uno de los mejores compilados que se ha hecho de una banda chilena."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0687-C4-X-E",
+   "group": "rym:/release/album/todo-bien-todo-mal/malo-para-la-educacion-peor-para-la-salud/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Malo para la educación, peor para la salud.",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "incluye rarezas, demos y nuevas mezclas"
+    }
+   },
+   "options": [
+    "la tranquilidad de que ya terminó todo, ese cuatro y ese joropo en general muy bien logrado, imposible no emocionarse.",
+    "Me parece un albúm debut muy bueno, bastante solido y divertido de escuchar."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0005-C1-X-E",
+   "group": "rym:/release/video/various-artists/classic-rock-roll-of-honour/",
+   "constructed": true,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "classic rock roll of honour",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonido de los 90 imitado"
+    }
+   },
+   "options": [
+    "Following the tumultuous production and the less-than-welcome critical reception, the play was declared a flop, and Paul retreated to his home, guitar in hand.",
+    "Simon’s signature ambition to blend musical styles and defy genre boundaries gave way to the desire to craft a more straightforward collection of songs.",
+    "Yet, the call of St Cecilia beckoned, and Paul reached for his guitar gathering dust in the corner and began to pluck the strings once more.",
+    "Darling Lorraine and Old highlight Paul’s unfortunate new-found tendency to waffle, the former a bittersweet narrative of a troubled marriage (and the longest song in his catalogue), while Old reflects on",
+    "The result is that You're The One sounds like a collection of exotic soundscapes that blend together without leaving a lasting impression."
+   ],
+   "gold": "none"
+  },
+  {
+   "id": "EV-0511-C1-E",
+   "group": "aoty:193908",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Apa y Can",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "tracklist variada y coherente"
+    }
+   },
+   "options": [
+    "Un álbum con una tracklist increíblemente variada que de alguna manera no logra sonar desubicada.",
+    "El único problema es que aveces pueden ser un tanto largo los tracks pero todas maneras compensan con rimas que se sienten como ametralladoras.",
+    "Unas líricas piolas con 2 voces prácticamente opuestas que logran complementarse muy bien, también dejando brillar uno al otro con tracks individuales y colaborativos."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0396-C3-E",
+   "group": "aoty:193908",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Apa y Can",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "obra lírica irrepetible"
+    }
+   },
+   "options": [
+    "Sin duda un álbum líricalmente sobresaliente",
+    "La producción es muy buena para ser de tiempo muy atrás y con un presupuesto no muy alto.",
+    "Un obra lirical que no podrá ser replicada , la composición en éste álbum es totalmente excepcional."
+   ],
+   "gold": 2
+  },
+  {
+   "id": "EV-0698-C1-E",
+   "group": "rym:/release/album/kid606/pretty-girls-make-raves/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pretty Girls Make Raves",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "bajos graves y sucios con voces cortadas"
+    }
+   },
+   "options": [
+    "Deep, grimy basslines are layered under cut-up vocals and acid-tinged drum machines without much regard for technical precision.",
+    "From what I gather, Pretty Girls Make Raves was an unexpected turn from kid606, a producer known for being erratic.",
+    "The record's entire purpose seems predicated on the idea that it needs to get you dancing, and it need to do it now.",
+    "I actually like the first few songs of Pretty Girls Make Raves, but by the time it ends, I find myself completely numb.",
+    "That restlessness comes across in his music."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0688-C1-E",
+   "group": "rym:/release/album/los-prisioneros/pateando-piedras/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pateando piedras",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción anticuada"
+    }
+   },
+   "options": [
+    "Very dated production, obviously inspired by New Order.",
+    "A few quite good songs, with quite simple songwriting."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0654-C1-E",
+   "group": "rym:/release/album/los-prisioneros/pateando-piedras/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pateando piedras",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "crítica a la dictadura chilena"
+    }
+   },
+   "options": [
+    "Es sorprendente cómo, pese a ser un disco que criticaba mucho a la dictadura que se vivía en Chile en la época, sigue teniendo vigencia en muchos temas.",
+    "Sin embargo, hay que reconocer que es referente en lo que a rock latino ochentero se refiere.",
+    "Diría que las letras son lo que más me atrae a este disco, ya que en lo sonoro no propone mucho con respecto a otros proyectos de la época."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0110-C1-E",
+   "group": "aoty:57531",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Entrañas",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "atmósfera oscura y coherente"
+    }
+   },
+   "options": [
+    "I love this and I wish it was available on apple music & spotify It's dark and it sticks to that theme but some of the tracks, pérdida (loss) and fount are so relaxing to listen to !!!",
+    "I love the countless samples in this mixtape it's such a work of art Fav songs: Think of, Clocked, Pargo (Faggot), Lulled"
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0082-C2-E",
+   "group": "rym:/release/album/arca/kick-ii/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "KICK ii",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "renovación constante"
+    }
+   },
+   "options": [
+    "in arca's music i hear such a weird connection between femme et homme being in a lot of pain, which transforms you.",
+    "and every time it's something new...",
+    "wonderfull story about finding yourself.",
+    "thankuarca  _:(´ཀ`」 ∠):_"
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0698-C2-E",
+   "group": "rym:/release/album/kid606/pretty-girls-make-raves/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Pretty Girls Make Raves",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción deliberadamente cruda"
+    }
+   },
+   "options": [
+    "The result isn't amateurish, just deliberately crude.",
+    "The record's entire purpose seems predicated on the idea that it needs to get you dancing, and it need to do it now.",
+    "That restlessness comes across in his music.",
+    "And, at least for me, that's the problem.",
+    "From what I gather, Pretty Girls Make Raves was an unexpected turn from kid606, a producer known for being erratic."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0888-C4-E",
+   "group": "rym:/release/album/luis-perdomo/the-infancia-project/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Infancia Project",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "contraste entre percusionistas"
+    }
+   },
+   "options": [
+    "He hits more low notes.",
+    "And the other leader, tenor saxophonist Mark Shim, is also fun to listen to.",
+    "He's clearly influenced by Joe Henderson but definitely has a unique sound.",
+    "He and much younger percussionist Mauricio Herrera create a fascinating contrast.",
+    "Luis Perdomo draws on Herbie Hancock and McCoy Tyner for sure, doubling on piano and the fender rhodes."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "EV-0517-C2-E",
+   "group": "aoty:422055",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Born Yesterday",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "producción sólida"
+    }
+   },
+   "options": [
+    "I like it, and I'm not saying this because of my hate towards SIA, but I'm sure the song would've sound 100× better if it was with ARCA's vocals instead.",
+    "Still, really solid production."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0356-C1-E",
+   "group": "rym:/release/album/caramelos-de-cianuro/miss-mujerzuela/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Miss Mujerzuela",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "disco heterogéneo"
+    }
+   },
+   "options": [
+    "El disco mas popular y famoso de los Caramelos, el disco con el que empezo la internacionalizacion una vez abandonaron Universal Music.",
+    "Excelente disco que junto al anterior Harakiri City se ubica no solo entre mis favoritos de la banda si no de la musica hecha en Venezuela y de hecho hasta de la musica en espanol.",
+    "Tengo el CD original y tiene un monton de colaboraciones y la verdad es que se nota ya que Miss Mujerzuela es un disco bastante heterogeneo."
+   ],
+   "gold": 2
+  },
+  {
+   "id": "EV-0648-C4-E",
+   "group": "rym:/release/album/gabo-xeart/jazz-in-bloom/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Jazz in Bloom",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "coherencia disfrutable de principio a fin"
+    }
+   },
+   "options": [
+    "Un álbum sólido, cálido y relajante.",
+    "Desgraciadamente, las primeras canciones son las más debiles, y hacen que las últimas no se aprecien más.",
+    "Sin embargo, no pierde el sentido del álbum, haciendo que sea disfrutable desde el inicio hasta el final."
+   ],
+   "gold": 2
+  },
+  {
+   "id": "EV-0961-C2-E",
+   "group": "rym:/release/album/big-soto/todo-es-mental/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Todo Es Mental",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "theme",
+     "facet": null,
+     "value": "letras repetitivas"
+    }
+   },
+   "options": [
+    "Todo Es Mental tiene de todo menos personalidad, con features que no traen nada interesante y 19 canciones para usar las mismas melodías, se nota la falta de inspiración que tiene soto en todo esto.",
+    "Con una producción aburrida en gran parte del proyecto, y letras que empiezan interesantes pero mientras mas avanzan se nota lo repetitivas que llegan a ser.",
+    "Igual todo eso se hunde por la enorme cantidad de canciones sin sustancia, aunque puedan haber excepciones, siguen siendo demasiadas canciones para lo poco que tienen de ofrecer.",
+    "Por tanto que Big Soto sea visto como uno de los artistas urbanos mas grandes de Venezuela, cae dentro del problema mayor que tiene el reguetón en general, no tiene nada que logre separarlo de otros artistas del género."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0180-C1-E",
+   "group": "rym:/release/album/lil-supa/yeyo/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Yeyo",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "cuerdas en los beats, aire glamuroso"
+    }
+   },
+   "options": [
+    "“Yeyo” has some reasonable tools at its disposal.",
+    "It lacks much of the rawness and force of personality that made those albums special.",
+    "Supa’s references to the situation in Venezuela are insightful and full of emotion.",
+    "The beats have these wonderful strings mixed in, giving it an air of glamour.",
+    "It is obsessed with achieving the 90’s sound to the detriment of its own expression."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "EV-0427-C2-E",
+   "group": "aoty:1152352",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "ÍCONOS",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "disco correcto"
+    }
+   },
+   "options": [
+    "En general me pareció un disco correcto, pero contiene canciones geniales como \"Garden City\" o \"Postal\" que sorprenden gratamente.",
+    "Probablemente el proyecto de Supa con la producción más única y variada."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0905-C4-E",
+   "group": "rym:/release/album/baphometh/boundaries_of_insanity/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Boundaries of Insanity",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "bajo y bombo destacados por falta de graves"
+    }
+   },
+   "options": [
+    "Worth listening to for the solos alone.",
+    "The complete lack of low end on this tone also liberates the bass guitar and kick drums and lets them truly, fully shine.",
+    "Since it's a demo, the production is predictably lo-fi.",
+    "would freak the fuck out over and press a dozen different kinds of coloured vinyls for.",
+    "This has the most aggressive, hissing and chainsawing guitar tones ever put to tape, the kind of ear-shredding tone that'll give you tinnitus even at low volumes."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0179-C1-E",
+   "group": "aoty:57531",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Entrañas",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "atmósfera onírica y perturbadora"
+    }
+   },
+   "options": [
+    "This range was never ever death grips touch, I guess.",
+    "It's more depressive and dark.",
+    "It is incredibly dark and poignant.",
+    "**Recs From @tristanfn87 Arca - Entrañas feels like someone's dream being dragged out of their brain.",
+    "What catches the eye the most is the cover art...it is completely anti-mainstream and genuinely dark."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "EV-0325-C3-E",
+   "group": "rym:/release/album/hugo-chavez/canciones-de-siempre/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Canciones de siempre",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "objeto de colección y recuerdo"
+    }
+   },
+   "options": [
+    "Este huevón nos jodió todos nuestros sueños y esperanzas.",
+    "Tremendo bicho, nos negreo a todos dejando a cargo a este brutiviri, pero por lo menos no nos obligo a oír está pendejada.",
+    "Me preguntó que le dió a este jala bolas para un día despertarles con los huevos bien claros y decir \"verga voy a grabar un disco\" y eso hizo con su conjunto de pajuos y de pacos creo está está pendejada.",
+    "Solo quiero tener este album en mi colección por qué siempre voy a querer recordar a nuestro líder soberano en mi corazón",
+    "Eso sí podrian venderle esto a Residente Y asi recuperan algo de dinero de el pais que se car a ruinas."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "EV-0773-C1-E",
+   "group": "rym:/release/album/weed420/esto-no-es-un-show/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Esto no es un show",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "context",
+     "facet": null,
+     "value": "álbum en directo, no mezcla DJ"
+    }
+   },
+   "options": [
+    "However, I think the most most important thing that sets this one apart is the most fundamental aspect of its nature.",
+    "This is a live album and not a DJ mix.",
+    "While there are obviously plenty of samples, it isn’t primarily focused on the collagical: rather, this is a bonafide electronic rock album.",
+    "Even though it literally is.",
+    "Actually, if you told me that, even I wouldn’t be able to conceptualize it."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0939-C2-E",
+   "group": "rym:/release/album/luis-perdomo/the-infancia-project/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Infancia Project",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "cambios métricos y crossrhythms"
+    }
+   },
+   "options": [
+    "Shim starts off the soloing with a fiery, angular statement that accentuates his dark, husky tone, at times reminiscent of Joe Henderson.",
+    "Perdomo's rhythmically-driven solo here is another highlight.",
+    "The band grooves so well that without close listening, one might not notice the metric shifts, crossrhythms, and careful orchestration of the pieces.",
+    "The set is an even mix of Perdomo originals, and off-the-beaten-path covers, and an interesting new arrangement of the Miles Davis standard \"Solar.\"",
+    "\"The Other Left\" starts with a busy vamp that hints at the clave, but shifts unexpectedly several times (at one point it goes into an intense Afro-Cuban 6/8)."
+   ],
+   "gold": 2
+  },
+  {
+   "id": "EV-0265-C1-E",
+   "group": "rym:/release/album/nella/voy/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Voy",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz espectacular y bien controlada"
+    }
+   },
+   "options": [
+    "He evokes tremendous emotions.",
+    "Nella has a spectacular voice which she can control beautifully.",
+    "Her lyricist (Javier Limon) is incredible.",
+    "Interesting, complex rhythms."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0597-C1-E",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "sonido pop consistente"
+    }
+   },
+   "options": [
+    "A hit in few departments, a miss in others.",
+    "Hey, it's good enough but it hurts when considering how good the previous album is.",
+    "I dunno man, I feel like the last album had a lot of really cool things going for it, loads of variety, surprising intensity and a rhythm section to die for.",
+    "This album trades out most of that for a consistently good pop sound with occasional variety and volume.",
+    "Nonetheless, some really nice ideas across the board and a surprisingly emotional closer to end the whole thing."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "EV-0581-C2-E",
+   "group": "aoty:378406",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Cuando los acéfalos predominan",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "sonidos llenos de sabor"
+    }
+   },
+   "options": [
+    "creatively compelling, nostalgic, full of socio-political-cultural references and full of flavory sounds.",
+    "IMO the best Rawayana record."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0110-C3-E",
+   "group": "aoty:57531",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Entrañas",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "production",
+     "facet": null,
+     "value": "abundancia de samples"
+    }
+   },
+   "options": [
+    "I love this and I wish it was available on apple music & spotify It's dark and it sticks to that theme but some of the tracks, pérdida (loss) and fount are so relaxing to listen to !!!",
+    "I love the countless samples in this mixtape it's such a work of art Fav songs: Think of, Clocked, Pargo (Faggot), Lulled"
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0856-C4-E",
+   "group": "rym:/release/album/ad_intra/inside_us_all/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Inside Us All",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "voz principal apropiada al subgénero"
+    }
+   },
+   "options": [
+    "No es lo suficientemente rápido como para ser considerado un álbum MDM, por ello voté en contra de esa influencia en esta álbum.",
+    "Yo le voy a dar el beneficio a la duda, y votare favorablemente por este álbum, y deseo que sigan desarrollando su música.",
+    "Aunque admito que no hay una medida \"exacta y científica\" para medir la velocidad en la música de cara a la formulación de las etiquetas.",
+    "Los coros están mucho mejor, y la voz principal (de Daniel Luces), es la apropiada para este subgénero:",
+    "La segunda voz, algo más aguda, menos gutural, desentona bastante en las canciones, llega incluso a molestar."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "EV-0368-C2-E",
+   "group": "rym:/release/album/jacobo-palm/original-recordings-from-the-fifties/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Original Recordings From the Fifties",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "genre",
+     "facet": null,
+     "value": "valses y mazurcas con espíritu caribeño"
+    }
+   },
+   "options": [
+    "None of this blew my mind but it's a nice album of Curaçaoan folk and European-influenced classical music with a vintage sound quality that sends you back in time.",
+    "As the name suggest, these are the original recordings of Jacobo performing his compositions.",
+    "If Jan Gerard Palm is the \"father of Curaçao classical music\", and Jacobo Palm is his grandson, does it mean that Jacobo is a nephew of Curaçao classical music?",
+    "He's joined by a Caribbean-style ensemble of string bass, the cuatro guitars (derived from Spanish classical guitar) and some percussion.",
+    "Even when he performs waltzes and mazurkas, the Caribbean spirit is always there."
+   ],
+   "gold": 4
+  },
+  {
+   "id": "EV-0530-C3-E",
+   "group": "aoty:1099375",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "SOTORIUS",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "falta de variedad y tedio"
+    }
+   },
+   "options": [
+    "No particular song overstays its welcome, but by the halfway point, the lack of variety and general tedium makes it a bit of a slog to get through.",
+    "My biggest complaint is that it's way too fucking long, though.",
+    "venezuela real trampa Big Soto's \"SOTORIUS\" is mostly inoffensive trap with some solid tracks thrown in there.",
+    "Or it might just be that there's too many songs.",
+    "On a song by song basis, it's mostly alright, but in the context of the full ..."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0597-C3-E",
+   "group": "rym:/release/album/la-vida-boheme/la-lucha/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "La Lucha",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "ideas interesantes en general"
+    }
+   },
+   "options": [
+    "Hey, it's good enough but it hurts when considering how good the previous album is.",
+    "Nonetheless, some really nice ideas across the board and a surprisingly emotional closer to end the whole thing.",
+    "I dunno man, I feel like the last album had a lot of really cool things going for it, loads of variety, surprising intensity and a rhythm section to die for.",
+    "This album trades out most of that for a consistently good pop sound with occasional variety and volume.",
+    "A hit in few departments, a miss in others."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0146-C1-E",
+   "group": "aoty:57531",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Entrañas",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "atmosphere",
+     "facet": null,
+     "value": "atmósfera oscura"
+    }
+   },
+   "options": [
+    "A mixtape exclusively on her SoundCloud that’s only 25 minutes long, being the very short release.",
+    "And the dark atmosphere is also really nice, adds ...",
+    "Another artist I should have gotten to by now and that’s the one and only Arca.",
+    "And why not do it with one of her most praised projects being Entrañas.",
+    "But ultimately this thing is actually really good for the length it has, I don’t think it’s perfect but it definitely deserves the hype and praise it’s gotten."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0392-C2-E",
+   "group": "aoty:532200",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Todo Bailarlo",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "dos pistas interludio"
+    }
+   },
+   "options": [
+    "A really fun and fantastic album, I never thought i'd love an album like this, no skips except for like 2 interlude tracks, but even they are pretty good, and almost every song fades into the next.",
+    "Highly recommend this album."
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0739-C2-E",
+   "group": "rym:/release/album/carlos-giffoni/arrogance/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Arrogance",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "ciclos de ruido quebradizos y deformados sin identidad"
+    }
+   },
+   "options": [
+    "At least it makes me appreciate Pinkream a bit more.",
+    "Crumbly, noisy, warping cycles of noise but really lacking an identity or ideas that would differentiate it, and the dry, flat sound quality doesn't do him any favours.",
+    "Not really too familiar with Giffoni's other stuff, but this is pretty generic sounding \"I am a noise guy and I have purchased an analog synth, please listen to my analog synth works now\" material."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0562-C1-E",
+   "group": "aoty:199773",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Give Me Five",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "experimentación con el sonido"
+    }
+   },
+   "options": [
+    "Un album corto y no rescatable",
+    "Canserbero inicio a experimentar con su sonido, sin embargo hay muchas canciones y rimas que no son buenas y son bastante basicas."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0960-C1-E",
+   "group": "rym:/release/album/hugo-chavez/canciones-de-siempre/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Canciones de siempre",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "recopilación de canciones cantadas en intervenciones"
+    }
+   },
+   "options": [
+    "como le encantaba eso.",
+    "Prácticamente es una recopilación de aquellas veces en donde este hombre ha cantado en las intervenciones.",
+    "Solo por ser la mortadela galáctica...",
+    "Ni siquiera se porque registraron esto en la pagina.",
+    "O era solo, con el acompañamiento de un cuatro que salía de la nada, o en ocasiones \"especiales\", con un conjunto musical..."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0293-C1-E",
+   "group": "rym:/release/album/lil-supa/yeyo/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Yeyo",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "temas de más que bajan el nivel"
+    }
+   },
+   "options": [
+    "Mejores Canciones: El Golpe, ...Mierda, (Asco) & Polvo",
+    "Es un discazo y tiene momentos ultra buenos, pero peca de tener algun que otro tema de más que le baja un poco la calificación pero en si es ultra recomendado y una masterpiece del rap en español."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0663-C3-E",
+   "group": "rym:/release/album/nota_profana/the_devils_playground/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Devil's Playground",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "sound",
+     "facet": null,
+     "value": "cuerdas con sonido más pleno"
+    }
+   },
+   "options": [
+    "However, when compared to symphonic/operatic metal bands such as Epica and Diabulus in Musica, Nota Profana just don't leave enough of an impression.Published",
+    "Nota Profana consider themselves noteworthy for featuring soprano vocalist Gaby Koss, who participated in Haggard's excellent album Eppur si muove.",
+    "However, they are never used in any interesting way, instead following along with the guitar riffing in the standard symphonic metal fashion.",
+    "The strings definitely have a fuller sound than many bands that use synthesized symphonics, which is a plus.",
+    "Nota Profana play a similar style of metal, mixing harsh death metal vocals with Gaby's soprano, and they also use a large ensemble of orchestral musicians to give the symphonic aspects a more genuine feel."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "EV-0250-C1-E",
+   "group": "rym:/release/comp/los-prisioneros/ni-por-la-razon-ni-por-la-fuerza/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Ni por la razón, ni por la fuerza",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "mezcla canciones nuevas y conocidas"
+    }
+   },
+   "options": [
+    "por que presenta tanto canciones \"Nuevas\" y las mas conocidas.",
+    "amo demasiado este disco y ya lo regrabe !!!!!!!!!",
+    "porque de todos este es mi favorito?"
+   ],
+   "gold": 0
+  },
+  {
+   "id": "EV-0939-C1-E",
+   "group": "rym:/release/album/luis-perdomo/the-infancia-project/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Infancia Project",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "material original engañosamente complejo"
+    }
+   },
+   "options": [
+    "Shim sits out on \"Comedia\" and lets Perdomo's beautiful harmonic sensibilities lead the simple, delicate ballad.",
+    "\"Berimvela\" highlights Perdomo's talent for orchestration of the relatively small ensemble.",
+    "Bud Powell's \"Un Poco Loco\" is certainly recognizable enough and Perdomo's shows off his sense of melodic precision.",
+    "Perdomo's original material is deceptively complex.",
+    "Perdomo is accompanied here by American tenor saxophonist Mark Shim while bassist Andy Gonzalez, drummer Ignacio Berroa, and percussionist Mauricio Herrera make up the Latin rhythm section."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "EV-0939-C4-E",
+   "group": "rym:/release/album/luis-perdomo/the-infancia-project/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "The Infancia Project",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "balada simple y delicada"
+    }
+   },
+   "options": [
+    "The band grooves so well that without close listening, one might not notice the metric shifts, crossrhythms, and careful orchestration of the pieces.",
+    "Shim sits out on \"Comedia\" and lets Perdomo's beautiful harmonic sensibilities lead the simple, delicate ballad.",
+    "Perdomo responds with a more subtle solo that favors rhythmic and harmonic tension.",
+    "Shim comes in with the melody, doubled by the bass making for an extremely effective shift into the solos.",
+    "Ornette Coleman's \"Happy House\" works as an effective tribute to its composer and uses the rather s"
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0412-C3-E",
+   "group": "aoty:199773",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Give Me Five",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "emotion",
+     "facet": null,
+     "value": "aburrida y nada poética"
+    }
+   },
+   "options": [
+    "Se siente incompleto, y la verdad es que es decepcionante",
+    "Simplemente es un proyecto incompleto, produccion debil o nula, interpretacion soza de Can, aburrida y nada poetica."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0963-C2-E",
+   "group": "rym:/release/album/blue-boy/soca-in-the-shaolin-temple/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Soca in the Shaolin Temple",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "comparison",
+     "facet": null,
+     "value": "calidad mediocre"
+    }
+   },
+   "options": [
+    "\"Sutti\" was actually a decent song though.",
+    "I don't listen to much soca, so I am no expert in this musical style...that being said, I find this quite mediocre.",
+    "It's fun but not something I would ever listen to again."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0459-C3-E",
+   "group": "rym:/release/album/weed420/esto-no-es-un-show/",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Esto no es un show",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "seis pistas de casi una hora"
+    }
+   },
+   "options": [
+    "They stretch it, stress it, and let it run long enough to reveal what it is doing to you.",
+    "It carries a stubborn refusal to serve the listener on the listener’s terms, and that refusal becomes part of the point.",
+    "Collage is not a stylistic flex here.",
+    "Six tracks fill roughly an hour, and the runtime changes how the music behaves.",
+    "The record constantly reshapes itself, yet the shifts rarely feel random."
+   ],
+   "gold": 3
+  },
+  {
+   "id": "EV-0511-C4-E",
+   "group": "aoty:193908",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Apa y Can",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "voice",
+     "facet": null,
+     "value": "rimas rápidas como ametralladoras"
+    }
+   },
+   "options": [
+    "Un álbum con una tracklist increíblemente variada que de alguna manera no logra sonar desubicada.",
+    "El único problema es que aveces pueden ser un tanto largo los tracks pero todas maneras compensan con rimas que se sienten como ametralladoras.",
+    "Unas líricas piolas con 2 voces prácticamente opuestas que logran complementarse muy bien, también dejando brillar uno al otro con tracks individuales y colaborativos."
+   ],
+   "gold": 1
+  },
+  {
+   "id": "EV-0396-C4-E",
+   "group": "aoty:193908",
+   "constructed": false,
+   "state": {
+    "object": {
+     "kind": "album",
+     "name": "Apa y Can",
+     "version": null,
+     "segment": null
+    },
+    "candidate": {
+     "axis": "structure",
+     "facet": null,
+     "value": "álbum líricamente sobresaliente"
+    }
+   },
+   "options": [
+    "Sin duda un álbum líricalmente sobresaliente",
+    "La producción es muy buena para ser de tiempo muy atrás y con un presupuesto no muy alto.",
+    "Un obra lirical que no podrá ser replicada , la composición en éste álbum es totalmente excepcional."
+   ],
+   "gold": 0
+  }
+ ],
+ "counts": {
+  "typed": 153,
+  "corrected": 36,
+  "extraction": 68
+ }
+}

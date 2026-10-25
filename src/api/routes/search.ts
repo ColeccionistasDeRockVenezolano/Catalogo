@@ -1,6 +1,7 @@
 import { decideKnowledge, knowledgeDecisionSchema, knowledgeReviewDetail, publishedKnowledge } from "../../search/knowledge-publication.js";
 import { knowledgeAdministration } from "../../search/knowledge-administration.js";
 import { searchAdministration } from "../../search/administration.js";
+import { activationRequestSchema, layaAdministration, recordLayaActivation } from "../../search/laya-models.js";
 import { randomUUID } from "node:crypto";
 import { searchCollector, confirmationSchema, retainSearchAnalytics, type SearchSnapshot } from "../../search/observability.js";
 import { INTENTION_VERSION, OBSERVABILITY_VERSION } from "../../search/contracts.js";
@@ -183,6 +184,13 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
     reply.header("Cache-Control", "no-store");
     return knowledgeAdministration();
   });
+
+  server.get("/search/administration/laya", async (_request, reply) => {
+    reply.header("cache-control", "no-store");
+    return layaAdministration();
+  });
+  server.post("/search/administration/laya/activations", { schema: { body: activationRequestSchema } },
+    async request => recordLayaActivation(request.body, request.operator));
 
   server.get("/search/administration", async (_request, reply) => {
     reply.header("cache-control", "no-store");

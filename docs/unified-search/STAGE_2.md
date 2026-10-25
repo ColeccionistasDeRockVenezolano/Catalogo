@@ -525,3 +525,9 @@ Revisión de recursos 0.13.1 (2026-10-25): se vuelve a fijar la huella de `src/s
 - **Importador.** Ahora detecta lecturas obsoletas por cita o versión y las vuelve a registrar.
 - **Nueva evaluación.** Las tres quedan respaldadas, y las 90 juntas tienen precisión de 0,989, 0 errores de alcance y 0 generalizaciones: **cumplen los umbrales**.
 - **Límite.** Esas tres rectificaciones las propuso el mismo evaluador que las vuelve a juzgar. La medición independiente de la primera lectura de DeepSeek (0,875) se conserva en `previousEvaluation`.
+
+### Cierre de la etapa 2 (2026-10-25)
+
+Brian aceptó la etapa como cerrada: «Acepto esta etapa como cerrada y continuamos con la etapa 3». Lo hizo conociendo los límites de la evaluación delegada: la lectura no fue ciega y el evaluador fue Claude por encargo suyo, no una persona independiente. Los once requisitos (E2-01 a E2-11) quedan completos en `reports/unified-search-stage2/acceptance.json`. `acceptance-in-progress.json` se conserva como historial.
+
+La etapa 3 solo puede usar anotaciones que superaron este protocolo y debe conservar su estudio, analista y evaluador para separar los conjuntos.

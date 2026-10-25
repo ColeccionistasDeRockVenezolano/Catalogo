@@ -1,0 +1,284 @@
+{
+ "version": "crv-query-test-real-1.0.0",
+ "capturedAt": "2026-10-25",
+ "source": "ingest.search_operations.sample + ingest.search_misses.normalized_query (ya saneadas)",
+ "metric": "no invención: toda condición predicha debe estar en allowed",
+ "cases": [
+  {
+   "id": "R001",
+   "text": "musica para tener sexo",
+   "allowed": [
+    "activity:intimacy"
+   ],
+   "split": "test_real"
+  },
+  {
+   "id": "R002",
+   "text": "Kechu",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R003",
+   "text": "Seguridad Nacional",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R004",
+   "text": "Gabaldon",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R005",
+   "text": "zzqxwprueba",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R006",
+   "text": "cbd",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R007",
+   "text": "mdt",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R008",
+   "text": "chucknorria",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R009",
+   "text": "los mesp",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R010",
+   "text": "guerrulla",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R011",
+   "text": "sal sal",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R012",
+   "text": "cdchome anniversaries years",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R013",
+   "text": "sweet 74",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R014",
+   "text": "sweet 75",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R015",
+   "text": "jose manuel coraspe",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R016",
+   "text": "jose manue coraspe",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R017",
+   "text": "musica para tener sex",
+   "allowed": [
+    "activity:intimacy"
+   ],
+   "split": "test_real"
+  },
+  {
+   "id": "R018",
+   "text": "musica para tener sexo",
+   "allowed": [
+    "activity:intimacy"
+   ],
+   "split": "test_real"
+  },
+  {
+   "id": "R019",
+   "text": "musica para tene",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R020",
+   "text": "musica para tener",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R021",
+   "text": "musica para tener s",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R022",
+   "text": "musica para tener se",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R023",
+   "text": "cayayo trc",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R024",
+   "text": "kechu",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R025",
+   "text": "kechu y",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R026",
+   "text": "4tor",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R027",
+   "text": "metell",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R028",
+   "text": "metelli",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R029",
+   "text": "dannyt",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R030",
+   "text": "revoltas",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R031",
+   "text": "overkrain",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R032",
+   "text": "overkrainoverkrain",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R033",
+   "text": "overkrainv",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R034",
+   "text": "pbuck",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R035",
+   "text": "ater vitae",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R036",
+   "text": "venezie",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R037",
+   "text": "venezuela demo",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R038",
+   "text": "venezueladeo",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R039",
+   "text": "abdd",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R040",
+   "text": "abddo",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R041",
+   "text": "abddon",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R042",
+   "text": "abolitin",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R043",
+   "text": "abolitino",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R044",
+   "text": "abolitiona",
+   "allowed": [],
+   "split": "test_real"
+  },
+  {
+   "id": "R045",
+   "text": "abolition",
+   "allowed": [],
+   "split": "test_real"
+  }
+ ]
+}

@@ -1,0 +1,276 @@
+{
+ "version": "crv-stage3-evaluation-1",
+ "task": "query_interpretation",
+ "modelId": "crv-query-heads-0.2.0",
+ "baseRevision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+ "weightsSha256": "7208996f277f68600d22cbcb0306058c7a3946c1274b50dd4d2ff342d7d5cf15",
+ "card": {
+  "id": "crv-query-heads-0.2.0",
+  "kind": "laya-overlay",
+  "task": "query_interpretation",
+  "baseRevision": "7b928d828b7b0e022f929d9bd2e44165aa270148",
+  "baseCheckpoint": "convaiinnovations/laya multilingual",
+  "trainable": [
+   "act_head.0.bias",
+   "act_head.0.weight",
+   "act_head.2.bias",
+   "act_head.2.weight",
+   "encoder.final_norm.weight",
+   "encoder.layers.18.attn.Wo.weight",
+   "encoder.layers.18.attn.Wqkv.weight",
+   "encoder.layers.18.attn_norm.weight",
+   "encoder.layers.18.mlp.Wi.weight",
+   "encoder.layers.18.mlp.Wo.weight",
+   "encoder.layers.18.mlp_norm.weight",
+   "encoder.layers.19.attn.Wo.weight",
+   "encoder.layers.19.attn.Wqkv.weight",
+   "encoder.layers.19.attn_norm.weight",
+   "encoder.layers.19.mlp.Wi.weight",
+   "encoder.layers.19.mlp.Wo.weight",
+   "encoder.layers.19.mlp_norm.weight",
+   "encoder.layers.20.attn.Wo.weight",
+   "encoder.layers.20.attn.Wqkv.weight",
+   "encoder.layers.20.attn_norm.weight",
+   "encoder.layers.20.mlp.Wi.weight",
+   "encoder.layers.20.mlp.Wo.weight",
+   "encoder.layers.20.mlp_norm.weight",
+   "encoder.layers.21.attn.Wo.weight",
+   "encoder.layers.21.attn.Wqkv.weight",
+   "encoder.layers.21.attn_norm.weight",
+   "encoder.layers.21.mlp.Wi.weight",
+   "encoder.layers.21.mlp.Wo.weight",
+   "encoder.layers.21.mlp_norm.weight",
+   "head.layers.0.linear1.bias",
+   "head.layers.0.linear1.weight",
+   "head.layers.0.linear2.bias",
+   "head.layers.0.linear2.weight",
+   "head.layers.0.norm1.bias",
+   "head.layers.0.norm1.weight",
+   "head.layers.0.norm2.bias",
+   "head.layers.0.norm2.weight",
+   "head.layers.0.self_attn.in_proj_bias",
+   "head.layers.0.self_attn.in_proj_weight",
+   "head.layers.0.self_attn.out_proj.bias",
+   "head.layers.0.self_attn.out_proj.weight",
+   "head.layers.1.linear1.bias",
+   "head.layers.1.linear1.weight",
+   "head.layers.1.linear2.bias",
+   "head.layers.1.linear2.weight",
+   "head.layers.1.norm1.bias",
+   "head.layers.1.norm1.weight",
+   "head.layers.1.norm2.bias",
+   "head.layers.1.norm2.weight",
+   "head.layers.1.self_attn.in_proj_bias",
+   "head.layers.1.self_attn.in_proj_weight",
+   "head.layers.1.self_attn.out_proj.bias",
+   "head.layers.1.self_attn.out_proj.weight",
+   "scorer.0.bias",
+   "scorer.0.weight",
+   "scorer.1.bias",
+   "scorer.1.weight",
+   "scorer.3.bias",
+   "scorer.3.weight",
+   "type_emb.weight"
+  ],
+  "unfreezeLayers": 4,
+  "hyper": {
+   "unfreeze": 4,
+   "epochs": 3,
+   "lr": 0.0003,
+   "encoder_lr": 3e-05,
+   "batch": 16,
+   "other_keep": 0.25,
+   "seed": 7,
+   "balance": true,
+   "limit": 0
+  },
+  "train": {
+   "path": "/home/brian/crv-staging/tmp-analysis/unified-search-stage3/compose-0.1.0/tasks-train.jsonl",
+   "sha256": "41e6dda9d673e06b28bed27a46ad3a20df3a37967a9dea17f2ca5b50a4112d7e",
+   "rows": 29801
+  },
+  "val": {
+   "path": "/home/brian/crv-staging/tmp-analysis/unified-search-stage3/compose-0.1.0/tasks-val.jsonl",
+   "sha256": "c6b17069c51231b5f2b12e5cb3cdab2c941b4ad4fb67f7682f221e55f263ccbf",
+   "rows": 5279
+  },
+  "baseVal": {
+   "loss": 2.0535,
+   "acc": 0.3986,
+   "byFamily": {
+    "span": 0.7404,
+    "dim": 0.2935,
+    "pick": 0.3617,
+    "facet_family": 0.022,
+    "genre_description": 0.2182,
+    "query_kind": 0.8571
+   }
+  },
+  "bestEpoch": 2,
+  "bestVal": {
+   "loss": 0.2438,
+   "acc": 0.9384,
+   "byFamily": {
+    "span": 0.9915,
+    "dim": 0.8295,
+    "pick": 0.9681,
+    "facet_family": 0.9689,
+    "genre_description": 0.4955,
+    "query_kind": 0.8571
+   }
+  },
+  "weightsSha256": "7208996f277f68600d22cbcb0306058c7a3946c1274b50dd4d2ff342d7d5cf15",
+  "trainedAt": "2026-10-25T13:00:21Z",
+  "reservedTestUsed": false,
+  "public": false
+ },
+ "criteriaVersion": "crv-stage3-criteria-1.0.0",
+ "evaluatedAt": "2026-10-25T14:52:13Z",
+ "reservedTestRuns": 1,
+ "datasets": {
+  "reserved": {
+   "path": "docs/unified-search/stage3/datasets/query-test-reserved.json",
+   "sha256": "4d0e16e7130381aa085389c3698dc7f2a034788c4f17cb0ade4de0891babae8d",
+   "cases": 247
+  },
+  "mandatory": {
+   "path": "docs/unified-search/stage3/datasets/query-test-mandatory.json",
+   "sha256": "6d05e81b962dda1f97b039547fbb11579f175601b03f1285048c62f0e1d309f9",
+   "cases": 5
+  },
+  "real": {
+   "path": "docs/unified-search/stage3/datasets/query-test-real.json",
+   "sha256": "3e1d398f84483609b50193183ddac318cf9d31f4a5248c50e1c50883d076a033",
+   "cases": 45
+  }
+ },
+ "checks": [
+  {
+   "name": "Exactitud del plan (reservada)",
+   "value": 0.8421,
+   "threshold": ">= 0.85",
+   "pass": false
+  },
+  {
+   "name": "Exactitud en casos adversariales",
+   "value": 0.8539,
+   "threshold": ">= 0.8",
+   "pass": true
+  },
+  {
+   "name": "Errores críticos (reservada)",
+   "value": 0.0162,
+   "threshold": "<= 0.02",
+   "pass": true
+  },
+  {
+   "name": "Errores críticos en obligatorios (M01–M05 y T144…T213)",
+   "value": 1.0,
+   "threshold": "= 0",
+   "pass": false
+  },
+  {
+   "name": "Exactitud en los cinco obligatorios",
+   "value": 0.6,
+   "threshold": ">= 1.0",
+   "pass": false
+  },
+  {
+   "name": "Restricciones pendientes conservadas",
+   "value": 0.84,
+   "threshold": ">= 0.95",
+   "pass": false
+  },
+  {
+   "name": "Sobreabstención",
+   "value": 0.0118,
+   "threshold": "<= 0.1",
+   "pass": true
+  },
+  {
+   "name": "Sobreconfianza",
+   "value": 0.0931,
+   "threshold": "<= 0.05",
+   "pass": false
+  },
+  {
+   "name": "F1 de condiciones",
+   "value": 0.9827,
+   "threshold": ">= 0.9",
+   "pass": true
+  },
+  {
+   "name": "Género descrito: acierto entre tres",
+   "value": 0.6923,
+   "threshold": ">= 0.7",
+   "pass": false
+  },
+  {
+   "name": "Tráfico real sin invención",
+   "value": 1.0,
+   "threshold": ">= 0.98",
+   "pass": true
+  },
+  {
+   "name": "Latencia p95 en caliente (ms)",
+   "value": 236.853,
+   "threshold": "<= 500",
+   "pass": true
+  },
+  {
+   "name": "ECE máximo por familia (validación)",
+   "value": 0.1461,
+   "threshold": "<= 0.1",
+   "pass": false
+  },
+  {
+   "name": "Margen sobre reglas heredadas",
+   "value": 0.6923,
+   "threshold": ">= 0.2",
+   "pass": true
+  },
+  {
+   "name": "Críticos no peores que reglas sin modelo",
+   "value": -0.0162,
+   "threshold": ">= 0.0",
+   "pass": false
+  }
+ ],
+ "comparison": [
+  {
+   "system": "legacy",
+   "exactitud": 0.14979757085020243,
+   "críticos": 0.11336032388663968,
+   "F1": 0.2534435261707989,
+   "sobreconfianza": 0.32793522267206476
+  },
+  {
+   "system": "rules",
+   "exactitud": 0.7732793522267206,
+   "críticos": 0,
+   "F1": 0.9806949806949807,
+   "sobreconfianza": 0.11336032388663968
+  },
+  {
+   "system": "base",
+   "exactitud": 0.5182186234817814,
+   "críticos": 0.012145748987854251,
+   "F1": 0.8235294117647058,
+   "sobreconfianza": 0.19433198380566802
+  },
+  {
+   "system": "tuned",
+   "exactitud": 0.8421052631578947,
+   "críticos": 0.016194331983805668,
+   "F1": 0.982725527831094,
+   "sobreconfianza": 0.0931174089068826,
+   "latencia_p95_ms": 236.85303099999965
+  }
+ ],
+ "passed": false,
+ "notes": [
+  "ECE por familia en validación: span 0.0031, dim 0.0629, pick 0.0082, facet_family 0.0124, genre_description 0.1461, query_kind 0.1115",
+  "Latencia: modelo p95 228.0 ms + compilación p95 8.9 ms (cuda).",
+  "Por categoría: activity 13/17, emotion 15/16, energy 5/5, atmosphere 14/14, theme 14/15, genre 13/15, and 23/24, or 10/11, negation 18/19, preference 6/7, listener 12/12, entity 16/23, similarity 2/9, unsupported 16/19, decade 4/4, clarify 9/11, contradiction 5/5, described 6/13, multilingual 5/5, noise 2/3"
+ ]
+}

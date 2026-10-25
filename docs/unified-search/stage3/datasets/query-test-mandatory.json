@@ -1,0 +1,122 @@
+{
+ "version": "crv-query-test-mandatory-1.0.0",
+ "authoredAt": "2026-10-25",
+ "source": "PLAN_1.1.0.md, etapa 3: ejemplos adversos obligatorios (frases exactas)",
+ "policy": "Reservado igual que query-test-reserved; 0 errores críticos exigidos.",
+ "cases": [
+  {
+   "id": "M01",
+   "category": "mandatory",
+   "text": "Estoy triste, quiero algo alegre",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "M02",
+   "category": "mandatory",
+   "text": "Busca la canción Amor",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "amor"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "M03",
+   "category": "mandatory",
+   "text": "Música nocturna para estudiar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "atmosphere:nocturnal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "M04",
+   "category": "mandatory",
+   "text": "Parecido a Desorden Público en las guitarras",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:guitars"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "desorden publico"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "M05",
+   "category": "mandatory",
+   "text": "Música sin voces",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Claude (encargo de Brian, 2026-10-25)"
+  }
+ ]
+}
