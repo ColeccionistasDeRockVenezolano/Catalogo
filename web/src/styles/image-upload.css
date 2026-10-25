@@ -1,0 +1,13 @@
+.image-upload { display: grid; gap: 8px; min-width: 0; }
+.image-upload__drop { display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px dashed var(--text-faint); border-radius: 8px; background: var(--surface-2); }
+.image-upload__drop.is-dragging { border-color: var(--red); background: var(--red-soft); }
+.image-upload__preview { width: 84px; height: 84px; flex: 0 0 84px; object-fit: contain; border-radius: 4px; }
+.image-upload__instructions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; min-width: 0; }
+.image-upload__instructions .btn { min-height: 44px; }
+.image-upload__file { display: none; }
+.image-upload .image-upload__url-label { font-size: 13px; letter-spacing: normal; text-transform: none; }
+.image-upload__status { margin: 0; overflow-wrap: anywhere; }
+.image-upload__status:empty { display: none; }
+.image-upload input { width: 100%; min-width: 0; }
+.image-upload-fields { border: 0; padding: 0; margin: 0; min-width: 0; }
+@media (max-width: 480px) { .image-upload__drop { gap: 12px; padding: 12px; } .image-upload__preview { width: 64px; height: 64px; flex-basis: 64px; } }

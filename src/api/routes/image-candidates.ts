@@ -9,19 +9,25 @@
 //
 // Lecturas solo admin (ADMIN_READS cubre `/curation`); escrituras con la
 // guarda de sesión admin + CSRF o el token de operador.
+import path from "node:path";
+import { registerImageJobRoutes } from "./image-curation-jobs.js";
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { getPool } from "../../db/client.js";
-import { OperatorError, updateEntity, withOperatorRun } from "../../merge/operator.js";
+import { OperatorError, withOperatorRun } from "../../merge/operator.js";
 import { OPERATOR_SECURITY } from "../auth.js";
 import { paginationQuerySchema } from "../pagination.js";
 import { writeErrorResponses } from "../schemas.js";
 import { noteSchema } from "./catalog-writes.js";
+import { fingerprintDistance } from "../../verification/image-quality.js";
+import { inspectImageCandidates, type downloadImage } from "../../merge/image-inspection.js";
+import { decideImage } from "../../merge/image-decisions.js";
+import { createDeepSeekGateway } from "../../ai/gateway.js";
+import { createVisionClassifier, type VisionClassifier } from "../../verification/image-vision.js";
 
 const KINDS = ["album", "artist"] as const;
 type ImageKind = (typeof KINDS)[number];
-const FIELD: Record<ImageKind, "cover_url" | "picture_url"> = { album: "cover_url", artist: "picture_url" };
 const ID_COLUMN: Record<ImageKind, "album_id" | "artist_id"> = { album: "album_id", artist: "artist_id" };
 
 const candidateSchema = z.object({
@@ -32,6 +38,17 @@ const candidateSchema = z.object({
   width: z.number().int().nullable(),
   height: z.number().int().nullable(),
   score: z.number().nullable(),
+  /** Inspección al descargar (0090); null mientras no se haya inspeccionado. */
+  naturalWidth: z.number().int().nullable(),
+  naturalHeight: z.number().int().nullable(),
+  effectiveWidth: z.number().int().nullable(),
+  quality: z.enum(["high", "medium", "low", "failed"]).nullable(),
+  use: z.string().nullable(),
+  reasons: z.array(z.string()),
+  /** Cómo describe la página esta imagen (pie, alt, «Imagen: …»), cuando se conoce (0091). */
+  context: z.string().nullable(),
+  /** Candidatas con la misma huella perceptual: variantes de una misma imagen. */
+  variantOf: z.number().int().nullable(),
 });
 
 const groupSchema = z.object({
@@ -46,7 +63,10 @@ const groupSchema = z.object({
   candidates: z.array(candidateSchema),
 });
 
-const listQuerySchema = paginationQuerySchema.extend({ kind: z.enum(KINDS).default("album") });
+const listQuerySchema = paginationQuerySchema.extend({
+  kind: z.enum(KINDS).default("album"),
+  entityId: z.coerce.number().int().positive().optional().describe("Solo las candidatas de esta ficha"),
+});
 const decideParamsSchema = z.object({ kind: z.enum(KINDS), id: z.coerce.number().int().positive() });
 const decideBodySchema = z.object({
   candidateId: z.number().int().positive().nullable()
@@ -56,7 +76,8 @@ const decideBodySchema = z.object({
 
 interface GroupRow {
   entity_id: string; name: string; subtitle: string | null; current_url: string | null; proposed_url: string | null;
-  candidates: Array<{ id: number; url: string; source: string; pageUrl: string | null; width: number | null; height: number | null; score: string | number | null }>;
+  candidates: Array<{ id: number; url: string; source: string; pageUrl: string | null; width: number | null; height: number | null; score: string | number | null;
+    naturalWidth: number | null; naturalHeight: number | null; effectiveWidth: number | null; quality: "high" | "medium" | "low" | "failed" | null; use: string | null; reasons: string[] | null; context: string | null; fingerprint: string | null }>;
 }
 
 const ENTITY_SQL: Record<ImageKind, { join: string; name: string; subtitle: string; current: string }> = {
@@ -69,8 +90,11 @@ const ENTITY_SQL: Record<ImageKind, { join: string; name: string; subtitle: stri
   artist: { join: "JOIN public.artists e ON e.id = c.artist_id", name: "e.name", subtitle: "NULL::text", current: "e.picture_url" },
 };
 
-export async function registerImageCandidateRoutes(app: FastifyInstance): Promise<void> {
+/** The chosen original is kept under media/curated, served like uploads by the gateway and Vite. */
+export async function registerImageCandidateRoutes(app: FastifyInstance, options: { mediaRoot?: string; download?: typeof downloadImage; vision?: VisionClassifier; worker?: boolean } = {}): Promise<void> {
+  const mediaRoot = options.mediaRoot ?? path.resolve("web/public/media");
   const server = app.withTypeProvider<ZodTypeProvider>();
+  await registerImageJobRoutes(app, options);
 
   server.get("/curation/images/summary", {
     schema: {
@@ -99,22 +123,25 @@ export async function registerImageCandidateRoutes(app: FastifyInstance): Promis
       },
     },
   }, async (request) => {
-    const { kind, limit, offset } = request.query;
+    const { kind, limit, offset, entityId } = request.query;
     const sql = ENTITY_SQL[kind];
     const column = ID_COLUMN[kind];
     const { rows } = await getPool().query<GroupRow & { total: string }>(`
       SELECT c.${column}::text AS entity_id, ${sql.name} AS name, ${sql.subtitle} AS subtitle,
              ${sql.current} AS current_url, min(c.current_url) AS proposed_url,
              jsonb_agg(jsonb_build_object('id', c.id, 'url', c.candidate_url, 'source', c.source, 'pageUrl', c.page_url,
-                                          'width', c.width, 'height', c.height, 'score', c.score)
-                       ORDER BY c.score DESC NULLS LAST, (c.width::bigint*c.height::bigint) DESC NULLS LAST, c.id) AS candidates,
+                                          'width', c.width, 'height', c.height, 'score', c.score,
+                                          'naturalWidth', c.natural_width, 'naturalHeight', c.natural_height, 'effectiveWidth', c.effective_width,
+                                          'quality', c.quality, 'use', c.image_use, 'reasons', c.inspection_reasons, 'context', c.image_context, 'fingerprint', c.fingerprint)
+                       ORDER BY CASE c.quality WHEN 'high' THEN 0 WHEN 'medium' THEN 1 WHEN 'low' THEN 3 WHEN 'failed' THEN 4 ELSE 2 END,
+                                c.score DESC NULLS LAST, (COALESCE(c.effective_width, c.width)::bigint*COALESCE(c.natural_height, c.height)::bigint) DESC NULLS LAST, c.id) AS candidates,
              count(*) OVER ()::text AS total
         FROM ingest.image_candidates c
         ${sql.join}
-       WHERE c.entity_kind = $1 AND c.status = 'open'
+       WHERE c.entity_kind = $1 AND c.status = 'open' AND ($4::bigint IS NULL OR c.${column} = $4)
        GROUP BY c.${column}, ${sql.name}, ${sql.subtitle}, ${sql.current}
        ORDER BY max(c.score) DESC NULLS LAST, ${sql.name}
-       LIMIT $2 OFFSET $3`, [kind, limit, offset]);
+       LIMIT $2 OFFSET $3`, [kind, limit, offset, entityId ?? null]);
     return {
       data: rows.map((row) => ({
         kind,
@@ -123,8 +150,9 @@ export async function registerImageCandidateRoutes(app: FastifyInstance): Promis
         subtitle: row.subtitle,
         currentUrl: row.current_url,
         stale: row.proposed_url !== row.current_url,
-        candidates: row.candidates.map((candidate) => ({
-          ...candidate, score: candidate.score === null ? null : Number(candidate.score),
+        candidates: row.candidates.map(({ fingerprint, ...candidate }, index) => ({
+          ...candidate, score: candidate.score === null ? null : Number(candidate.score), reasons: candidate.reasons ?? [],
+          variantOf: fingerprint ? row.candidates.slice(0, index).find((other) => other.fingerprint && fingerprintDistance(other.fingerprint, fingerprint) <= 10)?.id ?? null : null,
         })),
       })),
       pagination: { limit, offset, total: Number(rows[0]?.total ?? 0) },
@@ -146,40 +174,33 @@ export async function registerImageCandidateRoutes(app: FastifyInstance): Promis
   }, async (request) => {
     const { kind, id } = request.params;
     const { candidateId } = request.body;
-    const label = kind === "album" ? "portada" : "foto de artista";
-    const note = request.body.note ?? (candidateId === null
-      ? `Curaduría: se deja la ${label} actual y se descartan las candidatas`
-      : `Curaduría: ${label} elegida a ojo entre las candidatas`);
+    return decideImage({ kind, id, candidateId, operator: request.operator, ...(request.body.note ? { note: request.body.note } : {}) }, { mediaRoot, ...(options.download ? { download: options.download } : {}) });
+  });
+
+  // Plan 20/20, etapa 3: descargar y medir las candidatas antes de decidir (0090).
+  server.post("/curation/images/inspect", {
+    schema: {
+      tags: ["curation"],
+      summary: "Descarga e inspecciona candidatas pendientes (calidad, uso, variantes); no cambia ninguna ficha",
+      security: OPERATOR_SECURITY,
+      body: z.object({
+        ids: z.array(z.number().int().positive()).max(100).optional(),
+        limit: z.number().int().min(1).max(100).default(25),
+        // Visual reading (DeepSeek, budgeted) for images whose context does not say what they show.
+        vision: z.boolean().default(false),
+      }).strict(),
+      response: {
+        200: z.object({ runId: z.number().int(), inspected: z.number().int(), failed: z.number().int(), visual: z.number().int() }),
+        ...writeErrorResponses,
+      },
+    },
+  }, async (request) => {
+    const { ids, limit, vision } = request.body;
+    const classifier = vision ? (options.vision ?? createVisionClassifier(createDeepSeekGateway())) : undefined;
     const { runId, result } = await withOperatorRun({
-      name: "image_choice", operator: request.operator, note, params: { kind, id, candidateId },
-    }, async (context) => {
-      const column = ID_COLUMN[kind];
-      const open = await context.client.query<{ id: string; candidate_url: string; current_url: string | null }>(`
-        SELECT id::text, candidate_url, current_url FROM ingest.image_candidates
-         WHERE entity_kind = $1 AND ${column} = $2 AND status = 'open' FOR UPDATE`, [kind, id]);
-      if (open.rows.length === 0) throw new OperatorError("not_open", "Esta ficha ya no tiene imágenes candidatas pendientes.", { kind, id });
-      let chosenUrl: string | null = null;
-      if (candidateId !== null) {
-        const chosen = open.rows.find((row) => Number(row.id) === candidateId);
-        if (!chosen) throw new OperatorError("not_found", "La imagen elegida no es una candidata pendiente de esta ficha.", { kind, id, candidateId });
-        const table = kind === "album" ? "public.albums" : "public.artists";
-        const live = await context.client.query<{ url: string | null }>(`SELECT ${FIELD[kind]} AS url FROM ${table} WHERE id = $1 FOR UPDATE`, [id]);
-        if (!live.rows[0]) throw new OperatorError("not_found", "La ficha ya no existe.", { kind, id });
-        if (live.rows[0].url !== chosen.current_url) {
-          throw new OperatorError("stale_preview", `La ${label} de esta ficha cambió desde que se propusieron las candidatas; revísala en su ficha.`, { kind, id });
-        }
-        await updateEntity(context, kind, id, { [FIELD[kind]]: chosen.candidate_url });
-        chosenUrl = chosen.candidate_url;
-      }
-      await context.client.query(`
-        UPDATE ingest.image_candidates
-           SET status = CASE WHEN id = $3 THEN 'chosen' ELSE 'rejected' END,
-               decided_by = $4, decided_at = now(), decision_run_id = $5
-         WHERE entity_kind = $1 AND ${column} = $2 AND status = 'open'`,
-      [kind, id, candidateId ?? 0, context.operator, context.runId]);
-      return { chosenUrl };
-    });
-    return { runId, kind, entityId: id, chosenUrl: result.chosenUrl };
+      name: "image_inspection", operator: request.operator, note: "Curaduría: inspección de imágenes candidatas", params: { ids: ids ?? null, limit, vision },
+    }, (context) => inspectImageCandidates(context, { ...(ids ? { ids } : {}), limit, ...(classifier ? { vision: classifier } : {}) }));
+    return { runId, ...result };
   });
 
   // «Dejar las actuales en esta página» (Brian, 2026-10-04): descarta de una vez

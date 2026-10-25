@@ -1,0 +1,14 @@
+{
+  "asset": "charcoal-grain.png",
+  "purpose": "Textura mate de contraste bajo para el tema Carbón del catálogo",
+  "origin": "Generada localmente mediante código; no contiene fotografías ni material de terceros",
+  "generation": {
+    "width": 160,
+    "height": 160,
+    "mode": "RGBA",
+    "rgb": [255, 255, 255],
+    "alpha": "random.Random(1604).randrange(0, 7), recorrido por filas",
+    "encoding": "PNG RGBA de 8 bits, filtro 0, zlib nivel 9"
+  },
+  "scope": "Exclusivamente el tema Carbón; Home conserva su tema original"
+}

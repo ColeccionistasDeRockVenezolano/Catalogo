@@ -4,6 +4,19 @@ import {withOperatorRun,type OperatorContext} from "../merge/operator.js";
 import {words} from "./proof.js";
 import type {VerificationFinding,VerificationReport} from "./types.js";
 
+/** The page's own description of the image: its "Imagen:" resource line, or the whole quote. */
+export function imageProof(finding:VerificationFinding):string{
+  return finding.evidence.filter(e=>e.quote.includes(finding.observed??" ")).map(e=>{
+    const at=e.quote.indexOf(finding.observed!);
+    const start=e.quote.lastIndexOf("Imagen:",at);
+    const end=e.quote.indexOf(" · ",at);
+    return start>=0?e.quote.slice(start,end<0?undefined:end):e.quote;
+  }).join(" ");
+}
+/** What the candidate queue keeps to classify the image's use: subject plus the page's description, without the URL. */
+export function imageContext(finding:VerificationFinding):string{
+  return [...finding.context,imageProof(finding).replace(finding.observed??"","").replace(/\s*\|?\s*URL:\s*$/u,"").trim()].filter(Boolean).join(" · ");
+}
 interface ImageTarget{kind:ImageEntityKind;id:number;name:string;currentUrl:string|null;aliases?:string[];}
 /** Route by explicit finding or documented image role; an artist and its debut may share a name. */
 export function imageTarget(finding:VerificationFinding,artist:ImageTarget|undefined,albums:ImageTarget[]):ImageTarget|undefined{
@@ -12,12 +25,7 @@ export function imageTarget(finding:VerificationFinding,artist:ImageTarget|undef
   if(finding.key==="images.profile")return artist;
   const contexts=finding.context.map(value=>words(value.replace(/\s*\((?:álbum|album|cd|bonus track version|deluxe edition|expanded edition|special edition)\)\s*/giu," ")));
   const albumMatches=albums.filter(a=>[a.name,...(a.aliases??[])].some(name=>contexts.includes(words(name))));
-  const proof=finding.evidence.filter(e=>e.quote.includes(finding.observed??" ")).map(e=>{
-    const at=e.quote.indexOf(finding.observed!);
-    const start=e.quote.lastIndexOf("Imagen:",at);
-    const end=e.quote.indexOf(" · ",at);
-    return start>=0?e.quote.slice(start,end<0?undefined:end):e.quote;
-  }).join(" ");
+  const proof=imageProof(finding);
   const portrait=/retrato|portrait|foto de perfil|profile|biograf|\/cantantes\/|\/people\//iu.test(proof);
   const explicitCover=/portada|cover|artwork|\bdisco\b|\/discos\/|\bálbum\b|\balbum\b/iu.test(proof);
   const cover=explicitCover||(!portrait&&finding.evidence.some(e=>/\/album\//iu.test(e.url)));
@@ -27,9 +35,22 @@ export function imageTarget(finding:VerificationFinding,artist:ImageTarget|undef
   return undefined;
 }
 
+/**
+ * A link to another page of the cited site (an album page on the same store, for example)
+ * is not a picture: same host, no image extension and no image-like path segment.
+ */
+export function looksLikePageLink(observed:string,pageUrl:string):boolean{
+  let image:URL,page:URL;
+  try{image=new URL(observed);page=new URL(pageUrl);}catch{return true;}
+  const host=(u:URL)=>u.hostname.replace(/^www\./u,"");
+  if(host(image)!==host(page))return false;
+  if(/\.(?:jpe?g|png|gif|webp|avif|bmp|tiff?|svg)$/iu.test(image.pathname))return false;
+  return !/\/(?:images?|img|media|photos?|fotos?|covers?|artwork|uploads|wp-content|thumbs?)\//iu.test(`${image.pathname}/`);
+}
+
 /** Queue every documented alternative, preserving prior decisions and leaving principal images untouched. */
 export async function queueVerificationImages(report:VerificationReport,operator:string,context?:OperatorContext):Promise<{proposed:number;unmatched:number}>{
-  const images=[...report.findings,...(report.suggestions??[])].filter(f=>f.area==="images"&&f.observed&&f.evidence.some(e=>e.origin==="page"&&e.quote.includes(f.observed!))&&!isDecorativeImageUrl(f.observed!));
+  const images=[...report.findings,...(report.suggestions??[])].filter(f=>f.area==="images"&&f.observed&&f.evidence.some(e=>e.origin==="page"&&e.quote.includes(f.observed!))&&!isDecorativeImageUrl(f.observed!)&&!f.evidence.some(e=>e.origin==="page"&&e.quote.includes(f.observed!)&&looksLikePageLink(f.observed!,e.url)));
   if(!images.length||!['artist','album'].includes(report.kind))return {proposed:0,unmatched:0};
   if(!context)return (await withOperatorRun({name:"verification.image-candidates",operator,note:`Imágenes documentadas en la investigación de ${report.name}`,params:{kind:report.kind,entityId:report.entityId}},next=>queueVerificationImages(report,operator,next))).result;
   const artistRows=await context.client.query<{id:number;name:string;current_url:string|null}>(report.kind==="artist"?
@@ -48,7 +69,7 @@ export async function queueVerificationImages(report:VerificationReport,operator
       if(!target)continue;
       const evidence=f.evidence.find(e=>e.origin==="page"&&e.quote.includes(f.observed!))!;
       const dimensions=/Dimensiones declaradas:\s*(\d+)\s*[×x]\s*(\d+)/iu.exec(evidence.quote);
-      const result=await proposeImageCandidate(client,{kind:target.kind,targetId:target.id,currentUrl:target.currentUrl,candidateUrl:f.observed!,source:new URL(evidence.url).hostname,pageUrl:evidence.url,origin:"verificacion-fuentes",runId,width:dimensions?Number(dimensions[1]):null,height:dimensions?Number(dimensions[2]):null});
+      const result=await proposeImageCandidate(client,{kind:target.kind,targetId:target.id,currentUrl:target.currentUrl,candidateUrl:f.observed!,source:new URL(evidence.url).hostname,pageUrl:evidence.url,origin:"verificacion-fuentes",runId,context:imageContext(f),width:dimensions?Number(dimensions[1]):null,height:dimensions?Number(dimensions[2]):null});
       if(result==="proposed")proposed++;
     }
   return {proposed,unmatched};

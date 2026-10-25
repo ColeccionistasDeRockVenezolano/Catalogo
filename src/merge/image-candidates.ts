@@ -62,6 +62,8 @@ export interface ImageProposal {
   height?: number | null;
   origin: string;
   runId?: number | null;
+  /** Texto de la página que describe la imagen (pie, alt, «Imagen: …»); sirve para clasificar su uso. */
+  context?: string | null;
 }
 
 /** proposed = candidata nueva; already = ya era candidata (no se reabre); known = es la imagen que la ficha ya usa. */
@@ -85,9 +87,9 @@ export async function proposeImageCandidate(client: PoolClient, proposal: ImageP
     source = row.rows[0]?.name;
   }
   const inserted = await client.query(`
-    INSERT INTO ingest.image_candidates(entity_kind, ${column}, current_url, candidate_url, source, page_url, origin, run_id, width, height)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+    INSERT INTO ingest.image_candidates(entity_kind, ${column}, current_url, candidate_url, source, page_url, origin, run_id, width, height, image_context)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     ON CONFLICT DO NOTHING`,
-  [kind, targetId, currentUrl, candidateUrl, (source ?? "fuente").slice(0, 40), proposal.pageUrl ?? null, proposal.origin.slice(0, 80), proposal.runId ?? null, proposal.width ?? null, proposal.height ?? null]);
+  [kind, targetId, currentUrl, candidateUrl, (source ?? "fuente").slice(0, 40), proposal.pageUrl ?? null, proposal.origin.slice(0, 80), proposal.runId ?? null, proposal.width ?? null, proposal.height ?? null, proposal.context?.slice(0, 500) || null]);
   return inserted.rowCount ? "proposed" : "already";
 }

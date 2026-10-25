@@ -1,5 +1,5 @@
 import {describe,it,expect} from "vitest";
-import {imageTarget} from "../../src/verification/image-curation.js";
+import {imageContext,imageTarget,looksLikePageLink} from "../../src/verification/image-curation.js";
 import type {VerificationFinding} from "../../src/verification/types.js";
 const artist={kind:"artist" as const,id:1,name:"Jeremías",currentUrl:null};
 const albums=[{kind:"album" as const,id:2,name:"Jeremías",currentUrl:null},{kind:"album" as const,id:3,name:"Un día más en el gran circo",currentUrl:null,aliases:["Un Día Más En El Circo"]}];
@@ -20,5 +20,14 @@ describe("fotos y portadas hacia Curaduría",()=>{
   it("no asigna a otra ficha una portada con disco desconocido o contexto ambiguo",()=>{
     expect(imageTarget(finding("Disco nuevo","Imagen: Portada","https://source.example/album/nuevo"),artist,albums)).toBeUndefined();
     expect(imageTarget(finding("Jeremías","Imagen principal","https://source.example/album/jeremias"),artist,albums)?.id).toBe(2);
+  });
+  it("no encola como imagen un enlace a otra página del mismo sitio",()=>{
+    expect(looksLikePageLink("https://music.apple.com/us/album/caramelos-de-cianuro/1198622532","https://music.apple.com/us/album/miss-mujerzuela/1198681438?uo=4")).toBe(true);
+    expect(looksLikePageLink("https://i.scdn.co/image/ab67616d0000b273cd696afcc4c5b416056d8d66","https://open.spotify.com/album/2Thjjg1KbIfaWJPyQpKnlu")).toBe(false);
+    expect(looksLikePageLink("https://www.diversomagazine.com/wp-content/uploads/2024/03/jeremias","https://www.diversomagazine.com/2024/03/jeremias.html")).toBe(false);
+    expect(looksLikePageLink("https://source.example/fotos/banda.jpg","https://source.example/biografia")).toBe(false);
+  });
+  it("conserva cómo describe la página la imagen para clasificar su uso",()=>{
+    expect(imageContext(finding("Jeremías","Biografía · Imagen: Retrato del cantante"))).toBe("Jeremías · Imagen: Retrato del cantante");
   });
 });
