@@ -1,0 +1,4787 @@
+{
+ "version": "crv-query-test-reserved-6.0.0",
+ "authoredAt": "2026-10-25",
+ "authoredBefore": "cualquier corrección de la versión 1.5.0, entrenamiento de modelos nuevos y cualquier ejecución del sistema sobre estas frases",
+ "authoredAfter": "evaluación única de crv-query-heads-0.7.0 sobre la prueba 5.0.0 (ya de desarrollo)",
+ "policy": "Prueba final reservada: no se usa para desarrollo, reglas, umbrales ni entrenamiento.",
+ "cases": [
+  {
+   "id": "G001",
+   "category": "activity",
+   "text": "ponme algo bueno para bailar esta noche con mis panas",
+   "draft": 0,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G002",
+   "category": "activity",
+   "text": "música para caminar tranquilo por la playa un domingo",
+   "draft": 1,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:walking"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "«tranquilo» modifica al oyente; «por la playa» es lugar",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G003",
+   "category": "activity",
+   "text": "qué pongo en el carro para un viaje largo a la montaña",
+   "draft": 2,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G004",
+   "category": "activity",
+   "text": "necesito música que no me distraiga mientras estudio para el examen",
+   "draft": 3,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G005",
+   "category": "activity",
+   "text": "playlist para el cumpleaños de mi mamá con toda la familia",
+   "draft": 5,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G006",
+   "category": "activity",
+   "text": "música que me motive en el gym cuando levanto pesas",
+   "draft": 6,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G007",
+   "category": "activity",
+   "text": "ponme algo para descansar un rato en el sofá después del trabajo",
+   "draft": 7,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G008",
+   "category": "activity",
+   "text": "ritmo para salir a trotar por el parque en la mañana",
+   "draft": 8,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:running"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G009",
+   "category": "activity",
+   "text": "música para un momento íntimo con mi pareja esta noche",
+   "draft": 9,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:intimacy"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G010",
+   "category": "activity",
+   "text": "algo que me ayude a agarrar sueño rápido",
+   "draft": 10,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:sleep"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G011",
+   "category": "activity",
+   "text": "música de fondo para cuando vienen amigos a conversar a la casa",
+   "draft": 11,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:socializing"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G012",
+   "category": "activity",
+   "text": "ponme algo que me ayude a desahogarme, estoy que exploto",
+   "draft": 12,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G013",
+   "category": "activity",
+   "text": "quiero bailar salsa con mi pareja en la sala",
+   "draft": 13,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "genre:salsa"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G014",
+   "category": "activity",
+   "text": "algo para caminar al trabajo con audífonos",
+   "draft": 14,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:walking"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G015",
+   "category": "activity",
+   "text": "música para el bus en un viaje de ocho horas",
+   "draft": 15,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G016",
+   "category": "activity",
+   "text": "qué me recomiendas escuchar mientras hago la tarea de la universidad",
+   "draft": 16,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G017",
+   "category": "emotion",
+   "text": "canciones que transmitan rabia y furia",
+   "draft": 17,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:angry"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G018",
+   "category": "emotion",
+   "text": "música alegre que te levante el ánimo",
+   "draft": 18,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G019",
+   "category": "emotion",
+   "text": "temas de autoafirmación y seguridad en uno mismo",
+   "draft": 19,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:confident"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G020",
+   "category": "emotion",
+   "text": "canciones agridulces que mezclen emociones encontradas",
+   "draft": 20,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:bittersweet"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G021",
+   "category": "emotion",
+   "text": "música que me haga recordar tiempos pasados",
+   "draft": 21,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:nostalgic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G022",
+   "category": "emotion",
+   "text": "temas con tensión musical sostenida que te mantengan en vilo",
+   "draft": 23,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:tense"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G023",
+   "category": "emotion",
+   "text": "canciones eufóricas para sentir exaltación",
+   "draft": 24,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:euphoric"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G024",
+   "category": "emotion",
+   "text": "música que dé esperanza y optimismo",
+   "draft": 25,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:hopeful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G025",
+   "category": "emotion",
+   "text": "canciones rebeldes que transmitan liberación",
+   "draft": 27,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:rebellious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G026",
+   "category": "emotion",
+   "text": "música que exprese soledad y aislamiento",
+   "draft": 28,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:lonely"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G027",
+   "category": "emotion",
+   "text": "temas serenos y tranquilos para estar en calma",
+   "draft": 29,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:serene"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G028",
+   "category": "emotion",
+   "text": "música romántica y tierna para dedicar",
+   "draft": 31,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "dedicar queda pendiente, como en 5.0.0",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G029",
+   "category": "energy",
+   "text": "música tranquila para dormir",
+   "draft": 33,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:sleep",
+     "emotion:serene"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G030",
+   "category": "energy",
+   "text": "canciones movidas para hacer ejercicio",
+   "draft": 34,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise",
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G031",
+   "category": "energy",
+   "text": "playlist alegre para limpiar la casa",
+   "draft": 35,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G032",
+   "category": "energy",
+   "text": "temas con mucho ritmo para una fiesta",
+   "draft": 37,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration",
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G033",
+   "category": "atmosphere",
+   "text": "música que suene misteriosa como de película de enigma",
+   "draft": 38,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:mysterious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G034",
+   "category": "atmosphere",
+   "text": "canciones con ambiente amenazante pero sin letra de violencia",
+   "draft": 39,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:ominous"
+    ],
+    "exc": [
+     "theme:violence"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G035",
+   "category": "atmosphere",
+   "text": "música etérea flotante y ligera",
+   "draft": 40,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:ethereal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G036",
+   "category": "atmosphere",
+   "text": "algo musical que evoque la noche",
+   "draft": 41,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:nocturnal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G037",
+   "category": "atmosphere",
+   "text": "música épica grandiosa y dramática",
+   "draft": 42,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:epic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G038",
+   "category": "atmosphere",
+   "text": "canciones con sonido íntimo y cercano",
+   "draft": 43,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:intimate"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G039",
+   "category": "atmosphere",
+   "text": "música con sonido cálido y acogedor",
+   "draft": 44,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:warm"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G040",
+   "category": "atmosphere",
+   "text": "música festiva de ambiente alegre",
+   "draft": 45,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:festive",
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G041",
+   "category": "atmosphere",
+   "text": "canciones con sonido frío y distante",
+   "draft": 46,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:cold"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G042",
+   "category": "atmosphere",
+   "text": "música con ambiente oscuro y sombrío",
+   "draft": 47,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:dark"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G043",
+   "category": "atmosphere",
+   "text": "música espaciosa con mucha amplitud en la mezcla",
+   "draft": 48,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:spacious"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "la amplitud de la mezcla es la definición del concepto",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G044",
+   "category": "atmosphere",
+   "text": "música onírica que suene a ensueño",
+   "draft": 49,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:dreamy"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G045",
+   "category": "atmosphere",
+   "text": "música con ambiente psicodélico explícito",
+   "draft": 50,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:psychedelic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G046",
+   "category": "theme",
+   "text": "canciones que hablen de dios y la fe",
+   "draft": 51,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:spirituality"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G047",
+   "category": "theme",
+   "text": "temas sobre el alcohol y las drogas",
+   "draft": 52,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:substances"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G048",
+   "category": "theme",
+   "text": "música que hable de sentirse solo y aislado",
+   "draft": 53,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:loneliness"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G049",
+   "category": "theme",
+   "text": "canciones sobre la identidad cultural y pertenecer a un lugar",
+   "draft": 54,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:identity"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G050",
+   "category": "theme",
+   "text": "canciones de violencia y crimen en la letra",
+   "draft": 55,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:violence"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G051",
+   "category": "theme",
+   "text": "canciones que hablen de amor",
+   "draft": 56,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:love"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G052",
+   "category": "theme",
+   "text": "canciones de protesta y política",
+   "draft": 57,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:politics"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G053",
+   "category": "theme",
+   "text": "canciones que hablen de la muerte y el duelo",
+   "draft": 58,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:death"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G054",
+   "category": "theme",
+   "text": "canciones sobre la guerra",
+   "draft": 59,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:war"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G055",
+   "category": "theme",
+   "text": "temas de fantasía y mitología en las letras",
+   "draft": 60,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:fantasy"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G056",
+   "category": "theme",
+   "text": "canciones de desamor y ruptura",
+   "draft": 61,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:breakup"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G057",
+   "category": "theme",
+   "text": "canciones que hablen de la naturaleza",
+   "draft": 62,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:nature"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G058",
+   "category": "theme",
+   "text": "canciones de ciencia ficción en la letra",
+   "draft": 63,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:science-fiction"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G059",
+   "category": "genre",
+   "text": "música de gabán para una fiesta",
+   "draft": 64,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration",
+     "genre:gaban"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G060",
+   "category": "genre",
+   "text": "ponme cumbia para bailar",
+   "draft": 65,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "genre:cumbia"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G061",
+   "category": "genre",
+   "text": "jazz afrocubano instrumental relajado",
+   "draft": 66,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:serene",
+     "genre:instrumental",
+     "genre:jazz-afrocubano"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G062",
+   "category": "genre",
+   "text": "bandas de metalcore nuevas",
+   "draft": 68,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:metalcore"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "novedad pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G063",
+   "category": "genre",
+   "text": "ska alegre para el carro",
+   "draft": 69,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel",
+     "emotion:joyful",
+     "genre:ska"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G064",
+   "category": "genre",
+   "text": "pop rock en español de los 2000",
+   "draft": 71,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "decade:2000s",
+     "genre:pop-rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "idioma pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G065",
+   "category": "genre",
+   "text": "tech house para el gimnasio",
+   "draft": 72,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise",
+     "genre:tech-house"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G066",
+   "category": "genre",
+   "text": "hard rock de los ochenta",
+   "draft": 73,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:1980s",
+     "genre:hard-rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G067",
+   "category": "genre",
+   "text": "downtempo para estudiar tranquilo",
+   "draft": 75,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "genre:downtempo"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G068",
+   "category": "genre",
+   "text": "gaita de furro para diciembre",
+   "draft": 76,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:gaita-de-furro"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G069",
+   "category": "genre",
+   "text": "power metal épico con coros",
+   "draft": 77,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "atmosphere:epic",
+     "genre:power-metal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "coros: voz pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G070",
+   "category": "genre",
+   "text": "drone metal largo y ambiental",
+   "draft": 78,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "atmosphere:atmospheric",
+     "genre:drone-metal"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "duración pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G071",
+   "category": "and",
+   "text": "música cristiana alegre para limpiar la casa un sábado",
+   "draft": 79,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:joyful",
+     "genre:musica-cristiana"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G072",
+   "category": "and",
+   "text": "bachata romántica para dedicar a mi pareja",
+   "draft": 80,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:romantic",
+     "genre:bachata"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G073",
+   "category": "and",
+   "text": "rock en español para descargar la rabia después del trabajo",
+   "draft": 81,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis",
+     "genre:rock-latino"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G074",
+   "category": "and",
+   "text": "reggaetón para hacer ejercicio con mucha energía",
+   "draft": 82,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise",
+     "energy:energy-high",
+     "genre:reggaeton"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G075",
+   "category": "and",
+   "text": "baladas tranquilas para estudiar de noche",
+   "draft": 83,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "emotion:serene",
+     "genre:balada"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G076",
+   "category": "and",
+   "text": "salsa brava para una fiesta familiar",
+   "draft": 84,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:celebration",
+     "genre:salsa"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "«salsa brava» no está en el registro",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G077",
+   "category": "and",
+   "text": "música instrumental relajante para meditar antes de dormir",
+   "draft": 85,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:meditation",
+     "activity:relaxation",
+     "genre:instrumental"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G078",
+   "category": "and",
+   "text": "cumbia villera para el asado del domingo",
+   "draft": 86,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:socializing",
+     "genre:cumbia"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "«cumbia villera» no está en el registro",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G079",
+   "category": "and",
+   "text": "rap latino de protesta con letras que hagan pensar",
+   "draft": 87,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:hip-hop",
+     "theme:politics"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "procedencia pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G080",
+   "category": "and",
+   "text": "música romántica en inglés para una cena especial",
+   "draft": 88,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:socializing",
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "idioma pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G081",
+   "category": "and",
+   "text": "merengue movido para animar una reunión aburrida",
+   "draft": 89,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:socializing",
+     "energy:energy-high",
+     "genre:merengue"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G082",
+   "category": "and",
+   "text": "música triste para llorar a gusto un domingo de lluvia",
+   "draft": 90,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis",
+     "emotion:sad"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G083",
+   "category": "and",
+   "text": "vallenato alegre para viajar en carretera",
+   "draft": 92,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel",
+     "emotion:joyful",
+     "genre:vallenato"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G084",
+   "category": "and",
+   "text": "música de los 80 para recordar la juventud con nostalgia",
+   "draft": 93,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:1980s",
+     "emotion:nostalgic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G085",
+   "category": "and",
+   "text": "música épica motivadora para entrenar en el gimnasio",
+   "draft": 97,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise",
+     "atmosphere:epic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G086",
+   "category": "and",
+   "text": "música navideña en familia durante diciembre",
+   "draft": 99,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:musica-navidena"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G087",
+   "category": "and",
+   "text": "indie latino tranquilo para leer un libro en casa",
+   "draft": 100,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:concentration",
+     "emotion:serene",
+     "genre:indie-rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "procedencia pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G088",
+   "category": "and",
+   "text": "música tropical bailable para la playa con amigos",
+   "draft": 101,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:dancing",
+     "genre:musica-tropical"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "playa pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G089",
+   "category": "or",
+   "text": "algo romántico o más bien bailable para una fiesta",
+   "draft": 104,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "activity:dancing",
+      "emotion:romantic"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G090",
+   "category": "or",
+   "text": "canciones tristes o alegres para un día de lluvia",
+   "draft": 105,
+   "gold": {
+    "status": "query_valid",
+    "req": [],
+    "exc": [],
+    "any": [
+     [
+      "emotion:joyful",
+      "emotion:sad"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G091",
+   "category": "or",
+   "text": "salsa o merengue para bailar con mi pareja",
+   "draft": 106,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "genre:merengue",
+      "genre:salsa"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G092",
+   "category": "or",
+   "text": "algo tranquilo o movido para el gimnasio",
+   "draft": 107,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "emotion:serene",
+      "energy:energy-high"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G093",
+   "category": "or",
+   "text": "bachata o reguetón viejo para una reunión familiar",
+   "draft": 109,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:socializing"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "genre:bachata",
+      "genre:reggaeton"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "antigüedad pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G094",
+   "category": "or",
+   "text": "cumbia o vallenato para un viaje en carretera",
+   "draft": 111,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel"
+    ],
+    "exc": [],
+    "any": [
+     [
+      "genre:cumbia",
+      "genre:vallenato"
+     ]
+    ],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G095",
+   "category": "negation",
+   "text": "canciones tristes que no sean de desamor",
+   "draft": 113,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [
+     "theme:breakup"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G096",
+   "category": "negation",
+   "text": "algo para dormir sin ruido ni gritos",
+   "draft": 114,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:sleep"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G097",
+   "category": "negation",
+   "text": "música cristiana que no sea tan lenta",
+   "draft": 115,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:musica-cristiana"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "atenuación pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G098",
+   "category": "negation",
+   "text": "rock sin guitarras distorsionadas",
+   "draft": 116,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G099",
+   "category": "negation",
+   "text": "música para el gym que no sea electrónica",
+   "draft": 117,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [
+     "genre:electronica"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G100",
+   "category": "negation",
+   "text": "cumbias pero que no sean tan repetitivas",
+   "draft": 118,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:cumbia"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G101",
+   "category": "negation",
+   "text": "algo alegre que no sea infantil",
+   "draft": 119,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [
+     "genre:musica-infantil"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G102",
+   "category": "negation",
+   "text": "jazz para cenar sin saxofón",
+   "draft": 120,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:socializing",
+     "genre:jazz"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G103",
+   "category": "negation",
+   "text": "música de concentración nada de lo-fi",
+   "draft": 121,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G104",
+   "category": "negation",
+   "text": "canciones para llorar que no hablen de ex",
+   "draft": 122,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis"
+    ],
+    "exc": [
+     "theme:breakup"
+    ],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G105",
+   "category": "negation",
+   "text": "música bailable que no sea tan movida",
+   "draft": 123,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "atenuación pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G106",
+   "category": "negation",
+   "text": "algo para trabajar sin distracciones ni voces",
+   "draft": 124,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G107",
+   "category": "negation",
+   "text": "música navideña que no sea tan empalagosa",
+   "draft": 125,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:musica-navidena"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G108",
+   "category": "negation",
+   "text": "electrónica para leer sin beats fuertes",
+   "draft": 126,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:concentration",
+     "genre:electronica"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G109",
+   "category": "preference",
+   "text": "cumbias para una fiesta familiar, ojalá que sean movidas y no tan tristes",
+   "draft": 131,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:celebration",
+     "genre:cumbia"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [
+     "energy:energy-high"
+    ],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "atenuación pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G110",
+   "category": "preference",
+   "text": "rock latinoamericano para escuchar tranquilo, idealmente bandas de los noventa",
+   "draft": 132,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:rock-latino"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [
+     "decade:1990s"
+    ],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G111",
+   "category": "listener",
+   "text": "ando con el ánimo por el suelo hoy, ponme algo que me levante el espíritu",
+   "draft": 135,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "emotion:confident",
+     "emotion:euphoric",
+     "emotion:joyful"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G112",
+   "category": "listener",
+   "text": "estoy feliz porque conseguí trabajo nuevo, recomiéndame música para celebrar",
+   "draft": 136,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G113",
+   "category": "listener",
+   "text": "me siento nostálgico y con ganas de recordar viejos tiempos, pon algo de los 90",
+   "draft": 137,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:1990s"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G114",
+   "category": "listener",
+   "text": "ando con mucho estrés en el trabajo, necesito música tranquila para relajarme",
+   "draft": 138,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:relaxation",
+     "emotion:serene"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G115",
+   "category": "listener",
+   "text": "estoy enamorado y quiero una lista de canciones románticas para dedicar",
+   "draft": 139,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G116",
+   "category": "listener",
+   "text": "me siento con energía y ganas de entrenar, dame música movida para el gym",
+   "draft": 140,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise",
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G117",
+   "category": "listener",
+   "text": "ando triste porque extraño mi tierra, ponme música venezolana que me haga sentir cerca",
+   "draft": 141,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "procedencia pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G118",
+   "category": "listener",
+   "text": "estoy en una fiesta con amigos y necesito música bailable que todos conozcan",
+   "draft": 142,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "popularidad pendiente",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G119",
+   "category": "listener",
+   "text": "me siento melancólico un domingo por la tarde, ponme algo suave para acompañar",
+   "draft": 143,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "emotion:serene",
+     "energy:energy-low"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G120",
+   "category": "listener",
+   "text": "ando sin dormir por el insomnio, ponme música tranquila para dormir",
+   "draft": 144,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:sleep",
+     "emotion:serene"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G121",
+   "category": "listener",
+   "text": "estoy contento porque es mi cumpleaños, ponme música para festejar en casa",
+   "draft": 145,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G122",
+   "category": "listener",
+   "text": "me siento con ganas de llorar y desahogarme, dame canciones tristes que acompañen",
+   "draft": 146,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 1,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G123",
+   "category": "unsupported",
+   "text": "canciones que vayan a 120 bpm exactos para correr",
+   "draft": 147,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:running"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G124",
+   "category": "unsupported",
+   "text": "temas de menos de dos minutos que no decaigan",
+   "draft": 148,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G125",
+   "category": "unsupported",
+   "text": "música en 7/8 para estudiar",
+   "draft": 149,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G126",
+   "category": "unsupported",
+   "text": "playlist en francés para cocinar relajado",
+   "draft": 150,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 2,
+    "alts": [],
+    "facet": null
+   },
+   "note": "idioma y cocinar",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G127",
+   "category": "unsupported",
+   "text": "algo con voz femenina y guitarra acústica nada más para llorar tranquilo",
+   "draft": 151,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:catharsis"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G128",
+   "category": "unsupported",
+   "text": "pistas que empiecen con batería sola",
+   "draft": 152,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G129",
+   "category": "unsupported",
+   "text": "discos grabados en vivo en un bar pequeño",
+   "draft": 153,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G130",
+   "category": "unsupported",
+   "text": "versiones remasterizadas de los ochenta para el carro",
+   "draft": 154,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:travel",
+     "decade:1980s"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G131",
+   "category": "unsupported",
+   "text": "lo-fi con ruido de vinilo para dormir",
+   "draft": 155,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:sleep"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:production.fidelity-aesthetic"
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G132",
+   "category": "unsupported",
+   "text": "temas con saxofón y nada de sintetizadores",
+   "draft": 156,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 2,
+    "alts": [],
+    "facet": null
+   },
+   "note": "un atributo pedido y otro excluido",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G133",
+   "category": "unsupported",
+   "text": "álbum conceptual que cuente una sola historia de principio a fin",
+   "draft": 157,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:structure.narrative"
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G134",
+   "category": "unsupported",
+   "text": "temas enlazados sin pausas entre ellos",
+   "draft": 158,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:structure.continuity"
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G135",
+   "category": "unsupported",
+   "text": "voz al fondo de la mezcla con la batería adelante",
+   "draft": 159,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:vocals.prominence"
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G136",
+   "category": "unsupported",
+   "text": "canciones con sample de películas viejas",
+   "draft": 160,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:production.sources"
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G137",
+   "category": "unsupported",
+   "text": "música que suene a color azul y melancolía",
+   "draft": 161,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:melancholic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G138",
+   "category": "unsupported",
+   "text": "temas que ganen con las escuchas y al principio no enganchen",
+   "draft": 162,
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": "candidate:reception.acclimatization"
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G139",
+   "category": "unsupported",
+   "text": "pistas de percusión sin melodía para entrenar",
+   "draft": 163,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G140",
+   "category": "unsupported",
+   "text": "música instrumental en mandarín para leer",
+   "draft": 164,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:concentration",
+     "genre:instrumental"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G141",
+   "category": "unsupported",
+   "text": "canciones de exactamente tres minutos y medio para un viaje corto",
+   "draft": 165,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:travel"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G142",
+   "category": "decade",
+   "text": "música romántica de los 80 para dedicar",
+   "draft": 166,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "decade:1980s",
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G143",
+   "category": "decade",
+   "text": "rock de los 70 bueno para escuchar en carretera",
+   "draft": 167,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel",
+     "decade:1970s",
+     "genre:rock"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G144",
+   "category": "decade",
+   "text": "temas tristes de los 2000 para cuando estás bajoneado",
+   "draft": 168,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:2000s",
+     "emotion:sad"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G145",
+   "category": "clarify",
+   "text": "canciones de caliente",
+   "draft": 169,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "atmosphere:warm",
+     "emotion:sensual",
+     "energy:energy-high"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G146",
+   "category": "clarify",
+   "text": "aura",
+   "draft": 171,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "atmosphere:epic",
+     "emotion:confident",
+     "energy:energy-high"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G147",
+   "category": "clarify",
+   "text": "canciones para animarme",
+   "draft": 173,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "emotion:confident",
+     "emotion:euphoric",
+     "emotion:joyful"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G148",
+   "category": "clarify",
+   "text": "música pesada",
+   "draft": 174,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "energy:energy-high",
+     "genre:metal"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G149",
+   "category": "contradiction",
+   "text": "merengue pero sin merengue",
+   "draft": 176,
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "sustituye el borrador 176",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G150",
+   "category": "contradiction",
+   "text": "música de energía baja y de mucha energía",
+   "draft": 177,
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "sustituye el borrador 177",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G151",
+   "category": "contradiction",
+   "text": "canciones relajantes que no sean relajantes",
+   "draft": 178,
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "sustituye el borrador 178",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G152",
+   "category": "contradiction",
+   "text": "algo sensual pero nada sensual",
+   "draft": 179,
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "sustituye el borrador 179",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G153",
+   "category": "contradiction",
+   "text": "música oscura sin nada oscuro",
+   "draft": 180,
+   "gold": {
+    "status": "contradiction",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "sustituye el borrador 180",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G154",
+   "category": "multilingual",
+   "text": "happy songs to clean the house and dance",
+   "draft": 182,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:dancing",
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G155",
+   "category": "multilingual",
+   "text": "romantic dinner background music",
+   "draft": 183,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:socializing",
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G156",
+   "category": "multilingual",
+   "text": "sad songs for a rainy day",
+   "draft": 185,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G157",
+   "category": "described",
+   "text": "guitarras rápidas con solos melódicos y voz gutural, suena brutal pero con melodía",
+   "draft": 186,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:death-metal",
+     "genre:death-metal-melodico"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G158",
+   "category": "described",
+   "text": "música de margarita con cuatro y tambor, tempo tranquilo y letra picaresca",
+   "draft": 187,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:galeron",
+     "genre:malaguena",
+     "genre:musica-oriental",
+     "genre:polo-oriental"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G159",
+   "category": "described",
+   "text": "arpa, cuatro y maracas con ritmo de seis por derecho y zapateo",
+   "draft": 188,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:golpe-llanero",
+     "genre:joropo"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G160",
+   "category": "described",
+   "text": "metal con voces femeninas etéreas, teclados y atmósfera oscura y romántica",
+   "draft": 189,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:metal-gotico",
+     "genre:metal-sinfonico"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G161",
+   "category": "described",
+   "text": "ruido extremo, gritos, distorsión total y canciones de diez segundos",
+   "draft": 190,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:grindcore",
+     "genre:noisecore"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G162",
+   "category": "described",
+   "text": "música de Lara con violín, tambor y letra jocosa, se baila en rueda",
+   "draft": 191,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:golpe-larense",
+     "genre:tamunangue"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G163",
+   "category": "described",
+   "text": "violín, flauta y arpa con melodías antiguas de origen irlandés",
+   "draft": 192,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:folk",
+     "genre:folk-celta"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G164",
+   "category": "described",
+   "text": "música súper pesada, blast beats y gruñidos incomprensibles, sin melodía",
+   "draft": 193,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:brutal-death-metal",
+     "genre:death-metal",
+     "genre:grindcore"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G165",
+   "category": "described",
+   "text": "grabación casera con sonido sucio, chillidos y producción cruda de cassette",
+   "draft": 194,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:black-metal",
+     "genre:raw-black-metal"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G166",
+   "category": "described",
+   "text": "trompetas, congas, piano y coros con sabor caribeño para bailar",
+   "draft": 195,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:musica-tropical",
+     "genre:salsa",
+     "genre:son",
+     "genre:timba"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G167",
+   "category": "described",
+   "text": "ritmo lento con bajo pesado, letras de conciencia social y espiritualidad",
+   "draft": 196,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:reggae",
+     "genre:roots-reggae"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G168",
+   "category": "described",
+   "text": "metal rápido con voces agudas, coros épicos y solos virtuosos",
+   "draft": 197,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:heavy-metal",
+     "genre:power-metal",
+     "genre:speed-metal"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G169",
+   "category": "described",
+   "text": "tambores de procesión con sensación ternaria y cantos afrovenezolanos",
+   "draft": 198,
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [
+     "genre:sangueo",
+     "genre:tambor-afrovenezolano"
+    ],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G170",
+   "category": "entity",
+   "text": "busca la canción Papel Aluminio",
+   "draft": 199,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "papel aluminio"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G171",
+   "category": "entity",
+   "text": "busca la canción I Know It's You",
+   "draft": 200,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "i know it's you"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G172",
+   "category": "entity",
+   "text": "busca la canción Largo e sostenuto work",
+   "draft": 201,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "largo e sostenuto work"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G173",
+   "category": "entity",
+   "text": "busca la canción Mouthfucker",
+   "draft": 202,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "mouthfucker"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G174",
+   "category": "entity",
+   "text": "la canción «Talkie Talkie»",
+   "draft": 203,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "talkie talkie"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G175",
+   "category": "entity",
+   "text": "el tema Libera Tu Mente",
+   "draft": 204,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "libera tu mente"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G176",
+   "category": "entity",
+   "text": "el tema ¿Cuándo será?",
+   "draft": 205,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "¿cuando sera?"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G177",
+   "category": "entity",
+   "text": "busca el disco 2 Depressiv Ways to Die",
+   "draft": 206,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "album",
+      "literal": "2 depressiv ways to die"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G178",
+   "category": "entity",
+   "text": "el disco Runes",
+   "draft": 207,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "album",
+      "literal": "runes"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G179",
+   "category": "entity",
+   "text": "busca la banda Recipe Morado",
+   "draft": 208,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "recipe morado"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G180",
+   "category": "entity",
+   "text": "Eztado kritiko",
+   "draft": 209,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "eztado kritiko"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G181",
+   "category": "entity",
+   "text": "Syntagma Ensemble",
+   "draft": 210,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "syntagma ensemble"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G182",
+   "category": "entity",
+   "text": "Urban Menace",
+   "draft": 211,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "urban menace"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G183",
+   "category": "entity",
+   "text": "Ahankar",
+   "draft": 212,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "ahankar"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G184",
+   "category": "entity",
+   "text": "Alfredo Naranjo",
+   "draft": 213,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "alfredo naranjo"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G185",
+   "category": "entity",
+   "text": "Demarchi",
+   "draft": 214,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "demarchi"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G186",
+   "category": "entity",
+   "text": "Eduardo Noriega",
+   "draft": 215,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "eduardo noriega"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G187",
+   "category": "entity",
+   "text": "MAAN",
+   "draft": 216,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "maan"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G188",
+   "category": "entity",
+   "text": "temas de Holocausto",
+   "draft": 217,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "holocausto"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G189",
+   "category": "entity",
+   "text": "discos de Surverial",
+   "draft": 218,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "surverial"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G190",
+   "category": "entity",
+   "text": "canciones de Michael Lawrence",
+   "draft": 219,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "artist",
+      "literal": "michael lawrence"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G191",
+   "category": "entity",
+   "text": "la canción Rumba loca",
+   "draft": 220,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "rumba loca"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G192",
+   "category": "entity",
+   "text": "el tema The Six - Voy, Chica",
+   "draft": 221,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "the six - voy, chica"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G193",
+   "category": "entity",
+   "text": "canción \"Santa Barabara Bendita\"",
+   "draft": 222,
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "target",
+      "kind": "track",
+      "literal": "santa barabara bendita"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G194",
+   "category": "similarity",
+   "text": "algo parecido a Miercoles Insolitos",
+   "draft": 223,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "miercoles insolitos"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G195",
+   "category": "similarity",
+   "text": "bandas como Grupo Sierra",
+   "draft": 224,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "grupo sierra"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G196",
+   "category": "similarity",
+   "text": "música similar a Ensamble Gurrufío",
+   "draft": 225,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "ensamble gurrufio"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G197",
+   "category": "similarity",
+   "text": "parecido a Flesh Impaled en la voz",
+   "draft": 226,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:voice"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "flesh impaled"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G198",
+   "category": "similarity",
+   "text": "al estilo de Cinema Doom en las guitarras",
+   "draft": 227,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:guitars"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "cinema doom"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G199",
+   "category": "similarity",
+   "text": "que suene como Anguera en la producción",
+   "draft": 228,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:production"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "anguera"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G200",
+   "category": "similarity",
+   "text": "como Menoles pero más triste",
+   "draft": 229,
+   "gold": {
+    "status": "partial",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "menoles"
+     }
+    ],
+    "pending": 1,
+    "alts": [],
+    "facet": null
+   },
+   "note": "comparativo no representable",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G201",
+   "category": "similarity",
+   "text": "parecido a New Caracas en el ambiente",
+   "draft": 230,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:atmosphere"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "new caracas"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G202",
+   "category": "similarity",
+   "text": "algo al estilo de Luis Rafael Mojica para manejar",
+   "draft": 231,
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel",
+     "similarity:overall"
+    ],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "role": "reference",
+      "kind": "artist",
+      "literal": "luis rafael mojica"
+     }
+    ],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G203",
+   "category": "noise",
+   "text": "zzzz qq",
+   "draft": 232,
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "sustituye «qwrt pfff» (repetida de 3.0.0)",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G204",
+   "category": "noise",
+   "text": "vainas",
+   "draft": 233,
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "sustituye «temas» (repetida de 3.0.0)",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  },
+  {
+   "id": "G205",
+   "category": "noise",
+   "text": "algo chido",
+   "draft": 234,
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "any": [],
+    "pref": [],
+    "ctx": 0,
+    "ent": [],
+    "pending": 0,
+    "alts": [],
+    "facet": null
+   },
+   "note": "sustituye «algo nice» (repetida de 3.0.0); valoración sin criterio",
+   "split": "test_reserved",
+   "author": "Redacción DeepSeek flash (borrador sorteado, semilla 71) · etiquetas Claude (encargo de Brian, 2026-10-25)"
+  }
+ ]
+}
