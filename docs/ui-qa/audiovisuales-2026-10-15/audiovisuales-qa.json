@@ -1,0 +1,51 @@
+{
+  "base": "http://127.0.0.1:3120/crv",
+  "results": [
+    {
+      "name": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "filters": true,
+      "chapterSeekSeconds": 246,
+      "sharedPlayer": true,
+      "keyboardTabs": true,
+      "noOverflow": true,
+      "noPageErrors": true
+    },
+    {
+      "name": "mobile",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "filters": true,
+      "chapterSeekSeconds": 246,
+      "sharedPlayer": true,
+      "keyboardTabs": true,
+      "noOverflow": true,
+      "noPageErrors": true
+    }
+  ],
+  "migratedAlbums": true,
+  "gasolinePreserved": true,
+  "unverifiedAndEmptyStates": true,
+  "playerApi": "simulada; disponibilidad y datos reales del catálogo",
+  "migrationReadback": {
+    "artists": [
+      259,
+      266,
+      2946,
+      109
+    ],
+    "retiredAlbums": [
+      5119,
+      5120,
+      5123,
+      529
+    ],
+    "gasolineAlbum": 5122,
+    "gasolineTracks": 5
+  }
+}

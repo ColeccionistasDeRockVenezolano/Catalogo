@@ -1,0 +1,2 @@
+.home-video__open--unavailable { cursor: default; }
+.home-video__thumb > svg { position: absolute; inset: 0; margin: auto; color: var(--text-muted); }

@@ -1,0 +1,91 @@
+{
+  "base": "http://127.0.0.1:3120/crv",
+  "results": [
+    {
+      "width": 1440,
+      "albumId": 521,
+      "artist": "Candy66",
+      "title": "Acústico En Bits Session",
+      "verifiedButtonsAndSeeks": 8
+    },
+    {
+      "width": 1440,
+      "albumId": 539,
+      "artist": "Telegrama",
+      "title": "Country Club",
+      "verifiedButtonsAndSeeks": 1
+    },
+    {
+      "width": 1440,
+      "albumId": 3456,
+      "artist": "Mermelada Bunch",
+      "title": "15 Años - El Concierto",
+      "verifiedButtonsAndSeeks": 16
+    },
+    {
+      "width": 1440,
+      "albumId": 4078,
+      "artist": "Franco De Vita",
+      "title": "Mil y Una Historias En Vivo",
+      "verifiedButtonsAndSeeks": 21
+    },
+    {
+      "width": 1440,
+      "albumId": 4246,
+      "artist": "Ilan Chester",
+      "title": "Ilan En Vivo",
+      "verifiedButtonsAndSeeks": 13
+    },
+    {
+      "width": 1440,
+      "albumId": 5122,
+      "artist": "Gasolina",
+      "title": "Blues Criollo",
+      "verifiedButtonsAndSeeks": 5
+    },
+    {
+      "width": 390,
+      "albumId": 521,
+      "artist": "Candy66",
+      "title": "Acústico En Bits Session",
+      "verifiedButtonsAndSeeks": 8
+    },
+    {
+      "width": 390,
+      "albumId": 539,
+      "artist": "Telegrama",
+      "title": "Country Club",
+      "verifiedButtonsAndSeeks": 1
+    },
+    {
+      "width": 390,
+      "albumId": 3456,
+      "artist": "Mermelada Bunch",
+      "title": "15 Años - El Concierto",
+      "verifiedButtonsAndSeeks": 16
+    },
+    {
+      "width": 390,
+      "albumId": 4078,
+      "artist": "Franco De Vita",
+      "title": "Mil y Una Historias En Vivo",
+      "verifiedButtonsAndSeeks": 21
+    },
+    {
+      "width": 390,
+      "albumId": 4246,
+      "artist": "Ilan Chester",
+      "title": "Ilan En Vivo",
+      "verifiedButtonsAndSeeks": 13
+    },
+    {
+      "width": 390,
+      "albumId": 5122,
+      "artist": "Gasolina",
+      "title": "Blues Criollo",
+      "verifiedButtonsAndSeeks": 5
+    }
+  ],
+  "totalButtonsAndSeeks": 128,
+  "playerApi": "simulada para verificar cada orden seek/play; metadatos y API del catálogo reales"
+}
