@@ -425,3 +425,69 @@ Otros fallos:
 ./scripts/stage3/query_eval.sh <variante|base> <dir> reserved   # una vez por versión
 ~/.venvs/laya/bin/python scripts/stage3/build_evaluation.py query|evidence ...
 ```
+
+## Versión 1.5.0 (criterios `criteria-1.5.0.json`, prueba reservada de consultas 6.0.0)
+
+Mismos umbrales. Solo se evalúan consultas.
+
+La prueba 6.0.0 (`datasets/query-test-reserved-6.json`, 205 casos) se redactó con DeepSeek flash con semilla 71, con la misma especificación. Se etiquetó con `author_reserved_query_test_v6.py` y se congeló en el commit 1ae8ef4c, antes de corregir. A diferencia de 5.0.0, conserva las cláusulas de refuerzo como relleno: son parte de cómo se escribe una consulta real. Sustituye las tres frases de ruido repetidas de 3.0.0.
+
+La prueba 5.0.0 pasa a ser de desarrollo.
+
+**Salvedades de independencia.** Las mismas que en 1.3.0: el mismo autor etiqueta y corrige. Las correcciones de léxico citan solo casos de 5.0.0.
+
+**Cambios.**
+- Suplemento de fragmentos 0.4.0 (DeepSeek flash, 66 llamadas, 945 frases):
+  - cláusulas de refuerzo por concepto, etiquetadas como relleno y emparejadas con el concepto que refuerzan;
+  - intensificadores de energía alta y baja.
+  - Se descartan las cláusulas con palabras que la convención deja pendientes (dedicar, duración, tempo, instrumentos, voz, idioma, época, popularidad).
+- Composición 0.7.0 (semilla 11): nueva categoría «elaboration» (concepto seguido de su cláusula de refuerzo), con 437 casos en entrenamiento.
+- Léxico 0.6.0:
+  - «mucha potencia», «mucho ritmo» y «rápido y fuerte» son energía alta (F033, F065, F073);
+  - «carro» y «paseo en carro» son viaje (F034, F099, F141);
+  - «fino» es relleno;
+  - dedicar, limpiar, cocinar, orar y rezar son ocasiones no representables (F076; convención desde 3.0.0).
+- Modelo `crv-query-heads-0.9.0`: mismos hiperparámetros que 0.7.0; época 2, validación 0,947.
+- En desarrollo sobre 5.0.0, la exactitud pasa de 0,772 (0.7.0 con el mismo léxico) a 0,817.
+
+| Criterio | 0.9.0 | Umbral | Cumple |
+| --- | --- | --- | --- |
+| Exactitud | 0,741 | ≥ 0,85 | no |
+| Adversariales | 0,821 | ≥ 0,80 | sí |
+| Críticos | 0,039 | ≤ 0,02 | no |
+| Obligatorios | 5/5 | 5/5 | sí |
+| Pendientes conservados | 0,882 | ≥ 0,95 | no |
+| Sobreabstención | 0,049 | ≤ 0,10 | sí |
+| Sobreconfianza | 0,195 | ≤ 0,05 | no |
+| F1 de condiciones | 0,921 | ≥ 0,90 | sí |
+| Género descrito, acierto entre tres | 0,692 | ≥ 0,70 | no |
+| Tráfico real sin invención | 1,0 | ≥ 0,98 | sí |
+| Latencia p95 | 264 ms | ≤ 500 | sí |
+| ECE máxima (validación) | 0,050 | ≤ 0,10 | sí |
+| Margen sobre las reglas heredadas | 0,561 | ≥ 0,20 | sí |
+| Críticos frente a reglas sin modelo | 0,039 frente a 0,020 | no peor | no |
+
+Exactitud de los otros sistemas en la misma prueba:
+
+| Sistema | Exactitud |
+| --- | --- |
+| Base sin especializar | 0,293 |
+| Reglas | 0,639 |
+| Heredado | 0,180 |
+
+**No cumple; no se activa.**
+
+**Fallos (la prueba 6.0.0 ya es de desarrollo para una versión siguiente).**
+- Refuerzos que siguen pendientes: «agarrar sueño rápido», «que mezclen emociones encontradas», «para sentir exaltación», «grandiosa y dramática», «psicodélico explícito», «durante diciembre», «para diciembre».
+- Pendientes perdidos (los críticos):
+  - «metalcore nuevas», «salsa brava», «para la playa», «reguetón viejo», «que todos conozcan»;
+  - «clean the house», además leído como `genre:house`.
+  - El suplemento enseñó a descartar cláusulas y ahora descarta también restricciones reales.
+- Género descrito: 0,833 en 5.0.0 y 0,692 en 6.0.0 (tropical caribeño, golpe larense y metal gótico sin acierto).
+- Concepto de más: «ambiente amenazante» con `atmosphere:epic`, «etérea flotante» con energía baja, «onírica que suene a ensueño» como parecido a una entidad.
+
+**Diagnóstico de las cinco versiones evaluadas (1.0.0–1.5.0).** En desarrollo, las pruebas ya gastadas llegan a 0,92–0,97. Cada prueba nueva da 0,70–0,85: 0,834, 0,704, 0,854, 0,750 y 0,741.
+
+La frontera entre relleno y restricción pendiente es la que decide los casos. Inclinar el banco hacia un lado mejora un criterio y empeora el otro: en 1.5.0 la sobreconfianza baja en desarrollo y los pendientes perdidos suben.
+
+Con datos sintéticos de un solo redactor (DeepSeek) y etiquetas de un solo autor, el sistema no generaliza al umbral de 0,85. Seguir iterando con el mismo método gasta una prueba reservada por versión sin señal de convergencia.
