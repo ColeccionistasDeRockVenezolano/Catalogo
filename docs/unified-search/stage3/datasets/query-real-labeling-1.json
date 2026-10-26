@@ -1,0 +1,2103 @@
+{
+ "version": "crv-query-real-labeling-1.0.0",
+ "builtAt": "2026-10-25",
+ "builtBy": "scripts/stage3/build_real_query_batch.py",
+ "decision": "Brian, 2026-10-25: «consultas reales etiquetadas por una persona» (opción 1 tras la versión 1.5.0)",
+ "sources": {
+  "suggestions": {
+   "file": "suggestions-raw.jsonl",
+   "sha256": "f01a870171471976b0254e2148c607f457bcb1179b8895f574c1da2dfc5cead7",
+   "responses": 4426,
+   "eligibleMusical": 20466,
+   "seeds": 1913,
+   "coverage": "La cosecha del 2026-10-25 se detuvo cuando Google respondió 403 (límite de frecuencia): faltan las semillas de géneros desde «punk» y las de conceptos sueltos."
+  },
+  "site": {
+   "tables": [
+    "ingest.search_misses",
+    "ingest.search_operations"
+   ],
+   "queries": 29
+  }
+ },
+ "selection": {
+  "seed": 97,
+  "size": 300,
+  "perSeedCap": 2,
+  "testShare": 0.4
+ },
+ "policy": "Etiqueta humana a ciegas: la página no muestra la lectura del sistema. La partición se sorteó antes de etiquetar. Las consultas test_real_human forman la prueba de la versión 1.6.0 y no se usan para reglas, léxico ni entrenamiento.",
+ "items": [
+  {
+   "id": "RL0001",
+   "text": "musica venezolana sinfonica",
+   "source": "youtube_suggest",
+   "seed": "musica venezolana s",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0002",
+   "text": "damián galerón",
+   "source": "youtube_suggest",
+   "seed": "galerón",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0003",
+   "text": "canciones de peso pluma",
+   "source": "youtube_suggest",
+   "seed": "canciones de p",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0004",
+   "text": "musica instrumental zamba",
+   "source": "youtube_suggest",
+   "seed": "musica instrumental z",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0005",
+   "text": "avant garde o que é",
+   "source": "web_suggest",
+   "seed": "avant-garde que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0006",
+   "text": "deathcore metal",
+   "source": "youtube_suggest",
+   "seed": "deathcore",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0007",
+   "text": "jazz rap rym",
+   "source": "web_suggest",
+   "seed": "jazz rap",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0008",
+   "text": "musica con ritmo para hacer ejercicio",
+   "source": "youtube_suggest",
+   "seed": "musica con r",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0009",
+   "text": "musica para bailar tubo",
+   "source": "web_suggest",
+   "seed": "musica para bailar t",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0010",
+   "text": "xxtenations musica fuerte",
+   "source": "youtube_suggest",
+   "seed": "musica fuerte x",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0011",
+   "text": "canciones parecidas a wonderwall",
+   "source": "web_suggest",
+   "seed": "canciones parecidas a w",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0012",
+   "text": "musica como no creer en dios",
+   "source": "youtube_suggest",
+   "seed": "musica como n",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0013",
+   "text": "rock para concentrarse",
+   "source": "youtube_suggest",
+   "seed": "rock para c",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0014",
+   "text": "Dannyt",
+   "source": "search_miss",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0015",
+   "text": "cantante de cumbia venezolano",
+   "source": "youtube_suggest",
+   "seed": "cumbia venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0016",
+   "text": "canciones para dedicar hombres mujeriegos",
+   "source": "youtube_suggest",
+   "seed": "canciones para dedicar h",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0017",
+   "text": "música para xbox",
+   "source": "youtube_suggest",
+   "seed": "música para x",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0018",
+   "text": "musica para carro grave",
+   "source": "youtube_suggest",
+   "seed": "musica para el carro g",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0019",
+   "text": "canciones para dedicar en notas de ig",
+   "source": "web_suggest",
+   "seed": "canciones para dedicar e",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0020",
+   "text": "playlist para running",
+   "source": "youtube_suggest",
+   "seed": "playlist para r",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0021",
+   "text": "salsa para olvidar un amor",
+   "source": "youtube_suggest",
+   "seed": "salsa para o",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0022",
+   "text": "zane musica oscura",
+   "source": "youtube_suggest",
+   "seed": "musica oscura z",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0023",
+   "text": "melodic metal.website",
+   "source": "web_suggest",
+   "seed": "melodic metal",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0024",
+   "text": "canciones para dedicar al amor de tu vida",
+   "source": "youtube_suggest",
+   "seed": "canciones para dedicar a",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0025",
+   "text": "descarga mbps que significa",
+   "source": "web_suggest",
+   "seed": "descarga que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0026",
+   "text": "musica relajante sonidos mar",
+   "source": "web_suggest",
+   "seed": "musica relajante s",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0027",
+   "text": "bandas de viking metal",
+   "source": "youtube_suggest",
+   "seed": "bandas de v",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0028",
+   "text": "punk rock girl queers",
+   "source": "youtube_suggest",
+   "seed": "punk rock que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0029",
+   "text": "canciones de los ecos",
+   "source": "web_suggest",
+   "seed": "canciones de los e",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0030",
+   "text": "jazz funk house",
+   "source": "youtube_suggest",
+   "seed": "jazz funk",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0031",
+   "text": "deathrock que es",
+   "source": "web_suggest",
+   "seed": "deathrock que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0032",
+   "text": "Abolitino",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0033",
+   "text": "jazz cuatro venezolano",
+   "source": "youtube_suggest",
+   "seed": "jazz venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0034",
+   "text": "oi que es",
+   "source": "web_suggest",
+   "seed": "oi! que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0035",
+   "text": "musica para tener sexo",
+   "source": "search_miss",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0036",
+   "text": "salsa para raviolis de espinacas y ricotta",
+   "source": "web_suggest",
+   "seed": "salsa para r",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0037",
+   "text": "musica venezolana para colorear",
+   "source": "web_suggest",
+   "seed": "música venezolana para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0038",
+   "text": "malagueña salerosa antonio aguilar",
+   "source": "youtube_suggest",
+   "seed": "malagueña",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0039",
+   "text": "power pop que es",
+   "source": "web_suggest",
+   "seed": "power pop que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0040",
+   "text": "4tor",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0041",
+   "text": "salsa para vivir los dos",
+   "source": "youtube_suggest",
+   "seed": "salsa para v",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0042",
+   "text": "música nueva afro",
+   "source": "youtube_suggest",
+   "seed": "musica nueva a",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0043",
+   "text": "noise 8",
+   "source": "youtube_suggest",
+   "seed": "noise",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0044",
+   "text": "death toll fnf",
+   "source": "youtube_suggest",
+   "seed": "death and roll",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0045",
+   "text": "joropo nacionalista venezolano",
+   "source": "youtube_suggest",
+   "seed": "joropo fusión venezolano",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0046",
+   "text": "canciones para gym",
+   "source": "youtube_suggest",
+   "seed": "canciones para g",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0047",
+   "text": "canciones de los dos carnales",
+   "source": "web_suggest",
+   "seed": "canciones de los d",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0048",
+   "text": "algo para un cumpleaños",
+   "source": "youtube_suggest",
+   "seed": "algo para u",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0049",
+   "text": "música rápida de",
+   "source": "web_suggest",
+   "seed": "musica rapida d",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0050",
+   "text": "Abddon",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0051",
+   "text": "música tipo uma ideia",
+   "source": "youtube_suggest",
+   "seed": "musica tipo u",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0052",
+   "text": "idm para firefox",
+   "source": "web_suggest",
+   "seed": "idm para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0053",
+   "text": "musica para amanecer en la playa",
+   "source": "web_suggest",
+   "seed": "musica para la playa a",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0054",
+   "text": "musica instrumental china",
+   "source": "youtube_suggest",
+   "seed": "musica instrumental c",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0055",
+   "text": "musica para cuando te rompen el corazon",
+   "source": "youtube_suggest",
+   "seed": "musica para cuando",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0056",
+   "text": "cbd",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0057",
+   "text": "punk en venezuela",
+   "source": "youtube_suggest",
+   "seed": "punk venezolano",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0058",
+   "text": "musica suave en frances",
+   "source": "web_suggest",
+   "seed": "musica suave e",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0059",
+   "text": "post black metal que es",
+   "source": "web_suggest",
+   "seed": "post-black metal que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0060",
+   "text": "bandas sonoras para llorar",
+   "source": "youtube_suggest",
+   "seed": "bandas sonoras para",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0061",
+   "text": "la musica como influye en las personas",
+   "source": "web_suggest",
+   "seed": "musica como i",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0062",
+   "text": "música suave tranquilizante",
+   "source": "web_suggest",
+   "seed": "musica suave t",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0063",
+   "text": "música del grupo fuerte",
+   "source": "web_suggest",
+   "seed": "musica fuerte g",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0064",
+   "text": "jazz funk que es",
+   "source": "youtube_suggest",
+   "seed": "jazz funk que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0065",
+   "text": "neopsicodelia rym",
+   "source": "web_suggest",
+   "seed": "neopsicodelia",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0066",
+   "text": "canciones tristes en español para llorar",
+   "source": "youtube_suggest",
+   "seed": "canciones tristes e",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0067",
+   "text": "pbuck",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0068",
+   "text": "musica relajante zulu",
+   "source": "youtube_suggest",
+   "seed": "musica relajante z",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0069",
+   "text": "musica que llego para quedarse",
+   "source": "web_suggest",
+   "seed": "musica que l",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0070",
+   "text": "canciones de feliz cumpleaños",
+   "source": "youtube_suggest",
+   "seed": "canciones de f",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0071",
+   "text": "musica clasica pesada y oscura",
+   "source": "youtube_suggest",
+   "seed": "musica oscura y",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0072",
+   "text": "musica para stories carro",
+   "source": "web_suggest",
+   "seed": "musica para el carro s",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0073",
+   "text": "blackened thrash metal",
+   "source": "youtube_suggest",
+   "seed": "blackened crust que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0074",
+   "text": "musica para bailar gasolina",
+   "source": "youtube_suggest",
+   "seed": "musica para bailar g",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0075",
+   "text": "boom bap rapido",
+   "source": "youtube_suggest",
+   "seed": "boom bap venezolano",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0076",
+   "text": "musica romantica jesse y joy mix",
+   "source": "youtube_suggest",
+   "seed": "musica romantica j",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0077",
+   "text": "la musica está fuerte no te puedo escuchar",
+   "source": "youtube_suggest",
+   "seed": "musica fuerte w",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0078",
+   "text": "musica para cuando te gusta alguien",
+   "source": "youtube_suggest",
+   "seed": "musica para cuando t",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0079",
+   "text": "musica nueva velito el bufon",
+   "source": "web_suggest",
+   "seed": "musica nueva v",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0080",
+   "text": "musica sin audio",
+   "source": "youtube_suggest",
+   "seed": "musica sin a",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0081",
+   "text": "musica para escuchar trabajando alegre",
+   "source": "youtube_suggest",
+   "seed": "musica para escuchar t",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0082",
+   "text": "musica epica motivadora",
+   "source": "youtube_suggest",
+   "seed": "musica epica",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0083",
+   "text": "blues que sana el alma adoracion",
+   "source": "youtube_suggest",
+   "seed": "blues que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0084",
+   "text": "grupos de grunge",
+   "source": "web_suggest",
+   "seed": "grupos de g",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0085",
+   "text": "musica para bailar vals en boda",
+   "source": "web_suggest",
+   "seed": "musica para bailar v",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0086",
+   "text": "death metal progresivo bandas",
+   "source": "web_suggest",
+   "seed": "death metal progresivo",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0087",
+   "text": "tambor venezolano guaracha",
+   "source": "youtube_suggest",
+   "seed": "guaracha venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0088",
+   "text": "Venezie",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0089",
+   "text": "big band queen",
+   "source": "youtube_suggest",
+   "seed": "big band que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0090",
+   "text": "doom metal paradise lost",
+   "source": "youtube_suggest",
+   "seed": "doom metal para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0091",
+   "text": "musica vieja guardia",
+   "source": "youtube_suggest",
+   "seed": "musica vieja g",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0092",
+   "text": "imagenes de black metal depresivo",
+   "source": "web_suggest",
+   "seed": "black metal depresivo",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0093",
+   "text": "musica epica de thegrefg",
+   "source": "youtube_suggest",
+   "seed": "musica epica d",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0094",
+   "text": "salsa para untar con galletas",
+   "source": "web_suggest",
+   "seed": "salsa para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0095",
+   "text": "musica rapida trap",
+   "source": "youtube_suggest",
+   "seed": "musica rapida t",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0096",
+   "text": "música de los huracanes del norte",
+   "source": "web_suggest",
+   "seed": "musica de los h",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0097",
+   "text": "musica para orar sin interrupciones",
+   "source": "web_suggest",
+   "seed": "musica sin o",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0098",
+   "text": "easy listening for beginners",
+   "source": "web_suggest",
+   "seed": "easy listening",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0099",
+   "text": "canciones tristes de led zeppelin",
+   "source": "web_suggest",
+   "seed": "canciones tristes z",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0100",
+   "text": "VenezuelaDeo",
+   "source": "search_miss",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0101",
+   "text": "canciones parecidas a interstellar",
+   "source": "youtube_suggest",
+   "seed": "canciones parecidas a i",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0102",
+   "text": "musica relajante arabe",
+   "source": "youtube_suggest",
+   "seed": "musica relajante a",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0103",
+   "text": "canciones para llorar en español",
+   "source": "web_suggest",
+   "seed": "canciones para l",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0104",
+   "text": "Sal sal",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0105",
+   "text": "Jose Manue Coraspe",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0106",
+   "text": "musica tipo daft punk",
+   "source": "youtube_suggest",
+   "seed": "musica tipo d",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0107",
+   "text": "musica xamanica alegre",
+   "source": "youtube_suggest",
+   "seed": "musica alegre x",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0108",
+   "text": "musica alegre de los 90",
+   "source": "web_suggest",
+   "seed": "musica alegre d",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0109",
+   "text": "pop rock artistas",
+   "source": "web_suggest",
+   "seed": "pop rock",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0110",
+   "text": "música clásica para meditar",
+   "source": "web_suggest",
+   "seed": "música clásica",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0111",
+   "text": "musica sin epicenter",
+   "source": "youtube_suggest",
+   "seed": "musica sin e",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0112",
+   "text": "canciones de los wow wow",
+   "source": "youtube_suggest",
+   "seed": "canciones de los w",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0113",
+   "text": "musica epica willyrex",
+   "source": "youtube_suggest",
+   "seed": "musica epica w",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0114",
+   "text": "hip hop que tipo de musica es",
+   "source": "web_suggest",
+   "seed": "hip hop que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0115",
+   "text": "musica nueva romeo",
+   "source": "youtube_suggest",
+   "seed": "musica nueva r",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0116",
+   "text": "old school death metal album",
+   "source": "web_suggest",
+   "seed": "death metal old school",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0117",
+   "text": "canciones tristes de wisin y yandel",
+   "source": "web_suggest",
+   "seed": "canciones tristes w",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0118",
+   "text": "canciones para dedicar q mi novio",
+   "source": "youtube_suggest",
+   "seed": "canciones para dedicar q",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0119",
+   "text": "musica nueva de rawayana",
+   "source": "web_suggest",
+   "seed": "musica nueva d",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0120",
+   "text": "Chucknorria",
+   "source": "search_miss",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0121",
+   "text": "canciones que canto xavi en la casa de los famosos",
+   "source": "web_suggest",
+   "seed": "canciones que x",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0122",
+   "text": "noisecore playlist",
+   "source": "youtube_suggest",
+   "seed": "noisecore",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0123",
+   "text": "cantautor manny",
+   "source": "youtube_suggest",
+   "seed": "cantautor",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0124",
+   "text": "canciones tristes navidad",
+   "source": "youtube_suggest",
+   "seed": "canciones tristes n",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0125",
+   "text": "canciones para cuando alguien se va al cielo",
+   "source": "youtube_suggest",
+   "seed": "canciones para cuando a",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0126",
+   "text": "canciones alegres navideñas para niños",
+   "source": "youtube_suggest",
+   "seed": "canciones alegres n",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0127",
+   "text": "canciones que te hacen llorar",
+   "source": "youtube_suggest",
+   "seed": "canciones que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0128",
+   "text": "rock venezolano años 80",
+   "source": "web_suggest",
+   "seed": "rock venezolano a",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0129",
+   "text": "death metal brasil",
+   "source": "youtube_suggest",
+   "seed": "death groove metal venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0130",
+   "text": "musica para escuchar variada en ingles",
+   "source": "youtube_suggest",
+   "seed": "musica para escuchar v",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0131",
+   "text": "MDT",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0132",
+   "text": "canciones para hermanos en español",
+   "source": "web_suggest",
+   "seed": "canciones para h",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0133",
+   "text": "pop latino mix 2025",
+   "source": "youtube_suggest",
+   "seed": "pop latino",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0134",
+   "text": "playlist para limpiar tu cuarto",
+   "source": "youtube_suggest",
+   "seed": "playlist para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0135",
+   "text": "canciones con el cuatro",
+   "source": "youtube_suggest",
+   "seed": "canciones con e",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0136",
+   "text": "a que llamamos musica de camara",
+   "source": "web_suggest",
+   "seed": "música de cámara que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0137",
+   "text": "musica de los años 50",
+   "source": "youtube_suggest",
+   "seed": "musica de los a",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0138",
+   "text": "industrial para dibujar",
+   "source": "web_suggest",
+   "seed": "industrial para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0139",
+   "text": "canciones con una sola cuerda guitarra",
+   "source": "youtube_suggest",
+   "seed": "canciones con u",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0140",
+   "text": "música para william",
+   "source": "youtube_suggest",
+   "seed": "música para w",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0141",
+   "text": "musica vieja chida",
+   "source": "youtube_suggest",
+   "seed": "musica vieja x",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0142",
+   "text": "joropo venezolanos",
+   "source": "youtube_suggest",
+   "seed": "joropo fusión venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0143",
+   "text": "musica navideña para hacer hallacas",
+   "source": "youtube_suggest",
+   "seed": "música navideña para",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0144",
+   "text": "musica con notas musicales",
+   "source": "web_suggest",
+   "seed": "musica con n",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0145",
+   "text": "que musica escuchar cuando estas aburrido",
+   "source": "web_suggest",
+   "seed": "que escuchar cuando a",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0146",
+   "text": "canciones para hacer oficio",
+   "source": "youtube_suggest",
+   "seed": "canciones para cuando o",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0147",
+   "text": "polo margariteño",
+   "source": "youtube_suggest",
+   "seed": "polo oriental",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0148",
+   "text": "salsa para yuca frita",
+   "source": "youtube_suggest",
+   "seed": "salsa para y",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0149",
+   "text": "música vieja tangos",
+   "source": "web_suggest",
+   "seed": "musica vieja t",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0150",
+   "text": "playlist para entrenar",
+   "source": "youtube_suggest",
+   "seed": "playlist para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0151",
+   "text": "canciones de brasil",
+   "source": "youtube_suggest",
+   "seed": "canciones de b",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0152",
+   "text": "sweet 74",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0153",
+   "text": "wisin y yandel canciones para dedicar",
+   "source": "youtube_suggest",
+   "seed": "canciones para dedicar w",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0154",
+   "text": "dancehall venezolano",
+   "source": "youtube_suggest",
+   "seed": "dancehall venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0155",
+   "text": "salsa para recordar mix",
+   "source": "youtube_suggest",
+   "seed": "salsa para r",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0156",
+   "text": "gaban pajaro venezolano",
+   "source": "web_suggest",
+   "seed": "gabán venezolano",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0157",
+   "text": "canciones parecidas a julio jaramillo",
+   "source": "web_suggest",
+   "seed": "canciones parecidas a j",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0158",
+   "text": "música sin querer",
+   "source": "youtube_suggest",
+   "seed": "musica sin q",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0159",
+   "text": "que musica escuchar para correr",
+   "source": "web_suggest",
+   "seed": "que musica escuchar p",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0160",
+   "text": "gabán ave llanera",
+   "source": "web_suggest",
+   "seed": "gabán",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0161",
+   "text": "OverkrainOverkrain",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0162",
+   "text": "joropo para dibujar",
+   "source": "web_suggest",
+   "seed": "joropo para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0163",
+   "text": "acid jazz en español",
+   "source": "web_suggest",
+   "seed": "acid jazz",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0164",
+   "text": "rock venezolano 80 y 90",
+   "source": "youtube_suggest",
+   "seed": "rock venezolano y",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0165",
+   "text": "musica wixarika",
+   "source": "youtube_suggest",
+   "seed": "musica como w",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0166",
+   "text": "glitch que series tiene",
+   "source": "web_suggest",
+   "seed": "glitch que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0167",
+   "text": "música vieja de jaime zavala",
+   "source": "youtube_suggest",
+   "seed": "musica vieja z",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0168",
+   "text": "música nueva luna",
+   "source": "web_suggest",
+   "seed": "musica nueva l",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0169",
+   "text": "musica instrumental franco de vita",
+   "source": "youtube_suggest",
+   "seed": "musica instrumental f",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0170",
+   "text": "salsa para orula",
+   "source": "youtube_suggest",
+   "seed": "salsa para o",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0171",
+   "text": "bandas sonoras mexicanas",
+   "source": "youtube_suggest",
+   "seed": "bandas sonoras venezolano",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0172",
+   "text": "musica romantica zumba",
+   "source": "youtube_suggest",
+   "seed": "musica romantica z",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0173",
+   "text": "algo para relajarse",
+   "source": "youtube_suggest",
+   "seed": "algo para r",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0174",
+   "text": "grupo venezolano funk",
+   "source": "web_suggest",
+   "seed": "funk venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0175",
+   "text": "Overkrainv",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0176",
+   "text": "musica con instrumentos",
+   "source": "youtube_suggest",
+   "seed": "musica con i",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0177",
+   "text": "musica con zampoña y charango",
+   "source": "youtube_suggest",
+   "seed": "musica con z",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0178",
+   "text": "Kechu y",
+   "source": "search_miss",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0179",
+   "text": "folk parada 1987",
+   "source": "youtube_suggest",
+   "seed": "folk para",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0180",
+   "text": "canciones para dedicar la llegada de un bebe",
+   "source": "web_suggest",
+   "seed": "canciones para dedicar l",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0181",
+   "text": "musica suave leer",
+   "source": "youtube_suggest",
+   "seed": "musica suave l",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0182",
+   "text": "jazz progresivo",
+   "source": "youtube_suggest",
+   "seed": "jazz fusión que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0183",
+   "text": "canciones alegres en español para trabajar",
+   "source": "youtube_suggest",
+   "seed": "canciones alegres e",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0184",
+   "text": "musica romantica los terricolas",
+   "source": "youtube_suggest",
+   "seed": "musica romantica l",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0185",
+   "text": "musica para leer la biblia",
+   "source": "youtube_suggest",
+   "seed": "musica para l",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0186",
+   "text": "ater vitae",
+   "source": "search_miss",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0187",
+   "text": "musica de camara para guitarra",
+   "source": "web_suggest",
+   "seed": "música de cámara para",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0188",
+   "text": "brutal death metal mexicano",
+   "source": "youtube_suggest",
+   "seed": "brutal death metal",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0189",
+   "text": "Seguridad Nacional",
+   "source": "search_operation",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0190",
+   "text": "cold wave paragraph",
+   "source": "youtube_suggest",
+   "seed": "coldwave para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0191",
+   "text": "musica lenta harmonia do samba",
+   "source": "web_suggest",
+   "seed": "musica lenta h",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0192",
+   "text": "musica lenta años 70",
+   "source": "youtube_suggest",
+   "seed": "musica lenta a",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0193",
+   "text": "musica venezolana saturada",
+   "source": "youtube_suggest",
+   "seed": "musica venezolana s",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0194",
+   "text": "johnny pacheco guaguanco pal que sabe",
+   "source": "web_suggest",
+   "seed": "guaguancó que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0195",
+   "text": "metelli",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0196",
+   "text": "musica triste hello darkness my old friend",
+   "source": "youtube_suggest",
+   "seed": "musica triste h",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0197",
+   "text": "canciones para cuando estás haciendo tarea",
+   "source": "youtube_suggest",
+   "seed": "canciones para cuando e",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0198",
+   "text": "pop rock queen baltimora",
+   "source": "youtube_suggest",
+   "seed": "pop rock que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0199",
+   "text": "sweet 75",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0200",
+   "text": "música tradicional venezolana",
+   "source": "youtube_suggest",
+   "seed": "música andina venezolana venezolano",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0201",
+   "text": "canciones tristes videos tristes",
+   "source": "youtube_suggest",
+   "seed": "canciones tristes v",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0202",
+   "text": "canciones que inspiran en ingles",
+   "source": "youtube_suggest",
+   "seed": "canciones que i",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0203",
+   "text": "música antigua para bebés",
+   "source": "youtube_suggest",
+   "seed": "música antigua para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0204",
+   "text": "musica relajante bambu",
+   "source": "youtube_suggest",
+   "seed": "musica relajante b",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0205",
+   "text": "jazz musica venezolana",
+   "source": "youtube_suggest",
+   "seed": "jazz afrocubano venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0206",
+   "text": "rock para viajar 4",
+   "source": "youtube_suggest",
+   "seed": "rock para v",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0207",
+   "text": "musica para hacer ejercicio 2026",
+   "source": "web_suggest",
+   "seed": "musica para h",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0208",
+   "text": "ethereal dress",
+   "source": "youtube_suggest",
+   "seed": "ethereal wave que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0209",
+   "text": "death metal peruano",
+   "source": "youtube_suggest",
+   "seed": "death metal progresivo venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0210",
+   "text": "musica de up",
+   "source": "youtube_suggest",
+   "seed": "musica de u",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0211",
+   "text": "folk metal celta",
+   "source": "youtube_suggest",
+   "seed": "folk celta",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0212",
+   "text": "canciones de sin bandera",
+   "source": "web_suggest",
+   "seed": "canciones de s",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0213",
+   "text": "Revoltas",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0214",
+   "text": "musica con piano para dormir",
+   "source": "youtube_suggest",
+   "seed": "musica con p",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0215",
+   "text": "beat para rap",
+   "source": "web_suggest",
+   "seed": "beat para",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0216",
+   "text": "musica que parte el alma",
+   "source": "youtube_suggest",
+   "seed": "musica que p",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0217",
+   "text": "gaita venezolano instrumental",
+   "source": "youtube_suggest",
+   "seed": "gaita venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0218",
+   "text": "los mesp",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0219",
+   "text": "gaita que vaina tan buena",
+   "source": "youtube_suggest",
+   "seed": "gaita que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0220",
+   "text": "metal gear solid",
+   "source": "web_suggest",
+   "seed": "metal",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0221",
+   "text": "canciones tristes de zootopia",
+   "source": "youtube_suggest",
+   "seed": "canciones tristes z",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0222",
+   "text": "canciones de uriel henao",
+   "source": "web_suggest",
+   "seed": "canciones de u",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0223",
+   "text": "drill type beat",
+   "source": "youtube_suggest",
+   "seed": "drill",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0224",
+   "text": "musica nueva del kimiko",
+   "source": "web_suggest",
+   "seed": "musica nueva k",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0225",
+   "text": "rock para tomar whisky",
+   "source": "youtube_suggest",
+   "seed": "rock para t",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0226",
+   "text": "black metal muffin",
+   "source": "youtube_suggest",
+   "seed": "blackened crust para",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0227",
+   "text": "aguinaldo oh luna que brilla en diciembre",
+   "source": "youtube_suggest",
+   "seed": "aguinaldo que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0228",
+   "text": "musica con p",
+   "source": "web_suggest",
+   "seed": "musica con p",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0229",
+   "text": "descarga que es",
+   "source": "web_suggest",
+   "seed": "descarga que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0230",
+   "text": "death metal técnico bandas",
+   "source": "web_suggest",
+   "seed": "death metal técnico",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0231",
+   "text": "corrio para que",
+   "source": "web_suggest",
+   "seed": "corrío para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0232",
+   "text": "musica fria y sin sentimientos",
+   "source": "youtube_suggest",
+   "seed": "musica sin y",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0233",
+   "text": "art pop arte",
+   "source": "web_suggest",
+   "seed": "art pop",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0234",
+   "text": "canciones para cuando quieres volver con tu ex",
+   "source": "youtube_suggest",
+   "seed": "canciones para cuando q",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0235",
+   "text": "algo para aprender",
+   "source": "youtube_suggest",
+   "seed": "algo para a",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0236",
+   "text": "cantautor venezolano de música llanera",
+   "source": "web_suggest",
+   "seed": "cantautor venezolano",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0237",
+   "text": "música de cámara sevilla",
+   "source": "web_suggest",
+   "seed": "música de cámara",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0238",
+   "text": "metal industrial pesado",
+   "source": "youtube_suggest",
+   "seed": "metal industrial",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0239",
+   "text": "canciones de eddy herrera",
+   "source": "youtube_suggest",
+   "seed": "canciones de e",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0240",
+   "text": "bachata venezolano",
+   "source": "youtube_suggest",
+   "seed": "bachata venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0241",
+   "text": "canciones con frecuencia 432 hz",
+   "source": "youtube_suggest",
+   "seed": "canciones con f",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0242",
+   "text": "musica tensa lenta",
+   "source": "youtube_suggest",
+   "seed": "musica lenta t",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0243",
+   "text": "musica para manejar uber",
+   "source": "youtube_suggest",
+   "seed": "musica para el carro y",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0244",
+   "text": "dark ambient music para dormir",
+   "source": "youtube_suggest",
+   "seed": "dark ambient para",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0245",
+   "text": "música para yo cantar",
+   "source": "youtube_suggest",
+   "seed": "música para y",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0246",
+   "text": "musica playa alegre",
+   "source": "youtube_suggest",
+   "seed": "musica para la playa g",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0247",
+   "text": "drones maracaibo",
+   "source": "youtube_suggest",
+   "seed": "drone metal venezolano",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0248",
+   "text": "algo para trabajar",
+   "source": "youtube_suggest",
+   "seed": "algo para t",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0249",
+   "text": "musica rapida eminem",
+   "source": "youtube_suggest",
+   "seed": "musica rapida e",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0250",
+   "text": "canciones para recordar a un ser querido que murio",
+   "source": "youtube_suggest",
+   "seed": "canciones para r",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0251",
+   "text": "Jose Manuel Coraspe",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0252",
+   "text": "musica jinete sin cabeza",
+   "source": "youtube_suggest",
+   "seed": "musica sin j",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0253",
+   "text": "Gabaldon",
+   "source": "search_operation",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0254",
+   "text": "musica zombie",
+   "source": "youtube_suggest",
+   "seed": "musica como z",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0255",
+   "text": "música sin música",
+   "source": "youtube_suggest",
+   "seed": "musica sin m",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0256",
+   "text": "musica de dormir",
+   "source": "youtube_suggest",
+   "seed": "musica de d",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0257",
+   "text": "canciones alegres ukulele",
+   "source": "web_suggest",
+   "seed": "canciones alegres u",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0258",
+   "text": "calipso que es en la odisea",
+   "source": "web_suggest",
+   "seed": "calipso que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0259",
+   "text": "bandas de universidades americanas",
+   "source": "youtube_suggest",
+   "seed": "bandas de u",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0260",
+   "text": "musica gotica oscura instrumental",
+   "source": "youtube_suggest",
+   "seed": "musica oscura i",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0261",
+   "text": "latin funk mix",
+   "source": "youtube_suggest",
+   "seed": "latin funk para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0262",
+   "text": "musica como achar",
+   "source": "web_suggest",
+   "seed": "musica como a",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0263",
+   "text": "bambuco hay que sacar el diablo",
+   "source": "youtube_suggest",
+   "seed": "bambuco que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0264",
+   "text": "musica para bailar judios",
+   "source": "youtube_suggest",
+   "seed": "musica para bailar j",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0265",
+   "text": "musica instrumental oficina",
+   "source": "youtube_suggest",
+   "seed": "musica instrumental o",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0266",
+   "text": "bandas parecidas a jungle",
+   "source": "web_suggest",
+   "seed": "bandas parecidas a j",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0267",
+   "text": "música épica que dure 1 hora",
+   "source": "youtube_suggest",
+   "seed": "musica epica q",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0268",
+   "text": "musica de los melodicos años 80",
+   "source": "web_suggest",
+   "seed": "musica de los m",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0269",
+   "text": "Guerrulla",
+   "source": "search_miss",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0270",
+   "text": "jazz para estudiar",
+   "source": "youtube_suggest",
+   "seed": "jazz para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0271",
+   "text": "musica que yo me voy palla",
+   "source": "youtube_suggest",
+   "seed": "musica que y",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0272",
+   "text": "musica de los saja boys",
+   "source": "youtube_suggest",
+   "seed": "musica de los s",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0273",
+   "text": "musica venezolana con arpa",
+   "source": "youtube_suggest",
+   "seed": "musica venezolana c",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0274",
+   "text": "Venezuela demo",
+   "source": "search_miss",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0275",
+   "text": "musica triste rap",
+   "source": "youtube_suggest",
+   "seed": "musica triste r",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0276",
+   "text": "musica venezolana bailable mix",
+   "source": "youtube_suggest",
+   "seed": "musica venezolana b",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0277",
+   "text": "bandas de rock alternativo",
+   "source": "youtube_suggest",
+   "seed": "bandas de r",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0278",
+   "text": "grupos de cantantes venezolanos",
+   "source": "web_suggest",
+   "seed": "grupos de c",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0279",
+   "text": "ópera clásica",
+   "source": "youtube_suggest",
+   "seed": "ópera",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0280",
+   "text": "musica relajante handpan",
+   "source": "youtube_suggest",
+   "seed": "musica relajante h",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0281",
+   "text": "canciones de los kipus",
+   "source": "web_suggest",
+   "seed": "canciones de los k",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0282",
+   "text": "merengue que levante la mano",
+   "source": "youtube_suggest",
+   "seed": "merengue que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0283",
+   "text": "ebm que nota es",
+   "source": "web_suggest",
+   "seed": "ebm que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0284",
+   "text": "musica de barcelona sur oscura",
+   "source": "web_suggest",
+   "seed": "musica oscura s",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0285",
+   "text": "folk parada",
+   "source": "youtube_suggest",
+   "seed": "folk para",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0286",
+   "text": "playlist kpop para bañarse",
+   "source": "youtube_suggest",
+   "seed": "playlist para k",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0287",
+   "text": "folk rock en español",
+   "source": "web_suggest",
+   "seed": "folk rock",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0288",
+   "text": "playlist para mixear en spotify",
+   "source": "web_suggest",
+   "seed": "playlist para m",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0289",
+   "text": "musica venezolana violin",
+   "source": "youtube_suggest",
+   "seed": "musica venezolana v",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0290",
+   "text": "aor question paper",
+   "source": "web_suggest",
+   "seed": "aor que",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0291",
+   "text": "Cayayo Trc",
+   "source": "search_miss",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0292",
+   "text": "just dance soda pop para niños",
+   "source": "youtube_suggest",
+   "seed": "dance pop para",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0293",
+   "text": "bolero venezolano dulce",
+   "source": "web_suggest",
+   "seed": "bolero venezolano",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0294",
+   "text": "death metal sinfónico",
+   "source": "youtube_suggest",
+   "seed": "death metal melódico",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0295",
+   "text": "beat quevedo type",
+   "source": "youtube_suggest",
+   "seed": "beat que",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0296",
+   "text": "Abolitiona",
+   "source": "search_miss",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0297",
+   "text": "música para yoga en casa",
+   "source": "web_suggest",
+   "seed": "música para y",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0298",
+   "text": "musica con mariachi alegre",
+   "source": "web_suggest",
+   "seed": "musica con m",
+   "split": "train_real_human"
+  },
+  {
+   "id": "RL0299",
+   "text": "metal mix instrumental",
+   "source": "youtube_suggest",
+   "seed": "metal instrumental venezolano",
+   "split": "test_real_human"
+  },
+  {
+   "id": "RL0300",
+   "text": "we will rock you para niños",
+   "source": "youtube_suggest",
+   "seed": "rock para y",
+   "split": "train_real_human"
+  }
+ ]
+}

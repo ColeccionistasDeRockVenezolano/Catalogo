@@ -1,0 +1,90 @@
+{
+ "version": "crv-stage3-criteria-1.6.0",
+ "frozenAt": "2026-10-25",
+ "frozenBy": "Claude (decisión de Brian, 2026-10-25: «Elijo esta 1. Consultas reales etiquetadas por una persona»)",
+ "policy": "Criterios fijados antes de construir léxico, segmentador, preguntas o modelos y antes de ver cualquier resultado sobre la prueba reservada. No se relajan después de medir; un fallo se documenta y obliga a una nueva versión con otra prueba reservada.",
+ "reservedTests": {
+  "queries": {
+   "path": "docs/unified-search/stage3/datasets/query-real-human-test-1.json",
+   "sha256": null,
+   "cases": 120,
+   "batch": {
+    "path": "docs/unified-search/stage3/datasets/query-real-labeling-1.json",
+    "sha256": "bbbd4683dab11169ed88d2dc28f61cf3006a46ced42356d78e6ed2514b20c6a0",
+    "split": "test_real_human"
+   },
+   "description": "120 consultas reales (autocompletado público de YouTube/Google región VE y búsquedas del sitio) sorteadas como prueba en el lote crv-query-real-labeling-1.0.0 antes de etiquetar. Etiqueta humana a ciegas de Brian en Administrar › Buscador › Etiquetar consultas. El archivo se exporta con scripts/stage3/export_real_query_labels.py --require-complete cuando las 300 consultas tengan etiqueta o «no sé»; su huella se registra en ese momento, antes de ejecutar ningún sistema sobre él. Las «no sé» quedan fuera y se cuentan."
+  },
+  "realTraffic": {
+   "path": "docs/unified-search/stage3/datasets/query-test-real.json",
+   "sha256": "3e1d398f84483609b50193183ddac318cf9d31f4a5248c50e1c50883d076a033",
+   "cases": 45,
+   "description": "muestras reales saneadas; evaluación de no invención"
+  },
+  "evidence": {
+   "path": null,
+   "sha256": null,
+   "typed": 0,
+   "extraction": 0,
+   "description": "la versión 1.5.0 no evalúa evidencia: no hay lote adjudicado nuevo ni modelo de evidencia nuevo"
+  },
+  "mandatory": {
+   "path": "docs/unified-search/stage3/datasets/query-test-mandatory.json",
+   "sha256": "6d05e81b962dda1f97b039547fbb11579f175601b03f1285048c62f0e1d309f9",
+   "cases": 5
+  }
+ },
+ "tasks": {
+  "query_interpretation": {
+   "unit": "consulta completa en forma canónica (estado, exigidos, excluidos, grupos O, preferidos, entidades, número de contextos del oyente y restricción pendiente)",
+   "thresholds": {
+    "exactPlanAccuracy": ">= 0.85 sobre los casos etiquetados de la prueba humana",
+    "exactPlanAccuracyAdversarial": ">= 0.80 en las categorías negation, listener, entity, clarify, contradiction y unsupported derivadas de la etiqueta (export_real_query_labels.category)",
+    "criticalErrors": "<= 2 % de los casos y 0 en los ejemplos obligatorios (M01–M05 y T144, T151, T156, T157, T174, T182, T190, T213)",
+    "unsupportedPreservation": ">= 0.95: toda restricción pendiente de la etiqueta queda pendiente y el plan no se declara identified",
+    "overAbstention": "<= 0.10 de casos query_valid respondidos como clarify/unsupported/unrecognized",
+    "overconfidence": "<= 0.05 de decisiones de Laya incorrectas con confianza calibrada sobre el umbral",
+    "conditionF1": ">= 0.90 micro-F1 de condiciones (exigidas+excluidas+preferidas, con su modo)",
+    "describedGenreRecallAt3": ">= 0.70 cuando la prueba tenga al menos 10 casos con género descrito; con menos, se informa sin decidir",
+    "realTrafficNoInvention": ">= 0.98 de consultas reales sin condiciones inventadas",
+    "latencyP95WarmMs": "<= 500 ms interpretación completa en caliente en este equipo (GPU RTX 3050)",
+    "calibrationECE": "<= 0.10 por tipo de pregunta, medida en datos de calibración y comprobada en la prueba"
+   },
+   "baselineMargin": "Debe superar a las reglas heredadas (detectEmotionIntent + explicitRequestSpans) en exactPlanAccuracy por >= 0.20 absoluto y no empeorar a las reglas nuevas sin modelo en criticalErrors"
+  },
+  "evidence_typed_decision": {
+   "questions": [
+    "object_scope",
+    "assertion_state",
+    "support",
+    "activity_basis"
+   ],
+   "thresholds": {
+    "supportMacroF1": ">= 0.75",
+    "assertionStateAccuracy": ">= 0.85 con recall de estados no afirmados >= 0.60",
+    "objectScopeAccuracy": ">= 0.85",
+    "activityDeclaredUsePrecision": ">= 0.90 (no declarar uso desde género, emoción o ritmo)",
+    "calibrationECE": "<= 0.12"
+   },
+   "baselineMargin": "No peor que Laya base en ninguna pregunta y mejor en al menos dos"
+  },
+  "claim_extraction": {
+   "unit": "elegir el fragmento de la reseña que sostiene el atributo candidato entre fragmentos candidatos",
+   "thresholds": {
+    "top1Accuracy": ">= 0.80",
+    "noneRecall": ">= 0.70 cuando ningún fragmento lo sostiene"
+   }
+  }
+ },
+ "authority": "Ninguna predicción, por alta que sea su probabilidad, cambia una decisión humana; se prueba con casos contradictorios. Una tarea que no cumple sus umbrales no se activa; las otras tareas se juzgan por separado.",
+ "activation": "Activar un modelo solo registra una fila atribuida (actor, motivo, ficha y huellas) y es reversible con otra fila; no publica nada en el buscador público hasta la etapa 4.",
+ "supersedes": "crv-stage3-criteria-1.5.0 (prueba 6.0.0 gastada en crv-query-heads-0.9.0; pasa a desarrollo)",
+ "changes": [
+  "Umbrales idénticos a 1.0.0–1.5.0.",
+  "Cambio de método por decisión de Brian: la prueba deja de ser sintética. Consultas reales escritas por personas, etiquetadas por una persona distinta del autor del sistema.",
+  "Partición prueba/entrenamiento sorteada en el lote (semilla 97, 40 % prueba) antes de cualquier etiqueta y de ejecutar el sistema sobre esas consultas.",
+  "Las 180 consultas de entrenamiento etiquetadas por Brian pueden usarse para reglas, léxico y entrenamiento; las 120 de prueba no.",
+  "Contaminación declarada: Claude vio una muestra aleatoria del lote mientras ajustaba el filtro de ruido (solo el filtro, no el intérprete) y 40 textos de la partición de entrenamiento al revisar el ruido final; no vio etiquetas, porque no existían.",
+  "Las pruebas sintéticas 1.0.0–6.0.0 pasan a desarrollo."
+ ]
+}
