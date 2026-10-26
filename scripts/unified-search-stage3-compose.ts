@@ -2,6 +2,9 @@
  * Etapa 3 · composición de consultas etiquetadas para entrenar, validar y calibrar Laya.
  *   compose <bank.jsonl[,suplemento.jsonl]> <outDir> [--seed 7] [--train 6000 --val 900 --calib 900]
  *   tasks   <dataset.json> <tasks.jsonl>      preguntas con su respuesta esperada (entrenamiento)
+ *   tasks-human <query-real-human-train-1.json> <tasks.jsonl>
+ *           preguntas derivadas de etiquetas humanas de consulta completa (versión 1.6.0); solo
+ *           las que la etiqueta decide sin ambigüedad. Nunca recibe la partición de prueba.
  * Cada fragmento tiene etiqueta por construcción; las frases del banco se reparten entre
  * conjuntos por huella, así que una frase nunca aparece en dos conjuntos. No lee la prueba reservada.
  */
@@ -132,7 +135,23 @@ if (cmd === "compose") {
   }
   writeFileSync(output!, lines.join("\n") + "\n");
   console.log(JSON.stringify({ cases: dataset.cases.length, tasks: lines.length, dropped }));
-} else { console.error("uso: compose|tasks"); process.exit(2); }
+} else if (cmd === "tasks-human") {
+  const dataset = JSON.parse(readFileSync(input!, "utf8")) as { cases: { id: string; text: string; gold: QueryGold; split: string }[] };
+  if (dataset.cases.some(c => c.split !== "train_real_human")) { console.error("tasks-human solo admite la partición train_real_human"); process.exit(2); }
+  const lines: string[] = [], stats: Record<string, number> = { cases: dataset.cases.length, tasks: 0, dropped: 0 };
+  for (const c of dataset.cases) {
+    const seg = segmentQuery(c.text, lexicon, catalog);
+    const answers = humanAnswers(c.gold, seg);
+    for (const t of buildQuestions(seg, lexicon)) {
+      const gold = answers(t.key, t.family, t.spanId, Object.keys(t.question.criteria));
+      if (!gold) { stats["dropped"]!++; continue; }
+      stats["tasks"]!++; stats[`family:${t.family}`] = (stats[`family:${t.family}`] ?? 0) + 1;
+      lines.push(JSON.stringify({ qid: c.id, key: t.key, family: t.family, state: t.state, question: t.question, gold, group: normalizeQueryText(c.text) }));
+    }
+  }
+  writeFileSync(output!, lines.join("\n") + "\n");
+  console.log(JSON.stringify(stats));
+} else { console.error("uso: compose|tasks|tasks-human"); process.exit(2); }
 
 function goldOf(frags: Frag[], text: string, kindGold?: string): QueryGold | null {
   const g: QueryGold = { status: "query_valid", req: [], exc: [], any: [], pref: [], ctx: 0, ent: [], pending: 0, alts: [], facet: null };
@@ -205,3 +224,52 @@ function expected(c: Case, seg: Segmentation, key: string, family: string, spanI
   return null;
 }
 void catalogKey;
+
+/**
+ * Respuestas por fragmento a partir de una etiqueta humana de la consulta completa. La etiqueta
+ * no dice qué palabras sostienen cada condición, así que solo se responde lo que queda decidido:
+ * un fragmento del léxico con exactamente una condición etiquetada entre sus candidatos; un resto
+ * es relleno si no queda nada pendiente ni condición sin fragmento; un único resto se lleva la
+ * única condición o el único pendiente sin fragmento. Lo demás se descarta.
+ */
+function humanAnswers(g: QueryGold, seg: Segmentation) {
+  const conds = new Set([...g.req, ...g.exc, ...g.pref, ...g.any.flat()]);
+  const lexical = seg.spans.filter(s => ["concept", "genre", "ambiguous", "facet"].includes(s.kind) && s.candidates.length);
+  const residuals = seg.spans.filter(s => s.kind === "residual");
+  const covered = new Set(lexical.flatMap(s => s.candidates.filter(c => conds.has(c))));
+  const uncovered = [...conds].filter(c => !covered.has(c) && !c.startsWith("similarity:") && !c.startsWith("decade:"));
+  const describable = ["query_valid", "partial"].includes(g.status);
+  // Una faceta pendiente que ya nombra un fragmento del léxico («guitarra fuzz») no queda para un resto.
+  const pendingLeft = g.pending - (g.facet && lexical.some(s => s.candidates.includes(g.facet!)) ? 1 : 0);
+  // Lo que se lleva un resto, cuando la etiqueta lo decide.
+  let residualAnswer: { dim: string; concept: string | null } | null | "filler" = null;
+  if (describable && uncovered.length === 0 && pendingLeft <= 0) residualAnswer = "filler";
+  else if (describable && residuals.length === 1 && uncovered.length === 1 && pendingLeft <= 0) {
+    const c = uncovered[0]!; residualAnswer = { dim: c.startsWith("genre:") ? "genre_description" : c.split(":")[0]!, concept: c };
+  } else if (describable && residuals.length === 1 && uncovered.length === 0 && pendingLeft > 0)
+    residualAnswer = pendingLeft === g.pending && g.facet ? { dim: "technical_facet", concept: g.facet } : { dim: "unsupported", concept: null };
+  else if (["unrecognized", "unsupported"].includes(g.status) && g.pending === 0 && !g.ent.length) residualAnswer = "filler";
+  return (key: string, family: string, spanId: string | null, options: string[]): string | null => {
+    const pick = (x: string | null) => (x !== null && options.includes(x) ? x : null);
+    if (family === "genre_description") {
+      if (!describable) return null;
+      const genres = uncovered.filter(c => c.startsWith("genre:"));
+      return genres.length === 1 ? pick(genres[0]!) : genres.length === 0 && residualAnswer !== null ? OTHER : null;
+    }
+    const span = seg.spans.find(s => s.id === spanId);
+    if (!span) return null;
+    if (family === "span") {
+      if (g.status === "clarify") return span.candidates.filter(c => g.alts.includes(c)).length >= 2 ? UNCLEAR : null;
+      if (g.status === "entity_lookup" || g.status === "unrecognized") return NOT_REQUESTED;
+      if (!describable) return null;
+      const hits = span.candidates.filter(c => conds.has(c) || c === g.facet);
+      return hits.length === 1 ? pick(hits[0]!) : hits.length === 0 && g.pending === 0 ? NOT_REQUESTED : null;
+    }
+    if (residualAnswer === null) return null;
+    const ans = residualAnswer === "filler" ? { dim: "filler", concept: null } : residualAnswer;
+    if (family === "dim") return pick(ans.dim);
+    if (family === "pick") return ans.concept && key.endsWith(`:${ans.dim}`) ? pick(ans.concept) : OTHER;
+    if (family === "facet_family") return ans.dim === "technical_facet" && ans.concept ? pick(ans.concept) : OTHER;
+    return null;
+  };
+}

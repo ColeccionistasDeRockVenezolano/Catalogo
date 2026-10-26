@@ -524,6 +524,17 @@ Con datos sintéticos de un solo redactor (DeepSeek) y etiquetas de un solo auto
 - Las 120 de prueba se ejecutan una sola vez, con los mismos umbrales de siempre.
 - Las pruebas sintéticas 1.0.0–6.0.0 pasan a desarrollo.
 
+**De la etiqueta de consulta al entrenamiento.** Laya se entrena con preguntas por fragmento, pero la etiqueta humana describe la consulta completa.
+- `unified-search-stage3-compose.ts tasks-human` deriva las respuestas que la etiqueta decide sin ambigüedad y descarta el resto:
+  - un fragmento del léxico con exactamente una condición etiquetada;
+  - un resto que es relleno cuando no queda nada pendiente;
+  - un único resto que se lleva la única condición o pendiente sin fragmento.
+- Solo admite la partición `train_real_human`.
+- Medido sobre 600 consultas sintéticas de validación que tienen a la vez etiqueta global y fragmentos:
+  - coincide con la respuesta por fragmento en el 99,7 % (2.216 de 2.223);
+  - cubre el 79 % de las preguntas.
+- Entrenamiento previsto: preguntas sintéticas de `compose-0.7.0` más las humanas, sobremuestreadas.
+
 **Contaminación declarada.** Mientras ajustaba el filtro de ruido, Claude vio muestras aleatorias de lotes de ensayo y 40 textos de entrenamiento del lote final. Solo cambió el filtro, no el intérprete. No había etiquetas.
 
 **Estado.** El lote está listo y la API sirve la sección. Falta:
