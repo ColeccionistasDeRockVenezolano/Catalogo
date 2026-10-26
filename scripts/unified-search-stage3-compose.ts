@@ -42,10 +42,10 @@ function keep(row: { text: string; class: string; label: string }): boolean {
 if (cmd === "compose") {
   const rand = rng(opt("--seed", 7));
   const pick = <T>(xs: T[]): T => xs[Math.floor(rand() * xs.length)]!;
-  const bank = input!.split(",").flatMap(f => readFileSync(f, "utf8").split("\n").filter(Boolean).map(l => JSON.parse(l) as { text: string; class: string; label: string; sub?: string }));
+  const bank = input!.split(",").flatMap(f => readFileSync(f, "utf8").split("\n").filter(Boolean).map(l => JSON.parse(l) as { text: string; class: string; label: string; sub?: string; pair?: string }));
   const kept = bank.filter(keep);
   const pools: Record<Split, Map<string, typeof kept>> = { train: new Map(), val: new Map(), calib: new Map() };
-  for (const r of kept) { const p = pools[splitOf(r.text)]; const k = r.sub === "circumstance" ? "circumstance|circumstance" : `${r.class}|${r.class === "concept" || r.class === "facet" || r.class === "genre_description" ? r.label : r.class}`; p.set(k, [...(p.get(k) ?? []), r]); }
+  for (const r of kept) { const p = pools[splitOf(r.text)]; const k = r.sub === "circumstance" ? "circumstance|circumstance" : r.sub === "elaboration" ? `elaboration|${r.pair}` : `${r.class}|${r.class === "concept" || r.class === "facet" || r.class === "genre_description" ? r.label : r.class}`; p.set(k, [...(p.get(k) ?? []), r]); }
   // Formas cortas (alias del léxico) para negar o preferir; nombres de género; nombres reales del catálogo.
   const shortForms = lexicon.doc.concepts.flatMap(c => c.dimension === "theme" ? c.themeNouns.slice(0, 2).map(n => ({ text: `sobre ${n}`, label: c.id })) : c.aliases.filter(a => a.split(" ").length <= 3).map(a => ({ text: a, label: c.id })));
   const genreNames = lexicon.doc.genres.filter(g => g.mapStatus !== "excluded_by_decision").map(g => ({ text: g.name.toLowerCase(), label: `genre:${g.slug}` }))
@@ -75,7 +75,12 @@ if (cmd === "compose") {
         text = category === "whole_name" || category === "described" || fs[0]!.cls === "listener" || /^(quiero|busco|necesito|ponme|pon|dame|recomiendame|i |me |estoy|ando)/u.test(lead) ? "" : pick(openers);
         fs.forEach((f, i) => { if (i) text += seps[i - 1]!; const t = i ? (rand() < 0.7 ? stripLead(f.text) : f.text) : f.text; f.start = text.length; text += t; f.end = text.length; f.text = t; frags.push(f); });
       };
-      if (r < 0.22) { const c = concept(); if (!c) continue; join([c], []); }
+      if (r < 0.15) { const c = concept(); if (!c) continue; join([c], []); }
+      else if (r < 0.22) { // Cláusula que refuerza el mismo pedido sin añadir otro (1.5.0): relleno.
+        const keys = [...pools[split].keys()].filter(k => k.startsWith("elaboration|") && pools[split].has(`concept|${k.slice(12)}`));
+        if (!keys.length) { const c = concept(); if (!c) continue; join([c], []); }
+        else { category = "elaboration"; const k = pick(keys); const a = fromPool(split, `concept|${k.slice(12)}`)!, e = fromPool(split, k)!;
+          join([{ text: a.text, cls: "concept", label: a.label, mode: "required", group: null }, { text: e.text, cls: "filler", label: "filler", mode: "required", group: null }], [pick([" ", " ", ", "])]); } }
       else if (r < 0.40) { category = "and"; const a = concept(), b = rand() < 0.5 ? concept() : genre(); if (!a || !b || a.label === b.label) continue; join(rand() < 0.5 ? [b, a] : [a, b], [pick([" y ", ", ", " ", " y que sea "])]); }
       else if (r < 0.47) { category = "and"; const a = genre(), b = concept(), c = concept(); if (!b || !c || b.label === c.label || b.label.split(":")[0] === "energy" && c.label.split(":")[0] === "energy") continue; join([a, b, c], [" ", pick([" y ", ", "])]); }
       else if (r < 0.53) { category = "or"; const a = short(); const same = shortForms.filter(s => s.label.split(":")[0] === a.label.split(":")[0] && s.label !== a.label); if (!same.length) continue; const b: Frag = { ...short(), ...pick(same) }; a.group = b.group = "G1"; join([a, b], [pick([" o ", " u ", " or "])]); }

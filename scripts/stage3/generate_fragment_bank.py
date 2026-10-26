@@ -6,6 +6,7 @@ redactar), así que la alineación con los fragmentos del segmentador no depende
 La prueba reservada se redactó antes y por otro autor; este banco nunca la lee.
 Salida: <out>/bank.jsonl (texto, etiqueta, clase, autor, lote) y <out>/usage.json.
 Con --supplement redacta el suplemento 0.3.0 (circunstancias, oyente, relleno).
+Con --supplement2 redacta el suplemento 0.4.0 (cláusulas de refuerzo por concepto e intensificadores).
 """
 from __future__ import annotations
 import json, sys, threading, urllib.request
@@ -91,15 +92,43 @@ def supplement_jobs():
     yield ("filler", "filler", "Relleno de búsqueda sin pedido musical concreto: cortesía, valoraciones vagas, muletillas, comentarios sobre la propia búsqueda.", 40)
 
 
-def main(out_dir: str, supplement: bool = False):
+# Palabras que las convenciones de etiqueta dejan pendientes (ocasión fuera del vocabulario, idioma, duración,
+# tempo, instrumentación, voz, versión, origen, popularidad): una cláusula de refuerzo que las use no es relleno.
+import re
+PENDING_WORDS = re.compile(r"\b(dedic\w*|limpi\w*|cocin\w*|orar|rez\w*|playa|ingl[eé]s|espa[nñ]ol|franc[eé]s|idioma|letra\w*|minut\w*|segund\w*|hora\w*|bpm|tempo|"
+                           r"lent\w*|r[aá]pid\w*|guitarr\w*|bater[ií]\w*|bajo|piano|viol[ií]n\w*|voz|voces|cant\w*|coro\w*|en vivo|remaster\w*|"
+                           r"venezol\w*|latin\w*|famos\w*|conocid\w*|nuev\w*|viej\w*|antigu\w*|cl[aá]sic\w*|instrument\w*)\b", re.I)
+
+
+def supplement2_jobs():
+    """Suplemento 0.4.0 (versión 1.5.0): cláusulas que refuerzan o elaboran un pedido ya hecho sin añadir
+    otra restricción («que te parta el alma» tras «tristes», «sin distraerme» tras «para estudiar»).
+    En 1.4.0 Laya las dejaba pendientes. La etiqueta es relleno; `pair` guarda el concepto que refuerzan."""
+    for c in LEX["concepts"]:
+        yield ("elaboration", c["id"], f"Alguien ya pidió música con este concepto: {c['labelEs']} ({c['id']}). Definición: {c['definitionEs']}\n"
+               "Escribe SOLO la cláusula que añadiría DESPUÉS para reforzar o explicar lo mismo con otras palabras, sin pedir nada nuevo: "
+               "consecuencias en quien escucha («que te parta el alma», «para sentirme vivo», «que me saque de la rutina»), imágenes («como si flotaras»), "
+               "intensidad del deseo («de esas que te llegan»), finalidad equivalente («sin distraerme», «para no pensar en nada»). "
+               "Empieza con «que», «para», «de esas que», «como», «sin» o similar. NO nombres idiomas, épocas, duración, tempo, instrumentos, voces, países ni otro concepto distinto.", 14)
+    for cid, idea in (("energy:energy-high", "mucha potencia, rapidez y fuerza («rápido y fuerte», «con mucha potencia», «con mucho ritmo», «a todo dar», «bien prendido»)"),
+                      ("energy:energy-low", "poca intensidad («bajito», «de poca intensidad», «nada estridente», «calmadito»)")):
+        yield ("concept", cid, f"Concepto: {cid}. Fragmentos que piden ese nivel de energía con intensificadores coloquiales: {idea}.", 30)
+
+
+def main(out_dir: str, supplement: bool = False, supplement2: bool = False):
     out = Path(out_dir); out.mkdir(parents=True, exist_ok=True)
     rows = []
-    todo = list(supplement_jobs() if supplement else jobs())
+    todo = list(supplement2_jobs() if supplement2 else supplement_jobs() if supplement else jobs())
+    batch = "bank-0.4.0-supplement" if supplement2 else "bank-0.3.0-supplement" if supplement else "bank-0.2.0"
     with ThreadPoolExecutor(6) as pool:
         for (kind, label, _p, _n), phrases in zip(todo, pool.map(lambda j: call(j[2], j[3]), todo)):
             for p in dict.fromkeys(phrases):
+                if kind == "elaboration":
+                    if PENDING_WORDS.search(p): continue
+                    rows.append({"text": p, "label": "filler", "class": "filler", "sub": "elaboration", "pair": label, "author": f"DeepSeek ({MODEL})", "batch": batch})
+                    continue
                 rows.append({"text": p, "label": "filler" if label == "circumstance" else label, "class": kind, "author": f"DeepSeek ({MODEL})",
-                             "batch": "bank-0.3.0-supplement" if supplement else "bank-0.2.0", **({"sub": "circumstance"} if label == "circumstance" else {})})
+                             "batch": batch, **({"sub": "circumstance"} if label == "circumstance" else {})})
             print(kind, label, len(phrases), flush=True)
     with open(out / "bank.jsonl", "w") as f:
         for r in rows: f.write(json.dumps(r, ensure_ascii=False) + "\n")
@@ -108,4 +137,4 @@ def main(out_dir: str, supplement: bool = False):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], "--supplement" in sys.argv)
+    main(sys.argv[1], "--supplement" in sys.argv, "--supplement2" in sys.argv)

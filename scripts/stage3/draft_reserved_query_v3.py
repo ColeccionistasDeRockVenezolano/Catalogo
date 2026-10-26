@@ -8,7 +8,7 @@ con las convenciones de la prueba (author_reserved_query_test_v3.py) sin pasar e
 
   draft_reserved_query_v3.py <salida-dir> [semilla]   (escribe drafts.jsonl y usage.json; nada en la base)
 
-La semilla 31 redactó la prueba 3.0.0 (criterios 1.2.0); la 47, la 4.0.0 (criterios 1.3.0); la 59, la 5.0.0 (criterios 1.4.0).
+La semilla 31 redactó la prueba 3.0.0 (criterios 1.2.0); la 47, la 4.0.0 (criterios 1.3.0); la 59, la 5.0.0 (criterios 1.4.0); la 71, la 6.0.0 (criterios 1.5.0).
 Las frases ya presentes en cualquier conjunto de `datasets/` se descartan.
 """
 from __future__ import annotations

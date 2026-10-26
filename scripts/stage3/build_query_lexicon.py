@@ -39,7 +39,9 @@ ADDITIONS: dict[str, list[str]] = {
                          "spinning", "clase de spinning", "zumba", "crossfit", "pilates", "aerobicos", "cardio"],
     "activity:running": ["trotando", "corriendo", "running", "to run", "run", "jogging", "morning run"],
     "activity:walking": ["paseo", "caminando", "paseando", "walking", "pasear al perro", "sacar al perro", "pasear el perro"],
-    "activity:travel": ["manejar", "manejo", "manejando", "conducir", "conduciendo", "carretera", "viaje", "driving", "travel", "traveling", "drive", "long drive", "the drive", "commute"],
+    "activity:travel": ["manejar", "manejo", "manejando", "conducir", "conduciendo", "carretera", "viaje", "driving", "travel", "traveling", "drive", "long drive", "the drive", "commute",
+                        # 1.5.0 (desarrollo: F034, F099, F141 de 5.0.0)
+                        "carro", "el carro", "en el carro", "paseo en carro"],
     "activity:intimacy": ["tener sex", "sex", "making love"],
     "activity:socializing": ["una cena", "cena", "cenar", "cenando", "reunion", "reunion con amigos", "panas", "con panas", "con amigos", "charlar", "conversar", "dinner", "barbecue", "bbq", "hanging out", "hangout"],
     "activity:catharsis": ["desahogarse", "desahogo", "llorar", "gritar"],
@@ -62,7 +64,9 @@ ADDITIONS: dict[str, list[str]] = {
     "energy:energy-medium": ["energia moderada", "intensidad moderada", "medium energy", "con energia media"],
     "energy:energy-high": ["movido", "movida", "movidos", "movidas", "movidito", "movidita", "energeticos", "energeticas", "energicos", "energicas", "alta energia", "high energy", "energetic",
                            # 1.4.0 (desarrollo: S016, S072 de 4.0.0): «con energía» sin nivel es energía alta; el nivel explícito gana por longitud.
-                           "con energia", "con mucha energia", "con energia alta"],
+                           "con energia", "con mucha energia", "con energia alta",
+                           # 1.5.0 (desarrollo: F033, F065, F073 de 5.0.0): intensificadores coloquiales.
+                           "mucha potencia", "con mucha potencia", "mucho ritmo", "con mucho ritmo", "rapido y fuerte", "rapidos y fuertes", "rapida y fuerte", "rapidas y fuertes", "a todo dar"],
     "atmosphere:atmospheric": ["envolventes", "atmosfericos", "atmosfericas", "atmospheric"],
     "atmosphere:dark": ["oscuros", "oscuras", "sombrios", "sombrias", "dark", "oscuridad"],
     "atmosphere:nocturnal": ["madrugada", "de madrugada", "nocturnos", "nocturnas", "nocturnal"],
@@ -223,7 +227,10 @@ bogota medellin lima montevideo quito guayaquil habana madrid barcelona londres"
     # Atributos que intention-v1 no representa y que Laya tiende a tomar por relleno (desarrollo: T189, R189).
     "unrepresentable": ["rojo", "roja", "rojos", "rojas", "verde", "verdes", "azul", "azules", "amarillo", "amarilla", "amarillos", "amarillas",
                         "morado", "morada", "morados", "moradas", "naranja", "naranjas", "rosado", "rosada", "rosados", "rosadas", "blanco", "blanca",
-                        "blancos", "blancas", "negro", "negra", "negros", "negras", "gris", "grises", "violeta", "violetas"],
+                        "blancos", "blancas", "negro", "negra", "negros", "negras", "gris", "grises", "violeta", "violetas",
+                        # 1.5.0 (desarrollo: F076 de 5.0.0; convención desde 3.0.0): ocasiones fuera del vocabulario de actividades.
+                        "dedicar", "dedicarle", "dedicarles", "dedicarsela", "dedicarselas", "dedicarte", "dedicarla", "limpiar", "limpiando", "limpieza",
+                        "cocinar", "cocinando", "orar", "orando", "rezar", "rezando"],
     # 1.3.0 (desarrollo: prueba 3.0.0, S138, S141, S148, S160–S163, S174): instrumentación, voz, idioma,
     # época y popularidad tampoco tienen eje en intention-v1. En una descripción de sonido sin pedido
     # («acordeón, caja y guacharaca») describen un género y no se marcan.
@@ -240,7 +247,7 @@ bogota medellin lima montevideo quito guayaquil habana madrid barcelona londres"
     "clauseStarts": ["para", "pa", "pal", "for"],
     "decades": {"1950s": ["cincuenta", "50", "50s"], "1960s": ["sesenta", "60", "60s"], "1970s": ["setenta", "70", "70s"],
                 "1980s": ["ochenta", "80", "80s"], "1990s": ["noventa", "90", "90s"], "2000s": ["2000", "dos mil", "2000s"], "2010s": ["2010", "2010s"]},
-    "fillers": "bandas grupos artistas playlist playlists lista mix sonidos discos disco albumes album grabaciones musica musicas musical cancion canciones tema temas rola rolas pieza piezas algo cosas cosa song songs music tracks quiero quisiera necesito busco buscar busca dame ponme pon recomiendame recomienda recomiendan escuchar oir para pa por de del la el las los lo un una unos unas al a en que sea sean bien full bastante muy mi me ahora favor porfa rato un rato mientras alguna algun buena buenas bueno buenos tipo for the to of some please i want with mas caracter de caracter ambiente atmosfera estilo onda vibra vibras musiquita musiquitas cancioncita cancioncitas temita temitas".split(),
+    "fillers": "bandas grupos artistas playlist playlists lista mix sonidos discos disco albumes album grabaciones musica musicas musical cancion canciones tema temas rola rolas pieza piezas algo cosas cosa song songs music tracks quiero quisiera necesito busco buscar busca dame ponme pon recomiendame recomienda recomiendan escuchar oir para pa por de del la el las los lo un una unos unas al a en que sea sean bien full bastante muy mi me ahora favor porfa rato un rato mientras alguna algun buena buenas bueno buenos tipo for the to of some please i want with mas caracter de caracter ambiente atmosfera estilo onda vibra vibras musiquita musiquitas cancioncita cancioncitas temita temitas fino fina finos finas".split(),
 }
 
 
@@ -376,7 +383,7 @@ def main(genres_path: str) -> None:
             c[k] = [a for a in c[k] if not (a in EXPANDED and a in genre_names)]
     sources = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (VOCAB, GENRE_MAP)}
     sources["genres-db-export"] = hashlib.sha256(Path(genres_path).read_bytes()).hexdigest()
-    body = {"version": "crv-query-lexicon-0.5.0", "builtBy": "scripts/stage3/build_query_lexicon.py", "vocabularyVersion": vocab["version"],
+    body = {"version": "crv-query-lexicon-0.6.0", "builtBy": "scripts/stage3/build_query_lexicon.py", "vocabularyVersion": vocab["version"],
             "genreMapVersion": json.loads(GENRE_MAP.read_text())["version"], "sources": sources,
             "policy": "Candidatos léxicos para proponer fragmentos; no deciden, no asignan atributos ni crean géneros o conceptos.",
             "concepts": concepts, "facets": facets, "genres": genres,
