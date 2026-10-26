@@ -491,3 +491,42 @@ Exactitud de los otros sistemas en la misma prueba:
 La frontera entre relleno y restricción pendiente es la que decide los casos. Inclinar el banco hacia un lado mejora un criterio y empeora el otro: en 1.5.0 la sobreconfianza baja en desarrollo y los pendientes perdidos suben.
 
 Con datos sintéticos de un solo redactor (DeepSeek) y etiquetas de un solo autor, el sistema no generaliza al umbral de 0,85. Seguir iterando con el mismo método gasta una prueba reservada por versión sin señal de convergencia.
+
+## Versión 1.6.0 (criterios `criteria-1.6.0.json`, prueba humana de consultas reales)
+
+**Decisión de Brian (2026-10-25):** «Elijo esta 1. Consultas reales etiquetadas por una persona». Tras cinco pruebas sintéticas sin convergencia, la interpretación de consultas se mide y se entrena con consultas que escribieron personas, etiquetadas por una persona distinta del autor del sistema.
+
+**Fuentes.** Ningún modelo redacta ni elige las frases.
+- Búsquedas del sitio: `ingest.search_misses` y `ingest.search_operations`, ya saneadas. Son pocas (unas 70) y del registro se conserva solo la forma más larga de lo que se iba tecleando.
+- Autocompletado público de YouTube y Google, región VE e idioma es, cosechado con `scripts/stage3/harvest_query_suggestions.py`:
+  - semillas: aperturas de petición musical, géneros y conceptos del léxico congelado;
+  - resultado: 4.426 respuestas y 24.232 sugerencias únicas;
+  - la cosecha se detuvo cuando Google respondió 403, así que faltan los géneros desde «punk» y las semillas de conceptos.
+  - Crudo publicado en `tmp-analysis/unified-search-stage3-real-queries`.
+
+**Lote** (`datasets/query-real-labeling-1.json`, `crv-query-real-labeling-1.0.0`), construido con `scripts/stage3/build_real_query_batch.py`:
+- **Filtro:** conserva peticiones musicales según el vocabulario del léxico y descarta letras, acordes, descargas, tutoriales, aplicaciones y la «salsa» de cocina.
+- **Selección:** como máximo dos sugerencias por semilla.
+- **Contenido:** 300 consultas, 29 del sitio y 271 del autocompletado, de 20.466 elegibles.
+- **Partición:** se sorteó antes de etiquetar (semilla 97): 120 de prueba (`test_real_human`) y 180 de entrenamiento.
+- **Ruido:** el lote conserva el ruido real («idm para firefox»), que se etiqueta como no musical.
+
+**Etiquetado** en Administrar › Buscador › **Etiquetar consultas**:
+- Es a ciegas: la página nunca muestra la lectura de las reglas ni de Laya.
+- La etiqueta tiene el mismo formato que los casos de prueba: estado, exigidas, excluidas, grupos O, preferidas, contexto del oyente, nombres, pendiente y faceta.
+- El servidor rechaza etiquetas incoherentes con las convenciones de las pruebas 2.0.0–6.0.0 (`checkGold`). La prueba unitaria `search-query-labeling` comprueba que todas esas etiquetas las cumplen.
+- Se guarda en `ingest.search_query_labels` (migración 0103), atribuida a quien etiqueta. Si cambia el texto de una consulta, su etiqueta deja de valer.
+- «No sé» deja constancia y saca la consulta de la evaluación.
+
+**Uso.**
+- `scripts/stage3/export_real_query_labels.py --labeler "<nombre>" --require-complete` escribe `query-real-human-test-1.json` y `query-real-human-train-1.json`. La huella de la prueba se registra antes de ejecutar ningún sistema sobre ella.
+- Las 180 de entrenamiento sirven para reglas, léxico y entrenamiento.
+- Las 120 de prueba se ejecutan una sola vez, con los mismos umbrales de siempre.
+- Las pruebas sintéticas 1.0.0–6.0.0 pasan a desarrollo.
+
+**Contaminación declarada.** Mientras ajustaba el filtro de ruido, Claude vio muestras aleatorias de lotes de ensayo y 40 textos de entrenamiento del lote final. Solo cambió el filtro, no el intérprete. No había etiquetas.
+
+**Estado.** El lote está listo y la API sirve la sección. Falta:
+1. desplegar la web (`npm run deploy`);
+2. que Brian etiquete las 300 consultas;
+3. después: exportar, corregir y entrenar con las 180, y ejecutar una sola vez sobre las 120.

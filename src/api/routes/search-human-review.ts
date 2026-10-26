@@ -4,6 +4,7 @@ import { z } from "zod";
 import { getPool } from "../../db/client.js";
 import { projectRoot } from "../../config/project-root.js";
 import { OPERATOR_SECURITY } from "../auth.js";
+import { labelInputSchema, queryLabelingState, saveQueryLabel } from "../../search/query-labeling.js";
 import { adjudicateMapping, blindSchema, humanEvaluationState, mappingAdjudicationState, saveBlindReading, saveVerdict, verdictSchema } from "../../search/human-review.js";
 
 const root = projectRoot(import.meta.url);
@@ -39,4 +40,12 @@ export async function registerSearchHumanReviewRoutes(app: FastifyInstance): Pro
     await adjudicateMapping(root, getPool(), request.operator, term, decision);
     return { saved: true as const };
   });
+  // Etapa 3, versión 1.6.0: etiquetado humano a ciegas de consultas reales.
+  api.get("/search/administration/query-labels", async (request, reply) => {
+    reply.header("Cache-Control", "no-store");
+    return queryLabelingState(root, getPool(), request.operator);
+  });
+  api.post("/search/administration/query-labels/:id", {
+    schema: { security: OPERATOR_SECURITY, params: z.object({ id: z.string().min(1).max(40) }), body: labelInputSchema },
+  }, async request => ({ saved: true as const, ...(await saveQueryLabel(root, getPool(), request.operator, request.params.id, request.body)) }));
 }

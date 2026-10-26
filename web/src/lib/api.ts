@@ -612,6 +612,18 @@ export interface MappingTerm {
   decision: null | { decision: "approved" | "corrected" | "rejected"; targetSlug: string | null; relation: MappingRelation | null; note: string; decidedBy: string; decidedAt: string; reviewVersion: string };
 }
 export interface MappingAdjudicationState { reviewVersion: string; terms: MappingTerm[]; genres: { slug: string; name: string }[]; decided: number; total: number }
+export type QueryLabelStatus = "query_valid" | "partial" | "entity_lookup" | "clarify" | "unsupported" | "contradiction" | "unrecognized";
+export interface QueryLabelEntity { role: "target" | "reference"; kind: "artist" | "album" | "track" | null; literal: string }
+export interface QueryLabelGold {
+  status: QueryLabelStatus; req: string[]; exc: string[]; any: string[][]; pref: string[]; ctx: number;
+  ent: QueryLabelEntity[]; pending: number; alts: string[]; facet: string | null;
+}
+export interface QueryLabelOption { id: string; label: string; group: string; hint: string }
+export interface QueryLabelItem { id: string; text: string; source: string; outcome: "labeled" | "skipped" | null; gold: QueryLabelGold | null; note: string; labeledAt: string | null; stale: boolean }
+export interface QueryLabelingState {
+  batchVersion: string; labeler: string; items: QueryLabelItem[]; labeled: number; skipped: number; total: number;
+  options: { conditions: QueryLabelOption[]; facets: QueryLabelOption[] };
+}
 export const searchHumanReviewApi = {
   evaluation: () => request<HumanEvaluationState>("/search/administration/human-evaluation"),
   blind: (id: string, blind: HumanBlind) =>
@@ -621,6 +633,9 @@ export const searchHumanReviewApi = {
   mappings: () => request<MappingAdjudicationState>("/search/administration/mapping-adjudications"),
   decideMapping: (body: { term: string; decision: "approved" | "corrected" | "rejected"; targetSlug: string | null; relation: MappingRelation | null; note: string }) =>
     request<{ saved: true }>("/search/administration/mapping-adjudications/decision", { method: "POST", authenticated: true, body }),
+  queryLabels: () => request<QueryLabelingState>("/search/administration/query-labels"),
+  saveQueryLabel: (id: string, body: { outcome: "labeled"; gold: QueryLabelGold; note: string } | { outcome: "skipped"; note: string }) =>
+    request<{ saved: true; gold: QueryLabelGold | null }>(`/search/administration/query-labels/${encodeURIComponent(id)}`, { method: "POST", authenticated: true, body }),
 };
 
 // ---------- escritura de entidades del core ----------

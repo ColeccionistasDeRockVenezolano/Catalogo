@@ -11,7 +11,7 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { Link, NavLink, useSearchParams } from "react-router-dom";
 import {
-  BookOpen, ChartLineUp, Database, Gauge, Heart, Info, LockSimple, MagnifyingGlass, MagnifyingGlassMinus, Scales, SignIn, Sparkle, TreeStructure, type Icon,
+  BookOpen, ChartLineUp, Database, Gauge, Heart, Info, LockSimple, MagnifyingGlass, MagnifyingGlassMinus, Scales, SignIn, Sparkle, Tag, TreeStructure, type Icon,
 } from "@phosphor-icons/react";
 import { SearchKnowledgeReview } from "../components/SearchKnowledgeReview";
 import { ResourceFieldTable } from "../components/ResourceFieldTable";
@@ -30,6 +30,7 @@ import { RowsSkeleton } from "../components/Skeletons";
 import { CurationEmotionsPage } from "./CurationEmotionsPage";
 import { CurationSearchEvaluationPage } from "./CurationSearchEvaluationPage";
 import { CurationSearchMappingsPage } from "./CurationSearchMappingsPage";
+import { CurationSearchQueryLabelsPage } from "./CurationSearchQueryLabelsPage";
 import { LayaEvaluation } from "../components/LayaEvaluation";
 import "../styles/search-administration.css";
 import "../styles/curation-emotions.css";
@@ -61,6 +62,7 @@ const SECTIONS: readonly SectionSpec[] = [
   { key: "Emociones", label: "Emociones", group: "Decidir", icon: Heart, ownHeader: true, standalone: true },
   { key: "Evaluar lecturas", label: "Evaluar lecturas", group: "Decidir", icon: Scales, ownHeader: true, standalone: true },
   { key: "Correspondencias RYM", label: "Correspondencias RYM", group: "Decidir", icon: TreeStructure, ownHeader: true, standalone: true },
+  { key: "Etiquetar consultas", label: "Etiquetar consultas", group: "Decidir", icon: Tag, ownHeader: true, standalone: true },
   { key: "Laya y evaluación", label: "Laya y evaluación", group: "Decidir", icon: ChartLineUp, standalone: true,
     intro: "Modelos de Laya evaluados contra criterios congelados. Activar o desactivar deja una fila atribuida y reversible; no cambia decisiones humanas ni el buscador público." },
   { key: "Cómo funciona", label: "Cómo funciona", group: "Referencia", icon: Info, intro: "Las reglas que gobiernan el buscador y dónde se deshace cada decisión.", standalone: true },
@@ -125,6 +127,7 @@ export function SearchAdministrationPage() {
         {section.key === "Emociones" ? <CurationEmotionsPage />
           : section.key === "Evaluar lecturas" ? <CurationSearchEvaluationPage />
           : section.key === "Correspondencias RYM" ? <CurationSearchMappingsPage />
+          : section.key === "Etiquetar consultas" ? <CurationSearchQueryLabelsPage />
           : section.key === "Cómo funciona" ? <HowItWorks />
           : section.key === "Laya y evaluación" ? <LayaEvaluation />
           : error ? <ErrorState message={error} onRetry={reload} />

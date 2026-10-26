@@ -1,0 +1,24 @@
+/* Buscador › Etiquetar consultas: estado, condiciones y nombres. */
+.query-labels__guide { margin: 0 0 18px; border: 1px solid var(--border); background: var(--surface); padding: 10px 14px; font-size: 13px; color: var(--text-muted); }
+.query-labels__guide summary { cursor: pointer; font-weight: 600; color: var(--text); }
+.query-labels__guide ul { margin: 10px 0 2px; padding-left: 18px; display: grid; gap: 6px; max-width: 80ch; }
+.query-labels__filter { display: flex !important; align-items: center; gap: 8px; margin: 0 0 8px; font-size: 12px; color: var(--text-muted); }
+.emotion-review .query-labels__filter input, .emotion-review .query-labels__check input, .emotion-review .query-labels__status input { min-height: 0; width: 16px; height: 16px; padding: 0; accent-color: var(--red); }
+.query-labels__status { border: 0; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 6px; }
+.query-labels__status legend { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+.emotion-review__detail .query-labels__status label { display: flex; align-items: start; gap: 9px; padding: 9px 10px; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; color: var(--text); font-weight: 400; }
+.query-labels__status label.is-on { border-color: var(--red); background: var(--surface-2); }
+.query-labels__status span { display: grid; gap: 2px; font-size: 13px; }
+.query-labels__status small { color: var(--text-muted); font-size: 11.5px; }
+.query-labels__chips, .query-labels__matches { list-style: none; margin: 0; padding: 0 !important; display: grid; gap: 6px; }
+.query-labels__chips li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 8px; }
+.query-labels__chips span { font-size: 14px; overflow-wrap: anywhere; }
+.query-labels__chips small, .query-labels__matches small { color: var(--text-faint); font-size: 11px; margin-left: 4px; }
+.query-labels__matches { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+.query-labels__matches button { width: 100%; text-align: left; min-height: 36px; padding: 6px 9px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface-2); color: var(--text); cursor: pointer; font: inherit; font-size: 13px; }
+.query-labels__matches button:hover, .query-labels__matches button:focus-visible { border-color: var(--red); outline: none; }
+.emotion-review__detail .query-labels__check { display: flex; align-items: center; gap: 9px; font-weight: 400; color: var(--text); font-size: 13px; }
+.query-labels__entity { display: grid; grid-template-columns: auto auto minmax(0, 1fr) auto; gap: 6px; align-items: center; }
+@media (max-width: 640px) {
+  .query-labels__chips li, .query-labels__entity { grid-template-columns: 1fr; }
+}
