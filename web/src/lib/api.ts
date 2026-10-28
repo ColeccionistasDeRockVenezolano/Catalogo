@@ -6,12 +6,13 @@ import { getSessionCsrf, setSessionCsrf, type OperatorUser } from "./operator";
 import { cachedCatalogRead, canCacheCatalogRead, clearCatalogReadCache, observeCatalogRevision } from "./catalogReadCache";
 import { isCatalogWrite } from "../../../src/shared/catalog-cache-policy";
 import type { DailyClock, DailyCycle } from "../../../src/shared/daily-cycle";
+import type { ChatEffect, ChatUser, ChatRoom, Wallet as ChatWallet } from "../../../src/chat/protocol";
 import type { CatalogDraft,CatalogKind,CatalogPlan,CatalogVocabulary } from "../../../src/curation/ai/types";
 import type {
   Alias, AliasWriteResult, AlbumDetail, AlbumListItem, ArtistDetail, ArtistListItem, AuditRow, Claim, CreditSource, EntityWriteResult,
   MergeableKind, OrganizationDetail, OrganizationFacets, OrganizationListItem, Page, PersonDetail, PersonFacets, PersonListItem, RelationUpdateResult, RelationWriteResult,
   PersonConversionResult, PersonDuplicateCandidate, PersonMergePreview, PersonMergeResult, RemovalResult, ReviewActionResult,
-  ReviewDetail, ReviewListItem, PersonWebVerification, PersonPairResearch, PersonResearchJob, PersonPairResearchSummary, SearchResults, Source, UnmergeResult, VideoDetail, VideoListItem,
+  ReviewDetail, ReviewListItem, PersonWebVerification, PersonPairResearch, PersonResearchJob, PersonPairResearchSummary, SearchEntityType, SearchResults, Source, UnmergeResult, VideoDetail, VideoListItem,
   TrackDetail, TrackListItem, TypeFacets,
   CurationFinding, CurationFindingStatus, CurationIgnoreReason, CurationPairKind, CurationScan, CurationScanResult,
   CurationSeverity, CurationSummary,
@@ -19,7 +20,7 @@ import type {
   AlbumMergeMode, AlbumMergePreview, AlbumMergeResult, PersonSplitPreview, PersonSplitResult,
   FindingActionsResult, FixBatch, FixBatchSummary, DistinctPair, ConflictResolveResult, ConflictResolveGroupResult,
   AuditUndoPreview, ChangeDetail, ChangeEntityKind, ChangeSummary, ChangeUndoResult, GenreFacets, HomeData,
-  PlaceDetail, SeriesDetail,
+  PlaceDetail, SeriesDetail, SeriesListItem, SeriesEditorDetail, SeriesEditorSummary, AlbumSeriesMembership,
 } from "./types";
 
 /**
@@ -69,6 +70,56 @@ export const catalogApi = {
   overview: (signal: AbortSignal) => request<CatalogOverview>("/catalog/overview", { signal }),
 };
 
+// ── Chat de la comunidad ───────────────────────────────────────────────────
+// El chat corre en su propio proceso (crv-chat) para que un pico de mensajes
+// no compita con las consultas del catálogo. En producción comparten origen y
+// el gateway enruta /api/chat; en desarrollo se apunta con
+// VITE_CHAT_BASE_URL al puerto del chat.
+const CHAT_BASE_URL = (import.meta.env["VITE_CHAT_BASE_URL"] as string | undefined)?.trim() || BASE_URL;
+
+function chatRequest<T>(path: string, options: RequestOptions = {}): Promise<T> {
+  return request<T>(path, { ...options, baseUrl: CHAT_BASE_URL });
+}
+
+export interface ChatSession { actor: ChatUser; token: string; wallet: ChatWallet }
+export interface ChatCover { albumId: number; title: string; artist: string; coverUrl: string }
+
+export const chatApi = {
+  /** Crea el actor invitado o recupera el de la cookie firmada. */
+  session: (displayName?: string) => chatRequest<ChatSession>("/chat/session", {
+    method: "POST",
+    body: displayName ? { displayName } : {},
+  }),
+  me: () => chatRequest<{ actor: ChatUser; wallet: ChatWallet }>("/chat/session"),
+  setName: (displayName: string) => chatRequest<{ actor: ChatUser }>("/chat/profile", {
+    method: "PATCH", body: { displayName },
+  }),
+  rooms: () => chatRequest<{ rooms: ChatRoom[] }>("/chat/rooms"),
+  effects: () => chatRequest<{ effects: ChatEffect[] }>("/chat/effects"),
+  wallet: () => chatRequest<ChatWallet>("/chat/wallet"),
+  buy: (code: string, idempotencyKey: string) => chatRequest<{
+    wallet: ChatWallet; effect: { code: string; name: string }; rentedUntil: string | null; effects: ChatEffect[];
+  }>(`/chat/effects/${encodeURIComponent(code)}/buy`, { method: "POST", body: { idempotencyKey } }),
+  equip: (slot: "name" | "frame" | "background" | "ambient", code: string | null) => chatRequest<{
+    equipped: ChatUser["equipped"]; effects: ChatEffect[];
+  }>("/chat/equip", { method: "POST", body: { slot, code } }),
+  dailyCover: () => chatRequest<ChatCover>("/chat/daily-cover"),
+  adminEffects: () => chatRequest<{ effects: ChatEffect[] }>("/chat/admin/effects"),
+  publishEffect: (body: Record<string, unknown>) => chatRequest<{ ok: boolean; code: string }>("/chat/admin/effects", {
+    method: "POST", body, authenticated: true,
+  }),
+};
+
+/** URL del WebSocket del chat a partir de la base del proceso de chat. */
+export function chatSocketUrl(token: string, room: string): string {
+  const url = new URL(CHAT_BASE_URL);
+  url.protocol = url.protocol === "https:" ? "wss:" : "ws:";
+  url.pathname = `${url.pathname.replace(/\/$/u, "")}/chat/ws`;
+  url.search = `?t=${encodeURIComponent(token)}&room=${encodeURIComponent(room)}`;
+  return url.toString();
+}
+
+
 export const aiCurationApi = {
   resolveArtist:(personId:number)=>request<import("../../../src/curation/ai/person-artist-types").PersonArtistJob>(`/curation/ai/persons/${personId}/resolve-artist`,{method:"POST",authenticated:true}),
   artistResolution:(personId:number)=>request<import("../../../src/curation/ai/person-artist-types").PersonArtistJob|null>(`/curation/ai/persons/${personId}/resolve-artist`),
@@ -83,11 +134,11 @@ export const aiCurationApi = {
   implement:(plan:CatalogPlan,confirmSensitive:boolean)=>request<CatalogPlan>(`/curation/ai/plans/${plan.id}/implement`,{method:"POST",authenticated:true,body:{revision:plan.revision,previewHash:plan.preview?.hash,confirmSensitive}}),
 };
 
-function buildUrl(path: string, query?: Query): string {
+function buildUrl(path: string, query?: Query, baseUrl: string = BASE_URL): string {
   // La API puede vivir en el origen (desarrollo) o bajo un prefijo detrás de
   // un proxy, por ejemplo /crv/api en Tailscale Funnel. Un path que empieza
   // por / haría que URL descartase ese prefijo, por lo que se normaliza aquí.
-  const base = BASE_URL.endsWith("/") ? BASE_URL : `${BASE_URL}/`;
+  const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
   const url = new URL(path.replace(/^\/+/, ""), base);
   for (const [key, value] of Object.entries(query ?? {})) {
     if (value !== undefined) url.searchParams.set(key, String(value));
@@ -107,12 +158,15 @@ interface RequestOptions {
   authenticated?: boolean;
   /** Uso interno: la carga compartida ejecuta el transporte una sola vez. */
   skipReadCache?: boolean;
+  /** El chat vive en su propio proceso (crv-chat); el resto en la API del catálogo. */
+  baseUrl?: string;
 }
 
 async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const method = options.method ?? "GET";
+  const baseUrl = options.baseUrl ?? BASE_URL;
   if (method === "GET" && !options.skipReadCache && canCacheCatalogRead(path, options.query)) {
-    const key = new URL(buildUrl(path, options.query as Query | undefined));
+    const key = new URL(buildUrl(path, options.query as Query | undefined, baseUrl));
     key.pathname = path;
     return cachedCatalogRead(key, signal => request<T>(path, {
       ...options, skipReadCache: true, signal,
@@ -133,7 +187,7 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
     ...(options.signal ? { signal: options.signal } : {}),
     ...(options.binaryBody ? { body: options.binaryBody } : options.body === undefined ? {} : { body: JSON.stringify(options.body) }),
   };
-  const response = await fetch(buildUrl(path, options.query as Query | undefined), init);
+  const response = await fetch(buildUrl(path, options.query as Query | undefined, baseUrl), init);
   observeCatalogRevision(response.headers.get("x-crv-cache-version"));
   const receipt = response.headers.get("x-crv-search-receipt");
   if (receipt) options.onSearchReceipt?.(receipt);
@@ -233,6 +287,9 @@ export const searchApi = {
   knowledgeReview: (id: number, signal?: AbortSignal) => request<import("../../../src/search/knowledge-publication").KnowledgeReviewDetail>(`/search/administration/knowledge/reviews/${id}`, { ...(signal ? {signal} : {}) }),
   decideKnowledge: (id: number, body: import("zod").input<typeof import("../../../src/search/knowledge-publication").knowledgeDecisionSchema>) => request<{runId:number;result:{revision:number;status:string}}>(`/search/administration/knowledge/reviews/${id}/decision`, {method:"POST",body}),
   knowledge: (signal?: AbortSignal) => request<import("../../../src/search/knowledge-administration").KnowledgeAdministration>("/search/administration/knowledge", { ...(signal ? { signal } : {}) }),
+  /** More hits of one type, paginated (the API caps at 200 known matches). */
+  byType: (q: string, type: SearchEntityType, limit: number, offset = 0, signal?: AbortSignal) =>
+    request<SearchResults>("/search", { query: { q, types: type, limit, offset }, ...(signal ? { signal } : {}) }),
   observed: async (q: string, signal?: AbortSignal) => {
     let receipt: string | null = null;
     try {
@@ -381,6 +438,7 @@ export const organizationsApi = {
 
 /** Plan del primo, etapa 2: página de lugar y de serie. */
 export const discographyApi = {
+  listSeries: (params: Paged & CatalogSortParams & GenreListParams & { q?: string; albumType?: string; decade?: number; withoutYear?: boolean; beforeYear?: number } = {}) => request<Page<SeriesListItem>>("/series", { query: params }),
   place: (id: number) => request<PlaceDetail>(`/places/${id}`),
   series: (id: number) => request<SeriesDetail>(`/series/${id}`),
 };
@@ -739,7 +797,7 @@ export const imageCandidatesApi = {
   retry: (id: number) => request<import("../../../src/shared/image-curation-jobs").ImageJob>(`/curation/images/jobs/${id}/retry`, { method: "POST", authenticated: true, body: {} }),
   dismiss: (id: number) => request<{ dismissed: true }>(`/curation/images/jobs/${id}/dismiss`, { method: "POST", authenticated: true, body: {} }),
   summary: () => request<Record<ImageCandidateKind, number>>("/curation/images/summary"),
-  list: (kind: ImageCandidateKind, params: Paged & { entityId?: number } = {}) =>
+  list: (kind: ImageCandidateKind, params: Paged & { entityId?: number; artistId?: number } = {}) =>
     request<Page<ImageCandidateGroup>>("/curation/images", { query: { kind, ...params } }),
   /** Descarga y mide candidatas pendientes; no cambia ninguna ficha. */
   inspect: (body: { ids?: number[]; limit?: number; vision?: boolean } = {}) =>
@@ -824,6 +882,22 @@ export const catalogEditorApi = {
  list: (owner: "album"|"artist", id: number, resource: string) => request<Record<string, unknown>[]>(`/catalog-editor/${owner}/${id}/${resource}`),
  save: (owner: "album"|"artist", ownerId: number, resource: string, body: Record<string, unknown>, id?: number) => request<{id:number;runId:number}>(`/catalog-editor/${owner}/${ownerId}/${resource}${id===undefined?"":`/${id}`}`, {method:id===undefined?"POST":"PATCH",authenticated:true,body}),
  remove: (owner: "album"|"artist", ownerId: number, resource: string, id: number, note: string) => request<{id:number;runId:number}>(`/catalog-editor/${owner}/${ownerId}/${resource}/${id}`, {method:"DELETE",authenticated:true,query:{note}}),
+};
+
+/** Series: la serie, sus entregas y la pertenencia de un disco. Cada escritura es un run que se puede deshacer. */
+export const seriesEditorApi = {
+  list: (query: { q?: string; status?: "all" | "public" | "hidden"; limit?: number; offset?: number } = {}) =>
+    request<{ data: SeriesEditorSummary[]; pagination: { total: number; limit: number; offset: number } }>("/catalog-editor/series", { query }),
+  get: (id: number) => request<SeriesEditorDetail>(`/catalog-editor/series/${id}`),
+  forAlbum: (albumId: number) => request<AlbumSeriesMembership[]>(`/catalog-editor/album/${albumId}/series`),
+  save: (body: Record<string, unknown>, id?: number) =>
+    request<{ id: number; runId: number }>(`/catalog-editor/series${id === undefined ? "" : `/${id}`}`, { method: id === undefined ? "POST" : "PATCH", authenticated: true, body }),
+  remove: (id: number, note: string) => request<{ id: number; runId: number }>(`/catalog-editor/series/${id}`, { method: "DELETE", authenticated: true, query: { note } }),
+  saveEntry: (seriesId: number, body: Record<string, unknown>, entryId?: number) =>
+    request<{ id: number; runId: number }>(`/catalog-editor/series/${seriesId}/entries${entryId === undefined ? "" : `/${entryId}`}`,
+      { method: entryId === undefined ? "POST" : "PATCH", authenticated: true, body }),
+  removeEntry: (seriesId: number, entryId: number, note: string) =>
+    request<{ id: number; runId: number }>(`/catalog-editor/series/${seriesId}/entries/${entryId}`, { method: "DELETE", authenticated: true, query: { note } }),
 };
 
 /** Bandeja visual: el servidor recibe únicamente los aportes seleccionados y su versión. */

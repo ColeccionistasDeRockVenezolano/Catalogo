@@ -15,6 +15,7 @@
 // Imágenes optimizadas 2026-10-14: `/crv/media/…?w=320` sirve una copia WebP
 // reducida (media-variants.mjs). Si aún no existe se entrega el original y la
 // copia se encarga en segundo plano al optimizador de BrandForge.
+import net from "node:net";
 import http from "node:http";
 import { createReadStream } from "node:fs";
 import { stat } from "node:fs/promises";
@@ -29,6 +30,8 @@ const host = process.env.CRV_WEB_HOST ?? "127.0.0.1";
 const port = Number(process.env.CRV_WEB_PORT ?? "3120");
 const apiHost = process.env.CRV_API_HOST ?? "127.0.0.1";
 const apiPort = Number(process.env.CRV_API_PORT ?? "8080");
+// El chat corre en su propio proceso: /api/chat/* y su WebSocket van allí.
+const chatPort = Number(process.env.CRV_CHAT_PORT ?? "8081");
 const basePath = `/${(process.env.CRV_PUBLIC_PATH ?? "crv").replace(/^\/+|\/+$/g, "")}`;
 const apiPath = `${basePath}/api`;
 
@@ -241,14 +244,16 @@ function sendText(req, res, status, contentType, body, cacheControl) {
 
 function proxyApi(req, res, requestUrl) {
   const upstreamPath = `${requestUrl.pathname.slice(apiPath.length) || "/"}${requestUrl.search}`;
+  const isChat = upstreamPath === "/chat" || upstreamPath.startsWith("/chat?") || upstreamPath.startsWith("/chat/");
+  const upstreamPort = isChat ? chatPort : apiPort;
   const upstream = http.request({
     host: apiHost,
-    port: apiPort,
+    port: upstreamPort,
     method: req.method,
     path: upstreamPath,
     headers: {
       ...req.headers,
-      host: `${apiHost}:${apiPort}`,
+      host: `${apiHost}:${upstreamPort}`,
       "x-forwarded-host": req.headers.host,
       "x-forwarded-proto": "https",
     },
@@ -256,8 +261,50 @@ function proxyApi(req, res, requestUrl) {
     res.writeHead(upstreamResponse.statusCode ?? 502, { ...upstreamResponse.headers, ...SECURITY_HEADERS });
     upstreamResponse.pipe(res);
   });
-  upstream.on("error", () => reply(res, 502, "La API CRV no está disponible."));
+  upstream.on("error", () => reply(res, 502, isChat
+    ? "El chat de CRV no está disponible."
+    : "La API CRV no está disponible."));
   req.pipe(upstream);
+}
+
+/**
+ * WebSocket del chat. El gateway reenvía el upgrade al proceso crv-chat, que
+ * es el único que habla WS; sin esto el chat funcionaría por HTTP pero nunca
+ * recibiría mensajes en vivo detrás del dominio público.
+ */
+function proxyChatUpgrade(req, socket, head) {
+  let url;
+  try { url = new URL(req.url ?? "/", `http://${req.headers.host ?? host}`); }
+  catch { socket.destroy(); return; }
+  const virtualPath = url.pathname === basePath || url.pathname.startsWith(`${basePath}/`)
+    ? url.pathname
+    : `${basePath}${url.pathname}`;
+  if (virtualPath !== `${apiPath}/chat/ws`) { socket.destroy(); return; }
+
+  const upstream = net.connect(chatPort, apiHost, () => {
+    const path = virtualPath.slice(apiPath.length) + url.search;
+    const headers = {
+      host: `${apiHost}:${chatPort}`,
+      origin: req.headers.origin,
+      cookie: req.headers.cookie,
+      "user-agent": req.headers["user-agent"],
+      "sec-websocket-key": req.headers["sec-websocket-key"],
+      "sec-websocket-version": req.headers["sec-websocket-version"],
+      "sec-websocket-protocol": req.headers["sec-websocket-protocol"],
+      "sec-websocket-extensions": req.headers["sec-websocket-extensions"],
+      "x-forwarded-proto": "https",
+    };
+    const lines = [`GET ${path} HTTP/1.1`];
+    for (const [key, value] of Object.entries(headers)) {
+      if (value !== undefined) lines.push(`${key}: ${value}`);
+    }
+    upstream.write(`${lines.join("\r\n")}\r\n\r\n`);
+    if (head?.length) upstream.write(head);
+    upstream.pipe(socket);
+    socket.pipe(upstream);
+  });
+  upstream.on("error", () => socket.destroy());
+  socket.on("error", () => upstream.destroy());
 }
 
 async function serveFile(req, res, pathname, searchParams) {
@@ -293,8 +340,7 @@ async function serveFile(req, res, pathname, searchParams) {
   const width = isMedia ? Number(searchParams?.get("w")) : NaN;
   if (VARIANT_WIDTHS.has(width) && OPTIMIZABLE_EXTENSIONS.has(path.extname(file).toLowerCase())) {
     const variant = variantPath(path.relative(media, file), width);
-    let variantStat = null;
-    try { variantStat = await stat(variant); } catch { variantStat = null; }
+    const variantStat = await stat(variant).catch(() => null);
     if (variantStat?.isFile() && variantStat.mtimeMs >= fileStat.mtimeMs) {
       if (variantStat.size < fileStat.size) {
         file = variant;
@@ -376,5 +422,6 @@ const server = http.createServer(async (req, res) => {
   return serveFile(req, res, virtualUrl.pathname, virtualUrl.searchParams);
 });
 
+server.on("upgrade", proxyChatUpgrade);
 server.listen(port, host, () => console.log(`CRV público local: http://${host}:${port}${basePath}/`));
 server.on("error", (error) => { console.error(error); process.exitCode = 1; });

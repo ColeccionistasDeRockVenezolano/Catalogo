@@ -40,7 +40,9 @@ const CurationFixesPage = lazy(() => import("./pages/CurationFixesPage").then((m
 const ChangesHistoryPage = lazy(() => import("./pages/ChangesHistoryPage").then((module) => ({ default: module.ChangesHistoryPage })));
 const CurationImagesPage = lazy(() => import("./pages/CurationImagesPage").then((module) => ({ default: module.CurationImagesPage })));
 const CurationAutofixPage = lazy(() => import("./pages/CurationAutofixPage").then((module) => ({ default: module.CurationAutofixPage })));
+const AccountPage = lazy(() => import("./pages/AccountPage").then((module) => ({ default: module.AccountPage })));
 const AiCurationPage = lazy(() => import("./pages/AiCurationPage").then((module) => ({ default: module.AiCurationPage })));
+const ChatPage = lazy(() => import("./pages/ChatPage").then((module) => ({ default: module.ChatPage })));
 
 /** Enlaces viejos (/revision/:id) siguen llevando a la revisión. */
 function LegacyReviewRedirect() {
@@ -72,6 +74,9 @@ export function App() {
           <Route path="/catalogo" element={<Navigate to="/artistas" replace />} />
           <Route path="/efemerides" element={<EphemeridesPage />} />
           <Route path="/radio" element={<RadioPage />} />
+          <Route path="/chat" element={<ChatPage />} />
+          {/* Móvil: la pestaña «Cuenta» de la barra inferior (acceso, sesión, administración y ayuda). */}
+          <Route path="/cuenta" element={<AccountPage />} />
           {COMMUNITY_PAGES.map(page => <Route key={page.id} path={page.path} element={<CommunityPage pageId={page.id} />} />)}
           {COMMUNITY_REDIRECTS.map(redirect => <Route key={redirect.from} path={redirect.from} element={<CommunityRedirect redirect={redirect} />} />)}
           <Route path="/artistas" element={<ArtistsListPage />} />
@@ -84,6 +89,7 @@ export function App() {
           <Route path="/organizaciones" element={<OrganizationsListPage />} />
           <Route path="/organizaciones/:id" element={<OrganizationDetailPage />} />
           <Route path="/lugares/:id" element={<PlacePage />} />
+          <Route path="/series" element={<AlbumsListPage seriesOnly />} />
           <Route path="/series/:id" element={<SeriesPage />} />
           <Route path="/curaduria" element={<CurationLayout />}>
             <Route index element={<CurationOverviewPage />} />
