@@ -76,13 +76,19 @@ export function ChatPage() {
   const myNameEffect = equippedEffect(chat.actor, chat.effects, "name");
   const myFrame = equippedEffect(chat.actor, chat.effects, "frame");
   const entryEffect = chat.effects.find((effect) => effect.kind === "entry" && effect.owned) ?? null;
+  // El tema de la sala trae fondo y ambiente por defecto; si alguien lleva uno
+  // equipado, el suyo manda.
+  const themeBackground = typeof chat.room?.theme["background"] === "string" ? chat.room.theme["background"] : null;
+  const themeAmbient = typeof chat.room?.theme["ambient"] === "string" ? chat.room.theme["ambient"] : null;
   const background = useMemo(
-    () => chat.users.map((user) => equippedEffect(user, chat.effects, "background")).find((effect) => Boolean(effect)) ?? null,
-    [chat.users, chat.effects],
+    () => chat.users.map((user) => equippedEffect(user, chat.effects, "background")).find((effect) => Boolean(effect))
+      ?? (themeBackground ? chat.effects.find((effect) => effect.code === themeBackground) ?? null : null),
+    [chat.users, chat.effects, themeBackground],
   );
   const ambient = useMemo(
-    () => chat.users.map((user) => equippedEffect(user, chat.effects, "ambient")).find((effect) => Boolean(effect)) ?? null,
-    [chat.users, chat.effects],
+    () => chat.users.map((user) => equippedEffect(user, chat.effects, "ambient")).find((effect) => Boolean(effect))
+      ?? (themeAmbient ? chat.effects.find((effect) => effect.code === themeAmbient) ?? null : null),
+    [chat.users, chat.effects, themeAmbient],
   );
 
   const submit = (): void => {

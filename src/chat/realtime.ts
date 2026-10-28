@@ -56,6 +56,19 @@ export class ChatHub {
   }
 
   async connect(socket: ChatSocket, actorId: string, roomSlug: string): Promise<void> {
+    // Los listeners se registran ANTES de consultar la base: un cliente que
+    // escribe nada más abrir el socket no puede perder el mensaje. Los
+    // eventos que llegan durante el arranque se guardan y se procesan al
+    // final, justo después del snapshot.
+    let connection: Connection | null = null;
+    const pending: unknown[] = [];
+    socket.on("message", (data) => {
+      if (connection) void this.onMessage(socket, data);
+      else pending.push(data);
+    });
+    socket.on("close", () => this.onClose(socket));
+    socket.on("pong", () => { if (connection) connection.lastActivity = Date.now(); });
+
     const [actor, room] = await Promise.all([actorById(actorId), roomBySlug(roomSlug)]);
     if (!actor) {
       send(socket, { type: "error", code: "session_expired", message: "Tu sesión de chat caducó. Recarga la página." });
@@ -81,14 +94,10 @@ export class ChatHub {
     member.sockets.add(socket);
     members.set(actor.id, member);
 
-    const connection: Connection = {
+    connection = {
       actorId: actor.id, roomSlug: room.slug, lastActivity: Date.now(), sent: [], typingSent: [],
     };
     this.connections.set(socket, connection);
-
-    socket.on("message", (data) => { void this.onMessage(socket, data); });
-    socket.on("close", () => this.onClose(socket));
-    socket.on("pong", () => { connection.lastActivity = Date.now(); });
 
     const [messages, effects, wallet] = await Promise.all([
       listMessages(room.id, 50), effectsFor(actor.id), walletFor(actor.id),
@@ -97,6 +106,8 @@ export class ChatHub {
       type: "snapshot", room, actor: user, me: wallet, messages, users: this.presence(room.slug), effects,
     });
     this.broadcast(room.slug, { type: "presence", users: this.presence(room.slug) });
+
+    for (const data of pending.splice(0)) void this.onMessage(socket, data);
   }
 
   private async onMessage(socket: ChatSocket, raw: unknown): Promise<void> {

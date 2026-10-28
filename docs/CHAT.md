@@ -105,26 +105,48 @@ Un efecto es **datos**, no código (`src/chat/effects-catalog.ts`):
 
 ```json
 {
-  "version": 1, "triggers": ["always"], "cost": 3, "reducedMotion": "static",
-  "layers": [{ "type": "css", "preset": "neon", "colors": ["#2ec4b6", "#b185e3"] }]
+  "version": 1, "triggers": ["always"], "cost": 4, "reducedMotion": "static",
+  "layers": [
+    { "type": "sprite", "preset": "vinyl-face", "position": "left" },
+    { "type": "css", "preset": "gradient", "colors": ["#1a1a1a", "#f5f5f5", "#e50914"] }
+  ]
 }
 ```
 
-- El renderer (`web/src/components/chat/Effects.tsx`) implementa 25 presets CSS,
-  SVG y canvas. Añadir un efecto es añadir una entrada al catálogo o publicarlo
-  desde administración; el cliente no cambia.
+Hay **60 efectos** en cuatro familias de capa:
+
+- **Texto por letra** (`wave`, `rainbow`, `bounce`, `spin3d`, `glitch`,
+  `scatter`, `typewriter`, `jitter`, `fire-letters`): el nombre se parte en
+  caracteres y cada uno anima con desfase (`--i`). El resto de presets
+  (`neon`, `glow`, `gold`, `ice`, `blood`, `plasma`, `gradient`, `pulse`,
+  `scratch`, `eq`) se aplican al texto completo.
+- **Sprites SVG** propios (12): `vinyl-face`, `cassette-face`, `amp-face`,
+  `skull-rocker`, `flame-face`, `guitar`, `hand-rock`, `bat`, `mic`, `drum`,
+  `heart-horns`, `ufo-vinyl`. Son SVG de 1-2 KB con partes animadas (ojos que
+  parpadean, carretes que giran, llamas que tiemblan). No consumen presupuesto
+  porque no son canvas; se pintan también en gama baja (allí sin animación).
+- **Marcos** (`frame`, `orbit`, `ring`, `pulse-ring`) alrededor del avatar.
+- **Partículas canvas** (`confetti`, `embers`, `stardust`, `crowd`, `sparks`,
+  `notes`, `hearts`, `rain`, `fireworks`, `bubbles`) en un único canvas por
+  capa.
+
+Referencia de la ingeniería inversa (xat, medida 2026-10-28): sus «powers»
+son sprites pixel-art de 30-74 px, 72 fotogramas a 80 ms y 5,78 s en loop, con
+35-86 KB de WebP por efecto. Nosotros hacemos lo mismo en SVG de ~1 KB y texto
+vectorial, sin copiar ningún asset ni nombre.
+
+La sala `general` trae fondo `escenario` y ambiente `brasas` en su `theme`
+(migración 0108): la sala tiene vida aunque nadie lleve un efecto equipado. Si
+alguien equipa uno, el suyo manda.
+
 - **Presupuesto móvil** (`web/src/lib/chatEffects.ts`): se detecta
   `deviceMemory`, `hardwareConcurrency`, `saveData`, `prefers-reduced-motion` y
   el ancho de pantalla. En gama baja solo se pinta la versión estática; en
-  media hay 3 animaciones simultáneas; en alta, 8. Un `canvas` global por capa
-  de partículas, nunca uno por mensaje.
-- **Nada de GIFs.** Los efectos son CSS/SVG/canvas: el chunk completo de la
-  página del chat pesa **10,9 KB gzip** (31,6 KB sin comprimir). Para comparar:
-  la ingeniería inversa de xat midió 86 KB de WebP animado para un power de
-  53×53 px, ~5 MB de JS y 17 efectos marcados como incompatibles con móvil.
-- Los efectos propios se inspiran en la mecánica (nombre, marco, entrada,
-  mensaje, acción, fondo, ambiente), nunca en los assets ni en los nombres de
-  otra plataforma.
+  media hay 6 animaciones costosas simultáneas; en alta, 14. Un `canvas` global
+  por capa de partículas, nunca uno por mensaje.
+- **Medido** en viewport de 390×844 con fondo de escenario, brasas, cuatro
+  sprites y texto arcoíris: **60 fps y cero long tasks**. El chunk de la página
+  pesa 14 KB gzip.
 
 ### Cómo añadir un efecto
 

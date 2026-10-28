@@ -69,6 +69,13 @@ export async function syncEffectCatalog(): Promise<number> {
           item.priceCoins, item.priceCredits, item.durationDays, item.sort],
       );
     }
+    // Un efecto retirado del código deja de venderse, pero su inventario
+    // sigue vivo para quien ya lo compró (la fila no se borra).
+    await client.query(
+      `UPDATE chat.effects SET enabled = false, updated_at = now()
+       WHERE enabled = true AND NOT (code = ANY($1::text[]))`,
+      [EFFECT_CATALOG.map((item) => item.code)],
+    );
     await client.query("COMMIT");
     return EFFECT_CATALOG.length;
   } catch (error) {

@@ -9,12 +9,14 @@ import { useEffect, useRef, useState } from "react";
 import type { ChatEffect, ChatUser } from "../../../src/chat/protocol";
 
 export type Quality = "low" | "medium" | "high";
-export type LayerType = "css" | "svg" | "canvas";
+export type LayerType = "css" | "svg" | "canvas" | "sprite";
 export type EffectSlot = "name" | "frame" | "background" | "ambient";
 
 export interface EffectLayer {
   type: LayerType;
   preset: string;
+  /** Solo sprites: junto al nombre o encima del avatar. */
+  position?: "left" | "right" | "over" | "behind";
   colors?: string[];
   intensity?: number;
   speed?: number;
@@ -36,11 +38,25 @@ export interface EffectManifest {
 }
 
 const TEXT_PRESETS = new Set([
-  "glow", "gradient", "neon", "fire", "ice", "gold", "blood", "plasma", "pulse", "scratch", "vinyl", "eq", "sticker",
+  "wave", "rainbow", "bounce", "spin3d", "glitch", "scatter", "typewriter",
+  "jitter", "fire-letters", "neon", "glow", "gold", "ice", "blood", "plasma",
+  "gradient", "pulse", "scratch", "eq", "sticker", "vinyl",
 ]);
 
-/** Presupuesto de animaciones simultáneas por nivel. */
-export const ANIMATION_BUDGET: Record<Quality, number> = { low: 0, medium: 3, high: 8 };
+/** Presets que se pintan letra a letra (el resto, sobre el texto completo). */
+export const SPLIT_PRESETS = new Set([
+  "wave", "rainbow", "bounce", "spin3d", "glitch", "scatter", "typewriter", "jitter", "fire-letters",
+]);
+
+export const SPRITE_PRESETS = new Set([
+  "vinyl-face", "cassette-face", "amp-face", "skull-rocker", "flame-face",
+  "guitar", "hand-rock", "bat", "mic", "drum", "heart-horns", "ufo-vinyl",
+]);
+
+/** Presupuesto de animaciones simultáneas por nivel. Los sprites SVG no lo
+ * consumen (son CSS barato); lo gastan las partículas canvas y el texto por
+ * letra, que son los que pueden arrastrar el scroll. */
+export const ANIMATION_BUDGET: Record<Quality, number> = { low: 0, medium: 6, high: 14 };
 
 export function detectQuality(): Quality {
   if (typeof window === "undefined") return "low";
@@ -116,7 +132,8 @@ export function manifestOf(effect: ChatEffect | null | undefined): EffectManifes
 function isLayer(value: unknown): value is EffectLayer {
   if (!value || typeof value !== "object") return false;
   const layer = value as Partial<EffectLayer>;
-  return (layer.type === "css" || layer.type === "svg" || layer.type === "canvas") && typeof layer.preset === "string";
+  return (layer.type === "css" || layer.type === "svg" || layer.type === "canvas" || layer.type === "sprite")
+    && typeof layer.preset === "string";
 }
 
 export function equippedEffect(
@@ -132,6 +149,16 @@ export function equippedEffect(
 export function textLayer(manifest: EffectManifest | null): EffectLayer | null {
   if (!manifest) return null;
   return manifest.layers.find((layer) => layer.type === "css" && TEXT_PRESETS.has(layer.preset)) ?? null;
+}
+
+export function textLayers(manifest: EffectManifest | null): EffectLayer[] {
+  if (!manifest) return [];
+  return manifest.layers.filter((layer) => layer.type === "css" && TEXT_PRESETS.has(layer.preset));
+}
+
+export function spriteLayers(manifest: EffectManifest | null): EffectLayer[] {
+  if (!manifest) return [];
+  return manifest.layers.filter((layer) => layer.type === "sprite" && SPRITE_PRESETS.has(layer.preset));
 }
 
 /** Variables CSS que cada preset consume (colores, velocidad, intensidad). */
