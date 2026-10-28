@@ -13,8 +13,10 @@ import {
 } from "../lib/chatEffects";
 import { useOperator } from "../lib/OperatorContext";
 import { ChatAvatar, EffectName, EntryBurst, MessageBurst, RoomAmbient, RoomBackdrop } from "../components/chat/Effects";
+import { EffectFilters } from "../components/chat/TextEffects";
 import type { ChatEffect, ChatMessage, ChatUser } from "../../../src/chat/protocol";
 import "../styles/chat.css";
+import "../styles/reactbits.css";
 
 const SLOT_LABEL: Record<EffectSlot, string> = {
   name: "Nombre", frame: "Marco", background: "Fondo", ambient: "Ambiente", name_font: "Fuente",
@@ -101,6 +103,7 @@ export function ChatPage() {
 
   return (
     <div className="chat-shell">
+      <EffectFilters />
       <RoomBackdrop effect={background} quality={quality} />
       <RoomAmbient effect={ambient} quality={quality} />
       <EntryBurst effect={entryEffect} quality={quality} />

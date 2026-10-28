@@ -139,6 +139,27 @@ La sala `general` trae fondo `escenario` y ambiente `brasas` en su `theme`
 (migración 0108): la sala tiene vida aunque nadie lleve un efecto equipado. Si
 alguien equipa uno, el suyo manda.
 
+### Efectos de texto tipo React Bits
+
+Cinco efectos inspirados en [reactbits.dev](https://reactbits.dev/c/text-animations)
+y reimplementados desde cero (sin `motion` ni `ogl`, con presupuesto de
+animación). React Bits es MIT; no se copia código, se replica el efecto.
+
+| React Bits | Preset CRV | Cómo se hace |
+|---|---|---|
+| Decrypted Text | `decrypted` | Glifos aleatorios que se resuelven letra a letra; ciclo de 1,5 s y 4 s de descanso. |
+| Glitch Text | `rb-glitch` | Tres capas (base, roja, cian) con `clip-path` por franjas y desplazamiento. |
+| Warp Text | `warp` | Deformación líquida con `feTurbulence` + `feDisplacementMap` animados y aberración cromática. |
+| True Focus | `rb-focus` | Palabras que se enfocan en secuencia (blur 4,5 px) con marco de esquinas. |
+| Fuzzy Text | `rb-fuzzy` | Grano SVG animado que muerde el borde y vibración de 0,16 s. |
+
+Dos adaptaciones conscientes por el contexto del chat (nombres pequeños y
+muchos a la vez): `warp` y `fuzzy` usan filtros SVG compartidos en vez del
+WebGL/canvas del original —mismo aspecto, sin un contexto WebGL por nombre— y
+`warp` no persigue el puntero: ondula solo. `decrypted` y `foco` no gastan
+presupuesto de animación (dos intervalos baratos); `glitch`, `warp` y `fuzzy`
+son CSS puro.
+
 ### Fuentes del nombre
 
 Catorce estilos comprables (`kind: name_font`) que ocupan su propia ranura:

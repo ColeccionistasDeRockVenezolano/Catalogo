@@ -82,8 +82,31 @@ describe("protocolo del chat", () => {
     expect(clientEventSchema.safeParse({ type: "equip", slot: "cabeza", effectCode: "neon" }).success).toBe(false);
   });
 
-  it("el equipado siempre tiene las cuatro ranuras", () => {
-    expect(equippedSchema.safeParse({ name: null, frame: null, background: null, ambient: null }).success).toBe(true);
+  it("el equipado siempre tiene las cinco ranuras", () => {
+    expect(equippedSchema.safeParse({ name: null, frame: null, background: null, ambient: null, name_font: null }).success).toBe(true);
     expect(equippedSchema.safeParse({ name: "neon" }).success).toBe(false);
+  });
+
+  it("acepta una fuente en su propia ranura", () => {
+    expect(clientEventSchema.safeParse({ type: "equip", slot: "name_font", effectCode: "math-fraktur-bold" }).success).toBe(true);
+    expect(EFFECTS_BY_CODE.get("math-fraktur-bold")?.kind).toBe("name_font");
+    expect(isEquippable("name_font")).toBe(true);
+  });
+
+  it("incluye los cinco efectos de texto tipo React Bits", () => {
+    for (const code of ["descifrado", "glitch-rgb", "warp", "foco-real", "fuzzy"]) {
+      const effect = EFFECTS_BY_CODE.get(code);
+      expect(effect, code).toBeDefined();
+      expect(effect?.kind).toBe("name");
+      expect(effect?.manifest.layers[0]?.type).toBe("css");
+    }
+  });
+
+  it("no permite presets fuera del catálogo del renderer", () => {
+    for (const effect of EFFECT_CATALOG) {
+      for (const layer of effect.manifest.layers) {
+        expect(EFFECT_PRESETS).toContain(layer.preset);
+      }
+    }
   });
 });

@@ -23,6 +23,9 @@ export const EFFECT_PRESETS = [
   "wave", "rainbow", "bounce", "spin3d", "glitch", "scatter", "typewriter",
   "jitter", "fire-letters", "neon", "glow", "gold", "ice", "blood", "plasma",
   "gradient", "pulse", "scratch", "eq", "sticker", "vinyl",
+  // Efectos de React Bits (reimplementados): descifrado, glitch RGB, warp,
+  // foco por palabra y fuzzy.
+  "decrypted", "rb-glitch", "warp", "rb-focus", "rb-fuzzy",
   // Sprites SVG animados (mascotas y objetos de CRV)
   "vinyl-face", "cassette-face", "amp-face", "skull-rocker", "flame-face",
   "guitar", "hand-rock", "bat", "mic", "drum", "heart-horns", "ufo-vinyl",
@@ -299,6 +302,41 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
     priceCoins: 160, priceCredits: 16, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 2, reducedMotion: "static",
       layers: [text("jitter", ["#ffffff", ROJO])] },
+  }),
+  effect({
+    code: "descifrado", name: "Descifrado", kind: "name", sort: 260,
+    description: "Tu nombre se resuelve desde glifos aleatorios, como un hackeo de película.",
+    priceCoins: 280, priceCredits: 28, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [text("decrypted", ["#e8e8e8", "#7dffb0"])] },
+  }),
+  effect({
+    code: "glitch-rgb", name: "Glitch RGB", kind: "name", sort: 270,
+    description: "Tres capas con cortes por franjas y sombras roja y cian.",
+    priceCoins: 320, priceCredits: 32, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [text("rb-glitch", ["#ffffff", "#ff003c", "#00e5ff"])] },
+  }),
+  effect({
+    code: "warp", name: "Warp", kind: "name", sort: 280,
+    description: "Deformación líquida con bordes cromáticos, como un cristal.",
+    priceCoins: 400, priceCredits: 40, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [text("warp", ["#ff4d4d", "#4da6ff"])] },
+  }),
+  effect({
+    code: "foco-real", name: "Foco real", kind: "name", sort: 290,
+    description: "Una palabra nítida con marco de esquinas; el resto se desenfoca.",
+    priceCoins: 340, priceCredits: 34, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [text("rb-focus", ["#8b5cf6", "#c4b5fd"])] },
+  }),
+  effect({
+    code: "fuzzy", name: "Fuzzy", kind: "name", sort: 300,
+    description: "Borde mordido y vibración de señal analógica.",
+    priceCoins: 260, priceCredits: 26, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [text("rb-fuzzy", ["#ffffff", "#b0b0b0"])] },
   }),
 
   // ── Marco de avatar ──────────────────────────────────────────────────────

@@ -11,8 +11,9 @@ import { useEffect, useRef, useState } from "react";
 import type { ChatEffect, ChatUser } from "../../../../src/chat/protocol";
 import {
   avatarGradient, costOf, initials, layerStyle, manifestOf, nameFontCode, shouldHide, spriteLayers,
-  textLayers, useAnimationSlot, SPLIT_PRESETS, type EffectLayer, type Quality,
+  textLayers, useAnimationSlot, RB_PRESETS, SPLIT_PRESETS, type EffectLayer, type Quality,
 } from "../../lib/chatEffects";
+import { RbText } from "./TextEffects";
 import {
   applyTextTransform, applyUnicodeFont, fontStyleFor, isPerLetterFont,
 } from "../../../../src/chat/fonts";
@@ -474,8 +475,10 @@ export function EffectName({ name, effect, font, cover, quality, className }: {
   const perLetter = isPerLetterFont(fontCode);
   const fontStyle = fontCode ? fontStyleFor(fontCode) : {};
   const primary = layers[0];
-  // Solo el texto por letra y las partículas consumen presupuesto; un sprite
-  // o un glow son CSS barato y deben verse siempre.
+  const rbPreset = primary && RB_PRESETS.has(primary.preset) ? primary.preset : null;
+  // El descifrado y el foco animan con dos intervalos baratos: no gastan
+  // presupuesto. Este se reserva para texto por letra y canvas, que son los
+  // que multiplican trabajo con muchos mensajes.
   const heavy = Boolean(primary && SPLIT_PRESETS.has(primary.preset))
     || Boolean(manifest?.layers.some((layer) => layer.type === "canvas"));
   const slot = useAnimationSlot(Math.max(1, costOf(effect)), heavy, quality);
@@ -506,7 +509,9 @@ export function EffectName({ name, effect, font, cover, quality, className }: {
       {primary?.preset === "vinyl" && cover ? (
         <img className="crv-vinyl" src={cover} alt="" loading="lazy" decoding="async" />
       ) : null}
-      {split ? (
+      {rbPreset ? (
+        <RbText preset={rbPreset} text={display} animate={!still} />
+      ) : split ? (
         <span className="crv-letters" aria-hidden="true">
           {chars.map((char, index) => (
             <span key={`${char}-${index}`} className="crv-ch" style={{ "--i": index } as React.CSSProperties}>

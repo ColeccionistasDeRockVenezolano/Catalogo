@@ -42,7 +42,11 @@ const TEXT_PRESETS = new Set([
   "wave", "rainbow", "bounce", "spin3d", "glitch", "scatter", "typewriter",
   "jitter", "fire-letters", "neon", "glow", "gold", "ice", "blood", "plasma",
   "gradient", "pulse", "scratch", "eq", "sticker", "vinyl",
+  "decrypted", "rb-glitch", "warp", "rb-focus", "rb-fuzzy",
 ]);
+
+/** Efectos de React Bits: se pintan con un componente propio, no por CSS. */
+export const RB_PRESETS = new Set(["decrypted", "rb-glitch", "warp", "rb-focus", "rb-fuzzy"]);
 
 /** Presets que se pintan letra a letra (el resto, sobre el texto completo). */
 export const SPLIT_PRESETS = new Set([
