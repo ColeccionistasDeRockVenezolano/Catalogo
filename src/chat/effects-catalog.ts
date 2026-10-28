@@ -10,9 +10,10 @@
 // hacemos lo mismo pero vectorial: sprites SVG propios (1-2 KB), texto
 // animado por letra y partículas en canvas. Cero assets copiados.
 import { z } from "zod";
+import { FONT_SPECS } from "./fonts.js";
 
 export const EFFECT_KINDS = [
-  "name", "frame", "entry", "message", "action", "sticker", "background", "ambient",
+  "name", "frame", "entry", "message", "action", "sticker", "background", "ambient", "name_font",
 ] as const;
 export type EffectKind = typeof EFFECT_KINDS[number];
 
@@ -58,12 +59,18 @@ export const effectManifestSchema = z.object({
   version: z.literal(1),
   triggers: z.array(z.enum(["always", "on_message", "on_join", "on_action", "on_hover"]))
     .min(1).max(4),
-  layers: z.array(effectLayerSchema).min(1).max(5),
+  layers: z.array(effectLayerSchema).max(5),
+  /** Fuente del nombre: el catálogo real vive en src/chat/fonts.ts. */
+  font: z.object({ code: z.string().min(2).max(40) }).optional(),
   durationMs: z.number().int().min(200).max(15_000).optional(),
   sound: z.string().max(40).optional(),
   reducedMotion: z.enum(["static", "hide"]).default("static"),
   cost: z.number().int().min(1).max(10),
   interactive: z.boolean().optional(),
+}).superRefine((value, context) => {
+  if (value.layers.length === 0 && !value.font) {
+    context.addIssue({ code: "custom", message: "Un efecto necesita capas o una fuente" });
+  }
 });
 
 export type EffectManifest = z.infer<typeof effectManifestSchema>;
@@ -98,6 +105,23 @@ const sprite = (preset: EffectPreset, position: "left" | "right" | "over" = "lef
 const svg = (preset: EffectPreset, colors: string[]): EffectLayer => ({ type: "svg", preset, colors });
 const canvas = (preset: EffectPreset, colors: string[], count: number): EffectLayer =>
   ({ type: "canvas", preset, colors, count });
+
+const FONT_PRICES: Readonly<Record<string, number>> = {
+  "versalitas": 120,
+  "cursiva-script": 160,
+  "letras-circulo": 200,
+  "boxed-black": 220,
+  "lower-upper-light": 180,
+  "math-monospace": 200,
+  "math-serif-italic": 220,
+  "math-double-struck": 240,
+  "coptic-standard": 260,
+  "lilia": 280,
+  "tai-le-curly": 300,
+  "math-script-bold": 320,
+  "math-fraktur-bold": 340,
+  "black-panther": 400,
+};
 
 export const EFFECT_CATALOG: readonly CatalogEffect[] = [
   // ── Nombre ───────────────────────────────────────────────────────────────
@@ -535,6 +559,21 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
     manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "hide",
       layers: [canvas("sparks", [AMBAR, "#ffffff"], 14)] },
   }),
+
+  // ── Fuentes del nombre ──────────────────────────────────────────────────
+  // El estilo real vive en src/chat/fonts.ts; aquí solo se pone a la venta.
+  ...FONT_SPECS.map((spec, index): CatalogEffect => {
+    const price = FONT_PRICES[spec.code] ?? 200;
+    return {
+      code: spec.code, name: spec.name, kind: "name_font", sort: 10 + index,
+      description: spec.note,
+      priceCoins: price, priceCredits: Math.round(price / 10), durationDays: 30,
+      manifest: {
+        version: 1, triggers: ["always"], layers: [], font: { code: spec.code },
+        cost: 1, reducedMotion: "static",
+      },
+    };
+  }),
 ];
 
 export const EFFECTS_BY_CODE: ReadonlyMap<string, CatalogEffect> =
@@ -542,5 +581,5 @@ export const EFFECTS_BY_CODE: ReadonlyMap<string, CatalogEffect> =
 
 /** Un efecto de nombre/fondo puede ir equipado; los de disparo no. */
 export function isEquippable(kind: EffectKind): boolean {
-  return kind === "name" || kind === "frame" || kind === "background" || kind === "ambient";
+  return kind === "name" || kind === "frame" || kind === "background" || kind === "ambient" || kind === "name_font";
 }

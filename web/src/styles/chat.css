@@ -217,8 +217,19 @@
 .fx-vinyl .crv-vinyl { animation-duration: calc(6s / var(--fx-speed)); }
 
 /* Texto por letra: oleada, rebote, giro 3D, glitch RGB, dispersión… */
-.crv-letters { display: inline-flex; align-items: baseline; }
+.crv-letters { display: inline-flex; align-items: baseline; flex-wrap: nowrap; white-space: nowrap; }
 .crv-ch { display: inline-block; transform-origin: 50% 80%; will-change: transform, opacity; }
+.chat-effect-preview { overflow: hidden; font-size: 13px; }
+.chat-effect-preview .crv-name, .chat-effect-preview .crv-letters { flex-wrap: nowrap; white-space: nowrap; }
+.chat-effect-name { font-size: 11px; line-height: 1.25; color: var(--text-muted); text-align: left; }
+.chat-font-sample {
+  margin: 10px 0 4px; padding: 14px 10px; border-radius: 12px;
+  background: var(--bg); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center; min-height: 62px;
+}
+.chat-font-sample .crv-name { font-size: 22px; }
+.chat-effect-detail-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.chat-effect-detail-head button { background: none; border: 0; color: var(--text-muted); padding: 2px; }
 
 .fx-wave .crv-ch { animation: crv-ch-wave calc(1.9s / var(--fx-speed)) ease-in-out infinite; animation-delay: calc(var(--i) * -0.11s); }
 .fx-rainbow .crv-ch {
@@ -364,6 +375,22 @@
 .crv-ring-pulse-2 { animation-delay: 1.1s; }
 @keyframes crv-ring { 0% { transform: scale(.86); opacity: .95; } 100% { transform: scale(1.18); opacity: 0; } }
 .is-static svg, .is-static svg * { animation: none !important; }
+
+/* ── Fuentes del nombre ───────────────────────────────────────────────── */
+.crv-f-boxed-black .crv-ch, .crv-f-boxed-black .crv-name-text {
+  background: #0d0d0d; color: #fff; font-weight: 800;
+  padding: 0 4px; margin: 0 1px; border-radius: 3px;
+  box-shadow: inset 0 0 0 1px #3a3a3a, 0 1px 2px rgba(0, 0, 0, .6);
+}
+.crv-f-letras-circulo .crv-ch, .crv-f-letras-circulo .crv-name-text {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.5em; height: 1.5em; border: 1.5px solid currentColor; border-radius: 50%;
+  font-size: .78em; margin: 0 1px;
+}
+.crv-f-versalitas .crv-name-text, .crv-f-versalitas .crv-ch { letter-spacing: .04em; }
+.crv-f-black-panther .crv-name-text { letter-spacing: .015em; }
+.crv-f-cursiva-script .crv-name-text { padding-right: 2px; }
+.crv-f-lower-upper-light .crv-name-text { letter-spacing: .06em; }
 
 /* ── Escritorio ───────────────────────────────────────────────────────── */
 @media (min-width: 900px) {

@@ -186,7 +186,7 @@ export async function registerChatRoutes(app: FastifyInstance): Promise<void> {
     schema: {
       tags: ["chat"],
       body: z.object({
-        slot: z.enum(["name", "frame", "background", "ambient"]),
+        slot: z.enum(["name", "frame", "background", "ambient", "name_font"]),
         code: z.string().regex(/^[a-z0-9-]{2,40}$/u).nullable(),
       }),
     },

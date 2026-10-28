@@ -10,9 +10,12 @@
 import { useEffect, useRef, useState } from "react";
 import type { ChatEffect, ChatUser } from "../../../../src/chat/protocol";
 import {
-  avatarGradient, costOf, initials, layerStyle, manifestOf, shouldHide, spriteLayers,
+  avatarGradient, costOf, initials, layerStyle, manifestOf, nameFontCode, shouldHide, spriteLayers,
   textLayers, useAnimationSlot, SPLIT_PRESETS, type EffectLayer, type Quality,
 } from "../../lib/chatEffects";
+import {
+  applyTextTransform, applyUnicodeFont, fontStyleFor, isPerLetterFont,
+} from "../../../../src/chat/fonts";
 
 // ── Sprites SVG (propios de CRV) ───────────────────────────────────────────
 function VinylFace() {
@@ -458,36 +461,43 @@ function SvgFrame({ layer }: { layer: EffectLayer }) {
 }
 
 // ── Nombre con efecto ──────────────────────────────────────────────────────
-export function EffectName({ name, effect, cover, quality, className }: {
-  name: string; effect: ChatEffect | null; cover: string | null; quality: Quality; className?: string;
+export function EffectName({ name, effect, font, cover, quality, className }: {
+  name: string; effect: ChatEffect | null; font?: ChatEffect | null;
+  cover: string | null; quality: Quality; className?: string;
 }) {
   const manifest = manifestOf(effect);
   const layers = textLayers(manifest);
   const sprites = spriteLayers(manifest);
+  const fontCode = nameFontCode(font);
+  const base = fontCode ? applyTextTransform(name, fontCode) : name;
+  const display = fontCode ? applyUnicodeFont(base, fontCode) : base;
+  const perLetter = isPerLetterFont(fontCode);
+  const fontStyle = fontCode ? fontStyleFor(fontCode) : {};
   const primary = layers[0];
   // Solo el texto por letra y las partículas consumen presupuesto; un sprite
   // o un glow son CSS barato y deben verse siempre.
   const heavy = Boolean(primary && SPLIT_PRESETS.has(primary.preset))
     || Boolean(manifest?.layers.some((layer) => layer.type === "canvas"));
   const slot = useAnimationSlot(Math.max(1, costOf(effect)), heavy, quality);
-  if (layers.length === 0 && sprites.length === 0) return <span className={className}>{name}</span>;
+  if (layers.length === 0 && sprites.length === 0 && !fontCode) return <span className={className}>{name}</span>;
   if (shouldHide(effect, quality)) return <span className={className}>{name}</span>;
 
   const extras = layers.slice(1).map((layer) => `fx-${layer.preset}`).join(" ");
-  const split = primary ? SPLIT_PRESETS.has(primary.preset) : false;
+  const split = perLetter || (primary ? SPLIT_PRESETS.has(primary.preset) : false);
   const still = quality === "low" || (heavy && !slot);
-  const chars = [...name];
+  const chars = [...display];
 
   return (
     <span
       className={[
         "crv-name",
+        fontCode ? `crv-f-${fontCode}` : "",
         primary ? `fx-${primary.preset}` : "",
         extras,
         still ? "is-static" : "",
         className ?? "",
       ].filter(Boolean).join(" ")}
-      style={primary ? layerStyle(primary) : undefined}
+      style={{ ...fontStyle, ...(primary ? layerStyle(primary) : {}) } as React.CSSProperties}
       aria-label={name}
     >
       {sprites.filter((layer) => (layer.position ?? "left") === "left").map((layer, index) => (
@@ -505,7 +515,7 @@ export function EffectName({ name, effect, cover, quality, className }: {
           ))}
         </span>
       ) : (
-        <span className="crv-name-text">{name}</span>
+        <span className="crv-name-text">{display}</span>
       )}
       {sprites.filter((layer) => (layer.position ?? "left") === "right").map((layer, index) => (
         <SpriteBadge key={`r-${layer.preset}-${index}`} layer={layer} quality={quality} />

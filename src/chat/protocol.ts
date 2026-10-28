@@ -13,6 +13,7 @@ export const equippedSchema = z.object({
   frame: z.string().nullable(),
   background: z.string().nullable(),
   ambient: z.string().nullable(),
+  name_font: z.string().nullable(),
 });
 export type Equipped = z.infer<typeof equippedSchema>;
 
@@ -75,7 +76,7 @@ export const clientEventSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("message"), body: z.string().trim().min(1).max(MAX_BODY), effectCode: z.string().max(40).optional() }),
   z.object({ type: z.literal("typing"), active: z.boolean() }),
   z.object({ type: z.literal("action"), code: z.string().regex(/^[a-z0-9-]{2,40}$/u), targetId: z.string().uuid().optional() }),
-  z.object({ type: z.literal("equip"), slot: z.enum(["name", "frame", "background", "ambient"]), effectCode: z.string().max(40).nullable() }),
+  z.object({ type: z.literal("equip"), slot: z.enum(["name", "frame", "background", "ambient", "name_font"]), effectCode: z.string().max(40).nullable() }),
   z.object({ type: z.literal("profile"), displayName: z.string().trim().min(2).max(40) }),
   z.object({ type: z.literal("ping") }),
 ]);

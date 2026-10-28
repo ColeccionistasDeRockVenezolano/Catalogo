@@ -139,7 +139,30 @@ La sala `general` trae fondo `escenario` y ambiente `brasas` en su `theme`
 (migración 0108): la sala tiene vida aunque nadie lleve un efecto equipado. Si
 alguien equipa uno, el suyo manda.
 
-- **Presupuesto móvil** (`web/src/lib/chatEffects.ts`): se detecta
+### Fuentes del nombre
+
+Catorce estilos comprables (`kind: name_font`) que ocupan su propia ranura:
+se pueden llevar a la vez que un efecto de nombre (fraktur + calavera).
+El texto real del actor nunca se guarda transformado: se transforma al pintar,
+así que quitar o dejar caducar una fuente no toca mensajes ni identidad.
+
+Dos motores (`src/chat/fonts.ts`):
+
+- **Unicode** (`applyUnicodeFont`): el carácter es el estilo. Math Serif Italic
+  (con el hueco de la `h` → ℎ), Math Monospace, Math Script Bold, Math Fraktur
+  Bold, Math Double-Struck (ℂℍℕℙℚℝℤ), Coptic Standard y Tai Le Curly.
+- **CSS / por letra**: Lower Upper Light (primera minúscula, resto mayúsculas),
+  Lilia, Black Panther, Cursiva Script, Versalitas (small-caps), Boxed Black
+  (cada letra en su caja) y Letras en Círculo (cada letra en un aro).
+
+Precios de 120 a 400 monedas, alquiler de 30 días, con la misma compra
+idempotente y el mismo libro mayor que los efectos. Migración 0109: valor
+`name_font` en `chat.effects.kind` y en `chat.equipped.slot`.
+
+La tienda muestra cada fuente con la muestra «La Rockola» y el panel de detalle
+la pinta a 22 px antes de comprar.
+
+Presupuesto móvil (`web/src/lib/chatEffects.ts`): se detecta
   `deviceMemory`, `hardwareConcurrency`, `saveData`, `prefers-reduced-motion` y
   el ancho de pantalla. En gama baja solo se pinta la versión estática; en
   media hay 6 animaciones costosas simultáneas; en alta, 14. Un `canvas` global

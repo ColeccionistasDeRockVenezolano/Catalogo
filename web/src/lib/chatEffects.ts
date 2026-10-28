@@ -10,7 +10,7 @@ import type { ChatEffect, ChatUser } from "../../../src/chat/protocol";
 
 export type Quality = "low" | "medium" | "high";
 export type LayerType = "css" | "svg" | "canvas" | "sprite";
-export type EffectSlot = "name" | "frame" | "background" | "ambient";
+export type EffectSlot = "name" | "frame" | "background" | "ambient" | "name_font";
 
 export interface EffectLayer {
   type: LayerType;
@@ -30,10 +30,11 @@ export interface EffectManifest {
   version: number;
   triggers: string[];
   layers: EffectLayer[];
+  font?: { code: string };
+  reducedMotion: "static" | "hide";
+  cost: number;
   durationMs?: number;
   sound?: string;
-  reducedMotion?: "static" | "hide";
-  cost: number;
   interactive?: boolean;
 }
 
@@ -116,17 +117,26 @@ export function useAnimationSlot(cost: number, enabled: boolean, quality: Qualit
 export function manifestOf(effect: ChatEffect | null | undefined): EffectManifest | null {
   if (!effect) return null;
   const raw = effect.manifest as Partial<EffectManifest> | undefined;
-  if (!raw || !Array.isArray(raw.layers) || raw.layers.length === 0) return null;
+  if (!raw || !Array.isArray(raw.layers)) return null;
+  const layers = raw.layers.filter(isLayer);
+  const font = raw.font && typeof raw.font.code === "string" ? { code: raw.font.code } : undefined;
+  if (layers.length === 0 && !font) return null;
   return {
     version: typeof raw.version === "number" ? raw.version : 1,
     triggers: Array.isArray(raw.triggers) ? raw.triggers : ["always"],
-    layers: raw.layers.filter(isLayer),
+    layers,
+    ...(font ? { font } : {}),
     reducedMotion: raw.reducedMotion === "hide" ? "hide" : "static",
     cost: typeof raw.cost === "number" ? Math.min(10, Math.max(1, raw.cost)) : 3,
     ...(typeof raw.durationMs === "number" ? { durationMs: raw.durationMs } : {}),
     ...(typeof raw.interactive === "boolean" ? { interactive: raw.interactive } : {}),
     ...(typeof raw.sound === "string" ? { sound: raw.sound } : {}),
   };
+}
+
+/** Código de fuente de un efecto `name_font`. */
+export function nameFontCode(effect: ChatEffect | null | undefined): string | null {
+  return manifestOf(effect)?.font?.code ?? null;
 }
 
 function isLayer(value: unknown): value is EffectLayer {

@@ -10,6 +10,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ChatEffect, ChatMessage, ChatRoom, ChatUser, Equipped, Wallet } from "../../../src/chat/protocol";
 import { chatApi, chatSocketUrl, type ChatCover, type ChatSession } from "./api";
+import type { EffectSlot } from "./chatEffects";
 
 export type ChatStatus = "connecting" | "online" | "offline";
 
@@ -154,7 +155,7 @@ export function useChat(roomSlug: string) {
     }, 2500);
   }, [send]);
 
-  const equip = useCallback(async (slot: "name" | "frame" | "background" | "ambient", code: string | null) => {
+  const equip = useCallback(async (slot: EffectSlot, code: string | null) => {
     const result = await chatApi.equip(slot, code);
     setState((current) => ({
       ...current,

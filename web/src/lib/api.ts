@@ -100,7 +100,7 @@ export const chatApi = {
   buy: (code: string, idempotencyKey: string) => chatRequest<{
     wallet: ChatWallet; effect: { code: string; name: string }; rentedUntil: string | null; effects: ChatEffect[];
   }>(`/chat/effects/${encodeURIComponent(code)}/buy`, { method: "POST", body: { idempotencyKey } }),
-  equip: (slot: "name" | "frame" | "background" | "ambient", code: string | null) => chatRequest<{
+  equip: (slot: "name" | "frame" | "background" | "ambient" | "name_font", code: string | null) => chatRequest<{
     equipped: ChatUser["equipped"]; effects: ChatEffect[];
   }>("/chat/equip", { method: "POST", body: { slot, code } }),
   dailyCover: () => chatRequest<ChatCover>("/chat/daily-cover"),

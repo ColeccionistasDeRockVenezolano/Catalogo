@@ -16,8 +16,8 @@ export class ChatError extends Error {
   }
 }
 
-const EMPTY_EQUIPPED: Equipped = { name: null, frame: null, background: null, ambient: null };
-const EQUIPPED_SLOTS = ["name", "frame", "background", "ambient"] as const;
+const EMPTY_EQUIPPED: Equipped = { name: null, frame: null, background: null, ambient: null, name_font: null };
+const EQUIPPED_SLOTS = ["name", "frame", "background", "ambient", "name_font"] as const;
 type EquippedSlot = typeof EQUIPPED_SLOTS[number];
 
 function asNumber(value: unknown): number {

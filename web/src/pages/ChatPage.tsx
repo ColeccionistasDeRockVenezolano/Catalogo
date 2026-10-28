@@ -13,20 +13,20 @@ import {
 } from "../lib/chatEffects";
 import { useOperator } from "../lib/OperatorContext";
 import { ChatAvatar, EffectName, EntryBurst, MessageBurst, RoomAmbient, RoomBackdrop } from "../components/chat/Effects";
-import type { ChatEffect, ChatMessage } from "../../../src/chat/protocol";
+import type { ChatEffect, ChatMessage, ChatUser } from "../../../src/chat/protocol";
 import "../styles/chat.css";
 
 const SLOT_LABEL: Record<EffectSlot, string> = {
-  name: "Nombre", frame: "Marco", background: "Fondo", ambient: "Ambiente",
+  name: "Nombre", frame: "Marco", background: "Fondo", ambient: "Ambiente", name_font: "Fuente",
 };
 
 const KIND_LABEL: Record<string, string> = {
-  name: "Nombres", frame: "Marcos", entry: "Entradas", message: "Mensajes",
+  name: "Nombres", name_font: "Fuentes", frame: "Marcos", entry: "Entradas", message: "Mensajes",
   action: "Acciones", sticker: "Stickers", background: "Fondos", ambient: "Ambientes",
 };
 
 /** Orden de las pestañas: lo que se lleva puesto primero. */
-const KIND_ORDER = ["name", "frame", "entry", "message", "action", "sticker", "background", "ambient"];
+const KIND_ORDER = ["name", "name_font", "frame", "entry", "message", "action", "sticker", "background", "ambient"];
 
 export function ChatPage() {
   const chat = useChat("general");
@@ -74,6 +74,7 @@ export function ChatPage() {
   }, [chat.actor?.displayName]);
 
   const myNameEffect = equippedEffect(chat.actor, chat.effects, "name");
+  const myFont = equippedEffect(chat.actor, chat.effects, "name_font");
   const myFrame = equippedEffect(chat.actor, chat.effects, "frame");
   const entryEffect = chat.effects.find((effect) => effect.kind === "entry" && effect.owned) ?? null;
   // El tema de la sala trae fondo y ambiente por defecto; si alguien lleva uno
@@ -200,6 +201,7 @@ export function ChatPage() {
           <EffectName
             name={chat.actor ? chat.actor.displayName : "Invitado"}
             effect={myNameEffect}
+            font={myFont}
             cover={chat.cover?.coverUrl ?? null}
             quality={quality}
           />
@@ -291,8 +293,10 @@ function MessageRow({ message, effects, quality, cover, compact }: {
     displayName: message.displayName ?? "Alguien",
     avatarSeed: message.handle ?? "crv",
   };
-  const nameEffect = equippedEffect({ equipped: message.equipped ?? { name: null, frame: null, background: null, ambient: null } }, effects, "name");
-  const frame = equippedEffect({ equipped: message.equipped ?? { name: null, frame: null, background: null, ambient: null } }, effects, "frame");
+  const equipped = message.equipped ?? { name: null, frame: null, background: null, ambient: null, name_font: null };
+  const nameEffect = equippedEffect({ equipped }, effects, "name");
+  const nameFont = equippedEffect({ equipped }, effects, "name_font");
+  const frame = equippedEffect({ equipped }, effects, "frame");
   const burst = message.effectCode ? effects.find((effect) => effect.code === message.effectCode) ?? null : null;
 
   if (message.kind === "system") {
@@ -301,7 +305,7 @@ function MessageRow({ message, effects, quality, cover, compact }: {
   if (message.kind === "action") {
     return (
       <p className="chat-action">
-        <EffectName name={user.displayName} effect={nameEffect} cover={cover} quality={quality} />
+        <EffectName name={user.displayName} effect={nameEffect} font={nameFont} cover={cover} quality={quality} />
         <span> {actionLabel(message.body)}</span>
         <MessageBurst effect={burst} quality={quality} />
       </p>
@@ -316,7 +320,7 @@ function MessageRow({ message, effects, quality, cover, compact }: {
       <div className="chat-bubble">
         {compact ? null : (
           <header>
-            <EffectName name={user.displayName} effect={nameEffect} cover={cover} quality={quality} />
+            <EffectName name={user.displayName} effect={nameEffect} font={nameFont} cover={cover} quality={quality} />
             {message.effectCode === "sticker" ? <span className="chat-sticker">🎵</span> : null}
             <time dateTime={message.createdAt}>{formatTime(message.createdAt)}</time>
           </header>
@@ -337,7 +341,7 @@ function actionLabel(code: string): string {
 }
 
 function UserList({ users, effects, quality }: {
-  users: Array<{ id: string; displayName: string; avatarSeed: string; equipped: { name: string | null; frame: string | null; background: string | null; ambient: string | null } }>;
+  users: ChatUser[];
   effects: ChatEffect[]; quality: ReturnType<typeof useChatQuality>;
 }) {
   return (
@@ -345,7 +349,12 @@ function UserList({ users, effects, quality }: {
       {users.map((user) => (
         <li key={user.id}>
           <ChatAvatar user={user} frame={equippedEffect(user, effects, "frame")} quality={quality} size={32} />
-          <EffectName name={user.displayName} effect={equippedEffect(user, effects, "name")} cover={null} quality={quality} />
+          <EffectName
+            name={user.displayName}
+            effect={equippedEffect(user, effects, "name")}
+            font={equippedEffect(user, effects, "name_font")}
+            cover={null} quality={quality}
+          />
         </li>
       ))}
     </ul>
@@ -396,27 +405,18 @@ function ShopSheet({ effects, wallet, cover, quality, isAdmin, onClose, onBuy, o
         ))}
       </div>
 
-      <div className="chat-effect-grid">
-        {list.map((effect) => (
-          <button
-            key={effect.code} type="button"
-            className={`chat-effect-card${selected?.code === effect.code ? " is-selected" : ""}${effect.equipped ? " is-equipped" : ""}`}
-            onClick={() => setSelected(effect)}
-          >
-            <span className="chat-effect-preview" data-kind={effect.kind}>
-              <EffectName name={effect.name} effect={effect} cover={cover} quality={quality} />
-            </span>
-            <span className="chat-effect-price">
-              {effect.owned ? (effect.equipped ? "Equipado" : "Tuyo") : `${effect.priceCoins} ¢`}
-            </span>
-          </button>
-        ))}
-      </div>
-
       {selected ? (
         <div className="chat-effect-detail">
-          <h3>{selected.name}</h3>
+          <div className="chat-effect-detail-head">
+            <h3>{selected.name}</h3>
+            <button type="button" onClick={() => setSelected(null)} aria-label="Cerrar detalle"><X size={16} weight="bold" /></button>
+          </div>
           <p>{selected.description}</p>
+          {selected.kind === "name_font" ? (
+            <p className="chat-font-sample">
+              <EffectName name="La Rockola" effect={selected} font={selected} cover={cover} quality={quality} />
+            </p>
+          ) : null}
           <p className="chat-effect-meta">
             {selected.durationDays ? `Alquiler ${selected.durationDays} días` : "Permanente"}
             {selected.priceCoins > 0 ? ` · ${selected.priceCoins} monedas` : ""}
@@ -443,6 +443,27 @@ function ShopSheet({ effects, wallet, cover, quality, isAdmin, onClose, onBuy, o
           </div>
         </div>
       ) : null}
+
+      <div className="chat-effect-grid">
+        {list.map((effect) => (
+          <button
+            key={effect.code} type="button"
+            className={`chat-effect-card${selected?.code === effect.code ? " is-selected" : ""}${effect.equipped ? " is-equipped" : ""}`}
+            onClick={() => setSelected(effect)}
+          >
+            <span className="chat-effect-preview" data-kind={effect.kind}>
+              <EffectName
+                name={effect.kind === "name_font" ? "La Rockola" : effect.name}
+                effect={effect} font={effect} cover={cover} quality={quality}
+              />
+            </span>
+            <span className="chat-effect-name">{effect.name}</span>
+            <span className="chat-effect-price">
+              {effect.owned ? (effect.equipped ? "Equipado" : "Tuyo") : `${effect.priceCoins} ¢`}
+            </span>
+          </button>
+        ))}
+      </div>
 
       {isAdmin ? <AdminEffectEditor onClose={onClose} /> : null}
     </Sheet>
