@@ -56,8 +56,8 @@
   animation: crv-rb-warp-breathe 6s ease-in-out infinite;
 }
 @keyframes crv-rb-warp-breathe {
-  0%, 100% { letter-spacing: .01em; transform: scaleX(1); }
-  50% { letter-spacing: .035em; transform: scaleX(1.02); }
+  0%, 100% { transform: translate3d(0, 0, 0) skewX(0deg); }
+  50% { transform: translate3d(0, -1px, 0) skewX(-1.5deg); }
 }
 
 /* Fuzzy: borde mordido y vibración */

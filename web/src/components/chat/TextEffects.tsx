@@ -19,18 +19,11 @@ export function EffectFilters() {
     <svg className="crv-fx-defs" width="0" height="0" aria-hidden="true" focusable="false">
       <defs>
         <filter id="crv-warp-filter" x="-15%" y="-25%" width="130%" height="150%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="2" seed="4" result="warp">
-            <animate
-              attributeName="baseFrequency" dur="11s" repeatCount="indefinite"
-              values="0.012 0.03;0.02 0.042;0.008 0.024;0.012 0.03"
-            />
-          </feTurbulence>
+          <feTurbulence type="fractalNoise" baseFrequency="0.016 0.034" numOctaves="2" seed="4" result="warp" />
           <feDisplacementMap in="SourceGraphic" in2="warp" scale="4.5" xChannelSelector="R" yChannelSelector="G" />
         </filter>
         <filter id="crv-fuzzy-filter" x="-12%" y="-20%" width="124%" height="140%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="1" seed="2" result="grain">
-            <animate attributeName="seed" dur="0.7s" repeatCount="indefinite" values="1;4;7;3;9;2;1" />
-          </feTurbulence>
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="1" seed="2" result="grain" />
           <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.6" xChannelSelector="R" yChannelSelector="G" />
         </filter>
       </defs>
