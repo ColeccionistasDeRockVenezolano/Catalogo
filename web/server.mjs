@@ -285,6 +285,10 @@ function proxyChatUpgrade(req, socket, head) {
     const path = virtualPath.slice(apiPath.length) + url.search;
     const headers = {
       host: `${apiHost}:${chatPort}`,
+      // Sin estas dos cabeceras el upstream responde 400: el upgrade no es
+      // solo sec-websocket-*, también Connection/Upgrade.
+      connection: "Upgrade",
+      upgrade: "websocket",
       origin: req.headers.origin,
       cookie: req.headers.cookie,
       "user-agent": req.headers["user-agent"],
