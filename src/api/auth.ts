@@ -381,6 +381,20 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
     const path = requestPath(request);
     const isRead = READ_METHODS.has(request.method);
     const isMetricEvent = request.method === "POST" && (path === "/discovery/metrics/events" || path === "/search/confirmations");
+    // El chat tiene escrituras de invitado (crear sesión, comprar un efecto,
+    // equiparlo): no exigen la cuenta de colaborador, pero sí un origen
+    // confiable. Las rutas /chat/admin/* quedan fuera y siguen el flujo
+    // normal, que exige administrador.
+    const isChatGuestWrite = (request.method === "POST" || request.method === "PATCH") && (
+      path === "/chat/session" || path === "/chat/profile" || path === "/chat/equip"
+      || /^\/chat\/effects\/[a-z0-9-]+\/buy$/u.test(path)
+    );
+    if (isChatGuestWrite) {
+      assertTrustedOrigin(request);
+      const session = activeSession(request)?.value;
+      request.viewer = session ? { name: session.name, role: session.role } : null;
+      return;
+    }
     if (isMetricEvent) assertTrustedOrigin(request);
     if (isMetricEvent || path === "/auth/login" || (isRead && !ADMIN_READS.some((pattern) => pattern.test(path)))) {
       if ((isRead || isMetricEvent) && path !== "/auth/login") {

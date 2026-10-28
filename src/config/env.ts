@@ -39,6 +39,17 @@ const envSchema = z.object({
   CRV_HERRA_PROJECT_SLUG: z.string().min(1).default("coleccionistas-rock-venezolano"),
   CRV_SESSION_TTL_HOURS: z.coerce.number().int().min(1).max(168).default(12),
   CRV_SESSION_COOKIE_PATH: z.string().regex(/^\/[A-Za-z0-9/_-]*$/u).default("/"),
+  // Chat de la comunidad (docs/CHAT.md). El secreto firma la sesión de los
+  // invitados; el valor por defecto solo vale en desarrollo y el servidor
+  // avisa al arrancar si sigue puesto.
+  CRV_CHAT_SECRET: z.string().min(32).default("crv-chat-dev-secret-cambiar-en-produccion"),
+  // Proceso propio del chat (src/chat/server.ts): no comparte event loop con
+  // las consultas del catálogo.
+  CHAT_PORT: z.coerce.number().int().positive().default(8081),
+  // Mensajes por ventana de 10 s y por conexión (0 desactiva el límite).
+  CRV_CHAT_RATE_LIMIT: z.coerce.number().int().nonnegative().default(8),
+  // Monedas de bienvenida al crear un actor invitado.
+  CRV_CHAT_GUEST_COINS: z.coerce.number().int().nonnegative().max(10_000).default(150),
   CRV_ALLOWED_ORIGINS: z.string().default("http://127.0.0.1:5173,http://localhost:5173"),
   // Ráfaga de escrituras por cuenta (auditoría 2026-09-17, hallazgo #10):
   // escrituras autenticadas por minuto antes de responder 429. Generoso para

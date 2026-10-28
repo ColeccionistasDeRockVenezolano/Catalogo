@@ -1,0 +1,4 @@
+BEGIN;
+DROP TABLE IF EXISTS chat.ledger;
+DROP TABLE IF EXISTS chat.accounts;
+COMMIT;
