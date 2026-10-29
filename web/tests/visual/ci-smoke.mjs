@@ -107,7 +107,7 @@ try {
   await dialog.getByLabel("Período documentado",{exact:true}).fill("~1990/2000");
   await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Vincular fichas conservando período aproximado");
   await dialog.getByRole("button",{name:"Guardar",exact:true}).filter({visible:true}).click();
-  await expect(dialog.getByText(/Cambio guardado/)).toBeVisible();
+  await expect(dialog.getByRole("status").filter({ hasText: /Cambio guardado/ })).toBeVisible();
   const identity=(await getPool().query("SELECT relationship,period FROM ingest.musical_identities WHERE person_id=$1",[person.body.id])).rows[0];
   assert.equal(identity.relationship,"member");assert.equal(identity.period.from.approximate,true);
   const artifactDir=process.env["CRV_BROWSER_ARTIFACT_DIR"];
@@ -132,7 +132,7 @@ try {
   await dialog.getByLabel("Fecha de publicación",{exact:true}).filter({visible:true}).fill("2001-05");
   await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Vincular obra y edición con precisión de mes");
   await dialog.getByRole("button",{name:"Guardar",exact:true}).filter({visible:true}).click();
-  await expect(dialog.getByText(/Cambio guardado/)).toBeVisible();
+  await expect(dialog.getByRole("status").filter({ hasText: /Cambio guardado/ })).toBeVisible();
   assert.equal((await request(`/albums/${album.body.id}`)).body.releaseDateValue,"2001-05");
   await dialog.getByRole("button",{name:"Cerrar",exact:true}).click();
   assert.equal((await request("/auth/logout", "POST", {}, admin.csrf)).status, 204);
