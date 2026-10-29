@@ -1,0 +1,102 @@
+/* ── Efectos de React Bits (reimplementados) ───────────────────────────── */
+.crv-fx-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* Decrypted: glifos que se resuelven */
+.crv-rb-decrypted { display: inline-flex; flex-wrap: nowrap; white-space: pre; font-variant-ligatures: none; }
+.crv-rb-decrypted .is-scrambled { color: var(--fx-2); opacity: .85; }
+
+/* Glitch RGB: base + capas roja y cian con cortes por franjas */
+.crv-rb-glitch {
+  position: relative; display: inline-block; color: var(--fx-1, #fff);
+  animation: crv-rb-glitch-shift 2.4s steps(1, end) infinite;
+}
+.crv-rb-glitch::before, .crv-rb-glitch::after {
+  content: attr(data-text); position: absolute; inset: 0;
+  pointer-events: none; mix-blend-mode: screen;
+}
+.crv-rb-glitch::before {
+  color: var(--fx-2, #ff003c); transform: translate(-2px, 0);
+  animation: crv-rb-glitch-a 1.7s steps(1, end) infinite;
+}
+.crv-rb-glitch::after {
+  color: var(--fx-3, #00e5ff); transform: translate(2px, 0);
+  animation: crv-rb-glitch-b 2.1s steps(1, end) infinite reverse;
+}
+@keyframes crv-rb-glitch-a {
+  0%, 100% { clip-path: inset(0 0 82% 0); }
+  12% { clip-path: inset(58% 0 12% 0); }
+  24% { clip-path: inset(18% 0 60% 0); }
+  36% { clip-path: inset(72% 0 4% 0); }
+  48% { clip-path: inset(34% 0 44% 0); }
+  60% { clip-path: inset(6% 0 78% 0); }
+  72% { clip-path: inset(48% 0 26% 0); }
+  84% { clip-path: inset(80% 0 2% 0); }
+}
+@keyframes crv-rb-glitch-b {
+  0%, 100% { clip-path: inset(64% 0 8% 0); }
+  14% { clip-path: inset(10% 0 70% 0); }
+  28% { clip-path: inset(40% 0 36% 0); }
+  42% { clip-path: inset(2% 0 84% 0); }
+  56% { clip-path: inset(76% 0 6% 0); }
+  70% { clip-path: inset(26% 0 52% 0); }
+  84% { clip-path: inset(52% 0 20% 0); }
+}
+@keyframes crv-rb-glitch-shift {
+  0%, 92%, 100% { transform: translate(0); }
+  93% { transform: translate(-1px, 1px); }
+  95% { transform: translate(1px, -1px); }
+  97% { transform: translate(-1px, 0); }
+}
+
+/* Warp: deformación líquida + aberración cromática */
+.crv-rb-warp {
+  display: inline-block; color: var(--fx-1, #fff);
+  filter: url(#crv-warp-filter);
+  text-shadow: -1.2px 0 var(--fx-1, #ff4d4d), 1.2px 0 var(--fx-2, #4da6ff);
+  animation: crv-rb-warp-breathe 6s ease-in-out infinite;
+}
+@keyframes crv-rb-warp-breathe {
+  0%, 100% { transform: translate3d(0, 0, 0) skewX(0deg); }
+  50% { transform: translate3d(0, -1px, 0) skewX(-1.5deg); }
+}
+
+/* Fuzzy: borde mordido y vibración */
+.crv-rb-fuzzy {
+  display: inline-block; color: var(--fx-1, #fff);
+  filter: url(#crv-fuzzy-filter);
+  text-shadow: 0 0 1px var(--fx-2, #b0b0b0);
+  animation: crv-rb-fuzzy-jitter .16s steps(2, end) infinite;
+}
+@keyframes crv-rb-fuzzy-jitter {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(.4px, -.3px); }
+  50% { transform: translate(-.3px, .4px); }
+  75% { transform: translate(.2px, .2px); }
+}
+
+/* True Focus: palabra nítida con marco de esquinas, resto desenfocadas */
+.crv-rb-focus {
+  display: inline-flex; align-items: baseline; flex-wrap: wrap; gap: .28em;
+  filter: none;
+}
+.crv-rb-focus-word { filter: blur(4.5px); opacity: .55; transition: filter .35s ease, opacity .35s ease; }
+.crv-rb-focus-word.is-focused { filter: blur(0); opacity: 1; position: relative; padding: 0 2px; }
+.crv-rb-focus-word.is-focused::before {
+  content: ""; position: absolute; inset: -4px -3px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--fx-1), var(--fx-1)) left top / 7px 1.5px no-repeat,
+    linear-gradient(var(--fx-1), var(--fx-1)) left top / 1.5px 7px no-repeat,
+    linear-gradient(var(--fx-1), var(--fx-1)) right top / 7px 1.5px no-repeat,
+    linear-gradient(var(--fx-1), var(--fx-1)) right top / 1.5px 7px no-repeat,
+    linear-gradient(var(--fx-1), var(--fx-1)) left bottom / 7px 1.5px no-repeat,
+    linear-gradient(var(--fx-1), var(--fx-1)) left bottom / 1.5px 7px no-repeat,
+    linear-gradient(var(--fx-1), var(--fx-1)) right bottom / 7px 1.5px no-repeat,
+    linear-gradient(var(--fx-1), var(--fx-1)) right bottom / 1.5px 7px no-repeat;
+  animation: crv-rb-focus-glow 2.4s ease-in-out infinite;
+}
+.crv-rb-focus[data-single="true"] .crv-rb-focus-word.is-focused::before { inset: -5px -5px; }
+@keyframes crv-rb-focus-glow {
+  0%, 100% { opacity: .65; }
+  50% { opacity: 1; }
+}

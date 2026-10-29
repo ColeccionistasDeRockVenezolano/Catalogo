@@ -1,3 +1,5 @@
+import { seriesVolumeOrderSql } from "./series-order.js";
+import { compilationSeriesSql } from "./compilation-series.js";
 // CRV · Modelo discográfico (plan del primo, etapa 2): versiones, sellos con
 // rol, series, sucesión de sellos, lugares y créditos en frase (0068).
 import { dateValueText, type DateValue } from "../../catalog/date-value.js";
@@ -39,7 +41,7 @@ export interface AlbumVersion {
 }
 
 export interface SeriesMembership { id: number; title: string; volumeNumber: number | null; volumeLabel: string | null; line: string;
-  previous: { albumId: number; title: string } | null; next: { albumId: number; title: string } | null }
+  previous: { albumId: number; title: string; coverUrl: string | null } | null; next: { albumId: number; title: string; coverUrl: string | null } | null }
 
 export interface StatementPartRow { start: number; end: number; type: string; roleKey: string | null; personId: number | null;
   artistId: number | null; organizationId: number | null; placeId: number | null; year: number | null }
@@ -65,17 +67,17 @@ export async function albumDiscography(albumId: number, fallbackLabel: { id: num
       SELECT l.version_id::text, l.organization_id::text, o.name, l.role
         FROM ingest.album_labels l JOIN public.organizations o ON o.id = l.organization_id
        WHERE l.album_id = $1 ORDER BY l.version_id NULLS FIRST, CASE l.role WHEN 'label' THEN 0 WHEN 'licensee' THEN 1 ELSE 2 END, l.position`, [albumId]),
-    pool.query<{ id: string; title: string; volume_number: string | null; volume_label: string | null; prev_id: string | null; prev_title: string | null;
-      next_id: string | null; next_title: string | null }>(`
-      WITH mine AS (SELECT sa.series_id, sa.volume_number, sa.volume_label FROM ingest.series_albums sa WHERE sa.album_id = $1),
+    pool.query<{ id: string; title: string; volume_number: string | null; volume_label: string | null; prev_id: string | null; prev_title: string | null; prev_cover: string | null;
+      next_id: string | null; next_title: string | null; next_cover: string | null }>(`
+      WITH mine AS (SELECT sa.series_id, sa.volume_number, sa.volume_label FROM ingest.series_albums sa JOIN ingest.series s ON s.id=sa.series_id WHERE sa.album_id = $1 AND ${compilationSeriesSql("s")}),
       ordered AS (
         SELECT sa.series_id, sa.album_id, a.title, sa.volume_number,
-               lag(sa.album_id) OVER w AS prev_id, lag(a.title) OVER w AS prev_title,
-               lead(sa.album_id) OVER w AS next_id, lead(a.title) OVER w AS next_title
+               lag(sa.album_id) OVER w AS prev_id, lag(a.title) OVER w AS prev_title, lag(a.cover_url) OVER w AS prev_cover,
+               lead(sa.album_id) OVER w AS next_id, lead(a.title) OVER w AS next_title, lead(a.cover_url) OVER w AS next_cover
           FROM ingest.series_albums sa JOIN ingest.catalog_albums a ON a.id = sa.album_id
          WHERE sa.series_id IN (SELECT series_id FROM mine)
-        WINDOW w AS (PARTITION BY sa.series_id ORDER BY sa.volume_number NULLS LAST, a.release_year NULLS LAST, a.id))
-      SELECT s.id::text, s.title, m.volume_number::text, m.volume_label, o.prev_id::text, o.prev_title, o.next_id::text, o.next_title
+        WINDOW w AS (PARTITION BY sa.series_id ORDER BY ${seriesVolumeOrderSql("sa", "a")}))
+      SELECT s.id::text, s.title, m.volume_number::text, m.volume_label, o.prev_id::text, o.prev_title, o.prev_cover, o.next_id::text, o.next_title, o.next_cover
         FROM mine m JOIN ingest.series s ON s.id = m.series_id
         JOIN ordered o ON o.series_id = m.series_id AND o.album_id = $1
        ORDER BY s.title`, [albumId]),
@@ -113,8 +115,8 @@ export async function albumDiscography(albumId: number, fallbackLabel: { id: num
     series: series.rows.map((row) => ({
       id: Number(row.id), title: row.title, volumeNumber: row.volume_number === null ? null : Number(row.volume_number), volumeLabel: row.volume_label,
       line: seriesLine(row.title, row.volume_label),
-      previous: row.prev_id ? { albumId: Number(row.prev_id), title: row.prev_title! } : null,
-      next: row.next_id ? { albumId: Number(row.next_id), title: row.next_title! } : null,
+      previous: row.prev_id ? { albumId: Number(row.prev_id), title: row.prev_title!, coverUrl: row.prev_cover } : null,
+      next: row.next_id ? { albumId: Number(row.next_id), title: row.next_title!, coverUrl: row.next_cover } : null,
     })),
     creditStatements: statements.rows.map((row) => ({
       id: Number(row.id), lineNumber: row.line_number, sectionKind: row.section_kind, text: row.text, trackNumbers: row.track_numbers ?? [], parts: row.parts,
@@ -224,7 +226,7 @@ export async function getPlaceDetail(id: number): Promise<PlaceDetail | null> {
         LEFT JOIN ingest.credit_statement_parts r ON r.statement_id = s.id AND r.part_type = 'role'
         LEFT JOIN ingest.credit_statement_parts op ON op.statement_id = s.id AND op.organization_id IS NOT NULL
         LEFT JOIN public.organizations o ON o.id = op.organization_id
-       GROUP BY s.id, r.id, a.id, ar.id
+       GROUP BY s.id, r.id, a.id, a.title, a.release_year, a.cover_url, ar.id, ar.name
        ORDER BY a.release_year NULLS LAST, a.title`, [id]),
   ]);
   const ROLE_ORDER = ["recording", "mixing", "mastering", "producer"];
@@ -259,28 +261,29 @@ export interface SeriesDetail {
   id: number;
   title: string;
   description: string | null;
+  /** sessions: una banda por entrega (0104). */ kind: "compilation" | "sessions";
   artist: { id: number; name: string } | null;
   organization: { id: number; name: string } | null;
-  volumes: Array<{ albumId: number; title: string; releaseYear: number | null; coverUrl: string | null; volumeNumber: number | null; volumeLabel: string | null }>;
+  volumes: Array<{ albumId: number; title: string; artistId: number; artistName: string; releaseYear: number | null; coverUrl: string | null; volumeNumber: number | null; volumeLabel: string | null }>;
 }
 
 export async function getSeriesDetail(id: number): Promise<SeriesDetail | null> {
   const pool = getPool();
-  const series = (await pool.query<{ id: string; title: string; description: string | null; artist_id: string | null; artist_name: string | null;
+  const series = (await pool.query<{ id: string; title: string; description: string | null; kind: "compilation" | "sessions"; artist_id: string | null; artist_name: string | null;
     organization_id: string | null; organization_name: string | null }>(`
-    SELECT s.id::text, s.title, s.description, ar.id::text AS artist_id, ar.name AS artist_name, o.id::text AS organization_id, o.name AS organization_name
+    SELECT s.id::text, s.title, s.description, s.kind, ar.id::text AS artist_id, ar.name AS artist_name, o.id::text AS organization_id, o.name AS organization_name
       FROM ingest.series s LEFT JOIN ingest.catalog_artists ar ON ar.id = s.artist_id LEFT JOIN public.organizations o ON o.id = s.organization_id
-     WHERE s.id = $1`, [id])).rows[0];
+     WHERE s.id = $1 AND ${compilationSeriesSql("s")}`, [id])).rows[0];
   if (!series) return null;
-  const volumes = await pool.query<{ album_id: string; title: string; release_year: number | null; cover_url: string | null; volume_number: string | null; volume_label: string | null }>(`
-    SELECT a.id::text AS album_id, a.title, a.release_year, a.cover_url, sa.volume_number::text, sa.volume_label
-      FROM ingest.series_albums sa JOIN ingest.catalog_albums a ON a.id = sa.album_id
-     WHERE sa.series_id = $1 ORDER BY sa.volume_number NULLS LAST, a.release_year NULLS LAST, a.id`, [id]);
+  const volumes = await pool.query<{ album_id: string; title: string; artist_id: string; artist_name: string; release_year: number | null; cover_url: string | null; volume_number: string | null; volume_label: string | null }>(`
+    SELECT a.id::text AS album_id, a.title, ar.id::text artist_id, ar.name artist_name, a.release_year, a.cover_url, sa.volume_number::text, sa.volume_label
+      FROM ingest.series_albums sa JOIN ingest.catalog_albums a ON a.id = sa.album_id JOIN ingest.catalog_artists ar ON ar.id=a.artist_id
+     WHERE sa.series_id = $1 ORDER BY ${seriesVolumeOrderSql("sa", "a")}`, [id]);
   return {
-    id: Number(series.id), title: series.title, description: series.description,
+    id: Number(series.id), title: series.title, description: series.description, kind: series.kind,
     artist: series.artist_id ? { id: Number(series.artist_id), name: series.artist_name! } : null,
     organization: series.organization_id ? { id: Number(series.organization_id), name: series.organization_name! } : null,
-    volumes: volumes.rows.map((row) => ({ albumId: Number(row.album_id), title: row.title, releaseYear: row.release_year, coverUrl: row.cover_url,
+    volumes: volumes.rows.map((row) => ({ albumId: Number(row.album_id), title: row.title, artistId: Number(row.artist_id), artistName: row.artist_name, releaseYear: row.release_year, coverUrl: row.cover_url,
       volumeNumber: row.volume_number === null ? null : Number(row.volume_number), volumeLabel: row.volume_label })),
   };
 }

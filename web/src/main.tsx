@@ -6,6 +6,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import { OperatorProvider } from "./lib/OperatorContext";
 import { ToastProvider } from "./lib/ToastContext";
 import { DailyCycleProvider } from "./lib/DailyCycleContext";
+import { reloadForNewBuild } from "./lib/staleBuild";
 import "./styles/global.css";
 import "./styles/discography.css";
 import "./styles/site-appearance.css";
@@ -14,6 +15,13 @@ import "./styles/entity-editor.css";
 import "./styles/navigation.css";
 import "./styles/mobile-type.css";
 import "./styles/video-player.css";
+
+// Vite avisa con este evento cuando falla la precarga de un chunk o su CSS
+// (típico de una pestaña abierta antes de un deploy). Sin preventDefault el
+// error sigue hasta el ErrorBoundary, que también sabe recargar.
+window.addEventListener("vite:preloadError", (event) => {
+  if (reloadForNewBuild()) event.preventDefault();
+});
 
 const container = document.getElementById("root");
 if (!container) throw new Error("#root no encontrado");

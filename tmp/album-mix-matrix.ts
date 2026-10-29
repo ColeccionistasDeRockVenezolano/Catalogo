@@ -1,0 +1,7 @@
+import {getPool,closeDb} from '../src/db/client.js';
+try{const p=getPool();for(const [key,sql] of Object.entries({
+traitMatrix:`SELECT a.album_type::text type,c.classification,count(*)::int n FROM public.albums a JOIN ingest.album_classifications c ON c.album_id=a.id WHERE c.classification IN ('Remix','Acústico','Instrumental','En vivo','B-Sides') GROUP BY 1,2 ORDER BY 2,3 DESC`,
+bsides:`SELECT a.id::int,ar.name artist,a.title,a.album_type::text type FROM public.albums a JOIN public.artists ar ON ar.id=a.artist_id WHERE EXISTS(SELECT 1 FROM ingest.album_classifications c WHERE c.album_id=a.id AND c.classification='B-Sides') ORDER BY a.id`,
+remixFormats:`SELECT a.id::int,ar.name artist,a.title,a.album_type::text type,(SELECT count(*)::int FROM public.tracks t WHERE t.album_id=a.id) tracks,(SELECT json_agg(c.classification) FROM ingest.album_classifications c WHERE c.album_id=a.id) labels FROM public.albums a JOIN public.artists ar ON ar.id=a.artist_id WHERE a.album_type='remix' ORDER BY a.id`,
+examples:`SELECT a.id::int,ar.name artist,a.title,a.album_type::text type FROM public.albums a JOIN public.artists ar ON ar.id=a.artist_id WHERE EXISTS(SELECT 1 FROM ingest.album_classifications c WHERE c.album_id=a.id AND c.classification='Remix') AND (a.album_type='ep' OR a.id IN(155,306,437,14426)) ORDER BY a.id`
+})){console.log(JSON.stringify({key,rows:(await p.query(sql)).rows}));}}finally{await closeDb()}

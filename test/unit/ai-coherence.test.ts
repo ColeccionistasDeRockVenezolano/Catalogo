@@ -33,6 +33,16 @@ describe("coherencia entre resumen, operaciones y dudas", () => {
     expect(outcome.issues).toEqual([]);
     expect(outcome.text).toBe("Sin cambios propuestos: 1 duda pendiente con lo que falta para resolverla.");
   });
+  it("un alta con nombres parecidos espera criterio y su vínculo espera esa decisión; ninguno cuenta como bloqueado", () => {
+    const org: CatalogOperation = { ...base, key: "sello", op: "create_entity", kind: "organization", values: { name: "Avila Records" } };
+    const link: CatalogOperation = { ...base, key: "fundador", op: "create_relation", kind: "person_organization", endpoints: { personId: { kind: "person", id: 1 }, organizationId: { kind: "organization", key: "sello" } }, values: { role: "fundador" } };
+    const items: CatalogPreviewItem[] = [
+      { ...ok("sello"), after: null, error: "Criterio editorial: ya hay fichas de nombre parecido («Alfi Records»). Si es otra, al aceptarla se crea como ficha distinta." },
+      { ...ok("fundador"), after: null, error: "referencia sello no disponible para organization" },
+    ];
+    expect(planOutcome(draft("", [org, link]), items).text).toBe("1 requiere tu criterio: ya hay fichas de nombre parecido · 1 espera a que decidas la propuesta de la que depende.");
+    expect(planOutcome(draft("", [link]), [items[1]!]).text).toBe("1 bloqueado: referencia sello no disponible para organization.");
+  });
   it("explica planes vacíos, bloqueos, datos existentes y decisiones", () => {
     expect(planOutcome(draft("", []), []).text).toContain("Sin cambios propuestos ni dudas");
     const same: CatalogPreviewItem = { ...ok("alias"), before: { alias: "Los Pixel" }, after: { alias: "Los Pixel" } };

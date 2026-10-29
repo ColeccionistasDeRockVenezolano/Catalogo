@@ -55,6 +55,13 @@ const base = {
   evidenceIds: ["E1"],
   enabled: true,
 };
+// A proposal reaches review only when a cited source backs it, so these fixtures document their alias.
+async function documentedAlias(entity: number, name: string, alias: string): Promise<string> {
+  const quote = `${name} también es conocido como ${alias}.`;
+  await getPool().query("INSERT INTO ingest.entity_verification_reports(entity_kind,entity_id,snapshot_hash,report,requested_by) VALUES('artist',$1,'fixture',$2::jsonb,'QA')", [entity, JSON.stringify({ createdAt: "2026-10-10", findings: [], suggestions: [{ key: "aliases.qa", label: "Alias faltante", area: "aliases", value: null, observed: alias, status: "missing", context: [name], explanation: "La fuente documenta el alias", evidence: [{ url: "https://catalogo.example/alias", quote, origin: "page", fetchedAt: "2026-10-10" }] }] })]);
+  const { evidence: citations } = await planningContext(getPool(), "artist", entity, "Alias");
+  return citations.find((item) => item.quote === quote)!.id;
+}
 function draft(operations: unknown[]): CatalogDraft {
   return draftSchema.parse({
     summary: "Propuesta QA",
@@ -98,6 +105,8 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
     container = await startPgContainer();
     process.env["DATABASE_URL"] = container.databaseUrl;
     process.env["CRV_OPERATOR_TOKEN"] = TOKEN;
+    // The contract runs without network: the .env of this machine may switch the API profiles on.
+    process.env["CRV_SOURCE_PROFILES_ENABLED"] = "false";
     resetEnvCache();
     await applyCore(container.name);
     await migrateUp();
@@ -151,6 +160,7 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
     await app?.close();
     await closeDb();
     delete process.env["CRV_OPERATOR_TOKEN"];
+    delete process.env["CRV_SOURCE_PROFILES_ENABLED"];
     resetEnvCache();
     await container?.stop();
   }, 60000);
@@ -640,7 +650,8 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
   it("reanuda una ronda fallida con sus operaciones, consultas ya obtenidas y claves estables",async()=>{
     const entity=Number((await getPool().query("INSERT INTO public.artists(name) VALUES('Rondas QA') RETURNING id")).rows[0].id);
     const planId=Number((await getPool().query("INSERT INTO ingest.ai_curation_plans(entity_kind,entity_id,instruction,requested_by,status) VALUES('artist',$1,'Recuperar rondas y conservar datos','QA','failed') RETURNING id",[entity])).rows[0].id);
-    const transport=new MockDeepSeekTransport({summary:"Primer hallazgo",operations:[{...base,key:"primer_alias",op:"add_alias",target:{kind:"artist",id:entity},alias:"Alias durante consulta"}],unresolved:[],lookups:[{type:"catalog",kind:"album",query:String(album)}]},new Error("DeepSeek HTTP 503"),{summary:"Continuación",operations:[],unresolved:[],lookups:[]});
+    const cited=await documentedAlias(entity,"Rondas QA","Alias durante consulta");
+    const transport=new MockDeepSeekTransport({summary:"Primer hallazgo",operations:[{...base,key:"primer_alias",evidenceIds:[cited],op:"add_alias",target:{kind:"artist",id:entity},alias:"Alias durante consulta"}],unresolved:[],lookups:[{type:"catalog",kind:"album",query:String(album)}]},new Error("DeepSeek HTTP 503"),{summary:"Continuación",operations:[],unresolved:[],lookups:[]});
     const gateway=new DeepSeekGateway({baseUrl:"https://mock.invalid",models:{fast:"deepseek-flash",reasoning:"pro",vision:"vision"},maxTokens:6000,timeoutMs:1000},transport,new PostgresDeepSeekRunStore());
     const partial=await planWithDeepSeek("artist",entity,"Recuperar rondas y conservar datos",async()=>{},gateway,{planId});
     expect(partial.complete).toBe(false);expect(partial.draft.operations).toHaveLength(1);
@@ -695,10 +706,11 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
   });
   it("consulta herramientas de lectura y respeta el presupuesto de dos llamadas al modelo", async () => {
     const validatedBefore=Number((await getPool().query("SELECT count(*)::int AS n FROM ingest.ai_runs WHERE task_kind='curation_plan' AND status='validated'")).rows[0].n);
+    const cited = await documentedAlias(artist, "Banda QA", "Nombre recuperado durante investigación");
     const transport = new MockDeepSeekTransport(
       {
         summary: "Consultar disco",
-        operations: [{ ...base, key: "alias_de_primera_ronda", op: "add_alias", target: { kind: "artist", id: artist }, alias: "Nombre recuperado durante investigación" }],
+        operations: [{ ...base, key: "alias_de_primera_ronda", evidenceIds: [cited], op: "add_alias", target: { kind: "artist", id: artist }, alias: "Nombre recuperado durante investigación" }],
         unresolved: [],
         lookups: [{ type: "catalog", kind: "album", query: String(album) }],
       },
@@ -916,6 +928,28 @@ describe("curaduría IA: catálogo aislado, autorización y reversión", () => {
     await withOperatorRun({ name: "qa:undo-single", operator: "QA", note: "Deshacer únicamente la aceptación" }, (ctx) => undoRun(ctx, p.decisions!["ciudad_inmediata"]!.runId!));
     expect((await getPlan(p.id)).decisions?.["ciudad_inmediata"]?.undone).toBe(true);
     expect((await getPlan(p.id)).decisions?.["alias_rechazado"]?.decision).toBe("rejected");
+  });
+  it("añade una red social citada a la ficha del artista y deshacer la retira", async () => {
+    const url = "https://catalogo.example/fuente";
+    let p = await prepared(draft([
+      { ...base, key: "red_citada", op: "add_social_link", target: { kind: "artist", id: artist }, platform: "instagram", url, handle: "@bandaqa" },
+    ]));
+    expect(p.preview?.items.find((item) => item.key === "red_citada")?.error).toBeNull();
+    p = await decidePlan(p.id, p.revision, "red_citada", "accepted", "QA");
+    const saved = (await getPool().query("SELECT url,handle,verified,source FROM public.social_links WHERE artist_id=$1 AND platform='instagram'", [artist])).rows;
+    expect(saved).toEqual([{ url, handle: "@bandaqa", verified: true, source: "curaduria-ia" }]);
+    const again = await prepared(draft([{ ...base, key: "red_repetida", op: "add_social_link", target: { kind: "artist", id: artist }, platform: "instagram", url: "https://www.catalogo.example/fuente/" }]));
+    expect(again.preview?.items.find((item) => item.key === "red_repetida")?.error).toMatch(/ya está registrada/u);
+    await withOperatorRun({ name: "qa:undo-social", operator: "QA", note: "Deshacer la red" }, (ctx) => undoRun(ctx, p.decisions!["red_citada"]!.runId!));
+    expect((await getPool().query("SELECT 1 FROM public.social_links WHERE artist_id=$1", [artist])).rowCount).toBe(0);
+  });
+  it("una organización de nombre parecido a otra se presenta como criterio editorial con los parecidos y al aceptarla se crea distinta", async () => {
+    await getPool().query("INSERT INTO public.organizations(name) VALUES('Banda Alternativas')");
+    let p = await prepared(draft([{ ...base, key: "sello_parecido", op: "create_entity", kind: "organization", values: { name: "Banda Alternativa" } }]));
+    expect(p.preview?.items.find((item) => item.key === "sello_parecido")?.error).toMatch(/^Criterio editorial: ya hay fichas de nombre parecido \(«Banda Alternativas»/u);
+    p = await decidePlan(p.id, p.revision, "sello_parecido", "accepted", "QA");
+    const id = p.result?.created["sello_parecido"]?.id;
+    expect((await getPool().query("SELECT name FROM public.organizations WHERE id=$1", [id])).rows).toEqual([{ name: "Banda Alternativa" }]);
   });
   it("la misma aceptación enviada dos veces a la vez escribe un solo run y ambas respuestas devuelven la decisión", async () => {
     const p = await prepared(draft([{ ...base, key: "ciudad_doble", op: "replace_fields", target: { kind: "artist", id: artist }, values: { originCity: "Barquisimeto" } }]));

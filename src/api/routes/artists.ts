@@ -38,6 +38,15 @@ const artistListItemSchema = artistBaseSchema.extend({
   genreByLaya: z.boolean().optional(),
 });
 
+const discographyItemSchema = z.object({
+  albumId: z.number().int(), title: z.string(), releaseYear: z.number().int().nullable(),
+  albumType: z.string(), coverUrl: z.string().nullable(), genres: z.array(publicGenreSchema),
+  isLive: z.boolean().describe("Álbum en vivo, o sencillo/EP/demo/compilado con la clasificación «En vivo»."),
+  isBSides: z.boolean().describe("B-Sides: clasificación de la hoja o «B-Side(s)» en el título."),
+  classifications: z.array(z.object({ classification: z.string() })),
+  editionTypes: z.array(z.string()),
+});
+
 const artistDetailSchema = artistBaseSchema.extend({
   documents: z.array(documentSchema),
   gallery: z.array(galleryPhotoSchema),
@@ -66,14 +75,12 @@ const artistDetailSchema = artistBaseSchema.extend({
     fromYear: z.number().int().nullable(), toYear: z.number().int().nullable(), isCurrent: z.boolean(),
     isFounder: z.boolean().nullable(), founderEvidence: z.string().nullable(), instruments: z.array(z.string()),
   })),
-  discography: z.array(z.object({
-    albumId: z.number().int(), title: z.string(), releaseYear: z.number().int().nullable(),
-    albumType: z.string(), coverUrl: z.string().nullable(), genres: z.array(publicGenreSchema),
-    isLive: z.boolean().describe("Álbum en vivo, o sencillo/EP/demo/compilado con la clasificación «En vivo»."),
-    isBSides: z.boolean().describe("B-Sides: clasificación de la hoja o «B-Side(s)» en el título."),
-    classifications: z.array(z.object({ classification: z.string() })),
-    editionTypes: z.array(z.string()),
-  })),
+  discography: z.array(discographyItemSchema),
+  appearsOn: z.array(discographyItemSchema.extend({
+    ownerId: z.number().int(), ownerName: z.string(),
+    kind: z.enum(["compilation", "collaboration"]).describe("Compilado o titular Various Artists; si no, disco de otro artista donde colabora."),
+    tracks: z.array(z.string()).describe("Pistas en las que figura; vacío si el crédito es del disco entero."),
+  })).describe("«Aparece en»: discos de otros titulares donde suena, calculados desde sus créditos."),
   aliases: z.array(aliasSchema),
   genres: z.array(publicGenreSchema),
   links: z.array(z.object({

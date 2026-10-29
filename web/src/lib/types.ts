@@ -50,7 +50,7 @@ export interface EmotionMatch {
   artists: EmotionArtist[];
 }
 
-export type SearchResults = Record<SearchEntityType, SearchHit[]> & { emotion?: EmotionMatch | null };
+export type SearchResults = Record<SearchEntityType, SearchHit[]> & { emotion?: EmotionMatch | null; totals?: Partial<Record<SearchEntityType, number>> };
 
 // ---------- artists ----------
 export interface ArtistListItem {
@@ -97,6 +97,13 @@ export interface DiscographyItem {
   editionTypes?: string[];
 }
 
+/** «Aparece en»: disco de otro titular (compilado/Various Artists o colaboración) donde suena el artista. */
+export interface AppearanceItem extends DiscographyItem {
+  ownerId: number; ownerName: string; kind: "compilation" | "collaboration";
+  /** Pistas en las que figura; vacío si el crédito es del disco entero. */
+  tracks: string[];
+}
+
 /** Género público (PLAN_GENEROS §5): solo lo confirmado. */
 /** `parentGenre`: solo en un subgénero, el slug de su género (pasaje → joropo). */
 export interface PublicGenre { id: number; slug: string; name: string; family: string; parentGenre?: string; }
@@ -125,6 +132,8 @@ export interface ArtistDetail extends ArtistListItem {
   notes: string | null;
   members: ArtistMember[];
   discography: DiscographyItem[];
+  /** La API más antigua no lo manda. */
+  appearsOn?: AppearanceItem[];
   aliases: Alias[];
   /** Sello del disco más reciente que lo declara (derivado). */
   links: ArtistLink[];
@@ -323,6 +332,7 @@ export interface AlbumDetail {
   discs?: Array<{ discNumber: number; title: string | null; platforms: Array<{ platform: string; url: string; externalId?: string | null }> }>;
   aliases: Alias[];
   youtubeLinks: YoutubeLink[];
+  crvYoutubeVideoIds?: string[];
   /** El disco en plataformas de escucha (solo identidad verificada). */
   platforms?: PlatformLink[];
   /** Plan del primo, etapa 2 (0068). */
@@ -531,7 +541,7 @@ export interface AlbumVersion {
 
 export interface SeriesMembership {
   id: number; title: string; volumeNumber: number | null; volumeLabel: string | null; line: string;
-  previous: { albumId: number; title: string } | null; next: { albumId: number; title: string } | null;
+  previous: { albumId: number; title: string; coverUrl: string | null } | null; next: { albumId: number; title: string; coverUrl: string | null } | null;
 }
 
 export interface CreditStatement {
@@ -554,8 +564,29 @@ export interface PlaceDetail {
 }
 
 export interface SeriesDetail {
-  id: number; title: string; description: string | null; artist: { id: number; name: string } | null; organization: { id: number; name: string } | null;
-  volumes: Array<{ albumId: number; title: string; releaseYear: number | null; coverUrl: string | null; volumeNumber: number | null; volumeLabel: string | null }>;
+  id: number; title: string; description: string | null; /** sessions: una banda por entrega (0104). */ kind: "compilation" | "sessions"; artist: { id: number; name: string } | null; organization: { id: number; name: string } | null;
+  volumes: Array<{ albumId: number; title: string; artistId: number; artistName: string; releaseYear: number | null; coverUrl: string | null; volumeNumber: number | null; volumeLabel: string | null }>;
+}
+
+/** Edición de series (administración): incluye las series que no cumplen la regla pública. */
+export type SeriesKind = "compilation" | "sessions";
+export type SeriesHiddenReason = "few_entries" | "not_various_artists";
+export interface SeriesEditorEntry {
+  id: number; albumId: number; title: string; artistId: number; artistName: string; releaseYear: number | null; coverUrl: string | null;
+  volumeNumber: number | null; volumeLabel: string | null; visible: boolean; variousArtists: boolean; compilation: boolean;
+}
+export interface SeriesEditorSummary {
+  id: number; title: string; kind: SeriesKind; artistName: string | null; organizationName: string | null;
+  entryCount: number; visibleCount: number; isPublic: boolean; hiddenReason: SeriesHiddenReason | null;
+}
+export interface SeriesEditorDetail {
+  id: number; title: string; kind: SeriesKind; description: string | null; notes: string | null; source: string;
+  artist: { id: number; name: string } | null; organization: { id: number; name: string } | null;
+  isPublic: boolean; hiddenReason: SeriesHiddenReason | null; entries: SeriesEditorEntry[];
+}
+export interface AlbumSeriesMembership {
+  id: number; seriesId: number; seriesTitle: string; kind: SeriesKind;
+  volumeNumber: number | null; volumeLabel: string | null; isPublic: boolean; hiddenReason: SeriesHiddenReason | null;
 }
 
 // ---------- review queue ----------
@@ -1179,6 +1210,9 @@ export interface HomeAlbum {
   artistId: number; artistName: string; coverUrl: string | null; genres: PublicGenre[];
 }
 
+/** Caja de rostros de una foto (scripts/image-focus.py), en fracciones (0–1) de la imagen. */
+export interface ImageFocus { x: number; y: number; width: number; height: number }
+
 export interface HomeData {
   dailyCycle: import("../../../src/shared/daily-cycle.js").DailyCycle;
   date: string;
@@ -1191,11 +1225,16 @@ export interface HomeData {
     album: { id: number; title: string } | null; artist: { id: number; name: string } | null;
   }>;
   featuredArtist: {
-    id: number; name: string; artistType: string; pictureUrl: string | null; excerpt: string;
+    id: number; name: string; artistType: string; pictureUrl: string | null; pictureFocus: ImageFocus | null; excerpt: string;
     originCity: string | null; startYear: number | null; albumCount: number; genre: string | null; primaryGenre: PublicGenre | null;
     album: HomeAlbum | null;
     similar: Array<{ id: number; name: string; pictureUrl: string | null }>;
   } | null;
   listen: Array<HomeAlbum & { links: Array<{ platform: string; url: string }> }>;
   labels: Array<{ id: number; name: string; pictureUrl: string | null; albumCount: number; fromYear: number | null; toYear: number | null }>;
+}
+
+export interface SeriesListItem {
+  id: number; title: string; kind: "compilation" | "sessions"; artistName: string | null; description: string | null; albumCount: number;
+  firstYear: number | null; lastYear: number | null; covers: string[];
 }

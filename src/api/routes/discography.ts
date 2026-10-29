@@ -5,7 +5,10 @@
 import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
-import { idParamSchema } from "../schemas.js";
+import { paginationQuerySchema, toPage } from "../pagination.js";
+import { catalogSortSchema } from "../catalog-sort.js";
+import { listSeries } from "../repositories/albums.js";
+import { idParamSchema, paginatedResponseSchema, decadeListFilterSchema, genreListFilterSchema, relatedGenreQuerySchema } from "../schemas.js";
 import { ApiError } from "../http-errors.js";
 import { getPlaceDetail, getSeriesDetail } from "../repositories/discography.js";
 
@@ -27,7 +30,7 @@ export const albumDiscographySchema = {
   labels: z.array(labelRefSchema).describe("Sellos de la obra con su rol (sello, distribuidor, licenciatario)."),
   series: z.array(z.object({
     id: int, title: z.string(), volumeNumber: z.number().nullable(), volumeLabel: z.string().nullable(), line: z.string(),
-    previous: z.object({ albumId: int, title: z.string() }).nullable(), next: z.object({ albumId: int, title: z.string() }).nullable(),
+    previous: z.object({ albumId: int, title: z.string(), coverUrl: z.string().nullable() }).nullable(), next: z.object({ albumId: int, title: z.string(), coverUrl: z.string().nullable() }).nullable(),
   })).describe("Series a las que pertenece («Venezuela Electrónica – Vol. 1»)."),
   creditStatements: z.array(z.object({
     id: int, lineNumber: int, sectionKind: z.string(), text: z.string(), trackNumbers: z.array(int),
@@ -64,9 +67,9 @@ const placeDetailSchema = z.object({
 });
 
 const seriesDetailSchema = z.object({
-  id: int, title: z.string(), description: z.string().nullable(), artist: ref.nullable(), organization: ref.nullable(),
+  id: int, title: z.string(), description: z.string().nullable(), kind: z.enum(["compilation", "sessions"]), artist: ref.nullable(), organization: ref.nullable(),
   volumes: z.array(z.object({
-    albumId: int, title: z.string(), releaseYear: int.nullable(), coverUrl: z.string().nullable(), volumeNumber: z.number().nullable(), volumeLabel: z.string().nullable(),
+    albumId: int, title: z.string(), artistId: int, artistName: z.string(), releaseYear: int.nullable(), coverUrl: z.string().nullable(), volumeNumber: z.number().nullable(), volumeLabel: z.string().nullable(),
   })),
 });
 
@@ -79,6 +82,21 @@ export async function registerDiscographyRoutes(app: FastifyInstance): Promise<v
     const place = await getPlaceDetail(request.params.id);
     if (!place) throw new ApiError(404, "not_found", `No existe el lugar ${request.params.id}.`);
     return place;
+  });
+
+  server.get("/series", {
+    schema: { tags: ["discography"], querystring: paginationQuerySchema.extend({
+      beforeYear: z.coerce.number().int().min(1900).max(2100).optional(),
+      q: z.string().trim().max(200).optional(), sort: catalogSortSchema.optional(),
+      albumType: z.string().max(2000).optional(), ...decadeListFilterSchema, ...genreListFilterSchema,
+      relatedGenre: relatedGenreQuerySchema,
+    }), response: { 200: paginatedResponseSchema(z.object({
+      id: int, title: z.string(), kind: z.enum(["compilation", "sessions"]), artistName: z.string().nullable(), description: z.string().nullable(), albumCount: int,
+      firstYear: int.nullable(), lastYear: int.nullable(), covers: z.array(z.string()),
+    })) } },
+  }, async request => {
+    const result = await listSeries(request.query);
+    return toPage(result.rows, result.total, request.query);
   });
 
   server.get("/series/:id", {

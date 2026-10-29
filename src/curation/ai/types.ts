@@ -72,6 +72,13 @@ export type CatalogOperation = OperationBase &
         isPrimary: boolean;
       }
     | {
+        op: "add_social_link";
+        target: CatalogRef;
+        platform: "instagram" | "facebook" | "x" | "tiktok" | "threads" | "bluesky" | "website" | "store" | "linktree";
+        url: string;
+        handle?: string | null | undefined;
+      }
+    | {
         op: "create_relation";
         kind: RelationKind;
         endpoints: Record<string, CatalogRef>;
@@ -209,6 +216,7 @@ export const OPERATION_LABELS: Record<CatalogOperation["op"], string> = {
   create_entity: "Crear ficha",
   replace_fields: "Reemplazar campos",
   add_alias: "Añadir alias",
+  add_social_link: "Añadir red social",
   create_album: "Añadir disco completo",
   create_relation: "Añadir relación",
   replace_relation: "Corregir relación",

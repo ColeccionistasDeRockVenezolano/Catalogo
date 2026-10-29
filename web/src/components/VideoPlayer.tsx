@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowClockwise, ArrowSquareOut, ArrowsInSimple, ArrowsOutSimple, DotsSix, Pause, PictureInPicture, Play, PushPin, SkipBack, SkipForward, SpeakerHigh, SpeakerSlash, X } from "@phosphor-icons/react";
 import { loadYoutubeIframeApi, type YoutubePlayback, type YoutubePlayer } from "../lib/youtube";
 import { formatDuration } from "../lib/labels";
-import { useFloatingVideo } from "../lib/useFloatingVideo";
+import { showWithoutFocus, useFloatingVideo } from "../lib/useFloatingVideo";
 import { claimMedia, releaseMedia } from "../lib/exclusive-media";
 import { useInlineMediaPosition } from "../lib/useInlineMediaPosition";
 import { ExternalMediaProvider } from "./ExternalMediaPlayer";
@@ -225,7 +225,7 @@ function VideoLayer({ panel, dialog, floating, inline, slot, children }: {
     const node = dialog.current;
     if (!node) return;
     if (node.open) node.close();
-    if (floating || inline) { node.show(); return () => node.close(); }
+    if (floating || inline) { showWithoutFocus(node); return () => node.close(); }
     const overflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     try { node.showModal(); } catch (error) { document.body.style.overflow = overflow; throw error; }

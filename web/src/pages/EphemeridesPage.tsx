@@ -21,7 +21,7 @@ export function EphemeridesPage() {
   const [query,setQuery]=useState("");
   const events=data?.events.filter(event=>(!month||event.date.slice(5,7)===month)&&`${event.title} ${event.description} ${event.place} ${event.year}`.toLocaleLowerCase("es").includes(query.toLocaleLowerCase("es")))??[];
   return <>
-    <div className="page-header"><div><h1>Efemérides</h1><p className="hint">Fechas y encuentros que forman parte de la memoria musical venezolana.</p></div></div>
+    <div className="page-header"><div><h1>Explora</h1><p className="hint">Fechas y encuentros que forman parte de la memoria musical venezolana.</p></div></div>
     {loading?<div className="state-block" role="status">Cargando efemérides…</div>:error?<div className="state-block" role="alert"><p>No se pudieron cargar las efemérides.</p><button className="btn" onClick={reload}>Reintentar</button></div>:data&&<>
       <section className="ephemerides-today" aria-labelledby="ephemerides-today"><p className="hint">Tal día como hoy · {cycle?dateLabel(cycle.date):""}</p><h2 id="ephemerides-today">Memoria del día</h2>
         {data.today.length?data.today.map(event=><Event key={event.id} event={event}/>):<p>Hoy no hay efemérides documentadas en el archivo. Puedes recorrer las fechas conservadas.</p>}

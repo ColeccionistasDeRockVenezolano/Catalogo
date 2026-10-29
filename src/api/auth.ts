@@ -45,6 +45,8 @@ const READ_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
  * rastro del operador (merge_audit y sus runs), que solo ve la administración.
  */
 const ADMIN_READS = [
+  // Cola de reportes, auditoría e IP del chat: solo administración.
+  /^\/chat\/admin(\/|$)/u,
   // La documentación OpenAPI enumera todas las rutas internas.
   /^\/docs(\/|$)/u,
   /^\/search\/administration(\/|$)/u,
@@ -96,6 +98,13 @@ interface Collaborator {
   passwordHash: string;
   role: AccountRole;
 }
+
+/**
+ * Sesión resuelta por otro proceso. El chat corre aparte y las sesiones de
+ * colaborador viven en la memoria de la API: el chat pregunta a la API
+ * (`/auth/me` por loopback) en vez de exigir un segundo inicio de sesión.
+ */
+export type RemoteSessionResolver = (request: FastifyRequest) => Promise<{ name: string; role: AccountRole; csrf: string } | undefined>;
 
 interface Session {
   username: string;
@@ -290,7 +299,7 @@ function forgiveLoginAttempt(key: string): void {
   loginFailures.delete(key);
 }
 
-function isTrustedOrigin(request: FastifyRequest): boolean {
+export function isTrustedOrigin(request: FastifyRequest): boolean {
   const origin = request.headers.origin;
   if (!origin) return true;
   if (getEnv().CRV_ALLOWED_ORIGINS.split(",").map((item) => item.trim()).filter(Boolean).includes(origin)) return true;
@@ -306,6 +315,17 @@ function isTrustedOrigin(request: FastifyRequest): boolean {
 
 function assertTrustedOrigin(request: FastifyRequest): void {
   if (!isTrustedOrigin(request)) throw new ApiError(403, "untrusted_origin", "Origen no permitido.");
+}
+
+/**
+ * Escrituras de invitado del chat: el navegador SIEMPRE manda Origin en un
+ * POST/PATCH, así que su ausencia delata un script. Sin Origin no se acepta
+ * (antes sí: `isTrustedOrigin` deja pasar las peticiones sin cabecera para
+ * los scripts internos del catálogo).
+ */
+export function assertChatOrigin(request: FastifyRequest): void {
+  if (!request.headers.origin) throw new ApiError(403, "missing_origin", "Falta la cabecera Origin.");
+  assertTrustedOrigin(request);
 }
 
 function noStore(reply: FastifyReply): void {
@@ -340,7 +360,10 @@ const loginBody = z.object({
   password: z.string().min(1).max(200),
 }).strict();
 
-export async function registerOperatorAuth(app: FastifyInstance): Promise<void> {
+export async function registerOperatorAuth(
+  app: FastifyInstance,
+  options: { remoteSession?: RemoteSessionResolver } = {},
+): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();
   const accounts = collaborators();
   const herraPath = getEnv().CRV_HERRA_DB_PATH;
@@ -377,17 +400,41 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
     return undefined;
   };
 
+  /** Sesión local o, en el proceso del chat, la de la API. */
+  const anySession = async (request: FastifyRequest): Promise<{ name: string; role: AccountRole; csrf: string } | undefined> => {
+    const local = activeSession(request)?.value;
+    if (local) return local;
+    return options.remoteSession ? options.remoteSession(request) : undefined;
+  };
+
   app.addHook("onRequest", async (request, reply) => {
     const path = requestPath(request);
     const isRead = READ_METHODS.has(request.method);
     const isMetricEvent = request.method === "POST" && (path === "/discovery/metrics/events" || path === "/search/confirmations");
+    // El chat tiene escrituras de invitado (crear sesión, comprar un efecto,
+    // equiparlo): no exigen la cuenta de colaborador, pero sí un origen
+    // confiable. Las rutas /chat/admin/* quedan fuera y siguen el flujo
+    // normal, que exige administrador.
+    const isChatGuestWrite = (request.method === "POST" || request.method === "PATCH") && (
+      path === "/chat/session" || path === "/chat/profile" || path === "/chat/equip"
+      || /^\/chat\/effects\/[a-z0-9-]+\/buy$/u.test(path)
+      || /^\/chat\/messages\/\d+\/report$/u.test(path)
+    );
+    if (isChatGuestWrite) {
+      assertChatOrigin(request);
+      const session = activeSession(request)?.value;
+      request.viewer = session ? { name: session.name, role: session.role } : null;
+      return;
+    }
     if (isMetricEvent) assertTrustedOrigin(request);
     if (isMetricEvent || path === "/auth/login" || (isRead && !ADMIN_READS.some((pattern) => pattern.test(path)))) {
       if ((isRead || isMetricEvent) && path !== "/auth/login") {
         // Lectura pública: nunca falla por la sesión. Si herra no responde,
         // se lee como visitante.
         try {
-          const session = activeSession(request)?.value;
+          // Solo el WebSocket del chat consulta la sesión remota: así una
+          // lectura pública cualquiera no cuesta una llamada a la API.
+          const session = path === "/chat/ws" ? await anySession(request) : activeSession(request)?.value;
           request.viewer = session ? { name: session.name, role: session.role } : null;
         } catch {
           request.viewer = null;
@@ -405,7 +452,7 @@ export async function registerOperatorAuth(app: FastifyInstance): Promise<void> 
     reply.header("cache-control", "no-store");
     if (!isRead) assertTrustedOrigin(request);
 
-    const session = activeSession(request)?.value;
+    const session = await anySession(request);
     if (session) {
       // Una lectura no lleva CSRF: la cookie SameSite=Strict ya la protege y
       // un GET no cambia nada.

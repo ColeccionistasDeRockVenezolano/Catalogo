@@ -39,6 +39,34 @@ const envSchema = z.object({
   CRV_HERRA_PROJECT_SLUG: z.string().min(1).default("coleccionistas-rock-venezolano"),
   CRV_SESSION_TTL_HOURS: z.coerce.number().int().min(1).max(168).default(12),
   CRV_SESSION_COOKIE_PATH: z.string().regex(/^\/[A-Za-z0-9/_-]*$/u).default("/"),
+  // Chat de la comunidad (docs/CHAT.md). El secreto firma la sesión de los
+  // invitados; el valor por defecto solo vale en desarrollo y el servidor
+  // avisa al arrancar si sigue puesto.
+  CRV_CHAT_SECRET: z.string().min(32).default("crv-chat-dev-secret-cambiar-en-produccion"),
+  // Proceso propio del chat (src/chat/server.ts): no comparte event loop con
+  // las consultas del catálogo.
+  CHAT_PORT: z.coerce.number().int().positive().default(8081),
+  // Mensajes por ventana de 10 s y por actor, sumando todas sus conexiones
+  // (0 desactiva el límite). Los demás topes viven en src/chat/guard.ts.
+  CRV_CHAT_RATE_LIMIT: z.coerce.number().int().nonnegative().default(8),
+  // Entorno del proceso. En `production` el chat se niega a arrancar con el
+  // secreto de desarrollo (docs/CHAT.md §«Seguridad y moderación»).
+  // Texto libre a propósito: un valor inesperado no puede tumbar la API.
+  NODE_ENV: z.string().default("development"),
+  // Vida del token de invitado; se renueva en cada POST /chat/session.
+  CRV_CHAT_TOKEN_TTL_DAYS: z.coerce.number().int().min(1).max(365).default(30),
+  // Bits a cero de la prueba de trabajo para crear un invitado (0 la apaga).
+  // 16 bits ≈ 65.000 hashes: menos de un segundo en un móvil, caro en masa.
+  CRV_CHAT_POW_BITS: z.coerce.number().int().min(0).max(24).default(16),
+  // Invitados nuevos por IP cada 10 minutos (0 desactiva el límite).
+  CRV_CHAT_SESSIONS_PER_IP: z.coerce.number().int().nonnegative().default(5),
+  // Minutos durante los que una cuenta nueva no envía enlaces y va más lenta.
+  CRV_CHAT_NEW_ACCOUNT_MINUTES: z.coerce.number().int().nonnegative().max(1440).default(10),
+  // Clasificación de odio y amenazas con Laya local (CRV_LAYA_PYTHON).
+  CRV_CHAT_AI_MODERATION: z.enum(["true", "false"]).default("true").transform((value) => value === "true"),
+  // Monedas de bienvenida al crear un actor invitado.
+  CRV_CHAT_MESSAGE_RETENTION_DAYS: z.coerce.number().int().min(1).max(3650).default(90),
+  CRV_CHAT_GUEST_COINS: z.coerce.number().int().nonnegative().max(10_000).default(150),
   CRV_ALLOWED_ORIGINS: z.string().default("http://127.0.0.1:5173,http://localhost:5173"),
   // Ráfaga de escrituras por cuenta (auditoría 2026-09-17, hallazgo #10):
   // escrituras autenticadas por minuto antes de responder 429. Generoso para

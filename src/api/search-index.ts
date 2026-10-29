@@ -284,6 +284,19 @@ async function indexFor(kind: IndexedKind): Promise<IndexData> {
  * Vacío si la consulta no tiene nada que comparar.
  */
 export async function searchIds(kind: IndexedKind, q: string, limit = Number.POSITIVE_INFINITY): Promise<number[]> {
+  return scanIds(kind, q, limit);
+}
+
+/**
+ * Igual que searchIds pero con un tope explícito de recolección: lo usan la
+ * paginación y el orden natural, que necesitan el conjunto (hasta `cap`) y no
+ * solo la primera página.
+ */
+export async function searchAllIds(kind: IndexedKind, q: string, cap: number): Promise<number[]> {
+  return scanIds(kind, q, Math.max(0, cap));
+}
+
+async function scanIds(kind: IndexedKind, q: string, limit: number): Promise<number[]> {
   const needle = normalizeEntityName(q).secondaryKey;
   if (!needle || limit <= 0) return [];
   const { entries, haystack, offsets, shortExact } = await indexFor(kind);

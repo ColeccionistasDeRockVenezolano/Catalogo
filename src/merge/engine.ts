@@ -13,7 +13,7 @@ import { createFieldConflict, hasOpenFieldConflict } from "../conflicts/engine.j
 import { normalizeDisplayName, normalizeEntityName, splitTrailingNickname } from "../normalization/entity-name.js";
 import { resolveEntity } from "../er/resolver.js";
 import { resolveEntityDeterministically } from "../er/scoring.js";
-import { loadResolutionCandidates, persistResolutionDecision } from "../er/repository.js";
+import { loadResolutionCandidates, persistResolutionDecision, rememberCreatedInSnapshot } from "../er/repository.js";
 import { resolutionThresholdsFromEnv } from "../er/resolver.js";
 import type { ResolutionDecision, ResolutionInput, ScoreFeature } from "../er/types.js";
 import { ENTITY_SPECS, claimTargetId, resolvableSpec, type EntitySpec, type ResolvableClaimKind } from "./specs.js";
@@ -534,6 +534,7 @@ async function createEntity(client: PoolClient, claim: ClaimToPersist, claimId: 
   // aquí se añade el apodo suelto para que se siga encontrando por él.
   for (const nickname of nicknames) await insertAlias(client, claim, claimId, spec, id, nickname, false);
   await audit(client, claim, claimId, spec, id, spec.identityColumn, null, name, claim.confidence, `new entity after deterministic NO_MATCH; er_decision=${decisionId}`);
+  await rememberCreatedInSnapshot(client, input.kind, id);
   return id;
 }
 

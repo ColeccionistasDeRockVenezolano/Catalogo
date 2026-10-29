@@ -49,5 +49,7 @@ describe("caché de lecturas del navegador", () => {
     expect(canCacheCatalogRead("/home", { date: "2026-10-22" })).toBe(true);
     expect(canCacheCatalogRead("/daily-cycle")).toBe(false);
     expect(canCacheCatalogRead("/curation/findings")).toBe(false);
+    expect(canCacheCatalogRead("/artists/1", { date: "2026-10-22" })).toBe(false);
+    expect(canCacheCatalogRead("/albums/1")).toBe(false);
   });
 });

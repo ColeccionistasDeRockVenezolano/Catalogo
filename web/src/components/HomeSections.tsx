@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent, type PointerEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowRight, CaretLeft, CaretRight, DiceFive, Play, Pause, ArrowSquareOut } from "@phosphor-icons/react";
+import { ArrowRight, CaretLeft, CaretRight, DiceFive, Play, Pause, ArrowSquareOut, MicrophoneStage, VinylRecord, Waveform, UserSound, SpeakerHifi, CassetteTape, Lightning, type Icon } from "@phosphor-icons/react";
 import { albumsApi, genresApi, homeApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useDailyAsync } from "../lib/useDailyAsync";
@@ -8,12 +8,18 @@ import { DAILY_TIME_ZONE, dayNumber } from "../../../src/shared/daily-cycle";
 import { albumTypeLabel, artistTypeLabel } from "../lib/labels";
 import type { DecadeFacets, GenreFacets, HomeAlbum, HomeData } from "../lib/types";
 import { EntityCard, initialOf } from "./EntityCard";
-import { PlatformLinks } from "./PlatformLinks";
+import { PlatformLinks, platformMeta, type PlatformLink } from "./PlatformLinks";
+import { useExternalMedia, type ExternalMediaSource } from "./ExternalMediaPlayer";
+import { embedFor } from "../lib/embeds";
 import { VideoSlot, useVideoPlayer } from "./VideoPlayer";
 import { ChannelVideoCard } from "./ChannelVideoCard";
 import { CatalogGenres, CatalogYear } from "./CatalogMetadata";
 import { ErrorState } from "./StateViews";
 import { mediaImage, mediaUrl } from "../lib/media";
+import { useFaceFocus } from "../lib/useFaceFocus";
+import { usePrefersReducedMotion } from "../lib/usePrefersReducedMotion";
+import { warmImage } from "../lib/preloadImage";
+import { CrossfadeImage } from "./CrossfadeImage";
 
 const numberFormat = new Intl.NumberFormat("es-VE");
 const formatNumber = (value: number) => numberFormat.format(value);
@@ -29,17 +35,6 @@ const GENRE_HUES: Record<string, string> = {
   "musica-clasica": "#d9b56b", "urbano-latino": "#e04fd0", "funk-y-soul": "#f2913d",
 };
 const GENRE_FALLBACK_HUES = ["#2ec4b6", "#ffb02e", "#e86a5c", "#7fb069", "#c792ea", "#4fb3e0"];
-
-function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduced(media.matches);
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
-  return reduced;
-}
 
 /** Marca el elemento al entrar en pantalla (una sola vez): las secciones aparecen escalonadas. */
 function useReveal<T extends HTMLElement>() {
@@ -85,13 +80,20 @@ function useRail({ onCycle, resetKey, enabled = true }: { onCycle?: () => void; 
   callback.current = onCycle;
   const reduced = usePrefersReducedMotion();
   const [edges, setEdges] = useState({ start: true, end: true });
+  const [position, setPosition] = useState({ first: 1, last: 1, total: 0 });
   const [interacting, setInteracting] = useState(false);
   const [visible, setVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(!document.hidden);
   const [paused, setPaused] = useState(false);
   const measure = useCallback(() => {
     const node = ref.current;
-    if (node) setEdges({ start: node.scrollLeft <= 4, end: node.scrollLeft + node.clientWidth >= node.scrollWidth - 4 });
+    if (node) {
+      setEdges({ start: node.scrollLeft <= 4, end: node.scrollLeft + node.clientWidth >= node.scrollWidth - 4 });
+      const items = [...node.children] as HTMLElement[];
+      const step = items.length > 1 ? items[1]!.offsetLeft - items[0]!.offsetLeft : node.clientWidth;
+      const first = Math.round(node.scrollLeft / step) + 1;
+      setPosition({ first, last: Math.min(items.length, first + Math.max(1, Math.floor(node.clientWidth / step)) - 1), total: items.length });
+    }
   }, []);
   useEffect(() => {
     const node = ref.current;
@@ -139,6 +141,8 @@ function useRail({ onCycle, resetKey, enabled = true }: { onCycle?: () => void; 
   advance.current = () => {
     const node = ref.current;
     if (!node) return;
+    // La tarjeta permanece quieta mientras se consultan sus géneros flotantes.
+    if (node.querySelector('.entity-card__genres-more[data-popup-open]')) return;
     if (node.scrollLeft + node.clientWidth >= node.scrollWidth - 4) {
       node.scrollTo({ left: 0, behavior: reduced ? "instant" : "smooth" });
       callback.current?.();
@@ -149,15 +153,16 @@ function useRail({ onCycle, resetKey, enabled = true }: { onCycle?: () => void; 
     const timer = window.setInterval(() => advance.current(), 7000);
     return () => window.clearInterval(timer);
   }, [enabled, reduced, paused, interacting, visible, pageVisible, resetKey]);
-  return { ref, edges, measure, scroll, paused, togglePause: () => setPaused(value => !value), reduced };
+  return { ref, edges, position, measure, scroll, paused, togglePause: () => setPaused(value => !value), reduced };
 }
 
-function RailArrows({ rail, label }: { rail: ReturnType<typeof useRail>; label: string }) {
+function RailArrows({ rail, label, detailed = false }: { rail: ReturnType<typeof useRail>; label: string; detailed?: boolean }) {
   return (
-    <div className="home-arrows" role="group" aria-label={`Desplazar ${label}`}>
+    <div className={`home-arrows${detailed ? " home-arrows--detailed" : ""}`} role="group" aria-label={`Desplazar ${label}`}>
       {!rail.reduced ? <button type="button" className="home-arrow home-arrow--pause" onClick={rail.togglePause}
         aria-pressed={rail.paused} aria-label={`${rail.paused ? "Reanudar" : "Pausar"} avance automático de ${label}`}>
         {rail.paused ? <Play size={17} aria-hidden="true" /> : <Pause size={17} aria-hidden="true" />}
+        {detailed ? <span>{rail.paused ? "Continuar" : "Pausar"}</span> : null}
       </button> : null}
       {!(rail.edges.start && rail.edges.end) ? <>
         <button type="button" className="home-arrow" onClick={() => rail.scroll(-1)} disabled={rail.edges.start} aria-label="Página anterior">
@@ -201,18 +206,12 @@ function shuffled<T>(items: T[]): T[] {
   return result;
 }
 
+/** Cada portada del muro cambia con un fundido lento y escalonado, cuando la nueva ya está decodificada. */
 function WallCover({ album }: { album: HomeAlbum }) {
-  const [loaded, setLoaded] = useState<string | null>(null);
-  const [previous, setPrevious] = useState<string | null>(null);
-  useEffect(() => {
-    if (!loaded) return;
-    const timer = window.setTimeout(() => setPrevious(loaded), 250);
-    return () => window.clearTimeout(timer);
-  }, [loaded]);
-  return <span className="home-wall__cover is-loaded">
-    {previous ? <img className="home-wall__previous" src={mediaUrl(previous, 320)} alt="" /> : null}
-    <img key={album.coverUrl} className={`home-wall__current${loaded === album.coverUrl ? " is-loaded" : ""}`}
-      src={mediaUrl(album.coverUrl!, 320)} alt="" decoding="async" onLoad={() => { setLoaded(album.coverUrl); }} />
+  // Escalonado estable por disco (0–900 ms): las que cambian a la vez no lo hacen al unísono.
+  const delay = (album.id * 137) % 900;
+  return <span className="home-wall__cover">
+    <CrossfadeImage src={mediaUrl(album.coverUrl!, 320)} alt="" decoding="async" duration={1400} delay={delay} fadeIn />
   </span>;
 }
 
@@ -229,10 +228,18 @@ export function HomeBackdrop({ home, hidden }: { home: ReturnType<typeof useHome
   useEffect(() => {
     setCovers(current => current.length && current.every(album => pool.some(item => item.id === album.id)) ? current : shuffled(pool).slice(0, WALL_COVERS));
   }, [pool]);
+  // Las portadas del próximo cambio se eligen y se precargan con un ciclo de antelación.
+  const upcoming = useRef<HomeAlbum[]>([]);
+  useEffect(() => {
+    if (hidden || reduced) return;
+    upcoming.current = shuffled(pool.filter(album => !covers.some(item => item.id === album.id))).slice(0, 6);
+    upcoming.current.forEach(album => warmImage({ src: mediaUrl(album.coverUrl!, 320) }));
+  }, [hidden, reduced, pool, covers]);
   useEffect(() => {
     if (hidden || !visible || reduced || pool.length <= covers.length) return;
     const timer = window.setInterval(() => setCovers(current => {
-      const incoming = shuffled(pool.filter(album => !current.some(item => item.id === album.id)));
+      const ready = upcoming.current.filter(album => !current.some(item => item.id === album.id));
+      const incoming = [...ready, ...shuffled(pool.filter(album => !current.some(item => item.id === album.id) && !ready.includes(album)))];
       const amount = Math.min([3, 4, 6][Math.floor(Math.random() * 3)], incoming.length, current.length);
       const positions = shuffled(current.map((_, index) => index)).slice(0, amount);
       const next = [...current];
@@ -251,12 +258,11 @@ export function HomeBackdrop({ home, hidden }: { home: ReturnType<typeof useHome
 export function HomeStats({ stats, home }: { stats: HomeData["stats"] | undefined; home?: ReturnType<typeof useHomeData> }) {
   const navigate = useNavigate();
   const pool = useMemo(() => homeAlbums(home?.data), [home?.data]);
-  if (!stats) return <div className="home-stats home-stats--loading" aria-hidden="true" />;
-  const items: Array<{ value: number; label: string; to?: string }> = [
-    { value: stats.artists, label: "artistas", to: "/artistas" },
-    { value: stats.albums, label: "discos", to: "/discos" },
-    { value: stats.tracks, label: "canciones" },
-    { value: stats.persons, label: "personas", to: "/personas" },
+  const items: Array<{ value: number | undefined; label: string; icon: Icon; to?: string }> = [
+    { value: stats?.artists, label: "artistas", icon: MicrophoneStage, to: "/artistas" },
+    { value: stats?.albums, label: "discos", icon: VinylRecord, to: "/discos" },
+    { value: stats?.tracks, label: "canciones", icon: Waveform },
+    { value: stats?.persons, label: "personas", icon: UserSound, to: "/personas" },
   ];
   function surprise() {
     const album = pool[Math.floor(Math.random() * pool.length)];
@@ -264,25 +270,27 @@ export function HomeStats({ stats, home }: { stats: HomeData["stats"] | undefine
   }
   return (
     <div className="home-stats-wrap">
-      <ul className="home-stats">
+      <ul className="home-stats" aria-busy={!stats} aria-label="Estadísticas del catálogo">
         {items.map((item, index) => (
           <li key={item.label} className="home-stats__item" style={{ "--i": index } as CSSProperties}>
-            {item.to ? <Link to={item.to}><Stat value={item.value} label={item.label} /></Link> : <span><Stat value={item.value} label={item.label} /></span>}
+            {item.to ? <Link to={item.to}><Stat value={item.value} label={item.label} icon={item.icon} /></Link> : <span><Stat value={item.value} label={item.label} icon={item.icon} /></span>}
           </li>
         ))}
       </ul>
       <nav className="home-explore" aria-label="Explorar el archivo">
-        <a href="#home-genres">Por género <ArrowRight size={14} aria-hidden="true" /></a>
-        <a href="#home-decades">Por década <ArrowRight size={14} aria-hidden="true" /></a>
-        <a href="#home-daily-routes">Descubre algo hoy <ArrowRight size={14} aria-hidden="true" /></a>
+        <a href="#home-genres"><SpeakerHifi className="home-explore__icon" size={24} weight="fill" aria-hidden="true" />Por género <ArrowRight size={14} aria-hidden="true" /></a>
+        <a href="#home-decades"><CassetteTape className="home-explore__icon" size={24} weight="fill" aria-hidden="true" />Por década <ArrowRight size={14} aria-hidden="true" /></a>
+        <a href="#home-daily-routes"><Lightning className="home-explore__icon" size={24} weight="fill" aria-hidden="true" />Descubre algo hoy <ArrowRight size={14} aria-hidden="true" /></a>
       </nav>
       <div className="home-hero__actions">
-        {pool.length ? (
-          <button type="button" className="home-surprise" onClick={surprise}>
+        {!stats || pool.length ? (
+          <button type="button" className="home-surprise" onClick={surprise} disabled={!pool.length}>
             <DiceFive size={18} weight="fill" aria-hidden="true" className="home-surprise__icon" /> Disco al azar
           </button>
         ) : null}
-        {stats.firstYear && stats.lastYear ? (
+        {!stats ? (
+          <span className="home-hero__span home-hero__span--loading skeleton" aria-hidden="true">&nbsp;</span>
+        ) : stats.firstYear && stats.lastYear ? (
           <span className="home-hero__span">{stats.firstYear}–{stats.lastYear} · un siglo de música venezolana</span>
         ) : null}
       </div>
@@ -290,13 +298,18 @@ export function HomeStats({ stats, home }: { stats: HomeData["stats"] | undefine
   );
 }
 
-function Stat({ value, label }: { value: number; label: string }) {
-  const shown = useCountUp(value, true);
+function Stat({ value, label, icon: StatIcon }: { value: number | undefined; label: string; icon: Icon }) {
+  const shown = useCountUp(value ?? 0, true);
   return (
     <>
-      <strong className="home-stats__value" aria-hidden="true">{formatNumber(shown)}</strong>
+      <StatIcon className="home-stats__icon" size={20} weight="fill" aria-hidden="true" />
+      {value === undefined ? (
+        <strong className="home-stats__value home-stats__value--loading skeleton" aria-hidden="true">&nbsp;</strong>
+      ) : (
+        <strong className="home-stats__value" aria-hidden="true">{formatNumber(shown)}</strong>
+      )}
       <span className="home-stats__label" aria-hidden="true">{label}</span>
-      <span className="visually-hidden">{formatNumber(value)} {label}</span>
+      <span className="visually-hidden">{value === undefined ? `Cargando ${label}` : `${formatNumber(value)} ${label}`}</span>
     </>
   );
 }
@@ -392,6 +405,24 @@ function Eras({ groups, today }: { groups: HomeData["eras"]; today: string }) {
   const day = dayNumber(today);
   const [selected, setSelected] = useState(groups.length ? groups[day % groups.length]!.decade : undefined);
   const group = groups.find((item) => item.decade === selected) ?? groups[0];
+  const segmentsRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const segments = segmentsRef.current;
+    if (!segments) return;
+    // Mantener visible la selección sin desplazar verticalmente la página.
+    const revealSelected = () => {
+      const active = segments.querySelector<HTMLButtonElement>('[aria-pressed="true"]');
+      if (!active) return;
+      const bounds = segments.getBoundingClientRect();
+      const button = active.getBoundingClientRect();
+      if (button.left < bounds.left + 5) segments.scrollLeft -= bounds.left + 5 - button.left;
+      else if (button.right > bounds.right - 5) segments.scrollLeft += button.right - bounds.right + 5;
+    };
+    revealSelected();
+    const observer = new ResizeObserver(revealSelected);
+    observer.observe(segments);
+    return () => observer.disconnect();
+  }, [group?.decade]);
   const rail = useRail({ resetKey: selected ?? 0, onCycle: () => {
     const index = groups.findIndex(item => item.decade === selected);
     setSelected(groups[(index + 1) % groups.length]?.decade);
@@ -413,7 +444,7 @@ function Eras({ groups, today }: { groups: HomeData["eras"]; today: string }) {
             </div>
           </div>
           <div className="home-section__action">
-            <div className="home-segments" role="group" aria-label="Elegir época">
+            <div ref={segmentsRef} className="home-segments" role="group" aria-label="Elegir época">
               {groups.map((item) => (
                 <button key={item.decade} type="button" className="home-segments__option" aria-pressed={item.decade === group.decade}
                   onClick={() => setSelected(item.decade)}>
@@ -421,8 +452,11 @@ function Eras({ groups, today }: { groups: HomeData["eras"]; today: string }) {
                 </button>
               ))}
             </div>
-            <RailArrows rail={rail} label="los discos de la época" />
+
           </div>
+        </div>
+        <div className="home-eras__navigation">
+          <RailArrows rail={rail} label="los discos de la época" detailed />
         </div>
         <div ref={rail.ref} className={railClass(rail)}>
           {group.albums.map((album, index) => (
@@ -437,6 +471,7 @@ function Eras({ groups, today }: { groups: HomeData["eras"]; today: string }) {
 function FeaturedArtist({ artist }: { artist: NonNullable<HomeData["featuredArtist"]> }) {
   const [failed, setFailed] = useState(false);
   const hasPicture = Boolean(artist.pictureUrl && !failed);
+  const faceRef = useFaceFocus(artist.pictureFocus);
   return (
     <Section id="home-featured" className="home-featured">
       {() => <>
@@ -444,7 +479,7 @@ function FeaturedArtist({ artist }: { artist: NonNullable<HomeData["featuredArti
         <div className="home-featured__inner">
           <Link to={`/artistas/${artist.id}`} className="home-featured__media" aria-label={`Ver a ${artist.name}`}>
             {hasPicture
-              ? <img {...mediaImage(artist.pictureUrl!, 280)} alt="" loading="lazy" decoding="async" onError={() => setFailed(true)} />
+              ? <img ref={faceRef} {...mediaImage(artist.pictureUrl!, 640)} alt="" loading="lazy" decoding="async" onError={() => setFailed(true)} />
               : <span className="placeholder">{initialOf(artist.name)}</span>}
           </Link>
           <div className="home-featured__body">
@@ -477,7 +512,9 @@ function FeaturedArtist({ artist }: { artist: NonNullable<HomeData["featuredArti
                     <li key={item.id} style={{ "--i": index } as CSSProperties}>
                       <Link to={`/artistas/${item.id}`} className="home-avatar">
                         <Avatar name={item.name} url={item.pictureUrl} />
-                        <span>{item.name}</span>
+                        <span className="home-avatar__name">{item.name}</span>
+                        {/* Solo en móvil, donde cada recomendación es una fila. */}
+                        <CaretRight className="home-avatar__caret" size={16} weight="bold" aria-hidden="true" />
                       </Link>
                     </li>
                   ))}
@@ -499,50 +536,111 @@ function Avatar({ name, url }: { name: string; url: string | null }) {
   );
 }
 
+/** Ancla oculta: mantiene registrado el reproductor flotante de una plataforma. */
+function FloatSlot({ source }: { source: ExternalMediaSource }) {
+  const { register } = useExternalMedia();
+  const ref = useCallback((node: HTMLDivElement | null) => register(source, node), [register, source]);
+  return <div ref={ref} hidden />;
+}
+
 /** Un disco para hoy, en el plato: la funda a la izquierda y el vinilo girando. */
 function ListenNow({ albums }: { albums: HomeData["listen"] }) {
   const [index, setIndex] = useState(0);
-  const album = albums[index % albums.length]!;
+  const count = albums.length;
+  const current = ((index % count) + count) % count;
+  const album = albums[current]!;
   const [coverFailed, setCoverFailed] = useState<number | null>(null);
   const hasCover = Boolean(album.coverUrl && coverFailed !== album.id);
+  const go = (step: number) => setIndex(value => value + step);
+  // Los iconos de escucha abren el reproductor flotante grande en vez de salir del sitio.
+  const { show } = useExternalMedia();
+  const floatSources = useMemo(() => new Map(album.links.flatMap(link => {
+    const embed = embedFor(link, "album");
+    if (!embed) return [];
+    const source: ExternalMediaSource = { id: `home-listen-${album.id}-${link.platform}`, subject: album.title, label: platformMeta(link.platform).label,
+      url: link.url, path: `/discos/${album.id}`, embed, video: false, float: true };
+    return [[link.platform, source] as const];
+  })), [album]);
+  const playLink = (link: PlatformLink) => {
+    const source = floatSources.get(link.platform);
+    return source ? () => show(source.id) : null;
+  };
+  // Deslizar con el dedo cambia de disco. Un deslizamiento no es un toque:
+  // el clic que lo sigue no abre la funda ni el título.
+  const swipe = useRef<{ x: number; y: number } | null>(null);
+  const swiped = useRef(false);
+  const swipeHandlers = count > 1 ? {
+    onPointerDown: (event: PointerEvent<HTMLDivElement>) => {
+      swiped.current = false;
+      swipe.current = event.pointerType === "mouse" ? null : { x: event.clientX, y: event.clientY };
+    },
+    onPointerUp: (event: PointerEvent<HTMLDivElement>) => {
+      const start = swipe.current;
+      swipe.current = null;
+      if (!start) return;
+      const dx = event.clientX - start.x, dy = event.clientY - start.y;
+      if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      swiped.current = true;
+      go(dx < 0 ? 1 : -1);
+    },
+    onPointerCancel: () => { swipe.current = null; },
+    onClickCapture: (event: MouseEvent<HTMLDivElement>) => {
+      if (!swiped.current) return;
+      swiped.current = false;
+      event.preventDefault();
+      event.stopPropagation();
+    },
+  } : {};
   return (
     <Section id="home-listen" className="home-listen">
       {() => <>
         {hasCover ? <img key={`ambient-${album.id}`} className="home-listen__ambient" src={mediaUrl(album.coverUrl!, 320)} alt="" aria-hidden="true" decoding="async" /> : null}
-        <div className="home-listen__inner">
+        <div className={`home-listen__inner${count > 1 ? " is-swipeable" : ""}`} {...swipeHandlers}>
           <div className="home-turntable" key={album.id}>
             <span className="home-turntable__record" aria-hidden="true">
               <span className="home-turntable__label">
                 {hasCover ? <img {...mediaImage(album.coverUrl!, 160)} alt="" decoding="async" /> : null}
               </span>
             </span>
-            <Link to={`/discos/${album.id}`} className="home-turntable__sleeve" aria-label={`Ver el disco ${album.title}`}>
-              {hasCover ? <img {...mediaImage(album.coverUrl!, 330)} alt="" decoding="async" onError={() => setCoverFailed(album.id)} />
+            <Link to={`/discos/${album.id}`} className="home-turntable__sleeve" aria-label={`Ver el disco ${album.title}`} draggable={false}>
+              {hasCover ? <img {...mediaImage(album.coverUrl!, 330)} alt="" decoding="async" draggable={false} onError={() => setCoverFailed(album.id)} />
                 : <span className="placeholder">{initialOf(album.title)}</span>}
             </Link>
           </div>
           <div className="home-listen__body" aria-live="polite">
             <p className="home-kicker home-kicker--live"><Play size={11} weight="fill" aria-hidden="true" /> Escucha ahora</p>
             <h2 id="home-listen-title" className="home-listen__eyebrow">Un disco para hoy</h2>
-            <p className="home-listen__title" key={`t-${album.id}`}><Link to={`/discos/${album.id}`}>{album.title}</Link></p>
-            <p className="home-listen__artist"><Link to={`/artistas/${album.artistId}`}>{album.artistName}</Link></p>
+            {/* Alturas fijas: título en dos líneas como máximo, el resto en una, para que la tarjeta no salte entre discos. */}
+            <p className="home-listen__title" key={`t-${album.id}`}><Link to={`/discos/${album.id}`} title={album.title} draggable={false}>{album.title}</Link></p>
+            <p className="home-listen__artist"><Link to={`/artistas/${album.artistId}`} title={album.artistName} draggable={false}>{album.artistName}</Link></p>
             <p className="home-listen__meta"><CatalogYear year={album.releaseYear} /> · <Link to={`/discos?tipo=${album.albumType}`}>{albumTypeLabel(album.albumType)}</Link></p>
-            {album.genres?.length ? <div className="home-listen__genres"><CatalogGenres genres={album.genres} /></div> : null}
-            <PlatformLinks links={album.links} subject={album.title} showLabels />
-            <div className="home-listen__controls">
-              <Link to={`/discos/${album.id}`} className="btn btn--primary home-cta">Ver el disco <ArrowRight size={15} weight="bold" aria-hidden="true" /></Link>
-
+            <div className="home-listen__genres">{album.genres?.length ? <CatalogGenres genres={album.genres} /> : null}</div>
+            <div className="home-listen__platforms">
+              {album.links.length ? <PlatformLinks links={album.links} subject={album.title} onPlay={playLink} />
+                : <p className="home-listen__no-links">Sin plataformas enlazadas todavía.</p>}
             </div>
-            {albums.length > 1 ? (
-              <div className="home-listen__dots" role="group" aria-label="Discos de hoy">
-                {albums.map((item, dot) => (
-                  <button key={item.id} type="button" className="home-listen__dot" aria-pressed={dot === index % albums.length}
-                    aria-label={`${item.title}, de ${item.artistName}`} onClick={() => setIndex(dot)} />
-                ))}
+            {[...floatSources.values()].map(source => <FloatSlot key={source.id} source={source} />)}
+            <div className="home-listen__controls">
+              <Link to={`/discos/${album.id}`} className="btn btn--primary home-cta" draggable={false}>Ver el disco <ArrowRight size={15} weight="bold" aria-hidden="true" /></Link>
+            </div>
+            {count > 1 ? (
+              <div className="home-listen__pager">
+                <button type="button" className="home-listen__step" onClick={() => go(-1)} aria-label="Disco recomendado anterior">
+                  <CaretLeft size={20} weight="bold" aria-hidden="true" />
+                </button>
+                <div className="home-listen__dots" role="group" aria-label="Discos de hoy">
+                  {albums.map((item, dot) => (
+                    <button key={item.id} type="button" className="home-listen__dot" aria-pressed={dot === current}
+                      aria-label={`${item.title}, de ${item.artistName}`} onClick={() => setIndex(dot)} />
+                  ))}
+                </div>
+                <button type="button" className="home-listen__step" onClick={() => go(1)} aria-label="Siguiente disco recomendado">
+                  <CaretRight size={20} weight="bold" aria-hidden="true" />
+                </button>
               </div>
             ) : null}
           </div>
-          {albums.length > 1 ? <button type="button" className="home-listen__next" onClick={() => setIndex(value => value + 1)}
+          {count > 1 ? <button type="button" className="home-listen__next" onClick={() => go(1)}
             aria-label="Escuchar el siguiente disco recomendado" title="Siguiente disco">
             <CaretRight size={26} weight="bold" aria-hidden="true" />
           </button> : null}
@@ -560,7 +658,7 @@ function ChannelVideos({ videos, today, channel }: { videos: HomeData["videos"];
   return <Section id="home-videos">
     {() => <>
       <SectionHead id="home-videos" kicker="Desde el canal" title="Últimos videos en YouTube"
-        lead={channel.stale ? "Mostramos la última información disponible. Estamos intentando actualizar el canal." : `Sincronizado con el canal${checked ? ` · actualizado a las ${checked}` : ""}.`}
+        lead={channel.stale ? "Mostramos la última información disponible. Estamos intentando actualizar el canal." : `Sincronizado con el canal${checked ? ` · actualizado a las ${checked}` : ""}`.replace(/\.?$/u, ".")}
         action={<RailArrows rail={rail} label="los videos" />} />
       <div ref={rail.ref} className={railClass(rail, " home-rail--wide")}>
         {!videos.length ? <p role="status">No se pudieron recuperar los videos. Puedes consultar las publicaciones en el canal.</p> : null}
@@ -668,13 +766,34 @@ function DailyRoutes({ data, genres, decades }: { data: HomeData; genres: GenreF
   const families = genres.families.filter(item => item.count > 0);
   const eras = decades.decades.filter(item => item.count > 0 && item.decade >= 1950);
   const genre = families[day % families.length], era = eras[day % eras.length], label = data.labels[0];
+  const genreIndex = genre ? families.indexOf(genre) : 0;
+  const genreHue = genre ? GENRE_HUES[genre.slug] ?? GENRE_FALLBACK_HUES[genreIndex % GENRE_FALLBACK_HUES.length]! : undefined;
+  // La época va en ámbar salvo que el género del día ya sea de un tono cálido.
+  const eraHue = genreHue && ["#e8a33d", "#ffb02e", "#f2913d", "#ff7a2f", "#d9b56b"].includes(genreHue) ? "#e86a5c" : "#e8a33d";
+  // La fecha del ciclo se muestra tal cual (sin convertir de huso): es la del reloj común.
+  const today = new Intl.DateTimeFormat("es-VE", { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" }).format(new Date(`${data.date}T12:00:00Z`));
   return <Section id="home-daily-routes" className="home-daily-routes">
     {() => <>
-      <SectionHead id="home-daily-routes" title="Por dónde empezar hoy" lead="Tres caminos para descubrir el archivo. Mañana, nuevas recomendaciones." />
+      <SectionHead id="home-daily-routes" kicker={`Hoy · ${today}`} title="Por dónde empezar hoy" lead="Tres caminos para descubrir el archivo. Mañana, nuevas recomendaciones." />
       <div className="home-routes">
-        {genre ? <Link to={`/discos?genero=${genre.slug}`}><span>Explora un sonido</span><strong>{genre.name}</strong><p>{formatNumber(genre.count)} discos de este género para descubrir.</p><ArrowRight size={20} aria-hidden="true" /></Link> : null}
-        {era ? <Link to={`/discos?decada=${era.decade}`}><span>Vuelve a una época</span><strong>{era.decade}–{era.decade + 9}</strong><p>Recorre {formatNumber(era.count)} discos publicados en estos años.</p><ArrowRight size={20} aria-hidden="true" /></Link> : null}
-        {label ? <Link to={`/organizaciones/${label.id}`}><span>Conoce un sello</span><strong>{label.name}</strong><p>Descubre sus {formatNumber(label.albumCount)} discos registrados en el archivo.</p><ArrowRight size={20} aria-hidden="true" /></Link> : null}
+        {genre ? <Link to={`/discos?genero=${genre.slug}`} className="home-route home-route--genre" style={{ "--hue": genreHue, "--i": 0 } as CSSProperties}>
+          <span className="home-route__badge" aria-hidden="true"><SpeakerHifi size={26} weight="fill" /></span>
+          <span className="home-route__eyebrow">Explora un sonido</span><strong>{genre.name}</strong><p>{formatNumber(genre.count)} discos de este género para descubrir.</p>
+          <span className="home-route__mark home-route__mark--grooves" aria-hidden="true" />
+          <ArrowRight className="home-route__go" size={20} aria-hidden="true" />
+        </Link> : null}
+        {era ? <Link to={`/discos?decada=${era.decade}`} className="home-route home-route--era" style={{ "--hue": eraHue, "--i": 1 } as CSSProperties}>
+          <span className="home-route__badge" aria-hidden="true"><CassetteTape size={26} weight="fill" /></span>
+          <span className="home-route__eyebrow">Vuelve a una época</span><strong>{era.decade}–{era.decade + 9}</strong><p>Recorre {formatNumber(era.count)} discos publicados en estos años.</p>
+          <span className="home-route__mark home-route__mark--years" aria-hidden="true">’{String(era.decade).slice(2)}</span>
+          <ArrowRight className="home-route__go" size={20} aria-hidden="true" />
+        </Link> : null}
+        {label ? <Link to={`/organizaciones/${label.id}`} className="home-route home-route--label" style={{ "--hue": "#5b7cfa", "--i": 2 } as CSSProperties}>
+          <span className="home-route__badge home-route__badge--avatar" aria-hidden="true"><Avatar name={label.name} url={label.pictureUrl} /></span>
+          <span className="home-route__eyebrow">Conoce un sello</span><strong>{label.name}</strong><p>Descubre sus {formatNumber(label.albumCount)} discos registrados en el archivo.</p>
+          <span className="home-route__mark home-route__mark--record" aria-hidden="true"><VinylRecord size={120} weight="thin" /></span>
+          <ArrowRight className="home-route__go" size={20} aria-hidden="true" />
+        </Link> : null}
       </div>
     </>}
   </Section>;

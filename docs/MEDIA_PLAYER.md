@@ -8,6 +8,20 @@ se reclama la reproducción exclusiva; SoundCloud además comunica su evento
 PLAY mediante su API oficial. La fuente anterior se pausa y su documento
 externo se descarga al ser sustituido. Los controles nativos permanecen visibles.
 
+El orden de los reproductores y de la selección inicial en artistas y discos es
+**YouTube CRV → Bandcamp → SoundCloud → YouTube → YouTube Music**; las demás
+plataformas mantienen su orden relativo anterior en cada superficie. La elección
+manual dentro de la ficha se respeta.
+
+Antes de ofrecer un video de CRV, el servidor consulta YouTube Data API: debe
+pertenecer al canal CRV, ser público o no listado, estar procesado y permitir
+incrustación. Se omiten videos eliminados, privados, rechazados, fallidos,
+programados para un estreno futuro y con restricciones regionales o de edad.
+Una consulta fallida tampoco permite ofrecer un candidato anterior. La comprobación
+tiene un plazo global de seis segundos; las fichas de artista y disco no se
+guardan en caché para reutilizar una confirmación antigua. Los vínculos y la
+evidencia permanecen en el inventario aunque el video no se ofrezca.
+
 | Modo | Comportamiento |
 | --- | --- |
 | Miniatura | Ventana de hasta 224 px, arrastre, cierre y acceso a controles. Video en proporción 16:9 sin franjas añadidas por el contenedor; YouTube conserva pausa directa. |

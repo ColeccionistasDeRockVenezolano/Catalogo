@@ -36,9 +36,11 @@ export async function loadProfileCatalog(db: Pool, id: number): Promise<{ artist
   if (!artist) throw new Error(`no existe el artista ${id}`);
   const aliases = (await db.query<{ alias: string }>("SELECT alias FROM ingest.artist_aliases WHERE artist_id=$1", [id])).rows.map((row) => row.alias);
   const members = (await db.query<{ name: string }>("SELECT p.name FROM public.artist_members m JOIN public.persons p ON p.id=m.person_id WHERE m.artist_id=$1", [id])).rows.map((row) => row.name);
-  const albums = (await db.query<{ id: number; title: string; release_year: number | null; album_type: string | null; has_cover: boolean; tracks: string[] | null }>(`
+  const albums = (await db.query<{ id: number; title: string; release_year: number | null; album_type: string | null; has_cover: boolean; tracks: string[] | null; track_aliases: string[] | null; label: string | null }>(`
     SELECT a.id, a.title, a.release_year, a.album_type, a.cover_url IS NOT NULL AS has_cover,
-           (SELECT array_agg(t.title ORDER BY t.disc_number, t.track_number) FROM public.tracks t WHERE t.album_id=a.id) AS tracks
+           (SELECT array_agg(t.title ORDER BY t.disc_number, t.track_number) FROM public.tracks t WHERE t.album_id=a.id) AS tracks,
+           (SELECT array_agg(ta.alias) FROM ingest.track_aliases ta JOIN public.tracks t ON t.id=ta.track_id WHERE t.album_id=a.id) AS track_aliases,
+           (SELECT o.name FROM public.organizations o WHERE o.id=a.label_id) AS label
       FROM public.albums a WHERE a.artist_id=$1 ORDER BY a.release_year NULLS LAST, a.id`, [id])).rows;
   // Solista: el nacimiento del titular sirve para comparar el de MusicBrainz.
   const birth = (await db.query<{ year: number | null }>(`
@@ -54,7 +56,7 @@ export async function loadProfileCatalog(db: Pool, id: number): Promise<{ artist
   return {
     artist: {
       id, name: artist.name, aliases, country: artist.origin_country, formedYear: artist.formed_year, birthYear: birth, memberNames: members,
-      albums: albums.map((row) => ({ id: Number(row.id), title: row.title, year: row.release_year, type: row.album_type, trackTitles: row.tracks ?? [], hasCover: row.has_cover })),
+      albums: albums.map((row) => ({ id: Number(row.id), title: row.title, year: row.release_year, type: row.album_type, trackTitles: row.tracks ?? [], trackAliases: row.track_aliases ?? [], label: row.label, hasCover: row.has_cover })),
     },
     links: links.map((row) => ({ platform: row.platform, externalId: row.external_id, albumTitle: row.album_title })),
   };

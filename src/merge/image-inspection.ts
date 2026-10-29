@@ -110,7 +110,8 @@ export async function inspectImageCandidates(
     const retry = "error" in download && download.transient === true;
     let { use, reasons } = classifyImageUse({
       url: row.candidate_url,
-      context: `${row.image_context ?? ""} ${row.source} ${row.origin} ${row.page_url ?? ""}`,
+      context: row.image_context ?? "",
+      locator: `${row.source} ${row.origin} ${row.page_url ?? ""}`,
       target: row.entity_kind,
       width: inspection.width ?? row.width,
       height: inspection.height ?? row.height,

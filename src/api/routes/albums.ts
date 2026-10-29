@@ -114,6 +114,7 @@ const albumDetailSchema = z.object({
   youtubeLinks: z.array(z.object({
     videoId: z.string(), title: z.string().nullable(), kind: z.string(), isPrimaryLink: z.boolean(),
   })),
+  crvYoutubeVideoIds: z.array(z.string()),
   platforms: z.array(z.object({ platform: z.string(), url: z.string(), externalId: z.string().nullable().optional() }))
     .describe("El disco en plataformas de escucha (Spotify, Apple Music, Deezer…); solo los de identidad verificada."),
   ...albumDiscographySchema,
@@ -268,6 +269,7 @@ export async function registerAlbumRoutes(app: FastifyInstance): Promise<void> {
       response: { 200: albumDetailSchema },
     },
   }, async (request, reply) => {
+    reply.header("cache-control", "private, no-store");
     const detail = await getAlbumDetail(request.params.id);
     if (!detail) throw await notFoundEntity("album", request.params.id);
     varyOnCookie(reply);

@@ -1,0 +1,167 @@
+/* La Rockola · Coreografías, escenario y probador. */
+.chat-shell { --chat-ease: cubic-bezier(.23, 1, .32, 1); }
+.crv-particle-stage { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 96; pointer-events: none; }
+.crv-name.is-offscreen, .crv-name.is-offscreen *, .crv-avatar.is-offscreen *,
+.crv-sticker-art.is-offscreen * { animation-play-state: paused !important; }
+.crv-choreo { position: relative; display: inline-block; line-height: 1.5; }
+.crv-choreo .crv-letters { position: relative; }
+.crv-choreo .crv-ch { animation: none; }
+.crv-actor { position: absolute; left: 0; top: 0; pointer-events: none; z-index: 2; }
+.crv-actor svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.crv-choreo-bat-orbit .crv-actor { width: 22px; height: 14px; }
+.crv-choreo-drumsticks .crv-actor { width: 20px; height: 20px; }
+.crv-choreo-ufo-abduct .crv-actor { width: 28px; height: 28px; }
+.crv-choreo-vinyl-roll .crv-actor { width: 13px; height: 13px; }
+.crv-choreo-guitar-wave .crv-actor { width: 20px; height: 20px; }
+.crv-choreo-skull-headbang .crv-actor { width: 18px; height: 18px; }
+.crv-choreo-lightning .crv-actor { width: 12px; height: 20px; }
+.crv-choreo-rockerito .crv-actor { width: 13px; height: 16px; }
+.crv-choreo-guitar-wave, .crv-choreo-skull-headbang { padding-left: 24px; }
+.crv-choreo-flash { position: absolute; left: 0; top: 0; width: 24px; height: 24px; border-radius: 50%; background: radial-gradient(circle, #fff, var(--fx-2) 25%, transparent 70%); opacity: 0; pointer-events: none; }
+.crv-choreo-guitar-wave .crv-choreo-flash { width: 12px; height: 100%; border-radius: 0; background: linear-gradient(90deg, transparent, var(--fx-2), transparent); }
+.crv-choreo.is-live .crv-flap { transform-origin: center; animation: crv-flap 240ms linear infinite; }
+.crv-choreo.is-live .crv-walk-leg { transform-box: fill-box; transform-origin: top center; animation: crv-walk-step 300ms linear infinite alternate; }
+.crv-choreo.is-live .crv-walk-leg-2 { animation-direction: alternate-reverse; }
+.crv-choreo.is-rest .crv-actor, .crv-choreo.is-soft .crv-actor { left: -15px; top: -9px; }
+.crv-choreo.is-rest, .crv-choreo.is-soft { margin-left: 14px; }
+.crv-choreo-guitar-wave.is-rest, .crv-choreo-guitar-wave.is-soft,
+.crv-choreo-skull-headbang.is-rest, .crv-choreo-skull-headbang.is-soft { margin-left: 0; }
+.crv-choreo-guitar-wave.is-rest .crv-actor, .crv-choreo-guitar-wave.is-soft .crv-actor,
+.crv-choreo-skull-headbang.is-rest .crv-actor, .crv-choreo-skull-headbang.is-soft .crv-actor { left: 0; top: 0; }
+.crv-choreo.is-soft .crv-actor { animation: crv-soft-opacity 3s linear infinite; }
+@keyframes crv-walk-step { from { transform: rotate(-20deg); } to { transform: rotate(20deg); } }
+@keyframes crv-soft-opacity { 0%, 100% { opacity: .72; } 50% { opacity: 1; } }
+
+/* Cada pieza del marco gira o pulsa sobre su propio eje. */
+.crv-fire-ring .crv-tongue { transform-box: fill-box; transform-origin: bottom center; animation: crv-flame-tongue 600ms ease-in-out infinite alternate; animation-delay: calc(var(--k) * -97ms); }
+.crv-bolt-a { transform-origin: 50px 50px; animation: crv-electric-pulse 740ms steps(2, end) infinite; }
+.crv-bolt-b { transform-origin: 50px 50px; animation: crv-electric-pulse 1100ms steps(3, end) infinite reverse; }
+.crv-frame-behind { inset: -10px; width: calc(100% + 20px); height: calc(100% + 20px); }
+.crv-vinyl-spin { transform-origin: 50px 50px; animation: crv-spin 4s linear infinite; }
+.crv-frame-vinyl-spin .crv-avatar-initials { display: grid; place-items: center; width: 76%; height: 76%; border-radius: 50%; background: #811019; }
+.crv-eq-bar { transform-box: fill-box; transform-origin: bottom center; animation: crv-eq-radial 650ms ease-in-out infinite alternate; animation-delay: calc(var(--k) * -113ms); }
+@keyframes crv-flame-tongue { from { transform: scaleY(.7) rotate(-8deg); opacity: .7; } to { transform: scaleY(1.3) rotate(8deg); opacity: 1; } }
+@keyframes crv-electric-pulse { 0%, 100% { opacity: 1; transform: rotate(0); } 50% { opacity: .25; transform: rotate(8deg); } }
+@keyframes crv-eq-radial { from { transform: scaleY(.35); } to { transform: scaleY(1.4); } }
+
+/* Las escenas están delante de la sala y detrás de las hojas. */
+.crv-scene { position: fixed; inset: 0; z-index: 75; pointer-events: none; overflow: hidden; contain: layout paint; }
+.crv-scene.is-stage { position: absolute; z-index: 5; }
+.crv-scene-banner { position: absolute; bottom: 24%; left: 8%; right: 8%; margin: 0; padding: 10px 16px; border-radius: 12px; background: #141414ed; color: #fff; font-size: clamp(15px, 3vw, 24px); font-weight: 700; text-align: center; text-wrap: balance; }
+.crv-scene-title { position: absolute; inset: 30% 5% auto; text-align: center; z-index: 3; overflow-wrap: anywhere; }
+.crv-scene-title .crv-name { font-size: clamp(24px, 6vw, 52px); }
+.crv-scene-title .crv-letters { white-space: normal; flex-wrap: wrap; justify-content: center; }
+.crv-scene.is-stage .crv-scene-banner { bottom: 8%; font-size: 12px; padding: 6px 10px; }
+.crv-scene.is-stage .crv-scene-title { top: 28%; }
+.crv-scene.is-stage .crv-scene-title .crv-name { font-size: 24px; }
+.crv-crowd { position: absolute; bottom: -12px; left: -3%; right: -3%; display: flex; align-items: flex-end; justify-content: center; }
+.crv-fan { width: clamp(30px, 9vw, 100px); flex: 1; margin: 0 -3px; }
+.crv-fan svg { display: block; width: 100%; }
+.crv-scene-beam { position: absolute; left: 20%; top: -20%; width: 25%; height: 150%; transform-origin: top center; background: linear-gradient(180deg, var(--fx-1), transparent 85%); opacity: 0; }
+.crv-scene-beam-2 { left: 55%; background: linear-gradient(180deg, var(--fx-2), transparent 85%); }
+.crv-clash { position: absolute; top: 40%; left: 50%; display: grid; place-items: center; }
+.crv-clash-disc { position: absolute; width: clamp(80px, 22vw, 160px); }
+.crv-clash-disc svg, .crv-clash-star svg { display: block; width: 100%; }
+.crv-clash-star { position: absolute; width: 100px; opacity: 0; }
+.crv-scene-flash { position: absolute; inset: 0; background: radial-gradient(circle, #fff7cf, transparent 65%); opacity: 0; }
+.crv-applause { position: absolute; left: 50%; top: 35%; display: flex; align-items: center; justify-content: center; }
+.crv-hand { position: absolute; width: clamp(60px, 18vw, 130px); right: 0; }
+.crv-hand-right { right: auto; left: 0; }
+.crv-hand-right svg { transform: scaleX(-1); }
+.crv-hand svg { display: block; width: 100%; }
+.crv-clap-ring { position: absolute; width: 80px; height: 80px; border: 3px solid var(--fx-2); border-radius: 50%; opacity: 0; }
+.crv-curtain-half { position: absolute; inset: 0 50% 0 0; z-index: 2; background: repeating-linear-gradient(90deg, #44070e 0, #9d1523 14%, #630710 26%); box-shadow: 4px 0 18px #0006; }
+.crv-curtain-right { inset: 0 0 0 50%; }
+.crv-scene-spot { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 35%, #ffdc9c3b, #0008 72%); opacity: 0; }
+.crv-scene .crv-entry { position: absolute; }
+.crv-scene.is-calm > :not(.crv-scene-banner) { display: none; }
+.crv-scene.is-stage .crv-clash-disc { width: 70px; }
+.crv-scene.is-stage .crv-hand { width: 48px; }
+.crv-scene.is-stage .crv-fan { width: 34px; flex: none; }
+.crv-scene.is-stage .crv-clap-ring { width: 35px; height: 35px; }
+
+/* Probador: el mensaje sigue siendo legible sobre cualquier fondo. */
+.crv-probador { position: sticky; top: 0; z-index: 4; min-height: 174px; margin: 0 -16px 14px; padding: 30px 20px 42px; background: #0c0c0c; overflow: hidden; isolation: isolate; border-block: 1px solid var(--border); }
+.crv-probador-row { position: relative; z-index: 2; display: flex; align-items: center; gap: 16px; min-width: 0; }
+.crv-probador-bubble { flex: 1; min-width: 0; padding: 13px 14px; border-radius: 12px; background: #141414ed; }
+.crv-probador-bubble header { padding: 0; gap: 8px; justify-content: space-between; flex-wrap: wrap; }
+.crv-probador-bubble header .crv-name { font-size: 16px; max-width: 100%; }
+.crv-probador-bubble time { font-size: 11px; color: #ababab; }
+.crv-probador-bubble p { margin: 8px 0 0; color: #f5f5f5; font-size: 14px; line-height: 1.4; }
+.crv-probador-tag { position: absolute; z-index: 6; bottom: 12px; left: 20px; max-width: 62%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #ccc; font-size: 11px; }
+.crv-probador-play { position: absolute; z-index: 6; right: 12px; bottom: 6px; display: flex; align-items: center; gap: 5px; min-height: 34px; padding: 5px 10px; border: 1px solid #555; border-radius: 8px; background: #141414; color: #fff; font-size: 12px; }
+.crv-shop-filters { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; padding: 4px 0 12px; }
+.crv-chip-group { display: flex; flex-wrap: wrap; gap: 5px; }
+.crv-chip-group button { min-height: 34px; padding: 5px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text-muted); font-size: 12px; }
+.crv-chip-group button.is-active { color: #fff; border-color: var(--red); background: var(--red-soft); }
+.crv-shop-filters select { width: auto; max-width: 100%; min-height: 34px; padding: 6px 9px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text-muted); font-size: 12px; }
+.chat-effect-detail { margin: 0 0 16px; padding: 12px 0 14px; border-bottom: 1px solid var(--border); }
+.chat-effect-detail-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.chat-effect-detail-head h3 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.chat-effect-detail-head button { display: grid; place-items: center; flex: none; min-width: 36px; min-height: 36px; border: 0; background: transparent; color: var(--text-muted); }
+.chat-effect-actions { flex-wrap: wrap; }
+.chat-effect-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.chat-effect-card { min-width: 0; min-height: 118px; padding: 14px 12px 10px; transition: border-color 150ms var(--chat-ease); }
+.chat-effect-preview { position: relative; display: flex; align-items: center; min-height: 50px; overflow: visible; padding: 6px 2px; }
+.chat-effect-preview .crv-name { font-size: 12px; }
+.chat-effect-name { color: var(--text); font-size: 13px; font-weight: 600; }
+.crv-card-foot { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; margin-top: auto; }
+.chat-effect-price { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.crv-rarity { display: inline-block; font-size: 10px; font-weight: 600; }
+.crv-rarity-common { color: #ababab; }
+.crv-rarity-rare { color: #64cec3; }
+.crv-rarity-epic { color: #c1a2e9; }
+.crv-rarity-legendary { color: #ffc66b; }
+.crv-countdown { color: var(--amber); font-weight: 500; font-variant-numeric: tabular-nums; }
+.crv-shop-empty { padding: 12px 0; color: var(--text-muted); font-size: 14px; line-height: 1.5; }
+.crv-swatch { position: absolute; inset: 0; border-radius: 8px; }
+.chat-effect-card:focus-visible, .crv-chip-group button:focus-visible, .crv-probador-play:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+.chat-primary:disabled, .chat-secondary:disabled { opacity: .5; cursor: not-allowed; }
+
+/* Stickers y efectos de mensaje: duración acotada, sin ocupar la sala. */
+.crv-sticker-art { display: inline-block; width: 76px; height: 76px; margin: 6px 0; }
+.crv-sticker-art svg { display: block; width: 100%; height: 100%; }
+.chat-sticker-tray { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; padding: 10px 0; }
+.chat-sticker-tray button { display: flex; flex-direction: column; align-items: center; border: 1px solid var(--border); border-radius: 12px; background: var(--bg); color: var(--text-muted); font-size: 12px; padding: 8px; }
+.chat-sticker-tray .crv-sticker-art { width: 56px; height: 56px; }
+.chat-effect-preview .crv-sticker-art { width: 40px; height: 40px; }
+.crv-burst-anchor { position: absolute; inset: 0; pointer-events: none; }
+.crv-burst-sprite { position: absolute; right: 0; top: 0; animation: crv-soft-opacity 800ms linear 2; }
+.fx-msg-scratch { animation: crv-glitch 300ms steps(2, end) 3; }
+.fx-msg-spin3d { animation: crv-msg-turn 900ms var(--chat-ease) 1; }
+.fx-msg-eq { animation: crv-eq 550ms ease-in-out 3; }
+@keyframes crv-msg-turn { from { transform: perspective(500px) rotateX(-80deg); opacity: .5; } to { transform: perspective(500px) rotateX(0); opacity: 1; } }
+
+/* Versión suave: solo opacidad; la gama baja conserva el dibujo quieto. */
+.is-soft .crv-ch, .is-soft .crv-name-text, .is-soft .crv-vinyl,
+.is-soft svg * { animation: none !important; }
+.crv-name.is-soft:not(.is-offscreen), .crv-avatar.is-soft:not(.is-offscreen), .crv-sticker-art.is-soft { animation: crv-soft-opacity 3s linear infinite; }
+.crv-avatar.is-static *, .crv-name.is-static *, .crv-sticker-art.is-static * { animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .chat-sheet, .crv-sticker-art { animation: none; }
+  .crv-choreo .crv-actor, .crv-choreo .crv-ch, .crv-message-text { animation: none !important; }
+  .crv-name .crv-ch, .crv-name .crv-name-text, .crv-name svg *, .crv-avatar svg *, .crv-sticker-art svg * { animation: none !important; }
+}
+@media (min-width: 600px) {
+  .chat-effect-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .crv-card-foot { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+.crv-backdrop-group, .crv-ambient-group { position: absolute; inset: 0; pointer-events: none; }
+.crv-backdrop-group { z-index: 0; }
+.crv-ambient-group { z-index: 1; }
+.chat-kind-tabs button { background: var(--bg); min-height: 36px; }
+.chat-effect-preview { overflow: clip; overflow-clip-margin: 8px; }
+.chat-self { min-width: 0; flex-wrap: wrap; }
+.chat-self .crv-name { max-width: 100%; }
+.crv-probador-bubble .crv-letters { white-space: normal; flex-wrap: wrap; }
+/* La luz del escenario respira sin filtrar toda la pantalla en cada frame. */
+.crv-backdrop.fx-stage, .crv-backdrop.fx-garage { animation-name: crv-stage-light; }
+@keyframes crv-stage-light { 0%, 100% { opacity: .78; } 50% { opacity: .95; } }
+.crv-backdrop.is-offscreen { animation-play-state: paused !important; }
+.crv-name.is-static .crv-ch, .crv-name.is-offscreen .crv-ch { will-change: auto; }
+@media (prefers-reduced-motion: reduce) {
+  .chat-shell .crv-name.is-soft:not(.is-static):not(.is-offscreen),
+  .chat-shell .crv-avatar.is-soft:not(.is-static):not(.is-offscreen),
+  .chat-shell .crv-sticker-art.is-soft:not(.is-offscreen) { animation: crv-soft-opacity 3s linear infinite !important; }
+}
+.crv-name.is-offscreen *::before, .crv-name.is-offscreen *::after { animation-play-state: paused !important; }

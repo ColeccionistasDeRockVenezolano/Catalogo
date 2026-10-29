@@ -9,3 +9,4 @@ export * from "./track-contexts.js";
 export * from "./recommendations.js";
 export * from "./evidence-inventory.js";
 export * from "./catalog-model.js";
+export * from "./chat.js";

@@ -1,0 +1,6 @@
+BEGIN;
+DROP TABLE IF EXISTS chat.messages;
+DROP TABLE IF EXISTS chat.rooms;
+DROP TABLE IF EXISTS chat.actors;
+DROP SCHEMA IF EXISTS chat;
+COMMIT;

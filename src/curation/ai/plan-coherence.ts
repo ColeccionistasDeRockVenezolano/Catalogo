@@ -1,7 +1,8 @@
 import type { Database } from "./context.js";
 import { ENTITY_SPECS } from "../../merge/specs.js";
-import { operationRefs, orderedOperations } from "./schema.js";
-import { OPERATION_LABELS, type CatalogDraft, type CatalogOperation, type CatalogRef, type CatalogValue } from "./types.js";
+import { operationRefs, orderedOperations, sameSocialUrl } from "./schema.js";
+import { evidenceGaps, loadGenreTerms } from "./evidence.js";
+import { OPERATION_LABELS, type CatalogDraft, type CatalogEvidence, type CatalogOperation, type CatalogRef, type CatalogValue } from "./types.js";
 
 /** Joins the lots of one preparation into a draft whose summary, operations and doubts agree. */
 export interface CoherenceStats { repeated: number; registered: number; completed: number; doubts: number }
@@ -44,14 +45,29 @@ const cite = (op: CatalogOperation) => op.evidenceIds.length ? ` (${op.evidenceI
 
 const TITLE_NOISE = new Set(["single", "sencillo", "ep", "lp", "disco", "album"]);
 const nameWords = (text: string) => [...new Set(words(text))].filter(word => !TITLE_NOISE.has(word)).sort();
-const semantic = (op: CatalogOperation) => { const { key: _, label: __, reason: ___, evidenceIds: ____, enabled: _____, ...rest } = op; return JSON.stringify(rest); };
+const semantic = (op: CatalogOperation) => {
+  const { key: _, label: __, reason: ___, evidenceIds: ____, enabled: _____, ...rest } = op;
+  if (rest.op === "add_social_link") return JSON.stringify({ op: rest.op, target: rest.target, platform: rest.platform, url: rest.url.toLowerCase().replace(/^https?:\/\/(www\.|m\.)?/u, "").replace(/^twitter\.com\//u, "x.com/").replace(/[/?#]+$/u, "") });
+  return JSON.stringify(rest);
+};
 /** Operations that set the same datum; only one of them can be accepted without overwriting the other. */
 function slotOf(op: CatalogOperation): string | undefined {
   if (op.op === "create_album") { const title = nameWords(String(op.values["title"] ?? "")); return title.length ? `album|${refSignature(op.artist)}|${title.join(" ")}` : undefined; }
-  if (op.op === "replace_fields") return `fields|${refSignature(op.target)}|${Object.keys(op.values).sort().join(",")}`;
+  // A narrative text is one datum even when one proposal also fills notes: two rewrites compete.
+  if (op.op === "replace_fields") { const narrative = ["biography", "description"].find(field => field in op.values); return `fields|${refSignature(op.target)}|${narrative ?? Object.keys(op.values).sort().join(",")}`; }
   if (op.op === "assign_genre") return `genre|${refSignature(op.target)}|${op.genreSlug}`;
   if (op.op === "add_alias") return `alias|${refSignature(op.target)}|${fold(op.alias)}`;
+  // The record holds one profile per platform: the same address joins, another one competes.
+  if (op.op === "add_social_link") return `social|${refSignature(op.target)}|${op.platform}`;
   return undefined;
+}
+/** Every datum an operation sets: replacements compete field by field, so one that also fills another field still collides. */
+function slotsOf(op: CatalogOperation): string[] {
+  // Two corrections of the same relation compete date by date and role by role («fin 1994» against «fin 2005»).
+  // «isCurrent» follows from the dates, so it does not make two different corrections collide.
+  if (op.op === "replace_relation") return Object.keys(op.values).filter(field => field !== "isCurrent").map(field => `relation|${op.kind}|${op.id}|${field}`);
+  if (op.op !== "replace_fields") { const slot = slotOf(op); return slot ? [slot] : []; }
+  return Object.keys(op.values).map(field => `fields|${refSignature(op.target)}|${field}`);
 }
 /** Names that only differ by a dropped given name or nickname word are one new identity within a plan. */
 function sameNewIdentity(a: string[], b: string[]): boolean {
@@ -60,6 +76,18 @@ function sameNewIdentity(a: string[], b: string[]): boolean {
 }
 const NOT_A_DOUBT = /no se proponen? cambios|se conservan? sin cambios|ya (?:est[aá]n? |figuran? )?presentes? en la ficha|no aportan? t[eé]rminos adicionales|no documentan? t[eé]rminos nuevos/iu;
 
+const FIELD_NAMES: Record<string, string> = { organizationType: "tipo de organización", country: "país", status: "estado", nationality: "nacionalidad", birthCity: "ciudad de nacimiento", realName: "nombre real", isVenezuelan: "venezolano", originCity: "ciudad de origen", currentCity: "ciudad actual", birthDate: "fecha de nacimiento", deathDate: "fecha de fallecimiento", notes: "notas", formedYear: "año de formación", yearsActive: "años de actividad" };
+const VALID_URL = /^https?:\/\/[\x21-\x7e]+$/u;
+/**
+ * One field per replacement, as the contract asks: a proposal that also sets another field must not
+ * displace, or be displaced by, the proposal for a different datum. A narrative text keeps its notes.
+ */
+function splitFields(op: CatalogOperation): CatalogOperation[] {
+  if (op.op !== "replace_fields") return [op];
+  const fields = Object.keys(op.values);
+  if (fields.length < 2 || fields.some(field => field === "biography" || field === "description")) return [op];
+  return fields.map(field => ({ ...op, key: `${op.key.slice(0, 39 - Math.min(field.length, 12))}_${field.slice(0, 12)}`.slice(0, 40), label: `Completar ${FIELD_NAMES[field] ?? field}: ${String(op.values[field])}`.slice(0, 160), values: { [field]: op.values[field]! } }));
+}
 export function consolidateDraft(draft: CatalogDraft): { draft: CatalogDraft; stats: CoherenceStats } {
   const operations: CatalogOperation[] = [], unresolved = [...draft.unresolved];
   const renamed = new Map<string, string>(), entities: Array<{ kind: string; parent: string; words: string[]; op: CatalogOperation }> = [];
@@ -67,8 +95,18 @@ export function consolidateDraft(draft: CatalogDraft): { draft: CatalogDraft; st
   const resolve = (key: string) => { let current = key; for (let hop = 0; renamed.has(current) && hop < 20; hop++) current = renamed.get(current)!; return current; };
   let repeated = 0, unsupported = 0;
   const withdrawn = new Set<string>();
-  for (const input of draft.operations) {
+  for (const input of draft.operations.flatMap(splitFields)) {
     const op = structuredClone(input);
+    // Citation ids are for the reviewer, not the record: a text that only lists them adds nothing.
+    // Cleaned before grouping, so an empty text cannot displace a useful one for the same field.
+    if (op.op === "replace_fields") {
+      const texts = TEXT_FIELDS.filter(field => typeof op.values[field] === "string" && CITATION_ID.test(String(op.values[field])));
+      if (texts.some(field => withoutCitations(String(op.values[field])).split(/\s+/u).filter(word => /\p{L}{3,}/u.test(word)).length < 8)) {
+        unresolved.push(`${op.label}: el texto solo enumera identificadores de citas, sin datos para la ficha${cite(op)}.`.slice(0, 700)); unsupported++; withdrawn.add(op.key); continue;
+      }
+      for (const field of texts) op.values[field] = withoutCitations(String(op.values[field]));
+    }
+    if (op.op === "add_social_link" && !VALID_URL.test(op.url)) { unresolved.push(`${op.label}: «${op.url}» no es una dirección válida del perfil${cite(op)}.`.slice(0, 700)); unsupported++; withdrawn.add(op.key); continue; }
     for (const ref of operationRefs(op)) if ("key" in ref) ref.key = resolve(ref.key);
     // The catalog itself is not documentary proof: a proposal without a citation stays a doubt.
     if (!op.evidenceIds.length) { unresolved.push(`${op.label}: sin cita que la respalde. ${op.reason}`.slice(0, 700)); unsupported++; withdrawn.add(op.key); continue; }
@@ -101,17 +139,21 @@ export function consolidateDraft(draft: CatalogDraft): { draft: CatalogDraft; st
       }
       relations.set(signature, [...siblings, op]);
     }
-    const slot = slotOf(op) && `${op.enabled}|${slotOf(op)}`, previous = slot ? slots.get(slot) : undefined;
-    if (slot && previous) {
+    const own = slotsOf(op).map(slot => `${op.enabled}|${slot}`), previous = own.map(slot => slots.get(slot)).find(Boolean);
+    if (previous) {
       repeated++;
       if (semantic(previous) === semantic(op)) { previous.evidenceIds = [...new Set([...previous.evidenceIds, ...op.evidenceIds])].slice(0, 8); renamed.set(op.key, previous.key); continue; }
       // The more complete proposal stays where the first one was; the other remains visible as an alternative.
       const [kept, other] = semantic(op).length > semantic(previous).length ? [op, previous] : [previous, op];
       unresolved.push(`Otra propuesta para el mismo dato que «${kept.label}»: ${other.label}${cite(other)}.`);
-      if (kept === op) { operations[operations.indexOf(previous)] = op; slots.set(slot, op); renamed.set(previous.key, op.key); } else renamed.set(op.key, previous.key);
+      if (kept === op) {
+        operations[operations.indexOf(previous)] = op; renamed.set(previous.key, op.key);
+        for (const [slot, holder] of slots) if (holder === previous) slots.set(slot, op);
+        own.forEach(slot => slots.set(slot, op));
+      } else renamed.set(op.key, previous.key);
       continue;
     }
-    if (slot) slots.set(slot, op);
+    own.forEach(slot => slots.set(slot, op));
     operations.push(op);
   }
   for (const op of operations) for (const ref of operationRefs(op)) if ("key" in ref) ref.key = resolve(ref.key);
@@ -211,13 +253,20 @@ const REQUIRED_ENDPOINTS: Record<string, string[][]> = {
 /** A relation already in the catalog is not proposed again: it is completed, or its difference becomes a doubt. */
 export async function settleRegisteredRelations(db: Database, draft: CatalogDraft, stats: CoherenceStats, root?: { kind: string; id: number }): Promise<CatalogDraft> {
   const operations: CatalogOperation[] = [], unresolved = [...draft.unresolved];
-  // People who already share a project with the artist: a new identity with the same name is that person.
-  const colleagues = root?.kind === "artist" ? (await db.query<{ id: number; name: string }>(
-    `SELECT DISTINCT p.id::int,p.name FROM public.persons p WHERE p.id IN (
+  // People who already share a project with the artist: a new identity with the same name, real name
+  // or alias is that person. A solo project's only member also answers to the artist's own names.
+  const colleagues = root?.kind === "artist" ? (await db.query<{ id: number; names: string[] }>(
+    `WITH people AS (
        SELECT person_id FROM public.artist_members WHERE artist_id=$1
        UNION SELECT c.person_id FROM public.album_credits c JOIN public.albums al ON al.id=c.album_id WHERE al.artist_id=$1
-       UNION SELECT c.person_id FROM public.track_credits c JOIN public.tracks t ON t.id=c.track_id JOIN public.albums al ON al.id=t.album_id WHERE al.artist_id=$1)`, [root.id],
-  )).rows.map(row => ({ ...row, words: nameWords(row.name) })) : [];
+       UNION SELECT c.person_id FROM public.track_credits c JOIN public.tracks t ON t.id=c.track_id JOIN public.albums al ON al.id=t.album_id WHERE al.artist_id=$1),
+     solo AS (SELECT min(person_id) AS person_id FROM public.artist_members WHERE artist_id=$1 HAVING count(DISTINCT person_id)=1)
+     SELECT p.id::int, array_remove(array[p.name,p.real_name]
+              || coalesce((SELECT array_agg(pa.alias) FROM ingest.person_aliases pa WHERE pa.person_id=p.id),'{}')
+              || CASE WHEN p.id=(SELECT person_id FROM solo) THEN array[(SELECT name FROM public.artists WHERE id=$1)]
+                   || coalesce((SELECT array_agg(aa.alias) FROM ingest.artist_aliases aa WHERE aa.artist_id=$1),'{}') ELSE '{}' END, NULL) AS names
+       FROM public.persons p WHERE p.id IN (SELECT person_id FROM people)`, [root.id],
+  )).rows.map(row => ({ id: row.id, name: row.names[0] ?? String(row.id), words: row.names.map(nameWords).filter(item => item.length) })) : [];
   const existing = new Map<string, number>(), albums = new Map<string, number>(), ambiguous = new Set<string>();
   const keys = new Set(draft.operations.map(op => op.key)), known = new Map<string, boolean>();
   const missingReference = async (op: CatalogOperation): Promise<string | null> => {
@@ -236,10 +285,23 @@ export async function settleRegisteredRelations(db: Database, draft: CatalogDraf
       if (id !== undefined) { delete (ref as { key?: string }).key; Object.assign(ref, { id }); }
     }
     if (op.op === "create_entity" && op.kind === "person" && filled(op.values["name"])) {
-      const proposed = nameWords(String(op.values["name"]));
-      const matches = colleagues.filter(person => person.words.join(" ") === proposed.join(" ") || sameNewIdentity(person.words, proposed));
+      const proposed = [op.values["name"], op.values["realName"]].filter(filled).map(name => nameWords(String(name)));
+      const matches = colleagues.filter(person => person.words.some(known => proposed.some(words => known.join(" ") === words.join(" ") || sameNewIdentity(known, words))));
       if (matches.length === 1) { existing.set(op.key, matches[0]!.id); stats.registered++; continue; }
       if (matches.length > 1) { ambiguous.add(op.key); unresolved.push(`${op.label}: coincide con varias personas del mismo proyecto (${matches.map(person => `${person.id} ${person.name}`).join(", ")}); elegir cuál antes de vincularla${cite(op)}.`); stats.registered++; continue; }
+    }
+    // An organization already in the catalog is that organization; a partial name match needs a choice.
+    if (op.op === "create_entity" && op.kind === "organization" && filled(op.values["name"]) && nameWords(String(op.values["name"])).length) {
+      const proposed = nameWords(String(op.values["name"]));
+      const known = (await db.query<{ id: number; name: string }>(
+        `SELECT DISTINCT o.id::int,o.name FROM public.organizations o LEFT JOIN ingest.organization_aliases a ON a.organization_id=o.id
+          WHERE translate(lower(o.name),'áàäâéèëêíìïîóòöôúùüûñç','aaaaeeeeiiiioooouuuunc') LIKE $1
+             OR translate(lower(a.alias),'áàäâéèëêíìïîóòöôúùüûñç','aaaaeeeeiiiioooouuuunc') LIKE $1`, [`%${[...proposed].sort((x, y) => y.length - x.length)[0]!.replace(/[%_]/gu, "")}%`],
+      )).rows.map(row => ({ ...row, words: nameWords(row.name) }));
+      const exact = known.filter(org => org.words.join(" ") === proposed.join(" "));
+      if (exact.length === 1) { existing.set(op.key, exact[0]!.id); stats.registered++; continue; }
+      const similar = exact.length > 1 ? exact : known.filter(org => org.words.length && (org.words.every(word => proposed.includes(word)) || proposed.every(word => org.words.includes(word))));
+      if (similar.length) { ambiguous.add(op.key); unresolved.push(`${op.label}: el catálogo ya tiene ${similar.slice(0, 5).map(org => `${org.id} ${org.name}`).join(", ")}; elegir la organización antes de crear otra${cite(op)}.`.slice(0, 700)); stats.registered++; continue; }
     }
     // A record deleted since the preparation, or a creation that only another lot knew, cannot be referenced.
     const gone = await missingReference(op);
@@ -304,6 +366,185 @@ export async function settleRegisteredRelations(db: Database, draft: CatalogDraf
       const roles = (await db.query<{ role: string }>(`SELECT role FROM public.${target[0]} WHERE ${target[1]}=$1 AND ${column}=$2`, [target[2], id(holder)])).rows;
       if (roles.some(row => rolesAgree(row.role, op.values["role"]))) { stats.registered++; continue; }
     }
+    operations.push(op);
+  }
+  return { ...draft, operations, unresolved };
+}
+
+const HANDLE_LINK = /(?:instagram\.com|facebook\.com|tiktok\.com\/@?|twitter\.com|x\.com|threads\.net\/@?)\/([\w.]{3,40})/giu;
+const NOT_OFFICIAL = /\b(fans?|fan ?club|club de fans|fanpage|tienda|store|shop|sello|disquera|prensa)\b/u;
+/** An official site carries the artist's name in its domain or is called official by the citation; portals and fan sites are not. */
+function officialSite(url: string, text: string, quotes: string, names: string[]): boolean {
+  if (NOT_OFFICIAL.test(text) || NOT_OFFICIAL.test(fold(url))) return false;
+  const host = (url.toLowerCase().match(/^https?:\/\/([^/]+)/u)?.[1] ?? "").replace(/^www\./u, "").replace(/[^a-z0-9]/gu, "");
+  return names.some(name => name.replace(/ /gu, "").length > 2 && host.includes(name.replace(/ /gu, ""))) || /\b(sitio|pagina|web|website) oficial|official (site|website|page)\b/u.test(fold(quotes));
+}
+const COVER = /\b(portadas?|caratulas?|cover|covers|artwork)\b/u;
+const IMAGE_COLUMNS: Record<string, string> = { "artist.pictureUrl": "picture_url", "artist.logoUrl": "logo_url", "album.coverUrl": "cover_url", "person.pictureUrl": "picture_url" };
+const plainCase = (text: string) => text.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+const ALIAS_CUE = /\b(conocid[oa]s? como|apodad[oa]|apodo|alias|tambien (llamad[oa]|conocid[oa])|aka|seudonimo|nombre artistico|abreviad[oa])\b/u;
+const PLACE_FIELDS = ["originCity", "birthCity", "currentCity", "deathCity"];
+const BIRTH = /\b(naci\w*|nacid[oa]s?|nacimiento|natal|born)\b/u;
+/** @handles and profile paths the cited pages name: a handle is a social profile, not a name variant. */
+function handlesIn(quotes: string): Set<string> {
+  const found = new Set<string>();
+  for (const match of quotes.matchAll(/@([\p{L}\p{N}_.]{3,40})/gu)) found.add(fold(match[1]!));
+  for (const match of quotes.matchAll(HANDLE_LINK)) found.add(fold(match[1]!));
+  return found;
+}
+const TEXT_FIELDS = ["notes", "biography", "description"];
+const CITATION_ID = /\b[EH]\d{1,5}\b/u;
+/** Removes «(E14, E28/E1590)» and bare ids from a record text, with the punctuation they leave behind. */
+export function withoutCitations(text: string): string {
+  return text
+    .replace(/\s*[([]\s*(?:[EH]\d{1,5}\s*(?:[,;/]|\by\b)?\s*)+[)\]]/gu, "")
+    .replace(/\b[EH]\d{1,5}\b(?:\s*(?:[,;/]|\by\b)\s*\b[EH]\d{1,5}\b)*/gu, "")
+    .replace(/\s+([,.;:])/gu, "$1").replace(/([,;:])(?:\s*[,;:])+/gu, "$1").replace(/[,;:]\s*\./gu, ".").replace(/ {2,}/gu, " ").trim();
+}
+const SONG = /\b(sencillos?|singles?|temas?|cancion|canciones|corte|track)\b/u;
+/**
+ * A genre is the artist's only when some citation says it of their music. A citation that is a cut
+ * of a longer passage about a single («un sencillo refrescante que tiene como base rítmica la guaracha»)
+ * is read with that passage.
+ */
+function songScoped(slug: string, cited: CatalogEvidence[], evidence: CatalogEvidence[]): boolean {
+  const term = fold(slug.replace(/-/gu, " ")), compact = term.replace(/ /gu, "");
+  const names = (text: string) => { const folded = fold(text); return folded.includes(term) || folded.replace(/ /gu, "").includes(compact); };
+  const relevant = cited.filter(item => names(item.quote));
+  if (!relevant.length) return false;
+  return relevant.every(item => {
+    const own = fold(item.quote);
+    return [item, ...evidence.filter(other => other.id !== item.id && fold(other.quote).includes(own))].some(passage => SONG.test(fold(passage.quote)));
+  });
+}
+/**
+ * Each datum goes to its record and field. Proposals that put a handle in the aliases, an unofficial
+ * site in the website, a cover in the artist's photo or a birthplace in the project's origin, that
+ * end a membership without a date or confirm a genre the record already has (or a broader parent of
+ * a more specific one) become doubts with their reason, or are dropped as already registered.
+ */
+export async function enforceScope(db: Database, draft: CatalogDraft, evidence: CatalogEvidence[], stats: CoherenceStats, root?: { kind: string; id: number }): Promise<CatalogDraft> {
+  const operations: CatalogOperation[] = [], unresolved = [...draft.unresolved];
+  const byId = new Map(evidence.map(item => [item.id, item]));
+  const quotesOf = (op: CatalogOperation) => op.evidenceIds.map(id => byId.get(id)).filter((item): item is CatalogEvidence => !!item);
+  const taxonomy = new Map((await db.query<{ slug: string; parent: string | null }>(
+    "SELECT g.slug,p.slug AS parent FROM ingest.genres g LEFT JOIN ingest.genres p ON p.id=g.parent_genre_id")).rows.map(row => [row.slug, row.parent]));
+  const ancestors = (slug: string) => { const result: string[] = []; for (let current = taxonomy.get(slug); current && result.length < 10; current = taxonomy.get(current)) result.push(current); return result; };
+  const currentGenres = new Map<string, Set<string>>();
+  const genresOf = async (ref: CatalogRef) => {
+    if (!("id" in ref) || (ref.kind !== "artist" && ref.kind !== "album")) return new Set<string>();
+    const signature = refSignature(ref);
+    if (!currentGenres.has(signature)) currentGenres.set(signature, new Set((await db.query<{ slug: string }>(
+      `SELECT g.slug FROM ingest.${ref.kind}_genres x JOIN ingest.genres g ON g.id=x.genre_id WHERE x.${ref.kind}_id=$1 AND x.status='confirmed' AND x.superseded_by_id IS NULL`, [ref.id])).rows.map(row => row.slug)));
+    return currentGenres.get(signature)!;
+  };
+  const proposedGenres = new Map<string, Set<string>>();
+  for (const op of draft.operations) if (op.op === "assign_genre" && op.enabled) proposedGenres.set(refSignature(op.target), new Set([...(proposedGenres.get(refSignature(op.target)) ?? []), op.genreSlug]));
+  const rootNames = root?.kind === "artist" ? (await db.query<{ name: string }>(
+    "SELECT name FROM public.artists WHERE id=$1 UNION SELECT alias FROM ingest.artist_aliases WHERE artist_id=$1", [root.id])).rows.map(row => fold(row.name)) : [];
+  const doubt = (op: CatalogOperation, why: string) => { unresolved.push(`${op.label}: ${why}${cite(op)}.`.slice(0, 700)); stats.registered++; };
+  for (const input of draft.operations) {
+    // A citation id lost while lots were combined must not block a proposal that keeps other valid citations.
+    const known = input.evidenceIds.filter(id => byId.has(id));
+    const op = known.length && known.length < input.evidenceIds.length ? { ...input, evidenceIds: known } : input;
+    if (!op.enabled) { operations.push(op); continue; }
+    const cited = quotesOf(op), quotes = cited.map(item => item.quote).join("\n"), text = fold(`${op.label} ${op.reason}`);
+    if (op.op === "add_alias" && rootNames.length) {
+      // «Jeremías (ESP)» or «Jeremías (apodo…)» only adds a remark to a name the record already has.
+      const bare = fold(op.alias.replace(/\s*[([].*$/u, ""));
+      if (bare !== fold(op.alias) && rootNames.includes(bare)) { doubt(op, "solo añade una aclaración entre paréntesis a un nombre que la ficha ya tiene"); continue; }
+      // Initials name someone only when a source says so: «Single M.J.» is another artist's byline.
+      if (fold(op.alias).replace(/\s/gu, "").length <= 3 && !ALIAS_CUE.test(fold(quotes))) { doubt(op, "unas iniciales sin una fuente que diga que también se le llama así"); continue; }
+    }
+    // In a group, a member's own name is not another name of the band («Asier Cazalis» for Caramelos de Cianuro).
+    if (op.op === "add_alias" && op.target.kind === "artist" && "id" in op.target) {
+      const members = (await db.query<{ name: string; forms: string | null }>(
+        `SELECT p.name, concat_ws('|', p.real_name, (SELECT string_agg(a.alias, '|') FROM ingest.person_aliases a WHERE a.person_id=p.id)) AS forms
+           FROM public.artist_members m JOIN public.persons p ON p.id=m.person_id WHERE m.artist_id=$1`, [op.target.id])).rows;
+      const people = new Set(members.map(member => member.name));
+      const member = people.size >= 2 ? members.find(row => [row.name, ...(row.forms ?? "").split("|")].some(form => form && fold(form) === fold(op.alias))) : undefined;
+      if (member) { doubt(op, `es el nombre de un integrante (${member.name}), no otro nombre del grupo`); continue; }
+    }
+    if (op.op === "add_alias") {
+      const handles = handlesIn(quotes);
+      if (handles.has(fold(op.alias)) || (!/\s/u.test(op.alias.trim()) && /\b(instagram|facebook|tiktok|twitter|usuario|handle|redes?)\b/u.test(text))) {
+        doubt(op, "es un usuario de red social, no un nombre; corresponde a una red del artista"); continue;
+      }
+    }
+    if (op.op === "add_social_link" && "id" in op.target) {
+      const registered = (await db.query<{ url: string }>("SELECT url FROM public.social_links WHERE artist_id=$1 AND platform=$2", [op.target.id, op.platform])).rows[0];
+      if (registered && sameSocialUrl(registered.url, op.url)) { stats.registered++; continue; }
+      if (registered) { doubt(op, `la ficha ya tiene ${op.platform}: ${registered.url}; decidir cuál es la oficial`); continue; }
+    }
+    if (op.op === "add_social_link" && op.platform === "website" && !officialSite(op.url, text, quotes, rootNames)) { doubt(op, `${op.url} no es el sitio oficial del artista`); continue; }
+    if (op.op === "replace_fields") {
+      const missingPlace = PLACE_FIELDS.find(field => typeof op.values[field] === "string" && !fold(quotes).includes(fold(String(op.values[field])).split(" ")[0] ?? ""));
+      if (missingPlace) { doubt(op, `las citas no nombran ${String(op.values[missingPlace])}`); continue; }
+      const website = op.values["websiteUrl"];
+      if (typeof website === "string" && !officialSite(website, text, quotes, rootNames)) { doubt(op, `${website} no es el sitio oficial del artista`); continue; }
+      const picture = ["pictureUrl", "photoUrl", "imageUrl"].find(field => typeof op.values[field] === "string");
+      // A record that already has its image keeps it: a new one is a candidate to compare in Imágenes, not a silent replacement.
+      const image = (["pictureUrl", "logoUrl", "coverUrl"] as const).find(field => typeof op.values[field] === "string");
+      const column = image && IMAGE_COLUMNS[`${op.target.kind}.${image}`];
+      if (column && "id" in op.target && (await db.query<{ current: string | null }>(`SELECT ${column} AS current FROM public.${op.target.kind === "album" ? "albums" : op.target.kind === "person" ? "persons" : "artists"} WHERE id=$1`, [op.target.id])).rows[0]?.current) {
+        doubt(op, `la ficha ya tiene ${image === "coverUrl" ? "portada" : image === "logoUrl" ? "logo" : "foto"}; la nueva (${String(op.values[image!])}) va como candidata en Imágenes para compararla`); continue;
+      }
+      if (picture && (op.target.kind === "artist" || op.target.kind === "person") && (COVER.test(text) || cited.some(item => COVER.test(fold(item.label ?? ""))))) {
+        doubt(op, "es la portada de un disco, no una foto del artista; va como candidata de portada de ese disco"); continue;
+      }
+      const city = op.values["originCity"];
+      if (typeof city === "string" && op.target.kind === "artist" && root?.kind === "artist") {
+        // «nació en Londres» or a biographical heading «(Londres, 19 de septiembre de 1973)».
+        const place = plainCase(city).split(/[\s,]+/u)[0] ?? "", plain = plainCase(quotes);
+        const hits = place.length > 2 ? [...plain.matchAll(new RegExp(`\\b${place}\\b`, "gu"))] : [];
+        const birth = (index: number) => BIRTH.test(fold(plain.slice(Math.max(0, index - 80), index))) || /^[^)\n]{0,50}\b(1[89]\d\d|20\d\d)\s*\)/u.test(plain.slice(index));
+        if (hits.length && hits.every(hit => birth(hit.index!))) { doubt(op, `las citas solo dan ${city} como lugar de nacimiento; el origen del proyecto es otro dato`); continue; }
+      }
+      // The first record does not establish when a project began.
+      if ((filled(op.values["formedYear"]) || filled(op.values["yearsActive"])) && /\b(primer (trabajo|disco|album|lp|sencillo|cd)|debut)\b/u.test(fold(quotes)) && !/\b(form[oó]|fundad|se form|inici[oó] su carrera|comenz[oó] su carrera)\b/u.test(plainCase(quotes))) {
+        doubt(op, "la cita fecha el primer disco, que no prueba el inicio del proyecto"); continue;
+      }
+    }
+    if (op.op === "replace_relation" && op.kind === "artist_membership" && op.values["isCurrent"] === false && !filled(op.values["toYear"])) {
+      doubt(op, "dejaría la membresía como pasada sin una fecha de fin documentada"); continue;
+    }
+    if (op.op === "assign_genre") {
+      if (op.target.kind === "artist" && songScoped(op.genreSlug, cited, evidence)) { doubt(op, "las citas lo dicen de un sencillo o una canción, no de la música del artista"); continue; }
+      if (!taxonomy.has(op.genreSlug)) { doubt(op, `el término «${op.genreSlug}» no existe en la taxonomía`); continue; }
+      const current = await genresOf(op.target);
+      if (current.has(op.genreSlug)) { stats.registered++; continue; }
+      const specific = [...current, ...(proposedGenres.get(refSignature(op.target)) ?? [])].find(slug => slug !== op.genreSlug && ancestors(slug).includes(op.genreSlug));
+      if (specific) { doubt(op, `es la rama general de «${specific}», que la ficha ya tiene o se propone`); continue; }
+    }
+    operations.push(op);
+  }
+  return documentedOnly({ ...draft, operations, unresolved }, evidence, stats, root, await loadGenreTerms(db));
+}
+
+/**
+ * The same support check the executor applies before accepting: a creation keeps its documented
+ * fields and drops the auxiliary ones its citations do not state; any other proposal with an
+ * unsupported part, and whatever depends on it, becomes a doubt naming that part.
+ */
+function documentedOnly(draft: CatalogDraft, evidence: CatalogEvidence[], stats: CoherenceStats, root: { kind: string; id: number } | undefined, genreTerms: Map<string, string[]>): CatalogDraft {
+  const context = { genreTerms, ...(root ? { root: root as { kind: CatalogRef["kind"]; id: number } } : {}) };
+  const operations: CatalogOperation[] = [], unresolved = [...draft.unresolved], withdrawn = new Set<string>();
+  for (const input of draft.operations) {
+    if (!input.enabled) { operations.push(input); continue; }
+    if (operationRefs(input).some(ref => "key" in ref && withdrawn.has(ref.key))) {
+      unresolved.push(`${input.label}: depende de una propuesta sin respaldo suficiente${cite(input)}.`.slice(0, 700)); withdrawn.add(input.key); stats.registered++; continue;
+    }
+    let op = input, gaps = evidenceGaps(op, evidence, context);
+    if (gaps.length && op.op === "create_entity" && op.kind !== "album" && op.kind !== "track") {
+      const creation = op, nameKey = "name" in creation.values ? "name" : "title";
+      const unsupported = Object.keys(creation.values).filter(field => field !== nameKey && evidenceGaps({ ...creation, values: { [nameKey]: creation.values[nameKey]!, [field]: creation.values[field]! } }, evidence, context).length);
+      if (unsupported.length) {
+        op = { ...creation, values: Object.fromEntries(Object.entries(creation.values).filter(([field]) => !unsupported.includes(field))) };
+        gaps = evidenceGaps(op, evidence, context);
+        if (!gaps.length) unresolved.push(`${op.label}: se propone sin ${unsupported.map(field => FIELD_NAMES[field] ?? field).join(", ")}, que las citas no indican${cite(op)}.`.slice(0, 700));
+      }
+    }
+    if (gaps.length) { unresolved.push(`${op.label}: las citas no respaldan ${gaps.join("; ")}${cite(op)}.`.slice(0, 700)); withdrawn.add(op.key); stats.registered++; continue; }
     operations.push(op);
   }
   return { ...draft, operations, unresolved };

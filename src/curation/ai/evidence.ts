@@ -1,3 +1,4 @@
+import { sameSocialUrl } from "./schema.js";
 import type { CatalogEvidence, CatalogKind, CatalogOperation, CatalogRef, CatalogValue } from "./types.js";
 const normalize = (text: string) =>
   text
@@ -94,8 +95,60 @@ export interface EvidenceContext {
   /** Names of catalog or planned entities, so a citation must identify both the value and who it belongs to. */
   nameOf?: ((ref: CatalogRef) => string | undefined) | undefined;
   root?: { kind: CatalogKind; id: number } | undefined;
+  /** Name and aliases of each genre in the taxonomy: a genre is cited by one of them as a whole phrase. */
+  genreTerms?: ReadonlyMap<string, string[]> | undefined;
+}
+/** Loads the taxonomy's names and aliases for {@link EvidenceContext.genreTerms}. */
+export async function loadGenreTerms(db: { query: <R extends object>(sql: string) => Promise<{ rows: R[] }> }): Promise<Map<string, string[]>> {
+  const rows = (await db.query<{ slug: string; terms: string[] }>(
+    "SELECT g.slug, array_remove(array_agg(DISTINCT a.alias_normalized), NULL) || g.name AS terms FROM ingest.genres g LEFT JOIN ingest.genre_aliases a ON a.genre_id=g.id AND a.kind='genre' GROUP BY g.slug,g.name")).rows;
+  return new Map(rows.map((row) => [row.slug, row.terms]));
+}
+const phrase = (term: string, text: string) => {
+  const normalized = normalize(term);
+  return normalized.length > 0 && new RegExp(`\\b${normalized.replace(/ /gu, "\\s+")}\\b`, "u").test(text);
+};
+/** Words scattered over a citation do not name a genre: «Universal Music Latino · Rock» is not «rock latino». */
+function genreCited(slug: string, text: string, context: EvidenceContext): boolean {
+  const terms = context.genreTerms?.get(slug);
+  return terms ? [slug.replace(/-/gu, " "), ...terms].some((term) => phrase(term, text)) : mentioned(slug, text);
 }
 /** Each sentence of a narrative text needs its own support; one shared word does not validate invented facts. */
+/** How sources name each organization type: «compañía productora», «sello», «disquera». */
+const organizationTypes: Record<string, string[]> = {
+  "production company": ["productora", "production company", "produccion"],
+  "record label": ["sello", "disquera", "discografica", "record label", "label"],
+  studio: ["estudio", "studio"],
+  distributor: ["distribuidora", "distributor"],
+};
+/** A founding is told as «fundó», «creó su propia compañía» or «fundada por». */
+const roleSynonyms: Record<string, string[]> = {
+  fundador: ["fundo", "fundada por", "fundado por", "creo su", "crea su", "creo la", "creo el"],
+  fundadora: ["fundo", "fundada por", "fundado por", "creo su", "crea su", "creo la", "creo el"],
+  founder: ["founded", "founder", "created his", "created her"],
+  // Instrument roles are often credited in English («Guitar: …», «Acoustic Bass: …»).
+  guitarra: ["guitar"],
+  "guitarra electrica": ["electric guitar"],
+  "guitarra acustica": ["acoustic guitar"],
+  bajo: ["bass"],
+  "bajo acustico": ["acoustic bass", "upright bass", "double bass"],
+  "bajo electrico": ["electric bass"],
+  contrabajo: ["double bass", "upright bass", "acoustic bass"],
+  bateria: ["drums", "drummer"],
+  baterista: ["drums", "drummer"],
+  percusion: ["percussion", "percussionist"],
+  teclados: ["keyboards", "keys"],
+  voz: ["vocals", "voice", "singer"],
+  vocalista: ["vocals", "lead vocals", "singer"],
+  cantante: ["vocals", "singer"],
+  saxofon: ["sax", "saxophone"],
+  trompeta: ["trumpet"],
+  trombon: ["trombone"],
+  flauta: ["flute"],
+  violonchelo: ["cello"],
+};
+const roleMentioned = (value: string | number, text: string) =>
+  mentioned(value, text) || (typeof value === "string" && (roleSynonyms[normalize(value)] ?? []).some((w) => text.includes(w)));
 function narrativeGap(value: string, text: string): string | null {
   for (const sentence of value.split(/(?<=[.!?;])\s+/u)) {
     const words = [...new Set(normalize(sentence).split(" ").filter((w) => w.length > 4))];
@@ -125,6 +178,10 @@ function fieldGap(key: string, value: CatalogValue, text: string, raw: string, e
   if (refKinds[key] && typeof value === "number") {
     const name = context.nameOf?.({ kind: refKinds[key], id: value });
     return name && mentioned(name, text) ? null : `${label(key)}${name ? ` «${name}»` : ""}`;
+  }
+  if (key === "organizationType" && typeof value === "string") {
+    const words = organizationTypes[normalize(value)];
+    return (words ? words.some((w) => mentioned(w, text)) : mentioned(value, text)) ? null : `${label(key)} «${value}»`;
   }
   if (key === "albumType" && typeof value === "string") {
     const words = albumTypes[normalize(value)];
@@ -190,11 +247,20 @@ export function evidenceGaps(
     const values = Object.entries(op.values).filter(
       ([key, v]) => ["role", "format", "fromYear", "toYear"].includes(key) && (typeof v === "string" || typeof v === "number") && !isGeneric(v),
     );
-    for (const [key, v] of values) if (!mentioned(v as string | number, text)) gaps.push(`${key === "role" ? "rol" : key === "format" ? "formato" : key === "fromYear" ? "desde" : "hasta"} «${v}»`);
+    for (const [key, v] of values) if (!(key === "role" ? roleMentioned(v as string | number, text) : mentioned(v as string | number, text))) gaps.push(`${key === "role" ? "rol" : key === "format" ? "formato" : key === "fromYear" ? "desde" : "hasta"} «${v}»`);
     if (op.op === "create_relation") for (const ref of Object.values(op.endpoints)) gaps.push(refGap(ref, "relación con", text, context));
     else if (!values.length) gaps.push("valores de la relación");
   } else if (op.op === "add_alias") gaps.push(mentioned(op.alias, text) ? null : `alias «${op.alias}»`);
-  else if (op.op === "assign_genre" || op.op === "remove_genre") gaps.push(mentioned(op.genreSlug, text) ? null : `género «${op.genreSlug}»`);
+  // A profile is supported by citing its own page, its address or its @handle.
+  else if (op.op === "add_social_link") {
+    const bare = op.url.toLowerCase().replace(/^https?:\/\/(www\.|m\.)?/u, "").replace(/[/?#]+$/u, "");
+    // A display name such as «Jeremías Música» does not give the address; only a handle that is the profile's path does.
+    const handle = op.handle?.replace(/^@/u, "").toLowerCase();
+    const path = bare.split("/").filter(Boolean).at(-1) ?? "";
+    const ownHandle = handle && !/\s/u.test(handle) && path === handle ? raw.toLowerCase().includes(handle) : false;
+    gaps.push(cited.some((e) => sameSocialUrl(e.url, op.url)) || raw.toLowerCase().includes(bare) || ownHandle ? null : `red ${op.platform} no citada`);
+  }
+  else if (op.op === "assign_genre" || op.op === "remove_genre") gaps.push(genreCited(op.genreSlug, text, context) ? null : `género «${op.genreSlug}»`);
   // Identity fusion, removal and ordering cannot be established by a generic artist excerpt.
   else gaps.push("requiere decisión editorial");
   return [...new Set(gaps.filter((gap): gap is string => gap !== null))];

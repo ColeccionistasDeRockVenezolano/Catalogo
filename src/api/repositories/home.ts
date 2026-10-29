@@ -8,6 +8,7 @@ import { similarArtists } from "./artist-neighbors.js";
 import { artistGroupSql } from "./artist-groups.js";
 import { CRV_CHANNEL_ID, CRV_CHANNEL_URL, latestChannelSnapshot } from "../../youtube/home-channel.js";
 import { dailyCycleForDate, dayNumber, type DailyCycle } from "../../shared/daily-cycle.js";
+import { imageFocus, type ImageFocus } from "../../storage/image-focus.js";
 export { dailyDate as caracasToday, dayNumber } from "../../shared/daily-cycle.js";
 
 /** Décadas que la portada ofrece en «Por época», de la más vieja a la más nueva. */
@@ -40,6 +41,8 @@ export interface HomeData {
   }>;
   featuredArtist: {
     id: number; name: string; artistType: string; pictureUrl: string | null; excerpt: string;
+    /** Caja de rostros de la foto (fracciones 0–1) para encuadrarla en cualquier recuadro. */
+    pictureFocus: ImageFocus | null;
     originCity: string | null; startYear: number | null; albumCount: number; genre: string | null; primaryGenre: PublicGenre | null;
     album: HomeAlbum | null;
     similar: Array<{ id: number; name: string; pictureUrl: string | null }>;
@@ -212,7 +215,7 @@ async function featuredArtist(date: string): Promise<HomeData["featuredArtist"]>
       LIMIT 1 OFFSET (SELECT mod($1::bigint, greatest(count(*), 1)) FROM eligible)`, [dayNumber(date)]);
   if (!row) return null;
   const id = Number(row.id);
-  const [album, genres] = await Promise.all([
+  const [album, genres, focus] = await Promise.all([
     // Disco con portada, priorizando estudio y variando la selección con la fecha.
     pool.query<AlbumRow>(
       `SELECT ${ALBUM_COLUMNS}
@@ -221,6 +224,7 @@ async function featuredArtist(date: string): Promise<HomeData["featuredArtist"]>
         ORDER BY (al.album_type = 'studio_album') DESC, md5(al.id::text || $2)
         LIMIT 1`, [id, date]),
     publicGenresFor("artist", [id]),
+    imageFocus([row.picture_url]),
   ]);
   const primaryGenre = genres.get(id)?.primaryGenre ?? null;
   const { similar } = await similarArtists(id, primaryGenre);
@@ -228,6 +232,7 @@ async function featuredArtist(date: string): Promise<HomeData["featuredArtist"]>
     "SELECT min(release_year) AS y FROM ingest.catalog_albums WHERE artist_id = $1", [id])).rows[0]?.y ?? null;
   return {
     id, name: row.name, artistType: row.artist_type, pictureUrl: row.picture_url,
+    pictureFocus: (row.picture_url && focus.get(row.picture_url)) || null,
     excerpt: bioExcerpt(row.biography), originCity: row.origin_city,
     startYear: row.formed_year ?? firstAlbumYear, albumCount: Number(row.album_count),
     genre: primaryGenre?.name ?? null, primaryGenre,

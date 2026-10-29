@@ -1,0 +1,3 @@
+import {getPool,closeDb} from '../../src/db/client.js';
+import {writeFileSync} from 'node:fs';
+const p=getPool();try{const persons=(await p.query('SELECT * FROM public.persons WHERE id=ANY($1::bigint[])',[[14752,42413,42414]])).rows;const members=(await p.query('SELECT m.*,a.name artist_name FROM public.artist_members m JOIN public.artists a ON a.id=m.artist_id WHERE person_id=ANY($1::bigint[])',[[14752,42413,42414]])).rows;const x={persons,members};writeFileSync(process.env['WAYBACK_OUT']+'/abismo-personas.json',JSON.stringify(x,null,2));console.log(JSON.stringify(x));}finally{await closeDb();}

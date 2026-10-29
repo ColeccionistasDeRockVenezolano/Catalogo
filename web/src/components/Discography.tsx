@@ -1,8 +1,9 @@
 // CRV · Piezas del modelo discográfico (plan del primo, etapa 2): versiones,
 // línea de serie, créditos en bloques de nombres y en frase, integrantes
 // agrupados y línea de tiempo de la banda.
-import { Fragment, useId, type ReactNode } from "react";
+import { Fragment, useId, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { ArrowLeft, ArrowRight, Record } from "@phosphor-icons/react";
 import type {
   AlbumVersion, ArtistMember, CreditStatement, DiscographyItem, LabelRef, OrganizationRelation, ScopedCredit, SeriesMembership, Credit,
 } from "../lib/types";
@@ -61,23 +62,44 @@ export function AlbumVersions({ versions, coverUrl }: { versions: AlbumVersion[]
   );
 }
 
-/** «Serie: Venezuela Electrónica – Vol. 1», con el volumen anterior y el siguiente. */
+function SeriesVolumeLink({ volume, direction }: { volume: NonNullable<SeriesMembership["previous"]>; direction: "previous" | "next" }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const Arrow = direction === "previous" ? ArrowLeft : ArrowRight;
+  return (
+    <Link to={`/discos/${volume.albumId}`} className={`series-neighbor series-neighbor--${direction}`}>
+      <span className="series-neighbor__art" aria-hidden="true">
+        {volume.coverUrl && !imageFailed
+          ? <img {...mediaImage(volume.coverUrl, 64)} alt="" loading="lazy" decoding="async" width={64} height={64} onError={() => setImageFailed(true)} />
+          : <Record size={28} />}
+      </span>
+      <span className="series-neighbor__body">
+        <span className="series-neighbor__direction">{direction === "previous" ? "Anterior" : "Siguiente"}</span>
+        <span className="series-neighbor__title">{volume.title}</span>
+      </span>
+      <Arrow className="series-neighbor__arrow" size={20} aria-hidden="true" />
+    </Link>
+  );
+}
+
+/** Colección y navegación visual entre sus volúmenes publicados. */
 export function SeriesLines({ series }: { series: SeriesMembership[] }) {
   if (!series.length) return null;
   return (
-    <div className="series-lines">
+    <div className="series-navigation">
       {series.map((item) => (
-        <p key={item.id} className="series-line">
-          <span className="series-line__label">Serie:</span>{" "}
-          <Link to={`/series/${item.id}`}>{item.line}</Link>
+        <nav key={item.id} className="series-navigation__collection" aria-label={`Volúmenes de ${item.title}`}>
+          <div className="series-navigation__heading">
+            <Link className="series-navigation__title" to={`/series/${item.id}`}>{item.title}</Link>
+            {item.volumeLabel ? <span className="series-navigation__current">{item.volumeLabel} · Disco actual</span> : null}
+            <Link className="series-navigation__all" to={`/series/${item.id}`}>Ver la serie <ArrowRight size={16} aria-hidden="true" /></Link>
+          </div>
           {item.previous || item.next ? (
-            <span className="series-line__nav">
-              {item.previous ? <Link to={`/discos/${item.previous.albumId}`} title={item.previous.title}>← anterior</Link> : null}
-              {item.previous && item.next ? " · " : null}
-              {item.next ? <Link to={`/discos/${item.next.albumId}`} title={item.next.title}>siguiente →</Link> : null}
-            </span>
+            <div className="series-navigation__neighbors">
+              {item.previous ? <SeriesVolumeLink key={`previous-${item.previous.albumId}-${item.previous.coverUrl}`} volume={item.previous} direction="previous" /> : null}
+              {item.next ? <SeriesVolumeLink key={`next-${item.next.albumId}-${item.next.coverUrl}`} volume={item.next} direction="next" /> : null}
+            </div>
           ) : null}
-        </p>
+        </nav>
       ))}
     </div>
   );

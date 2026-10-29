@@ -1,0 +1,70 @@
+/* ============================================================
+   Página «Cuenta» (móvil): la pestaña de la barra inferior abre aquí el
+   acceso, los cambios de la sesión, la administración y la ayuda. Bloques
+   con filas de 56px, como la hoja de filtros, para tocarlas con el pulgar.
+   ============================================================ */
+.account-page { display: grid; gap: 16px; max-width: 640px; margin: 0 auto; }
+.account-page__head h1 { margin: 0; font-size: 28px; letter-spacing: -0.01em; }
+.account-page__head p { margin: 4px 0 0; color: var(--text-muted); font-size: 15px; }
+
+.account-block {
+  min-width: 0; padding: 18px; border: 1px solid var(--border); border-radius: 18px; background: var(--surface);
+}
+.account-block--flush { padding: 0; overflow: hidden; }
+.account-block__title { margin: 0 0 8px; font-size: 17px; font-weight: 650; }
+.account-block .operator-help { font-size: 14.5px; line-height: 1.55; }
+.account-block .operator-help:last-child { margin-bottom: 0; }
+.account-block .account-summary { margin-bottom: 14px; }
+.account-block .form-actions { margin-top: 18px; }
+.account-block .form-actions .btn { flex: 1 1 auto; min-height: 48px; justify-content: center; font-size: 15px; }
+.account-block input { font-size: 16px; }
+
+.account-block__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-right: 6px; }
+.account-block__label {
+  margin: 0; padding: 16px 18px 6px; color: var(--text-faint);
+  font: 700 11.5px/1.3 var(--font-body); letter-spacing: .1em; text-transform: uppercase;
+}
+.account-block__head .account-block__label { padding-bottom: 10px; }
+.account-block__clear {
+  min-height: 44px; padding: 0 12px; border: 0; border-radius: var(--radius-sm); background: none;
+  color: var(--text-muted); font: 500 13.5px var(--font-body); cursor: pointer;
+}
+.account-block__clear:active { background: var(--surface-2); }
+.account-block .recent-changes__list { max-height: none; padding: 0 6px 6px; }
+.account-block .recent-changes__empty { padding: 4px 18px 18px; font-size: 14px; }
+.account-block .recent-changes__item .btn { min-height: 44px; }
+
+.account-rows { display: grid; margin: 0; padding: 0 0 4px; list-style: none; }
+.account-rows li { position: relative; }
+/* Separador desde el texto, no desde el icono, como las listas del sistema. */
+.account-rows li + li::before { content: ""; position: absolute; top: 0; left: 68px; right: 0; border-top: 1px solid var(--border-soft); }
+.account-row {
+  display: grid; grid-template-columns: 36px minmax(0, 1fr) 16px; align-items: center; gap: 14px;
+  min-height: 60px; padding: 8px 18px;
+  color: var(--text); -webkit-tap-highlight-color: transparent; transition: background 120ms;
+}
+.account-row:hover, .account-row:active { background: var(--surface-2); }
+.account-row:focus-visible { outline: 2px solid var(--red); outline-offset: -2px; }
+.account-row.active { background: var(--red-soft); }
+.account-row__icon {
+  width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px;
+  background: var(--surface-2); color: var(--text-muted);
+}
+.account-row.active .account-row__icon { color: var(--red); }
+.account-row__text { display: grid; gap: 2px; min-width: 0; font-size: 15.5px; font-weight: 550; }
+.account-row__text small { overflow: hidden; color: var(--text-muted); font-size: 13px; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
+.account-row__caret { color: var(--text-faint); }
+
+.account-signout {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 52px;
+  border: 1px solid color-mix(in srgb, var(--red) 35%, var(--border)); border-radius: 14px; background: var(--red-soft);
+  color: #ff9da2; font: 600 15px var(--font-body); cursor: pointer;
+}
+.account-signout:active { background: color-mix(in srgb, var(--red) 24%, transparent); }
+.account-signout:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.account-signout:disabled { opacity: .6; cursor: progress; }
+
+@media (max-width: 760px) {
+  .account-page { gap: 14px; }
+  .account-block { border-radius: 16px; }
+}

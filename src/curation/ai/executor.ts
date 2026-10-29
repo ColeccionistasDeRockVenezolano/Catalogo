@@ -23,9 +23,11 @@ import {
   type AlbumMergeField,
 } from "../../merge/album-merge.js";
 import { confirmGenre, rejectGenre } from "../../genres/human.js";
-import { operationRefs, orderedOperations } from "./schema.js";
+import { operationRefs, orderedOperations, sameSocialUrl } from "./schema.js";
 import { entityRow, entityState, hashValue } from "./context.js";
-import { EvidenceGapError, evidenceGaps, type EvidenceContext } from "./evidence.js";
+import { EvidenceGapError, evidenceGaps, loadGenreTerms, type EvidenceContext } from "./evidence.js";
+import { creationTwin } from "./creation-twins.js";
+import { candidateSnapshotMark, forgetCandidateSnapshot, revertCandidateSnapshot } from "../../er/repository.js";
 import type {
   CatalogDraft,
   CatalogEvidence,
@@ -91,6 +93,11 @@ function validatePeriod(values: Record<string, unknown>): void {
     throw new Error("El período termina antes de empezar");
   if (values["isCurrent"] === true && to !== null && to !== undefined)
     throw new Error("Un integrante actual no puede tener fecha final");
+}
+/** Writes the preview's candidate snapshot cannot follow; new records join it on their own. */
+function changesIdentities(op: CatalogOperation): boolean {
+  return op.op === "add_alias" || op.op === "merge_entities" || op.op === "remove_entity" ||
+    (op.op === "replace_fields" && ["name", "title", "realName"].some((field) => field in op.values));
 }
 function assertKind(ref: CatalogRef, kind: CatalogKind): void {
   if (ref.kind !== kind)
@@ -225,6 +232,7 @@ async function view(
     op.op === "assign_genre" ||
     op.op === "remove_genre" ||
     op.op === "add_alias" ||
+    op.op === "add_social_link" ||
     op.op === "remove_entity"
   )
     return entityState(client, ref.kind, resolveRef(ref, created));
@@ -315,6 +323,13 @@ async function reorder(
       title: byId.get(resolveRef(p.track, created))!.title,
     })),
   };
+}
+/** Accepting a proposal creates the record as distinct from similar names: a decision the reviewer takes knowingly. */
+function similarRecords(error: unknown): string | null {
+  if (!(error instanceof OperatorError) || error.code !== "needs_review") return null;
+  const similar = error.details?.["similar"];
+  if (!Array.isArray(similar) || !similar.length) return null;
+  return `Criterio editorial: ya hay fichas de nombre parecido (${similar.map((name) => `«${String(name)}»`).join(", ")}). Si es otra, al aceptarla se crea como ficha distinta.`;
 }
 async function execute(
   context: OperatorContext,
@@ -450,6 +465,31 @@ async function execute(
       resolveRef(op.target, created),
       { alias: op.alias, aliasType: op.aliasType, isPrimary: op.isPrimary },
     );
+  if (op.op === "add_social_link") {
+    if (op.target.kind !== "artist")
+      throw new OperatorError("invalid", "Las redes sociales pertenecen a la ficha de artista");
+    const artistId = resolveRef(op.target, created);
+    const current = (
+      await client.query<{ url: string }>(
+        "SELECT url FROM public.social_links WHERE artist_id=$1 AND platform=$2",
+        [artistId, op.platform],
+      )
+    ).rows[0];
+    if (current)
+      throw new OperatorError(
+        sameSocialUrl(current.url, op.url) ? "already_exists" : "needs_review",
+        sameSocialUrl(current.url, op.url)
+          ? "Esa red ya está registrada en la ficha"
+          : `La ficha ya tiene ${op.platform}: ${current.url}. Corrígela desde la ficha si la nueva es la oficial.`,
+      );
+    return (
+      await client.query(
+        `INSERT INTO public.social_links(artist_id,platform,url,handle,method,source,verified,notes)
+         VALUES($1,$2,$3,$4,'exact','curaduria-ia',true,$5) RETURNING *`,
+        [artistId, op.platform, op.url, op.handle ?? null, `${context.operator}: ${context.note}`.slice(0, 2000)],
+      )
+    ).rows[0];
+  }
   if (op.op === "create_relation") {
     const route = RELATION_ROUTES.find((r) => r.kind === op.kind)!;
     const body: Record<string, unknown> = { ...op.values };
@@ -610,6 +650,7 @@ export async function executePlan(
   );
   const evidenceContext: EvidenceContext = {
     root,
+    genreTerms: draft.operations.some((o) => o.op === "assign_genre" || o.op === "remove_genre") ? await loadGenreTerms(context.client) : undefined,
     nameOf: (ref) =>
       "id" in ref
         ? beforeState.affected.find((a) => a.kind === ref.kind && a.id === ref.id)?.label
@@ -644,6 +685,7 @@ export async function executePlan(
   for (const op of ordered) {
     await context.client.query("SAVEPOINT ai_operation");
     let before: unknown = null;
+    const mark = candidateSnapshotMark();
     try {
       before = await view(context.client, op, created);
       if (op.evidenceIds.some((id) => !evidenceIds.has(id)))
@@ -655,6 +697,11 @@ export async function executePlan(
       const gaps = evidenceGaps(op, evidence, evidenceContext);
       if (!reviewedKeys.includes(op.key) && gaps.length)
         throw new EvidenceGapError(gaps);
+      // A new record that repeats an existing one under another spelling, or another new record of the plan.
+      if (op.op === "create_entity" && !reviewedKeys.includes(op.key)) {
+        const twin = await creationTwin(context.client, op, ordered, (kind, id) => beforeState.affected.find((a) => a.kind === kind && a.id === id)?.label);
+        if (twin) throw new Error(twin);
+      }
       const after = await execute(
         {
           ...context,
@@ -687,9 +734,12 @@ export async function executePlan(
         ...(gaps.length ? { evidenceGaps: gaps } : {}),
       });
       await context.client.query("RELEASE SAVEPOINT ai_operation");
+      if (changesIdentities(op)) forgetCandidateSnapshot();
     } catch (error) {
       await context.client.query("ROLLBACK TO SAVEPOINT ai_operation");
       await context.client.query("RELEASE SAVEPOINT ai_operation");
+      // Records this operation created are gone with its savepoint.
+      await revertCandidateSnapshot(mark);
       delete created[op.key];
       if (!options.preview) throw error;
       items.push({
@@ -699,7 +749,7 @@ export async function executePlan(
         before,
         after: null,
         warnings: [],
-        error: error instanceof Error ? error.message : String(error),
+        error: similarRecords(error) ?? (error instanceof Error ? error.message : String(error)),
         ...(error instanceof EvidenceGapError ? { evidenceGaps: error.gaps } : {}),
       });
     }

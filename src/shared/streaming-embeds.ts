@@ -18,10 +18,14 @@ export interface EmbedSpec {
 }
 
 /** Orden del selector: primero lo que suena completo para cualquiera. */
-export const EMBED_ORDER = ["crv_youtube", "youtube", "youtube_music", "spotify", "apple_music", "deezer", "tidal", "soundcloud", "bandcamp"] as const;
+export const EMBED_ORDER = ["crv_youtube", "bandcamp", "soundcloud", "youtube", "youtube_music", "spotify", "apple_music", "deezer", "tidal"] as const;
 
 /** Prioridad inicial de escucha en los perfiles de artistas y bandas. */
-export const ARTIST_EMBED_ORDER = ["soundcloud", "spotify", "crv_youtube", "deezer", "youtube", "youtube_music", "apple_music", "tidal", "bandcamp"] as const;
+export const ARTIST_EMBED_ORDER = ["crv_youtube", "bandcamp", "soundcloud", "youtube", "youtube_music", "spotify", "deezer", "apple_music", "tidal"] as const;
+
+export function compareEmbedPlatforms(a: string, b: string, owner: EmbedOwner): number {
+  return orderOf(a, owner) - orderOf(b, owner);
+}
 
 const YT_LIST = /^(?:OLAK5uy_[\w-]{20,}|PL[\w-]{16,}|UU[\w-]{22}|RDCLAK5uy_[\w-]{20,})$/u;
 

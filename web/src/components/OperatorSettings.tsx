@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Popover } from "@base-ui/react/popover";
 import { CaretDown, ClockCounterClockwise, GearSix, SignIn, SignOut, SlidersHorizontal, Stack, type Icon } from "@phosphor-icons/react";
 import { Modal } from "./Modal";
-import { SessionChangesList, useSessionChanges } from "./ChangeFeedback";
+import { SessionChangesList, useSessionChangesContext, type SessionChanges } from "./ChangeFeedback";
 import { ApiError } from "../lib/api";
 import { useOperator } from "../lib/OperatorContext";
 import { useToast } from "../lib/ToastContext";
@@ -41,13 +41,34 @@ function OperatorButton() {
   );
 }
 
-const ADMIN_LINKS: ReadonlyArray<{ to: string; label: string; hint: string; icon: Icon }> = [
+export const ADMIN_LINKS: ReadonlyArray<{ to: string; label: string; hint: string; icon: Icon }> = [
   { to: "/administrar/buscador", label: "Buscador y descubrimiento", hint: "Consultas, fuentes y decisiones", icon: SlidersHorizontal },
   { to: "/curaduria", label: "Curaduría", hint: "Revisar y cuidar el catálogo", icon: Stack },
   { to: "/configuracion/temas", label: "Configuración", hint: "Temas del catálogo", icon: GearSix },
 ];
 
-const ADMIN_AREA = /^\/(historial|curaduria|configuracion|administrar)(\/|$)/u;
+export const ADMIN_AREA = /^\/(historial|curaduria|configuracion|administrar)(\/|$)/u;
+
+/** Cierra la sesión con su aviso; lo comparten el menú, el diálogo y la página «Cuenta». */
+export function useSignOut() {
+  const { logout } = useOperator();
+  const { notify } = useToast();
+  const [signingOut, setSigningOut] = useState(false);
+  async function signOut(): Promise<boolean> {
+    setSigningOut(true);
+    try {
+      await logout();
+      notify("success", "Sesión cerrada. El catálogo queda en solo lectura.");
+      return true;
+    } catch (reason: unknown) {
+      notify("error", reason instanceof ApiError ? reason.message : "No se pudo cerrar la sesión.");
+      return false;
+    } finally {
+      setSigningOut(false);
+    }
+  }
+  return { signingOut, signOut };
+}
 
 /**
  * Cuenta administradora: la píldora abre (al pasar el puntero o con clic) el
@@ -55,25 +76,12 @@ const ADMIN_AREA = /^\/(historial|curaduria|configuracion|administrar)(\/|$)/u;
  * Aquí vive también el deshacer de la sesión (avisos y Ctrl/⌘+Z).
  */
 function AdminAccountMenu({ name, username }: { name: string; username: string }) {
-  const { logout } = useOperator();
-  const { notify } = useToast();
   const { pathname } = useLocation();
-  const changes = useSessionChanges();
+  const changes = useSessionChangesContext() ?? NO_CHANGES;
   const [open, setOpen] = useState(false);
-  const [signingOut, setSigningOut] = useState(false);
+  const { signingOut, signOut } = useSignOut();
   const initial = name.trim().charAt(0).toUpperCase() || "?";
   const close = () => setOpen(false);
-
-  async function handleLogout() {
-    setSigningOut(true);
-    try {
-      await logout();
-      notify("success", "Sesión cerrada. El catálogo queda en solo lectura.");
-    } catch (reason: unknown) {
-      notify("error", reason instanceof ApiError ? reason.message : "No se pudo cerrar la sesión.");
-      setSigningOut(false);
-    }
-  }
 
   return (
     <>
@@ -127,7 +135,7 @@ function AdminAccountMenu({ name, username }: { name: string; username: string }
               </nav>
 
               <div className="operator-menu__foot">
-                <button type="button" className="operator-menu__signout" onClick={() => void handleLogout()} disabled={signingOut}>
+                <button type="button" className="operator-menu__signout" onClick={() => void signOut()} disabled={signingOut}>
                   <SignOut size={18} weight="bold" aria-hidden="true" />
                   {signingOut ? "Cerrando…" : "Cerrar sesión"}
                 </button>
@@ -136,13 +144,69 @@ function AdminAccountMenu({ name, username }: { name: string; username: string }
           </Popover.Positioner>
         </Popover.Portal>
       </Popover.Root>
-      {changes.dialog}
     </>
   );
 }
 
+const NO_CHANGES: SessionChanges = { entries: [], pending: 0, clear: () => {}, openUndo: () => {}, dialog: null };
+
 export function OperatorDialog({ onClose }: { onClose: () => void }) {
-  const { user, login, logout } = useOperator();
+  const { user } = useOperator();
+  const { signingOut, signOut } = useSignOut();
+
+  if (user) {
+    return (
+      <Modal title="Cuenta de colaborador" onClose={onClose}>
+        <AccountSummary />
+        <div className="form-actions">
+          <button type="button" className="btn" onClick={onClose}>Volver</button>
+          <button type="button" className="btn btn--danger" onClick={() => void signOut().then((done) => { if (done) onClose(); })} disabled={signingOut}>
+            <SignOut aria-hidden="true" weight="bold" />
+            {signingOut ? "Cerrando…" : "Cerrar sesión"}
+          </button>
+        </div>
+      </Modal>
+    );
+  }
+
+  return (
+    <Modal title="Acceso de colaboradores" onClose={onClose}>
+      <p className="operator-help">
+        Inicia sesión con una cuenta administradora para editar, fusionar y usar Curaduría. Consultar el catálogo no requiere cuenta.
+      </p>
+      <OperatorLoginForm onSignedIn={onClose} onCancel={onClose} />
+    </Modal>
+  );
+}
+
+/** Quién tiene la sesión abierta, su rol y qué puede hacer con él. */
+export function AccountSummary() {
+  const { user } = useOperator();
+  if (!user) return null;
+  return (
+    <>
+      <div className="account-summary">
+        <span className="account-avatar" aria-hidden="true">{user.name.charAt(0).toUpperCase()}</span>
+        <div>
+          <strong>{user.name}</strong>
+          <span>@{user.username}</span>
+        </div>
+        <span className={`badge account-role ${user.role === "admin" ? "badge--teal" : "badge--outline"}`}>
+          {user.role === "admin" ? "Administrador" : "Solo lectura"}
+        </span>
+      </div>
+      <p className="operator-help">
+        {user.role === "admin"
+          ? "Cuenta administradora: puedes editar, fusionar y usar Curaduría. Tus cambios quedan firmados con esta cuenta en el historial del catálogo."
+          : "Cuenta de solo lectura: puedes consultar el catálogo, pero editar, fusionar y usar Curaduría requiere una cuenta administradora."}
+      </p>
+    </>
+  );
+}
+
+/** Usuario y contraseña; lo usan el diálogo de acceso y la página «Cuenta» del móvil. */
+export function OperatorLoginForm({ onSignedIn, onCancel }: { onSignedIn?: () => void; onCancel?: () => void }) {
+  const { login } = useOperator();
   const { notify } = useToast();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -157,7 +221,7 @@ export function OperatorDialog({ onClose }: { onClose: () => void }) {
       await login(username.trim(), password);
       setPassword("");
       notify("success", `Sesión iniciada como ${username.trim()}.`);
-      onClose();
+      onSignedIn?.();
     } catch (reason: unknown) {
       setError(reason instanceof ApiError ? reason.message : "No se pudo iniciar sesión. Inténtalo de nuevo.");
     } finally {
@@ -165,95 +229,46 @@ export function OperatorDialog({ onClose }: { onClose: () => void }) {
     }
   }
 
-  async function handleLogout() {
-    setError("");
-    setSubmitting(true);
-    try {
-      await logout();
-      notify("success", "Sesión cerrada. El catálogo queda en solo lectura.");
-      onClose();
-    } catch (reason: unknown) {
-      setError(reason instanceof ApiError ? reason.message : "No se pudo cerrar la sesión.");
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  if (user) {
-    return (
-      <Modal title="Cuenta de colaborador" onClose={onClose}>
-        <div className="account-summary">
-          <span className="account-avatar" aria-hidden="true">{user.name.charAt(0).toUpperCase()}</span>
-          <div>
-            <strong>{user.name}</strong>
-            <span>@{user.username}</span>
-          </div>
-          <span className={`badge account-role ${user.role === "admin" ? "badge--teal" : "badge--outline"}`}>
-            {user.role === "admin" ? "Administrador" : "Solo lectura"}
-          </span>
-        </div>
-        <p className="operator-help">
-          {user.role === "admin"
-            ? "Cuenta administradora: puedes editar, fusionar y usar Curaduría. Tus cambios quedan firmados con esta cuenta en el historial del catálogo."
-            : "Cuenta de solo lectura: puedes consultar el catálogo, pero editar, fusionar y usar Curaduría requiere una cuenta administradora."}
-        </p>
-        {error ? <p className="form-error" role="alert">{error}</p> : null}
-        <div className="form-actions">
-          <button type="button" className="btn" onClick={onClose}>Volver</button>
-          <button type="button" className="btn btn--danger" onClick={() => void handleLogout()} disabled={submitting}>
-            <SignOut aria-hidden="true" weight="bold" />
-            {submitting ? "Cerrando…" : "Cerrar sesión"}
-          </button>
-        </div>
-      </Modal>
-    );
-  }
-
   return (
-    <Modal title="Acceso de colaboradores" onClose={onClose}>
-      <p className="operator-help">
-        Inicia sesión con una cuenta administradora para editar, fusionar y usar Curaduría. Consultar el catálogo no requiere cuenta.
-      </p>
-      <form onSubmit={(event) => void handleLogin(event)}>
-        <div className="form-grid">
-          <div className="field span-2">
-            <label htmlFor="op-username">Usuario</label>
-            <input
-              id="op-username"
-              name="username"
-              autoComplete="username"
-              autoCapitalize="none"
-              spellCheck={false}
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              placeholder="tu.usuario"
-              required
-              minLength={3}
-              maxLength={80}
-            />
-          </div>
-          <div className="field span-2">
-            <label htmlFor="op-password">Contraseña</label>
-            <input
-              id="op-password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-              maxLength={200}
-            />
-          </div>
+    <form onSubmit={(event) => void handleLogin(event)}>
+      <div className="form-grid">
+        <div className="field span-2">
+          <label htmlFor="op-username">Usuario</label>
+          <input
+            id="op-username"
+            name="username"
+            autoComplete="username"
+            autoCapitalize="none"
+            spellCheck={false}
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            placeholder="tu.usuario"
+            required
+            minLength={3}
+            maxLength={80}
+          />
         </div>
-        {error ? <p className="form-error" role="alert">{error}</p> : null}
-        <div className="form-actions">
-          <button type="button" className="btn" onClick={onClose}>Cancelar</button>
-          <button type="submit" className="btn btn--primary" disabled={submitting || username.trim().length < 3 || !password}>
-            {submitting ? "Verificando…" : "Iniciar sesión"}
-          </button>
+        <div className="field span-2">
+          <label htmlFor="op-password">Contraseña</label>
+          <input
+            id="op-password"
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+            maxLength={200}
+          />
         </div>
-      </form>
-    </Modal>
+      </div>
+      {error ? <p className="form-error" role="alert">{error}</p> : null}
+      <div className="form-actions">
+        {onCancel ? <button type="button" className="btn" onClick={onCancel}>Cancelar</button> : null}
+        <button type="submit" className="btn btn--primary" disabled={submitting || username.trim().length < 3 || !password}>
+          {submitting ? "Verificando…" : "Iniciar sesión"}
+        </button>
+      </div>
+    </form>
   );
 }

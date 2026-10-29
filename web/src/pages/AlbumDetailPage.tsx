@@ -4,8 +4,10 @@ import { ImageViewer } from "../components/ImageViewer";
 import { formatDate } from "../lib/format";
 import { CatalogModelPanel } from "../components/CatalogModelPanel";
 import { EntityVerification } from "../components/EntityVerification";
-import { Fragment, useCallback, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { CompleteRecord } from "../components/CompleteRecord";
+import { goToCompleteRecord } from "../lib/completeRecord";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
 import { BackLink } from "../components/BackLink";
 import { ArrowsOutSimple, CalendarBlank, Clock, MusicNotes, PencilSimple, Play, Record, Trash } from "@phosphor-icons/react";
@@ -21,6 +23,7 @@ import { AlbumVideoEditor } from "../components/AlbumVideoEditor";
 import { GenreEditor } from "../components/GenreEditor";
 import { PlatformLinkEditor } from "../components/PlatformLinkEditor";
 import { EntityFormModal } from "../components/EntityFormModal";
+import { AlbumSeriesEditor } from "../components/SeriesEditor";
 import { TrackAliasesSection } from "../components/TrackAliasesSection";
 import { EntityPicker } from "../components/EntityPicker";
 import { ConfirmDialog } from "../components/ConfirmDialog";
@@ -42,7 +45,7 @@ import { AlbumYoutubePlayer, type AlbumYoutubePlayerHandle } from "../components
 import { albumDiscVideos, albumYoutubeVideoId, trackAtYoutubeTime, type DiscVideo, type YoutubePlayback } from "../lib/youtube";
 import { useVideoPlayer, type CatalogVideoTrack } from "../components/VideoPlayer";
 import { EmbedPanel, resolveListenPlatform, useListenChoice, type ListenTab } from "../components/ListenPlayer";
-import { embedOptions } from "../lib/embeds";
+import { compareEmbedPlatforms, embedOptions } from "../lib/embeds";
 import { mediaImage } from "../lib/media";
 import { AlbumListenPanel } from "../components/AlbumListenPanel";
 import "../styles/album-detail.css";
@@ -98,6 +101,8 @@ function PublicCredits({ creditsByType, scopedByType, statements }: { creditsByT
   );
 }
 
+const USER_SCROLL_EVENTS = ["wheel", "touchstart", "keydown", "pointerdown"] as const;
+
 export function AlbumDetailPage() {
   const { id } = useParams();
   const albumId = Number(id);
@@ -105,6 +110,38 @@ export function AlbumDetailPage() {
   const { isAdmin, user } = useOperator();
   const { notify } = useToast();
   const { data: album, loading, error, errorValue, reload } = useAsync(() => albumsApi.get(albumId), [albumId, user?.name]);
+  // A track found in search opens its album at that track (#pista-<id>), once per visit.
+  const { hash } = useLocation();
+  const targetTrack = Number(/^#pista-(\d+)$/u.exec(hash)?.[1] ?? 0) || null;
+  const [highlightedTrack, setHighlightedTrack] = useState<number | null>(null);
+  const shownTarget = useRef<string | null>(null);
+  useEffect(() => {
+    if (!targetTrack || !album || album.id !== albumId || shownTarget.current === `${albumId}:${targetTrack}`) return;
+    const row = document.getElementById(`pista-${targetTrack}`);
+    if (!row) return;
+    shownTarget.current = `${albumId}:${targetTrack}`;
+    row.scrollIntoView({ block: "center" });
+    row.tabIndex = -1;
+    row.focus({ preventScroll: true });
+    setHighlightedTrack(targetTrack);
+  }, [targetTrack, album, albumId]);
+  // A reload (e.g. once the session is known) remounts the rows: give focus back only if nobody else took it.
+  useEffect(() => {
+    const row = highlightedTrack ? document.getElementById(`pista-${highlightedTrack}`) : null;
+    if (row && (!document.activeElement || document.activeElement === document.body)) row.focus({ preventScroll: true });
+  }, [highlightedTrack, album]);
+  // Cover, player and credits load above the row after it is centred: keep it in view while the page settles,
+  // until the visitor scrolls or acts, for a few seconds at most.
+  useEffect(() => {
+    if (!highlightedTrack) return;
+    const centre = () => document.getElementById(`pista-${highlightedTrack}`)?.scrollIntoView({ block: "center" });
+    const observer = new ResizeObserver(centre);
+    observer.observe(document.body);
+    const stop = () => { observer.disconnect(); window.clearTimeout(timer); for (const type of USER_SCROLL_EVENTS) window.removeEventListener(type, stop, true); };
+    const timer = window.setTimeout(stop, 5000);
+    for (const type of USER_SCROLL_EVENTS) window.addEventListener(type, stop, { capture: true, passive: true });
+    return stop;
+  }, [highlightedTrack]);
   const creditProvenance = useAsync(
     () => isAdmin && album ? claimsApi.creditSources("album", albumId) : Promise.resolve([]), [albumId, isAdmin, album],
   );
@@ -159,7 +196,9 @@ export function AlbumDetailPage() {
   const sessionVideoId = videoSession?.owner === `album-${album.id}` ? videoSession.video.videoId : null;
   const youtubeVideoId = [sessionVideoId, chosenVideo?.albumId === album.id ? chosenVideo.videoId : null]
     .find((videoId) => videoId && videoTabs.some((tab) => tab.videoId === videoId))
+    ?? videoTabs.find(video => album.crvYoutubeVideoIds?.includes(video.videoId))?.videoId
     ?? albumVideoId ?? videoTabs[0]?.videoId ?? null;
+  const nativeYoutubePlatform = youtubeVideoId && album.crvYoutubeVideoIds?.includes(youtubeVideoId) ? "crv_youtube" : "youtube";
   const tabLabel = (video: DiscVideo) => discVideos.filter((other) => other.videoId === video.videoId)
     .map((other) => discGroups.find((group) => group.discNumber === other.discNumber)?.title ?? `Disco ${other.discNumber}`).join(" · ");
   const activeTab = videoTabs.find((tab) => tab.videoId === youtubeVideoId);
@@ -182,10 +221,10 @@ export function AlbumDetailPage() {
     ...(album.discs ?? []).map((disc) => ({ label: disc.title ?? `Disco ${disc.discNumber}`, links: disc.platforms.filter((link) => link.platform !== "youtube") })),
   ], "album");
   const listenTabs: ListenTab[] = [
-    ...(youtubeVideoId ? [{ platform: "youtube", url: `https://youtu.be/${youtubeVideoId}` }] : []),
+    ...(youtubeVideoId ? [{ platform: nativeYoutubePlatform, url: `https://youtu.be/${youtubeVideoId}` }] : []),
     ...embeds.map((option) => ({ platform: option.platform, url: option.targets[0]!.url })),
-  ];
-  const listenPlatform = resolveListenPlatform(listenTabs.map((tab) => tab.platform), chosenPlatform);
+  ].sort((a, b) => compareEmbedPlatforms(a.platform, b.platform, "album"));
+  const listenPlatform = resolveListenPlatform(listenTabs.map((tab) => tab.platform), chosenPlatform, listenTabs[0]?.platform);
   const activeEmbed = embeds.find((option) => option.platform === listenPlatform) ?? null;
   const switchPlatform = (platform: string) => {
     choosePlatform(platform);
@@ -195,7 +234,7 @@ export function AlbumDetailPage() {
     const title = multipleVideos ? `${album.title} · ${tabLabel(video)}` : album.title;
     if (youtubePlayer.current) { youtubePlayer.current.playFrom(seconds, { videoId: video.videoId, title }); return; }
     // Una pista pulsada mientras suena otra plataforma vuelve a YouTube desde su inicio.
-    switchPlatform("youtube");
+    switchPlatform(album.crvYoutubeVideoIds?.includes(video.videoId) ? "crv_youtube" : "youtube");
     playVideo({ videoId: video.videoId, title, album: { id: album.id, title } }, `album-${album.id}`, seconds, true, videoTracks);
     setPlayback({ seconds, state: 3, albumId: album.id });
   };
@@ -214,6 +253,7 @@ export function AlbumDetailPage() {
 
       {isAdmin ? <EntityAdminBar
         onEdit={() => { setArtistId(album.artist.id); setArtistLabel(album.artist.name); setEditing(true); }}
+        onComplete={goToCompleteRecord}
         onMerge={() => setMergingAlbum(true)}
         onRemove={() => setDeleting(true)} /> : null}
 
@@ -255,7 +295,7 @@ export function AlbumDetailPage() {
         <div ref={listenSection} className="listen-anchor">
           <AlbumListenPanel subject={`«${album.title}»`} links={album.platforms ?? []} tabs={listenTabs} active={listenPlatform} onChange={switchPlatform} hasVideo={Boolean(youtubeVideoId)}>
             {listenPlatform ? <>
-            {listenPlatform === "youtube" && youtubeVideoId ? (
+            {listenPlatform === nativeYoutubePlatform && youtubeVideoId ? (
                 <>
                   {multipleVideos ? (
                     <div className="album-disc-videos" role="group" aria-label="Video de cada disco">
@@ -325,7 +365,7 @@ export function AlbumDetailPage() {
                   const isCurrent = currentTrack?.id === track.id;
                   return (
                   <Fragment key={track.id}>
-                    <tr id={`pista-${track.id}`} role="row" className={`album-track-row${isCurrent ? " is-current" : ""}`} aria-current={isCurrent ? "true" : undefined}>
+                    <tr id={`pista-${track.id}`} role="row" tabIndex={highlightedTrack === track.id ? -1 : undefined} className={`album-track-row${isCurrent ? " is-current" : ""}${highlightedTrack === track.id ? " is-target" : ""}`} aria-current={isCurrent ? "true" : undefined}>
                       <td role="cell" className="num album-track-number">{!showDiscHeadings && track.discNumber > 1 ? `${track.discNumber}.` : ""}{track.trackNumber}</td>
                       <td role="cell" className="album-track-title">
                         <span className="album-track-name">{track.title}</span>
@@ -409,7 +449,7 @@ export function AlbumDetailPage() {
 
       {viewingCover && album.coverUrl ? <ImageViewer key={album.id} src={album.coverUrl} title={`Portada de ${album.title}`} onClose={() => setViewingCover(false)} /> : null}
 
-      {isAdmin ? <EntityVerification kind="album" id={album.id} revision={album} /> : null}
+      {isAdmin ? <CompleteRecord kind="album" id={album.id} name={album.title}><EntityVerification kind="album" id={album.id} revision={album} /></CompleteRecord> : null}
 
       {isAdmin || album.aliases.some((alias) => !alias.publicHidden) ? (
         <div className="section">
@@ -418,16 +458,23 @@ export function AlbumDetailPage() {
         </div>
       ) : null}
 
-      {album.releaseDateValue || album.releaseDateText || album.catalogId || knownFormat(album.mediaFormat) || album.series?.length ? (
+      {album.releaseDateValue || album.releaseDateText || album.catalogId || knownFormat(album.mediaFormat) ? (
         <section className="section">
           <h2>Detalles de la edición</h2>
-          <SeriesLines series={album.series ?? []} />
           {album.releaseDateValue || album.releaseDateText || album.catalogId || knownFormat(album.mediaFormat) ? <dl className="album-edition-details">
             {album.releaseDateValue ? <div><dt>Fecha de publicación</dt><dd>{album.releaseYear !== null ? <CatalogYear year={album.releaseYear}>{formatDate(album.releaseDateValue)}</CatalogYear> : formatDate(album.releaseDateValue)}</dd></div> : null}
             {album.releaseDateText ? <div><dt>Fecha literal de la fuente</dt><dd>{album.releaseDateText}</dd></div> : null}
             {album.catalogId ? <div><dt>Número de catálogo</dt><dd>{album.catalogId}</dd></div> : null}
             {knownFormat(album.mediaFormat) ? <div><dt>Formato de la edición</dt><dd>{knownFormat(album.mediaFormat)}</dd></div> : null}
           </dl> : null}
+        </section>
+      ) : null}
+
+      {isAdmin || album.series?.length ? (
+        <section className="section">
+          <h2>En esta serie</h2>
+          {album.series?.length ? <SeriesLines series={album.series} /> : null}
+          {isAdmin ? <AlbumSeriesEditor album={{ id: album.id, name: album.title }} onChanged={reload} /> : null}
         </section>
       ) : null}
 

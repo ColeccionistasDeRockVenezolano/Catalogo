@@ -146,4 +146,16 @@ describe("curaduría de imágenes: inspección, alternativas útiles, copia esta
     const proposed = (await getPool().query("SELECT status, origin, run_id::int AS run, image_context FROM ingest.image_candidates WHERE album_id=$1 AND candidate_url='https://img.example/portada-en-retratos.jpg'", [album])).rows;
     expect(proposed).toEqual([{ status: "open", origin: "portada entre las fotos del artista", run: runId, image_context: `Portada de «Disco Imagen» hallada entre las fotos del artista (candidata ${id})` }]);
   });
+  it("la ficha de un artista reúne las portadas candidatas de sus discos y no las de otros", async () => {
+    const db = getPool();
+    const artist = Number((await db.query("SELECT artist_id FROM public.albums WHERE id=$1", [album])).rows[0].artist_id);
+    const other = Number((await db.query("INSERT INTO public.artists(name) VALUES('Otra Banda') RETURNING id")).rows[0].id);
+    const foreign = Number((await db.query("INSERT INTO public.albums(artist_id,title) VALUES($1,'Disco Ajeno') RETURNING id", [other])).rows[0].id);
+    await db.query("INSERT INTO ingest.image_candidates(entity_kind,album_id,current_url,candidate_url,source,origin) VALUES('album',$1,NULL,'https://img.example/ajena.jpg','fuente','prueba')", [foreign]);
+    const response = await app.inject({ method: "GET", url: `/curation/images?kind=album&artistId=${artist}`, headers });
+    expect(response.statusCode, response.body).toBe(200);
+    expect(response.json<{ data: Array<{ entityId: number }> }>().data.map((group) => group.entityId)).toEqual([album]);
+    const photos = await app.inject({ method: "GET", url: `/curation/images?kind=artist&artistId=${artist}`, headers });
+    expect(photos.json<{ data: Array<{ entityId: number }> }>().data.map((group) => group.entityId)).toEqual([artist]);
+  });
 });

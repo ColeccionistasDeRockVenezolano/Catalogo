@@ -200,7 +200,8 @@ try {
   await expect(page.locator(".ai-plan")).toBeInViewport();
   await queue.getByLabel("Buscar pendiente").fill("");
   await queue.getByRole("combobox", {name: /^Área/u}).selectOption("genres");
-  await expect(queue.getByText("Dato por revisar · Géneros: Punk", {exact:true})).toBeVisible();
+  const genreFinding = curationFindings(verification).find((finding) => finding.label === "Dato por revisar · Géneros")!;
+  await expect(queue.getByText(`${genreFinding.label}: ${genreFinding.observed}`, {exact:true}).first()).toBeVisible();
   await queue.getByRole("combobox", {name: /^Área/u}).selectOption("all");
   for(const name of ["Guardar y validar","Implementar"]) await expect(page.getByRole("button",{name,exact:true})).toHaveCount(0);
   const card=(name:string)=>page.getByRole("article",{name,exact:true});

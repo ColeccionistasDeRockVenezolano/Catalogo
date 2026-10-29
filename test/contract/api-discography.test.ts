@@ -37,6 +37,8 @@ describe("API del modelo discográfico (plan del primo, etapa 2)", () => {
     ids["vol1"] = await one("INSERT INTO public.albums(title, artist_id, release_year, album_type) VALUES ('Venezuela Electrónica Vol. 1', $1, 2006, 'compilation') RETURNING id", [ids["va"]]);
     ids["vol2"] = await one("INSERT INTO public.albums(title, artist_id, release_year, album_type) VALUES ('Venezuela Electrónica Vol. 2', $1, 2007, 'compilation') RETURNING id", [ids["va"]]);
 
+    await db.query("UPDATE public.albums SET cover_url = '/crv/media/vol2.jpg' WHERE id = $1", [ids["vol2"]]);
+
     const primary = await one(`INSERT INTO ingest.album_versions(album_id, position, title, format, country, release_year, is_primary, source)
       VALUES ($1, 1, 'Edición original', 'CD', 'Venezuela', 1997, true, 'albums') RETURNING id`, [ids["album"]]);
     const reissue = await one(`INSERT INTO ingest.album_versions(album_id, position, title, format, format_details, country, release_year, is_primary, source, source_ref)
@@ -95,7 +97,14 @@ describe("API del modelo discográfico (plan del primo, etapa 2)", () => {
   it("un volumen dice a qué serie pertenece, con el anterior y el siguiente", async () => {
     const body = (await app.inject({ method: "GET", url: `/albums/${ids["vol1"]}` })).json();
     expect(body.series).toEqual([expect.objectContaining({ title: "Venezuela Electrónica", line: "Venezuela Electrónica – Vol. 1", previous: null,
-      next: { albumId: ids["vol2"], title: "Venezuela Electrónica Vol. 2" } })]);
+      next: { albumId: ids["vol2"], title: "Venezuela Electrónica Vol. 2", coverUrl: "/crv/media/vol2.jpg" } })]);
+  });
+
+  it("el último volumen enlaza al anterior aunque no tenga portada", async () => {
+    const body = (await app.inject({ method: "GET", url: `/albums/${ids["vol2"]}` })).json();
+    expect(body.series[0]).toMatchObject({
+      previous: { albumId: ids["vol1"], title: "Venezuela Electrónica Vol. 1", coverUrl: null }, next: null,
+    });
   });
 
   it("la página de serie lista los volúmenes en orden", async () => {
@@ -103,6 +112,85 @@ describe("API del modelo discográfico (plan del primo, etapa 2)", () => {
     expect(res.statusCode).toBe(200);
     expect(res.json().volumes.map((volume: { volumeLabel: string }) => volume.volumeLabel)).toEqual(["Vol. 1", "Vol. 2"]);
     expect((await app.inject({ method: "GET", url: "/series/999999" })).statusCode).toBe(404);
+  });
+
+  it("el índice agrupa compilados y conserva filtros, orden y paginación", async () => {
+    const body = (await app.inject({ method: "GET", url: "/series?limit=1&q=Electrónica&decade=2000&albumType=compilation" })).json();
+    expect(body.pagination).toEqual({ limit: 1, offset: 0, total: 1 });
+    expect(body.data).toEqual([expect.objectContaining({ id: ids["series"], title: "Venezuela Electrónica", albumCount: 2,
+      covers: ["/crv/media/vol2.jpg"], firstYear: 2006, lastYear: 2007 })]);
+    expect((await app.inject({ method: "GET", url: "/series?q=Electrónica&offset=1&limit=1" })).json().data).toEqual([]);
+    expect((await app.inject({ method: "GET", url: "/series?decade=1990" })).json().pagination.total).toBe(0);
+    expect((await app.inject({ method: "GET", url: "/series?albumType=compilation,single" })).json().pagination.total).toBe(0);
+    expect((await app.inject({ method: "GET", url: "/series?limit=0" })).statusCode).toBe(400);
+  });
+
+  it("solo Various Artists forma series: un disco de un artista deja el grupo fuera del índice, las fichas y /series/:id", async () => {
+    const db = getPool();
+    const group = Number((await db.query("INSERT INTO ingest.series(title, source) VALUES ('Grupo de estudio', 'test') RETURNING id")).rows[0].id);
+    await db.query("INSERT INTO ingest.series_albums(series_id,album_id) VALUES($1,$2)", [group, ids["album"]]);
+    expect((await app.inject({ method: "GET", url: `/series/${group}` })).statusCode).toBe(404);
+    expect((await app.inject({ method: "GET", url: "/series?q=Grupo" })).json().pagination.total).toBe(0);
+    expect((await app.inject({ method: "GET", url: `/albums/${ids["album"]}` })).json().series).toEqual([]);
+    await db.query("INSERT INTO ingest.series_albums(series_id,album_id) VALUES($1,$2)", [group, ids["vol1"]]);
+    expect((await app.inject({ method: "GET", url: `/series/${group}` })).statusCode).toBe(404);
+    // Un «grandes éxitos» de un artista dentro de una colección de sello sigue fuera aunque sea compilado.
+    await db.query("INSERT INTO ingest.album_classifications(album_id,classification,position,inferred) VALUES($1,'Compilation Album',1,false)", [ids["album"]]);
+    expect((await app.inject({ method: "GET", url: `/series/${group}` })).statusCode).toBe(404);
+    await db.query("DELETE FROM ingest.album_classifications WHERE album_id=$1", [ids["album"]]);
+    // Un festival en directo de Various Artists sí es entrega de su serie.
+    const live = Number((await db.query("INSERT INTO public.albums(title,artist_id,release_year,album_type) VALUES('Festival en vivo',$1,2000,'live_album') RETURNING id", [ids["va"]])).rows[0].id);
+    await db.query("DELETE FROM ingest.series_albums WHERE series_id=$1 AND album_id=$2", [group, ids["album"]]);
+    await db.query("INSERT INTO ingest.series_albums(series_id,album_id) VALUES($1,$2)", [group, live]);
+    expect((await app.inject({ method: "GET", url: `/series/${group}` })).statusCode).toBe(200);
+    expect((await app.inject({ method: "GET", url: "/series?q=Grupo&albumType=live_album" })).json().pagination.total).toBe(1);
+    await db.query("DELETE FROM ingest.series WHERE id=$1", [group]);
+    await db.query("DELETE FROM public.albums WHERE id=$1", [live]);
+  });
+
+  it("una serie de sesiones (una banda por entrega, como «Sonó Así») se publica sin ser de Various Artists", async () => {
+    const db = getPool();
+    const other = Number((await db.query("INSERT INTO public.artists(name,artist_type) VALUES('Famasloop','band') RETURNING id")).rows[0].id);
+    const session = Number((await db.query("INSERT INTO public.albums(title,artist_id,release_year,album_type) VALUES('Sonó Así',$1,2009,'ep') RETURNING id", [other])).rows[0].id);
+    const group = Number((await db.query("INSERT INTO ingest.series(title,source) VALUES('Sonó Así','test') RETURNING id")).rows[0].id);
+    await db.query("INSERT INTO ingest.series_albums(series_id,album_id) VALUES($1,$2),($1,$3)", [group, ids["album"], session]);
+    expect((await app.inject({ method: "GET", url: `/series/${group}` })).statusCode).toBe(404);
+    await db.query("UPDATE ingest.series SET kind='sessions' WHERE id=$1", [group]);
+    const body = (await app.inject({ method: "GET", url: `/series/${group}` })).json();
+    expect(body.kind).toBe("sessions");
+    expect(body.volumes.map((volume: { artistId: number }) => volume.artistId).sort()).toEqual([ids["band"], other].sort());
+    expect((await app.inject({ method: "GET", url: "/series?q=Sonó" })).json().data[0]).toMatchObject({ title: "Sonó Así", kind: "sessions", albumCount: 2 });
+    await db.query("DELETE FROM ingest.series WHERE id=$1", [group]);
+    await db.query("DELETE FROM public.albums WHERE id=$1", [session]);
+    await db.query("DELETE FROM public.artists WHERE id=$1", [other]);
+  });
+
+  it("una serie con una sola entrega catalogada queda registrada pero no se publica", async () => {
+    const db = getPool();
+    const group = Number((await db.query("INSERT INTO ingest.series(title,source) VALUES('Colección solitaria','test') RETURNING id")).rows[0].id);
+    await db.query("INSERT INTO ingest.series_albums(series_id,album_id,volume_number,volume_label) VALUES($1,$2,1,'Vol. 1')", [group, ids["vol1"]]);
+    expect((await app.inject({ method: "GET", url: `/series/${group}` })).statusCode).toBe(404);
+    expect((await app.inject({ method: "GET", url: "/series?q=Colección solitaria" })).json().pagination.total).toBe(0);
+    expect((await app.inject({ method: "GET", url: `/albums/${ids["vol1"]}` })).json().series.some((item: {id:number}) => item.id === group)).toBe(false);
+    await db.query("INSERT INTO ingest.series_albums(series_id,album_id,volume_number,volume_label) VALUES($1,$2,2,'Vol. 2')", [group, ids["vol2"]]);
+    expect((await app.inject({ method: "GET", url: `/series/${group}` })).statusCode).toBe(200);
+    await db.query("DELETE FROM ingest.series WHERE id=$1", [group]);
+  });
+
+  it("una entrega anterior sin número conserva la continuidad y el orden de sus carátulas", async () => {
+    const db = getPool();
+    const first = Number((await db.query(`INSERT INTO public.albums(title,artist_id,release_year,album_type,cover_url)
+      VALUES('Primera recopilación',$1,2005,'compilation','/first-cover.jpg') RETURNING id`, [ids["va"]])).rows[0].id);
+    const group = Number((await db.query("INSERT INTO ingest.series(title,source) VALUES('Colección mixta','test') RETURNING id")).rows[0].id);
+    await db.query("INSERT INTO ingest.series_albums(series_id,album_id,volume_number) VALUES($1,$2,NULL),($1,$3,1),($1,$4,2)", [group, first, ids["vol1"], ids["vol2"]]);
+    const detail = (await app.inject({method:'GET',url:`/series/${group}`})).json();
+    expect(detail.volumes.map((volume: {albumId:number}) => volume.albumId)).toEqual([first,ids["vol1"],ids["vol2"]]);
+    const membership = (await app.inject({method:'GET',url:`/albums/${ids["vol1"]}`})).json().series.find((item: {id:number}) => item.id === group);
+    expect(membership.previous.albumId).toBe(first);
+    const list = (await app.inject({method:'GET',url:'/series?q=Colección mixta'})).json();
+    expect(list.data[0].covers).toEqual(['/first-cover.jpg','/crv/media/vol2.jpg']);
+    await db.query('DELETE FROM ingest.series WHERE id=$1',[group]);
+    await db.query('DELETE FROM public.albums WHERE id=$1',[first]);
   });
 
   it("la página de lugar muestra el estudio y los discos grabados ahí, por rol", async () => {

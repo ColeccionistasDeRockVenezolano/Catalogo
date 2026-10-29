@@ -7,7 +7,7 @@
 import sharp from "sharp";
 import { z } from "zod";
 import type { DeepSeekGateway } from "../ai/gateway.js";
-import { useLabels, type ImageUse } from "./image-quality.js";
+import { LOCATED, TOO_SMALL, useLabels, type ImageUse } from "./image-quality.js";
 
 /** Long side sent to the model: stylized lettering misreads at 384 px; 640 px stays cheap in image tokens. */
 const VISION_SIDE = 640;
@@ -74,6 +74,10 @@ const sameWord = (printed: string, expected: string) =>
  */
 /** Credit lines ("Canta Yeci Ramos", "feat. …") name guests, not the record. */
 // Only verbs that cannot open a band or record name ("Voz Veis", "Con Tu Nombre" stay names).
+/** Stickers and ratings printed on many sleeves name no record. */
+const STICKER = /^(?:parental advisory|explicit content|explicit|restricted)$/u;
+/** A bare number is a catalog or barcode figure, not a title. */
+const CATALOG = /^\d+$/u;
 const CREDIT_LINE = /^(?:canta|cantan|feat|ft|featuring|presenta|presents|invitad[oa]s?|produced|producido|arreglos)\b/u;
 /** Another title counts only printed whole on one line, word for word: a track list or a prefix ("Victor" / "Victorias") is no record. */
 function onOneLine(lines: string[], title: string[]): boolean {
@@ -115,7 +119,7 @@ export function compareVisibleText(
 ): VisionResult["textMatch"] {
   // A credit verb on its own line ("CANTA" / "YECI RAMOS") governs the next line.
   const lines = visibleText.map(normalize);
-  const kept = lines.filter((line, i) => !CREDIT_LINE.test(line) && !(i > 0 && CREDIT_LINE.test(lines[i - 1]!) && lines[i - 1]!.split(" ").length === 1));
+  const kept = lines.filter((line, i) => !CREDIT_LINE.test(line) && !STICKER.test(line) && !(i > 0 && CREDIT_LINE.test(lines[i - 1]!) && lines[i - 1]!.split(" ").length === 1));
   const printed = [...new Set(kept.flatMap(words))];
   if (!printed.length) return "none";
   const album = options.target === "album";
@@ -135,12 +139,12 @@ export function compareVisibleText(
   if (album && !(title && !selfTitled && named(title)) && others.some((other) => onOneLine(kept, other))) return "mismatch";
   if (names.some(named)) {
     const explained = (w: string) => names.some((name) => name.join("") === w || name.some((n) => sameWord(w, n)));
-    const unexplained = kept.some((line) => words(line).some((w) => w.length > 3 && !explained(w)));
+    const unexplained = kept.some((line) => words(line).some((w) => w.length > 3 && !CATALOG.test(w) && !explained(w)));
     return selfTitled && unexplained ? "none" : "match";
   }
   // A partly legible name (one word of two) is not evidence against the record.
   if (names.some((name) => name.some((w) => w.length > 3 && seen(w)))) return "none";
-  return printed.some((w) => w.length > 3) ? "mismatch" : "none";
+  return printed.some((w) => w.length > 3 && !CATALOG.test(w)) ? "mismatch" : "none";
 }
 
 export function createVisionClassifier(gateway: DeepSeekGateway): VisionClassifier {
@@ -159,15 +163,30 @@ export function createVisionClassifier(gateway: DeepSeekGateway): VisionClassifi
   };
 }
 
-/** Uses inferred from shape alone: the visual reading may replace them. */
-const SHAPE_ONLY = /^Imagen (cuadrada|vertical|horizontal)/u;
-/** A resource already judged irrelevant by size, proportion or page chrome needs no reading. */
+/** A resource already judged irrelevant by proportion or page chrome needs no reading; a small one is still read. */
 export const needsVisualReading = (use: ImageUse, reasons: string[]) => !(use === "irrelevant" && !/^El contexto/u.test(reasons[0] ?? ""));
+
+const PERSON = new Set<ImageUse>(["portrait", "group", "live"]);
+/** Lines that open with a track number ("01. Evocación", "3 - Tema", "A2 Canción"). */
+const numberedTracks = (lines: string[]) => lines.filter((line) => /^\s*(?:[AB]\s?)?\d{1,2}\s*[.)\-–:]\s*\p{L}/u.test(line) || /^\s*[AB]\d{1,2}\s+\p{L}/u.test(line)).length;
+/** Marks only a released record carries: the advisory sticker, or the reading itself calling it a cover. */
+function looksLikeCover(seen: VisionResult): boolean {
+  if (seen.visibleText.some((line) => /parental advisory|explicit content/iu.test(line))) return true;
+  const reason = seen.reason.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  return /\b(portada|caratula|album cover)\b/u.test(reason) && !/contraportada|no (es|parece) (una )?(portada|caratula)/u.test(reason);
+}
+/** A reading that files a performer as a portrait but describes the stage. */
+function describesStage(seen: VisionResult): boolean {
+  const reason = seen.reason.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  return /actuacion|en vivo|concierto|escenario|tarima/u.test(reason) && !/no (es|parece) (una )?(actuacion|foto en vivo)/u.test(reason);
+}
 
 /**
  * Combines the deterministic use with the visual reading. Documented context keeps the use
- * (a disagreement is only noted); without it, the reading decides. Printed text is always
- * compared: on a cover or a poster, text that names something else flags another record.
+ * (a disagreement is only noted). A use hinted by the address or the campaign yields to the
+ * reading, except that a record's own picture showing people is still its cover. Without either,
+ * the reading decides. Printed text is always compared: on a cover or a poster, text that names
+ * something else flags another record.
  */
 export function mergeVisualReading(
   deterministic: { use: ImageUse; reasons: string[] },
@@ -175,13 +194,26 @@ export function mergeVisualReading(
   target: VisionInput["target"],
   expected: string[],
 ): { use: ImageUse; reasons: string[] } {
-  const documented = deterministic.use !== "unknown" && !SHAPE_ONLY.test(deterministic.reasons[0] ?? "");
+  const first = deterministic.reasons[0] ?? "";
+  const documented = deterministic.use !== "unknown" && first.startsWith("El contexto");
+  const located = deterministic.use !== "unknown" && first.startsWith(LOCATED);
   let use = documented ? deterministic.use : seen.use;
-  // A disc cover often shows the musician; with the record's name printed it is still the cover.
-  if (target === "album" && !documented && (use === "portrait" || use === "group") && seen.textMatch === "match") use = "cover";
-  const reasons = documented
-    ? [...deterministic.reasons, ...(seen.use !== deterministic.use ? [`La lectura visual la ve como ${useLabels[seen.use]}: ${seen.reason}`] : [])]
-    : [`Lectura visual: ${seen.reason}`];
+  // A record's picture called a cover stays one unless the reading shows the numbered track list of its
+  // back (cassette inlays and compilations print song titles on the front) or a poster; "irrelevant" art is still art.
+  if (located && (seen.use === "unknown" || (target === "album" && deterministic.use === "cover" && !(seen.use === "poster" || (seen.use === "back_cover" && numberedTracks(seen.visibleText) >= 3)))))
+    use = deterministic.use;
+  if (!documented && PERSON.has(use)) {
+    // A disc cover often shows the musician; with the record's name printed it is still the cover.
+    if (target === "album" && seen.textMatch === "match") use = "cover";
+    // An advisory sticker or a reading that calls it a cover is a cover, also among an artist's photos.
+    else if (looksLikeCover(seen)) use = "cover";
+    // A photo of the artist with their name printed over it is a record sleeve, not a press portrait.
+    else if (target === "artist" && seen.textMatch === "match" && use === "portrait") use = "cover";
+    else if (use === "portrait" && describesStage(seen)) use = "live";
+  }
+  const reasons = documented || located
+    ? [...deterministic.reasons, ...(seen.use !== use || use !== deterministic.use ? [`La lectura visual la ve como ${useLabels[seen.use]}: ${seen.reason}`] : [])]
+    : [`Lectura visual: ${seen.reason}`, ...deterministic.reasons.filter((reason) => reason.startsWith(TOO_SMALL))];
   const printed = seen.visibleText.join(" · ");
   if (use === "cover" || use === "back_cover" || use === "poster") {
     if (seen.textMatch === "mismatch") reasons.push(`El texto visible («${printed}») no nombra ${expected.map((n) => `«${n}»`).join(" ni ")}: posible imagen de otra ficha`);

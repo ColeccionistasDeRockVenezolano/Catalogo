@@ -109,7 +109,7 @@ export function MobileCatalogTools({ search, query, onClearQuery, settings, grou
               <MagnifyingGlass size={22} aria-hidden="true" />
             </button>
           )}
-          <button type="button" className="topbar-icon-btn topbar-tools__filters" aria-haspopup="dialog"
+          <button type="button" className={`topbar-icon-btn topbar-tools__filters${activeCount ? " is-filtering" : ""}`} aria-haspopup="dialog"
             aria-label={filtersLabel} onClick={() => setFiltering(true)}>
             <FilterIcon />
             {activeCount ? <span className="topbar-tools__badge" aria-hidden="true">{activeCount}</span> : null}

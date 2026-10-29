@@ -54,9 +54,59 @@ interface SnapshotEntry {
 }
 const candidateSnapshot = new AsyncLocalStorage<Map<ResolutionInput["kind"], SnapshotEntry>>();
 const trackWriteClient = new AsyncLocalStorage<Queryable>();
+const snapshotKinds = new WeakMap<Map<ResolutionInput["kind"], SnapshotEntry>, ReadonlySet<ResolutionInput["kind"]>>();
+const snapshotAdditions = new WeakMap<Map<ResolutionInput["kind"], SnapshotEntry>, Array<{ kind: ResolutionInput["kind"]; id: number }>>();
 
-export function withCandidateSnapshot<T>(fn: () => Promise<T>): Promise<T> {
-  return candidateSnapshot.run(new Map(), fn);
+/**
+ * Con `kinds`, la instantánea es la de una vista previa que se revierte (curaduría IA):
+ * solo cubre esos tipos, sigue las altas de la propia transacción
+ * (rememberCreatedInSnapshot), retira las de un SAVEPOINT revertido
+ * (candidateSnapshotMark / revertCandidateSnapshot) y quien escribe algo que no
+ * puede seguir —alias, renombres, fusiones— la descarta con forgetCandidateSnapshot.
+ */
+export function withCandidateSnapshot<T>(fn: () => Promise<T>, options: { kinds?: ResolutionInput["kind"][] } = {}): Promise<T> {
+  const store = new Map<ResolutionInput["kind"], SnapshotEntry>();
+  if (options.kinds) { snapshotKinds.set(store, new Set(options.kinds)); snapshotAdditions.set(store, []); }
+  return candidateSnapshot.run(store, fn);
+}
+
+/** Olvida lo leído por la instantánea abierta; la siguiente resolución vuelve a leer el catálogo. */
+export function forgetCandidateSnapshot(): void {
+  const store = candidateSnapshot.getStore();
+  store?.clear();
+  if (store && snapshotAdditions.has(store)) snapshotAdditions.set(store, []);
+}
+
+/** Una ficha creada dentro de una instantánea con `kinds` se suma a ella tal como la leería una consulta nueva. */
+export async function rememberCreatedInSnapshot(queryable: Queryable, kind: ResolutionInput["kind"], id: number): Promise<void> {
+  const store = candidateSnapshot.getStore();
+  const entry = store?.get(kind);
+  if (!store || !entry || !snapshotKinds.get(store)?.has(kind) || kind === "TRACK" || kind === "ALBUM") return;
+  const rows = await queryCandidates({ kind, name: "" } as ResolutionInput, queryable, id);
+  const all = await entry.candidates;
+  if (rows.length !== 1 || all.some((candidate) => candidate.id === id)) return;
+  all.push(rows[0]!);
+  snapshotAdditions.get(store)?.push({ kind, id });
+}
+
+/** Punto al que volver si se revierte un SAVEPOINT (ver revertCandidateSnapshot). */
+export function candidateSnapshotMark(): number {
+  const store = candidateSnapshot.getStore();
+  return store ? snapshotAdditions.get(store)?.length ?? 0 : 0;
+}
+
+/** Retira de la instantánea las altas posteriores a `mark`: su SAVEPOINT se revirtió y ya no existen. */
+export async function revertCandidateSnapshot(mark: number): Promise<void> {
+  const store = candidateSnapshot.getStore();
+  const additions = store && snapshotAdditions.get(store);
+  if (!store || !additions) return;
+  for (const { kind, id } of additions.splice(mark).reverse()) {
+    const entry = store.get(kind);
+    if (!entry) continue;
+    const all = await entry.candidates;
+    const index = all.findIndex((candidate) => candidate.id === id);
+    if (index >= 0) all.splice(index, 1);
+  }
 }
 
 /** Todas las formas de nombre con las que `compareName` declara una coincidencia exacta o previsible. */
@@ -138,7 +188,8 @@ export async function loadResolutionCandidates(input: ResolutionInput, queryable
   const writer = trackWriteClient.getStore();
   if (writer && writer !== queryable) throw new Error("La instantánea de escritura requiere el mismo cliente bloqueado");
   const snapshot = candidateSnapshot.getStore();
-  if (!snapshot) return queryCandidates(input, queryable);
+  const kinds = snapshot && snapshotKinds.get(snapshot);
+  if (!snapshot || (kinds && !kinds.has(input.kind))) return queryCandidates(input, queryable);
   let entry = snapshot.get(input.kind);
   if (!entry) {
     const candidates = queryCandidates(input, queryable);
@@ -153,14 +204,16 @@ export async function loadResolutionCandidates(input: ResolutionInput, queryable
   return trackCandidatesFor(await entry.tracks, input) ?? all;
 }
 
-async function queryCandidates(input: ResolutionInput, queryable: Queryable, trackId?: number): Promise<ResolutionCandidate[]> {
+async function queryCandidates(input: ResolutionInput, queryable: Queryable, onlyId?: number): Promise<ResolutionCandidate[]> {
+  const only = (alias: string) => onlyId === undefined ? "" : `WHERE ${alias}.id=$1`;
+  const params = onlyId === undefined ? [] : [onlyId];
   if (input.kind === "ARTIST") {
     const result = await queryable.query<CandidateRow>(`
       SELECT a.id::text, a.name, a.formed_year, a.disbanded_year, a.origin_city, a.origin_country,
         COALESCE((SELECT jsonb_agg(jsonb_build_object('value',x.alias,'type',x.alias_type,'confidence',x.confidence)) FROM ingest.artist_aliases x WHERE x.artist_id=a.id),'[]'::jsonb) aliases,
         ARRAY(SELECT DISTINCT p.name FROM public.artist_members am JOIN public.persons p ON p.id=am.person_id WHERE am.artist_id=a.id) members,
         ARRAY(SELECT DISTINCT al.title FROM public.albums al WHERE al.artist_id=a.id) discography
-      FROM public.artists a ORDER BY a.id`);
+      FROM public.artists a ${only("a")} ORDER BY a.id`, params);
     return result.rows.map((row): ResolutionCandidate => {
       const from = numberValue(row["formed_year"]); const to = numberValue(row["disbanded_year"]);
       return {
@@ -180,7 +233,7 @@ async function queryCandidates(input: ResolutionInput, queryable: Queryable, tra
         ARRAY(SELECT DISTINCT al.title FROM public.album_credits ac JOIN public.albums al ON al.id=ac.album_id WHERE ac.person_id=p.id) album_credits,
         (SELECT min(am.from_year) FROM public.artist_members am WHERE am.person_id=p.id) period_from,
         (SELECT max(am.to_year) FROM public.artist_members am WHERE am.person_id=p.id) period_to
-      FROM public.persons p ORDER BY p.id`);
+      FROM public.persons p ${only("p")} ORDER BY p.id`, params);
     return result.rows.map((row): ResolutionCandidate => {
       const from = numberValue(row["period_from"]); const to = numberValue(row["period_to"]);
       return {
@@ -212,7 +265,7 @@ async function queryCandidates(input: ResolutionInput, queryable: Queryable, tra
       SELECT t.id::text,t.title AS name,t.disc_number,t.track_number,al.id AS album_id,al.title AS album_name,ar.name AS artist_name,
         COALESCE((SELECT jsonb_agg(jsonb_build_object('value',x.alias,'type',x.alias_type,'confidence',x.confidence)) FROM ingest.track_aliases x WHERE x.track_id=t.id),'[]'::jsonb) aliases
       FROM public.tracks t JOIN public.albums al ON al.id=t.album_id JOIN public.artists ar ON ar.id=al.artist_id
-      ${trackId === undefined ? "" : "WHERE t.id=$1"} ORDER BY t.id`, trackId === undefined ? [] : [trackId]);
+      ${only("t")} ORDER BY t.id`, params);
     return result.rows.map((row) => ({
       kind: "TRACK", id: Number(row.id), name: row.name, canonicalName: row.name, aliases: aliases(row.aliases),
       album: { id: Number(row["album_id"]), name: String(row["album_name"]), artistName: String(row["artist_name"]) },
@@ -236,7 +289,7 @@ async function queryCandidates(input: ResolutionInput, queryable: Queryable, tra
       COALESCE(op.names,ARRAY[]::text[]) associated_persons
     FROM public.organizations o
     LEFT JOIN organization_albums oa ON oa.organization_id=o.id
-    LEFT JOIN organization_persons op ON op.organization_id=o.id ORDER BY o.id`);
+    LEFT JOIN organization_persons op ON op.organization_id=o.id ${only("o")} ORDER BY o.id`, params);
   return result.rows.map((row) => ({
     kind: "ORGANIZATION", id: Number(row.id), name: row.name, canonicalName: row.name, aliases: aliases(row.aliases),
     ...(typeof row["organization_type"] === "string" ? { organizationType: row["organization_type"] } : {}),

@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import { isChunkLoadError, reloadForNewBuild } from "../lib/staleBuild";
 
 interface ErrorBoundaryState {
   error: Error | undefined;
@@ -33,7 +34,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     return { error: error instanceof Error ? error : new Error(String(error)) };
   }
 
-  private retry = () => this.setState({ error: undefined });
+  private retry = () => {
+    // Un chunk perdido tras un deploy no se recupera re-renderizando: React.lazy
+    // conserva el rechazo. Reintentar significa recargar con el build nuevo.
+    if (isChunkLoadError(this.state.error)) window.location.reload();
+    else this.setState({ error: undefined });
+  };
 
   override componentDidUpdate(previous: ErrorBoundaryProps): void {
     // Changing a URL only resets a failed page; healthy pages keep their state.
@@ -41,6 +47,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   override componentDidCatch(error: Error, info: ErrorInfo): void {
+    if (isChunkLoadError(error) && reloadForNewBuild()) return;
     // eslint-disable-next-line no-console -- la consola del navegador es el canal de diagnóstico de un error de render
     console.error("CRV: error de render", error, info.componentStack);
     this.props.onError?.();

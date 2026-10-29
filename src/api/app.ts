@@ -1,6 +1,7 @@
 import { registerArtistGalleryRoutes } from "./routes/artist-gallery.js";
 import { registerArtistDocumentRoutes } from "./routes/artist-documents.js";
 import { registerCatalogEditorRoutes } from "./routes/catalog-editor.js";
+import { registerSeriesEditorRoutes } from "./routes/series-editor.js";
 import { registerSiteAppearanceRoutes } from "./routes/site-appearance.js";
 import { registerImageUploadRoutes } from "./routes/image-uploads.js";
 import { registerCatalogModelRoutes } from "./routes/catalog-model.js";
@@ -191,6 +192,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerCatalogWriteRoutes(app);
   await registerCatalogModelRoutes(app);
   await registerCatalogEditorRoutes(app);
+  await registerSeriesEditorRoutes(app);
   await registerRelationWriteRoutes(app);
   await registerPlatformLinkRoutes(app);
   await registerEntityMergeRoutes(app);

@@ -20,6 +20,7 @@ import { artistChannelVideo, type ArtistChannelVideo } from "./artist-channel-vi
 import { dailyDate, dailyCycleForDate, type DailyCycle } from "../../shared/daily-cycle.js";
 import { artistAudiovisuals, type ArtistAudiovisual } from "./artist-audiovisuals.js";
 import { artistPlaybackAlbums, type ArtistPlaybackAlbum } from "./artist-playback-albums.js";
+import { artistAppearances, type ArtistAppearance } from "./artist-appearances.js";
 
 export type { ArtistRelation, ArtistRelationType, RelatedArtist, RelatedRule, SimilarArtist, SimilarRule } from "./artist-neighbors.js";
 
@@ -146,6 +147,8 @@ export interface ArtistDetail {
     isFounder: boolean | null; founderEvidence: string | null; instruments: string[] }>;
   /** `isLive`: álbum en vivo o clasificación «En vivo» (LIVE_SQL); `isBSides`: B_SIDES_SQL. */
   discography: Array<{ albumId: number; title: string; releaseYear: number | null; albumType: string; coverUrl: string | null; isLive: boolean; isBSides: boolean; classifications: Array<{ classification: string }>; editionTypes: string[]; genres: PublicGenre[] }>;
+  /** «Aparece en»: compilados y discos de otros titulares donde suena (artist-appearances.ts). */
+  appearsOn: Array<ArtistAppearance & { genres: PublicGenre[] }>;
   aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean; publicHidden: boolean }>;
   /** Géneros confirmados del ARTISTA; los discos tienen los suyos. */
   primaryGenre: PublicGenre | null;
@@ -226,7 +229,7 @@ export async function getArtistDetail(id: number, date = dailyDate()): Promise<A
   if (!row) return null;
   const discography = row["discography"] as ArtistDetail["discography"];
   const members = row["members"] as Array<Omit<ArtistDetail["members"][number], "personDisplayName">>;
-  const [genres, related, albumGenres, displayNames, channelVideo, audiovisuals, playbackAlbums, gallery, documents] = await Promise.all([
+  const [genres, related, albumGenres, displayNames, channelVideo, audiovisuals, playbackAlbums, gallery, documents, appearsOn] = await Promise.all([
     publicGenresFor("artist", [id]).then((byId) => byId.get(id)!),
     relatedArtists(id),
     publicGenresFor("album", discography.map(album => album.albumId)),
@@ -236,6 +239,10 @@ export async function getArtistDetail(id: number, date = dailyDate()): Promise<A
     artistPlaybackAlbums(id, row["platforms"] as ArtistDetail["platforms"]),
     artistGallery(id),
     artistDocuments(id),
+    artistAppearances(id).then(async (appearances) => {
+      const byAlbum = await publicGenresFor("album", appearances.map(album => album.albumId));
+      return appearances.map(album => ({ ...album, genres: byAlbum.get(album.albumId)?.genres ?? [] }));
+    }),
   ]);
   return {
     dailyCycle: dailyCycleForDate(date),
@@ -266,6 +273,7 @@ export async function getArtistDetail(id: number, date = dailyDate()): Promise<A
     isDeceased: row["is_deceased"] as boolean,
     members: members.map((member) => ({ ...member, personDisplayName: displayNames.get(member.personId) ?? null })),
     discography: discography.map(album => ({ ...album, genres: albumGenres.get(album.albumId)?.genres ?? [] })),
+    appearsOn,
     aliases: withPublicAliases(String(row["name"]), row["aliases"] as Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>),
     links: row["links"] as ArtistDetail["links"],
     platforms: row["platforms"] as ArtistDetail["platforms"],

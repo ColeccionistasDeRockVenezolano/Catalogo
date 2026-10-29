@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import { Buildings, Disc, ImageSquare } from "@phosphor-icons/react";
+import { Buildings, CaretDown, Disc, ImageSquare, X } from "@phosphor-icons/react";
+import { Popover } from "@base-ui/react/popover";
 import { DeceasedMark } from "./DeceasedMark";
 import { CatalogGenres, CatalogYear } from "./CatalogMetadata";
 import type { PublicGenre } from "../lib/types";
@@ -63,7 +64,28 @@ export function EntityCard({ to, title, subtitle, albumMetadata, imageUrl, image
           {isArtist && typeValue ? <><Link to={`/artistas?tipo=${encodeURIComponent(typeValue)}`}>{typeLabel}</Link>{otherSubtitle.length ? ` · ${otherSubtitle.join(" · ")}` : null}</> : subtitle}
         </span> : null}
         {!albumMetadata && year !== undefined && year !== null ? <CatalogYear year={year} kind={isArtist ? "artist" : "album"} className="entity-card__year" /> : null}
-        {genres?.length ? <span className="entity-card__genres"><CatalogGenres genres={genres} kind={isArtist ? "artist" : "album"} className="entity-card__genre" /></span> : null}
+        {genres?.length ? <span className={`entity-card__genres${isAlbum ? " entity-card__genres--compact" : ""}`}>
+          <CatalogGenres genres={isAlbum ? genres.slice(0, 1) : genres} kind={isArtist ? "artist" : "album"} className="entity-card__genre" />
+          {isAlbum && genres.length > 1 ? <Popover.Root>
+            <Popover.Trigger className="entity-card__genres-more" aria-label={`Ver los ${genres.length} géneros de ${title}`}>
+              +{genres.length - 1} <span>{genres.length === 2 ? "género" : "géneros"}</span><CaretDown size={12} aria-hidden="true" />
+            </Popover.Trigger>
+            <Popover.Portal>
+              <Popover.Positioner side="bottom" align="start" sideOffset={6} collisionPadding={12} className="album-genres-popover__positioner">
+                <Popover.Popup className="album-genres-popover">
+                  <div className="album-genres-popover__head">
+                    <Popover.Title>Géneros</Popover.Title>
+                    <Popover.Close aria-label="Cerrar géneros"><X size={18} aria-hidden="true" /></Popover.Close>
+                  </div>
+                  <Popover.Description className="album-genres-popover__album">{title}</Popover.Description>
+                  <div className="album-genres-popover__list">
+                    <CatalogGenres genres={genres} className="album-genres-popover__genre" />
+                  </div>
+                </Popover.Popup>
+              </Popover.Positioner>
+            </Popover.Portal>
+          </Popover.Root> : null}
+        </span> : null}
         {note ? <span className="badge badge--violet entity-card__tag" title={noteTitle}>{note}</span> : null}
         {tag ? <span className="badge badge--amber entity-card__tag" title={tagTitle}>{tag}</span> : null}
       </div>
