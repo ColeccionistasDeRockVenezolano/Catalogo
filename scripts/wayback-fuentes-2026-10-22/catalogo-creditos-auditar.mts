@@ -1,7 +1,7 @@
-import {writeFileSync} from 'node:fs';import {getPool,closeDb} from '../../src/db/client.js';
+import {writeFileSync} from 'node:fs';import {closeDb} from '../../src/db/client.js';
 import {withOperatorRun,deleteEntity,deleteRelation} from '../../src/merge/operator.js';
 import {WAYBACK_ARCHIVE_TAG as TAG} from '../../src/shared/artist-documents.js';
-const pool=getPool(),out=process.env['WAYBACK_OUT']??`${process.env['HOME']}/crv-staging/reports/wayback-incorporacion-2026-10-23`;
+const out=process.env['WAYBACK_OUT']??`${process.env['HOME']}/crv-staging/reports/wayback-incorporacion-2026-10-23`;
 const badIds=[42289,42290,42291,42292,42293,42297,42298,42299,42302,42306,42315,42320,42321,42327,42328,42331,42334,42336,42338,42342,42343,42344,42347,42351,42358,42360,42361,42362,42369,42374,42376,42377,42337,42371];
 const result=await withOperatorRun({name:'wayback:credit-integrity',operator:'codex',note:'Retirar fragmentos de créditos compuestos que no son nombres de una persona. Texto íntegro conservado en documentos de publicaciones; no resolver identidades por inferencia.',params:{campaign:TAG}},async ctx=>{
 const changes:any[]=[];

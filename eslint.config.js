@@ -12,6 +12,8 @@ export default tseslint.config(
     ignores: [
       "**/node_modules/**", "**/dist/**", "**/dist-public/**", "build/**", "coverage/**",
       "data/**", "backups/**", "public/**", "tmp-analysis/**",
+      // Comprobaciones sueltas de una sesión, como tmp-analysis: no son código del repo.
+      "tmp/**",
       "web/tests/artifacts/**", "docs/**",
       // Worktrees y estado de Claude Code: es tooling, no código del repo
       // (sus archivos rompen el parser por doble tsconfig raíz).
@@ -38,11 +40,9 @@ export default tseslint.config(
     languageOptions: {
       parserOptions: {
         projectService: {
-          // Configuración de herramientas que ningún tsconfig incluye.
-          // El tope sube a 32 porque los tests unit/visual crecieron por encima
-          // del valor por defecto (8) y todos deben parsear con el proyecto por defecto.
-          allowDefaultProject: ["vitest.config.ts", "web/vite.config.ts", "web/tests/visual/*.ts", "web/tests/visual/*.tsx", "web/tests/unit/*.ts"],
-          maximumDefaultProjectFileMatchCount_THIS_WILL_SLOW_DOWN_LINTING: 32,
+          // Configuración de herramientas sin tsconfig propio; los tests y
+          // fixtures de la web y ops tienen el suyo (web/tests, ops).
+          allowDefaultProject: ["vitest.config.ts", "vitest.chat.config.ts", "web/vite.config.ts"],
         },
         tsconfigRootDir: import.meta.dirname,
       },
@@ -68,6 +68,19 @@ export default tseslint.config(
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
     },
+  },
+  {
+    // Scripts de campaña y operación: leen JSON externo de forma puntual; `any`
+    // no es el defecto que busca este lint (promesas sueltas, variables muertas).
+    files: ["scripts/**/*.{ts,mts}", "ops/**/*.{ts,mts}"],
+    rules: { "@typescript-eslint/no-explicit-any": "off" },
+  },
+  {
+    // Extensión de Firefox del puente RYM: corre en el navegador y descarta a
+    // propósito los errores de pestañas ya cerradas.
+    files: ["ops/rym-resto/puente-ext/**/*.js"],
+    languageOptions: { globals: { ...globals.browser, ...globals.webextensions } },
+    rules: { "no-empty": ["error", { allowEmptyCatch: true }] },
   },
   {
     files: ["web/tests/**/*.{js,mjs,ts}", "web/server.mjs"],

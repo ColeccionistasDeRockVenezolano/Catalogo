@@ -76,12 +76,10 @@ const report = {
   errors: [] as Array<{ title: string; error: string }>,
 };
 
-let sequence = 0;
 function baseClaim(context: Context, input: {
   entityKind: "album" | "track" | "artist"; identity: string; originalIdentity: string;
   field: string; value: unknown; normalized?: unknown; url: string; excerpt: string; extra?: Partial<ClaimToPersist>;
 }): ClaimToPersist {
-  sequence += 1;
   return {
     entityKind: input.entityKind,
     identity: input.identity, identitySecondary: input.identity, originalIdentity: input.originalIdentity,

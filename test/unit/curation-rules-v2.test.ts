@@ -31,8 +31,8 @@ function addAlbum(snapshot: CatalogSnapshot, title: string, albumType: string, a
 }
 
 describe("reglas v5: tipo de disco y cobertura E11 (A6)", () => {
-  it("la versión de las reglas es la v5", () => {
-    expect(RULES_VERSION).toBe("curation-rules.v6");
+  it("la versión de las reglas es la v7", () => {
+    expect(RULES_VERSION).toBe("curation-rules.v7");
   });
 
   it("«vol» nunca se aprende como tipo aunque solo aparezca en recopilatorios", () => {

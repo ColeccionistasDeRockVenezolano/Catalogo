@@ -1,13 +1,13 @@
 /** Aplica exclusivamente los dictámenes manuales de los 16 expedientes. */
 import {readFileSync,writeFileSync,existsSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {getPool,closeDb} from '../../src/db/client.js';
+import {closeDb} from '../../src/db/client.js';
 import {withOperatorRun,createEntity,createRelation,updateEntity,type OperatorContext} from '../../src/merge/operator.js';
 const out=process.env['WAYBACK_OUT']!;if(!out)throw new Error('WAYBACK_OUT obligatorio');
 const planText=readFileSync(out+'/decisiones-aprobadas.json','utf8');const plan=JSON.parse(planText);
 if(plan.cases.length!==16||plan.cases.filter((c:any)=>c.status==='confirmed').length!==9)throw new Error('Plan distinto del revisado');
 const before=JSON.parse(readFileSync(out+'/antes-catalogo.json','utf8'));
-const pool=getPool();const campaign=plan.campaign as string;
+const campaign=plan.campaign as string;
 const file=out+'/aplicado.json';const results:any[]=existsSync(file)?JSON.parse(readFileSync(file,'utf8')):[];
 const digest=createHash('sha256').update(planText).digest('hex');
 const norm=(s:string)=>s.normalize('NFC').toLocaleLowerCase().trim();

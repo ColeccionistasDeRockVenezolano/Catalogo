@@ -27,7 +27,7 @@ import {resolveGenreValue,isAncestorOf} from '../src/genres/taxonomy.js';
 import {confirmGenre} from '../src/genres/human.js';
 
 // Native snapshots and historical extractor metadata have variable columns.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 type Row=Record<string,any>;
 interface Pin {path:string;sha256:string}
 interface Evidence {url:string;quote:string;text:string;title:string;sourcePath:string;sourceSha256:string;capturedAt:string|null;primaryEligible:boolean;supports:string}

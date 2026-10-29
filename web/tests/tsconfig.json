@@ -1,0 +1,6 @@
+{
+  // Solo para el lint con información de tipos: los tests y fixtures de la web
+  // forman un proyecto en vez de abrir uno por defecto por archivo.
+  "extends": "../tsconfig.json",
+  "include": ["**/*.ts", "**/*.tsx"]
+}

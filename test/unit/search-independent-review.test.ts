@@ -8,6 +8,7 @@ import { hashText } from "../../src/search/review-protocol.js";
 const reviewPath = "docs/unified-search/stage2/independent-review-claude.json";
 const roots: string[] = [];
 afterEach(async () => { await Promise.all(roots.splice(0).map(root => rm(root, { recursive: true, force: true }))); });
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- cada caso altera el JSON de la revisión a su manera
 async function fixture(mutate: (review: any, annotations: any) => void) {
   const root = await mkdtemp(path.join(os.tmpdir(), "crv-independent-review-")); roots.push(root);
   const review = JSON.parse(await readFile(reviewPath, "utf8")), annotationsPath: string = review.input.path;

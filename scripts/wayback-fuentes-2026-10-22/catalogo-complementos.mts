@@ -1,4 +1,4 @@
-import {readFileSync,writeFileSync} from 'node:fs';import {getPool,closeDb} from '../../src/db/client.js';import {withOperatorRun} from '../../src/merge/operator.js';import {WAYBACK_ARCHIVE_TAG as TAG} from '../../src/shared/artist-documents.js';
+import {readFileSync,writeFileSync} from 'node:fs';import {closeDb} from '../../src/db/client.js';import {withOperatorRun} from '../../src/merge/operator.js';import {WAYBACK_ARCHIVE_TAG as TAG} from '../../src/shared/artist-documents.js';
 const root='reports/wayback-analisis-catalogo-2026-10-22/',out=process.env['WAYBACK_OUT']??`${process.env['HOME']}/crv-staging/reports/wayback-incorporacion-2026-10-23`;
 const rows=(f:string):any[]=>readFileSync(root+f+'.jsonl','utf8').trim().split('\n').filter(Boolean).map(x=>JSON.parse(x));
 const radio=rows('radio-deduplicada'),indecente=rows('galeria-obras-cotejadas').find(r=>r.artista_fuente==='Americania'&&r.titulo_fuente==='Indecente');

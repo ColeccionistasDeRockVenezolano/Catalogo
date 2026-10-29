@@ -69,7 +69,7 @@ async function main(): Promise<void> {
 
   for (let i = 0; i < filas.length; i += BATCH) {
     const slice = filas.slice(i, i + BATCH);
-    const { runId, result } = await withOperatorRun({
+    const { runId } = await withOperatorRun({
       name: `hermes:rym-ciudades (${i + 1}-${i + slice.length}/${filas.length})`,
       operator: "hermes (encargo de Brian 2026-10-16)",
       note: "Ciudades de las páginas de ciudad de RYM (cosecha manual 2026-10-01) SOLO en fichas con el campo vacío; nada se pisa.",

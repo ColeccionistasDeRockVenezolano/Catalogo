@@ -21,6 +21,11 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+# data/research vive en el almacén externo, fuera de Git (docs/SHARED_STORAGE.md):
+# el runner carga un inventario de fuentes mínimo para que API y pruebas arranquen.
+env:
+  CRV_SOURCE_INVENTORY: ${{ github.workspace }}/test/fixtures/source-inventory-ci.json
+
 jobs:
   calidad:
     name: Calidad (tipos, lint, unitarias, cobertura)

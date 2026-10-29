@@ -4,7 +4,7 @@
  *
  * Uso: PATH="$PWD/node_modules/.bin:$PATH" ./scripts/with-node22.sh tsx scripts/venezuelademo-portadas-asignar.mts [--apply]
  */
-import {existsSync, readdirSync} from 'node:fs';
+import {readdirSync} from 'node:fs';
 import path from 'node:path';
 import {getPool, closeDb} from '../src/db/client.js';
 import {withOperatorRun, updateEntity} from '../src/merge/operator.js';
