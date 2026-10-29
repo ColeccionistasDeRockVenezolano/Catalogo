@@ -79,7 +79,13 @@ try {
   await page.locator(".page-actions").getByRole("button", { name: "Editar", exact: true }).click();
   const dialog = page.getByRole("dialog");
   await dialog.getByLabel("Nombre", { exact: false }).first().fill("Banda QA Editada");
-  await dialog.getByLabel("Motivo", { exact: false }).filter({ visible: true }).fill("Edición con sesión y CSRF desde la SPA");
+  try {
+    await dialog.getByLabel("Motivo", { exact: false }).filter({ visible: true }).fill("Edición con sesión y CSRF desde la SPA", { timeout: 10_000 });
+  } catch (error) {
+    // Un fallo aquí solo se veía como «waiting for»: se deja el texto real del diálogo en el log.
+    console.error("Diálogo de edición:\n" + await dialog.innerText().catch(() => "(sin diálogo)"));
+    throw error;
+  }
   await dialog.getByRole("button", { name: "Guardar", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Banda QA Editada", exact: true })).toBeVisible();
   assert.equal((await getPool().query("SELECT name FROM public.artists WHERE id=$1", [id])).rows[0].name, "Banda QA Editada");
