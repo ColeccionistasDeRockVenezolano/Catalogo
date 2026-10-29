@@ -49,8 +49,8 @@ const batchSize = Number(arg("batch") ?? "25");
 const kinds = new Set((arg("kinds") ?? "album_fields,album_tracks,album_tracks_add,album_new,composer_credit,vd_credit").split(","));
 const from = arg("from");
 
-let counters: Record<string, number> = {};
-let errors: Array<{ kind: string; key: string; error: string }> = [];
+const counters: Record<string, number> = {};
+const errors: Array<{ kind: string; key: string; error: string }> = [];
 let pendingBumps: Record<string, number> = {};
 
 const bump = (key: string, n = 1): void => { pendingBumps[key] = (pendingBumps[key] ?? 0) + n; };

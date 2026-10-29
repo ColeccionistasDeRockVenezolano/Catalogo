@@ -45,8 +45,6 @@ function guardarImagen(origen: string): { url: string; sha256: string; bytes: nu
   return { url: `/crv/media/curated/${digest}.${ext}`, sha256: digest, bytes: bytes.length };
 }
 
-const norm = (t: string) => t.normalize("NFD").replace(/[\u0300-\u036f]/gu, "").toLowerCase()
-  .replace(/[^a-z0-9 ]/gu, "").replace(/\s+/gu, " ").trim();
 
 async function main(): Promise<void> {
   const confirm = process.argv.includes("--confirm") || process.env["CONFIRM"] === "1";

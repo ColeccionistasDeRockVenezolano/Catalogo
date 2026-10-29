@@ -8,7 +8,7 @@
  */
 import {readFileSync, existsSync} from 'node:fs';
 import {getPool, closeDb} from '../src/db/client.js';
-import {withOperatorRun, createEntity, updateEntity, OperatorError} from '../src/merge/operator.js';
+import {withOperatorRun, createEntity, OperatorError} from '../src/merge/operator.js';
 
 const TAG = 'venezuelademo-blog-2026-10-26';
 const APPLY = process.argv.includes('--apply');

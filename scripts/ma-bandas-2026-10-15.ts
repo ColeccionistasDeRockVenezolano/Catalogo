@@ -16,7 +16,7 @@
 // Uso: ./scripts/with-node22.sh npx tsx scripts/ma-bandas-2026-10-15.ts [--confirm]
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { closeDb, getPool } from "../src/db/client.js";
+import { closeDb } from "../src/db/client.js";
 import { createEntity, updateEntity, withOperatorRun } from "../src/merge/operator.js";
 
 const ROOT = process.cwd();
@@ -72,7 +72,6 @@ function traductor(glos: Record<string, string>, faltan: Set<string>) {
   return (valor: string): string => valor.split(/([;,])/u).map((p) => (p === "," || p === ";" ? p : p.replace(/^(\s*)(.*?)(\s*)$/su, (_m, a: string, b: string, c: string) => a + atomo(b) + c))).join("");
 }
 
-interface Disco { album_id: number; band: string; title: string; type: string; year: string; label: string; format: string; pistas: number; url: string }
 
 async function main(): Promise<void> {
   const vp = JSON.parse(readFileSync(path.join(ROOT, DIR, "ma-discos-vista-previa.json"), "utf8")) as { sinFicha: Array<{ band: string; title: string; type: string }> };

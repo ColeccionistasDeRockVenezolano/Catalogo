@@ -52,7 +52,7 @@ async function main(): Promise<void> {
   const runs: number[] = [];
   for (let i = 0; i < filas.length; i += 100) {
     const slice = filas.slice(i, i + 100);
-    const { runId, result } = await withOperatorRun({
+    const { runId } = await withOperatorRun({
       name: `hermes:myspace-altas-miembros (${i + 1}-${i + slice.length}/${filas.length})`,
       operator: "hermes-curaduria (delegado por Brian)",
       note: "Personas y membresías citadas en los perfiles MySpace (Wayback) que la ER dirigida no resolvió; el ER del sistema decide cada alta.",

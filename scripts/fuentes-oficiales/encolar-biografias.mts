@@ -44,7 +44,7 @@ export function narrative(content: string): string {
   const seen = new Set<string>();
   const out: string[] = [];
   for (const raw of body.split("\n")) {
-    const line = raw.replace(/​/gu, "").replace(/\s+/gu, " ").trim();
+    const line = raw.replace(/\u200B/gu, "").replace(/\s+/gu, " ").trim();
     if (line.startsWith("JSON-LD") || line.length < 60 || line.split(" ").length < 8 || !/[.,;:]/u.test(line) || NOISE.test(line)) continue;
     const key = fold(line);
     if (seen.has(key)) continue;

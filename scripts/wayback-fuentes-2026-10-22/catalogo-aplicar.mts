@@ -11,7 +11,6 @@ const S='reports/wayback-analisis-catalogo-2026-10-22';
 const rows=(dir:string,n:string):any[]=>existsSync(join(dir,n+'.jsonl'))?readFileSync(join(dir,n+'.jsonl'),'utf8').trim().split('\n').filter(Boolean).map(x=>JSON.parse(x)):[];
 const key=(s:string)=>s.normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const hash=(s:string)=>createHash('sha256').update(s).digest('hex');
-const clean=(s:string)=>s.replace(/\s+/g,' ').trim();
 const contactFree=(s:string)=>s.replace(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/giu,'[contacto histórico omitido]').replace(/(?:https?:\/\/|www\.)\S+/giu,'[enlace conservado en la referencia]');
 const cases=new Map(rows(O,'expedientes-artistas').map(r=>[r.key,r]));
 const synth=new Map(rows(O,'sintesis-artistas').map(r=>[r.key,r]));
@@ -219,7 +218,7 @@ if(phase==='publications'){
     const raw=String(t.texto_creditos);let piece=raw.split(/\s+(?:letras?|música|producido)\s*(?:por\s*)?:/iu)[0]!.trim();let performer:string|null=null;
     if(/Paramo Pictures:/.test(r.titulo_fuente)){const split=piece.split(' - ');piece=split[0]!.trim();performer=split.slice(1).join(' - ').trim()||null;}
     else if(r.titulo_fuente==='venus mixes'){const split=piece.split(' - ');performer=split.pop()!.trim();piece=split.join(' - ').trim();}
-    const occupied=(await ctx.client.query('SELECT id,title FROM public.tracks WHERE album_id=$1 AND disc_number=1 AND track_number=$2',[albumId,t.numero])).rows[0];let tid:number|null=null;
+    const occupied=(await ctx.client.query('SELECT id,title FROM public.tracks WHERE album_id=$1 AND disc_number=1 AND track_number=$2',[albumId,t.numero])).rows[0];let tid:number|undefined;
     if(occupied){if(key(occupied.title)===key(piece))tid=Number(occupied.id);else{log('pistas-conflicto',{albumId,number:t.numero,catalogTitle:occupied.title,sourceTitle:piece,raw});continue;}}
     else {const tr=await createEntity(ctx,'track',{title:piece,track_number:t.numero,disc_number:1},{albumId,allowSimilar:true});tid=tr.id;inc('tracks_created');}
     if(performer){await ctx.client.query('SAVEPOINT trackcredit');try{await credit(ctx,albumId,performer,r.titulo_fuente==='venus mixes'?'Remezcla':'Intérprete',r.titulo_fuente==='venus mixes'?'mixing':'musician',tid!);}catch(e){await ctx.client.query('ROLLBACK TO SAVEPOINT trackcredit');log('creditos-revision',{albumId,trackId:tid,name:performer,error:String(e)});}await ctx.client.query('RELEASE SAVEPOINT trackcredit');}
@@ -254,7 +253,6 @@ if(phase==='credits'){
 if(phase==='documents'){
  const aliases=new Map<number,string[]>();for(const a of (await pool.query('SELECT artist_id,alias FROM ingest.artist_aliases')).rows){const id=Number(a.artist_id);aliases.set(id,[...(aliases.get(id)??[]),a.alias]);}
  for(const r of rows(O,'documentos-extraidos')){
-  const source=existsSync(r.source.file)?readFileSync(r.source.file,'utf8'):'';
   for(const i of r.items){
    if(excluded.has(i.artistId))continue;
    const art=artists.get(i.artistId);if(!art)continue;

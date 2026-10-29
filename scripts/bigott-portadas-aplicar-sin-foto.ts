@@ -1,6 +1,6 @@
 // Asignación directa de las portadas de Fundación Bigott SOLO a los discos que
 // no tienen imagen. Los que ya tienen portada siguen como aportes pendientes.
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { closeDb, getPool } from '../src/db/client.js';
 import { decideClaimReview, getClaimReviewGroup } from '../src/review/visual-workbench.js';

@@ -61,7 +61,7 @@ const [claims, audit, members, albums, genres, social, streaming, homonyms] = aw
 ]);
 
 // Captura local de Metal Archives (si está): filas cuyo nombre casa, con ciudad y plantilla.
-let maRows: Array<Record<string, unknown>> = [];
+const maRows: Array<Record<string, unknown>> = [];
 if (existsSync(MA)) {
   const target = baseName(String(artist["name"]));
   for (const line of readFileSync(MA, "utf8").split("\n")) {

@@ -7,7 +7,7 @@
 // discos → artista) en un run del operador; cada retiro guarda su snapshot en la auditoría.
 //
 // Uso: ./scripts/with-node22.sh npx tsx scripts/limpiar-gillman-2026-10-15.ts [--confirm]
-import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { closeDb, getPool } from "../src/db/client.js";
 import { deleteEntity, withOperatorRun } from "../src/merge/operator.js";
