@@ -21,7 +21,7 @@ let database, api, web, browser;
 try {
   database = await startPgContainer();
   Object.assign(process.env, {
-    DATABASE_URL: database.databaseUrl, CRV_OPERATOR_TOKEN: "", CRV_HERRA_DB_PATH: "",
+    DATABASE_URL: database.databaseUrl, CRV_AUTH_BACKEND: "legacy", CRV_OPERATOR_TOKEN: "", CRV_HERRA_DB_PATH: "",
     CRV_SESSION_COOKIE_PATH: "/", CRV_CURATION_AUTOSCAN: "false", CRV_CURATION_AUTOFIX: "false", LOG_LEVEL: "error",
     CRV_COLLABORATORS_JSON: JSON.stringify([
       { username: "qa.admin", name: "QA Admin", passwordHash, role: "admin" },
