@@ -43,6 +43,25 @@ export function angleVector(degrees: number, distance: number) {
   const radians = degrees * Math.PI / 180;
   return { x: Math.sin(radians) * distance, y: -Math.cos(radians) * distance };
 }
+/** Animaciones que hacen recorrer el degradado a lo largo de su propio eje. */
+export const FLOWING_NAME_ANIMATIONS: ReadonlySet<NameStyle["animation"]> = new Set(["wave", "flow", "sparkle"]);
+/**
+ * Geometría del degradado. Un periodo repite inicio → centro → final (85 %) →
+ * inicio, así el recorrido se repite sin salto. Si el color fluye, cada letra
+ * muestra un tramo del periodo (2,3 veces su caja); si no, el periodo cabe en
+ * la letra y se ven los tres colores. En «flow», cada letra se desplaza lo que
+ * avanza sobre el eje para que el color sea continuo a lo largo del nombre.
+ */
+export function nameGradientGeometry(style: NameStyle) {
+  const radians = style.gradientAngle * Math.PI / 180;
+  const along = (0.6 + style.tracking / style.size) * Math.sin(radians);
+  const line = Math.abs(along) + Math.abs(1.45 * Math.cos(radians));
+  return {
+    period: FLOWING_NAME_ANIMATIONS.has(style.animation) ? 2.3 : 1 / 0.85,
+    center: Math.min(style.colorStop, 85),
+    letterShift: style.animation === "flow" && line > 0 ? -100 * along / line : 0,
+  };
+}
 /** Huella real del nombre: giro, movimiento y sombra tienen espacio propio. */
 export function nameStyleBounds(width: number, height: number, style: NameStyle) {
   const radians = style.rotation * Math.PI / 180;
@@ -51,7 +70,8 @@ export function nameStyleBounds(width: number, height: number, style: NameStyle)
     height: Math.ceil(Math.abs(width * Math.sin(radians)) + Math.abs(height * Math.cos(radians)) + pad * 2) };
 }
 export const NAME_STYLE_REFERENCES = [
-  { code: "loby", name: "Loby", sample: "ℓσв𝓎", style: nameStyleSchema.parse({ family: "sans", size: 17, italic: true, tracking: -0.7, colors: ["#080507", "#680d10", "#e4383a"], shadowColor: "#510608", outlineColor: "#2b0809", outlineWidth: 0.25, duration: 2.15, stagger: -0.22 }) },
-  { code: "bunnita", name: "Bunnita", sample: "Bunnita", style: nameStyleSchema.parse({ family: "serif", size: 19, italic: true, tracking: -0.15, colors: ["#db64a3", "#fff1ab", "#ffa4d7"], shadowColor: "#874269", shadowBlur: 2, outlineColor: "#f6f2e6", outlineWidth: 0.4, duration: 3.6, prefix: "˙ ", suffix: " °" }) },
-  { code: "enana", name: "Enana", sample: "∥[Enana♥]∥", style: nameStyleSchema.parse({ family: "script", size: 18, italic: true, tracking: -0.45, colors: ["#c42767", "#ff6fa6", "#fff1f8"], shadowColor: "#ff56a1", shadowBlur: 5, outlineColor: "#ffe2ed", outlineWidth: 0.5, duration: 2.4, animation: "sparkle", prefix: "♀ " }) },
+  // Como en la captura: el degradado sube de abajo arriba (0°) y el color lo recorre.
+  { code: "loby", name: "Loby", sample: "ℓσв𝓎", description: "Negro y rojo que suben por cada letra", style: nameStyleSchema.parse({ family: "sans", size: 17, italic: true, tracking: -0.7, colors: ["#080507", "#680d10", "#e4383a"], gradientAngle: 0, shadowColor: "#510608", outlineColor: "#2b0809", outlineWidth: 0.25, duration: 2.15, stagger: -0.22 }) },
+  { code: "bunnita", name: "Bunnita", sample: "Bunnita", description: "Rosa y oro en ola suave", style: nameStyleSchema.parse({ family: "serif", size: 19, italic: true, tracking: -0.15, colors: ["#db64a3", "#fff1ab", "#ffa4d7"], gradientAngle: 0, shadowColor: "#874269", shadowBlur: 2, outlineColor: "#f6f2e6", outlineWidth: 0.4, duration: 3.6, prefix: "˙ ", suffix: " °" }) },
+  { code: "enana", name: "Enana", sample: "∥[Enana♥]∥", description: "Fucsia con destellos por letra", style: nameStyleSchema.parse({ family: "script", size: 18, italic: true, tracking: -0.45, colors: ["#c42767", "#ff6fa6", "#fff1f8"], gradientAngle: 0, shadowColor: "#ff56a1", shadowBlur: 5, outlineColor: "#ffe2ed", outlineWidth: 0.5, duration: 2.4, stagger: -0.12, animation: "sparkle", prefix: "♀ " }) },
 ] as const;

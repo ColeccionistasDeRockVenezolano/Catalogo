@@ -22,7 +22,7 @@ try {
   const actor = { id: "qa-editor", handle: "editor", displayName: "Coleccionista", avatarSeed: "qa", isBot: false, equipped };
   const room = { id: 1, slug: "general", name: "La Rockola", description: "", slowModeSeconds: 0, theme: {} };
   let effects = NAME_STYLE_REFERENCES.map((ref) => ({ code: ref.code, name: ref.name, kind: "name", description: "Referencia", manifest: { version: 1, layers: [], nameStyle: ref.style, cost: 2, reducedMotion: "static", triggers: ["always"] }, priceCoins: 25, priceCredits: 2, sort: 100, durationDays: null, enabled: true, owned: true, equipped: ref.code === "loby" }));
-  const writes: Array<{ priceCoins: number; manifest: { nameStyle: { rotation: number; gradientAngle: number } } }> = [];
+  const writes: Array<{ priceCoins: number; manifest: { nameStyle: { rotation: number; gradientAngle: number; motionAngle: number } } }> = [];
   await page.route(/\/curation\//, (route) => route.fulfill({ json: { jobs: [], items: [], queued: 0, running: 0 } }));
   await page.routeWebSocket(/\/chat\/ws\?/, (socket) => socket.send(JSON.stringify({ type: "snapshot", actor, room, me: { coins: 100, credits: 10 }, users: [actor], effects, messages: [1, 2].map((id) => ({ id, roomId: 1, actorId: actor.id, handle: actor.handle, displayName: actor.displayName, kind: "chat", body: `Mensaje ${id}`, effectCode: null, createdAt: new Date().toISOString(), equipped })) })));
   await page.route(/\/(?:api\/)?auth\/me(?:\?.*)?$/, (route) => route.fulfill({ json: { user: { username: "qa", name: "QA", role: "admin" }, csrf: "qa-csrf" } }));
@@ -52,19 +52,42 @@ try {
   assert.equal(messageBounds.rowPadding, "9px");
   await page.getByRole("button", { name: "Tienda de efectos", exact: true }).click();
   await page.getByRole("button", { name: "Abrir editor de estilos", exact: true }).click();
+  // Las tres plantillas animan: dos fotogramas del escaparate son distintos.
+  const animated: Record<string, boolean> = {};
+  for (const reference of NAME_STYLE_REFERENCES) {
+    await page.getByRole("button", { name: reference.name, exact: true }).click();
+    const stage = page.locator(".ne-stage-name .crv-styled-name");
+    await expect(stage).toHaveClass(/is-live/);
+    const first = await stage.screenshot();
+    await page.waitForTimeout(450);
+    animated[reference.code] = !first.equals(await stage.screenshot());
+  }
+  assert.deepEqual(animated, { loby: true, bunnita: true, enana: true }, "Loby, Bunnita y Enana se mueven");
   await page.getByRole("button", { name: "Bunnita", exact: true }).click();
+  await page.getByRole("tab", { name: "Tienda", exact: true }).click();
   await page.getByLabel("Precio en monedas", { exact: true }).fill("175");
   await page.getByLabel("Precio en créditos", { exact: true }).fill("12");
+  await page.getByRole("tab", { name: "Texto", exact: true }).click();
   await page.getByLabel("Giro del nombre (°): grados", { exact: true }).fill("37");
+  await page.getByRole("tab", { name: "Color", exact: true }).click();
   await page.getByLabel("Ángulo del degradado (°): grados", { exact: true }).fill("271");
+  await page.getByRole("tab", { name: "Movimiento", exact: true }).click();
+  await page.getByRole("radio", { name: /^Flotar/ }).check();
   await page.getByLabel("Dirección del movimiento (°): grados", { exact: true }).fill("123");
+  await expect(page.getByText("Cambios sin guardar", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Guardar cambios", exact: true }).click();
   await expect(page.getByRole("status").filter({ hasText: "Guardado. El estilo" })).toBeVisible();
   assert.equal(writes[0]!.priceCoins, 175);
   assert.equal(writes[0]!.manifest.nameStyle.rotation, 37);
   assert.equal(writes[0]!.manifest.nameStyle.gradientAngle, 271);
+  assert.equal(writes[0]!.manifest.nameStyle.motionAngle, 123);
+  // Deshacer agrupa cada control: un paso devuelve el ángulo, no cada tecla.
+  await page.getByLabel("Dirección del movimiento (°): grados", { exact: true }).fill("200");
+  await page.getByRole("button", { name: "Deshacer", exact: true }).click();
+  await expect(page.getByLabel("Dirección del movimiento (°): grados", { exact: true })).toHaveValue("123");
   await page.getByLabel("Producto existente", { exact: true }).selectOption("loby");
   await page.getByLabel("Producto existente", { exact: true }).selectOption("bunnita");
+  await page.getByRole("tab", { name: "Tienda", exact: true }).click();
   await expect(page.getByLabel("Precio en monedas", { exact: true })).toHaveValue("175");
   const bounds = await page.locator(".name-editor-scene").evaluate((scene) => {
     const nick = scene.querySelector(".crv-styled-name")!.getBoundingClientRect();
@@ -74,9 +97,13 @@ try {
   });
   assert(bounds.nicknameBottom <= bounds.messageTop, "El nombre no invade el mensaje");
   assert.equal(bounds.overflow, false, "Sin desbordamiento horizontal");
+  await page.getByRole("tab", { name: "Color", exact: true }).click();
   await page.locator(".name-editor").evaluate((element) => element.scrollTop = 0);
   await page.screenshot({ path: `${output}/editor-${viewport.width}.png` });
+  await page.locator(".name-editor").evaluate((element) => element.scrollTop = element.scrollHeight);
+  await page.screenshot({ path: `${output}/editor-${viewport.width}-scrolled.png` });
   // Caso extremo: giro vertical y nombre largo, la siguiente línea queda fuera de su huella.
+  await page.getByRole("tab", { name: "Texto", exact: true }).click();
   await page.getByLabel("Giro del nombre (°): grados", { exact: true }).fill("90");
   await page.getByLabel("Nombre para probar", { exact: true }).fill("Nombre muy largo con espacios");
   await page.getByRole("button", { name: "Pausar animación", exact: true }).click();
@@ -89,5 +116,5 @@ try {
   await context.close();
  }
  await writeFile(`${output}/results.json`, JSON.stringify(results, null, 2));
- console.log("Editor QA: guardar precios y ángulos, recargar, márgenes, escritorio y móvil: OK");
+ console.log("Editor QA: plantillas animadas, guardar precios y ángulos, deshacer, recargar, márgenes, escritorio y móvil: OK");
 } finally { await browser.close(); }
