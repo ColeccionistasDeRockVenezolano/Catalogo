@@ -108,7 +108,7 @@ export function registerGenreRoutes(app: FastifyInstance, auth: CotejoAuth): voi
   app.post("/api/genres/decisions", async (request, reply) => {
     try {
       // Primero la sesión: sin administrador no se valida ni se toca nada.
-      const user = auth.requireAdmin(request);
+      const user = await auth.requireAdmin(request);
       const body = decisionBody.parse(request.body ?? {});
       return await decideGenre({ ...body, actor: user.actor });
     } catch (error) {
@@ -118,7 +118,7 @@ export function registerGenreRoutes(app: FastifyInstance, auth: CotejoAuth): voi
 
   app.post("/api/genres/batch", async (request, reply) => {
     try {
-      const user = auth.requireAdmin(request);
+      const user = await auth.requireAdmin(request);
       const body = batchBody.parse(request.body ?? {});
       return await applyGenreBatch({ ...body, actor: user.actor });
     } catch (error) {

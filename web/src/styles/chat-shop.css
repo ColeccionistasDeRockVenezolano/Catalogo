@@ -1,0 +1,81 @@
+/* Tienda: catálogo y probador conservan posiciones de scroll independientes. */
+.chat-sheet-shop { height: 92dvh; max-height: 92dvh; }
+.chat-sheet-shop > header { flex: none; padding: 18px 24px 12px; }
+.chat-sheet-shop > header h2 { font-size: 18px; }
+.chat-sheet-shop > .chat-sheet-body { flex: 1; display: flex; flex-direction: column; min-height: 0; padding: 0; overflow: hidden; }
+.chat-sheet-shop .name-editor-toolbar { flex: none; margin: 0; padding: 8px 24px; }
+.chat-sheet-shop .name-editor { overflow-y: auto; padding: 16px 24px; }
+.crv-shop { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+.crv-shop-intro { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 4px 24px 20px; }
+.crv-shop-intro h3 { margin: 0 0 6px; font-size: 24px; line-height: 1.2; letter-spacing: -.025em; }
+.crv-shop-intro p { margin: 0; color: var(--text-muted); font-size: 13px; }
+.crv-shop-intro .chat-wallet-line { flex: none; display: grid; grid-template-columns: auto auto; gap: 4px 8px; padding: 10px 14px; background: var(--surface-2); border-radius: 12px; color: var(--amber); font-variant-numeric: tabular-nums; }
+.crv-shop-intro .chat-wallet-line span { grid-column: 2; color: var(--text-muted); font-size: 12px; font-weight: 400; }
+.crv-shop-workspace { display: grid; grid-template-columns: 310px minmax(0, 1fr); flex: 1; min-height: 0; border-top: 1px solid var(--border); }
+.crv-shop-fitting { min-width: 0; overflow-y: auto; background: var(--bg); border-right: 1px solid var(--border); }
+.crv-shop .crv-probador { position: relative; top: auto; min-height: 200px; margin: 0; padding: 36px 16px 48px; border: 0; border-bottom: 1px solid var(--border); }
+.crv-shop .crv-probador-row { gap: 10px; }
+.crv-shop .crv-probador-bubble { padding: 12px; }
+.crv-shop .crv-probador-bubble header .crv-name { font-size: 15px; }
+.crv-shop .chat-effect-detail, .crv-shop-hint { padding: 20px; margin: 0; border: 0; }
+.crv-shop .chat-effect-detail h3, .crv-shop-hint h3 { margin: 0 0 10px; font-size: 18px; line-height: 1.3; }
+.crv-shop .chat-effect-detail p, .crv-shop-hint p { color: var(--text-muted); font-size: 13px; line-height: 1.6; margin: 0 0 12px; }
+.crv-shop .chat-effect-meta { color: var(--text-muted) !important; }
+.crv-shop .chat-effect-actions > button { flex: 1; min-height: 42px; }
+.crv-shop-catalog { min-width: 0; min-height: 0; overflow-y: auto; padding: 20px 24px 28px; overscroll-behavior: contain; scrollbar-color: var(--surface-3) var(--surface); scrollbar-width: thin; }
+.crv-shop .chat-kind-tabs { gap: 8px; padding: 0 0 16px; }
+.crv-shop .chat-kind-tabs button { min-height: 40px; padding: 8px 14px; font-size: 13px; }
+.crv-shop .crv-shop-filters { padding: 0 0 20px; gap: 12px; }
+.crv-shop .crv-chip-group button { border-color: transparent; background: transparent; }
+.crv-shop .crv-chip-group button.is-active { background: var(--surface-3); border-color: var(--border); color: var(--text); }
+.crv-shop-category-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 16px; }
+.crv-shop-category-heading h3 { margin: 0; font-size: 17px; }
+.crv-shop-category-heading > span { color: var(--text-muted); font-size: 12px; }
+.crv-shop .chat-effect-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.crv-shop .chat-effect-card { position: relative; gap: 10px; min-height: 208px; padding: 12px; background: var(--surface); border-color: var(--border); border-radius: 12px; }
+.crv-shop .chat-effect-card:hover { border-color: var(--text-muted); }
+.crv-shop .chat-effect-card.is-selected { border-color: var(--red); }
+.crv-shop .chat-effect-preview { justify-content: center; min-height: 96px; width: 100%; border-radius: 8px; background: var(--bg); padding: 12px 6px; }
+.crv-shop .chat-effect-preview .crv-name { font-size: 16px; max-width: 100%; }
+.crv-shop .chat-effect-name { font-size: 14px; line-height: 1.4; }
+.crv-shop .crv-card-foot { flex-direction: column; align-items: flex-start; gap: 8px; }
+.crv-shop .chat-effect-price { font-size: 13px; color: var(--text); font-weight: 600; }
+.crv-card-trial { font-size: 11px; color: var(--text-muted); }
+.crv-shop .chat-effect-card.is-selected .crv-card-trial { color: var(--text); }
+.crv-shop .crv-shop-empty { padding: 32px 0; }
+.crv-shop :is(button, select, [tabindex]):focus-visible, .crv-shop-catalog:focus-visible { outline: 2px solid var(--red); outline-offset: -2px; }
+@media (min-width: 800px) {
+  .chat-sheet-shop { max-width: 1080px; width: calc(100% - 48px); border-radius: 18px; border-bottom: 1px solid var(--border); }
+}
+@media (min-width: 1100px) {
+  .crv-shop .chat-effect-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 799px) {
+  .chat-sheet-shop { max-width: 100%; height: 96dvh; max-height: 96dvh; border-radius: 20px 20px 0 0; }
+  .chat-sheet-shop > header { padding: 12px 16px 8px; }
+  .chat-sheet-shop > header h2 { font-size: 16px; }
+  .crv-shop-intro { padding: 4px 16px 12px; gap: 10px; }
+  .crv-shop-intro h3 { font-size: 18px; }
+  .crv-shop-intro p { font-size: 12px; }
+  .crv-shop-intro .chat-wallet-line { padding: 8px 10px; font-size: 12px; }
+  .crv-shop-workspace { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .crv-shop-fitting { border-right: 0; border-bottom: 1px solid var(--border); overflow: hidden; }
+  .crv-shop .crv-probador { min-height: 124px; padding: 12px 16px 34px; }
+  .crv-shop .crv-probador-bubble { padding: 8px 12px; }
+  .crv-shop .crv-probador-bubble p { margin-top: 4px; }
+  .crv-shop .chat-effect-detail, .crv-shop-hint { height: 140px; overflow-y: auto; padding: 10px 16px; }
+  .crv-shop .chat-effect-detail h3, .crv-shop-hint h3 { margin-bottom: 4px; font-size: 15px; }
+  .crv-shop .chat-effect-detail p, .crv-shop-hint p { font-size: 12px; margin-bottom: 4px; }
+  .crv-shop .chat-effect-actions { margin-top: 6px; }
+  .crv-shop .chat-effect-actions > button { min-height: 36px; padding: 6px 10px; }
+  .crv-shop-catalog { padding: 14px 16px 24px; }
+  .crv-shop .chat-kind-tabs { padding-bottom: 12px; }
+  .crv-shop .crv-shop-filters { padding-bottom: 14px; }
+  .crv-shop .chat-effect-grid { gap: 12px; }
+  .crv-shop .chat-effect-card { min-height: 190px; }
+}
+@media (max-height: 650px) and (max-width: 799px) {
+  .crv-shop-intro { display: none; }
+  .crv-shop .crv-probador { min-height: 100px; }
+  .crv-shop .chat-effect-detail, .crv-shop-hint { height: 110px; }
+}

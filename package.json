@@ -97,7 +97,9 @@
     "search:human:import": "./scripts/with-node22.sh tsx scripts/search-human-evaluation-import.ts",
     "search:genres:audit": "./scripts/with-node22.sh tsx scripts/unified-search-genre-audit.ts",
     "search:similarity": "./scripts/with-node22.sh tsx scripts/unified-search-similarity.ts",
-    "cache:clear": "./scripts/with-node22.sh tsx scripts/clear-catalog-cache.ts"
+    "cache:clear": "./scripts/with-node22.sh tsx scripts/clear-catalog-cache.ts",
+    "auth:import-herra": "./scripts/with-node22.sh tsx scripts/import-herra-postgres.ts",
+    "auth:provision-herra": "./scripts/with-node22.sh tsx scripts/provision-herra-postgres.ts"
   },
   "dependencies": {
     "@fastify/cors": "^11.3.0",

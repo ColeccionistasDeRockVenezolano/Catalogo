@@ -85,3 +85,19 @@ inicio válido. Vincular capítulos a pistas existentes por título o alias
 exacto; conservar sin asignar las repeticiones ambiguas y enviar las marcas
 fuera de la duración a revisión. No estimar marcas sumando duraciones ni crear pistas por este
 proceso. Ver [docs/YOUTUBE_TRACK_PLAYBACK.md](docs/YOUTUBE_TRACK_PLAYBACK.md).
+
+# Productos del chat
+
+Los nombres solo usan efectos sobre el texto y estilos. Las badges o placas
+son un producto independiente (`badge`) y se muestran a la derecha del nombre.
+Pueden ser estáticas o animadas; las animadas incluyen alternativa estática.
+No mezclar placas, sprites ni personajes con el producto de efectos del nombre.
+El catálogo anterior fue eliminado por Brian; no resembrar efectos antiguos.
+
+# Cuentas y sesiones
+
+CRV y la instancia Herra de CRV usan la misma base PostgreSQL, esquema `auth`.
+Herra administra las cuentas; API, chat y Mesa de Cotejo consultan esas mismas
+filas. No sincronizar ni reactivar la SQLite histórica como fuente de cuentas.
+Las sesiones son persistentes y las versiones se revocan desde PostgreSQL.
+Ver [docs/UNIFIED_AUTH.md](docs/UNIFIED_AUTH.md) para operación y recuperación.

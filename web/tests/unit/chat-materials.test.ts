@@ -5,15 +5,13 @@ import { manifestOf } from "../../src/lib/chatEffects";
 import type { ChatEffect } from "../../../src/chat/protocol";
 
 describe("materiales del chat", () => {
-  it("cada familia se ofrece para nombre, avatar y mensaje con contrato válido en ambos extremos", () => {
+  it("los motores siguen admitiendo nuevos manifiestos sin vender los retirados", () => {
+    expect(EFFECT_CATALOG).toEqual([]);
     for (const preset of MATERIAL_PRESETS) {
-      const variants = EFFECT_CATALOG.filter((effect) => effect.manifest.layers.some((layer) => layer.type === "material" && layer.preset === preset));
-      expect(variants.map((effect) => effect.kind).sort()).toEqual(["frame", "message", "name"]);
-      for (const effect of variants) {
-        expect(effectManifestSchema.safeParse(effect.manifest).success).toBe(true);
-        expect(manifestOf(effect as unknown as ChatEffect)?.layers[0]?.type).toBe("material");
-        expect(effect.manifest.layers[0]?.colors).toHaveLength(6);
-      }
+      const manifest = { version: 1, triggers: ["always"], cost: 4,
+        reducedMotion: "static", layers: [{ type: "material", preset }] };
+      expect(effectManifestSchema.safeParse(manifest).success).toBe(true);
+      expect(manifestOf({ manifest } as unknown as ChatEffect)?.layers[0]?.preset).toBe(preset);
     }
   });
   it("las compras anteriores conservan código y reciben el material compatible", () => {

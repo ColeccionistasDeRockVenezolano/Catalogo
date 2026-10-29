@@ -23,6 +23,7 @@ export const equippedSchema = z.object({
   background: z.string().nullable(),
   ambient: z.string().nullable(),
   name_font: z.string().nullable(),
+  badge: z.string().nullable().default(null),
 });
 export type Equipped = z.infer<typeof equippedSchema>;
 
@@ -71,6 +72,7 @@ export const chatEffectSchema = z.object({
   priceCredits: z.number().int(),
   durationDays: z.number().int().nullable(),
   sort: z.number().int(),
+  enabled: z.boolean().optional(),
   owned: z.boolean(),
   equipped: z.boolean(),
 });

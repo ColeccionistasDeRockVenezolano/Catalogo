@@ -20,7 +20,7 @@ try {
     try {
       page.on("pageerror", (error) => errors.push(error.message));
       await page.addInitScript("window.__name = (fn) => fn");
-      const equipped = { name: "murcielago", frame: "anillo-fuego", background: null, ambient: null, name_font: null };
+      const equipped = { name: "murcielago", frame: "anillo-fuego", background: null, ambient: null, name_font: null, badge: null };
       const actor = { id: "fixture-window", handle: "ensayo", displayName: "Nina Discos", avatarSeed: "nina", isBot: false, equipped };
       const message = (id: number) => ({ id, roomId: 1, actorId: actor.id, handle: actor.handle, displayName: actor.displayName,
         kind: "chat", body: `Archivo ${id}`, effectCode: null, createdAt: new Date().toISOString(), equipped });

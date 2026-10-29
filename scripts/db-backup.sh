@@ -14,6 +14,7 @@
 #
 #   uso: scripts/db-backup.sh [directorio-destino]      (por defecto $CRV_BACKUP_ROOT o /mnt/datos/backups/crv)
 set -euo pipefail
+umask 077
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
@@ -123,6 +124,7 @@ IFS='|' read -r db_encoding db_collate db_ctype < <(psql_q -c "SELECT pg_encodin
   echo "db_container=$CONTAINER"
   echo "db_name=$PGDB"
   echo "db_owner=$PGUSER_"
+  echo "auth_role=$(psql_q -c "SELECT rolname FROM pg_roles WHERE rolname='crv_herra' AND EXISTS (SELECT 1 FROM pg_namespace WHERE nspname='auth')")"
   echo "db_encoding=$db_encoding"
   echo "db_collate=$db_collate"
   echo "db_ctype=$db_ctype"

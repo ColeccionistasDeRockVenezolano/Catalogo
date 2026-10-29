@@ -1,4 +1,4 @@
--- CRV · filas exactas por tabla de los tres schemas del catálogo.
+-- CRV · filas exactas por tabla del catálogo, chat y cuentas.
 -- Lo usan scripts/db-backup.sh (al respaldar) y scripts/db-restore-check.sh
 -- (sobre la base restaurada): los dos archivos deben ser idénticos.
 SELECT format('%I.%I', n.nspname, c.relname) AS table_name,
@@ -7,5 +7,5 @@ SELECT format('%I.%I', n.nspname, c.relname) AS table_name,
   FROM pg_class c
   JOIN pg_namespace n ON n.oid = c.relnamespace
  WHERE c.relkind IN ('r', 'p')
-   AND n.nspname IN ('public', 'ingest', 'media')
+   AND n.nspname IN ('public', 'ingest', 'media', 'chat', 'auth')
  ORDER BY 1;

@@ -5,40 +5,15 @@
 // test falla antes de que llegue a producción.
 import { describe, expect, it } from "vitest";
 import {
-  EFFECT_CATALOG, EFFECT_KINDS, EFFECT_PRESETS, EFFECTS_BY_CODE, effectManifestSchema,
+  EFFECT_CATALOG, EFFECT_PRESETS, EFFECTS_BY_CODE, effectManifestSchema, effectProductSchema,
   isEquippable, type EffectKind,
 } from "../../src/chat/effects-catalog.js";
 import { clientEventSchema, equippedSchema, MAX_BODY } from "../../src/chat/protocol.js";
 
 describe("catálogo de efectos del chat", () => {
-  it("tiene al menos 30 efectos y códigos únicos", () => {
-    expect(EFFECT_CATALOG.length).toBeGreaterThanOrEqual(30);
-    const codes = EFFECT_CATALOG.map((effect) => effect.code);
-    expect(new Set(codes).size).toBe(codes.length);
-  });
-
-  it("cada manifiesto cumple el esquema", () => {
-    for (const effect of EFFECT_CATALOG) {
-      const parsed = effectManifestSchema.safeParse(effect.manifest);
-      expect(parsed.success, `${effect.code}: ${parsed.success ? "" : parsed.error.message}`).toBe(true);
-    }
-  });
-
-  it("solo usa presets que el renderer sabe pintar", () => {
-    for (const effect of EFFECT_CATALOG) {
-      for (const layer of effect.manifest.layers) {
-        expect(EFFECT_PRESETS, `${effect.code}/${layer.preset}`).toContain(layer.preset);
-      }
-    }
-  });
-
-  it("respeta el contrato de precios y duración", () => {
-    for (const effect of EFFECT_CATALOG) {
-      expect(effect.priceCoins).toBeGreaterThanOrEqual(0);
-      expect(effect.priceCredits).toBeGreaterThanOrEqual(0);
-      if (effect.durationDays !== null) expect(effect.durationDays).toBeGreaterThan(0);
-      expect(EFFECT_KINDS).toContain(effect.kind);
-    }
+  it("no publica efectos antiguos en ninguna categoría", () => {
+    expect(EFFECT_CATALOG).toEqual([]);
+    expect(EFFECTS_BY_CODE.size).toBe(0);
   });
 
   it("un efecto de nombre o marco se puede equipar; uno de mensaje, no", () => {
@@ -82,24 +57,14 @@ describe("protocolo del chat", () => {
     expect(clientEventSchema.safeParse({ type: "equip", slot: "cabeza", effectCode: "neon" }).success).toBe(false);
   });
 
-  it("el equipado siempre tiene las cinco ranuras", () => {
+  it("el equipado incluye la ranura independiente de placas", () => {
     expect(equippedSchema.safeParse({ name: null, frame: null, background: null, ambient: null, name_font: null }).success).toBe(true);
     expect(equippedSchema.safeParse({ name: "neon" }).success).toBe(false);
   });
 
   it("acepta una fuente en su propia ranura", () => {
     expect(clientEventSchema.safeParse({ type: "equip", slot: "name_font", effectCode: "math-fraktur-bold" }).success).toBe(true);
-    expect(EFFECTS_BY_CODE.get("math-fraktur-bold")?.kind).toBe("name_font");
     expect(isEquippable("name_font")).toBe(true);
-  });
-
-  it("incluye los cinco efectos de texto tipo React Bits", () => {
-    for (const code of ["descifrado", "glitch-rgb", "warp", "foco-real", "fuzzy"]) {
-      const effect = EFFECTS_BY_CODE.get(code);
-      expect(effect, code).toBeDefined();
-      expect(effect?.kind).toBe("name");
-      expect(effect?.manifest.layers[0]?.type).toBe("css");
-    }
   });
 
   it("no permite presets fuera del catálogo del renderer", () => {
@@ -111,25 +76,30 @@ describe("protocolo del chat", () => {
   });
 });
 
-
-describe("catálogo de coreografías y escenas", () => {
-  it("incluye los ocho personajes y partículas que nacen de las letras", () => {
-    const presets = EFFECT_CATALOG.flatMap((effect) => effect.manifest.layers);
-    for (const preset of ["bat-orbit", "drumsticks", "ufo-abduct", "vinyl-roll", "guitar-wave", "skull-headbang", "lightning", "rockerito"]) {
-      expect(presets.some((layer) => layer.type === "choreo" && layer.preset === preset), preset).toBe(true);
-    }
-    for (const preset of ["flames", "sparks", "snow", "notes"]) {
-      expect(presets.some((layer) => layer.type === "canvas" && layer.origin === "letters" && layer.preset === preset), preset).toBe(true);
-    }
+describe("placas como producto independiente", () => {
+  const base = { version: 1, triggers: ["always"], layers: [], cost: 1 };
+  it("admite placas estáticas y animadas con alternativa estática", () => {
+    expect(effectProductSchema.safeParse({ kind: "badge", manifest: {
+      ...base, badge: { imageUrl: "/media/placa.webp" },
+    } }).success).toBe(true);
+    expect(effectProductSchema.safeParse({ kind: "badge", manifest: {
+      ...base, badge: { imageUrl: "/media/placa-animada.webp", animated: true, staticImageUrl: "/media/placa.webp" },
+    } }).success).toBe(true);
+    expect(effectProductSchema.safeParse({ kind: "badge", manifest: {
+      ...base, badge: { imageUrl: "/media/placa-animada.webp", animated: true },
+    } }).success).toBe(false);
   });
-
-  it("las escenas duran entre 1,5 y 2,5 segundos y los stickers tienen arte", () => {
-    for (const effect of EFFECT_CATALOG) {
-      if (effect.manifest.layers.some((layer) => layer.type === "scene")) {
-        expect(effect.manifest.durationMs).toBeGreaterThanOrEqual(1500);
-        expect(effect.manifest.durationMs).toBeLessThanOrEqual(2500);
-      }
-      if (effect.kind === "sticker") expect(effect.manifest.layers.some((layer) => layer.type === "sprite")).toBe(true);
-    }
+  it("no mezcla placas y adornos con los efectos de nombre", () => {
+    expect(effectProductSchema.safeParse({ kind: "name", manifest: {
+      ...base, badge: { imageUrl: "/media/placa.webp" },
+    } }).success).toBe(false);
+    expect(effectProductSchema.safeParse({ kind: "name", manifest: {
+      ...base, layers: [{ type: "sprite", preset: "guitar" }],
+    } }).success).toBe(false);
+    expect(effectProductSchema.safeParse({ kind: "name", manifest: {
+      ...base, layers: [{ type: "css", preset: "glow" }],
+    } }).success).toBe(true);
+    expect(isEquippable("badge")).toBe(true);
+    expect(clientEventSchema.safeParse({ type: "equip", slot: "badge", effectCode: "placa-test" }).success).toBe(true);
   });
 });

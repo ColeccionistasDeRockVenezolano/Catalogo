@@ -13,7 +13,7 @@
 |---|---|---|
 | Runtime | Node.js 22 LTS | **la máquina tiene hoy Node v20.20.2**: actualizar en F0 antes de escribir código |
 | Lenguaje | TypeScript (strict) | |
-| Base de datos | PostgreSQL 15+ (probado en 16) | `public` = core canónico inmutable; `ingest` + `media` = auxiliares (DATA_MODEL.md) |
+| Base de datos | PostgreSQL 15+ (probado en 16) | `public` = catálogo; `ingest` + `media` = auxiliares; `chat` = comunidad; `auth` = cuentas y sesiones compartidas (UNIFIED_AUTH.md) |
 | ORM | Drizzle ORM | migraciones; dos clientes de esquema: `public` (solo lectura por app salvo merge engine) y `ingest` |
 | Validación | Zod | contratos de todos los límites: HTTP in/out, payloads de scrapers, payloads de IA, config |
 | HTTP (API) | Fastify | plugins: cors (localhost), static (frontend futuro), swagger |

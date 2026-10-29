@@ -4,6 +4,7 @@
 // Los saldos se mueven siempre dentro de una transacción y con una entrada en
 // el libro mayor; el inventario y las compras son idempotentes.
 import type { PoolClient } from "pg";
+import { generateGuestName } from "./guest-names.js";
 import { EQUIPPED_SLOTS, type EquippedSlot } from "./slots.js";
 import { getPool } from "../db/client.js";
 import { getEnv } from "../config/env.js";
@@ -19,7 +20,7 @@ export class ChatError extends Error {
   }
 }
 
-const EMPTY_EQUIPPED: Equipped = { name: null, frame: null, background: null, ambient: null, name_font: null };
+const EMPTY_EQUIPPED: Equipped = { name: null, frame: null, background: null, ambient: null, name_font: null, badge: null };
 
 function asNumber(value: unknown): number {
   return typeof value === "number" ? value : Number(value);
@@ -53,6 +54,8 @@ export function equippedFromRows(rows: Array<{ slot: string; code: string }>): E
  * conservan su referencia) — se desactivan con enabled=false.
  */
 export async function syncEffectCatalog(): Promise<number> {
+  // Un catálogo sin semillas no debe desactivar las futuras altas del administrador.
+  if (EFFECT_CATALOG.length === 0) return 0;
   const client = await getPool().connect();
   try {
     await client.query("BEGIN");
@@ -188,8 +191,8 @@ export function cleanDisplayName(displayName: string): string {
  * ocupado prueba sufijos; nunca falla por colisión. Guarda IP, navegador y
  * huella de creación para el detector de cuentas en masa.
  */
-export async function createGuestActor(displayName: string, origin?: ChatOrigin): Promise<Actor> {
-  const cleanName = cleanDisplayName(displayName.trim() || "Oyente");
+export async function createGuestActor(displayName = "", origin?: ChatOrigin): Promise<Actor> {
+  const cleanName = cleanDisplayName(displayName.trim() || generateGuestName());
   const base = toHandle(cleanName);
   const client = await getPool().connect();
   try {
@@ -360,6 +363,7 @@ function toChatEffect(row: EffectRow, ownedCodes: Set<string>, equipped: Equippe
     manifest: row.manifest,
     priceCoins: asNumber(row.price_coins), priceCredits: asNumber(row.price_credits),
     durationDays: row.duration_days === null ? null : asNumber(row.duration_days), sort: asNumber(row.sort),
+    enabled: row.enabled,
     owned: ownedCodes.has(row.code),
     equipped: Object.values(equipped).includes(row.code),
   };
@@ -370,14 +374,15 @@ function toChatEffect(row: EffectRow, ownedCodes: Set<string>, equipped: Equippe
  * para que el editor de administración pueda publicar efectos nuevos sin
  * desplegar: chat.effects es la fuente de verdad en runtime.
  */
-export async function effectsFor(actorId: string): Promise<ChatEffect[]> {
+export async function effectsFor(actorId: string, includeDisabled = false): Promise<ChatEffect[]> {
   const [owned, equipped, { rows }] = await Promise.all([
     inventoryFor(actorId),
     equippedFor(actorId),
     getPool().query<EffectRow>(
       `SELECT id, code, name, kind, description, manifest, price_coins, price_credits,
               duration_days, sort, enabled
-       FROM chat.effects WHERE enabled = true ORDER BY kind, sort, id`,
+       FROM chat.effects WHERE ($1::boolean OR enabled = true) ORDER BY kind, sort, id`,
+      [includeDisabled],
     ),
   ]);
   const ownedCodes = new Set(owned.map((item) => item.code));

@@ -5,7 +5,7 @@
 #   2. reinicia crv-web y, con --api, también crv-api
 #   3. comprueba que el gateway responda /crv/ y /crv/api
 #
-# Reiniciar la API cierra las sesiones abiertas: solo con --api, cuando cambió
+# Las sesiones PostgreSQL sobreviven al reinicio: usar --api cuando cambió
 # el backend. Guía: docs/OPERATIONS.md («Publicar el frontend…»).
 #
 #   uso: scripts/deploy.sh [--api]
@@ -27,7 +27,7 @@ if [[ "$restart_api" == yes ]]; then
   # aplicar y «Analizar ahora» corrió durante ese tiempo el motor anterior.
   echo "› migraciones pendientes"
   (cd "$ROOT" && npm run db:migrate)
-  echo "› reiniciando crv-api (las sesiones abiertas se cierran)"
+  echo "› reiniciando crv-api (las sesiones PostgreSQL se conservan)"
   systemctl --user restart crv-api
 fi
 echo "› reiniciando crv-web"

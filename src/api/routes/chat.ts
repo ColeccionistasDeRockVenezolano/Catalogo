@@ -12,11 +12,12 @@ import { EQUIPPED_SLOTS } from "../../chat/slots.js";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { randomUUID } from "node:crypto";
+import { generateGuestName } from "../../chat/guest-names.js";
 import { z } from "zod";
 import { OPERATOR_SECURITY, clientIp, isTrustedOrigin } from "../auth.js";
 import { ApiError } from "../http-errors.js";
 import { dailyDateSchema } from "../daily-cycle.js";
-import { EFFECT_KINDS, effectManifestSchema } from "../../chat/effects-catalog.js";
+import { EFFECT_KINDS, effectProductSchema } from "../../chat/effects-catalog.js";
 import { ChatHub, toChatUser } from "../../chat/realtime.js";
 import { type GuardKind } from "../../chat/guard.js";
 import {
@@ -146,8 +147,13 @@ export async function registerChatRoutes(app: FastifyInstance, hub = new ChatHub
     const secure = request.protocol === "https";
 
     // Renovación: el mismo actor recibe un token nuevo (caducidad corrida).
-    const existing = await tokenActor(request, true);
+    let existing = await tokenActor(request, true);
     if (existing) {
+      // Sustituye el antiguo nombre por defecto sin crear otra identidad.
+      if (existing.kind === "guest" && existing.displayName === "Oyente") {
+        existing = await updateDisplayName(existing.id, generateGuestName());
+        hub.renamed(existing.id, existing.displayName);
+      }
       const token = issueChatToken(existing.id, existing.tokenVersion);
       setChatCookie(reply, token, secure);
       return { actor: toChatUser(existing, await equippedFor(existing.id)), token, wallet: await walletFor(existing.id) };
@@ -166,7 +172,7 @@ export async function registerChatRoutes(app: FastifyInstance, hub = new ChatHub
     }
     budget(reply, "session", { ip: origin.ip ?? "desconocida" });
     try {
-      const actor = await createGuestActor(request.body.displayName ?? "Oyente", origin);
+      const actor = await createGuestActor(request.body.displayName, origin);
       const token = issueChatToken(actor.id, actor.tokenVersion);
       setChatCookie(reply, token, secure);
       const counts = await recentAccountsFrom(origin.ip, origin.fingerprint);
@@ -352,7 +358,7 @@ export async function registerChatRoutes(app: FastifyInstance, hub = new ChatHub
 
   server.get("/chat/admin/effects", {
     schema: { tags: ["chat"], security: OPERATOR_SECURITY },
-  }, async () => ({ effects: await effectsFor("00000000-0000-0000-0000-000000000000") }));
+  }, async () => ({ effects: await effectsFor("00000000-0000-0000-0000-000000000000", true) }));
 
   server.post("/chat/admin/effects", {
     schema: {
@@ -371,7 +377,7 @@ export async function registerChatRoutes(app: FastifyInstance, hub = new ChatHub
       }),
     },
   }, async (request, reply) => {
-    const manifest = effectManifestSchema.safeParse(request.body.manifest);
+    const manifest = effectProductSchema.safeParse({ kind: request.body.kind, manifest: request.body.manifest });
     if (!manifest.success) {
       reply.code(400);
       return {
@@ -380,7 +386,7 @@ export async function registerChatRoutes(app: FastifyInstance, hub = new ChatHub
         issues: manifest.error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })),
       };
     }
-    await upsertEffect({ ...request.body, manifest: manifest.data as unknown as Record<string, unknown> });
+    await upsertEffect({ ...request.body, manifest: manifest.data.manifest as unknown as Record<string, unknown> });
     return { ok: true, code: request.body.code };
   });
 

@@ -36,6 +36,8 @@ export interface EffectLayer {
 
 export interface EffectManifest {
   version: number;
+  nameStyle?: import("../../../src/chat/name-style").NameStyle;
+  badge?: { imageUrl: string; animated: boolean; staticImageUrl?: string };
   triggers: string[];
   layers: EffectLayer[];
   font?: { code: string };
@@ -117,12 +119,15 @@ export function manifestOf(effect: ChatEffect | null | undefined): EffectManifes
   if (!raw || !Array.isArray(raw.layers)) return null;
   const layers = raw.layers.filter(isLayer);
   const font = raw.font && typeof raw.font.code === "string" ? { code: raw.font.code } : undefined;
-  if (layers.length === 0 && !font) return null;
+  const badge = raw.badge && typeof raw.badge.imageUrl === "string" ? raw.badge : undefined;
+  if (layers.length === 0 && !font && !badge && !raw.nameStyle) return null;
   return {
     version: typeof raw.version === "number" ? raw.version : 1,
     triggers: Array.isArray(raw.triggers) ? raw.triggers : ["always"],
     layers,
+    ...(raw.nameStyle ? { nameStyle: raw.nameStyle } : {}),
     ...(font ? { font } : {}),
+    ...(badge ? { badge } : {}),
     reducedMotion: raw.reducedMotion === "hide" ? "hide" : "static",
     cost: typeof raw.cost === "number" ? Math.min(10, Math.max(1, raw.cost)) : 3,
     ...(typeof raw.durationMs === "number" ? { durationMs: raw.durationMs } : {}),

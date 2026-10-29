@@ -5,7 +5,7 @@ import type { ChatMessage } from "../../../src/chat/protocol";
 vi.mock("../../src/lib/api", () => ({ ApiError: class extends Error {}, chatApi: {}, chatSocketUrl: vi.fn() }));
 vi.mock("../../src/lib/useDailyAsync", () => ({ useDailyAsync: vi.fn() }));
 
-const empty = { name: null, frame: null, background: null, ambient: null, name_font: null };
+const empty = { name: null, frame: null, background: null, ambient: null, name_font: null, badge: null };
 const message = (id: number, actorId = "one"): ChatMessage => ({
   id, roomId: 1, actorId, handle: actorId, displayName: actorId, body: `Mensaje ${id}`, kind: "chat",
   createdAt: "2026-10-28T12:00:00Z", effectCode: null, equipped: { ...empty, name: "neon" },

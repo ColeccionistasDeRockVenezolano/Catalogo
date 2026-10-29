@@ -1,17 +1,15 @@
 // CRV · Inicio de sesión de la Mesa de Cotejo con las cuentas de herra
 // (PLAN_GENEROS etapa 3, punto 5).
 //
-// La Mesa usa la MISMA base de cuentas que CRV Catálogo: la SQLite de herra,
-// abierta en solo lectura con la misma verificación scrypt y la misma
-// `session_version` (src/api/herra-accounts.ts). No hay tabla propia de
-// colaboradores ni copias de hashes: altas, bajas y contraseñas se gestionan
-// en herra.
+// La Mesa usa el mismo esquema auth de PostgreSQL que CRV y Herra, con
+// contraseñas scrypt y session_version compartidas. No replica cuentas.
+// SQLite se conserva exclusivamente para rollback con el modo legacy.
 //
 //  * LEER NO EXIGE SESIÓN. La Mesa sigue abierta en el tailnet para mirar.
 //  * ESCRIBIR GÉNEROS SÍ. Sin sesión (o con una que herra invalidó) → 401; con
 //    sesión de usuario aprobado pero sin rol de administrador → 403. Solo los
 //    `admins` del proyecto y el superadministrador escriben.
-//  * EL ACTOR ES LA SESIÓN. `herra:<usuario>`; el servidor ignora cualquier
+//  * EL ACTOR ES LA SESIÓN. `herra:<usuario>` (o `crv:<usuario>` local); ignora cualquier
 //    nombre que mande el navegador. Las escrituras llevan el CSRF de la sesión
 //    en `X-CRV-CSRF`, igual que el catálogo.
 //  * Las demás escrituras de la Mesa (veredictos de careo) no cambian aquí:
@@ -19,8 +17,11 @@
 import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getEnv } from "../config/env.js";
-import { clientIp } from "../api/auth.js";
+import { clientIp, passwordMatches } from "../api/auth.js";
 import { HERRA_DUMMY_HASH, HerraAccounts, herraPasswordMatches, type HerraSessionRef } from "../api/herra-accounts.js";
+
+import { PostgresAccounts, type SharedAccounts } from "../api/postgres-accounts.js";
+import { SessionStore } from "../api/session-store.js";
 
 export const COTEJO_SESSION_COOKIE = "crv_cotejo_session";
 const LOGIN_WINDOW_MS = 15 * 60 * 1000;
@@ -32,7 +33,7 @@ export interface CotejoUser {
   username: string;
   name: string;
   role: "admin" | "reader";
-  /** Firma de las decisiones: `herra:<usuario>`. */
+  /** Firma de las decisiones: `herra:<usuario>` o `crv:<usuario>` para cuentas locales. */
   actor: string;
 }
 
@@ -87,23 +88,25 @@ function trustedOrigin(request: FastifyRequest): boolean {
 
 export interface CotejoAuth {
   /** Usuario de la sesión vigente, o `undefined`. Revalida contra herra en cada uso. */
-  current(request: FastifyRequest): CotejoUser | undefined;
+  current(request: FastifyRequest): Promise<CotejoUser | undefined>;
   /** Exige un administrador de herra con CSRF válido; lanza 401/403 si no. */
-  requireAdmin(request: FastifyRequest): CotejoUser;
+  requireAdmin(request: FastifyRequest): Promise<CotejoUser>;
   /** Solo pruebas. */
   reset(): void;
 }
 
-export function registerCotejoAuth(app: FastifyInstance, options: { herra?: HerraAccounts } = {}): CotejoAuth {
+export function registerCotejoAuth(app: FastifyInstance, options: { herra?: SharedAccounts } = {}): CotejoAuth {
   const env = getEnv();
-  const herra = options.herra ?? (env.CRV_HERRA_DB_PATH ? new HerraAccounts(env.CRV_HERRA_DB_PATH, env.CRV_HERRA_PROJECT_SLUG) : undefined);
-  const sessions = new Map<string, Session>();
+  const persistent = env.CRV_AUTH_BACKEND === "postgres";
+  const herra = options.herra ?? (persistent ? new PostgresAccounts(env.CRV_HERRA_PROJECT_SLUG)
+    : env.CRV_HERRA_DB_PATH ? new HerraAccounts(env.CRV_HERRA_DB_PATH, env.CRV_HERRA_PROJECT_SLUG) : undefined);
+  const sessions = new SessionStore<Session>("cotejo", persistent);
   const failures = new Map<string, { count: number; resetAt: number }>();
   if (!options.herra) app.addHook("onClose", async () => herra?.close());
 
   const sweep = setInterval(() => {
     const now = Date.now();
-    for (const [key, session] of sessions) if (session.expiresAt <= now) sessions.delete(key);
+    sessions.sweepMemory();
     for (const [key, entry] of failures) if (entry.resetAt <= now) failures.delete(key);
   }, 5 * 60 * 1000);
   sweep.unref();
@@ -126,42 +129,43 @@ export function registerCotejoAuth(app: FastifyInstance, options: { herra?: Herr
     failures.set(key, entry && entry.resetAt > now ? { count: entry.count + 1, resetAt: entry.resetAt } : { count: 1, resetAt: now + LOGIN_WINDOW_MS });
   };
 
-  const lookup = (request: FastifyRequest): { key: string; session: Session } | undefined => {
+  const lookup = async (request: FastifyRequest): Promise<{ key: string; session: Session } | undefined> => {
     const token = cookieValue(request, COTEJO_SESSION_COOKIE);
     if (!token) return undefined;
     const key = digest(token).toString("base64url");
-    const session = sessions.get(key);
+    const session = await sessions.get(key);
     if (!session) return undefined;
     if (session.expiresAt <= Date.now()) {
-      sessions.delete(key);
+      await sessions.delete(key);
       return undefined;
     }
     let valid: boolean;
     try {
-      valid = herra?.stillValid(session.herra) ?? false;
+      valid = await herra?.stillValid(session.herra) ?? false;
     } catch {
       throw new CotejoAuthError(503, "accounts_unavailable", "Las cuentas de herra no están disponibles en este momento.");
     }
     if (!valid) {
       // Cuenta borrada, rechazada o con otra contraseña en herra.
-      sessions.delete(key);
+      await sessions.delete(key);
       return undefined;
     }
     return { key, session };
   };
 
   const publicUser = (session: Session): CotejoUser => ({
-    username: session.username, name: session.name, role: session.role, actor: session.actor,
+    username: session.username, name: session.name, role: session.role,
+    actor: `${session.herra.kind === "local" ? "crv" : "herra"}:${session.username}`,
   });
 
   const auth: CotejoAuth = {
-    current(request) {
-      const found = lookup(request);
+    async current(request) {
+      const found = await lookup(request);
       return found ? publicUser(found.session) : undefined;
     },
-    requireAdmin(request) {
+    async requireAdmin(request) {
       if (!trustedOrigin(request)) throw new CotejoAuthError(403, "untrusted_origin", "Origen no permitido.");
-      const found = lookup(request);
+      const found = await lookup(request);
       if (!found) throw new CotejoAuthError(401, "unauthorized", "Inicia sesión con tu cuenta de herra para decidir géneros.");
       const csrf = request.headers["x-crv-csrf"];
       if (typeof csrf !== "string" || !safeEqual(csrf, found.session.csrf)) {
@@ -173,7 +177,7 @@ export function registerCotejoAuth(app: FastifyInstance, options: { herra?: Herr
       return publicUser(found.session);
     },
     reset() {
-      sessions.clear();
+      sessions.resetMemory();
       failures.clear();
     },
   };
@@ -198,9 +202,9 @@ export function registerCotejoAuth(app: FastifyInstance, options: { herra?: Herr
     }
     charge(ipKey);
     charge(accountKey);
-    let candidates: ReturnType<HerraAccounts["findAll"]>;
+    let candidates: Awaited<ReturnType<SharedAccounts["findAll"]>>;
     try {
-      candidates = herra.findAll(username);
+      candidates = await herra.findAll(username);
     } catch {
       return fail(reply, new CotejoAuthError(503, "accounts_unavailable", "Las cuentas de herra no están disponibles en este momento."));
     }
@@ -210,7 +214,7 @@ export function registerCotejoAuth(app: FastifyInstance, options: { herra?: Herr
       await herraPasswordMatches(password, HERRA_DUMMY_HASH);
     }
     for (const candidate of candidates) {
-      if (await herraPasswordMatches(password, candidate.passwordHash)) {
+      if (await (candidate.passwordEncoding === "base64url" ? passwordMatches(password,candidate.passwordHash) : herraPasswordMatches(password, candidate.passwordHash))) {
         matched = candidate;
         break;
       }
@@ -224,20 +228,20 @@ export function registerCotejoAuth(app: FastifyInstance, options: { herra?: Herr
     const csrf = randomBytes(24).toString("base64url");
     const maxAge = env.CRV_SESSION_TTL_HOURS * 60 * 60;
     const session: Session = {
-      username: matched.username, name: matched.name, role: matched.kind === "admin" ? "admin" : "reader",
-      actor: `herra:${matched.username}`, csrf, expiresAt: Date.now() + maxAge * 1000,
-      herra: { kind: matched.kind, id: matched.id, sessionVersion: matched.sessionVersion },
+      username: matched.username, name: matched.name, role: matched.role ?? (matched.kind === "admin" ? "admin" : "reader"),
+      actor: `${matched.kind === "local" ? "crv" : "herra"}:${matched.username}`, csrf, expiresAt: Date.now() + maxAge * 1000,
+      herra: { kind: matched.kind, id: matched.id, sessionVersion: matched.sessionVersion, role: matched.role ?? (matched.kind === "admin" ? "admin" : "reader") },
     };
-    sessions.set(digest(token).toString("base64url"), session);
+    await sessions.set(digest(token).toString("base64url"), session);
     reply.header("set-cookie", `${COTEJO_SESSION_COOKIE}=${encodeURIComponent(token)}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${maxAge}${secure(request)}`);
     return { user: publicUser(session), csrf };
   });
 
   app.get("/api/auth/me", async (request, reply) => {
     reply.header("cache-control", "no-store");
-    let found: ReturnType<typeof lookup>;
+    let found: Awaited<ReturnType<typeof lookup>>;
     try {
-      found = lookup(request);
+      found = await lookup(request);
     } catch (error) {
       return fail(reply, error as CotejoAuthError);
     }
@@ -247,7 +251,7 @@ export function registerCotejoAuth(app: FastifyInstance, options: { herra?: Herr
 
   app.post("/api/auth/logout", async (request, reply) => {
     const token = cookieValue(request, COTEJO_SESSION_COOKIE);
-    if (token) sessions.delete(digest(token).toString("base64url"));
+    if (token) await sessions.delete(digest(token).toString("base64url"));
     reply.header("set-cookie", `${COTEJO_SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0${secure(request)}`);
     return reply.code(204).send();
   });

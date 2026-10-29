@@ -13,6 +13,7 @@
 # scripts/db-restore-check.sh usa este mismo script contra un contenedor
 # desechable: el camino probado es el mismo que el de una recuperación real.
 set -euo pipefail
+umask 077
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
@@ -59,6 +60,13 @@ echo "   contenedor=$CONTAINER base=$DATABASE data-dir=$DATA_DIR_"
 say "3/4 base de datos"
 encoding="$(manifest db_encoding)"; collate="$(manifest db_collate)"; ctype="$(manifest db_ctype)"
 psql_admin -c "CREATE DATABASE \"$DATABASE\" WITH TEMPLATE template0 OWNER \"$OWNER\" ENCODING '$encoding' LC_COLLATE '$collate' LC_CTYPE '$ctype'" >/dev/null
+# pg_dump conserva las ACL, pero no crea los roles del cluster. Sin esto un
+# host nuevo falla al restaurar los permisos de auth. No copiar contraseñas.
+auth_role="$(manifest auth_role || true)"
+if [[ -n "$auth_role" ]]; then
+  [[ "$auth_role" == crv_herra ]] || fail "rol de auth no admitido: $auth_role"
+  psql_admin -c "DO \$\$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='crv_herra') THEN CREATE ROLE crv_herra NOLOGIN; END IF; END \$\$;" >/dev/null
+fi
 docker exec -i "$CONTAINER" pg_restore -U "$OWNER" -d "$DATABASE" --exit-on-error < "$BACKUP/crv.dump"
 echo "   pg_restore completado ($(manifest tables) tablas, $(manifest rows_total) filas en el origen)"
 

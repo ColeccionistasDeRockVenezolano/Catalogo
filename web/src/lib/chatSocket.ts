@@ -352,6 +352,11 @@ export function useChat(roomSlug: string) {
     return result;
   }, []);
 
+  const refreshEffects = useCallback(async () => {
+    const result = await chatApi.effects();
+    setState((current) => ({ ...current, effects: result.effects }));
+  }, []);
+
   /** Solo muestra el apodo que el servidor aceptó; sus errores llegan al formulario. */
   const setName = useCallback(async (displayName: string) => {
     const clean = displayName.trim();
@@ -362,8 +367,8 @@ export function useChat(roomSlug: string) {
 
   return useMemo(() => ({
     ...state, cover: dailyCover.data ?? null,
-    sendMessage, sendAction, notifyTyping, equip, buy, setName, loadEarlier, loadNewer, pauseLatest, resumeLatest,
-  }), [state, dailyCover.data, sendMessage, sendAction, notifyTyping, equip, buy, setName, loadEarlier, loadNewer, pauseLatest, resumeLatest]);
+    sendMessage, sendAction, notifyTyping, equip, buy, refreshEffects, setName, loadEarlier, loadNewer, pauseLatest, resumeLatest,
+  }), [state, dailyCover.data, sendMessage, sendAction, notifyTyping, equip, buy, refreshEffects, setName, loadEarlier, loadNewer, pauseLatest, resumeLatest]);
 }
 
 export function reduceEvent(current: ChatState, event: Record<string, unknown>): ChatState {

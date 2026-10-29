@@ -10,3 +10,4 @@ process.env["DATABASE_URL"] ??= "postgresql://unit-tests-no-db@127.0.0.1:1/unit_
 // de géneros) y la suite no debe depender de eso. dotenv no pisa lo ya fijado;
 // las pruebas que necesitan una bandera la encienden ellas mismas.
 process.env["GENRES_PROJECTION_ENABLED"] = "false";
+process.env["CRV_AUTH_BACKEND"] = "legacy";

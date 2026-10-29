@@ -558,7 +558,7 @@ export class ChatHub {
       const ids = [...new Set([...this.connections.values()].map((connection) => connection.actorId))];
       const current = await equippedForMany(ids);
       for (const actorId of ids) {
-        const equipped = current.get(actorId) ?? { name: null, name_font: null, frame: null, background: null, ambient: null };
+        const equipped = current.get(actorId) ?? { name: null, name_font: null, badge: null, frame: null, background: null, ambient: null };
         const member = [...this.rooms.values()].map((members) => members.get(actorId)).find(Boolean);
         if (member && EQUIPPED_SLOTS.some((slot) => member.actor.equipped[slot] !== equipped[slot])) this.equipped(actorId, equipped);
       }

@@ -9,7 +9,7 @@ import { closeDb, getPool } from "../../src/db/client.js";
 import { migrateUp } from "../../src/db/migrate.js";
 import { resetEnvCache } from "../../src/config/env.js";
 import { buildChatApp } from "../../src/chat/app.js";
-import { buyEffect, createGuestActor, type Actor } from "../../src/chat/repository.js";
+import { buyEffect, createGuestActor, upsertEffect, type Actor } from "../../src/chat/repository.js";
 import { issueChatToken } from "../../src/chat/session.js";
 import type { ServerEvent } from "../../src/chat/protocol.js";
 import type { ChatHub } from "../../src/chat/realtime.js";
@@ -31,6 +31,20 @@ describe("etapa 3: efectos por WebSocket", () => {
       CRV_ALLOWED_ORIGINS: ORIGIN,
     });
     resetEnvCache(); await applyCore(container.name); await migrateUp();
+    // Fixtures locales: el catálogo público permanece vacío.
+    for (const [code, kind, type, preset] of [
+      ["telon", "entry", "scene", "curtain-scene"],
+      ["vinilo-sticker", "sticker", "sprite", "vinyl-face"],
+      ["cassette-sticker", "sticker", "sprite", "cassette-face"],
+      ["neon", "name", "css", "neon"], ["pogo", "action", "scene", "pogo-scene"],
+      ["chidori", "name", "material", "chidori"],
+      ["marco-sello-maldito", "frame", "material", "curse-aura"],
+      ["mensaje-karma-azul", "message", "material", "karma-aura"],
+    ] as const) {
+      await upsertEffect({ code, name: code, kind, description: "Fixture",
+        manifest: { version: 1, triggers: ["always"], cost: 1, layers: [{ type, preset }] },
+        priceCoins: 10, priceCredits: 1, durationDays: 30, enabled: true, sort: 0 });
+    }
     ({ app, hub } = await buildChatApp({ logger: false }));
     base = (await app.listen({ host: "127.0.0.1", port: 0 })).replace("http:", "ws:");
   }, 240_000);

@@ -12,23 +12,11 @@ describe("catálogo de fuentes", () => {
     expect(new Set(FONT_SPECS.map((spec) => spec.code)).size).toBe(14);
   });
 
-  it("cada fuente está a la venta como efecto equipable", () => {
-    for (const spec of FONT_SPECS) {
-      const effect = EFFECTS_BY_CODE.get(spec.code);
-      expect(effect, spec.code).toBeDefined();
-      expect(effect?.kind).toBe("name_font");
-      expect(effect?.manifest.font?.code).toBe(spec.code);
-      expect(isEquippable("name_font")).toBe(true);
-    }
+  it("las fuentes anteriores ya no están a la venta", () => {
+    for (const spec of FONT_SPECS) expect(EFFECTS_BY_CODE.has(spec.code)).toBe(false);
+    expect(isEquippable("name_font")).toBe(true);
   });
 
-  it("los precios son razonables y crecientes con la rareza", () => {
-    for (const effect of [...EFFECTS_BY_CODE.values()].filter((item) => item.kind === "name_font")) {
-      expect(effect.priceCoins).toBeGreaterThanOrEqual(100);
-      expect(effect.priceCoins).toBeLessThanOrEqual(500);
-      expect(effect.durationDays).toBe(30);
-    }
-  });
 });
 
 describe("transformaciones unicode", () => {

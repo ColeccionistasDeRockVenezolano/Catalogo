@@ -67,8 +67,8 @@ navegador
   `sticker`) y `effect_code`. Sin particionar todavía: cuando crezca, partición
   por mes sobre `created_at` (el índice ya es `(room_id, id DESC)`).
 - `chat.effects` — catálogo con manifiesto `jsonb`, precios y duración. La
-  fuente de verdad en runtime es la base; `src/chat/effects-catalog.ts` la
-  siembra al arrancar (`syncEffectCatalog`, idempotente).
+  fuente de verdad en runtime es la base. El catálogo de semillas está vacío:
+  los efectos anteriores se retiraron y las nuevas altas se publican por administración.
 - `chat.effect_inventory` — qué tiene cada actor y hasta cuándo.
 - `chat.equipped` — una fila por ranura (`name`, `frame`, `background`,
   `ambient`, `name_font`).
@@ -550,3 +550,18 @@ curl --retry 15 --retry-connrefused --retry-delay 1 -fsS http://127.0.0.1:8081/h
 - Partición mensual de `chat.messages` y fan-out con Redis/NATS cuando haya más
   de un proceso de chat.
 - Pasarela de pago (Stripe/MercadoPago) sobre el libro mayor existente.
+
+## Placas junto al nombre
+
+El nombre combina efectos sobre sus letras (`name`) y estilos (`name_font`).
+Los adornos son un producto independiente: **Placas** (`badge`), con compra,
+inventario y ranura propios. Se muestran siempre a la derecha del nombre en
+mensajes, participantes, identidad propia, entradas y probador. No se publican
+productos de ejemplo; la tienda permanece vacía hasta las nuevas altas.
+
+Una placa usa un manifiesto sin capas ni fuente, con `badge.imageUrl` y
+`badge.animated` (false por defecto). Una placa animada requiere además
+`badge.staticImageUrl`: se usa con movimiento reducido, baja calidad o cuando
+la placa no tiene presupuesto de animación. Las imágenes admiten rutas locales
+o HTTPS. Publicar imágenes realmente estáticas en los campos estáticos.
+El administrador no puede publicar sprites o personajes como efectos de nombre.

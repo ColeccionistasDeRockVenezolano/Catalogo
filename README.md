@@ -6,6 +6,9 @@ las rutas de los scripts. Antes de capturar: `python3 scripts/shared-storage.py 
 Ubicación, evaluación de conflictos e instrucciones para Codex, Hermes,
 Synapse y Claude Code: [docs/SHARED_STORAGE.md](docs/SHARED_STORAGE.md).
 
+Las cuentas y sesiones de CRV y Herra también usan PostgreSQL, en el esquema
+`auth`. Arquitectura, migración y recuperación: [docs/UNIFIED_AUTH.md](docs/UNIFIED_AUTH.md).
+
 ## Archivos
 - `crv_simple_v1.dbml`: pegar directamente en https://dbdiagram.io/
 - `crv_simple_v1.sql`: PostgreSQL 15+

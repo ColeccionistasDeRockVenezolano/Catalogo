@@ -33,8 +33,9 @@ const envSchema = z.object({
   // trae la cabecera X-CRV-Operator.
   CRV_OPERATOR_NAME: z.string().trim().min(1).max(80).default("operador"),
   CRV_COLLABORATORS_JSON: z.string().optional(),
-  // Base SQLite de herra (coleccionistasderockvenezolano.com). Si está, sus
-  // cuentas también inician sesión en el CRV; se abre en solo lectura.
+  CRV_AUTH_BACKEND: z.enum(["legacy", "postgres"]).default("postgres"),
+  // Solo para rollback con CRV_AUTH_BACKEND=legacy. El modo postgres usa
+  // auth en DATABASE_URL y no consulta SQLite ni cuentas del entorno.
   CRV_HERRA_DB_PATH: z.preprocess((value) => value === "" ? undefined : value, z.string().optional()),
   CRV_HERRA_PROJECT_SLUG: z.string().min(1).default("coleccionistas-rock-venezolano"),
   CRV_SESSION_TTL_HOURS: z.coerce.number().int().min(1).max(168).default(12),

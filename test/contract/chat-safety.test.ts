@@ -173,6 +173,25 @@ describe("blindaje del chat (PostgreSQL + WebSocket)", () => {
     expect(renewed.json["actor"]["id"]).toBe(session.actorId);
   });
 
+  it("asigna un apodo automático y lo conserva al renovar", async () => {
+    const ip = freshIp();
+    const session = await newSession(ip);
+    const first = await request("GET", "/chat/session", { ip, cookie: session.cookie });
+    const name = first.json["actor"]["displayName"];
+    expect(name).toMatch(/^\p{Lu}\p{Ll}+\p{Lu}\p{Ll}+$/u);
+    const renewed = await request("POST", "/chat/session", { ip, cookie: session.cookie, body: {} });
+    expect(renewed.json["actor"]["displayName"]).toBe(name);
+    expect(renewed.json["actor"]["id"]).toBe(session.actorId);
+  });
+
+  it("reemplaza Oyente al renovar sin perder la identidad", async () => {
+    const ip = freshIp();
+    const session = await newSession(ip, "Oyente");
+    const renewed = await request("POST", "/chat/session", { ip, cookie: session.cookie, body: {} });
+    expect(renewed.json["actor"]["displayName"]).toMatch(/^\p{Lu}\p{Ll}+\p{Lu}\p{Ll}+$/u);
+    expect(renewed.json["actor"]["id"]).toBe(session.actorId);
+  });
+
   it("limita los invitados nuevos por IP", async () => {
     const ip = freshIp();
     for (let index = 0; index < 5; index += 1) await newSession(ip);

@@ -65,7 +65,9 @@ const derived = await new Promise((resolve, reject) => {
 const passwordHash = `scrypt$16384$8$1$${salt.toString("base64url")}$${derived.toString("base64url")}`;
 
 const source = await readFile(envPath, "utf8");
-const configured = parseDotenv(source)["CRV_COLLABORATORS_JSON"];
+const environment = parseDotenv(source);
+const persistent = (process.env["CRV_AUTH_BACKEND"] ?? environment["CRV_AUTH_BACKEND"] ?? "postgres") === "postgres";
+const configured = environment["CRV_COLLABORATORS_JSON"];
 const accounts = configured ? JSON.parse(configured) : [];
 if (!Array.isArray(accounts)) throw new Error("CRV_COLLABORATORS_JSON debe ser un arreglo");
 const next = accounts.filter((account) => account?.username !== username);
@@ -76,6 +78,21 @@ function setEnvLine(input, key, value) {
   return pattern.test(input) ? input.replace(pattern, line) : `${input.trimEnd()}\n${line}\n`;
 }
 
+if (persistent) {
+  const { default: pg } = await import("pg");
+  const database = new pg.Pool({ connectionString: process.env["DATABASE_URL"] ?? environment["DATABASE_URL"] });
+  try {
+    await database.query(`INSERT INTO auth.local_accounts (username,name,password_hash,role)
+      VALUES ($1,$2,$3,$4) ON CONFLICT (username) DO UPDATE
+      SET name=excluded.name,password_hash=excluded.password_hash,role=excluded.role,
+          enabled=true,session_version=auth.local_accounts.session_version+1`, [username,name,passwordHash,role]);
+  } finally { await database.end(); }
+  if (disableLegacyToken) {
+    const temporary = `${envPath}.auth-${process.pid}`;
+    await writeFile(temporary,setEnvLine(source,"CRV_OPERATOR_TOKEN",""),{mode:0o600});
+    await rename(temporary,envPath);
+  }
+} else {
 let updated = setEnvLine(source, "CRV_COLLABORATORS_JSON", JSON.stringify(next));
 updated = setEnvLine(updated, "CRV_SESSION_COOKIE_PATH", "/crv");
 updated = setEnvLine(updated, "CRV_SESSION_TTL_HOURS", "12");
@@ -84,11 +101,13 @@ const temporary = `${envPath}.auth-${process.pid}`;
 await writeFile(temporary, updated, { mode: 0o600 });
 await rename(temporary, envPath);
 
+}
+
 if (generatedPath) {
   const absolute = path.resolve(generatedPath);
   await mkdir(path.dirname(absolute), { recursive: true, mode: 0o700 });
   await writeFile(absolute, `CRV\nUsuario: ${username}\nContraseña temporal: ${password}\n`, { mode: 0o600, flag: "wx" });
   console.log(`Cuenta ${username} actualizada. Credencial temporal guardada con modo 0600 en ${absolute}`);
 } else {
-  console.log(`Cuenta ${username} actualizada. Reinicia crv-api para invalidar sesiones anteriores y cargarla.`);
+  console.log(persistent ? `Cuenta ${username} actualizada en PostgreSQL; sus sesiones anteriores quedan revocadas.` : `Cuenta ${username} actualizada. Reinicia crv-api para invalidar sesiones anteriores y cargarla.`);
 }

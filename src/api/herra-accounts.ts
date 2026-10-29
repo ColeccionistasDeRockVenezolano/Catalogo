@@ -1,4 +1,5 @@
-// CRV · Cuentas compartidas con herra (coleccionistasderockvenezolano.com).
+// CRV · Adaptador SQLite legado, solo para rollback explícito.
+// En producción las cuentas compartidas viven en auth (PostgresAccounts).
 //
 // herra es la dueña de las cuentas: el CRV abre su SQLite en solo lectura,
 // verifica la contraseña con el mismo scrypt y nunca escribe ni copia hashes.
@@ -11,18 +12,21 @@ import type { DatabaseSync } from "node:sqlite";
 import { createRequire } from "node:module";
 
 export interface HerraAccount {
-  kind: "user" | "admin";
+  kind: "user" | "admin" | "local";
   id: number;
   username: string;
   name: string;
   passwordHash: string;
   sessionVersion: number;
+  role?: "admin" | "reader";
+  passwordEncoding?: "hex" | "base64url";
 }
 
 export interface HerraSessionRef {
-  kind: "user" | "admin";
+  kind: "user" | "admin" | "local";
   id: number;
   sessionVersion: number;
+  role?: "admin" | "reader";
 }
 
 interface UserRow {

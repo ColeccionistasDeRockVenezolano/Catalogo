@@ -10,14 +10,16 @@
 // fusionar, comparar (previsualización de fusión), la cola de revisión y los
 // posibles duplicados— exige una cuenta `admin`. Una cuenta `reader` inicia
 // sesión pero ve lo mismo que un visitante anónimo. Son admin: los
-// administradores y el superadministrador de herra, las cuentas del .env (salvo
-// que declaren `"role":"reader"`) y el bearer de automatizaciones.
+// administradores de Herra, las cuentas locales con rol admin y el bearer
+// de automatizaciones. Las cuentas y sesiones actuales viven en PostgreSQL.
 import { createHash, randomBytes, scrypt as scryptCallback, timingSafeEqual } from "node:crypto";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { getEnv } from "../config/env.js";
 import { HERRA_DUMMY_HASH, HerraAccounts, herraPasswordMatches, type HerraSessionRef } from "./herra-accounts.js";
+import { PostgresAccounts, type SharedAccounts } from "./postgres-accounts.js";
+import { SessionStore } from "./session-store.js";
 import { ApiError } from "./http-errors.js";
 import { createWindowLimiter } from "./rate-limit.js";
 
@@ -101,8 +103,8 @@ interface Collaborator {
 
 /**
  * Sesión resuelta por otro proceso. El chat corre aparte y las sesiones de
- * colaborador viven en la memoria de la API: el chat pregunta a la API
- * (`/auth/me` por loopback) en vez de exigir un segundo inicio de sesión.
+ * colaborador se comparten directamente por PostgreSQL. Este resolvedor
+ * conserva el fallback por `/auth/me` para instalaciones legadas.
  */
 export type RemoteSessionResolver = (request: FastifyRequest) => Promise<{ name: string; role: AccountRole; csrf: string } | undefined>;
 
@@ -121,7 +123,7 @@ interface LoginFailures {
   resetAt: number;
 }
 
-const sessions = new Map<string, Session>();
+const legacySessions = new SessionStore<Session>("crv", false);
 const loginFailures = new Map<string, LoginFailures>();
 
 // Limpieza periódica: sin esto, cada IP/cuenta probada (o cada sesión que
@@ -129,7 +131,7 @@ const loginFailures = new Map<string, LoginFailures>();
 // siempre — una fuga lenta que además facilita agotar memoria a propósito.
 setInterval(() => {
   const now = Date.now();
-  for (const [key, session] of sessions) if (session.expiresAt <= now) sessions.delete(key);
+  legacySessions.sweepMemory();
   for (const [key, failure] of loginFailures) if (failure.resetAt <= now) loginFailures.delete(key);
 }, CLEANUP_INTERVAL_MS).unref();
 
@@ -179,14 +181,14 @@ function cookies(request: FastifyRequest): Record<string, string> {
   return result;
 }
 
-function sessionFor(request: FastifyRequest): { key: string; value: Session } | undefined {
+async function sessionFor(request: FastifyRequest, sessions: SessionStore<Session>): Promise<{ key: string; value: Session } | undefined> {
   const token = cookies(request)[SESSION_COOKIE];
   if (!token) return undefined;
   const key = digest(token).toString("base64url");
-  const value = sessions.get(key);
+  const value = await sessions.get(key);
   if (!value) return undefined;
   if (value.expiresAt <= Date.now()) {
-    sessions.delete(key);
+    await sessions.delete(key);
     return undefined;
   }
   return { key, value };
@@ -215,7 +217,7 @@ function clearSessionCookie(reply: FastifyReply, request: FastifyRequest): void 
 
 /** Solo para tests: limpia sesiones y contadores entre casos (son estado de módulo). */
 export function resetAuthStateForTests(): void {
-  sessions.clear();
+  legacySessions.resetMemory();
   loginFailures.clear();
 }
 
@@ -245,7 +247,7 @@ function collaborators(): Map<string, Collaborator> {
   return result;
 }
 
-async function passwordMatches(password: string, encoded: string): Promise<boolean> {
+export async function passwordMatches(password: string, encoded: string): Promise<boolean> {
   const [algorithm, nRaw, rRaw, pRaw, saltRaw, expectedRaw, extra] = encoded.split("$");
   if (algorithm !== "scrypt" || extra !== undefined || !nRaw || !rRaw || !pRaw || !saltRaw || !expectedRaw) return false;
   const N = Number(nRaw);
@@ -365,9 +367,13 @@ export async function registerOperatorAuth(
   options: { remoteSession?: RemoteSessionResolver } = {},
 ): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();
-  const accounts = collaborators();
+  const persistent = getEnv().CRV_AUTH_BACKEND === "postgres";
+  const sessions = persistent ? new SessionStore<Session>("crv", true) : legacySessions;
+  const accounts = persistent ? new Map<string, Collaborator>() : collaborators();
   const herraPath = getEnv().CRV_HERRA_DB_PATH;
-  const herra = herraPath ? new HerraAccounts(herraPath, getEnv().CRV_HERRA_PROJECT_SLUG) : undefined;
+  const herra: SharedAccounts | undefined = persistent
+    ? new PostgresAccounts(getEnv().CRV_HERRA_PROJECT_SLUG)
+    : herraPath ? new HerraAccounts(herraPath, getEnv().CRV_HERRA_PROJECT_SLUG) : undefined;
   const loginEnabled = accounts.size > 0 || herra !== undefined;
   // Escrituras autenticadas por cuenta y minuto (hallazgo #10 de la auditoría).
   const writesPerMinute = createWindowLimiter({ max: getEnv().CRV_WRITE_RATE_LIMIT, windowMs: 60_000, maxKeys: 1_000 });
@@ -385,24 +391,24 @@ export async function registerOperatorAuth(
   app.addHook("onClose", async () => herra?.close());
 
   /** Sesión activa, descartando las de cuentas que herra ya no habilita. */
-  const activeSession = (request: FastifyRequest): { key: string; value: Session } | undefined => {
-    const session = sessionFor(request);
+  const activeSession = async (request: FastifyRequest): Promise<{ key: string; value: Session } | undefined> => {
+    const session = await sessionFor(request, sessions);
     if (!session?.value.herra) return session;
     let valid: boolean;
     try {
-      valid = herra?.stillValid(session.value.herra) ?? false;
+      valid = await herra?.stillValid(session.value.herra) ?? false;
     } catch (error) {
       request.log.error({ err: error }, "no se pudo consultar la base de herra");
       throw new ApiError(503, "accounts_unavailable", "Las cuentas no están disponibles en este momento. Inténtalo en unos minutos.");
     }
     if (valid) return session;
-    sessions.delete(session.key);
+    await sessions.delete(session.key);
     return undefined;
   };
 
   /** Sesión local o, en el proceso del chat, la de la API. */
   const anySession = async (request: FastifyRequest): Promise<{ name: string; role: AccountRole; csrf: string } | undefined> => {
-    const local = activeSession(request)?.value;
+    const local = (await activeSession(request))?.value;
     if (local) return local;
     return options.remoteSession ? options.remoteSession(request) : undefined;
   };
@@ -422,7 +428,7 @@ export async function registerOperatorAuth(
     );
     if (isChatGuestWrite) {
       assertChatOrigin(request);
-      const session = activeSession(request)?.value;
+      const session = (await activeSession(request))?.value;
       request.viewer = session ? { name: session.name, role: session.role } : null;
       return;
     }
@@ -434,7 +440,7 @@ export async function registerOperatorAuth(
         try {
           // Solo el WebSocket del chat consulta la sesión remota: así una
           // lectura pública cualquiera no cuesta una llamada a la API.
-          const session = path === "/chat/ws" ? await anySession(request) : activeSession(request)?.value;
+          const session = path === "/chat/ws" ? await anySession(request) : (await activeSession(request))?.value;
           request.viewer = session ? { name: session.name, role: session.role } : null;
         } catch {
           request.viewer = null;
@@ -462,6 +468,8 @@ export async function registerOperatorAuth(
           throw new ApiError(403, "invalid_csrf", "La sesión no pudo validarse. Recarga la página e inténtalo de nuevo.");
         }
       }
+      // Cerrar la propia sesión no requiere permisos de curaduría.
+      if (path === "/auth/logout") return;
       if (session.role !== "admin") {
         throw new ApiError(403, "admin_required", "Tu cuenta es de solo lectura. Editar, fusionar y revisar requiere una cuenta administradora.");
       }
@@ -516,9 +524,9 @@ export async function registerOperatorAuth(
       account = local;
       valid = await passwordMatches(request.body.password, local.passwordHash);
     } else {
-      let candidates: ReturnType<HerraAccounts["findAll"]>;
+      let candidates: Awaited<ReturnType<SharedAccounts["findAll"]>>;
       try {
-        candidates = herra?.findAll(username) ?? [];
+        candidates = await herra?.findAll(username) ?? [];
       } catch (error) {
         request.log.error({ err: error }, "no se pudo consultar la base de herra");
         throw new ApiError(503, "accounts_unavailable", "Las cuentas no están disponibles en este momento. Inténtalo en unos minutos.");
@@ -528,9 +536,11 @@ export async function registerOperatorAuth(
         // En herra administra quien está en `admins`; un usuario aprobado solo
         // lee. La cuenta admin va primero: con su contraseña se entra como admin.
         for (const shared of candidates) {
-          if (!await herraPasswordMatches(request.body.password, shared.passwordHash)) continue;
-          account = { username: shared.username, name: shared.name, role: shared.kind === "admin" ? "admin" : "reader" };
-          herraRef = { kind: shared.kind, id: shared.id, sessionVersion: shared.sessionVersion };
+          if (!await (shared.passwordEncoding === "base64url"
+            ? passwordMatches(request.body.password, shared.passwordHash)
+            : herraPasswordMatches(request.body.password, shared.passwordHash))) continue;
+          account = { username: shared.username, name: shared.name, role: shared.role ?? (shared.kind === "admin" ? "admin" : "reader") };
+          herraRef = { kind: shared.kind, id: shared.id, sessionVersion: shared.sessionVersion, role: account.role };
           valid = true;
           break;
         }
@@ -555,7 +565,7 @@ export async function registerOperatorAuth(
     const token = randomBytes(SESSION_BYTES).toString("base64url");
     const csrf = randomBytes(CSRF_BYTES).toString("base64url");
     const maxAge = getEnv().CRV_SESSION_TTL_HOURS * 60 * 60;
-    sessions.set(digest(token).toString("base64url"), {
+    await sessions.set(digest(token).toString("base64url"), {
       username: account.username,
       name: account.name,
       role: account.role,
@@ -569,15 +579,15 @@ export async function registerOperatorAuth(
 
   server.get("/auth/me", { schema: { tags: ["auth"] } }, async (request, reply) => {
     noStore(reply);
-    const session = activeSession(request)?.value;
+    const session = (await activeSession(request))?.value;
     if (!session) throw new ApiError(401, "unauthorized", "No hay una sesión activa.");
     return { user: { username: session.username, name: session.name, role: session.role }, csrf: session.csrf };
   });
 
   server.post("/auth/logout", { schema: { tags: ["auth"] } }, async (request, reply) => {
     noStore(reply);
-    const session = sessionFor(request);
-    if (session) sessions.delete(session.key);
+    const session = await sessionFor(request, sessions);
+    if (session) await sessions.delete(session.key);
     clearSessionCookie(reply, request);
     return reply.status(204).send();
   });

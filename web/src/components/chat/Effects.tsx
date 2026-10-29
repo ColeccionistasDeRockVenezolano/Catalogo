@@ -1,3 +1,4 @@
+import { StyledName } from "./StyledName";
 // CRV · Componentes visuales de los efectos.
 //
 // Texto, objetos realistas en atlas WebP compartido, coreografías, partículas,
@@ -10,7 +11,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ChatEffect, ChatUser } from "../../../../src/chat/protocol";
 import {
-  avatarGradient, choreoLayer, costOf, initials, layerStyle, manifestOf, nameFontCode, particleLayers,
+  avatarGradient, costOf, initials, layerStyle, manifestOf, nameFontCode, particleLayers,
   shouldHide, spriteLayers, textLayers, RB_PRESETS, SPLIT_PRESETS, type EffectLayer, type Quality,
 } from "../../lib/chatEffects";
 import { subscribeFrame, useMotionSlot } from "../../lib/chatMotion";
@@ -19,7 +20,6 @@ import { useMaterialEmitter } from "./MaterialStage";
 import { RealisticSprite } from "./RealisticSprite";
 import { SmokeClouds } from "./SmokeClouds";
 import { RbText } from "./TextEffects";
-import { NameChoreo, type ChoreoMode } from "./Choreography";
 import { burstFrom, useParticleEmitter } from "./ParticleStage";
 import {
   applyTextTransform, applyUnicodeFont, fontStyleFor, isPerLetterFont,
@@ -317,7 +317,25 @@ function SvgFrame({ layer }: { layer: EffectLayer }) {
 }
 
 // ── Nombre con efecto ──────────────────────────────────────────────────────
-export function EffectName({ name, effect, font, cover, quality, className, priority }: {
+export function ProductBadge({ effect, quality }: { effect: ChatEffect | null; quality: Quality }) {
+  const rootRef = useRef<HTMLSpanElement | null>(null);
+  const badge = effect?.kind === "badge" ? manifestOf(effect)?.badge : null;
+  const slot = useMotionSlot(rootRef, 1, Boolean(badge?.animated), quality, 1.5);
+  const animate = slot.granted && slot.visible && (quality === "medium" || quality === "high");
+  const src = badge?.animated && !animate ? badge.staticImageUrl : badge?.imageUrl;
+  return <span ref={rootRef} className="crv-product-badge">
+    {src ? <img src={src} alt={effect?.name ?? "Placa"} title={effect?.name} width={28} height={28} loading="lazy" decoding="async" /> : null}
+  </span>;
+}
+
+export function EffectName({ badge = null, ...props }: Parameters<typeof EffectNameText>[0] & { badge?: ChatEffect | null }) {
+  return <span className="crv-named-user">
+    <EffectNameText {...props} />
+    {badge ? <ProductBadge effect={badge} quality={props.quality} /> : null}
+  </span>;
+}
+
+function EffectNameText({ name, effect, font, quality, className, priority }: {
   name: string; effect: ChatEffect | null; font?: ChatEffect | null;
   cover: string | null; quality: Quality; className?: string;
   /** 2 en el probador de la tienda: siempre anima. */
@@ -326,8 +344,6 @@ export function EffectName({ name, effect, font, cover, quality, className, prio
   const rootRef = useRef<HTMLSpanElement | null>(null);
   const manifest = manifestOf(effect);
   const layers = textLayers(manifest);
-  const sprites = spriteLayers(manifest);
-  const choreo = choreoLayer(manifest);
   const particles = particleLayers(manifest);
   const fontCode = nameFontCode(font);
   const base = fontCode ? applyTextTransform(name, fontCode) : name;
@@ -342,7 +358,7 @@ export function EffectName({ name, effect, font, cover, quality, className, prio
   // El descifrado y el foco animan con dos intervalos baratos: no gastan
   // presupuesto. Este se reserva para texto por letra, coreografías y
   // partículas, que son los que multiplican trabajo con muchos mensajes.
-  const heavy = Boolean(material) || Boolean(primary && SPLIT_PRESETS.has(primary.preset)) || Boolean(choreo) || particles.length > 0;
+  const heavy = Boolean(material) || Boolean(primary && SPLIT_PRESETS.has(primary.preset)) || particles.length > 0;
   const slot = useMotionSlot(rootRef, Math.max(1, costOf(effect)), heavy, quality, priority ?? 1.5);
   const hidden = shouldHide(effect, quality);
   const live = slot.granted && (quality === "medium" || quality === "high");
@@ -350,7 +366,9 @@ export function EffectName({ name, effect, font, cover, quality, className, prio
   useParticleEmitter(rootRef, hidden || material ? [] : particles, live && slot.visible);
   useMaterialEmitter(rootRef, material, "name", live && slot.visible && !hidden);
 
-  if ((layers.length === 0 && sprites.length === 0 && !choreo && !fontCode && !material) || hidden) {
+  if (manifest?.nameStyle && !hidden) return <StyledName name={display} style={manifest.nameStyle} quality={quality} priority={priority ?? 1.5} />;
+
+  if ((layers.length === 0 && !fontCode && !material) || hidden) {
     return <span ref={rootRef} className={className}>{name}</span>;
   }
 
@@ -358,7 +376,6 @@ export function EffectName({ name, effect, font, cover, quality, className, prio
   const split = perLetter || (!material && primary ? SPLIT_PRESETS.has(primary.preset) : false);
   const still = quality === "low" || (heavy && !slot.granted);
   const chars = [...display];
-  const choreoMode: ChoreoMode = live ? "live" : quality === "reduced" ? "soft" : "rest";
 
   return (
     <span
@@ -377,15 +394,7 @@ export function EffectName({ name, effect, font, cover, quality, className, prio
       style={{ ...fontStyle, ...((material ?? primary) ? layerStyle((material ?? primary)!) : {}) } as React.CSSProperties}
       aria-label={name}
     >
-      {sprites.filter((layer) => (layer.position ?? "left") === "left").map((layer, index) => (
-        <SpriteBadge key={`l-${layer.preset}-${index}`} layer={layer} quality={quality} />
-      ))}
-      {primary?.preset === "vinyl" && cover ? (
-        <img className="crv-vinyl" src={cover} alt="" loading="lazy" decoding="async" />
-      ) : null}
-      {choreo ? (
-        <NameChoreo layer={choreo} text={display} mode={choreoMode} style={layerStyle(choreo)} />
-      ) : rbPreset ? (
+      {rbPreset ? (
         <RbText preset={rbPreset} text={display} animate={!still && slot.visible && quality !== "reduced"} />
       ) : split || particles.some((layer) => layer.origin === "letters") ? (
         <span className="crv-letters" aria-hidden="true">
@@ -398,14 +407,6 @@ export function EffectName({ name, effect, font, cover, quality, className, prio
       ) : (
         <span className="crv-name-text">{display}</span>
       )}
-      {sprites.filter((layer) => (layer.position ?? "left") === "right").map((layer, index) => (
-        <SpriteBadge key={`r-${layer.preset}-${index}`} layer={layer} quality={quality} />
-      ))}
-      {sprites.filter((layer) => layer.position === "over").map((layer, index) => (
-        <span className="crv-sprite-over" key={`o-${layer.preset}-${index}`}>
-          <SpriteBadge layer={layer} quality={quality} />
-        </span>
-      ))}
     </span>
   );
 }

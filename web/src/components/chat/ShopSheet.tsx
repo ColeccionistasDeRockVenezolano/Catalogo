@@ -1,3 +1,4 @@
+import { NameStyleEditor } from "./NameStyleEditor";
 import { EQUIPPED_SLOTS } from "../../../../src/chat/slots";
 // CRV · Tienda de efectos con probador en vivo.
 //
@@ -14,20 +15,20 @@ import type { ChatEffect, ChatUser } from "../../../../src/chat/protocol";
 import { RARITY_LABEL, rarityOf, type Rarity } from "../../../../src/chat/rarity";
 import { chatApi } from "../../lib/api";
 import { equippedEffect, layerStyle, manifestOf, type EffectSlot, type Quality } from "../../lib/chatEffects";
-import { BurstText, ChatAvatar, EffectName, MessageBurst, RoomAmbient, RoomBackdrop, StickerArt } from "./Effects";
+import { BurstText, ChatAvatar, EffectName, MessageBurst, RoomAmbient, RoomBackdrop, StickerArt, ProductBadge } from "./Effects";
 import { SceneLayer, type SceneRequest } from "./Scenes";
 
 export const SLOT_LABEL: Record<EffectSlot, string> = {
-  name: "Nombre", frame: "Marco", background: "Fondo", ambient: "Ambiente", name_font: "Fuente",
+  name: "Nombre", frame: "Marco", background: "Fondo", ambient: "Ambiente", name_font: "Estilo", badge: "Placa",
 };
 
 const KIND_LABEL: Record<string, string> = {
-  name: "Nombres", name_font: "Fuentes", frame: "Marcos", entry: "Entradas", message: "Mensajes",
+  name: "Efectos de nombre", name_font: "Estilos", badge: "Placas", frame: "Marcos", entry: "Entradas", message: "Mensajes",
   action: "Acciones", sticker: "Stickers", background: "Fondos", ambient: "Ambientes",
 };
 
 /** Orden de las pestañas: lo que se lleva puesto primero. */
-const KIND_ORDER = ["name", "name_font", "frame", "entry", "message", "action", "sticker", "background", "ambient"];
+const KIND_ORDER = ["name", "name_font", "badge", "frame", "entry", "message", "action", "sticker", "background", "ambient"];
 const SLOTS = EQUIPPED_SLOTS;
 const PLAYABLE = new Set(["message", "entry", "action", "sticker"]);
 
@@ -59,17 +60,16 @@ export function remaining(expiresAt: string | null, now: number): string | null 
   return `${Math.max(1, minutes)} min`;
 }
 
-export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, onClose, onBuy, onEquip, onAction, roomBackground, roomAmbient }: {
+export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, onCatalogChange, onBuy, onEquip, onAction, roomBackground, roomAmbient }: {
   actor: ChatUser | null;
   roomBackground: ChatEffect | null; roomAmbient: ChatEffect | null;
   effects: ChatEffect[]; wallet: { coins: number; credits: number }; cover: string | null;
-  quality: Quality; isAdmin: boolean; onClose: () => void;
+  quality: Quality; isAdmin: boolean; onClose: () => void; onCatalogChange: () => Promise<void>;
   onBuy: (code: string) => Promise<void>; onEquip: (slot: EffectSlot, code: string | null) => Promise<void>;
   onAction: (code: string) => void;
 }) {
-  const kinds = [...new Set(effects.map((effect) => effect.kind))]
-    .sort((a, b) => KIND_ORDER.indexOf(a) - KIND_ORDER.indexOf(b));
-  const stageRef = useRef<HTMLElement | null>(null);
+  useEffect(() => { void onCatalogChange().catch(() => { /* El catálogo del socket permanece disponible si falla la lectura. */ }); }, [onCatalogChange]);
+  const kinds = KIND_ORDER;
   const [kind, setKind] = useState<string>(kinds[0] ?? "name");
   const [trial, setTrial] = useState<ChatEffect | null>(null);
   const [ownership, setOwnership] = useState<Ownership>("all");
@@ -105,12 +105,13 @@ export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, o
   );
   const nameEffect = pick("name");
   const font = pick("name_font");
+  const badge = pick("badge");
   const frame = pick("frame");
   const background = pick("background");
   const ambient = pick("ambient");
   const displayName = actor?.displayName ?? "Invitado";
   const myName = (
-    <EffectName name={displayName} effect={nameEffect} font={font} cover={cover} quality={quality} priority={2} />
+    <EffectName name={displayName} effect={nameEffect} font={font} badge={badge} cover={cover} quality={quality} priority={2} />
   );
 
   const play = useCallback((effect: ChatEffect): void => {
@@ -120,17 +121,16 @@ export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, o
         id: `${effect.code}-${Date.now()}`, effect, who: displayName,
         label: effect.kind === "entry" ? `${displayName} entró a La Rockola` : `${displayName} ${actionLabel(effect.code)}`,
         nameNode: effect.kind === "entry" ? (
-          <EffectName name={displayName} effect={nameEffect} font={font} cover={cover} quality={quality} priority={2} className="crv-scene-name" />
+          <EffectName name={displayName} effect={nameEffect} font={font} badge={badge} cover={cover} quality={quality} priority={2} className="crv-scene-name" />
         ) : undefined,
       }]);
     }
-  }, [cover, displayName, font, nameEffect, quality]);
+  }, [badge, cover, displayName, font, nameEffect, quality]);
 
   const tryOn = (effect: ChatEffect): void => {
     setTrial(effect);
     if (PLAYABLE.has(effect.kind)) play(effect);
-    const body = stageRef.current?.closest(".chat-sheet-body");
-    if (body) body.scrollTop = 0;
+    setFeedback(null);
   };
 
   const list = useMemo(() => {
@@ -156,9 +156,24 @@ export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, o
     finally { setBuying(false); }
   };
 
+  const [editing, setEditing] = useState(false);
+
   return (
     <>
-      <section ref={stageRef} className="crv-probador" aria-label="Probador">
+      {isAdmin ? <div className="name-editor-toolbar"><button type="button" className="chat-secondary" aria-pressed={editing} onClick={() => setEditing((value) => !value)}>{editing ? "Volver a la tienda" : "Abrir editor de estilos"}</button></div> : null}
+      {editing && isAdmin ? <NameStyleEditor onSaved={onCatalogChange} /> : (
+      <div className="crv-shop">
+      <div className="crv-shop-intro">
+        <div><h3>Dale tu toque a La Rockola</h3><p>Prueba, elige y hazlo tuyo.</p></div>
+      <p className="chat-wallet-line">
+        <Coin size={18} weight="duotone" aria-hidden="true" /> {wallet.coins} monedas
+        <span>{wallet.credits} créditos</span>
+      </p>
+
+      </div>
+      <div className="crv-shop-workspace">
+      <aside className="crv-shop-fitting" aria-label="Vista previa del producto">
+      <section className="crv-probador" aria-label="Probador">
         <RoomBackdrop effect={background} quality={quality} contained />
         <RoomAmbient effect={ambient} quality={quality} contained />
         <div className="crv-probador-row">
@@ -188,16 +203,58 @@ export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, o
         ) : <span className="crv-probador-tag">Toca un efecto para probarlo</span>}
       </section>
 
-      <p className="chat-wallet-line">
-        <Coin size={18} weight="duotone" aria-hidden="true" /> {wallet.coins} monedas
-        <span> · {wallet.credits} créditos</span>
-      </p>
-
+      {current ? (
+        <div className="chat-effect-detail">
+          <div className="chat-effect-detail-head">
+            <h3>{current.name} <RarityBadge rarity={rarityOf(current)} /></h3>
+            <button type="button" onClick={() => setTrial(null)} aria-label="Dejar de probar"><X size={16} weight="bold" /></button>
+          </div>
+          <p>{current.description}</p>
+          <p className="chat-effect-meta">
+            {current.durationDays ? `Alquiler de ${current.durationDays} días` : "Permanente"}
+            {" · "}{current.priceCoins} monedas o {current.priceCredits} créditos
+            {current.owned && left ? <strong className="crv-countdown"> · quedan {left}</strong> : null}
+            {current.owned && !left && !current.durationDays ? " · tuyo para siempre" : null}
+          </p>
+          {feedback ? <p role="status">{feedback}</p> : null}
+          <div className="chat-effect-actions">
+            {!current.owned ? (
+              <button
+                type="button" className="chat-primary"
+                disabled={buying || (current.priceCoins > wallet.coins && current.priceCredits > wallet.credits)}
+                onClick={() => void purchase(current.code)}
+              >
+                {buying ? "Comprando…" : `Comprar por ${current.priceCoins} ¢`}
+              </button>
+            ) : null}
+            {current.owned && current.durationDays ? (
+              <button type="button" className="chat-secondary" disabled={buying} onClick={() => void purchase(current.code)}>
+                Renovar ({current.priceCoins} ¢)
+              </button>
+            ) : null}
+            {equippable && current.owned ? (
+              <button
+                type="button" className="chat-secondary"
+                onClick={() => void onEquip(current.kind as EffectSlot, current.equipped ? null : current.code)}
+              >
+                {current.equipped ? "Quitar" : "Equipar"}
+              </button>
+            ) : null}
+            {current.owned && current.kind === "action" ? (
+              <button type="button" className="chat-primary" onClick={() => onAction(current.code)}>
+                Hacerlo ahora
+              </button>
+            ) : null}
+          </div>
+        </div>
+      ) : <div className="crv-shop-hint"><h3>Encuentra tu estilo</h3><p>Elige un producto para verlo aquí antes de comprarlo.</p></div>}
+      </aside>
+      <section className="crv-shop-catalog" aria-label="Catálogo de la tienda" tabIndex={0}>
       <div className="chat-kind-tabs" role="group" aria-label="Tipo de efecto">
         {kinds.map((item) => (
           <button
             key={item} type="button" aria-pressed={kind === item}
-            className={kind === item ? "is-active" : ""} onClick={() => { setKind(item); const body = stageRef.current?.closest(".chat-sheet-body"); if (body) body.scrollTop = 0; }}
+            className={kind === item ? "is-active" : ""} onClick={() => setKind(item)}
           >
             {KIND_LABEL[item] ?? item}
           </button>
@@ -225,53 +282,8 @@ export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, o
         </select>
       </div>
 
-      {current ? (
-        <div className="chat-effect-detail">
-          <div className="chat-effect-detail-head">
-            <h3>{current.name} <RarityBadge rarity={rarityOf(current)} /></h3>
-            <button type="button" onClick={() => setTrial(null)} aria-label="Dejar de probar"><X size={16} weight="bold" /></button>
-          </div>
-          <p>{current.description}</p>
-          <p className="chat-effect-meta">
-            {current.durationDays ? `Alquiler de ${current.durationDays} días` : "Permanente"}
-            {" · "}{current.priceCoins} monedas o {current.priceCredits} créditos
-            {current.owned && left ? <strong className="crv-countdown"> · quedan {left}</strong> : null}
-            {current.owned && !left && !current.durationDays ? " · tuyo para siempre" : null}
-          </p>
-          {feedback ? <p role="status">{feedback}</p> : null}
-          <div className="chat-effect-actions">
-            {!current.owned ? (
-              <button
-                type="button" className="chat-primary"
-                disabled={buying || (current.priceCoins > wallet.coins && current.priceCredits > wallet.credits)}
-                onClick={() => void purchase(current.code)}
-              >
-                Comprar por {current.priceCoins} ¢
-              </button>
-            ) : null}
-            {current.owned && current.durationDays ? (
-              <button type="button" className="chat-secondary" disabled={buying} onClick={() => void purchase(current.code)}>
-                Renovar ({current.priceCoins} ¢)
-              </button>
-            ) : null}
-            {equippable && current.owned ? (
-              <button
-                type="button" className="chat-secondary"
-                onClick={() => void onEquip(current.kind as EffectSlot, current.equipped ? null : current.code)}
-              >
-                {current.equipped ? "Quitar" : "Equipar"}
-              </button>
-            ) : null}
-            {current.owned && current.kind === "action" ? (
-              <button type="button" className="chat-primary" onClick={() => onAction(current.code)}>
-                Hacerlo ahora
-              </button>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
-
-      {list.length === 0 ? <p className="crv-shop-empty">Nada por aquí con estos filtros.</p> : null}
+      <div className="crv-shop-category-heading"><h3>{KIND_LABEL[kind]}</h3><span>{list.length} {list.length === 1 ? "producto" : "productos"}</span></div>
+      {list.length === 0 ? <p className="crv-shop-empty">{ownership === "all" && !affordable ? "Pronto habrá productos en esta categoría." : "No hay productos que coincidan. Prueba con otros filtros."}</p> : null}
       <div className="chat-effect-grid">
         {list.map((effect) => (
           <EffectCard
@@ -286,7 +298,10 @@ export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, o
         ))}
       </div>
 
-      {isAdmin ? <AdminEffectEditor onClose={onClose} /> : null}
+      </section>
+      </div>
+      </div>
+      )}
     </>
   );
 }
@@ -311,6 +326,7 @@ function EffectCard({ effect, selected, left, cover, quality, onSelect }: {
         <CardPreview effect={effect} cover={cover} quality={quality} />
       </span>
       <span className="chat-effect-name">{effect.name}</span>
+      <span className="crv-card-trial">{selected ? "En el probador" : "Probar"}</span>
       <span className="crv-card-foot">
         <RarityBadge rarity={rarity} />
         <span className="chat-effect-price">
@@ -336,6 +352,8 @@ function CardPreview({ effect, cover, quality }: { effect: ChatEffect; cover: st
           cover={cover} quality={quality}
         />
       );
+    case "badge":
+      return <ProductBadge effect={effect} quality={quality} />;
     case "frame":
       return <ChatAvatar user={{ displayName: effect.name, avatarSeed: effect.code }} frame={effect} quality={quality} size={30} />;
     case "sticker":
@@ -351,39 +369,6 @@ function CardPreview({ effect, cover, quality }: { effect: ChatEffect; cover: st
       return <Icon size={26} weight="duotone" color={colors[0] ?? undefined} aria-hidden="true" />;
     }
   }
-}
-
-/** Editor mínimo de efectos (E4): valida el manifiesto en el servidor. */
-function AdminEffectEditor({ onClose }: { onClose: () => void }) {
-  const [json, setJson] = useState("");
-  const [message, setMessage] = useState<string | null>(null);
-  const publishNow = async (): Promise<void> => {
-    try {
-      const parsed = JSON.parse(json) as Record<string, unknown>;
-      await chatApi.publishEffect(parsed);
-      setMessage("Efecto publicado. Ya aparece en el catálogo.");
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Manifiesto inválido.");
-    }
-  };
-  return (
-    <details className="chat-admin">
-      <summary>Administración · publicar efecto</summary>
-      <textarea
-        value={json}
-        onChange={(event) => setJson(event.target.value)}
-        placeholder={'{"code":"nuevo","name":"Nuevo","kind":"name","manifest":{"version":1,"triggers":["always"],"cost":2,"reducedMotion":"static","layers":[{"type":"css","preset":"neon","colors":["#e50914"]}]}}'}
-        rows={6}
-      />
-      <div className="chat-effect-actions">
-        <button type="button" className="chat-primary" onClick={() => void publishNow()} disabled={!json.trim()}>
-          Publicar
-        </button>
-        <button type="button" className="chat-secondary" onClick={onClose}>Cerrar</button>
-      </div>
-      {message ? <p className="chat-notice">{message}</p> : null}
-    </details>
-  );
 }
 
 /** Referencia estable para no reiniciar escenas al re-renderizar la tienda. */

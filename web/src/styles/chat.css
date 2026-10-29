@@ -473,3 +473,18 @@
 .chat-history-button:hover, .chat-new-messages:hover { background: #333; }
 .chat-history-button:focus-visible, .chat-new-messages:focus-visible { outline: 2px solid #ffb02e; outline-offset: 3px; }
 .chat-history-error { color: #ffb7bb; text-align: center; padding: 8px 16px; }
+
+/* La placa es un producto independiente y siempre sigue al nombre. */
+.crv-named-user { display: inline-flex; align-items: center; gap: 6px; min-width: 0; vertical-align: middle; }
+.crv-product-badge { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+.crv-product-badge img { display: block; width: 28px; height: 28px; object-fit: contain; }
+
+/* Aire para contornos, movimiento y partículas de nombres existentes. */
+.chat-message { padding-block: 9px; column-gap: 12px; }
+.chat-bubble header { padding: 5px 8px; margin: -5px -8px 7px; row-gap: 8px; }
+.chat-bubble header .crv-named-user { max-width: 100%; flex-wrap: wrap; row-gap: 8px; }
+.chat-bubble > p { position: relative; z-index: 1; }
+.chat-message.is-compact { padding-block: 3px; }
+.chat-user-list { gap: 14px; }
+.chat-user-list li { padding-block: 4px; }
+.chat-user-list .crv-named-user { flex-wrap: wrap; max-width: 100%; }

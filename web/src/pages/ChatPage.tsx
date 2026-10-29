@@ -24,6 +24,7 @@ import "../styles/chat.css";
 import "../styles/reactbits.css";
 import "../styles/chat-motion.css";
 import "../styles/chat-materials.css";
+import "../styles/chat-shop.css";
 
 export function ChatPage() {
   const chat = useChat("general");
@@ -104,10 +105,6 @@ export function ChatPage() {
     if (latestAlert) setNotice(`Moderación: ${latestAlert.text}`);
   }, [latestAlert]);
 
-  useEffect(() => {
-    if (chat.actor?.displayName === "Oyente") setAskName(true);
-  }, [chat.actor?.displayName]);
-
   const myNameEffect = equippedEffect(chat.actor, chat.effects, "name");
   const myFont = equippedEffect(chat.actor, chat.effects, "name_font");
   const myFrame = equippedEffect(chat.actor, chat.effects, "frame");
@@ -137,6 +134,7 @@ export function ChatPage() {
         nameNode: <EffectName name={entry.displayName}
           effect={equippedEffect(entry, chat.effects, "name")}
           font={equippedEffect(entry, chat.effects, "name_font")}
+          badge={equippedEffect(entry, chat.effects, "badge")}
           cover={chat.cover?.coverUrl ?? null} quality={quality} priority={2} />,
       });
     }
@@ -301,6 +299,7 @@ export function ChatPage() {
             name={chat.actor ? chat.actor.displayName : "Invitado"}
             effect={myNameEffect}
             font={myFont}
+            badge={equippedEffect(chat.actor, chat.effects, "badge")}
             cover={chat.cover?.coverUrl ?? null}
             quality={quality}
           />
@@ -313,7 +312,7 @@ export function ChatPage() {
 
       {askName ? (
         <Sheet
-          title={chat.actor?.displayName === "Oyente" ? "¿Cómo te llamas?" : "Cambiar apodo"}
+          title="Cambiar apodo"
           onClose={() => setAskName(false)}
         >
           <form
@@ -376,7 +375,7 @@ export function ChatPage() {
       ) : null}
 
       {sheet === "shop" ? (
-        <Sheet title="Efectos" onClose={() => setSheet("none")}>
+        <Sheet title="Tienda de La Rockola" variant="shop" onClose={() => setSheet("none")}>
         <ShopContent
           actor={chat.actor}
           roomBackground={background} roomAmbient={ambient}
@@ -385,6 +384,7 @@ export function ChatPage() {
           cover={chat.cover?.coverUrl ?? null}
           quality={quality}
           isAdmin={isAdmin}
+          onCatalogChange={chat.refreshEffects}
           onClose={() => setSheet("none")}
           onBuy={async (code) => {
             try {
@@ -425,7 +425,7 @@ const MessageRow = memo(function MessageRow({ message, effects, quality, cover, 
     displayName: message.displayName ?? "Alguien",
     avatarSeed: message.handle ?? "crv",
   };
-  const equipped = message.equipped ?? { name: null, frame: null, background: null, ambient: null, name_font: null };
+  const equipped = message.equipped ?? { name: null, frame: null, background: null, ambient: null, name_font: null, badge: null };
   const nameEffect = equippedEffect({ equipped }, effects, "name");
   const nameFont = equippedEffect({ equipped }, effects, "name_font");
   const frame = equippedEffect({ equipped }, effects, "frame");
@@ -437,7 +437,7 @@ const MessageRow = memo(function MessageRow({ message, effects, quality, cover, 
   if (message.kind === "action") {
     return (
       <p className="chat-action" data-message-id={message.id}>
-        <EffectName name={user.displayName} effect={nameEffect} font={nameFont} cover={cover} quality={quality} />
+        <EffectName name={user.displayName} effect={nameEffect} font={nameFont} badge={equippedEffect({ equipped }, effects, "badge")} cover={cover} quality={quality} />
         <span> {actionLabel(message.body)}</span>
       </p>
     );
@@ -451,7 +451,7 @@ const MessageRow = memo(function MessageRow({ message, effects, quality, cover, 
       <div className="chat-bubble">
         {compact ? null : (
           <header>
-            <EffectName name={user.displayName} effect={nameEffect} font={nameFont} cover={cover} quality={quality} />
+            <EffectName name={user.displayName} effect={nameEffect} font={nameFont} badge={equippedEffect({ equipped }, effects, "badge")} cover={cover} quality={quality} />
             <time dateTime={message.createdAt}>{formatTime(message.createdAt)}</time>
           </header>
         )}
@@ -478,6 +478,7 @@ function UserList({ users, effects, quality }: {
             name={user.displayName}
             effect={equippedEffect(user, effects, "name")}
             font={equippedEffect(user, effects, "name_font")}
+            badge={equippedEffect(user, effects, "badge")}
             cover={null} quality={quality}
           />
         </li>
@@ -486,7 +487,7 @@ function UserList({ users, effects, quality }: {
   );
 }
 
-function Sheet({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
+function Sheet({ title, onClose, children, variant }: { variant?: "shop"; title: string; onClose: () => void; children: React.ReactNode }) {
   const ref = useRef<HTMLElement | null>(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -520,7 +521,7 @@ function Sheet({ title, onClose, children }: { title: string; onClose: () => voi
   }, []);
   return (
     <div className="chat-sheet-backdrop" role="dialog" aria-modal="true" aria-label={title} onClick={onClose}>
-      <section ref={ref} tabIndex={-1} className="chat-sheet" onClick={(event) => event.stopPropagation()}>
+      <section ref={ref} tabIndex={-1} className={`chat-sheet${variant === "shop" ? " chat-sheet-shop" : ""}`} onClick={(event) => event.stopPropagation()}>
         <header>
           <h2>{title}</h2>
           <button type="button" onClick={onClose} aria-label="Cerrar"><X size={20} weight="bold" /></button>

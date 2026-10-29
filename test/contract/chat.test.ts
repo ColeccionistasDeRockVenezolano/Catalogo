@@ -28,6 +28,17 @@ describe("chat contra PostgreSQL", () => {
     await applyCore(container.name);
     await migrateUp();
     await syncEffectCatalog();
+    expect(await effectsFor(NOBODY)).toEqual([]);
+    // Datos exclusivos de prueba para validar compras sin repoblar la tienda real.
+    for (const [code, kind, price] of [
+      ["neon", "name", 240], ["vinilo", "name", 320], ["oro", "name", 400],
+      ["escenario", "background", 700], ["fuente-test", "name_font", 120],
+    ] as const) {
+      await upsertEffect({ code, name: code, kind, description: "Fixture de prueba",
+        manifest: {}, priceCoins: price, priceCredits: price / 10,
+        durationDays: 30, enabled: true, sort: 0 });
+    }
+    await syncEffectCatalog();
   }, 240_000);
 
   afterAll(async () => {
@@ -37,7 +48,7 @@ describe("chat contra PostgreSQL", () => {
 
   it("sincroniza el catálogo de efectos y lo sirve sin dueño", async () => {
     const effects = await effectsFor(NOBODY);
-    expect(effects.length).toBeGreaterThanOrEqual(30);
+    expect(effects).toHaveLength(5);
     expect(effects.every((effect) => effect.owned === false)).toBe(true);
     expect(effects.some((effect) => effect.code === "vinilo")).toBe(true);
   });
@@ -59,7 +70,7 @@ describe("chat contra PostgreSQL", () => {
 
     const equipped = await equipEffect({ actorId: actor.id, slot: "name", code: "neon" });
     expect(equipped.name).toBe("neon");
-    expect(await equippedFor(actor.id)).toEqual({ name: "neon", frame: null, background: null, ambient: null, name_font: null });
+    expect(await equippedFor(actor.id)).toEqual({ name: "neon", frame: null, background: null, ambient: null, name_font: null, badge: null });
   });
 
   it("no deja equipar un efecto que no se posee ni en la ranura equivocada", async () => {
@@ -208,4 +219,44 @@ describe("chat contra PostgreSQL", () => {
     expect(await dailyCover("2026-10-28")).toEqual(first);
     expect((await dailyCover("2026-10-29"))?.dailyCycle.date).toBe("2026-10-29");
   });
+  it("compra y equipa una placa sin cambiar el efecto ni el estilo del nombre", async () => {
+    const actor = await createGuestActor("Placa");
+    await upsertEffect({ code: "placa-test", name: "Placa de prueba", kind: "badge", description: "",
+      manifest: { version: 1, triggers: ["always"], layers: [], cost: 1,
+        badge: { imageUrl: "/media/placa.webp", animated: false } },
+      priceCoins: 10, priceCredits: 1, durationDays: 30, enabled: true, sort: 0 });
+    await buyEffect({ actorId: actor.id, code: "neon", idempotencyKey: "efecto" });
+    await buyEffect({ actorId: actor.id, code: "fuente-test", idempotencyKey: "estilo" });
+    await buyEffect({ actorId: actor.id, code: "placa-test", idempotencyKey: "placa" });
+    await equipEffect({ actorId: actor.id, slot: "name", code: "neon" });
+    await equipEffect({ actorId: actor.id, slot: "name_font", code: "fuente-test" });
+    expect(await equipEffect({ actorId: actor.id, slot: "badge", code: "placa-test" }))
+      .toMatchObject({ name: "neon", name_font: "fuente-test", badge: "placa-test" });
+    await expect(equipEffect({ actorId: actor.id, slot: "name", code: "placa-test" }))
+      .rejects.toMatchObject({ code: "wrong_slot" });
+    expect(await equipEffect({ actorId: actor.id, slot: "badge", code: null }))
+      .toMatchObject({ name: "neon", name_font: "fuente-test", badge: null });
+  });
+
+  it("guarda estilos editables y precios, permite ocultarlos y recuperarlos para editar", async () => {
+    const product = {
+      code: "editor-contract", name: "Estilo editable", kind: "name", description: "Prueba del editor",
+      manifest: { version: 1, layers: [], triggers: ["always"], cost: 2,
+        nameStyle: { rotation: 37, gradientAngle: 271, motionAngle: 123 } },
+      priceCoins: 275, priceCredits: 12, durationDays: null, enabled: false, sort: 99,
+    };
+    await upsertEffect(product);
+    expect((await effectsFor(NOBODY)).some((item) => item.code === product.code)).toBe(false);
+    expect((await effectsFor(NOBODY, true)).find((item) => item.code === product.code)).toMatchObject({
+      enabled: false, priceCoins: 275, priceCredits: 12, manifest: product.manifest,
+    });
+    await upsertEffect({ ...product, enabled: true, priceCoins: 175 });
+    const actor = await createGuestActor("Editor de prueba");
+    const purchase = await buyEffect({ actorId: actor.id, code: product.code, idempotencyKey: "editor-price-contract" });
+    expect(purchase.wallet.coins).toBe(725);
+    expect((await effectsFor(actor.id)).find((item) => item.code === product.code)).toMatchObject({
+      priceCoins: 175, priceCredits: 12, durationDays: null, owned: true,
+    });
+  });
+
 });

@@ -111,6 +111,9 @@ describe("sesiones de colaboradores", () => {
     expect((await app.inject({ method: "GET", url: "/artists", headers: { cookie: reader.cookie } })).statusCode).toBe(200);
     const readerMe = await app.inject({ method: "GET", url: "/auth/me", headers: { cookie: reader.cookie } });
     expect(readerMe.json()).toMatchObject({ user: { role: "reader" } });
+    expect((await app.inject({ method: "POST", url: "/auth/logout", headers: { cookie: reader.cookie } })).statusCode).toBe(403);
+    expect((await app.inject({ method: "POST", url: "/auth/logout", headers: { cookie: reader.cookie, "x-crv-csrf": reader.csrf } })).statusCode).toBe(204);
+    expect((await app.inject({ url: "/auth/me", headers: { cookie: reader.cookie } })).statusCode).toBe(401);
 
     const admin = await loginAs("ana.crv");
     const review = await app.inject({ method: "GET", url: "/review-queue", headers: { cookie: admin.cookie } });

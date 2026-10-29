@@ -27,7 +27,7 @@ async function setup(viewport: { width: number; height: number }, quality: "norm
     Object.defineProperty(navigator, "deviceMemory", { get: () => memory });
     Object.defineProperty(navigator, "hardwareConcurrency", { get: () => 8 });
   }, { memory: quality === "low" ? 1 : 8 });
-  const equipped = { name: "murcielago", frame: "anillo-fuego", background: "escenario", ambient: "brasas", name_font: null as string | null };
+  const equipped = { name: "murcielago", frame: "anillo-fuego", background: "escenario", ambient: "brasas", badge: null as string | null, name_font: null as string | null };
   const actor = { id: "00000000-0000-4000-8000-000000000003", handle: "ensayo", displayName: "Nina Discos", avatarSeed: "nina", isBot: false, equipped };
   const owned = new Set(["murcielago", "anillo-fuego", "escenario", "brasas", "vinilo-sticker", "pogo", "telon"]);
   const expiry = new Date(Date.now() + 29 * 86400_000).toISOString();
