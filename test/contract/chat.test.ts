@@ -3,6 +3,7 @@
 // Comprueba lo que no puede probar un test unitario: que el libro mayor no
 // duplique monedas, que el inventario caduque, que el equipado exija posesión
 // y que los mensajes sobrevivan con su autor.
+import { readFile } from "node:fs/promises";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { startPgContainer, type PgContainer } from "../support/pg-container.js";
 import { applyCore } from "../support/apply-core.js";
@@ -54,22 +55,41 @@ describe("chat contra PostgreSQL", () => {
     const key = "11111111-1111-4111-8111-111111111111";
     const first = await buyEffect({ actorId: actor.id, code: "neon", idempotencyKey: key });
     const second = await buyEffect({ actorId: actor.id, code: "neon", idempotencyKey: key });
-    expect(first.wallet.coins).toBe(660);
-    expect(second.wallet.coins).toBe(660);
+    expect(first.wallet.coins).toBe(580);
+    expect(second.wallet.coins).toBe(580);
 
     const equipped = await equipEffect({ actorId: actor.id, slot: "name", code: "neon" });
     expect(equipped.name).toBe("neon");
-    expect(await equippedFor(actor.id)).toEqual({ name: "neon", frame: null, background: null, ambient: null, name_font: null });
+    expect(await equippedFor(actor.id)).toEqual({ name: "neon", frame: null, background: null, ambient: null, name_font: null, badge: null });
   });
 
   it("no deja equipar un efecto que no se posee ni en la ranura equivocada", async () => {
     const actor = await createGuestActor("SinNada");
-    await expect(equipEffect({ actorId: actor.id, slot: "name", code: "vinilo" }))
+    await expect(equipEffect({ actorId: actor.id, slot: "badge", code: "vinilo" }))
       .rejects.toMatchObject({ code: "not_owned" });
 
     await buyEffect({ actorId: actor.id, code: "vinilo", idempotencyKey: "22222222-2222-4222-8222-222222222222" });
     await expect(equipEffect({ actorId: actor.id, slot: "frame", code: "vinilo" }))
       .rejects.toMatchObject({ code: "wrong_slot" });
+    // El vinilo ya no es un efecto de nombre: es una placa.
+    await expect(equipEffect({ actorId: actor.id, slot: "name", code: "vinilo" }))
+      .rejects.toMatchObject({ code: "wrong_slot" });
+    expect((await equipEffect({ actorId: actor.id, slot: "badge", code: "vinilo" })).badge).toBe("vinilo");
+  });
+
+  it("la migración 0112 pasa los objetos equipados como nombre a la ranura de placa", async () => {
+    const actor = await createGuestActor("Coleccionista");
+    await buyEffect({ actorId: actor.id, code: "cassette", idempotencyKey: "66666666-6666-4666-8666-666666666666" });
+    await equipEffect({ actorId: actor.id, slot: "badge", code: "cassette" });
+    const sql = (name: string): Promise<string> => readFile(new URL(`../../migrations/${name}`, import.meta.url), "utf8");
+    // Estado anterior: el cassette era un efecto de nombre y estaba equipado como tal.
+    await getPool().query(await sql("0112_chat_badges.down.sql"));
+    expect(await equippedFor(actor.id)).toMatchObject({ name: "cassette" });
+    await getPool().query(await sql("0112_chat_badges.up.sql"));
+    expect(await equippedFor(actor.id)).toMatchObject({ name: null, badge: "cassette" });
+    await syncEffectCatalog();
+    const effects = await effectsFor(actor.id);
+    expect(effects.find((effect) => effect.code === "cassette")).toMatchObject({ kind: "badge", owned: true, equipped: true });
   });
 
   it("rechaza la compra cuando el saldo no alcanza", async () => {

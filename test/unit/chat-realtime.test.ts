@@ -10,7 +10,7 @@ vi.mock("../../src/chat/repository.js", async (original) => ({
   listMessages: vi.fn(), effectsFor: vi.fn(), walletFor: vi.fn(), touchActor: vi.fn(), equippedForMany: vi.fn(),
 }));
 
-const empty: Equipped = { name: null, frame: null, background: null, ambient: null, name_font: null };
+const empty: Equipped = { name: null, frame: null, background: null, ambient: null, name_font: null, badge: null };
 const actor: repo.Actor = { id: "00000000-0000-4000-8000-000000000001", kind: "guest", handle: "ensayo", displayName: "Ensayo", avatarSeed: "ensayo",
   claimedUserId: null, isBot: false, tokenVersion: 1, mutedUntil: null, bannedAt: null, createdAt: new Date(0) };
 

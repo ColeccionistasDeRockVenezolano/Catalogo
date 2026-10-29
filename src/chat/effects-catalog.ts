@@ -13,8 +13,15 @@ import { z } from "zod";
 import { isEquippedSlot } from "./slots.js";
 import { FONT_SPECS } from "./fonts.js";
 
+/** Motores de shader que pintan el nombre (web/src/lib/nameShaders.ts). */
+export const NAME_SHADER_PRESETS = [
+  "blood-flow", "fire-burn", "lightning-arc", "neon-tube", "liquid-gold", "frost", "snow-cap",
+  "acid", "holo-foil", "galaxy", "vhs-glitch", "plasma-core", "curse-mark", "shadow-smoke",
+  "weld", "spectrum", "code-rain", "groove",
+] as const;
+
 export const EFFECT_KINDS = [
-  "name", "frame", "entry", "message", "action", "sticker", "background", "ambient", "name_font",
+  "name", "frame", "entry", "message", "action", "sticker", "background", "ambient", "name_font", "badge",
 ] as const;
 export type EffectKind = typeof EFFECT_KINDS[number];
 
@@ -46,6 +53,9 @@ export const EFFECT_PRESETS = [
   "pogo-scene", "clash-scene", "applause-scene", "curtain-scene",
   // Materiales procedurales: motores distintos sobre un lienzo compartido.
   "chidori", "curse-aura", "karma-aura", "shadow-entity", "pastel-rainbow", "viscous-blood",
+  // Shaders del nombre: el material vive dentro de las letras y sale de ellas
+  // (gotas bajo cada letra, llamas encima, nieve sobre los bordes).
+  ...NAME_SHADER_PRESETS,
 ] as const;
 export type EffectPreset = typeof EFFECT_PRESETS[number];
 
@@ -53,8 +63,9 @@ const hexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/u, "color hex de 6 dígitos
 
 export const effectLayerSchema = z.object({
   /** css: texto; svg: marcos; canvas: partículas; sprite: objeto;
-   * choreo: coreografía; scene: pantalla completa; material: motor procedural. */
-  type: z.enum(["css", "svg", "canvas", "sprite", "choreo", "scene", "material"]),
+   * choreo: coreografía; scene: pantalla completa; material: motor procedural;
+   * shader: material pintado dentro de las letras del nombre. */
+  type: z.enum(["css", "svg", "canvas", "sprite", "choreo", "scene", "material", "shader"]),
   preset: z.enum(EFFECT_PRESETS),
   /** Solo sprites: a la izquierda/derecha del nombre o encima del avatar. */
   position: z.enum(["left", "right", "over", "behind"]).optional(),
@@ -114,13 +125,23 @@ const VIOLETA = "#b185e3";
 const TEAL = "#2ec4b6";
 const AZUL = "#60a5fa";
 
-const MATERIALS: ReadonlyArray<{ code: string; name: string; preset: EffectPreset; colors: string[]; description: string }> = [
-  { code: "chidori", name: "Chidori · espada eléctrica", preset: "chidori", colors: ["#ecffff", "#bde8f2", "#38b7ee", "#3b84ce", "#2156b5", "#0c1742"], description: "Descargas finas y ramificadas que cambian de trayectoria; núcleo blanco y halo azul." },
-  { code: "sello-maldito", name: "Sello maldito", preset: "curse-aura", colors: ["#06070c", "#1e1d2f", "#413856", "#61507d", "#9c5fc7", "#c38af0"], description: "Chakra negro y violeta con humo turbulento, contracción orgánica y púas de obsidiana." },
-  { code: "karma-azul", name: "Karma azul", preset: "karma-aura", colors: ["#1d1c39", "#1e3ea9", "#327fe0", "#45ade5", "#78e7ff", "#bcedf3"], description: "Lenguas de chakra cian que nacen, ascienden y se curvan en un flujo continuo." },
-  { code: "entidad-sombras", name: "Entidad de sombras", preset: "shadow-entity", colors: ["#010101", "#080808", "#151717", "#272727", "#3f3b3a", "#e6e8e8"], description: "Humo negro en capas que se arremolinan lentamente; unos ojos blancos se revelan de vez en cuando." },
-  { code: "rainbow-pastel", name: "Rainbow pastel", preset: "pastel-rainbow", colors: ["#ffadce", "#fcd6bf", "#fff0ae", "#ddf3b5", "#a3dff2", "#c5a5f2"], description: "Un arcoíris pastel recorre el nombre completo, con contorno blanco, reflejos y destellos suaves." },
-  { code: "sangre-realista", name: "Sangre realista", preset: "viscous-blood", colors: ["#380006", "#660407", "#8b0609", "#b30a09", "#dc3431", "#f06b64"], description: "Líquido espeso con brillo y volumen: se acumula, estrecha su cuello y cae por gravedad." },
+const MATERIALS: ReadonlyArray<{
+  code: string; name: string; preset: EffectPreset; colors: string[]; description: string;
+  /** El nombre usa el motor de shader; marco y mensaje siguen en el lienzo de materiales. */
+  nameShader: { preset: EffectPreset; colors: string[]; intensity: number; description: string };
+}> = [
+  { code: "chidori", name: "Chidori · espada eléctrica", preset: "chidori", colors: ["#ecffff", "#bde8f2", "#38b7ee", "#3b84ce", "#2156b5", "#0c1742"], description: "Descargas finas y ramificadas que cambian de trayectoria; núcleo blanco y halo azul.",
+    nameShader: { preset: "lightning-arc", colors: ["#ffffff", "#bde8f2", "#38b7ee", "#2156b5", "#0c1742"], intensity: 0.95, description: "Descargas azules que recorren cada letra y saltan de una a otra; el nombre queda cargado de electricidad." } },
+  { code: "sello-maldito", name: "Sello maldito", preset: "curse-aura", colors: ["#06070c", "#1e1d2f", "#413856", "#61507d", "#9c5fc7", "#c38af0"], description: "Chakra negro y violeta con humo turbulento, contracción orgánica y púas de obsidiana.",
+    nameShader: { preset: "curse-mark", colors: ["#06070c", "#1e1d2f", "#61507d", "#9c5fc7", "#c38af0"], intensity: 0.9, description: "Las marcas del sello se extienden por las letras y sueltan llamas negras y violetas." } },
+  { code: "karma-azul", name: "Karma azul", preset: "karma-aura", colors: ["#1d1c39", "#1e3ea9", "#327fe0", "#45ade5", "#78e7ff", "#bcedf3"], description: "Lenguas de chakra cian que nacen, ascienden y se curvan en un flujo continuo.",
+    nameShader: { preset: "fire-burn", colors: ["#0c1742", "#1e3ea9", "#327fe0", "#78e7ff", "#e8fbff"], intensity: 0.9, description: "Las letras arden con fuego azul: lenguas de chakra suben desde cada borde." } },
+  { code: "entidad-sombras", name: "Entidad de sombras", preset: "shadow-entity", colors: ["#010101", "#080808", "#151717", "#272727", "#3f3b3a", "#e6e8e8"], description: "Humo negro en capas que se arremolinan lentamente; unos ojos blancos se revelan de vez en cuando.",
+    nameShader: { preset: "shadow-smoke", colors: ["#010101", "#151717", "#3f3b3a", "#e6e8e8"], intensity: 0.9, description: "Humo negro sale de las letras y se enrosca; a veces unos ojos blancos te miran desde dentro." } },
+  { code: "rainbow-pastel", name: "Rainbow pastel", preset: "pastel-rainbow", colors: ["#ffadce", "#fcd6bf", "#fff0ae", "#ddf3b5", "#a3dff2", "#c5a5f2"], description: "Un arcoíris pastel recorre el nombre completo, con contorno blanco, reflejos y destellos suaves.",
+    nameShader: { preset: "holo-foil", colors: ["#ffadce", "#fcd6bf", "#fff0ae", "#ddf3b5", "#a3dff2", "#c5a5f2"], intensity: 0.6, description: "Lámina holográfica pastel: el color cambia con la luz y brillan destellos sobre las letras." } },
+  { code: "sangre-realista", name: "Sangre realista", preset: "viscous-blood", colors: ["#380006", "#660407", "#8b0609", "#b30a09", "#dc3431", "#f06b64"], description: "Líquido espeso con brillo y volumen: se acumula, estrecha su cuello y cae por gravedad.",
+    nameShader: { preset: "blood-flow", colors: ["#1f0003", "#4a0306", "#8b0609", "#c3120f", "#ff6b64"], intensity: 1, description: "La sangre cae desde arriba, empapa cada letra, corre por dentro y gotea; las gotas se estiran, se sueltan y caen." } },
 ];
 
 /** Six identities, each available for the three requested surfaces. */
@@ -128,7 +149,7 @@ const MATERIAL_EFFECTS: CatalogEffect[] = MATERIALS.flatMap((material, index) =>
   (["name", "frame", "message"] as const).map((kind) => effect({
     code: kind === "frame" ? `marco-${material.code}` : kind === "message" ? `mensaje-${material.code}` : material.code,
     name: `${material.name}${kind === "frame" ? " · avatar" : kind === "message" ? " · mensaje" : ""}`,
-    kind, description: material.description,
+    kind, description: kind === "name" ? material.nameShader.description : material.description,
     // Same tiers as the existing electric/fire effects, no new currency.
     priceCoins: kind === "message" ? 180 : 480,
     priceCredits: kind === "message" ? 18 : 48, durationDays: 30,
@@ -138,7 +159,9 @@ const MATERIAL_EFFECTS: CatalogEffect[] = MATERIALS.flatMap((material, index) =>
       cost: material.preset === "curse-aura" || material.preset === "shadow-entity" ? 5 : 4,
       reducedMotion: "static",
       ...(kind === "message" ? { durationMs: 6000 } : {}),
-      layers: [{ type: "material", preset: material.preset, colors: material.colors, intensity: 0.85, speed: 1 }],
+      layers: [kind === "name"
+        ? { type: "shader", preset: material.nameShader.preset, colors: material.nameShader.colors, intensity: material.nameShader.intensity, speed: 1 }
+        : { type: "material", preset: material.preset, colors: material.colors, intensity: 0.85, speed: 1 }],
     },
   })),
 );
@@ -150,11 +173,9 @@ const sprite = (preset: EffectPreset, position: "left" | "right" | "over" = "lef
 const svg = (preset: EffectPreset, colors: string[]): EffectLayer => ({ type: "svg", preset, colors });
 const canvas = (preset: EffectPreset, colors: string[], count: number): EffectLayer =>
   ({ type: "canvas", preset, colors, count });
-/** Partículas que salen de las propias letras del nombre. */
-const fromLetters = (preset: EffectPreset, colors: string[], count: number): EffectLayer =>
-  ({ type: "canvas", preset, colors, count, origin: "letters" });
-const choreo = (preset: EffectPreset, colors: string[], extra: Partial<EffectLayer> = {}): EffectLayer =>
-  ({ type: "choreo", preset, colors, ...extra });
+/** Material pintado dentro de las letras (motor de shader del nombre). */
+const shader = (preset: EffectPreset, colors: string[], extra: Partial<EffectLayer> = {}): EffectLayer =>
+  ({ type: "shader", preset, colors, ...extra });
 const scene = (preset: EffectPreset, colors: string[], extra: Partial<EffectLayer> = {}): EffectLayer =>
   ({ type: "scene", preset, colors, ...extra });
 
@@ -175,262 +196,161 @@ const FONT_PRICES: Readonly<Record<string, number>> = {
   "black-panther": 400,
 };
 
+/** Placas: [código, nombre, objeto del atlas, precio, descripción, velocidad]. */
+const BADGES: ReadonlyArray<readonly [string, string, EffectPreset, number, string, number?]> = [
+  ["vinilo", "Vinilo", "vinyl-face", 220, "Un vinilo que gira despacio junto a tu nombre."],
+  ["vinilo-rodante", "Vinilo a 45", "vinyl-face", 240, "El vinilo gira a 45 rpm, con más brillo.", 2.2],
+  ["cassette", "Cassette", "cassette-face", 200, "Una cinta grabada a mano, con sus carretes."],
+  ["ampli", "Amplificador", "amp-face", 220, "Un ampli de válvulas con el piloto encendido."],
+  ["guitarra", "Guitarra", "guitar", 280, "Una guitarra sunburst que se mece al ritmo."],
+  ["micro", "Micrófono", "mic", 200, "El micrófono de la tarima, listo para cantar."],
+  ["bateria", "Redoblante", "drum", 240, "Un redoblante rojo con herrajes cromados."],
+  ["baquetas", "Baquetas", "drumsticks", 200, "Dos baquetas cruzadas que marcan el tiempo."],
+  ["cuernos", "Cuernos", "hand-rock", 220, "La mano del rock, con muñequera de tachas."],
+  ["rockero", "Calavera rockera", "skull-rocker", 280, "Calavera con pañuelo rojo que cabecea."],
+  ["murcielago", "Murciélago", "bat", 280, "Un murciélago que aletea a tu lado."],
+  ["corazon-rock", "Corazón rock", "heart-horns", 260, "Corazón con cuernos que late."],
+  ["llama", "Llama", "flame-face", 240, "Una llama viva que tiembla junto al nombre."],
+  ["ovni", "Ovni", "ufo-vinyl", 320, "El ovni de la casa con su haz encendido."],
+  ["rockerito", "Rockerito", "rockerito", 360, "Un rockerito con su guitarra, tocando para ti."],
+];
+
 export const EFFECT_CATALOG: readonly CatalogEffect[] = [
   ...MATERIAL_EFFECTS,
   // ── Nombre ───────────────────────────────────────────────────────────────
+  // Cada efecto es un material que vive DENTRO de las letras y sale de ellas:
+  // la sangre corre por los trazos y gotea bajo cada letra, el fuego sube
+  // desde los bordes de arriba, la nieve se posa sobre ellos. Los objetos que
+  // acompañaban al nombre (vinilo, cassette…) son placas: otra ranura.
   effect({
-    code: "vinilo", name: "Vinilo", kind: "name", sort: 10,
-    description: "Un vinilo con cara gira junto a tu nombre y lleva tu portada del día.",
-    priceCoins: 320, priceCredits: 32, durationDays: 30,
+    code: "sangre", name: "Sangre", kind: "name", sort: 10,
+    description: "Sangre espesa corre por dentro de cada letra; se acumula abajo, forma gotas que se estiran y caen.",
+    priceCoins: 380, priceCredits: 38, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [sprite("vinyl-face"), text("gradient", ["#1a1a1a", "#f5f5f5", ROJO], { speed: 0.5 })] },
+      layers: [shader("blood-flow", ["#2a0004", "#5c0308", "#9a070c", "#d41c1a", "#ff8a80"], { intensity: 0.7 })] },
   }),
   effect({
-    code: "aguja", name: "Aguja", kind: "name", sort: 20,
-    description: "El nombre tiembla como un surco rayado y suelta chispas.",
-    priceCoins: 260, priceCredits: 26, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("scratch", ["#ffffff", ROJO]), canvas("sparks", [AMBAR, ROJO], 8)] },
-  }),
-  effect({
-    code: "ampli", name: "Amplificador", kind: "name", sort: 30,
-    description: "Un ampli con ojos se enciende al ritmo de tu nombre.",
-    priceCoins: 220, priceCredits: 22, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [sprite("amp-face"), text("glow", [AMBAR, ROJO], { intensity: 0.7 })] },
-  }),
-  effect({
-    code: "distorsion", name: "Distorsión", kind: "name", sort: 40,
-    description: "Glitch RGB por letra: dos copias desplazadas y una que tiembla.",
-    priceCoins: 300, priceCredits: 30, durationDays: 30,
+    code: "fuego", name: "Fuego", kind: "name", sort: 20,
+    description: "Las letras arden por dentro como brasas y las llamas suben desde cada borde, con chispas.",
+    priceCoins: 400, priceCredits: 40, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [text("glitch", [ROJO, TEAL]), text("plasma", [ROJO, VIOLETA], { opacity: 0.25 })] },
+      layers: [shader("fire-burn", ["#2a0400", "#9a1a04", "#ff5a0a", "#ffb02e", "#fff3c4"], { intensity: 0.85 })] },
+  }),
+  effect({
+    code: "rayo", name: "Rayo", kind: "name", sort: 30,
+    description: "Arcos eléctricos recorren el contorno de cada letra y saltan de una a otra con destellos.",
+    priceCoins: 440, priceCredits: 44, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [shader("lightning-arc", ["#ffffff", "#fff6a8", "#ffd23f", "#6d5bd0", "#140f2e"], { intensity: 0.75 })] },
+  }),
+  effect({
+    code: "oro", name: "Oro líquido", kind: "name", sort: 40,
+    description: "Oro fundido con relieve: los reflejos fluyen por las letras, brillan destellos y caen gotas de metal.",
+    priceCoins: 460, priceCredits: 46, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [shader("liquid-gold", ["#3a2200", "#8a5a00", "#d9a21b", "#ffd76a", "#fff6d8"], { intensity: 0.6 })] },
   }),
   effect({
     code: "neon", name: "Neón", kind: "name", sort: 50,
-    description: "Tubo de neón con parpadeo de bar y onda lenta.",
-    priceCoins: 240, priceCredits: 24, durationDays: 30,
+    description: "Tubo de vidrio encendido con núcleo blanco, halo de bar y algún tramo que chisporrotea y se apaga.",
+    priceCoins: 320, priceCredits: 32, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("neon", [TEAL, VIOLETA]), text("wave", [TEAL], { opacity: 0.55, speed: 0.7 })] },
+      layers: [shader("neon-tube", ["#ff2d95", "#ff8cc6", "#ffffff", "#7a0040"], { intensity: 0.8 })] },
   }),
   effect({
-    code: "cassette", name: "Cassette", kind: "name", sort: 60,
-    description: "Un casete con ojos rebobina mientras tu nombre pasa de moda.",
-    priceCoins: 200, priceCredits: 20, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [sprite("cassette-face", "right"), text("gradient", ["#3a3a3a", "#d9d9d9", "#3a3a3a"], { speed: 0.4 })] },
-  }),
-  effect({
-    code: "eco", name: "Eco", kind: "name", sort: 70,
-    description: "Cada letra sale y vuelve, como un delay de cinta.",
-    priceCoins: 200, priceCredits: 20, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("bounce", [TEAL, AZUL])] },
-  }),
-  effect({
-    code: "fuego", name: "Fuego", kind: "name", sort: 80,
-    description: "Llamas letra a letra y brasas que suben.",
-    priceCoins: 280, priceCredits: 28, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 5, reducedMotion: "static",
-      layers: [sprite("flame-face"), text("fire-letters", [ROJO, AMBAR, "#ff6b1a"]), fromLetters("flames", [AMBAR, ROJO, "#ff6b1a"], 10)] },
-  }),
-  effect({
-    code: "hielo", name: "Hielo", kind: "name", sort: 90,
-    description: "Cristal frío con brillo que recorre el nombre.",
-    priceCoins: 220, priceCredits: 22, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("ice", ["#8fd8ff", "#e8fbff", "#4aa3c7"])] },
-  }),
-  effect({
-    code: "oro", name: "Oro", kind: "name", sort: 100,
-    description: "Baño metálico con destellos para nombres de colección.",
-    priceCoins: 400, priceCredits: 40, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("gold", ["#8a5a00", "#ffd76a", "#fff3c4", "#b47a00"]), canvas("stardust", ["#fff3c4", "#ffd76a"], 8)] },
-  }),
-  effect({
-    code: "sangre", name: "Sangre", kind: "name", sort: 110,
-    description: "Rojo profundo que gotea letra a letra.",
-    priceCoins: 260, priceCredits: 26, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("blood", ["#7a0008", ROJO, "#3a0004"])] },
-  }),
-  effect({
-    code: "plasma", name: "Plasma", kind: "name", sort: 120,
-    description: "Degradado vivo que nunca repite color.",
+    code: "hielo", name: "Hielo", kind: "name", sort: 60,
+    description: "Letras de hielo tallado: la escarcha crece desde los bordes, el brillo cruza las facetas y sale vaho frío.",
     priceCoins: 340, priceCredits: 34, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [text("plasma", [ROJO, VIOLETA, TEAL, AMBAR])] },
+      layers: [shader("frost", ["#0b2a44", "#2f7fb3", "#8fd8ff", "#e8fbff", "#ffffff"], { intensity: 0.7 })] },
   }),
   effect({
-    code: "rockero", name: "Rockero", kind: "name", sort: 130,
-    description: "Calavera con gafas de sol que hace headbang; las letras la siguen.",
+    code: "nevada", name: "Nevada", kind: "name", sort: 70,
+    description: "Nieve que cae y se va posando encima de cada letra, como un concierto en el páramo.",
+    priceCoins: 360, priceCredits: 36, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [shader("snow-cap", ["#173450", "#4f8fc0", "#cfefff", "#ffffff"], { intensity: 0.7 })] },
+  }),
+  effect({
+    code: "veneno", name: "Veneno", kind: "name", sort: 80,
+    description: "Ácido verde que burbujea dentro de las letras, brilla tóxico y gotea.",
     priceCoins: 380, priceCredits: 38, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [choreo("skull-headbang", [ROJO, AMBAR]), text("glow", [ROJO, AMBAR], { intensity: 0.6 })] },
+      layers: [shader("acid", ["#041a06", "#0f5c14", "#39d42f", "#b6ff5c", "#f2ffd8"], { intensity: 0.75 })] },
   }),
   effect({
-    code: "guitarra", name: "Guitarra", kind: "name", sort: 140,
-    description: "Un rasgueo lanza una onda que recorre las letras.",
-    priceCoins: 300, priceCredits: 30, durationDays: 30,
-    manifest: { version: 1, triggers: ["always", "on_message"], cost: 4, reducedMotion: "static",
-      layers: [choreo("guitar-wave", [ROJO, AMBAR]), text("glow", [AMBAR, ROJO], { intensity: 0.4 })] },
-  }),
-  effect({
-    code: "cuernos", name: "Cuernos", kind: "name", sort: 150,
-    description: "Mano de rock que se levanta cada pocos segundos.",
-    priceCoins: 240, priceCredits: 24, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 2, reducedMotion: "static",
-      layers: [sprite("hand-rock", "right"), text("gold", ["#8a5a00", "#ffd76a", "#fff3c4"])] },
-  }),
-  effect({
-    code: "murcielago", name: "Murciélago", kind: "name", sort: 160,
-    description: "Un murciélago vuela en órbita alrededor del nombre y roza las letras.",
-    priceCoins: 320, priceCredits: 32, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [choreo("bat-orbit", [VIOLETA, ROJO]), text("blood", ["#5a0010", VIOLETA, "#1a0006"])] },
-  }),
-  effect({
-    code: "micro", name: "Micrófono", kind: "name", sort: 170,
-    description: "Micrófono con ondas de sonido que siguen el texto.",
-    priceCoins: 260, priceCredits: 26, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [sprite("mic"), text("eq", [VIOLETA, TEAL])] },
-  }),
-  effect({
-    code: "bateria", name: "Batería", kind: "name", sort: 180,
-    description: "Dos baquetas golpean las letras una a una y las aplastan al ritmo.",
-    priceCoins: 340, priceCredits: 34, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [choreo("drumsticks", ["#c9a227", AMBAR]), text("glow", [AMBAR, "#ffffff"], { intensity: 0.4 })] },
-  }),
-  effect({
-    code: "corazon-rock", name: "Corazón rock", kind: "name", sort: 190,
-    description: "Corazón con cuernos que late fuerte.",
-    priceCoins: 280, priceCredits: 28, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [sprite("heart-horns"), text("pulse", [ROJO, "#ff6b8a"]), canvas("hearts", ["#ff6b8a", ROJO], 5)] },
-  }),
-  effect({
-    code: "ovni", name: "Ovni vinilo", kind: "name", sort: 200,
-    description: "Un ovni abduce una letra con su haz y la deja caer.",
-    priceCoins: 420, priceCredits: 42, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 5, reducedMotion: "static",
-      layers: [choreo("ufo-abduct", [TEAL, "#7dffb0"]), text("gradient", [TEAL, VIOLETA, AMBAR], { speed: 0.5 })] },
-  }),
-  effect({
-    code: "onda", name: "Onda", kind: "name", sort: 210,
-    description: "Las letras suben y bajan en cadena, como una ola.",
-    priceCoins: 180, priceCredits: 18, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 2, reducedMotion: "static",
-      layers: [text("wave", [TEAL, AZUL])] },
-  }),
-  effect({
-    code: "arcoiris", name: "Arcoíris", kind: "name", sort: 220,
-    description: "El gradiente recorre cada letra sin repetir color.",
-    priceCoins: 260, priceCredits: 26, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("rainbow", ["#ff5f6d", "#ffc371", "#4ade80", "#60a5fa", VIOLETA])] },
-  }),
-  effect({
-    code: "dispersion", name: "Dispersión", kind: "name", sort: 230,
-    description: "Las letras se separan y vuelven a su sitio.",
-    priceCoins: 220, priceCredits: 22, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("scatter", [AMBAR, ROJO])] },
-  }),
-  effect({
-    code: "maquina", name: "Máquina de escribir", kind: "name", sort: 240,
-    description: "El nombre se escribe letra a letra, en bucle.",
-    priceCoins: 200, priceCredits: 20, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 2, reducedMotion: "static",
-      layers: [text("typewriter", ["#e8e8e8", "#9a9a9a"])] },
-  }),
-  effect({
-    code: "temblor", name: "Temblor", kind: "name", sort: 250,
-    description: "Vibración de escenario, letra a letra.",
-    priceCoins: 160, priceCredits: 16, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 2, reducedMotion: "static",
-      layers: [text("jitter", ["#ffffff", ROJO])] },
-  }),
-  effect({
-    code: "descifrado", name: "Descifrado", kind: "name", sort: 260,
-    description: "Tu nombre se resuelve desde glifos aleatorios, como un hackeo de película.",
-    priceCoins: 280, priceCredits: 28, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("decrypted", ["#e8e8e8", "#7dffb0"])] },
-  }),
-  effect({
-    code: "glitch-rgb", name: "Glitch RGB", kind: "name", sort: 270,
-    description: "Tres capas con cortes por franjas y sombras roja y cian.",
-    priceCoins: 320, priceCredits: 32, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("rb-glitch", ["#ffffff", "#ff003c", "#00e5ff"])] },
-  }),
-  effect({
-    code: "warp", name: "Warp", kind: "name", sort: 280,
-    description: "Deformación líquida con bordes cromáticos, como un cristal.",
+    code: "arcoiris", name: "Holográfico", kind: "name", sort: 90,
+    description: "Lámina holográfica: el arcoíris se mueve con la luz sobre las letras y destella como una tarjeta rara.",
     priceCoins: 400, priceCredits: 40, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [text("warp", ["#ff4d4d", "#4da6ff"])] },
+      layers: [shader("holo-foil", ["#ff5f6d", "#ffc371", "#4ade80", "#60a5fa", "#b185e3", "#ff7ad9"], { intensity: 1 })] },
   }),
   effect({
-    code: "foco-real", name: "Foco real", kind: "name", sort: 290,
-    description: "Una palabra nítida con marco de esquinas; el resto se desenfoca.",
+    code: "galaxia", name: "Galaxia", kind: "name", sort: 100,
+    description: "Una nebulosa gira dentro de las letras con estrellas que titilan y pasan despacio.",
+    priceCoins: 440, priceCredits: 44, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [shader("galaxy", ["#05030f", "#2b0f5c", "#7a2bbf", "#ff4fa3", "#5fd4ff", "#ffffff"], { intensity: 0.7 })] },
+  }),
+  effect({
+    code: "plasma", name: "Plasma", kind: "name", sort: 110,
+    description: "Energía que se arremolina dentro de las letras y escapa por los bordes en filamentos.",
+    priceCoins: 380, priceCredits: 38, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [shader("plasma-core", ["#12001f", "#6a00ff", "#ff2bd6", "#ffd1f5", "#ffffff"], { intensity: 0.75 })] },
+  }),
+  effect({
+    code: "glitch-rgb", name: "Glitch RGB", kind: "name", sort: 120,
+    description: "Señal rota: el nombre se corta en franjas, se separa en rojo y cian y vuelve a su sitio.",
     priceCoins: 340, priceCredits: 34, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("rb-focus", ["#8b5cf6", "#c4b5fd"])] },
+      layers: [shader("vhs-glitch", ["#ffffff", "#ff1f4b", "#00e5ff", "#1a1a1a"], { intensity: 0.5 })] },
   }),
   effect({
-    code: "fuzzy", name: "Fuzzy", kind: "name", sort: 300,
-    description: "Borde mordido y vibración de señal analógica.",
-    priceCoins: 260, priceCredits: 26, durationDays: 30,
+    code: "distorsion", name: "Distorsión VHS", kind: "name", sort: 130,
+    description: "Cinta gastada: pista que se desliza, ruido de nieve, líneas de barrido y cortes de color.",
+    priceCoins: 320, priceCredits: 32, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("rb-fuzzy", ["#ffffff", "#b0b0b0"])] },
+      layers: [shader("vhs-glitch", ["#f4f0e6", "#ff3b30", "#2ec4b6", "#101010"], { intensity: 0.95 })] },
+  }),
+  effect({
+    code: "chispazo", name: "Soldadura", kind: "name", sort: 140,
+    description: "Un soplete recorre las letras: el metal queda al rojo, se enfría detrás y saltan chispas.",
+    priceCoins: 360, priceCredits: 36, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [shader("weld", ["#5b636e", "#b7c0ca", "#ff3d00", "#ffb02e", "#fffbe8"], { intensity: 0.8 })] },
+  }),
+  effect({
+    code: "melodia", name: "Ecualizador", kind: "name", sort: 150,
+    description: "Las letras son un ecualizador: barras de LED que suben y bajan al ritmo, con picos que caen.",
+    priceCoins: 320, priceCredits: 32, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [shader("spectrum", ["#06140a", "#2ee66b", "#f5e33b", "#ff3b30"], { intensity: 0.8, speed: 1 })] },
+  }),
+  effect({
+    code: "descifrado", name: "Código", kind: "name", sort: 160,
+    description: "Lluvia de código verde cae dentro de las letras, con la cabeza de cada columna encendida.",
+    priceCoins: 300, priceCredits: 30, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [shader("code-rain", ["#010a03", "#0b5a1c", "#35ff6b", "#d8ffe0"], { intensity: 0.7 })] },
+  }),
+  effect({
+    code: "aguja", name: "Surco de vinilo", kind: "name", sort: 170,
+    description: "Letras de vinilo negro con surcos finos; el reflejo gira sobre ellas como el disco en el plato.",
+    priceCoins: 300, priceCredits: 30, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [shader("groove", ["#101010", "#3a3a3a", "#d8d8d8", "#ffffff", "#e50914"], { intensity: 0.7 })] },
   }),
 
-  effect({
-    code: "vinilo-rodante", name: "Vinilo rodante", kind: "name", sort: 310,
-    description: "Un vinilo rueda bajo el nombre y hace saltar cada letra a su paso.",
-    priceCoins: 300, priceCredits: 30, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [choreo("vinyl-roll", [ROJO, "#f5f5f5"]), text("gradient", ["#d9d9d9", "#ffffff", ROJO], { speed: 0.4 })] },
-  }),
-  effect({
-    code: "rayo", name: "Rayo", kind: "name", sort: 320,
-    description: "Un rayo cae sobre una letra con destello y chispas.",
-    priceCoins: 440, priceCredits: 44, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 5, reducedMotion: "static",
-      layers: [choreo("lightning", ["#fff6a8", AZUL]), text("neon", [AZUL, "#fff6a8"]), fromLetters("sparks", ["#fff6a8", AZUL, "#ffffff"], 12)] },
-  }),
-  effect({
-    code: "rockerito", name: "Rockerito", kind: "name", sort: 330,
-    description: "Un rockerito con su guitarra camina sobre tus letras y las pisa.",
-    priceCoins: 460, priceCredits: 46, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 5, reducedMotion: "static",
-      layers: [choreo("rockerito", [ROJO, "#1a1a1a"]), text("gold", ["#8a5a00", "#ffd76a", "#fff3c4"])] },
-  }),
-  effect({
-    code: "chispazo", name: "Chispazo", kind: "name", sort: 340,
-    description: "Las letras sueltan chispas de soldadura.",
-    priceCoins: 260, priceCredits: 26, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [text("glow", [AMBAR, "#ffffff"], { intensity: 0.5 }), fromLetters("sparks", [AMBAR, "#ffffff", ROJO], 14)] },
-  }),
-  effect({
-    code: "nevada", name: "Nevada", kind: "name", sort: 350,
-    description: "Copos que caen de las letras, como un concierto en el páramo.",
-    priceCoins: 240, priceCredits: 24, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("ice", ["#8fd8ff", "#e8fbff", "#4aa3c7"]), fromLetters("snow", ["#ffffff", "#cfefff"], 12)] },
-  }),
-  effect({
-    code: "melodia", name: "Melodía", kind: "name", sort: 360,
-    description: "Notas musicales que salen de cada letra.",
-    priceCoins: 220, priceCredits: 22, durationDays: 30,
-    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
-      layers: [text("pulse", [VIOLETA, TEAL]), fromLetters("notes", [VIOLETA, TEAL, AMBAR], 8)] },
-  }),
+  // ── Placas ──────────────────────────────────────────────────────────────
+  // Un objeto junto al nombre, en su propia ranura: se lleva a la vez que un
+  // efecto de nombre. Los códigos son los que antes se vendían como nombre.
+  ...BADGES.map(([code, name, preset, price, description, speed], index): CatalogEffect => effect({
+    code, name, kind: "badge", sort: 10 + index * 10, description,
+    priceCoins: price, priceCredits: Math.round(price / 10), durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 1, reducedMotion: "static",
+      layers: [{ ...sprite(preset), ...(speed ? { speed } : {}) }] },
+  })),
 
   // ── Marco de avatar ──────────────────────────────────────────────────────
   effect({

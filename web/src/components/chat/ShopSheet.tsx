@@ -18,16 +18,16 @@ import { BurstText, ChatAvatar, EffectName, MessageBurst, RoomAmbient, RoomBackd
 import { SceneLayer, type SceneRequest } from "./Scenes";
 
 export const SLOT_LABEL: Record<EffectSlot, string> = {
-  name: "Nombre", frame: "Marco", background: "Fondo", ambient: "Ambiente", name_font: "Fuente",
+  name: "Nombre", frame: "Marco", background: "Fondo", ambient: "Ambiente", name_font: "Fuente", badge: "Placa",
 };
 
 const KIND_LABEL: Record<string, string> = {
-  name: "Nombres", name_font: "Fuentes", frame: "Marcos", entry: "Entradas", message: "Mensajes",
+  name: "Nombres", name_font: "Fuentes", badge: "Placas", frame: "Marcos", entry: "Entradas", message: "Mensajes",
   action: "Acciones", sticker: "Stickers", background: "Fondos", ambient: "Ambientes",
 };
 
 /** Orden de las pestañas: lo que se lleva puesto primero. */
-const KIND_ORDER = ["name", "name_font", "frame", "entry", "message", "action", "sticker", "background", "ambient"];
+const KIND_ORDER = ["name", "name_font", "badge", "frame", "entry", "message", "action", "sticker", "background", "ambient"];
 const SLOTS = EQUIPPED_SLOTS;
 const PLAYABLE = new Set(["message", "entry", "action", "sticker"]);
 
@@ -105,12 +105,13 @@ export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, o
   );
   const nameEffect = pick("name");
   const font = pick("name_font");
+  const badge = pick("badge");
   const frame = pick("frame");
   const background = pick("background");
   const ambient = pick("ambient");
   const displayName = actor?.displayName ?? "Invitado";
   const myName = (
-    <EffectName name={displayName} effect={nameEffect} font={font} cover={cover} quality={quality} priority={2} />
+    <EffectName name={displayName} effect={nameEffect} font={font} badge={badge} cover={cover} quality={quality} priority={2} />
   );
 
   const play = useCallback((effect: ChatEffect): void => {
@@ -120,11 +121,11 @@ export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, o
         id: `${effect.code}-${Date.now()}`, effect, who: displayName,
         label: effect.kind === "entry" ? `${displayName} entró a La Rockola` : `${displayName} ${actionLabel(effect.code)}`,
         nameNode: effect.kind === "entry" ? (
-          <EffectName name={displayName} effect={nameEffect} font={font} cover={cover} quality={quality} priority={2} className="crv-scene-name" />
+          <EffectName name={displayName} effect={nameEffect} font={font} badge={badge} cover={cover} quality={quality} priority={2} className="crv-scene-name" />
         ) : undefined,
       }]);
     }
-  }, [cover, displayName, font, nameEffect, quality]);
+  }, [badge, cover, displayName, font, nameEffect, quality]);
 
   const tryOn = (effect: ChatEffect): void => {
     setTrial(effect);
@@ -336,6 +337,8 @@ function CardPreview({ effect, cover, quality }: { effect: ChatEffect; cover: st
           cover={cover} quality={quality}
         />
       );
+    case "badge":
+      return <EffectName name="Rock" effect={null} badge={effect} cover={cover} quality={quality} />;
     case "frame":
       return <ChatAvatar user={{ displayName: effect.name, avatarSeed: effect.code }} frame={effect} quality={quality} size={30} />;
     case "sticker":

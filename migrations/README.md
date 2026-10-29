@@ -242,3 +242,10 @@ compras (incluidas las gratuitas), portada fija por ciclo editorial e índice
 de retención de mensajes. Migra los recibos de compras existentes sin mover
 saldos. La reversión a claves globales falla de forma transaccional si distintos
 actores ya usan una misma clave; no elimina movimientos para forzarla.
+
+`0112_chat_badges`: ranura y tipo `badge` (placa). Los objetos que se vendían
+como efecto de nombre (vinilo, cassette, ampli, cuernos, micrófono, corazón,
+calavera, guitarra, murciélago, batería, ovni, vinilo rodante y rockerito)
+conservan código, inventario y vencimiento y pasan a ser placas; si estaban
+equipados, se mueven a la ranura `badge`. El down los devuelve a `name`.
+Ver `docs/CHAT.md`.

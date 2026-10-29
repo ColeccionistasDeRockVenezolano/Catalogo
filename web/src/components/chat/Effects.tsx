@@ -20,6 +20,7 @@ import { RealisticSprite } from "./RealisticSprite";
 import { SmokeClouds } from "./SmokeClouds";
 import { RbText } from "./TextEffects";
 import { NameChoreo, type ChoreoMode } from "./Choreography";
+import { ShaderText } from "./ShaderName";
 import { burstFrom, useParticleEmitter } from "./ParticleStage";
 import {
   applyTextTransform, applyUnicodeFont, fontStyleFor, isPerLetterFont,
@@ -28,18 +29,18 @@ import {
 // ── Texturas realistas compartidas (un atlas, también para stickers) ─────
 const SPRITES: Record<string, () => React.ReactElement> = Object.fromEntries(
   ["vinyl-face", "cassette-face", "amp-face", "skull-rocker", "flame-face", "guitar",
-    "hand-rock", "bat", "mic", "drum", "heart-horns", "ufo-vinyl"].map((preset) =>
+    "hand-rock", "bat", "mic", "drum", "heart-horns", "ufo-vinyl", "drumsticks", "rockerito"].map((preset) =>
     [preset, () => <RealisticSprite preset={preset} />]),
 );
 
-function SpriteBadge({ layer, quality }: { layer: EffectLayer; quality: Quality }) {
+function SpriteBadge({ layer, quality, badge }: { layer: EffectLayer; quality: Quality; badge?: boolean }) {
   const Sprite = SPRITES[layer.preset];
   if (!Sprite) return null;
   // Un sprite es un SVG con CSS: se pinta siempre, también en gama baja
   // (allí sin animación). El presupuesto se reserva para lo caro.
   return (
     <span
-      className={`crv-sprite crv-sprite-${layer.position ?? "left"}${quality === "low" ? " is-static" : quality === "reduced" ? " is-soft" : ""}`}
+      className={`crv-sprite crv-sprite-${layer.position ?? "left"}${badge ? ` crv-badge crv-badge-${layer.preset}` : ""}${quality === "low" ? " is-static" : quality === "reduced" ? " is-soft" : ""}`}
       style={layerStyle(layer)}
       aria-hidden="true"
     >
@@ -317,14 +318,24 @@ function SvgFrame({ layer }: { layer: EffectLayer }) {
 }
 
 // ── Nombre con efecto ──────────────────────────────────────────────────────
-export function EffectName({ name, effect, font, cover, quality, className, priority }: {
+/** Placa: el objeto que se lleva junto al nombre, en su propia ranura. */
+export function NameBadge({ badge, quality }: { badge: ChatEffect | null | undefined; quality: Quality }) {
+  const layer = spriteLayers(manifestOf(badge))[0];
+  if (!layer || shouldHide(badge ?? null, quality)) return null;
+  return <SpriteBadge layer={{ ...layer, position: "left" }} quality={quality} badge />;
+}
+
+export function EffectName({ name, effect, font, badge, cover, quality, className, priority }: {
   name: string; effect: ChatEffect | null; font?: ChatEffect | null;
+  /** Placa equipada (vinilo, cassette…): va antes del nombre, aparte del efecto. */
+  badge?: ChatEffect | null;
   cover: string | null; quality: Quality; className?: string;
   /** 2 en el probador de la tienda: siempre anima. */
   priority?: number;
 }) {
   const rootRef = useRef<HTMLSpanElement | null>(null);
   const manifest = manifestOf(effect);
+  const shader = manifest?.layers.find((layer) => layer.type === "shader") ?? null;
   const layers = textLayers(manifest);
   const sprites = spriteLayers(manifest);
   const choreo = choreoLayer(manifest);
@@ -342,16 +353,41 @@ export function EffectName({ name, effect, font, cover, quality, className, prio
   // El descifrado y el foco animan con dos intervalos baratos: no gastan
   // presupuesto. Este se reserva para texto por letra, coreografías y
   // partículas, que son los que multiplican trabajo con muchos mensajes.
-  const heavy = Boolean(material) || Boolean(primary && SPLIT_PRESETS.has(primary.preset)) || Boolean(choreo) || particles.length > 0;
+  const heavy = Boolean(shader) || Boolean(material) || Boolean(primary && SPLIT_PRESETS.has(primary.preset)) || Boolean(choreo) || particles.length > 0;
   const slot = useMotionSlot(rootRef, Math.max(1, costOf(effect)), heavy, quality, priority ?? 1.5);
   const hidden = shouldHide(effect, quality);
   const live = slot.granted && (quality === "medium" || quality === "high");
   // Las partículas de nombres solo con hueco y en pantalla; nunca en «reducir movimiento».
   useParticleEmitter(rootRef, hidden || material ? [] : particles, live && slot.visible);
-  useMaterialEmitter(rootRef, material, "name", live && slot.visible && !hidden);
+  useMaterialEmitter(rootRef, shader ? null : material, "name", live && slot.visible && !hidden);
+  const badgeNode = <NameBadge badge={badge} quality={quality} />;
+
+  // Shader: el material vive dentro de las letras (sangre, fuego, rayos…).
+  if (shader && !hidden && !perLetter) {
+    return (
+      <span
+        ref={rootRef}
+        className={[
+          "crv-name", "crv-shader-name", `crv-shader-${shader.preset}`,
+          fontCode ? `crv-f-${fontCode}` : "",
+          slot.visible ? "" : "is-offscreen",
+          className ?? "",
+        ].filter(Boolean).join(" ")}
+        style={{ ...fontStyle, ...layerStyle(shader) } as React.CSSProperties}
+        aria-label={name}
+      >
+        {badgeNode}
+        <ShaderText text={display} layer={shader} live={live && slot.visible} quality={quality} />
+      </span>
+    );
+  }
 
   if ((layers.length === 0 && sprites.length === 0 && !choreo && !fontCode && !material) || hidden) {
-    return <span ref={rootRef} className={className}>{name}</span>;
+    return badge ? (
+      <span ref={rootRef} className={["crv-name", className ?? ""].filter(Boolean).join(" ")} aria-label={name}>
+        {badgeNode}<span className="crv-name-text">{name}</span>
+      </span>
+    ) : <span ref={rootRef} className={className}>{name}</span>;
   }
 
   const extras = layers.slice(1).map((layer) => `fx-${layer.preset}`).join(" ");
@@ -377,6 +413,7 @@ export function EffectName({ name, effect, font, cover, quality, className, prio
       style={{ ...fontStyle, ...((material ?? primary) ? layerStyle((material ?? primary)!) : {}) } as React.CSSProperties}
       aria-label={name}
     >
+      {badgeNode}
       {sprites.filter((layer) => (layer.position ?? "left") === "left").map((layer, index) => (
         <SpriteBadge key={`l-${layer.preset}-${index}`} layer={layer} quality={quality} />
       ))}

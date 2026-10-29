@@ -28,9 +28,9 @@ async function setup(viewport: { width: number; height: number }, quality: "norm
     Object.defineProperty(navigator, "deviceMemory", { get: () => memory });
     Object.defineProperty(navigator, "hardwareConcurrency", { get: () => 8 });
   }, { memory: quality === "low" ? 1 : 8 });
-  const equipped = { name: "murcielago", frame: "anillo-fuego", background: "escenario", ambient: "brasas", name_font: null as string | null };
+  const equipped = { name: "sangre", frame: "anillo-fuego", background: "escenario", ambient: "brasas", name_font: null as string | null, badge: "murcielago" as string | null };
   const actor = { id: "00000000-0000-4000-8000-000000000003", handle: "ensayo", displayName: "Nina Discos", avatarSeed: "nina", isBot: false, equipped };
-  const owned = new Set(["murcielago", "anillo-fuego", "escenario", "brasas", "vinilo-sticker", "pogo", "telon"]);
+  const owned = new Set(["sangre", "murcielago", "anillo-fuego", "escenario", "brasas", "vinilo-sticker", "pogo", "telon"]);
   const expiry = new Date(Date.now() + 29 * 86400_000).toISOString();
   const wallet = { coins: 800, credits: 100 };
   let purchases = 0;
@@ -116,15 +116,16 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 960 
     await page.getByRole("button", { name: "Tienda de efectos", exact: true }).click();
     await expect.poll(() => page.locator(".crv-probador .crv-backdrop.fx-stage").evaluate((node) => getComputedStyle(node).backgroundImage)).toContain("stage-realistic");
     for (const [code, preset] of families) {
-      for (const kind of ["name", "frame", "message"]) {
+      // El nombre de cada familia lo pinta el motor de shader (chat-stage3-qa.ts).
+      for (const kind of ["frame", "message"]) {
         const effectCode = kind === "frame" ? `marco-${code}` : kind === "message" ? `mensaje-${code}` : code;
         const effect = EFFECT_CATALOG.find((effect) => effect.code === effectCode)!;
-        await page.getByRole("button", { name: kind === "name" ? "Nombres" : kind === "frame" ? "Marcos" : "Mensajes", exact: true }).click();
+        await page.getByRole("button", { name: kind === "frame" ? "Marcos" : "Mensajes", exact: true }).click();
         const card = page.locator(".chat-effect-card").filter({ has: page.locator(".chat-effect-name", { hasText: new RegExp(`^${effect.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`) }) });
         await card.click();
-        const target = page.locator(`.crv-probador ${kind === "frame" ? ".crv-avatar" : kind === "message" ? "p" : ".crv-name"}.crv-material-${preset}`);
+        const target = page.locator(`.crv-probador ${kind === "frame" ? ".crv-avatar" : "p"}.crv-material-${preset}`);
         await expect(target).toBeVisible();
-        if (kind === "name" && code === "karma-azul") {
+        if (kind === "frame" && code === "karma-azul") {
           const bounds = await target.boundingBox();
           assert(bounds);
           await expect.poll(() => page.locator(".crv-material-stage").evaluate((node, rect) => {
@@ -143,15 +144,15 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 960 
           let painted = 0; for (let i = 3; i < pixels.length; i += 4) if (pixels[i]! > 10) painted++;
           return painted;
         })).toBeGreaterThan(8);
-        if (kind === "name") await page.screenshot({ path: `${output}/${viewport.width}-${code}.png` });
+        if (kind === "frame") await page.screenshot({ path: `${output}/${viewport.width}-${code}.png` });
         if (code === "sangre-realista" && kind === "frame") {
           (results["viewports"] as unknown[]).push({ ...viewport, perf: await measure(page), usage: await page.evaluate(() => (window as unknown as MaterialWindow).__crvMaterials.usage()) });
         }
       }
     }
-    checks.push(`${viewport.width}: las seis familias se prueban en nombre, avatar y mensaje; canvas con píxeles reales`);
-    await page.getByRole("button", { name: "Nombres", exact: true }).click();
-    await page.getByRole("button", { name: /^Murciélago Murciélago/ }).click();
+    checks.push(`${viewport.width}: las seis familias se prueban en avatar y mensaje; canvas con píxeles reales`);
+    await page.getByRole("button", { name: "Placas", exact: true }).click();
+    await page.getByRole("button", { name: /Murciélago/ }).first().click();
     await expect(page.locator(".crv-probador .crv-real-bat")).toBeVisible();
     assert.equal(await page.locator(".crv-probador .crv-real-bat").evaluate((node) => getComputedStyle(node).overflow), "hidden");
     const atlas = page.locator(".crv-probador .crv-real-bat image").first();
@@ -172,8 +173,9 @@ for (const mode of ["low", "reduced"] as const) {
   const run = await setup({ width: 390, height: 844 }, mode);
   try {
     await run.page.getByRole("button", { name: "Tienda de efectos", exact: true }).click();
+    await run.page.getByRole("button", { name: "Marcos", exact: true }).click();
     for (const [code, preset] of families) {
-      const effect = EFFECT_CATALOG.find((effect) => effect.code === code)!;
+      const effect = EFFECT_CATALOG.find((effect) => effect.code === `marco-${code}`)!;
       await run.page.locator(".chat-effect-card").filter({ has: run.page.locator(".chat-effect-name", { hasText: effect.name }) }).click();
       await expect(run.page.locator(`.crv-probador .crv-material-${preset}`)).toBeVisible();
       await expect(run.page.locator(".crv-material-stage")).toHaveCount(0);
@@ -190,7 +192,8 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 960 
   const run = await setup(viewport);
   try {
     await run.page.getByRole("button", { name: "Tienda de efectos", exact: true }).click();
-    await run.page.locator(".chat-effect-card").filter({ has: run.page.locator(".chat-effect-name", { hasText: /^Karma azul$/ }) }).click();
+    await run.page.getByRole("button", { name: "Marcos", exact: true }).click();
+    await run.page.locator(".chat-effect-card").filter({ has: run.page.locator(".chat-effect-name", { hasText: /^Karma azul · avatar$/ }) }).click();
     await expect(run.page.locator(".crv-probador .crv-material-karma-aura")).toBeVisible();
     const first = await measure(run.page);
     const steady = await measure(run.page);

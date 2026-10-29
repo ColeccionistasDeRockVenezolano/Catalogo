@@ -57,7 +57,7 @@ navegador
 | `CRV_CHAT_MESSAGE_RETENTION_DAYS` | `90` | retención de mensajes; conserva los que tienen reportes abiertos |
 | `CRV_CHAT_GUEST_COINS` | `150` | monedas de bienvenida (el servicio local usa 500 para poder probar la tienda) |
 
-## Modelo de datos (migraciones 0105-0111)
+## Modelo de datos (migraciones 0105-0112)
 
 - `chat.actors` — identidad estable: hoy invitado, mañana cuenta CRV.
   `claimed_user_id` es el enganche; `handle` es único y no cambia al renombrar.
@@ -71,7 +71,7 @@ navegador
   siembra al arrancar (`syncEffectCatalog`, idempotente).
 - `chat.effect_inventory` — qué tiene cada actor y hasta cuándo.
 - `chat.equipped` — una fila por ranura (`name`, `frame`, `background`,
-  `ambient`, `name_font`).
+  `ambient`, `name_font`, `badge`).
 - `chat.accounts` + `chat.ledger` — saldos y libro mayor de movimientos por actor,
   con `(actor_id, idempotency_key)` único. Cada movimiento contiene los deltas
   de coins y credits; **no es contabilidad de doble entrada**. Ningún saldo se
@@ -135,8 +135,10 @@ Un efecto es **datos**, no código (`src/chat/effects-catalog.ts`):
 }
 ```
 
-Hay **92 efectos**, incluidas 14 fuentes, con capas de texto, sprites, marcos,
-partículas, coreografías y escenas:
+Hay **106 efectos**: 23 de nombre (shaders, ver más abajo), 15 placas,
+14 fuentes, 17 marcos, 12 de mensaje, 6 entradas, 4 acciones, 6 stickers,
+4 fondos y 5 ambientes. Las capas disponibles para el editor siguen siendo
+texto, sprites, marcos, partículas, coreografías, escenas, materiales y shaders:
 
 - **Texto por letra** (`wave`, `rainbow`, `bounce`, `spin3d`, `glitch`,
   `scatter`, `typewriter`, `jitter`, `fire-letters`): el nombre se parte en
@@ -487,6 +489,9 @@ realista, cada una para nombre, marco de avatar y mensaje. Son 110 entradas en
 total, incluidas las fuentes. Los nuevos nombres/marcos usan el nivel existente
 de 480 monedas/48 créditos y los mensajes 180/18, con alquiler de 30 días.
 
+Desde 0112 el nombre de estas seis familias lo pinta el motor de shader (ver
+«Efectos de nombre con shader y placas»); marco y mensaje siguen aquí.
+
 `RealisticSprite.tsx` sustituye los doce dibujos de objetos y las piezas de las
 coreografías/escenas por recortes de un atlas WebP original con materiales y
 volumen. También hay fotografías generadas para escenario y garaje y humo
@@ -541,6 +546,79 @@ catálogo del servicio de chat (sin migraciones nuevas):
 systemctl --user restart crv-chat
 curl --retry 15 --retry-connrefused --retry-delay 1 -fsS http://127.0.0.1:8081/health
 ```
+
+## Efectos de nombre con shader y placas (2026-10-29)
+
+Los efectos de nombre anteriores (texto CSS con un objeto al lado) se veían
+pobres a tamaño de chat. Ahora un efecto de nombre es **un material que vive
+dentro de las letras y sale de ellas**, y los objetos son **placas**: una
+ranura aparte.
+
+### Placas (`kind: badge`, migración 0112)
+
+Vinilo, Vinilo a 45, Cassette, Amplificador, Guitarra, Micrófono, Redoblante,
+Baquetas, Cuernos, Calavera rockera, Murciélago, Corazón rock, Llama, Ovni y
+Rockerito. Se llevan a la vez que un efecto de nombre (sangre + cassette). Los
+trece objetos que se vendían como nombre conservan código, inventario y
+vencimiento; la migración los pasa a `badge` y mueve su equipado a la ranura
+nueva. `RealisticSprite.tsx` recorta cada objeto con un `clipPath`: sin él, una
+caja de otra proporción enseñaba trozos de los objetos vecinos del atlas.
+
+### Motor de shaders del nombre
+
+- `web/src/components/chat/ShaderName.tsx`: **un solo contexto WebGL** fuera
+  del DOM para todos los nombres. Cada nombre tiene un `<canvas>` 2D pegado a
+  su texto; en cada fotograma del reloj común se pinta el shader en el
+  contexto compartido y se copia a ese lienzo. El efecto sigue el scroll, los
+  recortes y el orden de capas de la página, sin un contexto por mensaje.
+- `web/src/lib/textField.ts`: el texto se rasteriza una vez y se convierte en
+  un campo RGBA: cobertura, distancia con signo al borde (relieve, halos) y,
+  por columnas, la profundidad dentro del trazo y la distancia a la letra de
+  encima o de debajo. Con eso las gotas cuelgan del borde inferior de cada
+  letra, el fuego sube desde los bordes superiores y la nieve se posa encima,
+  sigan la forma que sigan. El campo se reutiliza para todos los mensajes del
+  mismo autor.
+- `web/src/lib/nameShaders.ts`: 18 motores GLSL ES 1.0 (WebGL 1) con una
+  cabecera común (ruido, relieve, gotas): `blood-flow`, `fire-burn`,
+  `lightning-arc`, `neon-tube`, `liquid-gold`, `frost`, `snow-cap`, `acid`,
+  `holo-foil`, `galaxy`, `vhs-glitch`, `plasma-core`, `curse-mark`,
+  `shadow-smoke`, `weld`, `spectrum`, `code-rain` y `groove`. Las unidades van
+  en «em», así un efecto se ve igual a 15 px en la sala que en el probador.
+
+Sangre: corre por dentro del trazo con reflejos que bajan, gotas que recorren
+las letras, acumulación abajo y gotas que crecen, estrechan el cuello, se
+sueltan y caen; «Sangre realista» añade oleadas que bajan desde arriba. Fuego y
+Karma azul: letras incandescentes con borde carbonizado y llamas que suben de
+los bordes. Rayo y Chidori: arcos que cruzan el nombre y saltan entre letras.
+Además Oro líquido (con gotas), Neón (tramos que fallan), Hielo, Nevada,
+Veneno, Holográfico, Rainbow pastel, Galaxia, Plasma, Glitch RGB, Distorsión
+VHS, Soldadura, Ecualizador, Código, Surco de vinilo, Sello maldito y Entidad
+de sombras.
+
+Se conservan los códigos que existían (sangre, fuego, rayo, oro, neon, hielo,
+nevada, arcoiris, plasma, glitch-rgb, distorsion, chispazo, melodia,
+descifrado, aguja y los seis materiales); `veneno` y `galaxia` son nuevos.
+Se retiran de la venta `eco`, `onda`, `dispersion`, `maquina`, `temblor`,
+`warp`, `foco-real` y `fuzzy` (quedan `enabled=false`, como manda la
+sincronización del catálogo).
+
+Presupuesto y degradación: solo anima lo que tiene hueco en el presupuesto de
+`chatMotion.ts` y está en pantalla; lo demás conserva un fotograma fijo, que
+también se ve bien. Calidad baja y «reducir movimiento»: fotograma fijo.
+Media dibuja a 30 Hz y con DPR máximo 1,5; alta, a la frecuencia del reloj y
+DPR 2. Sin WebGL, o si el contexto se pierde, queda el texto con el color del
+material. El texto real sigue en el DOM (seleccionable y para lectores de
+pantalla) y solo se vuelve transparente cuando su lienzo está pintado. Los
+nombres con shader usan 15 px y peso 800 para que el material tenga trazo. Las
+fuentes Unicode se combinan con el shader; las fuentes por letra (Boxed Black,
+Letras en Círculo) no tienen una forma que rasterizar de una vez y muestran la
+fuente sin shader.
+
+Pruebas: `web/tests/unit/chat-name-shaders.test.ts` (campo del texto, fuente
+de cada preset, palabras reservadas de GLSL), `test/unit/chat-effects.test.ts`
+(nombres sin objetos, placas con su código) y `test/contract/chat.test.ts`
+(0112 mueve el equipado). `web/tests/visual/chat-stage3-qa.ts` comprueba que
+el probador pinta los shaders y las placas.
 
 ## Pendiente (E5)
 

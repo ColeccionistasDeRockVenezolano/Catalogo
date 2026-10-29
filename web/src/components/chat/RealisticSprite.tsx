@@ -41,6 +41,10 @@ export function RealisticSprite({ preset, className = "" }: { preset: string; cl
       <g className="crv-real-wing crv-real-wing-left" style={{ transformOrigin: `${x + width * 0.49}px ${y + height * 0.6}px` }}><g clipPath={`url(#${id}-left)`}>{picture}</g></g>
       <g className="crv-real-wing crv-real-wing-right" style={{ transformOrigin: `${x + width * 0.54}px ${y + height * 0.6}px` }}><g clipPath={`url(#${id}-right)`}>{picture}</g></g>
       <g clipPath={`url(#${id}-body)`}>{picture}</g>
-    </> : picture}
+    </> : <>
+      {/* Sin recorte, una caja con otra proporción enseña los objetos vecinos del atlas. */}
+      <defs><clipPath id={`${id}-cell`}><rect x={x} y={y} width={width} height={height} /></clipPath></defs>
+      <g clipPath={`url(#${id}-cell)`}>{picture}</g>
+    </>}
   </svg>;
 }

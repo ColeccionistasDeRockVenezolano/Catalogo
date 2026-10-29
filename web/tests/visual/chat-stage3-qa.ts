@@ -27,9 +27,9 @@ async function setup(viewport: { width: number; height: number }, quality: "norm
     Object.defineProperty(navigator, "deviceMemory", { get: () => memory });
     Object.defineProperty(navigator, "hardwareConcurrency", { get: () => 8 });
   }, { memory: quality === "low" ? 1 : 8 });
-  const equipped = { name: "murcielago", frame: "anillo-fuego", background: "escenario", ambient: "brasas", name_font: null as string | null };
+  const equipped = { name: "sangre", frame: "anillo-fuego", background: "escenario", ambient: "brasas", name_font: null as string | null, badge: "murcielago" as string | null };
   const actor = { id: "00000000-0000-4000-8000-000000000003", handle: "ensayo", displayName: "Nina Discos", avatarSeed: "nina", isBot: false, equipped };
-  const owned = new Set(["murcielago", "anillo-fuego", "escenario", "brasas", "vinilo-sticker", "pogo", "telon"]);
+  const owned = new Set(["sangre", "murcielago", "anillo-fuego", "escenario", "brasas", "vinilo-sticker", "pogo", "telon"]);
   const expiry = new Date(Date.now() + 29 * 86400_000).toISOString();
   const wallet = { coins: 800, credits: 100 };
   let purchases = 0;
@@ -106,15 +106,18 @@ try {
   const { page } = mobile;
   await expect(page.locator(".crv-scene")).toHaveCount(0); checks.push("El historial no dispara acciones");
   await page.getByRole("button", { name: "Tienda de efectos", exact: true }).click();
-  await page.getByRole("button", { name: /Murciélago/ }).click();
-  await expect(page.locator(".crv-probador .crv-choreo-bat-orbit.is-live")).toBeVisible();
+  await page.getByRole("button", { name: /^Sangre Sangre/ }).click();
+  await expect(page.locator(".crv-probador .crv-shader-blood-flow .crv-shader-text.is-ready")).toBeVisible();
   assert.equal(mobile.purchases(), 0); checks.push("Probar no compra");
-  for (const [label, preset] of [["Murciélago", "bat-orbit"], ["Batería", "drumsticks"], ["Ovni vinilo", "ufo-abduct"], ["Vinilo rodante", "vinyl-roll"], ["Guitarra", "guitar-wave"], ["Rockero", "skull-headbang"], ["Rayo", "lightning"], ["Rockerito", "rockerito"]]) {
+  for (const [label, preset] of [["Fuego", "fire-burn"], ["Rayo", "lightning-arc"], ["Oro líquido", "liquid-gold"], ["Neón", "neon-tube"], ["Nevada", "snow-cap"], ["Galaxia", "galaxy"]]) {
     await page.getByRole("button", { name: new RegExp(`^${label} ${label}`) }).click();
-    await expect(page.locator(`.crv-probador .crv-choreo-${preset}.is-live`)).toBeVisible();
-    await page.waitForFunction(() => document.querySelector(".crv-probador .crv-actor")?.getAnimations().length);
+    await expect(page.locator(`.crv-probador .crv-shader-${preset} .crv-shader-text.is-ready`)).toBeVisible();
   }
-  checks.push("Las ocho coreografías ejecutan WAAPI");
+  checks.push("Los shaders del nombre pintan en el probador");
+  await page.getByRole("button", { name: "Placas", exact: true }).click();
+  await page.getByRole("button", { name: /Cassette/ }).first().click();
+  await expect(page.locator(".crv-probador .crv-badge-cassette-face")).toBeVisible();
+  checks.push("Las placas se prueban aparte del nombre");
   await page.screenshot({ path: `${output}/mobile-probador.png` });
   const previewPerf = await measure(page);
   await page.getByRole("button", { name: "Fuentes", exact: true }).click();

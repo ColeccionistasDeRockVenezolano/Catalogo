@@ -23,6 +23,7 @@ export const equippedSchema = z.object({
   background: z.string().nullable(),
   ambient: z.string().nullable(),
   name_font: z.string().nullable(),
+  badge: z.string().nullable(),
 });
 export type Equipped = z.infer<typeof equippedSchema>;
 

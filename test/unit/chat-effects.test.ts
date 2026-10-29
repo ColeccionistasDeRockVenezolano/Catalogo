@@ -5,7 +5,7 @@
 // test falla antes de que llegue a producción.
 import { describe, expect, it } from "vitest";
 import {
-  EFFECT_CATALOG, EFFECT_KINDS, EFFECT_PRESETS, EFFECTS_BY_CODE, effectManifestSchema,
+  EFFECT_CATALOG, EFFECT_KINDS, EFFECT_PRESETS, EFFECTS_BY_CODE, NAME_SHADER_PRESETS, effectManifestSchema,
   isEquippable, type EffectKind,
 } from "../../src/chat/effects-catalog.js";
 import { clientEventSchema, equippedSchema, MAX_BODY } from "../../src/chat/protocol.js";
@@ -46,6 +46,7 @@ describe("catálogo de efectos del chat", () => {
     expect(isEquippable("frame")).toBe(true);
     expect(isEquippable("background")).toBe(true);
     expect(isEquippable("ambient")).toBe(true);
+    expect(isEquippable("badge")).toBe(true);
     const notEquippable: EffectKind[] = ["entry", "message", "action", "sticker"];
     for (const kind of notEquippable) expect(isEquippable(kind)).toBe(false);
   });
@@ -82,8 +83,8 @@ describe("protocolo del chat", () => {
     expect(clientEventSchema.safeParse({ type: "equip", slot: "cabeza", effectCode: "neon" }).success).toBe(false);
   });
 
-  it("el equipado siempre tiene las cinco ranuras", () => {
-    expect(equippedSchema.safeParse({ name: null, frame: null, background: null, ambient: null, name_font: null }).success).toBe(true);
+  it("el equipado siempre tiene las seis ranuras", () => {
+    expect(equippedSchema.safeParse({ name: null, frame: null, background: null, ambient: null, name_font: null, badge: null }).success).toBe(true);
     expect(equippedSchema.safeParse({ name: "neon" }).success).toBe(false);
   });
 
@@ -93,13 +94,9 @@ describe("protocolo del chat", () => {
     expect(isEquippable("name_font")).toBe(true);
   });
 
-  it("incluye los cinco efectos de texto tipo React Bits", () => {
-    for (const code of ["descifrado", "glitch-rgb", "warp", "foco-real", "fuzzy"]) {
-      const effect = EFFECTS_BY_CODE.get(code);
-      expect(effect, code).toBeDefined();
-      expect(effect?.kind).toBe("name");
-      expect(effect?.manifest.layers[0]?.type).toBe("css");
-    }
+  it("acepta una placa en su propia ranura", () => {
+    expect(clientEventSchema.safeParse({ type: "equip", slot: "badge", effectCode: "cassette" }).success).toBe(true);
+    expect(EFFECTS_BY_CODE.get("cassette")?.kind).toBe("badge");
   });
 
   it("no permite presets fuera del catálogo del renderer", () => {
@@ -112,14 +109,34 @@ describe("protocolo del chat", () => {
 });
 
 
-describe("catálogo de coreografías y escenas", () => {
-  it("incluye los ocho personajes y partículas que nacen de las letras", () => {
-    const presets = EFFECT_CATALOG.flatMap((effect) => effect.manifest.layers);
-    for (const preset of ["bat-orbit", "drumsticks", "ufo-abduct", "vinyl-roll", "guitar-wave", "skull-headbang", "lightning", "rockerito"]) {
-      expect(presets.some((layer) => layer.type === "choreo" && layer.preset === preset), preset).toBe(true);
+describe("nombres, placas y escenas", () => {
+  it("cada efecto de nombre pinta las letras con un shader y no lleva objetos", () => {
+    const names = EFFECT_CATALOG.filter((effect) => effect.kind === "name");
+    expect(names.length).toBeGreaterThanOrEqual(20);
+    for (const effect of names) {
+      const layers = effect.manifest.layers;
+      expect(layers.some((layer) => layer.type === "shader"), effect.code).toBe(true);
+      expect(layers.some((layer) => layer.type === "sprite" || layer.type === "choreo"), effect.code).toBe(false);
+      for (const layer of layers) {
+        if (layer.type === "shader") expect(NAME_SHADER_PRESETS as readonly string[]).toContain(layer.preset);
+      }
     }
-    for (const preset of ["flames", "sparks", "snow", "notes"]) {
-      expect(presets.some((layer) => layer.type === "canvas" && layer.origin === "letters" && layer.preset === preset), preset).toBe(true);
+  });
+
+  it("los objetos que se vendían como nombre son placas con su código", () => {
+    for (const code of ["vinilo", "cassette", "ampli", "cuernos", "micro", "corazon-rock", "rockero",
+      "guitarra", "murcielago", "bateria", "ovni", "vinilo-rodante", "rockerito"]) {
+      const effect = EFFECTS_BY_CODE.get(code);
+      expect(effect?.kind, code).toBe("badge");
+      expect(effect?.manifest.layers.every((layer) => layer.type === "sprite"), code).toBe(true);
+    }
+  });
+
+  it("la sangre corre por las letras y gotea (no es una línea)", () => {
+    for (const code of ["sangre", "sangre-realista"]) {
+      const layer = EFFECTS_BY_CODE.get(code)?.manifest.layers[0];
+      expect(layer?.type).toBe("shader");
+      expect(layer?.preset).toBe("blood-flow");
     }
   });
 

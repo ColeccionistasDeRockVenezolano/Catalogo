@@ -24,6 +24,7 @@ import "../styles/chat.css";
 import "../styles/reactbits.css";
 import "../styles/chat-motion.css";
 import "../styles/chat-materials.css";
+import "../styles/chat-names.css";
 
 export function ChatPage() {
   const chat = useChat("general");
@@ -111,6 +112,7 @@ export function ChatPage() {
   const myNameEffect = equippedEffect(chat.actor, chat.effects, "name");
   const myFont = equippedEffect(chat.actor, chat.effects, "name_font");
   const myFrame = equippedEffect(chat.actor, chat.effects, "frame");
+  const myBadge = equippedEffect(chat.actor, chat.effects, "badge");
   // Los IDs frescos vienen de eventos WS; cargar o reconectar el historial
   // nunca reproduce las acciones antiguas.
   useEffect(() => {
@@ -137,6 +139,7 @@ export function ChatPage() {
         nameNode: <EffectName name={entry.displayName}
           effect={equippedEffect(entry, chat.effects, "name")}
           font={equippedEffect(entry, chat.effects, "name_font")}
+          badge={equippedEffect(entry, chat.effects, "badge")}
           cover={chat.cover?.coverUrl ?? null} quality={quality} priority={2} />,
       });
     }
@@ -301,6 +304,7 @@ export function ChatPage() {
             name={chat.actor ? chat.actor.displayName : "Invitado"}
             effect={myNameEffect}
             font={myFont}
+            badge={myBadge}
             cover={chat.cover?.coverUrl ?? null}
             quality={quality}
           />
@@ -425,9 +429,10 @@ const MessageRow = memo(function MessageRow({ message, effects, quality, cover, 
     displayName: message.displayName ?? "Alguien",
     avatarSeed: message.handle ?? "crv",
   };
-  const equipped = message.equipped ?? { name: null, frame: null, background: null, ambient: null, name_font: null };
+  const equipped = message.equipped ?? { name: null, frame: null, background: null, ambient: null, name_font: null, badge: null };
   const nameEffect = equippedEffect({ equipped }, effects, "name");
   const nameFont = equippedEffect({ equipped }, effects, "name_font");
+  const badge = equippedEffect({ equipped }, effects, "badge");
   const frame = equippedEffect({ equipped }, effects, "frame");
   const burst = message.effectCode ? effects.find((effect) => effect.code === message.effectCode) ?? null : null;
 
@@ -437,7 +442,7 @@ const MessageRow = memo(function MessageRow({ message, effects, quality, cover, 
   if (message.kind === "action") {
     return (
       <p className="chat-action" data-message-id={message.id}>
-        <EffectName name={user.displayName} effect={nameEffect} font={nameFont} cover={cover} quality={quality} />
+        <EffectName name={user.displayName} effect={nameEffect} font={nameFont} badge={badge} cover={cover} quality={quality} />
         <span> {actionLabel(message.body)}</span>
       </p>
     );
@@ -451,7 +456,7 @@ const MessageRow = memo(function MessageRow({ message, effects, quality, cover, 
       <div className="chat-bubble">
         {compact ? null : (
           <header>
-            <EffectName name={user.displayName} effect={nameEffect} font={nameFont} cover={cover} quality={quality} />
+            <EffectName name={user.displayName} effect={nameEffect} font={nameFont} badge={badge} cover={cover} quality={quality} />
             <time dateTime={message.createdAt}>{formatTime(message.createdAt)}</time>
           </header>
         )}
@@ -478,6 +483,7 @@ function UserList({ users, effects, quality }: {
             name={user.displayName}
             effect={equippedEffect(user, effects, "name")}
             font={equippedEffect(user, effects, "name_font")}
+            badge={equippedEffect(user, effects, "badge")}
             cover={null} quality={quality}
           />
         </li>

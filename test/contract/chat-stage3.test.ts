@@ -94,8 +94,12 @@ describe("etapa 3: efectos por WebSocket", () => {
     for (const code of ["chidori", "marco-sello-maldito", "mensaje-karma-azul"]) await buy(actor, code);
     const client = connect(actor);
     const snapshot = await client.next("snapshot");
+    // El nombre usa el motor de shader; el marco y el mensaje, el material.
     expect(snapshot.effects.find((effect) => effect.code === "chidori")?.manifest).toMatchObject({
-      layers: [{ type: "material", preset: "chidori" }],
+      layers: [{ type: "shader", preset: "lightning-arc" }],
+    });
+    expect(snapshot.effects.find((effect) => effect.code === "marco-sello-maldito")?.manifest).toMatchObject({
+      layers: [{ type: "material", preset: "curse-aura" }],
     });
     for (const [slot, code] of [["name", "chidori"], ["frame", "marco-sello-maldito"]] as const) {
       const response = await app.inject({ method: "POST", url: "/chat/equip", headers: {

@@ -1,0 +1,31 @@
+/* CRV · Nombres con shader y placas. */
+
+/* El shader necesita trazos con cuerpo: el nombre con efecto va más grueso. */
+.crv-shader-name { font-size: 15px; font-weight: 800; letter-spacing: 0.01em; }
+.crv-shader-text { position: relative; display: inline-block; white-space: pre; color: var(--fx-3, #fff); }
+/* Hasta que el lienzo pinta, se ve el texto con el color del material. */
+.crv-shader-text:not(.is-ready) { text-shadow: 0 0 6px color-mix(in srgb, var(--fx-2, #e50914) 70%, transparent); }
+.crv-shader-text.is-ready { color: transparent; }
+.crv-shader-text.is-ready::selection { color: #fff; background: #e5091466; }
+.crv-shader-canvas { position: absolute; left: 0; top: 0; width: 0; height: 0; pointer-events: none; z-index: 2; }
+
+/* Placas: el objeto junto al nombre, en su propia ranura. */
+.crv-sprite.crv-badge { width: 1.85em; height: 1.85em; margin: -0.35em 0.35em -0.35em 0; animation: crv-badge-float 3.4s ease-in-out infinite; filter: drop-shadow(0 2px 3px #000a); }
+.crv-badge-vinyl-face .crv-real-art { animation: crv-spin calc(4.2s / var(--fx-speed, 1)) linear infinite; }
+.crv-badge-heart-horns .crv-real-art { animation: crv-badge-beat 1.1s ease-in-out infinite; transform-origin: 50% 60%; }
+.crv-badge-amp-face .crv-real-art { animation: crv-badge-thump 0.55s ease-in-out infinite alternate; transform-origin: 50% 100%; }
+.crv-badge-hand-rock .crv-real-art, .crv-badge-drumsticks .crv-real-art, .crv-badge-mic .crv-real-art,
+.crv-badge-guitar .crv-real-art, .crv-badge-rockerito .crv-real-art {
+  animation: crv-real-strum 1.6s ease-in-out infinite alternate; transform-origin: 50% 90%;
+}
+.crv-badge-ufo-vinyl .crv-real-art { animation: crv-badge-hover 2.6s ease-in-out infinite; }
+@keyframes crv-badge-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
+@keyframes crv-badge-beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.14); } 30% { transform: scale(0.97); } 45% { transform: scale(1.08); } }
+@keyframes crv-badge-thump { from { transform: scaleY(0.97); } to { transform: scaleY(1.03); } }
+@keyframes crv-badge-hover { 0%, 100% { transform: translate(0, 0) rotate(-3deg); } 50% { transform: translate(0, -6%) rotate(3deg); } }
+.crv-badge.is-static, .crv-badge.is-static .crv-real-art, .is-offscreen .crv-badge, .is-offscreen .crv-badge .crv-real-art { animation: none; }
+.crv-badge.is-soft, .crv-badge.is-soft .crv-real-art { animation-duration: 6s; }
+.chat-effect-preview[data-kind="badge"] .crv-sprite.crv-badge { width: 2.6em; height: 2.6em; }
+@media (prefers-reduced-motion: reduce) {
+  .crv-badge, .crv-badge .crv-real-art { animation: none; }
+}

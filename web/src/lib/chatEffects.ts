@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import type { ChatEffect, ChatUser } from "../../../src/chat/protocol";
 
 export type Quality = "low" | "reduced" | "medium" | "high";
-export type LayerType = "css" | "svg" | "canvas" | "sprite" | "choreo" | "scene" | "material";
+export type LayerType = "css" | "svg" | "canvas" | "sprite" | "choreo" | "scene" | "material" | "shader";
 export type { EquippedSlot as EffectSlot } from "../../../src/chat/slots";
 import type { EquippedSlot as EffectSlot } from "../../../src/chat/slots";
 
@@ -63,7 +63,7 @@ export const SPLIT_PRESETS = new Set([
 
 export const SPRITE_PRESETS = new Set([
   "vinyl-face", "cassette-face", "amp-face", "skull-rocker", "flame-face",
-  "guitar", "hand-rock", "bat", "mic", "drum", "heart-horns", "ufo-vinyl",
+  "guitar", "hand-rock", "bat", "mic", "drum", "heart-horns", "ufo-vinyl", "drumsticks", "rockerito",
 ]);
 
 /** Coreografías del nombre: un personaje que mueve las letras (WAAPI). */
@@ -140,7 +140,7 @@ function isLayer(value: unknown): value is EffectLayer {
   if (!value || typeof value !== "object") return false;
   const layer = value as Partial<EffectLayer>;
   return (layer.type === "css" || layer.type === "svg" || layer.type === "canvas" || layer.type === "sprite"
-    || layer.type === "choreo" || layer.type === "scene" || layer.type === "material")
+    || layer.type === "choreo" || layer.type === "scene" || layer.type === "material" || layer.type === "shader")
     && typeof layer.preset === "string";
 }
 

@@ -19,7 +19,7 @@ export class ChatError extends Error {
   }
 }
 
-const EMPTY_EQUIPPED: Equipped = { name: null, frame: null, background: null, ambient: null, name_font: null };
+const EMPTY_EQUIPPED: Equipped = { name: null, frame: null, background: null, ambient: null, name_font: null, badge: null };
 
 function asNumber(value: unknown): number {
   return typeof value === "number" ? value : Number(value);

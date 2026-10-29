@@ -5,10 +5,11 @@ import { manifestOf } from "../../src/lib/chatEffects";
 import type { ChatEffect } from "../../../src/chat/protocol";
 
 describe("materiales del chat", () => {
-  it("cada familia se ofrece para nombre, avatar y mensaje con contrato válido en ambos extremos", () => {
+  it("cada familia se ofrece para avatar y mensaje con contrato válido en ambos extremos", () => {
+    // El nombre de cada familia lo pinta el motor de shader (chat-name-shaders.test.ts).
     for (const preset of MATERIAL_PRESETS) {
       const variants = EFFECT_CATALOG.filter((effect) => effect.manifest.layers.some((layer) => layer.type === "material" && layer.preset === preset));
-      expect(variants.map((effect) => effect.kind).sort()).toEqual(["frame", "message", "name"]);
+      expect(variants.map((effect) => effect.kind).sort()).toEqual(["frame", "message"]);
       for (const effect of variants) {
         expect(effectManifestSchema.safeParse(effect.manifest).success).toBe(true);
         expect(manifestOf(effect as unknown as ChatEffect)?.layers[0]?.type).toBe("material");
