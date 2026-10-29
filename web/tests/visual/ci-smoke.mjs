@@ -86,7 +86,7 @@ try {
     console.error("Diálogo de edición:\n" + await dialog.innerText().catch(() => "(sin diálogo)"));
     throw error;
   }
-  await dialog.getByRole("button", { name: /^Guardar/u }).click();
+  await dialog.getByRole("button", { name: /^Guardar cambio/u }).click();
   await expect(page.getByRole("heading", { name: "Banda QA Editada", exact: true })).toBeVisible();
   assert.equal((await getPool().query("SELECT name FROM public.artists WHERE id=$1", [id])).rows[0].name, "Banda QA Editada");
   const person=await request("/persons","POST",{name:"Persona QA Precisión",birthDate:"1973",note:"Fecha parcial de prueba"},admin.csrf);
@@ -95,7 +95,7 @@ try {
   await page.locator(".page-actions").getByRole("button",{name:"Editar",exact:true}).click();
   await dialog.getByLabel("Fecha de nacimiento",{exact:true}).fill("1973-05");
   await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Conservar mes y año sin inventar día");
-  await dialog.getByRole("button",{ name: /^Guardar/u }).filter({visible:true}).click();
+  await dialog.getByRole("button",{ name: /^Guardar cambio/u }).filter({visible:true}).click();
   await expect(page.getByText("mayo de 1973",{exact:true})).toBeVisible();
   const dates=(await getPool().query("SELECT birth_date,birth_date_value FROM public.persons WHERE id=$1",[person.body.id])).rows[0];
   assert.equal(dates.birth_date,null);assert.equal(dates.birth_date_value,"1973-05");
@@ -106,7 +106,7 @@ try {
   await dialog.getByLabel("Relación *",{exact:true}).selectOption("member");
   await dialog.getByLabel("Período documentado",{exact:true}).fill("~1990/2000");
   await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Vincular fichas conservando período aproximado");
-  await dialog.getByRole("button",{ name: /^Guardar/u }).filter({visible:true}).click();
+  await dialog.getByRole("button",{name:"Guardar",exact:true}).filter({visible:true}).click();
   await expect(dialog.getByText(/Cambio guardado/)).toBeVisible();
   const identity=(await getPool().query("SELECT relationship,period FROM ingest.musical_identities WHERE person_id=$1",[person.body.id])).rows[0];
   assert.equal(identity.relationship,"member");assert.equal(identity.period.from.approximate,true);
@@ -131,7 +131,7 @@ try {
   await dialog.getByLabel("Obra compartida",{exact:true}).selectOption(String(work.body.id));
   await dialog.getByLabel("Fecha de publicación",{exact:true}).filter({visible:true}).fill("2001-05");
   await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Vincular obra y edición con precisión de mes");
-  await dialog.getByRole("button",{ name: /^Guardar/u }).filter({visible:true}).click();
+  await dialog.getByRole("button",{name:"Guardar",exact:true}).filter({visible:true}).click();
   await expect(dialog.getByText(/Cambio guardado/)).toBeVisible();
   assert.equal((await request(`/albums/${album.body.id}`)).body.releaseDateValue,"2001-05");
   await dialog.getByRole("button",{name:"Cerrar",exact:true}).click();
