@@ -2,6 +2,8 @@ import { EntityAdminBar } from "../components/EntityAdminBar";
 import { GenrePeriods } from "../components/GenrePeriods";
 import { CatalogModelPanel } from "../components/CatalogModelPanel";
 import { EntityVerification } from "../components/EntityVerification";
+import { CompleteRecord } from "../components/CompleteRecord";
+import { goToCompleteRecord } from "../lib/completeRecord";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
@@ -196,7 +198,7 @@ export function PersonDetailPage() {
     <>
       <BackLink fallback="/personas" />
 
-      {isAdmin ? <EntityAdminBar onEdit={() => setEditing(true)} onMerge={() => { setMergeFromResearch(false); setMerging(true); }}
+      {isAdmin ? <EntityAdminBar onEdit={() => setEditing(true)} onComplete={goToCompleteRecord} onMerge={() => { setMergeFromResearch(false); setMerging(true); }}
         onRemove={() => setDeleting(true)}
         extra={[{ label: "Dividir en varias…", icon: <ArrowsSplit size={14} weight="bold" aria-hidden="true" />, onClick: () => setSplitting(true) }]}
         more={[{ label: `Investigar identidad con otra ficha${identityResearch?.length ? ` · ${identityResearch.length} guardadas` : ""}`, onClick: () => setResearchOpen((open) => !open) }]} /> : null}
@@ -256,7 +258,7 @@ export function PersonDetailPage() {
         </div>
       ) : null}
 
-      {isAdmin ? <EntityVerification kind="person" id={person.id} revision={person} artistConversionBlocked={person.artistConversionBlocked ?? false} onChanged={reload} /> : null}
+      {isAdmin ? <CompleteRecord kind="person" id={person.id} name={person.name}><EntityVerification kind="person" id={person.id} revision={person} artistConversionBlocked={person.artistConversionBlocked ?? false} onChanged={reload} /></CompleteRecord> : null}
 
       <EntityTabs tabs={tabs} defaultKey={defaultKey} />
 

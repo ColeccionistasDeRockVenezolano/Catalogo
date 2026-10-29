@@ -5,6 +5,16 @@ interface Drag { pointer: number; start: Point; origin: Point; moved: boolean; }
 type DockSide = "left" | "right";
 
 /**
+ * `dialog.show()` mueve el foco al primer control del reproductor. Incrustado o
+ * flotante no es modal: quien estaba leyendo o llegó a una pista conserva su foco.
+ */
+export function showWithoutFocus(node: HTMLDialogElement): void {
+  const active = document.activeElement;
+  node.show();
+  if (active instanceof HTMLElement && active !== document.body && active.isConnected && !node.contains(active)) active.focus({ preventScroll: true });
+}
+
+/**
  * El reproductor se arrastra libremente y, al soltarlo, se imanta al lateral
  * más cercano. El iframe nunca se remonta, así que no pierde la reproducción.
  */

@@ -16,6 +16,8 @@
 .image-viewer__stage.is-dragging { cursor: grabbing; }
 .image-viewer__stage img { display: block; position: absolute; max-width: none; max-height: none; object-fit: contain; opacity: 0; pointer-events: none; transform-origin: center; will-change: transform; }
 .image-viewer__stage img.is-ready { opacity: 1; }
+/* Cada foto entra con un fundido breve en cuanto está cargada (las vecinas ya vienen precargadas). */
+.image-viewer__stage img.is-ready { transition: opacity 240ms cubic-bezier(.4, 0, .2, 1); }
 .image-viewer__message { display: grid; justify-items: center; gap: 12px; margin: 0; color: #b5b5bd; font-size: 14px; }
 .image-viewer__message p { margin: 0; }
 .image-viewer__message button { border: 1px solid #3a3a3e; }
@@ -101,7 +103,7 @@
 .image-viewer__fold[aria-expanded="false"] svg { transform: scaleX(-1); }
 .image-viewer__panel[data-collapsed] { width: 0; min-width: 0; padding: 0; border-left-width: 0; overflow: hidden; }
 .image-viewer__panel[data-collapsed] > * { display: none; }
-@media (prefers-reduced-motion: reduce) { .image-viewer__fold svg { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .image-viewer__fold svg, .image-viewer__stage img.is-ready { transition: none; } }
 .image-viewer__collection { min-height: 0; display: flex; flex-direction: column; flex: 1; padding: 24px; gap: 24px; }
 .image-viewer__collection-heading h3 { margin: 0; font: 400 38px/1.1 var(--font-display); text-transform: uppercase; }
 .image-viewer__collection-heading p { color: #b8aaa8; font-size: 12px; margin: 8px 0 0; }

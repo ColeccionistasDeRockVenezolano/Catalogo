@@ -72,7 +72,8 @@ export function App() {
           <Route path="/" element={<SearchPage />} />
           {/* «Catálogo» abre Artistas, la entidad por defecto. */}
           <Route path="/catalogo" element={<Navigate to="/artistas" replace />} />
-          <Route path="/efemerides" element={<EphemeridesPage />} />
+          <Route path="/explora" element={<EphemeridesPage />} />
+          <Route path="/efemerides" element={<Navigate to="/explora" replace />} />
           <Route path="/radio" element={<RadioPage />} />
           <Route path="/chat" element={<ChatPage />} />
           {/* Móvil: la pestaña «Cuenta» de la barra inferior (acceso, sesión, administración y ayuda). */}

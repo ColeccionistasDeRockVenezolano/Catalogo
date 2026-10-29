@@ -2,8 +2,9 @@ import { useId, type CSSProperties, type ReactNode } from "react";
 import { ArrowSquareOut, Info } from "@phosphor-icons/react";
 import { platformMeta, type PlatformLink } from "./PlatformLinks";
 import type { ListenTab } from "./ListenPlayer";
+import { EMBED_ORDER } from "../lib/embeds";
 
-const PLATFORM_ORDER = ["youtube", "youtube_music", "spotify", "apple_music", "deezer", "tidal", "amazon_music", "qobuz", "bandcamp", "soundcloud"];
+const PLATFORM_ORDER: readonly string[] = [...EMBED_ORDER, "amazon_music", "qobuz"];
 
 /** Conserva los enlaces registrados, incluso cuando la plataforma no ofrece un reproductor. */
 export function AlbumListenPanel({ subject, links, tabs, active, onChange, hasVideo, children }: {

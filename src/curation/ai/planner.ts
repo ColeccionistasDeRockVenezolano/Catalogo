@@ -12,7 +12,7 @@ import { hashValue } from "./context.js";
 import { getEnv } from "../../config/env.js";
 import { getPool } from "../../db/client.js";
 import {DeepSeekBudgetExceeded} from "../../ai/budget.js";
-import {addStats,coherentSummary,consolidateDraft,finalizeDoubts,settleRegisteredRelations} from "./plan-coherence.js";
+import {addStats,coherentSummary,consolidateDraft,enforceScope,finalizeDoubts,settleRegisteredRelations} from "./plan-coherence.js";
 import {triageDoubts} from "./doubt-triage.js";
 import {runSourceProfiles} from "../../verification/source-profile-run.js";
 import {narrowPlanningInventory,profileDraft,profileIsReliable} from "../../verification/source-profile-plan.js";
@@ -45,6 +45,7 @@ SEMÁNTICA: create_entity crea una identidad nueva, nunca absorbe otra; create_a
 GÉNEROS: una revisión de géneros incluye TODOS los términos documentados para la misma ficha en las citas del hallazgo, aunque el hallazgo solo nombre uno. Propón cada término faltante como una operación independiente. Usa currentGenres para conservar los ya confirmados sin duplicarlos; genreReview.candidates aporta coincidencias exactas con los slugs existentes, pero comprueba el alcance de la cita. Si la fuente no indica principal/secundario, utiliza secondary como criterio editorial de la propuesta y explícalo en reason, sin atribuir esa prioridad a la fuente ni cambiar el género principal actual. La ausencia de una prioridad documental no bloquea la propuesta. Comprueba los nombres y slugs de taxonomy y genreReview antes de afirmar que un término no existe; si taxonomy trae scope, la lista está recortada a esta tarea y la ausencia de un término no prueba que falte en el catálogo: no lo anotes como inexistente; Pop Rock corresponde a pop-rock si ese término figura allí. Solo deja pendiente un género si falta respaldo para esta identidad o si no existe equivalencia canónica. Aprovecha también otros datos documentados que aparezcan durante la revisión.
 
 CONTRATO: {summary:string,operations:[],unresolved:[string],resolvedUnresolved:[string],lookups:[]}. Cada operación comparte {key:"identificador_corto",label:string,reason:string,evidenceIds:["E1"],enabled:true}. Cita SOLO ids presentes en evidence. Si no hay respaldo, deja unresolved; un administrador puede documentar un criterio editorial posteriormente. Referencias existentes: {kind:"artist|person|organization|album|track",id:123}. Referencias a entidades creadas por otra operación: {kind,key:"clave_creadora"}. Las dependencias deben preceder a sus usos.
+ÁMBITO: cada dato va a su ficha y campo. Un @usuario o una URL de red social es add_social_link, nunca un alias ni un nombre. websiteUrl y platform "website" solo admiten el sitio oficial del artista: un sitio de fans, del sello, de una tienda o de prensa queda en unresolved. Una portada de disco nunca es la foto del artista (pictureUrl de artista o persona): corresponde a coverUrl de ese disco o a unresolved. originCity del artista es la ciudad donde se formó o desarrolla su carrera, no el lugar de nacimiento de una persona; si la fuente solo da el nacimiento, va a la persona o a unresolved. Si relations.artist_membership ya vincula al artista con su titular o integrante, esa persona es la misma aunque la fuente use el nombre artístico: usa su id y no crees otra persona ni desactives su membresía sin una fecha de fin documentada. Esa regla solo protege a la persona ya vinculada: una persona, sello o productora que una cita nombra con su papel (fundador, productor, arreglista, sello del disco) y que no está en el catálogo se propone con create_entity citando ese id, con lo documentado (nombre y papel); tipo, país y fechas desconocidos quedan null y no impiden el alta. Su crédito o vínculo va en otra operación referida por key. Un género padre (rock, pop) no se propone si la ficha ya tiene o se propone uno más específico de esa rama; el estilo de una canción, colaboración o versión puntual no es género del artista.
 IDIOMA: todo texto que propongas para la ficha (biografía, notas, roles, descripciones, label y reason) va en español aunque la fuente esté en otro idioma; tradúcelo con fidelidad. Conserva la grafía original de títulos de discos y canciones, nombres propios y premios. Las citas de evidencia no se traducen.
 DECISIONES SIMPLES: cada operación será una propuesta independiente con «Sí, aceptar» y «No». Usa label que nombre el dato concreto: «Añadir género: Rap», «Cambiar año de formación: 1989», «Combinar las dos biografías», «Fusionar los discos duplicados de 1994». El servidor valida y aplica cada aceptación sin pedir formularios. Prioriza los hallazgos accionables de report.pending y reutiliza sus evidenceIds; consulta datos adicionales si hace falta. Propón un campo por replace_fields para que una aceptación no cambie otros datos. Un disco completo es una sola alta con su contenido visible. No recortes roles acumulados a un único instrumento: elimina repeticiones y conserva todos los instrumentos documentados. Si hay biografías en conflicto, combina sus hechos en un texto completo sin perder nombres, fechas, obras ni detalles únicos; utiliza narrativeOriginals y consulta ambas fichas con lookups cuando lo necesites. No sintetices a partir de un texto marcado como recortado. Propón el texto combinado mediante replace_fields antes de la fusión y conserva ese texto en fieldChoices. No agrupes una corrección de biografía con géneros u otros campos.
 Operaciones (añade los campos comunes):
@@ -52,6 +53,7 @@ Operaciones (añade los campos comunes):
 {op:"create_entity",kind,values:{campos camelCase},parent?:ref}; album requiere parent artista y title; track requiere parent disco,title,discNumber,trackNumber. Otros requieren name.
 {op:"replace_fields",target:ref,values:{campos camelCase}}. Nunca uses genre legado: usa assign_genre.
 {op:"add_alias",target:ref,alias,aliasType:"name_variant|spelling_variant|former_name|stage_name|acronym|misspelling|alternate_title|other",isPrimary:false}
+{op:"add_social_link",target:{kind:"artist",id},platform:"instagram|facebook|x|tiktok|threads|bluesky|website|store|linktree",url,handle?:string|null}: perfil oficial del artista; las ya registradas están en relations.social_links.
 {op:"create_relation",kind:"artist_membership|person_organization|album_credit|track_credit|album_format",endpoints:{artistId:ref,personId:ref,...},values:{role,fromYear?:number|null,toYear?:number|null,isCurrent?:boolean,...}}
 {op:"replace_relation",kind,id,values:{campos camelCase}}; {op:"remove_relation",kind,id}
 {op:"assign_genre",target:ref,genreSlug,role:"primary|secondary"}; {op:"remove_genre",target:ref,genreSlug}
@@ -64,6 +66,8 @@ HERRAMIENTAS DE LECTURA: lookups puede pedir hasta cuatro {type:"catalog",kind?:
 
 /** Lookup rounds may already contain valuable operations. Keep them unless explicitly revised. */
 export const CATALOG_PLANNING_INSTRUCTIONS = INSTRUCTIONS;
+/** Raise when the code that joins lots or settles their scope changes, so ready plans are prepared again. */
+export const PLANNER_VERSION = "scope-v10";
 export function retainDraft(previous: CatalogDraft | undefined, next: CatalogDraft, resolved: string[] = []): CatalogDraft {
   const operations = new Map(previous?.operations.map(operation => [operation.key, operation]) ?? []);
   for (const operation of next.operations) operations.set(operation.key, operation);
@@ -212,7 +216,7 @@ export async function planWithDeepSeek(
   const first=consolidateDraft(combined.draft);
   // Linking a new person to a colleague can make two proposals equal; they are joined again.
   const second=consolidateDraft(await settleRegisteredRelations(db,first.draft,first.stats,{kind,id}));
-  const stats=addStats(first.stats,second.stats),settled=second.draft;
+  const stats=addStats(first.stats,second.stats),settled=await enforceScope(db,second.draft,combined.evidence,stats,{kind,id});
   const finalized=finalizeDoubts(settled,stats);
   const {draft:finished,triage}=halted?{draft:finalized,triage:{merged:0,dropped:{},usage:{calls:0,tokensIn:0,tokensOut:0}}}:await triageDoubts(gateway,finalized);
   stats.doubts+=triage.merged+Object.values(triage.dropped).reduce((sum,count)=>sum+count,0);

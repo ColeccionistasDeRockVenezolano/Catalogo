@@ -223,3 +223,22 @@ portadas y fotos. UUID de solicitud único, restricción de tarea activa por fic
 y tipo, permisos renovables de trabajador, copia preparada y run confirmado
 junto al cambio del catálogo. El down impide eliminar tareas activas. Ver
 `docs/IMAGE_CURATION_QUEUE.md`.
+
+`0104_series_sessions`: `ingest.series.kind` (`compilation` por defecto o
+`sessions`). Una serie de sesiones —un ciclo de un medio con una banda por
+entrega, como «Sonó Así» de Urbe— se publica aunque sus entregas no sean de
+Various Artists. El down quita la columna. Ver `docs/SERIES_COMPILADOS.md`.
+
+`0110_chat_safety`: blindaje del chat. `chat.actors` gana versión de token,
+silencio, baneo y procedencia (IP, navegador, huella); `chat.messages` guarda
+procedencia, estado de moderación (`masked`/`review`/`hidden`) y revisión de
+Laya; `chat.rooms.slow_mode_seconds`; tablas `chat.ip_bans`, `chat.reports` y
+`chat.moderation_log`. Aditiva sobre el esquema `chat`. El down quita todo lo
+anterior (se pierden reportes y auditoría). Ver `docs/CHAT.md`.
+
+
+`0111_chat_solidity`: idempotencia del libro mayor por actor, recibos de
+compras (incluidas las gratuitas), portada fija por ciclo editorial e índice
+de retención de mensajes. Migra los recibos de compras existentes sin mover
+saldos. La reversión a claves globales falla de forma transaccional si distintos
+actores ya usan una misma clave; no elimina movimientos para forzarla.

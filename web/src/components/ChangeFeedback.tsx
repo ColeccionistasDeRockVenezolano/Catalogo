@@ -8,11 +8,11 @@
 //    run queda con la nota «Deshecho al momento…». Si algo cambió después
 //    (409), se abre la vista previa con el conflicto.
 // 2. Los cambios de la sesión quedan en «Cambios de esta sesión», dentro del
-//    menú de la cuenta (OperatorPill), cada uno con su deshacer con vista
-//    previa, y el Historial completo a un clic.
+//    menú de la cuenta (OperatorPill) y, en móvil, en la página «Cuenta»,
+//    cada uno con su deshacer con vista previa, y el Historial a un clic.
 // 3. Ctrl/⌘+Z deshace el último cambio; Ctrl/⌘+Shift+Z lo rehace. Fuera de
 //    los campos de texto y con ningún diálogo abierto.
-import { useCallback, useEffect, useRef, useState, type ReactElement } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactElement, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowArcLeft, ArrowArcRight } from "@phosphor-icons/react";
 import { ApiError, CATALOG_CHANGE_EVENT, CATALOG_DATA_CHANGED_EVENT, changesApi, type CatalogChangeEvent } from "../lib/api";
@@ -84,8 +84,11 @@ export interface SessionChanges {
   dialog: ReactElement | null;
 }
 
-/** Avisos, atajos de teclado y lista de la sesión. Montarlo una sola vez, solo para administradores. */
-export function useSessionChanges(): SessionChanges {
+/**
+ * Avisos, atajos de teclado y lista de la sesión. Lo monta una sola vez
+ * SessionChangesHost; sin cuenta administradora (`enabled` falso) no escucha nada.
+ */
+function useSessionChanges(enabled: boolean): SessionChanges {
   const { notify } = useToast();
   const [entries, setEntries] = useState<Entry[]>(loadEntries);
   const [dialogFor, setDialogFor] = useState<number | null>(null);
@@ -138,6 +141,7 @@ export function useSessionChanges(): SessionChanges {
   }, [entries]);
 
   useEffect(() => {
+    if (!enabled) return;
     const onChange = (event: Event) => {
       const { runId, path } = (event as CustomEvent<CatalogChangeEvent>).detail;
       const match = UNDO_PATH.exec(path);
@@ -175,9 +179,10 @@ export function useSessionChanges(): SessionChanges {
       window.removeEventListener(CATALOG_CHANGE_EVENT, onChange);
       window.removeEventListener(CATALOG_DATA_CHANGED_EVENT, onData);
     };
-  }, [update, describe, quickUndo]);
+  }, [enabled, update, describe, quickUndo]);
 
   useEffect(() => {
+    if (!enabled) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key.toLowerCase() !== "z" || !(event.ctrlKey || event.metaKey) || event.altKey) return;
       if (isEditable(event.target) || document.body.classList.contains("has-modal")) return;
@@ -192,12 +197,36 @@ export function useSessionChanges(): SessionChanges {
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [notify, quickUndo]);
+  }, [enabled, notify, quickUndo]);
 
   const pending = entries.filter((item) => !item.undone && item.kind === "change").length;
   const clear = useCallback(() => update(() => []), [update]);
-  const dialog = dialogFor !== null ? <UndoDialog runId={dialogFor} onClose={() => setDialogFor(null)} /> : null;
-  return { entries, pending, clear, openUndo: setDialogFor, dialog };
+  return useMemo(() => ({
+    entries, pending, clear, openUndo: setDialogFor,
+    dialog: dialogFor !== null ? <UndoDialog runId={dialogFor} onClose={() => setDialogFor(null)} /> : null,
+  }), [entries, pending, clear, dialogFor]);
+}
+
+const SessionChangesContext = createContext<SessionChanges | null>(null);
+
+/**
+ * Un solo dueño de los cambios de la sesión para el menú de la cuenta
+ * (escritorio) y la página «Cuenta» (móvil). Siempre montado, con el mismo
+ * árbol: iniciar o cerrar sesión no vuelve a montar la página abierta.
+ */
+export function SessionChangesHost({ enabled, children }: { enabled: boolean; children: ReactNode }) {
+  const changes = useSessionChanges(enabled);
+  return (
+    <SessionChangesContext.Provider value={enabled ? changes : null}>
+      {children}
+      {enabled ? changes.dialog : null}
+    </SessionChangesContext.Provider>
+  );
+}
+
+/** Los cambios de la sesión; `null` sin cuenta administradora. */
+export function useSessionChangesContext(): SessionChanges | null {
+  return useContext(SessionChangesContext);
 }
 
 /** Lista de los cambios de la sesión, del más reciente al más viejo. */

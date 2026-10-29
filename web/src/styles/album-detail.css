@@ -107,9 +107,17 @@
   .album-tracks .album-tracklist .album-track-row { padding: 12px 0; }
   .album-tracks .album-tracklist .album-track-credits > td, .album-tracks .album-tracklist .album-track-lyrics > td { padding: 12px; }
 }
+@media (max-width: 480px) {
+  .album-listen__platforms { grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 360px) {
   .album-profile__facts { column-gap: 12px; }
   .album-profile__facts > div { padding-left: 28px; }
   .album-listen__platform button, .album-listen__external-platform { gap: 6px; font-size: 11px; }
   .album-listen__platform button > svg, .album-listen__external-platform > svg:first-child { width: 22px; }
 }
+
+/* Pista abierta desde la búsqueda (#pista-<id>): se señala sin depender del reproductor. */
+.album-tracks .album-track-row.is-target { box-shadow: inset 3px 0 0 var(--amber); background: var(--amber-soft); scroll-margin-top: calc(var(--header-h) + 16px); }
+.album-tracks .album-track-row.is-target:focus { outline: none; }
+.album-tracks .album-track-row.is-target:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }

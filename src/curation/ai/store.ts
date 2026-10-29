@@ -4,12 +4,13 @@ import {randomUUID} from "node:crypto";
 import { getEnv } from "../../config/env.js";
 import { withOperatorRun, OperatorError, type OperatorContext } from "../../merge/operator.js";
 import { activeUndoOf } from "../../merge/run-undo.js";
+import { withCandidateSnapshot } from "../../er/repository.js";
 import { runCurationScan, trackCurationWork } from "../scan.js";
 import { entityRow, hashValue,planningContext } from "./context.js";
 import { draftSchema } from "./schema.js";
 import { executePlan, planState } from "./executor.js";
 import { remainingDecisionDraft, resolveDecisionOperation, resolveDecisionRef } from "./decisions.js";
-import { planWithDeepSeek, retainDraft, type PlannedDraft } from "./planner.js";
+import { CATALOG_PLANNING_INSTRUCTIONS, PLANNER_VERSION, planWithDeepSeek, retainDraft, type PlannedDraft } from "./planner.js";
 import type {
   CatalogDraft,
   CatalogEvidence,
@@ -93,7 +94,8 @@ export async function startPlan(
       "Esta ficha ya tiene una propuesta en preparación.",
     );
   }
-  const preparationHash=hashValue(await planningContext(getPool(),kind,id,instruction));
+  // A ready plan is reused only while the catalog and the planner that prepared it are the same.
+  const preparationHash=hashValue({planner:PLANNER_VERSION,instructions:CATALOG_PLANNING_INSTRUCTIONS,profiles:getEnv().CRV_SOURCE_PROFILES_ENABLED,context:await planningContext(getPool(),kind,id,instruction)});
   const reusable=(await getPool().query<CatalogPlan>(`SELECT ${columns} FROM ingest.ai_curation_plans WHERE entity_kind=$1 AND entity_id=$2 AND instruction=$3 AND preparation_hash=$4 AND status='ready' ORDER BY id DESC LIMIT 1`,[kind,id,instruction,preparationHash])).rows[0];
   if(reusable)return reusable.phase==="partial"?resumePlan(reusable.id,operator,work):withUndoState(reusable);
   let created: CatalogPlan;
@@ -129,6 +131,8 @@ export async function resumePlan(id:number,operator:string,work:PlanWork=planWit
   const task=prepare(row,work);pending.add(task);void task.finally(()=>pending.delete(task));return row;
  }catch(error){if((error as {code?:string}).code==="23505")throw new OperatorError("not_open","La ficha ya tiene otra preparación en curso.");throw error;}
 }
+/** Previews are rolled back: one read of each catalog per preview instead of one per proposed record. */
+const PREVIEW_SNAPSHOT = { kinds: ["ARTIST", "PERSON", "ORGANIZATION"] as Array<"ARTIST" | "PERSON" | "ORGANIZATION"> };
 async function previewDraft(
   plan: CatalogPlan,
   draft: CatalogDraft,
@@ -142,7 +146,7 @@ async function previewDraft(
         operator: plan.requestedBy,
         note: `Vista previa de propuesta ${plan.id}`,
       },
-      async (ctx) => ({ preview: await decisionPreview(ctx, plan, draft, evidence, reviewedKeys) }),
+      async (ctx) => ({ preview: await withCandidateSnapshot(() => decisionPreview(ctx, plan, draft, evidence, reviewedKeys), PREVIEW_SNAPSHOT) }),
       { rollbackOnly: true, serializable: true },
     );
     return result.preview;
@@ -484,7 +488,7 @@ export async function decidePlan(
         await context.client.query("SAVEPOINT remaining_preview");
         let preview: CatalogPreview;
         try {
-          preview = await decisionPreview(context, next, next.draft!, next.evidence, next.reviewedKeys);
+          preview = await withCandidateSnapshot(() => decisionPreview(context, next, next.draft!, next.evidence, next.reviewedKeys), PREVIEW_SNAPSHOT);
         } catch (error) {
           preview = { hash: "", ready: false, sensitive: false, affected: [], items: [{ key: "plan", op: "replace_fields", label: "Cambios pendientes", before: null, after: null, warnings: [], error: error instanceof Error ? error.message : String(error) }] };
         }

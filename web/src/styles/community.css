@@ -80,7 +80,6 @@
   .community-page__layout { grid-template-columns: 200px minmax(0, 1fr); gap: 32px; }
 }
 @media (max-width: 760px) {
-  .site-footer { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
   .site-footer__columns { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
   .community-nav { gap: 4px; padding-bottom: 16px; }
   .community-nav a { padding: 10px 12px; font-size: 13px; }

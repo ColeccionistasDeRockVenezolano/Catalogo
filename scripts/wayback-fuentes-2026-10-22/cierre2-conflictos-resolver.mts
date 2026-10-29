@@ -1,0 +1,10 @@
+import {readFileSync,writeFileSync,existsSync} from 'node:fs';
+import {closeDb} from '../../src/db/client.js';
+import {withOperatorRun,updateEntity} from '../../src/merge/operator.js';
+const out=process.env['WAYBACK_OUT']!;if(!out)throw Error('WAYBACK_OUT obligatorio');const plan=JSON.parse(readFileSync(out+'/conflictos-resoluciones-plan.json','utf8'));const file=out+'/conflictos-resueltos.json';const applied:any[]=existsSync(file)?JSON.parse(readFileSync(file,'utf8')):[];
+try{for(const r of plan){if(applied.some(a=>a.documentId===r.documentId))continue;const result=await withOperatorRun({name:'wayback-cierre2:conflict:'+r.documentId,operator:'codex (encargo de Brian)',note:r.reason,params:{campaign:'wayback-finalizacion-2-2026-10-25',documentId:r.documentId}},async ctx=>{
+ await ctx.client.query("SELECT set_config('crv.run_id',$1,true)",[String(ctx.runId)]);const a=(await ctx.client.query('SELECT * FROM public.artists WHERE id=$1 FOR UPDATE',[r.artistId])).rows[0];const d=(await ctx.client.query('SELECT * FROM media.artist_documents WHERE id=$1 FOR UPDATE',[r.documentId])).rows[0];if(a.biography!==r.previousBiography||d.content!==r.previousContent||Number(d.artist_id)!==r.artistId)throw Error('Cambió la evidencia o la ficha '+r.artistId);
+ if(r.newBiography)await updateEntity(ctx,'artist',r.artistId,{biography:r.newBiography});
+ await ctx.client.query('UPDATE media.artist_documents SET title=$2,content=$3,tags=$4,metadata=$5::jsonb,updated_at=now() WHERE id=$1',[d.id,'Contraste resuelto — '+a.name,d.content+'\n\nRevisión del aviso histórico\n'+r.reason,[...new Set([...d.tags,'contraste-resuelto'])],JSON.stringify({...d.metadata,conflictResolution:{status:r.status,reason:r.reason,runId:ctx.runId,archiveUrl:r.archiveUrl,campaign:'wayback-finalizacion-2-2026-10-25'}})]);
+ return {artistId:r.artistId,documentId:r.documentId,status:r.status,biographyUpdated:Boolean(r.newBiography)};
+ });applied.push({documentId:r.documentId,...result});writeFileSync(file,JSON.stringify(applied,null,2));console.log(JSON.stringify(applied.at(-1)));}}finally{await closeDb();}

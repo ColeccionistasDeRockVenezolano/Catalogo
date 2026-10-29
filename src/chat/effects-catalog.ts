@@ -7,9 +7,10 @@
 // Ingeniería inversa de referencia (xat, medido 2026-10-28): sus «powers» son
 // sprites pixel-art animados de 30-74 px y 5,8 s en loop (calavera, zorro,
 // carita que aplaude, letra con arcoíris), más fondos estáticos. Nosotros
-// hacemos lo mismo pero vectorial: sprites SVG propios (1-2 KB), texto
-// animado por letra y partículas en canvas. Cero assets copiados.
+// usamos un atlas WebP original compartido, texto animado, coreografías y
+// materiales procedurales. Los sprites no se descargan por mensaje.
 import { z } from "zod";
+import { isEquippedSlot } from "./slots.js";
 import { FONT_SPECS } from "./fonts.js";
 
 export const EFFECT_KINDS = [
@@ -29,31 +30,43 @@ export const EFFECT_PRESETS = [
   // Sprites SVG animados (mascotas y objetos de CRV)
   "vinyl-face", "cassette-face", "amp-face", "skull-rocker", "flame-face",
   "guitar", "hand-rock", "bat", "mic", "drum", "heart-horns", "ufo-vinyl",
-  // Marcos y aros
-  "frame", "orbit", "ring", "pulse-ring",
+  // Marcos y aros (los cuatro últimos, vivos: fuego, electricidad, vinilo
+  // detrás del avatar y ecualizador radial)
+  "frame", "orbit", "ring", "pulse-ring", "fire-ring", "electric-ring", "vinyl-spin", "eq-radial",
   // Fondos de sala
   "stage", "garage", "fog", "spotlight", "flash", "curtain", "smoke",
   // Partículas
   "confetti", "embers", "stardust", "crowd", "sparks", "notes", "hearts",
-  "rain", "fireworks", "bubbles",
+  "rain", "fireworks", "bubbles", "flames", "snow",
+  // Coreografías del nombre: un personaje que interactúa con las letras
+  // (WAAPI, solo transform/opacity).
+  "bat-orbit", "drumsticks", "ufo-abduct", "vinyl-roll", "guitar-wave",
+  "skull-headbang", "lightning", "rockerito",
+  // Escenas a pantalla completa (acciones y entradas)
+  "pogo-scene", "clash-scene", "applause-scene", "curtain-scene",
+  // Materiales procedurales: motores distintos sobre un lienzo compartido.
+  "chidori", "curse-aura", "karma-aura", "shadow-entity", "pastel-rainbow", "viscous-blood",
 ] as const;
 export type EffectPreset = typeof EFFECT_PRESETS[number];
 
 const hexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/u, "color hex de 6 dígitos");
 
 export const effectLayerSchema = z.object({
-  /** css: texto/barato; svg: marcos; canvas: partículas; sprite: mascota. */
-  type: z.enum(["css", "svg", "canvas", "sprite"]),
+  /** css: texto; svg: marcos; canvas: partículas; sprite: objeto;
+   * choreo: coreografía; scene: pantalla completa; material: motor procedural. */
+  type: z.enum(["css", "svg", "canvas", "sprite", "choreo", "scene", "material"]),
   preset: z.enum(EFFECT_PRESETS),
   /** Solo sprites: a la izquierda/derecha del nombre o encima del avatar. */
   position: z.enum(["left", "right", "over", "behind"]).optional(),
-  colors: z.array(hexColor).min(1).max(5).optional(),
+  colors: z.array(hexColor).min(1).max(6).optional(),
   intensity: z.number().min(0).max(1).optional(),
   speed: z.number().min(0.1).max(4).optional(),
   opacity: z.number().min(0).max(1).optional(),
   blend: z.enum(["normal", "screen", "overlay", "multiply", "plus-lighter"]).optional(),
   count: z.number().int().min(1).max(80).optional(),
   dataSource: z.enum(["catalog_cover"]).optional(),
+  /** Solo partículas: de todo el elemento o de cada letra del nombre. */
+  origin: z.enum(["element", "letters"]).optional(),
 });
 
 export type EffectLayer = z.infer<typeof effectLayerSchema>;
@@ -101,6 +114,35 @@ const VIOLETA = "#b185e3";
 const TEAL = "#2ec4b6";
 const AZUL = "#60a5fa";
 
+const MATERIALS: ReadonlyArray<{ code: string; name: string; preset: EffectPreset; colors: string[]; description: string }> = [
+  { code: "chidori", name: "Chidori · espada eléctrica", preset: "chidori", colors: ["#ecffff", "#bde8f2", "#38b7ee", "#3b84ce", "#2156b5", "#0c1742"], description: "Descargas finas y ramificadas que cambian de trayectoria; núcleo blanco y halo azul." },
+  { code: "sello-maldito", name: "Sello maldito", preset: "curse-aura", colors: ["#06070c", "#1e1d2f", "#413856", "#61507d", "#9c5fc7", "#c38af0"], description: "Chakra negro y violeta con humo turbulento, contracción orgánica y púas de obsidiana." },
+  { code: "karma-azul", name: "Karma azul", preset: "karma-aura", colors: ["#1d1c39", "#1e3ea9", "#327fe0", "#45ade5", "#78e7ff", "#bcedf3"], description: "Lenguas de chakra cian que nacen, ascienden y se curvan en un flujo continuo." },
+  { code: "entidad-sombras", name: "Entidad de sombras", preset: "shadow-entity", colors: ["#010101", "#080808", "#151717", "#272727", "#3f3b3a", "#e6e8e8"], description: "Humo negro en capas que se arremolinan lentamente; unos ojos blancos se revelan de vez en cuando." },
+  { code: "rainbow-pastel", name: "Rainbow pastel", preset: "pastel-rainbow", colors: ["#ffadce", "#fcd6bf", "#fff0ae", "#ddf3b5", "#a3dff2", "#c5a5f2"], description: "Un arcoíris pastel recorre el nombre completo, con contorno blanco, reflejos y destellos suaves." },
+  { code: "sangre-realista", name: "Sangre realista", preset: "viscous-blood", colors: ["#380006", "#660407", "#8b0609", "#b30a09", "#dc3431", "#f06b64"], description: "Líquido espeso con brillo y volumen: se acumula, estrecha su cuello y cae por gravedad." },
+];
+
+/** Six identities, each available for the three requested surfaces. */
+const MATERIAL_EFFECTS: CatalogEffect[] = MATERIALS.flatMap((material, index) =>
+  (["name", "frame", "message"] as const).map((kind) => effect({
+    code: kind === "frame" ? `marco-${material.code}` : kind === "message" ? `mensaje-${material.code}` : material.code,
+    name: `${material.name}${kind === "frame" ? " · avatar" : kind === "message" ? " · mensaje" : ""}`,
+    kind, description: material.description,
+    // Same tiers as the existing electric/fire effects, no new currency.
+    priceCoins: kind === "message" ? 180 : 480,
+    priceCredits: kind === "message" ? 18 : 48, durationDays: 30,
+    sort: 400 + index * 10,
+    manifest: {
+      version: 1, triggers: [kind === "message" ? "on_message" : "always"],
+      cost: material.preset === "curse-aura" || material.preset === "shadow-entity" ? 5 : 4,
+      reducedMotion: "static",
+      ...(kind === "message" ? { durationMs: 6000 } : {}),
+      layers: [{ type: "material", preset: material.preset, colors: material.colors, intensity: 0.85, speed: 1 }],
+    },
+  })),
+);
+
 const text = (preset: EffectPreset, colors: string[], extra: Partial<EffectLayer> = {}): EffectLayer =>
   ({ type: "css", preset, colors, ...extra });
 const sprite = (preset: EffectPreset, position: "left" | "right" | "over" = "left"): EffectLayer =>
@@ -108,6 +150,13 @@ const sprite = (preset: EffectPreset, position: "left" | "right" | "over" = "lef
 const svg = (preset: EffectPreset, colors: string[]): EffectLayer => ({ type: "svg", preset, colors });
 const canvas = (preset: EffectPreset, colors: string[], count: number): EffectLayer =>
   ({ type: "canvas", preset, colors, count });
+/** Partículas que salen de las propias letras del nombre. */
+const fromLetters = (preset: EffectPreset, colors: string[], count: number): EffectLayer =>
+  ({ type: "canvas", preset, colors, count, origin: "letters" });
+const choreo = (preset: EffectPreset, colors: string[], extra: Partial<EffectLayer> = {}): EffectLayer =>
+  ({ type: "choreo", preset, colors, ...extra });
+const scene = (preset: EffectPreset, colors: string[], extra: Partial<EffectLayer> = {}): EffectLayer =>
+  ({ type: "scene", preset, colors, ...extra });
 
 const FONT_PRICES: Readonly<Record<string, number>> = {
   "versalitas": 120,
@@ -127,6 +176,7 @@ const FONT_PRICES: Readonly<Record<string, number>> = {
 };
 
 export const EFFECT_CATALOG: readonly CatalogEffect[] = [
+  ...MATERIAL_EFFECTS,
   // ── Nombre ───────────────────────────────────────────────────────────────
   effect({
     code: "vinilo", name: "Vinilo", kind: "name", sort: 10,
@@ -182,7 +232,7 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
     description: "Llamas letra a letra y brasas que suben.",
     priceCoins: 280, priceCredits: 28, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 5, reducedMotion: "static",
-      layers: [sprite("flame-face"), text("fire-letters", [ROJO, AMBAR, "#ff6b1a"]), canvas("embers", [AMBAR, ROJO], 10)] },
+      layers: [sprite("flame-face"), text("fire-letters", [ROJO, AMBAR, "#ff6b1a"]), fromLetters("flames", [AMBAR, ROJO, "#ff6b1a"], 10)] },
   }),
   effect({
     code: "hielo", name: "Hielo", kind: "name", sort: 90,
@@ -214,17 +264,17 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
   }),
   effect({
     code: "rockero", name: "Rockero", kind: "name", sort: 130,
-    description: "Calavera con gafas de sol y llamas a los lados.",
+    description: "Calavera con gafas de sol que hace headbang; las letras la siguen.",
     priceCoins: 380, priceCredits: 38, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [sprite("skull-rocker"), text("glow", [ROJO, AMBAR], { intensity: 0.6 })] },
+      layers: [choreo("skull-headbang", [ROJO, AMBAR]), text("glow", [ROJO, AMBAR], { intensity: 0.6 })] },
   }),
   effect({
     code: "guitarra", name: "Guitarra", kind: "name", sort: 140,
-    description: "Una guitarra se agita y suelta chispas al hablar.",
+    description: "Un rasgueo lanza una onda que recorre las letras.",
     priceCoins: 300, priceCredits: 30, durationDays: 30,
     manifest: { version: 1, triggers: ["always", "on_message"], cost: 4, reducedMotion: "static",
-      layers: [sprite("guitar", "right"), text("pulse", [AMBAR, ROJO])] },
+      layers: [choreo("guitar-wave", [ROJO, AMBAR]), text("glow", [AMBAR, ROJO], { intensity: 0.4 })] },
   }),
   effect({
     code: "cuernos", name: "Cuernos", kind: "name", sort: 150,
@@ -235,10 +285,10 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
   }),
   effect({
     code: "murcielago", name: "Murciélago", kind: "name", sort: 160,
-    description: "Un murciélago aletea sobre el nombre en penumbra.",
+    description: "Un murciélago vuela en órbita alrededor del nombre y roza las letras.",
     priceCoins: 320, priceCredits: 32, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [sprite("bat", "over"), text("blood", ["#5a0010", VIOLETA, "#1a0006"])] },
+      layers: [choreo("bat-orbit", [VIOLETA, ROJO]), text("blood", ["#5a0010", VIOLETA, "#1a0006"])] },
   }),
   effect({
     code: "micro", name: "Micrófono", kind: "name", sort: 170,
@@ -249,10 +299,10 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
   }),
   effect({
     code: "bateria", name: "Batería", kind: "name", sort: 180,
-    description: "Redoblante que golpea al ritmo y hace saltar las letras.",
+    description: "Dos baquetas golpean las letras una a una y las aplastan al ritmo.",
     priceCoins: 340, priceCredits: 34, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
-      layers: [sprite("drum", "right"), text("bounce", [AMBAR, "#ffffff"]), canvas("notes", [AMBAR, TEAL], 6)] },
+      layers: [choreo("drumsticks", ["#c9a227", AMBAR]), text("glow", [AMBAR, "#ffffff"], { intensity: 0.4 })] },
   }),
   effect({
     code: "corazon-rock", name: "Corazón rock", kind: "name", sort: 190,
@@ -263,10 +313,10 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
   }),
   effect({
     code: "ovni", name: "Ovni vinilo", kind: "name", sort: 200,
-    description: "Un vinilo volador con haz de luz abduce tu nombre.",
+    description: "Un ovni abduce una letra con su haz y la deja caer.",
     priceCoins: 420, priceCredits: 42, durationDays: 30,
     manifest: { version: 1, triggers: ["always"], cost: 5, reducedMotion: "static",
-      layers: [sprite("ufo-vinyl", "over"), text("rainbow", [TEAL, VIOLETA, AMBAR])] },
+      layers: [choreo("ufo-abduct", [TEAL, "#7dffb0"]), text("gradient", [TEAL, VIOLETA, AMBAR], { speed: 0.5 })] },
   }),
   effect({
     code: "onda", name: "Onda", kind: "name", sort: 210,
@@ -339,6 +389,49 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
       layers: [text("rb-fuzzy", ["#ffffff", "#b0b0b0"])] },
   }),
 
+  effect({
+    code: "vinilo-rodante", name: "Vinilo rodante", kind: "name", sort: 310,
+    description: "Un vinilo rueda bajo el nombre y hace saltar cada letra a su paso.",
+    priceCoins: 300, priceCredits: 30, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [choreo("vinyl-roll", [ROJO, "#f5f5f5"]), text("gradient", ["#d9d9d9", "#ffffff", ROJO], { speed: 0.4 })] },
+  }),
+  effect({
+    code: "rayo", name: "Rayo", kind: "name", sort: 320,
+    description: "Un rayo cae sobre una letra con destello y chispas.",
+    priceCoins: 440, priceCredits: 44, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 5, reducedMotion: "static",
+      layers: [choreo("lightning", ["#fff6a8", AZUL]), text("neon", [AZUL, "#fff6a8"]), fromLetters("sparks", ["#fff6a8", AZUL, "#ffffff"], 12)] },
+  }),
+  effect({
+    code: "rockerito", name: "Rockerito", kind: "name", sort: 330,
+    description: "Un rockerito con su guitarra camina sobre tus letras y las pisa.",
+    priceCoins: 460, priceCredits: 46, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 5, reducedMotion: "static",
+      layers: [choreo("rockerito", [ROJO, "#1a1a1a"]), text("gold", ["#8a5a00", "#ffd76a", "#fff3c4"])] },
+  }),
+  effect({
+    code: "chispazo", name: "Chispazo", kind: "name", sort: 340,
+    description: "Las letras sueltan chispas de soldadura.",
+    priceCoins: 260, priceCredits: 26, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [text("glow", [AMBAR, "#ffffff"], { intensity: 0.5 }), fromLetters("sparks", [AMBAR, "#ffffff", ROJO], 14)] },
+  }),
+  effect({
+    code: "nevada", name: "Nevada", kind: "name", sort: 350,
+    description: "Copos que caen de las letras, como un concierto en el páramo.",
+    priceCoins: 240, priceCredits: 24, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [text("ice", ["#8fd8ff", "#e8fbff", "#4aa3c7"]), fromLetters("snow", ["#ffffff", "#cfefff"], 12)] },
+  }),
+  effect({
+    code: "melodia", name: "Melodía", kind: "name", sort: 360,
+    description: "Notas musicales que salen de cada letra.",
+    priceCoins: 220, priceCredits: 22, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [text("pulse", [VIOLETA, TEAL]), fromLetters("notes", [VIOLETA, TEAL, AMBAR], 8)] },
+  }),
+
   // ── Marco de avatar ──────────────────────────────────────────────────────
   effect({
     code: "primera-edicion", name: "Primera edición", kind: "frame", sort: 10,
@@ -390,13 +483,42 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
       layers: [svg("pulse-ring", [TEAL, VIOLETA])] },
   }),
 
+  effect({
+    code: "anillo-fuego", name: "Anillo de fuego", kind: "frame", sort: 80,
+    description: "Lenguas de fuego que bailan alrededor del avatar y sueltan brasas.",
+    priceCoins: 520, priceCredits: 52, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [svg("fire-ring", [ROJO, AMBAR, "#ff6b1a"]), canvas("embers", [AMBAR, ROJO], 8)] },
+  }),
+  effect({
+    code: "aro-electrico", name: "Aro eléctrico", kind: "frame", sort: 90,
+    description: "Descargas que recorren el aro y chisporrotean.",
+    priceCoins: 480, priceCredits: 48, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 4, reducedMotion: "static",
+      layers: [svg("electric-ring", [AZUL, "#e8fbff"]), canvas("sparks", ["#e8fbff", AZUL], 6)] },
+  }),
+  effect({
+    code: "vinilo-giratorio", name: "Vinilo giratorio", kind: "frame", sort: 100,
+    description: "Un vinilo gira detrás de tu avatar como en el plato.",
+    priceCoins: 420, priceCredits: 42, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [svg("vinyl-spin", [ROJO, "#f5f5f5"])] },
+  }),
+  effect({
+    code: "ecualizador", name: "Ecualizador radial", kind: "frame", sort: 110,
+    description: "Barras de ecualizador que laten alrededor del avatar.",
+    priceCoins: 460, priceCredits: 46, durationDays: 30,
+    manifest: { version: 1, triggers: ["always"], cost: 3, reducedMotion: "static",
+      layers: [svg("eq-radial", [TEAL, VIOLETA, ROJO])] },
+  }),
+
   // ── Entrada ──────────────────────────────────────────────────────────────
   effect({
     code: "telon", name: "Telón", kind: "entry", sort: 10,
-    description: "Se abre el telón cuando entras a la sala.",
+    description: "Se abre el telón y tu nombre aparece en grande cuando entras a la sala.",
     priceCoins: 300, priceCredits: 30, durationDays: 30,
-    manifest: { version: 1, triggers: ["on_join"], cost: 4, durationMs: 1500, reducedMotion: "hide",
-      layers: [{ type: "css", preset: "curtain", colors: [ROJO, "#1a0002"] }] },
+    manifest: { version: 1, triggers: ["on_join"], cost: 4, durationMs: 2400, reducedMotion: "static",
+      layers: [scene("curtain-scene", [ROJO, "#1a0002", AMBAR])] },
   }),
   effect({
     code: "flash", name: "Flash", kind: "entry", sort: 20,
@@ -481,31 +603,31 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
   // ── Acciones de sala ─────────────────────────────────────────────────────
   effect({
     code: "pogo", name: "Pogo", kind: "action", sort: 10,
-    description: "Salta con la sala: acción colectiva.",
+    description: "El público salta contigo a pantalla completa.",
     priceCoins: 200, priceCredits: 20, durationDays: 30,
-    manifest: { version: 1, triggers: ["on_action"], cost: 3, durationMs: 1400, reducedMotion: "static",
-      layers: [canvas("crowd", [ROJO, AMBAR], 18)] },
+    manifest: { version: 1, triggers: ["on_action"], cost: 3, durationMs: 2200, reducedMotion: "static",
+      layers: [scene("pogo-scene", [ROJO, AMBAR, "#1a1a1a"])] },
   }),
   effect({
     code: "crowd", name: "Crowd", kind: "action", sort: 20,
-    description: "Manos y luces de público.",
+    description: "Manos arriba y luces de público.",
     priceCoins: 240, priceCredits: 24, durationDays: 30,
-    manifest: { version: 1, triggers: ["on_action"], cost: 4, durationMs: 1600, reducedMotion: "hide",
-      layers: [canvas("crowd", [AMBAR, "#ffffff", TEAL], 26)] },
+    manifest: { version: 1, triggers: ["on_action"], cost: 4, durationMs: 2000, reducedMotion: "static",
+      layers: [scene("pogo-scene", [AMBAR, TEAL, "#1a1a1a"], { intensity: 0.35 }), canvas("crowd", [AMBAR, "#ffffff", TEAL], 26)] },
   }),
   effect({
     code: "choque", name: "Choque de vinilos", kind: "action", sort: 30,
-    description: "Estrellas y chispas como dos discos chocando.",
+    description: "Dos vinilos chocan en el centro de la sala y saltan chispas.",
     priceCoins: 300, priceCredits: 30, durationDays: 30,
-    manifest: { version: 1, triggers: ["on_action"], cost: 4, durationMs: 1200, reducedMotion: "hide",
-      layers: [canvas("sparks", [AMBAR, "#ffffff", ROJO], 28), sprite("vinyl-face", "over")] },
+    manifest: { version: 1, triggers: ["on_action"], cost: 4, durationMs: 1800, reducedMotion: "static",
+      layers: [scene("clash-scene", [ROJO, AMBAR, "#ffffff"]), canvas("sparks", [AMBAR, "#ffffff", ROJO], 28)] },
   }),
   effect({
     code: "aplausos", name: "Aplausos", kind: "action", sort: 40,
-    description: "La sala aplaude con luces.",
+    description: "La sala aplaude y llueve confeti.",
     priceCoins: 220, priceCredits: 22, durationDays: 30,
-    manifest: { version: 1, triggers: ["on_action"], cost: 3, durationMs: 1300, reducedMotion: "hide",
-      layers: [canvas("fireworks", [AMBAR, "#ffffff"], 18)] },
+    manifest: { version: 1, triggers: ["on_action"], cost: 3, durationMs: 2000, reducedMotion: "static",
+      layers: [scene("applause-scene", [AMBAR, ROJO, TEAL]), canvas("confetti", [AMBAR, ROJO, TEAL, "#ffffff"], 40)] },
   }),
 
   // ── Stickers ─────────────────────────────────────────────────────────────
@@ -529,6 +651,28 @@ export const EFFECT_CATALOG: readonly CatalogEffect[] = [
     priceCoins: 100, priceCredits: 10, durationDays: 30,
     manifest: { version: 1, triggers: ["on_message"], cost: 2, durationMs: 700, reducedMotion: "static",
       layers: [sprite("skull-rocker", "right")] },
+  }),
+
+  effect({
+    code: "cuernos-sticker", name: "Cuernos sticker", kind: "sticker", sort: 40,
+    description: "La mano de rock en grande.",
+    priceCoins: 90, priceCredits: 9, durationDays: 30,
+    manifest: { version: 1, triggers: ["on_message"], cost: 2, durationMs: 700, reducedMotion: "static",
+      layers: [sprite("hand-rock", "right")] },
+  }),
+  effect({
+    code: "ampli-sticker", name: "Ampli sticker", kind: "sticker", sort: 50,
+    description: "Un ampli con ojos que sube el volumen.",
+    priceCoins: 90, priceCredits: 9, durationDays: 30,
+    manifest: { version: 1, triggers: ["on_message"], cost: 2, durationMs: 700, reducedMotion: "static",
+      layers: [sprite("amp-face", "right")] },
+  }),
+  effect({
+    code: "ovni-sticker", name: "Ovni sticker", kind: "sticker", sort: 60,
+    description: "El ovni de la casa, de visita.",
+    priceCoins: 120, priceCredits: 12, durationDays: 30,
+    manifest: { version: 1, triggers: ["on_message"], cost: 2, durationMs: 700, reducedMotion: "static",
+      layers: [sprite("ufo-vinyl", "right")] },
   }),
 
   // ── Fondo de sala ────────────────────────────────────────────────────────
@@ -619,5 +763,5 @@ export const EFFECTS_BY_CODE: ReadonlyMap<string, CatalogEffect> =
 
 /** Un efecto de nombre/fondo puede ir equipado; los de disparo no. */
 export function isEquippable(kind: EffectKind): boolean {
-  return kind === "name" || kind === "frame" || kind === "background" || kind === "ambient" || kind === "name_font";
+  return isEquippedSlot(kind);
 }

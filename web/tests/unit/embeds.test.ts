@@ -77,22 +77,30 @@ describe("reproductor de cada plataforma", () => {
 });
 
 describe("selector de plataformas", () => {
-  it("en artistas prioriza SoundCloud, Spotify, CRV y Deezer antes de otros reproductores", () => {
+  it("prioriza CRV, Bandcamp, SoundCloud, YouTube y YouTube Music en artistas y discos", () => {
     const links = [
       { platform: "youtube", url: "https://www.youtube.com/channel/UCtYlrz6GyvRahlhHjocWQYQ" },
       { platform: "deezer", url: "https://www.deezer.com/artist/461584" },
       { platform: "crv_youtube", url: "https://www.youtube.com/watch?v=mKt3ABDlyTg" },
       { platform: "spotify", url: "https://open.spotify.com/artist/1Dt7cfRzxM8qPVa82jX9y5" },
       { platform: "soundcloud", url: "https://soundcloud.com/gorgorothofficial" },
+      { platform: "bandcamp", url: "https://example.bandcamp.com/", externalId: "album=123456" },
+      { platform: "youtube_music", url: "https://music.youtube.com/playlist?list=OLAK5uy_k27Dvl5Wh1qdkbnTc4-_QH-jb1l4Zy__I" },
       { platform: "amazon_music", url: "https://music.amazon.com/artists/B000QKCC9Q" },
+      { platform: "apple_music", url: "https://music.apple.com/us/album/prueba/123456" },
+      { platform: "tidal", url: "https://tidal.com/album/123456" },
     ];
-    for (const expected of ["soundcloud", "spotify", "crv_youtube", "deezer", "youtube"]) {
-      const options = embedOptions([{ label: null, links }], "artist");
-      expect(options[0]?.platform).toBe(expected);
-      expect(options.some(option => option.platform === "amazon_music")).toBe(false);
-      links.splice(links.findIndex(link => link.platform === expected), 1);
+    for (const owner of ["artist", "album"] as const) {
+      const remaining = [...links];
+      const tail = owner === "artist" ? ["spotify", "deezer", "apple_music", "tidal"] : ["spotify", "apple_music", "deezer", "tidal"];
+      for (const expected of ["crv_youtube", "bandcamp", "soundcloud", "youtube", "youtube_music", ...tail]) {
+        const options = embedOptions([{ label: null, links: remaining, owner: "album" }], owner);
+        expect(options[0]?.platform).toBe(expected);
+        expect(options.some(option => option.platform === "amazon_music")).toBe(false);
+        remaining.splice(remaining.findIndex(link => link.platform === expected), 1);
+      }
+      expect(embedOptions([{ label: null, links: remaining }], owner)).toEqual([]);
     }
-    expect(embedOptions([{ label: null, links }], "artist")).toEqual([]);
   });
 
   it("omite enlaces sin reproductor válido al elegir la prioridad del perfil", () => {

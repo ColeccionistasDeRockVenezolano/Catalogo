@@ -293,8 +293,13 @@ export async function createEntity(
         existingId: outcome.entityId,
       });
     }
+    // The reviewer needs the similar records by name to decide whether this one is distinct.
+    const similar = outcome.resolutionDecisionId === undefined ? [] : (await context.client.query<{ name: string }>(
+      "SELECT c->>'canonicalName' AS name FROM ingest.entity_resolution_decisions, jsonb_array_elements(candidates) c WHERE id=$1 ORDER BY (c->>'score')::numeric DESC LIMIT 3",
+      [outcome.resolutionDecisionId])).rows.map((row) => row.name).filter(Boolean);
     throw new OperatorError("needs_review", `el catálogo no autoriza crear ${kind} «${name}»: ${outcome.detail}`, {
       ...(outcome.resolutionDecisionId === undefined ? {} : { resolutionDecisionId: outcome.resolutionDecisionId }),
+      similar,
       hint: "hay candidatos parecidos; allowSimilar=true crea la ficha como distinta a sabiendas",
     });
   }

@@ -109,12 +109,37 @@
   border-radius: var(--radius-pill); background: var(--red); color: #fff;
   font: 700 10.5px/17px var(--font-body); text-align: center; box-shadow: 0 0 0 2px var(--bg);
 }
+/* Filtros: un círculo de superficie los distingue de la lupa; con filtros
+   aplicados se tiñe de rojo, además del número. El área táctil sigue en 44px. */
+.topbar-tools__filters { isolation: isolate; }
+.topbar-tools__filters::before {
+  content: ""; position: absolute; z-index: -1; inset: 2px; border: 1px solid var(--border); border-radius: 50%;
+  background: var(--surface-2); transition: background 150ms, border-color 150ms;
+}
+.topbar-tools__filters:active { background: transparent; }
+.topbar-tools__filters:active::before { background: var(--surface-3); }
+.topbar-tools__filters.is-filtering { color: #fff; }
+.topbar-tools__filters.is-filtering::before { border-color: color-mix(in srgb, var(--red) 55%, var(--border)); background: var(--red-soft); }
 @media (max-width: 760px) {
-  .topbar-tools-slot { grid-area: 1 / 1; justify-self: start; margin-left: -8px; }
+  .topbar-tools-slot { margin-left: auto; margin-right: -4px; }
+  .topbar-tools { gap: 6px; }
 }
 .topbar--searching .brand, .topbar--searching .topbar-actions { display: none; }
 .topbar--searching .topbar-row { display: flex; padding-inline: 4px 8px; }
-.topbar--searching .topbar-tools-slot { margin-left: 0; }
+.topbar--searching .topbar-tools-slot { margin-inline: 0; }
+
+/* ---------- Móvil: la cuenta en la barra inferior ---------- */
+.nav-account__icon { position: relative; display: grid; place-items: center; width: 22px; height: 22px; }
+.nav-account__avatar {
+  width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%;
+  background: var(--surface-3); color: var(--text); font: 700 11px/1 var(--font-body);
+}
+.main-nav > a.active .nav-account__avatar { background: var(--red); color: #fff; }
+.nav-account__count {
+  position: absolute; top: -6px; left: calc(100% - 8px); min-width: 16px; height: 16px; padding: 0 4px;
+  border-radius: var(--radius-pill); background: var(--red); color: #fff;
+  font: 700 10px/16px var(--font-body); text-align: center; box-shadow: 0 0 0 2px rgb(15 15 15);
+}
 .topbar--searching .topbar-tools-slot, .topbar-tools.is-searching { flex: 1 1 auto; }
 .topbar-tools__field { position: relative; flex: 1 1 auto; min-width: 0; animation: topbar-field-in 200ms cubic-bezier(.23, 1, .32, 1); }
 @keyframes topbar-field-in { from { opacity: 0; transform: translateX(12px); } }

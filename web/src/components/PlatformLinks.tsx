@@ -102,7 +102,9 @@ export function platformLabel(platform: string): string {
  * Fila de iconos enlazados a las plataformas de escucha o redes de una ficha.
  * `small` es la variante en línea del encabezado de cada disco.
  */
-export function PlatformLinks({ links, subject, size = "regular", showLabels = false }: { links: PlatformLink[]; subject: string; size?: "regular" | "small"; showLabels?: boolean }) {
+export function PlatformLinks({ links, subject, size = "regular", showLabels = false, follow = false, onPlay }: { links: PlatformLink[]; subject: string; size?: "regular" | "small"; showLabels?: boolean; follow?: boolean;
+  /** Si devuelve una acción, el clic reproduce dentro del sitio en vez de salir a la plataforma. */
+  onPlay?: (link: PlatformLink) => (() => void) | null }) {
   if (links.length === 0) return null;
   const sorted = [...links].sort((a, b) => {
     const ia = ORDER.indexOf(a.platform), ib = ORDER.indexOf(b.platform);
@@ -115,13 +117,16 @@ export function PlatformLinks({ links, subject, size = "regular", showLabels = f
         const Icon = platform?.Icon ?? LinkSimple;
         const label = platform?.label ?? link.platform;
         const title = link.handle ? `${label} · @${link.handle}` : label;
+        const play = onPlay?.(link) ?? null;
+        const action = play ? `Reproducir en ${label}` : follow && link.platform === "youtube" ? `Seguir en ${label}` : linkAction(link.platform, label);
         return (
           <li key={link.platform}>
             <a className="platform-links__item" href={link.url} target="_blank" rel="noreferrer noopener"
-              title={title} aria-label={`${subject}: ${linkAction(link.platform, label)}`}
+              onClick={play ? event => { if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey) return; event.preventDefault(); play(); } : undefined}
+              title={follow && link.platform === "youtube" ? action : title} aria-label={`${subject}: ${action}`}
               style={{ "--platform-color": platform?.color ?? "var(--text)" } as CSSProperties}>
               <Icon size={size === "small" ? 16 : 20} />
-              {showLabels ? <span>{linkAction(link.platform, label)}</span> : null}
+              {showLabels ? <span>{action}</span> : null}
             </a>
           </li>
         );

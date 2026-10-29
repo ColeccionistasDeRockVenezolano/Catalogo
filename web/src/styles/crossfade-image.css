@@ -1,0 +1,10 @@
+/* Imagen con fundido (CrossfadeImage): las capas se apilan en la misma celda;
+   la nueva entra por encima ya decodificada y la anterior se retira al terminar. */
+.crossfade-image { position: relative; display: grid; width: 100%; height: 100%; overflow: hidden; }
+.crossfade-image > .crossfade-image__layer { grid-area: 1 / 1; width: 100%; height: 100%; min-width: 0; min-height: 0; }
+.crossfade-image__layer.is-entering {
+  animation: crossfade-image-in var(--crossfade-duration, 700ms) cubic-bezier(.4, 0, .2, 1) var(--crossfade-delay, 0ms) both;
+}
+/* Primera imagen aún sin cargar (fadeIn): no se dibuja a medias. */
+.crossfade-image__layer.is-waiting { opacity: 0; }
+@keyframes crossfade-image-in { from { opacity: 0; } to { opacity: 1; } }

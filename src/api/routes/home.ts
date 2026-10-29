@@ -29,6 +29,7 @@ const homeSchema = z.object({
   })),
   featuredArtist: z.object({
     id: z.number().int(), name: z.string(), artistType: z.string(), pictureUrl: z.string().nullable(), excerpt: z.string(),
+    pictureFocus: z.object({ x: z.number(), y: z.number(), width: z.number(), height: z.number() }).nullable(),
     originCity: z.string().nullable(), startYear: z.number().int().nullable(), albumCount: z.number().int(),
     genre: z.string().nullable(), primaryGenre: publicGenreSchema.nullable(), album: homeAlbumSchema.nullable(),
     similar: z.array(z.object({ id: z.number().int(), name: z.string(), pictureUrl: z.string().nullable() })),

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadResolutionCandidates, persistResolutionDecision, withCandidateSnapshot, withLockedTrackWriteSnapshot, rememberCreatedTrackInSnapshot } from "../../src/er/repository.js";
+import { candidateSnapshotMark, forgetCandidateSnapshot, loadResolutionCandidates, persistResolutionDecision, rememberCreatedInSnapshot, revertCandidateSnapshot, withCandidateSnapshot, withLockedTrackWriteSnapshot, rememberCreatedTrackInSnapshot } from "../../src/er/repository.js";
 import { resolveEntityDeterministically } from "../../src/er/scoring.js";
 import type { ResolutionInput } from "../../src/er/types.js";
 
@@ -112,6 +112,45 @@ describe("instantánea de candidatos", () => {
     // Y de verdad acota: una pista de un disco desconocido solo ve las del mismo título.
     const narrowed = await withCandidateSnapshot(() => loadResolutionCandidates(inputs[5]!, client));
     expect(narrowed).toHaveLength(0);
+  });
+
+  it("en la vista previa de la curaduría: solo los tipos pedidos, sigue las altas y olvida las revertidas", async () => {
+    const people = [{ id: "1", name: "Eric Chacón", aliases: [], bands: [], roles: [], album_credits: [] }];
+    const reads: string[] = [];
+    const client = { async query(sql: string, params?: number[]) {
+      const kind = sql.includes("FROM public.persons") ? "PERSON" : sql.includes("FROM public.tracks") ? "TRACK" : "ARTIST";
+      reads.push(params?.length ? `${kind}#${params[0]}` : kind);
+      return { rows: kind === "PERSON" ? people.filter((row) => !params?.length || Number(row.id) === params[0]) : [] };
+    } } as never;
+    const ids = async () => (await loadResolutionCandidates({ kind: "PERSON", name: "x" }, client)).map((c) => c.id);
+    await withCandidateSnapshot(async () => {
+      expect(await ids()).toEqual([1]);
+      await loadResolutionCandidates({ kind: "TRACK", name: "Intro" }, client);
+      await loadResolutionCandidates({ kind: "TRACK", name: "Intro" }, client);
+      // A record created in the preview joins the snapshot without rereading the catalog.
+      people.push({ id: "2", name: "Persona Nueva", aliases: [], bands: [], roles: [], album_credits: [] });
+      const mark = candidateSnapshotMark();
+      await rememberCreatedInSnapshot(client, "PERSON", 2);
+      expect(await ids()).toEqual([1, 2]);
+      // Its savepoint is rolled back: it leaves the snapshot too.
+      await revertCandidateSnapshot(mark);
+      expect(await ids()).toEqual([1]);
+      // A write the snapshot cannot follow: the next resolution reads again.
+      forgetCandidateSnapshot();
+      expect(await ids()).toEqual([1, 2]);
+    }, { kinds: ["PERSON", "ARTIST", "ORGANIZATION"] });
+    expect(reads).toEqual(["PERSON", "TRACK", "TRACK", "PERSON#2", "PERSON"]);
+  });
+
+  it("una tanda sin tipos no sigue altas: su comportamiento no cambia", async () => {
+    const reads: string[] = [];
+    const client = { async query(_sql: string, params?: number[]) { reads.push(params?.length ? "single" : "all"); return { rows: [] }; } } as never;
+    await withCandidateSnapshot(async () => {
+      await loadResolutionCandidates({ kind: "PERSON", name: "a" }, client);
+      await rememberCreatedInSnapshot(client, "PERSON", 2);
+      await loadResolutionCandidates({ kind: "PERSON", name: "b" }, client);
+    });
+    expect(reads).toEqual(["all"]);
   });
 
   it("dentro de la instantánea la decisión se guarda compactada, como la dejaría la retención", async () => {

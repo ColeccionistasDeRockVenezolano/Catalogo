@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { startPgContainer, type PgContainer } from "../support/pg-container.js";
 import { applyCore } from "../support/apply-core.js";
 import { migrateUp } from "../../src/db/migrate.js";
@@ -9,6 +9,10 @@ import { persistDerivedDescription, persistVideoPayload } from "../../src/youtub
 import { syncAlbumVideoTrackTimes } from "../../src/youtube/track-playback.js";
 import { updateEntity, withOperatorRun } from "../../src/merge/operator.js";
 import { CRV_CHANNEL_ID } from "../../src/youtube/home-channel.js";
+const unavailableCrvVideos = vi.hoisted(() => new Set<string>());
+vi.mock('../../src/youtube/playable-crv.js', () => ({
+  playableCrvVideoIds: async (ids: string[]) => new Set(ids.filter(id => !unavailableCrvVideos.has(id))),
+}));
 
 describe("tiempos del video que reproduce la ficha del disco", () => {
   let pg: PgContainer, albumId: number;
@@ -31,6 +35,24 @@ describe("tiempos del video que reproduce la ficha del disco", () => {
     }
   });
   afterAll(async () => { await closeDb(); await pg?.stop(); });
+  it('omite CRV caídos del video principal, los enlaces y cada CD aunque la base aún diga publicado', async () => {
+    const pool = getPool();
+    const artist = (await pool.query('SELECT artist_id FROM public.albums WHERE id=$1', [albumId])).rows[0].artist_id;
+    const album = (await pool.query("INSERT INTO public.albums(artist_id,title,youtube_url) VALUES($1,'Disponibilidad CRV','https://youtu.be/goneCrv0001') RETURNING id", [artist])).rows[0].id;
+    for (const [id, primary] of [['safeCrv0001', false], ['goneCrv0001', true]] as const) {
+      const video = (await pool.query("INSERT INTO media.youtube_videos(video_id,channel_id,publication_status) VALUES($1,$2,'published') RETURNING id", [id, CRV_CHANNEL_ID])).rows[0].id;
+      await pool.query("INSERT INTO media.video_albums(video_id,album_id,is_primary_link) VALUES($1,$2,$3)", [video, album, primary]);
+    }
+    await pool.query("INSERT INTO public.album_disc_links(album_id,disc_number,platform,url,verified,method,source) VALUES($1,2,'youtube','https://youtu.be/goneCrv0001',true,'manual','test')", [album]);
+    unavailableCrvVideos.add('goneCrv0001');
+    try {
+      const detail = await getAlbumDetail(Number(album));
+      expect(detail!.youtubeUrl).toBeNull();
+      expect(detail!.crvYoutubeVideoIds).toEqual(['safeCrv0001']);
+      expect(detail!.youtubeLinks.map(link => link.videoId)).toEqual(['safeCrv0001']);
+      expect(detail!.discs.flatMap(disc => disc.platforms)).toEqual([]);
+    } finally { unavailableCrvVideos.delete('goneCrv0001'); }
+  });
   it("expone las marcas guardadas en video_tracks, incluido cero y la primera repetición", async () => {
     const detail = await getAlbumDetail(albumId);
     expect(detail!.tracklist.find(t => t.title === "Primera")!.youtubeStartSeconds).toBe(0);

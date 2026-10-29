@@ -6,6 +6,8 @@ import { CatalogResourceEditor } from "../components/CatalogResourceEditor";
 import { ImageViewer } from "../components/ImageViewer";
 import { CatalogModelPanel } from "../components/CatalogModelPanel";
 import { EntityVerification } from "../components/EntityVerification";
+import { CompleteRecord } from "../components/CompleteRecord";
+import { goToCompleteRecord } from "../lib/completeRecord";
 import { useId, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
@@ -21,6 +23,7 @@ import { DetailSkeleton } from "../components/Skeletons";
 import { EntityCard, initialOf } from "../components/EntityCard";
 import { ArtistDiscography } from "../components/ArtistDiscography";
 import { ArtistAudiovisuals } from "../components/ArtistAudiovisuals";
+import { ArtistAppearances } from "../components/ArtistAppearances";
 import { groupMembers, MembersTimeline } from "../components/Discography";
 import { DeceasedMark } from "../components/DeceasedMark";
 import { AliasEditor } from "../components/AliasEditor";
@@ -49,6 +52,7 @@ import { artistTypeLabel, foreignCountry, memberRoleLabel } from "../lib/labels"
 import { ageText, formatDate } from "../lib/format";
 import { TITULAR_ROLE, type ArtistMember, type ArtistRelation, type RelatedArtist, type RelatedRule, type SimilarArtist, type SimilarRule } from "../lib/types";
 import { mediaImage } from "../lib/media";
+import { artistProfileLinks } from "../../../src/shared/platforms";
 
 const LINK_PLATFORMS = [
   { key: "youtube", label: "YouTube" },
@@ -168,10 +172,11 @@ export function ArtistDetailPage() {
   if (error || !artist) return <EntityLoadError message={error ?? "Artista no encontrado."} errorValue={errorValue} onRetry={reload} />;
   // Lo más escuchado del artista en cada plataforma con reproductor (perfiles verificados).
   const channelLinks = artist.channelVideo ? [{ platform: "crv_youtube", url: artist.channelVideo.url }] : [];
+  const { follow: followLinks, listen: artistListenLinks } = artistProfileLinks(artist.socials ?? [], artist.platforms ?? []);
   const playbackAlbums = artist.playbackAlbums ?? [];
-  const listenLinks = [...(artist.platforms ?? []), ...channelLinks];
+  const listenLinks = [...artistListenLinks, ...channelLinks];
   for (const link of playbackAlbums) if (!listenLinks.some(existing => existing.platform === link.platform)) listenLinks.push(link);
-  const listenOptions = embedOptions([{ label: null, links: artist.platforms ?? [] },
+  const listenOptions = embedOptions([{ label: null, links: artistListenLinks },
     { label: artist.channelVideo?.title ?? null, links: channelLinks },
     ...playbackAlbums.map(link => ({label:link.albumTitle,links:[link],owner:"album" as const}))], "artist");
   const listenActive = resolveListenPlatform(listenOptions.map((option) => option.platform), chosenPlatform, listenOptions[0]?.platform);
@@ -235,6 +240,11 @@ export function ArtistDetailPage() {
       content: artist.discography.length === 0 ? <TabEmpty>Sin discos registrados.</TabEmpty> : (
         <ArtistDiscography albums={artist.discography} artistName={artist.name} artistId={artist.id} />
       ),
+    },
+    {
+      key: "aparece-en", label: "Aparece en", count: artist.appearsOn?.length ?? 0,
+      content: artist.appearsOn?.length ? <ArtistAppearances items={artist.appearsOn} />
+        : <TabEmpty>No figura todavía en compilados ni en discos de otros artistas.</TabEmpty>,
     },
     {
       key: "audiovisuales", label: "Audiovisuales", count: artist.audiovisuals?.length ?? 0,
@@ -362,7 +372,7 @@ export function ArtistDetailPage() {
     <>
       <BackLink fallback="/artistas" />
 
-      {isAdmin ? <EntityAdminBar onEdit={() => setEditing(true)} onMerge={() => setMerging(true)} onRemove={() => setDeleting(true)} /> : null}
+      {isAdmin ? <EntityAdminBar onEdit={() => setEditing(true)} onComplete={goToCompleteRecord} onMerge={() => setMerging(true)} onRemove={() => setDeleting(true)} /> : null}
 
       <section className={`entity-hero artist-profile${listenLinks.length ? " artist-profile--with-listen" : ""}`} aria-label={`Ficha de ${artist.name}`}>
         <div className="artist-profile__media">
@@ -393,10 +403,10 @@ export function ArtistDetailPage() {
               <AliasEditor path="artists" entityId={artist.id} aliases={artist.aliases} onChanged={reload} compactTypeLabels />
             </div>
           ) : null}
-          {artist.socials?.length || artist.platforms?.length ? (
+          {followLinks.length || artistListenLinks.length ? (
             <div className="artist-profile__connections">
-              {artist.socials?.length ? <div className="platform-block"><h2>{(artist.artistGroup ?? artist.artistType) === "solo_artist" ? "Síguelo en" : "Síguelos en"}</h2><PlatformLinks links={artist.socials} subject={artist.name} /></div> : null}
-              {artist.platforms?.length ? <div className="platform-block"><h2>Escucha en</h2><PlatformLinks links={artist.platforms} subject={artist.name} /></div> : null}
+              {followLinks.length ? <div className="platform-block"><h2>{(artist.artistGroup ?? artist.artistType) === "solo_artist" ? "Síguelo en" : "Síguelos en"}</h2><PlatformLinks links={followLinks} subject={artist.name} follow /></div> : null}
+              {artistListenLinks.length ? <div className="platform-block"><h2>Escucha en</h2><PlatformLinks links={artistListenLinks} subject={artist.name} /></div> : null}
             </div>
           ) : null}
         </div>
@@ -411,7 +421,7 @@ export function ArtistDetailPage() {
         title={`${viewingImage === "photo" ? "Foto" : "Logo"} de ${artist.name}`}
         onClose={() => setViewingImage(null)} /> : null}
 
-      {isAdmin ? <EntityVerification kind="artist" id={artist.id} revision={artist} /> : null}
+      {isAdmin ? <CompleteRecord kind="artist" id={artist.id} name={artist.name}><EntityVerification kind="artist" id={artist.id} revision={artist} /></CompleteRecord> : null}
 
       <EntityTabs tabs={tabs} defaultKey="discografia" />
 

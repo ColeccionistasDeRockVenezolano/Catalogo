@@ -56,6 +56,14 @@ describe("contratos y dependencias de curaduría IA", () => {
     expect(evidenceGaps(op,[citation],context)).toEqual(["relación con «Rosbel Rangel»"]);
     expect(evidenceGaps(op,[{...citation,quote:"Rosbel Rangel (Bajo y Voz)"}],context)).toEqual([]);
   });
+  it("un instrumento acreditado en inglés respalda el rol en español, pero no otro instrumento",()=>{
+    const member=(role:string)=>draftSchema.parse({summary:"",unresolved:[],operations:[{...base,key:"m",evidenceIds:["H3"],op:"create_relation",kind:"artist_membership",endpoints:{artistId:{kind:"artist",id:4028},personId:{kind:"person",id:9}},values:{role}}]}).operations[0]!;
+    const context={root:{kind:"artist" as const,id:4028},nameOf:(ref:import("../../src/curation/ai/types.js").CatalogRef)=>"id" in ref&&ref.id===9?"Layo Puentes":"Eddy Marcano Quartet"};
+    const citation={id:"H3",url:"https://x.example",quote:"Guitar: Gustavo Carucí Cuatro: Héctor Molina Acoustic Bass: Layo Puentes",fetchedAt:"",contentHash:"",origin:"page",label:"Créditos"};
+    expect(evidenceGaps(member("bajo acústico"),[citation],context)).toEqual([]);
+    expect(evidenceGaps(member("guitarra"),[{...citation,quote:"Guitar: Layo Puentes"}],context)).toEqual([]);
+    expect(evidenceGaps(member("batería"),[citation],context)).toEqual(["rol «batería»"]);
+  });
   it("conserva propuestas entre consultas y permite corregir o retirar una propuesta anterior", () => {
     const initial = draftSchema.parse({ summary: "Primera investigación", unresolved: ["Contrastar año"], operations: [
       { ...base, key: "alias", op: "add_alias", target: { kind: "artist", id: 1 }, alias: "Nombre anterior" },

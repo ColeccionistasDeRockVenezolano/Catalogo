@@ -66,6 +66,7 @@ const groupSchema = z.object({
 const listQuerySchema = paginationQuerySchema.extend({
   kind: z.enum(KINDS).default("album"),
   entityId: z.coerce.number().int().positive().optional().describe("Solo las candidatas de esta ficha"),
+  artistId: z.coerce.number().int().positive().optional().describe("Con kind=album, solo las portadas de los discos de este artista"),
 });
 const decideParamsSchema = z.object({ kind: z.enum(KINDS), id: z.coerce.number().int().positive() });
 const decideBodySchema = z.object({
@@ -123,7 +124,7 @@ export async function registerImageCandidateRoutes(app: FastifyInstance, options
       },
     },
   }, async (request) => {
-    const { kind, limit, offset, entityId } = request.query;
+    const { kind, limit, offset, entityId, artistId } = request.query;
     const sql = ENTITY_SQL[kind];
     const column = ID_COLUMN[kind];
     const { rows } = await getPool().query<GroupRow & { total: string }>(`
@@ -139,9 +140,10 @@ export async function registerImageCandidateRoutes(app: FastifyInstance, options
         FROM ingest.image_candidates c
         ${sql.join}
        WHERE c.entity_kind = $1 AND c.status = 'open' AND ($4::bigint IS NULL OR c.${column} = $4)
+         AND ($5::bigint IS NULL OR ${kind === "album" ? "e.artist_id = $5" : "c.artist_id = $5"})
        GROUP BY c.${column}, ${sql.name}, ${sql.subtitle}, ${sql.current}
        ORDER BY max(c.score) DESC NULLS LAST, ${sql.name}
-       LIMIT $2 OFFSET $3`, [kind, limit, offset, entityId ?? null]);
+       LIMIT $2 OFFSET $3`, [kind, limit, offset, entityId ?? null, artistId ?? null]);
     return {
       data: rows.map((row) => ({
         kind,

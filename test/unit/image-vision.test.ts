@@ -78,7 +78,33 @@ describe("lectura visual de imágenes candidatas", () => {
     // Without context the reading decides; a cover showing the musician with the record's name is a cover.
     expect(mergeVisualReading({ use: "cover", reasons: ["Imagen cuadrada asociada a un disco"] }, seen("portrait", "match"), "album", ["Velasco y Cepeda"]).use).toBe("cover");
     expect(mergeVisualReading({ use: "unknown", reasons: ["El contexto no indica el uso; requiere inspección"] }, seen("live", "mismatch"), "artist", ["Jeremías"])).toEqual({ use: "live", reasons: ["Lectura visual: Lo que se ve"] });
-    expect(needsVisualReading("irrelevant", ["Demasiado pequeña (100×100)"])).toBe(false);
+    expect(needsVisualReading("irrelevant", ["Proporción de banner o franja"])).toBe(false);
+    // An old thumbnail is still read: it may show the band or be a placeholder silhouette.
+    expect(needsVisualReading("group", ["Imagen horizontal asociada a un artista", "Demasiado pequeña (90×67): no sirve como imagen principal"])).toBe(true);
+  });
+  it("lo que solo dicen la dirección o la campaña cede ante la lectura, salvo que un disco con personas sigue siendo portada", () => {
+    const located = (use: "cover" | "live") => ({ use, reasons: [`La dirección o la fuente la señalan como ${use === "cover" ? "portada" : "foto en vivo"}`] });
+    const read = (use: "cover" | "back_cover" | "portrait" | "group" | "irrelevant", visibleText: string[] = [], reason = "Lo que se ve") => ({ use, visibleText, reason, textMatch: "none" as const });
+    // A promo portrait whose file name speaks of the stage.
+    expect(mergeVisualReading(located("live"), read("portrait"), "artist", ["Jeremías"]).use).toBe("portrait");
+    expect(mergeVisualReading(located("cover"), read("group"), "album", ["X"]).use).toBe("cover");
+    expect(mergeVisualReading(located("cover"), read("irrelevant"), "album", ["X"]).use).toBe("cover");
+    // A back needs its numbered track list: cassette inlays print song titles on the front.
+    expect(mergeVisualReading(located("cover"), read("back_cover", ["01. Evocación", "02. Enamorado", "03. Ven Acá"]), "album", ["X"]).use).toBe("back_cover");
+    expect(mergeVisualReading(located("cover"), read("back_cover", ["GUILLERMO DAVILA", "(A) TESORO MIO / ES CUESTION DE", "(B) SOLO PIENSO EN TI"]), "album", ["X"]).use).toBe("cover");
+    // The documented context still keeps its use.
+    expect(mergeVisualReading({ use: "live", reasons: ["El contexto lo describe como foto en vivo"] }, read("portrait"), "artist", ["X"]).use).toBe("live");
+  });
+  it("una pegatina de contenido explícito, una lectura que la llama portada o el nombre impreso sobre el retrato del artista son portada", () => {
+    const shape = { use: "unknown" as const, reasons: ["El contexto no indica el uso; requiere inspección"] };
+    const read = (use: "portrait" | "group", visibleText: string[], reason: string, textMatch: "match" | "none" | "mismatch" = "none") => ({ use, visibleText, reason, textMatch });
+    expect(mergeVisualReading(shape, read("portrait", ["90028", "PARENTAL ADVISORY", "EXPLICIT CONTENT"], "Un hombre sentado junto a una pared"), "album", ["Oveja negra", "Apache"]).use).toBe("cover");
+    expect(mergeVisualReading(shape, read("group", ["ROMINA PALMISANO"], "Portada promocional con tres personas, estilo de carátula", "match"), "artist", ["Romina Palmisano"]).use).toBe("cover");
+    expect(mergeVisualReading(shape, read("portrait", ["jeremías"], "Primer plano de una persona con su nombre encima", "match"), "artist", ["Jeremías"]).use).toBe("cover");
+    expect(mergeVisualReading(shape, read("portrait", [], "Retrato de estudio; no parece una portada"), "artist", ["X"]).use).toBe("portrait");
+    expect(mergeVisualReading(shape, read("portrait", [], "Una sola persona con guitarra y micrófono, en lo que parece una actuación en vivo"), "artist", ["X"]).use).toBe("live");
+    // Stickers and catalog numbers name no other record.
+    expect(compareVisibleText(["90028", "PARENTAL ADVISORY", "EXPLICIT CONTENT"], ["Oveja negra", "Apache"], { target: "album" })).toBe("none");
     expect(needsVisualReading("cover", ["El contexto lo describe como portada"])).toBe(true);
   });
 });

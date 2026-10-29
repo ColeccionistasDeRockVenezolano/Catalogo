@@ -1,7 +1,0 @@
-{
-  "recovered": 50,
-  "skipped": {
-    "name_mismatch": 7,
-    "no_single_artist_genre": 4
-  }
-}

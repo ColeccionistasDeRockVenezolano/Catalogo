@@ -11,7 +11,7 @@ export interface PlanOutcome {
 }
 const fold = (text: string) =>
   text.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase().replace(/\s+/gu, " ").trim();
-type Category = "album" | "track" | "credit" | "genre" | "alias" | "format" | "label" | "image" | "biography" | "date" | "origin" | "merge";
+type Category = "album" | "track" | "credit" | "genre" | "alias" | "format" | "label" | "image" | "biography" | "date" | "origin" | "social" | "merge";
 const nouns: Record<Category, RegExp> = {
   album: /\b(discos?|albumes|albums?|eps?|sencillos?|lps?|demos?|reediciones|reedicion)\b/u,
   track: /\b(pistas?|canciones|cancion|tracklist|repertorio)\b/u,
@@ -24,11 +24,12 @@ const nouns: Record<Category, RegExp> = {
   biography: /\b(biografias?|descripcion|resena)\b/u,
   date: /\b(ano de (formacion|separacion|publicacion|lanzamiento)|fechas? de|nacimiento|fallecimiento)\b/u,
   origin: /\b(ciudad|origen)\b/u,
+  social: /\b(redes?(?: sociales)?|instagram|facebook|tiktok)\b/u,
   merge: /\b(fusion|fusiona\w*)\b/u,
 };
 const categoryLabels: Record<Category, string> = {
   album: "discos", track: "pistas", credit: "créditos o integrantes", genre: "géneros", alias: "alias", format: "formatos",
-  label: "sellos", image: "imágenes", biography: "biografía o descripción", date: "fechas", origin: "origen", merge: "fusiones",
+  label: "sellos", image: "imágenes", biography: "biografía o descripción", date: "fechas", origin: "origen", social: "redes", merge: "fusiones",
 };
 const fieldCategory: Record<string, Category> = {
   coverUrl: "image", imageUrl: "image", photoUrl: "image", biography: "biography", description: "biography",
@@ -47,6 +48,7 @@ function categories(op: CatalogOperation): Category[] {
       return [...(op.kind === "album" ? ["album" as const] : op.kind === "track" ? ["track" as const] : op.kind === "organization" ? ["label" as const] : op.kind === "person" ? ["credit" as const] : []), ...fields(op.values)];
     case "replace_fields": return fields(op.values);
     case "add_alias": return ["alias"];
+    case "add_social_link": return ["social"];
     case "create_relation": case "replace_relation": case "remove_relation":
       return [op.kind === "album_format" ? "format" : op.kind === "person_organization" ? "label" : "credit"];
     case "assign_genre": case "remove_genre": return ["genre"];
@@ -72,7 +74,7 @@ const modifier = (before: string) => /\b(de|del|en)( (la|las|el|los|ambos|ambas|
 const numberWords: Record<string, number> = { un: 1, una: 1, uno: 1, dos: 2, tres: 3, cuatro: 4, cinco: 5, seis: 6, siete: 7, ocho: 8, nueve: 9, diez: 10 };
 const plural: Record<string, [string, string]> = {
   create_album: ["disco completo", "discos completos"], create_entity: ["ficha nueva", "fichas nuevas"], replace_fields: ["cambio de campos", "cambios de campos"],
-  add_alias: ["alias", "alias"], create_relation: ["relación nueva", "relaciones nuevas"], replace_relation: ["relación corregida", "relaciones corregidas"],
+  add_alias: ["alias", "alias"], add_social_link: ["red social", "redes sociales"], create_relation: ["relación nueva", "relaciones nuevas"], replace_relation: ["relación corregida", "relaciones corregidas"],
   remove_relation: ["relación retirada", "relaciones retiradas"], assign_genre: ["género", "géneros"], remove_genre: ["género rechazado", "géneros rechazados"],
   reorder_tracks: ["orden de pistas", "órdenes de pistas"], merge_entities: ["fusión", "fusiones"], remove_entity: ["retirada de ficha", "retiradas de fichas"],
 };
@@ -89,13 +91,17 @@ export function planOutcome(
   const byKey = new Map(items.map((item) => [item.key, item]));
   const planError = items.find((item) => item.key === "plan" && item.error)?.error;
   const ready: CatalogOperation[] = [], blocked: Array<[CatalogOperation, string]> = [], unchanged: CatalogOperation[] = [];
-  let accepted = 0, rejected = 0;
+  let accepted = 0, rejected = 0, judgement = 0, waiting = 0;
+  const undecided = new Set(enabled.filter((op) => !decisions[op.key]).map((op) => op.key));
   for (const op of enabled) {
     const decision = decisions[op.key]?.decision;
     if (decision === "accepted") { accepted++; continue; }
     if (decision === "rejected") { rejected++; continue; }
     const item = byKey.get(op.key);
-    if (item?.error) blocked.push([op, item.error]);
+    // Neither is a failure: one needs the reviewer's judgement, the other waits for the proposal it builds on.
+    if (item?.error?.startsWith("Criterio editorial: ")) judgement++;
+    else if (item?.error && undecided.has(/^referencia (\S+) no disponible/u.exec(item.error)?.[1] ?? "")) waiting++;
+    else if (item?.error) blocked.push([op, item.error]);
     else if (item && item.before !== null && same(item.before, item.after)) unchanged.push(op);
     else ready.push(op);
   }
@@ -105,6 +111,8 @@ export function planOutcome(
     for (const op of ready) kinds.set(op.op, (kinds.get(op.op) ?? 0) + 1);
     parts.push(`${count(ready.length, ["cambio listo", "cambios listos"])} para decidir (${[...kinds].map(([op, n]) => count(n, plural[op] ?? [op, op])).join(", ")})`);
   }
+  if (judgement) parts.push(`${count(judgement, ["requiere", "requieren"])} tu criterio: ya hay fichas de nombre parecido`);
+  if (waiting) parts.push(`${count(waiting, ["espera", "esperan"])} a que decidas la propuesta de la que depende${waiting === 1 ? "" : "n"}`);
   if (blocked.length) {
     const reasons = [...new Set(blocked.map(([, error]) => error.split(/[.:]/u)[0]!.trim()))];
     parts.push(`${count(blocked.length, ["bloqueado", "bloqueados"])}: ${reasons.slice(0, 3).join("; ")}${reasons.length > 3 ? "…" : ""}`);

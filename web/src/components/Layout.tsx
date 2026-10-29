@@ -1,6 +1,6 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { Books, CalendarStar, ChatCircle, House, Radio, UserCircle, type Icon } from "@phosphor-icons/react";
+import { Books, CalendarStar, House, Radio, UserCircle, type Icon } from "@phosphor-icons/react";
 import { ADMIN_AREA, OperatorPill } from "./OperatorSettings";
 import { SessionChangesHost, useSessionChangesContext } from "./ChangeFeedback";
 import { useOperator } from "../lib/OperatorContext";
@@ -20,9 +20,8 @@ const NAV_ITEMS: ReadonlyArray<NavItem> = [
   { to: "/", label: "Home", end: true, icon: House },
   // Artistas, Discos, Personas y Organizaciones, con sus fichas y lo que cuelga de ellas.
   { to: "/artistas", label: "Catálogo", icon: Books, area: /^\/(artistas|discos|personas|organizaciones|lugares|series)(\/|$)/u },
-  { to: "/efemerides", label: "Efemérides", icon: CalendarStar },
+  { to: "/explora", label: "Explora", icon: CalendarStar },
   { to: "/radio", label: "Radio", icon: Radio },
-  { to: "/chat", label: "Chat", icon: ChatCircle, area: /^\/chat(\/|$)/u },
 ];
 
 const CATALOG_LIST = /^\/(artistas|discos|personas|organizaciones)\/?$/u;

@@ -28,6 +28,13 @@ const value = z.union([
 const values = z
   .record(value)
   .refine((v) => Object.keys(v).length > 0, "indica al menos un campo");
+/** Platforms accepted by public.social_links (0040). */
+export const SOCIAL_PLATFORMS = ["instagram", "facebook", "x", "tiktok", "threads", "bluesky", "website", "store", "linktree"] as const;
+/** Two profile URLs that differ only by scheme, «www.», case or a trailing slash are the same profile. */
+export const sameSocialUrl = (a: string, b: string): boolean => {
+  const plain = (url: string) => url.trim().toLowerCase().replace(/^https?:\/\//u, "").replace(/^(www|m|mobile)\./u, "").replace(/^twitter\.com\//u, "x.com/").replace(/[/?#]+$/u, "");
+  return plain(a) === plain(b);
+};
 const relation = z.enum([
   "artist_membership",
   "person_organization",
@@ -159,6 +166,16 @@ export const operationSchema = z.discriminatedUnion("op", [
         ])
         .default("name_variant"),
       isPrimary: z.boolean().default(false),
+    })
+    .strict(),
+  z
+    .object({
+      ...base,
+      op: z.literal("add_social_link"),
+      target: refSchema,
+      platform: z.enum(SOCIAL_PLATFORMS),
+      url: z.string().trim().url().max(500),
+      handle: z.string().trim().min(1).max(120).nullable().optional(),
     })
     .strict(),
   z

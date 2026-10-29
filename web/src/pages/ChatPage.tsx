@@ -3,44 +3,45 @@
 // Una sola columna en el teléfono: cabecera fina, mensajes, compositor pegado
 // al borde inferior con la safe-area y dos hojas (usuarios y tienda) que
 // suben desde abajo. En escritorio la lista de usuarios vive a la derecha.
-import { useEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Coin, PaperPlaneTilt, Storefront, Users, VinylRecord, X } from "@phosphor-icons/react";
+import { ArrowLeft, Coin, PaperPlaneTilt, ShieldCheck, Sticker, Storefront, Users, VinylRecord, X } from "@phosphor-icons/react";
 import { useChat } from "../lib/chatSocket";
-import { chatApi } from "../lib/api";
 import {
-  equippedEffect, formatTime, useChatQuality, type EffectSlot,
+  equippedEffect, formatTime, useChatQuality,
 } from "../lib/chatEffects";
 import { useOperator } from "../lib/OperatorContext";
-import { ChatAvatar, EffectName, EntryBurst, MessageBurst, RoomAmbient, RoomBackdrop } from "../components/chat/Effects";
+import { BurstText, ChatAvatar, EffectName, MessageBurst, RoomAmbient, RoomBackdrop, StickerArt } from "../components/chat/Effects";
+import { setMotionScope } from "../lib/chatMotion";
+import { MaterialStage } from "../components/chat/MaterialStage";
+import { ParticleStage } from "../components/chat/ParticleStage";
+import { SceneLayer, type SceneRequest } from "../components/chat/Scenes";
+import { ShopContent, SLOT_LABEL, actionLabel } from "../components/chat/ShopSheet";
 import { EffectFilters } from "../components/chat/TextEffects";
+import { MessageMenu, ModerationSheet } from "../components/chat/Moderation";
 import type { ChatEffect, ChatMessage, ChatUser } from "../../../src/chat/protocol";
 import "../styles/chat.css";
 import "../styles/reactbits.css";
-
-const SLOT_LABEL: Record<EffectSlot, string> = {
-  name: "Nombre", frame: "Marco", background: "Fondo", ambient: "Ambiente", name_font: "Fuente",
-};
-
-const KIND_LABEL: Record<string, string> = {
-  name: "Nombres", name_font: "Fuentes", frame: "Marcos", entry: "Entradas", message: "Mensajes",
-  action: "Acciones", sticker: "Stickers", background: "Fondos", ambient: "Ambientes",
-};
-
-/** Orden de las pestañas: lo que se lleva puesto primero. */
-const KIND_ORDER = ["name", "name_font", "frame", "entry", "message", "action", "sticker", "background", "ambient"];
+import "../styles/chat-motion.css";
+import "../styles/chat-materials.css";
 
 export function ChatPage() {
   const chat = useChat("general");
   const quality = useChatQuality();
   const { isAdmin } = useOperator();
-  const [sheet, setSheet] = useState<"none" | "users" | "shop">("none");
+  const [sheet, setSheet] = useState<"none" | "users" | "shop" | "mod" | "stickers">("none");
   const [draft, setDraft] = useState("");
   const [notice, setNotice] = useState<string | null>(null);
   const [nameDraft, setNameDraft] = useState("");
+  const [nameError, setNameError] = useState<string | null>(null);
   const [askName, setAskName] = useState(false);
   const listRef = useRef<HTMLDivElement | null>(null);
   const nearBottom = useRef(true);
+  const loadingEarlier = useRef(false);
+  const historyScrollRequest = useRef(0);
+  const [atBottom, setAtBottom] = useState(true);
+  const [scenes, setScenes] = useState<SceneRequest[]>([]);
+  const seenScenes = useRef(new Set<string>());
 
   // Teclado del móvil: sin esto el compositor queda debajo del teclado.
   useEffect(() => {
@@ -58,11 +59,37 @@ export function ChatPage() {
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const element = listRef.current;
-    if (!element || !nearBottom.current) return;
-    element.scrollTop = element.scrollHeight;
-  }, [chat.messages.length]);
+    if (!element || loadingEarlier.current) return;
+    if (chat.followingLatest && nearBottom.current) {
+      element.scrollTop = element.scrollHeight;
+    }
+  }, [chat.messages, chat.followingLatest]);
+
+  const jumpToLatest = (): void => {
+    historyScrollRequest.current += 1;
+    loadingEarlier.current = false;
+    chat.resumeLatest();
+    const element = listRef.current;
+    if (element) element.scrollTop = element.scrollHeight;
+    nearBottom.current = true;
+    setAtBottom(true);
+  };
+
+  const loadHistory = async (direction: "earlier" | "newer"): Promise<void> => {
+    const element = listRef.current;
+    if (!element || loadingEarlier.current) return;
+    loadingEarlier.current = true;
+    const request = ++historyScrollRequest.current;
+    nearBottom.current = false;
+    const loaded = await (direction === "earlier" ? chat.loadEarlier() : chat.loadNewer());
+    requestAnimationFrame(() => {
+      if (request !== historyScrollRequest.current) return;
+      if (loaded && element.isConnected) element.scrollTop = 0;
+      loadingEarlier.current = false;
+    });
+  };
 
   useEffect(() => {
     if (!chat.error) return;
@@ -71,6 +98,12 @@ export function ChatPage() {
     return () => window.clearTimeout(timer);
   }, [chat.error]);
 
+  // Aviso en vivo a moderadores (detector, Laya, reportes).
+  const latestAlert = chat.alerts[0];
+  useEffect(() => {
+    if (latestAlert) setNotice(`Moderación: ${latestAlert.text}`);
+  }, [latestAlert]);
+
   useEffect(() => {
     if (chat.actor?.displayName === "Oyente") setAskName(true);
   }, [chat.actor?.displayName]);
@@ -78,7 +111,37 @@ export function ChatPage() {
   const myNameEffect = equippedEffect(chat.actor, chat.effects, "name");
   const myFont = equippedEffect(chat.actor, chat.effects, "name_font");
   const myFrame = equippedEffect(chat.actor, chat.effects, "frame");
-  const entryEffect = chat.effects.find((effect) => effect.kind === "entry" && effect.owned) ?? null;
+  // Los IDs frescos vienen de eventos WS; cargar o reconectar el historial
+  // nunca reproduce las acciones antiguas.
+  useEffect(() => {
+    const incoming: SceneRequest[] = [];
+    const remember = (id: string): boolean => {
+      if (seenScenes.current.has(id)) return false;
+      seenScenes.current.add(id);
+      if (seenScenes.current.size > 500) seenScenes.current.delete(seenScenes.current.values().next().value!);
+      return true;
+    };
+    for (const message of chat.recentMessages) {
+      if (message.kind !== "action" || !chat.freshMessageIds.includes(message.id)) continue;
+      const effect = chat.effects.find((item) => item.code === message.effectCode && item.kind === "action");
+      if (effect && remember(`message-${message.id}`) && chat.followingLatest && !document.hidden) incoming.push({
+        id: `message-${message.id}`, effect, who: message.displayName ?? "Alguien",
+        label: `${message.displayName ?? "Alguien"} ${actionLabel(message.body)}`,
+      });
+    }
+    for (const entry of chat.entries) {
+      const effect = chat.effects.find((item) => item.code === entry.effectCode && item.kind === "entry");
+      if (!effect || !remember(entry.id) || !chat.followingLatest || document.hidden) continue;
+      incoming.push({
+        id: entry.id, effect, who: entry.displayName, label: `${entry.displayName} entró a La Rockola`,
+        nameNode: <EffectName name={entry.displayName}
+          effect={equippedEffect(entry, chat.effects, "name")}
+          font={equippedEffect(entry, chat.effects, "name_font")}
+          cover={chat.cover?.coverUrl ?? null} quality={quality} priority={2} />,
+      });
+    }
+    if (incoming.length) setScenes((current) => [...current, ...incoming].slice(-4));
+  }, [chat.recentMessages, chat.freshMessageIds, chat.entries, chat.effects, chat.cover, chat.followingLatest, quality]);
   // El tema de la sala trae fondo y ambiente por defecto; si alguien lleva uno
   // equipado, el suyo manda.
   const themeBackground = typeof chat.room?.theme["background"] === "string" ? chat.room.theme["background"] : null;
@@ -95,10 +158,10 @@ export function ChatPage() {
   );
 
   const submit = (): void => {
-    if (!draft.trim()) return;
+    if (!draft.trim() || chat.status !== "online") return;
     chat.sendMessage(draft);
     setDraft("");
-    nearBottom.current = true;
+    jumpToLatest();
   };
 
   return (
@@ -106,7 +169,9 @@ export function ChatPage() {
       <EffectFilters />
       <RoomBackdrop effect={background} quality={quality} />
       <RoomAmbient effect={ambient} quality={quality} />
-      <EntryBurst effect={entryEffect} quality={quality} />
+      <ParticleStage quality={quality} />
+      <MaterialStage quality={quality} />
+      <SceneLayer queue={scenes} quality={quality} onDone={(id) => setScenes((current) => current.filter((scene) => scene.id !== id))} />
 
       <header className="chat-top">
         <Link to="/" className="chat-back" aria-label="Volver al catálogo">
@@ -116,10 +181,16 @@ export function ChatPage() {
           <VinylRecord size={22} weight="duotone" aria-hidden="true" />
           <div>
             <strong>{chat.room?.name ?? "La Rockola"}</strong>
-            <span>{chat.status === "online" ? `${chat.users.length} en línea` : "conectando…"}</span>
+            <span>{chat.status === "online" ? `${chat.users.length} en línea` : chat.status === "offline" ? "sin conexión" : "conectando…"}</span>
           </div>
         </div>
         <div className="chat-top-actions">
+          {isAdmin ? (
+            <button type="button" className="chat-icon-button" onClick={() => setSheet("mod")} aria-label="Moderación">
+              <ShieldCheck size={22} weight="duotone" aria-hidden="true" />
+              {chat.alerts.length ? <span className="chat-mod-dot" aria-hidden="true" /> : null}
+            </button>
+          ) : null}
           <button type="button" className="chat-coin" onClick={() => setSheet("shop")} aria-label="Monedas y tienda">
             <Coin size={18} weight="duotone" aria-hidden="true" />
             <span>{chat.wallet.coins}</span>
@@ -140,8 +211,17 @@ export function ChatPage() {
           onScroll={(event) => {
             const element = event.currentTarget;
             nearBottom.current = element.scrollHeight - element.scrollTop - element.clientHeight < 140;
+            setAtBottom(nearBottom.current);
+            if (!nearBottom.current) chat.pauseLatest();
           }}
         >
+          {chat.hasMore && chat.messages.length > 0 ? (
+            <button type="button" className="chat-history-button" disabled={chat.loadingHistory}
+              onClick={() => void loadHistory("earlier")}>
+              {chat.loadingHistory ? "Cargando mensajes…" : "Cargar mensajes anteriores"}
+            </button>
+          ) : null}
+          {chat.historyError ? <p className="chat-history-error" role="alert">{chat.historyError}</p> : null}
           {chat.messages.length === 0 ? (
             <p className="chat-empty">
               La Rockola está en silencio. Di la primera palabra: ¿qué disco pusiste hoy?
@@ -154,9 +234,17 @@ export function ChatPage() {
               effects={chat.effects}
               quality={quality}
               cover={chat.cover?.coverUrl ?? null}
+              fresh={chat.followingLatest && chat.freshMessageIds.includes(message.id)}
               compact={isCompact(chat.messages[index - 1], message)}
+              own={message.actorId === chat.actor?.id} isAdmin={isAdmin} onNotice={setNotice}
             />
           ))}
+          {chat.newerCursors.length > 0 ? (
+            <button type="button" className="chat-history-button" disabled={chat.loadingHistory}
+              onClick={() => void loadHistory("newer")}>
+              Cargar mensajes más recientes
+            </button>
+          ) : null}
         </div>
 
         <aside className="chat-users-desktop" aria-label="En línea">
@@ -166,6 +254,11 @@ export function ChatPage() {
       </div>
 
       <div className="chat-composer">
+        {!atBottom || !chat.followingLatest ? (
+          <button type="button" className="chat-new-messages" onClick={jumpToLatest}>
+            {chat.unreadMessages > 0 ? `${chat.unreadMessages} ${chat.unreadMessages === 1 ? "mensaje nuevo" : "mensajes nuevos"}` : "Ir a los últimos mensajes"}
+          </button>
+        ) : null}
         {chat.typing.length > 0 ? (
           <p className="chat-typing" aria-live="polite">
             {chat.typing.slice(0, 2).join(", ")} {chat.typing.length > 1 ? "están escribiendo…" : "está escribiendo…"}
@@ -191,11 +284,14 @@ export function ChatPage() {
                 submit();
               }
             }}
-            placeholder="Escribe en La Rockola…"
+            placeholder={chat.mutedUntil && new Date(chat.mutedUntil) > new Date() ? "Estás en silencio por ahora" : "Escribe en La Rockola…"}
             rows={1}
             enterKeyHint="send"
             aria-label="Mensaje"
           />
+          <button type="button" className="chat-icon-button" aria-label="Enviar sticker" onClick={() => setSheet("stickers")}>
+            <Sticker size={22} weight="duotone" aria-hidden="true" />
+          </button>
           <button type="submit" className="chat-send" disabled={!draft.trim()} aria-label="Enviar mensaje">
             <PaperPlaneTilt size={20} weight="fill" aria-hidden="true" />
           </button>
@@ -225,25 +321,36 @@ export function ChatPage() {
             onSubmit={(event) => {
               event.preventDefault();
               if (nameDraft.trim().length < 2) return;
-              void chat.setName(nameDraft);
-              setAskName(false);
-              setNotice(`Ahora te llamas «${nameDraft.trim()}».`);
+              setNameError(null);
+              void chat.setName(nameDraft).then(() => {
+                setAskName(false);
+                setNotice(`Ahora te llamas «${nameDraft.trim()}».`);
+              }).catch((error: unknown) => {
+                setNameError(error instanceof Error ? error.message : "No se pudo cambiar el apodo.");
+              });
             }}
           >
             <p>Así te verán los demás en La Rockola. Puedes cambiarlo cuando quieras; tus monedas y efectos no se pierden.</p>
             <input
               value={nameDraft}
-              onChange={(event) => setNameDraft(event.target.value.slice(0, 40))}
+              onChange={(event) => { setNameDraft(event.target.value.slice(0, 40)); setNameError(null); }}
               placeholder="Tu apodo"
               autoFocus
               maxLength={40}
               aria-label="Tu apodo"
+              aria-invalid={Boolean(nameError)}
+              aria-describedby={nameError ? "chat-name-error" : undefined}
             />
+            {nameError ? <p id="chat-name-error" role="alert">{nameError}</p> : null}
             <button type="submit" className="chat-primary" disabled={nameDraft.trim().length < 2}>
               Entrar
             </button>
           </form>
         </Sheet>
+      ) : null}
+
+      {sheet === "mod" && isAdmin ? (
+        <ModerationSheet room={chat.room} alerts={chat.alerts} onClose={() => setSheet("none")} onNotice={setNotice} />
       ) : null}
 
       {sheet === "users" ? (
@@ -252,8 +359,27 @@ export function ChatPage() {
         </Sheet>
       ) : null}
 
+      {sheet === "stickers" ? (
+        <Sheet title="Tus stickers" onClose={() => setSheet("none")}>
+          <div className="chat-sticker-tray">
+            {chat.effects.filter((effect) => effect.kind === "sticker" && effect.owned).map((effect) => (
+              <button key={effect.code} type="button" aria-label={`Enviar ${effect.name}`} onClick={() => {
+                chat.sendMessage(effect.name, effect.code); setSheet("none"); nearBottom.current = true;
+              }}><StickerArt effect={effect} quality={quality} /><span>{effect.name}</span></button>
+            ))}
+          </div>
+          {!chat.effects.some((effect) => effect.kind === "sticker" && effect.owned) ? (
+            <p className="crv-shop-empty">Tus stickers aparecerán aquí. Puedes probarlos en la tienda antes de comprarlos.</p>
+          ) : null}
+          <button type="button" className="chat-secondary" onClick={() => setSheet("shop")}>Ver stickers en la tienda</button>
+        </Sheet>
+      ) : null}
+
       {sheet === "shop" ? (
-        <ShopSheet
+        <Sheet title="Efectos" onClose={() => setSheet("none")}>
+        <ShopContent
+          actor={chat.actor}
+          roomBackground={background} roomAmbient={ambient}
           effects={chat.effects}
           wallet={chat.wallet}
           cover={chat.cover?.coverUrl ?? null}
@@ -266,6 +392,7 @@ export function ChatPage() {
               setNotice(`Compraste «${result.effect.name}». Saldo: ${result.wallet.coins}.`);
             } catch (error) {
               setNotice(error instanceof Error ? error.message : "No se pudo comprar.");
+              throw error;
             }
           }}
           onEquip={async (slot, code) => {
@@ -274,10 +401,12 @@ export function ChatPage() {
               setNotice(code ? `Equipado en ${SLOT_LABEL[slot].toLowerCase()}.` : "Efecto retirado.");
             } catch (error) {
               setNotice(error instanceof Error ? error.message : "No se pudo equipar.");
+              throw error;
             }
           }}
           onAction={(code) => { chat.sendAction(code); setSheet("none"); }}
         />
+        </Sheet>
       ) : null}
     </div>
   );
@@ -288,9 +417,9 @@ function isCompact(previous: ChatMessage | undefined, current: ChatMessage): boo
   return new Date(current.createdAt).getTime() - new Date(previous.createdAt).getTime() < 5 * 60_000;
 }
 
-function MessageRow({ message, effects, quality, cover, compact }: {
+const MessageRow = memo(function MessageRow({ message, effects, quality, cover, compact, own, isAdmin, onNotice, fresh }: {
   message: ChatMessage; effects: ChatEffect[]; quality: ReturnType<typeof useChatQuality>;
-  cover: string | null; compact: boolean;
+  cover: string | null; compact: boolean; own: boolean; isAdmin: boolean; onNotice: (notice: string) => void; fresh: boolean;
 }) {
   const user = {
     displayName: message.displayName ?? "Alguien",
@@ -303,20 +432,19 @@ function MessageRow({ message, effects, quality, cover, compact }: {
   const burst = message.effectCode ? effects.find((effect) => effect.code === message.effectCode) ?? null : null;
 
   if (message.kind === "system") {
-    return <p className="chat-system">{message.body}</p>;
+    return <p className="chat-system" data-message-id={message.id}>{message.body}</p>;
   }
   if (message.kind === "action") {
     return (
-      <p className="chat-action">
+      <p className="chat-action" data-message-id={message.id}>
         <EffectName name={user.displayName} effect={nameEffect} font={nameFont} cover={cover} quality={quality} />
         <span> {actionLabel(message.body)}</span>
-        <MessageBurst effect={burst} quality={quality} />
       </p>
     );
   }
 
   return (
-    <article className={`chat-message${compact ? " is-compact" : ""}`}>
+    <article data-message-id={message.id} className={`chat-message${compact ? " is-compact" : ""}`}>
       {compact ? <span className="chat-gutter" aria-hidden="true" /> : (
         <ChatAvatar user={user} frame={frame} quality={quality} size={38} />
       )}
@@ -324,24 +452,18 @@ function MessageRow({ message, effects, quality, cover, compact }: {
         {compact ? null : (
           <header>
             <EffectName name={user.displayName} effect={nameEffect} font={nameFont} cover={cover} quality={quality} />
-            {message.effectCode === "sticker" ? <span className="chat-sticker">🎵</span> : null}
             <time dateTime={message.createdAt}>{formatTime(message.createdAt)}</time>
           </header>
         )}
-        <p>{message.body}</p>
-        <MessageBurst effect={burst} quality={quality} />
+        {burst?.kind === "sticker" ? <StickerArt effect={burst} quality={quality} /> : (
+          <BurstText effect={burst} quality={quality} fresh={fresh}>{message.body}</BurstText>
+        )}
+        <MessageBurst effect={burst?.kind === "message" ? burst : null} quality={quality} fresh={fresh} />
       </div>
+      <MessageMenu message={message} own={own} isAdmin={isAdmin} onNotice={onNotice} />
     </article>
   );
-}
-
-function actionLabel(code: string): string {
-  const labels: Record<string, string> = {
-    pogo: "se lanzó al pogo 🤘",
-    crowd: "encendió al público 🙌",
-  };
-  return labels[code] ?? "hizo una acción";
-}
+});
 
 function UserList({ users, effects, quality }: {
   users: ChatUser[];
@@ -365,9 +487,40 @@ function UserList({ users, effects, quality }: {
 }
 
 function Sheet({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
+  const ref = useRef<HTMLElement | null>(null);
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
+  useEffect(() => {
+    const previous = document.activeElement as HTMLElement | null;
+    setMotionScope(ref.current);
+    const behind = [...document.querySelectorAll<HTMLElement>(".chat-top, .chat-body, .chat-composer")];
+    const saved = behind.map((element) => element.inert);
+    behind.forEach((element) => { element.inert = true; });
+    const controls = (): HTMLElement[] => [...(ref.current?.querySelectorAll<HTMLElement>(
+      'button:not(:disabled), input, textarea, select, a[href], [tabindex="0"]',
+    ) ?? [])].filter((element) => element.getClientRects().length > 0);
+    (ref.current?.querySelector<HTMLElement>("input") ?? controls()[0] ?? ref.current)?.focus({ preventScroll: true });
+    const onKey = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") { event.preventDefault(); closeRef.current(); }
+      if (event.key !== "Tab") return;
+      const items = controls();
+      const first = items[0]; const last = items.at(-1);
+      if (!first) { event.preventDefault(); ref.current?.focus(); return; }
+      if (!ref.current?.contains(document.activeElement)) { event.preventDefault(); first.focus(); return; }
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      setMotionScope(null);
+      behind.forEach((element, index) => { element.inert = saved[index] ?? false; });
+      if (previous?.isConnected) previous.focus({ preventScroll: true });
+    };
+  }, []);
   return (
     <div className="chat-sheet-backdrop" role="dialog" aria-modal="true" aria-label={title} onClick={onClose}>
-      <section className="chat-sheet" onClick={(event) => event.stopPropagation()}>
+      <section ref={ref} tabIndex={-1} className="chat-sheet" onClick={(event) => event.stopPropagation()}>
         <header>
           <h2>{title}</h2>
           <button type="button" onClick={onClose} aria-label="Cerrar"><X size={20} weight="bold" /></button>
@@ -375,133 +528,5 @@ function Sheet({ title, onClose, children }: { title: string; onClose: () => voi
         <div className="chat-sheet-body">{children}</div>
       </section>
     </div>
-  );
-}
-
-function ShopSheet({ effects, wallet, cover, quality, isAdmin, onClose, onBuy, onEquip, onAction }: {
-  effects: ChatEffect[]; wallet: { coins: number; credits: number }; cover: string | null;
-  quality: ReturnType<typeof useChatQuality>; isAdmin: boolean; onClose: () => void;
-  onBuy: (code: string) => Promise<void>; onEquip: (slot: EffectSlot, code: string | null) => Promise<void>;
-  onAction: (code: string) => void;
-}) {
-  const kinds = [...new Set(effects.map((effect) => effect.kind))]
-    .sort((a, b) => KIND_ORDER.indexOf(a) - KIND_ORDER.indexOf(b));
-  const [kind, setKind] = useState<string>(kinds[0] ?? "name");
-  const [selected, setSelected] = useState<ChatEffect | null>(null);
-  const list = effects.filter((effect) => effect.kind === kind);
-  const equippable = selected && ["name", "frame", "background", "ambient"].includes(selected.kind);
-
-  return (
-    <Sheet title="Efectos" onClose={onClose}>
-      <p className="chat-wallet-line">
-        <Coin size={18} weight="duotone" aria-hidden="true" /> {wallet.coins} monedas
-        {wallet.credits > 0 ? <span> · {wallet.credits} créditos</span> : null}
-      </p>
-      <div className="chat-kind-tabs" role="tablist">
-        {kinds.map((item) => (
-          <button
-            key={item} type="button" role="tab" aria-selected={kind === item}
-            className={kind === item ? "is-active" : ""} onClick={() => { setKind(item); setSelected(null); }}
-          >
-            {KIND_LABEL[item] ?? item}
-          </button>
-        ))}
-      </div>
-
-      {selected ? (
-        <div className="chat-effect-detail">
-          <div className="chat-effect-detail-head">
-            <h3>{selected.name}</h3>
-            <button type="button" onClick={() => setSelected(null)} aria-label="Cerrar detalle"><X size={16} weight="bold" /></button>
-          </div>
-          <p>{selected.description}</p>
-          {selected.kind === "name_font" ? (
-            <p className="chat-font-sample">
-              <EffectName name="La Rockola" effect={selected} font={selected} cover={cover} quality={quality} />
-            </p>
-          ) : null}
-          <p className="chat-effect-meta">
-            {selected.durationDays ? `Alquiler ${selected.durationDays} días` : "Permanente"}
-            {selected.priceCoins > 0 ? ` · ${selected.priceCoins} monedas` : ""}
-          </p>
-          <div className="chat-effect-actions">
-            {!selected.owned ? (
-              <button type="button" className="chat-primary" onClick={() => void onBuy(selected.code)}>
-                Comprar por {selected.priceCoins} ¢
-              </button>
-            ) : null}
-            {equippable ? (
-              <button
-                type="button" className="chat-secondary"
-                onClick={() => void onEquip(selected.kind as EffectSlot, selected.equipped ? null : selected.code)}
-              >
-                {selected.equipped ? "Quitar" : "Equipar"}
-              </button>
-            ) : null}
-            {selected.owned && selected.kind === "action" ? (
-              <button type="button" className="chat-primary" onClick={() => onAction(selected.code)}>
-                Hacerlo ahora
-              </button>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
-
-      <div className="chat-effect-grid">
-        {list.map((effect) => (
-          <button
-            key={effect.code} type="button"
-            className={`chat-effect-card${selected?.code === effect.code ? " is-selected" : ""}${effect.equipped ? " is-equipped" : ""}`}
-            onClick={() => setSelected(effect)}
-          >
-            <span className="chat-effect-preview" data-kind={effect.kind}>
-              <EffectName
-                name={effect.kind === "name_font" ? "La Rockola" : effect.name}
-                effect={effect} font={effect} cover={cover} quality={quality}
-              />
-            </span>
-            <span className="chat-effect-name">{effect.name}</span>
-            <span className="chat-effect-price">
-              {effect.owned ? (effect.equipped ? "Equipado" : "Tuyo") : `${effect.priceCoins} ¢`}
-            </span>
-          </button>
-        ))}
-      </div>
-
-      {isAdmin ? <AdminEffectEditor onClose={onClose} /> : null}
-    </Sheet>
-  );
-}
-
-/** Editor mínimo de efectos (E4): valida el manifiesto en el servidor. */
-function AdminEffectEditor({ onClose }: { onClose: () => void }) {
-  const [json, setJson] = useState("");
-  const [message, setMessage] = useState<string | null>(null);
-  const publishNow = async (): Promise<void> => {
-    try {
-      const parsed = JSON.parse(json) as Record<string, unknown>;
-      await chatApi.publishEffect(parsed);
-      setMessage("Efecto publicado. Ya aparece en el catálogo.");
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Manifiesto inválido.");
-    }
-  };
-  return (
-    <details className="chat-admin">
-      <summary>Administración · publicar efecto</summary>
-      <textarea
-        value={json}
-        onChange={(event) => setJson(event.target.value)}
-        placeholder={'{"code":"nuevo","name":"Nuevo","kind":"name","manifest":{"version":1,"triggers":["always"],"cost":2,"reducedMotion":"static","layers":[{"type":"css","preset":"neon","colors":["#e50914"]}]}}'}
-        rows={6}
-      />
-      <div className="chat-effect-actions">
-        <button type="button" className="chat-primary" onClick={() => void publishNow()} disabled={!json.trim()}>
-          Publicar
-        </button>
-        <button type="button" className="chat-secondary" onClick={onClose}>Cerrar</button>
-      </div>
-      {message ? <p className="chat-notice">{message}</p> : null}
-    </details>
   );
 }

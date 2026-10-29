@@ -46,15 +46,28 @@ describe("caché del catálogo público", () => {
 
   it("no guarda errores ni comparte fichas autenticadas", async () => {
     let calls = 0;
-    app.get("/albums/:id", async request => {
+    app.get("/persons/:id", async request => {
       calls++;
       if (calls === 1) throw new Error("temporal");
       return { private: !!request.headers.authorization, calls };
     });
-    expect((await app.inject("/albums/1")).statusCode).toBe(500);
-    expect((await app.inject("/albums/1")).json()).toEqual({ private: false, calls: 2 });
-    expect((await app.inject({ url: "/albums/1", headers: { authorization: "Bearer example" } })).json().private).toBe(true);
-    expect((await app.inject("/albums/1")).json()).toEqual({ private: false, calls: 2 });
+    expect((await app.inject("/persons/1")).statusCode).toBe(500);
+    expect((await app.inject("/persons/1")).json()).toEqual({ private: false, calls: 2 });
+    expect((await app.inject({ url: "/persons/1", headers: { authorization: "Bearer example" } })).json().private).toBe(true);
+    expect((await app.inject("/persons/1")).json()).toEqual({ private: false, calls: 2 });
+  });
+
+  it.each(['artists', 'albums'])('vuelve a comprobar los videos CRV en cada lectura de %s', async kind => {
+    let calls = 0;
+    app.get(`/${kind}/:id`, async (_request, reply) => {
+      reply.header('cache-control', 'private, no-store');
+      return { calls: ++calls };
+    });
+    expect((await app.inject(`/${kind}/1`)).json()).toEqual({ calls: 1 });
+    const next = await app.inject(`/${kind}/1`);
+    expect(next.json()).toEqual({ calls: 2 });
+    expect(next.headers['cache-control']).toBe('private, no-store');
+    expect(next.headers['x-crv-cache']).toBeUndefined();
   });
 
   it("cambia el contenido diario a medianoche de Caracas y separa fechas explícitas", async () => {

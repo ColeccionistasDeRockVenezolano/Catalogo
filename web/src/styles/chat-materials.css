@@ -1,0 +1,71 @@
+/* Material work is bounded to the shared stage; text stays selectable. */
+.crv-material-stage { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 97; pointer-events: none; contain: strict; }
+svg.crv-real-art { display: block; width: 100%; height: 100%; overflow: hidden; }
+.crv-real-wing { animation: crv-real-flap .48s ease-in-out infinite alternate; }
+.crv-real-wing-right { animation-delay: -.035s; }
+@keyframes crv-real-flap { from { transform: scaleY(.72) rotate(-3deg); } to { transform: scaleY(1) rotate(2deg); } }
+.crv-real-flame-face { animation: crv-real-flame 1.73s ease-in-out infinite alternate; transform-origin: 50% 85%; }
+@keyframes crv-real-flame { from { transform: scaleX(.96) scaleY(.97); opacity: .88; } to { transform: scaleX(1.03) scaleY(1.03); opacity: 1; } }
+.crv-sprite .crv-real-guitar { animation: crv-real-strum 2.1s ease-in-out infinite alternate; }
+.crv-sprite .crv-real-skull-rocker { animation: crv-real-strum 1.3s ease-in-out infinite alternate; }
+.crv-fan-tone-0 { filter: brightness(.3); }
+.crv-fan-tone-1 { filter: brightness(.18); }
+.crv-fan-tone-2 { filter: brightness(.42); }
+.crv-curtain-half { overflow: hidden; background: #44070e; }
+.crv-curtain-half .crv-real-art { position: absolute; inset: 0 auto 0 0; width: 200%; height: 100%; }
+.crv-curtain-right .crv-real-art { left: -100%; }
+.crv-backdrop.fx-stage { background: linear-gradient(#0005, #0008), url("../assets/chat/stage-realistic.webp") center / cover; }
+.crv-backdrop.fx-garage { background: linear-gradient(#0005, #0008), url("../assets/chat/garage-realistic.webp") center / cover; }
+.crv-backdrop.fx-fog { background: #11121a; animation: none; }
+.crv-smoke-clouds, .crv-smoke-still { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.crv-smoke-still { background: radial-gradient(ellipse at 40% 85%, #9aa0aa20, transparent 65%); }
+.crv-entry.fx-smoke { filter: none; background: transparent; }
+/* Save-data / low-end devices avoid even the background texture transfer. */
+.crv-backdrop.fx-stage.is-static, .crv-backdrop.fx-garage.is-static { background: #100d0e; }
+@keyframes crv-real-strum { from { transform: rotate(-3deg); } to { transform: rotate(4deg); } }
+.crv-material { position: relative; --material-color: #bde8f2; }
+.crv-name.crv-material { isolation: isolate; line-height: 1.65; }
+.crv-name.crv-material .crv-name-text, .crv-name.crv-material .crv-ch { position: relative; z-index: 1; animation: none; filter: none; }
+.crv-material-chidori { --material-color: #bde8f2; }
+.crv-material-curse-aura { --material-color: #c38af0; }
+.crv-material-karma-aura { --material-color: #78e7ff; }
+.crv-material-shadow-entity { --material-color: #d5d6d8; }
+.crv-material-fire { --material-color: #ffd38b; }
+.crv-name.crv-material-chidori, .crv-name.crv-material-curse-aura, .crv-name.crv-material-karma-aura,
+.crv-name.crv-material-shadow-entity, .crv-name.crv-material-fire { color: var(--material-color); }
+/* Static material cues remain when the animation budget is exhausted. */
+.crv-avatar.crv-material::after { content: ""; position: absolute; inset: -3px; border: 1px solid var(--material-color); border-radius: inherit; pointer-events: none; opacity: .65; }
+.crv-avatar.crv-material-curse-aura::after { border-color: #61507d; border-style: dashed; }
+.crv-avatar.crv-material-shadow-entity::after { border-color: #3f3b3a; border-width: 3px; }
+.crv-message-text.crv-material { border-radius: 5px; outline: 1px solid color-mix(in srgb, var(--material-color) 30%, transparent); outline-offset: 4px; }
+.crv-material-viscous-blood { --material-color: #f06b64; }
+.crv-name.crv-material-viscous-blood .crv-name-text { color: #f18d87; text-shadow: 0 1px 0 #660407; }
+.crv-avatar.crv-material-viscous-blood::after { border-color: #8b0609; border-top-width: 3px; }
+.crv-material-pastel-rainbow { --material-color: #c5a5f2; }
+.crv-name.crv-material-pastel-rainbow .crv-name-text,
+.crv-name.crv-material-pastel-rainbow .crv-letters {
+  font-weight: 850; letter-spacing: .01em;
+  background: linear-gradient(90deg, #ffadce, #fcd6bf, #fff0ae, #ddf3b5, #a3dff2, #c5a5f2, #ffadce);
+  background-size: 200% 100%; background-clip: text; -webkit-background-clip: text;
+  color: transparent; -webkit-text-stroke: .35px #ffffffc7;
+  filter: drop-shadow(0 1px 1px #301e49);
+  animation: crv-pastel-flow 6s linear infinite;
+}
+/* One gradient for the whole name, also when a separate font splits glyphs. */
+.crv-name.crv-material-pastel-rainbow .crv-ch { color: inherit; background: none; -webkit-text-stroke: inherit; }
+.crv-name.crv-material-pastel-rainbow .crv-name-text::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 43%, #fff8 49%, transparent 55%);
+  clip-path: inset(0); opacity: 0; pointer-events: none;
+  animation: crv-pastel-sheen 9.3s linear infinite;
+}
+@keyframes crv-pastel-flow { to { background-position: -200% 0; } }
+@keyframes crv-pastel-sheen { 0%, 79%, 100% { transform: translateX(-100%); opacity: 0; } 80% { opacity: .5; } 89% { transform: translateX(100%); opacity: 0; } }
+/* Metals/crystal keep the incumbent palettes, with directional highlights. */
+.fx-gold .crv-name-text, .fx-ice .crv-name-text { -webkit-text-stroke: .15px #fff6; filter: drop-shadow(0 1px 1px #0009); }
+.crv-name.crv-material.is-static *, .crv-name.crv-material.is-soft * { animation: none !important; }
+.is-static .crv-real-art *, .is-soft .crv-real-art *, .is-offscreen .crv-real-art *,
+.is-static .crv-real-art, .is-soft .crv-real-art, .is-offscreen .crv-real-art { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  .crv-real-art, .crv-real-art *, .crv-name.crv-material *, .crv-name.crv-material *::after { animation: none !important; }
+}

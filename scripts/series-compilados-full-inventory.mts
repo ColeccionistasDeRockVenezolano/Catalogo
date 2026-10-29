@@ -1,0 +1,4 @@
+/** Títulos de todo el catálogo para localizar primeras entregas sin número ni clasificación. */
+import {writeFileSync} from 'node:fs';import {getPool,closeDb} from '../src/db/client.js';import {compilationAlbumSql} from '../src/api/repositories/compilation-series.js';
+const out=process.argv[2];if(!out)throw new Error('Indica staging');
+try{const rows=(await getPool().query(`SELECT a.id,a.title,a.artist_id,ar.name artist,a.album_type,a.release_year,${compilationAlbumSql('a')} compilation,(SELECT jsonb_agg(sa.series_id) FROM ingest.series_albums sa WHERE sa.album_id=a.id) series FROM ingest.catalog_albums a JOIN ingest.catalog_artists ar ON ar.id=a.artist_id ORDER BY a.id`)).rows;writeFileSync(`${out}/full-catalog.json`,JSON.stringify({queriedAt:new Date().toISOString(),albums:rows},null,2));console.log({albums:rows.length});}finally{await closeDb();}

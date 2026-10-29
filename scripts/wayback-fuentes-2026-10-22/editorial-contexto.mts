@@ -1,0 +1,13 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {getPool,closeDb} from '../../src/db/client.js';
+const out=process.env['WAYBACK_OUT']!;const p=getPool();const before=JSON.parse(readFileSync(out+'/antes-catalogo.json','utf8'));const ids=before.persons.map((r:any)=>r.id);
+const data:any={};
+data.members=(await p.query('SELECT m.*,a.name artist_name FROM public.artist_members m JOIN public.artists a ON a.id=m.artist_id WHERE m.person_id=ANY($1::bigint[])',[ids])).rows;
+data.credits=(await p.query('SELECT c.*,a.title,a.artist_id owner_id,r.name owner FROM public.album_credits c JOIN public.albums a ON a.id=c.album_id JOIN public.artists r ON r.id=a.artist_id WHERE c.person_id=ANY($1::bigint[]) ORDER BY c.person_id,c.album_id',[ids])).rows;
+data.personClaims=(await p.query("SELECT DISTINCT person_id,field,raw_value,identity_raw,identity_secondary_key FROM ingest.claims WHERE person_id=ANY($1::bigint[]) AND field IN ('name','notes','biography','real_name') ORDER BY person_id",[ids])).rows;
+data.relatedArtists=(await p.query("SELECT * FROM public.artists WHERE id=ANY($1::bigint[]) OR name ILIKE ANY($2::text[])",[[6994,7008,4631,1496],['%Crake%','%Laps Around%','%No Light%','%Ideoma%']])).rows;
+data.externalTables=(await p.query("SELECT table_schema,table_name,array_agg(column_name ORDER BY ordinal_position) columns FROM information_schema.columns WHERE table_schema IN ('ingest','public') GROUP BY table_schema,table_name HAVING bool_or(column_name='person_id') AND (bool_or(column_name LIKE '%url%') OR table_name LIKE '%extern%')")).rows;
+data.newTargetCandidates=(await p.query("SELECT * FROM public.persons WHERE name ILIKE ANY($1::text[]) OR notes ILIKE ANY($2::text[])",[['%Heather%','%thug%','%Havery%','%Julia%Grace%'],['%flickr.com/%michar%','%thugwarriorscars%']])).rows;
+data.newOrganizationCandidates=(await p.query("SELECT * FROM public.organizations WHERE name ILIKE ANY($1::text[])",[['%paper%soul%','%luxxar%']])).rows;
+data.angerAlbums=(await p.query('SELECT * FROM public.albums WHERE artist_id=7008')).rows;
+writeFileSync(out+'/contexto-candidatos.json',JSON.stringify(data,null,2));console.log(JSON.stringify(data,null,2));await closeDb();

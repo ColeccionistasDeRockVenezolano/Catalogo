@@ -2,7 +2,7 @@
 // DDL real en migrations/0105_chat_core, 0106_chat_effects y 0107_chat_wallet.
 // Igual que el resto de schemas auxiliares, el DDL es la fuente de verdad y
 // este archivo se mantiene sincronizado a mano.
-import { bigint, boolean, integer, jsonb, pgSchema, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { bigint, boolean, date, integer, jsonb, pgSchema, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 export const chat = pgSchema("chat");
 
@@ -87,4 +87,22 @@ export const chatLedger = chat.table("ledger", {
   ref: text("ref"),
   idempotencyKey: text("idempotency_key"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+
+export const chatPurchases = chat.table("purchases", {
+  actorId: uuid("actor_id").notNull(),
+  idempotencyKey: text("idempotency_key").notNull(),
+  effectCode: text("effect_code").notNull(),
+  effectName: text("effect_name").notNull(),
+  rentedUntil: timestamp("rented_until", { withTimezone: true }),
+  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+});
+
+export const chatDailyCovers = chat.table("daily_covers", {
+  cycleDate: date("cycle_date", { mode: "string" }).primaryKey(),
+  albumId: bigint("album_id", { mode: "number" }).notNull(),
+  title: text("title").notNull(),
+  artist: text("artist").notNull(),
+  coverUrl: text("cover_url").notNull(),
 });

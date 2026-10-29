@@ -9,18 +9,23 @@ import { emotionLabel } from "../lib/labels";
 import { ErrorState, EmptyState } from "../components/StateViews";
 import { RowsSkeleton } from "../components/Skeletons";
 import { CatalogSearchInput } from "../components/CatalogSearchInput";
+import { Pagination } from "../components/Pagination";
 import type { SearchEntityType, SearchHit } from "../lib/types";
 import { mediaImage } from "../lib/media";
 import "../styles/search-results.css";
 import { useOperator } from "../lib/OperatorContext";
 import { useDiscoverySearchMetric } from "../lib/discoveryMetrics";
 import { HomeBackdrop, HomeSections, HomeStats, useHomeData } from "../components/HomeSections";
+import { MOBILE_QUERY } from "../components/TopbarTools";
+import { useMediaQuery } from "../lib/useMediaQuery";
 
 const GROUP_ORDER: SearchEntityType[] = ["artist", "album", "person", "organization", "track"];
 // Una letra basta: con consultas cortas la API solo busca comienzos de nombre o palabra, y las guarda en caché.
 const MIN_QUERY_LENGTH = 1;
 /** Mismo tope que pide searchApi.observed: con 20 puede haber más. */
 const RESULTS_PER_TYPE = 20;
+/** Página de resultados del buscador: los mismos 20 que usa la lista del catálogo. */
+const PAGE_SIZE = RESULTS_PER_TYPE;
 /** En «Todos», cada grupo muestra unos pocos y deja ver el resto con su filtro. */
 const PREVIEW_PER_TYPE = 5;
 const TYPE_PARAM: Record<SearchEntityType, string> = { artist: "artistas", album: "discos", person: "personas", organization: "organizaciones", track: "pistas" };
@@ -29,10 +34,6 @@ const TYPE_ICON: Record<SearchEntityType, typeof Disc> = { artist: UsersThree, a
 
 function typeFromParam(value: string | null): SearchEntityType | null {
   return GROUP_ORDER.find((type) => TYPE_PARAM[type] === value) ?? null;
-}
-
-function countLabel(count: number): string {
-  return count >= RESULTS_PER_TYPE ? `${RESULTS_PER_TYPE}+` : String(count);
 }
 
 function HitThumb({ hit }: { hit: SearchHit }) {
@@ -55,6 +56,8 @@ export function SearchPage() {
   const [params, setParams] = useSearchParams();
   const urlQuery = params.get("q") ?? "";
   const [input, setInput] = useState(urlQuery);
+  // En el teléfono, un ejemplo que quepa entero en el campo.
+  const isMobile = useMediaQuery(MOBILE_QUERY);
   const [q, setQuery] = useState(urlQuery.trim());
   const [suggestionsOpen, setSuggestionsOpen] = useState(false);
   useEffect(() => { setInput(urlQuery); }, [urlQuery]);
@@ -129,7 +132,23 @@ export function SearchPage() {
   // Un filtro que ya no tiene resultados (otra consulta) vuelve a «Todos».
   const shownType = activeType && presentTypes.includes(activeType) ? activeType : null;
   const visibleTypes = shownType ? [shownType] : presentTypes;
-  const total = presentTypes.reduce((sum, type) => sum + data![type].length, 0);
+  // Con un solo tipo de resultados no hay chips: ese grupo es el paginado.
+  const paginatedType = shownType ?? (presentTypes.length === 1 ? presentTypes[0]! : null);
+  // Paginación del grupo activo: misma página de 20 que la lista del catálogo.
+  const [offset, setOffset] = useState(0);
+  const [pageHits, setPageHits] = useState<{ query: string; type: SearchEntityType; offset: number; hits: SearchHit[] } | null>(null);
+  const groupRef = useRef<HTMLDivElement>(null);
+  const totalFor = (type: SearchEntityType, fallback: number) => data?.totals?.[type] ?? fallback;
+  useEffect(() => {
+    if (!paginatedType || offset === 0) { setPageHits(null); return; }
+    let cancelled = false;
+    void searchApi.byType(q, paginatedType, PAGE_SIZE, offset)
+      .then(results => { if (!cancelled) setPageHits({ query: q, type: paginatedType, offset, hits: results[paginatedType] ?? [] }); })
+      .catch(() => { if (!cancelled) setPageHits({ query: q, type: paginatedType, offset, hits: [] }); });
+    return () => { cancelled = true; };
+  }, [q, paginatedType, offset]);
+  useEffect(() => { setOffset(0); setPageHits(null); }, [q, shownType]);
+  const total = presentTypes.reduce((sum, type) => sum + totalFor(type, data![type].length), 0);
   const narrower = narrowerQueries(q);
 
   return (
@@ -139,7 +158,7 @@ export function SearchPage() {
       <div className="search-shell">
         <p className="home-hero__kicker"><span className="home-kicker__dot" aria-hidden="true" />Recomendaciones diarias</p>
         <h1>Coleccionistas De <span className="home-hero__accent">Rock Venezolano</span></h1>
-        <p>Descubre el rock y la música venezolana. Cada día, nuevos artistas, discos y caminos para explorar.</p>
+        <p className="home-hero__intro"><strong>Descubre el rock y la música venezolana.</strong> Cada día, nuevos artistas, discos y caminos para explorar.</p>
         <form className="search-input-wrap" onSubmit={handleSubmit}>
           <label className="home-search-label" htmlFor="catalog-search">Buscar en el catálogo</label>
           <CatalogSearchInput
@@ -150,7 +169,7 @@ export function SearchPage() {
             value={input}
             onChange={changeInput}
             results={data} resultsQuery={q} resultsLoading={loading || isSearchPending || awaitingCurrentResults} resultsError={error} onRetryResults={reload}
-            placeholder="Busca artistas, bandas, álbumes o canciones"
+            placeholder={isMobile ? "Busca artistas, discos o canciones" : "Busca artistas, bandas, álbumes o canciones"}
             examplePlacement="below"
             onShowAllResults={kind => showAllResults(kind)}
             onEntitySelection={(type, id) => selectEntity(type as SearchEntityType, id)}
@@ -185,11 +204,11 @@ export function SearchPage() {
             {presentTypes.length > 1 ? (
               <div className="search-type-filter" role="group" aria-label="Filtrar resultados por tipo">
                 <button type="button" className="search-chip" aria-pressed={!shownType} onClick={() => chooseType(null)}>
-                  Todos <span className="search-chip__count">{total >= RESULTS_PER_TYPE * presentTypes.length ? `${total}+` : total}</span>
+                  Todos <span className="search-chip__count">{total}</span>
                 </button>
                 {presentTypes.map((type) => (
                   <button key={type} type="button" className="search-chip" aria-pressed={shownType === type} onClick={() => chooseType(type)}>
-                    {TYPE_PLURAL[type]} <span className="search-chip__count">{countLabel(data![type].length)}</span>
+                    {TYPE_PLURAL[type]} <span className="search-chip__count">{totalFor(type, data![type].length)}</span>
                   </button>
                 ))}
               </div>
@@ -210,11 +229,14 @@ export function SearchPage() {
               </div>
             ) : null}
             {visibleTypes.map((type) => {
-              const hits = data![type];
-              const shown = shownType || presentTypes.length === 1 ? hits : hits.slice(0, PREVIEW_PER_TYPE);
+              const base = data![type];
+              const usingPage = paginatedType === type && pageHits?.query === q && pageHits.type === type && pageHits.offset === offset;
+              const hits = usingPage ? pageHits!.hits : base;
+              const total = totalFor(type, base.length);
+              const shown = paginatedType === type ? hits : hits.slice(0, PREVIEW_PER_TYPE);
               return (
-                <div className="search-group" key={type}>
-                  <h2>{TYPE_PLURAL[type]} <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({countLabel(hits.length)})</span></h2>
+                <div className="search-group" key={type} ref={paginatedType === type ? groupRef : undefined}>
+                  <h2>{TYPE_PLURAL[type]} <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({total >= 200 ? "200+" : total})</span></h2>
                   {shown.map((hit) => (
                     <Link key={`${hit.type}-${hit.id}`} className="search-hit search-hit--media" to={entityHref(hit.type, hit.id, hit.albumId ?? undefined)}>
                       <HitThumb hit={hit} />
@@ -229,8 +251,8 @@ export function SearchPage() {
                       Ver {hits.length >= RESULTS_PER_TYPE ? "más" : `los ${hits.length}`} {TYPE_PLURAL[type].toLowerCase()}
                     </button>
                   ) : null}
-                  {shownType && hits.length >= RESULTS_PER_TYPE ? (
-                    <p className="search-group__cap">Se muestran los {RESULTS_PER_TYPE} más cercanos; afina la búsqueda para ver otros.</p>
+                  {paginatedType === type ? (
+                    <Pagination limit={PAGE_SIZE} offset={offset} total={total} onOffsetChange={setOffset} scrollTargetRef={groupRef} />
                   ) : null}
                 </div>
               );

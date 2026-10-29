@@ -10,6 +10,7 @@
 //   rb-focus   → palabras que se enfocan en secuencia con marco de esquinas.
 //   rb-fuzzy   → borde mordido y vibración (filtro SVG de grano).
 import { useEffect, useId, useMemo, useState } from "react";
+import { subscribeFrame } from "../../lib/chatMotion";
 
 const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#$%&@!?<>/\\=+*~^";
 
@@ -35,8 +36,13 @@ function useTick(active: boolean, ms: number): number {
   const [tick, setTick] = useState(0);
   useEffect(() => {
     if (!active) return undefined;
-    const timer = window.setInterval(() => setTick((value) => value + 1), ms);
-    return () => window.clearInterval(timer);
+    let elapsed = 0;
+    return subscribeFrame((_now, delta) => {
+      elapsed += delta;
+      if (elapsed < ms) return;
+      elapsed %= ms;
+      setTick((value) => value + 1);
+    });
   }, [active, ms]);
   return tick;
 }
@@ -81,13 +87,9 @@ function Fuzzy({ text }: { text: string }) {
 /** True Focus: una palabra nítida con marco, el resto desenfocadas. */
 function Focus({ text, animate }: { text: string; animate: boolean }) {
   const words = useMemo(() => text.split(/\s+/u).filter(Boolean), [text]);
-  const [index, setIndex] = useState(0);
+  const tick = useTick(animate && words.length > 1, 1900);
+  const index = tick % Math.max(1, words.length);
   const id = useId().replace(/[^a-zA-Z0-9_-]/gu, "");
-  useEffect(() => {
-    if (!animate || words.length < 2) return undefined;
-    const timer = window.setInterval(() => setIndex((value) => (value + 1) % words.length), 1900);
-    return () => window.clearInterval(timer);
-  }, [animate, words.length]);
   if (words.length < 2) {
     // Un solo nombre: el marco lo recorre entero y late.
     return (

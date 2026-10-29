@@ -137,6 +137,17 @@ function clientIp(req) {
   return (req.socket.remoteAddress ?? "").replace(/^::ffff:/, "");
 }
 
+/**
+ * X-Forwarded-For hacia los procesos de atrás: la cadena que trajo el Funnel
+ * o, si la petición llegó directa, la dirección del socket. Así el último
+ * elemento —el que leen API y chat— es siempre la IP real del cliente.
+ */
+function forwardedFor(req) {
+  const forwarded = req.headers["x-forwarded-for"];
+  if (typeof forwarded === "string" && forwarded.length > 0) return forwarded;
+  return (req.socket.remoteAddress ?? "").replace(/^::ffff:/, "");
+}
+
 /** Tráfico local de pruebas (sin proxy delante): fuera del techo. */
 function isLocalRequest(req) {
   if (req.headers["x-forwarded-for"] !== undefined) return false;
@@ -296,6 +307,12 @@ function proxyChatUpgrade(req, socket, head) {
       "sec-websocket-version": req.headers["sec-websocket-version"],
       "sec-websocket-protocol": req.headers["sec-websocket-protocol"],
       "sec-websocket-extensions": req.headers["sec-websocket-extensions"],
+      // El chat limita y banea por IP: sin esto todas las conexiones
+      // llegaban como 127.0.0.1 (el gateway) y una IP baneada era todas.
+      // Se conserva la cadena del Funnel; sin proxy delante, la del socket.
+      "x-forwarded-for": forwardedFor(req),
+      // El chat compara Origin con el host público para aceptar el upgrade.
+      "x-forwarded-host": req.headers.host,
       "x-forwarded-proto": "https",
     };
     const lines = [`GET ${path} HTTP/1.1`];

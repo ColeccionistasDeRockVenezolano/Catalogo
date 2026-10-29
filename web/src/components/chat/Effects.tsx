@@ -1,251 +1,45 @@
 // CRV · Componentes visuales de los efectos.
 //
-// Tres familias, todas vectoriales (cero GIF, cero imágenes por mensaje):
-//   1. Texto animado por letra (wave, bounce, glitch, typewriter…).
-//   2. Sprites SVG propios (vinilo con cara, casete, calavera, guitarra…).
-//   3. Partículas en un único canvas por capa (chispas, notas, corazones…).
+// Texto, objetos realistas en atlas WebP compartido, coreografías, partículas,
+// materiales procedurales y escenas. Los objetos no se descargan por mensaje:
+// todos reutilizan una textura, con variante compacta para móvil/gama baja.
 //
-// Todo pasa por el presupuesto de `useAnimationSlot`: en gama baja se pinta la
-// versión estática y el chat sigue a 60 fps.
+// Todo pasa por el presupuesto por visibilidad de `useMotionSlot`: en gama
+// baja se pinta la versión estática, con «reducir movimiento» la suave, y
+// lo que sale de la pantalla suelta su hueco y pausa su CSS.
 import { useEffect, useRef, useState } from "react";
 import type { ChatEffect, ChatUser } from "../../../../src/chat/protocol";
 import {
-  avatarGradient, costOf, initials, layerStyle, manifestOf, nameFontCode, shouldHide, spriteLayers,
-  textLayers, useAnimationSlot, RB_PRESETS, SPLIT_PRESETS, type EffectLayer, type Quality,
+  avatarGradient, choreoLayer, costOf, initials, layerStyle, manifestOf, nameFontCode, particleLayers,
+  shouldHide, spriteLayers, textLayers, RB_PRESETS, SPLIT_PRESETS, type EffectLayer, type Quality,
 } from "../../lib/chatEffects";
+import { subscribeFrame, useMotionSlot } from "../../lib/chatMotion";
+import { materialPreset } from "../../lib/chatMaterials";
+import { useMaterialEmitter } from "./MaterialStage";
+import { RealisticSprite } from "./RealisticSprite";
+import { SmokeClouds } from "./SmokeClouds";
 import { RbText } from "./TextEffects";
+import { NameChoreo, type ChoreoMode } from "./Choreography";
+import { burstFrom, useParticleEmitter } from "./ParticleStage";
 import {
   applyTextTransform, applyUnicodeFont, fontStyleFor, isPerLetterFont,
 } from "../../../../src/chat/fonts";
 
-// ── Sprites SVG (propios de CRV) ───────────────────────────────────────────
-function VinylFace() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <circle cx="32" cy="32" r="30" fill="#0b0b0b" stroke="#2e2e2e" strokeWidth="2" />
-      <circle cx="32" cy="32" r="25" fill="none" stroke="#242424" strokeWidth="2" />
-      <circle cx="32" cy="32" r="20" fill="none" stroke="#242424" strokeWidth="2" />
-      <circle cx="32" cy="32" r="12" fill="var(--fx-1)" />
-      <circle cx="32" cy="32" r="2.2" fill="#0b0b0b" />
-      <g className="crv-blink">
-        <circle cx="27" cy="30" r="2.8" fill="#fff" />
-        <circle cx="37" cy="30" r="2.8" fill="#fff" />
-        <circle cx="27.6" cy="30.4" r="1.3" fill="#111" />
-        <circle cx="37.6" cy="30.4" r="1.3" fill="#111" />
-      </g>
-      <path d="M26 37 Q32 42 38 37" stroke="#fff" strokeWidth="2" fill="none" strokeLinecap="round" />
-      <path className="crv-shine" d="M14 14 A25 25 0 0 1 28 7" stroke="#fff" strokeWidth="3" fill="none" opacity=".35" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function CassetteFace() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <rect x="4" y="12" width="56" height="40" rx="6" fill="#232323" stroke="#3a3a3a" strokeWidth="2" />
-      <rect x="10" y="18" width="44" height="16" rx="3" fill="#0f0f0f" />
-      <g className="crv-reel">
-        <circle cx="22" cy="26" r="6" fill="var(--fx-1)" />
-        <circle cx="22" cy="26" r="2" fill="#0f0f0f" />
-      </g>
-      <g className="crv-reel crv-reel-reverse">
-        <circle cx="42" cy="26" r="6" fill="var(--fx-1)" />
-        <circle cx="42" cy="26" r="2" fill="#0f0f0f" />
-      </g>
-      <g className="crv-blink">
-        <circle cx="26" cy="42" r="2.4" fill="#fff" />
-        <circle cx="38" cy="42" r="2.4" fill="#fff" />
-        <circle cx="26.5" cy="42.4" r="1.1" fill="#111" />
-        <circle cx="38.5" cy="42.4" r="1.1" fill="#111" />
-      </g>
-      <path d="M29 47 L35 47" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function AmpFace() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <rect x="8" y="10" width="48" height="44" rx="5" fill="#171717" stroke="#3a3a3a" strokeWidth="2" />
-      <rect x="13" y="15" width="38" height="24" rx="3" fill="#0c0c0c" />
-      {[20, 28, 36, 44].map((x) => [21, 27, 33].map((y) => (
-        <circle key={`${x}-${y}`} cx={x} cy={y} r="1.6" fill="#2b2b2b" />
-      )))}
-      <g className="crv-blink">
-        <circle cx="26" cy="24" r="2.6" fill="#fff" />
-        <circle cx="38" cy="24" r="2.6" fill="#fff" />
-        <circle cx="26.6" cy="24.4" r="1.2" fill="#111" />
-        <circle cx="38.6" cy="24.4" r="1.2" fill="#111" />
-      </g>
-      <path d="M27 30 Q32 34 37 30" stroke="#fff" strokeWidth="2" fill="none" strokeLinecap="round" />
-      <circle cx="49" cy="45" r="4" fill="var(--fx-2)" className="crv-knob" />
-      <circle cx="17" cy="45" r="2" fill="var(--fx-1)" className="crv-led" />
-      <circle cx="24" cy="45" r="2" fill="var(--fx-1)" className="crv-led crv-led-2" />
-    </svg>
-  );
-}
-
-function SkullRocker() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <g className="crv-flames">
-        <path d="M12 48 Q8 38 14 30 Q16 40 22 44 Z" fill="var(--fx-2)" opacity=".8" />
-        <path d="M52 48 Q56 38 50 30 Q48 40 42 44 Z" fill="var(--fx-2)" opacity=".8" />
-      </g>
-      <path d="M32 8 C18 8 12 18 12 30 C12 42 20 46 20 52 L44 52 C44 46 52 42 52 30 C52 18 46 8 32 8 Z" fill="#f2f2f2" />
-      <path d="M15 26 L49 26 L47 33 L17 33 Z" fill="var(--fx-1)" />
-      <path d="M19 26 Q24 30 30 26" stroke="#111" strokeWidth="2.4" fill="none" />
-      <path d="M34 26 Q40 30 45 26" stroke="#111" strokeWidth="2.4" fill="none" />
-      <path d="M28 42 L36 42 L35 52 L29 52 Z" fill="#111" />
-      <path d="M22 46 L26 46 M38 46 L42 46" stroke="#111" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function FlameFace() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <path className="crv-flame" d="M32 4 C40 16 50 20 48 36 C46 50 38 58 32 58 C26 58 18 50 16 36 C14 22 24 16 32 4 Z" fill="var(--fx-1)" />
-      <path d="M32 20 C36 28 42 30 40 40 C38 48 34 52 32 52 C30 52 26 48 24 40 C22 30 28 28 32 20 Z" fill="var(--fx-2)" opacity=".9" />
-      <g className="crv-blink">
-        <circle cx="27" cy="40" r="2.4" fill="#fff" />
-        <circle cx="37" cy="40" r="2.4" fill="#fff" />
-        <circle cx="27.5" cy="40.4" r="1.1" fill="#111" />
-        <circle cx="37.5" cy="40.4" r="1.1" fill="#111" />
-      </g>
-      <path d="M28 46 Q32 49 36 46" stroke="#3a1500" strokeWidth="2" fill="none" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function Guitar() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <g className="crv-shake">
-        <path d="M40 8 L46 12 L30 36 L25 33 Z" fill="#8a5a2b" />
-        <path d="M18 34 C10 40 10 52 20 56 C30 60 38 52 34 44 C42 44 46 34 38 30 C32 27 24 28 18 34 Z" fill="var(--fx-1)" stroke="#1a1a1a" strokeWidth="2" />
-        <circle cx="27" cy="43" r="5" fill="#1a1a1a" />
-        <path d="M41 9 L47 13" stroke="#d9d9d9" strokeWidth="2" />
-        <path d="M20 34 L42 10" stroke="#e8e8e8" strokeWidth="0.8" opacity=".7" />
-      </g>
-      <g className="crv-sparks-mini">
-        <path d="M48 22 l2 4 4 2 -4 2 -2 4 -2 -4 -4 -2 4 -2 z" fill="var(--fx-2)" />
-      </g>
-    </svg>
-  );
-}
-
-function HandRock() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <g className="crv-rock">
-        <path d="M24 56 L24 30 L28 26 L31 30 L31 44 L34 20 L38 18 L40 24 L38 44 L42 26 L46 26 L46 34 L44 50 L40 56 Z" fill="var(--fx-1)" stroke="#1a1a1a" strokeWidth="2" strokeLinejoin="round" />
-        <path d="M22 40 C16 40 14 46 18 50 L24 54" fill="var(--fx-1)" stroke="#1a1a1a" strokeWidth="2" />
-      </g>
-      <circle cx="52" cy="16" r="2" fill="var(--fx-2)" className="crv-blink" />
-      <circle cx="12" cy="20" r="1.6" fill="var(--fx-2)" className="crv-blink" />
-    </svg>
-  );
-}
-
-function Bat() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <g className="crv-flap">
-        <path d="M32 30 C24 18 12 16 4 22 C10 26 12 32 10 38 C18 34 26 34 32 38 Z" fill="var(--fx-1)" />
-        <path d="M32 30 C40 18 52 16 60 22 C54 26 52 32 54 38 C46 34 38 34 32 38 Z" fill="var(--fx-1)" />
-      </g>
-      <ellipse cx="32" cy="34" rx="7" ry="9" fill="#1a0a14" />
-      <circle cx="29" cy="32" r="1.8" fill="var(--fx-2)" />
-      <circle cx="35" cy="32" r="1.8" fill="var(--fx-2)" />
-      <path d="M30 25 L28 18 M34 25 L36 18" stroke="#1a0a14" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function Mic() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <rect x="24" y="6" width="16" height="26" rx="8" fill="#2a2a2a" stroke="#4a4a4a" strokeWidth="2" />
-      {[12, 17, 22, 27].map((y) => <path key={y} d={`M26 ${y} L38 ${y}`} stroke="#5a5a5a" strokeWidth="1.4" />)}
-      <path d="M20 28 Q32 40 44 28" stroke="#4a4a4a" strokeWidth="2.4" fill="none" />
-      <path d="M32 38 L32 50 M24 54 L40 54" stroke="#4a4a4a" strokeWidth="3" strokeLinecap="round" />
-      <g className="crv-waves">
-        <path d="M48 18 Q54 26 48 34" stroke="var(--fx-1)" strokeWidth="2" fill="none" strokeLinecap="round" />
-        <path d="M53 14 Q61 26 53 38" stroke="var(--fx-2)" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity=".7" />
-      </g>
-    </svg>
-  );
-}
-
-function Drum() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <ellipse cx="32" cy="24" rx="22" ry="8" fill="#e8e8e8" stroke="#1a1a1a" strokeWidth="2" />
-      <path d="M10 24 L10 44 C10 49 20 53 32 53 C44 53 54 49 54 44 L54 24" fill="var(--fx-1)" stroke="#1a1a1a" strokeWidth="2" />
-      <path d="M14 34 L50 34 M14 42 L50 42" stroke="#1a1a1a" strokeWidth="1.6" opacity=".5" />
-      <g className="crv-stick">
-        <path d="M18 6 L30 20" stroke="#c9a227" strokeWidth="3" strokeLinecap="round" />
-      </g>
-      <g className="crv-stick crv-stick-2">
-        <path d="M46 6 L34 20" stroke="#c9a227" strokeWidth="3" strokeLinecap="round" />
-      </g>
-    </svg>
-  );
-}
-
-function HeartHorns() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <path d="M12 16 L4 4 L18 10 Z" fill="var(--fx-2)" />
-      <path d="M52 16 L60 4 L46 10 Z" fill="var(--fx-2)" />
-      <path className="crv-beat" d="M32 56 C14 42 6 32 10 22 C14 12 26 12 32 22 C38 12 50 12 54 22 C58 32 50 42 32 56 Z" fill="var(--fx-1)" />
-      <g className="crv-blink">
-        <circle cx="25" cy="30" r="2.2" fill="#fff" />
-        <circle cx="39" cy="30" r="2.2" fill="#fff" />
-        <circle cx="25.4" cy="30.4" r="1" fill="#111" />
-        <circle cx="39.4" cy="30.4" r="1" fill="#111" />
-      </g>
-    </svg>
-  );
-}
-
-function UfoVinyl() {
-  return (
-    <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-      <ellipse className="crv-beam" cx="32" cy="44" rx="16" ry="14" fill="var(--fx-2)" opacity=".22" />
-      <ellipse cx="32" cy="26" rx="26" ry="8" fill="#2a2a2a" stroke="#5a5a5a" strokeWidth="2" />
-      <path d="M22 24 C22 12 42 12 42 24 Z" fill="var(--fx-1)" opacity=".9" />
-      <circle cx="14" cy="27" r="2" fill="var(--fx-2)" className="crv-blink" />
-      <circle cx="32" cy="29" r="2" fill="var(--fx-2)" className="crv-blink" />
-      <circle cx="50" cy="27" r="2" fill="var(--fx-2)" className="crv-blink" />
-    </svg>
-  );
-}
-
-const SPRITES: Record<string, () => React.ReactElement> = {
-  "vinyl-face": VinylFace,
-  "cassette-face": CassetteFace,
-  "amp-face": AmpFace,
-  "skull-rocker": SkullRocker,
-  "flame-face": FlameFace,
-  "guitar": Guitar,
-  "hand-rock": HandRock,
-  "bat": Bat,
-  "mic": Mic,
-  "drum": Drum,
-  "heart-horns": HeartHorns,
-  "ufo-vinyl": UfoVinyl,
-};
+// ── Texturas realistas compartidas (un atlas, también para stickers) ─────
+const SPRITES: Record<string, () => React.ReactElement> = Object.fromEntries(
+  ["vinyl-face", "cassette-face", "amp-face", "skull-rocker", "flame-face", "guitar",
+    "hand-rock", "bat", "mic", "drum", "heart-horns", "ufo-vinyl"].map((preset) =>
+    [preset, () => <RealisticSprite preset={preset} />]),
+);
 
 function SpriteBadge({ layer, quality }: { layer: EffectLayer; quality: Quality }) {
   const Sprite = SPRITES[layer.preset];
   if (!Sprite) return null;
   // Un sprite es un SVG con CSS: se pinta siempre, también en gama baja
-  // (allí sin animación). El presupuesto se reserva para partículas.
+  // (allí sin animación). El presupuesto se reserva para lo caro.
   return (
     <span
-      className={`crv-sprite crv-sprite-${layer.position ?? "left"}${quality === "low" ? " is-static" : ""}`}
+      className={`crv-sprite crv-sprite-${layer.position ?? "left"}${quality === "low" ? " is-static" : quality === "reduced" ? " is-soft" : ""}`}
       style={layerStyle(layer)}
       aria-hidden="true"
     >
@@ -254,7 +48,27 @@ function SpriteBadge({ layer, quality }: { layer: EffectLayer; quality: Quality 
   );
 }
 
-// ── Partículas: un canvas por capa, nunca uno por mensaje ──────────────────
+/** Sticker enviado: el sprite en grande, con su entrada. */
+export function StickerArt({ effect, quality }: { effect: ChatEffect; quality: Quality }) {
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const slot = useMotionSlot(ref, 1, false, quality);
+  const layer = spriteLayers(manifestOf(effect))[0];
+  const Sprite = layer ? SPRITES[layer.preset] : null;
+  if (!layer || !Sprite) return null;
+  return (
+    <span
+      ref={ref}
+      className={`crv-sticker-art${slot.visible ? "" : " is-offscreen"}${quality === "low" ? " is-static" : quality === "reduced" ? " is-soft" : ""}`}
+      style={layerStyle(layer)}
+      role="img"
+      aria-label={effect.name}
+    >
+      <Sprite />
+    </span>
+  );
+}
+
+// ── Partículas en un canvas propio (ambiente de la sala) ───────────────────
 interface Particle {
   x: number; y: number; vx: number; vy: number; size: number; life: number; maxLife: number;
   color: string; angle: number; spin: number; kind: string;
@@ -263,7 +77,7 @@ interface Particle {
 const SHAPES: Record<string, string[]> = {
   sparks: ["dot"], notes: ["note"], hearts: ["heart"], rain: ["line"],
   fireworks: ["dot"], bubbles: ["bubble"], confetti: ["rect"], embers: ["dot"],
-  stardust: ["dot"], crowd: ["dot"],
+  stardust: ["dot"], crowd: ["dot"], flames: ["dot"], snow: ["dot"],
 };
 
 function makeParticles(layer: EffectLayer, quality: Quality): Particle[] {
@@ -291,30 +105,32 @@ function makeParticles(layer: EffectLayer, quality: Quality): Particle[] {
         return { ...base, x: Math.random(), y: 1.05, vx: (Math.random() - 0.5) * 0.0004, vy: -(0.0003 + Math.random() * 0.0005), size: 3 + Math.random() * 7 };
       case "confetti":
         return { ...base, x: Math.random(), y: -Math.random() * 0.4, vx: (Math.random() - 0.5) * 0.0004, vy: 0.0008 + Math.random() * 0.0008, size: 3 + Math.random() * 5 };
+      case "snow":
+        return { ...base, x: Math.random(), y: -Math.random() * 0.4, vx: (Math.random() - 0.5) * 0.0002, vy: 0.0002 + Math.random() * 0.0003, size: 1 + Math.random() * 2 };
       case "crowd":
         return { ...base, x: Math.random(), y: 1.05, vx: (Math.random() - 0.5) * 0.0003, vy: -(0.0005 + Math.random() * 0.0009), size: 2 + Math.random() * 3 };
       case "stardust":
         return { ...base, x: 0.5, y: 0.5, vx: (Math.random() - 0.5) * 0.0016, vy: (Math.random() - 0.5) * 0.0016, size: 1 + Math.random() * 2.6, maxLife: 0.5 + Math.random() * 0.7 };
-      default: // embers
+      default: // embers, flames
         return { ...base, x: Math.random(), y: 0.9 + Math.random() * 0.3, vx: (Math.random() - 0.5) * 0.0004, vy: -(0.0004 + Math.random() * 0.0007), size: 1.2 + Math.random() * 2.6 };
     }
   }).map((particle) => ({ ...particle, vx: particle.vx * speed, vy: particle.vy * speed }));
 }
 
+/** Un canvas por capa a pantalla completa (ambiente). Dibuja con el reloj común. */
 export function CanvasParticles({ layer, quality, className }: {
   layer: EffectLayer; quality: Quality; className?: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const still = quality === "low" || quality === "reduced";
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || quality === "low") return;
+    if (!canvas || still) return;
     const context = canvas.getContext("2d");
     if (!context) return;
     const particles = makeParticles(layer, quality);
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    let frame = 0;
-    let previous = performance.now();
+    const dpr = Math.min(window.devicePixelRatio || 1, quality === "high" ? 2 : 1.5);
 
     const resize = (): void => {
       const rect = canvas.getBoundingClientRect();
@@ -333,9 +149,7 @@ export function CanvasParticles({ layer, quality, className }: {
       context.fill();
     };
 
-    const draw = (now: number): void => {
-      const delta = Math.min(64, now - previous);
-      previous = now;
+    const draw = (_now: number, delta: number): void => {
       const width = canvas.width;
       const height = canvas.height;
       context.clearRect(0, 0, width, height);
@@ -385,58 +199,64 @@ export function CanvasParticles({ layer, quality, className }: {
             context.arc(x, y, particle.size * dpr, 0, Math.PI * 2);
             context.fill();
         }
-        const respawn = particle.kind === "rain" || particle.kind === "confetti"
+        const falling = layer.preset === "rain" || layer.preset === "confetti" || layer.preset === "snow";
+        const respawn = falling
           ? particle.y > 1.4
-          : particle.kind === "sparks" || particle.kind === "fireworks" || particle.kind === "stardust"
+          : layer.preset === "sparks" || layer.preset === "fireworks" || layer.preset === "stardust"
             ? particle.life > particle.maxLife
             : particle.y < -0.4 || particle.y > 1.5 || particle.x < -0.3 || particle.x > 1.3;
         if (respawn) {
           particle.life = 0;
           particle.maxLife = 0.5 + Math.random();
-          if (particle.kind === "spark") particle.color = layer.colors?.[0] ?? "#fff";
-          if (particle.kind === "rain" || particle.kind === "confetti") {
+          if (falling) {
             particle.y = -0.1;
             particle.x = Math.random();
-          } else if (particle.kind === "sparks" || particle.kind === "fireworks" || particle.kind === "stardust") {
+          } else if (layer.preset === "sparks" || layer.preset === "fireworks" || layer.preset === "stardust") {
             particle.x = layer.preset === "stardust" ? 0.5 : Math.random();
             particle.y = layer.preset === "stardust" ? 0.5 : 0.15 + Math.random() * 0.4;
             particle.vx = (Math.random() - 0.5) * 0.0024;
             particle.vy = (Math.random() - 0.5) * 0.0024;
           } else {
             particle.x = Math.random();
-            particle.y = layer.preset === "embers" || layer.preset === "notes" || layer.preset === "hearts" || layer.preset === "crowd"
-              ? 1.05 : Math.random();
+            particle.y = 1.05;
           }
         }
       }
       context.globalAlpha = 1;
-      frame = requestAnimationFrame(draw);
     };
-    frame = requestAnimationFrame(draw);
-
-    const onVisibility = (): void => {
-      cancelAnimationFrame(frame);
-      if (!document.hidden) {
-        previous = performance.now();
-        frame = requestAnimationFrame(draw);
-      }
-    };
-    document.addEventListener("visibilitychange", onVisibility);
+    const stop = subscribeFrame(draw);
     window.addEventListener("resize", resize);
     return () => {
-      cancelAnimationFrame(frame);
-      document.removeEventListener("visibilitychange", onVisibility);
+      stop();
       window.removeEventListener("resize", resize);
     };
-  }, [layer, quality]);
+  }, [layer, quality, still]);
 
-  if (quality === "low") return null;
+  if (still) return null;
   return <canvas ref={canvasRef} className={className ?? "crv-particles"} aria-hidden="true" />;
 }
 
 // ── Marcos SVG ─────────────────────────────────────────────────────────────
+const FIRE_TONGUES = Array.from({ length: 12 }, (_, index) => index * 30);
+const EQ_BARS = Array.from({ length: 20 }, (_, index) => index * 18);
+
+/** Aro dentado para la electricidad: radio que salta entre dos valores. */
+function jaggedRing(radius: number, jitter: number, points: number, seed: number): string {
+  const parts: string[] = [];
+  for (let index = 0; index <= points; index += 1) {
+    const angle = (index / points) * Math.PI * 2;
+    const r = radius + (((index * 7 + seed) % 5) - 2) * (jitter / 2);
+    parts.push(`${index === 0 ? "M" : "L"}${(50 + r * Math.cos(angle)).toFixed(1)} ${(50 + r * Math.sin(angle)).toFixed(1)}`);
+  }
+  return `${parts.join(" ")} Z`;
+}
+
 function SvgFrame({ layer }: { layer: EffectLayer }) {
   const preset = layer.preset;
+  if (preset === "vinyl-spin") {
+    return <span className="crv-frame-svg crv-frame-behind crv-vinyl-spin" style={layerStyle(layer)}><RealisticSprite preset="vinyl-face" /></span>;
+  }
+
   return (
     <svg className="crv-frame-svg" viewBox="0 0 100 100" aria-hidden="true" style={layerStyle(layer)}>
       {preset === "orbit" ? (
@@ -454,6 +274,41 @@ function SvgFrame({ layer }: { layer: EffectLayer }) {
           <circle cx="50" cy="50" r="46" fill="none" stroke="var(--fx-1)" strokeWidth="3" />
           <circle cx="50" cy="50" r="41" fill="none" stroke="var(--fx-2)" strokeWidth="1" strokeDasharray="3 5" className="crv-orbit" />
         </>
+      ) : preset === "fire-ring" ? (
+        <>
+          <circle cx="50" cy="50" r="43" fill="none" stroke="var(--fx-1)" strokeWidth="3" opacity=".9" />
+          <g className="crv-fire-ring">
+            {FIRE_TONGUES.map((angle, index) => (
+              <g key={angle} transform={`rotate(${angle} 50 50)`}>
+                <path
+                  className="crv-tongue"
+                  style={{ "--k": index } as React.CSSProperties}
+                  d="M50 1 C55 6 56 9 53 12 C52 9 50 9 50 12 C48 9 46 10 47 12 C44 9 45 6 50 1 Z"
+                  fill={index % 2 ? "var(--fx-2)" : "var(--fx-3)"}
+                />
+              </g>
+            ))}
+          </g>
+        </>
+      ) : preset === "electric-ring" ? (
+        <g className="crv-electric">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="var(--fx-1)" strokeWidth="1" opacity=".35" />
+          <path className="crv-bolt-a" d={jaggedRing(45, 5, 28, 1)} fill="none" stroke="var(--fx-2)" strokeWidth="1.8" strokeLinejoin="round" />
+          <path className="crv-bolt-b" d={jaggedRing(45, 6, 24, 3)} fill="none" stroke="var(--fx-1)" strokeWidth="1.5" strokeLinejoin="round" />
+        </g>
+      ) : preset === "eq-radial" ? (
+        <g>
+          {EQ_BARS.map((angle, index) => (
+            <g key={angle} transform={`rotate(${angle} 50 50)`}>
+              <rect
+                className="crv-eq-bar"
+                style={{ "--k": index } as React.CSSProperties}
+                x="48.6" y="0.5" width="2.8" height="8" rx="1.2"
+                fill={index % 3 === 0 ? "var(--fx-1)" : index % 3 === 1 ? "var(--fx-2)" : "var(--fx-3)"}
+              />
+            </g>
+          ))}
+        </g>
       ) : (
         <rect x="4" y="4" width="92" height="92" rx="18" fill="none" stroke="var(--fx-1)" strokeWidth="3" strokeDasharray="14 6" className="crv-dash" />
       )}
@@ -462,45 +317,64 @@ function SvgFrame({ layer }: { layer: EffectLayer }) {
 }
 
 // ── Nombre con efecto ──────────────────────────────────────────────────────
-export function EffectName({ name, effect, font, cover, quality, className }: {
+export function EffectName({ name, effect, font, cover, quality, className, priority }: {
   name: string; effect: ChatEffect | null; font?: ChatEffect | null;
   cover: string | null; quality: Quality; className?: string;
+  /** 2 en el probador de la tienda: siempre anima. */
+  priority?: number;
 }) {
+  const rootRef = useRef<HTMLSpanElement | null>(null);
   const manifest = manifestOf(effect);
   const layers = textLayers(manifest);
   const sprites = spriteLayers(manifest);
+  const choreo = choreoLayer(manifest);
+  const particles = particleLayers(manifest);
   const fontCode = nameFontCode(font);
   const base = fontCode ? applyTextTransform(name, fontCode) : name;
   const display = fontCode ? applyUnicodeFont(base, fontCode) : base;
   const perLetter = isPerLetterFont(fontCode);
   const fontStyle = fontCode ? fontStyleFor(fontCode) : {};
   const primary = layers[0];
+  const material = manifest?.layers.find((layer) => layer.type === "material")
+    ?? (primary && materialPreset(primary.preset) ? primary : null);
+  const materialCode = materialPreset(material?.preset);
   const rbPreset = primary && RB_PRESETS.has(primary.preset) ? primary.preset : null;
   // El descifrado y el foco animan con dos intervalos baratos: no gastan
-  // presupuesto. Este se reserva para texto por letra y canvas, que son los
-  // que multiplican trabajo con muchos mensajes.
-  const heavy = Boolean(primary && SPLIT_PRESETS.has(primary.preset))
-    || Boolean(manifest?.layers.some((layer) => layer.type === "canvas"));
-  const slot = useAnimationSlot(Math.max(1, costOf(effect)), heavy, quality);
-  if (layers.length === 0 && sprites.length === 0 && !fontCode) return <span className={className}>{name}</span>;
-  if (shouldHide(effect, quality)) return <span className={className}>{name}</span>;
+  // presupuesto. Este se reserva para texto por letra, coreografías y
+  // partículas, que son los que multiplican trabajo con muchos mensajes.
+  const heavy = Boolean(material) || Boolean(primary && SPLIT_PRESETS.has(primary.preset)) || Boolean(choreo) || particles.length > 0;
+  const slot = useMotionSlot(rootRef, Math.max(1, costOf(effect)), heavy, quality, priority ?? 1.5);
+  const hidden = shouldHide(effect, quality);
+  const live = slot.granted && (quality === "medium" || quality === "high");
+  // Las partículas de nombres solo con hueco y en pantalla; nunca en «reducir movimiento».
+  useParticleEmitter(rootRef, hidden || material ? [] : particles, live && slot.visible);
+  useMaterialEmitter(rootRef, material, "name", live && slot.visible && !hidden);
+
+  if ((layers.length === 0 && sprites.length === 0 && !choreo && !fontCode && !material) || hidden) {
+    return <span ref={rootRef} className={className}>{name}</span>;
+  }
 
   const extras = layers.slice(1).map((layer) => `fx-${layer.preset}`).join(" ");
-  const split = perLetter || (primary ? SPLIT_PRESETS.has(primary.preset) : false);
-  const still = quality === "low" || (heavy && !slot);
+  const split = perLetter || (!material && primary ? SPLIT_PRESETS.has(primary.preset) : false);
+  const still = quality === "low" || (heavy && !slot.granted);
   const chars = [...display];
+  const choreoMode: ChoreoMode = live ? "live" : quality === "reduced" ? "soft" : "rest";
 
   return (
     <span
+      ref={rootRef}
       className={[
         "crv-name",
+        materialCode ? `crv-material crv-material-${materialCode}` : "",
         fontCode ? `crv-f-${fontCode}` : "",
         primary ? `fx-${primary.preset}` : "",
         extras,
         still ? "is-static" : "",
+        quality === "reduced" ? "is-soft" : "",
+        slot.visible ? "" : "is-offscreen",
         className ?? "",
       ].filter(Boolean).join(" ")}
-      style={{ ...fontStyle, ...(primary ? layerStyle(primary) : {}) } as React.CSSProperties}
+      style={{ ...fontStyle, ...((material ?? primary) ? layerStyle((material ?? primary)!) : {}) } as React.CSSProperties}
       aria-label={name}
     >
       {sprites.filter((layer) => (layer.position ?? "left") === "left").map((layer, index) => (
@@ -509,13 +383,15 @@ export function EffectName({ name, effect, font, cover, quality, className }: {
       {primary?.preset === "vinyl" && cover ? (
         <img className="crv-vinyl" src={cover} alt="" loading="lazy" decoding="async" />
       ) : null}
-      {rbPreset ? (
-        <RbText preset={rbPreset} text={display} animate={!still} />
-      ) : split ? (
+      {choreo ? (
+        <NameChoreo layer={choreo} text={display} mode={choreoMode} style={layerStyle(choreo)} />
+      ) : rbPreset ? (
+        <RbText preset={rbPreset} text={display} animate={!still && slot.visible && quality !== "reduced"} />
+      ) : split || particles.some((layer) => layer.origin === "letters") ? (
         <span className="crv-letters" aria-hidden="true">
           {chars.map((char, index) => (
             <span key={`${char}-${index}`} className="crv-ch" style={{ "--i": index } as React.CSSProperties}>
-              {char === " " ? "\u00a0" : char}
+              {char === " " ? " " : char}
             </span>
           ))}
         </span>
@@ -535,25 +411,46 @@ export function EffectName({ name, effect, font, cover, quality, className }: {
 }
 
 // ── Avatar con marco ───────────────────────────────────────────────────────
-export function ChatAvatar({ user, frame, quality, size = 36 }: {
+export function ChatAvatar({ user, frame, quality, size = 36, priority }: {
   user: Pick<ChatUser, "displayName" | "avatarSeed">; frame: ChatEffect | null; quality: Quality; size?: number;
+  priority?: number;
 }) {
+  const rootRef = useRef<HTMLSpanElement | null>(null);
   const manifest = manifestOf(frame);
   const svg = manifest?.layers.find((layer) => layer.type === "svg") ?? null;
   const css = manifest?.layers.find((layer) => layer.type === "css") ?? null;
   const sprite = manifest?.layers.find((layer) => layer.type === "sprite") ?? null;
-  const heavy = Boolean(manifest?.layers.some((layer) => layer.type === "canvas"));
-  const slot = useAnimationSlot(Math.max(1, manifest?.cost ?? 0), heavy, quality);
-  const still = quality === "low" || (heavy && !slot);
+  const particles = particleLayers(manifest);
+  const material = manifest?.layers.find((layer) => layer.type === "material")
+    ?? (svg && materialPreset(svg.preset) ? svg : null);
+  const materialCode = materialPreset(material?.preset);
+  const hidden = shouldHide(frame, quality);
+  // Los marcos vivos (fuego, electricidad, vinilo, ecualizador) son CSS de
+  // compositor: también piden hueco para no sumar decenas a la vez.
+  const heavy = Boolean(material) || particles.length > 0 || Boolean(svg && ["fire-ring", "electric-ring", "vinyl-spin", "eq-radial"].includes(svg.preset));
+  const slot = useMotionSlot(rootRef, Math.max(1, manifest?.cost ?? 0), heavy, quality, priority);
+  const still = quality === "low" || (heavy && !slot.granted);
+  const live = slot.granted && (quality === "medium" || quality === "high");
+  useParticleEmitter(rootRef, hidden || material ? [] : particles, live && slot.visible);
+  useMaterialEmitter(rootRef, material, "avatar", live && slot.visible && !hidden);
   return (
     <span
-      className={`crv-avatar${css ? ` fx-${css.preset}${still ? " is-static" : ""}` : ""}`}
-      style={{ width: size, height: size, background: avatarGradient(user.avatarSeed), ...(css ? layerStyle(css) : {}) }}
+      ref={rootRef}
+      className={[
+        "crv-avatar",
+        materialCode ? `crv-material crv-material-${materialCode}` : "",
+        css ? `fx-${css.preset}` : "",
+        svg ? `crv-frame-${svg.preset}` : "",
+        still ? "is-static" : "",
+        quality === "reduced" ? "is-soft" : "",
+        slot.visible ? "" : "is-offscreen",
+      ].filter(Boolean).join(" ")}
+      style={{ width: size, height: size, background: avatarGradient(user.avatarSeed), ...((material ?? css) ? layerStyle((material ?? css)!) : {}) }}
       aria-hidden="true"
     >
       <span className="crv-avatar-initials">{initials(user.displayName)}</span>
-      {svg && !shouldHide(frame, quality) ? <SvgFrame layer={svg} /> : null}
-      {sprite && !shouldHide(frame, quality) ? (
+      {svg && !material && !hidden ? <SvgFrame layer={svg} /> : null}
+      {sprite && !hidden ? (
         <span className="crv-avatar-sprite"><SpriteBadge layer={{ ...sprite, position: "over" }} quality={quality} /></span>
       ) : null}
     </span>
@@ -561,67 +458,109 @@ export function ChatAvatar({ user, frame, quality, size = 36 }: {
 }
 
 // ── Fondo y ambiente de la sala ────────────────────────────────────────────
-export function RoomBackdrop({ effect, quality }: { effect: ChatEffect | null; quality: Quality }) {
+/** Fondo: su capa CSS y, si la trae, su capa de partículas (antes ignorada). */
+export function RoomBackdrop({ effect, quality, contained }: {
+  effect: ChatEffect | null; quality: Quality;
+  /** Dentro del probador: ocupa su caja en vez de la sala. */
+  contained?: boolean;
+}) {
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const manifest = manifestOf(effect);
   const layer = manifest?.layers.find((item) => item.type === "css") ?? null;
+  const canvas = manifest?.layers.find((item) => item.type === "canvas") ?? null;
+  const slot = useMotionSlot(rootRef, Math.max(1, manifest?.cost ?? 0), Boolean(canvas) || layer?.preset === "fog", quality, contained ? 2 : 0);
   if (!layer || shouldHide(effect, quality)) return null;
-  return <div className={`crv-backdrop fx-${layer.preset}${quality === "low" ? " is-static" : ""}`} style={layerStyle(layer)} aria-hidden="true" />;
-}
-
-export function RoomAmbient({ effect, quality }: { effect: ChatEffect | null; quality: Quality }) {
-  const manifest = manifestOf(effect);
-  const canvas = manifest?.layers.find((layer) => layer.type === "canvas") ?? null;
-  const slot = useAnimationSlot(Math.max(1, manifest?.cost ?? 0), Boolean(canvas), quality);
-  if (!canvas || !slot || shouldHide(effect, quality)) return null;
-  return <CanvasParticles layer={canvas} quality={quality} className="crv-ambient" />;
-}
-
-// ── Efecto de entrada ──────────────────────────────────────────────────────
-export function EntryBurst({ effect, quality }: { effect: ChatEffect | null; quality: Quality }) {
-  const manifest = manifestOf(effect);
-  const layer = manifest?.layers[0] ?? null;
-  const slot = useAnimationSlot(Math.max(1, manifest?.cost ?? 0), Boolean(layer), quality);
-  const alive = useAlive(manifest?.durationMs ?? 1400);
-  if (!layer || !slot || !alive || shouldHide(effect, quality)) return null;
   return (
-    <div className={`crv-entry fx-${layer.preset}`} style={layerStyle(layer)} aria-hidden="true">
-      {layer.type === "canvas" ? <CanvasParticles layer={layer} quality={quality} /> : null}
+    <div ref={rootRef} className="crv-backdrop-group">
+      <div
+        className={`crv-backdrop fx-${layer.preset}${slot.visible ? "" : " is-offscreen"}${quality === "low" ? " is-static" : quality === "reduced" ? " is-soft" : ""}`}
+        style={layerStyle(layer)}
+        aria-hidden="true"
+      >{layer.preset === "fog" ? <SmokeClouds quality={quality} active={slot.granted && slot.visible} /> : null}</div>
+      {canvas && slot.granted ? <CanvasParticles layer={canvas} quality={quality} className="crv-ambient crv-backdrop-particles" /> : null}
     </div>
   );
 }
 
-function useAlive(ms: number): boolean {
-  const [alive, setAlive] = useState(true);
-  useEffect(() => {
-    setAlive(true);
-    const timer = window.setTimeout(() => setAlive(false), ms);
-    return () => window.clearTimeout(timer);
-  }, [ms]);
-  return alive;
+export function RoomAmbient({ effect, quality, contained }: {
+  effect: ChatEffect | null; quality: Quality; contained?: boolean;
+}) {
+  const rootRef = useRef<HTMLDivElement | null>(null);
+  const manifest = manifestOf(effect);
+  const canvas = manifest?.layers.find((layer) => layer.type === "canvas") ?? null;
+  const slot = useMotionSlot(rootRef, Math.max(1, manifest?.cost ?? 0), Boolean(canvas), quality, contained ? 2 : 0);
+  if (!canvas || shouldHide(effect, quality)) return null;
+  return <div ref={rootRef} className="crv-ambient-group">
+    {slot.granted ? <CanvasParticles layer={canvas} quality={quality} className="crv-ambient" /> : null}
+  </div>;
 }
 
 // ── Efecto de un mensaje ───────────────────────────────────────────────────
-export function MessageBurst({ effect, quality }: { effect: ChatEffect | null; quality: Quality }) {
+/**
+ * Se dispara una vez al llegar el mensaje. Las partículas salen por el
+ * escenario común (nada de un canvas por mensaje); el texto puede llevar la
+ * clase del preset durante `durationMs`.
+ */
+export function MessageBurst({ effect, quality, fresh, priority = 1 }: {
+  effect: ChatEffect | null; quality: Quality;
+  /** Solo los mensajes nuevos estallan; el historial no. */
+  fresh: boolean; priority?: number;
+}) {
+  const anchorRef = useRef<HTMLSpanElement | null>(null);
   const manifest = manifestOf(effect);
-  const layers = manifest?.layers ?? [];
-  const slot = useAnimationSlot(Math.max(1, manifest?.cost ?? 0), layers.length > 0, quality);
-  const [alive, setAlive] = useState(true);
+  const sprites = spriteLayers(manifest);
+  const [active, setActive] = useState(fresh);
+  const consumed = useRef(false);
+  const slot = useMotionSlot(anchorRef, manifest?.cost ?? 1, active && Boolean(manifest), quality, priority);
+  const live = active && fresh && slot.granted && slot.visible && (quality === "medium" || quality === "high") && !shouldHide(effect, quality);
   useEffect(() => {
-    const timer = window.setTimeout(() => setAlive(false), manifest?.durationMs ?? 900);
+    const timer = window.setTimeout(() => setActive(false), manifest?.durationMs ?? 1800);
     return () => window.clearTimeout(timer);
   }, [manifest?.durationMs]);
-  if (layers.length === 0 || !slot || !alive || shouldHide(effect, quality)) return null;
+  useEffect(() => {
+    const anchor = anchorRef.current;
+    if (!live || !anchor || !manifest || consumed.current) return;
+    consumed.current = true;
+    for (const layer of manifest.layers) {
+      if (layer.type === "canvas") burstFrom(anchor, layer, Math.min(28, layer.count ?? 16));
+    }
+    // Solo al montar: un mensaje estalla una vez.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [live]);
+  if (!fresh || !active || !manifest) return null;
   return (
-    <>
-      {layers.map((layer, index) => layer.type === "canvas" ? (
-        <span className={`crv-burst fx-${layer.preset}`} style={layerStyle(layer)} key={`c-${index}`} aria-hidden="true">
-          <CanvasParticles layer={layer} quality={quality} />
-        </span>
-      ) : layer.type === "sprite" ? (
-        <span className={`crv-burst-sprite crv-sprite-${layer.position ?? "right"}`} key={`s-${index}`} aria-hidden="true">
+    <span className="crv-burst-anchor" ref={anchorRef} aria-hidden="true">
+      {live ? sprites.map((layer, index) => (
+        <span className={`crv-burst-sprite crv-sprite-${layer.position ?? "right"}`} key={`s-${index}`}>
           <SpriteBadge layer={layer} quality={quality} />
         </span>
-      ) : null)}
-    </>
+      )) : null}
+    </span>
   );
+}
+
+/** El efecto de texto se acaba y deja libre el presupuesto del mensaje. */
+export function BurstText({ effect, quality, fresh, children, priority = 1 }: {
+  effect: ChatEffect | null; quality: Quality; fresh: boolean; children: React.ReactNode; priority?: number;
+}) {
+  const ref = useRef<HTMLParagraphElement | null>(null);
+  const manifest = manifestOf(effect);
+  const css = manifest?.layers.find((layer) => layer.type === "css");
+  const material = manifest?.layers.find((layer) => layer.type === "material") ?? null;
+  const materialCode = materialPreset(material?.preset);
+  const [active, setActive] = useState(fresh);
+  const slot = useMotionSlot(ref, manifest?.cost ?? 1, active && Boolean(css || material), quality, priority);
+  useEffect(() => {
+    if (!fresh) return;
+    const timer = window.setTimeout(() => setActive(false), manifest?.durationMs ?? 1800);
+    return () => window.clearTimeout(timer);
+  }, [fresh, manifest?.durationMs]);
+  const moving = active && slot.granted && (quality === "medium" || quality === "high");
+  useMaterialEmitter(ref, material, "bubble", moving && slot.visible);
+  return <p ref={ref} className={[
+    materialCode ? `crv-message-text crv-material crv-material-${materialCode}` : "",
+    moving && css ? `crv-message-text fx-msg-${css.preset}` : "",
+    !moving ? "is-static" : "",
+  ].filter(Boolean).join(" ") || undefined}
+    style={material ? layerStyle(material) : moving && css ? layerStyle(css) : undefined}>{children}</p>;
 }

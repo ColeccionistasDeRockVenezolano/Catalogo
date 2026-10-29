@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { ArrowSquareOut, ArrowsInSimple, ArrowsOutSimple, DotsSix, Minus, PictureInPicture, PushPin, X } from "@phosphor-icons/react";
 import type { EmbedSpec } from "../lib/embeds";
 import { claimMedia, releaseMedia } from "../lib/exclusive-media";
-import { useFloatingVideo } from "../lib/useFloatingVideo";
+import { showWithoutFocus, useFloatingVideo } from "../lib/useFloatingVideo";
 import { useInlineMediaPosition } from "../lib/useInlineMediaPosition";
 import { ErrorBoundary, ErrorNotice } from "./ErrorBoundary";
 import { tryMediaOperation } from "../lib/media-operation";
 
-export interface ExternalMediaSource { id: string; subject: string; label: string; url: string; path: string; embed: EmbedSpec; video: boolean; }
+export interface ExternalMediaSource { id: string; subject: string; label: string; url: string; path: string; embed: EmbedSpec; video: boolean;
+  /** Abre directamente el reproductor flotante grande (p. ej. «Un disco para hoy»). */
+  float?: boolean; }
 interface Registry {
   register: (source: ExternalMediaSource, slot: HTMLDivElement | null) => void;
   show: (id: string) => void;
@@ -81,10 +83,10 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
     iframe.current = node;
   }, []);
   const [loaded, setLoaded] = useState(false);
-  const [mode, setMode] = useState<"inline" | "modal" | "floating">(source.video ? "modal" : "inline");
+  const [mode, setMode] = useState<"inline" | "modal" | "floating">(source.float ? "floating" : source.video ? "modal" : "inline");
   const [generation, setGeneration] = useState(0);
   const [engaged, setEngaged] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(Boolean(source.float));
   const floating = mode === "floating" || !slot;
   const modal = mode === "modal" && !floating;
   const ui = useFloatingVideo(panel, floating);
@@ -97,9 +99,9 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
     if (iframe.current) iframe.current.src = "about:blank";
     setLoaded(false); setEngaged(false); setGeneration(value => value + 1);
     releaseMedia(source.id); onRelease(source.id);
-    setMode("inline");
-    setHidden(source.video);
-  }, [source.id, source.video, source.label, onRelease]);
+    setMode(source.float ? "floating" : "inline");
+    setHidden(source.video || Boolean(source.float));
+  }, [source.id, source.video, source.float, source.label, onRelease]);
   const activate = useCallback(() => {
     claimMedia(source.id, stop); onActive(source.id); setEngaged(true);
   }, [source.id, stop, onActive]);
@@ -107,10 +109,14 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
   useEffect(() => {
     if (!shown) return;
     setHidden(false);
+    if (source.float) { activate(); setMode("floating"); setExpandOnShow(shown); return; }
     setMode(source.video ? "modal" : "inline");
-  }, [shown, source.video]);
+  }, [shown, source.video, source.float, activate]);
+  const [expandOnShow, setExpandOnShow] = useState(0);
+  useEffect(() => { if (expandOnShow && floating) ui.resize(true, false); }, [expandOnShow, floating]); // eslint-disable-line react-hooks/exhaustive-deps
   const float = () => { activate(); setMode("floating"); };
   const restore = () => {
+    if (source.float) { ui.resize(true); return; }
     if (!slot) navigate(source.path);
     setMode(source.video ? "modal" : "inline");
   };
@@ -152,7 +158,7 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
     const node = dialog.current;
     if (!node || hidden) return;
     if (node.open) node.close();
-    if (!modal) { node.show(); return () => node.close(); }
+    if (!modal) { showWithoutFocus(node); return () => node.close(); }
     const overflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     try { node.showModal(); } catch (error) { document.body.style.overflow = overflow; throw error; }

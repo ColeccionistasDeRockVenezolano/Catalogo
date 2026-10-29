@@ -63,6 +63,10 @@ export interface CatalogAlbum {
   year: number | null;
   type: string | null;
   trackTitles: string[];
+  /** Otros títulos registrados de esas pistas (alias): cuentan como la misma pista. */
+  trackAliases?: string[];
+  /** Sello de la ficha, si lo tiene. */
+  label?: string | null;
   hasCover: boolean;
 }
 
@@ -278,7 +282,7 @@ export function compareWorks(catalog: CatalogArtist, profiles: SourceProfile[]):
     }
     const trackCount = voteField(pick((release) => release.trackCount, mostCommon), work.album && work.album.trackTitles.length ? work.album.trackTitles.length : null,
       { priority: ["distribuidor", "musicbrainz", "discogs", "lastfm"], collapse: mostCommon });
-    const label = voteField(pick((release) => release.label, mostCommon), null,
+    const label = voteField(pick((release) => release.label, mostCommon), work.album?.label ?? null,
       { priority: ["discogs", "musicbrainz", "distribuidor", "lastfm"], collapse: mostCommon, same: (a, b) => normalizeIdentitySecondary(a) === normalizeIdentitySecondary(b) });
     result.push({
       key, title: work.album?.title ?? work.title, catalogAlbumId: work.album?.id ?? null,
@@ -310,7 +314,7 @@ function compareTracks(album: CatalogAlbum | null, bySource: Map<ProfileSourceSl
     .map((list) => SOURCE_FAMILY[list.source]).filter((family) => !NON_VOTING.includes(family))).size;
   const agreement = Math.min(...chosen.tracks.map(familiesFor));
   if (album && album.trackTitles.length) {
-    const missing = chosen.tracks.filter((track) => !album.trackTitles.some((own) => sameTrack(own, track)));
+    const missing = chosen.tracks.filter((track) => ![...album.trackTitles, ...(album.trackAliases ?? [])].some((own) => sameTrack(own, track)));
     return { status: missing.length ? "discrepancia" : "coincide", proposed: chosen.tracks, agreement, from: chosen.source, ...(missing.length ? { note: `no están en la ficha: ${missing.join(" · ")}` } : {}) };
   }
   const single = chosen.tracks.filter((track) => familiesFor(track) < 2);

@@ -65,6 +65,15 @@ describe("uso de la imagen según su contexto documentado", () => {
     [{ url: "https://x.com/g.jpg", context: "", target: "artist", width: 800, height: 800 }, "unknown"],
   ];
   it.each(cases)("%# clasifica el uso", (input, use) => expect(classifyImageUse(input).use).toBe(use));
+  it("una miniatura conserva su uso y solo queda anotada como pequeña", () => {
+    const thumb = classifyImageUse({ url: "https://x.com/t.jpg", context: "", target: "artist", width: 90, height: 67 });
+    expect(thumb).toEqual({ use: "group", reasons: ["Imagen horizontal asociada a un artista", "Demasiado pequeña (90×67): no sirve como imagen principal"] });
+  });
+  it("distingue el contexto de la imagen de lo que solo dicen la dirección o la campaña", () => {
+    expect(classifyImageUse({ url: "https://x.com/a.jpg", context: "Portada del disco", target: "album", width: 600, height: 600 }).reasons[0]).toBe("El contexto lo describe como portada");
+    expect(classifyImageUse({ url: "https://x.com/a.jpg", context: "", locator: "discogs portadas-mejora-2026-10-03", target: "album", width: 600, height: 415 }).reasons[0]).toBe("La dirección o la fuente la señalan como portada");
+    expect(classifyImageUse({ url: "https://x.com/Jeremias regresa a los escenarios.jpg", context: "", target: "artist", width: 900, height: 600 }).reasons[0]).toBe("La dirección o la fuente la señalan como foto en vivo");
+  });
   it("solo una portada encabeza un disco y solo un retrato o foto de grupo una ficha de artista", () => {
     expect(principalUse("album", "cover")).toBe(true);
     expect(principalUse("album", "back_cover")).toBe(false);

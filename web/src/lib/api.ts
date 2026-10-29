@@ -1,3 +1,4 @@
+import type { EquippedSlot } from "../../../src/chat/slots";
 import type { CatalogTheme, SiteAppearance } from "../../../src/shared/site-appearance";
 // CRV · Cliente de la API (src/api/*). El navegador solo habla con esta API,
 // nunca con PostgreSQL (CONTRACT #20) — cada función de aquí es una llamada
@@ -6,7 +7,7 @@ import { getSessionCsrf, setSessionCsrf, type OperatorUser } from "./operator";
 import { cachedCatalogRead, canCacheCatalogRead, clearCatalogReadCache, observeCatalogRevision } from "./catalogReadCache";
 import { isCatalogWrite } from "../../../src/shared/catalog-cache-policy";
 import type { DailyClock, DailyCycle } from "../../../src/shared/daily-cycle";
-import type { ChatEffect, ChatUser, ChatRoom, Wallet as ChatWallet } from "../../../src/chat/protocol";
+import type { ChatMessage, ChatEffect, ChatUser, ChatRoom, Wallet as ChatWallet } from "../../../src/chat/protocol";
 import type { CatalogDraft,CatalogKind,CatalogPlan,CatalogVocabulary } from "../../../src/curation/ai/types";
 import type {
   Alias, AliasWriteResult, AlbumDetail, AlbumListItem, ArtistDetail, ArtistListItem, AuditRow, Claim, CreditSource, EntityWriteResult,
@@ -82,28 +83,83 @@ function chatRequest<T>(path: string, options: RequestOptions = {}): Promise<T> 
 }
 
 export interface ChatSession { actor: ChatUser; token: string; wallet: ChatWallet }
-export interface ChatCover { albumId: number; title: string; artist: string; coverUrl: string }
+export interface ChatCover { albumId: number; title: string; artist: string; coverUrl: string; dailyCycle: DailyCycle }
+export interface ChatPowChallenge { challenge: string; bits: number; expiresAt: string }
+export type ChatReportReason = "odio" | "acoso" | "spam" | "groserias" | "otro";
+
+export interface ChatActorSummary {
+  id: string; handle: string; displayName: string; kind: string; createdAt: string;
+  mutedUntil: string | null; bannedAt: string | null; lastIp: string | null; createdIp: string | null; messages: number;
+}
+export interface ChatReport {
+  id: number; source: "user" | "ai" | "detector" | "filter"; status: "open" | "dismissed" | "actioned";
+  reason: string; details: Record<string, unknown>; createdAt: string; resolvedAt: string | null; resolvedBy: string | null;
+  message: { id: number; body: string; createdAt: string; hidden: boolean; moderation: string | null } | null;
+  target: ChatActorSummary | null;
+  reporter: { id: string; displayName: string } | null;
+  reports: number;
+}
+export interface ChatModerationEntry {
+  id: number; action: string; moderator: string; targetActor: string | null; targetName: string | null;
+  messageId: number | null; ip: string | null; reason: string; details: Record<string, unknown>; createdAt: string;
+}
 
 export const chatApi = {
-  /** Crea el actor invitado o recupera el de la cookie firmada. */
-  session: (displayName?: string) => chatRequest<ChatSession>("/chat/session", {
-    method: "POST",
-    body: displayName ? { displayName } : {},
-  }),
+  /**
+   * Crea el actor invitado o recupera el de la cookie firmada. Un invitado
+   * nuevo necesita el desafío resuelto (prueba de trabajo) y manda la huella.
+   */
+  session: (input: { displayName?: string; challenge?: string; nonce?: string; fp?: string } = {}) =>
+    chatRequest<ChatSession>("/chat/session", { method: "POST", body: input }),
+  challenge: () => chatRequest<ChatPowChallenge>("/chat/challenge"),
+  report: (messageId: number, reason: ChatReportReason) => chatRequest<{ ok: boolean; alreadyReported: boolean }>(
+    `/chat/messages/${messageId}/report`, { method: "POST", body: { reason } },
+  ),
+  // Moderación (cuenta administradora de CRV).
+  reports: (status: "open" | "all" = "open") => chatRequest<{ reports: ChatReport[] }>("/chat/admin/reports", { query: { status } }),
+  moderationLog: () => chatRequest<{ entries: ChatModerationEntry[] }>("/chat/admin/log"),
+  resolveReport: (id: number, status: "dismissed" | "actioned") => chatRequest<{ ok: boolean }>(
+    `/chat/admin/reports/${id}/resolve`, { method: "POST", body: { status }, authenticated: true },
+  ),
+  deleteMessage: (id: number, reason = "") => chatRequest<{ ok: boolean }>(
+    `/chat/admin/messages/${id}/delete`, { method: "POST", body: { reason }, authenticated: true },
+  ),
+  mute: (actorId: string, minutes: number, reason = "") => chatRequest<{ ok: boolean; mutedUntil: string }>(
+    `/chat/admin/actors/${actorId}/mute`, { method: "POST", body: { minutes, reason }, authenticated: true },
+  ),
+  unmute: (actorId: string) => chatRequest<{ ok: boolean }>(
+    `/chat/admin/actors/${actorId}/unmute`, { method: "POST", body: {}, authenticated: true },
+  ),
+  kick: (actorId: string, reason = "") => chatRequest<{ ok: boolean }>(
+    `/chat/admin/actors/${actorId}/kick`, { method: "POST", body: { reason }, authenticated: true },
+  ),
+  ban: (actorId: string, reason: string, ip: boolean) => chatRequest<{ ok: boolean; ips: string[] }>(
+    `/chat/admin/actors/${actorId}/ban`, { method: "POST", body: { reason, ip }, authenticated: true },
+  ),
+  slowMode: (room: string, seconds: number) => chatRequest<{ ok: boolean }>(
+    `/chat/admin/rooms/${encodeURIComponent(room)}/slow-mode`, { method: "POST", body: { seconds }, authenticated: true },
+  ),
   me: () => chatRequest<{ actor: ChatUser; wallet: ChatWallet }>("/chat/session"),
   setName: (displayName: string) => chatRequest<{ actor: ChatUser }>("/chat/profile", {
     method: "PATCH", body: { displayName },
   }),
+  messages: (slug: string, before: number) => chatRequest<{ messages: ChatMessage[] }>(
+    `/chat/rooms/${encodeURIComponent(slug)}/messages`, { query: { before, limit: 50 } },
+  ),
   rooms: () => chatRequest<{ rooms: ChatRoom[] }>("/chat/rooms"),
   effects: () => chatRequest<{ effects: ChatEffect[] }>("/chat/effects"),
   wallet: () => chatRequest<ChatWallet>("/chat/wallet"),
-  buy: (code: string, idempotencyKey: string) => chatRequest<{
+  /** Lo que tiene el actor y hasta cuándo (cuenta atrás de los alquileres). */
+  inventory: () => chatRequest<{
+    inventory: Array<{ code: string; expiresAt: string | null }>; equipped: ChatUser["equipped"];
+  }>("/chat/inventory"),
+  buy:(code: string, idempotencyKey: string) => chatRequest<{
     wallet: ChatWallet; effect: { code: string; name: string }; rentedUntil: string | null; effects: ChatEffect[];
   }>(`/chat/effects/${encodeURIComponent(code)}/buy`, { method: "POST", body: { idempotencyKey } }),
-  equip: (slot: "name" | "frame" | "background" | "ambient" | "name_font", code: string | null) => chatRequest<{
+  equip: (slot: EquippedSlot, code: string | null) => chatRequest<{
     equipped: ChatUser["equipped"]; effects: ChatEffect[];
   }>("/chat/equip", { method: "POST", body: { slot, code } }),
-  dailyCover: () => chatRequest<ChatCover>("/chat/daily-cover"),
+  dailyCover: (date: string, signal?: AbortSignal) => chatRequest<ChatCover>("/chat/daily-cover", { query: { date }, ...(signal ? { signal } : {}) }),
   adminEffects: () => chatRequest<{ effects: ChatEffect[] }>("/chat/admin/effects"),
   publishEffect: (body: Record<string, unknown>) => chatRequest<{ ok: boolean; code: string }>("/chat/admin/effects", {
     method: "POST", body, authenticated: true,
@@ -111,11 +167,11 @@ export const chatApi = {
 };
 
 /** URL del WebSocket del chat a partir de la base del proceso de chat. */
-export function chatSocketUrl(token: string, room: string): string {
+export function chatSocketUrl(token: string, room: string, fingerprint = ""): string {
   const url = new URL(CHAT_BASE_URL);
   url.protocol = url.protocol === "https:" ? "wss:" : "ws:";
   url.pathname = `${url.pathname.replace(/\/$/u, "")}/chat/ws`;
-  url.search = `?t=${encodeURIComponent(token)}&room=${encodeURIComponent(room)}`;
+  url.search = `?t=${encodeURIComponent(token)}&room=${encodeURIComponent(room)}${fingerprint ? `&fp=${fingerprint}` : ""}`;
   return url.toString();
 }
 

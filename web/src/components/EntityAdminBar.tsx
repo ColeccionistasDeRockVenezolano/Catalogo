@@ -3,12 +3,14 @@
 // vista y las destructivas en «Más», lejos del clic por inercia.
 import type { ReactNode } from "react";
 import { Menu } from "@base-ui/react/menu";
-import { DotsThree, GitMerge, PencilSimple, Trash } from "@phosphor-icons/react";
+import { DotsThree, GitMerge, MagnifyingGlass, PencilSimple, Trash } from "@phosphor-icons/react";
 
 export interface AdminAction { label: string; icon?: ReactNode; onClick: () => void }
 
 interface EntityAdminBarProps {
   onEdit: () => void;
+  /** Lleva al panel «Completar la ficha», que está más abajo en la misma página. */
+  onComplete?: () => void;
   onMerge?: () => void;
   onRemove?: () => void;
   /** Acciones secundarias propias de la ficha (dividir, investigar…). */
@@ -17,7 +19,7 @@ interface EntityAdminBarProps {
   more?: readonly AdminAction[];
 }
 
-export function EntityAdminBar({ onEdit, onMerge, onRemove, extra = [], more = [] }: EntityAdminBarProps) {
+export function EntityAdminBar({ onEdit, onComplete, onMerge, onRemove, extra = [], more = [] }: EntityAdminBarProps) {
   const overflow = [...more, ...(onRemove ? [{ label: "Retirar del catálogo", icon: <Trash size={16} weight="bold" aria-hidden="true" />, onClick: onRemove, danger: true }] : [])];
   return (
     <div className="page-actions entity-admin-bar" role="toolbar" aria-label="Administrar esta ficha">
@@ -25,6 +27,11 @@ export function EntityAdminBar({ onEdit, onMerge, onRemove, extra = [], more = [
       <button type="button" className="btn btn--sm btn--primary" onClick={onEdit}>
         <PencilSimple size={14} weight="bold" aria-hidden="true" />Editar
       </button>
+      {onComplete ? (
+        <button type="button" className="btn btn--sm" onClick={onComplete}>
+          <MagnifyingGlass size={14} weight="bold" aria-hidden="true" />Investigar y completar
+        </button>
+      ) : null}
       {onMerge ? (
         <button type="button" className="btn btn--sm" onClick={onMerge}>
           <GitMerge size={14} weight="bold" aria-hidden="true" />Fusionar con…

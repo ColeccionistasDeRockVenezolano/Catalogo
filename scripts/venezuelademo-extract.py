@@ -260,6 +260,60 @@ a{color:#0b5cad}
     return "\n".join(parts) + "\n"
 
 
+def read_tags(path: Path) -> dict:
+    out = sh(["ffprobe", "-v", "error", "-show_entries", "format=duration:format_tags",
+              "-of", "json", str(path)])
+    try:
+        fmt = json.loads(out).get("format", {})
+    except Exception:  # noqa: BLE001
+        return {}
+    tags = {str(k).lower(): v for k, v in (fmt.get("tags") or {}).items()}
+    tags["duration"] = float(fmt.get("duration") or 0)
+    return tags
+
+
+def enrich_from_mp3(tracks: list[dict], discs: dict[int, dict]) -> list[dict]:
+    """Completa los temas con los tags ID3 y crea los que sólo existen como clip."""
+    idx = {(t["disco"], t["n"]): t for t in tracks}
+    rows = []
+    for p in sorted((RAW / "mp3").glob("*.mp3")):
+        m = re.match(r"vd(\d{2})_(\d{2})", p.stem)
+        if not m:
+            continue
+        d, n = int(m.group(1)), int(m.group(2))
+        tg = read_tags(p)
+        rec = {"archivo": p.name, "disco": d, "n": n, "title": tg.get("title", ""),
+               "artist": tg.get("artist", ""), "album": tg.get("album", ""),
+               "genre": tg.get("genre", ""), "date": tg.get("date", ""),
+               "duration": round(tg.get("duration", 0), 1)}
+        rows.append(rec)
+        t = idx.get((d, n))
+        if t is None:
+            t = {"n": n, "grupo": "", "tema": "", "tiempo": "", "autor": "",
+                 "genero": "", "anio": None, "disco": d, "fuente": "clip"}
+            tracks.append(t)
+            idx[(d, n)] = t
+        artist = rec["artist"] if not re.fullmatch(r"vd\d{2}_\d{2}", rec["artist"], re.I) else ""
+        if not t.get("grupo") and artist:
+            t["grupo"] = artist
+        if not t.get("tema") and rec["title"]:
+            t["tema"] = rec["title"]
+        if not t.get("genero") and rec["genre"]:
+            t["genero"] = rec["genre"]
+        if not t.get("anio"):
+            m2 = re.search(r"(19|20)\d{2}", rec["date"])
+            t["anio"] = int(m2.group(0)) if m2 else None
+        if d not in discs:
+            albums = {"Venezuela Demo 27": "Venezuelademo 27"}
+            discs[d] = {"n": d, "titulo": albums.get(rec["album"], rec["album"] or f"Venezuelademo {d}"),
+                        "pdf": "", "portada": f"imagenes/cd{d:02d}.jpg", "temas": 0,
+                        "fuente": "clips"}
+    for d, info in discs.items():
+        info["temas"] = sum(1 for t in tracks if t["disco"] == d)
+        info["mp3"] = sum(1 for t in tracks if t["disco"] == d and t.get("fuente") != "clip") or 0
+    return rows
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     hint: dict[str, str] = {}
@@ -284,19 +338,27 @@ def main() -> None:
         for r in arts:
             fh.write(json.dumps(r, ensure_ascii=False) + "\n")
 
-    discs, tracks = [], []
+    discs: dict[int, dict] = {}
+    tracks = []
     for pdf in sorted((RAW / "pdf_discos").glob("*.pdf")):
         num = re.search(r"(\d+)", pdf.stem)
         n = int(num.group(1)) if num else 0
         titulo, trs = parse_track_table(pdf)
-        discs.append({"n": n, "titulo": titulo or f"Venezuelademo {n}",
-                      "pdf": str(pdf.relative_to(ROOT)), "portada": f"imagenes/cd{n:02d}.jpg",
-                      "temas": len(trs)})
+        discs[n] = {"n": n, "titulo": titulo or f"Venezuelademo {n}",
+                    "pdf": str(pdf.relative_to(ROOT)), "portada": f"imagenes/cd{n:02d}.jpg",
+                    "temas": len(trs), "fuente": "ficha"}
         for t in trs:
             t["disco"] = n
+            t["fuente"] = "ficha"
             tracks.append(t)
+
+    mp3_tags = enrich_from_mp3(tracks, discs)
+    with (OUT / "mp3_tags.jsonl").open("w", encoding="utf-8") as fh:
+        for r in mp3_tags:
+            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+    tracks.sort(key=lambda t: (t["disco"], t["n"]))
     with (OUT / "discs.jsonl").open("w", encoding="utf-8") as fh:
-        for r in discs:
+        for r in sorted(discs.values(), key=lambda d: d["n"]):
             fh.write(json.dumps(r, ensure_ascii=False) + "\n")
     with (OUT / "tracks.jsonl").open("w", encoding="utf-8") as fh:
         for r in tracks:
@@ -305,7 +367,7 @@ def main() -> None:
     pages = {"musicos": [{"slug": k, "nombre": v} for k, v in sorted(hint.items())],
              "portadas": [f"cd{i:02d}.jpg" for i in range(1, 35)]}
     (OUT / "pages.json").write_text(json.dumps(pages, ensure_ascii=False, indent=1), encoding="utf-8")
-    (OUT / "vista.html").write_text(build_view(arts, discs, tracks), encoding="utf-8")
+    (OUT / "vista.html").write_text(build_view(arts, sorted(discs.values(), key=lambda d: d["n"]), tracks), encoding="utf-8")
 
     (OUT / "provenance.json").write_text(json.dumps({
         "parser_version": 2, "input_root": str(ROOT.resolve()),

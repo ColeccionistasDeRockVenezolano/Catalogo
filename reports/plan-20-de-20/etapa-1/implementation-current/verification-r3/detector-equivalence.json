@@ -1,9 +1,0 @@
-{
-  "rows": 117946,
-  "findings": 25895,
-  "beforeHash": "600a6c6478b33d53e6051dd76c5b430e7b6ef4d7cb83939105fa6dcf86388598",
-  "afterHash": "600a6c6478b33d53e6051dd76c5b430e7b6ef4d7cb83939105fa6dcf86388598",
-  "comparison": "SHA256 of full serialized analysis: findings, evidence, detector outcomes and lexicon statistics; excludes scan timings",
-  "scope": "isolated doubled test catalog; not the reserved contractual corpus",
-  "identical": true
-}

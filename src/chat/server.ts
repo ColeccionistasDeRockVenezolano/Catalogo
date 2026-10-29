@@ -4,17 +4,15 @@
 // larga del catálogo (el índice de búsqueda) no puede retrasar un mensaje, y
 // reiniciar el chat no reinicia la API que sirve las fichas. Comparte la base
 // de datos y la autenticación de colaboradores; nada más.
-import Fastify from "fastify";
-import cors from "@fastify/cors";
-import websocket from "@fastify/websocket";
-import { serializerCompiler, validatorCompiler, type ZodTypeProvider } from "fastify-type-provider-zod";
-import { randomUUID } from "node:crypto";
 import { assertSupportedNode } from "../config/runtime.js";
 import { getEnv } from "../config/env.js";
 import { moduleLogger } from "../logger/index.js";
-import { registerOperatorAuth } from "../api/auth.js";
-import { registerChatRoutes } from "../api/routes/chat.js";
-import { syncEffectCatalog } from "./repository.js";
+import { assertChatSecret, usingDevSecret } from "./session.js";
+import { apiSessionResolver } from "./operator-session.js";
+import { auditWallets, retainMessages } from "./repository.js";
+import { buildChatApp } from "./app.js";
+import { AiReviewer } from "./moderation/ai-review.js";
+import { cleanupEmptyGuests, createReport } from "./moderation/store.js";
 
 const log = moduleLogger("chat-server");
 
@@ -24,33 +22,51 @@ process.on("unhandledRejection", (reason: unknown) => {
 
 async function main(): Promise<void> {
   assertSupportedNode();
+  // Antes que nada: en producción no se arranca con el secreto público.
+  assertChatSecret();
   const env = getEnv();
-  const app = Fastify({
-    logger: {
-      level: env.LOG_LEVEL,
-      serializers: { req: (req) => ({ method: req.method, url: req.url.split("?")[0] ?? "" }) },
-      redact: { paths: ["req.headers.cookie", "res.headers['set-cookie']"], censor: "[REDACTED]" },
-      genReqId: () => randomUUID(),
+  if (usingDevSecret()) log.warn("CRV_CHAT_SECRET es el valor de desarrollo; no exponer este proceso al público");
+  const { app, hub } = await buildChatApp({ remoteSession: apiSessionResolver() });
+
+  // Limpieza horaria de invitados vacíos (bots que nunca escribieron).
+  const cleanup = async (): Promise<void> => {
+    try {
+      const expiredMessages = await retainMessages();
+      if (expiredMessages) log.info({ removed: expiredMessages }, "retención de mensajes aplicada");
+      const mismatches = await auditWallets();
+      if (mismatches.length) log.error({ actors: mismatches }, "saldos distintos del libro mayor");
+      const removed = await cleanupEmptyGuests(7);
+      if (removed > 0) log.info({ removed }, "invitados vacíos eliminados");
+    } catch (error) {
+      log.warn({ err: error }, "la limpieza de invitados falló");
+    }
+  };
+  void cleanup();
+  const cleanupTimer = setInterval(() => { void cleanup(); }, 3_600_000);
+  cleanupTimer.unref();
+
+  // Clasificación de odio y amenazas con Laya, sin frenar el envío.
+  const reviewer = new AiReviewer({
+    onHate: async (message, verdict) => {
+      await createReport({
+        source: "ai", messageId: message.id, targetActor: message.actorId, reason: verdict.reason,
+        details: { category: verdict.category, scores: verdict.scores },
+      });
+      await hub.autoHide(message.id, "ia", verdict.reason);
     },
-  }).withTypeProvider<ZodTypeProvider>();
-
-  app.setValidatorCompiler(validatorCompiler);
-  app.setSerializerCompiler(serializerCompiler);
-
-  await app.register(cors, {
-    origin: env.CRV_ALLOWED_ORIGINS.split(",").map((item) => item.trim()).filter(Boolean),
-    credentials: true,
-    methods: ["GET", "HEAD", "POST", "PATCH", "DELETE"],
-    allowedHeaders: ["content-type", "authorization", "x-chat-token", "x-crv-csrf", "x-crv-operator"],
+    onDoubtful: async (message, verdict) => {
+      await createReport({
+        source: "ai", messageId: message.id, targetActor: message.actorId, reason: verdict.reason,
+        details: { category: verdict.category, scores: verdict.scores },
+      });
+      hub.alertModerators({
+        kind: "ai", actorId: message.actorId, displayName: message.displayName, messageId: message.id,
+        text: `${verdict.reason}: «${message.body.slice(0, 80)}»`,
+      });
+    },
   });
-
-  await registerOperatorAuth(app);
-  await app.register(websocket);
-  await registerChatRoutes(app);
-  const synced = await syncEffectCatalog();
-  log.info({ effects: synced }, "catálogo de efectos sincronizado");
-
-  app.get("/health", async () => ({ ok: true, service: "crv-chat" }));
+  if (AiReviewer.enabled()) reviewer.start();
+  app.addHook("onClose", async () => { clearInterval(cleanupTimer); reviewer.stop(); });
 
   await app.listen({ port: env.CHAT_PORT, host: env.HOST });
   log.info({ port: env.CHAT_PORT, host: env.HOST }, "chat escuchando");

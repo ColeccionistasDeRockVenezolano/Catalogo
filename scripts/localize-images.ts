@@ -142,12 +142,15 @@ async function listTargets(pool: pg.Pool, limit: number | undefined): Promise<{ 
          AND image.img->>'uri' ~ '^https?://'
       -- Los escaneos y fotos complementarias ya fueron asociados por la
       -- ingesta. Se localizan sin elevarlos a portada o retrato canónico.
+      -- Los de tipo 'other' son audio o páginas (SoundCloud, MP3 de Tumblr,
+      -- descargas de Bandcamp), no imágenes.
       UNION ALL
       SELECT ml.entity_kind::text,
         COALESCE(ml.artist_id, ml.person_id, ml.organization_id, ml.album_id)::text,
         ml.url, ml.id::text, 3
         FROM media.media_links ml
        WHERE ml.url ~ '^https?://'
+         AND ml.media_type IN ('scan','artist_photo','cover')
          AND ml.entity_kind IN ('artist','person','organization','album')
     )
     SELECT DISTINCT ON (kind,id,media_link_id) kind,id,source_url,media_link_id FROM candidates
@@ -254,7 +257,8 @@ async function sourceDownloadUrl(sourceUrl: string): Promise<string> {
 async function download(target: Target, manifest: Manifest): Promise<"downloaded" | "cached" | "failed"> {
   const key = entryKey(target);
   const current = manifest.entries[key];
-  if (current && current.sourceUrl === target.sourceUrl && await exists(path.join(ROOT, "web", "public", current.localPath))) return "cached";
+  // Un fallo conserva el archivo anterior de la ficha junto a la URL nueva: no cuenta como descargado.
+  if (current && !current.failure && current.sourceUrl === target.sourceUrl && await exists(path.join(ROOT, "web", "public", current.localPath))) return "cached";
   try {
     const downloadUrl = await sourceDownloadUrl(target.sourceUrl);
     const response = await fetch(downloadUrl, {
@@ -300,6 +304,7 @@ async function download(target: Target, manifest: Manifest): Promise<"downloaded
 
 async function associate(pool: pg.Pool, entries: ManifestEntry[], chunkSize: number): Promise<number> {
   let written = 0;
+  const skipped: string[] = [];
   for (let start = 0; start < entries.length; start += chunkSize) {
     const batch = entries.slice(start, start + chunkSize);
     await withOperatorRun({
@@ -309,7 +314,16 @@ async function associate(pool: pg.Pool, entries: ManifestEntry[], chunkSize: num
     }, async (context) => {
       for (const entry of batch) {
         if (entry.mediaLinkId === undefined) {
-          await updateEntity(context, entry.kind, entry.id, { [entityField(entry.kind)]: entityUrl(entry.kind, path.basename(entry.localPath)) });
+          // Una ficha excluida por decisión editorial (PCE01) no admite cambios: se salta sin abortar el lote.
+          await context.client.query("SAVEPOINT localize_entry");
+          try {
+            await updateEntity(context, entry.kind, entry.id, { [entityField(entry.kind)]: entityUrl(entry.kind, path.basename(entry.localPath)) });
+            await context.client.query("RELEASE SAVEPOINT localize_entry");
+          } catch (error) {
+            if ((error as { code?: string }).code !== "PCE01") throw error;
+            await context.client.query("ROLLBACK TO SAVEPOINT localize_entry");
+            skipped.push(entryKey(entry));
+          }
           continue;
         }
         const localUrl = `${PUBLIC_PREFIX}/${entry.localPath.slice("media/".length)}`;
@@ -335,6 +349,7 @@ async function associate(pool: pg.Pool, entries: ManifestEntry[], chunkSize: num
     written += batch.length;
     process.stdout.write(`asociadas ${written}/${entries.length}\n`);
   }
+  if (skipped.length) process.stdout.write(`excluidas por decisión editorial (sin cambios): ${skipped.join(", ")}\n`);
   await pool.query("SELECT 1"); // deja explícito que las asociaciones ya hicieron commit antes de informar éxito.
   return written;
 }

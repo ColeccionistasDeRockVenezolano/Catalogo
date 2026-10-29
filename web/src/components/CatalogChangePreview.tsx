@@ -29,6 +29,7 @@ export function CatalogChangePreview({operation,preview,vocabulary}:{operation:C
     case 'create_album': proposed={...operation.values,artist:operation.artist,tracks:operation.tracks,credits:operation.credits,genres:operation.genres.map(g=>({...g,slug:vocabulary.genres.find(x=>x.slug===g.slug)?.name??g.slug})),aliases:operation.aliases,formats:operation.formats};break;
     case 'create_entity':proposed={...operation.values,...(operation.parent?{parent:operation.parent}:{})};break;
     case 'create_relation':proposed={...operation.endpoints,...operation.values};break;
+    case 'add_social_link':proposed={target:operation.target,platform:operation.platform,url:operation.url,...(operation.handle?{handle:operation.handle}:{})};break;
     case 'add_alias':proposed={target:operation.target,alias:operation.alias,aliasType:operation.aliasType,isPrimary:operation.isPrimary};break;
     case 'assign_genre':case 'remove_genre':proposed={target:operation.target,genreSlug:vocabulary.genres.find(g=>g.slug===operation.genreSlug)?.name??operation.genreSlug,...('role' in operation?{role:operation.role}:{})};break;
     case 'reorder_tracks':proposed={album:operation.album,positions:operation.positions};break;

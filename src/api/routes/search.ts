@@ -34,6 +34,7 @@ const searchQuerySchema = z.object({
   q: z.string().trim().min(1, "q es obligatorio").max(1000, "q admite hasta 1000 caracteres"),
   types: z.string().optional(),
   limit: z.coerce.number().int().positive().max(50).default(20),
+  offset: z.coerce.number().int().min(0).max(200).default(0),
 });
 
 // Techo de búsquedas por IP y por minuto, aparte del general del gateway
@@ -102,6 +103,11 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
           album: z.array(searchHitSchema),
           track: z.array(searchHitSchema),
           organization: z.array(searchHitSchema),
+          totals: z.object({
+            artist: z.number().int().nonnegative(), person: z.number().int().nonnegative(),
+            album: z.number().int().nonnegative(), track: z.number().int().nonnegative(),
+            organization: z.number().int().nonnegative(),
+          }).describe("Coincidencias conocidas por tipo (tope 200); la paginación se apoya en este número."),
           emotion: z.object({ emotion: emotionSchema, artists: z.array(emotionArtistSchema) }).nullable()
             .describe("Intención emocional de la consulta («música para tener sexo» → cachonda). Solo en la búsqueda principal."),
         }),
@@ -115,7 +121,7 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
         reply.header("retry-after", "60");
         throw new ApiError(429, "rate_limited", "Demasiadas búsquedas seguidas; espera un momento");
       }
-      const { q, types, limit } = request.query;
+      const { q, types, limit, offset } = request.query;
       const requestedTypes = types
         ? types.split(",").map((value) => value.trim()).filter(Boolean)
         : undefined;
@@ -127,7 +133,7 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
         }
       }
       const recoveryStarted = performance.now();
-      const result = await globalSearch(q, limit, (requestedTypes as typeof ALL_SEARCH_TYPES | undefined) ?? ALL_SEARCH_TYPES, cache => { snapshot.cache = cache; });
+      const result = await globalSearch(q, limit, (requestedTypes as typeof ALL_SEARCH_TYPES | undefined) ?? ALL_SEARCH_TYPES, cache => { snapshot.cache = cache; }, offset);
       snapshot.timings["retrieval"] = performance.now() - recoveryStarted;
       snapshot.versions["index"] = String(searchIndexVersion());
       // Intención emocional: «música para tener sexo» → artistas con «cachonda».

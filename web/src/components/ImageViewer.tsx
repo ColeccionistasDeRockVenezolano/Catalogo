@@ -2,6 +2,7 @@ import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type 
 import { createPortal } from "react-dom";
 import { ArrowClockwise, ArrowsInSimple, ArrowSquareOut, CaretLeft, CaretRight, ImagesSquare, MagnifyingGlassMinus, MagnifyingGlassPlus, SidebarSimple, TextAlignLeft, X } from "@phosphor-icons/react";
 import { mediaImage } from "../lib/media";
+import { warmImage } from "../lib/preloadImage";
 import "../styles/image-viewer.css";
 
 interface Point { x: number; y: number; }
@@ -99,6 +100,14 @@ export function ImageViewer({ src, title, description, date, location, category,
     if (caption.current) { caption.current.open = false; caption.current.scrollTop = 0; }
     panel.current?.querySelector<HTMLElement>(".image-viewer__photo-info")?.scrollTo(0, 0);
   }, [src, update]);
+  // La anterior y la siguiente ya descargadas: al pasar de foto no queda el visor en blanco.
+  const neighbors = navigation && navigation.items.length > 1 ? [-1, 1].map(step => navigation.items[(navigation.index + step + navigation.items.length) % navigation.items.length]?.src) : [];
+  const [previousSrc, nextSrc] = neighbors;
+  useEffect(() => {
+    if (!ready) return;
+    warmImage(nextSrc ? { src: nextSrc } : null);
+    warmImage(previousSrc ? { src: previousSrc } : null);
+  }, [ready, previousSrc, nextSrc]);
   useEffect(() => {
     if (!panelOpen) return;
     const rail = thumbnails.current;

@@ -4,13 +4,19 @@
 // La regla del móvil: un efecto que cuesta un frame no se pinta. El
 // presupuesto se reparte por nivel de calidad del dispositivo y los efectos
 // que no consiguen hueco se degradan a su versión estática (marco y color),
-// que sigue viéndose bien.
-import { useEffect, useRef, useState } from "react";
+// que sigue viéndose bien. El reloj y el reparto por visibilidad viven en
+// `chatMotion.ts`.
+//
+// «reduced» es el nivel de quien pidió reducir movimiento: no es gama baja.
+// Recibe la versión suave de cada efecto (fundidos de opacidad, sin saltos,
+// giros ni partículas) en vez de la estática.
+import { useEffect, useState } from "react";
 import type { ChatEffect, ChatUser } from "../../../src/chat/protocol";
 
-export type Quality = "low" | "medium" | "high";
-export type LayerType = "css" | "svg" | "canvas" | "sprite";
-export type EffectSlot = "name" | "frame" | "background" | "ambient" | "name_font";
+export type Quality = "low" | "reduced" | "medium" | "high";
+export type LayerType = "css" | "svg" | "canvas" | "sprite" | "choreo" | "scene" | "material";
+export type { EquippedSlot as EffectSlot } from "../../../src/chat/slots";
+import type { EquippedSlot as EffectSlot } from "../../../src/chat/slots";
 
 export interface EffectLayer {
   type: LayerType;
@@ -24,6 +30,8 @@ export interface EffectLayer {
   blend?: string;
   count?: number;
   dataSource?: "catalog_cover";
+  /** Partículas: del elemento entero o de cada letra. */
+  origin?: "element" | "letters";
 }
 
 export interface EffectManifest {
@@ -58,10 +66,17 @@ export const SPRITE_PRESETS = new Set([
   "guitar", "hand-rock", "bat", "mic", "drum", "heart-horns", "ufo-vinyl",
 ]);
 
-/** Presupuesto de animaciones simultáneas por nivel. Los sprites SVG no lo
- * consumen (son CSS barato); lo gastan las partículas canvas y el texto por
- * letra, que son los que pueden arrastrar el scroll. */
-export const ANIMATION_BUDGET: Record<Quality, number> = { low: 0, medium: 6, high: 14 };
+/** Coreografías del nombre: un personaje que mueve las letras (WAAPI). */
+export const CHOREO_PRESETS = new Set([
+  "bat-orbit", "drumsticks", "ufo-abduct", "vinyl-roll", "guitar-wave",
+  "skull-headbang", "lightning", "rockerito",
+]);
+
+/** Escenas a pantalla completa de acciones y entradas. */
+export const SCENE_PRESETS = new Set(["pogo-scene", "clash-scene", "applause-scene", "curtain-scene"]);
+
+/** Marcos vivos con piezas propias (el resto son aros simples). */
+export const LIVE_FRAME_PRESETS = new Set(["fire-ring", "electric-ring", "vinyl-spin", "eq-radial"]);
 
 export function detectQuality(): Quality {
   if (typeof window === "undefined") return "low";
@@ -69,8 +84,10 @@ export function detectQuality(): Quality {
     deviceMemory?: number;
     connection?: { saveData?: boolean };
   };
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return "low";
   if (nav.connection?.saveData) return "low";
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    return (nav.deviceMemory ?? 4) <= 2 ? "low" : "reduced";
+  }
   const memory = nav.deviceMemory ?? 4;
   const cores = nav.hardwareConcurrency ?? 4;
   if (memory <= 2 || cores <= 2) return "low";
@@ -92,30 +109,6 @@ export function useChatQuality(): Quality {
     };
   }, []);
   return quality;
-}
-
-// Contador global de animaciones activas: si la sala ya está llena de
-// efectos, el siguiente se queda quieto en vez de arrastrar el scroll.
-let activeAnimations = 0;
-
-export function useAnimationSlot(cost: number, enabled: boolean, quality: Quality): boolean {
-  const [granted, setGranted] = useState(false);
-  const held = useRef(false);
-  useEffect(() => {
-    if (!enabled || quality === "low") return;
-    if (activeAnimations + cost > ANIMATION_BUDGET[quality]) return;
-    activeAnimations += cost;
-    held.current = true;
-    setGranted(true);
-    return () => {
-      if (held.current) {
-        activeAnimations = Math.max(0, activeAnimations - cost);
-        held.current = false;
-      }
-      setGranted(false);
-    };
-  }, [cost, enabled, quality]);
-  return granted && held.current;
 }
 
 export function manifestOf(effect: ChatEffect | null | undefined): EffectManifest | null {
@@ -146,7 +139,8 @@ export function nameFontCode(effect: ChatEffect | null | undefined): string | nu
 function isLayer(value: unknown): value is EffectLayer {
   if (!value || typeof value !== "object") return false;
   const layer = value as Partial<EffectLayer>;
-  return (layer.type === "css" || layer.type === "svg" || layer.type === "canvas" || layer.type === "sprite")
+  return (layer.type === "css" || layer.type === "svg" || layer.type === "canvas" || layer.type === "sprite"
+    || layer.type === "choreo" || layer.type === "scene" || layer.type === "material")
     && typeof layer.preset === "string";
 }
 
@@ -175,6 +169,18 @@ export function spriteLayers(manifest: EffectManifest | null): EffectLayer[] {
   return manifest.layers.filter((layer) => layer.type === "sprite" && SPRITE_PRESETS.has(layer.preset));
 }
 
+export function choreoLayer(manifest: EffectManifest | null): EffectLayer | null {
+  return manifest?.layers.find((layer) => layer.type === "choreo" && CHOREO_PRESETS.has(layer.preset)) ?? null;
+}
+
+export function sceneLayer(manifest: EffectManifest | null): EffectLayer | null {
+  return manifest?.layers.find((layer) => layer.type === "scene" && SCENE_PRESETS.has(layer.preset)) ?? null;
+}
+
+export function particleLayers(manifest: EffectManifest | null): EffectLayer[] {
+  return manifest?.layers.filter((layer) => layer.type === "canvas") ?? [];
+}
+
 /** Variables CSS que cada preset consume (colores, velocidad, intensidad). */
 export function layerStyle(layer: EffectLayer): React.CSSProperties {
   const colors = layer.colors ?? [];
@@ -194,7 +200,7 @@ export function costOf(effect: ChatEffect | null): number {
   return manifestOf(effect)?.cost ?? 0;
 }
 
-/** Degradación: con movimiento reducido, algunos efectos no se pintan. */
+/** Degradación: en gama baja, algunos efectos no se pintan. */
 export function shouldHide(effect: ChatEffect | null, quality: Quality): boolean {
   const manifest = manifestOf(effect);
   return Boolean(manifest && manifest.reducedMotion === "hide" && quality === "low");

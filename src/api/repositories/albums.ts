@@ -1,3 +1,5 @@
+import { seriesVolumeOrderSql } from "./series-order.js";
+import { compilationSeriesSql } from "./compilation-series.js";
 import { CLASSIFICATION_CATEGORIES, classificationFilterLabel } from "../../shared/classification-filters.js";
 import { dateValueText, type DateValue } from "../../catalog/date-value.js";
 import { B_SIDES_TITLE_SQL_PATTERN } from "../../normalization/b-sides-title.js";
@@ -15,6 +17,8 @@ import { albumDiscography, type AlbumDiscography } from "./discography.js";
 import { ALBUM_EDITION_TYPES_SQL, extraAlbumFilterSql } from "./album-categories.js";
 import { parseCategorySelection } from "../../shared/category-selection.js";
 import { albumYoutubeVideoId, youtubeVideoId } from "../../shared/youtube-playback.js";
+import { CRV_CHANNEL_ID } from "../../youtube/home-channel.js";
+import { playableCrvVideoIds } from "../../youtube/playable-crv.js";
 
 export interface AlbumListRow {
   id: number;
@@ -70,14 +74,7 @@ export const LIVE_SQL = `(al.album_type = 'live_album'
 export const LIVE_FILTER = "live";
 
 const classificationCategorySql = `CASE c.classification ${Object.entries(CLASSIFICATION_CATEGORIES).map(([label,key])=>`WHEN '${label}' THEN '${key}'`).join(" ")} ELSE 'classification:' || c.classification END`;
-export async function listAlbums(query: AlbumListQuery): Promise<{ rows: AlbumListRow[]; total: number }> {
-  const orders: Record<CatalogSort, string> = {
-    name: "al.title ASC, al.id ASC",
-    name_desc: "al.title DESC, al.id ASC",
-    year_asc: "al.release_year ASC NULLS LAST, al.title ASC, al.id ASC",
-    year_desc: "al.release_year DESC NULLS LAST, al.title ASC, al.id ASC",
-  };
-  const order = orders[query.sort ?? "name"];
+function albumListFilters(query: AlbumListQuery) {
   const pattern = query.q ? `%${query.q}%` : null;
   // $1 título · $2 artista · $3 género · $4 década · $5 categorías (Y)
   // $6 solo sin género · $7 sumar por el género del artista
@@ -99,6 +96,22 @@ export async function listAlbums(query: AlbumListQuery): Promise<{ rows: AlbumLi
   const selectedTypes = parseCategorySelection(typeof query.albumType === "string" ? [query.albumType] : query.albumType ?? []).map(value=>{const label=classificationFilterLabel(value);return label===null?value:`classification:${label}`;});
   const params = [pattern, query.artistId ?? null, query.genre ?? null, query.decade ?? null, selectedTypes,
     query.withoutGenre ?? false, query.relatedGenre ?? false, query.withoutYear ?? false, query.beforeYear ?? null];
+  return { filters, params };
+}
+
+export async function listAlbums(query: AlbumListQuery): Promise<{ rows: AlbumListRow[]; total: number }> {
+  // Los títulos que forman serie («Venezuelademo 1…34») se ordenan por su
+  // número y no por el texto: si no, el 3 cae detrás del 29.
+  const naturalPrefix = `(CASE WHEN al.title ~ '[0-9]+$' THEN regexp_replace(al.title, '[0-9]+$', '') ELSE al.title END)`;
+  const naturalNumber = `(CASE WHEN al.title ~ '[0-9]+$' THEN substring(al.title from '([0-9]+)$')::int END)`;
+  const orders: Record<CatalogSort, string> = {
+    name: `${naturalPrefix} ASC, ${naturalNumber} ASC NULLS LAST, al.title ASC, al.id ASC`,
+    name_desc: `${naturalPrefix} DESC, ${naturalNumber} DESC NULLS LAST, al.title DESC, al.id ASC`,
+    year_asc: "al.release_year ASC NULLS LAST, al.title ASC, al.id ASC",
+    year_desc: "al.release_year DESC NULLS LAST, al.title ASC, al.id ASC",
+  };
+  const order = orders[query.sort ?? "name"];
+  const { filters, params } = albumListFilters(query);
   const [rows, count] = await Promise.all([
     getPool().query<{
       id: string; title: string; release_year: number | null; album_type: string;
@@ -222,6 +235,7 @@ export interface AlbumDetail {
   discs: Array<{ discNumber: number; title: string | null; platforms: Array<{ platform: string; url: string; externalId: string | null }> }>;
   aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean; publicHidden: boolean }>;
   youtubeLinks: Array<{ videoId: string; title: string | null; kind: string; isPrimaryLink: boolean }>;
+  crvYoutubeVideoIds: string[];
   /** El disco en plataformas de escucha (streaming_links, 0039); solo los de identidad verificada. */
   platforms: Array<{ platform: string; url: string; externalId: string | null }>;
   /** Plan del primo, etapa 2 (0068): versiones, sellos con rol, series y créditos en frase. */
@@ -270,6 +284,10 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
           FROM ingest.effective_album_classifications c WHERE c.album_id=al.id) AS classifications,
        ${ALBUM_EDITION_TYPES_SQL} AS edition_types,
             al.description, al.notes, al.release_date_text, al.catalog_id, al.media_format, al.youtube_url, al.youtube_status,
+       COALESCE((SELECT jsonb_agg(v.video_id) FROM media.youtube_videos v
+         WHERE v.channel_id=$2 AND (strpos(al.youtube_url,v.video_id)>0
+           OR EXISTS(SELECT 1 FROM media.video_albums va WHERE va.album_id=al.id AND va.video_id=v.id)
+           OR EXISTS(SELECT 1 FROM public.album_disc_links dl WHERE dl.album_id=al.id AND dl.platform='youtube' AND strpos(dl.url,v.video_id)>0))), '[]'::jsonb) AS crv_video_ids,
             al.instagram_url, al.instagram_status, al.wordpress_url, al.wordpress_status,
             ar.id AS artist_id, ar.name AS artist_name,
             lbl.id AS label_id, lbl.name AS label_name,
@@ -355,10 +373,18 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
      JOIN ingest.catalog_artists ar ON ar.id = al.artist_id
      LEFT JOIN public.organizations lbl ON lbl.id = al.label_id
      WHERE al.id = $1`,
-    [id],
+    [id, CRV_CHANNEL_ID],
   );
   const row = rows[0];
   if (!row) return null;
+  const crvIds = row['crv_video_ids'] as string[];
+  const allowedCrvIds = await playableCrvVideoIds(crvIds);
+  const blockedCrvIds = new Set(crvIds.filter(videoId => !allowedCrvIds.has(videoId)));
+  row['youtube_links'] = (row['youtube_links'] as AlbumDetail['youtubeLinks']).filter(link => !blockedCrvIds.has(link.videoId));
+  if (blockedCrvIds.has(youtubeVideoId(row['youtube_url'] as string | null) ?? '')) row['youtube_url'] = null;
+  for (const disc of row['discs'] as AlbumDetail['discs']) {
+    disc.platforms = disc.platforms.filter(link => link.platform !== 'youtube' || !blockedCrvIds.has(youtubeVideoId(link.url) ?? ''));
+  }
   const credits = row["credits"] as AlbumCreditRow[];
   const tracklist = row["tracklist"] as AlbumTrackRow[];
   const occurrences = row["youtube_occurrences"] as Array<{ trackId: number; videoId: string; startSeconds: number; durationSeconds: number | null }>;
@@ -423,6 +449,42 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
     discs: row["discs"] as AlbumDetail["discs"],
     aliases: withPublicAliases(String(row["title"]), row["aliases"] as Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>),
     youtubeLinks: row["youtube_links"] as AlbumDetail["youtubeLinks"],
+    crvYoutubeVideoIds: [...allowedCrvIds],
     platforms: row["platforms"] as AlbumDetail["platforms"],
   };
+}
+
+export interface SeriesListRow {
+  id: number; title: string; kind: "compilation" | "sessions"; artistName: string | null; description: string | null; albumCount: number;
+  firstYear: number | null; lastYear: number | null; covers: string[];
+}
+
+/** Los filtros se evalúan sobre un mismo volumen; la tarjeta siempre representa la serie completa. */
+export async function listSeries(query: AlbumListQuery): Promise<{ rows: SeriesListRow[]; total: number }> {
+  const { filters, params } = albumListFilters({ ...query, q: undefined });
+  params.push(query.q ? `%${query.q}%` : null);
+  const where = `${compilationSeriesSql("s")} AND EXISTS (
+    SELECT 1 FROM ingest.series_albums sa JOIN ingest.catalog_albums al ON al.id=sa.album_id
+    WHERE sa.series_id=s.id AND ${filters}
+      AND ($10::text IS NULL OR s.title ILIKE $10 OR al.title ILIKE $10))`;
+  const orders: Record<CatalogSort, string> = {
+    name: 's.title ASC, s.id ASC', name_desc: 's.title DESC, s.id ASC',
+    year_asc: 'first_year ASC NULLS LAST, s.title ASC, s.id ASC',
+    year_desc: 'last_year DESC NULLS LAST, s.title ASC, s.id ASC',
+  };
+  const [rows, count] = await Promise.all([
+    getPool().query<{ id: string; title: string; kind: "compilation" | "sessions"; artist_name: string | null; description: string | null; album_count: string;
+      first_year: number | null; last_year: number | null; covers: string[] }>(`
+      SELECT s.id::text, s.title, s.kind, (SELECT ar.name FROM ingest.catalog_artists ar WHERE ar.id=s.artist_id) artist_name, s.description, v.*
+      FROM ingest.series s CROSS JOIN LATERAL (
+        SELECT count(*)::text album_count, min(al.release_year) first_year, max(al.release_year) last_year,
+          COALESCE(array_agg(al.cover_url ORDER BY ${seriesVolumeOrderSql("sa", "al")})
+            FILTER (WHERE al.cover_url IS NOT NULL AND al.cover_url <> ''), '{}') covers
+        FROM ingest.series_albums sa JOIN ingest.catalog_albums al ON al.id=sa.album_id WHERE sa.series_id=s.id
+      ) v WHERE ${where} ORDER BY ${orders[query.sort ?? 'name']} LIMIT $11 OFFSET $12`, [...params, query.limit, query.offset]),
+    getPool().query<{ count: string }>(`SELECT count(*)::text count FROM ingest.series s WHERE ${where}`, params),
+  ]);
+  return { rows: rows.rows.map(row => ({ id: Number(row.id), title: row.title, kind: row.kind, artistName: row.artist_name, description: row.description,
+    albumCount: Number(row.album_count), firstYear: row.first_year, lastYear: row.last_year, covers: [...new Set(row.covers)] })),
+    total: Number(count.rows[0]?.count ?? 0) };
 }

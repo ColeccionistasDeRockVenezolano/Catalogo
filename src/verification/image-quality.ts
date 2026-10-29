@@ -115,8 +115,10 @@ export function groupVariants<T extends { inspection: ImageInspection }>(items: 
 export type ImageUse = "cover" | "back_cover" | "portrait" | "group" | "live" | "poster" | "irrelevant" | "unknown";
 export interface ImageUseInput {
   url: string;
-  /** Alt text, caption, file name context or the quoted "Imagen:" line from the page. */
+  /** Alt text, caption or the quoted "Imagen:" line from the page: what documents the picture itself. */
   context: string;
+  /** Source, campaign and page address: words there hint at a use but do not describe this picture. */
+  locator?: string;
   target: "album" | "artist" | "person";
   width?: number | null;
   height?: number | null;
@@ -136,26 +138,35 @@ const usePatterns: Array<[ImageUse, RegExp]> = [
  * "unknown" for inspection instead of being guessed.
  */
 export function classifyImageUse(input: ImageUseInput): { use: ImageUse; reasons: string[] } {
-  const text = `${input.context} ${decodeURIComponent(input.url.replace(/%(?![0-9a-f]{2})/giu, "%25"))}`.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  const fold = (value: string) => value.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+  const address = decodeURIComponent(input.url.replace(/%(?![0-9a-f]{2})/giu, "%25"));
   const { width, height } = input;
   const aspect = width && height ? width / height : null;
   if (input.decorative) return { use: "irrelevant", reasons: ["Recurso decorativo de la página (logo, icono o miniatura de interfaz)"] };
-  if (width && height && Math.min(width, height) < 120) return { use: "irrelevant", reasons: [`Demasiado pequeña (${width}×${height})`] };
   if (aspect && (aspect > 3 || aspect < 1 / 3)) return { use: "irrelevant", reasons: ["Proporción de banner o franja"] };
+  // Size is a quality problem, not a use: an old thumbnail still shows a band, a cover or a stage
+  // (and the reading tells a placeholder silhouette apart); it just cannot lead the record.
+  const small = width && height && Math.min(width, height) < 120 ? [`${TOO_SMALL} (${width}×${height}): no sirve como imagen principal`] : [];
   // Album titles often say "En vivo" or "Concierto": on an album, cover wording comes first.
   const order = input.target === "album" ? [...usePatterns].sort(([a], [b]) => Number(b === "back_cover") * 2 + Number(b === "cover") - (Number(a === "back_cover") * 2 + Number(a === "cover"))) : usePatterns;
+  const context = fold(input.context);
+  const text = `${context} ${fold(`${input.locator ?? ""} ${address}`)}`;
   for (const [use, pattern] of order) {
     if (!pattern.test(text)) continue;
     // Words about the band on an album page usually describe the cover's subject, not a press photo.
     if (use === "group" && input.target === "album") continue;
     if ((use === "portrait" || use === "group") && input.target === "album" && /portada|cover|caratula/u.test(text)) continue;
-    return { use, reasons: [`El contexto lo describe como ${useLabels[use]}`] };
+    return { use, reasons: [pattern.test(context) ? `El contexto lo describe como ${useLabels[use]}` : `${LOCATED} ${useLabels[use]}`, ...small] };
   }
-  if (input.target === "album" && aspect && Math.abs(aspect - 1) <= 0.06) return { use: "cover", reasons: ["Imagen cuadrada asociada a un disco"] };
-  if (input.target !== "album" && aspect && aspect < 0.95) return { use: "portrait", reasons: ["Imagen vertical asociada a una persona o artista"] };
-  if (input.target === "artist" && aspect && aspect > 1.2) return { use: "group", reasons: ["Imagen horizontal asociada a un artista"] };
-  return { use: "unknown", reasons: ["El contexto no indica el uso; requiere inspección"] };
+  if (input.target === "album" && aspect && Math.abs(aspect - 1) <= 0.06) return { use: "cover", reasons: ["Imagen cuadrada asociada a un disco", ...small] };
+  if (input.target !== "album" && aspect && aspect < 0.95) return { use: "portrait", reasons: ["Imagen vertical asociada a una persona o artista", ...small] };
+  if (input.target === "artist" && aspect && aspect > 1.2) return { use: "group", reasons: ["Imagen horizontal asociada a un artista", ...small] };
+  return { use: "unknown", reasons: ["El contexto no indica el uso; requiere inspección", ...small] };
 }
+/** Prefix of the note on a picture below the size that can lead a record. */
+export const TOO_SMALL = "Demasiado pequeña";
+/** Prefix of a use read from the address, source or campaign name rather than from the picture's own context. */
+export const LOCATED = "La dirección o la fuente la señalan como";
 export const useLabels: Record<ImageUse, string> = {
   cover: "portada", back_cover: "contraportada", portrait: "retrato", group: "foto de grupo", live: "foto en vivo",
   poster: "afiche", irrelevant: "recurso irrelevante", unknown: "uso sin determinar",

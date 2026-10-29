@@ -54,9 +54,11 @@ export function cachedCatalogRead<T>(url: URL, load: (signal: AbortSignal) => Pr
 }
 
 export function canCacheCatalogRead(path: string, query?: object): boolean {
+  // Estas fichas comprueban en vivo la disponibilidad de los videos CRV.
+  if (/^\/(artists|albums)\/\d+$/u.test(path)) return false;
   if (!catalogCacheTtl(path)) return false;
   // Las superficies diarias dependen de la fecha entregada por DailyCycleProvider.
-  if (path === "/home" || path === "/ephemerides" || /^\/artists\/\d+$/u.test(path)) {
+  if (path === "/home" || path === "/ephemerides") {
     return typeof (query as { date?: unknown } | undefined)?.date === "string";
   }
   return true;

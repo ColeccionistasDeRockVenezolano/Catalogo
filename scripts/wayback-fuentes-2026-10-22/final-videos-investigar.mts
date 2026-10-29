@@ -1,0 +1,11 @@
+import {readFileSync,writeFileSync} from 'node:fs';
+import {getPool,closeDb} from '../../src/db/client.js';
+import {YouTubeDataApi} from '../../src/youtube/api.js';
+const out=process.env['WAYBACK_OUT']!;
+const search=readFileSync(out+'/search-audiovisuales.json','utf8');
+const ids=[...new Set([...search.matchAll(/(?:v=|youtu\.be\/)([\w-]{11})/g)].map(x=>x[1]!))];
+ids.push('N_VnciWBL-I','03JN5wYq7NQ','7gDfrKRAi1s','hqkhFOBIy5E','ZF8Cez4i3Y4');
+const api=new YouTubeDataApi();const response=await api.listVideos([...new Set(ids)]);
+const existing=(await getPool().query('SELECT av.*,v.video_id youtube_id,v.title youtube_title,v.metadata youtube_metadata FROM media.artist_audiovisuals av LEFT JOIN media.youtube_videos v ON v.id=av.video_id WHERE av.artist_id=ANY($1::bigint[]) ORDER BY av.artist_id,av.id',[[237,1159,450,1163,1755,257]])).rows;
+writeFileSync(out+'/youtube-investigacion.json',JSON.stringify({at:new Date().toISOString(),requestedIds:ids,api:response,existing},null,2));
+console.log(JSON.stringify(response.items?.map(v=>({id:v.id,title:v.snippet?.['title'],channel:v.snippet?.['channelTitle'],description:v.snippet?.['description'],status:v.status})),null,2));await closeDb();

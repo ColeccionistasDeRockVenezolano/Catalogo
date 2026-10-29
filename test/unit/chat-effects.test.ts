@@ -110,3 +110,26 @@ describe("protocolo del chat", () => {
     }
   });
 });
+
+
+describe("catálogo de coreografías y escenas", () => {
+  it("incluye los ocho personajes y partículas que nacen de las letras", () => {
+    const presets = EFFECT_CATALOG.flatMap((effect) => effect.manifest.layers);
+    for (const preset of ["bat-orbit", "drumsticks", "ufo-abduct", "vinyl-roll", "guitar-wave", "skull-headbang", "lightning", "rockerito"]) {
+      expect(presets.some((layer) => layer.type === "choreo" && layer.preset === preset), preset).toBe(true);
+    }
+    for (const preset of ["flames", "sparks", "snow", "notes"]) {
+      expect(presets.some((layer) => layer.type === "canvas" && layer.origin === "letters" && layer.preset === preset), preset).toBe(true);
+    }
+  });
+
+  it("las escenas duran entre 1,5 y 2,5 segundos y los stickers tienen arte", () => {
+    for (const effect of EFFECT_CATALOG) {
+      if (effect.manifest.layers.some((layer) => layer.type === "scene")) {
+        expect(effect.manifest.durationMs).toBeGreaterThanOrEqual(1500);
+        expect(effect.manifest.durationMs).toBeLessThanOrEqual(2500);
+      }
+      if (effect.kind === "sticker") expect(effect.manifest.layers.some((layer) => layer.type === "sprite")).toBe(true);
+    }
+  });
+});

@@ -501,7 +501,7 @@ export async function previewPersonSplit(
  * Nada se fusiona ni se borra por parecido: los destinos los nombra la petición.
  */
 export async function splitPerson(
-  client: PoolClient, personId: number, into: string[], reason: string, runId: number, expectedName?: string,
+  client: PoolClient, personId: number, into: Array<string | number>, reason: string, runId: number, expectedName?: string,
 ): Promise<Omit<CorrectionOutcome, "op"> & { op: "split"; credits: number; targetIds: number[] }> {
   const actualName = await personName(client, personId);
   if (!actualName) {
@@ -534,6 +534,13 @@ export async function splitPerson(
   };
   const targets: number[] = [];
   for (const name of into) {
+    // Un id es una persona ya identificada por el plan (homónimos: el nombre solo no basta).
+    if (typeof name === "number") {
+      if (name === original.id) throw new Error(`el destino ${name} es la propia ficha: una división no se apunta a sí misma`);
+      if (!(await personName(client, name))) throw new OperatorError("not_found", `persona ${name} inexistente`, { entity: "person", id: name });
+      targets.push(name);
+      continue;
+    }
     const found = await personsNamedExactly(client, name);
     if (found.includes(original.id)) throw new Error(`el destino «${name}» es la propia ficha ${original.id}: una división no se apunta a sí misma`);
     if (found.length > 1) throw new Error(`«${name}» coincide con ${found.length} personas (${found.join(", ")}): fusione o renombre antes de dividir`);

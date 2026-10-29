@@ -409,3 +409,67 @@
 @media (prefers-reduced-motion: reduce) {
   .chat-shell *, .chat-shell *::before, .chat-shell *::after { animation: none !important; transition: none !important; }
 }
+
+/* Moderación: menú por mensaje y hoja de administración */
+.chat-message { position: relative; }
+.chat-msg-menu { position: absolute; top: 2px; right: 0; z-index: 3; }
+.chat-msg-menu-toggle {
+  display: grid; place-items: center; width: 28px; height: 28px; border: 0; border-radius: 8px;
+  background: transparent; color: var(--text-faint); opacity: 0; transition: opacity 120ms ease-out;
+}
+.chat-message:hover .chat-msg-menu-toggle,
+.chat-msg-menu-toggle:focus-visible,
+.chat-msg-menu-toggle[aria-expanded="true"] { opacity: 1; }
+@media (hover: none) { .chat-msg-menu-toggle { opacity: 0.55; } }
+.chat-msg-menu-list {
+  position: absolute; top: 30px; right: 0; min-width: 190px; padding: 6px; display: flex; flex-direction: column;
+  border-radius: 12px; background: var(--surface); border: 1px solid var(--border);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+.chat-msg-menu-list button {
+  display: flex; align-items: center; gap: 8px; padding: 9px 10px; border: 0; border-radius: 8px;
+  background: none; color: inherit; font: inherit; font-size: 13px; text-align: left;
+}
+.chat-msg-menu-list button:hover, .chat-msg-menu-list button:focus-visible { background: color-mix(in srgb, var(--text) 8%, transparent); }
+.chat-msg-menu-list .is-danger, .chat-mod-actions .is-danger { color: #ff6b6b; }
+.chat-msg-menu-title { margin: 4px 10px 6px; font-size: 12px; color: var(--text-muted); }
+.chat-icon-button { position: relative; }
+.chat-mod-dot { position: absolute; top: 6px; right: 6px; width: 8px; height: 8px; border-radius: 50%; background: #ff6b6b; }
+.chat-mod-tabs { display: flex; gap: 6px; padding: 0 16px 8px; }
+.chat-mod-tabs button, .chat-mod-actions button {
+  padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border);
+  background: none; color: inherit; font: inherit; font-size: 13px;
+}
+.chat-mod-tabs button[aria-pressed="true"], .chat-mod-actions button[aria-pressed="true"] { background: color-mix(in srgb, var(--text) 14%, transparent); }
+.chat-mod-tabs span { margin-left: 6px; padding: 0 6px; border-radius: 999px; background: #ff6b6b; color: #fff; font-size: 11px; }
+.chat-mod-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.chat-mod-list > li { padding: 10px 12px; border-radius: 12px; background: color-mix(in srgb, var(--text) 5%, transparent); }
+.chat-mod-list.is-log > li { padding: 8px 12px; }
+.chat-mod-meta { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin: 0; font-size: 13px; }
+.chat-mod-meta span { color: var(--text-muted); }
+.chat-mod-sub { margin: 4px 0 0; font-size: 12px; color: var(--text-faint); overflow-wrap: anywhere; }
+.chat-mod-list blockquote { margin: 6px 0 0; padding-left: 10px; border-left: 2px solid var(--border); font-size: 14px; overflow-wrap: anywhere; white-space: pre-wrap; }
+.chat-mod-list blockquote.is-hidden { opacity: 0.6; }
+.chat-mod-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.chat-mod-empty { margin: 16px 0; text-align: center; color: var(--text-faint); font-size: 14px; }
+.chat-mod-room p { margin: 0 0 4px; font-size: 13px; color: var(--text-muted); line-height: 1.45; }
+.chat-mod-room h3 { margin: 18px 0 8px; font-size: 14px; }
+
+
+/* Historial y retorno a la conversación sin mover la lectura actual. */
+.chat-history-button, .chat-new-messages {
+  display: block;
+  min-height: 44px;
+  margin: 8px auto;
+  padding: 10px 16px;
+  border: 1px solid #555;
+  border-radius: 12px;
+  background: #242424;
+  color: #f5f5f5;
+  font: inherit;
+  cursor: pointer;
+}
+.chat-history-button:disabled { opacity: .65; cursor: wait; }
+.chat-history-button:hover, .chat-new-messages:hover { background: #333; }
+.chat-history-button:focus-visible, .chat-new-messages:focus-visible { outline: 2px solid #ffb02e; outline-offset: 3px; }
+.chat-history-error { color: #ffb7bb; text-align: center; padding: 8px 16px; }

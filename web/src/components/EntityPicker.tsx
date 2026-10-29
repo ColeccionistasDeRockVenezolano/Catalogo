@@ -1,13 +1,16 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { albumsApi, artistsApi, organizationsApi, personsApi } from "../lib/api";
+import { albumsApi, artistsApi, organizationsApi, personsApi, seriesEditorApi } from "../lib/api";
 
-type PickerKind = "artist" | "person" | "organization" | "album";
+type PickerKind = "artist" | "person" | "organization" | "album" | "series";
 
 const SEARCHERS: Record<PickerKind, (q: string) => Promise<Array<{ id: number; label: string; sub?: string | null }>>> = {
   artist: (q) => artistsApi.list({ q, limit: 8 }).then((page) => page.data.map((row) => ({ id: row.id, label: row.name, sub: row.originCity }))),
   person: (q) => personsApi.list({ q, limit: 8 }).then((page) => page.data.map((row) => ({ id: row.id, label: row.name, sub: row.nationality }))),
   organization: (q) => organizationsApi.list({ q, limit: 8 }).then((page) => page.data.map((row) => ({ id: row.id, label: row.name, sub: row.organizationType }))),
   album: (q) => albumsApi.list({ q, limit: 8 }).then((page) => page.data.map((row) => ({ id: row.id, label: row.title, sub: row.artistName }))),
+  // Solo administración: incluye las series ocultas, con su estado.
+  series: (q) => seriesEditorApi.list({ q, limit: 8 }).then((page) => page.data.map((row) => ({ id: row.id, label: row.title,
+    sub: `${row.visibleCount} ${row.visibleCount === 1 ? "entrega" : "entregas"}${row.isPublic ? "" : " · oculta"}` }))),
 };
 
 interface EntityPickerProps {

@@ -11,6 +11,10 @@ import { registerHomeRoutes } from "../../src/api/routes/home.js";
 import { registerDiscoveryRoutes } from "../../src/api/routes/discovery.js";
 import { registerDailyCycleRoutes } from "../../src/api/daily-cycle.js";
 import { CRV_CHANNEL_ID } from "../../src/youtube/home-channel.js";
+const unavailableVideos = vi.hoisted(() => new Set<string>());
+vi.mock('../../src/youtube/playable-crv.js', () => ({
+  playableCrvVideoIds: async (ids: string[]) => new Set(ids.filter(id => !unavailableVideos.has(id))),
+}));
 
 vi.mock("../../src/youtube/home-channel.js", async importOriginal => ({
   ...await importOriginal<typeof import("../../src/youtube/home-channel.js")>(),
@@ -31,8 +35,10 @@ describe("videos diarios del canal CRV y reloj común", () => {
       artists[name!] = Number((await pool.query("INSERT INTO public.artists(name, artist_type) VALUES($1,$2) RETURNING id", [name, type])).rows[0].id);
     }
     let index = 0;
-    async function video(artist: string | null, channel = CRV_CHANNEL_ID, status = "published", relation = "performer") {
-      const id = Number((await pool.query("INSERT INTO media.youtube_videos(video_id,title,channel_id,publication_status) VALUES($1,'Video CRV',$2,$3) RETURNING id", [String(index++).padStart(11, "v"), channel, status])).rows[0].id);
+    async function video(artist: string | null, channel = CRV_CHANNEL_ID, status = "published", relation = "performer", available = true) {
+      const videoId = String(index++).padStart(11, "v");
+      if (!available) unavailableVideos.add(videoId);
+      const id = Number((await pool.query("INSERT INTO media.youtube_videos(video_id,title,channel_id,publication_status) VALUES($1,'Video CRV',$2,$3) RETURNING id", [videoId, channel, status])).rows[0].id);
       if (artist) await pool.query("INSERT INTO media.video_artists(video_id,artist_id,relation_kind) VALUES($1,$2,$3)", [id, artists[artist], relation]);
       return id;
     }
@@ -41,6 +47,8 @@ describe("videos diarios del canal CRV y reloj común", () => {
     await video("band", "otro-canal"); await video("band", CRV_CHANNEL_ID, "copyright_blocked");
     await video("empty", "otro-canal"); await video("empty", CRV_CHANNEL_ID, "unpublished");
     await video("empty", CRV_CHANNEL_ID, "published", "channel");
+    await video("band", CRV_CHANNEL_ID, "published", "performer", false);
+    await video("empty", CRV_CHANNEL_ID, "published", "performer", false);
     // El mismo video con vínculo directo y de disco se cuenta solo una vez.
     const bandAlbum = Number((await pool.query("INSERT INTO public.albums(artist_id,title) VALUES($1,'Disco de banda') RETURNING id", [artists["band"]])).rows[0].id);
     await pool.query("INSERT INTO media.video_albums(video_id,album_id) VALUES($1,$2)", [first, bandAlbum]);

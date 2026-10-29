@@ -1,0 +1,3 @@
+BEGIN;
+ALTER TABLE ingest.series DROP COLUMN kind;
+COMMIT;

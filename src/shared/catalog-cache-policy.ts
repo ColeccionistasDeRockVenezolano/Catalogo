@@ -1,5 +1,7 @@
 /** Solo lecturas del catálogo público; las rutas de trabajo nunca entran. */
 export function catalogCacheTtl(path: string): number {
+  // La disponibilidad de CRV se confirma en cada lectura de estas fichas.
+  if (/^\/(artists|albums)\/\d+$/u.test(path)) return 0;
   if (path === "/sitemap-ids") return 3_600_000;
   if (path === "/ephemerides") return 3_600_000;
   if (path === "/home") return 900_000;

@@ -14,6 +14,7 @@ function title(op: CatalogOperation, vocabulary: CatalogVocabulary): string {
     case "assign_genre": return `Añadir género: ${genre(op.genreSlug)}`;
     case "remove_genre": return `Retirar género: ${genre(op.genreSlug)}`;
     case "add_alias": return `Añadir alias: ${op.alias}`;
+    case "add_social_link": return `Añadir red (${op.platform}): ${op.handle ?? op.url}`;
     case "create_entity": return `Añadir ${KIND_LABELS[op.kind].toLocaleLowerCase("es")}: ${op.values.name ?? op.values.title ?? op.label}`;
     case "create_album": return `Añadir disco: ${op.values.title}${op.values.releaseYear ? ` (${op.values.releaseYear})` : ""}`;
     case "replace_fields": {
@@ -45,7 +46,13 @@ export function CatalogProposalCard({ operation, plan, rootLabel, vocabulary, bu
   const editable = plan.status === "ready" && !decision;
   const displayPreview = plan.preview ? { ...plan.preview, items: [...plan.preview.items, ...(decision?.preview ? [decision.preview] : [])] } : null;
   const preview = decision?.preview ?? plan.preview?.items.find((item) => item.key === op.key);
-  const sources = plan.evidence.filter((item) => op.evidenceIds.includes(item.id));
+  // The same page and quote captured several times is one source: show it once, with how often it was cited.
+  const sources = [...plan.evidence.filter((item) => op.evidenceIds.includes(item.id)).reduce((unique, item) => {
+    const key = `${item.url}\u0000${item.quote.replace(/\s+/gu, " ").trim()}`;
+    const seen = unique.get(key);
+    if (seen) seen.copies += 1; else unique.set(key, { ...item, copies: 1 });
+    return unique;
+  }, new Map<string, (typeof plan.evidence)[number] & { copies: number }>()).values()];
   const narrative = op.op === "replace_fields" ? Object.entries(op.values).filter(([key]) => ["biography", "description"].includes(key)) : [];
   const otherFields = op.op === "replace_fields" && narrative.length ? { ...op, values: Object.fromEntries(Object.entries(op.values).filter(([key]) => !["biography", "description"].includes(key))) } : null;
   function refName(ref: CatalogRef): string {
@@ -66,6 +73,8 @@ export function CatalogProposalCard({ operation, plan, rootLabel, vocabulary, bu
   // Parts without documentary support stay visible before deciding; accepting records an editorial decision.
   const gaps = preview?.evidenceGaps ?? [];
   const editorial = gaps.length > 0 || Boolean(preview?.error && editorialError(preview.error));
+  // A documented change can still need judgement, such as creating a record whose name resembles others.
+  const judgement = !gaps.length && preview?.error?.startsWith("Criterio editorial: ") ? preview.error.slice("Criterio editorial: ".length) : null;
   return <article className={`ai-proposal${decision || legacyApplied ? " is-decided" : ""}`} aria-label={title(op, vocabulary)}>
     <header><h3>{title(op, vocabulary)}</h3>{decision || legacyApplied ? <span className="ai-proposal__state">{decision?.undone ? "Deshecho" : decision?.decision === "rejected" ? "Rechazado" : editorial ? "Aplicado · decisión editorial" : "Aplicado"}</span> : null}</header>
     {"target" in op ? <p className="ai-proposal__context">En {refLink(op.target)}</p> : null}
@@ -75,13 +84,13 @@ export function CatalogProposalCard({ operation, plan, rootLabel, vocabulary, bu
     {otherFields && Object.keys(otherFields.values).length ? <CatalogChangePreview operation={otherFields} preview={displayPreview} vocabulary={vocabulary} /> : null}
     {editable && dependencies.length ? <p className="hint">Primero acepta {dependencies.map((ref) => `«${refName(ref)}»`).join(" y ")}. Este cambio necesita esa ficha.</p> : null}
     {editable && structuralError && !dependencies.length ? <p className="ai-proposal__warning">{structuralError}</p> : null}
-    {editorial && (editable || decision?.decision === "accepted") ? <div className="ai-proposal__gaps" role="note"><strong>{editable ? "Sin respaldo documental" : "Aceptado sin respaldo documental"}</strong>{gaps.length ? <ul>{gaps.map((gap) => <li key={gap}>{gap}</li>)}</ul> : <p>Las citas no bastan para comprobar este cambio.</p>}{editable ? <p className="hint">Si lo aceptas, quedará registrado como decisión editorial tuya.</p> : null}</div> : null}
+    {editorial && (editable || decision?.decision === "accepted") ? <div className="ai-proposal__gaps" role="note"><strong>{judgement ? (editable ? "Requiere tu criterio" : "Aceptado por criterio editorial") : editable ? "Sin respaldo documental" : "Aceptado sin respaldo documental"}</strong>{gaps.length ? <ul>{gaps.map((gap) => <li key={gap}>{gap}</li>)}</ul> : <p>{judgement ?? "Las citas no bastan para comprobar este cambio."}</p>}{editable ? <p className="hint">Si lo aceptas, quedará registrado como decisión editorial tuya.</p> : null}</div> : null}
     {error ? <p className="ai-message ai-message--error" role="alert">{error}</p> : null}
     {processing ? <p role="status">Guardando decisión…</p> : null}
     {editable ? <div className="ai-proposal__decision" role="group" aria-label={`¿Aceptas el cambio «${title(op, vocabulary)}»?`}><span>¿Aceptas el cambio?</span><button type="button" className="btn btn--primary btn--sm" disabled={busy || dependencies.length > 0} onClick={() => onDecide(op, "accepted")}>{editorial ? "Aceptar como decisión editorial" : "Sí, aceptar"}</button><button type="button" className="btn btn--sm" disabled={busy} onClick={() => onDecide(operation, "rejected")}>No</button></div> : null}
     {decision?.decision === "accepted" && decision.runId && !decision.undone ? <div className="page-actions"><Link className="text-link" to="/historial">Ver cambio #{decision.runId}</Link><button type="button" className="btn btn--sm" disabled={busy} onClick={() => onUndo(decision.runId!)}>Deshacer</button></div> : null}
-    <details className="ai-proposal__detail"><summary>Por qué se propone · {sources.length} {sources.length === 1 ? "fuente" : "fuentes"}</summary><p>{op.reason}</p>{sources.length ? sources.map((source) => <div className="ai-proposal__source" key={source.id}>{/^https?:\/\//iu.test(source.url) ? <a href={source.url} target="_blank" rel="noreferrer">{source.label || source.url}</a> : <strong>{source.label || "Datos del catálogo"}</strong>}<blockquote>{source.quote}</blockquote></div>) : <p>La IA no adjuntó una fuente documental. Revisa el dato antes de aceptarlo.</p>}</details>
-    {!["assign_genre", "remove_genre", "add_alias", "replace_fields", "replace_relation"].includes(op.op) ? <details className="ai-proposal__detail"><summary>Ver qué se añadirá o modificará</summary><CatalogChangePreview operation={op} preview={plan.preview} vocabulary={vocabulary} /></details> : null}
+    <details className="ai-proposal__detail"><summary>Por qué se propone · {sources.length} {sources.length === 1 ? "fuente" : "fuentes"}</summary><p>{op.reason}</p>{sources.length ? sources.map((source) => <div className="ai-proposal__source" key={source.id}>{/^https?:\/\//iu.test(source.url) ? <a href={source.url} target="_blank" rel="noreferrer">{source.label || source.url}</a> : <strong>{source.label || "Datos del catálogo"}</strong>}{source.copies > 1 ? <span className="hint"> · la misma cita en {source.copies} capturas</span> : null}<blockquote>{source.quote}</blockquote></div>) : <p>La IA no adjuntó una fuente documental. Revisa el dato antes de aceptarlo.</p>}</details>
+    {!["assign_genre", "remove_genre", "add_alias", "add_social_link", "replace_fields", "replace_relation"].includes(op.op) ? <details className="ai-proposal__detail"><summary>Ver qué se añadirá o modificará</summary><CatalogChangePreview operation={op} preview={plan.preview} vocabulary={vocabulary} /></details> : null}
     {editable ? <details className="ai-proposal__detail"><summary>Editar propuesta</summary><fieldset disabled={saving}><CatalogOperationEditor operation={op} operations={plan.draft!.operations} onChange={setOp} vocabulary={vocabulary} preview={plan.preview} /></fieldset><p className="hint">Tus ajustes se guardan y se aplican cuando eliges Sí, aceptar.</p></details> : null}
   </article>;
 }
