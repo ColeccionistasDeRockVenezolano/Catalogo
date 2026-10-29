@@ -127,13 +127,18 @@ try {
   assert.equal(work.status,201);
   await page.goto(`${base}/discos/${album.body.id}`);
   await page.locator(".page-actions").getByRole("button",{name:"Editar",exact:true}).click();
+  // La fecha parcial se edita en los datos del disco; «Obra y soportes» solo vincula la obra.
+  await dialog.getByLabel("Fecha de publicación",{exact:true}).fill("2001-05");
+  await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Vincular obra y edición con precisión de mes");
+  await dialog.getByRole("button",{ name: /^Guardar cambio/u }).filter({visible:true}).click();
+  await expect(page.locator(".page-actions").getByRole("button",{name:"Editar",exact:true})).toBeVisible();
+  assert.equal((await request(`/albums/${album.body.id}`)).body.releaseDateValue,"2001-05");
+  await page.locator(".page-actions").getByRole("button",{name:"Editar",exact:true}).click();
   await dialog.getByRole("button",{name:"Obra y soportes",exact:true}).click();
   await dialog.getByLabel("Obra compartida",{exact:true}).selectOption(String(work.body.id));
-  await dialog.getByLabel("Fecha de publicación",{exact:true}).filter({visible:true}).fill("2001-05");
-  await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Vincular obra y edición con precisión de mes");
+  await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Vincular obra y edición");
   await dialog.getByRole("button",{name:"Guardar",exact:true}).filter({visible:true}).click();
   await expect(dialog.getByRole("status").filter({ hasText: /Cambio guardado/ })).toBeVisible();
-  assert.equal((await request(`/albums/${album.body.id}`)).body.releaseDateValue,"2001-05");
   await dialog.getByRole("button",{name:"Cerrar",exact:true}).last().click();
   assert.equal((await request("/auth/logout", "POST", {}, admin.csrf)).status, 204);
   await page.reload();
