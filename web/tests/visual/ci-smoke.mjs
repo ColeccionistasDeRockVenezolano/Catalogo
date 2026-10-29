@@ -120,7 +120,7 @@ try {
     }
     await page.setViewportSize({width:1440,height:1000});
   }
-  await dialog.getByRole("button",{name:"Cerrar",exact:true}).click();
+  await dialog.getByRole("button",{name:"Cerrar",exact:true}).last().click();
   const album=await request("/albums","POST",{title:"Edición QA Navegador",artistId:id,mediaFormat:"CD",note:"Edición independiente"},admin.csrf);
   assert.equal(album.status,201);
   const work=await request("/catalog-model/work","POST",{title:"Obra QA Navegador",artistId:id,note:"Obra documentada de prueba"},admin.csrf);
@@ -134,7 +134,7 @@ try {
   await dialog.getByRole("button",{name:"Guardar",exact:true}).filter({visible:true}).click();
   await expect(dialog.getByRole("status").filter({ hasText: /Cambio guardado/ })).toBeVisible();
   assert.equal((await request(`/albums/${album.body.id}`)).body.releaseDateValue,"2001-05");
-  await dialog.getByRole("button",{name:"Cerrar",exact:true}).click();
+  await dialog.getByRole("button",{name:"Cerrar",exact:true}).last().click();
   assert.equal((await request("/auth/logout", "POST", {}, admin.csrf)).status, 204);
   await page.reload();
   const reader = await login("qa.reader");
