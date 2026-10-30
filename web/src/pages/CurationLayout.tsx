@@ -13,9 +13,9 @@
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { PageBoundary } from "../components/PageBoundary";
 import { Link, NavLink, Outlet, useLocation, useOutletContext } from "react-router-dom";
-import { CaretDown, ClockCounterClockwise, Copy, Images, ListChecks, LockSimple, MagicWand, Pulse, Robot, SignIn, type Icon } from "@phosphor-icons/react";
+import { CaretDown, ClockCounterClockwise, Copy, Images, ListChecks, LockSimple, MagicWand, Pulse, Robot, SignIn, YoutubeLogo, type Icon } from "@phosphor-icons/react";
 import { useOperator } from "../lib/OperatorContext";
-import { ApiError, curationApi, entityMergeApi, imageCandidatesApi } from "../lib/api";
+import { ApiError, curationApi, entityMergeApi, imageCandidatesApi, youtubeIntakeApi } from "../lib/api";
 import { categoryIcon, formatCount } from "../lib/curation";
 import { LoadingState } from "../components/StateViews";
 import { RowsSkeleton } from "../components/Skeletons";
@@ -206,9 +206,32 @@ function currentEntry(pathname: string, entries: NavEntry[]): Pick<NavEntry, "la
  * por debajo de 1024 px se pliega en un botón que muestra la sección abierta y
  * despliega la lista completa.
  */
+/** Videos del canal que esperan algo: sin analizar, con propuesta o en revisión. */
+function useIntakeCount(enabled: boolean): number | undefined {
+  const [count, setCount] = useState<number>();
+
+  useEffect(() => {
+    if (!enabled) return undefined;
+    let current = true;
+    const refresh = () => {
+      youtubeIntakeApi.summary()
+        .then((summary) => { if (current) setCount(summary.sinAnalizar + summary.ready + summary.review); })
+        .catch(() => undefined);
+    };
+    refresh();
+    const timer = window.setInterval(() => {
+      if (document.visibilityState === "visible") refresh();
+    }, REFRESH_MS);
+    return () => { current = false; window.clearInterval(timer); };
+  }, [enabled]);
+
+  return count;
+}
+
 function CurationNav({ summary, duplicateCount, imageCount }: { summary: CurationSummary | undefined; duplicateCount: number | undefined; imageCount: number | undefined }) {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const intakeCount = useIntakeCount(Boolean(summary));
 
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
@@ -230,6 +253,7 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
   })) ?? [];
   const tools: NavEntry[] = [
     { to: "/curaduria/aportes", label: "Revisar aportes", icon: ListChecks },
+    { to: "/curaduria/youtube", label: "Videos de YouTube", icon: YoutubeLogo, ...(intakeCount !== undefined ? { count: intakeCount } : {}) },
     { to: "/curaduria/ia", label: "Propuestas con IA", icon: Robot },
     {
       to: "/curaduria/duplicados", label: "Posibles duplicados", icon: Copy,

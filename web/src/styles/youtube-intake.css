@@ -1,0 +1,35 @@
+/* CRV · Espacio «Videos de YouTube» (Curaduría). */
+
+.yt-intake { display: grid; gap: 14px; }
+.yt-intake .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.yt-intake__hint { margin: 0; color: var(--text-muted); font-size: 13px; }
+.yt-intake__count { margin-left: 6px; font-variant-numeric: tabular-nums; color: var(--text-muted); }
+.yt-intake__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.yt-intake__card {
+  display: flex; gap: 14px; padding: 12px; align-items: flex-start;
+  border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface);
+}
+.yt-intake__thumb { flex: 0 0 auto; width: 132px; aspect-ratio: 16 / 9; border-radius: 8px; object-fit: cover; background: var(--surface-2); }
+.yt-intake__body { min-width: 0; display: grid; gap: 4px; }
+.yt-intake__title { margin: 0; font-weight: 600; line-height: 1.35; }
+.yt-intake__title a { color: inherit; text-decoration: none; }
+.yt-intake__title a:hover { text-decoration: underline; }
+.yt-intake__meta { margin: 0; color: var(--text-muted); font-size: 13px; }
+.yt-intake__reason { margin: 0; font-size: 12.5px; color: var(--text-muted); }
+.yt-intake__actions { margin: 4px 0 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.yt-intake__status {
+  display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px;
+  font-size: 12px; font-weight: 600; border: 1px solid var(--border); background: var(--surface-2); color: var(--text-muted);
+}
+.yt-intake__status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.yt-intake__status.is-sin-analizar { color: var(--text-muted); }
+.yt-intake__status.is-planning { color: #b8860b; }
+.yt-intake__status.is-ready { color: #1d7a46; }
+.yt-intake__status.is-review { color: #b45309; }
+.yt-intake__status.is-linked { color: #2563eb; }
+.yt-intake__status.is-failed { color: #b91c1c; }
+
+@media (max-width: 720px) {
+  .yt-intake__card { flex-direction: column; }
+  .yt-intake__thumb { width: 100%; }
+}

@@ -66,6 +66,9 @@ import { registerEntityComparisonRoutes } from "./routes/entity-comparison.js";
 import { registerEntityVerificationRoutes } from "./routes/entity-verification.js";
 import { installAutofix } from "../curation/autofix.js";
 import { registerAiCurationRoutes } from "./routes/ai-curation.js";
+import { registerYouTubeIntakeRoutes } from "./routes/youtube-intake.js";
+import { linkVideoFromPlan } from "../youtube/intake.js";
+import { registerPlanAppliedHook } from "../curation/ai/store.js";
 import { registerEvidenceInventoryRoutes } from "./routes/evidence-inventory.js";
 import { registerSitemapRoutes } from "./routes/sitemap.js";
 
@@ -210,6 +213,10 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerEntityVerificationRoutes(app);
   await registerEntityComparisonRoutes(app);
   await registerAiCurationRoutes(app);
+  await registerYouTubeIntakeRoutes(app);
+  // El alta de videos del canal engancha el enlace video→disco al aplicar una
+  // propuesta de IA, sin acoplar el almacén de propuestas al módulo de YouTube.
+  registerPlanAppliedHook(linkVideoFromPlan);
   await registerEvidenceInventoryRoutes(app);
   // La autocorrección se engancha al final de cada análisis completo. Sigue
   // apagada mientras CRV_CURATION_AUTOFIX sea false y no haya reglas encendidas.

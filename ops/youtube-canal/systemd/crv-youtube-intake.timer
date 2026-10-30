@@ -1,0 +1,11 @@
+[Unit]
+Description=CRV alta asistida de videos del canal, cada hora (tras el vigilante)
+
+[Timer]
+OnCalendar=*-*-* *:30:00
+RandomizedDelaySec=5min
+Persistent=true
+Unit=crv-youtube-intake.service
+
+[Install]
+WantedBy=timers.target

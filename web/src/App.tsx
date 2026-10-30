@@ -42,6 +42,7 @@ const CurationImagesPage = lazy(() => import("./pages/CurationImagesPage").then(
 const CurationAutofixPage = lazy(() => import("./pages/CurationAutofixPage").then((module) => ({ default: module.CurationAutofixPage })));
 const AccountPage = lazy(() => import("./pages/AccountPage").then((module) => ({ default: module.AccountPage })));
 const AiCurationPage = lazy(() => import("./pages/AiCurationPage").then((module) => ({ default: module.AiCurationPage })));
+const YouTubeIntakePage = lazy(() => import("./pages/YouTubeIntakePage").then((module) => ({ default: module.YouTubeIntakePage })));
 const ChatPage = lazy(() => import("./pages/ChatPage").then((module) => ({ default: module.ChatPage })));
 
 /** Enlaces viejos (/revision/:id) siguen llevando a la revisión. */
@@ -113,6 +114,7 @@ export function App() {
             {/* Lista blanca de la autocorrección, solo admin (PLAN_CURADURIA E10). */}
             <Route path="autocorreccion" element={<CurationAutofixPage />} />
             <Route path="ia" element={<AiCurationPage />} />
+            <Route path="youtube" element={<YouTubeIntakePage />} />
           </Route>
           <Route path="/administrar/buscador" element={<SearchAdministrationPage />} />
           <Route path="/administrar" element={<Navigate to="/curaduria" replace />} />

@@ -22,6 +22,19 @@ import type {
 } from "./types.js";
 import { operationSignature, planOutcome } from "./coherence.js";
 
+/**
+ * Enganche que corre después de aplicar una propuesta (lote completo o un
+ * cambio aceptado). Lo usa el alta de videos del canal para enlazar el video
+ * al disco creado sin acoplar el almacén de propuestas al módulo de YouTube.
+ */
+type PlanAppliedHook = (plan: CatalogPlan) => Promise<unknown> | unknown;
+let planAppliedHook: PlanAppliedHook | undefined;
+export function registerPlanAppliedHook(hook: PlanAppliedHook): void { planAppliedHook = hook; }
+function notifyPlanApplied(plan: CatalogPlan): void {
+  if (!planAppliedHook) return;
+  void Promise.resolve().then(() => planAppliedHook!(plan)).catch(() => undefined);
+}
+
 const columns = `id::int,entity_kind AS "entityKind",entity_id::int AS "entityId",instruction,status,phase,revision,draft,evidence,reviewed_keys AS "reviewedKeys",decisions,preview,result,usage,requested_by AS "requestedBy",edited_by AS "editedBy",applied_by AS "appliedBy",error,run_id::int AS "runId",created_at::text AS "createdAt",updated_at::text AS "updatedAt"`;
 const pending = new Set<Promise<void>>();
 const workerOwner=randomUUID();
@@ -395,6 +408,7 @@ export async function applyPlan(
     throw error;
   }
   const applied = await getPlan(id);
+  notifyPlanApplied(applied);
   const refs = [
     ...(applied.preview?.affected ?? []),
     ...Object.values(applied.result?.created ?? {}),
@@ -513,7 +527,9 @@ export async function decidePlan(
     throw error;
   }
   void trackCurationWork(runCurationScan({ trigger: "correccion", requestedBy: operator, detail: `Cambio aceptado de propuesta IA ${id}: ${key}`, focus: affected.map(({ kind, id }) => ({ kind, id })) })).catch(() => undefined);
-  return getPlan(id);
+  const finalPlan = await getPlan(id);
+  notifyPlanApplied(finalPlan);
+  return finalPlan;
 }
 
 /** Refresh validation internally; this never accepts proposals or writes catalog data. */

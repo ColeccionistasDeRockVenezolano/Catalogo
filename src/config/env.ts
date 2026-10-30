@@ -104,6 +104,12 @@ const envSchema = z.object({
   // de nivel 0 de las reglas que un administrador haya encendido
   // (`ingest.curation_autofix_rules`), con tope por análisis y por día.
   CRV_CURATION_AUTOFIX: z.enum(["true", "false"]).default("false").transform((value) => value === "true"),
+  /** Detector global de duplicados de artista por evidencia (etapa 1: solo lectura). */
+  CRV_CURATION_DUPLICATE_DETECTOR: z.enum(["true", "false"]).default("true").transform((value) => value === "true"),
+  /** Incluye fragmentos citables del almacén local (RHV, RYM, Hippito, etc.). */
+  CRV_CURATION_LOCAL_EVIDENCE: z.enum(["true", "false"]).default("true").transform((value) => value === "true"),
+  /** Acción «verificar identidad con IA» en la bandeja de Curaduría (llamada bajo demanda). */
+  CRV_CURATION_AI_VERDICTS: z.enum(["true", "false"]).default("true").transform((value) => value === "true"),
   CRV_CURATION_AUTOFIX_MAX_PER_SCAN: z.coerce.number().int().nonnegative().max(5000).default(50),
   CRV_CURATION_AUTOFIX_MAX_PER_DAY: z.coerce.number().int().nonnegative().max(50_000).default(200),
 
@@ -158,6 +164,13 @@ const envSchema = z.object({
   CRV_AI_CURATION_MAX_TOKENS: z.coerce.number().int().min(1000).max(12000).default(6000),
   CRV_AI_CURATION_MAX_CALLS: z.coerce.number().int().min(1).max(3).default(2),
   CRV_AI_CURATION_CONTEXT_CHARS: z.coerce.number().int().min(8000).max(80000).default(40000),
+  // Alta asistida de videos del canal (espacio «Videos de YouTube»): cuántos
+  // videos prepara cada pasada y si las altas seguras se aplican sin esperar a
+  // que una persona acepte cambio por cambio.
+  CRV_YT_INTAKE_ENABLED: z.enum(["true", "false"]).default("true").transform((value) => value === "true"),
+  CRV_YT_INTAKE_AUTO: z.enum(["true", "false"]).default("false").transform((value) => value === "true"),
+  CRV_YT_INTAKE_MAX: z.coerce.number().int().min(1).max(20).default(4),
+  CRV_YT_INTAKE_ENRICH: z.enum(["true", "false"]).default("true").transform((value) => value === "true"),
   // Perfiles por API en la petición general de un artista: la discografía la
   // compara el código (MusicBrainz, Discogs, Deezer/iTunes) y el modelo no la lee.
   CRV_SOURCE_PROFILES_ENABLED: z.enum(["true", "false"]).default("false").transform((value) => value === "true"),

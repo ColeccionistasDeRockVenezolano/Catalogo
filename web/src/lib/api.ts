@@ -190,6 +190,32 @@ export const aiCurationApi = {
   implement:(plan:CatalogPlan,confirmSensitive:boolean)=>request<CatalogPlan>(`/curation/ai/plans/${plan.id}/implement`,{method:"POST",authenticated:true,body:{revision:plan.revision,previewHash:plan.preview?.hash,confirmSensitive}}),
 };
 
+export interface YouTubeIntakeRow {
+  videoDbId: number; videoId: string; title: string; publishedAt: string | null; thumbnailUrl: string | null; isAlbum: boolean;
+  status: "sin-analizar" | "pending" | "planning" | "ready" | "linked" | "review" | "failed" | "skipped";
+  artistName: string | null; albumTitle: string | null; releaseYear: number | null; trackCount: number;
+  artistId: number | null; planId: number | null; planStatus: string | null; planPhase: string | null;
+  planOperations: number; planPending: number;
+  enrichPlanId: number | null; enrichStatus: string | null; enrichPending: number; reviewId: number | null; reviewStatus: string | null;
+  reason: string | null; error: string | null; intakeId: number | null; albumId: number | null;
+}
+
+export interface YouTubeIntakeSummary {
+  sinAnalizar: number; planning: number; ready: number; review: number; linked: number; failed: number;
+  openReviews: number; plansReady: number;
+}
+
+export const youtubeIntakeApi = {
+  summary: () => request<YouTubeIntakeSummary>("/curation/ai/youtube/summary"),
+  videos: (status?: string, limit?: number) => request<YouTubeIntakeRow[]>("/curation/ai/youtube/videos", { query: { status, limit } }),
+  intake: (videoDbId: number) => request<{ videoDbId: number; status: string; artistId: number | null; planId: number | null; reason: string | null }>(
+    `/curation/ai/youtube/videos/${videoDbId}/intake`, { method: "POST", authenticated: true }),
+  sweep: (limit?: number) => request<{ started: number; results: unknown[] }>("/curation/ai/youtube/sweep",
+    { method: "POST", authenticated: true, body: { ...(limit ? { limit } : {}) } }),
+  auto: () => request<{ plans: number; accepted: number; skipped: number }>("/curation/ai/youtube/auto",
+    { method: "POST", authenticated: true }),
+};
+
 function buildUrl(path: string, query?: Query, baseUrl: string = BASE_URL): string {
   // La API puede vivir en el origen (desarrollo) o bajo un prefijo detrás de
   // un proxy, por ejemplo /crv/api en Tailscale Funnel. Un path que empieza
