@@ -419,3 +419,39 @@ plano). Al instalar el cliente de 1.1.39 queda conservado; el CRV anterior (1.1.
 `roadmap-public.min.css?v=1.1.39`; Chromium sin errores de consola en ES/EN a 1440 y 390, la
 tarjeta de radio se pinta con su portada y el globo de visitas ya no tapa el botón de reproducir
 en móvil (ver P5). El detalle de la comprobación está en `reports/b10-clave-2026-11`.
+
+## P7 · Aceptación del cierre: C1-C12 y /cuenta (2026-11-01)
+
+Referencia de paridad: **Herra 1.1.39**, congelada. Por decisión de Brian (2026-11-01), las
+ventanas privadas **3.7-3.13** y `/cuenta` se aceptan **contra las instrucciones**, sin capturas
+de Herra y sin usar credenciales de Herra; quedan marcadas «falta revisión de Brian». Las
+ventanas 3.1-3.6 sí tienen capturas lado a lado de Herra.
+
+| C | Ventana | Estado | Prueba real |
+|---|---|---|---|
+| C1 | Roadmap editable en el sitio (3.1-3.3, arrastre, deshacer) | **portada · cumple** | Capturas Herra/staging 1440/390 ES/EN en `~/crv-staging/reports/b6-herra-panel-2026-11` y `reports/admin-paridad-2026-11`; arrastre táctil con deshacer `reports/independencia/b7-tactil`; teclado 32/32 (`p7-teclado.mjs`). |
+| C2 | Nueva actividad / nueva etapa (3.1, 3.2) | **portada · cumple** | Ventanas 3.1 y 3.2 en las mismas capturas; abrir, foco y Escape comprobados en `p7-teclado.mjs` (32/32). |
+| C3 | Solicitudes pendientes con contador (3.5) | **portada · cumple** | B7 en staging + `e2e-flujos.mts` 46/46: invitación → registro → pendiente → aprobación → login. |
+| C4 | Candidaturas: detalle, estado, aceptar y enlace (3.6) | **portada · cumple** | B7 con bandeja real + `e2e-flujos.mts` 46/46: candidatura → aceptación 201 → activación → login; community recibe 403 donde no le toca. |
+| C5 | Personas, editor de persona y activaciones (3.4) | **portada · cumple** | `c5-persona-browser.mjs` **29/29** (escritorio/móvil/EN/community) y contrato `api-community-persona` 6/6; `p7-teclado.mjs` 32/32. |
+| C6 | Enlaces de registro (3.9) | **portada · cumple** | B8 19/19 con alta, copia, caducidad y revocación; `e2e-flujos.mts` 46/46 usa un enlace real. |
+| C7 | Métricas «Personas y bots» (3.7) | **portada · cumple contra instrucciones; falta revisión de Brian** | `b10-metricas-browser.mjs` **20/20**: periodos 7/30/90, tarjetas, SVG por tipo, agentes, pantallas, países, «Cómo se decide» y confirmación de «Poner a cero» (sin confirmarla). Sin captura de Herra por ser ventana privada. |
+| C8 | Formulario de colaboración (3.8) | **portada · cumple contra instrucciones; falta revisión de Brian** | B8 19/19: Campos/Textos/Categorías, efecto real en `/colaborar` (3 s / 2 s por la caché de 30 s). Sin captura de Herra. |
+| C9 | Identidad y compartir (3.10) | **portada · cumple contra instrucciones; falta revisión de Brian** | `b9-ventanas-browser.mjs` **28/28**: seis pestañas, favicon propio aplicado en la portada, metadatos y contexto. Sin captura de Herra. |
+| C10 | Idiomas del proyecto y del formulario (3.11) | **portada · cumple contra instrucciones; falta revisión de Brian** | `b9-ventanas-browser.mjs` 28/28: 30 campos, claves `collab.*`, títulos EN de las 5 etapas y 61 actividades, «Vaciar y volver al español». Sin captura de Herra. |
+| C11 | Configuración general + tema (3.12) | **portada · cumple contra instrucciones; falta revisión de Brian** | `b9-ventanas-browser.mjs` 28/28: visibilidad, idioma, tres interruptores, 12 textos/colores y JSON; solo `admin`. Sin captura de Herra. |
+| C12 | Mi contraseña (3.13) | **portada · cumple contra instrucciones; falta revisión de Brian** | `b10-clave-browser.mjs` **12/12**: actual incorrecta, débil, cambio correcto, login con la nueva, demás sesiones fuera y restauración verificada desde un contexto limpio. Sin captura de Herra. |
+| — | `/cuenta` (sección 4) | **portada · cumple contra instrucciones; falta revisión de Brian** | B7 **51/51** a 1440/390 ES/EN con capturas en `reports/b7-cuenta-2026-11`; `p7-teclado.mjs` comprueba cabecera, campos y foco. Sin captura de Herra. |
+
+**§6 · teclado y limpieza:** `scripts/checks/p7-teclado.mjs` abre las 13 herramientas y `/cuenta`,
+comprueba foco dentro del diálogo, cierra con Escape y mide móvil 390: **32/32**. Después de cada
+guion la foto de staging vuelve a **61 actividades, 27 completadas, 5 etapas, 3 admins, 5 usuarios,
+8 personas y 0 sesiones de prueba**.
+
+**CP0 (B5, portada renderizada desde datos):** cumplido y verificado en staging; la única
+diferencia con la portada viva son los contadores y el acceso del equipo (ajuste del proyecto,
+no código).
+
+**Lo que no se hizo a propósito:** ninguna C se descarta. No se usaron credenciales de Herra ni
+se capturaron sus ventanas privadas (decisión de Brian). La revisión final de las ventanas 3.7-3.13
+y `/cuenta` queda en manos de Brian.

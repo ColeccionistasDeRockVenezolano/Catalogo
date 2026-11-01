@@ -114,7 +114,72 @@ sin imágenes rotas, sin errores de consola ni peticiones fallidas, POST de logi
 
 - Crear la instancia `crv-landing` cuando Brian autorice la 2B, con
   `CRV_ALLOWED_ORIGINS=https://coleccionistasderockvenezolano.com` y `CRV_TRUST_CF_HEADERS=true`.
-- El reinicio de producción (B4) es también cuando entra el `base-uri 'self'` de la CSP y los
-  secretos propios en el `.env` del catálogo.
+- ~~El reinicio de producción (B4) es también cuando entra el `base-uri 'self'` de la CSP y los
+  secretos propios en el `.env` del catálogo.~~ **Hecho:** `crv-web` se reinició el 2026-11-01 a
+  las 15:59 con permiso de Brian y ya sirve la CSP nueva.
 - La portada estática sigue mostrando «Entrar» con la sesión abierta: es CP0/B5, no un fallo de
   cookies.
+
+## 2A.4 B4 · producción con los interruptores apagados (cumple)
+
+`crv-api` se reinició **solo** dos veces el 2026-11-01: a las **14:35:28** y a las **18:35:42**
+(`systemctl --user show crv-api -p ActiveEnterTimestamp`). El origen de ambos reinicios **no está
+confirmado** (el primero se atribuyó probablemente a Codex; el segundo no se investigó). `crv-web`
+se reinició a las **15:59:20 con permiso de Brian**. No se reinició nada desde esta sesión.
+
+Comprobación de producción tras el reinicio (2026-11-01 20:3x, solo GET y dos POST con cuerpo `{}`):
+
+| Ruta | Antes | Ahora |
+|---|---|---|
+| `GET :8080/health` | 200 | **200** |
+| `GET :8080/roadmap` | 200 | **404** |
+| `GET :8080/site-config` | 200 | **404** |
+| `GET :8080/radio/now` | 200 | **404** |
+| `POST :8080/community/applications` | 400 (ruta viva) | **404** |
+| `POST :8080/roadmap/visit` | 200 | **404** |
+| `GET :8080/artists?page=1&pageSize=1` | 200 | **200** |
+| `https://coleccionistasderockvenezolano.com/` | 200 | **200** |
+| `https://coleccionistasderockvenezolano.com/crv` | 404 | **404** |
+| `https://mini-server.tail5815b0.ts.net/crv/` | 200 | **200** |
+
+Con esto B4 deja de estar «pendiente de permiso»: la API de producción ya no expone las rutas de
+la Fase 2 y el catálogo sigue sirviendo.
+
+## 2A.5 F2-2, F2-3 y F2-4
+
+### F2-2 · doble conteo en el cambio de dueño
+
+- **Mitigación:** la ventana de la 2B se abre a las **00:00-00:30 de `America/Caracas`**
+  (`DAILY_TIME_ZONE` en `src/shared/daily-cycle.ts`). A esa hora cambia el día del contador; una
+  visita anterior y otra posterior caen en días distintos y ninguna se cuenta dos veces, aunque
+  Herra y CRV usen secretos de huella distintos.
+- **Prueba de la zona horaria:** `src/api/roadmap/visits.test.ts` (3/3) comprueba que
+  `2026-11-01T02:00:00Z` es `2026-10-31` y `2026-11-01T04:00:00Z` es `2026-11-01` en Caracas.
+- **Prueba de deduplicación por día (staging, transacción con `ROLLBACK`):** dos `INSERT` del mismo
+  `(project_id, day, visitor)` con `ON CONFLICT DO NOTHING` dejan **1 fila**; el mismo `visitor` en
+  el día siguiente deja **2 filas**. El día forma parte de `visitorFingerprint`, así que la huella
+  de ayer no coincide con la de hoy.
+- **Límite conocido:** el cambio de dueño no puede impedir que una visita justo en el borde de las
+  00:00 se registre en Herra y en CRV si los relojes no están sincronizados; por eso la ventana
+  reserva 30 minutos y se revisa el contador después.
+
+### F2-3 · tráfico clasificado
+
+- En staging está cubierto por B10/P4: `traffic_daily` y `traffic_visitors` se escriben con el
+  interruptor `CRV_TRAFFIC_ENABLED=1` (solo staging), con persona y bot separados y sin guardar IP
+  ni User-Agent de personas.
+- **Para producción falta:** encender `CRV_TRAFFIC_ENABLED=1` **solo después** del cambio de dueño
+  de la 2B; antes competiría con Herra por las mismas tablas (R5). No se enciende en esta fase.
+  También falta que el timer de listas de verificación (IP/DNS) corra en producción, que hoy no
+  está instalado.
+
+### F2-4 · radio en la instancia raíz
+
+- `:3141` reenvía `/api/radio/{now,listener,unavailable}` a Herra (`CRV_RADIO_PROXY_URL=http://127.0.0.1:3020`).
+- **Prueba (solo GET, sin tocar el contador de oyentes):** `GET :3141/api/radio/now` y
+  `GET :3020/api/radio/now` devuelven las mismas claves y el mismo `phase` (`music`), con
+  `listeners: 0` en ambos. Salidas guardadas en
+  `~/crv-staging/reports/staging-limpieza-2026-11/radio-{3141,herra}.json`.
+- `POST /api/radio/listener` y `/api/radio/unavailable` **no se prueban** contra Herra real: los
+  guiones los bloquean a propósito. El reemplazo definitivo del proxy queda en la Fase 3, cuando
+  CRV emita la radio.

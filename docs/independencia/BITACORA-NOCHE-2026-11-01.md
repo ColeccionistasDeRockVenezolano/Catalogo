@@ -58,8 +58,12 @@ documentos de arranque y continuar desde el primer bloque que no esté en «cump
 **(c) Bloqueado / incidencias**
 
 - Nada bloqueante. Durante las pruebas, el limitador de intentos de acceso de la API de staging
-  (por IP) frenó los inicios de sesión repetidos: se resolvió reiniciando `crv-api-staging`; es el
-  comportamiento esperado, no un fallo.
+  frenó los inicios de sesión repetidos. **Causa exacta (corregida en la explicación):** el cupo de
+  la cuenta (`ip:usuario`) se perdona al acertar, pero el de la **IP sola** no; cuenta los 20
+  intentos por 15 min **incluidos los aciertos**. Al encadenar guiones desde `127.0.0.1`, el 21.º
+  login correcto devolvía 429 y b9 fallaba en cascada. Evidencia reproducida: 20 logins correctos
+  seguidos desde una IP → 200; el 21.º → **429**; otra IP con la misma cuenta → 200. No es un fallo
+  del login, es la regla del limitador; la regla propuesta está en la entrada de las 20:3x.
 - El globo «ONLINE (1)» de la portada se solapa con el botón del reproductor en móvil (Fase 3,
   anotado para B10).
 - `staging.env` (fuera del repo) tiene ahora secretos propios y `NODE_ENV=production`.
@@ -133,7 +137,7 @@ El buzón no se versiona: es correspondencia, no documentación del plan.
 | B1 | cumple | `CRV_COMMUNITY_ENABLED`/`CRV_RADIO_ENABLED` apagados por defecto y registrados condicionalmente; `CRV_WEB_MODE` validado; redirección sin prefijo solo con `CRV_WEB_REDIRECT_UNPREFIXED=1`; 0124 en `migrations/pending`; `deploy.sh` aborta en rama/cambios. Prueba: API alterna :8093 con flags false → 404 en roadmap/site-config/radio/community y health 200; staging con flags → 200; `/roadmap` sin prefijo → 302 y `/crv/roadmap` 200; `bash scripts/deploy.sh` abortó por rama. Typecheck backend/web, 18/18 vitest. **Cierre 09:3x:** el `.down` de 0124 ya no borra cuentas — aborta con `hay N cuentas curator/community; reasígnalas antes de revertir` y sin ellas restaura el CHECK `superadmin/admin` (probado en `crv_staging` con transacción + `ROLLBACK`: aborta con 1+1 cuentas, restaura con 0, idempotente, 3 admins intactas); ESLint dirigido 0 errores, `build:staging` OK y navegador real 12/12 (escritorio 1366×900 y móvil 390×844, ES/EN en roadmap, colaborar y login). |
 | B2 | cumple | P-1…P-4, F1-1…F1-6 y F2-1 corregidos. Pruebas: API flags false 404/health 200; guardia `linked_admin` 403; revocación rejected+hash NULL+sesión 401; último admin 409 `last_admin`; usernames reservados 409 y con espacio 400; `reviewed_by_admin_id` real; community sin Ajustes; landing con `<base>` y `meta crv-api-base`, `fetch("api/roadmap")` 200 y cero `../`. **Cierre 09:3x:** vitest 24/24 (chat-safety 16 + comunidad 8), typecheck backend/web, ESLint dirigido de los 12 archivos tocados, `build:staging` OK; navegador real 12/12 con capturas e informe JSON en `~/crv-staging/reports/independencia/b2-navegador/`; paridad 61/27/5 intacta. Dos hallazgos corregidos en esta pasada: CSP `base-uri 'none'` → `'self'` (bloqueaba el `<base>` inyectado y dejaba inerte `document.baseURI`) y la prueba de moderación sin sesión, que esperaba 401 cuando la API responde 403 `writes_disabled` con las cuentas ya solo en PostgreSQL. `FASE2A.md` actualizado. |
 | B3 | cumple | `clientIp` acepta `CF-Connecting-IP` solo con `CRV_TRUST_CF_HEADERS` + peer loopback + IP válida; `web/server.mjs` descarta `cf-connecting-ip`/`cf-ipcountry` si el peer no es local y además arregla el modo raíz (`apiPath` `/api` y sin `//`); país por `cf-ipcountry` con `normalizeCountry`; cookie `Path=/; HttpOnly; SameSite=Strict; Secure` sin `Domain`; dominio y `TRUST_CF` solo en `ops/staging/crv-landing.env.example` (2B, no instalado); staging con `NODE_ENV=production` y secretos propios. Pruebas: unit `client-ip.test.ts` 5/5; e2e API :8093 + gateway :3141 → mismo XFF (túnel) y dos CF-IP dan **1 visita sin interruptor y 2 con él** (`ve`,`br`); peer `127.0.0.2` con CF-IP → 1 visita (cabecera descartada); `VE`→`ve` y `ZZ`→`zz`; login real en Chromium con cookie httpOnly/secure/Strict/path=/ y `/auth/me` 200 admin; vitest 29/29, typecheck, ESLint, `build:staging` y 12/12 de navegador. Limpieza: fixtures `--clean`, sesiones `fase1-*` borradas, 52 visitas / 284 acumuladas. |
-| B4 | pendiente de permiso | Producción sigue con el API viejo: `POST /community/applications` responde 400 (ruta viva) y `POST /roadmap/visit` 200. Comando exacto: `systemctl --user restart crv-api`. Antes: anotar `curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8080/community/applications -H 'content-type: application/json' -d '{}'` (hoy 400). Después, todo debe dar: `/health` 200, `/roadmap` 404, `POST /community/applications` 404, `/site-config` 404, `/radio/now` 404, `/artists?page=1&pageSize=1` 200, `https://coleccionistasderockvenezolano.com/` 200, `/crv` 404 y `https://mini-server.tail5815b0.ts.net/crv/` 200. Guardarraíles de ahora (sin tocar nada): dominio 200, `/crv` 404, funnel 200. `crv-web` de producción se reinicia aparte, después y solo con la CSP nueva ya probada. |
+| B4 | cumple | `crv-api` reiniciado solo a las **14:35:28** y **18:35:42** (origen no confirmado en ambos; el primero, probablemente Codex). `crv-web` a las 15:59:20 con permiso de Brian. Comprobado: `/health` 200; `/roadmap`, `/site-config`, `/radio/now`, `POST /community/applications` y `POST /roadmap/visit` **404**; `/artists` 200; dominio 200, `/crv` 404, Funnel 200. Detalle en `FASE2A.md` §2A.4. |
 | B5 | render implementado y verificado | Cinco plantillas EJS de Herra 1.1.34, datos PostgreSQL, rutas `/landing/:page` y gateway con caché anónima de 30 s y fallback. 15/15 vitest, typechecks API/web, ESLint dirigido y build de staging; Chromium 20/20 a 1440/390 ES/EN; dato vivo restaurado, login/logout, tokens válidos y caché privada probados, sin fixtures ni sesiones. Campaña `reports/b5-render-2026-11` publicada y conservada en SSD. Las diferencias observadas frente al texto vivo se anotan en `FASE2.md` y el informe. |
 | B6 | cumple (2 diferencias anotadas) | C1-C2 y correcciones de las 10:1x: Anton a `font-weight: 400` (5 reglas), menú lateral sin cortes (etiquetas que envuelven, columna 258 px), deshacer real en mover/anclar/estado. **Capturas lado a lado**: 28 PNG del `/admin` de Herra (panel y ventanas 3.1–3.6, 1440/390, ES/EN) en `~/crv-staging/reports/b6-herra-panel-2026-11`, capturadas desde el navegador de Brian sin escribir en Herra, y 10 de staging en `reports/admin-paridad-2026-11` con `INFORME.md` y la tabla de estructura. Diferencias anotadas: la 13.ª herramienta se llama «Ver limpia» en Herra y «Ver vista pública» en CRV (texto de las instrucciones), y el orden de las completadas de la Fase 01 aún no usa `completedAt` (la API ya lo acepta). |
 | B7 | cumple: 3.4 (con C5), 3.5, 3.6, táctil y /cuenta | Ventanas **3.4 Personas y colaboradores** (lista con búsqueda y filtro, alta con código, cambio de código, enlace de activación, revocación con motivo) y **3.5 Solicitudes pendientes** (Aprobar/Rechazar) funcionales en `?herramienta=personas|pendientes`, con contadores reales. **Arrastre táctil** de actividades entre etapas verificado con toques reales por CDP: cambia el orden, abre el aviso «Deshacer» y el deshacer restaura (informe en `reports/independencia/b7-tactil`). La API acepta `completedAt`. **3.6 Candidaturas**: bandeja con filtro por estado y búsqueda, detalle y estados/aceptación. **/cuenta (sección 4)**: cabecera con avatar y «Sesión: {usuario} en {proyecto} · Persona #N · Colaborador #N», aviso de perfil incompleto, datos personales (8 campos con la nota de dato interno), perfil de colaboración con chips, mis enlaces con visibilidad por fila, visibilidad del perfil, contraseña y pie fijo «← Volver al roadmap» · «Guardar cambios». Endpoints nuevos `GET/PATCH /account/profile` y `POST /account/password` (no existía ninguno de la propia cuenta), `roleCanAccess` deja `/account/*` a cualquier rol y `restampSession` conserva la sesión al cambiar la clave. Pruebas: 10 unitarias de validación + roles, API real con curl (400/403/401/200 y las otras sesiones se invalidan) y navegador real **51/51** a 1440×900 y 390×844, ES/EN, con capturas en `~/crv-staging/reports/b7-cuenta-2026-11`; typecheck, ESLint dirigido y `build:staging` correctos. Detalle en `docs/independencia/FASE2-B7-cuenta.md`. Staging queda en 61/27/5, 3 admins, 5 usuarios y 8 personas, sin fixtures ni sesiones. |
@@ -163,8 +167,11 @@ El buzón no se versiona: es correspondencia, no documentación del plan.
   permisos, perfil, validaciones, usuario (duplicado/de admin/inválido/sesiones) y borrado (403 en
   vinculada, tareas sin responsable, candidatura con `user_id` NULL); «Quitar» avisa de las tareas.
   (d) `c5-persona-browser.mjs` cubre móvil 390, inglés y rol `community`: **28/28** en staging.
-- B4: no se reinicia producción. `crv-api` se reinició solo a las 14:35:28 (origen sin identificar)
-  y `crv-web` a las 15:59 con permiso de Brian.
+- B4: **cumple**. `crv-api` se reinició solo a las 14:35:28 y a las 18:35:42 (origen **no
+  confirmado** en ambos; el primero se atribuyó probablemente a Codex) y `crv-web` a las 15:59:20
+  con permiso de Brian. Producción comprobada: `/health` 200, `/roadmap`, `/site-config`,
+  `/radio/now`, `POST /community/applications` y `POST /roadmap/visit` 404; catálogo 200; dominio
+  200, `/crv` 404, Funnel 200.
 
 ## Incidencias y decisiones pendientes
 
@@ -177,3 +184,96 @@ El buzón no se versiona: es correspondencia, no documentación del plan.
 - `scripts/checks/landing-browser-check.mjs` deja capturas e informe en el staging del SSD
   (`~/crv-staging/reports/independencia/b2-navegador/`), no en `/tmp`.
 - Nada de `/tmp` para informes; las capturas y reportes van al staging del SSD.
+
+## Cierre de la Fase 2 · 2026-11-01 20:5x
+
+### Paso 1 · staging limpio y guiones sin residuos
+
+Foto inicial: **61/27/5, 6 admins, 6 usuarios, 9 personas, 37 sesiones (36 de prueba)**. Se
+identificó cada residuo antes de borrar (inventario en
+`~/crv-staging/reports/staging-limpieza-2026-11/residuos-antes.csv`):
+
+| Residuo | Origen | Corrección |
+|---|---|---|
+| 3 admins `fase1-admin/community/curator` | `scripts/fase1-fixtures.ts` ejecutado a las 21:55 sin `--clean` (tanda anterior) | `scripts/checks/lib/fixtures.mjs`: cada guion prepara y **retira** las cuentas de rol en su propio ciclo |
+| 36 sesiones `fase1-*` | logins de b9/b10/c5/e2e sin limpieza de sesiones | `limpiarFixtures()` borra sesiones y caché `~/crv-staging/sesiones`; los guiones reutilizan sesión |
+| `e2e-ehd6i` (usuario), persona 22 y 3 candidaturas | `e2e-flujos.mts` cortado antes de limpiar; el `DELETE` de personas no casaba `first_name = 'E2E Candidatura …'` y no borraba candidaturas | limpieza por `(first_name || ' ' || last_name) LIKE 'E2E %'`, candidaturas `e2e-%@example.com` y usuarios `e2e-%` |
+
+Después: **61/27/5, 3 admins, 5 usuarios, 8 personas, 0 sesiones de prueba**. Queda **1 sesión
+real de Brian** (`brian`), que no se toca y se reporta. Las personas 9-11 («Colaborador
+Prueba»/«Prueba», creadas en la madrugada) forman parte de la foto base de 8 y se conservan.
+
+### Paso 2 · portada raíz (`web/server.mjs`)
+
+- `/sitemap.xml`, `/sitemap-*.xml` y `/llms.txt` **fuera** de la lista blanca: 404 en modo landing.
+- `robots.txt` propio del modo portada: `User-agent: * / Allow: /`, sin `/api`, sin `/curaduria`
+  y sin `Sitemap`.
+- 404 a **doble barra y barra invertida** (`//curaduria`, `///curaduria`, `/\curaduria`,
+  `//artistas`, `//crv`, `//docs`) mirando la ruta cruda antes de que `new URL` la convierta en
+  host; también a su forma decodificada (`%2f%2f…`, `%5c…`).
+- `fase2b-whitelist.mjs` ampliado: **72/72**, con rutas codificadas (`/%63rv`, `/%43RV`),
+  mayúsculas (`/CRV`, `/Curaduria`), `sitemap-*.xml`, `/llms.txt`, dobles barras crudas y
+  comprobación de que ninguna página permitida enlaza al catálogo.
+- Modo catálogo con prefijo quitado: `/artistas` 200, `/curaduria/roadmap` 200,
+  `/api/artists?page=1&pageSize=1` 200, `/robots.txt` y `/sitemap.xml` 200. La guarda nueva solo
+  se aplica a `CRV_WEB_MODE=landing`. Hallazgo preexistente: en catálogo con prefijo vacío `/`
+  responde 301 a `//` (no lo usa la 2B; no se tocó para no cambiar el modo catálogo).
+
+### Paso 3 · limitador de acceso
+
+`src/api/auth.ts`: el cupo por cuenta (`ip:usuario`, 5) **se perdona al acertar**; el cupo por IP
+sola (20) **no se perdona** y cuenta **todos** los intentos, aciertos incluidos. Evidencia
+reproducida contra la API de staging (archivo
+`reports/staging-limpieza-2026-11/limitador-evidencia.txt`): 20 logins **correctos** seguidos desde
+una IP → 200; el 21.º → **429**; otra IP con la misma cuenta → 200. Esa fue la causa del fallo de
+b9 (varias corridas encadenadas desde 127.0.0.1 agotaban el cupo de la IP).
+
+**Efecto con varios colaboradores detrás de una misma IP** (oficina/NAT): todos comparten los 20
+intentos/15 min; cinco personas que reconecten cuatro veces bloquean el acceso de todas aunque
+sus claves sean correctas. **Regla propuesta, sin aplicar:** al acertar, descontar **un** intento
+del cupo de la IP (no borrar el contador completo, que permitiría resetearlo con una cuenta
+propia), de modo que solo acumulen los fallos; mantener 20/15 min y añadir un techo aparte de
+usuarios distintos fallados por IP para el spray. Requiere decisión de Brian.
+
+Guiones corregidos: sesión guardada y reutilizada, IP de prueba distinta por corrida y ciclo de
+fixtures propio. Ya no dependen de reiniciar `crv-api-staging`.
+
+### Paso 4 · commits
+
+- `3911d8eb` test(independencia): limpiar staging y aislar el limitador en los guiones.
+- `919ef6c6` test(independencia): flujos de punta a punta y matriz de roles por interfaz.
+- `1cec2040` feat(landing): puertas de la 2B, robots propio y 404 a rutas normalizadas.
+- `scripts/checks/_tmp-raiz{,2,3}.mjs` borrados. RHV, `retirar-silueta-deezer.ts` y los cambios
+  de otras sesiones quedan fuera.
+
+### Paso 5 · P7
+
+Tabla C1-C12 y `/cuenta` en `FASE2.md` §«P7 · Aceptación del cierre». C1-C6 **cumple** con
+capturas de Herra 1.1.39; C7-C12 y `/cuenta` **cumple contra instrucciones; falta revisión de
+Brian** (ventanas privadas, sin credenciales de Herra). `p7-teclado.mjs`: **32/32** (foco, Escape,
+móvil 390, limpieza).
+
+### Paso 6 · P8
+
+`FASE2A.md` §2A.4 (B4) y §2A.5 (F2-2, F2-3, F2-4); B4 arriba en esta bitácora; `FASE2B.md` con
+referencia de paridad **Herra 1.1.39** y lista blanca 72/72.
+
+### Paso 7 · repetición completa (foto antes y después de cada guion)
+
+| Guion | Resultado |
+|---|---|
+| `c5-persona-browser.mjs` | **29/29**, foto limpia |
+| `b9-ventanas-browser.mjs` | **28/28**, foto limpia |
+| `b10-clave-browser.mjs` | **12/12**, foto limpia |
+| `b10-metricas-browser.mjs` | **20/20**, foto limpia |
+| `e2e-flujos.mts` | **46/46**, foto limpia |
+| `e2e-roles-ui.mjs` | **26/26**, foto limpia |
+| `fase2b-whitelist.mjs` | **72/72** |
+| `fase2b-ensayo.mjs` | **34/34**, 0 POST bloqueados a la radio real |
+| `fase2b-paridad.mjs` | 20 diferencias anotadas (acceso del equipo, contadores y ajustes del formulario; ninguna de código) |
+| `fase2b-vuelta-atras.mjs` | cambio 3 885 ms (primer render del destino), vuelta **6 ms** |
+| `p7-teclado.mjs` | **32/32** |
+
+Calidad: `npm run typecheck` OK; `web` typecheck OK; `vitest src/api/roadmap/visits.test.ts`
+**3/3**; ESLint dirigido **0 errores**; `npm --prefix web run build:staging` OK. La foto final
+vuelve a 61/27/5, 3/5/8 y 0 sesiones de prueba (1 sesión real de Brian).
