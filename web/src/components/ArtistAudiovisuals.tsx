@@ -46,7 +46,7 @@ export function ArtistAudiovisuals({ items, artistId, artistName }: { items: Art
       {visible.map(item => <li key={item.id} className="audiovisuals__item">
         <ChannelVideoCard video={{ videoId: item.videoId, title: item.title, thumbnailUrl: item.thumbnailUrl, publishedAt: item.publishedAt ?? null }}
           today={cycle?.date} url={item.url} onPlay={item.playable ? () => open(item) : undefined}
-          unavailableLabel={item.playable ? undefined : !item.videoId ? "Sin video disponible" : item.publicationStatus === "copyright_blocked" ? "Video bloqueado" : item.publicationStatus === "unpublished" ? "Video no disponible" : "Disponibilidad sin verificar"}>
+          unavailableLabel={item.playable ? undefined : !item.videoId ? "Sin video disponible" : item.publicationStatus === "copyright_blocked" ? "Video bloqueado" : item.publicationStatus === "unpublished" ? "Video no disponible" : "No se puede ver en el sitio"}>
           <p className="audiovisuals__meta">{KINDS[item.kind]}{item.releaseYear !== null ? ` · ${item.releaseYear}` : ""}{item.durationSeconds !== null ? ` · ${formatDuration(item.durationSeconds)}` : ""}</p>
           {item.tags?.length ? <p className="muted-note">{item.tags.join(' · ')}</p> : null}
           {item.playable && item.chapters.length ? <details className="audiovisuals__details">

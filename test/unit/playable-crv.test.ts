@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isPlayableCrvVideo, isPlayableYoutubeVideo, playableCrvVideoIds, playableVideoIds, playableVideoSql, unplayableReason } from '../../src/youtube/playable-crv.js';
+import { isPlayableCrvVideo, isPlayableYoutubeVideo, playableCrvVideoIds, playableVideoIds, playableVideoSql, shownCrvVideoIds, shownVideoIds, shownVideoSql, unplayableReason } from '../../src/youtube/playable-crv.js';
 import { CRV_CHANNEL_ID } from '../../src/youtube/home-channel.js';
 import type { YouTubeVideoPayload } from '../../src/youtube/api.js';
 
@@ -44,7 +44,18 @@ describe('reproducibilidad según el registro de la base', () => {
     for (const field of ["publication_status = 'published'", 'privacyStatus', 'uploadStatus', 'embeddable', 'rejectionReason',
       'failureReason', 'liveBroadcastContent', 'ytAgeRestricted', 'regionRestriction,allowed']) expect(sql).toContain(field);
   });
+  it('allowUnlisted acepta el no listado y mantiene el resto de la regla', () => {
+    const sql = playableVideoSql('v', { allowUnlisted: true });
+    expect(sql).toContain("IN ('public','unlisted')");
+    expect(sql).toContain('embeddable');
+    expect(playableVideoSql('v')).not.toContain('unlisted');
+  });
+  it('las páginas muestran todo lo registrado, sin filtrar por estado', () => {
+    expect(shownVideoSql('v')).toBe('(v.video_id IS NOT NULL)');
+  });
   it('no consulta la base sin IDs válidos', async () => {
+    expect(await shownVideoIds([])).toEqual(new Set());
+    expect(await shownCrvVideoIds(['corto'])).toEqual(new Set());
     expect(await playableVideoIds([])).toEqual(new Set());
     expect(await playableCrvVideoIds(['corto', 'demasiado-largo'])).toEqual(new Set());
   });

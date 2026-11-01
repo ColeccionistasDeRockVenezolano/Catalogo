@@ -802,7 +802,7 @@ async function syncAvailabilityNotices(client: PoolClient, opened: AvailabilityN
     }
     const label = UNPLAYABLE_LABELS[reason];
     const albumText = row.albums.map(album => `«${album.title}» (disco ${album.id})`).join(", ");
-    const note = `Video de YouTube ${row.video_id} no se muestra en el sitio: ${label}.${albumText ? ` Vinculado a ${albumText}.` : ""}`;
+    const note = `Video de YouTube ${row.video_id} no se puede reproducir en el sitio: ${label}.${albumText ? ` Vinculado a ${albumText}.` : ""}`;
     const inserted = await client.query(`
       INSERT INTO ingest.review_queue(kind, video_id, album_id, priority, payload, notes)
       SELECT 'manual_review', $1, $2, 4, $3::jsonb, $4

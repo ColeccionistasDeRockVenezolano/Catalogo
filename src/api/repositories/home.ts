@@ -9,7 +9,7 @@ import { artistGroupSql } from "./artist-groups.js";
 import { CRV_CHANNEL_ID, CRV_CHANNEL_URL, latestChannelSnapshot } from "../../youtube/home-channel.js";
 import { dailyCycleForDate, dayNumber, type DailyCycle } from "../../shared/daily-cycle.js";
 import { imageFocus, type ImageFocus } from "../../storage/image-focus.js";
-import { playableVideoSql } from "../../youtube/playable-crv.js";
+import { shownVideoSql } from "../../youtube/playable-crv.js";
 export { dailyDate as caracasToday, dayNumber } from "../../shared/daily-cycle.js";
 
 /** Décadas que la portada ofrece en «Por época», de la más vieja a la más nueva. */
@@ -128,7 +128,7 @@ export async function getHomeData(date: string): Promise<HomeData> {
          LEFT JOIN LATERAL (SELECT vr.artist_id FROM media.video_artists vr WHERE vr.video_id = v.id
                              ORDER BY (vr.relation_kind = 'performer') DESC, vr.artist_id LIMIT 1) vr ON true
          LEFT JOIN ingest.catalog_artists ar ON ar.id = vr.artist_id
-        WHERE v.channel_id = $2 AND ${playableVideoSql('v')}
+        WHERE v.channel_id = $2 AND ${shownVideoSql('v')}
         ORDER BY v.published_at DESC NULLS LAST, v.id DESC
         LIMIT $1`, [VIDEO_LIMIT, CRV_CHANNEL_ID]),
     // Recorrer artistas, no discos: las discografías grandes no acaparan la tanda.

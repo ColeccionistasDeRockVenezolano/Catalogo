@@ -18,7 +18,7 @@ import { ALBUM_EDITION_TYPES_SQL, extraAlbumFilterSql } from "./album-categories
 import { parseCategorySelection } from "../../shared/category-selection.js";
 import { albumYoutubeVideoId, youtubeVideoId } from "../../shared/youtube-playback.js";
 import { CRV_CHANNEL_ID } from "../../youtube/home-channel.js";
-import { playableVideoIds } from "../../youtube/playable-crv.js";
+import { shownVideoIds } from "../../youtube/playable-crv.js";
 
 export interface AlbumListRow {
   id: number;
@@ -378,14 +378,15 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
   const row = rows[0];
   if (!row) return null;
   // Manda el registro de la base para todo video de YouTube del disco (CRV u
-  // otro canal); la ficha no consulta a YouTube. Lo no reproducible no se ofrece.
+  // otro canal); la ficha no consulta a YouTube. Se ofrece todo lo registrado, sea
+  // cual sea su estado (Brian, 2026-11-01); el reproductor avisa si no se puede ver.
   const discs0 = row['discs'] as AlbumDetail['discs'];
   const linkedIds = [
     ...(row['youtube_links'] as AlbumDetail['youtubeLinks']).map(link => link.videoId),
     youtubeVideoId(row['youtube_url'] as string | null),
     ...discs0.flatMap(disc => disc.platforms.filter(link => link.platform === 'youtube').map(link => youtubeVideoId(link.url))),
   ].filter((videoId): videoId is string => Boolean(videoId));
-  const playable = await playableVideoIds(linkedIds);
+  const playable = await shownVideoIds(linkedIds);
   const allowedCrvIds = new Set((row['crv_video_ids'] as string[]).filter(videoId => playable.has(videoId)));
   row['youtube_links'] = (row['youtube_links'] as AlbumDetail['youtubeLinks']).filter(link => playable.has(link.videoId));
   if (!playable.has(youtubeVideoId(row['youtube_url'] as string | null) ?? '')) row['youtube_url'] = null;
@@ -396,7 +397,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
   const tracklist = row["tracklist"] as AlbumTrackRow[];
   const occurrences = row["youtube_occurrences"] as Array<{ trackId: number; videoId: string; startSeconds: number; durationSeconds: number | null }>;
   const albumVideo = albumYoutubeVideoId({ youtubeLinks: row["youtube_links"] as AlbumDetail["youtubeLinks"],
-    youtubeUrl: ["unpublished", "copyright_blocked"].includes(row["youtube_status"] as string) ? null : row["youtube_url"] as string | null });
+    youtubeUrl: row["youtube_url"] as string | null });
   const discs = row["discs"] as AlbumDetail["discs"];
   for (const track of tracklist) {
     // El tiempo pertenece al video que se reproduce, incluido el de un CD/lado propio.
@@ -440,7 +441,7 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
     coverUrl: row["cover_url"] as string | null,
     description: row["description"] as string | null,
     notes: row["notes"] as string | null,
-    youtubeUrl: ["unpublished", "copyright_blocked"].includes(row["youtube_status"] as string) ? null : row["youtube_url"] as string | null,
+    youtubeUrl: row["youtube_url"] as string | null,
     youtubeStatus: row["youtube_status"] as string,
     instagramUrl: row["instagram_url"] as string | null,
     instagramStatus: row["instagram_status"] as string,

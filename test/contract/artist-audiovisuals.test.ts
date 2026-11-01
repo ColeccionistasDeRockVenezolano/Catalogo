@@ -42,13 +42,12 @@ describe("audiovisuales de los perfiles", () => {
       await syncArtistAudiovisuals(client);
     } finally { client.release(); }
     const response = await app.inject(`/artists/${artist}`); expect(response.statusCode).toBe(200);
-    const detail = response.json(); expect(detail.discography).toEqual([]); expect(detail.audiovisuals).toHaveLength(1);
+    const detail = response.json(); expect(detail.discography).toEqual([]); expect(detail.audiovisuals).toHaveLength(2);
     expect(detail.audiovisuals.find((item: { title: string }) => item.title === "Película")).toMatchObject({ kind: "documentary", playable: true,
       chapters: [{ title: "Prólogo", startSeconds: 0 }, { title: "Concierto", startSeconds: 300 }] });
-    expect(detail.audiovisuals).not.toEqual(expect.arrayContaining([
-      expect.objectContaining({ title: "Archivo sin video" }),
-      expect.objectContaining({ title: "Clip bloqueado" }),
-    ]));
+    // Brian (2026-11-01): un video registrado se muestra aunque no se pueda ver; la tarjeta no abre reproductor.
+    expect(detail.audiovisuals.find((item: { title: string }) => item.title === "Clip bloqueado")).toMatchObject({ playable: false });
+    expect(detail.audiovisuals).not.toEqual(expect.arrayContaining([expect.objectContaining({ title: "Archivo sin video" })]));
   });
   it("es idempotente y no recrea el audiovisual como disco mediante altas manuales", async () => {
     const client = await getPool().connect();

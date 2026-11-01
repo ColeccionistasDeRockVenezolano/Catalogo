@@ -11,10 +11,14 @@ import { CRV_CHANNEL_ID } from './home-channel.js';
  * `media.youtube_videos` la respuesta de la API y avisa en la cola de revisión
  * cuando un video vinculado deja de poder verse.
  *
- * Se muestra solo lo público, procesado e incrustable. No se muestra un video
- * privado, no listado, borrado, rechazado, con restricción de edad o un estreno
- * aún no emitido. Un veto regional parcial (bloqueado solo en algunos países)
- * se muestra; solo esconde una lista de países permitidos vacía.
+ * Dos reglas:
+ * - Páginas (`shownVideoSql`, `shownVideoIds`): Brian (2026-11-01) — se muestra
+ *   todo video registrado en la base, sea cual sea su estado (no listado,
+ *   privado, borrado, edad, estreno…). Si YouTube no lo reproduce, el
+ *   reproductor lo dice (`VideoPlayer` onError). Un ID sin fila no se muestra.
+ * - Reproducible (`playableVideoSql`, `unplayableReason`): público, procesado e
+ *   incrustable; un veto regional parcial cuenta como reproducible. La usa el
+ *   verificador para elegir otro principal cuando uno cae y para sus avisos.
  */
 
 export type UnplayableReason =
@@ -65,9 +69,14 @@ export function isPlayableCrvVideo(video: YouTubeVideoPayload): boolean {
 }
 
 /** La misma regla en SQL, sobre una fila de `media.youtube_videos` con alias `v`. */
-export function playableVideoSql(v = 'v'): string {
-  return `(${v}.publication_status = 'published'
-    AND ${v}.metadata #>> '{status,privacyStatus}' = 'public'
+export function playableVideoSql(v = 'v', options: { allowUnlisted?: boolean } = {}): string {
+  // Un no listado se reproduce incrustado; `allowUnlisted` lo cuenta como reproducible.
+  const privacy = options.allowUnlisted
+    ? `${v}.publication_status IN ('published','unlisted')
+    AND ${v}.metadata #>> '{status,privacyStatus}' IN ('public','unlisted')`
+    : `${v}.publication_status = 'published'
+    AND ${v}.metadata #>> '{status,privacyStatus}' = 'public'`;
+  return `(${privacy}
     AND ${v}.metadata #>> '{status,uploadStatus}' = 'processed'
     AND ${v}.metadata #>> '{status,embeddable}' = 'true'
     AND coalesce(${v}.metadata #>> '{status,rejectionReason}', '') = ''
@@ -95,5 +104,28 @@ export async function playableCrvVideoIds(ids: readonly string[]): Promise<Set<s
   const { rows } = await getPool().query<{ video_id: string }>(
     `SELECT v.video_id FROM media.youtube_videos v
       WHERE v.video_id = ANY($1::text[]) AND v.channel_id = $2 AND ${playableVideoSql('v')}`, [unique, CRV_CHANNEL_ID]);
+  return new Set(rows.map(row => row.video_id));
+}
+
+/** Regla de las páginas: todo video registrado se muestra, sea cual sea su estado. */
+export function shownVideoSql(v = 'v'): string {
+  return `(${v}.video_id IS NOT NULL)`;
+}
+
+/** Videos registrados en la base (las páginas los muestran todos); un ID sin fila no se muestra. */
+export async function shownVideoIds(ids: readonly string[]): Promise<Set<string>> {
+  const unique = [...new Set(ids)].filter(id => VIDEO_ID.test(id));
+  if (!unique.length) return new Set();
+  const { rows } = await getPool().query<{ video_id: string }>(
+    'SELECT v.video_id FROM media.youtube_videos v WHERE v.video_id = ANY($1::text[])', [unique]);
+  return new Set(rows.map(row => row.video_id));
+}
+
+/** Videos del canal CRV registrados en la base. */
+export async function shownCrvVideoIds(ids: readonly string[]): Promise<Set<string>> {
+  const unique = [...new Set(ids)].filter(id => VIDEO_ID.test(id));
+  if (!unique.length) return new Set();
+  const { rows } = await getPool().query<{ video_id: string }>(
+    'SELECT v.video_id FROM media.youtube_videos v WHERE v.video_id = ANY($1::text[]) AND v.channel_id = $2', [unique, CRV_CHANNEL_ID]);
   return new Set(rows.map(row => row.video_id));
 }

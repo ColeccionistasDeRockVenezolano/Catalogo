@@ -12,8 +12,8 @@ import { CRV_CHANNEL_ID } from "../../src/youtube/home-channel.js";
 const unavailableCrvVideos = vi.hoisted(() => new Set<string>());
 vi.mock('../../src/youtube/playable-crv.js', async (importOriginal) => ({
   ...await importOriginal<typeof import('../../src/youtube/playable-crv.js')>(),
-  playableCrvVideoIds: async (ids: string[]) => new Set(ids.filter(id => !unavailableCrvVideos.has(id))),
-  playableVideoIds: async (ids: string[]) => new Set(ids.filter(id => !unavailableCrvVideos.has(id))),
+  shownCrvVideoIds: async (ids: string[]) => new Set(ids.filter(id => !unavailableCrvVideos.has(id))),
+  shownVideoIds: async (ids: string[]) => new Set(ids.filter(id => !unavailableCrvVideos.has(id))),
 }));
 
 describe("tiempos del video que reproduce la ficha del disco", () => {
@@ -37,7 +37,7 @@ describe("tiempos del video que reproduce la ficha del disco", () => {
     }
   });
   afterAll(async () => { await closeDb(); await pg?.stop(); });
-  it('omite CRV caídos del video principal, los enlaces y cada CD aunque la base aún diga publicado', async () => {
+  it('omite del video principal, los enlaces y cada CD un video sin registro en la base', async () => {
     const pool = getPool();
     const artist = (await pool.query('SELECT artist_id FROM public.albums WHERE id=$1', [albumId])).rows[0].artist_id;
     const album = (await pool.query("INSERT INTO public.albums(artist_id,title,youtube_url) VALUES($1,'Disponibilidad CRV','https://youtu.be/goneCrv0001') RETURNING id", [artist])).rows[0].id;

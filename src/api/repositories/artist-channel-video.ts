@@ -1,7 +1,7 @@
 import { getPool } from "../../db/client.js";
 import { dailyDate, dayNumber } from "../../shared/daily-cycle.js";
 import { CRV_CHANNEL_ID } from "../../youtube/home-channel.js";
-import { playableCrvVideoIds } from "../../youtube/playable-crv.js";
+import { shownCrvVideoIds } from "../../youtube/playable-crv.js";
 
 export interface ArtistChannelVideo {
   date: string;
@@ -23,7 +23,7 @@ export async function artistChannelVideo(artistId: number, date = dailyDate()): 
           OR EXISTS (SELECT 1 FROM media.video_tracks vt JOIN ingest.catalog_tracks t ON t.id = vt.track_id
                      JOIN ingest.catalog_albums al ON al.id = t.album_id WHERE vt.video_id = v.id AND al.artist_id = $1))
     ) SELECT * FROM candidates ORDER BY video_id`, [artistId, CRV_CHANNEL_ID]);
-  const allowed = await playableCrvVideoIds(rows.map(row => row.video_id));
+  const allowed = await shownCrvVideoIds(rows.map(row => row.video_id));
   const candidates = rows.filter(row => allowed.has(row.video_id));
   if (!candidates.length) return null;
   const day = dayNumber(date);

@@ -21,7 +21,7 @@ import { dailyDate, dailyCycleForDate, type DailyCycle } from "../../shared/dail
 import { artistAudiovisuals, type ArtistAudiovisual } from "./artist-audiovisuals.js";
 import { artistPlaybackAlbums, type ArtistPlaybackAlbum } from "./artist-playback-albums.js";
 import { artistAppearances, type ArtistAppearance } from "./artist-appearances.js";
-import { playableVideoSql } from "../../youtube/playable-crv.js";
+import { shownVideoSql } from "../../youtube/playable-crv.js";
 
 export type { ArtistRelation, ArtistRelationType, RelatedArtist, RelatedRule, SimilarArtist, SimilarRule } from "./artist-neighbors.js";
 
@@ -212,7 +212,7 @@ export async function getArtistDetail(id: number, date = dailyDate()): Promise<A
                CROSS JOIN LATERAL (VALUES ('youtube', al.youtube_url), ('instagram', al.instagram_url), ('wordpress', al.wordpress_url)) AS x(platform, url)
               WHERE al.artist_id = a.id AND x.url IS NOT NULL AND x.url <> ''
                 AND (x.platform <> 'youtube' OR EXISTS (SELECT 1 FROM media.youtube_videos v
-                      WHERE v.video_id = substring(al.youtube_url FROM '(?:v=|youtu\\.be/|shorts/)([A-Za-z0-9_-]{11})') AND ${playableVideoSql('v')}))
+                      WHERE v.video_id = substring(al.youtube_url FROM '(?:v=|youtu\\.be/|shorts/)([A-Za-z0-9_-]{11})') AND ${shownVideoSql('v')}))
            ) l
        ), '[]'::jsonb) AS links,
        COALESCE((

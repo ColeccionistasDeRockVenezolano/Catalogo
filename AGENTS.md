@@ -49,10 +49,9 @@ Su documental también aparece en Audiovisuales, por indicación posterior de Br
 
 Una edición musical documentada puede conservar su disco y tener su video
 en Audiovisuales. Resolver artistas por identidad exacta, alias o vínculos
-documentados; las ambigüedades van a revisión. **Todo audiovisual publicado
-en la pestaña debe ser reproducible.** Conservar obras y evidencia aunque el
-video esté bloqueado, no disponible o no permita incrustación, pero mantenerlas
-fuera de la pestaña pública. Ver `docs/AUDIOVISUALS.md`.
+documentados; las ambigüedades van a revisión. Desde el 2026-11-01 la pestaña
+muestra también los videos que no se pueden reproducir, como tarjeta «no
+disponible» (ver la sección siguiente). Ver `docs/AUDIOVISUALS.md`.
 
 # Videos de YouTube en el sitio: manda la base
 
@@ -61,14 +60,19 @@ CD/lado, artista, Audiovisuales, portada; CRV u otro canal): las páginas
 **nunca consultan a YouTube al cargar**. Leen el registro de
 `media.youtube_videos` (estado + respuesta de la API en `metadata`) con la
 regla única de `src/youtube/playable-crv.ts` (`playableVideoSql`).
-Se muestra solo lo público, procesado e incrustable. **No se muestra, y se
-avisa,** lo privado, **no listado**, borrado, rechazado/copyright, con
-restricción de edad o un estreno no emitido. Un veto regional parcial
-(bloqueado solo en algunos países) **sí se muestra**.
-El verificador diario (`ops/youtube-canal/canal.ts availability`, timer
-`crv-youtube-availability`) renueva ese registro y abre un aviso
-`manual_review` (`payload.via = youtube-disponibilidad`) en la cola de revisión
-por cada video vinculado que no se puede mostrar; lo cierra solo si vuelve.
+**Se muestra todo video registrado, sea cual sea su estado** (Brian,
+2026-11-01): no listado, privado, borrado, rechazado/copyright, con restricción
+de edad, estreno o veto regional. Las páginas usan `shownVideoSql` /
+`shownVideoIds`; si YouTube no deja verlo, el reproductor lo dice. Un ID sin
+fila en la base no se muestra. Audiovisuales marca `playable` con la regla
+estricta (no listado cuenta como reproducible) y pinta la tarjeta como no
+disponible en vez de abrir el reproductor.
+La regla estricta `playableVideoSql` (público, procesado, incrustable) solo la
+usa el verificador diario (`ops/youtube-canal/canal.ts availability`, timer
+`crv-youtube-availability`) para elegir otro principal cuando uno cae y para
+abrir un aviso `manual_review` (`payload.via = youtube-disponibilidad`,
+«no se puede reproducir en el sitio») por video vinculado; lo cierra si vuelve
+y no reabre los descartados.
 
 # Tipos y características de discos
 
