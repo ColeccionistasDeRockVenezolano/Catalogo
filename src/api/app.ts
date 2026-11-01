@@ -79,13 +79,14 @@ import { registerSitemapRoutes } from "./routes/sitemap.js";
 const log = moduleLogger("api");
 
 export async function buildApp(): Promise<FastifyInstance> {
+  const env = getEnv();
   // Fastify trae Pino integrado (ARCHITECTURE.md §6: "JSON a stdout"); no se
   // inyecta la instancia propia de src/logger para evitar el desajuste de
   // tipos entre FastifyBaseLogger y pino.Logger bajo exactOptionalPropertyTypes.
   // El serializador por defecto de `req` no incluye cabeceras: el token no llega a los logs.
   const app = Fastify({
     logger: {
-      level: getEnv().LOG_LEVEL,
+      level: env.LOG_LEVEL,
       serializers: {
         req: (req) => ({ method: req.method, url: req.url.split("?")[0] ?? "" }),
       },
@@ -169,10 +170,12 @@ export async function buildApp(): Promise<FastifyInstance> {
   });
 
   await registerOperatorAuth(app);
-  await registerCommunityRoutes(app);
-  await registerRoadmapRoutes(app);
-  await registerProjectConfigRoutes(app);
-  await registerRadioRoutes(app);
+  if (env.CRV_COMMUNITY_ENABLED) {
+    await registerCommunityRoutes(app);
+    await registerRoadmapRoutes(app);
+    await registerProjectConfigRoutes(app);
+  }
+  if (env.CRV_RADIO_ENABLED) await registerRadioRoutes(app);
   await registerImageUploadRoutes(app);
   await registerImageUploadRoutes(app, undefined, true);
   await registerHealthRoutes(app);

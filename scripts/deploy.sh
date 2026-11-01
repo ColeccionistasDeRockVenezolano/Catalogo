@@ -12,6 +12,23 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# 2A.1: el árbol es compartido. Un deploy desde una rama de trabajo o con
+# cambios sin commit publicaría trabajo a medias. Se exige la rama desplegada
+# (master por defecto) y el árbol limpio; para una rama distinta, exportar
+# CRV_DEPLOY_BRANCH explícitamente.
+EXPECTED_BRANCH="${CRV_DEPLOY_BRANCH:-master}"
+CURRENT_BRANCH="$(git -C "$ROOT" branch --show-current 2>/dev/null || true)"
+if [[ "$CURRENT_BRANCH" != "$EXPECTED_BRANCH" ]]; then
+  echo "✗ deploy abortado: rama actual '${CURRENT_BRANCH:-desconocida}', esperada '$EXPECTED_BRANCH'." >&2
+  echo "  Cambia a la rama desplegada o define CRV_DEPLOY_BRANCH si es intencional." >&2
+  exit 1
+fi
+if [[ -n "$(git -C "$ROOT" status --porcelain --untracked-files=no)" ]]; then
+  echo "✗ deploy abortado: hay cambios sin commit en el árbol." >&2
+  git -C "$ROOT" status --short --untracked-files=no >&2
+  exit 1
+fi
+
 PORT="${CRV_WEB_PORT:-3120}"
 restart_api=no
 restart_chat=no

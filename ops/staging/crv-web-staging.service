@@ -13,6 +13,8 @@ Environment=CRV_API_PORT=8082
 Environment=CRV_CHAT_PORT=8099
 Environment=CRV_PUBLIC_PATH=crv
 Environment=CRV_WEB_DIST=dist-staging
+Environment=CRV_WEB_MODE=catalog
+Environment=CRV_WEB_REDIRECT_UNPREFIXED=1
 ExecStart=/home/brian/.local/node-v24.20.0-linux-x64/bin/npm run serve:public
 Restart=always
 RestartSec=5

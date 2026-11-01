@@ -49,8 +49,8 @@ _(se completa al terminar la noche)_
 
 | Bloque | Estado | Evidencia / siguiente acción |
 |---|---|---|
-| B0 | en curso | Revisar diff y commit en `independencia/fases-0-3` |
-| B1 | pendiente | Interruptores, 0124 a pending, deploy.sh |
+| B0 | cumple | Commit `53c350f7` en `independencia/fases-0-3`, 132 archivos del plan; `.hermes/` quedó fuera. `git diff --cached --check` solo reportó espacios finales de HTML copiado. |
+| B1 | cumple | `CRV_COMMUNITY_ENABLED`/`CRV_RADIO_ENABLED` apagados por defecto y registrados condicionalmente; `CRV_WEB_MODE` validado; redirección sin prefijo solo con `CRV_WEB_REDIRECT_UNPREFIXED=1`; 0124 en `migrations/pending`; `.down` ya no promueve a admin; `deploy.sh` aborta en rama/cambios. Prueba: API alterna :8093 con flags false → 404 en roadmap/site-config/radio/community y health 200; staging con flags → 200; `/roadmap` sin prefijo → 302 y `/crv/roadmap` 200; `bash scripts/deploy.sh` abortó por rama. Typecheck backend/web, 18/18 vitest. |
 | B2 | pendiente | P-1…P-4, F1-1…F1-6, F2-1 |
 | B3 | pendiente | IP real, país, cookies, orígenes, secretos |
 | B4 | pendiente de permiso | No reiniciar producción; dejar comando exacto |

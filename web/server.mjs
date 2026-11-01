@@ -24,6 +24,12 @@ import path from "node:path";
 import { MEDIA_WIDTHS, OPTIMIZABLE_EXTENSIONS, optimizerAvailable, optimizerCommand, runOptimizer, variantPath } from "./media-variants.mjs";
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
+const webMode = process.env.CRV_WEB_MODE ?? "catalog";
+if (webMode !== "catalog" && webMode !== "landing") {
+  throw new Error(`CRV_WEB_MODE inválido: ${webMode}. Valores: catalog | landing.`);
+}
+const redirectUnprefixed = process.env.CRV_WEB_REDIRECT_UNPREFIXED === "1"
+  || process.env.CRV_WEB_REDIRECT_UNPREFIXED === "true";
 const dist = path.join(directory, process.env.CRV_WEB_DIST ?? "dist-public");
 const media = path.join(directory, "public", "media");
 const host = process.env.CRV_WEB_HOST ?? "127.0.0.1";
@@ -33,7 +39,7 @@ const apiPort = Number(process.env.CRV_API_PORT ?? "8080");
 // El chat corre en su propio proceso: /api/chat/* y su WebSocket van allí.
 const chatPort = Number(process.env.CRV_CHAT_PORT ?? "8081");
 const basePath = `/${(process.env.CRV_PUBLIC_PATH ?? "crv").replace(/^\/+|\/+$/g, "")}`;
-const apiPath = `${basePath}/api`;
+const apiPath = `${basePath === "/" ? "" : basePath}/api`;
 
 // Techo por IP y minuto para TODO lo que sirve el gateway (estáticos, media y
 // el proxy al API). Holgado para navegación humana (una ficha son ~20
@@ -414,7 +420,7 @@ const server = http.createServer(async (req, res) => {
   // el basename del router no coincide y la página queda en blanco. Las
   // navegaciones de documento se mandan al prefijo; las APIs y los assets no.
   const acceptsHtml = String(req.headers.accept ?? "").includes("text/html");
-  if (basePath !== "/" && acceptsHtml && (req.method === "GET" || req.method === "HEAD")
+  if (redirectUnprefixed && basePath !== "/" && acceptsHtml && (req.method === "GET" || req.method === "HEAD")
       && requestUrl.pathname !== "/" && !requestUrl.pathname.startsWith(`${basePath}/`)) {
     res.writeHead(302, { location: `${basePath}${requestUrl.pathname}${requestUrl.search}` });
     return res.end();

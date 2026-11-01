@@ -51,6 +51,11 @@ const envSchema = z.object({
   // Secreto para la huella diaria del contador de visitas. Si falta, se usa el
   // del chat; en producción conviene darle uno propio.
   CRV_VISITS_SECRET: z.string().min(32).optional(),
+  // Interruptores de la Fase 2A.1. Producción arranca con la comunidad y la
+  // radio nuevas apagadas; staging los enciende en su propio env. Sin ellos,
+  // las rutas no se registran (404), aunque el código esté desplegado.
+  CRV_COMMUNITY_ENABLED: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
+  CRV_RADIO_ENABLED: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
   // Radio en sombra: catálogo exportado por Herra durante la transición y URL
   // del `/api/radio/now` vivo para comparar. Ninguno se usa para emitir al
   // público todavía.
