@@ -373,3 +373,10 @@
   .rw-form { grid-template-columns: 1fr; }
   .rw-row { align-items: flex-start; }
 }
+.rw-detail { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); padding: 12px; display: grid; gap: 10px; }
+.rw-detail h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 22px; text-transform: uppercase; }
+.rw-detail dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 0; }
+.rw-detail dt { color: var(--text-muted); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.rw-detail dd { margin: 0; font-size: 13px; }
+.rw-detail p { margin: 0; font-size: 13px; color: var(--text-muted); }
+.rw-links { margin: 0; padding-left: 18px; font-size: 13px; }

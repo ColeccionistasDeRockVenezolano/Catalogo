@@ -25,6 +25,7 @@ import { taskDropPosition } from "../lib/roadmapOrder";
 import { Modal } from "../components/Modal";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { PeopleWindow } from "../components/roadmap/PeopleWindow";
+import { ApplicationsWindow } from "../components/roadmap/ApplicationsWindow";
 import { ErrorState, LoadingState } from "../components/StateViews";
 import "../styles/community-ui.css";
 import "../styles/roadmap-admin.css";
@@ -109,7 +110,7 @@ export function CurationRoadmapPage() {
   // Un enlace con ?herramienta= desconocida o de un bloque que aún no existe
   // no debe dejar la URL mintiendo: se limpia.
   useEffect(() => {
-    const known: ToolId[] = ["nueva-actividad", "nueva-etapa", "personas", "pendientes"];
+    const known: ToolId[] = ["nueva-actividad", "nueva-etapa", "personas", "pendientes", "candidaturas"];
     if (tool && !known.includes(tool)) closeTool();
   }, [tool]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -333,6 +334,15 @@ export function CurationRoadmapPage() {
           title={copy.tools.pending}
           kicker={copy.adminKicker}
           mode="pending"
+          onClose={closeTool}
+          onChanged={() => { roadmap.reload(); overview.reload(); }}
+        />
+      ) : null}
+
+      {tool === "candidaturas" ? (
+        <ApplicationsWindow
+          title={copy.tools.applications}
+          kicker={copy.adminKicker}
           onClose={closeTool}
           onChanged={() => { roadmap.reload(); overview.reload(); }}
         />
