@@ -90,6 +90,31 @@ las características de una pista a todo el disco. Los títulos que reúnen
 material distinto requieren revisar su contenido antes de dividir fichas o
 reclasificarlas. Los compuestos audiovisuales siguen la regla anterior.
 
+# Géneros de un disco sin fuente: herencia del artista
+
+Regla de Brian (2026-10-31). Orden para dar género a un disco:
+1. Fuentes (cualquier web que nombre el género de ESE disco basta).
+2. La IA del catálogo, con evidencia citada.
+3. **Si la IA no encuentra el género del disco, lo hereda de su artista**:
+   el principal confirmado del artista pasa a principal del disco y sus
+   secundarios confirmados, a secundarios.
+4. **Disco con más de un artista distinto** (colaboración, split, recopilatorio,
+   VA…): la IA **promedia los géneros de esos artistas**. Cada artista pesa lo
+   mismo: su principal vale 2 y cada secundario 1, divididos entre la suma de
+   su ficha; se suman los aportes de todos y se divide entre el número de
+   artistas con géneros. El de mayor promedio es el principal; los siguientes
+   (hasta 3) con al menos la mitad del promedio del principal son secundarios.
+   Empate: el que aparece en más artistas y luego el más específico.
+   En un recopilatorio cuentan los artistas de sus pistas; «Various Artists»
+   no es un artista. Los artistas sin géneros confirmados no cuentan; si
+   ninguno los tiene, el disco va a revisión.
+
+La herencia se registra en un run propio, con el motivo «heredado del
+artista» o «promedio de N artistas» y los artistas usados, y es reversible.
+Una fuente posterior que nombre el género del disco la sustituye. Las pistas
+siguen heredando del disco, nunca directamente del artista. Primer caso:
+«Sonó Así» de 1ra Edición (disco 2330, run 36487).
+
 # Tiempos y reproducción de YouTube
 
 Las marcas de tiempo pertenecen a un video concreto. La ficha lee las de
