@@ -65,6 +65,23 @@ describe("cola de imágenes ante fallos de conexión", () => {
     expect(posts()).toHaveLength(1);
   });
 
+  it("muchas decisiones terminadas recargan las vistas una sola vez", async () => {
+    const job = (id: number, status: string) => ({ id, requestId: `00000000-0000-4000-8000-00000000000${id}`, type: "decision", groups: [{ kind: "album", entityId: id, name: "Disco" }], candidateId: null, status, error: null, conflict: false, result: null, runId: null, attempts: 1, createdAt: "", updatedAt: "" });
+    let server = [job(1, "running"), job(2, "running"), job(3, "running")];
+    const { queue, changed } = await load(async url => respond(200, url.includes("cache-version") ? '{"revision":"r"}' : JSON.stringify(server)));
+    queue.startImageQueue();
+    await vi.advanceTimersByTimeAsync(0);
+    server = [job(1, "done"), job(2, "running"), job(3, "running")];
+    await vi.advanceTimersByTimeAsync(1100);
+    server = [job(1, "done"), job(2, "done"), job(3, "running")];
+    await vi.advanceTimersByTimeAsync(1100);
+    server = [job(1, "done"), job(2, "done"), job(3, "done")];
+    await vi.advanceTimersByTimeAsync(1100);
+    expect(changed).not.toHaveBeenCalled();
+    await vi.advanceTimersByTimeAsync(5000);
+    expect(changed).toHaveBeenCalledTimes(1);
+  });
+
   it("una respuesta en texto del gateway llega como ApiError con su mensaje", async () => {
     const { api } = await load(async () => new Response("Demasiadas solicitudes desde esta conexión.", { status: 429 }));
     await expect(api.imageCandidatesApi.jobs()).rejects.toMatchObject({ status: 429, message: "Demasiadas solicitudes desde esta conexión." });

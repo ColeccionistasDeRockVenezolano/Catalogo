@@ -318,6 +318,11 @@ async function associate(pool: pg.Pool, entries: ManifestEntry[], chunkSize: num
           await context.client.query("SAVEPOINT localize_entry");
           try {
             await updateEntity(context, entry.kind, entry.id, { [entityField(entry.kind)]: entityUrl(entry.kind, path.basename(entry.localPath)) });
+            // La copia local no es una decisión: las candidatas abiertas siguen eligiéndose.
+            if (entry.kind === "album" || entry.kind === "artist") {
+              await context.client.query(`UPDATE ingest.image_candidates SET current_url = $1 WHERE entity_kind = $2 AND ${entry.kind === "album" ? "album_id" : "artist_id"} = $3 AND status = 'open'`,
+                [entityUrl(entry.kind, path.basename(entry.localPath)), entry.kind, entry.id]);
+            }
             await context.client.query("RELEASE SAVEPOINT localize_entry");
           } catch (error) {
             if ((error as { code?: string }).code !== "PCE01") throw error;

@@ -24,6 +24,9 @@ import { isTransientFailure } from "../lib/transientFailure";
 
 const LIMIT = 20;
 const LIST_RETRY_MS = 5000;
+// Se traen más fichas de las que se pintan: al elegir, entra la siguiente sin
+// esperar a que el servidor termine las decisiones en cola.
+const WINDOW = 100;
 const TABS: ReadonlyArray<{ kind: ImageCandidateKind; param: string; label: string }> = [
   { kind: "album", param: "portadas", label: "Portadas" },
   { kind: "artist", param: "fotos", label: "Fotos de artista" },
@@ -46,7 +49,7 @@ export function CurationImagesPage() {
   const entityId = Number(params.get("ficha")) || undefined;
   const queryKey = `${tab.kind}:${offset}:${entityId ?? ""}`;
   const result = useAsync(async () => ({
-    ...await imageCandidatesApi.list(tab.kind, { limit: LIMIT, offset, ...(entityId ? { entityId } : {}) }), queryKey,
+    ...await imageCandidatesApi.list(tab.kind, { limit: WINDOW, offset, ...(entityId ? { entityId } : {}) }), queryKey,
   }), [tab.kind, offset, entityId, queryKey]);
   // Las lecturas anteriores no deben aparecer al cambiar de pestaña o página.
   const data = result.data?.queryKey === queryKey ? result.data : undefined;
@@ -59,7 +62,7 @@ export function CurationImagesPage() {
   }, [error, errorValue, reload]);
   const counts = useAsync(() => imageCandidatesApi.summary(), [data]);
   const hidden = new Set(jobs.filter(job => job.type === "decision" && job.hide).flatMap(job => job.groups.map(imageGroupKey)));
-  const visible = data?.data.filter(group => !hidden.has(imageGroupKey(group))) ?? [];
+  const visible = data?.data.filter(group => !hidden.has(imageGroupKey(group))).slice(0, LIMIT) ?? [];
   const hiddenHere = data?.data.filter(group => hidden.has(imageGroupKey(group))).length ?? 0;
   const pending = data ? Math.max(0, data.pagination.total - hiddenHere) : undefined;
   const measurable = visible.filter(group => group.candidates.some(candidate => candidate.quality === null || candidate.quality === "failed")

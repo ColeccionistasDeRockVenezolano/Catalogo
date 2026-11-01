@@ -19,6 +19,12 @@ let connection = { loading: false, error: null as string | null };
 const POLL_FAILURES_BEFORE_NOTICE = 3;
 const POLL_RETRY_MS = 2000;
 const SEND_RETRY_DELAYS_MS = [1000, 3000, 8000];
+// Con muchas decisiones en cola, recargar todas las vistas por cada una satura la API.
+const DATA_CHANGE_DELAY_MS = 5000;
+let dataChangeTimer: ReturnType<typeof setTimeout> | undefined;
+function announceDataChange() {
+  dataChangeTimer ??= setTimeout(() => { dataChangeTimer = undefined; window.dispatchEvent(new Event(CATALOG_DATA_CHANGED_EVENT)); }, DATA_CHANGE_DELAY_MS);
+}
 let failedPolls = 0;
 const active = (job: ImageWork) => ["sending", "queued", "running"].includes(job.status);
 const subscribe = (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; };
@@ -48,7 +54,7 @@ function reconcile(server: ImageJob[]) {
       if (job.status === "done" && job.runId && job.type === "decision") window.dispatchEvent(new CustomEvent<CatalogChangeEvent>(CATALOG_CHANGE_EVENT, { detail: { runId: job.runId, method: "POST", path: `/curation/images/jobs/${job.id}` } }));
     } else if (!previous && job.status === "done") changed = true;
   }
-  if (changed) window.dispatchEvent(new Event(CATALOG_DATA_CHANGED_EVENT));
+  if (changed) announceDataChange();
 }
 export async function refreshImageQueue(): Promise<void> {
   if (!enabled || !getSessionCsrf() || fetchingEpoch === epoch) return;
