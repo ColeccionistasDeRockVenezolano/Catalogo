@@ -18,7 +18,7 @@ import {resolveGenreValue,isAncestorOf} from '../src/genres/taxonomy.js';
 import {audiovisualKey,audiovisualKind} from '../src/youtube/audiovisual-rules.js';
 
 // JSON snapshots have heterogeneous native row shapes. No rows are written.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 type Row=Record<string,any>;
 const source=path.resolve('reports/rym-integral-2026-10-21');
 const output=process.argv[process.argv.indexOf('--out')+1];

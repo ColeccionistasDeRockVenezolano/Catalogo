@@ -7,7 +7,7 @@
 // `verified` cuando el usuario de la red COINCIDE con el nombre del artista (normalizado); si no,
 // queda candidato (no se publica). YouTube y Bandcamp sí se abren y se lee su título.
 // Uso: ./scripts/with-node22.sh npx tsx scripts/rym-2026-10-15/08-redes.mts [--confirm] [--limit=N]
-import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { closeDb, getPool } from "../../src/db/client.js";
 import { withOperatorRun } from "../../src/merge/operator.js";

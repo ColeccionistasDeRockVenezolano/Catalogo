@@ -1,4 +1,22 @@
+import { existsSync } from "node:fs";
 import { defineConfig } from "vitest/config";
+
+// Pruebas que leen el almacén externo (reports/, data/research y sus OCR:
+// docs/SHARED_STORAGE.md). Ese contenido no está en Git, así que en CI y en un
+// checkout limpio se omiten, con aviso; con el almacén enlazado corren completas.
+const storeLinked = existsSync("data/research/venezuelan-music-sources.json") && existsSync("reports");
+const needsExternalStore = [
+  "test/unit/source-inventory.test.ts",           // cuenta los proyectos del inventario real
+  "test/unit/search-genre-knowledge.test.ts",     // libros de géneros en reports/
+  "test/unit/search-genre-source-captures.test.ts",
+  "test/unit/search-independent-review.test.ts",
+  "test/unit/search-resource-field-review.test.ts",
+  "test/unit/search-semantic-review.test.ts",
+  "test/unit/document-formats.test.ts",           // OCR con modelos de data/research/ocr
+];
+if (!storeLinked) {
+  console.warn(`[vitest] almacén externo no enlazado: se omiten ${needsExternalStore.length} archivos que lo leen.`);
+}
 
 export default defineConfig({
   test: {
@@ -15,6 +33,7 @@ export default defineConfig({
       "**/node_modules/**", "**/dist/**", "**/dist-public/**", "**/.claude/**",
       "**/data/**", "**/reports/**", "**/tmp/**", "**/tmp-analysis/**",
       "**/web/public/**", "**/public/**", "**/coverage/**", "**/backups/**",
+      ...(storeLinked ? [] : needsExternalStore),
     ],
     // Los tests de contrato levantan contenedores Docker propios: no
     // paralelizar entre archivos evita agotar puertos/recursos en 1 máquina

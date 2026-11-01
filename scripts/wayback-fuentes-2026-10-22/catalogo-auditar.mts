@@ -1,6 +1,6 @@
 /** Revisión final de pertenencia, procedencia y precisión de fechas. */
 import {readFileSync,writeFileSync} from 'node:fs';import {join} from 'node:path';import {createHash} from 'node:crypto';
-import {getPool,closeDb} from '../../src/db/client.js';import {withOperatorRun,updateEntity} from '../../src/merge/operator.js';
+import {closeDb} from '../../src/db/client.js';import {withOperatorRun,updateEntity} from '../../src/merge/operator.js';
 import {saveEphemeris} from '../../src/catalog/ephemerides.js';import {WAYBACK_ARCHIVE_TAG as TAG} from '../../src/shared/artist-documents.js';
 const O=process.env['WAYBACK_OUT']??`${process.env['HOME']}/crv-staging/reports/wayback-incorporacion-2026-10-23`;
 const rows=(file:string):any[]=>readFileSync(file,'utf8').trim().split('\n').filter(Boolean).map(x=>JSON.parse(x));
@@ -10,7 +10,7 @@ const resolutions=rows(join(O,'resoluciones-identidad.jsonl'));
 const before=new Map(JSON.parse(readFileSync(join(O,'antes-artists.json'),'utf8')).map((a:any)=>[a.id,a]));
 const key=(s:string)=>s.normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const pages=rows('reports/wayback-analisis-catalogo-2026-10-22/paginas-compactas.jsonl');
-const pool=getPool();const checks:any[]=[];
+const checks:any[]=[];
 const result=await withOperatorRun({name:'wayback:final-audit',operator:'codex',note:'Revisión de pertenencia de imágenes, documentos y efemérides de la incorporación autorizada.',params:{campaign:TAG}},async ctx=>{
  await ctx.client.query("SELECT set_config('crv.run_id',$1,true)",[String(ctx.runId)]);
  for(const c of cases){

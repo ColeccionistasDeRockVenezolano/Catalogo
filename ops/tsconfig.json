@@ -1,0 +1,6 @@
+{
+  // Solo para el lint con información de tipos de las herramientas de ops.
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "noEmit": true },
+  "include": ["**/*.ts"]
+}

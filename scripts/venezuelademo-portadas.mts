@@ -7,7 +7,7 @@
  *
  * Uso: PATH="$PWD/node_modules/.bin:$PATH" ./scripts/with-node22.sh tsx scripts/venezuelademo-portadas.mts [--apply]
  */
-import {existsSync, mkdirSync, readdirSync} from 'node:fs';
+import {mkdirSync, readdirSync} from 'node:fs';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 import {getPool, closeDb} from '../src/db/client.js';

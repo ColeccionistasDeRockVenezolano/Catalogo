@@ -34,7 +34,7 @@ try{
   });
   const providerUrl=await provider.listen({host:"127.0.0.1",port:0});
   dataDir=await mkdtemp(join(tmpdir(),"crv-research-browser-"));
-  Object.assign(process.env,{DATA_DIR:dataDir,DATABASE_URL:database.databaseUrl,CRV_OPERATOR_TOKEN:"",CRV_HERRA_DB_PATH:"",CRV_SESSION_COOKIE_PATH:"/",CRV_CURATION_AUTOSCAN:"false",CRV_CURATION_AUTOFIX:"false",CRV_SEARXNG_URL:"",DEEPSEEK_API_KEY:"fixture-local",DEEPSEEK_BASE_URL:providerUrl,LOG_LEVEL:"error",
+  Object.assign(process.env,{DATA_DIR:dataDir,DATABASE_URL:database.databaseUrl,CRV_AUTH_BACKEND:"legacy",CRV_OPERATOR_TOKEN:"",CRV_HERRA_DB_PATH:"",CRV_SESSION_COOKIE_PATH:"/",CRV_CURATION_AUTOSCAN:"false",CRV_CURATION_AUTOFIX:"false",CRV_SEARXNG_URL:"",DEEPSEEK_API_KEY:"fixture-local",DEEPSEEK_BASE_URL:providerUrl,LOG_LEVEL:"error",
     CRV_COLLABORATORS_JSON:JSON.stringify([{username:"qa.admin",name:"QA Admin",passwordHash,role:"admin"}])});
   resetEnvCache();await applyCore(database.name);await migrateUp();
   api=await buildApp();const apiUrl=await api.listen({host:"127.0.0.1",port:0});

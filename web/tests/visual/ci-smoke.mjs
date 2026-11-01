@@ -21,7 +21,7 @@ let database, api, web, browser;
 try {
   database = await startPgContainer();
   Object.assign(process.env, {
-    DATABASE_URL: database.databaseUrl, CRV_OPERATOR_TOKEN: "", CRV_HERRA_DB_PATH: "",
+    DATABASE_URL: database.databaseUrl, CRV_AUTH_BACKEND: "legacy", CRV_OPERATOR_TOKEN: "", CRV_HERRA_DB_PATH: "",
     CRV_SESSION_COOKIE_PATH: "/", CRV_CURATION_AUTOSCAN: "false", CRV_CURATION_AUTOFIX: "false", LOG_LEVEL: "error",
     CRV_COLLABORATORS_JSON: JSON.stringify([
       { username: "qa.admin", name: "QA Admin", passwordHash, role: "admin" },
@@ -79,8 +79,14 @@ try {
   await page.locator(".page-actions").getByRole("button", { name: "Editar", exact: true }).click();
   const dialog = page.getByRole("dialog");
   await dialog.getByLabel("Nombre", { exact: false }).first().fill("Banda QA Editada");
-  await dialog.getByLabel("Motivo", { exact: false }).filter({ visible: true }).fill("Edición con sesión y CSRF desde la SPA");
-  await dialog.getByRole("button", { name: "Guardar", exact: true }).click();
+  try {
+    await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Edición con sesión y CSRF desde la SPA", { timeout: 10_000 });
+  } catch (error) {
+    // Un fallo aquí solo se veía como «waiting for»: se deja el texto real del diálogo en el log.
+    console.error("Diálogo de edición:\n" + await dialog.innerText().catch(() => "(sin diálogo)"));
+    throw error;
+  }
+  await dialog.getByRole("button", { name: /^Guardar cambio/u }).click();
   await expect(page.getByRole("heading", { name: "Banda QA Editada", exact: true })).toBeVisible();
   assert.equal((await getPool().query("SELECT name FROM public.artists WHERE id=$1", [id])).rows[0].name, "Banda QA Editada");
   const person=await request("/persons","POST",{name:"Persona QA Precisión",birthDate:"1973",note:"Fecha parcial de prueba"},admin.csrf);
@@ -88,8 +94,8 @@ try {
   await page.goto(`${base}/personas/${person.body.id}`);
   await page.locator(".page-actions").getByRole("button",{name:"Editar",exact:true}).click();
   await dialog.getByLabel("Fecha de nacimiento",{exact:true}).fill("1973-05");
-  await dialog.getByLabel("Motivo",{exact:false}).filter({visible:true}).fill("Conservar mes y año sin inventar día");
-  await dialog.getByRole("button",{name:"Guardar",exact:true}).filter({visible:true}).click();
+  await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Conservar mes y año sin inventar día");
+  await dialog.getByRole("button",{ name: /^Guardar cambio/u }).filter({visible:true}).click();
   await expect(page.getByText("mayo de 1973",{exact:true})).toBeVisible();
   const dates=(await getPool().query("SELECT birth_date,birth_date_value FROM public.persons WHERE id=$1",[person.body.id])).rows[0];
   assert.equal(dates.birth_date,null);assert.equal(dates.birth_date_value,"1973-05");
@@ -99,9 +105,9 @@ try {
   await dialog.getByRole("option",{name:"Banda QA Editada",exact:false}).click();
   await dialog.getByLabel("Relación *",{exact:true}).selectOption("member");
   await dialog.getByLabel("Período documentado",{exact:true}).fill("~1990/2000");
-  await dialog.getByLabel("Motivo",{exact:false}).filter({visible:true}).fill("Vincular fichas conservando período aproximado");
+  await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Vincular fichas conservando período aproximado");
   await dialog.getByRole("button",{name:"Guardar",exact:true}).filter({visible:true}).click();
-  await expect(dialog.getByText(/Cambio guardado/)).toBeVisible();
+  await expect(dialog.getByRole("status").filter({ hasText: /Cambio guardado/ })).toBeVisible();
   const identity=(await getPool().query("SELECT relationship,period FROM ingest.musical_identities WHERE person_id=$1",[person.body.id])).rows[0];
   assert.equal(identity.relationship,"member");assert.equal(identity.period.from.approximate,true);
   const artifactDir=process.env["CRV_BROWSER_ARTIFACT_DIR"];
@@ -114,21 +120,26 @@ try {
     }
     await page.setViewportSize({width:1440,height:1000});
   }
-  await dialog.getByRole("button",{name:"Cerrar",exact:true}).click();
+  await dialog.getByRole("button",{name:"Cerrar",exact:true}).last().click();
   const album=await request("/albums","POST",{title:"Edición QA Navegador",artistId:id,mediaFormat:"CD",note:"Edición independiente"},admin.csrf);
   assert.equal(album.status,201);
   const work=await request("/catalog-model/work","POST",{title:"Obra QA Navegador",artistId:id,note:"Obra documentada de prueba"},admin.csrf);
   assert.equal(work.status,201);
   await page.goto(`${base}/discos/${album.body.id}`);
   await page.locator(".page-actions").getByRole("button",{name:"Editar",exact:true}).click();
+  // La fecha parcial se edita en los datos del disco; «Obra y soportes» solo vincula la obra.
+  await dialog.getByLabel("Fecha de publicación",{exact:true}).fill("2001-05");
+  await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Vincular obra y edición con precisión de mes");
+  await dialog.getByRole("button",{ name: /^Guardar cambio/u }).filter({visible:true}).click();
+  await expect(page.locator(".page-actions").getByRole("button",{name:"Editar",exact:true})).toBeVisible();
+  assert.equal((await request(`/albums/${album.body.id}`)).body.releaseDateValue,"2001-05");
+  await page.locator(".page-actions").getByRole("button",{name:"Editar",exact:true}).click();
   await dialog.getByRole("button",{name:"Obra y soportes",exact:true}).click();
   await dialog.getByLabel("Obra compartida",{exact:true}).selectOption(String(work.body.id));
-  await dialog.getByLabel("Fecha de publicación",{exact:true}).filter({visible:true}).fill("2001-05");
-  await dialog.getByLabel("Motivo",{exact:false}).filter({visible:true}).fill("Vincular obra y edición con precisión de mes");
+  await dialog.getByRole("textbox", { name: /Motivo/u }).fill("Vincular obra y edición");
   await dialog.getByRole("button",{name:"Guardar",exact:true}).filter({visible:true}).click();
-  await expect(dialog.getByText(/Cambio guardado/)).toBeVisible();
-  assert.equal((await request(`/albums/${album.body.id}`)).body.releaseDateValue,"2001-05");
-  await dialog.getByRole("button",{name:"Cerrar",exact:true}).click();
+  await expect(dialog.getByRole("status").filter({ hasText: /Cambio guardado/ })).toBeVisible();
+  await dialog.getByRole("button",{name:"Cerrar",exact:true}).last().click();
   assert.equal((await request("/auth/logout", "POST", {}, admin.csrf)).status, 204);
   await page.reload();
   const reader = await login("qa.reader");

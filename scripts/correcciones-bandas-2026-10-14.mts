@@ -19,7 +19,7 @@ const FOUNDER_SOURCE = "correcciones Brian 2026-10-14";
 const log: string[] = [];
 
 // ── Bandas ────────────────────────────────────────────────────────────────
-const HOMER = 1965, LSD = 2248, LADIES = 142, MONEDAS = 144, L007 = 1479, CLANERS = 1593, DANGERS = 1474,
+const HOMER = 1965, LSD = 2248, MONEDAS = 144, L007 = 1479, CLANERS = 1593, DANGERS = 1474,
   DARTS = 1910, HIPPIES = 2074, KINGS = 1, SUPERSONICOS = 1775, LOVE = 245, TSEE = 2249, WORST = 3229;
 
 const ARTISTS: Array<[number, Record<string, unknown>]> = [
@@ -154,7 +154,7 @@ const NEW_MEMBERS: Array<[number, number | string, string, number | null, boolea
 ];
 
 // ── Discos ────────────────────────────────────────────────────────────────
-const SOUVENIR = 364, VELVET = 6, PALACIO = 1171, TOP_HITS = 388, DISCOMODA = 4272, VIDA = 2034;
+const SOUVENIR = 364, PALACIO = 1171, TOP_HITS = 388, DISCOMODA = 4272, VIDA = 2034;
 const ALBUM_MERGES: Array<[number, number]> = [
   [5006, 2869], // Los Claners Vol. 3 = Volumen 3 (mismas 12 pistas)
   [3944, 2624], // Para La Juventud... El Ritmo De Los Dangers ⊃ Para La Juventud (6 de 12 pistas)

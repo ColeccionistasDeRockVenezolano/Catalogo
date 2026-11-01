@@ -20,7 +20,7 @@ async function esperarListo(tabId, host, timeout = 120000) {
   return new Promise((res, rej) => {
     (async () => {
       while (Date.now() < fin) {
-        let t = null;
+        let t;
         try { t = await browser.tabs.get(tabId); } catch (e) { return rej(new Error("pestaña cerrada")); }
         if (t && t.status === "complete" && (t.url || "").startsWith(host)) return res(t);
         await dormir(800);
@@ -35,7 +35,7 @@ async function esperarUrl(tabId, trozo, timeout = 90000) {
   // tarda en commitear y `complete` sigue apuntando a la página anterior).
   const fin = Date.now() + timeout;
   while (Date.now() < fin) {
-    let t = null;
+    let t;
     try { t = await browser.tabs.get(tabId); } catch (e) { return null; }
     if (t && t.status === "complete" && (t.url || "").includes(trozo)) return t;
     await dormir(600);
@@ -65,10 +65,8 @@ async function leerConTracks(tabId, timeout = 22000) {
   // página está «complete» devuelve el <ul> VACÍO y la ficha se guarda con 0 pistas (medido el
   // 2026-10-19: 21,6 % de las fichas del día, y subiendo). Aquí se espera a que haya filas.
   const fin = Date.now() + timeout;
-  let ultimo = null;
   while (true) {
     const leido = await leer(tabId);          // puede lanzar si está navegando
-    ultimo = leido;
     const filas = (leido.h || "").split('class="track"').length - 1;
     const reviewsPage = /\/reviews\/\d+\//.test(leido.u || "");
     const reviewsReady = reviewsPage && /id=["']review_shell_std_\d+/.test(leido.h || "");
@@ -204,7 +202,7 @@ async function marcarReto(pendiente, extra) {
 async function vigilarReto() {
   // Se pregunta al PUENTE (fuente de verdad del latch), no a un flag local: tras reiniciar la
   // extensión el aviso puede seguir pegado en el puente y hay que soltarlo igual.
-  let aviso = null;
+  let aviso;
   try { aviso = await (await fetch(BASE + "/reto", { cache: "no-store" })).json(); }
   catch (e) { return; }                        // puente caído: no hay nada que revalidar
   if (!aviso || aviso.estado !== "pendiente") { retoLecturas = 0; return; }
@@ -250,7 +248,7 @@ async function resolverReto(tabId, leido0) {
   // desafío de Cloudflare, sin intervención: clic REAL del sistema en la casilla, espera del
   // token, clic en Submit y espera de la ficha. La pestaña NUNCA se cierra.
   const t0 = Date.now(), LIMITE = 150000;   // 2,5 min (la cola espera 230 s: margen de sobra)
-  let leido = leido0, clics = 0, submits = 0, recargas = 0, ultimo = 0, imagen = false, iter = 0;
+  let clics = 0, submits = 0, recargas = 0, ultimo = 0, iter = 0;
   await alFrente(tabId);
   await marcarReto(true, { url: (leido0 && leido0.u) || "" });
   const avisar = async (que, g) => {
@@ -265,7 +263,7 @@ async function resolverReto(tabId, leido0) {
   { const g0 = await geometria(tabId); await avisar("inicio", g0); }
   while (Date.now() - t0 < LIMITE) {
     await dormir(2000);
-    let g = null;
+    let g;
     try { g = await geometria(tabId); } catch (e) { g = null; }
     if (g.t && !RETO.test(g.t)) {                 // ya entró: se lee la ficha
       try { const listo = await leer(tabId); await marcarReto(false, { url: listo.u }); return listo; }
@@ -287,7 +285,7 @@ async function resolverReto(tabId, leido0) {
       if (Date.now() - ultimo > 6000 && submits < 4) {
         // Submit es un botón de la propia página (no del iframe): se pulsa por DOM, que no
         // depende de la geometría de la pantalla; si no aparece, se pulsa con el ratón real.
-        let pulsado = false;
+        let pulsado;
         try {
           const r = await browser.tabs.executeScript(tabId, { code:
             `(() => { const b = [...document.querySelectorAll('input[type=submit], button[type=submit], button')]
@@ -308,10 +306,7 @@ async function resolverReto(tabId, leido0) {
     } else if (g.bframe) {
       // reCAPTCHA abrió el mosaico de imágenes: eso necesita ojos. Se deja la ventana al frente
       // y se suelta el turno (insistir a ciegas solo empeora la reputación de la sesión).
-      if (!imagen) {
-        imagen = true;
-        console.log("reto: mosaico de imágenes — se deja al frente para el dueño");
-      }
+      console.log("reto: mosaico de imágenes — se deja al frente para el dueño");
       await dormir(3000);
       retoHumano = true;
       return null;
@@ -341,13 +336,13 @@ async function resolverReto(tabId, leido0) {
       ultimo = Date.now();
     }
     // Recargar funcionó a mano el 2026-10-19 (reto a las 16:15:28 → ficha a las 16:15:53).
-    if (!imagen && ((t > 45000 && recargas === 0) || (t > 110000 && recargas === 1))) {
+    if ((t > 45000 && recargas === 0) || (t > 110000 && recargas === 1)) {
       recargas++;
       console.log("reto: recarga " + recargas);
       try { await browser.tabs.reload(tabId); } catch (e) {}
     }
   }
-  console.log("reto NO resuelto" + (imagen ? " (pide imágenes: hace falta el dueño)" : ""));
+  console.log("reto NO resuelto");
   return null;
 }
 
@@ -356,7 +351,7 @@ async function tabPanel() {
   if (tabPanelId !== null) {
     try { return await browser.tabs.get(tabPanelId); } catch (e) { tabPanelId = null; }
   }
-  let ts = [];
+  let ts;
   try { ts = await browser.tabs.query({}); } catch (e) { ts = []; }
   const paneles = ts.filter((t) => (t.url || "").indexOf(BASE + "/panel") === 0);
   if (paneles.length) {

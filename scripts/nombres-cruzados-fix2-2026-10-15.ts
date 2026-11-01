@@ -11,7 +11,7 @@
 // Ninguno de esos 5 discos existe en la ficha buena → se reatribuyen (parentId), conservando pistas,
 // portada y auditoría. Los temas que falten en la ficha buena se completan (nunca se pisan). Las
 // fichas creadas se retiran. Uso: tsx scripts/nombres-cruzados-fix2-2026-10-15.ts [--confirm]
-import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { closeDb, getPool } from "../src/db/client.js";
 import { deleteEntity, updateEntity, withOperatorRun } from "../src/merge/operator.js";

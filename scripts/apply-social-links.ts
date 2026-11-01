@@ -153,7 +153,6 @@ async function main(): Promise<void> {
     const evidencias = readFileSync(archivo, "utf8").split("\n").filter((l) => l.trim())
       .map((l) => JSON.parse(l) as Evidencia);
     for (const e of evidencias) {
-      const nombre = normalizar(e.artista);
       for (const url of e.urls ?? []) {
         const cl = clasificar(url);
         if (!cl) { sumar("url fuera de catálogo de redes"); continue; }

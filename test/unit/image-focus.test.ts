@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { clearImageFocusCache, imageFocus, localMediaFile, type ImageFocus } from "../../src/storage/image-focus.js";
-import { focusPosition } from "../../web/src/lib/useFaceFocus.js";
+import { focusPosition } from "../../web/src/lib/faceFocus.js";
 
 const face: ImageFocus = { x: 0.51, y: 0.3, width: 0.27, height: 0.4 };
 

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "researchDate": "2026-10-29",
+  "language": "es",
+  "purpose": "Inventario vacío para CI: el real vive en data/research, fuera de Git (docs/SHARED_STORAGE.md).",
+  "reportedCounters": {
+    "projects": 0,
+    "urls": 0,
+    "critical": 0
+  },
+  "counterNotes": "Sin proyectos: solo permite arrancar el código que lo carga.",
+  "policy": {
+    "targetedResearch": true,
+    "bulkScrapingEnabled": false,
+    "catalogAutoImport": false,
+    "bandcampOwnership": "pending_per_profile",
+    "publicMediaReuse": "requires_rights_review",
+    "capturedAt": "2026-10-29"
+  },
+  "projects": [],
+  "discoverySources": []
+}

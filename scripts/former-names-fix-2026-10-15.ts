@@ -11,7 +11,7 @@
 // Todo en un run del operador: retiros con snapshot y reatribuciones con auditoría.
 //
 // Uso: ./scripts/with-node22.sh npx tsx scripts/former-names-fix-2026-10-15.ts [--confirm]
-import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { closeDb, getPool } from "../src/db/client.js";
 import { createAlias } from "../src/api/repositories/aliases.js";
@@ -79,7 +79,7 @@ async function main(): Promise<void> {
         await updateEntity(context, "album", Number(id), {}, { parentId: idBuena });
         movidos++;
       }
-      let alias: string | null = null;
+      let alias: string;
       try {
         await createAlias(context, "artist", idBuena, { alias: paso["nueva"] as string, aliasType: "former_name", isPrimary: false });
         alias = paso["nueva"] as string;

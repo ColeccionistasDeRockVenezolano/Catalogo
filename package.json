@@ -15,7 +15,7 @@
     "dev": "npm --prefix web run dev",
     "dev:api": "npm run api",
     "typecheck": "./scripts/with-node22.sh tsc -p tsconfig.json --noEmit",
-    "lint": "./scripts/with-node22.sh eslint .",
+    "lint": "NODE_OPTIONS=--max-old-space-size=4096 ./scripts/with-node22.sh eslint .",
     "cli": "./scripts/with-node22.sh tsx src/cli/index.ts",
     "api": "./scripts/with-node22.sh tsx src/api/server.ts",
     "chat": "./scripts/with-node22.sh tsx src/chat/server.ts",

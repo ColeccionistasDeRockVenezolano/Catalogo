@@ -1,6 +1,6 @@
 /** Conserva los hallazgos adicionales de la web del propio grupo, sin inferir discos ni fechas de aniversario. */
 import {writeFileSync} from 'node:fs';
-import {getPool,closeDb} from '../../src/db/client.js';
+import {closeDb} from '../../src/db/client.js';
 import {withOperatorRun} from '../../src/merge/operator.js';
 const out=process.env['WAYBACK_OUT']!;if(!out)throw new Error('WAYBACK_OUT obligatorio');
 const source='https://web.archive.org/web/20041204200517/http://www.angelfire.com/rock3/ati/mypage1.html';

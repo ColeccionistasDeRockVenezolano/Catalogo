@@ -9,7 +9,7 @@ const pages:string[][]=process.env['WAYBACK_VIDEO_REVIEW']?JSON.parse(process.en
 const results:any[]=[];
 try{for(const [key,id] of pages){const p=await browser.newPage({viewport:{width:1200,height:800}});const r:any={key,id};
  try{await p.goto('https://www.youtube.com/watch?v='+id,{waitUntil:'domcontentloaded',timeout:30000});await p.locator('video').waitFor({state:'attached',timeout:15000});
-  r.initial=await p.evaluate(async()=>{const v=document.querySelector('video');if(!v)return null;v.muted=true;try{await v.play();}catch{}return {currentTime:v.currentTime,duration:v.duration,paused:v.paused,readyState:v.readyState,error:v.error?.message??null};});
+  r.initial=await p.evaluate(async()=>{const v=document.querySelector('video');if(!v)return null;v.muted=true;try{await v.play();}catch{/* autoplay bloqueado: se mide igual */}return {currentTime:v.currentTime,duration:v.duration,paused:v.paused,readyState:v.readyState,error:v.error?.message??null};});
   await p.screenshot({path:out+'/browser/'+key+'-initial.png'});
   await p.waitForFunction(()=>{const v=document.querySelector('video');return !!v&&(v.currentTime>8||v.error!==null);},{},{timeout:25000}).catch(()=>{});
   r.final=await p.evaluate(()=>{const v=document.querySelector('video');return {currentTime:v?.currentTime,duration:v?.duration,paused:v?.paused,readyState:v?.readyState,error:v?.error?.message??null,body:document.body.innerText.slice(0,12000)};});

@@ -11,3 +11,9 @@ process.env["DATABASE_URL"] ??= "postgresql://unit-tests-no-db@127.0.0.1:1/unit_
 // las pruebas que necesitan una bandera la encienden ellas mismas.
 process.env["GENRES_PROJECTION_ENABLED"] = "false";
 process.env["CRV_AUTH_BACKEND"] = "legacy";
+
+// Sin el almacén externo (CI), las pruebas cargan un inventario de fuentes vacío.
+import { existsSync } from "node:fs";
+import path from "node:path";
+const realInventory = path.resolve("data/research/venezuelan-music-sources.json");
+if (!existsSync(realInventory)) process.env["CRV_SOURCE_INVENTORY"] ??= path.resolve("test/fixtures/source-inventory-ci.json");

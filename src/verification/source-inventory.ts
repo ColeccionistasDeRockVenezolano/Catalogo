@@ -63,7 +63,10 @@ export const sourceInventorySchema = z.object({
   }
 });
 export type SourceInventory = z.infer<typeof sourceInventorySchema>;
-export const SOURCE_INVENTORY_PATH = path.join(projectRoot(import.meta.url), "data/research/venezuelan-music-sources.json");
+// El inventario real vive en el almacén externo (docs/SHARED_STORAGE.md). CI no lo tiene:
+// CRV_SOURCE_INVENTORY apunta a un inventario mínimo de prueba para que el código arranque.
+export const SOURCE_INVENTORY_PATH = process.env["CRV_SOURCE_INVENTORY"]
+  ?? path.join(projectRoot(import.meta.url), "data/research/venezuelan-music-sources.json");
 export function loadSourceInventory(): SourceInventory {
   return sourceInventorySchema.parse(JSON.parse(readFileSync(SOURCE_INVENTORY_PATH, "utf8")) as unknown);
 }
