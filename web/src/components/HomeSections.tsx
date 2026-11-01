@@ -248,7 +248,9 @@ export function HomeBackdrop({ home, hidden }: { home: ReturnType<typeof useHome
     }), 4000);
     return () => window.clearInterval(timer);
   }, [hidden, visible, reduced, pool, covers.length]);
-  return <div className={`home-hero__backdrop${hidden ? " is-hidden" : ""}`} aria-hidden="true">
+  // Pausar también las animaciones CSS: detener el recambio no congela la deriva
+  // ni los fundidos, que avanzarían en segundo plano y saltarían al volver.
+  return <div className={`home-hero__backdrop${hidden ? " is-hidden" : ""}`} data-paused={hidden || !visible || undefined} aria-hidden="true">
     <div className="home-wall">{covers.map((album, index) => <WallCover key={index} album={album} />)}</div>
     <span className="home-hero__glow" /><span className="home-hero__vignette" />
   </div>;
@@ -546,7 +548,19 @@ function FloatSlot({ source }: { source: ExternalMediaSource }) {
 /** Un disco para hoy, en el plato: la funda a la izquierda y el vinilo girando. */
 function ListenNow({ albums }: { albums: HomeData["listen"] }) {
   const [index, setIndex] = useState(0);
+  const reduced = usePrefersReducedMotion();
+  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
   const count = albums.length;
+  const autoAdvance = count > 1 && !reduced && !paused && !hovered && !focused;
+  useEffect(() => {
+    if (!autoAdvance) return;
+    const timer = window.setInterval(() => {
+      if (!document.hidden) setIndex(value => (value + 1) % count);
+    }, 2000);
+    return () => window.clearInterval(timer);
+  }, [autoAdvance, count, index]);
   const current = ((index % count) + count) % count;
   const album = albums[current]!;
   const [coverFailed, setCoverFailed] = useState<number | null>(null);
@@ -563,7 +577,7 @@ function ListenNow({ albums }: { albums: HomeData["listen"] }) {
   })), [album]);
   const playLink = (link: PlatformLink) => {
     const source = floatSources.get(link.platform);
-    return source ? () => show(source.id) : null;
+    return source ? () => { setPaused(true); show(source.id); } : null;
   };
   // Deslizar con el dedo cambia de disco. Un deslizamiento no es un toque:
   // el clic que lo sigue no abre la funda ni el título.
@@ -595,7 +609,11 @@ function ListenNow({ albums }: { albums: HomeData["listen"] }) {
     <Section id="home-listen" className="home-listen">
       {() => <>
         {hasCover ? <img key={`ambient-${album.id}`} className="home-listen__ambient" src={mediaUrl(album.coverUrl!, 320)} alt="" aria-hidden="true" decoding="async" /> : null}
-        <div className={`home-listen__inner${count > 1 ? " is-swipeable" : ""}`} {...swipeHandlers}>
+        <div className={`home-listen__inner${count > 1 ? " is-swipeable" : ""}`} {...swipeHandlers}
+          onPointerEnter={event => { if (event.pointerType === "mouse") setHovered(true); }}
+          onPointerLeave={() => setHovered(false)}
+          onFocusCapture={() => setFocused(true)}
+          onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false); }}>
           <div className="home-turntable" key={album.id}>
             <span className="home-turntable__record" aria-hidden="true">
               <span className="home-turntable__label">
@@ -607,7 +625,7 @@ function ListenNow({ albums }: { albums: HomeData["listen"] }) {
                 : <span className="placeholder">{initialOf(album.title)}</span>}
             </Link>
           </div>
-          <div className="home-listen__body" aria-live="polite">
+          <div className="home-listen__body" aria-live={autoAdvance ? "off" : "polite"}>
             <p className="home-kicker home-kicker--live"><Play size={11} weight="fill" aria-hidden="true" /> Escucha ahora</p>
             <h2 id="home-listen-title" className="home-listen__eyebrow">Un disco para hoy</h2>
             {/* Alturas fijas: título en dos líneas como máximo, el resto en una, para que la tarjeta no salte entre discos. */}
@@ -622,6 +640,11 @@ function ListenNow({ albums }: { albums: HomeData["listen"] }) {
             {[...floatSources.values()].map(source => <FloatSlot key={source.id} source={source} />)}
             <div className="home-listen__controls">
               <Link to={`/discos/${album.id}`} className="btn btn--primary home-cta" draggable={false}>Ver el disco <ArrowRight size={15} weight="bold" aria-hidden="true" /></Link>
+              {count > 1 && !reduced ? <button type="button" className="home-arrow home-arrow--pause"
+                onClick={() => setPaused(value => !value)} aria-pressed={paused}
+                aria-label={`${paused ? "Reanudar" : "Pausar"} avance automático de discos`}>
+                {paused ? <Play size={17} aria-hidden="true" /> : <Pause size={17} aria-hidden="true" />}
+              </button> : null}
             </div>
             {count > 1 ? (
               <div className="home-listen__pager">

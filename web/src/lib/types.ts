@@ -766,6 +766,10 @@ export interface CurationMetrics {
     total: number; previewed: number; applied: number; undone: number;
     autoApplied: number; autoReverted: number;
   };
+  duplicates: {
+    merges30d: number; distinct30d: number; autoDiscards30d: number; verdicts30d: number;
+    homonymOpen: number; editionsOpen: number; portraitsOpen: number;
+  };
   alerts: Array<{
     detector: string; label: string; precision: number; reviewed: number;
     threshold: number; minimumReviewed: number;

@@ -2462,6 +2462,8 @@ main:has(.home-hero) { overflow-x: clip; }
 .home-wall__cover { position: relative; display: block; aspect-ratio: 1; overflow: hidden; border-radius: 6px; background: #161616; }
 .home-wall__cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(1.05) brightness(.62); }
 .home-wall__cover .crossfade-image { position: absolute; inset: 0; }
+.home-hero__backdrop[data-paused] .home-wall,
+.home-hero__backdrop[data-paused] .crossfade-image__layer { animation-play-state: paused; }
 
 .home-hero__glow {
   position: absolute; inset: 0;
@@ -3036,7 +3038,7 @@ main:has(.home-hero) { overflow-x: clip; }
   .home-hero .search-shell > p:not(.home-hero__kicker) { max-width: 36ch; margin: 0 auto 18px; font-size: 15px; line-height: 1.5; }
   .home-hero .search-input { min-height: 56px; padding: 14px 18px; font-size: 16px; border-radius: 18px; }
   .home-hero .catalog-search-example { font-size: 16px; }
-  .home-search-recommendation { align-items: baseline; gap: 0 2px; margin-top: 4px; }
+  .home-search-recommendation { gap: 0 2px; margin-top: 4px; }
   .home-stats-wrap { margin-top: 12px; }
   .home-stats__item > a, .home-stats__item > span { gap: 4px; padding: 10px 6px; }
   .home-explore { gap: 0 16px; margin-top: 8px; }

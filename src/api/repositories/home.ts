@@ -130,6 +130,8 @@ export async function getHomeData(date: string): Promise<HomeData> {
         WHERE v.publication_status = 'published' AND v.channel_id = $2
         ORDER BY v.published_at DESC NULLS LAST, v.id DESC
         LIMIT $1`, [VIDEO_LIMIT, CRV_CHANNEL_ID]),
+    // Recorrer artistas, no discos: las discografías grandes no acaparan la tanda.
+    // El orden fijo permite agotar los artistas antes de volver a empezar.
     pool.query<AlbumRow & { links: Array<{ platform: string; url: string }> }>(
       `WITH eligible AS (SELECT ${ALBUM_COLUMNS},
               (SELECT jsonb_agg(jsonb_build_object('platform', sl.platform, 'url', sl.url) ORDER BY sl.platform)
@@ -137,10 +139,19 @@ export async function getHomeData(date: string): Promise<HomeData> {
          FROM ingest.catalog_albums al JOIN ingest.catalog_artists ar ON ar.id = al.artist_id
         WHERE al.cover_url IS NOT NULL
           AND EXISTS (SELECT 1 FROM public.streaming_links sl WHERE sl.album_id = al.id AND sl.verified)
-        ), ranked AS (SELECT *, row_number() OVER (ORDER BY md5(id::text)) - 1 AS position, count(*) OVER () AS size FROM eligible)
-        SELECT * FROM ranked
-        ORDER BY mod(position - mod($1::bigint * $2, size) + size, size)
-        LIMIT $2`, [dayNumber(date), LISTEN_LIMIT]),
+        ), artists AS (SELECT artist_id,
+              row_number() OVER (ORDER BY md5(artist_id::text), artist_id) - 1 AS position,
+              count(*) OVER () AS size
+            FROM eligible GROUP BY artist_id
+        ), selected AS (SELECT * FROM artists
+            ORDER BY mod(position - mod($1::bigint * least($2, size), size) + size, size)
+            LIMIT $2
+        ) SELECT album.* FROM selected
+          CROSS JOIN LATERAL (SELECT eligible.* FROM eligible
+            WHERE eligible.artist_id = selected.artist_id
+            ORDER BY md5(eligible.id::text || $3), eligible.id LIMIT 1) album
+          ORDER BY mod(position - mod($1::bigint * least($2, size), size) + size, size)`,
+      [dayNumber(date), LISTEN_LIMIT, date]),
     pool.query<{ id: string; name: string; picture_url: string | null; album_count: string; from_year: number | null; to_year: number | null }>(
       `WITH eligible AS (SELECT o.id, o.name, o.picture_url, count(*)::text AS album_count,
               min(al.release_year) AS from_year, max(al.release_year) AS to_year

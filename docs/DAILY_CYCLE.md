@@ -30,6 +30,11 @@ reloj aun cuando falle temporalmente la red; las lecturas se reintentan.
 ## Superficies integradas
 
 - Portada: artista, discos, épocas, sellos, muro de portadas y recorridos diarios.
+  «Un disco para hoy» recorre los artistas con portada y enlace verificado en
+  tandas de hasta seis, con un disco por artista; agota la vuelta antes de repetir.
+  La elección del disco de cada artista también es reproducible por fecha.
+  El carrusel avanza cada dos segundos dentro de esa tanda; permite pausar y
+  respeta la interacción, la reproducción y la preferencia de movimiento reducido.
 - Buscador principal: orden diario reproducible de las sugerencias editoriales.
 - Buscadores de artistas, personas, discos y organizaciones: muestras y géneros
   reproducibles que se renuevan al cambiar el mismo ciclo.

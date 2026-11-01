@@ -140,11 +140,12 @@ export function CatalogSearchInput({ scope, value, onChange, label, placeholder,
         aria-describedby={showExample && examplePlacement === "field" ? `${id ?? generatedId}-example-hint` : undefined} />
       {examplePlacement === "field" ? <RotatingSearchExample {...example} metricRef={metric.ref} /> : null}
       </div>
-      {examplePlacement === "below" && example.current && !query ? <div className="home-search-recommendation" ref={metric.ref}>
-        <span>Prueba con</span><button type="button" onClick={example.accept}>{example.current.label}</button>
+      {/* Reservar la fila al revalidar: quitarla cambiaba la altura del hero al volver a la pestaña. */}
+      {examplePlacement === "below" && !query ? <div className="home-search-recommendation" ref={metric.ref}>
+        {example.current ? <><span>Prueba con</span><button type="button" onClick={example.accept}>{example.current.label}</button>
         <button type="button" className="home-search-recommendation__pause" aria-pressed={example.paused} onClick={example.togglePause}>
           {example.paused ? "Reanudar" : "Pausar"}
-        </button>
+        </button></> : null}
       </div> : null}
       {scope === "catalog" && example.current && examplePlacement === "field" ? <div className="discovery-controls" aria-label="Controles de sugerencias">
         <button type="button" className="btn btn--sm" aria-pressed={example.paused} onClick={example.togglePause}>

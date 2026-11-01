@@ -108,6 +108,44 @@ describe("portada (GET /home)", () => {
     expect(bioExcerpt("palabra ".repeat(80), 50).endsWith("…")).toBe(true);
   });
 
+  it("rota artistas sin favorecer las discografías grandes y mantiene la tanda del día", async () => {
+    const pool = getPool();
+    const artistIds: string[] = [];
+    try {
+      // Con Banda Uno son trece artistas: dos tandas completas sin repetir,
+      // y una tercera que cruza el final de la vuelta.
+      for (let index = 0; index < 12; index++) {
+        const artistId = (await pool.query("INSERT INTO public.artists(name) VALUES($1) RETURNING id", [`Escucha ${index}`])).rows[0].id;
+        artistIds.push(artistId);
+        await pool.query(`INSERT INTO public.albums(artist_id, title, cover_url)
+          SELECT $1, 'Escucha ' || n, '/c/escucha.jpg' FROM generate_series(1, $2::int) n`, [artistId, index === 0 ? 20 : 1]);
+      }
+      await pool.query(`INSERT INTO public.streaming_links(album_id, platform, url, method, source, verified)
+        SELECT id, 'deezer', 'https://www.deezer.com/album/' || id, 'search', 'deezer_api', true
+        FROM public.albums WHERE artist_id = ANY($1::bigint[])`, [artistIds]);
+      const read = async (date: string) => {
+        const response = await app.inject(`/home?date=${date}`);
+        expect(response.statusCode).toBe(200);
+        return response.json().listen as Array<{ id: number; artistId: number; coverUrl: string; links: unknown[] }>;
+      };
+      const first = await read("2026-10-11");
+      const next = await read("2026-10-12");
+      const third = await read("2026-10-13");
+      expect(await read("2026-10-11")).toEqual(first);
+      for (const batch of [first, next, third]) {
+        expect(batch).toHaveLength(6);
+        expect(new Set(batch.map(album => album.artistId)).size).toBe(6);
+        expect(batch.every(album => album.coverUrl && album.links.length)).toBe(true);
+      }
+      expect(new Set([...first, ...next].map(album => album.artistId)).size).toBe(12);
+      expect(new Set([...first, ...next, ...third].map(album => album.artistId)).size).toBe(13);
+    } finally {
+      await pool.query("DELETE FROM public.streaming_links WHERE album_id IN (SELECT id FROM public.albums WHERE artist_id = ANY($1::bigint[]))", [artistIds]);
+      await pool.query("DELETE FROM public.albums WHERE artist_id = ANY($1::bigint[])", [artistIds]);
+      await pool.query("DELETE FROM public.artists WHERE id = ANY($1::bigint[])", [artistIds]);
+    }
+  });
+
   it("cambia el artista en días consecutivos manteniendo los criterios de la sección", async () => {
     const pool = getPool();
     await pool.query("UPDATE public.artists SET picture_url = '/a/2.jpg', biography = 'Segunda banda con una discografía propia.' WHERE name = 'Banda Dos'");
