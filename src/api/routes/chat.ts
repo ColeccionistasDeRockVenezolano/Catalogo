@@ -376,15 +376,11 @@ export async function registerChatRoutes(app: FastifyInstance, hub = new ChatHub
         enabled: z.boolean().default(true),
       }),
     },
-  }, async (request, reply) => {
+  }, async (request) => {
     const manifest = effectProductSchema.safeParse({ kind: request.body.kind, manifest: request.body.manifest });
     if (!manifest.success) {
-      reply.code(400);
-      return {
-        error: "invalid_manifest",
-        message: "El manifiesto no es válido.",
-        issues: manifest.error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message })),
-      };
+      const issues = manifest.error.issues.map((issue) => ({ path: issue.path.join("."), message: issue.message }));
+      throw new ApiError(400, "invalid_manifest", `Revisa el efecto: ${issues.map((issue) => `${issue.path}: ${issue.message}`).join(" · ")}`, { issues });
     }
     await upsertEffect({ ...request.body, manifest: manifest.data.manifest as unknown as Record<string, unknown> });
     return { ok: true, code: request.body.code };

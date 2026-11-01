@@ -1,3 +1,4 @@
+import { NOX_EFFECTS } from "./nox.js";
 // CRV · Rareza de un efecto del chat.
 //
 // No se guarda: se deriva del precio y de la duración, así un efecto
@@ -15,7 +16,9 @@ export const RARITY_LABEL: Readonly<Record<Rarity, string>> = {
 };
 
 /** Umbrales en monedas: < 200 común, < 300 rara, < 420 épica, resto legendaria. */
-export function rarityOf(effect: { priceCoins: number; durationDays: number | null }): Rarity {
+export function rarityOf(effect: { priceCoins: number; durationDays: number | null; manifest?: { nox?: { preset: string } | undefined } | undefined }): Rarity {
+  const nox = NOX_EFFECTS.find(item => item.id === effect.manifest?.nox?.preset);
+  if (nox) return nox.rarity;
   // Un permanente caro (p. ej. «Primera edición») siempre es legendario.
   if (effect.durationDays === null && effect.priceCoins >= 600) return "legendary";
   if (effect.priceCoins >= 420) return "legendary";

@@ -40,7 +40,8 @@
 }
 
 /* ── Cuerpo ───────────────────────────────────────────────────────────── */
-.chat-body { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); min-height: 0; }
+.chat-body { background: #ffffff05;
+    border-radius: 12px;position: relative; display: grid; grid-template-columns: minmax(0, 1fr); min-height: 0; }
 .chat-messages {
   position: relative; z-index: 2; overflow-y: auto; overscroll-behavior: contain;
   padding: 14px 12px 8px; display: flex; flex-direction: column; gap: 2px;

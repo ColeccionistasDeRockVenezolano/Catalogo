@@ -36,6 +36,7 @@
 .crv-shop .chat-effect-card:hover { border-color: var(--text-muted); }
 .crv-shop .chat-effect-card.is-selected { border-color: var(--red); }
 .crv-shop .chat-effect-preview { justify-content: center; min-height: 96px; width: 100%; border-radius: 8px; background: var(--bg); padding: 12px 6px; }
+.crv-shop .chat-effect-preview[data-spill="visible"] { overflow: visible; }
 .crv-shop .chat-effect-preview .crv-name { font-size: 16px; max-width: 100%; }
 .crv-shop .chat-effect-name { font-size: 14px; line-height: 1.4; }
 .crv-shop .crv-card-foot { flex-direction: column; align-items: flex-start; gap: 8px; }

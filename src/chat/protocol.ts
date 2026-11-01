@@ -24,6 +24,7 @@ export const equippedSchema = z.object({
   ambient: z.string().nullable(),
   name_font: z.string().nullable(),
   badge: z.string().nullable().default(null),
+  bubble: z.string().nullable().optional(),
 });
 export type Equipped = z.infer<typeof equippedSchema>;
 

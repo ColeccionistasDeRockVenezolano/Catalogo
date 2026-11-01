@@ -1,3 +1,4 @@
+import { noxSchema } from "./nox.js";
 // CRV · Contrato de efectos del chat y catálogo de semillas vacío.
 // Los nuevos manifiestos se publican en chat.effects desde administración.
 import { z } from "zod";
@@ -5,7 +6,7 @@ import { nameStyleSchema } from "./name-style.js";
 import { isEquippedSlot } from "./slots.js";
 
 export const EFFECT_KINDS = [
-  "name", "frame", "entry", "message", "action", "sticker", "background", "ambient", "name_font", "badge",
+  "name", "frame", "entry", "message", "action", "sticker", "background", "ambient", "name_font", "badge", "bubble",
 ] as const;
 export type EffectKind = typeof EFFECT_KINDS[number];
 
@@ -81,6 +82,7 @@ export const effectManifestSchema = z.object({
   version: z.literal(1),
   badge: badgeSchema.optional(),
   nameStyle: nameStyleSchema.optional(),
+  nox: noxSchema.optional(),
   triggers: z.array(z.enum(["always", "on_message", "on_join", "on_action", "on_hover"]))
     .min(1).max(4),
   layers: z.array(effectLayerSchema).max(5),
@@ -92,7 +94,7 @@ export const effectManifestSchema = z.object({
   cost: z.number().int().min(1).max(10),
   interactive: z.boolean().optional(),
 }).superRefine((value, context) => {
-  if (value.layers.length === 0 && !value.font && !value.badge && !value.nameStyle) {
+  if (value.layers.length === 0 && !value.font && !value.badge && !value.nameStyle && !value.nox) {
     context.addIssue({ code: "custom", message: "Un producto necesita capas, una fuente o una placa" });
   }
 });
@@ -103,6 +105,11 @@ export const effectProductSchema = z.object({
   manifest: effectManifestSchema,
 }).superRefine(({ kind, manifest }, context) => {
   const invalid = (message: string): void => context.addIssue({ code: "custom", path: ["manifest"], message });
+  if (manifest.nox) {
+    if (!["name", "frame", "bubble"].includes(kind)) invalid("NOX corresponde a nombre, marco o burbuja");
+    if (manifest.layers.length || manifest.font || manifest.badge || manifest.nameStyle) invalid("NOX usa su renderer propio, sin mezclar otros motores");
+  }
+  if (kind === "bubble" && !manifest.nox) invalid("La burbuja necesita un estilo compatible");
   if (manifest.nameStyle && kind !== "name") invalid("El estilo de nombre pertenece a un producto de nombre");
   if (kind === "badge") {
     if (!manifest.badge || manifest.layers.length > 0 || manifest.font) invalid("Una placa requiere su imagen, sin efectos de nombre");

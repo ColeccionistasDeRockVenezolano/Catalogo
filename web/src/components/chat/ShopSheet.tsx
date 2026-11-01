@@ -15,20 +15,20 @@ import type { ChatEffect, ChatUser } from "../../../../src/chat/protocol";
 import { RARITY_LABEL, rarityOf, type Rarity } from "../../../../src/chat/rarity";
 import { chatApi } from "../../lib/api";
 import { equippedEffect, layerStyle, manifestOf, type EffectSlot, type Quality } from "../../lib/chatEffects";
-import { BurstText, ChatAvatar, EffectName, MessageBurst, RoomAmbient, RoomBackdrop, StickerArt, ProductBadge } from "./Effects";
+import { EffectBubble, BurstText, ChatAvatar, EffectName, MessageBurst, RoomAmbient, RoomBackdrop, StickerArt, ProductBadge } from "./Effects";
 import { SceneLayer, type SceneRequest } from "./Scenes";
 
 export const SLOT_LABEL: Record<EffectSlot, string> = {
-  name: "Nombre", frame: "Marco", background: "Fondo", ambient: "Ambiente", name_font: "Estilo", badge: "Placa",
+  name: "Nombre", frame: "Marco", background: "Fondo", ambient: "Ambiente", name_font: "Estilo", badge: "Placa", bubble: "Burbuja",
 };
 
 const KIND_LABEL: Record<string, string> = {
-  name: "Efectos de nombre", name_font: "Estilos", badge: "Placas", frame: "Marcos", entry: "Entradas", message: "Mensajes",
+  name: "Efectos de nombre", name_font: "Estilos", badge: "Placas", frame: "Marcos", entry: "Entradas", message: "Mensajes", bubble: "Burbujas",
   action: "Acciones", sticker: "Stickers", background: "Fondos", ambient: "Ambientes",
 };
 
 /** Orden de las pestañas: lo que se lleva puesto primero. */
-const KIND_ORDER = ["name", "name_font", "badge", "frame", "entry", "message", "action", "sticker", "background", "ambient"];
+const KIND_ORDER = ["name", "name_font", "badge", "frame", "bubble", "entry", "message", "action", "sticker", "background", "ambient"];
 const SLOTS = EQUIPPED_SLOTS;
 const PLAYABLE = new Set(["message", "entry", "action", "sticker"]);
 
@@ -183,9 +183,9 @@ export function ShopContent({ actor, effects, wallet, cover, quality, isAdmin, o
             {sticker ? (
               <StickerArt key={`st-${replay}`} effect={sticker} quality={quality} />
             ) : (
-              <BurstText key={`m-${replay}`} effect={messageEffect} fresh quality={quality} priority={2}>
+              <EffectBubble effect={pick("bubble")} quality={quality} priority={2}><BurstText key={`m-${replay}`} effect={messageEffect} fresh quality={quality} priority={2}>
                 ¿Qué disco pusiste hoy?
-              </BurstText>
+              </BurstText></EffectBubble>
             )}
             {messageEffect ? <MessageBurst key={`b-${replay}`} effect={messageEffect} quality={quality} fresh priority={2} /> : null}
           </div>
@@ -315,6 +315,8 @@ function EffectCard({ effect, selected, left, cover, quality, onSelect }: {
   quality: Quality; onSelect: () => void;
 }) {
   const rarity = rarityOf(effect);
+  // El enjambre de murciélagos vuela fuera del recuadro: no se recorta.
+  const spill = (effect.manifest as { nox?: { preset?: string } } | null)?.nox?.preset === "bats" ? "visible" : undefined;
   return (
     <button
       type="button"
@@ -322,7 +324,7 @@ function EffectCard({ effect, selected, left, cover, quality, onSelect }: {
       onClick={onSelect}
       aria-pressed={selected}
     >
-      <span className="chat-effect-preview" data-kind={effect.kind}>
+      <span className="chat-effect-preview" data-kind={effect.kind} data-spill={spill}>
         <CardPreview effect={effect} cover={cover} quality={quality} />
       </span>
       <span className="chat-effect-name">{effect.name}</span>
@@ -356,6 +358,8 @@ function CardPreview({ effect, cover, quality }: { effect: ChatEffect; cover: st
       return <ProductBadge effect={effect} quality={quality} />;
     case "frame":
       return <ChatAvatar user={{ displayName: effect.name, avatarSeed: effect.code }} frame={effect} quality={quality} size={30} />;
+    case "bubble":
+      return <EffectBubble effect={effect} quality={quality}>Hola, NOX.</EffectBubble>;
     case "sticker":
       return <StickerArt effect={effect} quality="low" />;
     case "background": {

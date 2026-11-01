@@ -4,14 +4,14 @@ const color = z.string().regex(/^#[\da-f]{6}$/iu);
 const angle = z.number().finite().min(0).max(360);
 /** Valores acotados: el editor y el renderer comparten el mismo contrato. */
 export const nameStyleSchema = z.object({
-  family: z.enum(["sans", "serif", "script", "mono"]).default("sans"),
+  family: z.enum(["unicode", "gothic", "script", "serif", "display", "sans", "heavy", "cute", "mono", "classic"]).default("sans"),
   size: z.number().min(10).max(40).default(18),
   weight: z.number().int().min(100).max(900).default(700),
   italic: z.boolean().default(false),
   tracking: z.number().min(-1.5).max(6).default(0),
   colors: z.array(color).length(3).default(["#e4383a", "#680d10", "#fff1ab"]),
   gradient: z.boolean().default(true),
-  gradientAngle: angle.default(90),
+  gradientAngle: angle.default(0),
   colorStop: z.number().min(0).max(100).default(45),
   outlineColor: color.default("#000000"),
   outlineWidth: z.number().min(0).max(2).default(0),
@@ -20,7 +20,16 @@ export const nameStyleSchema = z.object({
   shadowBlur: z.number().min(0).max(12).default(3),
   shadowAngle: angle.default(180),
   shadowDistance: z.number().min(0).max(8).default(1),
-  animation: z.enum(["none", "wave", "flow", "float", "pulse", "sparkle", "spin"]).default("wave"),
+  animation: z.enum(["none", "wave", "flow", "float", "pulse", "sparkle", "spin", "smoke"]).default("wave"),
+  smokeColor: color.default("#9aa0aa"),
+  smokeCount: z.number().int().min(1).max(20).default(7),
+  smokeSize: z.number().min(4).max(60).default(17),
+  smokeSizeStep: z.number().min(0).max(16).default(9),
+  smokeBlur: z.number().min(0).max(12).default(5),
+  smokeOpacity: z.number().min(0).max(1).default(0.8),
+  smokeRise: z.number().min(0).max(100).default(45),
+  smokeBottom: z.number().min(-100).max(100).default(-77),
+  smokeBlend: z.enum(["normal", "screen", "overlay", "multiply", "plus-lighter"]).default("screen"),
   duration: z.number().min(0.3).max(20).default(3),
   direction: z.enum(["normal", "reverse", "alternate", "alternate-reverse"]).default("alternate"),
   motionAngle: angle.default(0),
@@ -33,11 +42,18 @@ export const nameStyleSchema = z.object({
 });
 export type NameStyle = z.infer<typeof nameStyleSchema>;
 export const DEFAULT_NAME_STYLE = nameStyleSchema.parse({});
+// Mismas pilas locales que nicklab_editor_v2.html; no sustituir fuentes.
 export const NAME_STYLE_FAMILIES = {
-  sans: 'Inter, system-ui, sans-serif',
+  unicode: '"DejaVu Serif", "Noto Sans Math", Georgia, serif',
+  gothic: '"EB Garamond", "Times New Roman", serif',
+  script: '"URW Chancery L", "Apple Chancery", "Brush Script MT", cursive',
   serif: 'Georgia, "Times New Roman", serif',
-  script: '"Brush Script MT", "Segoe Script", cursive',
-  mono: '"JetBrains Mono", monospace',
+  display: '"Palatino Linotype", "EB Garamond", Georgia, serif',
+  sans: 'Arial, "Liberation Sans", sans-serif',
+  heavy: '"Arial Black", "DejaVu Sans", sans-serif',
+  cute: '"Comic Neue", "Comic Sans MS", "Trebuchet MS", sans-serif',
+  mono: '"DejaVu Sans Mono", Consolas, monospace',
+  classic: '"Times New Roman", "Liberation Serif", serif',
 };
 export function angleVector(degrees: number, distance: number) {
   const radians = degrees * Math.PI / 180;
@@ -47,11 +63,13 @@ export function angleVector(degrees: number, distance: number) {
 export function nameStyleBounds(width: number, height: number, style: NameStyle) {
   const radians = style.rotation * Math.PI / 180;
   const pad = (style.shadow ? style.shadowBlur * 2 + style.shadowDistance : 0) + style.outlineWidth + style.amplitude + 2;
+  // Las nubes se dibujan fuera del flujo: su recorrido no agranda la fila.
   return { width: Math.ceil(Math.abs(width * Math.cos(radians)) + Math.abs(height * Math.sin(radians)) + pad * 2),
     height: Math.ceil(Math.abs(width * Math.sin(radians)) + Math.abs(height * Math.cos(radians)) + pad * 2) };
 }
 export const NAME_STYLE_REFERENCES = [
-  { code: "loby", name: "Loby", sample: "ℓσв𝓎", style: nameStyleSchema.parse({ family: "sans", size: 17, italic: true, tracking: -0.7, colors: ["#080507", "#680d10", "#e4383a"], shadowColor: "#510608", outlineColor: "#2b0809", outlineWidth: 0.25, duration: 2.15, stagger: -0.22 }) },
-  { code: "bunnita", name: "Bunnita", sample: "Bunnita", style: nameStyleSchema.parse({ family: "serif", size: 19, italic: true, tracking: -0.15, colors: ["#db64a3", "#fff1ab", "#ffa4d7"], shadowColor: "#874269", shadowBlur: 2, outlineColor: "#f6f2e6", outlineWidth: 0.4, duration: 3.6, prefix: "˙ ", suffix: " °" }) },
-  { code: "enana", name: "Enana", sample: "∥[Enana♥]∥", style: nameStyleSchema.parse({ family: "script", size: 18, italic: true, tracking: -0.45, colors: ["#c42767", "#ff6fa6", "#fff1f8"], shadowColor: "#ff56a1", shadowBlur: 5, outlineColor: "#ffe2ed", outlineWidth: 0.5, duration: 2.4, animation: "sparkle", prefix: "♀ " }) },
+  { code: "loby", name: "Loby", sample: "ℓσв𝓎", style: nameStyleSchema.parse({ family: "unicode", size: 17, italic: true, tracking: -0.7, colors: ["#080507", "#680d10", "#e4383a"], shadowColor: "#510608", outlineColor: "#2b0809", outlineWidth: 0.25, duration: 2.15, stagger: -0.22 }) },
+  { code: "bunnita", name: "Bunnita", sample: "Bunnita", style: nameStyleSchema.parse({ family: "display", size: 19, italic: true, tracking: -0.15, colors: ["#db64a3", "#fff1ab", "#ffa4d7"], shadowColor: "#874269", shadowBlur: 2, outlineColor: "#f6f2e6", outlineWidth: 0.4, duration: 3.6, prefix: "˙ ", suffix: " °" }) },
+  { code: "enana", name: "Enana", sample: "∥[Enana♥]∥", style: nameStyleSchema.parse({ family: "script", size: 18, italic: true, tracking: -0.45, colors: ["#c42767", "#ff6fa6", "#fff1f8"], shadowColor: "#ff56a1", shadowBlur: 5, outlineColor: "#ffe2ed", outlineWidth: 0.5, duration: 2.4, stagger: -0.12, animation: "sparkle", prefix: "♀ " }) },
+  { code: "ghost", name: "Ghost", sample: "Ghost", style: nameStyleSchema.parse({ animation: "smoke", duration: 4, direction: "normal", stagger: -0.6, gradient: false, colors: ["#d1d5db", "#080808", "#000000"], shadow: false, amplitude: 0 }) },
 ] as const;

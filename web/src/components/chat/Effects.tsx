@@ -1,3 +1,4 @@
+import { NoxName, NoxAvatar, NoxBubble } from "./NoxEffects";
 import { StyledName } from "./StyledName";
 // CRV · Componentes visuales de los efectos.
 //
@@ -366,6 +367,8 @@ function EffectNameText({ name, effect, font, quality, className, priority }: {
   useParticleEmitter(rootRef, hidden || material ? [] : particles, live && slot.visible);
   useMaterialEmitter(rootRef, material, "name", live && slot.visible && !hidden);
 
+  if (manifest?.nox && !hidden) return <NoxName name={display} style={manifest.nox} quality={quality} priority={priority ?? 1.5} fontStyle={fontStyle} className={className ?? ""} />;
+
   if (manifest?.nameStyle && !hidden) return <StyledName name={display} style={manifest.nameStyle} quality={quality} priority={priority ?? 1.5} />;
 
   if ((layers.length === 0 && !fontCode && !material) || hidden) {
@@ -434,6 +437,7 @@ export function ChatAvatar({ user, frame, quality, size = 36, priority }: {
   const live = slot.granted && (quality === "medium" || quality === "high");
   useParticleEmitter(rootRef, hidden || material ? [] : particles, live && slot.visible);
   useMaterialEmitter(rootRef, material, "avatar", live && slot.visible && !hidden);
+  if (manifest?.nox && !hidden) return <NoxAvatar initial={initials(user.displayName)} style={manifest.nox} quality={quality} size={size} priority={priority ?? 1.5} />;
   return (
     <span
       ref={rootRef}
@@ -564,4 +568,10 @@ export function BurstText({ effect, quality, fresh, children, priority = 1 }: {
     !moving ? "is-static" : "",
   ].filter(Boolean).join(" ") || undefined}
     style={material ? layerStyle(material) : moving && css ? layerStyle(css) : undefined}>{children}</p>;
+}
+
+/** Burbuja persistente, independiente de los efectos que se disparan al enviar. */
+export function EffectBubble({ effect, quality, children, priority }: { effect: ChatEffect | null; quality: Quality; children: React.ReactNode; priority?: number }) {
+  const manifest = manifestOf(effect);
+  return manifest?.nox && !shouldHide(effect, quality) ? <NoxBubble style={manifest.nox} quality={quality} priority={priority ?? 1.5}>{children}</NoxBubble> : <>{children}</>;
 }

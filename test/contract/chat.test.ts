@@ -259,4 +259,25 @@ describe("chat contra PostgreSQL", () => {
     });
   });
 
+  it("compra, equipa y recupera la burbuja NOX en mensajes sin alterar nombre y marco", async () => {
+    const actor = await createGuestActor("NOX contractual");
+    const product = { code: "nox-blood-bubble", name: "Bloodfall · Burbuja", kind: "bubble", description: "Goteo",
+      manifest: { version: 1, triggers: ["always"], layers: [], cost: 1, nox: { preset: "blood", bloodfall: "enhanced" } },
+      priceCoins: 25, priceCredits: 25, durationDays: null, enabled: true, sort: 200 };
+    await upsertEffect(product);
+    await expect(equipEffect({ actorId: actor.id, slot: "bubble", code: product.code })).rejects.toMatchObject({ code: "not_owned" });
+    await buyEffect({ actorId: actor.id, code: product.code, idempotencyKey: "nox-bubble-purchase" });
+    await buyEffect({ actorId: actor.id, code: "neon", idempotencyKey: "nox-name-purchase" });
+    await equipEffect({ actorId: actor.id, slot: "name", code: "neon" });
+    expect(await equipEffect({ actorId: actor.id, slot: "bubble", code: product.code })).toMatchObject({ name: "neon", bubble: product.code });
+    await expect(equipEffect({ actorId: actor.id, slot: "frame", code: product.code })).rejects.toMatchObject({ code: "wrong_slot" });
+    const room = await roomBySlug("general");
+    const message = await insertMessage({ roomId: room!.id, actorId: actor.id, body: "Burbuja persistente", kind: "chat" });
+    expect(message.equipped?.bubble).toBe(product.code);
+    const messages = await listMessages(room!.id);
+    expect(messages.find(item => item.id === message.id)?.equipped?.bubble).toBe(product.code);
+    expect(await equipEffect({ actorId: actor.id, slot: "bubble", code: null })).toMatchObject({ name: "neon" });
+    expect((await equippedFor(actor.id)).bubble).toBeUndefined();
+  });
+
 });

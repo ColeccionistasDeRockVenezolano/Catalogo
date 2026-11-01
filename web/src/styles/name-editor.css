@@ -1,22 +1,41 @@
 /* El efecto reserva su huella completa, incluso al girar. */
-.crv-styled-name { display: inline-flex; position: relative; flex: 0 0 auto; vertical-align: middle; align-items: center; justify-content: center; line-height: 1.45; }
-.ns-text { display: block; width: max-content; max-width: min(65vw, 420px); text-align: center; overflow-wrap: anywhere; transform: rotate(var(--ns-rotation)); flex: none; }
+.crv-styled-name { display: inline-flex; position: relative; flex: 0 0 auto; vertical-align: middle; align-items: center; justify-content: center; line-height: 1.1; isolation: isolate; }
+.ns-text { display: inline-flex; align-items: center; gap: 1px; width: max-content; max-width: min(65vw, 420px); text-align: center; overflow-wrap: anywhere; transform: rotate(var(--ns-rotation)); flex: none; }
 .crv-styled-name[style*="width"] > .ns-text { position: absolute; }
+.ns-glyphs { display: inline-flex; white-space: pre; align-items: baseline; max-width: min(65vw, 420px); flex-wrap: wrap; filter: var(--ns-group-shadow); }
 .ns-glyph-box { display: inline-block; padding: .12em; margin: -.12em; }
-.ns-glyph { display: inline-block; white-space: pre; color: var(--ns-color); -webkit-text-stroke: var(--ns-outline); paint-order: stroke fill; text-shadow: var(--ns-shadow); transform: rotate(var(--ns-glyph-rotation)); }
-.ns-text[data-gradient="true"] .ns-glyph { background: var(--ns-fill); background-size: 230% 230%; background-clip: text; -webkit-background-clip: text; color: transparent; }
+.ns-glyph { display: inline-block; white-space: pre; color: var(--ns-color); -webkit-text-stroke: var(--ns-outline); position: relative; transform: rotate(var(--ns-glyph-rotation)); }
+.ns-text[data-gradient="true"] .ns-glyph { background: var(--ns-fill); background-size: 230% 230%; background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; background-position: var(--ns-from-x) var(--ns-from-y); filter: var(--ns-glyph-shadow); }
 .crv-styled-name.is-live .ns-glyph { animation-duration: var(--ns-duration); animation-direction: var(--ns-direction); animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
 .is-live [data-animation="wave"] .ns-glyph, .is-live [data-animation="flow"] .ns-glyph { animation-name: ns-flow; animation-timing-function: linear; }
 .is-live [data-animation="wave"] .ns-glyph { animation-delay: calc(var(--i) * var(--ns-stagger)); }
 .is-live [data-animation="float"] .ns-glyph { animation-name: ns-float; animation-delay: calc(var(--i) * var(--ns-stagger)); }
 .is-live [data-animation="pulse"] .ns-glyph { animation-name: ns-pulse; }
-.is-live [data-animation="sparkle"] .ns-glyph { animation-name: ns-sparkle; animation-delay: calc(var(--i) * var(--ns-stagger)); }
+.is-live [data-animation="sparkle"] .ns-glyph { animation-name: ns-sparkle; animation-delay: calc(var(--i) * -0.1s); }
 .is-live [data-animation="spin"] .ns-glyph { animation-name: ns-spin; }
 @keyframes ns-flow { from { background-position: var(--ns-from-x) var(--ns-from-y); } to { background-position: var(--ns-to-x) var(--ns-to-y); } }
 @keyframes ns-float { 0%,100% { transform: translate(calc(-1 * var(--ns-x)), calc(-1 * var(--ns-y))) rotate(var(--ns-glyph-rotation)); } 50% { transform: translate(var(--ns-x), var(--ns-y)) rotate(var(--ns-glyph-rotation)); } }
-@keyframes ns-pulse { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
-@keyframes ns-sparkle { 0%,100% { filter: brightness(.85); } 65% { filter: brightness(1.65); } }
+@keyframes ns-pulse { 0%,100% { opacity: .8; filter: brightness(.86) drop-shadow(0 0 0 transparent); } 50% { opacity: 1; filter: brightness(1.35) drop-shadow(0 0 4px var(--ns-shadow-color)); } }
+@keyframes ns-sparkle {
+  0% { background-position: var(--ns-from-x) var(--ns-from-y); filter: brightness(.9); }
+  70% { filter: brightness(.9); }
+  77% { filter: brightness(1.75) drop-shadow(0 0 3px #fff); }
+  83% { filter: brightness(1.1); }
+  100% { background-position: var(--ns-to-x) var(--ns-to-y); filter: brightness(.9); }
+}
+.ns-symbol { font-size: .8em; font-weight: normal; line-height: 1; color: #f8d4ea; text-shadow: 0 1px 1px #120c16, 0 0 4px var(--ns-shadow-color); white-space: pre; }
+.ns-text[data-shadow="false"] :is(.ns-glyphs, .ns-glyph, .ns-symbol) { filter: none !important; text-shadow: none !important; }
+.is-live [data-shadow="false"][data-animation="pulse"] .ns-glyph { animation-name: ns-pulse-no-shadow; }
+.is-live [data-shadow="false"][data-animation="sparkle"] .ns-glyph { animation-name: ns-sparkle-no-shadow; }
+@keyframes ns-pulse-no-shadow { 0%,100% { opacity: .8; filter: brightness(.86); } 50% { opacity: 1; filter: brightness(1.35); } }
+@keyframes ns-sparkle-no-shadow { 0% { background-position: var(--ns-from-x) var(--ns-from-y); opacity: .85; } 70% { opacity: .88; } 77% { opacity: 1; } 83% { opacity: .95; } 100% { background-position: var(--ns-to-x) var(--ns-to-y); opacity: .85; } }
 @keyframes ns-spin { from { transform: rotate(var(--ns-glyph-rotation)); } to { transform: rotate(calc(var(--ns-glyph-rotation) + 360deg)); } }
+/* Las nubes salen del texto en posición absoluta: sin recorte ni espacio en la fila. */
+.ns-text[data-animation="smoke"] .ns-glyph-box { position: relative; z-index: 1; }
+.ns-smoke-puff { display: block; position: absolute; bottom: var(--ns-smoke-bottom); left: var(--x); width: var(--s); height: var(--s); border-radius: 50%; background: radial-gradient(ellipse, var(--ns-smoke-color) 0%, color-mix(in srgb, var(--ns-smoke-color) 95%, transparent) 27%, color-mix(in srgb, color-mix(in srgb, var(--ns-smoke-color) 97%, white) 92%, transparent) 52%, var(--ns-smoke-color) 72%); filter: blur(var(--ns-smoke-blur)); pointer-events: none; mix-blend-mode: var(--ns-smoke-blend); opacity: calc(var(--ns-smoke-opacity) * .35); transform: translate(-50%, -35%) scale(.9); }
+.crv-styled-name.is-live .ns-smoke-puff { animation-name: ns-smoke-float; animation-duration: var(--ns-duration); animation-timing-function: ease-out; animation-iteration-count: infinite; animation-direction: var(--ns-direction); }
+@keyframes ns-smoke-float { 0% { opacity: 0; transform: translate(-50%, 0) scale(.9); } 20% { opacity: var(--ns-smoke-opacity); } 100% { opacity: 0; transform: translate(-20%, calc(-1 * var(--ns-smoke-rise))) scale(1.8); } }
+@media (prefers-reduced-motion: reduce) { .crv-styled-name .ns-smoke-puff { animation: none !important; } }
 @media (prefers-reduced-motion: reduce) { .crv-styled-name .ns-glyph { animation: none !important; } }
 
 .name-editor { margin-block: 24px; border-top: 1px solid var(--border); padding-top: 20px; }

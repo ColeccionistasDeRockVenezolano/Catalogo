@@ -11,7 +11,7 @@ import {
   equippedEffect, formatTime, useChatQuality,
 } from "../lib/chatEffects";
 import { useOperator } from "../lib/OperatorContext";
-import { BurstText, ChatAvatar, EffectName, MessageBurst, RoomAmbient, RoomBackdrop, StickerArt } from "../components/chat/Effects";
+import { EffectBubble, BurstText, ChatAvatar, EffectName, MessageBurst, RoomAmbient, RoomBackdrop, StickerArt } from "../components/chat/Effects";
 import { setMotionScope } from "../lib/chatMotion";
 import { MaterialStage } from "../components/chat/MaterialStage";
 import { ParticleStage } from "../components/chat/ParticleStage";
@@ -456,7 +456,7 @@ const MessageRow = memo(function MessageRow({ message, effects, quality, cover, 
           </header>
         )}
         {burst?.kind === "sticker" ? <StickerArt effect={burst} quality={quality} /> : (
-          <BurstText effect={burst} quality={quality} fresh={fresh}>{message.body}</BurstText>
+          <EffectBubble effect={equippedEffect({ equipped }, effects, "bubble")} quality={quality}><BurstText effect={burst} quality={quality} fresh={fresh}>{message.body}</BurstText></EffectBubble>
         )}
         <MessageBurst effect={burst?.kind === "message" ? burst : null} quality={quality} fresh={fresh} />
       </div>

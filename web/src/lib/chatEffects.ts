@@ -36,6 +36,7 @@ export interface EffectLayer {
 
 export interface EffectManifest {
   version: number;
+  nox?: import("../../../src/chat/nox").NoxStyle;
   nameStyle?: import("../../../src/chat/name-style").NameStyle;
   badge?: { imageUrl: string; animated: boolean; staticImageUrl?: string };
   triggers: string[];
@@ -120,11 +121,12 @@ export function manifestOf(effect: ChatEffect | null | undefined): EffectManifes
   const layers = raw.layers.filter(isLayer);
   const font = raw.font && typeof raw.font.code === "string" ? { code: raw.font.code } : undefined;
   const badge = raw.badge && typeof raw.badge.imageUrl === "string" ? raw.badge : undefined;
-  if (layers.length === 0 && !font && !badge && !raw.nameStyle) return null;
+  if (layers.length === 0 && !font && !badge && !raw.nameStyle && !raw.nox) return null;
   return {
     version: typeof raw.version === "number" ? raw.version : 1,
     triggers: Array.isArray(raw.triggers) ? raw.triggers : ["always"],
     layers,
+    ...(raw.nox ? { nox: raw.nox } : {}),
     ...(raw.nameStyle ? { nameStyle: raw.nameStyle } : {}),
     ...(font ? { font } : {}),
     ...(badge ? { badge } : {}),
