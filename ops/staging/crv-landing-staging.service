@@ -1,0 +1,19 @@
+[Unit]
+Description=CRV landing raíz staging (Fase 2B, 127.0.0.1:3141)
+Documentation=file://%h/apps/Coleccionistas De Rock Venezolano/docs/independencia/FASE2B.md
+After=network-online.target crv-api-staging.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/apps/Coleccionistas De Rock Venezolano/web
+# Los secretos NO viven en el repo: se completan desde crv-landing.env.example
+# en ~/apps/crv-staging/landing.env (fuera de Git).
+EnvironmentFile=%h/apps/crv-staging/landing.env
+Environment=PATH=%h/.local/node-v24.20.0-linux-x64/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=%h/.local/node-v24.20.0-linux-x64/bin/npm run serve:public
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

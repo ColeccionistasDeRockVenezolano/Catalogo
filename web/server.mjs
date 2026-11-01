@@ -544,12 +544,132 @@ function reportTraffic(req, literalPath) {
   }).catch(() => undefined);
 }
 
+// ---- Modo raíz (Fase 2B): lista blanca estricta ------------------------------
+//
+// En `CRV_WEB_MODE=landing` el dominio sirve SOLO la portada, /colaborar,
+// /login, /registro y /activar, sus estáticos y las APIs indicadas en el plan
+// (§5.1). Todo lo demás responde 404: ni el catálogo, ni /curaduria, ni el chat,
+// ni las rutas del SPA. La radio se reenvía a Herra mientras la Fase 3 no cumpla.
+const radioProxyUrl = process.env.CRV_RADIO_PROXY_URL ?? "";
+const LANDING_DOCS = ["/", "/roadmap", "/colaborar", "/login", "/registro", "/activar"];
+const LANDING_API = [
+  /^\/roadmap$/u,
+  /^\/roadmap\/(visit|visits|me)$/u,
+  /^\/roadmap\/tasks\/\d+\/status$/u,
+  /^\/community\/(form-options|applications)$/u,
+  /^\/community\/invite\/[A-Za-z0-9_-]+$/u,
+  /^\/community\/register$/u,
+  /^\/community\/activate(\/[A-Za-z0-9_-]+)?$/u,
+  /^\/site-config$/u,
+  /^\/auth\/(login|logout|me)$/u,
+  /^\/landing-media\/(favicon|share)$/u,
+];
+const LANDING_RADIO = /^\/radio\/(now|listener|unavailable)$/u;
+const LANDING_STATICS = ["/landing/", "/favicon.ico", "/favicon.png", "/theme.css", "/media/favicon", "/media/share"];
+
+/** Proxy a otro proceso local (la radio de Herra en la 2B). */
+function proxyTo(req, res, target, upstreamPath) {
+  const destino = new URL(target);
+  const headers = {
+    ...req.headers,
+    host: destino.host,
+    "x-forwarded-host": req.headers.host,
+    "x-forwarded-proto": "https",
+  };
+  if (!isLoopbackPeer(req)) {
+    delete headers["cf-connecting-ip"];
+    delete headers["cf-ipcountry"];
+  }
+  const upstream = http.request({
+    host: destino.hostname,
+    port: Number(destino.port || 80),
+    method: req.method,
+    path: upstreamPath,
+    headers,
+  }, (respuesta) => {
+    res.writeHead(respuesta.statusCode ?? 502, { ...respuesta.headers, ...SECURITY_HEADERS });
+    respuesta.pipe(res);
+  });
+  upstream.on("error", () => reply(res, 502, "La radio no está disponible."));
+  req.pipe(upstream);
+}
+
+/**
+ * Devuelve true cuando la petición ya está resuelta (servida o rechazada).
+ * En modo catálogo no se llama.
+ */
+function landingWhitelist(req, res, virtualUrl, acceptsHtml) {
+  const metodo = req.method ?? "GET";
+  const ruta = (virtualUrl.pathname.replace(/\/+$/u, "") || "/");
+  const esLectura = metodo === "GET" || metodo === "HEAD";
+
+  if (ruta === apiPath || ruta.startsWith(`${apiPath}/`)) {
+    const dentro = ruta.slice(apiPath.length) || "/";
+    if (LANDING_RADIO.test(dentro)) {
+      if (!radioProxyUrl) {
+        res.writeHead(503, { "content-type": "application/json; charset=utf-8", ...SECURITY_HEADERS });
+        res.end(JSON.stringify({ error: { code: "radio_unavailable", message: "La radio aún no está enrutada." } }));
+        return true;
+      }
+      // Herra sirve la radio bajo /api/radio/*: se reenvía con su prefijo.
+      proxyTo(req, res, radioProxyUrl, `/api${dentro}${virtualUrl.search}`);
+      return true;
+    }
+    if (LANDING_API.some((patron) => patron.test(dentro))) {
+      proxyApi(req, res, virtualUrl);
+      return true;
+    }
+    res.writeHead(404, { "content-type": "application/json; charset=utf-8", ...SECURITY_HEADERS });
+    res.end(JSON.stringify({ error: { code: "not_found", message: `ruta inexistente: ${metodo} ${virtualUrl.pathname}` } }));
+    return true;
+  }
+
+  if (esLectura && ruta === "/") {
+    const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
+    reportTraffic(req, "/");
+    serveLanding(req, res, "roadmap", lang, virtualUrl.searchParams);
+    return true;
+  }
+  // robots.txt propio de la portada: no anuncia el sitemap del catálogo ni
+  // expone /curaduria ni las rutas de la API, que en este modo no existen.
+  if (esLectura && ruta === "/robots.txt") {
+    sendText(req, res, 200, "text/plain; charset=utf-8", "User-agent: *\nAllow: /\n", "public, max-age=3600");
+    return true;
+  }
+  if (esLectura && LANDING_DOCS.includes(ruta)) return false; // la rama de landing ya las sirve
+  if (LANDING_STATICS.some((prefijo) => ruta === prefijo || ruta.startsWith(prefijo))) return false;
+
+  if (acceptsHtml) {
+    res.writeHead(404, { "content-type": "text/html; charset=utf-8", ...SECURITY_HEADERS });
+    res.end("<!doctype html><meta charset=\"utf-8\"><title>404</title><p>Esta página no existe.</p>");
+  } else {
+    res.writeHead(404, { "content-type": "text/plain; charset=utf-8", ...SECURITY_HEADERS });
+    res.end("404");
+  }
+  return true;
+}
+
 const server = http.createServer(async (req, res) => {
   const ip = clientIp(req);
   if (ip.length > 0 && !isLocalRequest(req) && rateLimited(ip)) {
     res.writeHead(429, { "content-type": "text/plain; charset=utf-8", "retry-after": "60", ...SECURITY_HEADERS });
     res.end("Demasiadas solicitudes desde esta conexión. Espera un minuto y vuelve a intentarlo.");
     return;
+  }
+  // En modo raíz una ruta con doble barra o barra invertida no existe: el
+  // parser de URL interpreta `//curaduria` como un host y serviría la portada
+  // (200) en vez de 404, que es justo la puerta que no puede quedar abierta.
+  // Se mira la ruta cruda, antes de normalizar, y también su forma decodificada.
+  if (webMode === "landing") {
+    const rutaCruda = (req.url ?? "/").split("?", 1)[0] ?? "/";
+    let rutaDecodificada = rutaCruda;
+    try { rutaDecodificada = decodeURIComponent(rutaCruda); } catch { /* se compara la cruda */ }
+    if (rutaCruda.includes("\\") || rutaDecodificada.includes("\\")
+        || /\/{2,}/u.test(rutaCruda) || /\/{2,}/u.test(rutaDecodificada)) {
+      res.writeHead(404, { "content-type": "text/plain; charset=utf-8", ...SECURITY_HEADERS });
+      res.end("404");
+      return;
+    }
   }
   const requestUrl = new URL(req.url ?? "/", `http://${req.headers.host ?? host}`);
   // En staging la app vive bajo /crv. Si alguien entra por una ruta de la app
@@ -571,6 +691,9 @@ const server = http.createServer(async (req, res) => {
     : `${basePath}${requestUrl.pathname}`;
   const virtualUrl = new URL(requestUrl);
   virtualUrl.pathname = virtualPath;
+  // Fase 2B: en modo raíz manda la lista blanca. Todo lo que no esté en ella
+  // responde 404 antes de llegar al catálogo o al chat.
+  if (webMode === "landing" && landingWhitelist(req, res, virtualUrl, acceptsHtml)) return;
   if (virtualUrl.pathname === apiPath || virtualUrl.pathname.startsWith(`${apiPath}/`)) return proxyApi(req, res, virtualUrl);
   // Las cinco páginas usan el documento renderizado por la API, con fallback
   // estático cuando no se puede contactar con ella.
@@ -588,7 +711,9 @@ const server = http.createServer(async (req, res) => {
   }
   // robots.txt y sitemap los sirve el gateway, no el build: responden con el
   // host real que ve el buscador (hoy el Funnel; mañana el dominio propio).
-  const literalPath = virtualUrl.pathname === basePath ? "/" : virtualUrl.pathname.slice(basePath.length);
+  const literalPath = basePath === "/"
+    ? virtualUrl.pathname
+    : (virtualUrl.pathname === basePath ? "/" : virtualUrl.pathname.slice(basePath.length));
   if (req.method === "GET" || req.method === "HEAD") {
     if (literalPath === "/robots.txt") {
       reportTraffic(req, literalPath);
