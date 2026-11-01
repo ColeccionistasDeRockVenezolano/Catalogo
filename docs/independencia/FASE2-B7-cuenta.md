@@ -86,8 +86,11 @@ Se revisó `src/api/` completo: existían perfil de persona **administrativo**
 - Una cuenta **sin persona vinculada** (por ejemplo un administrador suelto) ve el texto
   «Tu cuenta todavía no tiene una persona asociada…» y solo la sección de contraseña, igual
   que la rama `profile === null` de Herra.
-- El límite de intentos de acceso por IP de staging obliga a reiniciar `crv-api-staging` entre
-  tandas de inicios de sesión; el script encadena **un** inicio por contexto.
+- El límite de intentos de acceso de staging cuenta **todos** los intentos contra la IP (20 por
+  15 min, aciertos incluidos) y solo perdona el cupo de la cuenta al acertar. Los guiones ya no
+  dependen de reiniciar `crv-api-staging`: guardan y reutilizan la sesión y usan una IP de prueba
+  distinta por corrida. La explicación completa y la regla propuesta están en la bitácora
+  (§«Paso 3 · limitador de acceso»).
 - Durante la primera pasada, que se cortó por un fallo del propio guion, la persona de prueba
   quedó con correo y país vacíos; no se reprodujo en dos pasadas limpias ni con una prueba
   específica de «guardar sin vaciar campos», y el formulario conserva lo que devuelve la API.
