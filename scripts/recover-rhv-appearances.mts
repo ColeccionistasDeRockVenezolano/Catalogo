@@ -12,13 +12,13 @@ import { normalizeIdentity } from "../src/normalization/claims.js";
 import { withCandidateSnapshot } from "../src/er/repository.js";
 import { instrumentsOf } from "../src/discography/instruments.js";
 import { biographyMembershipContext, cleanBiographyPersonName, evidenceHash, shouldReopenEvidenceCase, sourceReviewFingerprint } from "../src/review/evidence-closure.js";
-import { appearanceTrackTitle, matchingAppearanceTracks, sourceTitleKey as key } from "../src/discography/source-appearances.js";
+import { appearanceTrackTitle, matchingAppearanceTracks, sourcePerformerIsArtist, sourceTitleKey as key } from "../src/discography/source-appearances.js";
 
 interface Entry { title: string; years_raw: string; appearance: string | null; header: string; tracks: Array<{ title: string }>; covers: string[]; formats: string[] }
 interface Ficha { url: string; name: string; bio: string[]; bio_roles: Record<string, string[]>; albums: Entry[] }
 interface Album { id: number; title: string; artistId: number; year: number | null; type: string }
 interface Artist { id: number; name: string; type: string; names: string[] }
-interface Appearance { artistId: number; artist: string; names: string[]; url: string; title: string; catalogTitle: string | null; year: number | null; tracks: string[]; covers: string[]; formats: string[]; albumId: number | null }
+interface Appearance { artistId: number; artist: string; performer: string; names: string[]; url: string; title: string; catalogTitle: string | null; year: number | null; tracks: string[]; covers: string[]; formats: string[]; albumId: number | null }
 interface Membership { artistId: number; artist: string; personId: number; name: string; role: string; url: string }
 interface Pending { reason: string; artistId?: number; artist?: string; url: string; title?: string; name?: string; candidates?: unknown; tracks?: string[] }
 const out = process.argv[2];
@@ -26,7 +26,7 @@ if (!out || !path.resolve(out).startsWith(`${process.env["HOME"]}/crv-staging/`)
 const confirm = process.argv.includes("--confirm");
 const rehearse = process.argv.includes("--rehearse");
 const base = "reports/rhv-directorio-2026-10-25";
-const fichas = readFileSync(`${base}/fichas.jsonl`, "utf8").trim().split("\n").map(line => JSON.parse(line) as Ficha);
+const fichas = readFileSync(process.env["RHV_FICHAS"] ?? `${base}/fichas.jsonl`, "utf8").trim().split("\n").map(line => JSON.parse(line) as Ficha);
 const oldIds = (JSON.parse(readFileSync(`${base}/aplicacion.json`, "utf8")) as { artistIds: Record<string, number> }).artistIds;
 const sha = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const albumKey = (title: string) => key(title.replace(/^(?:el|la|los|las|the)\s+/iu, ""));
@@ -84,9 +84,26 @@ try {
     const artist = id === undefined ? undefined : byArtist.get(id);
     if (!artist || fromUrl.length > 1) { pending.push({ reason: "artist_identity", artist: ficha.name, url: ficha.url, candidates: fromUrl }); continue; }
     resolved.push({ ficha, artist });
-    for (const entry of ficha.albums.filter(e => e.appearance)) {
+    const sourceAppearances = ficha.albums.filter(e => e.appearance);
+    const sourceGroups = new Map<string, Entry[]>();
+    for (const entry of sourceAppearances) {
+      const groupKey = `${albumKey(entry.title)}|${yearOf(entry.years_raw)}`;
+      sourceGroups.set(groupKey, [...sourceGroups.get(groupKey) ?? [], entry]);
+    }
+    const conflictingGroups = new Set<string>();
+    for (const [groupKey, entries] of sourceGroups) {
+      const distinctCovers = new Set(entries.map(e => e.covers[0]).filter(Boolean));
+      const distinctTracks = new Set(entries.filter(e => e.tracks.length).map(e => JSON.stringify(e.tracks.map(t => key(t.title)).sort())));
+      if (distinctCovers.size > 1 && distinctTracks.size > 1) {
+        conflictingGroups.add(groupKey);
+        pending.push({ reason: "source_same_title_multiple_editions", artistId: artist.id, artist: artist.name, url: ficha.url, title: entries[0]!.title,
+          candidates: entries.map(e => ({ header: e.header, covers: e.covers, tracks: e.tracks })) });
+      }
+    }
+    for (const entry of sourceAppearances) {
+      if (conflictingGroups.has(`${albumKey(entry.title)}|${yearOf(entry.years_raw)}`)) continue;
       // The performer must identify this ficha, not a guest named in an unrelated section.
-      if (![...artist.names, ficha.name].some(n => key(n) === key(entry.appearance!))) {
+      if (!sourcePerformerIsArtist(entry.appearance!, [...artist.names, ficha.name])) {
         pending.push({ reason: "performer_identity", artistId: artist.id, artist: artist.name, url: ficha.url, title: entry.title, candidates: entry.appearance }); continue;
       }
       const year = yearOf(entry.years_raw);
@@ -122,7 +139,7 @@ try {
       if (/DVD|VCD|Blu.?ray/iu.test(entry.formats.join(" ")) && !entry.formats.some(f => /^(?:LP|CD|Digital|Cassette)$/iu.test(f))) {
         pending.push({ reason: "audiovisual_not_audio", artistId: artist.id, artist: artist.name, url: ficha.url, title: entry.title }); continue;
       }
-      appearances.push({ artistId: artist.id, artist: artist.name, names: [...new Set([...artist.names, ficha.name])], url: ficha.url, title: entry.title, catalogTitle: albums.find(a => a.id === albumId)?.title ?? null, year,
+      appearances.push({ artistId: artist.id, artist: artist.name, performer: entry.appearance!, names: [...new Set([...artist.names, ficha.name])], url: ficha.url, title: entry.title, catalogTitle: albums.find(a => a.id === albumId)?.title ?? null, year,
         tracks: entry.tracks.map(t => t.title), covers: entry.covers, formats: entry.formats, albumId });
     }
   }
@@ -162,6 +179,17 @@ try {
     appearances.splice(0, appearances.length, ...appearances.filter(a => a.artistId === id));
     memberships.splice(0, memberships.length, ...memberships.filter(m => m.artistId === id));
     pending.splice(0, pending.length, ...pending.filter(p => p.artistId === id));
+  }
+  const sincePath = process.argv.find(arg => arg.startsWith("--new-since="))?.slice("--new-since=".length);
+  if (sincePath) {
+    const prior = JSON.parse(readFileSync(sincePath, "utf8")) as { appearances: Appearance[]; pending: Pending[] };
+    const appearanceKey = (a: Appearance) => JSON.stringify([a.artistId, a.url, a.title]);
+    const pendingKey = (p: Pending) => JSON.stringify([p.reason, p.artistId, p.url, p.title, p.name]);
+    const previous = new Set(prior.appearances.map(appearanceKey));
+    const previousPending = new Set(prior.pending.map(pendingKey));
+    appearances.splice(0, appearances.length, ...appearances.filter(a => !previous.has(appearanceKey(a))));
+    pending.splice(0, pending.length, ...pending.filter(p => !previousPending.has(pendingKey(p))));
+    memberships.splice(0);
   }
   const retryPath = process.argv.find(arg => arg.startsWith("--retry-sql-errors="))?.slice("--retry-sql-errors=".length);
   if (retryPath) {
@@ -217,9 +245,9 @@ try {
           }
           const liveAlbum = (await ctx.client.query<{ title: string; artistId: number; year: number | null }>(`SELECT title,artist_id::int "artistId",release_year AS "year" FROM ingest.catalog_albums WHERE id=$1 FOR SHARE`, [albumId])).rows[0];
           if (!liveAlbum || !vaIds.has(liveAlbum.artistId) || albumKey(liveAlbum.title) !== albumKey(a.catalogTitle ?? a.title) || (liveAlbum.year !== null && a.year !== null && liveAlbum.year !== a.year)) throw new Error("Disco cambió desde la auditoría");
-          const relation = await createRelation(ctx, "album_credit", { albumId, artistId: a.artistId }, { credit_role: "Intérprete", credit_type: "musician", notes: `${a.url} — Temas documentados: ${a.tracks.join("; ")}` });
+          const relation = await createRelation(ctx, "album_credit", { albumId, artistId: a.artistId }, { credit_role: "Intérprete", credit_type: "musician", notes: `${a.url} — Intérprete según fuente: ${a.performer}. Temas documentados: ${a.tracks.join("; ")}` });
           if (relation.created) result.albumCreditsCreated++;
-          await evidence("album_credit", { albumCreditId: relation.id }, "documented_tracks", a.tracks, a.url, `${a.title} (${a.year ?? "s/f"}). Temas interpretados por ${a.artist}: ${a.tracks.join(", ")}`);
+          await evidence("album_credit", { albumCreditId: relation.id }, "documented_tracks", a.tracks, a.url, `${a.title} (${a.year ?? "s/f"}). Temas interpretados por ${a.performer}: ${a.tracks.join(", ")}`);
           result.evidence++;
           const titleClaim = await evidence("album", { albumId }, "title", a.title, a.url, `${a.title} (${a.year ?? "s/f"})`);
           if (albumKey(liveAlbum.title) !== albumKey(a.title)) {
