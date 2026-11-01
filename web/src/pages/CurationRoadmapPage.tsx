@@ -1,21 +1,56 @@
-// CRV · Curaduría › Roadmap (Fase 2).
+// CRV · Curaduría › Roadmap — el /admin de Herra con la piel del catálogo (B6).
 //
-// CRUD de etapas y actividades, orden manual, anclaje, responsables y
-// traducciones EN. Cada escritura devuelve el roadmap completo y la página se
-// refresca; el progreso se deriva siempre de los estados reales.
-import { useState, type DragEvent, type FormEvent } from "react";
-import { ArrowDown, ArrowUp, DotsSixVertical, Plus, PushPin, PushPinSlash, Trash, X } from "@phosphor-icons/react";
+// Una sola página: cabecera, tarjeta de progreso, barra de herramientas con
+// contadores, los dos avisos de orden, y las etapas y actividades editables en
+// el sitio (arrastre con ratón, táctil y teclado). Los textos vienen de
+// `roadmapAdminCopy` y los componentes son los del catálogo: Modal,
+// ConfirmDialog, avisos de ToastContext e iconos Phosphor.
+import { useEffect, useMemo, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useSearchParams } from "react-router-dom";
+import {
+  ArrowLeft, ArrowRight, ArrowSquareOut, CheckCircle, Circle, CircleHalf,
+  ChartLine, ClipboardText, DotsSixVertical, Gear, IdentificationCard, LinkSimple,
+  ListChecks, NotePencil, Palette, Plus, PushPin, PushPinSlash, Translate, Trash, UsersThree,
+  type Icon,
+} from "@phosphor-icons/react";
 import {
   roadmapApi, type AdminCategory, type AdminRoadmap, type AdminTask, type TaskStatus,
 } from "../lib/roadmap";
+import { communityApi } from "../lib/community";
+import { roadmapAdminCopy } from "../lib/roadmapAdminCopy";
+import { useI18n } from "../lib/i18n";
 import { useAsync } from "../lib/useAsync";
 import { useToast } from "../lib/ToastContext";
+import { Modal } from "../components/Modal";
+import { ConfirmDialog } from "../components/ConfirmDialog";
 import { ErrorState, LoadingState } from "../components/StateViews";
 import "../styles/community-ui.css";
 import "../styles/roadmap-admin.css";
 
-const STATUS_LABEL: Record<TaskStatus, string> = {
-  pending: "Pendiente", in_progress: "En curso", completed: "Completada",
+type ToolId =
+  | "nueva-actividad" | "nueva-etapa" | "personas" | "pendientes" | "candidaturas"
+  | "metricas" | "formulario" | "enlaces" | "identidad" | "idiomas" | "ajustes"
+  | "clave" | "publica";
+
+interface ToolDef {
+  id: ToolId;
+  label: string;
+  icon: Icon;
+  count?: number;
+  enabled: boolean;
+  href?: string;
+}
+
+/** Estado de arrastre por teclado: se previsualiza en local y se guarda con Enter. */
+type Grab =
+  | { kind: "task"; categoryId: number; id: number; ids: number[] }
+  | { kind: "stage"; id: number; ids: number[] }
+  | null;
+
+const STATUS_ICON: Record<TaskStatus, Icon> = {
+  completed: CheckCircle,
+  in_progress: CircleHalf,
+  pending: Circle,
 };
 
 function enValue(form: FormData): string {
@@ -26,32 +61,88 @@ function assignedValues(form: FormData): number[] {
   return form.getAll("assignees").map(Number).filter((id) => Number.isInteger(id) && id > 0);
 }
 
+function moveWithin<T>(items: readonly T[], from: number, to: number): T[] {
+  const next = [...items];
+  const [item] = next.splice(from, 1);
+  if (item === undefined) return next;
+  next.splice(Math.max(0, Math.min(to, next.length)), 0, item);
+  return next;
+}
+
 export function CurationRoadmapPage() {
+  const { lang } = useI18n();
+  const copy = roadmapAdminCopy(lang);
   const { notify } = useToast();
   const roadmap = useAsync<AdminRoadmap>(() => roadmapApi.admin(), []);
+  const overview = useAsync(() => communityApi.overview(), []);
+  const [params, setParams] = useSearchParams();
   const [busy, setBusy] = useState(false);
+  const [grab, setGrab] = useState<Grab>(null);
   const [newTask, setNewTask] = useState<{ categoryId?: number; position?: number } | null>(null);
+  const [newStage, setNewStage] = useState(false);
+  const [editStage, setEditStage] = useState<AdminCategory | null>(null);
+  const [editTask, setEditTask] = useState<AdminTask | null>(null);
+  const [confirm, setConfirm] = useState<
+    | { kind: "stage"; category: AdminCategory }
+    | { kind: "task"; task: AdminTask }
+    | null
+  >(null);
 
-  async function run(action: () => Promise<unknown>, success: string): Promise<void> {
+  const tool = (params.get("herramienta") ?? "") as ToolId | "";
+
+  function openTool(id: ToolId): void {
+    if (id === "nueva-actividad") { setNewTask({}); return; }
+    if (id === "nueva-etapa") { setNewStage(true); return; }
+    const next = new URLSearchParams(params);
+    next.set("herramienta", id);
+    setParams(next, { replace: true });
+  }
+
+  function closeTool(): void {
+    const next = new URLSearchParams(params);
+    next.delete("herramienta");
+    setParams(next, { replace: true });
+  }
+
+  // Un enlace con ?herramienta= desconocida o de un bloque que aún no existe
+  // no debe dejar la URL mintiendo: se limpia.
+  useEffect(() => {
+    const known: ToolId[] = ["nueva-actividad", "nueva-etapa"];
+    if (tool && !known.includes(tool)) closeTool();
+  }, [tool]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  async function run(action: () => Promise<unknown>, success: string): Promise<boolean> {
     setBusy(true);
     try {
       await action();
       notify("success", success);
       roadmap.reload();
+      return true;
     } catch (error) {
       notify("error", error instanceof Error ? error.message : "No se pudo guardar.");
+      return false;
     } finally {
       setBusy(false);
     }
   }
 
-  async function createCategory(event: FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const title = String(form.get("title") ?? "").trim();
-    const en = enValue(form);
-    await run(() => roadmapApi.createCategory({ title, ...(en ? { translations: { en } } : {}) }), "Etapa creada.");
-    event.currentTarget.reset();
+  async function reorderTask(task: AdminTask, position: number): Promise<void> {
+    const ok = await run(() => roadmapApi.updateTask(task.id, { position }), copy.toasts.taskSaved);
+    if (!ok) return;
+    setGrab(null);
+  }
+
+  async function reorderStage(category: AdminCategory, position: number): Promise<void> {
+    const ok = await run(() => roadmapApi.updateCategory(category.id, { position }), copy.toasts.stageSaved);
+    if (!ok) return;
+    setGrab(null);
+  }
+
+  async function togglePin(task: AdminTask): Promise<void> {
+    await run(
+      () => roadmapApi.updateTask(task.id, { pinned: !task.orderPinned }),
+      task.orderPinned ? copy.toasts.unpinned : copy.toasts.pinned,
+    );
   }
 
   if (roadmap.loading) return <div className="community-page"><LoadingState label="Cargando el roadmap…" /></div>;
@@ -59,57 +150,385 @@ export function CurationRoadmapPage() {
   const data = roadmap.data;
   if (!data) return null;
 
+  const counts = overview.data;
+  const categories = data.categories;
+  const stageOrder = grab?.kind === "stage" ? grab.ids : categories.map((category) => category.id);
+  const orderedCategories = stageOrder
+    .map((id) => categories.find((category) => category.id === id))
+    .filter((category): category is AdminCategory => Boolean(category));
+
+  const tools: ToolDef[] = [
+    { id: "nueva-actividad", label: copy.tools.newTask, icon: Plus, enabled: true },
+    { id: "nueva-etapa", label: copy.tools.newStage, icon: ListChecks, enabled: true },
+    { id: "personas", label: copy.tools.people, icon: UsersThree, count: counts?.collaborators ?? data.users.length, enabled: false },
+    { id: "pendientes", label: copy.tools.pending, icon: IdentificationCard, count: counts?.pending_collaborators ?? 0, enabled: false },
+    { id: "candidaturas", label: copy.tools.applications, icon: ClipboardText, count: counts?.pending_applications ?? 0, enabled: false },
+    { id: "metricas", label: copy.tools.metrics, icon: ChartLine, enabled: false },
+    { id: "formulario", label: copy.tools.form, icon: NotePencil, enabled: false },
+    { id: "enlaces", label: copy.tools.invites, icon: LinkSimple, enabled: false },
+    { id: "identidad", label: copy.tools.branding, icon: Palette, enabled: false },
+    { id: "idiomas", label: copy.tools.languages, icon: Translate, enabled: false },
+    { id: "ajustes", label: copy.tools.settings, icon: Gear, enabled: false },
+    { id: "clave", label: copy.tools.password, icon: IdentificationCard, enabled: false },
+    { id: "publica", label: copy.tools.viewPublic, icon: ArrowSquareOut, enabled: true, href: "/roadmap" },
+  ];
+
   return (
     <div className="community-page roadmap-admin">
-      <div className="page-header">
-        <div>
-          <h1>Roadmap</h1>
-          <p className="hint">Etapas, actividades, orden, responsables y traducciones. El progreso se calcula con los estados reales.</p>
+      <header className="roadmap-admin__hero">
+        <span className="roadmap-admin__chip">{copy.badge}</span>
+        <h1 className="roadmap-admin__title">{copy.title1}<br />{copy.title2}<span className="roadmap-admin__dot-end">.</span></h1>
+        <p className="roadmap-admin__sub">{copy.heroSub}</p>
+      </header>
+
+      <section className="roadmap-admin__progress-card" aria-label={copy.overallWord}>
+        <div className="roadmap-admin__pct">
+          <strong>{Math.round(data.overall.percentage)}%</strong>
+          <span>{copy.overallWord}</span>
         </div>
-        <button type="button" className="btn btn--primary" onClick={() => setNewTask({ categoryId: data.categories[0]?.id })} disabled={busy || data.categories.length === 0}>
-          <Plus size={16} aria-hidden="true" /> Nueva actividad
-        </button>
+        <div className="roadmap-admin__progress-meta">
+          <p>{copy.completedOf(data.overall.completed, data.overall.total)}</p>
+          <div className="roadmap-admin__bar"><i style={{ width: `${Math.min(100, data.overall.percentage)}%` }} /></div>
+        </div>
+      </section>
+
+      <section className="roadmap-admin__tools-block">
+        <div className="roadmap-admin__tools-head">
+          <span className="roadmap-admin__kicker">{copy.adminKicker}</span>
+          <h2>{copy.toolsTitle}</h2>
+          <p>{copy.toolsSub}</p>
+        </div>
+        <div className="roadmap-admin__tools" role="toolbar" aria-label={copy.toolsTitle}>
+          {tools.map((item, index) => {
+            const Glyph = item.icon;
+            const shared = {
+              className: `roadmap-admin__tool${index === 0 ? " roadmap-admin__tool--primary" : ""}`,
+              disabled: !item.enabled,
+              title: item.enabled ? item.label : `${item.label} — ${copy.pendingTool}`,
+            };
+            const inner = (
+              <>
+                <Glyph size={18} aria-hidden="true" />
+                <span>{item.label}</span>
+                {item.count !== undefined && item.count > 0 ? <em className="roadmap-admin__count">{item.count}</em> : null}
+              </>
+            );
+            return item.href ? (
+              <a key={item.id} {...shared} href={item.href} target="_blank" rel="noreferrer">{inner}</a>
+            ) : (
+              <button key={item.id} {...shared} type="button" onClick={() => openTool(item.id)}>{inner}</button>
+            );
+          })}
+        </div>
+      </section>
+
+      <div className="roadmap-admin__notices">
+        <p className="roadmap-admin__notice"><strong>{copy.reorderLead}</strong> {copy.reorderRest}</p>
+        <p className="roadmap-admin__notice"><strong>{copy.queueLead}</strong> {copy.queueRest}</p>
       </div>
 
-      <div className="roadmap-admin__stats">
-        <div><strong>{Math.round(data.overall.percentage)}%</strong><span>progreso general</span></div>
-        <div><strong>{data.overall.completed}</strong><span>completadas</span></div>
-        <div><strong>{data.overall.total}</strong><span>actividades</span></div>
-        <div><strong>{data.categories.length}</strong><span>etapas</span></div>
-        <div><strong>{data.visibility}</strong><span>visibilidad pública</span></div>
+      <div className="roadmap-admin__stages">
+        {orderedCategories.map((category, index) => (
+          <StageBlock
+            key={`${category.id}-${category.title}`}
+            category={category}
+            index={index}
+            total={orderedCategories.length}
+            copy={copy}
+            busy={busy}
+            grab={grab}
+            onGrabChange={setGrab}
+            onReorderStage={reorderStage}
+            onEditStage={() => setEditStage(category)}
+            onDeleteStage={() => setConfirm({ kind: "stage", category })}
+            onNewTask={(position) => setNewTask({ categoryId: category.id, ...(position ? { position } : {}) })}
+            onEditTask={setEditTask}
+            onDeleteTask={(task) => setConfirm({ kind: "task", task })}
+            onTogglePin={(task) => void togglePin(task)}
+            onDropTask={(taskId, position) => {
+              const task = category.tasks.find((item) => item.id === taskId);
+              if (task) void reorderTask(task, position);
+            }}
+          />
+        ))}
       </div>
-      <p className="hint">Arrastra las etapas o actividades para ordenar. Una actividad movida a mano queda anclada; las abiertas van antes que las completadas.</p>
-
-      <form className="community-card community-form" onSubmit={(event) => void createCategory(event)}>
-        <h2 className="span-2">Nueva etapa</h2>
-        <div className="field"><label htmlFor="new-cat-title">Título (ES) *</label><input id="new-cat-title" name="title" required maxLength={300} /></div>
-        <div className="field"><label htmlFor="new-cat-en">Título (EN)</label><input id="new-cat-en" name="titleEn" maxLength={300} /></div>
-        <div className="span-2"><button type="submit" className="btn btn--primary" disabled={busy}>Crear etapa</button></div>
-      </form>
-
-      {data.categories.map((category, index) => (
-        <CategoryBlock key={`${category.id}-${category.title}`} category={category} index={index}
-          categories={data.categories} users={data.users} busy={busy} run={run}
-          onNewTask={(categoryId, position) => setNewTask({ categoryId, ...(position ? { position } : {}) })} />
-      ))}
 
       {newTask ? (
-        <NewTaskDialog
-          categories={data.categories}
+        <NewTaskModal
+          copy={copy}
+          categories={categories}
           users={data.users}
           initial={newTask}
           onClose={() => setNewTask(null)}
           onCreated={() => { setNewTask(null); roadmap.reload(); }}
         />
       ) : null}
+
+      {newStage ? (
+        <NewStageModal copy={copy} onClose={() => setNewStage(false)} onCreated={() => { setNewStage(false); roadmap.reload(); }} />
+      ) : null}
+
+      {editStage ? (
+        <EditStageModal
+          copy={copy}
+          category={editStage}
+          onClose={() => setEditStage(null)}
+          onSaved={() => { setEditStage(null); roadmap.reload(); }}
+        />
+      ) : null}
+
+      {editTask ? (
+        <EditTaskModal
+          copy={copy}
+          task={editTask}
+          categories={categories}
+          users={data.users}
+          onClose={() => setEditTask(null)}
+          onSaved={() => { setEditTask(null); roadmap.reload(); }}
+        />
+      ) : null}
+
+      {confirm?.kind === "stage" ? (
+        <ConfirmDialog
+          title={copy.deleteStageTitle}
+          description={copy.deleteStageText(confirm.category.title, confirm.category.tasks.length)}
+          confirmLabel={copy.delete}
+          danger
+          onClose={() => setConfirm(null)}
+          onConfirm={async () => {
+            const category = confirm.category;
+            setConfirm(null);
+            await run(() => roadmapApi.deleteCategory(category.id, true), copy.toasts.stageDeleted);
+          }}
+        />
+      ) : null}
+
+      {confirm?.kind === "task" ? (
+        <ConfirmDialog
+          title={copy.deleteTaskTitle}
+          description={copy.deleteTaskText(confirm.task.title)}
+          confirmLabel={copy.delete}
+          danger
+          onClose={() => setConfirm(null)}
+          onConfirm={async () => {
+            const task = confirm.task;
+            setConfirm(null);
+            await run(() => roadmapApi.deleteTask(task.id), copy.toasts.taskDeleted);
+          }}
+        />
+      ) : null}
+
     </div>
   );
 }
 
-function NewTaskDialog({ categories, users, initial, onClose, onCreated }: {
-  categories: AdminCategory[]; users: AdminRoadmap["users"];
+function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, onReorderStage, onEditStage, onDeleteStage, onNewTask, onEditTask, onDeleteTask, onTogglePin, onDropTask }: {
+  category: AdminCategory;
+  index: number;
+  total: number;
+  copy: ReturnType<typeof roadmapAdminCopy>;
+  busy: boolean;
+  grab: Grab;
+  onGrabChange: (grab: Grab) => void;
+  onReorderStage: (category: AdminCategory, position: number) => Promise<void>;
+  onEditStage: () => void;
+  onDeleteStage: () => void;
+  onNewTask: (position?: number) => void;
+  onEditTask: (task: AdminTask) => void;
+  onDeleteTask: (task: AdminTask) => void;
+  onTogglePin: (task: AdminTask) => void;
+  onDropTask: (taskId: number, position: number) => void;
+}) {
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState<number | "all">(5);
+  const [bubble, setBubble] = useState<number | null>(null);
+
+  const taskOrder = grab?.kind === "task" && grab.categoryId === category.id ? grab.ids : category.tasks.map((task) => task.id);
+  const orderedTasks = useMemo(
+    () => taskOrder.map((id) => category.tasks.find((task) => task.id === id)).filter((task): task is AdminTask => Boolean(task)),
+    [taskOrder.join(","), category.tasks], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+  const totalTasks = orderedTasks.length;
+  const perPage = size === "all" ? Math.max(1, totalTasks) : size;
+  const pages = Math.max(1, Math.ceil(totalTasks / perPage));
+  const currentPage = Math.min(page, Math.max(1, pages));
+  const start = (currentPage - 1) * perPage;
+  const visible = orderedTasks.slice(start, start + perPage);
+  const pct = Math.round(category.progress.percentage);
+
+  function startStageGrab(): void {
+    onGrabChange({ kind: "stage", id: category.id, ids: category.tasks.length ? [category.id] : [category.id] });
+  }
+
+  function onHandleKeyDown(event: KeyboardEvent<HTMLButtonElement>): void {
+    if (event.key === " " || event.key === "Enter") {
+      event.preventDefault();
+      onGrabChange({ kind: "stage", id: category.id, ids: [category.id] });
+      return;
+    }
+    if (grab?.kind !== "stage" || grab.id !== category.id) return;
+    if (event.key === "ArrowUp" && index > 0) {
+      event.preventDefault();
+      void onReorderStage(category, index);
+    }
+    if (event.key === "ArrowDown" && index < total - 1) {
+      event.preventDefault();
+      void onReorderStage(category, index + 2);
+    }
+    if (event.key === "Escape") { event.preventDefault(); onGrabChange(null); }
+  }
+
+  return (
+    <section className={`roadmap-admin__stage roadmap-stage--${category.colorKey}`} data-category-id={category.id}>
+      <div className="roadmap-admin__stage-head">
+        <button
+          type="button" className="roadmap-admin__drag" draggable
+          aria-label={copy.reorderStageAria(category.title)} title={copy.dragToReorder}
+          onDragStart={(event) => { event.dataTransfer.setData("application/x-crv-stage", String(category.id)); event.dataTransfer.effectAllowed = "move"; }}
+          onKeyDown={onHandleKeyDown}
+          onClick={startStageGrab}
+        >
+          <DotsSixVertical size={16} aria-hidden="true" />
+        </button>
+        <div className="roadmap-admin__stage-titles">
+          <span className="roadmap-admin__phase">{copy.phase(index + 1)}</span>
+          <h3>
+            {category.title}
+            <button type="button" className="roadmap-admin__icon" onClick={onEditStage} disabled={busy} aria-label={copy.editStageAria(category.title)} title={copy.editStageAria(category.title)}>
+              <NotePencil size={15} aria-hidden="true" />
+            </button>
+            <button type="button" className="roadmap-admin__icon" onClick={onDeleteStage} disabled={busy} aria-label={copy.deleteStageAria(category.title)} title={copy.deleteStageAria(category.title)}>
+              <Trash size={15} aria-hidden="true" />
+            </button>
+          </h3>
+        </div>
+        <div className="roadmap-admin__score">
+          <strong>{pct}%</strong>
+          <span>{copy.score(category.progress.completed, category.progress.total)}</span>
+        </div>
+      </div>
+
+      <div className="roadmap-admin__bar roadmap-admin__bar--stage"><i style={{ width: `${Math.min(100, pct)}%` }} /></div>
+
+      <button type="button" className="roadmap-admin__add-top" onClick={() => onNewTask(1)} disabled={busy}>
+        <Plus size={14} aria-hidden="true" />
+        <span>{copy.addAtTop}</span>
+        <em>{copy.position1}</em>
+      </button>
+
+      <ul className="roadmap-admin__rows">
+        {visible.map((task, rowIndex) => {
+          const position = start + rowIndex + 1;
+          const StatusGlyph = STATUS_ICON[task.status];
+          const names = task.assignedUsers.map((user) => user.displayName || user.name);
+          return (
+            <li
+              key={`${task.id}-${task.updatedAt}`}
+              className={`roadmap-admin__row${task.status === "completed" ? " roadmap-admin__row--done" : ""}${grab?.kind === "task" && grab.id === task.id ? " roadmap-admin__row--grabbed" : ""}`}
+              draggable
+              onDragStart={(event) => { event.dataTransfer.setData("application/x-crv-task", String(task.id)); event.dataTransfer.effectAllowed = "move"; }}
+              onDragOver={(event) => { if (event.dataTransfer.types.includes("application/x-crv-task")) event.preventDefault(); }}
+              onDrop={(event) => {
+                const source = Number(event.dataTransfer.getData("application/x-crv-task"));
+                if (!Number.isInteger(source) || source === task.id) return;
+                event.preventDefault();
+                const rect = event.currentTarget.getBoundingClientRect();
+                const after = event.clientY > rect.top + rect.height / 2;
+                onDropTask(source, position + (after ? 1 : 0) - 1);
+              }}
+            >
+              <button
+                type="button" className="roadmap-admin__drag" draggable
+                aria-label={copy.reorderTaskAria(task.title)} title={copy.dragToReorder}
+                onDragStart={(event) => { event.dataTransfer.setData("application/x-crv-task", String(task.id)); event.dataTransfer.effectAllowed = "move"; }}
+                onKeyDown={(event) => {
+                  if (event.key === " " || event.key === "Enter") {
+                    event.preventDefault();
+                    onGrabChange({ kind: "task", categoryId: category.id, id: task.id, ids: orderedTasks.map((item) => item.id) });
+                    return;
+                  }
+                  if (grab?.kind !== "task" || grab.id !== task.id) return;
+                  if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+                    event.preventDefault();
+                    const from = grab.ids.indexOf(task.id);
+                    onGrabChange({ ...grab, ids: moveWithin(grab.ids, from, from + (event.key === "ArrowUp" ? -1 : 1)) });
+                  }
+                  if (event.key === "Enter") { event.preventDefault(); void onReorderStage(category, index); }
+                  if (event.key === "Escape") { event.preventDefault(); onGrabChange(null); }
+                }}
+              >
+                <DotsSixVertical size={15} aria-hidden="true" />
+              </button>
+
+              <StatusGlyph size={18} className={`roadmap-admin__status-icon roadmap-admin__status-icon--${task.status}`} aria-hidden="true" />
+              <span className="roadmap-admin__row-title">{task.title}</span>
+              <span className={`roadmap-admin__state roadmap-admin__state--${task.status}`}>{copy.status[task.status]}</span>
+
+              <span className="roadmap-admin__bubble-wrap">
+                <button
+                  type="button" className="roadmap-admin__bubble"
+                  aria-label={copy.assigneeAria(names.length)}
+                  aria-expanded={bubble === task.id}
+                  onClick={() => setBubble(bubble === task.id ? null : task.id)}
+                >
+                  <UsersThree size={13} aria-hidden="true" />
+                  {names.length || copy.unassigned}
+                </button>
+                {bubble === task.id && names.length > 0 ? (
+                  <span className="roadmap-admin__bubble-pop" role="tooltip">{names.join(" · ")}</span>
+                ) : null}
+              </span>
+
+              <button
+                type="button" className="roadmap-admin__icon"
+                aria-pressed={task.orderPinned}
+                aria-label={task.orderPinned ? copy.unpin : copy.pin}
+                title={task.orderPinned ? copy.unpinnedTitle : copy.pinnedTitle}
+                onClick={() => onTogglePin(task)} disabled={busy}
+              >
+                {task.orderPinned ? <PushPinSlash size={15} aria-hidden="true" /> : <PushPin size={15} aria-hidden="true" />}
+              </button>
+              <button type="button" className="roadmap-admin__icon" onClick={() => onEditTask(task)} disabled={busy} aria-label={copy.editTaskAria(task.title)} title={copy.editTaskAria(task.title)}>
+                <NotePencil size={15} aria-hidden="true" />
+              </button>
+              <button type="button" className="roadmap-admin__icon" onClick={() => onDeleteTask(task)} disabled={busy} aria-label={copy.deleteTaskAria(task.title)} title={copy.deleteTaskAria(task.title)}>
+                <Trash size={15} aria-hidden="true" />
+              </button>
+            </li>
+          );
+        })}
+        {totalTasks === 0 ? <li className="roadmap-admin__empty">{copy.emptyStage}</li> : null}
+      </ul>
+
+      <footer className="roadmap-admin__stage-foot">
+        <label>
+          <span>{copy.perPageIn(category.title)}</span>
+          <select value={String(size)} onChange={(event) => { const value = event.target.value; setSize(value === "all" ? "all" : Number(value)); setPage(1); }}>
+            {[5, 10, 15, 20, 25].map((value) => <option key={value} value={value}>{value}</option>)}
+            <option value="all">{copy.all}</option>
+          </select>
+        </label>
+        <div className="roadmap-admin__pager">
+          <button type="button" onClick={() => setPage(Math.max(1, currentPage - 1))} disabled={currentPage <= 1} aria-label={copy.previousPage}>
+            <ArrowLeft size={14} aria-hidden="true" />
+          </button>
+          <span>{copy.pageOf(currentPage, pages, totalTasks)}</span>
+          <button type="button" onClick={() => setPage(Math.min(pages, currentPage + 1))} disabled={currentPage >= pages} aria-label={copy.nextPage}>
+            <ArrowRight size={14} aria-hidden="true" />
+          </button>
+        </div>
+      </footer>
+    </section>
+  );
+}
+
+function NewTaskModal({ copy, categories, users, initial, onClose, onCreated }: {
+  copy: ReturnType<typeof roadmapAdminCopy>;
+  categories: AdminCategory[];
+  users: AdminRoadmap["users"];
   initial: { categoryId?: number; position?: number };
-  onClose: () => void; onCreated: () => void;
+  onClose: () => void;
+  onCreated: () => void;
 }) {
   const { notify } = useToast();
   const [busy, setBusy] = useState(false);
@@ -131,160 +550,161 @@ function NewTaskDialog({ categories, users, initial, onClose, onCreated }: {
         ...(en ? { translations: { en } } : {}),
         ...(assigned.length ? { assignedUserIds: assigned } : {}),
       });
-      notify("success", "Actividad creada.");
+      notify("success", copy.toasts.taskCreated);
       onCreated();
     } catch (error) {
-      notify("error", error instanceof Error ? error.message : "No se pudo crear la actividad.");
+      notify("error", error instanceof Error ? error.message : copy.saveFailed);
     } finally {
       setBusy(false);
     }
   }
 
   return (
-    <div className="roadmap-admin__modal" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-      <section className="roadmap-admin__modal-panel" role="dialog" aria-modal="true" aria-labelledby="new-task-title">
-        <header className="roadmap-admin__modal-head">
-          <div>
-            <span className="badge badge--outline">Nueva actividad</span>
-            <h2 id="new-task-title">Crear actividad</h2>
-          </div>
-          <button type="button" className="btn btn--sm" onClick={onClose} aria-label="Cerrar"><X size={16} /></button>
-        </header>
-        <form className="community-form" onSubmit={(event) => void submit(event)}>
-          <div className="field span-2"><label htmlFor="nt-title">Título (ES) *</label><input id="nt-title" name="title" required maxLength={300} autoFocus /></div>
-          <div className="field span-2"><label htmlFor="nt-title-en">Título (EN)</label><input id="nt-title-en" name="titleEn" maxLength={300} /></div>
-          <div className="field"><label htmlFor="nt-category">Etapa</label>
-            <select id="nt-category" name="categoryId" defaultValue={String(initial.categoryId ?? categories[0]?.id ?? "")}>
-              {categories.map((category) => <option key={category.id} value={category.id}>{category.title}</option>)}
-            </select>
-          </div>
-          <div className="field"><label htmlFor="nt-status">Estado</label>
-            <select id="nt-status" name="status" defaultValue="pending">
-              {Object.entries(STATUS_LABEL).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-            </select>
-          </div>
-          <div className="field"><label htmlFor="nt-position">Posición</label><input id="nt-position" name="position" type="number" min={1} step={1} defaultValue={initial.position ?? ""} placeholder="Al final" /></div>
-          <div className="field"><label htmlFor="nt-assignees">Responsables</label>
-            <select id="nt-assignees" name="assignees" multiple size={Math.min(5, Math.max(2, users.length))}>
-              {users.map((user) => <option key={user.id} value={user.id}>{user.displayName}</option>)}
-            </select>
-          </div>
-          <div className="span-2 community-actions">
-            <button type="submit" className="btn btn--primary" disabled={busy}>{busy ? "Creando…" : "Crear actividad"}</button>
-            <button type="button" className="btn" onClick={onClose} disabled={busy}>Cancelar</button>
-          </div>
-        </form>
-      </section>
-    </div>
+    <Modal title={copy.newTaskTitle} kicker={copy.newTaskKicker} onClose={onClose} closeOnOverlay={false}>
+      <form className="roadmap-admin__form" onSubmit={(event) => void submit(event)}>
+        <div className="field span-2">
+          <label htmlFor="nt-title">{copy.activityLabel} *</label>
+          <input id="nt-title" name="title" required maxLength={300} placeholder={copy.activityPlaceholder} autoFocus />
+        </div>
+        <div className="field span-2">
+          <label htmlFor="nt-title-en">{copy.englishTitle}</label>
+          <input id="nt-title-en" name="titleEn" maxLength={300} />
+          <small className="community-muted">{copy.englishHelp}</small>
+        </div>
+        <div className="field">
+          <label htmlFor="nt-category">{copy.category}</label>
+          <select id="nt-category" name="categoryId" defaultValue={String(initial.categoryId ?? categories[0]?.id ?? "")}>
+            {categories.map((category) => <option key={category.id} value={category.id}>{category.title}</option>)}
+          </select>
+        </div>
+        <div className="field">
+          <label htmlFor="nt-status">{copy.state}</label>
+          <select id="nt-status" name="status" defaultValue="pending">
+            {Object.entries(copy.status).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+          </select>
+        </div>
+        <div className="field">
+          <label htmlFor="nt-position">{copy.startPosition}</label>
+          <input id="nt-position" name="position" type="number" min={1} step={1} defaultValue={initial.position ?? ""} placeholder={copy.endPlaceholder} />
+        </div>
+        <div className="field">
+          <label htmlFor="nt-assignees">{copy.assignTo}</label>
+          <select id="nt-assignees" name="assignees" multiple size={Math.min(5, Math.max(2, users.length))}>
+            {users.map((user) => <option key={user.id} value={user.id}>{user.displayName}</option>)}
+          </select>
+        </div>
+        <div className="span-2 roadmap-admin__form-actions">
+          <button type="submit" className="btn btn--primary" disabled={busy}>{busy ? copy.saving : copy.create}</button>
+          <button type="button" className="btn" onClick={onClose} disabled={busy}>{copy.cancel}</button>
+        </div>
+      </form>
+    </Modal>
   );
 }
 
-function CategoryBlock({ category, index, categories, users, busy, run, onNewTask }: {
-  category: AdminCategory; index: number; categories: AdminCategory[]; users: AdminRoadmap["users"];
-  busy: boolean; run: (action: () => Promise<unknown>, success: string) => Promise<void>;
-  onNewTask: (categoryId: number, position: number) => void;
+function NewStageModal({ copy, onClose, onCreated }: {
+  copy: ReturnType<typeof roadmapAdminCopy>;
+  onClose: () => void;
+  onCreated: () => void;
 }) {
-  const [page, setPage] = useState(1);
-  const [size, setSize] = useState<number | "all">(5);
-  async function saveCategory(event: FormEvent<HTMLFormElement>): Promise<void> {
+  const { notify } = useToast();
+  const [busy, setBusy] = useState(false);
+
+  async function submit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
     const title = String(form.get("title") ?? "").trim();
     const en = enValue(form);
-    await run(() => roadmapApi.updateCategory(category.id, { title, ...(en ? { translations: { en } } : {}) }), "Etapa guardada.");
+    setBusy(true);
+    try {
+      await roadmapApi.createCategory({ title, ...(en ? { translations: { en } } : {}) });
+      notify("success", copy.toasts.stageCreated);
+      onCreated();
+    } catch (error) {
+      notify("error", error instanceof Error ? error.message : copy.saveFailed);
+    } finally {
+      setBusy(false);
+    }
   }
-
-  async function moveCategory(direction: "up" | "down"): Promise<void> {
-    await run(() => roadmapApi.updateCategory(category.id, { position: direction === "up" ? index : index + 2 }), "Etapa movida.");
-  }
-
-  async function dropCategory(event: DragEvent<HTMLElement>): Promise<void> {
-    const source = Number(event.dataTransfer.getData("application/x-crv-category"));
-    if (!source || source === category.id) return;
-    event.preventDefault();
-    await run(() => roadmapApi.updateCategory(source, { position: index + 1 }), "Etapa movida.");
-  }
-
-  async function deleteCategory(): Promise<void> {
-    if (!window.confirm(`¿Borrar la etapa "${category.title}" y sus ${category.tasks.length} actividades?`)) return;
-    await run(() => roadmapApi.deleteCategory(category.id, true), "Etapa borrada.");
-  }
-
-  const total = category.tasks.length;
-  const perPage = size === "all" ? Math.max(1, total) : size;
-  const pages = Math.max(1, Math.ceil(total / perPage));
-  const currentPage = Math.min(page, pages);
-  const start = (currentPage - 1) * perPage;
-  const visible = category.tasks.slice(start, start + perPage);
 
   return (
-    <section
-      className={`community-card roadmap-admin__stage roadmap-stage--${category.colorKey}`}
-      onDragOver={(event) => { if (event.dataTransfer.types.includes("application/x-crv-category")) event.preventDefault(); }}
-      onDrop={(event) => void dropCategory(event)}
-    >
-      <form className="roadmap-admin__stage-head" onSubmit={(event) => void saveCategory(event)}>
-        <button
-          type="button" className="roadmap-admin__drag-handle" draggable
-          onDragStart={(event) => { event.dataTransfer.setData("application/x-crv-category", String(category.id)); event.dataTransfer.effectAllowed = "move"; }}
-          aria-label={`Arrastrar la etapa ${category.title}`} title="Arrastrar para reordenar"
-        >
-          <DotsSixVertical size={16} aria-hidden="true" />
-        </button>
-        <span className="badge badge--outline">Etapa {index + 1}</span>
-        <div className="field"><label htmlFor={`cat-${category.id}`}>Título (ES)</label><input id={`cat-${category.id}`} name="title" defaultValue={category.title} maxLength={300} required /></div>
-        <div className="field"><label htmlFor={`cat-en-${category.id}`}>Título (EN)</label><input id={`cat-en-${category.id}`} name="titleEn" defaultValue={category.i18n.en ?? ""} maxLength={300} /></div>
-        <div className="community-actions">
-          <button type="submit" className="btn btn--sm" disabled={busy}>Guardar</button>
-          <button type="button" className="btn btn--sm" disabled={busy || index === 0} onClick={() => void moveCategory("up")} aria-label="Subir etapa"><ArrowUp size={14} /></button>
-          <button type="button" className="btn btn--sm" disabled={busy || index === categories.length - 1} onClick={() => void moveCategory("down")} aria-label="Bajar etapa"><ArrowDown size={14} /></button>
-          <button type="button" className="btn btn--danger btn--sm" disabled={busy} onClick={() => void deleteCategory()} aria-label="Borrar etapa"><Trash size={14} /></button>
+    <Modal title={copy.newStageTitle} kicker={copy.newStageKicker} onClose={onClose} closeOnOverlay={false}>
+      <form className="roadmap-admin__form" onSubmit={(event) => void submit(event)}>
+        <div className="field span-2">
+          <label htmlFor="ns-title">{copy.stageTitleLabel} *</label>
+          <input id="ns-title" name="title" required maxLength={300} autoFocus />
+        </div>
+        <div className="field span-2">
+          <label htmlFor="ns-en">{copy.englishTitle}</label>
+          <input id="ns-en" name="titleEn" maxLength={300} />
+        </div>
+        <div className="span-2 roadmap-admin__form-actions">
+          <button type="submit" className="btn btn--primary" disabled={busy}>{busy ? copy.saving : copy.createStage}</button>
+          <button type="button" className="btn" onClick={onClose} disabled={busy}>{copy.cancel}</button>
         </div>
       </form>
-
-      <div className="roadmap-admin__progress">
-        <div className="roadmap-bar"><i style={{ width: `${category.progress.percentage}%` }} /></div>
-        <span>{category.progress.completed} / {category.progress.total} · {Math.round(category.progress.percentage)}%</span>
-      </div>
-
-      <button type="button" className="roadmap-admin__add-top" onClick={() => onNewTask(category.id, 1)} disabled={busy}>
-        <Plus size={14} aria-hidden="true" /> Añadir actividad al principio
-      </button>
-
-      <div className="roadmap-admin__tasks">
-        {visible.map((task, taskIndex) => (
-          <TaskEditor key={`${task.id}-${task.updatedAt}`} task={task} categories={categories} users={users}
-            busy={busy} run={run} position={start + taskIndex + 1} />
-        ))}
-        {total === 0 ? <p className="community-muted">Todavía no hay actividades en esta etapa.</p> : null}
-      </div>
-
-      {total > 5 ? (
-        <div className="roadmap-admin__pagination">
-          <label>
-            <span>Por página</span>
-            <select value={String(size)} onChange={(event) => { const value = event.target.value; setSize(value === "all" ? "all" : Number(value)); setPage(1); }}>
-              {[5, 10, 15, 20, 25].map((value) => <option key={value} value={value}>{value}</option>)}
-              <option value="all">Todas</option>
-            </select>
-          </label>
-          <div className="community-actions">
-            <button type="button" className="btn btn--sm" onClick={() => setPage((value) => Math.max(1, value - 1))} disabled={currentPage <= 1}>Anterior</button>
-            <span className="community-muted">{total ? start + 1 : 0}–{Math.min(start + perPage, total)} de {total}</span>
-            <button type="button" className="btn btn--sm" onClick={() => setPage((value) => Math.min(pages, value + 1))} disabled={currentPage >= pages}>Siguiente</button>
-          </div>
-        </div>
-      ) : null}
-    </section>
+    </Modal>
   );
 }
 
-function TaskEditor({ task, categories, users, busy, run, position }: {
-  task: AdminTask; categories: AdminCategory[]; users: AdminRoadmap["users"];
-  busy: boolean; run: (action: () => Promise<unknown>, success: string) => Promise<void>;
-  position: number;
+function EditStageModal({ copy, category, onClose, onSaved }: {
+  copy: ReturnType<typeof roadmapAdminCopy>;
+  category: AdminCategory;
+  onClose: () => void;
+  onSaved: () => void;
 }) {
-  async function save(event: FormEvent<HTMLFormElement>): Promise<void> {
+  const { notify } = useToast();
+  const [busy, setBusy] = useState(false);
+
+  async function submit(event: FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const title = String(form.get("title") ?? "").trim();
+    const en = enValue(form);
+    setBusy(true);
+    try {
+      await roadmapApi.updateCategory(category.id, { title, ...(en ? { translations: { en } } : { translations: {} }) });
+      notify("success", copy.toasts.stageSaved);
+      onSaved();
+    } catch (error) {
+      notify("error", error instanceof Error ? error.message : copy.saveFailed);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Modal title={copy.editStageTitle} kicker={copy.editStageKicker} onClose={onClose} closeOnOverlay={false}>
+      <form className="roadmap-admin__form" onSubmit={(event) => void submit(event)}>
+        <div className="field span-2">
+          <label htmlFor="es-title">{copy.stageTitleLabel} *</label>
+          <input id="es-title" name="title" defaultValue={category.title} required maxLength={300} autoFocus />
+        </div>
+        <div className="field span-2">
+          <label htmlFor="es-en">{copy.englishTitle}</label>
+          <input id="es-en" name="titleEn" defaultValue={category.i18n.en ?? ""} maxLength={300} />
+        </div>
+        <div className="span-2 roadmap-admin__form-actions">
+          <button type="submit" className="btn btn--primary" disabled={busy}>{busy ? copy.saving : copy.save}</button>
+          <button type="button" className="btn" onClick={onClose} disabled={busy}>{copy.cancel}</button>
+        </div>
+      </form>
+    </Modal>
+  );
+}
+
+function EditTaskModal({ copy, task, categories, users, onClose, onSaved }: {
+  copy: ReturnType<typeof roadmapAdminCopy>;
+  task: AdminTask;
+  categories: AdminCategory[];
+  users: AdminRoadmap["users"];
+  onClose: () => void;
+  onSaved: () => void;
+}) {
+  const { notify } = useToast();
+  const [busy, setBusy] = useState(false);
+
+  async function submit(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
     const title = String(form.get("title") ?? "").trim();
@@ -292,80 +712,55 @@ function TaskEditor({ task, categories, users, busy, run, position }: {
     const status = String(form.get("status") ?? task.status) as TaskStatus;
     const categoryId = Number(form.get("categoryId"));
     const assigned = assignedValues(form);
-    await run(() => roadmapApi.updateTask(task.id, {
-      title, status, categoryId, assignedUserIds: assigned,
-      ...(en ? { translations: { en } } : { translations: {} }),
-    }), "Actividad guardada.");
-  }
-
-  async function move(direction: "up" | "down"): Promise<void> {
-    await run(() => roadmapApi.moveTask(task.id, direction), "Actividad movida.");
-  }
-
-  async function togglePin(): Promise<void> {
-    await run(() => roadmapApi.updateTask(task.id, { pinned: !task.orderPinned }), task.orderPinned ? "Actividad desanclada." : "Actividad anclada.");
-  }
-
-  async function remove(): Promise<void> {
-    if (!window.confirm(`¿Borrar la actividad "${task.title}"?`)) return;
-    await run(() => roadmapApi.deleteTask(task.id), "Actividad borrada.");
-  }
-
-  async function dropTask(event: DragEvent<HTMLFormElement>): Promise<void> {
-    const source = Number(event.dataTransfer.getData("application/x-crv-task"));
-    if (!source || source === task.id) return;
-    event.preventDefault();
-    await run(() => roadmapApi.updateTask(source, { categoryId: task.categoryId, position }), "Actividad movida.");
+    setBusy(true);
+    try {
+      await roadmapApi.updateTask(task.id, {
+        title, status, categoryId, assignedUserIds: assigned,
+        ...(en ? { translations: { en } } : { translations: {} }),
+      });
+      notify("success", copy.toasts.taskSaved);
+      onSaved();
+    } catch (error) {
+      notify("error", error instanceof Error ? error.message : copy.saveFailed);
+    } finally {
+      setBusy(false);
+    }
   }
 
   return (
-    <form
-      className="roadmap-admin__task"
-      data-task-id={task.id}
-      onSubmit={(event) => void save(event)}
-      onDragOver={(event) => { if (event.dataTransfer.types.includes("application/x-crv-task")) event.preventDefault(); }}
-      onDrop={(event) => void dropTask(event)}
-    >
-      <div className="roadmap-admin__task-top">
-        <button
-          type="button" className="roadmap-admin__drag-handle" draggable
-          onDragStart={(event) => { event.dataTransfer.setData("application/x-crv-task", String(task.id)); event.dataTransfer.effectAllowed = "move"; }}
-          aria-label={`Arrastrar la actividad ${task.title}`} title="Arrastrar para reordenar"
-        >
-          <DotsSixVertical size={15} aria-hidden="true" />
-        </button>
-        <span className={`roadmap-admin__dot roadmap-admin__dot--${task.status}`} aria-hidden="true" />
-        <input name="title" defaultValue={task.title} maxLength={300} required aria-label="Título en español" />
-        <input name="titleEn" defaultValue={task.i18n.en ?? ""} maxLength={300} placeholder="English title" aria-label="Título en inglés" />
-      </div>
-      <div className="roadmap-admin__task-controls">
-        <label>Estado
-          <select name="status" defaultValue={task.status}>
-            {Object.entries(STATUS_LABEL).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+    <Modal title={copy.editTaskTitle} kicker={copy.editTaskKicker} onClose={onClose} closeOnOverlay={false}>
+      <form className="roadmap-admin__form" onSubmit={(event) => void submit(event)}>
+        <div className="field span-2">
+          <label htmlFor="et-title">{copy.activityLabel} *</label>
+          <input id="et-title" name="title" defaultValue={task.title} required maxLength={300} autoFocus />
+        </div>
+        <div className="field span-2">
+          <label htmlFor="et-en">{copy.englishTitle}</label>
+          <input id="et-en" name="titleEn" defaultValue={task.i18n.en ?? ""} maxLength={300} />
+        </div>
+        <div className="field">
+          <label htmlFor="et-status">{copy.state}</label>
+          <select id="et-status" name="status" defaultValue={task.status}>
+            {Object.entries(copy.status).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
           </select>
-        </label>
-        <label>Etapa
-          <select name="categoryId" defaultValue={task.categoryId}>
+        </div>
+        <div className="field">
+          <label htmlFor="et-category">{copy.category}</label>
+          <select id="et-category" name="categoryId" defaultValue={task.categoryId}>
             {categories.map((category) => <option key={category.id} value={category.id}>{category.title}</option>)}
           </select>
-        </label>
-        <label>Responsables
-          <select name="assignees" multiple size={Math.min(3, Math.max(2, users.length))} defaultValue={task.assignedUsers.map((user) => String(user.id))}>
+        </div>
+        <div className="field span-2">
+          <label htmlFor="et-assignees">{copy.assignTo}</label>
+          <select id="et-assignees" name="assignees" multiple size={Math.min(5, Math.max(2, users.length))} defaultValue={task.assignedUsers.map((user) => String(user.id))}>
             {users.map((user) => <option key={user.id} value={user.id}>{user.displayName}</option>)}
           </select>
-        </label>
-      </div>
-      <div className="roadmap-admin__task-actions">
-        <button type="submit" className="btn btn--sm" disabled={busy}>Guardar</button>
-        <button type="button" className="btn btn--sm" disabled={busy} onClick={() => void move("up")} aria-label="Subir actividad"><ArrowUp size={14} /></button>
-        <button type="button" className="btn btn--sm" disabled={busy} onClick={() => void move("down")} aria-label="Bajar actividad"><ArrowDown size={14} /></button>
-        <button type="button" className="btn btn--sm" disabled={busy} onClick={() => void togglePin()} title={task.orderPinned ? "Desanclar" : "Anclar"}>
-          {task.orderPinned ? <PushPinSlash size={14} /> : <PushPin size={14} />}
-          {task.orderPinned ? "Desanclar" : "Anclar"}
-        </button>
-        {task.orderPinned ? <span className="badge badge--outline">Anclada</span> : null}
-        <button type="button" className="btn btn--danger btn--sm" disabled={busy} onClick={() => void remove()} aria-label="Borrar actividad"><Trash size={14} /></button>
-      </div>
-    </form>
+        </div>
+        <div className="span-2 roadmap-admin__form-actions">
+          <button type="submit" className="btn btn--primary" disabled={busy}>{busy ? copy.saving : copy.save}</button>
+          <button type="button" className="btn" onClick={onClose} disabled={busy}>{copy.cancel}</button>
+        </div>
+      </form>
+    </Modal>
   );
 }

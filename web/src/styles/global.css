@@ -1115,6 +1115,9 @@ tbody:first-of-type > .album-disc-heading th { padding-top: 10px; }
 .modal-panel--wide { width: min(1040px, 100%); }
 .modal-header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex: 0 0 auto; padding: var(--modal-pad-y) var(--modal-pad-x) 0; margin-bottom: 14px; }
 .modal-header h2 { font-size: 18px; margin: 0; }
+.modal-header__titles { display: grid; gap: 4px; min-width: 0; }
+.modal-header__titles h2 { font-size: 22px; }
+.modal-kicker { color: var(--red); font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; }
 .modal-close { background: none; border: 0; color: var(--text-faint); font-size: 20px; cursor: pointer; line-height: 1; padding: 4px; }
 .modal-close:hover { color: var(--text); }
 .modal-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 var(--modal-pad-x) var(--modal-pad-bottom); }

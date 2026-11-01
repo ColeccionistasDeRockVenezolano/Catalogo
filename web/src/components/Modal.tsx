@@ -7,6 +7,10 @@ interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   wide?: boolean;
+  /** Antetítulo en mayúsculas sobre el título (kicker rojo del catálogo). */
+  kicker?: string;
+  /** Clase extra en el panel: el contenido ajusta tipografía y pie. */
+  panelClassName?: string;
   /** Hoja inferior en pantallas angostas: el pulgar llega a los botones (PLAN_CURADURIA E8.9). */
   sheet?: boolean;
   /** Editor de fichas: casi a pantalla completa, con su propio menú y bandeja de cambios. */
@@ -68,7 +72,7 @@ function unlockPageBehind() {
   pendingFocus = null;
 }
 
-export function Modal({ title, onClose, children, wide, sheet, editor, closeOnOverlay = true, alert, focusPanel = false, onBack }: ModalProps) {
+export function Modal({ title, onClose, children, wide, kicker, panelClassName, sheet, editor, closeOnOverlay = true, alert, focusPanel = false, onBack }: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -129,10 +133,15 @@ export function Modal({ title, onClose, children, wide, sheet, editor, closeOnOv
 
   return createPortal(
     <div ref={overlayRef} className={`modal-overlay${editor ? " modal-overlay--editor" : ""}`} onMouseDown={(event) => { if (event.target === event.currentTarget && closeOnOverlayRef.current) onClose(); }}>
-      <div ref={panelRef} tabIndex={-1} className={`modal-panel${wide ? " modal-panel--wide" : ""}${sheet ? " modal-panel--sheet" : ""}${editor ? " modal-panel--editor" : ""}`} role={alert ? "alertdialog" : "dialog"} aria-modal="true" aria-labelledby={titleId}>
+      <div ref={panelRef} tabIndex={-1} className={`modal-panel${wide ? " modal-panel--wide" : ""}${sheet ? " modal-panel--sheet" : ""}${editor ? " modal-panel--editor" : ""}${panelClassName ? ` ${panelClassName}` : ""}`} role={alert ? "alertdialog" : "dialog"} aria-modal="true" aria-labelledby={titleId}>
         <div className="modal-header">
           {onBack ? <button type="button" className="modal-back" onClick={onBack} aria-label="Volver"><ArrowLeft aria-hidden="true" weight="bold" /></button> : null}
-          <h2 id={titleId}>{title}</h2>
+          {kicker ? (
+            <div className="modal-header__titles">
+              <span className="modal-kicker">{kicker}</span>
+              <h2 id={titleId}>{title}</h2>
+            </div>
+          ) : <h2 id={titleId}>{title}</h2>}
           <button type="button" className="modal-close" onClick={onClose} aria-label="Cerrar"><X aria-hidden="true" weight="bold" /></button>
         </div>
         <div ref={bodyRef} className="modal-body">{children}</div>

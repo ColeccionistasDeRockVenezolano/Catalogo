@@ -180,3 +180,57 @@ envía la candidatura a la API del catálogo y muestra la pantalla «Candidatura
 
 **Limitación:** el envío del formulario estático requiere JavaScript; el POST nativo sin JS no se
 reimplementó en el servidor de documentos.
+
+## Bloque B6 — C1-C2: el panel del roadmap (2026-11-01)
+
+Se rehízo `/curaduria/roadmap` como una sola página con la estructura del `/admin` de Herra
+(cabecera, tarjeta de progreso, barra de herramientas con contadores, avisos, etapas y
+actividades editables en el sitio) y la piel del catálogo: `Modal`, `ConfirmDialog`, avisos de
+`ToastContext`, iconos Phosphor y los tokens de siempre. No se copió `admin.css`, ni clases de
+Herra, ni Lucide; tampoco `window.confirm`.
+
+**Qué hay**
+
+- Cabecera con chip «PANEL DE ADMINISTRACIÓN», título display «EDITAR EL / ROADMAP» y el texto de
+  la sección 1 de las instrucciones.
+- Tarjeta de progreso con el porcentaje real, «PROGRESO GENERAL», «27 de 61 actividades
+  completadas» y barra.
+- «ADMINISTRACIÓN / Panel de edición» y la rejilla de **13 herramientas** en el orden exacto
+  (5 columnas en escritorio, 2 en móvil) con contadores reales en Personas (5), Pendientes y
+  Candidaturas. En este bloque son funcionales Nueva actividad, Nueva etapa y «Ver vista
+  pública»; las demás aparecen deshabilitadas con la nota «se porta en B7–B10».
+- Los dos avisos (reordenar por arrastre y orden automático) con el texto literal.
+- Etapas: tirador, kicker «Fase NN» con el color de la fase, título display con lápiz y papelera,
+  caja «100% / 7 DE 7», barra de 8 px, fila «Añadir actividad al inicio · POSICIÓN 1», filas de
+  actividad (tirador, icono de estado, título tachado si está completada, estado en mayúsculas,
+  burbuja de responsables con globo de nombres, chincheta con `aria-pressed`, lápiz y papelera) y
+  pie «Actividades por página» + «Página X de Y · N actividades».
+- Ventanas: nueva actividad (3.1: actividad, EN, etapa, estado, posición inicial, asignar a),
+  nueva etapa (3.2) y editar etapa (3.3), más editar actividad. Los borrados pasan por
+  `ConfirmDialog` con motivo para la auditoría.
+- Arrastre con ratón y táctil (HTML5 DnD) para actividades y etapas, y con teclado: Espacio toma
+  la actividad, las flechas la mueven en una previsualización local y Enter guarda la posición;
+  Escape cancela. En las etapas las flechas aplican el movimiento en el acto (sin
+  previsualización) — queda anotado como diferencia con Herra.
+
+**Pruebas ejecutadas**
+
+- `npm --prefix web run typecheck`, ESLint dirigido y `build:staging`: correctos.
+- `vitest web/src/lib/roadmapOrder.test.ts`: 7/7.
+- Chromium real con `fase1-admin` (`scripts/checks/b6-admin-check.mjs`): 13 herramientas, 5
+  etapas, sin desbordamiento horizontal en escritorio 1366×900 y móvil 390×844, ES y EN;
+  capturas en `~/crv-staging/reports/independencia/b6-admin/`.
+- Ventanas 3.1–3.3 abiertas y comprobadas por título y campos; actividad creada en posición 1 y
+  borrada con `ConfirmDialog`; título de la primera etapa cambiado y visible en `/crv/roadmap`,
+  y revertido al original.
+- Staging quedó en 61 actividades / 27 completadas / 5 etapas / 3 admins, sin datos de prueba ni
+  sesiones `fase1-*`.
+
+**Deuda de este bloque**
+
+- Herramientas 3–13 deshabilitadas hasta B7–B10.
+- El selector de responsables es un `select` múltiple; Herra usa una lista con búsqueda
+  («Buscar colaboradores…»). El texto del diccionario ya está; falta el componente.
+- El arrastre por teclado de etapas no previsualiza; el de actividades sí.
+- Los avisos con «Deshacer» tras mover existen solo para el arrastre por teclado (el de ratón
+  recarga el roadmap); falta unificar.
