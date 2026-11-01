@@ -5,8 +5,6 @@ documentos de arranque y continuar desde el primer bloque que no esté en «cump
 
 ## Resumen para la mañana
 
-_(parcial; se completa al terminar la noche)_
-
 **(a) Bloques**
 
 - B0, B1 y B2: **cumple** (commits `53c350f7`, `d9d0beb0`, `aa562976`). B1/B2 cerrados con el
@@ -14,10 +12,21 @@ _(parcial; se completa al terminar la noche)_
   ES/EN y paridad 61/27/5.
 - B3: **cumple** (commit `131cb2d6`). IP real de Cloudflare solo desde el túnel, país, cookie
   Secure/Strict, secretos propios y `NODE_ENV=production` en staging; probado con una visita
-  colapsada vs dos visitas según el interruptor.
-- B4: **pendiente de permiso**. Comando y comprobaciones exactas en su fila.
-- B5 (CP0) y B6 (C1-C2): **en curso**, delegados con instrucciones cerradas; se verifican en
-  navegador antes de darlos por cumplidos.
+  colapsada frente a dos visitas según el interruptor.
+- B4: **pendiente de permiso**. Comando y comprobaciones exactas en su fila. Hoy producción
+  todavía expone `POST /community/applications` (400) y `POST /roadmap/visit` (200).
+- B5 (CP0): **pendiente, con reconocimiento hecho**. Sin código: los dos subagentes agotaron
+  iteraciones. Hallazgo que cambia la fuente: la portada viva es Herra **1.1.34** y su código está
+  en `/home/brian/apps/herra-motor/herra-1.1.34/dist/{views,public}`; `herra-separacion` es 1.1.10.
+  Plan acordado para retomarlo en la fila de B5.
+- B6 (C1-C2): **cumple en su alcance** (commit `dda16444`). `/curaduria/roadmap` rehecho con la
+  estructura del `/admin` de Herra y la piel del catálogo: 13 herramientas con contadores, dos
+  avisos, 5 etapas editables en el sitio, arrastre, ventanas 3.1–3.3 y borrados con motivo.
+  Verificado en Chromium (escritorio/móvil, ES/EN), dato vivo con reversión y staging limpio.
+- B11 (sombra de radio): **cumple, adelantado** (commit `efda79d7`). Timer cada 10 minutos, una
+  comprobación por pasada, resultados en el SSD; primera pasada real a las 09:50, 0 divergencias.
+- B7, B8, B9 y B10: **pendientes**. Dependen de B5 (B8/B9) y de seguir el orden de
+  `INSTRUCCIONES_HERMES_ADMIN` con las ventanas 3.4–3.13.
 
 **(b) Pendiente de permiso**
 
@@ -26,13 +35,28 @@ _(parcial; se completa al terminar la noche)_
 2. Reinicio de `crv-web` de producción, después y con la CSP `base-uri 'self'` ya probada.
 3. Instancia `crv-landing` (Fase 2B): valores exactos en `ops/staging/crv-landing.env.example`.
 
-**(c) Bloqueado / incidencias**: ninguna bloqueante. El globo «ONLINE (1)» de la portada se
-solapa con el botón del reproductor en móvil (Fase 3, anotado para B10).
+**(c) Bloqueado / incidencias**
 
-**(d) Commits**: `aa562976` (B2), `131cb2d6` (B3), más los de B5/B6 cuando se verifiquen.
+- Nada bloqueante. Durante las pruebas, el limitador de intentos de acceso de la API de staging
+  (por IP) frenó los inicios de sesión repetidos: se resolvió reiniciando `crv-api-staging`; es el
+  comportamiento esperado, no un fallo.
+- El globo «ONLINE (1)» de la portada se solapa con el botón del reproductor en móvil (Fase 3,
+  anotado para B10).
+- `staging.env` (fuera del repo) tiene ahora secretos propios y `NODE_ENV=production`.
 
-**(e) Riesgos**: el buzón de Claude no se versiona; `staging.env` vive fuera del repo (secretos
-nuevos); las cifras de visitas de staging cambiaron +1 por la comprobación en navegador.
+**(d) Commits en `independencia/fases-0-3`**
+
+`aa562976` B2 · `131cb2d6` B3 · `8edff7c9` bitácora · `efda79d7` B11 · `dda16444` B6.
+Sin push. `.hermes/` y `docs/independencia/MENSAJES-PARA-HERMES.md` quedan fuera de los commits.
+
+**(e) Riesgos / decisiones**
+
+- CP0 (B5) es el requisito de B8 y B9: hasta que las portadas se generen desde los datos, los
+  ajustes de Marca/Idiomas/Formulario serían cosméticos.
+- El panel de B6 deja deshabilitadas las herramientas de B7–B10 a propósito (con aviso), para que
+  nadie confunda un botón sin ventana con una función perdida.
+- Guardarraíles comprobados al cerrar: dominio 200, `/crv` 404, Funnel 200, `herra-crv` 1.1.34
+  online y `web/dist-public` con su mtime intacto.
 
 ## Informe de la tanda anterior (previo a B0)
 
