@@ -9,8 +9,8 @@ import { useOperator } from "../lib/OperatorContext";
 import { useToast } from "../lib/ToastContext";
 
 export function OperatorPill() {
-  const { user, isAdmin } = useOperator();
-  if (isAdmin && user) return <AdminAccountMenu name={user.name} username={user.username} />;
+  const { user, canCurate, canCommunity } = useOperator();
+  if ((canCurate || canCommunity) && user) return <AdminAccountMenu name={user.name} username={user.username} />;
   return <OperatorButton />;
 }
 
@@ -75,8 +75,17 @@ export function useSignOut() {
  * menú de la cuenta con los cambios de esta sesión, el Historial y Administrar.
  * Aquí vive también el deshacer de la sesión (avisos y Ctrl/⌘+Z).
  */
+const ROLE_LABEL: Record<string, string> = {
+  admin: "Administrador",
+  curator: "Curaduría",
+  community: "Comunidad",
+  reader: "Solo lectura",
+};
+
 function AdminAccountMenu({ name, username }: { name: string; username: string }) {
   const { pathname } = useLocation();
+  const { canCurate, role } = useOperator();
+  const links = canCurate ? ADMIN_LINKS : ADMIN_LINKS.filter((link) => link.to === "/curaduria");
   const changes = useSessionChangesContext() ?? NO_CHANGES;
   const [open, setOpen] = useState(false);
   const { signingOut, signOut } = useSignOut();
@@ -105,7 +114,7 @@ function AdminAccountMenu({ name, username }: { name: string; username: string }
                 <span className="account-avatar" aria-hidden="true">{initial}</span>
                 <div>
                   <Popover.Title className="operator-menu__name">{name}</Popover.Title>
-                  <span>@{username} · Administrador</span>
+                  <span>@{username} · {ROLE_LABEL[role ?? "reader"] ?? "Solo lectura"}</span>
                 </div>
               </div>
 
@@ -126,7 +135,7 @@ function AdminAccountMenu({ name, username }: { name: string; username: string }
                   <span>Historial<small>Todo cambio del catálogo, con su deshacer</small></span>
                 </NavLink>
                 <p className="operator-menu__label">Administrar</p>
-                {ADMIN_LINKS.map((link) => (
+                {links.map((link) => (
                   <NavLink key={link.to} to={link.to} className="operator-menu__link" onClick={close}>
                     <link.icon size={20} aria-hidden="true" />
                     <span>{link.label}<small>{link.hint}</small></span>
@@ -191,14 +200,18 @@ export function AccountSummary() {
           <strong>{user.name}</strong>
           <span>@{user.username}</span>
         </div>
-        <span className={`badge account-role ${user.role === "admin" ? "badge--teal" : "badge--outline"}`}>
-          {user.role === "admin" ? "Administrador" : "Solo lectura"}
+        <span className={`badge account-role ${user.role === "admin" ? "badge--teal" : user.role === "curator" ? "badge--violet" : user.role === "community" ? "badge--amber" : "badge--outline"}`}>
+          {ROLE_LABEL[user.role] ?? "Solo lectura"}
         </span>
       </div>
       <p className="operator-help">
         {user.role === "admin"
-          ? "Cuenta administradora: puedes editar, fusionar y usar Curaduría. Tus cambios quedan firmados con esta cuenta en el historial del catálogo."
-          : "Cuenta de solo lectura: puedes consultar el catálogo, pero editar, fusionar y usar Curaduría requiere una cuenta administradora."}
+          ? "Cuenta administradora: puedes editar el catálogo, gestionar la comunidad y cambiar roles. Tus cambios quedan firmados con esta cuenta."
+          : user.role === "curator"
+            ? "Cuenta de curaduría: puedes revisar y corregir el catálogo. La comunidad y las cuentas las gestiona otro rol."
+            : user.role === "community"
+              ? "Cuenta de comunidad: puedes gestionar colaboradores, candidaturas, invitaciones y activaciones."
+              : "Cuenta de solo lectura: puedes consultar el catálogo, pero editar requiere una cuenta de curaduría."}
       </p>
     </>
   );

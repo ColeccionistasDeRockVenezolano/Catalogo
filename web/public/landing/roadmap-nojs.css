@@ -1,0 +1,4 @@
+.public-roadmap .roadmap-category-list--deferred {
+  content-visibility: visible;
+  contain-intrinsic-size: none;
+}

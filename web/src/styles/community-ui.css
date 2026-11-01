@@ -1,0 +1,68 @@
+/* CRV · Comunidad (Fase 1): piezas compartidas por las páginas nuevas. */
+.community-page { display: grid; gap: 22px; padding-bottom: 40px; }
+.community-page .page-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.community-page .page-header p { max-width: 720px; }
+.community-toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+.community-toolbar .field { min-width: 180px; }
+.community-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 18px;
+}
+.community-card h2 { font-size: 16px; margin: 0 0 12px; }
+.community-card h3 { font-size: 14px; margin: 0 0 8px; }
+.community-card p { margin: 0 0 10px; color: var(--text-muted); }
+.community-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+.community-table-wrap { overflow-x: auto; }
+.community-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.community-table th, .community-table td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.community-table th { color: var(--text-muted); font-weight: 600; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+.community-table tr:last-child td { border-bottom: 0; }
+.community-table td .community-actions { justify-content: flex-end; }
+.community-actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.community-form { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.community-form .span-2 { grid-column: 1 / -1; }
+.community-form textarea { min-height: 90px; resize: vertical; }
+.community-muted { color: var(--text-muted); font-size: 12.5px; }
+.community-error { color: var(--red-rsoft); font-size: 13px; display: flex; gap: 6px; align-items: center; }
+.community-ok { color: var(--teal); font-size: 13px; display: flex; gap: 6px; align-items: center; }
+.community-success {
+  border: 1px solid color-mix(in srgb, var(--teal) 45%, var(--border));
+  background: color-mix(in srgb, var(--teal) 10%, transparent);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  display: grid;
+  gap: 8px;
+}
+.community-link-box {
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+  background: var(--bg); border: 1px dashed var(--border); border-radius: 8px; padding: 8px 10px;
+}
+.community-link-box code { font-size: 12.5px; overflow-wrap: anywhere; }
+.community-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.community-tabs button {
+  border: 1px solid var(--border); background: transparent; color: var(--text-muted);
+  border-radius: 999px; padding: 6px 12px; font-size: 12.5px; cursor: pointer;
+}
+.community-tabs button.is-active { color: var(--text); border-color: var(--red); background: var(--red-soft); }
+.community-empty { padding: 24px; text-align: center; color: var(--text-muted); border: 1px dashed var(--border); border-radius: 10px; }
+.community-detail { display: grid; gap: 14px; }
+.community-detail dl { display: grid; grid-template-columns: 160px 1fr; gap: 8px 14px; margin: 0; font-size: 13.5px; }
+.community-detail dt { color: var(--text-muted); }
+.community-detail dd { margin: 0; overflow-wrap: anywhere; }
+.community-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; }
+.community-form-page { max-width: 820px; margin: 0 auto; display: grid; gap: 18px; padding: 28px 0 48px; }
+.community-form-page h1 { font-size: 28px; margin: 0; }
+.community-form-page .lead { color: var(--text-muted); margin: 0; }
+.community-checkboxes { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+.community-checkboxes label { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); }
+.community-check { display: flex; align-items: flex-start; gap: 8px; font-size: 14px; }
+.community-check input { width: auto; margin-top: 2px; }
+.community-notice { padding: 12px 14px; border-left: 3px solid var(--amber, #d99a2b); color: var(--text-muted); }
+.lang-switch { align-self: center; }
+@media (max-width: 720px) {
+  .community-detail dl { grid-template-columns: 1fr; }
+  .community-table th:nth-child(4), .community-table td:nth-child(4) { display: none; }
+}

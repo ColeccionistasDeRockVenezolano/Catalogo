@@ -28,6 +28,10 @@ import { getEnv } from "../config/env.js";
 import { toApiError } from "./http-errors.js";
 import { registerOperatorAuth } from "./auth.js";
 import { registerHealthRoutes } from "./routes/health.js";
+import { registerCommunityRoutes } from "./routes/community.js";
+import { registerRoadmapRoutes } from "./routes/roadmap.js";
+import { registerProjectConfigRoutes } from "./routes/project-config.js";
+import { registerRadioRoutes } from "./routes/radio.js";
 import { registerDiscoveryRoutes } from "./routes/discovery.js";
 import { registerTrackContextRoutes } from "./routes/track-contexts.js";
 import { registerRecommendationRoutes } from "./routes/recommendations.js";
@@ -165,6 +169,10 @@ export async function buildApp(): Promise<FastifyInstance> {
   });
 
   await registerOperatorAuth(app);
+  await registerCommunityRoutes(app);
+  await registerRoadmapRoutes(app);
+  await registerProjectConfigRoutes(app);
+  await registerRadioRoutes(app);
   await registerImageUploadRoutes(app);
   await registerImageUploadRoutes(app, undefined, true);
   await registerHealthRoutes(app);

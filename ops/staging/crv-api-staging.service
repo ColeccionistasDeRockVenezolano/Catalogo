@@ -1,0 +1,16 @@
+[Unit]
+Description=CRV API staging (crv_staging, 127.0.0.1:8082)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+Environment=PATH=/home/brian/.local/node-v24.20.0-linux-x64/bin:/usr/local/bin:/usr/bin:/bin
+Environment=CRV_ENV_FILE=/home/brian/apps/crv-staging/staging.env
+ExecStart=/home/brian/.local/node-v24.20.0-linux-x64/bin/npm run api
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

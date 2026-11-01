@@ -244,7 +244,7 @@ interface RequestOptions {
   baseUrl?: string;
 }
 
-async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
+export async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
   const method = options.method ?? "GET";
   const baseUrl = options.baseUrl ?? BASE_URL;
   if (method === "GET" && !options.skipReadCache && canCacheCatalogRead(path, options.query)) {

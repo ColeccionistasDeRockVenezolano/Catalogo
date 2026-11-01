@@ -4,7 +4,11 @@
 import { z } from "zod";
 import { config as loadDotenv } from "dotenv";
 
-loadDotenv();
+// CRV_ENV_FILE permite que una instancia (staging, pruebas) lea SU archivo de
+// entorno en vez del `.env` del repositorio. Sin la variable se conserva el
+// comportamiento histórico: dotenv busca `.env` en el cwd.
+const envFile = process.env["CRV_ENV_FILE"];
+loadDotenv(envFile ? { path: envFile } : {});
 
 const envSchema = z.object({
   CRV_LAYA_PYTHON: z.string().min(1).default("/home/brian/.venvs/laya/bin/python"),
@@ -44,6 +48,16 @@ const envSchema = z.object({
   // invitados; el valor por defecto solo vale en desarrollo y el servidor
   // avisa al arrancar si sigue puesto.
   CRV_CHAT_SECRET: z.string().min(32).default("crv-chat-dev-secret-cambiar-en-produccion"),
+  // Secreto para la huella diaria del contador de visitas. Si falta, se usa el
+  // del chat; en producción conviene darle uno propio.
+  CRV_VISITS_SECRET: z.string().min(32).optional(),
+  // Radio en sombra: catálogo exportado por Herra durante la transición y URL
+  // del `/api/radio/now` vivo para comparar. Ninguno se usa para emitir al
+  // público todavía.
+  CRV_RADIO_DATA_DIR: z.string().optional(),
+  CRV_RADIO_LIVE_URL: z.string().url().optional(),
+  CRV_RADIO_SHEET_CREDENTIALS: z.string().optional(),
+  CRV_RADIO_TEST_SHEET_ID: z.string().optional(),
   // Proceso propio del chat (src/chat/server.ts): no comparte event loop con
   // las consultas del catálogo.
   CHAT_PORT: z.coerce.number().int().positive().default(8081),

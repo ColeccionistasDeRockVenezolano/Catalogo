@@ -19,6 +19,7 @@ import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { getEnv } from "../config/env.js";
 import { clientIp, passwordMatches } from "../api/auth.js";
 import { HERRA_DUMMY_HASH, HerraAccounts, herraPasswordMatches, type HerraSessionRef } from "../api/herra-accounts.js";
+import type { AccountRole } from "../api/community/roles.js";
 
 import { PostgresAccounts, type SharedAccounts } from "../api/postgres-accounts.js";
 import { SessionStore } from "../api/session-store.js";
@@ -32,7 +33,7 @@ const MAX_TRACKED = 20_000;
 export interface CotejoUser {
   username: string;
   name: string;
-  role: "admin" | "reader";
+  role: AccountRole;
   /** Firma de las decisiones: `herra:<usuario>` o `crv:<usuario>` para cuentas locales. */
   actor: string;
 }

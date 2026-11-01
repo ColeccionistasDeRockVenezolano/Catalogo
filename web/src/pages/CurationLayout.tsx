@@ -12,8 +12,8 @@
 // «No se pudo cargar».
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { PageBoundary } from "../components/PageBoundary";
-import { Link, NavLink, Outlet, useLocation, useOutletContext } from "react-router-dom";
-import { CaretDown, ClockCounterClockwise, Copy, Images, ListChecks, LockSimple, MagicWand, Pulse, Robot, SignIn, YoutubeLogo, type Icon } from "@phosphor-icons/react";
+import { Link, Navigate, NavLink, Outlet, useLocation, useOutletContext } from "react-router-dom";
+import { CaretDown, ClockCounterClockwise, Copy, GearSix, Images, ListChecks, LockSimple, MagicWand, Pulse, Robot, SignIn, UserPlus, UsersThree, ChartBar, MapTrifold, Broadcast, YoutubeLogo, type Icon } from "@phosphor-icons/react";
 import { useOperator } from "../lib/OperatorContext";
 import { ApiError, curationApi, entityMergeApi, imageCandidatesApi, youtubeIntakeApi } from "../lib/api";
 import { categoryIcon, formatCount } from "../lib/curation";
@@ -137,25 +137,34 @@ function useImageCount(enabled: boolean): number | undefined {
 }
 
 export function CurationLayout() {
-  const { user, isAdmin, isChecking } = useOperator();
+  const { user, canCurate, canCommunity, isChecking } = useOperator();
+  const { pathname } = useLocation();
   const [signingIn, setSigningIn] = useState(false);
-  const context = useSummary(isAdmin);
+  const context = useSummary(canCurate);
   const { summary } = context;
-  const duplicateCount = useDuplicateCount(isAdmin);
-  const imageCount = useImageCount(isAdmin);
+  const duplicateCount = useDuplicateCount(canCurate);
+  const imageCount = useImageCount(canCurate);
+
+  // Una cuenta solo de comunidad no debe poder abrir rutas de catálogo: la
+  // API las rechaza, pero además el panel la devuelve a su bandeja.
+  const communityOnly = canCommunity && !canCurate;
+  const communityPaths = ["/curaduria/roadmap", "/curaduria/visitas", "/curaduria/radio", "/curaduria/candidaturas", "/curaduria/colaboradores"];
+  if (communityOnly && !communityPaths.some((path) => pathname === path || pathname.startsWith(`${path}/`))) {
+    return <Navigate to="/curaduria/candidaturas" replace />;
+  }
 
   return (
     <>
       <div className="curation-breadcrumb"><Link to="/curaduria">Curaduría</Link></div>
 
-      {isChecking ? <LoadingState label="Comprobando acceso…" /> : !isAdmin ? (
+      {isChecking ? <LoadingState label="Comprobando acceso…" /> : !canCurate && !canCommunity ? (
         <div className="state-block access-block">
           <LockSimple className="icon" aria-hidden="true" weight="bold" />
           <h3>{user ? "Tu cuenta es de solo lectura" : "Esta sección requiere una cuenta administradora"}</h3>
           <p>
             {user
-              ? `Has iniciado sesión como ${user.name}. El detector de conflictos y los duplicados solo están disponibles para administradores.`
-              : "Inicia sesión con una cuenta administradora para revisar, comparar y corregir fichas."}
+              ? `Has iniciado sesión como ${user.name}. El panel de curaduría y comunidad solo está disponible para cuentas con ese rol.`
+              : "Inicia sesión con una cuenta administradora para revisar el catálogo o gestionar la comunidad."}
           </p>
           {user ? null : (
             <div className="access-block__actions">
@@ -168,7 +177,8 @@ export function CurationLayout() {
         </div>
       ) : (
         <div className="curation-shell">
-          <CurationNav summary={summary} duplicateCount={duplicateCount} imageCount={imageCount} />
+          <CurationNav summary={summary} duplicateCount={duplicateCount} imageCount={imageCount}
+            canCurate={canCurate} canCommunity={canCommunity} />
           <div className="curation-shell__main">
             <PageBoundary><Suspense fallback={<RowsSkeleton rows={4} label="Cargando la sección…" />}>
               <Outlet context={context} />
@@ -228,7 +238,10 @@ function useIntakeCount(enabled: boolean): number | undefined {
   return count;
 }
 
-function CurationNav({ summary, duplicateCount, imageCount }: { summary: CurationSummary | undefined; duplicateCount: number | undefined; imageCount: number | undefined }) {
+function CurationNav({ summary, duplicateCount, imageCount, canCurate, canCommunity }: {
+  summary: CurationSummary | undefined; duplicateCount: number | undefined; imageCount: number | undefined;
+  canCurate: boolean; canCommunity: boolean;
+}) {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const intakeCount = useIntakeCount(Boolean(summary));
@@ -275,7 +288,19 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
       ...(summary && summary.autofix.alerts.length > 0 ? { fresh: true } : {}),
     },
   ];
-  const current = currentEntry(pathname, [overview, workspace, ...categories, ...tools]);
+  const communityEntries: NavEntry[] = [
+    { to: "/curaduria/roadmap", label: "Roadmap", icon: MapTrifold },
+    { to: "/curaduria/visitas", label: "Visitas", icon: ChartBar },
+    { to: "/curaduria/radio", label: "Radio", icon: Broadcast },
+    { to: "/curaduria/candidaturas", label: "Candidaturas", icon: UserPlus },
+    { to: "/curaduria/colaboradores", label: "Colaboradores", icon: UsersThree },
+    { to: "/curaduria/ajustes", label: "Ajustes", icon: GearSix },
+  ];
+  const allEntries = [
+    ...(canCurate ? [overview, workspace, ...categories, ...tools] : []),
+    ...(canCommunity ? communityEntries : []),
+  ];
+  const current = currentEntry(pathname, allEntries.length ? allEntries : [overview]);
   const CurrentIcon = current.icon;
 
   return (
@@ -293,18 +318,23 @@ function CurationNav({ summary, duplicateCount, imageCount }: { summary: Curatio
       <div className="cside__panel">
         <nav id="cside-nav" className="cside__nav" aria-label="Herramientas de curaduría">
           <div className="cside__sheet">
-            <NavGroup id="cside-overview" label="Curaduría" entries={[workspace, overview]} />
-            {/* Las categorías son el trabajo: van antes que las herramientas. */}
-            {summary ? (
-              <NavGroup id="cside-categories" label="Categorías" entries={categories} />
-            ) : (
-              <div className="cside__group">
-                <p className="cside__heading">Categorías</p>
-                {[0, 1, 2, 3].map((index) => <span key={index} className="skeleton cside__skeleton" aria-hidden="true" />)}
-              </div>
-            )}
-            <NavGroup id="cside-tools" label="Herramientas" entries={tools} />
-            <p className="cside__aside">Emociones, evaluación de lecturas y correspondencias RYM están en <Link to="/administrar/buscador?seccion=Emociones">Administrar › Buscador</Link>.</p>
+            {canCurate ? (
+              <>
+                <NavGroup id="cside-overview" label="Curaduría" entries={[workspace, overview]} />
+                {/* Las categorías son el trabajo: van antes que las herramientas. */}
+                {summary ? (
+                  <NavGroup id="cside-categories" label="Categorías" entries={categories} />
+                ) : (
+                  <div className="cside__group">
+                    <p className="cside__heading">Categorías</p>
+                    {[0, 1, 2, 3].map((index) => <span key={index} className="skeleton cside__skeleton" aria-hidden="true" />)}
+                  </div>
+                )}
+                <NavGroup id="cside-tools" label="Herramientas" entries={tools} />
+                <p className="cside__aside">Emociones, evaluación de lecturas y correspondencias RYM están en <Link to="/administrar/buscador?seccion=Emociones">Administrar › Buscador</Link>.</p>
+              </>
+            ) : null}
+            {canCommunity ? <NavGroup id="cside-community" label="Comunidad" entries={communityEntries} /> : null}
           </div>
         </nav>
       </div>

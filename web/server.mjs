@@ -24,7 +24,7 @@ import path from "node:path";
 import { MEDIA_WIDTHS, OPTIMIZABLE_EXTENSIONS, optimizerAvailable, optimizerCommand, runOptimizer, variantPath } from "./media-variants.mjs";
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
-const dist = path.join(directory, "dist-public");
+const dist = path.join(directory, process.env.CRV_WEB_DIST ?? "dist-public");
 const media = path.join(directory, "public", "media");
 const host = process.env.CRV_WEB_HOST ?? "127.0.0.1";
 const port = Number(process.env.CRV_WEB_PORT ?? "3120");
@@ -409,6 +409,16 @@ const server = http.createServer(async (req, res) => {
     return;
   }
   const requestUrl = new URL(req.url ?? "/", `http://${req.headers.host ?? host}`);
+  // En staging la app vive bajo /crv. Si alguien entra por una ruta de la app
+  // sin el prefijo (/roadmap, /curaduria/...), el gateway sirve el índice pero
+  // el basename del router no coincide y la página queda en blanco. Las
+  // navegaciones de documento se mandan al prefijo; las APIs y los assets no.
+  const acceptsHtml = String(req.headers.accept ?? "").includes("text/html");
+  if (basePath !== "/" && acceptsHtml && (req.method === "GET" || req.method === "HEAD")
+      && requestUrl.pathname !== "/" && !requestUrl.pathname.startsWith(`${basePath}/`)) {
+    res.writeHead(302, { location: `${basePath}${requestUrl.pathname}${requestUrl.search}` });
+    return res.end();
+  }
   // Funnel elimina el prefijo configurado antes de enviar la petición al
   // destino local. Para pruebas directas también aceptamos la ruta completa.
   const virtualPath = requestUrl.pathname === basePath || requestUrl.pathname.startsWith(`${basePath}/`)
@@ -417,6 +427,36 @@ const server = http.createServer(async (req, res) => {
   const virtualUrl = new URL(requestUrl);
   virtualUrl.pathname = virtualPath;
   if (virtualUrl.pathname === apiPath || virtualUrl.pathname.startsWith(`${apiPath}/`)) return proxyApi(req, res, virtualUrl);
+  // La landing del roadmap es un documento estático con el HTML/CSS de la
+  // portada; se sirve fuera del SPA para que el clon sea 1:1.
+  const roadmapPath = `${basePath === "/" ? "" : basePath}/roadmap`;
+  if ((req.method === "GET" || req.method === "HEAD") && virtualUrl.pathname.replace(/\/+$/u, "") === roadmapPath) {
+    // Sin barra final: los assets del documento son relativos (landing/...).
+    if (virtualUrl.pathname !== roadmapPath) {
+      res.writeHead(301, { location: `${roadmapPath}${virtualUrl.search}` });
+      return res.end();
+    }
+    const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
+    return serveFile(req, res, `${basePath === "/" ? "" : basePath}/landing/roadmap-${lang}.html`, virtualUrl.searchParams);
+  }
+  const collaboratePath = `${basePath === "/" ? "" : basePath}/colaborar`;
+  if ((req.method === "GET" || req.method === "HEAD") && virtualUrl.pathname.replace(/\/+$/u, "") === collaboratePath) {
+    if (virtualUrl.pathname !== collaboratePath) {
+      res.writeHead(301, { location: `${collaboratePath}${virtualUrl.search}` });
+      return res.end();
+    }
+    const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
+    return serveFile(req, res, `${basePath === "/" ? "" : basePath}/landing/colaborar-${lang}.html`, virtualUrl.searchParams);
+  }
+  const loginPath = `${basePath === "/" ? "" : basePath}/login`;
+  if ((req.method === "GET" || req.method === "HEAD") && virtualUrl.pathname.replace(/\/+$/u, "") === loginPath) {
+    if (virtualUrl.pathname !== loginPath) {
+      res.writeHead(301, { location: `${loginPath}${virtualUrl.search}` });
+      return res.end();
+    }
+    const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
+    return serveFile(req, res, `${basePath === "/" ? "" : basePath}/landing/login-${lang}.html`, virtualUrl.searchParams);
+  }
   // robots.txt y sitemap los sirve el gateway, no el build: responden con el
   // host real que ve el buscador (hoy el Funnel; mañana el dominio propio).
   const literalPath = virtualUrl.pathname === basePath ? "/" : virtualUrl.pathname.slice(basePath.length);

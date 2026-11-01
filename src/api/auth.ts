@@ -22,6 +22,9 @@ import { PostgresAccounts, type SharedAccounts } from "./postgres-accounts.js";
 import { SessionStore } from "./session-store.js";
 import { ApiError } from "./http-errors.js";
 import { createWindowLimiter } from "./rate-limit.js";
+import { roleCanAccess, type AccountRole } from "./community/roles.js";
+
+export type { AccountRole };
 
 declare module "fastify" {
   interface FastifyRequest {
@@ -33,10 +36,12 @@ declare module "fastify" {
      * trabajo —p. ej. qué géneros eligió Laya— solo a quien inició sesión.
      */
     viewer: { name: string; role: AccountRole } | null;
+    /** Cuenta de la sesión, para auditoría; null en visitantes y token de automatización. */
+    account: { kind: "user" | "admin" | "local"; id: number } | null;
+    /** CSRF de la sesión activa, para que una página estática pueda escribir. */
+    csrfToken: string;
   }
 }
-
-export type AccountRole = "admin" | "reader";
 
 export const OPERATOR_SECURITY = [{ collaboratorSession: [] }, { operatorToken: [] }];
 
@@ -51,6 +56,8 @@ const ADMIN_READS = [
   /^\/chat\/admin(\/|$)/u,
   // La documentación OpenAPI enumera todas las rutas internas.
   /^\/docs(\/|$)/u,
+  // Comunidad: colaboradores, candidaturas, invitaciones y roles.
+  /^\/community\/admin(\/|$)/u,
   /^\/search\/administration(\/|$)/u,
   /^\/catalog-editor(\/|$)/u,
   /^\/catalog-model(\/|$)/u,
@@ -77,6 +84,8 @@ const ADMIN_READS = [
 const OPERATOR_NAME = /^[\p{L}\p{N} ._'-]{1,80}$/u;
 const USERNAME = /^[a-z0-9][a-z0-9._-]{2,39}$/u;
 const SESSION_COOKIE = "crv_session";
+/** Ruta mínima que un colaborador con rol reader puede escribir desde el roadmap. */
+const COLLABORATOR_STATUS_PATH = /^\/roadmap\/tasks\/\d+\/status$/u;
 const SESSION_BYTES = 32;
 const CSRF_BYTES = 24;
 const LOGIN_WINDOW_MS = 15 * 60 * 1000;
@@ -388,6 +397,8 @@ export async function registerOperatorAuth(
   const readsPerMinute = createWindowLimiter({ max: getEnv().CRV_READ_RATE_LIMIT, windowMs: 60_000, maxKeys: 5_000 });
   app.decorateRequest("operator", "");
   app.decorateRequest("viewer", null);
+  app.decorateRequest("account", null);
+  app.decorateRequest("csrfToken", "");
   app.addHook("onClose", async () => herra?.close());
 
   /** Sesión activa, descartando las de cuentas que herra ya no habilita. */
@@ -407,7 +418,7 @@ export async function registerOperatorAuth(
   };
 
   /** Sesión local o, en el proceso del chat, la de la API. */
-  const anySession = async (request: FastifyRequest): Promise<{ name: string; role: AccountRole; csrf: string } | undefined> => {
+  const anySession = async (request: FastifyRequest): Promise<{ name: string; role: AccountRole; csrf: string; herra?: HerraSessionRef } | undefined> => {
     const local = (await activeSession(request))?.value;
     if (local) return local;
     return options.remoteSession ? options.remoteSession(request) : undefined;
@@ -432,6 +443,16 @@ export async function registerOperatorAuth(
       request.viewer = session ? { name: session.name, role: session.role } : null;
       return;
     }
+    // Formulario de candidatura, registro por invitación, activación y latido
+    // del contador de visitas: escrituras abiertas, con origen confiable. Los
+    // límites por IP viven en la ruta correspondiente.
+    const isCommunityPublicWrite = request.method === "POST" && (
+      path === "/community/applications" || path === "/community/register"
+      || path === "/community/activate" || path === "/roadmap/visit" || path === "/radio/listener");
+    if (isCommunityPublicWrite) {
+      assertTrustedOrigin(request);
+      return;
+    }
     if (isMetricEvent) assertTrustedOrigin(request);
     if (isMetricEvent || path === "/auth/login" || (isRead && !ADMIN_READS.some((pattern) => pattern.test(path)))) {
       if ((isRead || isMetricEvent) && path !== "/auth/login") {
@@ -442,8 +463,13 @@ export async function registerOperatorAuth(
           // lectura pública cualquiera no cuesta una llamada a la API.
           const session = path === "/chat/ws" ? await anySession(request) : (await activeSession(request))?.value;
           request.viewer = session ? { name: session.name, role: session.role } : null;
+          request.csrfToken = session?.csrf ?? "";
+          const ref = session && "herra" in session ? session.herra : undefined;
+          request.account = ref ? { kind: ref.kind, id: ref.id } : null;
         } catch {
           request.viewer = null;
+          request.account = null;
+          request.csrfToken = "";
         }
         if (isRead && request.viewer === null && !isLocalRequest(request)) {
           if (!readsPerMinute.take(clientIp(request))) {
@@ -470,10 +496,25 @@ export async function registerOperatorAuth(
       }
       // Cerrar la propia sesión no requiere permisos de curaduría.
       if (path === "/auth/logout") return;
-      if (session.role !== "admin") {
-        throw new ApiError(403, "admin_required", "Tu cuenta es de solo lectura. Editar, fusionar y revisar requiere una cuenta administradora.");
+      request.csrfToken = session.csrf;
+      // Un colaborador reader solo puede cambiar el estado de sus actividades
+      // desde el roadmap público. La ruta valida la asignación en la base.
+      if (session.role === "reader" && COLLABORATOR_STATUS_PATH.test(path)) {
+        request.operator = session.name;
+        request.viewer = { name: session.name, role: session.role };
+        const ref = "herra" in session ? session.herra : undefined;
+        request.account = ref ? { kind: ref.kind, id: ref.id } : null;
+        if (!isRead) writeBudget(`session:${session.name}`);
+        return;
+      }
+      if (!roleCanAccess(session.role, path)) {
+        throw new ApiError(403, "forbidden_role", "Esta cuenta no tiene permiso para esta sección.");
       }
       request.operator = session.name;
+      request.viewer = { name: session.name, role: session.role };
+      request.csrfToken = session.csrf;
+      const herraRef = "herra" in session ? session.herra : undefined;
+      request.account = herraRef ? { kind: herraRef.kind, id: herraRef.id } : null;
       if (!isRead) writeBudget(`session:${session.name}`);
       return;
     }

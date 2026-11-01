@@ -6,8 +6,14 @@ import { useToast } from "./ToastContext";
 
 interface OperatorContextValue {
   user: OperatorUser | null;
+  /** Rol efectivo de la sesión; null sin sesión. */
+  role: OperatorUser["role"] | null;
   /** Solo una cuenta admin edita, fusiona y entra a Curaduría; la API lo exige igual. */
   isAdmin: boolean;
+  /** admin o curator: catálogo y curaduría. */
+  canCurate: boolean;
+  /** admin o community: colaboradores, candidaturas y comunidad. */
+  canCommunity: boolean;
   isChecking: boolean;
   login: (username: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -64,7 +70,16 @@ export function OperatorProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo<OperatorContextValue>(
-    () => ({ user, isAdmin: user?.role === "admin", isChecking, login, logout }),
+    () => ({
+      user,
+      role: user?.role ?? null,
+      isAdmin: user?.role === "admin",
+      canCurate: user?.role === "admin" || user?.role === "curator",
+      canCommunity: user?.role === "admin" || user?.role === "community",
+      isChecking,
+      login,
+      logout,
+    }),
     [user, isChecking, login, logout],
   );
 

@@ -21,7 +21,9 @@ export class PostgresAccounts {
                coalesce((SELECT coalesce(nullif(trim(concat_ws(' ',u.first_name,u.last_name)),''),u.name::text)
                            FROM auth.users u WHERE u.project_id=(SELECT id FROM project) AND lower(u.name::text)=lower($1)
                             AND u.status='approved'), a.username::text),
-               a.password_hash, a.session_version, 'admin', 'hex', 1
+               a.password_hash, a.session_version,
+               CASE a.role WHEN 'curator' THEN 'curator' WHEN 'community' THEN 'community' ELSE 'admin' END,
+               'hex', 1
           FROM auth.admins a WHERE lower(a.username::text)=lower($1) AND (a.role='superadmin' OR a.project_id=(SELECT id FROM project))
             AND (a.user_id IS NULL OR EXISTS (SELECT 1 FROM auth.users linked WHERE linked.id=a.user_id AND linked.status='approved' AND linked.access_code_hash IS NOT NULL))
         UNION ALL

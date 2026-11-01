@@ -6,6 +6,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import { OperatorProvider } from "./lib/OperatorContext";
 import { ToastProvider } from "./lib/ToastContext";
 import { DailyCycleProvider } from "./lib/DailyCycleContext";
+import { I18nProvider } from "./lib/i18n";
 import { reloadForNewBuild } from "./lib/staleBuild";
 import "./styles/global.css";
 import "./styles/discography.css";
@@ -38,11 +39,13 @@ createRoot(container).render(
   <StrictMode>
     <ErrorBoundary>
       <BrowserRouter basename={basename}>
-        <ToastProvider>
-          <OperatorProvider>
-            <DailyCycleProvider><App /></DailyCycleProvider>
-          </OperatorProvider>
-        </ToastProvider>
+        <I18nProvider>
+          <ToastProvider>
+            <OperatorProvider>
+              <DailyCycleProvider><App /></DailyCycleProvider>
+            </OperatorProvider>
+          </ToastProvider>
+        </I18nProvider>
       </BrowserRouter>
     </ErrorBoundary>
   </StrictMode>,

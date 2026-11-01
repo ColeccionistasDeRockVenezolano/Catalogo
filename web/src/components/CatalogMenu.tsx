@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { useI18n } from "../lib/i18n";
 import { Link, useLocation } from "react-router-dom";
 import { CaretDown } from "@phosphor-icons/react";
 import { catalogApi, CATALOG_DATA_CHANGED_EVENT, type CatalogOverview } from "../lib/api";
@@ -14,6 +15,7 @@ const decadeName = (decade: number) => `Años ${decade < 2000 ? String(decade).s
  */
 export function CatalogMenu({ active }: { active: boolean }) {
   const id = useId();
+  const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [data, setData] = useState<CatalogOverview | null>(null);
   const [failed, setFailed] = useState(false);
@@ -63,14 +65,14 @@ export function CatalogMenu({ active }: { active: boolean }) {
         hoverTimer.current = window.setTimeout(() => setOpen(false), 160);
       }}
       onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false); }}>
-      <button ref={triggerRef} type="button" className={`nav-menu__trigger${active ? " active" : ""}`} aria-label="Catálogo"
+      <button ref={triggerRef} type="button" className={`nav-menu__trigger${active ? " active" : ""}`} aria-label={t("nav.catalog")}
         aria-expanded={open} aria-controls={id}
         onClick={() => {
           if (open && byHover.current) { byHover.current = false; return; }
           byHover.current = false;
           setOpen(!open);
         }}>
-        <span className="nav-label">Catálogo</span>
+        <span className="nav-label">{t("nav.catalog")}</span>
         <CaretDown className="nav-menu__caret" size={12} weight="bold" aria-hidden="true" />
       </button>
       <div id={id} className="mega" hidden={!open}>

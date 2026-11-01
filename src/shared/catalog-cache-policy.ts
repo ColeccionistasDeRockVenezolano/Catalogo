@@ -20,7 +20,7 @@ export function isCommonCatalogRead(path: string): boolean {
 
 export function isCatalogWrite(method: string, path: string): boolean {
   return !["GET", "HEAD", "OPTIONS"].includes(method)
-    && !/^\/(auth|discovery\/metrics|search\/confirmations)(\/|$)/u.test(path);
+    && !/^\/(auth|discovery\/metrics|search\/confirmations|radio\/listener|roadmap\/visit)(\/|$)/u.test(path);
 }
 
 /** Ordena claves distintas sin cambiar el orden de los valores repetidos (filtros). */

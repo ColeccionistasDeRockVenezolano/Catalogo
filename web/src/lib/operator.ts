@@ -3,8 +3,8 @@
 export interface OperatorUser {
   username: string;
   name: string;
-  /** admin edita, fusiona y revisa; reader solo lee (src/api/auth.ts). */
-  role: "admin" | "reader";
+  /** admin: todo; curator: catálogo; community: comunidad; reader: solo lectura. */
+  role: "admin" | "reader" | "curator" | "community";
 }
 
 let csrfToken = "";

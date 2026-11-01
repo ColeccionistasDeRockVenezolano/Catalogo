@@ -10,6 +10,7 @@
 import { randomBytes, scrypt as scryptCallback, scryptSync, timingSafeEqual } from "node:crypto";
 import type { DatabaseSync } from "node:sqlite";
 import { createRequire } from "node:module";
+import type { AccountRole } from "./community/roles.js";
 
 export interface HerraAccount {
   kind: "user" | "admin" | "local";
@@ -18,7 +19,7 @@ export interface HerraAccount {
   name: string;
   passwordHash: string;
   sessionVersion: number;
-  role?: "admin" | "reader";
+  role?: AccountRole;
   passwordEncoding?: "hex" | "base64url";
 }
 
@@ -26,7 +27,7 @@ export interface HerraSessionRef {
   kind: "user" | "admin" | "local";
   id: number;
   sessionVersion: number;
-  role?: "admin" | "reader";
+  role?: AccountRole;
 }
 
 interface UserRow {

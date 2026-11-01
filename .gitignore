@@ -23,6 +23,7 @@ config/local.*
 node_modules/
 dist/
 dist-public/
+dist-staging/
 build/
 *.tsbuildinfo
 .tsimp/

@@ -9,7 +9,7 @@ import { Layout } from "./components/Layout";
 import { RouteFallback } from "./components/Skeletons";
 import { PageBoundary } from "./components/PageBoundary";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import { EphemeridesPage, RadioPage } from "./pages/UpcomingPages";
+import { EphemeridesPage } from "./pages/UpcomingPages";
 import { COMMUNITY_PAGES, COMMUNITY_REDIRECTS } from "./lib/communityPages";
 
 // Cada página viaja en su propio chunk (React.lazy): la carga inicial solo trae
@@ -44,6 +44,17 @@ const AccountPage = lazy(() => import("./pages/AccountPage").then((module) => ({
 const AiCurationPage = lazy(() => import("./pages/AiCurationPage").then((module) => ({ default: module.AiCurationPage })));
 const YouTubeIntakePage = lazy(() => import("./pages/YouTubeIntakePage").then((module) => ({ default: module.YouTubeIntakePage })));
 const ChatPage = lazy(() => import("./pages/ChatPage").then((module) => ({ default: module.ChatPage })));
+const RoadmapPage = lazy(() => import("./pages/RoadmapPage").then((module) => ({ default: module.RoadmapPage })));
+const RadioPage = lazy(() => import("./pages/RadioPage").then((module) => ({ default: module.RadioPage })));
+const CurationRoadmapPage = lazy(() => import("./pages/CurationRoadmapPage").then((module) => ({ default: module.CurationRoadmapPage })));
+const CurationProjectPage = lazy(() => import("./pages/CurationProjectPage").then((module) => ({ default: module.CurationProjectPage })));
+const CurationVisitsPage = lazy(() => import("./pages/CurationVisitsPage").then((module) => ({ default: module.CurationVisitsPage })));
+const CurationRadioPage = lazy(() => import("./pages/CurationRadioPage").then((module) => ({ default: module.CurationRadioPage })));
+const CommunityCollaboratorsPage = lazy(() => import("./pages/CommunityCollaboratorsPage").then((module) => ({ default: module.CommunityCollaboratorsPage })));
+const CommunityApplicationsPage = lazy(() => import("./pages/CommunityApplicationsPage").then((module) => ({ default: module.CommunityApplicationsPage })));
+const CollaboratePage = lazy(() => import("./pages/CollaboratePage").then((module) => ({ default: module.CollaboratePage })));
+const ActivatePage = lazy(() => import("./pages/ActivatePage").then((module) => ({ default: module.ActivatePage })));
+const RegisterInvitePage = lazy(() => import("./pages/RegisterInvitePage").then((module) => ({ default: module.RegisterInvitePage })));
 
 /** Enlaces viejos (/revision/:id) siguen llevando a la revisión. */
 function LegacyReviewRedirect() {
@@ -76,7 +87,12 @@ export function App() {
           <Route path="/explora" element={<EphemeridesPage />} />
           <Route path="/efemerides" element={<Navigate to="/explora" replace />} />
           <Route path="/radio" element={<RadioPage />} />
+          <Route path="/roadmap" element={<RoadmapPage />} />
           <Route path="/chat" element={<ChatPage />} />
+          {/* Comunidad (Fase 1): candidatura, activación y registro por invitación. */}
+          <Route path="/colaborar" element={<CollaboratePage />} />
+          <Route path="/activar" element={<ActivatePage />} />
+          <Route path="/registro" element={<RegisterInvitePage />} />
           {/* Móvil: la pestaña «Cuenta» de la barra inferior (acceso, sesión, administración y ayuda). */}
           <Route path="/cuenta" element={<AccountPage />} />
           {COMMUNITY_PAGES.map(page => <Route key={page.id} path={page.path} element={<CommunityPage pageId={page.id} />} />)}
@@ -115,6 +131,13 @@ export function App() {
             <Route path="autocorreccion" element={<CurationAutofixPage />} />
             <Route path="ia" element={<AiCurationPage />} />
             <Route path="youtube" element={<YouTubeIntakePage />} />
+            {/* Comunidad: colaboradores, candidaturas, roadmap y visitas (Fase 1 y 2). */}
+            <Route path="colaboradores" element={<CommunityCollaboratorsPage />} />
+            <Route path="candidaturas" element={<CommunityApplicationsPage />} />
+            <Route path="roadmap" element={<CurationRoadmapPage />} />
+            <Route path="ajustes" element={<CurationProjectPage />} />
+            <Route path="visitas" element={<CurationVisitsPage />} />
+            <Route path="radio" element={<CurationRadioPage />} />
           </Route>
           <Route path="/administrar/buscador" element={<SearchAdministrationPage />} />
           <Route path="/administrar" element={<Navigate to="/curaduria" replace />} />
