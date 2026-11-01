@@ -22,6 +22,13 @@ try{
  const credits=(await client.query<Credit>(`SELECT id::int,album_id::int "albumId",artist_id::int "artistId" FROM public.album_credits WHERE artist_id=ANY($1::bigint[]) AND credit_type IN ('musician','guest','other')`,[artistIds])).rows;
  const songs=(await client.query<Song>(`SELECT t.id::int,t.album_id::int "albumId",t.title,c.artist_id::int "artistId" FROM ingest.catalog_tracks t JOIN public.track_credits c ON c.track_id=t.id WHERE c.artist_id=ANY($1::bigint[]) AND c.credit_type IN ('musician','guest','other')`,[artistIds])).rows;
  const claims=(await client.query<{creditId:number;tracks:string[]}>(`SELECT album_credit_id::int "creditId",ARRAY(SELECT jsonb_array_elements_text(normalized_value)) tracks FROM ingest.claims WHERE field='documented_tracks' AND status='accepted' AND jsonb_typeof(normalized_value)='array' AND album_credit_id=ANY($1::bigint[])`,[credits.map(c=>c.id)])).rows;
+ // El intérprete documentado puede ser otro artista del catálogo (una banda, un alias): si tiene crédito en el disco, la participación está bien atribuida.
+ const allNames=(await client.query<{artistId:number;name:string}>(`SELECT id::int "artistId",name FROM ingest.catalog_artists UNION ALL SELECT artist_id::int,alias FROM ingest.artist_aliases`)).rows;
+ const creditPairs=new Set((await client.query<{albumId:number;artistId:number}>(`SELECT album_id::int "albumId",artist_id::int "artistId" FROM public.album_credits WHERE credit_type IN ('musician','guest','other')`)).rows.map(r=>`${r.albumId}:${r.artistId}`));
+ // «&» y «y» son la misma conjunción al comparar nombres de artista.
+ const nameKey=(value:string)=>key(value.replace(/&/gu,' y '));
+ const performerByKey=new Map<string,Set<number>>();
+ for(const n of allNames){const k=nameKey(n.name);const set=performerByKey.get(k)??new Set<number>();set.add(n.artistId);performerByKey.set(k,set)}
  await client.query('ROLLBACK');
  const albumKey=(title:string)=>key(title.replace(/^(?:el|la|los|las|the)\s+/iu,''));
  const byTitle=new Map<string,Set<number>>();
@@ -46,9 +53,11 @@ try{
    });
    const elsewhere=e.tracks.flatMap(t=>matchingAppearanceTracks(artistSongs,t.title,artistNames).filter(s=>!compatible.some(a=>a.id===s.albumId)).map(s=>({sourceTitle:t.title,trackId:s.id,album:byId.get(s.albumId)})));
    const performerMatches=!!artist&&sourcePerformerIsArtist(e.appearance!,artistNames);
+   const creditedPerformer=!!e.appearance&&[...(performerByKey.get(nameKey(e.appearance))??[])].some(id=>compatible.some(a=>creditPairs.has(`${a.id}:${id}`)));
    let status='unresolved';
    if(!artist)status='artist_identity';
-   else if(!performerMatches)status='performer_identity';
+   else if(!performerMatches&&!creditedPerformer)status='performer_identity';
+   else if(creditedPerformer)status='credit_and_songs_present';
    else if(compatible.length===0)status=exact.length?'year_conflict':'album_missing_or_alias';
    else if(compatible.length>1)status='album_ambiguous';
    else if(found[0]!.albumCredits.length===0&&!found[0]!.titles.some(t=>t.credited.length))status='credit_missing';
