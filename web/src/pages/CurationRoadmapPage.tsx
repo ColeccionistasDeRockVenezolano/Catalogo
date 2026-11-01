@@ -23,6 +23,7 @@ import { useAsync } from "../lib/useAsync";
 import { useToast } from "../lib/ToastContext";
 import { Modal } from "../components/Modal";
 import { ConfirmDialog } from "../components/ConfirmDialog";
+import { PeopleWindow } from "../components/roadmap/PeopleWindow";
 import { ErrorState, LoadingState } from "../components/StateViews";
 import "../styles/community-ui.css";
 import "../styles/roadmap-admin.css";
@@ -107,7 +108,7 @@ export function CurationRoadmapPage() {
   // Un enlace con ?herramienta= desconocida o de un bloque que aún no existe
   // no debe dejar la URL mintiendo: se limpia.
   useEffect(() => {
-    const known: ToolId[] = ["nueva-actividad", "nueva-etapa"];
+    const known: ToolId[] = ["nueva-actividad", "nueva-etapa", "personas"];
     if (tool && !known.includes(tool)) closeTool();
   }, [tool]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -173,7 +174,7 @@ export function CurationRoadmapPage() {
   const tools: ToolDef[] = [
     { id: "nueva-actividad", label: copy.tools.newTask, icon: Plus, enabled: true },
     { id: "nueva-etapa", label: copy.tools.newStage, icon: ListChecks, enabled: true },
-    { id: "personas", label: copy.tools.people, icon: UsersThree, count: counts?.collaborators ?? data.users.length, enabled: false },
+    { id: "personas", label: copy.tools.people, icon: UsersThree, count: counts?.collaborators ?? data.users.length, enabled: true },
     { id: "pendientes", label: copy.tools.pending, icon: IdentificationCard, count: counts?.pending_collaborators ?? 0, enabled: false },
     { id: "candidaturas", label: copy.tools.applications, icon: ClipboardText, count: counts?.pending_applications ?? 0, enabled: false },
     { id: "metricas", label: copy.tools.metrics, icon: ChartLine, enabled: false },
@@ -266,6 +267,15 @@ export function CurationRoadmapPage() {
           />
         ))}
       </div>
+
+      {tool === "personas" ? (
+        <PeopleWindow
+          title={copy.tools.people}
+          kicker={copy.adminKicker}
+          onClose={closeTool}
+          onChanged={() => { roadmap.reload(); overview.reload(); }}
+        />
+      ) : null}
 
       {newTask ? (
         <NewTaskModal
