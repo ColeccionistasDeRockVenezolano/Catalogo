@@ -28,6 +28,9 @@ import { PeopleWindow } from "../components/roadmap/PeopleWindow";
 import { ApplicationsWindow } from "../components/roadmap/ApplicationsWindow";
 import { CollaborateFormWindow } from "../components/roadmap/CollaborateFormWindow";
 import { InvitesWindow } from "../components/roadmap/InvitesWindow";
+import { IdentityWindow } from "../components/roadmap/IdentityWindow";
+import { LanguagesWindow } from "../components/roadmap/LanguagesWindow";
+import { SettingsWindow } from "../components/roadmap/SettingsWindow";
 import { ErrorState, LoadingState } from "../components/StateViews";
 import "../styles/community-ui.css";
 import "../styles/roadmap-admin.css";
@@ -112,7 +115,7 @@ export function CurationRoadmapPage() {
   // Un enlace con ?herramienta= desconocida o de un bloque que aún no existe
   // no debe dejar la URL mintiendo: se limpia.
   useEffect(() => {
-    const known: ToolId[] = ["nueva-actividad", "nueva-etapa", "personas", "pendientes", "candidaturas", "formulario", "enlaces"];
+    const known: ToolId[] = ["nueva-actividad", "nueva-etapa", "personas", "pendientes", "candidaturas", "formulario", "enlaces", "identidad", "idiomas", "ajustes"];
     if (tool && !known.includes(tool)) closeTool();
   }, [tool]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -237,9 +240,9 @@ export function CurationRoadmapPage() {
     { id: "metricas", label: copy.tools.metrics, icon: ChartLine, enabled: false },
     { id: "formulario", label: copy.tools.form, icon: NotePencil, enabled: true },
     { id: "enlaces", label: copy.tools.invites, icon: LinkSimple, enabled: true },
-    { id: "identidad", label: copy.tools.branding, icon: Palette, enabled: false },
-    { id: "idiomas", label: copy.tools.languages, icon: Translate, enabled: false },
-    { id: "ajustes", label: copy.tools.settings, icon: Gear, enabled: false },
+    { id: "identidad", label: copy.tools.branding, icon: Palette, enabled: true },
+    { id: "idiomas", label: copy.tools.languages, icon: Translate, enabled: true },
+    { id: "ajustes", label: copy.tools.settings, icon: Gear, enabled: true },
     { id: "clave", label: copy.tools.password, icon: IdentificationCard, enabled: false },
     { id: "publica", label: copy.tools.viewPublic, icon: ArrowSquareOut, enabled: true, href: "/roadmap" },
   ];
@@ -368,6 +371,33 @@ export function CurationRoadmapPage() {
           title={copy.tools.invites}
           kicker={copy.adminKicker}
           onClose={closeTool}
+        />
+      ) : null}
+
+      {tool === "identidad" ? (
+        <IdentityWindow
+          title={copy.tools.branding}
+          kicker={copy.adminKicker}
+          onClose={closeTool}
+          onSaved={() => { overview.reload(); }}
+        />
+      ) : null}
+
+      {tool === "idiomas" ? (
+        <LanguagesWindow
+          title={copy.tools.languages}
+          kicker={copy.adminKicker}
+          onClose={closeTool}
+          onSaved={() => { roadmap.reload(); }}
+        />
+      ) : null}
+
+      {tool === "ajustes" ? (
+        <SettingsWindow
+          title={copy.tools.settings}
+          kicker={copy.adminKicker}
+          onClose={closeTool}
+          onSaved={() => { roadmap.reload(); }}
         />
       ) : null}
 

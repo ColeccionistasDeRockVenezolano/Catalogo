@@ -72,4 +72,10 @@ export const roadmapApi = {
     request<{ roadmap: AdminRoadmap }>(`/community/admin/roadmap/tasks/${id}/category`, json("POST", { categoryId })),
   adminVisits: (days = 30, lang: Lang = "es") =>
     request<AdminVisits>("/community/admin/visits", { query: { days, lang } }),
+  /** Títulos en inglés de etapas y actividades (vacío borra y cae al español). */
+  saveTranslations: (body: {
+    categories?: Record<string, { en?: string }>;
+    tasks?: Record<string, { en?: string }>;
+  }) => request<{ categories: number; tasks: number; roadmap: AdminRoadmap }>(
+    "/community/admin/roadmap/translations", json("POST", body)),
 };

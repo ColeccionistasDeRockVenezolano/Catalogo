@@ -1,6 +1,7 @@
 import { sanitizeHeroHtml } from "../api/project/config.js";
 
-const defaultTheme = {
+/** Valores de fábrica del tema; la administración los ve y los sustituye. */
+export const themeDefaults = {
   projectName: "Proyecto", heroTitleHtml: "EL PROYECTO<br>AVANZA",
   heroSubPublic: "Aquí se muestra el avance del proyecto: qué se hará, qué está en marcha y qué ya está listo, con sus etapas de trabajo.",
   landingHeadline: "Así va el proyecto", brandBadgeLetter: "◆", footerNote: "Roadmap del equipo.",
@@ -10,9 +11,9 @@ const defaultTheme = {
   colors: { bg: "#0a0a0a", surface: "#141414", surface2: "#1c1c1c", red: "#e50914", redDark: "#8b0000", white: "#f5f5f5", gray: "#9a9a9a", border: "#242424", accentRed: "#e50914", accentAmber: "#ffb02e", accentViolet: "#b185e3", accentTeal: "#2ec4b6" },
 };
 
-type Theme = typeof defaultTheme;
+type Theme = typeof themeDefaults;
 type TextKey = Exclude<keyof Theme, "colors">;
-const textKeys = Object.keys(defaultTheme).filter((key): key is TextKey => key !== "colors");
+const textKeys = Object.keys(themeDefaults).filter((key): key is TextKey => key !== "colors");
 const translatedKeys: TextKey[] = ["heroTitleHtml", "heroSubPublic", "landingHeadline", "footerNote"];
 
 function object(value: unknown): Record<string, unknown> {
@@ -26,7 +27,7 @@ function object(value: unknown): Record<string, unknown> {
 export function resolveLandingTheme(name: string, raw: unknown, translation: unknown = {}): Theme {
   const values = object(raw);
   const translated = object(translation);
-  const result: Theme = { ...defaultTheme, projectName: name, colors: { ...defaultTheme.colors } };
+  const result: Theme = { ...themeDefaults, projectName: name, colors: { ...themeDefaults.colors } };
   for (const key of textKeys) {
     const value = values[key];
     if (typeof value !== "string" || value.length > 1000) continue;

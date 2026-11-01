@@ -11,6 +11,7 @@ import { getProjectConfig, getPublicProjectConfig, updateProjectConfig } from ".
 import {
   readCollaborateConfig, saveCollaborateConfig, readProfileTerms, createProfileTerm, updateProfileTerm,
 } from "../project/collaborate-config.js";
+import { readIdentity, saveTheme, saveBranding, saveProjectI18n, saveAsset, deleteAsset } from "../project/identity.js";
 import { idParamSchema } from "../schemas.js";
 
 const visibility = z.enum(["hidden", "progress", "completed", "full"]);
@@ -105,5 +106,68 @@ export async function registerProjectConfigRoutes(app: FastifyInstance): Promise
     schema: { tags: ["Comunidad"], params: idParamSchema, body: termPatch },
   }, async (request) => {
     return updateProfileTerm(request.params.id, request.body);
+  });
+
+  // Ventanas 3.10 Identidad y compartir, 3.11 Idiomas del proyecto y 3.12
+  // Tema: solo administración total (community no ve identidad ni ajustes).
+  api.get("/community/admin/identity", { schema: { tags: ["Configuración"] } }, async (request, reply) => {
+    requireAdmin(request);
+    reply.header("Cache-Control", "no-store");
+    return readIdentity();
+  });
+
+  api.put("/community/admin/branding", {
+    schema: { tags: ["Configuración"], body: z.object({ branding: z.record(z.unknown()) }).strict() },
+  }, async (request, reply) => {
+    requireAdmin(request);
+    const data = await saveBranding(request.body.branding);
+    reply.header("Cache-Control", "no-store");
+    return data;
+  });
+
+  api.put("/community/admin/theme", {
+    schema: { tags: ["Configuración"], body: z.object({ theme: z.record(z.unknown()) }).strict() },
+  }, async (request, reply) => {
+    requireAdmin(request);
+    const data = await saveTheme(request.body.theme);
+    reply.header("Cache-Control", "no-store");
+    return data;
+  });
+
+  api.put("/community/admin/i18n", {
+    schema: { tags: ["Configuración"], body: z.object({ i18n: z.record(z.unknown()) }).strict() },
+  }, async (request, reply) => {
+    requireAdmin(request);
+    const data = await saveProjectI18n(request.body.i18n);
+    reply.header("Cache-Control", "no-store");
+    return data;
+  });
+
+  // Imágenes del proyecto: cuerpo binario, 2 MB y solo PNG/JPG/WebP. El
+  // parser vive en un plugin encapsulado para no ampliar el resto de la API.
+  await app.register(async (uploads) => {
+    uploads.addContentTypeParser(["image/png", "image/jpeg", "image/webp"],
+      { parseAs: "buffer", bodyLimit: 2 * 1024 * 1024 },
+      (_request, body, done) => done(null, body));
+    uploads.post<{ Params: { kind: string }; Body: Buffer }>("/community/admin/assets/:kind", {
+      bodyLimit: 2 * 1024 * 1024,
+      schema: { tags: ["Configuración"] },
+    }, async (request, reply) => {
+      requireAdmin(request);
+      const body = request.body;
+      if (!Buffer.isBuffer(body)) throw new ApiError(400, "invalid_image", "Falta el cuerpo binario de la imagen.");
+      const data = await saveAsset(request.params.kind, body);
+      reply.header("Cache-Control", "no-store");
+      return data;
+    });
+  });
+
+  api.delete("/community/admin/assets/:kind", {
+    schema: { tags: ["Configuración"], params: z.object({ kind: z.string().max(40) }) },
+  }, async (request, reply) => {
+    requireAdmin(request);
+    const data = await deleteAsset(request.params.kind);
+    reply.header("Cache-Control", "no-store");
+    return data;
   });
 }

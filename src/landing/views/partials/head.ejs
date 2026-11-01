@@ -69,13 +69,15 @@
 <meta name="twitter:image:alt" content="<%= shareAlt %>">
 <% } %>
 
-<% if (typeof project !== 'undefined' && project && project.slug === 'coleccionistas-rock-venezolano') { %>
+<% if (faviconUrl) { %>
+<%# El favicon del proyecto (3.10) manda sobre el de fábrica. %>
+<link rel="icon" href="<%= faviconUrl %>" type="<%= assets.favicon.mimeType %>">
+<link rel="shortcut icon" href="<%= faviconUrl %>" type="<%= assets.favicon.mimeType %>">
+<link rel="apple-touch-icon" href="<%= faviconUrl %>">
+<% } else if (typeof project !== 'undefined' && project && project.slug === 'coleccionistas-rock-venezolano') { %>
 <link rel="icon" href="<%= basePath %>/static/crv-favicon.ico?v=<%= assetVersion %>" sizes="any" type="image/x-icon">
 <link rel="shortcut icon" href="<%= basePath %>/static/crv-favicon.ico?v=<%= assetVersion %>" type="image/x-icon">
 <link rel="apple-touch-icon" href="<%= basePath %>/static/crv-favicon.png?v=<%= assetVersion %>">
-<% } else if (faviconUrl) { %>
-<link rel="icon" href="<%= faviconUrl %>" type="<%= assets.favicon.mimeType %>">
-<link rel="apple-touch-icon" href="<%= faviconUrl %>">
 <% } else if (theme.googleFontsUrl) { %>
 <link rel="icon" href="<%= faviconDataUri(theme) %>">
 <% } %>
