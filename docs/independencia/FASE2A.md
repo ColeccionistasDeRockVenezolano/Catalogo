@@ -179,7 +179,7 @@ la Fase 2 y el catálogo sigue sirviendo.
 - **Prueba (solo GET, sin tocar el contador de oyentes):** `GET :3141/api/radio/now` y
   `GET :3020/api/radio/now` devuelven las mismas claves y el mismo `phase` (`music`), con
   `listeners: 0` en ambos. Salidas guardadas en
-  `~/crv-staging/reports/staging-limpieza-2026-11/radio-{3141,herra}.json`.
+  `reports/staging-limpieza-2026-11/radio-{3141,herra}.json`.
 - `POST /api/radio/listener` y `/api/radio/unavailable` **no se prueban** contra Herra real: los
   guiones los bloquean a propósito. El reemplazo definitivo del proxy queda en la Fase 3, cuando
   CRV emita la radio.

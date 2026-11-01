@@ -191,7 +191,7 @@ El buzón no se versiona: es correspondencia, no documentación del plan.
 
 Foto inicial: **61/27/5, 6 admins, 6 usuarios, 9 personas, 37 sesiones (36 de prueba)**. Se
 identificó cada residuo antes de borrar (inventario en
-`~/crv-staging/reports/staging-limpieza-2026-11/residuos-antes.csv`):
+`reports/staging-limpieza-2026-11/residuos-antes.csv`):
 
 | Residuo | Origen | Corrección |
 |---|---|---|
@@ -243,6 +243,7 @@ fixtures propio. Ya no dependen de reiniciar `crv-api-staging`.
 - `3911d8eb` test(independencia): limpiar staging y aislar el limitador en los guiones.
 - `919ef6c6` test(independencia): flujos de punta a punta y matriz de roles por interfaz.
 - `1cec2040` feat(landing): puertas de la 2B, robots propio y 404 a rutas normalizadas.
+- `2adeac70` docs(independencia): cierre de Fase 2, P7 C1-C12, P8 y staging limpio.
 - `scripts/checks/_tmp-raiz{,2,3}.mjs` borrados. RHV, `retirar-silueta-deezer.ts` y los cambios
   de otras sesiones quedan fuera.
 
@@ -277,3 +278,12 @@ referencia de paridad **Herra 1.1.39** y lista blanca 72/72.
 Calidad: `npm run typecheck` OK; `web` typecheck OK; `vitest src/api/roadmap/visits.test.ts`
 **3/3**; ESLint dirigido **0 errores**; `npm --prefix web run build:staging` OK. La foto final
 vuelve a 61/27/5, 3/5/8 y 0 sesiones de prueba (1 sesión real de Brian).
+
+### Paso 8 · publicación
+
+`python3 scripts/shared-storage.py status` → almacén completo, 5 enlaces válidos, 0 inválidos.
+Publicadas y verificadas en el disco de 1 TB: `reports/p7-teclado-2026-11` (12 archivos),
+`reports/staging-limpieza-2026-11` (15), `reports/c5-persona-2026-11` (6),
+`reports/b9-ventanas-2026-11` (9), `reports/b10-clave-2026-11` (3),
+`reports/b10-metricas-2026-11` (7) y `reports/independencia` (42). El staging del SSD quedó
+vacío para esas campañas, como manda la política.
