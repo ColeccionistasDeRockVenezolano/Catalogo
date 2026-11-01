@@ -18,14 +18,16 @@ const ESTADOS: Record<CollaboratorStatus, string> = {
   rejected: "Sin acceso",
 };
 
-export function PeopleWindow({ title, kicker, onClose, onChanged }: {
+export function PeopleWindow({ title, kicker, onClose, onChanged, mode = "all" }: {
   title: string;
   kicker: string;
   onClose: () => void;
   onChanged: () => void;
+  /** "pending": bandeja de solicitudes con aprobar/rechazar (3.5). */
+  mode?: "all" | "pending";
 }) {
   const { notify } = useToast();
-  const [filtro, setFiltro] = useState<Filtro>("todos");
+  const [filtro, setFiltro] = useState<Filtro>(mode === "pending" ? "pending" : "todos");
   const [busqueda, setBusqueda] = useState("");
   const [personas, setPersonas] = useState<Collaborator[] | null>(null);
   const [busy, setBusy] = useState(false);
@@ -105,6 +107,20 @@ export function PeopleWindow({ title, kicker, onClose, onChanged }: {
     }
   }
 
+  async function decidir(persona: Collaborator, status: "approved" | "rejected"): Promise<void> {
+    setBusy(true);
+    try {
+      await communityApi.updateCollaborator(persona.id, { status });
+      notify("success", status === "approved" ? `${persona.name} tiene acceso.` : `${persona.name} queda sin acceso.`);
+      await cargar();
+      onChanged();
+    } catch (error) {
+      notify("error", error instanceof Error ? error.message : "No se pudo guardar la decisión.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function quitar(): Promise<void> {
     if (!revocar) return;
     const persona = revocar;
@@ -142,9 +158,11 @@ export function PeopleWindow({ title, kicker, onClose, onChanged }: {
             <option value="pending">Pendiente</option>
             <option value="rejected">Sin acceso</option>
           </select>
-          <button type="button" className="btn btn--primary btn--sm" onClick={() => setAlta((value) => !value)}>
-            <UserPlus size={15} aria-hidden="true" /> Añadir colaborador
-          </button>
+          {mode === "pending" ? null : (
+            <button type="button" className="btn btn--primary btn--sm" onClick={() => setAlta((value) => !value)}>
+              <UserPlus size={15} aria-hidden="true" /> Añadir colaborador
+            </button>
+          )}
         </div>
 
         {alta ? (
@@ -172,7 +190,12 @@ export function PeopleWindow({ title, kicker, onClose, onChanged }: {
                 {persona.name}
                 <em>{ESTADOS[persona.status]}</em>
               </span>
-              {codigoPara === persona.id ? (
+              {mode === "pending" ? (
+                <span className="rw-actions">
+                  <button type="button" className="btn btn--sm btn--primary" onClick={() => void decidir(persona, "approved")} disabled={busy}>Aprobar</button>
+                  <button type="button" className="btn btn--sm" onClick={() => void decidir(persona, "rejected")} disabled={busy}>Rechazar</button>
+                </span>
+              ) : codigoPara === persona.id ? (
                 <span className="rw-inline">
                   <input value={codigoNuevo} onChange={(event) => setCodigoNuevo(event.target.value)} placeholder="Código nuevo" aria-label={`Código nuevo para ${persona.name}`} />
                   <button type="button" className="btn btn--sm btn--primary" onClick={() => void guardarCodigo(persona)} disabled={busy}>Guardar</button>
