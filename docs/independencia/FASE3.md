@@ -142,7 +142,22 @@ informe quedó en `/tmp/crv-radio-sheet-dry-run.json`.
 - **Configuración de staging sincronizada con la viva.** La fila `auth.project_features` de staging
   se actualizó a la configuración real (cruce 4 s); es un dato de staging, no de producción.
 
-## 6. Siguiente fase (Fase 4)
+## 6. Sombra larga en timer (B11 del plan independiente)
+
+- `scripts/radio-shadow-sombra.sh` ejecuta **una** comprobación (`radio-shadow.ts --live`) y
+  guarda la salida completa y un resumen por ejecución en el staging del SSD
+  (`~/crv-staging/reports/radio-sombra-2026-11/<día>.log` y `<día>.jsonl`, retención 60 días).
+  Nunca escribe en `/tmp`, en ninguna base de datos ni en `herra-crv`: solo lee su
+  `/api/radio/now`.
+- `ops/staging/crv-radio-sombra.service` (oneshot) y `crv-radio-sombra.timer`
+  (`OnCalendar=*:0/10`, `Persistent=true`) instalados como unidades de usuario y habilitados.
+- Prueba: `systemctl --user start crv-radio-sombra.service` → `exit 0`,
+  `{"checks":1,"divergences":0}` en `2026-11-01.jsonl`; el timer quedó activo con la siguiente
+  pasada a los 10 minutos.
+- Si hay divergencia o la API no responde, el servicio sale con código ≠ 0 y la línea del día
+  guarda el motivo; no se reintenta en bucle para no golpear `herra-crv`.
+
+## 7. Siguiente fase (Fase 4)
 
 Paquete de traspaso y runbook: código unificado y documentación reescrita (PostgreSQL, puertos,
 servicios, builds raíz y `/crv`), `pg_dump`, medios, reportes, claves y secretos; despliegue

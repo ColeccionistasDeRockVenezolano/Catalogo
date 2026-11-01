@@ -1,0 +1,14 @@
+[Unit]
+Description=CRV radio sombra cada 10 minutos (solo lectura)
+Documentation=docs/independencia/FASE3.md
+
+[Timer]
+# Reloj de pared: en punto, 10, 20, 30… (OnUnitActiveSec se queda en
+# «infinity» cuando el servicio ya se lanzó a mano antes de armar el timer).
+OnCalendar=*:0/10
+AccuracySec=30s
+Persistent=true
+Unit=crv-radio-sombra.service
+
+[Install]
+WantedBy=timers.target

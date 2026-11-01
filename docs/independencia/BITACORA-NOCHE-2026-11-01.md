@@ -96,7 +96,7 @@ El buzón no se versiona: es correspondencia, no documentación del plan.
 | B8 | pendiente | C8, C6 |
 | B9 | pendiente | C9, C11, C10 |
 | B10 | pendiente | C7, C12 y traffic |
-| B11 | pendiente | Timer sombra larga |
+| B11 | cumple (adelantado) | Sombra larga: `scripts/radio-shadow-sombra.sh` + `ops/staging/crv-radio-sombra.{service,timer}` instalados y habilitados (`OnCalendar=*:0/10`). Una comprobación por pasada, solo lectura de `herra-crv`; guarda `<día>.log` y `<día>.jsonl` en `~/crv-staging/reports/radio-sombra-2026-11/` con retención de 60 días. Prueba: ejecución manual → `exit 0`, `{"checks":1,"divergences":0}`. Documentado en `FASE3.md` §6. |
 
 ## Incidencias y decisiones pendientes
 

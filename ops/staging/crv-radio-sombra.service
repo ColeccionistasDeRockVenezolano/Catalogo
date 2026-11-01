@@ -1,0 +1,16 @@
+[Unit]
+Description=CRV radio sombra (una comprobación de solo lectura contra herra-crv)
+Documentation=docs/independencia/FASE3.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+Environment=PATH=/home/brian/.local/node-v24.20.0-linux-x64/bin:/usr/local/bin:/usr/bin:/bin
+Environment=CRV_ENV_FILE=/home/brian/apps/crv-staging/staging.env
+ExecStart=/usr/bin/bash "/home/brian/apps/Coleccionistas De Rock Venezolano/scripts/radio-shadow-sombra.sh"
+# Si la comprobación falla (divergencia o API caída) el fichero de sombra ya
+# guarda el motivo; no se reintenta en bucle para no golpear herra-crv.
+Restart=no
+Nice=10
