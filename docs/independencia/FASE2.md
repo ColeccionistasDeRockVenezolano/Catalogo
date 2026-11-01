@@ -290,3 +290,41 @@ CSS crítico, la canción en curso, `roadmap-category-list--deferred`, `data-vis
 `X-CSRF-Token`; CRV no usa CSRF en esas rutas, así que `data-visits-url` necesita un endpoint que
 lo tolere o el JS adaptado. Y `collaborate_json` está en NULL: el formulario de colaboración de la
 portada debe caer a los valores por defecto de la plantilla hasta que B8 lo pueble.
+
+## B6 · correcciones de la revisión de las 10:1x/10:3x
+
+- **Anton engrosado**: `__title`, `__pct strong`, `__score strong`, el `h2` de `__tools-head` y el
+  `h3` de etapa no fijaban `font-weight`; Anton solo tiene 400 y el navegador sintetizaba negrita.
+  Las cinco reglas llevan ya `font-weight: 400`.
+- **Menú lateral cortado**: la pista del grid de `.cside__list` crecía a max-content (296 px en una
+  columna de 232) y recortaba etiquetas y contadores. Se acotó con
+  `grid-template-columns: minmax(0, 1fr)` + `min-width: 0` en el enlace, y la columna pasó a 258 px
+  con gap 28. Medición posterior: `scrollWidth == clientWidth` a 1440 y 390.
+- **Deshacer real**: mover actividad, mover etapa, anclar y cambiar estado ofrecen «Deshacer» con
+  la acción inversa contra la API (posición o estado previos). Ya no queda como deuda.
+- **Campaña de paridad**: `reports/admin-paridad-2026-11` con capturas de staging a 1440 y 390
+  (ES/EN, página completa y ventanas 3.1–3.3), capturas del roadmap público de Herra 1.1.34 a las
+  mismas medidas e `INFORME.md` con la tabla de estructura. **Falta la captura del `/admin` de
+  Herra**: exige sesión de administrador y el perfil copiado pierde `herra-crv_admin_session`
+  (cookie de sesión) → cae en `/admin/login`. Sin esa captura, B6 queda «no cumple: faltan
+  capturas de Herra del admin», como pidió la revisión.
+
+## B5 · CP0 parcial aplicado (2026-11-01)
+
+Se adelantó la mitad que no depende del render EJS: **la portada ya se pinta con datos del
+proyecto**. `GET /site-config` devuelve `site` con `theme` (hero, subtítulo, titular, nota de pie,
+fuentes y colores), `branding` (title, description, OG, twitter) e `i18n` por idioma, leídos de
+`auth.projects` (`theme_json`, `branding_json`, `i18n_json`, columnas TEXT que se parsean) y
+saneados en el servidor: `heroTitleHtml` solo admite `<br>`, `<em>`, `<strong>` y `<span>`, y los
+colores deben ser hex. `site-config.js` aplica el resultado (título, metas, hero, fuentes y
+variables de color) al documento 1:1.
+
+Prueba de dato vivo: se cambió `heroSubPublic` en `auth.projects` de staging, la portada
+`/crv/roadmap` mostró el texto nuevo (`datoVivo: true`, `lang: es`, `--font-display` aplicado) y se
+revirtió al valor exacto. Sin rebuild.
+
+**Lo que falta para CP0 completo**: el render EJS de las plantillas de 1.1.34 (roadmap,
+user-login, register, activate, collaborate y partials), con `src/landing/render.ts` sirviendo el
+HTML y `server.mjs` inyectando base y caché. Eso cubre badge de radio, contador de visitas,
+formulario de colaboración, redes/donación y los textos que hoy siguen fijos en el HTML. El plan de
+5 pasos está en la sección «B5 · CP0 — reconocimiento para retomar».

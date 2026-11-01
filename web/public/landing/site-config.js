@@ -21,9 +21,65 @@
     }
   }
 
+  // CP0 parcial: la portada aplica tema y marca de auth.projects sin rebuild.
+  var COLOR_VARS = ["bg", "surface", "surface-2", "surface-3", "border", "border-soft",
+    "text", "text-muted", "text-faint", "red", "amber", "teal", "violet"];
+
+  function lang() {
+    var value = (document.documentElement.getAttribute("lang") || "es").toLowerCase();
+    return value.indexOf("en") === 0 ? "en" : "es";
+  }
+
+  function setMeta(selector, attribute, value) {
+    if (!value) return;
+    var node = document.querySelector(selector);
+    if (node) node.setAttribute(attribute, value);
+  }
+
+  function setHtml(node, value) {
+    if (!node || !value) return;
+    // El API ya sanea: solo llegan <br>, <em>, <strong> y <span>.
+    node.innerHTML = value + '<span class="accent">.</span>';
+  }
+
+  function applySkin(site) {
+    if (!site || typeof site !== "object") return;
+    var theme = site.theme || {};
+    var branding = site.branding || {};
+    var translated = (site.translations || {})[lang()] || {};
+    var currentLang = lang();
+
+    if (branding.metaTitle) document.title = branding.metaTitle;
+    setMeta('meta[name="description"]', "content", translated.metaDescription || branding.metaDescription);
+    setMeta('meta[property="og:title"]', "content", branding.ogTitle);
+    setMeta('meta[property="og:description"]', "content", branding.ogDescription);
+    setMeta('meta[property="og:site_name"]', "content", branding.metaTitle);
+    setMeta('meta[name="twitter:site"]', "content", branding.twitterSite);
+
+    setHtml(document.querySelector("h1.hero-title, .hero h1, h1"), translated.heroTitleHtml || theme.heroTitleHtml);
+    var sub = document.querySelector(".hero-sub, .hero p.lead, .hero p");
+    var subText = translated.heroSubPublic || theme.heroSubPublic;
+    if (sub && subText && !sub.querySelector("a")) sub.textContent = subText;
+    // El badge de la portada es el del directo de radio, no el titular del
+    // proyecto: no se toca aquí. `landingHeadline` y `footerNote` quedan
+    // reservados al render EJS completo de CP0.
+
+    var root = document.documentElement.style;
+    if (theme.fontTitle) root.setProperty("--font-display", theme.fontTitle);
+    if (theme.fontBody) root.setProperty("--font-body", theme.fontBody);
+    var colors = theme.colors || {};
+    for (var i = 0; i < COLOR_VARS.length; i += 1) {
+      var key = COLOR_VARS[i];
+      if (colors[key]) root.setProperty("--" + key, colors[key]);
+    }
+    // El idioma del documento manda: si la página es EN, se queda en EN.
+    document.documentElement.dataset.crvSiteLang = currentLang;
+  }
+
   function apply(config) {
     if (!config || typeof config !== "object") return;
     document.documentElement.dataset.crvSiteConfig = "ready";
+    if (config.site) applySkin(config.site);
     if (config.showLogin === false) removeNavLogin();
     if (config.visitorCounter === false) {
       var counter = document.getElementById("visitCounter");

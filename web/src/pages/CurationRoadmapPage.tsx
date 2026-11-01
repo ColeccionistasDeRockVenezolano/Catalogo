@@ -111,11 +111,15 @@ export function CurationRoadmapPage() {
     if (tool && !known.includes(tool)) closeTool();
   }, [tool]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  async function run(action: () => Promise<unknown>, success: string): Promise<boolean> {
+  async function run(action: () => Promise<unknown>, success: string, undo?: () => Promise<unknown>): Promise<boolean> {
     setBusy(true);
     try {
       await action();
-      notify("success", success);
+      if (undo) {
+        notify("success", success, { action: { label: copy.undo, onAction: () => { void undo().then(() => roadmap.reload()).catch((error: unknown) => notify("error", error instanceof Error ? error.message : copy.saveFailed)); } } });
+      } else {
+        notify("success", success);
+      }
       roadmap.reload();
       return true;
     } catch (error) {
@@ -126,14 +130,22 @@ export function CurationRoadmapPage() {
     }
   }
 
-  async function reorderTask(task: AdminTask, position: number): Promise<void> {
-    const ok = await run(() => roadmapApi.updateTask(task.id, { position }), copy.toasts.taskSaved);
+  async function reorderTask(task: AdminTask, position: number, previousPosition: number): Promise<void> {
+    const ok = await run(
+      () => roadmapApi.updateTask(task.id, { position }),
+      copy.toasts.taskSaved,
+      () => roadmapApi.updateTask(task.id, { position: previousPosition, pinned: task.orderPinned }),
+    );
     if (!ok) return;
     setGrab(null);
   }
 
-  async function reorderStage(category: AdminCategory, position: number): Promise<void> {
-    const ok = await run(() => roadmapApi.updateCategory(category.id, { position }), copy.toasts.stageSaved);
+  async function reorderStage(category: AdminCategory, position: number, previousPosition: number): Promise<void> {
+    const ok = await run(
+      () => roadmapApi.updateCategory(category.id, { position }),
+      copy.toasts.stageSaved,
+      () => roadmapApi.updateCategory(category.id, { position: previousPosition }),
+    );
     if (!ok) return;
     setGrab(null);
   }
@@ -142,6 +154,7 @@ export function CurationRoadmapPage() {
     await run(
       () => roadmapApi.updateTask(task.id, { pinned: !task.orderPinned }),
       task.orderPinned ? copy.toasts.unpinned : copy.toasts.pinned,
+      () => roadmapApi.updateTask(task.id, { pinned: task.orderPinned }),
     );
   }
 
@@ -245,9 +258,10 @@ export function CurationRoadmapPage() {
             onEditTask={setEditTask}
             onDeleteTask={(task) => setConfirm({ kind: "task", task })}
             onTogglePin={(task) => void togglePin(task)}
-            onDropTask={(taskId, position) => {
+            onReorderTask={(task, position, previousPosition) => void reorderTask(task, position, previousPosition)}
+            onDropTask={(taskId, position, previousPosition) => {
               const task = category.tasks.find((item) => item.id === taskId);
-              if (task) void reorderTask(task, position);
+              if (task) void reorderTask(task, position, previousPosition);
             }}
           />
         ))}
@@ -322,7 +336,7 @@ export function CurationRoadmapPage() {
   );
 }
 
-function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, onReorderStage, onEditStage, onDeleteStage, onNewTask, onEditTask, onDeleteTask, onTogglePin, onDropTask }: {
+function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, onReorderStage, onReorderTask, onEditStage, onDeleteStage, onNewTask, onEditTask, onDeleteTask, onTogglePin, onDropTask }: {
   category: AdminCategory;
   index: number;
   total: number;
@@ -330,14 +344,15 @@ function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, on
   busy: boolean;
   grab: Grab;
   onGrabChange: (grab: Grab) => void;
-  onReorderStage: (category: AdminCategory, position: number) => Promise<void>;
+  onReorderStage: (category: AdminCategory, position: number, previousPosition: number) => Promise<void>;
+  onReorderTask: (task: AdminTask, position: number, previousPosition: number) => void;
   onEditStage: () => void;
   onDeleteStage: () => void;
   onNewTask: (position?: number) => void;
   onEditTask: (task: AdminTask) => void;
   onDeleteTask: (task: AdminTask) => void;
   onTogglePin: (task: AdminTask) => void;
-  onDropTask: (taskId: number, position: number) => void;
+  onDropTask: (taskId: number, position: number, previousPosition: number) => void;
 }) {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState<number | "all">(5);
@@ -369,11 +384,11 @@ function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, on
     if (grab?.kind !== "stage" || grab.id !== category.id) return;
     if (event.key === "ArrowUp" && index > 0) {
       event.preventDefault();
-      void onReorderStage(category, index);
+      void onReorderStage(category, index, index + 1);
     }
     if (event.key === "ArrowDown" && index < total - 1) {
       event.preventDefault();
-      void onReorderStage(category, index + 2);
+      void onReorderStage(category, index + 2, index + 1);
     }
     if (event.key === "Escape") { event.preventDefault(); onGrabChange(null); }
   }
@@ -434,7 +449,8 @@ function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, on
                 event.preventDefault();
                 const rect = event.currentTarget.getBoundingClientRect();
                 const after = event.clientY > rect.top + rect.height / 2;
-                onDropTask(source, position + (after ? 1 : 0) - 1);
+                const previousPosition = orderedTasks.findIndex((item) => item.id === source) + 1;
+                onDropTask(source, position + (after ? 1 : 0) - 1, previousPosition);
               }}
             >
               <button
@@ -453,7 +469,12 @@ function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, on
                     const from = grab.ids.indexOf(task.id);
                     onGrabChange({ ...grab, ids: moveWithin(grab.ids, from, from + (event.key === "ArrowUp" ? -1 : 1)) });
                   }
-                  if (event.key === "Enter") { event.preventDefault(); void onReorderStage(category, index); }
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    const previousPosition = category.tasks.findIndex((item) => item.id === task.id) + 1;
+                    const target = grab.ids.indexOf(task.id) + 1;
+                    onReorderTask(task, target, previousPosition);
+                  }
                   if (event.key === "Escape") { event.preventDefault(); onGrabChange(null); }
                 }}
               >
@@ -718,7 +739,25 @@ function EditTaskModal({ copy, task, categories, users, onClose, onSaved }: {
         title, status, categoryId, assignedUserIds: assigned,
         ...(en ? { translations: { en } } : { translations: {} }),
       });
-      notify("success", copy.toasts.taskSaved);
+      if (status !== task.status) {
+        // El estado es reversible: el aviso permite volver al anterior.
+        notify("success", copy.toasts.taskSaved, {
+          action: {
+            label: copy.undo,
+            onAction: async () => {
+              try {
+                await roadmapApi.updateTask(task.id, { status: task.status });
+                notify("success", copy.toasts.undone);
+                onSaved();
+              } catch (error) {
+                notify("error", error instanceof Error ? error.message : copy.saveFailed);
+              }
+            },
+          },
+        });
+      } else {
+        notify("success", copy.toasts.taskSaved);
+      }
       onSaved();
     } catch (error) {
       notify("error", error instanceof Error ? error.message : copy.saveFailed);
