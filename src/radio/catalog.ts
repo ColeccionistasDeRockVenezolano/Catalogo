@@ -21,6 +21,8 @@ export interface RadioTrackRow {
   album_id?: number | string | null;
 }
 
+export type RadioGenreOrigin = "album" | "album:artist" | "album:artists";
+
 export interface RadioGenre { slug: string; name: string; family: string }
 
 /** Géneros de la canción: los confirmados de su álbum, nunca los del artista. */
@@ -29,7 +31,12 @@ export interface RadioTrackGenres {
   secondaryGenres: RadioGenre[];
   /** Familias de todos sus géneros, para estaciones amplias (Metal incluye a sus hijos). */
   families: string[];
-  genreOrigin: "album";
+  /**
+   * Siempre los géneros del álbum. `album:artist` / `album:artists`: el álbum
+   * los heredó de su artista o del promedio de sus artistas por falta de
+   * fuente (AGENTS.md, 2026-10-31); herra conserva este texto.
+   */
+  genreOrigin: RadioGenreOrigin;
   /** `confirmed` solo con principal confirmado; sin él la canción suena en la radio general pero no en estaciones. */
   genreStatus: "confirmed" | "pending" | "unclassified";
 }
@@ -166,6 +173,7 @@ const UNCLASSIFIED_TRACK: RadioTrackGenres = Object.freeze({
 /** Arma los géneros de radio de un álbum a partir de sus asignaciones confirmadas. */
 export function radioGenresOf(
   confirmed: Array<{ slug: string; name: string; family: string; role: "primary" | "secondary" }>, visibleText: string | null,
+  origin: RadioGenreOrigin = "album",
 ): RadioTrackGenres {
   const primary = confirmed.find((genre) => genre.role === "primary");
   const pick = ({ slug, name, family }: RadioGenre) => ({ slug, name, family });
@@ -173,7 +181,7 @@ export function radioGenresOf(
     primaryGenre: primary ? pick(primary) : null,
     secondaryGenres: confirmed.filter((genre) => genre !== primary).map(pick),
     families: [...new Set(confirmed.map((genre) => genre.family))].sort(),
-    genreOrigin: "album",
+    genreOrigin: primary ? origin : "album",
     genreStatus: primary ? "confirmed" : visibleText ? "pending" : "unclassified",
   };
 }

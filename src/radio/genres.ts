@@ -10,7 +10,10 @@
 // general; una con álbum pero sin principal confirmado queda `pending` o
 // `unclassified` y no entra en estaciones por género.
 import type { Pool, PoolClient } from "pg";
-import { radioGenresOf, RADIO_CATALOG_VERSION, type RadioTrackGenres } from "./catalog.js";
+import { radioGenresOf, RADIO_CATALOG_VERSION, type RadioGenreOrigin, type RadioTrackGenres } from "./catalog.js";
+
+/** Marcas que album-completion deja en el motivo de un género heredado. */
+const INHERITED_ORIGIN: Array<[string, RadioGenreOrigin]> = [["[herencia:artists]", "album:artists"], ["[herencia:artist]", "album:artist"]];
 
 type Queryable = Pick<Pool | PoolClient, "query">;
 
@@ -18,21 +21,31 @@ type Queryable = Pick<Pool | PoolClient, "query">;
 export async function loadRadioAlbumGenres(db: Queryable, albumIds: number[]): Promise<Map<number, RadioTrackGenres>> {
   const unique = [...new Set(albumIds)];
   if (!unique.length) return new Map();
-  const { rows } = await db.query<{ album_id: string; genre: string | null; slug: string | null; name: string | null; family: string | null; role: "primary" | "secondary" | null }>(`
-    SELECT al.id::text AS album_id, al.genre, g.slug, g.name, COALESCE(f.slug, g.slug) AS family, ag.role
+  const { rows } = await db.query<{ album_id: string; genre: string | null; slug: string | null; name: string | null; family: string | null; role: "primary" | "secondary" | null; note: string | null }>(`
+    SELECT al.id::text AS album_id, al.genre, g.slug, g.name, COALESCE(f.slug, g.slug) AS family, ag.role, ag.decision_note AS note
       FROM public.albums al
       LEFT JOIN ingest.album_genres ag ON ag.album_id = al.id AND ag.status = 'confirmed'
       LEFT JOIN ingest.genre_lineage g ON g.id = ag.genre_id
       LEFT JOIN ingest.genres f ON f.id = g.family_id
      WHERE al.id = ANY($1::bigint[])
      ORDER BY al.id, (ag.role = 'primary') DESC, g.name`, [unique]);
-  const byAlbum = new Map<number, { visible: string | null; confirmed: Array<{ slug: string; name: string; family: string; role: "primary" | "secondary" }> }>();
+  const byAlbum = new Map<number, { visible: string | null; origin: RadioGenreOrigin; confirmed: Array<{ slug: string; name: string; family: string; role: "primary" | "secondary" }> }>();
   for (const row of rows) {
-    const entry = byAlbum.get(Number(row.album_id)) ?? { visible: row.genre, confirmed: [] };
+    const entry = byAlbum.get(Number(row.album_id)) ?? { visible: row.genre, origin: "album", confirmed: [] };
     if (row.slug && row.name && row.family && row.role) entry.confirmed.push({ slug: row.slug, name: row.name, family: row.family, role: row.role });
+    if (row.role === "primary") entry.origin = INHERITED_ORIGIN.find(([marker]) => row.note?.startsWith(marker))?.[1] ?? "album";
     byAlbum.set(Number(row.album_id), entry);
   }
-  return new Map([...byAlbum].map(([id, entry]) => [id, radioGenresOf(entry.confirmed, entry.visible)]));
+  return new Map([...byAlbum].map(([id, entry]) => [id, radioGenresOf(entry.confirmed, entry.visible, entry.origin)]));
+}
+
+/** Tipo de publicación de cada álbum, para que la radio sepa qué está sonando (EP, sencillo…). */
+export async function loadRadioAlbumTypes(db: Queryable, albumIds: number[]): Promise<Map<number, string>> {
+  const unique = [...new Set(albumIds)];
+  if (!unique.length) return new Map();
+  const { rows } = await db.query<{ id: string; album_type: string }>(
+    "SELECT id::text, album_type::text FROM public.albums WHERE id = ANY($1::bigint[])", [unique]);
+  return new Map(rows.map((row) => [Number(row.id), row.album_type]));
 }
 
 /** Álbum del catálogo de cada video (enlace principal primero; a igualdad, el id menor). */
@@ -51,19 +64,19 @@ export interface AnnotationStats { items: number; linked: number; confirmed: num
 
 /**
  * Anota un catálogo de radio ya exportado (el de herra). No quita, agrega ni
- * reordena piezas ni toca sus tiempos: solo `albumId` y `genres`, y la versión.
+ * reordena piezas ni toca sus tiempos: solo `albumId`, `albumType` y `genres`, y la versión.
  * Lo que ya no tiene álbum pierde la anotación vieja.
  */
 export function annotateRadioCatalog(
   catalog: Record<string, unknown>, albumByVideo: ReadonlyMap<string, number>, genresByAlbum: ReadonlyMap<number, RadioTrackGenres>,
-  annotatedAt: string,
+  annotatedAt: string, typesByAlbum: ReadonlyMap<number, string> = new Map(),
 ): { catalog: Record<string, unknown>; stats: AnnotationStats } {
   if (!Array.isArray(catalog["items"])) throw new Error("el catálogo de radio no tiene `items`");
   const stats: AnnotationStats = { items: 0, linked: 0, confirmed: 0, pending: 0, unclassified: 0, unlinked: 0 };
   const items = (catalog["items"] as unknown[]).map((raw) => {
     stats.items += 1;
     if (!raw || typeof raw !== "object" || Array.isArray(raw)) return raw;
-    const { albumId: _oldAlbum, genres: _oldGenres, ...item } = raw as Record<string, unknown>;
+    const { albumId: _oldAlbum, genres: _oldGenres, albumType: _oldType, ...item } = raw as Record<string, unknown>;
     const albumId = typeof item["videoId"] === "string" ? albumByVideo.get(item["videoId"]) : undefined;
     const genres = albumId === undefined ? undefined : genresByAlbum.get(albumId);
     if (albumId === undefined || !genres) {
@@ -72,7 +85,8 @@ export function annotateRadioCatalog(
     }
     stats.linked += 1;
     stats[genres.genreStatus] += 1;
-    return { ...item, albumId, genres };
+    const albumType = typesByAlbum.get(albumId);
+    return { ...item, albumId, ...(albumType ? { albumType } : {}), genres };
   });
   return { catalog: { ...catalog, version: RADIO_CATALOG_VERSION, genresAnnotatedAt: annotatedAt, items }, stats };
 }

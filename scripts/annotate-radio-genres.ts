@@ -1,5 +1,6 @@
 // Anota el catálogo de la Radio CRV que mantiene herra con los géneros
-// confirmados del álbum de cada canción (PLAN_GENEROS §6, catálogo v3).
+// confirmados del álbum de cada canción (PLAN_GENEROS §6, catálogo v3), su
+// origen (`album`, o heredado `album:artist`/`album:artists`) y el tipo del disco.
 //
 // No decide qué suena: no agrega, quita ni reordena piezas. El cron de herra
 // lo corre después de su exportación diaria, así que las canciones nuevas y
@@ -9,7 +10,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { closeDb, getPool } from "../src/db/client.js";
-import { albumsForVideos, annotateRadioCatalog, loadRadioAlbumGenres } from "../src/radio/genres.js";
+import { albumsForVideos, annotateRadioCatalog, loadRadioAlbumGenres, loadRadioAlbumTypes } from "../src/radio/genres.js";
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
@@ -24,8 +25,9 @@ async function main(): Promise<void> {
 
   const albumByVideo = await albumsForVideos(getPool(), videoIds);
   const genresByAlbum = await loadRadioAlbumGenres(getPool(), [...albumByVideo.values()]);
+  const typesByAlbum = await loadRadioAlbumTypes(getPool(), [...albumByVideo.values()]);
   const previousStamp = typeof catalog["genresAnnotatedAt"] === "string" ? catalog["genresAnnotatedAt"] : "";
-  const { catalog: annotated, stats } = annotateRadioCatalog(catalog, albumByVideo, genresByAlbum, previousStamp);
+  const { catalog: annotated, stats } = annotateRadioCatalog(catalog, albumByVideo, genresByAlbum, previousStamp, typesByAlbum);
   const summary = `Radio CRV · géneros: ${stats.items} piezas · ${stats.linked} con álbum (${stats.confirmed} confirmadas, `
     + `${stats.pending} pendientes, ${stats.unclassified} sin clasificar) · ${stats.unlinked} sin álbum enlazado`;
 
