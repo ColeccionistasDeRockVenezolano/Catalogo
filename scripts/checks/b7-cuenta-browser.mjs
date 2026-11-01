@@ -15,8 +15,8 @@ import { chromium } from "playwright";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
+import { BASE, entrar } from "./lib/sesion.mjs";
 
-const BASE = "http://127.0.0.1:3130";
 const OUT = path.join(os.homedir(), "crv-staging/reports/b7-cuenta-2026-11");
 const USER = "fase1-admin";
 const PASS = "Fase1Admin2026";
@@ -30,8 +30,11 @@ const fallo = (nombre, detalle) => report.fallos.push(`${nombre}: ${detalle}`);
 
 const browser = await chromium.launch();
 
-async function open(viewport, lang, touch = false) {
-  const context = await browser.newContext({ viewport, hasTouch: touch, locale: lang === "en" ? "en-US" : "es-VE" });
+async function open(viewport, lang, touch = false, estado = null) {
+  const context = await browser.newContext({
+    viewport, hasTouch: touch, locale: lang === "en" ? "en-US" : "es-VE",
+    ...(estado ? { storageState: estado } : {}),
+  });
   await context.addInitScript((value) => localStorage.setItem("crv-lang", value), lang);
   const page = await context.newPage();
   const errors = [];
@@ -42,9 +45,7 @@ async function open(viewport, lang, touch = false) {
   });
   await page.goto(`${BASE}/crv/cuenta`, { waitUntil: "networkidle" });
   if (await page.locator("#op-username").count()) {
-    await page.fill("#op-username", USER);
-    await page.fill("#op-password", PASS);
-    await page.click("form button");
+    await entrar(page, { base: BASE, usuario: USER, clave: PASS, ruta: "/crv/cuenta" });
   }
   await page.waitForSelector(".account-profile__head", { timeout: 20000 });
   await page.waitForTimeout(600);
@@ -118,6 +119,7 @@ async function estructura(page, lang, prefijo) {
 }
 
 // ------------------------------------------------- escritorio ES (interactivo)
+let estadoSesionCompartida = null;
 {
   const { context, page, errors } = await open({ width: 1440, height: 900 }, "es");
   report.datos.url = page.url();
@@ -182,6 +184,8 @@ async function estructura(page, lang, prefijo) {
   await shoot(page, "cuenta-escritorio-es");
   if (errors.length === 0) ok("escritorio ES: consola sin errores");
   else fallo("consola escritorio ES", errors.slice(0, 3).join(" | "));
+  // Un solo inicio de sesión por guion: las demás ventanas heredan las cookies.
+  estadoSesionCompartida = await context.storageState();
   await context.close();
 }
 
@@ -191,7 +195,7 @@ for (const vista of [
   { nombre: "movil-es", viewport: { width: 390, height: 844 }, lang: "es", touch: true },
   { nombre: "movil-en", viewport: { width: 390, height: 844 }, lang: "en", touch: true },
 ]) {
-  const { context, page, errors } = await open(vista.viewport, vista.lang, vista.touch);
+  const { context, page, errors } = await open(vista.viewport, vista.lang, vista.touch, estadoSesionCompartida);
   await estructura(page, vista.lang, vista.nombre);
 
   if (vista.touch) {

@@ -12,9 +12,11 @@
 // La cuenta de prueba se borra al final; la persona global se conserva (es el
 // diseño del borrado) y queda anotada en `informe.json` para limpiarla.
 import { chromium } from "playwright";
+import { execFileSync } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
+import { entrar as login } from "./lib/sesion.mjs";
 
 const BASE = "http://127.0.0.1:3130";
 const OUT = path.join(os.homedir(), "crv-staging/reports/c5-persona-2026-11");
@@ -68,15 +70,8 @@ async function api(pagina, ruta, { method = "GET", body } = {}) {
 }
 
 async function entrar(pagina, usuario, clave) {
-  await pagina.goto(`${BASE}/crv/cuenta`, { waitUntil: "networkidle" });
-  if (await pagina.locator("#op-username").count()) {
-    await pagina.fill("#op-username", usuario);
-    await pagina.fill("#op-password", clave);
-    await pagina.click("form button");
-    await pagina.waitForTimeout(1500);
-  }
-  const me = await api(pagina, "/auth/me");
-  return me.status === 200 ? me.json.user : null;
+  const sesion = await login(pagina, { base: BASE, usuario, clave, ruta: "/crv/cuenta" });
+  return sesion ?? null;
 }
 
 async function abrirPersonas(pagina) {
@@ -331,6 +326,20 @@ if (tareaId) {
 
 if (errors.length === 0) ok("consola sin errores");
 else fallo("consola", errors.slice(0, 3).join(" | "));
+
+// Limpieza: el borrado de cuenta conserva la persona global a propósito, así que
+// el propio guion retira la persona de prueba que creó (vía el script de staging).
+try {
+  const raiz = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../..");
+  const salida = execFileSync(path.join(raiz, "scripts/with-node22.sh"),
+    [path.join(raiz, "node_modules/.bin/tsx"), "scripts/fase1-fixtures.ts", "--clean-personas"],
+    { cwd: raiz, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+  report.datos.limpiezaPersona = salida.trim();
+  ok("persona de prueba eliminada", salida.trim());
+} catch (error) {
+  report.datos.limpiezaPersona = String(error).slice(0, 300);
+  fallo("limpieza de la persona de prueba", String(error).slice(0, 200));
+}
 
 await context.close();
 await browser.close();

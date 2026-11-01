@@ -12,6 +12,7 @@ import { chromium } from "playwright";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
+import { entrar } from "./lib/sesion.mjs";
 
 const BASE = "http://127.0.0.1:3130";
 const OUT = path.join(os.homedir(), "crv-staging/reports/independencia/b6-admin");
@@ -27,12 +28,13 @@ const problems = [];
 
 async function login(context) {
   const page = await context.newPage();
-  await page.goto(`${BASE}/crv/login`, { waitUntil: "networkidle" });
-  await page.fill('input[name="username"], input#username, input[type="text"]', USER);
-  await page.fill('input[type="password"]', PASS);
-  await page.click('button[type="submit"], form button');
-  await page.waitForURL("**/crv/roadmap", { timeout: 20000 }).catch(() => null);
-  await page.waitForTimeout(1200);
+  await entrar(page, {
+    base: BASE, usuario: USER, clave: PASS, ruta: "/crv/login",
+    usuarioSelector: 'input[name="username"], input#username, input[type="text"]',
+    claveSelector: 'input[type="password"]',
+    botonSelector: 'button[type="submit"], form button',
+    esperarUrl: "**/crv/roadmap",
+  });
   return page;
 }
 

@@ -7,8 +7,8 @@ import { chromium } from "playwright";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
+import { BASE, entrar } from "./lib/sesion.mjs";
 
-const BASE = "http://127.0.0.1:3130";
 const OUT = path.join(os.homedir(), "crv-staging/reports/b9-ventanas-2026-11");
 const USER = "fase1-admin";
 const PASS = "Fase1Admin2026";
@@ -67,10 +67,9 @@ async function esperarPortada(comprobar, timeoutMs = 45_000, url = `${BASE}/crv/
 
 await page.goto(`${BASE}/crv/cuenta`, { waitUntil: "networkidle" });
 if (await page.locator("#op-username").count()) {
-  await page.fill("#op-username", USER);
-  await page.fill("#op-password", PASS);
-  await page.click("form button");
-  await page.waitForTimeout(1500);
+  // Espera la respuesta real de /auth/login y confirma la sesión (sin reloj).
+  const usuario = await entrar(page, { base: BASE, usuario: USER, clave: PASS, ruta: "/crv/cuenta" });
+  if (!usuario) throw new Error("login sin sesión");
 }
 
 await page.goto(`${BASE}/crv/curaduria/roadmap`, { waitUntil: "networkidle" });

@@ -7,6 +7,7 @@ import { chromium } from "playwright";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
+import { entrar } from "./lib/sesion.mjs";
 
 const OUT = path.join(os.homedir(), "crv-staging/reports/independencia/b7-tactil");
 const BASE = "http://127.0.0.1:3130";
@@ -19,11 +20,7 @@ const errors = [];
 page.on("pageerror", (e) => errors.push(String(e).slice(0, 200)));
 
 // La landing /login es el acceso de colaborador; los admins entran por /cuenta.
-await page.goto(`${BASE}/crv/cuenta`, { waitUntil: "networkidle" });
-await page.fill("#op-username", "fase1-admin");
-await page.fill("#op-password", "Fase1Admin2026");
-await page.click("form button");
-await page.waitForTimeout(2500);
+await entrar(page, { base: BASE, usuario: "fase1-admin", clave: "Fase1Admin2026" });
 await page.goto(`${BASE}/crv/curaduria/roadmap`, { waitUntil: "networkidle" });
 await page.waitForSelector(".roadmap-admin__row", { timeout: 20000 }).catch(async () => {
   console.log("URL:", page.url());
