@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head', { pageTitle: t('userLogin.pageTitle') + ' — ' + theme.projectName, noindex: true }) %>
+</head>
+<body class="login-body">
+<main class="login-main">
+  <div class="login-card">
+    <%- include('partials/project-mark', { size: 'lg' }) %>
+    <h1><%= t('userLogin.title') %></h1>
+    <p class="login-sub"><%- t('userLogin.sub', { project: theme.projectName }) %></p>
+    <% if (error) { %><p class="login-error" role="alert"><%= error %></p><% } %>
+    <form method="post" action="<%= projectBase %>/login" class="login-form">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <div class="field">
+        <label for="name"><%= t('userLogin.name') %></label>
+        <input type="text" id="name" name="name" maxlength="80" autocomplete="username" required autofocus>
+      </div>
+      <div class="field">
+        <label for="accessCode"><%= t('userLogin.accessCode') %></label>
+        <input type="password" id="accessCode" name="accessCode" maxlength="200" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn btn-red btn-block"><%= t('adminLogin.submit') %></button>
+    </form>
+    <p class="login-sub"><%= t('userLogin.inviteQuestion') %> <a href="<%= projectBase %>/register"><%= t('userLogin.inviteLink') %></a>.</p>
+    <a class="login-back" href="<%= projectBase %>/"><i data-lucide="arrow-left"></i> <%= t('adminLogin.backToRoadmap') %></a>
+  </div>
+</main>
+</body>
+</html>

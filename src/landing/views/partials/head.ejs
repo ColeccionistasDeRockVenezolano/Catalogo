@@ -1,0 +1,105 @@
+<%
+  // Cabecera común. Las páginas de un proyecto llegan además con `branding`,
+  // `projectAssets`, `pageOrigin` y `canonicalUrl` desde res.locals, así que
+  // este mismo parcial sirve tanto al roadmap público como a las pantallas de
+  // instancia (portada, superadministración, 404), que simplemente no los traen.
+  const brand = (typeof branding !== 'undefined' && branding) ? branding : null;
+  const assets = (typeof projectAssets !== 'undefined' && projectAssets) ? projectAssets : {};
+  const origin = (typeof pageOrigin !== 'undefined' && pageOrigin) ? pageOrigin : '';
+  const mediaBase = (typeof projectBase !== 'undefined') ? projectBase : null;
+  const desc = (typeof description !== 'undefined' && description) ? description : '';
+  const hideFromRobots = (typeof noindex !== 'undefined' && noindex);
+  const faviconUrl = (mediaBase !== null && assets.favicon)
+    ? mediaBase + '/media/favicon?v=' + assets.favicon.checksum
+    : '';
+  const shareAsset = (mediaBase !== null && assets.share_image) ? assets.share_image : null;
+  // Open Graph exige URL absoluta: un rastreador no resuelve rutas relativas.
+  const shareUrl = shareAsset ? origin + mediaBase + '/media/share?v=' + shareAsset.checksum : '';
+  const canonical = (typeof canonicalUrl !== 'undefined' && canonicalUrl) ? canonicalUrl : '';
+  const ogTitle = (typeof shareTitle !== 'undefined' && shareTitle) ? shareTitle : pageTitle;
+  const ogDesc = (typeof shareDescription !== 'undefined' && shareDescription) ? shareDescription : desc;
+  const shareAlt = (typeof shareImageAlt !== 'undefined' && shareImageAlt) ? shareImageAlt : ogTitle;
+  const keywords = (typeof metaKeywords !== 'undefined' && metaKeywords) ? metaKeywords : '';
+  // Sin imagen no tiene sentido pedir la tarjeta grande: X degradaría a una
+  // tarjeta pequeña con un hueco donde debería ir la portada.
+  const cardType = shareUrl ? ((brand && brand.twitterCard) || 'summary_large_image') : 'summary';
+  const twitterSite = brand && brand.twitterSite ? brand.twitterSite : '';
+  // Dentro de un proyecto la marca es el propio proyecto; fuera (portada,
+  // superadministración) lo es la instancia.
+  const siteName = (typeof project !== 'undefined' && project) ? theme.projectName : appName;
+  const bundledDefaultFonts = theme.fontTitle === "'Anton', 'Arial Black', sans-serif"
+    && theme.fontBody === "'Inter', system-ui, sans-serif"
+    && theme.googleFontsUrl.includes('family=Anton')
+    && theme.googleFontsUrl.includes('family=Inter');
+  const themeIsInline = typeof inlineTheme !== 'undefined' && inlineTheme;
+  const usePublicAssets = typeof publicAssets !== 'undefined' && publicAssets;
+%>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title><%= pageTitle %></title>
+<% if (desc) { %><meta name="description" content="<%= desc %>"><% } %>
+<% if (keywords) { %><meta name="keywords" content="<%= keywords %>"><% } %>
+<% if (hideFromRobots) { %><meta name="robots" content="noindex, nofollow"><% } %>
+<% if (!hideFromRobots && canonical) { %><link rel="canonical" href="<%= canonical %>"><% } %>
+<meta name="theme-color" content="<%= theme.colors.bg %>">
+<meta name="csrf-token" content="<%= csrfToken %>">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="<%= ogLocale %>">
+<meta property="og:site_name" content="<%= siteName %>">
+<meta property="og:title" content="<%= ogTitle %>">
+<% if (ogDesc) { %><meta property="og:description" content="<%= ogDesc %>"><% } %>
+<% if (canonical) { %><meta property="og:url" content="<%= canonical %>"><% } %>
+<% if (shareUrl) { %>
+<meta property="og:image" content="<%= shareUrl %>">
+<meta property="og:image:secure_url" content="<%= shareUrl %>">
+<meta property="og:image:type" content="<%= shareAsset.mimeType %>">
+<% if (shareAsset.width && shareAsset.height) { %>
+<meta property="og:image:width" content="<%= shareAsset.width %>">
+<meta property="og:image:height" content="<%= shareAsset.height %>">
+<% } %>
+<meta property="og:image:alt" content="<%= shareAlt %>">
+<% } %>
+<meta name="twitter:card" content="<%= cardType %>">
+<% if (twitterSite) { %><meta name="twitter:site" content="<%= twitterSite %>"><meta name="twitter:creator" content="<%= twitterSite %>"><% } %>
+<meta name="twitter:title" content="<%= ogTitle %>">
+<% if (ogDesc) { %><meta name="twitter:description" content="<%= ogDesc %>"><% } %>
+<% if (shareUrl) { %>
+<meta name="twitter:image" content="<%= shareUrl %>">
+<meta name="twitter:image:alt" content="<%= shareAlt %>">
+<% } %>
+
+<% if (typeof project !== 'undefined' && project && project.slug === 'coleccionistas-rock-venezolano') { %>
+<link rel="icon" href="<%= basePath %>/static/crv-favicon.ico?v=<%= assetVersion %>" sizes="any" type="image/x-icon">
+<link rel="shortcut icon" href="<%= basePath %>/static/crv-favicon.ico?v=<%= assetVersion %>" type="image/x-icon">
+<link rel="apple-touch-icon" href="<%= basePath %>/static/crv-favicon.png?v=<%= assetVersion %>">
+<% } else if (faviconUrl) { %>
+<link rel="icon" href="<%= faviconUrl %>" type="<%= assets.favicon.mimeType %>">
+<link rel="apple-touch-icon" href="<%= faviconUrl %>">
+<% } else if (theme.googleFontsUrl) { %>
+<link rel="icon" href="<%= faviconDataUri(theme) %>">
+<% } %>
+<% if (bundledDefaultFonts) { %>
+<link rel="preload" href="<%= basePath %>/static/fonts/anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="<%= basePath %>/static/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<% } else { %>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="<%= theme.googleFontsUrl %>" rel="stylesheet">
+<% } %>
+<% if (usePublicAssets) { %>
+<style><%- publicCriticalCss %></style>
+<% } else { %>
+<link rel="stylesheet" href="<%= basePath %>/static/roadmap.css?v=<%= assetVersion %>">
+<% } %>
+<% if (typeof extraStylesheets !== 'undefined' && Array.isArray(extraStylesheets)) { extraStylesheets.forEach(function (href) { %>
+<link rel="stylesheet" href="<%= href %>">
+<% }) } %>
+<% if (!themeIsInline) { %>
+<link rel="stylesheet" href="<%= (typeof projectBase !== 'undefined' && projectBase) ? projectBase : basePath %>/theme.css">
+<% } %>
+<% if (!usePublicAssets) { %>
+<script src="<%= basePath %>/static/i18n-client.js?v=<%= assetVersion %>" defer></script>
+<script src="<%= basePath %>/static/vendor/lucide.min.js?v=<%= assetVersion %>" defer></script>
+<script src="<%= basePath %>/static/icons.js?v=<%= assetVersion %>" defer></script>
+<% } %>

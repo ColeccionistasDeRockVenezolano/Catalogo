@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head', {
+  pageTitle: t('collab.pageTitle') + ' — ' + theme.projectName,
+  description: t('collab.metaDescription', { project: theme.projectName }),
+}) %>
+</head>
+<body data-collaborate-form data-messages="<%= JSON.stringify(clientMessages(lang, 'collaborate')) %>">
+<%- include('partials/header', { isAdmin: false, currentUser }) %>
+<%
+  // Estado de cada campo según la configuración del proyecto. `on` decide si el
+  // campo se dibuja; `req` si el navegador lo exige antes de avanzar de paso.
+  const on = (key) => form.fields[key] !== 'off';
+  const req = (key) => form.fields[key] === 'required';
+  const mark = (key) => req(key) ? ' *' : '';
+  const label = (key) => form.labels[key] || key;
+  const ph = (key) => form.placeholders[key] || '';
+  const help = (key) => form.helps[key] || '';
+  const stepNumber = {};
+  steps.forEach(function (step, index) { stepNumber[step.key] = index + 1; });
+  const hasStep = (key) => stepNumber[key] !== undefined;
+%>
+
+<main>
+<section class="hero hero-collaborate">
+  <div class="hero-glow"></div>
+  <div class="container hero-inner">
+    <% if (form.heroBadge) { %><span class="badge"><%= form.heroBadge %></span><% } %>
+    <h1><%- form.heroTitleHtml %><span class="accent">.</span></h1>
+    <% if (form.heroSub) { %><p class="hero-sub"><%= form.heroSub %></p><% } %>
+    <% if (form.pillars.length > 0) { %>
+    <p class="collab-pillars"><% form.pillars.forEach(function (pillar) { %><span><%= pillar %></span><% }) %></p>
+    <% } %>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container container--narrow">
+    <% if (error) { %><p class="login-error" role="alert"><%= error %></p><% } %>
+    <% if (form.introNote) { %><p class="collab-intro"><%= form.introNote %></p><% } %>
+
+    <ol class="collab-steps" data-collab-steps aria-label="<%= t('collab.stepsAria') %>">
+      <% steps.forEach(function (step, index) { %>
+      <li data-collab-step-tab="<%= index + 1 %>"<%- index === 0 ? ' class="is-current"' : '' %>><span><%= index + 1 %></span> <%= step.label %></li>
+      <% }) %>
+    </ol>
+
+    <form method="post" action="<%= projectBase %>/colaborar" class="collab-form" id="collaborateForm">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+      <fieldset class="collab-panel" data-collab-step="<%= stepNumber.about %>">
+        <legend><%= form.steps.about %></legend>
+        <div class="field-row">
+          <div class="field">
+            <label for="firstName"><%= label('firstName') %> *</label>
+            <input type="text" id="firstName" name="firstName" maxlength="120" autocomplete="given-name" value="<%= values.firstName %>" required>
+          </div>
+          <% if (on('lastName')) { %>
+          <div class="field">
+            <label for="lastName"><%= label('lastName') %><%= mark('lastName') %></label>
+            <input type="text" id="lastName" name="lastName" maxlength="120" autocomplete="family-name" value="<%= values.lastName %>" <%- req('lastName') ? 'required' : '' %>>
+          </div>
+          <% } %>
+        </div>
+        <div class="field-row">
+          <% if (on('birthDate')) { %>
+          <div class="field">
+            <label for="birthDate"><%= label('birthDate') %><%= mark('birthDate') %></label>
+            <input type="date" id="birthDate" name="birthDate" value="<%= values.birthDate %>" <%- req('birthDate') ? 'required' : '' %>>
+            <% if (help('birthDate')) { %><small class="field-help"><%= help('birthDate') %></small><% } %>
+          </div>
+          <% } %>
+          <% if (on('whatsappPhone')) { %>
+          <div class="field">
+            <label for="whatsappPhone"><%= label('whatsappPhone') %><%= mark('whatsappPhone') %></label>
+            <input type="tel" id="whatsappPhone" name="whatsappPhone" maxlength="120" autocomplete="tel" placeholder="<%= ph('whatsappPhone') %>" value="<%= values.whatsappPhone %>" <%- req('whatsappPhone') ? 'required' : '' %>>
+          </div>
+          <% } %>
+        </div>
+        <div class="field-row">
+          <% if (on('email')) { %>
+          <div class="field">
+            <label for="email"><%= label('email') %><%= mark('email') %></label>
+            <input type="email" id="email" name="email" maxlength="120" autocomplete="email" value="<%= values.email %>" <%- req('email') ? 'required' : '' %>>
+          </div>
+          <% } %>
+          <% if (on('contactPreference') && (on('email') || on('whatsappPhone'))) { %>
+          <div class="field">
+            <label for="contactPreference"><%= label('contactPreference') %></label>
+            <select id="contactPreference" name="contactPreference">
+              <option value="whatsapp" <%- values.contactPreference === 'whatsapp' ? 'selected' : '' %>>WhatsApp</option>
+              <option value="email" <%- values.contactPreference === 'email' ? 'selected' : '' %>><%= t('account.email') %></option>
+              <option value="both" <%- values.contactPreference === 'both' ? 'selected' : '' %>><%= t('account.contactEither') %></option>
+            </select>
+          </div>
+          <% } %>
+        </div>
+        <% if (on('city') || on('country')) { %>
+        <div class="field-row">
+          <% if (on('city')) { %>
+          <div class="field">
+            <label for="city"><%= label('city') %><%= mark('city') %></label>
+            <input type="text" id="city" name="city" maxlength="120" value="<%= values.city %>" <%- req('city') ? 'required' : '' %>>
+          </div>
+          <% } %>
+          <% if (on('country')) { %>
+          <div class="field">
+            <label for="country"><%= label('country') %><%= mark('country') %></label>
+            <input type="text" id="country" name="country" maxlength="120" value="<%= values.country %>" <%- req('country') ? 'required' : '' %>>
+          </div>
+          <% } %>
+        </div>
+        <% } %>
+        <% if (on('whatsappPhone') && on('email') && help('contact')) { %>
+        <p class="field-help"><%= help('contact') %></p>
+        <% } %>
+      </fieldset>
+
+      <% if (hasStep('skills')) { %>
+      <fieldset class="collab-panel" data-collab-step="<%= stepNumber.skills %>" hidden>
+        <legend><%= form.steps.skills %></legend>
+        <% if (on('skills')) { %>
+        <span class="field-label"><%= label('skills') %><%= mark('skills') %></span>
+        <div class="chip-choices" <%- req('skills') ? 'data-require-one="skillIds"' : '' %>>
+          <% catalog.skills.forEach(function (term) { %>
+          <label class="chip-choice">
+            <input type="checkbox" name="skillIds" value="<%= term.id %>" <%- values.skillIds.indexOf(term.id) >= 0 ? 'checked' : '' %>>
+            <span><%= term.label %></span>
+          </label>
+          <% }) %>
+        </div>
+        <% } %>
+        <% if (on('experience')) { %>
+        <div class="field">
+          <label for="experience"><%= label('experience') %><%= mark('experience') %></label>
+          <textarea id="experience" name="experience" rows="5" maxlength="2000" placeholder="<%= ph('experience') %>" <%- req('experience') ? 'required' : '' %>><%= values.experience %></textarea>
+        </div>
+        <% } %>
+        <% if (on('links') && form.maxLinks > 0) { %>
+        <span class="field-label"><%= label('links') %><%= mark('links') %></span>
+        <% if (help('links')) { %><p class="field-help"><%= help('links') %> <%= t('collab.linksUpTo', { n: form.maxLinks }) %></p><% } %>
+        <div class="link-rows">
+          <% for (let index = 0; index < form.maxLinks; index++) { const link = values.links[index] || { type: '', label: '', url: '' }; %>
+          <div class="link-row">
+            <select name="linkType" aria-label="<%= t('collab.linkType', { n: index + 1 }) %>">
+              <% catalog.linkTypes.forEach(function (term) { %>
+              <option value="<%= term.slug %>" <%- link.type === term.slug ? 'selected' : '' %>><%= term.label %></option>
+              <% }) %>
+            </select>
+            <input type="url" name="linkUrl" maxlength="500" placeholder="https://…" value="<%= link.url %>" aria-label="<%= t('account.linkUrl', { n: index + 1 }) %>" <%- (req('links') && index === 0) ? 'required' : '' %>>
+            <input type="text" name="linkLabel" maxlength="120" placeholder="<%= t('account.linkLabelPlaceholder') %>" value="<%= link.label || '' %>" aria-label="<%= t('account.linkLabel', { n: index + 1 }) %>">
+          </div>
+          <% } %>
+        </div>
+        <% } %>
+      </fieldset>
+      <% } %>
+
+      <% if (hasStep('contribution')) { %>
+      <fieldset class="collab-panel" data-collab-step="<%= stepNumber.contribution %>" hidden>
+        <legend><%= form.steps.contribution %></legend>
+        <% if (on('areas')) { %>
+        <span class="field-label"><%= label('areas') %><%= mark('areas') %></span>
+        <div class="chip-choices" <%- req('areas') ? 'data-require-one="areaIds"' : '' %>>
+          <% catalog.areas.forEach(function (term) { %>
+          <label class="chip-choice">
+            <input type="checkbox" name="areaIds" value="<%= term.id %>" <%- values.areaIds.indexOf(term.id) >= 0 ? 'checked' : '' %>>
+            <span><%= term.label %></span>
+          </label>
+          <% }) %>
+        </div>
+        <% } %>
+        <% if (on('contributionText')) { %>
+        <div class="field">
+          <label for="contributionText"><%= label('contributionText') %><%= mark('contributionText') %></label>
+          <textarea id="contributionText" name="contributionText" rows="5" maxlength="2000" placeholder="<%= ph('contributionText') %>" <%- req('contributionText') ? 'required' : '' %>><%= values.contributionText %></textarea>
+        </div>
+        <% } %>
+        <% if (on('availability')) { %>
+        <div class="field">
+          <label for="availability"><%= label('availability') %><%= mark('availability') %></label>
+          <input type="text" id="availability" name="availability" maxlength="120" placeholder="<%= ph('availability') %>" value="<%= values.availability %>" <%- req('availability') ? 'required' : '' %>>
+        </div>
+        <% } %>
+      </fieldset>
+      <% } %>
+
+      <% if (hasStep('ideas')) { %>
+      <fieldset class="collab-panel" data-collab-step="<%= stepNumber.ideas %>" hidden>
+        <legend><%= form.steps.ideas %></legend>
+        <% if (help('ideas')) { %><p class="field-help"><%= help('ideas') %></p><% } %>
+        <div class="field">
+          <label for="idea"><%= label('idea') %><%= mark('ideas') %></label>
+          <textarea id="idea" name="idea" rows="4" maxlength="2000" <%- req('ideas') ? 'required' : '' %>><%= values.idea %></textarea>
+        </div>
+        <div class="field">
+          <label for="ideaReason"><%= label('ideaReason') %></label>
+          <textarea id="ideaReason" name="ideaReason" rows="4" maxlength="2000"><%= values.ideaReason %></textarea>
+        </div>
+        <div class="field">
+          <label for="wantsToImplement"><%= label('wantsToImplement') %></label>
+          <select id="wantsToImplement" name="wantsToImplement">
+            <option value="yes" <%- values.wantsToImplement === 'yes' ? 'selected' : '' %>><%= t('collab.implementYes') %></option>
+            <option value="maybe" <%- values.wantsToImplement === 'maybe' ? 'selected' : '' %>><%= t('collab.implementMaybe') %></option>
+            <option value="share_only" <%- values.wantsToImplement === 'share_only' ? 'selected' : '' %>><%= t('collab.implementShare') %></option>
+          </select>
+        </div>
+      </fieldset>
+      <% } %>
+
+      <fieldset class="collab-panel" data-collab-step="<%= stepNumber.review %>" hidden>
+        <legend><%= form.steps.review %></legend>
+        <div class="collab-review" data-collab-review>
+          <p class="field-help"><%= t('collab.reviewHelp') %></p>
+        </div>
+        <% if (form.nextSteps.length > 0) { %>
+        <div class="collab-next-steps">
+          <h3><%= form.nextStepsTitle %></h3>
+          <ol>
+            <% form.nextSteps.forEach(function (item) { %><li><%= item %></li><% }) %>
+          </ol>
+          <p class="field-help"><%= t('collab.noCredentials') %></p>
+        </div>
+        <% } %>
+        <button type="submit" class="btn btn-red btn-block"><%= form.submitLabel %></button>
+      </fieldset>
+
+      <div class="collab-nav" data-collab-nav hidden>
+        <button type="button" class="btn btn-ghost btn-sm" data-collab-prev><i data-lucide="arrow-left"></i> <%= t('common.previous') %></button>
+        <span class="collab-nav__status" data-collab-status aria-live="polite"><%= t('collab.stepOf', { n: 1, total: steps.length }) %></span>
+        <button type="button" class="btn btn-red btn-sm" data-collab-next><%= t('common.next') %> <i data-lucide="arrow-right"></i></button>
+      </div>
+    </form>
+
+    <% if (showLoginLinks) { %>
+    <p class="collab-foot"><%= t('collab.alreadyCollaborating') %> <a href="<%= projectBase %>/login"><%= t('collab.signInLink') %></a>.</p>
+    <% } %>
+  </div>
+</section>
+</main>
+
+<%- include('partials/footer') %>
+<script src="<%= basePath %>/static/collaborate.js?v=<%= assetVersion %>" defer></script>
+</body>
+</html>

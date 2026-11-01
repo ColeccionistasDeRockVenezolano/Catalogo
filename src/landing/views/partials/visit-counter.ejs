@@ -1,0 +1,97 @@
+<%
+  // Contador público de visitas. Se pinta ya relleno desde el servidor —así se
+  // ve completo antes de que corra una sola línea de JavaScript, y sigue
+  // diciendo algo cierto si el visitante lo tiene desactivado— y a partir de ahí
+  // visit-counter.js lo refresca y pasa sus tres páginas solas.
+  const visits = visitStats(project.id, lang);
+  const pages = [
+    { key: 'today', label: t('visits.todayPage'), items: visits.todayCountries, empty: t('visits.emptyToday') },
+    { key: 'online', label: t('visits.onlinePage'), items: visits.onlineCountries, empty: t('visits.emptyOnline') },
+    { key: 'total', label: t('visits.totalPage'), items: visits.totalCountries, empty: t('visits.emptyTotal') },
+  ];
+%>
+<%# `visits--pending`: hasta que corre el cliente, el CSS pliega la tarjeta en
+    móvil igual que lo hará el JS, para que hidratar no desplace nada. %>
+<aside class="visits visits--pending" id="visitCounter"
+       aria-label="<%= t('visits.regionAria') %>"
+       data-visits-url="<%= projectBase %>/api/visit"
+       data-visits-storage="herra-visits-<%= project.slug %>"
+       data-flag-base="<%= basePath %>/static/flags/"
+       data-messages="<%= JSON.stringify(clientMessages(lang, 'visits')) %>">
+  <div class="visits__card">
+    <div class="visits__head">
+      <p class="visits__brand">
+        <span class="visits__brand-expanded"><%= t('visits.title') %></span>
+        <span class="visits__brand-collapsed" data-visits-brand="collapsed"><%= t('visits.collapsedTitle', { count: formatNumber(visits.online, lang) }) %></span>
+      </p>
+      <button type="button" class="visits__toggle" id="visitsToggle"
+              aria-expanded="true" aria-controls="visitsBody"
+              aria-label="<%= t('visits.collapse') %>" title="<%= t('visits.collapse') %>">
+        <i data-lucide="chevron-down" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="visits__body" id="visitsBody">
+      <dl class="visits__totals">
+        <div class="visits__stat">
+          <dt><%= t('visits.today') %></dt>
+          <dd class="visits__num" data-visits-today><%= formatNumber(visits.today, lang) %></dd>
+        </div>
+        <div class="visits__stat">
+          <dt><%= t('visits.total') %></dt>
+          <dd class="visits__num visits__num--total" data-visits-total><%= formatNumber(visits.total, lang) %></dd>
+        </div>
+      </dl>
+
+      <p class="visits__online" data-visits-online-row>
+        <span class="visits__pulse" aria-hidden="true"></span>
+        <span class="visits__online-label"><%= t('visits.online') %></span>
+        <span class="visits__online-num" data-visits-online><%= formatNumber(visits.online, lang) %></span>
+      </p>
+
+      <div class="visits__pages" data-visits-pages>
+        <% pages.forEach(function (page, index) { %>
+        <section class="visits__page<%= index === 0 ? ' is-active' : '' %>"
+                 id="visitsPage-<%= page.key %>" data-visits-page="<%= page.key %>"
+                 role="tabpanel" aria-labelledby="visitsTab-<%= page.key %>">
+          <p class="visits__page-title"><%= page.label %></p>
+          <% if (page.items.length === 0) { %>
+          <p class="visits__empty"><%= page.empty %></p>
+          <% } else { %>
+          <ul class="visits__list">
+            <% page.items.forEach(function (item) { %>
+            <li class="visits__row" title="<%= t('visits.fromCountry', { count: formatNumber(item.count, lang), country: item.name }) %>">
+              <% if (item.flag) { %>
+              <img class="visits__flag" src="<%= basePath %>/static/flags/<%= item.flag %>.svg" alt="" width="21" height="15" loading="lazy" decoding="async">
+              <% } else { %>
+              <span class="visits__flag visits__flag--unknown" aria-hidden="true"></span>
+              <% } %>
+              <span class="visits__country"><%= item.name %></span>
+              <span class="visits__count"><%= formatNumber(item.count, lang) %></span>
+            </li>
+            <% }) %>
+          </ul>
+          <% } %>
+        </section>
+        <% }) %>
+      </div>
+
+      <div class="visits__tabs" role="tablist" aria-label="<%= t('visits.regionAria') %>">
+        <% pages.forEach(function (page, index) { %>
+        <button type="button" class="visits__tab<%= index === 0 ? ' is-active' : '' %>"
+                id="visitsTab-<%= page.key %>" data-visits-tab="<%= page.key %>"
+                role="tab" aria-controls="visitsPage-<%= page.key %>"
+                aria-selected="<%= index === 0 ? 'true' : 'false' %>"
+                tabindex="<%= index === 0 ? '0' : '-1' %>"
+                title="<%= t('visits.showPage', { page: page.label }) %>">
+          <span class="visits__tab-dot" aria-hidden="true"></span>
+          <span class="sr-only"><%= t('visits.showPage', { page: page.label }) %></span>
+        </button>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</aside>
+<% if (!(typeof publicAssets !== 'undefined' && publicAssets)) { %>
+<script src="<%= basePath %>/static/visit-counter.js?v=<%= assetVersion %>" defer></script>
+<% } %>

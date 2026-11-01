@@ -1,0 +1,154 @@
+{
+  "es": {
+    "heroBadge": "★ Convocatoria abierta",
+    "heroTitleHtml": "NO BUSCAMOS<br>SOLAMENTE<br>PROGRAMADORES",
+    "heroSub": "Este es un proyecto de memoria y de oficio. Hace falta gente que sepa buscar, ordenar, escribir, escuchar y proponer. Si tienes conocimiento, material o criterio que aportar, este formulario es para ti.",
+    "pillars": [
+      "Conocimiento",
+      "Archivo",
+      "Oficio",
+      "Ideas"
+    ],
+    "introNote": "",
+    "steps": {
+      "about": "Sobre ti",
+      "skills": "Qué sabes hacer",
+      "contribution": "Cómo quieres aportar",
+      "ideas": "Propón algo",
+      "review": "Revisión y envío"
+    },
+    "labels": {
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "birthDate": "Fecha de nacimiento",
+      "whatsappPhone": "Teléfono con WhatsApp",
+      "email": "Correo",
+      "contactPreference": "Cómo prefieres que te contactemos",
+      "city": "Ciudad",
+      "country": "País",
+      "skills": "Habilidades",
+      "experience": "Experiencia, conocimientos o material que puedes aportar",
+      "links": "Enlaces",
+      "areas": "Áreas de aporte",
+      "contributionText": "Qué quieres aportar",
+      "availability": "Disponibilidad",
+      "idea": "Tu idea o propuesta",
+      "ideaReason": "Por qué sería útil para el proyecto",
+      "wantsToImplement": "¿Quieres participar en implementarla?"
+    },
+    "helps": {
+      "birthDate": "Solo la ve la administración del proyecto. Nunca aparece en un perfil público.",
+      "contact": "Necesitamos al menos un WhatsApp o un correo para poder responderte.",
+      "links": "Repositorios, proyectos, portfolio o redes.",
+      "ideas": "Opcional, pero es la parte que más nos interesa: una idea concreta vale más que un currículum."
+    },
+    "placeholders": {
+      "whatsappPhone": "+58 412 0000000",
+      "experience": "Discos, fotos, recortes, contactos, oficio técnico, años siguiendo la escena…",
+      "contributionText": "Tu criterio, tu visión del proyecto, lo que crees que falta, cómo te gustaría trabajar…",
+      "availability": "Ej. dos tardes por semana"
+    },
+    "submitLabel": "Enviar candidatura",
+    "nextStepsTitle": "Qué pasa después",
+    "nextSteps": [
+      "Leemos tu candidatura y la revisamos con calma.",
+      "Si encaja, te escribimos por la vía que elegiste para conversar.",
+      "Si seguimos adelante, recibirás un enlace personal para crear tu acceso al proyecto."
+    ],
+    "sentTitle": "Candidatura enviada",
+    "sentBody": "Gracias por escribirnos.",
+    "maxLinks": 5,
+    "fields": {
+      "lastName": "optional",
+      "birthDate": "optional",
+      "whatsappPhone": "optional",
+      "email": "optional",
+      "contactPreference": "optional",
+      "city": "optional",
+      "country": "optional",
+      "skills": "optional",
+      "experience": "optional",
+      "links": "optional",
+      "areas": "optional",
+      "contributionText": "optional",
+      "availability": "optional",
+      "ideas": "optional"
+    }
+  },
+  "en": {
+    "heroBadge": "★ Open call",
+    "heroTitleHtml": "WE ARE NOT<br>ONLY LOOKING FOR<br>PROGRAMMERS",
+    "heroSub": "This is a project of memory and craft. It needs people who know how to search, sort, write, listen and propose. If you have knowledge, material or judgement to bring, this form is for you.",
+    "pillars": [
+      "Knowledge",
+      "Archive",
+      "Craft",
+      "Ideas"
+    ],
+    "introNote": "",
+    "steps": {
+      "about": "About you",
+      "skills": "What you can do",
+      "contribution": "How you want to help",
+      "ideas": "Propose something",
+      "review": "Review and send"
+    },
+    "labels": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "birthDate": "Date of birth",
+      "whatsappPhone": "WhatsApp phone",
+      "email": "Email",
+      "contactPreference": "How you prefer to be contacted",
+      "city": "City",
+      "country": "Country",
+      "skills": "Skills",
+      "experience": "Experience, knowledge or material you can bring",
+      "links": "Links",
+      "areas": "Contribution areas",
+      "contributionText": "What you want to contribute",
+      "availability": "Availability",
+      "idea": "Your idea or proposal",
+      "ideaReason": "Why it would be useful for the project",
+      "wantsToImplement": "Do you want to take part in building it?"
+    },
+    "helps": {
+      "birthDate": "Only the project administration sees it. It never appears on a public profile.",
+      "contact": "We need at least a WhatsApp number or an email to be able to reply.",
+      "links": "Repositories, projects, portfolio or social profiles.",
+      "ideas": "Optional, but it is the part we care about most: one concrete idea is worth more than a CV."
+    },
+    "placeholders": {
+      "whatsappPhone": "+58 412 0000000",
+      "experience": "Records, photos, clippings, contacts, technical craft, years following the scene…",
+      "contributionText": "Your judgement, your view of the project, what you think is missing, how you would like to work…",
+      "availability": "E.g. two afternoons a week"
+    },
+    "submitLabel": "Send application",
+    "nextStepsTitle": "What happens next",
+    "nextSteps": [
+      "We read your application and review it carefully.",
+      "If it fits, we write to you through the channel you chose.",
+      "If we move forward, you will get a personal link to create your access to the project."
+    ],
+    "sentTitle": "Application sent",
+    "sentBody": "Thank you for writing to us.",
+    "maxLinks": 5,
+    "fields": {
+      "lastName": "optional",
+      "birthDate": "optional",
+      "whatsappPhone": "optional",
+      "email": "optional",
+      "contactPreference": "optional",
+      "city": "optional",
+      "country": "optional",
+      "skills": "optional",
+      "experience": "optional",
+      "links": "optional",
+      "areas": "optional",
+      "contributionText": "optional",
+      "availability": "optional",
+      "ideas": "optional"
+    }
+  }
+}

@@ -328,3 +328,32 @@ user-login, register, activate, collaborate y partials), con `src/landing/render
 HTML y `server.mjs` inyectando base y caché. Eso cubre badge de radio, contador de visitas,
 formulario de colaboración, redes/donación y los textos que hoy siguen fijos en el HTML. El plan de
 5 pasos está en la sección «B5 · CP0 — reconocimiento para retomar».
+
+## B5 · CP0 renderizado (continuación)
+
+Las cinco páginas se renderizan con las EJS y parciales de Herra 1.1.34 copiados a
+`src/landing/views`. La API consulta PostgreSQL para el proyecto, tema, identidad,
+traducciones, formulario, catálogo, roadmap, visitas y radio; `GET /landing/:page?lang=`
+devuelve HTML con `no-store` solo cuando comunidad está habilitada. El gateway inserta
+la base y la API del despliegue, adapta enlaces y assets, cachea la vista anónima por 30 s
+y usa el documento estático si la API no responde. Con sesión o token no comparte caché.
+Los enlaces de registro y activación sin token muestran la rama inválida de Herra; con
+token válido muestran el formulario y envían a las APIs existentes de comunidad.
+
+La radio no contacta YouTube al abrir la página: inicia el reproductor con el origen real
+al pulsar el control. El contador llama a `/roadmap/visit` sin la cabecera CSRF de Herra.
+El título HTML del hero se sanea sin atributos y conserva las etiquetas permitidas.
+
+En staging: 15 pruebas unitarias, typecheck API y web, ESLint dirigido y build de staging
+correctos. Chromium pasó 20/20 páginas/idiomas/tamaños (1440 × 900 y 390 × 844), con
+capturas de página completa en `~/crv-staging/reports/b5-render-2026-11/`. Se cambió el
+subtítulo en la base de staging, apareció en la portada y se restauró el JSON original.
+Se comprobaron invitación y activación válidas, 27 actividades anónimas y 61 con sesión,
+la ausencia de contaminación de caché, inicio y cierre de sesión y el fallback con API
+inaccesible. Se borraron tokens, sesiones y cuentas temporales.
+
+Comparación con la portada pública viva ES/EN: coinciden los textos y bloques salvo el
+acceso al equipo (activo en staging), el orden de las primeras dos actividades de una
+etapa y los valores variables de visitas, países y radio. La integración también cambia
+base, URLs y metadatos necesarios para `/crv/`; el detalle y las capturas están en el
+informe de la campaña. No se alteraron los datos para ocultar las diferencias.

@@ -1,0 +1,138 @@
+<% const hasProjectAdminAccess = Boolean(typeof projectAdmin !== 'undefined' && projectAdmin); %>
+<%
+  // El proyecto puede esconder «Entrar» de sus superficies públicas, salvo en
+  // el menú del roadmap: esa puerta permanece disponible para el equipo. Fuera
+  // de un proyecto —portada, superadministración— tampoco hay ajuste que consultar.
+  const keepLoginInMenu = typeof alwaysShowLoginInMenu !== 'undefined'
+    && Boolean(alwaysShowLoginInMenu);
+  const showLogin = keepLoginInMenu
+    || (typeof showLoginLinks === 'undefined' ? true : Boolean(showLoginLinks));
+%>
+<%
+  // «Quiero colaborar» es para quien todavía está fuera del proyecto; quien ya
+  // tiene cuenta o administra no necesita presentar una candidatura.
+  const showCollaborateCta = Boolean(
+    typeof project !== 'undefined' && project && project.accepts_applications === 1
+    && !currentUser && !isAdmin && !hasProjectAdminAccess,
+  );
+  // Quien ya inició sesión no necesita las anclas de presentación del
+  // proyecto: radio, «El proyecto» y «Preguntas» son para quien aún lo está
+  // descubriendo.
+  const isSignedIn = Boolean(currentUser || isAdmin || hasProjectAdminAccess);
+  const showPublicContext = Boolean(typeof showContextLinks !== 'undefined' && showContextLinks) && !isSignedIn;
+  const showRadioLink = Boolean(typeof showRadio !== 'undefined' && showRadio) && !isSignedIn;
+  const showCrvLogo = typeof project !== 'undefined' && project && project.slug === 'coleccionistas-rock-venezolano';
+%>
+<header class="site-header" id="siteHeader">
+  <nav class="nav container" aria-label="<%= t('nav.main') %>">
+    <a class="brand<%= showCrvLogo ? ' brand--crv' : '' %>" href="<%= projectBase %>/"<% if (showCrvLogo) { %> aria-label="<%= theme.projectName %>"<% } %>>
+      <% if (showCrvLogo) { %>
+        <span class="brand-logo" aria-hidden="true"><img src="<%= basePath %>/static/crv-logo.jpg" alt="" width="160" height="160"></span>
+        <span class="brand-text"><strong>Coleccionistas</strong><span>de Rock Venezolano</span></span>
+      <% } else { %>
+        <span class="brand-badge"><%= theme.brandBadgeLetter %></span>
+        <span class="brand-text"><%= theme.projectName %></span>
+      <% } %>
+    </a>
+    <%# Dos grupos, como el catálogo: las secciones a la izquierda, junto a la
+        marca, y las acciones a la derecha. El orden dentro de cada grupo no
+        cambia respecto de la barra anterior. %>
+    <ul class="nav-links nav-links--desktop" id="navLinks">
+
+      <% if (showRadioLink) { %>
+        <li><a href="#radio"><%= t('nav.radio') %></a></li>
+      <% } %>
+      <% if (typeof showMap !== 'undefined' && showMap) { %>
+        <li><a href="#roadmap"><%= t('nav.map') %></a></li>
+      <% } %>
+      <% if (showPublicContext) { %>
+        <li><a href="#proyecto"><%= t('nav.aboutProject') %></a></li>
+      <% } %>
+      <% if (!currentUser && !isAdmin && !hasProjectAdminAccess && showLogin) { %>
+        <li><a href="<%= projectBase %>/login"><%= t('nav.login') %></a></li>
+      <% } %>
+    </ul>
+    <ul class="nav-links nav-links--desktop nav-links--actions">
+      <% if (currentUser) { %>
+        <li class="nav-user"><%= t('nav.greeting', { name: shortDisplayName(currentUser) }) %></li>
+      <% } %>
+      <% if (currentUser && !isAdmin) { %>
+        <%- include('nav-tools', { variant: 'desktop' }) %>
+      <% } %>
+      <% if (showCollaborateCta) { %>
+        <li><a class="nav-cta" href="<%= projectBase %>/colaborar"><%= t('nav.collaborateCta') %></a></li>
+      <% } %>
+
+      <% if (isAdmin) { %>
+        <%- include('nav-tools', { variant: 'desktop' }) %>
+        <li><a class="nav-admin-link active" href="<%= projectBase %>/admin"><%= t('nav.manageProject') %></a></li>
+      <% } else if (hasProjectAdminAccess) { %>
+        <li><a class="nav-admin-link" href="<%= projectBase %>/admin"><%= t('nav.manageProject') %></a></li>
+      <% } else if (theme.mainSiteUrl) { %>
+        <li><a href="<%= theme.mainSiteUrl %>"><%= theme.mainSiteLabel %></a></li>
+      <% } %>
+      <% if (currentUser) { %>
+        <li><a href="<%= projectBase %>/account"><%= t('nav.profile') %></a></li>
+      <% } %>
+      <%- include('lang-switch') %>
+      <% if (currentUser || isAdmin || hasProjectAdminAccess) { %>
+        <li>
+          <form method="post" action="<%= projectBase %>/logout" class="inline-form">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="navlink-btn"><%= t('nav.logout') %></button>
+          </form>
+        </li>
+      <% } %>
+    </ul>
+    <details class="nav-menu" data-label-open="<%= t('nav.openMenu') %>" data-label-close="<%= t('nav.closeMenu') %>">
+      <summary aria-label="<%= t('nav.openMenu') %>">
+        <span></span><span></span><span></span>
+      </summary>
+      <ul class="nav-menu__panel">
+        <% if (showRadioLink) { %>
+          <li><a href="#radio"><%= t('nav.radio') %></a></li>
+        <% } %>
+        <% if (typeof showMap !== 'undefined' && showMap) { %>
+          <li><a href="#roadmap"><%= t('nav.map') %></a></li>
+        <% } %>
+        <% if (showPublicContext) { %>
+          <li><a href="#proyecto"><%= t('nav.aboutProject') %></a></li>
+        <% } %>
+        <% if (currentUser) { %>
+          <li class="nav-user"><%= t('nav.greeting', { name: shortDisplayName(currentUser) }) %></li>
+        <% } %>
+        <% if (currentUser && !isAdmin) { %>
+          <%- include('nav-tools', { variant: 'mobile' }) %>
+        <% } else if (!currentUser && !isAdmin && !hasProjectAdminAccess && showLogin) { %>
+          <li><a href="<%= projectBase %>/login"><%= t('nav.login') %></a></li>
+        <% } %>
+        <% if (showCollaborateCta) { %>
+          <li><a class="nav-cta" href="<%= projectBase %>/colaborar"><%= t('nav.collaborateCta') %></a></li>
+        <% } %>
+        <% if (isAdmin) { %>
+          <%- include('nav-tools', { variant: 'mobile' }) %>
+          <li><a class="nav-admin-link active" href="#admin-tools" aria-current="page"><%= t('nav.adminPanel') %></a></li>
+        <% } else if (hasProjectAdminAccess) { %>
+          <li><a class="nav-admin-link" href="<%= projectBase %>/admin"><%= t('nav.manageProject') %></a></li>
+        <% } else if (theme.mainSiteUrl) { %>
+          <li><a href="<%= theme.mainSiteUrl %>"><%= theme.mainSiteLabel %></a></li>
+        <% } %>
+        <% if (currentUser) { %>
+          <li><a href="<%= projectBase %>/account"><%= t('nav.profile') %></a></li>
+        <% } %>
+        <%- include('lang-switch') %>
+        <% if (currentUser || isAdmin || hasProjectAdminAccess) { %>
+          <li>
+          <form method="post" action="<%= projectBase %>/logout">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button type="submit" class="navlink-btn"><%= t('nav.logout') %></button>
+            </form>
+          </li>
+        <% } %>
+      </ul>
+    </details>
+  </nav>
+</header>
+<% if (!(typeof publicAssets !== 'undefined' && publicAssets)) { %>
+<script src="<%= basePath %>/static/nav.js?v=<%= assetVersion %>" defer></script>
+<% } %>

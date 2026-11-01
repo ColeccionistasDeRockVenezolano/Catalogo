@@ -1,0 +1,26 @@
+<%
+  // Botón de donación: el único enlace del roadmap con tratamiento propio.
+  // El anillo giratorio y el destello viven en CSS y se apagan enteros con
+  // `prefers-reduced-motion`, así que quien pida menos movimiento recibe el
+  // mismo botón en reposo, sin perder contraste ni jerarquía.
+  const donation = (typeof branding !== 'undefined' && branding) ? branding.donation : null;
+  const showDonation = Boolean(donation && donation.enabled && donation.url);
+%>
+<% if (showDonation) { %>
+<% const donationPlatform = socialPlatform(donation.platform); %>
+<div class="donate-block">
+  <a class="donate" href="<%= donation.url %>" target="_blank" rel="noopener noreferrer"
+     style="--donate-brand: <%= donationPlatform.color %>">
+    <span class="donate__ring" aria-hidden="true"></span>
+    <span class="donate__body">
+      <span class="donate__mark"><%- socialIcon(donation.platform, 'donate__glyph') %></span>
+      <span class="donate__label"><%= donation.label %></span>
+      <span class="donate__arrow"><i data-lucide="arrow-up-right"></i></span>
+      <span class="donate__shine" aria-hidden="true"></span>
+    </span>
+  </a>
+  <% if (donation.note) { %>
+  <p class="donate-note"><%= donation.note %></p>
+  <% } %>
+</div>
+<% } %>

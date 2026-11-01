@@ -1,0 +1,36 @@
+<%
+  // Fila de redes sociales del proyecto. Dos variantes:
+  //   'cards'  — pastilla con icono y nombre, para la sección de apoyo.
+  //   'icons'  — solo icono, para el pie de página.
+  // El icono llega ya como SVG desde el servidor (Lucide 1.x no trae marcas),
+  // así que la fila se ve igual aunque el JavaScript no llegue a ejecutarse.
+  const socialItems = (typeof branding !== 'undefined' && branding && Array.isArray(branding.socialLinks))
+    ? branding.socialLinks : [];
+  const rowVariant = (typeof variant !== 'undefined' && variant) ? variant : 'icons';
+%>
+<% if (socialItems.length > 0) { %>
+<ul class="social-row social-row--<%= rowVariant %>">
+  <% socialItems.forEach(function (link) { %>
+  <%
+    const platform = socialPlatform(link.platform);
+    const linkLabel = socialLinkLabel(link, lang);
+    // `mailto:` se abre en el cliente de correo, no en una pestaña nueva.
+    const external = link.url.indexOf('mailto:') !== 0;
+  %>
+  <li>
+    <%- external ? '' : '<!--email_off-->' %>
+    <a class="social-link" href="<%= link.url %>" style="--social-brand: <%= platform.color %>"
+       <%- external ? 'target="_blank" rel="me noopener noreferrer"' : 'rel="me"' %>
+       title="<%= linkLabel %>">
+      <span class="social-link__mark"><%- socialIcon(link.platform, 'social-link__icon') %></span>
+      <% if (rowVariant === 'cards') { %>
+      <span class="social-link__name"><%= linkLabel %></span>
+      <% } else { %>
+      <span class="visually-hidden"><%= linkLabel %></span>
+      <% } %>
+    </a>
+    <%- external ? '' : '<!--/email_off-->' %>
+  </li>
+  <% }) %>
+</ul>
+<% } %>

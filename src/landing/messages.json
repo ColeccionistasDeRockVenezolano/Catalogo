@@ -1,0 +1,1022 @@
+{
+  "account.contactEither": {
+    "es": "Cualquiera de los dos",
+    "en": "Either one"
+  },
+  "account.email": {
+    "es": "Correo",
+    "en": "Email"
+  },
+  "account.linkLabel": {
+    "es": "Descripción del enlace {n}",
+    "en": "Description of link {n}"
+  },
+  "account.linkLabelPlaceholder": {
+    "es": "Descripción (opcional)",
+    "en": "Description (optional)"
+  },
+  "account.linkUrl": {
+    "es": "Dirección del enlace {n}",
+    "en": "Address of link {n}"
+  },
+  "activate.accessCodeHelp12": {
+    "es": "Al menos 12 caracteres, con letras y números. Evita claves obvias.",
+    "en": "At least 12 characters, with letters and numbers. Avoid obvious passphrases."
+  },
+  "activate.accessCodeTitle12": {
+    "es": "Al menos 12 caracteres, con letras y números.",
+    "en": "At least 12 characters, with letters and numbers."
+  },
+  "activate.backToProject": {
+    "es": "Volver al proyecto",
+    "en": "Back to the project"
+  },
+  "activate.invalidSub": {
+    "es": "Este enlace de activación no es válido, ya se usó o expiró. Pide uno nuevo a la administración de <strong>{project}</strong>.",
+    "en": "This activation link is not valid, has already been used or has expired. Ask the administrators of <strong>{project}</strong> for a new one."
+  },
+  "activate.pageTitle": {
+    "es": "Activar tu acceso",
+    "en": "Activate your access"
+  },
+  "activate.singleUse": {
+    "es": "Este enlace es personal y sirve una sola vez.",
+    "en": "This link is personal and works only once."
+  },
+  "activate.sub": {
+    "es": "Tu candidatura fue aceptada. Elige el nombre de usuario y la clave con los que entrarás a <strong>{project}</strong>.",
+    "en": "Your application was accepted. Choose the username and passphrase you will use to sign in to <strong>{project}</strong>."
+  },
+  "activate.submit": {
+    "es": "Activar y entrar",
+    "en": "Activate and sign in"
+  },
+  "activate.subNamed": {
+    "es": "Tu candidatura fue aceptada, <strong>{name}</strong>. Elige el nombre de usuario y la clave con los que entrarás a <strong>{project}</strong>.",
+    "en": "Your application was accepted, <strong>{name}</strong>. Choose the username and passphrase you will use to sign in to <strong>{project}</strong>."
+  },
+  "adminLogin.backToRoadmap": {
+    "es": "Volver al roadmap",
+    "en": "Back to the roadmap"
+  },
+  "adminLogin.submit": {
+    "es": "Entrar",
+    "en": "Sign in"
+  },
+  "collab.alreadyCollaborating": {
+    "es": "¿Ya colaboras en el proyecto?",
+    "en": "Already collaborating on the project?"
+  },
+  "collab.chooseOne": {
+    "es": "Elige al menos una opción.",
+    "en": "Choose at least one option."
+  },
+  "collab.implementMaybe": {
+    "es": "Tal vez, según el alcance",
+    "en": "Maybe, depending on the scope"
+  },
+  "collab.implementShare": {
+    "es": "Solo quiero compartir la idea",
+    "en": "I just want to share the idea"
+  },
+  "collab.implementYes": {
+    "es": "Sí, quiero participar",
+    "en": "Yes, I want to take part"
+  },
+  "collab.linksUpTo": {
+    "es": "Hasta {n}.",
+    "en": "Up to {n}."
+  },
+  "collab.linkType": {
+    "es": "Tipo de enlace {n}",
+    "en": "Type of link {n}"
+  },
+  "collab.metaDescription": {
+    "es": "Súmate a {project}: conocimiento, archivo, oficio e ideas.",
+    "en": "Join {project}: knowledge, archives, craft and ideas."
+  },
+  "collab.noCredentials": {
+    "es": "Aquí no se pide nombre de usuario ni contraseña: eso se define solo al final, y solo si tu candidatura avanza.",
+    "en": "No username or password is asked for here: those are set at the very end, and only if your application moves forward."
+  },
+  "collab.pageTitle": {
+    "es": "Quiero colaborar",
+    "en": "I want to help"
+  },
+  "collab.reviewAreas": {
+    "es": "Áreas de aporte",
+    "en": "Contribution areas"
+  },
+  "collab.reviewAvailability": {
+    "es": "Disponibilidad",
+    "en": "Availability"
+  },
+  "collab.reviewBirthDate": {
+    "es": "Fecha de nacimiento",
+    "en": "Date of birth"
+  },
+  "collab.reviewContactPreference": {
+    "es": "Prefiere contacto por",
+    "en": "Prefers contact by"
+  },
+  "collab.reviewContribution": {
+    "es": "Qué quiere aportar",
+    "en": "What you want to contribute"
+  },
+  "collab.reviewEmail": {
+    "es": "Correo",
+    "en": "Email"
+  },
+  "collab.reviewEmpty": {
+    "es": "Todavía no has llenado ningún campo.",
+    "en": "You have not filled in any field yet."
+  },
+  "collab.reviewExperience": {
+    "es": "Experiencia y material",
+    "en": "Experience and material"
+  },
+  "collab.reviewHelp": {
+    "es": "Revisa lo que enviarás. Puedes volver a cualquier paso para corregirlo.",
+    "en": "Check what you are about to send. You can go back to any step to fix it."
+  },
+  "collab.reviewIdea": {
+    "es": "Idea o propuesta",
+    "en": "Idea or proposal"
+  },
+  "collab.reviewIdeaReason": {
+    "es": "Por qué sería útil",
+    "en": "Why it would help"
+  },
+  "collab.reviewLinks": {
+    "es": "Enlaces",
+    "en": "Links"
+  },
+  "collab.reviewName": {
+    "es": "Nombre",
+    "en": "Name"
+  },
+  "collab.reviewSkills": {
+    "es": "Habilidades",
+    "en": "Skills"
+  },
+  "collab.reviewWantsToImplement": {
+    "es": "Participar en implementarla",
+    "en": "Taking part in building it"
+  },
+  "collab.reviewWhereYouLive": {
+    "es": "Dónde vives",
+    "en": "Where you live"
+  },
+  "collab.signInLink": {
+    "es": "Entra con tu cuenta",
+    "en": "Sign in with your account"
+  },
+  "collab.stepOf": {
+    "es": "Paso {n} de {total}",
+    "en": "Step {n} of {total}"
+  },
+  "collab.stepsAria": {
+    "es": "Pasos del formulario",
+    "en": "Form steps"
+  },
+  "collabForm.helpBirthDate": {
+    "es": "Solo la ve la administración del proyecto. Nunca aparece en un perfil público.",
+    "en": "Only the project administration sees it. It never appears on a public profile."
+  },
+  "collabForm.helpContact": {
+    "es": "Necesitamos al menos un WhatsApp o un correo para poder responderte.",
+    "en": "We need at least a WhatsApp number or an email to be able to reply."
+  },
+  "collabForm.helpIdeas": {
+    "es": "Opcional, pero es la parte que más nos interesa: una idea concreta vale más que un currículum.",
+    "en": "Optional, but it is the part we care about most: one concrete idea is worth more than a CV."
+  },
+  "collabForm.helpLinks": {
+    "es": "Repositorios, proyectos, portfolio o redes.",
+    "en": "Repositories, projects, portfolio or social profiles."
+  },
+  "collabForm.heroBadge": {
+    "es": "★ Convocatoria abierta",
+    "en": "★ Open call"
+  },
+  "collabForm.heroSub": {
+    "es": "Este es un proyecto de memoria y de oficio. Hace falta gente que sepa buscar, ordenar, escribir, escuchar y proponer. Si tienes conocimiento, material o criterio que aportar, este formulario es para ti.",
+    "en": "This is a project of memory and craft. It needs people who know how to search, sort, write, listen and propose. If you have knowledge, material or judgement to bring, this form is for you."
+  },
+  "collabForm.heroTitleHtml": {
+    "es": "NO BUSCAMOS<br>SOLAMENTE<br>PROGRAMADORES",
+    "en": "WE ARE NOT<br>ONLY LOOKING FOR<br>PROGRAMMERS"
+  },
+  "collabForm.labelAreas": {
+    "es": "Áreas de aporte",
+    "en": "Contribution areas"
+  },
+  "collabForm.labelAvailability": {
+    "es": "Disponibilidad",
+    "en": "Availability"
+  },
+  "collabForm.labelBirthDate": {
+    "es": "Fecha de nacimiento",
+    "en": "Date of birth"
+  },
+  "collabForm.labelCity": {
+    "es": "Ciudad",
+    "en": "City"
+  },
+  "collabForm.labelContactPreference": {
+    "es": "Cómo prefieres que te contactemos",
+    "en": "How you prefer to be contacted"
+  },
+  "collabForm.labelContributionText": {
+    "es": "Qué quieres aportar",
+    "en": "What you want to contribute"
+  },
+  "collabForm.labelCountry": {
+    "es": "País",
+    "en": "Country"
+  },
+  "collabForm.labelEmail": {
+    "es": "Correo",
+    "en": "Email"
+  },
+  "collabForm.labelExperience": {
+    "es": "Experiencia, conocimientos o material que puedes aportar",
+    "en": "Experience, knowledge or material you can bring"
+  },
+  "collabForm.labelFirstName": {
+    "es": "Nombre",
+    "en": "First name"
+  },
+  "collabForm.labelIdea": {
+    "es": "Tu idea o propuesta",
+    "en": "Your idea or proposal"
+  },
+  "collabForm.labelIdeaReason": {
+    "es": "Por qué sería útil para el proyecto",
+    "en": "Why it would be useful for the project"
+  },
+  "collabForm.labelLastName": {
+    "es": "Apellido",
+    "en": "Last name"
+  },
+  "collabForm.labelLinks": {
+    "es": "Enlaces",
+    "en": "Links"
+  },
+  "collabForm.labelSkills": {
+    "es": "Habilidades",
+    "en": "Skills"
+  },
+  "collabForm.labelWantsToImplement": {
+    "es": "¿Quieres participar en implementarla?",
+    "en": "Do you want to take part in building it?"
+  },
+  "collabForm.labelWhatsappPhone": {
+    "es": "Teléfono con WhatsApp",
+    "en": "WhatsApp phone"
+  },
+  "collabForm.nextStep1": {
+    "es": "Leemos tu candidatura y la revisamos con calma.",
+    "en": "We read your application and review it carefully."
+  },
+  "collabForm.nextStep2": {
+    "es": "Si encaja, te escribimos por la vía que elegiste para conversar.",
+    "en": "If it fits, we write to you through the channel you chose."
+  },
+  "collabForm.nextStep3": {
+    "es": "Si seguimos adelante, recibirás un enlace personal para crear tu acceso al proyecto.",
+    "en": "If we move forward, you will get a personal link to create your access to the project."
+  },
+  "collabForm.nextStepsTitle": {
+    "es": "Qué pasa después",
+    "en": "What happens next"
+  },
+  "collabForm.pillar1": {
+    "es": "Conocimiento",
+    "en": "Knowledge"
+  },
+  "collabForm.pillar2": {
+    "es": "Archivo",
+    "en": "Archive"
+  },
+  "collabForm.pillar3": {
+    "es": "Oficio",
+    "en": "Craft"
+  },
+  "collabForm.pillar4": {
+    "es": "Ideas",
+    "en": "Ideas"
+  },
+  "collabForm.placeholderAvailability": {
+    "es": "Ej. dos tardes por semana",
+    "en": "E.g. two afternoons a week"
+  },
+  "collabForm.placeholderContributionText": {
+    "es": "Tu criterio, tu visión del proyecto, lo que crees que falta, cómo te gustaría trabajar…",
+    "en": "Your judgement, your view of the project, what you think is missing, how you would like to work…"
+  },
+  "collabForm.placeholderExperience": {
+    "es": "Discos, fotos, recortes, contactos, oficio técnico, años siguiendo la escena…",
+    "en": "Records, photos, clippings, contacts, technical craft, years following the scene…"
+  },
+  "collabForm.placeholderWhatsappPhone": {
+    "es": "+58 412 0000000",
+    "en": "+58 412 0000000"
+  },
+  "collabForm.sentBody": {
+    "es": "Gracias por escribirnos.",
+    "en": "Thank you for writing to us."
+  },
+  "collabForm.sentTitle": {
+    "es": "Candidatura enviada",
+    "en": "Application sent"
+  },
+  "collabForm.stepAbout": {
+    "es": "Sobre ti",
+    "en": "About you"
+  },
+  "collabForm.stepContribution": {
+    "es": "Cómo quieres aportar",
+    "en": "How you want to help"
+  },
+  "collabForm.stepIdeas": {
+    "es": "Propón algo",
+    "en": "Propose something"
+  },
+  "collabForm.stepReview": {
+    "es": "Revisión y envío",
+    "en": "Review and send"
+  },
+  "collabForm.stepSkills": {
+    "es": "Qué sabes hacer",
+    "en": "What you can do"
+  },
+  "collabForm.submitLabel": {
+    "es": "Enviar candidatura",
+    "en": "Send application"
+  },
+  "common.all": {
+    "es": "Todas",
+    "en": "All"
+  },
+  "common.networkRetry": {
+    "es": "Error de red. Inténtalo de nuevo.",
+    "en": "Network error. Try again."
+  },
+  "common.next": {
+    "es": "Siguiente",
+    "en": "Next"
+  },
+  "common.pageN": {
+    "es": "Página {n}",
+    "en": "Page {n}"
+  },
+  "common.pageNofM": {
+    "es": "Página {n} de {total}",
+    "en": "Page {n} of {total}"
+  },
+  "common.previous": {
+    "es": "Anterior",
+    "en": "Previous"
+  },
+  "meta.defaultDescription": {
+    "es": "Avance de {project}: qué se hará, qué está en marcha y qué está listo.",
+    "en": "Progress of {project}: what is planned, what is under way and what is done."
+  },
+  "meta.defaultTitle": {
+    "es": "Progreso del proyecto — {project}",
+    "en": "Project progress — {project}"
+  },
+  "nav.aboutProject": {
+    "es": "Informaciones",
+    "en": "Information"
+  },
+  "nav.adminPanel": {
+    "es": "Panel de edición",
+    "en": "Editing panel"
+  },
+  "nav.closeMenu": {
+    "es": "Cerrar menú de navegación",
+    "en": "Close navigation menu"
+  },
+  "nav.collaborateCta": {
+    "es": "Quiero colaborar",
+    "en": "I want to help"
+  },
+  "nav.greeting": {
+    "es": "Hola, {name}",
+    "en": "Hi, {name}"
+  },
+  "nav.kanban": {
+    "es": "Kanban",
+    "en": "Kanban"
+  },
+  "nav.languageSwitchTo": {
+    "es": "Ver esta página en {language}",
+    "en": "View this page in {language}"
+  },
+  "nav.login": {
+    "es": "Entrar",
+    "en": "Sign in"
+  },
+  "nav.logout": {
+    "es": "Cerrar sesión",
+    "en": "Sign out"
+  },
+  "nav.main": {
+    "es": "Principal",
+    "en": "Main"
+  },
+  "nav.manageProject": {
+    "es": "Administrar proyecto",
+    "en": "Manage project"
+  },
+  "nav.map": {
+    "es": "Mapa",
+    "en": "Map"
+  },
+  "nav.openMenu": {
+    "es": "Abrir menú de navegación",
+    "en": "Open navigation menu"
+  },
+  "nav.profile": {
+    "es": "Mi perfil",
+    "en": "My profile"
+  },
+  "nav.radio": {
+    "es": "Radio",
+    "en": "Radio"
+  },
+  "nav.roadmap": {
+    "es": "Roadmap",
+    "en": "Roadmap"
+  },
+  "nav.tools": {
+    "es": "Herramientas",
+    "en": "Tools"
+  },
+  "phase.label": {
+    "es": "Fase {n}",
+    "en": "Phase {n}"
+  },
+  "radio.aria": {
+    "es": "Radio {station}, emisión compartida en vivo",
+    "en": "{station} Radio, shared live broadcast"
+  },
+  "radio.brand": {
+    "es": "Radio",
+    "en": "Radio"
+  },
+  "radio.cinema": {
+    "es": "Modo cine",
+    "en": "Cinema mode"
+  },
+  "radio.cinemaEnter": {
+    "es": "Activar el modo cine",
+    "en": "Enter cinema mode"
+  },
+  "radio.cinemaExit": {
+    "es": "Salir del modo cine",
+    "en": "Exit cinema mode"
+  },
+  "radio.error": {
+    "es": "No pudimos sincronizar. El reproductor sigue disponible.",
+    "en": "We could not sync. The player is still available."
+  },
+  "radio.identifier": {
+    "es": "Radio Sweeper #1",
+    "en": "Radio Sweeper #1"
+  },
+  "radio.identifierError": {
+    "es": "No se pudo cargar el identificador. La emisión continuará con el próximo tema.",
+    "en": "The station identifier could not load. The broadcast will continue with the next track."
+  },
+  "radio.identifierPause": {
+    "es": "Pausar",
+    "en": "Pause"
+  },
+  "radio.identifierPlay": {
+    "es": "Escuchar",
+    "en": "Listen"
+  },
+  "radio.join": {
+    "es": "Entrar al aire",
+    "en": "Join live"
+  },
+  "radio.listenerMany": {
+    "es": "{n} personas escuchando",
+    "en": "{n} people listening"
+  },
+  "radio.listenerOne": {
+    "es": "1 persona escuchando",
+    "en": "1 person listening"
+  },
+  "radio.listenerQuiet": {
+    "es": "La emisión sigue activa",
+    "en": "The broadcast is still live"
+  },
+  "radio.live": {
+    "es": "Radio {station}",
+    "en": "Radio {station}"
+  },
+  "radio.loading": {
+    "es": "Buscando la emisión…",
+    "en": "Finding the broadcast…"
+  },
+  "radio.mute": {
+    "es": "Silenciar",
+    "en": "Mute"
+  },
+  "radio.muted": {
+    "es": "El navegador bloqueó el sonido: actívalo para escuchar.",
+    "en": "The browser blocked sound: enable it to listen."
+  },
+  "radio.next": {
+    "es": "A continuación",
+    "en": "Up next"
+  },
+  "radio.now": {
+    "es": "Ahora suena",
+    "en": "Now playing"
+  },
+  "radio.paused": {
+    "es": "Radio en pausa: vuelve al vivo cuando quieras.",
+    "en": "Radio paused: return to live whenever you want."
+  },
+  "radio.ready": {
+    "es": "El vivo sigue en marcha: pulsa para entrar.",
+    "en": "The broadcast is still on: press to join."
+  },
+  "radio.regionSubstitute": {
+    "es": "«{title}» no está disponible en tu país; mientras tanto suena esta canción.",
+    "en": "“{title}” is not available in your country; this song plays in its place."
+  },
+  "radio.restricted": {
+    "es": "YouTube pidió verificar este navegador. Inicia sesión arriba y pulsa Reintentar.",
+    "en": "YouTube asked to verify this browser. Sign in above, then press Try again."
+  },
+  "radio.resync": {
+    "es": "Volver al vivo",
+    "en": "Return to live"
+  },
+  "radio.retry": {
+    "es": "Reintentar",
+    "en": "Try again"
+  },
+  "radio.shared": {
+    "es": "Una sola transmisión para todos",
+    "en": "One broadcast for everyone"
+  },
+  "radio.silenced": {
+    "es": "Radio en silencio: activa el sonido para escuchar.",
+    "en": "Radio muted: enable sound to listen."
+  },
+  "radio.sound": {
+    "es": "Activar sonido",
+    "en": "Enable sound"
+  },
+  "radio.synced": {
+    "es": "Estás al día",
+    "en": "You are live"
+  },
+  "radio.unavailable": {
+    "es": "Esta canción no está disponible: la emisión sigue con la siguiente.",
+    "en": "This song is unavailable: the broadcast continues with the next one."
+  },
+  "radio.unmute": {
+    "es": "Activar sonido",
+    "en": "Enable sound"
+  },
+  "radio.videoTitle": {
+    "es": "Reproductor de YouTube: {title}",
+    "en": "YouTube player: {title}"
+  },
+  "radio.volume": {
+    "es": "Volumen de la radio",
+    "en": "Radio volume"
+  },
+  "register.accessCode": {
+    "es": "Clave",
+    "en": "Passphrase"
+  },
+  "register.accessCodeHelp8": {
+    "es": "Al menos 8 caracteres, con letras y números. Evita claves obvias.",
+    "en": "At least 8 characters, with letters and numbers. Avoid obvious passphrases."
+  },
+  "register.accessCodeRepeat": {
+    "es": "Repetir clave",
+    "en": "Repeat passphrase"
+  },
+  "register.accessCodeTitle8": {
+    "es": "Al menos 8 caracteres, con letras y números.",
+    "en": "At least 8 characters, with letters and numbers."
+  },
+  "register.doneSub": {
+    "es": "Tu cuenta en <strong>{project}</strong> fue creada. Queda <strong>pendiente de aprobación</strong> por el administrador.",
+    "en": "Your account in <strong>{project}</strong> has been created. It is now <strong>waiting for approval</strong> by the administrator."
+  },
+  "register.firstName": {
+    "es": "Nombre",
+    "en": "First name"
+  },
+  "register.goToLogin": {
+    "es": "Ir a iniciar sesión",
+    "en": "Go to sign in"
+  },
+  "register.invalidSub": {
+    "es": "Este enlace de registro no es válido, ya expiró o fue revocado. Pide uno nuevo al administrador de <strong>{project}</strong>.",
+    "en": "This sign-up link is not valid, has expired or was revoked. Ask the administrator of <strong>{project}</strong> for a new one."
+  },
+  "register.lastName": {
+    "es": "Apellido",
+    "en": "Last name"
+  },
+  "register.pageTitle": {
+    "es": "Crear cuenta",
+    "en": "Create account"
+  },
+  "register.sub": {
+    "es": "Elige un nombre y una clave para tu cuenta en <strong>{project}</strong>. Quedará pendiente de aprobación.",
+    "en": "Choose a name and a passphrase for your account in <strong>{project}</strong>. It will wait for approval."
+  },
+  "register.submit": {
+    "es": "Crear cuenta",
+    "en": "Create account"
+  },
+  "register.usernameHelp": {
+    "es": "Con este nombre entrarás a tu cuenta. Debe ser único en el proyecto.",
+    "en": "You will sign in with this name. It must be unique within the project."
+  },
+  "roadmap.accountArea": {
+    "es": "Acceso de usuario",
+    "en": "Account access"
+  },
+  "roadmap.activeStages": {
+    "es": "Etapas activas",
+    "en": "Active stages"
+  },
+  "roadmap.activities": {
+    "es": "Actividades",
+    "en": "Activities"
+  },
+  "roadmap.activitiesPerPageIn": {
+    "es": "Actividades por página en {stage}",
+    "en": "Activities per page in {stage}"
+  },
+  "roadmap.applySub": {
+    "es": "Presenta tu candidatura",
+    "en": "Send your application"
+  },
+  "roadmap.applyTitle": {
+    "es": "Quiero colaborar",
+    "en": "I want to help"
+  },
+  "roadmap.assigneeAria": {
+    "es": "1 responsable, ver lista",
+    "en": "1 person responsible, see list"
+  },
+  "roadmap.assigneeMineAria": {
+    "es": "Tu tarea, 1 responsable, ver lista",
+    "en": "Your task, 1 person responsible, see list"
+  },
+  "roadmap.assigneesAria": {
+    "es": "{n} responsables, ver lista",
+    "en": "{n} people responsible, see list"
+  },
+  "roadmap.assigneesMineAria": {
+    "es": "Tu tarea, {n} responsables, ver lista",
+    "en": "Your task, {n} people responsible, see list"
+  },
+  "roadmap.changeStatusOfMine": {
+    "es": "Cambiar estado de tu tarea",
+    "en": "Change the status of your task"
+  },
+  "roadmap.changeStatusOfTask": {
+    "es": "Cambiar estado de la actividad",
+    "en": "Change the status of this activity"
+  },
+  "roadmap.collaborators": {
+    "es": "Colaboradores",
+    "en": "Collaborators"
+  },
+  "roadmap.completedAndPending": {
+    "es": "{done} completadas · {left} faltantes",
+    "en": "{done} completed · {left} remaining"
+  },
+  "roadmap.completedWord": {
+    "es": "completado",
+    "en": "complete"
+  },
+  "roadmap.currentState": {
+    "es": "Estado actual",
+    "en": "Current status"
+  },
+  "roadmap.dimensions": {
+    "es": "Dimensiones del roadmap",
+    "en": "Roadmap at a glance"
+  },
+  "roadmap.faqIntro": {
+    "es": "Respuestas claras sobre la iniciativa, su estado actual y cómo participar.",
+    "en": "Clear answers about the initiative, its current status and how to take part."
+  },
+  "roadmap.findUsAt": {
+    "es": "Encuéntranos en",
+    "en": "Find us at"
+  },
+  "roadmap.kicker": {
+    "es": "MAPA DE TRABAJO",
+    "en": "WORK MAP"
+  },
+  "roadmap.lastUpdated": {
+    "es": "Última actualización:",
+    "en": "Last updated:"
+  },
+  "roadmap.moreCollaborators": {
+    "es": "Y otros {n} colaboradores",
+    "en": "And {n} more collaborators"
+  },
+  "roadmap.nextPageOf": {
+    "es": "Página siguiente de {stage}",
+    "en": "Next page of {stage}"
+  },
+  "roadmap.nextStagePage": {
+    "es": "Página siguiente de etapas",
+    "en": "Next stage page"
+  },
+  "roadmap.noActivities": {
+    "es": "Sin actividades por ahora.",
+    "en": "No activities yet."
+  },
+  "roadmap.noTasksAssigned": {
+    "es": "No tienes actividades asignadas.",
+    "en": "You have no activities assigned."
+  },
+  "roadmap.oneMoreCollaborator": {
+    "es": "Y otro colaborador",
+    "en": "And one more collaborator"
+  },
+  "roadmap.onlyMyTasks": {
+    "es": "Solo mostrar mis tareas",
+    "en": "Show only my tasks"
+  },
+  "roadmap.overallProgress": {
+    "es": "Progreso general",
+    "en": "Overall progress"
+  },
+  "roadmap.paginationOf": {
+    "es": "Paginación de {stage}",
+    "en": "Pagination of {stage}"
+  },
+  "roadmap.participateBody": {
+    "es": "Cada etapa de este roadmap salió de alguien que sabía algo: dónde estaba un disco, cómo se escribe un dato, qué falta por preguntar. No hace falta ser programador para que tu aporte cuente — hace falta conocimiento, archivo, oficio o una buena idea.",
+    "en": "Every stage of this roadmap came from someone who knew something: where a record was kept, how a detail is spelled, what still needs asking. You do not need to be a programmer for your contribution to count — you need knowledge, archives, craft or a good idea."
+  },
+  "roadmap.participateKicker": {
+    "es": "PARTICIPAR",
+    "en": "GET INVOLVED"
+  },
+  "roadmap.participateTitle": {
+    "es": "Esto se construye entre varias manos.",
+    "en": "This is built by many hands."
+  },
+  "roadmap.perPage": {
+    "es": "{n} por página",
+    "en": "{n} per page"
+  },
+  "roadmap.prevPageOf": {
+    "es": "Página anterior de {stage}",
+    "en": "Previous page of {stage}"
+  },
+  "roadmap.prevStagePage": {
+    "es": "Página anterior de etapas",
+    "en": "Previous stage page"
+  },
+  "roadmap.projectScope": {
+    "es": "Alcance del proyecto",
+    "en": "Project scope"
+  },
+  "roadmap.range": {
+    "es": "{from}–{to} de {total}",
+    "en": "{from}–{to} of {total}"
+  },
+  "roadmap.saveFailed": {
+    "es": "No se pudo guardar el cambio.",
+    "en": "The change could not be saved."
+  },
+  "roadmap.saving": {
+    "es": "Guardando cambio…",
+    "en": "Saving change…"
+  },
+  "roadmap.seeAll": {
+    "es": "Ver todas",
+    "en": "See all"
+  },
+  "roadmap.signInSub": {
+    "es": "Acceso del equipo",
+    "en": "Team access"
+  },
+  "roadmap.signInTitle": {
+    "es": "Entrar",
+    "en": "Sign in"
+  },
+  "roadmap.stageCompleted": {
+    "es": "{done} de {total} completadas",
+    "en": "{done} of {total} completed"
+  },
+  "roadmap.stagePaginationAria": {
+    "es": "Paginación de etapas del roadmap",
+    "en": "Roadmap stage pagination"
+  },
+  "roadmap.stagePaginationChange": {
+    "es": "Cambiar página de etapas",
+    "en": "Change stage page"
+  },
+  "roadmap.stageProgress": {
+    "es": "Progreso de {stage}",
+    "en": "Progress of {stage}"
+  },
+  "roadmap.stageRange": {
+    "es": "{from}–{to} de {total} etapas",
+    "en": "{from}–{to} of {total} stages"
+  },
+  "roadmap.stageRemaining": {
+    "es": "{n} por completar",
+    "en": "{n} remaining"
+  },
+  "roadmap.stages": {
+    "es": "Etapas del roadmap",
+    "en": "Roadmap stages"
+  },
+  "roadmap.stagesPerPage": {
+    "es": "Etapas por página",
+    "en": "Stages per page"
+  },
+  "roadmap.statCompleted": {
+    "es": "Completadas",
+    "en": "Completed"
+  },
+  "roadmap.statRemaining": {
+    "es": "Por completar",
+    "en": "Remaining"
+  },
+  "roadmap.statTotal": {
+    "es": "Total",
+    "en": "Total"
+  },
+  "roadmap.statusSaved": {
+    "es": "Estado actualizado.",
+    "en": "Status updated."
+  },
+  "roadmap.sub": {
+    "es": "Consulta las prioridades del proyecto, el estado de cada actividad y lo que todavía queda por construir.",
+    "en": "See the project priorities, the state of every activity and what is still left to build."
+  },
+  "roadmap.summary": {
+    "es": "Resumen general",
+    "en": "Overall summary"
+  },
+  "roadmap.summaryAria": {
+    "es": "Resumen general del proyecto",
+    "en": "Overall project summary"
+  },
+  "roadmap.title": {
+    "es": "El avance, etapa por etapa.",
+    "en": "Progress, stage by stage."
+  },
+  "roadmap.upToDate": {
+    "es": "Al día",
+    "en": "Up to date"
+  },
+  "roadmap.yourTask": {
+    "es": "Tu tarea",
+    "en": "Your task"
+  },
+  "status.completed": {
+    "es": "Completada",
+    "en": "Completed"
+  },
+  "status.in_progress": {
+    "es": "En progreso",
+    "en": "In progress"
+  },
+  "status.pending": {
+    "es": "Pendiente",
+    "en": "Pending"
+  },
+  "userLogin.accessCode": {
+    "es": "Tu clave",
+    "en": "Your passphrase"
+  },
+  "userLogin.inviteLink": {
+    "es": "Regístrate aquí",
+    "en": "Sign up here"
+  },
+  "userLogin.inviteQuestion": {
+    "es": "¿Tienes un enlace de invitación?",
+    "en": "Do you have an invitation link?"
+  },
+  "userLogin.name": {
+    "es": "Nombre de usuario",
+    "en": "Username"
+  },
+  "userLogin.pageTitle": {
+    "es": "Entrar",
+    "en": "Sign in"
+  },
+  "userLogin.sub": {
+    "es": "Usa el nombre de usuario y la clave de tu cuenta aprobada en <strong>{project}</strong>.",
+    "en": "Use the username and passphrase of your approved account in <strong>{project}</strong>."
+  },
+  "userLogin.title": {
+    "es": "Entrar al roadmap",
+    "en": "Sign in to the roadmap"
+  },
+  "visits.collapse": {
+    "es": "Ocultar el contador de visitas",
+    "en": "Hide the visitor counter"
+  },
+  "visits.collapsedTitle": {
+    "es": "ONLINE ({count})",
+    "en": "ONLINE ({count})"
+  },
+  "visits.emptyOnline": {
+    "es": "No hay nadie en línea ahora mismo.",
+    "en": "Nobody is online right now."
+  },
+  "visits.emptyToday": {
+    "es": "Todavía no hay visitas hoy.",
+    "en": "No visits yet today."
+  },
+  "visits.emptyTotal": {
+    "es": "Todavía no hay visitas registradas.",
+    "en": "No visits recorded yet."
+  },
+  "visits.expand": {
+    "es": "Mostrar el contador de visitas",
+    "en": "Show the visitor counter"
+  },
+  "visits.fromCountry": {
+    "es": "{count} desde {country}",
+    "en": "{count} from {country}"
+  },
+  "visits.online": {
+    "es": "En línea",
+    "en": "Online"
+  },
+  "visits.onlinePage": {
+    "es": "En línea ahora",
+    "en": "Online now"
+  },
+  "visits.otherCountries": {
+    "es": "Otros países",
+    "en": "Other countries"
+  },
+  "visits.regionAria": {
+    "es": "Contador de visitas del proyecto",
+    "en": "Project visitor counter"
+  },
+  "visits.showPage": {
+    "es": "Ver {page}",
+    "en": "Show {page}"
+  },
+  "visits.title": {
+    "es": "Visitas",
+    "en": "Visitors"
+  },
+  "visits.today": {
+    "es": "Hoy",
+    "en": "Today"
+  },
+  "visits.todayPage": {
+    "es": "Visitantes de hoy",
+    "en": "Today’s visitors"
+  },
+  "visits.total": {
+    "es": "Total",
+    "en": "Total"
+  },
+  "visits.totalPage": {
+    "es": "Visitantes históricos",
+    "en": "All-time visitors"
+  },
+  "visits.unknownCountry": {
+    "es": "País desconocido",
+    "en": "Unknown country"
+  },
+  "radio.badge": {
+    "es": "Archivo sonoro en vivo",
+    "en": "Live sound archive"
+  },
+  "roadmap.badge": {
+    "es": "Progreso del proyecto",
+    "en": "Project progress"
+  },
+  "platform.email": {
+    "es": "Correo",
+    "en": "Email"
+  },
+  "platform.link": {
+    "es": "Enlace",
+    "en": "Link"
+  }
+}

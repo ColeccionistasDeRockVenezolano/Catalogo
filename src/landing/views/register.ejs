@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head', { pageTitle: t('register.pageTitle') + ' — ' + theme.projectName, noindex: true }) %>
+</head>
+<body class="login-body">
+<main class="login-main">
+  <div class="login-card">
+    <%- include('partials/project-mark', { size: 'lg' }) %>
+    <h1><%= t('register.pageTitle') %></h1>
+
+    <% if (success) { %>
+      <p class="login-sub"><%- t('register.doneSub', { project: theme.projectName }) %></p>
+      <% if (showLoginLinks) { %>
+      <a class="btn btn-red btn-block" href="<%= projectBase %>/login"><%= t('register.goToLogin') %></a>
+      <% } %>
+    <% } else if (!valid) { %>
+      <p class="login-sub"><%- t('register.invalidSub', { project: theme.projectName }) %></p>
+      <a class="login-back" href="<%= projectBase %>/"><i data-lucide="arrow-left"></i> <%= t('adminLogin.backToRoadmap') %></a>
+    <% } else { %>
+      <p class="login-sub"><%- t('register.sub', { project: theme.projectName }) %></p>
+      <% if (error) { %><p class="login-error" role="alert"><%= error %></p><% } %>
+    <form method="post" action="<%= projectBase %>/register" class="login-form">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input type="hidden" name="token" value="<%= token %>">
+        <div class="field-row">
+          <div class="field">
+            <label for="firstName"><%= t('register.firstName') %></label>
+            <input type="text" id="firstName" name="firstName" maxlength="80" autocomplete="given-name" required autofocus>
+          </div>
+          <div class="field">
+            <label for="lastName"><%= t('register.lastName') %></label>
+            <input type="text" id="lastName" name="lastName" maxlength="80" autocomplete="family-name" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="name"><%= t('userLogin.name') %></label>
+          <input type="text" id="name" name="name" minlength="2" maxlength="80" autocomplete="username" required>
+          <small class="field-help"><%= t('register.usernameHelp') %></small>
+        </div>
+        <div class="field">
+          <label for="accessCode"><%= t('register.accessCode') %></label>
+          <input type="password" id="accessCode" name="accessCode" minlength="8" maxlength="200" autocomplete="new-password" pattern="(?=.*[A-Za-z])(?=.*\d).{8,}" title="<%= t('register.accessCodeTitle8') %>" required>
+          <small class="field-help"><%= t('register.accessCodeHelp8') %></small>
+        </div>
+        <div class="field">
+          <label for="accessCodeConfirm"><%= t('register.accessCodeRepeat') %></label>
+          <input type="password" id="accessCodeConfirm" name="accessCodeConfirm" minlength="8" maxlength="200" autocomplete="new-password" required>
+        </div>
+        <button type="submit" class="btn btn-red btn-block"><%= t('register.submit') %></button>
+      </form>
+      <a class="login-back" href="<%= projectBase %>/"><i data-lucide="arrow-left"></i> <%= t('adminLogin.backToRoadmap') %></a>
+    <% } %>
+  </div>
+</main>
+</body>
+</html>

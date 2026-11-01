@@ -77,8 +77,14 @@ function text(value: unknown, max = 600): string | undefined {
 export function sanitizeHeroHtml(value: unknown): string | undefined {
   const raw = text(value, 400);
   if (!raw) return undefined;
-  const allowed = /<(\/?)(br|em|strong|span)\b[^>]*>/giu;
-  const stripped = raw.replace(/<[^>]*>/gu, (tag) => (allowed.test(tag) ? tag : ""));
+  const stripped = raw.replace(/<[^>]*>|</gu, (tag) => {
+    if (tag === "<") return "&lt;";
+    const match = /^<\s*(\/?)\s*(br|em|strong|span)\b[^>]*>$/iu.exec(tag);
+    if (!match) return "";
+    const name = match[2]!.toLowerCase();
+    if (name === "br") return match[1] ? "" : "<br>";
+    return `<${match[1]}${name}>`;
+  });
   return stripped.replace(/\s+/gu, " ").trim() || undefined;
 }
 

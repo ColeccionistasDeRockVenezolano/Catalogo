@@ -1,0 +1,24 @@
+<%
+  // Conmutador de idioma. Es un enlace normal: sin JavaScript el visitante
+  // cambia de idioma igual, y la elección queda guardada en una cookie que
+  // pisa lo que dijera el navegador. La página se vuelve a servir en la misma
+  // dirección, así que nunca se pierde dónde estaba.
+  //
+  // Toda la pastilla es un único conmutador que lleva al otro idioma: se pulse
+  // donde se pulse, la página y la marca del conmutador cambian juntas. Las dos
+  // etiquetas de dentro solo dibujan en cuál se está y a cuál se va.
+  const otherLang = langOptions.find(function (option) { return !option.current; }) || langOptions[0];
+%>
+<li class="nav-lang">
+  <a class="lang-switch"
+     href="<%= otherLang.url %>"
+     hreflang="<%= otherLang.code %>"
+     title="<%= t('nav.languageSwitchTo', { language: otherLang.name }) %>"
+     aria-label="<%= langOptions.map(function (option) { return option.label; }).join(' ') %> — <%= t('nav.languageSwitchTo', { language: otherLang.name }) %>">
+    <% langOptions.forEach(function (option) { %>
+    <span class="lang-switch__opt<%= option.current ? ' is-active' : '' %>"
+          lang="<%= option.code %>"
+          aria-hidden="true"><%= option.label %></span>
+    <% }) %>
+  </a>
+</li>

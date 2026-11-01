@@ -30,6 +30,7 @@ import { registerOperatorAuth } from "./auth.js";
 import { registerHealthRoutes } from "./routes/health.js";
 import { registerCommunityRoutes } from "./routes/community.js";
 import { registerRoadmapRoutes } from "./routes/roadmap.js";
+import { registerLandingRoutes } from "./routes/landing.js";
 import { registerProjectConfigRoutes } from "./routes/project-config.js";
 import { registerRadioRoutes } from "./routes/radio.js";
 import { registerDiscoveryRoutes } from "./routes/discovery.js";
@@ -174,6 +175,7 @@ export async function buildApp(): Promise<FastifyInstance> {
     await registerCommunityRoutes(app);
     await registerRoadmapRoutes(app);
     await registerProjectConfigRoutes(app);
+    await registerLandingRoutes(app);
   }
   if (env.CRV_RADIO_ENABLED) await registerRadioRoutes(app);
   await registerImageUploadRoutes(app);

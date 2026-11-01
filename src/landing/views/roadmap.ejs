@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%
+  // Los metadatos salen de la identidad configurada por el proyecto y caen a
+  // los textos de siempre cuando no hay nada escrito. La indexación también es
+  // una decisión del proyecto: por defecto sigue siendo «no indexar».
+  const meta = pageMeta(branding, defaultPageMeta(theme.projectName, lang));
+  const faqItems = [1, 2, 3, 4].map(function (index) {
+    return { question: branding['faq' + index + 'Question'], answer: branding['faq' + index + 'Answer'] };
+  }).filter(function (item) { return item.question && item.answer; });
+  const canonicalPageUrl = canonicalUrl || (pageOrigin + projectBase + '/');
+  // El embed debe anunciar el origen real que sirve la pagina: la API de
+  // YouTube compara los postMessage contra el. La URL canonica no siempre
+  // coincide (pruebas locales, hosts alternos) y el handshake muere en
+  // silencio cuando no es asi.
+  const radioOrigin = pageOrigin;
+  // La barra de la radio mide el tramo completo: canción + cuña hasta la
+  // siguiente. Así el primer pintado coincide con el reloj del cliente.
+  const radioGapSeconds = radio && radio.sweeper && radio.sweeperSlot
+    ? Math.max(0, radio.sweeper.durationSeconds - (radio.sweeper.leadSeconds || 0) - (radio.sweeper.overlapSeconds || 0))
+    : 0;
+  // Sin cuña, la canción siguiente entra antes de que esta termine: el tramo
+  // visible de la barra es la canción menos ese cruce.
+  const radioCrossSeconds = radio && !radio.sweeperSlot ? (radio.crossfadeSeconds || 0) : 0;
+  const radioSlotSeconds = radio ? Math.max(1, radio.current.durationSeconds + radioGapSeconds - radioCrossSeconds) : 1;
+  const radioDoneSeconds = radio ? (radio.phase === 'sweeper' ? radio.current.durationSeconds : 0) + radio.offsetSeconds : 0;
+  const radioProgress = Math.max(0, Math.min(1, radioDoneSeconds / radioSlotSeconds));
+  const organizationId = canonicalPageUrl + '#organization';
+  const websiteId = canonicalPageUrl + '#website';
+  const pageId = canonicalPageUrl + '#webpage';
+  const sameAs = branding.socialLinks.map(function (link) { return link.url; }).filter(function (url) { return /^https?:/.test(url); });
+  const colors = theme.colors;
+  const inlineThemeStyle = [
+    '--bg:' + colors.bg, '--surface:' + colors.surface, '--surface-2:' + colors.surface2,
+    '--red:' + colors.red, '--red-dark:' + colors.redDark, '--white:' + colors.white,
+    '--gray:' + colors.gray, '--border:' + colors.border, '--accent-red:' + colors.accentRed,
+    '--accent-amber:' + colors.accentAmber, '--accent-violet:' + colors.accentViolet,
+    '--accent-teal:' + colors.accentTeal, '--font-title:' + withFontFallbacks(theme.fontTitle),
+    '--font-body:' + withFontFallbacks(theme.fontBody),
+  ].join(';');
+  const structuredGraph = [
+    {
+      '@type': 'Organization', '@id': organizationId, name: theme.projectName,
+      url: canonicalPageUrl, description: branding.aboutDescription || meta.description,
+      sameAs: sameAs,
+    },
+    {
+      '@type': 'WebSite', '@id': websiteId, url: canonicalPageUrl, name: theme.projectName,
+      inLanguage: lang, publisher: { '@id': organizationId },
+    },
+    {
+      '@type': 'WebPage', '@id': pageId, url: canonicalPageUrl, name: meta.title,
+      description: meta.description, inLanguage: lang, isPartOf: { '@id': websiteId },
+      about: { '@id': organizationId },
+      dateModified: view.lastUpdated ? isoDateTime(view.lastUpdated) : undefined,
+    },
+  ];
+  if (faqItems.length > 0) structuredGraph.push({
+    '@type': 'FAQPage', '@id': canonicalPageUrl + '#faq', inLanguage: lang,
+    mainEntity: faqItems.map(function (item) {
+      return { '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } };
+    }),
+  });
+%>
+<%- include('partials/head', {
+  pageTitle: meta.title,
+  description: meta.description,
+  noindex: meta.noindex,
+  shareTitle: meta.ogTitle,
+  shareDescription: meta.ogDescription,
+  shareImageAlt: meta.imageAlt,
+  metaKeywords: meta.keywords,
+  inlineTheme: true,
+  publicAssets: true,
+}) %>
+<noscript>
+  <link rel="stylesheet" href="<%= basePath %>/static/roadmap-public.min.css?v=<%= assetVersion %>">
+  <link rel="stylesheet" href="<%= basePath %>/static/roadmap-nojs.css?v=<%= assetVersion %>">
+</noscript>
+<script type="application/ld+json"><%- jsonLd({ '@context': 'https://schema.org', '@graph': structuredGraph }) %></script>
+</head>
+<body class="public-roadmap<%= radio ? ' has-radio' : '' %>" style="<%= inlineThemeStyle %>" data-current-user-id="<%= currentUser ? currentUser.id : '' %>" data-can-manage-all-tasks="<%= projectAdmin ? 'true' : 'false' %>" data-api-base="<%= projectBase %>/api" data-messages="<%= JSON.stringify(clientMessages(lang, 'roadmap')) %>">
+<%- include('partials/header', { isAdmin: false, currentUser, alwaysShowLoginInMenu: true, showContextLinks: Boolean(branding.aboutTitle), showRadio: Boolean(radio), showMap: true, publicAssets: true }) %>
+
+<main>
+<section class="hero hero-roadmap" id="inicio">
+  <div class="hero-glow"></div>
+  <div class="container hero-inner hero-layout<%= radio ? ' hero-layout--radio' : '' %>">
+    <div class="hero-copy">
+      <span class="badge"><i data-lucide="<%= radio ? 'radio-tower' : 'chart-no-axes-column-increasing' %>"></i> <%= t(radio ? 'radio.badge' : 'roadmap.badge') %></span>
+      <h1><%- theme.heroTitleHtml %><span class="accent">.</span></h1>
+      <p class="hero-sub"><%= theme.heroSubPublic %></p>
+    </div>
+
+    <% if (radio) { %>
+    <aside class="radio-card" id="radio" aria-label="<%= t('radio.aria', { station: radioTexts.stationName }) %>" data-radio-state="ready"
+      data-radio-sweeper="<%= radio.sweeper ? 'true' : 'false' %>" data-radio-static-base="<%= basePath %>/static" data-radio-live-label="<%= t('radio.live', { station: radioTexts.stationName }) %>" data-radio-project-name="<%= theme.projectName %>"
+      data-radio-api="<%= projectBase %>/api/radio/now"
+      data-radio-listener-api="<%= projectBase %>/api/radio/listener"
+      data-radio-unavailable-api="<%= projectBase %>/api/radio/unavailable"
+      data-radio-diagnostic-api="<%= projectBase %>/api/radio/diagnostic"
+      data-radio-video-id="<%= radio.current.videoId %>"
+      data-radio-start-seconds="<%= radio.current.startSeconds %>"
+      data-radio-queue-id="<%= radio.queueId %>"
+      data-radio-starts-at="<%= radio.startsAt %>">
+      <header class="radio-card__head">
+        <span class="radio-card__live"><i aria-hidden="true"></i><%= t('radio.live', { station: radioTexts.stationName }) %></span>
+        <div class="radio-card__head-actions">
+          <span class="radio-card__listeners" data-radio-listeners><%= radio.listeners > 1 ? t('radio.listenerMany', { n: radio.listeners }) : t('radio.listenerQuiet') %></span>
+          <button class="radio-card__cinema" type="button" data-radio-cinema aria-pressed="false"
+            aria-label="<%= t('radio.cinemaEnter') %>" title="<%= t('radio.cinemaEnter') %>"
+            data-enter-label="<%= t('radio.cinemaEnter') %>" data-exit-label="<%= t('radio.cinemaExit') %>">
+            <i data-lucide="maximize-2" data-radio-cinema-enter-icon></i>
+            <i data-lucide="minimize-2" data-radio-cinema-exit-icon hidden></i>
+            <span><%= t('radio.cinema') %></span>
+          </button>
+        </div>
+      </header>
+      <div class="radio-card__screen">
+        <div class="radio-card__identifier" data-radio-identifier hidden>
+          <div class="radio-card__identifier-stage" data-radio-identifier-stage aria-hidden="true">
+            <div class="radio-card__art" data-radio-identifier-art>
+              <svg class="radio-card__arc" viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                <defs>
+                  <linearGradient id="radioArcRed" x1="0" y1="0" x2="1" y2=".4">
+                    <stop offset="0%" stop-color="#0a080a"></stop>
+                    <stop offset="27%" stop-color="#181519"></stop>
+                    <stop offset="56%" stop-color="#c20d1e"></stop>
+                    <stop offset="76%" stop-color="#bf1124"></stop>
+                    <stop offset="100%" stop-color="#16070b"></stop>
+                  </linearGradient>
+                  <linearGradient id="radioArcDull" x1="0" y1="0" x2="1" y2=".45">
+                    <stop offset="0%" stop-color="#060608"></stop>
+                    <stop offset="48%" stop-color="#5a111b"></stop>
+                    <stop offset="74%" stop-color="#e01a2b"></stop>
+                    <stop offset="100%" stop-color="#100709"></stop>
+                  </linearGradient>
+                </defs>
+                <path class="radio-card__arc-dark" d="M 18 306 C 89 85, 248 -10, 404 12 C 566 23, 656 177, 686 325"></path>
+                <path class="radio-card__arc-shadow" d="M 55 310 C 134 119, 269 32, 414 49 C 566 69, 622 185, 645 316"></path>
+                <path class="radio-card__arc-red" d="M 34 295 C 109 98, 255 -5, 416 15 C 561 30, 637 155, 658 298"></path>
+                <path class="radio-card__arc-second" d="M 82 297 C 160 137, 294 53, 421 72 C 539 84, 588 184, 604 297"></path>
+              </svg>
+              <span class="radio-card__wave-fog radio-card__wave-fog--left"></span>
+              <span class="radio-card__wave-fog radio-card__wave-fog--right"></span>
+              <span class="radio-card__wave radio-card__wave--left" data-radio-wave="left"></span>
+              <span class="radio-card__wave radio-card__wave--right" data-radio-wave="right"></span>
+              <span class="radio-card__reflect"></span>
+              <span class="radio-card__horizon"></span>
+              <img class="radio-card__r" src="<%= basePath %>/static/radio/r-logo.png" alt="" width="334" height="315" draggable="false">
+              <span class="radio-card__wordmark"><span class="radio-card__wordmark-first">adio</span><span class="radio-card__wordmark-last"><%= radioTexts.stationName %></span></span>
+            </div>
+          </div>
+          <p class="sr-only"><%= t('radio.brand') %> <%= radioTexts.stationName %></p>
+          <div class="radio-card__identifier-footer">
+            <div class="radio-card__coming">
+              <div class="radio-card__coming-label"><span><%= t('radio.next') %></span><span data-radio-identifier-countdown aria-hidden="true"></span></div>
+              <strong data-radio-identifier-next></strong>
+              <span data-radio-identifier-artist></span>
+            </div>
+            <button type="button" data-radio-identifier-toggle><%= t('radio.identifierPlay') %></button>
+          </div>
+        </div>
+        <iframe id="radioPlayer"
+          data-src="https://www.youtube.com/embed/<%= radio.current.videoId %>?enablejsapi=1&amp;playsinline=1&amp;rel=0&amp;autoplay=1&amp;start=<%= radio.current.startSeconds + radio.offsetSeconds %>&amp;end=<%= radio.current.startSeconds + radio.current.durationSeconds %>&amp;origin=<%= encodeURIComponent(radioOrigin) %>&amp;controls=0&amp;fs=0&amp;disablekb=1&amp;iv_load_policy=3"
+          title="<%= t('radio.videoTitle', { title: radio.current.title }) %>"
+          width="560" height="315" loading="lazy"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="radio-card__content">
+        <p class="radio-card__label"><%= t('radio.now') %></p>
+        <h2 data-radio-title><%= radio.phase === 'sweeper' ? t('radio.identifier') : radio.current.title %></h2>
+        <p class="radio-card__artist" data-radio-artist><%= [radio.current.artist, radio.current.album, radio.current.year].filter(Boolean).join(' · ') %></p>
+        <div class="radio-card__timeline" aria-hidden="true"><i data-radio-progress style="--radio-progress-scale: <%= radioProgress.toFixed(4) %>"></i></div>
+        <div class="radio-card__status-row">
+          <p class="radio-card__status" data-radio-status aria-live="polite"><%= t('radio.ready') %></p>
+          <button class="radio-card__sync" type="button" data-radio-sync><i data-lucide="radio"></i><span><%= t('radio.join') %></span></button>
+        </div>
+        <div class="radio-card__volume" data-radio-volume hidden>
+          <button class="radio-card__mute" type="button" data-radio-mute
+            aria-label="<%= t('radio.mute') %>" title="<%= t('radio.mute') %>" aria-pressed="false">
+            <i data-lucide="volume-2" data-radio-volume-on-icon></i>
+            <i data-lucide="volume-x" data-radio-volume-off-icon hidden></i>
+          </button>
+          <input class="radio-card__range" type="range" min="0" max="100" step="1" value="100"
+            data-radio-range aria-label="<%= t('radio.volume') %>">
+        </div>
+        <div class="radio-card__next">
+          <span><%= t('radio.next') %></span>
+          <strong data-radio-next><%= [radio.next.artist, radio.next.title].filter(Boolean).join(' — ') %></strong>
+        </div>
+      </div>
+      <noscript><p class="radio-card__noscript"><a href="https://www.youtube.com/watch?v=<%= radio.current.videoId %>&amp;t=<%= radio.current.startSeconds %>s" rel="noopener noreferrer">YouTube · <%= radio.current.title %></a></p></noscript>
+    </aside>
+    <div class="radio-cinema-backdrop" data-radio-cinema-backdrop hidden aria-hidden="true"></div>
+    <% } else { %>
+      <%- include('partials/overall-progress', { compact: false }) %>
+    <% } %>
+
+    <div class="hero-account" id="account-actions" aria-label="<%= t('roadmap.accountArea') %>">
+        <% if (!currentUser && showLoginLinks) { %>
+        <a class="hero-account__action hero-account__action--primary" href="<%= projectBase %>/login">
+          <span class="hero-account__icon"><i data-lucide="log-in"></i></span>
+          <span><strong><%= t('roadmap.signInTitle') %></strong><small><%= t('roadmap.signInSub') %></small></span>
+          <i data-lucide="arrow-right" class="hero-account__arrow"></i>
+        </a>
+        <% } %>
+        <% if (project.accepts_applications === 1 && !currentUser && !projectAdmin) { %>
+        <a class="hero-account__action" href="<%= projectBase %>/colaborar">
+          <span class="hero-account__icon"><i data-lucide="hand-heart"></i></span>
+          <span><strong><%= t('roadmap.applyTitle') %></strong><small><%= t('roadmap.applySub') %></small></span>
+          <i data-lucide="arrow-up-right" class="hero-account__arrow"></i>
+        </a>
+        <% } %>
+    </div>
+  </div>
+</section>
+
+<% if (!radio && !currentUser && !projectAdmin && branding.aboutTitle && branding.aboutDescription) { %>
+  <%- include('partials/project-context') %>
+<% } %>
+
+<% if (visibilityMode !== 'progress') { %>
+<section class="section" id="roadmap">
+  <div class="container">
+    <header class="roadmap-heading">
+      <div class="roadmap-heading__copy">
+        <% if (radio) { %>
+          <h2><%= t('roadmap.kicker') %></h2>
+          <p class="roadmap-heading__intro"><%= radioTexts.roadmapIntro || t('roadmap.sub') %></p>
+        <% } else { %>
+          <span class="kicker"><%= t('roadmap.kicker') %></span>
+          <h2><%= t('roadmap.title') %></h2>
+          <p><%= t('roadmap.sub') %></p>
+        <% } %>
+      </div>
+      <dl class="roadmap-heading__stats" aria-label="<%= t('roadmap.dimensions') %>">
+        <div><dt><%= t('roadmap.activeStages') %></dt><dd><%= view.categories.length %></dd></div>
+        <div><dt><%= t('roadmap.activities') %></dt><dd><%= view.overall.total %></dd></div>
+        <div><dt><%= t('roadmap.collaborators') %></dt><dd><%= collaboratorCount %></dd></div>
+      </dl>
+    </header>
+    <% if (radio) { %>
+      <%- include('partials/overall-progress', { compact: true }) %>
+    <% } %>
+    <% const hasCategoryPages = view.categories.length > 5; %>
+    <% if (currentUser) { %>
+    <div class="roadmap-filter">
+      <label class="roadmap-filter__toggle">
+        <input type="checkbox" data-my-tasks-filter>
+        <span><%= t('roadmap.onlyMyTasks') %></span>
+      </label>
+      <p class="roadmap-filter__empty" data-my-tasks-empty hidden><%= t('roadmap.noTasksAssigned') %></p>
+    </div>
+    <% } %>
+    <nav class="lines-pagination lines-pagination--top" data-lines-pagination aria-label="<%= t('roadmap.stagePaginationAria') %>" <%- hasCategoryPages ? '' : 'hidden' %>>
+      <div class="lines-pagination__identity">
+        <span class="lines-pagination__icon"><i data-lucide="rows-3"></i></span>
+        <div>
+          <strong><%= t('roadmap.stages') %></strong>
+          <span data-lines-range><%= t('roadmap.stageRange', { from: 1, to: Math.min(5, view.categories.length), total: view.categories.length }) %></span>
+        </div>
+      </div>
+      <div class="lines-pagination__controls">
+        <label for="lines-page-size"><%= t('roadmap.stagesPerPage') %></label>
+        <select id="lines-page-size" data-lines-page-size>
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="all"><%= t('common.all') %></option>
+        </select>
+        <button type="button" class="lines-page-btn" data-lines-page-prev aria-label="<%= t('roadmap.prevStagePage') %>"><i data-lucide="arrow-left"></i></button>
+        <span class="lines-pagination__page" data-lines-page-status aria-live="polite"><%= t('common.pageN', { n: 1 }) %></span>
+        <button type="button" class="lines-page-btn" data-lines-page-next aria-label="<%= t('roadmap.nextStagePage') %>"><i data-lucide="arrow-right"></i></button>
+      </div>
+    </nav>
+
+    <div class="roadmap-category-list roadmap-category-list--deferred" data-roadmap-category-list>
+    <% view.categories.forEach(function(cat, catIdx) { %>
+    <div class="cat-block cat-block--<%= cat.colorKey %>" data-cat-slug="<%= cat.slug %>" <%- catIdx >= 5 ? 'hidden' : '' %>>
+      <div class="section-head roadmap-card__head">
+        <div class="roadmap-card__title">
+          <span class="kicker kicker--<%= cat.colorKey %>"><%= phaseLabel(catIdx, lang) %></span>
+          <h2 class="cat-title"><%= cat.title %></h2>
+        </div>
+        <div class="record-total record-total--<%= cat.colorKey %>">
+          <strong><%= pctText(cat.progress.percentage) %></strong>
+          <span><%= t('roadmap.completedWord') %></span>
+        </div>
+      </div>
+      <div class="roadmap-card__progress-meta">
+        <span><%= t('roadmap.stageCompleted', { done: cat.progress.completed, total: cat.progress.total }) %></span>
+        <span><%= t('roadmap.stageRemaining', { n: cat.progress.total - cat.progress.completed }) %></span>
+      </div>
+      <div class="pbar pbar--<%= cat.colorKey %>" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= Math.round(cat.progress.percentage) %>" aria-label="<%= t('roadmap.stageProgress', { stage: cat.title }) %>">
+        <div class="pbar-fill pbar-fill--<%= cat.colorKey %>" style="--fill: <%= pctBar(cat.progress.percentage) %>"></div>
+      </div>
+
+      <ul class="task-list">
+        <% cat.tasks.forEach(function(t_, taskIdx) { %>
+        <% const assignedUsers = Array.isArray(t_.assigned_users) ? t_.assigned_users : (t_.assigned_user_id ? [{ id: t_.assigned_user_id, name: t_.assigned_user_name || '' }] : []); %>
+        <% const isMine = Boolean(currentUser && assignedUsers.some(function(assigned) { return assigned.id === currentUser.id; })); %>
+        <% const canChangeStatus = Boolean(allowTaskStatusChanges && (projectAdmin || isMine)); %>
+        <% const statusAria = isMine ? t('roadmap.changeStatusOfMine') : t('roadmap.changeStatusOfTask'); %>
+        <li class="task task--<%= t_.status %><%= isMine ? ' task--mine' : '' %>" <%- taskIdx >= 5 ? 'hidden' : '' %>>
+          <span class="task-glyph"><i data-lucide="<%= t_.status === 'completed' ? 'circle-check-big' : t_.status === 'in_progress' ? 'loader-circle' : 'circle' %>"></i></span>
+          <span class="task-text"><%= t_.title %></span>
+
+          <span class="task-meta">
+          <% if (canChangeStatus) { %>
+            <label class="visually-hidden" for="public-status-<%= t_.id %>"><%= statusAria %></label>
+            <select id="public-status-<%= t_.id %>" class="task-status-control" data-task-status-id="<%= t_.id %>" data-last-value="<%= t_.status %>" aria-label="<%= statusAria %>">
+              <option value="pending" <%- t_.status === 'pending' ? 'selected' : '' %>><%= t('status.pending') %></option>
+              <option value="in_progress" <%- t_.status === 'in_progress' ? 'selected' : '' %>><%= t('status.in_progress') %></option>
+              <option value="completed" <%- t_.status === 'completed' ? 'selected' : '' %>><%= t('status.completed') %></option>
+            </select>
+          <% } %>
+
+          <% if (assignedUsers.length > 0) { %>
+          <% const shownAssignees = assignedUsers.slice(0, 5); const extraAssignees = assignedUsers.length - shownAssignees.length; %>
+          <%
+            const assigneeAria = assignedUsers.length === 1
+              ? (isMine ? t('roadmap.assigneeMineAria') : t('roadmap.assigneeAria'))
+              : (isMine ? t('roadmap.assigneesMineAria', { n: assignedUsers.length }) : t('roadmap.assigneesAria', { n: assignedUsers.length }));
+          %>
+          <span class="assignee<%= isMine ? ' assignee--mine' : '' %>">
+            <button type="button" class="assignee-bubble" data-assignee-toggle aria-expanded="false" aria-label="<%= assigneeAria %>">
+              <i data-lucide="user" class="assignee-icon"></i>
+              <span class="assignee-count"><%= assignedUsers.length %></span>
+            </button>
+            <div class="assignee-popover" role="tooltip">
+              <% if (isMine) { %><p class="assignee-popover__mine"><%= t('roadmap.yourTask') %></p><% } %>
+              <% shownAssignees.forEach(function(assigned) { %><p><%= assigned.shortName %></p><% }) %>
+              <% if (extraAssignees > 0) { %>
+              <p class="assignee-popover__more"><%= extraAssignees === 1 ? t('roadmap.oneMoreCollaborator') : t('roadmap.moreCollaborators', { n: extraAssignees }) %></p>
+              <% } %>
+            </div>
+          </span>
+          <% } %>
+          <% if (!canChangeStatus) { %>
+          <span class="task-status task-status--<%= t_.status %>"><%= statusLabel(t_.status, lang) %></span>
+          <% } %>
+          </span>
+        </li>
+        <% }) %>
+        <% if (cat.tasks.length === 0) { %>
+        <li class="task task--empty"><%= t('roadmap.noActivities') %></li>
+        <% } %>
+      </ul>
+
+      <nav class="roadmap-pagination roadmap-pagination--<%= cat.colorKey %>" data-roadmap-pagination data-cat-slug="<%= cat.slug %>" aria-label="<%= t('roadmap.paginationOf', { stage: cat.title }) %>" <%- cat.tasks.length > 5 ? '' : 'hidden' %>>
+        <div class="roadmap-pagination__size">
+          <label class="visually-hidden" for="roadmap-pagesize-<%= cat.slug %>"><%= t('roadmap.activitiesPerPageIn', { stage: cat.title }) %></label>
+          <select id="roadmap-pagesize-<%= cat.slug %>" data-roadmap-page-size>
+            <option value="5" selected><%= t('roadmap.perPage', { n: 5 }) %></option>
+            <option value="10"><%= t('roadmap.perPage', { n: 10 }) %></option>
+            <option value="15"><%= t('roadmap.perPage', { n: 15 }) %></option>
+            <option value="20"><%= t('roadmap.perPage', { n: 20 }) %></option>
+            <option value="25"><%= t('roadmap.perPage', { n: 25 }) %></option>
+            <option value="all"><%= t('roadmap.seeAll') %></option>
+          </select>
+        </div>
+        <div class="roadmap-pagination__nav">
+          <button type="button" class="roadmap-page-btn" data-roadmap-page-prev aria-label="<%= t('roadmap.prevPageOf', { stage: cat.title }) %>"><i data-lucide="arrow-left"></i></button>
+          <span class="roadmap-pagination__status" data-roadmap-page-status aria-live="polite"><%= t('roadmap.range', { from: 1, to: Math.min(5, cat.tasks.length), total: cat.tasks.length }) %></span>
+          <button type="button" class="roadmap-page-btn" data-roadmap-page-next aria-label="<%= t('roadmap.nextPageOf', { stage: cat.title }) %>"><i data-lucide="arrow-right"></i></button>
+        </div>
+      </nav>
+    </div>
+    <% }) %>
+    </div>
+
+    <nav class="lines-pagination lines-pagination--bottom" data-lines-pagination aria-label="<%= t('roadmap.stagePaginationChange') %>" <%- hasCategoryPages ? '' : 'hidden' %>>
+      <div class="lines-pagination__identity">
+        <span class="lines-pagination__icon"><i data-lucide="rows-3"></i></span>
+        <div>
+          <strong><%= t('roadmap.stages') %></strong>
+          <span data-lines-range><%= t('roadmap.stageRange', { from: 1, to: Math.min(5, view.categories.length), total: view.categories.length }) %></span>
+        </div>
+      </div>
+      <div class="lines-pagination__controls lines-pagination__controls--compact">
+        <button type="button" class="lines-page-btn" data-lines-page-prev aria-label="<%= t('roadmap.prevStagePage') %>"><i data-lucide="arrow-left"></i></button>
+        <span class="lines-pagination__page" data-lines-page-status aria-live="polite"><%= t('common.pageN', { n: 1 }) %></span>
+        <button type="button" class="lines-page-btn" data-lines-page-next aria-label="<%= t('roadmap.nextStagePage') %>"><i data-lucide="arrow-right"></i></button>
+      </div>
+    </nav>
+
+    <p class="last-updated" id="lastUpdated" <%- view.lastUpdated ? '' : 'hidden' %>>
+      <% if (view.lastUpdated) { %><%= t('roadmap.lastUpdated') %> <time datetime="<%= isoDateTime(view.lastUpdated) %>"><%= formatDateTime(view.lastUpdated, lang) %></time><% } %>
+    </p>
+    <p class="roadmap-status" id="roadmapStatus" role="status" aria-live="polite"></p>
+  </div>
+</section>
+<% } %>
+
+<% if (radio && !currentUser && !projectAdmin && branding.aboutTitle && branding.aboutDescription) { %>
+  <%- include('partials/project-context') %>
+<% } %>
+
+<% if (!currentUser && !projectAdmin && branding.faqTitle && faqItems.length > 0) { %>
+<section class="section project-faq" id="preguntas" aria-labelledby="project-faq-title">
+  <div class="container project-faq__layout">
+    <div class="project-faq__head">
+      <h2 id="project-faq-title"><%= branding.faqTitle %></h2>
+      <p><%= t('roadmap.faqIntro') %></p>
+    </div>
+    <div class="project-faq__list">
+      <% faqItems.forEach(function (item, index) { %>
+      <details<%- index === 0 ? ' open' : '' %>>
+        <summary>
+          <span><%= item.question %></span>
+          <i data-lucide="plus" aria-hidden="true"></i>
+        </summary>
+        <p><%= item.answer %></p>
+      </details>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% if (hasSocialPresence(branding)) { %>
+<section class="section section--support" id="apoyo">
+  <div class="container support-inner">
+    <div class="support-head">
+      <% if (branding.supportKicker) { %><span class="kicker"><%= branding.supportKicker %></span><% } %>
+      <% if (branding.supportTitle) { %><h2><%= branding.supportTitle %></h2><% } %>
+      <% if (branding.supportSub) { %><p class="support-sub"><%= branding.supportSub %></p><% } %>
+    </div>
+    <%- include('partials/donate-button') %>
+    <% if (branding.socialLinks.length > 0) { %>
+    <div class="support-social">
+      <p class="support-social__label"><%= t('roadmap.findUsAt') %></p>
+      <%- include('partials/social-row', { variant: 'cards' }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+<% } %>
+
+<% if (project.accepts_applications === 1 && !currentUser && !projectAdmin) { %>
+<section class="section collab-closing">
+  <div class="container container--narrow">
+    <span class="kicker"><%= t('roadmap.participateKicker') %></span>
+    <h2><%= t('roadmap.participateTitle') %></h2>
+    <p><%= t('roadmap.participateBody') %></p>
+    <a class="btn btn-red" href="<%= projectBase %>/colaborar"><%= t('roadmap.applyTitle') %></a>
+  </div>
+</section>
+<% } %>
+</main>
+
+<%- include('partials/footer', { showVisitCounter, publicAssets: true }) %>
+<script src="<%= basePath %>/static/public-loader.js?v=<%= assetVersion %>"
+        data-i18n-client="<%= basePath %>/static/i18n-client.js?v=<%= assetVersion %>"
+        data-lucide-client="<%= basePath %>/static/vendor/lucide-public.min.js?v=<%= assetVersion %>"
+        data-icons-client="<%= basePath %>/static/icons.js?v=<%= assetVersion %>"
+        data-nav-client="<%= basePath %>/static/nav.js?v=<%= assetVersion %>"
+        data-visits-client="<%= basePath %>/static/visit-counter.js?v=<%= assetVersion %>"
+        data-full-style="<%= basePath %>/static/roadmap-public.min.css?v=<%= assetVersion %>"
+        data-roadmap-client="<%= basePath %>/static/roadmap.js?v=<%= assetVersion %>"
+        <% if (!showVisitCounter) { %>data-presence-url="<%= projectBase %>/api/presence"<% } %>
+        <%- radio ? `data-radio-client="${basePath}/static/radio.js?v=${assetVersion}"` : '' %> async></script>
+</body>
+</html>

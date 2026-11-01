@@ -1,0 +1,20 @@
+<%
+  // «Herramientas» solo agrupa: nunca navega. En escritorio se despliega al
+  // pasar el cursor (o al enfocar con teclado); en el panel móvil se muestra
+  // como encabezado con sus opciones debajo.
+%>
+<% if (variant === 'desktop') { %>
+<li class="nav-dropdown" data-nav-dropdown>
+  <button type="button" class="nav-dropdown__trigger" data-nav-dropdown-trigger aria-expanded="false" aria-haspopup="true">
+    <%= t('nav.tools') %><i data-lucide="chevron-down" class="nav-dropdown__caret"></i>
+  </button>
+  <ul class="nav-dropdown__menu">
+    <li><a href="<%= projectBase %>/"><%= t('nav.roadmap') %></a></li>
+    <li><a href="<%= projectBase %>/kanban"><%= t('nav.kanban') %></a></li>
+  </ul>
+</li>
+<% } else { %>
+<li class="nav-group-label"><%= t('nav.tools') %></li>
+<li><a class="nav-sublink" href="<%= projectBase %>/"><%= t('nav.roadmap') %></a></li>
+<li><a class="nav-sublink" href="<%= projectBase %>/kanban"><%= t('nav.kanban') %></a></li>
+<% } %>

@@ -26,9 +26,23 @@
     return '<select class="task-status-control" data-collab-status="' + esc(task.id) + '" aria-label="' +
       (lang === "en" ? "Status of " : "Estado de ") + esc(task.title) + '">' + options + "</select>";
   }
+  function rowFor(task) {
+    var identified = list.querySelector('[data-task-id="' + task.id + '"]');
+    if (identified) return identified;
+    // La plantilla original de Herra no lleva el id en la fila pública.
+    // Solo asociamos por título cuando hay una única coincidencia; dos títulos
+    // iguales no deben permitir cambiar por error otra actividad.
+    var matches = Array.prototype.filter.call(list.querySelectorAll(".task"), function (row) {
+      var title = row.querySelector(".task-text");
+      return title && title.textContent.trim() === task.title;
+    });
+    if (matches.length !== 1) return null;
+    matches[0].setAttribute("data-task-id", String(task.id));
+    return matches[0];
+  }
   function apply() {
     mine.forEach(function (task) {
-      var row = list.querySelector('[data-task-id="' + task.id + '"]');
+      var row = rowFor(task);
       if (!row || row.querySelector("[data-collab-status]")) return;
       var meta = row.querySelector(".task-meta");
       if (!meta) return;
@@ -37,7 +51,7 @@
     });
   }
   function updateRow(task, status) {
-    var row = list.querySelector('[data-task-id="' + task.id + '"]');
+    var row = rowFor(task);
     if (!row) return;
     row.classList.remove("task--pending", "task--in_progress", "task--completed");
     row.classList.add("task--" + status);
@@ -85,7 +99,9 @@
   var observer = new MutationObserver(function () { apply(); });
   observer.observe(list, { childList: true, subtree: true });
 
-  fetch(new URL("api/roadmap/me", document.baseURI), {
+  var mineUrl = new URL("api/roadmap/me", document.baseURI);
+  mineUrl.searchParams.set("lang", lang);
+  fetch(mineUrl, {
     credentials: "include", headers: { Accept: "application/json" },
   }).then(function (response) {
     if (!response.ok) return null;

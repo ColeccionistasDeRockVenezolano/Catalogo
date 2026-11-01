@@ -42,6 +42,57 @@ const basePath = `/${(process.env.CRV_PUBLIC_PATH ?? "crv").replace(/^\/+|\/+$/g
 // En la raíz el API vive en `/api` (las portadas llaman a `api/...` relativas a
 // `<base href="/">`); bajo `/crv`, en `/crv/api`.
 const apiPath = basePath === "/" ? "/api" : `${basePath}/api`;
+const landingCache = new Map();
+
+async function serveLanding(req, res, page, lang, searchParams) {
+  const prefix = basePath === "/" ? "" : basePath;
+  const key = `${page}:${lang}`;
+  const token = (page === "registro" || page === "activar") ? searchParams.get("token") : null;
+  const cookie = req.headers.cookie;
+  const privateResponse = Boolean(token || cookie);
+  let entry = privateResponse ? undefined : landingCache.get(key);
+  if (!entry || entry.expires < Date.now()) {
+    try {
+      const params = new URLSearchParams({ lang });
+      if (token) params.set("token", token);
+      const response = await fetch(`http://${apiHost}:${apiPort}/landing/${page}?${params}`, {
+        signal: AbortSignal.timeout(5000), ...(cookie ? { headers: { cookie } } : {}),
+      });
+      if (response.status === 404) return reply(res, 404, "Página no disponible.");
+      if (!response.ok) throw new Error(`API ${response.status}`);
+      entry = { html: await response.text(), expires: Date.now() + 30_000 };
+      if (!privateResponse) landingCache.set(key, entry);
+    } catch {
+      return serveFile(req, res, `${prefix}/landing/${page}-${lang}.html`, searchParams);
+    }
+  }
+  const baseHref = prefix ? `${prefix}/` : "/";
+  let html = entry.html.replace("<head>", `<head><base href="${baseHref}"><meta name="crv-api-base" content="${apiPath}">`)
+    .replaceAll("/static/", `${prefix}/landing/`)
+    .replaceAll('data-visits-url="/api/visit"', `data-visits-url="${apiPath}/roadmap/visit"`)
+    .replaceAll('data-presence-url="/api/presence"', "")
+    .replaceAll('"/api/', `"${apiPath}/`)
+    .replaceAll("/media/favicon?", `${apiPath}/landing-media/favicon?`)
+    .replaceAll("/media/share?", `${apiPath}/landing-media/share?`)
+    .replaceAll('href="/theme.css"', `href="${prefix}/landing/theme.css"`)
+    .replaceAll('href="/register"', `href="${prefix}/registro"`)
+    .replaceAll('href="/account"', `href="${prefix}/cuenta"`)
+    .replaceAll('href="/admin"', `href="${prefix}/curaduria/roadmap"`)
+    .replaceAll('href="/login"', `href="${prefix}/login"`)
+    .replaceAll('href="/colaborar"', `href="${prefix}/colaborar"`)
+    .replaceAll('href="/"', `href="${prefix}/roadmap"`)
+    .replaceAll('href="/roadmap?', `href="${prefix}/roadmap?`)
+    .replaceAll('href="/colaborar?', `href="${prefix}/colaborar?`)
+    .replaceAll('href="/login?', `href="${prefix}/login?`)
+    .replaceAll('href="/registro?', `href="${prefix}/registro?`)
+    .replaceAll('href="/activar?', `href="${prefix}/activar?`);
+  html = html.replace(/<li><a(?: class="[^"]*")? href="\/kanban">[\s\S]*?<\/a><\/li>/g, "");
+  const scripts = page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js"] : ["registro-activar.js"];
+  html = html.replace("</body>", `${scripts.map((src) => `<script src="${prefix}/landing/${src}" defer></script>`).join("")}</body>`);
+  const body = Buffer.from(html);
+  res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", ...SECURITY_HEADERS });
+  return res.end(req.method === "HEAD" ? undefined : body);
+}
 
 // Techo por IP y minuto para TODO lo que sirve el gateway (estáticos, media y
 // el proxy al API). Holgado para navegación humana (una ficha son ~20
@@ -66,7 +117,7 @@ const SECURITY_HEADERS = {
   // rutas relativas resuelvan siempre bajo el prefijo. `base-uri 'none'`
   // bloqueaba esa etiqueta (y con ella document.baseURI), así que se permite
   // el mismo origen y se sigue rechazando una base ajena.
-  "content-security-policy": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' https://www.youtube.com https://s.ytimg.com https://w.soundcloud.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'",
+  "content-security-policy": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' https://www.youtube.com https://s.ytimg.com https://w.soundcloud.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'",
   "permissions-policy": "camera=(), microphone=(), geolocation=()",
   "referrer-policy": "no-referrer",
   "x-content-type-options": "nosniff",
@@ -474,35 +525,18 @@ const server = http.createServer(async (req, res) => {
   const virtualUrl = new URL(requestUrl);
   virtualUrl.pathname = virtualPath;
   if (virtualUrl.pathname === apiPath || virtualUrl.pathname.startsWith(`${apiPath}/`)) return proxyApi(req, res, virtualUrl);
-  // La landing del roadmap es un documento estático con el HTML/CSS de la
-  // portada; se sirve fuera del SPA para que el clon sea 1:1.
-  const roadmapPath = `${basePath === "/" ? "" : basePath}/roadmap`;
-  if ((req.method === "GET" || req.method === "HEAD") && virtualUrl.pathname.replace(/\/+$/u, "") === roadmapPath) {
-    // Sin barra final: los assets del documento son relativos (landing/...).
-    if (virtualUrl.pathname !== roadmapPath) {
-      res.writeHead(301, { location: `${roadmapPath}${virtualUrl.search}` });
+  // Las cinco páginas usan el documento renderizado por la API, con fallback
+  // estático cuando no se puede contactar con ella.
+  const landingPrefix = basePath === "/" ? "" : basePath;
+  const landingPage = ["roadmap", "colaborar", "login", "registro", "activar"].find((page) => virtualUrl.pathname.replace(/\/+$/u, "") === `${landingPrefix}/${page}`);
+  if ((req.method === "GET" || req.method === "HEAD") && landingPage) {
+    const canonical = `${landingPrefix}/${landingPage}`;
+    if (virtualUrl.pathname !== canonical) {
+      res.writeHead(301, { location: `${canonical}${virtualUrl.search}` });
       return res.end();
     }
     const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
-    return serveFile(req, res, `${basePath === "/" ? "" : basePath}/landing/roadmap-${lang}.html`, virtualUrl.searchParams);
-  }
-  const collaboratePath = `${basePath === "/" ? "" : basePath}/colaborar`;
-  if ((req.method === "GET" || req.method === "HEAD") && virtualUrl.pathname.replace(/\/+$/u, "") === collaboratePath) {
-    if (virtualUrl.pathname !== collaboratePath) {
-      res.writeHead(301, { location: `${collaboratePath}${virtualUrl.search}` });
-      return res.end();
-    }
-    const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
-    return serveFile(req, res, `${basePath === "/" ? "" : basePath}/landing/colaborar-${lang}.html`, virtualUrl.searchParams);
-  }
-  const loginPath = `${basePath === "/" ? "" : basePath}/login`;
-  if ((req.method === "GET" || req.method === "HEAD") && virtualUrl.pathname.replace(/\/+$/u, "") === loginPath) {
-    if (virtualUrl.pathname !== loginPath) {
-      res.writeHead(301, { location: `${loginPath}${virtualUrl.search}` });
-      return res.end();
-    }
-    const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
-    return serveFile(req, res, `${basePath === "/" ? "" : basePath}/landing/login-${lang}.html`, virtualUrl.searchParams);
+    return serveLanding(req, res, landingPage, lang, virtualUrl.searchParams);
   }
   // robots.txt y sitemap los sirve el gateway, no el build: responden con el
   // host real que ve el buscador (hoy el Funnel; mañana el dominio propio).

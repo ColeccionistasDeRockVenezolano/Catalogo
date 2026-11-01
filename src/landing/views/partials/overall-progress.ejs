@@ -1,0 +1,18 @@
+<aside class="overall<%= typeof compact !== 'undefined' && compact ? ' overall--roadmap' : '' %>" aria-label="<%= t('roadmap.summaryAria') %>">
+  <div class="overall-head">
+    <span><i data-lucide="activity"></i> <%= t('roadmap.summary') %></span>
+    <span class="overall-live"><i aria-hidden="true"></i> <%= t('roadmap.upToDate') %></span>
+  </div>
+  <div class="overall-num"><strong id="overallPct"><%= pctText(view.overall.percentage) %></strong><span><%= t('roadmap.completedWord') %></span></div>
+  <div class="overall-meta">
+    <p><%= t('roadmap.completedAndPending', { done: view.overall.completed, left: view.overall.total - view.overall.completed }) %></p>
+    <div class="pbar pbar-overall" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= Math.round(view.overall.percentage) %>" aria-label="<%= t('roadmap.overallProgress') %>">
+      <div class="pbar-fill pbar-fill--overall" style="--fill: <%= pctBar(view.overall.percentage) %>"></div>
+    </div>
+  </div>
+  <dl class="overall-stats">
+    <div><dt><%= t('roadmap.statTotal') %></dt><dd id="overallTotal"><%= view.overall.total %></dd></div>
+    <div><dt><%= t('roadmap.statCompleted') %></dt><dd id="overallCompleted"><%= view.overall.completed %></dd></div>
+    <div><dt><%= t('roadmap.statRemaining') %></dt><dd id="overallRemaining"><%= view.overall.total - view.overall.completed %></dd></div>
+  </dl>
+</aside>

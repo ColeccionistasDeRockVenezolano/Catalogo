@@ -1,0 +1,27 @@
+<section class="section project-context" id="proyecto" aria-labelledby="project-context-title">
+  <div class="container project-context__layout">
+    <div class="project-context__lead">
+      <h2 id="project-context-title"><%= branding.aboutTitle %></h2>
+      <p><%= branding.aboutDescription %></p>
+      <% if (branding.aboutSourceUrl && branding.aboutSourceLabel) { %>
+      <a class="project-context__source" href="<%= branding.aboutSourceUrl %>" rel="noopener noreferrer">
+        <%= branding.aboutSourceLabel %> <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+      </a>
+      <% } %>
+    </div>
+    <dl class="project-context__notes">
+      <% if (branding.aboutStatus) { %>
+      <div>
+        <dt><%= t('roadmap.currentState') %></dt>
+        <dd><%= branding.aboutStatus %></dd>
+      </div>
+      <% } %>
+      <% if (branding.aboutScope) { %>
+      <div>
+        <dt><%= t('roadmap.projectScope') %></dt>
+        <dd><%= branding.aboutScope %></dd>
+      </div>
+      <% } %>
+    </dl>
+  </div>
+</section>

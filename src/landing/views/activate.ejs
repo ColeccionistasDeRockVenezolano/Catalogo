@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head', { pageTitle: t('activate.pageTitle') + ' — ' + theme.projectName, noindex: true }) %>
+</head>
+<body class="login-body">
+<main class="login-main">
+  <div class="login-card">
+    <%- include('partials/project-mark', { size: 'lg' }) %>
+    <h1><%= t('activate.pageTitle') %></h1>
+
+    <% if (!valid) { %>
+      <p class="login-sub"><%- t('activate.invalidSub', { project: theme.projectName }) %></p>
+      <a class="login-back" href="<%= projectBase %>/"><i data-lucide="arrow-left"></i> <%= t('activate.backToProject') %></a>
+    <% } else { %>
+      <p class="login-sub"><%- user.first_name
+        ? t('activate.subNamed', { name: user.first_name, project: theme.projectName })
+        : t('activate.sub', { project: theme.projectName }) %></p>
+      <% if (error) { %><p class="login-error" role="alert"><%= error %></p><% } %>
+      <form method="post" action="<%= projectBase %>/activar" class="login-form">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <input type="hidden" name="token" value="<%= token %>">
+        <div class="field">
+          <label for="name"><%= t('userLogin.name') %></label>
+          <input type="text" id="name" name="name" minlength="2" maxlength="80" autocomplete="username" required autofocus>
+          <small class="field-help"><%= t('register.usernameHelp') %></small>
+        </div>
+        <div class="field">
+          <label for="accessCode"><%= t('register.accessCode') %></label>
+          <input type="password" id="accessCode" name="accessCode" minlength="12" maxlength="200" autocomplete="new-password" pattern="(?=.*[A-Za-z])(?=.*\d).{12,}" title="<%= t('activate.accessCodeTitle12') %>" required>
+          <small class="field-help"><%= t('activate.accessCodeHelp12') %></small>
+        </div>
+        <div class="field">
+          <label for="accessCodeConfirm"><%= t('register.accessCodeRepeat') %></label>
+          <input type="password" id="accessCodeConfirm" name="accessCodeConfirm" minlength="12" maxlength="200" autocomplete="new-password" required>
+        </div>
+        <button type="submit" class="btn btn-red btn-block"><%= t('activate.submit') %></button>
+      </form>
+      <p class="field-help"><%= t('activate.singleUse') %></p>
+    <% } %>
+  </div>
+</main>
+</body>
+</html>

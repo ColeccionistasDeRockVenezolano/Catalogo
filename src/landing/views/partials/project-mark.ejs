@@ -1,0 +1,13 @@
+<%
+  const isCrvProject = typeof project !== 'undefined' && project
+    && project.slug === 'coleccionistas-rock-venezolano';
+  const markSize = typeof size === 'string' ? size : '';
+  const badgeSize = markSize === 'lg' ? ' brand-badge--lg' : '';
+  const logoSize = markSize === 'lg' ? ' brand-logo--lg'
+    : markSize === 'account' ? ' brand-logo--account' : '';
+%>
+<% if (isCrvProject) { %>
+  <span class="brand-logo<%= logoSize %>" aria-hidden="true"><img src="<%= basePath %>/static/crv-logo.jpg" alt="" width="160" height="160"></span>
+<% } else { %>
+  <span class="brand-badge<%= badgeSize %>"><%= theme.brandBadgeLetter %></span>
+<% } %>

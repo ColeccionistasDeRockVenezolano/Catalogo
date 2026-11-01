@@ -1,0 +1,28 @@
+<%
+  // El pie repite las redes en versión compacta: quien llega al final de la
+  // página ya no tiene la sección de apoyo a la vista.
+  const footerHasSocial = typeof branding !== 'undefined' && branding
+    && Array.isArray(branding.socialLinks) && branding.socialLinks.length > 0;
+  // El contador es del lado público: llega encendido desde res.locals cuando el
+  // proyecto lo tiene activado, y el panel de administración lo apaga pasando
+  // showVisitCounter: false en su propia inclusión de este parcial.
+  const footerHasVisits = Boolean(typeof showVisitCounter !== 'undefined' && showVisitCounter);
+  const showCrvLogo = typeof project !== 'undefined' && project && project.slug === 'coleccionistas-rock-venezolano';
+%>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand<%= showCrvLogo ? ' footer-brand--crv' : '' %>">
+      <% if (showCrvLogo) { %>
+        <span class="brand-logo" aria-hidden="true"><img src="<%= basePath %>/static/crv-logo.jpg" alt="" width="160" height="160"></span>
+      <% } else { %>
+        <span class="brand-badge"><%= theme.brandBadgeLetter %></span>
+      <% } %>
+      <p><%= theme.projectName %></p>
+    </div>
+    <% if (footerHasSocial) { %>
+    <%- include('social-row', { variant: 'icons' }) %>
+    <% } %>
+    <p class="footer-note"><%= theme.footerNote %> © <span><%= new Date().getFullYear() %></span> · <a href="<%= basePath %>/"><%= appName %></a></p>
+  </div>
+</footer>
+<% if (footerHasVisits) { %><%- include('visit-counter') %><% } %>
