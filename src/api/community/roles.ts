@@ -8,6 +8,16 @@ export type AccountRole = "admin" | "reader" | "curator" | "community";
 
 export const COMMUNITY_ADMIN_PREFIX = "/community/admin";
 
+/**
+ * «Mi perfil» no es una sección de trabajo: cada cuenta —incluida la de solo
+ * lectura— administra sus propios datos, sus enlaces y su clave.
+ */
+const SELF_SERVICE_PATH = /^\/account(\/|$)/u;
+
+export function isSelfServicePath(path: string): boolean {
+  return SELF_SERVICE_PATH.test(path);
+}
+
 export function isCommunityAdminPath(path: string): boolean {
   return path === COMMUNITY_ADMIN_PREFIX || path.startsWith(`${COMMUNITY_ADMIN_PREFIX}/`);
 }
@@ -18,9 +28,10 @@ export function isCommunityAdminPath(path: string): boolean {
  * - curator: catálogo (incluye sus lecturas privadas), nunca comunidad ni chat.
  * - community: solo /community/admin.
  * - reader: nada privado.
- * `/auth/logout` se resuelve antes de esta función.
+ * `/auth/logout` y `/account/*` se resuelven antes de esta función.
  */
 export function roleCanAccess(role: AccountRole, path: string): boolean {
+  if (isSelfServicePath(path)) return true;
   if (role === "admin") return true;
   if (role === "reader") return false;
   if (isCommunityAdminPath(path)) return role === "community";

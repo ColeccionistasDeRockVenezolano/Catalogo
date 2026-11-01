@@ -25,4 +25,14 @@ describe("roleCanAccess", () => {
     expect(roleCanAccess("reader", "/community/admin/collaborators")).toBe(false);
     expect(roleCanAccess("reader", "/catalog-editor/artists")).toBe(false);
   });
+
+  it("cualquier rol administra su propio perfil en /account", () => {
+    for (const role of ["admin", "curator", "community", "reader"] as const) {
+      expect(roleCanAccess(role, "/account/profile")).toBe(true);
+      expect(roleCanAccess(role, "/account/password")).toBe(true);
+    }
+    // La excepción es solo de /account: no abre /accounts ni otras secciones.
+    expect(roleCanAccess("reader", "/accounts")).toBe(false);
+    expect(roleCanAccess("reader", "/community/applications")).toBe(false);
+  });
 });

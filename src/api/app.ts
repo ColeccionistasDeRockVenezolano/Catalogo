@@ -29,6 +29,7 @@ import { toApiError } from "./http-errors.js";
 import { registerOperatorAuth } from "./auth.js";
 import { registerHealthRoutes } from "./routes/health.js";
 import { registerCommunityRoutes } from "./routes/community.js";
+import { registerAccountRoutes } from "./routes/account.js";
 import { registerRoadmapRoutes } from "./routes/roadmap.js";
 import { registerLandingRoutes } from "./routes/landing.js";
 import { registerProjectConfigRoutes } from "./routes/project-config.js";
@@ -173,6 +174,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerOperatorAuth(app);
   if (env.CRV_COMMUNITY_ENABLED) {
     await registerCommunityRoutes(app);
+    await registerAccountRoutes(app);
     await registerRoadmapRoutes(app);
     await registerProjectConfigRoutes(app);
     await registerLandingRoutes(app);

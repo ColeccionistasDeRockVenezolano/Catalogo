@@ -41,6 +41,14 @@ declare module "fastify" {
     /** CSRF de la sesión activa, para que una página estática pueda escribir. */
     csrfToken: string;
   }
+  interface FastifyInstance {
+    /**
+     * Reestampa la versión de cuenta de la sesión en curso. Se usa al cambiar
+     * la propia clave: la cuenta sube de versión y, sin esto, la sesión que
+     * hizo el cambio también quedaría invalidada.
+     */
+    restampSession: (request: FastifyRequest, sessionVersion: number) => Promise<void>;
+  }
 }
 
 export const OPERATOR_SECURITY = [{ collaboratorSession: [] }, { operatorToken: [] }];
@@ -430,6 +438,14 @@ export async function registerOperatorAuth(
   app.decorateRequest("viewer", null);
   app.decorateRequest("account", null);
   app.decorateRequest("csrfToken", "");
+  app.decorate("restampSession", async (request: FastifyRequest, sessionVersion: number) => {
+    const session = await sessionFor(request, sessions);
+    if (!session?.value.herra) return;
+    await sessions.set(session.key, {
+      ...session.value,
+      herra: { ...session.value.herra, sessionVersion },
+    });
+  });
   app.addHook("onClose", async () => herra?.close());
 
   /** Sesión activa, descartando las de cuentas que herra ya no habilita. */
