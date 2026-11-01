@@ -547,6 +547,10 @@
     "es": "El vivo sigue en marcha: pulsa para entrar.",
     "en": "The broadcast is still on: press to join."
   },
+  "radio.reconnecting": {
+    "es": "Se perdió la señal: reconectando…",
+    "en": "Signal lost: reconnecting…"
+  },
   "radio.regionSubstitute": {
     "es": "«{title}» no está disponible en tu país; mientras tanto suena esta canción.",
     "en": "“{title}” is not available in your country; this song plays in its place."

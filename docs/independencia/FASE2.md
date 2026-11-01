@@ -387,3 +387,35 @@ perfil propio (GET/PATCH), enlaces (CRUD) y contraseña si no existen ya; compro
 
 Después: B8 (C8 formulario y C6 enlaces), B9 (C9 identidad, C11 idiomas, C10 configuración/tema) y
 B10 (C7 métricas con el porte de `traffic` y 3.13 contraseña, que comparte endpoint con /cuenta).
+
+## P3 · Base en Herra 1.1.39 (2026-11-01)
+
+Brian fijó la referencia de paridad en la **última versión de Herra: 1.1.39**
+(`/home/brian/apps/herra-motor/herra-1.1.39/dist`), que sustituye a 1.1.34 en todo lo que
+sigue. Herra queda congelada ahí: no se compara ya contra 1.1.34 ni se actualiza.
+
+**Diff 1.1.34 → 1.1.39 (dist):** `public/radio.js`, `public/roadmap.css`,
+`public/roadmap-public.min.css`, `public/.asset-version`, `i18n.js`, `server.js`,
+`services/radio-diagnostics.js` y su prueba. `public/radio/silence.wav` aparece en 1.1.36 y
+**desaparece en 1.1.39**; el barrido de cuñas sigue en `public/radio/sweeper-v2.wav` (idéntico,
+ya presente en CRV). `views/` y `routes/public.js` no cambian.
+
+| Cambio de 1.1.39 | Qué es | En CRV |
+|---|---|---|
+| `public/radio.js` | Reescritura del cliente: diagnósticos, keep-alive de Android (oscilador + `AudioContext`), relé en segundo plano, `bgSweeper`, estados `radio.reconnecting` y volumen persistido | **Portado tal cual** a `web/public/landing/radio.js`. La base de API sigue viniendo de `data-radio-*` (no hay rutas `../`), así que la adaptación de CRV se conserva. El atributo `data-radio-diagnostic-api` se retira de `roadmap.ejs`: CRV no tiene esa ruta hasta la Fase 3 y, con él, el cliente enviaría diagnósticos a un 404 |
+| `public/roadmap.css` | Solo añade `#radio { scroll-margin-top: 100000px }` (el enlace de la radio lleva al inicio) | Copiado; el bloque de CRV del globo de visitas va al final del archivo |
+| `public/roadmap-public.min.css` | La misma regla, minificada | Copiado + regla del globo (`visits--oculta`) |
+| `i18n.js` | Nueva clave `radio.reconnecting` («Se perdió la señal: reconectando…») | Añadida a `src/landing/messages.json` (ES/EN) y a `message-groups.json` |
+| `.asset-version` | Sube la versión de assets | `src/landing/render.ts`: `assetVersion` pasa de `"crv"` a `"1.1.39"` (cache-busting de `radio.js`) |
+| `server.js` | Relevo del proceso (`HERRA_HANDOFF`) y `Connection: close` al apagar; **ninguna ruta nueva de landing** | No se porta: es gestión de proceso de Herra, no del gateway de CRV |
+| `services/radio-diagnostics.js` (+ prueba) | Ingesta de los diagnósticos del reproductor | No se porta: depende de `/api/radio/diagnostic`, que es de la Fase 3 |
+| `silence.wav` | Cuña de silencio de 1.1.36 | No se porta: 1.1.39 ya no la usa |
+
+**Arreglo de radio colgada en Android:** vive en `radio.js` 1.1.36+ (oscilador a 40 Hz con
+ganancia 0,002 para que el sistema no suspenda el `AudioContext`, reintentos y relé en segundo
+plano). Al instalar el cliente de 1.1.39 queda conservado; el CRV anterior (1.1.33) no lo tenía.
+
+**Prueba:** `GET /crv/roadmap` en staging sirve `radio.js?v=1.1.39` y
+`roadmap-public.min.css?v=1.1.39`; Chromium sin errores de consola en ES/EN a 1440 y 390, la
+tarjeta de radio se pinta con su portada y el globo de visitas ya no tapa el botón de reproducir
+en móvil (ver P5). El detalle de la comprobación está en `reports/b10-clave-2026-11`.

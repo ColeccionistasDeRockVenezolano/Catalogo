@@ -36,6 +36,7 @@
     "radio.shared",
     "radio.sound",
     "radio.ready",
+    "radio.reconnecting",
     "radio.muted",
     "radio.loading",
     "radio.volume",

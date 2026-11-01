@@ -99,7 +99,8 @@
       data-radio-api="<%= projectBase %>/api/radio/now"
       data-radio-listener-api="<%= projectBase %>/api/radio/listener"
       data-radio-unavailable-api="<%= projectBase %>/api/radio/unavailable"
-      data-radio-diagnostic-api="<%= projectBase %>/api/radio/diagnostic"
+<%# Sin /api/radio/diagnostic: CRV no tiene esa ruta todavía (Fase 3). Con el
+    atributo, radio.js 1.1.39 enviaría diagnósticos a un 404 en cada sesión. %>
       data-radio-video-id="<%= radio.current.videoId %>"
       data-radio-start-seconds="<%= radio.current.startSeconds %>"
       data-radio-queue-id="<%= radio.queueId %>"

@@ -2198,6 +2198,10 @@ body.is-dragging-category, body.is-dragging-category * { cursor: grabbing !impor
 /* ---------- Radio ----------
    El iframe oficial permanece completo y visible. La interfaz exterior solo
    explica la emision compartida y ofrece volver al punto en vivo. */
+/* La radio vive en la cabecera: su enlace del menú lleva al inicio de la página
+   (Y:0), no a dejar la tarjeta pegada bajo la barra. El desplazamiento se
+   detiene en 0 aunque el margen sea mayor que la distancia real. */
+#radio { scroll-margin-top: 100000px; }
 .radio-card {
   width: 100%;
   min-width: 0;
@@ -3253,3 +3257,9 @@ body.radio-cinema-open { overflow: hidden; }
 .account-head .brand-logo--account { margin-inline: 0; flex: none; }
 
 .footer-brand--crv p { color: var(--white); font-weight: 600; line-height: 1.4; }
+
+/* CRV · el globo del contador no tapa el reproductor en móvil.
+   visits-mobile.js lo oculta mientras la tarjeta de radio se solape. */
+@media (max-width: 720px) {
+  .visits.visits--oculta { display: none; }
+}
