@@ -495,7 +495,10 @@ export async function registerOperatorAuth(
     // límites por IP viven en la ruta correspondiente.
     const isCommunityPublicWrite = request.method === "POST" && (
       path === "/community/applications" || path === "/community/register"
-      || path === "/community/activate" || path === "/roadmap/visit" || path === "/radio/listener");
+      || path === "/community/activate" || path === "/roadmap/visit" || path === "/radio/listener"
+      // Aviso interno del gateway para las métricas: exige token propio en la
+      // ruta y solo llega desde loopback.
+      || path === "/traffic/page");
     if (isCommunityPublicWrite) {
       assertTrustedOrigin(request);
       return;

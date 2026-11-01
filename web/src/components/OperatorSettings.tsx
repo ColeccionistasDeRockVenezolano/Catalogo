@@ -1,8 +1,9 @@
 import { useState, type FormEvent } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { Popover } from "@base-ui/react/popover";
-import { CaretDown, ClockCounterClockwise, GearSix, SignIn, SignOut, SlidersHorizontal, Stack, type Icon } from "@phosphor-icons/react";
+import { CaretDown, ClockCounterClockwise, GearSix, Key, SignIn, SignOut, SlidersHorizontal, Stack, type Icon } from "@phosphor-icons/react";
 import { Modal } from "./Modal";
+import { PasswordWindow } from "./account/PasswordWindow";
 import { SessionChangesList, useSessionChangesContext, type SessionChanges } from "./ChangeFeedback";
 import { ApiError } from "../lib/api";
 import { useOperator } from "../lib/OperatorContext";
@@ -88,6 +89,7 @@ function AdminAccountMenu({ name, username }: { name: string; username: string }
   const links = canCurate ? ADMIN_LINKS : ADMIN_LINKS.filter((link) => link.to === "/curaduria");
   const changes = useSessionChangesContext() ?? NO_CHANGES;
   const [open, setOpen] = useState(false);
+  const [clave, setClave] = useState(false);
   const { signingOut, signOut } = useSignOut();
   const initial = name.trim().charAt(0).toUpperCase() || "?";
   const close = () => setOpen(false);
@@ -144,6 +146,11 @@ function AdminAccountMenu({ name, username }: { name: string; username: string }
               </nav>
 
               <div className="operator-menu__foot">
+                <button type="button" className="operator-menu__signout operator-menu__clave"
+                  onClick={() => { close(); setClave(true); }}>
+                  <Key size={18} weight="bold" aria-hidden="true" />
+                  Mi contraseña
+                </button>
                 <button type="button" className="operator-menu__signout" onClick={() => void signOut()} disabled={signingOut}>
                   <SignOut size={18} weight="bold" aria-hidden="true" />
                   {signingOut ? "Cerrando…" : "Cerrar sesión"}
@@ -153,6 +160,7 @@ function AdminAccountMenu({ name, username }: { name: string; username: string }
           </Popover.Positioner>
         </Popover.Portal>
       </Popover.Root>
+      {clave ? <PasswordWindow title="Mi contraseña" kicker="Mi cuenta" username={username} onClose={() => setClave(false)} /> : null}
     </>
   );
 }

@@ -59,6 +59,27 @@ export interface AcceptResult {
 }
 export interface InviteCreated { token: string; expiresAt: string; invitePath: string }
 
+// Ventana 3.7 · Métricas (C7). Espejo de src/traffic/report.ts.
+export interface MetricsPair { requests: number; visitors: number }
+export type MetricsPairs = Record<"human" | "ai" | "search" | "bot" | "suspicious", MetricsPair>;
+export interface MetricsAgent {
+  key: string; label: string; operator: string; category: string; purpose: string;
+  requests: number; visitors: number; jsVisitors: number;
+  verification: { verified: number; unverified: number; spoofed: number; none: number };
+  lastAt: string | null;
+}
+export interface MetricsCountry { code: string; name: string; flag: string | null; count: number }
+export interface MetricsReport {
+  days: number; from: string; to: string; since: string | null;
+  totals: { confirmed: { current: number; previous: number }; categories: { current: MetricsPairs; previous: MetricsPairs }; jsAgents: number };
+  daily: Array<{ day: string; confirmed: number } & MetricsPairs>;
+  agents: MetricsAgent[];
+  pages: Array<{ page: string; total: number; human: number; ai: number; search: number; bot: number; suspicious: number }>;
+  countries: { people: MetricsCountry[]; automated: MetricsCountry[] };
+  verification: { network: boolean; lists: number; listsTotal: number; updatedAt: string | null };
+  publicCounter: { total: number };
+}
+
 /** Ficha global de la persona, para el editor de «Personas y colaboradores». */
 export interface PersonProfile {
   person_id: number; user_id: number; username: string;
@@ -173,6 +194,13 @@ export const communityApi = {
   activations: () => request<{ data: Activation[] }>("/community/admin/activations"),
   revokeActivation: (id: number) =>
     request<void>(`/community/admin/activations/${id}`, { method: "DELETE", authenticated: true }),
+
+  // Ventana 3.7 · Métricas (C7).
+  metrics: (days: 7 | 30 | 90, lang: "es" | "en" = "es") =>
+    request<MetricsReport>("/community/admin/metrics", { query: { days: String(days), lang } }),
+  resetMetrics: () =>
+    request<{ ok: true; daily: number; visitors: number }>("/community/admin/metrics", {
+      method: "DELETE", authenticated: true }),
 
   admins: () => request<{ data: AdminUser[] }>("/community/admin/admins"),
   setAdminRole: (id: number, role: AdminRole) =>

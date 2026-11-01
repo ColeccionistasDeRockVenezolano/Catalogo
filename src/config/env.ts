@@ -56,6 +56,19 @@ const envSchema = z.object({
   // las rutas no se registran (404), aunque el código esté desplegado.
   CRV_COMMUNITY_ENABLED: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
   CRV_RADIO_ENABLED: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
+  // Ventana 3.7 · Métricas (C7). La escritura en `traffic_daily` y
+  // `traffic_visitors` va detrás de este interruptor, APAGADO por defecto: hasta
+  // que la Fase 2B cambie el dueño de las tablas, producción no debe competir
+  // con Herra por el mismo agregado (R5). Encendido solo en staging.
+  CRV_TRAFFIC_ENABLED: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
+  // Token del aviso interno del gateway (`POST /traffic/page`). Sin él la ruta
+  // no se registra: el aviso es entre procesos de la misma máquina.
+  CRV_TRAFFIC_TOKEN: z.string().optional(),
+  // Verificación por DNS inverso de los agentes que la documentan. Apagada por
+  // defecto; las listas de IPs se cargan igual, una vez al día.
+  CRV_TRAFFIC_VERIFY_NETWORK: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
+  // Carpeta de las listas de IPs (por defecto ~/.cache/crv-traffic).
+  CRV_TRAFFIC_LISTS_DIR: z.string().optional(),
   // Radio en sombra: catálogo exportado por Herra durante la transición y URL
   // del `/api/radio/now` vivo para comparar. Ninguno se usa para emitir al
   // público todavía.

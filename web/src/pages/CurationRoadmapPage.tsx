@@ -31,6 +31,9 @@ import { InvitesWindow } from "../components/roadmap/InvitesWindow";
 import { IdentityWindow } from "../components/roadmap/IdentityWindow";
 import { LanguagesWindow } from "../components/roadmap/LanguagesWindow";
 import { SettingsWindow } from "../components/roadmap/SettingsWindow";
+import { MetricsWindow } from "../components/roadmap/MetricsWindow";
+import { PasswordWindow } from "../components/account/PasswordWindow";
+import { useOperator } from "../lib/OperatorContext";
 import { ErrorState, LoadingState } from "../components/StateViews";
 import "../styles/community-ui.css";
 import "../styles/roadmap-admin.css";
@@ -80,6 +83,7 @@ function moveWithin<T>(items: readonly T[], from: number, to: number): T[] {
 export function CurationRoadmapPage() {
   const { lang } = useI18n();
   const copy = roadmapAdminCopy(lang);
+  const { user } = useOperator();
   const { notify } = useToast();
   const roadmap = useAsync<AdminRoadmap>(() => roadmapApi.admin(), []);
   const overview = useAsync(() => communityApi.overview(), []);
@@ -115,7 +119,7 @@ export function CurationRoadmapPage() {
   // Un enlace con ?herramienta= desconocida o de un bloque que aún no existe
   // no debe dejar la URL mintiendo: se limpia.
   useEffect(() => {
-    const known: ToolId[] = ["nueva-actividad", "nueva-etapa", "personas", "pendientes", "candidaturas", "formulario", "enlaces", "identidad", "idiomas", "ajustes"];
+    const known: ToolId[] = ["nueva-actividad", "nueva-etapa", "personas", "pendientes", "candidaturas", "metricas", "formulario", "enlaces", "identidad", "idiomas", "ajustes", "clave"];
     if (tool && !known.includes(tool)) closeTool();
   }, [tool]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -237,13 +241,13 @@ export function CurationRoadmapPage() {
     { id: "personas", label: copy.tools.people, icon: UsersThree, count: counts?.collaborators ?? data.users.length, enabled: true },
     { id: "pendientes", label: copy.tools.pending, icon: IdentificationCard, count: counts?.pending_collaborators ?? 0, enabled: true },
     { id: "candidaturas", label: copy.tools.applications, icon: ClipboardText, count: counts?.pending_applications ?? 0, enabled: true },
-    { id: "metricas", label: copy.tools.metrics, icon: ChartLine, enabled: false },
+    { id: "metricas", label: copy.tools.metrics, icon: ChartLine, enabled: true },
     { id: "formulario", label: copy.tools.form, icon: NotePencil, enabled: true },
     { id: "enlaces", label: copy.tools.invites, icon: LinkSimple, enabled: true },
     { id: "identidad", label: copy.tools.branding, icon: Palette, enabled: true },
     { id: "idiomas", label: copy.tools.languages, icon: Translate, enabled: true },
     { id: "ajustes", label: copy.tools.settings, icon: Gear, enabled: true },
-    { id: "clave", label: copy.tools.password, icon: IdentificationCard, enabled: false },
+    { id: "clave", label: copy.tools.password, icon: IdentificationCard, enabled: true },
     { id: "publica", label: copy.tools.viewPublic, icon: ArrowSquareOut, enabled: true, href: "/roadmap" },
   ];
 
@@ -357,6 +361,14 @@ export function CurationRoadmapPage() {
         />
       ) : null}
 
+      {tool === "metricas" ? (
+        <MetricsWindow
+          title={copy.tools.metrics}
+          kicker={copy.adminKicker}
+          onClose={closeTool}
+        />
+      ) : null}
+
       {tool === "formulario" ? (
         <CollaborateFormWindow
           title={copy.tools.form}
@@ -398,6 +410,15 @@ export function CurationRoadmapPage() {
           kicker={copy.adminKicker}
           onClose={closeTool}
           onSaved={() => { roadmap.reload(); }}
+        />
+      ) : null}
+
+      {tool === "clave" ? (
+        <PasswordWindow
+          title={copy.tools.password}
+          kicker={copy.adminKicker}
+          username={user?.username ?? ""}
+          onClose={closeTool}
         />
       ) : null}
 

@@ -7,6 +7,8 @@ import { buildApp } from "./app.js";
 import { startCurationWatcher } from "../curation/watcher.js";
 import { startHomeChannelRefresh } from "../youtube/home-channel.js";
 import { startEntityResolutionRetention } from "../er/retention.js";
+import { startTrafficRecorder, stopTrafficRecorder } from "../traffic/record.js";
+import { startBotVerification, stopBotVerification } from "../traffic/verify.js";
 
 const log = moduleLogger("api-server");
 
@@ -31,13 +33,18 @@ async function main(): Promise<void> {
   // con tope de filas (la CLI puede forzarla con `crv er:prune`).
   const stopErRetention = startEntityResolutionRetention(
     env.ER_RETENTION_INTERVAL_HOURS * 60 * 60 * 1000, env.ER_RETENTION_MAX_ROWS);
+  // Métricas (3.7): con el interruptor apagado no se registra nada. Las listas
+  // de IPs se cargan siempre (una vez al día) para poder verificar sin red.
+  startBotVerification({ network: env.CRV_TRAFFIC_VERIFY_NETWORK });
+  if (env.CRV_TRAFFIC_ENABLED) startTrafficRecorder();
 
   for (const signal of ["SIGINT", "SIGTERM"] as const) {
     process.on(signal, () => {
       stopHomeChannel();
       stopCurationWatcher();
       stopErRetention();
-      void app.close().then(() => process.exit(0));
+      stopBotVerification();
+      void stopTrafficRecorder().finally(() => app.close().then(() => process.exit(0)));
     });
   }
 }

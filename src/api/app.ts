@@ -31,6 +31,7 @@ import { registerHealthRoutes } from "./routes/health.js";
 import { registerCommunityRoutes } from "./routes/community.js";
 import { registerAccountRoutes } from "./routes/account.js";
 import { registerRoadmapRoutes } from "./routes/roadmap.js";
+import { registerTrafficRoutes } from "./routes/traffic.js";
 import { registerLandingRoutes } from "./routes/landing.js";
 import { registerProjectConfigRoutes } from "./routes/project-config.js";
 import { registerRadioRoutes } from "./routes/radio.js";
@@ -178,6 +179,9 @@ export async function buildApp(): Promise<FastifyInstance> {
     await registerRoadmapRoutes(app);
     await registerProjectConfigRoutes(app);
     await registerLandingRoutes(app);
+    // Ventana 3.7: el informe de métricas es de comunidad; la escritura del
+    // agregado sigue detrás de CRV_TRAFFIC_ENABLED (apagado por defecto).
+    await registerTrafficRoutes(app);
   }
   if (env.CRV_RADIO_ENABLED) await registerRadioRoutes(app);
   await registerImageUploadRoutes(app);

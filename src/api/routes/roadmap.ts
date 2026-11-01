@@ -18,6 +18,9 @@ import {
 } from "../roadmap/store.js";
 import { adminVisits, normalizeCountry, recordVisit, visitStats } from "../roadmap/visits.js";
 import { projectId } from "../community/store.js";
+import { getEnv } from "../../config/env.js";
+import { classifyRequest } from "../../traffic/classify.js";
+import { recordTraffic } from "../../traffic/record.js";
 
 const langQuery = z.object({ lang: z.enum(["es", "en"]).optional() });
 const translations = z.object({ en: z.string().max(600).optional() }).strict();
@@ -108,17 +111,32 @@ export async function registerRoadmapRoutes(app: FastifyInstance): Promise<void>
     return visitStats(project, request.query.lang ?? "es");
   });
 
-  api.post("/roadmap/visit", { schema: { tags: ["Roadmap"] } }, async (request) => {
+  api.post("/roadmap/visit", {
+    schema: { tags: ["Roadmap"], body: z.object({ webdriver: z.boolean().optional() }).strict().optional() },
+  }, async (request) => {
     if (!visitLimiter.take(clientIp(request))) {
       throw new ApiError(429, "rate_limited", "Demasiadas visitas desde esta conexión.");
     }
     const project = await projectId();
     const userAgent = request.headers["user-agent"];
+    const ip = clientIp(request);
+    const country = normalizeCountry(requestCountry(request));
     await recordVisit(project, {
-      ip: clientIp(request),
-      country: normalizeCountry(requestCountry(request)),
+      ip,
+      country,
       userAgent: typeof userAgent === "string" ? userAgent : undefined,
     });
+    // Ventana 3.7: el aviso del JavaScript de la portada es la señal que
+    // confirma a una persona. Solo se apunta si el interruptor está encendido.
+    if (getEnv().CRV_TRAFFIC_ENABLED) {
+      recordTraffic({
+        projectId: project,
+        page: "js",
+        ip,
+        country,
+        classification: classifyRequest(request.headers, "beacon", request.body?.webdriver === true),
+      });
+    }
     return visitStats(project, (request.query as { lang?: string }).lang === "en" ? "en" : "es");
   });
 

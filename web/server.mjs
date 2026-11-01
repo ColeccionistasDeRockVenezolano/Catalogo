@@ -87,7 +87,7 @@ async function serveLanding(req, res, page, lang, searchParams) {
     .replaceAll('href="/registro?', `href="${prefix}/registro?`)
     .replaceAll('href="/activar?', `href="${prefix}/activar?`);
   html = html.replace(/<li><a(?: class="[^"]*")? href="\/kanban">[\s\S]*?<\/a><\/li>/g, "");
-  const scripts = page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js"] : ["registro-activar.js"];
+  const scripts = page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js", "visits-mobile.js"] : ["registro-activar.js"];
   html = html.replace("</body>", `${scripts.map((src) => `<script src="${prefix}/landing/${src}" defer></script>`).join("")}</body>`);
   const body = Buffer.from(html);
   res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", ...SECURITY_HEADERS });
@@ -497,6 +497,53 @@ async function serveFile(req, res, pathname, searchParams) {
   createReadStream(file).on("error", (error) => res.destroy(error)).pipe(res);
 }
 
+// Ventana 3.7 (Métricas): aviso de cada documento público a la API, que lo
+// clasifica (persona, IA, buscador, bot) y lo agrega en traffic_daily. Va
+// detrás de CRV_TRAFFIC_REPORT=1 y de un token compartido; sin ellos, el
+// gateway no llama a nadie. Es «fire and forget»: la página no espera.
+const trafficEnabled = process.env.CRV_TRAFFIC_REPORT === "1";
+const trafficToken = process.env.CRV_TRAFFIC_TOKEN ?? "";
+const TRAFFIC_PAGES = {
+  "/": "roadmap",
+  "/roadmap": "roadmap",
+  "/colaborar": "collaborate",
+  "/login": "login",
+  "/registro": "register",
+  "/activar": "activate",
+  "/robots.txt": "robots",
+  "/sitemap.xml": "sitemap",
+  "/llms.txt": "llms",
+};
+
+function reportTraffic(req, literalPath) {
+  if (!trafficEnabled || !trafficToken) return;
+  const page = TRAFFIC_PAGES[literalPath === "" ? "/" : literalPath];
+  if (!page) return;
+  const headers = {
+    "content-type": "application/json",
+    "x-crv-traffic-token": trafficToken,
+  };
+  // La IP real la escribe Cloudflare; solo se reenvía si el peer es el túnel
+  // local, igual que en el proxy del API.
+  if (typeof req.headers["cf-connecting-ip"] === "string" && isLoopbackPeer(req)) {
+    headers["cf-connecting-ip"] = req.headers["cf-connecting-ip"];
+  }
+  fetch(`http://${apiHost}:${apiPort}/traffic/page`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      page,
+      userAgent: String(req.headers["user-agent"] ?? ""),
+      accept: String(req.headers.accept ?? ""),
+      acceptLanguage: String(req.headers["accept-language"] ?? ""),
+      secFetchMode: String(req.headers["sec-fetch-mode"] ?? ""),
+      secFetchSite: String(req.headers["sec-fetch-site"] ?? ""),
+      signatureAgent: String(req.headers["signature-agent"] ?? ""),
+      country: String(req.headers["cf-ipcountry"] ?? ""),
+    }),
+  }).catch(() => undefined);
+}
+
 const server = http.createServer(async (req, res) => {
   const ip = clientIp(req);
   if (ip.length > 0 && !isLocalRequest(req) && rateLimited(ip)) {
@@ -536,15 +583,20 @@ const server = http.createServer(async (req, res) => {
       return res.end();
     }
     const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
+    reportTraffic(req, virtualUrl.pathname.slice(basePath.length) || "/");
     return serveLanding(req, res, landingPage, lang, virtualUrl.searchParams);
   }
   // robots.txt y sitemap los sirve el gateway, no el build: responden con el
   // host real que ve el buscador (hoy el Funnel; mañana el dominio propio).
   const literalPath = virtualUrl.pathname === basePath ? "/" : virtualUrl.pathname.slice(basePath.length);
   if (req.method === "GET" || req.method === "HEAD") {
-    if (literalPath === "/robots.txt") return sendText(req, res, 200, "text/plain; charset=utf-8", robotsBody(req), "public, max-age=3600");
+    if (literalPath === "/robots.txt") {
+      reportTraffic(req, literalPath);
+      return sendText(req, res, 200, "text/plain; charset=utf-8", robotsBody(req), "public, max-age=3600");
+    }
     try {
       if (literalPath === "/sitemap.xml") {
+        reportTraffic(req, literalPath);
         return sendText(req, res, 200, "application/xml; charset=utf-8", sitemapIndexBody(req), "public, max-age=3600");
       }
       if (Object.hasOwn(SITEMAP_CHILDREN, literalPath)) {
