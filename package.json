@@ -76,6 +76,7 @@
     "media:extract-sincopa-missing": "./scripts/with-node22.sh tsx scripts/extract-sincopa-missing-media-genres.ts",
     "media:recover-source-claims": "./scripts/with-node22.sh tsx scripts/recover-missing-media-from-source-claims.ts",
     "radio:genres": "./scripts/with-node22.sh tsx scripts/annotate-radio-genres.ts",
+    "radio:regions": "./scripts/with-node22.sh tsx scripts/annotate-radio-regions.ts",
     "deploy": "./scripts/deploy.sh",
     "deploy:api": "./scripts/deploy.sh --api",
     "test:web": "./scripts/with-node22.sh vitest run web/tests/unit",

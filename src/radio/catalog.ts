@@ -55,7 +55,7 @@ function record(value: unknown): Record<string, unknown> | undefined {
 // La audiencia de la radio es venezolana ante todo.
 export const RADIO_HOME_REGION = "VE";
 // Un bloqueo que alcanza a cien regiones o más es, en la práctica, mundial.
-const WORLDWIDE_REGIONS = 100;
+export const WORLDWIDE_REGIONS = 100;
 
 function regions(value: unknown): string[] | null {
   return Array.isArray(value) ? value.filter((code): code is string => typeof code === "string") : null;
