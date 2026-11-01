@@ -11,7 +11,8 @@ import { chromium } from "playwright";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
-import { BASE, entrar } from "./lib/sesion.mjs";
+import { BASE, entrar, ipDePrueba } from "./lib/sesion.mjs";
+import { prepararFixtures, limpiarFixtures } from "./lib/fixtures.mjs";
 
 const OUT = path.join(os.homedir(), "crv-staging/reports/b10-metricas-2026-11");
 const USER = "fase1-admin";
@@ -23,7 +24,9 @@ const ok = (nombre, extra) => report.ok.push(extra === undefined ? nombre : `${n
 const fallo = (nombre, detalle) => report.fallos.push(`${nombre}: ${detalle}`);
 
 const browser = await chromium.launch();
-const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE" });
+const IP = ipDePrueba("b10-metricas");
+prepararFixtures();
+const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE", extraHTTPHeaders: { "x-forwarded-for": IP } });
 await entrar(await context.newPage(), { base: BASE, usuario: USER, clave: PASS });
 const page = await context.newPage();
 const errors = [];
@@ -128,7 +131,7 @@ if (errors.length === 0) ok("consola sin errores"); else fallo("consola", errors
 // ------------------------------------------------------------------- móvil
 const movil = await browser.newContext({
   viewport: { width: 390, height: 844 }, hasTouch: true, locale: "es-VE",
-  storageState: await context.storageState(),
+  storageState: await context.storageState(), extraHTTPHeaders: { "x-forwarded-for": IP },
 });
 const paginaMovil = await movil.newPage();
 const erroresMovil = [];
@@ -149,6 +152,13 @@ await paginaMovil.screenshot({ path: path.join(OUT, "metricas-movil.png"), fullP
 report.capturas.push(path.join(OUT, "metricas-movil.png"));
 if (erroresMovil.length === 0) ok("móvil: sin errores de página"); else fallo("móvil: errores", erroresMovil.slice(0, 2).join(" | "));
 await movil.close();
+try {
+  report.datos.limpieza = limpiarFixtures();
+  ok("fixtures de rol retirados con sus sesiones");
+} catch (error) {
+  report.datos.limpieza = String(error).slice(0, 300);
+  fallo("limpieza de fixtures", String(error).slice(0, 200));
+}
 
 await browser.close();
 report.resumen = { comprobaciones: report.ok.length + report.fallos.length, ok: report.ok.length, fallos: report.fallos.length };

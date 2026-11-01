@@ -12,11 +12,12 @@
 // La cuenta de prueba se borra al final; la persona global se conserva (es el
 // diseño del borrado) y queda anotada en `informe.json` para limpiarla.
 import { chromium } from "playwright";
-import { execFileSync } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
 import { entrar as login } from "./lib/sesion.mjs";
+import { ipDePrueba } from "./lib/sesion.mjs";
+import { prepararFixtures, limpiarFixtures } from "./lib/fixtures.mjs";
 
 const BASE = "http://127.0.0.1:3130";
 const OUT = path.join(os.homedir(), "crv-staging/reports/c5-persona-2026-11");
@@ -32,7 +33,9 @@ const ok = (nombre, extra) => { report.ok.push(extra === undefined ? nombre : `$
 const fallo = (nombre, detalle) => report.fallos.push(`${nombre}: ${detalle}`);
 
 const browser = await chromium.launch();
-const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE" });
+const IP = ipDePrueba("c5-persona");
+prepararFixtures();
+const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE", extraHTTPHeaders: { "x-forwarded-for": IP } });
 const page = await context.newPage();
 const errors = [];
 function vigilar(pagina, etiqueta, opciones = {}) {
@@ -245,7 +248,7 @@ report.capturas.push(path.join(OUT, "c5-personas-ingles.png"));
 await ingles.close();
 
 // ------------------------------------------------------------ rol community
-const comoCommunity = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE" });
+const comoCommunity = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE", extraHTTPHeaders: { "x-forwarded-for": IP } });
 const paginaCommunity = await comoCommunity.newPage();
 vigilar(paginaCommunity, "community", { ignorar403: true });
 const sesionCommunity = await entrar(paginaCommunity, COMMUNITY_USER, COMMUNITY_PASS);
@@ -328,14 +331,11 @@ if (errors.length === 0) ok("consola sin errores");
 else fallo("consola", errors.slice(0, 3).join(" | "));
 
 // Limpieza: el borrado de cuenta conserva la persona global a propósito, así que
-// el propio guion retira la persona de prueba que creó (vía el script de staging).
+// se retiran la persona de prueba y las cuentas de rol con sus sesiones.
 try {
-  const raiz = path.resolve(path.dirname(new URL(import.meta.url).pathname), "../..");
-  const salida = execFileSync(path.join(raiz, "scripts/with-node22.sh"),
-    [path.join(raiz, "node_modules/.bin/tsx"), "scripts/fase1-fixtures.ts", "--clean-personas"],
-    { cwd: raiz, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
-  report.datos.limpiezaPersona = salida.trim();
-  ok("persona de prueba eliminada", salida.trim());
+  const salida = limpiarFixtures();
+  report.datos.limpiezaPersona = salida;
+  ok("persona y fixtures de prueba eliminados", salida.replace(/\n/g, " · "));
 } catch (error) {
   report.datos.limpiezaPersona = String(error).slice(0, 300);
   fallo("limpieza de la persona de prueba", String(error).slice(0, 200));

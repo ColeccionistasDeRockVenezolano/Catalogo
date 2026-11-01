@@ -1,4 +1,4 @@
-/* global document -- las funciones de page.evaluate corren en la página */
+/* global document, getComputedStyle -- las funciones de page.evaluate corren en la página */
 // CRV · B9 · Ventanas 3.10 (identidad), 3.11 (idiomas) y 3.12 (configuración y
 // tema) con efecto real en la portada pública.
 //
@@ -7,7 +7,8 @@ import { chromium } from "playwright";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
-import { BASE, entrar } from "./lib/sesion.mjs";
+import { BASE, entrar, ipDePrueba } from "./lib/sesion.mjs";
+import { prepararFixtures, limpiarFixtures } from "./lib/fixtures.mjs";
 
 const OUT = path.join(os.homedir(), "crv-staging/reports/b9-ventanas-2026-11");
 const USER = "fase1-admin";
@@ -19,7 +20,9 @@ const ok = (nombre, extra) => { report.ok.push(extra === undefined ? nombre : `$
 const fallo = (nombre, detalle) => report.fallos.push(`${nombre}: ${detalle}`);
 
 const browser = await chromium.launch();
-const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE" });
+const IP = ipDePrueba("b9-ventanas");
+prepararFixtures();
+const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE", extraHTTPHeaders: { "x-forwarded-for": IP } });
 await context.addInitScript(() => localStorage.setItem("crv-lang", "es"));
 const page = await context.newPage();
 const errors = [];
@@ -27,15 +30,6 @@ page.on("pageerror", (error) => errors.push(`pageerror: ${String(error).slice(0,
 page.on("console", (message) => {
   if (message.type() === "error" && !/401 \(Unauthorized\)/.test(message.text())) errors.push(message.text().slice(0, 200));
 });
-
-async function esperarA(fn, timeoutMs = 10_000) {
-  const inicio = Date.now();
-  while (Date.now() - inicio < timeoutMs) {
-    if (await fn()) return true;
-    await new Promise((resolve) => setTimeout(resolve, 250));
-  }
-  return false;
-}
 
 async function abrir(nombre) {
   await page.goto(`${BASE}/crv/curaduria/roadmap?herramienta=${nombre}`, { waitUntil: "networkidle" });
@@ -277,6 +271,13 @@ try {
 
 await context.close();
 await browser.close();
+try {
+  report.datos.limpieza = limpiarFixtures();
+  ok("fixtures de rol retirados con sus sesiones");
+} catch (error) {
+  report.datos.limpieza = String(error).slice(0, 300);
+  fallo("limpieza de fixtures", String(error).slice(0, 200));
+}
 report.resumen = { comprobaciones: report.ok.length + report.fallos.length, ok: report.ok.length, fallos: report.fallos.length };
 await writeFile(path.join(OUT, "informe.json"), JSON.stringify(report, null, 2));
 console.log(JSON.stringify(report.resumen));

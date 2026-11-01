@@ -12,7 +12,8 @@ import { chromium } from "playwright";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
-import { BASE, entrar, estadoSesion } from "./lib/sesion.mjs";
+import { BASE, entrar, estadoSesion, ipDePrueba } from "./lib/sesion.mjs";
+import { prepararFixtures, limpiarFixtures } from "./lib/fixtures.mjs";
 
 const OUT = path.join(os.homedir(), "crv-staging/reports/b10-clave-2026-11");
 const USER = "fase1-admin";
@@ -25,7 +26,9 @@ const ok = (nombre, extra) => report.ok.push(extra === undefined ? nombre : `${n
 const fallo = (nombre, detalle) => report.fallos.push(`${nombre}: ${detalle}`);
 
 const browser = await chromium.launch();
-const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE" });
+const IP = ipDePrueba("b10-clave");
+prepararFixtures();
+const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE", extraHTTPHeaders: { "x-forwarded-for": IP } });
 const page = await context.newPage();
 const errors = [];
 page.on("pageerror", (error) => errors.push(`pageerror: ${String(error).slice(0, 200)}`));
@@ -34,9 +37,9 @@ await entrar(page, { base: BASE, usuario: USER, clave: PASS });
 // Segunda sesión con la misma cuenta, con su propio token: debe quedar fuera al
 // cambiar la clave. (Copiar las cookies del primer contexto reutiliza la MISMA
 // sesión, y esa se reestampa: no probaría la regla.)
-const otra = await browser.newContext({ viewport: { width: 800, height: 600 }, locale: "es-VE" });
+const otra = await browser.newContext({ viewport: { width: 800, height: 600 }, locale: "es-VE", extraHTTPHeaders: { "x-forwarded-for": IP } });
 const otraPagina = await otra.newPage();
-await entrar(otraPagina, { base: BASE, usuario: USER, clave: PASS });
+await entrar(otraPagina, { base: BASE, usuario: USER, clave: PASS, usarCache: false });
 const antes = await estadoSesion(otraPagina);
 report.datos.otraAntes = antes.status;
 
@@ -92,9 +95,9 @@ else fallo("regla de sesiones", `${antes.status} → ${despues.status}`);
 await otra.close();
 
 // 4) Inicio de sesión con la clave nueva (contexto limpio).
-const nuevo = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE" });
+const nuevo = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: "es-VE", extraHTTPHeaders: { "x-forwarded-for": IP } });
 const paginaNueva = await nuevo.newPage();
-const sesionNueva = await entrar(paginaNueva, { base: BASE, usuario: USER, clave: TEMP });
+const sesionNueva = await entrar(paginaNueva, { base: BASE, usuario: USER, clave: TEMP, usarCache: false });
 report.datos.loginNueva = sesionNueva?.role ?? null;
 if (sesionNueva?.role === "admin") ok("login con la clave nueva", USER); else fallo("login con la clave nueva", JSON.stringify(sesionNueva));
 
@@ -105,9 +108,15 @@ await paginaNueva.fill("#pw-actual", TEMP);
 await paginaNueva.fill("#pw-nueva", PASS);
 await paginaNueva.getByRole("button", { name: /^Guardar$/ }).click();
 await paginaNueva.waitForSelector(".password-window", { state: "detached", timeout: 15000 }).catch(() => null);
-const restaurada = await entrar(paginaNueva, { base: BASE, usuario: USER, clave: PASS });
+// Se comprueba desde un contexto limpio: la sesión que cambió la clave sigue
+// dentro y `entrar` en la misma página no probaría la clave restaurada.
+const revision = await browser.newContext({ viewport: { width: 800, height: 600 }, locale: "es-VE", extraHTTPHeaders: { "x-forwarded-for": IP } });
+const paginaRevision = await revision.newPage();
+const restaurada = await entrar(paginaRevision, { base: BASE, usuario: USER, clave: PASS, usarCache: false });
 report.datos.claveRestaurada = restaurada?.role ?? null;
-if (restaurada?.role === "admin") ok("clave original restaurada"); else fallo("restauración de la clave", "no se pudo volver a entrar con la original");
+if (restaurada?.role === "admin") ok("clave original restaurada");
+else fallo("restauración de la clave", "no se pudo volver a entrar con la original");
+await revision.close();
 await nuevo.close();
 
 await page.screenshot({ path: path.join(OUT, "clave-escritorio.png"), fullPage: false });
@@ -116,7 +125,7 @@ if (errors.length === 0) ok("consola sin errores"); else fallo("consola", errors
 await context.close();
 
 // ------------------------------------------------- globo de visitas en móvil
-const movil = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, locale: "es-VE" });
+const movil = await browser.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, locale: "es-VE", extraHTTPHeaders: { "x-forwarded-for": IP } });
 const paginaMovil = await movil.newPage();
 await paginaMovil.goto(`${BASE}/crv/roadmap`, { waitUntil: "networkidle" });
 await paginaMovil.waitForTimeout(1500);
@@ -145,6 +154,13 @@ const trasBajar = await paginaMovil.evaluate(() => getComputedStyle(document.get
 report.datos.globoTrasBajar = trasBajar;
 if (trasBajar) ok("móvil: el globo vuelve al salir de la tarjeta"); else fallo("globo tras bajar", "sigue oculto");
 await movil.close();
+try {
+  report.datos.limpieza = limpiarFixtures();
+  ok("fixtures de rol retirados con sus sesiones");
+} catch (error) {
+  report.datos.limpieza = String(error).slice(0, 300);
+  fallo("limpieza de fixtures", String(error).slice(0, 200));
+}
 
 await browser.close();
 report.resumen = { comprobaciones: report.ok.length + report.fallos.length, ok: report.ok.length, fallos: report.fallos.length };
