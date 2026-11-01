@@ -357,3 +357,33 @@ acceso al equipo (activo en staging), el orden de las primeras dos actividades d
 etapa y los valores variables de visitas, países y radio. La integración también cambia
 base, URLs y metadatos necesarios para `/crv/`; el detalle y las capturas están en el
 informe de la campaña. No se alteraron los datos para ocultar las diferencias.
+
+## B7 · estado (2026-11-01, tarde)
+
+Hecho y verificado en Chromium:
+
+- **3.4 Personas y colaboradores** (`?herramienta=personas`): lista con búsqueda y filtro por
+  estado, alta con código de acceso, cambio de código, enlace de activación y revocación con
+  motivo. 5 filas reales en staging.
+- **3.5 Solicitudes pendientes** (`?herramienta=pendientes`): misma ventana en modo bandeja, con
+  Aprobar/Rechazar y contador real. Estado vacío correcto (staging no tiene solicitudes).
+- **3.6 Candidaturas** (`?herramienta=candidaturas`): filtro por estado y búsqueda, detalle con
+  contacto, experiencia, texto y enlaces, cambio de estado y aceptación con enlace de activación.
+  Verificada con la bandeja vacía de staging y sin errores de consola.
+- **Arrastre táctil** (deuda que dejó Codex): pointer events con captura, caída por
+  `elementFromPoint`, cambio de etapa incluido. Verificado con toques reales por CDP
+  (`scripts/checks/b7-touch-check.mjs`, informe en `reports/independencia/b7-tactil`): cambia el
+  orden, abre «Deshacer» y el deshacer restaura. La API acepta `completedAt`.
+
+Falta en este bloque: **`/cuenta` (sección 4 de las instrucciones)**, que es una página completa,
+no una ventana: cabecera con avatar y «Sesión: {usuario} en {proyecto} · Persona #N · Colaborador
+#N» + aviso de perfil incompleto; «Datos personales» (nombre, apellido, fecha de nacimiento con
+«Dato interno: nunca se muestra en público.», WhatsApp, correo, preferencia de contacto, ciudad,
+país); «Perfil de colaboración» (biografía, experiencia, disponibilidad, chips de habilidades y
+áreas); «Mis enlaces» con visibilidad por enlace; «Visibilidad» (perfil público); «Contraseña»
+(actual, nueva, repetir); pie fijo «← Volver al roadmap» · «Guardar cambios». Necesita endpoints de
+perfil propio (GET/PATCH), enlaces (CRUD) y contraseña si no existen ya; comprobar antes en
+`src/api/` para no duplicarlos.
+
+Después: B8 (C8 formulario y C6 enlaces), B9 (C9 identidad, C11 idiomas, C10 configuración/tema) y
+B10 (C7 métricas con el porte de `traffic` y 3.13 contraseña, que comparte endpoint con /cuenta).
