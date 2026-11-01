@@ -234,3 +234,57 @@ Herra, ni Lucide; tampoco `window.confirm`.
 - El arrastre por teclado de etapas no previsualiza; el de actividades sí.
 - Los avisos con «Deshacer» tras mover existen solo para el arrastre por teclado (el de ratón
   recarga el roadmap); falta unificar.
+
+## B5 · CP0 — reconocimiento para retomar (2026-11-01, sin implementación)
+
+El bloque quedó **sin código**: dos intentos de delegación agotaron iteraciones en el
+reconocimiento. Lo averiguado se guarda aquí para no repetirlo.
+
+**La fuente correcta no es `herra-separacion`.** Esa copia es 1.1.10; la portada viva es 1.1.34 y
+su código está en `/home/brian/apps/herra-motor/herra-1.1.34/dist/` (`views/*.ejs` + `public/`).
+Diferencias confirmadas por `diff`:
+
+- `partials/header.ejs` y `login.ejs` de 1.1.10 usan `brand-badge`; la viva usa `brand-logo` con
+  `<img src="/static/crv-logo.jpg">`.
+- La portada viva de `/login` es **`user-login.ejs`** (colaborador), no `login.ejs` (admin). El
+  `web/public/landing/login-es.html` actual ya coincide con `user-login` (texto idéntico).
+- `roadmap.ejs` de 1.1.34 trae +65 líneas (radio con cuñas, `radioProgress`,
+  `radio-card__identifier`, `showMap`) y usa `<style><%- publicCriticalCss %></style>` con el CSS
+  crítico de `dist/public/roadmap-critical.min.css` (sustituyendo `__HERRA_STATIC__`), no un
+  `<link>`: el `<link>` extra del HTML estático actual es una diferencia con la viva.
+- Assets: `roadmap-public.min.css`, `roadmap.css`, `roadmap.js`, `roadmap-nojs.css`,
+  `public-loader.js`, `i18n-client.js`, `icons.js`, `nav.js`, `visit-counter.js` y
+  `collaborate.js` son **idénticos byte a byte** (md5) a los de `web/public/landing/`. Solo
+  `radio.js` difiere (CRV usa una versión adaptada) y 1.1.34 añade `roadmap-critical.min.css`.
+
+**Datos en `crv_staging`** (verificados): `auth.projects` id 1, `visibility_mode=completed`,
+`default_lang=es`, `accepts_applications=1`, `show_login=1`, `visitor_counter=1`; `theme_json`
+988 B, `branding_json` 4168 B, `i18n_json` 3229 B y **`collaborate_json` NULL**. `project_assets`:
+favicon PNG 256×256 y `share_image` JPEG 1200×630 (coinciden con los `?v=` del HTML vivo).
+`auth.categories` 5, `auth.tasks` 61, `auth.users` 5 aprobadas. `auth.project_features.radio`
+habilitada (`stationName=CRV`, catálogo `crv-radio-catalog.json`) → la portada debe renderizar la
+tarjeta de radio con `src/shared/radio/engine.ts` (`radioSnapshot`) y `config.ts`.
+
+**Paridad de partida (medida)**: normalizando `<base>`, `crv-api-base` y todos los `href/src`, el
+HTML vivo y `web/public/landing/roadmap-es.html` solo difieren en `csrf-token`, URLs de fuentes del
+CSS crítico, la canción en curso, `roadmap-category-list--deferred`, `data-visits-url`,
+`data-flag-base`, las cifras de visitas y los enlaces `/curaduria`. La base de paridad es buena.
+
+**Plan corregido para retomar**
+
+1. Copiar plantillas desde `herra-motor/herra-1.1.34/dist/views/` (roadmap, user-login, register,
+   activate, collaborate y partials), no desde `herra-separacion`.
+2. Portar a TS, sustituyendo `better-sqlite3` por `pg`: `theme.ts`, `branding.ts`,
+   `project-i18n.ts`, `content-i18n.ts`, `collaborate-form.ts`, `social-icons.ts` y solo las claves
+   de `i18n.ts` que usan esas vistas, más `view-helpers.ts`.
+3. `src/landing/render.ts` + `src/api/routes/landing.ts` (`GET /landing/:page?lang=`), registrado
+   tras `CRV_COMMUNITY_ENABLED`, con `ejs` como dependencia raíz.
+4. `web/server.mjs`: esas cinco rutas piden el HTML a la API, inyectan `<base href="/crv/">` +
+   `meta crv-api-base` y cachean 30–60 s.
+5. `/registro` y `/activar` sin token renderizan la rama `!valid` de la propia plantilla («enlace
+   no válido o caducado»), no un 404 (`dist/routes/auth.js:215`, `collaborate.js:141`).
+
+**Deuda detectada que afecta a CP0**: el contador de visitas del JS de Herra hace `POST` con
+`X-CSRF-Token`; CRV no usa CSRF en esas rutas, así que `data-visits-url` necesita un endpoint que
+lo tolere o el JS adaptado. Y `collaborate_json` está en NULL: el formulario de colaboración de la
+portada debe caer a los valores por defecto de la plantilla hasta que B8 lo pueble.
