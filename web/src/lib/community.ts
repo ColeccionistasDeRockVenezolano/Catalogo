@@ -11,6 +11,10 @@ export interface Collaborator {
   created_at: string; person_id: number | null; email: string | null;
   whatsapp_phone: string | null; city: string | null; country: string | null; terms: string;
   has_access_code?: boolean;
+  /** Vinculada a una cuenta administradora: solo un admin puede gestionarla. */
+  linked_admin?: boolean;
+  /** Actividades asignadas; el borrado las deja sin responsable. */
+  tasks?: number;
 }
 
 export interface CommunityOverview {
@@ -65,8 +69,9 @@ export interface PersonProfile {
   contact_preference: string; profile_visibility: string;
 }
 export interface PersonProfileInput {
-  firstName: string; lastName?: string; birthDate?: string; whatsappPhone?: string;
-  email?: string; city?: string; country?: string; experience?: string; availability?: string;
+  firstName?: string; lastName?: string | null; birthDate?: string | null; whatsappPhone?: string | null;
+  email?: string | null; city?: string | null; country?: string | null; experience?: string | null;
+  availability?: string | null;
 }
 
 /** Ventana 3.8: formulario de colaboración y categorías de perfil. */

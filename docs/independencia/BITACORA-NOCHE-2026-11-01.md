@@ -154,6 +154,15 @@ El buzón no se versiona: es correspondencia, no documentación del plan.
   `src/discography/source-appearances.ts`, `src/youtube/album-completion.ts`, `src/merge/*`) quedan
   fuera.
 - **C5 hecho** (revisión de Claude: «no los encontré»): la ventana 3.4 tenía alta, código, activación y revocación, pero le faltaban el **editor de persona** y el **borrado de cuenta**. Se añaden «Perfil» (9 campos, guarda en `auth.people` y refleja nombre en `auth.users`), «Usuario» (cambio de usuario con validación y sesiones fuera) y «Quitar» (`DELETE` de la cuenta, rechaza las vinculadas a `auth.admins` y conserva la persona). Endpoints `GET/PATCH .../person`, `PATCH .../username` y `DELETE .../collaborators/:id`; navegador **12/12** con cuenta creada y borrada por el guion; informe en `~/crv-staging/reports/c5-persona-2026-11` y detalle en `docs/independencia/FASE2-C5.md`.
+- **C5 corregido** (segunda revisión de Claude): (a) la ficha `GET .../person` **no** llamaba a
+  `assertManageable` y un `community` leía los datos de la cuenta de un administrador; ahora la
+  ficha, el detalle y el enlace de activación dan 403 `linked_admin`, y la lista las oculta a
+  `community`. (b) `updatePersonProfile` vaciaba lo omitido: ahora omitido conserva y `""`/`null`
+  limpia; la ventana manda `""` al limpiar. (c) Vitest nuevo
+  `test/contract/api-community-persona.test.ts` (**6/6**, PostgreSQL desechable + 0112/0124):
+  permisos, perfil, validaciones, usuario (duplicado/de admin/inválido/sesiones) y borrado (403 en
+  vinculada, tareas sin responsable, candidatura con `user_id` NULL); «Quitar» avisa de las tareas.
+  (d) `c5-persona-browser.mjs` cubre móvil 390, inglés y rol `community`: **28/28** en staging.
 - B4: no se reinicia producción. `crv-api` se reinició solo a las 14:35:28 (origen sin identificar)
   y `crv-web` a las 15:59 con permiso de Brian.
 

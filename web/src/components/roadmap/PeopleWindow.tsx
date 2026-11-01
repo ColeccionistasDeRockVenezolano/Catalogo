@@ -18,6 +18,12 @@ const ESTADOS: Record<CollaboratorStatus, string> = {
   rejected: "Sin acceso",
 };
 
+/** Aviso del borrado: las actividades asignadas quedan sin responsable. */
+function avisoTareas(tareas: number): string {
+  if (tareas <= 0) return "";
+  return ` Se quitará de ${tareas} ${tareas === 1 ? "tarea" : "tareas"} del roadmap y ${tareas === 1 ? "quedará" : "quedarán"} sin responsable.`;
+}
+
 export function PeopleWindow({ title, kicker, onClose, onChanged, mode = "all" }: {
   title: string;
   kicker: string;
@@ -143,16 +149,19 @@ export function PeopleWindow({ title, kicker, onClose, onChanged, mode = "all" }
     if (!perfil) return;
     setBusy(true);
     try {
+      // Se manda el formulario completo: un campo vacío limpia el dato en la
+      // API (""), mientras que omitirlo lo dejaría intacto. Omitir al limpiar
+      // era el fallo: el campo borrado en pantalla seguía guardado.
       const datos = await communityApi.updateCollaboratorPerson(perfil.persona.id, {
         firstName: fields.firstName.trim(),
-        ...(fields.lastName.trim() ? { lastName: fields.lastName.trim() } : {}),
-        ...(fields.birthDate ? { birthDate: fields.birthDate } : {}),
-        ...(fields.whatsappPhone.trim() ? { whatsappPhone: fields.whatsappPhone.trim() } : {}),
-        ...(fields.email.trim() ? { email: fields.email.trim() } : {}),
-        ...(fields.city.trim() ? { city: fields.city.trim() } : {}),
-        ...(fields.country.trim() ? { country: fields.country.trim() } : {}),
-        ...(fields.experience.trim() ? { experience: fields.experience.trim() } : {}),
-        ...(fields.availability.trim() ? { availability: fields.availability.trim() } : {}),
+        lastName: fields.lastName.trim(),
+        birthDate: fields.birthDate.trim(),
+        whatsappPhone: fields.whatsappPhone.trim(),
+        email: fields.email.trim(),
+        city: fields.city.trim(),
+        country: fields.country.trim(),
+        experience: fields.experience.trim(),
+        availability: fields.availability.trim(),
       });
       setPerfil({ persona: perfil.persona, datos });
       notify("success", "Perfil guardado. Es global: se ve en todos los proyectos.");
@@ -266,6 +275,9 @@ export function PeopleWindow({ title, kicker, onClose, onChanged, mode = "all" }
               <span className="rw-row__name">
                 {persona.name}
                 <em>{ESTADOS[persona.status]}</em>
+                {persona.linked_admin ? (
+                  <em title="Vinculada a una cuenta administradora: solo un admin puede gestionarla">Vinculada a administrador</em>
+                ) : null}
               </span>
               {mode === "pending" ? (
                 <span className="rw-actions">
@@ -295,7 +307,10 @@ export function PeopleWindow({ title, kicker, onClose, onChanged, mode = "all" }
                   <button type="button" className="btn btn--sm" onClick={() => setRevocar(persona)} disabled={busy || persona.status === "rejected"} title="Retirar el acceso">
                     <Prohibit size={14} aria-hidden="true" /> Revocar
                   </button>
-                  <button type="button" className="btn btn--sm" onClick={() => setQuitar(persona)} disabled={busy} title="Borrar la cuenta del proyecto">
+                  <button type="button" className="btn btn--sm" onClick={() => setQuitar(persona)} disabled={busy || persona.linked_admin}
+                    title={persona.linked_admin
+                      ? "Vinculada a una cuenta administradora: quita el vínculo antes de borrarla"
+                      : "Borrar la cuenta del proyecto"}>
                     <Trash size={14} aria-hidden="true" /> Quitar
                   </button>
                 </span>
@@ -351,7 +366,7 @@ export function PeopleWindow({ title, kicker, onClose, onChanged, mode = "all" }
       {quitar ? (
         <ConfirmDialog
           title="Borrar la cuenta"
-          description={`${quitar.name} dejará de existir como cuenta de este proyecto y se cerrarán sus sesiones. Su perfil global (persona) se conserva.`}
+          description={`${quitar.name} dejará de existir como cuenta de este proyecto y se cerrarán sus sesiones.${avisoTareas(quitar.tasks ?? 0)} Su perfil global (persona) se conserva.`}
           confirmLabel="Borrar cuenta"
           danger
           requireNote={false}

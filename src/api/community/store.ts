@@ -30,6 +30,10 @@ export interface CollaboratorRow {
   country: string | null;
   terms: string;
   has_access_code: boolean;
+  /** La cuenta está vinculada a `auth.admins`: solo un admin puede gestionarla. */
+  linked_admin: boolean;
+  /** Actividades en las que participa; al borrar la cuenta se queda sin responsable. */
+  tasks: number;
 }
 
 export interface AdminRow {
@@ -81,7 +85,12 @@ const COLLABORATOR_FIELDS = `
   u.session_version, u.created_at, u.person_id,
   (u.access_code_hash IS NOT NULL) AS has_access_code,
   p.email, p.whatsapp_phone, p.city, p.country,
-  coalesce(t.terms, '') AS terms`;
+  coalesce(t.terms, '') AS terms,
+  EXISTS (SELECT 1 FROM auth.admins a WHERE a.project_id = u.project_id AND a.user_id = u.id) AS linked_admin,
+  (SELECT count(*)::int FROM auth.tasks k
+    WHERE k.project_id = u.project_id
+      AND (k.assigned_user_id = u.id
+           OR EXISTS (SELECT 1 FROM auth.task_assignees ka WHERE ka.task_id = k.id AND ka.user_id = u.id))) AS tasks`;
 
 const COLLABORATOR_JOINS = `
   FROM auth.users u
@@ -355,45 +364,67 @@ export async function getPersonProfile(project: number, userId: number): Promise
 }
 
 export interface PersonProfileInput {
-  firstName?: string | undefined;
-  lastName?: string | undefined;
-  birthDate?: string | undefined;
-  whatsappPhone?: string | undefined;
-  email?: string | undefined;
-  city?: string | undefined;
-  country?: string | undefined;
-  experience?: string | undefined;
-  availability?: string | undefined;
+  firstName?: string | null | undefined;
+  lastName?: string | null | undefined;
+  birthDate?: string | null | undefined;
+  whatsappPhone?: string | null | undefined;
+  email?: string | null | undefined;
+  city?: string | null | undefined;
+  country?: string | null | undefined;
+  experience?: string | null | undefined;
+  availability?: string | null | undefined;
+}
+
+/** `""`, `"   "` y `null` limpian; `undefined` (campo omitido) conserva. */
+function presentOrNull(value: string | null): string | null {
+  const text = (value ?? "").trim();
+  return text || null;
 }
 
 /**
  * El perfil es global: se guarda en `auth.people` y se refleja en la cuenta
  * del proyecto (`auth.users.first_name/last_name`), sin tocar el usuario.
+ *
+ * Solo se escribe lo que llega: un campo omitido conserva su valor y un campo
+ * vacío (`""`, espacios o `null`) lo limpia. Antes se enviaba el formulario
+ * completo y lo omitido se guardaba como NULL, así que un PATCH parcial
+ * (p. ej. solo el nombre) borraba el resto de la ficha.
  */
 export async function updatePersonProfile(
   project: number, userId: number, input: PersonProfileInput,
 ): Promise<PersonProfile> {
   const current = await getPersonProfile(project, userId);
   if (!current) throw new ApiError(404, "collaborator_not_found", "No existe esa cuenta en el proyecto.");
-  const firstName = normalizePersonName(input.firstName ?? current.first_name);
-  const lastName = normalizePersonName(input.lastName ?? current.last_name);
+  const firstName = normalizePersonName(input.firstName === undefined ? current.first_name : input.firstName ?? "");
   if (!firstName) throw new ApiError(400, "invalid_first_name", "El nombre es obligatorio.");
-  const birthDate = (input.birthDate ?? "").trim();
+  const lastName = normalizePersonName(input.lastName === undefined ? current.last_name : input.lastName ?? "");
+  const birthDate = input.birthDate === undefined ? undefined : presentOrNull(input.birthDate);
   if (birthDate && !isValidBirthDate(birthDate)) throw new ApiError(400, "invalid_birth_date", "La fecha de nacimiento no es válida.");
-  const phone = (input.whatsappPhone ?? "").trim();
+  const phone = input.whatsappPhone === undefined ? undefined : presentOrNull(input.whatsappPhone);
   if (phone && !isValidPhone(phone)) throw new ApiError(400, "invalid_phone", "El número de WhatsApp no parece válido.");
-  const email = (input.email ?? "").trim();
+  const email = input.email === undefined ? undefined : presentOrNull(input.email);
   if (email && !isValidEmail(email)) throw new ApiError(400, "invalid_email", "El correo no parece válido.");
-  const clean = (value: string | undefined, max: number) => (value ?? "").trim().slice(0, max) || null;
+
+  const assignments = ["first_name = $1", "last_name = $2"];
+  const values: Array<string | number | null> = [firstName, lastName || null];
+  const set = (column: string, value: string | null): void => {
+    values.push(value);
+    assignments.push(`${column} = $${values.length}`);
+  };
+  if (birthDate !== undefined) set("birth_date", birthDate);
+  if (phone !== undefined) set("whatsapp_phone", phone);
+  if (email !== undefined) set("email", email);
+  if (input.city !== undefined) set("city", presentOrNull(input.city)?.slice(0, MAX_FIELD) ?? null);
+  if (input.country !== undefined) set("country", presentOrNull(input.country)?.slice(0, MAX_FIELD) ?? null);
+  if (input.experience !== undefined) set("experience", presentOrNull(input.experience)?.slice(0, MAX_TEXT) ?? null);
+  if (input.availability !== undefined) set("availability", presentOrNull(input.availability)?.slice(0, MAX_FIELD) ?? null);
+  values.push(current.person_id);
+
   await withTransaction(async (client) => {
     await client.query(
-      `UPDATE auth.people SET first_name = $1, last_name = $2, birth_date = $3, whatsapp_phone = $4,
-              email = $5, city = $6, country = $7, experience = $8, availability = $9,
+      `UPDATE auth.people SET ${assignments.join(", ")},
               updated_at = to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD HH24:MI:SS')
-        WHERE id = $10`,
-      [firstName, lastName || null, birthDate || null, phone || null, email || null,
-        clean(input.city, MAX_FIELD), clean(input.country, MAX_FIELD), clean(input.experience, MAX_TEXT),
-        clean(input.availability, MAX_FIELD), current.person_id]);
+        WHERE id = $${values.length}`, values);
     await client.query(
       `UPDATE auth.users SET first_name = $1, last_name = $2,
               updated_at = to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD HH24:MI:SS')

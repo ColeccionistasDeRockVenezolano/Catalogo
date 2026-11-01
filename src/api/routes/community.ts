@@ -83,16 +83,20 @@ const collaboratorPatch = z.object({
 
 const accessCodeBody = z.object({ accessCode: z.string().min(12).max(200) }).strict();
 
+// Un campo omitido conserva su valor; "" o null lo limpian (el nombre no:
+// vaciarlo deja la persona sin nombre y se rechaza con 400).
+const clearable = (max: number) => z.union([z.string().trim().max(max), z.null()]).optional();
+
 const personBody = z.object({
-  firstName: z.string().trim().min(1).max(80),
-  lastName: z.string().trim().max(80).optional(),
-  birthDate: z.string().trim().max(10).optional(),
-  whatsappPhone: z.string().trim().max(120).optional(),
-  email: z.string().trim().max(120).optional(),
-  city: z.string().max(200).optional(),
-  country: z.string().max(200).optional(),
-  experience: z.string().max(4000).optional(),
-  availability: z.string().max(200).optional(),
+  firstName: z.string().trim().max(80).optional(),
+  lastName: clearable(80),
+  birthDate: clearable(10),
+  whatsappPhone: clearable(120),
+  email: clearable(120),
+  city: clearable(200),
+  country: clearable(200),
+  experience: clearable(4000),
+  availability: clearable(200),
 }).strict();
 
 const usernameBody = z.object({ username: z.string().trim().min(2).max(80) }).strict();
@@ -230,12 +234,17 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
     schema: { tags: ["Comunidad"], querystring: z.object({ status: z.string().optional(), search: z.string().optional() }) },
   }, async (request) => {
     const project = await projectId();
-    return { data: await listCollaborators(project, request.query) };
+    const rows = await listCollaborators(project, request.query);
+    // Un `community` no gestiona las cuentas ligadas a un administrador
+    // (assertManageable → 403): no se le enseña su fila ni sus datos.
+    const data = request.viewer?.role === "community" ? rows.filter((row) => !row.linked_admin) : rows;
+    return { data };
   });
 
   api.get("/community/admin/collaborators/:id", { schema: { tags: ["Comunidad"], params: idParamSchema } },
     async (request) => {
       const project = await projectId();
+      await assertManageable(request, project, request.params.id);
       const collaborator = await getCollaborator(project, request.params.id);
       if (!collaborator) throw new ApiError(404, "collaborator_not_found", "No existe esa cuenta en el proyecto.");
       return collaborator;
@@ -369,6 +378,7 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
   api.get("/community/admin/collaborators/:id/person", { schema: { tags: ["Comunidad"], params: idParamSchema } },
     async (request) => {
       const project = await projectId();
+      await assertManageable(request, project, request.params.id);
       const person = await getPersonProfile(project, request.params.id);
       if (!person) throw new ApiError(404, "collaborator_not_found", "No existe esa cuenta en el proyecto.");
       return person;
@@ -402,6 +412,7 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
     schema: { tags: ["Comunidad"], params: idParamSchema },
   }, async (request, reply) => {
     const project = await projectId();
+    await assertManageable(request, project, request.params.id);
     const collaborator = await getCollaborator(project, request.params.id);
     if (!collaborator) throw new ApiError(404, "collaborator_not_found", "No existe esa cuenta en el proyecto.");
     if (collaborator.status !== "approved") {

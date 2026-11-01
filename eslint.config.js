@@ -10,7 +10,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   {
     ignores: [
-      "**/node_modules/**", "**/dist/**", "**/dist-public/**", "build/**", "coverage/**",
+      "**/node_modules/**", "**/dist/**", "**/dist-public/**", "**/dist-staging/**", "build/**", "coverage/**",
       "data/**", "backups/**", "public/**", "tmp-analysis/**",
       // Comprobaciones sueltas de una sesión, como tmp-analysis: no son código del repo.
       "tmp/**",
