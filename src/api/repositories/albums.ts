@@ -18,7 +18,7 @@ import { ALBUM_EDITION_TYPES_SQL, extraAlbumFilterSql } from "./album-categories
 import { parseCategorySelection } from "../../shared/category-selection.js";
 import { albumYoutubeVideoId, youtubeVideoId } from "../../shared/youtube-playback.js";
 import { CRV_CHANNEL_ID } from "../../youtube/home-channel.js";
-import { playableCrvVideoIds } from "../../youtube/playable-crv.js";
+import { playableVideoIds } from "../../youtube/playable-crv.js";
 
 export interface AlbumListRow {
   id: number;
@@ -377,13 +377,20 @@ export async function getAlbumDetail(id: number): Promise<AlbumDetail | null> {
   );
   const row = rows[0];
   if (!row) return null;
-  const crvIds = row['crv_video_ids'] as string[];
-  const allowedCrvIds = await playableCrvVideoIds(crvIds);
-  const blockedCrvIds = new Set(crvIds.filter(videoId => !allowedCrvIds.has(videoId)));
-  row['youtube_links'] = (row['youtube_links'] as AlbumDetail['youtubeLinks']).filter(link => !blockedCrvIds.has(link.videoId));
-  if (blockedCrvIds.has(youtubeVideoId(row['youtube_url'] as string | null) ?? '')) row['youtube_url'] = null;
-  for (const disc of row['discs'] as AlbumDetail['discs']) {
-    disc.platforms = disc.platforms.filter(link => link.platform !== 'youtube' || !blockedCrvIds.has(youtubeVideoId(link.url) ?? ''));
+  // Manda el registro de la base para todo video de YouTube del disco (CRV u
+  // otro canal); la ficha no consulta a YouTube. Lo no reproducible no se ofrece.
+  const discs0 = row['discs'] as AlbumDetail['discs'];
+  const linkedIds = [
+    ...(row['youtube_links'] as AlbumDetail['youtubeLinks']).map(link => link.videoId),
+    youtubeVideoId(row['youtube_url'] as string | null),
+    ...discs0.flatMap(disc => disc.platforms.filter(link => link.platform === 'youtube').map(link => youtubeVideoId(link.url))),
+  ].filter((videoId): videoId is string => Boolean(videoId));
+  const playable = await playableVideoIds(linkedIds);
+  const allowedCrvIds = new Set((row['crv_video_ids'] as string[]).filter(videoId => playable.has(videoId)));
+  row['youtube_links'] = (row['youtube_links'] as AlbumDetail['youtubeLinks']).filter(link => playable.has(link.videoId));
+  if (!playable.has(youtubeVideoId(row['youtube_url'] as string | null) ?? '')) row['youtube_url'] = null;
+  for (const disc of discs0) {
+    disc.platforms = disc.platforms.filter(link => link.platform !== 'youtube' || playable.has(youtubeVideoId(link.url) ?? ''));
   }
   const credits = row["credits"] as AlbumCreditRow[];
   const tracklist = row["tracklist"] as AlbumTrackRow[];

@@ -37,7 +37,7 @@ describe("audiovisuales de los perfiles", () => {
     const client = await getPool().connect();
     try {
       await persistVideoPayload(client, { id: "docVideo001", snippet: { title: "Banda de prueba - Película (2010) || Full Documentary ||", channelId: CRV_CHANNEL_ID,
-        description: "Timestamps:\n00:00 - Prólogo\n05:00 - Concierto\n20:00 - Error de la fuente\n\nOther Credits\nDirected by Persona de Prueba" }, contentDetails: { duration: "PT10M" }, status: { privacyStatus: "public", embeddable: true } });
+        description: "Timestamps:\n00:00 - Prólogo\n05:00 - Concierto\n20:00 - Error de la fuente\n\nOther Credits\nDirected by Persona de Prueba" }, contentDetails: { duration: "PT10M" }, status: { privacyStatus: "public", uploadStatus: "processed", embeddable: true } });
       await persistVideoPayload(client, { id: "blocked0001", snippet: { title: "Banda de prueba - Clip bloqueado (Official Video)", channelId: CRV_CHANNEL_ID }, status: { privacyStatus: "private" } });
       await syncArtistAudiovisuals(client);
     } finally { client.release(); }
@@ -62,7 +62,7 @@ describe("audiovisuales de los perfiles", () => {
     const client = await getPool().connect();
     try {
       await persistVideoPayload(client, { id: "bePwD424LvA", snippet: { title: "Gasolina - Blues Criollo (Documentary)", channelId: CRV_CHANNEL_ID },
-        status: { privacyStatus: "public", embeddable: true } });
+        status: { privacyStatus: "public", uploadStatus: "processed", embeddable: true } });
     } finally { client.release(); }
     await withOperatorRun({ name: "test-gas", operator: "test", note: "Excepción musical expresa" },
       context => createEntity(context, "album", { title: "Blues Criollo" }, { artistId: gas }));
@@ -84,7 +84,7 @@ describe("audiovisuales de los perfiles", () => {
     const client = await getPool().connect();
     try {
       await persistVideoPayload(client, { id: "ajenoVid001", snippet: { title: "Banda de prueba - Toma Ajena (Official Video)", channelId: "UCcanalAjenoDeArtista001" },
-        status: { privacyStatus: "public", embeddable: true } });
+        status: { privacyStatus: "public", uploadStatus: "processed", embeddable: true } });
     } finally { client.release(); }
     const detail = (await app.inject(`/artists/${artist}`)).json();
     expect(detail.audiovisuals.find((item: { title: string }) => item.title === "Toma Ajena (Official Video)")).toMatchObject({ kind: "music_video", playable: true });

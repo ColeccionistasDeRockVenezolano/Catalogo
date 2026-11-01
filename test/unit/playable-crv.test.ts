@@ -1,46 +1,51 @@
-import { describe, expect, it, vi } from 'vitest';
-import { isPlayableCrvVideo, playableCrvVideoIds } from '../../src/youtube/playable-crv.js';
+import { describe, expect, it } from 'vitest';
+import { isPlayableCrvVideo, isPlayableYoutubeVideo, playableCrvVideoIds, playableVideoIds, playableVideoSql, unplayableReason } from '../../src/youtube/playable-crv.js';
 import { CRV_CHANNEL_ID } from '../../src/youtube/home-channel.js';
-import { YouTubeDataApi, type YouTubeVideoPayload } from '../../src/youtube/api.js';
+import type { YouTubeVideoPayload } from '../../src/youtube/api.js';
 
 const valid = (): YouTubeVideoPayload => ({ id: 'abcdefghijk', snippet: { channelId: CRV_CHANNEL_ID },
   status: { privacyStatus: 'public', uploadStatus: 'processed', embeddable: true }, contentDetails: {} });
 
-describe('disponibilidad confirmada de YouTube CRV', () => {
-  it('acepta publicaciones públicas y no listadas reproducibles', () => {
+describe('reproducibilidad según el registro de la base', () => {
+  it('acepta lo público, procesado e incrustable', () => {
     expect(isPlayableCrvVideo(valid())).toBe(true);
-    expect(isPlayableCrvVideo({ ...valid(), status: { ...valid().status, privacyStatus: 'unlisted' } })).toBe(true);
+    expect(isPlayableYoutubeVideo({ ...valid(), snippet: { channelId: 'otro-canal' } })).toBe(true);
+  });
+  it('muestra un veto regional parcial; solo esconde si no se permite en ningún país', () => {
+    expect(isPlayableCrvVideo({ ...valid(), contentDetails: { regionRestriction: { blocked: ['DE'] } } })).toBe(true);
+    expect(isPlayableCrvVideo({ ...valid(), contentDetails: { regionRestriction: { allowed: ['US'] } } })).toBe(true);
+    expect(unplayableReason({ ...valid(), contentDetails: { regionRestriction: { allowed: [] } } })).toBe('bloqueado_en_todo_pais');
   });
   it.each([
-    { status: {} },
-    { status: { ...valid().status, privacyStatus: 'private' } },
-    { status: { ...valid().status, embeddable: false } },
-    { status: { ...valid().status, uploadStatus: 'deleted' } },
-    { status: { ...valid().status, uploadStatus: 'failed' } },
-    { status: { ...valid().status, rejectionReason: 'copyright' } },
-    { contentDetails: { regionRestriction: { blocked: ['VE'] } } },
-    { contentDetails: { regionRestriction: { allowed: ['US'] } } },
-    { contentDetails: { contentRating: { ytRating: 'ytAgeRestricted' } } },
-    { snippet: { channelId: 'otro-canal' } },
-    { snippet: { channelId: CRV_CHANNEL_ID, liveBroadcastContent: 'upcoming' } },
-  ])('omite videos inaccesibles o sin confirmación: %j', patch => {
-    expect(isPlayableCrvVideo({ ...valid(), ...patch })).toBe(false);
+    [{ status: {} }, 'borrado_o_privado'],
+    [{ status: { ...valid().status, privacyStatus: 'private' } }, 'borrado_o_privado'],
+    [{ status: { ...valid().status, privacyStatus: 'unlisted' } }, 'no_listado'],
+    [{ status: { ...valid().status, embeddable: false } }, 'no_incrustable'],
+    [{ status: { ...valid().status, uploadStatus: 'deleted' } }, 'no_procesado'],
+    [{ status: { ...valid().status, rejectionReason: 'copyright' } }, 'rechazado'],
+    [{ contentDetails: { contentRating: { ytRating: 'ytAgeRestricted' } } }, 'restriccion_edad'],
+    [{ snippet: { channelId: CRV_CHANNEL_ID, liveBroadcastContent: 'upcoming' } }, 'estreno'],
+  ] as const)('esconde %j', (patch, reason) => {
+    expect(unplayableReason({ ...valid(), ...patch } as YouTubeVideoPayload)).toBe(reason);
+    expect(isPlayableCrvVideo({ ...valid(), ...patch } as YouTubeVideoPayload)).toBe(false);
   });
-  it('no recupera un resultado anterior si la API falla o ya no devuelve el video', async () => {
-    const api = new YouTubeDataApi('test');
-    const request = vi.spyOn(api, 'listVideos').mockResolvedValueOnce({ items: [valid()] })
-      .mockResolvedValueOnce({ items: [] }).mockRejectedValueOnce(new Error('API no disponible'));
-    expect(await playableCrvVideoIds(['abcdefghijk'], api)).toEqual(new Set(['abcdefghijk']));
-    expect(await playableCrvVideoIds(['abcdefghijk'], api)).toEqual(new Set());
-    expect(await playableCrvVideoIds(['abcdefghijk'], api)).toEqual(new Set());
-    expect(request).toHaveBeenCalledTimes(3);
+  it('el estado guardado en la base manda antes que la respuesta', () => {
+    expect(unplayableReason(valid(), 'unpublished')).toBe('borrado_o_privado');
+    expect(unplayableReason(valid(), 'copyright_blocked')).toBe('copyright');
+    expect(unplayableReason(valid(), 'unlisted')).toBe('no_listado');
+    expect(unplayableReason(valid(), 'unknown')).toBe('estado_desconocido');
+    expect(unplayableReason(null)).toBe('sin_registro');
   });
-  it('no consulta la API para un catálogo vacío y limita los lotes a 50 IDs', async () => {
-    const api = new YouTubeDataApi('test');
-    const request = vi.spyOn(api, 'listVideos').mockResolvedValue({ items: [] });
-    expect(await playableCrvVideoIds([], api)).toEqual(new Set());
-    expect(request).not.toHaveBeenCalled();
-    await playableCrvVideoIds(Array.from({ length: 51 }, (_, i) => String(i).padStart(11, 'v')), api);
-    expect(request.mock.calls.map(([ids]) => ids.length)).toEqual([50, 1]);
+  it('un canal ajeno no es video de CRV', () => {
+    expect(isPlayableCrvVideo({ ...valid(), snippet: { channelId: 'otro-canal' } })).toBe(false);
+  });
+  it('la regla SQL cubre los mismos campos', () => {
+    const sql = playableVideoSql('v');
+    for (const field of ["publication_status = 'published'", 'privacyStatus', 'uploadStatus', 'embeddable', 'rejectionReason',
+      'failureReason', 'liveBroadcastContent', 'ytAgeRestricted', 'regionRestriction,allowed']) expect(sql).toContain(field);
+  });
+  it('no consulta la base sin IDs válidos', async () => {
+    expect(await playableVideoIds([])).toEqual(new Set());
+    expect(await playableCrvVideoIds(['corto', 'demasiado-largo'])).toEqual(new Set());
   });
 });

@@ -1,5 +1,6 @@
 import { getPool } from "../../db/client.js";
 import type { AudiovisualKind } from "../../youtube/audiovisual-rules.js";
+import { playableVideoSql } from "../../youtube/playable-crv.js";
 
 export interface ArtistAudiovisual {
   tags?: string[];
@@ -25,8 +26,7 @@ export async function artistAudiovisuals(artistId: number): Promise<ArtistAudiov
       -- La pestaña pública sólo publica reproductores que la API de YouTube
       -- confirma como reproducibles dentro del sitio. Las obras que no pasan
       -- este filtro permanecen en el inventario/editorial como evidencia.
-      AND v.publication_status IN ('published','unlisted')
-      AND v.metadata #>> '{status,embeddable}' = 'true'
+      AND ${playableVideoSql('v')}
     ORDER BY av.release_year DESC NULLS LAST,av.title,av.id`, [artistId]);
   return rows.map(row => ({ id: Number(row.id), title: row.title, releaseYear: row.release_year, kind: row.kind, tags:row.tags,
     description: row.description, videoId: row.video_id,

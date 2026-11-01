@@ -12,8 +12,10 @@ import { registerDiscoveryRoutes } from "../../src/api/routes/discovery.js";
 import { registerDailyCycleRoutes } from "../../src/api/daily-cycle.js";
 import { CRV_CHANNEL_ID } from "../../src/youtube/home-channel.js";
 const unavailableVideos = vi.hoisted(() => new Set<string>());
-vi.mock('../../src/youtube/playable-crv.js', () => ({
+vi.mock('../../src/youtube/playable-crv.js', async (importOriginal) => ({
+  ...await importOriginal<typeof import('../../src/youtube/playable-crv.js')>(),
   playableCrvVideoIds: async (ids: string[]) => new Set(ids.filter(id => !unavailableVideos.has(id))),
+  playableVideoIds: async (ids: string[]) => new Set(ids.filter(id => !unavailableVideos.has(id))),
 }));
 
 vi.mock("../../src/youtube/home-channel.js", async importOriginal => ({

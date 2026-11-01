@@ -10,8 +10,10 @@ import { syncAlbumVideoTrackTimes } from "../../src/youtube/track-playback.js";
 import { updateEntity, withOperatorRun } from "../../src/merge/operator.js";
 import { CRV_CHANNEL_ID } from "../../src/youtube/home-channel.js";
 const unavailableCrvVideos = vi.hoisted(() => new Set<string>());
-vi.mock('../../src/youtube/playable-crv.js', () => ({
+vi.mock('../../src/youtube/playable-crv.js', async (importOriginal) => ({
+  ...await importOriginal<typeof import('../../src/youtube/playable-crv.js')>(),
   playableCrvVideoIds: async (ids: string[]) => new Set(ids.filter(id => !unavailableCrvVideos.has(id))),
+  playableVideoIds: async (ids: string[]) => new Set(ids.filter(id => !unavailableCrvVideos.has(id))),
 }));
 
 describe("tiempos del video que reproduce la ficha del disco", () => {

@@ -33,6 +33,7 @@ import { proposeImageCandidate } from "../merge/image-candidates.js";
 import { createAlias } from "../api/repositories/aliases.js";
 import { YouTubeDataApi, youtubePublicationStatus, type YouTubeVideoPayload } from "./api.js";
 import { CRV_CHANNEL_ID } from "./home-channel.js";
+import { UNPLAYABLE_LABELS, playableVideoSql, unplayableReason, type UnplayableReason } from "./playable-crv.js";
 import { youtubeLinkKey } from "./linker.js";
 import { canonicalVideoUrl, extractYouTubeVideoId } from "./normalization.js";
 import { parseYouTubeTitle } from "./parsers.js";
@@ -616,17 +617,31 @@ export async function watchChannelUploads(options: { dryRun?: boolean; api?: You
 // ---------------------------------------------------------------------------
 
 export interface AvailabilityChange { videoId: string; from: string; to: string }
+export interface AvailabilityNotice { videoId: string; title: string | null; reason: UnplayableReason; label: string; albums: Array<{ id: number; title: string }> }
 export interface AvailabilityResult {
   dryRun: boolean; checked: number; batchesFailed: number; changes: AvailabilityChange[];
   albums: Array<{ albumId: number; title: string; action: "status" | "promoted"; status?: string; videoId?: string }>;
+  /** Respuestas de YouTube guardadas o renovadas en `media.youtube_videos.metadata`. */
+  refreshed: number;
+  /** Avisos abiertos en la cola de revisión por videos vinculados que no se pueden mostrar. */
+  notices: AvailabilityNotice[];
+  /** Avisos cerrados porque el video vuelve a poder mostrarse. */
+  noticesClosed: number;
   runId?: number;
 }
 
+const AVAILABILITY_VIA = "youtube-disponibilidad";
+
 /**
  * Pregunta por todos los videos que el catálogo usa (los del canal, los
- * enlazados a un disco y los de `albums.youtube_url` / enlaces por disco). Un
- * lote que falla no marca nada: solo cuenta como borrado lo que la API, al
- * responder, ya no devuelve.
+ * enlazados a un disco, pista o audiovisual y los de `albums.youtube_url` /
+ * enlaces por disco). Un lote que falla no marca nada: solo cuenta como borrado
+ * lo que la API, al responder, ya no devuelve.
+ *
+ * Guarda la respuesta completa (estado, incrustación, restricciones) en
+ * `media.youtube_videos.metadata`: es el registro del que leen todas las
+ * páginas, que nunca consultan a YouTube (regla de Brian, 2026-10-31). Cada
+ * video vinculado que no se puede mostrar deja un aviso en la cola de revisión.
  */
 export async function checkChannelAvailability(options: { dryRun?: boolean; api?: YouTubeDataApi } = {}): Promise<AvailabilityResult> {
   const dryRun = options.dryRun ?? false;
@@ -636,6 +651,8 @@ export async function checkChannelAvailability(options: { dryRun?: boolean; api?
     WITH ids AS (
       SELECT v.video_id FROM media.youtube_videos v
        WHERE v.channel_id=$1 OR EXISTS (SELECT 1 FROM media.video_albums va WHERE va.video_id=v.id)
+          OR EXISTS (SELECT 1 FROM media.video_tracks vt WHERE vt.video_id=v.id)
+          OR EXISTS (SELECT 1 FROM media.artist_audiovisuals av WHERE av.video_id=v.id)
       UNION SELECT substring(youtube_url FROM '(?:v=|youtu\\.be/)([A-Za-z0-9_-]{11})') FROM public.albums WHERE youtube_url IS NOT NULL
       UNION SELECT substring(url FROM '(?:v=|youtu\\.be/)([A-Za-z0-9_-]{11})') FROM public.album_disc_links WHERE platform='youtube'
     )
@@ -645,13 +662,14 @@ export async function checkChannelAvailability(options: { dryRun?: boolean; api?
   const current = new Map(rows.rows.map((row) => [row.video_id, row.status]));
   const ids = [...current.keys()];
   const seen = new Map<string, string>();
+  const payloads = new Map<string, YouTubeVideoPayload>();
   const answered = new Set<string>();
   let batchesFailed = 0;
   for (let offset = 0; offset < ids.length; offset += 50) {
     const batch = ids.slice(offset, offset + 50);
     try {
       const response = await api.listVideos(batch);
-      for (const item of response.items ?? []) seen.set(item.id, youtubePublicationStatus(item.status));
+      for (const item of response.items ?? []) { seen.set(item.id, youtubePublicationStatus(item.status)); payloads.set(item.id, item); }
       for (const id of batch) answered.add(id);
     } catch (error) {
       batchesFailed += 1;
@@ -666,6 +684,9 @@ export async function checkChannelAvailability(options: { dryRun?: boolean; api?
   }
 
   const albumsChanged: AvailabilityResult["albums"] = [];
+  let refreshed = 0;
+  let noticesClosed = 0;
+  const notices: AvailabilityNotice[] = [];
   const { runId } = await withOperatorRun(
     { name: "youtube-disponibilidad", operator: WATCH_OPERATOR, note: AVAILABILITY_NOTE, params: { checked: ids.length, changes: changes.length } },
     async (context) => {
@@ -676,21 +697,46 @@ export async function checkChannelAvailability(options: { dryRun?: boolean; api?
           ON CONFLICT(video_id) DO UPDATE SET publication_status=EXCLUDED.publication_status, last_fetched_at=now(), updated_at=now()`,
         [change.videoId, canonicalVideoUrl(change.videoId), change.to]);
       }
+      // Registro de la base: estado, incrustación y restricciones de la API.
+      // Solo se escribe lo que cambió, para no llenar el diario a diario.
+      for (const [videoId, item] of payloads) {
+        const updated = await context.client.query(`
+          UPDATE media.youtube_videos v
+             SET metadata = coalesce(v.metadata, '{}'::jsonb)
+                   || jsonb_build_object('status', $2::jsonb->'status', 'contentDetails', $2::jsonb->'contentDetails',
+                        -- Del snippet solo se renuevan canal y estado de emisión (un estreno
+                        -- deja de ser «upcoming»); título y descripción siguen su propio flujo.
+                        'snippet', CASE WHEN jsonb_typeof(v.metadata->'snippet') = 'object'
+                          THEN (v.metadata->'snippet') || jsonb_strip_nulls(jsonb_build_object(
+                                 'channelId', $2::jsonb#>'{snippet,channelId}',
+                                 'liveBroadcastContent', $2::jsonb#>'{snippet,liveBroadcastContent}'))
+                          ELSE $2::jsonb->'snippet' END),
+                 channel_id = coalesce(v.channel_id, $2::jsonb#>>'{snippet,channelId}'),
+                 title = coalesce(v.title, $2::jsonb#>>'{snippet,title}'),
+                 last_fetched_at = now(), updated_at = now()
+           WHERE v.video_id = $1
+             AND (v.metadata IS NULL OR v.metadata->'status' IS DISTINCT FROM $2::jsonb->'status'
+               OR v.metadata->'contentDetails' IS DISTINCT FROM $2::jsonb->'contentDetails'
+               OR NOT v.metadata ? 'snippet' OR v.channel_id IS NULL
+               OR v.metadata#>'{snippet,liveBroadcastContent}' IS DISTINCT FROM $2::jsonb#>'{snippet,liveBroadcastContent}'
+               OR v.metadata#>'{snippet,channelId}' IS DISTINCT FROM $2::jsonb#>'{snippet,channelId}')`, [videoId, JSON.stringify(item)]);
+        refreshed += updated.rowCount ?? 0;
+      }
       // Cada disco con video principal: si ese video cayó y hay otro vivo, el
       // otro pasa a principal; si no, el disco solo cambia de estado.
-      const primaries = await context.client.query<{ album_id: string; title: string; video_db_id: string; video_id: string; status: string; youtube_url: string | null; youtube_status: string }>(`
+      const primaries = await context.client.query<{ album_id: string; title: string; video_db_id: string; video_id: string; status: string; youtube_url: string | null; youtube_status: string; playable: boolean }>(`
         SELECT al.id::text AS album_id, al.title, v.id::text AS video_db_id, v.video_id, v.publication_status::text AS status,
-               al.youtube_url, al.youtube_status::text
+               al.youtube_url, al.youtube_status::text, ${playableVideoSql("v")} AS playable
           FROM media.video_albums va JOIN media.youtube_videos v ON v.id=va.video_id JOIN public.albums al ON al.id=va.album_id
          WHERE va.is_primary_link ORDER BY al.id`);
       for (const row of primaries.rows) {
         const albumId = Number(row.album_id);
-        if (UNAVAILABLE_STATUSES.has(row.status)) {
+        if (!row.playable) {
           const alternative = (await context.client.query<{ video_db_id: string; video_id: string; status: string }>(`
             SELECT v.id::text AS video_db_id, v.video_id, v.publication_status::text AS status
               FROM media.video_albums va JOIN media.youtube_videos v ON v.id=va.video_id
              WHERE va.album_id=$1 AND NOT va.is_primary_link AND va.album_kind='full_album'
-               AND v.publication_status IN ('published','unlisted')
+               AND ${playableVideoSql("v")}
              ORDER BY v.published_at DESC NULLS LAST LIMIT 1`, [albumId])).rows[0];
           if (alternative) {
             await setPrimaryLink(context, albumId, Number(alternative.video_db_id), true);
@@ -709,13 +755,65 @@ export async function checkChannelAvailability(options: { dryRun?: boolean; api?
         await updateEntity(context, "album", albumId, values);
         albumsChanged.push({ albumId, title: row.title, action: "status", status: row.status });
       }
+      const closed = await syncAvailabilityNotices(context.client, notices);
+      noticesClosed = closed;
       return null;
     },
     { rollbackOnly: dryRun },
   );
-  const result: AvailabilityResult = { dryRun, checked: ids.length, batchesFailed, changes, albums: albumsChanged, ...(dryRun ? {} : { runId }) };
-  if (!dryRun && (changes.length > 0 || albumsChanged.length > 0 || batchesFailed > 0)) await writeLog("disponibilidad.jsonl", result);
+  const result: AvailabilityResult = { dryRun, checked: ids.length, batchesFailed, changes, albums: albumsChanged, refreshed, notices, noticesClosed, ...(dryRun ? {} : { runId }) };
+  if (!dryRun && (changes.length > 0 || albumsChanged.length > 0 || batchesFailed > 0 || notices.length > 0 || noticesClosed > 0)) await writeLog("disponibilidad.jsonl", result);
   return result;
+}
+
+/**
+ * Aviso en la cola de revisión por cada video vinculado al catálogo que el
+ * sitio no puede mostrar (borrado, privado, no listado, no incrustable…). Un
+ * aviso por video mientras siga así; se cierra solo cuando vuelve a mostrarse.
+ * Devuelve cuántos avisos cerró; `opened` recibe los que abrió.
+ */
+async function syncAvailabilityNotices(client: PoolClient, opened: AvailabilityNotice[]): Promise<number> {
+  const linked = await client.query<{ id: string; video_id: string; title: string | null; status: string; metadata: YouTubeVideoPayload | null;
+    albums: Array<{ id: number; title: string }> }>(`
+    SELECT v.id::text, v.video_id, v.title, v.publication_status::text AS status, v.metadata,
+           coalesce((SELECT jsonb_agg(DISTINCT jsonb_build_object('id', al.id, 'title', al.title))
+              FROM public.albums al
+             WHERE EXISTS (SELECT 1 FROM media.video_albums va WHERE va.video_id=v.id AND va.album_id=al.id)
+                OR substring(al.youtube_url FROM '(?:v=|youtu\\.be/|shorts/)([A-Za-z0-9_-]{11})') = v.video_id
+                OR EXISTS (SELECT 1 FROM public.album_disc_links dl WHERE dl.album_id=al.id AND dl.platform='youtube'
+                            AND substring(dl.url FROM '(?:v=|youtu\\.be/|shorts/)([A-Za-z0-9_-]{11})') = v.video_id)), '[]'::jsonb) AS albums
+      FROM media.youtube_videos v
+     WHERE EXISTS (SELECT 1 FROM media.video_albums va WHERE va.video_id=v.id)
+        OR EXISTS (SELECT 1 FROM media.video_tracks vt WHERE vt.video_id=v.id)
+        OR EXISTS (SELECT 1 FROM media.artist_audiovisuals av WHERE av.video_id=v.id)
+        OR EXISTS (SELECT 1 FROM public.albums al WHERE substring(al.youtube_url FROM '(?:v=|youtu\\.be/|shorts/)([A-Za-z0-9_-]{11})') = v.video_id)
+        OR EXISTS (SELECT 1 FROM public.album_disc_links dl WHERE dl.platform='youtube'
+                    AND substring(dl.url FROM '(?:v=|youtu\\.be/|shorts/)([A-Za-z0-9_-]{11})') = v.video_id)`);
+  let closed = 0;
+  for (const row of linked.rows) {
+    const reason = unplayableReason(row.metadata, row.status);
+    if (reason === null) {
+      const done = await client.query(`
+        UPDATE ingest.review_queue SET status='approved', resolved_by='system', resolved_at=now(), updated_at=now(),
+               resolution_note='El video vuelve a poder mostrarse en el sitio'
+         WHERE kind='manual_review' AND video_id=$1 AND payload->>'via'=$2 AND status IN ('open','in_progress')`, [row.id, AVAILABILITY_VIA]);
+      closed += done.rowCount ?? 0;
+      continue;
+    }
+    const label = UNPLAYABLE_LABELS[reason];
+    const albumText = row.albums.map(album => `«${album.title}» (disco ${album.id})`).join(", ");
+    const note = `Video de YouTube ${row.video_id} no se muestra en el sitio: ${label}.${albumText ? ` Vinculado a ${albumText}.` : ""}`;
+    const inserted = await client.query(`
+      INSERT INTO ingest.review_queue(kind, video_id, album_id, priority, payload, notes)
+      SELECT 'manual_review', $1, $2, 4, $3::jsonb, $4
+       WHERE NOT EXISTS (SELECT 1 FROM ingest.review_queue
+                          WHERE kind='manual_review' AND video_id=$1 AND payload->>'via'=$5
+                            AND payload->>'reason'=$6 AND status IN ('open','in_progress','dismissed'))`,
+    [row.id, row.albums[0]?.id ?? null, JSON.stringify({ via: AVAILABILITY_VIA, videoId: row.video_id, reason, label, albums: row.albums }),
+      note.slice(0, 2000), AVAILABILITY_VIA, reason]);
+    if (inserted.rowCount) opened.push({ videoId: row.video_id, title: row.title, reason, label, albums: row.albums });
+  }
+  return closed;
 }
 
 async function writeLog(file: string, entry: unknown): Promise<void> {
