@@ -229,6 +229,7 @@ export function PeopleWindow({ title, kicker, onClose, onChanged, mode = "all" }
           description={`${revocar.name} dejará de poder entrar con su código y se cerrarán sus sesiones.`}
           confirmLabel="Revocar acceso"
           danger
+          requireNote={false}
           onClose={() => setRevocar(null)}
           onConfirm={() => void quitar()}
         />

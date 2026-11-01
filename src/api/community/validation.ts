@@ -14,7 +14,10 @@ export const MAX_FIELD = 200;
 export const MAX_TEXT = 4_000;
 export const MAX_LINKS = 10;
 export const ACTIVATION_TTL_DAYS = 7;
-export const INVITE_TTL_MINUTES = 24 * 60;
+// Herra 1.1.34 (config.registrationTokenTtlMin por defecto): el enlace de
+// registro vence a los 30 minutos y sirve para varias personas mientras viva.
+// Es el texto que muestra la ventana 3.9 y el que anuncia la portada.
+export const INVITE_TTL_MINUTES = 30;
 export const MAX_REGISTRATIONS_PER_DAY = 20;
 
 const SCRYPT_N = 16_384;

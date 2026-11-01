@@ -26,6 +26,8 @@ import { Modal } from "../components/Modal";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { PeopleWindow } from "../components/roadmap/PeopleWindow";
 import { ApplicationsWindow } from "../components/roadmap/ApplicationsWindow";
+import { CollaborateFormWindow } from "../components/roadmap/CollaborateFormWindow";
+import { InvitesWindow } from "../components/roadmap/InvitesWindow";
 import { ErrorState, LoadingState } from "../components/StateViews";
 import "../styles/community-ui.css";
 import "../styles/roadmap-admin.css";
@@ -110,7 +112,7 @@ export function CurationRoadmapPage() {
   // Un enlace con ?herramienta= desconocida o de un bloque que aún no existe
   // no debe dejar la URL mintiendo: se limpia.
   useEffect(() => {
-    const known: ToolId[] = ["nueva-actividad", "nueva-etapa", "personas", "pendientes", "candidaturas"];
+    const known: ToolId[] = ["nueva-actividad", "nueva-etapa", "personas", "pendientes", "candidaturas", "formulario", "enlaces"];
     if (tool && !known.includes(tool)) closeTool();
   }, [tool]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -161,9 +163,13 @@ export function CurationRoadmapPage() {
     );
   }
 
-  if (roadmap.loading) return <div className="community-page"><LoadingState label="Cargando el roadmap…" /></div>;
-  if (roadmap.error) return <div className="community-page"><ErrorState message={roadmap.error} onRetry={() => void roadmap.reload()} /></div>;
+  // Recargar en segundo plano no puede desmontar la página: al guardar desde
+  // una ventana, el evento de cambio del catálogo recarga el roadmap y, si
+  // aquí se devolviera el esqueleto, la ventana se cerraría y se perdería lo
+  // que acababa de crearse (enlace de activación, enlace de registro…).
   const data = roadmap.data;
+  if (!data && roadmap.loading) return <div className="community-page"><LoadingState label="Cargando el roadmap…" /></div>;
+  if (!data && roadmap.error) return <div className="community-page"><ErrorState message={roadmap.error} onRetry={() => void roadmap.reload()} /></div>;
   if (!data) return null;
 
   const counts = overview.data;
@@ -227,10 +233,10 @@ export function CurationRoadmapPage() {
     { id: "nueva-etapa", label: copy.tools.newStage, icon: ListChecks, enabled: true },
     { id: "personas", label: copy.tools.people, icon: UsersThree, count: counts?.collaborators ?? data.users.length, enabled: true },
     { id: "pendientes", label: copy.tools.pending, icon: IdentificationCard, count: counts?.pending_collaborators ?? 0, enabled: true },
-    { id: "candidaturas", label: copy.tools.applications, icon: ClipboardText, count: counts?.pending_applications ?? 0, enabled: false },
+    { id: "candidaturas", label: copy.tools.applications, icon: ClipboardText, count: counts?.pending_applications ?? 0, enabled: true },
     { id: "metricas", label: copy.tools.metrics, icon: ChartLine, enabled: false },
-    { id: "formulario", label: copy.tools.form, icon: NotePencil, enabled: false },
-    { id: "enlaces", label: copy.tools.invites, icon: LinkSimple, enabled: false },
+    { id: "formulario", label: copy.tools.form, icon: NotePencil, enabled: true },
+    { id: "enlaces", label: copy.tools.invites, icon: LinkSimple, enabled: true },
     { id: "identidad", label: copy.tools.branding, icon: Palette, enabled: false },
     { id: "idiomas", label: copy.tools.languages, icon: Translate, enabled: false },
     { id: "ajustes", label: copy.tools.settings, icon: Gear, enabled: false },
@@ -345,6 +351,23 @@ export function CurationRoadmapPage() {
           kicker={copy.adminKicker}
           onClose={closeTool}
           onChanged={() => { roadmap.reload(); overview.reload(); }}
+        />
+      ) : null}
+
+      {tool === "formulario" ? (
+        <CollaborateFormWindow
+          title={copy.tools.form}
+          kicker={copy.adminKicker}
+          onClose={closeTool}
+          onSaved={() => { overview.reload(); }}
+        />
+      ) : null}
+
+      {tool === "enlaces" ? (
+        <InvitesWindow
+          title={copy.tools.invites}
+          kicker={copy.adminKicker}
+          onClose={closeTool}
         />
       ) : null}
 

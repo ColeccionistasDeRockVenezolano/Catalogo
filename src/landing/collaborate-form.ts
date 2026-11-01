@@ -3,6 +3,8 @@ import { sanitizeHeroHtml } from "../api/project/config.js";
 import type { LandingLanguage } from "./i18n.js";
 
 type Form = typeof defaults.es;
+/** Forma del formulario de colaboración ya resuelto (una lengua). */
+export type CollaborateForm = Form;
 function object(value: unknown): Record<string, unknown> {
   if (typeof value === "string") {
     try { value = JSON.parse(value) as unknown; } catch { return {}; }

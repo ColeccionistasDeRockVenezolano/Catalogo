@@ -54,6 +54,37 @@ export interface AcceptResult {
   activationToken: string; activationExpiresAt: string; activationPath: string;
 }
 export interface InviteCreated { token: string; expiresAt: string; invitePath: string }
+
+/** Ventana 3.8: formulario de colaboración y categorías de perfil. */
+export type FieldMode = "off" | "optional" | "required";
+export type ProfileTermType = "skill" | "contribution_area" | "link_type";
+export interface ProfileTerm {
+  id: number; type: ProfileTermType; label: string; slug: string; archived: boolean; persons: number;
+}
+export interface CollaborateForm {
+  heroBadge: string;
+  heroTitleHtml: string;
+  heroSub: string;
+  introNote: string;
+  pillars: string[];
+  steps: Record<string, string>;
+  labels: Record<string, string>;
+  helps: Record<string, string>;
+  placeholders: Record<string, string>;
+  submitLabel: string;
+  nextStepsTitle: string;
+  nextSteps: string[];
+  sentTitle: string;
+  sentBody: string;
+  maxLinks: number;
+  fields: Record<string, FieldMode>;
+}
+export interface CollaborateConfig {
+  overrides: Record<string, unknown>;
+  form: CollaborateForm;
+  catalog: { skills: ProfileTerm[]; areas: ProfileTerm[]; linkTypes: ProfileTerm[] };
+  maxLinks: number;
+}
 export interface ActivationCreated { token: string; expiresAt: string; activationPath: string }
 
 export interface ApplicationInput {
@@ -120,4 +151,18 @@ export const communityApi = {
   setAdminRole: (id: number, role: AdminRole) =>
     request<AdminUser>(`/community/admin/admins/${id}/role`, {
       method: "PATCH", authenticated: true, body: { role } }),
+
+  // Ventana 3.8 · formulario de colaboración y catálogo de categorías.
+  collaborateForm: () => request<CollaborateConfig>("/community/admin/collaborate-form"),
+  saveCollaborateForm: (form: Record<string, unknown>) =>
+    request<CollaborateConfig>("/community/admin/collaborate-form", {
+      method: "PUT", authenticated: true, body: { form } }),
+  profileTerms: () => request<{ data: ProfileTerm[]; skills: ProfileTerm[]; areas: ProfileTerm[]; linkTypes: ProfileTerm[] }>(
+    "/community/admin/profile-terms"),
+  createProfileTerm: (type: ProfileTermType, label: string) =>
+    request<ProfileTerm>("/community/admin/profile-terms", {
+      method: "POST", authenticated: true, body: { type, label } }),
+  updateProfileTerm: (id: number, patch: { label?: string; archived?: boolean }) =>
+    request<ProfileTerm>(`/community/admin/profile-terms/${id}`, {
+      method: "PATCH", authenticated: true, body: patch }),
 };

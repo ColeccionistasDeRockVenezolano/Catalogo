@@ -231,7 +231,7 @@ function buildUrl(path: string, query?: Query, baseUrl: string = BASE_URL): stri
 interface RequestOptions {
   binaryBody?: File;
   onSearchReceipt?: (receipt: string) => void;
-  method?: "GET" | "POST" | "PATCH" | "DELETE";
+  method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   query?: object;
   body?: unknown;
   /** Cancela una lectura que ya no representa lo que la persona está viendo. */
