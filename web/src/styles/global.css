@@ -1831,7 +1831,6 @@ tr.is-excluded { opacity: 0.45; }
 
 /* ---------- Curaduría: portadas y fotos para elegir a ojo ---------- */
 .img-pick-list { display: grid; gap: 14px; margin: 0 0 8px; padding: 0; list-style: none; }
-.img-pick-list.is-refreshing { opacity: 0.6; }
 .img-pick {
   display: grid; gap: 14px; padding: 18px 20px;
   background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);

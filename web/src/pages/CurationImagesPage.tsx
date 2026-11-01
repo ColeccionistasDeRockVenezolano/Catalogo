@@ -6,7 +6,7 @@
 // tarjeta pone la imagen actual al lado de las candidatas: «Usar esta» la
 // cambia en la ficha (un run, con «Deshacer» en la barra de abajo) y «Dejar la
 // actual» solo descarta las candidatas. Nada cambia sin una decisión.
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { X } from "@phosphor-icons/react";
 import { albumWrites, artistWrites, imageCandidatesApi, type ImageCandidate, type ImageCandidateGroup, type ImageCandidateKind } from "../lib/api";
@@ -20,8 +20,10 @@ import { Pagination } from "../components/Pagination";
 import { ImageCurationProgress } from "../components/ImageCurationProgress";
 import { imageGroupKey, queueImageDecision, queueImageInspection, queueKeepCurrent, useImageCurationQueue } from "../lib/imageCurationQueue";
 import { ImageGroupCard } from "../components/ImageCandidateGroupCard";
+import { isTransientFailure } from "../lib/transientFailure";
 
 const LIMIT = 20;
+const LIST_RETRY_MS = 5000;
 const TABS: ReadonlyArray<{ kind: ImageCandidateKind; param: string; label: string }> = [
   { kind: "album", param: "portadas", label: "Portadas" },
   { kind: "artist", param: "fotos", label: "Fotos de artista" },
@@ -48,7 +50,13 @@ export function CurationImagesPage() {
   }), [tab.kind, offset, entityId, queryKey]);
   // Las lecturas anteriores no deben aparecer al cambiar de pestaña o página.
   const data = result.data?.queryKey === queryKey ? result.data : undefined;
-  const { loading, error, reload } = result;
+  const { loading, error, errorValue, reload } = result;
+  // Un corte puntual no debe quitarle la lista a quien está eligiendo.
+  useEffect(() => {
+    if (!error || !isTransientFailure(errorValue)) return undefined;
+    const timer = setTimeout(reload, LIST_RETRY_MS);
+    return () => clearTimeout(timer);
+  }, [error, errorValue, reload]);
   const counts = useAsync(() => imageCandidatesApi.summary(), [data]);
   const hidden = new Set(jobs.filter(job => job.type === "decision" && job.hide).flatMap(job => job.groups.map(imageGroupKey)));
   const visible = data?.data.filter(group => !hidden.has(imageGroupKey(group))) ?? [];
@@ -104,7 +112,7 @@ export function CurationImagesPage() {
           </button>
         ) : null}
         {entityId ? <Link className="btn btn--ghost btn--sm" to={tab === TABS[0] ? "" : `?tipo=${tab.param}`}>Ver todas las fichas</Link> : null}
-        {pending !== undefined && !loading ? (
+        {pending !== undefined ? (
           <p className="dup-count" aria-live="polite">{formatCount(pending)} {pending === 1 ? "ficha pendiente" : "fichas pendientes"}</p>
         ) : null}
       </div>
@@ -113,7 +121,7 @@ export function CurationImagesPage() {
 
       <div ref={paginationStartRef} className="pagination-start" />
 
-      {loading && !data ? <RowsSkeleton rows={3} height={260} label="Cargando las imágenes candidatas…" /> : error ? <ErrorState message={error} onRetry={reload} /> : visible.length === 0 ? (
+      {loading && !data ? <RowsSkeleton rows={3} height={260} label="Cargando las imágenes candidatas…" /> : error && !data ? <ErrorState message={error} onRetry={reload} /> : visible.length === 0 ? (
         data && (data.pagination.total > hiddenHere || jobs.some(job => job.type === "decision" && (job.status === "sending" || job.status === "queued" || job.status === "running") && job.groups.some(group => group.kind === tab.kind)) || offset > 0) ? (
           <div className="img-pick__more">
             <p role="status">{jobs.some(job => job.type === "decision" && (job.status === "sending" || job.status === "queued" || job.status === "running")) ? "Guardando tus decisiones. Las siguientes fichas aparecerán automáticamente." : "Quedan más fichas por revisar."}</p>
@@ -127,7 +135,7 @@ export function CurationImagesPage() {
         )
       ) : (
         <>
-          <ol className={`img-pick-list${loading ? " is-refreshing" : ""}`}>
+          <ol className="img-pick-list">
             {visible.map((group) => {
               const key = `${group.kind}:${group.entityId}`;
               return (

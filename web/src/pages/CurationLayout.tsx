@@ -26,6 +26,8 @@ import "../styles/curation-workbench.css";
 /** Cada cuánto se refresca el resumen; más a menudo mientras un análisis corre. */
 const REFRESH_MS = 20_000;
 const REFRESH_RUNNING_MS = 3_000;
+/** Contar duplicados tarda segundos y ocupa la API: basta una vez por minuto. */
+const DUPLICATE_REFRESH_MS = 60_000;
 
 export interface CurationOutletContext {
   summary: CurationSummary | undefined;
@@ -99,15 +101,19 @@ function useDuplicateCount(enabled: boolean): number | undefined {
   useEffect(() => {
     if (!enabled) return undefined;
     let current = true;
+    let inFlight = false;
     const refresh = () => {
+      if (inFlight) return;
+      inFlight = true;
       entityMergeApi.duplicateCandidates({ limit: 1 })
         .then((page) => { if (current) setCount(page.pagination.total); })
-        .catch(() => undefined);
+        .catch(() => undefined)
+        .finally(() => { inFlight = false; });
     };
     refresh();
     const timer = window.setInterval(() => {
       if (document.visibilityState === "visible") refresh();
-    }, REFRESH_MS);
+    }, DUPLICATE_REFRESH_MS);
     return () => { current = false; window.clearInterval(timer); };
   }, [enabled]);
 

@@ -3,6 +3,7 @@ import { useSyncExternalStore } from "react";
 import type { ImageJob, ImageTask } from "../../../src/shared/image-curation-jobs";
 import { ApiError, CATALOG_CHANGE_EVENT, CATALOG_DATA_CHANGED_EVENT, imageCandidatesApi, type CatalogChangeEvent, type ImageCandidateGroup } from "./api";
 import { getSessionCsrf } from "./operator";
+import { isTransientFailure } from "./transientFailure";
 export type ImageWork = Omit<ImageJob, "status"> & { status: ImageJob["status"] | "sending"; hide: boolean };
 export const imageGroupKey = (group: Pick<ImageCandidateGroup, "kind" | "entityId">) => `${group.kind}:${group.entityId}`;
 let jobs: readonly ImageWork[] = [];
@@ -14,6 +15,11 @@ const tasks = new Map<string, ImageTask>();
 const submitting = new Set<string>();
 const listeners = new Set<() => void>();
 let connection = { loading: false, error: null as string | null };
+// Un sondeo fallido suelto no merece aviso: se avisa al repetirse.
+const POLL_FAILURES_BEFORE_NOTICE = 3;
+const POLL_RETRY_MS = 2000;
+const SEND_RETRY_DELAYS_MS = [1000, 3000, 8000];
+let failedPolls = 0;
 const active = (job: ImageWork) => ["sending", "queued", "running"].includes(job.status);
 const subscribe = (listener: () => void) => { listeners.add(listener); return () => { listeners.delete(listener); }; };
 function emit() { for (const listener of listeners) listener(); }
@@ -23,7 +29,7 @@ export function useImageQueueConnection() { return useSyncExternalStore(subscrib
 function message(error: unknown) { return error instanceof ApiError ? error.message : "No se pudo conectar con la cola del servidor. Comprueba la conexión y vuelve a intentarlo."; }
 function schedule() {
   clearTimeout(timer);
-  if (enabled) timer = setTimeout(() => { void refreshImageQueue(); }, jobs.some(active) ? 1000 : 15_000);
+  if (enabled) timer = setTimeout(() => { void refreshImageQueue(); }, failedPolls ? POLL_RETRY_MS : jobs.some(active) ? 1000 : 15_000);
 }
 function reconcile(server: ImageJob[]) {
   const before = jobs;
@@ -50,14 +56,28 @@ export async function refreshImageQueue(): Promise<void> {
   try {
     const server = await imageCandidatesApi.jobs();
     if (generation !== epoch || version !== mutation) return;
-    connection = { loading: false, error: null }; reconcile(server);
+    failedPolls = 0; connection = { loading: false, error: null }; reconcile(server);
   } catch (error) {
-    if (generation === epoch && version === mutation) { connection = { loading: false, error: message(error) }; emit(); }
+    if (generation === epoch && version === mutation) {
+      failedPolls = isTransientFailure(error) ? failedPolls + 1 : POLL_FAILURES_BEFORE_NOTICE;
+      if (failedPolls >= POLL_FAILURES_BEFORE_NOTICE) { connection = { loading: false, error: message(error) }; emit(); }
+    }
   } finally { if (generation === epoch) { fetchingEpoch = null; if (version !== mutation) { clearTimeout(timer); timer = setTimeout(() => { void refreshImageQueue(); }, 0); } else schedule(); } }
 }
 export function startImageQueue(): () => void {
   enabled = true; connection = { loading: true, error: null }; emit(); void refreshImageQueue();
   return () => { enabled = false; epoch++; clearTimeout(timer); };
+}
+/** El servidor reconoce el requestId: repetir tras un corte no duplica la decisión. */
+async function sendTasks(pending: ImageTask[], generation: number): Promise<ImageJob[]> {
+  for (let attempt = 0; ; attempt++) {
+    try { return await imageCandidatesApi.enqueue(pending); }
+    catch (error) {
+      const wait = SEND_RETRY_DELAYS_MS[attempt];
+      if (wait === undefined || generation !== epoch || !isTransientFailure(error)) throw error;
+      await new Promise(resolve => setTimeout(resolve, wait));
+    }
+  }
 }
 async function submit(local: ImageWork[]): Promise<void> {
   const ready = local.filter(job => !submitting.has(job.requestId) && tasks.has(job.requestId));
@@ -65,7 +85,7 @@ async function submit(local: ImageWork[]): Promise<void> {
   const generation = epoch;
   for (const job of ready) { submitting.add(job.requestId); update(job.id, { status: "sending", error: null }); }
   try {
-    const accepted = await imageCandidatesApi.enqueue(ready.map(job => tasks.get(job.requestId)!));
+    const accepted = await sendTasks(ready.map(job => tasks.get(job.requestId)!), generation);
     if (generation !== epoch) return;
     mutation++;
     jobs = jobs.map(job => {
@@ -77,7 +97,7 @@ async function submit(local: ImageWork[]): Promise<void> {
     emit(); void refreshImageQueue();
   } catch (error) {
     if (generation !== epoch) return;
-    for (const job of ready) update(job.id, { status: "error", hide: false, error: `${message(error)} No se confirmó el envío; reintentar conserva la misma solicitud.`, conflict: error instanceof ApiError && error.status >= 400 && error.status < 500 });
+    for (const job of ready) update(job.id, { status: "error", hide: false, error: `${message(error)} No se confirmó el envío; reintentar conserva la misma solicitud.`, conflict: error instanceof ApiError && !isTransientFailure(error) });
     void refreshImageQueue();
   } finally { for (const job of ready) submitting.delete(job.requestId); }
 }
@@ -119,7 +139,7 @@ window.addEventListener("beforeunload", event => {
   // Una vez recibido el 202, cerrar el navegador no afecta al trabajador.
   if (jobs.some(job => job.status === "sending")) { event.preventDefault(); event.returnValue = ""; }
 });
-window.addEventListener("crv-session-changed", () => { epoch++; jobs = []; tasks.clear(); submitting.clear(); fetchingEpoch = null; connection = { loading: false, error: null }; emit(); if (enabled && getSessionCsrf()) void refreshImageQueue(); });
+window.addEventListener("crv-session-changed", () => { epoch++; jobs = []; tasks.clear(); submitting.clear(); fetchingEpoch = null; failedPolls = 0; connection = { loading: false, error: null }; emit(); if (enabled && getSessionCsrf()) void refreshImageQueue(); });
 window.addEventListener("focus", () => { void refreshImageQueue(); });
 document.addEventListener("visibilitychange", () => { if (!document.hidden) void refreshImageQueue(); });
 window.addEventListener(CATALOG_CHANGE_EVENT, event => {
