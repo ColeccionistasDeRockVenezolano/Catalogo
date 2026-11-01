@@ -1,7 +1,9 @@
 import { z } from "zod";
 const target = { requestId: z.string().uuid(), kind: z.enum(["album", "artist"]), entityId: z.number().int().positive(), note: z.string().trim().min(1).max(2000).optional() };
 export const imageTaskSchema = z.discriminatedUnion("type", [
-  z.object({ ...target, type: z.literal("decision"), candidateId: z.number().int().positive().nullable() }).strict(),
+  z.object({ ...target, type: z.literal("decision"), candidateId: z.number().int().positive().nullable(),
+    // La imagen que la persona tenía delante al elegir; si ya no es esa, la ficha no cambia.
+    expectedCurrentUrl: z.string().nullable().optional() }).strict(),
   z.object({ ...target, type: z.literal("inspection"), candidateIds: z.array(z.number().int().positive()).min(1).max(100) }).strict(),
 ]);
 export type ImageTask = z.infer<typeof imageTaskSchema>;

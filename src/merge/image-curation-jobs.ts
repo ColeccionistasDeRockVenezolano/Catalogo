@@ -165,7 +165,7 @@ export class ImageCurationWorker {
           const copy = await downloadImage(prepared.url, undefined, this.options.mediaRoot ?? path.resolve("web/public/media"));
           if (!("bytes" in copy) || createHash("sha256").update(copy.bytes).digest("hex") !== prepared.sha256) throw new ApiError(502, "stored_image_unavailable", "La copia guardada no está disponible. Revisa el almacén antes de reintentar.");
         }
-        await decideImage({ kind: task.kind, id: task.entityId, candidateId: task.candidateId, operator: row.operator, ...(task.note ? { note: task.note } : {}) }, {
+        await decideImage({ kind: task.kind, id: task.entityId, candidateId: task.candidateId, operator: row.operator, ...(task.note ? { note: task.note } : {}), ...(task.expectedCurrentUrl !== undefined ? { expectedCurrentUrl: task.expectedCurrentUrl } : {}) }, {
           ...(this.options.mediaRoot ? { mediaRoot: this.options.mediaRoot } : {}), ...(this.options.download ? { download: this.options.download } : {}), ...(prepared ? { prepared } : {}), publish: this.options.mediaRoot === undefined,
           complete: async context => complete(context, task.candidateId === null ? "Se conservó la imagen actual." : "Imagen guardada."),
         });

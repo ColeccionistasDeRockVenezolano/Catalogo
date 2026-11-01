@@ -114,7 +114,7 @@ function enqueue(groups: ImageCandidateGroup[], type: ImageWork["type"], candida
     const candidateIds = group.candidates.filter(candidate => candidate.quality === null || candidate.quality === "failed").map(candidate => candidate.id).slice(0, 100);
     if (type === "inspection" && !candidateIds.length) continue;
     const requestId = crypto.randomUUID();
-    const task: ImageTask = type === "decision" ? { requestId, kind: group.kind, entityId: group.entityId, type, candidateId } : { requestId, kind: group.kind, entityId: group.entityId, type, candidateIds };
+    const task: ImageTask = type === "decision" ? { requestId, kind: group.kind, entityId: group.entityId, type, candidateId, ...(candidateId === null ? {} : { expectedCurrentUrl: group.currentUrl }) } : { requestId, kind: group.kind, entityId: group.entityId, type, candidateIds };
     tasks.set(requestId, task);
     local.push({ id: --localId, requestId, type, groups: [{ kind: group.kind, entityId: group.entityId, name: group.name }], candidateId, status: "sending", hide: true,
       error: null, conflict: false, result: null, runId: null, attempts: 0, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() });

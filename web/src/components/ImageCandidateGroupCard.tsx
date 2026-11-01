@@ -33,7 +33,7 @@ export function ImageGroupCard({ group, onDecide, onUpload }: {
       {group.stale ? (
         <p className="img-pick__stale">
           <Warning size={15} weight="bold" aria-hidden="true" />
-          La imagen de esta ficha cambió desde que se propusieron las candidatas: solo se puede dejar la actual.
+          La imagen actual cambió desde que se propusieron estas candidatas. Compárala antes de elegir.
         </p>
       ) : null}
       <div className="img-pick__grid">
@@ -48,7 +48,7 @@ export function ImageGroupCard({ group, onDecide, onUpload }: {
             size={candidate.naturalWidth && candidate.naturalHeight ? [candidate.naturalWidth, candidate.naturalHeight] : candidate.width && candidate.height ? [candidate.width, candidate.height] : null}
             inspection={candidate}
             variantOf={candidate.variantOf ? group.candidates.findIndex((other) => other.id === candidate.variantOf) + 1 : null}
-            action={group.stale || candidate.source === "myspace-wayback-sin-copia" || candidate.quality === "failed" ? null : (
+            action={candidate.source === "myspace-wayback-sin-copia" || candidate.quality === "failed" ? null : (
               <button type="button" className="btn btn--primary btn--sm btn--block" onClick={() => onDecide(candidate)}>
                 <Check size={14} weight="bold" aria-hidden="true" />
                 Usar esta

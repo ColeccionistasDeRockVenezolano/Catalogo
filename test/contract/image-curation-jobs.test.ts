@@ -150,6 +150,25 @@ describe("cola persistente de imágenes", () => {
     await done(id); await runner.stop(); unavailable = false;
     expect(calls - before).toBe(1);
   });
+  it("compara con la imagen que se estaba viendo, no con la de la propuesta", async () => {
+    const cover = async (id: number) => (await getPool().query("SELECT cover_url FROM public.albums WHERE id=$1", [id])).rows[0].cover_url as string;
+    const setCover = (id: number, url: string) => getPool().query("UPDATE public.albums SET cover_url=$2 WHERE id=$1", [id, url]);
+    const runner = worker();
+
+    const localized = await seed();
+    await setCover(localized.entityId, "/crv/media/album/copia-local.jpg");
+    const accepted = (await submit([{ ...localized, expectedCurrentUrl: "/crv/media/album/copia-local.jpg" } as ImageTask])).json<ImageJob[]>()[0]!;
+    expect((await done(accepted.id)).conflict).toBe(false);
+    expect(await cover(localized.entityId)).not.toBe("/crv/media/album/copia-local.jpg");
+
+    const changed = await seed();
+    await setCover(changed.entityId, "/crv/media/album/otra-persona.jpg");
+    const rejected = (await submit([{ ...changed, expectedCurrentUrl: "https://img.example/before.jpg" } as ImageTask])).json<ImageJob[]>()[0]!;
+    await vi.waitFor(async () => { expect((await job(rejected.id)).status).toBe("error"); }, { timeout: 15000, interval: 30 });
+    expect(await job(rejected.id)).toMatchObject({ conflict: true, runId: null });
+    expect(await cover(changed.entityId)).toBe("/crv/media/album/otra-persona.jpg");
+    await runner.stop();
+  });
   it("serializa medición y decisión de una ficha y rechaza candidatas ajenas", async () => {
     const task = await seed("inspection"); if (task.type !== "inspection") throw new Error("fixture");
     const other = await seed(); if (other.type !== "decision") throw new Error("fixture");

@@ -14,7 +14,7 @@ export interface ImageDecisionOptions {
   prepared?: { url: string; sha256: string };
   complete?: (context: OperatorContext, result: { chosenUrl: string | null }) => Promise<void>;
 }
-export async function decideImage(input: { kind: ImageKind; id: number; candidateId: number | null; operator: string; note?: string }, options: ImageDecisionOptions = {}) {
+export async function decideImage(input: { kind: ImageKind; id: number; candidateId: number | null; operator: string; note?: string; expectedCurrentUrl?: string | null }, options: ImageDecisionOptions = {}) {
   const { kind, id, candidateId } = input;
   const label = kind === "album" ? "portada" : "foto de artista";
   const note = input.note ?? (candidateId === null
@@ -52,7 +52,13 @@ export async function decideImage(input: { kind: ImageKind; id: number; candidat
       const table = kind === "album" ? "public.albums" : "public.artists";
       const live = await context.client.query<{ url: string | null }>(`SELECT ${FIELD[kind]} AS url FROM ${table} WHERE id = $1 FOR UPDATE`, [id]);
       if (!live.rows[0]) throw new OperatorError("not_found", "La ficha ya no existe.", { kind, id });
-      if (live.rows[0].url !== chosen.current_url) {
+      // Quien elige compara con la imagen que ve: esa es la referencia. Sin ese dato
+      // (API síncrona) se conserva la comprobación contra la imagen de la propuesta.
+      if (input.expectedCurrentUrl !== undefined) {
+        if (live.rows[0].url !== input.expectedCurrentUrl) {
+          throw new OperatorError("stale_preview", `La ${label} de esta ficha cambió mientras la revisabas; vuelve a compararla.`, { kind, id });
+        }
+      } else if (live.rows[0].url !== chosen.current_url) {
         throw new OperatorError("stale_preview", `La ${label} de esta ficha cambió desde que se propusieron las candidatas; revísala en su ficha.`, { kind, id });
       }
       if (!stored) throw new OperatorError("stale_preview", "La candidata cambió mientras se guardaba su copia; vuelve a intentarlo.", { kind, id, candidateId });

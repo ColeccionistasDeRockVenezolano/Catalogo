@@ -55,6 +55,20 @@ describe("cola de imágenes ante fallos de conexión", () => {
     expect(changed).not.toHaveBeenCalled();
   });
 
+  it("la decisión viaja con la imagen que se estaba viendo; dejar la actual no la necesita", async () => {
+    const { queue } = await load(async (url, init) => {
+      if (init?.method !== "POST") return respond(200, url.includes("cache-version") ? '{"revision":"r"}' : "[]");
+      return respond(409, '{"error":{"code":"not_open","message":"Ya no."}}');
+    });
+    const seen = { kind: "album", entityId: 9, name: "Disco", currentUrl: "/crv/media/album/9.jpg", candidates: [] } as never;
+    queue.queueImageDecision(seen, 33);
+    queue.queueImageDecision({ ...(seen as object), entityId: 10 } as never, null);
+    await vi.advanceTimersByTimeAsync(100);
+    const sent = posts().map(([, init]) => (JSON.parse(String(init?.body)) as { tasks: Array<Record<string, unknown>> }).tasks[0]!);
+    expect(sent[0]).toMatchObject({ candidateId: 33, expectedCurrentUrl: "/crv/media/album/9.jpg" });
+    expect(sent[1]).not.toHaveProperty("expectedCurrentUrl");
+  });
+
   it("un 409 no se reintenta y queda como conflicto", async () => {
     const { queue } = await load(async (url, init) => {
       if (init?.method === "POST") return respond(409, '{"error":{"code":"not_open","message":"Ya no tiene candidatas."}}');
