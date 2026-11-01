@@ -5,7 +5,34 @@ documentos de arranque y continuar desde el primer bloque que no esté en «cump
 
 ## Resumen para la mañana
 
-_(se completa al terminar la noche)_
+_(parcial; se completa al terminar la noche)_
+
+**(a) Bloques**
+
+- B0, B1 y B2: **cumple** (commits `53c350f7`, `d9d0beb0`, `aa562976`). B1/B2 cerrados con el
+  `.down` de 0124 que aborta, CSP `base-uri 'self'`, navegador real 12/12 en escritorio y móvil
+  ES/EN y paridad 61/27/5.
+- B3: **cumple** (commit `131cb2d6`). IP real de Cloudflare solo desde el túnel, país, cookie
+  Secure/Strict, secretos propios y `NODE_ENV=production` en staging; probado con una visita
+  colapsada vs dos visitas según el interruptor.
+- B4: **pendiente de permiso**. Comando y comprobaciones exactas en su fila.
+- B5 (CP0) y B6 (C1-C2): **en curso**, delegados con instrucciones cerradas; se verifican en
+  navegador antes de darlos por cumplidos.
+
+**(b) Pendiente de permiso**
+
+1. `systemctl --user restart crv-api` (producción) con los interruptores apagados: cierra
+   `/community/*` y `/roadmap*` en :8080. Comprobaciones en la fila de B4.
+2. Reinicio de `crv-web` de producción, después y con la CSP `base-uri 'self'` ya probada.
+3. Instancia `crv-landing` (Fase 2B): valores exactos en `ops/staging/crv-landing.env.example`.
+
+**(c) Bloqueado / incidencias**: ninguna bloqueante. El globo «ONLINE (1)» de la portada se
+solapa con el botón del reproductor en móvil (Fase 3, anotado para B10).
+
+**(d) Commits**: `aa562976` (B2), `131cb2d6` (B3), más los de B5/B6 cuando se verifiquen.
+
+**(e) Riesgos**: el buzón de Claude no se versiona; `staging.env` vive fuera del repo (secretos
+nuevos); las cifras de visitas de staging cambiaron +1 por la comprobación en navegador.
 
 ## Informe de la tanda anterior (previo a B0)
 
@@ -63,8 +90,8 @@ El buzón no se versiona: es correspondencia, no documentación del plan.
 | B2 | cumple | P-1…P-4, F1-1…F1-6 y F2-1 corregidos. Pruebas: API flags false 404/health 200; guardia `linked_admin` 403; revocación rejected+hash NULL+sesión 401; último admin 409 `last_admin`; usernames reservados 409 y con espacio 400; `reviewed_by_admin_id` real; community sin Ajustes; landing con `<base>` y `meta crv-api-base`, `fetch("api/roadmap")` 200 y cero `../`. **Cierre 09:3x:** vitest 24/24 (chat-safety 16 + comunidad 8), typecheck backend/web, ESLint dirigido de los 12 archivos tocados, `build:staging` OK; navegador real 12/12 con capturas e informe JSON en `~/crv-staging/reports/independencia/b2-navegador/`; paridad 61/27/5 intacta. Dos hallazgos corregidos en esta pasada: CSP `base-uri 'none'` → `'self'` (bloqueaba el `<base>` inyectado y dejaba inerte `document.baseURI`) y la prueba de moderación sin sesión, que esperaba 401 cuando la API responde 403 `writes_disabled` con las cuentas ya solo en PostgreSQL. `FASE2A.md` actualizado. |
 | B3 | cumple | `clientIp` acepta `CF-Connecting-IP` solo con `CRV_TRUST_CF_HEADERS` + peer loopback + IP válida; `web/server.mjs` descarta `cf-connecting-ip`/`cf-ipcountry` si el peer no es local y además arregla el modo raíz (`apiPath` `/api` y sin `//`); país por `cf-ipcountry` con `normalizeCountry`; cookie `Path=/; HttpOnly; SameSite=Strict; Secure` sin `Domain`; dominio y `TRUST_CF` solo en `ops/staging/crv-landing.env.example` (2B, no instalado); staging con `NODE_ENV=production` y secretos propios. Pruebas: unit `client-ip.test.ts` 5/5; e2e API :8093 + gateway :3141 → mismo XFF (túnel) y dos CF-IP dan **1 visita sin interruptor y 2 con él** (`ve`,`br`); peer `127.0.0.2` con CF-IP → 1 visita (cabecera descartada); `VE`→`ve` y `ZZ`→`zz`; login real en Chromium con cookie httpOnly/secure/Strict/path=/ y `/auth/me` 200 admin; vitest 29/29, typecheck, ESLint, `build:staging` y 12/12 de navegador. Limpieza: fixtures `--clean`, sesiones `fase1-*` borradas, 52 visitas / 284 acumuladas. |
 | B4 | pendiente de permiso | Producción sigue con el API viejo: `POST /community/applications` responde 400 (ruta viva) y `POST /roadmap/visit` 200. Comando exacto: `systemctl --user restart crv-api`. Antes: anotar `curl -s -o /dev/null -w '%{http_code}' -X POST http://127.0.0.1:8080/community/applications -H 'content-type: application/json' -d '{}'` (hoy 400). Después, todo debe dar: `/health` 200, `/roadmap` 404, `POST /community/applications` 404, `/site-config` 404, `/radio/now` 404, `/artists?page=1&pageSize=1` 200, `https://coleccionistasderockvenezolano.com/` 200, `/crv` 404 y `https://mini-server.tail5815b0.ts.net/crv/` 200. Guardarraíles de ahora (sin tocar nada): dominio 200, `/crv` 404, funnel 200. `crv-web` de producción se reinicia aparte, después y solo con la CSP nueva ya probada. |
-| B5 | pendiente | CP0: portadas generadas desde datos |
-| B6 | pendiente | C1-C2: página y ventanas 3.1–3.3 |
+| B5 | en curso (delegado) | CP0: portadas generadas desde datos. Delegado 10:00 con instrucciones cerradas: render EJS de las plantillas de Herra en la API (`/landing/:page`), `web/server.mjs` sirviendo ese HTML con base inyectada y assets fuente de `herra-separacion/src/public`; paridad con la portada viva y prueba de dato vivo con reversión. Archivos reservados al subagente: `web/server.mjs`, `src/api/routes/landing.ts`, `src/landing/**`, `web/landing-views/**`. |
+| B6 | en curso (delegado) | C1-C2 según `INSTRUCCIONES_HERMES_ADMIN`: rehacer `/curaduria/roadmap` (cabecera, progreso, barra de 13 herramientas con contadores, avisos, etapas/filas editables, arrastre ratón/táctil/teclado, ventanas 3.1–3.3) con componentes del catálogo. Ventanas de B7–B10 quedan deshabilitadas con aviso, no simuladas. Verificación en Chromium con admin de staging y limpieza de fixtures. |
 | B7 | pendiente | C3-C5 y /cuenta |
 | B8 | pendiente | C8, C6 |
 | B9 | pendiente | C9, C11, C10 |
