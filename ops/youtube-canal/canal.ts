@@ -3,12 +3,37 @@
 //
 //   scripts/with-node22.sh npx tsx ops/youtube-canal/canal.ts watch [--dry-run] [--video=<id>[,<id>]]
 //   scripts/with-node22.sh npx tsx ops/youtube-canal/canal.ts availability [--dry-run]
+//   scripts/with-node22.sh npx tsx ops/youtube-canal/canal.ts intake [--dry-run] [--video=<db id>] [--limit=N]
+//   scripts/with-node22.sh npx tsx ops/youtube-canal/canal.ts complete [--dry-run] [--video=<id>[,<id>]]
+//
+// Un video nuevo visto por la portada lanza watch → intake → radio en el acto
+// (src/youtube/new-video-trigger.ts → ops/youtube-canal/nuevo.sh).
 //
 // `watch` (cada hora) enlaza, renombra o crea el disco de cada video nuevo;
 // `availability` (cada día) marca los videos caídos y promueve otro si lo hay.
-import { closeDb } from "../../src/db/client.js";
+import { closeDb, getPool } from "../../src/db/client.js";
 import { checkChannelAvailability, watchChannelUploads } from "../../src/youtube/channel-watch.js";
 import { autoApproveReadyIntakes, runIntakeSweep, runVideoIntake } from "../../src/youtube/intake.js";
+import { completeChannelAlbums } from "../../src/youtube/album-completion.js";
+import { completeThumbnailCovers } from "../../src/youtube/thumbnail-cover.js";
+
+/** Tipo y géneros (fuentes → IA → herencia), portada y sello (miniatura) de los discos del canal. */
+async function complete(videoIds: string[] | undefined, dryRun: boolean): Promise<boolean> {
+  const outcomes = await completeChannelAlbums({ dryRun, ...(videoIds ? { videoIds } : {}) });
+  console.log(`youtube complete${dryRun ? " --dry-run" : ""}: ${outcomes.length} discos por completar`);
+  for (const item of outcomes) {
+    const type = !item.type ? "" : "skipped" in item.type ? ` · tipo sin cambio (${item.type.skipped})` : ` · tipo ${item.type.from} → ${item.type.to} (${item.type.via})`;
+    const genres = !item.genres ? "" : "skipped" in item.genres ? ` · géneros: ${item.genres.skipped}` : ` · géneros [${item.genres.basis}]: ${item.genres.detail}`;
+    console.log(`  disco ${item.albumId} «${item.title}» (${item.videoId})${type}${genres}${item.error ? ` · ERROR: ${item.error}` : ""}${item.runIds.length ? ` [runs ${item.runIds.join(", ")}]` : ""}`);
+  }
+  // Portada y sello desde la miniatura (plantilla del canal).
+  const covers = await completeThumbnailCovers({ dryRun, ...(videoIds ? { videoIds } : {}) });
+  console.log(`youtube miniaturas${dryRun ? " --dry-run" : ""}: ${covers.length} discos mirados`);
+  for (const item of covers) {
+    console.log(`  disco ${item.albumId} «${item.title}» (${item.videoId}) · portada: ${item.cover}${item.label ? ` · sello: ${item.label}` : ""}${item.error ? ` · ERROR: ${item.error}` : ""}${item.runId ? ` [run ${item.runId}]` : ""}`);
+  }
+  return outcomes.some((item) => item.error) || covers.some((item) => item.error);
+}
 
 const [command, ...args] = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
@@ -60,7 +85,13 @@ async function main(): Promise<number> {
       const auto = sweep.auto.plans ? sweep.auto : await autoApproveReadyIntakes();
       console.log(`  altas seguras: ${auto.accepted} cambios aceptados en ${auto.plans} propuestas, ${auto.skipped} cambios a revisión humana${auto.linked ? `, ${auto.linked} videos enlazados` : ""}`);
     }
-    return sweep.results.some((result) => result.status === "failed") ? 1 : 0;
+    // El timer horario completa también tipo y géneros de lo que haya quedado sin ellos.
+    const failed = await complete(undefined, dryRun);
+    return sweep.results.some((result) => result.status === "failed") || failed ? 1 : 0;
+  }
+  if (command === "complete") {
+    const only = args.find((arg) => arg.startsWith("--video="))?.slice("--video=".length);
+    return await complete(only ? only.split(",") : undefined, dryRun) ? 1 : 0;
   }
   if (command === "availability") {
     const result = await checkChannelAvailability({ dryRun });
@@ -69,14 +100,27 @@ async function main(): Promise<number> {
     for (const album of result.albums) {
       console.log(`  disco ${album.albumId} «${album.title}»: ${album.action === "promoted" ? `nuevo video principal ${album.videoId}` : `youtube_status → ${album.status}`}`);
     }
+    console.log(`  ${result.refreshed} respuestas de YouTube guardadas, ${result.notices.length} avisos nuevos, ${result.noticesClosed} avisos cerrados`);
+    for (const notice of result.notices) {
+      console.log(`  aviso ${notice.videoId}: ${notice.label}${notice.albums.length ? ` — ${notice.albums.map((album) => `«${album.title}» (${album.id})`).join(", ")}` : ""}`);
+    }
     return result.batchesFailed > 0 ? 1 : 0;
   }
-  console.error("uso: canal.ts watch|availability|intake [--dry-run] [--video=<id>] [--limit=N]");
+  console.error("uso: canal.ts watch|availability|intake|complete [--dry-run] [--video=<id>] [--limit=N]");
   return 2;
 }
 
+// watch, intake y complete escriben el mismo catálogo: el disparador del video nuevo
+// (nuevo.sh) y los timers horarios se turnan con un cerrojo de PostgreSQL.
+const CANAL_LOCK = "crv:youtube-canal";
+const lock = command === "watch" || command === "intake" || command === "complete" ? await getPool().connect() : null;
 try {
+  if (lock && !dryRun) await lock.query("SELECT pg_advisory_lock(hashtext($1))", [CANAL_LOCK]);
   process.exitCode = await main();
 } finally {
+  if (lock) {
+    if (!dryRun) await lock.query("SELECT pg_advisory_unlock(hashtext($1))", [CANAL_LOCK]).catch(() => undefined);
+    lock.release();
+  }
   await closeDb();
 }

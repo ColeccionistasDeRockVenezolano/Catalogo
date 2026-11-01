@@ -94,3 +94,58 @@ todo lo que el planificador deje en `unresolved`. La lista vive en
 - El enlace del video al disco se hace al aplicar la propuesta. Mientras la
   propuesta está `ready`, el video sigue apareciendo como pendiente en el
   espacio, con su botón «Ver propuesta».
+
+## Disparo inmediato desde la portada (2026-10-31)
+
+La portada consulta el canal cada 5 minutos. Con `CRV_YT_NEW_TRIGGER=true`,
+cuando esa consulta trae un video público que `media.youtube_videos` no tiene,
+la API (`src/youtube/new-video-trigger.ts`) lanza la unidad transitoria
+`crv-youtube-nuevo` (`systemd-run --user`) con `ops/youtube-canal/nuevo.sh`:
+
+1. `canal.ts watch --video=<ids>`: enlace, renombre, alta o cola `youtube_match`;
+2. `canal.ts intake`: la IA resuelve lo que el vigilante dejó en revisión;
+3. `canal.ts complete --video=<ids>` (`src/youtube/album-completion.ts`):
+   - tipo, solo si el disco está en `other`: la hoja (`seed_uploads.type_raw`)
+     y, si no, la etiqueta del título («[EP]»); tipos compuestos o B-Sides no
+     se tocan;
+   - géneros, si falta el principal: fuentes capturadas → IA del catálogo
+     (solo sus `assign_genre` sobre el disco) → herencia del artista o
+     promedio de sus artistas (AGENTS.md «Géneros de un disco sin fuente»),
+     con actor `yt:genres` y motivo `[herencia:artist]`/`[herencia:artists]`;
+   - portada y sello desde la miniatura `maxresdefault` (1280×720,
+     `src/youtube/thumbnail-cover.ts`, actor `yt:miniatura`). Misma plantilla
+     que recortó Hermes en `scripts/thumbnails-covers.py`: recuadro
+     (64,71)–(553,561). Se reconoce la plantilla porque el fondo está
+     desenfocado (nitidez fondo/portada < 0,2; con las 616 miniaturas de
+     Hermes: 568/582 plantillas y 0/34 a sangre). Sin portada → se asigna
+     (staging SSD → almacén); con otra distinta → candidata en Curaduría ·
+     Portadas y fotos; misma imagen (huella ≤ 10) → nada. El sello se lee con
+     tesseract (≥ 80 %), «Independent» es autoedición, entre fichas duplicadas
+     manda el nombre idéntico o la más usada y un sello sin ficha se crea solo
+     con lectura ≥ 90 %. Solo si el disco no tenía sello. Tracklist, minutos,
+     créditos y año ya los aplica `watch`;
+4. `radio:export` de herra-crv con el motor fijado en su `.env`
+   (`HERRA_ENGINE_VERSION`); su gancho `radio-post-export` anota géneros;
+5. `radio:genres` otra vez, por si herra no reescribió el catálogo.
+
+La radio recibe en cada pieza `albumType` y `genres.genreOrigin`
+(`album`, `album:artist` o `album:artists`). Herra 1.1.31 ya conserva
+`genreOrigin`; `albumType` queda en el archivo y herra lo descarta al leer
+hasta que su motor lo incorpore.
+
+El timer horario de `intake` también ejecuta `complete` sobre todo el canal:
+hasta `CRV_YT_COMPLETE_MAX` discos (6) con algo que hacer; un disco cuyo
+género no se resolvió no se reintenta antes de 7 días salvo video nuevo.
+La miniatura se mira en hasta 20 discos por pasada (los que no tienen portada
+o sello), y cada disco revisado espera 30 días antes de volver a mirarse.
+
+El trabajo corre fuera de la API. `watch` e `intake` comparten un cerrojo de
+PostgreSQL (`pg_advisory_lock`) con los timers horarios, que siguen como
+respaldo. Un video se lanza una sola vez por vida de la API y hay al menos
+10 minutos entre dos lanzamientos; si la unidad ya está ocupada, se reintenta.
+
+Seguimiento: `logs/youtube-canal/nuevo.log`, `journalctl --user -u crv-youtube-nuevo`
+y, para la radio, `herra-instances/herra-crv/logs/job-radio-export.log`.
+
+Límite conocido: una pista cuyo título difiere del canal («Allison» frente a
+«Allison Miller») queda sin marca hasta que alguien añada el alias.

@@ -2,6 +2,7 @@ import { load } from "cheerio";
 import { getEnv } from "../config/env.js";
 import { moduleLogger } from "../logger/index.js";
 import { YouTubeDataApi, type YouTubeVideoPayload } from "./api.js";
+import { triggerNewChannelVideos } from "./new-video-trigger.js";
 
 export const CRV_CHANNEL_ID = "UCtYlrz6GyvRahlhHjocWQYQ";
 export const CRV_CHANNEL_URL = `https://www.youtube.com/channel/${CRV_CHANNEL_ID}`;
@@ -72,6 +73,9 @@ export async function latestChannelSnapshot(): Promise<ChannelSnapshot> {
       catch { videos = await fetchFeed(); }
       snapshot = { videos, checkedAt: new Date().toISOString(), stale: false };
       nextRefresh = Date.now() + CHANNEL_REFRESH_MS;
+      // Un video que el catálogo no tiene dispara su alta; la portada no lo espera.
+      triggerNewChannelVideos(videos.map(video => video.videoId)).catch((error: unknown) =>
+        log.warn({ error: error instanceof Error ? error.message : String(error) }, "No se pudo comprobar si hay videos nuevos."));
     } catch {
       log.warn("No se pudo actualizar el canal; se conserva la última consulta y se comunica su estado.");
       snapshot = { ...snapshot, stale: true };

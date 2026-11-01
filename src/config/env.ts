@@ -171,6 +171,11 @@ const envSchema = z.object({
   CRV_YT_INTAKE_AUTO: z.enum(["true", "false"]).default("false").transform((value) => value === "true"),
   CRV_YT_INTAKE_MAX: z.coerce.number().int().min(1).max(20).default(4),
   CRV_YT_INTAKE_ENRICH: z.enum(["true", "false"]).default("true").transform((value) => value === "true"),
+  // Un video nuevo que la portada ve en el canal lanza en el acto vigilante →
+  // alta con IA → radio (unidad transitoria crv-youtube-nuevo), sin esperar al timer.
+  CRV_YT_NEW_TRIGGER: z.enum(["true", "false"]).default("false").transform((value) => value === "true"),
+  // Discos del canal a los que cada pasada completa tipo y géneros (fuentes → IA → herencia).
+  CRV_YT_COMPLETE_MAX: z.coerce.number().int().min(1).max(50).default(6),
   // Perfiles por API en la petición general de un artista: la discografía la
   // compara el código (MusicBrainz, Discogs, Deezer/iTunes) y el modelo no la lee.
   CRV_SOURCE_PROFILES_ENABLED: z.enum(["true", "false"]).default("false").transform((value) => value === "true"),
