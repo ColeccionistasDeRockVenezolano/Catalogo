@@ -311,6 +311,8 @@ def bio_roles(paragraphs: list[str]) -> dict[str, list[str]]:
             name = clean(m.group(1))
             name = re.sub(r"^(?:y|e|por|con|a|de|integrada por|formada por|junto a)\s+", "", name, flags=re.I)
             name = re.split(r"\s(?:y|e|por|con|junto a|integrad[ao] por|formad[ao] por)\s", name)[-1].strip()
+            name = re.split(r"\b(?:son|fueron|eran|unen|ingresan|incorporan|incluyen|incluye|fundadores)\s+", name, flags=re.I)[-1].strip()
+            name = re.sub(r"^(?:a la banda|al grupo|a)\s+", "", name, flags=re.I)
             role = clean(m.group(2))
             if re.search(r"\d{4}", role) or len(name.split()) > 6 or not re.match(r"[A-ZÁÉÍÓÚÑ]", name):
                 continue

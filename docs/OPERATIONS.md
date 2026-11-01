@@ -336,7 +336,11 @@ El build público escribe `web/dist-public/`, que es el directorio que sirve
 publicado — mezclarlos dejó la página en blanco el 2026-09-16 (un build de
 verificación pisó el bundle del Funnel y los assets `/assets/…` no existen
 bajo `/crv/`). Tras publicar: `systemctl --user restart crv-web` (y `crv-api`
-si cambió el API).
+si cambió el API). El chat corre aparte: los cambios en sus rutas o en los
+contratos compartidos de efectos requieren reiniciar **`crv-chat`**. Reiniciar
+solo `crv-api` no actualiza la validación de `/crv/api/chat/*`.
+Usar `npm run deploy -- --chat` para web y chat, o `npm run deploy -- --api`
+para web, API y chat. El despliegue comprueba también `/crv/api/chat/effects`.
 
 ```bash
 cd web && npm run build:public   # la API sale sola: /crv/api del mismo origen

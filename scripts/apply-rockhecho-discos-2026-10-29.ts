@@ -12,7 +12,7 @@ import { closeDb } from "../src/db/client.js";
 import { withOperatorRun, type OperatorContext } from "../src/merge/operator.js";
 
 const DIR = process.env["RHV_DIR"] ?? "/home/brian/data/rockhecho";
-const OUT = "reports/rockhecho-2026-10-29";
+const OUT = process.env["RHV_OUT"] ?? "reports/rockhecho-2026-10-29";
 const MEDIA_ROOT = path.resolve("web/public/media");
 const SOURCE_SLUG = "rock-hecho-en-venezuela";
 const EXTRACTOR = "rockhecho-captura-2026-10-29";
@@ -62,7 +62,7 @@ async function claim(
   if (c.rows[0]) {
     await ctx.client.query(`INSERT INTO ingest.claim_evidence(claim_id,url,excerpt,position,evidence_hash)
       VALUES($1,$2,$3,0,$4) ON CONFLICT DO NOTHING`,
-    [c.rows[0].id, url, excerpt.slice(0, 480), sha([url, excerpt.slice(0, 400)])]);
+    [c.rows[0].id, url, (excerpt ?? "").slice(0, 480), sha([url, (excerpt ?? "").slice(0, 400)])]);
   }
 }
 

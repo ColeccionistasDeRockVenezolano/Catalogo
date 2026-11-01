@@ -2,19 +2,26 @@
 # CRV · deploy — publica la web del Funnel (/crv) en este servidor.
 #
 #   1. build:public → web/dist-public (lo que sirve crv-web; nunca web/dist)
-#   2. reinicia crv-web y, con --api, también crv-api
+#   2. reinicia crv-web; --api actualiza API y chat; --chat, solo chat
 #   3. comprueba que el gateway responda /crv/ y /crv/api
 #
 # Las sesiones PostgreSQL sobreviven al reinicio: usar --api cuando cambió
 # el backend. Guía: docs/OPERATIONS.md («Publicar el frontend…»).
 #
-#   uso: scripts/deploy.sh [--api]
+#   uso: scripts/deploy.sh [--api] [--chat]
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PORT="${CRV_WEB_PORT:-3120}"
 restart_api=no
-[[ "${1:-}" == "--api" ]] && restart_api=yes
+restart_chat=no
+for option in "$@"; do
+  case "$option" in
+    --api) restart_api=yes; restart_chat=yes ;;
+    --chat) restart_chat=yes ;;
+    *) echo "Uso: scripts/deploy.sh [--api] [--chat]" >&2; exit 2 ;;
+  esac
+done
 
 echo "› build público (web/dist-public)"
 (cd "$ROOT/web" && npm run build:public)
@@ -30,6 +37,12 @@ if [[ "$restart_api" == yes ]]; then
   echo "› reiniciando crv-api (las sesiones PostgreSQL se conservan)"
   systemctl --user restart crv-api
 fi
+if [[ "$restart_chat" == yes ]]; then
+  # El chat valida sus propios manifiestos: reiniciar solo la API deja
+  # contratos viejos en /api/chat y rechaza efectos nuevos del editor.
+  echo "› reiniciando crv-chat"
+  systemctl --user restart crv-chat
+fi
 echo "› reiniciando crv-web"
 systemctl --user restart crv-web
 
@@ -41,13 +54,14 @@ check() {
     sleep 1
   done
   echo "  ✗ sin respuesta correcta de $url (último código: ${code:-ninguno})" >&2
-  systemctl --user status crv-web crv-api --no-pager -n 20 >&2 || true
+  systemctl --user status crv-web crv-api crv-chat --no-pager -n 20 >&2 || true
   return 1
 }
 
 echo "› verificando"
 check "http://127.0.0.1:$PORT/crv/"
 check "http://127.0.0.1:$PORT/crv/api/health"
+check "http://127.0.0.1:$PORT/crv/api/chat/effects"
 
 echo "› invalidando cachés del catálogo (sin cerrar sesiones)"
 (cd "$ROOT" && npm run --silent cache:clear)
@@ -79,6 +93,9 @@ if [[ "$restart_api" == yes ]]; then
     echo "  ✗ no se pudo completar el análisis tras 10 intentos" >&2
     exit 1
   fi
-  npm run --silent cli -- curation summary | head -1
+  # Nada de `| head -1`: head cierra el pipe tras la primera línea y el resto de
+  # la salida del resumen (categorías y detectores) revienta con EPIPE sin
+  # manejador. sed lee todo y deja solo la primera línea.
+  npm run --silent cli -- curation summary | sed -n '1p'
 fi
 echo "✓ publicado"

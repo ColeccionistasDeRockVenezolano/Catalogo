@@ -98,7 +98,7 @@ PATTERNS = [
     # «Banda de anarco-punk formada en…», «Blindaje, Banda de hard rock y heavy metal formada…»
     re.compile(r"^(?:[^.\n]{0,50}?,\s*)?" + SUBJECT + r" de ((?:[^.;:(]|,(?! (?:formad|fundad)))+?)" + STOP, re.I),
     # «Con un estilo que se centra en el hard rock y heavy metal», «un sonido que mezcla el doom, gothic y death metal»
-    re.compile(r"(?:estilo|sonido|propuesta(?: musical)?|m[uú]sica)\s+(?:que se (?:centra|enmarca|basa|inscribe) en|que (?:mezcla|combina|fusiona|conjuga)|donde (?:se )?(?:fusiona|mezcla|combina)n?|basad[oa] en|enmarcad[oa] en|cercan[oa] al?|de corte|orientad[oa] (?:hacia|al?))\s+((?:[^.;:(]|,)+?)" + STOP.replace("[,.;:(]", "[.;:(]"), re.I),
+    re.compile(r"(?:estilo|sonido|propuesta(?: musical)?|m[uú]sica)(?: musical)?\s+(?:que se (?:centra|enmarca|basa|inscribe) en|que (?:mezcla|combina|fusiona|conjuga)|donde (?:se )?(?:fusiona|mezcla|combina)n?|basad[oa] en|enmarcad[oa] en|cercan[oa] al?|de corte|orientad[oa] (?:hacia|al?))\s+((?:[^.;:(]|,)+?)" + STOP.replace("[,.;:(]", "[.;:(]"), re.I),
 ]
 
 

@@ -81,7 +81,8 @@ async function main(): Promise<number> {
     client.release();
   }
 
-  const out = `reports/genres-source-accept-${report.mode}-${REPORT_DATE}${EXTRA.length ? "-ledgers" : ""}.json`;
+  const out = process.argv.find(arg => arg.startsWith("--out="))?.slice("--out=".length)
+    ?? `reports/genres-source-accept-${report.mode}-${REPORT_DATE}${EXTRA.length ? "-ledgers" : ""}.json`;
   const payload = JSON.stringify(report, null, 2);
   writeFileSync(out, payload);
   writeFileSync(out.replace(/\.json$/u, `-run-${report.runId}.json`), payload);

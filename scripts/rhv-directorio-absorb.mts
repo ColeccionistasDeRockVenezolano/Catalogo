@@ -41,6 +41,7 @@ import { liveTitleVerdict } from "../src/normalization/live-title.js";
 import { excludedArtist } from "../src/catalog/editorial-scope.js";
 import { audiovisualAlbumConflict } from "../src/youtube/audiovisuals.js";
 import { instrumentsOf } from "../src/discography/instruments.js";
+import { matchingAppearanceTracks } from "../src/discography/source-appearances.js";
 import { proposeImageCandidate } from "../src/merge/image-candidates.js";
 
 const TAG = "rhv-directorio-2026-10-25";
@@ -983,17 +984,18 @@ async function apply(client: PoolClient, runId: number, sourceId: number): Promi
 
   // ── Apariciones en recopilatorios de varios artistas ──
   const vaAlbums = (albumsByArtist.get(VA_ARTIST_ID) ?? []);
+  const vaAliases = await q<{ album_id: string; alias: string }>("SELECT album_id::text,alias FROM ingest.album_aliases WHERE album_id=ANY($1::bigint[])", [vaAlbums.map(row => row.id)]);
   for (const { ficha, artistId, entry } of appearances) {
     const title = cleanTitle(entry.title);
     const year = firstYear(entry.years_raw);
     const key = titleKey(title);
-    let candidates = vaAlbums.filter((row) => titleKey(row.title) === key);
+    let candidates = vaAlbums.filter((row) => titleKey(row.title) === key || vaAliases.some(alias => alias.album_id === row.id && titleKey(alias.alias) === key));
     if (candidates.length > 1 && year !== null) candidates = candidates.filter((row) => row.release_year === year);
     if (candidates.length !== 1) { report.appearances.albumMissing.push({ artist: artistById.get(artistId)?.name, title, year, tracks: entry.tracks.map((t) => t.title), candidates: candidates.length, url: ficha.url }); continue; }
     const albumId = Number(candidates[0]!.id);
     const rows = await q<{ id: string; title: string }>("SELECT id::text,title FROM public.tracks WHERE album_id=$1", [albumId]);
     for (const track of entry.tracks) {
-      const matches = rows.filter((row) => titleKey(row.title) === titleKey(track.title));
+      const matches = matchingAppearanceTracks(rows, track.title, [ficha.name, artistById.get(artistId)?.name ?? ficha.name]);
       if (matches.length !== 1) { report.appearances.trackMissing.push({ artist: artistById.get(artistId)?.name, album: title, albumId, track: track.title, matches: matches.length }); continue; }
       const trackId = Number(matches[0]!.id);
       const prior = await q("SELECT 1 FROM public.track_credits WHERE track_id=$1 AND artist_id=$2", [trackId, artistId]);

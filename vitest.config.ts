@@ -8,7 +8,14 @@ export default defineConfig({
     // repo: sin excluirlos, vitest recoge los tests de OTRO worktree (con su
     // propia versión del repo) y contamina las corridas — mismo problema que
     // tuvo eslint (2026-10-02, eslint.config.js) y se arregla igual.
-    exclude: ["**/node_modules/**", "**/dist/**", "**/.claude/**"],
+    // Además, `data/`, `reports/`, `tmp-analysis/` y `web/public/` son enlaces
+    // al almacén del disco de 1 TB: recorrerlos solo para buscar tests cuesta
+    // minutos y bloquea la recolección (2026-10-29).
+    exclude: [
+      "**/node_modules/**", "**/dist/**", "**/dist-public/**", "**/.claude/**",
+      "**/data/**", "**/reports/**", "**/tmp/**", "**/tmp-analysis/**",
+      "**/web/public/**", "**/public/**", "**/coverage/**", "**/backups/**",
+    ],
     // Los tests de contrato levantan contenedores Docker propios: no
     // paralelizar entre archivos evita agotar puertos/recursos en 1 máquina
     // (ARCHITECTURE.md §9 — sin infraestructura de test distribuida).
