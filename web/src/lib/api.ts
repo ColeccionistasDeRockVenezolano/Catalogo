@@ -274,7 +274,14 @@ export async function request<T>(path: string, options: RequestOptions = {}): Pr
   const receipt = response.headers.get("x-crv-search-receipt");
   if (receipt) options.onSearchReceipt?.(receipt);
   const text = await response.text();
-  const json: unknown = text ? JSON.parse(text) : undefined;
+  let json: unknown;
+  try {
+    json = text ? JSON.parse(text) : undefined;
+  } catch (parseError) {
+    // El gateway contesta en texto (429 y 502 de web/server.mjs): sigue siendo
+    // una respuesta del servidor, no un corte de conexión.
+    if (response.ok) throw parseError;
+  }
   if (!response.ok) {
     const error = (json as { error?: { code?: string; message?: string; details?: Record<string, unknown> } } | undefined)?.error;
     // Una sesión también puede caducar mientras se hace una LECTURA protegida
@@ -289,9 +296,12 @@ export async function request<T>(path: string, options: RequestOptions = {}): Pr
       setSessionCsrf("");
       window.dispatchEvent(new Event("crv-session-expired"));
     }
-    throw new ApiError(response.status, error?.code ?? "unknown", error?.message ?? response.statusText, error?.details);
+    const plain = json === undefined && text.length <= 300 && !text.trimStart().startsWith("<") ? text.trim() : "";
+    throw new ApiError(response.status, error?.code ?? "unknown", error?.message || plain || response.statusText || `El servidor respondió ${response.status}.`, error?.details);
   }
-  if (isCatalogWrite(method, path)) window.dispatchEvent(new Event(CATALOG_DATA_CHANGED_EVENT));
+  // La cola de imágenes solo recibe el encargo; el catálogo cambia cuando el
+  // trabajo termina y entonces lo anuncia imageCurationQueue.
+  if (isCatalogWrite(method, path) && !/^\/curation\/images\/jobs(\/|$)/u.test(path)) window.dispatchEvent(new Event(CATALOG_DATA_CHANGED_EVENT));
   // Toda escritura del catálogo es un run: se anuncia para que la barra de
   // «Deshacer» (ChangeFeedback) lo ofrezca a la vista, sea edición, fusión,
   // división, retiro o un deshacer (que se deshace = rehacer).
