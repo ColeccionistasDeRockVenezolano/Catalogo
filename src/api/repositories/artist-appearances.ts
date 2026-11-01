@@ -1,6 +1,7 @@
 import { getPool } from "../../db/client.js";
 import { B_SIDES_SQL, LIVE_SQL } from "./albums.js";
 import { ALBUM_EDITION_TYPES_SQL } from "./album-categories.js";
+import { combineAppearanceTitles } from "../../discography/source-appearances.js";
 
 /**
  * «Aparece en» (Brian, 2026-10-27): los discos de OTRO titular en los que el
@@ -17,7 +18,7 @@ export interface ArtistAppearance {
   albumId: number; title: string; releaseYear: number | null; albumType: string; coverUrl: string | null;
   isLive: boolean; isBSides: boolean; classifications: Array<{ classification: string }>; editionTypes: string[];
   ownerId: number; ownerName: string; kind: AppearanceKind;
-  /** Pistas en las que figura, en su orden del disco; vacío si el crédito es del disco entero. */
+  /** Canciones acreditadas/documentadas; posiciones conocidas primero. No implica tracklist completo. */
   tracks: string[];
 }
 
@@ -57,6 +58,8 @@ function referencedTracks(role: string): Array<{ disc: number | null; number: nu
 }
 
 interface AppearanceRow extends ArtistAppearance {
+  artistNames: string[];
+  documentedTracks: string[];
   albumRoles: string[];
   albumTracks: Array<{ disc: number | null; number: number | null; title: string }> | null;
 }
@@ -78,6 +81,18 @@ export async function artistAppearances(artistId: number): Promise<ArtistAppeara
             (SELECT coalesce(jsonb_agg(jsonb_build_object('classification', c.classification) ORDER BY c.position, c.id), '[]'::jsonb)
                FROM ingest.effective_album_classifications c WHERE c.album_id = al.id) AS classifications,
             aa.id::int AS "ownerId", aa.name AS "ownerName",
+            ARRAY(SELECT name FROM ingest.catalog_artists WHERE id=$1
+                  UNION SELECT alias FROM ingest.artist_aliases WHERE artist_id=$1) AS "artistNames",
+            ARRAY(SELECT DISTINCT song.title
+                    FROM ingest.claims c JOIN public.album_credits ac ON ac.id=c.album_credit_id
+                    CROSS JOIN LATERAL jsonb_array_elements_text(
+                      CASE WHEN jsonb_typeof(c.normalized_value)='array' THEN c.normalized_value ELSE '[]'::jsonb END
+                    ) AS song(title)
+                   WHERE ac.album_id=al.id AND ac.artist_id=$1 AND c.entity_kind='album_credit'
+                     AND ac.credit_type::text = ANY($2::text[]) AND coalesce(ac.role,'') !~* $3
+                     AND c.field='documented_tracks' AND c.status='accepted'
+                     AND EXISTS (SELECT 1 FROM appearing x WHERE x.album_id=al.id AND x.track_title IS NULL)
+                   ORDER BY song.title) AS "documentedTracks",
             CASE WHEN al.album_type::text = 'compilation' OR lower(aa.name) IN ('various artists', 'varios artistas')
                  THEN 'compilation' ELSE 'collaboration' END AS kind,
             ARRAY(SELECT x.track_title FROM appearing x WHERE x.album_id = al.id AND x.track_title IS NOT NULL
@@ -91,7 +106,7 @@ export async function artistAppearances(artistId: number): Promise<ArtistAppeara
       ORDER BY al.release_year NULLS LAST, al.title, al.id`,
     [artistId, APPEARING_CREDITS, NON_PERFORMING_ROLE],
   );
-  return rows.map(({ albumRoles, albumTracks, ...album }) => {
+  return rows.map(({ albumRoles, albumTracks, artistNames, documentedTracks, ...album }) => {
     const titles = new Set(album.tracks);
     const discs = new Set((albumTracks ?? []).map((track) => track.disc ?? 1));
     for (const ref of albumRoles.flatMap(referencedTracks)) {
@@ -101,7 +116,8 @@ export async function artistAppearances(artistId: number): Promise<ArtistAppeara
       if (track) titles.add(track.title);
     }
     const order = new Map((albumTracks ?? []).map((t, index) => [t.title, index]));
-    return { ...album, tracks: titles.size === album.tracks.length ? album.tracks
-      : [...titles].sort((a, b) => (order.get(a) ?? Infinity) - (order.get(b) ?? Infinity)) };
+    const ordered = titles.size === album.tracks.length ? album.tracks
+      : [...titles].sort((a, b) => (order.get(a) ?? Infinity) - (order.get(b) ?? Infinity));
+    return { ...album, tracks: combineAppearanceTitles(ordered, documentedTracks, artistNames) };
   });
 }

@@ -8,7 +8,11 @@
 // la acción lo acepta (`acceptsExplicit`): así la vista previa de un renombrado
 // que choca puede proponer `fusionar`.
 import { DETECTOR_DEFINITIONS } from "../analyze.js";
+import { getEnv } from "../../config/env.js";
 import { mergeAction } from "./merge.js";
+import { verifyIdentityAction } from "./verify-identity.js";
+import { distinctAction } from "./distinct.js";
+import { autoDistinctAction } from "./auto-distinct.js";
 import { STRUCTURAL_ACTIONS } from "./structural.js";
 import { cleanTextAction } from "./text.js";
 import { TEXTUAL_ACTIONS } from "./textual.js";
@@ -22,6 +26,9 @@ export const FIX_ACTIONS: readonly AnyFixAction[] = [
   ...TEXTUAL_ACTIONS.map(erase),
   ...STRUCTURAL_ACTIONS.map(erase),
   erase(mergeAction),
+  ...(getEnv().CRV_CURATION_AI_VERDICTS ? [erase(verifyIdentityAction)] : []),
+  erase(distinctAction),
+  erase(autoDistinctAction),
 ];
 
 const BY_KEY = new Map(FIX_ACTIONS.map((action) => [action.key, action]));

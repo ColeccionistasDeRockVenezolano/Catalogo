@@ -11,6 +11,7 @@
 // resolvían solos, y encadenamientos falsos. En un cliente las consultas van
 // una tras otra de todos modos: secuenciales no cuesta tiempo.
 import type { PoolClient } from "pg";
+import { loadArtistFacts } from "../review/artist-candidates.js";
 import type { CatalogSnapshot, SnapshotReview } from "./types.js";
 
 /** Un cliente, no el pool: la transacción solo existe dentro de una conexión. */
@@ -26,11 +27,16 @@ function countMap(rows: Array<{ id: string; n: string }>): Map<number, number> {
   return new Map(rows.map((row) => [Number(row.id), Number(row.n)]));
 }
 
-export async function loadCatalogSnapshot(db: SnapshotClient): Promise<CatalogSnapshot> {
+export interface SnapshotOptions {
+  /** Carga los hechos de artista que usa el detector de duplicados por evidencia. */
+  artistFacts?: boolean;
+}
+
+export async function loadCatalogSnapshot(db: SnapshotClient, options: SnapshotOptions = {}): Promise<CatalogSnapshot> {
   await db.query("BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY");
   let results;
   try {
-    results = await readCatalog(db);
+    results = await readCatalog(db, options);
     await db.query("COMMIT");
   } catch (error) {
     await db.query("ROLLBACK").catch(() => undefined);
@@ -40,7 +46,7 @@ export async function loadCatalogSnapshot(db: SnapshotClient): Promise<CatalogSn
 }
 
 /** Una consulta detrás de otra: `pg` ya no admite encolarlas en un cliente ocupado (obsoleto en pg 8, fuera en pg 9). */
-async function readCatalog(db: SnapshotClient) {
+async function readCatalog(db: SnapshotClient, options: SnapshotOptions = {}) {
   const artists = await db.query<{ id: string; name: string; origin_city: string | null; formed_year: number | null; disbanded_year: number | null }>(
     "SELECT id::text, name, origin_city, formed_year, disbanded_year FROM public.artists ORDER BY id");
   const persons = await db.query<{ id: string; name: string; birth_year: number | null; death_year: number | null }>(
@@ -147,8 +153,12 @@ async function readCatalog(db: SnapshotClient) {
       LEFT JOIN ingest.raw_pages rpa ON rpa.id=a.raw_page_id
       LEFT JOIN ingest.raw_pages rpb ON rpb.id=b.raw_page_id
      WHERE c.status='open' ORDER BY c.id`);
-  const handled = await db.query<{ kind: string; person_a_id: string | null; person_b_id: string | null; pair_key: string | null }>(`
-    SELECT kind::text, person_a_id::text, person_b_id::text, payload->>'pairKey' AS pair_key
+  const handled = await db.query<{
+    kind: string; status: string; person_a_id: string | null; person_b_id: string | null;
+    artist_a_id: string | null; artist_b_id: string | null; pair_key: string | null;
+  }>(`
+    SELECT kind::text, status::text, person_a_id::text, person_b_id::text,
+           artist_a_id::text, artist_b_id::text, payload->>'pairKey' AS pair_key
       FROM ingest.review_queue WHERE kind IN ('person_duplicate','possible_duplicate')`);
   // Pares declarados distintos (0020). Antes de migrar la tabla no existe y no
   // hay ninguno declarado: un `--dry-run` sobre una base sin migrar sigue
@@ -157,14 +167,29 @@ async function readCatalog(db: SnapshotClient) {
   const distinct = distinctTable.rows[0]?.present
     ? await db.query<{ kind: string; a_id: string; b_id: string }>("SELECT kind, a_id::text, b_id::text FROM ingest.curation_distinct_pairs")
     : { rows: [] };
+  const openReviews = options.artistFacts === false ? [] : (await db.query<{
+    id: string; a_id: string; b_id: string; a_name: string; b_name: string; note: string | null;
+  }>(`
+    SELECT rq.id::text, rq.artist_a_id::text AS a_id, rq.artist_b_id::text AS b_id,
+           a.name AS a_name, b.name AS b_name, rq.notes AS note
+      FROM ingest.review_queue rq
+      JOIN public.artists a ON a.id = rq.artist_a_id
+      JOIN public.artists b ON b.id = rq.artist_b_id
+     WHERE rq.kind = 'possible_duplicate' AND rq.status IN ('open','in_progress')
+       AND rq.artist_a_id IS NOT NULL AND rq.artist_b_id IS NOT NULL AND rq.artist_a_id <> rq.artist_b_id
+     ORDER BY rq.id`)).rows;
+  // Hechos de artista para el detector global de duplicados por evidencia. Se
+  // leen dentro de la misma foto para que el hallazgo y sus pruebas hablen del
+  // mismo instante; un análisis dirigido no los carga.
+  const artistFacts = options.artistFacts === false ? undefined : await loadArtistFacts(db);
   return { artists, persons, organizations, albums, tracks, roles, credits, memberships, aliases, redirects, mediaLinks,
-    personArtists, personLinks, organizationLinks, artistLinks, reviews, conflicts, handled, distinct };
+    personArtists, personLinks, organizationLinks, artistLinks, reviews, conflicts, handled, distinct, openReviews, artistFacts };
 }
 
 function buildSnapshot({
   artists, persons, organizations, albums, tracks, roles, credits, memberships, aliases, redirects, mediaLinks,
   personArtists, personLinks, organizationLinks, artistLinks,
-  reviews, conflicts, handled, distinct,
+  reviews, conflicts, handled, distinct, openReviews, artistFacts,
 }: Awaited<ReturnType<typeof readCatalog>>): CatalogSnapshot {
   const personArtistMap = new Map<number, Set<number>>();
   for (const row of personArtists.rows) {
@@ -173,11 +198,16 @@ function buildSnapshot({
   }
 
   const handledPairs = new Set<string>();
+  const distinctPairs = new Set(distinct.rows.map((row) => pairKey(row.kind, Number(row.a_id), Number(row.b_id))));
   for (const row of handled.rows) {
     if (row.pair_key) handledPairs.add(row.pair_key);
     if (row.person_a_id && row.person_b_id) handledPairs.add(pairKey("person", Number(row.person_a_id), Number(row.person_b_id)));
+    // Un `possible_duplicate` cerrado como «son distintas» es memoria de la
+    // misma clase que `curation_distinct_pairs`: no debe reaparecer.
+    if (row.status === "dismissed" && row.artist_a_id && row.artist_b_id) {
+      distinctPairs.add(pairKey("artist", Number(row.artist_a_id), Number(row.artist_b_id)));
+    }
   }
-  const distinctPairs = new Set(distinct.rows.map((row) => pairKey(row.kind, Number(row.a_id), Number(row.b_id))));
   for (const key of distinctPairs) handledPairs.add(key);
 
   const reviewRows: SnapshotReview[] = reviews.rows.map((row) => {
@@ -231,6 +261,11 @@ function buildSnapshot({
     })),
     handledPairs,
     distinctPairs,
+    ...(openReviews.length ? { openReviewPairs: openReviews.map((row) => ({
+      reviewId: Number(row.id), aId: Number(row.a_id), bId: Number(row.b_id),
+      aName: row.a_name, bName: row.b_name, note: row.note,
+    })) } : {}),
+    ...(artistFacts ? { artistFacts } : {}),
   };
 }
 

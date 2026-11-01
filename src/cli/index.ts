@@ -18,6 +18,8 @@ import { applyReviewDecisions, planReviewDecisions } from "../review/decisions.j
 import { findDuplicateGroups, mergeAllDuplicates } from "../review/duplicates.js";
 import { applyPersonCorrections, loadPersonCorrectionPlan } from "../review/person-corrections.js";
 import { findPersonCandidates, openPersonCandidateReviews, PERSON_CANDIDATE_MIN_SCORE } from "../review/person-candidates.js";
+import { ARTIST_CANDIDATE_MIN_SCORE, findArtistCandidates, findArtistCandidatesForPairs, loadArtistFacts, openArtistCandidateReviews, openArtistPairIds, requestArtistComparisons, scoreArtistPair, type ArtistCandidate } from "../review/artist-candidates.js";
+import { runArtistMergeBatch } from "../review/artist-merge.js";
 import { findOrganizationCandidates, openOrganizationCandidateReviews } from "../review/organization-candidates.js";
 import { getDb } from "../db/client.js";
 import { sources } from "../db/schema/ingest.js";
@@ -365,6 +367,128 @@ async function main(): Promise<number> {
         const result = await openPersonCandidateReviews(scan.candidates, note, getEnv().CRV_OPERATOR_NAME);
         console.log(`run ${result.runId}: ${result.opened} ${result.opened === 1 ? "revisión abierta" : "revisiones abiertas"}, ${result.skipped} ya existían`);
         return 0;
+      }
+
+      // Candidatos de duplicado de ARTISTA (2026-10-29). Capas 0-2 del diseño
+      // por capas: guardas, señales deterministas (página, ID externo, tracklist,
+      // foto, alias) y probabilísticas (discografía, integrantes por nombre,
+      // tokens, Jaro-Winkler, fonética). Propone pares explicables en la cola;
+      // no fusiona. `--compare-top=N` pide además la capa 3 al comparador.
+      if (args[0] === "artist-candidates") {
+        const artistNote = args.find((arg) => arg.startsWith("--note="))?.slice("--note=".length);
+        const artistMinScore = Number(args.find((arg) => arg.startsWith("--min-score="))?.slice("--min-score=".length) ?? ARTIST_CANDIDATE_MIN_SCORE);
+        const artistLimitArg = args.find((arg) => arg.startsWith("--limit="))?.slice("--limit=".length);
+        const artistLimit = artistLimitArg ? Number(artistLimitArg) : undefined;
+        const compareArg = args.find((arg) => arg.startsWith("--compare-top="))?.slice("--compare-top=".length);
+        const compareTop = compareArg === undefined ? 0 : Number(compareArg);
+        if (!Number.isFinite(artistMinScore) || artistMinScore < 0 || artistMinScore > 1
+          || (artistLimit !== undefined && (!Number.isInteger(artistLimit) || artistLimit <= 0))
+          || !Number.isInteger(compareTop) || compareTop < 0 || compareTop > 20) {
+          console.error('uso: crv review artist-candidates [--min-score=0.45] [--limit=200] [--compare-top=0] [--note="<motivo>" --confirm]');
+          return 1;
+        }
+        const scan = await findArtistCandidates({ minScore: artistMinScore, ...(artistLimit === undefined ? {} : { limit: artistLimit }) });
+        for (const candidate of scan.candidates) {
+          const features = candidate.features.filter((feature) => feature.value > 0)
+            .map((feature) => `${feature.key}=${feature.value}`).join(", ");
+          console.log(`${candidate.signals ? `D${candidate.signals}` : "  "} ${candidate.score.toFixed(3)}\tprioridad ${candidate.priority}\t${candidate.a.id} «${candidate.a.name}» / ${candidate.b.id} «${candidate.b.name}»\t${features}`);
+        }
+        console.log(`TOTAL: ${scan.candidates.length} pares propuestos entre ${scan.artists} artistas`
+          + ` (${scan.comparedPairs} pares comparados, ${scan.deterministicPairs} con señal determinista)`);
+        if (!args.includes("--confirm") || !artistNote?.trim()) {
+          console.log('\n(previsualización: nada se escribió) para abrir las revisiones: crv review artist-candidates --note="<motivo>" --confirm');
+          return 0;
+        }
+        const result = await openArtistCandidateReviews(scan.candidates, artistNote, getEnv().CRV_OPERATOR_NAME);
+        console.log(`run ${result.runId}: ${result.opened} ${result.opened === 1 ? "revisión abierta" : "revisiones abiertas"}, ${result.skipped} ya existían`);
+        if (compareTop > 0) {
+          const comparison = await requestArtistComparisons(scan.candidates, getEnv().CRV_OPERATOR_NAME, {
+            limit: compareTop, onProgress: (line) => console.log(line),
+          });
+          console.log(`capa 3: ${comparison.done} informe(s) listos, ${comparison.failed} sin informe de ${comparison.requested}`);
+        }
+        return 0;
+      }
+
+      // Fusión asistida por la IA del catálogo para los pares anteriores
+      // (2026-10-29). Sin --confirm solo clasifica; con --confirm abre la cola,
+      // fusiona los pares que la IA ve como misma identidad y deja el resto a
+      // revisión o descartado. Verifica integrantes, discos, audiovisuales,
+      // alias y fechas después de cada fusión; si falta algo, deshace el run.
+      if (args[0] === "artist-merge") {
+        const mergeNote = args.find((arg) => arg.startsWith("--note="))?.slice("--note=".length);
+        const mergeMinScore = Number(args.find((arg) => arg.startsWith("--min-score="))?.slice("--min-score=".length) ?? ARTIST_CANDIDATE_MIN_SCORE);
+        const mergeLimitArg = args.find((arg) => arg.startsWith("--limit="))?.slice("--limit=".length);
+        const mergeLimit = mergeLimitArg ? Number(mergeLimitArg) : undefined;
+        const mergeConcurrency = Number(args.find((arg) => arg.startsWith("--concurrency="))?.slice("--concurrency=".length) ?? 4);
+        const confirm = args.includes("--confirm");
+        const keepReviews = args.includes("--keep-reviews");
+        const rewrite = !args.includes("--no-rewrite");
+        if (!Number.isFinite(mergeMinScore) || mergeMinScore < 0 || mergeMinScore > 1
+          || (mergeLimit !== undefined && (!Number.isInteger(mergeLimit) || mergeLimit <= 0))
+          || !Number.isInteger(mergeConcurrency) || mergeConcurrency < 1 || mergeConcurrency > 12) {
+          console.error('uso: crv review artist-merge [--min-score=0.45] [--limit=50] [--pair=<idA>:<idB>] [--concurrency=4] [--keep-reviews] [--no-rewrite] [--note="<motivo>"] [--confirm]');
+          return 1;
+        }
+        // Un par explícito se puntúa al vuelo: sirve para rehacer una fusión
+        // deshecha o para un caso señalado, sin depender del barrido completo.
+        const pairArg = args.find((arg) => arg.startsWith("--pair="))?.slice("--pair=".length);
+        let mergeCandidates: ArtistCandidate[];
+        if (pairArg) {
+          const [leftId, rightId] = pairArg.split(":").map(Number);
+          if (!Number.isInteger(leftId) || !Number.isInteger(rightId)) {
+            console.error("--pair debe ser <idA>:<idB>");
+            return 1;
+          }
+          const facts = await loadArtistFacts(getPool());
+          const left = facts.find((factsItem) => factsItem.id === leftId);
+          const right = facts.find((factsItem) => factsItem.id === rightId);
+          if (!left || !right) {
+            console.error(`no existe la ficha ${left ? rightId : leftId}`);
+            return 1;
+          }
+          const scored = scoreArtistPair(left, right);
+          if (scored.blocked) {
+            console.error(`el detector bloquea el par: ${scored.blocked}`);
+            return 1;
+          }
+          mergeCandidates = [{
+            a: { id: left.id, name: left.name }, b: { id: right.id, name: right.name },
+            score: scored.score, deterministic: scored.deterministic,
+            signals: scored.deterministic ? 1 : 0, features: scored.features,
+            priority: scored.deterministic ? 8 : scored.score >= 0.6 ? 6 : 4,
+          }];
+        } else if (args.includes("--from-reviews")) {
+          // Reanuda los pares que ya tienen revisión viva, sin volver a barrer.
+          const scan = await findArtistCandidatesForPairs(await openArtistPairIds(), {
+            minScore: mergeMinScore, ...(mergeLimit === undefined ? {} : { limit: mergeLimit }),
+          });
+          mergeCandidates = scan.candidates;
+        } else {
+          const scan = await findArtistCandidates({ minScore: mergeMinScore, ...(mergeLimit === undefined ? {} : { limit: mergeLimit }) });
+          mergeCandidates = scan.candidates;
+        }
+        if (!mergeCandidates.length) {
+          console.log("no hay pares de artista pendientes");
+          return 0;
+        }
+        if (confirm && !mergeNote?.trim()) {
+          console.error("--note es obligatorio al confirmar");
+          return 1;
+        }
+        if (confirm) {
+          const opened = await openArtistCandidateReviews(mergeCandidates, mergeNote!, getEnv().CRV_OPERATOR_NAME);
+          console.log(`cola: ${opened.opened} revisiones abiertas, ${opened.skipped} ya existían (run ${opened.runId})`);
+        }
+        const report = await runArtistMergeBatch({
+          candidates: mergeCandidates, gateway: createDeepSeekGateway(), operator: getEnv().CRV_OPERATOR_NAME,
+          note: mergeNote?.trim() || "clasificación de duplicados de artista con la IA del catálogo",
+          dryRun: !confirm, keepReviews, rewrite, concurrency: mergeConcurrency,
+          onProgress: (line) => console.log(line),
+        });
+        console.log(JSON.stringify(report, null, 2));
+        if (!confirm) console.log('\n(previsualización: nada se escribió) para aplicar: crv review artist-merge --note="<motivo>" --confirm');
+        return report.failed === 0 ? 0 : 1;
       }
 
       // Candidatos de duplicado de organización (E11.10): mismo bloqueo y
@@ -1250,6 +1374,18 @@ CRV CLI
 Nombres de ARCHITECTURE.md §4.13 con otra forma: ${[...RENAMED_COMMANDS.keys()].join(", ")}
 Especificados y aún sin implementar: ${[...KNOWN_FUTURE_COMMANDS].join(", ")}
 `);
+}
+
+// Un consumidor que cierra el pipe antes de tiempo (p. ej. `crv curation
+// summary | head -1`) dispara EPIPE en stdout. Sin manejador, Node lo trata
+// como unhandled 'error' y tumba el proceso con un stack trace. La salida
+// restante se descarta y se termina en silencio, como cualquier herramienta
+// de Unix; cualquier otro error del stream sigue siendo fatal.
+for (const stream of [process.stdout, process.stderr]) {
+  stream.on("error", (error: NodeJS.ErrnoException) => {
+    if (error.code === "EPIPE") process.exit(0);
+    throw error;
+  });
 }
 
 main()

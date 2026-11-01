@@ -55,5 +55,8 @@ describe("text-rewrite: «fusión» y «el material» como palabras del relato",
     const input = { kind: "album" as const, name: "Disco", sources: [{ label: "A", text: "Disco de pop." }, { label: "B", text: "Con fusión latina." }] };
     expect(rewriteProblems(input, "Disco de pop con humor y fusión latina; reúne el material original del álbum.")).toEqual([]);
     expect(rewriteProblems(input, "Disco de pop con fusión latina. El nombre de la ficha es otro.").join(" ")).toMatch(/fichas/u);
+    // «la fusión de sonidos» es una descripción musical, no hablar del merger.
+    expect(rewriteProblems(input, "Disco de pop con la fusión de sonidos latinos y rock; reúne el material original.")).toEqual([]);
+    expect(rewriteProblems(input, "Disco de pop. La fusión de las fichas fue correcta.").join(" ")).toMatch(/fichas/u);
   });
 });

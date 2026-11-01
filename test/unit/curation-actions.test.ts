@@ -49,7 +49,7 @@ describe("registro de acciones (E4.1)", () => {
     expect(declaredActions("aclaracion_en_nombre_de_artista", "region")).toEqual(["mover_region"]);
     expect(declaredActions("varias_personas_en_una", "alias_en_nombre")).toEqual(["renombrar_con_alias"]);
     expect(declaredActions("palabras_pegadas", "palabras_pegadas")).toEqual(["separar_palabras"]);
-    expect(declaredActions("artistas_equivalentes", "misma_clave")).toEqual(["fusionar"]);
+    expect(declaredActions("artistas_equivalentes", "misma_clave")).toEqual(["verificar_identidad_ia", "fusionar", "descartar_duplicado"]);
     expect(declaredActions("detector_inexistente", "x")).toEqual([]);
   });
 
@@ -199,7 +199,7 @@ describe("cobertura de acciones en un escaneo seco (E5)", () => {
   // de `evidence` en la fila guardada. Contar sin él daba los 108 duplicados de
   // la foto real como «sin acción» mientras `/curation/summary` los daba con
   // fusión de nivel 1: el mismo KPI con dos cifras (auditoría de cierre E12).
-  it("un hallazgo de par cuenta su fusión, no «sin acción» (cierre 20/20)", () => {
+  it("un hallazgo de par ofrece verificación nivel 0, no «sin acción» (cierre 20/20)", () => {
     const pair: Finding = {
       detector: "artistas_equivalentes", category: "fichas_repetidas", signature: "misma_clave", severity: "medium",
       entity: { kind: "artist", id: 7, label: "Los Amigos Invisibles" }, field: "name", value: "Los Amigos Invisibles",
@@ -207,8 +207,8 @@ describe("cobertura de acciones en un escaneo seco (E5)", () => {
       pair: [7, 9], evidence: { values: [{ id: 7, value: "Los Amigos Invisibles" }, { id: 9, value: "los amigos invisibles" }] },
     };
     expect(recommendedActionLevels([pair])).toEqual({
-      level0: 0, level1: 1, level2: 0, manual: 0,
-      byCategory: { fichas_repetidas: { level0: 0, level1: 1, level2: 0, manual: 0 } },
+      level0: 1, level1: 0, level2: 0, manual: 0,
+      byCategory: { fichas_repetidas: { level0: 1, level1: 0, level2: 0, manual: 0 } },
     });
   });
 });

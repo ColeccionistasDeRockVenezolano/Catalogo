@@ -56,6 +56,16 @@ export interface CurationMetrics {
     autoApplied: number;
     autoReverted: number;
   };
+  /** Duplicados de artista: volumen, memoria y deuda de identidad. */
+  duplicates: {
+    merges30d: number;
+    distinct30d: number;
+    autoDiscards30d: number;
+    verdicts30d: number;
+    homonymOpen: number;
+    editionsOpen: number;
+    portraitsOpen: number;
+  };
   alerts: Array<{
     detector: string;
     label: string;
@@ -143,7 +153,7 @@ export function clearCurationMetricsCache(): void { cache = null; }
 export async function getCurationMetrics(options: { fresh?: boolean } = {}): Promise<CurationMetrics> {
   const pool = getPool();
   if (!options.fresh && cache?.pool === pool && Date.now() - cache.at < CURATION_METRICS_CACHE_MS) return cache.value;
-  const [outcomes, openRows, global, batchCounts] = await Promise.all([
+  const [outcomes, openRows, global, batchCounts, duplicateCounts] = await Promise.all([
     pool.query<OutcomeRow>(`
       SELECT detector,
              count(*) FILTER (WHERE resolution='fixed_by_curation')::int AS confirmed,
@@ -173,6 +183,18 @@ export async function getCurationMetrics(options: { fresh?: boolean } = {}): Pro
              count(i.id) FILTER (WHERE b.mode='auto' AND i.status='undone')::int AS auto_reverted
         FROM ingest.curation_fix_batches b
         LEFT JOIN ingest.curation_fix_items i ON i.batch_id=b.id`),
+    pool.query<{
+      merges30d: number; distinct30d: number; autoDiscards30d: number; verdicts30d: number;
+      homonymOpen: number; editionsOpen: number; portraitsOpen: number;
+    }>(`
+      SELECT
+        (SELECT count(*)::int FROM ingest.scrape_runs WHERE kind='merge_run' AND status='ok' AND created_at > now() - interval '30 days') AS merges30d,
+        (SELECT count(*)::int FROM ingest.curation_distinct_pairs WHERE created_at > now() - interval '30 days') AS distinct30d,
+        (SELECT count(*)::int FROM ingest.curation_distinct_pairs WHERE created_at > now() - interval '30 days' AND decided_by='crv-curaduria-auto') AS "autoDiscards30d",
+        (SELECT count(*)::int FROM ingest.curation_ai_verdicts WHERE created_at > now() - interval '30 days') AS verdicts30d,
+        (SELECT count(*)::int FROM ingest.curation_findings WHERE status='open' AND detector='personas_homonimas_en_artista') AS "homonymOpen",
+        (SELECT count(*)::int FROM ingest.curation_findings WHERE status='open' AND detector='ediciones_en_conflicto') AS "editionsOpen",
+        (SELECT count(*)::int FROM ingest.curation_findings WHERE status='open' AND detector='retratos_repetidos') AS "portraitsOpen"`),
   ]);
 
   const outcomeByDetector = new Map(outcomes.rows.map((row) => [row.detector, row]));
@@ -242,6 +264,10 @@ export async function getCurationMetrics(options: { fresh?: boolean } = {}): Pro
       undone: batch.undone,
       autoApplied: batch.auto_applied,
       autoReverted: batch.auto_reverted,
+    },
+    duplicates: duplicateCounts.rows[0] ?? {
+      merges30d: 0, distinct30d: 0, autoDiscards30d: 0, verdicts30d: 0,
+      homonymOpen: 0, editionsOpen: 0, portraitsOpen: 0,
     },
     alerts,
   };

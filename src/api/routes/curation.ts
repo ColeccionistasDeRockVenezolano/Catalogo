@@ -71,6 +71,11 @@ const metricsSchema = z.object({
     total: z.number().int(), previewed: z.number().int(), applied: z.number().int(), undone: z.number().int(),
     autoApplied: z.number().int(), autoReverted: z.number().int(),
   }),
+  duplicates: z.object({
+    merges30d: z.number().int(), distinct30d: z.number().int(), autoDiscards30d: z.number().int(),
+    verdicts30d: z.number().int(), homonymOpen: z.number().int(), editionsOpen: z.number().int(),
+    portraitsOpen: z.number().int(),
+  }),
   alerts: z.array(z.object({
     detector: z.string(), label: z.string(), precision: z.number(), reviewed: z.number().int(),
     threshold: z.number(), minimumReviewed: z.number().int(),

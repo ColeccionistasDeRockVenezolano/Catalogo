@@ -51,6 +51,7 @@ import { runCurationScan, trackCurationWork, type ResolvedRef } from "../scan.js
 import { notifyCatalogWrite } from "../watcher.js";
 import type { EntityRef } from "../types.js";
 import { liveNameLookup, previewNameLookup } from "./names.js";
+import { undoDistinct } from "./distinct.js";
 import { applicableActions, getFixAction } from "./registry.js";
 import type {
   ActionContext, ActionInverse, ActionLevel, ActionPreview, ActionProposal, AnyFixAction, Blocked, BlockedCode, Collision,
@@ -1104,6 +1105,7 @@ const INVERSES: Readonly<Record<ActionInverse, Inverse | null>> = {
   merge_undo: (context, runId) => undoMergeRun(context, runId),
   relation_delete: (context, runId) => undoRelationCreation(context, runId),
   entity_restore: (context, runId) => undoEntityRemoval(context, runId),
+  distinct_delete: (context, runId) => undoDistinct(context, runId),
 };
 
 /** El CAS inverso o la precondición de la inversa no se cumplen: deshacer pisaría algo posterior. */

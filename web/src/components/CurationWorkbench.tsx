@@ -20,6 +20,19 @@ interface Props {
   onSelectPage: (checked: boolean) => void;
 }
 
+const AI_LABEL: Readonly<Record<string, string>> = {
+  same_identity: "misma identidad", related: "relacionadas", distinct: "distintas", needs_human: "duda",
+};
+
+function aiOf(finding: CurationFinding): { decision: string; confidence: number; evidenceCount: number } | null {
+  const raw = finding.evidence["ai"];
+  if (!raw || typeof raw !== "object") return null;
+  const record = raw as Record<string, unknown>;
+  return typeof record["decision"] === "string" && typeof record["confidence"] === "number"
+    ? { decision: record["decision"], confidence: record["confidence"], evidenceCount: typeof record["evidenceCount"] === "number" ? record["evidenceCount"] : 0 }
+    : null;
+}
+
 export function CurationWorkbench({ rows, activeId, offset, total, selected, selectAll, loading, detail, actions,
   initiallyOpen, onActivate, onMove, onToggleSelected, onSelectPage }: Props) {
   const [detailOpen, setDetailOpen] = useState(initiallyOpen);
@@ -58,6 +71,7 @@ export function CurationWorkbench({ rows, activeId, offset, total, selected, sel
       <ol className="cwork__list" ref={listRef}>
         {rows.map((finding, rowIndex) => {
           const fixable = finding.status === "open" && finding.actions.length > 0;
+          const ai = aiOf(finding);
           return <li key={finding.id} className={`cwork__row${finding.id === activeId ? " is-active" : ""}`}>
             {fixable ? <input type="checkbox" aria-label={`Seleccionar ${finding.entity.label || finding.title}`}
               checked={selectAll || selected.has(finding.id)} disabled={loading} onChange={() => onToggleSelected(finding.id)} /> : null}
@@ -69,6 +83,7 @@ export function CurationWorkbench({ rows, activeId, offset, total, selected, sel
                 <span className={`cwork__severity cwork__severity--${finding.severity}`}>{SEVERITY_LABEL[finding.severity]}</span>
                 <span>{ENTITY_KIND_LABEL[finding.entity.kind] ?? finding.entity.kind}</span>
                 <span>{finding.status === "open" ? finding.signatureLabel : finding.status === "ignored" ? "Ignorado" : "Resuelto"}</span>
+                {ai ? <span title={`Veredicto de la IA del catálogo (${ai.confidence.toFixed(2)}, ${ai.evidenceCount} hechos citados)`}>IA: {AI_LABEL[ai.decision] ?? ai.decision} ({ai.evidenceCount})</span> : null}
               </span>
             </button>
           </li>;

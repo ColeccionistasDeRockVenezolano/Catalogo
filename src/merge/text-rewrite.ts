@@ -72,7 +72,7 @@ export function rewriteProblems(input: RewriteInput, text: string): string[] {
   if (/^\s*(#|[-*•]\s|\d+\.\s)|\*\*|\]\(|https?:\/\//mu.test(clean)) problems.push("lleva Markdown, viñetas o enlaces");
   // «Fusión» es también un género («fusión latina») y «el material» puede ser
   // el del disco: solo cuentan las frases que hablan de los textos o fichas.
-  if (/(?<![\p{L}])(los textos|el texto \d|las fuentes|la fuente|las fichas|la ficha|ambas fichas|la fusi[oó]n de|el material (?:tambi[eé]n )?menciona|tambi[eé]n (?:se )?menciona)(?![\p{L}])/iu.test(clean)) {
+  if (/(?<![\p{L}])(los textos|el texto \d|las fuentes|la fuente|las fichas|la ficha|ambas fichas|la fusi[oó]n de (?:las? fichas?|los textos)|el material (?:tambi[eé]n )?menciona|tambi[eé]n (?:se )?menciona)(?![\p{L}])/iu.test(clean)) {
     problems.push("habla de los textos, las fuentes o las fichas en vez de integrar los datos");
   }
   const blob = input.sources.map((source) => source.text).join("\n");

@@ -17,15 +17,23 @@
 // ficha (`POST /persons/:id/merge` y equivalentes).
 import { z } from "zod";
 import { mergeEntities, previewEntityMerge, type EntityMergePreview, type MergeableKind, type MergeSide } from "../../merge/entity-merge.js";
+import {
+  ArtistMergeLossError, chooseArtistKeep, loadArtistProfiles, mergeArtistVerified,
+} from "../../merge/artist-merge-run.js";
+import { latestVerdict } from "../ai-verdicts.js";
 import { OperatorError } from "../../merge/operator.js";
 import { ENTITY_SPECS } from "../../merge/specs.js";
 import { nameKey } from "../lexicon.js";
 import type { ActionContext, ActionFinding, ActionPreview, FixActionDefinition, Precondition } from "./types.js";
 
+const EVIDENCE_DETECTOR = "artistas_duplicados_evidencia";
+
 const MERGE_DETECTORS: Readonly<Record<string, { kind: MergeableKind; sameKey: readonly string[] }>> = {
   artistas_equivalentes: { kind: "artist", sameKey: ["misma_clave"] },
+  [EVIDENCE_DETECTOR]: { kind: "artist", sameKey: ["evidencia_determinista"] },
   organizaciones_equivalentes: { kind: "organization", sameKey: [] },
   personas_equivalentes: { kind: "person", sameKey: ["personas_equivalentes"] },
+  personas_homonimas_en_artista: { kind: "person", sameKey: ["mismo_nombre"] },
 };
 
 const mergeParamsSchema = z.object({
@@ -36,12 +44,20 @@ const mergeParamsSchema = z.object({
 
 export type MergeParams = z.infer<typeof mergeParamsSchema>;
 
-/** El par del hallazgo (`evidence.pair`, ordenado). */
+/** El par del hallazgo (`evidence.pair` o, si falta, la ficha relacionada). */
 function pairOf(finding: ActionFinding): [number, number] | null {
   const pair = finding.evidence["pair"];
-  if (!Array.isArray(pair) || pair.length !== 2) return null;
-  const [a, b] = pair.map(Number);
-  return Number.isInteger(a) && Number.isInteger(b) && a! > 0 && b! > 0 && a !== b ? [a!, b!] : null;
+  if (Array.isArray(pair) && pair.length === 2) {
+    const [a, b] = pair.map(Number);
+    if (Number.isInteger(a) && Number.isInteger(b) && a! > 0 && b! > 0 && a !== b) return [a!, b!];
+  }
+  const related = finding.related.find((item) => item.kind === finding.entity.kind && item.id !== null && item.id !== finding.entity.id);
+  if (finding.entity.id !== null && related?.id !== null && related?.id !== undefined) {
+    const a = Math.min(finding.entity.id, related.id);
+    const b = Math.max(finding.entity.id, related.id);
+    return a === b ? null : [a, b];
+  }
+  return null;
 }
 
 function detectorKind(finding: ActionFinding): MergeableKind | null {
@@ -92,7 +108,7 @@ function blocked(params: MergeParams, code: NonNullable<ActionPreview["blocked"]
 export const mergeAction: FixActionDefinition<MergeParams> = {
   key: "fusionar",
   label: "Fusionar las fichas",
-  description: "Fusiona la ficha repetida en la que tiene más referencias: créditos, membresías y alias pasan a la que queda y el nombre perdido queda como alias.",
+  description: "Fusiona la ficha repetida en la más completa (discos, audiovisuales, integrantes y créditos): todas las referencias pasan a la que queda y el nombre perdido queda como alias.",
   level: 1,
   inverse: "merge_undo",
   paramsSchema: mergeParamsSchema,
@@ -117,6 +133,17 @@ export const mergeAction: FixActionDefinition<MergeParams> = {
     const kind = detectorKind(finding);
     const pair = pairOf(finding);
     if (!kind || !pair) return null;
+    // El detector de evidencia elige la ficha canónica por contenido (discos,
+    // audiovisuales, integrantes...), no por créditos como el resto.
+    if (finding.detector === EVIDENCE_DETECTOR && kind === "artist") {
+      const profiles = await loadArtistProfiles(ctx.client, pair);
+      const left = profiles.get(pair[0]);
+      const right = profiles.get(pair[1]);
+      if (left && right) {
+        const keepId = chooseArtistKeep(left, right);
+        return { kind, keepId, dropId: keepId === pair[0] ? pair[1] : pair[0] };
+      }
+    }
     try {
       const preview = await cachedPreview(ctx, kind, pair[0], pair[1]);
       const keepId = preview.recommendedKeepId;
@@ -156,6 +183,22 @@ export const mergeAction: FixActionDefinition<MergeParams> = {
     checks.push(distinct.rowCount
       ? { key: "no_declaradas_distintas", ok: false, code: "not_applicable", message: "alguien declaró que estas dos fichas son distintas" }
       : { key: "no_declaradas_distintas", ok: true });
+    if (params.kind === "artist") {
+      const verdict = await latestVerdict(ctx.client, "artist", params.keepId, params.dropId);
+      if (verdict?.decision === "distinct" || verdict?.decision === "related") {
+        checks.push({
+          key: "veredicto_ia", ok: false, code: "not_applicable",
+          message: verdict.decision === "distinct" ? "la IA declaró que son distintas" : "la IA las relacionó como fichas distintas",
+        });
+      } else if (verdict?.decision === "same_identity" && (verdict.identityDoubts.length > 0 || verdict.confidence < 0.85)) {
+        checks.push({
+          key: "veredicto_ia", ok: false, code: "not_applicable",
+          message: `la IA dudó de la identidad (${verdict.confidence.toFixed(2)}): vuelve a verificar antes de fusionar`,
+        });
+      } else {
+        checks.push({ key: "veredicto_ia", ok: true });
+      }
+    }
     return checks;
   },
 
@@ -201,11 +244,30 @@ export const mergeAction: FixActionDefinition<MergeParams> = {
     if (merge.eraConflict !== null) {
       return blocked(params, "not_applicable", `épocas incompatibles: ${merge.eraConflict}; si son la misma persona, fusiona desde la ficha confirmándolo`);
     }
+    const zeroLoss = finding.detector === EVIDENCE_DETECTOR;
+    const aiVerdict = zeroLoss ? await latestVerdict(ctx.client, "artist", merge.keep.id, merge.drop.id) : null;
     const warnings = [...merge.warnings];
     if (merge.fieldConflicts.length) {
-      warnings.push(`Valores distintos en ${merge.fieldConflicts.map((conflict) => conflict.field).join(", ")}: se conserva el de «${merge.keep.name}».`);
+      warnings.push(zeroLoss
+        ? `Valores distintos en ${merge.fieldConflicts.map((conflict) => conflict.field).join(", ")}: los textos se combinan y los datos cortos quedan anotados en las notas.`
+        : `Valores distintos en ${merge.fieldConflicts.map((conflict) => conflict.field).join(", ")}: se conserva el de «${merge.keep.name}».`);
     }
     if (merge.reviewsBetween.length) warnings.push(`Hay ${merge.reviewsBetween.length} revisión(es) abiertas entre estas dos fichas.`);
+    if (zeroLoss) {
+      warnings.push("Los textos largos se combinan y quedan marcados para reescribir con IA; los años incompatibles se anotan en las notas, no se imponen.");
+      warnings.push("Antes de confirmar se verifican integrantes, discos, audiovisuales, alias y fechas: si falta algo, la fusión se revierte.");
+      warnings.push("Después de fusionar quedan por revisar discos repetidos y personas homónimas de la ficha que queda (etapa 5): /crv/curaduria/autocorreccion.");
+      if (aiVerdict === null) warnings.push("Sin veredicto de la IA para este par: puedes verificar la identidad antes de fusionar.");
+      else if (aiVerdict.decision === "needs_human") warnings.push("La IA pidió revisión humana de este par; la fusión sigue disponible si la persona lo decide.");
+      else if (aiVerdict.decision === "same_identity") warnings.push(`La IA ya lo verificó: misma identidad, confianza ${aiVerdict.confidence.toFixed(2)}, ${aiVerdict.evidence.length} hechos.`);
+    }
+    const dropProfile = zeroLoss ? (await loadArtistProfiles(ctx.client, [merge.drop.id])).get(merge.drop.id) : undefined;
+    const references = dropProfile
+      ? {
+        albums: dropProfile.albums.length, audiovisuals: dropProfile.audiovisuals.length,
+        members: dropProfile.members.length, aliases: dropProfile.aliases.length, claims: dropProfile.claims,
+      }
+      : merge.drop.counts;
     return {
       touched: [{ kind, id: merge.keep.id }, { kind, id: merge.drop.id }],
       before: { keep: sideView(merge.keep), drop: sideView(merge.drop) },
@@ -216,7 +278,14 @@ export const mergeAction: FixActionDefinition<MergeParams> = {
         aliasesMoved: merge.aliasesToAdd,
         fieldsFilled: merge.fieldsFilledFromDrop.map((field) => ({ field, value: merge.drop.fields[field] ?? null })),
         fieldConflicts: merge.fieldConflicts.map((conflict) => ({ field: conflict.field, kept: conflict.keepValue, discarded: conflict.dropValue })),
-        recommendedKeepId: merge.recommendedKeepId,
+        recommendedKeepId: zeroLoss ? merge.keep.id : merge.recommendedKeepId,
+        ...(zeroLoss ? {
+          preservation: {
+            texts: "combinar y reescribir", shortFields: "anotar en notas",
+            references, verification: ["integrantes", "discos", "audiovisuales", "alias", "fechas"],
+          },
+          followUp: ["discos_repetidos", "personas_equivalentes"],
+        } : {}),
       },
       blocked: null,
       collisions: [],
@@ -227,8 +296,30 @@ export const mergeAction: FixActionDefinition<MergeParams> = {
     };
   },
 
-  async apply(context, _finding, params, preview) {
+  async apply(context, finding, params, preview) {
     if (typeof preview.hashMaterial !== "string") throw new OperatorError("invalid", "vista previa de fusión sin hash");
+    if (finding.detector === EVIDENCE_DETECTOR) {
+      try {
+        const run = await mergeArtistVerified(context, {
+          keepId: params.keepId, dropId: params.dropId, previewHash: preview.hashMaterial,
+        });
+        return {
+          after: {
+            keep: { id: params.keepId }, removed: { id: params.dropId }, auditId: run.merged.auditId,
+            moved: run.merged.moved, discarded: run.merged.discarded, filled: run.merged.filled,
+            creditsMerged: run.merged.creditsMerged, membershipsMerged: run.merged.membershipsMerged,
+            verified: true, missing: [], rewritePending: run.merged.rewritePending,
+            persons: run.persons, albums: run.albums,
+            followUp: ["discos_repetidos", "personas_homonimas_en_artista"],
+          },
+        };
+      } catch (error) {
+        if (error instanceof ArtistMergeLossError) {
+          throw new OperatorError("needs_review", `fusión revertida: ${error.missing.join(" · ")}`, { missing: error.missing });
+        }
+        throw error;
+      }
+    }
     const result = await mergeEntities(context, {
       kind: params.kind, keepId: params.keepId, dropId: params.dropId, previewHash: preview.hashMaterial, keepDropNameAsAlias: true,
     });

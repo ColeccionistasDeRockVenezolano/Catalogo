@@ -12,6 +12,8 @@ import { TEXT_HYGIENE_DETECTORS } from "./detectors/text-hygiene.js";
 import { SEGMENTATION_DETECTORS } from "./detectors/segmentation.js";
 import { MISTYPED_DETECTORS } from "./detectors/mistyped.js";
 import { DUPLICATE_DETECTORS } from "./detectors/duplicates.js";
+import { evidenceArtistDuplicates } from "./detectors/artist-duplicates.js";
+import { editionConflicts, homonymPersons, repeatedPortraits } from "./detectors/identity-extras.js";
 import { COHERENCE_DETECTORS } from "./detectors/coherence.js";
 import { QUEUE_DETECTORS } from "./detectors/queue.js";
 import { documentedResearch } from "./detectors/documented-research.js";
@@ -23,6 +25,10 @@ export const DETECTORS: readonly Detector[] = [
   ...TEXT_HYGIENE_DETECTORS,
   ...SEGMENTATION_DETECTORS,
   ...MISTYPED_DETECTORS,
+  evidenceArtistDuplicates,
+  homonymPersons,
+  repeatedPortraits,
+  editionConflicts,
   ...DUPLICATE_DETECTORS,
   ...COHERENCE_DETECTORS,
   ...QUEUE_DETECTORS,
@@ -50,6 +56,10 @@ export const DETECTORS: readonly Detector[] = [
  */
 const GLOBAL_DETECTOR_KEYS: ReadonlySet<string> = new Set([
   documentedResearch.key,
+  evidenceArtistDuplicates.key,
+  homonymPersons.key,
+  repeatedPortraits.key,
+  editionConflicts.key,
   ...DUPLICATE_DETECTORS.map((detector) => detector.key),
   ...QUEUE_DETECTORS.map((detector) => detector.key),
   ...E11_GLOBAL_DETECTORS.map((detector) => detector.key),
@@ -78,8 +88,9 @@ export const DETECTOR_DEFINITIONS: readonly DetectorDefinition[] = [...DETECTORS
  * deja de emitirse sobre un valor que no cambió se resuelve como `rules_changed`.
  * v3 (PLAN_CURADURIA E2 cierre 20/20): además de v2, elimina los falsos
  * positivos etiquetados que todavía dejaban detectores por debajo de 90 %.
+ * v8: suma el detector global de duplicados por evidencia.
  */
-export const RULES_VERSION = "curation-rules.v7";
+export const RULES_VERSION = "curation-rules.v8";
 
 export interface DetectorFailure { detector: string; error: string; }
 
@@ -272,6 +283,10 @@ export function analyzeCatalog(snapshot: CatalogSnapshot, options: AnalyzeOption
   }
 
   const byFingerprint = new Map<string, Finding & { fingerprint: string }>();
+  // Un mismo par puede verlo más de un detector (nombre y evidencia). Se emite
+  // una sola vez y gana el que aporta la prueba más fuerte: evidencia.
+  const pairOwner = new Map<string, { fingerprint: string; priority: number }>();
+  const pairPriority = (detector: string): number => detector === evidenceArtistDuplicates.key ? 0 : 1;
   for (const finding of raw) {
     const category = effectiveCategory(finding.category);
     const normalized = storable({
@@ -281,6 +296,14 @@ export function analyzeCatalog(snapshot: CatalogSnapshot, options: AnalyzeOption
       ...(category === OTHER_CATEGORY && finding.category !== OTHER_CATEGORY ? { evidence: { ...finding.evidence, declaredCategory: finding.category } } : {}),
     }) as Finding;
     const fingerprint = fingerprintOf(normalized);
+    if (normalized.pair) {
+      const key = `${normalized.entity.kind}:${Math.min(...normalized.pair)}-${Math.max(...normalized.pair)}`;
+      const priority = pairPriority(normalized.detector);
+      const owner = pairOwner.get(key);
+      if (owner && owner.priority <= priority) continue;
+      if (owner) byFingerprint.delete(owner.fingerprint);
+      pairOwner.set(key, { fingerprint, priority });
+    }
     if (!byFingerprint.has(fingerprint)) byFingerprint.set(fingerprint, { ...normalized, fingerprint });
   }
 

@@ -17,6 +17,7 @@ import { MERGE_TABLES, type DiscardedRow, type MergeKind, type MovedRef } from "
 import { loadVerifiedTrace, traceReason } from "./legacy-trace.js";
 import { restoreGenreAssignments, type GenreMergeSnapshot } from "../genres/merge.js";
 import { restoreExternalIdentities, type ExternalIdentitySnapshot } from "../genres/external-lifecycle.js";
+import { recordUndoFeedback } from "../curation/feedback.js";
 import { projectAlbumGenre } from "./genre-projection.js";
 import { isPreserveKind, revertPreserved, type PreservedChange } from "./preserve.js";
 
@@ -310,5 +311,6 @@ export async function undoMergeRun(context: OperatorContext, mergeRunId: number)
     SELECT DISTINCT field FROM ingest.merge_audit
      WHERE run_id=$1 AND field NOT IN ('merged_duplicate','unmerged_duplicate','membership_consolidated')
      ORDER BY field`, [mergeRunId])).rows.map((row) => row.field);
+  await recordUndoFeedback(context, mergeRunId);
   return { mergeRunId, restored, fieldsNotReverted: corrections };
 }

@@ -40,7 +40,24 @@ CONCLUSIÓN: confirmado | probable | ambiguo | descartado
 5. Toda ambigüedad va a revisión con las dos versiones y sus URLs; nunca a "lo más probable".
 6. Registra la decisión y su evidencia en el informe de la campaña.
 
+## Detección asistida (2026-10-29)
+
+`crv review artist-candidates` (`src/review/artist-candidates.ts`) propone pares
+antes de que una persona investigue. Capas: guardas (época/ciudad, «Various
+Artists», mismo nombre canónico) → deterministas (misma página de evidencia
+compartida por exactamente dos fichas, ID externo, huella de tracklist, misma
+foto, alias cruzado) → probabilísticas (tokens, Jaro-Winkler, fonética K/C-B/V,
+discografía e integrantes por **nombre normalizado + instrumento**, nunca por
+`person_id`). Propone, no decide: abre `possible_duplicate` en la cola y la
+fusión sigue siendo humana. Una página de directorio con 3+ fichas no es señal.
+
 ## Señales de alarma
+
+- **Proyecto ≠ alias.** Un nombre temprano o proyecto paralelo de la misma
+  persona con discografía propia es una ficha distinta (Nuuro y Arca son dos
+  proyectos de Alejandra Ghersi). Que compartan persona, cuentas oficiales o un
+  alias cruzado no autoriza fusionarlos: relación `successor` o `related`, no
+  `same_identity`.
 
 - Solo coincide el nombre y el país.
 - Un blog copia a otro sin fuente original (cadena de copias, no dos fuentes).

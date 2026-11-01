@@ -386,6 +386,22 @@ async function fillEmptyColumns(client: PoolClient, kind: MergeKind, keepId: num
   const fillable = columns.map((row) => row.column_name).filter((column) => !NOT_FILLED.has(column) && !(kind === "person" && ["birth_date", "death_date"].includes(column)));
   if (fillable.length === 0) return [];
   const assignments = fillable.map((column) => {
+    // Los años de un artista no se rellenan a ciegas: la ficha tiene
+    // `artists_years_chk` (disolución ≥ formación) y completar un extremo con
+    // el del duplicado puede dejar la fila imposible (caso 518/2284). Si el
+    // año no encaja, no se aplica y queda anotado en `notes`.
+    if (kind === "artist" && column === "formed_year") {
+      return "formed_year=CASE WHEN k.formed_year IS NULL AND d.formed_year IS NOT NULL"
+        + " AND (k.disbanded_year IS NULL OR d.formed_year<=k.disbanded_year)"
+        + " AND (d.disbanded_year IS NULL OR d.disbanded_year>=d.formed_year)"
+        + " THEN d.formed_year ELSE k.formed_year END";
+    }
+    if (kind === "artist" && column === "disbanded_year") {
+      return "disbanded_year=CASE WHEN k.disbanded_year IS NULL AND d.disbanded_year IS NOT NULL"
+        + " AND (k.formed_year IS NULL OR d.disbanded_year>=k.formed_year)"
+        + " AND (d.formed_year IS NULL OR d.disbanded_year>=d.formed_year)"
+        + " THEN d.disbanded_year ELSE k.disbanded_year END";
+    }
     const rule = EMPTY_RULES[`${table}.${column}`] ?? { empty: `k.${column} IS NULL`, present: `d.${column} IS NOT NULL` };
     return `${column}=CASE WHEN ${rule.empty} AND ${rule.present} THEN d.${column} ELSE k.${column} END`;
   });
@@ -397,6 +413,24 @@ async function fillEmptyColumns(client: PoolClient, kind: MergeKind, keepId: num
     RETURNING to_jsonb(k) AS "after", (SELECT "row" FROM before) AS "before"`, [keepId, dropId]);
   const row = updated.rows[0];
   if (!row) return [];
+  if (kind === "artist") {
+    // Un año que no se pudo completar no se pierde: queda escrito en las notas.
+    const { rows: years } = await client.query<{ formed_year: number | null; disbanded_year: number | null }>(
+      "SELECT formed_year,disbanded_year FROM public.artists WHERE id=$1", [dropId]);
+    const drop = years[0];
+    const notes: string[] = [];
+    if (row.before["formed_year"] === null && drop?.formed_year != null && row.after["formed_year"] === null) {
+      notes.push(`Año de formación en el duplicado: ${drop.formed_year} (no aplicado: incompatible con su disolución)`);
+    }
+    if (row.before["disbanded_year"] === null && drop?.disbanded_year != null && row.after["disbanded_year"] === null) {
+      notes.push(`Año de disolución en el duplicado: ${drop.disbanded_year} (no aplicado: incompatible con su formación)`);
+    }
+    if (notes.length) {
+      await client.query(
+        "UPDATE public.artists SET notes=concat_ws(E'\\n', NULLIF(notes,''), $2::text) WHERE id=$1",
+        [keepId, notes.join("\n")]);
+    }
+  }
   return fillable.filter((column) => JSON.stringify(row.before[column] ?? null) !== JSON.stringify(row.after[column] ?? null));
 }
 

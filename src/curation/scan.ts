@@ -57,8 +57,10 @@ import { moduleLogger } from "../logger/index.js";
 import { summarizeActions } from "./actions/registry.js";
 import type { ActionFinding, ActionLevel } from "./actions/types.js";
 import {
-  DETECTOR_DEFINITIONS, LOCAL_DETECTORS, RULES_VERSION, analyzeCatalog, contentHashOf, storableText, type AnalysisResult,
+  DETECTOR_DEFINITIONS, DETECTORS, LOCAL_DETECTORS, RULES_VERSION, analyzeCatalog, contentHashOf, storableText, type AnalysisResult,
 } from "./analyze.js";
+import { evidenceArtistDuplicates } from "./detectors/artist-duplicates.js";
+import { getEnv } from "../config/env.js";
 import { buildLexicon, collectNames } from "./lexicon.js";
 import { cachedLexicon, rememberLexicon, type LexiconSource } from "./lexicon-cache.js";
 import { catalogState, classifyResolution, type AppliedFix, type Resolution, type ValueChange } from "./resolution.js";
@@ -613,7 +615,7 @@ interface AnalysisRun {
  */
 async function analyzeEverything(client: PoolClient, summary: ScanSummary): Promise<AnalysisRun> {
   const loading = Date.now();
-  const snapshot = await loadCatalogSnapshot(client);
+  const snapshot = await loadCatalogSnapshot(client, { artistFacts: getEnv().CRV_CURATION_DUPLICATE_DETECTOR });
   summary.timings.snapshotMs = Date.now() - loading;
 
   const learning = Date.now();
@@ -628,7 +630,12 @@ async function analyzeEverything(client: PoolClient, summary: ScanSummary): Prom
   summary.timings.lexiconMs = Date.now() - learning;
 
   const detecting = Date.now();
-  const analysis = analyzeCatalog(snapshot, { lexicon });
+  // El detector de duplicados por evidencia es global y de solo lectura; el
+  // flag permite apagarlo sin tocar el resto del análisis.
+  const detectors = getEnv().CRV_CURATION_DUPLICATE_DETECTOR
+    ? undefined
+    : DETECTORS.filter((detector) => detector.key !== evidenceArtistDuplicates.key);
+  const analysis = analyzeCatalog(snapshot, detectors ? { lexicon, detectors } : { lexicon });
   summary.timings.detectMs = Date.now() - detecting;
   return { snapshot, analysis, covered: null };
 }
@@ -653,7 +660,7 @@ async function analyzeFocus(client: PoolClient, focus: Focus, summary: ScanSumma
   const reused = cachedLexicon(summary.catalogSignature);
   let lexicon = reused?.lexicon;
   if (!lexicon) {
-    const whole = await loadCatalogSnapshot(client);
+    const whole = await loadCatalogSnapshot(client, { artistFacts: false });
     lexicon = buildLexicon(whole, collectNames(whole));
     rememberLexicon(summary.catalogSignature, lexicon);
   }

@@ -315,6 +315,48 @@ const FINDING_COLUMNS = `id::text, category, detector, signature, severity, enti
              suggested_value, related, evidence, status, first_seen_scan_id::text, first_seen_at, last_seen_at, resolved_at, ignored_at, ignored_by, ignore_note, ignore_reason,
              ${RESOLUTION_COLUMNS}`;
 
+function rawPair(row: RawFinding): [number, number] | null {
+  const raw = row.evidence?.["pair"];
+  if (Array.isArray(raw) && raw.length === 2) {
+    const a = Number(raw[0]);
+    const b = Number(raw[1]);
+    if (Number.isInteger(a) && Number.isInteger(b) && a > 0 && b > 0 && a !== b) return [Math.min(a, b), Math.max(a, b)];
+  }
+  if (row.entity_id === null) return null;
+  const related = (row.related ?? []).find((item) => item.kind === row.entity_kind && item.id !== null && item.id !== Number(row.entity_id));
+  if (related?.id == null) return null;
+  const a = Math.min(Number(row.entity_id), related.id);
+  const b = Math.max(Number(row.entity_id), related.id);
+  return a === b ? null : [a, b];
+}
+
+/** Adjunta el último veredicto de la IA a los hallazgos de par de la página. */
+async function attachAiVerdicts(rows: RawFinding[]): Promise<void> {
+  const pairs = rows.map((row) => ({ row, pair: rawPair(row) })).filter((item): item is { row: RawFinding; pair: [number, number] } => item.pair !== null);
+  if (!pairs.length) return;
+  const ids = [...new Set(pairs.flatMap((item) => item.pair))];
+  const { rows: verdicts } = await getPool().query<{
+    a_id: string; b_id: string; decision: string; confidence: string; evidence: unknown; model: string; created_at: Date;
+  }>(`
+    SELECT DISTINCT ON (a_id,b_id) a_id::text,b_id::text,decision,confidence::text,evidence,model,created_at
+      FROM ingest.curation_ai_verdicts
+     WHERE kind='artist' AND a_id = ANY($1::bigint[]) AND b_id = ANY($1::bigint[])
+     ORDER BY a_id,b_id,created_at DESC,id DESC`, [ids]);
+  const byPair = new Map(verdicts.map((row) => [`${row.a_id}:${row.b_id}`, row]));
+  for (const { row, pair } of pairs) {
+    const verdict = byPair.get(`${pair[0]}:${pair[1]}`);
+    if (!verdict) continue;
+    row.evidence = {
+      ...row.evidence,
+      ai: {
+        decision: verdict.decision, confidence: Number(verdict.confidence),
+        evidenceCount: Array.isArray(verdict.evidence) ? verdict.evidence.length : 0,
+        model: verdict.model, createdAt: verdict.created_at.toISOString(),
+      },
+    };
+  }
+}
+
 export async function listFindings(query: FindingQuery): Promise<{ rows: FindingRow[]; total: number }> {
   const { where, params } = buildFindingsWhere(query);
   const order = {
@@ -340,6 +382,7 @@ export async function listFindings(query: FindingQuery): Promise<{ rows: Finding
     ? (await getPool().query<{ total: string }>(`SELECT count(*)::text AS total FROM ingest.curation_findings f
         ${where.length ? `WHERE ${where.join(" AND ")}` : ""}`, params.slice(0, -2))).rows[0]?.total
     : "0");
+  await attachAiVerdicts(result.rows);
   return { rows: result.rows.map((row) => findingRow(row, lastScan)), total: Number(total ?? 0) };
 }
 

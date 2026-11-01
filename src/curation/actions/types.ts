@@ -19,7 +19,7 @@ import type { EntityRef } from "../types.js";
 export type ActionLevel = 0 | 1 | 2 | 3;
 
 /** Cómo se deshace lo que la acción escribió (src/curation/actions/batches.ts elige la pieza del motor). */
-export type ActionInverse = "field_restore" | "merge_undo" | "relation_delete" | "entity_restore";
+export type ActionInverse = "field_restore" | "merge_undo" | "relation_delete" | "entity_restore" | "distinct_delete";
 
 /** individual | selected | group los pide una persona; auto queda para la autocorrección (E10). */
 export type FixMode = "individual" | "selected" | "group" | "auto";

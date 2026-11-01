@@ -28,9 +28,10 @@ describe("foto del catálogo de Curaduría (A3)", () => {
     const snapshot = await loadCatalogSnapshot(client);
     expect(statements[0]).toBe("BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY");
     expect(statements.at(-1)).toBe("COMMIT");
-    // 18 lecturas del catálogo: E11 suma créditos, membresías, aliases, redirecciones y media_links,
-    // más la pregunta de si ya existe la tabla de pares distintos (0020).
-    expect(statements.slice(1, -1)).toHaveLength(19);
+    // 18 lecturas del catálogo + la pregunta de si existe la tabla de pares
+    // distintos (0020) + la bandeja histórica de duplicados + las 9 lecturas de
+    // hechos de artista del detector de duplicados por evidencia (etapa 1).
+    expect(statements.slice(1, -1)).toHaveLength(29);
     expect(statements.slice(1, -1).every((statement) => statement.startsWith("SELECT"))).toBe(true);
     expect(snapshot.artists).toEqual([]);
     expect(snapshot.credits).toEqual([]);
@@ -44,7 +45,7 @@ describe("foto del catálogo de Curaduría (A3)", () => {
   it("carga los pares declarados distintos (E2) dentro de la misma foto, como pares ya tratados", async () => {
     const { statements, client } = recordingClient(undefined, true);
     const snapshot = await loadCatalogSnapshot(client);
-    expect(statements.slice(1, -1)).toHaveLength(20);
+    expect(statements.slice(1, -1)).toHaveLength(30);
     expect(statements.at(-1)).toBe("COMMIT");
     expect(snapshot.distinctPairs).toEqual(new Set(["artist:3-7"]));
     expect(snapshot.handledPairs.has("artist:3-7")).toBe(true);

@@ -239,6 +239,13 @@ function OperationalMetrics({ metrics }: { metrics: CurationMetrics }) {
         <div><dt>Lotes deshechos</dt><dd className="mono">{formatCount(metrics.batches.undone)}</dd></div>
         <div><dt>Autocorrecciones aplicadas</dt><dd className="mono">{formatCount(metrics.batches.autoApplied)}</dd></div>
         <div><dt>Autocorrecciones revertidas</dt><dd className="mono">{formatCount(metrics.batches.autoReverted)}</dd></div>
+        <div><dt>Fusiones (30 días)</dt><dd className="mono">{formatCount(metrics.duplicates.merges30d)}</dd></div>
+        <div><dt>Descartes declarados (30 días)</dt><dd className="mono">{formatCount(metrics.duplicates.distinct30d)}</dd></div>
+        <div><dt>Descartes automáticos (30 días)</dt><dd className="mono">{formatCount(metrics.duplicates.autoDiscards30d)}</dd></div>
+        <div><dt>Veredictos IA (30 días)</dt><dd className="mono">{formatCount(metrics.duplicates.verdicts30d)}</dd></div>
+        <div><dt>Homónimos abiertos</dt><dd className="mono">{formatCount(metrics.duplicates.homonymOpen)}</dd></div>
+        <div><dt>Ediciones en conflicto</dt><dd className="mono">{formatCount(metrics.duplicates.editionsOpen)}</dd></div>
+        <div><dt>Retratos repetidos</dt><dd className="mono">{formatCount(metrics.duplicates.portraitsOpen)}</dd></div>
       </dl>
       {metrics.alerts.length ? (
         <div className="form-error-banner" role="alert">

@@ -4,6 +4,7 @@
 // este momento) y devuelve `Finding`s. La persistencia, la API y el vigilante
 // de cambios viven aparte (scan.ts, repository.ts, watcher.ts) para que las
 // reglas se prueben sin base de datos.
+import type { ArtistFacts } from "../review/artist-candidates.js";
 
 export type Severity = "high" | "medium" | "low";
 
@@ -126,6 +127,13 @@ export interface SnapshotConflict {
   sourceB: ConflictSourceEvidence;
 }
 
+export interface SnapshotReviewPair {
+  reviewId: number;
+  aId: number; bId: number;
+  aName: string; bName: string;
+  note: string | null;
+}
+
 export interface CatalogSnapshot {
   takenAt: Date;
   artists: SnapshotArtist[];
@@ -158,6 +166,15 @@ export interface CatalogSnapshot {
   handledPairs: Set<string>;
   /** Solo los declarados distintos por una persona (`ingest.curation_distinct_pairs`), con la misma clave. */
   distinctPairs: Set<string>;
+  /** Pares que siguen en la bandeja histórica de revisión y deben verse en Curaduría. */
+  openReviewPairs?: SnapshotReviewPair[];
+  /**
+   * Hechos de artista ya cargados con la misma foto (evidencia, enlaces
+   * oficiales, IDs externos, integrantes, discografía y tracklists). Los usa el
+   * detector global de duplicados por evidencia; un análisis dirigido no los
+   * carga porque ese detector no corre en local.
+   */
+  artistFacts?: ArtistFacts[];
 }
 
 export interface CategoryDefinition {

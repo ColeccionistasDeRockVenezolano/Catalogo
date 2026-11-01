@@ -1,0 +1,271 @@
+{
+  "version": 1,
+  "generated": "2026-10-29",
+  "source": "Fusiones y descartes revisados el 2026-10-29 (CRV)",
+  "pairs": [
+    {
+      "a_id": 547,
+      "a_name": "Alto Pana",
+      "b_id": 8676,
+      "b_name": "Altopana",
+      "expected": "same_identity",
+      "why": "par 547/8676 fusionado en 547 (run 36192)"
+    },
+    {
+      "a_id": 910,
+      "a_name": "StormThrash",
+      "b_id": 1826,
+      "b_name": "Gabriel Lamberti",
+      "expected": "same_identity",
+      "why": "par 910/1826 fusionado en 910 (run 36194)"
+    },
+    {
+      "a_id": 1080,
+      "a_name": "Furia de Buzo Ciego",
+      "b_id": 1571,
+      "b_name": "Furia de Buzo",
+      "expected": "same_identity",
+      "why": "par 1080/1571 fusionado en 1080 (run 36196)"
+    },
+    {
+      "a_id": 3230,
+      "a_name": "Kámara de Tortura",
+      "b_id": 8576,
+      "b_name": "La Kámara De la Tortura",
+      "expected": "same_identity",
+      "why": "par 3230/8576 fusionado en 3230 (run 36200)"
+    },
+    {
+      "a_id": 86,
+      "a_name": "Edgar Jiménez",
+      "b_id": 2896,
+      "b_name": "Edgard Jiménez",
+      "expected": "same_identity",
+      "why": "par 86/2896 fusionado en 86 (run 36211)"
+    },
+    {
+      "a_id": 1016,
+      "a_name": "Raul Mota \"Mota\"",
+      "b_id": 6764,
+      "b_name": "Noel Grisanti",
+      "expected": "same_identity",
+      "why": "par 6764/1016 fusionado en 6764 (run 36214)"
+    },
+    {
+      "a_id": 1316,
+      "a_name": "Holy Sexy Bastard",
+      "b_id": 1550,
+      "b_name": "Holy Sexy Bastards",
+      "expected": "same_identity",
+      "why": "par 1550/1316 fusionado en 1550 (run 36215)"
+    },
+    {
+      "a_id": 3700,
+      "a_name": "Federico y Su Combo Latino",
+      "b_id": 3774,
+      "b_name": "Playground Estudios",
+      "expected": "same_identity",
+      "why": "par 3700/3774 fusionado en 3700 (run 36219)"
+    },
+    {
+      "a_id": 1591,
+      "a_name": "Los Blonders",
+      "b_id": 1806,
+      "b_name": "Blonder",
+      "expected": "same_identity",
+      "why": "par 1591/1806 fusionado en 1591 (run 36221)"
+    },
+    {
+      "a_id": 518,
+      "a_name": "Across The Ruins",
+      "b_id": 2284,
+      "b_name": "JukeBox/Discomoda",
+      "expected": "same_identity",
+      "why": "par 518/2284 fusionado en 518 (run 36331)"
+    },
+    {
+      "a_id": 180,
+      "a_name": "Ninah Mars",
+      "b_id": 1024,
+      "b_name": "Ninah Mars and The Stickfaces",
+      "expected": "same_identity",
+      "why": "par 180/1024 fusionado en 180 (run 36334)"
+    },
+    {
+      "a_id": 3445,
+      "a_name": "Rodolfo \"Pocho\" Serra",
+      "b_id": 3617,
+      "b_name": "Andrés Carrasquero",
+      "expected": "same_identity",
+      "why": "par 3617/3445 fusionado en 3617 (run 36229)"
+    },
+    {
+      "a_id": 122,
+      "a_name": "Julliet",
+      "b_id": 1400,
+      "b_name": "Juliet",
+      "expected": "same_identity",
+      "why": "par 122/1400 fusionado en 122 (run 36232)"
+    },
+    {
+      "a_id": 1553,
+      "a_name": "100 Grados",
+      "b_id": 1897,
+      "b_name": "Cien Grados",
+      "expected": "same_identity",
+      "why": "par 1553/1897 fusionado en 1553 (run 36235)"
+    },
+    {
+      "a_id": 300,
+      "a_name": "Manuel \"Manolo\" Macías",
+      "b_id": 1562,
+      "b_name": "Predator T",
+      "expected": "same_identity",
+      "why": "par 1562/300 fusionado en 1562 (run 36237)"
+    },
+    {
+      "a_id": 829,
+      "a_name": "Pornecrorgasminfectanaleprosis Vajipenencefalitis",
+      "b_id": 1788,
+      "b_name": "Porne crorgasm infect analeprosis Vajipenecefalitis",
+      "expected": "same_identity",
+      "why": "par 829/1788 fusionado en 829 (run 36315)"
+    },
+    {
+      "a_id": 1141,
+      "a_name": "Saliv4",
+      "b_id": 1757,
+      "b_name": "Saliva",
+      "expected": "same_identity",
+      "why": "par 1757/1141 fusionado en 1757 (run 36317)"
+    },
+    {
+      "a_id": 427,
+      "a_name": "Deflesh The Abducted",
+      "b_id": 1912,
+      "b_name": "Defleshed The",
+      "expected": "same_identity",
+      "why": "par 427/1912 fusionado en 427 (run 36319)"
+    },
+    {
+      "a_id": 859,
+      "a_name": "Rhadamanthyz",
+      "b_id": 1717,
+      "b_name": "Rhadamantyz",
+      "expected": "same_identity",
+      "why": "par 859/1717 fusionado en 859 (run 36322)"
+    },
+    {
+      "a_id": 1992,
+      "a_name": "Cygnus/AVR",
+      "b_id": 8502,
+      "b_name": "15 y Último",
+      "expected": "same_identity",
+      "why": "par 8502/1992 fusionado en 8502 (run 36325)"
+    },
+    {
+      "a_id": 1078,
+      "a_name": "VMF",
+      "b_id": 4547,
+      "b_name": "WMF",
+      "expected": "same_identity",
+      "why": "par 1078/4547 fusionado en 1078 (run 36327)"
+    },
+    {
+      "a_id": 5956,
+      "a_name": "Hibai Rekondo",
+      "b_id": 5958,
+      "b_name": "Aseari",
+      "expected": "same_identity",
+      "why": "par 5958/5956 fusionado en 5958 (run 36264)"
+    },
+    {
+      "a_id": 144,
+      "a_name": "Las Cuatro Monedas",
+      "b_id": 8503,
+      "b_name": "Las 4 Monedas",
+      "expected": "same_identity",
+      "why": "par 8503/144 fusionado en 8503 (run 36268)"
+    },
+    {
+      "a_id": 590,
+      "a_name": "Nemesis",
+      "b_id": 1287,
+      "b_name": "Nemesis (Lara)",
+      "expected": "distinct",
+      "why": "IA del catálogo (distinct, 0.90): nombres desambiguados distintos: «Nemesis» / «Nemesis (Lara)»"
+    },
+    {
+      "a_id": 1250,
+      "a_name": "Nuuro",
+      "b_id": 4235,
+      "b_name": "Arca",
+      "expected": "related",
+      "why": "Nuuro y Arca son dos proyectos distintos de Alejandra Ghersi Rodríguez; no fusionar (Brian 2026-10-29)"
+    },
+    {
+      "a_id": 21,
+      "a_name": "Derian",
+      "b_id": 565,
+      "b_name": "Marcelo Toutin",
+      "expected": "distinct",
+      "why": "IA del catálogo (distinct, 0.90): la IA dijo distinct"
+    },
+    {
+      "a_id": 44,
+      "a_name": "Antena Mantis",
+      "b_id": 45,
+      "b_name": "Arbiza",
+      "expected": "related",
+      "why": "IA del catálogo (related, 0.82): la IA dijo related"
+    },
+    {
+      "a_id": 90,
+      "a_name": "El Supremo Hongo Imaginario",
+      "b_id": 1411,
+      "b_name": "Utam",
+      "expected": "related",
+      "why": "IA del catálogo (related, 0.78): la IA dijo related"
+    },
+    {
+      "a_id": 1005,
+      "a_name": "Illusive Mind",
+      "b_id": 2162,
+      "b_name": "Darwin Lubo",
+      "expected": "related",
+      "why": "IA del catálogo (related, 0.82): la IA dijo related"
+    },
+    {
+      "a_id": 2355,
+      "a_name": "Gruesome",
+      "b_id": 2914,
+      "b_name": "Exhumed",
+      "expected": "related",
+      "why": "IA del catálogo (related, 0.86): la IA dijo related"
+    },
+    {
+      "a_id": 3464,
+      "a_name": "César Orozco",
+      "b_id": 3629,
+      "b_name": "César Orozco & Kamarata Jazz",
+      "expected": "related",
+      "why": "IA del catálogo (related, 0.72): la IA dijo related"
+    },
+    {
+      "a_id": 3993,
+      "a_name": "Paul Desenne",
+      "b_id": 4259,
+      "b_name": "BigBro Blues Band",
+      "expected": "distinct",
+      "why": "IA del catálogo (distinct, 0.93): la IA dijo distinct"
+    },
+    {
+      "a_id": 2733,
+      "a_name": "Cardopusher",
+      "b_id": 5961,
+      "b_name": "Safety Trance",
+      "expected": "related",
+      "why": "IA del catálogo (related, 0.82): la IA dijo related"
+    }
+  ]
+}

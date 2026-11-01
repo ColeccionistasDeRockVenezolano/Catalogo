@@ -15,6 +15,7 @@ import type { PoolClient } from "pg";
 import { undoFieldCorrections } from "./field-undo.js";
 import { runHasJournal, undoRunWithJournal, planJournalUndo, type JournalUndoPlan } from "./journal-undo.js";
 import { OperatorError, type OperatorContext } from "./operator.js";
+import { recordUndoFeedback } from "../curation/feedback.js";
 import { undoEntityRemoval, undoRelationCreation } from "./structural-undo.js";
 import { undoMergeRun } from "./unmerge.js";
 
@@ -162,6 +163,7 @@ export async function undoRun(
   // queda deshecha en su lote.
   await client.query(
     "UPDATE ingest.curation_fix_items SET status='undone', error_code=NULL, error=NULL WHERE run_id=$1 AND status='applied'", [runId]);
+  await recordUndoFeedback(context, runId);
   return { undoneRunId: runId, method, result };
 }
 
