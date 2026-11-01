@@ -233,7 +233,9 @@ Herra, ni Lucide; tampoco `window.confirm`.
   («Buscar colaboradores…»). El texto del diccionario ya está; falta el componente.
 - El arrastre por teclado de etapas no previsualiza; el de actividades sí.
 - Los avisos con «Deshacer» tras mover existen solo para el arrastre por teclado (el de ratón
-  recarga el roadmap); falta unificar.
+  recarga el roadmap); falta unificar. Camino ya identificado, sin endpoint nuevo: el PATCH
+  devuelve el `roadmap` completo, así que basta guardar `title`/`categoryId`/`position`/`pinned`
+  previos de la actividad y deshacer con `updateTask` + `pinned: true`.
 
 ## B5 · CP0 — reconocimiento para retomar (2026-11-01, sin implementación)
 
