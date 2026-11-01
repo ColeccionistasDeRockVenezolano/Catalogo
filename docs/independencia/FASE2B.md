@@ -36,8 +36,9 @@ La radio sigue emitiéndose desde Herra hasta que la Fase 3 cumpla.
 
 ## 2. Antes de abrir la ventana (puertas de §5.2)
 
-1. Fase 2A cumplida (B0-B4, correcciones del Anexo B): **cumplida salvo B4**, que ya no depende de
-   permiso (producción se reinició sola el 2026-11-01 a las 14:35, probablemente Codex).
+1. Fase 2A cumplida (B0-B4, correcciones del Anexo B): **cumplida**. B4 ya no depende de
+   permiso: `crv-api` se reinició solo a las 14:35:28 y 18:35:42 (origen no confirmado en
+   ambos) y `crv-web` a las 15:59:20 con permiso de Brian; rutas de la Fase 2 ya en 404).
 2. Ensayo completo en :3141 con la lista blanca, ES/EN y móvil: **cumplido**.
 3. Paridad de contenido con la portada viva el mismo día: **cumplido con las diferencias anotadas**.
 4. Cierre de la Fase 2 (C1-C12 y CP0): **cumplido contra las instrucciones**. Las ventanas
