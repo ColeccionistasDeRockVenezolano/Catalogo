@@ -63,7 +63,7 @@ export const roadmapApi = {
   }) => request<{ roadmap: AdminRoadmap }>("/community/admin/roadmap/tasks", json("POST", body)),
   updateTask: (id: number, body: {
     title?: string; status?: TaskStatus; categoryId?: number; position?: number;
-    assignedUserIds?: number[]; pinned?: boolean; translations?: { en?: string };
+    assignedUserIds?: number[]; pinned?: boolean; completedAt?: string | null; translations?: { en?: string };
   }) => request<{ roadmap: AdminRoadmap }>(`/community/admin/roadmap/tasks/${id}`, json("PATCH", body)),
   deleteTask: (id: number) => request<void>(`/community/admin/roadmap/tasks/${id}`, { method: "DELETE", authenticated: true }),
   moveTask: (id: number, direction: "up" | "down") =>

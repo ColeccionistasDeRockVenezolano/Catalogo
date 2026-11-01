@@ -46,8 +46,11 @@ const taskPatch = z.object({
   position: z.number().int().positive().optional(),
   assignedUserIds: z.array(z.number().int().positive()).max(50).optional(),
   pinned: z.boolean().optional(),
+  completedAt: z.string().regex(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/u).nullable().optional(),
   translations: translations.optional(),
-}).strict().refine((value) => Object.keys(value).length > 0, { message: "Nada que actualizar." });
+}).strict().refine((value) => Object.keys(value).length > 0, { message: "Nada que actualizar." })
+  .refine((value) => value.completedAt === undefined || (value.status !== undefined && (value.status === "completed" || value.completedAt === null)),
+    { message: "La fecha de finalización requiere un estado compatible." });
 
 const moveBody = z.object({ direction: z.enum(["up", "down"]) }).strict();
 const categoryMoveBody = z.object({ categoryId: z.number().int().positive() }).strict();

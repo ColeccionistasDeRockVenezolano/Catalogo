@@ -152,7 +152,6 @@
   font-weight: 400;
   font-size: clamp(24px, 3.4vw, 42px);
   line-height: 1.02;
-  text-transform: uppercase;
   overflow-wrap: anywhere;
 }
 .roadmap-admin__score {
@@ -180,6 +179,7 @@
   background: transparent;
   color: var(--text-muted);
   cursor: grab;
+  touch-action: none;
 }
 .roadmap-admin__drag:hover { border-color: var(--border); color: var(--text); }
 .roadmap-admin__drag:focus-visible { outline: 2px solid var(--red); outline-offset: 1px; }

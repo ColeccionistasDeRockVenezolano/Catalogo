@@ -11,6 +11,11 @@ export function dropPosition(rowIndex: number, after: boolean): number {
   return Math.max(1, rowIndex + (after ? 2 : 1));
 }
 
+/** Posición final al soltar antes o después de una fila, con índices 1-based. */
+export function taskDropPosition(target: number, after: boolean, source: number | null): number {
+  return Math.max(1, target + (after ? 1 : 0) - (source !== null && source < target ? 1 : 0));
+}
+
 /** Acota una posición al rango de inserción de una lista de `length` elementos. */
 export function clampPosition(position: number, length: number): number {
   return Math.min(Math.max(1, Math.round(position)), Math.max(1, length + 1));

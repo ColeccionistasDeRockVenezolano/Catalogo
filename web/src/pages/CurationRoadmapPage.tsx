@@ -5,7 +5,7 @@
 // el sitio (arrastre con ratón, táctil y teclado). Los textos vienen de
 // `roadmapAdminCopy` y los componentes son los del catálogo: Modal,
 // ConfirmDialog, avisos de ToastContext e iconos Phosphor.
-import { useEffect, useMemo, useState, type FormEvent, type KeyboardEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent, type PointerEvent as ReactPointerEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, ArrowSquareOut, CheckCircle, Circle, CircleHalf,
@@ -21,6 +21,7 @@ import { roadmapAdminCopy } from "../lib/roadmapAdminCopy";
 import { useI18n } from "../lib/i18n";
 import { useAsync } from "../lib/useAsync";
 import { useToast } from "../lib/ToastContext";
+import { taskDropPosition } from "../lib/roadmapOrder";
 import { Modal } from "../components/Modal";
 import { ConfirmDialog } from "../components/ConfirmDialog";
 import { PeopleWindow } from "../components/roadmap/PeopleWindow";
@@ -131,11 +132,11 @@ export function CurationRoadmapPage() {
     }
   }
 
-  async function reorderTask(task: AdminTask, position: number, previousPosition: number): Promise<void> {
+  async function reorderTask(task: AdminTask, categoryId: number, position: number, previousPosition: number): Promise<void> {
     const ok = await run(
-      () => roadmapApi.updateTask(task.id, { position }),
+      () => roadmapApi.updateTask(task.id, { categoryId, position }),
       copy.toasts.taskSaved,
-      () => roadmapApi.updateTask(task.id, { position: previousPosition, pinned: task.orderPinned }),
+      () => roadmapApi.updateTask(task.id, { categoryId: task.categoryId, position: previousPosition, pinned: task.orderPinned }),
     );
     if (!ok) return;
     setGrab(null);
@@ -155,7 +156,7 @@ export function CurationRoadmapPage() {
     await run(
       () => roadmapApi.updateTask(task.id, { pinned: !task.orderPinned }),
       task.orderPinned ? copy.toasts.unpinned : copy.toasts.pinned,
-      () => roadmapApi.updateTask(task.id, { pinned: task.orderPinned }),
+      () => roadmapApi.updateTask(task.id, { position: task.sortOrder, pinned: task.orderPinned }),
     );
   }
 
@@ -170,6 +171,55 @@ export function CurationRoadmapPage() {
   const orderedCategories = stageOrder
     .map((id) => categories.find((category) => category.id === id))
     .filter((category): category is AdminCategory => Boolean(category));
+
+  function dropTask(sourceId: number, targetCategoryId: number, targetId: number | null, after: boolean): void {
+    const source = categories.find((item) => item.tasks.some((task) => task.id === sourceId));
+    const destination = categories.find((item) => item.id === targetCategoryId);
+    const task = source?.tasks.find((item) => item.id === sourceId);
+    const target = destination ? (targetId === null ? destination.tasks.length + 1 : destination.tasks.findIndex((item) => item.id === targetId) + 1) : 0;
+    if (!source || !destination || !task || !target || sourceId === targetId) return;
+    const previousPosition = source.tasks.findIndex((item) => item.id === sourceId) + 1;
+    const position = taskDropPosition(target, after, source.id === destination.id ? previousPosition : null);
+    void run(
+      () => roadmapApi.updateTask(task.id, { categoryId: destination.id, position }),
+      copy.toasts.taskSaved,
+      () => roadmapApi.updateTask(task.id, { categoryId: source.id, position: previousPosition, pinned: task.orderPinned }),
+    );
+  }
+
+  function dropStage(sourceId: number, targetId: number, after: boolean): void {
+    const sourceIndex = categories.findIndex((item) => item.id === sourceId);
+    const targetIndex = categories.findIndex((item) => item.id === targetId);
+    const source = categories[sourceIndex];
+    if (!source || targetIndex < 0 || sourceId === targetId) return;
+    const previousPosition = sourceIndex + 1;
+    void reorderStage(source, taskDropPosition(targetIndex + 1, after, previousPosition), previousPosition);
+  }
+
+  function touchDrop(kind: "task" | "stage", sourceId: number, x: number, y: number): void {
+    const element = document.elementFromPoint(x, y);
+    const stage = element?.closest<HTMLElement>("[data-category-id]");
+    if (!stage) return;
+    const targetCategory = Number(stage.dataset.categoryId);
+    if (kind === "stage") {
+      const rect = stage.getBoundingClientRect();
+      dropStage(sourceId, targetCategory, y > rect.top + rect.height / 2);
+      return;
+    }
+    const row = element?.closest<HTMLElement>("[data-roadmap-task-id]");
+    if (!row) { dropTask(sourceId, targetCategory, null, false); return; }
+    const rect = row.getBoundingClientRect();
+    dropTask(sourceId, targetCategory, Number(row.dataset.roadmapTaskId), y > rect.top + rect.height / 2);
+  }
+
+  function crossStage(current: Exclude<Grab, null> & { kind: "task" }, direction: -1 | 1): void {
+    const at = categories.findIndex((category) => category.id === current.categoryId);
+    const next = categories[at + direction];
+    if (!next) return;
+    const ids = next.tasks.map((task) => task.id).filter((id) => id !== current.id);
+    if (direction < 0) ids.push(current.id); else ids.unshift(current.id);
+    setGrab({ ...current, categoryId: next.id, ids });
+  }
 
   const tools: ToolDef[] = [
     { id: "nueva-actividad", label: copy.tools.newTask, icon: Plus, enabled: true },
@@ -247,23 +297,24 @@ export function CurationRoadmapPage() {
             key={`${category.id}-${category.title}`}
             category={category}
             index={index}
-            total={orderedCategories.length}
+            stageIds={categories.map((item) => item.id)}
+            draggedTask={grab?.kind === "task" ? categories.flatMap((item) => item.tasks).find((item) => item.id === grab.id) ?? null : null}
             copy={copy}
             busy={busy}
             grab={grab}
             onGrabChange={setGrab}
             onReorderStage={reorderStage}
+            onDropStage={dropStage}
+            onTouchDrop={touchDrop}
+            onCrossStage={crossStage}
             onEditStage={() => setEditStage(category)}
             onDeleteStage={() => setConfirm({ kind: "stage", category })}
             onNewTask={(position) => setNewTask({ categoryId: category.id, ...(position ? { position } : {}) })}
             onEditTask={setEditTask}
             onDeleteTask={(task) => setConfirm({ kind: "task", task })}
             onTogglePin={(task) => void togglePin(task)}
-            onReorderTask={(task, position, previousPosition) => void reorderTask(task, position, previousPosition)}
-            onDropTask={(taskId, position, previousPosition) => {
-              const task = category.tasks.find((item) => item.id === taskId);
-              if (task) void reorderTask(task, position, previousPosition);
-            }}
+            onReorderTask={(task, position, previousPosition) => void reorderTask(task, category.id, position, previousPosition)}
+            onDropTask={(taskId, targetId, after) => dropTask(taskId, category.id, targetId, after)}
           />
         ))}
       </div>
@@ -356,15 +407,19 @@ export function CurationRoadmapPage() {
   );
 }
 
-function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, onReorderStage, onReorderTask, onEditStage, onDeleteStage, onNewTask, onEditTask, onDeleteTask, onTogglePin, onDropTask }: {
+function StageBlock({ category, index, stageIds, draggedTask, copy, busy, grab, onGrabChange, onReorderStage, onDropStage, onTouchDrop, onCrossStage, onReorderTask, onEditStage, onDeleteStage, onNewTask, onEditTask, onDeleteTask, onTogglePin, onDropTask }: {
   category: AdminCategory;
   index: number;
-  total: number;
+  stageIds: number[];
+  draggedTask: AdminTask | null;
   copy: ReturnType<typeof roadmapAdminCopy>;
   busy: boolean;
   grab: Grab;
   onGrabChange: (grab: Grab) => void;
   onReorderStage: (category: AdminCategory, position: number, previousPosition: number) => Promise<void>;
+  onDropStage: (sourceId: number, targetId: number, after: boolean) => void;
+  onTouchDrop: (kind: "task" | "stage", sourceId: number, x: number, y: number) => void;
+  onCrossStage: (grab: Exclude<Grab, null> & { kind: "task" }, direction: -1 | 1) => void;
   onReorderTask: (task: AdminTask, position: number, previousPosition: number) => void;
   onEditStage: () => void;
   onDeleteStage: () => void;
@@ -372,16 +427,37 @@ function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, on
   onEditTask: (task: AdminTask) => void;
   onDeleteTask: (task: AdminTask) => void;
   onTogglePin: (task: AdminTask) => void;
-  onDropTask: (taskId: number, position: number, previousPosition: number) => void;
+  onDropTask: (taskId: number, targetId: number | null, after: boolean) => void;
 }) {
   const [page, setPage] = useState(1);
   const [size, setSize] = useState<number | "all">(5);
   const [bubble, setBubble] = useState<number | null>(null);
+  const touch = useRef<{ kind: "task" | "stage"; id: number; x: number; y: number } | null>(null);
 
-  const taskOrder = grab?.kind === "task" && grab.categoryId === category.id ? grab.ids : category.tasks.map((task) => task.id);
+  function beginTouch(event: ReactPointerEvent<HTMLButtonElement>, kind: "task" | "stage", id: number): void {
+    if (event.pointerType !== "touch" || busy) return;
+    touch.current = { kind, id, x: event.clientX, y: event.clientY };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function endTouch(event: ReactPointerEvent<HTMLButtonElement>): void {
+    const start = touch.current;
+    touch.current = null;
+    if (!start || Math.hypot(event.clientX - start.x, event.clientY - start.y) < 8) return;
+    onTouchDrop(start.kind, start.id, event.clientX, event.clientY);
+  }
+
+  function moveTouch(event: ReactPointerEvent<HTMLButtonElement>): void {
+    if (!touch.current) return;
+    if (event.clientY < 64) window.scrollBy(0, -14);
+    else if (event.clientY > window.innerHeight - 64) window.scrollBy(0, 14);
+  }
+
+  const taskOrder = grab?.kind === "task" && grab.categoryId === category.id ? grab.ids
+    : category.tasks.map((task) => task.id).filter((id) => !(grab?.kind === "task" && grab.categoryId !== category.id && id === grab.id));
   const orderedTasks = useMemo(
-    () => taskOrder.map((id) => category.tasks.find((task) => task.id === id)).filter((task): task is AdminTask => Boolean(task)),
-    [taskOrder.join(","), category.tasks], // eslint-disable-line react-hooks/exhaustive-deps
+    () => taskOrder.map((id) => category.tasks.find((task) => task.id === id) ?? (draggedTask?.id === id ? draggedTask : undefined)).filter((task): task is AdminTask => Boolean(task)),
+    [taskOrder.join(","), category.tasks, draggedTask], // eslint-disable-line react-hooks/exhaustive-deps
   );
   const totalTasks = orderedTasks.length;
   const perPage = size === "all" ? Math.max(1, totalTasks) : size;
@@ -391,37 +467,67 @@ function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, on
   const visible = orderedTasks.slice(start, start + perPage);
   const pct = Math.round(category.progress.percentage);
 
-  function startStageGrab(): void {
-    onGrabChange({ kind: "stage", id: category.id, ids: category.tasks.length ? [category.id] : [category.id] });
-  }
+  useEffect(() => {
+    if (grab?.kind !== "task" || grab.categoryId !== category.id) return;
+    const at = orderedTasks.findIndex((item) => item.id === grab.id);
+    if (at < 0) return;
+    const targetPage = Math.floor(at / perPage) + 1;
+    if (targetPage !== currentPage) { setPage(targetPage); return; }
+    const frame = window.requestAnimationFrame(() => {
+      const handle = document.querySelector<HTMLButtonElement>(`[data-roadmap-task-id="${grab.id}"] .roadmap-admin__drag`);
+      if (handle && document.activeElement !== handle) handle.focus();
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [grab, category.id, orderedTasks, perPage, currentPage]);
 
   function onHandleKeyDown(event: KeyboardEvent<HTMLButtonElement>): void {
-    if (event.key === " " || event.key === "Enter") {
+    const isGrabbed = grab?.kind === "stage" && grab.id === category.id;
+    if (!isGrabbed && (event.key === " " || event.key === "Enter")) {
       event.preventDefault();
-      onGrabChange({ kind: "stage", id: category.id, ids: [category.id] });
+      onGrabChange({ kind: "stage", id: category.id, ids: stageIds });
       return;
     }
-    if (grab?.kind !== "stage" || grab.id !== category.id) return;
-    if (event.key === "ArrowUp" && index > 0) {
+    if (!isGrabbed || grab?.kind !== "stage") return;
+    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
       event.preventDefault();
-      void onReorderStage(category, index, index + 1);
+      const from = grab.ids.indexOf(category.id);
+      onGrabChange({ ...grab, ids: moveWithin(grab.ids, from, from + (event.key === "ArrowUp" ? -1 : 1)) });
     }
-    if (event.key === "ArrowDown" && index < total - 1) {
+    if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      void onReorderStage(category, index + 2, index + 1);
+      void onReorderStage(category, grab.ids.indexOf(category.id) + 1, stageIds.indexOf(category.id) + 1);
     }
     if (event.key === "Escape") { event.preventDefault(); onGrabChange(null); }
   }
 
   return (
-    <section className={`roadmap-admin__stage roadmap-stage--${category.colorKey}`} data-category-id={category.id}>
+    <section className={`roadmap-admin__stage roadmap-stage--${category.colorKey}`} data-category-id={category.id}
+      onDragOver={(event) => { if (event.dataTransfer.types.includes("application/x-crv-stage") || event.dataTransfer.types.includes("application/x-crv-task")) event.preventDefault(); }}
+      onDrop={(event) => {
+        const taskSource = Number(event.dataTransfer.getData("application/x-crv-task"));
+        if (Number.isInteger(taskSource) && taskSource > 0) {
+          event.preventDefault();
+          onDropTask(taskSource, null, false);
+          return;
+        }
+        const source = Number(event.dataTransfer.getData("application/x-crv-stage"));
+        if (!Number.isInteger(source) || source < 1 || source === category.id) return;
+        event.preventDefault();
+        const rect = event.currentTarget.getBoundingClientRect();
+        onDropStage(source, category.id, event.clientY > rect.top + rect.height / 2);
+      }}>
       <div className="roadmap-admin__stage-head">
         <button
           type="button" className="roadmap-admin__drag" draggable
+          disabled={busy}
+          aria-pressed={grab?.kind === "stage" && grab.id === category.id}
           aria-label={copy.reorderStageAria(category.title)} title={copy.dragToReorder}
           onDragStart={(event) => { event.dataTransfer.setData("application/x-crv-stage", String(category.id)); event.dataTransfer.effectAllowed = "move"; }}
+          onPointerDown={(event) => beginTouch(event, "stage", category.id)}
+          onPointerMove={moveTouch}
+          onPointerUp={endTouch}
+          onPointerCancel={() => { touch.current = null; }}
           onKeyDown={onHandleKeyDown}
-          onClick={startStageGrab}
         >
           <DotsSixVertical size={16} aria-hidden="true" />
         </button>
@@ -452,33 +558,40 @@ function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, on
       </button>
 
       <ul className="roadmap-admin__rows">
-        {visible.map((task, rowIndex) => {
-          const position = start + rowIndex + 1;
+        {visible.map((task) => {
           const StatusGlyph = STATUS_ICON[task.status];
           const names = task.assignedUsers.map((user) => user.displayName || user.name);
           return (
             <li
               key={`${task.id}-${task.updatedAt}`}
+              data-roadmap-task-id={task.id}
               className={`roadmap-admin__row${task.status === "completed" ? " roadmap-admin__row--done" : ""}${grab?.kind === "task" && grab.id === task.id ? " roadmap-admin__row--grabbed" : ""}`}
               draggable
               onDragStart={(event) => { event.dataTransfer.setData("application/x-crv-task", String(task.id)); event.dataTransfer.effectAllowed = "move"; }}
               onDragOver={(event) => { if (event.dataTransfer.types.includes("application/x-crv-task")) event.preventDefault(); }}
               onDrop={(event) => {
                 const source = Number(event.dataTransfer.getData("application/x-crv-task"));
-                if (!Number.isInteger(source) || source === task.id) return;
+                if (!Number.isInteger(source) || source < 1) return;
                 event.preventDefault();
+                event.stopPropagation();
+                if (source === task.id) return;
                 const rect = event.currentTarget.getBoundingClientRect();
                 const after = event.clientY > rect.top + rect.height / 2;
-                const previousPosition = orderedTasks.findIndex((item) => item.id === source) + 1;
-                onDropTask(source, position + (after ? 1 : 0) - 1, previousPosition);
+                onDropTask(source, task.id, after);
               }}
             >
               <button
                 type="button" className="roadmap-admin__drag" draggable
+                disabled={busy}
+                aria-pressed={grab?.kind === "task" && grab.id === task.id}
                 aria-label={copy.reorderTaskAria(task.title)} title={copy.dragToReorder}
                 onDragStart={(event) => { event.dataTransfer.setData("application/x-crv-task", String(task.id)); event.dataTransfer.effectAllowed = "move"; }}
+                onPointerDown={(event) => beginTouch(event, "task", task.id)}
+                onPointerMove={moveTouch}
+                onPointerUp={endTouch}
+                onPointerCancel={() => { touch.current = null; }}
                 onKeyDown={(event) => {
-                  if (event.key === " " || event.key === "Enter") {
+                  if ((grab?.kind !== "task" || grab.id !== task.id) && (event.key === " " || event.key === "Enter")) {
                     event.preventDefault();
                     onGrabChange({ kind: "task", categoryId: category.id, id: task.id, ids: orderedTasks.map((item) => item.id) });
                     return;
@@ -487,11 +600,13 @@ function StageBlock({ category, index, total, copy, busy, grab, onGrabChange, on
                   if (event.key === "ArrowUp" || event.key === "ArrowDown") {
                     event.preventDefault();
                     const from = grab.ids.indexOf(task.id);
-                    onGrabChange({ ...grab, ids: moveWithin(grab.ids, from, from + (event.key === "ArrowUp" ? -1 : 1)) });
+                    const direction = event.key === "ArrowUp" ? -1 : 1;
+                    if ((direction < 0 && from === 0) || (direction > 0 && from === grab.ids.length - 1)) onCrossStage(grab, direction);
+                    else onGrabChange({ ...grab, ids: moveWithin(grab.ids, from, from + direction) });
                   }
-                  if (event.key === "Enter") {
+                  if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
-                    const previousPosition = category.tasks.findIndex((item) => item.id === task.id) + 1;
+                    const previousPosition = task.sortOrder;
                     const target = grab.ids.indexOf(task.id) + 1;
                     onReorderTask(task, target, previousPosition);
                   }
@@ -766,7 +881,11 @@ function EditTaskModal({ copy, task, categories, users, onClose, onSaved }: {
             label: copy.undo,
             onAction: async () => {
               try {
-                await roadmapApi.updateTask(task.id, { status: task.status });
+                await roadmapApi.updateTask(task.id, {
+                  title: task.title, status: task.status, categoryId: task.categoryId,
+                  position: task.sortOrder, pinned: task.orderPinned, completedAt: task.completedAt,
+                  assignedUserIds: task.assignedUsers.map((person) => person.id), translations: task.i18n,
+                });
                 notify("success", copy.toasts.undone);
                 onSaved();
               } catch (error) {

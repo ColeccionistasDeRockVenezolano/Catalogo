@@ -835,7 +835,7 @@ tbody:first-of-type > .album-disc-heading th { padding-top: 10px; }
 .cside__link:focus-visible { outline: 2px solid var(--red); outline-offset: -2px; }
 .cside__icon { flex: 0 0 auto; }
 .cside__link.is-active .cside__icon { color: var(--red); }
-.cside__label { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cside__label { flex: 1 1 auto; min-width: 0; white-space: normal; overflow-wrap: anywhere; line-height: 1.25; }
 .cside__count {
   display: inline-flex; align-items: center; justify-content: center; gap: 5px; flex: 0 0 auto; min-width: 24px; padding: 1px 7px;
   border-radius: var(--radius-pill); background: var(--surface-3); color: var(--text-muted);

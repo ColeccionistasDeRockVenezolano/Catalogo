@@ -375,6 +375,7 @@ export async function createTask(projectId: number, input: {
 export async function updateTask(projectId: number, id: number, patch: {
   title?: string | undefined; status?: TaskStatus | undefined; categoryId?: number | undefined;
   position?: number | undefined; assignedUserIds?: number[] | undefined; pinned?: boolean | undefined;
+  completedAt?: string | null | undefined;
   translations?: unknown;
 }): Promise<void> {
   await withTransaction(async (client) => {
@@ -424,6 +425,7 @@ export async function updateTask(projectId: number, id: number, patch: {
       await client.query("UPDATE auth.tasks SET order_pinned = 1 WHERE id = $1", [id]);
     }
     if (patch.status !== undefined) await syncCompletedAt(client, id, patch.status);
+    if (patch.completedAt !== undefined) await client.query("UPDATE auth.tasks SET completed_at = $1 WHERE id = $2", [patch.completedAt, id]);
     await applyOrderRules(client, current.category_id);
     if (targetCategory !== current.category_id) await applyOrderRules(client, targetCategory);
   });

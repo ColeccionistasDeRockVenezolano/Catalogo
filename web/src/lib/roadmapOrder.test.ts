@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
-  clampPosition, dropPosition, keyboardStep, neighbourIndex, positionOf, previewOrder,
+  clampPosition, dropPosition, keyboardStep, neighbourIndex, positionOf, previewOrder, taskDropPosition,
 } from "./roadmapOrder";
 
 const A = { id: "a" };
@@ -9,6 +9,14 @@ const C = { id: "c" };
 const D = { id: "d" };
 
 describe("orden del roadmap de administración", () => {
+  it("calcula la posición final antes y después al mover dentro o entre etapas", () => {
+    expect(taskDropPosition(3, false, 1)).toBe(2);
+    expect(taskDropPosition(3, true, 1)).toBe(3);
+    expect(taskDropPosition(2, false, 4)).toBe(2);
+    expect(taskDropPosition(2, true, 4)).toBe(3);
+    expect(taskDropPosition(8, false, null)).toBe(8);
+    expect(taskDropPosition(8, true, null)).toBe(9);
+  });
   it("traduce la fila bajo el puntero a la posición que espera la API", () => {
     // Sobre la mitad superior de la primera fila, antes de ella.
     expect(dropPosition(0, false)).toBe(1);

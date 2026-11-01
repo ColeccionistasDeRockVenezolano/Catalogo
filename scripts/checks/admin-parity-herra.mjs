@@ -1,8 +1,8 @@
 // CRV · Paridad del admin (B6) — capturas de Herra, sin tocar nada.
 //
-// Usa el Chrome con el perfil copiado (CDP :9335) para capturar las páginas
-// PÚBLICAS de Herra 1.1.34 a 1440 y 390 px, ES y EN. El panel /admin exige
-// sesión de administrador: si no la hay, se anota y se captura el login.
+// Inicia un Chromium aislado para capturar las páginas PÚBLICAS de Herra
+// 1.1.34 a 1440 y 390 px, ES y EN. Sin una sesión de administrador, /admin
+// muestra el login; esta comprobación no reproduce el panel autenticado.
 //
 // Uso: node scripts/checks/admin-parity-herra.mjs
 /* global document -- las funciones de page.evaluate corren en la página */
