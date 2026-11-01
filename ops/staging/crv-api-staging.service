@@ -8,6 +8,7 @@ Type=simple
 WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
 Environment=PATH=/home/brian/.local/node-v24.20.0-linux-x64/bin:/usr/local/bin:/usr/bin:/bin
 Environment=CRV_ENV_FILE=/home/brian/apps/crv-staging/staging.env
+Environment=NODE_ENV=production
 ExecStart=/home/brian/.local/node-v24.20.0-linux-x64/bin/npm run api
 Restart=always
 RestartSec=5

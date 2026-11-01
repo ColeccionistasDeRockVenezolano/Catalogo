@@ -88,6 +88,12 @@ const envSchema = z.object({
   CRV_CHAT_MESSAGE_RETENTION_DAYS: z.coerce.number().int().min(1).max(3650).default(90),
   CRV_CHAT_GUEST_COINS: z.coerce.number().int().nonnegative().max(10_000).default(150),
   CRV_ALLOWED_ORIGINS: z.string().default("http://127.0.0.1:5173,http://localhost:5173"),
+  // IP real detrás de Cloudflare. `CF-Connecting-IP` solo se acepta cuando la
+  // petición llega del túnel local (peer en loopback, ver `clientIp`) y la
+  // instancia está de verdad detrás del borde de Cloudflare, que sobrescribe
+  // esa cabecera. Detrás del Funnel de Tailscale no existe: se usa el último
+  // `X-Forwarded-For`. Encendido solo en la instancia que corresponda.
+  CRV_TRUST_CF_HEADERS: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
   // Ráfaga de escrituras por cuenta (auditoría 2026-09-17, hallazgo #10):
   // escrituras autenticadas por minuto antes de responder 429. Generoso para
   // un operador (los lotes de Curaduría aplican hasta CRV_CURATION_FIX_BATCH_MAX

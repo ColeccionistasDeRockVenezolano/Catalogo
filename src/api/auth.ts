@@ -348,8 +348,25 @@ function noStore(reply: FastifyReply): void {
  * X-Forwarded-For. El cliente puede inventar entradas previas, pero la última
  * la escribe el hop más cercano de confianza (Funnel → server.mjs → API), así
  * que es la única que no se puede falsear desde fuera.
+ *
+ * Detrás de Cloudflare el hop final es el túnel local y el XFF puede acabar
+ * siendo siempre la misma IP (el túnel): todo el mundo compartiría el límite de
+ * candidaturas y la visita diaria. Para ese caso está `CF-Connecting-IP`, que
+ * el borde de Cloudflare escribe y sobrescribe. Solo se acepta si:
+ *   1. `CRV_TRUST_CF_HEADERS` está encendido en esta instancia,
+ *   2. la petición llega de un proceso local (loopback: cloudflared o
+ *      server.mjs, nunca un cliente remoto), y
+ *   3. el valor es una IP con forma válida.
+ * `web/server.mjs` borra esas cabeceras cuando el peer no es local.
  */
 export function clientIp(request: FastifyRequest): string {
+  const peer = normalizeIp(request.raw.socket?.remoteAddress ?? request.ip);
+  const isLoopback = peer === "127.0.0.1" || peer === "::1";
+  if (isLoopback && getEnv().CRV_TRUST_CF_HEADERS) {
+    const cf = request.headers["cf-connecting-ip"];
+    const candidate = normalizeIp(Array.isArray(cf) ? cf[0] : cf);
+    if (candidate && isIp(candidate)) return candidate;
+  }
   const forwarded = request.headers["x-forwarded-for"];
   if (typeof forwarded === "string" && forwarded.length > 0) {
     const parts = forwarded.split(",");
@@ -357,6 +374,20 @@ export function clientIp(request: FastifyRequest): string {
     if (last.length > 0) return last;
   }
   return request.ip;
+}
+
+/** Quita el prefijo IPv4-mapeada que añade una conexión de doble pila. */
+function normalizeIp(raw: string | undefined): string {
+  const value = (raw ?? "").trim();
+  return value.startsWith("::ffff:") ? value.slice("::ffff:".length) : value;
+}
+
+const IPV4 = /^(?:\d{1,3}\.){3}\d{1,3}$/u;
+const IPV6 = /^[0-9a-f]{0,4}(?::[0-9a-f]{0,4}){2,7}(?:%[\w.-]+)?$/iu;
+
+function isIp(value: string): boolean {
+  if (IPV4.test(value)) return value.split(".").every((part) => Number(part) <= 255);
+  return IPV6.test(value) && value.includes(":");
 }
 
 /** Tráfico local (scripts, campañas, tests): sin proxy delante y en loopback. */

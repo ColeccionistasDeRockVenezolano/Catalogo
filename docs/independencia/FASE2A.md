@@ -67,9 +67,54 @@ sin imágenes rotas, sin errores de consola ni peticiones fallidas, POST de logi
 - El globo «ONLINE (1)» de la portada se solapa con el botón del reproductor en móvil. Es de la
   barra de oyentes (Fase 3), queda anotado para B10; no afecta a la aceptación de 2A.
 
-## 2A.3 Pendiente
+## 2A.3 Detrás de Cloudflare
 
-- IP real detrás del túnel, país, cookies, orígenes y secretos propios: corresponde a B3.
-- Reinicio de producción con los interruptores apagados: B4, pendiente de permiso. Incluye el
-  cambio de CSP (`base-uri 'self'`) de `web/server.mjs`, que hoy solo corre en staging.
-- La landing aún es HTML estático con base inyectada; CP0 (generación desde datos) es B5.
+- **IP real.** `clientIp` sigue tomando la última entrada de `X-Forwarded-For`, pero acepta
+  `CF-Connecting-IP` —que el borde sobrescribe— solo si se cumplen tres cosas: la instancia
+  enciende `CRV_TRUST_CF_HEADERS`, la petición llega de un proceso local (peer en `127.0.0.1`/`::1`)
+  y el valor tiene forma de IP. `web/server.mjs` descarta `cf-connecting-ip` y `cf-ipcountry`
+  cuando el peer no es local, así que un cliente remoto no puede elegir su IP.
+- **País.** `cf-ipcountry` (y `x-vercel-ip-country`/`x-country`/`x-geo-country`) llegan a la API a
+  través del proxy; `normalizeCountry` reduce a ISO-3166 de dos letras y manda lo demás a
+  `unknown` (`zz`).
+- **Cookies.** La sesión sale como `crv_session=…; Path=/; HttpOnly; SameSite=Strict;
+  Max-Age=43200; Secure` (Secure lo decide el `x-forwarded-proto: https` que pone el gateway). Sin
+  atributo `Domain`: la cookie del dominio no viaja al host del Funnel, aunque compartan la tabla
+  `auth.sessions`.
+- **Orígenes.** `isTrustedOrigin` acepta el mismo host o lo listado en `CRV_ALLOWED_ORIGINS`. El
+  dominio va **solo** en `ops/staging/crv-landing.env.example` (instancia raíz de la Fase 2B, no
+  instalada).
+- **Secretos propios.** Staging usa `CRV_VISITS_SECRET` y `CRV_CHAT_SECRET` generados con
+  `openssl rand -hex 24`, distintos de los del catálogo y del Funnel, y corre con
+  `NODE_ENV=production` (en `staging.env` y en las dos unidades).
+- **Hallazgo corregido de paso:** el modo raíz del gateway (`CRV_PUBLIC_PATH` vacío) no proxeaba
+  el API: `apiPath` quedaba en `""` y la ruta se prefijaba como `//api/...`. Ahora el API vive en
+  `/api` y `:3141` sirve portadas y API. Lo necesita B5/B8/B9.
+
+**Pruebas ejecutadas**
+
+- Unitaria `test/unit/client-ip.test.ts` 5/5: CF aceptada solo con interruptor + peer local + IP
+  válida; ignorada con peer remoto, con interruptor apagado y con valor basura; XFF manda cuando
+  no aplica.
+- Extremo a extremo con dos procesos propios (API :8093 con el interruptor, gateway :3141 raíz):
+  dos peticiones con el **mismo** XFF final (`100.64.0.9`, el túnel) y dos `CF-Connecting-IP`
+  distintas → **1 visita** sin interruptor (el fallo que describe el plan) y **2 visitas**
+  (`ve`, `br`) con él.
+- Peer no local (`curl --interface 127.0.0.2`) con `CF-Connecting-IP` → **1 visita**: la cabecera
+  se descarta y todo cae al XFF del túnel.
+- País a través del proxy de staging: `cf-ipcountry: VE` → visita con país `ve`;
+  `cf-ipcountry: ZZ` → país `zz` (desconocido).
+- Cookie en navegador real (Playwright): `httpOnly=true`, `secure=true`, `sameSite=Strict`,
+  `path=/`, invisible para `document.cookie`; `GET api/auth/me` 200 con el rol admin y la portada
+  carga. El 401 que queda en consola es la sonda anónima `/api/roadmap/me`.
+- Limpieza: fixtures `--clean`, sesiones `fase1-*` borradas y visitas de prueba revertidas
+  (52 filas, 284 acumuladas, idénticas al estado previo).
+
+**Pendiente de 2A.3**
+
+- Crear la instancia `crv-landing` cuando Brian autorice la 2B, con
+  `CRV_ALLOWED_ORIGINS=https://coleccionistasderockvenezolano.com` y `CRV_TRUST_CF_HEADERS=true`.
+- El reinicio de producción (B4) es también cuando entra el `base-uri 'self'` de la CSP y los
+  secretos propios en el `.env` del catálogo.
+- La portada estática sigue mostrando «Entrar» con la sesión abierta: es CP0/B5, no un fallo de
+  cookies.

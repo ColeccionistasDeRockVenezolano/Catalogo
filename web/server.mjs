@@ -39,7 +39,9 @@ const apiPort = Number(process.env.CRV_API_PORT ?? "8080");
 // El chat corre en su propio proceso: /api/chat/* y su WebSocket van allí.
 const chatPort = Number(process.env.CRV_CHAT_PORT ?? "8081");
 const basePath = `/${(process.env.CRV_PUBLIC_PATH ?? "crv").replace(/^\/+|\/+$/g, "")}`;
-const apiPath = `${basePath === "/" ? "" : basePath}/api`;
+// En la raíz el API vive en `/api` (las portadas llaman a `api/...` relativas a
+// `<base href="/">`); bajo `/crv`, en `/crv/api`.
+const apiPath = basePath === "/" ? "/api" : `${basePath}/api`;
 
 // Techo por IP y minuto para TODO lo que sirve el gateway (estáticos, media y
 // el proxy al API). Holgado para navegación humana (una ficha son ~20
@@ -161,6 +163,11 @@ function forwardedFor(req) {
 /** Tráfico local de pruebas (sin proxy delante): fuera del techo. */
 function isLocalRequest(req) {
   if (req.headers["x-forwarded-for"] !== undefined) return false;
+  return isLoopbackPeer(req);
+}
+
+/** ¿La conexión llega de un proceso local (cloudflared, server.mjs, scripts)? */
+function isLoopbackPeer(req) {
   const ip = (req.socket.remoteAddress ?? "").replace(/^::ffff:/, "");
   return ip === "127.0.0.1" || ip === "::1";
 }
@@ -267,17 +274,25 @@ function proxyApi(req, res, requestUrl) {
   const upstreamPath = `${requestUrl.pathname.slice(apiPath.length) || "/"}${requestUrl.search}`;
   const isChat = upstreamPath === "/chat" || upstreamPath.startsWith("/chat?") || upstreamPath.startsWith("/chat/");
   const upstreamPort = isChat ? chatPort : apiPort;
+  // Cloudflare escribe CF-Connecting-IP/CF-IPCountry; nadie más debe poder
+  // inyectarlas. Solo se reenvían cuando la conexión viene del túnel local;
+  // desde un peer remoto se descartan antes de llegar a la API.
+  const headers = {
+    ...req.headers,
+    host: `${apiHost}:${upstreamPort}`,
+    "x-forwarded-host": req.headers.host,
+    "x-forwarded-proto": "https",
+  };
+  if (!isLoopbackPeer(req)) {
+    delete headers["cf-connecting-ip"];
+    delete headers["cf-ipcountry"];
+  }
   const upstream = http.request({
     host: apiHost,
     port: upstreamPort,
     method: req.method,
     path: upstreamPath,
-    headers: {
-      ...req.headers,
-      host: `${apiHost}:${upstreamPort}`,
-      "x-forwarded-host": req.headers.host,
-      "x-forwarded-proto": "https",
-    },
+    headers,
   }, (upstreamResponse) => {
     res.writeHead(upstreamResponse.statusCode ?? 502, { ...upstreamResponse.headers, ...SECURITY_HEADERS });
     upstreamResponse.pipe(res);
@@ -451,7 +466,9 @@ const server = http.createServer(async (req, res) => {
   }
   // Funnel elimina el prefijo configurado antes de enviar la petición al
   // destino local. Para pruebas directas también aceptamos la ruta completa.
-  const virtualPath = requestUrl.pathname === basePath || requestUrl.pathname.startsWith(`${basePath}/`)
+  // En la raíz (basePath "/") la ruta ya es la definitiva: prefijarla daba
+  // "//api/..." y el proxy del API nunca casaba.
+  const virtualPath = basePath === "/" || requestUrl.pathname === basePath || requestUrl.pathname.startsWith(`${basePath}/`)
     ? requestUrl.pathname
     : `${basePath}${requestUrl.pathname}`;
   const virtualUrl = new URL(requestUrl);

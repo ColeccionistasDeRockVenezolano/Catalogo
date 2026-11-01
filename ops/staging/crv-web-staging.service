@@ -15,6 +15,7 @@ Environment=CRV_PUBLIC_PATH=crv
 Environment=CRV_WEB_DIST=dist-staging
 Environment=CRV_WEB_MODE=catalog
 Environment=CRV_WEB_REDIRECT_UNPREFIXED=1
+Environment=NODE_ENV=production
 ExecStart=/home/brian/.local/node-v24.20.0-linux-x64/bin/npm run serve:public
 Restart=always
 RestartSec=5
