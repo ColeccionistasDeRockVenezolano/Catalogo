@@ -16,6 +16,7 @@ import {
   projectId, listCollaborators, getCollaborator, createCollaborator, updateCollaborator,
   setAccessCode, revokeCollaborator, listAdmins, adminByUsername, setAdminRole,
   formOptions, recordAudit, isLinkedAdmin,
+  getPersonProfile, updatePersonProfile, setUsername, deleteCollaborator,
 } from "../community/store.js";
 import {
   createApplication, listApplications, getApplication, setApplicationStatus, acceptApplication,
@@ -81,6 +82,20 @@ const collaboratorPatch = z.object({
 }).strict();
 
 const accessCodeBody = z.object({ accessCode: z.string().min(12).max(200) }).strict();
+
+const personBody = z.object({
+  firstName: z.string().trim().min(1).max(80),
+  lastName: z.string().trim().max(80).optional(),
+  birthDate: z.string().trim().max(10).optional(),
+  whatsappPhone: z.string().trim().max(120).optional(),
+  email: z.string().trim().max(120).optional(),
+  city: z.string().max(200).optional(),
+  country: z.string().max(200).optional(),
+  experience: z.string().max(4000).optional(),
+  availability: z.string().max(200).optional(),
+}).strict();
+
+const usernameBody = z.object({ username: z.string().trim().min(2).max(80) }).strict();
 
 const applicationStatusBody = z.object({
   status: z.enum(["new", "reviewing", "contact", "rejected", "archived"]),
@@ -350,6 +365,39 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
 
   // Alta directa de una activación desde la ficha de una colaboración ya
   // creada (por ejemplo, si el enlace anterior expiró).
+  // Ventana 3.4 · sub-ventanas «Perfil de la persona», «Cambiar usuario» y «Quitar».
+  api.get("/community/admin/collaborators/:id/person", { schema: { tags: ["Comunidad"], params: idParamSchema } },
+    async (request) => {
+      const project = await projectId();
+      const person = await getPersonProfile(project, request.params.id);
+      if (!person) throw new ApiError(404, "collaborator_not_found", "No existe esa cuenta en el proyecto.");
+      return person;
+    });
+
+  api.patch("/community/admin/collaborators/:id/person", {
+    schema: { tags: ["Comunidad"], params: idParamSchema, body: personBody },
+  }, async (request) => {
+    const project = await projectId();
+    await assertManageable(request, project, request.params.id);
+    return updatePersonProfile(project, request.params.id, request.body);
+  });
+
+  api.patch("/community/admin/collaborators/:id/username", {
+    schema: { tags: ["Comunidad"], params: idParamSchema, body: usernameBody },
+  }, async (request) => {
+    const project = await projectId();
+    await assertManageable(request, project, request.params.id);
+    return setUsername(project, request.params.id, request.body.username);
+  });
+
+  api.delete("/community/admin/collaborators/:id", { schema: { tags: ["Comunidad"], params: idParamSchema } },
+    async (request, reply) => {
+      const project = await projectId();
+      await assertManageable(request, project, request.params.id);
+      await deleteCollaborator(project, request.params.id);
+      return reply.status(204).send();
+    });
+
   api.post("/community/admin/collaborators/:id/activation", {
     schema: { tags: ["Comunidad"], params: idParamSchema },
   }, async (request, reply) => {

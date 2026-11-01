@@ -55,6 +55,20 @@ export interface AcceptResult {
 }
 export interface InviteCreated { token: string; expiresAt: string; invitePath: string }
 
+/** Ficha global de la persona, para el editor de «Personas y colaboradores». */
+export interface PersonProfile {
+  person_id: number; user_id: number; username: string;
+  first_name: string; last_name: string;
+  birth_date: string | null; whatsapp_phone: string | null; email: string | null;
+  city: string | null; country: string | null; bio: string | null;
+  experience: string | null; availability: string | null;
+  contact_preference: string; profile_visibility: string;
+}
+export interface PersonProfileInput {
+  firstName: string; lastName?: string; birthDate?: string; whatsappPhone?: string;
+  email?: string; city?: string; country?: string; experience?: string; availability?: string;
+}
+
 /** Ventana 3.8: formulario de colaboración y categorías de perfil. */
 export type FieldMode = "off" | "optional" | "required";
 export type ProfileTermType = "skill" | "contribution_area" | "link_type";
@@ -125,6 +139,14 @@ export const communityApi = {
       method: "POST", authenticated: true, body: { accessCode } }),
   revokeCollaborator: (id: number) =>
     request<void>(`/community/admin/collaborators/${id}/revoke`, { method: "POST", authenticated: true }),
+  collaboratorPerson: (id: number) => request<PersonProfile>(`/community/admin/collaborators/${id}/person`),
+  updateCollaboratorPerson: (id: number, body: PersonProfileInput) =>
+    request<PersonProfile>(`/community/admin/collaborators/${id}/person`, { method: "PATCH", authenticated: true, body }),
+  setCollaboratorUsername: (id: number, username: string) =>
+    request<Collaborator>(`/community/admin/collaborators/${id}/username`, {
+      method: "PATCH", authenticated: true, body: { username } }),
+  deleteCollaborator: (id: number) =>
+    request<void>(`/community/admin/collaborators/${id}`, { method: "DELETE", authenticated: true }),
   createActivation: (id: number) =>
     request<ActivationCreated>(`/community/admin/collaborators/${id}/activation`, { method: "POST", authenticated: true }),
 
