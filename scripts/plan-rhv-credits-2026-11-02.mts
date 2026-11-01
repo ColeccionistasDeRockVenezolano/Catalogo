@@ -86,7 +86,7 @@ try {
       if (!a) return null;
       const rows = tracksByAlbum.get(a.id) ?? [];
       const hit = e.tracks.filter(t => matchingAppearanceTracks(rows, t.title, names).length > 0).length;
-      return { album: a, trackHits: hit, yearOk: e.year !== null && a.year === e.year, isVA: a.artistId === vaId, isOwn: a.artistId === e.artistId, hasOwnCredit: candidates.find(c => c.id === a.id)?.id === a.id && (e.matched.find(m => m.album.id === a.id)?.albumCredits.length ?? 0) > 0 };
+      return { album: a, trackHits: hit, yearOk: e.year !== null && a.year === e.year, isVA: a.artistId === vaId, isOwn: a.artistId === e.artistId };
     }).filter((x): x is NonNullable<typeof x> => !!x).sort((x, y) => (Number(y.yearOk) - Number(x.yearOk)) || (y.trackHits - x.trackHits) || (Number(y.isVA) - Number(x.isVA)));
     const best = scored[0];
     const tied = best ? scored.filter(s => s.trackHits === best.trackHits && s.yearOk === best.yearOk && s.album.artistId !== best.album.artistId) : [];
