@@ -6,7 +6,7 @@
 // siendo la autoridad (por ejemplo, rechaza candidaturas cerradas).
 (function () {
   "use strict";
-  var api = new URL("../api/site-config", document.baseURI).href;
+  var api = new URL("api/site-config", document.baseURI).href;
 
   function removeNavLogin() {
     var links = document.querySelectorAll(

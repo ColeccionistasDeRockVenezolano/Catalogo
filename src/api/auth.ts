@@ -115,7 +115,7 @@ interface Collaborator {
  * colaborador se comparten directamente por PostgreSQL. Este resolvedor
  * conserva el fallback por `/auth/me` para instalaciones legadas.
  */
-export type RemoteSessionResolver = (request: FastifyRequest) => Promise<{ name: string; role: AccountRole; csrf: string } | undefined>;
+export type RemoteSessionResolver = (request: FastifyRequest) => Promise<{ username: string; name: string; role: AccountRole; csrf: string } | undefined>;
 
 interface Session {
   username: string;
@@ -418,7 +418,7 @@ export async function registerOperatorAuth(
   };
 
   /** Sesión local o, en el proceso del chat, la de la API. */
-  const anySession = async (request: FastifyRequest): Promise<{ name: string; role: AccountRole; csrf: string; herra?: HerraSessionRef } | undefined> => {
+  const anySession = async (request: FastifyRequest): Promise<{ username: string; name: string; role: AccountRole; csrf: string; herra?: HerraSessionRef } | undefined> => {
     const local = (await activeSession(request))?.value;
     if (local) return local;
     return options.remoteSession ? options.remoteSession(request) : undefined;
@@ -500,22 +500,22 @@ export async function registerOperatorAuth(
       // Un colaborador reader solo puede cambiar el estado de sus actividades
       // desde el roadmap público. La ruta valida la asignación en la base.
       if (session.role === "reader" && COLLABORATOR_STATUS_PATH.test(path)) {
-        request.operator = session.name;
+        request.operator = session.username;
         request.viewer = { name: session.name, role: session.role };
         const ref = "herra" in session ? session.herra : undefined;
         request.account = ref ? { kind: ref.kind, id: ref.id } : null;
-        if (!isRead) writeBudget(`session:${session.name}`);
+        if (!isRead) writeBudget(`session:${session.username}`);
         return;
       }
       if (!roleCanAccess(session.role, path)) {
         throw new ApiError(403, "forbidden_role", "Esta cuenta no tiene permiso para esta sección.");
       }
-      request.operator = session.name;
+      request.operator = session.username;
       request.viewer = { name: session.name, role: session.role };
       request.csrfToken = session.csrf;
       const herraRef = "herra" in session ? session.herra : undefined;
       request.account = herraRef ? { kind: herraRef.kind, id: herraRef.id } : null;
-      if (!isRead) writeBudget(`session:${session.name}`);
+      if (!isRead) writeBudget(`session:${session.username}`);
       return;
     }
 

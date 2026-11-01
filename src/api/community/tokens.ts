@@ -10,7 +10,7 @@ import {
   hashAccessCode, hashToken, newToken, isStrongAccessCode, validUsername,
   normalizePersonName, ACTIVATION_TTL_DAYS, INVITE_TTL_MINUTES, MAX_REGISTRATIONS_PER_DAY,
 } from "./validation.js";
-import { withTransaction, isUniqueViolation } from "./store.js";
+import { withTransaction, isUniqueViolation, usernameTakenByAdmin } from "./store.js";
 
 const UTC_NOW = "to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD HH24:MI:SS')";
 const UTC_EXPIRY_DAYS = (placeholder: string) =>
@@ -100,6 +100,9 @@ export async function activateUser(
         FOR UPDATE OF at`, [hashToken(token), project]);
     const activation = rows[0];
     if (!activation) throw new ApiError(404, "activation_not_found", "El enlace de activación no es válido o ya expiró.");
+    if (await usernameTakenByAdmin(username, client)) {
+      throw new ApiError(409, "username_taken", "Ese nombre de usuario pertenece a una cuenta administradora.");
+    }
     try {
       await client.query(
         `UPDATE auth.users SET name = $1, access_code_hash = $2,
@@ -183,6 +186,9 @@ export async function registerWithInvite(
           AND left(created_at, 10) = to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD')`, [project]);
     if (today.rows[0]!.n >= MAX_REGISTRATIONS_PER_DAY) {
       throw new ApiError(429, "registration_limit", "Se alcanzó el límite diario de registros. Inténtalo mañana.");
+    }
+    if (await usernameTakenByAdmin(username, client)) {
+      throw new ApiError(409, "username_taken", "Ese nombre de usuario pertenece a una cuenta administradora.");
     }
     const person = await client.query<{ id: number }>(
       "INSERT INTO auth.people (first_name, last_name) VALUES ($1, $2) RETURNING id", [firstName, lastName]);

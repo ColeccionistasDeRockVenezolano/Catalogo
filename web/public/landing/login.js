@@ -26,7 +26,7 @@
     }
     if (button) { button.disabled = true; button.setAttribute("aria-busy", "true"); }
     error.hidden = true;
-    fetch(new URL("../api/auth/login", document.baseURI), {
+    fetch(new URL("api/auth/login", document.baseURI), {
       method: "POST",
       credentials: "include",
       headers: { Accept: "application/json", "Content-Type": "application/json" },
@@ -44,7 +44,7 @@
       if (data.csrf) {
         try { sessionStorage.setItem("crv-csrf", data.csrf); } catch (_) { /* sin almacenamiento */ }
       }
-      window.location.assign(new URL("../roadmap", document.baseURI).href);
+      window.location.assign(new URL("roadmap", document.baseURI).href);
     }).catch(function (problem) {
       showError(problem && problem.message ? problem.message : "No pudimos entrar.");
     }).finally(function () {

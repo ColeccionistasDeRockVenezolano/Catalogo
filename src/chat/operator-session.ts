@@ -11,7 +11,7 @@ import type { FastifyRequest } from "fastify";
 import { getEnv } from "../config/env.js";
 import type { AccountRole, RemoteSessionResolver } from "../api/auth.js";
 
-interface Cached { value: { name: string; role: AccountRole; csrf: string } | undefined; until: number }
+interface Cached { value: { username: string; name: string; role: AccountRole; csrf: string } | undefined; until: number }
 
 const cache = new Map<string, Cached>();
 const TTL_MS = 30_000;
@@ -33,8 +33,10 @@ export function apiSessionResolver(baseUrl = `http://127.0.0.1:${getEnv().PORT}`
         signal: AbortSignal.timeout(2_000),
       });
       if (response.ok) {
-        const body = await response.json() as { user?: { name?: string; role?: AccountRole }; csrf?: string };
-        if (body.user?.name && body.user.role && body.csrf) value = { name: body.user.name, role: body.user.role, csrf: body.csrf };
+        const body = await response.json() as { user?: { username?: string; name?: string; role?: AccountRole }; csrf?: string };
+        if (body.user?.username && body.user.name && body.user.role && body.csrf) {
+          value = { username: body.user.username, name: body.user.name, role: body.user.role, csrf: body.csrf };
+        }
       }
     } catch {
       // API caída: sin sesión (las rutas de administración responden 401).

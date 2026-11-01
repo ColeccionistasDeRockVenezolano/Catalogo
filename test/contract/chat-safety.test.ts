@@ -143,7 +143,7 @@ describe("blindaje del chat (PostgreSQL + WebSocket)", () => {
       logger: false,
       // La sesión de colaborador vive en la API; aquí un doble con la misma forma.
       remoteSession: async (req) => (req.headers.cookie?.includes(ADMIN_COOKIE)
-        ? { name: "moderador", role: "admin", csrf: CSRF }
+        ? { username: "moderador", name: "moderador", role: "admin", csrf: CSRF }
         : undefined),
     });
     app = built.app;
@@ -343,8 +343,15 @@ describe("blindaje del chat (PostgreSQL + WebSocket)", () => {
     expect(queue.status).toBe(200);
     expect((queue.json["reports"] as Array<{ message: { id: number } }>).some((item) => item.message?.id === message.id)).toBe(true);
 
-    // Sin sesión de administrador no se modera.
-    expect((await request("POST", `/chat/admin/messages/${message.id}/delete`, { ip: goodIp, body: {} })).status).toBe(401);
+    // Sin sesión de administrador no se modera. La suite corre con
+    // CRV_AUTH_BACKEND=legacy y sin Herra (CRV_HERRA_DB_PATH vacío en `.env`),
+    // así que la API deniega con `writes_disabled` (403) antes de llegar al
+    // `unauthorized` (401). Cualquiera de las dos es una negativa: lo que
+    // importa es que el mensaje siga publicado.
+    const sinSesion = await request("POST", `/chat/admin/messages/${message.id}/delete`, { ip: goodIp, body: {} });
+    expect([401, 403], JSON.stringify(sinSesion.json)).toContain(sinSesion.status);
+    const trasIntento = await admin("GET", "/chat/admin/reports");
+    expect((trasIntento.json["reports"] as Array<{ message: { id: number } | null }>).some((item) => item.message?.id === message.id)).toBe(true);
 
     expect((await admin("POST", `/chat/admin/messages/${message.id}/delete`, { reason: "molesto" })).status).toBe(200);
     expect((await witness.next("deleted"))["messageId"]).toBe(message.id);

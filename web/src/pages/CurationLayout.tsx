@@ -294,7 +294,7 @@ function CurationNav({ summary, duplicateCount, imageCount, canCurate, canCommun
     { to: "/curaduria/radio", label: "Radio", icon: Broadcast },
     { to: "/curaduria/candidaturas", label: "Candidaturas", icon: UserPlus },
     { to: "/curaduria/colaboradores", label: "Colaboradores", icon: UsersThree },
-    { to: "/curaduria/ajustes", label: "Ajustes", icon: GearSix },
+    ...(canCurate ? [{ to: "/curaduria/ajustes", label: "Ajustes", icon: GearSix }] : []),
   ];
   const allEntries = [
     ...(canCurate ? [overview, workspace, ...categories, ...tools] : []),

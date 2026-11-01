@@ -45,13 +45,22 @@ _(se completa al terminar la noche)_
   borraron y la paridad quedó en 61 actividades / 27 completadas / 5 etapas / 283 visitas.
   Hay que volver a comprobarlo al cerrar cada bloque.
 
+## Buzón de Claude
+
+Leo `docs/independencia/MENSAJES-PARA-HERMES.md` al retomar y al cerrar cada bloque (lo pidió
+Brian con `/steer`). Entradas leídas: «inicio», «02:5x revisión de B1» y «03:47 al retomar».
+Los tres puntos de la entrada de las 03:47 quedan hechos: `.down` de 0124 corregido y probado,
+esta nota, y commit de B2 sin `.hermes/` ni el buzón. El punto 2 de las 02:5x (ESLint dirigido,
+`build:staging` y navegador real escritorio/móvil ES/EN) se ejecutó y está en las filas de B1/B2.
+El buzón no se versiona: es correspondencia, no documentación del plan.
+
 ## Estado de bloques
 
 | Bloque | Estado | Evidencia / siguiente acción |
 |---|---|---|
 | B0 | cumple | Commit `53c350f7` en `independencia/fases-0-3`, 132 archivos del plan; `.hermes/` quedó fuera. `git diff --cached --check` solo reportó espacios finales de HTML copiado. |
-| B1 | cumple | `CRV_COMMUNITY_ENABLED`/`CRV_RADIO_ENABLED` apagados por defecto y registrados condicionalmente; `CRV_WEB_MODE` validado; redirección sin prefijo solo con `CRV_WEB_REDIRECT_UNPREFIXED=1`; 0124 en `migrations/pending`; `.down` ya no promueve a admin; `deploy.sh` aborta en rama/cambios. Prueba: API alterna :8093 con flags false → 404 en roadmap/site-config/radio/community y health 200; staging con flags → 200; `/roadmap` sin prefijo → 302 y `/crv/roadmap` 200; `bash scripts/deploy.sh` abortó por rama. Typecheck backend/web, 18/18 vitest. |
-| B2 | pendiente | P-1…P-4, F1-1…F1-6, F2-1 |
+| B1 | cumple | `CRV_COMMUNITY_ENABLED`/`CRV_RADIO_ENABLED` apagados por defecto y registrados condicionalmente; `CRV_WEB_MODE` validado; redirección sin prefijo solo con `CRV_WEB_REDIRECT_UNPREFIXED=1`; 0124 en `migrations/pending`; `deploy.sh` aborta en rama/cambios. Prueba: API alterna :8093 con flags false → 404 en roadmap/site-config/radio/community y health 200; staging con flags → 200; `/roadmap` sin prefijo → 302 y `/crv/roadmap` 200; `bash scripts/deploy.sh` abortó por rama. Typecheck backend/web, 18/18 vitest. **Cierre 09:3x:** el `.down` de 0124 ya no borra cuentas — aborta con `hay N cuentas curator/community; reasígnalas antes de revertir` y sin ellas restaura el CHECK `superadmin/admin` (probado en `crv_staging` con transacción + `ROLLBACK`: aborta con 1+1 cuentas, restaura con 0, idempotente, 3 admins intactas); ESLint dirigido 0 errores, `build:staging` OK y navegador real 12/12 (escritorio 1366×900 y móvil 390×844, ES/EN en roadmap, colaborar y login). |
+| B2 | cumple | P-1…P-4, F1-1…F1-6 y F2-1 corregidos. Pruebas: API flags false 404/health 200; guardia `linked_admin` 403; revocación rejected+hash NULL+sesión 401; último admin 409 `last_admin`; usernames reservados 409 y con espacio 400; `reviewed_by_admin_id` real; community sin Ajustes; landing con `<base>` y `meta crv-api-base`, `fetch("api/roadmap")` 200 y cero `../`. **Cierre 09:3x:** vitest 24/24 (chat-safety 16 + comunidad 8), typecheck backend/web, ESLint dirigido de los 12 archivos tocados, `build:staging` OK; navegador real 12/12 con capturas e informe JSON en `~/crv-staging/reports/independencia/b2-navegador/`; paridad 61/27/5 intacta. Dos hallazgos corregidos en esta pasada: CSP `base-uri 'none'` → `'self'` (bloqueaba el `<base>` inyectado y dejaba inerte `document.baseURI`) y la prueba de moderación sin sesión, que esperaba 401 cuando la API responde 403 `writes_disabled` con las cuentas ya solo en PostgreSQL. `FASE2A.md` actualizado. |
 | B3 | pendiente | IP real, país, cookies, orígenes, secretos |
 | B4 | pendiente de permiso | No reiniciar producción; dejar comando exacto |
 | B5 | pendiente | CP0: portadas generadas desde datos |
@@ -66,4 +75,10 @@ _(se completa al terminar la noche)_
 
 - Producción no se toca. Cualquier reinicio de `crv-api`/`crv-web`/`crv-chat` de producción
   o `npm run deploy`/`db:migrate` queda fuera de esta noche salvo B4, que solo se documenta.
+  El reinicio de `crv-web` de producción tendrá que llevar también el cambio de CSP
+  (`base-uri 'self'`) de `web/server.mjs`, ya probado en staging.
+- El globo «ONLINE (1)» de la portada se solapa con el botón del reproductor en móvil (Fase 3,
+  barra de oyentes). Anotado para B10; no bloquea 2A.
+- `scripts/checks/landing-browser-check.mjs` deja capturas e informe en el staging del SSD
+  (`~/crv-staging/reports/independencia/b2-navegador/`), no en `/tmp`.
 - Nada de `/tmp` para informes; las capturas y reportes van al staging del SSD.

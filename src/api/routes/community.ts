@@ -4,7 +4,7 @@
 // Privadas: colaboradores, candidaturas, invitaciones, activaciones y roles.
 // El guardián global de auth.ts ya exige sesión y rol para /community/admin;
 // aquí solo se añade la comprobación de rol total para cambiar roles.
-import type { FastifyInstance } from "fastify";
+import type { FastifyInstance, FastifyRequest } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { getPool } from "../../db/client.js";
@@ -15,7 +15,7 @@ import { idParamSchema } from "../schemas.js";
 import {
   projectId, listCollaborators, getCollaborator, createCollaborator, updateCollaborator,
   setAccessCode, revokeCollaborator, listAdmins, adminByUsername, setAdminRole,
-  formOptions, recordAudit,
+  formOptions, recordAudit, isLinkedAdmin,
 } from "../community/store.js";
 import {
   createApplication, listApplications, getApplication, setApplicationStatus, acceptApplication,
@@ -90,6 +90,13 @@ const acceptBody = z.object({ existingPersonId: z.number().int().positive().opti
 
 export async function registerCommunityRoutes(app: FastifyInstance): Promise<void> {
   const api = app.withTypeProvider<ZodTypeProvider>();
+
+  /** Un `community` no puede tocar la cuenta vinculada a un administrador. */
+  async function assertManageable(request: FastifyRequest, project: number, userId: number): Promise<void> {
+    if (request.viewer?.role === "community" && await isLinkedAdmin(project, userId)) {
+      throw new ApiError(403, "linked_admin", "Esa cuenta está vinculada a un administrador; solo un admin puede gestionarla.");
+    }
+  }
 
   // Auditoría única de todo lo que cambia en comunidad. Se registra antes de
   // las rutas para que el hook alcance a todas ellas. Los GET no se auditan.
@@ -231,6 +238,7 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
     schema: { tags: ["Comunidad"], params: idParamSchema, body: collaboratorPatch },
   }, async (request) => {
     const project = await projectId();
+    await assertManageable(request, project, request.params.id);
     return updateCollaborator(project, request.params.id, request.body);
   });
 
@@ -238,6 +246,7 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
     schema: { tags: ["Comunidad"], params: idParamSchema, body: accessCodeBody },
   }, async (request, reply) => {
     const project = await projectId();
+    await assertManageable(request, project, request.params.id);
     await setAccessCode(project, request.params.id, request.body.accessCode);
     return reply.status(204).send();
   });
@@ -246,6 +255,7 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
     schema: { tags: ["Comunidad"], params: idParamSchema },
   }, async (request, reply) => {
     const project = await projectId();
+    await assertManageable(request, project, request.params.id);
     await revokeCollaborator(project, request.params.id);
     return reply.status(204).send();
   });

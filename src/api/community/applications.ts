@@ -241,7 +241,9 @@ async function provisionalUsername(client: PoolClient, project: number, first: s
   for (let suffix = 1; suffix < 100; suffix += 1) {
     const candidate = suffix === 1 ? base : `${base}-${suffix}`;
     const { rows } = await client.query(
-      "SELECT 1 FROM auth.users WHERE project_id = $1 AND lower(name::text) = lower($2)", [project, candidate]);
+      `SELECT 1 FROM auth.users WHERE project_id = $1 AND lower(name::text) = lower($2)
+       UNION ALL
+       SELECT 1 FROM auth.admins WHERE lower(username::text) = lower($2)`, [project, candidate]);
     if (rows.length === 0 && validUsername(candidate)) return candidate;
   }
   throw new ApiError(409, "username_exhausted", "No se pudo asignar un nombre de usuario provisional.");

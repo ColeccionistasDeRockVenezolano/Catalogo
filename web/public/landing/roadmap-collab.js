@@ -51,7 +51,7 @@
     var task = mine.get(id);
     if (!task) return;
     select.disabled = true;
-    fetch(new URL("../api/roadmap/tasks/" + id + "/status", document.baseURI), {
+    fetch(new URL("api/roadmap/tasks/" + id + "/status", document.baseURI), {
       method: "PATCH",
       credentials: "include",
       headers: {
@@ -85,7 +85,7 @@
   var observer = new MutationObserver(function () { apply(); });
   observer.observe(list, { childList: true, subtree: true });
 
-  fetch(new URL("../api/roadmap/me", document.baseURI), {
+  fetch(new URL("api/roadmap/me", document.baseURI), {
     credentials: "include", headers: { Accept: "application/json" },
   }).then(function (response) {
     if (!response.ok) return null;

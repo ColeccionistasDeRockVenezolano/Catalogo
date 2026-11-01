@@ -2,7 +2,7 @@
   "use strict";
   var radio = document.getElementById("radio");
   if (!radio) return;
-  var api = radio.getAttribute("data-radio-api") || "../api/radio/now";
+  var api = radio.getAttribute("data-radio-api") || "api/radio/now";
   var iframe = document.getElementById("radioPlayer");
   function text(selector, value) {
     var node = radio.querySelector(selector);

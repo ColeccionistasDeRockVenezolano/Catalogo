@@ -74,7 +74,8 @@ export function normalizePersonName(value: string): string {
 
 export function validUsername(name: string): boolean {
   const value = name.trim();
-  return value.length >= MIN_USER_NAME && value.length <= MAX_USER_NAME;
+  return value.length >= MIN_USER_NAME && value.length <= MAX_USER_NAME
+    && /^[A-Za-z0-9][A-Za-z0-9._-]*$/u.test(value);
 }
 
 export function isValidEmail(value: string): boolean {

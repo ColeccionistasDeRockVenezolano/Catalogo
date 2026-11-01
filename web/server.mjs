@@ -18,7 +18,7 @@
 import net from "node:net";
 import http from "node:http";
 import { createReadStream } from "node:fs";
-import { stat } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { MEDIA_WIDTHS, OPTIMIZABLE_EXTENSIONS, optimizerAvailable, optimizerCommand, runOptimizer, variantPath } from "./media-variants.mjs";
@@ -60,7 +60,11 @@ const MIME_TYPES = {
 };
 
 const SECURITY_HEADERS = {
-  "content-security-policy": "default-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' https://www.youtube.com https://s.ytimg.com https://w.soundcloud.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'",
+  // `base-uri 'self'`: las portadas insertan <base href="/crv/"> para que sus
+  // rutas relativas resuelvan siempre bajo el prefijo. `base-uri 'none'`
+  // bloqueaba esa etiqueta (y con ella document.baseURI), así que se permite
+  // el mismo origen y se sigue rechazando una base ajena.
+  "content-security-policy": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' https://www.youtube.com https://s.ytimg.com https://w.soundcloud.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self'",
   "permissions-policy": "camera=(), microphone=(), geolocation=()",
   "referrer-policy": "no-referrer",
   "x-content-type-options": "nosniff",
@@ -361,6 +365,27 @@ async function serveFile(req, res, pathname, searchParams) {
     catch { return reply(res, 503, "La aplicación no está disponible."); }
   }
 
+  // Los documentos de la landing usan rutas relativas a la base del servidor.
+  // Se inyecta <base> y la base de API para que funcionen igual en /crv y en
+  // la raíz del dominio, sin `../` que se escapen al host equivocado.
+  const ext = path.extname(file).toLowerCase();
+  if (ext === ".html" && relativePath.startsWith("landing/")) {
+    const html = await readFile(file, "utf8");
+    const baseHref = basePath === "/" ? "/" : `${basePath}/`;
+    const injected = html.replace("<head>",
+      `<head><base href="${baseHref}"><meta name="crv-api-base" content="${apiPath}">`);
+    const body = Buffer.from(injected);
+    res.writeHead(200, {
+      "content-type": MIME_TYPES[".html"],
+      "content-length": body.length,
+      "cache-control": "no-cache",
+      ...SECURITY_HEADERS,
+    });
+    if (req.method === "HEAD") return res.end();
+    res.end(body);
+    return;
+  }
+
   // ?w=N: copia optimizada si ya existe, es más nueva que el original y pesa
   // menos; si no, el original (con caché corta, para recoger luego la copia).
   let pendingVariant = false;
@@ -379,7 +404,6 @@ async function serveFile(req, res, pathname, searchParams) {
     }
   }
 
-  const ext = path.extname(file).toLowerCase();
   // ETag barato (tamaño + mtime): revalidar no cuesta releer la imagen.
   const etag = `W/"${fileStat.size.toString(16)}-${Math.round(fileStat.mtimeMs).toString(16)}"`;
   const cacheControl = pendingVariant ? "public, max-age=300"

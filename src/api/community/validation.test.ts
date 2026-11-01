@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { herraPasswordMatches } from "../herra-accounts.js";
-import { hashAccessCode, isStrongAccessCode, slugify } from "./validation.js";
+import { hashAccessCode, isStrongAccessCode, slugify, validUsername } from "./validation.js";
 
 describe("credenciales de comunidad", () => {
   it("genera hashes scrypt compatibles con las cuentas Herra", async () => {
@@ -22,5 +22,14 @@ describe("credenciales de comunidad", () => {
     expect(slugify("José Pérez")).toBe("jose-perez");
     expect(slugify("  Ana  María  ")).toBe("ana-maria");
     expect(slugify("!!!")).toMatch(/^colaborador-[a-z0-9]+$/);
+  });
+
+  it("rechaza usuarios con espacios, acentos o caracteres de control", () => {
+    expect(validUsername("colaborador")).toBe(true);
+    expect(validUsername("persona-1")).toBe(true);
+    expect(validUsername("José Pérez")).toBe(false);
+    expect(validUsername("con espacio")).toBe(false);
+    expect(validUsername("a")).toBe(false);
+    expect(validUsername("ad\nmin")).toBe(false);
   });
 });

@@ -135,6 +135,9 @@ export async function createCollaborator(project: number, input: CreateCollabora
   let userId: number;
   try {
     userId = await withTransaction(async (client) => {
+      if (await usernameTakenByAdmin(name, client)) {
+        throw new ApiError(409, "username_taken", "Ese nombre de usuario pertenece a una cuenta administradora.");
+      }
       const person = await client.query<{ id: number }>(
         "INSERT INTO auth.people (first_name, last_name) VALUES ($1, $2) RETURNING id",
         [first, last || null]);
@@ -206,22 +209,42 @@ export async function setAccessCode(project: number, id: number, accessCode: str
   await deleteSessionsForUser(id);
 }
 
-/** Revoca el acceso: sube session_version y borra las sesiones ya emitidas. */
+/** Revoca el acceso: retira la clave, rechaza la cuenta y borra sus sesiones. */
 export async function revokeCollaborator(project: number, id: number): Promise<void> {
   const { rowCount } = await getPool().query(
-    `UPDATE auth.users SET session_version = session_version + 1,
+    `UPDATE auth.users SET status = 'rejected', access_code_hash = NULL,
+       session_version = session_version + 1,
        updated_at = to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD HH24:MI:SS')
      WHERE id = $1 AND project_id = $2`, [id, project]);
   if (rowCount === 0) throw new ApiError(404, "collaborator_not_found", "No existe esa cuenta en el proyecto.");
   await deleteSessionsForUser(id);
 }
 
+/** Una cuenta vinculada a auth.admins no puede ser gestionada por `community`. */
+export async function isLinkedAdmin(project: number, userId: number): Promise<boolean> {
+  const { rows } = await getPool().query(
+    "SELECT 1 FROM auth.admins WHERE project_id = $1 AND user_id = $2 LIMIT 1", [project, userId]);
+  return rows.length > 0;
+}
+
+/** Evita que un colaborador se registre con el usuario de un administrador. */
+export async function usernameTakenByAdmin(name: string, client?: PoolClient): Promise<boolean> {
+  const db = client ?? getPool();
+  const { rows } = await db.query(
+    "SELECT 1 FROM auth.admins WHERE lower(username::text) = lower($1) LIMIT 1", [name]);
+  return rows.length > 0;
+}
+
 async function deleteSessionsForUser(userId: number): Promise<void> {
   await getPool().query(
     `DELETE FROM auth.sessions
       WHERE audience = 'crv'
-        AND payload->'herra'->>'kind' = 'user'
-        AND (payload->'herra'->>'id')::int = $1`, [userId]);
+        AND (
+          (payload->'herra'->>'kind' = 'user' AND (payload->'herra'->>'id')::int = $1)
+          OR (payload->'herra'->>'kind' = 'admin' AND EXISTS (
+            SELECT 1 FROM auth.admins a WHERE a.id = (payload->'herra'->>'id')::int AND a.user_id = $1
+          ))
+        )`, [userId]);
 }
 
 export async function listAdmins(project: number): Promise<AdminRow[]> {
@@ -246,6 +269,16 @@ export async function setAdminRole(
 ): Promise<AdminRow> {
   if (!["admin", "curator", "community"].includes(role)) {
     throw new ApiError(400, "invalid_role", "Rol no válido.");
+  }
+  const current = await getPool().query<{ role: string }>(
+    "SELECT role FROM auth.admins WHERE id = $1 AND project_id = $2", [id, project]);
+  if (!current.rows[0]) throw new ApiError(404, "admin_not_found", "No existe ese administrador en el proyecto.");
+  if (current.rows[0].role === "admin" && role !== "admin") {
+    const others = await getPool().query<{ n: number }>(
+      "SELECT count(*)::int AS n FROM auth.admins WHERE project_id = $1 AND role = 'admin' AND id <> $2", [project, id]);
+    if (others.rows[0]!.n === 0) {
+      throw new ApiError(409, "last_admin", "No puedes quitar el último administrador total del proyecto.");
+    }
   }
   const { rows } = await getPool().query<{ id: number }>(
     `UPDATE auth.admins SET role = $1, session_version = session_version + 1,

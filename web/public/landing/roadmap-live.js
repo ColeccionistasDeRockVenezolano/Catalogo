@@ -7,7 +7,7 @@
   }[lang];
   var state = new Map();
   var signature = "";
-  var apiUrl = new URL("../api/roadmap", window.location.href).toString();
+  var apiUrl = new URL("api/roadmap", window.location.href).toString();
   var list = document.querySelector("[data-roadmap-category-list]");
   if (!list) return;
 

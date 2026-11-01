@@ -5,7 +5,7 @@
   if (!form) return;
   var statusEl = form.querySelector("[data-collab-status]");
   var submit = form.querySelector('button[type="submit"]');
-  var api = new URL("../api/community/applications", window.location.href);
+  var api = new URL("api/community/applications", window.location.href);
 
   function text(name) {
     var field = form.elements[name];
@@ -79,7 +79,7 @@
       '<section class="account-section"><h2>' + nextTitle + '</h2><ol class="collab-next-list">' +
       steps.map(function (step) { return "<li>" + step + "</li>"; }).join("") +
       '</ol><p class="field-help">' + help + '</p></section>' +
-      '<a class="login-back" href="../roadmap"><i data-lucide="arrow-left"></i> ' + (en ? "Back to the project" : "Volver al proyecto") + '</a>' +
+      '<a class="login-back" href="roadmap"><i data-lucide="arrow-left"></i> ' + (en ? "Back to the project" : "Volver al proyecto") + '</a>' +
       "</div></main>";
     document.title = title + " — Coleccionistas De Rock Venezolano";
     window.scrollTo(0, 0);
