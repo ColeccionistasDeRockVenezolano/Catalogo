@@ -7,6 +7,7 @@ import { visitStats } from "../api/roadmap/visits.js";
 import { loadRadioConfig, radioStationFromConfig, radioTexts } from "../shared/radio/config.js";
 import { radioSnapshot } from "../shared/radio/engine.js";
 import { radioListenerCount } from "../api/radio/listeners.js";
+import { liveRadioSnapshot } from "./radio-card.js";
 import { resolveLandingTheme } from "./theme.js";
 import { resolveBranding } from "./branding.js";
 import { resolveCollaborateForm, visibleSteps } from "./collaborate-form.js";
@@ -28,7 +29,7 @@ function parseObject(raw: string | null): Record<string, unknown> {
   } catch { return {}; }
 }
 
-/** Carga solo datos públicos; nunca solicita contenido a Herra ni modifica la base. */
+/** Carga solo datos públicos y no modifica la base. A Herra solo le lee lo que emite (GET), mientras sea ella quien emite. */
 export async function loadLandingData(lang: LandingLanguage, page: "roadmap" | "colaborar" | "login" | "registro" | "activar", authenticated = false) {
   const id = await projectId();
   const pool = getPool();
@@ -49,7 +50,9 @@ export async function loadLandingData(lang: LandingLanguage, page: "roadmap" | "
   const theme = resolveLandingTheme(project.name, project.theme_json, localized);
   const branding = resolveBranding(project.branding_json, localized);
   const form = resolveCollaborateForm(project.collaborate_json, lang, localized);
-  const radio = radioConfig ? radioSnapshot(radioStationFromConfig(radioConfig), Date.now(), radioListenerCount(id)) : null;
+  const radio = radioConfig
+    ? await liveRadioSnapshot(getEnv().CRV_RADIO_LIVE_URL) ?? radioSnapshot(radioStationFromConfig(radioConfig), Date.now(), radioListenerCount(id))
+    : null;
   const projectAssets = Object.fromEntries(assets.rows.map((asset) => [asset.kind, { checksum: asset.checksum, mimeType: asset.mime_type, width: asset.width, height: asset.height }]));
   const group = (type: string) => terms.rows.filter((term) => term.type === type).map((term) => {
     const translationsForTerm = parseObject(term.i18n_json);

@@ -32,6 +32,10 @@ async function main(): Promise<void> {
     port: env.PORT,
     ...(env.CRV_VISITS_SECRET === undefined ? {} : { visitsSecret: env.CRV_VISITS_SECRET }),
     ...(dbName === undefined ? {} : { dbName }),
+    backgroundJobs: env.CRV_BACKGROUND_JOBS,
+    radioEnabled: env.CRV_RADIO_ENABLED,
+    ...(env.CRV_RADIO_DATA_DIR === undefined ? {} : { radioDataDir: env.CRV_RADIO_DATA_DIR }),
+    ...(env.CRV_RADIO_LIVE_URL === undefined ? {} : { radioLiveUrl: env.CRV_RADIO_LIVE_URL }),
   });
   const app = await buildApp();
   await app.listen({ port: env.PORT, host: env.HOST });
@@ -56,8 +60,10 @@ async function main(): Promise<void> {
     : () => {};
   // Métricas (3.7): con el interruptor apagado no se registra nada. Las listas
   // de IPs se cargan siempre (una vez al día) para poder verificar sin red.
-  if (env.CRV_BACKGROUND_JOBS) startBotVerification({ network: env.CRV_TRAFFIC_VERIFY_NETWORK });
-  if (env.CRV_BACKGROUND_JOBS && env.CRV_TRAFFIC_ENABLED) startTrafficRecorder();
+  // El registro de tráfico no es un trabajo del catálogo: si la instancia lo
+  // tiene encendido, necesita su escritor y sus listas aunque no corra lo demás.
+  if (env.CRV_BACKGROUND_JOBS || env.CRV_TRAFFIC_ENABLED) startBotVerification({ network: env.CRV_TRAFFIC_VERIFY_NETWORK });
+  if (env.CRV_TRAFFIC_ENABLED) startTrafficRecorder();
 
   for (const signal of ["SIGINT", "SIGTERM"] as const) {
     process.on(signal, () => {

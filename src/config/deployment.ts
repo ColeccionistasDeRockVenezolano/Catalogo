@@ -30,6 +30,12 @@ export interface DeploymentGuardInput {
   visitsSecret?: string;
   /** Solo API: nombre real de la base (`current_database()`). */
   dbName?: string;
+  /** Solo API: `CRV_BACKGROUND_JOBS`; en el dominio debe estar apagado. */
+  backgroundJobs?: boolean;
+  /** Solo API: la portada del dominio pinta la tarjeta de radio. */
+  radioEnabled?: boolean;
+  radioDataDir?: string;
+  radioLiveUrl?: string;
 }
 
 const PRODUCTION_PORTS = new Set([8080, 8082]);
@@ -49,6 +55,12 @@ export function assertDeploymentGuards(input: DeploymentGuardInput): void {
     }
     if (!input.visitsSecret || input.visitsSecret.length < 32) {
       fail("falta CRV_VISITS_SECRET (mínimo 32 caracteres) en producción");
+    }
+    if (input.backgroundJobs !== false) {
+      fail("CRV_BACKGROUND_JOBS debe ser false: esta API comparte la base con la del catálogo");
+    }
+    if (!input.radioEnabled || !input.radioDataDir || !input.radioLiveUrl) {
+      fail("la portada perdería la radio: faltan CRV_RADIO_ENABLED=true, CRV_RADIO_DATA_DIR o CRV_RADIO_LIVE_URL");
     }
     if (!input.dbName) fail("no se pudo comprobar current_database() en producción");
     if (/staging/iu.test(input.dbName)) {

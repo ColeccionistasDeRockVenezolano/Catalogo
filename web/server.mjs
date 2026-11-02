@@ -17,7 +17,7 @@
 // copia se encarga en segundo plano al optimizador de BrandForge.
 import net from "node:net";
 import http from "node:http";
-import { createReadStream } from "node:fs";
+import { createReadStream, existsSync } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -51,6 +51,8 @@ if (deployment === "production") {
   if (webMode === "landing" && basePath !== "/") fail(`la portada debe servirse en la raíz, no en ${basePath}`);
   if (webMode === "catalog" && basePath !== "/crv") fail(`el panel privado debe servirse en /crv, no en ${basePath}`);
   if (/staging/iu.test(path.basename(dist))) fail(`no se puede servir «${path.basename(dist)}» (build de staging)`);
+  if (!existsSync(path.join(dist, "index.html"))) fail(`falta el build: ${dist}/index.html`);
+  if (webMode === "landing" && !process.env.CRV_RADIO_PROXY_URL) fail("falta CRV_RADIO_PROXY_URL: la radio de la portada no llegaría a Herra");
 } else if (deployment === "rehearsal") {
   console.warn(`CRV deployment guard: ensayo explícito (CRV_DEPLOYMENT=rehearsal), API :${apiPort}, base ${basePath}, build ${path.basename(dist)}`);
 }
