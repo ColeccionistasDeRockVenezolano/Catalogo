@@ -5,7 +5,7 @@
 **Producción:** intacta. No se tocó el dominio, la portada, `herra-crv`, su cron, su hoja, ni
 `dist-public`. La radio sigue sirviéndose desde Herra; el catálogo **no** emite al público.
 **Actualización 2026-11-02:** construida y ensayada; ver §7 y §8. Faltan el plazo de la sombra por país, la
-hoja de prueba y la autorización del corte.
+autorización del corte y la escucha real en un teléfono.
 
 ## 1. Qué quedó implementado
 
@@ -123,9 +123,10 @@ informe quedó en `/tmp/crv-radio-sheet-dry-run.json`.
 
 Estado al 2026-11-02; lo que se cerró ese día está en la §8.
 
-- **Hoja de prueba: falta de Brian.** La cuenta de servicio no tiene Drive API (`spreadsheets.create`
-  da 403), así que la hoja la tiene que crear Brian y compartirla con esa cuenta. `radio-sheet-dry-run.ts
-  --test-sheet <id>` escribe en ella y se niega con la real. El ensayo sin escritura sigue pasando.
+- **Hoja de prueba: superada el 2026-11-02.** Por indicación de Brian se usó una de las hojas de prueba de la
+  carpeta («CRV — Prueba restauración de tipos y colores — 2026-10-30»). Primera pasada: 3 filas nuevas, 98
+  estados y 95 fechas. Segunda pasada: 0 cambios. El script se negó a usar la hoja real y a escribir en una hoja
+  de formato antiguo. Informes en `reports/radio-hoja-escritura`.
 - **Export del catálogo en Herra.** El cron de las 04:00 y el gancho de géneros siguen allí: el plan lo
   pasa a la Fase 4. Hasta entonces CRV lee ese archivo y solo escribe su estado en su propia carpeta.
 - **Presencia por proceso.** El recuento de oyentes vive en la memoria de la API que emite. En el corte
@@ -187,7 +188,7 @@ origen del dominio con rutas de Playwright. Nada sale al dominio real.
 **Hallazgo de esta revisión, en producción:** bajo `/landing/`, una ruta sin extensión caía en la SPA y el
 dominio entregaba el cascarón del catálogo (`/landing/nada`, título «CRV · Catálogo»). La API seguía
 cerrada por la lista blanca, así que no se veían datos. Corregido en `serveFile`, con su caso en
-`fase2b-whitelist.mjs`. El gateway publicado sigue con el defecto hasta que se autorice desplegarlo.
+`fase2b-whitelist.mjs`, y publicado el 2026-11-02 (`449158c3`, reinicio de 225 ms, lista blanca 101/101 por el dominio).
 
 **Lo que ningún ensayo cubre:** el sonido real en un teléfono con la pantalla apagada a través de CRV. El
 cliente es el mismo archivo que ya funciona en el dominio, pero dentro del iframe del catálogo el control
@@ -196,7 +197,8 @@ desde la pantalla de bloqueo no se probó.
 ## 8. Corte de la radio: requisitos y pasos
 
 **Requisitos:** sombra por país limpia desde el 2026-11-02 13:40 UTC (7 días: 2026-11-09 13:40 UTC; 14 días:
-2026-11-16), ensayo de la hoja de prueba, nuevo árbol de release y autorización expresa de Brian.
+2026-11-16), nuevo árbol de release y autorización expresa de Brian. El gateway publicado (`449158c3`) no trae
+`CRV_RADIO_SOURCE`: hace falta el árbol nuevo.
 
 1. Crear la carpeta de estado y de registros. Las exclusiones de Herra se copian solas en el primer arranque.
 2. `crv-api-landing.env`: quitar `CRV_RADIO_LIVE_URL`; añadir `CRV_RADIO_OWNER=true`, `CRV_RADIO_STATE_DIR` y

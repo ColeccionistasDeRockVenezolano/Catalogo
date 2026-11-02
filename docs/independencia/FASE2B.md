@@ -425,6 +425,8 @@ atrás o la Fase 3. Si el panel falla, se vuelve atrás.
 
 ---
 
+**Árbol vigente del gateway desde el 2026-11-02:** `449158c3` (solo la corrección de `/landing/<sin archivo>`). Para volver atrás: `775457e7`.
+
 ## 14. Observación (72 h)
 
 `journalctl --user -u crv-landing -u crv-api-landing -u crv-web-admin`; 5xx y 404 inesperados;
