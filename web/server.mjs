@@ -133,6 +133,7 @@ async function serveLanding(req, res, page, lang, searchParams) {
   const baseHref = prefix ? `${prefix}/` : "/";
   let html = entry.html.replace("<head>", `<head><base href="${baseHref}"><meta name="crv-api-base" content="${apiPath}">`)
     .replaceAll("/static/", `${prefix}/landing/`)
+    .replaceAll('data-radio-static-base="/static"', `data-radio-static-base="${prefix}/landing"`)
     .replaceAll('data-visits-url="/api/visit"', `data-visits-url="${apiPath}/roadmap/visit"`)
     .replaceAll('data-presence-url="/api/presence"', "")
     .replaceAll('"/api/', `"${apiPath}/`)
@@ -185,12 +186,15 @@ const MIME_TYPES = {
   ".woff2": "font/woff2",
 };
 
+// TEMPORAL-PORTADA: Cloudflare inyecta su analítica en el dominio; Herra la permitía.
+const landingAnalyticsScript = webMode === "landing" ? "https://static.cloudflareinsights.com " : "";
+const landingAnalyticsConnect = webMode === "landing" ? " https://cloudflareinsights.com" : "";
 const SECURITY_HEADERS = {
   // `base-uri 'self'`: las portadas insertan <base href="/crv/"> para que sus
   // rutas relativas resuelvan siempre bajo el prefijo. `base-uri 'none'`
   // bloqueaba esa etiqueta (y con ella document.baseURI), así que se permite
   // el mismo origen y se sigue rechazando una base ajena.
-  "content-security-policy": "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' https://www.youtube.com https://s.ytimg.com https://w.soundcloud.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'",
+  "content-security-policy": `default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' ${landingAnalyticsScript}https://www.youtube.com https://s.ytimg.com https://w.soundcloud.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'${landingAnalyticsConnect}`,
   "permissions-policy": "camera=(), microphone=(), geolocation=()",
   "referrer-policy": "no-referrer",
   "x-content-type-options": "nosniff",
@@ -626,6 +630,36 @@ function reportTraffic(req, literalPath) {
 // (§5.1). Todo lo demás responde 404: ni el catálogo, ni /curaduria, ni el chat,
 // ni las rutas del SPA. La radio se reenvía a Herra mientras la Fase 3 no cumpla.
 const radioProxyUrl = process.env.CRV_RADIO_PROXY_URL ?? "";
+// TEMPORAL-PORTADA: la emisión sigue en Herra (Fase 3) y sus POST exigen su CSRF, que una
+// página de CRV no tiene. El gateway comprueba el origen y aporta el par de Herra.
+const RADIO_ORIGIN = process.env.CRV_RADIO_ORIGIN ?? "https://coleccionistasderockvenezolano.com";
+let radioCsrf = null;
+async function herraRadioCsrf() {
+  if (radioCsrf && radioCsrf.expires > Date.now()) return radioCsrf;
+  const response = await fetch(`${radioProxyUrl}/login`, { signal: AbortSignal.timeout(5000) });
+  const cookie = response.headers.getSetCookie().map((value) => value.split(";")[0]).find((value) => /csrf=/u.test(value));
+  const token = /<meta name="csrf-token" content="([^"]+)"/u.exec(await response.text())?.[1];
+  if (!cookie || !token) throw new Error("Herra no entregó CSRF");
+  radioCsrf = { cookie, token, expires: Date.now() + 3_600_000 };
+  return radioCsrf;
+}
+function sameHostOrigin(req) {
+  try { return new URL(req.headers.origin ?? "").host === req.headers.host; } catch { return false; }
+}
+async function proxyRadioPost(req, res, upstreamPath) {
+  if (!sameHostOrigin(req)) {
+    res.writeHead(403, { "content-type": "application/json; charset=utf-8", ...SECURITY_HEADERS });
+    return res.end(JSON.stringify({ error: "Origen no permitido" }));
+  }
+  try {
+    const { cookie, token } = await herraRadioCsrf();
+    proxyTo(req, res, radioProxyUrl, upstreamPath, { cookie, "x-csrf-token": token, origin: RADIO_ORIGIN });
+  } catch {
+    radioCsrf = null;
+    res.writeHead(502, { "content-type": "application/json; charset=utf-8", ...SECURITY_HEADERS });
+    res.end(JSON.stringify({ error: "La radio no está disponible." }));
+  }
+}
 // TEMPORAL-PORTADA: /account, /admin y sus APIs reemplazan a Herra hasta publicar
 // el catálogo. La prueba es scripts/checks/fase2b-whitelist.mjs.
 const LANDING_DOCS = ["/", "/roadmap", "/colaborar", "/login", "/registro", "/activar", "/account", "/admin"];
@@ -649,7 +683,7 @@ const LANDING_RADIO = /^\/radio\/(now|listener|unavailable)$/u;
 const LANDING_STATICS = ["/landing/", "/favicon.ico", "/favicon.png", "/theme.css", "/media/favicon", "/media/share"];
 
 /** Proxy a otro proceso local (la radio de Herra en la 2B). */
-function proxyTo(req, res, target, upstreamPath) {
+function proxyTo(req, res, target, upstreamPath, extraHeaders = {}) {
   const destino = new URL(target);
   const headers = {
     ...req.headers,
@@ -658,6 +692,7 @@ function proxyTo(req, res, target, upstreamPath) {
     "x-forwarded-proto": "https",
     // El panel construye con esto las direcciones de invitación y activación.
     "x-crv-base-path": basePath === "/" ? "" : basePath,
+    ...extraHeaders,
   };
   if (!isLoopbackPeer(req)) {
     delete headers["cf-connecting-ip"];
@@ -695,7 +730,8 @@ function landingWhitelist(req, res, virtualUrl, acceptsHtml) {
         return true;
       }
       // Herra sirve la radio bajo /api/radio/*: se reenvía con su prefijo.
-      proxyTo(req, res, radioProxyUrl, `/api${dentro}${virtualUrl.search}`);
+      if (metodo === "POST") void proxyRadioPost(req, res, `/api${dentro}${virtualUrl.search}`);
+      else proxyTo(req, res, radioProxyUrl, `/api${dentro}${virtualUrl.search}`);
       return true;
     }
     if (LANDING_API.some((patron) => patron.test(dentro))) {

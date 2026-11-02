@@ -7,8 +7,8 @@
 //   node scripts/checks/fase2b-whitelist.mjs                       # :3141
 //   node scripts/checks/fase2b-whitelist.mjs --base https://coleccionistasderockvenezolano.com
 //
-// No envía POST a /api/radio/listener ni /api/radio/unavailable: alteraría la
-// emisión real de Herra. La radio se comprueba con GET /api/radio/now.
+// El único POST a la radio lleva un origen ajeno y el gateway lo rechaza: uno
+// válido alteraría la emisión real de Herra. La radio se comprueba con GET /api/radio/now.
 import http from "node:http";
 import https from "node:https";
 
@@ -136,6 +136,18 @@ for (const ruta of ["/api/community/admin/panel/%2e%2e/metrics", "/api/community
 // --- Estáticos y metadatos ---------------------------------------------------
 await debe("/landing/roadmap-public.min.css", 200);
 await debe("/landing/radio.js", 200);
+{
+  // La cuña sale de donde dice la portada, no de la ruta /static de Herra.
+  const portada = await pedir("/", { accept: "text/html" });
+  const base = /data-radio-static-base="([^"]*)"/u.exec(portada.texto)?.[1];
+  if (base === "/landing") ok.push("la cuña apunta a /landing");
+  else fallos.push(`data-radio-static-base: ${base}`);
+  await debe("/landing/radio/sweeper-v2.wav", 200);
+  // Otra web no puede usar el CSRF que el gateway aporta a la radio. Se rechaza sin llegar a Herra.
+  const ajena = await fetch(`${BASE}/api/radio/listener`, { method: "POST", headers: { origin: "https://evil.example", "content-type": "application/json" }, body: "{}" });
+  if (ajena.status === 403) ok.push("POST de radio desde otro origen 403");
+  else fallos.push(`POST de radio desde otro origen dio ${ajena.status}`);
+}
 {
   const robots = await debe("/robots.txt", 200);
   if (/\/api\b|\/curaduria|sitemap/iu.test(robots.texto)) {
