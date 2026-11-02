@@ -1,23 +1,40 @@
+/* La pastilla de idioma de Herra (src/public/roadmap.css), con los colores del catálogo. */
 .lang-switch {
   display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
+  padding: 2px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font: inherit;
+  cursor: pointer;
+  user-select: none;
+}
+.lang-switch__opt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  min-height: 28px;
+  padding: 4px 10px;
+  border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  line-height: 1;
+  letter-spacing: 0.6px;
   color: var(--text-muted);
+  transition: color 0.18s ease, background 0.18s ease;
 }
-.lang-switch button {
-  border: 0;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  padding: 4px 3px;
-  cursor: pointer;
-  border-radius: 5px;
+/* Al pasar por encima se ilumina el idioma al que se va; el actual conserva su marca. */
+.lang-switch:hover .lang-switch__opt:not(.is-active) {
+  color: var(--text);
+  background: color-mix(in srgb, var(--text) 8%, transparent);
 }
-.lang-switch button:hover { color: var(--text); }
-.lang-switch button.is-active { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
-.lang-switch button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
-.lang-switch span { opacity: 0.45; }
+.lang-switch__opt.is-active { color: #fff; background: var(--red); }
+.lang-switch:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 .site-footer .lang-switch { margin-top: 12px; }
+@media (pointer: coarse) {
+  .lang-switch__opt { min-height: 34px; padding: 6px 14px; }
+}

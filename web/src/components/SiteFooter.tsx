@@ -13,8 +13,10 @@ export function SiteFooter() {
         <div className="site-footer__about">
           <Link to="/" className="site-footer__brand">{t("footer.aboutTitle")}</Link>
           <p>{t("footer.aboutText")}</p>
-          <a href={`${import.meta.env.BASE_URL}colaborar`} className="site-footer__collaborate">{t("nav.collaborate")}</a>
-          <a href={`${import.meta.env.BASE_URL}roadmap`} className="site-footer__collaborate">{t("nav.roadmap")}</a>
+          <div className="site-footer__actions">
+            <a href={`${import.meta.env.BASE_URL}colaborar`} className="site-footer__collaborate">{t("nav.collaborate")}</a>
+            <a href={`${import.meta.env.BASE_URL}roadmap`} className="site-footer__collaborate">{t("nav.roadmap")}</a>
+          </div>
         </div>
         <nav aria-label={t("footer.help")}>
           <h2>{t("footer.help")}</h2>

@@ -9,7 +9,9 @@ import { AccountProfileEditor } from "../components/account/AccountProfileEditor
 import { ADMIN_LINKS, AccountSummary, OperatorLoginForm, useSignOut } from "../components/OperatorSettings";
 import { RowsSkeleton } from "../components/Skeletons";
 import { CRV_CONTACT_URL } from "../lib/communityPages";
+import { MOBILE_QUERY } from "../components/TopbarTools";
 import { useOperator } from "../lib/OperatorContext";
+import { useMediaQuery } from "../lib/useMediaQuery";
 import "../styles/account.css";
 
 const HELP_ICONS: Record<string, Icon> = { "/ayuda": Lifebuoy, "/terminos": FileText, "/privacidad": ShieldCheck };
@@ -46,12 +48,15 @@ export function AccountPage() {
   const { user, isAdmin, isChecking } = useOperator();
   const changes = useSessionChangesContext();
   const { signingOut, signOut } = useSignOut();
+  const isMobile = useMediaQuery(MOBILE_QUERY);
 
   if (user) {
     return (
       <>
         <AccountProfileEditor />
-        <div className="account-page">
+        {/* En escritorio estos accesos ya están en el menú de la cuenta; en el
+            móvil esta página es el único sitio donde encontrarlos. */}
+        {isMobile ? <div className="account-page">
           {isAdmin && changes ? (
             <section className="account-block account-block--flush" aria-labelledby="account-changes-title">
               <div className="account-block__head">
@@ -87,7 +92,7 @@ export function AccountPage() {
             <SignOut size={18} weight="bold" aria-hidden="true" />
             {signingOut ? "Cerrando…" : "Cerrar sesión"}
           </button>
-        </div>
+        </div> : null}
       </>
     );
   }

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { Popover } from "@base-ui/react/popover";
-import { CaretDown, ClockCounterClockwise, GearSix, Key, SignIn, SignOut, SlidersHorizontal, Stack, type Icon } from "@phosphor-icons/react";
+import { CaretDown, ClockCounterClockwise, GearSix, Key, SignIn, SignOut, SlidersHorizontal, Stack, UserCircle, type Icon } from "@phosphor-icons/react";
 import { Modal } from "./Modal";
 import { PasswordWindow } from "./account/PasswordWindow";
 import { SessionChangesList, useSessionChangesContext, type SessionChanges } from "./ChangeFeedback";
@@ -131,7 +131,11 @@ function AdminAccountMenu({ name, username }: { name: string; username: string }
                 ) : null}
               </section>
 
-              <nav className="operator-menu__nav" aria-label="Administración">
+              <nav className="operator-menu__nav" aria-label="Cuenta y administración">
+                <NavLink to="/cuenta" className="operator-menu__link" onClick={close}>
+                  <UserCircle size={20} aria-hidden="true" />
+                  <span>Mi perfil<small>Tus datos, enlaces y visibilidad</small></span>
+                </NavLink>
                 <NavLink to="/historial" className="operator-menu__link" onClick={close}>
                   <ClockCounterClockwise size={20} aria-hidden="true" />
                   <span>Historial<small>Todo cambio del catálogo, con su deshacer</small></span>
@@ -176,6 +180,9 @@ export function OperatorDialog({ onClose }: { onClose: () => void }) {
       <Modal title="Cuenta de colaborador" onClose={onClose}>
         <AccountSummary />
         <div className="form-actions">
+          <NavLink to="/cuenta" className="btn" onClick={onClose}>
+            <UserCircle aria-hidden="true" weight="bold" /> Mi perfil
+          </NavLink>
           <button type="button" className="btn" onClick={onClose}>Volver</button>
           <button type="button" className="btn btn--danger" onClick={() => void signOut().then((done) => { if (done) onClose(); })} disabled={signingOut}>
             <SignOut aria-hidden="true" weight="bold" />

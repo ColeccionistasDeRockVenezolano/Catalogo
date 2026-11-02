@@ -4,7 +4,8 @@
 // línea «Sesión: usuario en proyecto · Persona #N · Colaborador #N», el aviso
 // de perfil incompleto, datos personales, perfil de colaboración con chips,
 // enlaces con visibilidad, visibilidad del perfil, contraseña y un pie fijo
-// con «Volver al roadmap» y «Guardar cambios».
+// con «Volver al roadmap» y «Guardar cambios». Es la columna principal de
+// /cuenta; la lateral (AccountPage) lleva administración, ayuda y cierre.
 //
 // El servidor resuelve la persona desde la sesión: aquí no se elige a quién se
 // edita.
@@ -217,33 +218,27 @@ export function AccountProfileEditor() {
           <section className="account-profile__section" aria-labelledby="acc-personal">
             <h2 id="acc-personal">{t("account.personalData")}</h2>
             <div className="account-profile__grid">
-              <div className="field">
+              <div className="field account-col-3">
                 <label htmlFor="acc-first">{t("form.firstName")} *</label>
                 <input id="acc-first" required maxLength={80} autoComplete="given-name"
                   value={form.firstName} onChange={(event) => set("firstName", event.target.value)} />
               </div>
-              <div className="field">
+              <div className="field account-col-3">
                 <label htmlFor="acc-last">{t("form.lastName")} *</label>
                 <input id="acc-last" required maxLength={80} autoComplete="family-name"
                   value={form.lastName} onChange={(event) => set("lastName", event.target.value)} />
               </div>
-              <div className="field">
-                <label htmlFor="acc-birth">{t("form.birthDate")}</label>
-                <input id="acc-birth" type="date" value={form.birthDate}
-                  onChange={(event) => set("birthDate", event.target.value)} />
-                <small className="account-profile__help">{t("account.birthDateHelp")}</small>
-              </div>
-              <div className="field">
-                <label htmlFor="acc-phone">{t("form.phone")}</label>
-                <input id="acc-phone" type="tel" maxLength={120} autoComplete="tel" value={form.whatsappPhone}
-                  onChange={(event) => set("whatsappPhone", event.target.value)} />
-              </div>
-              <div className="field">
+              <div className="field account-col-2">
                 <label htmlFor="acc-email">{t("form.email")}</label>
                 <input id="acc-email" type="email" maxLength={120} autoComplete="email" value={form.email}
                   onChange={(event) => set("email", event.target.value)} />
               </div>
-              <div className="field">
+              <div className="field account-col-2">
+                <label htmlFor="acc-phone">{t("form.phone")}</label>
+                <input id="acc-phone" type="tel" maxLength={120} autoComplete="tel" value={form.whatsappPhone}
+                  onChange={(event) => set("whatsappPhone", event.target.value)} />
+              </div>
+              <div className="field account-col-2">
                 <label htmlFor="acc-prefer">{t("form.contactPreference")}</label>
                 <select id="acc-prefer" value={form.contactPreference}
                   onChange={(event) => set("contactPreference", event.target.value as FormState["contactPreference"])}>
@@ -252,12 +247,18 @@ export function AccountProfileEditor() {
                   <option value="both">{t("form.both")}</option>
                 </select>
               </div>
-              <div className="field">
+              <div className="field account-col-2">
+                <label htmlFor="acc-birth">{t("form.birthDate")}</label>
+                <input id="acc-birth" type="date" value={form.birthDate}
+                  onChange={(event) => set("birthDate", event.target.value)} />
+                <small className="account-profile__help">{t("account.birthDateHelp")}</small>
+              </div>
+              <div className="field account-col-2">
                 <label htmlFor="acc-city">{t("form.city")}</label>
                 <input id="acc-city" maxLength={200} value={form.city}
                   onChange={(event) => set("city", event.target.value)} />
               </div>
-              <div className="field">
+              <div className="field account-col-2">
                 <label htmlFor="acc-country">{t("form.country")}</label>
                 <input id="acc-country" maxLength={200} value={form.country}
                   onChange={(event) => set("country", event.target.value)} />
@@ -268,13 +269,13 @@ export function AccountProfileEditor() {
           <section className="account-profile__section" aria-labelledby="acc-collab">
             <h2 id="acc-collab">{t("account.collabProfile")}</h2>
             <div className="account-profile__grid">
-              <div className="field account-profile__wide">
+              <div className="field account-col-3">
                 <label htmlFor="acc-bio">{t("account.bio")}</label>
                 <textarea id="acc-bio" rows={4} maxLength={2000} value={form.bio}
                   onChange={(event) => set("bio", event.target.value)} />
                 <small className="account-profile__help">{t("account.bioHelp")}</small>
               </div>
-              <div className="field account-profile__wide">
+              <div className="field account-col-3">
                 <label htmlFor="acc-experience">{t("form.experience")}</label>
                 <textarea id="acc-experience" rows={4} maxLength={2000} value={form.experience}
                   onChange={(event) => set("experience", event.target.value)} />
@@ -340,7 +341,7 @@ export function AccountProfileEditor() {
               ))}
             </div>
             {form.links.length < 10 ? (
-              <button type="button" className="btn btn--sm"
+              <button type="button" className="btn btn--sm account-profile__addlink"
                 onClick={() => set("links", [...form.links, { type: "", label: "", url: "", isPublic: false }])}>
                 <Plus size={14} aria-hidden="true" /> {t("account.addLink")}
               </button>
@@ -349,15 +350,15 @@ export function AccountProfileEditor() {
 
           <section className="account-profile__section" aria-labelledby="acc-visibility">
             <h2 id="acc-visibility">{t("account.visibility")}</h2>
+            <p className="account-profile__help">{t("account.visibilityHelp")}</p>
             <div className="account-profile__grid">
-              <div className="field">
+              <div className="field account-col-3">
                 <label htmlFor="acc-visibility-select">{t("account.publicProfile")}</label>
                 <select id="acc-visibility-select" value={form.profileVisibility}
                   onChange={(event) => set("profileVisibility", event.target.value as FormState["profileVisibility"])}>
                   <option value="private">{t("account.visibilityPrivate")}</option>
                   <option value="public">{t("account.visibilityPublic")}</option>
                 </select>
-                <small className="account-profile__help">{t("account.visibilityHelp")}</small>
               </div>
             </div>
           </section>
@@ -367,19 +368,19 @@ export function AccountProfileEditor() {
       <section className="account-profile__section" aria-labelledby="acc-password">
         <h2 id="acc-password">{t("account.password")}</h2>
         <p className="account-profile__help">{t("account.passwordHelp")}</p>
-        <div className="account-profile__grid account-profile__grid--thirds">
-          <div className="field">
+        <div className="account-profile__grid">
+          <div className="field account-col-2">
             <label htmlFor="acc-current">{t("account.currentAccessCode")}</label>
             <input id="acc-current" type="password" maxLength={200} autoComplete="current-password"
               value={currentCode} onChange={(event) => setCurrentCode(event.target.value)} />
           </div>
-          <div className="field">
+          <div className="field account-col-2">
             <label htmlFor="acc-new">{t("account.newAccessCode")}</label>
             <input id="acc-new" type="password" minLength={12} maxLength={200} autoComplete="new-password"
               value={newCode} onChange={(event) => setNewCode(event.target.value)} />
             <small className="account-profile__help">{t("account.newAccessCodeHelp")}</small>
           </div>
-          <div className="field">
+          <div className="field account-col-2">
             <label htmlFor="acc-repeat">{t("account.newAccessCodeRepeat")}</label>
             <input id="acc-repeat" type="password" minLength={12} maxLength={200} autoComplete="new-password"
               value={repeatCode} onChange={(event) => setRepeatCode(event.target.value)} />
