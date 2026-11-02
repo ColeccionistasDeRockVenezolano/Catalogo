@@ -85,7 +85,8 @@ describe("sesiones de colaboradores", () => {
       headers: { cookie, "x-crv-csrf": login.json().csrf },
     });
     expect(written.statusCode).toBe(200);
-    expect(written.json()).toEqual({ operator: "Ana Archivo" });
+    // El operador es el usuario de la cuenta, no el nombre visible (Fase 1).
+    expect(written.json()).toEqual({ operator: "ana.crv" });
 
     const me = await app.inject({ method: "GET", url: "/auth/me", headers: { cookie } });
     expect(me.statusCode).toBe(200);
@@ -106,7 +107,7 @@ describe("sesiones de colaboradores", () => {
     expect(reader.body).toMatchObject({ user: { role: "reader" } });
     const readerWrite = await app.inject({ method: "POST", url: "/protected", headers: { cookie: reader.cookie, "x-crv-csrf": reader.csrf } });
     expect(readerWrite.statusCode).toBe(403);
-    expect(readerWrite.json()).toMatchObject({ error: { code: "admin_required" } });
+    expect(readerWrite.json()).toMatchObject({ error: { code: "forbidden_role" } });
     expect((await app.inject({ method: "GET", url: "/review-queue", headers: { cookie: reader.cookie } })).statusCode).toBe(403);
     expect((await app.inject({ method: "GET", url: "/artists", headers: { cookie: reader.cookie } })).statusCode).toBe(200);
     const readerMe = await app.inject({ method: "GET", url: "/auth/me", headers: { cookie: reader.cookie } });
@@ -118,7 +119,7 @@ describe("sesiones de colaboradores", () => {
     const admin = await loginAs("ana.crv");
     const review = await app.inject({ method: "GET", url: "/review-queue", headers: { cookie: admin.cookie } });
     expect(review.statusCode).toBe(200);
-    expect(review.json()).toEqual({ operator: "Ana Archivo" });
+    expect(review.json()).toEqual({ operator: "ana.crv" });
     expect((await app.inject({ method: "GET", url: "/persons/3/merge-preview?with=4", headers: { cookie: admin.cookie } })).statusCode).toBe(200);
   });
 
