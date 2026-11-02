@@ -11,7 +11,8 @@ Se ejecutó el encargo `PROMPT_HERMES_2B_CORRECCION_2026-11-01.md` sin tocar pro
 - **Código:** límite de login (20 intentos/IP/15 min; el acierto descuenta 1; techo de 10 usuarios
   distintos fallados), `CRV_BACKGROUND_JOBS` (apagado en la API del dominio), enlaces de cuenta
   ocultos en modo portada, guarda `CRV_DEPLOYMENT`, plantillas `ops/produccion/`, exportación de
-  tokens `scripts/community-tokens.ts`.
+  tokens `scripts/community-tokens.ts`. Vitest 24/24 (se corrigieron dos expectativas obsoletas de
+  `auth.test.ts`: operador usuario y `forbidden_role`).
 - **Hallazgo nuevo:** `auth.audit_log` no admitía `actor_type='public'`; candidaturas y
   activaciones no se auditaban (error 23514 silencioso). Se añade `0125_audit_public_actor` y
   `setAdminRole` bloquea curator/community sin 0124 con 409.

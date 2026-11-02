@@ -405,7 +405,7 @@ Funnel sin cambios. Cierre: 72 h sin incidentes y sin rutas del catálogo alcanz
 |---|---|---|
 | `npm run typecheck` (API) | **probado** | verde |
 | `npm --prefix web run typecheck` | probado | verde |
-| `vitest` de login (`auth.test.ts`) | probado | 12/14; 2 fallos **preexistentes** (`request.operator` nombre vs usuario y `admin_required` vs `forbidden_role`, de commits aa562976/53c350f7, ajenos a este trabajo) |
+| `vitest` de login (`auth.test.ts`) | probado | 14/14; se corrigieron dos expectativas obsoletas (`request.operator` ya es el usuario y el rechazo de rol es `forbidden_role`) |
 | `vitest` de guarda y roles | probado | 7/7 + 3/3 |
 | `build:staging` | probado | verde (9,2 s; 6 estáticos copiados) |
 | `fase2b-whitelist.mjs --base :3150` | probado | 72/72 |
