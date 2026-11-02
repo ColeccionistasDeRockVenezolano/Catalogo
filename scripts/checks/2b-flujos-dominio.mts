@@ -1,14 +1,14 @@
 // CRV · Ensayo 2B · flujos del dominio con la forma de producción (base crv_staging).
 //
 // Simula lo que llega por Cloudflare: Host, Origin, CF-Connecting-IP y CF-IPCountry
-// del dominio contra la portada de ensayo, y usa el panel privado para administrar.
+// del dominio contra la portada de ensayo, y administra por el panel del propio dominio (/admin).
 // Comprueba además lo que el navegador no ve: fila de auditoría `public`, IP real,
 // visita con país y métricas. Lo que crea lo retira al terminar y restaura los
 // contadores del día. NUNCA envía POST a /api/radio/*: es la emisión real de Herra.
 //
 //   CRV_ENV_FILE=$HOME/apps/crv-staging/staging.env ./scripts/with-node22.sh \
 //     ./node_modules/.bin/tsx scripts/checks/2b-flujos-dominio.mts \
-//     --portada http://127.0.0.1:3150 --panel http://127.0.0.1:3131 --metricas
+//     --portada http://127.0.0.1:3150 --metricas
 import http from "node:http";
 import { mkdir, writeFile } from "node:fs/promises";
 import os from "node:os";
@@ -22,7 +22,8 @@ const opcion = (nombre: string, defecto: string): string => {
   return i >= 0 && args[i + 1] ? args[i + 1]! : defecto;
 };
 const PORTADA = opcion("portada", "http://127.0.0.1:3150");
-const PANEL = opcion("panel", "http://127.0.0.1:3131");
+const PANEL = opcion("panel", PORTADA);
+const API_PANEL = "/api/community/admin/panel";
 const METRICAS = args.includes("--metricas");
 const DOMINIO = "coleccionistasderockvenezolano.com";
 const HERRA = "http://127.0.0.1:3020/api/radio/now";
@@ -89,15 +90,17 @@ async function main(): Promise<void> {
   let userId: number | null = null;
   let tareaId: number | null = null;
   let solicitudId: number | null = null;
-  const local = { host: new URL(PANEL).host, origin: PANEL };
+  const local = delDominio();
   try {
     // --------------------------------------------------------- radio en la portada
     for (const lang of ["es", "en"]) {
       let html = ""; let vivo: any = null;
-      for (let intento = 0; intento < 3; intento += 1) {
+      // La copia anónima dura 30 s y el cliente corrige con /api/radio/now: tras un cambio de pista puede ir atrás.
+      for (let intento = 0; intento < 9; intento += 1) {
         vivo = await (await fetch(HERRA)).json();
         html = (await pedir(PORTADA, `/?lang=${lang}`, { headers: delDominio() })).texto;
         if (html.includes(vivo.current.videoId)) break;
+        await new Promise((r) => setTimeout(r, 5_000));
       }
       comprobar(html.includes('id="radio"') && html.includes('href="#radio"'), `portada ${lang}: tarjeta y enlace de radio sin sesión`);
       comprobar(html.includes(vivo.current.videoId), `portada ${lang}: pinta lo que emite Herra`, vivo.current.videoId);
@@ -125,12 +128,12 @@ async function main(): Promise<void> {
     const adminRaiz = await entrar(PORTADA, "", "fase1-admin", "Fase1Admin2026", delDominio());
     comprobar(adminRaiz.status === 200 && /Path=\/;/iu.test(`${adminRaiz.raw};`) && /Secure/iu.test(adminRaiz.raw) && /HttpOnly/iu.test(adminRaiz.raw), "login con cookie Secure en /", adminRaiz.raw.replace(/=[^;]+/u, "=…"));
 
-    // --------------------------------------------------------- panel privado
-    const admin = await entrar(PANEL, "/crv", "fase1-admin", "Fase1Admin2026", local);
-    comprobar(admin.rol === "admin", "login en el panel privado", admin.rol);
+    // --------------------------------------------------------- panel del dominio
+    const admin = await entrar(PANEL, "", "fase1-admin", "Fase1Admin2026", local);
+    comprobar(admin.rol === "admin", "login en el panel del dominio", admin.rol);
     const conAdmin = { ...local, cookie: admin.cookie, "x-crv-csrf": admin.csrf };
-    const aceptada = await pedir(PANEL, `/crv/api/community/admin/applications/${solicitudId}/accept`, { method: "POST", headers: conAdmin, body: {} });
-    const token = String(aceptada.json?.activationToken ?? "");
+    const aceptada = await pedir(PANEL, `${API_PANEL}/applications/${solicitudId}/accept`, { method: "POST", headers: conAdmin, body: {} });
+    const token = new URL(String(aceptada.json?.activationUrl ?? "http://x/")).searchParams.get("token") ?? "";
     userId = aceptada.json?.userId ?? null;
     comprobar(Boolean(token), "el panel acepta la candidatura", aceptada.status);
 
@@ -144,9 +147,8 @@ async function main(): Promise<void> {
     const colaborador = await entrar(PORTADA, "", nombre, clave, delDominio());
     comprobar(Boolean(colaborador.rol), "login del colaborador en el dominio", colaborador.rol);
     const etapa = (await pool.query<{ id: number }>("SELECT id FROM auth.categories ORDER BY sort_order LIMIT 1")).rows[0]!.id;
-    const creada = await pedir(PANEL, "/crv/api/community/admin/roadmap/tasks", { method: "POST", headers: conAdmin, body: { categoryId: etapa, title: `2B tarea ${sufijo}`, status: "pending", assignedUserIds: [userId] } });
-    const tarea = (creada.json?.roadmap?.categories ?? []).flatMap((c: any) => c.tasks).find((t: any) => t.title === `2B tarea ${sufijo}`);
-    tareaId = tarea?.id ?? null;
+    const creada = await pedir(PANEL, `${API_PANEL}/tasks`, { method: "POST", headers: conAdmin, body: { categoryId: etapa, title: `2B tarea ${sufijo}`, status: "pending", assignedUserIds: [userId] } });
+    tareaId = (await pool.query<{ id: number }>("SELECT id FROM auth.tasks WHERE title = $1", [`2B tarea ${sufijo}`])).rows[0]?.id ?? null;
     const cambio = await pedir(PORTADA, `/api/roadmap/tasks/${tareaId}/status`, { method: "PATCH", headers: { ...delDominio(), cookie: colaborador.cookie, "x-crv-csrf": colaborador.csrf }, body: { status: "in_progress" } });
     comprobar(cambio.status === 200, "el colaborador cambia su tarea desde el dominio", cambio.status);
 
@@ -159,10 +161,12 @@ async function main(): Promise<void> {
 
     // --------------------------------------------------------- métricas (opción a de §8)
     if (METRICAS) {
+      // Las portadas de arriba siguen en la cola de tráfico: se espera su volcado para medir solo esta visita.
+      await new Promise((r) => setTimeout(r, 11_000));
       const antes = (await pool.query<{ n: number }>("SELECT coalesce(sum(requests),0)::int n FROM auth.traffic_daily WHERE day = $1 AND page = 'roadmap'", [hoy])).rows[0]!.n;
       await pedir(PORTADA, "/", { headers: delDominio("203.0.113.41") });
       let despues = antes;
-      for (let i = 0; i < 12 && despues === antes; i += 1) {
+      for (let i = 0; i < 24 && despues === antes; i += 1) {
         await new Promise((r) => setTimeout(r, 500));
         despues = (await pool.query<{ n: number }>("SELECT coalesce(sum(requests),0)::int n FROM auth.traffic_daily WHERE day = $1 AND page = 'roadmap'", [hoy])).rows[0]!.n;
       }
