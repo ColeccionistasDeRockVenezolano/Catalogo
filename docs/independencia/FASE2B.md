@@ -389,8 +389,9 @@ resultados y pendientes; dejar las unidades habilitadas y Herra intacto.
 Por orden de Brian («Haz G11, G2 y G10 ya»), de día y no a medianoche: quien ya había entrado ese día puede contar dos veces.
 
 - **Cloudflare**, túnel `herra-crv`: `coleccionistasderockvenezolano.com` pasó de `http://127.0.0.1:3020` a `http://127.0.0.1:3140`. `www` sigue en `:3020`: Herra la redirige con 308 al dominio, así que **necesita a Herra encendido** hasta la Fase 3.
-- **Código:** `crv-api-landing` en `810fa51a`; `crv-landing` en `17d1fc0a`. Unidades habilitadas; `crv-web-admin` no se instaló.
+- **Código:** `crv-api-landing` en `810fa51a`; `crv-landing` en `775457e7` desde la corrección del cierre de sesión (`17d1fc0a` en la ventana). Unidades habilitadas; `crv-web-admin` no se instaló.
 - **Respaldo:** `/mnt/datos/backups/crv/auth-2B-20261102T124020Z.dump`. **Foto:** `reports/ventana-2b-foto-herra-2026-11-02`.
+- **Cierre de sesión roto tras la ventana.** Brian no podía cerrar sesión: por el túnel, un POST sin cuerpo llega como `chunked` y sin content-type, y la API respondía 415. El ensayo no lo vio porque el navegador contra localhost manda `content-length: 0` y porque no probaba el cierre de sesión. Corregido en el gateway (`775457e7`, reinicio de 194 ms). Prueba: `scripts/checks/gateway-sin-cuerpo.mjs`, solo contra staging. Los otros POST sin cuerpo del panel tenían el mismo riesgo; los registros solo muestran 415 en el cierre de sesión.
 - **Defectos que el ensayo no podía ver,** porque bloqueaba los POST de la radio y corría fuera del dominio. Corregidos en caliente en `17d1fc0a`: cuña en 404, oyentes y avisos de veto en 403 por el CSRF de Herra, y analítica de Cloudflare bloqueada por la CSP.
 - **Verificado desde fuera:** whitelist 96/96, texto igual a la foto en ES y EN, navegador 1440 y 390 con radio en `live`, cuña 200 y oyentes 200, 12 rutas prohibidas en 404, catálogo del Funnel 200, sin 5xx en los registros.
 - **Pendiente con Brian:** login real, sonido real, contador de visitas, tokens de §15, candidatura de prueba. **Observación de 72 h** (§14) hasta el 2026-11-05.
