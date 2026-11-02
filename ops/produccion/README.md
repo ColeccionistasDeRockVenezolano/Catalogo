@@ -1,8 +1,8 @@
-# Producción · Fase 2B (plantillas, NO instaladas)
+# Producción · Fase 2B
 
-Estas plantillas son la forma de producción de la Fase 2B. **No se han instalado ni arrancado.**
-La ventana no se abre sin autorización expresa de Brian y sin cerrar las puertas de
-`docs/independencia/FASE2B.md`.
+Estas plantillas son la forma de producción de la Fase 2B. **`crv-api-landing` y `crv-landing` están
+instaladas y sirven el dominio desde el 2026-11-02**; `crv-web-admin` no. Registro de la ventana y vuelta
+atrás en `docs/independencia/FASE2B.md` §12 y §13.
 
 ## Piezas
 

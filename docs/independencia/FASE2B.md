@@ -1,8 +1,7 @@
 # Fase 2B · Guion de la ventana (NO EJECUTADA · NO LISTA PARA AUTORIZAR)
 
 **Estado (2026-11-02, revisión de Claude):** el ensayo con la **forma de producción** y la base
-`crv_staging` se repitió sobre `dd46cecd`, ya con `/account` y `/admin` en la portada, y pasó (§16). **La ventana sigue sin autorizar:** faltan las
-puertas de §10, la comparación en inglés con la portada viva y la autorización expresa de Brian. La
+`crv_staging` se repitió sobre `dd46cecd`, ya con `/account` y `/admin` en la portada, y pasó (§16). **La ventana se ejecutó el 2026-11-02** (§12). La
 versión anterior habría quitado la radio de la portada; ver §1.1.
 
 **Referencia de paridad:** Herra **1.1.39**, congelada por decisión de Brian (2026-11-01). No se compara
@@ -309,16 +308,16 @@ panel privado no necesita debilitar la API ni montar TLS local; Brian entra por 
 | # | Puerta | Estado |
 |---|---|---|
 | G1 | Unidades y entornos de `ops/produccion/` revisados | contenido listo, **no instalado** |
-| G2 | `api.env`, `gateway.env`, `admin.env` con secretos propios y `.env` legible por systemd | **Brian** |
+| G2 | `api.env`, `gateway.env` con secretos propios y `.env` legible por systemd | **hecha 2026-11-02** en `~/apps/crv-landing/` (0600). `admin.env` no hace falta: no se instala `crv-web-admin` |
 | G3 | Worktree del SHA con `dist` | probado en `810fa51a`; fijar SHA al autorizar. `dist-public` solo hace falta si se quiere conservar `crv-web-admin` |
 | G4 | Respaldo probado y restauración comparada | **probado** (§6) |
 | G5 | Guion de tokens probado | **probado** (§4) |
 | G6 | Paridad contra foto de Herra | **probada** (§11) |
 | G7 | Migración 0125 aplicada en producción (§7) | **superada:** aplicada 2026-11-01 y confirmada 2026-11-02 con `migraciones-2b.sql`: 124 esperadas, 124 aplicadas, 124 coinciden, `faltan {}`, `sobran {}` |
-| G11 | Métricas (a) y Herra 1.1.39 **decididas**; paridad EN (§11) | **superada 2026-11-02** en `/`, `/colaborar` y `/login` (§11). `/registro`, `/activar`, `/account` y `/admin` no se compararon en inglés |
+| G11 | Métricas (a) y Herra 1.1.39 **decididas**; paridad EN (§11) | **superada 2026-11-02** (§11). `/activar` y `/register` iguales al dominio. `/account` y `/admin` no se abrieron en el dominio por pedir sesión: textos idénticos a Herra 1.1.39 y plantillas que solo cambian rutas y permisos |
 | G8 | Panel | **superada por la decisión del 2026-11-02:** `/admin` en el dominio; `crv-web-admin` `:3131` queda opcional. Probado (§16) |
 | G9 | Enlaces de cuenta | **superada por la misma decisión:** la cabecera ofrece Mi perfil y Administrar proyecto. Probado (§16) |
-| G10 | Cloudflare, fecha y autorización expresa | **Brian** |
+| G10 | Cloudflare, fecha y autorización expresa | **hecha 2026-11-02**, §12 |
 
 Sin 0125, la 2B funcionaría pero perdería la auditoría de candidaturas y activaciones; ya está aplicada.
 
@@ -347,7 +346,7 @@ forma temporal en staging para igualar la portada viva (staging tiene 1; se rest
 
 La radio en `127.0.0.1` acaba en `error`, pero eso es el origen de la prueba: con el origen del dominio simulado (nada sale hacia él) llega a `live` y el reproductor de YouTube responde 200, con `no-referrer` y sin él. Es navegador sin sonido: el audio real sigue sin probarse.
 
-No comparados en inglés: `/registro`, `/activar`, `/account` y `/admin` (piden enlace o sesión).
+`/activar` y `/register` con token inválido: sin diferencias (`/registro` es dirección nueva de CRV; en el dominio da 404). `/account` y `/admin` piden sesión y no se abrieron en el dominio: `i18n.js` es idéntico al de Herra 1.1.39 y sus plantillas solo cambian rutas y permisos.
 
 ---
 
@@ -384,6 +383,17 @@ colaborador, segunda carga sin sumar visita, 404 de cada ruta prohibida, país d
 resultados y pendientes; dejar las unidades habilitadas y Herra intacto.
 
 ---
+
+### Ventana ejecutada el 2026-11-02, 08:47 de Caracas
+
+Por orden de Brian («Haz G11, G2 y G10 ya»), de día y no a medianoche: quien ya había entrado ese día puede contar dos veces.
+
+- **Cloudflare**, túnel `herra-crv`: `coleccionistasderockvenezolano.com` pasó de `http://127.0.0.1:3020` a `http://127.0.0.1:3140`. `www` sigue en `:3020`: Herra la redirige con 308 al dominio, así que **necesita a Herra encendido** hasta la Fase 3.
+- **Código:** `crv-api-landing` en `810fa51a`; `crv-landing` en `17d1fc0a`. Unidades habilitadas; `crv-web-admin` no se instaló.
+- **Respaldo:** `/mnt/datos/backups/crv/auth-2B-20261102T124020Z.dump`. **Foto:** `reports/ventana-2b-foto-herra-2026-11-02`.
+- **Defectos que el ensayo no podía ver,** porque bloqueaba los POST de la radio y corría fuera del dominio. Corregidos en caliente en `17d1fc0a`: cuña en 404, oyentes y avisos de veto en 403 por el CSRF de Herra, y analítica de Cloudflare bloqueada por la CSP.
+- **Verificado desde fuera:** whitelist 96/96, texto igual a la foto en ES y EN, navegador 1440 y 390 con radio en `live`, cuña 200 y oyentes 200, 12 rutas prohibidas en 404, catálogo del Funnel 200, sin 5xx en los registros.
+- **Pendiente con Brian:** login real, sonido real, contador de visitas, tokens de §15, candidatura de prueba. **Observación de 72 h** (§14) hasta el 2026-11-05.
 
 ## 13. Vuelta atrás
 
