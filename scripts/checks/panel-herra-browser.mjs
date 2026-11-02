@@ -1,11 +1,11 @@
-/* global document, window -- las funciones de page.evaluate corren en la página */
+/* global document, window, getComputedStyle -- las funciones de page.evaluate corren en la página */
 // CRV · Aceptación del panel con la plantilla de Herra, en la portada del dominio (:3141).
 //
 // Sustituye para el panel a los guiones b6-b10, c5 y p7, escritos para la versión
 // React retirada. Solo contra staging: guarda el estado de `auth`, lo modifica con
 // clics reales y lo deja igual al terminar, aunque falle.
 //
-//   node scripts/checks/panel-herra-browser.mjs
+//   node scripts/checks/panel-herra-browser.mjs   # CRV_PANEL_BASE para otra portada de ensayo
 //
 // Recorre: 12 herramientas con foco y Escape, etapa y actividad (crear, editar, borrar),
 // arrastre con ratón, teclado y dedo, efecto en la portada, ajustes, formulario,
@@ -17,7 +17,7 @@ import path from "node:path";
 import { chromium } from "playwright";
 import { limpiarFixtures, prepararFixtures } from "./lib/fixtures.mjs";
 
-const BASE = "http://127.0.0.1:3141";
+const BASE = (process.env.CRV_PANEL_BASE ?? "http://127.0.0.1:3141").replace(/\/$/u, "");
 const OUT = path.join(os.homedir(), "crv-staging/reports/panel-herra-2026-11");
 const MARCA = `Prueba panel ${Date.now().toString(36)}`;
 await mkdir(OUT, { recursive: true });
