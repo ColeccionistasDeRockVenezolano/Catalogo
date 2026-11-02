@@ -205,6 +205,20 @@ const CREDIT_COUNT = (column: string) => `(
   + (SELECT count(*) FROM public.artist_members WHERE person_id=c.${column}))::int`;
 
 /**
+ * Cuántas revisiones vivas hay. Es el contador de la barra lateral y se pide cada
+ * minuto: la lista completa recalcula en memoria cada par y bloquea la API segundos.
+ */
+export async function countPersonDuplicateCandidates(): Promise<number> {
+  const { rows } = await getPool().query<{ total: number }>(`
+    SELECT count(*)::int AS total
+      FROM ingest.review_queue q
+      JOIN public.persons pa ON pa.id=q.person_a_id
+      JOIN public.persons pb ON pb.id=q.person_b_id
+     WHERE q.kind::text='person_duplicate' AND q.status IN ('open','in_progress')`);
+  return rows[0]?.total ?? 0;
+}
+
+/**
  * Revisiones vivas del detector de candidatos de persona (E11.5), con nombre,
  * créditos de cada lado, score y features. Solo lectura.
  */
@@ -232,6 +246,7 @@ export async function listPersonDuplicateCandidates(
            ORDER BY created_at DESC,id DESC LIMIT 1
         ) v ON TRUE
        ORDER BY c.priority DESC, c.id`);
+  if (rows.rows.length === 0) return { rows: [], total: 0 };
   // El catálogo cambia después de abrir una revisión. Recalcular evita usar
   // señales antiguas (y cubre también las revisiones creadas a mano).
   const facts = new Map((await loadPersonFacts(getPool())).map((person) => [person.id, person]));

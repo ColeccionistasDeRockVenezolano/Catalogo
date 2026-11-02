@@ -105,8 +105,8 @@ function useDuplicateCount(enabled: boolean): number | undefined {
     const refresh = () => {
       if (inFlight) return;
       inFlight = true;
-      entityMergeApi.duplicateCandidates({ limit: 1 })
-        .then((page) => { if (current) setCount(page.pagination.total); })
+      entityMergeApi.duplicateCandidateCount()
+        .then((page) => { if (current) setCount(page.total); })
         .catch(() => undefined)
         .finally(() => { inFlight = false; });
     };

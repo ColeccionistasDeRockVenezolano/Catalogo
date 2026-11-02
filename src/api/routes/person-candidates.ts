@@ -9,7 +9,7 @@ import { compareCatalog } from "../../review/person-comparison.js";
 import { personComparisonSchema } from "../person-comparison-schema.js";
 import { z } from "zod";
 import { paginationQuerySchema, toPage } from "../pagination.js";
-import { listPersonDuplicateCandidates } from "../repositories/persons.js";
+import { countPersonDuplicateCandidates, listPersonDuplicateCandidates } from "../repositories/persons.js";
 import { OPERATOR_SECURITY } from "../auth.js";
 import { getPool } from "../../db/client.js";
 import { loadPersonFacts, scorePersonPair } from "../../review/person-candidates.js";
@@ -125,6 +125,14 @@ export async function registerPersonCandidateRoutes(app: FastifyInstance): Promi
     const result = await investigateAndSavePersonPair(request.body.aId, request.body.bId);
     return (await withScore(request.body.aId, request.body.bId, result))!;
   });
+
+  server.get("/persons/duplicate-candidates/count", {
+    schema: {
+      tags: ["persons:merge"],
+      summary: "Cuántos pares esperan revisión, sin recalcular sus señales. Solo lectura.",
+      response: { 200: z.object({ total: z.number().int() }) },
+    },
+  }, async () => ({ total: await countPersonDuplicateCandidates() }));
 
   server.get("/persons/duplicate-candidates", {
     schema: {

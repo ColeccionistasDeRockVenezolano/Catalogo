@@ -482,6 +482,7 @@ export const entityMergeApi = {
     request<{ text: string; model: string }>(`/${MERGE_PATHS[kind]}/${keepId}/merge-rewrite`, { method: "POST", authenticated: true, body: { dropId, field } }),
   duplicateCandidates: (params: Paged & { minScore?: number } = {}) =>
     request<Page<PersonDuplicateCandidate>>("/persons/duplicate-candidates", { query: params }),
+  duplicateCandidateCount: () => request<{ total: number }>("/persons/duplicate-candidates/count"),
   convert: (personId: number, body: {
     to: "organization" | "artist";
     targetId?: number;

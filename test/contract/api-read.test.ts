@@ -457,6 +457,7 @@ describe("API de lectura (E7A) — caso Caramelos De Cianuro", () => {
   it("GET /review-queue y /review-queue/:id exigen cuenta administradora", async () => {
     expect((await app.inject({ method: "GET", url: "/review-queue?status=open" })).statusCode).toBe(401);
     expect((await app.inject({ method: "GET", url: "/persons/duplicate-candidates" })).statusCode).toBe(401);
+    expect((await app.inject({ method: "GET", url: "/persons/duplicate-candidates/count" })).statusCode).toBe(401);
     const list = await app.inject({ method: "GET", url: "/review-queue?status=open", headers: admin });
     expect(list.json().data).toHaveLength(1);
     const id = list.json().data[0].id;

@@ -81,7 +81,7 @@ const ADMIN_READS = [
   /^\/persons\/(?:\d+\/)?identity-research(\/|$)/u,
   /^\/entity-verification(\/|$)/u,
   /^\/review-queue(\/|$)/u,
-  /^\/persons\/duplicate-candidates$/u,
+  /^\/persons\/duplicate-candidates(\/count)?$/u,
   /^\/persons\/\d+\/split-preview$/u,
   /^\/curation(\/|$)/u,
   /^\/[a-z]+\/\d+\/merge-preview$/u,
