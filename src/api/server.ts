@@ -36,6 +36,7 @@ async function main(): Promise<void> {
     radioEnabled: env.CRV_RADIO_ENABLED,
     ...(env.CRV_RADIO_DATA_DIR === undefined ? {} : { radioDataDir: env.CRV_RADIO_DATA_DIR }),
     ...(env.CRV_RADIO_LIVE_URL === undefined ? {} : { radioLiveUrl: env.CRV_RADIO_LIVE_URL }),
+    radioOwner: env.CRV_RADIO_OWNER,
   });
   const app = await buildApp();
   await app.listen({ port: env.PORT, host: env.HOST });

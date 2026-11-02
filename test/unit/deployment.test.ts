@@ -94,5 +94,13 @@ describe("guarda de despliegue de la Fase 2B", () => {
     expect(() => assertDeploymentGuards(sinLive)).toThrow(/radio/u);
     const { radioDataDir: _b, ...sinDatos } = API;
     expect(() => assertDeploymentGuards(sinDatos)).toThrow(/radio/u);
+    expect(() => assertDeploymentGuards({ ...sinLive, radioOwner: false })).toThrow(/radio/u);
+  });
+
+  it("tras el corte, la API dueña de la radio no necesita a Herra", () => {
+    const { radioLiveUrl: _a, ...sinLive } = API;
+    expect(() => assertDeploymentGuards({ ...sinLive, radioOwner: true })).not.toThrow();
+    const { radioDataDir: _b, ...sinDatos } = sinLive;
+    expect(() => assertDeploymentGuards({ ...sinDatos, radioOwner: true })).toThrow(/radio/u);
   });
 });

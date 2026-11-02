@@ -36,6 +36,8 @@ export interface DeploymentGuardInput {
   radioEnabled?: boolean;
   radioDataDir?: string;
   radioLiveUrl?: string;
+  /** Solo API: tras el corte de la Fase 3 la emisión es de CRV y no hay Herra a quien preguntar. */
+  radioOwner?: boolean;
 }
 
 const PRODUCTION_PORTS = new Set([8080, 8082]);
@@ -59,8 +61,8 @@ export function assertDeploymentGuards(input: DeploymentGuardInput): void {
     if (input.backgroundJobs !== false) {
       fail("CRV_BACKGROUND_JOBS debe ser false: esta API comparte la base con la del catálogo");
     }
-    if (!input.radioEnabled || !input.radioDataDir || !input.radioLiveUrl) {
-      fail("la portada perdería la radio: faltan CRV_RADIO_ENABLED=true, CRV_RADIO_DATA_DIR o CRV_RADIO_LIVE_URL");
+    if (!input.radioEnabled || !input.radioDataDir || (!input.radioLiveUrl && !input.radioOwner)) {
+      fail("la portada perdería la radio: faltan CRV_RADIO_ENABLED=true, CRV_RADIO_DATA_DIR, o CRV_RADIO_LIVE_URL (emite Herra) o CRV_RADIO_OWNER=true (emite CRV)");
     }
     if (!input.dbName) fail("no se pudo comprobar current_database() en producción");
     if (/staging/iu.test(input.dbName)) {
