@@ -30,8 +30,10 @@ interface Foto {
 }
 
 const RUTA = path.join(os.homedir(), "crv-staging/fotos/staging-foto.json");
+// Tras borrar las personas 9-11 (prueba, sin cuenta ni candidatura), el
+// baseline real de staging es 5 personas; 61/27/5, 3 admins, 5 usuarios.
 const ESPERADO: Record<string, number> = {
-  actividades: 61, completadas: 27, etapas: 5, admins: 3, usuarios: 5, personas: 8, sesiones_prueba: 0,
+  actividades: 61, completadas: 27, etapas: 5, admins: 3, usuarios: 5, personas: 5, sesiones_prueba: 0,
 };
 
 const guardar = process.argv.includes("--guardar");
