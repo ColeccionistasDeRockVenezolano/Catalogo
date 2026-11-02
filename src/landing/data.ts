@@ -30,7 +30,7 @@ function parseObject(raw: string | null): Record<string, unknown> {
 }
 
 /** Carga solo datos públicos y no modifica la base. A Herra solo le lee lo que emite (GET), mientras sea ella quien emite. */
-export async function loadLandingData(lang: LandingLanguage, page: "roadmap" | "colaborar" | "login" | "registro" | "activar", authenticated = false) {
+export async function loadLandingData(lang: LandingLanguage, page: "roadmap" | "colaborar" | "login" | "registro" | "activar" | "admin" | "account", authenticated = false) {
   const id = await projectId();
   const pool = getPool();
   const [projects, assets, terms, view, visits, radioConfig] = await Promise.all([

@@ -63,18 +63,17 @@
         <li><a class="nav-cta" href="<%= projectBase %>/colaborar"><%= t('nav.collaborateCta') %></a></li>
       <% } %>
 
-      <% if (!landingMode) { %>
+      <%# TEMPORAL-PORTADA: en la portada mandan a /admin y /account; el «sitio principal» sigue oculto. %>
       <% if (isAdmin) { %>
         <%- include('nav-tools', { variant: 'desktop' }) %>
         <li><a class="nav-admin-link active" href="<%= projectBase %>/admin"><%= t('nav.manageProject') %></a></li>
       <% } else if (hasProjectAdminAccess) { %>
         <li><a class="nav-admin-link" href="<%= projectBase %>/admin"><%= t('nav.manageProject') %></a></li>
-      <% } else if (theme.mainSiteUrl) { %>
+      <% } else if (theme.mainSiteUrl && !landingMode) { %>
         <li><a href="<%= theme.mainSiteUrl %>"><%= theme.mainSiteLabel %></a></li>
       <% } %>
       <% if (currentUser) { %>
         <li><a href="<%= projectBase %>/account"><%= t('nav.profile') %></a></li>
-      <% } %>
       <% } %>
       <%- include('lang-switch') %>
       <% if (currentUser || isAdmin || hasProjectAdminAccess) { %>
@@ -111,18 +110,16 @@
         <% if (showCollaborateCta) { %>
           <li><a class="nav-cta" href="<%= projectBase %>/colaborar"><%= t('nav.collaborateCta') %></a></li>
         <% } %>
-        <% if (!landingMode) { %>
         <% if (isAdmin) { %>
           <%- include('nav-tools', { variant: 'mobile' }) %>
           <li><a class="nav-admin-link active" href="#admin-tools" aria-current="page"><%= t('nav.adminPanel') %></a></li>
         <% } else if (hasProjectAdminAccess) { %>
           <li><a class="nav-admin-link" href="<%= projectBase %>/admin"><%= t('nav.manageProject') %></a></li>
-        <% } else if (theme.mainSiteUrl) { %>
+        <% } else if (theme.mainSiteUrl && !landingMode) { %>
           <li><a href="<%= theme.mainSiteUrl %>"><%= theme.mainSiteLabel %></a></li>
         <% } %>
         <% if (currentUser) { %>
           <li><a href="<%= projectBase %>/account"><%= t('nav.profile') %></a></li>
-        <% } %>
         <% } %>
         <%- include('lang-switch') %>
         <% if (currentUser || isAdmin || hasProjectAdminAccess) { %>

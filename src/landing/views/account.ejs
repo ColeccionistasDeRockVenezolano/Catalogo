@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head', { pageTitle: t('account.pageTitle') + ' — ' + theme.projectName, noindex: true }) %>
+</head>
+<body>
+<%- include('partials/header', { isAdmin: false, currentUser }) %>
+<main class="login-main login-main--account">
+  <div class="login-card login-card--account">
+    <header class="account-head">
+      <%- include('partials/project-mark', { size: 'account' }) %>
+      <div class="account-head__text">
+        <h1><%= t('account.pageTitle') %></h1>
+        <p class="login-sub"><%- t('account.session', { name: escapeHtml(currentUser.name), project: escapeHtml(theme.projectName) }) %><% if (currentUser.person_id) { %> · <%= t('account.ids', { personId: currentUser.person_id, userId: currentUser.id }) %><% } %></p>
+        <% if (profile && profile.gaps.length > 0) { %>
+        <p class="profile-gaps" role="status"><%= t('account.incompleteProfile', { gaps: profile.gaps.join(' · ') }) %></p>
+        <% } %>
+      </div>
+    </header>
+
+    <% if (profileSuccess || passwordSuccess) { %>
+    <p class="login-ok" role="status"><%= passwordSuccess && profileSuccess ? t('account.savedBoth') : (passwordSuccess ? t('account.savedPassword') : t('account.savedProfile')) %></p>
+    <% } %>
+    <% if (profileError) { %><p class="login-error" role="alert"><%= profileError %></p><% } %>
+    <% if (passwordError) { %><p class="login-error" role="alert"><%= passwordError %></p><% } %>
+
+    <form method="post" action="<%= projectBase %>/account/profile" class="login-form account-form">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+      <%# Una cuenta de administración sin colaborador solo tiene clave: Herra no le daba esta página. %>
+      <% if (currentUser.id) { %>
+      <section class="account-section">
+        <h2><%= t('account.personalData') %></h2>
+        <div class="field-grid">
+          <div class="field">
+            <label for="firstName"><%= t('register.firstName') %></label>
+            <input type="text" id="firstName" name="firstName" maxlength="80" autocomplete="given-name" value="<%= currentUser.first_name || '' %>" required>
+          </div>
+          <div class="field">
+            <label for="lastName"><%= t('register.lastName') %></label>
+            <input type="text" id="lastName" name="lastName" maxlength="80" autocomplete="family-name" value="<%= currentUser.last_name || '' %>" required>
+          </div>
+          <% if (profile) { %>
+          <div class="field">
+            <label for="birthDate"><%= t('account.birthDate') %></label>
+            <input type="date" id="birthDate" name="birthDate" value="<%= profile.person.birth_date || '' %>">
+            <small class="field-help"><%= t('account.birthDateHelp') %></small>
+          </div>
+          <div class="field">
+            <label for="whatsappPhone"><%= t('account.whatsappPhone') %></label>
+            <input type="tel" id="whatsappPhone" name="whatsappPhone" maxlength="120" autocomplete="tel" value="<%= profile.person.whatsapp_phone || '' %>">
+          </div>
+          <div class="field">
+            <label for="email"><%= t('account.email') %></label>
+            <input type="email" id="email" name="email" maxlength="120" autocomplete="email" value="<%= profile.person.email || '' %>">
+          </div>
+          <div class="field">
+            <label for="contactPreference"><%= t('account.contactPreference') %></label>
+            <select id="contactPreference" name="contactPreference">
+              <option value="whatsapp" <%- profile.person.contact_preference === 'whatsapp' ? 'selected' : '' %>>WhatsApp</option>
+              <option value="email" <%- profile.person.contact_preference === 'email' ? 'selected' : '' %>><%= t('account.email') %></option>
+              <option value="both" <%- profile.person.contact_preference === 'both' ? 'selected' : '' %>><%= t('account.contactEither') %></option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="city"><%= t('account.city') %></label>
+            <input type="text" id="city" name="city" maxlength="120" value="<%= profile.person.city || '' %>">
+          </div>
+          <div class="field">
+            <label for="country"><%= t('account.country') %></label>
+            <input type="text" id="country" name="country" maxlength="120" value="<%= profile.person.country || '' %>">
+          </div>
+          <% } %>
+        </div>
+      </section>
+      <% } %>
+
+      <% if (profile) { %>
+      <section class="account-section">
+        <h2><%= t('account.collabProfile') %></h2>
+        <div class="field-grid field-grid--halves">
+          <div class="field">
+            <label for="bio"><%= t('account.bio') %></label>
+            <textarea id="bio" name="bio" rows="5" maxlength="2000" class="textarea--prose"><%= profile.person.bio || '' %></textarea>
+            <small class="field-help"><%= t('account.bioHelp') %></small>
+          </div>
+          <div class="field">
+            <label for="experience"><%= t('account.experience') %></label>
+            <textarea id="experience" name="experience" rows="5" maxlength="2000" class="textarea--prose"><%= profile.person.experience || '' %></textarea>
+            <small class="field-help"><%= t('account.experienceHelp') %></small>
+          </div>
+          <div class="field field--full">
+            <label for="availability"><%= t('account.availability') %></label>
+            <input type="text" id="availability" name="availability" maxlength="120" placeholder="<%= t('account.availabilityPlaceholder') %>" value="<%= profile.person.availability || '' %>">
+          </div>
+        </div>
+
+        <div class="chip-block">
+          <span class="field-label"><%= t('account.skills') %></span>
+          <div class="chip-choices">
+            <% catalog.skills.forEach(function (term) { %>
+            <label class="chip-choice">
+              <input type="checkbox" name="termIds" value="<%= term.id %>" <%- selectedTermIds.indexOf(term.id) >= 0 ? 'checked' : '' %>>
+              <span><%= term.label %></span>
+            </label>
+            <% }) %>
+          </div>
+        </div>
+
+        <div class="chip-block">
+          <span class="field-label"><%= t('account.areas') %></span>
+          <div class="chip-choices">
+            <% catalog.areas.forEach(function (term) { %>
+            <label class="chip-choice">
+              <input type="checkbox" name="termIds" value="<%= term.id %>" <%- selectedTermIds.indexOf(term.id) >= 0 ? 'checked' : '' %>>
+              <span><%= term.label %></span>
+            </label>
+            <% }) %>
+          </div>
+        </div>
+      </section>
+
+      <section class="account-section">
+        <h2><%= t('account.myLinks') %></h2>
+        <p class="field-help"><%= t('account.linksHelp') %></p>
+        <div class="link-rows">
+          <% const linkSlots = Math.min(Math.max(profile.links.length + 2, 3), 12); %>
+          <% for (let index = 0; index < linkSlots; index++) { const link = profile.links[index] || { type: '', label: '', url: '', is_public: 0 }; %>
+          <div class="link-row">
+            <select name="linkType" aria-label="<%= t('account.linkType', { n: index + 1 }) %>">
+              <% catalog.linkTypes.forEach(function (term) { %>
+              <option value="<%= term.slug %>" <%- link.type === term.slug ? 'selected' : '' %>><%= term.label %></option>
+              <% }) %>
+            </select>
+            <input type="url" name="linkUrl" maxlength="500" placeholder="https://…" value="<%= link.url %>" aria-label="<%= t('account.linkUrl', { n: index + 1 }) %>">
+            <input type="text" name="linkLabel" maxlength="120" placeholder="<%= t('account.linkLabelPlaceholder') %>" value="<%= link.label || '' %>" aria-label="<%= t('account.linkLabel', { n: index + 1 }) %>">
+            <label class="link-row__public">
+              <input type="checkbox" name="linkPublic" value="<%= index %>" <%- link.is_public ? 'checked' : '' %>>
+              <span><%= t('account.public') %></span>
+            </label>
+          </div>
+          <% } %>
+        </div>
+      </section>
+
+      <section class="account-section">
+        <h2><%= t('account.visibility') %></h2>
+        <div class="field-grid field-grid--halves">
+          <div class="field">
+            <label for="profileVisibility"><%= t('account.publicProfile') %></label>
+            <select id="profileVisibility" name="profileVisibility">
+              <option value="private" <%- profile.person.profile_visibility === 'private' ? 'selected' : '' %>><%= t('account.visibilityPrivate') %></option>
+              <option value="public" <%- profile.person.profile_visibility === 'public' ? 'selected' : '' %>><%= t('account.visibilityPublic') %></option>
+            </select>
+            <small class="field-help"><%= t('account.visibilityHelp') %></small>
+          </div>
+        </div>
+      </section>
+      <% } %>
+
+      <section class="account-section">
+        <h2><%= t('account.password') %></h2>
+        <p class="field-help"><%= t('account.passwordHelp') %></p>
+        <div class="field-grid field-grid--thirds">
+          <div class="field">
+            <label for="currentAccessCode"><%= t('account.currentAccessCode') %></label>
+            <input type="password" id="currentAccessCode" name="currentAccessCode" maxlength="200" autocomplete="current-password">
+          </div>
+          <div class="field">
+            <label for="newAccessCode"><%= t('account.newAccessCode') %></label>
+            <input type="password" id="newAccessCode" name="newAccessCode" minlength="8" maxlength="200" autocomplete="new-password" pattern="(?=.*[A-Za-z])(?=.*\d).{8,}" title="<%= t('account.newAccessCodeHelp') %>">
+            <small class="field-help"><%= t('account.newAccessCodeHelp') %></small>
+          </div>
+          <div class="field">
+            <label for="newAccessCodeConfirm"><%= t('account.newAccessCodeRepeat') %></label>
+            <input type="password" id="newAccessCodeConfirm" name="newAccessCodeConfirm" minlength="8" maxlength="200" autocomplete="new-password">
+          </div>
+        </div>
+      </section>
+
+      <div class="account-actions">
+        <a class="login-back" href="<%= projectBase %>/"><i data-lucide="arrow-left"></i> <%= t('adminLogin.backToRoadmap') %></a>
+        <button type="submit" class="btn btn-red"><%= t('common.saveChanges') %></button>
+      </div>
+    </form>
+  </div>
+</main>
+<%- include('partials/footer', { showVisitCounter: false }) %>
+</body>
+</html>

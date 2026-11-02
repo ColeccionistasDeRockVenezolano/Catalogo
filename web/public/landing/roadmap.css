@@ -3263,3 +3263,7 @@ body.radio-cinema-open { overflow: hidden; }
 @media (max-width: 720px) {
   .visits.visits--oculta { display: none; }
 }
+
+/* CRV: en un teléfono, el texto largo del selector de Visibilidad ensanchaba «Mi perfil». */
+.account-form .field { min-width: 0; }
+.account-form .field select { width: 100%; min-width: 0; max-width: 100%; }

@@ -12,7 +12,10 @@ export class PostgresAccounts {
       account AS (
         SELECT 'user' AS kind, u.id, lower(u.name::text) AS username,
                coalesce(nullif(trim(concat_ws(' ',u.first_name,u.last_name)),''),u.name::text) AS name,
-               u.access_code_hash AS "passwordHash", u.session_version AS "sessionVersion", 'reader' AS role,
+               u.access_code_hash AS "passwordHash", u.session_version AS "sessionVersion",
+               -- Como en Herra: quien fue promovido abre también su administración con la clave de colaborador.
+               coalesce((SELECT CASE a.role WHEN 'curator' THEN 'curator' WHEN 'community' THEN 'community' ELSE 'admin' END FROM auth.admins a
+                          WHERE a.user_id = u.id AND (a.role='superadmin' OR a.project_id=u.project_id) ORDER BY a.id LIMIT 1), 'reader') AS role,
                'hex' AS "passwordEncoding", 2 AS priority
           FROM auth.users u WHERE u.project_id = (SELECT id FROM project)
            AND lower(u.name::text) = lower($1) AND u.status = 'approved' AND u.access_code_hash IS NOT NULL
@@ -42,11 +45,15 @@ export class PostgresAccounts {
     }
     const query = ref.kind === "user"
       ? `SELECT 1 FROM auth.users u JOIN auth.projects p ON p.id=u.project_id
-           WHERE u.id=$1 AND u.session_version=$2 AND p.slug=$3 AND u.status='approved' AND u.access_code_hash IS NOT NULL`
+           WHERE u.id=$1 AND u.session_version=$2 AND p.slug=$3 AND u.status='approved' AND u.access_code_hash IS NOT NULL
+             -- Retirarle la administración cierra la sesión que entró con ese rol.
+             AND (coalesce($4,'reader')='reader' OR EXISTS (SELECT 1 FROM auth.admins a WHERE a.user_id=u.id AND CASE a.role WHEN 'curator' THEN 'curator' WHEN 'community' THEN 'community' ELSE 'admin' END=$4))`
       : `SELECT 1 FROM auth.admins a LEFT JOIN auth.projects p ON p.id=a.project_id
            WHERE a.id=$1 AND a.session_version=$2 AND (a.role='superadmin' OR p.slug=$3)
            AND (a.user_id IS NULL OR EXISTS (SELECT 1 FROM auth.users linked WHERE linked.id=a.user_id AND linked.status='approved' AND linked.access_code_hash IS NOT NULL))`;
-    const { rows } = await this.pool.query(query, [ref.id, ref.sessionVersion, this.projectSlug]);
+    const params: unknown[] = [ref.id, ref.sessionVersion, this.projectSlug];
+    if (ref.kind === "user") params.push(ref.role ?? null);
+    const { rows } = await this.pool.query(query, params);
     return rows.length === 1;
   }
 

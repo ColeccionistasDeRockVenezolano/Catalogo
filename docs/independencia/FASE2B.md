@@ -5,13 +5,18 @@
 puertas de §10, la comparación en inglés con la portada viva y la autorización expresa de Brian. La
 versión anterior habría quitado la radio de la portada; ver §1.1.
 
-**Referencia de paridad:** Herra **1.1.39** — **pendiente de confirmar por Brian**. No se compara
+**Referencia de paridad:** Herra **1.1.39**, congelada por decisión de Brian (2026-11-01). No se compara
 contra 1.1.34.
 
 **Qué publica la 2B:** `coleccionistasderockvenezolano.com` sirve desde CRV la portada (roadmap),
 `/colaborar`, `/login`, `/registro` y `/activar`, con visitas, candidaturas y tareas escritas por
 CRV. El catálogo NO se publica: fuera de la lista blanca, 404. La radio sigue en Herra hasta la
 Fase 3.
+
+**Cambio de alcance (Brian, 2026-11-02):** la portada también lleva `/account` («Mi perfil» 1:1) y
+`/admin` (el panel), con el recorrido de Herra completo y sin camino al catálogo. Sustituye lo de
+abajo sobre ocultar «Mi cuenta» y «Gestionar proyecto» y sobre el panel solo local. Es temporal y su
+retirada está en [PUERTA-TEMPORAL.md](PUERTA-TEMPORAL.md).
 
 **Decisiones de Brian aplicadas:** panel privado en `127.0.0.1:3131` contra `:8083` (solo local,
 nunca Funnel/Cloudflare); sin merge en la 2B (worktree por SHA); en modo portada se ocultan «Mi
@@ -51,14 +56,18 @@ un techo de usuarios distintos fallados.
 | Sin comando para 0125 | No se sabía aplicarla y registrarla | §7, ensayado en `crv_staging` |
 | Etiquetas de `/colaborar` en otro orden | «Diseño UI/UX» antes de «Diseño gráfico» | Orden por idioma; paridad ES sin esa diferencia |
 
-### 1.2 La sombra de la radio falla desde las 17:00 (Fase 3)
+### 1.2 La sombra de la radio: causa encontrada (Fase 3)
 
-`crv-radio-sombra` pasó 45 veces sin divergencias y desde **2026-11-01 20:00 UTC (17:00 en esta
-máquina)** diverge en todas: 34 de 34 a las 22:30. Mismo catálogo (`1579a744db26b801`). El motor de
-CRV va por delante de Herra: 5,4 s al empezar y unos 65-70 s cinco horas después, y sigue creciendo.
-No coincide con el cambio a 1.1.39 (18:55). **Causa sin determinar.** No afecta a la emisión de la 2B,
-que sigue en Herra, pero la Fase 3 no puede dar por buena la sombra hasta explicarlo: su plazo de 7 a
-14 días debe contarse desde que vuelva a estar limpia.
+`crv-radio-sombra` pasó 45 veces sin divergencias y diverge desde **2026-11-01 20:00 UTC**. **No es un
+fallo del motor.** Por orden de Brian, producción pasó `everyPieces` de 5 a 3, con época
+`2026-09-07T19:09:18.774Z` para no cortar la canción. `crv_staging` conserva 5 y la época
+`2026-09-07T23:16:33.912Z`, y la sombra lee su configuración de staging. Cada cuña de más en Herra suma
+5,4 s (1,4 s de cuña + 4 s de cruce), de ahí el desfase creciente.
+
+Comprobado sin leer la base de producción: con 3 y esa época, el motor de CRV iguala todos los campos de
+`/api/radio/now` y acierta el `startsAt` de las **41 de 41** divergencias registradas. El código de
+`radio.service.js` es idéntico de 1.1.36 a 1.1.39. Staging se corrigió el 2026-11-01 con esos valores y la sombra avisa si la cuña vuelve a
+diferir. El plazo de 7 a 14 días de la Fase 3 se cuenta desde esa corrección.
 
 ---
 
@@ -106,8 +115,8 @@ comprueba con `ops/produccion/migraciones-2b.sql`.
 Herra escribe `auth.traffic_daily` desde sus vistas de página (`herra-1.1.39/dist/routes/public.js`
 → `services/traffic.service.js`). Tras el cambio, Herra ya no ve las páginas del dominio y CRV
 tiene `CRV_TRAFFIC_ENABLED=false`: **nadie registraría el tráfico de página** para 3.7. El contador
-de la portada (`auth.project_visits`) sigue funcionando porque es otra tabla. Opciones en §8;
-decisión de Brian, no se enciende nada en producción.
+de la portada (`auth.project_visits`) sigue funcionando porque es otra tabla. Brian eligió la opción
+(a) de §8; se enciende en la ventana, no antes.
 
 ### F · Cifras y puertas
 
@@ -125,6 +134,7 @@ con 0125. Sin 0125 en producción, las escrituras siguen funcionando pero **no s
 
 `header.ejs` pinta `/account` y `/admin`; el gateway los reescribe a `/cuenta` y
 `/curaduria/roadmap`, que la lista blanca da 404. En modo portada (`mode=landing`) se ocultan.
+*Superado el 2026-11-02:* ahora van a `/account` y `/admin`, que sí existen en la portada.
 Verificado en ES/EN y 1440/390: la portada no contiene esos `href`; el catálogo `/crv` sí los
 conserva. Los colaboradores **no podrán cambiar su contraseña desde el dominio** hasta tener una
 página propia; pueden hacerlo en el catálogo del Funnel o pedírselo a un administrador.
@@ -247,19 +257,19 @@ En la ventana: respaldo antes de tocar nada; si el archivo no abre, no se sigue.
 
   Herra solo inserta en `audit_log` y su `schema.sql` no reimpone el CHECK en una tabla existente (leído,
   sin tocar Herra). Staging ya la tiene: da `faltan {}` y `sobran {0124_community_roles}`.
-- El guion **se detiene** si `faltan` no está vacío. No se ejecuta ninguna migración contra
-  producción desde este trabajo.
+- El guion **se detiene** si `faltan` no está vacío. 0125 se aplicó en `crv` el 2026-11-01 con
+  autorización de Brian; ninguna otra migración se ejecuta contra producción desde este trabajo.
 
 ---
 
-## 8. Métricas después del cambio (decisión de Brian)
+## 8. Métricas después del cambio (decidido: opción a)
 
 Hoy Herra registra las vistas de página en `auth.traffic_daily`; tras el cambio solo verá la radio.
 
-- **(a) recomendada y ensayada:** `CRV_TRAFFIC_ENABLED=true` y `CRV_TRAFFIC_TOKEN=<secreto>` en
+- **(a) elegida por Brian (2026-11-01) y ensayada:** `CRV_TRAFFIC_ENABLED=true` y `CRV_TRAFFIC_TOKEN=<secreto>` en
   `api.env`, y `CRV_TRAFFIC_REPORT=1` con el mismo token en `gateway.env`. Registró la visita con país
   y categoría aun con los trabajos apagados.
-- **(b)** dejar 3.7 con el histórico de Herra, sin vistas nuevas, hasta la Fase 4.
+- **(b) descartada:** dejar 3.7 con el histórico de Herra, sin vistas nuevas, hasta la Fase 4.
 
 No probado: que Herra deje de sumar páginas tras el cambio real; se comprueba en la ventana.
 
@@ -301,14 +311,13 @@ panel privado no necesita debilitar la API ni montar TLS local; Brian entra por 
 | G4 | Respaldo probado y restauración comparada | **probado** (§6) |
 | G5 | Guion de tokens probado | **probado** (§4) |
 | G6 | Paridad contra foto de Herra | **probada** (§11) |
-| G7 | Migración 0125 aplicada en producción (§7) | **pendiente, Brian** |
-| G11 | Decisión de métricas (§8), paridad EN (§11) y confirmar Herra 1.1.39 | **pendiente, Brian** |
+| G7 | Migración 0125 aplicada en producción (§7) | **aplicada 2026-11-01 con autorización de Brian (exit 0); falta correr `migraciones-2b.sql`** |
+| G11 | Métricas (a) y Herra 1.1.39 **decididas**; paridad EN (§11) | **pendiente: paridad EN** |
 | G8 | Panel privado `:3131` | **decidido (a)** y probado |
 | G9 | Enlaces de cuenta ocultos | **decidido** y probado |
 | G10 | Cloudflare, fecha y autorización expresa | **Brian** |
 
-G7 es la única puerta nueva que puede obligar a cambiar el orden: si 0125 no está aplicada, la 2B
-funciona pero pierde la auditoría de candidaturas y activaciones.
+Sin 0125, la 2B funcionaría pero perdería la auditoría de candidaturas y activaciones; ya está aplicada.
 
 ---
 
@@ -420,14 +429,13 @@ Funnel sin cambios. Cierre: 72 h sin incidentes y sin rutas del catálogo alcanz
 3. **Secretos**: crear `~/apps/crv-landing/api.env` (§4.4) con `CRV_VISITS_SECRET` y
    `CRV_CHAT_SECRET` propios; confirmar que el `.env` de producción es legible por systemd y que
    `DATABASE_URL` apunta a `crv`, no a `crv_staging`.
-4. **Migración 0125**: aplicarla antes de la ventana (o autorizar que se aplique) y volver a correr
-   `migraciones-2b.sql` hasta `faltan {}`.
+4. **Migración 0125**: aplicada. Correr `migraciones-2b.sql` para confirmar `faltan {}`.
 5. **Cloudflare**: cambiar el destino del hostname y anotar la regla anterior.
 6. **Fecha y hora** (00:00-00:30 de Caracas) y aviso a administradores.
 7. **Acceso al panel**: por la máquina o `ssh -L 3131:127.0.0.1:3131 mini-server`; la cookie Secure
    funciona en `http://127.0.0.1`.
 8. **Cuenta de colaborador** para la prueba de login real, o autorización para usar una existente.
-9. **Decisión de métricas** (§8) y **autorización expresa** de la 2B.
+9. **Autorización expresa** de la 2B.
 
 ---
 
@@ -453,7 +461,7 @@ SHA del código ensayado: **`03298f7b`**. Lo posterior solo cambia documentació
 | Reproducción real de la radio | **no probado** | los POST y YouTube se bloquearon para no alterar la emisión de Herra; se verifica en la ventana |
 | Paridad EN con la portada viva | **no probado** | §11 |
 | Cloudflare, túnel, `Host` reescrito | no se puede probar antes | Brian |
-| 0125, `project_features` y respaldo en `crv` | no se puede probar antes | requieren autorización |
+| `project_features` y respaldo en `crv` | no se puede probar antes | requieren autorización |
 | Métricas con el cambio real | no se puede probar antes | §8 |
 
 ---
@@ -500,3 +508,22 @@ $ git log --oneline master..HEAD | wc -l
 $ systemctl --user cat crv-api.service | grep WorkingDirectory
 WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
 ```
+
+## Panel del roadmap: plantilla de Herra (2026-11-02)
+
+Por pedido de Brian, `/curaduria/roadmap` deja de ser la versión React con la piel
+del catálogo y pasa a ser el documento de Herra 1.1.39: `src/landing/views/admin.ejs`,
+`web/public/landing/admin.js` y `metrics.js`, con su arrastre (ratón, táctil y
+teclado) y sus 87 ventanas. Los datos salen de `auth.*` mediante
+`src/landing/admin-panel.ts`; la API es `src/api/routes/admin-panel.ts`, bajo
+`/community/admin/panel/`, protegida por el guardián de sesión, rol y CSRF.
+Copias del motor en `src/landing/herra/`. El gateway lo sirve sin caché y manda a
+`/login` a quien no tenga sesión; la portada de la raíz (`:3140`) no lo publica.
+React salta al documento salvo en desarrollo. `CurationRoadmapPage` y sus ventanas
+quedan sin uso hasta decidir si se borran.
+
+Ensayado solo en staging. Falta: arrastre con un dedo real en un móvil y la demora
+de 1 a 7 s de algunas peticiones autenticadas de la API de staging, que también
+afecta a `curation/images/jobs` y por tanto no es propia del panel.
+`default_lang` se guarda (incluido `system`), pero el gateway no lo aplica a la
+elección inicial de idioma: sin `?lang=en` sirve español.

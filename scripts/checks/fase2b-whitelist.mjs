@@ -83,6 +83,25 @@ for (const ruta of ["/", "/roadmap", "/colaborar", "/login", "/registro", "/acti
   await debe(`${ruta}${ruta.includes("?") ? "&" : "?"}lang=en`, 200);
 }
 
+// --- TEMPORAL-PORTADA: la puerta del equipo (docs/independencia/PUERTA-TEMPORAL.md) --
+// Sin sesión mandan a /login; las direcciones de Herra que ya circulan siguen vivas.
+for (const [ruta, estado, destino] of [
+  ["/account", 302, "/login"], ["/admin", 302, "/login"],
+  ["/register?token=x", 301, "/registro?token=x"], ["/admin/login", 301, "/login"],
+]) {
+  const respuesta = await fetch(`${BASE}${ruta}`, { redirect: "manual", headers: { accept: "text/html" } });
+  const lugar = respuesta.headers.get("location") ?? "";
+  if (respuesta.status === estado && lugar.endsWith(destino)) ok.push(`${ruta} ${estado} → ${destino}`);
+  else fallos.push(`${ruta}: esperaba ${estado} → ${destino}, dio ${respuesta.status} ${lugar}`);
+}
+// El panel responde, pero solo con sesión: sin ella no entrega ni un dato.
+for (const ruta of ["/api/community/admin/panel/users", "/api/community/admin/panel/applications"]) {
+  const respuesta = await pedir(ruta, { accept: "application/json" });
+  if (respuesta.status === 401 || respuesta.status === 403) ok.push(`${ruta} ${respuesta.status} (sin sesión)`);
+  else fallos.push(`${ruta}: sin sesión dio ${respuesta.status}`);
+}
+for (const ruta of ["/api/community/admin/panel/%2e%2e/metrics", "/api/community/admin/panel/../metrics"]) await debeCrudo(ruta, 404);
+
 // --- Estáticos y metadatos ---------------------------------------------------
 await debe("/landing/roadmap-public.min.css", 200);
 await debe("/landing/radio.js", 200);

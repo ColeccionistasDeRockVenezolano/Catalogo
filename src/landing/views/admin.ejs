@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head', { pageTitle: t('admin.pageTitle') + ' — ' + theme.projectName, noindex: true, extraStylesheets: [basePath + '/static/metrics.css?v=' + assetVersion] }) %>
+</head>
+<body data-project-base="<%= projectBase %>" data-admin-api-base="/api/community/admin/panel/" data-messages="<%= JSON.stringify(clientMessages(lang, 'admin')) %>">
+<%- include('partials/header', { isAdmin: true, currentUser }) %>
+<% const availableUsers = (typeof users !== 'undefined' && Array.isArray(users)) ? users : []; %>
+
+<main>
+<section class="hero hero-roadmap">
+  <div class="hero-glow"></div>
+  <div class="container hero-inner">
+    <span class="badge"><i data-lucide="settings-2"></i> <%= t('admin.heroBadge') %></span>
+    <h1><%- t('admin.heroTitle') %><span class="accent">.</span></h1>
+    <p class="hero-sub"><%= t('admin.heroSub') %></p>
+
+    <div class="overall">
+      <div class="overall-num"><strong id="overallPct"><%= pctText(view.overall.percentage) %></strong><span><%= t('landing.overallProgressWord') %></span></div>
+      <div class="overall-meta">
+        <p><%= t('landing.completedOf', { done: view.overall.completed, total: view.overall.total }) %></p>
+        <div class="pbar pbar-overall" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= Math.round(view.overall.percentage) %>" aria-label="<%= t('roadmap.overallProgress') %>">
+          <div class="pbar-fill pbar-fill--overall" style="--fill: <%= pctBar(view.overall.percentage) %>"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="roadmap">
+  <div class="container">
+
+    <div class="admin-tools-head" id="admin-tools">
+      <span class="kicker"><%= t('admin.kicker') %></span>
+      <h2 id="admin-tools-title"><%= t('admin.toolsTitle') %></h2>
+      <p><%= t('admin.toolsSub') %></p>
+    </div>
+    <div class="admin-toolbar" aria-labelledby="admin-tools-title">
+      <button type="button" class="btn btn-red" id="newTaskBtn" data-open="new-task-form"><i data-lucide="list-plus"></i> <%= t('admin.newTask') %></button>
+      <button type="button" class="btn btn-ghost" data-open="new-category-form"><span class="icon-label"><i data-lucide="rows-3"></i> <%= t('admin.newStage') %></span></button>
+      <button type="button" class="btn btn-ghost" data-open="people-form">
+        <span class="icon-label" data-btn-label><i data-lucide="users"></i><span data-btn-label-text><%= t('admin.people') %></span></span>
+        <span class="btn-count" data-btn-count <%- collaborations.length > 0 ? '' : 'hidden' %>><%= collaborations.length %></span>
+      </button>
+      <button type="button" class="btn btn-ghost" data-open="pending-form">
+        <span class="icon-label" data-btn-label><i data-lucide="user-round-check"></i><span data-btn-label-text><%= t('admin.pendingRequests') %></span></span>
+        <span class="btn-count" data-btn-count <%- pendingUsers.length > 0 ? '' : 'hidden' %>><%= pendingUsers.length %></span>
+      </button>
+      <button type="button" class="btn btn-ghost" data-open="applications-form">
+        <span class="icon-label" data-btn-label><i data-lucide="inbox"></i><span data-btn-label-text><%= t('admin.applications') %></span></span>
+        <span class="btn-count" data-btn-count <%- openApplications > 0 ? '' : 'hidden' %>><%= openApplications %></span>
+      </button>
+      <button type="button" class="btn btn-ghost" data-open="metrics-form"><span class="icon-label"><i data-lucide="chart-column"></i> <%= t('admin.metrics') %></span></button>
+      <button type="button" class="btn btn-ghost" data-open="collaborate-form-config"><span class="icon-label"><i data-lucide="clipboard-list"></i> <%= t('admin.collaborateForm') %></span></button>
+      <button type="button" class="btn btn-ghost" data-open="invites-form"><span class="icon-label"><i data-lucide="link"></i> <%= t('admin.inviteLinks') %></span></button>
+      <button type="button" class="btn btn-ghost" data-open="branding-form"><span class="icon-label"><i data-lucide="share-2"></i> <%= t('admin.branding') %></span></button>
+      <button type="button" class="btn btn-ghost" data-open="languages-form"><span class="icon-label"><i data-lucide="languages"></i> <%= t('admin.languages') %></span></button>
+      <button type="button" class="btn btn-ghost" data-open="project-settings-form"><span class="icon-label"><i data-lucide="settings-2"></i> <%= t('admin.projectSettings') %></span></button>
+      <button type="button" class="btn btn-ghost" data-open="admin-account-form"><span class="icon-label"><i data-lucide="key-round"></i> <%= t('admin.myPassword') %></span></button>
+      <% if (!landingMode) { %><a class="btn btn-ghost btn-sm" href="/curaduria"><%= lang === 'en' ? 'Curation' : 'Curaduría' %> <i data-lucide="arrow-left"></i></a><% } %>
+      <a class="btn btn-ghost btn-sm" href="<%= projectBase %>/"><%= t('admin.viewPublic') %> <i data-lucide="external-link"></i></a>
+      <% if (currentAdmin && currentAdmin.role === 'superadmin') { %>
+      <a class="btn btn-ghost btn-sm" href="<%= basePath %>/superadmin"><%= t('admin.superadmin') %> <i data-lucide="external-link"></i></a>
+      <% } %>
+    </div>
+
+    <dialog class="modal modal--xl" id="metrics-form" data-modal-root aria-labelledby="metrics-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('metrics.kicker') %></span>
+            <h2 class="modal__title" id="metrics-title"><%= t('metrics.title') %></h2>
+            <p class="modal__sub"><%= t('metrics.sub') %></p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <%# Lo pinta metrics.js al abrir la ventana: las cifras se piden entonces,
+              no al cargar el panel, que ya tiene bastante que dibujar. %>
+          <div data-metrics-root data-metrics-lazy="metrics-form"
+               data-metrics-url="/api/community/admin/panel/metrics"
+               data-flag-base="<%= basePath %>/static/flags/"
+               data-messages="<%= JSON.stringify(clientMessages(lang, 'metrics')) %>"></div>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--sm" id="new-category-form" data-modal-root aria-labelledby="new-category-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.newStageKicker') %></span>
+            <h2 class="modal__title" id="new-category-title"><%= t('admin.newStageTitle') %></h2>
+            <p class="modal__sub"><%= t('admin.newStageSub') %></p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <form class="category-form" id="categoryForm" action="/api/community/admin/panel/categories">
+            <div class="field">
+              <label for="new-category-title-input"><%= t('admin.newStageLabel') %></label>
+              <input type="text" id="new-category-title-input" name="title" maxlength="300" placeholder="<%= t('admin.newStagePlaceholder') %>" required>
+            </div>
+            <% projectI18nLangs.forEach(function (code) { %>
+            <div class="field">
+              <label for="new-category-title-<%= code %>"><%= t('admin.langTaskEnglish') %></label>
+              <input type="text" id="new-category-title-<%= code %>" data-new-translation="<%= code %>" maxlength="300">
+              <small class="field-help"><%= t('admin.langTaskEnglishHelp') %></small>
+            </div>
+            <% }) %>
+            <div class="form-actions modal__actions">
+              <button type="submit" class="btn btn-red btn-sm"><%= t('admin.newStageSubmit') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-close="new-category-form"><%= t('common.cancel') %></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--md" id="pending-form" data-modal-root aria-labelledby="pending-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.pendingKicker') %></span>
+            <h2 class="modal__title" id="pending-title"><%= t('admin.pendingTitle') %></h2>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <ul class="user-list" id="pendingList">
+            <% pendingUsers.forEach(function(user) { %>
+            <li class="user-row" data-pending-id="<%= user.id %>">
+              <span class="user-name"><%= user.name %> <small class="field-help"><%= t('admin.pendingRegistered', { date: formatDateTime(user.created_at, lang) }) %></small></span>
+              <div class="user-actions">
+                <button type="button" class="ctl ctl-btn" data-pending-action="approve" data-id="<%= user.id %>" aria-label="<%= t('admin.pendingApprove') %>"><i data-lucide="check"></i></button>
+                <button type="button" class="ctl ctl-btn ctl-danger" data-pending-action="reject" data-id="<%= user.id %>" aria-label="<%= t('admin.pendingReject') %>"><i data-lucide="x"></i></button>
+              </div>
+            </li>
+            <% }) %>
+            <% if (pendingUsers.length === 0) { %><li class="user-empty"><%= t('admin.pendingEmpty') %></li><% } %>
+          </ul>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--xl" id="applications-form" data-modal-root aria-labelledby="applications-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.appsKicker') %></span>
+            <h2 class="modal__title" id="applications-title"><%= t('admin.appsTitle') %></h2>
+            <p class="modal__sub"><%= t('admin.appsSub') %></p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <% if (project.accepts_applications !== 1) { %>
+          <p class="admin-notice admin-notice--warn"><%- t('admin.appsClosedNotice', { url: projectBase }) %></p>
+          <% } else { %>
+          <p class="field-help"><%= t('admin.appsOpenNoticeStart') %> <a href="<%= projectBase %>/colaborar">/colaborar</a>. <%= t('admin.appsOpenNoticeMid') %> <button type="button" class="linklike" data-open="collaborate-form-config"><%= t('admin.collaborateForm') %></button>.</p>
+          <% } %>
+
+          <form class="user-form" id="applicationFilters">
+            <div class="field">
+              <label for="application-search"><%= t('admin.appsSearch') %></label>
+              <input type="search" id="application-search" name="search" maxlength="120" placeholder="<%= t('admin.appsSearchPlaceholder') %>">
+            </div>
+            <div class="field">
+              <label for="application-status"><%= t('admin.appsStatus') %></label>
+              <select id="application-status" name="status">
+                <option value="open"><%= t('admin.appsUnresolved') %></option>
+                <% Object.keys(applicationStatusLabels).forEach(function (key) { %>
+                <option value="<%= key %>"><%= applicationStatusLabels[key] %></option>
+                <% }) %>
+                <option value=""><%= t('common.all') %></option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-ghost btn-sm"><%= t('admin.appsFilter') %></button>
+          </form>
+
+          <p class="admin-status" id="applicationResult" role="status" aria-live="polite"></p>
+          <ul class="user-list" id="applicationList">
+            <% applications.forEach(function (application) { %>
+            <% const applicantName = [application.first_name, application.last_name].filter(Boolean).join(' '); %>
+            <li class="user-row user-row--stacked" data-application-id="<%= application.id %>" data-application-name="<%= applicantName %>">
+              <span class="user-name">
+                <%= applicantName %>
+                <small class="field-help"><%= t('admin.appsNumberedDate', { id: application.id, date: formatDateTime(application.created_at, lang) }) %></small>
+                <small class="field-help">
+                  <span class="status-chip status-chip--<%= application.status %>"><%= applicationStatusLabels[application.status] %></span>
+                  <% if (application.term_labels) { %> · <%= application.term_labels %><% } %>
+                </small>
+              </span>
+              <div class="user-actions">
+                <button type="button" class="ctl ctl-btn" data-application-action="detail" data-id="<%= application.id %>" aria-label="<%= t('admin.appsView') %>"><i data-lucide="eye"></i></button>
+                <button type="button" class="ctl" data-application-action="reviewing" data-id="<%= application.id %>"><%= t('admin.appsReviewing') %></button>
+                <button type="button" class="ctl" data-application-action="contact" data-id="<%= application.id %>"><%= t('admin.appsContact') %></button>
+                <button type="button" class="ctl promote-btn" data-application-action="accept" data-id="<%= application.id %>"><%= t('admin.appsAccept') %></button>
+                <button type="button" class="ctl ctl-danger" data-application-action="rejected" data-id="<%= application.id %>"><%= t('admin.appsReject') %></button>
+                <button type="button" class="ctl ctl-btn" data-application-action="archived" data-id="<%= application.id %>" aria-label="<%= t('admin.appsArchive') %>"><i data-lucide="archive"></i></button>
+              </div>
+              <dialog class="modal modal--lg" data-application-detail-dialog aria-label="<%= t('admin.appsDetailAria', { id: application.id }) %>">
+                <div class="modal__panel">
+                  <div class="modal__head">
+                    <div class="modal__titles">
+                      <span class="kicker"><%= t('admin.appsNumber', { id: application.id }) %></span>
+                      <h2 class="modal__title" data-modal-title><%= applicantName %></h2>
+                    </div>
+                    <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+                  </div>
+                  <div class="modal__body" data-application-detail></div>
+                </div>
+              </dialog>
+            </li>
+            <% }) %>
+            <% if (applications.length === 0) { %><li class="user-empty"><%= t('admin.appsEmpty') %></li><% } %>
+          </ul>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--md invite-reveal" id="applicationActivationReveal" aria-labelledby="application-activation-reveal-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.activationKicker') %></span>
+            <h2 class="modal__title" id="application-activation-reveal-title"><%= t('admin.activationTitle') %></h2>
+            <p class="modal__sub"><%= t('admin.activationSub') %></p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('admin.activationHide') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <div class="invite-reveal__head">
+            <span class="status-chip status-chip--approved"><%= t('admin.activationReady') %></span>
+          </div>
+          <div class="invite-reveal__row">
+            <input type="text" class="invite-url" id="applicationActivationUrl" readonly aria-label="<%= t('admin.activationUrlAria') %>">
+            <button type="button" class="btn btn-red btn-sm invite-copy" id="applicationActivationCopyBtn">
+              <span class="invite-copy__label"><%= t('admin.copy') %></span>
+            </button>
+          </div>
+          <p class="invite-hint" id="applicationActivationCopyHint" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--xl" id="people-form" data-modal-root aria-labelledby="people-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.peopleKicker') %></span>
+            <h2 class="modal__title" id="people-title"><%= t('admin.peopleTitle', { project: project.name }) %></h2>
+            <p class="modal__sub"><%- t('admin.peopleSub') %></p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__toolbar">
+          <div class="people-toolbar">
+            <div class="field field--inline">
+              <label class="sr-only" for="collaboration-filter"><%= t('admin.peopleFilterLabel') %></label>
+              <input type="search" id="collaboration-filter" data-collaboration-filter placeholder="<%= t('admin.peopleFilterPlaceholder') %>" maxlength="120" autocomplete="off">
+            </div>
+            <div class="people-toolbar__counts" data-collaboration-counts aria-live="polite"></div>
+            <button type="button" class="btn btn-red btn-sm" data-open="add-collaborator"><%= t('admin.peopleAdd') %></button>
+          </div>
+        </div>
+        <div class="modal__body">
+          <p class="admin-status" id="peopleResult" role="status" aria-live="polite"></p>
+
+          <ul class="user-list" id="collaborationList">
+            <% collaborations.forEach(function (row) { %>
+            <li class="user-row user-row--stacked" data-collaboration-id="<%= row.id %>" data-person-id="<%= row.person_id || '' %>" data-search="<%= (displayName(row) + ' @' + row.name + ' #' + row.id).toLowerCase() %>">
+              <span class="user-name">
+                <span class="user-name__main"><%= displayName(row) %><% if (row.person_id) { %> <small class="field-help"><%= t('admin.peoplePerson', { id: row.person_id }) %></small><% } %></span>
+                <small class="field-help"><%= t('admin.peopleCollaborator', { name: row.name, id: row.id }) %></small>
+                <small class="field-help">
+                  <span class="status-chip status-chip--<%= row.status %>"><%= row.status === 'approved' ? t('admin.statusApproved') : row.status === 'pending' ? t('admin.statusPending') : t('admin.statusRejected') %></span>
+                  · <%= row.signup_source === 'self' ? t('admin.sourceSelf') : row.signup_source === 'application' ? t('admin.sourceApplication') : t('admin.sourceAdmin') %>
+                  <% if (row.admin_id) { %> · <span class="status-chip status-chip--admin"><%= t('admin.roleAdmin') %></span><% } %>
+                </small>
+                <% const gaps = collaborationGaps(row, lang); %>
+                <% if (gaps.length > 0) { %>
+                <small class="profile-gaps profile-gaps--inline"><%= t('admin.profileIncomplete', { gaps: gaps.join(' · ') }) %></small>
+                <% } else { %>
+                <small class="field-help"><%= t('admin.profileComplete') %><% if (row.term_labels) { %> · <%= row.term_labels %><% } %></small>
+                <% } %>
+              </span>
+              <div class="user-actions">
+                <% if (row.person_id) { %>
+                <button type="button" class="ctl ctl-btn" data-person-action="edit" data-id="<%= row.person_id %>" aria-label="<%= t('admin.editPersonAria', { name: displayName(row) }) %>" title="<%= t('admin.editPersonTitle') %>"><i data-lucide="contact-round"></i></button>
+                <% } %>
+                <% if (row.status === 'approved') { %>
+                <button type="button" class="ctl ctl-btn" data-user-action="edit" data-user-id="<%= row.id %>" data-user-name="<%= row.name %>" aria-label="<%= t('admin.editUsernameAria', { name: displayName(row) }) %>" title="<%= t('admin.editUsernameTitle') %>"><i data-lucide="at-sign"></i></button>
+                <button type="button" class="ctl ctl-btn" data-user-action="access-code" data-user-id="<%= row.id %>" aria-label="<%= t('admin.resetCodeAria', { name: displayName(row) }) %>" title="<%= t('admin.resetCodeTitle') %>"><i data-lucide="key-round"></i></button>
+                <% } %>
+                <button type="button" class="ctl" data-collaboration-action="activation" data-id="<%= row.id %>"><%= t('admin.activationLink') %></button>
+                <button type="button" class="ctl ctl-btn ctl-danger" data-user-action="delete" data-user-id="<%= row.id %>" aria-label="<%= t('admin.deleteCollabAria', { name: displayName(row) }) %>" title="<%= t('admin.deleteCollabTitle') %>"><i data-lucide="user-round-x"></i></button>
+              </div>
+              <dialog class="modal modal--md" data-person-editor-dialog aria-label="<%= t('admin.editPersonAria', { name: displayName(row) }) %>">
+                <div class="modal__panel">
+                  <div class="modal__head">
+                    <div class="modal__titles">
+                      <span class="kicker"><%= t('admin.personProfileKicker') %></span>
+                      <h2 class="modal__title" data-modal-title><%= displayName(row) %></h2>
+                      <p class="modal__sub"><%= t('admin.personProfileSub') %></p>
+                    </div>
+                    <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+                  </div>
+                  <div class="modal__body" data-person-editor></div>
+                </div>
+              </dialog>
+            </li>
+            <% }) %>
+            <% if (collaborations.length === 0) { %><li class="user-empty"><%= t('admin.peopleEmpty') %></li><% } %>
+          </ul>
+          <p class="user-empty" data-collaboration-nomatch hidden><%= t('admin.peopleNoMatch') %></p>
+
+          <section class="panel-subsection" aria-labelledby="activation-links-title">
+            <div class="section-head section-head--compact">
+              <div>
+                <span class="kicker"><%= t('admin.activationsKicker') %></span>
+                <h3 class="panel-title" id="activation-links-title"><%= t('admin.activationsTitle') %></h3>
+                <p class="field-help"><%= t('admin.activationsHelp', { days: activationTtlDays }) %></p>
+              </div>
+            </div>
+            <ul class="user-list" id="activationList">
+              <% pendingActivations.forEach(function (activation) { %>
+              <li class="user-row" data-activation-id="<%= activation.id %>">
+                <span class="user-name"><%= t('admin.activationRow', { id: activation.user_id }) %> <small class="field-help"><%= t('admin.activationDates', { created: formatDateTime(activation.created_at, lang), expires: formatDateTime(activation.expires_at, lang) }) %></small></span>
+                <div class="user-actions">
+                  <button type="button" class="ctl ctl-btn ctl-danger" data-activation-action="revoke" data-id="<%= activation.id %>" aria-label="<%= t('admin.activationRevoke') %>"><i data-lucide="link-2-off"></i></button>
+                </div>
+              </li>
+              <% }) %>
+              <% if (pendingActivations.length === 0) { %><li class="user-empty"><%= t('admin.activationsEmpty') %></li><% } %>
+            </ul>
+          </section>
+
+          <p class="field-help panel-crosslink"><%= t('admin.catalogCrosslink') %> <button type="button" class="linklike" data-open="collaborate-form-config"><%= t('admin.collaborateForm') %></button>.</p>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--md" id="add-collaborator" aria-labelledby="add-collaborator-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.newCollabKicker') %></span>
+            <h2 class="modal__title" id="add-collaborator-title"><%= t('admin.newCollabTitle') %></h2>
+            <p class="modal__sub"><%= t('admin.newCollabSub') %></p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <form class="user-form" id="userForm" action="/api/community/admin/panel/users">
+            <div class="field">
+              <label for="user-first-name"><%= t('register.firstName') %></label>
+              <input type="text" id="user-first-name" name="firstName" maxlength="80" placeholder="<%= t('register.firstName') %>" required>
+            </div>
+            <div class="field">
+              <label for="user-last-name"><%= t('register.lastName') %></label>
+              <input type="text" id="user-last-name" name="lastName" maxlength="80" placeholder="<%= t('register.lastName') %>" required>
+            </div>
+            <div class="field">
+              <label for="user-name"><%= t('userLogin.name') %></label>
+              <input type="text" id="user-name" name="name" maxlength="80" placeholder="<%= t('admin.newCollabUsernamePlaceholder') %>" required>
+            </div>
+            <div class="field">
+              <label for="user-access-code"><%= t('admin.newCollabCode') %></label>
+              <input type="password" id="user-access-code" name="accessCode" minlength="8" maxlength="200" autocomplete="new-password" placeholder="<%= t('admin.newCollabCodePlaceholder') %>" required>
+            </div>
+            <div class="form-actions modal__actions">
+              <button type="submit" class="btn btn-red btn-sm"><%= t('admin.newCollabSubmit') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-close="add-collaborator"><%= t('common.cancel') %></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--xl" id="collaborate-form-config" data-modal-root aria-labelledby="collaborate-config-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.cfgKicker') %></span>
+            <h2 class="modal__title" id="collaborate-config-title"><%= t('admin.cfgTitleStart') %> <code><%= projectBase %>/colaborar</code></h2>
+            <p class="modal__sub"><%= t('admin.cfgSub') %> <a href="<%= projectBase %>/colaborar" target="_blank" rel="noopener"><%= t('admin.cfgSeeForm') %></a></p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__toolbar">
+          <div class="cfg-tabs" role="tablist" aria-label="<%= t('admin.cfgSectionsAria') %>">
+            <button type="button" class="cfg-tab is-current" role="tab" aria-selected="true" aria-controls="cfg-fields" data-cfg-tab="cfg-fields"><%= t('admin.cfgTabFields') %></button>
+            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="cfg-texts" data-cfg-tab="cfg-texts"><%= t('admin.cfgTabTexts') %></button>
+            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="cfg-catalog" data-cfg-tab="cfg-catalog"><%= t('admin.cfgTabCatalog') %></button>
+          </div>
+        </div>
+        <div class="modal__body">
+
+          <% if (project.accepts_applications !== 1) { %>
+          <p class="admin-notice admin-notice--warn"><%- t('admin.cfgClosedNotice') %> <button type="button" class="linklike" data-open="project-settings-form"><%= t('admin.projectSettings') %></button>.</p>
+          <% } %>
+
+          <p class="admin-status" id="collaborateFormResult" role="status" aria-live="polite"></p>
+
+          <form id="collaborateFormConfig">
+
+            <section class="cfg-pane" id="cfg-fields" role="tabpanel" aria-labelledby="cfg-fields-title">
+              <div class="settings-segment__head">
+                <h3 id="cfg-fields-title" class="theme-subhead"><%= t('admin.cfgFieldsTitle') %></h3>
+                <p class="field-help"><%- t('admin.cfgFieldsHelp') %></p>
+              </div>
+
+              <% const stepTitles = { about: collaborateForm.steps.about, skills: collaborateForm.steps.skills, contribution: collaborateForm.steps.contribution, ideas: collaborateForm.steps.ideas }; %>
+              <% ['about', 'skills', 'contribution', 'ideas'].forEach(function (stepKey) { %>
+              <div class="cfg-group">
+                <h4 class="cfg-group__title"><%= stepTitles[stepKey] %></h4>
+                <div class="cfg-fields">
+                  <% configurableFields.filter(function (key) { return fieldStep[key] === stepKey; }).forEach(function (key) { %>
+                  <div class="cfg-field" data-cfg-field="<%= key %>">
+                    <span class="cfg-field__name"><%= fieldLabels[key] %></span>
+                    <div class="cfg-modes" role="radiogroup" aria-label="<%= fieldLabels[key] %>">
+                      <% [['off', t('admin.cfgModeOff')], ['optional', t('admin.cfgModeOptional')], ['required', t('admin.cfgModeRequired')]].forEach(function (mode) { %>
+                      <label class="cfg-mode cfg-mode--<%= mode[0] %>">
+                        <input type="radio" name="field-<%= key %>" value="<%= mode[0] %>" data-cfg-mode="<%= key %>" <%- collaborateForm.fields[key] === mode[0] ? 'checked' : '' %>>
+                        <span><%= mode[1] %></span>
+                      </label>
+                      <% }) %>
+                    </div>
+                  </div>
+                  <% }) %>
+                </div>
+              </div>
+              <% }) %>
+
+              <div class="cfg-group">
+                <h4 class="cfg-group__title"><%= t('admin.cfgLinks') %></h4>
+                <div class="field field--inline">
+                  <label for="cfg-max-links"><%= t('admin.cfgMaxLinks') %></label>
+                  <input type="number" id="cfg-max-links" data-cfg-max-links min="0" max="<%= maxLinksCap %>" value="<%= collaborateForm.maxLinks %>">
+                  <small class="field-help"><%= t('admin.cfgMaxLinksHelp', { max: maxLinksCap }) %></small>
+                </div>
+              </div>
+
+              <p class="admin-notice"><%- t('admin.cfgMinimums') %></p>
+            </section>
+
+            <section class="cfg-pane" id="cfg-texts" role="tabpanel" aria-labelledby="cfg-texts-title" hidden>
+              <div class="settings-segment__head">
+                <h3 id="cfg-texts-title" class="theme-subhead"><%= t('admin.cfgTextsTitle') %></h3>
+                <p class="field-help"><%= t('admin.cfgTextsHelp') %></p>
+              </div>
+
+              <%
+                const cfgTexts = [
+                  { key: 'heroBadge', label: t('admin.cfgHeroBadge'), area: false },
+                  { key: 'heroTitleHtml', label: t('admin.cfgHeroTitle'), area: true },
+                  { key: 'heroSub', label: t('admin.cfgHeroSub'), area: true },
+                  { key: 'introNote', label: t('admin.cfgIntroNote'), area: true },
+                  { key: 'submitLabel', label: t('admin.cfgSubmitLabel'), area: false },
+                  { key: 'nextStepsTitle', label: t('admin.cfgNextStepsTitle'), area: false },
+                  { key: 'sentTitle', label: t('admin.cfgSentTitle'), area: false },
+                  { key: 'sentBody', label: t('admin.cfgSentBody'), area: true },
+                ];
+                const cfgStepKeys = [
+                  { key: 'about', label: t('admin.cfgStepAbout') },
+                  { key: 'skills', label: t('admin.cfgStepSkills') },
+                  { key: 'contribution', label: t('admin.cfgStepContribution') },
+                  { key: 'ideas', label: t('admin.cfgStepIdeas') },
+                  { key: 'review', label: t('admin.cfgStepReview') },
+                ];
+                const cfgLabelKeys = Object.keys(collaborateDefaults.labels);
+                const cfgHelpKeys = [
+                  { key: 'birthDate', label: t('admin.cfgHelpBirthDate') },
+                  { key: 'contact', label: t('admin.cfgHelpContact') },
+                  { key: 'links', label: t('admin.cfgHelpLinks') },
+                  { key: 'ideas', label: t('admin.cfgHelpIdeas') },
+                ];
+                const cfgPlaceholderKeys = Object.keys(collaborateDefaults.placeholders);
+                const dictOverride = (dict, key) => {
+                  const section = collaborateOverrides[dict];
+                  return Boolean(section && typeof section === 'object' && key in section);
+                };
+              %>
+
+              <div class="cfg-group">
+                <h4 class="cfg-group__title"><%= t('admin.cfgCoverGroup') %></h4>
+                <div class="theme-grid">
+                  <% cfgTexts.filter(function (f) { return !f.area; }).forEach(function (f) { %>
+                  <div class="theme-field">
+                    <label class="theme-field__toggle">
+                      <input type="checkbox" data-cfg-override="<%= f.key %>" <%- (f.key in collaborateOverrides) ? 'checked' : '' %>>
+                      <span><%= f.label %></span>
+                    </label>
+                    <input type="text" data-cfg-text="<%= f.key %>" value="<%= collaborateForm[f.key] %>" maxlength="500">
+                  </div>
+                  <% }) %>
+                </div>
+                <% cfgTexts.filter(function (f) { return f.area; }).forEach(function (f) { %>
+                <div class="theme-field theme-field--wide">
+                  <label class="theme-field__toggle">
+                    <input type="checkbox" data-cfg-override="<%= f.key %>" <%- (f.key in collaborateOverrides) ? 'checked' : '' %>>
+                    <span><%= f.label %></span>
+                  </label>
+                  <textarea data-cfg-text="<%= f.key %>" rows="2"><%= collaborateForm[f.key] %></textarea>
+                </div>
+                <% }) %>
+                <div class="theme-field theme-field--wide">
+                  <label class="theme-field__toggle">
+                    <input type="checkbox" data-cfg-override="pillars" <%- ('pillars' in collaborateOverrides) ? 'checked' : '' %>>
+                    <span><%= t('admin.cfgPillars') %></span>
+                  </label>
+                  <input type="text" data-cfg-list="pillars" value="<%= collaborateForm.pillars.join(', ') %>" maxlength="300">
+                </div>
+                <div class="theme-field theme-field--wide">
+                  <label class="theme-field__toggle">
+                    <input type="checkbox" data-cfg-override="nextSteps" <%- ('nextSteps' in collaborateOverrides) ? 'checked' : '' %>>
+                    <span><%= t('admin.cfgNextSteps') %></span>
+                  </label>
+                  <textarea data-cfg-lines="nextSteps" rows="3"><%= collaborateForm.nextSteps.join('\n') %></textarea>
+                </div>
+              </div>
+
+              <div class="cfg-group">
+                <h4 class="cfg-group__title"><%= t('admin.cfgStepNames') %></h4>
+                <div class="theme-grid">
+                  <% cfgStepKeys.forEach(function (f) { %>
+                  <div class="theme-field">
+                    <label class="theme-field__toggle">
+                      <input type="checkbox" data-cfg-dict-override="steps" data-cfg-dict-key="<%= f.key %>" <%- dictOverride('steps', f.key) ? 'checked' : '' %>>
+                      <span><%= f.label %></span>
+                    </label>
+                    <input type="text" data-cfg-dict="steps" data-cfg-key="<%= f.key %>" value="<%= collaborateForm.steps[f.key] %>" maxlength="200">
+                  </div>
+                  <% }) %>
+                </div>
+              </div>
+
+              <div class="cfg-group">
+                <h4 class="cfg-group__title"><%= t('admin.cfgFieldLabels') %></h4>
+                <div class="theme-grid">
+                  <% cfgLabelKeys.forEach(function (key) { %>
+                  <div class="theme-field">
+                    <label class="theme-field__toggle">
+                      <input type="checkbox" data-cfg-dict-override="labels" data-cfg-dict-key="<%= key %>" <%- dictOverride('labels', key) ? 'checked' : '' %>>
+                      <span><%= collaborateDefaults.labels[key] %></span>
+                    </label>
+                    <input type="text" data-cfg-dict="labels" data-cfg-key="<%= key %>" value="<%= collaborateForm.labels[key] %>" maxlength="200">
+                  </div>
+                  <% }) %>
+                </div>
+              </div>
+
+              <div class="cfg-group">
+                <h4 class="cfg-group__title"><%= t('admin.cfgNotesExamples') %></h4>
+                <% cfgHelpKeys.forEach(function (f) { %>
+                <div class="theme-field theme-field--wide">
+                  <label class="theme-field__toggle">
+                    <input type="checkbox" data-cfg-dict-override="helps" data-cfg-dict-key="<%= f.key %>" <%- dictOverride('helps', f.key) ? 'checked' : '' %>>
+                    <span><%= f.label %></span>
+                  </label>
+                  <textarea data-cfg-dict="helps" data-cfg-key="<%= f.key %>" rows="2"><%= collaborateForm.helps[f.key] || '' %></textarea>
+                </div>
+                <% }) %>
+                <div class="theme-grid">
+                  <% cfgPlaceholderKeys.forEach(function (key) { %>
+                  <div class="theme-field">
+                    <label class="theme-field__toggle">
+                      <input type="checkbox" data-cfg-dict-override="placeholders" data-cfg-dict-key="<%= key %>" <%- dictOverride('placeholders', key) ? 'checked' : '' %>>
+                      <span><%= t('admin.cfgPlaceholderOf', { field: collaborateDefaults.labels[key] || key }) %></span>
+                    </label>
+                    <input type="text" data-cfg-dict="placeholders" data-cfg-key="<%= key %>" value="<%= collaborateForm.placeholders[key] || '' %>" maxlength="200">
+                  </div>
+                  <% }) %>
+                </div>
+              </div>
+
+              <details id="collaborateAdvanced">
+                <summary><%= t('admin.cfgAdvanced') %></summary>
+                <div class="field">
+                  <label for="collaborate-json"><%= t('admin.cfgJsonLabel') %></label>
+                  <textarea id="collaborate-json" name="collaborateJson" rows="12" spellcheck="false"><%= project.collaborate_json || '' %></textarea>
+                </div>
+                <p class="field-help"><%= t('admin.cfgJsonHelp') %></p>
+              </details>
+            </section>
+
+            <div class="form-actions cfg-actions modal__actions" data-cfg-actions>
+              <button type="submit" class="btn btn-red btn-sm"><%= t('admin.cfgSave') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-cfg-reset><%= t('admin.cfgResetAll') %></button>
+              <a class="btn btn-ghost btn-sm" href="<%= projectBase %>/colaborar" target="_blank" rel="noopener"><%= t('admin.cfgPreview') %></a>
+            </div>
+          </form>
+
+          <section class="cfg-pane cfg-pane--catalog" id="cfg-catalog" role="tabpanel" aria-labelledby="catalog-title" tabindex="0" hidden>
+            <div class="settings-segment__head">
+              <h3 class="theme-subhead" id="catalog-title"><%= t('admin.catalogTitle') %></h3>
+              <p class="field-help"><%= t('admin.catalogHelp', { skills: collaborateForm.steps.skills, contribution: collaborateForm.steps.contribution }) %></p>
+            </div>
+            <p class="admin-notice admin-notice--warn"><%- t('admin.catalogGlobalWarning') %></p>
+            <p class="admin-status" id="catalogResult" role="status" aria-live="polite"></p>
+            <form class="user-form" id="catalogForm">
+              <div class="field">
+                <label for="catalog-type"><%= t('admin.catalogType') %></label>
+                <select id="catalog-type" name="type">
+                  <option value="skill"><%= t('admin.catalogSkill') %></option>
+                  <option value="contribution_area"><%= t('admin.catalogArea') %></option>
+                  <option value="link_type"><%= t('admin.catalogLinkType') %></option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="catalog-label"><%= t('admin.catalogName') %></label>
+                <input type="text" id="catalog-label" name="label" maxlength="60" required>
+              </div>
+              <button type="submit" class="btn btn-red btn-sm"><%= t('admin.catalogAdd') %></button>
+            </form>
+            <div class="catalog-groups" id="catalogGroups">
+              <% [['skills', t('admin.catalogSkills')], ['areas', t('admin.catalogAreas')], ['linkTypes', t('admin.catalogLinkTypes')]].forEach(function (group) { %>
+              <div class="catalog-group">
+                <h4><%= group[1] %> <small class="field-help">(<%= catalog[group[0]].length %>)</small></h4>
+                <p class="chip-list"><% catalog[group[0]].forEach(function (term) { %><span class="chip"><%= term.label %></span><% }) %></p>
+              </div>
+              <% }) %>
+            </div>
+          </section>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--lg" id="invites-form" data-modal-root aria-labelledby="invites-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.invitesKicker') %></span>
+            <h2 class="modal__title" id="invites-title"><%= t('admin.inviteLinks') %></h2>
+            <p class="modal__sub"><%= t('admin.invitesSub', { minutes: registrationTokenTtlMin }) %></p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <div class="invite-toolbar">
+            <button type="button" class="btn btn-red btn-sm" id="createInviteBtn"><%= t('admin.invitesCreate') %></button>
+          </div>
+
+          <ul class="user-list" id="inviteList">
+            <% activeInvites.forEach(function(invite) { %>
+            <li class="user-row invite-row" data-invite-id="<%= invite.id %>">
+              <span class="user-name">
+                <strong><%= t('admin.inviteRow', { id: invite.id }) %></strong>
+                <small class="field-help"><%= t('admin.inviteDates', { created: formatDateTime(invite.created_at, lang), expires: formatDateTime(invite.expires_at, lang) }) %></small>
+              </span>
+              <span class="invite-row__meta">
+                <span class="status-chip" data-invite-countdown data-expires="<%= isoDateTime(invite.expires_at) %>"></span>
+                <span class="status-chip"><%= t('admin.inviteUses', { n: invite.use_count }) %></span>
+              </span>
+              <div class="user-actions">
+                <button type="button" class="ctl ctl-btn ctl-danger" data-invite-action="revoke" data-id="<%= invite.id %>" aria-label="<%= t('admin.inviteRevoke') %>"><i data-lucide="link-2-off"></i></button>
+              </div>
+            </li>
+            <% }) %>
+            <% if (activeInvites.length === 0) { %><li class="user-empty"><%= t('admin.invitesEmpty') %></li><% } %>
+          </ul>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--md invite-reveal" id="inviteReveal" aria-labelledby="invite-reveal-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.inviteNewKicker') %></span>
+            <h2 class="modal__title" id="invite-reveal-title"><%= t('admin.inviteNewTitle') %></h2>
+            <p class="modal__sub"><%= t('admin.inviteNewSub') %></p>
+          </div>
+          <button type="button" class="modal__close" id="inviteRevealClose" aria-label="<%= t('admin.activationHide') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <div class="invite-reveal__head">
+            <span class="status-chip status-chip--approved"><%= t('admin.inviteNewChip') %></span>
+            <span class="invite-reveal__timer" id="inviteRevealTimer" data-invite-countdown></span>
+          </div>
+          <div class="invite-reveal__row">
+            <input type="text" class="invite-url" id="inviteUrl" readonly aria-label="<%= t('admin.inviteUrlAria') %>">
+            <button type="button" class="btn btn-red btn-sm invite-copy" id="inviteCopyBtn">
+              <span class="invite-copy__label"><%= t('admin.copy') %></span>
+            </button>
+          </div>
+          <p class="invite-hint" id="inviteCopyHint" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--xl" id="project-settings-form" data-modal-root aria-labelledby="project-settings-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.settingsKicker') %></span>
+            <h2 class="modal__title" id="project-settings-title"><%= t('admin.settingsTitle', { project: project.name }) %></h2>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+
+          <section class="settings-segment" aria-labelledby="general-settings-title">
+            <div class="settings-segment__head">
+              <h3 id="general-settings-title" class="theme-subhead"><%= t('admin.settingsGeneral') %></h3>
+              <p class="field-help"><%= t('admin.settingsGeneralHelp') %></p>
+            </div>
+            <form id="projectSettingsForm" class="user-form">
+              <div class="field">
+                <label for="project-settings-name"><%= t('admin.settingsName') %></label>
+                <input type="text" id="project-settings-name" name="name" value="<%= project.name %>" maxlength="120" required>
+              </div>
+              <div class="field">
+                <label for="project-visibility-mode"><%= t('admin.settingsVisibility') %></label>
+                <select id="project-visibility-mode" name="visibilityMode">
+                  <option value="hidden" <%- project.visibility_mode === 'hidden' ? 'selected' : '' %>><%= t('admin.visibilityHidden') %></option>
+                  <option value="progress" <%- project.visibility_mode === 'progress' ? 'selected' : '' %>><%= t('admin.visibilityProgress') %></option>
+                  <option value="completed" <%- project.visibility_mode === 'completed' ? 'selected' : '' %>><%= t('admin.visibilityCompleted') %></option>
+                  <option value="full" <%- project.visibility_mode === 'full' ? 'selected' : '' %>><%= t('admin.visibilityFull') %></option>
+                </select>
+              </div>
+              <p class="field-help"><%= t('admin.visibilityHelp') %></p>
+              <div class="field">
+                <label for="project-default-lang"><%= t('admin.settingsDefaultLang') %></label>
+                <select id="project-default-lang" name="defaultLang">
+                  <option value="es" <%- projectDefaultLang === 'es' ? 'selected' : '' %>><%= t('admin.defaultLangEs') %></option>
+                  <option value="en" <%- projectDefaultLang === 'en' ? 'selected' : '' %>><%= t('admin.defaultLangEn') %></option>
+                  <option value="system" <%- projectDefaultLang === 'system' ? 'selected' : '' %>><%= t('admin.defaultLangSystem') %></option>
+                </select>
+              </div>
+              <p class="field-help"><%= t('admin.defaultLangHelp') %></p>
+              <div class="field">
+                <label class="theme-field__toggle" for="project-accepts-applications">
+                  <input type="checkbox" id="project-accepts-applications" name="acceptsApplications" <%- project.accepts_applications === 1 ? 'checked' : '' %>>
+                  <span><%= t('admin.settingsApplications') %> <code><%= projectBase %>/colaborar</code></span>
+                </label>
+                <small class="field-help"><%- t('admin.settingsApplicationsHelp') %> <button type="button" class="linklike" data-open="collaborate-form-config"><%= t('admin.collaborateForm') %></button>.</small>
+              </div>
+              <div class="field">
+                <label class="theme-field__toggle" for="project-show-login">
+                  <input type="checkbox" id="project-show-login" name="showLogin" <%- project.show_login === 1 ? 'checked' : '' %>>
+                  <span><%= t('admin.settingsShowLogin') %></span>
+                </label>
+                <small class="field-help"><%- t('admin.settingsShowLoginHelp') %> <code><%= projectBase %>/login</code> <%= t('admin.settingsShowLoginHelpEnd') %></small>
+              </div>
+              <div class="field">
+                <label class="theme-field__toggle" for="project-visitor-counter">
+                  <input type="checkbox" id="project-visitor-counter" name="visitorCounter" <%- project.visitor_counter === 1 ? 'checked' : '' %>>
+                  <span><%= t('admin.settingsVisitorCounter') %></span>
+                </label>
+                <small class="field-help"><%= t('admin.settingsVisitorCounterHelp') %></small>
+                <p class="settings-inline-action">
+                  <button type="button" class="linklike linklike--danger" id="visitsResetBtn"><%= t('admin.visitsReset') %></button>
+                </p>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-red btn-sm"><%= t('admin.settingsSaveGeneral') %></button>
+              </div>
+            </form>
+          </section>
+
+          <section class="settings-segment" aria-labelledby="theme-settings-title">
+            <div class="settings-segment__head">
+              <h3 id="theme-settings-title" class="theme-subhead"><%= t('admin.themeTitle') %></h3>
+              <p class="field-help"><%= t('admin.themeHelp') %></p>
+            </div>
+
+        <% const themeTextFields = [
+          { key: 'landingHeadline', label: t('admin.themeLandingHeadline'), type: 'text' },
+          { key: 'brandBadgeLetter', label: t('admin.themeBadgeLetter'), type: 'text' },
+          { key: 'footerNote', label: t('admin.themeFooterNote'), type: 'text' },
+          { key: 'mainSiteUrl', label: t('admin.themeMainSiteUrl'), type: 'url' },
+          { key: 'mainSiteLabel', label: t('admin.themeMainSiteLabel'), type: 'text' },
+          { key: 'youtubeUrl', label: t('admin.themeYoutubeUrl'), type: 'url' },
+          { key: 'youtubeLabel', label: t('admin.themeYoutubeLabel'), type: 'text' },
+          { key: 'googleFontsUrl', label: t('admin.themeFontsUrl'), type: 'url' },
+          { key: 'fontTitle', label: t('admin.themeFontTitle'), type: 'text' },
+          { key: 'fontBody', label: t('admin.themeFontBody'), type: 'text' },
+        ]; %>
+        <% const themeTextAreas = [
+          { key: 'heroTitleHtml', label: t('admin.themeHeroTitle') },
+          { key: 'heroSubPublic', label: t('admin.themeHeroSub') },
+        ]; %>
+        <% const themeColorFields = [
+          { key: 'bg', label: t('admin.themeColorBg') },
+          { key: 'surface', label: t('admin.themeColorSurface') },
+          { key: 'surface2', label: t('admin.themeColorSurface2') },
+          { key: 'red', label: t('admin.themeColorRed') },
+          { key: 'redDark', label: t('admin.themeColorRedDark') },
+          { key: 'white', label: t('admin.themeColorWhite') },
+          { key: 'gray', label: t('admin.themeColorGray') },
+          { key: 'border', label: t('admin.themeColorBorder') },
+          { key: 'accentRed', label: t('admin.themeColorAccentRed') },
+          { key: 'accentAmber', label: t('admin.themeColorAccentAmber') },
+          { key: 'accentViolet', label: t('admin.themeColorAccentViolet') },
+          { key: 'accentTeal', label: t('admin.themeColorAccentTeal') },
+        ]; %>
+          <p class="field-help"><%= t('admin.themeOverrideHelp') %></p>
+
+          <form id="themeForm">
+            <div id="themeSimple">
+              <div class="theme-grid">
+                <% themeTextFields.forEach(function(f) { %>
+                <div class="theme-field">
+                  <label class="theme-field__toggle">
+                    <input type="checkbox" data-theme-override="<%= f.key %>" <%- (f.key in themeOverrides) ? 'checked' : '' %>>
+                    <span><%= f.label %></span>
+                  </label>
+                  <input type="<%= f.type %>" data-theme-field="<%= f.key %>" value="<%= theme[f.key] %>" maxlength="500">
+                </div>
+                <% }) %>
+              </div>
+
+              <% themeTextAreas.forEach(function(f) { %>
+              <div class="theme-field theme-field--wide">
+                <label class="theme-field__toggle">
+                  <input type="checkbox" data-theme-override="<%= f.key %>" <%- (f.key in themeOverrides) ? 'checked' : '' %>>
+                  <span><%= f.label %></span>
+                </label>
+                <textarea data-theme-field="<%= f.key %>" rows="2"><%= theme[f.key] %></textarea>
+              </div>
+              <% }) %>
+
+              <h3 class="theme-subhead"><%= t('admin.themeColors') %></h3>
+              <div class="theme-grid theme-grid--colors">
+                <% themeColorFields.forEach(function(f) { %>
+                <div class="theme-field theme-field--color">
+                  <label class="theme-field__toggle">
+                    <input type="checkbox" data-theme-color-override="<%= f.key %>" <%- (typeof themeOverrides.colors === 'object' && themeOverrides.colors && f.key in themeOverrides.colors) ? 'checked' : '' %>>
+                    <span><%= f.label %></span>
+                  </label>
+                  <div class="theme-swatch">
+                    <input type="color" data-theme-color="<%= f.key %>" value="<%= theme.colors[f.key] %>" aria-label="<%= t('admin.themeColorPicker', { label: f.label }) %>">
+                    <input type="text" data-theme-color-hex="<%= f.key %>" value="<%= theme.colors[f.key] %>" maxlength="7" pattern="#?[0-9a-fA-F]{3,8}" aria-label="<%= t('admin.themeColorHex', { label: f.label }) %>">
+                  </div>
+                </div>
+                <% }) %>
+              </div>
+            </div>
+
+            <details id="themeAdvanced">
+              <summary><%= t('admin.cfgAdvanced') %></summary>
+              <div class="field">
+                <label for="theme-json"><%= t('admin.themeJsonLabel') %></label>
+                <textarea id="theme-json" name="themeJson" rows="12" spellcheck="false"><%= project.theme_json || '' %></textarea>
+              </div>
+              <p class="field-help"><%= t('admin.themeJsonHelp', {
+                keys: themeTextFields.concat(themeTextAreas).map(function(f){return f.key;}).join(', '),
+                colors: themeColorFields.map(function(f){return f.key;}).join(', '),
+              }) %></p>
+            </details>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-red btn-sm"><%= t('admin.themeSave') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-close="project-settings-form"><%= t('common.close') %></button>
+            </div>
+          </form>
+          </section>
+        </div>
+      </div>
+    </dialog>
+
+    <%
+      // Identidad pública del proyecto. El panel necesita a la vez lo que se
+      // publica hoy (`branding`) y lo que Herra pondría si el campo quedara
+      // vacío (`brandingFallback`), que es lo que se pinta como marcador.
+      const faviconAsset = assets.favicon || null;
+      const shareAsset = assets.share_image || null;
+      const faviconSrc = faviconAsset ? projectBase + '/media/favicon?v=' + faviconAsset.checksum : '';
+      const shareSrc = shareAsset ? projectBase + '/media/share?v=' + shareAsset.checksum : '';
+      // El registro de plataformas viaja al cliente por un atributo de datos:
+      // el panel dibuja los mismos iconos que el servidor sin duplicar el SVG
+      // en admin.js, y la CSP no admite scripts embebidos en la página.
+      const platformData = socialPlatforms.map(function (platform) {
+        return {
+          key: platform.key, label: platformLabel(platform, lang), color: platform.color, body: platform.body,
+          hosts: platform.hosts, filled: Boolean(platform.filled), donation: Boolean(platform.donation),
+        };
+      });
+      const brandingState = {
+        branding: branding,
+        defaults: brandingDefaults,
+        fallback: brandingFallback,
+        assets: assets,
+        maxSocialLinks: maxSocialLinks,
+        mediaBase: 'crv-panel-media-base',
+      };
+    %>
+    <div id="brandingData" hidden
+         data-branding-state="<%= JSON.stringify(brandingState) %>"
+         data-platforms="<%= JSON.stringify(platformData) %>"></div>
+
+    <dialog class="modal modal--xl" id="branding-form" data-modal-root aria-labelledby="branding-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.brandKicker') %></span>
+            <h2 class="modal__title" id="branding-title"><%= t('admin.brandTitle', { project: project.name }) %></h2>
+            <p class="modal__sub"><%= t('admin.brandSub') %></p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+          <div class="cfg-tabs" role="tablist" aria-label="<%= t('admin.brandSectionsAria') %>">
+            <button type="button" class="cfg-tab is-current" role="tab" aria-selected="true" aria-controls="brand-preview" data-brand-tab="brand-preview"><%= t('admin.brandTabPreview') %></button>
+            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="brand-images" data-brand-tab="brand-images"><%= t('admin.brandTabImages') %></button>
+            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="brand-meta" data-brand-tab="brand-meta"><%= t('admin.brandTabMeta') %></button>
+            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="brand-content" data-brand-tab="brand-content"><%= t('admin.brandTabContent') %></button>
+            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="brand-social" data-brand-tab="brand-social"><%= t('admin.brandTabSocial') %></button>
+            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="brand-donation" data-brand-tab="brand-donation"><%= t('admin.brandTabDonation') %></button>
+          </div>
+        </div>
+        <div class="modal__body">
+          <p class="admin-status" id="brandingResult" role="status" aria-live="polite"></p>
+
+          <form id="brandingForm">
+
+            <!-- ---- Vista previa ------------------------------------------ -->
+            <section class="cfg-pane" id="brand-preview" role="tabpanel" aria-labelledby="brand-preview-title">
+              <div class="settings-segment__head">
+                <h3 id="brand-preview-title" class="theme-subhead"><%= t('admin.brandPreviewTitle') %></h3>
+                <p class="field-help"><%= t('admin.brandPreviewHelp') %></p>
+              </div>
+
+              <div class="share-previews">
+                <figure class="share-card">
+                  <figcaption class="share-card__caption"><i data-lucide="layout-panel-top"></i> <%= t('admin.brandCardBig') %></figcaption>
+                  <div class="share-card__frame">
+                    <div class="share-card__media" data-share-media>
+                      <img alt="" data-share-image src="<%= shareSrc %>" <%- shareSrc ? '' : 'hidden' %>>
+                      <span class="share-card__placeholder" data-share-image-empty <%- shareSrc ? 'hidden' : '' %>>
+                        <i data-lucide="image-off"></i> <%= t('admin.brandNoShareImage') %>
+                      </span>
+                    </div>
+                    <div class="share-card__text">
+                      <span class="share-card__host" data-share-host></span>
+                      <strong class="share-card__title" data-share-title></strong>
+                      <span class="share-card__desc" data-share-desc></span>
+                    </div>
+                  </div>
+                </figure>
+
+                <div class="share-previews__side">
+                  <figure class="share-card share-card--chat">
+                    <figcaption class="share-card__caption"><i data-lucide="message-circle"></i> <%= t('admin.brandMessaging') %></figcaption>
+                    <div class="chat-bubble">
+                      <div class="chat-bubble__card">
+                        <div class="chat-bubble__thumb" data-share-thumb>
+                          <img alt="" data-share-image src="<%= shareSrc %>" <%- shareSrc ? '' : 'hidden' %>>
+                        </div>
+                        <div class="chat-bubble__text">
+                          <strong data-share-title></strong>
+                          <span data-share-desc></span>
+                          <small data-share-host></small>
+                        </div>
+                      </div>
+                      <p class="chat-bubble__url" data-share-url></p>
+                    </div>
+                  </figure>
+
+                  <figure class="share-card share-card--tab">
+                    <figcaption class="share-card__caption"><i data-lucide="app-window"></i> <%= t('admin.brandBrowserTab') %></figcaption>
+                    <div class="tab-mock">
+                      <span class="tab-mock__favicon">
+                        <img alt="" data-favicon-image src="<%= faviconSrc %>" <%- faviconSrc ? '' : 'hidden' %>>
+                        <span class="tab-mock__letter" data-favicon-empty <%- faviconSrc ? 'hidden' : '' %>><%= theme.brandBadgeLetter %></span>
+                      </span>
+                      <span class="tab-mock__title" data-share-title></span>
+                      <i data-lucide="x" class="tab-mock__close"></i>
+                    </div>
+                  </figure>
+                </div>
+              </div>
+
+              <p class="admin-notice" data-brand-index-notice hidden>
+                <i data-lucide="eye-off"></i>
+                <%- t('admin.brandNoindexNotice') %> <button type="button" class="linklike" data-brand-goto="brand-meta"><%= t('admin.brandTabMeta') %></button>.
+              </p>
+            </section>
+
+            <!-- ---- Imágenes ---------------------------------------------- -->
+            <section class="cfg-pane" id="brand-images" role="tabpanel" aria-labelledby="brand-images-title" hidden>
+              <div class="settings-segment__head">
+                <h3 id="brand-images-title" class="theme-subhead"><%= t('admin.brandImagesTitle') %></h3>
+                <p class="field-help"><%= t('admin.brandImagesHelp') %></p>
+              </div>
+
+              <div class="asset-grid">
+                <article class="asset-card" data-asset-card="favicon">
+                  <div class="asset-card__head">
+                    <h4><%= t('admin.brandFavicon') %></h4>
+                    <p class="field-help"><%= t('admin.brandFaviconHelp') %></p>
+                  </div>
+                  <div class="asset-card__preview asset-card__preview--icon">
+                    <img alt="<%= t('admin.brandFaviconCurrent') %>" data-asset-preview src="<%= faviconSrc %>" <%- faviconSrc ? '' : 'hidden' %>>
+                    <span class="asset-card__empty" data-asset-empty <%- faviconSrc ? 'hidden' : '' %>>
+                      <i data-lucide="image"></i> <%= t('admin.brandNoFavicon') %>
+                    </span>
+                  </div>
+                  <label class="asset-drop" data-asset-drop tabindex="0">
+                    <input type="file" accept="image/png,image/jpeg,image/webp" data-asset-input class="visually-hidden">
+                    <i data-lucide="upload"></i>
+                    <span><%= t('admin.brandDropStart') %> <strong><%= t('admin.brandDropPick') %></strong></span>
+                    <small><%= t('admin.brandDropFormats') %></small>
+                  </label>
+                  <p class="asset-card__meta" data-asset-meta><%= faviconAsset ? (faviconAsset.width || '?') + '×' + (faviconAsset.height || '?') + ' px · ' + Math.max(1, Math.round(faviconAsset.byteSize / 1024)) + ' KB' : '' %></p>
+                  <div class="asset-card__actions">
+                    <button type="button" class="btn btn-ghost btn-sm" data-asset-remove <%- faviconSrc ? '' : 'hidden' %>><i data-lucide="trash-2"></i> <%= t('admin.brandRemove') %></button>
+                  </div>
+                </article>
+
+                <article class="asset-card" data-asset-card="share_image">
+                  <div class="asset-card__head">
+                    <h4><%= t('admin.brandShareImage') %></h4>
+                    <p class="field-help"><%= t('admin.brandShareImageHelp') %></p>
+                  </div>
+                  <div class="asset-card__preview">
+                    <img alt="<%= t('admin.brandShareImageCurrent') %>" data-asset-preview src="<%= shareSrc %>" <%- shareSrc ? '' : 'hidden' %>>
+                    <span class="asset-card__empty" data-asset-empty <%- shareSrc ? 'hidden' : '' %>>
+                      <i data-lucide="image"></i> <%= t('admin.brandNoShareImage') %>
+                    </span>
+                  </div>
+                  <label class="asset-drop" data-asset-drop tabindex="0">
+                    <input type="file" accept="image/png,image/jpeg,image/webp" data-asset-input class="visually-hidden">
+                    <i data-lucide="upload"></i>
+                    <span><%= t('admin.brandDropStart') %> <strong><%= t('admin.brandDropPick') %></strong></span>
+                    <small><%= t('admin.brandDropFormats') %></small>
+                  </label>
+                  <div class="field field--inline asset-card__option">
+                    <label for="share-fit"><%= t('admin.brandFit') %></label>
+                    <select id="share-fit" data-asset-fit>
+                      <option value="cover"><%= t('admin.brandFitCover') %></option>
+                      <option value="contain"><%= t('admin.brandFitContain') %></option>
+                    </select>
+                  </div>
+                  <p class="asset-card__meta" data-asset-meta><%= shareAsset ? (shareAsset.width || '?') + '×' + (shareAsset.height || '?') + ' px · ' + Math.max(1, Math.round(shareAsset.byteSize / 1024)) + ' KB' : '' %></p>
+                  <div class="asset-card__actions">
+                    <button type="button" class="btn btn-ghost btn-sm" data-asset-remove <%- shareSrc ? '' : 'hidden' %>><i data-lucide="trash-2"></i> <%= t('admin.brandRemove') %></button>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <!-- ---- Metadatos --------------------------------------------- -->
+            <section class="cfg-pane" id="brand-meta" role="tabpanel" aria-labelledby="brand-meta-title" hidden>
+              <div class="settings-segment__head">
+                <h3 id="brand-meta-title" class="theme-subhead"><%= t('admin.brandMetaTitle') %></h3>
+                <p class="field-help"><%= t('admin.brandMetaHelp') %></p>
+              </div>
+
+              <div class="theme-grid brand-grid">
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-metaTitle"><%= t('admin.brandPageTitle') %> <span class="char-count" data-char-count-for="brand-metaTitle" data-char-ideal="60"></span></label>
+                  <input type="text" id="brand-metaTitle" data-brand-field="metaTitle" maxlength="160"
+                         value="<%= branding.metaTitle %>" placeholder="<%= brandingFallback.title %>">
+                  <small class="field-help"><%= t('admin.brandPageTitleHelp') %></small>
+                </div>
+
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-metaDescription"><%= t('admin.brandDescription') %> <span class="char-count" data-char-count-for="brand-metaDescription" data-char-ideal="160"></span></label>
+                  <textarea id="brand-metaDescription" data-brand-field="metaDescription" rows="2" maxlength="320" placeholder="<%= brandingFallback.description %>"><%= branding.metaDescription %></textarea>
+                  <small class="field-help"><%= t('admin.brandDescriptionHelp') %></small>
+                </div>
+
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-ogTitle"><%= t('admin.brandOgTitle') %></label>
+                  <input type="text" id="brand-ogTitle" data-brand-field="ogTitle" maxlength="160"
+                         value="<%= branding.ogTitle %>" placeholder="<%= t('admin.brandOgTitlePlaceholder') %>">
+                  <small class="field-help"><%= t('admin.brandOgTitleHelp') %></small>
+                </div>
+
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-ogDescription"><%= t('admin.brandOgDescription') %></label>
+                  <textarea id="brand-ogDescription" data-brand-field="ogDescription" rows="2" maxlength="320" placeholder="<%= t('admin.brandOgDescriptionPlaceholder') %>"><%= branding.ogDescription %></textarea>
+                </div>
+
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-imageAlt"><%= t('admin.brandImageAlt') %></label>
+                  <input type="text" id="brand-imageAlt" data-brand-field="imageAlt" maxlength="320"
+                         value="<%= branding.imageAlt %>" placeholder="<%= t('admin.brandImageAltPlaceholder') %>">
+                  <small class="field-help"><%= t('admin.brandImageAltHelp') %></small>
+                </div>
+
+                <div class="theme-field">
+                  <label class="field-label" for="brand-siteUrl"><%= t('admin.brandSiteUrl') %></label>
+                  <input type="url" id="brand-siteUrl" data-brand-field="siteUrl" maxlength="500"
+                         value="<%= branding.siteUrl %>" placeholder="<%= t('admin.brandSiteUrlPlaceholder') %>">
+                  <small class="field-help"><%= t('admin.brandSiteUrlHelp') %></small>
+                </div>
+
+                <div class="theme-field">
+                  <label class="field-label" for="brand-twitterSite"><%= t('admin.brandTwitterSite') %></label>
+                  <input type="text" id="brand-twitterSite" data-brand-field="twitterSite" maxlength="60"
+                         value="<%= branding.twitterSite %>" placeholder="<%= t('admin.brandTwitterPlaceholder') %>">
+                  <small class="field-help"><%= t('admin.brandTwitterSiteHelp') %></small>
+                </div>
+
+                <div class="theme-field">
+                  <label class="field-label" for="brand-twitterCard"><%= t('admin.brandTwitterCard') %></label>
+                  <select id="brand-twitterCard" data-brand-field="twitterCard">
+                    <option value="summary_large_image" <%- branding.twitterCard === 'summary_large_image' ? 'selected' : '' %>><%= t('admin.brandCardLarge') %></option>
+                    <option value="summary" <%- branding.twitterCard === 'summary' ? 'selected' : '' %>><%= t('admin.brandCardSmall') %></option>
+                  </select>
+                </div>
+
+                <div class="theme-field">
+                  <label class="field-label" for="brand-keywords"><%= t('admin.brandKeywords') %></label>
+                  <input type="text" id="brand-keywords" data-brand-field="keywords" maxlength="320"
+                         value="<%= branding.keywords %>" placeholder="<%= t('admin.brandKeywordsPlaceholder') %>">
+                  <small class="field-help"><%= t('admin.brandKeywordsHelp') %></small>
+                </div>
+
+                <div class="theme-field theme-field--wide">
+                  <label class="theme-field__toggle" for="brand-allowIndexing">
+                    <input type="checkbox" id="brand-allowIndexing" data-brand-field="allowIndexing" <%- branding.allowIndexing ? 'checked' : '' %>>
+                    <span><%= t('admin.brandAllowIndexing') %></span>
+                  </label>
+                  <small class="field-help"><%- t('admin.brandAllowIndexingHelp') %></small>
+                </div>
+              </div>
+            </section>
+
+            <!-- ---- Contexto público y preguntas -------------------------- -->
+            <section class="cfg-pane" id="brand-content" role="tabpanel" aria-labelledby="brand-content-title" hidden>
+              <div class="settings-segment__head">
+                <h3 id="brand-content-title" class="theme-subhead"><%= t('admin.brandContentTitle') %></h3>
+                <p class="field-help"><%= t('admin.brandContentHelp') %></p>
+              </div>
+
+              <div class="theme-grid brand-grid">
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-aboutTitle"><%= t('admin.brandAboutTitle') %></label>
+                  <input type="text" id="brand-aboutTitle" data-brand-field="aboutTitle" maxlength="160" value="<%= branding.aboutTitle %>">
+                </div>
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-aboutDescription"><%= t('admin.brandAboutDescription') %></label>
+                  <textarea id="brand-aboutDescription" data-brand-field="aboutDescription" rows="4" maxlength="700"><%= branding.aboutDescription %></textarea>
+                </div>
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-aboutStatus"><%= t('admin.brandAboutStatus') %></label>
+                  <textarea id="brand-aboutStatus" data-brand-field="aboutStatus" rows="3" maxlength="700"><%= branding.aboutStatus %></textarea>
+                </div>
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-aboutScope"><%= t('admin.brandAboutScope') %></label>
+                  <textarea id="brand-aboutScope" data-brand-field="aboutScope" rows="3" maxlength="700"><%= branding.aboutScope %></textarea>
+                </div>
+                <div class="theme-field">
+                  <label class="field-label" for="brand-aboutSourceUrl"><%= t('admin.brandAboutSourceUrl') %></label>
+                  <input type="url" id="brand-aboutSourceUrl" data-brand-field="aboutSourceUrl" maxlength="500" value="<%= branding.aboutSourceUrl %>">
+                </div>
+                <div class="theme-field">
+                  <label class="field-label" for="brand-aboutSourceLabel"><%= t('admin.brandAboutSourceLabel') %></label>
+                  <input type="text" id="brand-aboutSourceLabel" data-brand-field="aboutSourceLabel" maxlength="120" value="<%= branding.aboutSourceLabel %>">
+                </div>
+              </div>
+
+              <div class="settings-segment__head brand-content__faq-head">
+                <h4 class="theme-subhead"><%= t('admin.brandFaqSection') %></h4>
+                <p class="field-help"><%= t('admin.brandFaqHelp') %></p>
+              </div>
+              <div class="theme-grid brand-grid">
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-faqTitle"><%= t('admin.brandFaqTitle') %></label>
+                  <input type="text" id="brand-faqTitle" data-brand-field="faqTitle" maxlength="160" value="<%= branding.faqTitle %>">
+                </div>
+                <% [1, 2, 3, 4].forEach(function (index) { %>
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-faq<%= index %>Question"><%= t('admin.brandFaqQuestion', { n: index }) %></label>
+                  <input type="text" id="brand-faq<%= index %>Question" data-brand-field="faq<%= index %>Question" maxlength="160" value="<%= branding['faq' + index + 'Question'] %>">
+                </div>
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-faq<%= index %>Answer"><%= t('admin.brandFaqAnswer', { n: index }) %></label>
+                  <textarea id="brand-faq<%= index %>Answer" data-brand-field="faq<%= index %>Answer" rows="3" maxlength="700"><%= branding['faq' + index + 'Answer'] %></textarea>
+                </div>
+                <% }) %>
+              </div>
+            </section>
+
+            <!-- ---- Redes ------------------------------------------------- -->
+            <section class="cfg-pane" id="brand-social" role="tabpanel" aria-labelledby="brand-social-title" hidden>
+              <div class="settings-segment__head">
+                <h3 id="brand-social-title" class="theme-subhead"><%= t('admin.brandSocialTitle') %></h3>
+                <p class="field-help"><%= t('admin.brandSocialHelp') %></p>
+              </div>
+
+              <div class="theme-grid brand-grid">
+                <div class="theme-field">
+                  <label class="field-label" for="brand-supportKicker"><%= t('admin.brandSupportKicker') %></label>
+                  <input type="text" id="brand-supportKicker" data-brand-field="supportKicker" maxlength="40" value="<%= branding.supportKicker %>" placeholder="<%= brandingDefaults.supportKicker %>">
+                </div>
+                <div class="theme-field">
+                  <label class="field-label" for="brand-supportTitle"><%= t('admin.brandSupportTitle') %></label>
+                  <input type="text" id="brand-supportTitle" data-brand-field="supportTitle" maxlength="160" value="<%= branding.supportTitle %>" placeholder="<%= brandingDefaults.supportTitle %>">
+                </div>
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-supportSub"><%= t('admin.brandSupportSub') %></label>
+                  <textarea id="brand-supportSub" data-brand-field="supportSub" rows="2" maxlength="320" placeholder="<%= brandingDefaults.supportSub %>"><%= branding.supportSub %></textarea>
+                </div>
+              </div>
+
+              <div class="social-editor">
+                <ol class="social-items" data-social-list></ol>
+                <p class="social-empty" data-social-empty hidden><%= t('admin.brandSocialEmpty') %></p>
+                <div class="social-editor__actions">
+                  <button type="button" class="btn btn-ghost btn-sm" data-social-add><i data-lucide="plus"></i> <%= t('admin.brandSocialAdd') %></button>
+                  <span class="field-help" data-social-count></span>
+                </div>
+              </div>
+
+              <div class="social-editor__preview">
+                <p class="field-help"><%= t('admin.brandSocialPreview') %></p>
+                <ul class="social-row social-row--cards" data-social-row-preview></ul>
+              </div>
+            </section>
+
+            <!-- ---- Donación ---------------------------------------------- -->
+            <section class="cfg-pane" id="brand-donation" role="tabpanel" aria-labelledby="brand-donation-title" hidden>
+              <div class="settings-segment__head">
+                <h3 id="brand-donation-title" class="theme-subhead"><%= t('admin.brandDonationTitle') %></h3>
+                <p class="field-help"><%= t('admin.brandDonationHelp') %></p>
+              </div>
+
+              <div class="theme-field theme-field--wide">
+                <label class="theme-field__toggle" for="brand-donation-enabled">
+                  <input type="checkbox" id="brand-donation-enabled" data-donation-field="enabled" <%- branding.donation.enabled ? 'checked' : '' %>>
+                  <span><%= t('admin.brandDonationEnabled') %></span>
+                </label>
+              </div>
+
+              <div class="theme-grid brand-grid">
+                <div class="theme-field">
+                  <label class="field-label" for="brand-donation-platform"><%= t('admin.brandDonationPlatform') %></label>
+                  <select id="brand-donation-platform" data-donation-field="platform">
+                    <% donationPlatforms.forEach(function (platform) { %>
+                    <option value="<%= platform.key %>" <%- branding.donation.platform === platform.key ? 'selected' : '' %>><%= platformLabel(platform, lang) %></option>
+                    <% }) %>
+                  </select>
+                  <small class="field-help"><%= t('admin.brandDonationPlatformHelp') %></small>
+                </div>
+                <div class="theme-field">
+                  <label class="field-label" for="brand-donation-label"><%= t('admin.brandDonationLabel') %></label>
+                  <input type="text" id="brand-donation-label" data-donation-field="label" maxlength="120" value="<%= branding.donation.label %>" placeholder="<%= brandingDefaults.donation.label %>">
+                </div>
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-donation-url"><%= t('admin.brandDonationUrl') %></label>
+                  <input type="url" id="brand-donation-url" data-donation-field="url" maxlength="500" value="<%= branding.donation.url %>" placeholder="<%= t('admin.brandDonationUrlPlaceholder') %>">
+                </div>
+                <div class="theme-field theme-field--wide">
+                  <label class="field-label" for="brand-donation-note"><%= t('admin.brandDonationNote') %></label>
+                  <textarea id="brand-donation-note" data-donation-field="note" rows="2" maxlength="320" placeholder="<%= t('admin.brandDonationNotePlaceholder') %>"><%= branding.donation.note %></textarea>
+                </div>
+              </div>
+
+              <div class="donation-preview">
+                <p class="field-help"><%= t('admin.brandPreviewWord') %></p>
+                <div class="donation-preview__stage" data-donation-preview></div>
+              </div>
+            </section>
+
+            <div class="form-actions cfg-actions modal__actions">
+              <button type="submit" class="btn btn-red btn-sm"><%= t('admin.brandSave') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-brand-reset><%= t('admin.cfgResetAll') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-modal-close><%= t('common.close') %></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--sm" id="admin-account-form" data-modal-root aria-labelledby="admin-account-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.accountKicker') %></span>
+            <h2 class="modal__title" id="admin-account-title"><%= t('admin.accountTitle') %><% if (currentAdmin) { %> (<%= currentAdmin.username %>)<% } %></h2>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <form class="user-form" id="adminAccountForm">
+            <div class="field">
+              <label for="admin-current-password"><%= t('admin.accountCurrent') %></label>
+              <input type="password" id="admin-current-password" name="currentPassword" autocomplete="current-password" required>
+            </div>
+            <div class="field">
+              <label for="admin-new-password"><%= t('admin.accountNew') %></label>
+              <input type="password" id="admin-new-password" name="newPassword" minlength="8" maxlength="200" autocomplete="new-password" required>
+            </div>
+            <div class="form-actions modal__actions">
+              <button type="submit" class="btn btn-red btn-sm"><%= t('common.save') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-modal-close><%= t('common.cancel') %></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--sm admin-dialog" id="accessCodeDialog" aria-labelledby="access-code-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.securityKicker') %></span>
+            <h2 class="modal__title" id="access-code-title"><%= t('admin.resetCodeTitle') %></h2>
+            <p class="modal__sub"><%= t('admin.resetCodeSub') %></p>
+          </div>
+          <button type="button" class="modal__close" data-close-access-code aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <form id="accessCodeForm">
+            <input type="hidden" name="userId">
+            <div class="field">
+              <label for="reset-access-code"><%= t('admin.resetCodeNew') %></label>
+              <input type="password" id="reset-access-code" name="accessCode" minlength="8" maxlength="200" autocomplete="new-password" required>
+            </div>
+            <div class="field">
+              <label for="reset-access-code-confirm"><%= t('admin.resetCodeRepeat') %></label>
+              <input type="password" id="reset-access-code-confirm" name="accessCodeConfirm" minlength="8" maxlength="200" autocomplete="new-password" required>
+            </div>
+            <div class="form-actions modal__actions">
+              <button type="submit" class="btn btn-red btn-sm"><%= t('admin.resetCodeSave') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-close-access-code><%= t('common.cancel') %></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <%
+      // Idiomas del proyecto. Herra ya viene traducida: lo que se escribe aquí
+      // son los textos propios del proyecto en el otro idioma. El campo vacío
+      // no es un hueco publicado — se sirve el español, que es el original.
+      //
+      // Tres pestañas, tres orígenes distintos de texto: la identidad del
+      // proyecto, lo que personalizó del formulario público y el contenido del
+      // roadmap que escribe cada día.
+      const languageNames = { en: t('admin.langEnglish') };
+      const langSourceOf = (key) => {
+        const source = projectI18nSource[key];
+        return source ? String(source).replace(/<br>/g, ' / ').replace(/\n/g, ' / ') : '—';
+      };
+    %>
+    <dialog class="modal modal--lg" id="languages-form" data-modal-root aria-labelledby="languages-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.langKicker') %></span>
+            <h2 class="modal__title" id="languages-title"><%= t('admin.languages') %></h2>
+            <p class="modal__sub"><%= t('admin.langSub') %></p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__toolbar">
+          <div class="cfg-tabs" role="tablist" aria-label="<%= t('admin.langSectionsAria') %>">
+            <button type="button" class="cfg-tab is-current" role="tab" aria-selected="true" aria-controls="lang-project" data-lang-tab="lang-project"><%= t('admin.langTabProject') %></button>
+            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="lang-form" data-lang-tab="lang-form"><%= t('admin.langTabForm') %></button>
+            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="lang-content" data-lang-tab="lang-content"><%= t('admin.langTabContent') %></button>
+          </div>
+        </div>
+        <div class="modal__body">
+          <form id="languagesForm">
+            <section class="cfg-pane" id="lang-project" role="tabpanel" aria-labelledby="lang-project-title">
+              <div class="settings-segment__head">
+                <h3 id="lang-project-title" class="theme-subhead"><%= t('admin.langProjectTitle') %></h3>
+                <p class="field-help"><%= t('admin.langProjectHelp') %></p>
+              </div>
+              <% projectI18nLangs.forEach(function (code) { %>
+              <% const values = projectI18n[code] || {}; %>
+              <fieldset class="lang-fieldset" data-lang-group="<%= code %>">
+                <legend><%= languageNames[code] || code.toUpperCase() %></legend>
+                <div class="field-grid field-grid--halves">
+                  <% projectI18nFields.forEach(function (field) { %>
+                  <div class="field<%= field.multiline ? ' field--full' : '' %>">
+                    <label for="i18n-<%= code %>-<%= field.key %>"><%= field.labelText || t(field.labelKey) %></label>
+                    <% if (field.multiline) { %>
+                    <textarea id="i18n-<%= code %>-<%= field.key %>" data-i18n-field="<%= field.key %>" rows="3" maxlength="<%= field.maxLength %>" placeholder="<%= projectI18nSource[field.key] || '' %>"><%= values[field.key] || '' %></textarea>
+                    <% } else { %>
+                    <input type="text" id="i18n-<%= code %>-<%= field.key %>" data-i18n-field="<%= field.key %>" maxlength="<%= field.maxLength %>" placeholder="<%= projectI18nSource[field.key] || '' %>" value="<%= values[field.key] || '' %>">
+                    <% } %>
+                    <small class="field-help"><%= t('admin.langSpanishIs', { text: langSourceOf(field.key) }) %></small>
+                  </div>
+                  <% }) %>
+                </div>
+                <% if (projectI18nSocialFields.length > 0) { %>
+                <div class="field-grid field-grid--halves">
+                  <% projectI18nSocialFields.forEach(function (field) { %>
+                  <div class="field">
+                    <label for="i18n-<%= code %>-<%= field.key %>"><%= field.labelText || t(field.labelKey) %></label>
+                    <input type="text" id="i18n-<%= code %>-<%= field.key %>" data-i18n-field="<%= field.key %>" maxlength="<%= field.maxLength %>" placeholder="<%= projectI18nSource[field.key] || '' %>" value="<%= values[field.key] || '' %>">
+                    <small class="field-help"><%= t('admin.langSpanishIs', { text: langSourceOf(field.key) }) %></small>
+                  </div>
+                  <% }) %>
+                </div>
+                <% } %>
+              </fieldset>
+              <% }) %>
+            </section>
+
+            <section class="cfg-pane" id="lang-form" role="tabpanel" aria-labelledby="lang-form-title" hidden>
+              <div class="settings-segment__head">
+                <h3 id="lang-form-title" class="theme-subhead"><%= t('admin.langFormTitle') %></h3>
+                <p class="field-help"><%= t('admin.langFormHelp') %></p>
+              </div>
+              <% if (projectI18nCollabFields.length === 0) { %>
+              <p class="admin-notice"><%= t('admin.langFormNone') %> <button type="button" class="linklike" data-open="collaborate-form-config"><%= t('admin.collaborateForm') %></button>.</p>
+              <% } else { %>
+              <% projectI18nLangs.forEach(function (code) { %>
+              <% const values = projectI18n[code] || {}; %>
+              <fieldset class="lang-fieldset" data-lang-group="<%= code %>">
+                <legend><%= languageNames[code] || code.toUpperCase() %></legend>
+                <div class="field-grid field-grid--halves">
+                  <% projectI18nCollabFields.forEach(function (field) { %>
+                  <div class="field<%= field.multiline ? ' field--full' : '' %>">
+                    <label for="i18n-<%= code %>-<%= field.key %>"><%= field.labelText || t(field.labelKey) %></label>
+                    <% if (field.multiline) { %>
+                    <textarea id="i18n-<%= code %>-<%= field.key %>" data-i18n-field="<%= field.key %>" rows="3" maxlength="<%= field.maxLength %>" placeholder="<%= projectI18nSource[field.key] || '' %>"><%= values[field.key] || '' %></textarea>
+                    <% } else { %>
+                    <input type="text" id="i18n-<%= code %>-<%= field.key %>" data-i18n-field="<%= field.key %>" maxlength="<%= field.maxLength %>" placeholder="<%= projectI18nSource[field.key] || '' %>" value="<%= values[field.key] || '' %>">
+                    <% } %>
+                    <small class="field-help"><%= t('admin.langSpanishIs', { text: langSourceOf(field.key) }) %></small>
+                  </div>
+                  <% }) %>
+                </div>
+              </fieldset>
+              <% }) %>
+              <% } %>
+            </section>
+
+            <p class="admin-status" id="languagesStatus" role="status" aria-live="polite"></p>
+            <div class="form-actions modal__actions">
+              <button type="submit" class="btn btn-red btn-sm"><%= t('admin.langSave') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-languages-reset><%= t('admin.langReset') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-modal-close><%= t('common.cancel') %></button>
+            </div>
+          </form>
+
+          <!-- ---- Contenido del roadmap -------------------------------------
+               Las etapas y actividades no viven en el JSON del proyecto sino en
+               su propia fila, así que tienen su formulario y su guardado. Van
+               todas en una lista para poder traducirlas de una sentada. -->
+          <form id="contentI18nForm" hidden>
+            <section class="cfg-pane" id="lang-content" role="tabpanel" aria-labelledby="lang-content-title">
+              <div class="settings-segment__head">
+                <h3 id="lang-content-title" class="theme-subhead"><%= t('admin.langContentTitle') %></h3>
+                <p class="field-help"><%= t('admin.langContentHelp') %></p>
+              </div>
+              <% projectI18nLangs.forEach(function (code) { %>
+              <fieldset class="lang-fieldset" data-content-lang="<%= code %>">
+                <legend><%= languageNames[code] || code.toUpperCase() %></legend>
+                <% if (contentStages.length === 0) { %>
+                <p class="admin-notice"><%= t('admin.langContentEmpty') %></p>
+                <% } %>
+                <% contentStages.forEach(function (stage, stageIndex) { %>
+                <div class="cfg-group lang-stage">
+                  <h4 class="cfg-group__title"><%= phaseLabel(stageIndex, lang) %> · <%= stage.title %></h4>
+                  <div class="field">
+                    <label for="content-i18n-<%= code %>-stage-<%= stage.id %>"><%= t('admin.langStageTitle') %></label>
+                    <input type="text" id="content-i18n-<%= code %>-stage-<%= stage.id %>"
+                           data-content-kind="categories" data-content-id="<%= stage.id %>"
+                           maxlength="300" placeholder="<%= stage.title %>"
+                           value="<%= stage.translations[code] || '' %>">
+                    <small class="field-help"><%= t('admin.langSpanishIs', { text: stage.title }) %></small>
+                  </div>
+                  <% if (stage.tasks.length === 0) { %>
+                  <p class="field-help"><%= t('admin.langStageNoTasks') %></p>
+                  <% } %>
+                  <% stage.tasks.forEach(function (task) { %>
+                  <div class="field">
+                    <label for="content-i18n-<%= code %>-task-<%= task.id %>"><%= task.title %></label>
+                    <input type="text" id="content-i18n-<%= code %>-task-<%= task.id %>"
+                           data-content-kind="tasks" data-content-id="<%= task.id %>"
+                           maxlength="300" placeholder="<%= task.title %>"
+                           value="<%= task.translations[code] || '' %>">
+                  </div>
+                  <% }) %>
+                </div>
+                <% }) %>
+              </fieldset>
+              <% }) %>
+            </section>
+            <p class="admin-status" id="contentI18nStatus" role="status" aria-live="polite"></p>
+            <div class="form-actions modal__actions">
+              <button type="submit" class="btn btn-red btn-sm"><%= t('admin.langSave') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-content-i18n-reset><%= t('admin.langReset') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-modal-close><%= t('common.cancel') %></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="modal modal--lg" id="new-task-form" data-modal-root aria-labelledby="new-task-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker"><%= t('admin.newTaskKicker') %></span>
+            <h2 class="modal__title" id="new-task-title"><%= t('admin.newTaskTitle') %></h2>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <form method="post" action="/api/community/admin/panel/tasks" class="new-task-form" id="createForm">
+            <div class="field">
+              <label for="nt-title"><%= t('admin.taskLabel') %></label>
+              <input type="text" id="nt-title" name="title" maxlength="300" placeholder="<%= t('admin.taskPlaceholder') %>" required>
+            </div>
+            <% projectI18nLangs.forEach(function (code) { %>
+            <div class="field">
+              <label for="nt-title-<%= code %>"><%= t('admin.langTaskEnglish') %></label>
+              <input type="text" id="nt-title-<%= code %>" data-new-translation="<%= code %>" maxlength="300">
+              <small class="field-help"><%= t('admin.langTaskEnglishHelp') %></small>
+            </div>
+            <% }) %>
+            <div class="field-row">
+              <div class="field">
+                <label for="nt-category"><%= t('admin.taskCategory') %></label>
+                <select id="nt-category" name="categoryId" required>
+                  <% view.categories.forEach(function(c) { %>
+                  <option value="<%= c.id %>"><%= c.title %></option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="field">
+                <label for="nt-status"><%= t('admin.taskStatus') %></label>
+                <select id="nt-status" name="status">
+                  <option value="pending"><%= t('status.pending') %></option>
+                  <option value="in_progress"><%= t('status.in_progress') %></option>
+                  <option value="completed"><%= t('status.completed') %></option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="nt-position"><%= t('admin.taskPosition') %></label>
+                <input type="number" id="nt-position" name="position" min="1" step="1" placeholder="<%= t('admin.taskPositionPlaceholder') %>">
+              </div>
+              <div class="field field--wide">
+                <span class="field-label" id="nt-assigned-label"><%= t('admin.taskAssignTo') %></span>
+                <div class="assignee-picker" data-assignee-picker>
+                  <div class="assignee-search">
+                    <input type="text" class="assignee-search-input" data-assignee-search placeholder="<%= t('admin.taskSearchPeople') %>" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-labelledby="nt-assigned-label">
+                    <div class="assignee-results" data-assignee-results hidden></div>
+                  </div>
+                  <div class="assignee-chips" data-assignee-chips></div>
+                  <div class="visually-hidden" id="nt-assigned-users" data-assignment-group aria-hidden="true">
+                    <% availableUsers.forEach(function(user) { %>
+                    <label for="assign-new-<%= user.id %>">
+                      <input type="checkbox" id="assign-new-<%= user.id %>" name="assignedUserIds" value="<%= user.id %>" data-assignment-checkbox tabindex="-1">
+                      <span><%= displayName(user) %></span>
+                    </label>
+                    <% }) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-actions modal__actions">
+              <button type="submit" class="btn btn-red btn-sm"><%= t('common.create') %></button>
+              <button type="button" class="btn btn-ghost btn-sm" data-close="new-task-form"><%= t('common.cancel') %></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <div class="task-reorder-help" id="task-drag-help">
+      <span class="task-reorder-help__icon"><i data-lucide="grip-vertical"></i></span>
+      <p><%- t('admin.reorderHelp') %></p>
+    </div>
+    <div class="task-reorder-help" id="task-queue-help">
+      <span class="task-reorder-help__icon"><i data-lucide="pin"></i></span>
+      <p><%- t('admin.queueRule') %></p>
+    </div>
+    <p class="admin-status" id="adminStatus" role="status" aria-live="polite"></p>
+
+    <div class="cat-list" data-cat-dropzone>
+    <% view.categories.forEach(function(cat, catIdx) { %>
+    <div class="cat-block" data-cat-slug="<%= cat.slug %>" data-category-id="<%= cat.id %>">
+      <div class="section-head section-head--reorderable">
+        <button type="button" class="cat-drag-handle" data-cat-drag-handle aria-label="<%= t('admin.reorderStageAria', { stage: cat.title }) %>" aria-describedby="task-drag-help" title="<%= t('admin.dragToReorder') %>">
+          <i data-lucide="grip-vertical"></i><span class="visually-hidden"><%= t('admin.reorderStage') %></span>
+        </button>
+        <div class="cat-head-main">
+          <span class="kicker kicker--<%= cat.colorKey %>" data-cat-kicker><%= phaseLabel(catIdx, lang) %></span>
+          <div class="cat-title-row" data-cat-title-view>
+            <h2 class="cat-title"><%= cat.title %></h2>
+            <button type="button" class="ctl ctl-btn category-edit" data-action="category-edit-toggle" data-id="<%= cat.id %>" aria-label="<%= t('admin.editStageAction') %>"><i data-lucide="pencil"></i></button>
+            <button type="button" class="ctl ctl-btn ctl-danger" data-action="category-delete" data-id="<%= cat.id %>" aria-label="<%= t('admin.deleteStage') %>"><i data-lucide="trash-2"></i></button>
+          </div>
+          <dialog class="modal modal--sm" data-cat-title-edit aria-label="<%= t('admin.editStageTitleAria', { stage: cat.title }) %>">
+            <div class="modal__panel">
+              <div class="modal__head">
+                <div class="modal__titles">
+                  <span class="kicker kicker--<%= cat.colorKey %>" data-cat-kicker><%= phaseLabel(catIdx, lang).toUpperCase() %></span>
+                  <h2 class="modal__title"><%= t('admin.editStageTitle') %></h2>
+                </div>
+                <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+              </div>
+              <div class="modal__body">
+                <div class="field">
+                  <label for="cat-title-input-<%= cat.id %>"><%= t('admin.editStageLabel') %></label>
+                  <input type="text" id="cat-title-input-<%= cat.id %>" class="cat-title-input" data-cat-title-input data-id="<%= cat.id %>" value="<%= cat.title %>" maxlength="300">
+                </div>
+                <div class="form-actions modal__actions">
+                  <button type="button" class="btn btn-red btn-sm" data-action="category-save" data-id="<%= cat.id %>"><%= t('common.save') %></button>
+                  <button type="button" class="btn btn-ghost btn-sm" data-action="category-cancel" data-id="<%= cat.id %>"><%= t('common.cancel') %></button>
+                </div>
+              </div>
+            </div>
+          </dialog>
+        </div>
+        <div class="record-total record-total--<%= cat.colorKey %>">
+          <strong><%= pctText(cat.progress.percentage) %></strong>
+          <span><%= t('admin.ofTotal', { done: cat.progress.completed, total: cat.progress.total }) %></span>
+        </div>
+      </div>
+      <div class="pbar pbar--<%= cat.colorKey %>" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= Math.round(cat.progress.percentage) %>" aria-label="<%= t('admin.progressOf', { stage: cat.title }) %>">
+        <div class="pbar-fill pbar-fill--<%= cat.colorKey %>" style="--fill: <%= pctBar(cat.progress.percentage) %>"></div>
+      </div>
+
+      <%
+        // Atajo de creación al principio de la etapa: abre el mismo formulario
+        // de «Nueva actividad» con esta etapa ya elegida y la posición 1, así
+        // que nada se añade al final por descuido. Va fuera de la lista para no
+        // contar como actividad en el arrastre ni en la paginación.
+      %>
+      <button type="button" class="task-add-row" data-add-task-top data-category-id="<%= cat.id %>" aria-label="<%= t('admin.taskAddAtTopAria', { stage: cat.title }) %>">
+        <span class="task-add-row__glyph"><i data-lucide="plus"></i></span>
+        <span class="task-add-row__text"><%= t('admin.taskAddAtTop') %></span>
+        <span class="task-add-row__hint"><%= t('admin.taskPosition1') %></span>
+      </button>
+
+      <ul class="task-list task-list--admin" data-task-dropzone data-category-id="<%= cat.id %>" aria-describedby="task-drag-help">
+        <% cat.tasks.forEach(function(task) { %>
+        <% const assignedUsers = Array.isArray(task.assigned_users) ? task.assigned_users : (task.assigned_user_id ? [{ id: task.assigned_user_id, name: task.assigned_user_name || '', displayName: task.assigned_user_name || '', shortName: task.assigned_user_name || '' }] : []); %>
+        <% const assignedIds = assignedUsers.map(function(u) { return u.id; }); %>
+        <% const shownAssignees = assignedUsers.slice(0, 5); const extraAssignees = assignedUsers.length - shownAssignees.length; %>
+        <li class="task task--<%= task.status %>" data-task-id="<%= task.id %>">
+          <div class="task-summary">
+            <button type="button" class="task-drag-handle" data-task-drag-handle aria-label="<%= t('admin.reorderTaskAria', { title: task.title }) %>" aria-describedby="task-drag-help" title="<%= t('admin.dragToReorder') %>">
+              <i data-lucide="grip-vertical"></i>
+              <span class="visually-hidden"><%= t('admin.reorderTask') %></span>
+            </button>
+            <span class="task-glyph"><i data-lucide="<%= task.status === 'completed' ? 'circle-check-big' : task.status === 'in_progress' ? 'loader-circle' : 'circle' %>"></i></span>
+            <span class="task-text" title="<%= task.title %>"><%= task.title %></span>
+            <span class="task-status task-status--<%= task.status %>"><%= statusLabel(task.status, lang) %></span>
+            <% if (assignedUsers.length === 0) { %>
+            <span class="task-assignee"><%= t('admin.taskUnassigned') %></span>
+            <% } else { %>
+            <span class="assignee">
+              <button type="button" class="assignee-bubble" data-assignee-toggle aria-expanded="false" aria-label="<%= assignedUsers.length === 1 ? t('admin.assigneeAria') : t('admin.assigneesAria', { n: assignedUsers.length }) %>">
+                <i data-lucide="user" class="assignee-icon"></i>
+                <span class="assignee-count"><%= assignedUsers.length %></span>
+              </button>
+              <div class="assignee-popover" role="tooltip">
+                <% shownAssignees.forEach(function(u) { %><p><%= u.shortName %></p><% }) %>
+                <% if (extraAssignees > 0) { %><p class="assignee-popover__more"><%= extraAssignees === 1 ? t('roadmap.oneMoreCollaborator') : t('roadmap.moreCollaborators', { n: extraAssignees }) %></p><% } %>
+              </div>
+            </span>
+            <% } %>
+            <div class="task-actions">
+              <button type="button" class="ctl ctl-btn ctl-pin" data-action="toggle-pin" data-id="<%= task.id %>" aria-pressed="<%= task.order_pinned ? 'true' : 'false' %>" aria-label="<%= task.order_pinned ? t('admin.taskUnpinAria') : t('admin.taskPinAria') %>" title="<%= task.order_pinned ? t('admin.taskPinnedTitle') : t('admin.taskPin') %>"><i data-lucide="pin"></i></button>
+              <button type="button" class="ctl ctl-btn ctl-edit-toggle" data-action="toggle-edit" data-id="<%= task.id %>" aria-expanded="false" aria-controls="edit-<%= task.id %>" aria-label="<%= t('admin.taskEdit') %>"><i data-lucide="pencil"></i></button>
+              <button type="button" class="ctl ctl-btn ctl-danger" data-action="delete" data-id="<%= task.id %>" aria-label="<%= t('common.delete') %>"><i data-lucide="trash-2"></i></button>
+            </div>
+          </div>
+
+          <dialog class="modal modal--lg" id="edit-<%= task.id %>" aria-label="<%= t('admin.taskEditAria', { title: task.title }) %>">
+            <div class="modal__panel">
+              <div class="modal__head">
+                <div class="modal__titles">
+                  <span class="kicker kicker--<%= cat.colorKey %>"><%= t('admin.taskEditKicker') %></span>
+                  <h2 class="modal__title" data-modal-title><%= task.title %></h2>
+                </div>
+                <button type="button" class="modal__close" data-action="cancel-edit" data-id="<%= task.id %>" aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+              </div>
+              <div class="modal__body task-edit">
+                <div class="field">
+                  <label for="title-<%= task.id %>"><%= t('admin.taskTitleLabel') %></label>
+                  <input type="text" id="title-<%= task.id %>" data-title-input data-id="<%= task.id %>" value="<%= task.title %>" maxlength="300">
+                </div>
+
+                <div class="task-edit-row">
+                  <div class="field">
+                    <label for="status-<%= task.id %>"><%= t('admin.taskStatus') %></label>
+                    <select id="status-<%= task.id %>" class="ctl ctl-status" data-field="status" data-id="<%= task.id %>">
+                      <option value="pending" <%- task.status === 'pending' ? 'selected' : '' %>><%= t('status.pending') %></option>
+                      <option value="in_progress" <%- task.status === 'in_progress' ? 'selected' : '' %>><%= t('status.in_progress') %></option>
+                      <option value="completed" <%- task.status === 'completed' ? 'selected' : '' %>><%= t('status.completed') %></option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="cat-<%= task.id %>"><%= t('admin.taskCategory') %></label>
+                    <select id="cat-<%= task.id %>" class="ctl ctl-cat" data-field="category" data-id="<%= task.id %>">
+                      <% view.categories.forEach(function(c) { %>
+                      <option value="<%= c.id %>" <%- c.id === task.category_id ? 'selected' : '' %>><%= c.title %></option>
+                      <% }) %>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field field--wide">
+                  <span class="field-label" id="assign-label-<%= task.id %>"><%= t('admin.taskOwners') %></span>
+                  <div class="assignee-picker" data-assignee-picker>
+                    <div class="assignee-search">
+                      <input type="text" class="assignee-search-input" data-assignee-search placeholder="<%= t('admin.taskSearchPeople') %>" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-labelledby="assign-label-<%= task.id %>">
+                      <div class="assignee-results" data-assignee-results hidden></div>
+                    </div>
+                    <div class="assignee-chips" data-assignee-chips></div>
+                    <div class="visually-hidden" data-assignment-group data-id="<%= task.id %>" aria-hidden="true">
+                      <% availableUsers.forEach(function(user) { %>
+                      <label for="assign-<%= task.id %>-<%= user.id %>">
+                        <input type="checkbox" id="assign-<%= task.id %>-<%= user.id %>" value="<%= user.id %>" data-assignment-checkbox tabindex="-1" <%- assignedIds.indexOf(user.id) >= 0 ? 'checked' : '' %>>
+                        <span><%= displayName(user) %></span>
+                      </label>
+                      <% }) %>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-actions modal__actions">
+                  <button type="button" class="btn btn-red btn-sm" data-action="save-task" data-id="<%= task.id %>"><%= t('common.saveChanges') %></button>
+                  <button type="button" class="btn btn-ghost btn-sm" data-action="cancel-edit" data-id="<%= task.id %>"><%= t('common.cancel') %></button>
+                </div>
+              </div>
+            </div>
+          </dialog>
+        </li>
+        <% }) %>
+        <% if (cat.tasks.length === 0) { %>
+        <li class="task task--empty"><%= t('admin.taskEmpty') %></li>
+        <% } %>
+      </ul>
+
+      <div class="cat-pagination" data-cat-pagination data-cat-slug="<%= cat.slug %>" <%- cat.tasks.length > 5 ? '' : 'hidden' %>>
+        <div class="cat-pagination__size">
+          <label for="pagesize-<%= cat.slug %>"><%= t('admin.perPageLabel') %></label>
+          <select id="pagesize-<%= cat.slug %>" data-page-size aria-label="<%= t('admin.perPageIn', { stage: cat.title }) %>">
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+            <option value="all"><%= t('common.all') %></option>
+          </select>
+        </div>
+        <div class="cat-pagination__nav">
+          <button type="button" class="ctl ctl-btn" data-page-prev aria-label="<%= t('admin.prevPage') %>"><i data-lucide="chevron-left"></i></button>
+          <span class="cat-pagination__status" data-page-status><%= t('common.pageNofM', { n: 1, total: 1 }) %></span>
+          <button type="button" class="ctl ctl-btn" data-page-next aria-label="<%= t('admin.nextPage') %>"><i data-lucide="chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+    </div>
+  </div>
+</section>
+</main>
+
+<%- include('partials/footer', { showVisitCounter: false }) %>
+<script src="<%= basePath %>/static/admin.js?v=<%= assetVersion %>" defer></script>
+<script src="<%= basePath %>/static/metrics.js?v=<%= assetVersion %>" defer></script>
+</body>
+</html>

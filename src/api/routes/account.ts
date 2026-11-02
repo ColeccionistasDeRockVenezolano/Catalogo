@@ -9,7 +9,7 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { ApiError } from "../http-errors.js";
 import { createWindowLimiter } from "../rate-limit.js";
-import { readOwnProfile, saveOwnProfile, changeOwnPassword } from "../account/store.js";
+import { readOwnProfile, resolveOwner, saveOwnProfile, changeOwnPassword, validateProfileFields } from "../account/store.js";
 
 const linkBody = z.object({
   type: z.string().trim().max(40).optional(),
@@ -33,6 +33,13 @@ const profileBody = z.object({
   profileVisibility: z.enum(["private", "public"]).optional(),
   termIds: z.array(z.number().int().positive()).max(40).optional(),
   links: z.array(linkBody).max(10).optional(),
+}).strict();
+
+/** TEMPORAL-PORTADA: «Mi perfil» 1:1 guarda perfil y clave con un solo botón. */
+const saveBody = profileBody.extend({
+  currentAccessCode: z.string().max(200).optional(),
+  newAccessCode: z.string().max(200).optional(),
+  newAccessCodeConfirm: z.string().max(200).optional(),
 }).strict();
 
 const passwordBody = z.object({
@@ -65,6 +72,30 @@ export async function registerAccountRoutes(app: FastifyInstance): Promise<void>
   }, async (request) => {
     const account = accountRef(request);
     return saveOwnProfile(account.kind, account.id, request.body);
+  });
+
+  // Mismo orden que Herra: lo que se puede validar antes de escribir va primero;
+  // una clave actual incorrecta no deja el perfil a medio guardar.
+  api.post("/account/save", {
+    schema: { tags: ["Cuenta"], body: saveBody },
+  }, async (request) => {
+    const account = accountRef(request);
+    const { currentAccessCode, newAccessCode, newAccessCodeConfirm, ...profile } = request.body;
+    const owner = await resolveOwner(account.kind, account.id);
+    const hasProfile = owner?.user_id != null;
+    if (hasProfile) validateProfileFields(profile);
+    const wantsPassword = Boolean(currentAccessCode || newAccessCode || newAccessCodeConfirm);
+    if (wantsPassword) {
+      if (!currentAccessCode) throw new ApiError(400, "password_current_missing", "Escribe tu clave actual para poder cambiarla.");
+      if (newAccessCode !== newAccessCodeConfirm) throw new ApiError(400, "password_mismatch", "Las claves nuevas no coinciden.");
+      if (!passwordLimiter.take(`${account.kind}:${account.id}`)) {
+        throw new ApiError(429, "rate_limited", "Demasiados cambios de clave seguidos. Espera unos minutos.");
+      }
+      const result = await changeOwnPassword(account.kind, account.id, currentAccessCode, newAccessCode ?? "");
+      await request.server.restampSession(request, result.sessionVersion);
+    }
+    if (hasProfile) await saveOwnProfile(account.kind, account.id, profile);
+    return { ok: true as const, saved: wantsPassword ? (hasProfile ? "both" as const : "password" as const) : "profile" as const };
   });
 
   api.post("/account/password", {

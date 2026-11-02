@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import defaults from "./collaborate-defaults.json" with { type: "json" };
 import { resolveBranding } from "./branding.js";
@@ -24,6 +25,11 @@ describe("plantillas EJS de la portada", () => {
     expect(html).toContain("<meta charset=");
     expect(html).not.toContain("[object Promise]");
     expect(html).not.toContain("undefined");
+  });
+
+  it("el portón no ofrece el catálogo: el panel oculta Curaduría en la portada", async () => {
+    const source = await readFile(new URL("./views/admin.ejs", import.meta.url), "utf8");
+    expect(source).toMatch(/<% if \(!landingMode\) \{ %><a class="btn btn-ghost btn-sm" href="\/curaduria"/u);
   });
 
   it.each<LandingPage>(["registro", "activar"])("muestra enlace inválido en %s sin token", async (page) => {

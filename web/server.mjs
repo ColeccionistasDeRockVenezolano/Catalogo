@@ -60,6 +60,10 @@ if (deployment === "production") {
 // `<base href="/">`); bajo `/crv`, en `/crv/api`.
 const apiPath = basePath === "/" ? "/api" : `${basePath}/api`;
 const landingCache = new Map();
+// TEMPORAL-PORTADA: el panel y «Mi perfil» son la puerta del equipo mientras el
+// catálogo no se publique. Ver docs/independencia/PUERTA-TEMPORAL.md.
+const adminDocPath = webMode === "landing" ? "admin" : "curaduria/roadmap";
+const isPrivateDoc = (page) => page === "admin" || page === "account";
 
 async function serveLanding(req, res, page, lang, searchParams) {
   const prefix = basePath === "/" ? "" : basePath;
@@ -76,16 +80,28 @@ async function serveLanding(req, res, page, lang, searchParams) {
       // oculta esos enlaces para no ofrecer rutas que la lista blanca da 404.
       if (webMode === "landing") params.set("mode", "landing");
       if (token) params.set("token", token);
+      const saved = page === "account" ? searchParams.get("saved") : null;
+      if (saved === "profile" || saved === "password" || saved === "both") params.set("saved", saved);
       const response = await fetch(`http://${apiHost}:${apiPort}/landing/${page}?${params}`, {
-        signal: AbortSignal.timeout(5000), ...(cookie ? { headers: { cookie } } : {}),
+        // Con sesión la copia anónima no sirve: se espera más antes de rendirse.
+        signal: AbortSignal.timeout(privateResponse ? 15000 : 5000), ...(cookie ? { headers: { cookie } } : {}),
       });
       if (response.status === 404) return reply(res, 404, "Página no disponible.");
+      if (isPrivateDoc(page) && (response.status === 401 || response.status === 403)) {
+        res.writeHead(302, { location: `${prefix}/login`, "cache-control": "no-store" });
+        return res.end();
+      }
+      if (response.headers.get("x-crv-landing-redirect") === "roadmap") {
+        res.writeHead(302, { location: `${prefix}/roadmap${lang === "en" ? "?lang=en" : ""}`, "cache-control": "no-store" });
+        return res.end();
+      }
       if (!response.ok) throw new Error(`API ${response.status}`);
       entry = { html: await response.text(), expires: Date.now() + 30_000 };
       if (!privateResponse) landingCache.set(key, entry);
     } catch {
       // Una respuesta lenta de la API no puede devolver la copia estática del
       // build, con datos y emisión de cuando se compiló: antes, la última buena.
+      if (isPrivateDoc(page)) return reply(res, 503, "Esta página no está disponible en este momento.");
       if (!cached) return serveFile(req, res, `${prefix}/landing/${page}-${lang}.html`, searchParams);
       entry = cached;
     }
@@ -100,8 +116,10 @@ async function serveLanding(req, res, page, lang, searchParams) {
     .replaceAll("/media/share?", `${apiPath}/landing-media/share?`)
     .replaceAll('href="/theme.css"', `href="${prefix}/landing/theme.css"`)
     .replaceAll('href="/register"', `href="${prefix}/registro"`)
-    .replaceAll('href="/account"', `href="${prefix}/cuenta"`)
-    .replaceAll('href="/admin"', `href="${prefix}/curaduria/roadmap"`)
+    .replaceAll('href="/account"', `href="${prefix}/account"`)
+    .replaceAll('href="/account?', `href="${prefix}/account?`)
+    .replaceAll('href="/admin?', `href="${prefix}/admin?`)
+    .replaceAll('href="/admin"', `href="${prefix}/${adminDocPath}"`)
     .replaceAll('href="/login"', `href="${prefix}/login"`)
     .replaceAll('href="/colaborar"', `href="${prefix}/colaborar"`)
     .replaceAll('href="/"', `href="${prefix}/roadmap"`)
@@ -109,9 +127,14 @@ async function serveLanding(req, res, page, lang, searchParams) {
     .replaceAll('href="/colaborar?', `href="${prefix}/colaborar?`)
     .replaceAll('href="/login?', `href="${prefix}/login?`)
     .replaceAll('href="/registro?', `href="${prefix}/registro?`)
-    .replaceAll('href="/activar?', `href="${prefix}/activar?`);
+    .replaceAll('href="/activar?', `href="${prefix}/activar?`)
+    .replaceAll("crv-panel-media-base", `${apiPath}/landing-media`)
+    .replaceAll('href="/curaduria"', `href="${prefix}/curaduria"`)
+    .replaceAll('href="/curaduria/roadmap?', `href="${prefix}/curaduria/roadmap?`);
+  // Con <base>, un ancla relativa saldría del panel.
+  if (page === "admin") html = html.replaceAll('href="#', `href="${prefix}/${adminDocPath}${lang === "en" ? "?lang=en" : ""}#`);
   html = html.replace(/<li><a(?: class="[^"]*")? href="\/kanban">[\s\S]*?<\/a><\/li>/g, "");
-  const scripts = page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js", "visits-mobile.js"] : ["registro-activar.js"];
+  const scripts = page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "admin" ? ["landing-session.js"] : page === "account" ? ["account.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js", "visits-mobile.js"] : ["registro-activar.js"];
   html = html.replace("</body>", `${scripts.map((src) => `<script src="${prefix}/landing/${src}" defer></script>`).join("")}</body>`);
   const body = Buffer.from(html);
   res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", ...SECURITY_HEADERS });
@@ -357,6 +380,8 @@ function proxyApi(req, res, requestUrl) {
     host: `${apiHost}:${upstreamPort}`,
     "x-forwarded-host": req.headers.host,
     "x-forwarded-proto": "https",
+    // El panel construye con esto las direcciones de invitación y activación.
+    "x-crv-base-path": basePath === "/" ? "" : basePath,
   };
   if (!isLoopbackPeer(req)) {
     delete headers["cf-connecting-ip"];
@@ -575,7 +600,11 @@ function reportTraffic(req, literalPath) {
 // (§5.1). Todo lo demás responde 404: ni el catálogo, ni /curaduria, ni el chat,
 // ni las rutas del SPA. La radio se reenvía a Herra mientras la Fase 3 no cumpla.
 const radioProxyUrl = process.env.CRV_RADIO_PROXY_URL ?? "";
-const LANDING_DOCS = ["/", "/roadmap", "/colaborar", "/login", "/registro", "/activar"];
+// TEMPORAL-PORTADA: /account, /admin y sus APIs reemplazan a Herra hasta publicar
+// el catálogo. La prueba es scripts/checks/fase2b-whitelist.mjs.
+const LANDING_DOCS = ["/", "/roadmap", "/colaborar", "/login", "/registro", "/activar", "/account", "/admin"];
+// Direcciones de Herra que ya circulan (invitaciones enviadas, marcadores).
+const LANDING_LEGACY = { "/register": "/registro", "/admin/login": "/login" };
 const LANDING_API = [
   /^\/roadmap$/u,
   /^\/roadmap\/(visit|visits|me)$/u,
@@ -586,6 +615,8 @@ const LANDING_API = [
   /^\/community\/activate(\/[A-Za-z0-9_-]+)?$/u,
   /^\/site-config$/u,
   /^\/auth\/(login|logout|me)$/u,
+  /^\/account\/save$/u,
+  /^\/community\/admin\/panel(\/[A-Za-z0-9_/-]*)?$/u,
   /^\/landing-media\/(favicon|share)$/u,
 ];
 const LANDING_RADIO = /^\/radio\/(now|listener|unavailable)$/u;
@@ -599,6 +630,8 @@ function proxyTo(req, res, target, upstreamPath) {
     host: destino.host,
     "x-forwarded-host": req.headers.host,
     "x-forwarded-proto": "https",
+    // El panel construye con esto las direcciones de invitación y activación.
+    "x-crv-base-path": basePath === "/" ? "" : basePath,
   };
   if (!isLoopbackPeer(req)) {
     delete headers["cf-connecting-ip"];
@@ -658,6 +691,11 @@ function landingWhitelist(req, res, virtualUrl, acceptsHtml) {
   // expone /curaduria ni las rutas de la API, que en este modo no existen.
   if (esLectura && ruta === "/robots.txt") {
     sendText(req, res, 200, "text/plain; charset=utf-8", "User-agent: *\nAllow: /\n", "public, max-age=3600");
+    return true;
+  }
+  if (esLectura && Object.hasOwn(LANDING_LEGACY, ruta)) {
+    res.writeHead(301, { location: `${LANDING_LEGACY[ruta]}${virtualUrl.search}`, ...SECURITY_HEADERS });
+    res.end();
     return true;
   }
   if (esLectura && LANDING_DOCS.includes(ruta)) return false; // la rama de landing ya las sirve
@@ -722,7 +760,12 @@ const server = http.createServer(async (req, res) => {
   // Las cinco páginas usan el documento renderizado por la API, con fallback
   // estático cuando no se puede contactar con ella.
   const landingPrefix = basePath === "/" ? "" : basePath;
-  const landingPage = ["roadmap", "colaborar", "login", "registro", "activar"].find((page) => virtualUrl.pathname.replace(/\/+$/u, "") === `${landingPrefix}/${page}`);
+  const landingPage = ["roadmap", "colaborar", "login", "registro", "activar", "account"].find((page) => virtualUrl.pathname.replace(/\/+$/u, "") === `${landingPrefix}/${page}`);
+  // El panel del roadmap es el documento de Herra, con sesión; nunca desde la portada.
+  if ((req.method === "GET" || req.method === "HEAD") && virtualUrl.pathname.replace(/\/+$/u, "") === `${landingPrefix}/${adminDocPath}`) {
+    const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
+    return serveLanding(req, res, "admin", lang, virtualUrl.searchParams);
+  }
   if ((req.method === "GET" || req.method === "HEAD") && landingPage) {
     const canonical = `${landingPrefix}/${landingPage}`;
     if (virtualUrl.pathname !== canonical) {

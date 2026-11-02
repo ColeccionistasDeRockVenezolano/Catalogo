@@ -10,12 +10,24 @@ export async function registerLandingRoutes(app: FastifyInstance): Promise<void>
   api.get("/landing/:page", {
     schema: {
       tags: ["Roadmap"],
-      params: z.object({ page: z.enum(["roadmap", "colaborar", "login", "registro", "activar"]) }),
-      querystring: z.object({ lang: z.enum(["es", "en"]).optional(), token: z.string().max(200).optional(), mode: z.enum(["landing"]).optional() }),
+      params: z.object({ page: z.enum(["roadmap", "colaborar", "login", "registro", "activar", "admin", "account"]) }),
+      querystring: z.object({ lang: z.enum(["es", "en"]).optional(), token: z.string().max(200).optional(), mode: z.enum(["landing"]).optional(), saved: z.enum(["profile", "password", "both"]).optional() }),
     },
   }, async (request, reply) => {
-    const session = request.viewer ? { ...request.viewer, userId: request.account?.kind === "user" ? request.account.id : null, csrf: request.csrfToken } : null;
-    const html = await renderLanding(request.params.page, request.query.lang ?? "es", request.query.token ?? "", session, request.query.mode === "landing");
+    const session = request.viewer ? { ...request.viewer, userId: request.account?.kind === "user" ? request.account.id : null, adminId: request.account?.kind === "admin" ? request.account.id : null, csrf: request.csrfToken } : null;
+    // El panel solo existe con sesión de administración o comunidad; el gateway
+    // manda a /login a quien reciba este 403.
+    if (request.params.page === "admin" && request.viewer?.role !== "admin" && request.viewer?.role !== "community") {
+      return reply.code(403).header("Cache-Control", "no-store").send({ error: "forbidden" });
+    }
+    // TEMPORAL-PORTADA: como en Herra, /account pide sesión y /login no se le ofrece a quien ya entró.
+    if (request.params.page === "account" && !session) {
+      return reply.code(401).header("Cache-Control", "no-store").send({ error: "unauthorized" });
+    }
+    if (request.params.page === "login" && session) {
+      return reply.code(204).header("Cache-Control", "no-store").header("x-crv-landing-redirect", "roadmap").send();
+    }
+    const html = await renderLanding(request.params.page, request.query.lang ?? "es", request.query.token ?? "", session, request.query.mode === "landing", request.query.saved ?? null);
     return reply.header("Cache-Control", "no-store").type("text/html; charset=utf-8").send(html);
   });
   api.get("/landing-media/:kind", {

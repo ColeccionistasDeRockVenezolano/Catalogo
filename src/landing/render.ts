@@ -9,15 +9,72 @@ import { getPlatform, platformLabel, socialIcon, socialLinkLabel } from "./socia
 import { faviconDataUri, formatDateTime, formatNumber, isoDateTime, jsonLd, pctBar, pctText, phaseLabel, statusLabel } from "./view-helpers.js";
 import { activationInfo, inviteInfo } from "../api/community/tokens.js";
 import { ApiError } from "../api/http-errors.js";
+import { adminViewLocals, catalogGroups, collaborationGaps, displayName, getPersonProfile, projectRow, shortDisplayName } from "./admin-panel.js";
+import { clientMessages as herraClientMessages, translate as herraTranslate } from "./herra/i18n.js";
+import { getPool } from "../db/client.js";
+import { ACTIVATION_TTL_DAYS } from "../api/community/validation.js";
 
-export type LandingPage = "roadmap" | "colaborar" | "login" | "registro" | "activar";
-interface LandingSession { name: string; role: string; userId: number | null; csrf: string }
-const templates: Record<LandingPage, string> = { roadmap: "roadmap", colaborar: "collaborate", login: "user-login", registro: "register", activar: "activate" };
+export type LandingPage = "roadmap" | "colaborar" | "login" | "registro" | "activar" | "admin" | "account";
+export type AccountSaved = "profile" | "password" | "both";
+interface LandingSession { name: string; role: string; userId: number | null; adminId?: number | null; csrf: string }
+const templates: Record<LandingPage, string> = { roadmap: "roadmap", colaborar: "collaborate", login: "user-login", registro: "register", activar: "activate", admin: "admin", account: "account" };
 const rawTranslatedKeys = new Set(["register.doneSub", "register.invalidSub", "register.sub", "activate.invalidSub", "activate.subNamed", "activate.sub", "userLogin.sub"]);
 const escapeHtml = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
+/** La plantilla del panel usa el diccionario completo de Herra y las filas con su forma. */
+async function adminLocals(locals: Record<string, unknown>, id: number, lang: LandingLanguage, session: LandingSession | null): Promise<Record<string, unknown>> {
+  const project = await projectRow(id);
+  const admin = session?.adminId
+    ? (await getPool().query<{ username: string; user_id: number | null }>("SELECT username::text AS username, user_id FROM auth.admins WHERE id = $1", [session.adminId])).rows[0]
+    : undefined;
+  const ownerId = session?.userId ?? admin?.user_id ?? null;
+  const owner = ownerId
+    ? (await getPool().query("SELECT id, name::text AS name, first_name, last_name FROM auth.users WHERE id = $1", [ownerId])).rows[0]
+    : null;
+  // Quien entró con su clave de colaborador también tiene nombre de administración.
+  const linkedAdmin = !admin && ownerId
+    ? (await getPool().query<{ username: string }>("SELECT username::text AS username FROM auth.admins WHERE user_id = $1 ORDER BY id LIMIT 1", [ownerId])).rows[0]
+    : undefined;
+  return {
+    ...locals, ...(await adminViewLocals(project, lang)), project,
+    t: (key: string, vars?: Record<string, string | number>) => herraTranslate(lang, key, vars),
+    clientMessages: herraClientMessages, displayName, shortDisplayName, collaborationGaps,
+    currentUser: owner ?? (session ? { id: 0, name: session.name } : null),
+    currentAdmin: session?.role === "admin" ? { role: "admin", username: admin?.username ?? linkedAdmin?.username ?? session.name } : null,
+    activationTtlDays: ACTIVATION_TTL_DAYS,
+    showRadio: false, showMap: false, showContextLinks: false,
+  };
+}
+
+/**
+ * TEMPORAL-PORTADA: «Mi perfil» 1:1 de Herra para la portada sin catálogo. Lee las
+ * mismas filas que el /cuenta del catálogo; ver docs/independencia/PUERTA-TEMPORAL.md.
+ */
+async function accountLocals(locals: Record<string, unknown>, lang: LandingLanguage, session: LandingSession, saved: AccountSaved | null): Promise<Record<string, unknown>> {
+  const admin = session.adminId
+    ? (await getPool().query<{ user_id: number | null }>("SELECT user_id FROM auth.admins WHERE id = $1", [session.adminId])).rows[0]
+    : undefined;
+  const ownerId = session.userId ?? admin?.user_id ?? null;
+  const owner = ownerId
+    ? (await getPool().query("SELECT id, name::text AS name, first_name, last_name, person_id FROM auth.users WHERE id = $1", [ownerId])).rows[0]
+    : null;
+  const profile = owner?.person_id ? await getPersonProfile(owner.person_id as number, lang) : null;
+  return {
+    ...locals,
+    t: (key: string, vars?: Record<string, string | number>) => herraTranslate(lang, key, vars),
+    clientMessages: herraClientMessages, displayName, shortDisplayName, escapeHtml,
+    currentUser: owner ?? { id: 0, name: session.name, first_name: "", last_name: "", person_id: null },
+    isAdmin: false, profile,
+    catalog: await catalogGroups(lang),
+    selectedTermIds: profile ? (profile["terms"] as Array<{ id: number }>).map((term) => term.id) : [],
+    profileError: null, passwordError: null,
+    profileSuccess: saved === "profile" || saved === "both", passwordSuccess: saved === "password" || saved === "both",
+    showRadio: false, showMap: false, showContextLinks: false,
+  };
+}
+
 /** Genera el documento de Herra con lecturas de la base del catálogo. */
-export async function renderLanding(page: LandingPage, lang: LandingLanguage, token = "", session: LandingSession | null = null, landingMode = false): Promise<string> {
+export async function renderLanding(page: LandingPage, lang: LandingLanguage, token = "", session: LandingSession | null = null, landingMode = false, saved: AccountSaved | null = null): Promise<string> {
   const data = await loadLandingData(lang, page, session !== null);
   const projectAdmin = Boolean(session && (session.role === "admin" || session.role === "community"));
   const currentUser = session ? { id: session.userId ?? 0, name: session.name } : null;
@@ -37,7 +94,7 @@ export async function renderLanding(page: LandingPage, lang: LandingLanguage, to
       : vars;
     return translate(lang, key, safe);
   };
-  const langOptions = (["es", "en"] as const).map((code) => ({ code, label: code.toUpperCase(), name: code === "es" ? "Español" : "English", current: code === lang, url: `/${page}?lang=${code}${token ? `&token=${encodeURIComponent(token)}` : ""}` }));
+  const langOptions = (["es", "en"] as const).map((code) => ({ code, label: code.toUpperCase(), name: code === "es" ? "Español" : "English", current: code === lang, url: `/${page === "admin" ? (landingMode ? "admin" : "curaduria/roadmap") : page}?lang=${code}${token ? `&token=${encodeURIComponent(token)}` : ""}` }));
   const locals = {
     ...data, lang, t, langOptions, ogLocale: lang === "es" ? "es_ES" : "en_US", publicCriticalCss,
     assetVersion: "1.1.39", basePath: "", projectBase: "", pageOrigin: origin, canonicalUrl: `${origin}/${page === "roadmap" ? "" : page}`,
@@ -53,7 +110,10 @@ export async function renderLanding(page: LandingPage, lang: LandingLanguage, to
     shortDisplayName: (person: { name: string }) => person.name,
     appName: "Herra", registrationTokenTtlMin: 30,
   };
-  const html = await ejs.renderFile(path.join(root, "views", `${templates[page]}.ejs`), locals) as string;
+  const viewLocals = page === "admin" ? await adminLocals(locals, data.project.id, lang, session)
+    : page === "account" && session ? await accountLocals(locals, lang, session, saved)
+      : locals;
+  const html = await ejs.renderFile(path.join(root, "views", `${templates[page]}.ejs`), viewLocals) as string;
   const c = data.theme.colors;
   const css = `:root{--bg:${c.bg};--surface:${c.surface};--surface-2:${c.surface2};--red:${c.red};--red-dark:${c.redDark};--white:${c.white};--gray:${c.gray};--border:${c.border};--accent-red:${c.accentRed};--accent-amber:${c.accentAmber};--accent-violet:${c.accentViolet};--accent-teal:${c.accentTeal};--font-title:${withFontFallbacks(data.theme.fontTitle)};--font-body:${withFontFallbacks(data.theme.fontBody)}}`;
   return html.replace("</head>", `<style>${css}</style></head>`);

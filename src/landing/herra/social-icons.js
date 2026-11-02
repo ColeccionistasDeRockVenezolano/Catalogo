@@ -1,0 +1,201 @@
+// Catálogo de plataformas sociales: marca, color e icono.
+//
+// Lucide 1.x retiró los iconos de marca, así que los glifos viven aquí como
+// SVG estático y se pintan en el servidor. Ventajas: la fila de redes del
+// roadmap aparece aunque el JavaScript no llegue a cargar, hereda el color del
+// tema con `currentColor` y no depende de ningún CDN (la CSP no lo permitiría).
+//
+// Los marcados son propios —trazos reconstruidos con la misma retícula de 24×24
+// y el mismo grosor de trazo que Lucide— para que la fila se lea como una sola
+// familia tipográfica y no como logotipos pegados de sitios distintos.
+import { DEFAULT_LANG, translate } from './i18n.js';
+const STROKE_DEFAULTS = 'fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"';
+const FILL_DEFAULTS = 'fill="currentColor" stroke="none"';
+export const SOCIAL_PLATFORMS = [
+    {
+        key: 'youtube', label: 'YouTube', color: '#ff0033',
+        hosts: ['youtube.com', 'youtu.be', 'm.youtube.com', 'music.youtube.com'],
+        body: '<path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/>',
+    },
+    {
+        key: 'instagram', label: 'Instagram', color: '#e1306c',
+        hosts: ['instagram.com', 'instagr.am'],
+        body: '<rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.15" fill="currentColor" stroke="none"/>',
+    },
+    {
+        key: 'facebook', label: 'Facebook', color: '#1877f2',
+        hosts: ['facebook.com', 'fb.com', 'fb.me', 'm.facebook.com'],
+        body: '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
+    },
+    {
+        key: 'x', label: 'X', color: '#f5f5f5',
+        hosts: ['x.com', 'twitter.com', 'mobile.twitter.com'],
+        filled: true,
+        body: '<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>',
+    },
+    {
+        key: 'threads', label: 'Threads', color: '#f5f5f5',
+        hosts: ['threads.net', 'threads.com'],
+        body: '<path d="M17.4 7.9C16.4 5.9 14.5 4.9 12.1 4.9 8.1 4.9 5.5 7.7 5.5 12s2.6 7.1 6.6 7.1c3.4 0 5.5-1.8 5.5-4.3 0-2.3-1.8-3.8-4.6-3.8-2 0-3.4.9-3.4 2.3 0 1.2 1 2 2.3 2 1.9 0 3.1-1.5 3.2-4.4"/>',
+    },
+    {
+        key: 'tiktok', label: 'TikTok', color: '#25f4ee',
+        hosts: ['tiktok.com', 'vm.tiktok.com'],
+        body: '<path d="M13.2 3.5v12.2a4.1 4.1 0 1 1-4.1-4.1"/><path d="M13.2 3.5c.5 2.7 2.5 4.5 5.3 4.7"/>',
+    },
+    {
+        key: 'wordpress', label: 'WordPress', color: '#3499cd',
+        hosts: ['wordpress.com', 'wordpress.org'],
+        body: '<circle cx="12" cy="12" r="9"/><path d="m6.9 8.4 2.1 7.2 3-7.2 3 7.2 2.1-7.2"/>',
+    },
+    {
+        key: 'linkedin', label: 'LinkedIn', color: '#0a66c2',
+        hosts: ['linkedin.com', 'lnkd.in'],
+        body: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>',
+    },
+    {
+        key: 'github', label: 'GitHub', color: '#f5f5f5',
+        hosts: ['github.com', 'gist.github.com'],
+        body: '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>',
+    },
+    {
+        key: 'twitch', label: 'Twitch', color: '#9146ff',
+        hosts: ['twitch.tv'],
+        body: '<path d="M21 2H3v16h5v4l4-4h5l4-4V2z"/><path d="M11 11V7"/><path d="M16 11V7"/>',
+    },
+    {
+        key: 'telegram', label: 'Telegram', color: '#2aabee',
+        hosts: ['t.me', 'telegram.me', 'telegram.org'],
+        body: '<path d="M21.7 3.4 2.7 10.5c-.9.3-.8 1.6.1 1.8l4.7 1.4 1.8 5.5c.3.8 1.3 1 1.8.3l2.5-3 4.5 3.3c.7.5 1.6.1 1.8-.7l3-14.3c.2-.9-.7-1.6-1.5-1.4z"/><path d="m7.5 13.7 11-7.3-7.2 8.5-.2 4"/>',
+    },
+    {
+        key: 'whatsapp', label: 'WhatsApp', color: '#25d366',
+        hosts: ['wa.me', 'whatsapp.com', 'api.whatsapp.com'],
+        body: '<path d="m3 21 1.6-4.3A8.5 8.5 0 1 1 8 20.2z"/><path d="M9.3 9.2c-.2 1.6 1 3.4 2.3 4.3s2.3 1 2.9.6c.4-.3.6-.9.4-1.3-.2-.3-1.2-.9-1.6-.9s-.6.6-1 .6c-.5 0-1.5-1-1.7-1.6-.1-.4.4-.6.4-1s-.4-1.4-.7-1.6c-.4-.2-.9.1-1 .9z"/>',
+    },
+    {
+        key: 'discord', label: 'Discord', color: '#5865f2',
+        hosts: ['discord.gg', 'discord.com', 'discordapp.com'],
+        body: '<path d="M8.6 5.2 8 4c-1.9.3-3.6 1-4.8 1.9-1.3 3-2 6.3-1.8 9.7 1.7 1.3 3.4 2.1 5 2.6l1-1.7"/><path d="m15.4 5.2.6-1.2c1.9.3 3.6 1 4.8 1.9 1.3 3 2 6.3 1.8 9.7-1.7 1.3-3.4 2.1-5 2.6l-1-1.7"/><path d="M7.2 15.4c3.2 1.2 6.4 1.2 9.6 0"/><circle cx="9.2" cy="11.6" r="1.2" fill="currentColor" stroke="none"/><circle cx="14.8" cy="11.6" r="1.2" fill="currentColor" stroke="none"/>',
+    },
+    {
+        key: 'spotify', label: 'Spotify', color: '#1db954',
+        hosts: ['spotify.com', 'open.spotify.com'],
+        body: '<circle cx="12" cy="12" r="9"/><path d="M7.2 9.3c3.2-.9 6.7-.5 9.6 1"/><path d="M7.9 12.6c2.6-.7 5.4-.4 7.8.9"/><path d="M8.6 15.8c2-.5 4.2-.3 6 .7"/>',
+    },
+    {
+        key: 'soundcloud', label: 'SoundCloud', color: '#ff5500',
+        hosts: ['soundcloud.com', 'snd.sc'],
+        body: '<path d="M2.5 14v3"/><path d="M5.5 12v5"/><path d="M8.5 10v7"/><path d="M11.5 8.5V17"/><path d="M14.5 17V8a4 4 0 0 1 7.4 2.1c0 3-1.8 4.9-4.4 4.9"/>',
+    },
+    {
+        key: 'bandcamp', label: 'Bandcamp', color: '#629aa9',
+        hosts: ['bandcamp.com'],
+        filled: true, donation: true,
+        body: '<path d="M1.8 17.6 8.6 6.4H22.2l-6.8 11.2z"/>',
+    },
+    {
+        key: 'patreon', label: 'Patreon', color: '#ff424d',
+        hosts: ['patreon.com'],
+        filled: true, donation: true,
+        body: '<circle cx="15.2" cy="9.4" r="6.4"/><rect x="2.4" y="3" width="4" height="18" rx="0.4"/>',
+    },
+    {
+        key: 'buymeacoffee', label: 'Buy Me a Coffee', color: '#ffdd00',
+        hosts: ['buymeacoffee.com', 'buymeacoff.ee'],
+        donation: true,
+        body: '<path d="M17 8.5h1.2a3.8 3.8 0 1 1 0 7.6H17"/><path d="M3.2 8.5H17v5.9a5 5 0 0 1-5 5H8.2a5 5 0 0 1-5-5z"/><path d="M7 2.5v2.4"/><path d="M10.6 2.5v2.4"/><path d="M14.2 2.5v2.4"/>',
+    },
+    {
+        key: 'kofi', label: 'Ko-fi', color: '#ff5e5b',
+        hosts: ['ko-fi.com'],
+        donation: true,
+        body: '<path d="M17 8.5h1.2a3.8 3.8 0 1 1 0 7.6H17"/><path d="M3.2 8.5H17v5.9a5 5 0 0 1-5 5H8.2a5 5 0 0 1-5-5z"/><path d="M7 2.5v2.4"/><path d="M10.6 2.5v2.4"/><path d="M14.2 2.5v2.4"/>',
+    },
+    {
+        key: 'paypal', label: 'PayPal', color: '#00457c',
+        hosts: ['paypal.com', 'paypal.me'],
+        donation: true,
+        body: '<path d="M6.8 20.4 9.3 3.6h5.1c2.8 0 4.3 1.6 3.9 4.2-.4 2.8-2.4 4.3-5.4 4.3h-2.4"/><path d="M12.3 12.1h1.8c2.7 0 4.3 1.4 3.9 3.8-.4 2.5-2.3 3.9-5 3.9h-2.1"/>',
+    },
+    {
+        key: 'bluesky', label: 'Bluesky', color: '#0085ff',
+        hosts: ['bsky.app', 'bsky.social'],
+        filled: true,
+        body: '<path d="M12 11.1C10.8 8.8 8.3 5.5 6 4.1c-1.6-.9-2.6-.4-2.8.7-.2 1 .2 4.5.5 5.5.5 2 2.4 2.7 4.5 2.5-2.7.4-4.7 1.6-2.1 4.9 2.8 3.5 4.7-.5 5.9-3.2 1.2 2.7 3.1 6.7 5.9 3.2 2.6-3.3.6-4.5-2.1-4.9 2.1.2 4-.5 4.5-2.5.3-1 .7-4.5.5-5.5-.2-1.1-1.2-1.6-2.8-.7-2.3 1.4-4.8 4.7-6 7z"/>',
+    },
+    {
+        key: 'website', label: 'Sitio web', labelKey: 'platform.website', color: '#9a9a9a',
+        hosts: [],
+        body: '<circle cx="12" cy="12" r="9"/><path d="M3.2 9h17.6"/><path d="M3.2 15h17.6"/><path d="M12 3a15 15 0 0 1 0 18"/><path d="M12 3a15 15 0 0 0 0 18"/>',
+    },
+    {
+        key: 'blog', label: 'Blog', color: '#9a9a9a',
+        hosts: ['medium.com', 'substack.com', 'blogspot.com', 'tumblr.com'],
+        body: '<path d="M4 4.5h11.5L20 9v10.5H4z"/><path d="M15.5 4.5V9H20"/><path d="M7.5 12.5h9"/><path d="M7.5 16h6"/>',
+    },
+    {
+        key: 'rss', label: 'RSS', color: '#f26522',
+        hosts: [],
+        body: '<path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.6" fill="currentColor" stroke="none"/>',
+    },
+    {
+        key: 'email', label: 'Correo', labelKey: 'platform.email', color: '#e50914',
+        hosts: [], scheme: 'mailto',
+        body: '<rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3.2 7.2 8.1 5.6a1.2 1.2 0 0 0 1.4 0l8.1-5.6"/>',
+    },
+    {
+        key: 'link', label: 'Enlace', labelKey: 'platform.link', color: '#9a9a9a',
+        hosts: [], donation: true,
+        body: '<path d="M10 13a5 5 0 0 0 7.5.6l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.6l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>',
+    },
+];
+const BY_KEY = new Map(SOCIAL_PLATFORMS.map(platform => [platform.key, platform]));
+export const FALLBACK_PLATFORM = BY_KEY.get('link');
+export function isSocialPlatform(value) {
+    return typeof value === 'string' && BY_KEY.has(value);
+}
+export function isDonationPlatform(value) {
+    return typeof value === 'string' && BY_KEY.get(value)?.donation === true;
+}
+// Nombre de una plataforma en el idioma de la página. Las marcas se devuelven
+// tal cual; solo las genéricas pasan por el diccionario.
+export function platformLabel(platform, lang = DEFAULT_LANG) {
+    return platform.labelKey ? translate(lang, platform.labelKey) : platform.label;
+}
+export function getPlatform(key) {
+    return BY_KEY.get(key) ?? FALLBACK_PLATFORM;
+}
+export const DONATION_PLATFORMS = SOCIAL_PLATFORMS.filter(platform => platform.donation === true);
+// Deduce la plataforma a partir de la URL pegada en el panel. Devuelve 'link'
+// cuando no reconoce el dominio: nunca falla, solo acierta menos.
+export function detectPlatform(rawUrl) {
+    const value = rawUrl.trim();
+    if (value === '')
+        return 'link';
+    if (/^mailto:/i.test(value) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
+        return 'email';
+    let host;
+    try {
+        host = new URL(/^[a-z][a-z0-9+.-]*:/i.test(value) ? value : `https://${value}`).hostname.toLowerCase();
+    }
+    catch {
+        return 'link';
+    }
+    const bare = host.replace(/^www\./, '');
+    for (const platform of SOCIAL_PLATFORMS) {
+        if (platform.hosts.some(candidate => bare === candidate || bare.endsWith(`.${candidate}`))) {
+            return platform.key;
+        }
+    }
+    return 'link';
+}
+// SVG listo para incrustar. El contenido es estático y definido aquí arriba, así
+// que no hay nada del usuario dentro del marcado: solo `className`, que siempre
+// llega desde las plantillas.
+export function socialIconSvg(key, className = 'social-icon') {
+    const platform = getPlatform(key);
+    const presentation = platform.filled ? FILL_DEFAULTS : STROKE_DEFAULTS;
+    const safeClass = className.replace(/[^a-zA-Z0-9 _-]/g, '');
+    return `<svg class="${safeClass}" viewBox="0 0 24 24" width="24" height="24" ${presentation} aria-hidden="true" focusable="false">${platform.body}</svg>`;
+}

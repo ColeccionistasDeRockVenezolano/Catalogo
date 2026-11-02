@@ -23,6 +23,16 @@ Git son consecuencia del traslado; no restaurar esos archivos encima del
 enlace ni interpretar las bajas como pérdida de las capturas.
 No mover PostgreSQL, secretos ni dependencias a este almacén.
 
+# Puerta temporal del dominio (Fase 2B)
+
+Decisión de Brian (2026-11-02): mientras el catálogo no se publique, el dominio
+sirve desde CRV el recorrido del equipo de Herra (`/`, `/colaborar`, `/login`,
+`/registro`, `/activar`, `/account`, `/admin`) y **ninguna ruta lleva al
+catálogo**. Es temporal: al publicar el catálogo se retira con los pasos de
+[docs/independencia/PUERTA-TEMPORAL.md](docs/independencia/PUERTA-TEMPORAL.md).
+El código lleva la marca `TEMPORAL-PORTADA`. Ruta nueva en la portada = añadirla
+a ese documento y a `scripts/checks/fase2b-whitelist.mjs`.
+
 # Rotaciones y recomendaciones diarias
 
 Toda selección diaria, actual o futura, debe usar el reloj editorial común de

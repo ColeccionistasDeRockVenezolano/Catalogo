@@ -46,6 +46,17 @@ const YouTubeIntakePage = lazy(() => import("./pages/YouTubeIntakePage").then((m
 const ChatPage = lazy(() => import("./pages/ChatPage").then((module) => ({ default: module.ChatPage })));
 const RoadmapPage = lazy(() => import("./pages/RoadmapPage").then((module) => ({ default: module.RoadmapPage })));
 const RadioPage = lazy(() => import("./pages/RadioPage").then((module) => ({ default: module.RadioPage })));
+/**
+ * El panel es el documento del servidor (plantilla y guion de Herra): la portada
+ * y la navegación interna llegan aquí y saltan a él. Vite no lo sirve, así que en
+ * desarrollo sigue la página React para no entrar en un bucle.
+ */
+function RoadmapPanelDocument() {
+  useEffect(() => {
+    if (!import.meta.env.DEV) window.location.replace(window.location.href);
+  }, []);
+  return import.meta.env.DEV ? <CurationRoadmapPage /> : null;
+}
 const CurationRoadmapPage = lazy(() => import("./pages/CurationRoadmapPage").then((module) => ({ default: module.CurationRoadmapPage })));
 const CurationProjectPage = lazy(() => import("./pages/CurationProjectPage").then((module) => ({ default: module.CurationProjectPage })));
 const CurationVisitsPage = lazy(() => import("./pages/CurationVisitsPage").then((module) => ({ default: module.CurationVisitsPage })));
@@ -134,7 +145,7 @@ export function App() {
             {/* Comunidad: colaboradores, candidaturas, roadmap y visitas (Fase 1 y 2). */}
             <Route path="colaboradores" element={<CommunityCollaboratorsPage />} />
             <Route path="candidaturas" element={<CommunityApplicationsPage />} />
-            <Route path="roadmap" element={<CurationRoadmapPage />} />
+            <Route path="roadmap" element={<RoadmapPanelDocument />} />
             <Route path="ajustes" element={<CurationProjectPage />} />
             <Route path="visitas" element={<CurationVisitsPage />} />
             <Route path="radio" element={<CurationRadioPage />} />

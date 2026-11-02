@@ -9,7 +9,7 @@ import { ApiError } from "../http-errors.js";
 import { projectId } from "../community/store.js";
 
 export type ProjectVisibility = "hidden" | "progress" | "completed" | "full";
-export type ProjectLang = "es" | "en";
+export type ProjectLang = "es" | "en" | "system";
 
 export interface ProjectConfig {
   id: number;
@@ -157,7 +157,7 @@ export function toPublicSiteSkin(themeJson: unknown, brandingJson: unknown, i18n
 }
 
 const VISIBILITY: readonly ProjectVisibility[] = ["hidden", "progress", "completed", "full"];
-const LANGS: readonly ProjectLang[] = ["es", "en"];
+const LANGS: readonly ProjectLang[] = ["es", "en", "system"];
 
 function rowToConfig(row: {
   id: number; name: string; visibility_mode: string; default_lang: string;
