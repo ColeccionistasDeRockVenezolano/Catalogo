@@ -20,6 +20,29 @@ La ventana no se abre sin autorización expresa de Brian y sin cerrar las puerta
 `npm ci`, `npm --prefix web ci`, `npm --prefix web run build` (`dist`, base `/`) y
 `npm --prefix web run build:public` (`dist-public`, base `/crv/`).
 
+## `crv-api` fijada (en vivo desde 2026-11-02)
+
+Esto **sí** está instalado, a diferencia de las plantillas. La API actual ya no carga el árbol
+compartido: arranca desde `/home/brian/apps/crv-release/crv-api-2026-11-02`, commit `09d40b28`, con el
+drop-in `~/.config/systemd/user/crv-api.service.d/fijado.conf`. Ese commit es `43ccf32d` más los 4
+archivos sin commit que la API tenía cargados (`source-appearances`, `merge/engine`,
+`image-candidates`, `album-completion`); no está en ninguna rama, solo en ese worktree. Se fijó sin
+cambiar de conducta: `20da3ca9` y `b2fe3c8e` no están.
+
+El árbol lleva enlaces, y por eso `git status` allí sale sucio a propósito:
+
+| Enlace en el árbol | Apunta a | Si falta |
+|---|---|---|
+| `data` | `data` del árbol compartido | `.catalog-cache-revision` se separa y la API no ve las invalidaciones de caché; no arranca sin `data/research` |
+| `.env`, `logs` | los del árbol compartido | El disparo de video nuevo (`nuevo.sh`) se queda sin base |
+| `reports`, `tmp-analysis`, `web/public/media` | el almacén de 1 TB | Fallan buscador y medios |
+| `scripts/shared-storage.py`, `scripts/staging.py` | los del árbol compartido | Falla la subida de imágenes: exigen ser el checkout de la migración |
+
+- **Reiniciar** `crv-api`, también por accidente, ya no cambia el código.
+- `crv-chat`, `crv-web` y los timers siguen en el árbol compartido. El disparo de video nuevo sale del árbol fijado.
+- **Publicar API nueva:** repetir el árbol con otro SHA, ensayarlo contra staging en otro puerto, cambiar `WorkingDirectory` y reiniciar. `scripts/deploy.sh --api` se niega mientras esté fijada; sin `--api` funciona igual.
+- **Volver atrás:** `rm ~/.config/systemd/user/crv-api.service.d/fijado.conf && systemctl --user daemon-reload && systemctl --user restart crv-api`.
+
 ## Guarda de arranque
 
 - `CRV_DEPLOYMENT=production` activa la guarda: aborta si la API apunta a una base con «staging»,

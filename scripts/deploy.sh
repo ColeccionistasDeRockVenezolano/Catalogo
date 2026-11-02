@@ -40,6 +40,18 @@ for option in "$@"; do
   esac
 done
 
+# crv-api puede estar fijada a un árbol de release (ops/produccion/README.md):
+# reiniciarla aquí no cargaría este código, y el paso de migraciones sí tocaría
+# la base. Mejor parar antes de compilar nada.
+if [[ "$restart_api" == yes ]]; then
+  api_dir="$(systemctl --user show crv-api -p WorkingDirectory --value)"
+  if [[ "$api_dir" != "$ROOT" ]]; then
+    echo "✗ crv-api está fijada a $api_dir; --api no cargaría este código." >&2
+    echo "  Hay que crear un árbol de release nuevo: ops/produccion/README.md, «crv-api fijada»." >&2
+    exit 1
+  fi
+fi
+
 echo "› build público (web/dist-public)"
 (cd "$ROOT/web" && npm run build:public)
 
