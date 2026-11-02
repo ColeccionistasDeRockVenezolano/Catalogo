@@ -53,9 +53,13 @@
       <button type="button" class="btn btn-ghost" data-open="metrics-form"><span class="icon-label"><i data-lucide="chart-column"></i> <%= t('admin.metrics') %></span></button>
       <button type="button" class="btn btn-ghost" data-open="collaborate-form-config"><span class="icon-label"><i data-lucide="clipboard-list"></i> <%= t('admin.collaborateForm') %></span></button>
       <button type="button" class="btn btn-ghost" data-open="invites-form"><span class="icon-label"><i data-lucide="link"></i> <%= t('admin.inviteLinks') %></span></button>
+      <% if (currentAdmin) { %>
       <button type="button" class="btn btn-ghost" data-open="branding-form"><span class="icon-label"><i data-lucide="share-2"></i> <%= t('admin.branding') %></span></button>
+      <% } %>
       <button type="button" class="btn btn-ghost" data-open="languages-form"><span class="icon-label"><i data-lucide="languages"></i> <%= t('admin.languages') %></span></button>
+      <% if (currentAdmin) { %>
       <button type="button" class="btn btn-ghost" data-open="project-settings-form"><span class="icon-label"><i data-lucide="settings-2"></i> <%= t('admin.projectSettings') %></span></button>
+      <% } %>
       <button type="button" class="btn btn-ghost" data-open="admin-account-form"><span class="icon-label"><i data-lucide="key-round"></i> <%= t('admin.myPassword') %></span></button>
       <% if (!landingMode) { %><a class="btn btn-ghost btn-sm" href="/curaduria"><%= lang === 'en' ? 'Curation' : 'Curaduría' %> <i data-lucide="arrow-left"></i></a><% } %>
       <a class="btn btn-ghost btn-sm" href="<%= projectBase %>/"><%= t('admin.viewPublic') %> <i data-lucide="external-link"></i></a>
@@ -1350,8 +1354,8 @@
         </div>
         <div class="modal__toolbar">
           <div class="cfg-tabs" role="tablist" aria-label="<%= t('admin.langSectionsAria') %>">
-            <button type="button" class="cfg-tab is-current" role="tab" aria-selected="true" aria-controls="lang-project" data-lang-tab="lang-project"><%= t('admin.langTabProject') %></button>
-            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="lang-form" data-lang-tab="lang-form"><%= t('admin.langTabForm') %></button>
+            <button type="button" class="cfg-tab is-current" role="tab" aria-selected="true" aria-controls="lang-project" data-lang-tab="lang-project"<%- currentAdmin ? '' : ' hidden' %>><%= t('admin.langTabProject') %></button>
+            <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="lang-form" data-lang-tab="lang-form"<%- currentAdmin ? '' : ' hidden' %>><%= t('admin.langTabForm') %></button>
             <button type="button" class="cfg-tab" role="tab" aria-selected="false" aria-controls="lang-content" data-lang-tab="lang-content"><%= t('admin.langTabContent') %></button>
           </div>
         </div>

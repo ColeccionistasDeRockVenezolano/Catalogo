@@ -607,10 +607,15 @@
   // ---- Acciones ----------------------------------------------------------
 
   function request(method, url, body) {
-    var init = { method: method, headers: { 'Content-Type': 'application/json', 'x-crv-csrf': csrfToken } };
-    if (body !== undefined) init.body = JSON.stringify(body);
+    // CRV: la API rechaza un JSON declarado sin cuerpo; borrar, aprobar o crear un enlace no llevan cuerpo.
+    var init = { method: method, headers: { 'x-crv-csrf': csrfToken } };
+    if (body !== undefined) { init.headers['Content-Type'] = 'application/json'; init.body = JSON.stringify(body); }
     return fetch(url, init).then(function (r) {
-      return r.json().then(function (j) { return { ok: r.ok, status: r.status, data: j }; }, function () { return { ok: r.ok, status: r.status, data: null }; });
+      return r.json().then(function (j) {
+        // CRV: los errores generales de la API llegan como { error: { code, message } }.
+        if (j && j.error && typeof j.error === 'object') j.error = j.error.message;
+        return { ok: r.ok, status: r.status, data: j };
+      }, function () { return { ok: r.ok, status: r.status, data: null }; });
     });
   }
 
@@ -1642,6 +1647,8 @@
         contentI18nForm.hidden = !isContent;
       });
     });
+    // CRV: `community` solo traduce el contenido; las otras pestañas no se le ofrecen.
+    if (langTabs[0].hidden) langTabs[langTabs.length - 1].click();
   }
 
   // ---- Solicitudes pendientes ----------------------------------------------
