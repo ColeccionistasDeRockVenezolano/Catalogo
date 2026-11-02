@@ -274,11 +274,32 @@ export async function adminByUsername(username: string): Promise<{ id: number; r
   return rows[0];
 }
 
+/** ¿El CHECK de auth.admins admite los roles de la 0124? */
+export function roleConstraintAllows(definition: string): boolean {
+  return definition.includes("'curator'") && definition.includes("'community'");
+}
+
+let roleConstraintCache: Promise<boolean> | undefined;
+
+async function adminExtendedRolesAvailable(): Promise<boolean> {
+  roleConstraintCache ??= getPool().query<{ def: string }>(
+    "SELECT pg_get_constraintdef(oid) AS def FROM pg_constraint WHERE conname = 'admins_role_check' LIMIT 1")
+    .then(({ rows }) => roleConstraintAllows(rows[0]?.def ?? ""))
+    .catch(() => false);
+  return roleConstraintCache;
+}
+
 export async function setAdminRole(
   project: number, id: number, role: "admin" | "curator" | "community",
 ): Promise<AdminRow> {
   if (!["admin", "curator", "community"].includes(role)) {
     throw new ApiError(400, "invalid_role", "Rol no válido.");
+  }
+  // Producción no aplica 0124 hasta la Fase 4: el CHECK de auth.admins solo
+  // admite superadmin/admin. Sin esta comprobación el UPDATE reventaría con un
+  // error de constraint (500); con ella el rol se bloquea con un 409 claro.
+  if (role !== "admin" && !await adminExtendedRolesAvailable()) {
+    throw new ApiError(409, "role_unavailable", "Los roles curator y community requieren la migración 0124, que no está aplicada en esta base.");
   }
   const current = await getPool().query<{ role: string }>(
     "SELECT role FROM auth.admins WHERE id = $1 AND project_id = $2", [id, project]);
