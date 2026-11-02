@@ -517,7 +517,8 @@ async function serveFile(req, res, pathname, searchParams) {
     if (!fileStat.isFile()) throw new Error("not-a-file");
   } catch {
     // Las rutas del router de React no son archivos: devuelven la SPA.
-    if (isMedia || path.extname(relativePath)) return reply(res, 404, "Archivo no encontrado.");
+    // En la portada nunca: bajo /landing/ la SPA entregaría el catálogo en el dominio.
+    if (webMode === "landing" || isMedia || path.extname(relativePath)) return reply(res, 404, "Archivo no encontrado.");
     file = path.join(dist, "index.html");
     try { fileStat = await stat(file); }
     catch { return reply(res, 503, "La aplicación no está disponible."); }

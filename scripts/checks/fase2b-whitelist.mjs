@@ -180,6 +180,8 @@ const prohibidas = [
   "/api/community/admin/applications", "/api/community/admin/invites", "/api/curation/emotions/tags",
   "/api/catalog", "/api/chat/session", "/api/account/profile", "/api/review-queue",
   "/api/radio/diagnostic",
+  // Bajo un prefijo de estáticos, lo que no es un archivo no puede caer en la SPA.
+  "/landing/nada", "/landing/curaduria", "/media/favicon-nada", "/favicon.ico/x",
 ];
 for (const ruta of prohibidas) await debe(ruta, 404);
 
