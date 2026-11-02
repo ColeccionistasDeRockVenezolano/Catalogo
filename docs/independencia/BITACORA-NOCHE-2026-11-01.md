@@ -3,6 +3,47 @@
 **Fuente de verdad.** Si el contexto se compacta, leer primero este archivo, luego los cuatro
 documentos de arranque y continuar desde el primer bloque que no esté en «cumple».
 
+## Ensayo de la 2B con forma de producción (2026-11-01 21:48)
+
+Se ejecutó el encargo `PROMPT_HERMES_2B_CORRECCION_2026-11-01.md` sin tocar producción, `crv`, el
+`.env`, Herra, Cloudflare ni el Funnel.
+
+- **Código:** límite de login (20 intentos/IP/15 min; el acierto descuenta 1; techo de 10 usuarios
+  distintos fallados), `CRV_BACKGROUND_JOBS` (apagado en la API del dominio), enlaces de cuenta
+  ocultos en modo portada, guarda `CRV_DEPLOYMENT`, plantillas `ops/produccion/`, exportación de
+  tokens `scripts/community-tokens.ts`.
+- **Hallazgo nuevo:** `auth.audit_log` no admitía `actor_type='public'`; candidaturas y
+  activaciones no se auditaban (error 23514 silencioso). Se añade `0125_audit_public_actor` y
+  `setAdminRole` bloquea curator/community sin 0124 con 409.
+- **Ensayo real:** worktree limpio `54fd004b` (borrado al terminar), API `:8093`, portada `:3150`,
+  panel `:3131`, base `crv_staging`. Whitelist 72/72; candidatura, login con cookie Secure,
+  cambio de estado de tarea, visita con país, radio por proxy y panel (aceptar/invitar) OK. La API
+  no arrancó trabajos de fondo (log + 0 escaneos nuevos). `:8080`, Funnel y dominio sin cambios.
+- **Respaldo:** `docker exec crv-postgres-staging pg_dump -U crv -Fc -n auth crv_staging` (395 480 B),
+  restaurado en base desechable con `CREATE SCHEMA auth` + `citext`; conteos iguales; copia y base
+  borradas. Destino de producción: `/mnt/datos/backups/crv`.
+- **Tokens:** guion probado en staging (listar, emitir invitación/activación, validar por API,
+  guardas 2/3); datos de prueba borrados.
+- **Paridad:** foto local de la portada viva y comparación contra `:3141` y `:3150`; `/login` exacto,
+  diferencias solo en contadores/radio.
+- **Staging limpio:** 61/27/5, 3 admins, 5 usuarios, 5 personas (se borraron las personas 9-11 de
+  prueba), 1 sesión real; favicon 17012 B `a8c813a1…`; foto actualizada.
+- **Producción:** no se reinició nada; guardarraíles dominio 200, `/crv` 404, Funnel 200,
+  `:8080/health` 200 y `/roadmap` 404. La 2B sigue **no lista** hasta la decisión de Brian sobre
+  0125, Cloudflare y la ventana.
+
+## Corrección de FASE2B (2026-11-01 21:10)
+
+Brian retiró la frase «lista para autorizar la 2B»: el ensayo de `:3141` es solo de staging y no se
+traslada a producción. `docs/independencia/FASE2B.md` reescrito con 10 defectos comprobados (unidad
+`crv-landing` inexistente; entorno de ejemplo con `:8082`/`dist-staging`; comunidad apagada en
+`:8080`; origen del dominio con 403; `/curaduria` sin panel ni API en producción; consulta de tokens
+sin esquema `auth` y con `expires_at` TEXT; respaldo con `pg_dump` fuera del PATH, clave en argv y
+destino NTFS; paridad del dominio contra sí mismo; producción desde el árbol compartido; enlaces
+`/account` y `/admin` que dan 404 en modo portada). Nada de la ventana se ejecutó: ni unidades, ni
+respaldo, ni Cloudflare, ni reinicios, ni lectura del `.env` ni de la base `crv`. Evidencia en el
+anexo A del documento.
+
 ## Continuación de las 12:1x
 
 - Brian autorizó la conexión a su pestaña `/admin` mediante Chrome DevTools. Se leyó el panel
