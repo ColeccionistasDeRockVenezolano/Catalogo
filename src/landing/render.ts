@@ -17,7 +17,7 @@ const rawTranslatedKeys = new Set(["register.doneSub", "register.invalidSub", "r
 const escapeHtml = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
 /** Genera el documento de Herra con lecturas de la base del catálogo. */
-export async function renderLanding(page: LandingPage, lang: LandingLanguage, token = "", session: LandingSession | null = null): Promise<string> {
+export async function renderLanding(page: LandingPage, lang: LandingLanguage, token = "", session: LandingSession | null = null, landingMode = false): Promise<string> {
   const data = await loadLandingData(lang, page, session !== null);
   const projectAdmin = Boolean(session && (session.role === "admin" || session.role === "community"));
   const currentUser = session ? { id: session.userId ?? 0, name: session.name } : null;
@@ -43,6 +43,7 @@ export async function renderLanding(page: LandingPage, lang: LandingLanguage, to
     assetVersion: "1.1.39", basePath: "", projectBase: "", pageOrigin: origin, canonicalUrl: `${origin}/${page === "roadmap" ? "" : page}`,
     showLoginLinks: data.project.show_login === 1, showVisitCounter: data.project.visitor_counter === 1,
     visibilityMode: session ? "full" : data.project.visibility_mode, isAdmin: false, projectAdmin, currentUser,
+    landingMode,
     allowTaskStatusChanges: false, collaboratorCount: data.view?.collaborators ?? 0,
     csrfToken: session?.csrf ?? "", token, valid, user, error: null, success: false,
     values: { firstName: "", lastName: "", birthDate: "", whatsappPhone: "", email: "", city: "", country: "", contactPreference: "whatsapp", experience: "", contributionText: "", availability: "", idea: "", ideaReason: "", wantsToImplement: "maybe", skillIds: [], areaIds: [], links: [] },

@@ -14,13 +14,12 @@ nunca se añade a Tailscale Funnel ni a Cloudflare.
 | Chat | :8081 | deshabilitado (proxy a :8099) |
 | Variables | `.env` del repo | `~/apps/crv-staging/staging.env` |
 
-## Instancia raíz (Fase 2B) — pendiente de autorización
+## Instancia raíz (Fase 2B) — plantillas en `ops/produccion/`
 
-`ops/staging/crv-landing.env.example` deja escritos los valores con los que se
-creará la instancia que sirve la portada en la raíz (`:3141`, `CRV_PUBLIC_PATH`
-vacío, API en `/api`). Es el **único** sitio donde `CRV_ALLOWED_ORIGINS` lleva el
-dominio y donde `CRV_TRUST_CF_HEADERS=true` (detrás del borde de Cloudflare).
-No se instala sin autorización expresa de Brian.
+La instancia raíz de producción ya no se documenta aquí: sus tres unidades y sus tres entornos
+están en `ops/produccion/` (API `:8083`, portada `:3140`, panel privado `:3131`), con la guarda de
+`CRV_DEPLOYMENT`. El antiguo `crv-landing.env.example` se retiró porque apuntaba a `:8082` y a
+`dist-staging`, es decir, a staging. No se instala nada sin autorización expresa de Brian.
 
 Staging corre con `NODE_ENV=production` (tanto el API como la web) y con
 `CRV_VISITS_SECRET` y `CRV_CHAT_SECRET` propios: no se comparten con el

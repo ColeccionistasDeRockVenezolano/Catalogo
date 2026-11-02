@@ -18,6 +18,7 @@ import { ApiError, badRequest } from "../http-errors.js";
 import { clientIp, isLocalRequest } from "../auth.js";
 import { createWindowLimiter } from "../rate-limit.js";
 import { flushSearchMisses, listSearchMisses, recordSearchMiss } from "../search-misses.js";
+import { getEnv } from "../../config/env.js";
 
 const searchHitSchema = z.object({
   type: searchEntityTypeSchema,
@@ -56,11 +57,18 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
   const perIp = createWindowLimiter({ max: SEARCHES_PER_IP_PER_MINUTE, windowMs: 60_000, maxKeys: 5_000 });
   const confirmations = createWindowLimiter({ max: 240, windowMs: 60_000, maxKeys: 5000 });
   const total = createWindowLimiter({ max: SEARCHES_PER_MINUTE, windowMs: 60_000, maxKeys: 1 });
-  // Lo pendiente no espera al próximo volcado si la API se apaga.
-  const flushTimer = setInterval(() => { void searchCollector.flush(); }, 5000).unref();
-  const retentionTimer = setInterval(() => { void retainSearchAnalytics().catch(() => app.log.warn({ code: "search_retention_failed" }, "falló la retención de analítica")); }, 60 * 60_000).unref();
+  // Lo pendiente no espera al próximo volcado si la API se apaga. En una
+  // instancia sin trabajo de fondo (crv-api-landing) no se programan estos
+  // temporizadores: la portada no sirve /search y la retención borraría
+  // analítica que pertenece al catálogo.
+  const backgroundJobs = getEnv().CRV_BACKGROUND_JOBS;
+  const flushTimer = backgroundJobs ? setInterval(() => { void searchCollector.flush(); }, 5000).unref() : null;
+  const retentionTimer = backgroundJobs
+    ? setInterval(() => { void retainSearchAnalytics().catch(() => app.log.warn({ code: "search_retention_failed" }, "falló la retención de analítica")); }, 60 * 60_000).unref()
+    : null;
   app.addHook("onClose", async () => {
-    clearInterval(flushTimer); clearInterval(retentionTimer);
+    if (flushTimer) clearInterval(flushTimer);
+    if (retentionTimer) clearInterval(retentionTimer);
     await searchCollector.flush();
     for (let i = 0; i < 20 && searchCollector.status().pending; i++) {
       const failed = searchCollector.quality.failed;

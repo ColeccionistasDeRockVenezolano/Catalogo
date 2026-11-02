@@ -11,11 +11,11 @@ export async function registerLandingRoutes(app: FastifyInstance): Promise<void>
     schema: {
       tags: ["Roadmap"],
       params: z.object({ page: z.enum(["roadmap", "colaborar", "login", "registro", "activar"]) }),
-      querystring: z.object({ lang: z.enum(["es", "en"]).optional(), token: z.string().max(200).optional() }),
+      querystring: z.object({ lang: z.enum(["es", "en"]).optional(), token: z.string().max(200).optional(), mode: z.enum(["landing"]).optional() }),
     },
   }, async (request, reply) => {
     const session = request.viewer ? { ...request.viewer, userId: request.account?.kind === "user" ? request.account.id : null, csrf: request.csrfToken } : null;
-    const html = await renderLanding(request.params.page, request.query.lang ?? "es", request.query.token ?? "", session);
+    const html = await renderLanding(request.params.page, request.query.lang ?? "es", request.query.token ?? "", session, request.query.mode === "landing");
     return reply.header("Cache-Control", "no-store").type("text/html; charset=utf-8").send(html);
   });
   api.get("/landing-media/:kind", {

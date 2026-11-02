@@ -2,6 +2,7 @@
 // 127.0.0.1:8080 por defecto, configurable por PORT/HOST.
 import { assertSupportedNode } from "../config/runtime.js";
 import { getEnv } from "../config/env.js";
+import { assertDeploymentGuards, assertProductionDatabase } from "../config/deployment.js";
 import { moduleLogger } from "../logger/index.js";
 import { buildApp } from "./app.js";
 import { startCurationWatcher } from "../curation/watcher.js";
@@ -22,21 +23,41 @@ process.on("unhandledRejection", (reason: unknown) => {
 async function main(): Promise<void> {
   assertSupportedNode();
   const env = getEnv();
+  // Aborta antes de escuchar si la instancia de producción apunta a la base de
+  // staging, a un puerto de ensayo o le falta el secreto de visitas.
+  const dbName = await assertProductionDatabase(env.CRV_DEPLOYMENT);
+  assertDeploymentGuards({
+    deployment: env.CRV_DEPLOYMENT,
+    role: "api",
+    port: env.PORT,
+    ...(env.CRV_VISITS_SECRET === undefined ? {} : { visitsSecret: env.CRV_VISITS_SECRET }),
+    ...(dbName === undefined ? {} : { dbName }),
+  });
   const app = await buildApp();
   await app.listen({ port: env.PORT, host: env.HOST });
   log.info({ port: env.PORT, host: env.HOST }, "API de lectura escuchando");
   // El detector de conflictos queda cableado al catálogo: analiza al arrancar
   // si algo cambió y vigila los cambios hechos fuera de la API.
-  const stopHomeChannel = startHomeChannelRefresh();
-  const stopCurationWatcher = startCurationWatcher(env.CRV_CURATION_WATCH_MS);
+  //
+  // La API de la portada (crv-api-landing) comparte la base `crv` con el
+  // catálogo: si arrancara estos trabajos, habría dos vigilantes de Curaduría,
+  // dos retenciones ER y dos refrescos de YouTube compitiendo por las mismas
+  // filas. `CRV_BACKGROUND_JOBS=false` los apaga todos; sin definir, se
+  // conserva el comportamiento del catálogo.
+  if (!env.CRV_BACKGROUND_JOBS) {
+    log.info({ backgroundJobs: false }, "trabajos de fondo desactivados (CRV_BACKGROUND_JOBS=false)");
+  }
+  const stopHomeChannel = env.CRV_BACKGROUND_JOBS ? startHomeChannelRefresh() : () => {};
+  const stopCurationWatcher = env.CRV_BACKGROUND_JOBS ? startCurationWatcher(env.CRV_CURATION_WATCH_MS) : () => {};
   // La retención de decisiones ER corre sola cada ER_RETENTION_INTERVAL_HOURS
   // con tope de filas (la CLI puede forzarla con `crv er:prune`).
-  const stopErRetention = startEntityResolutionRetention(
-    env.ER_RETENTION_INTERVAL_HOURS * 60 * 60 * 1000, env.ER_RETENTION_MAX_ROWS);
+  const stopErRetention = env.CRV_BACKGROUND_JOBS
+    ? startEntityResolutionRetention(env.ER_RETENTION_INTERVAL_HOURS * 60 * 60 * 1000, env.ER_RETENTION_MAX_ROWS)
+    : () => {};
   // Métricas (3.7): con el interruptor apagado no se registra nada. Las listas
   // de IPs se cargan siempre (una vez al día) para poder verificar sin red.
-  startBotVerification({ network: env.CRV_TRAFFIC_VERIFY_NETWORK });
-  if (env.CRV_TRAFFIC_ENABLED) startTrafficRecorder();
+  if (env.CRV_BACKGROUND_JOBS) startBotVerification({ network: env.CRV_TRAFFIC_VERIFY_NETWORK });
+  if (env.CRV_BACKGROUND_JOBS && env.CRV_TRAFFIC_ENABLED) startTrafficRecorder();
 
   for (const signal of ["SIGINT", "SIGTERM"] as const) {
     process.on(signal, () => {

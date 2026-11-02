@@ -86,6 +86,11 @@ const envSchema = z.object({
   // secreto de desarrollo (docs/CHAT.md §«Seguridad y moderación»).
   // Texto libre a propósito: un valor inesperado no puede tumbar la API.
   NODE_ENV: z.string().default("development"),
+  // Fase 2B: distingue las instancias de producción de los ensayos. `legacy`
+  // mantiene el comportamiento histórico (catálogo y staging); `production`
+  // activa la guarda de src/config/deployment.ts y `rehearsal` la admite de
+  // forma explícita para probar contra crv_staging.
+  CRV_DEPLOYMENT: z.enum(["legacy", "production", "rehearsal"]).default("legacy"),
   // Vida del token de invitado; se renueva en cada POST /chat/session.
   CRV_CHAT_TOKEN_TTL_DAYS: z.coerce.number().int().min(1).max(365).default(30),
   // Bits a cero de la prueba de trabajo para crear un invitado (0 la apaga).
@@ -123,6 +128,12 @@ const envSchema = z.object({
   // la API dispara un análisis que verifica si la corrección abrió errores
   // nuevos; el vigilante compara cada tanto los contadores del catálogo para
   // cubrir cambios hechos fuera de la API. 0 apaga el vigilante.
+  // Interruptor general del trabajo de fondo de esta instancia. La API de la
+  // portada (crv-api-landing) lo apaga: comparte base con el catálogo y no debe
+  // lanzar el vigilante de Curaduría, la retención ER, la verificación de bots
+  // ni los refrescos de YouTube por duplicado. Sin definir, se mantiene el
+  // comportamiento de siempre (encendido).
+  CRV_BACKGROUND_JOBS: z.enum(["true", "false"]).default("true").transform((value) => value === "true"),
   CRV_CURATION_AUTOSCAN: z.enum(["true", "false"]).default("true").transform((value) => value === "true"),
   CRV_CURATION_WATCH_MS: z.coerce.number().int().nonnegative().default(60_000),
   // Lotes de correcciones de Curaduría (PLAN_CURADURIA E4): cuántos ítems

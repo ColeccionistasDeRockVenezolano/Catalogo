@@ -1,0 +1,19 @@
+[Unit]
+Description=CRV API del dominio (Fase 2B, 127.0.0.1:8083)
+Documentation=file://%h/apps/Coleccionistas De Rock Venezolano/docs/independencia/FASE2B.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/mnt/datos/crv-release/__SHA__
+Environment=PATH=/home/brian/.local/node-v24.20.0-linux-x64/bin:/usr/local/bin:/usr/bin:/bin
+# El .env de producción se lee, no se copia. La ruta lleva espacios: va entre comillas.
+Environment="CRV_ENV_FILE=/home/brian/apps/Coleccionistas De Rock Venezolano/.env"
+EnvironmentFile=%h/apps/crv-landing/api.env
+ExecStart=/home/brian/.local/node-v24.20.0-linux-x64/bin/npm run api
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

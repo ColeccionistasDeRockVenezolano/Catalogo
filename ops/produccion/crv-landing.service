@@ -1,0 +1,17 @@
+[Unit]
+Description=CRV portada del dominio (Fase 2B, 127.0.0.1:3140)
+Documentation=file://%h/apps/Coleccionistas De Rock Venezolano/docs/independencia/FASE2B.md
+After=network-online.target crv-api-landing.service
+Wants=network-online.target crv-api-landing.service
+
+[Service]
+Type=simple
+WorkingDirectory=/mnt/datos/crv-release/__SHA__/web
+Environment=PATH=/home/brian/.local/node-v24.20.0-linux-x64/bin:/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=%h/apps/crv-landing/gateway.env
+ExecStart=/home/brian/.local/node-v24.20.0-linux-x64/bin/node server.mjs
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

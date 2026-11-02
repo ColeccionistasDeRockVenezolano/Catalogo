@@ -101,9 +101,14 @@ const LOGIN_MAX_FAILURES = 5;
 // Límite aparte por IP sola (sin importar la cuenta probada): sin esto, cada
 // usuario nuevo probado desde la misma IP arranca con su propio cupo de 5 y
 // un ataque de "spray" (muchas cuentas, pocos intentos cada una) no lo nota.
-// Como no se borra al acertar, tampoco resetea el contador de una IP que ya
-// venía probando cuentas ajenas.
+// El acierto descuenta UN intento (no borra el contador): una cuenta propia no
+// resetea el cupo de una IP que ya venía probando cuentas ajenas, pero varios
+// colaboradores detrás del mismo NAT no se castigan entre sí.
 const LOGIN_IP_MAX_FAILURES = 20;
+// Techo de usuarios distintos fallados por IP y ventana: el spray cambia de
+// cuenta en cada intento, así que el cupo de 20 intentos no basta. Diez nombres
+// distintos dejan holgura a una oficina pequeña y cortan el barrido.
+const LOGIN_IP_MAX_FAILED_USERNAMES = 10;
 // Techo de memoria: entradas colgadas caducan solas en el barrido, pero un
 // atacante que pruebe miles de cuentas o IPs falsas antes de que corra podría
 // inflar los mapas; a partir de este tamaño se deja de registrar intentos
@@ -140,8 +145,15 @@ interface LoginFailures {
   resetAt: number;
 }
 
+/** Nombres distintos que ya fallaron desde una IP dentro de la ventana. */
+interface IpFailedUsernames {
+  usernames: Set<string>;
+  resetAt: number;
+}
+
 const legacySessions = new SessionStore<Session>("crv", false);
 const loginFailures = new Map<string, LoginFailures>();
+const ipFailedUsernames = new Map<string, IpFailedUsernames>();
 
 // Limpieza periódica: sin esto, cada IP/cuenta probada (o cada sesión que
 // expira sin que nadie vuelva a pedir /auth/me) se queda en memoria para
@@ -150,6 +162,7 @@ setInterval(() => {
   const now = Date.now();
   legacySessions.sweepMemory();
   for (const [key, failure] of loginFailures) if (failure.resetAt <= now) loginFailures.delete(key);
+  for (const [key, entry] of ipFailedUsernames) if (entry.resetAt <= now) ipFailedUsernames.delete(key);
 }, CLEANUP_INTERVAL_MS).unref();
 
 function digest(value: string): Buffer {
@@ -236,6 +249,7 @@ function clearSessionCookie(reply: FastifyReply, request: FastifyRequest): void 
 export function resetAuthStateForTests(): void {
   legacySessions.resetMemory();
   loginFailures.clear();
+  ipFailedUsernames.clear();
 }
 
 function collaborators(): Map<string, Collaborator> {
@@ -316,6 +330,44 @@ function chargeLoginAttempt(key: string): void {
 
 function forgiveLoginAttempt(key: string): void {
   loginFailures.delete(key);
+}
+
+/** Descuenta UN intento del cupo de la IP tras un acierto; no lo borra. */
+function discountLoginAttempt(key: string): void {
+  const failure = loginFailures.get(key);
+  if (!failure) return;
+  if (failure.resetAt <= Date.now()) {
+    loginFailures.delete(key);
+    return;
+  }
+  failure.count = Math.max(0, failure.count - 1);
+  if (failure.count === 0) loginFailures.delete(key);
+}
+
+function activeFailedUsernames(ip: string): IpFailedUsernames | undefined {
+  const entry = ipFailedUsernames.get(ip);
+  if (!entry) return undefined;
+  if (entry.resetAt <= Date.now()) {
+    ipFailedUsernames.delete(ip);
+    return undefined;
+  }
+  return entry;
+}
+
+/** Bloquea un nombre nuevo cuando la IP ya falló con demasiados distintos. */
+function assertUsernameBudget(ip: string, username: string): void {
+  const entry = activeFailedUsernames(ip);
+  if (!entry) return;
+  if (entry.usernames.has(username)) return;
+  if (entry.usernames.size < LOGIN_IP_MAX_FAILED_USERNAMES) return;
+  throw new ApiError(429, "too_many_attempts", "Demasiados intentos. Espera 15 minutos antes de probar de nuevo.");
+}
+
+function noteFailedUsername(ip: string, username: string): void {
+  if (!ipFailedUsernames.has(ip) && ipFailedUsernames.size >= MAX_TRACKED_LOGIN_KEYS) return;
+  const entry = activeFailedUsernames(ip) ?? { usernames: new Set<string>(), resetAt: Date.now() + LOGIN_WINDOW_MS };
+  entry.usernames.add(username);
+  ipFailedUsernames.set(ip, entry);
 }
 
 export function isTrustedOrigin(request: FastifyRequest): boolean {
@@ -603,6 +655,7 @@ export async function registerOperatorAuth(
     const accountKey = `${ipKey}:${username}`;
     assertBelowLimit(ipKey, LOGIN_IP_MAX_FAILURES);
     assertBelowLimit(accountKey, LOGIN_MAX_FAILURES);
+    assertUsernameBudget(ipKey, username);
     chargeLoginAttempt(ipKey);
     chargeLoginAttempt(accountKey);
 
@@ -646,12 +699,16 @@ export async function registerOperatorAuth(
     if (!valid || !account) {
       // El intento ya quedó contado por chargeLoginAttempt; solo falta el
       // registro de auditoría (sin filtrar si la cuenta existe o no).
+      noteFailedUsername(ipKey, username);
       request.log.warn({ ip: ipKey, username }, "login_failed");
       throw new ApiError(401, "invalid_credentials", "Usuario o contraseña incorrectos.");
     }
-    // El acierto perdona el cupo de esa cuenta; el de la IP se deja intacto
-    // para no premiar a quien ya venía probando cuentas ajenas desde ahí.
+    // El acierto perdona el cupo de esa cuenta y descuenta UN intento del cupo
+    // de la IP: no lo resetea, para no premiar a quien ya venía probando
+    // cuentas ajenas desde ahí, pero tampoco castiga a los demás detrás del
+    // mismo NAT. El historial de nombres fallados tampoco se borra.
     forgiveLoginAttempt(accountKey);
+    discountLoginAttempt(ipKey);
     request.log.info({ ip: ipKey, username: account.username, source: herraRef ? "herra" : "local" }, "login_ok");
     const token = randomBytes(SESSION_BYTES).toString("base64url");
     const csrf = randomBytes(CSRF_BYTES).toString("base64url");

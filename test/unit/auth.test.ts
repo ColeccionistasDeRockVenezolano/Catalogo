@@ -177,24 +177,74 @@ describe("sesiones de colaboradores", () => {
     expect(limited.json()).toMatchObject({ error: { code: "too_many_attempts" } });
   });
 
-  it("frena también por IP sola aunque cada cuenta probada sea distinta (spray)", async () => {
-    for (let attempt = 1; attempt <= 20; attempt += 1) {
+  it("frena el spray por IP con un techo de usuarios distintos fallados", async () => {
+    for (let attempt = 1; attempt <= 10; attempt += 1) {
       const rejected = await app.inject({ method: "POST", url: "/auth/login", payload: { username: `cuenta-${attempt}`, password: "incorrecta" } });
       expect(rejected.statusCode).toBe(401);
     }
-    const limited = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "cuenta-21", password: "incorrecta" } });
+    // El nombre 11 es nuevo: la IP ya falló con demasiados distintos.
+    const limited = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "cuenta-11", password: "incorrecta" } });
     expect(limited.statusCode).toBe(429);
+    expect(limited.json()).toMatchObject({ error: { code: "too_many_attempts" } });
 
-    // Acertar con la cuenta correcta no debe perdonar el cupo de la IP: sigue
-    // limitada aunque pruebe la cuenta legítima que sí conoce.
+    // Acertar con la cuenta legítima tampoco abre el cupo: es otro nombre nuevo.
+    const correct = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "ana.crv", password: PASSWORD } });
+    expect(correct.statusCode).toBe(429);
+
+    // Un nombre que ya estaba en el historial no se bloquea por el techo; lo
+    // limita su propio cupo de cuenta.
+    const repeated = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "cuenta-1", password: "incorrecta" } });
+    expect(repeated.statusCode).toBe(401);
+  });
+
+  it("mantiene el cupo de 20 intentos por IP aunque los nombres se repitan", async () => {
+    // 4 cuentas x 5 fallos = 20 intentos; el techo de nombres (10) no interviene.
+    for (let account = 1; account <= 4; account += 1) {
+      for (let attempt = 1; attempt <= 5; attempt += 1) {
+        const rejected = await app.inject({ method: "POST", url: "/auth/login", payload: { username: `cuenta-${account}`, password: "incorrecta" } });
+        expect(rejected.statusCode).toBe(401);
+      }
+    }
+    const limited = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "cuenta-5", password: "incorrecta" } });
+    expect(limited.statusCode).toBe(429);
     const correct = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "ana.crv", password: PASSWORD } });
     expect(correct.statusCode).toBe(429);
   });
 
+  it("los aciertos no acumulan en el cupo de la IP", async () => {
+    for (let attempt = 1; attempt <= 25; attempt += 1) {
+      const login = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "ana.crv", password: PASSWORD } });
+      expect(login.statusCode, `acierto ${attempt}`).toBe(200);
+    }
+  });
+
+  it("un acierto descuenta un solo intento y no reinicia el cupo de la IP", async () => {
+    const fail = async (username: string) => {
+      const response = await app.inject({ method: "POST", url: "/auth/login", payload: { username, password: "incorrecta" } });
+      expect(response.statusCode).toBe(401);
+    };
+    // 10 fallos sobre 5 nombres (2 cada uno): quedan 4 huecos por cuenta.
+    for (let round = 1; round <= 2; round += 1) {
+      for (let account = 1; account <= 5; account += 1) await fail(`cuenta-${account}`);
+    }
+    const success = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "ana.crv", password: PASSWORD } });
+    expect(success.statusCode).toBe(200);
+    // El acierto descuenta 1: de 10 a 9. Diez fallos más llegan a 20 y el
+    // siguiente ya está bloqueado; si el acierto hubiera puesto el contador a
+    // cero, este último seguiría dando 401.
+    for (let round = 1; round <= 2; round += 1) {
+      for (let account = 1; account <= 5; account += 1) await fail(`cuenta-${account}`);
+    }
+    const limited = await app.inject({ method: "POST", url: "/auth/login", payload: { username: "cuenta-1", password: "incorrecta" } });
+    expect(limited.statusCode).toBe(429);
+  });
+
   it("el cupo por IP usa la IP real detrás del proxy, no la del propio proxy", async () => {
-    for (let attempt = 1; attempt <= 20; attempt += 1) {
-      const rejected = await app.inject({ method: "POST", url: "/auth/login", headers: { "x-forwarded-for": "203.0.113.9" }, payload: { username: `cuenta-${attempt}`, password: "incorrecta" } });
-      expect(rejected.statusCode).toBe(401);
+    for (let account = 1; account <= 4; account += 1) {
+      for (let attempt = 1; attempt <= 5; attempt += 1) {
+        const rejected = await app.inject({ method: "POST", url: "/auth/login", headers: { "x-forwarded-for": "203.0.113.9" }, payload: { username: `cuenta-${account}`, password: "incorrecta" } });
+        expect(rejected.statusCode).toBe(401);
+      }
     }
     const attacker = await app.inject({ method: "POST", url: "/auth/login", headers: { "x-forwarded-for": "203.0.113.9" }, payload: { username: "ana.crv", password: PASSWORD } });
     expect(attacker.statusCode).toBe(429);

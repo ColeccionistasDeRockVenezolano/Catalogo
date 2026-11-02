@@ -39,6 +39,21 @@ const apiPort = Number(process.env.CRV_API_PORT ?? "8080");
 // El chat corre en su propio proceso: /api/chat/* y su WebSocket van allí.
 const chatPort = Number(process.env.CRV_CHAT_PORT ?? "8081");
 const basePath = `/${(process.env.CRV_PUBLIC_PATH ?? "crv").replace(/^\/+|\/+$/g, "")}`;
+// Fase 2B: en producción la portada va en la raíz y el panel privado en /crv;
+// ninguno puede apuntar a los puertos de ensayo ni servir dist-staging.
+const deployment = process.env.CRV_DEPLOYMENT ?? "legacy";
+if (deployment === "production") {
+  const fail = (message) => {
+    console.error(`CRV deployment guard: ${message}`);
+    process.exit(1);
+  };
+  if (apiPort === 8080 || apiPort === 8082) fail(`la API de producción no puede ser :${apiPort} (usa :8083)`);
+  if (webMode === "landing" && basePath !== "/") fail(`la portada debe servirse en la raíz, no en ${basePath}`);
+  if (webMode === "catalog" && basePath !== "/crv") fail(`el panel privado debe servirse en /crv, no en ${basePath}`);
+  if (/staging/iu.test(path.basename(dist))) fail(`no se puede servir «${path.basename(dist)}» (build de staging)`);
+} else if (deployment === "rehearsal") {
+  console.warn(`CRV deployment guard: ensayo explícito (CRV_DEPLOYMENT=rehearsal), API :${apiPort}, base ${basePath}, build ${path.basename(dist)}`);
+}
 // En la raíz el API vive en `/api` (las portadas llaman a `api/...` relativas a
 // `<base href="/">`); bajo `/crv`, en `/crv/api`.
 const apiPath = basePath === "/" ? "/api" : `${basePath}/api`;
@@ -54,6 +69,9 @@ async function serveLanding(req, res, page, lang, searchParams) {
   if (!entry || entry.expires < Date.now()) {
     try {
       const params = new URLSearchParams({ lang });
+      // En la raíz del dominio no se publica /cuenta ni /curaduria: el header
+      // oculta esos enlaces para no ofrecer rutas que la lista blanca da 404.
+      if (webMode === "landing") params.set("mode", "landing");
       if (token) params.set("token", token);
       const response = await fetch(`http://${apiHost}:${apiPort}/landing/${page}?${params}`, {
         signal: AbortSignal.timeout(5000), ...(cookie ? { headers: { cookie } } : {}),
