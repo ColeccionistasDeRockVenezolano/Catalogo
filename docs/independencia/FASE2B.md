@@ -1,9 +1,9 @@
 # Fase 2B · Guion de la ventana (NO EJECUTADA · NO LISTA PARA AUTORIZAR)
 
-**Estado (2026-11-02):** el ensayo se hizo con la **forma de producción** y la base
-`crv_staging`: worktree limpio por SHA, `npm ci`, build `dist` y `dist-public`, API propia,
-portada en la raíz y panel privado en `:3131`. Pasó lo que se podía probar antes. **La ventana
-sigue sin autorizar** por las puertas de §10 y por la migración 0125.
+**Estado (2026-11-02, revisión de Claude):** el ensayo con la **forma de producción** y la base
+`crv_staging` se repitió sobre `03298f7b` y pasó. **La ventana sigue sin autorizar:** faltan las
+puertas de §10, la comparación en inglés con la portada viva y la autorización expresa de Brian. La
+versión anterior habría quitado la radio de la portada; ver §1.1.
 
 **Referencia de paridad:** Herra **1.1.39** — **pendiente de confirmar por Brian**. No se compara
 contra 1.1.34.
@@ -36,6 +36,29 @@ un techo de usuarios distintos fallados.
 | Enlaces `/cuenta` y `/curaduria` 404 | Ocultos en modo portada (ES/EN, 1440/390) |
 | Trabajos de fondo duplicados en la API del dominio | `CRV_BACKGROUND_JOBS=false`, inventariado y probado |
 | Auditoría pública sin fila | Migración **0125** (nueva) + bloqueo de roles sin 0124 |
+
+---
+
+### 1.1 Lo que corrigió la revisión de Claude
+
+| Fallo | Consecuencia | Corrección y prueba |
+|---|---|---|
+| `CRV_RADIO_ENABLED=false` en la API del dominio | La portada perdía la tarjeta y el enlace «Radio»; §11 lo daba por «dinámico» | Radio encendida en `crv-api-landing` (sus rutas no emiten ni escriben; lo público sigue en Herra). `2b-flujos-dominio.mts`: tarjeta, enlace y video de Herra, ES y EN |
+| La tarjeta se calculaba con el motor de CRV | El motor diverge de Herra desde las 17:00 (ver §1.2) | `src/landing/radio-card.ts`: la primera imagen sale de `CRV_RADIO_LIVE_URL`; el motor propio queda de respaldo |
+| Portada: paradas de 2 a 5 s en caché fría | Si la API pasaba de 5 s, el gateway servía la copia estática del build, con otra canción y datos viejos | Sin calentar el índice de búsqueda: 25 ms en seis medidas con 30 s de intervalo. Si falla, se sirve la última copia buena |
+| Métricas opción (a) | El registrador no arrancaba con `CRV_BACKGROUND_JOBS=false`: nada se escribía | Registrador independiente; visita en `traffic_daily` con país `ve` y categoría `human` |
+| Guarda incompleta | Arrancaba con trabajos encendidos o sin radio | Aborta en ambos casos, y si falta el build o `CRV_RADIO_PROXY_URL` |
+| Sin comando para 0125 | No se sabía aplicarla y registrarla | §7, ensayado en `crv_staging` |
+| Etiquetas de `/colaborar` en otro orden | «Diseño UI/UX» antes de «Diseño gráfico» | Orden por idioma; paridad ES sin esa diferencia |
+
+### 1.2 La sombra de la radio falla desde las 17:00 (Fase 3)
+
+`crv-radio-sombra` pasó 45 veces sin divergencias y desde **2026-11-01 20:00 UTC (17:00 en esta
+máquina)** diverge en todas: 34 de 34 a las 22:30. Mismo catálogo (`1579a744db26b801`). El motor de
+CRV va por delante de Herra: 5,4 s al empezar y unos 65-70 s cinco horas después, y sigue creciendo.
+No coincide con el cambio a 1.1.39 (18:55). **Causa sin determinar.** No afecta a la emisión de la 2B,
+que sigue en Herra, pero la Fase 3 no puede dar por buena la sombra hasta explicarlo: su plazo de 7 a
+14 días debe contarse desde que vuelva a estar limpia.
 
 ---
 
@@ -213,6 +236,17 @@ En la ventana: respaldo antes de tocar nada; si el archivo no abre, no se sigue.
   `esperadas 124 · aplicadas 124 · coinciden 123 · faltan {0125_audit_public_actor} · sobran
   {0124_community_roles}`. En producción debe dar `faltan {}` (aplica 0125 antes de la ventana) y
   `sobran` solo puede traer 0124 si alguien la aplicó por error.
+- **Aplicar 0125 (solo esta, registrada y sin clave en el comando),** desde el worktree del SHA, ensayado
+  en `crv_staging`:
+
+  ```bash
+  { echo "SET lock_timeout='5s';"; cat migrations/0125_audit_public_actor.up.sql
+    echo "INSERT INTO ingest.schema_migrations(version) VALUES ('0125_audit_public_actor');"; } \
+    | docker exec -i crv-postgres psql -X -q -v ON_ERROR_STOP=1 --single-transaction -U crv -d crv
+  ```
+
+  Herra solo inserta en `audit_log` y su `schema.sql` no reimpone el CHECK en una tabla existente (leído,
+  sin tocar Herra). Staging ya la tiene: da `faltan {}` y `sobran {0124_community_roles}`.
 - El guion **se detiene** si `faltan` no está vacío. No se ejecuta ninguna migración contra
   producción desde este trabajo.
 
@@ -220,17 +254,14 @@ En la ventana: respaldo antes de tocar nada; si el archivo no abre, no se sigue.
 
 ## 8. Métricas después del cambio (decisión de Brian)
 
-Hoy Herra registra las vistas de página en `auth.traffic_daily`; tras el cambio no verá ninguna.
-CRV no escribe (`CRV_TRAFFIC_ENABLED=false`). El contador de la portada (`auth.project_visits`) sí
-funciona. Opciones:
+Hoy Herra registra las vistas de página en `auth.traffic_daily`; tras el cambio solo verá la radio.
 
-- **(a) recomendada:** encender el tráfico de CRV en la ventana: en `api.env`
-  `CRV_TRAFFIC_ENABLED=true` y `CRV_TRAFFIC_TOKEN=<secreto>`; en `gateway.env`
-  `CRV_TRAFFIC_REPORT=1` y el mismo token. Es configuración, no código; 3.7 vuelve a tener tráfico
-  de página. Verificar con una visita real (país y clasificación) y que Herra deja de escribir.
-- **(b)** dejar 3.7 con el histórico de Herra y sin tráfico nuevo de página hasta la Fase 4.
+- **(a) recomendada y ensayada:** `CRV_TRAFFIC_ENABLED=true` y `CRV_TRAFFIC_TOKEN=<secreto>` en
+  `api.env`, y `CRV_TRAFFIC_REPORT=1` con el mismo token en `gateway.env`. Registró la visita con país
+  y categoría aun con los trabajos apagados.
+- **(b)** dejar 3.7 con el histórico de Herra, sin vistas nuevas, hasta la Fase 4.
 
-No se enciende nada en producción en este trabajo.
+No probado: que Herra deje de sumar páginas tras el cambio real; se comprueba en la ventana.
 
 ---
 
@@ -270,7 +301,8 @@ panel privado no necesita debilitar la API ni montar TLS local; Brian entra por 
 | G4 | Respaldo probado y restauración comparada | **probado** (§6) |
 | G5 | Guion de tokens probado | **probado** (§4) |
 | G6 | Paridad contra foto de Herra | **probada** (§11) |
-| G7 | Migración 0125 aplicada en producción | **pendiente, Brian** |
+| G7 | Migración 0125 aplicada en producción (§7) | **pendiente, Brian** |
+| G11 | Decisión de métricas (§8), paridad EN (§11) y confirmar Herra 1.1.39 | **pendiente, Brian** |
 | G8 | Panel privado `:3131` | **decidido (a)** y probado |
 | G9 | Enlaces de cuenta ocultos | **decidido** y probado |
 | G10 | Cloudflare, fecha y autorización expresa | **Brian** |
@@ -282,19 +314,19 @@ funciona pero pierde la auditoría de candidaturas y activaciones.
 
 ## 11. Paridad con la portada viva
 
-Foto local de la portada viva (solo GET; sin POST al contador de Herra), servida en `:3146` y
-comparada contra `:3141` (staging raíz) y `:3150` (forma de producción). El servidor de la foto se
-mantuvo entre pasos y se apagó al terminar.
+Comparación palabra a palabra en navegador, `:3150` frente al dominio, con `show_login=0` puesto de
+forma temporal en staging para igualar la portada viva (staging tiene 1; se restauró).
 
-| Página | `:3141` (frases vivo/raíz, solo vivo/raíz) | `:3150` |
-|---|---|---|
-| `/` | 54/52 · 7/5 | 54/51 · 12/9 |
-| `/colaborar` | 19/18 · 2/1 | 19/21 · 5/7 |
-| `/login` | 2/2 · 0/0 | 2/2 · 0/0 |
+| Diferencia en ES | Clase |
+|---|---|
+| Contadores de visitas, países, «Colaboradores 5/6», fecha de «Última actualización» | Dato de staging o dinámico |
+| Posición de «Lanzamiento y consolidación del canal de YouTube» | Dato de staging: se confirma contra la foto en la ventana |
+| «Buscando la emisión…» frente a «El vivo sigue en marcha» | Dinámico: YouTube estaba bloqueado en la prueba |
+| `/login` | Sin diferencias |
 
-Las diferencias son los bloques dinámicos de visitas, la radio en curso y los contadores de
-Herra; `/login` coincide exacto. La foto es de Herra antes del cambio: no se compara CRV consigo
-mismo.
+**Pendiente:** no se comparó el inglés con la portada viva: el dominio devuelve ES a `?lang=en` y la
+automatización no pudo activar su selector. CRV sí se probó en EN (`fase2b-ensayo` 34/34). Lo revisa
+Brian o se compara en la ventana contra una foto tomada a mano.
 
 ---
 
@@ -303,7 +335,7 @@ mismo.
 > **No ejecutar sin G1-G10 cerradas y autorización expresa.** A medianoche cambia el día de
 > `America/Caracas` y nadie cuenta dos veces la misma visita (F2-2).
 
-**Paso 0 · Preflight.** `git status`, `shared-storage.py status`, `ss` de `3140/8083/3131`,
+**Paso 0 · Preflight.** Comprobar que `SELECT enabled FROM auth.project_features WHERE feature = 'radio'` da 1 (sin ello no hay tarjeta); `git status`, `shared-storage.py status`, `ss` de `3140/8083/3131`,
 `curl` a dominio/Herra/`:8080`, y la consulta `migraciones-2b.sql` con `faltan` vacío.
 
 **Paso 1 · Congelar el `/admin` de Herra** (Brian).
@@ -401,33 +433,28 @@ Funnel sin cambios. Cierre: 72 h sin incidentes y sin rutas del catálogo alcanz
 
 ## 16. Revisión del guion: qué está probado
 
+SHA del código ensayado: **`03298f7b`**. Lo posterior solo cambia documentación. Worktree limpio,
+`npm ci`, `dist` y `dist-public`, API `:8093`, portada `:3150`, panel `:3131`, base `crv_staging`.
+
 | Comando / pieza | Estado | Evidencia |
 |---|---|---|
-| `npm run typecheck` (API) | **probado** | verde |
-| `npm --prefix web run typecheck` | probado | verde |
-| `vitest` de login (`auth.test.ts`) | probado | 14/14; se corrigieron dos expectativas obsoletas (`request.operator` ya es el usuario y el rechazo de rol es `forbidden_role`) |
-| `vitest` de guarda y roles | probado | 7/7 + 3/3 |
-| `build:staging` | probado | verde (9,2 s; 6 estáticos copiados) |
-| `fase2b-whitelist.mjs --base :3150` | probado | 72/72 |
-| `GET /api/radio/now` por el proxy | probado | 200 |
-| Candidatura real con `Host`/`Origin`/CF | probado | 200, `source_addr` correcta |
-| Login con cookie Secure `/` | probado | cabecera + Chromium |
-| Cambio de estado de tarea asignada | probado | 200, `in_progress` |
-| Visita con país y deduplicación | probado | `ve` +2, filas revertidas |
-| Panel `:3131` aceptar/invitar | probado | login, cookie Secure, aceptar, invitar |
-| Enlaces ocultos ES/EN 1440/390 | probado | 0 `href` en portada; `/crv` los conserva |
-| `CRV_BACKGROUND_JOBS=false` | probado | log + 0 escaneos |
-| Respaldo/restauración | probado | 395 480 B, conteos iguales |
-| `community-tokens.ts` | probado | listar, emitir, validar, guardas 2/3 |
-| Paridad contra foto | probado | §11 |
-| 0124 sin aplicar (transacción) | probado | CHECK bloquea curator/community |
-| 0125 up/down (transacción) | probado | INSERT public pasa; down aborta con filas |
-| `migraciones-2b.sql` | probado | staging: faltan {0125}, sobran {0124} |
-| `fase2b-vuelta-atras.mjs` | probado | 3 487 / 545 ms (proxy local) |
-| Cloudflare, túnel, `Host` reescrito | **no se puede probar antes** | requiere la ventana; Brian |
-| Migración 0125 en producción | **no se puede probar antes** | requiere autorización |
-| Respaldo de `crv` real | **no se puede probar antes** | prohibido conectar a producción |
-| Métricas 3.7 tras el cambio | **no se puede probar antes** | decisión de Brian |
+| Typecheck API y web, ESLint dirigido, `build:staging` | probado | verde |
+| vitest de login, guarda, roles y portada | probado | 43/43 |
+| Lista blanca | probado | 72/72 en `:3150` y `:3141` |
+| Flujos con Host/Origin/CF del dominio | probado | `2b-flujos-dominio.mts`, 19/19: radio ES/EN, candidatura y activación con fila `public`, IP real, cookie Secure en `/`, tarea, visita con país, métricas |
+| Navegador ES/EN/móvil | probado | `fase2b-ensayo.mjs` 34/34, sin POST a la radio |
+| Panel `:3131` | probado | login, cookie, aceptar, invitar |
+| Enlaces ocultos | probado | 4 vistas de portada sin enlaces; `/crv` los conserva |
+| Tokens | probado | listar y emitir; rechaza otra base y falta de `CRV_ENV_FILE` |
+| Respaldo y restauración | probado sobre `4146fd4a` | mismo método; 396 679 B, 27 tablas, conteos iguales. El código posterior no toca el respaldo |
+| Guarda real | probado sobre `4146fd4a` | la API aborta contra `crv_staging`; el gateway arranca con `production` y aborta sin radio o sin build |
+| 0125 con el comando de §7 | probado | staging, `faltan {}` |
+| `fase2b-vuelta-atras.mjs` | probado | 26 ms y 25 ms en la última medida (proxy local; varía de una a otra y **no mide Cloudflare**) |
+| Reproducción real de la radio | **no probado** | los POST y YouTube se bloquearon para no alterar la emisión de Herra; se verifica en la ventana |
+| Paridad EN con la portada viva | **no probado** | §11 |
+| Cloudflare, túnel, `Host` reescrito | no se puede probar antes | Brian |
+| 0125, `project_features` y respaldo en `crv` | no se puede probar antes | requieren autorización |
+| Métricas con el cambio real | no se puede probar antes | §8 |
 
 ---
 

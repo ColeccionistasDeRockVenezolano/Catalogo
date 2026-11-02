@@ -329,3 +329,13 @@ Publicadas y verificadas en el disco de 1 TB: `reports/p7-teclado-2026-11` (12 a
 `reports/b9-ventanas-2026-11` (9), `reports/b10-clave-2026-11` (3),
 `reports/b10-metricas-2026-11` (7) y `reports/independencia` (42). El staging del SSD quedó
 vacío para esas campañas, como manda la política.
+
+## Revisión de Claude de la 2B (2026-11-01 23:30)
+
+Brian pidió que Claude hiciera las correcciones en lugar de Hermes. `4146fd4a` y `03298f7b`: la
+portada conservaba la radio solo en staging; ahora la tarjeta sale de Herra y la instancia del dominio
+la pinta; registrador de tráfico independiente; última copia buena si la API falla; sin calentar el
+índice de búsqueda en esa instancia; guarda ampliada. 0125 aplicada en `crv_staging`. Ensayo repetido;
+tabla en FASE2B §16. **La sombra de la radio diverge desde las 17:00** (34 de 34, causa sin determinar):
+FASE2B §1.2. Producción, Herra y Cloudflare sin tocar; `crv-api`, `crv-web` y `crv-chat` sin reiniciar.
+
