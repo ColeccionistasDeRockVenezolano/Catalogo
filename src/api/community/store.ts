@@ -205,17 +205,37 @@ export async function updateCollaborator(
   return updated;
 }
 
+/**
+ * Una persona, una clave: como `syncAdminPasswordForUser` de Herra, la cuenta de
+ * administración vinculada recibe la misma credencial y sus sesiones caducan.
+ * El superadministrador queda fuera: gobierna toda la instancia y nadie de un
+ * proyecto puede cambiarle la clave restableciendo la de su colaborador.
+ */
+export async function syncLinkedAdminCredential(
+  client: PoolClient, userId: number, passwordHash: string, exceptAdminId: number | null = null,
+): Promise<void> {
+  await client.query(
+    `UPDATE auth.admins SET password_hash = $1, session_version = session_version + 1,
+       updated_at = to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD HH24:MI:SS')
+     WHERE user_id = $2 AND role <> 'superadmin' AND id IS DISTINCT FROM $3::int`,
+    [passwordHash, userId, exceptAdminId]);
+}
+
 export async function setAccessCode(project: number, id: number, accessCode: string): Promise<void> {
   const current = await getCollaborator(project, id);
   if (!current) throw new ApiError(404, "collaborator_not_found", "No existe esa cuenta en el proyecto.");
   if (!isStrongAccessCode(accessCode, current.name)) {
     throw new ApiError(400, "weak_access_code", "La clave no cumple los requisitos mínimos.");
   }
-  const { rowCount } = await getPool().query(
-    `UPDATE auth.users SET access_code_hash = $1, session_version = session_version + 1,
-       updated_at = to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD HH24:MI:SS')
-     WHERE id = $2 AND project_id = $3`, [hashAccessCode(accessCode), id, project]);
-  if (rowCount === 0) throw new ApiError(404, "collaborator_not_found", "No existe esa cuenta en el proyecto.");
+  const passwordHash = hashAccessCode(accessCode);
+  await withTransaction(async (client) => {
+    const { rowCount } = await client.query(
+      `UPDATE auth.users SET access_code_hash = $1, session_version = session_version + 1,
+         updated_at = to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD HH24:MI:SS')
+       WHERE id = $2 AND project_id = $3`, [passwordHash, id, project]);
+    if (rowCount === 0) throw new ApiError(404, "collaborator_not_found", "No existe esa cuenta en el proyecto.");
+    await syncLinkedAdminCredential(client, id, passwordHash);
+  });
   await deleteSessionsForUser(id);
 }
 
@@ -233,7 +253,7 @@ export async function revokeCollaborator(project: number, id: number): Promise<v
 /** Una cuenta vinculada a auth.admins no puede ser gestionada por `community`. */
 export async function isLinkedAdmin(project: number, userId: number): Promise<boolean> {
   const { rows } = await getPool().query(
-    "SELECT 1 FROM auth.admins WHERE project_id = $1 AND user_id = $2 LIMIT 1", [project, userId]);
+    "SELECT 1 FROM auth.admins WHERE (project_id = $1 OR role = 'superadmin') AND user_id = $2 LIMIT 1", [project, userId]);
   return rows.length > 0;
 }
 

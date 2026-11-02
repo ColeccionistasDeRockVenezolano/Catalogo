@@ -14,7 +14,7 @@ import {
   MAX_FIELD, MAX_LINKS, MAX_PERSON_NAME, hashAccessCode, isStrongAccessCode,
   isValidBirthDate, isValidEmail, isValidPhone, isValidUrl, normalizePersonName, passwordRequirementsText,
 } from "../community/validation.js";
-import { projectId, withTransaction } from "../community/store.js";
+import { projectId, syncLinkedAdminCredential, withTransaction } from "../community/store.js";
 
 const UTC_NOW = "to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD HH24:MI:SS')";
 
@@ -395,8 +395,10 @@ export interface PasswordChangeResult {
 }
 
 /**
- * Cambia la clave de la propia cuenta. La versión de cuenta sube: cualquier
- * otra sesión abierta deja de valer en la siguiente petición.
+ * Cambia la clave de la propia cuenta y de su otra puerta, si la tiene: una
+ * persona con colaborador y administración vinculados tiene una sola clave.
+ * La versión de cuenta sube: cualquier otra sesión abierta deja de valer en la
+ * siguiente petición.
  */
 export async function changeOwnPassword(
   kind: string, id: number, current: string, next: string,
@@ -416,14 +418,40 @@ export async function changeOwnPassword(
     `SELECT ${hashColumn} AS hash, session_version AS version FROM ${table} WHERE id = $1`, [id]);
   const stored = rows[0];
   if (!stored?.hash) throw new ApiError(400, "password_missing", "Esta cuenta no tiene una clave que cambiar.");
-  if (!await herraPasswordMatches(current, stored.hash)) {
-    throw new ApiError(400, "invalid_current_password", "La clave actual no es correcta.");
+  // Quien aún tenga dos claves distintas entra con cualquiera de ellas, así que
+  // cualquiera sirve como clave actual; este cambio las deja en una.
+  const linkedUserId = account.user_id;
+  const known = new Set([stored.hash]);
+  if (linkedUserId !== null) {
+    const { rows: linked } = await getPool().query<{ hash: string }>(
+      `SELECT access_code_hash AS hash FROM auth.users WHERE id = $1 AND access_code_hash IS NOT NULL
+       UNION SELECT password_hash FROM auth.admins WHERE user_id = $1 AND role <> 'superadmin'`, [linkedUserId]);
+    for (const row of linked) known.add(row.hash);
   }
-  const { rows: updated } = await getPool().query<{ version: number }>(
-    `UPDATE ${table} SET ${hashColumn} = $1, session_version = session_version + 1,
-            updated_at = ${UTC_NOW}
-      WHERE id = $2 RETURNING session_version AS version`,
-    [hashAccessCode(next), id]);
+  let matches = false;
+  for (const hash of known) {
+    if (await herraPasswordMatches(current, hash)) { matches = true; break; }
+  }
+  if (!matches) throw new ApiError(400, "invalid_current_password", "La clave actual no es correcta.");
+  const passwordHash = hashAccessCode(next);
+  const updated = await withTransaction(async (client) => {
+    // La fila propia va después: `auth.revoke_changed_user` sube la versión de la
+    // administración vinculada, y la que se devuelve reestampa esta sesión.
+    if (linkedUserId !== null && kind === "admin") {
+      await client.query(
+        `UPDATE auth.users SET access_code_hash = $1, session_version = session_version + 1, updated_at = ${UTC_NOW} WHERE id = $2`,
+        [passwordHash, linkedUserId]);
+    }
+    const own = await client.query<{ version: number }>(
+      `UPDATE ${table} SET ${hashColumn} = $1, session_version = session_version + 1,
+              updated_at = ${UTC_NOW}
+        WHERE id = $2 RETURNING session_version AS version`,
+      [passwordHash, id]);
+    if (linkedUserId !== null) {
+      await syncLinkedAdminCredential(client, linkedUserId, passwordHash, kind === "admin" ? id : null);
+    }
+    return own.rows;
+  });
   const version = updated[0]?.version;
   if (version === undefined) throw new ApiError(404, "account_not_found", "No existe esa cuenta.");
   return { sessionVersion: version };

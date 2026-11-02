@@ -122,3 +122,11 @@ Los informes sin credenciales se publican al cerrar la campaña en
 anteriores se conservan en `/home/brian/crv-backups/auth-unification-20261029`;
 el dump completo anterior está en
 `/mnt/datos/backups/crv/auth-unification-20261029/crv-before-auth.dump`.
+
+## Una persona, una clave
+
+Una cuenta de `auth.users` y su administración vinculada (`auth.admins.user_id`) comparten credencial. Todo
+camino de CRV que escribe una clave la copia con `syncLinkedAdminCredential`
+(`src/api/community/store.ts`), salvo a un superadministrador. Detalle y casos abiertos en
+[independencia/PUERTA-TEMPORAL.md](independencia/PUERTA-TEMPORAL.md#una-persona-una-clave).
+

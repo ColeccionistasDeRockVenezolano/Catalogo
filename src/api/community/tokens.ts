@@ -10,7 +10,7 @@ import {
   hashAccessCode, hashToken, newToken, isStrongAccessCode, validUsername,
   normalizePersonName, ACTIVATION_TTL_DAYS, INVITE_TTL_MINUTES, MAX_REGISTRATIONS_PER_DAY,
 } from "./validation.js";
-import { withTransaction, isUniqueViolation, usernameTakenByAdmin } from "./store.js";
+import { withTransaction, isUniqueViolation, syncLinkedAdminCredential, usernameTakenByAdmin } from "./store.js";
 
 const UTC_NOW = "to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD HH24:MI:SS')";
 const UTC_EXPIRY_DAYS = (placeholder: string) =>
@@ -103,17 +103,19 @@ export async function activateUser(
     if (await usernameTakenByAdmin(username, client)) {
       throw new ApiError(409, "username_taken", "Ese nombre de usuario pertenece a una cuenta administradora.");
     }
+    const passwordHash = hashAccessCode(accessCode);
     try {
       await client.query(
         `UPDATE auth.users SET name = $1, access_code_hash = $2,
                 session_version = session_version + 1,
                 updated_at = to_char(timezone('UTC', statement_timestamp()), 'YYYY-MM-DD HH24:MI:SS')
           WHERE id = $3 AND project_id = $4`,
-        [username, hashAccessCode(accessCode), activation.user_id, project]);
+        [username, passwordHash, activation.user_id, project]);
     } catch (error) {
       if (isUniqueViolation(error)) throw new ApiError(409, "username_taken", "Ese nombre de usuario ya está en uso.");
       throw error;
     }
+    await syncLinkedAdminCredential(client, activation.user_id, passwordHash);
     await client.query(`UPDATE auth.activation_tokens SET used_at = ${UTC_NOW} WHERE id = $1`, [activation.id]);
     return { id: activation.user_id, name: username };
   });
