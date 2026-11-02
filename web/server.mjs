@@ -67,7 +67,8 @@ async function serveLanding(req, res, page, lang, searchParams) {
   const token = (page === "registro" || page === "activar") ? searchParams.get("token") : null;
   const cookie = req.headers.cookie;
   const privateResponse = Boolean(token || cookie);
-  let entry = privateResponse ? undefined : landingCache.get(key);
+  const cached = privateResponse ? undefined : landingCache.get(key);
+  let entry = cached;
   if (!entry || entry.expires < Date.now()) {
     try {
       const params = new URLSearchParams({ lang });
@@ -83,7 +84,10 @@ async function serveLanding(req, res, page, lang, searchParams) {
       entry = { html: await response.text(), expires: Date.now() + 30_000 };
       if (!privateResponse) landingCache.set(key, entry);
     } catch {
-      return serveFile(req, res, `${prefix}/landing/${page}-${lang}.html`, searchParams);
+      // Una respuesta lenta de la API no puede devolver la copia estática del
+      // build, con datos y emisión de cuando se compiló: antes, la última buena.
+      if (!cached) return serveFile(req, res, `${prefix}/landing/${page}-${lang}.html`, searchParams);
+      entry = cached;
     }
   }
   const baseHref = prefix ? `${prefix}/` : "/";

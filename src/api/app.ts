@@ -243,7 +243,10 @@ export async function buildApp(): Promise<FastifyInstance> {
 
   // El índice de búsqueda (E11.9) se carga en segundo plano: la primera
   // búsqueda real no debe pagar la lectura completa de nombres y alias.
-  void warmSearchIndex((error) => { app.log.error({ err: error }, "no se pudo calentar el índice de búsqueda"); });
+  // La instancia del dominio (sin trabajos de fondo) no busca en el catálogo.
+  if (getEnv().CRV_BACKGROUND_JOBS) {
+    void warmSearchIndex((error) => { app.log.error({ err: error }, "no se pudo calentar el índice de búsqueda"); });
+  }
 
   return app;
 }

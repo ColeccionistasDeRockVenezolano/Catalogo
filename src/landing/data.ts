@@ -58,7 +58,7 @@ export async function loadLandingData(lang: LandingLanguage, page: "roadmap" | "
     const translationsForTerm = parseObject(term.i18n_json);
     const label = lang === "en" && typeof translationsForTerm["en"] === "string" && translationsForTerm["en"] ? translationsForTerm["en"] : term.label;
     return { id: term.id, label };
-  });
+  }).sort((left, right) => left.label.localeCompare(right.label, lang, { sensitivity: "base" }));
   return { project, view, visits, theme, branding, form, steps: visibleSteps(form), projectAssets,
     catalog: { skills: group("skill"), areas: group("contribution_area"), linkTypes: group("link_type") },
     radio, radioTexts: radio && radioConfig ? radioTexts(radioConfig, lang) : null };
